@@ -51,15 +51,35 @@ namespace AwsDoc {
         bool dynamodbGettingStartedScenario(
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Create a DynamoDB table.
+        //! Batch get items from different Amazon DynamoDB tables.
         /*!
-          \sa createDynamoDBTable()
-          \param tableName: The DynamoDB table's name.
+          \sa batchGetItem()
           \param clientConfiguration: Aws client configuration.
           \return bool: Function succeeded.
-        */
+         */
+        bool batchGetItem(const Aws::Client::ClientConfiguration &clientConfiguration);
+
+         //! Create an DynamoDB table.
+        /*!
+          \sa createDynamoDBTable()
+          \param tableName: Name for the DynamoDB table.
+          \param primaryKey: Primary key for the DynamoDB table.
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+         */
         bool createDynamoDBTable(const Aws::String &tableName,
+                                 const Aws::String& primaryKey,
                                  const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Create an DynamoDB table with a composite key.
+        /*!
+          \sa createDynamoDBTableWithCompositeKey()
+          \param tableName: Name for the DynamoDB table.
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+         */
+        bool createDynamoDBTableWithCompositeKey(const Aws::String &tableName,
+                                                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete a DynamoDB table.
         /*!
@@ -70,6 +90,22 @@ namespace AwsDoc {
         */
         bool deleteDynamoTable(const Aws::String &tableName,
                                const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Create a DynamoDB table to be used in sample code scenarios.
+        /*!
+          \sa createMoviesDynamoDBTable()
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+        */
+        bool createMoviesDynamoDBTable(const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Delete the DynamoDB table used for sample code scenarios.
+        /*!
+          \sa deleteMoviesDynamoDBTable()
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+        */
+        bool deleteMoviesDynamoDBTable(const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Query a newly created DynamoDB table until it is active.
         /*!

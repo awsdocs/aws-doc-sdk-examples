@@ -271,14 +271,12 @@ int main(int argc, char **argv) {
 
 // snippet-start:[cpp.example_code.dynamodb.Scenario_PartiQL_Single.main]
         //  1. Create a table. (CreateTable)
-        if (AwsDoc::DynamoDB::createDynamoDBTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
-                                                  clientConfig)) {
+        if (AwsDoc::DynamoDB::createDynamoDBTableForScenario(clientConfig)) {
 
             AwsDoc::DynamoDB::partiqlExecuteScenario(clientConfig);
 
             // 7. Delete the table. (DeleteTable)
-            AwsDoc::DynamoDB::deleteDynamoTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
-                                                clientConfig);
+            AwsDoc::DynamoDB::deleteDynamoTableForScenario(clientConfig);
         }
 // snippet-end:[cpp.example_code.dynamodb.Scenario_PartiQL_Single.main]
     }

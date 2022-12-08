@@ -4,12 +4,14 @@
 */
 
 #include "dynamodb_gtests.h"
+#include <aws/dynamodb/DynamoDBClient.h>
+#include <aws/dynamodb/model/DeleteTableRequest.h>
 #include <fstream>
 #include "dynamodb_samples.h"
 
 Aws::SDKOptions AwsDocTest::DynamoDB_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::DynamoDB_GTests::s_clientConfig;
-bool AwsDocTest::DynamoDB_GTests::s_TableCreated = false;
+bool AwsDocTest::DynamoDB_GTests::s_ScenarioTableCreated = false;
 
 void AwsDocTest::DynamoDB_GTests::SetUpTestSuite() {
     InitAPI(s_options);
@@ -21,14 +23,12 @@ void AwsDocTest::DynamoDB_GTests::SetUpTestSuite() {
 
 void AwsDocTest::DynamoDB_GTests::TearDownTestSuite() {
 
-    if (s_TableCreated) {
-        AwsDoc::DynamoDB::deleteDynamoTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
-                                            *s_clientConfig);
-        s_TableCreated = false;
+    if (s_ScenarioTableCreated) {
+        AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(*s_clientConfig);
+        s_ScenarioTableCreated = false;
     }
 
     ShutdownAPI(s_options);
-
 }
 
 void AwsDocTest::DynamoDB_GTests::SetUp() {
@@ -61,14 +61,29 @@ void AwsDocTest::DynamoDB_GTests::AddCommandLineResponses(
     m_cinBuffer.str(stringStream.str());
 }
 
-bool AwsDocTest::DynamoDB_GTests::createTable() {
-    if (!s_TableCreated) {
-        if (AwsDoc::DynamoDB::createDynamoDBTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
-                                                  *s_clientConfig)) {
-            s_TableCreated = true;
+bool AwsDocTest::DynamoDB_GTests::createTableForScenario() {
+    if (!s_ScenarioTableCreated) {
+        if (AwsDoc::DynamoDB::createMoviesDynamoDBTable(*s_clientConfig)) {
+            s_ScenarioTableCreated = true;
         }
     }
 
-    return s_TableCreated;
+    return s_ScenarioTableCreated;
+}
+
+bool AwsDocTest::DynamoDB_GTests::deleteTable(const Aws::String &tableName) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(*s_clientConfig);
+
+    Aws::DynamoDB::Model::DeleteTableRequest request;
+    request.SetTableName(tableName);
+
+    const Aws::DynamoDB::Model::DeleteTableOutcome &result = dynamoClient.DeleteTable(
+            request);
+    if (!result.IsSuccess()) {
+        std::cerr << "Failed to delete table: " << result.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return result.IsSuccess();
 }
 

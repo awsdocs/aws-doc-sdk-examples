@@ -31,7 +31,9 @@ namespace AwsDocTest {
 
         void AddCommandLineResponses(const std::vector<std::string> &responses);
 
-        bool createTable();
+        bool createTableForScenario();
+
+        bool deleteTable(const Aws::String& tableName);
 
     private:
         static Aws::SDKOptions s_options;
@@ -42,7 +44,7 @@ namespace AwsDocTest {
         std::stringbuf m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
 
-        static bool s_TableCreated;
+        static bool s_ScenarioTableCreated;
     };
 } // AwsDocTest
 

@@ -1,138 +1,181 @@
-//snippet-sourcedescription:[batch_get_item.cpp demonstrates how to batch get items from different Amazon DynamoDB tables.]
-//snippet-keyword:[AWS SDK for C++]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/30/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
 
-
-//snippet-start:[dynamodb.cpp.get_item_batch.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/BatchGetItemRequest.h>
 #include <aws/dynamodb/model/KeysAndAttributes.h>
-#include <aws/core/http/HttpRequest.h>
 #include <iostream>
-//snippet-end:[dynamodb.cpp.get_item_batch.inc]
+#include "dynamodb_samples.h"
+
+/*
+ * Instructions for populating a table with sample data can be found at:
+ *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html
+ *
+ *  This example uses the "Forum.json" and "ProductCatalog.json" sample data.
+ */
+
+//snippet-start:[cpp.example_code.dynamodb.batch_get_item]
+//! Batch get items from different Amazon DynamoDB tables.
+/*!
+  \sa batchGetItem()
+  \param clientConfiguration: Aws client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::DynamoDB::batchGetItem(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+
+    Aws::DynamoDB::Model::BatchGetItemRequest request;
+
+    // Table1: Forum.
+    Aws::String table1Name = "Forum";
+    Aws::DynamoDB::Model::KeysAndAttributes table1KeysAndAttributes;
+
+    //Table1: Projection expression.
+    table1KeysAndAttributes.SetProjectionExpression("#n, Category, Messages, #v");
+
+    // Table1: Expression attribute names.
+    Aws::Http::HeaderValueCollection headerValueCollection;
+    headerValueCollection.emplace("#n", "Name");
+    headerValueCollection.emplace("#v", "Views");
+    table1KeysAndAttributes.SetExpressionAttributeNames(headerValueCollection);
+
+    // Table1: Set key name, type and value to search.
+    std::vector<Aws::String> nameValues = {"Amazon DynamoDB", "Amazon S3"};
+    for (const Aws::String &name: nameValues) {
+        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> keys;
+        Aws::DynamoDB::Model::AttributeValue key;
+        key.SetS(name);
+        keys.emplace("Name", key);
+        table1KeysAndAttributes.AddKeys(keys);
+    }
+
+    Aws::Map<Aws::String, Aws::DynamoDB::Model::KeysAndAttributes> requestItems;
+    requestItems.emplace(table1Name, table1KeysAndAttributes);
+
+    // Table2: ProductCatalog.
+    Aws::String table2Name = "ProductCatalog";
+    Aws::DynamoDB::Model::KeysAndAttributes table2KeysAndAttributes;
+    table2KeysAndAttributes.SetProjectionExpression("Title, Price, Color");
+
+    // Table2: Set key name, type and value to search.
+    std::vector<Aws::String> idValues = {"102", "103", "201"};
+    for (const Aws::String &id: idValues) {
+        Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> keys;
+        Aws::DynamoDB::Model::AttributeValue key;
+        key.SetN(id);
+        keys.emplace("Id", key);
+        table2KeysAndAttributes.AddKeys(keys);
+    }
+
+    requestItems.emplace(table2Name, table2KeysAndAttributes);
 
 
-/**
-  Batch get items from different Amazon DynamoDB tables.
+    bool result = true;
+    do {
+        request.SetRequestItems(requestItems);
+        const Aws::DynamoDB::Model::BatchGetItemOutcome &outcome = dynamoClient.BatchGetItem(
+                request);
 
-   Sample data and loading instructions can be found at:
-   https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html
+        if (outcome.IsSuccess()) {
+            for (const auto &responsesMapEntry: outcome.GetResult().GetResponses()) {
+                Aws::String tableName = responsesMapEntry.first;
+                const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>>& tableResults = responsesMapEntry.second;
+                std::cout << "Retrieved " << tableResults.size() << " responses for table '" << tableName << "'.\n" << std::endl;
+                if (tableName == "Forum") {
 
-   To run this C++ code example, ensure that you have setup your development environment, including your credentials.
-   For information, see this documentation topic:
-   https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
-*/
+                    std::cout << "Name | Category | Message | Views" << std::endl;
+                    for (const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &item: tableResults) {
+                        std::cout << item.at("Name").GetS() << " | ";
+                        std::cout << item.at("Category").GetS() << " | ";
+                        std::cout << (item.count("Message") == 0 ? "" : item.at(
+                                "Messages").GetN()) << " | ";
+                        std::cout << (item.count("Views") == 0 ? "" : item.at(
+                                "Views").GetN()) << std::endl;
+                    }
+                }
+                else {
+                    std::cout << "Title | Price | Color" << std::endl;
+                    for (const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &item: tableResults) {
+                        std::cout << item.at("Title").GetS() << " | ";
+                        std::cout << (item.count("Price") == 0 ? "" : item.at(
+                                "Price").GetN());
+                        if (item.count("Color")) {
+                            std::cout << " | ";
+                            for (const std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> &listItem: item.at(
+                                    "Color").GetL())
+                                std::cout << listItem->GetS() << " ";
+                        }
+                        std::cout << std::endl;
+                    }
+                }
+                std::cout << std::endl;
+            }
 
-int main(int argc, char** argv)
-{
-	Aws::SDKOptions options;
+            // If necessary, repeat request for remaining items.
+            requestItems = outcome.GetResult().GetUnprocessedKeys();
+        }
+        else {
+            std::cerr << "Batch get item failed: " << outcome.GetError().GetMessage()
+                      << std::endl;
+            result = false;
+            break;
+        }
+    } while (!requestItems.empty());
 
-	//snippet-start:[dynamodb.cpp.get_item_batch.code]
-	Aws::InitAPI(options);
-	{
-		Aws::Client::ClientConfiguration clientConfig;
-		
-		// Set the AWS Region where your DynamoDB tables exist.
-		clientConfig.region = Aws::Region::US_WEST_2;
-		Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
-
-		Aws::DynamoDB::Model::BatchGetItemRequest req;
-
-		// Table1: Forum.
-		Aws::String t1Name = "Forum";
-		Aws::DynamoDB::Model::KeysAndAttributes t1KeyAttrs;
-		
-		//Table1: Projection expression.
-		t1KeyAttrs.SetProjectionExpression("#n, Category, Messages, #v");
-
-		// Table1: Expression attribute names.
-		Aws::Http::HeaderValueCollection hvc;
-		hvc.emplace("#n", "Name");
-		hvc.emplace("#v", "Views");
-		t1KeyAttrs.SetExpressionAttributeNames(hvc);
-
-		// Table1: Set key name, type and value to search.
-		Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> t1KeysA;
-		Aws::DynamoDB::Model::AttributeValue t1key1;
-		t1key1.SetS("Amazon DynamoDB");
-		t1KeysA.emplace("Name", t1key1);
-		t1KeyAttrs.AddKeys(t1KeysA);
-
-		Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> t1KeysB;
-		Aws::DynamoDB::Model::AttributeValue t1key2;
-		t1key2.SetS("Amazon S3");
-		t1KeysB.emplace("Name", t1key2);
-		t1KeyAttrs.AddKeys(t1KeysB);
-		req.AddRequestItems(t1Name, t1KeyAttrs);
-
-		// Table2: ProductCatalog.
-		Aws::String t2Name = "ProductCatalog";
-		Aws::DynamoDB::Model::KeysAndAttributes t2KeyAttrs;
-		t2KeyAttrs.SetProjectionExpression("Title, Price, Color");
-
-		// Table2: Set key name, type and value to search.
-		Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> t2KeysA;
-		Aws::DynamoDB::Model::AttributeValue t2key1;
-		t2key1.SetN("201");
-		t2KeysA.emplace("Id", t2key1);
-		t2KeyAttrs.AddKeys(t2KeysA);
-		req.AddRequestItems(t2Name, t2KeyAttrs);
-
-		const Aws::DynamoDB::Model::BatchGetItemOutcome& result = dynamoClient.BatchGetItem(req);
-
-		if (result.IsSuccess())
-		{
-			for(const auto& var : result.GetResult().GetResponses())
-			{
-				Aws::String tableName = var.first;
-				std::cout << tableName << std::endl;
-				if (tableName == "Forum")
-				{
-					std::cout << "Name | Category | Message | Views" << std::endl;
-					for (const auto& itm : var.second)
-					{
-						std::cout << itm.at("Name").GetS() << " | ";
-						std::cout << itm.at("Category").GetS() << " | ";
-						std::cout << (itm.count("Message") == 0 ? "" : itm.at("Messages").GetN()) << " | ";
-						std::cout << (itm.count("Views") == 0 ? "" : itm.at("Views").GetN()) << std::endl;
-					}
-				}
-				else
-				{
-					std::cout << "Title | Price | Color" << std::endl;
-					for (const auto& itm : var.second)
-					{
-						std::cout << itm.at("Title").GetS() << " | ";
-						std::cout << (itm.count("Price") == 0 ? "" : itm.at("Price").GetN());
-						if (itm.count("Color"))
-						{
-							std::wcout << " | ";
-							for (const auto& litm : itm.at("Color").GetL())
-								std::cout << litm->GetS() << " ";
-						}
-						std::wcout << std::endl;
-					}
-				}
-			}
-		}
-		else
-		{
-			std::cout << "Batch get item failed: " << result.GetError().GetMessage();
-		}
-	}
-	Aws::ShutdownAPI(options);
-	return 0;
-	//snippet-end:[dynamodb.cpp.get_item_batch.code]
+    return result;
 }
+//snippet-end:[cpp.example_code.dynamodb.batch_get_item]
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_batch_get_item'
+ *
+ *  Prerequisites: prepopulated DynamoDB tables.
+ *
+ *  Instructions for populating a table with sample data can be found at:
+ *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html
+ *
+ *  This example uses the "Forum.json" and "ProductCatalog.json" sample data.
+ *
+ */
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    (void) argc; // Suppress unused warning.
+    (void) argv; // Suppress unused warning.
+    Aws::SDKOptions options;
+    options.loggingOptions.logLevel =Aws::Utils::Logging::LogLevel::Trace;
+    Aws::InitAPI(options);
+
+    {
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::DynamoDB::batchGetItem(clientConfig);
+    }
+    Aws::ShutdownAPI(options);
+    return 0;
+    //snippet-end:[dynamodb.cpp.get_item_batch.code]
+}
+
+#endif // TESTING_BUILD

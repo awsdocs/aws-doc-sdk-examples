@@ -35,16 +35,14 @@ namespace AwsDoc {
 } // namespace AwsDoc
 
 
-// snippet-start:[cpp.example_code.dynamodb.scenario.createTable]
-//! Create a DynamoDB table.
+// snippet-start:[cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable]
+//! Create a DynamoDB table to be used in sample code scenarios.
 /*!
-  \sa createDynamoDBTable()
-  \param tableName: The DynamoDB table's name.
+  \sa createMoviesDynamoDBTable()
   \param clientConfiguration: Aws client configuration.
   \return bool: Function succeeded.
 */
-bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
-                                           const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::DynamoDB::createMoviesDynamoDBTable(const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     bool movieTableAlreadyExisted = false;
@@ -111,22 +109,21 @@ bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
 
     return true;
 }
-// snippet-end:[cpp.example_code.dynamodb.scenario.createTable]
+// snippet-end:[cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable]
 
-// snippet-start:[cpp.example_code.dynamodb.scenario.deleteTable]
-//! Delete a DynamoDB table.
+// snippet-start:[cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable]
+//! Delete the DynamoDB table used for sample code scenarios.
 /*!
-  \sa deleteDynamoTable()
-  \param tableName: The DynamoDB table's name.
+  \sa deleteMoviesDynamoDBTable()
   \param clientConfiguration: Aws client configuration.
   \return bool: Function succeeded.
 */
-bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
-                                         const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(const Aws::Client::ClientConfiguration &clientConfiguration)
+{
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     Aws::DynamoDB::Model::DeleteTableRequest request;
-    request.SetTableName(tableName);
+    request.SetTableName(MOVIE_TABLE_NAME);
 
     const Aws::DynamoDB::Model::DeleteTableOutcome &result = dynamoClient.DeleteTable(
             request);
@@ -142,7 +139,7 @@ bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
 
     return result.IsSuccess();
 }
-// snippet-end:[cpp.example_code.dynamodb.scenario.deleteTable]
+// snippet-end:[cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable]
 
 // snippet-start:[cpp.example_code.dynamodb.scenario.waitTableActive]
 //! Query a newly created DynamoDB table until it is active.

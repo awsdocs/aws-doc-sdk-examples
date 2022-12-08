@@ -452,14 +452,12 @@ int main(int argc, char **argv) {
     {
         Aws::Client::ClientConfiguration clientConfig;
         //  1. Create a table with partition: year (N) and sort: title (S). (CreateTable)
-        if (AwsDoc::DynamoDB::createDynamoDBTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
-                                                  clientConfig)) {
+        if (AwsDoc::DynamoDB::createDynamoDBTableForScenario(clientConfig)) {
 
             AwsDoc::DynamoDB::dynamodbGettingStartedScenario(clientConfig);
 
             // 9. Delete the table. (DeleteTable)
-            AwsDoc::DynamoDB::deleteDynamoTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
-                                                clientConfig);
+            AwsDoc::DynamoDB::deleteDynamoTableForScenario(clientConfig);
         }
     }
     // snippet-end:[cpp.example_code.dynamodb.Scenario_GettingStarted.main]
