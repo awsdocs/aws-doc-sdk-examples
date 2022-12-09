@@ -59,11 +59,11 @@ To email reports from the app, you must register at least one email address with
 
 1. In a browser, navigate to the Amazon SES console.
 1. If necessary, select your AWS Region.
-1. Select Verified identities.
-1. Select Create identity.
-1. Select Email address.
+1. Choose **Verified identities**.
+1. Choose **Create identity**.
+1. Select **Email address**.
 1. Enter an email address that you own.
-1. Select Create identity.
+1. Choose **Create identity**.
 1. You will receive an email from Amazon Web Services that contains instructions on how to verify the email with Amazon SES. Follow the instructions in the email to complete verification.
 
 Tip: For this example, you can use the same email account for both the sender and the recipient.
@@ -81,7 +81,7 @@ The API uses the [AmazonRDSDataServiceClient](https://docs.aws.amazon.com/sdkfor
 object to perform CRUD operations on an Aurora Serverless database. The API
 returns JSON data in an HTTP response, as shown in the following illustration.
 
-![AWS Tracker JSON response](images/aurora_item_tracker_response.png)
+![AWS Tracker JSON response](images/item_tracker_response.png)
 
 #### Configure the application
 Before you run the .NET application, set the configuration values for your Aurora Serverless
@@ -142,7 +142,7 @@ Active items are selected from the database and used to dynamically create a .cs
 ## Delete the resources
 
 To avoid charges, delete all the resources that you created for this tutorial.
-Follow the instructions in the [Destroying resources](../../../resources/cdk/aurora_serverless_app#destroying-resources)
+Follow the instructions in the [Destroying resources](../../../resources/cdk/aurora_serverless_app#destroy-the-resources)
 section of the README for the Aurora Serverless sample application.
 
 ## Next steps
