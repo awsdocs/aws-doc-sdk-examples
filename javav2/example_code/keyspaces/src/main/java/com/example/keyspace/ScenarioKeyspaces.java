@@ -257,7 +257,7 @@ public class ScenarioKeyspaces {
                 .tableName(tableName)
                 .build();
 
-            // Keep looping until table cannot be found and exception is thrown.
+            // Keep looping until table cannot be found and an ResourceNotFoundException is thrown.
             while (true) {
                 response = keyClient.getTable(tableRequest);
                 status = response.statusAsString();
