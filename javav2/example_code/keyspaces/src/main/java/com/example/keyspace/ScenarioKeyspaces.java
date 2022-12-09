@@ -42,6 +42,7 @@ import software.amazon.awssdk.services.keyspaces.model.ListTablesRequest;
 import software.amazon.awssdk.services.keyspaces.model.PartitionKey;
 import software.amazon.awssdk.services.keyspaces.model.PointInTimeRecovery;
 import software.amazon.awssdk.services.keyspaces.model.PointInTimeRecoveryStatus;
+import software.amazon.awssdk.services.keyspaces.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.keyspaces.model.RestoreTableRequest;
 import software.amazon.awssdk.services.keyspaces.model.RestoreTableResponse;
 import software.amazon.awssdk.services.keyspaces.model.SchemaDefinition;
@@ -264,7 +265,7 @@ public class ScenarioKeyspaces {
                 Thread.sleep(500);
             }
 
-        } catch (KeyspacesException e) {
+        } catch (ResourceNotFoundException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
         }
         System.out.println("The table is deleted");
