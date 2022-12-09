@@ -845,7 +845,7 @@ bool AwsDoc::Glue::getObjectFromBucket(const Aws::String &bucketName,
  *
  * To create the resources required by this example, see the "Prerequisites" section in the README.
  *
- * Usage: 'run_glue_getting_started_scenario.cpp <role_name> <bucket_name'
+ * Usage: 'run_glue_getting_started_scenario <role_name> <bucket_name'
  *
   */
 
