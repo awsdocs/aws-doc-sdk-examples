@@ -155,6 +155,15 @@ rds_DescribeDBInstances:
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DescribeDBInstances
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.ruby.listAllInstances
+
   services:
     rds: {DescribeDBInstances}         
 rds_ModifyDBInstance:
@@ -234,6 +243,15 @@ rds_DescribeDBParameterGroups:
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DescribeDBParameterGroups
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.ruby.listParameterGroups
   services:
     rds: {DescribeDBParameterGroups}
 rds_CreateDBParameterGroup:
@@ -342,6 +360,15 @@ rds_DescribeDBParameters:
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DescribeDBParameters
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.ruby.listParameterGroups
   services:
     rds: {DescribeDBParameters}
 rds_ModifyDBParameterGroup:
@@ -414,6 +441,15 @@ rds_CreateDBSnapshot:
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.CreateDBSnapshot
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.ruby.createDatabaseSnapshot
   services:
     rds: {CreateDBSnapshot}
 rds_DescribeDBSnapshots:
@@ -441,6 +477,15 @@ rds_DescribeDBSnapshots:
               snippet_tags:
                 - python.example_code.rds.helper.InstanceWrapper_decl
                 - python.example_code.rds.DescribeDBSnapshots
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/rds
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - rds.ruby.listInstanceSnapshots
   services:
     rds: {DescribeDBSnapshots}
 rds_DescribeDBEngineVersions:
