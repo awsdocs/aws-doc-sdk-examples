@@ -5,7 +5,8 @@
 Purpose
 
 Shows how to export the datasets (manifest files and images)
-from an Amazon Lookout for Vision project to a new S3 location.
+from an Amazon Lookout for Vision project to a new Amazon 
+S3 location.
 """
 
 import argparse
@@ -20,11 +21,13 @@ logger = logging.getLogger(__name__)
 
 def copy_file(s3_resource, source_file,  destination_file):
     """
-    Copies a file from a source S3 folder to a destination S3 folder.
-    The destination can be in different bucket.
-    :param s3: An S3 boto resource.
-    :param source_file: The S3 path to the source file.
-    :param destination_file: The destination S3 path for the copy operation.
+    Copies a file from a source Amazon S3 folder to a destination
+    Amazon S3 folder.
+    The destination can be in a different S3 bucket.
+    :param s3: An Amazon S3 Boto3 resource.
+    :param source_file: The Amazon S3 path to the source file.
+    :param destination_file: The destination Amazon S3 path for 
+    the copy operation.
     """
 
     source_bucket, source_key = source_file.replace("s3://", "").split("/", 1)
@@ -52,10 +55,11 @@ def copy_file(s3_resource, source_file,  destination_file):
 
 def upload_manifest_file(s3_resource, manifest_file, destination):
     """
-    Uploads a manifest file to a destination S3 folder.
-    :param s3: An S3 boto resource.
+    Uploads a manifest file to a destination Amazon S3 folder.
+    :param s3: An Amazon S3 Boto3 resource.
     :param manifest_file: The manifest file that you want to upload.
-    :destination: The S3 folder location to upload the manifest file to.
+    :destination: The Amazon S3 folder location to upload the manifest
+    file to.
     """
 
     destination_bucket, destination_key = destination.replace(
@@ -86,7 +90,7 @@ def get_dataset_types(lookoutvision_client, project):
     """
     Determines the types of the datasets (train or test) in an
     Amazon Lookout for Vision project.
-    :param lookoutvision_client: A Lookout for Vision boto3 client.
+    :param lookoutvision_client: A Lookout for Vision Boto3 client.
     :param project: The Lookout for Vision project that you want to check.
     :return: The dataset types in the project.
     """
@@ -110,11 +114,12 @@ def process_json_line(s3_resource, entry, dataset_type, destination):
     """
     Creates a JSON line for a new manifest file, copies image and mask to
     destination.
-    :param s3_resource: A Boto3 S3 resource.
+    :param s3_resource: An Amazon S3 Boto3 resource.
     :param entry: A JSON line from the manifest file.
     :param dataset_type: The type (train or test) of the dataset that
     you want to create the manifest file for.
-    :param destination: The S3 destination folder for the manifest file and dataset images.
+    :param destination: The destination Amazon S3 folder for the manifest
+    file and dataset images.
     :return: A JSON line with details for the destination location.
     """
     entry_json = json.loads(entry)
@@ -153,12 +158,12 @@ def process_json_line(s3_resource, entry, dataset_type, destination):
 def write_manifest_file(lookoutvision_client, s3_resource, project,  dataset_type, destination):
     """
     Creates a manifest file for a dataset. Copies the manifest file and
-    dataset images (and masks, if present) to the specified S3 destination.
-    :param lookoutvision_client: A Lookout for Vision boto3 client.
+    dataset images (and masks, if present) to the specified Amazon S3 destination.
+    :param lookoutvision_client: A Lookout for Vision Boto3 client.
     :param project: The Lookout for Vision project that you want to use.
     :param dataset_type: The type (train or test) of the dataset that
     you want to create the manifest file for.
-    :param destination: The S3 destination folder for the manifest file
+    :param destination: The destination Amazon S3 folder for the manifest file
     and dataset images.
     """
 
@@ -177,7 +182,7 @@ def write_manifest_file(lookoutvision_client, s3_resource, project,  dataset_typ
 
         output_manifest_file = dataset_type + ".manifest"
 
-        # Create manifest file then upload to S3 with images.
+        # Create manifest file then upload to Amazon S3 with images.
         with open(output_manifest_file, "w", encoding="utf-8") as manifest_file:
 
             for page in page_iterator:
@@ -205,10 +210,10 @@ def write_manifest_file(lookoutvision_client, s3_resource, project,  dataset_typ
 
 def export_datasets(lookoutvision_client, s3_resource, project, destination):
     """
-    Exports the datasets from an Amazon Lookout for Vision project to a specified S3
-    destination.
+    Exports the datasets from an Amazon Lookout for Vision project to a specified
+    Amazon S3 destination.
     :param project: The Lookout for Vision project that you want to use.
-    :param destination: The destination S3 folder for the exported datasets.
+    :param destination: The destination Amazon S3 folder for the exported datasets.
     """
     # Add trailing backslash, if missing.
     destination = destination if destination[-1] == "/"  \
@@ -241,13 +246,13 @@ def add_arguments(parser):
 
     parser.add_argument(
         "project", help="The project that contains the dataset.")
-    parser.add_argument("destination", help="The destination S3 folder.")
+    parser.add_argument("destination", help="The destination Amazon S3 folder.")
 
 
 def main():
     """
     Exports the datasets from an Amazon Lookout for Vision project to a
-    destination S3 location.
+    destination Amazon S3 location.
     """
     logging.basicConfig(level=logging.INFO,
                         format="%(levelname)s: %(message)s")

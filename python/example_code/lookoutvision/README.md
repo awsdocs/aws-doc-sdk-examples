@@ -231,7 +231,7 @@ Shows how to add or update images in an Amazon Lookout for Vision dataset.
 ### export_datasets.py
 
 Shows how to export the datasets from an Amazon Lookout for Vision project to an
-S3 location.
+Amazon S3 location.
 Run this example at a command prompt with the following command.
 
 ```
@@ -239,7 +239,7 @@ python export_datasets.py <project> <destination>
 ``` 
 
 - `project` - The project that you want to export the datasets from.
-- `destination` - The S3 path that you want to copy the datasets to.
+- `destination` - The Amazon S3 path that you want to copy the datasets to.
 
 
 ## Additional information
