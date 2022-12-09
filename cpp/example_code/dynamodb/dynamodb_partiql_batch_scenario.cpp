@@ -320,13 +320,13 @@ int main(int argc, char **argv) {
 
     {
         std::cout << std::setfill('*')
-                  << std::setw(AwsDoc::DynamoDB::ASTERIX_FILL_WIDTH) << " "
+                  << std::setw(AwsDoc::DynamoDB::ASTERISK_FILL_WIDTH) << " "
                   << std::endl;
         std::cout
                 << "Welcome to the Amazon DynamoDB PartiQL batch statements demo."
                 << std::endl;
         std::cout << std::setfill('*')
-                  << std::setw(AwsDoc::DynamoDB::ASTERIX_FILL_WIDTH) << " "
+                  << std::setw(AwsDoc::DynamoDB::ASTERISK_FILL_WIDTH) << " "
                   << std::endl;
 
 // snippet-start:[cpp.example_code.dynamodb.Scenario_PartiQL_Batch.main]

@@ -30,7 +30,7 @@ namespace AwsDoc {
         const Aws::String PLOT_KEY("plot");
         const int PROVISIONED_THROUGHPUT_UNITS = 10;
         const Aws::String ALLOCATION_TAG("dynamodb_scenario");
-        const int ASTERIX_FILL_WIDTH = 88;
+        const int ASTERISK_FILL_WIDTH = 88;
     } //  namespace DynamoDB
 } // namespace AwsDoc
 

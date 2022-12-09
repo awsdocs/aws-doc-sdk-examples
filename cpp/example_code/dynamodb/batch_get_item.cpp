@@ -148,12 +148,13 @@ bool AwsDoc::DynamoDB::batchGetItem(
  *
  *  Usage: 'run_batch_get_item'
  *
- *  Prerequisites: prepopulated DynamoDB tables.
+ *  Prerequisites: pre-populated DynamoDB tables.
  *
  *  Instructions for populating a table with sample data can be found at:
  *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html
  *
  *  This example uses the "Forum.json" and "ProductCatalog.json" sample data.
+ *  This example requires pre-populated "Forum" and "ProductCatalog" tables.
  *
  */
 
@@ -163,9 +164,7 @@ int main(int argc, char **argv) {
     (void) argc; // Suppress unused warning.
     (void) argv; // Suppress unused warning.
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel =Aws::Utils::Logging::LogLevel::Trace;
     Aws::InitAPI(options);
-
     {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
@@ -175,7 +174,6 @@ int main(int argc, char **argv) {
     }
     Aws::ShutdownAPI(options);
     return 0;
-    //snippet-end:[dynamodb.cpp.get_item_batch.code]
 }
 
 #endif // TESTING_BUILD

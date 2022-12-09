@@ -872,6 +872,15 @@ dynamodb_DeleteItem:
             - description: Delete an item from a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.delete
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.dynamodb.delete_item
   services:
     dynamodb: {DeleteItem}
 dynamodb_ListTables:

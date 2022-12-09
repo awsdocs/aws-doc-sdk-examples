@@ -82,9 +82,9 @@ namespace AwsDoc {
  */
 bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
-    std::cout << std::setfill('*') << std::setw(ASTERIX_FILL_WIDTH) << " " << std::endl;
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " " << std::endl;
     std::cout << "Welcome to the Amazon DynamoDB getting started demo." << std::endl;
-    std::cout << std::setfill('*') << std::setw(ASTERIX_FILL_WIDTH) << " " << std::endl;
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " " << std::endl;
 
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
@@ -217,7 +217,7 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         }
     }
 
-    std::cout << std::setfill('*') << std::setw(ASTERIX_FILL_WIDTH) << " " << std::endl;
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " " << std::endl;
 
     // 5. Get a movie by Key (partition + sort).
     {

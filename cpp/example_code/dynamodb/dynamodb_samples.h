@@ -22,7 +22,7 @@ namespace AwsDoc {
         extern const Aws::String PLOT_KEY;
         extern const int PROVISIONED_THROUGHPUT_UNITS;
         extern const Aws::String ALLOCATION_TAG;
-        extern const int ASTERIX_FILL_WIDTH;
+        extern const int ASTERISK_FILL_WIDTH;
 
         //! Scenario to modify and query a DynamoDB table using single PartiQL statements.
         /*!
@@ -90,6 +90,99 @@ namespace AwsDoc {
         */
         bool deleteDynamoTable(const Aws::String &tableName,
                                const Aws::Client::ClientConfiguration &clientConfiguration);
+
+
+        //! Deletes an item from a DynamoDB table.
+        /*!
+          \sa deleteItem()
+          \param tableName: The table name.
+          \param partitionKey: The partition key.
+          \param partitionValue: The value for the partition key.
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+         */
+
+        bool deleteItem(const Aws::String& tableName,
+                        const Aws::String& partitionKey,
+                        const Aws::String& partitionValue,
+                        const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Describe a DynamoDB table.
+        /*!
+          \sa describeTable()
+          \param tableName: The DynamoDB table's name.
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+        */
+        bool describeTable(const Aws::String &tableName,
+                               const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Gets an item from a DynamoDB table.
+        /*!
+          \sa getItem()
+          \param tableName: The table name.
+          \param partitionKey: The partition key.
+          \param partitionValue: The value for the partition key.
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+         */
+
+        bool getItem(const Aws::String& tableName,
+                        const Aws::String& partitionKey,
+                        const Aws::String& partitionValue,
+                        const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! List the DynamoDB tables for the current AWS account.
+        /*!
+          \sa getItem()
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+         */
+
+        bool listTables(const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Put an item in a DynamoDB table.
+        /*!
+          \sa putItem()
+          \param tableName: The table name.
+          \param artistKey: The artist key. This is the partition key for the table.
+          \param artistValue: The artist value.
+          \param albumTitleKey: The album title key.
+          \param albumTitleValue: The album title value.
+          \param awardsKey: The awards key.
+          \param awardsValue: The awards value.
+          \param songTitleKey: The song title key.
+          \param songTitleValue: The song title value.
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+         */
+        bool putItem(const Aws::String& tableName,
+                     const Aws::String& artistKey,
+                     const Aws::String& artistValue,
+                     const Aws::String& albumTitleKey,
+                     const Aws::String& albumTitleValue,
+                     const Aws::String& awardsKey,
+                     const Aws::String& awardsValue,
+                     const Aws::String& songTitleKey,
+                     const Aws::String& songTitleValue,
+                     const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Perform  a query on a DynamoDB Table and retrieve items.
+        /*!
+          \sa queryItem()
+          \param tableName: The table name.
+          \param partitionKey: The partition key.
+          \param partitionValue: The value for the partition key.
+          \param projectionExpression: The projections expression, which is ignored if empty.
+          \param clientConfiguration: Aws client configuration.
+          \return bool: Function succeeded.
+          */
+        bool queryItem(const Aws::String& tableName,
+                       const Aws::String& partitionKey,
+                       const Aws::String& partitionValue,
+                       const Aws::String& projectionExpression,
+                       const Aws::Client::ClientConfiguration &clientConfiguration);
+
 
         //! Create a DynamoDB table to be used in sample code scenarios.
         /*!
