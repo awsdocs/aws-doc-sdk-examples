@@ -1,3 +1,0 @@
-# This should be kept in sync with https://github.com/awslabs/aws-sdk-rust#supported-rust-versions-msrv
-[toolchain]
-channel = "1.62.1"
