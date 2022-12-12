@@ -25,6 +25,15 @@ jobs:
       - name: install golangci-lint
         run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.47.3
       - name: run golangci-lint
+        # If you get a linting error of "File is not `goimports`-ed", the solution is to run "gofmt -w ./<folder>".
         run: |
-          cd gov2/dynamodb
-          golangci-lint run --config ../../.github/linters/.golangci.yml
+          cd gov2/demotools
+          golangci-lint run
+          cd ../dynamodb
+          golangci-lint run
+          cd ../iam
+          golangci-lint run
+          cd ../s3
+          golangci-lint run
+          cd ../testtools
+          golangci-lint run

@@ -63,6 +63,15 @@ sns_GetTopicAttributes:
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - sns.JavaScript.topics.getTopicAttributes
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.abapv1.get_topic_attributes
   services:
     sns: {GetTopicAttributes}
 sns_ListSubscriptions:
@@ -142,6 +151,15 @@ sns_ListSubscriptions:
           excerpts:
             - snippet_tags:
                 - sns.Ruby.showSubscription
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.abapv1.list_subscriptions
   services:
     sns: {ListSubscriptions}
 sns_ListTopics:
@@ -228,6 +246,15 @@ sns_ListTopics:
           excerpts:
             - snippet_tags:
                 - sns.rust.list-topics
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.abapv1.list_topics
   services:
     sns: {ListTopics}
 sns_Subscribe_App:
@@ -612,6 +639,15 @@ sns_CreateTopic:
           excerpts:
             - snippet_tags:
                 - sns.rust.create-topic
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.abapv1.create_topic
   services:
     sns: {CreateTopic}
 sns_DeleteTopic:
@@ -679,6 +715,15 @@ sns_DeleteTopic:
             - snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.DeleteTopic
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.abapv1.delete_topic
   services:
     sns: {DeleteTopic}
 sns_ListPhoneNumbersOptedOut:
@@ -791,6 +836,15 @@ sns_Publish:
           excerpts:
             - snippet_tags:
                 - sns.rust.sns-hello-world
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.abapv1.publish_to_topic
   services:
     sns: {Publish}
 sns_SetSmsAttributes:
@@ -912,6 +966,15 @@ sns_SetTopicAttributes:
           excerpts:
             - snippet_tags:
                 - sns.Ruby.enableResource
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.abapv1.set_topic_attributes
   services:
     sns: {SetTopicAttributes}
 sns_Subscribe:
@@ -998,6 +1061,15 @@ sns_Subscribe:
           excerpts:
             - snippet_tags:
                 - sns.rust.sns-hello-world
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.abapv1.subscribe_email
   services:
     sns: {Subscribe}
 sns_Unsubscribe:
@@ -1065,6 +1137,15 @@ sns_Unsubscribe:
             - snippet_tags:
                 - python.example_code.sns.SnsWrapper
                 - python.example_code.sns.Unsubscribe
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - sns.abapv1.unsubscribe
   services:
     sns: {Unsubscribe}
 sns_PublishFifoTopic:
@@ -1082,6 +1163,16 @@ sns_PublishFifoTopic:
             - description: Create a FIFO topic and FIFO queues. Subscribe the queues to the topic.
               snippet_tags:
                 - sns.java2.CreateTopicFIFO.main
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/sns
+          sdkguide:
+          excerpts:
+            - description: Create a FIFO topic, subscribe an &SQS; FIFO queue to the topic,
+                and publish a message to an &SNS; topic.
+              snippet_tags:
+                - sns.abapv1.publish_message_to_fifo_queue
   services:
     sns: {}
 sns_PublishLargeMessage:

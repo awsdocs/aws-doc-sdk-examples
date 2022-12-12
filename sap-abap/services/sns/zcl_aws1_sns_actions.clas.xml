@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_AWS1_SNS_ACTIONS</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>SNS Code Example Actions</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_SNS_ACTIONS</CLSNAME>
+     <CMPNAME>CREATE_TOPIC</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Create a topic.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_SNS_ACTIONS</CLSNAME>
+     <CMPNAME>DELETE_TOPIC</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Delete a topic.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_SNS_ACTIONS</CLSNAME>
+     <CMPNAME>GET_TOPIC_ATTRIBUTES</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Get the properties of a topic.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_SNS_ACTIONS</CLSNAME>
+     <CMPNAME>LIST_SUBSCRIPTIONS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>List the subscribers.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_SNS_ACTIONS</CLSNAME>
+     <CMPNAME>LIST_TOPICS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>List SNS topics.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_SNS_ACTIONS</CLSNAME>
+     <CMPNAME>PUBLISH_TO_TOPIC</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Publish to a topic.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_SNS_ACTIONS</CLSNAME>
+     <CMPNAME>SET_TOPIC_ATTRIBUTES</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Set topic attributes.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_SNS_ACTIONS</CLSNAME>
+     <CMPNAME>SUBSCRIBE_EMAIL</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Subscribe an email address to a topic.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_SNS_ACTIONS</CLSNAME>
+     <CMPNAME>UNSUBSCRIBE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Delete a subscription.</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

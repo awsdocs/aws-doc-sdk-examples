@@ -10,7 +10,7 @@ example:
   synopsis_list: list(str(upper_start=True, end_punc=True), required=False)
   category: str(required=False, upper_start=True, no_end_punc=True)
   guide_topic: include('guide_topic', required=False)
-  languages: map(include('language'), key=enum('C++', 'Go', 'Java', 'JavaScript', 'Kotlin', '.NET', 'PHP', 'Python', 'Ruby', 'Rust', 'Swift'))
+  languages: map(include('language'), key=enum('C++', 'Go', 'Java', 'JavaScript', 'Kotlin', '.NET', 'PHP', 'Python', 'Ruby', 'Rust', 'SAP ABAP', 'Swift'))
   services: map(map(key=str(), required=False), key=service_name())
 
 guide_topic:

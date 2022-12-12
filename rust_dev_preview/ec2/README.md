@@ -13,8 +13,8 @@ Amazon Elastic Compute Cloud (Amazon EC2) is a web service that provides resizab
 - [Lists the scheduled events for your instances](src/bin/list-all-instance-events.rs) (ListInstanceEvents)
 - [Enables monitoring on an instance](src/bin/monitor-instance.rs) (MonitorInstance)
 - [Reboots an instance](src/bin/reboot-instance.rs) (RebootInstance)
-- [Starts an instance](start-instance.rs) (StartInstance)
-- [Stops an instance](stop-instance.rs) (StopInstance)
+- [Starts an instance](src/bin/start-instance.rs) (StartInstance)
+- [Stops an instance](src/bin/stop-instance.rs) (StopInstance)
 
 ## ⚠ Important
 

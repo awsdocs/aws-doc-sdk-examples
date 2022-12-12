@@ -1,0 +1,27 @@
+[requires]
+ poco/1.12.2
+
+
+ [options]
+ poco:enable_activerecord=False
+ poco:enable_crypto=False
+ poco:enable_data=False
+ poco:enable_data_mysql=False
+ poco:enable_data_postgresql=False
+ poco:enable_data_sqlite=False
+ poco:enable_encodings=True
+ poco:enable_json=True
+ poco:enable_jwt=False
+ poco:enable_mongodb=False
+ poco:enable_net=True
+ poco:enable_netssl=False
+ poco:enable_redis=True
+ poco:enable_util=True
+ poco:enable_xml=True
+ poco:enable_zip=False
+
+ [generators]
+ cmake
+
+[imports]
+bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my local "bin" folder

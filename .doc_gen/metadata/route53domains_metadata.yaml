@@ -1,0 +1,436 @@
+# zexi 0.4.3
+route-53_Hello:
+  title: Hello &R53DR;
+  title_abbrev: Hello &R53DR;
+  synopsis: get started using &R53DRlong;.
+  category: Hello
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.hello.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.hello.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.HelloRoute53
+  services:
+    route53-domains: {ListPrices}
+route-53_CheckDomainAvailability:
+  title: Check the availability of a domain using an &AWS; SDK
+  title_abbrev: Check domain availability
+  synopsis: check the availability of a domain.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.checkdomainavailability.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.checkdomainavailability.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.CheckDomainAvailability
+  services:
+    route53-domains: {CheckDomainAvailability}
+route-53_CheckDomainTransferability:
+  title: Check the transferability of a domain using an &AWS; SDK
+  title_abbrev: Check domain transferability
+  synopsis: check the transferability of a domain.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.checkdomaintransfer.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.checkdomaintransfer.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.CheckDomainTransferability
+  services:
+    route53-domains: {CheckDomainTransferability}
+route-53_GetDomainDetails:
+  title: Get &R53DR; domain details using an &AWS; SDK
+  title_abbrev: Get domain details
+  synopsis: get the details for a domain.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domaindetails.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domaindetails.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.GetDomainDetail
+  services:
+    route53-domains: {GetDomainDetail}
+route-53_GetDomainSuggestions:
+  title: Get &R53DR; domain name suggestions using an &AWS; SDK
+  title_abbrev: Get suggested domain names
+  synopsis: get domain name suggestions.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainsuggestions.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainsuggestions.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.GetDomainSuggestions
+  services:
+    route53-domains: {GetDomainSuggestions}
+route-53_GetOperationDetails:
+  title: Get details on a &R53DR; operation using an &AWS; SDK
+  title_abbrev: Get operation details
+  synopsis: get details on an operation.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainoperations.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainoperations.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.GetOperationDetail
+  services:
+    route53-domains: {GetOperationDetail}
+route-53_ListPrices:
+  title: List &R53DR; domain prices using an &AWS; SDK
+  title_abbrev: List domain prices
+  synopsis: list domain prices.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainprices.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainprices.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.ListPrices
+  services:
+    route53-domains: {ListPrices}
+route-53_ListDomains:
+  title: List &R53DR; registered domains using an &AWS; SDK
+  title_abbrev: List domains
+  synopsis: list the registered domains.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainlist.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainlist.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.ListDomains
+  services:
+    route53-domains: {ListDomains}
+route-53_ListOperations:
+  title: List &R53DR; operations using an &AWS; SDK
+  title_abbrev: List operations
+  synopsis: list operations.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainlistops.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainlistops.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.ListOperations
+  services:
+    route53-domains: {ListOperations}
+route-53_RegisterDomain:
+  title: Register a domain with &R53DR; using an &AWS; SDK
+  title_abbrev: Register a domain
+  synopsis: register a domain.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainreg.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainreg.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.RegisterDomain
+  services:
+    route53-domains: {RegisterDomain}
+route-53_ViewBilling:
+  title: View &R53DR; billing records using an &AWS; SDK
+  title_abbrev: View billing
+  synopsis: view billing records.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.domainbillingrecords.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.domainbillingrecords.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Route53.dotnetv3.ViewBilling
+  services:
+    route53-domains: {ViewBilling}
+route-53_Scenario_GetStartedRoute53Domains:
+  title: Get started with &R53DR; using an &AWS; SDK
+  title_abbrev: Get started with domains
+  synopsis_list:
+    - List current domains.
+    - List operations in the past year.
+    - View billing for the account in the past year.
+    - View prices for domain types.
+    - Get domain suggestions.
+    - Check domain availability.
+    - Check domain transferability.
+    - Optionally, request a domain registration.
+    - Get an operation detail.
+    - Optionally, get a domain detail.
+  category: Scenarios
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.kotlin.scenario.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/route53
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - route.java2.scenario.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Route53
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - Route53.dotnetv3.DomainBasics
+            - description: Wrapper methods used by the scenario for &R53DR; actions.
+              snippet_tags:
+                - Route53.dotnetv3.Route53Wrapper
+  services:
+    route53-domains: {CheckDomainAvailability, CheckDomainTransferability, GetDomainDetail, GetDomainSuggestions,
+                      GetOperationDetail, ListPrices, ListDomains, ListOperations,
+                      RegisterDomain, ViewBilling}
