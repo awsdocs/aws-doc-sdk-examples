@@ -43,7 +43,7 @@ impl GlueScenario {
         let glue = GLUE_CLIENT.get().await;
 
         // Wait for crawler to finish.
-        let unknown_state = aws_sdk_glue::model::CrawlerState::from("unknown");
+        let unknown_state = aws_sdk_glue::model::CrawlerState::Unknown("".into());
         let crawler = glue
             .get_crawler()
             .name(self.crawler())

@@ -32,13 +32,16 @@ impl GlueScenario {
             .await;
 
         if let Err(sdk_err) = create_database {
-            let service_error = sdk_err.into_service_error();
-            match service_error {
-                err if err.is_already_exists_exception() => {
-                    info!("Found existing database");
-                    Ok(())
+            match sdk_err {
+                aws_smithy_client::SdkError::ServiceError { ref err, raw: _ } => {
+                    if err.is_already_exists_exception() {
+                        info!("Found existing database");
+                        Ok(())
+                    } else {
+                        Err(GlueMvpError::from_glue_sdk(sdk_err))
+                    }
                 }
-                _ => Err(GlueMvpError::from_glue_sdk(service_error)),
+                _ => Err(GlueMvpError::from_glue_sdk(sdk_err)),
             }?;
         }
 
@@ -102,7 +105,7 @@ impl GlueScenario {
     #[instrument(skip(self, crawler), fields(crawler.last_updated, crawler.last_crawl))]
     pub async fn wait_for_crawler(&self, crawler: &mut Crawler) -> Result<(), GlueMvpError> {
         let glue = GLUE_CLIENT.get().await;
-        let unknown_state = CrawlerState::from("unknown");
+        let unknown_state = CrawlerState::Unknown("".into());
         let mut state = crawler.state().unwrap_or(&unknown_state).to_owned();
 
         // GetCrawler

@@ -82,6 +82,7 @@ async fn remove_cluster(
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
+#[allow(clippy::result_large_err)]
 async fn main() -> Result<(), aws_sdk_eks::Error> {
     let Opt {
         arn,
