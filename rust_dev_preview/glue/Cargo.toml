@@ -5,13 +5,9 @@ authors = [
   "David Souther <davidsouther+github@gmail.com>",
 ]
 edition = "2021"
-about = "MVP Scenario to show many features of the Rust AWS Glue SDK. https://github.com/awsdocs/aws-doc-sdk-examples/issues/2941"
-
-[lib]
-path = "src/lib.rs"
+description = "MVP Scenario to show many features of the Rust AWS Glue SDK. https://github.com/awsdocs/aws-doc-sdk-examples/issues/2941"
 
 [[bin]]
-path = "src/bin/scenario.rs"
 name = "scenario"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

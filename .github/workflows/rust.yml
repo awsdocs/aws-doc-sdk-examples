@@ -22,13 +22,19 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: 1.62.1
           override: true
       - uses: actions-rs/cargo@v1
         name: cargo check
         with:
           command: check
-          args: --all-targets --manifest-path rust_dev_preview/Cargo.toml
+          args: --manifest-path rust_dev_preview/Cargo.toml --all-targets
+      - uses: actions-rs/cargo@v1
+        if: success() || failure()
+        name: cargo fmt
+        with:
+          command: fmt
+          args: --manifest-path rust_dev_preview/Cargo.toml --all --check -- -D warnings
       - uses: actions-rs/cargo@v1
         if: success() || failure()
         name: cargo clippy
