@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateDistribution.java demonstrates how to create a CloudFront distribution that requires signed URLs/cookies to access resources.]
+//snippet-sourcedescription:[CreateDistribution.java demonstrates how to create an Amazon CloudFront distribution that requires signed URLs/cookies to access resources.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon CloudFront]
 
@@ -36,9 +36,9 @@ public class CreateDistribution {
 
         final String region = s3Client.headBucket(b -> b.bucket(bucketName)).sdkHttpResponse().headers().get("x-amz-bucket-region").get(0);
         final String originDomain = bucketName + ".s3." + region + ".amazonaws.com";
-        String originId = originDomain; // use the originDomain value for the originId
+        String originId = originDomain; // Use the originDomain value for the originId.
 
-        // Although some methods, such as DefaultCacheBehavior.Builder#minTTl and #forwardedValue, are deprecated, they are nevertheless required by the service API.
+        // The service API requires some deprecated methods, such as DefaultCacheBehavior.Builder#minTTL and #forwardedValue.
         CreateDistributionResponse createDistResponse = cloudFrontClient.createDistribution(builder -> builder
                 .distributionConfig(b1 -> b1
                         .origins(b2 -> b2

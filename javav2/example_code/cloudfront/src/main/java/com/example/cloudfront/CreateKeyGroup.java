@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateKeyGroup.java demonstrates how to create a trusted key group for CloudFront that is used to verify signed URLs/cookies.]
+//snippet-sourcedescription:[CreateKeyGroup.java demonstrates how to create a trusted key group for Amazon CloudFront that is used to verify signed URLs/cookies.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon CloudFront]
 

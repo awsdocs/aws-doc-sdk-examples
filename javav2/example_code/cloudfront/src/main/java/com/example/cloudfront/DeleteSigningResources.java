@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteDistributionResources.java demonstrates how to delete ancillary resources used by CloudFront distribution after the distribution is deleted.]
+//snippet-sourcedescription:[DeleteSigningResources.java demonstrates how to delete ancillary resources used by an Amazon CloudFront distribution. Do this after deleting the distribution.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon CloudFront]
 

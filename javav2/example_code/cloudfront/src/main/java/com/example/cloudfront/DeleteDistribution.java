@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteDistribution.java demonstrates how to disable a CloudFront distribution by updating the distribution. After the change is deployed the code shows how to delete the distribution.]
+//snippet-sourcedescription:[DeleteDistribution.java demonstrates how to disable an Amazon CloudFront distribution by updating the distribution. After the change is deployed, the code shows how to delete the distribution.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon CloudFront]
 
@@ -24,7 +24,7 @@ public class DeleteDistribution {
     private static final Logger logger = LoggerFactory.getLogger(DeleteDistribution.class);
 
     public static void deleteDistribution(final CloudFrontClient cloudFrontClient, final String distributionId) {
-        // first update the distribution to disable it
+        // First, disable the distribution by updating it.
         GetDistributionResponse response = cloudFrontClient.
                 getDistribution(b -> b
                         .id(distributionId));

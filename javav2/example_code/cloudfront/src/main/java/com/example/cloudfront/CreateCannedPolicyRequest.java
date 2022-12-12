@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateCannedPolicy.java demonstrates how to use the CannedSignerRequest class to specify the required properties to sign URLs or cookies to access CloudFront.]
+//snippet-sourcedescription:[CreateCannedPolicyRequest.java demonstrates how to use the CannedSignerRequest class to specify the required properties to sign URLs or cookies to access Amazon CloudFront.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon CloudFront]
 

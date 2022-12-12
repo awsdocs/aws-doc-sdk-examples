@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateOriginAccessControl.java demonstrates how to specify that CloudFront accesses S3 resources using signed requests.]
+//snippet-sourcedescription:[CreateOriginAccessControl.java demonstrates how to have Amazon CloudFront access Amazon Simple Storage Service (Amazon S3) resources by using signed requests.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon CloudFront]
 

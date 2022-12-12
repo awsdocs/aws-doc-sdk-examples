@@ -44,7 +44,7 @@ public class CloudFrontSigningTest {
     @BeforeAll
     static void setUp() throws IOException {
 
-        // Run tests on Real AWS Resources
+        // Run tests on Real AWS resources.
         cloudFrontClient = CloudFrontClient.builder()
                 .region(Region.AWS_GLOBAL)
                 .credentialsProvider(ProfileCredentialsProvider.create())
@@ -61,16 +61,16 @@ public class CloudFrontSigningTest {
                 return;
             }
 
-            //load a properties file from class path, inside static method
+            // Load a properties file from the classpath, inside static method.
             prop.load(input);
 
-            // Populate the data members required for all tests
+            // Populate the data members required for all tests.
             bucketName = ("CF-test-bucket" + UUID.randomUUID()).toLowerCase();
             fileNameToUpload = "index.html";
             publicKeyFileName = prop.getProperty("publicKeyFileName");
             privateKeyFullPath = prop.getProperty("privateKeyFullPath");
 
-            // set up resources needed for testing
+            // Set up resources needed for testing.
             setUpS3Resources();
             setUpCloudFrontResources();
 
@@ -176,7 +176,7 @@ public class CloudFrontSigningTest {
     void signedUrlWithCustomPolicy_ok_whenActiveDateReachedTest() throws Exception {
         CustomSignerRequest customRequest = CreateCustomPolicyRequest
                 .createRequestForCustomPolicy(distributionDomainName, fileNameToUpload, privateKeyFullPath, publicKeyId);
-        // set a new activeDate so it is now active
+        // Set a new activeDate to make it active.
         customRequest = customRequest.toBuilder()
                 .activeDate(Instant.now().minus(1, ChronoUnit.DAYS))
                 .build();
@@ -213,7 +213,7 @@ public class CloudFrontSigningTest {
     void signedCookiesWithCustomPolicy_ok_whenActiveDateReachedTest() throws Exception {
         CustomSignerRequest customRequest = CreateCustomPolicyRequest
                 .createRequestForCustomPolicy(distributionDomainName, fileNameToUpload, privateKeyFullPath, publicKeyId);
-        // set a new activeDate so it is now active
+        // Set a new activeDate to make it active.
         customRequest = customRequest.toBuilder()
                 .activeDate(Instant.now().minus(1, ChronoUnit.DAYS))
                 .build();

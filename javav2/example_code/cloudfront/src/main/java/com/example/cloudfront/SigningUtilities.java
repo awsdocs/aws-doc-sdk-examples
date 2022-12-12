@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SigningUtilities.java demonstrates sign URLs and generate signed cookies to access restricted content in CloudFront.]
+//snippet-sourcedescription:[SigningUtilities.java demonstrates sign URLs and generate signed cookies to access restricted content in Amazon CloudFront.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon CloudFront]
 

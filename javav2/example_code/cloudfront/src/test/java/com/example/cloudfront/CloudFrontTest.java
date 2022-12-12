@@ -1,14 +1,22 @@
 package com.example.cloudfront;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import software.amazon.awssdk.regions.Region;
-import java.io.*;
-import java.util.*;
-import com.example.cloudfront.*;
-import static org.junit.jupiter.api.Assertions.*;
+import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -26,7 +34,7 @@ public class CloudFrontTest {
     @BeforeAll
     public static void setUp() throws IOException {
 
-        // Run tests on Real AWS Resources
+        // Run tests on Real AWS resources.
         region = Region.AWS_GLOBAL;
         cloudFrontClient = CloudFrontClient.builder()
                 .region(region)
@@ -41,10 +49,10 @@ public class CloudFrontTest {
                 return;
             }
 
-            //load a properties file from class path, inside static method
+            // Load a properties file from the classpath, inside static method.
             prop.load(input);
 
-            // Populate the data members required for all tests
+            // Populate the data members required for all tests.
             distributionId = prop.getProperty("distributionId");
 
         } catch (IOException ex) {

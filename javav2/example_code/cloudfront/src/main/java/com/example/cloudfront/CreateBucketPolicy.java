@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateBucketPolicy.java demonstrates how to programmatically alter a policy file that allows access to an S3 bucket from CloudFront and add the policy to the S3 bucket.]
+//snippet-sourcedescription:[CreateBucketPolicy.java demonstrates how to use Amazon CloudFront to programmatically alter a policy file that allows access to an Amazon Simple Storage Service (Amazon S3) bucket. It also adds the policy to the S3 bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon CloudFront]
 

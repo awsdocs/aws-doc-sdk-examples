@@ -92,7 +92,7 @@ cloudfront_CreateDistribution:
           sdkguide:
           excerpts:
             - description: >-
-                The following example uses an Amazon S3 bucket as a content origin. 
+                The following example uses an &S3long; (&S3;) bucket as a content origin. 
                 <para>After creating the distribution, 
                 the code creates a <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/waiters/CloudFrontWaiter.html">CloudFrontWaiter</ulink> 
                 to wait until the distribution is deployed before returning the distribution</para>.
@@ -102,7 +102,7 @@ cloudfront_CreateDistribution:
   services:
     cloudfront: {CreateDistribution}
 cloudfront_CreateKeyGroup:
-  title: Create key group for CloudFront using &AWS; SDK
+  title: Create key group for &CF; using an &AWS; SDK
   title_abbrev: Create a key group
   synopsis: create a key group that you can use with signed URLs and signed cookies.
   category:
@@ -120,7 +120,7 @@ cloudfront_CreateKeyGroup:
   services:
     cloudfront: {CreateKeyGroup}
 cloudfront_CreatePublicKey:
-  title: Upload a public key to CloudFront using &AWS; SDK
+  title: Upload a public key to &CF; using an &AWS; SDK
   title_abbrev: Upload a public key
   synopsis: upload a public key.
   category:
@@ -131,14 +131,14 @@ cloudfront_CreatePublicKey:
           github: javav2/example_code/cloudfront
           sdkguide:
           excerpts:
-            - description: The following code example reads in a public key and uploads it to CloudFront.
+            - description: The following code example reads in a public key and uploads it to &CFlong;.
               snippet_tags:
                 - cloudfront.java2.createpublickey.import
                 - cloudfront.java2.createpublickey.main
   services:
     cloudfront: {CreatePublicKey}
 cloudfront_DeleteDistribution:
-  title: Delete a CloudFront distribution using &AWS; SDK
+  title: Delete a &CF; distribution using &AWS; SDK
   title_abbrev: Delete a distribution
   synopsis: delete a CloudFront distribution.
   category:
@@ -156,9 +156,9 @@ cloudfront_DeleteDistribution:
   services:
     cloudfront: {DeleteDistribution, UpdateDistribution}
 cloudfront_DeleteSigningResources:
-  title: Delete CloudFront signing resources using &AWS; SDK
+  title: Delete &CF; signing resources using &AWS; SDK
   title_abbrev: Delete signing resources
-  synopsis: delete resources that are used to gain access to restricted content in an S3 bucket.
+  synopsis: delete resources that are used to gain access to restricted content in an &S3long; (&S3;) bucket.
   category:
   languages:
     Java:

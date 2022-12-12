@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreatePublicKey.java demonstrates how to read a public key file and upload it to CloudFront.]
+//snippet-sourcedescription:[CreatePublicKey.java demonstrates how to read a public key file and upload it to Amazon CloudFront.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon CloudFront]
 

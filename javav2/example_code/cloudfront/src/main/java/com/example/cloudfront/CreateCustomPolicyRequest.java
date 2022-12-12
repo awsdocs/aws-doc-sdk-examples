@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateCustomPolicy.java demonstrates how to use the CustomSignerRequest class to specify the required properties to sign URLs or cookies to access CloudFront.]
+//snippet-sourcedescription:[CreateCustomPolicyRequest.java demonstrates how to use the CustomSignerRequest class to specify the required properties to sign URLs or cookies to access Amazon CloudFront.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon CloudFront]
 
@@ -28,7 +28,7 @@ public class CreateCustomPolicyRequest {
 
         String cloudFrontUrl = new URL(protocol, distributionDomainName, resourcePath).toString();
         Instant expireDate = Instant.now().plus(7, ChronoUnit.DAYS);
-        // URL will be accessible tomorrow using the signed URL
+        // URL will be accessible tomorrow using the signed URL.
         Instant activeDate = Instant.now().plus(1, ChronoUnit.DAYS);
         Path path = Paths.get(privateKeyFullPath);
 
@@ -37,8 +37,8 @@ public class CreateCustomPolicyRequest {
                 .privateKey(path)
                 .keyPairId(publicKeyId)
                 .expirationDate(expireDate)
-                .activeDate(activeDate)      // optional
-                //.ipRange("192.168.0.1/24") // optional
+                .activeDate(activeDate)      // Optional.
+                //.ipRange("192.168.0.1/24") // Optional.
                 .build();
     }
 }
