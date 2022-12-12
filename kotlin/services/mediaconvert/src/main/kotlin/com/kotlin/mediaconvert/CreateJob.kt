@@ -117,7 +117,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         
         Usage
@@ -399,7 +398,6 @@ fun createOutput(
     originHeight: Int,
     targetWidth: Int
 ): Output? {
-
     val targetHeight = (
         (originHeight * targetWidth / originWidth).toFloat().roundToInt() -
             (originHeight * targetWidth / originWidth).toFloat().roundToInt() % 4
