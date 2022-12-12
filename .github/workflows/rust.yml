@@ -35,7 +35,7 @@ jobs:
         name: cargo fmt
         with:
           command: fmt
-          args: --manifest-path rust_dev_preview/Cargo.toml --all --check -- -D warnings
+          args: --manifest-path rust_dev_preview/Cargo.toml --all --check
       - uses: actions-rs/cargo@v1
         if: success() || failure()
         name: cargo clippy
