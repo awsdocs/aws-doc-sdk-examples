@@ -12,7 +12,8 @@ namespace CreateVPCforS3Example;
 
 /// <summary>
 /// Use a Amazon Elastic Compute Cloud (Amazon EC2) client to create a VPC Endpoint
-/// for the Amazon Simple Storage Service (Amazon S3) service and use that endpoint to list the objects in the S3 bucket.
+/// for the Amazon Simple Storage Service (Amazon S3) service and use
+/// that endpoint to list the objects in the S3 bucket.
 /// </summary>
 public class CreateVPCforS3
 {
@@ -29,12 +30,22 @@ public class CreateVPCforS3
                 ServiceName = "com.amazonaws.us-east-1.s3",
                 SubnetIds = new List<string>() { "subnet-012345678912345606" },
                 SecurityGroupIds = new List<string>() { "sg-012345678912345606" },
-                TagSpecifications = new List<TagSpecification>() { new TagSpecification() { ResourceType = ResourceType.VpcEndpoint, Tags = new List<Tag>() { new Tag("service", "S3") } } }
+                TagSpecifications = new List<TagSpecification>() {
+                    new TagSpecification
+                    {
+                        ResourceType = ResourceType.VpcEndpoint,
+                        Tags = new List<Tag>
+                        {
+                            new Tag("service", "S3")
+                        }
+                    }
+                }
             });
 
             var newEndpoint = endpointResponse.VpcEndpoint;
 
-            Console.WriteLine($"VPC Endpoint {newEndpoint.VpcEndpointId} was created, waiting for it to be available. This may take a few minutes.");
+            Console.WriteLine($"VPC Endpoint {newEndpoint.VpcEndpointId} was created, waiting for it to be available. " +
+                              $"This may take a few minutes.");
 
             State? endpointState = null;
 
@@ -56,7 +67,8 @@ public class CreateVPCforS3
                 return;
             }
 
-            // For newly created endpoints we may need to wait a few more minutes before using it for the Amazon S3 client.
+            // For newly created endpoints we may need to wait a few
+            // more minutes before using it for the Amazon S3 client.
             Thread.Sleep(300000);
 
             // Use the endpoint to create a ServiceURL to use with the S3 client.
@@ -75,7 +87,7 @@ public class CreateVPCforS3
         }
         catch (Exception e)
         {
-            Console.WriteLine("There was a problem listing objects using the VPCE.");
+            Console.WriteLine("There was a problem listing objects using the new endpoint.");
             Console.WriteLine(e);
 
         }
