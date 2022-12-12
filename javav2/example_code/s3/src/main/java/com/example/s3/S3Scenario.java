@@ -92,7 +92,7 @@ public class S3Scenario {
         String bucketName = args[0];
         String key = args[1];
         String objectPath = args[2];
-        String savePath =  args[3];
+        String savePath = args[3];
         String toBucket = args[4] ;
 
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();

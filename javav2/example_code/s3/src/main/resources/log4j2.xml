@@ -1,0 +1,18 @@
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c:%L - %m%n" />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <Root level="WARN">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Root>
+        <Logger name="software.amazon.awssdk" level="WARN" />
+        <Logger name="software.amazon.awssdk.request" level="INFO" />
+        <Logger name="org.apache.http.wire" level="INFO" />
+        <logger name="TransferManagerTest" level="INFO"/>
+        <logger name="com.example.s3" level="INFO" />
+    </Loggers>
+</Configuration>

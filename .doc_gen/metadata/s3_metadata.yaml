@@ -189,9 +189,17 @@ s3_CopyObject:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description:
+            - description: Copy an object using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - s3.java2.copy_object.main
+            - description: >-
+                Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
+                to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#copy(software.amazon.awssdk.transfer.s3.CopyRequest)">copy an object</ulink> from one bucket to another.
+                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/ObjectCopy.java">complete file</ulink> 
+                and <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java">test</ulink>.
+              snippet_tags:
+                - s3.tm.java2.objectcopy.import
+                - s3.tm.java2.objectcopy.main
     JavaScript:
       versions:
         - sdk_version: 3
@@ -736,16 +744,24 @@ s3_GetObject:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description: Read data as a byte array.
+            - description: Read data as a byte array using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - s3.java2.getobjectdata.main
-            - description: Read tags that belong to an object.
+            - description: >-
+                Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
+                to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadFile(software.amazon.awssdk.transfer.s3.DownloadFileRequest)">download an object</ulink> in an S3 bucket to a local file.
+                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadFile.java">complete file</ulink> 
+                and <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java">test</ulink>.
+              snippet_tags:
+                - s3.tm.java2.downloadfile.import
+                - s3.tm.java2.downloadfile.main
+            - description: Read tags that belong to an object using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - s3.java2.getobjecttags.main
-            - description: Get a URL for an object.
+            - description: Get a URL for an object using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - s3.java2.getobjecturl.main
-            - description: Get an object by using the S3Presigner client object.
+            - description: Get an object by using the S3Presigner client object using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - presigned.java2.getobjectpresigned.main
     PHP:
@@ -1186,16 +1202,24 @@ s3_PutObject:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description: Upload an object to a bucket.
+            - description: Upload a file to a bucket using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - s3.java2.s3_object_upload.main
-            - description: Upload an object to a bucket and set tags.
+            - description: >-
+                Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink> 
+                to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadFile(software.amazon.awssdk.transfer.s3.UploadFileRequest)">upload a file</ulink> to a bucket.
+                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadFile.java">complete file</ulink> 
+                and <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java">test</ulink>.
+              snippet_tags:
+                - s3.tm.java2.uploadfile.import
+                - s3.tm.java2.uploadfile.main
+            - description: Upload an object to a bucket and set tags using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - s3.java2.s3_object_manage_tags.main
-            - description: Upload an object to a bucket and set metadata.
+            - description: Upload an object to a bucket and set metadata using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - s3.java2.s3_object_upload.metadata.main
-            - description: Upload an object to a bucket and set an object retention value.
+            - description: Upload an object to a bucket and set an object retention value using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - s3.java2.retention_object.main
     PHP:
@@ -1973,6 +1997,50 @@ s3_TransferAcceleration:
                 - S3.dotnetv3.TransferAccelerationExample
   services:
     s3: {PutBucketAccelerateConfiguration}
+s3_DownloadBucketToDirectory:
+  title: Download all objects in an &S3long; (&S3;) bucket to a local directory
+  title_abbrev: Download objects to a local directory
+  synopsis: download all objects in an &S3long; (&S3;) bucket to a local directory.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: >-
+                Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
+                to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#downloadDirectory(software.amazon.awssdk.transfer.s3.DownloadDirectoryRequest)">download all S3 objects</ulink> in the same S3 bucket.
+                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java">complete file</ulink> 
+                and <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java">test</ulink>.
+              snippet_tags:
+                - s3.tm.java2.downloadtodirectory.import
+                - s3.tm.java2.downloadtodirectory.main
+  services:
+    s3: {DownloadDirectory}
+s3_UploadDirectoryToBucket:
+  title: Recursively upload a local directory to an &S3long; (&S3;) bucket
+  title_abbrev: Upload directory to a bucket
+  synopsis: upload a local directory recursively to an &S3long; (&S3;) bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: >-
+                Use an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html">S3TransferManager</ulink>
+                to <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#uploadDirectory(software.amazon.awssdk.transfer.s3.UploadDirectoryRequest)">upload a local directory</ulink>.
+                View the <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadADirectory.java">complete file</ulink> 
+                and <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/test/java/TransferManagerTest.java">test</ulink>.
+              snippet_tags:
+                - s3.tm.java2.uploadadirectory.import
+                - s3.tm.java2.uploadadirectory.main
+  services:
+    s3: {UploadDirectory}
 s3_Scenario_UsingLargeFiles:
   title: Upload or download large files to and from &S3; using an &AWS; SDK
   title_abbrev: Upload or download large files
