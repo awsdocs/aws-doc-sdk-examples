@@ -24,6 +24,7 @@ jobs:
           profile: minimal
           toolchain: 1.62.1
           override: true
+          components: clippy, rustfmt
       - uses: actions-rs/cargo@v1
         name: cargo check
         with:
