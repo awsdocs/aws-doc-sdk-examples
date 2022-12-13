@@ -48,76 +48,66 @@ public class CreateVPCforS3
     /// <param name="configuration">Configuration to specify resource ids.</param>
     /// <param name="ec2Client">Initialized EC2 client.</param>
     /// <returns>The S3 url using the endpoint.</returns>
-    public static async Task<string?> CreateVPCforS3Client(IConfiguration configuration, AmazonEC2Client ec2Client)
+    public static async Task<string?> CreateVPCforS3Client(IConfiguration configuration,
+        AmazonEC2Client ec2Client)
     {
-        try
-        {
-            var endpointResponse = await ec2Client.CreateVpcEndpointAsync(
-                new CreateVpcEndpointRequest
+        var endpointResponse = await ec2Client.CreateVpcEndpointAsync(
+            new CreateVpcEndpointRequest
+            {
+                VpcId = configuration["VpcId"],
+                VpcEndpointType = VpcEndpointType.Interface,
+                ServiceName = "com.amazonaws.us-east-1.s3",
+                SubnetIds = new List<string> { configuration["SubnetId"]! },
+                SecurityGroupIds = new List<string> { configuration["SecurityGroupId"]! },
+                TagSpecifications = new List<TagSpecification>
                 {
-                    VpcId = configuration["VpcId"],
-                    VpcEndpointType = VpcEndpointType.Interface,
-                    ServiceName = "com.amazonaws.us-east-1.s3",
-                    SubnetIds = new List<string> { configuration["SubnetId"]! },
-                    SecurityGroupIds = new List<string> { configuration["SecurityGroupId"]! },
-                    TagSpecifications = new List<TagSpecification>
+                    new TagSpecification
                     {
-                        new TagSpecification
+                        ResourceType = ResourceType.VpcEndpoint,
+                        Tags = new List<Tag>
                         {
-                            ResourceType = ResourceType.VpcEndpoint,
-                            Tags = new List<Tag>
-                            {
-                                new Tag("service", "S3")
-                            }
+                            new Tag("service", "S3")
                         }
                     }
-                });
+                }
+            });
 
-            var newEndpoint = endpointResponse.VpcEndpoint;
+        var newEndpoint = endpointResponse.VpcEndpoint;
 
-            Console.WriteLine(
-                $"VPC Endpoint {newEndpoint.VpcEndpointId} was created, waiting for it to be available. " +
-                $"This may take a few minutes.");
+        Console.WriteLine(
+            $"VPC Endpoint {newEndpoint.VpcEndpointId} was created, waiting for it to be available. " +
+            $"This may take a few minutes.");
 
-            State? endpointState = null;
+        State? endpointState = null;
 
-            while (endpointState == null ||
-                   !(endpointState == State.Available || endpointState == State.Failed))
-            {
-                var endpointDescription = await ec2Client.DescribeVpcEndpointsAsync(
-                    new DescribeVpcEndpointsRequest
-                    {
-                        VpcEndpointIds = new List<string>
-                            { endpointResponse.VpcEndpoint.VpcEndpointId }
-                    });
-                endpointState = endpointDescription.VpcEndpoints.FirstOrDefault()?.State;
-                Thread.Sleep(500);
-            }
-
-            if (endpointState == State.Failed)
-            {
-                Console.WriteLine("VPC Endpoint failed.");
-                return null;
-            }
-
-            // For newly created endpoints we may need to wait a few
-            // more minutes before using it for the Amazon S3 client.
-            Thread.Sleep(300000);
-
-            // Return the endpoint to create a ServiceURL to use with the S3 client.
-            var vpceUrl =
-                @$"https://bucket{endpointResponse.VpcEndpoint.DnsEntries[0].DnsName.Trim('*')}/";
-
-            return vpceUrl;
-
-        }
-        catch (Exception e)
+        while (endpointState == null ||
+               !(endpointState == State.Available || endpointState == State.Failed))
         {
-            Console.WriteLine("There was a problem listing objects using the new endpoint.");
-            Console.WriteLine(e);
+            var endpointDescription = await ec2Client.DescribeVpcEndpointsAsync(
+                new DescribeVpcEndpointsRequest
+                {
+                    VpcEndpointIds = new List<string>
+                        { endpointResponse.VpcEndpoint.VpcEndpointId }
+                });
+            endpointState = endpointDescription.VpcEndpoints.FirstOrDefault()?.State;
+            Thread.Sleep(500);
         }
 
-        return null;
+        if (endpointState == State.Failed)
+        {
+            Console.WriteLine("VPC Endpoint failed.");
+            return null;
+        }
+
+        // For newly created endpoints we may need to wait a few
+        // more minutes before using it for the Amazon S3 client.
+        Thread.Sleep(300000);
+
+        // Return the endpoint to create a ServiceURL to use with the S3 client.
+        var vpceUrl =
+            @$"https://bucket{endpointResponse.VpcEndpoint.DnsEntries[0].DnsName.Trim('*')}/";
+
+        return vpceUrl;
     }
 
     /// <summary>
