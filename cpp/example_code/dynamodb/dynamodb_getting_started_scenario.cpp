@@ -54,10 +54,11 @@
 #include <array>
 
 namespace AwsDoc {
-    namespace DynamoDB {       //! Convert an Aws JsonView object to a map of DynamoDB attribute values.
+    namespace DynamoDB {
+        //! Convert an AWS JsonView object to a map of DynamoDB attribute values.
         /*!
           \sa movieJsonViewToAttributeMap()
-          \param jsonView: An Aws JsonView.
+          \param jsonView: An AWS JsonView.
           \return Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>.
         */
         Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>
@@ -77,14 +78,16 @@ namespace AwsDoc {
 //! Scenario to modify and query a DynamoDB table.
 /*!
   \sa dynamodbGettingStartedScenario()
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
-    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " " << std::endl;
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " "
+              << std::endl;
     std::cout << "Welcome to the Amazon DynamoDB getting started demo." << std::endl;
-    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " " << std::endl;
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " "
+              << std::endl;
 
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
@@ -217,7 +220,8 @@ bool AwsDoc::DynamoDB::dynamodbGettingStartedScenario(
         }
     }
 
-    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " " << std::endl;
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " "
+              << std::endl;
 
     // 5. Get a movie by Key (partition + sort).
     {
@@ -452,12 +456,12 @@ int main(int argc, char **argv) {
     {
         Aws::Client::ClientConfiguration clientConfig;
         //  1. Create a table with partition: year (N) and sort: title (S). (CreateTable)
-        if (AwsDoc::DynamoDB::createDynamoDBTableForScenario(clientConfig)) {
+        if (AwsDoc::DynamoDB::createMoviesDynamoDBTable(clientConfig)) {
 
             AwsDoc::DynamoDB::dynamodbGettingStartedScenario(clientConfig);
 
             // 9. Delete the table. (DeleteTable)
-            AwsDoc::DynamoDB::deleteDynamoTableForScenario(clientConfig);
+            AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(clientConfig);
         }
     }
     // snippet-end:[cpp.example_code.dynamodb.Scenario_GettingStarted.main]

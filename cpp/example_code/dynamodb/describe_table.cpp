@@ -16,7 +16,7 @@
 
 //snippet-start:[dynamodb.cpp.describe_table.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h> 
+#include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/DescribeTableRequest.h>
 #include <iostream>
@@ -28,42 +28,43 @@
 /*!
   \sa describeTable()
   \param tableName: The DynamoDB table's name.
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
 */
 bool AwsDoc::DynamoDB::describeTable(const Aws::String &tableName,
-                   const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+                                     const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     Aws::DynamoDB::Model::DescribeTableRequest request;
     request.SetTableName(tableName);
 
-    const Aws::DynamoDB::Model::DescribeTableOutcome& outcome = dynamoClient.DescribeTable(request);
+    const Aws::DynamoDB::Model::DescribeTableOutcome &outcome = dynamoClient.DescribeTable(
+            request);
 
-    if (outcome.IsSuccess())
-    {
-        const Aws::DynamoDB::Model::TableDescription& td = outcome.GetResult().GetTable();
+    if (outcome.IsSuccess()) {
+        const Aws::DynamoDB::Model::TableDescription &td = outcome.GetResult().GetTable();
         std::cout << "Table name  : " << td.GetTableName() << std::endl;
         std::cout << "Table ARN   : " << td.GetTableArn() << std::endl;
-        std::cout << "Status      : " << Aws::DynamoDB::Model::TableStatusMapper::GetNameForTableStatus(td.GetTableStatus()) << std::endl;
+        std::cout << "Status      : "
+                  << Aws::DynamoDB::Model::TableStatusMapper::GetNameForTableStatus(
+                          td.GetTableStatus()) << std::endl;
         std::cout << "Item count  : " << td.GetItemCount() << std::endl;
         std::cout << "Size (bytes): " << td.GetTableSizeBytes() << std::endl;
 
-        const Aws::DynamoDB::Model::ProvisionedThroughputDescription& ptd = td.GetProvisionedThroughput();
+        const Aws::DynamoDB::Model::ProvisionedThroughputDescription &ptd = td.GetProvisionedThroughput();
         std::cout << "Throughput" << std::endl;
         std::cout << "  Read Capacity : " << ptd.GetReadCapacityUnits() << std::endl;
         std::cout << "  Write Capacity: " << ptd.GetWriteCapacityUnits() << std::endl;
 
-        const Aws::Vector<Aws::DynamoDB::Model::AttributeDefinition>& ad = td.GetAttributeDefinitions();
+        const Aws::Vector<Aws::DynamoDB::Model::AttributeDefinition> &ad = td.GetAttributeDefinitions();
         std::cout << "Attributes" << std::endl;
-        for (const auto& a : ad)
+        for (const auto &a: ad)
             std::cout << "  " << a.GetAttributeName() << " (" <<
-                      Aws::DynamoDB::Model::ScalarAttributeTypeMapper::GetNameForScalarAttributeType(a.GetAttributeType()) <<
+                      Aws::DynamoDB::Model::ScalarAttributeTypeMapper::GetNameForScalarAttributeType(
+                              a.GetAttributeType()) <<
                       ")" << std::endl;
     }
-    else
-    {
+    else {
         std::cerr << "Failed to describe table: " << outcome.GetError().GetMessage();
     }
 
@@ -83,10 +84,8 @@ bool AwsDoc::DynamoDB::describeTable(const Aws::String &tableName,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc < 1)
-    {
+int main(int argc, char **argv) {
+    if (argc < 1) {
         std::cout << R"(
 Usage:
     run_describe_table <table_name>
@@ -101,7 +100,7 @@ Where:
     {
         const Aws::String tableName = (argv[1]);
         Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
 

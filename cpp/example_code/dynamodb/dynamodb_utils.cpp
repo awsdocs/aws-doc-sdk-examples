@@ -39,10 +39,11 @@ namespace AwsDoc {
 //! Create a DynamoDB table to be used in sample code scenarios.
 /*!
   \sa createMoviesDynamoDBTable()
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
 */
-bool AwsDoc::DynamoDB::createMoviesDynamoDBTable(const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::DynamoDB::createMoviesDynamoDBTable(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     bool movieTableAlreadyExisted = false;
@@ -115,11 +116,11 @@ bool AwsDoc::DynamoDB::createMoviesDynamoDBTable(const Aws::Client::ClientConfig
 //! Delete the DynamoDB table used for sample code scenarios.
 /*!
   \sa deleteMoviesDynamoDBTable()
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
 */
-bool AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     Aws::DynamoDB::Model::DeleteTableRequest request;
@@ -146,7 +147,7 @@ bool AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(const Aws::Client::ClientConfig
 /*!
   \sa waitTableActive()
   \param waitTableActive: The DynamoDB table's name.
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
 */
 bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
@@ -221,7 +222,9 @@ int AwsDoc::DynamoDB::askQuestionForInt(const Aws::String &string) {
                                                        return true;
                                                    }
                                                    catch (const std::invalid_argument &) {
-                                                       std::cout << "\nNot a valid number." << std::endl;
+                                                       std::cout
+                                                               << "\nNot a valid number."
+                                                               << std::endl;
                                                        return false;
                                                    }
                                            });
@@ -252,9 +255,8 @@ float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, floa
             const Aws::String &string1) -> bool {
             try {
                 float number = std::stof(string1);
-                bool result =  number >= low && number <= high;
-                if (!result)
-                {
+                bool result = number >= low && number <= high;
+                if (!result) {
                     std::cout << "\nThe number is out of range." << std::endl;
                 }
                 return result;
@@ -293,8 +295,7 @@ int AwsDoc::DynamoDB::askQuestionForIntRange(const Aws::String &string, int low,
             try {
                 int number = std::stoi(string1);
                 bool result = number >= low && number <= high;
-                if (!result)
-                {
+                if (!result) {
                     std::cout << "\nThe number is out of range." << std::endl;
                 }
                 return result;

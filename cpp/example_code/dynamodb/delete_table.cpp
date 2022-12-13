@@ -15,7 +15,7 @@
  **/
 //snippet-start:[dynamodb.cpp.delete_table.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h> 
+#include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/DeleteTableRequest.h>
 #include <iostream>
@@ -28,7 +28,7 @@
 /*!
   \sa deleteDynamoTable()
   \param tableName: The DynamoDB table's name.
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
 */
 bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
@@ -66,10 +66,8 @@ bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-   if (argc < 1)
-   {
+int main(int argc, char **argv) {
+    if (argc < 1) {
         std::cout << R"(
 Usage:
      run_delete_table <table>
@@ -80,7 +78,7 @@ Example:
 **Warning** This program will actually delete the table
             that you specify!)";
         return 1;
-   }
+    }
 
     Aws::SDKOptions options;
 
@@ -89,7 +87,7 @@ Example:
         const Aws::String tableName = (argv[1]);
 
         Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
         AwsDoc::DynamoDB::deleteDynamoTable(tableName, clientConfig);

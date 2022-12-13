@@ -28,30 +28,30 @@
   \param tableName: The table name.
   \param partitionKey: The partition key.
   \param partitionValue: The value for the partition key.
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 
-bool AwsDoc::DynamoDB::deleteItem(const Aws::String& tableName,
-                const Aws::String& partitionKey,
-                const Aws::String& partitionValue,
-                const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::DynamoDB::deleteItem(const Aws::String &tableName,
+                                  const Aws::String &partitionKey,
+                                  const Aws::String &partitionValue,
+                                  const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     Aws::DynamoDB::Model::DeleteItemRequest request;
 
-    request.AddKey(partitionKey, Aws::DynamoDB::Model::AttributeValue().SetS(partitionValue));
+    request.AddKey(partitionKey,
+                   Aws::DynamoDB::Model::AttributeValue().SetS(partitionValue));
     request.SetTableName(tableName);
 
-    const Aws::DynamoDB::Model::DeleteItemOutcome& outcome = dynamoClient.DeleteItem(request);
-    if (outcome.IsSuccess())
-    {
+    const Aws::DynamoDB::Model::DeleteItemOutcome &outcome = dynamoClient.DeleteItem(
+            request);
+    if (outcome.IsSuccess()) {
         std::cout << "Item \"" << partitionValue << "\" deleted!" << std::endl;
     }
-    else
-    {
-        std::cerr << "Failed to delete item: " << outcome.GetError().GetMessage() << std::endl;
+    else {
+        std::cerr << "Failed to delete item: " << outcome.GetError().GetMessage()
+                  << std::endl;
     }
 
     return outcome.IsSuccess();
@@ -71,10 +71,8 @@ bool AwsDoc::DynamoDB::deleteItem(const Aws::String& tableName,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc < 4)
-    {
+int main(int argc, char **argv) {
+    if (argc < 4) {
         std::cout << R"("Usage:
     run_delete_item <table_name> <partition_key> <partition_value>
 Where:
@@ -97,12 +95,14 @@ Example:
         const Aws::String partitionValue = (argv[3]);
 
         Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::DynamoDB::deleteItem(tableName, partitionKey, partitionValue, clientConfig);
+        AwsDoc::DynamoDB::deleteItem(tableName, partitionKey, partitionValue,
+                                     clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif // TESTING_BUILD

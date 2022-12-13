@@ -15,25 +15,11 @@
  **/
 
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/QueryRequest.h>
 #include <iostream>
 #include "dynamodb_samples.h"
-
-/**
-  Perform query on a DynamoDB Table and retrieve item(s).
-
-  The partition key attribute is searched with the specified value. By default, all fields and values 
-  contained in the item are returned. If an optional projection expression is
-  specified on the command line, only the specified fields and values are 
-  returned.
- 
-  To run this C++ code example, ensure that you have setup your development environment, including your credentials.
-  For information, see this documentation topic:
-  https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
-*/
 
 // snippet-start:[dynamodb.cpp.query_items.code]
 //! Perform  a query on a DynamoDB Table and retrieve items.
@@ -43,7 +29,7 @@
   \param partitionKey: The partition key.
   \param partitionValue: The value for the partition key.
   \param projectionExpression: The projections expression, which is ignored if empty.
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
   */
 
@@ -52,15 +38,13 @@
  * contained in the item are returned. If an optional projection expression is
  * specified on the command line, only the specified fields and values are
  * returned.
- *
  */
 
-bool AwsDoc::DynamoDB::queryItem(const Aws::String& tableName,
-             const Aws::String& partitionKey,
-             const Aws::String& partitionValue,
-             const Aws::String& projectionExpression,
-             const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::DynamoDB::queryItem(const Aws::String &tableName,
+                                 const Aws::String &partitionKey,
+                                 const Aws::String &partitionValue,
+                                 const Aws::String &projectionExpression,
+                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
     Aws::DynamoDB::Model::QueryRequest request;
 
@@ -74,46 +58,56 @@ bool AwsDoc::DynamoDB::queryItem(const Aws::String& tableName,
     attributeValues.emplace(":valueToMatch", partitionValue);
 
     request.SetExpressionAttributeValues(attributeValues);
+    request.SetLimit(1); // TODO(developer): remove code needed for pagination testing
 
     // Perform Query operation
-    const Aws::DynamoDB::Model::QueryOutcome& outcome = dynamoClient.Query(request);
-    if (outcome.IsSuccess())
-    {
+    const Aws::DynamoDB::Model::QueryOutcome &outcome = dynamoClient.Query(request);
+    if (outcome.IsSuccess()) {
         // Reference the retrieved items
-        const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>>& items = outcome.GetResult().GetItems();
-        if(items.size() > 0)
-        {
-            std::cout << "Number of items retrieved from Query: " << items.size() << std::endl;
+        const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
+        if (!items.empty()) {
+            std::cout << "Number of items retrieved from Query: " << items.size()
+                      << std::endl;
             //Iterate each item and print
-            for(const auto &item: items)
-            {
-                std::cout << "******************************************************" << std::endl;
+            for (const auto &item: items) {
+                std::cout << "******************************************************"
+                          << std::endl;
                 // Output each retrieved field and its value
-                for (const auto& i : item)
+                for (const auto &i: item)
                     std::cout << i.first << ": " << i.second.GetS() << std::endl;
             }
         }
-
-        else
-        {
+        else {
             std::cout << "No item found in table: " << tableName << std::endl;
         }
     }
-    else
-    {
+    else {
         std::cerr << "Failed to Query items: " << outcome.GetError().GetMessage();
     }
+
+    return outcome.IsSuccess();
 }
 // snippet-end:[dynamodb.cpp.query_items.code]
 
+/*
+ *  main function
+ *
+ *  Usage: 'run_query_items <table_name> <partition_key> <partition_value> [projection_expression]'
+ *
+ *  Prerequisites: A pre-populated DynamoDB table.
+ *
+ *  Instructions for populating a table with sample data can be found at:
+ *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html
+ *
+ */
 
-int main(int argc, char** argv)
-{
-    if (argc < 4)
-    {
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    if (argc < 4) {
         std::cout << R"(
 Usage:
-    query_items <table_name> <partition_key> <partition_value> [projection_expression]
+    run_query_items <table_name> <partition_key> <partition_value> [projection_expression]
 Where:
     table_name - the table to get an item from.
     partition_key  - Partition Key attribute of the table.
@@ -132,11 +126,14 @@ Where:
         const Aws::String projection(argc > 4 ? argv[4] : "");
 
         Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::DynamoDB::queryItem(tableName, partitionKey, partitionValue, projection, clientConfig);
+        AwsDoc::DynamoDB::queryItem(tableName, partitionKey, partitionValue, projection,
+                                    clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
+
+#endif //  TESTING_BUILD

@@ -16,7 +16,7 @@ SPDX-License-Identifier: Apache-2.0
 
 //snippet-start:[dynamodb.cpp.list_tables.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h> 
+#include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/ListTablesRequest.h>
 #include <aws/dynamodb/model/ListTablesResult.h>
@@ -28,28 +28,28 @@ SPDX-License-Identifier: Apache-2.0
 //! List the DynamoDB tables for the current AWS account.
 /*!
   \sa listTables()
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 
-bool listTables(const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::DynamoDB::listTables(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     Aws::DynamoDB::Model::ListTablesRequest listTablesRequest;
     listTablesRequest.SetLimit(50);
-    do
-    {
-        const Aws::DynamoDB::Model::ListTablesOutcome& outcome = dynamoClient.ListTables(listTablesRequest);
-        if (!outcome.IsSuccess())
-        {
+    do {
+        const Aws::DynamoDB::Model::ListTablesOutcome &outcome = dynamoClient.ListTables(
+                listTablesRequest);
+        if (!outcome.IsSuccess()) {
             std::cout << "Error: " << outcome.GetError().GetMessage() << std::endl;
             return false;
         }
 
-        for (const auto& tableName : outcome.GetResult().GetTableNames())
+        for (const auto &tableName: outcome.GetResult().GetTableNames())
             std::cout << tableName << std::endl;
-        listTablesRequest.SetExclusiveStartTableName(outcome.GetResult().GetLastEvaluatedTableName());
+        listTablesRequest.SetExclusiveStartTableName(
+                outcome.GetResult().GetLastEvaluatedTableName());
 
     } while (!listTablesRequest.GetExclusiveStartTableName().empty());
 
@@ -58,7 +58,6 @@ bool listTables(const Aws::Client::ClientConfiguration &clientConfiguration)
 // snippet-end:[dynamodb.cpp.list_tables.code]
 
 /*
- *
  *  main function
  *
  *  Usage: 'run_list_tables'
@@ -67,8 +66,7 @@ bool listTables(const Aws::Client::ClientConfiguration &clientConfiguration)
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
+int main(int argc, char **argv) {
     std::cout << "Your DynamoDB Tables:" << std::endl;
 
     Aws::SDKOptions options;
@@ -76,7 +74,7 @@ int main(int argc, char** argv)
     Aws::InitAPI(options);
     {
         Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
         AwsDoc::DynamoDB::listTables(clientConfig);

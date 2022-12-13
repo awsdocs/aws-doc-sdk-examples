@@ -27,7 +27,7 @@ namespace AwsDoc {
         //! Scenario to modify and query a DynamoDB table using single PartiQL statements.
         /*!
           \sa partiqlExecuteScenario()
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
         bool partiqlExecuteScenario(
@@ -36,7 +36,7 @@ namespace AwsDoc {
         //! Scenario to modify and query a DynamoDB table using PartiQL batch statements.
         /*!
           \sa partiqlBatchExecuteScenario()
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
         bool partiqlBatchExecuteScenario(
@@ -45,7 +45,7 @@ namespace AwsDoc {
         //! Scenario to modify and query a DynamoDB table.
         /*!
           \sa dynamodbGettingStartedScenario()
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
         bool dynamodbGettingStartedScenario(
@@ -54,28 +54,38 @@ namespace AwsDoc {
         //! Batch get items from different Amazon DynamoDB tables.
         /*!
           \sa batchGetItem()
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
         bool batchGetItem(const Aws::Client::ClientConfiguration &clientConfiguration);
 
-         //! Create an DynamoDB table.
+        //! Batch write items from a JSON file.
+        /*!
+          \sa batchWriteItem()
+          \param jsonFilePath: JSON file path.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool batchWriteItem(const Aws::String &jsonFilePath,
+                            const Aws::Client::ClientConfiguration &clientConfiguration);
+
+            //! Create an DynamoDB table.
         /*!
           \sa createDynamoDBTable()
           \param tableName: Name for the DynamoDB table.
           \param primaryKey: Primary key for the DynamoDB table.
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
         bool createDynamoDBTable(const Aws::String &tableName,
-                                 const Aws::String& primaryKey,
+                                 const Aws::String &primaryKey,
                                  const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Create an DynamoDB table with a composite key.
         /*!
           \sa createDynamoDBTableWithCompositeKey()
           \param tableName: Name for the DynamoDB table.
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
         bool createDynamoDBTableWithCompositeKey(const Aws::String &tableName,
@@ -85,7 +95,7 @@ namespace AwsDoc {
         /*!
           \sa deleteDynamoTable()
           \param tableName: The DynamoDB table's name.
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
         */
         bool deleteDynamoTable(const Aws::String &tableName,
@@ -98,24 +108,24 @@ namespace AwsDoc {
           \param tableName: The table name.
           \param partitionKey: The partition key.
           \param partitionValue: The value for the partition key.
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
 
-        bool deleteItem(const Aws::String& tableName,
-                        const Aws::String& partitionKey,
-                        const Aws::String& partitionValue,
+        bool deleteItem(const Aws::String &tableName,
+                        const Aws::String &partitionKey,
+                        const Aws::String &partitionValue,
                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Describe a DynamoDB table.
         /*!
           \sa describeTable()
           \param tableName: The DynamoDB table's name.
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
         */
         bool describeTable(const Aws::String &tableName,
-                               const Aws::Client::ClientConfiguration &clientConfiguration);
+                           const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Gets an item from a DynamoDB table.
         /*!
@@ -123,19 +133,19 @@ namespace AwsDoc {
           \param tableName: The table name.
           \param partitionKey: The partition key.
           \param partitionValue: The value for the partition key.
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
 
-        bool getItem(const Aws::String& tableName,
-                        const Aws::String& partitionKey,
-                        const Aws::String& partitionValue,
-                        const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool getItem(const Aws::String &tableName,
+                     const Aws::String &partitionKey,
+                     const Aws::String &partitionValue,
+                     const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! List the DynamoDB tables for the current AWS account.
         /*!
           \sa getItem()
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
 
@@ -153,18 +163,18 @@ namespace AwsDoc {
           \param awardsValue: The awards value.
           \param songTitleKey: The song title key.
           \param songTitleValue: The song title value.
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool putItem(const Aws::String& tableName,
-                     const Aws::String& artistKey,
-                     const Aws::String& artistValue,
-                     const Aws::String& albumTitleKey,
-                     const Aws::String& albumTitleValue,
-                     const Aws::String& awardsKey,
-                     const Aws::String& awardsValue,
-                     const Aws::String& songTitleKey,
-                     const Aws::String& songTitleValue,
+        bool putItem(const Aws::String &tableName,
+                     const Aws::String &artistKey,
+                     const Aws::String &artistValue,
+                     const Aws::String &albumTitleKey,
+                     const Aws::String &albumTitleValue,
+                     const Aws::String &awardsKey,
+                     const Aws::String &awardsValue,
+                     const Aws::String &songTitleKey,
+                     const Aws::String &songTitleValue,
                      const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Perform  a query on a DynamoDB Table and retrieve items.
@@ -174,37 +184,83 @@ namespace AwsDoc {
           \param partitionKey: The partition key.
           \param partitionValue: The value for the partition key.
           \param projectionExpression: The projections expression, which is ignored if empty.
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
           */
-        bool queryItem(const Aws::String& tableName,
-                       const Aws::String& partitionKey,
-                       const Aws::String& partitionValue,
-                       const Aws::String& projectionExpression,
+        bool queryItem(const Aws::String &tableName,
+                       const Aws::String &partitionKey,
+                       const Aws::String &partitionValue,
+                       const Aws::String &projectionExpression,
                        const Aws::Client::ClientConfiguration &clientConfiguration);
 
+        //! Scans a DynamoDB table.
+        /*!
+          \sa scanTable()
+          \param tableName: Name for the DynamoDB table.
+          \param projectionExpression: An optional projection expression, ignored if empty.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool scanTable(const Aws::String &tableName,
+                       const Aws::String &projectionExpression,
+                       const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Update a DynamoDB table item.
+        /*!
+          \sa updateItem()
+          \param tableName: The table name.
+          \param partitionKey: The partition key.
+          \param partitionValue: The value for the partition key.
+          \param attributeKey: The key for the attribute to be updated.
+          \param attributeValue: The value for the attribuge to be updated.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+          */
+        bool updateItem(const Aws::String &tableName,
+                        const Aws::String &partitionKey,
+                        const Aws::String &partitionValue,
+                        const Aws::String &attributeKey,
+                        const Aws::String &attributeValue,
+                        const Aws::Client::ClientConfiguration &clientConfiguration);
+
+
+        //! Update an Amazon DynamoDB table.
+        /*!
+          \sa updateTable()
+          \param tableName: Name for the DynamoDB table.
+          \param readCapacity: Provisioned read capacity.
+          \param writeCapacity: Provisioned write capacity.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool updateTable(const Aws::String &tableName,
+                         long long readCapacity,
+                         long long writeCapacity,
+                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Create a DynamoDB table to be used in sample code scenarios.
         /*!
           \sa createMoviesDynamoDBTable()
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
         */
-        bool createMoviesDynamoDBTable(const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool createMoviesDynamoDBTable(
+                const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete the DynamoDB table used for sample code scenarios.
         /*!
           \sa deleteMoviesDynamoDBTable()
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
         */
-        bool deleteMoviesDynamoDBTable(const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool deleteMoviesDynamoDBTable(
+                const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Query a newly created DynamoDB table until it is active.
         /*!
           \sa waitTableActive()
           \param waitTableActive: The DynamoDB table's name.
-          \param clientConfiguration: Aws client configuration.
+          \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
         */
         bool waitTableActive(const Aws::String &tableName,

@@ -16,7 +16,7 @@
 
 //snippet-start:[dynamodb.cpp.put_item.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h> 
+#include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/PutItemRequest.h>
@@ -38,32 +38,35 @@
   \param awardsValue: The awards value.
   \param songTitleKey: The song title key.
   \param songTitleValue: The song title value.
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::DynamoDB::putItem(const Aws::String& tableName,
-             const Aws::String& artistKey,
-             const Aws::String& artistValue,
-             const Aws::String& albumTitleKey,
-             const Aws::String& albumTitleValue,
-             const Aws::String& awardsKey,
-             const Aws::String& awardsValue,
-             const Aws::String& songTitleKey,
-             const Aws::String& songTitleValue,
-             const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::DynamoDB::putItem(const Aws::String &tableName,
+                               const Aws::String &artistKey,
+                               const Aws::String &artistValue,
+                               const Aws::String &albumTitleKey,
+                               const Aws::String &albumTitleValue,
+                               const Aws::String &awardsKey,
+                               const Aws::String &awardsValue,
+                               const Aws::String &songTitleKey,
+                               const Aws::String &songTitleValue,
+                               const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     Aws::DynamoDB::Model::PutItemRequest putItemRequest;
 
-    putItemRequest.AddItem(artistKey, Aws::DynamoDB::Model::AttributeValue().SetS(artistValue)); // This is the hash key.
-    putItemRequest.AddItem(albumTitleKey, Aws::DynamoDB::Model::AttributeValue().SetS(albumTitleValue));
-    putItemRequest.AddItem(awardsKey, Aws::DynamoDB::Model::AttributeValue().SetS(awardsValue));
-    putItemRequest.AddItem(songTitleKey, Aws::DynamoDB::Model::AttributeValue().SetS(songTitleValue));
+    putItemRequest.AddItem(artistKey, Aws::DynamoDB::Model::AttributeValue().SetS(
+            artistValue)); // This is the hash key.
+    putItemRequest.AddItem(albumTitleKey, Aws::DynamoDB::Model::AttributeValue().SetS(
+            albumTitleValue));
+    putItemRequest.AddItem(awardsKey,
+                           Aws::DynamoDB::Model::AttributeValue().SetS(awardsValue));
+    putItemRequest.AddItem(songTitleKey,
+                           Aws::DynamoDB::Model::AttributeValue().SetS(songTitleValue));
 
-    const Aws::DynamoDB::Model::PutItemOutcome outcome = dynamoClient.PutItem(putItemRequest);
-    if (outcome.IsSuccess())
-    {
+    const Aws::DynamoDB::Model::PutItemOutcome outcome = dynamoClient.PutItem(
+            putItemRequest);
+    if (outcome.IsSuccess()) {
         std::cout << "Successfully added Item!" << std::endl;
     }
     else {
@@ -88,11 +91,9 @@ bool AwsDoc::DynamoDB::putItem(const Aws::String& tableName,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc < 9)
-    {
-       std::cout << R"(
+int main(int argc, char **argv) {
+    if (argc < 9) {
+        std::cout << R"(
 Usage:
     <table_name> <artist_key> <artist_value> <album_title_key> <album_title_value> <awards_key>
         <awards_value> <song_title_key> <song_title_value>
@@ -108,7 +109,7 @@ Where:
     song_title_value - the value of the song title (for example, Happy Day).
 **Warning** This program will  place an item that you specify into a table!;
 )";
-       return 1;
+        return 1;
     }
 
     Aws::SDKOptions options;
@@ -126,11 +127,13 @@ Where:
         const Aws::String songTitleValue = (argv[9]);
 
         Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::DynamoDB::putItem(tableName, artistKey, artistValue, albumTitleKey, albumTitleValue,
-                                  awardsKey, awardsValue, songTitleKey, songTitleValue, clientConfig);
+        AwsDoc::DynamoDB::putItem(tableName, artistKey, artistValue, albumTitleKey,
+                                  albumTitleValue,
+                                  awardsKey, awardsValue, songTitleKey, songTitleValue,
+                                  clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

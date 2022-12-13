@@ -16,7 +16,7 @@
 
 //snippet-start:[dynamodb.cpp.get_item.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h> 
+#include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/GetItemRequest.h>
@@ -31,41 +31,38 @@
   \param tableName: The table name.
   \param partitionKey: The partition key.
   \param partitionValue: The value for the partition key.
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 
-bool AwsDoc::DynamoDB::getItem(const Aws::String& tableName,
-             const Aws::String& partitionKey,
-             const Aws::String& partitionValue,
-             const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::DynamoDB::getItem(const Aws::String &tableName,
+                               const Aws::String &partitionKey,
+                               const Aws::String &partitionValue,
+                               const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
     Aws::DynamoDB::Model::GetItemRequest request;
 
     // Set up the request.
     request.SetTableName(tableName);
-    request.AddKey(partitionKey, Aws::DynamoDB::Model::AttributeValue().SetS(partitionValue));
+    request.AddKey(partitionKey,
+                   Aws::DynamoDB::Model::AttributeValue().SetS(partitionValue));
 
     // Retrieve the item's fields and values
-    const Aws::DynamoDB::Model::GetItemOutcome& outcome = dynamoClient.GetItem(request);
-    if (outcome.IsSuccess())
-    {
+    const Aws::DynamoDB::Model::GetItemOutcome &outcome = dynamoClient.GetItem(request);
+    if (outcome.IsSuccess()) {
         // Reference the retrieved fields/values.
-        const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>& item = outcome.GetResult().GetItem();
-        if (item.size() > 0)
-        {
+        const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &item = outcome.GetResult().GetItem();
+        if (item.size() > 0) {
             // Output each retrieved field and its value.
-            for (const auto& i : item)
-                std::cout << "Values: " << i.first << ": " << i.second.GetS() << std::endl;
+            for (const auto &i: item)
+                std::cout << "Values: " << i.first << ": " << i.second.GetS()
+                          << std::endl;
         }
-        else
-        {
+        else {
             std::cout << "No item found with the key " << partitionKey << std::endl;
         }
     }
-    else
-    {
+    else {
         std::cerr << "Failed to get item: " << outcome.GetError().GetMessage();
     }
 
@@ -86,10 +83,8 @@ bool AwsDoc::DynamoDB::getItem(const Aws::String& tableName,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc < 4)
-    {
+int main(int argc, char **argv) {
+    if (argc < 4) {
         std::cout << R"("Usage:
     run_get_item <table_name> <partition_key> <partition_value>
 Where:
@@ -103,18 +98,19 @@ Example:
     }
 
     Aws::SDKOptions options;
-    
+
     Aws::InitAPI(options);
     {
-        const Aws::String tableName =  (argv[1]);
-        const Aws::String partitionKey  = (argv[2]);
+        const Aws::String tableName = (argv[1]);
+        const Aws::String partitionKey = (argv[2]);
         const Aws::String partitionValue = (argv[3]);
 
         Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::DynamoDB::getItem(tableName, partitionKey, partitionValue, clientConfig);
+        AwsDoc::DynamoDB::getItem(tableName, partitionKey, partitionValue,
+                                  clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

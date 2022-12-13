@@ -115,6 +115,7 @@ target_compile_definitions(
         PUBLIC
         TESTING_BUILD
         MOVIE_FILE_PATH="${MOVIE_FILE_PATH}"
+        TESTS_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
 target_link_libraries(

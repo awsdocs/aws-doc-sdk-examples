@@ -41,7 +41,7 @@
 //! Scenario to modify and query a DynamoDB table using PartiQL batch statements.
 /*!
   \sa partiqlBatchExecuteScenario()
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 bool AwsDoc::DynamoDB::partiqlBatchExecuteScenario(
@@ -332,12 +332,12 @@ int main(int argc, char **argv) {
 // snippet-start:[cpp.example_code.dynamodb.Scenario_PartiQL_Batch.main]
         Aws::Client::ClientConfiguration clientConfig;
         //  1. Create a table. (CreateTable)
-        if (AwsDoc::DynamoDB::createDynamoDBTableForScenario(clientConfig)) {
+        if (AwsDoc::DynamoDB::createMoviesDynamoDBTable(clientConfig)) {
 
             AwsDoc::DynamoDB::partiqlBatchExecuteScenario(clientConfig);
 
             // 7. Delete the table. (DeleteTable)
-            AwsDoc::DynamoDB::deleteDynamoTableForScenario(clientConfig);
+            AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(clientConfig);
         }
 // snippet-end:[cpp.example_code.dynamodb.Scenario_PartiQL_Batch.main]
     }

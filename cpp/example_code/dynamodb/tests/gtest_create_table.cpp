@@ -11,7 +11,13 @@ namespace AwsDocTest {
     // NOLINTNEXTLINE (readability-named-parameter)
     TEST_F(DynamoDB_GTests, create_table) {
 
-    bool result = AwsDoc::DynamoDB::batchGetItem(*s_clientConfig);
-    ASSERT_TRUE(result);
+        Aws::String tableName = uuidName("table");
+
+        bool result = AwsDoc::DynamoDB::createDynamoDBTable(tableName,
+                                                            "primary_key",
+                                                            *s_clientConfig);
+        ASSERT_TRUE(result);
+
+        deleteTable(tableName);
 }
 } // A

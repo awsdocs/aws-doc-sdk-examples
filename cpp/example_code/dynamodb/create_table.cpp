@@ -13,6 +13,7 @@
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  **/
+
 //snippet-start:[dynamodb.cpp.create_table.inc]
 #include <aws/core/Aws.h>
 #include <aws/dynamodb/DynamoDBClient.h>
@@ -25,27 +26,18 @@
 //snippet-end:[dynamodb.cpp.create_table.inc]
 #include "dynamodb_samples.h"
 
-/*
-   Create an Amazon DynamoDB table.
-
-   To run this C++ code example, ensure that you have setup your development environment, including your credentials.
-   For information, see this documentation topic:
-   https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
-*/
-
 // snippet-start:[dynamodb.cpp.create_table.code]
 //! Create an Amazon DynamoDB table.
 /*!
   \sa createDynamoDBTable()
   \param tableName: Name for the DynamoDB table.
   \param primaryKey: Primary key for the DynamoDB table.
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
                                            const Aws::String &primaryKey,
-                                           const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+                                           const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     std::cout << "Creating table " << tableName <<
@@ -53,10 +45,10 @@ bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
 
     Aws::DynamoDB::Model::CreateTableRequest request;
 
-    Aws::DynamoDB::Model::AttributeDefinition haskKey;
-    haskKey.SetAttributeName("Name");
-    haskKey.SetAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
-    request.AddAttributeDefinitions(haskKey);
+    Aws::DynamoDB::Model::AttributeDefinition hashKey;
+    hashKey.SetAttributeName("Name");
+    hashKey.SetAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
+    request.AddAttributeDefinitions(hashKey);
 
     Aws::DynamoDB::Model::KeySchemaElement keySchemaElement;
     keySchemaElement.WithAttributeName("Name").WithKeyType(
@@ -76,7 +68,7 @@ bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
                   " created!" << std::endl;
     }
     else {
-        std::cerr << "Failed to create table: " << outcome.GetError().GetMessage();
+        std::cerr << "Failed to create table: " << outcome.GetError().GetMessage() << std::endl;
     }
 
     return outcome.IsSuccess();
@@ -94,7 +86,7 @@ bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-     if (argc != 2) {
+     if (argc != 3) {
         std::cout << R"(
 Usage:
    run_create_table <table> <primary_key>
@@ -111,13 +103,14 @@ Example:
 
     Aws::InitAPI(options);
     {
-        const Aws::String table = (argv[1]);
-        const Aws::String primaryKey = argv[2];
+        const Aws::String tableName(argv[1]);
+        const Aws::String primaryKey(argv[2]);
 
          Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
+        AwsDoc::DynamoDB::createDynamoDBTable(tableName, primaryKey, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

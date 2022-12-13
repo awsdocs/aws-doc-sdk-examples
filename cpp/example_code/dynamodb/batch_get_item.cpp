@@ -24,7 +24,7 @@
 
 /*
  * Instructions for populating a table with sample data can be found at:
- *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html
+ *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html.
  *
  *  This example uses the "Forum.json" and "ProductCatalog.json" sample data.
  */
@@ -33,7 +33,7 @@
 //! Batch get items from different Amazon DynamoDB tables.
 /*!
   \sa batchGetItem()
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 bool AwsDoc::DynamoDB::batchGetItem(
@@ -95,8 +95,10 @@ bool AwsDoc::DynamoDB::batchGetItem(
         if (outcome.IsSuccess()) {
             for (const auto &responsesMapEntry: outcome.GetResult().GetResponses()) {
                 Aws::String tableName = responsesMapEntry.first;
-                const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>>& tableResults = responsesMapEntry.second;
-                std::cout << "Retrieved " << tableResults.size() << " responses for table '" << tableName << "'.\n" << std::endl;
+                const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &tableResults = responsesMapEntry.second;
+                std::cout << "Retrieved " << tableResults.size()
+                          << " responses for table '" << tableName << "'.\n"
+                          << std::endl;
                 if (tableName == "Forum") {
 
                     std::cout << "Name | Category | Message | Views" << std::endl;
@@ -148,7 +150,7 @@ bool AwsDoc::DynamoDB::batchGetItem(
  *
  *  Usage: 'run_batch_get_item'
  *
- *  Prerequisites: pre-populated DynamoDB tables.
+ *  Prerequisites: Pre-populated DynamoDB tables.
  *
  *  Instructions for populating a table with sample data can be found at:
  *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html
@@ -167,7 +169,7 @@ int main(int argc, char **argv) {
     Aws::InitAPI(options);
     {
         Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
         AwsDoc::DynamoDB::batchGetItem(clientConfig);

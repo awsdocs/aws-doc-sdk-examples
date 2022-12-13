@@ -16,7 +16,7 @@
 
 //snippet-start:[dynamodb.cpp.create_table_composite_key.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h> 
+#include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/CreateTableRequest.h>
@@ -28,16 +28,15 @@
 #include "dynamodb_samples.h"
 
 // snippet-start:[dynamodb.cpp.create_table_composite_key.code]
-//! Create an DynamoDB table with a composite key.
+//! Create a DynamoDB table with a composite key.
 /*!
   \sa createDynamoDBTableWithCompositeKey()
   \param tableName: Name for the DynamoDB table.
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 bool AwsDoc::DynamoDB::createDynamoDBTableWithCompositeKey(const Aws::String &tableName,
-                                         const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+                                                           const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     std::cout << "Creating table " << tableName <<
@@ -48,15 +47,19 @@ bool AwsDoc::DynamoDB::createDynamoDBTableWithCompositeKey(const Aws::String &ta
     Aws::DynamoDB::Model::CreateTableRequest request;
 
     Aws::DynamoDB::Model::AttributeDefinition hashKey1, hashKey2;
-    hashKey1.WithAttributeName("Language").WithAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
+    hashKey1.WithAttributeName("Language").WithAttributeType(
+            Aws::DynamoDB::Model::ScalarAttributeType::S);
     request.AddAttributeDefinitions(hashKey1);
-    hashKey2.WithAttributeName("Greeting").WithAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
+    hashKey2.WithAttributeName("Greeting").WithAttributeType(
+            Aws::DynamoDB::Model::ScalarAttributeType::S);
     request.AddAttributeDefinitions(hashKey2);
 
     Aws::DynamoDB::Model::KeySchemaElement keySchemaElement1, keySchemaElement2;
-    keySchemaElement1.WithAttributeName("Language").WithKeyType(Aws::DynamoDB::Model::KeyType::HASH);
+    keySchemaElement1.WithAttributeName("Language").WithKeyType(
+            Aws::DynamoDB::Model::KeyType::HASH);
     request.AddKeySchema(keySchemaElement1);
-    keySchemaElement2.WithAttributeName("Greeting").WithKeyType(Aws::DynamoDB::Model::KeyType::RANGE);
+    keySchemaElement2.WithAttributeName("Greeting").WithKeyType(
+            Aws::DynamoDB::Model::KeyType::RANGE);
     request.AddKeySchema(keySchemaElement2);
 
     Aws::DynamoDB::Model::ProvisionedThroughput throughput;
@@ -65,15 +68,16 @@ bool AwsDoc::DynamoDB::createDynamoDBTableWithCompositeKey(const Aws::String &ta
 
     request.SetTableName(tableName);
 
-    const Aws::DynamoDB::Model::CreateTableOutcome& outcome = dynamoClient.CreateTable(request);
-    if (outcome.IsSuccess())
-    {
-        std::cout << "Table \"" << outcome.GetResult().GetTableDescription().GetTableName() <<
+    const Aws::DynamoDB::Model::CreateTableOutcome &outcome = dynamoClient.CreateTable(
+            request);
+    if (outcome.IsSuccess()) {
+        std::cout << "Table \""
+                  << outcome.GetResult().GetTableDescription().GetTableName() <<
                   "\" was created!" << std::endl;
     }
-    else
-    {
-        std::cerr << "Failed to create table:" << outcome.GetError().GetMessage() << std::endl;
+    else {
+        std::cerr << "Failed to create table:" << outcome.GetError().GetMessage()
+                  << std::endl;
     }
 
     return outcome.IsSuccess();
@@ -90,10 +94,8 @@ bool AwsDoc::DynamoDB::createDynamoDBTableWithCompositeKey(const Aws::String &ta
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc < 2)
-    {
+int main(int argc, char **argv) {
+    if (argc < 2) {
         std::cout << R"(
 Usage:
     run_create_table_composite_key <table>
@@ -109,11 +111,11 @@ Where:
         const Aws::String tableName(argv[1]);
 
         Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
         AwsDoc::DynamoDB::createDynamoDBTableWithCompositeKey(tableName, clientConfig);
-     }
+    }
     Aws::ShutdownAPI(options);
     return 0;
 }
