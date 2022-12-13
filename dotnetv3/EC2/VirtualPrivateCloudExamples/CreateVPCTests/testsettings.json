@@ -1,0 +1,7 @@
+{
+  "BucketName": "ExampleBucket1",
+  "VpcId": "vpc-1a2b3c4d",
+  "SubnetId": "subnet-012345678912345606",
+  "SecurityGroupId": "sg-012345678912345606"
+}
+

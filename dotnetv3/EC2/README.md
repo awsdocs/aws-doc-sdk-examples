@@ -17,7 +17,8 @@ Amazon EC2 is a web service that provides resizable computing capacity—literal
 Code excerpts that show you how to call individual service functions.
 * [Create a security group](CreateSecurityGroupExample/CreateSecurityGroupExample/CreateSecurityGroup.cs) (`CreateSecurityGroupAsync`)
 * [Create a security key pair](CreateKeyPairExample/CreateKeyPairExample/CreateKeyPair.cs) (`CreateKeyPairAsync`)
-* [Create a VPC](CreateVPCExample/CreateVPCExample/CreateVPC.cs) (`CreateVpcAsync`)
+* [Create a VPC](VirtualPrivateCloudExamples/CreateVPCExample/CreateVPC.cs) (`CreateVpcAsync`)
+* [Create a VPC Endpoint to use with an S3 Client](VirtualPrivateCloudExamples/CreateVPCforS3Example/CreateVPCforS3.cs) (`CreateVpcAsync`)
 * [Delete a security group](DeleteSecurityGroupExample/DeleteSecurityGroupExample/DeleteSecurityGroup.cs) (`DeleteSecurityGroupAsync`)
 * [Delete a security key pair](DeleteKeyPairExample/DeleteKeyPairExample/DeleteKeyPair.cs) (`DeleteKeyPairAsync`)
 * [Delete a VPC](DeleteVPCExample/DeleteVPCExample/DeleteVPC.cs) (`DeleteVpcAsync`)

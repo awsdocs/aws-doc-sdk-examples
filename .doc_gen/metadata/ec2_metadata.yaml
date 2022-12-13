@@ -242,10 +242,10 @@ ec2_CreateVpc:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.CreateVPCExample
+                - EC2.dotnetv3.CreateVPC
             - description: Create a VPC Endpoint to use with an S3 Client.
               snippet_tags:
-                - EC2.dotnetv3.CreateVPCforS3Example
+                - EC2.dotnetv3.CreateVPCforS3
   services:
     ec2: {CreateVpc}
 ec2_StartInstances:
