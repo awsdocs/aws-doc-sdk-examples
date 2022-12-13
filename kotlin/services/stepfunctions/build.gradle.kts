@@ -23,10 +23,10 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:sfn:0.17.7-beta")
-    implementation("com.googlecode.json-simple:json-simple:1.1")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
+    implementation("aws.sdk.kotlin:sfn:0.19.0-beta")
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
