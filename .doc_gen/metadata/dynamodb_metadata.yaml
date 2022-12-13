@@ -118,7 +118,7 @@ dynamodb_BatchGetItem:
           excerpts:
             - description:
               snippet_tags:
-                - DynamoDB.dotnetv3.dynamodb-basics.GetItem
+                - dynamodb.dotnetv3.LowLevelBatchGetExample
     Python:
       versions:
         - sdk_version: 3
@@ -156,6 +156,14 @@ dynamodb_DescribeTable:
   synopsis: get information about a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.DescribeTableExample
     Java:
       versions:
         - sdk_version: 2
@@ -529,6 +537,14 @@ dynamodb_GetItem:
   synopsis: get an item from a &DDB; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - DynamoDB.dotnetv3.dynamodb-basics.GetItem
     C++:
       versions:
         - sdk_version: 1
@@ -855,6 +871,14 @@ dynamodb_ListTables:
   synopsis: list &DDB; tables.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.dotnetv3.ListTableExample
     C++:
       versions:
         - sdk_version: 1
@@ -1845,3 +1869,59 @@ dynamodb_Scenario_PartiQLBatch:
                 - cpp.example_code.dynamodb.scenario.waitTableActive
   services:
     dynamodb: {BatchExecuteStatement}
+dynamodb_HighLevelInterface:
+  title: Use a high-level object persistence model for &DDB; using an &AWS; SDK
+  title_abbrev: Use a high-level object persistence model
+  synopsis: perform Create, Read, Update, and Delete (CRUD) and batch operations using an object persistence model for &DDB; and an &AWS; SDK.
+  guide_topic:
+    title: Object persistence model
+    url: amazondynamodb/latest/developerguide/DotNetSDKHighLevel.html
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/high-level-api
+          excerpts:
+            - description: Perform CRUD operations using a high-level object persistence model.
+              snippet_tags:
+                - dynamodb.dotnetv3.HighLevelItemCRUDExample
+            - description: Perform batch write operations using a high-level object persistence model.
+              snippet_tags:
+                - dynamodb.dotnetv3.HighLevelBatchWriteItemExample
+            - description: Map arbitrary data to a table using a high-level object persistence model.
+              snippet_tags:
+                - dynamodb.dotnetv3.HighLevelMappingArbitraryDataExample
+            - description: Query and scan a table using a high-level object persistence model.
+              snippet_tags:
+                - dynamodb.dotnetv3.HighLevelQueryAndScanExample
+  services:
+    dynamodb: {}
+dynamodb_MidLevelInterface:
+  title: Use a document model for &DDB; using an &AWS; SDK
+  title_abbrev: Use a document model
+  synopsis: perform Create, Read, Update, and Delete (CRUD) and batch operations using a document model for &DDB; and an &AWS; SDK.
+  guide_topic:
+    title: Document model
+    url: amazondynamodb/latest/developerguide/DotNetSDKMidLevel.html
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb/mid-level-api
+          excerpts:
+            - description: Perform CRUD operations using a document model.
+              snippet_tags:
+                - dynamodb.dotnetv3.MidlevelItemCRUDExample
+            - description: Perform batch write operations using a document model.
+              snippet_tags:
+                - dynamodb.dotnetv3.MidLevelBatchWriteItemExample
+            - description: Scan a table using a document model.
+              snippet_tags:
+                - dynamodb.dotnetv3.MidLevelScanOnlyExample
+            - description: Query and scan a table using a document model.
+              snippet_tags:
+                - dynamodb.dotnetv3.MidLevelQueryAndScanExample
+  services:
+    dynamodb: {}

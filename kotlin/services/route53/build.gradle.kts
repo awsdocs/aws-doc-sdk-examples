@@ -23,9 +23,10 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:route53:0.17.7-beta")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
+    implementation("aws.sdk.kotlin:route53:0.19.0-beta")
+    implementation("aws.sdk.kotlin:route53domains:0.19.0-beta")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"

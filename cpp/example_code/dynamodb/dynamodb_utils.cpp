@@ -203,7 +203,7 @@ Aws::String AwsDoc::DynamoDB::askQuestion(const Aws::String &string,
             std::cout << "Please enter some text." << std::endl;
         }
         if (!test(result)) {
-            continue;
+            result.clear();
         }
     } while (result.empty());
 
@@ -224,6 +224,7 @@ int AwsDoc::DynamoDB::askQuestionForInt(const Aws::String &string) {
                                                        return true;
                                                    }
                                                    catch (const std::invalid_argument &) {
+                                                       std::cout << "\nNot a valid number." << std::endl;
                                                        return false;
                                                    }
                                            });
@@ -254,9 +255,15 @@ float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, floa
             const Aws::String &string1) -> bool {
             try {
                 float number = std::stof(string1);
-                return number >= low && number <= high;
+                bool result =  number >= low && number <= high;
+                if (!result)
+                {
+                    std::cout << "\nThe number is out of range." << std::endl;
+                }
+                return result;
             }
             catch (const std::invalid_argument &) {
+                std::cout << "\nNot a valid number." << std::endl;
                 return false;
             }
     });
@@ -288,9 +295,15 @@ int AwsDoc::DynamoDB::askQuestionForIntRange(const Aws::String &string, int low,
             const Aws::String &string1) -> bool {
             try {
                 int number = std::stoi(string1);
-                return number >= low && number <= high;
+                bool result = number >= low && number <= high;
+                if (!result)
+                {
+                    std::cout << "\nThe number is out of range." << std::endl;
+                }
+                return result;
             }
             catch (const std::invalid_argument &) {
+                std::cout << "\nNot a valid number." << std::endl;
                 return false;
             }
     });
