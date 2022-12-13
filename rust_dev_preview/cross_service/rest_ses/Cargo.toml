@@ -18,18 +18,22 @@ aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" 
 aws-sdk-cloudwatchlogs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-rdsdata = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-ses = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-chrono = { version = "0.4.22", default-features = false, features = ["clock", "serde"] }
+chrono = { version = "0.4.22", default-features = false, features = [
+    "clock",
+    "serde",
+] }
 color-eyre = "0.6.2"
 config = "0.13.2"
 derive_more = "0.99.17"
 futures = "0.3.24"
-mail-builder = "0.2.2"
+# newer versions of this crate aren't yet compatible with our MSRV
+mail-builder = "=0.2.2"
 reqwest = "0.11.12"
 secrecy = { version = "0.8.0", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0.86"
 thiserror = "1.0.37"
-tokio = {version = "1", features = ["macros", "rt-multi-thread"]}
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 tracing = "0.1.37"
 tracing-actix-web = "0.6.1"
 tracing-bunyan-formatter = "0.3.4"
