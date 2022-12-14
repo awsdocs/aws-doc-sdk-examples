@@ -101,7 +101,7 @@ public class CreateVPCforS3
 
         // For newly created endpoints we may need to wait a few
         // more minutes before using it for the Amazon S3 client.
-        Thread.Sleep(300000);
+        Thread.Sleep(int.Parse(configuration["WaitTimeMilliseconds"]!));
 
         // Return the endpoint to create a ServiceURL to use with the S3 client.
         var vpceUrl =
