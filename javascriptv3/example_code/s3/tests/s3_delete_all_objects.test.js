@@ -8,7 +8,7 @@ import { s3Client } from "../src/libs/s3Client";
 
 describe("@aws-sdk/client-s3 mock", () => {
   it("should successfully mock S3 client", async () => {
-    s3Client.send.mockResolvedValue({ isMock: true });
+    s3Client.send.mockResolvedValue({ isMock: true, Contents: [{ Key: 1 }] });
     const response = await run(bucketParams);
     expect(response.isMock).toEqual(true);
   });
