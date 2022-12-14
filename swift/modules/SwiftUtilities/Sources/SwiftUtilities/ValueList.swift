@@ -49,7 +49,7 @@ public class ValueList {
     /// - Parameters:
     ///   - header: A title string for the entire list.
     ///   - gap: Minimum number of spaces that should separate the columns.
-    init(header: String? = nil) {
+    public init(header: String? = nil) {
         self.header = header
     }
 
@@ -58,7 +58,7 @@ public class ValueList {
     /// - Parameters:
     ///   - title: A title for the value.
     ///   - value: The `Int` value.
-    func addItem(title: String, value: Int) {
+    public func addItem(title: String, value: Int) {
         items.append(ValueItem(title: title, value: value))
     }
 
@@ -67,7 +67,7 @@ public class ValueList {
     /// - Parameters:
     ///   - title: A title for the value.
     ///   - value: The `String` value.
-    func addItem(title: String, value: String) {
+    public func addItem(title: String, value: String) {
         items.append(ValueItem(title: title, value: value))
     }
 
@@ -76,12 +76,12 @@ public class ValueList {
     /// - Parameters:
     ///   - title: A title for the value.
     ///   - value: The `Bool` value.
-   func addItem(title: String, value: Bool) {
+    public func addItem(title: String, value: Bool) {
         items.append(ValueItem(title: title, value: value))
     }
 
     /// Return the number of items in the list.
-    func getItemCount() -> Int {
+    public func getItemCount() -> Int {
         return self.items.count
     }
 
@@ -100,7 +100,7 @@ public class ValueList {
 
     /// The width of the gap. Zero if no gap. This is computed to take into
     /// account whether or not the list is empty, and any other factors.
-    var gapWidth: Int {
+    public var gapWidth: Int {
         get {
             if self.items.count == 0 {
                 return 0
@@ -152,7 +152,7 @@ public class ValueList {
     /// 
     /// - Returns: A `String` containing the entire formatted output, ready to
     ///   be displayed on the console.
-    func getFormattedOutput() -> String {
+    public func getFormattedOutput() -> String {
         var output = ""
 
         if self.header != nil {

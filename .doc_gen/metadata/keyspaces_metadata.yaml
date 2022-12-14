@@ -4,6 +4,15 @@ keyspaces_Hello:
   synopsis: get started using &KEYlong;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspaces.java2.hello.main
     Python:
       versions:
         - sdk_version: 3
@@ -21,6 +30,15 @@ keyspaces_CreateKeyspace:
   synopsis: create an &KEY; keyspace.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.java2.scenario.create.keyspace.main
     Python:
       versions:
         - sdk_version: 3
@@ -39,6 +57,15 @@ keyspaces_GetKeyspace:
   synopsis: get data about an &KEY; keyspace.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.java2.scenario.get.keyspace.main
     Python:
       versions:
         - sdk_version: 3
@@ -57,6 +84,15 @@ keyspaces_ListKeyspaces:
   synopsis: list &KEY; keyspaces.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.java2.scenario.list.keyspaces.main
     Python:
       versions:
         - sdk_version: 3
@@ -75,6 +111,15 @@ keyspaces_CreateTable:
   synopsis: create an &KEY; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.java2.scenario.create.table.main
     Python:
       versions:
         - sdk_version: 3
@@ -93,6 +138,15 @@ keyspaces_GetTable:
   synopsis: get data about an &KEY; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.java2.scenario.get.table.main
     Python:
       versions:
         - sdk_version: 3
@@ -111,6 +165,15 @@ keyspaces_ListTables:
   synopsis: list &KEY; tables in a keyspace.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.java2.scenario.list.tables.main
     Python:
       versions:
         - sdk_version: 3
@@ -129,6 +192,15 @@ keyspaces_UpdateTable:
   synopsis: update an &KEY; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.java2.scenario.update.table.main
     Python:
       versions:
         - sdk_version: 3
@@ -147,6 +219,15 @@ keyspaces_RestoreTable:
   synopsis: restore an &KEY; table to a point in time.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.java2.scenario.restore.table.main
     Python:
       versions:
         - sdk_version: 3
@@ -165,6 +246,15 @@ keyspaces_DeleteTable:
   synopsis: delete an &KEY; table.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.java2.scenario.delete.table.main
     Python:
       versions:
         - sdk_version: 3
@@ -183,6 +273,15 @@ keyspaces_DeleteKeyspace:
   synopsis: delete an &KEY; keyspace.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.java2.scenario.delete.keyspace.main
     Python:
       versions:
         - sdk_version: 3
@@ -210,6 +309,15 @@ keyspaces_Scenario_GetStartedKeyspaces:
     - Delete the table and keyspace.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.java2.scenario.main
     Python:
       versions:
         - sdk_version: 3

@@ -14,6 +14,14 @@ s3_Hello:
             - description:
               snippet_tags:
                 - python.example_code.s3.Hello
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.s3.Hello
   services:
     s3: {ListBuckets}
 s3_CreateBucket:
@@ -40,6 +48,15 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - s3.cpp.create_bucket.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.s3.BucketBasics.struct
+                - gov2.s3.CreateBucket
     Kotlin:
       versions:
         - sdk_version: 1
@@ -123,13 +140,6 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - s3.swift.basics.handler.createbucket
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/s3
-          excerpts:
-            - description:
-              snippet_tags: ['s3.go-v2.CreateBucket']
   services:
     s3: {CreateBucket}
 s3_CopyObject:
@@ -155,6 +165,15 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - s3.cpp.copy_objects.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.s3.BucketBasics.struct
+                - gov2.s3.CopyObject
     Kotlin:
       versions:
         - sdk_version: 1
@@ -202,13 +221,6 @@ s3_CopyObject:
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.CopyObject
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/s3
-          excerpts:
-            - description:
-              snippet_tags: ['s3.go-v2.CopyObject']
     Ruby:
       versions:
         - sdk_version: 3
@@ -370,13 +382,6 @@ s3_DeleteObject:
             - description:
               snippet_tags:
                 - s3.rust.delete-object
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/s3
-          excerpts:
-            - description:
-              snippet_tags: ['s3.go-v2.DeleteObject']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -436,6 +441,15 @@ s3_DeleteObjects:
             - description: 
               snippet_tags:
                 - s3.kotlin.delete_objects.main
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.s3.BucketBasics.struct
+                - gov2.s3.DeleteObjects
     Java:
       versions:
         - sdk_version: 2
@@ -581,13 +595,6 @@ s3_GetObjectAcl:
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.GetObjectAcl
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/s3
-          excerpts:
-            - description:
-              snippet_tags: ['s3.go-v2.GetObjectAcl']
   services:
     s3: {GetObjectAcl}
 s3_GetBucketPolicy:
@@ -705,6 +712,15 @@ s3_GetObject:
             - description:
               snippet_tags:
                 - s3.cpp.get_object.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.s3.BucketBasics.struct
+                - gov2.s3.GetObject
     Kotlin:
       versions:
         - sdk_version: 1
@@ -800,6 +816,22 @@ s3_GetObject:
             - description: Read an object into a Swift Data object.
               snippet_tags:
                 - s3.swift.basics.handler.readfile
+  services:
+    s3: {GetObject}
+s3_GetObject_IfModifiedSince:
+  title: Get an object from an &S3; bucket using an &AWS; SDK, specifying an If-Modified-Since header
+  title_abbrev: Get an object from a bucket if it has been modified
+  synopsis: read data from an object in an S3 bucket, but only if that bucket has not been modified since the last retrieval time.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.rust.if-modified-since
   services:
     s3: {GetObject}
 s3_GetBucketLifecycleConfiguration:
@@ -1001,6 +1033,15 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - s3.cpp.list_objects.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.s3.BucketBasics.struct
+                - gov2.s3.ListObjectsV2
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1045,13 +1086,6 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.list_objects
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/s3
-          excerpts:
-            - description:
-              snippet_tags: ['s3.go-v2.ListObjects']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1144,6 +1178,15 @@ s3_PutObject:
             - description:
               snippet_tags:
                 - s3.cpp.put_object.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.s3.BucketBasics.struct
+                - gov2.s3.PutObject
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1197,13 +1240,6 @@ s3_PutObject:
             - description:
               snippet_tags:
                 - rust.example_code.s3.basics.put_object
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/s3
-          excerpts:
-            - description:
-              snippet_tags: ['s3.go-v2.PutObject']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1304,6 +1340,15 @@ s3_DeleteBucket:
             - description:
               snippet_tags:
                 - s3.cpp.delete_bucket.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.s3.BucketBasics.struct
+                - gov2.s3.DeleteBucket
     Java:
       versions:
         - sdk_version: 2
@@ -1331,13 +1376,6 @@ s3_DeleteBucket:
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.DeleteBucket
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/s3
-          excerpts:
-            - description:
-              snippet_tags: ['s3.go-v2.DeleteBucket']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1561,13 +1599,6 @@ s3_GetBucketAcl:
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.GetBucketAcl
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/s3
-          excerpts:
-            - description:
-              snippet_tags: ['s3.go-v2.GetBucketAcl']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1795,6 +1826,15 @@ s3_HeadBucket:
   synopsis: determine the existence of an S3 bucket.
   category:
   languages:
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.s3.BucketBasics.struct
+                - gov2.s3.HeadBucket
     Python:
       versions:
         - sdk_version: 3
@@ -1831,6 +1871,15 @@ s3_ListBuckets:
             - description:
               snippet_tags:
                 - s3.cpp.list_buckets.code
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.s3.BucketBasics.struct
+                - gov2.s3.ListBuckets
     Python:
       versions:
         - sdk_version: 3
@@ -1849,13 +1898,6 @@ s3_ListBuckets:
             - description:
               snippet_tags:
                 - s3.rust.list-buckets
-    Go:
-      versions:
-        - sdk_version: 2
-          github: gov2/s3
-          excerpts:
-            - description:
-              snippet_tags: ['s3.go-v2.ListBuckets']
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1986,6 +2028,20 @@ s3_Scenario_UsingLargeFiles:
             - description: Upload an object with encryption.
               snippet_tags:
                 - S3.dotnetv3.SSECLowLevelMPUcopyObjectExample
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/s3
+          excerpts:
+            - description: Upload a large object by using an upload manager to break
+                the data into parts and upload them concurrently.
+              snippet_tags:
+                - gov2.s3.BucketBasics.struct
+                - gov2.s3.Upload
+            - description: Download a large object by using a download manager to get
+                the data in parts and download them concurrently.
+              snippet_tags:
+                - gov2.s3.Download
     Python:
       versions:
         - sdk_version: 3
@@ -2075,8 +2131,17 @@ s3_Scenario_PresignedUrl:
         - sdk_version: 2
           github: gov2/s3
           excerpts:
-            - description:
-              snippet_tags: ['s3.go-v2.generate_presigned_url']
+            - description: Create functions that wrap S3 presigning actions.
+              snippet_tags:
+                - gov2.s3.Presigner.complete
+            - description: Run an interactive example that generates and uses presigned
+                URLs to upload, download, and delete an S3 object.
+              snippet_tags:
+                - gov2.s3.Scenario_Presigning
+            - description: Define an HTTP request wrapper used by the example to make
+                HTTP requests.
+              snippet_tags:
+                - gov2.s3.IHttpRequester.helper
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2226,11 +2291,16 @@ s3_Scenario_GettingStarted:
     Go:
       versions:
         - sdk_version: 2
-          github: gov2/s3/common
+          github: gov2/s3
           excerpts:
-            - description:
+            - description: Define a struct that wraps bucket and object actions used by
+                the scenario.
               snippet_tags:
-                - s3.go-v2.s3_basics
+                - gov2.s3.BucketBasics.complete
+            - description: Run an interactive scenario that shows you how work with
+                S3 buckets and objects.
+              snippet_tags:
+                - gov2.s3.Scenario_GetStarted
     Rust:
       versions:
         - sdk_version: 1

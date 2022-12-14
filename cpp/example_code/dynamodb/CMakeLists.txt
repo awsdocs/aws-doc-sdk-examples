@@ -5,7 +5,7 @@
 cmake_minimum_required(VERSION 3.8)
 
 set(SERVICE_NAME dynamodb)
-set(SERVICE_COMPONENTS dynamodb)
+set(SERVICE_COMPONENTS dynamodb s3) # s3 is required for tests, and it must be included here because of caching.
 
 # Set this project's name.
 project("${SERVICE_NAME}-examples")

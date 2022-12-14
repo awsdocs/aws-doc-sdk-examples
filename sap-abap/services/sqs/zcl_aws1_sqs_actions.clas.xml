@@ -17,49 +17,49 @@
      <CLSNAME>ZCL_AWS1_SQS_ACTIONS</CLSNAME>
      <CMPNAME>CREATE_QUEUE</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create a queue</DESCRIPT>
+     <DESCRIPT>Create a queue.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SQS_ACTIONS</CLSNAME>
      <CMPNAME>DELETE_QUEUE</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Delete a queue</DESCRIPT>
+     <DESCRIPT>Delete a queue.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SQS_ACTIONS</CLSNAME>
      <CMPNAME>GET_QUEUE_URL</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Retrieve the URL of a queue</DESCRIPT>
+     <DESCRIPT>Retrieve the URL of a queue.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SQS_ACTIONS</CLSNAME>
      <CMPNAME>LIST_QUEUES</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Retrieve a list of queues</DESCRIPT>
+     <DESCRIPT>Retrieve a list of queues.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SQS_ACTIONS</CLSNAME>
      <CMPNAME>LONG_POLLING_ON_CREATE_QUEUE</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create an SQS queue with long polling enabled</DESCRIPT>
+     <DESCRIPT>Create an SQS queue with long polling enabled.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SQS_ACTIONS</CLSNAME>
      <CMPNAME>LONG_POLLING_ON_MSG_RECEIPT</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Enable long polling on a message receipt</DESCRIPT>
+     <DESCRIPT>Enable long polling on a message receipt.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SQS_ACTIONS</CLSNAME>
      <CMPNAME>RECEIVE_MESSAGE</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Receive message from a queue</DESCRIPT>
+     <DESCRIPT>Receive message from a queue.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_SQS_ACTIONS</CLSNAME>
      <CMPNAME>SEND_MESSAGE</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Sending message to a queue</DESCRIPT>
+     <DESCRIPT>Sending message to a queue.</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>
