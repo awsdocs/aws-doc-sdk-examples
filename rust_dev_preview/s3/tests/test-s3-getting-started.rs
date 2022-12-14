@@ -12,10 +12,8 @@ use uuid::Uuid;
 #[tokio::test]
 async fn test_it_runs() {
     let (region, client, bucket_name, file_name, key, target_key) = setup().await;
-    match run_s3_operations(region, client, bucket_name, file_name, key, target_key).await {
-        Err(_e) => assert!(false),
-        _ => assert!(true),
-    }
+    let run = run_s3_operations(region, client, bucket_name, file_name, key, target_key).await;
+    run.expect("Failed to perform s3 actions");
 }
 
 async fn run_s3_operations(

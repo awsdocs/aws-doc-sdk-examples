@@ -1,6 +1,6 @@
-all: target/sdk-s3-examples-1.0.jar
+all: target/sdk-kinesis-examples-1.0.jar
 
-target/sdk-s3-examples-1.0.jar: src/main/java/com/example/s3/*.java
+target/sdk-kinesis-examples-1.0.jar: src/main/java/com/example/kinesis/*.java
 	mvn package
 
 clean:

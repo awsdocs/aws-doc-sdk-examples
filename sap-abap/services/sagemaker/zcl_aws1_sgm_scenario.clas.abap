@@ -62,14 +62,14 @@ CLASS ZCL_AWS1_SGM_SCENARIO IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_sgm) = /aws1/cl_sgm_factory=>create( lo_session ).
 
-    "This example scenario contains the following actions."
-    " 1. Model Training "
-    " 2. Model Creation "
-    " 3. Create endpoint configuration "
-    " 4. Create endpoint "
-    " 5. Delete endpoint "
-    " 6. Delete an endpoint configuration "
-    " 7. Delete model "
+    "This example scenario contains the following actions:"
+    " 1. Model training. "
+    " 2. Model creation. "
+    " 3. Create endpoint configuration. "
+    " 4. Create endpoint. "
+    " 5. Delete endpoint. "
+    " 6. Delete endpoint configuration. "
+    " 7. Delete model. "
 
     "snippet-start:[sgm.abapv1.getting_started_with_sgm]
 
@@ -119,7 +119,7 @@ CLASS ZCL_AWS1_SGM_SCENARIO IMPLEMENTATION.
     INSERT VALUE #( key = 'num_round' value = lo_hyperparameters_w )  INTO TABLE lt_hyperparameters.
 
     "Create ABAP internal table for data based on input variables."
-    "Training data"
+    "Training data."
     CREATE OBJECT lo_trn_s3datasource
       EXPORTING
         iv_s3datatype             = iv_trn_data_s3datatype
@@ -136,7 +136,7 @@ CLASS ZCL_AWS1_SGM_SCENARIO IMPLEMENTATION.
         iv_contenttype     = iv_trn_data_contenttype.
     INSERT lo_trn_channel INTO TABLE lt_input_data_config.
 
-    "Validation data"
+    "Validation data."
     CREATE OBJECT lo_val_s3datasource
       EXPORTING
         iv_s3datatype             = iv_val_data_s3datatype
@@ -159,17 +159,17 @@ CLASS ZCL_AWS1_SGM_SCENARIO IMPLEMENTATION.
         iv_trainingimage     = iv_training_image
         iv_traininginputmode = iv_training_input_mode.
 
-    "Create an ABAP object for resource configuration"
+    "Create an ABAP object for resource configuration."
     CREATE OBJECT lo_resource_config
       EXPORTING
         iv_instancecount  = iv_instance_count
         iv_instancetype   = iv_instance_type
         iv_volumesizeingb = iv_volume_sizeingb.
 
-    "Create an ABAP object for output data configuration"
+    "Create an ABAP object for output data configuration."
     CREATE OBJECT lo_output_data_config EXPORTING iv_s3outputpath = iv_s3_output_path.
 
-    "Create ABAP object for stopping condition"
+    "Create an ABAP object for stopping condition."
     CREATE OBJECT lo_stopping_condition EXPORTING iv_maxruntimeinseconds = iv_max_runtime_in_seconds.
 
     TRY.
@@ -183,20 +183,20 @@ CLASS ZCL_AWS1_SGM_SCENARIO IMPLEMENTATION.
           io_resourceconfig            = lo_resource_config
           io_stoppingcondition         = lo_stopping_condition
         ).
-        MESSAGE 'Training job created' TYPE 'I'.
+        MESSAGE 'Training job created.' TYPE 'I'.
       CATCH /aws1/cx_sgmresourceinuse.
         MESSAGE 'Resource being accessed is in use.' TYPE 'E'.
       CATCH /aws1/cx_sgmresourcenotfound.
-        MESSAGE 'Resource being access is not found.' TYPE 'E'.
+        MESSAGE 'Resource being accessed is not found.' TYPE 'E'.
       CATCH /aws1/cx_sgmresourcelimitexcd.
-        MESSAGE 'You have reached the limit on the number of resources' TYPE 'E'.
+        MESSAGE 'You have reached the limit on the number of resources.' TYPE 'E'.
     ENDTRY.
 
-    "Wait for training job to be completed"
+    "Wait for training job to be completed."
     lo_training_result = lo_sgm->describetrainingjob( iv_trainingjobname = iv_training_job_name ).
     WHILE lo_training_result->get_trainingjobstatus( ) <> 'Completed'.
       IF sy-index = 30.
-        EXIT.               "maximum 900 seconds"
+        EXIT.               "Maximum 900 seconds."
       ENDIF.
       WAIT UP TO 30 SECONDS.
       lo_training_result = lo_sgm->describetrainingjob( iv_trainingjobname = iv_training_job_name ).
@@ -208,19 +208,19 @@ CLASS ZCL_AWS1_SGM_SCENARIO IMPLEMENTATION.
         iv_image        = iv_training_image
         iv_modeldataurl = lv_model_data_url.
 
-    "Create a Sagemaker model"
+    "Create an Amazon SageMaker model."
     TRY.
         lo_sgm->createmodel(
           iv_executionrolearn = iv_role_arn
           iv_modelname = iv_model_name
           io_primarycontainer = lo_primarycontainer
         ).
-        MESSAGE 'Model created' TYPE 'I'.
+        MESSAGE 'Model created.' TYPE 'I'.
       CATCH /aws1/cx_sgmresourcelimitexcd.
-        MESSAGE 'You have reached the limit on the number of resources' TYPE 'E'.
+        MESSAGE 'You have reached the limit on the number of resources.' TYPE 'E'.
     ENDTRY.
 
-    "Create an endpoint production variant"
+    "Create an endpoint production variant."
     CREATE OBJECT lo_production_variants
       EXPORTING
         iv_variantname          = iv_ep_variant_name
@@ -230,51 +230,51 @@ CLASS ZCL_AWS1_SGM_SCENARIO IMPLEMENTATION.
     INSERT lo_production_variants INTO TABLE lt_production_variants.
 
     TRY.
-        "Create an endpoint configuration"
+        "Create an endpoint configuration."
         lo_ep_config_result = lo_sgm->createendpointconfig(
           iv_endpointconfigname = iv_ep_cfg_name
           it_productionvariants = lt_production_variants
         ).
-        MESSAGE 'Endpoint configuration created' TYPE 'I'.
+        MESSAGE 'Endpoint configuration created.' TYPE 'I'.
 
-        "Create an endpoint"
-        oo_ep_output = lo_sgm->createendpoint(        " oo_ep_output is returned for testing purpose "
+        "Create an endpoint."
+        oo_ep_output = lo_sgm->createendpoint(        " oo_ep_output is returned for testing purposes. "
             iv_endpointconfigname = iv_ep_cfg_name
             iv_endpointname = iv_ep_name
         ).
-        MESSAGE 'Endpoint created' TYPE 'I'.
+        MESSAGE 'Endpoint created.' TYPE 'I'.
       CATCH /aws1/cx_sgmresourcelimitexcd.
-        MESSAGE 'You have reached the limit on the number of resources' TYPE 'E'.
+        MESSAGE 'You have reached the limit on the number of resources.' TYPE 'E'.
     ENDTRY.
 
-    "Wait for endpoint creation to be completed"
+    "Wait for endpoint creation to be completed."
     DATA(lo_endpoint_result) = lo_sgm->describeendpoint( iv_endpointname = iv_ep_name ).
     WHILE lo_endpoint_result->get_endpointstatus( ) <> 'InService'.
       IF sy-index = 30.
-        EXIT.               "maximum 900 seconds"
+        EXIT.               "Maximum 900 seconds."
       ENDIF.
       WAIT UP TO 30 SECONDS.
       lo_endpoint_result = lo_sgm->describeendpoint( iv_endpointname = iv_ep_name ).
     ENDWHILE.
 
     TRY.
-        "Delete an endpoint"
+        "Delete an endpoint."
         lo_sgm->deleteendpoint(
             iv_endpointname = iv_ep_name
         ).
         MESSAGE 'Endpoint deleted' TYPE 'I'.
 
-        "Delete an endpoint configuration"
+        "Delete an endpoint configuration."
         lo_sgm->deleteendpointconfig(
           iv_endpointconfigname = iv_ep_cfg_name
         ).
-        MESSAGE 'Endpoint configuration deleted' TYPE 'I'.
+        MESSAGE 'Endpoint configuration deleted.' TYPE 'I'.
 
-        "Delete model"
+        "Delete model."
         lo_sgm->deletemodel(
                   iv_modelname = iv_model_name
                 ).
-        MESSAGE 'Model deleted' TYPE 'I'.
+        MESSAGE 'Model deleted.' TYPE 'I'.
       CATCH /aws1/cx_rt_service_generic INTO DATA(lo_endpointconfig_exception).
         DATA(lv_endpointconfig_error) = |"{ lo_endpointconfig_exception->av_err_code }" - { lo_endpointconfig_exception->av_err_msg }|.
         MESSAGE lv_endpointconfig_error TYPE 'E'.

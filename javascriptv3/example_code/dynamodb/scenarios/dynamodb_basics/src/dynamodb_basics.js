@@ -205,7 +205,7 @@ const getMovie = async (tableName, title, year) => {
       TableName: tableName,
       Key: {
         title,
-        year,
+        year
       },
       // By default, reads are eventually consistent. "ConsistentRead: true" represents
       // a strongly consistent read. This guarantees that the most up-to-date data is returned. It
@@ -308,7 +308,6 @@ const deleteTable = async (tableName) => {
     { TableName: tableName }
   );
 };
-
 export const runScenario = async ({
   tableName,
   newMovieName,

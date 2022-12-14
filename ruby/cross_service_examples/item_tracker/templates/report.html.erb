@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Work items</title>
+</head>
+<body>
+<h1>Work items</h1>
+<p>Snapshot of <%= @work_items.count %> active work items taken at <%= @timestamp %>.</p>
+<% if @work_items.count > 10 %>
+<p>See attachment for work items table.</p>
+<% else %>
+<hr/>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Description</th>
+        <th scope="col">Guide</th>
+        <th scope="col">Status</th>
+        <th scope="col">User name</th>
+        <th scope="col">Archived</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% for @work_item in @work_items %>
+    <tr>
+        <td><%= @work_item["description"] %></td>
+        <td><%= @work_item["guide"] %></td>
+        <td><%= @work_item["status"] %></td>
+        <td><%= @work_item["username"] %></td>
+        <% if @work_item["archive"] %>
+        <td>'Yes'</td>
+        <% else %>
+        <td>'No'</td>
+        <% end %>
+    </tr>
+    <% end %>
+    </tbody>
+</table>
+<% end %>
+</body>
+</html>

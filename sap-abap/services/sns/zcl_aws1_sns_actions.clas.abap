@@ -67,10 +67,10 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sns.abapv1.create_topic]
     TRY.
-        oo_result = lo_sns->createtopic( iv_name = iv_topic_name ). " oo_result is returned for testing purpose "
+        oo_result = lo_sns->createtopic( iv_name = iv_topic_name ). " oo_result is returned for testing purposes. "
         MESSAGE 'SNS topic created' TYPE 'I'.
       CATCH /aws1/cx_snstopiclimitexcdex.
-        MESSAGE 'Unable to create more topics as you have reached the maximum number of topics allowed.' TYPE 'E'.
+        MESSAGE 'Unable to create more topics. You have reached the maximum number of topics allowed.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sns.abapv1.create_topic]
   ENDMETHOD.
@@ -85,9 +85,9 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
     " snippet-start:[sns.abapv1.delete_topic]
     TRY.
         lo_sns->deletetopic( iv_topicarn = iv_topic_arn ).
-        MESSAGE 'SNS topic deleted' TYPE 'I'.
+        MESSAGE 'SNS topic deleted.' TYPE 'I'.
       CATCH /aws1/cx_snsnotfoundexception.
-        MESSAGE 'Topic does not exist' TYPE 'E'.
+        MESSAGE 'Topic does not exist.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sns.abapv1.delete_topic]
   ENDMETHOD.
@@ -101,11 +101,11 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sns.abapv1.get_topic_attributes]
     TRY.
-        oo_result = lo_sns->gettopicattributes( iv_topicarn = iv_topic_arn ). " oo_result is returned for testing purpose "
+        oo_result = lo_sns->gettopicattributes( iv_topicarn = iv_topic_arn ). " oo_result is returned for testing purposes. "
         DATA(lt_attributes) = oo_result->get_attributes( ).
-        MESSAGE 'Retrieved attributes/properties of a topic' TYPE 'I'.
+        MESSAGE 'Retrieved attributes/properties of a topic.' TYPE 'I'.
       CATCH /aws1/cx_snsnotfoundexception.
-        MESSAGE 'topic does NOT exist' TYPE 'E'.
+        MESSAGE 'Topic does not exist.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sns.abapv1.get_topic_attributes]
   ENDMETHOD.
@@ -119,11 +119,11 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sns.abapv1.list_subscriptions]
     TRY.
-        oo_result = lo_sns->listsubscriptions( ).                " oo_result is returned for testing purpose "
+        oo_result = lo_sns->listsubscriptions( ).                " oo_result is returned for testing purposes. "
         DATA(lt_subscriptions) = oo_result->get_subscriptions( ).
-        MESSAGE 'Retrieved list of subscriber(s)' TYPE 'I'.
+        MESSAGE 'Retrieved list of subscribers.' TYPE 'I'.
       CATCH /aws1/cx_rt_generic.
-        MESSAGE 'Unable to list subscriber(s)' TYPE 'E'.
+        MESSAGE 'Unable to list subscribers.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sns.abapv1.list_subscriptions]
   ENDMETHOD.
@@ -137,11 +137,11 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sns.abapv1.list_topics]
     TRY.
-        oo_result = lo_sns->listtopics( ).            " oo_result is returned for testing purpose "
+        oo_result = lo_sns->listtopics( ).            " oo_result is returned for testing purposes. "
         DATA(lt_topics) = oo_result->get_topics( ).
-        MESSAGE 'Retrieved list of topic(s)' TYPE 'I'.
+        MESSAGE 'Retrieved list of topics.' TYPE 'I'.
       CATCH /aws1/cx_rt_generic.
-        MESSAGE 'Unable to list topic(s)' TYPE 'E'.
+        MESSAGE 'Unable to list topics.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sns.abapv1.list_topics]
   ENDMETHOD.
@@ -155,13 +155,13 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sns.abapv1.publish_to_topic].
     TRY.
-        oo_result = lo_sns->publish(              " oo_result is returned for testing purpose "
+        oo_result = lo_sns->publish(              " oo_result is returned for testing purposes. "
           iv_topicarn = iv_topic_arn
           iv_message = iv_message
         ).
-        MESSAGE 'Message published to SNS topic' TYPE 'I'.
+        MESSAGE 'Message published to SNS topic.' TYPE 'I'.
       CATCH /aws1/cx_snsnotfoundexception.
-        MESSAGE 'Topic does not exist' TYPE 'E'.
+        MESSAGE 'Topic does not exist.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sns.abapv1.publish_to_topic].
   ENDMETHOD.
@@ -180,9 +180,9 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
             iv_attributename  = iv_attribute_name
             iv_attributevalue = iv_attribute_value
         ).
-        MESSAGE 'Set/Updated SNS topic attributes' TYPE 'I'.
+        MESSAGE 'Set/updated SNS topic attributes.' TYPE 'I'.
       CATCH /aws1/cx_snsnotfoundexception.
-        MESSAGE 'Topic does not exist' TYPE 'E'.
+        MESSAGE 'Topic does not exist.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sns.abapv1.set_topic_attributes]
   ENDMETHOD.
@@ -196,17 +196,17 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[sns.abapv1.subscribe_email]
     TRY.
-        oo_result = lo_sns->subscribe(                      "oo_result is returned for testing purpose"
+        oo_result = lo_sns->subscribe(                      "oo_result is returned for testing purposes."
                 iv_topicarn = iv_topic_arn
                 iv_protocol = 'email'
                 iv_endpoint = iv_email_address
                 iv_returnsubscriptionarn = abap_true
             ).
-        MESSAGE 'Email address subscribed to SNS topic' TYPE 'I'.
+        MESSAGE 'Email address subscribed to SNS topic.' TYPE 'I'.
       CATCH /aws1/cx_snsnotfoundexception.
-        MESSAGE 'Topic does not exist' TYPE 'E'.
+        MESSAGE 'Topic does not exist.' TYPE 'E'.
       CATCH /aws1/cx_snssubscriptionlmte00.
-        MESSAGE 'Unable to create subscriptions, you have reached the maximum number of subscriptions allowed.' TYPE 'E'.
+        MESSAGE 'Unable to create subscriptions. You have reached the maximum number of subscriptions allowed.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sns.abapv1.subscribe_email]
   ENDMETHOD.
@@ -221,11 +221,11 @@ CLASS ZCL_AWS1_SNS_ACTIONS IMPLEMENTATION.
     " snippet-start:[sns.abapv1.unsubscribe]
     TRY.
         lo_sns->unsubscribe( iv_subscriptionarn = iv_subscription_arn ).
-        MESSAGE 'Subscription Deleted' TYPE 'I'.
+        MESSAGE 'Subscription deleted.' TYPE 'I'.
       CATCH /aws1/cx_snsnotfoundexception.
-        MESSAGE 'Subscription does not exist' TYPE 'E'.
+        MESSAGE 'Subscription does not exist.' TYPE 'E'.
       CATCH /aws1/cx_snsinvalidparameterex.
-        MESSAGE 'Subscription with "PendingConfirmation" status cannot be deleted/unsubscribed, subscription should be confirmed before perform unsubscribe operation' TYPE 'E'.
+        MESSAGE 'Subscription with "PendingConfirmation" status cannot be deleted/unsubscribed. Confirm subscription before performing unsubscribe operation.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[sns.abapv1.unsubscribe]
   ENDMETHOD.
