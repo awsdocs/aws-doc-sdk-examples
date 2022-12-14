@@ -106,7 +106,7 @@ lookoutvision_Scenario_FindTagInProjects:
 lookoutvision_Scenario_ExportDatasets:
   title: Export the datasets from a &LYRA; project using an &AWS; SDK
   title_abbrev: Export the datasets from a &LYRA; project
-  synopsis: Export the datasets from from a &LYRA; project
+  synopsis: export the datasets from a &LYRA; project.
   category: Scenarios
   guide_topic:
     title: Exporting datasets from a project (SDK)
