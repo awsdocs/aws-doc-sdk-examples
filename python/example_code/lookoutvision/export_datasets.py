@@ -1,6 +1,8 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# snippet-start:[python.example_code.lookoutvision.Scenario_ExportDatasets]
+
 """
 Purpose
 
@@ -274,3 +276,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# snippet-end:[python.example_code.lookoutvision.Scenario_ExportDatasets]
