@@ -27,8 +27,10 @@ aws-endpoint = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next
 # snippet-end:[s3.rust.s3-object-lambda-cargo.toml]
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["rt-tokio"] }
+aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 bytes = "0.4.12"
 futures-util = { version = "0.3.21", features = ["alloc"] }
+http = "0.2.8"
 http-body = "0.4.5"
 md-5 = "0.10.1"
 rand = "0.5.0"
@@ -36,5 +38,6 @@ structopt = { version = "0.3", default-features = false }
 thiserror = "1.0"
 tokio = { version = "1.20.1", features = ["full"] }
 tokio-stream = "0.1.8"
+tracing = "0.1.37"
 tracing-subscriber = { version = "0.3.5", features = ["env-filter"] }
 uuid = { version = "0.8", features = ["serde", "v4"] }
