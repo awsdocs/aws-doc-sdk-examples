@@ -41,7 +41,7 @@ public class CreateVPCforS3Tests
     }
 
     /// <summary>
-    /// Verify that we can create an S3 client using an endpoint.
+    /// Verify that we can create an Amazon Simple Storage Service (Amazon S3) client client using an endpoint.
     /// </summary>
     /// <returns></returns>
     [Fact]
