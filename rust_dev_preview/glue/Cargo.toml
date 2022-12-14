@@ -13,21 +13,21 @@ name = "scenario"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-glue = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-iam = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-glue = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-iam = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = [
   "client-hyper",
   "rustls",
   "rt-tokio",
 ] }
-aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
+aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = [
   "rt-tokio",
 ] }
-aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 tokio = { version = "1.20.1", features = ["full"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
 tracing = "0.1.37"
