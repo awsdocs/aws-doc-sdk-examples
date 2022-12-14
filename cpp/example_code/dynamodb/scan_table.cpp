@@ -72,7 +72,7 @@ bool AwsDoc::DynamoDB::scanTable(const Aws::String &tableName,
     return outcome.IsSuccess();
 }
 
-// snippet-start:[dynamodb.cpp.scan_table.code]
+// snippet-end:[dynamodb.cpp.scan_table.code]
 
 /*
  *  main function
