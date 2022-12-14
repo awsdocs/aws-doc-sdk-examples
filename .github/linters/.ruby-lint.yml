@@ -19,3 +19,5 @@ Layout/LineLength:
     - ruby/example_code/kms/decrypt_data.rb
 Naming/FileName:
   Enabled: false
+Style/HashSyntax:
+  EnforcedShorthandSyntax: either

@@ -72,21 +72,21 @@ CLASS ZCL_AWS1_LMD_ACTIONS IMPLEMENTATION.
             io_code = io_zip_file
             iv_description = 'AWS Lambda code example'
         ).
-        MESSAGE 'Lambda function created' TYPE 'I'.
+        MESSAGE 'Lambda function created.' TYPE 'I'.
       CATCH /aws1/cx_lmdcodesigningcfgno00.
-        MESSAGE 'Code signing configuration does not exist' TYPE 'E'.
+        MESSAGE 'Code signing configuration does not exist.' TYPE 'E'.
       CATCH /aws1/cx_lmdcodestorageexcdex.
-        MESSAGE 'Maximum total code size per account exceeded' TYPE 'E'.
+        MESSAGE 'Maximum total code size per account exceeded.' TYPE 'E'.
       CATCH /aws1/cx_lmdcodeverification00.
-        MESSAGE 'Code signature failed one or more validation checks for signature mismatch or expiration' TYPE 'E'.
+        MESSAGE 'Code signature failed one or more validation checks for signature mismatch or expiration.' TYPE 'E'.
       CATCH /aws1/cx_lmdinvalidcodesigex.
-        MESSAGE 'Code signature failed the integrity check' TYPE 'E'.
+        MESSAGE 'Code signature failed the integrity check.' TYPE 'E'.
       CATCH /aws1/cx_lmdinvparamvalueex.
-        MESSAGE 'The request contains an invalid parameter' TYPE 'E'.
+        MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
       CATCH /aws1/cx_lmdresourceconflictex.
-        MESSAGE 'Resource already exists or another operation is in progress' TYPE 'E'.
+        MESSAGE 'Resource already exists or another operation is in progress.' TYPE 'E'.
       CATCH /aws1/cx_lmdresourcenotfoundex.
-        MESSAGE 'The requested resource does not exist' TYPE 'E'.
+        MESSAGE 'The requested resource does not exist.' TYPE 'E'.
       CATCH /aws1/cx_lmdserviceexception.
         MESSAGE 'An internal problem was encountered by the AWS Lambda service.' TYPE 'E'.
       CATCH /aws1/cx_lmdtoomanyrequestsex.
@@ -105,13 +105,13 @@ CLASS ZCL_AWS1_LMD_ACTIONS IMPLEMENTATION.
     " snippet-start:[lmd.abapv1.delete_function]
     TRY.
         lo_lmd->deletefunction( iv_functionname = iv_function_name ).
-        MESSAGE 'Lambda function deleted' TYPE 'I'.
+        MESSAGE 'Lambda function deleted.' TYPE 'I'.
       CATCH /aws1/cx_lmdinvparamvalueex.
-        MESSAGE 'The request contains an invalid parameter' TYPE 'E'.
+        MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
       CATCH /aws1/cx_lmdresourceconflictex.
-        MESSAGE 'Rresource already exists or another operation is in progress' TYPE 'E'.
+        MESSAGE 'Resource already exists or another operation is in progress.' TYPE 'E'.
       CATCH /aws1/cx_lmdresourcenotfoundex.
-        MESSAGE 'The requested resource does not exist' TYPE 'E'.
+        MESSAGE 'The requested resource does not exist.' TYPE 'E'.
       CATCH /aws1/cx_lmdserviceexception.
         MESSAGE 'An internal problem was encountered by the AWS Lambda service.' TYPE 'E'.
       CATCH /aws1/cx_lmdtoomanyrequestsex.
@@ -129,10 +129,10 @@ CLASS ZCL_AWS1_LMD_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[lmd.abapv1.get_function]
     TRY.
-        oo_result =  lo_lmd->getfunction( iv_functionname = iv_function_name ).       " oo_result is returned for testing purpose "
-        MESSAGE 'Lambda function information retrieved' TYPE 'I'.
+        oo_result =  lo_lmd->getfunction( iv_functionname = iv_function_name ).       " oo_result is returned for testing purposes. "
+        MESSAGE 'Lambda function information retrieved.' TYPE 'I'.
       CATCH /aws1/cx_lmdinvparamvalueex.
-        MESSAGE 'The request contains an invalid parameter' TYPE 'E'.
+        MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
       CATCH /aws1/cx_lmdserviceexception.
         MESSAGE 'An internal problem was encountered by the AWS Lambda service.' TYPE 'E'.
       CATCH /aws1/cx_lmdtoomanyrequestsex.
@@ -156,29 +156,29 @@ CLASS ZCL_AWS1_LMD_ACTIONS IMPLEMENTATION.
             `"number": 10` &&
           `}`
         ).
-        oo_result =  lo_lmd->invoke(                  " oo_result is returned for testing purpose "
+        oo_result =  lo_lmd->invoke(                  " oo_result is returned for testing purposes. "
                  iv_functionname = iv_function_name
                  iv_payload = lv_json
              ).
-        MESSAGE 'Lambda function invoked' TYPE 'I'.
+        MESSAGE 'Lambda function invoked.' TYPE 'I'.
       CATCH /aws1/cx_lmdinvparamvalueex.
-        MESSAGE 'The request contains an invalid parameter' TYPE 'E'.
+        MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
       CATCH /aws1/cx_lmdinvrequestcontex.
-        MESSAGE 'Unable to parse request body as JSON' TYPE 'E'.
+        MESSAGE 'Unable to parse request body as JSON.' TYPE 'E'.
       CATCH /aws1/cx_lmdinvalidzipfileex.
-        MESSAGE 'The deployment package could not be unzipped' TYPE 'E'.
+        MESSAGE 'The deployment package could not be unzipped.' TYPE 'E'.
       CATCH /aws1/cx_lmdrequesttoolargeex.
         MESSAGE 'Invoke request body JSON input limit was exceeded by the request payload.' TYPE 'E'.
       CATCH /aws1/cx_lmdresourceconflictex.
-        MESSAGE 'Rresource already exists or another operation is in progress' TYPE 'E'.
+        MESSAGE 'Resource already exists or another operation is in progress.' TYPE 'E'.
       CATCH /aws1/cx_lmdresourcenotfoundex.
-        MESSAGE 'The requested resource does not exist' TYPE 'E'.
+        MESSAGE 'The requested resource does not exist.' TYPE 'E'.
       CATCH /aws1/cx_lmdserviceexception.
-        MESSAGE 'An internal problem was encountered by the AWS Lambda service' TYPE 'E'.
+        MESSAGE 'An internal problem was encountered by the AWS Lambda service.' TYPE 'E'.
       CATCH /aws1/cx_lmdtoomanyrequestsex.
-        MESSAGE 'The maximum request throughput was reached' TYPE 'E'.
+        MESSAGE 'The maximum request throughput was reached.' TYPE 'E'.
       CATCH /aws1/cx_lmdunsuppedmediatyp00.
-        MESSAGE 'Invoke request body does not have JSON as its content type' TYPE 'E'.
+        MESSAGE 'Invoke request body does not have JSON as its content type.' TYPE 'E'.
     ENDTRY.
     " snippet-end:[lmd.abapv1.invoke_function]
   ENDMETHOD.
@@ -192,11 +192,11 @@ CLASS ZCL_AWS1_LMD_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[lmd.abapv1.list_functions]
     TRY.
-        oo_result =  lo_lmd->listfunctions( ).       " oo_result is returned for testing purpose "
+        oo_result =  lo_lmd->listfunctions( ).       " oo_result is returned for testing purposes. "
         DATA(lt_functions) = oo_result->get_functions( ).
-        MESSAGE 'Retrieved list of lambda function(s)' TYPE 'I'.
+        MESSAGE 'Retrieved list of Lambda functions.' TYPE 'I'.
       CATCH /aws1/cx_lmdinvparamvalueex.
-        MESSAGE 'The request contains an invalid parameter' TYPE 'E'.
+        MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
       CATCH /aws1/cx_lmdserviceexception.
         MESSAGE 'An internal problem was encountered by the AWS Lambda service.' TYPE 'E'.
       CATCH /aws1/cx_lmdtoomanyrequestsex.
@@ -215,26 +215,26 @@ CLASS ZCL_AWS1_LMD_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[lmd.abapv1.update_function_code]
     TRY.
-        oo_result = lo_lmd->updatefunctioncode(     " oo_result is returned for testing purpose "
+        oo_result = lo_lmd->updatefunctioncode(     " oo_result is returned for testing purposes. "
               iv_functionname = iv_function_name
               iv_zipfile = io_zip_file
           ).
 
-        MESSAGE 'Lambda function code updated' TYPE 'I'.
+        MESSAGE 'Lambda function code updated.' TYPE 'I'.
       CATCH /aws1/cx_lmdcodesigningcfgno00.
-        MESSAGE 'Code signing configuration does not exist' TYPE 'E'.
+        MESSAGE 'Code signing configuration does not exist.' TYPE 'E'.
       CATCH /aws1/cx_lmdcodestorageexcdex.
-        MESSAGE 'Maximum total code size per account exceeded' TYPE 'E'.
+        MESSAGE 'Maximum total code size per account exceeded.' TYPE 'E'.
       CATCH /aws1/cx_lmdcodeverification00.
-        MESSAGE 'Code signature failed one or more validation checks for signature mismatch or expiration' TYPE 'E'.
+        MESSAGE 'Code signature failed one or more validation checks for signature mismatch or expiration.' TYPE 'E'.
       CATCH /aws1/cx_lmdinvalidcodesigex.
-        MESSAGE 'Code signature failed the integrity check' TYPE 'E'.
+        MESSAGE 'Code signature failed the integrity check.' TYPE 'E'.
       CATCH /aws1/cx_lmdinvparamvalueex.
-        MESSAGE 'The request contains an invalid parameter' TYPE 'E'.
+        MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
       CATCH /aws1/cx_lmdresourceconflictex.
-        MESSAGE 'Rresource already exists or another operation is in progress' TYPE 'E'.
+        MESSAGE 'Resource already exists or another operation is in progress.' TYPE 'E'.
       CATCH /aws1/cx_lmdresourcenotfoundex.
-        MESSAGE 'The requested resource does not exist' TYPE 'E'.
+        MESSAGE 'The requested resource does not exist.' TYPE 'E'.
       CATCH /aws1/cx_lmdserviceexception.
         MESSAGE 'An internal problem was encountered by the AWS Lambda service.' TYPE 'E'.
       CATCH /aws1/cx_lmdtoomanyrequestsex.
@@ -252,26 +252,26 @@ CLASS ZCL_AWS1_LMD_ACTIONS IMPLEMENTATION.
 
     " snippet-start:[lmd.abapv1.update_function_configuration]
     TRY.
-        oo_result = lo_lmd->updatefunctionconfiguration(     " oo_result is returned for testing purpose "
+        oo_result = lo_lmd->updatefunctionconfiguration(     " oo_result is returned for testing purposes. "
               iv_functionname = iv_function_name
               iv_runtime = iv_runtime
-              iv_description  = 'Updated Lambda Function'
+              iv_description  = 'Updated Lambda function'
               iv_memorysize  = iv_memory_size
           ).
 
-        MESSAGE 'Lambda function configuration/settings updated' TYPE 'I'.
+        MESSAGE 'Lambda function configuration/settings updated.' TYPE 'I'.
       CATCH /aws1/cx_lmdcodesigningcfgno00.
-        MESSAGE 'Code signing configuration does not exist' TYPE 'E'.
+        MESSAGE 'Code signing configuration does not exist.' TYPE 'E'.
       CATCH /aws1/cx_lmdcodeverification00.
-        MESSAGE 'Code signature failed one or more validation checks for signature mismatch or expiration' TYPE 'E'.
+        MESSAGE 'Code signature failed one or more validation checks for signature mismatch or expiration.' TYPE 'E'.
       CATCH /aws1/cx_lmdinvalidcodesigex.
-        MESSAGE 'Code signature failed the integrity check' TYPE 'E'.
+        MESSAGE 'Code signature failed the integrity check.' TYPE 'E'.
       CATCH /aws1/cx_lmdinvparamvalueex.
-        MESSAGE 'The request contains an invalid parameter' TYPE 'E'.
+        MESSAGE 'The request contains a non-valid parameter.' TYPE 'E'.
       CATCH /aws1/cx_lmdresourceconflictex.
-        MESSAGE 'Rresource already exists or another operation is in progress' TYPE 'E'.
+        MESSAGE 'Resource already exists or another operation is in progress.' TYPE 'E'.
       CATCH /aws1/cx_lmdresourcenotfoundex.
-        MESSAGE 'The requested resource does not exist' TYPE 'E'.
+        MESSAGE 'The requested resource does not exist.' TYPE 'E'.
       CATCH /aws1/cx_lmdserviceexception.
         MESSAGE 'An internal problem was encountered by the AWS Lambda service.' TYPE 'E'.
       CATCH /aws1/cx_lmdtoomanyrequestsex.

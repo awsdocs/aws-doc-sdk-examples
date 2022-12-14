@@ -14,22 +14,26 @@ name = "rest_ses"
 [dependencies]
 actix-web = "4"
 actix-web-prom = "0.6.0"
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-cloudwatchlogs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-rdsdata = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-ses = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-chrono = { version = "0.4.22", default-features = false, features = ["clock", "serde"] }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-cloudwatchlogs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-rdsdata = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-sdk-ses = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+chrono = { version = "0.4.22", default-features = false, features = [
+    "clock",
+    "serde",
+] }
 color-eyre = "0.6.2"
 config = "0.13.2"
 derive_more = "0.99.17"
 futures = "0.3.24"
-mail-builder = "0.2.2"
+# newer versions of this crate aren't yet compatible with our MSRV
+mail-builder = "=0.2.2"
 reqwest = "0.11.12"
 secrecy = { version = "0.8.0", features = ["serde"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1.0.86"
 thiserror = "1.0.37"
-tokio = {version = "1", features = ["macros", "rt-multi-thread"]}
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 tracing = "0.1.37"
 tracing-actix-web = "0.6.1"
 tracing-bunyan-formatter = "0.3.4"
@@ -39,7 +43,7 @@ uuid = { version = "1.2.1", features = ["v4", "serde"] }
 xlsxwriter = "0.3.1"
 
 [dev-dependencies]
-aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 fake = { version = "2.5.0", features = ["uuid"] }
 once_cell = "1.15.0"
 rand = "0.8.5"

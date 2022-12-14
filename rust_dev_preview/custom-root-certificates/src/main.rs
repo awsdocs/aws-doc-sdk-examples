@@ -32,7 +32,7 @@ async fn main() {
         .await;
     // however, for generated clients, they are constructed from a Hyper adapter directly:
     let s3_client = aws_sdk_s3::Client::new(&shared_conf);
-    
+
     match s3_client.list_buckets().send().await {
         Ok(res) => { println!("Your buckets: {:?}", res.buckets().unwrap_or_default()) },
         Err(err) => { println!("an error occurred when trying to list buckets: {}", err) },

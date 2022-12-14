@@ -7,6 +7,7 @@ submitted or changed (using Travis CI, configured in .travis.yml).
 The script scans code files and does the following:
 
     * Disallows a list of specific words.
+    * Checks for known sample files.
     * Disallows any 20- or 40- character strings that fit a specific regex profile
       that indicates they might be secret access keys. Allows strings that fit the
       regex profile if they are in the allow list.
@@ -58,6 +59,16 @@ IGNORE_FOLDERS = {
 
 # files to skip
 IGNORE_FILES = {'AssemblyInfo.cs', 'metadata.yaml', '.travis.yml'}
+
+# sample files
+EXPECTED_SAMPLE_FILES = {
+    'README.md',
+    'movies.json',
+    'speech_sample.mp3'
+}
+
+# media file types
+MEDIA_FILE_TYPES = {'mp3', 'wav'}
 
 # list of words that should never be in code examples
 DENY_LIST = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'}
@@ -189,6 +200,35 @@ def verify_no_deny_list_words(file_contents, file_location):
             error_count += 1
     return error_count
 
+def verify_sample_files(root_path):
+    """Verify sample files meet the requirements and have not moved."""
+    sample_files_folder = os.path.join(root_path, "resources/sample_files")
+    media_folder = ".sample_media"
+    ONE_MB_AS_BYTES = 1000000
+    MAX_FILE_SIZE_MB = 10
+    error_count = 0
+    file_list = []
+    for path, dirs, files in os.walk(sample_files_folder, topdown=True):
+        for file_name in files:
+            file_list.append(file_name)
+            file_path = os.path.join(path, file_name)
+            ext = os.path.splitext(file_name)[1].lstrip('.')
+            if file_name not in EXPECTED_SAMPLE_FILES:
+                logger.error(f"File '%s' in %s was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in checkin_tests.py.", file_name, sample_files_folder)
+                error_count += 1
+            if ext.lower() in MEDIA_FILE_TYPES:
+                if media_folder not in file_path:
+                    logger.error(f"File '%s' in %s must be in the %s directory.", file_name, sample_files_folder, media_folder)
+                    error_count += 1
+            if (os.path.getsize(file_path)/ONE_MB_AS_BYTES) > MAX_FILE_SIZE_MB:
+                logger.error(f"File '%s' in %s is larger than the allowed size for a sample file.", file_name, sample_files_folder)
+                error_count += 1
+
+    for sample_file in EXPECTED_SAMPLE_FILES:
+        if sample_file not in file_list:
+            logger.error(f"Expected sample file '%s' was not found in '%s'. If this file was intentionally removed, remove it from the EXPECTED_SAMPLE_FILES list in checkin_tests.py.", sample_file, sample_files_folder)
+            error_count += 1
+    return error_count
 
 def verify_no_secret_keys(file_contents, file_location):
     """Verify the file does not contain 20- or 40- length character strings,
@@ -262,6 +302,7 @@ def main():
 
     print('----------\n\nRun Tests\n')
     error_count = check_files(root_path, args.quiet)
+    error_count += verify_sample_files(root_path)
     if error_count > 0:
         print(f"{error_count} errors found, please fix them.")
     else:

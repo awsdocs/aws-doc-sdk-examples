@@ -47,7 +47,7 @@ namespace SSEClientEncryptionExample
                 // Get object metadata and verify that the object uses AES-256 encryption.
                 await GetObjectMetadataAsync(client, bucketName, keyName, base64Key);
 
-                // Copy both the source and target objects using server-side encryption with 
+                // Copy both the source and target objects using server-side encryption with
                 // an encryption key.
                 await CopyObjectAsync(client, bucketName, keyName, copyTargetKeyName, aesEncryption, base64Key);
             }

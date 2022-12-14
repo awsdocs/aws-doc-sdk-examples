@@ -1,0 +1,42 @@
+[package]
+name = "glue-code-examples"
+version = "0.1.0"
+authors = [
+  "David Souther <davidsouther+github@gmail.com>",
+]
+edition = "2021"
+description = "MVP Scenario to show many features of the Rust AWS Glue SDK. https://github.com/awsdocs/aws-doc-sdk-examples/issues/2941"
+
+[[bin]]
+name = "scenario"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-glue = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-iam = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
+  "client-hyper",
+  "rustls",
+  "rt-tokio",
+] }
+aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
+  "rt-tokio",
+] }
+aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+tokio = { version = "1.20.1", features = ["full"] }
+tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
+tracing = "0.1.37"
+async_once = "0.2.6"
+lazy_static = "1.4.0"
+clap = { version = "4.0.18", features = ["derive"] }
+thiserror = "1.0.37"
+secrecy = "0.8.0"
+uuid = { version = "1.2.1", features = ["v4"] }
+futures = "0.3.25"
+tracing-bunyan-formatter = "0.3.4"
+mockall = "0.11.3"

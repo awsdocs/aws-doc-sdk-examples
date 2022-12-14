@@ -30,6 +30,7 @@ members = [
     "globalaccelerator",
     "iam",
     "iot",
+    "glue",
     "kinesis",
     "kms",
     "lambda",

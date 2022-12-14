@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AWS1_S3_SCENARIO</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>S3 Code Example Scenarios</DESCRIPT>
+    <DESCRIPT>Amazon S3 Code Example Scenarios</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
@@ -17,7 +17,7 @@
      <CLSNAME>ZCL_AWS1_S3_SCENARIO</CLSNAME>
      <CMPNAME>GETTING_STARTED_WITH_S3</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Getting started with Amazon S3 buckets and objects</DESCRIPT>
+     <DESCRIPT>Getting started with Amazon S3 buckets and objects.</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>
