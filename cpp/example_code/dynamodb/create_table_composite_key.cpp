@@ -30,35 +30,39 @@
 // snippet-start:[dynamodb.cpp.create_table_composite_key.code]
 //! Create a DynamoDB table with a composite key.
 /*!
-  \sa createDynamoDBTableWithCompositeKey()
+  \sa createTableWithCompositeKey()
   \param tableName: Name for the DynamoDB table.
+  \param partitionKey: Name for the partition (hash) key.
+  \param sortKey: Name for the sort (range) key.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::DynamoDB::createDynamoDBTableWithCompositeKey(const Aws::String &tableName,
-                                                           const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::DynamoDB::createTableWithCompositeKey(const Aws::String &tableName,
+                                                   const Aws::String &partitionKey,
+                                                   const Aws::String &sortKey,
+                                                   const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     std::cout << "Creating table " << tableName <<
               " with a composite primary key:\n" \
-            "* Language - partition key\n" \
-            "* Greeting - sort key\n";
+            "* " << partitionKey << " - partition key\n" \
+            "* " << sortKey << " - sort key\n";
 
     Aws::DynamoDB::Model::CreateTableRequest request;
 
     Aws::DynamoDB::Model::AttributeDefinition hashKey1, hashKey2;
-    hashKey1.WithAttributeName("Language").WithAttributeType(
+    hashKey1.WithAttributeName(partitionKey).WithAttributeType(
             Aws::DynamoDB::Model::ScalarAttributeType::S);
     request.AddAttributeDefinitions(hashKey1);
-    hashKey2.WithAttributeName("Greeting").WithAttributeType(
+    hashKey2.WithAttributeName(sortKey).WithAttributeType(
             Aws::DynamoDB::Model::ScalarAttributeType::S);
     request.AddAttributeDefinitions(hashKey2);
 
     Aws::DynamoDB::Model::KeySchemaElement keySchemaElement1, keySchemaElement2;
-    keySchemaElement1.WithAttributeName("Language").WithKeyType(
+    keySchemaElement1.WithAttributeName(partitionKey).WithKeyType(
             Aws::DynamoDB::Model::KeyType::HASH);
     request.AddKeySchema(keySchemaElement1);
-    keySchemaElement2.WithAttributeName("Greeting").WithKeyType(
+    keySchemaElement2.WithAttributeName(sortKey).WithKeyType(
             Aws::DynamoDB::Model::KeyType::RANGE);
     request.AddKeySchema(keySchemaElement2);
 
@@ -88,19 +92,22 @@ bool AwsDoc::DynamoDB::createDynamoDBTableWithCompositeKey(const Aws::String &ta
  *
  *  main function
  *
- *  Usage: 'run_create_table_composite_key <table>'
+ *  Usage: 'run_create_table_composite_key <table> <partition_key> <sort_key>'
  *
  */
 
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc < 2) {
+    if (argc < 4) {
         std::cout << R"(
 Usage:
-    run_create_table_composite_key <table>
+    run_create_table_composite_key <table> <partition_key> <sort_key>
 Where:
-    table - the table to create)";
+    table - the table to create
+    partition_key - the partition (hash) key
+    sort_key - the sort (range) key
+)";
         return 1;
     }
 
@@ -109,12 +116,17 @@ Where:
     Aws::InitAPI(options);
     {
         const Aws::String tableName(argv[1]);
+        const Aws::String partitionKey(argv[2]);
+        const Aws::String sortKey(argv[3]);
 
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::DynamoDB::createDynamoDBTableWithCompositeKey(tableName, clientConfig);
+        AwsDoc::DynamoDB::createTableWithCompositeKey(tableName,
+                                                      partitionKey,
+                                                      sortKey,
+                                                      clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

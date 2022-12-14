@@ -80,7 +80,7 @@ bool AwsDoc::DynamoDB::updateItem(const Aws::String &tableName,
     // Update the item.
     const Aws::DynamoDB::Model::UpdateItemOutcome &outcome = dynamoClient.UpdateItem(
             request);
-    if (!outcome.IsSuccess()) {
+    if (outcome.IsSuccess()) {
         std::cout << "Item was updated" << std::endl;
     }
     else {

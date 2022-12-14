@@ -69,37 +69,41 @@ namespace AwsDoc {
         bool batchWriteItem(const Aws::String &jsonFilePath,
                             const Aws::Client::ClientConfiguration &clientConfiguration);
 
-            //! Create an DynamoDB table.
+        //! Create an DynamoDB table.
         /*!
-          \sa createDynamoDBTable()
+          \sa createTable()
           \param tableName: Name for the DynamoDB table.
           \param primaryKey: Primary key for the DynamoDB table.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool createDynamoDBTable(const Aws::String &tableName,
-                                 const Aws::String &primaryKey,
-                                 const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool createTable(const Aws::String &tableName,
+                         const Aws::String &primaryKey,
+                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Create an DynamoDB table with a composite key.
         /*!
-          \sa createDynamoDBTableWithCompositeKey()
+          \sa createTableWithCompositeKey()
           \param tableName: Name for the DynamoDB table.
+          \param partitionKey: Name for the partition (hash) key.
+          \param sortKey: Name for the sort (range) key.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool createDynamoDBTableWithCompositeKey(const Aws::String &tableName,
-                                                 const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool createTableWithCompositeKey(const Aws::String &tableName,
+                                         const Aws::String &partitionKey,
+                                         const Aws::String &sortKey,
+                                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete a DynamoDB table.
         /*!
-          \sa deleteDynamoTable()
+          \sa deleteTable()
           \param tableName: The DynamoDB table's name.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
         */
-        bool deleteDynamoTable(const Aws::String &tableName,
-                               const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool deleteTable(const Aws::String &tableName,
+                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
 
         //! Deletes an item from a DynamoDB table.
@@ -179,7 +183,7 @@ namespace AwsDoc {
 
         //! Perform  a query on a DynamoDB Table and retrieve items.
         /*!
-          \sa queryItem()
+          \sa queryItems()
           \param tableName: The table name.
           \param partitionKey: The partition key.
           \param partitionValue: The value for the partition key.
@@ -187,11 +191,11 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
           */
-        bool queryItem(const Aws::String &tableName,
-                       const Aws::String &partitionKey,
-                       const Aws::String &partitionValue,
-                       const Aws::String &projectionExpression,
-                       const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool queryItems(const Aws::String &tableName,
+                        const Aws::String &partitionKey,
+                        const Aws::String &partitionValue,
+                        const Aws::String &projectionExpression,
+                        const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Scans a DynamoDB table.
         /*!

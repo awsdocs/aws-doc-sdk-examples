@@ -114,8 +114,8 @@ target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC
         TESTING_BUILD
-        MOVIE_FILE_PATH="${MOVIE_FILE_PATH}"
         TESTS_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
+        MOVIE_FILE_PATH="${CMAKE_CURRENT_SOURCE_DIR}/../../../../resources/sample_files/movies.json"
 )
 
 target_link_libraries(

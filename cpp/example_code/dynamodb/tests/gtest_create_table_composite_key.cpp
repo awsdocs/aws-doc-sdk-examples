@@ -9,13 +9,14 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE (readability-named-parameter)
-    TEST_F(DynamoDB_GTests, create_table) {
+    TEST_F(DynamoDB_GTests, create_table_composite_key) {
 
         Aws::String tableName = uuidName("table");
 
-        bool result = AwsDoc::DynamoDB::createTable(tableName,
-                                                    "primary_key",
-                                                    *s_clientConfig);
+        bool result = AwsDoc::DynamoDB::createTableWithCompositeKey(tableName,
+                                                                    "partition_key",
+                                                                    "sort_key",
+                                                                    *s_clientConfig);
         ASSERT_TRUE(result);
 
         deleteTable(tableName);

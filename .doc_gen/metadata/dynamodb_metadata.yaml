@@ -317,6 +317,15 @@ dynamodb_BatchWriteItem:
             - description:
               snippet_tags:
                 - ruby.example_code.dynamodb.BatchWriteItem
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.dynamodb.batch_write_item
   services:
     dynamodb: {BatchWriteItem}
 dynamodb_DeleteTable:

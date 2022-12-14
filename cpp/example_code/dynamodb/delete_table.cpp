@@ -26,13 +26,13 @@
 // snippet-start:[dynamodb.cpp.delete_table.code]
 //! Delete a DynamoDB table.
 /*!
-  \sa deleteDynamoTable()
+  \sa deleteTable()
   \param tableName: The DynamoDB table's name.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
 */
-bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
-                                         const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::DynamoDB::deleteTable(const Aws::String &tableName,
+                                   const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     Aws::DynamoDB::Model::DeleteTableRequest request;
@@ -90,7 +90,7 @@ Example:
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::DynamoDB::deleteDynamoTable(tableName, clientConfig);
+        AwsDoc::DynamoDB::deleteTable(tableName, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

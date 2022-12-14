@@ -9,15 +9,17 @@
 #include "dynamodb_samples.h"
 
 namespace AwsDocTest {
-     // NOLINTNEXTLINE (readability-named-parameter)
+    // NOLINTNEXTLINE (readability-named-parameter)
     TEST_F(DynamoDB_GTests, batch_write_item) {
         bool result = createBatchGetItemTables();
         ASSERT_TRUE(result) << preconditionError();
 
-        result = AwsDoc::DynamoDB::batchWriteItem(TESTS_DIR "/ProductCatalog.json", *s_clientConfig);
+        result = AwsDoc::DynamoDB::batchWriteItem(TESTS_DIR "/ProductCatalog.json",
+                                                  *s_clientConfig);
         ASSERT_TRUE(result);
 
-        result = AwsDoc::DynamoDB::batchWriteItem(TESTS_DIR "/Forum.json", *s_clientConfig);
+        result = AwsDoc::DynamoDB::batchWriteItem(TESTS_DIR "/Forum.json",
+                                                  *s_clientConfig);
         ASSERT_TRUE(result);
         s_batchTablesPopulated = true;
     }

@@ -9,15 +9,12 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE (readability-named-parameter)
-    TEST_F(DynamoDB_GTests, create_table) {
+    TEST_F(DynamoDB_GTests, scan_table) {
+        bool result = createSimpleTable();
+        ASSERT_TRUE(result) << preconditionError();
 
-        Aws::String tableName = uuidName("table");
-
-        bool result = AwsDoc::DynamoDB::createTable(tableName,
-                                                    "primary_key",
-                                                    *s_clientConfig);
+        result = AwsDoc::DynamoDB::scanTable(SIMPLE_TABLE_NAME, SIMPLE_PRIMARY_KEY,
+                                             *s_clientConfig);
         ASSERT_TRUE(result);
-
-        deleteTable(tableName);
     }
 } // AwsDocTest

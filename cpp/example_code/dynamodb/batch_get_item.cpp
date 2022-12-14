@@ -85,9 +85,8 @@ bool AwsDoc::DynamoDB::batchGetItem(
 
     requestItems.emplace(table2Name, table2KeysAndAttributes);
 
-
     bool result = true;
-    do {
+    do {  // Use a do loop to handle pagination.
         request.SetRequestItems(requestItems);
         const Aws::DynamoDB::Model::BatchGetItemOutcome &outcome = dynamoClient.BatchGetItem(
                 request);

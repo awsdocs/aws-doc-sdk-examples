@@ -33,6 +33,7 @@ Code excerpts that show you how to call individual service functions.
 * [Scan a table](./scan_table.cpp) (Scan)
 * [Update an item](./update_item.cpp) (UpdateItem)
 * [Update a table](./update_table.cpp) (UpdateTable)
+* [Write a batch of items](./batch_write_item.cpp) (BatchWriteItem)
 
 ### Scenarios
 

@@ -16,7 +16,6 @@
 
 //snippet-start:[dynamodb.cpp.put_item.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/PutItemRequest.h>
@@ -54,6 +53,7 @@ bool AwsDoc::DynamoDB::putItem(const Aws::String &tableName,
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     Aws::DynamoDB::Model::PutItemRequest putItemRequest;
+    putItemRequest.SetTableName(tableName);
 
     putItemRequest.AddItem(artistKey, Aws::DynamoDB::Model::AttributeValue().SetS(
             artistValue)); // This is the hash key.
@@ -92,7 +92,7 @@ bool AwsDoc::DynamoDB::putItem(const Aws::String &tableName,
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc < 9) {
+    if (argc < 10) {
         std::cout << R"(
 Usage:
     <table_name> <artist_key> <artist_value> <album_title_key> <album_title_value> <awards_key>

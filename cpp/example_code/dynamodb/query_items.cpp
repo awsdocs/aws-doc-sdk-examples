@@ -40,15 +40,19 @@
  * returned.
  */
 
-bool AwsDoc::DynamoDB::queryItem(const Aws::String &tableName,
-                                 const Aws::String &partitionKey,
-                                 const Aws::String &partitionValue,
-                                 const Aws::String &projectionExpression,
-                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::DynamoDB::queryItems(const Aws::String &tableName,
+                                  const Aws::String &partitionKey,
+                                  const Aws::String &partitionValue,
+                                  const Aws::String &projectionExpression,
+                                  const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
     Aws::DynamoDB::Model::QueryRequest request;
 
     request.SetTableName(tableName);
+
+    if (!projectionExpression.empty()) {
+        request.SetProjectionExpression(projectionExpression);
+    }
 
     // Set query key condition expression
     request.SetKeyConditionExpression(partitionKey + "= :valueToMatch");
@@ -58,34 +62,48 @@ bool AwsDoc::DynamoDB::queryItem(const Aws::String &tableName,
     attributeValues.emplace(":valueToMatch", partitionValue);
 
     request.SetExpressionAttributeValues(attributeValues);
-    request.SetLimit(1); // TODO(developer): remove code needed for pagination testing
 
-    // Perform Query operation
-    const Aws::DynamoDB::Model::QueryOutcome &outcome = dynamoClient.Query(request);
-    if (outcome.IsSuccess()) {
-        // Reference the retrieved items
-        const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
-        if (!items.empty()) {
-            std::cout << "Number of items retrieved from Query: " << items.size()
-                      << std::endl;
-            //Iterate each item and print
-            for (const auto &item: items) {
-                std::cout << "******************************************************"
+    bool result = true;
+
+    // "exclusiveStartKey" is used for pagination.
+    Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> exclusiveStartKey;
+    do {
+        if (!exclusiveStartKey.empty()) {
+            request.SetExclusiveStartKey(exclusiveStartKey);
+            exclusiveStartKey.clear();
+        }
+        // Perform Query operation
+        const Aws::DynamoDB::Model::QueryOutcome &outcome = dynamoClient.Query(request);
+        if (outcome.IsSuccess()) {
+            // Reference the retrieved items
+            const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
+            if (!items.empty()) {
+                std::cout << "Number of items retrieved from Query: " << items.size()
                           << std::endl;
-                // Output each retrieved field and its value
-                for (const auto &i: item)
-                    std::cout << i.first << ": " << i.second.GetS() << std::endl;
+                //Iterate each item and print
+                for (const auto &item: items) {
+                    std::cout
+                            << "******************************************************"
+                            << std::endl;
+                    // Output each retrieved field and its value
+                    for (const auto &i: item)
+                        std::cout << i.first << ": " << i.second.GetS() << std::endl;
+                }
             }
+            else {
+                std::cout << "No item found in table: " << tableName << std::endl;
+            }
+
+            exclusiveStartKey = outcome.GetResult().GetLastEvaluatedKey();
         }
         else {
-            std::cout << "No item found in table: " << tableName << std::endl;
+            std::cerr << "Failed to Query items: " << outcome.GetError().GetMessage();
+            result = false;
+            break;
         }
-    }
-    else {
-        std::cerr << "Failed to Query items: " << outcome.GetError().GetMessage();
-    }
+    } while (!exclusiveStartKey.empty());
 
-    return outcome.IsSuccess();
+    return result;
 }
 // snippet-end:[dynamodb.cpp.query_items.code]
 
@@ -109,9 +127,11 @@ int main(int argc, char **argv) {
 Usage:
     run_query_items <table_name> <partition_key> <partition_value> [projection_expression]
 Where:
-    table_name - the table to get an item from.
-    partition_key  - Partition Key attribute of the table.
-    partition_value  - Partition Key value to query.)";
+    table_name - the table to get an item from
+    partition_key  - the partition key attribute of the table
+    partition_value  - the partition key value to query
+    [projection_expression] - the projection expression
+)";
         return 1;
     }
 

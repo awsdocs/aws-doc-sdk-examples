@@ -29,15 +29,15 @@
 // snippet-start:[dynamodb.cpp.create_table.code]
 //! Create an Amazon DynamoDB table.
 /*!
-  \sa createDynamoDBTable()
+  \sa createTable()
   \param tableName: Name for the DynamoDB table.
   \param primaryKey: Primary key for the DynamoDB table.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
-                                           const Aws::String &primaryKey,
-                                           const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::DynamoDB::createTable(const Aws::String &tableName,
+                                   const Aws::String &primaryKey,
+                                   const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     std::cout << "Creating table " << tableName <<
@@ -46,12 +46,12 @@ bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
     Aws::DynamoDB::Model::CreateTableRequest request;
 
     Aws::DynamoDB::Model::AttributeDefinition hashKey;
-    hashKey.SetAttributeName("Name");
+    hashKey.SetAttributeName(primaryKey);
     hashKey.SetAttributeType(Aws::DynamoDB::Model::ScalarAttributeType::S);
     request.AddAttributeDefinitions(hashKey);
 
     Aws::DynamoDB::Model::KeySchemaElement keySchemaElement;
-    keySchemaElement.WithAttributeName("Name").WithKeyType(
+    keySchemaElement.WithAttributeName(primaryKey).WithKeyType(
             Aws::DynamoDB::Model::KeyType::HASH);
     request.AddKeySchema(keySchemaElement);
 
@@ -68,7 +68,8 @@ bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
                   " created!" << std::endl;
     }
     else {
-        std::cerr << "Failed to create table: " << outcome.GetError().GetMessage() << std::endl;
+        std::cerr << "Failed to create table: " << outcome.GetError().GetMessage()
+                  << std::endl;
     }
 
     return outcome.IsSuccess();
@@ -110,7 +111,7 @@ Example:
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::DynamoDB::createDynamoDBTable(tableName, primaryKey, clientConfig);
+        AwsDoc::DynamoDB::createTable(tableName, primaryKey, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

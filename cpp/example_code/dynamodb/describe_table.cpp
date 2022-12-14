@@ -110,4 +110,4 @@ Where:
     return 0;
 }
 
-#endif // TESTING_BUILD
+#endif  // TESTING_BUILD
