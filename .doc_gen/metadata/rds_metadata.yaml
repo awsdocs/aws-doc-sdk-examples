@@ -560,6 +560,23 @@ rds_DescribeOrderableDBInstanceOptions:
                 - python.example_code.rds.DescribeOrderableDBInstanceOptions
   services:
     rds: {DescribeOrderableDBInstanceOptions}
+rds_GenerateRDSAuthToken:
+  title: Create an authentication token for IAM authentication to an &RDS; database using an &AWS; SDK
+  title_abbrev: Create an authentication token
+  synopsis: create an authentication token for IAM authentication.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/rds
+          sdkguide:
+          excerpts:
+            - description: Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/rds/RdsUtilities.html">RdsUtilities</ulink> class to generate an authentication token.
+              snippet_tags:
+                - rds.java2.create_token.main
+  services:
+    rds: {GenerateRDSAuthToken}
 rds_Scenario_GetStartedInstances:
   title: Get started with &RDS; DB instances using an &AWS; SDK
   title_abbrev: Get started with DB instances
