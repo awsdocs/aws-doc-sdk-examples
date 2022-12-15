@@ -818,6 +818,22 @@ s3_GetObject:
                 - s3.swift.basics.handler.readfile
   services:
     s3: {GetObject}
+s3_GetObject_IfModifiedSince:
+  title: Get an object from an &S3; bucket using an &AWS; SDK, specifying an If-Modified-Since header
+  title_abbrev: Get an object from a bucket if it has been modified
+  synopsis: read data from an object in an S3 bucket, but only if that bucket has not been modified since the last retrieval time.
+  category:
+  languages:
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.rust.if-modified-since
+  services:
+    s3: {GetObject}
 s3_GetBucketLifecycleConfiguration:
   title: Get the lifecycle configuration of an &S3; bucket using an &AWS; SDK
   title_abbrev: Get the lifecycle configuration of a bucket

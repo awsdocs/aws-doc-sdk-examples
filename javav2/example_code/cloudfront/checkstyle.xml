@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+
+<!DOCTYPE module PUBLIC
+        "-//Checkstyle//DTD Checkstyle Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/configuration_1_2.dtd">
+
+<module name="Checker">
+    <module name="TreeWalker">
+
+        <module name="IllegalCatch"/>
+        <module name="EmptyStatement"/>
+        <module name="AvoidStarImport"/>
+        <module name="UnusedImports"/>
+        <module name="ParameterAssignment"/>
+        <module name="LocalVariableName"/>
+        <module name="NoLineWrap"/>
+        <module name="SingleSpaceSeparator"/>
+        <module name="MethodName"/>
+        <module name="MemberName"/>
+        <module name="LocalVariableName"/>
+        <module name="LeftCurly"/>
+        <module name="RightCurly"/>
+        <module name="DeclarationOrder"/>
+    </module>
+</module>
