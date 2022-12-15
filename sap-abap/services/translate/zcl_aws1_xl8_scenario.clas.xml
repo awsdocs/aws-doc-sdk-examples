@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AWS1_XL8_SCENARIO</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>Translate Code Example Scenario</DESCRIPT>
+    <DESCRIPT>Amazon Translate Code Example Scenario</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
@@ -17,7 +17,7 @@
      <CLSNAME>ZCL_AWS1_XL8_SCENARIO</CLSNAME>
      <CMPNAME>GETTING_STARTED_WITH_XL8</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Getting started with Amazon Translate</DESCRIPT>
+     <DESCRIPT>Getting started with Amazon Translate.</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>

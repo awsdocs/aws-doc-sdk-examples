@@ -1,0 +1,6 @@
+resource_arn: ''
+secret_arn: ''
+database: ''
+table_name: 'work_items'
+sender_email: ''
+recipient_email: ''

@@ -61,14 +61,14 @@ CLASS ZCL_AWS1_XL8_ACTIONS IMPLEMENTATION.
 
     "snippet-start:[xl8.abapv1.describe_text_translation_job]
 
-    "Gets the properties associated with an asynchronous batch translation job"
-    "including name, ID, status, source and target languages, input/output S3 buckets, and so on."
+    "Gets the properties associated with an asynchronous batch translation job."
+    "Includes properties such as name, ID, status, source and target languages, and input/output Amazon Simple Storage Service (Amazon S3) buckets."
     TRY.
-        oo_result = lo_xl8->describetexttranslationjob(      "oo_result is returned for testing purpose"
+        oo_result = lo_xl8->describetexttranslationjob(      "oo_result is returned for testing purposes."
           EXPORTING
             iv_jobid        = iv_jobid
           ).
-        MESSAGE 'Job description retrieved' TYPE 'I'.
+        MESSAGE 'Job description retrieved.' TYPE 'I'.
       CATCH /aws1/cx_xl8internalserverex .
         MESSAGE 'An internal server error occurred. Retry your request.' TYPE 'E'.
       CATCH /aws1/cx_xl8resourcenotfoundex .
@@ -91,17 +91,17 @@ CLASS ZCL_AWS1_XL8_ACTIONS IMPLEMENTATION.
 
     DATA lo_filter TYPE REF TO /aws1/cl_xl8textxlationjobfilt.
 
-    "Create an ABAP object for filtering using jobname"
+    "Create an ABAP object for filtering using jobname."
     CREATE OBJECT lo_filter
       EXPORTING
         iv_jobname = iv_jobname.
 
     TRY.
-        oo_result = lo_xl8->listtexttranslationjobs(      "oo_result is returned for testing purpose"
+        oo_result = lo_xl8->listtexttranslationjobs(      "oo_result is returned for testing purposes."
           EXPORTING
             io_filter        = lo_filter
           ).
-        MESSAGE 'Jobs retrieved' TYPE 'I'.
+        MESSAGE 'Jobs retrieved.' TYPE 'I'.
       CATCH /aws1/cx_xl8internalserverex .
         MESSAGE 'An internal server error occurred. Retry your request.' TYPE 'E'.
       CATCH /aws1/cx_xl8invalidfilterex .
@@ -130,25 +130,25 @@ CLASS ZCL_AWS1_XL8_ACTIONS IMPLEMENTATION.
     DATA lt_targetlanguagecodes TYPE /aws1/cl_xl8tgtlanguagecodes00=>tt_targetlanguagecodestrlist.
     DATA lo_targetlanguagecodes TYPE REF TO /aws1/cl_xl8tgtlanguagecodes00.
 
-    "Create an ABAP object for the input data config"
+    "Create an ABAP object for the input data config."
     CREATE OBJECT lo_inputdataconfig
       EXPORTING
         iv_s3uri       = iv_input_data_s3uri
         iv_contenttype = iv_input_data_contenttype.
 
-    "Create an ABAP object for the output data config"
+    "Create an ABAP object for the output data config."
     CREATE OBJECT lo_outputdataconfig
       EXPORTING
         iv_s3uri = iv_output_data_s3uri.
 
-    "Create an interal table for target languages"
+    "Create an internal table for target languages."
     CREATE OBJECT lo_targetlanguagecodes
       EXPORTING
         iv_value = iv_targetlanguagecode.
     INSERT lo_targetlanguagecodes  INTO TABLE lt_targetlanguagecodes.
 
     TRY.
-        oo_result = lo_xl8->starttexttranslationjob(      "oo_result is returned for testing purpose"
+        oo_result = lo_xl8->starttexttranslationjob(      "oo_result is returned for testing purposes."
           EXPORTING
             io_inputdataconfig = lo_inputdataconfig
             io_outputdataconfig = lo_outputdataconfig
@@ -157,7 +157,7 @@ CLASS ZCL_AWS1_XL8_ACTIONS IMPLEMENTATION.
             iv_jobname = iv_jobname
             iv_sourcelanguagecode = iv_sourcelanguagecode
           ).
-        MESSAGE 'Translation job started' TYPE 'I'.
+        MESSAGE 'Translation job started.' TYPE 'I'.
       CATCH /aws1/cx_xl8internalserverex .
         MESSAGE 'An internal server error occurred. Retry your request.' TYPE 'E'.
       CATCH /aws1/cx_xl8invparamvalueex .
@@ -185,11 +185,11 @@ CLASS ZCL_AWS1_XL8_ACTIONS IMPLEMENTATION.
     "Stops an asynchronous batch translation job that is in progress."
 
     TRY.
-        oo_result = lo_xl8->stoptexttranslationjob(      "oo_result is returned for testing purpose"
+        oo_result = lo_xl8->stoptexttranslationjob(      "oo_result is returned for testing purposes."
           EXPORTING
             iv_jobid        = iv_jobid
           ).
-        MESSAGE 'Translation job stopped' TYPE 'I'.
+        MESSAGE 'Translation job stopped.' TYPE 'I'.
       CATCH /aws1/cx_xl8internalserverex .
         MESSAGE 'An internal server error occurred.' TYPE 'E'.
       CATCH /aws1/cx_xl8resourcenotfoundex .
@@ -210,13 +210,13 @@ CLASS ZCL_AWS1_XL8_ACTIONS IMPLEMENTATION.
     "snippet-start:[xl8.abapv1.translate_text]
     "Translates input text from the source language to the target language."
     TRY.
-        oo_result = lo_xl8->translatetext(      "oo_result is returned for testing purpose"
+        oo_result = lo_xl8->translatetext(      "oo_result is returned for testing purposes."
           EXPORTING
             iv_text        = iv_text
             iv_sourcelanguagecode = iv_sourcelanguagecode
             iv_targetlanguagecode = iv_targetlanguagecode
           ).
-        MESSAGE 'Translation completed' TYPE 'I'.
+        MESSAGE 'Translation completed.' TYPE 'I'.
       CATCH /aws1/cx_xl8detectedlanguage00 .
         MESSAGE 'The confidence that Amazon Comprehend accurately detected the source language is low.' TYPE 'E'.
       CATCH /aws1/cx_xl8internalserverex .

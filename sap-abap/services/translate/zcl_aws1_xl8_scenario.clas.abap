@@ -37,9 +37,9 @@ CLASS ZCL_AWS1_XL8_SCENARIO IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_xl8) =     /aws1/cl_xl8_factory=>create( lo_session ).
 
-    "1. Starts an asynchronous batch translation job."
-    "2. Wait for the asynchronous job to complete"
-    "3. Describe the asynchronous job"
+    "1. Start an asynchronous batch translation job."
+    "2. Wait for the asynchronous job to complete."
+    "3. Describe the asynchronous job."
 
     "snippet-start:[xl8.abapv1.getting_started_with_xl8]
 
@@ -48,18 +48,18 @@ CLASS ZCL_AWS1_XL8_SCENARIO IMPLEMENTATION.
     DATA lt_targetlanguagecodes TYPE /aws1/cl_xl8tgtlanguagecodes00=>tt_targetlanguagecodestrlist.
     DATA lo_targetlanguagecodes TYPE REF TO /aws1/cl_xl8tgtlanguagecodes00.
 
-    "Create an ABAP object for the input data config"
+    "Create an ABAP object for the input data config."
     CREATE OBJECT lo_inputdataconfig
       EXPORTING
         iv_s3uri       = iv_input_data_s3uri
         iv_contenttype = iv_input_data_contenttype.
 
-    "Create an ABAP object for the output data config"
+    "Create an ABAP object for the output data config."
     CREATE OBJECT lo_outputdataconfig
       EXPORTING
         iv_s3uri = iv_output_data_s3uri.
 
-    "Create an interal table for target languages"
+    "Create an internal table for target languages."
     CREATE OBJECT lo_targetlanguagecodes
       EXPORTING
         iv_value = iv_targetlanguagecode.
@@ -75,7 +75,7 @@ CLASS ZCL_AWS1_XL8_SCENARIO IMPLEMENTATION.
             iv_jobname = iv_jobname
             iv_sourcelanguagecode = iv_sourcelanguagecode
           ).
-        MESSAGE 'Translation job started' TYPE 'I'.
+        MESSAGE 'Translation job started.' TYPE 'I'.
       CATCH /aws1/cx_xl8internalserverex .
         MESSAGE 'An internal server error occurred. Retry your request.' TYPE 'E'.
       CATCH /aws1/cx_xl8invparamvalueex .
@@ -90,25 +90,25 @@ CLASS ZCL_AWS1_XL8_SCENARIO IMPLEMENTATION.
         MESSAGE 'Amazon Translate does not support translation from the language of the source text into the requested target language.' TYPE 'E'.
     ENDTRY.
 
-    "Get the job ID"
+    "Get the job ID."
     DATA(lv_jobid) = lo_translationjob_result->get_jobid( ).
 
-    "Wait for translate job to complete"
+    "Wait for translate job to complete."
     DATA(lo_des_translation_result) = lo_xl8->describetexttranslationjob( iv_jobid = lv_jobid ).
     WHILE lo_des_translation_result->get_textxlationjobproperties( )->get_jobstatus( ) <> 'COMPLETED'.
       IF sy-index = 30.
-        EXIT.               "maximum 900 seconds"
+        EXIT.               "Maximum 900 seconds."
       ENDIF.
       WAIT UP TO 30 SECONDS.
       lo_des_translation_result = lo_xl8->describetexttranslationjob( iv_jobid = lv_jobid ).
     ENDWHILE.
 
     TRY.
-        oo_result = lo_xl8->describetexttranslationjob(      "oo_result is returned for testing purpose"
+        oo_result = lo_xl8->describetexttranslationjob(      "oo_result is returned for testing purposes."
           EXPORTING
             iv_jobid        = lv_jobid
           ).
-        MESSAGE 'Job description retrieved' TYPE 'I'.
+        MESSAGE 'Job description retrieved.' TYPE 'I'.
       CATCH /aws1/cx_xl8internalserverex .
         MESSAGE 'An internal server error occurred. Retry your request.' TYPE 'E'.
       CATCH /aws1/cx_xl8resourcenotfoundex .

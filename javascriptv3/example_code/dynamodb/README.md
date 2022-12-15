@@ -48,9 +48,9 @@ Code excerpts that show you how to call individual service functions.
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [DynamoDB basics](scenarios/dynamodb_basics/src/dynamodb_basics.js)
-- [PartiQL basics](scenarios/partiQL_basics/src/partiQL_basics.js)
-- [PartiQL batch_basics](scenarios/partiQL_basics/src/partiQL_batch_basics.js)
+- [Get started using DynamoDB tables, items, and queries](scenarios/dynamodb_basics/src/dynamodb_basics.js)
+- [Get started using DynamoDB tables using PartiQL](scenarios/partiQL_basics/src/partiQL_basics.js)
+- [Get started using DynamoDB tables using PartiQL by batch](scenarios/partiQL_basics/src/partiQL_batch_basics.js)
 
 ## Run the examples
 

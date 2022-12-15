@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AWS1_TEX_SCENARIO</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>Textract Code Example Scenario</DESCRIPT>
+    <DESCRIPT>Amazon Textract Code Example Scenario</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
@@ -17,7 +17,7 @@
      <CLSNAME>ZCL_AWS1_TEX_SCENARIO</CLSNAME>
      <CMPNAME>GETTING_STARTED_WITH_TEX</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>SGM Code Example Scenario</DESCRIPT>
+     <DESCRIPT>SGM code example scenario.</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>

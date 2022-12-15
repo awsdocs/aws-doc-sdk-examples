@@ -86,7 +86,7 @@ app.MapPost("/items:report", async (WorkItemService workItemService, ReportServi
 
     await reportService.SendReport(activeItems, reportRequest.Email);
 
-    return Results.Ok();
+    return Results.NoContent();
 });
 
 app.Run();

@@ -32,7 +32,7 @@ CLASS ltc_zcl_aws1_xl8_scenario IMPLEMENTATION.
     ao_xl8_scenario = NEW zcl_aws1_xl8_scenario( ).
     ao_s3 = /aws1/cl_s3_factory=>create( ao_session ).
 
-    "Translate data
+    "Translate data.
     av_file_content = /aws1/cl_rt_util=>string_to_xstring(
       |Que vous cherchiez à replateformer pour réduire les coûts,| &&
       |à migrer vers SAP S/4HANA ou à adopter l’offre RISE avec SAP, | &&
@@ -75,17 +75,17 @@ CLASS ltc_zcl_aws1_xl8_scenario IMPLEMENTATION.
     CONSTANTS cv_sourcelanguagecode TYPE /aws1/xl8languagecodestring VALUE 'fr'.
     CONSTANTS cv_targetlanguagecode TYPE /aws1/xl8languagecodestring VALUE 'en'.
 
-    "Define role arn
+    "Define role Amazon Resource Name (ARN).
     DATA(lt_roles) = ao_session->get_configuration( )->get_logical_iam_roles( ).
     READ TABLE lt_roles WITH KEY profile_id = cv_pfl INTO DATA(lo_role).
     av_lrole = lo_role-iam_role_arn.
 
-    "Define job name
+    "Define job name.
     lv_uuid_16 = cl_system_uuid=>create_uuid_x16_static( ).
     lv_translate_job_name = 'code-example-xl8-job-' && lv_uuid_16.
     TRANSLATE lv_translate_job_name TO LOWER CASE.
 
-    "Create training data in S3
+    "Create training data in Amazon Simple Storage Service (Amazon S3).
     lv_bucket_name = cv_bucket_name && lv_uuid_16.
     TRANSLATE lv_bucket_name TO LOWER CASE.
     ao_s3->createbucket( iv_bucket = lv_bucket_name ).
@@ -99,7 +99,7 @@ CLASS ltc_zcl_aws1_xl8_scenario IMPLEMENTATION.
       iv_body = av_file_content
     ).
 
-    "Testing
+    "Testing.
     ao_xl8_scenario->getting_started_with_xl8(
       EXPORTING
         iv_jobname                         = lv_translate_job_name
@@ -113,7 +113,7 @@ CLASS ltc_zcl_aws1_xl8_scenario IMPLEMENTATION.
        oo_result                           = lo_des_translation_result
     ).
 
-    "Validation
+    "Validation.
     lv_found = abap_false.
     IF lo_des_translation_result->get_textxlationjobproperties( )->get_jobstatus( ) = 'COMPLETED'.
       lv_found               = abap_true.
@@ -124,7 +124,7 @@ CLASS ltc_zcl_aws1_xl8_scenario IMPLEMENTATION.
        msg                    = |Describe job failed|
     ).
 
-    "Cleanup
+    "Clean up.
     DATA(lo_list) = ao_s3->listobjectsv2( iv_bucket = lv_bucket_name ).
     LOOP AT lo_list->get_contents( ) INTO DATA(lo_object).
       ao_s3->deleteobject(

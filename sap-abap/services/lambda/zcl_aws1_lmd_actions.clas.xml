@@ -17,43 +17,43 @@
      <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
      <CMPNAME>CREATE_FUNCTION</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Create a lambda function</DESCRIPT>
+     <DESCRIPT>Create a Lambda function.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
      <CMPNAME>DELETE_FUNCTION</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Delete a lambda function</DESCRIPT>
+     <DESCRIPT>Delete a Lambda function.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
      <CMPNAME>GET_FUNCTION</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Get a lambda function</DESCRIPT>
+     <DESCRIPT>Get a Lambda function.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
      <CMPNAME>INVOKE_FUNCTION</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Invoke a lambda function</DESCRIPT>
+     <DESCRIPT>Invoke a Lambda function.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
      <CMPNAME>LIST_FUNCTIONS</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>List lambda functions</DESCRIPT>
+     <DESCRIPT>List lambda functions.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
      <CMPNAME>UPDATE_FUNCTION_CODE</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Update lambda function code.</DESCRIPT>
+     <DESCRIPT>Update Lambda function code.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
      <CMPNAME>UPDATE_FUNCTION_CONFIGURATION</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Update lambda function configuration</DESCRIPT>
+     <DESCRIPT>Update Lambda function configuration.</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>

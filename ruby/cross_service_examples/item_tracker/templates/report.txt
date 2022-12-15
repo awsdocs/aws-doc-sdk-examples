@@ -1,0 +1,10 @@
+Work items
+
+Compiled shapsnot of <% @item_count %> active
+work items taken precisely at <% @timestamp %>.
+----------------------------------------------------------------------
+<% if @item_count > 10 %>
+See attachment for work items table (CSV).
+<% else %>
+{{work_items}}
+<% end %>

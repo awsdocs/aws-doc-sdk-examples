@@ -36,7 +36,7 @@ CLASS ZCL_AWS1_SNS_SCENARIO IMPLEMENTATION.
 
     " snippet-start:[sns.abapv1.publish_message_to_fifo_queue]
 
-    " Creates a FIFO topic "
+    " Creates a FIFO topic. "
     DATA lt_tpc_attributes TYPE /aws1/cl_snstopicattrsmap_w=>tt_topicattributesmap.
     DATA ls_tpc_attributes TYPE /aws1/cl_snstopicattrsmap_w=>ts_topicattributesmap_maprow.
     ls_tpc_attributes-key = 'FifoTopic'.
@@ -49,14 +49,14 @@ CLASS ZCL_AWS1_SNS_SCENARIO IMPLEMENTATION.
                it_attributes = lt_tpc_attributes
         ).
         DATA(lv_topic_arn) = lo_create_result->get_topicarn( ).
-        ov_topic_arn = lv_topic_arn.                                    " ov_topic_arn is returned for testing purpose "
+        ov_topic_arn = lv_topic_arn.                                    " ov_topic_arn is returned for testing purposes. "
         MESSAGE 'FIFO topic created' TYPE 'I'.
       CATCH /aws1/cx_snstopiclimitexcdex.
-        MESSAGE 'Unable to create more topics as you have reached the maximum number of topics allowed.' TYPE 'E'.
+        MESSAGE 'Unable to create more topics. You have reached the maximum number of topics allowed.' TYPE 'E'.
     ENDTRY.
 
-    " Subscribes an endpoint to an Amazon SNS topic "
-    " Only SQS FIFO queues can be subscribed to an SNS FIFO topic "
+    " Subscribes an endpoint to an Amazon Simple Notification Service (Amazon SNS) topic. "
+    " Only Amazon Simple Queue Service (Amazon SQS) FIFO queues can be subscribed to an SNS FIFO topic. "
     TRY.
         DATA(lo_subscribe_result) = lo_sns->subscribe(
                iv_topicarn = lv_topic_arn
@@ -64,15 +64,15 @@ CLASS ZCL_AWS1_SNS_SCENARIO IMPLEMENTATION.
                iv_endpoint = iv_queue_arn
            ).
         DATA(lv_subscription_arn) = lo_subscribe_result->get_subscriptionarn( ).
-        ov_subscription_arn = lv_subscription_arn.                      " ov_subscription_arn is returned for testing purpose "
-        MESSAGE 'SQS Queue was subscribed to SNS topic' TYPE 'I'.
+        ov_subscription_arn = lv_subscription_arn.                      " ov_subscription_arn is returned for testing purposes. "
+        MESSAGE 'SQS queue was subscribed to SNS topic.' TYPE 'I'.
       CATCH /aws1/cx_snsnotfoundexception.
-        MESSAGE 'Topic does not exist' TYPE 'E'.
+        MESSAGE 'Topic does not exist.' TYPE 'E'.
       CATCH /aws1/cx_snssubscriptionlmte00.
-        MESSAGE 'Unable to create subscriptions, you have reached the maximum number of subscriptions allowed.' TYPE 'E'.
+        MESSAGE 'Unable to create subscriptions. You have reached the maximum number of subscriptions allowed.' TYPE 'E'.
     ENDTRY.
 
-    " Publish message to SNS topic "
+    " Publish message to SNS topic. "
     TRY.
         DATA lt_msg_attributes TYPE /aws1/cl_snsmessageattrvalue=>tt_messageattributemap.
         DATA ls_msg_attributes TYPE /aws1/cl_snsmessageattrvalue=>ts_messageattributemap_maprow.
@@ -88,10 +88,10 @@ CLASS ZCL_AWS1_SNS_SCENARIO IMPLEMENTATION.
              iv_messagededuplicationid = 'Update-2.1'
              it_messageattributes = lt_msg_attributes
       ).
-        ov_message_id = lo_result->get_messageid( ).                    " ov_message_id is returned for testing purpose "
-        MESSAGE 'Message was published to SNS topic' TYPE 'I'.
+        ov_message_id = lo_result->get_messageid( ).                    " ov_message_id is returned for testing purposes. "
+        MESSAGE 'Message was published to SNS topic.' TYPE 'I'.
       CATCH /aws1/cx_snsnotfoundexception.
-        MESSAGE 'Topic does not exist' TYPE 'E'.
+        MESSAGE 'Topic does not exist.' TYPE 'E'.
     ENDTRY.
 
     " snippet-end:[sns.abapv1.publish_message_to_fifo_queue]
