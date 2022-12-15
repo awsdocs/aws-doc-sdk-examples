@@ -5,6 +5,7 @@
 
 #include "autoscaling_gtests.h"
 #include <fstream>
+#include <aws/core/client/ClientConfiguration.h>
 
 Aws::SDKOptions AwsDocTest::AutoScaling_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::AutoScaling_GTests::s_clientConfig;

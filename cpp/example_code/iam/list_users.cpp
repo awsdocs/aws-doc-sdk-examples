@@ -93,7 +93,7 @@ int main(int argc, char** argv)
     Aws::InitAPI(options);
     {
         Aws::Client::ClientConfiguration clientConfig;
-        // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
+        // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
         AwsDoc::IAM::listUsers(clientConfig);
     }
