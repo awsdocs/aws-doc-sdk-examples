@@ -25,7 +25,7 @@ SPDX-License-Identifier: Apache-2.0
 #include "dynamodb_samples.h"
 
 // snippet-start:[dynamodb.cpp.list_tables.code]
-//! List the DynamoDB tables for the current AWS account.
+//! List the Amazon DynamoDB tables for the current AWS account.
 /*!
   \sa listTables()
   \param clientConfiguration: AWS client configuration.

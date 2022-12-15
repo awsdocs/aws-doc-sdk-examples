@@ -24,20 +24,20 @@
 #include "dynamodb_samples.h"
 
 // snippet-start:[dynamodb.cpp.update_item.code]
-//! Update a DynamoDB table item.
+//! Update an Amazon DynamoDB table item.
 /*!
   \sa updateItem()
   \param tableName: The table name.
   \param partitionKey: The partition key.
   \param partitionValue: The value for the partition key.
   \param attributeKey: The key for the attribute to be updated.
-  \param attributeValue: The value for the attribuge to be updated.
+  \param attributeValue: The value for the attribute to be updated.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
   */
 
 /*
- *   The example code only sets/updates an attribute value. It processes
+ *  The example code only sets/updates an attribute value. It processes
  *  the attribute value as a string, even if the value could be interpreted
  *  as a number. Also, the example code does not remove an existing attribute
  *  from the key value.
@@ -51,7 +51,7 @@ bool AwsDoc::DynamoDB::updateItem(const Aws::String &tableName,
                                   const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
-    // *** Define UpdateItem request arguments
+    // *** Define UpdateItem request arguments.
     // Define TableName argument.
     Aws::DynamoDB::Model::UpdateItemRequest request;
     request.SetTableName(tableName);
@@ -65,7 +65,7 @@ bool AwsDoc::DynamoDB::updateItem(const Aws::String &tableName,
     Aws::String update_expression("SET #a = :valueA");
     request.SetUpdateExpression(update_expression);
 
-    // Construct attribute name argument
+    // Construct attribute name argument.
     Aws::Map<Aws::String, Aws::String> expressionAttributeNames;
     expressionAttributeNames["#a"] = attributeKey;
     request.SetExpressionAttributeNames(expressionAttributeNames);
@@ -97,10 +97,10 @@ bool AwsDoc::DynamoDB::updateItem(const Aws::String &tableName,
  *  Usage: 'run_update_item <table_name> <partition_key> <partition_value> <attribute_key>
  *         <attribute_value>'
  *
- *  Prerequisites: A pre-populated DynamoDB table.
+ *  Prerequisites: Create a pre-populated DynamoDB table.
  *
- *  Instructions for populating a table with sample data can be found at:
- *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html
+ *  For instructions on populating a table with sample data, see
+ *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html.
  *
  */
 
@@ -113,11 +113,11 @@ Usage:
     run_update_item <table_name> <partition_key> <partition_value> <attribute_key>
           <attribute_value>
 Where:
-    table_name        - name of the table to put the item in
-    partition_key     - the partition key
-    partition_value   - the value of the partition key
-    attribute_key     - the attribute key
-    attribute_value   - the attribute value
+    table_name        - Name of the table to put the item in.
+    partition_key     - The partition key.
+    partition_value   - The value of the partition key.
+    attribute_key     - The attribute key.
+    attribute_value   - The attribute value.
 )";
         return 1;
     }

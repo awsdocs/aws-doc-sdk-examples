@@ -195,7 +195,7 @@ bool AwsDocTest::DynamoDB_GTests::populateBatchTables() {
                                              *s_clientConfig)) {
             s_batchTablesPopulated = AwsDoc::DynamoDB::batchWriteItem(
                     TESTS_DIR "/Forum.json",
-                    *s_clientConfig);;
+                    *s_clientConfig);
         }
     }
 

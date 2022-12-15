@@ -22,7 +22,7 @@ SPDX-License-Identifier: Apache-2.0
 #include "dynamodb_samples.h"
 
 // snippet-start:[dynamodb.cpp.scan_table.code]
-//! Scans a DynamoDB table.
+//! Scan an Amazon DynamoDB table.
 /*!
   \sa scanTable()
   \param tableName: Name for the DynamoDB table.
@@ -41,19 +41,19 @@ bool AwsDoc::DynamoDB::scanTable(const Aws::String &tableName,
     if (!projectionExpression.empty())
         request.SetProjectionExpression(projectionExpression);
 
-    // Perform scan on table
+    // Perform scan on table.
     const Aws::DynamoDB::Model::ScanOutcome &outcome = dynamoClient.Scan(request);
     if (outcome.IsSuccess()) {
-        // Reference the retrieved items
+        // Reference the retrieved items.
         const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
         if (!items.empty()) {
             std::cout << "Number of items retrieved from scan: " << items.size()
                       << std::endl;
-            //Iterate each item and print
+            // Iterate each item and print.
             for (const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &itemMap: items) {
                 std::cout << "******************************************************"
                           << std::endl;
-                // Output each retrieved field and its value
+                // Output each retrieved field and its value.
                 for (const auto &itemEntry: itemMap)
                     std::cout << itemEntry.first << ": " << itemEntry.second.GetS()
                               << std::endl;
@@ -79,10 +79,10 @@ bool AwsDoc::DynamoDB::scanTable(const Aws::String &tableName,
  *
  *  Usage: 'run_scan_table <table> [projection_expression]'
  *
- *  Prerequisites: A pre-populated DynamoDB table.
+ *  Prerequisites: Create a pre-populated DynamoDB table.
  *
- *  Instructions for populating a table with sample data can be found at:
- *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html
+ *  For instructions on populating a table with sample data, see
+ *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html.
  *
  */
 
@@ -94,10 +94,10 @@ int main(int argc, char **argv) {
 Usage:
     run_scan_table <table> [projection_expression]
 Where:
-    table - the table to Scan.
-You can add an optional projection expression (a quote-delimited,
-comma-separated list of attributes to retrieve) to limit the
-fields returned from the table.
+    table - The table to scan.
+To limit the fields returned from the table, add
+an optional projection expression (a quote-delimited,
+comma-separated list of attributes to retrieve).
 )";
         return 1;
     }

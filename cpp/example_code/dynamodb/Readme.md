@@ -8,7 +8,7 @@ Sample code which demonstrates creation, deletion, modification, and querying of
 predictable performance with seamless scalability.*
 
 ## ⚠️ Important
-* 
+
 * Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).

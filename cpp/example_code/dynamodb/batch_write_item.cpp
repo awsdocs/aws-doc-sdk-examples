@@ -2,11 +2,6 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
-/*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
-*/
 /**
  * Before running this C++ code example, set up your development environment, including your credentials.
  *
@@ -22,7 +17,7 @@
 #include <aws/core/Aws.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
-#include <aws/dynamodb/model/BatchWriteItemRequest.h>
+#include <dynamodb/model/BatchWriteItemRequest.h>
 #include <iostream>
 #include <fstream>
 #include "dynamodb_samples.h"
@@ -63,11 +58,11 @@ namespace AwsDoc {
  */
 
 /*
- * The input for this routine is a JSON file that can be downloaded from the following URL.
+ * The input for this routine is a JSON file that you can download from the following URL:
  * https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html.
  *
- * The JSON data uses the BatchWriteItem api request syntax. The JSON strings are
- * converted to AttributeValue objects.  These AttributeValue objects will then generate
+ * The JSON data uses the BatchWriteItem API request syntax. The JSON strings are
+ * converted to AttributeValue objects. These AttributeValue objects will then generate
  * JSON strings when constructing the BatchWriteItem request, essentially outputting
  * their input.
  *
@@ -92,7 +87,7 @@ bool AwsDoc::DynamoDB::batchWriteItem(const Aws::String &jsonFilePath,
     for (const auto &level1Entry: level1Map) {
         const Aws::Utils::Json::JsonView &entriesView = level1Entry.second;
         const Aws::String &tableName = level1Entry.first;
-        // The JSON entries at this level are:
+        // The JSON entries at this level are as follows:
         //  key - table name
         //  value - list of request objects
         if (!entriesView.IsListType()) {
@@ -218,9 +213,9 @@ AwsDoc::DynamoDB::getAttributeObjectsMap(const Aws::Utils::Json::JsonView &jsonV
  *  Usage: 'run_batch_write_item <json_file_path>'
  *
  *  Prerequisites:
- *  1. JSON file that can be downloaded from the following URL.
- *      https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html.
- *  2. DynamoDB table. See the JSON file for the table name.
+ *  1. Download the JSON file from the following URL:
+ *     https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html.
+ *  2. Create a DynamoDB table. Use the table name in the JSON file.
  *
  */
 

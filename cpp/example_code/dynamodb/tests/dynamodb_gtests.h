@@ -17,7 +17,7 @@
 namespace AwsDocTest {
 
     class MyStringBuffer : public std::stringbuf {
-        virtual int underflow() override;
+        int underflow() override;
     };
 
     class DynamoDB_GTests : public testing::Test {
@@ -41,7 +41,7 @@ namespace AwsDocTest {
 
         static Aws::String uuidName(const Aws::String &name);
 
-        bool createTableForScenario();
+        static bool createTableForScenario();
 
         static bool createSimpleTable();
 

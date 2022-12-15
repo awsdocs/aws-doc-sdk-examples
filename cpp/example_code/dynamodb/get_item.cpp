@@ -24,7 +24,7 @@
 #include "dynamodb_samples.h"
 
 // snippet-start:[dynamodb.cpp.get_item.code]
-//! Gets an item from a DynamoDB table.
+//! Get an item from an Amazon DynamoDB table.
 /*!
   \sa getItem()
   \param tableName: The table name.
@@ -46,12 +46,12 @@ bool AwsDoc::DynamoDB::getItem(const Aws::String &tableName,
     request.AddKey(partitionKey,
                    Aws::DynamoDB::Model::AttributeValue().SetS(partitionValue));
 
-    // Retrieve the item's fields and values
+    // Retrieve the item's fields and values.
     const Aws::DynamoDB::Model::GetItemOutcome &outcome = dynamoClient.GetItem(request);
     if (outcome.IsSuccess()) {
         // Reference the retrieved fields/values.
         const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &item = outcome.GetResult().GetItem();
-        if (item.size() > 0) {
+        if (!item.empty()) {
             // Output each retrieved field and its value.
             for (const auto &i: item)
                 std::cout << "Values: " << i.first << ": " << i.second.GetS()
@@ -75,8 +75,8 @@ bool AwsDoc::DynamoDB::getItem(const Aws::String &tableName,
  *
  *  Usage: 'run_get_item <table_name> <partition_key> <partition_value>'
  *
- *  Prerequisites: a DynamoDB table named <table_name> containing an item with
- *     <partition_value> for its <partition_key>.
+ *  Prerequisites: Create  DynamoDB table named <table_name> that contains
+ *  an item with <partition_value> for its <partition_key>.
  *
  */
 
@@ -87,9 +87,9 @@ int main(int argc, char **argv) {
         std::cout << R"("Usage:
     run_get_item <table_name> <partition_key> <partition_value>
 Where:
-    table - the table to get the item from.
-    partition_key  - the partition key of the table,
-    partition_value - the item value for the partition key"
+    table - The table to get the item from.
+    partition_key  - The partition key of the table,
+    partition_value - The item value for the partition key.
 Example:
     run_get_item HelloTable Name Joe
 )";

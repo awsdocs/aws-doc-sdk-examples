@@ -16,7 +16,6 @@
 
 //snippet-start:[dynamodb.cpp.describe_table.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/DescribeTableRequest.h>
 #include <iostream>
@@ -24,10 +23,10 @@
 #include "dynamodb_samples.h"
 
 // snippet-start:[dynamodb.cpp.describe_table.code]
-//! Describe a DynamoDB table.
+//! Describe an Amazon DynamoDB table.
 /*!
   \sa describeTable()
-  \param tableName: The DynamoDB table's name.
+  \param tableName: The DynamoDB table name.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
 */
@@ -78,7 +77,7 @@ bool AwsDoc::DynamoDB::describeTable(const Aws::String &tableName,
  *
  *  Usage: 'run_describe_table <table_name>'
  *
- *  Prerequisites: a DynamoDB table named <table_name>.
+ *  Prerequisites: Create a DynamoDB table named <table_name>.
  *
  */
 
@@ -90,7 +89,8 @@ int main(int argc, char **argv) {
 Usage:
     run_describe_table <table_name>
 Where:
-    table_name - the table to describe.)";
+    table_name - The table to describe.
+)";
         return 1;
     }
 

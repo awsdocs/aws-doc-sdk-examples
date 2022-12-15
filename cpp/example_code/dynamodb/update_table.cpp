@@ -25,15 +25,15 @@
 #include "dynamodb_samples.h"
 
 /**
- * This example sets the provisioned throughput of a DynamoDB table
+ * This example sets the provisioned throughput of an Amazon DynamoDB table.
   *
  * For information about provisioned throughput,
- * see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html
+ * see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html.
  *
  */
 
 // snippet-start:[dynamodb.cpp.update_table.code]
-//! Update an Amazon DynamoDB table.
+//! Update a DynamoDB table.
 /*!
   \sa updateTable()
   \param tableName: Name for the DynamoDB table.
@@ -77,7 +77,7 @@ bool AwsDoc::DynamoDB::updateTable(const Aws::String &tableName,
  *
  *  Usage: 'run_update_table <table> <read> <write>'
  *
- *  Prerequisites: A DynamoDB table.
+ *  Prerequisites: Create a DynamoDB table.
  *
  */
 #ifndef TESTING_BUILD

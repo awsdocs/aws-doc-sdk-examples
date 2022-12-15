@@ -22,7 +22,7 @@
 #include "dynamodb_samples.h"
 
 // snippet-start:[dynamodb.cpp.query_items.code]
-//! Perform  a query on a DynamoDB Table and retrieve items.
+//! Perform a query on an Amazon DynamoDB Table and retrieve items.
 /*!
   \sa queryItem()
   \param tableName: The table name.
@@ -54,10 +54,10 @@ bool AwsDoc::DynamoDB::queryItems(const Aws::String &tableName,
         request.SetProjectionExpression(projectionExpression);
     }
 
-    // Set query key condition expression
+    // Set query key condition expression.
     request.SetKeyConditionExpression(partitionKey + "= :valueToMatch");
 
-    // Set Expression AttributeValues
+    // Set Expression AttributeValues.
     Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> attributeValues;
     attributeValues.emplace(":valueToMatch", partitionValue);
 
@@ -72,20 +72,20 @@ bool AwsDoc::DynamoDB::queryItems(const Aws::String &tableName,
             request.SetExclusiveStartKey(exclusiveStartKey);
             exclusiveStartKey.clear();
         }
-        // Perform Query operation
+        // Perform Query operation.
         const Aws::DynamoDB::Model::QueryOutcome &outcome = dynamoClient.Query(request);
         if (outcome.IsSuccess()) {
-            // Reference the retrieved items
+            // Reference the retrieved items.
             const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
             if (!items.empty()) {
                 std::cout << "Number of items retrieved from Query: " << items.size()
                           << std::endl;
-                //Iterate each item and print
+                // Iterate each item and print.
                 for (const auto &item: items) {
                     std::cout
                             << "******************************************************"
                             << std::endl;
-                    // Output each retrieved field and its value
+                    // Output each retrieved field and its value.
                     for (const auto &i: item)
                         std::cout << i.first << ": " << i.second.GetS() << std::endl;
                 }
@@ -112,10 +112,10 @@ bool AwsDoc::DynamoDB::queryItems(const Aws::String &tableName,
  *
  *  Usage: 'run_query_items <table_name> <partition_key> <partition_value> [projection_expression]'
  *
- *  Prerequisites: A pre-populated DynamoDB table.
+ *  Prerequisites: Create a pre-populated DynamoDB table.
  *
- *  Instructions for populating a table with sample data can be found at:
- *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html
+ *  For instructions on populating a table with sample data, see
+ *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html.
  *
  */
 
@@ -127,10 +127,10 @@ int main(int argc, char **argv) {
 Usage:
     run_query_items <table_name> <partition_key> <partition_value> [projection_expression]
 Where:
-    table_name - the table to get an item from
-    partition_key  - the partition key attribute of the table
-    partition_value  - the partition key value to query
-    [projection_expression] - the projection expression
+    table_name - The table to get an item from.
+    partition_key  - The partition key attribute of the table.
+    partition_value  - The partition key value to query.
+    [projection_expression] - The projection expression.
 )";
         return 1;
     }
@@ -149,7 +149,7 @@ Where:
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::DynamoDB::queryItem(tableName, partitionKey, partitionValue, projection,
+        AwsDoc::DynamoDB::queryItems(tableName, partitionKey, partitionValue, projection,
                                     clientConfig);
     }
     Aws::ShutdownAPI(options);

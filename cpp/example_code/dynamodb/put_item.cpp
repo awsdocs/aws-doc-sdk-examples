@@ -25,7 +25,7 @@
 #include "dynamodb_samples.h"
 
 //snippet-start:[dynamodb.cpp.put_item.code]
-//! Put an item in a DynamoDB table.
+//! Put an item in an Amazon DynamoDB table.
 /*!
   \sa putItem()
   \param tableName: The table name.
@@ -85,7 +85,8 @@ bool AwsDoc::DynamoDB::putItem(const Aws::String &tableName,
  *  Usage: 'run_put_item <table_name> <artist_key> <artist_value> <album_title_key>
  *     <album_title_value> <awards_key> <awards_value> <song_title_key> <song_title_value>'
  *
- *  Prerequisites: a DynamoDB table named <table_name> with <artist_key> for the partition key.
+ *  Prerequisites: Create a DynamoDB table named <table_name> with <artist_key> for the
+ *  partition key.
  *
  */
 
@@ -98,16 +99,16 @@ Usage:
     <table_name> <artist_key> <artist_value> <album_title_key> <album_title_value> <awards_key>
         <awards_value> <song_title_key> <song_title_value>
 Where:
-    table_name - the Amazon DynamoDB table in which an item is placed (for example, Music3).
-    artist_key - the key the artist used in the Amazon DynamoDB table. This is the partition key.
-    artist_value - the value for the artist (for example, Famous Band).
-    album_title_key - the key for the album title (for example, AlbumTitle).
-    album_title_value - the value for the album title (for example, Songs About Life ).
-    awards_key - the key for awards (for example, Awards).
-    awards_value - the value of the awards (for example, 10).
-    song_title_key - the key for the song title (for example, SongTitle).
-    song_title_value - the value of the song title (for example, Happy Day).
-**Warning** This program will  place an item that you specify into a table!;
+    table_name - The Amazon DynamoDB table in which an item is placed (for example, Music3).
+    artist_key - The key the artist used in the Amazon DynamoDB table. This is the partition key.
+    artist_value - The value for the artist (for example, Famous Band).
+    album_title_key - The key for the album title (for example, AlbumTitle).
+    album_title_value - The value for the album title (for example, Songs About Life ).
+    awards_key - The key for awards (for example, Awards).
+    awards_value - The value of the awards (for example, 10).
+    song_title_key - The key for the song title (for example, SongTitle).
+    song_title_value - The value of the song title (for example, Happy Day).
+Warning This program places the item that you specify into a table.
 )";
         return 1;
     }

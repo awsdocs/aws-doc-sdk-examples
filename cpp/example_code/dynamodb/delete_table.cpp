@@ -15,7 +15,6 @@
  **/
 //snippet-start:[dynamodb.cpp.delete_table.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/DeleteTableRequest.h>
 #include <iostream>
@@ -24,10 +23,10 @@
 
 
 // snippet-start:[dynamodb.cpp.delete_table.code]
-//! Delete a DynamoDB table.
+//! Delete an Amazon DynamoDB table.
 /*!
   \sa deleteTable()
-  \param tableName: The DynamoDB table's name.
+  \param tableName: The DynamoDB table name.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
 */
@@ -58,9 +57,9 @@ bool AwsDoc::DynamoDB::deleteTable(const Aws::String &tableName,
  *
  *  main function
  *
- *  Usage: 'run_delete_table'
+ *  Usage: 'run_delete_table <table>'
  *
- *  Prerequisites: a DynamoDB table that can be deleted.
+ *  Prerequisites: Have a DynamoDB table that can be deleted.
  *
  */
 
@@ -72,7 +71,7 @@ int main(int argc, char **argv) {
 Usage:
      run_delete_table <table>
 Where:
-    table - the table to delete.
+    table - The table to delete.
 Example:
     run_delete_table HelloTable
 **Warning** This program will actually delete the table

@@ -16,7 +16,6 @@
 
 //snippet-start:[dynamodb.cpp.create_table_composite_key.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/CreateTableRequest.h>
@@ -28,7 +27,7 @@
 #include "dynamodb_samples.h"
 
 // snippet-start:[dynamodb.cpp.create_table_composite_key.code]
-//! Create a DynamoDB table with a composite key.
+//! Create an Amazon DynamoDB table with a composite key.
 /*!
   \sa createTableWithCompositeKey()
   \param tableName: Name for the DynamoDB table.

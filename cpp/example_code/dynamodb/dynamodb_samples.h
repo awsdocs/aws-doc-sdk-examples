@@ -24,7 +24,7 @@ namespace AwsDoc {
         extern const Aws::String ALLOCATION_TAG;
         extern const int ASTERISK_FILL_WIDTH;
 
-        //! Scenario to modify and query a DynamoDB table using single PartiQL statements.
+        //! Scenario to modify and query an Amazon DynamoDB table using single PartiQL statements.
         /*!
           \sa partiqlExecuteScenario()
           \param clientConfiguration: AWS client configuration.
@@ -51,7 +51,7 @@ namespace AwsDoc {
         bool dynamodbGettingStartedScenario(
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Batch get items from different Amazon DynamoDB tables.
+        //! Batch get items from different DynamoDB tables.
         /*!
           \sa batchGetItem()
           \param clientConfiguration: AWS client configuration.
@@ -69,7 +69,7 @@ namespace AwsDoc {
         bool batchWriteItem(const Aws::String &jsonFilePath,
                             const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Create an DynamoDB table.
+        //! Create a DynamoDB table.
         /*!
           \sa createTable()
           \param tableName: Name for the DynamoDB table.
@@ -81,7 +81,7 @@ namespace AwsDoc {
                          const Aws::String &primaryKey,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Create an DynamoDB table with a composite key.
+        //! Create a DynamoDB table with a composite key.
         /*!
           \sa createTableWithCompositeKey()
           \param tableName: Name for the DynamoDB table.
@@ -106,7 +106,7 @@ namespace AwsDoc {
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
 
-        //! Deletes an item from a DynamoDB table.
+        //! Delete an item from a DynamoDB table.
         /*!
           \sa deleteItem()
           \param tableName: The table name.
@@ -131,7 +131,7 @@ namespace AwsDoc {
         bool describeTable(const Aws::String &tableName,
                            const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Gets an item from a DynamoDB table.
+        //! Get an item from a DynamoDB table.
         /*!
           \sa getItem()
           \param tableName: The table name.
@@ -197,7 +197,7 @@ namespace AwsDoc {
                         const Aws::String &projectionExpression,
                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Scans a DynamoDB table.
+        //! Scan a DynamoDB table.
         /*!
           \sa scanTable()
           \param tableName: Name for the DynamoDB table.
@@ -216,7 +216,7 @@ namespace AwsDoc {
           \param partitionKey: The partition key.
           \param partitionValue: The value for the partition key.
           \param attributeKey: The key for the attribute to be updated.
-          \param attributeValue: The value for the attribuge to be updated.
+          \param attributeValue: The value for the attribute to be updated.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
           */
@@ -228,7 +228,7 @@ namespace AwsDoc {
                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
 
-        //! Update an Amazon DynamoDB table.
+        //! Update a DynamoDB table.
         /*!
           \sa updateTable()
           \param tableName: Name for the DynamoDB table.

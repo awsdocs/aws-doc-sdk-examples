@@ -82,10 +82,10 @@ AwsDoc::DynamoDB::partiqlExecuteScenario(
         ratingAttribute->SetN(rating);
         infoMapAttribute.AddMEntry(RATING_KEY, ratingAttribute);
 
-        std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> plotAttibute = Aws::MakeShared<Aws::DynamoDB::Model::AttributeValue>(
+        std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> plotAttribute = Aws::MakeShared<Aws::DynamoDB::Model::AttributeValue>(
                 ALLOCATION_TAG.c_str());
-        plotAttibute->SetS(plot);
-        infoMapAttribute.AddMEntry(PLOT_KEY, plotAttibute);
+        plotAttribute->SetS(plot);
+        infoMapAttribute.AddMEntry(PLOT_KEY, plotAttribute);
         attributes.push_back(infoMapAttribute);
         request.SetParameters(attributes);
 

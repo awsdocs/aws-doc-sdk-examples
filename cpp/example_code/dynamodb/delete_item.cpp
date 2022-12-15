@@ -22,7 +22,7 @@
 #include "dynamodb_samples.h"
 
 //snippet-start:[cpp.example_code.dynamodb.delete_item]
-//! Deletes an item from a DynamoDB table.
+//! Delete an item from an Amazon DynamoDB table.
 /*!
   \sa deleteItem()
   \param tableName: The table name.
@@ -64,8 +64,8 @@ bool AwsDoc::DynamoDB::deleteItem(const Aws::String &tableName,
  *
  *  Usage: 'run_delete_item <table_name> <partition_key> <partition_value>'
  *
- *  Prerequisites: a DynamoDB table named <table_name> containing an item with
- *     <partition_value> for its <partition_key>.
+ *  Prerequisites: Create a DynamoDB table named <table_name> that contains an
+ *     item with <partition_value> for its <partition_key>.
  *
  */
 
@@ -76,9 +76,9 @@ int main(int argc, char **argv) {
         std::cout << R"("Usage:
     run_delete_item <table_name> <partition_key> <partition_value>
 Where:
-    table - the table to delete the item from.
-    partition_key  - the partition key of the table,
-    partition_value - the item value for the partition key"
+    table - The table to delete the item from.
+    partition_key  - The partition key of the table,
+    partition_value - The item value for the partition key.
 Example:
     run_delete_item HelloTable Name Joe
 **Warning** This program will actually delete the item

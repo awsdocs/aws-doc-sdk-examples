@@ -23,7 +23,7 @@
 #include "dynamodb_samples.h"
 
 /*
- * Instructions for populating a table with sample data can be found at:
+ *  For instructions on populating a table with sample data, see
  *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html.
  *
  *  This example uses the "Forum.json" and "ProductCatalog.json" sample data.
@@ -46,7 +46,7 @@ bool AwsDoc::DynamoDB::batchGetItem(
     Aws::String table1Name = "Forum";
     Aws::DynamoDB::Model::KeysAndAttributes table1KeysAndAttributes;
 
-    //Table1: Projection expression.
+    // Table1: Projection expression.
     table1KeysAndAttributes.SetProjectionExpression("#n, Category, Messages, #v");
 
     // Table1: Expression attribute names.
@@ -55,7 +55,7 @@ bool AwsDoc::DynamoDB::batchGetItem(
     headerValueCollection.emplace("#v", "Views");
     table1KeysAndAttributes.SetExpressionAttributeNames(headerValueCollection);
 
-    // Table1: Set key name, type and value to search.
+    // Table1: Set key name, type, and value to search.
     std::vector<Aws::String> nameValues = {"Amazon DynamoDB", "Amazon S3"};
     for (const Aws::String &name: nameValues) {
         Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> keys;
@@ -73,7 +73,7 @@ bool AwsDoc::DynamoDB::batchGetItem(
     Aws::DynamoDB::Model::KeysAndAttributes table2KeysAndAttributes;
     table2KeysAndAttributes.SetProjectionExpression("Title, Price, Color");
 
-    // Table2: Set key name, type and value to search.
+    // Table2: Set key name, type, and value to search.
     std::vector<Aws::String> idValues = {"102", "103", "201"};
     for (const Aws::String &id: idValues) {
         Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> keys;
@@ -151,8 +151,8 @@ bool AwsDoc::DynamoDB::batchGetItem(
  *
  *  Prerequisites: Pre-populated DynamoDB tables.
  *
- *  Instructions for populating a table with sample data can be found at:
- *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html
+ *  For instructions on populating a table with sample data, see
+ *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html.
  *
  *  This example uses the "Forum.json" and "ProductCatalog.json" sample data.
  *  This example requires pre-populated "Forum" and "ProductCatalog" tables.
