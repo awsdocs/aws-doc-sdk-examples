@@ -1,0 +1,8 @@
+{
+  "CidrBlock": "10.0.0.0/16\"\"",
+  "GroupDescription": "This is a group created for integration tests.",
+  "GroupName": "test-group-name",
+  "ImageId": "ami-02dd04850de58599e",
+  "InstanceType": "t2.micro",
+  "KeyPairName": "test-example-key-pair"
+}

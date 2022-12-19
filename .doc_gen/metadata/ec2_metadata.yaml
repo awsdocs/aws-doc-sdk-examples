@@ -4,6 +4,15 @@ ec2_Hello:
   synopsis: get started using &EC2long; (&EC2;).
   category: Hello
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.HelloEc2
     Kotlin:
       versions:
         - sdk_version: 1
@@ -47,7 +56,7 @@ ec2_CreateKeyPair:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.CreateKeyPairExample
+                - EC2.dotnetv3.CreateKeyPair
     Kotlin:
       versions:
         - sdk_version: 1
@@ -92,6 +101,15 @@ ec2_DescribeKeyPairs:
   synopsis: list &EC2; security key pairs.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DescribeKeyPairs
     Kotlin:
       versions:
         - sdk_version: 1
@@ -145,7 +163,7 @@ ec2_CreateSecurityGroup:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.CreateSecurityGroupExample
+                - EC2.dotnetv3.CreateSecurityGroup
     Kotlin:
       versions:
         - sdk_version: 1
@@ -190,6 +208,15 @@ ec2_RunInstances:
   synopsis: create and run an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.RunInstances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -262,7 +289,7 @@ ec2_StartInstances:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.StartInstancesExample
+                - EC2.dotnetv3.StartInstances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -323,7 +350,7 @@ ec2_StopInstances:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.StopInstancesExample
+                - EC2.dotnetv3.StopInstances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -376,6 +403,15 @@ ec2_AllocateAddress:
   synopsis: allocate an Elastic IP address for &EC2;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.AllocateAddress
     Kotlin:
       versions:
         - sdk_version: 1
@@ -420,6 +456,15 @@ ec2_AssociateAddress:
   synopsis: associate an Elastic IP address with an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.AssociateAddress
     Kotlin:
       versions:
         - sdk_version: 1
@@ -464,6 +509,15 @@ ec2_DisassociateAddress:
   synopsis: disassociate an Elastic IP address from an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DisassociateAddress
     Kotlin:
       versions:
         - sdk_version: 1
@@ -500,6 +554,15 @@ ec2_ReleaseAddress:
   synopsis: release an Elastic IP address.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          escerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.ReleaseAddress
     Kotlin:
       versions:
         - sdk_version: 1
@@ -544,6 +607,15 @@ ec2_AuthorizeSecurityGroupIngress:
   synopsis: set inbound rules for an &EC2; security group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.AuthorizeSecurityGroupIngress
     Kotlin:
       versions:
         - sdk_version: 1
@@ -597,7 +669,7 @@ ec2_DeleteKeyPair:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.DeleteKeyPairExample
+                - EC2.dotnetv3.DeleteKeyPair
     Java:
       versions:
         - sdk_version: 2
@@ -633,6 +705,15 @@ ec2_DescribeSecurityGroups:
   synopsis: get data about an &EC2; security group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DescribeSecurityGroups
     Kotlin:
       versions:
         - sdk_version: 1
@@ -685,7 +766,7 @@ ec2_DeleteSecurityGroup:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.DeleteSecurityGroupExample
+                - EC2.dotnetv3.DeleteSecurityGroup
     Kotlin:
       versions:
         - sdk_version: 1
@@ -765,6 +846,15 @@ ec2_TerminateInstances:
   synopsis: terminate an &EC2; instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.TerminateInstances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -827,7 +917,7 @@ ec2_DescribeInstances:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.DescribeInstancesExample
+                - EC2.dotnetv3.DescribeInstances
     Python:
       versions:
         - sdk_version: 3
@@ -933,7 +1023,7 @@ ec2_RebootInstances:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.RebootInstancesExample
+                - EC2.dotnetv3.RebootInstances
     Rust:
       versions:
         - sdk_version: 1
@@ -966,7 +1056,7 @@ ec2_DeleteVPC:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.DeleteVPCExample
+                - EC2.dotnetv3.DeleteVPC
   services:
     ec2: {DeleteVpc}
 ec2_DescribeImages:
@@ -993,6 +1083,15 @@ ec2_DescribeInstanceTypes:
   synopsis: get data about &EC2; instance types.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EC2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EC2.dotnetv3.DescribeInstanceTypes
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1073,6 +1172,18 @@ ec2_Scenario_GetStartedInstances:
     - Clean up all of the resources created by this example.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/ec2
+          sdkguide:
+          excerpts:
+            - description: Run a scenario at a command prompt.
+              snippet_tags:
+                - EC2.dotnetv3.Main
+            - description: Define a class that wraps EC2 actions.
+              snippet_tags:
+                - EC2.dotnetv3.EC2WrapperClass
     Kotlin:
       versions:
         - sdk_version: 1

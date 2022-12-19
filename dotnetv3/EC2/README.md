@@ -1,4 +1,4 @@
-# Amazon EC2 code examples for the SDK for .NET
+// snippet-start:# Amazon EC2 code examples for the SDK for .NET
 
 ## Overview
 The code examples in this section show how to use the AWS SDK for .NET with Amazon Elastic Compute Cloud (Amazon EC2) to manage custom metrics and alarms.
@@ -13,19 +13,41 @@ Amazon EC2 is a web service that provides resizable computing capacity—literal
 
 ## Code examples
 
+### Getting started
+* [Hello Amazon EC2](actions/HelloEc2.cs)
+
 ### Single actions
 Code excerpts that show you how to call individual service functions.
-* [Create a security group](CreateSecurityGroupExample/CreateSecurityGroupExample/CreateSecurityGroup.cs) (`CreateSecurityGroupAsync`)
-* [Create a security key pair](CreateKeyPairExample/CreateKeyPairExample/CreateKeyPair.cs) (`CreateKeyPairAsync`)
-* [Create a VPC](VirtualPrivateCloudExamples/CreateVPCExample/CreateVPC.cs) (`CreateVpcAsync`)
+* [AllocateAddress](actions/EC2Wrapper.cs) (`AllocateAddressAsync`)
+* [AssociateAddress](actions/EC2Wrapper.cs) (`AssociateAddressAsync`)
+* [AuthorizeSecurityGroupIngress](actions/EC2Wrapper.cs) (`AuthorizeSecurityGroupIngressAsync`)
+* [Create a security group](actions/EC2Wrapper.cs) (`CreateSecurityGroupAsync`)
+* [Create a security key pair](actions/EC2Wrapper.cs) (`CreateKeyPairAsync`)
+* [Create a VPC](actions/EC2Wrapper.cs) (`CreateVpcAsync`)
 * [Create a VPC endpoint to use with an Amazon Simple Storage Service (Amazon S3) client.](VirtualPrivateCloudExamples/CreateVPCforS3Example/CreateVPCforS3.cs) (`CreateVpcAsync`)
-* [Delete a security group](DeleteSecurityGroupExample/DeleteSecurityGroupExample/DeleteSecurityGroup.cs) (`DeleteSecurityGroupAsync`)
-* [Delete a security key pair](DeleteKeyPairExample/DeleteKeyPairExample/DeleteKeyPair.cs) (`DeleteKeyPairAsync`)
-* [Delete a VPC](DeleteVPCExample/DeleteVPCExample/DeleteVPC.cs) (`DeleteVpcAsync`)
-* [Describe instances](DescribeInstancesExample/DescribeInstancesExample/DescribeInstances.cs) (`DescribeInstancesAsync`)
-* [Reboot an instance](RebootInstancesExample/RebootInstancesExample/RebootInstances.cs) (`RebootInstancesAsync`)
-* [Start an instance](StartInstancesExample/StartInstancesExample/StartInstances.cs) (`StartInstancesAsync`)
-* [Stop an instance](StopInstancesExample/StopInstancesExample/StopInstances.cs) (`StopInstancesAsync`)
+* [Delete a security group](actions/EC2Wrapper.cs) (`DeleteSecurityGroupAsync`)
+* [Delete a security key pair](actions/EC2Wrapper.cs) (`DeleteKeyPairAsync`)
+* [Delete a VPC](actions/EC2Wrapper.cs) (`DeleteVpcAsync`)
+* [DescribeImages](actions/EC2Wrapper.cs) (`DescribeImagesAsync`)
+* [Describe instances](actions/EC2Wrapper.cs) (`DescribeInstancesAsync`)
+* [DescribeInstances](actions/EC2Wrapper.cs) (`DescribeInstancesAsync`)
+* [DescribeInstanceTypes](actions/EC2Wrapper.cs) (`DescribeInstanceTypesAsync`)
+* [DescribeKeyPairs](actions/EC2Wrapper.cs) (`DescribeKeyPairsAsync`)
+* [DescribeSecurityGroups](actions/EC2Wrapper.cs) (`DescribeSecurityGroupsAsync`)
+* [DisassociateAddress](actions/EC2Wrapper.cs) (`DisassociateAddressAsync`)
+* [Reboot an instance](actions/EC2Wrapper.cs) (`RebootInstancesAsync`)
+* [ReleaseAddress](actions/EC2Wrapper.cs)
+* [RunInstances](actions/EC2Wrapper.cs)
+* [Start an instance](actions/EC2Wrapper.cs) (`StartInstancesAsync`)
+* [StartInstance](actions/EC2Wrapper.cs)
+* [Stop an instance](actions/EC2Wrapper.cs) (`StopInstancesAsync`)
+* [StopInstance](actions/EC2Wrapper.cs)
+* [TerminateInstances](actions/EC2Wrapper.cs)
+
+### Scenarios
+Code examples that show you how to accomplish a specific task by calling
+multiple functions within the same service.
+* [Get started with Instances](scenarios/EC2_Basics/EC2Basics.cs)
 
 ## Run the examples
 
