@@ -134,7 +134,7 @@ public class EC2Wrapper
         var tempPath = Path.GetTempPath();
         var tempFileName = $"{tempPath}\\{Path.GetRandomFileName()}";
         var pemFileName = Path.ChangeExtension(tempFileName, "pem");
-        
+
         // Save the keypair to a file in a temporary folder.
         using var stream = new FileStream(pemFileName, FileMode.Create);
         using var writer = new StreamWriter(stream);

@@ -18,7 +18,7 @@ public class EC2WrapperTests
     private readonly string _keyPairName;
 
     private static string? _allocationId;
-    private static ArchitectureValues? _architecture; 
+    private static ArchitectureValues? _architecture;
     private static string? _associationId;
     private static string? _ec2InstanceId;
     private static List<Image>? _images;
@@ -77,7 +77,7 @@ public class EC2WrapperTests
         _associationId = await _ec2Wrapper.AssociateAddress(_allocationId, _ec2InstanceId);
         Assert.NotNull(_associationId);
     }
-    
+
     /// <summary>
     /// Test the authorization of the local computer for ingress to an
     /// Amazon EC2 instance.

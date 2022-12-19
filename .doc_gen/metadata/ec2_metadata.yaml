@@ -559,7 +559,7 @@ ec2_ReleaseAddress:
         - sdk_version: 3
           github: dotnetv3/EC2
           sdkguide:
-          escerpts:
+          excerpts:
             - description:
               snippet_tags:
                 - EC2.dotnetv3.ReleaseAddress

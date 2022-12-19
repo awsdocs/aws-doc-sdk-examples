@@ -113,7 +113,7 @@ public class EC2Basics
             validNumber = int.TryParse(selImage, out choice);
         } while (!validNumber);
 
-        var selectedImage = images[choice-1];
+        var selectedImage = images[choice - 1];
 
         // Display available instance types.
         uiMethods.DisplayTitle("Instance Types");
@@ -205,7 +205,7 @@ public class EC2Basics
         var allocationId = await ec2Methods.AllocateAddress();
         Console.WriteLine("Now we will associate the Elastic IP address with our instance.");
         var associationId = await ec2Methods.AssociateAddress(allocationId, instanceId);
-        
+
         // Start the instance again.
         Console.WriteLine("Now let's start the instance again.");
         await ec2Methods.StartInstances(instanceId);
