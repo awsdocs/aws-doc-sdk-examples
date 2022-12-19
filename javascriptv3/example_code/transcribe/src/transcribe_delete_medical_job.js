@@ -13,7 +13,7 @@ Inputs (replace in code):
 
 
 Running the code:
-node transcribe_delete_medical_job.sj
+node transcribe_delete_medical_job.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.deleteMedicalJobV3]
 // Import the required AWS SDK clients and commands for Node.js

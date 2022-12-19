@@ -11,7 +11,7 @@ Inputs (replace in code):
 - JOB_NAME
 
 Running the code:
-node transcribe_create_job.test.js
+node transcribe_delete_job.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.deleteJobV3]
 // Import the required AWS SDK clients and commands for Node.js

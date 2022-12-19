@@ -5,13 +5,13 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-transcribe_list_medical_jobs.test.js demonstrates how to retrieve a list of Amazon Transcribe medical transcription jobs.
+transcribe_list_medical_jobs.js demonstrates how to retrieve a list of Amazon Transcribe medical transcription jobs.
 
 Inputs (replace in code):
 - KEYWORD
 
 Running the code:
-node transcribe_list_medical_jobs.test.js
+node transcribe_list_medical_jobs.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.listMedicalJobsV3]
 // Import the required AWS SDK clients and commands for Node.js

@@ -41,13 +41,7 @@ Cross-service examples are located in the [_cross-services folder_](./cross-serv
 
 **Note**: In some cases scenarios and cross-service examples have their own test folder, so navigate to that instead.
 
-2. Run the following:
-
-```
-cd javascriptv3/example_code/[service folder name]
-npm install
-npm test
-```
+2. Follow the instructions in the service's README to install the dependencies and run the tests.
 
 ## Additional resources
 

@@ -1,5 +1,5 @@
  
-//snippet-sourcedescription:[sts_assumerole.test.js demonstrates how to use STS to assume an IAM Role.]
+//snippet-sourcedescription:[sts_assumerole.js demonstrates how to use STS to assume an IAM Role.]
 //snippet-keyword:[JavaScript]
 //snippet-sourcesyntax:[javascript]
 //snippet-keyword:[Code Sample]
