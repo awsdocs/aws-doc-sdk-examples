@@ -1,22 +1,15 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-/// <summary>
-/// This examples shows the basic API calls for the Amazon Simple Storage Service
-/// (Amazon S3). The example steps you through the process of creating
-/// an Amazon S3 bucket and uploading objects to the bucket from the local
-/// computer. It also shows how to copy an object within an Amazon S3 bucket,
-/// list the bucket's contents, and finally how to delete the objects in the
-/// bucket before deleting the bucket itself.
-/// </summary>
+// This example shows the basic API calls for the Amazon Simple Storage Service
+// (Amazon S3). The example steps you through the process of creating
+// an Amazon S3 bucket and uploading objects to the bucket from the local
+// computer. It also shows how to copy an object within an Amazon S3 bucket,
+// list the bucket's contents, and finally how to delete the objects in the
+// bucket before deleting the bucket itself.
 namespace S3_BasicsScenario
 {
     // snippet-start:[S3.dotnetv3.S3_BasicsScenario]
-    using System;
-    using System.IO;
-    using System.Threading.Tasks;
-    using Amazon.S3;
-
     public class S3_Basics
     {
         public static async Task Main()
@@ -30,6 +23,9 @@ namespace S3_BasicsScenario
             string filePath = string.Empty;
             string keyName = string.Empty;
 
+            var sepBar = new string('-', Console.WindowWidth);
+
+            Console.WriteLine(sepBar);
             Console.WriteLine("Amazon Simple Storage Service (Amazon S3) basic");
             Console.WriteLine("procedures. This application will:");
             Console.WriteLine("\n\t1. Create a bucket");
@@ -38,10 +34,12 @@ namespace S3_BasicsScenario
             Console.WriteLine("\n\t4. List the items in the new bucket");
             Console.WriteLine("\n\t5. Delete all the items in the bucket");
             Console.WriteLine("\n\t6. Delete the bucket");
-            Console.WriteLine("----------------------------------------------------------");
+            Console.WriteLine(sepBar);
 
             // Create a bucket.
+            Console.WriteLine($"\n{sepBar}");
             Console.WriteLine("\nCreate a new Amazon S3 bucket.\n");
+            Console.WriteLine(sepBar);
 
             Console.Write("Please enter a name for the new bucket: ");
             bucketName = Console.ReadLine();
@@ -56,7 +54,9 @@ namespace S3_BasicsScenario
                 Console.WriteLine($"Could not create bucket: {bucketName}.\n");
             }
 
+            Console.WriteLine(sepBar);
             Console.WriteLine("Upload a file to the new bucket.");
+            Console.WriteLine(sepBar);
 
             // Get the local path and filename for the file to upload.
             while (string.IsNullOrEmpty(filePath))

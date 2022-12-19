@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_AWS1_TEX_SCENARIO</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Amazon Textract Code Example Scenario</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_TEX_SCENARIO</CLSNAME>
+     <CMPNAME>GETTING_STARTED_WITH_TEX</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>SGM code example scenario.</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

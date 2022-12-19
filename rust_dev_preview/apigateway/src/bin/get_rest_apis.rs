@@ -3,9 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use apigateway_code_examples::Error;
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_apigateway::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_apigateway::types::DisplayErrorContext;
+use aws_sdk_apigateway::{Client, Region, PKG_VERSION};
 use aws_smithy_types_convert::date_time::DateTimeExt;
+use std::process;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -31,7 +34,7 @@ async fn show_apis(client: &Client) -> Result<(), Error> {
         println!("Version:     {}", api.version().unwrap_or_default());
         println!(
             "Created:     {}",
-            api.created_date().unwrap().to_chrono_utc()
+            api.created_date().unwrap().to_chrono_utc()?
         );
         println!();
     }
@@ -49,10 +52,16 @@ async fn show_apis(client: &Client) -> Result<(), Error> {
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() {
     tracing_subscriber::fmt::init();
-    let Opt { region, verbose } = Opt::from_args();
 
+    if let Err(err) = run_example(Opt::from_args()).await {
+        eprintln!("Error: {}", DisplayErrorContext(err));
+        process::exit(1);
+    }
+}
+
+async fn run_example(Opt { region, verbose }: Opt) -> Result<(), Error> {
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));

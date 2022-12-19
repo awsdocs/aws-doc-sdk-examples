@@ -5,7 +5,7 @@
 cmake_minimum_required(VERSION 3.8)
 
 set(SERVICE_NAME dynamodb)
-set(SERVICE_COMPONENTS dynamodb)
+set(SERVICE_COMPONENTS dynamodb s3) # s3 is required for tests, and it must be included here because of caching.
 
 # Set this project's name.
 project("${SERVICE_NAME}-examples")
@@ -32,16 +32,6 @@ endif()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
-find_package(ZLIB)
-set(ADDITIONAL_LIBS )
-set(ADDITIONAL_INCLUDE_DIR)
-set(ADDITIONAL_DEFINES)
-
-if (ZLIB_FOUND)
-    set(ADDITIONAL_LIBS ${ZLIB_LIBRARIES})
-    set(ADDITIONAL_INCLUDE_DIR ${ZLIB_INCLUDE_DIRS})
-    set(ADDITIONAL_DEFINES _HAS_ZLIB_)
-endif()
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
@@ -61,6 +51,7 @@ if(NOT DEFINED AWSDOC_SOURCE)
     file(GLOB AWSDOC_SOURCE
         "*.cpp"
     )
+    list(FILTER AWSDOC_SOURCE EXCLUDE REGEX "/dynamodb_utils.cpp$")
 endif()
 
 # Check whether the target system is Windows, including Win64.
@@ -73,30 +64,35 @@ if(WIN32)
     endif(MSVC)
 endif()
 
+set(MOVIE_FILE_PATH "${CMAKE_SOURCE_DIR}/../../../resources/sample_files/movies.json")
+
 foreach(file ${AWSDOC_SOURCE})
     get_filename_component(EXAMPLE ${file} NAME_WE)
 
     # Build the code example executables.
     set(EXAMPLE_EXE run_${EXAMPLE})
 
-    add_executable(${EXAMPLE_EXE} ${file})
+    add_executable(${EXAMPLE_EXE}
+            dynamodb_utils.cpp
+            ${file})
 
     target_include_directories(${EXAMPLE_EXE} PUBLIC 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
-            ${ADDITIONAL_INCLUDE_DIR}
             ${AWSSDK_INCLUDE_DIR}/aws
             )
-    target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES} 
-        ${AWSSDK_PLATFORM_DEPS}
-            ${ADDITIONAL_LIBS})
+    target_link_libraries(${EXAMPLE_EXE}
+            ${AWSSDK_LINK_LIBRARIES}
+            ${AWSSDK_PLATFORM_DEPS}
+            )
     target_compile_definitions(${EXAMPLE_EXE}
             PRIVATE
-            ${ADDITIONAL_DEFINES})
+            MOVIE_FILE_PATH="${MOVIE_FILE_PATH}"
+        )
 
  endforeach()
 
 if(BUILD_TESTS)
-    add_subdirectory(gtests)
+    add_subdirectory(tests)
 endif()
 

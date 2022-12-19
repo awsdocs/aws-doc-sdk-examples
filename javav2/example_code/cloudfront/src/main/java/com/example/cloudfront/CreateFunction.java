@@ -10,17 +10,17 @@
 package com.example.cloudfront;
 
 // snippet-start:[cloudfront.java2.function.import]
+
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cloudfront.CloudFrontClient;
-import software.amazon.awssdk.services.cloudfront.model.FunctionConfig;
-import software.amazon.awssdk.services.cloudfront.model.FunctionRuntime;
+import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
 import software.amazon.awssdk.services.cloudfront.model.CreateFunctionRequest;
 import software.amazon.awssdk.services.cloudfront.model.CreateFunctionResponse;
-import software.amazon.awssdk.services.cloudfront.model.CloudFrontException;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import software.amazon.awssdk.services.cloudfront.model.FunctionConfig;
+import software.amazon.awssdk.services.cloudfront.model.FunctionRuntime;
+
 import java.io.InputStream;
 // snippet-end:[cloudfront.java2.function.import]
 
@@ -64,8 +64,8 @@ public class CreateFunction {
 
         try {
 
-            InputStream is = new FileInputStream(filePath);
-            SdkBytes functionCode = SdkBytes.fromInputStream(is);
+            InputStream fileIs = CreateFunction.class.getClassLoader().getResourceAsStream(filePath);
+            SdkBytes functionCode = SdkBytes.fromInputStream(fileIs);
 
             FunctionConfig config = FunctionConfig.builder()
                 .comment("Created by using the CloudFront Java API")
@@ -81,7 +81,7 @@ public class CreateFunction {
             CreateFunctionResponse response = cloudFrontClient.createFunction(functionRequest);
             return response.functionSummary().functionMetadata().functionARN();
 
-        } catch (CloudFrontException | FileNotFoundException e){
+        } catch (CloudFrontException e){
             System.err.println(e.getMessage());
             System.exit(1);
         }

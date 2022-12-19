@@ -69,6 +69,26 @@ lambda_CreateFunction:
               snippet_tags:
                 - ruby.example_code.ruby.LambdaWrapper.decl
                 - ruby.example_code.lambda.CreateFunction
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - lmd.abapv1.create_function
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.lambda.lambda_configuration
+                - cpp.example_code.lambda.lambda_client
+                - cpp.example_code.lambda.create_function1
+                - cpp.example_code.lambda.create_function2
   services:
     lambda: {CreateFunction}
 lambda_DeleteFunction:
@@ -141,6 +161,25 @@ lambda_DeleteFunction:
               snippet_tags:
                 - ruby.example_code.ruby.LambdaWrapper.decl
                 - ruby.example_code.lambda.DeleteFunction
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - lmd.abapv1.delete_function
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.lambda.lambda_configuration
+                - cpp.example_code.lambda.lambda_client
+                - cpp.example_code.lambda.delete_function
   services:
     lambda: {DeleteFunction}
 lambda_Invoke:
@@ -214,6 +253,26 @@ lambda_Invoke:
               snippet_tags:
                 - ruby.example_code.ruby.LambdaWrapper.decl
                 - ruby.example_code.lambda.Invoke
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - lmd.abapv1.invoke_function
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.lambda.lambda_configuration
+                - cpp.example_code.lambda.lambda_client
+                - cpp.example_code.lambda.invoke_function1
+                - cpp.example_code.lambda.invoke_function2
   services:
     lambda: {Invoke}
 lambda_GetFunction:
@@ -268,6 +327,25 @@ lambda_GetFunction:
             - description:
               snippet_tags:
                 - javascript.v3.lambda.actions.GetFunction
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - lmd.abapv1.get_function
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.lambda.lambda_configuration
+                - cpp.example_code.lambda.lambda_client
+                - cpp.example_code.lambda.get_function
   services:
     lambda: {GetFunction}
 lambda_UpdateFunctionCode:
@@ -313,6 +391,14 @@ lambda_UpdateFunctionCode:
               snippet_tags:
                 - ruby.example_code.ruby.LambdaWrapper.decl
                 - ruby.example_code.lambda.UpdateFunctionCode
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - lmd.abapv1.update_function_code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -322,6 +408,17 @@ lambda_UpdateFunctionCode:
             - description:
               snippet_tags:
                 - javascript.v3.lambda.actions.UpdateFunctionCode
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.lambda.lambda_configuration
+                - cpp.example_code.lambda.lambda_client
+                - cpp.example_code.lambda.update_function_code
   services:
     lambda: {UpdateFunctionCode}
 lambda_UpdateFunctionConfiguration:
@@ -366,6 +463,14 @@ lambda_UpdateFunctionConfiguration:
               snippet_tags:
                 - ruby.example_code.ruby.LambdaWrapper.decl
                 - ruby.example_code.lambda.UpdateFunctionConfiguration
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - lmd.abapv1.update_function_configuration
     JavaScript:
       versions:
         - sdk_version: 3
@@ -375,6 +480,18 @@ lambda_UpdateFunctionConfiguration:
             - description:
               snippet_tags:
                 - javascript.v3.lambda.actions.UpdateFunctionConfiguration
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.lambda.lambda_configuration
+                - cpp.example_code.lambda.lambda_client
+                - cpp.example_code.lambda.update_function_configuration1
+                - cpp.example_code.lambda.update_function_configuration2
   services:
     lambda: {UpdateFunctionConfiguration}
 lambda_ListFunctions:
@@ -424,6 +541,14 @@ lambda_ListFunctions:
               snippet_tags:
                 - ruby.example_code.ruby.LambdaWrapper.decl
                 - ruby.example_code.lambda.ListFunctions
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - lmd.abapv1.list_functions
     JavaScript:
       versions:
         - sdk_version: 3
@@ -433,6 +558,17 @@ lambda_ListFunctions:
             - description:
               snippet_tags:
                 - javascript.v3.lambda.actions.ListFunctions
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.lambda.lambda_configuration
+                - cpp.example_code.lambda.lambda_client
+                - cpp.example_code.lambda.list_functions
   services:
     lambda: {ListFunctions}
 lambda_Scenario_GettingStartedFunctions:
@@ -550,6 +686,14 @@ lambda_Scenario_GettingStartedFunctions:
             - description: Delete a specific &LAM; function.
               snippet_tags:
                 - ruby.example_code.lambda.DeleteFunction
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - lmd.abapv1.getting_started_with_functions
     JavaScript:
       versions:
         - sdk_version: 3
@@ -577,6 +721,15 @@ lambda_Scenario_GettingStartedFunctions:
               snippet_tags:
                 - javascript.v3.iam.actions.DeleteRole
                 - javascript.v3.lambda.actions.DeleteFunction
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.lambda.get_started_with_functions
   services:
     lambda:
       {

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_AWS1_TEX_ACTIONS</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Amazon Textract Code Example Actions</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_TEX_ACTIONS</CLSNAME>
+     <CMPNAME>ANALYZE_DOCUMENT</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Analyzes an input document for relationships between detects.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_TEX_ACTIONS</CLSNAME>
+     <CMPNAME>DETECT_DOCUMENT_TEXT</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Detects text in the input document.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_TEX_ACTIONS</CLSNAME>
+     <CMPNAME>GET_DOCUMENT_ANALYSIS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Gets the results for an document operation.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_TEX_ACTIONS</CLSNAME>
+     <CMPNAME>START_DOCUMENT_ANALYSIS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Starts the asynchronous analysis of an input document.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_TEX_ACTIONS</CLSNAME>
+     <CMPNAME>START_DOCUMENT_TEXT_DETECTION</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Starts the asynchronous detection of text in a document.</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

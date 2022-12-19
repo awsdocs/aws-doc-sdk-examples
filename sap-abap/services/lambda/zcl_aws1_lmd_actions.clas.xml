@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Lambda Code Example Actions</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
+     <CMPNAME>CREATE_FUNCTION</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Create a Lambda function.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
+     <CMPNAME>DELETE_FUNCTION</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Delete a Lambda function.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
+     <CMPNAME>GET_FUNCTION</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Get a Lambda function.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
+     <CMPNAME>INVOKE_FUNCTION</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Invoke a Lambda function.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
+     <CMPNAME>LIST_FUNCTIONS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>List lambda functions.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
+     <CMPNAME>UPDATE_FUNCTION_CODE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Update Lambda function code.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_LMD_ACTIONS</CLSNAME>
+     <CMPNAME>UPDATE_FUNCTION_CONFIGURATION</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Update Lambda function configuration.</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

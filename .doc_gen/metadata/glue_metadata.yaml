@@ -51,6 +51,32 @@ glue_GetCrawler:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.GetCrawler
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.GetCrawler
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.get_crawler
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.get_crawler
   services:
     glue: {GetCrawler}
 glue_CreateCrawler:
@@ -107,6 +133,32 @@ glue_CreateCrawler:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.CreateCrawler
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.CreateCrawler
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.create_crawler
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.create_crawler
   services:
     glue: {CreateCrawler}
 glue_StartCrawler:
@@ -163,6 +215,32 @@ glue_StartCrawler:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.StartCrawler
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.StartCrawler
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.start_crawler
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.start_crawler
   services:
     glue: {StartCrawler}
 glue_GetDatabase:
@@ -218,6 +296,32 @@ glue_GetDatabase:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.GetDatabase
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.GetDatabase
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.get_database
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.get_database
   services:
     glue: {GetDatabase}
 glue_GetTables:
@@ -264,6 +368,32 @@ glue_GetTables:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.GetTables
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.GetTables
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.get_tables
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.get_tables
   services:
     glue: {GetTables}
 glue_CreateJob:
@@ -302,6 +432,32 @@ glue_CreateJob:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.CreateJob
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.CreateJob
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.create_job
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.create_job
   services:
     glue: {CreateJob}
 glue_StartJobRun:
@@ -341,6 +497,32 @@ glue_StartJobRun:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.StartJobRun
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.StartJobRun
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.start_job_run
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.start_job_run
   services:
     glue: {StartJobRun}
 glue_ListJobs:
@@ -368,6 +550,32 @@ glue_ListJobs:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.ListJobs
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.ListJobs
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.list_jobs
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.list_jobs
   services:
     glue: {ListJobs}
 glue_GetJobRuns:
@@ -405,6 +613,24 @@ glue_GetJobRuns:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.GetJobRuns
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.GetJobRuns
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.get_job_runs
   services:
     glue: {GetJobRuns}
 glue_GetJobRun:
@@ -434,6 +660,32 @@ glue_GetJobRun:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.GetJobRun
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.GetJobRun
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.get_job_run
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.get_job_run
   services:
     glue: {GetJobRun}
 glue_DeleteJob:
@@ -470,6 +722,32 @@ glue_DeleteJob:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.DeleteJob
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.DeleteJob
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.delete_job
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.delete_job
   services:
     glue: {DeleteJob}
 glue_DeleteTable:
@@ -497,6 +775,22 @@ glue_DeleteTable:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.DeleteTable
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.DeleteTable
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.delete_table
   services:
     glue: {DeleteTable}
 glue_DeleteDatabase:
@@ -533,6 +827,32 @@ glue_DeleteDatabase:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.DeleteDatabase
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.DeleteDatabase
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.delete_database
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.delete_database
   services:
     glue: {DeleteDatabase}
 glue_DeleteCrawler:
@@ -569,8 +889,66 @@ glue_DeleteCrawler:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.DeleteCrawler
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.DeleteCrawler
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.client_configuration
+                - cpp.example_code.glue.glue_client
+                - cpp.example_code.glue.delete_crawler
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.delete_crawler
   services:
     glue: {DeleteCrawler}
+glue_GetDatabases:
+  title: Get database list from the &GLUDCLong; using an &AWS; SDK
+  title_abbrev: Get databases from the &GLUDC;
+  synopsis: get a list of databases from the &GLUDCLong;.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.GetDatabases
+  services:
+    glue: {GetDatabases}
+glue_GetJob:
+  title: Get a job from the &GLUDCLong; using an &AWS; SDK
+  title_abbrev: Get job from the &GLUDC;
+  synopsis: get a job from the &GLUDCLong;.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.glue.actions.GetJob
+  services:
+    glue: {GetJob}
 glue_Scenario_GetStartedCrawlersJobs:
   title: Get started running &GLU; crawlers and jobs using an &AWS; SDK
   title_abbrev: Get started running crawlers and jobs
@@ -642,11 +1020,111 @@ glue_Scenario_GetStartedCrawlersJobs:
             - description: Create a class that runs the scenario.
               snippet_tags:
                 - python.example_code.glue.Scenario_GetStartedCrawlersJobs
-            - description: Create an ETL script that is used by &GLU; to extract,
+            - description:
+                Create an ETL script that is used by &GLU; to extract,
                 transform, and load data during job runs.
               snippet_tags:
                 - python.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+                Create and run a crawler that crawls a public &S3long; (&S3;) bucket and generates
+                a metadata database that describes the CSV-formatted data it finds.
+              snippet_tags:
+                - javascript.v3.glue.actions.CreateCrawler
+                - javascript.v3.glue.actions.GetCrawler
+                - javascript.v3.glue.actions.StartCrawler
+                - javascript.v3.glue.scenarios.basic.CreateCrawlerStep
+                - javascript.v3.glue.scenarios.basic.StartCrawlerStep
+            - description: List information about databases and tables in your &GLUDCLong;.
+              snippet_tags:
+                - javascript.v3.glue.actions.GetDatabase
+                - javascript.v3.glue.actions.GetTables
+                - javascript.v3.glue.scenarios.basic.GetDatabaseStep
+                - javascript.v3.glue.scenarios.basic.GetTablesStep
+            - description:
+                Create and run a job that extracts CSV data from the source &S3; bucket,
+                transforms it by removing and renaming fields, and loads JSON-formatted
+                output into another &S3; bucket.
+              snippet_tags:
+                - javascript.v3.glue.actions.CreateJob
+                - javascript.v3.glue.actions.StartJobRun
+                - javascript.v3.glue.scenarios.basic.CreateJobStep
+                - javascript.v3.glue.scenarios.basic.StartJobRunStep
+            - description: List information about job runs and view some of the transformed data.
+              snippet_tags:
+                - javascript.v3.glue.actions.GetJobRuns
+                - javascript.v3.glue.actions.GetJobRun
+                - javascript.v3.glue.scenarios.basic.PickJobRunStep
+            - description: Delete all resources created by the demo.
+              snippet_tags:
+                - javascript.v3.glue.actions.DeleteJob
+                - javascript.v3.glue.actions.DeleteTable
+                - javascript.v3.glue.actions.DeleteDatabase
+                - javascript.v3.glue.actions.DeleteCrawler
+                - javascript.v3.glue.scenarios.basic.CleanUpJobsStep
+                - javascript.v3.glue.scenarios.basic.CleanUpTablesStep
+                - javascript.v3.glue.scenarios.basic.CleanUpDatabasesStep
+                - javascript.v3.glue.scenarios.basic.CleanUpCrawler
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.glue.glue_getting_started_scenario
+
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          sdkguide:
+          excerpts:
+            - description:
+                Create and run a crawler that crawls a public &S3long; (&S3;) bucket and generates
+                a metadata database that describes the CSV-formatted data it finds.
+              snippet_tags:
+                - rust.glue.create_crawler
+                - rust.glue.start_crawler
+            - description: List information about databases and tables in your &GLUDCLong;.
+              snippet_tags:
+                - rust.glue.get_database
+                - rust.glue.get_tables
+            - description:
+                Create and run a job that extracts CSV data from the source &S3; bucket,
+                transforms it by removing and renaming fields, and loads JSON-formatted
+                output into another &S3; bucket.
+              snippet_tags:
+                - rust.glue.create_job
+                - rust.glue.start_job_run
+            - description: Delete all resources created by the demo.
+              snippet_tags:
+                - rust.glue.delete_job
+                - rust.glue.delete_table
+                - rust.glue.delete_database
+                - rust.glue.delete_crawler
   services:
-    glue: {GetCrawler, CreateCrawler, StartCrawler, GetDatabase, GetTables, CreateJob,
-           StartJobRun, ListJobs, GetJobRuns, GetJobRun, DeleteJob, DeleteTable,
-           DeleteDatabase, DeleteCrawler}
+    glue:
+      {
+        GetCrawler,
+        CreateCrawler,
+        StartCrawler,
+        GetDatabase,
+        GetDatabases,
+        GetTables,
+        CreateJob,
+        StartJobRun,
+        ListJobs,
+        GetJob,
+        GetJobRuns,
+        GetJobRun,
+        DeleteJob,
+        DeleteTable,
+        DeleteDatabase,
+        DeleteCrawler,
+      }

@@ -17,22 +17,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: pre-setup
+        run: sudo apt-get update && sudo apt-get install -y libclang-dev
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: stable
+          toolchain: 1.62.1
           override: true
+          components: clippy, rustfmt
       - uses: actions-rs/cargo@v1
+        name: cargo check
         with:
           command: check
-          args: --all-targets --manifest-path rust_dev_preview/Cargo.toml
+          args: --manifest-path rust_dev_preview/Cargo.toml --all-targets
       - uses: actions-rs/cargo@v1
         if: success() || failure()
+        name: cargo fmt
+        with:
+          command: fmt
+          args: --manifest-path rust_dev_preview/Cargo.toml --all --check
+      - uses: actions-rs/cargo@v1
+        if: success() || failure()
+        name: cargo clippy
         with:
           command: clippy
           args: --manifest-path rust_dev_preview/Cargo.toml -- -D warnings
       - uses: actions-rs/cargo@v1
         if: success() || failure()
+        name: cargo test
         with:
           command: test
           args: --manifest-path rust_dev_preview/Cargo.toml
+        env:
+          APP_ENVIRONMENT: test
