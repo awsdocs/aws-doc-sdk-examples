@@ -23,7 +23,6 @@
 // snippet-start:[iam.swift.basics.example]
 // snippet-start:[iam.swift.basics.main.imports]
 import Foundation
-import ServiceHandler
 import ArgumentParser
 import AWSIAM
 import AWSSTS
@@ -31,6 +30,8 @@ import AWSS3
 import ClientRuntime
 import AWSClientRuntime
 // snippet-end:[iam.swift.basics.main.imports]
+
+@testable import ServiceHandler
 
 /// The command line arguments and options available for this example command.
 // snippet-start:[iam.swift.basics.command]
@@ -67,7 +68,10 @@ struct ExampleCommand: ParsableCommand {
     /// example.
     // snippet-start:[iam.swift.basics.command.runasync]
     func runAsync() async throws {
-        let serviceHandler = await ServiceHandler(region: awsRegion, logLevel: logLevel)
+        SDKLoggingSystem.initialize(logLevel: .error)
+        let iamHandler = await ServiceHandlerIAM()
+        let stsHandler = await ServiceHandlerSTS(region: awsRegion)
+        let s3Handler = await ServiceHandlerS3(region: awsRegion)
         let userName = String.uniqueName()
         let roleName = String.uniqueName()
         let rolePolicyName = String.uniqueName()
@@ -92,11 +96,12 @@ struct ExampleCommand: ParsableCommand {
             // authentication.
             
             print("Creating a new example user...")
-            user = try await serviceHandler.createUser(name: userName)
+            user = try await iamHandler.createUser(name: userName)
             defer {
                 Task {
                     do {
-                        _ = try await serviceHandler.deleteUser(user: user)
+                        print("DELETING USER")
+                        //_ = try await iamHandler.deleteUser(user: user)
                     } catch {
                         print("*** Error: Unable to delete the user \(userName)")
                     }
@@ -106,11 +111,12 @@ struct ExampleCommand: ParsableCommand {
             // Create an access key for the new user.
 
             print("Creating an access key for the example user...")
-            accessKey = try await serviceHandler.createAccessKey(userName: userName)
+            accessKey = try await iamHandler.createAccessKey(userName: userName)
             defer {
                 Task {
                     do {
-                        _ = try await serviceHandler.deleteAccessKey(key: accessKey)
+                        print("DELETING ACCESS KEY")
+                        _ = try await iamHandler.deleteAccessKey(key: accessKey)
                     } catch {
                         print("*** Error: Unable to delete the access key")
                     }
@@ -130,7 +136,7 @@ struct ExampleCommand: ParsableCommand {
             }
 
             print("Creating a new role to give the user permission to assume roles...")
-            role = try await serviceHandler.createRole(
+            role = try await iamHandler.createRole(
                 name: roleName,
                 policyDocument: """
                 {
@@ -146,7 +152,8 @@ struct ExampleCommand: ParsableCommand {
             defer {
                 Task {
                     do {
-                        _ = try await serviceHandler.deleteRole(role: role)
+                        print("DELETING ROLE")
+                        _ = try await iamHandler.deleteRole(role: role)
                     } catch {
                         print("*** Error: Unable to delete the role \(roleName)")
                     }
@@ -157,7 +164,7 @@ struct ExampleCommand: ParsableCommand {
             // action.
 
             print("Creating a role policy that gives the user permission to list S3 buckets...")
-            rolePolicy = try await serviceHandler.createPolicy(
+            rolePolicy = try await iamHandler.createPolicy(
                 name: rolePolicyName,
                 policyDocument: """
                 {
@@ -175,7 +182,8 @@ struct ExampleCommand: ParsableCommand {
             defer {
                 Task {
                     do {
-                        _ = try await serviceHandler.deletePolicy(policy: rolePolicy)
+                        print("DELETING ROLE POLICY")
+                        _ = try await iamHandler.deletePolicy(policy: rolePolicy)
                     } catch {
                         print("*** Error: Unable to delete the role policy \(rolePolicyName)")
                     }
@@ -186,11 +194,12 @@ struct ExampleCommand: ParsableCommand {
             // the needed permissions.
 
             print("Attaching the role policy to the role...")
-            _ = try await serviceHandler.attachRolePolicy(policy: rolePolicy, role: role)
+            _ = try await iamHandler.attachRolePolicy(policy: rolePolicy, role: role)
             defer {
                 Task {
                     do {
-                        _ = try await serviceHandler.detachRolePolicy(policy: rolePolicy, role: role)
+                        print("DETACHING ROLE POLICY!")
+                        _ = try await iamHandler.detachRolePolicy(policy: rolePolicy, role: role)
                     } catch {
                         print("*** Error: Unable to delete the user \(userName)")
                     }
@@ -224,7 +233,7 @@ struct ExampleCommand: ParsableCommand {
             // Assume the role to get permission to list the buckets.
 
             print("Assuming the role to get credentials with ListBuckets permissions...")
-            let credentials = try await serviceHandler.assumeRole(
+            let credentials = try await stsHandler.assumeRole(
                 role: role,
                 sessionName: "listing-buckets"
             )
@@ -238,31 +247,45 @@ struct ExampleCommand: ParsableCommand {
             // List the buckets. This time, it should succeed.
 
             print("Attempting to list the S3 buckets using the role credentials...")
-            try await listBucketsWithCredentials(
+            let buckets = try await listBucketsWithCredentials(
                 accessKeyId: roleAccessKey,
                 secretAccessKey: roleSecretAccessKey,
                 sessionToken: roleSessionToken
             )
 
+            print("Found \(buckets.count) bucket(s)")
+            for bucket in buckets {
+                print("  \(bucket.name)")
+            }
+
             print("--- Successfully got the bucket list. Example complete!")
+            print("EXITING runAsync() WITH BUCKET LIST")
+
         } catch {
             print("*** ERROR ***")
             throw error
         }
 
         func listBucketsWithCredentials(accessKeyId: String, 
-                    secretAccessKey: String, sessionToken: String? = nil) async throws {
+                    secretAccessKey: String, sessionToken: String? = nil)
+                    async throws -> [S3ClientTypes.Bucket] {
             do {
-                try await serviceHandler.setCredentials(accessKeyId: accessKeyId,
-                        secretAccessKey: secretAccessKey, sessionToken: sessionToken)
+                try await iamHandler.setCredentials(accessKeyId: accessKeyId,
+                            secretAccessKey: secretAccessKey,
+                            sessionToken: sessionToken)
+                try await stsHandler.setCredentials(accessKeyId: accessKeyId,
+                            secretAccessKey: secretAccessKey,
+                            sessionToken: sessionToken)
+                try await s3Handler.setCredentials(accessKeyId: accessKeyId,
+                            secretAccessKey: secretAccessKey,
+                            sessionToken: sessionToken)
 
                 // Get a list of the buckets.
 
-                _ = try await serviceHandler.listBuckets()
+                return try await s3Handler.listBuckets()
             } catch {
                 throw error
             }
-
         }
     }
     // snippet-end:[iam.swift.basics.command.runasync]
@@ -290,9 +313,11 @@ struct Main {
         do {
             let command = try ExampleCommand.parse(args)
             try await command.runAsync()
+            print("BACK FROM runAsync()")
         } catch {
             ExampleCommand.exit(withError: error)
         }
+        print("EXITING main()")
     }    
 }
 // snippet-end:[iam.swift.basics.main]

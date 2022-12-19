@@ -5,6 +5,8 @@
 import XCTest
 import Foundation
 import AWSIAM
+import AWSS3
+import AWSSTS
 import AWSClientRuntime
 import ClientRuntime
 import SwiftUtilities
@@ -16,7 +18,10 @@ import SwiftUtilities
 /// the demo cleanup handler object using the global
 /// `ListUsersTests.demoCleanup` property.
 final class BasicsTests: XCTestCase {
-    static var serviceHandler: ServiceHandler? = nil
+    static var iamHandler: ServiceHandlerIAM? = nil
+    static var stsHandler: ServiceHandlerSTS? = nil
+    static var s3Handler: ServiceHandlerS3? = nil
+    static let region = "us-east-2"
 
     /// Class-wide setup function for the test case, which is run *once*
     /// before any tests are run.
@@ -33,8 +38,12 @@ final class BasicsTests: XCTestCase {
         let tdSem = TestWaiter(name: "Setup")
         super.setUp()
 
+        SDKLoggingSystem.initialize(logLevel: .error)
+
         Task() {
-            BasicsTests.serviceHandler = await ServiceHandler(logLevel: "error")
+            self.iamHandler = await ServiceHandlerIAM()
+            self.stsHandler = await ServiceHandlerSTS(region: self.region)
+            self.s3Handler = await ServiceHandlerS3(region: self.region)
             tdSem.signal()
         }
         tdSem.wait()
@@ -44,23 +53,23 @@ final class BasicsTests: XCTestCase {
         let name = String.uniqueName()
 
         do {
-            let user = try await BasicsTests.serviceHandler!.createUser(name: name)
+            let user = try await BasicsTests.iamHandler!.createUser(name: name)
 
             guard   let userID = user.userId,
-                    let userName = user.userName else {
+                    let _ = user.userName else {
                 XCTFail("Did not create a valid user")
                 return
             }
 
-            let getID = try await BasicsTests.serviceHandler!.getUserID(name: userName)
+            let getID = try await BasicsTests.iamHandler!.getUserID(name: name)
 
             XCTAssertTrue(userID == getID, "Created user's ID (\(userID)) doesn't match retrieved user's ID (\(getID))")
 
             // Delete the created user.
-            _ = try await BasicsTests.serviceHandler!.deleteUser(user: user)
+            _ = try await BasicsTests.iamHandler!.deleteUser(user: user)
 
             do {
-                _ = try await BasicsTests.serviceHandler!.getUserID(name: userName)
+                _ = try await BasicsTests.iamHandler!.getUserID(name: name)
                 XCTFail("User still exists after being deleted.")
             } catch {
                 // This is a success condition -- the getUserID() function is
@@ -76,7 +85,7 @@ final class BasicsTests: XCTestCase {
 
         do {
             //let user = try await BasicsTests.serviceHandler!.createUser(name: name)
-            let user = try await BasicsTests.serviceHandler!.getUser()
+            let user = try await BasicsTests.iamHandler!.getUser()
 
             guard let userARN = user.arn else {
                 throw ServiceHandlerError.noSuchUser 
@@ -94,8 +103,8 @@ final class BasicsTests: XCTestCase {
             }
             """
 
-            let role = try await BasicsTests.serviceHandler!.createRole(name: name, policyDocument: policyDocument)
-            let getID = try await BasicsTests.serviceHandler!.getRoleID(name: name)
+            let role = try await BasicsTests.iamHandler!.createRole(name: name, policyDocument: policyDocument)
+            let getID = try await BasicsTests.iamHandler!.getRoleID(name: name)
 
             guard let createdID = role.roleId else {
                 XCTFail("Created role has no valid ID or failed to create role")
@@ -105,7 +114,7 @@ final class BasicsTests: XCTestCase {
             XCTAssertTrue(createdID == getID, "Created role's ID (\(createdID)) doesn't match retrieved role ID (\(getID))")
 
             // Delete the created user.
-            _ = try await BasicsTests.serviceHandler!.deleteRole(role: role)
+            _ = try await BasicsTests.iamHandler!.deleteRole(role: role)
         } catch {
             throw error
         }
@@ -113,25 +122,25 @@ final class BasicsTests: XCTestCase {
 
     func testCreateAndDeleteAccessKey() async throws {
         do {
-            let user = try await BasicsTests.serviceHandler!.getUser()
+            let user = try await BasicsTests.iamHandler!.getUser()
 
             guard let name = user.userName else {
                 XCTFail("Unable to get the AWS user.")
                 return
             }
             
-            let accessKey = try await BasicsTests.serviceHandler!.createAccessKey(userName: name)
+            let accessKey = try await BasicsTests.iamHandler!.createAccessKey(userName: name)
 
             guard let _ = accessKey.accessKeyId else {
                 XCTFail("Unable to get the new access key's ID.")
                 return
             }
 
-            let account = try await BasicsTests.serviceHandler!.getAccessKeyAccountNumber(key: accessKey)
+            let account = try await BasicsTests.stsHandler!.getAccessKeyAccountNumber(key: accessKey)
             XCTAssertTrue(Int(account) != nil, "Invalid account number returned for the generated access key.")
 
-            try await BasicsTests.serviceHandler!.deleteAccessKey(key: accessKey)
-            //try await BasicsTests.serviceHandler!.deleteUser(user: user)
+            try await BasicsTests.iamHandler!.deleteAccessKey(key: accessKey)
+            //try await BasicsTests.iamHandler!.deleteUser(user: user)
         } catch {
             throw error
         }
@@ -154,7 +163,7 @@ final class BasicsTests: XCTestCase {
         """
 
         do {
-            let policy = try await BasicsTests.serviceHandler!.createPolicy(
+            let policy = try await BasicsTests.iamHandler!.createPolicy(
                 name: policyName,
                 policyDocument: policyDocument
             )
@@ -164,10 +173,10 @@ final class BasicsTests: XCTestCase {
                 return
             }
 
-            let getID = try await BasicsTests.serviceHandler!.getPolicyID(arn: policyARN)
+            let getID = try await BasicsTests.iamHandler!.getPolicyID(arn: policyARN)
             XCTAssertEqual(getID, policy.policyId, "The returned policy ID and the retrieved ID do not match.")
 
-            try await BasicsTests.serviceHandler!.deletePolicy(policy: policy)
+            try await BasicsTests.iamHandler!.deletePolicy(policy: policy)
         } catch {
             throw error
         }
@@ -175,7 +184,8 @@ final class BasicsTests: XCTestCase {
 
     func testAttachAndDetachRolePolicy() async throws {
         let roleName = String.uniqueName()
-        let policyName = String.uniqueName()
+        let rolePolicyName = String.uniqueName()
+        let userPolicyName = String.uniqueName()
         let testUserName = String.uniqueName()
 
         print("""
@@ -190,23 +200,26 @@ final class BasicsTests: XCTestCase {
         do {
             // Get the current user so we can build a policy document.
     
-            let user = try await BasicsTests.serviceHandler!.createUser(name: testUserName)
-            //let user = try await BasicsTests.serviceHandler!.getUser()
+            let user = try await BasicsTests.iamHandler!.createUser(name: testUserName)
 
-            // Create an access key for the user
+            // Create an access key for the user.
 
-            let accessKey = try await BasicsTests.serviceHandler!.createAccessKey(userName: testUserName)
+            let accessKey = try await BasicsTests.iamHandler!.createAccessKey(userName: testUserName)
 
-            // Create the role.
+            // Wait for a few moments for the new user to propagate.
+
             await waitFor(seconds: 10)
 
-            let startUser = try await BasicsTests.serviceHandler!.getUser()
-            guard let userARN = startUser.arn else {
+            // Create the role using the user's ARN so we can specify the user
+            // as the principal in the role's inline policy. This policy
+            // permits the user to use the STS action `AssumeRole`.
+
+            guard let userARN = user.arn else {
                 XCTFail("Invalid user ARN.")
                 return
             }
 
-            let role = try await BasicsTests.serviceHandler!.createRole(
+            let role = try await BasicsTests.iamHandler!.createRole(
                 name: roleName,
                 policyDocument: """
                 {
@@ -214,7 +227,9 @@ final class BasicsTests: XCTestCase {
                     "Statement": [{
                         "Effect": "Allow",
                         "Principal": {"AWS": "\(userARN)"},
-                        "Action": "sts:AssumeRole"
+                        "Action": [
+                            "sts:AssumeRole"
+                        ]
                     }]
                 }
                 """
@@ -222,47 +237,92 @@ final class BasicsTests: XCTestCase {
 
             print("Role \(roleName) created.")
 
-            // Create a policy.
+            guard let roleARN = role.arn else {
+                XCTFail("Invalid role ARN.")
+                return
+            }
 
-            let policyDocument = """
+            // Wait 10 seconds to let the changes propagate out.
+
+            await waitFor(seconds: 10)
+
+            // Add the policy to the role.
+
+            let rolePolicyDocument = """
             {
                 "Version": "2012-10-17",
                 "Statement": [
                     {
                     "Action": [
                         "iam:AttachRolePolicy",
+                        "iam:GetRolePolicy",
+                        "iam:DeleteRolePolicy",
+                        "iam:DetachRolePolicy",
                         "iam:CreatePolicy",
                         "iam:CreateRole",
                         "iam:DeletePolicy",
                         "iam:DeleteRole",
-                        "iam:DeleteRolePolicy",
-                        "iam:DetachRolePolicy",
                         "iam:GetPolicy",
-                        "iam:GetRolePolicy",
                         "iam:GetUser"
                     ],
                     "Effect": "Allow",
                     "Resource": "arn:aws:iam:::*"
+                    },
+                    {
+                    "Action": [
+                        "iam:GetRolePolicy"
+                    ],
+                    "Effect": "Allow",
+                    "Resource": "\(roleARN)"
                     }
                 ]
             }
             """
-            let policy = try await BasicsTests.serviceHandler!.createPolicy(
-                name: policyName,
-                policyDocument: policyDocument
+            let rolePolicy = try await BasicsTests.iamHandler!.createPolicy(
+                name: rolePolicyName,
+                policyDocument: rolePolicyDocument
             )
-            print("Policy \(policyName) created.")
+            print("Role policy \(rolePolicyName) created.")
+            try await BasicsTests.iamHandler!.attachRolePolicy(policy: rolePolicy, role: role)
 
-            // Attach the policy to the role.
+            // Create an inline user policy that lets it assume the new role.
 
-            try await BasicsTests.serviceHandler!.attachRolePolicy(policy: policy, role: role)
+            let userPolicyDocument = """
+            {
+                "Version": "2012-10-17",
+                "Statement": [{
+                    "Effect": "Allow",
+                    "Action": [
+                        "sts:AssumeRole"
+                    ],
+                    "Resource": "\(roleARN)"
+                }]
+            }
+            """
 
-            await waitFor(seconds: 10)
+            try await BasicsTests.iamHandler!.putUserPolicy(
+                policyDocument: userPolicyDocument,
+                policyName: userPolicyName,
+                user: user
+            )
 
-            // Assume the role to get the permissions we need for the rest of
-            // the test.
+            // END OF FUNCTION "SETUP" IN PYTHON EXAMPLE
+
+            // Use the credentials provided by the temporary user's access key.
+
+            guard   let accessKeyId = accessKey.accessKeyId,
+                    let secretAccessKey = accessKey.secretAccessKey else {
+                        throw ServiceHandlerError.authError
+            }
+
+            try await BasicsTests.stsHandler!.setCredentials(
+                accessKeyId: accessKeyId,
+                secretAccessKey: secretAccessKey
+            )
+
+            // Use those credentials to assume the role we created.
             
-            let credentials = try await BasicsTests.serviceHandler!.assumeRole(
+            let credentials = try await BasicsTests.stsHandler!.assumeRole(
                 role: role,
                 sessionName: "test-role-policy"
             )
@@ -270,10 +330,15 @@ final class BasicsTests: XCTestCase {
             guard   let roleAccessKey = credentials.accessKeyId,
                     let roleSecretAccessKey = credentials.secretAccessKey,
                     let roleSessionToken = credentials.sessionToken else {
+                        XCTFail("Invalid credentials returned by assumeRole() function.")
                         throw ServiceHandlerError.authError
             }
 
-            try await BasicsTests.serviceHandler!.setCredentials(
+            print("Setting credentials; access key is \(roleAccessKey)")
+
+            // Use the new credentials for IAM operations.
+
+            try await BasicsTests.iamHandler!.setCredentials(
                 accessKeyId: roleAccessKey,
                 secretAccessKey: roleSecretAccessKey,
                 sessionToken: roleSessionToken
@@ -281,7 +346,7 @@ final class BasicsTests: XCTestCase {
             defer {
                 Task {
                     do {
-                        try await BasicsTests.serviceHandler!.resetCredentials()
+                        try await BasicsTests.iamHandler!.resetCredentials()
                     } catch {
                         throw error
                     }
@@ -291,23 +356,23 @@ final class BasicsTests: XCTestCase {
             // Retrieve the role policy to confirm that it's attached.
 
             print("Getting the policy document we just attached to the role...")
-            let getPolicyDocument = try await BasicsTests.serviceHandler!.getRolePolicyDocument(
-                policyName: policyName,
+            let getPolicyDocument = try await BasicsTests.iamHandler!.getRolePolicyDocument(
+                policyName: rolePolicyName,
                 roleName: roleName
             )
-            XCTAssertEqual(getPolicyDocument, policyDocument, "Retrieved role policy document does not match the one created by the test.")
+            XCTAssertEqual(getPolicyDocument, rolePolicyDocument, "Retrieved role policy document does not match the one created by the test.")
 
             // Detach the role policy
 
             print("Detaching the policy from the role...")
-            try await BasicsTests.serviceHandler!.detachRolePolicy(policy: policy, role: role)
+            try await BasicsTests.iamHandler!.detachRolePolicy(policy: rolePolicy, role: role)
 
             // Try getting the policy document again. Now it should fail.
 
             print("Trying to get the policy document for the role to be sure it's detached...")
             do {
-                _ = try await BasicsTests.serviceHandler!.getRolePolicyDocument(
-                    policyName: policyName,
+                _ = try await BasicsTests.iamHandler!.getRolePolicyDocument(
+                    policyName: rolePolicyName,
                     roleName: roleName
                 )
                 XCTFail("Getting a deleted policy document succeeded but should have failed.")
@@ -321,26 +386,26 @@ final class BasicsTests: XCTestCase {
 
             // Restore original credentials.
 
-            try await BasicsTests.serviceHandler!.resetCredentials()
-
-            // Delete the policy.
-
-            try await BasicsTests.serviceHandler!.deletePolicy(policy: policy)
+            try await BasicsTests.iamHandler!.resetCredentials()
+            try await BasicsTests.stsHandler!.resetCredentials()
+            try await BasicsTests.s3Handler!.resetCredentials()
 
             // Delete the role.
 
-            try await BasicsTests.serviceHandler!.deleteRole(role: role)
+            try await BasicsTests.iamHandler!.deleteRole(role: role)
 
             // Delete the access key.
 
-            try await BasicsTests.serviceHandler!.deleteAccessKey(key: accessKey)
+            try await BasicsTests.iamHandler!.deleteAccessKey(key: accessKey)
 
             // Delete the user.
 
-            try await BasicsTests.serviceHandler!.deleteUser(user: user)
+            try await BasicsTests.iamHandler!.deleteUser(user: user)
 
         } catch {
-            try await BasicsTests.serviceHandler!.resetCredentials()
+            try await BasicsTests.iamHandler!.resetCredentials()
+            try await BasicsTests.stsHandler!.resetCredentials()
+            try await BasicsTests.s3Handler!.resetCredentials()
             throw error
         }
 

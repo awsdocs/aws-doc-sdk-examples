@@ -21,7 +21,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.3.0"
+            from: "0.6.0"
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
@@ -43,6 +43,9 @@ let package = Package(
             name: "basics",
             dependencies: [
                 "ServiceHandler",
+                .product(name: "AWSIAM", package: "aws-sdk-swift"),
+                .product(name: "AWSS3", package: "aws-sdk-swift"),
+                .product(name: "AWSSTS", package: "aws-sdk-swift"),
                 "SwiftUtilities",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
@@ -63,11 +66,15 @@ let package = Package(
             ],
             path: "./Sources/ServiceHandler"
         ),
+
 // snippet-end:[iam.swift.basics.package.target.handler]
 // snippet-start:[iam.swift.basics.package.target.tests]
         .testTarget(
             name: "basics-tests",
             dependencies: [
+                .product(name: "AWSIAM", package: "aws-sdk-swift"),
+                .product(name: "AWSS3", package: "aws-sdk-swift"),
+                .product(name: "AWSSTS", package: "aws-sdk-swift"),
                 "basics",
                 "SwiftUtilities"
             ],

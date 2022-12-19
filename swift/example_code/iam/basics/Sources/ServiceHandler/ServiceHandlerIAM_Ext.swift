@@ -1,5 +1,5 @@
 /*
-   Extensions to the `ServiceHandler` class to handle tasks we need
+   Extensions to the `ServiceHandlerIAM` class to handle tasks we need
    for testing that aren't the purpose of this example.
 
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -8,14 +8,31 @@
 
 import Foundation
 import AWSIAM
-import AWSSTS
 import AWSClientRuntime
 import ClientRuntime
 import SwiftUtilities
 
-@testable import ServiceHandler
-
-public extension ServiceHandler {
+public extension ServiceHandlerIAM {
+    /// Add an inline policy to an AWS Identity and Access Management (IAM)
+    /// user.
+    ///
+    /// - Parameters:
+    ///   - policyDocument: A `String` indicating the policy
+    ///     document to add to the user.
+    ///   - policyName: A string giving the policy's name.
+    ///   - user: The `IAMClientTypes.User` specifying the user.
+    func putUserPolicy(policyDocument: String, policyName: String, user: IAMClientTypes.User) async throws {
+        let input = PutUserPolicyInput(
+            policyDocument: policyDocument,
+            policyName: policyName,
+            userName: user.userName
+        )
+        do {
+            _ = try await iamClient.putUserPolicy(input: input)
+        } catch {
+            throw error
+        }
+    }
 
     /// Get the ID of an AWS Identity and Access Management (IAM) user.
     ///
@@ -104,20 +121,6 @@ public extension ServiceHandler {
             return policyDocument
         } catch {
             throw error
-        }
-    }
-
-    func getAccessKeyAccountNumber(key: IAMClientTypes.AccessKey) async throws -> String {
-        let input = GetAccessKeyInfoInput(
-            accessKeyId: key.accessKeyId
-        )
-        do {
-            let output = try await stsClient.getAccessKeyInfo(input: input)
-
-            guard let account = output.account else {
-                throw ServiceHandlerError.keyError
-            }
-            return account
         }
     }
 }
