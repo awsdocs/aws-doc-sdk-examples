@@ -1,0 +1,171 @@
+name: Docker Image CI
+
+permissions:
+  packages: write
+  contents: read
+  id-token: write
+
+on:
+  pull_request:
+    types:
+      - assigned
+
+jobs:
+  push_to_registry:
+    # if: github.event.pull_request.merged == true
+    env:
+      REGISTRY: public.ecr.aws
+      REGISTRY_ALIAS: k1e9q4w8
+      IMAGE_TAG: latest
+      REGION: us-east-1
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      ##################################################
+      ################## ECR PUBLIC ####################
+      ##################################################
+      
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@master # More information on this action can be found below in the 'AWS Credentials' section
+        with:
+          role-to-assume: arn:aws:iam::260778392212:role/admin
+          aws-region: us-east-1
+          
+      - name: Login to Amazon ECR Public
+        id: login-ecr-public
+        uses: aws-actions/amazon-ecr-login@v1
+        with:
+          registry-type: public
+
+      ###############################
+      ######   Docker Image:  #######
+      ######      RUBY        #######
+      ###############################
+#      - name: Build, tag, and push docker image to Amazon ECR Public - Ruby
+#        env:
+#          REPOSITORY: ruby
+#        run: |
+#          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
+#          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+#          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+#          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+
+      #################################
+      ######   Docker Image:    #######
+      ######      PYTHON        #######
+      #################################
+      - name: Build, tag, and push docker image to Amazon ECR Public - Python
+        env:
+          REPOSITORY: python
+        run: |
+          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+
+      #################################
+      #######  Docker Image:   ########
+      #######   JAVASCRIPT     ########
+      #################################
+      - name: Build, tag, and push docker image to Amazon ECR Public - JavaScript
+        env:
+          REPOSITORY: javascriptv3
+        run: |
+          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+
+      #################################
+      #######  Docker Image:   ########
+      #######      RUST        ########
+      #################################
+      - name: Build, tag, and push docker image to Amazon ECR Public - Rust
+        env:
+          REPOSITORY: rust_dev_preview
+        run: |
+          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+
+      #################################
+      #######  Docker Image:   ########
+      #######      GoLang      ########
+      #################################
+      - name: Build, tag, and push docker image to Amazon ECR Public - GoLang
+        env:
+          REPOSITORY: gov3
+        run: |
+          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+
+      #################################
+      #######  Docker Image:   ########
+      #######      C++      ########
+      #################################
+      - name: Build, tag, and push docker image to Amazon ECR Public - C++
+        env:
+          REPOSITORY: cpp
+        run: |
+          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+
+      #################################
+      #######  Docker Image:   ########
+      #######      .NET v3      ########
+      #################################
+      - name: Build, tag, and push docker image to Amazon ECR Public - .NET v3
+        env:
+          REPOSITORY: dotnetv3
+        run: |
+          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+
+      #################################
+      #######  Docker Image:   ########
+      #######      javav2      ########
+      #################################
+      - name: Build, tag, and push docker image to Amazon ECR Public - JavaV2
+        env:
+          REPOSITORY: javav2
+        run: |
+          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+
+      #################################
+      #######  Docker Image:   ########
+      #######      KOTLIN      ########
+      #################################
+      - name: Build, tag, and push docker image to Amazon ECR Public - Kotlin
+        env:
+          REPOSITORY: kotlin
+        run: |
+          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+
+      #################################
+      #######  Docker Image:   ########
+      #######      PHP      ########
+      #################################
+      - name: Build, tag, and push docker image to Amazon ECR Public - PHP
+        env:
+          REPOSITORY: php
+        run: |
+          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
