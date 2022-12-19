@@ -151,5 +151,13 @@
             <artifactId>aws-crt</artifactId>
             <version>0.20.4</version>
         </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>sso</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>ssooidc</artifactId>
+        </dependency>
     </dependencies>
    </project>

@@ -1,30 +1,25 @@
-import com.example.s3.transfermanager.UploadADirectory;
 import com.example.s3.transfermanager.DownloadFile;
 import com.example.s3.transfermanager.DownloadToDirectory;
-import com.example.s3.transfermanager.UploadFile;
 import com.example.s3.transfermanager.ObjectCopy;
 import com.example.s3.transfermanager.S3ClientFactory;
-import org.junit.jupiter.api.AfterEach;
+import com.example.s3.transfermanager.UploadADirectory;
+import com.example.s3.transfermanager.UploadFile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ExtendWith(S3TestWatcher.class)
 class TransferManagerTest {
 
     private static final Logger logger = LoggerFactory.getLogger(TransferManagerTest.class);
-
-    @AfterEach
-    public void afterEach(TestInfo testInfo){
-        logger.info("Test method [{}], succeeded", testInfo.getTestMethod().get().getName());
-    }
 
     @Test
     @Order(1)
