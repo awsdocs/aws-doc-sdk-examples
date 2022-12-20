@@ -26,10 +26,12 @@
 
 // snippet-start:[cpp.example_code.autoscaling.groups_and_instances_scenario]
 #include <iostream>
+#include <iomanip>
 #include <aws/core/Aws.h>
 #include <aws/autoscaling/AutoScalingClient.h>
 #include <aws/autoscaling/model/CreateAutoScalingGroupRequest.h>
 #include <aws/autoscaling/model/DeleteAutoScalingGroupRequest.h>
+#include <aws/autoscaling/model/DescribeScalingActivitiesRequest.h>
 #include <aws/autoscaling/model/DescribeAutoScalingGroupsRequest.h>
 #include <aws/autoscaling/model/DescribeAutoScalingInstancesRequest.h>
 #include <aws/autoscaling/model/EnableMetricsCollectionRequest.h>
@@ -39,9 +41,12 @@
 #include <aws/ec2/model/CreateLaunchTemplateRequest.h>
 #include <aws/ec2/model/DeleteLaunchTemplateRequest.h>
 #include <aws/ec2/model/DescribeAvailabilityZonesRequest.h>
+#include <aws/ec2/model/DescribeLaunchTemplatesRequest.h>
 
 namespace AwsDoc {
     namespace AutoScaling {
+        static const int ASTERISK_FILL_WIDTH = 88;
+
         bool groupsAndInstancesScenario(
                 const Aws::Client::ClientConfiguration &clientConfig);
 
@@ -84,6 +89,10 @@ namespace AwsDoc {
 
         int askQuestionForIntRange(const Aws::String &string, int low,
                                    int high);
+
+        void logInstancesLifecycleState(
+                const Aws::Vector<Aws::AutoScaling::Model::AutoScalingInstanceDetails> &
+                instancesDetails);
     } // AutoScaling
 } // AwsDoc
 
@@ -95,12 +104,35 @@ namespace AwsDoc {
  */
 bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
         const Aws::Client::ClientConfiguration &clientConfig) {
-    Aws::String templateName("test_template");
+    Aws::String templateName;
     Aws::EC2::Model::InstanceType instanceType = Aws::EC2::Model::InstanceType::t1_micro;
     Aws::String imageID("ami-0b0dcb5067f052a63");
     Aws::EC2::EC2Client ec2Client(clientConfig);
 
-    {
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " " << std::endl;
+    std::cout << "Welcome to the Amazon EC2 Auto Scaling demo for managing groups and instances." << std::endl;
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " \n" << std::endl;
+
+    std::cout << "This example requires an EC2 launch template." << std::endl;
+    Aws::String answer = askQuestion("Would you like to use an existing launch template? (y/n)  ");
+    if (answer == "y") {
+        templateName = askQuestion("Enter the name of the existing launch template.  ");
+
+        Aws::EC2::Model::DescribeLaunchTemplatesRequest request;
+        request.AddLaunchTemplateNames(templateName);
+        Aws::EC2::Model::DescribeLaunchTemplatesOutcome outcome = ec2Client.DescribeLaunchTemplates(request);
+
+        if (outcome.IsSuccess()) {
+            std::cout << "Validated the launch template '" << templateName << "' exists." << std::endl;
+        }
+        else {
+            std::cerr << "Error validating the existence of the launch template. " << outcome.GetError().GetMessage()
+                      << std::endl;
+        }
+    }
+    else { // Create a new EC2 launch template.
+        templateName = askQuestion("Enter the name for a new launch template.  ");
+
         Aws::EC2::Model::CreateLaunchTemplateRequest request;
         request.SetLaunchTemplateName(templateName);
 
@@ -129,6 +161,13 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
         }
     }
 
+    Aws::AutoScaling::AutoScalingClient autoScalingClient(clientConfig);
+
+    std::cout << "Let's create an Auto Scaling group." << std::endl;
+    Aws::String  groupName = askQuestion("Enter a name for the group:  ");
+
+
+    // Describe the availability zones.
     Aws::Vector<Aws::EC2::Model::AvailabilityZone> availabilityZones;
     {
         Aws::EC2::Model::DescribeAvailabilityZonesRequest request;
@@ -137,26 +176,31 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
                 request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "EC2::DescribeAvailabilityZones was successful." << std::endl;
+            std::cout << "EC2 instances can be created in the following Availability Zones:" << std::endl;
 
             availabilityZones = outcome.GetResult().GetAvailabilityZones();
+            for (size_t i = 0; i < availabilityZones.size(); ++i)
+            {
+                std::cout << "   " << i + 1 << ".  " << availabilityZones[i].GetZoneName() << std::endl;
+            }
         }
         else {
             std::cerr << "Error with EC2::DescribeAvailabilityZones. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
+            cleanupResources("", templateName, autoScalingClient, ec2Client);
+            return false;
         }
 
     }
-    Aws::String groupName("examples_group"); // TODO(developer): ask for group name
-    // TODO(developer): select group from availability zones
+    int availabilityZoneChoice = askQuestionForIntRange("Choose an availability zone:  ", 1,
+                                                        static_cast<int>(availabilityZones.size()));
 
-    Aws::Vector<Aws::String> availabilityGroupZones;
-    availabilityGroupZones.push_back(availabilityZones[0].GetZoneName());
-    Aws::AutoScaling::AutoScalingClient autoScalingClient(clientConfig);
     {
         Aws::AutoScaling::Model::CreateAutoScalingGroupRequest request;
         request.SetAutoScalingGroupName(groupName);
+        Aws::Vector<Aws::String> availabilityGroupZones;
+        availabilityGroupZones.push_back(availabilityZones[availabilityZoneChoice - 1].GetZoneName());
         request.SetAvailabilityZones(availabilityGroupZones);
         request.SetMaxSize(1);
         request.SetMinSize(1);
@@ -169,8 +213,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
                 request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "AutoScaling::CreateAutoScalingGroup was successful."
-                      << std::endl;
+            std::cout << "Created autoscaling group '" << groupName << "'..." << std::endl;
         }
         else if (outcome.GetError().GetErrorType() ==
                  Aws::AutoScaling::AutoScalingErrors::ALREADY_EXISTS_FAULT) {
@@ -187,8 +230,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
     Aws::Vector<Aws::AutoScaling::Model::AutoScalingGroup> autoScalingGroups;
     if (AwsDoc::AutoScaling::describeGroup(groupName, autoScalingGroups,
                                            autoScalingClient)) {
-        std::cout << "Retrieved " << autoScalingGroups.size() << " groups."
-                  << std::endl;
+        std::cout << "Here is the autoscaling group description." << std::endl;
         if (!autoScalingGroups.empty()) {
             printGroupInfo(autoScalingGroups);
         }
@@ -198,13 +240,19 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
         return false;
     }
 
+    std::cout
+            << "Waiting for the EC2 instance in the auto scaling group to become active..."
+            << std::endl;
     if (!waitForInstances(groupName, autoScalingGroups, autoScalingClient)) {
         cleanupResources(groupName, templateName, autoScalingClient, ec2Client);
         return false;
     }
 
-    // TODO: ask to enable metrics
 
+    bool enableMetrics = askQuestion("Do you want to collect metrics about Amazon "
+                                      "EC2 Auto Scaling during this demo (y/n)?  ") == "y";
+
+    if (enableMetrics)
     {
         Aws::AutoScaling::Model::EnableMetricsCollectionRequest request;
         request.SetAutoScalingGroupName(groupName);
@@ -218,9 +266,8 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
 
         Aws::AutoScaling::Model::EnableMetricsCollectionOutcome outcome = autoScalingClient.EnableMetricsCollection(
                 request);
-
         if (outcome.IsSuccess()) {
-            std::cout << "AutoScaling::EnableMetricsCollection was successful."
+            std::cout << "Autoscaling metrics have been enabled."
                       << std::endl;
         }
         else {
@@ -232,8 +279,9 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
         }
     }
 
-    askQuestion("Update maximum instance?");
-    //  update maximum instances from 1 to 3
+    std::cout << "Let's update the maximum number of instances in '" << groupName <<
+    "' from 1 to 3." << std::endl;
+    askQuestion("Enter any text to continue  ");
     {
         Aws::AutoScaling::Model::UpdateAutoScalingGroupRequest request;
         request.SetAutoScalingGroupName(groupName);
@@ -242,11 +290,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
         Aws::AutoScaling::Model::UpdateAutoScalingGroupOutcome outcome = autoScalingClient.UpdateAutoScalingGroup(
                 request);
 
-        if (outcome.IsSuccess()) {
-            std::cout << "AutoScaling::UpdateAutoScalingGroup was successful."
-                      << std::endl;
-        }
-        else {
+        if (!outcome.IsSuccess()) {
             std::cerr << "Error with AutoScaling::UpdateAutoScalingGroup. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
@@ -258,8 +302,8 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
         if (!autoScalingGroups.empty()) {
             const auto &instances = autoScalingGroups[0].GetInstances();
             std::cout
-                    << "After setting the group size to 3, the instance count is "
-                    << instances.size() << "." << std::endl;
+                    << "The group still has one running instance, but it can have up to 3.\n"
+                    << std::endl;
             printGroupInfo(autoScalingGroups);
         }
         else {
@@ -268,9 +312,10 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
         }
     }
 
-    askQuestion("Change desired capacity?");
-
-    // change the desired capacity from 1 to 2
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " " << std::endl;
+    std::cout << "Let's update the desired capacity in '" << groupName <<
+              "' from 1 to 2." << std::endl;
+    askQuestion("Enter any text to continue  ");
     {
         Aws::AutoScaling::Model::UpdateAutoScalingGroupRequest request;
         request.SetAutoScalingGroupName(groupName);
@@ -294,8 +339,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
                                            autoScalingClient)) {
         if (!autoScalingGroups.empty()) {
             std::cout
-                    << "After setting the desired capacity to 3, the instance count is "
-                    << autoScalingGroups[0].GetInstances().size() << "." << std::endl;
+                    << "Here is the current state of the group." << std::endl;
             printGroupInfo(autoScalingGroups);
         }
         else {
@@ -304,7 +348,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
         }
     }
 
-    std::cout << "Waiting for the new instance to start..." << std::endl;
+    std::cout << "Waiting for the new EC2 instance to start..." << std::endl;
 
     waitForInstances(groupName, autoScalingGroups, autoScalingClient);
 
@@ -320,29 +364,28 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
         return false;
     }
 
-    int index = 1;
+    int instanceNumber = 1;
     Aws::Vector<Aws::String> instanceIDs = instancesToInstanceIDs(
             autoScalingGroups[0].GetInstances());
     for (const Aws::String &instanceID: instanceIDs) {
-        std::cout << "   " << index << ". " << instanceID << std::endl;
-        ++index;
+        std::cout << "   " << instanceNumber << ". " << instanceID << std::endl;
+        ++instanceNumber;
     }
 
-    // TODO: ask for instance choice
-    askQuestion("Terminate capacity?");
+    instanceNumber = askQuestionForIntRange("Which instance do you want to stop? ", 1,
+                                            static_cast<int>(instanceIDs.size()));
 
-    index = 0;
-    {
+     {
         Aws::AutoScaling::Model::TerminateInstanceInAutoScalingGroupRequest request;
-        request.SetInstanceId(instanceIDs[index]);
+        request.SetInstanceId(instanceIDs[instanceNumber - 1]);
         request.SetShouldDecrementDesiredCapacity(false);
 
         Aws::AutoScaling::Model::TerminateInstanceInAutoScalingGroupOutcome outcome = autoScalingClient.TerminateInstanceInAutoScalingGroup(
                 request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "Successfully terminated instance with id '"
-                      << instanceIDs[index] << "'." << std::endl;
+            std::cout << "Waiting for instance with ID '"
+                      << instanceIDs[index] << "' to terminate..." << std::endl;
         }
         else {
             std::cerr << "Error with AutoScaling::TerminateInstanceInAutoScalingGroup. "
@@ -350,23 +393,39 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
                       << std::endl;
         }
     }
-    // Sleep one second for termination to start.
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+
     waitForInstances(groupName, autoScalingGroups, autoScalingClient);
 
-    if (autoScalingGroups.empty()) {
-        std::cerr << "Error describing groups. No groups returned." << std::endl;
-        cleanupResources(groupName, templateName, autoScalingClient, ec2Client);
-        return false;
+    std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " " << std::endl;
+    std::cout << "Let's get a report of scaling activities for '" << groupName << "'." << std::endl;
+    askQuestion("Enter any text to continue  ");
+    {
+        Aws::AutoScaling::Model::DescribeScalingActivitiesRequest request;
+        request.SetAutoScalingGroupName(groupName);
+
+        Aws::AutoScaling::Model::DescribeScalingActivitiesOutcome outcome = autoScalingClient.DescribeScalingActivities(request);
+
+        if (outcome.IsSuccess()) {
+            const Aws::Vector<Aws::AutoScaling::Model::Activity>& activities =  outcome.GetResult().GetActivities();
+            std::cout << "Found " << activities.size() << " activities." << std::endl;
+            std::cout << "Activities are order with the most recent first." << std::endl;
+            for (const Aws::AutoScaling::Model::Activity& activity : activities)
+            {
+                std::cout << activity.GetDescription() << std::endl;
+                std::cout << activity.GetDetails() << std::endl;
+            }
+        }
+        else {
+            std::cerr << "Error with AutoScaling::DescribeScalingActivities. "
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+        }
     }
 
-    instanceIDs = instancesToInstanceIDs(autoScalingGroups[0].GetInstances());
-    std::cout
-            << "The instance count is "
-            << instanceIDs.size() << "." << std::endl;
-
-    printGroupInfo(autoScalingGroups);
-
+    if (enableMetrics)
+    {
+        std::cout << "Let's look at CloudWatch metrics." << std::endl;
+    }
     return cleanupResources(groupName, templateName, autoScalingClient, ec2Client);
 }
 
@@ -377,6 +436,7 @@ bool AwsDoc::AutoScaling::waitForInstances(const Aws::String &groupName,
     const std::vector<Aws::String> READY_STATES = {"InService", "Terminated"};
 
     int count = 0;
+    int desiredCapacity = 0;
     while (!ready) {
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -387,18 +447,16 @@ bool AwsDoc::AutoScaling::waitForInstances(const Aws::String &groupName,
         Aws::Vector<Aws::String> instanceIDs;
         if (!autoScalingGroups.empty()) {
             instanceIDs = instancesToInstanceIDs(autoScalingGroups[0].GetInstances());
-            if (count % 10 == 0)
-            {
-                std::cout << "Waiting for " << instanceIDs.size() << " to be terminated or in service." << std::endl;
-            }
-        }
-        else if (count % 10 == 0)
-        {
-            std::cout << "Waiting for group to appear." << std::endl;
+            desiredCapacity = autoScalingGroups[0].GetDesiredCapacity();
         }
 
         if (instanceIDs.empty()) {
-            continue;
+            if (desiredCapacity == 0) {
+                break;
+            }
+            else {
+                continue;
+            }
         }
 
         Aws::AutoScaling::Model::DescribeAutoScalingInstancesRequest request;
@@ -408,20 +466,17 @@ bool AwsDoc::AutoScaling::waitForInstances(const Aws::String &groupName,
                 request);
 
         if (outcome.IsSuccess()) {
-
             const auto &instancesDetails = outcome.GetResult().GetAutoScalingInstances();
-
-            std::cout << "Waiting instance count " << instancesDetails.size()
-                      << std::endl;
-            ready = instancesDetails.size() > 0;
-            for (const auto &instanceDetails: instancesDetails) {
-                const Aws::String &lifecycleState = instanceDetails.GetLifecycleState();
-                std::cout << lifecycleState << std::endl;
-
-                if (!stringInVector(lifecycleState, READY_STATES)) {
+            ready = instancesDetails.size() >= desiredCapacity;
+            for (const Aws::AutoScaling::Model::AutoScalingInstanceDetails &details: instancesDetails) {
+                if (!stringInVector(details.GetLifecycleState(), READY_STATES)) {
                     ready = false;
                     break;
                 }
+            }
+            // Log the status while waiting;
+            if (((count % 5) == 1) || ready) {
+                logInstancesLifecycleState(instancesDetails);
             }
         }
         else {
@@ -483,7 +538,7 @@ bool AwsDoc::AutoScaling::cleanupResources(const Aws::String &groupName,
                             request);
 
                     if (outcome.IsSuccess()) {
-                        std::cout << "Successfully terminated the instance '"
+                        std::cout << "Initiating termination of EC2 instance '"
                                   << instanceID << "'." << std::endl;
                     }
                     else {
@@ -493,7 +548,14 @@ bool AwsDoc::AutoScaling::cleanupResources(const Aws::String &groupName,
                     }
                 }
             }
+
+            std::cout
+                    << "Waiting for the EC2 instances to terminate before deleting the AutoScaling group..."
+                    << std::endl;
+            waitForInstances(groupName, autoScalingGroups, autoScalingClient);
         }
+
+
         {
             Aws::AutoScaling::Model::DeleteAutoScalingGroupRequest request;
             request.SetAutoScalingGroupName(groupName);
@@ -670,4 +732,27 @@ int AwsDoc::AutoScaling::askQuestionForIntRange(const Aws::String &string, int l
     }
 
     return result;
+}
+
+void AwsDoc::AutoScaling::logInstancesLifecycleState(
+        const Aws::Vector<Aws::AutoScaling::Model::AutoScalingInstanceDetails> &instancesDetails) {
+
+    std::cout << "Retrieved the lifecycle state for " << instancesDetails.size()
+              << (instancesDetails.size() == 1 ? " instance." : " instances.")
+              << std::endl;
+
+
+    for (size_t i = 0; i < instancesDetails.size(); ++i) {
+        if (i == 0) {
+            std::cout << "   (";
+        }
+        std::cout << instancesDetails[i].GetLifecycleState();
+
+        if (i == instancesDetails.size() - 1) {
+            std::cout << ")" << std::endl;
+        }
+        else {
+            std::cout << ", ";
+        }
+    }
 }
