@@ -3,18 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+use clap::ValueEnum;
 use futures::future;
 use std::fmt::{self, Display, Formatter};
 use std::future::Future;
-use std::str::FromStr;
 use std::sync::Arc;
 use tokio::sync::Semaphore;
 use tokio::time::Instant;
 use tracing::{debug, info};
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, ValueEnum)]
 pub enum Runtime {
+    /// Use the single-threaded async runtime to run concurrent requests.
     SingleThreaded,
+    /// Use the multi-threaded async runtime to run concurrent requests.
     MultiThreaded,
 }
 
@@ -28,38 +30,6 @@ impl Display for Runtime {
                 Runtime::MultiThreaded => "multi-threaded",
             }
         )
-    }
-}
-
-#[derive(Debug)]
-pub struct RuntimeParseErr;
-
-impl Display for RuntimeParseErr {
-    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
-        write!(f, "couldn't parse the runtime argument")
-    }
-}
-
-impl std::error::Error for RuntimeParseErr {}
-
-impl FromStr for Runtime {
-    type Err = RuntimeParseErr;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let is_single_threaded = s.eq_ignore_ascii_case("single")
-            || s.eq_ignore_ascii_case("single-threaded")
-            || s.eq_ignore_ascii_case("singlethreaded");
-        let is_multi_threaded = s.eq_ignore_ascii_case("multi")
-            || s.eq_ignore_ascii_case("multi-threaded")
-            || s.eq_ignore_ascii_case("multithreaded");
-
-        if is_single_threaded {
-            Ok(Runtime::SingleThreaded)
-        } else if is_multi_threaded {
-            Ok(Runtime::MultiThreaded)
-        } else {
-            Err(RuntimeParseErr)
-        }
     }
 }
 

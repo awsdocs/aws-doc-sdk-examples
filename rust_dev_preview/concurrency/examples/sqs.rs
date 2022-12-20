@@ -26,7 +26,7 @@ struct Args {
     #[arg(long, default_value_t = DEFAULT_CONCURRENCY_LIMIT)]
     concurrency_limit: usize,
 
-    /// The runtime to use when running the tasks, either single or multi-threaded
+    /// The runtime to use when running the tasks.
     #[arg(long, default_value_t = DEFAULT_RUNTIME)]
     runtime: Runtime,
 }
