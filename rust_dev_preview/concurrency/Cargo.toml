@@ -1,0 +1,25 @@
+[package]
+name = "concurrency"
+version = "0.1.0"
+authors = [
+    "Zelda Hessler <zhessler@amazon.com>",
+]
+description = """A collection of examples that demonstrate how to run AWS SDK requests concurrently. By running these
+examples against your own AWS account, you can test how the SDK will behave when running variable numbers of requests
+with a configurable concurrency limit. The right concurrency limit for you depends on the resources of the machine
+running this app, the data that's being sent in request, and the service handling your requests. Experiment with these
+examples to find the best settings for your use case."""
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-sqs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+clap = { version = "4.0.26", features = ["derive"] }
+fastrand = "1.8.0"
+futures = "0.3.25"
+tokio = { version = "1.20.1", features = ["full"] }
+tracing = "0.1.37"
+tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
