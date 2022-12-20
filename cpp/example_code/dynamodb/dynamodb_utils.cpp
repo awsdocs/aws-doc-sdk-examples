@@ -30,21 +30,20 @@ namespace AwsDoc {
         const Aws::String PLOT_KEY("plot");
         const int PROVISIONED_THROUGHPUT_UNITS = 10;
         const Aws::String ALLOCATION_TAG("dynamodb_scenario");
-        const int ASTERIX_FILL_WIDTH = 88;
+        const int ASTERISK_FILL_WIDTH = 88;
     } //  namespace DynamoDB
 } // namespace AwsDoc
 
 
-// snippet-start:[cpp.example_code.dynamodb.scenario.createTable]
-//! Create a DynamoDB table.
+// snippet-start:[cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable]
+//! Create a DynamoDB table to be used in sample code scenarios.
 /*!
-  \sa createDynamoDBTable()
-  \param tableName: The DynamoDB table's name.
-  \param clientConfiguration: Aws client configuration.
+  \sa createMoviesDynamoDBTable()
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
 */
-bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
-                                           const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::DynamoDB::createMoviesDynamoDBTable(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     bool movieTableAlreadyExisted = false;
@@ -111,22 +110,21 @@ bool AwsDoc::DynamoDB::createDynamoDBTable(const Aws::String &tableName,
 
     return true;
 }
-// snippet-end:[cpp.example_code.dynamodb.scenario.createTable]
+// snippet-end:[cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable]
 
-// snippet-start:[cpp.example_code.dynamodb.scenario.deleteTable]
-//! Delete a DynamoDB table.
+// snippet-start:[cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable]
+//! Delete the DynamoDB table used for sample code scenarios.
 /*!
-  \sa deleteDynamoTable()
-  \param tableName: The DynamoDB table's name.
-  \param clientConfiguration: Aws client configuration.
+  \sa deleteMoviesDynamoDBTable()
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
 */
-bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
-                                         const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
 
     Aws::DynamoDB::Model::DeleteTableRequest request;
-    request.SetTableName(tableName);
+    request.SetTableName(MOVIE_TABLE_NAME);
 
     const Aws::DynamoDB::Model::DeleteTableOutcome &result = dynamoClient.DeleteTable(
             request);
@@ -142,14 +140,14 @@ bool AwsDoc::DynamoDB::deleteDynamoTable(const Aws::String &tableName,
 
     return result.IsSuccess();
 }
-// snippet-end:[cpp.example_code.dynamodb.scenario.deleteTable]
+// snippet-end:[cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable]
 
 // snippet-start:[cpp.example_code.dynamodb.scenario.waitTableActive]
 //! Query a newly created DynamoDB table until it is active.
 /*!
   \sa waitTableActive()
   \param waitTableActive: The DynamoDB table's name.
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
 */
 bool AwsDoc::DynamoDB::waitTableActive(const Aws::String &tableName,
@@ -224,7 +222,9 @@ int AwsDoc::DynamoDB::askQuestionForInt(const Aws::String &string) {
                                                        return true;
                                                    }
                                                    catch (const std::invalid_argument &) {
-                                                       std::cout << "\nNot a valid number." << std::endl;
+                                                       std::cout
+                                                               << "\nNot a valid number."
+                                                               << std::endl;
                                                        return false;
                                                    }
                                            });
@@ -255,9 +255,8 @@ float AwsDoc::DynamoDB::askQuestionForFloatRange(const Aws::String &string, floa
             const Aws::String &string1) -> bool {
             try {
                 float number = std::stof(string1);
-                bool result =  number >= low && number <= high;
-                if (!result)
-                {
+                bool result = number >= low && number <= high;
+                if (!result) {
                     std::cout << "\nThe number is out of range." << std::endl;
                 }
                 return result;
@@ -296,8 +295,7 @@ int AwsDoc::DynamoDB::askQuestionForIntRange(const Aws::String &string, int low,
             try {
                 int number = std::stoi(string1);
                 bool result = number >= low && number <= high;
-                if (!result)
-                {
+                if (!result) {
                     std::cout << "\nThe number is out of range." << std::endl;
                 }
                 return result;

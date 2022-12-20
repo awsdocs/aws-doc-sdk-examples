@@ -8,7 +8,7 @@ Sample code which demonstrates creation, deletion, modification, and querying of
 predictable performance with seamless scalability.*
 
 ## ⚠️ Important
-* 
+
 * Running this code might result in charges to your AWS account.
 * Running the tests might result in charges to your AWS account
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
@@ -33,6 +33,7 @@ Code excerpts that show you how to call individual service functions.
 * [Scan a table](./scan_table.cpp) (Scan)
 * [Update an item](./update_item.cpp) (UpdateItem)
 * [Update a table](./update_table.cpp) (UpdateTable)
+* [Write a batch of items](./batch_write_item.cpp) (BatchWriteItem)
 
 ### Scenarios
 

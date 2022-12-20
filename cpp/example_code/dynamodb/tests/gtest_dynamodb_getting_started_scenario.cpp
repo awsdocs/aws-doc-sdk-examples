@@ -24,7 +24,7 @@ namespace AwsDocTest {
                                  "30",
                                  "y"});
 
-        bool result = createTable();
+        bool result = createTableForScenario();
         ASSERT_TRUE(result);
 
         result = AwsDoc::DynamoDB::dynamodbGettingStartedScenario(*s_clientConfig);
