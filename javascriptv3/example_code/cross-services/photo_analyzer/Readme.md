@@ -17,8 +17,8 @@ After the application analyzes this image, it creates this data:
 *	Lake - 87.28128
 
 The application can analyze many images and generate reports for each image in a
-seperate Amazon S3 bucket, breaking the image down into a series of labels. In addition, this application uses Amazon Simple Email Service (Amazon SES)
-to send emails with a link to each reports to the recipient.The app uses the following AWS services:
+separate Amazon S3 bucket, breaking the image down into a series of labels. In addition, this application uses Amazon Simple Email Service (Amazon SES)
+to send emails with a link to each reports to the recipient. The app uses the following AWS services:
 
 - [AWS Rekognition](https://aws.amazon.com/rekognition/)
 - [Amazon Simple Storage Services (S3)](https://aws.amazon.com/s3/)
