@@ -44,11 +44,11 @@ suspend fun main(args: Array<String>) {
     val tableName = args[0]
     val key = args[1]
     val keyVal = args[2]
-    deleteDymamoDBItem(tableName, key, keyVal)
+    deleteDynamoDBItem(tableName, key, keyVal)
 }
 
 // snippet-start:[dynamodb.kotlin.delete_item.main]
-suspend fun deleteDymamoDBItem(tableNameVal: String, keyName: String, keyVal: String) {
+suspend fun deleteDynamoDBItem(tableNameVal: String, keyName: String, keyVal: String) {
 
     val keyToGet = mutableMapOf<String, AttributeValue>()
     keyToGet[keyName] = AttributeValue.S(keyVal)
