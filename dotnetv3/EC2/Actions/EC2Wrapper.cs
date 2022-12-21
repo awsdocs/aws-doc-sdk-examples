@@ -475,6 +475,24 @@ public class EC2Wrapper
     public void DisplaySecurityGroupInfoAsync(SecurityGroup securityGroup)
     {
         Console.WriteLine($"{securityGroup.GroupName}");
+        Console.WriteLine("Ingress permissions:");
+        securityGroup.IpPermissions.ForEach(permission =>
+        {
+            Console.WriteLine($"\tFromPort: {permission.FromPort}");
+            Console.WriteLine($"\tIpProtocol: {permission.IpProtocol}");
+
+            Console.Write($"\tIpv4Ranges: ");
+            permission.Ipv4Ranges.ForEach(range => { Console.Write($"{range.CidrIp} "); });
+
+            Console.WriteLine($"\n\tIpv6Ranges:");
+            permission.Ipv6Ranges.ForEach(range => { Console.Write($"{range.CidrIpv6} "); });
+
+            Console.Write($"\n\tPrefixListIds: "); 
+            permission.PrefixListIds.ForEach(id => Console.Write($"{id.Id} "));
+
+            Console.WriteLine($"\n\tTo Port: {permission.ToPort}");
+        });
+        Console.WriteLine("Egress permissions:");
         securityGroup.IpPermissionsEgress.ForEach(permission =>
         {
             Console.WriteLine($"\tFromPort: {permission.FromPort}");

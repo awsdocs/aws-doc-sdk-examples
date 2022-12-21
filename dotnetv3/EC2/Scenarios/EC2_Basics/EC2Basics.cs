@@ -97,6 +97,7 @@ public class EC2Basics
         Console.WriteLine("access the EC2 instances you create.");
         var success = await ec2Methods.AuthorizeSecurityGroupIngress(groupName);
 
+        secGroups = await ec2Methods.DescribeSecurityGroups(secGroupId);
         Console.WriteLine($"Now let's look at the permissions again.");
         secGroups.ForEach(group =>
         {
