@@ -4,7 +4,6 @@
 global using Amazon.Runtime;
 global using Amazon.EC2;
 global using Amazon.EC2.Model;
-global using Amazon.ECS.Model;
 global using Amazon.SimpleSystemsManagement;
 global using Amazon.SimpleSystemsManagement.Model;
 global using System.Net;

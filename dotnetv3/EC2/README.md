@@ -13,14 +13,15 @@ Amazon EC2 is a web service that provides resizable computing capacity—literal
 
 ## Code examples
 
-### Getting started
+### Get started
 * [Hello Amazon EC2](actions/HelloEc2.cs)
 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
-* [AllocateAddress](actions/EC2Wrapper.cs) (`AllocateAddressAsync`)
-* [AssociateAddress](actions/EC2Wrapper.cs) (`AssociateAddressAsync`)
-* [AuthorizeSecurityGroupIngress](actions/EC2Wrapper.cs) (`AuthorizeSecurityGroupIngressAsync`)
+* [Allocate an Elastic IP address](actions/EC2Wrapper.cs) (`AllocateAddressAsync`)
+* [Associate an Elastic IP address with an instance](actions/EC2Wrapper.cs) (`AssociateAddressAsync`)
+* [Authorize a SecurityGroup to access an instance](actions/EC2Wrapper.cs) (`AuthorizeSecurityGroupIngressAsync`)
+* [Create and run an instance](actions/EC2Wrapper.cs) (`RunInstancesAsync`)
 * [Create a security group](actions/EC2Wrapper.cs) (`CreateSecurityGroupAsync`)
 * [Create a security key pair](actions/EC2Wrapper.cs) (`CreateKeyPairAsync`)
 * [Create a VPC](actions/EC2Wrapper.cs) (`CreateVpcAsync`)
@@ -28,21 +29,18 @@ Code excerpts that show you how to call individual service functions.
 * [Delete a security group](actions/EC2Wrapper.cs) (`DeleteSecurityGroupAsync`)
 * [Delete a security key pair](actions/EC2Wrapper.cs) (`DeleteKeyPairAsync`)
 * [Delete a VPC](actions/EC2Wrapper.cs) (`DeleteVpcAsync`)
-* [DescribeImages](actions/EC2Wrapper.cs) (`DescribeImagesAsync`)
 * [Describe instances](actions/EC2Wrapper.cs) (`DescribeInstancesAsync`)
-* [DescribeInstances](actions/EC2Wrapper.cs) (`DescribeInstancesAsync`)
-* [DescribeInstanceTypes](actions/EC2Wrapper.cs) (`DescribeInstanceTypesAsync`)
-* [DescribeKeyPairs](actions/EC2Wrapper.cs) (`DescribeKeyPairsAsync`)
-* [DescribeSecurityGroups](actions/EC2Wrapper.cs) (`DescribeSecurityGroupsAsync`)
-* [DisassociateAddress](actions/EC2Wrapper.cs) (`DisassociateAddressAsync`)
+* [Describe instance status](actions/EC2Wrapper.cs) (`DescribeInstancesAsync`)
+* [Describe key pairs](actions/EC2Wrapper.cs) (`DescribeKeyPairsAsync`)
+* [Disassociate an Elastic IP address from an instance](actions/EC2Wrapper.cs) (`DisassociateAddressAsync`)
+* [Get data about Amazon Machine Images](actions/EC2Wrapper.cs) (`DescribeImagesAsync`)
+* [Get data about a security group](actions/EC2Wrapper.cs) (`DescribeSecurityGroupsAsync`)
+* [Get data about instance types](actions/EC2Wrapper.cs) (`DescribeInstanceTypesAsync`)
 * [Reboot an instance](actions/EC2Wrapper.cs) (`RebootInstancesAsync`)
-* [ReleaseAddress](actions/EC2Wrapper.cs)
-* [RunInstances](actions/EC2Wrapper.cs)
+* [Release an Elastic IP address](actions/EC2Wrapper.cs) (`ReleaseAddressAsync`)
 * [Start an instance](actions/EC2Wrapper.cs) (`StartInstancesAsync`)
-* [StartInstance](actions/EC2Wrapper.cs)
 * [Stop an instance](actions/EC2Wrapper.cs) (`StopInstancesAsync`)
-* [StopInstance](actions/EC2Wrapper.cs)
-* [TerminateInstances](actions/EC2Wrapper.cs)
+* [Terminate an instance](actions/EC2Wrapper.cs) (`TerminateInstancesAsync`)
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling

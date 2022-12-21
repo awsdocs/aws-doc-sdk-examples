@@ -3,7 +3,8 @@
 
 namespace EC2Tests;
 /// <summary>
-/// Integration tests for the Amazon EC2 Basics scenario.
+/// Integration tests for the Amazon Elastic Compute Cloud (Amazon EC2)
+/// Basics scenario.
 /// </summary>
 public class EC2WrapperTests
 {
@@ -80,7 +81,7 @@ public class EC2WrapperTests
 
     /// <summary>
     /// Test the authorization of the local computer for ingress to an
-    /// Amazon EC2 instance.
+    /// EC2 instance.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact()]
@@ -164,7 +165,7 @@ public class EC2WrapperTests
     [Order(7)]
     public async Task DescribeImagesTest()
     {
-        // Get list of available Linux 2 AMIs.
+        // Get list of available Amazon Linux 2 Amazon Machine Images (AMIs).
         var parameters = await _ssmWrapper.GetParametersByPath("/aws/service/ami-amazon-linux-latest");
 
         List<string> imageIds = parameters.Select(param => param.Value).ToList();
@@ -176,7 +177,7 @@ public class EC2WrapperTests
     }
 
     /// <summary>
-    /// Test the retrieval of information about an Amazon EC2 instance.
+    /// Test the retrieval of information about an EC2 instance.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact()]
@@ -189,7 +190,7 @@ public class EC2WrapperTests
     }
 
     /// <summary>
-    /// Test the retrieval of information about multiple Amazon EC2 instances.
+    /// Test the retrieval of information about multiple EC2 instances.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact()]
@@ -283,7 +284,7 @@ public class EC2WrapperTests
     }
 
     /// <summary>
-    /// Test the ability to run Amazon EC2 instances.
+    /// Test the ability to run EC2 instances.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact()]
@@ -316,7 +317,7 @@ public class EC2WrapperTests
     }
 
     /// <summary>
-    /// Test the ability to start an existing Amazon EC2 instance.
+    /// Test the ability to start an existing EC2 instance.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact()]
@@ -343,7 +344,7 @@ public class EC2WrapperTests
     }
 
     /// <summary>
-    /// Test the ability to stop a running Amazon EC2 instance.
+    /// Test the ability to stop a running EC2 instance.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact()]
@@ -368,7 +369,7 @@ public class EC2WrapperTests
     }
 
     /// <summary>
-    /// Test the ability to terminate an existing Amazon EC2 instance.
+    /// Test the ability to terminate an existing EC2 instance.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact()]

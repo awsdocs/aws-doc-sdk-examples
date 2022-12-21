@@ -20,7 +20,7 @@ public class UiMethods
         Console.WriteLine("\t 2. Saves the key pair to a file in a temporary folder.");
         Console.WriteLine("\t 3. Creates a security group with an inbound rule allowing this computer to SSH to the security group.");
         Console.WriteLine("\t 4. Displays information for the security group.");
-        Console.WriteLine("\t 5. Gets a list of Amazon Linux 2 AMIs and selects one.");
+        Console.WriteLine("\t 5. Gets a list of Amazon Linux 2 Amazon Machine Images (AMIs)\n\t\tand selects one.");
         Console.WriteLine("\t 6. Gets a list of instance types and selects one.");
         Console.WriteLine("\t 8. Creates an EC2 instance.");
         Console.WriteLine("\t 9. Waits for the instance to be ready and displays its information.");

@@ -23,13 +23,24 @@ public class SsmWrapper
     /// <returns>Async task.</returns>
     public async Task<List<Parameter>> GetParametersByPath(string path)
     {
-        var response = await _amazonSSM.GetParametersByPathAsync(new GetParametersByPathRequest
+        var parameters = new List<Parameter>();
+        var request = new GetParametersByPathRequest { Path = path};
+        var response = await _amazonSSM.GetParametersByPathAsync(request);
+
+        // Make sure we get the whole list.
+        do
         {
-            Path = path
-        });
+            parameters.AddRange(response.Parameters);
+            request.NextToken = response.NextToken;
+            response = await _amazonSSM.GetParametersByPathAsync(request);
+        }
+        while (response.NextToken is not null);
+
+        // Filter out everything except items that
+        // have "amzn2" in the name property.
         var paramList =
             from parameter in response.Parameters
-            where parameter.Name.Contains("amzn")
+            where parameter.Name.Contains("amzn2")
             select parameter;
         return paramList.ToList();
     }

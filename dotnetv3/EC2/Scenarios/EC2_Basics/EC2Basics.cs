@@ -16,11 +16,17 @@ public class EC2Basics
     /// <returns>A Task object.</returns>
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the Amazon service.
+        // Set up dependency injection for Amazon EC2.
         using var host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
                 services.AddAWSService<IAmazonEC2>()
                     .AddTransient<EC2Wrapper>()
+            )
+            // Set up dependency injection for the Amazon Simple Systems
+            // Management Service.
+            .ConfigureServices((_, services) =>
+                services.AddAWSService<IAmazonSimpleSystemsManagement>()
+                    .AddTransient<SsmWrapper>()
             )
             .Build();
 
@@ -28,7 +34,8 @@ public class EC2Basics
         var ec2Client = host.Services.GetRequiredService<IAmazonEC2>();
         var ec2Methods = new EC2Wrapper(ec2Client);
 
-        var ssmMethods = new SsmWrapper(new AmazonSimpleSystemsManagementClient());
+        var ssmClient = host.Services.GetRequiredService<IAmazonSimpleSystemsManagement>();
+        var ssmMethods = new SsmWrapper(ssmClient);
         var uiMethods = new UiMethods();
 
         var keyPairName = "mvp-example-key-pair";
@@ -40,9 +47,9 @@ public class EC2Basics
         uiMethods.PressEnter();
 
         // Create the key pair.
-        uiMethods.DisplayTitle("Create RSA Key Pair");
+        uiMethods.DisplayTitle("Create RSA key pair");
         Console.Write("Let's create an RSA key pair that you can be use to ");
-        Console.WriteLine("securely connect to your Amazon EC2 instance.");
+        Console.WriteLine("securely connect to your EC2 instance.");
         var keyPair = await ec2Methods.CreateKeyPair(keyPairName);
 
         // Save key pair information to a temporary file.
@@ -58,7 +65,7 @@ public class EC2Basics
 
         if (answer == "y")
         {
-            // List existing Key pairs.
+            // List existing key pairs.
             uiMethods.DisplayTitle("Existing key pairs");
 
             // Passing an empty string to the DescribeKeyPairs method will return
@@ -76,7 +83,7 @@ public class EC2Basics
         var secGroupId = await ec2Methods.CreateSecurityGroup(groupName, groupDescription);
         Console.WriteLine("Let's add rules to allow all HTTP and HTTPS inbound traffic and to allow SSH only from your current IP address.");
 
-        uiMethods.DisplayTitle("Security Group information");
+        uiMethods.DisplayTitle("Security group information");
         var secGroups = await ec2Methods.DescribeSecurityGroups(secGroupId);
 
         Console.WriteLine($"Created security group {groupName} in your default VPC.");
@@ -90,7 +97,14 @@ public class EC2Basics
         Console.WriteLine("access the EC2 instances you create.");
         var success = await ec2Methods.AuthorizeSecurityGroupIngress(groupName);
 
-        // Get list of available Linux 2 AMIs.
+        Console.WriteLine($"Now let's look at the permissions again.");
+        secGroups.ForEach(group =>
+        {
+            ec2Methods.DisplaySecurityGroupInfoAsync(group);
+        });
+        uiMethods.PressEnter();
+
+        // Get list of available Amazon Linux 2 Amazon Machine Images (AMIs).
         var parameters = await ssmMethods.GetParametersByPath("/aws/service/ami-amazon-linux-latest");
 
         List<string> imageIds = parameters.Select(param => param.Value).ToList();
@@ -200,7 +214,7 @@ public class EC2Basics
         Console.WriteLine("\nThe instance has stopped.");
         uiMethods.PressEnter();
 
-        uiMethods.DisplayTitle("Allocate Elastic IP Address");
+        uiMethods.DisplayTitle("Allocate Elastic IP address");
         Console.WriteLine("You can allocate an Elastic IP address and associate it with your instance\nto keep a consistent IP address even when your instance restarts.");
         var allocationId = await ec2Methods.AllocateAddress();
         Console.WriteLine("Now we will associate the Elastic IP address with our instance.");
@@ -220,7 +234,7 @@ public class EC2Basics
         Console.WriteLine("\nLet's see what changed.");
 
         instance = await ec2Methods.DescribeInstance(instanceId);
-        uiMethods.DisplayTitle("Instance Information");
+        uiMethods.DisplayTitle("Instance information");
         ec2Methods.DisplayInstanceInformation(instance);
 
         Console.WriteLine("\nHere is the SSH information:");

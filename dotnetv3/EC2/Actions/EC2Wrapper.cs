@@ -5,7 +5,7 @@ namespace EC2Actions;
 
 // snippet-start:[EC2.dotnetv3.EC2WrapperClass]
 /// <summary>
-/// Methods of this class perform Amazon EC2 actions.
+/// Methods of this class perform Amazon Elastic Compute Cloud (Amazon EC2).
 /// </summary>
 public class EC2Wrapper
 {
@@ -35,9 +35,9 @@ public class EC2Wrapper
     /// Associate an Elastic IP address to an EC2 instance.
     /// </summary>
     /// <param name="allocationId">The allocation Id of an Elastic IP address.</param>
-    /// <parem name="instanceId">The instance ID of the EC2 instances to which the
-    /// address will be associated.</parem>
-    /// <returns>The Association Id that represents
+    /// <param name="instanceId">The instance Id of the EC2 instance to
+    /// associate the address with.</param>
+    /// <returns>The association Id that represents
     /// the association of the Elastic IP address with an instance.</returns>
     public async Task<string> AssociateAddress(string allocationId, string instanceId)
     {
@@ -54,16 +54,14 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.AuthorizeSecurityGroupIngress]
     /// <summary>
-    /// Authorize the local computer ingress to VPC instances associated
-    /// with the Security Group.
+    /// Authorize the local computer ingress to EC2 instances associated
+    /// with the virtual private cloud (VPC) security group.
     /// </summary>
     /// <param name="groupName">The name of the security group.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> AuthorizeSecurityGroupIngress(string groupName)
     {
-        // Get the IP address for the local computer in order to
-        // authorize it to access the EC2 Security Group to use
-        // it for ingress to an EC2 instance.
+        // Get the IP address for the local computer.
         var ipAddress = await GetIpAddress();
         Console.WriteLine($"Your IP address is: {ipAddress}");
         var ipRanges = new List<IpRange> { new IpRange { CidrIp = $"{ipAddress}/32" } };
@@ -81,8 +79,8 @@ public class EC2Wrapper
     }
 
     /// <summary>
-    /// Authorize the local computer to authorize it for ingress to
-    /// the EC2 SecurityGroup.
+    /// Authorize the local computer for ingress to
+    /// the Amazon EC2 SecurityGroup.
     /// </summary>
     /// <returns>The IPv4 address of the computer running the scenario.</returns>
     private static async Task<string> GetIpAddress()
@@ -91,7 +89,7 @@ public class EC2Wrapper
         var ipString = await httpClient.GetStringAsync("https://checkip.amazonaws.com");
 
         // The IP address is returned with a new line
-        // character on the end. Trip off the whitespace and
+        // character on the end. Trim off the whitespace and
         // return the value to the caller.
         return ipString.Trim();
     }
@@ -99,10 +97,10 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.CreateKeyPair]
     /// <summary>
-    /// Create an Amazon EC2 KeyPair.
+    /// Create an Amazon EC2 key pair.
     /// </summary>
     /// <param name="keyPairName">The name for the new key pair.</param>
-    /// <returns>The Amazon EC2 KeyPair created.</returns>
+    /// <returns>The Amazon EC2 key pair created.</returns>
     public async Task<KeyPair?> CreateKeyPair(string keyPairName)
     {
         var request = new CreateKeyPairRequest
@@ -135,7 +133,7 @@ public class EC2Wrapper
         var tempFileName = $"{tempPath}\\{Path.GetRandomFileName()}";
         var pemFileName = Path.ChangeExtension(tempFileName, "pem");
 
-        // Save the keypair to a file in a temporary folder.
+        // Save the key pair to a file in a temporary folder.
         using var stream = new FileStream(pemFileName, FileMode.Create);
         using var writer = new StreamWriter(stream);
         writer.WriteLine(keyPair.KeyMaterial);
@@ -146,11 +144,11 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.CreateSecurityGroup]
     /// <summary>
-    /// Create an EC2 security group.
+    /// Create an Amazon EC2 security group.
     /// </summary>
     /// <param name="groupName">The name for the new security group.</param>
     /// <param name="groupDescription">A description of the new security group.</param>
-    /// <returns>The group id of the new security group.</returns>
+    /// <returns>The group Id of the new security group.</returns>
     public async Task<string> CreateSecurityGroup(string groupName, string groupDescription)
     {
         var response = await _amazonEC2.CreateSecurityGroupAsync(
@@ -163,7 +161,7 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.CreateVPC]
     /// <summary>
-    /// Create a new EC2 VPC.
+    /// Create a new Amazon EC2 VPC.
     /// </summary>
     /// <param name="cidrBlock">The CIDR block for the new security group.</param>
     /// <returns>The VPC Id of the new VPC.</returns>
@@ -191,7 +189,7 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.DeleteKeyPair]
     /// <summary>
-    /// Delete an EC2 key pair.
+    /// Delete an Amazon EC2 key pair.
     /// </summary>
     /// <param name="keyPairName">The name of the key pair to delete.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
@@ -224,7 +222,7 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.DeleteSecurityGroup]
     /// <summary>
-    /// Delete an EC2 security group.
+    /// Delete an Amazon EC2 security group.
     /// </summary>
     /// <param name="groupName">The name of the group to delete.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
@@ -237,7 +235,7 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.DeleteVPC]
     /// <summary>
-    /// Delete an EC2 VPC.
+    /// Delete an Amazon EC2 VPC.
     /// </summary>
     /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeleteVpc(string vpcId)
@@ -255,7 +253,7 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.DescribeImages]
     /// <summary>
-    /// Get information about existing EC2 images.
+    /// Get information about existing Amazon EC2 images.
     /// </summary>
     /// <returns>A list of image information.</returns>
     public async Task<List<Image>> DescribeImages(List<string>? imageIds)
@@ -291,7 +289,7 @@ public class EC2Wrapper
     /// Get information about an Amazon EC2 instance.
     /// </summary>
     /// <param name="instanceId">The instance Id of the EC2 instance.</param>
-    /// <returns>An Amazon EC2 instance.</returns>
+    /// <returns>An EC2 instance.</returns>
     public async Task<Instance> DescribeInstance(string instanceId)
     {
         var response = await _amazonEC2.DescribeInstancesAsync(
@@ -300,7 +298,7 @@ public class EC2Wrapper
     }
 
     /// <summary>
-    /// Display Ec2 instance information.
+    /// Display EC2 instance information.
     /// </summary>
     /// <param name="instance">The instance Id of the EC2 instance.</param>
     public void DisplayInstanceInformation(Instance instance)
@@ -331,7 +329,7 @@ public class EC2Wrapper
     }
 
     /// <summary>
-    /// Get information for all existing EC2 instances.
+    /// Get information for all existing Amazon EC2 instances.
     /// </summary>
     /// <returns>Async task.</returns>
     public async Task GetInstanceDescriptions()
@@ -356,12 +354,11 @@ public class EC2Wrapper
     /// Get information about EC2 instances filtered by a tag name and value.
     /// </summary>
     /// <param name="tagName">The name of the tag to filter on.</param>
-    /// <param name="tagValue">The value of the tag we are looking for.</param>
+    /// <param name="tagValue">The value of the tag to look for.</param>
     /// <returns>Async task.</returns>
     public async Task GetInstanceDescriptionsFiltered(string tagName, string tagValue)
     {
-        // This is the tag we want to use to filter
-        // the results of our list of instances.
+        // This tag filters the results of the instance list.
         var filters = new List<Filter>
         {
             new Filter
@@ -406,12 +403,16 @@ public class EC2Wrapper
 
         var filters = new List<Filter>
             { new Filter("processor-info.supported-architecture", new List<string> { architecture.ToString() }) };
-        filters.Add(new Filter("instance-type", new() { "*.micro", "*.small", "*.large" }));
+        filters.Add(new Filter("instance-type", new() { "*.micro", "*.small" }));
 
         request.Filters = filters;
+        var instanceTypes = new List<InstanceTypeInfo>();
 
-        var response = await _amazonEC2.DescribeInstanceTypesAsync(request);
-        var instanceTypes = response.InstanceTypes;
+        var paginator = _amazonEC2.Paginators.DescribeInstanceTypes(request);
+        await foreach (var instanceType in paginator.InstanceTypes)
+        {
+            instanceTypes.Add(instanceType);
+        }
         return instanceTypes;
     }
     // snippet-end:[EC2.dotnetv3.DescribeInstanceTypes]
@@ -430,9 +431,9 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.DescribeKeyPairs]
     /// <summary>
-    /// Get information about an EC2 key pair.
+    /// Get information about an Amazon EC2 key pair.
     /// </summary>
-    /// <param name="keyPairName">The name of the key pair we are interested in.</param>
+    /// <param name="keyPairName">The name of the key pair.</param>
     /// <returns>A list of key pair information.</returns>
     public async Task<List<KeyPairInfo>> DescribeKeyPairs(string keyPairName)
     {
@@ -452,10 +453,9 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.DescribeSecurityGroups]
     /// <summary>
-    /// Retrieve information for an EC2 security group.
+    /// Retrieve information for an Amazon EC2 security group.
     /// </summary>
-    /// <param name="groupId">The Id of the EC2 security group for which we
-    /// want information.</param>
+    /// <param name="groupId">The Id of the Amazon EC2 security group.</param>
     /// <returns>A list of security group information.</returns>
     public async Task<List<SecurityGroup>> DescribeSecurityGroups(string groupId)
     {
@@ -475,23 +475,31 @@ public class EC2Wrapper
     public void DisplaySecurityGroupInfoAsync(SecurityGroup securityGroup)
     {
         Console.WriteLine($"{securityGroup.GroupName}");
-        securityGroup.IpPermissions.ForEach(permission =>
+        securityGroup.IpPermissionsEgress.ForEach(permission =>
         {
             Console.WriteLine($"\tFromPort: {permission.FromPort}");
             Console.WriteLine($"\tIpProtocol: {permission.IpProtocol}");
-            Console.WriteLine($"\tIpv4Ranges: {permission.Ipv4Ranges}");
-            Console.WriteLine($"\tIpv6Ranges: {permission.Ipv6Ranges}");
-            Console.WriteLine($"\tPrefixListIds: {permission.PrefixListIds}");
-            Console.WriteLine($"\tTo Port: {permission.ToPort}");
+
+            Console.Write($"\tIpv4Ranges: ");
+            permission.Ipv4Ranges.ForEach(range => { Console.Write($"{range.CidrIp} "); });
+
+            Console.WriteLine($"\n\tIpv6Ranges:");
+            permission.Ipv6Ranges.ForEach(range => { Console.Write($"{range.CidrIpv6} "); });
+
+            Console.Write($"\n\tPrefixListIds: "); 
+            permission.PrefixListIds.ForEach(id => Console.Write($"{id.Id} "));
+
+            Console.WriteLine($"\n\tTo Port: {permission.ToPort}");
         });
     }
+
     // snippet-end:[EC2.dotnetv3.DescribeSecurityGroups]
 
     // snippet-start:[EC2.dotnetv3.DisassociateAddress]
     /// <summary>
-    /// Disassociate an EC2 Elastic IP address from an EC2 instance.
+    /// Disassociate an Elastic IP address from an EC2 instance.
     /// </summary>
-    /// <param name="associationId">The association Id</param>
+    /// <param name="associationId">The association Id.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DisassociateIp(string associationId)
     {
@@ -503,7 +511,7 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.GetAMIList]
     /// <summary>
-    /// Retrieve a list of Amazon Linux images available to you.
+    /// Retrieve a list of available Amazon Linux images.
     /// </summary>
     /// <returns>A list of image information.</returns>
     public async Task<List<Image>> GetEC2AmiList()
@@ -531,7 +539,7 @@ public class EC2Wrapper
         var response = await _amazonEC2.RebootInstancesAsync(request);
         if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
         {
-            Console.WriteLine("Instance(s) successfully rebooted.");
+            Console.WriteLine("Instances successfully rebooted.");
         }
         else
         {
@@ -560,16 +568,16 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.RunInstances]
     /// <summary>
-    /// Create and run an Amazon EC2 instance.
+    /// Create and run an EC2 instance.
     /// </summary>
     /// <param name="ImageId">The image Id of the image used as a basis for the
-    /// Amazon EC2 instance.</param>
+    /// EC2 instance.</param>
     /// <param name="instanceType">The instance type of the EC2 instance to create.</param>
     /// <param name="keyName">The name of the key pair to associate with the
     /// instance.</param>
-    /// <param name="groupId">The Id of the EC2 security group that will be
+    /// <param name="groupId">The Id of the Amazon EC2 security group that will be
     /// allowed to interact with the new EC2 instance.</param>
-    /// <returns>The instance Id of the new Amazon EC2 instance.</returns>
+    /// <returns>The instance Id of the new EC2 instance.</returns>
     public async Task<string> RunInstances(string imageId, string instanceType, string keyName, string groupId)
     {
         var request = new RunInstancesRequest
@@ -589,7 +597,7 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.StartInstances]
     /// <summary>
-    /// Start an Amazon EC2 instance.
+    /// Start an EC2 instance.
     /// </summary>
     /// <param name="ec2InstanceId">The instance Id of the Amazon EC2 instance
     /// to start.</param>
@@ -608,7 +616,7 @@ public class EC2Wrapper
             var instances = response.StartingInstances;
             instances.ForEach(i =>
             {
-                Console.WriteLine($"Successfully started the EC2 Instance with InstanceID: {i.InstanceId}.");
+                Console.WriteLine($"Successfully started the EC2 instance with instance ID: {i.InstanceId}.");
             });
         }
     }
@@ -616,7 +624,7 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.StopInstances]
     /// <summary>
-    /// Stop an Amazon EC2 instance.
+    /// Stop an EC2 instance.
     /// </summary>
     /// <param name="ec2InstanceId">The instance Id of the EC2 instance to
     /// stop.</param>
@@ -625,8 +633,8 @@ public class EC2Wrapper
     {
         // In addition to the list of instance Ids, the
         // request can also include the following properties:
-        //     Force      When true forces the instances to
-        //                stop but you have to check the integrity
+        //     Force      When true, forces the instances to
+        //                stop but you must check the integrity
         //                of the file system. Not recommended on
         //                Windows instances.
         //     Hibernate  When true, hibernates the instance if the
@@ -653,9 +661,9 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.TerminateInstances]
     /// <summary>
-    /// Terminate an Amazon EC2 instance.
+    /// Terminate an EC2 instance.
     /// </summary>
-    /// <param name="ec2InstanceId">The instance Id of the Amazon EC2 instance
+    /// <param name="ec2InstanceId">The instance Id of the EC2 instance
     /// to terminate.</param>
     /// <returns>Async task.</returns>
     public async Task<List<InstanceStateChange>> TerminateInstances(string ec2InstanceId)
@@ -672,11 +680,10 @@ public class EC2Wrapper
 
     // snippet-start:[EC2.dotnetv3.WaitForInstanceState]
     /// <summary>
-    /// Wait until an Amazon EC2 instance is in a specified state.
+    /// Wait until an EC2 instance is in a specified state.
     /// </summary>
-    /// <param name="instanceId">The instance Id of the Amazon EC2 instance
-    /// whose state is of interest.</param>
-    /// <param name="stateName">The state for which to wait.</param>
+    /// <param name="instanceId">The instance Id.</param>
+    /// <param name="stateName">The state to wait for.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> WaitForInstanceState(string instanceId, InstanceStateName stateName)
     {
