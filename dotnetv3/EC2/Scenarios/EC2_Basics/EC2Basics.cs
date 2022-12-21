@@ -16,16 +16,13 @@ public class EC2Basics
     /// <returns>A Task object.</returns>
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for Amazon EC2.
+        // Set up dependency injection for Amazon EC2 and Amazon Simple Systems
+        // Management Service.
         using var host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
                 services.AddAWSService<IAmazonEC2>()
+                    .AddAWSService<IAmazonSimpleSystemsManagement>()
                     .AddTransient<EC2Wrapper>()
-            )
-            // Set up dependency injection for the Amazon Simple Systems
-            // Management Service.
-            .ConfigureServices((_, services) =>
-                services.AddAWSService<IAmazonSimpleSystemsManagement>()
                     .AddTransient<SsmWrapper>()
             )
             .Build();

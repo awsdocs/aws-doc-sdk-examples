@@ -487,7 +487,7 @@ public class EC2Wrapper
             Console.WriteLine($"\n\tIpv6Ranges:");
             permission.Ipv6Ranges.ForEach(range => { Console.Write($"{range.CidrIpv6} "); });
 
-            Console.Write($"\n\tPrefixListIds: "); 
+            Console.Write($"\n\tPrefixListIds: ");
             permission.PrefixListIds.ForEach(id => Console.Write($"{id.Id} "));
 
             Console.WriteLine($"\n\tTo Port: {permission.ToPort}");
@@ -504,7 +504,7 @@ public class EC2Wrapper
             Console.WriteLine($"\n\tIpv6Ranges:");
             permission.Ipv6Ranges.ForEach(range => { Console.Write($"{range.CidrIpv6} "); });
 
-            Console.Write($"\n\tPrefixListIds: "); 
+            Console.Write($"\n\tPrefixListIds: ");
             permission.PrefixListIds.ForEach(id => Console.Write($"{id.Id} "));
 
             Console.WriteLine($"\n\tTo Port: {permission.ToPort}");

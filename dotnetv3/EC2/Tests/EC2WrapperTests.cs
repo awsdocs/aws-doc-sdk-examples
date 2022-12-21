@@ -141,7 +141,6 @@ public class EC2WrapperTests
     {
         var instance = await _ec2Wrapper.DescribeInstance(_ec2InstanceId);
         Assert.NotNull(instance);
-
     }
 
     /// <summary>
@@ -334,6 +333,7 @@ public class EC2WrapperTests
 
         Assert.True(hasTerminated);
     }
+
     /// <summary>
     /// Test the deletion of an Amazon EC2 security group.
     /// </summary>

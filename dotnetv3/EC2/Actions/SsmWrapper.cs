@@ -24,7 +24,7 @@ public class SsmWrapper
     public async Task<List<Parameter>> GetParametersByPath(string path)
     {
         var parameters = new List<Parameter>();
-        var request = new GetParametersByPathRequest { Path = path};
+        var request = new GetParametersByPathRequest { Path = path };
         var response = await _amazonSSM.GetParametersByPathAsync(request);
 
         // Make sure we get the whole list.
