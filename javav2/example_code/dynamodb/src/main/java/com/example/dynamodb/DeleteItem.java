@@ -54,7 +54,7 @@ public class DeleteItem {
             .region(region)
             .build();
 
-        deleteDymamoDBItem(ddb, tableName, key, keyVal);
+        deleteDynamoDBItem(ddb, tableName, key, keyVal);
         ddb.close();
     }
 
