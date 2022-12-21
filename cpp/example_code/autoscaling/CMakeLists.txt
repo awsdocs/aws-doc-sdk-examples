@@ -5,7 +5,7 @@
 cmake_minimum_required(VERSION 3.8)
 
 set(SERVICE_NAME auto_scaling)
-set(SERVICE_COMPONENTS autoscaling ec2)
+set(SERVICE_COMPONENTS autoscaling ec2 monitoring)
 
 # Set this project's name.
 project("${SERVICE_NAME}-examples")
