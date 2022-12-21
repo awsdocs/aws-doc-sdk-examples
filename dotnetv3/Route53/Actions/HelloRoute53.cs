@@ -1,14 +1,13 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[Route53.dotnetv3.HelloRoute53]
 using Amazon.Route53Domains;
 using Amazon.Route53Domains.Model;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Route53Actions;
-
-// snippet-start:[Route53.dotnetv3.HelloRoute53]
 
 public static class HelloRoute53Domains
 {

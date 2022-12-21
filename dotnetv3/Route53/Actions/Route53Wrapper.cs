@@ -9,6 +9,9 @@ namespace Route53Actions;
 
 // snippet-start:[Route53.dotnetv3.Route53Wrapper]
 
+/// <summary>
+/// Wrapper class for Route53 methods.
+/// </summary>
 public class Route53Wrapper
 {
     private readonly IAmazonRoute53Domains _amazonRoute53Domains;

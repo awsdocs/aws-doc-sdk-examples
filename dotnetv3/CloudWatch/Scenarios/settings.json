@@ -1,0 +1,4 @@
+﻿{
+  "metricsWidget":"{\"metrics\":[[\"AWS/Billing\",\"EstimatedCharges\",\"Currency\",\"USD\",{\"stat\":\"Maximum\",\"period\":21600}]],\"legend\":{\"position\":\"bottom\"},\"yAxis\":{\"left\":{\"showUnits\":false,\"label\":\"USD\"}},\"region\":\"us-east-1\",\"liveData\":false,\"title\":\"\",\"view\":\"timeSeries\",\"stacked\":false}}\""
+}
+
