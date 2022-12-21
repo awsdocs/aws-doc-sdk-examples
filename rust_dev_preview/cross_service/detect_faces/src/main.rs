@@ -176,12 +176,12 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let rek_region = region.clone();
 
     let rek_region_provider =
-        RegionProviderChain::first_try(s3_region.map(aws_sdk_rekognition::Region::new))
+        RegionProviderChain::first_try(rek_region.map(aws_sdk_rekognition::Region::new))
             .or_default_provider()
             .or_else(aws_sdk_rekognition::Region::new("us-west-2"));
 
     let s3_region_provider =
-        RegionProviderChain::first_try(rek_region.map(aws_sdk_s3::Region::new))
+        RegionProviderChain::first_try(s3_region.map(aws_sdk_s3::Region::new))
             .or_default_provider()
             .or_else(aws_sdk_s3::Region::new("us-west-2"));
     println!();
