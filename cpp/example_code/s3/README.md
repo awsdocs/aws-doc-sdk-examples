@@ -79,7 +79,7 @@ Next, for information on code example structures and how to build and run the ex
    cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
    make
    ctest 
-   ./gtests/s3_gtest 
+   ./tests/s3_gtest 
 ```   
 
 ## Additional resources
