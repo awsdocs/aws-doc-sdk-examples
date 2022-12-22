@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.14)
 
 set(EXAMPLE_SERVICE_NAME "autoscaling")
 set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
-set(CURRENT_TARGET_AWS_DEPENDENCIES  autoscaling)
+set(CURRENT_TARGET_AWS_DEPENDENCIES  autoscaling ec2 monitoring)
 
 # Set this project's name.
 project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
