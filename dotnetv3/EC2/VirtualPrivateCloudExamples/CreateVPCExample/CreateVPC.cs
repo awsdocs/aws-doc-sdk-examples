@@ -3,7 +3,7 @@
 
 namespace CreateVPCExample
 {
-    // snippet-start:[EC2.dotnetv3.CreateVPCExample]
+    // snippet-start:[EC2.dotnetv3.CreateVPC]
     using System;
     using System.Threading.Tasks;
     using Amazon.EC2;
@@ -40,5 +40,5 @@ namespace CreateVPCExample
         }
     }
 
-    // snippet-end:[EC2.dotnetv3.CreateVPCExample]
+    // snippet-end:[EC2.dotnetv3.CreateVPC]
 }

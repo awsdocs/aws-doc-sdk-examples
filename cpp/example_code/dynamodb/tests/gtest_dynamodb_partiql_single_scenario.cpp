@@ -29,7 +29,7 @@ namespace AwsDocTest {
                                         "y"
                                 }
         );
-        bool result = createTable();
+        bool result = createTableForScenario();
         ASSERT_TRUE(result);
 
         result = AwsDoc::DynamoDB::partiqlExecuteScenario(*s_clientConfig);

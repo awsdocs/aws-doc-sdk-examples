@@ -47,13 +47,13 @@ public class DescribeFunction {
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        String eTagVal = describeSinFunction(cloudFrontClient, functionName);
+        String eTagVal = describeFunction(cloudFrontClient, functionName);
         System.out.println(eTagVal +" is the eTag value.");
         cloudFrontClient.close();
     }
 
     // snippet-start:[cloudfront.java2.des_function.main]
-    public static String describeSinFunction(CloudFrontClient cloudFrontClient, String functionName) {
+    public static String describeFunction(CloudFrontClient cloudFrontClient, String functionName) {
 
         try {
             DescribeFunctionRequest functionRequest = DescribeFunctionRequest.builder()

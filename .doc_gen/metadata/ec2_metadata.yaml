@@ -242,7 +242,10 @@ ec2_CreateVpc:
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.CreateVPCExample
+                - EC2.dotnetv3.CreateVPC
+            - description: Create a VPC endpoint to use with an Amazon Simple Storage Service (Amazon S3) client.
+              snippet_tags:
+                - EC2.dotnetv3.CreateVPCforS3
   services:
     ec2: {CreateVpc}
 ec2_StartInstances:
