@@ -39,6 +39,32 @@ pub async fn create_policy(
 }
 // snippet-end:[rust.example_code.iam.service.create_policy]
 
+#[cfg(test)]
+mod test_create_policy {
+    use aws_smithy_client::test_connection::TestConnection;
+    use aws_smithy_http::body::SdkBody;
+
+    use crate::{create_policy, test_event, test_util::make_config};
+
+    #[tokio::test]
+    async fn test_create_policy() {
+        let client = aws_sdk_iam::Client::from_conf_conn(
+            make_config(),
+            TestConnection::new(vec![test_event!(
+                "",
+                (
+                    200,
+                    r#"{ "Policy": { "PolicyName": "my-policy", "CreateDate": "2015-06-01T19:31:18.620Z", "AttachmentCount": 0, "IsAttachable": true, "PolicyId": "ZXR6A36LTYANPAI7NJ5UV", "DefaultVersionId": "v1", "Path": "/", "Arn": "arn:aws:iam::0123456789012:policy/my-policy", "UpdateDate": "2015-06-01T19:31:18.620Z" } }"#
+                )
+            )]),
+        );
+
+        let response = create_policy(&client, "{}".into(), "test_role".into()).await;
+        eprintln!("{response:?}");
+        assert!(response.is_ok());
+    }
+}
+
 // snippet-start:[rust.example_code.iam.service.create_role]
 pub async fn create_role(
     client: &iamClient,
@@ -464,3 +490,45 @@ pub async fn list_saml_providers(
 // snippet-end:[rust.example_code.iam.service.list_saml_providers]
 
 // snippet-end:[rust.example_code.iam.scenario_getting_started.lib]
+
+#[cfg(test)]
+mod test_util {
+    use aws_sdk_iam::{Config, Credentials, Region};
+
+    pub fn make_config() -> Config {
+        let test_credentials: Credentials = Credentials::new(
+            "ATESTCLIENT",
+            "atestsecretkey",
+            Some("atestsessiontoken".to_string()),
+            None,
+            "",
+        );
+
+        let test_region: Region = Region::new("us-east-1");
+
+        Config::builder()
+            .credentials_provider(test_credentials)
+            .region(test_region)
+            .build()
+    }
+
+    #[macro_export]
+    macro_rules! test_event {
+        (
+        $req:expr,
+        (
+            $status:expr,
+            $res:expr
+        )
+    ) => {{
+            (
+                http::Request::builder().body(SdkBody::from($req)).unwrap(),
+                http::Response::builder()
+                    .status($status)
+                    .header("Content-Type", "application/json")
+                    .body(SdkBody::from($res))
+                    .unwrap(),
+            )
+        }};
+    }
+}

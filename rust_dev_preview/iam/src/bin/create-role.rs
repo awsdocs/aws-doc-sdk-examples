@@ -29,23 +29,23 @@ struct Opt {
 
 // Creates a role.
 // snippet-start:[iam.rust.create-role]
-async fn make_role(client: &Client, policy_file: &str, name: &str) -> Result<(), Error> {
-    // Read policy doc from file as a string
-    let doc = fs::read_to_string(policy_file).expect("Unable to read file");
-
+async fn make_role(client: &Client, policy: &str, name: &str) -> String {
     let resp = client
         .create_role()
-        .assume_role_policy_document(doc)
+        .assume_role_policy_document(policy)
         .role_name(name)
         .send()
-        .await?;
+        .await;
 
-    println!(
-        "Created role with ARN {}",
-        resp.role().unwrap().arn().unwrap()
-    );
-
-    Ok(())
+    match resp {
+        Ok(output) => {
+            format!(
+                "Created role with ARN {}",
+                output.role().unwrap().arn().unwrap()
+            )
+        }
+        Err(err) => format!("Error creating role: {:?}", err),
+    }
 }
 // snippet-end:[iam.rust.create-role]
 
@@ -90,5 +90,57 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    make_role(&client, &policy_file, &name).await
+    // Read policy doc from file as a string
+    let policy_doc = fs::read_to_string(policy_file).expect("Unable to read file");
+
+    let response = make_role(&client, policy_doc.as_str(), &name).await;
+    println!("{response}");
+
+    Ok(())
+}
+
+#[cfg(test)]
+mod test {
+    use aws_smithy_http::body::SdkBody;
+
+    use aws_sdk_iam::{Client, Config, Credentials, Region};
+    use aws_smithy_client::test_connection::TestConnection;
+
+    use crate::make_role;
+
+    fn make_config() -> Config {
+        let test_credentials: Credentials = Credentials::new(
+            "ATESTCLIENT",
+            "atestsecretkey",
+            Some("atestsessiontoken".to_string()),
+            None,
+            "",
+        );
+
+        let test_region: Region = Region::new("us-east-1");
+
+        Config::builder()
+            .credentials_provider(test_credentials)
+            .region(test_region)
+            .build()
+    }
+
+    #[tokio::test]
+    async fn test_make_role() {
+        let events = vec![(
+            http::Request::builder()
+                .body(SdkBody::from("request body"))
+                .unwrap(),
+            http::Response::builder()
+                .status(500)
+                .body(SdkBody::from("error body"))
+                .unwrap(),
+        )];
+        let conn = TestConnection::new(events);
+
+        let client = Client::from_conf_conn(make_config(), conn);
+
+        let response = make_role(&client, "{}".into(), "test_role".into()).await;
+        assert!(response.starts_with("Error creating role: "));
+    }
 }
