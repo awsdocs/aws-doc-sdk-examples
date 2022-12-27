@@ -233,8 +233,8 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
 
         Aws::EC2::Model::DescribeLaunchTemplatesRequest request;
         request.AddLaunchTemplateNames(templateName);
-        Aws::EC2::Model::DescribeLaunchTemplatesOutcome outcome = ec2Client.DescribeLaunchTemplates(
-                request);
+        Aws::EC2::Model::DescribeLaunchTemplatesOutcome outcome =
+                ec2Client.DescribeLaunchTemplates(request);
 
         if (outcome.IsSuccess()) {
             std::cout << "Validated the EC2 launch template '" << templateName
@@ -258,8 +258,8 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
 
         request.SetLaunchTemplateData(requestLaunchTemplateData);
 
-        Aws::EC2::Model::CreateLaunchTemplateOutcome outcome = ec2Client.CreateLaunchTemplate(
-                request);
+        Aws::EC2::Model::CreateLaunchTemplateOutcome outcome =
+                ec2Client.CreateLaunchTemplate(request);
 
         if (outcome.IsSuccess()) {
             std::cout << "The EC2 launch template '" << templateName << " was created."
@@ -287,8 +287,8 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
     {
         Aws::EC2::Model::DescribeAvailabilityZonesRequest request;
 
-        Aws::EC2::Model::DescribeAvailabilityZonesOutcome outcome = ec2Client.DescribeAvailabilityZones(
-                request);
+        Aws::EC2::Model::DescribeAvailabilityZonesOutcome outcome =
+                ec2Client.DescribeAvailabilityZones(request);
 
         if (outcome.IsSuccess()) {
             std::cout
@@ -570,7 +570,8 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
                 autoScalingClient.DescribeScalingActivities(request);
 
         if (outcome.IsSuccess()) {
-            const Aws::Vector<Aws::AutoScaling::Model::Activity> &activities = outcome.GetResult().GetActivities();
+            const Aws::Vector<Aws::AutoScaling::Model::Activity> &activities =
+                    outcome.GetResult().GetActivities();
             std::cout << "Found " << activities.size() << " activities." << std::endl;
             std::cout << "Activities are order with the most recent first."
                       << std::endl;
@@ -607,8 +608,8 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
         Aws::AutoScaling::Model::DisableMetricsCollectionRequest request;
         request.SetAutoScalingGroupName(groupName);
 
-        Aws::AutoScaling::Model::DisableMetricsCollectionOutcome outcome = autoScalingClient.DisableMetricsCollection(
-                request);
+        Aws::AutoScaling::Model::DisableMetricsCollectionOutcome outcome =
+                autoScalingClient.DisableMetricsCollection(request);
 
         if (outcome.IsSuccess()) {
             std::cout << "Metrics collection has been disabled." << std::endl;
@@ -767,8 +768,9 @@ bool AwsDoc::AutoScaling::cleanupResources(const Aws::String &groupName,
                     request.SetInstanceId(instanceID);
                     request.SetShouldDecrementDesiredCapacity(true);
 
-                    Aws::AutoScaling::Model::TerminateInstanceInAutoScalingGroupOutcome outcome = autoScalingClient.TerminateInstanceInAutoScalingGroup(
-                            request);
+                    Aws::AutoScaling::Model::TerminateInstanceInAutoScalingGroupOutcome outcome =
+                            autoScalingClient.TerminateInstanceInAutoScalingGroup(
+                                    request);
 
                     if (outcome.IsSuccess()) {
                         std::cout << "Initiating termination of EC2 instance '"
@@ -794,8 +796,8 @@ bool AwsDoc::AutoScaling::cleanupResources(const Aws::String &groupName,
             Aws::AutoScaling::Model::DeleteAutoScalingGroupRequest request;
             request.SetAutoScalingGroupName(groupName);
 
-            Aws::AutoScaling::Model::DeleteAutoScalingGroupOutcome outcome = autoScalingClient.DeleteAutoScalingGroup(
-                    request);
+            Aws::AutoScaling::Model::DeleteAutoScalingGroupOutcome outcome =
+                    autoScalingClient.DeleteAutoScalingGroup(request);
 
             if (outcome.IsSuccess()) {
                 std::cout << "EC2 Auto Scaling group '" << groupName << "' was deleted."
@@ -818,8 +820,8 @@ bool AwsDoc::AutoScaling::cleanupResources(const Aws::String &groupName,
         Aws::EC2::Model::DeleteLaunchTemplateRequest request;
         request.SetLaunchTemplateName(templateName);
 
-        Aws::EC2::Model::DeleteLaunchTemplateOutcome outcome = ec2Client.DeleteLaunchTemplate(
-                request);
+        Aws::EC2::Model::DeleteLaunchTemplateOutcome outcome =
+                ec2Client.DeleteLaunchTemplate(request);
 
         if (outcome.IsSuccess()) {
             std::cout << "EC2 launch template '" << templateName << "' was deleted."
@@ -854,8 +856,8 @@ bool AwsDoc::AutoScaling::describeGroup(const Aws::String &groupName,
     groupNames.push_back(groupName);
     request.SetAutoScalingGroupNames(groupNames);
 
-    Aws::AutoScaling::Model::DescribeAutoScalingGroupsOutcome outcome = client.DescribeAutoScalingGroups(
-            request);
+    Aws::AutoScaling::Model::DescribeAutoScalingGroupsOutcome outcome =
+            client.DescribeAutoScalingGroups(request);
 
     if (outcome.IsSuccess()) {
         autoScalingGroup = outcome.GetResult().GetAutoScalingGroups();
