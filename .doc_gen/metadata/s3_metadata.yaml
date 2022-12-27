@@ -522,6 +522,15 @@ s3_DeleteObjects:
             - description:
               snippet_tags:
                 - s3.swift.deleteobjects.handler.deleteobjects
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.s3.delete_objects
   services:
     s3: {DeleteObjects}
 s3_DeleteBucketWebsite:

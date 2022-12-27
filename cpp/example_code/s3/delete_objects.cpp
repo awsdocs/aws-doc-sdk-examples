@@ -2,6 +2,21 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ * Purpose
+ *
+ * Demonstrates using the AWS SDK for C++ to delete multiple objects in a Simple Storage
+ * Service (Amazon S3) bucket.
+ *
+ */
 
 #include <iostream>
 #include <aws/core/Aws.h>
@@ -9,23 +24,10 @@
 #include <aws/s3/model/DeleteObjectsRequest.h>
 #include "awsdoc/s3/s3_examples.h"
 
-/**
- * Before running this C++ code example, set up your development environment, including your credentials.
- *
- * For more information, see the following documentation topic:
- *
- * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
- *
- * Purpose
- *
- * Demonstrates using the AWS SDK for C++ to delete multiple objects in an S3 bucket.
- *
- */
-
-//! Routine which demonstrates deleting an object in an S3 bucket.
+//! Routine which demonstrates deleting multiple objects in an Amazon S3 bucket.
 /*!
-  \sa DeleteObject()
-  \param objectKey Name of an object.
+  \sa DeleteObjects()
+  \param objectKeys Vector of object keys.
   \param fromBucket Name of a bucket with an object to delete.
   \param clientConfig Aws client configuration.
 */
@@ -55,7 +57,17 @@ bool AwsDoc::S3::DeleteObjects(const std::vector<Aws::String> &objectKeys,
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
     else {
-        std::cout << "Successfully deleted the object." << std::endl;
+        std::cout << "Successfully deleted the objects ";
+        for (size_t i = 0; i < objectKeys.size(); ++i)
+        {
+            std::cout << objectKeys[i];
+            if (i < objectKeys.size() - 1)
+            {
+                std::cout << ", ";
+            }
+        }
+
+        std::cout << " from bucket " << fromBucket << "." << std::endl;
     }
 
     return outcome.IsSuccess();
@@ -66,30 +78,43 @@ bool AwsDoc::S3::DeleteObjects(const std::vector<Aws::String> &objectKeys,
  *
  * main function
  *
- * Prerequisites: The bucket containing the object to delete.
+ * Prerequisites: The bucket containing the objects to delete.
  *
- * TODO(user): items: Set the following variable
- * - objectKey: The name of the object to delete.
- * - fromBucket: The name of the bucket to delete the object from.
+ * Usage: 'run_delete_objects <bucket_name> <object_key> ...'
  *
  */
 
 #ifndef TESTING_BUILD
 
-int main() {
-    //TODO(user): The object_key is the unique identifier for the object in the bucket. In this example set,
-    //it is the filename you added in put_object.cpp.
-    Aws::String objectKey = "<Enter object key>";
-    //TODO(user): Change from_bucket to the name of a bucket in your account.
-    Aws::String fromBucket = "<Enter bucket name>";
+int main(int argc, char **argv) {
 
+    if (argc < 3)
+    {
+        std::cout << R"(
+Usage:
+   run_delete_objects <bucket_name> <object_key> ...
+Where:
+   bucket_name - Name of S3 bucket.
+   <object_key> ... - One or more objects to delete.
+)" << std::endl;
+
+        return 1;
+    }
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
+        Aws::String bucketName(argv[1]);
+        Aws::Vector<Aws::String> objectKeys;
+
+        for (int i = 2; i < argc; ++i)
+        {
+            objectKeys.push_back(Aws::String(argv[i]));
+        }
+
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::S3::DeleteObject(objectKey, fromBucket, clientConfig);
+        AwsDoc::S3::DeleteObjects(objectKeys, bucketName, clientConfig);
     }
 
     ShutdownAPI(options);
