@@ -1,52 +1,104 @@
-//snippet-sourcedescription:[scan_table.cpp demonstrates how to scan an Amazon DynamoDB table]
-//snippet-keyword:[AWS SDK for C++]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/30/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
-
 /*
-   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   SPDX-License-Identifier: Apache-2.0
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
 
-//snippet-start:[dynamodb.cpp.scan_table.inc]
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/ScanRequest.h>
 #include <iostream>
-//snippet-end:[dynamodb.cpp.scan_table.inc]
+#include "dynamodb_samples.h"
 
+// snippet-start:[dynamodb.cpp.scan_table.code]
+//! Scan an Amazon DynamoDB table.
+/*!
+  \sa scanTable()
+  \param tableName: Name for the DynamoDB table.
+  \param projectionExpression: An optional projection expression, ignored if empty.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
 
-/* 
-   Scans a DynamoDB table.
+bool AwsDoc::DynamoDB::scanTable(const Aws::String &tableName,
+                                 const Aws::String &projectionExpression,
+                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+    Aws::DynamoDB::Model::ScanRequest request;
+    request.SetTableName(tableName);
 
-  To run this C++ code example, ensure that you have setup your development environment, including your credentials.
-  For information, see this documentation topic:
-  https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
-*/ 
+    if (!projectionExpression.empty())
+        request.SetProjectionExpression(projectionExpression);
 
-int main(int argc, char** argv)
-{
-    const std::string USAGE = "\n" \
-        "Usage:\n"
-        "    scan_table <table> [projection_expression]\n\n"
-        "Where:\n"
-        "    table - the table to Scan.\n\n"
-        "You can add an optional projection expression (a quote-delimited,\n"
-        "comma-separated list of attributes to retrieve) to limit the\n"
-        "fields returned from the table.\n\n"
-        "Example:\n"
-        "    scan_table HelloTable \n"
-        "    scan_table SiteColors \"default, bold\"\n";
+    // Perform scan on table.
+    const Aws::DynamoDB::Model::ScanOutcome &outcome = dynamoClient.Scan(request);
+    if (outcome.IsSuccess()) {
+        // Reference the retrieved items.
+        const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
+        if (!items.empty()) {
+            std::cout << "Number of items retrieved from scan: " << items.size()
+                      << std::endl;
+            // Iterate each item and print.
+            for (const Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> &itemMap: items) {
+                std::cout << "******************************************************"
+                          << std::endl;
+                // Output each retrieved field and its value.
+                for (const auto &itemEntry: itemMap)
+                    std::cout << itemEntry.first << ": " << itemEntry.second.GetS()
+                              << std::endl;
+            }
+        }
 
-    if (argc < 2)
-    {
-        std::cout << USAGE;
+        else {
+            std::cout << "No item found in table: " << tableName << std::endl;
+        }
+    }
+    else {
+        std::cerr << "Failed to Scan items: " << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+
+// snippet-end:[dynamodb.cpp.scan_table.code]
+
+/*
+ *  main function
+ *
+ *  Usage: 'run_scan_table <table> [projection_expression]'
+ *
+ *  Prerequisites: Create a pre-populated DynamoDB table.
+ *
+ *  For instructions on populating a table with sample data, see
+ *  https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/SampleData.html.
+ *
+ */
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    if (argc < 2) {
+        std::cout << R"(
+Usage:
+    run_scan_table <table> [projection_expression]
+Where:
+    table - The table to scan.
+To limit the fields returned from the table, add
+an optional projection expression (a quote-delimited,
+comma-separated list of attributes to retrieve).
+)";
         return 1;
     }
 
@@ -54,49 +106,17 @@ int main(int argc, char** argv)
 
     Aws::InitAPI(options);
     {
-        const Aws::String table  = (argv[1]);
-        const Aws::String projection(argc > 2 ? argv[2] : "");
+        const Aws::String tableName = (argv[1]);
+        const Aws::String projectionExpression(argc > 2 ? argv[2] : "");
 
-        // snippet-start:[dynamodb.cpp.scan_table.code]
         Aws::Client::ClientConfiguration clientConfig;
-       
-        Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
-        Aws::DynamoDB::Model::ScanRequest req;
-        req.SetTableName(table);
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
 
-        if (!projection.empty())
-            req.SetProjectionExpression(projection);        
-
-        // Perform scan on table
-        const Aws::DynamoDB::Model::ScanOutcome& result = dynamoClient.Scan(req);
-        if (result.IsSuccess())
-        {
-            // Reference the retrieved items
-            const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>>& items = result.GetResult().GetItems();
-            if(items.size() > 0) 
-            {
-                std::cout << "Number of items retrieved from scan: " << items.size() << std::endl;
-                //Iterate each item and print
-                for(const auto &item: items)
-                {
-                std::cout << "******************************************************" << std::endl;
-                // Output each retrieved field and its value
-                for (const auto& i : item)
-                    std::cout << i.first << ": " << i.second.GetS() << std::endl;
-                }
-            }
-
-            else
-            {
-                std::cout << "No item found in table: " << table << std::endl;
-            }
-        }
-        else
-        {
-            std::cout << "Failed to Scan items: " << result.GetError().GetMessage();
-        }
-        // snippet-end:[dynamodb.cpp.scan_table.code]
+        AwsDoc::DynamoDB::scanTable(tableName, projectionExpression, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
+
+#endif // TESTING_BUILD

@@ -1,90 +1,108 @@
-//snippet-sourcedescription:[delete_item.cpp demonstrates how to delete an item from an Amazon DynamoDB table.]
-//snippet-keyword:[AWS SDK for C++]
-//snippet-keyword:[Code Sample]
-//snippet-service:[Amazon DynamoDB]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[11/30/2021]
-//snippet-sourceauthor:[scmacdon - aws]
-
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-//snippet-start:[dynamodb.cpp.delete_item.inc]
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
+
 #include <aws/core/Aws.h>
-#include <aws/core/utils/Outcome.h> 
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/AttributeDefinition.h>
 #include <aws/dynamodb/model/DeleteItemRequest.h>
 #include <iostream>
-//snippet-end:[dynamodb.cpp.delete_item.inc]
+#include "dynamodb_samples.h"
 
+//snippet-start:[cpp.example_code.dynamodb.delete_item]
+//! Delete an item from an Amazon DynamoDB table.
+/*!
+  \sa deleteItem()
+  \param tableName: The table name.
+  \param partitionKey: The partition key.
+  \param partitionValue: The value for the partition key.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+
+bool AwsDoc::DynamoDB::deleteItem(const Aws::String &tableName,
+                                  const Aws::String &partitionKey,
+                                  const Aws::String &partitionValue,
+                                  const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfiguration);
+
+    Aws::DynamoDB::Model::DeleteItemRequest request;
+
+    request.AddKey(partitionKey,
+                   Aws::DynamoDB::Model::AttributeValue().SetS(partitionValue));
+    request.SetTableName(tableName);
+
+    const Aws::DynamoDB::Model::DeleteItemOutcome &outcome = dynamoClient.DeleteItem(
+            request);
+    if (outcome.IsSuccess()) {
+        std::cout << "Item \"" << partitionValue << "\" deleted!" << std::endl;
+    }
+    else {
+        std::cerr << "Failed to delete item: " << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+//snippet-end:[cpp.example_code.dynamodb.delete_item]
 
 /*
-   Deletes an item from a table.
+ *
+ *  main function
+ *
+ *  Usage: 'run_delete_item <table_name> <partition_key> <partition_value>'
+ *
+ *  Prerequisites: Create a DynamoDB table named <table_name> that contains an
+ *     item with <partition_value> for its <partition_key>.
+ *
+ */
 
-   Takes name of table with string key "id" and
-   a value of an item to delete.
+#ifndef TESTING_BUILD
 
-   To run this C++ code example, ensure that you have setup your development environment, including your credentials.
-   For information, see this documentation topic:
-   https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
-*/
-int main(int argc, char** argv)
-{
-    const std::string USAGE = "\n" \
-        "Usage:\n"
-        "    DeleteItem <table> <name> \n\n"
-        "Where:\n"
-        "    table - the table to delete the item from.\n"
-        "    name  - the item to delete from the table,\n"
-        "            using the primary key \"Name\"\n"
-        "Example:\n"
-        "    DeleteItem HelloTable Name us-west-2\n\n"
-        "**Warning** This program will actually delete the item\n"
-        "            that you specify!\n";
-
-    if (argc < 2)
-    {
-        std::cout << USAGE;
+int main(int argc, char **argv) {
+    if (argc < 4) {
+        std::cout << R"("Usage:
+    run_delete_item <table_name> <partition_key> <partition_value>
+Where:
+    table - The table to delete the item from.
+    partition_key  - The partition key of the table,
+    partition_value - The item value for the partition key.
+Example:
+    run_delete_item HelloTable Name Joe
+**Warning** This program will actually delete the item
+            that you specify!)";
         return 1;
     }
 
-    //snippet-start:[dynamodb.cpp.delete_item.code]
     Aws::SDKOptions options;
 
     Aws::InitAPI(options);
     {
-        const Aws::String table = (argv[1]);
-        const Aws::String name = (argv[2]);
-        const Aws::String region = "us-east-1";
+        const Aws::String tableName = (argv[1]);
+        const Aws::String partitionKey = (argv[2]);
+        const Aws::String partitionValue = (argv[3]);
 
         Aws::Client::ClientConfiguration clientConfig;
-        if (!region.empty())
-            clientConfig.region = region;
-        Aws::DynamoDB::DynamoDBClient dynamoClient(clientConfig);
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
 
-        std::cout << "Deleting item \"" << name <<
-            "\" from table " << table << std::endl;
-
-        Aws::DynamoDB::Model::DeleteItemRequest req;
-
-        Aws::DynamoDB::Model::AttributeValue hashKey;
-        hashKey.SetS(name);
-        req.AddKey("id", hashKey);
-        req.SetTableName(table);
-
-        const Aws::DynamoDB::Model::DeleteItemOutcome& result = dynamoClient.DeleteItem(req);
-        if (result.IsSuccess())
-        {
-            std::cout << "Item \"" << name << "\" deleted!\n";
-        }
-        else
-        {
-            std::cout << "Failed to delete item: " << result.GetError().GetMessage();
-        }
+        AwsDoc::DynamoDB::deleteItem(tableName, partitionKey, partitionValue,
+                                     clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
-    //snippet-end:[dynamodb.cpp.delete_item.code]
 }
+
+#endif // TESTING_BUILD
