@@ -1,0 +1,10 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "example_code/cognito"
+  ],
+  "devDependencies": {
+    "lerna": "^6.3.0"
+  }
+}

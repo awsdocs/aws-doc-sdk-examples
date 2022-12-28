@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { describe, expect } from "@jest/globals";
+import { describe, it, expect, afterAll } from "vitest";
 import { createUserPool } from "../actions/create-user-pool.js";
 import { getUniqueName } from "../../libs/utils/util-string.js";
 import { deleteUserPool } from "../actions/delete-user-pool.js";
