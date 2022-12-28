@@ -6,11 +6,11 @@ authors = ["Doug Schwartz <dougsch@amazon.com>"]
 edition = "2021"
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-sqs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-sqs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 tokio = { version = "1.20.1", features = ["full"] }
 http = "0.2"
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
