@@ -168,8 +168,6 @@ public class ServiceHandlerIAM {
     }
     // snippet-end:[iam.swift.basics.iam.createrole]
 
-    // snippet-start:[iam.swift.basics.iam.createaccesskey]
-
     /// Create an IAM access key for a user.
     ///
     /// - Parameter userName: A `String` giving the user name.
