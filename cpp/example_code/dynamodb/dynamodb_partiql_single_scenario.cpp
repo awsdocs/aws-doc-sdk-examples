@@ -40,7 +40,7 @@
 //! Scenario to modify and query a DynamoDB table using single PartiQL statements.
 /*!
   \sa partiqlExecuteScenario()
-  \param clientConfiguration: Aws client configuration.
+  \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 bool
@@ -82,10 +82,10 @@ AwsDoc::DynamoDB::partiqlExecuteScenario(
         ratingAttribute->SetN(rating);
         infoMapAttribute.AddMEntry(RATING_KEY, ratingAttribute);
 
-        std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> plotAttibute = Aws::MakeShared<Aws::DynamoDB::Model::AttributeValue>(
+        std::shared_ptr<Aws::DynamoDB::Model::AttributeValue> plotAttribute = Aws::MakeShared<Aws::DynamoDB::Model::AttributeValue>(
                 ALLOCATION_TAG.c_str());
-        plotAttibute->SetS(plot);
-        infoMapAttribute.AddMEntry(PLOT_KEY, plotAttibute);
+        plotAttribute->SetS(plot);
+        infoMapAttribute.AddMEntry(PLOT_KEY, plotAttribute);
         attributes.push_back(infoMapAttribute);
         request.SetParameters(attributes);
 
@@ -258,27 +258,25 @@ int main(int argc, char **argv) {
 
     {
         std::cout << std::setfill('*')
-                  << std::setw(AwsDoc::DynamoDB::ASTERIX_FILL_WIDTH) << " "
+                  << std::setw(AwsDoc::DynamoDB::ASTERISK_FILL_WIDTH) << " "
                   << std::endl;
         std::cout
                 << "Welcome to the Amazon DynamoDB PartiQL single statements demo."
                 << std::endl;
         std::cout << std::setfill('*')
-                  << std::setw(AwsDoc::DynamoDB::ASTERIX_FILL_WIDTH) << " "
+                  << std::setw(AwsDoc::DynamoDB::ASTERISK_FILL_WIDTH) << " "
                   << std::endl;
 
         Aws::Client::ClientConfiguration clientConfig;
 
 // snippet-start:[cpp.example_code.dynamodb.Scenario_PartiQL_Single.main]
         //  1. Create a table. (CreateTable)
-        if (AwsDoc::DynamoDB::createDynamoDBTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
-                                                  clientConfig)) {
+        if (AwsDoc::DynamoDB::createMoviesDynamoDBTable(clientConfig)) {
 
             AwsDoc::DynamoDB::partiqlExecuteScenario(clientConfig);
 
             // 7. Delete the table. (DeleteTable)
-            AwsDoc::DynamoDB::deleteDynamoTable(AwsDoc::DynamoDB::MOVIE_TABLE_NAME,
-                                                clientConfig);
+            AwsDoc::DynamoDB::deleteMoviesDynamoDBTable(clientConfig);
         }
 // snippet-end:[cpp.example_code.dynamodb.Scenario_PartiQL_Single.main]
     }
