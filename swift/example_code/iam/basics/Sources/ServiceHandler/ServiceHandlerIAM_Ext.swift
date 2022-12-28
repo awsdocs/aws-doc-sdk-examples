@@ -13,27 +13,6 @@ import ClientRuntime
 import SwiftUtilities
 
 public extension ServiceHandlerIAM {
-    /// Add an inline policy to an AWS Identity and Access Management (IAM)
-    /// user.
-    ///
-    /// - Parameters:
-    ///   - policyDocument: A `String` indicating the policy
-    ///     document to add to the user.
-    ///   - policyName: A string giving the policy's name.
-    ///   - user: The `IAMClientTypes.User` specifying the user.
-    func putUserPolicy(policyDocument: String, policyName: String, user: IAMClientTypes.User) async throws {
-        let input = PutUserPolicyInput(
-            policyDocument: policyDocument,
-            policyName: policyName,
-            userName: user.userName
-        )
-        do {
-            _ = try await iamClient.putUserPolicy(input: input)
-        } catch {
-            throw error
-        }
-    }
-
     /// Get the ID of an AWS Identity and Access Management (IAM) user.
     ///
     /// - Parameter name: The name of the IAM user.
@@ -51,6 +30,10 @@ public extension ServiceHandlerIAM {
         }
     }
 
+    /// Returns the role with the given name.
+    ///
+    /// - Parameter name: The role name.
+    /// - Returns: An `IAMClientTypes.Role` object describing the role.
     func getRole(name: String) async throws -> IAMClientTypes.Role {
         let input = GetRoleInput(
             roleName: name
@@ -83,6 +66,11 @@ public extension ServiceHandlerIAM {
         }
     }
 
+    /// Get the policy whose ARN matches the specified string.
+    ///
+    /// - Parameter arn: A string giving the policy's ARN.
+    ///
+    /// - Returns: An `IAMClientTypes.Policy` object describing the policy.
     func getPolicy(arn: String) async throws -> IAMClientTypes.Policy {
         let input = GetPolicyInput(
             policyArn: arn
@@ -98,6 +86,11 @@ public extension ServiceHandlerIAM {
         }
     }
 
+    /// Get the ID of the policy whose ARN matches the specified string.
+    ///
+    /// - Parameter arn: A string giving the policy's ARN.
+    ///
+    /// - Returns: A `String` containing the policy's ID.
     func getPolicyID(arn: String) async throws -> String {
         do {
             let policy = try await self.getPolicy(arn: arn)
@@ -108,6 +101,12 @@ public extension ServiceHandlerIAM {
         }
     }
 
+    /// Get the policy document with a particular name for a given role.
+    /// 
+    /// - Parameters:
+    ///   - policyName: The name of the policy to get the policy document for.
+    ///   - roleName: The name of the role the policy is part of.
+    /// - Returns: A string containing the policy document text.
     func getRolePolicyDocument(policyName: String, roleName: String) async throws -> String {
         let input = GetRolePolicyInput(
             policyName: policyName,
@@ -119,6 +118,30 @@ public extension ServiceHandlerIAM {
                 throw ServiceHandlerError.noSuchPolicy
             }
             return policyDocument
+        } catch {
+            throw error
+        }
+    }
+
+    /// Return a list of the policies attached to a role, as an array of
+    /// `IAMClientTypes.AttachedPolicy` objects.
+    /// 
+    /// - Parameter role: The role to return the attached policies of.
+    /// - Returns: An array of `IAMClientTypes.AttachedPolicy` objects giving
+    ///   the names and ARNs of the policies attached to the role.
+    func getAttachedPolicies(forRole role:IAMClientTypes.Role) async throws
+            -> [IAMClientTypes.AttachedPolicy] {
+
+        let input = ListAttachedRolePoliciesInput(
+            roleName: role.roleName
+        )
+        do {
+            let output = try await iamClient.listAttachedRolePolicies(input: input)
+
+            guard let attachedPolicies = output.attachedPolicies else {
+                return []
+            }
+            return attachedPolicies
         } catch {
             throw error
         }

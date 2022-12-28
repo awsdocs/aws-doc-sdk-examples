@@ -33,10 +33,13 @@ Code excerpts that show you how to call individual service functions.
 * [List the managed policies attached to a role](./ListAttachedRolePolicies/Sources/ServiceHandler/ServiceHandler.swift). (`ListAttachedRolePolicies`)
 * [List the policies embedded in a role](./ListRolePolicies/Sources/ServiceHandler/ServiceHandler.swift). This does _not_ include managed policies attached to the role. (`ListRolePolicies`)
 
-
-<!-- ### Scenarios
+### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
- -->
+
+* [IAM Basics](./Basics/Sources/Basics). Demonstrates a common series of
+  actions to create a user, create access keys, create roles and policies,
+  assume the role, and use the role's permissions to perform calls to AWS
+  S3 actions. (`Basics`)
 
 <!-- ### Cross-service examples
 Sample applications that work across multiple AWS services.

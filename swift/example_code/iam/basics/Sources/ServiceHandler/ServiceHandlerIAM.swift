@@ -19,22 +19,28 @@ public class ServiceHandlerIAM {
     /// IAM always uses the global value for the Region.
     let region = "AWS_GLOBAL"
 
-    /// The IAMClient used to interact with AWS IAM.
+    /// The `IAMClient` used to interact with AWS IAM.
     var iamClient: IAMClient
-    var credentialsProvider: AWSCredentialsProvider? = nil
 
     /// Initialize the IAM client, optionally with credentials.
+    ///
+    /// - Parameters:
+    ///   - accessKeyId: An optional `String` giving the access key ID of the
+    ///     credentials to use.
+    ///   - secretAccessKey: An optional `String` giving the credentials'
+    ///     secret access key.
+    ///   - sessionToken: An optional string specifying the session token.
     // snippet-start:[iam.swift.basics.iam.init]
     public init(accessKeyId: String? = nil, 
                 secretAccessKey: String? = nil,
                 sessionToken: String? = nil) async {
         do {
             if accessKeyId == nil {
-                iamClient = try IAMClient(region: "AWS_GLOBAL")
+                iamClient = try IAMClient(region: self.region)
             } else {
                 // Use the given access key ID, secret access key, and session token
                 // to generate a static credentials provider suitable for use when
-                // initializing an AWS S3 client.
+                // initializing an AWS IAM client.
 
                 guard   let keyId = accessKeyId,
                         let secretKey = secretAccessKey else {
@@ -64,13 +70,20 @@ public class ServiceHandlerIAM {
     }
     // snippet-end:[iam.swift.basics.iam.init]
 
+    /// Update the IAM handler with a new `IAMClient` set up to use the
+    /// specified credentials.
+    ///
+    /// - Parameters:
+    ///   - accessKeyId: A string containing the AWS access key ID.
+    ///   - secretAccessKey: A string containing the AWS secret access key.
+    ///   - sessionToken: An optional string containing the AWS session token.
     // snippet-start:[iam.swift.basics.iam.setcredentials]
     public func setCredentials(accessKeyId: String, secretAccessKey: String,
                 sessionToken: String? = nil) async throws {
         do {
             // Use the given access key ID, secret access key, and session token
             // to generate a static credentials provider suitable for use when
-            // initializing an AWS S3 client.
+            // initializing an AWS IAM client.
 
             let credentialsProvider = try AWSCredentialsProvider.fromStatic(
                 AWSCredentialsProviderStaticConfig(
@@ -80,7 +93,7 @@ public class ServiceHandlerIAM {
                 )
             )
 
-            // Create a new STS client with the specified access credentials.
+            // Create a new IAM client with the specified access credentials.
 
             let iamConfig = try IAMClient.IAMClientConfiguration(
                 credentialsProvider: credentialsProvider,
@@ -92,7 +105,10 @@ public class ServiceHandlerIAM {
         }
     }
     // snippet-end:[iam.swift.basics.iam.setcredentials]
-
+    
+    /// Reset IAM credentials by replacing the internal `iamClient` with a
+    /// fresh one that uses the default configuration.
+    // snippet-start:[iam.swift.basics.iam.resetcredentials]
     public func resetCredentials() async throws {
         do {
             iamClient = try IAMClient(region: "AWS_GLOBAL")
@@ -100,13 +116,15 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
+    // snippet-end:[iam.swift.basics.iam.resetcredentials]
 
-    /// Create a new AWS Identity and Access Management (IAM) user.
+    /// Create a new AWS IAM user.
     ///
-    /// - Parameter name: The user's name.
+    /// - Parameters:
+    ///   - name: The user's name.
     ///
     /// - Returns: The newly created user, as an `IAMClientTypes.User` object.
-    // snippet-start:[iam.swift.basics.iam.basics]
+    // snippet-start:[iam.swift.basics.iam.createuser]
     public func createUser(name: String) async throws -> IAMClientTypes.User {
         let input = CreateUserInput(
             userName: name
@@ -122,9 +140,9 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
-    // snippet-end:[iam.swift.basics.iam.basics]
+    // snippet-end:[iam.swift.basics.iam.createuser]
 
-    /// Create a new AWS Identity and Access Management (IAM) role.
+    /// Create a new AWS IAM role.
     ///
     /// - Parameters:
     ///     - name: The name of the new IAM role.
@@ -158,6 +176,7 @@ public class ServiceHandlerIAM {
     ///
     /// - Returns: An `IAMClientTypes.AccessKey` object with the access key
     ///            details.
+    // snippet-start:[iam.swift.basics.iam.createaccesskey]
     public func createAccessKey(userName: String) async throws -> IAMClientTypes.AccessKey {
         let input = CreateAccessKeyInput(
             userName: userName
@@ -200,6 +219,58 @@ public class ServiceHandlerIAM {
     }
     // snippet-end:[iam.swift.basics.iam.createpolicy]
 
+    /// Add an inline policy to an AWS Identity and Access Management (IAM)
+    /// user.
+    ///
+    /// - Parameters:
+    ///   - policyDocument: A `String` indicating the policy
+    ///     document to add to the user.
+    ///   - policyName: A string giving the policy's name.
+    ///   - user: The `IAMClientTypes.User` specifying the user.
+    ///
+    // snippet-start:[iam.swift.basics.iam.putuserpolicy]
+    func putUserPolicy(policyDocument: String, policyName: String, user: IAMClientTypes.User) async throws {
+        let input = PutUserPolicyInput(
+            policyDocument: policyDocument,
+            policyName: policyName,
+            userName: user.userName
+        )
+        do {
+            _ = try await iamClient.putUserPolicy(input: input)
+        } catch {
+            throw error
+        }
+    }
+    // snippet-end:[iam.swift.basics.iam.putuserpolicy]
+
+    /// Delete the specified inline user policy.
+    ///
+    /// - Parameters:
+    ///   - user: The `IAMClientTypes.User` indicating the user from which to
+    ///     delete the policy.
+    ///   - policyName: The name of the policy to delete.
+    ///
+    // snippet-start:[iam.swift.basics.iam.deleteuserpolicy]
+    func deleteUserPolicy(user: IAMClientTypes.User, policyName: String) async throws {
+        let input = DeleteUserPolicyInput(
+            policyName: policyName,
+            userName: user.userName
+        )
+        do {
+            _ = try await iamClient.deleteUserPolicy(input: input)
+        } catch {
+            throw error
+        }
+    }
+    // snippet-end:[iam.swift.basics.iam.deleteuserpolicy]
+
+    /// Attach a managed policy to a role.
+    ///
+    /// - Parameters:
+    ///   - policy: The policy to attach to the role, as an
+    ///     `IAMClientTypes.Policy` object.
+    ///   - role: An `IAMClientTypes.Role` indicating the role to attach the
+    ///     policy to.
     // snippet-start:[iam.swift.basics.iam.attachrolepolicy]
     public func attachRolePolicy(policy: IAMClientTypes.Policy, role: IAMClientTypes.Role) async throws {
         let input = AttachRolePolicyInput(
@@ -214,6 +285,12 @@ public class ServiceHandlerIAM {
     }
     // snippet-end:[iam.swift.basics.iam.attachrolepolicy]
 
+    /// Detach a policy from a role.
+    /// 
+    /// - Parameters:
+    ///   - policy: The polidy to be detached from the role.
+    ///   - role: The role from which to detach a policy.
+    // snippet-start:[iam.swift.basics.iam.detachrolepolicy]
     public func detachRolePolicy(policy: IAMClientTypes.Policy, role: IAMClientTypes.Role) async throws {
         let input = DetachRolePolicyInput(
             policyArn: policy.arn,
@@ -226,7 +303,13 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
+    // snippet-end:[iam.swift.basics.iam.detachrolepolicy]
 
+    /// Delete the specified policy.
+    ///
+    /// - Parameter policy: The `IAMClientTypes.Policy` object identifying the
+    ///   policy to delete.
+    // snippet-start:[iam.swift.basics.iam.deletepolicy]
     public func deletePolicy(policy: IAMClientTypes.Policy) async throws {
         let input = DeletePolicyInput(
             policyArn: policy.arn
@@ -237,11 +320,14 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
+    // snippet-end:[iam.swift.basics.iam.deletepolicy]
 
     /// Delete an IAM user.
     ///
     /// - Parameter user: The `IAMClientTypes.User` object describing the IAM
     ///   user to delete.
+    ///
+    // snippet-start:[iam.swift.basics.iam.deleteuser]
     public func deleteUser(user: IAMClientTypes.User) async throws {
         let input = DeleteUserInput(
             userName: user.userName
@@ -252,10 +338,29 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
+    // snippet-end:[iam.swift.basics.iam.deleteuser]
 
-    public func deleteAccessKey(key: IAMClientTypes.AccessKey) async throws {
+    /// Delete an access key.
+    /// - Parameters:
+    ///   - user: The user to delete, as an `IAMClientTypes.User` object.
+    ///           If not specified or `nil`, IAM assumes the username from the
+    ///           access key signing the request.
+    ///   - key: An `IAMClientTypes.AccessKey` object representing the key to
+    ///          delete.
+    // snippet-start:[iam.swift.basics.iam.deleteaccesskey]
+    public func deleteAccessKey(user: IAMClientTypes.User? = nil,
+                                key: IAMClientTypes.AccessKey) async throws {
+        let userName: String?
+
+        if user != nil {
+            userName = user!.userName
+        } else {
+            userName = nil
+        }
+
         let input = DeleteAccessKeyInput(
-            accessKeyId: key.accessKeyId
+            accessKeyId: key.accessKeyId,
+            userName: userName
         )
         do {
             _ = try await iamClient.deleteAccessKey(input: input)
@@ -263,10 +368,12 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
+    // snippet-end:[iam.swift.basics.iam.deleteaccesskey]
 
     /// Delete an IAM role.
     ///
     /// - Parameter name: The IAM role to delete.
+    // snippet-start:[iam.swift.basics.iam.deleterole]
     public func deleteRole(role: IAMClientTypes.Role) async throws {
         let input = DeleteRoleInput(
             roleName: role.roleName
@@ -277,6 +384,7 @@ public class ServiceHandlerIAM {
             throw error
         }
     }
+    // snippet-end:[iam.swift.basics.iam.deleterole]
 
     /// Get information about the specified user
     ///

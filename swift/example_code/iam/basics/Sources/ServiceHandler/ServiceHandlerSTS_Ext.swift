@@ -14,6 +14,11 @@ import ClientRuntime
 import SwiftUtilities
 
 public extension ServiceHandlerSTS {
+    /// Given an IAM access key, return the corresponding AWS account number.
+    ///
+    /// - Parameter key: An `IAMClientTypes.AccessKey` object describing an
+    ///   IAM access key.
+    /// - Returns: The account number that owns the access key, as a `String`.
     func getAccessKeyAccountNumber(key: IAMClientTypes.AccessKey) async throws -> String {
         let input = GetAccessKeyInfoInput(
             accessKeyId: key.accessKeyId

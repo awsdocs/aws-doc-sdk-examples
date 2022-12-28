@@ -541,6 +541,14 @@ iam_CreateAccessKey:
             - description:
               snippet_tags:
                 - iam.cpp.create_access_key.code
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/Basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.basics.iam.createaccesskey
   services:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
@@ -637,6 +645,14 @@ iam_DeleteAccessKey:
             - description:
               snippet_tags:
                 - iam.cpp.delete_access_key.code
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/Basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.basics.iam.deleteaccesskey
   services:
     iam: {DeleteAccessKey}
 iam_DeleteRolePolicy:
@@ -966,6 +982,14 @@ iam_CreatePolicy:
               snippet_tags:
                 - iam.cpp.create_policy.code
                 - iam.cpp.build_policy.code
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/Basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.basics.iam.createpolicy
   services:
     iam: {CreatePolicy}
 iam_DeletePolicy:
@@ -1046,6 +1070,14 @@ iam_DeletePolicy:
             - description:
               snippet_tags:
                 - iam.cpp.delete_policy.code
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/Basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.basics.iam.deletepolicy
   services:
     iam: {DeletePolicy}
 iam_CreatePolicyVersion:
@@ -1582,6 +1614,14 @@ iam_DetachRolePolicy:
               snippet_tags:
                 - iam.cpp.detach_role_policy01.code
                 - iam.cpp.detach_role_policy02.code
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/Basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.basics.iam.detachrolepolicy
   services:
     iam: {DetachRolePolicy}
 iam_Scenario_PolicyManagement:
@@ -1924,6 +1964,14 @@ iam_DeleteRole:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.delete_role
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/Basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.basics.iam.deleterole
   services:
     iam: {DeleteRole}
 iam_PutRolePolicy:
@@ -2252,6 +2300,14 @@ iam_DeleteUser:
               snippet_tags:
                 - iam.cpp.delete_user01.code
                 - iam.cpp.delete_user02.code
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/Basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.basics.iam.deleteuser
   services:
     iam: {DeleteUser}
 iam_GetUser:
@@ -2520,6 +2576,14 @@ iam_PutUserPolicy:
             - description:
               snippet_tags:
                 - ruby.example_code.iam.PutUserPolicy
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/Basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.basics.iam.putuserpolicy
   services:
     iam: {PutUserPolicy}
 iam_ListUserPolicies:
@@ -2571,6 +2635,14 @@ iam_DeleteUserPolicy:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.delete_user_policy
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/Basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.basics.iam.deleteuserpolicy
   services:
     iam: {DeleteUserPolicy}
 iam_Scenario_UserPolicies:

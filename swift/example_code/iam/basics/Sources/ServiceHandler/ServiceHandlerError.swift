@@ -15,5 +15,6 @@ public enum ServiceHandlerError: Error {
     case bucketError
     case idMismatch
     case arnMismatch
+    case invalidArn
 }
 // snippet-end:[iam.swift.basics.enum.service-error]
