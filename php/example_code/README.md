@@ -25,6 +25,17 @@ Running these code examples might result in charges to the AWS account that is a
 
 Some of these code examples have accompanying unit tests, which are designed to be run with PHPUnit. These unit test code files are in a subdirectory named `tests`, next to the code examples themselves. For more information, see the comments inside of the unit test code files.
 
+## Docker image (Beta)
+In the near future, this example code will be available in a container image
+hosted on Elastic Container Registry (ECR). This image will be pre-loaded
+with all PHP examples with dependencies pre-resolved, allowing you to explore
+these examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for PHP image](https://gallery.ecr.aws/aws-docs-sdk-examples/php) is available on ECR Public but is still
+undergoing active development. Refer to
+[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4131)
+for more information.
+
 ## Additional information
 
 - As an AWS best practice, grant these code examples least privilege, or only the permissions required to perform a task. For more information, see 

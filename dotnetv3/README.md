@@ -129,6 +129,17 @@ If you want more information, run:
 dotnet test -l "console;verbosity=detailed"
 ```
 
+## Docker image (Beta)
+In the near future, this example code will be available in a container image 
+hosted on Elastic Container Registry (ECR). This image will be pre-loaded 
+with all .NET examples with dependencies pre-resolved, allowing you to explore
+these examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for .NET v3 image](https://gallery.ecr.aws/aws-docs-sdk-examples/dotnetv3) is available on ECR Public but is still
+undergoing active development. Refer to 
+[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4126) 
+for more information. 
+
 ## Additional resources
 
 - As an AWS best practice, grant all code least privilege, or only the permissions required to perform a task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the *AWS Identity and Access Management User Guide*.
