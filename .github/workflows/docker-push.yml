@@ -72,7 +72,7 @@ jobs:
 
       #################################
       #######  Docker Image:   ########
-      #######   JAVASCRIPT     ########
+      #######  JAVASCRIPT v3   ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - JavaScript
         if: contains(github.event.pull_request.labels.*.name, 'lang/javascript-v3')
@@ -100,7 +100,7 @@ jobs:
 
       #################################
       #######  Docker Image:   ########
-      #######      GoLang      ########
+      #######      GO v2       ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - GoLang
         if: contains(github.event.pull_request.labels.*.name, 'lang/gov-2')
@@ -142,7 +142,7 @@ jobs:
 
       #################################
       #######  Docker Image:   ########
-      #######      javav2      ########
+      #######     JAVA v2      ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - JavaV2
         if: contains(github.event.pull_request.labels.*.name, 'lang/java-v2')
@@ -184,7 +184,7 @@ jobs:
 
       #################################
       #######  Docker Image:   ########
-      #######      Swift       ########
+      #######      SWIFT       ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - Swift
         if: contains(github.event.pull_request.labels.*.name, 'lang/swift')
