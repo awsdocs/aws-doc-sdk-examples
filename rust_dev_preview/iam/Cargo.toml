@@ -27,6 +27,7 @@ aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "m
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
   "hardcoded-credentials",
 ] }
+testing-examples = { path = "../testing" }
 tokio = { version = "1.20.1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }

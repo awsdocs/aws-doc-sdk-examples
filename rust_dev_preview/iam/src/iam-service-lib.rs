@@ -41,27 +41,33 @@ pub async fn create_policy(
 
 #[cfg(test)]
 mod test_create_policy {
-    use aws_smithy_client::test_connection::TestConnection;
-    use aws_smithy_http::body::SdkBody;
-
-    use crate::{create_policy, test_event, test_util::make_config};
+    use crate::create_policy;
+    use testing_examples::single_shot_client;
 
     #[tokio::test]
-    async fn test_create_policy() {
-        let client = aws_sdk_iam::Client::from_conf_conn(
-            make_config(),
-            TestConnection::new(vec![test_event!(
-                "",
-                (
-                    200,
-                    r#"{ "Policy": { "PolicyName": "my-policy", "CreateDate": "2015-06-01T19:31:18.620Z", "AttachmentCount": 0, "IsAttachable": true, "PolicyId": "ZXR6A36LTYANPAI7NJ5UV", "DefaultVersionId": "v1", "Path": "/", "Arn": "arn:aws:iam::0123456789012:policy/my-policy", "UpdateDate": "2015-06-01T19:31:18.620Z" } }"#
-                )
-            )]),
+    async fn test_create_policy_success() {
+        let client = single_shot_client!(
+            aws_sdk_iam,
+            "",
+            200,
+            include_str!("../testing/test_create_policy_response_success.xml")
         );
 
         let response = create_policy(&client, "{}".into(), "test_role".into()).await;
-        eprintln!("{response:?}");
         assert!(response.is_ok());
+    }
+
+    #[tokio::test]
+    async fn test_create_policy_failed() {
+        let client = single_shot_client!(
+            aws_sdk_iam,
+            "",
+            400,
+            include_str!("../testing/test_create_policy_response_malformed.xml")
+        );
+
+        let response = create_policy(&client, "{}".into(), "test_role".into()).await;
+        assert!(response.is_err());
     }
 }
 
@@ -163,20 +169,13 @@ pub async fn create_user_policy(
 // snippet-start:[rust.example_code.iam.service.delete_role]
 pub async fn delete_role(client: &iamClient, role: &Role) -> Result<(), iamError> {
     let role = role.clone();
-    loop {
-        match client
-            .delete_role()
-            .role_name(role.role_name.as_ref().unwrap())
-            .send()
-            .await
-        {
-            Ok(_) => {
-                break;
-            }
-            Err(_) => {
-                sleep(Duration::from_secs(2)).await;
-            }
-        }
+    while let Err(_) = client
+        .delete_role()
+        .role_name(role.role_name.as_ref().unwrap())
+        .send()
+        .await
+    {
+        sleep(Duration::from_secs(2)).await;
     }
     Ok(())
 }
@@ -490,45 +489,3 @@ pub async fn list_saml_providers(
 // snippet-end:[rust.example_code.iam.service.list_saml_providers]
 
 // snippet-end:[rust.example_code.iam.scenario_getting_started.lib]
-
-#[cfg(test)]
-mod test_util {
-    use aws_sdk_iam::{Config, Credentials, Region};
-
-    pub fn make_config() -> Config {
-        let test_credentials: Credentials = Credentials::new(
-            "ATESTCLIENT",
-            "atestsecretkey",
-            Some("atestsessiontoken".to_string()),
-            None,
-            "",
-        );
-
-        let test_region: Region = Region::new("us-east-1");
-
-        Config::builder()
-            .credentials_provider(test_credentials)
-            .region(test_region)
-            .build()
-    }
-
-    #[macro_export]
-    macro_rules! test_event {
-        (
-        $req:expr,
-        (
-            $status:expr,
-            $res:expr
-        )
-    ) => {{
-            (
-                http::Request::builder().body(SdkBody::from($req)).unwrap(),
-                http::Response::builder()
-                    .status($status)
-                    .header("Content-Type", "application/json")
-                    .body(SdkBody::from($res))
-                    .unwrap(),
-            )
-        }};
-    }
-}
