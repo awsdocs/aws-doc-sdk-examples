@@ -6,16 +6,18 @@ permissions:
   id-token: write
 
 on:
-  pull_request:
+  pull_request_target:
     types:
-      - assigned
+      - closed
+    branches:
+      - 'main'
 
 jobs:
   push_to_registry:
-    # if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     env:
       REGISTRY: public.ecr.aws
-      REGISTRY_ALIAS: k1e9q4w8
+      REGISTRY_ALIAS: b4v4v1s0
       IMAGE_TAG: latest
       REGION: us-east-1
     name: Push Docker image to Docker Hub
@@ -27,13 +29,13 @@ jobs:
       ##################################################
       ################## ECR PUBLIC ####################
       ##################################################
-      
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@master # More information on this action can be found below in the 'AWS Credentials' section
         with:
           role-to-assume: arn:aws:iam::260778392212:role/admin
           aws-region: us-east-1
-          
+
       - name: Login to Amazon ECR Public
         id: login-ecr-public
         uses: aws-actions/amazon-ecr-login@v1
@@ -44,20 +46,22 @@ jobs:
       ######   Docker Image:  #######
       ######      RUBY        #######
       ###############################
-#      - name: Build, tag, and push docker image to Amazon ECR Public - Ruby
-#        env:
-#          REPOSITORY: ruby
-#        run: |
-#          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-#          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
-#          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
-#          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+      - name: Build, tag, and push docker image to Amazon ECR Public - Ruby
+        if: contains(github.event.pull_request.labels.*.name, 'lang/ruby')
+        env:
+          REPOSITORY: ruby
+        run: |
+          aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+          docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
 
       #################################
       ######   Docker Image:    #######
       ######      PYTHON        #######
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - Python
+        if: contains(github.event.pull_request.labels.*.name, 'lang/python')
         env:
           REPOSITORY: python
         run: |
@@ -71,6 +75,7 @@ jobs:
       #######   JAVASCRIPT     ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - JavaScript
+        if: contains(github.event.pull_request.labels.*.name, 'lang/javascript-v3')
         env:
           REPOSITORY: javascriptv3
         run: |
@@ -84,6 +89,7 @@ jobs:
       #######      RUST        ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - Rust
+        if: contains(github.event.pull_request.labels.*.name, 'lang/rust')
         env:
           REPOSITORY: rust_dev_preview
         run: |
@@ -97,8 +103,9 @@ jobs:
       #######      GoLang      ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - GoLang
+        if: contains(github.event.pull_request.labels.*.name, 'lang/gov-2')
         env:
-          REPOSITORY: gov3
+          REPOSITORY: gov2
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
           docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
@@ -110,6 +117,7 @@ jobs:
       #######      C++      ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - C++
+        if: contains(github.event.pull_request.labels.*.name, 'lang/cpp')
         env:
           REPOSITORY: cpp
         run: |
@@ -120,9 +128,10 @@ jobs:
 
       #################################
       #######  Docker Image:   ########
-      #######      .NET v3      ########
+      #######     .NET v3      ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - .NET v3
+        if: contains(github.event.pull_request.labels.*.name, 'lang/dotnet-v3')
         env:
           REPOSITORY: dotnetv3
         run: |
@@ -136,6 +145,7 @@ jobs:
       #######      javav2      ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - JavaV2
+        if: contains(github.event.pull_request.labels.*.name, 'lang/java-v2')
         env:
           REPOSITORY: javav2
         run: |
@@ -149,6 +159,7 @@ jobs:
       #######      KOTLIN      ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - Kotlin
+        if: contains(github.event.pull_request.labels.*.name, 'lang/kotlin')
         env:
           REPOSITORY: kotlin
         run: |
@@ -159,9 +170,10 @@ jobs:
 
       #################################
       #######  Docker Image:   ########
-      #######      PHP      ########
+      #######      PHP         ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - PHP
+        if: contains(github.event.pull_request.labels.*.name, 'lang/php')
         env:
           REPOSITORY: php
         run: |
