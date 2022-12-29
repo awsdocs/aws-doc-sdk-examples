@@ -16,10 +16,17 @@ aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" 
 aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
   "test-util",
 ] }
+aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
+  "hardcoded-credentials",
+] }
 tokio = { version = "1.20.1", features = ["full"] }
 serde_json = "1"
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
+
+[lib]
+path="src/mod.rs"
 
 [[bin]]
 name = "intro"
