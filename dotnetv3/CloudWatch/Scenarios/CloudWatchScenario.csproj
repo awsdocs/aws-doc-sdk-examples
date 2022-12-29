@@ -19,9 +19,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="settings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+	  <Content Include="settings.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="settings.*.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		  <DependentUpon>settings.json</DependentUpon>
+	  </Content>
   </ItemGroup>
 
 </Project>

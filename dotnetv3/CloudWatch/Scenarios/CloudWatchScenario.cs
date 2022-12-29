@@ -3,6 +3,7 @@
 
 using System.Diagnostics;
 using Amazon.CloudWatch;
+using CloudWatchActions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,9 +11,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Logging.Debug;
 
-namespace ServiceActions;
+namespace CloudWatchScenario;
 
-public class Program
+// snippet-start:[CloudWatch.dotnetv3.GettingStarted]
+public class CloudWatchScenario
 {
     private static ILogger logger = null!;
     private static CloudWatchWrapper _cloudWatchWrapper = null!;
@@ -26,7 +28,7 @@ public class Program
                 logging.AddFilter("System", LogLevel.Debug)
                     .AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Information)
                     .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
-            .ConfigureServices((_, services) => 
+            .ConfigureServices((_, services) =>
             services.AddAWSService<IAmazonCloudWatch>()
             .AddTransient<CloudWatchWrapper>()
         )
@@ -40,7 +42,7 @@ public class Program
             .Build();
 
         logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
-            .CreateLogger<Program>();
+            .CreateLogger<CloudWatchScenario>();
 
         _cloudWatchWrapper = host.Services.GetRequiredService<CloudWatchWrapper>();
 
@@ -52,10 +54,12 @@ public class Program
         Console.WriteLine("Demo of getting a CPU Utilization metric image from CloudWatch.");
         Console.WriteLine("\tGetting Image data.");
         // todo: load this from configuration
+        // todo: need to request an instanceid or load from configuration
+
         var metricImageTest =
             "{\"metrics\":[[\"AWS/EC2\",\"CPUUtilization\",\"InstanceId\",\"i-00e1e7a1d0c6dffd4\",{\"period\":900,\"stat\":\"Average\"}],[\"AWS/EC2\",\"CPUUtilization\",\"InstanceId\",\"i-04eaea7802140257f\",{\"period\":900,\"stat\":\"Average\"}]],\"legend\":{\"position\":\"bottom\"},\"region\":\"us-east-1\",\"liveData\":false,\"title\":\"CPU Utilization: Average\",\"view\":\"timeSeries\",\"stacked\":false}";
         var memoryStream = await _cloudWatchWrapper.GetMetricImage(metricImageTest);
-        var file = _cloudWatchWrapper.SaveMericImage(memoryStream, "CpuUtilization");
+        var file = _cloudWatchWrapper.SaveMetricImage(memoryStream, "CpuUtilization");
 
         ProcessStartInfo info = new ProcessStartInfo();
 
@@ -73,3 +77,4 @@ public class Program
 
     }
 }
+// snippet-end:[CloudWatch.dotnetv3.GettingStarted]

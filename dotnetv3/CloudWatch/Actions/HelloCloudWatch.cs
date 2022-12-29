@@ -2,7 +2,6 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[CloudWatch.dotnetv3.HelloCloudWatch]
-
 using Microsoft.Extensions.Hosting;
 using Amazon.CloudWatch;
 using Amazon.CloudWatch.Model;

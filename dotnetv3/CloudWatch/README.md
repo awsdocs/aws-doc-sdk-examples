@@ -13,31 +13,45 @@ Amazon CloudWatch is a monitoring and observability service built for DevOps eng
 
 ## Code examples
 
+### Get started
+
+* [Hello CloudWatch](Actions/HelloCloudWatch.cs)
+
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Delete alarms](DeleteAlarmsExample/DeleteAlarmsExample/DeleteAlarms.cs) (`DeleteAlarmsAsync`)
-* [Describe alarm history](DescribeAlarmHistoriesExample/DescribeAlarmHistoriessExample/DescribeAlarmHistories.cs) (`DescribeAlarmsForMetricAsync`)
-* [Disable alarm actions](DisableAlarmActionsExample/DisableAlarmActionsExample/DisableAlarmActions.cs) (`DisableAlarmActionsAsync`)
-* [Enable alarm actions](EnableAlarmActionsExample/EnableAlarmActionsExample/EnableAlarmActions.cs) (`EnableAlarmActionsAsync`)
-* [Get dashboard details](GetDashboardExample/GetDashboardExample/GetDashboard.cs) (`GetDashboardAsync`)
-* [List dashboards](ListDashboardsExample/ListDashboardsExample/ListDashboards.cs) (`ListDashboardsAsync`)
-* [List metrics](ListMetricsExample/ListMetricsExample/ListMetrics.cs) (`ListMetricsAsync`)
+* [Delete alarms](Actions/CloudWatchWrapper.cs) (`DeleteAlarmsAsync`)
+* [Delete anomaly detector](Actions/CloudWatchWrapper.cs) (`DeleteAnomalyDetectorAsync`)
+* [Delete dashboards](Actions/CloudWatchWrapper.cs) (`DeleteDashboardsAsync`)
+* [Describe alarm history](Actions/CloudWatchWrapper.cs) (`DescribeAlarmHistoryAsync`)
+* [Describe alarms](Actions/CloudWatchWrapper.cs) (`DescribeAlarmsAsync`)
+* [Describe alarms for a metric](Actions/CloudWatchWrapper.cs) (`DescribeAlarmsForMetricAsync`)
+* [Describe anomaly detectors](Actions/CloudWatchWrapper.cs) (`DescribeAnomalyDetectorsAsync`)
+* [Disable alarm actions](Actions/CloudWatchWrapper.cs) (`DisableAlarmActionsAsync`)
+* [Enable alarm actions](Actions/CloudWatchWrapper.cs) (`EnableAlarmActionsAsync`)
+* [Get dashboard details](Actions/CloudWatchWrapper.cs) (`GetDashboardAsync`)
+* [Get metric data](Actions/CloudWatchWrapper.cs) (`GetMetricDataAsync`)
+* [Get metric statistics](Actions/CloudWatchWrapper.cs) (`GetMetricStatisticsAsync`)
+* [Get metric data image](Actions/CloudWatchWrapper.cs) (`GetMetricWidgetImageAsync`)
+* [List dashboards](Actions/CloudWatchWrapper.cs) (`ListDashboardsAsync`)
+* [List metrics](Actions/CloudWatchWrapper.cs) (`ListMetricsAsync`)
+* [Create anomaly detector](Actions/CloudWatchWrapper.cs) (`PutAnomalyDetectorAsync`)
+* [Create dashboard](Actions/CloudWatchWrapper.cs) (`PutDashboardAsync`)
+* [Create an alarm that watches a metric](Actions/CloudWatchWrapper.cs) (`PutMetricAlarmAsync`)
+* [Put data into a metric](Actions/CloudWatchWrapper.cs) (`PutMetricDataAsync`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling
+multiple functions within the same service.
+
+* [Get started with billing, alarms, and metrics](Scenarios/CloudWatchScenario.cs)
 
 ## Run the examples
 
 ### Prerequisites
 * To find prerequisites for running these examples, see the
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
-
-The examples in this folder use the default user account. The call to
-initialize the client object does not specify the AWS Region. The following
-example shows how to supply the AWS Region to match your own as a
-parameter to the client constructor:
-
-```
-IAmazonCloudWatch cwClient = new AmazonCloudWatchClient(Amazon.RegionEndpoint.USWest2);
-```
 
 After the example compiles, you can run it from the command line. To do so,
 navigate to the folder that contains the .csproj file and run the following

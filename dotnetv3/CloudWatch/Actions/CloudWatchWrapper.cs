@@ -1,40 +1,52 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System.Text;
+using System.Net;
 using Amazon.CloudWatch;
 using Amazon.CloudWatch.Model;
-using static System.Net.Mime.MediaTypeNames;
+using Microsoft.Extensions.Logging;
+using Metric = Amazon.CloudWatch.Model.Metric;
 
-namespace ServiceActions;
+namespace CloudWatchActions;
 
 // snippet-start:[CloudWatch.dotnetv3.CloudWatchWrapper]
-
 /// <summary>
-/// Wrapper class for CloudWatch methods.
+/// Wrapper class for Amazon CloudWatch methods.
 /// </summary>
 public class CloudWatchWrapper
 {
     private readonly IAmazonCloudWatch _amazonCloudWatch;
-    public CloudWatchWrapper(IAmazonCloudWatch amazonCloudWatch)
+    private readonly ILogger<CloudWatchWrapper> _logger;
+
+    /// <summary>
+    /// Constructor for the CloudWatch wrapper.
+    /// </summary>
+    /// <param name="amazonCloudWatch">Injected CloudWatch client.</param>
+    /// <param name="logger">Injected logger for the wrapper.</param>
+    public CloudWatchWrapper(IAmazonCloudWatch amazonCloudWatch, ILogger<CloudWatchWrapper> logger)
+
     {
+        _logger = logger;
         _amazonCloudWatch = amazonCloudWatch;
     }
 
     // snippet-start:[CloudWatch.dotnetv3.ListMetrics]
-
     /// <summary>
     /// List metrics available within a namespace.
     /// </summary>
     /// <param name="metricNamespace">Metrics namespace to use when listing metrics.</param>
+    /// <param name="filter">Optional dimension filter.</param>
+    /// <param name="metricName">Optional metric name filter.</param>
     /// <returns>The list of metrics.</returns>
-    public async Task<List<Metric>> ListMetrics(string metricNamespace)
+    public async Task<List<Metric>> ListMetrics(string metricNamespace, DimensionFilter? filter = null, string? metricName = null)
     {
         var results = new List<Metric>();
         var paginateMetrics = _amazonCloudWatch.Paginators.ListMetrics(
             new ListMetricsRequest
             {
-                Namespace = metricNamespace
+                Namespace = metricNamespace,
+                Dimensions = filter != null ? new List<DimensionFilter>{ filter } : null,
+                MetricName = metricName
             });
         // Get the entire list using the paginator.
         await foreach (var metric in paginateMetrics.Metrics)
@@ -47,9 +59,8 @@ public class CloudWatchWrapper
     // snippet-end:[CloudWatch.dotnetv3.ListMetrics]
 
     // snippet-start:[CloudWatch.dotnetv3.GetMetricStatistics]
-
     /// <summary>
-    /// Get statistics for a specific metric.
+    /// Get statistics for a specific CloudWatch metric.
     /// </summary>
     /// <param name="metricNamespace"></param>
     /// <param name="metricName"></param>
@@ -57,7 +68,8 @@ public class CloudWatchWrapper
     /// <param name="days"></param>
     /// <param name="period"></param>
     /// <returns></returns>
-    public async Task<List<Datapoint>> GetMetricStatistics(string metricNamespace, string metricName, List<Dimension> dimensions, int days, int period)
+    public async Task<List<Datapoint>> GetMetricStatistics(string metricNamespace,
+        string metricName, List<Dimension> dimensions, int days, int period)
     {
         var metricStatistics = await _amazonCloudWatch.GetMetricStatisticsAsync(
             new GetMetricStatisticsRequest()
@@ -68,7 +80,6 @@ public class CloudWatchWrapper
                 StartTimeUtc = DateTime.UtcNow.AddDays(-days),
                 EndTimeUtc = DateTime.UtcNow,
                 Period = period
-
             });
 
         return metricStatistics.Datapoints;
@@ -76,14 +87,14 @@ public class CloudWatchWrapper
     // snippet-end:[CloudWatch.dotnetv3.GetMetricStatistics]
 
     // snippet-start:[CloudWatch.dotnetv3.PutDashboard]
-
     /// <summary>
     /// Create or add to a dashboard with metrics.
     /// </summary>
-    /// <param name="dashboardName"></param>
-    /// <param name="dashboardBody"></param>
-    /// <returns></returns>
-    public async Task<List<DashboardValidationMessage>> PutDashboard(string dashboardName, string dashboardBody)
+    /// <param name="dashboardName">Name for the dashboard.</param>
+    /// <param name="dashboardBody">Metric data in JSON for the dashboard.</param>
+    /// <returns>A list of validation messages for the dashboard.</returns>
+    public async Task<List<DashboardValidationMessage>> PutDashboard(string dashboardName,
+        string dashboardBody)
     {
         // Updating a dashboard replaces all contents.
         // Best practice is to include a text widget indicating this dashboard was created programmatically.
@@ -92,15 +103,75 @@ public class CloudWatchWrapper
             {
                 DashboardName = dashboardName,
                 DashboardBody = dashboardBody
-
             });
 
         return dashboardResponse.DashboardValidationMessages;
     }
+
     // snippet-end:[CloudWatch.dotnetv3.PutDashboard]
 
-    // snippet-start:[CloudWatch.dotnetv3.GetMetricImage]
+    // snippet-start:[CloudWatch.dotnetv3.GetDashboard]
+    /// <summary>
+    /// Get information on a dashboard.
+    /// </summary>
+    /// <param name="dashboardName">The name of the dashboard</param>
+    /// <returns>A JSON object with dashboard information.</returns>
+    public async Task<string> GetDashboard(string dashboardName)
+    {
+        var dashboardResponse = await _amazonCloudWatch.GetDashboardAsync(
+            new GetDashboardRequest()
+            {
+                DashboardName = dashboardName
+            });
 
+        return dashboardResponse.DashboardBody;
+    }
+
+    // snippet-end:[CloudWatch.dotnetv3.GetDashboard]
+
+    // snippet-start:[CloudWatch.dotnetv3.ListDashboards]
+    /// <summary>
+    /// Get a list of dashboards.
+    /// </summary>
+    /// <returns>A ist of DashboardEntry objects.</returns>
+    public async Task<List<DashboardEntry>> ListDashboards()
+    {
+        var results = new List<DashboardEntry>();
+        var paginateDashboards = _amazonCloudWatch.Paginators.ListDashboards(
+            new ListDashboardsRequest());
+        // Get the entire list using the paginator.
+        await foreach (var data in paginateDashboards.DashboardEntries)
+        {
+            results.Add(data);
+        }
+
+        return results;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.ListDashboards]
+
+    // snippet-start:[CloudWatch.dotnetv3.PutMetricData]
+    /// <summary>
+    /// Add metric data to a CloudWatch metric.
+    /// </summary>
+    /// <param name="metricNamespace">Namespace of the metric.</param>
+    /// <param name="metricData">Data object for the metric data.</param>
+    /// <returns>True if successful.</returns>
+    public async Task<bool> PutMetricData(string metricNamespace,
+        List<MetricDatum> metricData)
+    {
+        
+        var putDataResponse = await _amazonCloudWatch.PutMetricDataAsync(
+            new PutMetricDataRequest()
+            { 
+                MetricData = metricData,
+                Namespace = metricNamespace,
+            });
+
+        return putDataResponse.HttpStatusCode == HttpStatusCode.OK;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.PutMetricData]
+
+    // snippet-start:[CloudWatch.dotnetv3.GetMetricImage]
     /// <summary>
     /// Get an image for a metric.
     /// </summary>
@@ -114,7 +185,6 @@ public class CloudWatchWrapper
             new GetMetricWidgetImageRequest()
             {
                 MetricWidget = metricWidget
-
             });
 
         return imageResponse.MetricWidgetImage;
@@ -126,17 +196,328 @@ public class CloudWatchWrapper
     /// <param name="memoryStream"></param>
     /// <param name="metricName"></param>
     /// <returns>The name of the file.</returns>
-    public string SaveMericImage(MemoryStream memoryStream, string metricName)
+    public string SaveMetricImage(MemoryStream memoryStream, string metricName)
     {
         var metricFileName = $"{metricName}_{DateTime.Now.Ticks}.png";
         using var sr = new StreamReader(memoryStream);
-        string data = sr.ReadToEnd();
-        //File.WriteAllBytes(metricFileName, Convert.FromBase64String(data));
+        // Write the memory stream to a file.
         File.WriteAllBytes(metricFileName, memoryStream.ToArray());
-        var filePath = Path.Join(System.AppDomain.CurrentDomain.BaseDirectory,
+        var filePath = Path.Join(AppDomain.CurrentDomain.BaseDirectory,
             metricFileName);
         return filePath;
     }
     // snippet-end:[CloudWatch.dotnetv3.GetMetricImage]
+
+    // snippet-start:[CloudWatch.dotnetv3.GetMetricData]
+    /// <summary>
+    /// Get data for CloudWatch metrics.
+    /// </summary>
+    /// <param name="minutesOfData">Minutes of data to include.</param>
+    /// <param name="useDescendingTime">True to return the data descending by time.</param>
+    /// <param name="endDateUtc">End date for the data, in UTC.</param>
+    /// <param name="maxDataPoints">Maximum data points to include.</param>
+    /// <param name="dataQueries">Optional data queries to include.</param>
+    /// <returns>A list of the requested metric data.</returns>
+    public async Task<List<MetricDataResult>> GetMetricData(int minutesOfData, bool useDescendingTime, DateTime? endDateUtc = null, 
+        int maxDataPoints = 0, List<MetricDataQuery>? dataQueries = null)
+    {
+        var metricMessages = new List<MessageData>();
+        var metricData = new List<MetricDataResult>();
+        // If no end time is provided, use the current time for the end time.
+        endDateUtc ??= DateTime.UtcNow;
+        var timeZoneOffset = TimeZoneInfo.Local.GetUtcOffset(endDateUtc.Value.ToLocalTime());
+        var startTimeUtc = endDateUtc.Value.AddMinutes(-minutesOfData);
+        // The timezone string should be in a format like +0000, so use the timezone offset to format it correctly.
+        var timeZoneString = $"{timeZoneOffset.Hours:D2}{timeZoneOffset.Minutes:D2}";
+        var paginatedMetricData = _amazonCloudWatch.Paginators.GetMetricData(
+            new GetMetricDataRequest()
+            {
+                StartTimeUtc = startTimeUtc,
+                EndTimeUtc = endDateUtc.Value,
+                LabelOptions = new LabelOptions { Timezone = timeZoneString },
+                ScanBy = useDescendingTime ? ScanBy.TimestampDescending : ScanBy.TimestampAscending,
+                MaxDatapoints = maxDataPoints,
+                MetricDataQueries = dataQueries
+            });
+        await foreach (var message in paginatedMetricData.Messages)
+        {
+            metricMessages.Add(message);
+        }
+
+        if (metricMessages.Any())
+        {
+            // Log any messages that are returned with the data.
+            _logger.LogWarning("Message returned from Metric Data Request.");
+            foreach (var message in metricMessages)
+            {
+                _logger.LogWarning($"{message.Value}, Code: {message.Code}");
+            }
+        }
+        await foreach (var data in paginatedMetricData.MetricDataResults)
+        {
+            metricData.Add(data);
+        }
+        return metricData;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.GetMetricData]
+
+    // snippet-start:[CloudWatch.dotnetv3.PutMetricAlarm]
+    /// <summary>
+    /// Add a metric alarm to send an email when the metric passes a threshold.
+    /// </summary>
+    /// <param name="alarmDescription"></param>
+    /// <param name="alarmName"></param>
+    /// <param name="comparison"></param>
+    /// <param name="metricName"></param>
+    /// <param name="metricNamespace"></param>
+    /// <param name="threshold"></param>
+    /// <param name="alarmActions"></param>
+    /// <returns></returns>
+    public async Task<bool> PutMetricEmailAlarm(string alarmDescription, string alarmName, ComparisonOperator comparison,
+        string metricName, string metricNamespace, double threshold, List<string> alarmActions)
+    {
+        try
+        {
+            var putEmailAlarmResponse = await _amazonCloudWatch.PutMetricAlarmAsync(
+                new PutMetricAlarmRequest()
+                {
+                    AlarmActions = alarmActions,
+                    AlarmDescription = alarmDescription,
+                    AlarmName = alarmName,
+                    ComparisonOperator = comparison,
+                    Threshold = threshold,
+                    Namespace = metricNamespace,
+                    MetricName = metricName
+
+                });
+            return putEmailAlarmResponse.HttpStatusCode == HttpStatusCode.OK;
+        }
+        catch (LimitExceededException lex)
+        {
+            _logger.LogError(lex, $"Unable to add alarm {alarmName}. Alarm quota has already been reached.");
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// Add specific email actions to a list of action strings for a CloudWatch alarm.
+    /// </summary>
+    /// <param name="accountId">Account Id for the alarm.</param>
+    /// <param name="region">Region for the alarm.</param>
+    /// <param name="emailTopicName">Amazon Simple Email Service (SNS) topic for the alarm email.</param>
+    /// <param name="alarmActions">Optional list of existing alarm actions to append to.</param>
+    /// <returns></returns>
+    public List<string> AddEmailAlarmAction(string accountId, string region,
+        string emailTopicName, List<string>? alarmActions = null)
+    {
+        alarmActions ??= new List<string>();
+        var snsAlarmAction = $"arn:aws:sns:{region}:{accountId}:{emailTopicName}";
+        alarmActions.Add(snsAlarmAction);
+        return alarmActions;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.PutMetricAlarm]
+
+    // snippet-start:[CloudWatch.dotnetv3.DescribeAlarms]
+    /// <summary>
+    /// Describe the current alarms, optionally filtered by state.
+    /// </summary>
+    /// <param name="stateValue">Optional filter for alarm state.</param>
+    /// <returns>The list of alarm data.</returns>
+    public async Task<List<MetricAlarm>> DescribeAlarms(StateValue? stateValue)
+    {
+        List<MetricAlarm> alarms = new List<MetricAlarm>();
+        var paginatedDescribeAlarms = _amazonCloudWatch.Paginators.DescribeAlarms(
+            new DescribeAlarmsRequest()
+            {
+                StateValue = stateValue
+            });
+
+        await foreach (var data in paginatedDescribeAlarms.MetricAlarms)
+        {
+            alarms.Add(data);
+        }
+        return alarms;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.DescribeAlarms]
+
+    // snippet-start:[CloudWatch.dotnetv3.DescribeAlarmsForMetric]
+    /// <summary>
+    /// Describe the current alarms, optionally filtered by state.
+    /// </summary>
+    /// <param name="stateValue">Optional filter for alarm state.</param>
+    /// <returns>The list of alarm data.</returns>
+    public async Task<List<MetricAlarm>> DescribeAlarmsForMetric(string metricName)
+    {
+        var alarmsResult = await _amazonCloudWatch.DescribeAlarmsForMetricAsync(
+            new DescribeAlarmsForMetricRequest()
+            {
+                MetricName = metricName
+            });
+
+        return alarmsResult.MetricAlarms;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.DescribeAlarmsForMetric]
+
+    // snippet-start:[CloudWatch.dotnetv3.DescribeAlarmHistory]
+    /// <summary>
+    /// Describe the history of an alarm for a number of days in the past.
+    /// </summary>
+    /// <param name="alarmName">The name of the alarm.</param>
+    /// <param name="historyDays">The number of days in the past.</param>
+    /// <returns>The list of alarm history data.</returns>
+    public async Task<List<AlarmHistoryItem>> DescribeAlarmHistory(string alarmName, int historyDays)
+    {
+        List<AlarmHistoryItem> alarmHistory = new List<AlarmHistoryItem>();
+        var paginatedAlarmHistory = _amazonCloudWatch.Paginators.DescribeAlarmHistory(
+            new DescribeAlarmHistoryRequest()
+            {
+                AlarmName = alarmName,
+                EndDateUtc = DateTime.Today,
+                HistoryItemType = HistoryItemType.Action,
+                StartDateUtc = DateTime.Today.AddDays(-historyDays)
+            });
+
+        await foreach (var data in paginatedAlarmHistory.AlarmHistoryItems)
+        {
+            alarmHistory.Add(data);
+        }
+        return alarmHistory;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.DescribeAlarmHistory]
+
+    // snippet-start:[CloudWatch.dotnetv3.DeleteAlarms]
+    /// <summary>
+    /// Delete a list of alarms from CloudWatch
+    /// </summary>
+    /// <param name="alarmNames">List of names of alarms to delete.</param>
+    /// <returns>True if successful.</returns>
+    public async Task<bool> DeleteAlarms(List<string> alarmNames)
+    {
+        var deleteAlarmsResult = await _amazonCloudWatch.DeleteAlarmsAsync(
+            new DeleteAlarmsRequest()
+            {
+                AlarmNames = alarmNames
+            });
+
+        return deleteAlarmsResult.HttpStatusCode == HttpStatusCode.OK;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.DeleteAlarms]
+
+    // snippet-start:[CloudWatch.dotnetv3.DisableAlarmActions]
+    /// <summary>
+    /// Disable the actions for a list of alarms from CloudWatch
+    /// </summary>
+    /// <param name="alarmNames">List of names of alarms.</param>
+    /// <returns>True if successful.</returns>
+    public async Task<bool> DisableAlarmActions(List<string> alarmNames)
+    {
+        var disableAlarmActionsResult = await _amazonCloudWatch.DisableAlarmActionsAsync(
+            new DisableAlarmActionsRequest()
+            {
+                AlarmNames = alarmNames
+            });
+
+        return disableAlarmActionsResult.HttpStatusCode == HttpStatusCode.OK;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.DisableAlarmActions]
+
+    // snippet-start:[CloudWatch.dotnetv3.EnableAlarmActions]
+    /// <summary>
+    /// Enable the actions for a list of alarms from CloudWatch
+    /// </summary>
+    /// <param name="alarmNames">List of names of alarms.</param>
+    /// <returns>True if successful.</returns>
+    public async Task<bool> EnableAlarmActions(List<string> alarmNames)
+    {
+        var enableAlarmActionsResult = await _amazonCloudWatch.EnableAlarmActionsAsync(
+            new EnableAlarmActionsRequest()
+            {
+                AlarmNames = alarmNames
+            });
+
+        return enableAlarmActionsResult.HttpStatusCode == HttpStatusCode.OK;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.DisableAlarmActions]
+
+    // snippet-start:[CloudWatch.dotnetv3.PutAnomalyDetector]
+    /// <summary>
+    /// Add an anomaly detector for a single metric
+    /// </summary>
+    /// <param name="anomalyDetector">A single metric anomaly detector</param>
+    /// <returns>True if successful.</returns>
+    public async Task<bool> PutAnomalyDetector(SingleMetricAnomalyDetector anomalyDetector)
+    {
+        var putAlarmDetectorResult = await _amazonCloudWatch.PutAnomalyDetectorAsync(
+            new PutAnomalyDetectorRequest()
+            {
+                SingleMetricAnomalyDetector = anomalyDetector
+            });
+
+        return putAlarmDetectorResult.HttpStatusCode == HttpStatusCode.OK;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.PutAnomalyDetector]
+
+    // snippet-start:[CloudWatch.dotnetv3.DescribeAnomalyDetectors]
+    /// <summary>
+    /// Describe anomaly detectors for a metric and namespace.
+    /// </summary>
+    /// <param name="metricName">The metric of the anomaly detectors.</param>
+    /// <param name="metricNamespace">The namespace of the metric.</param>
+    /// <returns>The list of detectors.</returns>
+    public async Task<List<AnomalyDetector>> DescribeAnomalyDetectors(string metricName, string metricNamespace)
+    {
+        List<AnomalyDetector> detectors = new List<AnomalyDetector>();
+        var paginatedDescribeAnomalyDetectors = _amazonCloudWatch.Paginators.DescribeAnomalyDetectors(
+            new DescribeAnomalyDetectorsRequest()
+            {
+                MetricName = metricName,
+                Namespace = metricNamespace
+            });
+
+        await foreach (var data in paginatedDescribeAnomalyDetectors.AnomalyDetectors)
+        {
+            detectors.Add(data);
+        }
+
+        return detectors;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.DescribeAnomalyDetectors]
+
+    // snippet-start:[CloudWatch.dotnetv3.DeleteAnomalyDetector]
+    /// <summary>
+    /// Delete a single metric anomaly detector.
+    /// </summary>
+    /// <param name="anomalyDetector">The anomaly detector to delete.</param>
+    /// <returns>True if successful.</returns>
+    public async Task<bool> DeleteAnomalyDetector(SingleMetricAnomalyDetector anomalyDetector)
+    {
+        var deleteAnomalyDetectorResponse = await _amazonCloudWatch.DeleteAnomalyDetectorAsync(
+            new DeleteAnomalyDetectorRequest()
+            {
+                SingleMetricAnomalyDetector = anomalyDetector
+            });
+
+        return deleteAnomalyDetectorResponse.HttpStatusCode == HttpStatusCode.OK;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.DeleteAnomalyDetector]
+
+    // snippet-start:[CloudWatch.dotnetv3.DeleteDashboards]
+    /// <summary>
+    /// Delete a list of CloudWatch dashboards.
+    /// </summary>
+    /// <param name="dashboardNames">List of dashboard names to delete.</param>
+    /// <returns>True if successful.</returns>
+    public async Task<bool> DeleteDashboards(List<string> dashboardNames)
+    {
+        var deleteDashboardsResponse = await _amazonCloudWatch.DeleteDashboardsAsync(
+            new DeleteDashboardsRequest()
+            {
+                DashboardNames = dashboardNames
+            });
+
+        return deleteDashboardsResponse.HttpStatusCode == HttpStatusCode.OK;
+    }
+    // snippet-end:[CloudWatch.dotnetv3.DeleteDashboards]
 }
-// snippet-start:[CloudWatch.dotnetv3.CloudWatchWrapper]
+// snippet-end:[CloudWatch.dotnetv3.CloudWatchWrapper]
