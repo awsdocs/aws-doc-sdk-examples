@@ -1,47 +1,51 @@
 # Example Lambda function using the AWS C++ Lambda runtime
 
 Shows how to build and package an AWS Lambda function using the AWS C++ 
-Lambda runtime. This function can replace the Python lambda function in the 
-[Get started with functions](../get_started_with_functions_scenario.cpp) 
+Lambda runtime. This function can replace the Python Lambda function used in 
+the [Get started with functions](../get_started_with_functions_scenario.cpp) 
 scenario sample code.
 
-## Build and run the Docker container
+## Build and package the Lambda function 
 
 ### Prerequisites
 
-Install [Docker](https://www.docker.com/) on your computer.
+[Docker](https://www.docker.com/) is needed to build and package the Lambda function. The Docker website contains installation instructions. 
 
-### Build the docker image
+### Build and run the docker image
 
-Using a shell application, navigate to the folder containing this README. 
-Then enter the following commands.
+This sample code contains a `DockerFile` which is used to build the Docker image. Using a shell application, navigate to the folder containing this README. 
+Then enter the following command:
 
 ```bashcd 
 docker build . -f Dockerfile -t cpp_lambda_image
 ```
 
-### Run the docker image
+Now run the Docker image as a container using the following command:
 
 ```bash
 docker run -i -t --name cpp_lambda --mount type=bind,source="$(pwd)",target=/cpp_lambda cpp_lambda_image bash
 ```
 
 Your command line should now be running from within the Docker container. 
-The preceding run command will have bound the directory containing this 
+The preceding run command should have bound the directory containing this 
 README to the Docker container.
 
-Entering the following command:
+Test whether the host directory is correctly bound by entering the following 
+command:
 
 ```bash
 ls /cpp_lambda
 ```
 
-should give a result like this:
+You should see the contents of this README's directory.
+
 ```bash
 Dockerfile         README.md          calculator         increment   
 ```
 
-## Build the Runtime inside the Docker container
+### Build and package the Lambda function
+
+Build and install the [AWS Lambda C++ Runtime](https://github.com/awslabs/aws-lambda-cpp) from within the Docker container,.
 
 ```bash
 git clone https://github.com/awslabs/aws-lambda-cpp-runtime.git
@@ -55,9 +59,9 @@ make
 make install
 ```
 
-## Build the application
 
-The next step is to build the two Lambda functions used by the sample code:
+Now build the two Lambda functions used by the sample code. Because the Docker container is bound to the directory containing
+this README, the source code can be accessed within the container at `/cpp_lambda`.
 
 1. Build the "Increment" Lambda function code.
 
@@ -80,7 +84,7 @@ cmake3 .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=~/install
 make
 make aws-lambda-package-cpp_lambda_calculator
 ```
-These build steps have generated two zip files which will be used by sample 
+These build steps have generated two zip files which will be used by the sample 
 code in [Get started with functions](../get_started_with_functions_scenario.cpp).
 
 Copy the file `cpp_lambda/increment/build/cpp_lambda_calculator.zip` to the 

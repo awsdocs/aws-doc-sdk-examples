@@ -48,6 +48,11 @@ sample Hello World-style application.
 
 Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
+This sample code contains a [Lambda C++ runtime implementation](cpp_lambda/) 
+which can be used in the "Get started with functions" scenario instead of the default Python Lambda function.
+
+Instructions for building the Lambda C++ runtime are in this [README](cpp_lambda/README.md)
+
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.
 

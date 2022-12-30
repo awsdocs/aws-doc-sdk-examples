@@ -50,7 +50,7 @@
 #include <aws/core/utils/HashingUtils.h>
 #include <fstream>
 #include "lambda_samples.h"
-#define USE_CPP_LAMBDA_FUNCTION 1
+#define USE_CPP_LAMBDA_FUNCTION 0
 namespace AwsDoc {
     namespace Lambda {
         static Aws::String ROLE_NAME("doc_example_lambda_calculator_cpp_role");
