@@ -23,7 +23,7 @@ Before using the Code Examples, first complete the installation and setup steps 
 Developer Guide.
 
 The Getting Started section covers how to obtain and build the SDK, and how to build your own
-code utilizing the SDK with a sample “Hello World”-style application.  A similar procedure is 
+code utilizing the SDK with a sample "Hello World"-style application.  A similar procedure is
 applicable to utilizing the code examples in this repository.
 
 Building and running the code examples
@@ -31,6 +31,21 @@ Building and running the code examples
  
 Additional information geared specifically to understanding the example applications is at
 `AWS SDK for C++ Code Examples <https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/programming-services.html>`_.
+
+
+Docker image (Beta)
+===================
+
+In the near future, this example code will be available in a container image
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
+with all C++ examples with dependencies pre-resolved, allowing you to explore
+these examples in an isolated environment.
+
+As of January 2023, the [SDK for C++ image](https://gallery.ecr.aws/aws-docs-sdk-examples/cpp) is available on ECR Public but is still
+undergoing active development. Refer to
+[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4133)
+for more information.
+
 
 Additional information
 =============
@@ -46,16 +61,15 @@ Additional information
 - To propose a new code example for the AWS documentation team to consider producing, create a
   new request. The team is looking to produce code examples that cover broader scenarios and use 
   cases, versus simple code snippets that cover only individual API calls. For instructions, see
-  the “Proposing new code examples” section in the 
+  the Proposing new code examples section in the
   `Readme on GitHub <https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/README.rst>`_.
 
 Copyright and License
 =============
 
 All content in this repository, unless otherwise stated, is 
-Copyright © Amazon Web Services, Inc. or its affiliates. All rights reserved.
+Copyright Â© Amazon Web Services, Inc. or its affiliates. All rights reserved.
 
 Except where otherwise noted, all examples in this collection are licensed under the `Apache
 license, version 2.0 <https://www.apache.org/licenses/LICENSE-2.0>`_ (the "License"). The full
 license text is provided in the `LICENSE` file accompanying this repository.
-

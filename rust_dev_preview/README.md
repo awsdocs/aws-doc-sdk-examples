@@ -62,6 +62,17 @@ See the individual readme files in each service directory for information about 
 - [AWS SDK for Rust API Reference](https://docs.rs/releases/search?query=aws-sdk-)
 - [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
+## Docker image (Beta)
+In the near future, this example code will be available in a container image
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
+with all Rust examples with dependencies pre-resolved, allowing you to explore
+these examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for Rust image](https://gallery.ecr.aws/aws-docs-sdk-examples/rust_dev_preview) is available on ECR Public but is still
+undergoing active development. Refer to
+[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4134)
+for more information.
+
 ## Contributing
 
 To propose a new code example to the AWS documentation team,

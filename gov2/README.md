@@ -79,6 +79,17 @@ command prompt by including the `integration` tag.
 go test -tags=integration ./...
 ```
 
+## Docker image (Beta)
+In the near future, this example code will be available in a container image
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
+with all Golang examples with dependencies pre-resolved, allowing you to explore
+these examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for Go v2 image](https://gallery.ecr.aws/aws-docs-sdk-examples/dotnetv3) is available on ECR Public but is still
+undergoing active development. Refer to
+[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4129)
+for more information.
+
 ## Additional resources
 
 * [AWS SDK for Go (v2) Developer Guide](https://aws.github.io/aws-sdk-go-v2/docs/)
