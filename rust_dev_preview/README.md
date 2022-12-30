@@ -64,7 +64,7 @@ See the individual readme files in each service directory for information about 
 
 ## Docker image (Beta)
 In the near future, this example code will be available in a container image
-hosted on Elastic Container Registry (ECR). This image will be pre-loaded
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
 with all Rust examples with dependencies pre-resolved, allowing you to explore
 these examples in an isolated environment.
 

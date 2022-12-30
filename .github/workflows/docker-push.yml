@@ -33,7 +33,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@master # More information on this action can be found below in the 'AWS Credentials' section
         with:
-          role-to-assume: arn:aws:iam::260778392212:role/admin
+          role-to-assume: arn:aws:iam::808326389482:role/automation
           aws-region: us-east-1
 
       - name: Login to Amazon ECR Public
