@@ -23,7 +23,7 @@ Before using the Code Examples, first complete the installation and setup steps 
 Developer Guide.
 
 The Getting Started section covers how to obtain and build the SDK, and how to build your own
-code utilizing the SDK with a sample �Hello World�-style application.  A similar procedure is 
+code utilizing the SDK with a sample "Hello World"-style application.  A similar procedure is 
 applicable to utilizing the code examples in this repository.
 
 Building and running the code examples
