@@ -27,7 +27,7 @@ export class ContainerImage extends Stack {
     new ecr.CfnPublicRepository(this, "gov2", {
       repositoryName: "gov2",
       repositoryCatalogData: {
-        UsageText:  "This image provides a pre-built for SDK for Go environment and is recommended for local testing of SDK for Go example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/go/README.md#docker-image-beta.",
+        UsageText:  "This image provides a pre-built for SDK for Go environment and is recommended for local testing of SDK for Go example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/gov2/README.md#docker-image-beta.",
         OperatingSystems: ["Linux"],
         Architectures: ["x86", "ARM"],
         RepositoryDescription: "This image provides a pre-built for SDK for Go environment and is recommended for local testing of SDK for Go example code."
@@ -36,7 +36,7 @@ export class ContainerImage extends Stack {
     new ecr.CfnPublicRepository(this, "javav2", {
       repositoryName: "javav2",
       repositoryCatalogData: {
-        UsageText:  "This image provides a pre-built for SDK for Java environment and is recommended for local testing of SDK for Java example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/java/README.md#docker-image-beta.",
+        UsageText:  "This image provides a pre-built for SDK for Java environment and is recommended for local testing of SDK for Java example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/README.md#docker-image-beta.",
         OperatingSystems: ["Linux"],
         Architectures: ["x86", "ARM"],
         RepositoryDescription: "This image provides a pre-built for SDK for Java environment and is recommended for local testing of SDK for Java example code."
@@ -45,7 +45,7 @@ export class ContainerImage extends Stack {
     new ecr.CfnPublicRepository(this, "javascriptv3", {
       repositoryName: "javascriptv3",
       repositoryCatalogData: {
-        UsageText:  "This image provides a pre-built for SDK for JavaScript environment and is recommended for local testing of SDK for JavaScript example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascript/README.md#docker-image-beta.",
+        UsageText:  "This image provides a pre-built for SDK for JavaScript environment and is recommended for local testing of SDK for JavaScript example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/README.md#docker-image-beta.",
         OperatingSystems: ["Linux"],
         Architectures: ["x86", "ARM"],
         RepositoryDescription: "This image provides a pre-built for SDK for JavaScript environment and is recommended for local testing of SDK for JavaScript example code."
@@ -63,7 +63,7 @@ export class ContainerImage extends Stack {
     new ecr.CfnPublicRepository(this, "dotnetv3", {
       repositoryName: "dotnetv3",
       repositoryCatalogData: {
-        UsageText:  "This image provides a pre-built for SDK for .NET environment and is recommended for local testing of SDK for .NET example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/csharp/README.md#docker-image-beta.",
+        UsageText:  "This image provides a pre-built for SDK for .NET environment and is recommended for local testing of SDK for .NET example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/dotnetv3/README.md#docker-image-beta.",
         OperatingSystems: ["Linux"],
         Architectures: ["x86", "ARM"],
         RepositoryDescription: "This image provides a pre-built for SDK for .NET environment and is recommended for local testing of SDK for .NET example code."
@@ -99,7 +99,7 @@ export class ContainerImage extends Stack {
     new ecr.CfnPublicRepository(this, "rust_dev_preview", {
       repositoryName: "rust_dev_preview",
       repositoryCatalogData: {
-        UsageText:  "This image provides a pre-built for SDK for Rust environment and is recommended for local testing of SDK for Rust example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/rust/README.md#docker-image-beta.",
+        UsageText:  "This image provides a pre-built for SDK for Rust environment and is recommended for local testing of SDK for Rust example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/rust_dev_preview/README.md#docker-image-beta.",
         OperatingSystems: ["Linux"],
         Architectures: ["x86", "ARM"],
         RepositoryDescription: "This image provides a pre-built for SDK for Rust environment and is recommended for local testing of SDK for Rust example code."
