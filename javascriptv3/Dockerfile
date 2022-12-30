@@ -1,11 +1,9 @@
 # syntax=docker/dockerfile:1
+# Status: Beta
+# GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4127
 FROM node:18
-# copy in files
 RUN mkdir /src
 COPY . /src/
-
-# resolve dependencies
 WORKDIR /src/javascriptv3
 RUN npm install
-
 CMD ["bash"]

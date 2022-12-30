@@ -1,11 +1,9 @@
 # syntax=docker/dockerfile:1
+# Status: Beta
+# GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4126
 FROM mcr.microsoft.com/dotnet/sdk:6.0
-# copy in files
 RUN mkdir /src
 COPY . /src/
-
-# TODO: update fork & resolve dependencies from /cross-service/AuroraItemTracker
 WORKDIR /src/dotnetv3/SES
 RUN dotnet build
-
 CMD ["bash"]
