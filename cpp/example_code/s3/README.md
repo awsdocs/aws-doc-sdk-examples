@@ -38,7 +38,7 @@ Code excerpts that show you how to call individual service functions.
 - [Get the access control list (ACL) for an S3 bucket](./get_bucket_acl.cpp) (GetBucketAcl)
 - [Get a bucket policy (permission to access resources) for an S3 bucket](./get_bucket_policy.cpp) (GetBucketPolicy)
 - [Get an object out of an S3 bucket](./get_object.cpp) (GetObject)
-- [Get the access control list (ACL) for an object in an S3 bucket](./get_object_acl.cpp) (GetObjectAcl)
+- [Get the access control list (ACL) for an object in an S3 bucket](./get_put_object_acl.cpp) (GetObjectAcl)
 - [Get and set the access control list (ACL) for an S3 bucket](./get_put_bucket_acl.cpp) (GetBucketAcl, PutBucketAcl)
 - [Get the configuration of an S3 bucket configured for static website hosting](./get_website_config.cpp) (
   GetBucketWebsite)
@@ -49,7 +49,7 @@ Code excerpts that show you how to call individual service functions.
 - [Set the access control list (ACL) for an S3 bucket](./put_bucket_acl.cpp) (PutBucketAcl)
 - [Add a bucket policy (permission to access resources) to an S3 bucket](./put_bucket_policy.cpp) (PutBucketPolicy)
 - [Upload an object to an S3 bucket](./put_object.cpp) (PutObject)
-- [Set the access control list (ACL) for an object in an S3 bucket](./put_object_acl.cpp) (PutObjectAcl)
+- [Set the access control list (ACL) for an object in an S3 bucket](./get_put_object_acl.cpp) (PutObjectAcl)
 - [Upload an object to an S3 bucket (asynchronously)](./put_object_async.cpp) (PutObjectAsync)
 - [Upload an object to an S3 bucket (using a memory buffer instead of local disk copy)](./put_object_buffer.cpp) (
   PutObject)
@@ -79,7 +79,7 @@ Next, for information on code example structures and how to build and run the ex
    cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
    make
    ctest 
-   ./gtests/s3_gtest 
+   ./tests/s3_gtest 
 ```   
 
 ## Additional resources
