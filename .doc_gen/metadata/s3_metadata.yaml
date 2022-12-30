@@ -1620,7 +1620,7 @@ s3_GetBucketAcl:
             - description:
               snippet_tags:
                 - s3.cpp.get_acl_bucket.code
-   services:
+  services:
     s3: {GetBucketAcl}
 s3_PutBucketAcl:
   title: Set a new ACL for an &S3; bucket using an &AWS; SDK
