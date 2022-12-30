@@ -13,33 +13,44 @@ static const int BUCKETS_NEEDED = 1;
 namespace AwsDocTest {
 // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(S3_GTests, get_object_acl) {
-    std::vector<Aws::String> bucketNames = GetCachedS3Buckets(BUCKETS_NEEDED);
-    ASSERT_GE(bucketNames.size(), BUCKETS_NEEDED) << "Failed to meet precondition" << std::endl;
+        std::vector<Aws::String> bucketNames = GetCachedS3Buckets(BUCKETS_NEEDED);
+        ASSERT_GE(bucketNames.size(), BUCKETS_NEEDED)
+                                    << "Failed to meet precondition" << std::endl;
 
-    Aws::String testFile = PutTestFileInBucket(bucketNames[0]);
-    ASSERT_TRUE(!testFile.empty()) << "Failed to meet precondition" << std::endl;
+        Aws::String testFile = PutTestFileInBucket(bucketNames[0]);
+        ASSERT_TRUE(!testFile.empty()) << "Failed to meet precondition" << std::endl;
 
-    bool result = AwsDoc::S3::GetBucketAcl(bucketNames[0], *s_clientConfig);
+        bool result = AwsDoc::S3::GetObjectAcl(bucketNames[0], testFile,
+                                               *s_clientConfig);
 
-    EXPECT_TRUE(result);
+        EXPECT_TRUE(result);
 
-    DeleteObjectInBucket(bucketNames[0], testFile);
-}
+        DeleteObjectInBucket(bucketNames[0], testFile);
+    }
 
 
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(S3_GTests, put_object_acl) {
-    std::vector<Aws::String> bucketNames = GetCachedS3Buckets(BUCKETS_NEEDED);
-    ASSERT_GE(bucketNames.size(), BUCKETS_NEEDED) << "Failed to meet precondition" << std::endl;
+        std::vector<Aws::String> bucketNames = GetCachedS3Buckets(BUCKETS_NEEDED);
+        ASSERT_GE(bucketNames.size(), BUCKETS_NEEDED)
+                                    << "Failed to meet precondition" << std::endl;
 
-    Aws::String testFile = PutTestFileInBucket(bucketNames[0]);
-    ASSERT_TRUE(!testFile.empty()) << "Failed to meet precondition" << std::endl;
+        Aws::String testFile = PutTestFileInBucket(bucketNames[0]);
+        ASSERT_TRUE(!testFile.empty()) << "Failed to meet precondition" << std::endl;
 
-    bool result = AwsDoc::S3::GetObjectAcl(bucketNames[0], testFile, *s_clientConfig);
+        Aws::String canonicalUserID = GetCanonicalUserID();
+        ASSERT_TRUE(!canonicalUserID.empty())
+                                    << "Failed to meet precondition" << std::endl;
 
-    EXPECT_TRUE(result);
+        bool result = AwsDoc::S3::PutObjectAcl(bucketNames[0], testFile,
+                                               canonicalUserID, "READ",
+                                               "Canonical user",
+                                               canonicalUserID,
+                                               *s_clientConfig);
 
-    DeleteObjectInBucket(bucketNames[0], testFile);
-} // namespace AwsDocTest
+        EXPECT_TRUE(result);
+
+        DeleteObjectInBucket(bucketNames[0], testFile);
+    } // namespace AwsDocTest
 
 } // namespace AwsDocTest
