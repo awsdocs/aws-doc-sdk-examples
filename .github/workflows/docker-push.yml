@@ -17,7 +17,7 @@ jobs:
     if: github.event.pull_request.merged == true
     env:
       REGISTRY: public.ecr.aws
-      REGISTRY_ALIAS: b4v4v1s0
+      REGISTRY_ALIAS: aws-docs-sdk-examples
       IMAGE_TAG: latest
       REGION: us-east-1
     name: Push Docker image to Docker Hub
