@@ -4,6 +4,6 @@
 FROM python:3
 RUN mkdir /src
 COPY . /src/
-WORKDIR /src/python/
+WORKDIR /src/python/example_code/dynamodb
 RUN pip install -r requirements.txt
 CMD ["bash"]
