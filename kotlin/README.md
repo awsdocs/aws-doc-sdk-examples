@@ -1,4 +1,4 @@
-# AWS SDK for Kotlin code examples 
+# AWS SDK for Kotlin code examples!
 
 ## Purpose
 

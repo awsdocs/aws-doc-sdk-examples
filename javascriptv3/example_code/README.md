@@ -1,4 +1,4 @@
-# AWS SDK for JavaScript (v3) code examples
+# AWS SDK for JavaScript (v3) code examples!
 
 ## Overview
 

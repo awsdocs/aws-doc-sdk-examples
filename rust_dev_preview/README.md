@@ -1,4 +1,4 @@
-# AWS SDK for Rust code examples
+# AWS SDK for Rust code examples!
 
 ## Purpose
 
