@@ -44,7 +44,7 @@ Cross-service examples are located in the [_cross-services folder_](./cross-serv
 2. Follow the instructions in the service's README to install the dependencies and run the tests.
 
 ## Docker image (Beta)
-In the near future, this example code will be available in a container image
+This example code will soon be available in a container image
 hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
 with all JavaScript v3 examples with dependencies pre-resolved, allowing you to explore
 these examples in an isolated environment.
