@@ -4,6 +4,6 @@
 FROM node:18
 RUN mkdir /src
 COPY . /src/
-WORKDIR /src/javascriptv3
+WORKDIR /src/javascriptv3/example_code
 RUN npm install
 CMD ["bash"]
