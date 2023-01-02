@@ -9,7 +9,7 @@
    limitations under the License.
 
 ###########################################
-AWS SDK for Java 2.0 documentation examples!
+AWS SDK for Java 2.0 documentation examples
 ###########################################
 
 These are examples for the `AWS SDK for Java public documentation <javasdk-docs_>`_.

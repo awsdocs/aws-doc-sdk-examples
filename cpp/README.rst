@@ -9,7 +9,7 @@
    limitations under the License.
 
 #############################
-AWS SDK for C++ Code Examples!
+AWS SDK for C++ Code Examples
 #############################
 
 A collection of code examples for the AWS SDK for C++. The examples are grouped

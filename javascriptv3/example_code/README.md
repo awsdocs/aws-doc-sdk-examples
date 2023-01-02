@@ -1,4 +1,4 @@
-# AWS SDK for JavaScript (v3) code examples!
+# AWS SDK for JavaScript (v3) code examples
 
 ## Overview
 
@@ -19,7 +19,7 @@ The AWS SDK for JavaScript (v3) provides a JavaScript API for AWS infrastructure
 Single-service actions and scenarios are organized by AWS service in this folder. A README in each folder lists and describes how to run the examples.
 
 Cross-service examples are located in the [_cross-services folder_](./cross-services). A README in each folder describes how to run the example.
-
+g
 ## ⚠️ Important
 
 - Running this code might result in charges to your AWS account.

@@ -1,4 +1,4 @@
-# AWS SDK for Ruby Version 3 code examples!
+# AWS SDK for Ruby Version 3 code examples
 ## Overview
 The code examples in this topic show you how to use the AWS SDK for Ruby Version 3 with AWS. 
 

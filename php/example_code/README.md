@@ -1,4 +1,4 @@
-# AWS SDK for PHP examples!
+# AWS SDK for PHP examples
 
 ## Purpose
 

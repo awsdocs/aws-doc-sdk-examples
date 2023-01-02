@@ -1,4 +1,4 @@
-# AWS SDK for Go (v2) code examples!
+# AWS SDK for Go (v2) code examples
 
 ## Overview
 
