@@ -5,7 +5,7 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_apigatewaymanagement::types::Blob;
-use aws_sdk_apigatewaymanagement::{config, Client, Endpoint, Error, Region, PKG_VERSION};
+use aws_sdk_apigatewaymanagement::{config, Client, Error, Region, PKG_VERSION};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -102,17 +102,16 @@ async fn main() -> Result<(), Error> {
     }
 
     // snippet-start:[apigatewaymanagement.rust.post_to_connection_client]
-    let endpoint = Endpoint::immutable(format!(
+    let endpoint_url = format!(
         "https://{api_id}.execute-api.{region}.amazonaws.com/{stage}",
         api_id = api_id,
         region = region,
         stage = stage
-    ))
-    .expect("valid endpoint");
+    );
 
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let api_management_config = config::Builder::from(&shared_config)
-        .endpoint_resolver(endpoint)
+        .endpoint_url(endpoint_url)
         .build();
     let client = Client::from_conf(api_management_config);
     // snippet-end:[apigatewaymanagement.rust.post_to_connection_client]

@@ -33,6 +33,17 @@ There are currently no cross-service examples for the AWS SDK for Swift. To requ
 
 To run the tests for an example, use the command `swift test` in the example's directory.
 
+## Docker image (Beta)
+This example code will soon be available in a container image
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
+with all Swift examples with dependencies pre-resolved, allowing you to explore
+these examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for Swift image](https://gallery.ecr.aws/aws-docs-sdk-examples/swift) is available on ECR Public but is still
+undergoing active development. Refer to
+[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4132)
+for more information.
+
 ## Additional resources
 * [AWS SDK for Swift Developer Guide](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide) - Documentation for the AWS SDK for Swift
 * [AWS SDK for Swift](https://github.com/awslabs/aws-sdk-swift) on GitHub - Contribute to the AWS SDK for Swift
