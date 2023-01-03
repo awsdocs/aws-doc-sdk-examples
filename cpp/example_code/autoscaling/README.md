@@ -1,13 +1,12 @@
 #  Amazon EC2 Auto Scaling code examples for the SDK for C++
 
 ## Overview
-Shows how to use the AWS SDK for C++ to create and manage Amazon EC2
-Auto Scaling groups and instances.
+Shows how to use the AWS SDK for C++ to create and manage Amazon EC2 Auto Scaling groups and instances.
 
 *Amazon EC2 Auto Scaling helps you maintain application availability and lets you automatically add or remove EC2 instances using scaling policies that you define.*
 
 ## ⚠️ Important
-* 
+
 * Running this code might result in charges to your AWS account. 
 * Running the tests might result in charges to your AWS account.
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
@@ -47,8 +46,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 Before using the code examples, first complete the installation and setup steps
 for [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
 C++ Developer Guide.
-This section covers how to get and build the SDK, and how to build your own code by using the SDK with a
-sample Hello World-style application.
+This section covers how to get and build the SDK, and how to build your own code by using the SDK with a sample Hello World-style application.
 
 Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 

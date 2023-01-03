@@ -31,7 +31,7 @@ void AwsDocTest::AutoScaling_GTests::SetUp() {
     std::cin.rdbuf(&m_cinBuffer);
 
     // The following code is needed for the AwsDocTest::MyStringBuffer::underflow exception.
-    // Otherwise, we get an infinite loop when the buffer is empty.
+    // Otherwise, an infinite loop occurs when looping for a result on an empty buffer.
     std::cin.exceptions(std::ios_base::badbit);
 }
 

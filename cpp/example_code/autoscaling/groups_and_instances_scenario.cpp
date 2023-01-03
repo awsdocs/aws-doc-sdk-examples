@@ -64,7 +64,7 @@ namespace AwsDoc {
         static const Aws::String EC2_LAUNCH_TEMPLATE_IMAGE_ID("ami-0b0dcb5067f052a63");
         Aws::EC2::Model::InstanceType EC2_LAUNCH_TEMPLATE_INSTANCE_TYPE = Aws::EC2::Model::InstanceType::t1_micro;
         static const int ASTERISK_FILL_WIDTH = 88;
-        static const int WAIT_FOR_INSTANCES_TIMEOUT = 300; // seconds
+        static const int WAIT_FOR_INSTANCES_TIMEOUT = 300; // Time in seconds.
 
         //! Routine which waits for EC2 instances in an EC2 Auto Scaling to
         //! complete startup or shutdown.
@@ -86,7 +86,7 @@ namespace AwsDoc {
          \param templateName: Optional EC2 launch template name.
          \param autoScalingClient: 'AutoScalingClient' instance.
          \param ec2Client: 'EC2Client' instance.
-        \return bool: Successful completion.
+         \return bool: Successful completion.
          */
         bool
         cleanupResources(const Aws::String &groupName,
@@ -94,7 +94,7 @@ namespace AwsDoc {
                          const Aws::AutoScaling::AutoScalingClient &autoScalingClient,
                          const Aws::EC2::EC2Client &ec2Client);
 
-        //! Routine which calls DescribeAutoScalingGroup.
+        //! Routine which retrieves Auto Scaling group descriptions.
         /*!
          \sa describeGroup()
          \param groupName: An EC2 Auto Scaling group name.
@@ -164,10 +164,10 @@ namespace AwsDoc {
 
         //! Test routine passed as argument to askQuestion routine.
         /*!
-         \sa trueTest()
+         \sa alwaysTrueTest()
          \return bool: Always true.
          */
-        bool trueTest(const Aws::String &) { return true; }
+        bool alwaysTrueTest(const Aws::String &) { return true; }
 
         //! Command line prompt/response utility function.
         /*!
@@ -207,7 +207,7 @@ namespace AwsDoc {
 //! to manage Amazon EC2 instances.
 /*!
   \sa groupsAndInstancesScenario()
-  \param clientConfig AWS client configuration.
+  \param clientConfig: AWS client configuration.
   \return bool: Successful completion.
  */
 bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
@@ -410,7 +410,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
 
     std::cout << "Let's update the maximum number of EC2 instances in '" << groupName <<
               "' from 1 to 3." << std::endl;
-    askQuestion("Press enter to continue:  ", trueTest);
+    askQuestion("Press enter to continue:  ", alwaysTrueTest);
     // 8. Update the EC2 Auto Scaling group setting a new maximum size.
     {
         // snippet-start:[cpp.example_code.autoscaling.update_autoscaling_group1]
@@ -455,7 +455,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
               << std::endl;
     std::cout << "Let's update the desired capacity in '" << groupName <<
               "' from 1 to 2." << std::endl;
-    askQuestion("Press enter to continue:  ", trueTest);
+    askQuestion("Press enter to continue:  ", alwaysTrueTest);
     //  9. Update the EC2 Auto Scaling group setting a new desired capacity.
     {
         // snippet-start:[cpp.example_code.autoscaling.set_desired_capacity1]
@@ -559,7 +559,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
     std::cout << "Let's get a report of scaling activities for EC2 launch group '"
               << groupName << "'."
               << std::endl;
-    askQuestion("Press enter to continue:  ", trueTest);
+    askQuestion("Press enter to continue:  ", alwaysTrueTest);
     // 11. Get a description of activities for the EC2 Auto Scaling group.
     {
         // snippet-start:[cpp.example_code.autoscaling.describe_scaling_activities1]
@@ -600,7 +600,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
     }
 
     std::cout << "Let's  clean up." << std::endl;
-    askQuestion("Press enter to continue:  ", trueTest);
+    askQuestion("Press enter to continue:  ", alwaysTrueTest);
 
     // 13. Disable metrics collection if enabled.
     if (enableMetrics) {
@@ -838,7 +838,7 @@ bool AwsDoc::AutoScaling::cleanupResources(const Aws::String &groupName,
     return result;
 }
 
-//! Routine which calls DescribeAutoScalingGroup.
+//! Routine which retrieves Auto Scaling group descriptions.
 /*!
  \sa describeGroup()
  \param groupName: An EC2 Auto Scaling group name.
