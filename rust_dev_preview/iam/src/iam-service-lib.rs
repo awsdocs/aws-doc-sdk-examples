@@ -42,7 +42,7 @@ pub async fn create_policy(
 #[cfg(test)]
 mod test_create_policy {
     use crate::create_policy;
-    use testing_examples::single_shot_client;
+    use sdk_examples_test_utils::single_shot_client;
 
     #[tokio::test]
     async fn test_create_policy_success() {

@@ -62,6 +62,35 @@ impl RdsClient {
     }
 }
 
+#[cfg(test)]
+mod rds_client_for_test {
+    use aws_smithy_http::body::SdkBody;
+    use secrecy::Secret;
+
+    use super::RdsClient;
+    impl RdsClient {
+        pub fn for_test(
+            pairs: Vec<(
+                http::request::Request<SdkBody>,
+                http::response::Response<SdkBody>,
+            )>,
+        ) -> Self {
+            RdsClient {
+                client: aws_sdk_rdsdata::Client::from_conf(
+                    aws_sdk_rdsdata::Config::builder()
+                        .http_connector(aws_smithy_client::test_connection::TestConnection::new(
+                            pairs,
+                        ))
+                        .build(),
+                ),
+                secret_arn: Secret::from("secret".to_string()),
+                cluster_arn: "cluster".into(),
+                db_instance: "db".into(),
+            }
+        }
+    }
+}
+
 /// A newtype wrapper for Email addresses.
 #[derive(Debug, Clone, Deserialize)]
 pub struct Email(String);

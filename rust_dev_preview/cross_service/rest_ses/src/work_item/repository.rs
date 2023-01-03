@@ -204,3 +204,24 @@ fn parse_rds_output(
         ))),
     }
 }
+
+#[cfg(test)]
+mod test {
+    use crate::{
+        client::RdsClient,
+        work_item::{WorkItem, WorkItemError},
+    };
+
+    use super::create;
+    use sdk_examples_test_utils::test_event;
+
+    #[tokio::test]
+    async fn test_create_failed() {
+        let item: WorkItem = Default::default();
+        let client = RdsClient::for_test(vec![test_event!("", (400, ""))]);
+
+        let result = create(item, &client).await;
+
+        assert!(result.is_err());
+    }
+}
