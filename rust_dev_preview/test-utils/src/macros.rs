@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-//! Macros that simplify making AWS SDK clients with a mocked request/response pair.
+//! Macros and functions that simplify making AWS SDK clients with a mocked request/response pair.
 
 /// Generate a single http::{Request, Response} pair. The first argument
 /// is the expression to use as the value for SdkBody::from. The second
@@ -32,45 +32,29 @@ macro_rules! test_event {
     }};
 }
 
-/// Create a single-shot test connection. The arguments are the same as test_event,
-/// but the expanded macro creates a TestConnection. The `TestConnection` can be
-/// provided directly to a `Client::from_conf_conn`.
-#[macro_export]
-macro_rules! single_shot {
-    (
-            $req:expr,
-            (
-                $status:expr,
-                $res:expr
-            )
-        ) => {{
-        (aws_smithy_client::test_connection::TestConnection::new(vec![
-            sdk_examples_test_utils::test_event!($req, ($status, $res)),
-        ]))
-    }};
-}
-
 /// Create a single-shot Client for `sdk_crate`. The `req` and `res` will be the
 /// body of the request and the response, respectiecly. The `status` is the HTTP
 /// status code for the response. The credentials are hardcoded test values.
 #[macro_export]
 macro_rules! single_shot_client {
-    (
-            $sdk_crate:ident,
-            $req:expr,
-            $status:expr,
-            $res:expr
-        ) => {{
+    ( sdk: $sdk_crate:ident, status: $status:expr, response: $res:expr) => {{
         ($sdk_crate::Client::from_conf_conn(
-            sdk_examples_test_utils::sdk_config!($sdk_crate),
-            sdk_examples_test_utils::single_shot!($req, ($status, $res)),
+            sdk_examples_test_utils::client_config!($sdk_crate),
+            sdk_examples_test_utils::single_shot("".into(), ($status.into(), $res.into())),
+        ))
+    }};
+    ( sdk: $sdk_crate:ident, request: $req:expr, status: $status:expr, response: $res:expr) => {{
+        ($sdk_crate::Client::from_conf_conn(
+            sdk_examples_test_utils::client_config!($sdk_crate),
+            sdk_examples_test_utils::single_shot($req.into(), ($status.into(), $res.into())),
         ))
     }};
 }
 
 /// Create a hard-coded testing config for an AWS SDK.
+/// TODO: remove after https://github.com/awslabs/smithy-rs/pull/2145
 #[macro_export]
-macro_rules! sdk_config {
+macro_rules! client_config {
     (
         $sdk_crate:ident
     ) => {

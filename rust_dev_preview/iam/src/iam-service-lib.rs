@@ -42,15 +42,15 @@ pub async fn create_policy(
 #[cfg(test)]
 mod test_create_policy {
     use crate::create_policy;
+    use http::StatusCode;
     use sdk_examples_test_utils::single_shot_client;
 
     #[tokio::test]
     async fn test_create_policy_success() {
         let client = single_shot_client!(
-            aws_sdk_iam,
-            "",
-            200,
-            include_str!("../testing/test_create_policy_response_success.xml")
+            sdk: aws_sdk_iam,
+            status: StatusCode::OK,
+            response: include_str!("../testing/test_create_policy_response_success.xml")
         );
 
         let response = create_policy(&client, "{}".into(), "test_role".into()).await;
@@ -60,10 +60,9 @@ mod test_create_policy {
     #[tokio::test]
     async fn test_create_policy_failed() {
         let client = single_shot_client!(
-            aws_sdk_iam,
-            "",
-            400,
-            include_str!("../testing/test_create_policy_response_malformed.xml")
+            sdk: aws_sdk_iam,
+            status: StatusCode::BAD_REQUEST,
+            response: include_str!("../testing/test_create_policy_response_malformed.xml")
         );
 
         let response = create_policy(&client, "{}".into(), "test_role".into()).await;

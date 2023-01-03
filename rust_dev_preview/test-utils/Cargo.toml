@@ -15,6 +15,7 @@ aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "m
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
   "hardcoded-credentials",
 ] }
+http = "0.2"
 
 [lib]
 path="src/mod.rs"

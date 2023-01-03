@@ -207,10 +207,7 @@ fn parse_rds_output(
 
 #[cfg(test)]
 mod test {
-    use crate::{
-        client::RdsClient,
-        work_item::{WorkItem, WorkItemError},
-    };
+    use crate::{client::RdsClient, work_item::WorkItem};
 
     use super::create;
     use sdk_examples_test_utils::test_event;
