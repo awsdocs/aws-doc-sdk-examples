@@ -27,9 +27,9 @@
 //! Routine which demonstrates deleting multiple objects in an Amazon S3 bucket.
 /*!
   \sa DeleteObjects()
-  \param objectKeys Vector of object keys.
-  \param fromBucket Name of a bucket with an object to delete.
-  \param clientConfig Aws client configuration.
+  \param objectKeys: Vector of object keys.
+  \param fromBucket: Name of a bucket with an object to delete.
+  \param clientConfig: Aws client configuration.
 */
 
 // snippet-start:[cpp.example_code.s3.delete_objects]
@@ -53,11 +53,11 @@ bool AwsDoc::S3::DeleteObjects(const std::vector<Aws::String> &objectKeys,
 
     if (!outcome.IsSuccess()) {
         auto err = outcome.GetError();
-        std::cerr << "Error: DeleteObject: " <<
+        std::cerr << "Error deleting objects. " <<
                   err.GetExceptionName() << ": " << err.GetMessage() << std::endl;
     }
     else {
-        std::cout << "Successfully deleted the objects ";
+        std::cout << "Successfully deleted the objects.";
         for (size_t i = 0; i < objectKeys.size(); ++i)
         {
             std::cout << objectKeys[i];
