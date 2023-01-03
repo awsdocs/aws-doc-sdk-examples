@@ -75,6 +75,17 @@ command prompt by including the `integ` tag.
 rspec --tag integ
 ```
 
+## Docker image (Beta)
+This example code will soon be available in a container image
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
+with all Ruby examples with dependencies pre-resolved, allowing you to explore
+these examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for Ruby image](https://gallery.ecr.aws/aws-docs-sdk-examples/ruby) is available on ECR Public but is still
+undergoing active development. Refer to
+[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4124)
+for more information. 
+
 ## Additional resources
  
 * [AWS SDK for Ruby Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
