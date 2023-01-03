@@ -376,7 +376,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
 
     bool enableMetrics = askYesNoQuestion(
             "Do you want to collect metrics about the Amazon "
-            "EC2 Auto Scaling during this demo (y/n)?  ");
+            "EC2 Auto Scaling group during this demo (y/n)?  ");
     // 7. Optionally enable metrics collection for the EC2 Auto Scaling group.
     if (enableMetrics) {
         // snippet-start:[cpp.example_code.autoscaling.enable_metrics_collection1]
@@ -573,7 +573,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
             const Aws::Vector<Aws::AutoScaling::Model::Activity> &activities =
                     outcome.GetResult().GetActivities();
             std::cout << "Found " << activities.size() << " activities." << std::endl;
-            std::cout << "Activities are order with the most recent first."
+            std::cout << "Activities are ordered with the most recent first."
                       << std::endl;
             for (const Aws::AutoScaling::Model::Activity &activity: activities) {
                 std::cout << activity.GetDescription() << std::endl;
