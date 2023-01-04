@@ -7,15 +7,16 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "install": "yarn --cwd ./scenarios/basic/functions/func-math && yarn --cwd ./scenarios/basic/functions/func-update && yarn --cwd ../iam",
-    "test": "yarn node --experimental-vm-modules $(yarn bin jest)"
+    "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.163.0",
-    "ramda": "^0.28.0"
+    "ramda": "^0.28.0",
+    "libs": "*"
   },
   "devDependencies": {
+    "@aws-sdk/client-iam": "^3.241.0",
     "@types/ramda": "^0.28.15",
-    "jest": "^29.0.3"
+    "vitest": "^0.26.3"
   }
 }
