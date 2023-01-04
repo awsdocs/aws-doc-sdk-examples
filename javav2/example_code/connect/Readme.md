@@ -20,8 +20,16 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 The following examples use the **ConnectClient** object:
 
 - [Create an Amazon Connect instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/CreateInstance.java) (createInstance command)
-
 - [Delete an Amazon Connect instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/DeleteInstance.java) (deleteInstance command)
+- [Describe the specified contact](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/DescribeContact.java) (describeContact command)
+- [Describe the specified instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/DescribeInstance.java) (describeInstance command)
+- [Describe the specified instance attributes](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/DescribeInstanceAttribute.java) (describeInstanceAttribute command)
+- [Describe the specified contact attributes](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/GetContactAttributes.java) (getContactAttributes command)
+- [Get historical metric data from the specified Amazon Connect instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/GetMetricData.java) (getMetricData command)
+- [List Amazon Connect instances](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/ListInstances.java) (listInstances command)
+- [List Amazon Connect instance phone numbers](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/ListPhoneNumbers.java) (listPhoneNumbers command)
+- [List Amazon Connect instance users.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/ListUsers.java) (listUsers command)
+- [Search queues in an Amazon Connect instance..](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/SearchQueues.java) (searchQueues command)
 
 
 ## Running the AWS Glue Java files
