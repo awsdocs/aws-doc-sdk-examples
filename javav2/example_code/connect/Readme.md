@@ -17,7 +17,7 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 ### Single action
 
-The following examples use the **GlueClient** object:
+The following examples use the **ConnectClient** object:
 
 - [Creating an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/CreateCrawler.java) (CreateCrawler command)
 - [Deleting an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/DeleteCrawler.java) (DeleteCrawler command)
@@ -30,10 +30,6 @@ The following examples use the **GlueClient** object:
 - [Getting all AWS Glue workflows](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/ListWorkflows.java) (ListWorkflows command)
 - [Searching AWS Glue tables based on properties](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/SearchTables.java) (SearchTables command)
 - [Starting an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/StartCrawler.java) (StartCrawler command)
-
-### Scenario
-
-- [Performing various AWS Glue operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GlueScenario.java) (Multiple commands)
 
 ## Running the AWS Glue Java files
 
