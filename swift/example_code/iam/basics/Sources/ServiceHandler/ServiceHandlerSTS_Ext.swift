@@ -1,5 +1,5 @@
 /*
-   Extensions to the `ServiceHandlerSTS` class to handle tasks we need
+   Extensions to the `ServiceHandlerSTS` class to handle tasks needed
    for testing that aren't the purpose of this example.
 
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -18,6 +18,7 @@ public extension ServiceHandlerSTS {
     ///
     /// - Parameter key: An `IAMClientTypes.AccessKey` object describing an
     ///   IAM access key.
+    ///
     /// - Returns: The account number that owns the access key, as a `String`.
     func getAccessKeyAccountNumber(key: IAMClientTypes.AccessKey) async throws -> String {
         let input = GetAccessKeyInfoInput(

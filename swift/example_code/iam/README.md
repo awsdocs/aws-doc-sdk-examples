@@ -38,8 +38,8 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 * [IAM Basics](./Basics/Sources/Basics). Demonstrates a common series of
   actions to create a user, create access keys, create roles and policies,
-  assume the role, and use the role's permissions to perform calls to AWS
-  S3 actions. (`Basics`)
+  assume the role, and use the role's permissions to perform calls to Amazon
+  Simple Storage Service (S3) actions. (`Basics`)
 
 <!-- ### Cross-service examples
 Sample applications that work across multiple AWS services.

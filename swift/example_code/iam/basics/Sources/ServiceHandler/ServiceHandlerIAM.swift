@@ -1,6 +1,6 @@
 /*
-   A class containing functions that interact with the AWS Identity and Access
-   Management (IAM) service.
+   A class containing functions that interact with AWS Identity and Access
+   Management (IAM).
 
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -19,7 +19,7 @@ public class ServiceHandlerIAM {
     /// IAM always uses the global value for the Region.
     let region = "AWS_GLOBAL"
 
-    /// The `IAMClient` used to interact with AWS IAM.
+    /// The `IAMClient` used to interact with IAM.
     var iamClient: IAMClient
 
     /// Initialize the IAM client, optionally with credentials.
@@ -40,7 +40,7 @@ public class ServiceHandlerIAM {
             } else {
                 // Use the given access key ID, secret access key, and session token
                 // to generate a static credentials provider suitable for use when
-                // initializing an AWS IAM client.
+                // initializing an IAM client.
 
                 guard   let keyId = accessKeyId,
                         let secretKey = secretAccessKey else {
@@ -54,8 +54,9 @@ public class ServiceHandlerIAM {
                     )
                 )
 
-                // Create an AWS IAM configuration specifying the credentials
-                // provider. Then create a new `IAMClient` using those permissions.
+                // Create an IAM configuration specifying the credentials
+                // provider. Then create a new `IAMClient` using those
+                // permissions.
 
                 let iamConfig = try IAMClient.IAMClientConfiguration(
                     credentialsProvider: credentialsProvider,
@@ -81,9 +82,9 @@ public class ServiceHandlerIAM {
     public func setCredentials(accessKeyId: String, secretAccessKey: String,
                 sessionToken: String? = nil) async throws {
         do {
-            // Use the given access key ID, secret access key, and session token
-            // to generate a static credentials provider suitable for use when
-            // initializing an AWS IAM client.
+            // Use the given access key ID, secret access key, and session
+            // token to generate a static credentials provider suitable for
+            // use when initializing an IAM client.
 
             let credentialsProvider = try AWSCredentialsProvider.fromStatic(
                 AWSCredentialsProviderStaticConfig(
@@ -118,7 +119,7 @@ public class ServiceHandlerIAM {
     }
     // snippet-end:[iam.swift.basics.iam.resetcredentials]
 
-    /// Create a new AWS IAM user.
+    /// Create a new IAM user.
     ///
     /// - Parameters:
     ///   - name: The user's name.
@@ -142,7 +143,7 @@ public class ServiceHandlerIAM {
     }
     // snippet-end:[iam.swift.basics.iam.createuser]
 
-    /// Create a new AWS IAM role.
+    /// Create a new IAM role.
     ///
     /// - Parameters:
     ///     - name: The name of the new IAM role.
@@ -286,7 +287,7 @@ public class ServiceHandlerIAM {
     /// Detach a policy from a role.
     /// 
     /// - Parameters:
-    ///   - policy: The polidy to be detached from the role.
+    ///   - policy: The policy to be detached from the role.
     ///   - role: The role from which to detach a policy.
     // snippet-start:[iam.swift.basics.iam.detachrolepolicy]
     public func detachRolePolicy(policy: IAMClientTypes.Policy, role: IAMClientTypes.Role) async throws {
@@ -341,7 +342,7 @@ public class ServiceHandlerIAM {
     /// Delete an access key.
     /// - Parameters:
     ///   - user: The user to delete, as an `IAMClientTypes.User` object.
-    ///           If not specified or `nil`, IAM assumes the username from the
+    ///           If not specified or `nil`, IAM assumes the user name from the
     ///           access key signing the request.
     ///   - key: An `IAMClientTypes.AccessKey` object representing the key to
     ///          delete.
@@ -384,7 +385,7 @@ public class ServiceHandlerIAM {
     }
     // snippet-end:[iam.swift.basics.iam.deleterole]
 
-    /// Get information about the specified user
+    /// Get information about the specified user.
     ///
     /// - Parameter name: A `String` giving the name of the user to get. If
     ///   this parameter is `nil`, the default user's information is returned.

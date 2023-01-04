@@ -1,6 +1,6 @@
 /*
-   A class containing functions that interact with the AWS Secure Token
-   Service (STS).
+   A class containing functions that interact with the AWS Security Token
+   Service (AWS STS).
 
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -16,22 +16,22 @@ import AWSClientRuntime
 import SwiftUtilities
 // snippet-end:[iam.swift.basics.sts.imports]
 
-/// A class providing functions for interacting with the AWS Secure Token
-/// Service (STS).
+/// A class providing functions for interacting with the AWS Security Token
+/// Service (AWS STS).
 public class ServiceHandlerSTS {
-    /// The AWS Region to use for STS operations.
+    /// The AWS Region to use for AWS STS operations.
     let region: String
 
     /// The STSClient used to interact with AWS STS.
     var stsClient: STSClient
 
-    /// Initialize the STS client, optionally with credentials.
+    /// Initialize the AWS STS client, optionally with credentials.
     ///
     /// - Parameters:
     ///   - region: A string specifying the AWS Region in which to perform
-    ///     STS operations. If not specified, us-east-2 is used.
+    ///     AWS STS operations. If not specified, us-east-2 is used.
     ///   - accessKeyId: An optional string giving the access key ID to
-    ///     use for STS operations.
+    ///     use for AWS STS operations.
     ///   - secretAccessKey: The secret access key string, if credentials are
     ///     to be used.
     ///   - sessionToken: The optional session token string part of the
@@ -80,7 +80,7 @@ public class ServiceHandlerSTS {
     }
     // snippet-end:[iam.swift.basics.sts.init]
 
-    /// Set the credentials to use when making STS calls. This is done by
+    /// Set the credentials to use when making AWS STS calls. This is done by
     /// replacing the internal `STSClient` with a new one that uses the
     /// credentials.
     ///
@@ -94,7 +94,7 @@ public class ServiceHandlerSTS {
         do {
             // Use the given access key ID, secret access key, and session token
             // to generate a static credentials provider suitable for use when
-            // initializing an AWS S3 client.
+            // initializing an AWS STS client.
 
             let credentialsProvider = try AWSCredentialsProvider.fromStatic(
                 AWSCredentialsProviderStaticConfig(
@@ -104,7 +104,7 @@ public class ServiceHandlerSTS {
                 )
             )
 
-            // Create a new STS client with the specified access credentials.
+            // Create a new AWS STS client with the specified access credentials.
 
             let stsConfig = try STSClient.STSClientConfiguration(
                 credentialsProvider: credentialsProvider,
@@ -118,8 +118,8 @@ public class ServiceHandlerSTS {
     // snippet-end:[iam.swift.basics.sts.setcredentials]
 
     /// Switch to using the default credentials for future AWS STS calls by
-    /// replacing the internal STS client with one created without a given set
-    /// of credentials.
+    /// replacing the internal AWS STS client with one created without a given
+    /// set of credentials.
     // snippet-start:[iam.swift.basics.sts.resetcredentials]
     public func resetCredentials() async throws {
         do {

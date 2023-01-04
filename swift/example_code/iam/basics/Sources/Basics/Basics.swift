@@ -1,5 +1,5 @@
 //
-// Swift Example: Basics
+// Swift example: Basics
 //
 // An example demonstrating the use of multiple AWS Identity and Access
 // Management (IAM) functions to:
@@ -7,18 +7,17 @@
 // 1. Create a user with no permissions.
 // 2. Create access keys for the new user.
 // 3. Create an S3Client with the new user's access keys and try to list its
-//    buckets. This should fail since the user has no permission to do so.
+//    buckets. This should fail because the user has no permission to do so.
 // 4. Create a managed policy allowing users to assume roles and list buckets.
 // 5. Create a role with an inline policy allowing users to assume the role,
 //    then attach the managed policy to the new role.
 // 6. Create a user policy allowing the user to change roles.
 // 7. Assume the role so the user has its permissions, then try listing
 //    buckets again. This time, it will succeed.
-// 8. Delete everything we created above to leave things as they were when we
-//    started.
+// 8. Delete the resources created by this example.
 //
-// The example shows how IAM and the AWS Security Token Service work together
-// to authorize use of AWS services.
+// The example shows how IAM and the AWS Security Token Service (AWS STS) work
+// together to authorize use of AWS services.
 //
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
@@ -60,10 +59,9 @@ struct ExampleCommand: ParsableCommand {
         commandName: "basics",
         abstract: "Demonstrates a series of IAM actions using the AWS SDK for Swift.",
         discussion: """
-        This example uses a variety of AWS Identity and Access Management (IAM)
-        and ATS Security Token Service functions to demonstrate how to create a
-        user and set up a permission profile using policies and a role, then uses
-        that role to access another service.
+        This example IAM and AWS STS functions to demonstrate how to create a
+        user and set up a permission profile using policies and a role. Then,
+        the role is used to access another service.
         """
     )
 
@@ -73,21 +71,21 @@ struct ExampleCommand: ParsableCommand {
     func runAsync() async throws {
         SDKLoggingSystem.initialize(logLevel: .error)
 
-        // Create handlers for the AWS services we will use.
+        // Create handlers for the AWS services to use.
 
         let iamHandler = await ServiceHandlerIAM()
         let stsHandler = await ServiceHandlerSTS(region: awsRegion)
         let s3Handler = await ServiceHandlerS3(region: awsRegion)
 
-        // Create unique names for the user, role, and policy we will create.
+        // Create unique names for the user, role, and policy to create.
         let userName = String.uniqueName(withPrefix: "basics-user", maxDigits: 8)
         let roleName = String.uniqueName(withPrefix: "basics-role", maxDigits: 8)
         let userPolicyName = String.uniqueName(withPrefix: "basics-userpolicy", maxDigits: 8)
         let managedPolicyName = String.uniqueName(withPrefix: "basics-policy", maxDigits: 8)
 
-        // Constants that will contain the AWS objects we will be creating.
-        // Declaring them here to ensure they're available in the scope of all
-        // of the blocks below.
+        // Constants that will contain the AWS objects to create. Declaring
+        // them here makes sure they're available in the scope of all the
+        // blocks below.
 
         let user: IAMClientTypes.User
         let role: IAMClientTypes.Role
@@ -95,7 +93,7 @@ struct ExampleCommand: ParsableCommand {
         let accessKey: IAMClientTypes.AccessKey
 
         //=====================================================================
-        // 1. Create a user that we'll use for this example.
+        // 1. Create a user for this example.
         //=====================================================================
 
         do {
@@ -106,7 +104,7 @@ struct ExampleCommand: ParsableCommand {
             throw error
         }
 
-        // Abort if the returned user has no ARN.
+        // Abort if the returned user has no Amazon Resource Name (ARN).
 
         guard let userARN: String = user.arn else {
             print("*** Invalid user ARN returned by createUser().")
@@ -125,8 +123,8 @@ struct ExampleCommand: ParsableCommand {
             throw error
         }
 
-        // Ensure the returned access key is valid and extract the access key
-        // ID and secret access key, since we'll need them.
+        // Confirm that the returned access key is valid, then extract the access key
+        // ID and secret access key. They will be needed later.
 
         guard   let accessKeyId: String = accessKey.accessKeyId,
                 let secretAccessKey = accessKey.secretAccessKey else {
@@ -135,10 +133,10 @@ struct ExampleCommand: ParsableCommand {
         }
         print("   ----> Created access key \"\(accessKeyId)\"")
 
-        // Pause a few seconds to give IAM time to let the new user propagate.
+        // Pause a few seconds to give IAM time for the new user to propagate.
 
         await waitFor(seconds: 10,
-                message: "Pausing a few seconds to let the new user propagate")
+                message: "Pausing a few seconds so the new user can propagate.")
 
         //=====================================================================
         // 3. Attempt to list the S3 buckets without first getting permission
@@ -228,7 +226,7 @@ struct ExampleCommand: ParsableCommand {
         }
 
         await waitFor(seconds: 10,
-                message: "Pausing a few seconds to allow user and role changes to propagate")
+                message: "Pausing a few seconds to allow user and role changes to propagate.")
 
         //=====================================================================
         // 6. Create a user policy letting the user change roles.
@@ -260,19 +258,19 @@ struct ExampleCommand: ParsableCommand {
         //=====================================================================
 
         do {
-            // Ensure our calls to the AWS Security Token Service (STS) will
-            // use the user's credentials.
+            // Make sure our calls to the AWS STS will use the user's
+            // credentials.
             try await stsHandler.setCredentials(accessKeyId: accessKeyId,
                     secretAccessKey: secretAccessKey)
 
-            // Assume the role we created and get the credentials granting the
+            // Assume the role you created and get the credentials that grant the
             // permissions offered by the role.
             let credentials = try await stsHandler.assumeRole(
                 role: role, 
                 sessionName: "listing-buckets"
             )
 
-            // Extract the components of the credentials and ensure that all
+            // Extract the components of the credentials and confirm that all
             // three parts have values.
             guard let roleAccessKeyId = credentials.accessKeyId,
                   let roleSecretAccessKey = credentials.secretAccessKey,
@@ -283,12 +281,12 @@ struct ExampleCommand: ParsableCommand {
 
             await waitFor(seconds: 10, message: "Waiting to ensure user has assumed the role.")
 
-            // Set our AWS Simple Storage Service (S3) handler to use the
-            // credentials returned by assumeRole().
+            // Set our Amazon S3 handler to use the credentials returned by
+            // assumeRole().
             try await s3Handler.setCredentials(accessKeyId: roleAccessKeyId,
                     secretAccessKey: roleSecretAccessKey, sessionToken: roleSessionToken)
         } catch {
-            print("*** Unable to assume the role and update S3 credentials.")
+            print("*** Unable to assume the role and update Amazon S3 credentials.")
             throw error
         }
 
@@ -305,11 +303,11 @@ struct ExampleCommand: ParsableCommand {
         }
 
         //=====================================================================
-        // 8. Clean up by removing the policies, role, access key, and user we
+        // 8. Clean up by removing the policies, role, access key, and user you
         //    created.
         
         do {
-            print("Cleaning up by deleting everything we created.")
+            print("Deleting resources created by this example.")
             try await iamHandler.detachRolePolicy(policy: managedPolicy, role: role)
             try await iamHandler.deletePolicy(policy: managedPolicy)
             try await iamHandler.deleteRole(role: role)

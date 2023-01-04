@@ -1,5 +1,5 @@
 /*
-   Extensions to the `ServiceHandlerIAM` class to handle tasks we need
+   Extensions to the `ServiceHandlerIAM` class to handle tasks needed
    for testing that aren't the purpose of this example.
 
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -126,7 +126,7 @@ public extension ServiceHandlerIAM {
     /// Return a list of the policies attached to a role, as an array of
     /// `IAMClientTypes.AttachedPolicy` objects.
     /// 
-    /// - Parameter role: The role to return the attached policies of.
+    /// - Parameter role: The role for which to return the attached policies.
     /// - Returns: An array of `IAMClientTypes.AttachedPolicy` objects giving
     ///   the names and ARNs of the policies attached to the role.
     func getAttachedPolicies(forRole role:IAMClientTypes.Role) async throws

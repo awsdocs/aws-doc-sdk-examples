@@ -1,6 +1,6 @@
 /*
    A class containing functions that interact with the AWS Simple Storage
-   Service (S3).
+   Service (Amazon S3).
 
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -16,17 +16,17 @@ import SwiftUtilities
 // snippet-end:[iam.swift.basics.s3.imports]
 
 public class ServiceHandlerS3 {
-    /// The AWS Region to use for S3 operations.
+    /// The AWS Region to use for Amazon S3 operations.
     let region: String
 
-    /// The S3Client used to interact with AWS IAM.
+    /// The S3Client used to interact with Amazon S3.
     var s3Client: S3Client
 
-    /// Initialize the S3 client, optionally with credentials.
+    /// Initialize the Amazon S3 client, optionally with credentials.
     ///
     /// - Parameters:
-    ///   - region: A `String` providing the AWS Region to use for S3 operations. 
-    ///     If not provided, us-east-2 is assumed.
+    ///   - region: A `String` providing the AWS Region to use for Amazon S3. 
+    ///     operations. If not provided, us-east-2 is assumed.
     ///   - accessKeyId: An optional `String` giving the access key ID of the
     ///     credentials to use.
     ///   - secretAccessKey: An optional `String` giving the credentials'
@@ -40,15 +40,15 @@ public class ServiceHandlerS3 {
         do {
             self.region = region
 
-            // If the access key ID isn't provided, just initialize the S3
-            // client with the Region. Otherwise, use the credentials.
+            // If the access key ID isn't provided, initialize the Amazon
+            // S3 client with the Region. Otherwise, use the credentials.
 
             if accessKeyId == nil {
                 s3Client = try S3Client(region: self.region)
             } else {
                 // Use the given access key ID, secret access key, and session token
                 // to generate a static credentials provider suitable for use when
-                // initializing an AWS S3 client.
+                // initializing an Amazon S3 client.
 
                 guard   let keyId = accessKeyId,
                         let secretKey = secretAccessKey else {
@@ -62,7 +62,7 @@ public class ServiceHandlerS3 {
                     )
                 )
 
-                // Create an AWS IAM configuration specifying the credentials
+                // Create an Amazon S3 configuration specifying the credentials
                 // provider. Then create a new `S3Client` using those permissions.
 
                 let s3Config = try S3Client.S3ClientConfiguration(
@@ -78,7 +78,7 @@ public class ServiceHandlerS3 {
     }
     // snippet-end:[iam.swift.basics.s3.init]
 
-    /// Set the credentials to use when making S3 calls. This is done by
+    /// Set the credentials to use when making Amazon S3 calls. This is done by
     /// replacing the internal `S3Client` with a new one that uses the
     /// credentials.
     ///
@@ -92,7 +92,7 @@ public class ServiceHandlerS3 {
         do {
             // Use the given access key ID, secret access key, and session token
             // to generate a static credentials provider suitable for use when
-            // initializing an AWS S3 client.
+            // initializing an Amazon S3 client.
 
             let credentialsProvider = try AWSCredentialsProvider.fromStatic(
                 AWSCredentialsProviderStaticConfig(
@@ -102,7 +102,8 @@ public class ServiceHandlerS3 {
                 )
             )
 
-            // Create a new S3 client with the specified access credentials.
+            // Create a new Amazon S3 client with the specified access
+            // credentials.
 
             let s3Config = try S3Client.S3ClientConfiguration(
                 credentialsProvider: credentialsProvider,
@@ -115,9 +116,9 @@ public class ServiceHandlerS3 {
     }
     // snippet-end:[iam.swift.basics.s3.setcredentials]
 
-    /// Switch to using the default credentials for future AWS S3 calls by
-    /// replacing the internal S3 client with one created without a given set
-    /// of credentials.
+    /// Switch to using the default credentials for future Amazon S3 calls.
+    /// Replace the internal Amazon S3 client with a client created without a
+    /// given a specific set of credentials.
     // snippet-start:[iam.swift.basics.s3.resetcredentials]
     public func resetCredentials() async throws {
         do {
@@ -129,10 +130,10 @@ public class ServiceHandlerS3 {
     // snippet-end:[iam.swift.basics.s3.resetcredentials]
 
     /// Returns an array of `S3ClientTypes.Bucket` objects providing
-    /// information about each bucket in the S3 account.
+    /// information about each bucket in the Amazon S3 account.
     /// 
     /// - Returns: An array of `S3ClientTypes.Bucket` objects listing the
-    ///   buckets in the S3 account.
+    ///   buckets in the Amazon S3 account.
     // snippet-start:[iam.swift.basics.s3.listbuckets]
     public func listBuckets() async throws -> [S3ClientTypes.Bucket] {
         let input = ListBucketsInput()

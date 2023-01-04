@@ -13,10 +13,8 @@ import SwiftUtilities
 
 @testable import ServiceHandler
 
-/// Perform tests on the sample program. Call Amazon service functions
-/// using the global `ListUsersTests.serviceHandler` property. Also, manage
-/// the demo cleanup handler object using the global
-/// `ListUsersTests.demoCleanup` property.
+/// Perform tests on the sample program. Call AWS service functions
+/// using the global service handler properties.
 final class BasicsTests: XCTestCase {
     static var iamHandler: ServiceHandlerIAM? = nil
     static var stsHandler: ServiceHandlerSTS? = nil
@@ -29,7 +27,7 @@ final class BasicsTests: XCTestCase {
     /// This function sets up the following:
     ///
     /// * Configures the AWS SDK log system to only log errors.
-    /// * Initializes the service handler, which is used to call Amazon
+    /// * Initializes the service handler, which is used to call AWS
     ///   Identity and Access Management (IAM) functions.
     /// * Initializes the demo cleanup handler, which is used to track the
     ///   names of the files and buckets created by the tests in order to
@@ -164,6 +162,7 @@ final class BasicsTests: XCTestCase {
         }
     }
 
+    /// Test creating and deleting a policy.
     func testCreateAndDeletePolicy() async throws {
         let policyName = String.uniqueName()
 
@@ -200,6 +199,7 @@ final class BasicsTests: XCTestCase {
         }
     }
 
+    /// Test attaching and detaching a role policy.
     func testAttachAndDetachRolePolicy() async throws {
         typealias CleanupClosure = () async throws -> ()
 
