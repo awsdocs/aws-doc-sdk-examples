@@ -18,14 +18,14 @@
  * to manage Amazon EC2 instances.
  *
  * 1.  Specify the name of an existing EC2 launch template.
- * 2   Or create a new EC2 launch template.
- * 3.  Retrieve a list of EC2 availability zones.
- * 4.  Create an EC2 Auto Scaling group with the specified availability zone.
+ * 2.   Or create a new EC2 launch template.
+ * 3.  Retrieve a list of EC2 Availability Zones.
+ * 4.  Create an EC2 Auto Scaling group with the specified Availability Zone.
  * 5.  Retrieve a description of the EC2 Auto Scaling group.
  * 6.  Check lifecycle state of the EC2 instances using DescribeAutoScalingInstances.
  * 7.  Optionally enable metrics collection for the EC2 Auto Scaling group.
- * 8.  Update the EC2 Auto Scaling group setting a new maximum size.
- * 9.  Update the EC2 Auto Scaling group setting a new desired capacity.
+ * 8.  Update the EC2 Auto Scaling group, setting a new maximum size.
+ * 9.  Update the EC2 Auto Scaling group, setting a new desired capacity.
  * 10. Terminate an EC2 instance in the EC2 Auto Scaling group.
  * 11. Get a description of activities for the EC2 Auto Scaling group.
  * 12. Optionally list the metrics for the EC2 Auto Scaling group.
@@ -66,7 +66,7 @@ namespace AwsDoc {
         static const int ASTERISK_FILL_WIDTH = 88;
         static const int WAIT_FOR_INSTANCES_TIMEOUT = 300; // Time in seconds.
 
-        //! Routine which waits for EC2 instances in an EC2 Auto Scaling to
+        //! Routine which waits for EC2 instances in an EC2 Auto Scaling group to
         //! complete startup or shutdown.
         /*!
          \sa waitForInstances()
@@ -246,7 +246,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
                       << std::endl;
         }
     }
-    else { // 2  Or create a new EC2 launch template.
+    else { // 2.  Or create a new EC2 launch template.
         templateName = askQuestion("Enter the name for a new EC2 launch template: ");
 
         Aws::EC2::Model::CreateLaunchTemplateRequest request;
@@ -282,7 +282,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
     std::cout << "Let's create an EC2 Auto Scaling group." << std::endl;
     Aws::String groupName = askQuestion(
             "Enter a name for the EC2 Auto Scaling group:  ");
-    // 3. Retrieve a list of EC2 availability zones.
+    // 3. Retrieve a list of EC2 Availability Zones.
     Aws::Vector<Aws::EC2::Model::AvailabilityZone> availabilityZones;
     {
         Aws::EC2::Model::DescribeAvailabilityZonesRequest request;
@@ -313,7 +313,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
     int availabilityZoneChoice = askQuestionForIntRange(
             "Choose an availability zone:  ", 1,
             static_cast<int>(availabilityZones.size()));
-    // 4. Create an EC2 Auto Scaling group with the specified availability zone.
+    // 4. Create an EC2 Auto Scaling group with the specified Availability Zone.
     {
         // snippet-start:[cpp.example_code.autoscaling.create_autoscaling_group1]
         Aws::AutoScaling::Model::CreateAutoScalingGroupRequest request;
@@ -411,7 +411,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
     std::cout << "Let's update the maximum number of EC2 instances in '" << groupName <<
               "' from 1 to 3." << std::endl;
     askQuestion("Press enter to continue:  ", alwaysTrueTest);
-    // 8. Update the EC2 Auto Scaling group setting a new maximum size.
+    // 8. Update the EC2 Auto Scaling group, setting a new maximum size.
     {
         // snippet-start:[cpp.example_code.autoscaling.update_autoscaling_group1]
         Aws::AutoScaling::Model::UpdateAutoScalingGroupRequest request;
@@ -456,7 +456,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
     std::cout << "Let's update the desired capacity in '" << groupName <<
               "' from 1 to 2." << std::endl;
     askQuestion("Press enter to continue:  ", alwaysTrueTest);
-    //  9. Update the EC2 Auto Scaling group setting a new desired capacity.
+    //  9. Update the EC2 Auto Scaling group, setting a new desired capacity.
     {
         // snippet-start:[cpp.example_code.autoscaling.set_desired_capacity1]
         Aws::AutoScaling::Model::SetDesiredCapacityRequest request;
@@ -629,7 +629,7 @@ bool AwsDoc::AutoScaling::groupsAndInstancesScenario(
     return cleanupResources(groupName, templateName, autoScalingClient, ec2Client);
 }
 
-//! Routine which waits for EC2 instances in an EC2 Auto Scaling to
+//! Routine which waits for EC2 instances in an EC2 Auto Scaling group to
 //! complete startup or shutdown.
 /*!
  \sa waitForInstances()
@@ -688,7 +688,7 @@ bool AwsDoc::AutoScaling::waitForInstances(const Aws::String &groupName,
                     break;
                 }
             }
-            // Log the status while waiting;
+            // Log the status while waiting.
             if (((count % 5) == 1) || ready) {
                 logInstancesLifecycleState(instancesDetails);
             }
@@ -976,7 +976,7 @@ bool AwsDoc::AutoScaling::logAutoScalingMetrics(const Aws::String &groupName,
                                                 const Aws::Client::ClientConfiguration &clientConfig) {
     std::cout << "Let's look at CloudWatch metrics." << std::endl;
 
-    //  12 Optionally list the metrics for the EC2 Auto Scaling group.
+    //  12. Optionally list the metrics for the EC2 Auto Scaling group.
     Aws::CloudWatch::CloudWatchClient cloudWatchClient(clientConfig);
     Aws::Vector<Aws::CloudWatch::Model::Metric> allMetrics;
     {
