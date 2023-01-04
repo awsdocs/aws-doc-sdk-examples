@@ -37,16 +37,21 @@ impl RdsClient {
 
     /// Prepare an ExecuteStatement builder with the ARNs from this client.
     ///
-    /// ```rust async
+    /// ```rust no_run
+    /// # async fn example() {
     /// const CONFIG: &str = r#"{"cluster_arn":"arn:...","secret_arn":"arn:...","db_instance":"..."}"#;
     /// let settings: rest_ses::configuration::RdsSettings = serde_json::from_str(CONFIG).unwrap();
-    /// let config = tokio_test::block_on(async { aws_config::load_from_env().await });
-    /// let client = rest_ses::client::RdsClient::new(&settings, &config);
+    /// let sdk_config = aws_config::load_from_env().await;
+    /// let client = rest_ses::client::RdsClient::new(&settings, &sdk_config);
     ///
     /// client
     ///     .execute_statement()
     ///     .sql("INSERT values (:name) INTO table;")
-    ///     .set_parameters(rest_ses::params![("name", "rust")]);
+    ///     .set_parameters(rest_ses::params![("name", "rust")])
+    ///     .send()
+    ///     .await
+    ///     .unwrap();
+    /// # }
     /// ```
     pub fn execute_statement(&self) -> ExecuteStatement {
         self.client
