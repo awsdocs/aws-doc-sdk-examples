@@ -32,21 +32,21 @@ The following examples use the **ConnectClient** object:
 - [Search queues in an Amazon Connect instance..](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/SearchQueues.java) (searchQueues command)
 
 
-## Running the AWS Glue Java files
+## Run the Amazon Connect Java files
 
 **IMPORTANT**
 
 The Java examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a crawler by running the **DeleteCrawler** example. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+Some of these examples perform *destructive* operations on AWS resources, such as deleting an Amazon Connect instance. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
 
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
 see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
 
 
- ## Testing the AWS Glue Java files
+ ## Test the Amazon Connect Java files
 
-You can test the Java code examples for AWS Glue by running a test file named **GlueTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code examples for Amazon Connect by running a test file named **ConnectTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
@@ -55,27 +55,15 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 **WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
  ### Properties file
-Before running the AWS Glue JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define a crawler name used in the tests. If you do not define all values, the JUnit tests fail.
+Before running the Amazon Connect JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an instance name used in the tests. If you do not define all values, the JUnit tests fail.
 
 Define these values to successfully run the JUnit tests:
 
-- **IAM** - The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that has AWS Glue and Amazon Simple Storage Service (Amazon S3) permissions.   
-- **s3Path** - The Amazon S3 target that contains data (for example, CSV data).
-- **cron** - A cron expression used to specify the schedule (for example, cron(15 12 * * ? *).
-- **crawlerName** - The crawler name used in various tests.
-- **existingCrawlerName** - An existing crawler name that is deleted.
-- **databaseName** - The name of the database used in the **CreateCrawler** test.
-- **existingDatabaseName** - The name of an existing database.
-- **tableName** - The name of a database table used in the **GetTable** test.
-- **text** - A string used for a text search and used in the **SearchTables** test.
-- **jobNameSc** - A Job name used for the Scenario test.
-- **s3PathSc** - The Amazon S3 target that contains data used for the Scenario test.
-- **dbNameSc** - The name of the database used for the Scenario test.
-- **crawlerNameSc** - The crawler name used for the Scenario test.
-- **scriptLocationSc** - The Amazon S3 path to a script that runs a job used for the Scenario test. 
-- **locationUri** - The location of the database used for the Scenario test. 
+- **instanceAlias** - The name for your Amazon Connect instance.   
+- **contactId** - The id of the contact (for example, 16417918-7b38-470a-a9a2-bfcfa7cxxxxx).
+- **existingInstanceId** - The id of an existing Amazon Connect instance (for example, c13bb6fa-3cf4-45a2-a93e-ebeaf7xxxxxx).
+- **targetArn** - The ARN of the Amazon Connect instance.
 
-**Note:** To set up the CSV data and other requirements needed for the unit tests, follow [Tutorial: Adding an AWS Glue crawler](https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html).
 
 ### Command line
 To run the JUnit tests from the command line, you can use the following command.
@@ -87,14 +75,14 @@ You will see output from the JUnit tests, as shown here.
 	[INFO] -------------------------------------------------------
 	[INFO]  T E S T S
 	[INFO] -------------------------------------------------------
-	[INFO] Running GlueTest
+	[INFO] Running ConnectTest
 	Test 1 passed
 	Test 2 passed
 	...
 	Done!
 	[INFO] Results:
 	[INFO]
-	[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+	[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0
 	[INFO]
 	INFO] --------------------------------------------
 	[INFO] BUILD SUCCESS
@@ -120,7 +108,7 @@ If you do not define the correct values in the properties file, your JUnit tests
 ## Additional resources
 * [Developer Guide - AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html).
 * [Amazon Connect Administrator Guide](https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html).
-* [Interface GlueClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/glue/GlueClient.html).
+* [Interface ConnectClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/connect/ConnectClient.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
 
