@@ -4,7 +4,6 @@
  */
 
 // snippet-start:[localstack.rust.use-localstack]
-use aws_smithy_http::endpoint::Endpoint;
 use std::error::Error;
 
 #[tokio::main]
@@ -54,22 +53,20 @@ fn use_localstack() -> bool {
     std::env::var("LOCALSTACK").unwrap_or_default() == "true"
 }
 
-fn localstack_endpoint() -> Endpoint {
-    Endpoint::immutable("http://localhost:4566/").expect("valid endpoint")
-}
+const LOCALSTACK_ENDPOINT: &str = "http://localhost:4566/";
 
-fn sqs_client(conf: &aws_types::SdkConfig) -> aws_sdk_sqs::Client {
+fn sqs_client(conf: &aws_config::SdkConfig) -> aws_sdk_sqs::Client {
     let mut sqs_config_builder = aws_sdk_sqs::config::Builder::from(conf);
     if use_localstack() {
-        sqs_config_builder = sqs_config_builder.endpoint_resolver(localstack_endpoint())
+        sqs_config_builder = sqs_config_builder.endpoint_url(LOCALSTACK_ENDPOINT)
     }
     aws_sdk_sqs::Client::from_conf(sqs_config_builder.build())
 }
 
-fn s3_client(conf: &aws_types::SdkConfig) -> aws_sdk_s3::Client {
+fn s3_client(conf: &aws_config::SdkConfig) -> aws_sdk_s3::Client {
     let mut s3_config_builder = aws_sdk_s3::config::Builder::from(conf);
     if use_localstack() {
-        s3_config_builder = s3_config_builder.endpoint_resolver(localstack_endpoint());
+        s3_config_builder = s3_config_builder.endpoint_url(LOCALSTACK_ENDPOINT);
     }
     aws_sdk_s3::Client::from_conf(s3_config_builder.build())
 }

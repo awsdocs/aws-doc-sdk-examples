@@ -79,6 +79,17 @@ command prompt by including the `integ` mark.
 python -m pytest -m "integ"
 ```
 
+## Docker image (Beta)
+This example code will soon be available in a container image
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
+with all Python examples with dependencies pre-resolved, allowing you to explore
+these examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for Python image](https://gallery.ecr.aws/aws-docs-sdk-examples/python) is available on ECR Public but is still
+undergoing active development. Refer to
+[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4125)
+for more information.
+
 ## Additional resources
  
 * [AWS SDK for Python (Boto3) Documentation](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
