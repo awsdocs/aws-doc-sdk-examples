@@ -61,6 +61,7 @@ body:
       label: Which SDK were you using?
       options:
         - .NET
+        - C++
         - Go (v2)
         - Java
         - Java (v2)
