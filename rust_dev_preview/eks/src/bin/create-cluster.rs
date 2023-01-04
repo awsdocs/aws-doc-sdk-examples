@@ -35,7 +35,6 @@ struct Opt {
 }
 
 #[tokio::main]
-#[allow(clippy::result_large_err)]
 async fn main() -> Result<(), aws_sdk_eks::Error> {
     let Opt {
         region,

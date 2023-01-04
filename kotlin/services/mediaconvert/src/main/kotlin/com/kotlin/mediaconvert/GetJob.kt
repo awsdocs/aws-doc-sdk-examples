@@ -10,14 +10,12 @@
 package com.kotlin.mediaconvert
 
 // snippet-start:[mediaconvert.kotlin.get_job.import]
-import aws.sdk.kotlin.runtime.endpoint.AwsEndpoint
-import aws.sdk.kotlin.runtime.endpoint.AwsEndpointResolver
-import aws.sdk.kotlin.runtime.endpoint.CredentialScope
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
+import aws.sdk.kotlin.services.mediaconvert.endpoints.EndpointProvider
 import aws.sdk.kotlin.services.mediaconvert.model.DescribeEndpointsRequest
 import aws.sdk.kotlin.services.mediaconvert.model.GetJobRequest
 import aws.sdk.kotlin.services.mediaconvert.model.GetJobResponse
-import aws.sdk.kotlin.services.mediaconvert.model.MediaConvertException
+import aws.smithy.kotlin.runtime.http.endpoints.Endpoint
 import kotlin.system.exitProcess
 // snippet-end:[mediaconvert.kotlin.get_job.import]
 
@@ -28,15 +26,12 @@ including your credentials.
 For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
  */
-
 suspend fun main(args: Array<String>) {
-
     val usage = """
         GetJob <jobId> 
 
     Where:
         jobId - the job id value.
-
     """
 
     if (args.size != 1) {
@@ -51,37 +46,29 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[mediaconvert.kotlin.get_job.main]
 suspend fun getSpecificJob(mcClient: MediaConvertClient, jobId: String?) {
+    val describeEndpoints = DescribeEndpointsRequest {
+        maxResults = 20
+    }
 
-    try {
-        val describeEndpoints = DescribeEndpointsRequest {
-            maxResults = 20
-        }
-
-        val res = mcClient.describeEndpoints(describeEndpoints)
-
-        if (res.endpoints?.size!! <= 0) {
-            println("Cannot find MediaConvert service endpoint URL!")
-            exitProcess(0)
-        }
-        val endpointURL = res.endpoints!!.get(0).url!!
-        val mediaConvertClient = MediaConvertClient {
-
-            region = "us-west-2"
-            endpointResolver = AwsEndpointResolver { service, region ->
-                AwsEndpoint(endpointURL, CredentialScope(region = "us-west-2"))
-            }
-        }
-
-        val jobRequest = GetJobRequest {
-            id = jobId
-        }
-
-        val response: GetJobResponse = mediaConvertClient.getJob(jobRequest)
-        System.out.println("The ARN of the job is ${response.job?.arn}.")
-    } catch (ex: MediaConvertException) {
-        println(ex.message)
-        mcClient.close()
+    val res = mcClient.describeEndpoints(describeEndpoints)
+    if (res.endpoints?.size!! <= 0) {
+        println("Cannot find MediaConvert service endpoint URL!")
         exitProcess(0)
     }
+
+    val endpointURL = res.endpoints!!.get(0).url!!
+    val mediaConvert = MediaConvertClient.fromEnvironment {
+        region = "us-west-2"
+        endpointProvider = EndpointProvider {
+            Endpoint(endpointURL)
+        }
+    }
+
+    val jobRequest = GetJobRequest {
+        id = jobId
+    }
+
+    val response: GetJobResponse = mediaConvert.getJob(jobRequest)
+    println("The ARN of the job is ${response.job?.arn}.")
 }
 // snippet-end:[mediaconvert.kotlin.get_job.main]

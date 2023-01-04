@@ -5,13 +5,9 @@ authors = [
   "David Souther <davidsouther+github@gmail.com>",
 ]
 edition = "2021"
-about = "MVP Scenario to show many features of the Rust AWS Glue SDK. https://github.com/awsdocs/aws-doc-sdk-examples/issues/2941"
-
-[lib]
-path = "src/lib.rs"
+description = "MVP Scenario to show many features of the Rust AWS Glue SDK. https://github.com/awsdocs/aws-doc-sdk-examples/issues/2941"
 
 [[bin]]
-path = "src/bin/scenario.rs"
 name = "scenario"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -19,7 +15,6 @@ name = "scenario"
 [dependencies]
 aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-sdk-glue = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-iam = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
@@ -43,4 +38,3 @@ secrecy = "0.8.0"
 uuid = { version = "1.2.1", features = ["v4"] }
 futures = "0.3.25"
 tracing-bunyan-formatter = "0.3.4"
-mockall = "0.11.3"

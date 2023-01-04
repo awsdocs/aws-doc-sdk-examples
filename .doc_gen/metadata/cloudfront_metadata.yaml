@@ -79,3 +79,130 @@ cloudfront_UpdateDistribution:
                 - python.example_code.cloudfront.UpdateDistribution
   services:
     cloudfront: {UpdateDistribution}
+cloudfront_CreateDistribution:
+  title: Create a &CF; distribution using an &AWS; SDK
+  title_abbrev: Create a distribution
+  synopsis: create a &CF; distribution.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description: >-
+                The following example uses an &S3long; (&S3;) bucket as a content origin. 
+                <para>After creating the distribution, 
+                the code creates a <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/waiters/CloudFrontWaiter.html">CloudFrontWaiter</ulink> 
+                to wait until the distribution is deployed before returning the distribution</para>.
+              snippet_tags:
+                - cloudfront.java2.createdistribution.import
+                - cloudfront.java2.createdistribution.main
+  services:
+    cloudfront: {CreateDistribution}
+cloudfront_CreateKeyGroup:
+  title: Create key group for &CF; using an &AWS; SDK
+  title_abbrev: Create a key group
+  synopsis: create a key group that you can use with signed URLs and signed cookies.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description: A key group requires at least one public key that is used to verify signed URLs or cookies.
+              snippet_tags:
+                - cloudfront.java2.createkeygroup.import
+                - cloudfront.java2.createkeygroup.main
+  services:
+    cloudfront: {CreateKeyGroup}
+cloudfront_CreatePublicKey:
+  title: Upload a public key to &CF; using an &AWS; SDK
+  title_abbrev: Upload a public key
+  synopsis: upload a public key.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description: The following code example reads in a public key and uploads it to &CFlong;.
+              snippet_tags:
+                - cloudfront.java2.createpublickey.import
+                - cloudfront.java2.createpublickey.main
+  services:
+    cloudfront: {CreatePublicKey}
+cloudfront_DeleteDistribution:
+  title: Delete a &CF; distribution using &AWS; SDK
+  title_abbrev: Delete a distribution
+  synopsis: delete a CloudFront distribution.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description: The following code example updates a distribution to <emphasis>disabled</emphasis>, uses a waiter that waits for the change to be deployed, then deletes the distribution.
+              snippet_tags:
+                - cloudfront.java2.deletedistribution.import
+                - cloudfront.java2.deletedistribution.main
+  services:
+    cloudfront: {DeleteDistribution, UpdateDistribution}
+cloudfront_DeleteSigningResources:
+  title: Delete &CF; signing resources using &AWS; SDK
+  title_abbrev: Delete signing resources
+  synopsis: delete resources that are used to gain access to restricted content in an &S3long; (&S3;) bucket.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudfront.java2.deletedistributionresources.import
+                - cloudfront.java2.deletedistributionresources.main
+  services:
+    cloudfront: {DeleteKeyGroup, DeletePublicKey, DeleteOriginAccessControl}
+cloudfront_CloudFrontUtilities:
+  title: Create signed URLs and cookies using an &AWS; SDK
+  title_abbrev: Sign URLs and cookies
+  synopsis: create signed URLs and cookies that allow access to restricted resources.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudfront
+          sdkguide:
+          excerpts:
+            - description: >-
+                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CannedSignerRequest.html">CannedSignerRequest</ulink> 
+                        class to sign URLs or cookies with a <emphasis>canned</emphasis> policy.
+              snippet_tags:
+                - cloudfront.java2.createcannedpolicyrequest.import
+                - cloudfront.java2.createcannedpolicyrequest.main
+            - description: >-
+                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/model/CustomSignerRequest.html">CustomSignerRequest</ulink> 
+                class to sign URLs or cookies with a <emphasis>custom</emphasis> policy. The <code>activeDate</code> and <code>ipRange</code> are optional methods.
+              snippet_tags:
+                - cloudfront.java2.createcustompolicyrequest.import
+                - cloudfront.java2.createcustompolicyrequest.main
+            - description: >-
+                The following example demonstrates the use of the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudfront/CloudFrontUtilities.html">CloudFrontUtilities</ulink> 
+                class to produce signed cookies and URLs. <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudfront/src/main/java/com/example/cloudfront/SigningUtilities.java">View</ulink>
+                this code example on GitHub.
+              snippet_tags:
+                - cloudfront.java2.signingutilities.import
+                - cloudfront.java2.signingutilities.main
+  services:
+    cloudfront: {CloudFrontUtilities}

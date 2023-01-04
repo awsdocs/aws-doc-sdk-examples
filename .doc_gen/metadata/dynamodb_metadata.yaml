@@ -148,6 +148,15 @@ dynamodb_BatchGetItem:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.batch.GetItem
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.dynamodb.batch_get_item
   services:
     dynamodb: {BatchGetItem}
 dynamodb_DescribeTable:
@@ -308,6 +317,15 @@ dynamodb_BatchWriteItem:
             - description:
               snippet_tags:
                 - ruby.example_code.dynamodb.BatchWriteItem
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.dynamodb.batch_write_item
   services:
     dynamodb: {BatchWriteItem}
 dynamodb_DeleteTable:
@@ -863,6 +881,15 @@ dynamodb_DeleteItem:
             - description: Delete an item from a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.delete
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.dynamodb.delete_item
   services:
     dynamodb: {DeleteItem}
 dynamodb_ListTables:
@@ -1625,8 +1652,8 @@ dynamodb_Scenario_GettingStartedMovies:
               snippet_tags:
                 - cpp.example_code.dynamodb.Scenario_GettingStarted.main
                 - cpp.example_code.dynamodb.Scenario_GettingStarted
-                - cpp.example_code.dynamodb.scenario.createTable
-                - cpp.example_code.dynamodb.scenario.deleteTable
+                - cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable
+                - cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.waitTableActive
   services:
     dynamodb:
@@ -1748,8 +1775,8 @@ dynamodb_Scenario_PartiQLSingle:
               snippet_tags:
                 - cpp.example_code.dynamodb.Scenario_PartiQL_Single.main
                 - cpp.example_code.dynamodb.Scenario_PartiQL_Single
-                - cpp.example_code.dynamodb.scenario.createTable
-                - cpp.example_code.dynamodb.scenario.deleteTable
+                - cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable
+                - cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.waitTableActive
   services:
     dynamodb: {ExecuteStatement}
@@ -1864,8 +1891,8 @@ dynamodb_Scenario_PartiQLBatch:
               snippet_tags:
                 - cpp.example_code.dynamodb.Scenario_PartiQL_Batch.main
                 - cpp.example_code.dynamodb.Scenario_PartiQL_Batch
-                - cpp.example_code.dynamodb.scenario.createTable
-                - cpp.example_code.dynamodb.scenario.deleteTable
+                - cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable
+                - cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.waitTableActive
   services:
     dynamodb: {BatchExecuteStatement}

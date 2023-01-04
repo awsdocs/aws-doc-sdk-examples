@@ -1,0 +1,9 @@
+    new ecr.CfnPublicRepository(this, "{{shortname}}", {
+          repositoryName: "{{shortname}}",
+          repositoryCatalogData: {
+            UsageText:  "This image provides a pre-built for SDK for {{language}} environment and is recommended for local testing of SDK for {{language}} example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/{{shortname}}/README.md#docker-image.",
+            OperatingSystems: ["Linux"],
+            Architectures: ["x86", "ARM"],
+            RepositoryDescription: "This image provides a pre-built for SDK for {{language}} environment and is recommended for local testing of SDK for {{language}} example code."
+          },
+    });

@@ -17,6 +17,7 @@ class LookoutVisionStubber(ExampleStubber):
     part of the tests, and will raise errors when the actual parameters differ from
     the expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         :param client: A Boto 3 Lambda client.
@@ -55,10 +56,23 @@ class LookoutVisionStubber(ExampleStubber):
             'describe_dataset', expected_params, response, error_code=error_code)
 
     def stub_delete_dataset(self, project_name, dataset_type, error_code=None):
-        expected_params = {'ProjectName': project_name, 'DatasetType': dataset_type}
+        expected_params = {'ProjectName': project_name,
+                           'DatasetType': dataset_type}
         response = {}
         self._stub_bifurcator(
             'delete_dataset', expected_params, response, error_code=error_code)
+
+
+    def stub_list_dataset_entries(self, project_name, dataset_type, jsonline, error_code=None):
+        expected_params = {'ProjectName': project_name,
+                           'DatasetType': dataset_type,
+                           'MaxResults': 100}
+        response = {
+            'DatasetEntries': [jsonline]}
+        self._stub_bifurcator(
+            'list_dataset_entries', expected_params, response, error_code=error_code)
+
+
 
     def stub_list_projects(
             self, project_names, extras=None, error_code=None):
@@ -88,7 +102,8 @@ class LookoutVisionStubber(ExampleStubber):
     def stub_describe_model(
             self, project_name, model_version, model_arn, status=None, extras=None,
             error_code=None):
-        expected_params = {'ProjectName': project_name, 'ModelVersion': model_version}
+        expected_params = {'ProjectName': project_name,
+                           'ModelVersion': model_version}
         response = {
             'ModelDescription': {
                 'ModelVersion': model_version, 'ModelArn': model_arn}}
@@ -111,7 +126,8 @@ class LookoutVisionStubber(ExampleStubber):
 
     def stub_list_tags_for_resource(self, resource_arn, tags, error_code=None):
         expected_params = {'ResourceArn': resource_arn}
-        response = {'Tags': [{'Key': key, 'Value': value} for key, value in tags.items()]}
+        response = {'Tags': [{'Key': key, 'Value': value}
+                             for key, value in tags.items()]}
         self._stub_bifurcator(
             'list_tags_for_resource', expected_params, response, error_code=error_code)
 
@@ -124,7 +140,8 @@ class LookoutVisionStubber(ExampleStubber):
             'start_model', expected_params, response, error_code=error_code)
 
     def stub_stop_model(self, project_name, model_version, status, error_code=None):
-        expected_params = {'ProjectName': project_name, 'ModelVersion': model_version}
+        expected_params = {'ProjectName': project_name,
+                           'ModelVersion': model_version}
         response = {'Status': status}
         self._stub_bifurcator(
             'stop_model', expected_params, response, error_code=error_code)
@@ -155,7 +172,8 @@ class LookoutVisionStubber(ExampleStubber):
             'create_model', expected_params, response, error_code=error_code)
 
     def stub_delete_model(self, project_name, model_version, error_code=None):
-        expected_params = {'ProjectName': project_name, 'ModelVersion': model_version}
+        expected_params = {'ProjectName': project_name,
+                           'ModelVersion': model_version}
         response = {}
         self._stub_bifurcator(
             'delete_model', expected_params, response, error_code=error_code)
@@ -178,17 +196,16 @@ class LookoutVisionStubber(ExampleStubber):
             'ProjectDescription': {'Datasets': datasets}}
         self._stub_bifurcator(
             'describe_project', expected_params, response, error_code=error_code)
-    
 
     def stub_update_dataset_entries(
-            self, project_name, dataset_type, changes, status,  
+            self, project_name, dataset_type, changes, status,
             error_code=None):
         expected_params = {
-            'ProjectName': project_name, 
+            'ProjectName': project_name,
             'DatasetType': dataset_type,
             'Changes': changes
-            }
-        response = {'Status' : status }
+        }
+        response = {'Status': status}
 
         self._stub_bifurcator(
             'update_dataset_entries', expected_params, response, error_code=error_code)

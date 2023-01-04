@@ -29,7 +29,7 @@ log = "0.4.17"
 rand = "0.8.3"
 serde = {version = "1.0", features = ["derive"]}
 serde_json = "1"
-serde_dynamo = { version = "4", features = ["aws-sdk-dynamodb+0_19"] }
+serde_dynamo = { version = "4", features = ["aws-sdk-dynamodb+0_22"] }
 structopt = { version = "0.3", default-features = false }
 tracing = "0.1"
 thiserror = "1.0"

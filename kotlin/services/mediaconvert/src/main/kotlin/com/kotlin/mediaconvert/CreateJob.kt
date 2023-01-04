@@ -10,9 +10,6 @@
 package com.kotlin.mediaconvert
 
 // snippet-start:[mediaconvert.kotlin.createjob.import]
-import aws.sdk.kotlin.runtime.endpoint.AwsEndpoint
-import aws.sdk.kotlin.runtime.endpoint.AwsEndpointResolver
-import aws.sdk.kotlin.runtime.endpoint.CredentialScope
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
 import aws.sdk.kotlin.services.mediaconvert.model.AacAudioDescriptionBroadcasterMix
 import aws.sdk.kotlin.services.mediaconvert.model.AacCodecProfile
@@ -104,7 +101,10 @@ import aws.sdk.kotlin.services.mediaconvert.model.VideoCodecSettings
 import aws.sdk.kotlin.services.mediaconvert.model.VideoDescription
 import aws.sdk.kotlin.services.mediaconvert.model.VideoSelector
 import aws.sdk.kotlin.services.mediaconvert.model.VideoTimecodeInsertion
+import aws.smithy.kotlin.runtime.http.endpoints.Endpoint
+import aws.smithy.kotlin.runtime.http.endpoints.EndpointProvider
 import java.util.HashMap
+import kotlin.math.roundToInt
 import kotlin.system.exitProcess
 // snippet-end:[mediaconvert.kotlin.createjob.import]
 
@@ -117,7 +117,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
         
         Usage
@@ -153,28 +152,26 @@ suspend fun createMediaJob(mcClient: MediaConvertClient, mcRoleARN: String, file
         }
 
         val res = mcClient.describeEndpoints(describeEndpoints)
-
         if (res.endpoints?.size!! <= 0) {
             println("Cannot find MediaConvert service endpoint URL!")
             exitProcess(0)
         }
         val endpointURL = res.endpoints!!.get(0).url!!
-        val mediaConvertClient = MediaConvertClient {
-
+        val mediaConvert = MediaConvertClient.fromEnvironment {
             region = "us-west-2"
-            endpointResolver = AwsEndpointResolver { service, region ->
-                AwsEndpoint(endpointURL, CredentialScope(region = "us-west-2"))
+            endpointProvider = EndpointProvider {
+                Endpoint(endpointURL)
             }
         }
 
         // output group Preset HLS low profile
-        val hlsLow = createOutput("hls_low", "_low", "_\$dt$", 750000, 7, 1920, 1080, 640)
+        val hlsLow = createOutput("_low", "_\$dt$", 750000, 7, 1920, 1080, 640)
 
         // output group Preset HLS medium profile
-        val hlsMedium = createOutput("hls_medium", "_medium", "_\$dt$", 1200000, 7, 1920, 1080, 1280)
+        val hlsMedium = createOutput("_medium", "_\$dt$", 1200000, 7, 1920, 1080, 1280)
 
         // output group Preset HLS high profole
-        val hlsHigh = createOutput("hls_high", "_high", "_\$dt$", 3500000, 8, 1920, 1080, 1920)
+        val hlsHigh = createOutput("_high", "_\$dt$", 3500000, 8, 1920, 1080, 1920)
 
         val outputSettings = OutputGroupSettings {
             type = OutputGroupType.HlsGroupSettings
@@ -383,7 +380,7 @@ suspend fun createMediaJob(mcClient: MediaConvertClient, mcRoleARN: String, file
             settings = jobSettings
         }
 
-        val createJobResponse = mediaConvertClient.createJob(createJobRequest)
+        val createJobResponse = mediaConvert.createJob(createJobRequest)
         return createJobResponse.job?.id
     } catch (ex: MediaConvertException) {
         println(ex.message)
@@ -393,7 +390,6 @@ suspend fun createMediaJob(mcClient: MediaConvertClient, mcRoleARN: String, file
 }
 
 fun createOutput(
-    customName: String,
     nameModifierVal: String,
     segmentModifierVal: String,
     qvbrMaxBitrate: Int,
@@ -402,16 +398,13 @@ fun createOutput(
     originHeight: Int,
     targetWidth: Int
 ): Output? {
-
     val targetHeight = (
-        Math.round((originHeight * targetWidth / originWidth).toFloat()) -
-            Math.round((originHeight * targetWidth / originWidth).toFloat()) % 4
+        (originHeight * targetWidth / originWidth).toFloat().roundToInt() -
+            (originHeight * targetWidth / originWidth).toFloat().roundToInt() % 4
         )
 
-    var output: Output? = null
-
+    var output: Output?
     try {
-
         val audio1 = AudioDescription {
             audioTypeControl = AudioTypeControl.FollowInput
             languageCodeControl = AudioLanguageCodeControl.FollowInput
