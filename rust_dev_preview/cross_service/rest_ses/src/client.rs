@@ -77,7 +77,7 @@ mod rds_client_for_test {
         ) -> Self {
             RdsClient {
                 client: aws_sdk_rdsdata::Client::from_conf(
-                    aws_sdk_rdsdata::Config::builder()
+                    sdk_examples_test_utils::client_config!(aws_sdk_rdsdata)
                         .http_connector(aws_smithy_client::test_connection::TestConnection::new(
                             pairs,
                         ))

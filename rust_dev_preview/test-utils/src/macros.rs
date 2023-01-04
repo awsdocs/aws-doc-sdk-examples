@@ -37,27 +37,32 @@ macro_rules! test_event {
 /// status code for the response. The credentials are hardcoded test values.
 #[macro_export]
 macro_rules! single_shot_client {
-    ( sdk: $sdk_crate:ident, status: $status:expr, response: $res:expr) => {{
-        ($sdk_crate::Client::from_conf_conn(
-            sdk_examples_test_utils::client_config!($sdk_crate),
-            sdk_examples_test_utils::single_shot("".into(), ($status.into(), $res.into())),
-        ))
+    (sdk: $sdk_crate:ident, status: $status:expr, response: $res:expr) => {{
+        sdk_examples_test_utils::single_shot_client!($sdk_crate, "", $status, $res)
     }};
-    ( sdk: $sdk_crate:ident, request: $req:expr, status: $status:expr, response: $res:expr) => {{
-        ($sdk_crate::Client::from_conf_conn(
-            sdk_examples_test_utils::client_config!($sdk_crate),
-            sdk_examples_test_utils::single_shot($req.into(), ($status.into(), $res.into())),
-        ))
+    (sdk: $sdk_crate:ident, request: $req:expr, status: $status:expr, response: $res:expr) => {{
+        sdk_examples_test_utils::single_shot_client!($sdk_crate, $res, $status, $res)
+    }};
+    // "Private" internal root macro
+    ($sdk_crate:ident, $req:expr, $status:expr, $res:expr) => {{
+        $sdk_crate::Client::from_conf(
+            sdk_examples_test_utils::client_config!($sdk_crate)
+                .http_connector(sdk_examples_test_utils::single_shot(
+                    $req.into(),
+                    ($status.try_into().unwrap(), $res.into()),
+                ))
+                .build(),
+        )
     }};
 }
 
 /// Create a hard-coded testing config for an AWS SDK.
-/// TODO: remove after https://github.com/awslabs/smithy-rs/pull/2145
 #[macro_export]
 macro_rules! client_config {
     (
         $sdk_crate:ident
     ) => {
+        /// TODO: remove after https://github.com/awslabs/smithy-rs/pull/2145
         $sdk_crate::Config::builder()
             .credentials_provider($sdk_crate::Credentials::new(
                 "ATESTCLIENT",
@@ -67,6 +72,5 @@ macro_rules! client_config {
                 "",
             ))
             .region($sdk_crate::Region::new("us-east-1"))
-            .build()
     };
 }

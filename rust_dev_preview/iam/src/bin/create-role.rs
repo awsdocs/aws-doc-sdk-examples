@@ -101,44 +101,16 @@ async fn main() -> Result<(), Error> {
 
 #[cfg(test)]
 mod test {
-    use aws_smithy_http::body::SdkBody;
-
-    use aws_sdk_iam::{Client, Config, Credentials, Region};
-    use aws_smithy_client::test_connection::TestConnection;
-
     use crate::make_role;
-
-    fn make_config() -> Config {
-        let test_credentials: Credentials = Credentials::new(
-            "ATESTCLIENT",
-            "atestsecretkey",
-            Some("atestsessiontoken".to_string()),
-            None,
-            "",
-        );
-
-        let test_region: Region = Region::new("us-east-1");
-
-        Config::builder()
-            .credentials_provider(test_credentials)
-            .region(test_region)
-            .build()
-    }
 
     #[tokio::test]
     async fn test_make_role() {
-        let events = vec![(
-            http::Request::builder()
-                .body(SdkBody::from("request body"))
-                .unwrap(),
-            http::Response::builder()
-                .status(500)
-                .body(SdkBody::from("error body"))
-                .unwrap(),
-        )];
-        let conn = TestConnection::new(events);
-
-        let client = Client::from_conf_conn(make_config(), conn);
+        let client = sdk_examples_test_utils::single_shot_client!(
+            sdk: aws_sdk_iam,
+            request: "request body",
+            status: 500,
+            response: "error body"
+        );
 
         let response = make_role(&client, "{}".into(), "test_role".into()).await;
         assert!(response.starts_with("Error creating role: "));
