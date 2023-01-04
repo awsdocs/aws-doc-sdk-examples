@@ -19,17 +19,10 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 The following examples use the **ConnectClient** object:
 
-- [Creating an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/CreateCrawler.java) (CreateCrawler command)
-- [Deleting an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/DeleteCrawler.java) (DeleteCrawler command)
-- [Getting a specific AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetCrawler.java) (GetCrawler command)
-- [Getting AWS Glue crawlers](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetCrawlers.java) (GetCrawlers command)
-- [Getting a database](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetDatabase.java) (GetDatabase command)
-- [Getting a job run request](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetJobRun.java) (GetJobRun command)
-- [Getting all AWS Glue jobs](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetJobs.java) (GetJobs command)
-- [Getting an AWS Glue table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/GetTable.java) (GetTable command)
-- [Getting all AWS Glue workflows](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/ListWorkflows.java) (ListWorkflows command)
-- [Searching AWS Glue tables based on properties](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/SearchTables.java) (SearchTables command)
-- [Starting an AWS Glue crawler](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/glue/src/main/java/com/example/glue/StartCrawler.java) (StartCrawler command)
+- [Create an Amazon Connect instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/CreateInstance.java) (createInstance command)
+
+- [Delete an Amazon Connect instance](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/connect/src/main/java/com/example/connect/DeleteInstance.java) (deleteInstance command)
+
 
 ## Running the AWS Glue Java files
 
