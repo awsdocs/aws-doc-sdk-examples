@@ -35,7 +35,7 @@ You no longer need to set up, manage, and scale your own monitoring systems and 
 ### Prerequisites
 
 1. [Set up AWS SDK for JavaScript](../README.md).
-1. Run `yarn`.
+1. Run `npm i`.
 
 ### Instructions
 
@@ -48,8 +48,8 @@ OR
 
 ⚠️ Running the tests might result in charges to your AWS account.
 
-1. Run `yarn`.
-1. Run `yarn test`.
+1. Run `npm i`.
+1. Run `npm run integration-test`.
 
 ## Additional resources
 
