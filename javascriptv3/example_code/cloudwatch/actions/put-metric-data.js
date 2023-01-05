@@ -8,6 +8,9 @@ import { PutMetricDataCommand } from "@aws-sdk/client-cloudwatch";
 import { client } from "../libs/client.js";
 
 const run = async () => {
+  // See https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_PutMetricData.html#API_PutMetricData_RequestParameters
+  // and https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html
+  // for more information about the parameters in this command.
   const command = new PutMetricDataCommand({
     MetricData: [
       {

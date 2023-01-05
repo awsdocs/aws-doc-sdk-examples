@@ -2,7 +2,7 @@
 cloudwatch_ListMetrics:
   title: List &CW; metrics using an &AWS; SDK
   title_abbrev: List metrics
-  synopsis: list &CWlong; metrics.
+  synopsis: list the metadata for &CWlong; metrics. To get data for a metric, use the GetMetricData, or GetMetricStatistics actions.
   category:
   languages:
     .NET:
@@ -77,7 +77,7 @@ cloudwatch_ListMetrics:
 cloudwatch_PutMetricData:
   title: Put data into a &CW; metric using an &AWS; SDK
   title_abbrev: Put data into a metric
-  synopsis: put data into a &CWlong; metric.
+  synopsis: publish metric data points to &CWlong;.
   category:
   languages:
     Java:
@@ -171,7 +171,7 @@ cloudwatch_GetMetricStatistics:
 cloudwatch_PutMetricAlarm:
   title: Create a &CW; alarm that watches a metric using an &AWS; SDK
   title_abbrev: Create an alarm that watches a metric
-  synopsis: create an &CWlong; alarm that watches a metric.
+  synopsis: create or update an &CWlong; alarm and associate it with the specified metric, metric math expression, anomaly detection model, or Metrics Insights query.
   category:
   languages:
     Kotlin:

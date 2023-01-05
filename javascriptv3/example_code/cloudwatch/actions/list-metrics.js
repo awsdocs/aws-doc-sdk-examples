@@ -8,6 +8,8 @@ import { ListMetricsCommand } from "@aws-sdk/client-cloudwatch";
 import { client } from "../libs/client.js";
 
 export const run = async () => {
+  // Use the AWS console to see available namespaces and metric names. Custom metrics can also be created.
+  // https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/viewing_metrics_with_cloudwatch.html
   const command = new ListMetricsCommand({
     Dimensions: [
       {
