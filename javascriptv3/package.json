@@ -2,8 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "lerna run test",
-    "integration-test": "lerna run integration-test"
+    "test": "./scripts/test.sh"
   },
   "workspaces": [
     "example_code/cognito",
