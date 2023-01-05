@@ -8,6 +8,7 @@ import { PutMetricAlarmCommand } from "@aws-sdk/client-cloudwatch";
 import { client } from "../libs/client.js";
 
 const run = async () => {
+  // This alarm triggers when CPUUtilization exceeds 70% for one minute.
   const command = new PutMetricAlarmCommand({
     AlarmName: process.env.CLOUDWATCH_ALARM_NAME, // Set the value of CLOUDWATCH_ALARM_NAME to the name of an existing alarm.
     ComparisonOperator: "GreaterThanThreshold",
