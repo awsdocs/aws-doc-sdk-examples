@@ -25,7 +25,7 @@ describe("confirmation-post", () => {
     handler = mod.handler;
   });
 
-  it("should attempt to send an email if the even has an email address", async () => {
+  it("should attempt to send an email if the event has an email address", async () => {
     await handler({
       request: { userAttributes: { email: "mail@example.com" } },
     });
