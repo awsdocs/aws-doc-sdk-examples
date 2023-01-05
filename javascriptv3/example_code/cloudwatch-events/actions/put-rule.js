@@ -8,25 +8,16 @@ import { PutRuleCommand } from "@aws-sdk/client-cloudwatch-events";
 import { client } from "../libs/client.js";
 
 const run = async () => {
-  /**
-   * Request parameters for PutRule.
-   * https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutRule.html#API_PutRule_RequestParameters
-   */
+  // Request parameters for PutRule.
+  // https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutRule.html#API_PutRule_RequestParameters
   const command = new PutRuleCommand({
-    /**
-     * The name of the CloudWatch Events rule.
-     */
     Name: process.env.CLOUDWATCH_EVENTS_RULE,
 
-    /**
-     * The event pattern for the rule.
-     * Example: {"source": ["my.app"]}
-     */
+    // The event pattern for the rule.
+    //  Example: {"source": ["my.app"]}
     EventPattern: process.env.CLOUDWATCH_EVENTS_RULE_PATTERN,
 
-    /**
-     * The state of the rule. Valid values: ENABLED, DISABLED
-     */
+    // The state of the rule. Valid values: ENABLED, DISABLED
     State: "ENABLED",
   });
 

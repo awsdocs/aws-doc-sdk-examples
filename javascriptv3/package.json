@@ -7,6 +7,7 @@
   },
   "workspaces": [
     "example_code/cognito",
+    "example_code/cloudwatch-events",
     "example_code/lambda",
     "example_code/libs"
   ],

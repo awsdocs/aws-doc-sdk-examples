@@ -9,24 +9,16 @@ import { client } from "../libs/client.js";
 
 const run = async () => {
   const command = new PutEventsCommand({
-    /**
-     * The list of events to send to CloudWatch Events.
-     */
+    // The list of events to send to Amazon CloudWatch Events.
     Entries: [
       {
-        /**
-         * The event source.
-         */
+        // The name of the application or service that is sending the event.
         Source: "my.app",
 
-        /**
-         * The event detail type.
-         */
+        // The name of the event that is being sent.
         DetailType: "My Custom Event",
 
-        /**
-         * The event detail.
-         */
+        // The data that is sent with the event.
         Detail: JSON.stringify({ timeOfEvent: new Date().toISOString() }),
       },
     ],

@@ -9,14 +9,10 @@ import { client } from "../libs/client.js";
 
 const run = async () => {
   const command = new PutTargetsCommand({
-    /**
-     * The name of the CloudWatch Events rule.
-     */
+    // The name of the Amazon CloudWatch Events rule.
     Rule: process.env.CLOUDWATCH_EVENTS_RULE,
 
-    /**
-     * The targets to add to the rule.
-     */
+    // The targets to add to the rule.
     Targets: [
       {
         Arn: process.env.CLOUDWATCH_EVENTS_TARGET_ARN,

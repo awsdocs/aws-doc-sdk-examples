@@ -21,9 +21,9 @@ changes in Amazon Web Services (AWS) resources.
 
 Code excerpts that show you how to call individual service functions.
 
-- [Adding a Lambda function target](actions/putTargets.js)(PutTargets)
-- [Create a scheduled rule](actions/putRule.js)(PutRule)
-- [Send events](actions/putEvents.js)(PutEvents)
+- [Add an AWS Lambda function target](actions/put-targets.js)(PutTargets)
+- [Create a scheduled rule](actions/put-rule.js)(PutRule)
+- [Send events](actions/put-events.js)(PutEvents)
 
 ## Run the examples
 
@@ -33,7 +33,7 @@ Code excerpts that show you how to call individual service functions.
 ### Prerequisites
 
 - [Set up AWS SDK for JavaScript](../README.rst)
-- Run `yarn` to install dependencies.
+- Run `npm i` to install dependencies.
 
 ## Instructions
 
@@ -47,15 +47,10 @@ Code excerpts that show you how to call individual service functions.
 
 ⚠️ Running the tests might result in charges to your AWS account.
 
-### Unit tests
-
-1. Run `yarn`.
-1. Run `yarn test`.
-
 ### Integration tests
 
-1. Run `yarn`.
-1. Run `yarn integration-test`.
+1. Run `npm i`.
+1. Run `npm run integration-test`.
 
 ## Additional resources
 
