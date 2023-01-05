@@ -9,29 +9,20 @@ import { client } from "../libs/client.js";
 
 const run = async () => {
   const command = new PutSubscriptionFilterCommand({
-    /**
-     * An ARN of a same-account Kinesis stream, Kinesis Firehose
-     * delivery stream, or Lambda function.
-     *
-     * Additional information:
-     * https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html
-     */
+    // An ARN of a same-account Kinesis stream, Kinesis Firehose
+    // delivery stream, or Lambda function.
+    // https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/SubscriptionFilters.html
     destinationArn: process.env.CLOUDWATCH_LOGS_DESTINATION_ARN,
-    /**
-     * A name for the filter.
-     */
+
+    // A name for the filter.
     filterName: process.env.CLOUDWATCH_LOGS_FILTER_NAME,
-    /**
-     * A filter pattern for subscribing to a filtered stream of log events.
-     *
-     * More information:
-     * https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html
-     */
+
+    // A filter pattern for subscribing to a filtered stream of log events.
+    // https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html
     filterPattern: process.env.CLOUDWATCH_LOGS_FILTER_PATTERN,
-    /**
-     * The name of the log group. Messages in this group matching the filter pattern
-     * will be sent to the destination ARN.
-     */
+
+    // The name of the log group. Messages in this group matching the filter pattern
+    // will be sent to the destination ARN.
     logGroupName: process.env.CLOUDWATCH_LOGS_LOG_GROUP,
   });
 

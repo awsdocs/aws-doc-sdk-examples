@@ -9,13 +9,9 @@ import { client } from "../libs/client.js";
 
 const run = async () => {
   const command = new DeleteSubscriptionFilterCommand({
-    /**
-     * A name for the filter.
-     */
+    // The name of the filter.
     filterName: process.env.CLOUDWATCH_LOGS_FILTER_NAME,
-    /**
-     * The name of the log group.
-     */
+    // The name of the log group.
     logGroupName: process.env.CLOUDWATCH_LOGS_LOG_GROUP,
   });
 

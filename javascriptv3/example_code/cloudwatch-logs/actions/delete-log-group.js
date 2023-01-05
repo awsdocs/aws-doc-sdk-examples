@@ -9,9 +9,7 @@ import { client } from "../libs/client.js";
 
 const run = async () => {
   const command = new DeleteLogGroupCommand({
-    /**
-     * The name of the log group.
-     */
+    // The name of the log group.
     logGroupName: process.env.CLOUDWATCH_LOGS_LOG_GROUP,
   });
 

@@ -8,10 +8,9 @@ import { DescribeSubscriptionFiltersCommand } from "@aws-sdk/client-cloudwatch-l
 import { client } from "../libs/client.js";
 
 const run = async () => {
+  // This will return a list of all subscription filters in your account
+  // matching the log group name.
   const command = new DescribeSubscriptionFiltersCommand({
-    /**
-     * A name for the new log group.
-     */
     logGroupName: process.env.CLOUDWATCH_LOGS_LOG_GROUP,
     limit: 1,
   });
