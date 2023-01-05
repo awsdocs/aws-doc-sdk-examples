@@ -6,6 +6,7 @@
     "integration-test": "lerna run integration-test"
   },
   "workspaces": [
+    "example_code/cloudwatch-logs",
     "example_code/cognito",
     "example_code/lambda",
     "example_code/libs"

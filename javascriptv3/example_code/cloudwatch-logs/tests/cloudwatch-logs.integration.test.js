@@ -3,9 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+
+import { DescribeSubscriptionFiltersCommand } from "@aws-sdk/client-cloudwatch-logs";
+import { LambdaClient, waitUntilFunctionUpdated } from "@aws-sdk/client-lambda";
 import { describe, it, beforeAll, afterAll, expect } from "vitest";
-import { retry } from "../../libs/utils/util-timers.js";
-import { setEnv } from "../../libs/utils/util-node.js";
+
+import { retry } from "libs/utils/util-timers.js";
+import { setEnv } from "libs/utils/util-node.js";
+
 import {
   addPermissionLogsInvokeFunction,
   createFunction,
@@ -18,8 +23,6 @@ import {
   detachRolePolicy,
 } from "../libs/iam-helper.js";
 import { DEFAULT_REGION, LAMBDA_EXECUTION_POLICY } from "../libs/constants.js";
-import { LambdaClient, waitUntilFunctionUpdated } from "@aws-sdk/client-lambda";
-import { DescribeSubscriptionFiltersCommand } from "@aws-sdk/client-cloudwatch-logs";
 import { client } from "../libs/client.js";
 
 const testTimeout = 60000;
