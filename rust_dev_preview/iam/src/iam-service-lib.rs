@@ -168,11 +168,12 @@ pub async fn create_user_policy(
 // snippet-start:[rust.example_code.iam.service.delete_role]
 pub async fn delete_role(client: &iamClient, role: &Role) -> Result<(), iamError> {
     let role = role.clone();
-    while let Err(_) = client
+    while client
         .delete_role()
         .role_name(role.role_name.as_ref().unwrap())
         .send()
         .await
+        .is_err()
     {
         sleep(Duration::from_secs(2)).await;
     }
