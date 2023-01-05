@@ -17,72 +17,74 @@ Amazon S3 is cloud object storage with industry-leading scalability, data availa
 
 ### Single action
 
-You will find these examples that use the **S3Client** object: 
+You will find these examples that use the **S3Client** class: 
 
-- [Aborting a multipart upload to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/AbortMultipartUpload.java) (AbortMultipartUpload command)
-- [Copying an object from one Amazon S3 bucket to another Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CopyObject.java) (CopyObject command)
-- [Creating and deleting an access point for an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CreateAccessPoint.java) (CreateAccessPoint command)
-- [Creating an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CreateBucket.java) (CreateBucket command)
-- [Creating an Amazon Amazon S3 batch job](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CreateJob.java) (CreateJob command)
-- [Deleting a policy from an Amazon Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/DeleteBucketPolicy.java) (DeleteBucketPolicy command)
-- [Deleting multiple objects from an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/DeleteMultiObjects.java) (DeleteObjects command)
-- [Deleting the website configuration for an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/DeleteWebsiteConfiguration.java) (DeleteBucketWebsite command)
-- [Using the S3Presigner client to create a presigned URL and upload an object to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlAndUploadObject.java) (PresignPutObject command)
-- [Using the S3Presigner client to create a presigned URL and upload an object that contains metadata to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlMetadata.java) (PresignPutObject command)
-- [Using the S3Presigner client to create a presigned URL and upload a PNG image file to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlUploadImage.java) (PresignPutObject command)
-- [Getting the access control list (ACL) for an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetAcl.java) (GetObjectAcl command)
-- [Getting the bucket policy for an existing Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetBucketPolicy.java) (GetBucketPolicy command)
-- [Getting the content type of an object in an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectContentType.java) (HeadObject command)
-- [Reading data from an Amazon S3 object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectData.java) (GetObjectAsBytes command)
-- [Getting an object located in an Amazon S3 bucket by using the S3Presigner client object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectPresignedUrl.java) (PresignGetObject command)
-- [Getting an object located in an Amazon S3 bucket by using the S3Presigner client object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectPresignedUrl.java) (PresignGetObject command)
-- [Reading tags that belong to an object located in an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectTags.java) (GetObjectTagging command)
-- [Getting an URL for an object located in an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectUrl.java) (GetUrl command)
-- [Using the AWS Key Management Service to encrypt data prior to placing the data into an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/KMSEncryptionExample.java) (Encrypt command)
-- [Adding, updating, and deleting a Lifecycle configuration](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/LifecycleConfiguration.java) (PutBucketLifecycleConfiguration command)
-- [Retrieving a list of in-progress multipart uploads.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/ListMultipartUploads.java) (ListMultipartUploads command)
-- [Getting a list of objects located in a given Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/ListObjects.java) (ListObjects command)
-- [Setting tags for an object in an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/ManagingObjectTags.java) (putObject command)
-- [Getting a presigned object using a Java Swing app.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PresignedSwing.java) (using Swing command)
-- [Setting the logging parameters for an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PutBucketLogging.java) (PutObject command)
-- [Uploading an object to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PutObject.java) (PutObject commands)
-- [Uploading an object with metadata to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PutObjectMetadata.java) (PutObject command)
-- [Uploading an object with retention configuration to an Amazon S3 object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PutObjectRetention.java) (PutObjectRetention command)
-- [Restoring an archived copy of an object back into an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/RestoreObject.java) (RestoreObject command)
-- [Deleting an empty Amazon Simple Storage Service (Amazon S3) bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/S3BucketDeletion.java) (DeleteBucket command)
-- [Creating, listing and deleting an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/S3BucketOps.java) (various commands)
-- [Managing cross-origin resource sharing (CORS) for an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/S3Cors.java) (PutBucketCors command)
-- [Getting log information](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/S3Log.java) (ListBuckets command)
-- [Setting a new access control list (ACL) for an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/SetAcl.java) (PutBucketAcl command)
-- [Adding a bucket policy to an existing Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/SetBucketPolicy.java) (PutBucketPolicy command)
-- [Setting the website configuration for an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/SetWebsiteConfiguration.java) (PutBucketWebsite command)
-- [Creating a S3ControlClient object using a virtual private cloud (VPC) URL](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/VPCCreateJob.java) (createJob command)
-- [Setting up a S3Client object using a virtual private cloud (VPC) URL](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/VPCS3Example.java) (EndpointOverride command)
-
+- [Abort a multipart upload to an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/AbortMultipartUpload.java) (AbortMultipartUpload command)
+- [Copy an object from one S3 bucket to another S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CopyObject.java) (CopyObject command)
+- [Create and delete an access point for an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CreateAccessPoint.java) (CreateAccessPoint command)
+- [Create an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CreateBucket.java) (CreateBucket command)
+- [Create an Amazon S3 batch job](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CreateJob.java) (CreateJob command)
+- [Delete a policy from an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/DeleteBucketPolicy.java) (DeleteBucketPolicy command)
+- [Delete multiple objects from an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/DeleteMultiObjects.java) (DeleteObjects command)
+- [Delete the website configuration for an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/DeleteWebsiteConfiguration.java) (DeleteBucketWebsite command)
+- [Use the S3Presigner client to create a presigned URL and upload an object to an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlAndUploadObject.java) (PresignPutObject command)
+- [Use the S3Presigner client to create a presigned URL and upload an object that contains metadata to an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlMetadata.java) (PresignPutObject command)
+- [Use the S3Presigner client to create a presigned URL and upload a PNG image file to an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlUploadImage.java) (PresignPutObject command)
+- [Get the access control list (ACL) for an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetAcl.java) (GetObjectAcl command)
+- [Get the bucket policy for an existing S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetBucketPolicy.java) (GetBucketPolicy command)
+- [Get the content type of an object in an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectContentType.java) (HeadObject command)
+- [Read data from an S3 object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectData.java) (GetObjectAsBytes command)
+- [Get an object located in an S3 bucket by using the S3Presigner client object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectPresignedUrl.java) (PresignGetObject command)
+- [Read tags that belong to an object located in an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectTags.java) (GetObjectTagging command)
+- [Get an URL for an object located in an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectUrl.java) (GetUrl command)
+- [Use the AWS Key Management Service to encrypt data prior to placing the data into an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/KMSEncryptionExample.java) (Encrypt command)
+- [Add, update, and delete a Lifecycle configuration](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/LifecycleConfiguration.java) (PutBucketLifecycleConfiguration command)
+- [Retrieve a list of in-progress multipart uploads.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/ListMultipartUploads.java) (ListMultipartUploads command)
+- [Get a list of objects located in a given S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/ListObjects.java) (ListObjects command)
+- [Set tags for an object in an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/ManagingObjectTags.java) (putObject command)
+- [Get a presigned object using a Java Swing app.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PresignedSwing.java) (using Swing command)
+- [Set the logging parameters for an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PutBucketLogging.java) (PutObject command)
+- [Upload an object to an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PutObject.java) (PutObject commands)
+- [Upload an object with metadata to an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PutObjectMetadata.java) (PutObject command)
+- [Upload an object with retention configuration to an S3 object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PutObjectRetention.java) (PutObjectRetention command)
+- [Restore an archived copy of an object back into an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/RestoreObject.java) (RestoreObject command)
+- [Delete an empty S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/S3BucketDeletion.java) (DeleteBucket command)
+- [Create, list and delete an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/S3BucketOps.java) (various commands)
+- [Manage cross-origin resource sharing (CORS) for an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/S3Cors.java) (PutBucketCors command)
+- [Get log information](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/S3Log.java) (ListBuckets command)
+- [Set a new access control list (ACL) for an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/SetAcl.java) (PutBucketAcl command)
+- [Add a bucket policy to an existing S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/SetBucketPolicy.java) (PutBucketPolicy command)
+- [Set the website configuration for an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/SetWebsiteConfiguration.java) (PutBucketWebsite command)
+- [Create an S3ControlClient object using a virtual private cloud (VPC) URL](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/VPCCreateJob.java) (createJob command)
+- [Set up an S3Client object using a virtual private cloud (VPC) URL](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/VPCS3Example.java) (EndpointOverride command)
 
 
-You will find these examples that use the **S3AsyncClient** object: 
 
-- [Creating an Amazon S3 object using the Async client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/CreateBucketAsync.java) (CreateBucket command)
-- [Reading data from an Amazon S3 object using the Async client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/GetObjectDataAsync.java) (GetObject command)
-- [Using the asynchronous client to place an object into an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/S3AsyncOps.java) (PutObject command)
+You will find these examples that use the **S3AsyncClient** class: 
 
-You will find these examples that use the **S3TransferManager** object: 
+- [Create an Amazon S3 object using the Async client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/CreateBucketAsync.java) (CreateBucket command)
+- [Read data from an Amazon S3 object using the Async client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/GetObjectDataAsync.java) (GetObject command)
+- [Use the asynchronous client to place an object into an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/S3AsyncOps.java) (PutObject command)
 
-- [Downloading an object from an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/GetObject.java) (DownloadFile command)
-- [Uploading an object to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/UploadObject.java) (UploadFile command)
+You will find these examples that use the **S3TransferManager** class: 
+
+- [Download a file from an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/FileDownload.java) (DownloadFile command)
+- [Download all objects in an S3 bucket to a local directory](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java) (DownloadDirectory command)
+- [Copy an object to another S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/ObjectCopy.java) (CopyRequest command)
+- [Upload a file to an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/FileUpload.java) (UploadFile command)
+- [Upload a local directory to an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DirectoryUpload.java) (UploadDirectory command)
 
 
 ### Scenario
 
-- [Performing various Amazon S3 operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/S3Scenario.java) (multiple commands)
+- [Perform various Amazon S3 operations](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/S3Scenario.java) (multiple commands)
 
 
 ### Cross-service
 
-- [Building a Spring Boot web application that Streams Amazon S3 content over HTTP](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_spring_stream_app) 
-- [Detect PPE in images with Amazon Rekognition using an AWS SDK](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_ppe) 
-- [Creating a dynamic web application that analyzes photos using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app) 
+- [Build a Spring Boot web application that streams Amazon S3 content over HTTP](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_spring_stream_app) 
+- [Detect PPE in images with Amazon Rekognition](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_ppe) 
+- [Create a dynamic web application that analyzes photos using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app) 
 
 ## Running the examples
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
@@ -121,7 +123,7 @@ Define these values to successfully run the JUnit tests:
 - **encryptObjectName** - The name of the object to encrypt required for the **KMSEncryptionExample** test.
 - **encryptObjectPath** - The path to a TXT file to encrypt and place into a Amazon S3 bucket. This value is required for the **KMSEncryptionExample** test.
 - **encryptOutPath** - The path where a text file is written to after it's decrypted. This value is required for the **KMSEncryptionExample** test.
-- **keyId** - The id of the AWS KMS key to use to encrpt/decrypt the data. You can obtain the key ID value from the AWS Management Console. This value is required for the **KMSEncryptionExample** test.
+- **keyId** - The id of the AWS KMS key to use to encrypt/decrypt the data. You can obtain the key ID value from the AWS Management Console. This value is required for the **KMSEncryptionExample** test.
 
 
 ###  Sample policy text
