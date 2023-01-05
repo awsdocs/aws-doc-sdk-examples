@@ -23,10 +23,9 @@ cargo test
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_iam::Error as iamError;
-use aws_sdk_iam::{Client as iamClient, Credentials as iamCredentials};
+use aws_sdk_iam::{Client as iamClient, Credentials as iamCredentials, Region};
 use aws_sdk_s3::Client as s3Client;
 use aws_sdk_sts::Client as stsClient;
-use aws_types::region::Region;
 use std::borrow::Borrow;
 use tokio::time::{sleep, Duration};
 use uuid::Uuid;

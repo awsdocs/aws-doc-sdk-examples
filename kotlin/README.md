@@ -45,4 +45,15 @@ In the **usecases** folder, find step-by-step development tutorials that use mul
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
 
+## Docker image (Beta)
+This example code will soon be available in a container image
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
+with all Kotlin examples with dependencies pre-resolved, allowing you to explore
+these examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for Kotlin image](https://gallery.ecr.aws/aws-docs-sdk-examples/kotlin) is available but still
+undergoing active development. Refer to
+[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4130)
+for more information.
+
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
