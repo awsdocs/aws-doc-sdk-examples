@@ -1,0 +1,30 @@
+{{- template "prologue"}}
+{{- $include_docs := "file://AWSShared/code-samples/docs/"}}
+{{- if isSnapshot}}
+    {{- $include_docs := ""}}
+{{- end}}
+<block>
+    {{- if .BlockContent}}
+    <xi:include href="{{$include_docs}}{{.BlockContent}}"></xi:include>
+    {{- else}}
+    <para>{{.Description}}</para>
+    {{- if .DescriptionList}}
+    <itemizedlist>
+        {{- range $desc := .DescriptionList}}
+        <listitem><para>{{$desc}}</para></listitem>
+        {{- end}}
+    </itemizedlist>
+    {{- end}}
+    {{- end}}
+    <para>
+        For complete source code and instructions on how to set up and run, see
+        <ulink url="{{.UrlHref}}">{{.UrlText}}</ulink> in
+        <emphasis>{{.SourceName}}</emphasis>.
+    </para>
+    <itemizedlist>
+        <title>Services used in this example</title>
+        {{- range $svc_ent := $.Services}}
+        <listitem><para>{{$svc_ent.Short}}</para></listitem>
+        {{- end}}
+    </itemizedlist>
+</block>
