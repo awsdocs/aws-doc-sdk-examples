@@ -13,6 +13,7 @@ package com.example.keyspace
 import aws.sdk.kotlin.services.keyspaces.KeyspacesClient
 import aws.sdk.kotlin.services.keyspaces.model.ListKeyspacesRequest
 
+// snippet-start:[keyspace.kotlin.hello.main]
 /**
 Before running this Kotlin code example, set up your development environment, including your credentials.
 
@@ -37,3 +38,4 @@ suspend fun listKeyspaces() {
         }
     }
 }
+// snippet-end:[keyspace.kotlin.hello.main]
