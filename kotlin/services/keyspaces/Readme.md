@@ -1,7 +1,7 @@
-# Amazon Keyspaces code examples for the SDK for Java
+# Amazon Keyspaces code examples for the SDK for Kotlin
 
 ## Overview
-This README discusses how to run and test the AWS SDK for Java (v2) examples for Amazon Keyspaces.
+This README discusses how to run and test the AWS SDK for Kotlin examples for Amazon Keyspaces.
 
 Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and managed Apache Cassandra–compatible database service. 
 
@@ -13,11 +13,9 @@ Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and man
 
 ## Code examples
 
-The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
-
 ### Get started
 
-- [Hello Amazon Keyspaces](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/keyspaces/src/main/java/com/example/keyspace/HelloKeyspaces.java) (listKeyspaces command)
+- [Hello Amazon Keyspaces](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/keyspaces/src/main/kotlin/com/example/keyspace/HelloKeyspaces.kt) (listKeyspaces command)
 
 ### Single action
 
