@@ -2,8 +2,6 @@
 # Status: Beta
 # GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4130
 FROM gradle:latest
-RUN mkdir /src
 COPY . /src/
-WORKDIR /src/kotlin/services/cloudwatch
-RUN gradle build
+RUN cd /src/services/cloudwatch && gradle build
 CMD ["bash"]

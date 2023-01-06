@@ -2,9 +2,8 @@
 # Status: Beta
 # GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4124
 FROM ruby:3.1.2-buster
-RUN mkdir /src
 COPY . /src/
-WORKDIR /src/ruby
-RUN bundle config --delete frozen
-RUN bundle install
+RUN cd /src/ruby && \
+    bundle config --delete frozen && \
+    bundle install
 CMD ["bash"]

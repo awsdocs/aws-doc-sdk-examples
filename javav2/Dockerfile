@@ -2,8 +2,7 @@
 # Status: Beta
 # GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4128
 FROM maven:latest
-RUN mkdir /src
 COPY . /src/
-WORKDIR /src/javav2/example_code/cloudwatch
-RUN mvn package -Dmaven.test.skip
+RUN cd /src/javav2/example_code/cloudwatch && \
+    mvn package -Dmaven.test.skip
 CMD ["bash"]
