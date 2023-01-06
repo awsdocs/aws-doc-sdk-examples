@@ -33,7 +33,7 @@ macro_rules! test_event {
 }
 
 /// Create a single-shot Client for `sdk_crate`. The `req` and `res` will be the
-/// body of the request and the response, respectiecly. The `status` is the HTTP
+/// body of the request and the response, respectively. The `status` is the HTTP
 /// status code for the response. The credentials are hardcoded test values.
 #[macro_export]
 macro_rules! single_shot_client {
@@ -43,7 +43,7 @@ macro_rules! single_shot_client {
     (sdk: $sdk_crate:ident, request: $req:expr, status: $status:expr, response: $res:expr) => {{
         sdk_examples_test_utils::single_shot_client!($sdk_crate, $res, $status, $res)
     }};
-    // "Private" internal root macro
+    // "Private" internal root macro.
     ($sdk_crate:ident, $req:expr, $status:expr, $res:expr) => {{
         $sdk_crate::Client::from_conf(
             sdk_examples_test_utils::client_config!($sdk_crate)

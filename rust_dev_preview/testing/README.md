@@ -2,7 +2,7 @@
 
 ## Purpose
 
-These examples demonstrate how to create an integration test for a Rust SDK
+These examples demonstrate how to create an integration test for an SDK for Rust
 operation. It uses the Amazon Simple Storage Service (Amazon S3) ListObjectsV2
 operation to accumulate the size, in bytes, of objects in a bucket with a
 specified prefix, and shows how to mock the call using traits or an enum.

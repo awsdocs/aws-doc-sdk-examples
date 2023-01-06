@@ -1,8 +1,8 @@
-# Test Utilities AWS SDK for Rust code examples
+# Test Utilities for SDK for Rust code examples
 
 ## Purpose
 
-These utilities help streamline common testing actions.
+These utilities help streamline common testing actions in the AWS SDK for Rust.
 
 ## Code example
 
@@ -22,7 +22,7 @@ These utilities help streamline common testing actions.
 
 ## Running the code example
 
-The code in this example is not self executing. Instead, look at its usage in
+The code in this example is not self-executing. Instead, look at its usage in
 the unit tests of other AWS SDK for Rust examples.
 
 ## Resources
