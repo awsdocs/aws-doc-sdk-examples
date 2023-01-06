@@ -32,15 +32,8 @@ public struct STimer {
         self.endTime = nil
     }
 
-    /// Wait for the timer to expire.
-/*     mutating func wait() {
-        startTime = Date(timeIntervalSinceNow: 0.0)
-        Thread.sleep(forTimeInterval: self.duration)
-        self.endTime = Date(timeIntervalSinceNow: 0.0)
-    }
- */
-    // Wait for the timer to expire, displaying optional messages before
-    // and/or after the timer runs.
+    /// Wait for the timer to expire, displaying optional messages before
+    /// and/or after the timer runs.
     mutating func wait(startMessage: String? = nil, endMessage: String? = nil) {
         if startMessage != nil {
             print(startMessage!)
