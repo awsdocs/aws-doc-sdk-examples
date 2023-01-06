@@ -37,19 +37,17 @@ Cross-service examples are located in the [_cross-services folder_](./example_co
 
 **Note**: Running the tests might result in charges to your AWS account.
 
-Tests can be run for every service in this repository, or for a specific service. Tests are
-either unit tests or integration tests. You may choose to run only unit tests, only integration
-tests, or both.
+You can run tests for a specific service, or for every service in this repository. Choose whether to run unit tests, integration tests, or both.
 
-- To run both types of tests for all services, run the following from this directory:
+- To run both unit and integration tests for all services, run the following from this directory:
   
   `npm test` or `npm test -- @unit @integration`
 
-- To run only unit tests, provided the `@unit` tag as an argument:
+- To run only unit tests, provide the `@unit` tag as an argument:
   
   `npm test -- @unit`
 
-- To run only integration tests, provided the `@integration` tag as an argument:
+- To run only integration tests, provide the `@integration` tag as an argument:
   
   `npm test -- @integration`
 
