@@ -48,7 +48,7 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.util.Date
 
-//snippet-start:[keyspace.kotlin.scenario.main]
+// snippet-start:[keyspace.kotlin.scenario.main]
 /**
  Before running this Kotlin code example, set up your development environment, including your credentials.
 
@@ -387,8 +387,9 @@ fun loadData(session: CqlSession, fileName: String, keySpace: String) {
 
     var t = 0
     while (iter.hasNext()) {
-        if (t == 50)
+        if (t == 50) {
             break
+        }
 
         currentNode = iter.next() as ObjectNode
         val year = currentNode.path("year").asInt()
