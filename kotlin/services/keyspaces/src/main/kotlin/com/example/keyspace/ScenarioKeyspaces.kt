@@ -90,7 +90,7 @@ import java.util.Date
      keyspaceName - The name of the keyspace to create.
   */
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
-suspend fun main(args: Array<String>) {
+suspend fun main() {
     val fileName = "<Replace with the JSON file that contains movie data>"
     val keyspaceName = "<Replace with the name of the keyspace to create>"
     val titleUpdate = "The Family"
