@@ -23,12 +23,12 @@ final class CreateRoleTests: XCTestCase {
     ///
     /// This function sets up the following:
     ///
-    ///     Configures the AWS SDK log system to only log errors.
-    ///     Initializes the service handler, which is used to call
-    ///     Amazon Identity and Access Management (IAM) functions.
-    ///     Initializes the demo cleanup handler, which is used to
-    ///     track the names of the files and buckets created by the tests
-    ///     in order to remove them after testing is complete.
+    /// * Configures the AWS SDK log system to only log errors.
+    /// * Initializes the service handler, which is used to call Amazon
+    ///   Identity and Access Management (IAM) functions.
+    /// * Initializes the demo cleanup handler, which is used to track the
+    ///   names of the files and buckets created by the tests in order to
+    ///   remove them after testing is complete.
     override class func setUp() {
         let tdSem = TestWaiter(name: "Setup")
         super.setUp()

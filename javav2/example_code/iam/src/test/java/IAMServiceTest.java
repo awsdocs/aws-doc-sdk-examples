@@ -232,7 +232,7 @@ public class IAMServiceTest {
         TimeUnit.SECONDS.sleep(30);
         System.out.println("5. Gets temporary credentials by assuming the role.");
         System.out.println("Perform an Amazon S3 Service operation using the temporary credentials.");
-        IAMScenario.assumeGivenRole(roleArn, roleSessionName, bucketNameSc, accessKey, secretKey);
+        IAMScenario.assumeRole(roleArn, roleSessionName, bucketNameSc, accessKey, secretKey);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
