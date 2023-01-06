@@ -24,7 +24,7 @@ enum ServiceHandlerError: Error {
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.
 public class ServiceHandler {
-    public let client: IamClient
+    public let client: IAMClient
 
     /// Initialize and return a new ``ServiceHandler`` object, which is used
     /// to drive the AWS calls used for the example. The Region string
@@ -35,7 +35,7 @@ public class ServiceHandler {
     // snippet-start:[iam.swift.createrole.handler.init]
     public init() async {
         do {
-            client = try IamClient(region: "AWS_GLOBAL")
+            client = try IAMClient(region: "AWS_GLOBAL")
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
             exit(1)
@@ -74,9 +74,9 @@ public class ServiceHandler {
     /// - Parameter name: A `String` giving the name of the user to get. If
     ///   this parameter is `nil`, the default user's information is returned.
     ///
-    /// - Returns: An `IamClientTypes.User` record describing the user.
+    /// - Returns: An `IAMClientTypes.User` record describing the user.
     // snippet-start:[iam.swift.createrole.handler.getuser]
-    public func getUser(name: String?) async throws -> IamClientTypes.User {
+    public func getUser(name: String?) async throws -> IAMClientTypes.User {
         let input = GetUserInput(
             userName: name
         )
