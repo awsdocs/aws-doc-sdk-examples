@@ -16,7 +16,7 @@ const dirname = dirnameFromMetaUrl(import.meta.url);
 const updateFunctionConfiguration = async (funcName) => {
   const client = createClientForDefaultRegion(LambdaClient);
   const config = readFileSync(
-    `${dirname}../functions/${funcName}/config.json`
+    `${dirname}../functions/config.json`
   ).toString();
   const command = new UpdateFunctionConfigurationCommand({
     ...JSON.parse(config),
