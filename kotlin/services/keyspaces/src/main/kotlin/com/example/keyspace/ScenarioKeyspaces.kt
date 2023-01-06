@@ -48,6 +48,7 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.util.Date
 
+//snippet-start:[keyspace.kotlin.scenario.main]
 /**
  Before running this Kotlin code example, set up your development environment, including your credentials.
 
@@ -564,3 +565,4 @@ suspend fun createKeySpace(keyspaceNameVal: String) {
     }
 }
 // snippet-end:[keyspace.kotlin.scenario.create.keyspace.main]
+// snippet-end:[keyspace.kotlin.scenario.main]
