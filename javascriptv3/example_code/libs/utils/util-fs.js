@@ -73,6 +73,11 @@ const readSubdirSync = pipe(
   map(prop("name"))
 );
 
+/**
+ * 
+ * @param {string} inputPath 
+ * @returns {Promise<Buffer>}
+ */
 const zip = (inputPath) =>
   new Promise((resolve, reject) => {
     try {

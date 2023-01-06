@@ -45,6 +45,7 @@ body:
       options:
         - label: All languages
         - label: .NET
+        - label: C++
         - label: Go (v2)
         - label: Java
         - label: Java (v2)

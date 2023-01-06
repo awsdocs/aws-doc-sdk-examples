@@ -33,14 +33,14 @@ See [Configuring the AWS CLI - Environment Variables](https://docs.aws.amazon.co
 - AWS_SECRET_ACCESS_KEY (SECRET_ACCESS_KEY) specifies the secret key associated with the access key. This is essentially the "password" for the access key.
 
 The following environment variables are specific to using the AWS SDK for Rust running in Amazon Elastic Container Service (Amazon ECS).
-See [https://docs.aws.amazon.com/sdkref/latest/guide/feature-container-credentials.html](AWS SDKs and Tools - Container Credentials) for more information.
+See [AWS SDKs and Tools - Container Credentials](https://docs.aws.amazon.com/sdkref/latest/guide/feature-container-credentials.html) for more information.
 
 - AWS_CONTAINER_CREDENTIALS_FULL_URI specifies the full HTTP URL endpoint for the SDK to use when making a request for credentials.
 - AWS_CONTAINER_CREDENTIALS_RELATIVE_URI specifies the relative HTTP URL endpoint for the SDK to use when making a request for credentials.
 - AWS_CONTAINER_AUTHORIZATION_TOKEN specifies the Authorization header on HTTP requests.
 
 The following environment variables specify how Instance Metadata Service (IMDS) provides data about your instance when using the AWS SDK for Rust running in Amazon EC2.
-See [https://docs.aws.amazon.com/sdkref/latest/guide/feature-imds-credentials.html](AWS SDKs and Tools - IMDS Credentials) for more information.
+See [AWS SDKs and Tools - IMDS Credentials](https://docs.aws.amazon.com/sdkref/latest/guide/feature-imds-credentials.html) for more information.
 
 - AWS_EC2_METADATA_DISABLED specifies whether or not to attempt to use IMDS to obtain credentials.
 - AWS_EC2_METADATA_SERVICE_ENDPOINT specifies the endpoint for IMDS.
@@ -63,7 +63,7 @@ See the individual readme files in each service directory for information about 
 - [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
 ## Docker image (Beta)
-In the near future, this example code will be available in a container image
+This example code will soon be available in a container image
 hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
 with all Rust examples with dependencies pre-resolved, allowing you to explore
 these examples in an isolated environment.

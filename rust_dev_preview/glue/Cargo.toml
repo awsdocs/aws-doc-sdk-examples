@@ -15,7 +15,6 @@ name = "scenario"
 [dependencies]
 aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-sdk-glue = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-aws-sdk-iam = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
@@ -39,4 +38,3 @@ secrecy = "0.8.0"
 uuid = { version = "1.2.1", features = ["v4"] }
 futures = "0.3.25"
 tracing-bunyan-formatter = "0.3.4"
-mockall = "0.11.3"
