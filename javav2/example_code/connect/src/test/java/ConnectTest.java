@@ -51,10 +51,8 @@ public class ConnectTest {
                 return;
             }
 
-            //load a properties file from class path, inside static method
+            // Load a properties file.
             prop.load(input);
-
-            // Populate the data members required for all tests
             instanceAlias = prop.getProperty("instanceAlias");
             contactId = prop.getProperty("contactId");
             existingInstanceId = prop.getProperty("existingInstanceId");
