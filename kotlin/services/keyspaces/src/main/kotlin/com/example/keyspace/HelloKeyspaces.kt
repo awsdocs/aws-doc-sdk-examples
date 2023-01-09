@@ -1,5 +1,5 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[HelloKeyspaces.kt demonstrates how to display all current keyspace names and Amazon Resource Names (ARNs).]
+// snippet-sourcedescription:[HelloKeyspaces.kt demonstrates how to display all current Amazon Keyspaces names and Amazon Resource Names (ARNs).]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Keyspaces]
 

@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[ScenarioKeyspaces.kt demonstrates how to perform various Amazon Keyspace operations.]
+// snippet-sourcedescription:[ScenarioKeyspaces.kt demonstrates how to perform various Amazon Keyspaces operations.]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon Keyspaces]
 
@@ -56,7 +56,7 @@ import java.util.Date
 
  https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
- This example uses a secure file format used to hold certificate information for
+ This example uses a secure file format to hold certificate information for
  Kotlin applications. This is required to make a connection to Amazon Keyspaces.
  For more information, see the following documentation topic:
 
@@ -168,7 +168,7 @@ suspend fun main() {
 
     println(DASHES)
     println("12. Update an item as watched.")
-    delay(10000) // Wait 10 secs for the update.
+    delay(10000) // Wait 10 seconds for the update.
     updateRecord(session, keyspaceName, titleUpdate, yearUpdate)
     println(DASHES)
 
@@ -233,7 +233,7 @@ suspend fun checkTableDelete(keyspaceNameVal: String?, tableNameVal: String?) {
 
     try {
         KeyspacesClient { region = "us-east-1" }.use { keyClient ->
-            // Keep looping until table cannot be found and an ResourceNotFoundException is thrown.
+            // Keep looping until the table cannot be found and a ResourceNotFoundException is thrown.
             while (true) {
                 response = keyClient.getTable(tableRequest)
                 status = response.status.toString()
@@ -294,7 +294,7 @@ suspend fun checkRestoredTable(keyspaceNameVal: String?, tableNameVal: String?) 
 
 // snippet-start:[keyspace.kotlin.scenario.restore.table.main]
 suspend fun restoreTable(keyspaceName: String?, utc: ZonedDateTime) {
-    // Create an aws.smithy.kotlin.runtime.time.Instant value
+    // Create an aws.smithy.kotlin.runtime.time.Instant value.
     val timeStamp = aws.smithy.kotlin.runtime.time.Instant(utc.toInstant())
     val restoreTableRequest = RestoreTableRequest {
         restoreTimestamp = timeStamp
