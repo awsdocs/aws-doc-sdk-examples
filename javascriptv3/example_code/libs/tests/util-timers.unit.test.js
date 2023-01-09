@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { retry } from "../utils/util-timers";
 
 describe("util-timers", () => {
