@@ -58,7 +58,7 @@ cloudwatch-events_PutEvents:
           excerpts:
             - description: Create the client in a separate module and export it.
               snippet_tags:
-                - javascript.v3.cloudwatchevents.client3
+                - javascript.v3.cloudwatchevents.client
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - javascript.v3.cloudwatchlogs.actions.PutEvents
