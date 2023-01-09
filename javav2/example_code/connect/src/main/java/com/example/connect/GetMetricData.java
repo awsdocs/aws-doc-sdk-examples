@@ -87,13 +87,13 @@ public class GetMetricData {
                 .queues(queueId)
                 .build();
 
-            String stringDate = "09:05:00 AM, Tue 01/03/2023"; // Add a new date value
+            String stringDate = "09:05:00 AM, Tue 01/03/2023"; // Add a new date value.
             String pattern = "hh:mm:ss a, EEE M/d/uuuu";
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(pattern, Locale.US);
             LocalDateTime localDateTime = LocalDateTime.parse(stringDate, dateTimeFormatter);
             Instant startInstant = localDateTime.toInstant(ZoneOffset.UTC);
 
-            String stringDate2 = "10:05:00 AM, Tue 01/03/2023"; // Add a new date value
+            String stringDate2 = "10:05:00 AM, Tue 01/03/2023"; // Add a new date value.
             DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern(pattern, Locale.US);
             LocalDateTime localDateTime2 = LocalDateTime.parse(stringDate2, dateTimeFormatter2);
             Instant endInstant = localDateTime2.toInstant(ZoneOffset.UTC);
