@@ -1,0 +1,37 @@
+{{- define "sdk_cross_examples"}}
+{{- $examples := index . 0}}
+{{- $sdk_prefix := index . 1}}
+{{- $include_docs := "file://AWSShared/code-samples/docs/"}}
+{{- if isSnapshot}}
+    {{- $include_docs := ""}}
+{{- end}}
+{{- if $examples.CrossServiceExamples}}
+<section id="{{$sdk_prefix}}_code_examples_cross_service" role="topic">
+    <info>
+        <title id="{{$sdk_prefix}}_code_examples_cross_service.title">Cross-service examples using {{$examples.SdkEntity.Short}}</title>
+        <titleabbrev id="{{$sdk_prefix}}_code_examples_cross_service.titleabbrev">Cross-service examples</titleabbrev>
+        <abstract>
+            <para>The following sample applications use the {{$examples.SdkEntity.Long}}
+                to work across multiple &AWS-services;.</para>
+        </abstract>
+    </info>
+    <para>The following sample applications use the {{$examples.SdkEntity.Long}}
+        to work across multiple &AWS-services;.</para>
+    <para role="topiclist-abbrev">Examples</para>
+    {{- end}}
+    {{- range $examples.CrossServiceExamples}}
+    <section id="{{.ExampleId}}_{{$sdk_prefix}}_topic" role="topic">
+        <info>
+            <title id="{{.ExampleId}}_{{$sdk_prefix}}_topic.title">{{.Title}}</title>
+            <titleabbrev id="{{.ExampleId}}_{{$sdk_prefix}}_topic.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+        </info>
+        <xi:include href="{{$include_docs}}{{.ExampleId}}_{{$examples.Language}}.xml"></xi:include>
+        {{- if .GuideTopic.Url}}
+        <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
+        {{- end}}
+    </section>
+    {{- end}}
+    {{- if $examples.CrossServiceExamples}}
+</section>
+{{- end}}
+{{- end}}

@@ -1,0 +1,18 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "test": "lerna run test",
+    "integration-test": "lerna run integration-test"
+  },
+  "workspaces": [
+    "example_code/cloudwatch-logs",
+    "example_code/cognito",
+    "example_code/cloudwatch-events",
+    "example_code/lambda",
+    "example_code/libs"
+  ],
+  "devDependencies": {
+    "lerna": "^6.3.0"
+  }
+}
