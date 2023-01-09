@@ -1,9 +1,9 @@
 # Amazon Keyspaces code examples for the SDK for Kotlin
 
 ## Overview
-This README discusses how to run and test the AWS SDK for Kotlin examples for Amazon Keyspaces.
+This README discusses how to run and test the AWS SDK for Kotlin examples for Amazon Keyspaces (for Apache Cassandra).
 
-Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and managed Apache Cassandra–compatible database service. 
+Amazon Keyspaces is a scalable, highly available, and managed Apache Cassandra–compatible database service. 
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. See [AWS Pricing](https://aws.amazon.com/pricing/).
@@ -17,7 +17,7 @@ Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and man
 
 - [Hello Amazon Keyspaces](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/keyspaces/src/main/kotlin/com/example/keyspace/HelloKeyspaces.kt) (listKeyspaces command)
 
-### Single action
+### Single actions
 
 Code excerpts that show you how to call individual service functions.
 
@@ -33,7 +33,7 @@ Code excerpts that show you how to call individual service functions.
 - [Update a table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/keyspaces/src/main/kotlin/com/example/keyspace/ScenarioKeyspaces.kt) (updateTable command)
 
 
-### Scenario 
+### Scenarios 
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
