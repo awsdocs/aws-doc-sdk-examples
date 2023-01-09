@@ -45,6 +45,18 @@ class ServiceVersion(Validator):
         return isdate
 
 
+class SourceKey(Validator):
+    """ Validate that curated source keys appear in curated/sources.yaml. """
+    tag = 'source_key'
+    curated_sources = {}
+
+    def get_name(self):
+        return 'source key found in curated/sources.yaml'
+
+    def _is_valid(self, value):
+        return value in self.curated_sources
+
+
 class ExampleId(Validator):
     """
     Validate an example ID starts with a service ID and has underscore-separated
@@ -85,6 +97,7 @@ class StringExtension(String):
         self.lower_start = bool(kwargs.pop('lower_start', False))
         self.end_punc = bool(kwargs.pop('end_punc', False))
         self.no_end_punc = bool(kwargs.pop('no_end_punc', False))
+        self.end_punc_or_colon = bool(kwargs.pop('end_punc_or_colon', False))
         self.last_err = 'valid string'
 
     def get_name(self):
@@ -115,6 +128,10 @@ class StringExtension(String):
             valid = value[-1] not in '!.?'
             if not valid:
                 self.last_err = 'valid string: it must not end with punctuation'
+        if valid and self.end_punc_or_colon:
+            valid = value[-1] in '!.?:'
+            if not valid:
+                self.last_err = 'valid sentence or phrase: it must end with punctuation or a colon'
         if valid:
             valid = super()._is_valid(value)
         return valid
@@ -148,12 +165,17 @@ def main():
     with open(os.path.join(args.doc_gen, 'metadata/services.yaml')) as services_file:
         services_yaml = yaml.safe_load(services_file)
 
+    with open(os.path.join(args.doc_gen, 'metadata/curated/sources.yaml')) as curated_sources_file:
+        curated_sources_yaml = yaml.safe_load(curated_sources_file)
+
     validators = DefaultValidators.copy()
     ServiceName.services = services_yaml
+    SourceKey.curated_sources = curated_sources_yaml
     ExampleId.services = services_yaml
     BlockContent.block_names = os.listdir(os.path.join(args.doc_gen, 'cross-content'))
     validators[ServiceName.tag] = ServiceName
     validators[ServiceVersion.tag] = ServiceVersion
+    validators[SourceKey.tag] = SourceKey
     validators[ExampleId.tag] = ExampleId
     validators[BlockContent.tag] = BlockContent
     validators[String.tag] = StringExtension
@@ -168,9 +190,19 @@ def main():
     meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/services.yaml'))
     success &= validate_files(schema_name, meta_names, validators)
 
-    # Validate example (*_metadata.yaml) files.
+    # Validate example (*_metadata.yaml in metadata folder) files.
     schema_name = os.path.join(args.doc_gen, 'validation/example_schema.yaml')
     meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/*_metadata.yaml'))
+    success &= validate_files(schema_name, meta_names, validators)
+
+    # Validate curated/sources.yaml file.
+    schema_name = os.path.join(args.doc_gen, 'validation/curated_sources_schema.yaml')
+    meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/curated/sources.yaml'))
+    success &= validate_files(schema_name, meta_names, validators)
+
+    # Validate curated example (*_metadata.yaml in metadata/curated folder) files.
+    schema_name = os.path.join(args.doc_gen, 'validation/curated_example_schema.yaml')
+    meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/curated/*_metadata.yaml'))
     success &= validate_files(schema_name, meta_names, validators)
 
     if success:
