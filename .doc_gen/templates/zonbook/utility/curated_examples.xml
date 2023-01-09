@@ -1,0 +1,21 @@
+{{- define "curated_examples"}}
+{{- $curated_set := .}}
+{{- $include_docs := "file://AWSShared/code-samples/docs/"}}
+{{- if isSnapshot}}
+    {{- $include_docs := ""}}
+{{- end}}
+<para role="topiclist-abbrev">Examples</para>
+{{- range $curated_set.Examples}}
+<section id="{{$curated_set.Source.Key}}.{{.ExampleId}}_section" role="topic">
+    <info>
+        <title id="{{$curated_set.Source.Key}}.{{.ExampleId}}_section.title">{{.Title}}</title>
+        <titleabbrev id="{{$curated_set.Source.Key}}.{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+        <abstract>
+            <para>{{.Title}}.</para>
+        </abstract>
+    </info>
+    <xi:include href="{{$include_docs}}{{$curated_set.Source.Key}}.{{.ExampleId}}_desc.xml"></xi:include>
+    <xi:include href="{{$include_docs}}{{$curated_set.Source.Key}}.{{.ExampleId}}_tablist.xml"></xi:include>
+</section>
+{{- end}}
+{{- end}}
