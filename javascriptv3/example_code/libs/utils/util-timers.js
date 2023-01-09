@@ -15,7 +15,7 @@ const wait = (seconds) =>
 const retry = curry(
   (config, fn) =>
     new Promise((resolve, reject) => {
-      const { intervalInMs, maxRetries } = config;
+      const { intervalInMs = 500, maxRetries = 10 } = config;
       fn()
         .then(resolve)
         .catch((err) => {
