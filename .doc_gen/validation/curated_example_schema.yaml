@@ -1,0 +1,25 @@
+# Yamale Schema for curated example metadata, which is all .yaml files in the metadata/curated folder
+# with a _metadata.yaml suffix.
+
+map(include('curated_example'), key=regex('^[\da-z_-]+$', name='valid curated example ID'))
+---
+curated_example:
+  title: str(upper_start=True, no_end_punc=True)
+  title_abbrev: str(upper_start=True, no_end_punc=True)
+  synopsis: str(required=False, lower_start=True, end_punc_or_colon=True)
+  synopsis_list: list(str(upper_start=True, end_punc=True), required=False)
+  source_key: source_key()
+  languages: map(include('language'), key=enum('C++', 'Go', 'Java', 'JavaScript', 'Kotlin', '.NET', 'PHP', 'Python', 'Ruby', 'Rust', 'SAP ABAP', 'Swift'))
+  services: map(map(key=str(), required=False), key=service_name())
+
+guide_topic:
+  title: str(upper_start=True, no_end_punc=True)
+  url: include('doc_url', required=False)
+
+language:
+  block_content: block_content(required=False)
+  description: str(required=False, upper_start=True, end_punc_or_colon=True)
+  description_list: list(str(upper_start=True, end_punc=True), required=False)
+  source_url:
+    text: str(no_end_punc=True)
+    href: regex('^(http).+', name="URL")
