@@ -38,8 +38,8 @@ import java.util.Date
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 class KeyspaceTest {
     private lateinit var session: CqlSession
-    private val fileName = "C:/AWS/moviedata.json"
-    private val keyspaceName = "ScottKeySpace46"
+    private val fileName = "<Enter value>"
+    private val keyspaceName = "<Enter value>"
     private val titleUpdate = "The Family"
     private val yearUpdate = 2013
     private val tableName = "MovieKotlin"
