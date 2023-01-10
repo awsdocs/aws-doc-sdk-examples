@@ -16,9 +16,9 @@ The AWS SDK for JavaScript (v3) provides a JavaScript API for AWS infrastructure
 
 ### Find code examples
 
-Single-service actions and scenarios are organized by AWS service in this folder. A README in each folder lists and describes how to run the examples.
+Single-service actions and scenarios are organized by AWS service in the `example_code` folder. A README in each folder lists and describes how to run the examples.
 
-Cross-service examples are located in the [_cross-services folder_](./cross-services). A README in each folder describes how to run the example.
+Cross-service examples are located in the [_cross-services folder_](./example_code/cross-services). A README in each folder describes how to run the example.
 
 ## ⚠️ Important
 
@@ -37,13 +37,24 @@ Cross-service examples are located in the [_cross-services folder_](./cross-serv
 
 **Note**: Running the tests might result in charges to your AWS account.
 
-1. Where tests are provided, navigate to the 'tests' folder located in the root of the service folder.
+You can run tests for a specific service, or for every service in this repository. Choose whether to run unit tests, integration tests, or both.
 
-**Note**: In some cases scenarios and cross-service examples have their own test folder, so navigate to that instead.
+- To run both unit and integration tests for all services, run the following from this directory:
+  
+  `npm test` or `npm test -- @unit @integration`
 
-2. Follow the instructions in the service's README to install the dependencies and run the tests.
+- To run only unit tests, provide the `@unit` tag as an argument:
+  
+  `npm test -- @unit`
+
+- To run only integration tests, provide the `@integration` tag as an argument:
+  
+  `npm test -- @integration`
+
+- To run tests for a specific service, follow the instructions in the service's README.
 
 ## Docker image (Beta)
+
 This example code will soon be available in a container image
 hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
 with all JavaScript v3 examples with dependencies pre-resolved, allowing you to explore
