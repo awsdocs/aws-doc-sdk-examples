@@ -39,6 +39,37 @@ pub async fn create_policy(
 }
 // snippet-end:[rust.example_code.iam.service.create_policy]
 
+#[cfg(test)]
+mod test_create_policy {
+    use crate::create_policy;
+    use http::StatusCode;
+    use sdk_examples_test_utils::single_shot_client;
+
+    #[tokio::test]
+    async fn test_create_policy_success() {
+        let client = single_shot_client!(
+            sdk: aws_sdk_iam,
+            status: StatusCode::OK,
+            response: include_str!("../testing/test_create_policy_response_success.xml")
+        );
+
+        let response = create_policy(&client, "{}".into(), "test_role".into()).await;
+        assert!(response.is_ok());
+    }
+
+    #[tokio::test]
+    async fn test_create_policy_failed() {
+        let client = single_shot_client!(
+            sdk: aws_sdk_iam,
+            status: StatusCode::BAD_REQUEST,
+            response: include_str!("../testing/test_create_policy_response_malformed.xml")
+        );
+
+        let response = create_policy(&client, "{}".into(), "test_role".into()).await;
+        assert!(response.is_err());
+    }
+}
+
 // snippet-start:[rust.example_code.iam.service.create_role]
 pub async fn create_role(
     client: &iamClient,
@@ -137,20 +168,14 @@ pub async fn create_user_policy(
 // snippet-start:[rust.example_code.iam.service.delete_role]
 pub async fn delete_role(client: &iamClient, role: &Role) -> Result<(), iamError> {
     let role = role.clone();
-    loop {
-        match client
-            .delete_role()
-            .role_name(role.role_name.as_ref().unwrap())
-            .send()
-            .await
-        {
-            Ok(_) => {
-                break;
-            }
-            Err(_) => {
-                sleep(Duration::from_secs(2)).await;
-            }
-        }
+    while client
+        .delete_role()
+        .role_name(role.role_name.as_ref().unwrap())
+        .send()
+        .await
+        .is_err()
+    {
+        sleep(Duration::from_secs(2)).await;
     }
     Ok(())
 }

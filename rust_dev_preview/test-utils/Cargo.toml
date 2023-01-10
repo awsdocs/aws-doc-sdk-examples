@@ -1,0 +1,19 @@
+[package]
+name = "sdk-examples-test-utils"
+version = "0.1.0"
+authors = [
+  "David Souther <dpsouth@amazon.com>",
+]
+edition = "2021"
+
+[dependencies]
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = [
+  "test-util",
+] }
+aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next"}
+http = "0.2"
+
+[lib]
+path="src/mod.rs"
