@@ -26,7 +26,6 @@ import javax.xml.transform.stream.StreamResult
 
 @Component
 class WorkItemRepository {
-
     private val secretArnVal = "<Enter value>"
     private val resourceArnVal = "<Enter value>"
 
