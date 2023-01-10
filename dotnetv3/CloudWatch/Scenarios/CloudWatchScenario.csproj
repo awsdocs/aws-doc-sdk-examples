@@ -28,4 +28,10 @@
 	  </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="settings.local.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
