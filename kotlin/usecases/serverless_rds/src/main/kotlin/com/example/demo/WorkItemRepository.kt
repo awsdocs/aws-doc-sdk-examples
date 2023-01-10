@@ -276,7 +276,6 @@ class WorkItemRepository {
 
             // Iterate through the collection.
             for (index in 0 until custCount) {
-
                 // Get the WorkItem object from the collection.
                 val myItem = itemList[index]
                 val item = doc.createElement("Item")
