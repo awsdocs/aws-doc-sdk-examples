@@ -33,10 +33,10 @@ fun main(args: Array<String>) {
 class MessageResource {
 
     @Autowired
-    private lateinit var wi : WorkItemRepository
+    private lateinit var wi:WorkItemRepository
 
     @Autowired
-    private lateinit var sendMsg : SendMessage
+    private lateinit var sendMsg:SendMessage
 
     // Add a new item.
     @PostMapping("api/items")
