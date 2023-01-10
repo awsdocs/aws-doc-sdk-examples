@@ -6,15 +6,18 @@
 package com.example.demo
 
 import kotlinx.coroutines.runBlocking
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import java.io.IOException
 
@@ -27,13 +30,17 @@ fun main(args: Array<String>) {
 
 @CrossOrigin(origins = ["*"])
 @RestController
-@RequestMapping("api/")
 class MessageResource {
 
+    @Autowired
+    private lateinit var wi:WorkItemRepository
+
+    @Autowired
+    private lateinit var sendMsg:SendMessage
+
     // Add a new item.
-    @PostMapping("/add")
+    @PostMapping("api/items")
     fun addItems(@RequestBody payLoad: Map<String, Any>): String = runBlocking {
-        val injectWorkService = InjectWorkService()
         val nameVal = "user"
         val guideVal = payLoad.get("guide").toString()
         val descriptionVal = payLoad.get("description").toString()
@@ -45,44 +52,43 @@ class MessageResource {
         myWork.description = descriptionVal
         myWork.status = statusVal
         myWork.name = nameVal
-        val id = injectWorkService.injestNewSubmission(myWork)
+        val id = wi.injestNewSubmission(myWork)
         return@runBlocking "Item $id added successfully!"
     }
 
     // Retrieve items.
-    @GetMapping("items/{state}")
-    fun getItems(@PathVariable state: String): MutableList<WorkItem> = runBlocking {
-        val retrieveItems = RetrieveItems()
+    @GetMapping("api/items")
+    fun getItems(@RequestParam(required = false) archived: String?): MutableList<WorkItem> = runBlocking {
+        val wi = WorkItemRepository()
         val list: MutableList<WorkItem>
-        val name = "user"
-        if (state.compareTo("archive") == 0) {
-            list = retrieveItems.getItemsDataSQL(name, 1)
+        if (archived != null) {
+            list = wi.getItemsDataSQL(archived)
         } else {
-            list = retrieveItems.getItemsDataSQL(name, 0)
+            list = wi.getItemsDataSQL("")
         }
         return@runBlocking list
     }
 
     // Flip an item from Active to Archive.
-    @PutMapping("mod/{id}")
-    fun modUser(@PathVariable id: String): String = runBlocking {
-        val retrieveItems = RetrieveItems()
-        retrieveItems.flipItemArchive(id)
-        return@runBlocking id
+    @PutMapping("api/items/{id}:archive")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun modUser(@PathVariable id: String) = runBlocking {
+        wi.flipItemArchive(id)
+        return@runBlocking
     }
 
-    // Send a report through Amazon SES.
-    @PutMapping("report/{email}")
-    fun sendReport(@PathVariable email: String): String = runBlocking {
-        val retrieveItems = RetrieveItems()
-        val nameVal = "user"
-        val sendMsg = SendMessage()
-        val xml = retrieveItems.getItemsDataSQLReport(nameVal, 0)
+    @PostMapping("api/items:report")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun sendReport(@RequestBody body: Map<String, String>) = runBlocking {
+        val email = body.get("email")
+        val xml = wi.getItemsDataSQLReport("0")
         try {
-            sendMsg.send(email, xml)
+            if (email != null) {
+                sendMsg.send(email, xml)
+            }
         } catch (e: IOException) {
             e.stackTrace
         }
-        return@runBlocking "Report was sent"
+        return@runBlocking
     }
 }
