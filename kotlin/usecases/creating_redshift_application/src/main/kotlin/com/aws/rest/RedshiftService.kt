@@ -30,7 +30,7 @@ import kotlin.collections.ArrayList
 
 @Component
 class RedshiftService {
-    // Changes these values to reflect your environment. 
+    // Changes these values to reflect your environment.
     private val databaseVal = "dev"
     private val dbUserVal = "awsuser"
     private val clusterId = "redshift-cluster-1"
