@@ -111,7 +111,7 @@ With the React application, a user can convert an active item to an archived ite
 
 The React application also lets a user enter a new item. 
 
-![AWS Tracking Application](images/react3.png)
+![AWS Tracking Application](images/newItem.png)
 
 The user can enter an email recipient into the text field and choose **Send Report**.
 
