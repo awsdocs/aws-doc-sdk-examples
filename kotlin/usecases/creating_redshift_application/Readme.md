@@ -16,7 +16,7 @@ You can develop a dynamic web application that tracks and reports on work items 
 + Amazon Redshift
 + Amazon Simple Email Service (Amazon SES)
 
-The application you create is a decoupled React application that uses a Spring REST API to return Amazon Redshift data. That is, the React application interacts with a Spring API by making RESTful GET and POST requests. The Spring API uses an [RedshiftDataClient](https://sdk.amazonaws.com/kotlin/api/latest/redshiftdata/aws.sdk.kotlin.services.redshiftdata/index.html) object to perform CRUD operations on the database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
+The application you create is a decoupled React application that uses a Spring REST API to return Amazon Redshift data. That is, the React application interacts with a Spring API by making RESTful GET and POST requests. The Spring API uses an [RedshiftDataClient](https://sdk.amazonaws.com/kotlin/api/latest/redshiftdata/aws.sdk.kotlin.services.redshiftdata/-redshift-data-client/index.html) object to perform CRUD operations on the database. Then, the Spring REST API returns JSON data in an HTTP response, as shown in the following illustration. 
 
 ![AWS Tracking Application](images/overviewred.png)
 
