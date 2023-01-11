@@ -21,5 +21,6 @@ async fn main() -> Result<(), Error> {
     let config = make_config(Opt::from_args()).await?;
     let client = Client::new(&config);
 
-    list_tables_iterative(&client).await
+    list_tables_iterative(&client).await?;
+    Ok(())
 }
