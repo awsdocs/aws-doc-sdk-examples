@@ -21,7 +21,9 @@
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/cognito-idp//CognitoIdentityProviderClient.h>
 #include <aws/cognito-idp/model/AdminGetUserRequest.h>
+#include <aws/cognito-idp/model/AssociateSoftwareTokenRequest.h>
 #include <aws/cognito-idp/model/ConfirmSignUpRequest.h>
+#include <aws/cognito-idp/model/InitiateAuthRequest.h>
 #include <aws/cognito-idp/model/ResendConfirmationCodeRequest.h>
 #include <aws/cognito-idp/model/SignUpRequest.h>
 
@@ -71,7 +73,7 @@ namespace AwsDoc {
          */
         bool askYesNoQuestion(const Aws::String &string);
 
-        inline void lineOfAsterisks() {
+        inline void printAsterisksLine() {
             std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " "
                       << std::endl;
         }
@@ -90,11 +92,11 @@ namespace AwsDoc {
 bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                                                   const Aws::String &userPoolID,
                                                   const Aws::Client::ClientConfiguration &clientConfig) {
-    lineOfAsterisks();
+    printAsterisksLine();
     std::cout
             << "Welcome to the Amazon Cognito example scenario."
             << std::endl;
-    lineOfAsterisks();
+    printAsterisksLine();
 
     Aws::CognitoIdentityProvider::CognitoIdentityProviderClient client(clientConfig);
 
@@ -126,8 +128,8 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
             return false;
         }
     }
-    
-    lineOfAsterisks();
+
+    printAsterisksLine();
     std::cout << "Getting " << userName << " in the user pool." << std::endl;
 
     if (!checkAdminUserStatus(userName, userPoolID, client))
@@ -161,7 +163,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
 
     }
 
-    lineOfAsterisks();
+    printAsterisksLine();
     const Aws::String confirmationCode = askQuestion("Enter the confirmation code that was emailed. ");
 
     {
@@ -191,9 +193,54 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
         return false;
     }
 
-    lineOfAsterisks();
+    printAsterisksLine();
 
-    std::cout << "Invoking the " << std::endl;
+    std::cout << "Initiating authorization using the user name and password." << std::endl;
+
+    Aws::String session;
+    {
+        Aws::CognitoIdentityProvider::Model::InitiateAuthRequest request;
+        request.SetClientId(clientID);
+        request.AddAuthParameters("USERNAME", userName);
+        request.AddAuthParameters("PASSWORD", password);
+        request.SetAuthFlow(Aws::CognitoIdentityProvider::Model::AuthFlowType::USER_PASSWORD_AUTH);
+
+        Aws::CognitoIdentityProvider::Model::InitiateAuthOutcome outcome = client.InitiateAuth(request);
+
+        if (outcome.IsSuccess()) {
+            std::cout << "CognitoIdentityProvider::InitiateAuth was successful." << std::endl;
+            session = outcome.GetResult().GetSession();
+        }
+        else {
+            std::cerr << "Error with CognitoIdentityProvider::InitiateAuth. "
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+            return false;
+        }
+    }
+
+    printAsterisksLine();
+
+    std::cout << "Starting setup of time-based one-time password (TOTP) multi-factor authentication (MFA)." << std::endl;
+
+    {
+        Aws::CognitoIdentityProvider::Model::AssociateSoftwareTokenRequest request;
+        request.SetSession(session);
+
+        Aws::CognitoIdentityProvider::Model::AssociateSoftwareTokenOutcome outcome = client.AssociateSoftwareToken(request);
+
+        if (outcome.IsSuccess()) {
+            std::cout << "Enter this token into an authenticator app, for example Google Authenticator." << std::endl;
+            std::cout << "Secret code: " << outcome.GetResult().GetSecretCode() << std::endl;
+        }
+        else {
+            std::cerr << "Error with CognitoIdentityProvider::AssociateSoftwareToken. "
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+        }
+    }
+
+    printAsterisksLine();
 
     return true;
 }
