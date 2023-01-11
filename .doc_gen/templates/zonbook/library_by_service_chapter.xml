@@ -1,16 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
-    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
-    %xinclude;
-{{- if isSnapshot}}
-    <!ENTITY % phrases-code-examples SYSTEM "phrases-code-examples.ent">
-{{- else}}
-    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
-{{- end}}
-    %phrases-code-examples;
-    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
-    %phrases-shared;
-]>
+{{- template "prologue"}}
 {{- $chapter_id := "code_example_library_by_service"}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
@@ -28,10 +16,6 @@
     <para role="topiclist-abbrev">Code examples</para>
     {{- range $svc_sort, $service := .}}
         {{- $section_id := printf "%s_code_examples" $service.Model}}
-        {{- $cross_service := index .CategorizedExampleSets "Cross-service examples"}}
-        {{- $scenarios :=  index $service.CategorizedExampleSets "Scenarios"}}
-        {{- $actions := index $service.CategorizedExampleSets "Actions"}}
-        {{- $hello := index $service.CategorizedExampleSets "Hello"}}
         <section id="{{$section_id}}" role="topic">
             <info>
                 <title id="{{$section_id}}.title">Code examples for {{$service.ServiceEntity.Short}} using &AWS; SDKs</title>
@@ -41,26 +25,7 @@
                 </abstract>
             </info>
             <para>The following code examples show how to use {{$service.ServiceEntity.Long}} with an &AWS; software development kit (SDK).</para>
-            {{- if $hello.Examples}}
-            <para><emphasis role="bold">Get started</emphasis></para>
-            <block>
-                <collapsible expand-section="_collapse_all_">
-                    {{- range $hello.Examples}}
-                    <section id="example_{{.ExampleId}}_section">
-                        <info>
-                            <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
-                            <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
-                            <abstract>
-                                <para>{{.Title}}</para>
-                            </abstract>
-                        </info>
-                        <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
-                        <xi:include href="{{$include_docs}}{{.ExampleId}}_tablist.xml"></xi:include>
-                    </section>
-                    {{- end}}
-                </collapsible>
-            </block>
-            {{- end}}
+            {{- template "hello" makeSlice $service.CategorizedExampleSets ""}}
             <para role="contents-abbrev">Code examples</para>
             {{- range $category := $service.CategoryNamesSorted}}
             {{- if ne $category "Hello"}}
@@ -82,36 +47,38 @@
                     {{- $category_desc = " Each example calls an individual service function."}}
                 {{- end}}
                 <para>The following code examples show how to use {{$service.ServiceEntity.Long}} with &AWS; SDKs.{{$category_desc}}</para>
-                <para role="topiclist-abbrev">Examples</para>
-                {{- range $cat_examples.Examples}}
-                {{- $addSvc := ""}}
-                {{- if .AddService}}
-                    {{- $addSvc = printf "_%s" .AddService}}
-                {{- end}}
-                <section id="{{$service.Model}}_example_{{.ExampleId}}_section" role="topic">
-                    <info>
-                        <title id="{{$service.Model}}_example_{{.ExampleId}}_section.title">{{.Title}}</title>
-                        <titleabbrev id="{{$service.Model}}_example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
-                        <abstract>
-                            <para>{{.Title}}</para>
-                        </abstract>
-                        <keywordset>
-                            <keyword>code example</keyword>
-                            <keyword>&AWS; SDK</keyword>
-                            <keyword>{{$service.ServiceEntity.Long}}</keyword>
-                            <keyword>{{.Title}}</keyword>
-                        </keywordset>
-                    </info>
-                    <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
-                    {{- if .GuideTopic.Url}}
-                    <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
-                    {{- end}}
-                    <xi:include href="{{$include_docs}}{{.ExampleId}}{{$addSvc}}_tablist.xml"></xi:include>
-                </section>
-                {{- end}}
+                {{- template "service_examples" makeSlice $cat_examples $service 1}}
             </section>
             {{- end}}
             {{- end}}
+            {{- end}}
+            {{- if $service.CuratedExampleSets}}
+            <section id="{{$section_id}}_curated" role="topic">
+                <info>
+                    <title id="{{$section_id}}_curated.title">Curated code examples for {{$service.ServiceEntity.Short}}</title>
+                    <titleabbrev id="{{$section_id}}_curated.titleabbrev">Curated examples</titleabbrev>
+                    <abstract>
+                        <para>The following curated code examples show a variety of ways to use {{$service.ServiceEntity.Short}}.</para>
+                    </abstract>
+                </info>
+                <para>The following curated code examples show a variety of ways to use {{$service.ServiceEntity.Short}}.</para>
+                <para role="topiclist-abbrev">Example sources</para>
+                {{- range $curated_set := $service.CuratedExampleSets}}
+                <section id="{{$curated_set.Source.Key}}_section" role="topic">
+                    <info>
+                        <title id="{{$curated_set.Source.Key}}_section.title">{{$curated_set.Source.Name}}</title>
+                        <titleabbrev id="{{$curated_set.Source.Key}}_section.titleabbrev">{{$curated_set.Source.Name}}</titleabbrev>
+                        <abstract>
+                            <para>The following code examples show how to use {{$service.ServiceEntity.Short}} with {{$curated_set.Source.Name}}.</para>
+                        </abstract>
+                    </info>
+                    <para>{{$curated_set.Source.Description}}</para>
+                    <para>The following curated code examples from <ulink url="{{$curated_set.Source.Url}}">{{$curated_set.Source.Name}}</ulink>
+                        show how to use {{$service.ServiceEntity.Short}}.</para>
+                    {{- template "curated_examples" $curated_set}}
+                </section>
+                {{- end}}
+            </section>
             {{- end}}
         </section>
     {{- end}}
