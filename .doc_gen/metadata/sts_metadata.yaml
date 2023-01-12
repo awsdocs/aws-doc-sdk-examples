@@ -67,6 +67,14 @@ sts_AssumeRole:
             - description:
               snippet_tags:
                 - sts.java2.assume_role.main
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/iam/Basics
+          excerpts:
+            - description:
+              snippet_tags:
+                - iam.swift.basics.sts.assumerole
   services:
     sts: {AssumeRole}
 sts_GetSessionToken:
