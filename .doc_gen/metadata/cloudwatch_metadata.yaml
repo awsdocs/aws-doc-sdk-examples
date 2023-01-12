@@ -485,6 +485,7 @@ cloudwatch_GetMetricStatistics:
           excerpts:
             - description:
               snippet_tags:
+                - CloudWatch.dotnetv3.GetMetricStatisticsSetup
                 - CloudWatch.dotnetv3.GetMetricStatistics
     Python:
       versions:
@@ -638,6 +639,7 @@ cloudwatch_PutDashboard:
           excerpts:
             - description:
               snippet_tags:
+                - CloudWatch.dotnetv3.PutDashboardSetup
                 - CloudWatch.dotnetv3.PutDashboard
   services:
     cloudwatch: {PutDashboard}
@@ -739,6 +741,7 @@ cloudwatch_PutMetricData:
           excerpts:
             - description:
               snippet_tags:
+                - CloudWatch.dotnetv3.PutMetricDataSetup
                 - CloudWatch.dotnetv3.PutMetricData
     Java:
       versions:
@@ -810,11 +813,20 @@ cloudwatch_PutMetricData_DataSet:
                 - python.example_code.cloudwatch.PutMetricData_DataSet
   services:
     cloudwatch: {PutMetricData}
-cloudwatch_GetStartedBillingAlarmsAndMetrics:
-  title: Get started with &CW; billing, alarms, and metrics using an &AWS; SDK
-  title_abbrev: Get started with billing, alarms, and metrics
+cloudwatch_GetStartedMetricsDashboardsAlarms:
+  title: Get started with &CW; metrics, dashboards, and alarms using an &AWS; SDK
+  title_abbrev: Get started with metrics, dashboards, and alarms
   synopsis_list:
-    - TODO
+    - List &CW; namespaces and metrics.
+    - Get statistics for a &CW; metric.
+    - Get statistics for estimated billing.
+    - Create and update a &CW; dashboard.
+    - Create and add data to a &CW; metric.
+    - Create and trigger a &CW; alarm.
+    - View &CW; alarm history.
+    - Add a &CW; anomaly detector.
+    - Get a &CW; metric image.
+    - Clean up dashboards, alarms, and anomaly detectors.
   category: Scenarios
   languages:
     .NET:

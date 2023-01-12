@@ -24,13 +24,14 @@ public static class HelloCloudWatch
         var cloudWatchClient = host.Services.GetRequiredService<IAmazonCloudWatch>();
 
         // You can use await and any of the async methods to get a response.
-        var response = await cloudWatchClient.ListMetricsAsync(new ListMetricsRequest
+        var metricNamespace = "AWS/Billing";
+        var response = await cloudWatchClient.ListMetricsAsync( new ListMetricsRequest
         {
-            Namespace = "AWS/S3"
+            Namespace = metricNamespace
         });
-        Console.WriteLine($"Hello Amazon CloudWatch! Following are some metrics available in the AWS/S3 namespace:");
+        Console.WriteLine($"Hello Amazon CloudWatch! Following are some metrics available in the {metricNamespace} namespace:");
         Console.WriteLine();
-        foreach (var metric in response.Metrics.Take(10))
+        foreach (var metric in response.Metrics.Take(5))
         {
             Console.WriteLine($"\tMetric: {metric.MetricName}");
             Console.WriteLine($"\tNamespace: {metric.Namespace}");

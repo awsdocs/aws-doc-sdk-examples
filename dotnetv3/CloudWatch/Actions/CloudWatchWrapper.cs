@@ -3,6 +3,7 @@
 
 using System.Net;
 using System.Reflection.Metadata;
+using System.Text.Json;
 using Amazon.CloudWatch;
 using Amazon.CloudWatch.Model;
 using Microsoft.Extensions.Logging;
@@ -162,7 +163,6 @@ public class CloudWatchWrapper
     public async Task<bool> PutMetricData(string metricNamespace,
         List<MetricDatum> metricData)
     {
-        
         var putDataResponse = await _amazonCloudWatch.PutMetricDataAsync(
             new PutMetricDataRequest()
             { 
@@ -176,18 +176,32 @@ public class CloudWatchWrapper
 
     // snippet-start:[CloudWatch.dotnetv3.GetMetricImage]
     /// <summary>
-    /// Get an image for a metric.
+    /// Get an image for a metric graphed over time.
     /// </summary>
-    /// <param name="dashboardName"></param>
-    /// <param name="dashboardBody"></param>
-    /// <returns></returns>
-    public async Task<MemoryStream> GetMetricImage(string metricWidget)
+    /// <param name="metricNamespace">Namespace of the metric.</param>
+    /// <param name="metric">Name of the metric.</param>
+    /// <param name="stat">Name of the stat to chart.</param>
+    /// <param name="period">Period to use for the chart.</param>
+    /// <returns>A memory stream for the chart image.</returns>
+    public async Task<MemoryStream> GetTimeSeriesMetricImage(string metricNamespace, string metric, string stat, int period)
     {
-        // Get an image for a metric.
+        var metricImageWidget = new
+        {
+            title = "Example Metric Graph",
+            view = "timeSeries",
+            stacked = false,
+            period = period,
+            width = 1400,
+            height = 600,
+            metrics = new List<List<object>>
+                { new() { metricNamespace, metric, new { stat } } }
+        };
+
+        var metricImageWidgetString = JsonSerializer.Serialize(metricImageWidget);
         var imageResponse = await _amazonCloudWatch.GetMetricWidgetImageAsync(
             new GetMetricWidgetImageRequest()
             {
-                MetricWidget = metricWidget
+                MetricWidget = metricImageWidgetString
             });
 
         return imageResponse.MetricWidgetImage;
@@ -196,8 +210,8 @@ public class CloudWatchWrapper
     /// <summary>
     /// Save a metric image to a file.
     /// </summary>
-    /// <param name="memoryStream"></param>
-    /// <param name="metricName"></param>
+    /// <param name="memoryStream">Stream of data for the metric image.</param>
+    /// <param name="metricName">Name of the metric.</param>
     /// <returns>The name of the file.</returns>
     public string SaveMetricImage(MemoryStream memoryStream, string metricName)
     {
@@ -254,16 +268,16 @@ public class CloudWatchWrapper
     /// <summary>
     /// Add a metric alarm to send an email when the metric passes a threshold.
     /// </summary>
-    /// <param name="alarmDescription"></param>
-    /// <param name="alarmName"></param>
-    /// <param name="comparison"></param>
-    /// <param name="metricName"></param>
-    /// <param name="metricNamespace"></param>
-    /// <param name="threshold"></param>
-    /// <param name="alarmActions"></param>
-    /// <returns></returns>
+    /// <param name="alarmDescription">Description of the alarm.</param>
+    /// <param name="alarmName">Name for the alarm.</param>
+    /// <param name="comparison">Type of comparison to use.</param>
+    /// <param name="metricName">Name of the metric for the alarm.</param>
+    /// <param name="metricNamespace">Namespace of the metric.</param>
+    /// <param name="threshold">Threshold value for the alarm.</param>
+    /// <param name="alarmActions">Optional actions to execute when in an alarm state.</param>
+    /// <returns>True if successful.</returns>
     public async Task<bool> PutMetricEmailAlarm(string alarmDescription, string alarmName, ComparisonOperator comparison,
-        string metricName, string metricNamespace, double threshold, List<string> alarmActions)
+        string metricName, string metricNamespace, double threshold, List<string> alarmActions = null)
     {
         try
         {
@@ -300,7 +314,7 @@ public class CloudWatchWrapper
     /// <param name="region">Region for the alarm.</param>
     /// <param name="emailTopicName">Amazon Simple Email Service (SNS) topic for the alarm email.</param>
     /// <param name="alarmActions">Optional list of existing alarm actions to append to.</param>
-    /// <returns></returns>
+    /// <returns>List of string actions for an alarm.</returns>
     public List<string> AddEmailAlarmAction(string accountId, string region,
         string emailTopicName, List<string>? alarmActions = null)
     {
@@ -457,10 +471,10 @@ public class CloudWatchWrapper
     /// <summary>
     /// Describe anomaly detectors for a metric and namespace.
     /// </summary>
-    /// <param name="metricName">The metric of the anomaly detectors.</param>
     /// <param name="metricNamespace">The namespace of the metric.</param>
+    /// <param name="metricName">The metric of the anomaly detectors.</param>
     /// <returns>The list of detectors.</returns>
-    public async Task<List<AnomalyDetector>> DescribeAnomalyDetectors(string metricName, string metricNamespace)
+    public async Task<List<AnomalyDetector>> DescribeAnomalyDetectors(string metricNamespace, string metricName)
     {
         List<AnomalyDetector> detectors = new List<AnomalyDetector>();
         var paginatedDescribeAnomalyDetectors = _amazonCloudWatch.Paginators.DescribeAnomalyDetectors(

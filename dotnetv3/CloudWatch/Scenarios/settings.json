@@ -1,12 +1,12 @@
 ﻿{
   "ec2InstanceId": "i-1234567890",
   "dashboardName": "example-new-dashboard",
-  "dashboardBody": "example-new-dashboard-body",
-  "updatedDashboardBody": "example-new-dashboard-body",
   "exampleAlarmName": "example-metric-alarm",
   "accountId": "1234567890",
   "region": "us-east-1",
   "emailTopic": "Default_CloudWatch_Alarms_Topic",
+  "customMetricNamespace": "example-namespace",
+  "customMetricName": "example-custom-metric",
   "dashboardExampleBody": {
     "widgets": [
       {
@@ -86,7 +86,6 @@
         }
       }
     ]
-  },
-  "metricsWidget": "{\"metrics\":[[\"AWS/Billing\",\"EstimatedCharges\",\"Currency\",\"USD\",{\"stat\":\"Maximum\",\"period\":21600}]],\"legend\":{\"position\":\"bottom\"},\"yAxis\":{\"left\":{\"showUnits\":false,\"label\":\"USD\"}},\"region\":\"us-east-1\",\"liveData\":false,\"title\":\"\",\"view\":\"timeSeries\",\"stacked\":false}}\""
+  }
 }
 

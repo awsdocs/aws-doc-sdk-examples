@@ -53,6 +53,35 @@ multiple functions within the same service.
 * To find prerequisites for running these examples, see the
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
+### Get started with billing, alarms, and metrics
+
+This interactive scenario runs at a command prompt and shows you how to use
+Amazon CloudWatch with the AWS SDK for .NET to do the following:
+
+1. List CloudWatch namespaces.
+1. List CloudWatch metrics.
+1. Get statistics for a CloudWatch metric.
+1. Get statistics for estimated billing.
+1. Create a CloudWatch dashboard with example widgets. 
+1. Get information about current CloudWatch dashboards.
+1. Create and add data to a custom metric.
+1. Update the dashboard with the new metric.
+1. Create a CloudWatch alarm for the metric.
+1. Describe current alarms.
+1. Get recent data for the metric.
+1. Add data to trigger the alarm.
+1. Wait for an alarm state.
+1. Get alarm history.
+1. Add an anomaly detector.
+1. Describe current anomaly detectors.
+1. Get and display a metric image.
+1. Clean up resources.
+
+Before you compile the .NET application, you can optionally set configuration values,
+including account and topic settings for sending an email from your alarm, in the `settings.json` file. 
+Alternatively, add a `settings.local.json` file with your local settings, which will be loaded automatically 
+when the application runs.
+
 After the example compiles, you can run it from the command line. To do so,
 navigate to the folder that contains the .csproj file and run the following
 command:

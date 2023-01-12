@@ -10,6 +10,9 @@ using Route53Actions;
 
 namespace Route53Tests;
 
+/// <summary>
+/// Route 53 tests.
+/// </summary>
 public class Route53ServiceTests
 {
     private readonly IConfiguration _configuration;

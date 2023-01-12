@@ -2,12 +2,10 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 using System.Diagnostics;
-using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Amazon.CloudWatch;
 using Amazon.CloudWatch.Model;
-//using Amazon.Runtime;
 using CloudWatchActions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -204,7 +202,7 @@ public class CloudWatchScenario
         }
 
         var selectedStatistic = _statTypes[statisticChoiceNumber - 1];
-        var statisticsList = new List<string>() { selectedStatistic };
+        var statisticsList = new List<string> { selectedStatistic };
 
         var metricStatistics = await _cloudWatchWrapper.GetMetricStatistics(metricNamespace, metric.MetricName, statisticsList, metric.Dimensions, 1, 60 );
 
@@ -235,13 +233,18 @@ public class CloudWatchScenario
         Console.WriteLine(new string('-', 80));
         Console.WriteLine($"4. Get CloudWatch estimated billing for the last week.");
 
+        // snippet-start:[CloudWatch.dotnetv3.GetMetricStatisticsSetup]
+
         var billingStatistics = await _cloudWatchWrapper.GetMetricStatistics(
             "AWS/Billing", 
             "EstimatedCharges", 
             new List<string>(){"Maximum"}, 
-            new List<Dimension>(){new Dimension(){Name = "Currency", Value = "USD"}}, 
+            new List<Dimension>(){new Dimension{Name = "Currency", Value = "USD"}}, 
             7, 
             86400);
+
+        // snippet-end:[CloudWatch.dotnetv3.GetMetricStatisticsSetup]
+
         billingStatistics = billingStatistics.OrderBy(n => n.Timestamp).ToList();
         for (int i = 0; i < billingStatistics.Count; i++)
         {
@@ -264,8 +267,14 @@ public class CloudWatchScenario
         var dashboardName = _configuration["dashboardName"];
         var newDashboard = new DashboardModel();
         _configuration.GetSection("dashboardExampleBody").Bind(newDashboard);
-        var newDashboardString = JsonSerializer.Serialize(newDashboard, new JsonSerializerOptions{ DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
-        var validationMessages = await _cloudWatchWrapper.PutDashboard(dashboardName, newDashboardString);
+        var newDashboardString = JsonSerializer.Serialize(
+            newDashboard, 
+            new JsonSerializerOptions
+            {
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            });
+        var validationMessages = 
+            await _cloudWatchWrapper.PutDashboard(dashboardName, newDashboardString);
 
         Console.WriteLine(validationMessages.Any() ? $"\tValidation messages:" : null);
         for (int i = 0; i < validationMessages.Count; i++)
@@ -307,6 +316,8 @@ public class CloudWatchScenario
         var customMetricNamespace = _configuration["customMetricNamespace"];
         var customMetricName = _configuration["customMetricName"];
 
+        // snippet-start:[CloudWatch.dotnetv3.PutMetricDataSetup]
+
         List<MetricDatum> customData = new List<MetricDatum>();
         Random rnd = new Random();
 
@@ -316,7 +327,7 @@ public class CloudWatchScenario
         {
             var metricValue = rnd.Next(0, 100);
             customData.Add(
-                new MetricDatum()
+                new MetricDatum
                     {
                         MetricName = customMetricName,
                         Value = metricValue,
@@ -325,10 +336,12 @@ public class CloudWatchScenario
                 );
         }
 
+        await _cloudWatchWrapper.PutMetricData(customMetricNamespace, customData);
+
+        // snippet-end:[CloudWatch.dotnetv3.PutMetricDataSetup]
+
         var valuesString = string.Join(',', customData.Select(d => d.Value));
         Console.WriteLine($"\tAdded metric values for for metric {customMetricName}: \n\t{valuesString}");
-
-        await _cloudWatchWrapper.PutMetricData(customMetricNamespace, customData);
 
         Console.WriteLine(new string('-', 80));
     }
@@ -349,22 +362,24 @@ public class CloudWatchScenario
         var customMetricNamespace = _configuration["customMetricNamespace"];
         var customMetricName = _configuration["customMetricName"];
 
-        // Add the new metric.
-        newDashboard.Widgets.Add(new Widget()
+        // snippet-start:[CloudWatch.dotnetv3.PutDashboardSetup]
+
+        // Add a new metric to a dashboard.
+        newDashboard.Widgets.Add(new Widget
         {
             Height = 8,
             Width = 8,
             Y = 8,
             X = 0,
             Type = "metric",
-            Properties = new Properties()
+            Properties = new Properties
             {
-                Metrics = new List<List<object>>(){new List<object>(){customMetricNamespace, customMetricName}},
+                Metrics = new List<List<object>>{new() {customMetricNamespace, customMetricName}},
                 View = "timeSeries",
                 Region = "us-east-1",
                 Stat = "Sum",
                 Period = 86400,
-                YAxis = new YAxis(){Left = new Left(){Min = 0, Max = 100}},
+                YAxis = new YAxis{Left = new Left{Min = 0, Max = 100}},
                 Title = "Custom Metric Widget",
                 LiveData = true,
                 Sparkline = true,
@@ -376,6 +391,8 @@ public class CloudWatchScenario
 
         var newDashboardString = JsonSerializer.Serialize(newDashboard, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
         var validationMessages = await _cloudWatchWrapper.PutDashboard(dashboardName, newDashboardString);
+
+        // snippet-end:[CloudWatch.dotnetv3.PutDashboardSetup]
 
         Console.WriteLine(validationMessages.Any() ? $"\tValidation messages:" : null);
         for (int i = 0; i < validationMessages.Count; i++)
@@ -458,16 +475,16 @@ public class CloudWatchScenario
         var customMetricName = _configuration["customMetricName"];
         var accountId = _configuration["accountId"];
 
-        var query = new List<MetricDataQuery>()
+        var query = new List<MetricDataQuery>
         {
-            new MetricDataQuery()
+            new MetricDataQuery
             {
                 AccountId = accountId,
                 Id = "m1",
                 Label = "Custom Metric Data",
                 MetricStat = new MetricStat
                 {
-                    Metric = new Metric()
+                    Metric = new Metric
                     {
                         MetricName = customMetricName,
                         Namespace = customMetricNamespace,
@@ -511,19 +528,19 @@ public class CloudWatchScenario
         var nowUtc = DateTime.UtcNow;
         List<MetricDatum> customData = new List<MetricDatum>
         {
-            new MetricDatum()
+            new MetricDatum
             {
                 MetricName = customMetricName,
                 Value = 101,
                 TimestampUtc = nowUtc.AddMinutes(-2)
             },
-            new MetricDatum()
+            new MetricDatum
             {
                 MetricName = customMetricName,
                 Value = 101,
                 TimestampUtc = nowUtc.AddMinutes(-1)
             },
-            new MetricDatum()
+            new MetricDatum
             {
                 MetricName = customMetricName,
                 Value = 101,
@@ -628,7 +645,7 @@ public class CloudWatchScenario
         var customMetricNamespace = _configuration["customMetricNamespace"];
         var customMetricName = _configuration["customMetricName"];
 
-        var detectors = await _cloudWatchWrapper.DescribeAnomalyDetectors(customMetricName, customMetricNamespace);
+        var detectors = await _cloudWatchWrapper.DescribeAnomalyDetectors(customMetricNamespace, customMetricName);
 
         for (int i = 0; i < detectors.Count; i++)
         {
@@ -651,21 +668,8 @@ public class CloudWatchScenario
         Console.WriteLine($"\tGetting Image data for custom metric.");
         var customMetricNamespace = _configuration["customMetricNamespace"];
         var customMetricName = _configuration["customMetricName"];
-        var metricImage = new
-        {
-            title = "Example Metric Graph",
-            view = "timeSeries",
-            stacked = false,
-            period = 10,
-            width = 1400,
-            height = 600,
-            metrics = new List<List<object>>()
-                { new List<object>() { customMetricNamespace, customMetricName, new {stat = "Maximum"}} }
-        };
 
-        var metricImageString = JsonSerializer.Serialize(metricImage);
-
-        var memoryStream = await _cloudWatchWrapper.GetMetricImage(metricImageString);
+        var memoryStream = await _cloudWatchWrapper.GetTimeSeriesMetricImage(customMetricNamespace, customMetricName, "Maximum", 10);
         var file = _cloudWatchWrapper.SaveMetricImage(memoryStream, "MetricImages");
 
         ProcessStartInfo info = new ProcessStartInfo();
