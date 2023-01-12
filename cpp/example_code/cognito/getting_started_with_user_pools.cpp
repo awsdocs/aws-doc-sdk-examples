@@ -23,9 +23,13 @@
 #include <aws/cognito-idp/model/AdminGetUserRequest.h>
 #include <aws/cognito-idp/model/AssociateSoftwareTokenRequest.h>
 #include <aws/cognito-idp/model/ConfirmSignUpRequest.h>
+#include <aws/cognito-idp/model/DeleteUserRequest.h>
 #include <aws/cognito-idp/model/InitiateAuthRequest.h>
 #include <aws/cognito-idp/model/ResendConfirmationCodeRequest.h>
+#include <aws/cognito-idp/model/RespondToAuthChallengeRequest.h>
 #include <aws/cognito-idp/model/SignUpRequest.h>
+#include <aws/cognito-idp/model/VerifySoftwareTokenRequest.h>
+#include "cognito_samples.h"
 
 namespace AwsDoc {
     namespace Cognito {
@@ -39,6 +43,12 @@ namespace AwsDoc {
                                   const Aws::String &userPoolID,
                                   const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
 
+        bool initiateAuthorization(const Aws::String &clientID,
+                                   const Aws::String &userName,
+                                   const Aws::String &password,
+                                   Aws::String &sessionResult,
+                                   const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
+
         //! Test routine passed as argument to askQuestion routine.
         /*!
          \sa testForEmptyString()
@@ -46,6 +56,7 @@ namespace AwsDoc {
          \return bool: True if empty.
          */
         bool testForEmptyString(const Aws::String &string);
+
 
         //! Test routine passed as argument to askQuestion routine.
         /*!
@@ -77,7 +88,6 @@ namespace AwsDoc {
             std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " "
                       << std::endl;
         }
-
     } // namespace Cognito
 } // namespace AwsDoc
 
@@ -98,15 +108,19 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
             << std::endl;
     printAsterisksLine();
 
+    std::cout
+            << "This scenario will add a user to a Cognito user pool."
+            << std::endl;
     Aws::CognitoIdentityProvider::CognitoIdentityProviderClient client(clientConfig);
 
-    const Aws::String userName = askQuestion("Enter your user name: ");
-    const Aws::String password = askQuestion("Enter your password: ");
-    const Aws::String email = askQuestion("Enter your email: ");
+    const Aws::String userName = askQuestion("Enter a new user name: ");
+    const Aws::String password = askQuestion("Enter a new password: ");
+    const Aws::String email = askQuestion("Enter a valid email for the user: ");
 
     std::cout << "Signing up " << userName << std::endl;
 
-    {
+    bool userExists = false;
+    do {
         Aws::CognitoIdentityProvider::Model::SignUpRequest request;
         request.AddUserAttributes(
                 Aws::CognitoIdentityProvider::Model::AttributeType().WithName(
@@ -114,12 +128,19 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
         request.SetUsername(userName);
         request.SetPassword(password);
         request.SetClientId(clientID);
-        Aws::CognitoIdentityProvider::Model::SignUpOutcome outcome = client.SignUp(
-                request);
+        Aws::CognitoIdentityProvider::Model::SignUpOutcome outcome =
+                client.SignUp(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "CognitoIdentityProvider::SignUpRequest was successful."
+            std::cout << "The signup request for " << userName << " was successful."
                       << std::endl;
+        }
+        else if (outcome.GetError().GetErrorType() ==
+                 Aws::CognitoIdentityProvider::CognitoIdentityProviderErrors::USERNAME_EXISTS) {
+            std::cout
+                    << "The username already exists. Please enter a different user name."
+                    << std::endl;
+            userExists = true;
         }
         else {
             std::cerr << "Error with CognitoIdentityProvider::SignUpRequest. "
@@ -127,27 +148,26 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
             return false;
         }
-    }
+    } while (userExists);
 
     printAsterisksLine();
-    std::cout << "Getting " << userName << " in the user pool." << std::endl;
+    std::cout << "Retrieving status of " << userName << " in the user pool."
+              << std::endl;
 
-    if (!checkAdminUserStatus(userName, userPoolID, client))
-    {
+    if (!checkAdminUserStatus(userName, userPoolID, client)) {
         return false;
     }
 
-    std::cout << "A confirmation code was sent to " << userName << "." << std::endl;
+    std::cout << "A confirmation code was sent to " << email << "." << std::endl;
 
     bool resend = askYesNoQuestion("Would you like to send a new code? (y/n) ");
-    if (resend)
-    {
+    if (resend) {
         Aws::CognitoIdentityProvider::Model::ResendConfirmationCodeRequest request;
         request.SetUsername(userName);
         request.SetClientId(clientID);
 
-        Aws::CognitoIdentityProvider::Model::ResendConfirmationCodeOutcome outcome = client.ResendConfirmationCode(
-                request);
+        Aws::CognitoIdentityProvider::Model::ResendConfirmationCodeOutcome outcome =
+                client.ResendConfirmationCode(request);
 
         if (outcome.IsSuccess()) {
             std::cout
@@ -160,11 +180,11 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
             return false;
         }
-
     }
 
     printAsterisksLine();
-    const Aws::String confirmationCode = askQuestion("Enter the confirmation code that was emailed. ");
+    const Aws::String confirmationCode = askQuestion(
+            "Enter the confirmation code that was emailed: ");
 
     {
         Aws::CognitoIdentityProvider::Model::ConfirmSignUpRequest request;
@@ -172,11 +192,11 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
         request.SetConfirmationCode(confirmationCode);
         request.SetUsername(userName);
 
-        Aws::CognitoIdentityProvider::Model::ConfirmSignUpOutcome outcome = client.ConfirmSignUp(
-                request);
+        Aws::CognitoIdentityProvider::Model::ConfirmSignUpOutcome outcome =
+                client.ConfirmSignUp(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "CognitoIdentityProvider::ConfirmSignUp was successful."
+            std::cout << "ConfirmSignup was Successful."
                       << std::endl;
         }
         else {
@@ -187,60 +207,149 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
         }
     }
 
-    std::cout << "Rechecking the status of " << userName << " in the user pool." << std::endl;
-    if (!checkAdminUserStatus(userName, userPoolID, client))
-    {
+    std::cout << "Rechecking the status of " << userName << " in the user pool."
+              << std::endl;
+    if (!checkAdminUserStatus(userName, userPoolID, client)) {
         return false;
     }
 
     printAsterisksLine();
 
-    std::cout << "Initiating authorization using the user name and password." << std::endl;
+    std::cout << "Initiating authorization using the user name and password."
+              << std::endl;
 
     Aws::String session;
-    {
-        Aws::CognitoIdentityProvider::Model::InitiateAuthRequest request;
-        request.SetClientId(clientID);
-        request.AddAuthParameters("USERNAME", userName);
-        request.AddAuthParameters("PASSWORD", password);
-        request.SetAuthFlow(Aws::CognitoIdentityProvider::Model::AuthFlowType::USER_PASSWORD_AUTH);
-
-        Aws::CognitoIdentityProvider::Model::InitiateAuthOutcome outcome = client.InitiateAuth(request);
-
-        if (outcome.IsSuccess()) {
-            std::cout << "CognitoIdentityProvider::InitiateAuth was successful." << std::endl;
-            session = outcome.GetResult().GetSession();
-        }
-        else {
-            std::cerr << "Error with CognitoIdentityProvider::InitiateAuth. "
-                      << outcome.GetError().GetMessage()
-                      << std::endl;
-            return false;
-        }
+    if (!initiateAuthorization(clientID, userName, password, session, client)) {
+        return false;
     }
 
     printAsterisksLine();
 
-    std::cout << "Starting setup of time-based one-time password (TOTP) multi-factor authentication (MFA)." << std::endl;
+    std::cout
+            << "Starting setup of time-based one-time password (TOTP) multi-factor authentication (MFA)."
+            << std::endl;
 
     {
         Aws::CognitoIdentityProvider::Model::AssociateSoftwareTokenRequest request;
         request.SetSession(session);
 
-        Aws::CognitoIdentityProvider::Model::AssociateSoftwareTokenOutcome outcome = client.AssociateSoftwareToken(request);
+        Aws::CognitoIdentityProvider::Model::AssociateSoftwareTokenOutcome outcome =
+                client.AssociateSoftwareToken(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "Enter this token into an authenticator app, for example Google Authenticator." << std::endl;
-            std::cout << "Secret code: " << outcome.GetResult().GetSecretCode() << std::endl;
+            std::cout
+                    << "Enter this setup key into an authenticator app, for example Google Authenticator."
+                    << std::endl;
+            std::cout << "Setup key: " << outcome.GetResult().GetSecretCode()
+                      << std::endl;
+            session = outcome.GetResult().GetSession();
         }
         else {
             std::cerr << "Error with CognitoIdentityProvider::AssociateSoftwareToken. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
+            return false;
         }
     }
+    askQuestion("Type enter to continue...", alwaysTrueTest);
 
     printAsterisksLine();
+
+    bool codeMatch = true;
+    do {
+        Aws::String userCode = askQuestion(
+                "Enter the 6 digit code displayed in the authenticator app: ");
+
+        Aws::CognitoIdentityProvider::Model::VerifySoftwareTokenRequest request;
+        request.SetUserCode(userCode);
+        request.SetSession(session);
+
+        Aws::CognitoIdentityProvider::Model::VerifySoftwareTokenOutcome outcome =
+                client.VerifySoftwareToken(request);
+
+        if (outcome.IsSuccess()) {
+            std::cout << "Verification of the code was successful."
+                      << std::endl;
+        }
+        else if ((outcome.GetError().GetErrorType() ==
+                  Aws::CognitoIdentityProvider::CognitoIdentityProviderErrors::ENABLE_SOFTWARE_TOKEN_M_F_A) &&
+                 (outcome.GetError().GetMessage() == "Code mismatch")) {
+            std::cout << "The code did not match." << std::endl;
+            codeMatch = false;
+        }
+        else {
+            std::cerr << "Error with CognitoIdentityProvider::VerifySoftwareToken. "
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+            return false;
+        }
+    } while (codeMatch);
+
+    printAsterisksLine();
+    std::cout << "You have completed the MFA authentication setup." << std::endl;
+    std::cout << "Now you will do a normal login." << std::endl;
+
+    if (!initiateAuthorization(clientID, userName, password, session, client)) {
+        return false;
+    }
+
+    Aws::String accessToken;
+    codeMatch = true;
+    do {
+        Aws::String mfaCode = askQuestion(
+                "Re-enter the 6 digit code displayed in the authenticator app: ");
+
+        Aws::CognitoIdentityProvider::Model::RespondToAuthChallengeRequest request;
+        request.AddChallengeResponses("USERNAME", userName);
+        request.AddChallengeResponses("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
+        request.SetChallengeName(
+                Aws::CognitoIdentityProvider::Model::ChallengeNameType::SOFTWARE_TOKEN_MFA);
+        request.SetClientId(clientID);
+        request.SetSession(session);
+
+        Aws::CognitoIdentityProvider::Model::RespondToAuthChallengeOutcome outcome =
+                client.RespondToAuthChallenge(request);
+
+        if (outcome.IsSuccess()) {
+            std::cout << "Here is the response to the challenge.\n" <<
+                      outcome.GetResult().GetAuthenticationResult().Jsonize().View().WriteReadable()
+                      << std::endl;
+
+            accessToken = outcome.GetResult().GetAuthenticationResult().GetAccessToken();
+        }
+        else if (outcome.GetError().GetErrorType() ==
+                 Aws::CognitoIdentityProvider::CognitoIdentityProviderErrors::CODE_MISMATCH) {
+            std::cout << "The code did not match." << std::endl;
+            codeMatch = false;
+        }
+        else {
+            std::cerr << "Error with CognitoIdentityProvider::RespondToAuthChallenge. "
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+            return false;
+        }
+
+        std::cout << "You have successfully added a user to Amazon Cognito."
+                  << std::endl;
+    } while (!codeMatch);
+
+    if (askYesNoQuestion("Would you like to delete the user you created? (y/n) ")) {
+        Aws::CognitoIdentityProvider::Model::DeleteUserRequest request;
+        request.SetAccessToken(accessToken);
+
+        Aws::CognitoIdentityProvider::Model::DeleteUserOutcome outcome = client.DeleteUser(
+                request);
+
+        if (outcome.IsSuccess()) {
+            std::cout << "The user " << userName << " was deleted."
+                      << std::endl;
+        }
+        else {
+            std::cerr << "Error with CognitoIdentityProvider::DeleteUser. "
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+        }
+    }
 
     return true;
 }
@@ -252,13 +361,45 @@ bool AwsDoc::Cognito::checkAdminUserStatus(const Aws::String &userName,
     request.SetUsername(userName);
     request.SetUserPoolId(userPoolID);
 
-    Aws::CognitoIdentityProvider::Model::AdminGetUserOutcome outcome = client.AdminGetUser(request);
+    Aws::CognitoIdentityProvider::Model::AdminGetUserOutcome outcome =
+            client.AdminGetUser(request);
 
     if (outcome.IsSuccess()) {
-        std::cout << "CognitoIdentityProvider::AdminGetUser was successful." << std::endl;
+        std::cout << "The status for " << userName << " is " <<
+                  Aws::CognitoIdentityProvider::Model::UserStatusTypeMapper::GetNameForUserStatusType(
+                          outcome.GetResult().GetUserStatus()) << std::endl;
+        std::cout << "Enabled is " << outcome.GetResult().GetEnabled() << std::endl;
     }
     else {
         std::cerr << "Error with CognitoIdentityProvider::AdminGetUser. "
+                  << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+
+bool AwsDoc::Cognito::initiateAuthorization(const Aws::String &clientID,
+                                            const Aws::String &userName,
+                                            const Aws::String &password,
+                                            Aws::String &sessionResult,
+                                            const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client) {
+    Aws::CognitoIdentityProvider::Model::InitiateAuthRequest request;
+    request.SetClientId(clientID);
+    request.AddAuthParameters("USERNAME", userName);
+    request.AddAuthParameters("PASSWORD", password);
+    request.SetAuthFlow(
+            Aws::CognitoIdentityProvider::Model::AuthFlowType::USER_PASSWORD_AUTH);
+
+    Aws::CognitoIdentityProvider::Model::InitiateAuthOutcome outcome =
+            client.InitiateAuth(request);
+
+    if (outcome.IsSuccess()) {
+        std::cout << "Call to InitiateAuth was successful." << std::endl;
+        sessionResult = outcome.GetResult().GetSession();
+    }
+    else {
+        std::cerr << "Error with CognitoIdentityProvider::InitiateAuth. "
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
@@ -285,6 +426,7 @@ int main(int argc, const char *argv[]) {
     Aws::String userPoolID = argv[2];
 
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     InitAPI(options);
 
     {
@@ -303,4 +445,62 @@ int main(int argc, const char *argv[]) {
 
 #endif // TESTING_BUILD
 
+//! Command line prompt/response utility function.
+/*!
+ \\sa askQuestion()
+ \param string: A question prompt.
+ \param test: Test function for response.
+ \return Aws::String: User's response.
+ */
+Aws::String AwsDoc::Cognito::askQuestion(const Aws::String &string,
+                                         const std::function<bool(
+                                                 Aws::String)> &test) {
+    Aws::String result;
+    do {
+        std::cout << string;
+        std::getline(std::cin, result);
+    } while (!test(result));
+
+    return result;
+}
+
+//! Command line prompt/response for yes/no question.
+/*!
+ \\sa askYesNoQuestion()
+ \param string: A question prompt expecting a 'y' or 'n' response.
+ \return bool: True if yes.
+ */
+bool AwsDoc::Cognito::askYesNoQuestion(const Aws::String &string) {
+    Aws::String resultString = askQuestion(string, [](
+            const Aws::String &string1) -> bool {
+            bool result = false;
+            if (string1.length() == 1) {
+                int answer = std::tolower(string1[0]);
+                result = (answer == 'y') || (answer == 'n');
+            }
+
+            if (!result) {
+                std::cout << "Please answer 'y' or 'n'." << std::endl;
+            }
+
+            return result;
+    });
+
+    return std::tolower(resultString[0]) == 'y';
+}
+
+//! Test routine passed as argument to askQuestion routine.
+/*!
+ \sa testForEmptyString()
+ \param string: A string to test.
+ \return bool: True if empty.
+ */
+bool AwsDoc::Cognito::testForEmptyString(const Aws::String &string) {
+    if (string.empty()) {
+        std::cout << "Please enter some text." << std::endl;
+        return false;
+    }
+
+    return true;
+}
 
