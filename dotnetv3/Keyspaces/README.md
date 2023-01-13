@@ -51,8 +51,8 @@ Code examples that show you how to accomplish a specific task by calling multipl
 *Minimum instructions required to run tests.* **<-- Delete this sentence from template**
 
 ## Additional resources
-* [*Service Developer Guide*](*link to developer guide*)
-* [*Service API Reference*](*link to service API reference*)
-* [*SDK API reference guide*](*link to this service's section in the SDK API reference guide*) 
+* [Keyspaces Developer Guide](https://docs.aws.amazon.com/keyspaces/?icmpid=docs_homepage_databases)
+* [Keyspaces API Reference](https://docs.aws.amazon.com/keyspaces/latest/APIReference/Welcome.html)
+* [Keyspaces .NET SDK Guide](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Keyspaces/NKeyspaces.html) 
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
