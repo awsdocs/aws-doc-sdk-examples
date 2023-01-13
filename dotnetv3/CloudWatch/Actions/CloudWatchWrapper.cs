@@ -2,7 +2,6 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 using System.Net;
-using System.Reflection.Metadata;
 using System.Text.Json;
 using Amazon.CloudWatch;
 using Amazon.CloudWatch.Model;
@@ -447,7 +446,7 @@ public class CloudWatchWrapper
 
         return enableAlarmActionsResult.HttpStatusCode == HttpStatusCode.OK;
     }
-    // snippet-end:[CloudWatch.dotnetv3.DisableAlarmActions]
+    // snippet-end:[CloudWatch.dotnetv3.EnableAlarmActions]
 
     // snippet-start:[CloudWatch.dotnetv3.PutAnomalyDetector]
     /// <summary>

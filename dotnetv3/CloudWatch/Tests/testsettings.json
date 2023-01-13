@@ -1,5 +1,4 @@
 {
-  "ec2InstanceId": "i-1234567890",
   "dashboardName": "example-test-dashboard",
   "exampleAlarmName": "example-test-metric-alarm",
   "accountId": "1234567890",
