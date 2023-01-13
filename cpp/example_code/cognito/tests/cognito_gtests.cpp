@@ -14,7 +14,6 @@ std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::Cognito_GTests::s_
 static const char ALLOCATION_TAG[] = "COGNITO_GTEST";
 
 void AwsDocTest::Cognito_GTests::SetUpTestSuite() {
-    s_options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     InitAPI(s_options);
 
     // s_clientConfig must be a pointer because the client config must be initialized
@@ -23,7 +22,7 @@ void AwsDocTest::Cognito_GTests::SetUpTestSuite() {
 }
 
 void AwsDocTest::Cognito_GTests::TearDownTestSuite() {
-     ShutdownAPI(s_options);
+    ShutdownAPI(s_options);
 }
 
 void AwsDocTest::Cognito_GTests::SetUp() {
@@ -72,7 +71,9 @@ AwsDocTest::MockHTTP::MockHTTP() {
     mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
     mockHttpClientFactory->SetClient(mockHttpClient);
     SetHttpClientFactory(mockHttpClientFactory);
-    requestTmp =  CreateHttpRequest(Aws::Http::URI("https://test.com/"), Aws::Http::HttpMethod::HTTP_GET, Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+    requestTmp = CreateHttpRequest(Aws::Http::URI("https://test.com/"),
+                                   Aws::Http::HttpMethod::HTTP_GET,
+                                   Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
 }
 
 AwsDocTest::MockHTTP::~MockHTTP() {
@@ -81,7 +82,8 @@ AwsDocTest::MockHTTP::~MockHTTP() {
 }
 
 void AwsDocTest::MockHTTP::addResponseWithBody(const std::string &body) {
-    std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(ALLOCATION_TAG, requestTmp);
+    std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
+            ALLOCATION_TAG, requestTmp);
     goodResponse->SetResponseCode(Aws::Http::HttpResponseCode::OK);
     goodResponse->GetResponseBody() << body;
     mockHttpClient->AddResponseToReturn(goodResponse);

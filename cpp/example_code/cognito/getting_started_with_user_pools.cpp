@@ -2,16 +2,35 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
 /**
- * Before running this C++ code example, set up your development environment, including your credentials.
+* Before running this C++ code example, set up your development environment, including your credentials.
  *
  * For more information, see the following documentation topic:
- *
  * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
  *
  * Purpose
  *
+ * Demonstrates adding a user to an Amazon Cognito user pool.
+ *
+ *  1. Add a user with a username, password and email address. (SignUp)
+ *  2. Confirm that the user was added to the user pool. (AdminGetUser)
+ *  3. Request another confirmation code by email. (ResendConfirmationCode)
+ *  4. Send the confirmation code received in the email. (ConfirmSignUp)
+ *  5. Initiate authorization with a user name and password. (InitiateAuth)
+ *  6. Request a setup key for one-time password (TOTP)
+ *     multi-factor authentication (MFA). (AssociateSoftwareToken)
+ *  7. Send the MFA code copied from an authenticator app. (VerifySoftwareToken)
+ *  8. Initiate authorization again with username and password. (InitiateAuth)
+ *  9. Send a new MFA code copied from an authenticator app. (RespondToAuthChallenge)
+ *  10. Delete the user just added. (DeleteUser)
+ *
+ *
+ *  This example requires an already configured Amazon Cognito user pool.
+ *
+ *  To setup and run the example, refer to the instructions in the README.
  *
  */
 
@@ -41,10 +60,27 @@ namespace AwsDoc {
     namespace Cognito {
         static const int ASTERISK_FILL_WIDTH = 88;
 
+        //! Routine with checks the user status in an Amazon Cognito user pool.
+        /*!
+         \sa checkAdminUserStatus()
+         \param userName: A user name.
+         \param userPoolID: An Amazon Cognito user pool ID.
+         \return bool: Successful completion.
+         */
         static bool checkAdminUserStatus(const Aws::String &userName,
                                          const Aws::String &userPoolID,
                                          const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
 
+        //! Routine with starts authorization of an Amazon Cognito user from a
+        //! tracked device.
+        /*!
+         \sa initiateAuthorization()
+         \param clientID: Client ID of tracked device.
+         \param userName: A user name.
+         \param password: A password.
+         \param sessionResult: String to receive a session token.
+         \return bool: Successful completion.
+         */
         static bool initiateAuthorization(const Aws::String &clientID,
                                           const Aws::String &userName,
                                           const Aws::String &password,
@@ -86,6 +122,11 @@ namespace AwsDoc {
          */
         static bool askYesNoQuestion(const Aws::String &string);
 
+        //! Utility routine to print a line of asterisks to standard out.
+        /*!
+         \\sa printAsterisksLine()
+        \return void:
+         */
         inline void printAsterisksLine() {
             std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " "
                       << std::endl;
@@ -94,19 +135,25 @@ namespace AwsDoc {
 #ifdef USING_QR
         static const char QR_CODE_PATH[] = SOURCE_DIR "/QR_Code.bmp";
 
+        //! Routine which converts a string to a QR code and writes it to a bmp file.
+        /*!
+         \sa saveQRCode()
+         \param string: A string to convert to a QR code.
+         \return void:
+         */
         static void saveQRCode(const std::string &string);
 
 #endif
     } // namespace Cognito
 } // namespace AwsDoc
 
-
-//! Scenario to create, copy, and delete S3 buckets and objects.
+//! Scenario that adds a user to an Amazon Cognito user pool.
 /*!
-  \sa S3_GettingStartedScenario()
-  \param uploadFilePath Path to file to upload to an Amazon S3 bucket.
-  \param saveFilePath Path for saving a downloaded S3 object.
-  \param clientConfig Aws client configuration.
+  \sa gettingStartedWithUserPools()
+  \param clientID: Client ID associated with an Amazon Cognito user pool.
+  \param userPoolID: An Amazon Cognito user pool ID.
+  \param clientConfig: Aws client configuration.
+  \return bool: Successful completion.
  */
 bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                                                   const Aws::String &userPoolID,
@@ -130,6 +177,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
 
     bool userExists = false;
     do {
+        // 1. Add a user with a username, password and email address.
         Aws::CognitoIdentityProvider::Model::SignUpRequest request;
         request.AddUserAttributes(
                 Aws::CognitoIdentityProvider::Model::AttributeType().WithName(
@@ -162,7 +210,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     printAsterisksLine();
     std::cout << "Retrieving status of " << userName << " in the user pool."
               << std::endl;
-
+    // 2. Confirm that the user was added to the user pool.
     if (!checkAdminUserStatus(userName, userPoolID, client)) {
         return false;
     }
@@ -171,6 +219,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
 
     bool resend = askYesNoQuestion("Would you like to send a new code? (y/n) ");
     if (resend) {
+        // Request a resend of the confirmation code to the email address. (ResendConfirmationCode)
         Aws::CognitoIdentityProvider::Model::ResendConfirmationCodeRequest request;
         request.SetUsername(userName);
         request.SetClientId(clientID);
@@ -194,6 +243,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     printAsterisksLine();
 
     {
+        // 4. Send the confirmation code received in the email. (ConfirmSignUp)
         const Aws::String confirmationCode = askQuestion(
                 "Enter the confirmation code that was emailed: ");
         Aws::CognitoIdentityProvider::Model::ConfirmSignUpRequest request;
@@ -228,6 +278,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
               << std::endl;
 
     Aws::String session;
+    // 5. Initiate authorization with username and password. (InitiateAuth)
     if (!initiateAuthorization(clientID, userName, password, session, client)) {
         return false;
     }
@@ -239,6 +290,8 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
             << std::endl;
 
     {
+        // 6. Request a setup key for one-time password (TOTP)
+        //    multi-factor authentication (MFA). (AssociateSoftwareToken)
         Aws::CognitoIdentityProvider::Model::AssociateSoftwareTokenRequest request;
         request.SetSession(session);
 
@@ -253,10 +306,11 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
 #ifdef USING_QR
             printAsterisksLine();
-            std::cout << "\nOr scan the QR code in the file '" << QR_CODE_PATH << "." << std::endl;
+            std::cout << "\nOr scan the QR code in the file '" << QR_CODE_PATH << "."
+                      << std::endl;
 
             saveQRCode(std::string("otpauth://totp/") + userName + "?secret=" +
-            outcome.GetResult().GetSecretCode());
+                       outcome.GetResult().GetSecretCode());
 #endif // USING_QR
             session = outcome.GetResult().GetSession();
         }
@@ -276,6 +330,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
         Aws::String userCode = askQuestion(
                 "Enter the 6 digit code displayed in the authenticator app: ");
 
+        //  7. Send the MFA code copied from an authenticator app. (VerifySoftwareToken)
         Aws::CognitoIdentityProvider::Model::VerifySoftwareTokenRequest request;
         request.SetUserCode(userCode);
         request.SetSession(session);
@@ -307,16 +362,17 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     std::cout << "You have completed the MFA authentication setup." << std::endl;
     std::cout << "Now you will do a normal login." << std::endl;
 
+    // 8. Initiate authorization again with username and password. (InitiateAuth)
     if (!initiateAuthorization(clientID, userName, password, session, client)) {
         return false;
     }
 
     Aws::String accessToken;
-    codeMatch = true;
     do {
         Aws::String mfaCode = askQuestion(
                 "Re-enter the 6 digit code displayed in the authenticator app: ");
 
+        // 9. Send a new MFA code copied from an authenticator app. (RespondToAuthChallenge)
         Aws::CognitoIdentityProvider::Model::RespondToAuthChallengeRequest request;
         request.AddChallengeResponses("USERNAME", userName);
         request.AddChallengeResponses("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
@@ -353,6 +409,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     } while (!codeMatch);
 
     if (askYesNoQuestion("Would you like to delete the user you created? (y/n) ")) {
+        // 10. Delete the user just added. (DeleteUser)
         Aws::CognitoIdentityProvider::Model::DeleteUserRequest request;
         request.SetAccessToken(accessToken);
 
@@ -373,6 +430,13 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     return true;
 }
 
+//! Routine with checks the user status in an Amazon Cognito user pool.
+/*!
+ \sa checkAdminUserStatus()
+ \param userName: A user name.
+ \param userPoolID: An Amazon Cognito user pool ID.
+ \return bool: Successful completion.
+ */
 bool AwsDoc::Cognito::checkAdminUserStatus(const Aws::String &userName,
                                            const Aws::String &userPoolID,
                                            const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client) {
@@ -398,6 +462,16 @@ bool AwsDoc::Cognito::checkAdminUserStatus(const Aws::String &userName,
     return outcome.IsSuccess();
 }
 
+//! Routine with starts authorization of an Amazon Cognito user from a
+//! tracked device.
+/*!
+ \sa initiateAuthorization()
+ \param clientID: Client ID of tracked device.
+ \param userName: A user name.
+ \param password: A password.
+ \param sessionResult: String to receive a session token.
+ \return bool: Successful completion.
+ */
 bool AwsDoc::Cognito::initiateAuthorization(const Aws::String &clientID,
                                             const Aws::String &userName,
                                             const Aws::String &password,
@@ -428,18 +502,24 @@ bool AwsDoc::Cognito::initiateAuthorization(const Aws::String &clientID,
 
 #ifndef TESTING_BUILD
 
+/*
+ *  main function
+ *
+ *  Usage: 'run_getting_started_with_user_pools <clientID> <userPoolID>'
+ *
+ *  For instructions on setting up this example, see the accompanying README.
+ *
+ */
+
 int main(int argc, const char *argv[]) {
-#if 0
-    AwsDoc::Cognito::saveQRCode("HKUIJOJNHBIL4QZH4YNGZMWD7365G664RANOTTWNCLAIX5CBEAA");
-#else
     if (argc != 3) {
         std::cout << "Usage:\n" <<
-                  "    <clientID> <userPathID>\n\n" <<
-                  "Where:\n" << // TODO: update this.
-                  "   uploadFilePath - The path where the file is located (for example, C:/AWS/book2.pdf).\n"
+                  "    run_getting_started_with_user_pools <clientID> <userPoolID>\n\n"
                   <<
-                  "   saveFilePath - The path where the file is saved after it's " <<
-                  "downloaded (for example, C:/AWS/book2.pdf). " << std::endl;
+                  "Where:\n" <<
+                  "   clientID - A client ID associated with an Amazon Cognito user pool.\n"
+                  <<
+                  "   userPoolID - An Amazon Cognito user pool ID." << std::endl;
         return 1;
     }
 
@@ -447,7 +527,6 @@ int main(int argc, const char *argv[]) {
     Aws::String userPoolID = argv[2];
 
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     InitAPI(options);
 
     {
@@ -460,7 +539,7 @@ int main(int argc, const char *argv[]) {
     }
 
     ShutdownAPI(options);
-#endif
+
     return 0;
 }
 
@@ -526,11 +605,20 @@ bool AwsDoc::Cognito::testForEmptyString(const Aws::String &string) {
 }
 
 #ifdef USING_QR
-// Prints the given QrCode object to the console.
+// The following routines support creating a QR code file for MFA.
 
-void writeBitmap(const std::string fileName, const uint8_t* bytes, int width, int height)
-{
-    char tag[] = { 'B', 'M' };
+//! Routine which writes a bitmap to file.
+/*!
+ \sa writeBitmap()
+ \param fileName: A file name for the created bitmap.
+ \param bytes: Pointer to bitmap bits.
+ \param width: Bitmap width.
+ \param height: Bitmap height.
+ \return void:
+ */
+static void
+writeBitmap(const std::string &fileName, const uint8_t *bytes, int width, int height) {
+    char tag[] = {'B', 'M'};
     int header[] = {
             0x3a, 0x00, 0x36, 0x28, width, height, 0x200001,
             0, 0, 0x002e23, 0x002e23, 0, 0
@@ -543,9 +631,15 @@ void writeBitmap(const std::string fileName, const uint8_t* bytes, int width, in
     fclose(fp);
 }
 
-static void printQr(const qrcodegen::QrCode &qr) {
+//! Routine which writes a QR code to a bmp file.
+/*!
+ \sa writeQRCode()
+ \param qr: A qrcodegen::QrCode struct.
+ \return void:
+ */
+static void writeQRCode(const qrcodegen::QrCode &qr) {
     int border = 4;
-    int width = + qr.getSize() + 2 * border;
+    int width = +qr.getSize() + 2 * border;
     int height = width;
 
     std::vector<uint32_t> bitmap(width * height);
@@ -556,16 +650,22 @@ static void printQr(const qrcodegen::QrCode &qr) {
         }
     }
 
-    writeBitmap(AwsDoc::Cognito::QR_CODE_PATH, reinterpret_cast<uint8_t*>(bitmap.data()), width, height);
+    writeBitmap(AwsDoc::Cognito::QR_CODE_PATH,
+                reinterpret_cast<uint8_t *>(bitmap.data()), width, height);
 }
 
-void AwsDoc::Cognito::saveQRCode(const std::string &string)
-{
+//! Routine which converts a string to a QR code and writes it to a bmp file.
+/*!
+ \sa saveQRCode()
+ \param string: A string to convert to a QR code.
+ \return void:
+ */
+void AwsDoc::Cognito::saveQRCode(const std::string &string) {
     const qrcodegen::QrCode::Ecc errCorLvl = qrcodegen::QrCode::Ecc::LOW;  // Error correction level
 
-    // Make and print the QR Code symbol
-    const qrcodegen::QrCode qr = qrcodegen::QrCode::encodeText(string.c_str(), errCorLvl);
-    printQr(qr);
+    const qrcodegen::QrCode qr = qrcodegen::QrCode::encodeText(string.c_str(),
+                                                               errCorLvl);
+    ::writeQRCode(qr);
 }
 
 #endif // USING_QR

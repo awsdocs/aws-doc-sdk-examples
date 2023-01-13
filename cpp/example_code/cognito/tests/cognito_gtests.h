@@ -12,6 +12,7 @@
 #include <gtest/gtest.h>
 
 class MockHttpClient;
+
 class MockHttpClientFactory;
 namespace AwsDocTest {
 
@@ -54,6 +55,7 @@ namespace AwsDocTest {
     class MockHTTP {
     public:
         MockHTTP();
+
         virtual ~MockHTTP();
 
         void addResponseWithBody(const std::string &body);
