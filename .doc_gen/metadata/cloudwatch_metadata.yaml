@@ -843,9 +843,9 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
                 - CloudWatch.dotnetv3.CloudWatchWrapper
   services:
     cloudwatch: {ListMetrics, GetMetricStatistics, PutDashboard, PutMetricData, GetMetricData,
-                PutMetricAlarm, DescribeAlarms, DescribeAlarmsForMetric, DescribeAlarmHistory,
-                DeleteAlarms, PutAnomalyDetector, GetMetricWidgetImage, DescribeAnomalyDetectors,
-                DeleteAnomalyDetector, DeleteDashboards}
+                 PutMetricAlarm, DescribeAlarms, DescribeAlarmsForMetric, DescribeAlarmHistory,
+                 DeleteAlarms, PutAnomalyDetector, GetMetricWidgetImage, DescribeAnomalyDetectors,
+                 DeleteAnomalyDetector, DeleteDashboards}
 cloudwatch_Usage_MetricsAlarms:
   title: Manage &CW; metrics and alarms using an &AWS; SDK
   title_abbrev: Manage &CWlong; metrics and alarms
