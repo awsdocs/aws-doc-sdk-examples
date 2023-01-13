@@ -25,7 +25,6 @@ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 */
 
 suspend fun main(args: Array<String>) {
-
     val usage = """
     Usage:
         <tableName> <key> <keyval>
@@ -49,7 +48,6 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[dynamodb.kotlin.delete_item.main]
 suspend fun deleteDynamoDBItem(tableNameVal: String, keyName: String, keyVal: String) {
-
     val keyToGet = mutableMapOf<String, AttributeValue>()
     keyToGet[keyName] = AttributeValue.S(keyVal)
 
