@@ -119,7 +119,7 @@ public class KeyspacesWrapper
     public async Task<GetTableResponse> GetTable(string keyspaceName, string tableName)
     {
         var response = await _amazonKeyspaces.GetTableAsync(
-            new GetTableRequest { KeyspaceName = keyspaceName, TableName = tableName});
+            new GetTableRequest { KeyspaceName = keyspaceName, TableName = tableName });
         return response;
     }
 
@@ -138,7 +138,7 @@ public class KeyspacesWrapper
         Console.WriteLine(new string('-', Console.WindowWidth));
         await foreach (var keyspace in paginator.Keyspaces)
         {
-            Console.WriteLine($"{keyspace.KeyspaceName, -30}\t{keyspace.ResourceArn}");
+            Console.WriteLine($"{keyspace.KeyspaceName,-30}\t{keyspace.ResourceArn}");
         }
     }
 
@@ -202,7 +202,7 @@ public class KeyspacesWrapper
         {
             KeyspaceName = keyspaceName,
             TableName = tableName,
-            AddColumns =  new List<ColumnDefinition> { newColumn }
+            AddColumns = new List<ColumnDefinition> { newColumn }
         };
         var response = await _amazonKeyspaces.UpdateTableAsync(request);
         return response.ResourceArn;

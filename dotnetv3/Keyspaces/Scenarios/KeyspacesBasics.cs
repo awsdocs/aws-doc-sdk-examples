@@ -159,7 +159,7 @@ public class KeyspacesBasics
         // Update the table schema
         uiMethods.DisplayTitle("Update table schema");
         Console.WriteLine("Now we will update the table to add a boolean field called watched.");
-        
+
         // First save the current time as a UTC Date so the original
         // table can be restored later.
         var timeChanged = DateTime.UtcNow;
@@ -205,7 +205,7 @@ public class KeyspacesBasics
 
         Console.WriteLine($"Table {tableName} successfully deleted from {keyspaceName}.");
         Console.WriteLine("Waiting for the table to be removed completely. ");
-        
+
         // Loop and call GetTable until the table is gone. Once it has been
         // deleted completely, GetTable will raise a ResourceNotFoundException.
         bool wasDeleted = false;

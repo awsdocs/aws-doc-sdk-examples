@@ -45,7 +45,7 @@ public class CassandraWrapper
         _userName = _configuration["UserName"];
         _pwd = _configuration["Password"];
 
-        var awsEndpoint =  "cassandra.us-east-2.amazonaws.com" ;  
+        var awsEndpoint = "cassandra.us-east-2.amazonaws.com";
 
         _cluster = Cluster.Builder()
             .AddContactPoints(awsEndpoint)
