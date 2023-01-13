@@ -39,7 +39,7 @@ cloudwatch_DeleteAlarms:
           excerpts:
             - description:
               snippet_tags:
-                - CloudWatch.dotnetv3.DeleteAlarmsExample
+                - CloudWatch.dotnetv3.DeleteAlarms
     Java:
       versions:
         - sdk_version: 2
