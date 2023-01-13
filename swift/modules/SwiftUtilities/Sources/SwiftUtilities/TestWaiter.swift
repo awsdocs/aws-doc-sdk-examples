@@ -56,14 +56,14 @@ public struct TestWaiter {
 
         sem = DispatchSemaphore(value: 0)
         if DEBUG_SEM == true {
-            print("Sem init: \(name)")
+            print("Semaphore initialized: \(name).")
         }
     }
 
     /// Signal the dispatch semaphore to unlock it.
     public func signal() {
         if DEBUG_SEM == true {
-            print("Locking semaphore: \(name)")
+            print("Locking semaphore: \(name).")
         }
         sem.signal()
     }
@@ -77,7 +77,7 @@ public struct TestWaiter {
         var timedOut: Bool = false
 
         if DEBUG_SEM == true {
-            print("Sem wait: \(name) start")
+            print("Wait for semaphore \(name): Start.")
         }
         
         let timeoutResult = sem.wait(timeout: .now() + self.timeout)
@@ -86,7 +86,7 @@ public struct TestWaiter {
         }
 
         if DEBUG_SEM == true {
-            print("Sem wait: \(name) complete")
+            print("Wait for semaphore \(name). Complete.")
         }
         return timedOut
     }

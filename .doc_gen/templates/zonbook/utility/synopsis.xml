@@ -1,0 +1,41 @@
+{{- define "service_synopsis"}}
+{{- $synopsis_prefix := "The following code examples show how to"}}
+{{- $synopsis_sep := " "}}
+{{- $synopsis := "use this service with some of the &AWS; SDKs that are available."}}
+{{- if eq .ExampleCount 1}}
+    {{- $synopsis_prefix = "The following code example shows how to"}}
+{{- end}}
+{{- if .Synopsis}}
+    {{- $synopsis = .Synopsis}}
+{{- else}}
+    {{- if .SynopsisList}}
+        {{- $synopsis_sep = ":"}}
+        {{- $synopsis = ""}}
+    {{- end}}
+{{- end}}
+<para>{{print $synopsis_prefix $synopsis_sep $synopsis}}</para>
+{{- if .SynopsisList}}
+<itemizedlist>
+    {{- range $synitem := .SynopsisList}}
+    <listitem><para>{{$synitem}}</para></listitem>
+    {{- end}}
+</itemizedlist>
+{{- end}}
+{{- end}}
+{{- define "sdk_synopsis"}}
+{{- if or .Synopsis .SynopsisList}}
+    {{- $synopsis_prefix := "The following code example shows how to"}}
+    {{- $synopsis_sep := " "}}
+    {{- if not .Synopsis}}
+        {{- $synopsis_sep = ":"}}
+    {{- end}}
+<para>{{print $synopsis_prefix $synopsis_sep .Synopsis}}</para>
+    {{- if .SynopsisList}}
+<itemizedlist>
+    {{- range $synitem := .SynopsisList}}
+    <listitem><para>{{$synitem}}</para></listitem>
+    {{- end}}
+</itemizedlist>
+    {{- end}}
+{{- end}}
+{{- end}}

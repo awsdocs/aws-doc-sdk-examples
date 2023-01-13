@@ -11,12 +11,14 @@ import aws.sdk.kotlin.services.ses.model.Content
 import aws.sdk.kotlin.services.ses.model.Destination
 import aws.sdk.kotlin.services.ses.model.Message
 import aws.sdk.kotlin.services.ses.model.SendEmailRequest
+import org.springframework.stereotype.Component
 
+@Component
 class SendMessage {
 
-    suspend fun send(recipient: String, strValue: String?) {
+    suspend fun send(recipient: String, strValue: String) {
         val bodyHTML = (
-            "<html>" + "<head></head>" + "<body>" + "<h1>Amazon DynamoDB Items!</h1>" +
+            "<html>" + "<head></head>" + "<body>" + "<h1>Amazon database Items!</h1>" +
                 "<textarea>$strValue</textarea>" + "</body>" + "</html>"
             )
 
@@ -44,7 +46,7 @@ class SendMessage {
         val emailRequest = SendEmailRequest {
             destination = destinationOb
             message = msgOb
-            source = "<Enter Email Address>"
+            source = "scmacdon@amazon.com"
         }
 
         SesClient { region = "us-east-1" }.use { sesClient ->

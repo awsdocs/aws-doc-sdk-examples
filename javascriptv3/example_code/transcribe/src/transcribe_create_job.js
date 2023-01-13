@@ -16,7 +16,7 @@ Inputs (replace in code):
 - S3_BUCKET_DESTINATION
 
 Running the code:
-node transcribe_create_job.test.js
+node transcribe_create_job.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.createJobV3]
 // Import the required AWS SDK clients and commands for Node.js

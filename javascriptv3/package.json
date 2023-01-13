@@ -1,0 +1,18 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "test": "./scripts/test.sh"
+  },
+  "workspaces": [
+    "example_code/cloudwatch",
+    "example_code/cloudwatch-logs",
+    "example_code/cognito",
+    "example_code/cloudwatch-events",
+    "example_code/lambda",
+    "example_code/libs"
+  ],
+  "devDependencies": {
+    "lerna": "^6.3.0"
+  }
+}

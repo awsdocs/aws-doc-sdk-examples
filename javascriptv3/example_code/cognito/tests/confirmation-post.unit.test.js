@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { jest } from "@jest/globals";
+import { describe, it, expect, vi, beforeAll } from "vitest";
+let mockSendFn = vi.fn(async () => {});
 
-let mockSendFn = jest.fn(async () => {});
-
-jest.unstable_mockModule("@aws-sdk/client-ses", () => {
+vi.mock("@aws-sdk/client-ses", () => {
   return {
     SES: class {
       send = mockSendFn;
@@ -20,11 +19,13 @@ describe("confirmation-post", () => {
   let handler;
 
   beforeAll(async () => {
-    const mod = await import("../scenarios/lambda-triggers/functions/confirmation-post.mjs");
+    const mod = await import(
+      "../scenarios/lambda-triggers/functions/confirmation-post.mjs"
+    );
     handler = mod.handler;
-  })
+  });
 
-  it("should attempt to send an email if the even has an email address", async () => {
+  it("should attempt to send an email if the event has an email address", async () => {
     await handler({
       request: { userAttributes: { email: "mail@example.com" } },
     });
