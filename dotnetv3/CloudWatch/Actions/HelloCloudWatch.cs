@@ -25,7 +25,7 @@ public static class HelloCloudWatch
 
         // You can use await and any of the async methods to get a response.
         var metricNamespace = "AWS/Billing";
-        var response = await cloudWatchClient.ListMetricsAsync( new ListMetricsRequest
+        var response = await cloudWatchClient.ListMetricsAsync(new ListMetricsRequest
         {
             Namespace = metricNamespace
         });

@@ -46,7 +46,7 @@ public class CloudWatchWrapper
             new ListMetricsRequest
             {
                 Namespace = metricNamespace,
-                Dimensions = filter != null ? new List<DimensionFilter>{ filter } : null,
+                Dimensions = filter != null ? new List<DimensionFilter> { filter } : null,
                 MetricName = metricName
             });
         // Get the entire list using the paginator.
@@ -164,7 +164,7 @@ public class CloudWatchWrapper
     {
         var putDataResponse = await _amazonCloudWatch.PutMetricDataAsync(
             new PutMetricDataRequest()
-            { 
+            {
                 MetricData = metricData,
                 Namespace = metricNamespace,
             });
@@ -234,7 +234,7 @@ public class CloudWatchWrapper
     /// <param name="maxDataPoints">Maximum data points to include.</param>
     /// <param name="dataQueries">Optional data queries to include.</param>
     /// <returns>A list of the requested metric data.</returns>
-    public async Task<List<MetricDataResult>> GetMetricData(int minutesOfData, bool useDescendingTime, DateTime? endDateUtc = null, 
+    public async Task<List<MetricDataResult>> GetMetricData(int minutesOfData, bool useDescendingTime, DateTime? endDateUtc = null,
         int maxDataPoints = 0, List<MetricDataQuery>? dataQueries = null)
     {
         var metricData = new List<MetricDataResult>();

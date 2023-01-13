@@ -171,7 +171,7 @@ public class CloudWatchTests
         var customMetricNamespace = _configuration["customMetricNamespace"];
         var customMetricName = _configuration["customMetricName"];
         var memoryStream = await _cloudWatchWrapper.GetTimeSeriesMetricImage(customMetricNamespace, customMetricName, "Maximum", 10);
-        
+
         Assert.NotEmpty(memoryStream.ToArray());
     }
 
@@ -252,7 +252,7 @@ public class CloudWatchTests
             20,
             query);
 
-        Assert.Contains(metricData, (m)=>m.Values.Any());
+        Assert.Contains(metricData, (m) => m.Values.Any());
     }
 
     /// <summary>
@@ -479,7 +479,7 @@ public class CloudWatchTests
     {
         var dashboardName = _configuration["dashboardName"];
 
-        var success = await _cloudWatchWrapper.DeleteDashboards(new List<string>{ dashboardName });
+        var success = await _cloudWatchWrapper.DeleteDashboards(new List<string> { dashboardName });
 
         Assert.True(success);
     }

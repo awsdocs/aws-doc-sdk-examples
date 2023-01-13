@@ -46,7 +46,7 @@ public class CloudWatchScenario
     private static ILogger logger = null!;
     private static CloudWatchWrapper _cloudWatchWrapper = null!;
     private static IConfiguration _configuration = null!;
-    private static readonly List<string> _statTypes = new List<string> {"SampleCount", "Average", "Sum", "Minimum", "Maximum"};
+    private static readonly List<string> _statTypes = new List<string> { "SampleCount", "Average", "Sum", "Minimum", "Maximum" };
     private static SingleMetricAnomalyDetector? anomalyDetector = null!;
 
     static async Task Main(string[] args)
@@ -157,7 +157,7 @@ public class CloudWatchScenario
             var dimensionsWithValues = namespaceMetrics[i].Dimensions
                 .Where(d => !string.Equals("None", d.Value));
             Console.WriteLine($"\t{i + 1}. {namespaceMetrics[i].MetricName} " +
-                              $"{string.Join(", :", dimensionsWithValues.Select(d =>  d.Value))}");
+                              $"{string.Join(", :", dimensionsWithValues.Select(d => d.Value))}");
         }
 
         var metricChoiceNumber = 0;
@@ -204,7 +204,7 @@ public class CloudWatchScenario
         var selectedStatistic = _statTypes[statisticChoiceNumber - 1];
         var statisticsList = new List<string> { selectedStatistic };
 
-        var metricStatistics = await _cloudWatchWrapper.GetMetricStatistics(metricNamespace, metric.MetricName, statisticsList, metric.Dimensions, 1, 60 );
+        var metricStatistics = await _cloudWatchWrapper.GetMetricStatistics(metricNamespace, metric.MetricName, statisticsList, metric.Dimensions, 1, 60);
 
         if (!metricStatistics.Any())
         {
@@ -236,11 +236,11 @@ public class CloudWatchScenario
         // snippet-start:[CloudWatch.dotnetv3.GetMetricStatisticsSetup]
 
         var billingStatistics = await _cloudWatchWrapper.GetMetricStatistics(
-            "AWS/Billing", 
-            "EstimatedCharges", 
-            new List<string>(){"Maximum"}, 
-            new List<Dimension>(){new Dimension{Name = "Currency", Value = "USD"}}, 
-            7, 
+            "AWS/Billing",
+            "EstimatedCharges",
+            new List<string>() { "Maximum" },
+            new List<Dimension>() { new Dimension { Name = "Currency", Value = "USD" } },
+            7,
             86400);
 
         // snippet-end:[CloudWatch.dotnetv3.GetMetricStatisticsSetup]
@@ -268,12 +268,12 @@ public class CloudWatchScenario
         var newDashboard = new DashboardModel();
         _configuration.GetSection("dashboardExampleBody").Bind(newDashboard);
         var newDashboardString = JsonSerializer.Serialize(
-            newDashboard, 
+            newDashboard,
             new JsonSerializerOptions
             {
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             });
-        var validationMessages = 
+        var validationMessages =
             await _cloudWatchWrapper.PutDashboard(dashboardName, newDashboardString);
 
         Console.WriteLine(validationMessages.Any() ? $"\tValidation messages:" : null);
@@ -328,11 +328,11 @@ public class CloudWatchScenario
             var metricValue = rnd.Next(0, 100);
             customData.Add(
                 new MetricDatum
-                    {
-                        MetricName = customMetricName,
-                        Value = metricValue,
-                        TimestampUtc = utcNowMinus15.AddMinutes(i)
-                    }
+                {
+                    MetricName = customMetricName,
+                    Value = metricValue,
+                    TimestampUtc = utcNowMinus15.AddMinutes(i)
+                }
                 );
         }
 
@@ -374,12 +374,12 @@ public class CloudWatchScenario
             Type = "metric",
             Properties = new Properties
             {
-                Metrics = new List<List<object>>{new() {customMetricNamespace, customMetricName}},
+                Metrics = new List<List<object>> { new() { customMetricNamespace, customMetricName } },
                 View = "timeSeries",
                 Region = "us-east-1",
                 Stat = "Sum",
                 Period = 86400,
-                YAxis = new YAxis{Left = new Left{Min = 0, Max = 100}},
+                YAxis = new YAxis { Left = new Left { Min = 0, Max = 100 } },
                 Title = "Custom Metric Widget",
                 LiveData = true,
                 Sparkline = true,
@@ -420,7 +420,7 @@ public class CloudWatchScenario
         var region = _configuration["region"];
         var emailTopic = _configuration["emailTopic"];
         var alarmActions = new List<string>();
-            
+
         if (GetYesNoResponse(
                 $"\tAdd an email action for topic {emailTopic} to alarm {alarmName}? (y/n)"))
         {
@@ -501,7 +501,7 @@ public class CloudWatchScenario
             DateTime.UtcNow.AddMinutes(1),
             20,
             query);
-        
+
         for (int i = 0; i < metricData.Count; i++)
         {
             for (int j = 0; j < metricData[i].Values.Count; j++)
