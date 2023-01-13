@@ -1,0 +1,7 @@
+{
+  "KeyspaceName": "test_keyspace",
+  "TableName": "test_movie_table",
+  "MovieFile": "PATH TO MOVIES.JSON",
+  "UserName": "USERNAME",
+  "Password": "REPLACE WITH USER's PASSWORD'"
+}
