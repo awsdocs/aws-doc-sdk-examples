@@ -1,0 +1,8 @@
+[requires]
+qr-code-generator/1.8.0
+
+ [generators]
+ cmake
+
+[imports]
+bin, *.dll -> ./bin # Copies all dll files from packages bin folder to my local "bin" folder

@@ -31,23 +31,25 @@
 #include <aws/cognito-idp/model/VerifySoftwareTokenRequest.h>
 #include "cognito_samples.h"
 
+#ifdef USING_QR // Defined in CMakeLists.txt.
+
+#include <qrcodegen/qrcodegen.hpp>
+
+#endif // USING_QR
+
 namespace AwsDoc {
     namespace Cognito {
         static const int ASTERISK_FILL_WIDTH = 88;
 
-        bool gettingStartedWithUserPools(const Aws::String &clientID,
+        static bool checkAdminUserStatus(const Aws::String &userName,
                                          const Aws::String &userPoolID,
-                                         const Aws::Client::ClientConfiguration &clientConfig);
+                                         const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
 
-        bool checkAdminUserStatus(const Aws::String &userName,
-                                  const Aws::String &userPoolID,
-                                  const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
-
-        bool initiateAuthorization(const Aws::String &clientID,
-                                   const Aws::String &userName,
-                                   const Aws::String &password,
-                                   Aws::String &sessionResult,
-                                   const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
+        static bool initiateAuthorization(const Aws::String &clientID,
+                                          const Aws::String &userName,
+                                          const Aws::String &password,
+                                          Aws::String &sessionResult,
+                                          const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
 
         //! Test routine passed as argument to askQuestion routine.
         /*!
@@ -55,7 +57,7 @@ namespace AwsDoc {
          \param string: A string to test.
          \return bool: True if empty.
          */
-        bool testForEmptyString(const Aws::String &string);
+        static bool testForEmptyString(const Aws::String &string);
 
 
         //! Test routine passed as argument to askQuestion routine.
@@ -63,7 +65,7 @@ namespace AwsDoc {
          \sa alwaysTrueTest()
          \return bool: Always true.
          */
-        bool alwaysTrueTest(const Aws::String &) { return true; }
+        static bool alwaysTrueTest(const Aws::String &) { return true; }
 
         //! Command line prompt/response utility function.
         /*!
@@ -72,9 +74,9 @@ namespace AwsDoc {
          \param test: Test function for response.
          \return Aws::String: User's response.
          */
-        Aws::String askQuestion(const Aws::String &string,
-                                const std::function<bool(
-                                        Aws::String)> &test = testForEmptyString);
+        static Aws::String askQuestion(const Aws::String &string,
+                                       const std::function<bool(
+                                               Aws::String)> &test = testForEmptyString);
 
         //! Command line prompt/response for yes/no question.
         /*!
@@ -82,12 +84,19 @@ namespace AwsDoc {
          \param string: A question prompt expecting a 'y' or 'n' response.
          \return bool: True if yes.
          */
-        bool askYesNoQuestion(const Aws::String &string);
+        static bool askYesNoQuestion(const Aws::String &string);
 
         inline void printAsterisksLine() {
             std::cout << std::setfill('*') << std::setw(ASTERISK_FILL_WIDTH) << " "
                       << std::endl;
         }
+
+#ifdef USING_QR
+        static const char QR_CODE_PATH[] = SOURCE_DIR "/QR_Code.bmp";
+
+        static void saveQRCode(const std::string &string);
+
+#endif
     } // namespace Cognito
 } // namespace AwsDoc
 
@@ -183,10 +192,10 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     }
 
     printAsterisksLine();
-    const Aws::String confirmationCode = askQuestion(
-            "Enter the confirmation code that was emailed: ");
 
     {
+        const Aws::String confirmationCode = askQuestion(
+                "Enter the confirmation code that was emailed: ");
         Aws::CognitoIdentityProvider::Model::ConfirmSignUpRequest request;
         request.SetClientId(clientID);
         request.SetConfirmationCode(confirmationCode);
@@ -242,6 +251,13 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                     << std::endl;
             std::cout << "Setup key: " << outcome.GetResult().GetSecretCode()
                       << std::endl;
+#ifdef USING_QR
+            printAsterisksLine();
+            std::cout << "\nOr scan the QR code in the file '" << QR_CODE_PATH << "." << std::endl;
+
+            saveQRCode(std::string("otpauth://totp/") + userName + "?secret=" +
+            outcome.GetResult().GetSecretCode());
+#endif // USING_QR
             session = outcome.GetResult().GetSession();
         }
         else {
@@ -270,6 +286,8 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
         if (outcome.IsSuccess()) {
             std::cout << "Verification of the code was successful."
                       << std::endl;
+            session = outcome.GetResult().GetSession();
+            codeMatch = true;
         }
         else if ((outcome.GetError().GetErrorType() ==
                   Aws::CognitoIdentityProvider::CognitoIdentityProviderErrors::ENABLE_SOFTWARE_TOKEN_M_F_A) &&
@@ -283,7 +301,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
             return false;
         }
-    } while (codeMatch);
+    } while (!codeMatch);
 
     printAsterisksLine();
     std::cout << "You have completed the MFA authentication setup." << std::endl;
@@ -316,6 +334,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
 
             accessToken = outcome.GetResult().GetAuthenticationResult().GetAccessToken();
+            codeMatch = true;
         }
         else if (outcome.GetError().GetErrorType() ==
                  Aws::CognitoIdentityProvider::CognitoIdentityProviderErrors::CODE_MISMATCH) {
@@ -410,7 +429,9 @@ bool AwsDoc::Cognito::initiateAuthorization(const Aws::String &clientID,
 #ifndef TESTING_BUILD
 
 int main(int argc, const char *argv[]) {
-
+#if 0
+    AwsDoc::Cognito::saveQRCode("HKUIJOJNHBIL4QZH4YNGZMWD7365G664RANOTTWNCLAIX5CBEAA");
+#else
     if (argc != 3) {
         std::cout << "Usage:\n" <<
                   "    <clientID> <userPathID>\n\n" <<
@@ -439,7 +460,7 @@ int main(int argc, const char *argv[]) {
     }
 
     ShutdownAPI(options);
-
+#endif
     return 0;
 }
 
@@ -504,3 +525,47 @@ bool AwsDoc::Cognito::testForEmptyString(const Aws::String &string) {
     return true;
 }
 
+#ifdef USING_QR
+// Prints the given QrCode object to the console.
+
+void writeBitmap(const std::string fileName, const uint8_t* bytes, int width, int height)
+{
+    char tag[] = { 'B', 'M' };
+    int header[] = {
+            0x3a, 0x00, 0x36, 0x28, width, height, 0x200001,
+            0, 0, 0x002e23, 0x002e23, 0, 0
+    };
+
+    FILE *fp = fopen(fileName.c_str(), "w+");
+    fwrite(&tag, sizeof(tag), 1, fp);
+    fwrite(&header, sizeof(header), 1, fp);
+    fwrite(bytes, width * height * 4, 1, fp);
+    fclose(fp);
+}
+
+static void printQr(const qrcodegen::QrCode &qr) {
+    int border = 4;
+    int width = + qr.getSize() + 2 * border;
+    int height = width;
+
+    std::vector<uint32_t> bitmap(width * height);
+    int i = 0;
+    for (int y = -border; y < qr.getSize() + border; y++) {
+        for (int x = -border; x < qr.getSize() + border; x++) {
+            bitmap[i++] = qr.getModule(x, y) ? 0 : 0xFFFFFFFF;
+        }
+    }
+
+    writeBitmap(AwsDoc::Cognito::QR_CODE_PATH, reinterpret_cast<uint8_t*>(bitmap.data()), width, height);
+}
+
+void AwsDoc::Cognito::saveQRCode(const std::string &string)
+{
+    const qrcodegen::QrCode::Ecc errCorLvl = qrcodegen::QrCode::Ecc::LOW;  // Error correction level
+
+    // Make and print the QR Code symbol
+    const qrcodegen::QrCode qr = qrcodegen::QrCode::encodeText(string.c_str(), errCorLvl);
+    printQr(qr);
+}
+
+#endif // USING_QR
