@@ -1,7 +1,8 @@
 {
-  "KeyspaceName": "test_keyspace",
-  "TableName": "test_movie_table",
+  "KeyspaceName": "mvp_keyspace",
+  "TableName": "movie_table",
   "MovieFile": "PATH TO MOVIES.JSON",
   "UserName": "USERNAME",
-  "Password": "REPLACE WITH USER's PASSWORD'"
+  "Password": "REPLACE WITH USER's PASSWORD'",
+  "ServiceEndpoint": "cassandra.us-east-2.amazonaws.com"
 }

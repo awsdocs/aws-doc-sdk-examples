@@ -3,6 +3,10 @@
 
 namespace KeyspacesBasics;
 
+/// <summary>
+/// Amazon Keyspaces (for Apache Cassandra) scenario. Shows some of the basic
+/// actions performed with Amazon Keyspaces.
+/// </summary>
 public class KeyspacesBasics
 {
     private static ILogger logger = null!;
@@ -32,12 +36,11 @@ public class KeyspacesBasics
                 true) // Optionally load local settings.
             .Build();
 
-        var keyspacesClient = host.Services.GetRequiredService<IAmazonKeyspaces>();
-        var keyspacesWrapper = new KeyspacesWrapper(keyspacesClient);
+        var keyspacesWrapper = host.Services.GetRequiredService<KeyspacesWrapper>();
         var uiMethods = new UiMethods();
 
-        var keyspaceName = "mvp_keyspace";
-        var tableName = "movietable";
+        var keyspaceName = configuration["KeyspaceName"];
+        var tableName = configuration["TableName"];
 
         bool success; // Used to track the results of some operations.
 
@@ -92,21 +95,21 @@ public class KeyspacesBasics
 
         var tableArn = await keyspacesWrapper.CreateTable(keyspaceName, tableSchema, tableName);
 
-        // Wait for the table to be ready.
+        // Wait for the table to be active.
         try
         {
             var resp = new GetTableResponse();
-            Console.WriteLine("Waiting for the new table to be active. ");
+            Console.Write("Waiting for the new table to be active. ");
             do
             {
                 try
                 {
                     resp = await keyspacesWrapper.GetTable(keyspaceName, tableName);
-                    Console.Write(". ");
+                    Console.Write(".");
                 }
                 catch (ResourceNotFoundException ex)
                 {
-                    Console.WriteLine("... ");
+                    Console.Write(".");
                 }
             } while (resp.Status != TableStatus.ACTIVE);
 
@@ -116,17 +119,19 @@ public class KeyspacesBasics
             uiMethods.DisplayTitle("All columns");
             resp.SchemaDefinition.AllColumns.ForEach(column =>
             {
-                Console.WriteLine(column.Name);
+                Console.WriteLine($"{column.Name,-40}\t{column.Type,-20}");
             });
+
             uiMethods.DisplayTitle("Cluster keys");
             resp.SchemaDefinition.ClusteringKeys.ForEach(clusterKey =>
             {
-                Console.WriteLine(clusterKey.Name);
+                Console.WriteLine($"{clusterKey.Name,-40}\t{clusterKey.OrderBy,-20}");
             });
+
             uiMethods.DisplayTitle("Partition keys");
             resp.SchemaDefinition.PartitionKeys.ForEach(partitionKey =>
             {
-                Console.WriteLine(partitionKey.Name);
+                Console.WriteLine($"{partitionKey.Name}");
             });
 
             uiMethods.PressEnter();
@@ -137,7 +142,7 @@ public class KeyspacesBasics
         }
 
         // Access Apache Cassandra using the Cassandra drive for C#.
-        var cassandraWrapper = new CassandraWrapper();
+        var cassandraWrapper = host.Services.GetRequiredService<CassandraWrapper>();
         var movieFilePath = configuration["MovieFile"];
 
         Console.WriteLine("Let's add some movies to the table we created.");
@@ -147,12 +152,15 @@ public class KeyspacesBasics
 
         Console.WriteLine("Added the following movies to the table:");
         var rows = await cassandraWrapper.GetMovies(keyspaceName, tableName);
+        uiMethods.DisplayTitle("All Movies");
+
         foreach (var row in rows)
         {
             var title = row.GetValue<string>("title");
             var year = row.GetValue<int>("year");
             var plot = row.GetValue<string>("plot");
-            Console.WriteLine($"{title}\t{year}\n{plot}");
+            var release_date = row.GetValue<DateTime>("release_date");
+            Console.WriteLine($"{release_date}\t{title}\t{year}\n{plot}");
             Console.WriteLine(uiMethods.SepBar);
         }
 
@@ -168,11 +176,28 @@ public class KeyspacesBasics
         var resourceArn = await keyspacesWrapper.UpdateTable(keyspaceName, tableName);
         uiMethods.PressEnter();
 
-        // TODO: Change this to update multiple movies.
         Console.WriteLine("Now let's mark some of the movies as watched.");
-        var titleToChange = "We're the Millers";
-        int yearToChangedMovie = 2013;
-        var changedRows = await cassandraWrapper.MarkMovieAsWatched(keyspaceName, tableName, titleToChange, yearToChangedMovie);
+
+        // Pick some files to mark as watched.
+        var movieToWatch = rows[2].GetValue<string>("title");
+        var watchedMovieYear = rows[2].GetValue<int>("year");
+        var changedRows = await cassandraWrapper.MarkMovieAsWatched(keyspaceName, tableName, movieToWatch, watchedMovieYear);
+
+        movieToWatch = rows[6].GetValue<string>("title");
+        watchedMovieYear = rows[6].GetValue<int>("year");
+        changedRows = await cassandraWrapper.MarkMovieAsWatched(keyspaceName, tableName, movieToWatch, watchedMovieYear);
+
+        movieToWatch = rows[9].GetValue<string>("title");
+        watchedMovieYear = rows[9].GetValue<int>("year");
+        changedRows = await cassandraWrapper.MarkMovieAsWatched(keyspaceName, tableName, movieToWatch, watchedMovieYear);
+
+        movieToWatch = rows[10].GetValue<string>("title");
+        watchedMovieYear = rows[10].GetValue<int>("year");
+        changedRows = await cassandraWrapper.MarkMovieAsWatched(keyspaceName, tableName, movieToWatch, watchedMovieYear);
+
+        movieToWatch = rows[13].GetValue<string>("title");
+        watchedMovieYear = rows[13].GetValue<int>("year");
+        changedRows = await cassandraWrapper.MarkMovieAsWatched(keyspaceName, tableName, movieToWatch, watchedMovieYear);
 
         uiMethods.DisplayTitle("Watched movies");
         Console.WriteLine("These movies have been marked as watched:");
@@ -181,7 +206,7 @@ public class KeyspacesBasics
         {
             var title = row.GetValue<string>("title");
             var year = row.GetValue<int>("year");
-            Console.WriteLine($"{title}\t{year}");
+            Console.WriteLine($"{title,-40}\t{year,8}");
         }
         uiMethods.PressEnter();
 
@@ -196,6 +221,24 @@ public class KeyspacesBasics
         if (answer == "y")
         {
             var restoredTableArn = await keyspacesWrapper.RestoreTable(keyspaceName, tableName, timeChanged);
+            // Loop and call GetTable until the table is gone. Once it has been
+            // deleted completely, GetTable will raise a ResourceNotFoundException.
+            bool wasRestored = false;
+
+            try
+            {
+                do
+                {
+                    var resp = await keyspacesWrapper.GetTable(keyspaceName, tableName);
+                    wasRestored = (resp.Status == TableStatus.ACTIVE);
+                } while (!wasRestored);
+            }
+            catch (ResourceNotFoundException ex)
+            {
+                // If the restored table raised an error, it isn't
+                // ready yet.
+                Console.Write(".");
+            }
         }
 
         uiMethods.DisplayTitle("Clean up resources.");

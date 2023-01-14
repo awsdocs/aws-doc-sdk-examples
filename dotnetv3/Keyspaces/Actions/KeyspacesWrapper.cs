@@ -1,10 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System.Net;
-using Amazon.Keyspaces;
-using Amazon.Keyspaces.Model;
-
 namespace KeyspacesActions;
 
 /// <summary>
@@ -28,7 +24,7 @@ public class KeyspacesWrapper
     /// Create a new keyspace.
     /// </summary>
     /// <param name="keyspaceName">The name for the new keyspace.</param>
-    /// <returns></returns>
+    /// <returns>The Amazon Resource Name (ARN) of the new keyspace.</returns>
     public async Task<string> CreateKeyspace(string keyspaceName)
     {
         var response =
@@ -46,7 +42,7 @@ public class KeyspacesWrapper
     /// <param name="keyspaceName">The keyspace where the table will be created.</param>
     /// <param name="schema">The schema for the new table.</param>
     /// <param name="tableName">The name of the new table.</param>
-    /// <returns></returns>
+    /// <returns>The Amazon Resource Name (ARN) of the new table.</returns>
     public async Task<string> CreateTable(string keyspaceName, SchemaDefinition schema, string tableName)
     {
         var request = new CreateTableRequest
@@ -129,7 +125,7 @@ public class KeyspacesWrapper
     /// <summary>
     /// Lists all keyspaces for the account.
     /// </summary>
-    /// <returns>An asynchronous task.</returns>
+    /// <returns>Async task.</returns>
     public async Task ListKeyspaces()
     {
         var paginator = _amazonKeyspaces.Paginators.ListKeyspaces(new ListKeyspacesRequest());
@@ -149,7 +145,7 @@ public class KeyspacesWrapper
     /// Lists the Amazon Keyspaces tables in a keyspace.
     /// </summary>
     /// <param name="keyspaceName">The name of the keyspace.</param>
-    /// <returns></returns>
+    /// <returns>A list of TableSummary objects.</returns>
     public async Task<List<TableSummary>> ListTables(string keyspaceName)
     {
         var response = await _amazonKeyspaces.ListTablesAsync(new ListTablesRequest { KeyspaceName = keyspaceName });
@@ -168,7 +164,7 @@ public class KeyspacesWrapper
     /// Restores the specified table to the specified point in time.
     /// </summary>
     /// <param name="keyspaceName">The keyspace containing the table.</param>
-    /// <param name="tableName">The name of t he table to restore.</param>
+    /// <param name="tableName">The name of the table to restore.</param>
     /// <param name="timestamp">The time to which the table will be restored.</param>
     /// <returns>The Amazon Resource Name (ARN) of the restored table.</returns>
     public async Task<string> RestoreTable(string keyspaceName, string tableName, DateTime timestamp)

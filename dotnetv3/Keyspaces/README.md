@@ -1,10 +1,11 @@
 # Amazon Keyspaces code examples for the SDK for .NET
 
 ## Overview
-*High-level description of the purpose of the folder*
+The examples in this folder perform Amazon Keyspaces (for Apache Cassandra)
+actions using the AWS SDK for .NET.
 
-Amazon Keyspaces (for Apache Cassandra) is a scalable, highly available, and
-managed Apache Cassandra–compatible database service. With Amazon Keyspaces,
+Amazon Keyspaces is a scalable, highly available, and managed Apache
+Cassandra–compatible database service. With Amazon Keyspaces,
 you can run your Cassandra workloads on AWS using the same Cassandra
 application code and developer tools that you use today. 
 
@@ -30,7 +31,7 @@ Code excerpts that show you how to call individual service functions.
 * [List keyspaces](Actions/KeyspacesWrapper.cs) (`ListKeyspacesAsync`)
 * [List tables in a keyspace](Actions/KeyspacesWrapper.cs) (`ListTablesAsync`)
 * [Restore a table to a point in time](Actions/KeyspacesWrapper.cs) (`RestoreTableAsync`)
-* [Update a table](Actions/KeyspacesWrapper.cs) (`RestoreTableAsync`)
+* [Update a table](Actions/KeyspacesWrapper.cs) (`UpdateTableAsync`)
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
@@ -39,16 +40,39 @@ Code examples that show you how to accomplish a specific task by calling multipl
 ## Run the examples
 
 ### Prerequisites
-*If there are language-level prerequisites that apply to **all** examples, put them in the language level README [(see template)](https://github.com/awsdocs/aws-doc-sdk-examples/wiki/Language-level-README-template), and link to it as one of the prerequisites for the service level.* **<-- Delete this sentence from template**
+* To find prerequisites for running these examples, see the
+  [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
 ### Instructions
+The examples in this folder use the default user account. The call to
+initialize the client object does not specify the AWS Region. The following
+example shows how to supply the AWS Region to match your own as a
+parameter to the client constructor:
 
-*Minimum instructions required to run examples. This varies from language to language.* **<-- Delete this sentence from template**
+```
+var client = new AmazonKinesisClient(Amazon.RegionEndpoint.USWest2);
+```
+
+After the example compiles, you can run it from the command line. To do so,
+navigate to the folder that contains the .csproj file and run the following
+command:
+
+```
+dotnet run
+```
+
+Alternatively, you can run the example from within your IDE.
 
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.
 
-*Minimum instructions required to run tests.* **<-- Delete this sentence from template**
+The solution includes a test project. To run the tests, navigate to the folder that contains the test project and then issue the following command:
+
+```
+dotnet test
+```
+
+Alternatively, you can open the example solution and use the Visual Studio Test Runner to run the tests.
 
 ## Additional resources
 * [Keyspaces Developer Guide](https://docs.aws.amazon.com/keyspaces/?icmpid=docs_homepage_databases)

@@ -56,6 +56,7 @@ namespace KeyspacesTests
 
         [Fact()]
         [Order(1)]
+        [Trait("Category", "Integration")]
         public async Task CreateKeyspaceTest()
         {
             _keyspaceArn = await _wrapper.CreateKeyspace(_keyspaceName);
@@ -72,6 +73,7 @@ namespace KeyspacesTests
 
         [Fact()]
         [Order(2)]
+        [Trait("Category", "Integration")]
         public async Task GetKeyspaceTest()
         {
             var keyspaceArn = await _wrapper.GetKeyspace(_keyspaceName);
@@ -80,6 +82,7 @@ namespace KeyspacesTests
 
         [Fact()]
         [Order(3)]
+        [Trait("Category", "Integration")]
         public async Task CreateTableTest()
         {
             var tableArn = await _wrapper.CreateTable(_keyspaceName, _schemaDefinition, _tableName);
@@ -112,7 +115,8 @@ namespace KeyspacesTests
         }
 
         [Fact()]
-        [Order(5)]
+        [Order(9)]
+        [Trait("Category", "Integration")]
         public async Task UpdateTableTest()
         {
             _timeChanged = DateTime.UtcNow;
@@ -121,7 +125,8 @@ namespace KeyspacesTests
         }
 
         [Fact()]
-        [Order(6)]
+        [Order(12)]
+        [Trait("Category", "Integration")]
         public async Task RestoreTableTest()
         {
             var resourceArn = await _wrapper.RestoreTable(_keyspaceName, _tableName, _timeChanged);
@@ -129,7 +134,8 @@ namespace KeyspacesTests
         }
 
         [Fact()]
-        [Order(49)]
+        [Order(13)]
+        [Trait("Category", "Integration")]
         public async Task DeleteTableTest()
         {
             var success = await _wrapper.DeleteTable(_keyspaceName, _tableName);
@@ -154,7 +160,8 @@ namespace KeyspacesTests
         }
 
         [Fact()]
-        [Order(50)]
+        [Order(14)]
+        [Trait("Category", "Integration")]
         public async Task DeleteKeyspaceTest()
         {
             var success = await _wrapper.DeleteKeyspace(_keyspaceName);

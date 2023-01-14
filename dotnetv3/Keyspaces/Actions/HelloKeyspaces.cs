@@ -3,7 +3,7 @@
 
 namespace KeyspacesActions;
 
-public class Program
+public class HelloKeyspaces
 {
     private static ILogger logger = null!;
 
@@ -22,7 +22,7 @@ public class Program
             .Build();
 
         logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
-            .CreateLogger<Program>();
+            .CreateLogger<HelloKeyspaces>();
 
         var keyspacesClient = host.Services.GetRequiredService<IAmazonKeyspaces>();
         var keyspacesWrapper = new KeyspacesWrapper(keyspacesClient);

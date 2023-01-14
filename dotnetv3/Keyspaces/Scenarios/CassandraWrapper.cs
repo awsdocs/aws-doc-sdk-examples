@@ -8,7 +8,7 @@ using Cassandra;
 namespace KeyspacesScenario;
 
 /// <summary>
-/// Class to perform CRUD methods on a Keyspaces Apache Cassandra database.
+/// Class to perform CRUD methods on a Keyspaces (for Apache Cassandra) database.
 /// </summary>
 public class CassandraWrapper
 {
@@ -19,6 +19,7 @@ public class CassandraWrapper
     private readonly X509Certificate2Collection _certCollection;
     private X509Certificate2 _amazoncert;
     private Cluster _cluster;
+
     // User name and password for the service.
     private string _userName;
     private string _pwd;
@@ -45,7 +46,9 @@ public class CassandraWrapper
         _userName = _configuration["UserName"];
         _pwd = _configuration["Password"];
 
-        var awsEndpoint = "cassandra.us-east-2.amazonaws.com";
+        // For a list of Service Endpoints for Amazon Keyspaces, see:
+        // https://docs.aws.amazon.com/keyspaces/latest/devguide/programmatic.endpoints.html
+        var awsEndpoint = _configuration["ServiceEndpoint"];
 
         _cluster = Cluster.Builder()
             .AddContactPoints(awsEndpoint)
@@ -61,11 +64,11 @@ public class CassandraWrapper
 
     /// <summary>
     /// Loads the contents of a JSON file into a list of movies to be
-    /// added to the DynamoDB table.
+    /// added to the Apache Cassandra table.
     /// </summary>
     /// <param name="movieFileName">The full path to the JSON file.</param>
-    /// <returns>A generic list of movie objects.</returns>
-    public static List<Movie> ImportMoviesFromJson(string movieFileName, int numToImport = 0)
+    /// <returns>A list of movie objects.</returns>
+    public List<Movie> ImportMoviesFromJson(string movieFileName, int numToImport = 0)
     {
         if (!File.Exists(movieFileName))
         {
@@ -74,16 +77,18 @@ public class CassandraWrapper
 
         using var sr = new StreamReader(movieFileName);
         string json = sr.ReadToEnd();
+
         var allMovies = JsonConvert.DeserializeObject<List<Movie>>(json);
 
         // If numToImport = 0, return all movies in the collection.
         if (numToImport == 0)
         {
-            // Now return the first numToImport entries.
+            // Now return the entire list of movies.
             return allMovies;
         }
         else
         {
+            // Now return the first numToImport entries.
             return allMovies.GetRange(0, numToImport);
         }
     }
@@ -99,7 +104,7 @@ public class CassandraWrapper
     public async Task<bool> InsertIntoMovieTable(string keyspaceName, string movieTableName, string movieFilePath, int numToImport = 20)
     {
         // Get some movie data from the movies.json file
-        var movies = ImportMoviesFromJson(movieFilePath, 20);
+        var movies = ImportMoviesFromJson(movieFilePath, numToImport);
 
         var session = _cluster.Connect(keyspaceName);
 
@@ -107,11 +112,11 @@ public class CassandraWrapper
 
         RowSet rs;
 
-        // Now we insert the 20 movies into the table.
+        // Now we insert the numToImport movies into the table.
         movies.ForEach(async movie =>
         {
             // Escape single quote characters in the plot.
-            insertCql = $"INSERT INTO {keyspaceName}.{movieTableName} (title, year, release_date, plot) values($${movie.Title}$$, {movie.Year}, '{movie.Info.ReleaseDate}', $${movie.Info.Plot}$$)";
+            insertCql = $"INSERT INTO {keyspaceName}.{movieTableName} (title, year, release_date, plot) values($${movie.Title}$$, {movie.Year}, '{movie.Info.Release_Date.ToString("yyyy-MM-dd")}', $${movie.Info.Plot}$$)";
             rs = await session.ExecuteAsync(new SimpleStatement(insertCql));
         });
 
@@ -130,7 +135,7 @@ public class CassandraWrapper
         RowSet rs;
         try
         {
-            rs = await session.ExecuteAsync(new SimpleStatement($"SELECT title, year, plot FROM {keyspaceName}.{tableName}"));
+            rs = await session.ExecuteAsync(new SimpleStatement($"SELECT * FROM {keyspaceName}.{tableName}"));
 
             // Extract the row data from the returned RowSet.
             var rows = rs.GetRows().ToList();
