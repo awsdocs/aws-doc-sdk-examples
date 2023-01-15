@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-namespace KeyspacesScenario.Tests
+namespace KeyspacesTests
 {
     /// <summary>
     /// Tests for the CassandraWrapper class.
@@ -80,7 +80,7 @@ namespace KeyspacesScenario.Tests
         /// Gets all movies in the table and checks to make sure that _moviesToInsert
         /// rows are returned from the call to CassandraWrapper.GetMovies.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>An async Task.</returns>
         [Fact()]
         [Order(8)]
         [Trait("Category", "Integration")]
@@ -100,6 +100,7 @@ namespace KeyspacesScenario.Tests
         /// 9 because it must run after the KeyspacesWrapperTests.UpdateTableTest
         /// method which adds the watched column to the table.
         /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact()]
         [Order(10)]
         [Trait("Category", "Integration")]
@@ -112,6 +113,12 @@ namespace KeyspacesScenario.Tests
             Assert.Single(rows);
         }
 
+        /// <summary>
+        /// Tests the method to SELECT all watched movies from the table. Since
+        /// only a single movie was updated as watched, this method tests that
+        /// the returned title matches the title of the movie that was changed.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact()]
         [Order(11)]
         [Trait("Category", "Integration")]

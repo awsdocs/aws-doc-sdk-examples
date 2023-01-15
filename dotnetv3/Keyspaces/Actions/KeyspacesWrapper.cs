@@ -167,7 +167,7 @@ public class KeyspacesWrapper
     /// <param name="tableName">The name of the table to restore.</param>
     /// <param name="timestamp">The time to which the table will be restored.</param>
     /// <returns>The Amazon Resource Name (ARN) of the restored table.</returns>
-    public async Task<string> RestoreTable(string keyspaceName, string tableName, DateTime timestamp)
+    public async Task<string> RestoreTable(string keyspaceName, string tableName, string restoredTableName, DateTime timestamp)
     {
         var request = new RestoreTableRequest
         {
@@ -175,7 +175,7 @@ public class KeyspacesWrapper
             SourceKeyspaceName = keyspaceName,
             SourceTableName = tableName,
             TargetKeyspaceName = keyspaceName,
-            TargetTableName = tableName
+            TargetTableName = restoredTableName
         };
 
         var response = await _amazonKeyspaces.RestoreTableAsync(request);

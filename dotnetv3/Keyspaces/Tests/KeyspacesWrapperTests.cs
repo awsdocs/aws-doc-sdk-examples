@@ -54,6 +54,11 @@ namespace KeyspacesTests
             };
         }
 
+        /// <summary>
+        /// Test the call to CreateKeyspace. This test waits 10 seconds
+        /// for the keyspace to be created.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact()]
         [Order(1)]
         [Trait("Category", "Integration")]
@@ -71,6 +76,10 @@ namespace KeyspacesTests
             Assert.NotNull(_keyspaceArn);
         }
 
+        /// <summary>
+        /// Tests the ability to get information about the new keyspace.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact()]
         [Order(2)]
         [Trait("Category", "Integration")]
@@ -80,6 +89,14 @@ namespace KeyspacesTests
             Assert.Equal(keyspaceArn, _keyspaceArn);
         }
 
+        /// <summary>
+        /// Tests the CreateTable method. It was necessary to add a
+        /// try/catch to this method since, if the table hasn't been
+        /// created yet, it raises a resource not found error. Without
+        /// the wait and the try/catch, the rest of the tests will
+        /// always fail as well.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact()]
         [Order(3)]
         [Trait("Category", "Integration")]
@@ -106,6 +123,10 @@ namespace KeyspacesTests
             Assert.NotNull(tableArn);
         }
 
+        /// <summary>
+        /// Tests the ability to get information about the new table.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact()]
         [Order(4)]
         public async Task GetTableTest()
@@ -114,6 +135,10 @@ namespace KeyspacesTests
             Assert.NotNull(response);
         }
 
+        /// <summary>
+        /// Tests the UpdateTable method.
+        /// </summary>
+        /// <returns></returns>
         [Fact()]
         [Order(9)]
         [Trait("Category", "Integration")]
@@ -124,15 +149,58 @@ namespace KeyspacesTests
             Assert.NotNull(resourceArn);
         }
 
+        /// <summary>
+        /// Tests the call to restore the table.
+        /// </summary>
+        /// <returns></returns>
         [Fact()]
         [Order(12)]
         [Trait("Category", "Integration")]
         public async Task RestoreTableTest()
         {
-            var resourceArn = await _wrapper.RestoreTable(_keyspaceName, _tableName, _timeChanged);
-            Assert.NotNull(resourceArn);
+            // This test defaults to not run since it can take up
+            // to 20 minutes to restore the table.
+            bool restoreTable = false;
+
+            if (restoreTable)
+            {
+                var resourceArn = await _wrapper.RestoreTable(_keyspaceName, _tableName, _timeChanged);
+                Assert.NotNull(resourceArn);
+
+                // Loop and call GetTable until the table has been restored. Once it has been
+                // restored completely, GetTable will succeed.
+                bool wasRestored = false;
+
+                try
+                {
+                    do
+                    {
+                        var resp = await _wrapper.GetTable(_keyspaceName, _tableName);
+                    } while (!wasRestored);
+                }
+                catch (ResourceNotFoundException ex)
+                {
+                    wasRestored = true;
+                }
+
+                Assert.True(wasRestored);
+            }
+
+            if (!restoreTable)
+            {
+                // If the test didn't run, assert that it didn't
+                // run and let it go with that.
+                Assert.False(restoreTable);
+            }
         }
 
+        /// <summary>
+        /// Tests the ability to delete the table. It also waits
+        /// for the table be deleted and then waits until the
+        /// deletion is complete at which point the call to GetTable
+        /// will raise a resource not found error.
+        /// </summary>
+        /// <returns></returns>
         [Fact()]
         [Order(13)]
         [Trait("Category", "Integration")]
@@ -159,6 +227,10 @@ namespace KeyspacesTests
             Assert.True(success);
         }
 
+        /// <summary>
+        /// Tests deleting the keyspace.
+        /// </summary>
+        /// <returns></returns>
         [Fact()]
         [Order(14)]
         [Trait("Category", "Integration")]

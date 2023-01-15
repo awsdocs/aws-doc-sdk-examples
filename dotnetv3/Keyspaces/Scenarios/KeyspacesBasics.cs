@@ -220,7 +220,12 @@ public class KeyspacesBasics
 
         if (answer == "y")
         {
-            var restoredTableArn = await keyspacesWrapper.RestoreTable(keyspaceName, tableName, timeChanged);
+            var restoredTableName = $"{tableName}_restored";
+            var restoredTableArn = await keyspacesWrapper.RestoreTable(
+                keyspaceName,
+                tableName,
+                restoredTableName,
+                timeChanged);
             // Loop and call GetTable until the table is gone. Once it has been
             // deleted completely, GetTable will raise a ResourceNotFoundException.
             bool wasRestored = false;
@@ -229,7 +234,7 @@ public class KeyspacesBasics
             {
                 do
                 {
-                    var resp = await keyspacesWrapper.GetTable(keyspaceName, tableName);
+                    var resp = await keyspacesWrapper.GetTable(keyspaceName, restoredTableName);
                     wasRestored = (resp.Status == TableStatus.ACTIVE);
                 } while (!wasRestored);
             }
