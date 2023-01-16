@@ -1076,6 +1076,9 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - s3.java2.list_objects.main
+            - description: List objects using pagination.
+              snippet_tags:
+                - s3.java2.list_objects.pag.main     
     PHP:
       versions:
         - sdk_version: 3
