@@ -32,7 +32,8 @@ tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
 tracing = "0.1.37"
 async_once = "0.2.6"
 lazy_static = "1.4.0"
-clap = { version = "4.0.18", features = ["derive"] }
+clap = { version = "~4.0.18", features = ["derive"] }
+clap_lex = "=0.3.0"
 thiserror = "1.0.37"
 secrecy = "0.8.0"
 uuid = { version = "1.2.1", features = ["v4"] }
