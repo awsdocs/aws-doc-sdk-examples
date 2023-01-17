@@ -12,7 +12,7 @@ FROM swift:5.6
 RUN apt-get update && \
     apt-get install -y python3.10 libssl-dev openssl
 
-# Copy the code into place and build it all.
+# Copy the code into place and build all the examples.
 
 COPY . /swift/
 RUN cd /swift/example_code/ && \
