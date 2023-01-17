@@ -66,7 +66,7 @@ its readme.
 ⚠️ Running the tests might result in charges to your AWS account.
 
 1. Run `npm i`.
-2. Run `npm test`.
+2. Run `npm test` or `npm run integration-test`.
 
 ## Additional resources
 
