@@ -61,6 +61,14 @@ cloudwatch-logs_CreateLogGroup:
             - description:
               snippet_tags:
                 - CloudWatchLogs.dotnetv3.CreateLogGroupExample
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatchlogs.actions.CreateLogGroup
   services:
     cloudwatch-logs: {CreateLogGroup}
 cloudwatch-logs_CreateLogStream:
@@ -93,6 +101,14 @@ cloudwatch-logs_DeleteLogGroup:
             - description:
               snippet_tags:
                 - CloudWatchLogs.dotnetv3.DeleteLogGroupExample
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatchlogs.actions.DeleteLogGroup
   services:
     cloudwatch-logs: {DeleteLogGroup}
 cloudwatch-logs_DescribeExportTasks:
@@ -125,6 +141,14 @@ cloudwatch-logs_DescribeLogGroups:
             - description:
               snippet_tags:
                 - CloudWatchLogs.dotnetv3.DescribeLogGroupsExample
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cloudwatch-logs
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cloudwatchlogs.actions.DescribeLogGroups
   services:
     cloudwatch-logs: {DescribeLogGroups}
 cloudwatch-logs_DescribeSubscriptionFilters:
@@ -167,14 +191,10 @@ cloudwatch-logs_DescribeSubscriptionFilters:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cloudwatch-logs
-          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
           excerpts:
-            - description: Create the client in a separate module and export it.
+            - description:
               snippet_tags:
-                - cloudwatch.JavaScript.logs.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - cwLogs.JavaScript.cwl.describeSubscriptionFiltersV3
+                - javascript.v3.cloudwatchlogs.actions.DescribeSubscriptionFilters
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-logs
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-describing
@@ -224,14 +244,10 @@ cloudwatch-logs_DeleteSubscriptionFilter:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cloudwatch-logs
-          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-deleting
           excerpts:
-            - description: Create the client in a separate module and export it.
+            - description:
               snippet_tags:
-                - cloudwatch.JavaScript.logs.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - cwLogs.JavaScript.cwl.deleteSubscriptionFilterV3
+                - javascript.v3.cloudwatchlogs.actions.DeleteSubscriptionFilter
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-logs
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-deleting
@@ -272,14 +288,10 @@ cloudwatch-logs_PutSubscriptionFilter:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/cloudwatch-logs
-          sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-creating
           excerpts:
-            - description: Create the client in a separate module and export it.
+            - description:
               snippet_tags:
-                - cloudwatch.JavaScript.logs.createclientv3
-            - description: Import the SDK and client modules and call the API.
-              snippet_tags:
-                - cwLogs.JavaScript.cwl.putSubscriptionFilterV3
+                - javascript.v3.cloudwatchlogs.actions.PutSubscriptionFilter
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-logs
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-subscriptions.html#cloudwatch-examples-subscriptions-creating

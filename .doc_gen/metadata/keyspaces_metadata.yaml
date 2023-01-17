@@ -4,6 +4,15 @@ keyspaces_Hello:
   synopsis: get started using &KEYlong;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.hello.main
     Java:
       versions:
         - sdk_version: 2
@@ -30,6 +39,15 @@ keyspaces_CreateKeyspace:
   synopsis: create an &KEY; keyspace.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.scenario.create.keyspace.main
     Java:
       versions:
         - sdk_version: 2
@@ -57,6 +75,15 @@ keyspaces_GetKeyspace:
   synopsis: get data about an &KEY; keyspace.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.scenario.get.keyspace.main
     Java:
       versions:
         - sdk_version: 2
@@ -84,6 +111,15 @@ keyspaces_ListKeyspaces:
   synopsis: list &KEY; keyspaces.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.scenario.list.keyspaces.main
     Java:
       versions:
         - sdk_version: 2
@@ -111,6 +147,15 @@ keyspaces_CreateTable:
   synopsis: create an &KEY; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.scenario.create.table.main
     Java:
       versions:
         - sdk_version: 2
@@ -138,6 +183,15 @@ keyspaces_GetTable:
   synopsis: get data about an &KEY; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.scenario.get.table.main
     Java:
       versions:
         - sdk_version: 2
@@ -165,6 +219,15 @@ keyspaces_ListTables:
   synopsis: list &KEY; tables in a keyspace.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.scenario.list.tables.main
     Java:
       versions:
         - sdk_version: 2
@@ -192,6 +255,15 @@ keyspaces_UpdateTable:
   synopsis: update an &KEY; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.scenario.update.table.main
     Java:
       versions:
         - sdk_version: 2
@@ -219,6 +291,15 @@ keyspaces_RestoreTable:
   synopsis: restore an &KEY; table to a point in time.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.scenario.restore.table.main
     Java:
       versions:
         - sdk_version: 2
@@ -246,6 +327,15 @@ keyspaces_DeleteTable:
   synopsis: delete an &KEY; table.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.scenario.delete.table.main
     Java:
       versions:
         - sdk_version: 2
@@ -273,6 +363,15 @@ keyspaces_DeleteKeyspace:
   synopsis: delete an &KEY; keyspace.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.scenario.delete.keyspace.main
     Java:
       versions:
         - sdk_version: 2
@@ -309,6 +408,15 @@ keyspaces_Scenario_GetStartedKeyspaces:
     - Delete the table and keyspace.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - keyspace.kotlin.scenario.main
     Java:
       versions:
         - sdk_version: 2
