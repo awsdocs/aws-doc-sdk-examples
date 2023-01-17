@@ -326,7 +326,7 @@ keyspaces_UpdateTable:
           excerpts:
             - description:
               snippet_tags:
-                  - Keyspaces.dotnetv3.UpdateTable
+                - Keyspaces.dotnetv3.UpdateTable
     Kotlin:
       versions:
         - sdk_version: 1
