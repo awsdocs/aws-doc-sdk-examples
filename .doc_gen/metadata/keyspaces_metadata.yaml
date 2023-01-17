@@ -4,6 +4,15 @@ keyspaces_Hello:
   synopsis: get started using &KEYlong;.
   category: Hello
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.HelloKeyspaces
     Kotlin:
       versions:
         - sdk_version: 1
@@ -39,6 +48,15 @@ keyspaces_CreateKeyspace:
   synopsis: create an &KEY; keyspace.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.CreateKeyspace
     Kotlin:
       versions:
         - sdk_version: 1
@@ -75,6 +93,15 @@ keyspaces_GetKeyspace:
   synopsis: get data about an &KEY; keyspace.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.GetKeyspace
     Kotlin:
       versions:
         - sdk_version: 1
@@ -111,6 +138,15 @@ keyspaces_ListKeyspaces:
   synopsis: list &KEY; keyspaces.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.ListKeyspaces
     Kotlin:
       versions:
         - sdk_version: 1
@@ -147,6 +183,15 @@ keyspaces_CreateTable:
   synopsis: create an &KEY; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.CreateTable
     Kotlin:
       versions:
         - sdk_version: 1
@@ -183,6 +228,15 @@ keyspaces_GetTable:
   synopsis: get data about an &KEY; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.GetTable
     Kotlin:
       versions:
         - sdk_version: 1
@@ -219,6 +273,15 @@ keyspaces_ListTables:
   synopsis: list &KEY; tables in a keyspace.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.ListTables
     Kotlin:
       versions:
         - sdk_version: 1
@@ -255,6 +318,15 @@ keyspaces_UpdateTable:
   synopsis: update an &KEY; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.UpdateTable
     Kotlin:
       versions:
         - sdk_version: 1
@@ -291,6 +363,15 @@ keyspaces_RestoreTable:
   synopsis: restore an &KEY; table to a point in time.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.RestoreTable
     Kotlin:
       versions:
         - sdk_version: 1
@@ -327,6 +408,15 @@ keyspaces_DeleteTable:
   synopsis: delete an &KEY; table.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.DeleteTable
     Kotlin:
       versions:
         - sdk_version: 1
@@ -363,6 +453,15 @@ keyspaces_DeleteKeyspace:
   synopsis: delete an &KEY; keyspace.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.DeleteKeyspace
     Kotlin:
       versions:
         - sdk_version: 1
@@ -408,6 +507,22 @@ keyspaces_Scenario_GetStartedKeyspaces:
     - Delete the table and keyspace.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Keyspaces
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.KeyspacesBasicsGlobalUsings
+                - Keyspaces.dotnetv3.KeyspacesScenario
+            - description: 
+              snippet_tags:
+                - Keyspaces.dotnetv3.KeyspacesWrapper
+            - description:
+              snippet_tags:
+                - Keyspaces.dotnetv3.CassandraWrapper
     Kotlin:
       versions:
         - sdk_version: 1
