@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[Keyspaces.dotnetv3.CassandraWrapper]
 using System.CodeDom;
 using System.Net;
 using Cassandra;
@@ -191,3 +192,5 @@ public class CassandraWrapper
         }
     }
 }
+
+// snippet-end:[Keyspaces.dotnetv3.CassandraWrapper]

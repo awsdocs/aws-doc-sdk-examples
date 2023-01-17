@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[Keyspaces.dotnetv3.KeyspacesScenario]
 namespace KeyspacesBasics;
 
 /// <summary>
@@ -276,3 +277,5 @@ public class KeyspacesBasics
         Console.WriteLine("The keyspace has been deleted and the demo is now complete.");
     }
 }
+
+// snippet-end:[Keyspaces.dotnetv3.KeyspacesScenario]

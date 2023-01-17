@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[Keyspaces.dotnetv3.HelloKeyspaces]
 namespace KeyspacesActions;
 
 public class HelloKeyspaces
@@ -31,3 +32,5 @@ public class HelloKeyspaces
         await keyspacesWrapper.ListKeyspaces();
     }
 }
+
+// snippet-end:[Keyspaces.dotnetv3.HelloKeyspaces]

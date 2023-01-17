@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[Keyspaces.dotnetv3.KeyspacesWrapper]
 namespace KeyspacesActions;
 
 /// <summary>
@@ -206,3 +207,5 @@ public class KeyspacesWrapper
 
     // snippet-end:[Keyspaces.dotnetv3.UpdateTable]
 }
+
+// snippet-end:[Keyspaces.dotnetv3.KeyspacesWrapper]
