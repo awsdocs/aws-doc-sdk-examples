@@ -1,8 +1,8 @@
-# Amazon code examples for the SDK for C++
+# Amazon Cognito code examples for the SDK for C++
 
 ## Overview
 
-Demonstrates how to use the AWS SDK for C++ with Amazon Cognito to sign up users, set users up for multi-factor authentication (MFA), and sign in to
+Shows how to use the AWS SDK for C++ with Amazon Cognito to sign up users, set users up for multi-factor authentication (MFA), and sign in to
 get access tokens.
 
 *Amazon Cognito provides authentication, authorization, and user management for your web and mobile apps. Your users can sign in directly with a user name and password, or through a third party such as Facebook, Amazon, Google or Apple.*
@@ -20,22 +20,23 @@ get access tokens.
 
 Code excerpts that show you how to call individual service functions.
 
-* [Sign up a user](./getting_started_with_user_pools.cpp)(SignUp)
-* [Resend a confirmation code](./getting_started_with_user_pools.cpp)(ResendConfirmationCode)
-* [Confirm a user](./getting_started_with_user_pools.cpp)(ConfirmSignUp)
-* [Get a token to associate an MFA application with a user](./getting_started_with_user_pools.cpp)(AssociateSoftwareToken)
-* [Verify an MFA application with a user](./getting_started_with_user_pools.cpp)(VerifySoftwareToken)
-* [Respond to an authentication challenge](./getting_started_with_user_pools.cpp)(RespondToAuthChallenge)
-* [Sign up a user](./getting_started_with_user_pools.cpp)(SignUp)
-* [Sign up a user](./getting_started_with_user_pools.cpp)(SignUp)
-* [Sign up a user](./getting_started_with_user_pools.cpp)(SignUp)
+* [Confirm a user](./getting_started_with_user_pools.cpp) (ConfirmSignUp)
+* [Delete a user](./getting_started_with_user_pools.cpp) (DeleteUser)
+* [Get a token to associate an MFA application with a user](./getting_started_with_user_pools.cpp) (AssociateSoftwareToken)
+* [Get information about a user](./getting_started_with_user_pools.cpp) (AdminGetUser)
+* [Resend a confirmation code](./getting_started_with_user_pools.cpp) (ResendConfirmationCode)
+* [Respond to SRP authentication challenges](./getting_started_with_user_pools.cpp) (RespondToAuthChallenge)
+* [Sign up a user](./getting_started_with_user_pools.cpp) (SignUp)
+* [Start authentication with a tracked device](./getting_started_with_user_pools.cpp) (InitiateAuth)
+* [Verify an MFA application with a user](./getting_started_with_user_pools.cpp) (VerifySoftwareToken)
 
 ### Scenarios
+
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
-* [*Title of code example*](*relative link to code example*)
-### Cross-service examples
-Sample applications that work across multiple AWS services.
-* [*Title of code example*](*relative link to code example*)
+
+* [Sign up a user with a user pool that requires MFA](./getting_started_with_user_pools.cpp) (ConfirmSignUp, DeleteUser,
+  AssociateSoftwareToken, AdminGetUser, ResendConfirmationCode, RespondToAuthChallenge, SignUp, InitiateAuth, VerifySoftwareToken)
+
 ## Run the examples
 
 ### Prerequisites
@@ -46,6 +47,25 @@ This section covers how to get and build the SDK, and how to build your own code
 sample Hello World-style application.
 
 Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
+
+The [Sign up a user with a user pool that requires MFA](./getting_started_with_user_pools.cpp) can optionally be built to use the 
+[qr-code-generator](https://github.com/nayuki/QR-Code-generator) library to create a QR code image for MFA authentication. A [conanfile.txt](conanfile.txt) is 
+included with the sample code and the `qr-code-generator` library can be installed using  the 
+[Conan C++ package manager](https://conan.io/).
+
+To install qr-code-generator library using Conan, run the following command from the build directory.
+
+On Linux and Mac.
+
+`conan install .. --build=missing`
+
+On Windows.
+
+`conan install .. --build=missing -o poco:shared=True -s build_type=Debug`
+
+Next, enable the `USING_CONAN` variable in [CMakeLists.txt](CMakeLists.txt).
+
+`set(USING_CONAN TRUE)  # Setting to true enables generation of a QR code.`
 
 ## Tests
 ⚠️ Running the tests might result in charges to your AWS account.
@@ -58,8 +78,8 @@ Next, for information on code example structures and how to build and run the ex
 ```   
 
 ## Additional resources
-* [*Service developer guide*](*link to developer guide*)
-* [*Service API reference guide*](*link to developer guide*)
+* [Amazon Cognito Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
+* [Amazon Cognito API Reference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html)
 * [AWS SDK for C++ Documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html)
 
 

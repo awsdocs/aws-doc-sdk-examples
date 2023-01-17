@@ -414,8 +414,8 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
         Aws::CognitoIdentityProvider::Model::DeleteUserRequest request;
         request.SetAccessToken(accessToken);
 
-        Aws::CognitoIdentityProvider::Model::DeleteUserOutcome outcome = client.DeleteUser(
-                request);
+        Aws::CognitoIdentityProvider::Model::DeleteUserOutcome outcome =
+                client.DeleteUser(request);
 
         if (outcome.IsSuccess()) {
             std::cout << "The user " << userName << " was deleted."

@@ -10,7 +10,7 @@ set(SERVICE_COMPONENTS cognito-idp)
 # Set this project's name.
 project("${SERVICE_NAME}-examples")
 
-set(USING_CONAN TRUE)  # Setting to true enables generation of a QR code.
+set(USING_CONAN FALSE)  # Setting to true enables generation of a QR code.
 
 
 if (USING_CONAN)
