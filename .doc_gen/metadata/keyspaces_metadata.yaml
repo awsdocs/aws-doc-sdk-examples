@@ -318,7 +318,7 @@ keyspaces_UpdateTable:
   synopsis: update an &KEY; table.
   category:
   languages:
-      .NET:
+    .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/Keyspaces
@@ -326,7 +326,7 @@ keyspaces_UpdateTable:
           excerpts:
             - description:
               snippet_tags:
-                - Keyspaces.dotnetv3.UpdateTable
+                  - Keyspaces.dotnetv3.UpdateTable
     Kotlin:
       versions:
         - sdk_version: 1
