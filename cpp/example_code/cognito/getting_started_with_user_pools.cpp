@@ -147,6 +147,7 @@ namespace AwsDoc {
     } // namespace Cognito
 } // namespace AwsDoc
 
+// snippet-start:[cpp.example_code.getting_started_with_user_pools]
 //! Scenario that adds a user to an Amazon Cognito user pool.
 /*!
   \sa gettingStartedWithUserPools()
@@ -167,17 +168,19 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     std::cout
             << "This scenario will add a user to a Cognito user pool."
             << std::endl;
-    Aws::CognitoIdentityProvider::CognitoIdentityProviderClient client(clientConfig);
-
     const Aws::String userName = askQuestion("Enter a new user name: ");
     const Aws::String password = askQuestion("Enter a new password: ");
     const Aws::String email = askQuestion("Enter a valid email for the user: ");
 
     std::cout << "Signing up " << userName << std::endl;
 
+    // snippet-start:[cpp.example_code.cognito.cognito_client]
+    Aws::CognitoIdentityProvider::CognitoIdentityProviderClient client(clientConfig);
+    // snippet-end:[cpp.example_code.cognito.cognito_client]
     bool userExists = false;
     do {
         // 1. Add a user with a username, password and email address.
+        // snippet-start:[cpp.example_code.cognito.signup]
         Aws::CognitoIdentityProvider::Model::SignUpRequest request;
         request.AddUserAttributes(
                 Aws::CognitoIdentityProvider::Model::AttributeType().WithName(
@@ -205,6 +208,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
             return false;
         }
+        // snippet-end:[cpp.example_code.cognito.signup]
     } while (userExists);
 
     printAsterisksLine();
@@ -220,6 +224,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     bool resend = askYesNoQuestion("Would you like to send a new code? (y/n) ");
     if (resend) {
         // Request a resend of the confirmation code to the email address. (ResendConfirmationCode)
+        // snippet-start:[cpp.example_code.cognito.resend_confirmation]
         Aws::CognitoIdentityProvider::Model::ResendConfirmationCodeRequest request;
         request.SetUsername(userName);
         request.SetClientId(clientID);
@@ -238,6 +243,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
             return false;
         }
+        // snippet-end:[cpp.example_code.cognito.resend_confirmation]
     }
 
     printAsterisksLine();
@@ -246,6 +252,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
         // 4. Send the confirmation code received in the email. (ConfirmSignUp)
         const Aws::String confirmationCode = askQuestion(
                 "Enter the confirmation code that was emailed: ");
+        // snippet-start:[cpp.example_code.cognito.confirm_signup]
         Aws::CognitoIdentityProvider::Model::ConfirmSignUpRequest request;
         request.SetClientId(clientID);
         request.SetConfirmationCode(confirmationCode);
@@ -264,6 +271,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
             return false;
         }
+        // snippet-end:[cpp.example_code.cognito.confirm_signup]
     }
 
     std::cout << "Rechecking the status of " << userName << " in the user pool."
@@ -292,6 +300,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     {
         // 6. Request a setup key for one-time password (TOTP)
         //    multi-factor authentication (MFA). (AssociateSoftwareToken)
+        // snippet-start:[cpp.example_code.cognito.associate_software_token]
         Aws::CognitoIdentityProvider::Model::AssociateSoftwareTokenRequest request;
         request.SetSession(session);
 
@@ -320,17 +329,18 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
             return false;
         }
+        // snippet-end:[cpp.example_code.cognito.associate_software_token]
     }
     askQuestion("Type enter to continue...", alwaysTrueTest);
 
     printAsterisksLine();
 
-    bool codeMatch = true;
-    do {
+    {
         Aws::String userCode = askQuestion(
                 "Enter the 6 digit code displayed in the authenticator app: ");
 
         //  7. Send the MFA code copied from an authenticator app. (VerifySoftwareToken)
+        // snippet-start:[cpp.example_code.cognito.verify_software_token]
         Aws::CognitoIdentityProvider::Model::VerifySoftwareTokenRequest request;
         request.SetUserCode(userCode);
         request.SetSession(session);
@@ -342,13 +352,6 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
             std::cout << "Verification of the code was successful."
                       << std::endl;
             session = outcome.GetResult().GetSession();
-            codeMatch = true;
-        }
-        else if ((outcome.GetError().GetErrorType() ==
-                  Aws::CognitoIdentityProvider::CognitoIdentityProviderErrors::ENABLE_SOFTWARE_TOKEN_M_F_A) &&
-                 (outcome.GetError().GetMessage() == "Code mismatch")) {
-            std::cout << "The code did not match." << std::endl;
-            codeMatch = false;
         }
         else {
             std::cerr << "Error with CognitoIdentityProvider::VerifySoftwareToken. "
@@ -356,7 +359,8 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
             return false;
         }
-    } while (!codeMatch);
+        // snippet-end:[cpp.example_code.cognito.verify_software_token]
+    }
 
     printAsterisksLine();
     std::cout << "You have completed the MFA authentication setup." << std::endl;
@@ -368,11 +372,12 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     }
 
     Aws::String accessToken;
-    do {
+    {
         Aws::String mfaCode = askQuestion(
                 "Re-enter the 6 digit code displayed in the authenticator app: ");
 
         // 9. Send a new MFA code copied from an authenticator app. (RespondToAuthChallenge)
+        // snippet-start:[cpp.example_code.cognito.respond_to_auth_challenge]
         Aws::CognitoIdentityProvider::Model::RespondToAuthChallengeRequest request;
         request.AddChallengeResponses("USERNAME", userName);
         request.AddChallengeResponses("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
@@ -390,12 +395,6 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
 
             accessToken = outcome.GetResult().GetAuthenticationResult().GetAccessToken();
-            codeMatch = true;
-        }
-        else if (outcome.GetError().GetErrorType() ==
-                 Aws::CognitoIdentityProvider::CognitoIdentityProviderErrors::CODE_MISMATCH) {
-            std::cout << "The code did not match." << std::endl;
-            codeMatch = false;
         }
         else {
             std::cerr << "Error with CognitoIdentityProvider::RespondToAuthChallenge. "
@@ -403,13 +402,15 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << std::endl;
             return false;
         }
+        // snippet-end:[cpp.example_code.cognito.respond_to_auth_challenge]
 
         std::cout << "You have successfully added a user to Amazon Cognito."
                   << std::endl;
-    } while (!codeMatch);
+    }
 
     if (askYesNoQuestion("Would you like to delete the user you created? (y/n) ")) {
         // 10. Delete the user just added. (DeleteUser)
+        // snippet-start:[cpp.example_code.cognito_delete_user]
         Aws::CognitoIdentityProvider::Model::DeleteUserRequest request;
         request.SetAccessToken(accessToken);
 
@@ -425,6 +426,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << outcome.GetError().GetMessage()
                       << std::endl;
         }
+        // snippet-end:[cpp.example_code.cognito_delete_user]
     }
 
     return true;
@@ -440,6 +442,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
 bool AwsDoc::Cognito::checkAdminUserStatus(const Aws::String &userName,
                                            const Aws::String &userPoolID,
                                            const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client) {
+    // snippet-start:[cpp.example_code.cognito_admin_get_user]
     Aws::CognitoIdentityProvider::Model::AdminGetUserRequest request;
     request.SetUsername(userName);
     request.SetUserPoolId(userPoolID);
@@ -458,6 +461,7 @@ bool AwsDoc::Cognito::checkAdminUserStatus(const Aws::String &userName,
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
+    // snippet-end:[cpp.example_code.cognito_admin_get_user]
 
     return outcome.IsSuccess();
 }
@@ -477,6 +481,7 @@ bool AwsDoc::Cognito::initiateAuthorization(const Aws::String &clientID,
                                             const Aws::String &password,
                                             Aws::String &sessionResult,
                                             const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client) {
+    // snippet-start:[cpp.example_code.cognito_initiate_auth]
     Aws::CognitoIdentityProvider::Model::InitiateAuthRequest request;
     request.SetClientId(clientID);
     request.AddAuthParameters("USERNAME", userName);
@@ -496,9 +501,11 @@ bool AwsDoc::Cognito::initiateAuthorization(const Aws::String &clientID,
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
+    // snippet-end:[cpp.example_code.cognito_initiate_auth]
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.getting_started_with_user_pools]
 
 #ifndef TESTING_BUILD
 
@@ -530,9 +537,11 @@ int main(int argc, const char *argv[]) {
     InitAPI(options);
 
     {
+        // snippet-start:[cpp.example_code.client_configuration]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
+        // snippet-end:[cpp.example_code.client_configuration]
 
         AwsDoc::Cognito::gettingStartedWithUserPools(clientID, userPoolID,
                                                      clientConfig);
