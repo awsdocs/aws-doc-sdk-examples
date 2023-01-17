@@ -537,11 +537,11 @@ int main(int argc, const char *argv[]) {
     InitAPI(options);
 
     {
-        // snippet-start:[cpp.example_code.client_configuration]
+        // snippet-start:[cpp.example_code.cognito.client_configuration]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        // snippet-end:[cpp.example_code.client_configuration]
+        // snippet-end:[cpp.example_code.cognito.client_configuration]
 
         AwsDoc::Cognito::gettingStartedWithUserPools(clientID, userPoolID,
                                                      clientConfig);
