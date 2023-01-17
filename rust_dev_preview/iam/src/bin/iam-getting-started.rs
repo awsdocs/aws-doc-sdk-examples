@@ -27,6 +27,7 @@ use aws_sdk_iam::{Client as iamClient, Credentials as iamCredentials, Region};
 use aws_sdk_s3::Client as s3Client;
 use aws_sdk_sts::Client as stsClient;
 use std::borrow::Borrow;
+use std::sync::Arc;
 use tokio::time::{sleep, Duration};
 use uuid::Uuid;
 
@@ -161,11 +162,11 @@ async fn run_iam_operations(
     println!("Created inline policy.");
 
     //First, fail to list the buckets with the user.
-    let creds = iamCredentials::from_keys(
+    let creds = Arc::new(iamCredentials::from_keys(
         key.access_key_id.as_ref().unwrap(),
         key.secret_access_key.as_ref().unwrap(),
         None,
-    );
+    ));
     let fail_config = aws_config::from_env()
         .credentials_provider(creds.clone())
         .load()
@@ -227,7 +228,7 @@ async fn run_iam_operations(
     );
 
     let succeed_config = aws_config::from_env()
-        .credentials_provider(assumed_credentials)
+        .credentials_provider(Arc::new(assumed_credentials))
         .load()
         .await;
     println!("succeed config: {:?}", succeed_config);
