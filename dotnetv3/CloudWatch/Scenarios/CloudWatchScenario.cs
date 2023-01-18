@@ -26,7 +26,7 @@ public class CloudWatchScenario
         1. List and select a CloudWatch namespace.
         2. List and select a CloudWatch metric.
         3. Get statistics for a CloudWatch metric.
-        4. Get estimated billing statistics for the last month.
+        4. Get estimated billing statistics for the last week.
         5. Create a new CloudWatch dashboard with two metrics.
         6. List current CloudWatch dashboards.
         7. Create a CloudWatch custom metric and add metric data.
@@ -117,7 +117,7 @@ public class CloudWatchScenario
         Console.WriteLine(new string('-', 80));
         Console.WriteLine($"1. Select a CloudWatch Namespace from a list of Namespaces.");
         var metrics = await _cloudWatchWrapper.ListMetrics();
-        // Get a distinct list of namespaces
+        // Get a distinct list of namespaces.
         var namespaces = metrics.Select(m => m.Namespace).Distinct().ToList();
         for (int i = 0; i < namespaces.Count; i++)
         {
@@ -657,7 +657,7 @@ public class CloudWatchScenario
     }
 
     /// <summary>
-    /// Fetch and open a metrics image for an Elastic Compute Cloud (Amazon EC2) instance.
+    /// Fetch and open a metrics image for a CloudWatch metric and namespace.
     /// </summary>
     /// <returns>Async task.</returns>
     private static async Task GetAndOpenMetricImage()
@@ -729,7 +729,7 @@ public class CloudWatchScenario
     /// Get a yes or no response from the user.
     /// </summary>
     /// <param name="question">The question string to print on the console.</param>
-    /// <returns></returns>
+    /// <returns>True if the user responds with a yes.</returns>
     private static bool GetYesNoResponse(string question)
     {
         Console.WriteLine(question);

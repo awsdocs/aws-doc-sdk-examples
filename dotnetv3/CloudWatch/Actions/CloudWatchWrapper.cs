@@ -117,7 +117,7 @@ public class CloudWatchWrapper
     /// <summary>
     /// Get information on a dashboard.
     /// </summary>
-    /// <param name="dashboardName">The name of the dashboard</param>
+    /// <param name="dashboardName">The name of the dashboard.</param>
     /// <returns>A JSON object with dashboard information.</returns>
     public async Task<string> GetDashboard(string dashboardName)
     {
@@ -396,7 +396,7 @@ public class CloudWatchWrapper
 
     // snippet-start:[CloudWatch.dotnetv3.DeleteAlarms]
     /// <summary>
-    /// Delete a list of alarms from CloudWatch
+    /// Delete a list of alarms from CloudWatch.
     /// </summary>
     /// <param name="alarmNames">List of names of alarms to delete.</param>
     /// <returns>True if successful.</returns>
@@ -414,7 +414,7 @@ public class CloudWatchWrapper
 
     // snippet-start:[CloudWatch.dotnetv3.DisableAlarmActions]
     /// <summary>
-    /// Disable the actions for a list of alarms from CloudWatch
+    /// Disable the actions for a list of alarms from CloudWatch.
     /// </summary>
     /// <param name="alarmNames">List of names of alarms.</param>
     /// <returns>True if successful.</returns>
@@ -432,7 +432,7 @@ public class CloudWatchWrapper
 
     // snippet-start:[CloudWatch.dotnetv3.EnableAlarmActions]
     /// <summary>
-    /// Enable the actions for a list of alarms from CloudWatch
+    /// Enable the actions for a list of alarms from CloudWatch.
     /// </summary>
     /// <param name="alarmNames">List of names of alarms.</param>
     /// <returns>True if successful.</returns>
@@ -450,9 +450,9 @@ public class CloudWatchWrapper
 
     // snippet-start:[CloudWatch.dotnetv3.PutAnomalyDetector]
     /// <summary>
-    /// Add an anomaly detector for a single metric
+    /// Add an anomaly detector for a single metric.
     /// </summary>
-    /// <param name="anomalyDetector">A single metric anomaly detector</param>
+    /// <param name="anomalyDetector">A single metric anomaly detector.</param>
     /// <returns>True if successful.</returns>
     public async Task<bool> PutAnomalyDetector(SingleMetricAnomalyDetector anomalyDetector)
     {

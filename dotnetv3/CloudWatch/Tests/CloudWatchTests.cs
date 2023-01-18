@@ -103,7 +103,7 @@ public class CloudWatchTests
     }
 
     /// <summary>
-    /// Get a dashboard. Should have exactly 2 widgets.
+    /// Get a dashboard. Should have exactly 3 widgets.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
