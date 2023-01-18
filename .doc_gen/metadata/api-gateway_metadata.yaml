@@ -17,7 +17,7 @@ api-gateway_CreateDeployment:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/apigateway
+          github: python/example_code/api-gateway
           sdkguide:
           excerpts:
             - description:
@@ -36,7 +36,7 @@ api-gateway_CreateResource:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/apigateway
+          github: python/example_code/api-gateway
           sdkguide:
           excerpts:
             - description:
@@ -63,7 +63,7 @@ api-gateway_CreateRestApi:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/apigateway
+          github: python/example_code/api-gateway
           sdkguide:
           excerpts:
             - description:
@@ -107,7 +107,7 @@ api-gateway_DeleteRestApi:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/apigateway
+          github: python/example_code/api-gateway
           sdkguide:
           excerpts:
             - description:
@@ -142,7 +142,7 @@ api-gateway_GetResources:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/apigateway
+          github: python/example_code/api-gateway
           sdkguide:
           excerpts:
             - description:
@@ -160,7 +160,7 @@ api-gateway_GetRestApis:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/apigateway
+          github: python/example_code/api-gateway
           sdkguide:
           excerpts:
             - description:
@@ -204,7 +204,7 @@ api-gateway_PutIntegration:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/apigateway
+          github: python/example_code/api-gateway
           sdkguide:
           excerpts:
             - description:
@@ -222,7 +222,7 @@ api-gateway_PutIntegrationResponse:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/apigateway
+          github: python/example_code/api-gateway
           sdkguide:
           excerpts:
             - description:
@@ -240,7 +240,7 @@ api-gateway_PutMethod:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/apigateway
+          github: python/example_code/api-gateway
           sdkguide:
           excerpts:
             - description:
@@ -258,7 +258,7 @@ api-gateway_PutMethodResponse:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/apigateway
+          github: python/example_code/api-gateway
           sdkguide:
           excerpts:
             - description:

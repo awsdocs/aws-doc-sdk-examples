@@ -1,98 +1,106 @@
-# AWS Certificate Manager (ACM) basics example
+# ACM code examples for the SDK for Python
 
-## Purpose
+## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) with AWS Certificate Manager (ACM)
-to request, import, and manage certificates.
+Shows how to use the AWS SDK for Python (Boto3) to work with AWS Certificate Manager (ACM).
 
-*ACM makes it easy to provision, manage, and deploy SSL/TLS certificates on AWS 
-managed resources.*
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-## Code examples
-
-* [Adding tags to a certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
-(`add_tags_to_certificate`)
-* [Deleting a certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
-(`delete_certificate`)
-* [Getting certificate metadata](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
-(`describe_certificate`)
-* [Getting the body and certificate chain of a certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
-(`get_certificate`)
-* [Importing a self-signed certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
-(`import_certificate`)
-* [Listing certificates for the current account](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
-(`list_certificates`)
-* [Listing tags for a certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
-(`list_tags_for_certificate`)
-* [Removing tags from a certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
-(`remove_tags_from_certificate`)
-* [Requesting a new certificate](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
-(`request_certificate`)
-* [Resending validation email](https://github.com/awsdocs/aws-doc-sdk-examples/blob/master/python/example_code/acm/certificate_basics.py)
-(`resend_validation_email`)
+*ACM helps you to provision, manage, and renew publicly trusted TLS certificates on AWS based websites.*
 
 ## ⚠ Important
 
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-  on the AWS website.
-- Running this code might result in charges to your AWS account.
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-## Running the code
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+### Single actions
+
+Code excerpts that show you how to call individual service functions.
+
+* [Add tags to a certificate](certificate_basics.py#L155) (`AddTagsToCertificate`)
+* [Delete a certificate](certificate_basics.py#L140) (`DeleteCertificate`)
+* [Describe a certificate](certificate_basics.py#L36) (`DescribeCertificate`)
+* [Get a certificate](certificate_basics.py#L58) (`GetCertificate`)
+* [Import certificates](certificate_basics.py#L118) (`ImportCertificate`)
+* [List certificates](certificate_basics.py#L76) (`ListCertificates`)
+* [List tags for a certificate](certificate_basics.py#L174) (`ListTagsForCertificate`)
+* [Remove tags from a certificate](certificate_basics.py#L194) (`RemoveTagsFromCertificate`)
+* [Request validation of a certificate](certificate_basics.py#L221) (`RequestCertificate`)
+* [Resend validation email for a certificate](certificate_basics.py#L265) (`ResendValidationEmail`)
+
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+* [Manage certificates](certificate_basics.py) 
+
+## Run the examples
 
 ### Prerequisites
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- Python 3.7 or later
-- Boto3 1.14.47 or later
-- PyTest 5.3.5 or later (to run unit tests)
+See the [README](../../README.md#Prerequisites) in the `python` folder for prerequisites.
 
-### Command
+Install the packages required by these examples by running the following in a virtual environment:
 
-Run this example at a command prompt with the following command.
+```
+python -m pip install -r requirements.txt
+```
+
+<!--custom.prerequisites.start-->
+<!--custom.prerequisites.end-->
+
+### Instructions
+
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+#### Manage certificates
+
+This example shows you how to do the following:
+
+* Request a certificate from ACM.
+* Import a self-signed certificate.
+* List and describe certificates.
+* Remove certificates.
+
+Start the example by running the following at a command prompt:
 
 ```
 python certificate_basics.py
 ```
 
-The example optionally imports a self-signed certificate to ACM. To do this, it asks 
-for certificate and private key files in PEM format. You can create these yourself by
-using a certificate toolkit, such as OpenSSL. 
+<!--custom.scenarios.acm_Usage_ImportListRemove.start-->
+<!--custom.scenarios.acm_Usage_ImportListRemove.end-->
 
-### Example structure
+### Tests
 
-The example contains the following file.
+⚠ Running tests might result in charges to your AWS account.
 
-**certificate_basics.py**
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `python` folder.
 
-Shows how to use ACM APIs. The `usage_demo` script requests a new certificate from
-ACM, uploads a self-signed certificate, and gets data about certificates from ACM.
+<!--custom.tests.start-->
+<!--custom.tests.end-->
 
-## Running the tests
+## Additional resources
 
-The unit tests in this module use the botocore Stubber. This captures requests before 
-they are sent to AWS, and returns a mocked response. To run all of the tests, 
-run the following in your [GitHub root]/python/example_code/acm 
-folder.
+* [ACM User Guide](https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html)
+* [ACM API Reference](https://docs.aws.amazon.com/acm/latest/APIReference/Welcome.html)
+* [SDK for Python ACM reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/acm.html)
 
-```    
-python -m pytest
-```
-
-## Additional information
-
-- [Boto3 AWS Certificate Manager (ACM) service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/acm.html)
-- [AWS Certificate Manager (ACM) documentation](https://docs.aws.amazon.com/acm)
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
 ---
+
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 SPDX-License-Identifier: Apache-2.0

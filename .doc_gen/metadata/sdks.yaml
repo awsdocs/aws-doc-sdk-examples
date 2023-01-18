@@ -6,6 +6,10 @@ SAP ABAP:
       long: "&ABAPlong;"
       short: "&ABAP;"
       caveat: "This documentation is for an SDK in developer preview release. The SDK is subject to change and is not recommended for use in production."
+      expanded:
+        long: "AWS SDK for SAP ABAP"
+        short: "SDK for SAP ABAP"
+      guide: "sdk-for-sapabap/latest/developer-guide/home.html"
       api_ref:
         uid: "SdkForABAP"
         name: "&guide-abap-api;"
@@ -17,6 +21,10 @@ C++:
     1:
       long: "&CPPlong;"
       short: "&CPP;"
+      expanded:
+        long: "AWS SDK for C++"
+        short: "SDK for C++"
+      guide: "sdk-for-cpp/v1/developer-guide/welcome.html"
       api_ref:
         uid: "SdkForCpp"
         name: "&guide-cpp-api;"
@@ -30,12 +38,20 @@ Go:
     1:
       long: "&Golong; V1"
       short: "&Go; V1"
+      expanded:
+        long: "AWS SDK for Go V1"
+        short: "SDK for Go V1"
+      guide: "sdk-for-go/v1/developer-guide/welcome.html"
       api_ref:
         uid: "SdkForGoV1"
         name: "&guide-go-api;"
     2:
       long: "&Golong; V2"
       short: "&Go; V2"
+      expanded:
+        long: "AWS SDK for Go V2"
+        short: "SDK for Go V2"
+      guide: "https://aws.github.io/aws-sdk-go-v2/docs/"
       api_ref:
         uid: "SdkForGoV2"
         name: "&guide-go-api;"
@@ -47,9 +63,17 @@ Java:
     1:
       long: "&Javalong; 1.x"
       short: "&Java; 1.x"
+      expanded:
+        long: "AWS SDK for Java 1.x"
+        short: "SDK for Java 1.x"
+      guide: "sdk-for-java/v1/developer-guide/welcome.html"
     2:
       long: "&JavaV2long;"
       short: "&JavaV2;"
+      expanded:
+        long: "AWS SDK for Java 2.x"
+        short: "SDK for Java 2.x"
+      guide: "sdk-for-java/latest/developer-guide/home.html"
       bookmark: readme
       api_ref:
         uid: "SdkForJavaV2"
@@ -61,12 +85,20 @@ JavaScript:
     2:
       long: "&JSBlong; V2"
       short: "&JSB; V2"
+      expanded:
+        long: "AWS SDK for JavaScript V3"
+        short: "SDK for JavaScript V2"
+      guide: "sdk-for-javascript/v2/developer-guide/welcome.html"
       api_ref:
         uid: "AWSJavaScriptSDK"
         name: "&guide-jsb-api;"
     3:
       long: "&JSBlong; V3"
       short: "&JSB; V3"
+      expanded:
+        long: "AWS SDK for JavaScript V3"
+        short: "SDK for JavaScript V3"
+      guide: "sdk-for-javascript/v3/developer-guide/welcome.html"
       api_ref:
         uid: "AWSJavaScriptSDKV3"
         name: "&guide-jsb-api;"
@@ -79,6 +111,10 @@ Kotlin:
       long: "&Kotlinlong;"
       short: "&Kotlin;"
       caveat: "This is prerelease documentation for a feature in preview release. It is subject to change."
+      expanded:
+        long: "AWS SDK for Kotlin"
+        short: "SDK for Kotlin"
+      guide: "sdk-for-kotlin/latest/developer-guide/home.html"
       api_ref:
         uid: "SdkForKotlinV1"
         name: "&guide-kotlin-api;"
@@ -90,6 +126,10 @@ Kotlin:
     3:
       long: "&NETlong;"
       short: "&NET;"
+      expanded:
+        long: "AWS SDK for .NET"
+        short: "SDK for .NET"
+      guide: "sdk-for-net/v3/developer-guide/welcome.html"
       api_ref:
         uid: "DotNetSDKV3"
         name: "&guide-net-api;"
@@ -103,6 +143,10 @@ PHP:
     3:
       long: "&PHPlong;"
       short: "&PHP;"
+      expanded:
+        long: "AWS SDK for PHP"
+        short: "SDK for PHP"
+      guide: "sdk-for-php/v3/developer-guide/welcome.html"
       api_ref:
         uid: "SdkForPHPV3"
         name: "&guide-php-api;"
@@ -116,6 +160,10 @@ Python:
     3:
       long: "&Python3long;"
       short: "&Python3;"
+      expanded:
+        long: "AWS SDK for Python (Boto3)"
+        short: "SDK for Python"
+      guide: "https://boto3.amazonaws.com/v1/documentation/api/latest/guide/quickstart.html"
       api_ref:
         uid: "boto3"
         name: "&guide-python3-api;"
@@ -126,6 +174,10 @@ Ruby:
     3:
       long: "&Rubylong;"
       short: "&Ruby;"
+      expanded:
+        long: "AWS SDK for Ruby"
+        short: "SDK for Ruby"
+      guide: "sdk-for-ruby/v3/developer-guide/welcome.html"
       api_ref:
         uid: "SdkForRubyV3"
         name: "&guide-ruby-api;"
@@ -137,6 +189,10 @@ Rust:
       long: "&Rustlong;"
       short: "&Rust;"
       caveat: "This documentation is for an SDK in preview release. The SDK is subject to change and should not be used in production."
+      expanded:
+        long: "AWS SDK for Rust"
+        short: "SDK for Rust"
+      guide: "sdk-for-rust/latest/dg/welcome.html"
       api_ref:
         uid: "SdkForRustV1"
         name: "&guide-rust-api;"
@@ -149,6 +205,10 @@ Swift:
       long: "&Swiftlong;"
       short: "&Swift;"
       caveat: "This is prerelease documentation for an SDK in preview release. It is subject to change."
+      expanded:
+        long: "AWS SDK for Swift"
+        short: "SDK for Swift"
+      guide: "sdk-for-swift/latest/developer-guide/home.html"
       api_ref:
         uid: "SdkForSwift"
         name: "&guide-swift-api;"
