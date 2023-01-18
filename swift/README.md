@@ -27,6 +27,9 @@ There are currently no cross-service examples for the AWS SDK for Swift. To requ
 ### Prerequisites
 * You must have an AWS account, and have your default credentials and AWS Region configured as described in the [Getting started](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/getting-started.html) section of the _AWS SDK for Swift Developer Guide_.
 * You must have the [Swift](https://www.swift.org/) compiler (version 5.4 or later) and tools installed. If you have the latest version of Xcode installed, you already have the Swift tools. For detailed instructions, see [Setting up](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/setting-up.html) in the _AWS SDK for Swift Developer Guide_.
+* Some examples require newer versions of the Swift compiler. See the comment
+  at the top of the example's `Package.swift`  file to find the minimum Swift
+  tools version required by the example.
 
 ## Tests
 **Note**: Running the tests might result in charges to your AWS account.
