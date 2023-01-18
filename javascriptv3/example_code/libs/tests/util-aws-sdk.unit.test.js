@@ -2,7 +2,7 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it } from "vitest";
 import { LambdaClient } from "@aws-sdk/client-lambda";
 import {
   createClientForDefaultRegion,

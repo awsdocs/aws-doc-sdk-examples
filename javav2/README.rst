@@ -223,3 +223,16 @@ If the example requires arguments, pass the argument list in quotation marks::
 .. _maven: https://maven.apache.org/
 .. _javasdk: https://aws.amazon.com/sdk-for-java/
 .. _javasdk-docs: http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/
+
+Docker image (Beta)
+===================
+
+This example code will soon be available in a container image
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
+with all Java v2 examples with dependencies pre-resolved, allowing you to explore
+these examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for Java v2 image](https://gallery.ecr.aws/aws-docs-sdk-examples/javav2) is available on ECR Public but is still
+undergoing active development. Refer to
+[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4128)
+for more information.

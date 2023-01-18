@@ -5,7 +5,7 @@ ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript v
 which is available at https://github.com/aws/aws-sdk-js-v3.
 
 Purpose:
-transcribe_create_medical_job.test.js demonstrates how to create an Amazon Transcribe medical transcription job.
+transcribe_create_medical_job.js demonstrates how to create an Amazon Transcribe medical transcription job.
 
 Inputs (replace in code):
 - MEDICAL_JOB_NAME
@@ -16,7 +16,7 @@ Inputs (replace in code):
 - SOURCE_FILE_LOCATION
 
 Running the code:
-node transcribe_create_medical_job.test.js
+node transcribe_create_medical_job.js
  */
 // snippet-start:[transcribe.JavaScript.jobs.createMedicalJobV3]
 // Import the required AWS SDK clients and commands for Node.js

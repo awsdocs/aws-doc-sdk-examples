@@ -1,0 +1,21 @@
+{{- define "note_example_types"}}
+{{- $actions := index . 0}}
+{{- $scenarios := index . 1}}
+{{- $crosses := index . 2}}
+{{- if $actions}}
+<para><emphasis>Actions</emphasis> are code excerpts that show you how to call individual service functions.</para>
+{{- end}}
+{{- if $scenarios}}
+<para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task by
+    calling multiple functions within the same service.</para>
+{{- end}}
+{{- if $crosses}}
+<para><emphasis>Cross-service examples</emphasis> are sample applications that work across multiple &AWS-services;.</para>
+{{- end}}
+{{- end}}
+
+{{- define "note_complete_list"}}
+<para>For a complete list of &AWS; SDK developer guides and code examples, see
+    <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.
+    This topic also includes information about getting started and details about previous SDK versions.</para>
+{{- end}}

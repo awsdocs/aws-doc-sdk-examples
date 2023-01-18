@@ -13,7 +13,6 @@ import aws.sdk.kotlin.services.ses.model.SendEmailRequest
 import aws.sdk.kotlin.services.ses.model.SesException
 import org.springframework.stereotype.Component
 import kotlin.system.exitProcess
-
 @Component
 class SendMessage {
 
