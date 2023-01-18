@@ -32,7 +32,6 @@ Code excerpts that show you how to call individual service functions.
 - [List the versions of the objects in a bucket](src/bin/list-object-versions.rs) (ListObjectVersions)
 - [Add an object to a bucket and returns a public URI to the object.](src/bin/put-object-presigned.rs) (PutObject)
 - [List your buckets and uploads a file to a bucket](src/bin/s3-helloworld.rs) (ListBuckets, PutObject)
-- [List your buckets at a specified endpoint](src/bin/s3-object-lambda.rs) (ListBuckets)
 - [Use an SQL expression to retrieve content from an object in a bucket](src/bin/select-object-content.rs) (SelectObjectContent)
 - [Create multipart upload](src/bin/s3-multipart-upload.rs)(CreateMultipartUpload)
 - [Upload part](src/bin/s3-multipart-upload.rs)(UploadPart)

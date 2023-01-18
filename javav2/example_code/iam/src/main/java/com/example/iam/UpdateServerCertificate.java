@@ -14,7 +14,6 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.services.iam.model.UpdateServerCertificateRequest;
-import software.amazon.awssdk.services.iam.model.UpdateServerCertificateResponse;
 // snippet-end:[iam.java2.update_server_certificate.import]
 
 /**

@@ -26,7 +26,7 @@ Running these code examples might result in charges to the AWS account that is a
 Some of these code examples have accompanying unit tests, which are designed to be run with PHPUnit. These unit test code files are in a subdirectory named `tests`, next to the code examples themselves. For more information, see the comments inside of the unit test code files.
 
 ## Docker image (Beta)
-In the near future, this example code will be available in a container image
+This example code will soon be available in a container image
 hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
 with all PHP examples with dependencies pre-resolved, allowing you to explore
 these examples in an isolated environment.
