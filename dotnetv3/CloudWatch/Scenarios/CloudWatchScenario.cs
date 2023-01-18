@@ -152,7 +152,7 @@ public class CloudWatchScenario
 
         var namespaceMetrics = await _cloudWatchWrapper.ListMetrics(metricNamespace);
 
-        for (int i = 0; i < namespaceMetrics.Count && i < 10; i++)
+        for (int i = 0; i < namespaceMetrics.Count && i < 15; i++)
         {
             var dimensionsWithValues = namespaceMetrics[i].Dimensions
                 .Where(d => !string.Equals("None", d.Value));
@@ -438,7 +438,7 @@ public class CloudWatchScenario
 
         var newDashboardString = JsonSerializer.Serialize(newDashboard,
             new JsonSerializerOptions
-                { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
+            { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
         var validationMessages =
             await _cloudWatchWrapper.PutDashboard(dashboardName, newDashboardString);
 
