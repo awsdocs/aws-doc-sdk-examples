@@ -233,8 +233,24 @@ public class CloudWatchScenario
         Console.WriteLine(new string('-', 80));
         Console.WriteLine($"4. Get CloudWatch estimated billing for the last week.");
 
-        // snippet-start:[CloudWatch.dotnetv3.GetMetricStatisticsSetup]
+        var billingStatistics = await SetupBillingStatistics();
 
+        for (int i = 0; i < billingStatistics.Count; i++)
+        {
+            Console.WriteLine($"\t{i + 1}. Timestamp {billingStatistics[i].Timestamp:G} : {billingStatistics[i].Maximum}");
+        }
+
+        Console.WriteLine(new string('-', 80));
+    }
+
+    // snippet-start:[CloudWatch.dotnetv3.GetMetricStatisticsSetup]
+    /// <summary>
+    /// Get billing statistics from the wrapper.
+    /// </summary>
+    /// <returns>A collection of billing statistics.</returns>
+    private static async Task<List<Datapoint>> SetupBillingStatistics()
+    {
+        // Make a request for EstimatedCharges with a period of one day for the past 7 days.
         var billingStatistics = await _cloudWatchWrapper.GetMetricStatistics(
             "AWS/Billing",
             "EstimatedCharges",
@@ -243,16 +259,11 @@ public class CloudWatchScenario
             7,
             86400);
 
-        // snippet-end:[CloudWatch.dotnetv3.GetMetricStatisticsSetup]
-
         billingStatistics = billingStatistics.OrderBy(n => n.Timestamp).ToList();
-        for (int i = 0; i < billingStatistics.Count; i++)
-        {
-            Console.WriteLine($"\t{i + 1}. Timestamp {billingStatistics[i].Timestamp:G} : {billingStatistics[i].Maximum}");
-        }
 
-        Console.WriteLine(new string('-', 80));
+        return billingStatistics;
     }
+    // snippet-end:[CloudWatch.dotnetv3.GetMetricStatisticsSetup]
 
     /// <summary>
     /// Create a dashboard with metrics.
@@ -316,8 +327,25 @@ public class CloudWatchScenario
         var customMetricNamespace = _configuration["customMetricNamespace"];
         var customMetricName = _configuration["customMetricName"];
 
-        // snippet-start:[CloudWatch.dotnetv3.PutMetricDataSetup]
+        var customData = await PutRandomMetricData(customMetricName, customMetricNamespace);
 
+        var valuesString = string.Join(',', customData.Select(d => d.Value));
+        Console.WriteLine($"\tAdded metric values for for metric {customMetricName}: \n\t{valuesString}");
+
+        Console.WriteLine(new string('-', 80));
+    }
+
+    // snippet-start:[CloudWatch.dotnetv3.PutMetricDataSetup]
+
+    /// <summary>
+    /// Add some metric data using the wrapper.
+    /// </summary>
+    /// <param name="customMetricName">The metric name.</param>
+    /// <param name="customMetricNamespace">The metric namespace.</param>
+    /// <returns></returns>
+    private static async Task<List<MetricDatum>> PutRandomMetricData(string customMetricName,
+        string customMetricNamespace)
+    {
         List<MetricDatum> customData = new List<MetricDatum>();
         Random rnd = new Random();
 
@@ -333,18 +361,13 @@ public class CloudWatchScenario
                     Value = metricValue,
                     TimestampUtc = utcNowMinus15.AddMinutes(i)
                 }
-                );
+            );
         }
 
         await _cloudWatchWrapper.PutMetricData(customMetricNamespace, customData);
-
-        // snippet-end:[CloudWatch.dotnetv3.PutMetricDataSetup]
-
-        var valuesString = string.Join(',', customData.Select(d => d.Value));
-        Console.WriteLine($"\tAdded metric values for for metric {customMetricName}: \n\t{valuesString}");
-
-        Console.WriteLine(new string('-', 80));
+        return customData;
     }
+    // snippet-end:[CloudWatch.dotnetv3.PutMetricDataSetup]
 
     /// <summary>
     /// Add the custom metric to the dashboard.
@@ -356,15 +379,38 @@ public class CloudWatchScenario
         Console.WriteLine($"8. Add the new custom metric to the dashboard.");
 
         var dashboardName = _configuration["dashboardName"];
-        var newDashboard = new DashboardModel();
-        _configuration.GetSection("dashboardExampleBody").Bind(newDashboard);
 
         var customMetricNamespace = _configuration["customMetricNamespace"];
         var customMetricName = _configuration["customMetricName"];
 
-        // snippet-start:[CloudWatch.dotnetv3.PutDashboardSetup]
+        var validationMessages = await SetupDashboard(customMetricNamespace, customMetricName, dashboardName);
 
-        // Add a new metric to a dashboard.
+        Console.WriteLine(validationMessages.Any() ? $"\tValidation messages:" : null);
+        for (int i = 0; i < validationMessages.Count; i++)
+        {
+            Console.WriteLine($"\t{i + 1}. {validationMessages[i].Message}");
+        }
+        Console.WriteLine($"\tDashboard {dashboardName} updated with metric {customMetricName}.");
+        Console.WriteLine(new string('-', 80));
+    }
+
+    // snippet-start:[CloudWatch.dotnetv3.PutDashboardSetup]
+
+    /// <summary>
+    /// Set up a dashboard using the wrapper.
+    /// </summary>
+    /// <param name="customMetricNamespace">Metric namespace.</param>
+    /// <param name="customMetricName">Metric name.</param>
+    /// <param name="dashboardName">Name of the dashboard.</param>
+    /// <returns>A list of validation messages.</returns>
+    private static async Task<List<DashboardValidationMessage>> SetupDashboard(
+        string customMetricNamespace, string customMetricName, string dashboardName)
+    {
+        // Get the dashboard model from configuration.
+        var newDashboard = new DashboardModel();
+        _configuration.GetSection("dashboardExampleBody").Bind(newDashboard);
+
+        // Add a new metric to the dashboard.
         newDashboard.Widgets.Add(new Widget
         {
             Height = 8,
@@ -374,7 +420,8 @@ public class CloudWatchScenario
             Type = "metric",
             Properties = new Properties
             {
-                Metrics = new List<List<object>> { new() { customMetricNamespace, customMetricName } },
+                Metrics = new List<List<object>>
+                    { new() { customMetricNamespace, customMetricName } },
                 View = "timeSeries",
                 Region = "us-east-1",
                 Stat = "Sum",
@@ -389,19 +436,15 @@ public class CloudWatchScenario
             }
         });
 
-        var newDashboardString = JsonSerializer.Serialize(newDashboard, new JsonSerializerOptions { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
-        var validationMessages = await _cloudWatchWrapper.PutDashboard(dashboardName, newDashboardString);
+        var newDashboardString = JsonSerializer.Serialize(newDashboard,
+            new JsonSerializerOptions
+                { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
+        var validationMessages =
+            await _cloudWatchWrapper.PutDashboard(dashboardName, newDashboardString);
 
-        // snippet-end:[CloudWatch.dotnetv3.PutDashboardSetup]
-
-        Console.WriteLine(validationMessages.Any() ? $"\tValidation messages:" : null);
-        for (int i = 0; i < validationMessages.Count; i++)
-        {
-            Console.WriteLine($"\t{i + 1}. {validationMessages[i].Message}");
-        }
-        Console.WriteLine($"\tDashboard {dashboardName} updated with metric {customMetricName}.");
-        Console.WriteLine(new string('-', 80));
+        return validationMessages;
     }
+    // snippet-end:[CloudWatch.dotnetv3.PutDashboardSetup]
 
     /// <summary>
     /// Create a CloudWatch alarm for the new metric.
