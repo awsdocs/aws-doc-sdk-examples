@@ -61,7 +61,7 @@ public class CloudWatchWrapper
 
     // snippet-start:[CloudWatch.dotnetv3.GetMetricStatistics]
     /// <summary>
-    /// Get statistics for a specific CloudWatch metric.
+    /// Wrapper to get statistics for a specific CloudWatch metric.
     /// </summary>
     /// <param name="metricNamespace">Namespace of the metric.</param>
     /// <param name="metricName">Name of the metric.</param>
@@ -91,7 +91,7 @@ public class CloudWatchWrapper
 
     // snippet-start:[CloudWatch.dotnetv3.PutDashboard]
     /// <summary>
-    /// Create or add to a dashboard with metrics.
+    /// Wrapper to create or add to a dashboard with metrics.
     /// </summary>
     /// <param name="dashboardName">Name for the dashboard.</param>
     /// <param name="dashboardBody">Metric data in JSON for the dashboard.</param>
@@ -154,7 +154,7 @@ public class CloudWatchWrapper
 
     // snippet-start:[CloudWatch.dotnetv3.PutMetricData]
     /// <summary>
-    /// Add metric data to a CloudWatch metric.
+    /// Wrapper to add metric data to a CloudWatch metric.
     /// </summary>
     /// <param name="metricNamespace">Namespace of the metric.</param>
     /// <param name="metricData">Data object for the metric data.</param>

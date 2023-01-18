@@ -245,7 +245,7 @@ public class CloudWatchScenario
 
     // snippet-start:[CloudWatch.dotnetv3.GetMetricStatisticsSetup]
     /// <summary>
-    /// Get billing statistics from the wrapper.
+    /// Get billing statistics using a call to a wrapper class.
     /// </summary>
     /// <returns>A collection of billing statistics.</returns>
     private static async Task<List<Datapoint>> SetupBillingStatistics()
@@ -338,7 +338,7 @@ public class CloudWatchScenario
     // snippet-start:[CloudWatch.dotnetv3.PutMetricDataSetup]
 
     /// <summary>
-    /// Add some metric data using the wrapper.
+    /// Add some metric data using a call to a wrapper class.
     /// </summary>
     /// <param name="customMetricName">The metric name.</param>
     /// <param name="customMetricNamespace">The metric namespace.</param>
@@ -397,7 +397,7 @@ public class CloudWatchScenario
     // snippet-start:[CloudWatch.dotnetv3.PutDashboardSetup]
 
     /// <summary>
-    /// Set up a dashboard using the wrapper.
+    /// Set up a dashboard using a call to the wrapper class.
     /// </summary>
     /// <param name="customMetricNamespace">Metric namespace.</param>
     /// <param name="customMetricName">Metric name.</param>
