@@ -53,15 +53,15 @@ The [Sign up a user with a user pool that requires MFA](./getting_started_with_u
 included with the sample code and the `qr-code-generator` library can be installed using  the 
 [Conan C++ package manager](https://conan.io/).
 
-To install qr-code-generator library using Conan, run the following command from the build directory.
+To install the `qr-code-generator` library using Conan, run the following command from the build directory.
 
 On Linux and Mac.
 
-`conan install .. --build=missing`
+`conan install <path_to_source_dir> --build=missing`
 
 On Windows.
 
-`conan install .. --build=missing -o poco:shared=True -s build_type=Debug`
+`conan install <path_to_source_dir> --build=missing -s build_type=Debug`
 
 Next, enable the `USING_CONAN` variable in [CMakeLists.txt](CMakeLists.txt).
 
@@ -78,9 +78,9 @@ Next, enable the `USING_CONAN` variable in [CMakeLists.txt](CMakeLists.txt).
 ```   
 
 ## Additional resources
+
 * [Amazon Cognito Developer Guide](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html)
 * [Amazon Cognito API Reference](https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/Welcome.html)
 * [AWS SDK for C++ Documentation](https://docs.aws.amazon.com/sdk-for-cpp/index.html)
-
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
