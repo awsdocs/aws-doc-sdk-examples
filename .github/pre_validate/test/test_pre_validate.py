@@ -5,7 +5,7 @@ This script contains tests that verify the checkin_tests script works as expecte
 """
 import pytest
 
-import checkin_tests
+import pre_validate
 
 
 @pytest.mark.parametrize("file_contents,expected_error_count", [
