@@ -3,7 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.example.demo
 
 class WorkItem {
@@ -13,4 +12,5 @@ class WorkItem {
     var date: String? = null
     var description: String? = null
     var status: String? = null
+    var archived: Boolean? = null
 }

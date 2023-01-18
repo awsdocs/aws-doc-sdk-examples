@@ -46,6 +46,17 @@ auto-scaling_CreateAutoScalingGroup:
             - description:
               snippet_tags:
                 - autoscaling.rust.create-autoscaling-group
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.client_configuration
+                - cpp.example_code.autoscaling.autoscaling_client
+                - cpp.example_code.autoscaling.create_autoscaling_group1
+                - cpp.example_code.autoscaling.create_autoscaling_group2
   services:
     auto-scaling: {CreateAutoScalingGroup}
 auto-scaling_DeleteAutoScalingGroup:
@@ -95,6 +106,16 @@ auto-scaling_DeleteAutoScalingGroup:
             - description:
               snippet_tags:
                 - autoscaling.rust.delete-autoscaling-group
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.client_configuration
+                - cpp.example_code.autoscaling.autoscaling_client
+                - cpp.example_code.autoscaling.delete_autoscaling_group
   services:
     auto-scaling: {DeleteAutoScalingGroup}
 auto-scaling_DescribeAutoScalingGroups:
@@ -144,6 +165,16 @@ auto-scaling_DescribeAutoScalingGroups:
             - description:
               snippet_tags:
                 - autoscaling.rust.list-autoscaling-groups
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.client_configuration
+                - cpp.example_code.autoscaling.autoscaling_client
+                - cpp.example_code.autoscaling.describe_autoscaling_group
   services:
     auto-scaling: {DescribeAutoScalingGroups}
 auto-scaling_UpdateAutoScalingGroup:
@@ -193,6 +224,17 @@ auto-scaling_UpdateAutoScalingGroup:
             - description:
               snippet_tags:
                 - autoscaling.rust.update-autoscaling-group
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.client_configuration
+                - cpp.example_code.autoscaling.autoscaling_client
+                - cpp.example_code.autoscaling.update_autoscaling_group1
+                - cpp.example_code.autoscaling.update_autoscaling_group2
   services:
     auto-scaling: {UpdateAutoScalingGroup}
 auto-scaling_TerminateInstanceInAutoScalingGroup:
@@ -236,6 +278,17 @@ auto-scaling_TerminateInstanceInAutoScalingGroup:
               snippet_tags:
                 - python.example_code.auto-scaling.AutoScalingWrapper.decl
                 - python.example_code.auto-scaling.TerminateInstanceInAutoScalingGroup
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.client_configuration
+                - cpp.example_code.autoscaling.autoscaling_client
+                - cpp.example_code.autoscaling.terminate_instance_autoscaling_group1
+                - cpp.example_code.autoscaling.terminate_instance_autoscaling_group2
   services:
     auto-scaling: {TerminateInstanceInAutoScalingGroup}
 auto-scaling_SetDesiredCapacity:
@@ -279,6 +332,17 @@ auto-scaling_SetDesiredCapacity:
               snippet_tags:
                 - python.example_code.auto-scaling.AutoScalingWrapper.decl
                 - python.example_code.auto-scaling.SetDesiredCapacity
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.client_configuration
+                - cpp.example_code.autoscaling.autoscaling_client
+                - cpp.example_code.autoscaling.set_desired_capacity1
+                - cpp.example_code.autoscaling.set_desired_capacity2
   services:
     auto-scaling: {SetDesiredCapacity}
 auto-scaling_DescribeAutoScalingInstances:
@@ -322,6 +386,17 @@ auto-scaling_DescribeAutoScalingInstances:
               snippet_tags:
                 - python.example_code.auto-scaling.AutoScalingWrapper.decl
                 - python.example_code.auto-scaling.DescribeAutoScalingInstances
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.client_configuration
+                - cpp.example_code.autoscaling.autoscaling_client
+                - cpp.example_code.autoscaling.describe_autoscaling_instances1
+                - cpp.example_code.autoscaling.describe_autoscaling_instances2
   services:
     auto-scaling: {DescribeAutoScalingInstances}
 auto-scaling_DescribeScalingActivities:
@@ -365,6 +440,17 @@ auto-scaling_DescribeScalingActivities:
               snippet_tags:
                 - python.example_code.auto-scaling.AutoScalingWrapper.decl
                 - python.example_code.auto-scaling.DescribeScalingActivities
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.client_configuration
+                - cpp.example_code.autoscaling.autoscaling_client
+                - cpp.example_code.autoscaling.describe_scaling_activities1
+                - cpp.example_code.autoscaling.describe_scaling_activities2
   services:
     auto-scaling: {DescribeScalingActivities}
 auto-scaling_EnableMetricsCollection:
@@ -408,6 +494,17 @@ auto-scaling_EnableMetricsCollection:
               snippet_tags:
                 - python.example_code.auto-scaling.AutoScalingWrapper.decl
                 - python.example_code.auto-scaling.EnableMetricsCollection
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.client_configuration
+                - cpp.example_code.autoscaling.autoscaling_client
+                - cpp.example_code.autoscaling.enable_metrics_collection1
+                - cpp.example_code.autoscaling.enable_metrics_collection2
   services:
     auto-scaling: {EnableMetricsCollection}
 auto-scaling_DisableMetricsCollection:
@@ -451,6 +548,17 @@ auto-scaling_DisableMetricsCollection:
               snippet_tags:
                 - python.example_code.auto-scaling.AutoScalingWrapper.decl
                 - python.example_code.auto-scaling.DisableMetricsCollection
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.client_configuration
+                - cpp.example_code.autoscaling.autoscaling_client
+                - cpp.example_code.autoscaling.disable_metrics_collection1
+                - cpp.example_code.autoscaling.disable_metrics_collection2
   services:
     auto-scaling: {DisableMetricsCollection}
 auto-scaling_Scenario_GroupsAndInstances:
@@ -517,6 +625,14 @@ auto-scaling_Scenario_GroupsAndInstances:
                 &EC2; and &CW; actions.
               snippet_tags:
                 - python.example_code.auto-scaling.helper.ServiceHelper
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.groups_and_instances_scenario
   services:
     auto-scaling: {CreateAutoScalingGroup, DeleteAutoScalingGroup, DisableMetricsCollection,
                    EnableMetricsCollection, DescribeAutoScalingGroups, DescribeAutoScalingInstances,

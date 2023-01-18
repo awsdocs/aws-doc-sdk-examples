@@ -2,7 +2,7 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { it, describe, expect, jest } from "@jest/globals";
+import { it, describe, expect, vi } from 'vitest';
 import { startsWith } from "ramda";
 import {
   close,
@@ -19,7 +19,7 @@ import { testEqual } from "../utils/util-test";
 describe("cmd-runner", () => {
   const getContext = (
     handlers = [],
-    reader = { on: jest.fn(), close: jest.fn() }
+    reader = { on: vi.fn(), close: vi.fn() }
   ) => ({
     reader,
     handlers,
@@ -41,7 +41,7 @@ describe("cmd-runner", () => {
 
   describe("close", () => {
     it("should call the close function on an object", () => {
-      const fn = jest.fn();
+      const fn = vi.fn();
       const closeable = { close: fn };
       close(closeable);
       expect(fn).toHaveBeenCalled();
@@ -50,7 +50,7 @@ describe("cmd-runner", () => {
 
   describe("on", () => {
     it("should call the 'on' function on an object with two arguments", () => {
-      const fn = jest.fn();
+      const fn = vi.fn();
       const onable = { on: fn };
       on("a", "b", onable);
       expect(fn).toHaveBeenCalledWith("a", "b");

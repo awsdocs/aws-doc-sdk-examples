@@ -1,0 +1,52 @@
+{{- define "service_examples"}}
+{{- $examples := index . 0}}
+{{- $service := index . 1}}
+{{- $is_library := index . 2}}
+{{- $svc_prefix := ""}}
+{{- if $service}}
+    {{- $svc_prefix = printf "%s_" $service.Model}}
+{{- end}}
+{{- $include_docs := "file://AWSShared/code-samples/docs/"}}
+{{- if isSnapshot}}
+    {{- $include_docs := ""}}
+{{- end}}
+<para role="topiclist-abbrev">Examples</para>
+{{- range $examples.Examples}}
+{{- $addSvc := ""}}
+{{- if .AddService}}
+    {{- $addSvc = printf "_%s" .AddService}}
+{{- end}}
+<section id="{{$svc_prefix}}example_{{.ExampleId}}_section" role="topic">
+    <info>
+        <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
+        <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+        <abstract>
+            <para>{{.Title}}</para>
+        </abstract>
+        <keywordset>
+            <keyword>code example</keyword>
+            <keyword>&AWS; SDK</keyword>
+            <keyword>{{.Title}}</keyword>
+        </keywordset>
+    </info>
+    <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
+    {{- if not $is_library}}
+    <note buildtype="markdown">
+        <para>The source code for these examples is in the
+            <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">&AWS; Code Examples GitHub repository</ulink>.
+            Have feedback on a code example?
+            <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/issues/new/choose">Create an Issue</ulink>
+            in the code examples repo.
+        </para>
+    </note>
+    {{- end}}
+    {{- if .GuideTopic.Url}}
+    <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
+    {{- end}}
+    <xi:include href="{{$include_docs}}{{.ExampleId}}{{$addSvc}}_tablist.xml"></xi:include>
+    {{- if not $is_library}}
+    {{- template "note_complete_list"}}
+    {{- end}}
+</section>
+{{- end}}
+{{- end}}

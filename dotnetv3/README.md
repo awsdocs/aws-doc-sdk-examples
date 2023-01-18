@@ -130,7 +130,7 @@ dotnet test -l "console;verbosity=detailed"
 ```
 
 ## Docker image (Beta)
-In the near future, this example code will be available in a container image 
+This example code will soon be available in a container image
 hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded 
 with all .NET examples with dependencies pre-resolved, allowing you to explore
 these examples in an isolated environment.
