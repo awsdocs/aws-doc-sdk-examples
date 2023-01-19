@@ -25,7 +25,7 @@ This hook will always run the metadata check. Once the metadata check has passed
 directory (non-recursive) for the following path: `hook_scripts/pre-commit.sh`.
 
 If that file is found, and is executable, it will be run.
-[The javascriptv3](../javascriptv3/hook_scripts/pre-commit.sh) has an example script that will be run on commit
+[The javascriptv3 script](../javascriptv3/hook_scripts/pre-commit.sh) will be run on commit
 if changes were made in the javascriptv3 directory.
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
