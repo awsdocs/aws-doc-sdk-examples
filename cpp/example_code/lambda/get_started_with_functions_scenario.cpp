@@ -175,7 +175,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         request.SetTimeout(15);
         request.SetMemorySize(128);
 
-        // Assume the lambda function was built in Docker with same architecture
+        // Assume the AWS Lambda function was built in Docker with same architecture
         // as this code.
 #if  defined(__x86_64__)
         request.SetArchitectures({Aws::Lambda::Model::Architecture::x86_64});

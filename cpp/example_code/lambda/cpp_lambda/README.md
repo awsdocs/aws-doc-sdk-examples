@@ -1,11 +1,13 @@
-# Example Lambda function using the AWS C++ Lambda runtime
+# Example AWS Lambda function using the AWS C++ Lambda runtime
 
 Shows how to build and package an AWS Lambda function using the AWS C++ 
 Lambda runtime. This function can replace the Python Lambda function used in 
 the [Get started with functions](../get_started_with_functions_scenario.cpp) 
 scenario sample code.
 
-## Build and package the Lambda function 
+## Creating the Lamba function package 
+
+The Lambda function is built and packaged using [Docker](https://www.docker.com/).
 
 ### Prerequisites
 
@@ -45,7 +47,7 @@ Dockerfile         README.md          calculator         increment
 
 ### Build and package the Lambda function
 
-Build and install the [AWS Lambda C++ Runtime](https://github.com/awslabs/aws-lambda-cpp) from within the Docker container,.
+Build and install the [AWS Lambda C++ Runtime](https://github.com/awslabs/aws-lambda-cpp) from within the Docker container.
 
 ```bash
 git clone https://github.com/awslabs/aws-lambda-cpp-runtime.git
