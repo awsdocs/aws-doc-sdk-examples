@@ -7,9 +7,10 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-package com.example.dynamodb;
+package com.example.dynamodb.enhanced;
 
 // snippet-start:[dynamodb.java2.get_item_index.import]
+import com.example.dynamodb.Movies;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.core.pagination.sync.SdkIterable;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
