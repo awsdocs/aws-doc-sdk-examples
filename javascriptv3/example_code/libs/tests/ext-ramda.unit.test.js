@@ -2,7 +2,7 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { describe, it } from "@jest/globals";
+import { describe, it } from "vitest";
 import { inc } from "ramda";
 import {
   concatMap,

@@ -13,6 +13,13 @@ import ClientRuntime
 import AWSClientRuntime
 // snippet-end:[s3.swift.deleteobjects.handler.imports]
 
+/// Errors returned by `ServiceHandler` functions.
+// snippet-start:[s3.swift.deleteobjects.enum.service-error]
+public enum ServiceHandlerError: Error {
+    case deleteObjectsError
+}
+// snippet-end:[s3.swift.deleteobjects.enum.service-error]
+
 /// A class containing all the code that interacts with the AWS SDK for Swift.
 public class ServiceHandler {
     public let client: S3Client
@@ -56,7 +63,20 @@ public class ServiceHandler {
         )
 
         do {
-            _ = try await client.deleteObjects(input: input)
+            let output = try await client.deleteObjects(input: input)
+
+            // As of the last update to this example, any errors are returned
+            // in the `output` object's `errors` property. If there are any
+            // errors in this array, throw an exception. Once the error
+            // handling is finalized in later updates to the AWS SDK for
+            // Swift, this example will be updated to handle errors better.
+
+            guard let errors = output.errors else {
+                return  // No errors.
+            }
+            if errors.count != 0 {
+                throw ServiceHandlerError.deleteObjectsError
+            }
         } catch {
             throw error
         }

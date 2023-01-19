@@ -97,7 +97,7 @@ public class StockTradesWriter {
         try {
             kinesisClient.putRecord(request);
         } catch (KinesisException e) {
-            e.getMessage();
+            System.err.println(e.getMessage());
         }
     }
 
