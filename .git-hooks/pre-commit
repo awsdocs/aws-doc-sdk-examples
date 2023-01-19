@@ -1,0 +1,18 @@
+# Always run the metadata check.
+find ../snippets -type f -delete && \
+REPORTS=issues .github/extract-snippets/extract-snippets.sh dryrun
+
+# If any of the local directories contain staged changes, try
+# and run .hook in those directories.
+for dir in $(ls -A) ; do
+  if ! git diff --cached --quiet -- "$dir" ; then
+    echo "Found changes in $dir"
+    if [ -x "${dir}/hook_scripts/pre-commit.sh" ] ; then
+      # This commit hook is run from the project root. Changing
+      # directories here lets us simplify the shell scripts.
+      cd $dir
+      "./hook_scripts/pre-commit.sh"
+      cd ..
+    fi
+  fi
+done

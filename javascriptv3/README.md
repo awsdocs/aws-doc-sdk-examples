@@ -40,16 +40,16 @@ Cross-service examples are located in the [_cross-services folder_](./example_co
 You can run tests for a specific service, or for every service in this repository. Choose whether to run unit tests, integration tests, or both.
 
 - To run both unit and integration tests for all services, run the following from this directory:
-  
-  `npm test` or `npm test -- @unit @integration`
 
-- To run only unit tests, provide the `@unit` tag as an argument:
-  
-  `npm test -- @unit`
+  `npm test`
 
-- To run only integration tests, provide the `@integration` tag as an argument:
-  
-  `npm test -- @integration`
+- To run only unit tests, set the `TEST_SCOPE` variable to `unit`:
+
+  `TEST_SCOPE=unit npm test`
+
+- To run only integration tests, set the `TEST_SCOPE` variable to `integration`:
+
+  `TEST_SCOPE=integration npm test`
 
 - To run tests for a specific service, follow the instructions in the service's README.
 
