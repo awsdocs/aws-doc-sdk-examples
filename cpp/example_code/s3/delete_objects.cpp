@@ -13,7 +13,7 @@
  *
  * Purpose
  *
- * Demonstrates using the AWS SDK for C++ to delete multiple objects in a Simple Storage
+ * Demonstrates using the AWS SDK for C++ to delete multiple objects in an Amazon Simple Storage
  * Service (Amazon S3) bucket.
  *
  */
@@ -29,7 +29,7 @@
   \sa DeleteObjects()
   \param objectKeys: Vector of object keys.
   \param fromBucket: Name of a bucket with an object to delete.
-  \param clientConfig: Aws client configuration.
+  \param clientConfig: AWS client configuration.
 */
 
 // snippet-start:[cpp.example_code.s3.delete_objects]
