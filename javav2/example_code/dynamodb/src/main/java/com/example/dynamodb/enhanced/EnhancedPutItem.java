@@ -7,9 +7,10 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-package com.example.dynamodb;
+package com.example.dynamodb.enhanced;
 
 // snippet-start:[dynamodb.java2.mapping.putitem.import]
+import com.example.dynamodb.Customer;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;

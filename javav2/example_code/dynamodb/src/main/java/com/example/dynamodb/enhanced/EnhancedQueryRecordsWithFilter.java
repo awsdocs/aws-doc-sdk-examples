@@ -1,4 +1,4 @@
-package com.example.dynamodb;
+package com.example.dynamodb.enhanced;
 
 // snippet-start:[dynamodb.java2.mapping.queryfilter.import]
 // snippet-end:[dynamodb.java2.mapping.queryfilter.import]
