@@ -777,7 +777,7 @@ redshift:
   expanded:
     long: Amazon Redshift
     short: Amazon Redshift
-  blurb:  is a fast, fully managed, petabyte-scale data warehouse service that makes it simple and cost-effective to
+  blurb: is a fast, fully managed, petabyte-scale data warehouse service that makes it simple and cost-effective to
     efficiently analyze all your data using your existing business intelligence tools.
   guide:
     subtitle: Management Guide
