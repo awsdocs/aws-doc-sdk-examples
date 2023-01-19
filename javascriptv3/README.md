@@ -65,6 +65,21 @@ undergoing active development. Refer to
 [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4127)
 for more information.
 
+### Build the Docker image
+
+1. Install and run docker on your machine.
+2. Navigate to the same directory as this readme.
+3. Run `docker build -t <image_name> .` where `image_name` is a name you provide for the image.
+
+### Launch the Docker container
+
+1. Run `docker run -it -v ~/.aws/credentials:/root/.aws/credentials <image_name>`. `-it` launches an
+   interactive terminal. `-v ~/.aws...` is optional but recommended. It will mount your local credentials
+   file to the container.
+2. The terminal initiate a bash instance and change to the `javascriptv3` directory. Run tests from here
+   by following the steps in the [Tests](#tests) section. Run examples by navigating to a service folder and
+   following the README instructions there.
+
 ## Additional resources
 
 - [AWS SDK for JavaScript (v3)](https://github.com/aws/aws-sdk-js-v3)
