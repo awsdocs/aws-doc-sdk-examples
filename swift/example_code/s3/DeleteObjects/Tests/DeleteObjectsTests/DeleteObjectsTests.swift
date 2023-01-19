@@ -33,7 +33,7 @@ final class DeleteObjectsTests: XCTestCase {
     override class func setUp() {
         let tdSem = TestWaiter(name: "Setup")
         super.setUp()
-        SDKLoggingSystem.initialize(logLevel: .error)
+        SDKLoggingSystem.initialize(logLevel: .info)
 
         Task() {
             DeleteObjectsTests.serviceHandler = await ServiceHandler()
@@ -64,7 +64,7 @@ final class DeleteObjectsTests: XCTestCase {
     ///   (or nil), a random bucket name is used.
     /// - Returns: The name of the created bucket.
     func createTestBucket(name: String? = nil) async throws -> String {
-        let bucketName = name ?? String.uniqueName(withPrefix: "test")
+        let bucketName = name ?? String.uniqueName(withPrefix: "deleteobjectstest", maxDigits: 8)
 
         do {
             try await DeleteObjectsTests.serviceHandler?.createBucket(name: bucketName)
@@ -87,7 +87,7 @@ final class DeleteObjectsTests: XCTestCase {
     ///   expected contents.
     func createTestFile(bucket: String, file: String? = nil, withParagraphs paragraphs: Int = 1)
             async throws -> S3DemoFileInfo {
-        let fileName = file ?? String.uniqueName(withExtension: "txt")
+        let fileName = file ?? String.uniqueName(withPrefix: "deleteobjectstest", maxDigits: 8, withExtension: "txt")
 
         do {
             let contents = String.withLoremText(paragraphs: paragraphs).data(using: .utf8)!
@@ -129,6 +129,7 @@ final class DeleteObjectsTests: XCTestCase {
 
             // Delete the files.
             try await DeleteObjectsTests.serviceHandler?.deleteObjects(bucket: bucketName, keys: fileNames)
+
             // Remove the files from the demo cleanup handler's list.
             DeleteObjectsTests.demoCleanup?.reset(dropBuckets: false, dropFiles: true)
         } catch {

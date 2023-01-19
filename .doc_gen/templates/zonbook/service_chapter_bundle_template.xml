@@ -1,16 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd"[
-    <!ENTITY % xinclude SYSTEM "file://AWSShared/common/xinclude.mod">
-    %xinclude;
-{{- if isSnapshot}}
-    <!ENTITY % phrases-code-examples SYSTEM "phrases-code-examples.ent">
-{{- else}}
-    <!ENTITY % phrases-code-examples SYSTEM "file://AWSShared/code-samples/docs/phrases-code-examples.ent">
-{{- end}}
-    %phrases-code-examples;
-    <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
-    %phrases-shared;
-]>
+{{- template "prologue"}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
     {{- $include_docs = ""}}
@@ -25,9 +13,7 @@
     </info>
     <para>The following code examples show how to use {{.BundleOwner.Short}} with an &AWS; software development kit (SDK).
         {{.BundleOwner.Caveat}}</para>
-    <para>For a complete list of &AWS; SDK developer guides and code examples, see
-        <xref linkend="sdk-general-information-section" endterm="sdk-general-information-section.title"></xref>.
-        This topic also includes information about getting started and details about previous SDK versions.</para>
+    {{- template "note_complete_list"}}
     <para role="contents-abbrev">Code examples</para>
     {{- range $model := .BundledModels}}
     <xi:include href="{{$include_docs}}{{$model}}_code_examples_section.xml"></xi:include>

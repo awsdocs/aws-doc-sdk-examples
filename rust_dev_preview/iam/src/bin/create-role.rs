@@ -29,23 +29,23 @@ struct Opt {
 
 // Creates a role.
 // snippet-start:[iam.rust.create-role]
-async fn make_role(client: &Client, policy_file: &str, name: &str) -> Result<(), Error> {
-    // Read policy doc from file as a string
-    let doc = fs::read_to_string(policy_file).expect("Unable to read file");
-
+async fn make_role(client: &Client, policy: &str, name: &str) -> String {
     let resp = client
         .create_role()
-        .assume_role_policy_document(doc)
+        .assume_role_policy_document(policy)
         .role_name(name)
         .send()
-        .await?;
+        .await;
 
-    println!(
-        "Created role with ARN {}",
-        resp.role().unwrap().arn().unwrap()
-    );
-
-    Ok(())
+    match resp {
+        Ok(output) => {
+            format!(
+                "Created role with ARN {}",
+                output.role().unwrap().arn().unwrap()
+            )
+        }
+        Err(err) => format!("Error creating role: {:?}", err),
+    }
 }
 // snippet-end:[iam.rust.create-role]
 
@@ -90,5 +90,29 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    make_role(&client, &policy_file, &name).await
+    // Read policy doc from file as a string
+    let policy_doc = fs::read_to_string(policy_file).expect("Unable to read file");
+
+    let response = make_role(&client, policy_doc.as_str(), &name).await;
+    println!("{response}");
+
+    Ok(())
+}
+
+#[cfg(test)]
+mod test {
+    use crate::make_role;
+
+    #[tokio::test]
+    async fn test_make_role() {
+        let client = sdk_examples_test_utils::single_shot_client!(
+            sdk: aws_sdk_iam,
+            request: "request body",
+            status: 500,
+            response: "error body"
+        );
+
+        let response = make_role(&client, "{}".into(), "test_role".into()).await;
+        assert!(response.starts_with("Error creating role: "));
+    }
 }

@@ -1,0 +1,32 @@
+{{- define "hello"}}
+{{- $example_sets := index . 0}}
+{{- $hello := index $example_sets "Hello"}}
+{{- $example_suffix := index . 1}}
+{{- if not $example_suffix}}
+    {{- $example_suffix = "tablist"}}
+{{- end}}
+{{- $include_docs := "file://AWSShared/code-samples/docs/"}}
+{{- if isSnapshot}}
+    {{- $include_docs := ""}}
+{{- end}}
+{{- if $hello.Examples}}
+<para><emphasis role="bold">Get started</emphasis></para>
+<block>
+    <collapsible expand-section="_collapse_all_">
+        {{- range $hello.Examples}}
+        <section id="example_{{.ExampleId}}_section">
+            <info>
+                <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
+                <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                <abstract>
+                    <para>{{.Title}}</para>
+                </abstract>
+            </info>
+            <xi:include href="{{$include_docs}}{{.ExampleId}}_desc.xml"></xi:include>
+            <xi:include href="{{$include_docs}}{{.ExampleId}}_{{$example_suffix}}.xml"></xi:include>
+        </section>
+        {{- end}}
+    </collapsible>
+</block>
+{{- end}}
+{{- end}}

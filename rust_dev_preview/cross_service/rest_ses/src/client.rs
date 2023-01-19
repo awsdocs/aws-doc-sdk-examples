@@ -37,16 +37,21 @@ impl RdsClient {
 
     /// Prepare an ExecuteStatement builder with the ARNs from this client.
     ///
-    /// ```rust async
+    /// ```rust no_run
+    /// # async fn example() {
     /// const CONFIG: &str = r#"{"cluster_arn":"arn:...","secret_arn":"arn:...","db_instance":"..."}"#;
     /// let settings: rest_ses::configuration::RdsSettings = serde_json::from_str(CONFIG).unwrap();
-    /// let config = tokio_test::block_on(async { aws_config::load_from_env().await });
-    /// let client = rest_ses::client::RdsClient::new(&settings, &config);
+    /// let sdk_config = aws_config::load_from_env().await;
+    /// let client = rest_ses::client::RdsClient::new(&settings, &sdk_config);
     ///
     /// client
     ///     .execute_statement()
     ///     .sql("INSERT values (:name) INTO table;")
-    ///     .set_parameters(rest_ses::params![("name", "rust")]);
+    ///     .set_parameters(rest_ses::params![("name", "rust")])
+    ///     .send()
+    ///     .await
+    ///     .unwrap();
+    /// # }
     /// ```
     pub fn execute_statement(&self) -> ExecuteStatement {
         self.client
@@ -54,6 +59,35 @@ impl RdsClient {
             .secret_arn(self.secret_arn.expose_secret())
             .resource_arn(self.cluster_arn.as_str())
             .database(self.db_instance.as_str())
+    }
+}
+
+#[cfg(test)]
+mod rds_client_for_test {
+    use aws_smithy_http::body::SdkBody;
+    use secrecy::Secret;
+
+    use super::RdsClient;
+    impl RdsClient {
+        pub fn for_test(
+            pairs: Vec<(
+                http::request::Request<SdkBody>,
+                http::response::Response<SdkBody>,
+            )>,
+        ) -> Self {
+            RdsClient {
+                client: aws_sdk_rdsdata::Client::from_conf(
+                    sdk_examples_test_utils::client_config!(aws_sdk_rdsdata)
+                        .http_connector(aws_smithy_client::test_connection::TestConnection::new(
+                            pairs,
+                        ))
+                        .build(),
+                ),
+                secret_arn: Secret::from("secret".to_string()),
+                cluster_arn: "cluster".into(),
+                db_instance: "db".into(),
+            }
+        }
     }
 }
 

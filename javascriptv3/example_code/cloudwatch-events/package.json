@@ -1,0 +1,19 @@
+{
+  "name": "example-javascriptv3-cloudwatchevents",
+  "version": "1.0.0",
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch-events": "^3.229.0",
+    "@aws-sdk/client-cloudwatch-logs": "^3.229.0",
+    "@aws-sdk/client-lambda": "^3.229.0",
+    "libs": "*"
+  },
+  "type": "module",
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
+  "devDependencies": {
+    "vitest": "^0.25.7"
+  }
+}
