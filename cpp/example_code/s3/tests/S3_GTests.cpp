@@ -70,12 +70,15 @@ Aws::String AwsDocTest::S3_GTests::GetTestFilePath() {
     return s_testFilePath;
 }
 
-Aws::String AwsDocTest::S3_GTests::PutTestFileInBucket(const Aws::String &bucketName) {
+Aws::String AwsDocTest::S3_GTests::PutTestFileInBucket(const Aws::String &bucketName,
+                                                       const Aws::String &key) {
     Aws::String filePath = GetTestFilePath();
+    Aws::String objectKey = key.empty() ? filePath : key;
+
     if (!filePath.empty()) {
         Aws::S3::Model::PutObjectRequest putObjectRequest;
         putObjectRequest.SetBucket(bucketName);
-        putObjectRequest.SetKey(filePath);
+        putObjectRequest.SetKey(objectKey);
 
         std::shared_ptr<Aws::IOStream> fileBody =
                 Aws::MakeShared<Aws::FStream>("SampleAllocationTag", filePath,
@@ -96,7 +99,7 @@ Aws::String AwsDocTest::S3_GTests::PutTestFileInBucket(const Aws::String &bucket
             filePath.clear();
         }
     }
-    return filePath;
+    return objectKey;
 }
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
