@@ -5,7 +5,7 @@ This script contains tests that verify the checkin_tests script works as expecte
 """
 import pytest
 
-import checkin_tests
+import pre_validate
 
 
 @pytest.mark.parametrize("file_contents,expected_error_count", [
@@ -19,7 +19,7 @@ import checkin_tests
 ])
 def test_verify_no_deny_list_words(file_contents, expected_error_count):
     """Test that file contents that contain disallowed words are counted as errors."""
-    error_count = checkin_tests.verify_no_deny_list_words(file_contents, "location")
+    error_count = pre_validate.verify_no_deny_list_words(file_contents, "location")
     assert error_count == expected_error_count
 
 
@@ -38,7 +38,7 @@ def test_verify_no_deny_list_words(file_contents, expected_error_count):
 def test_verify_no_secret_keys(file_contents, expected_error_count):
     """Test that file contents that contain 20- or 40-character strings and are
     not in the allowed list are counted as errors."""
-    error_count = checkin_tests.verify_no_secret_keys(file_contents, "location")
+    error_count = pre_validate.verify_no_secret_keys(file_contents, "location")
     assert error_count == expected_error_count
 
 
@@ -78,5 +78,5 @@ def test_verify_no_secret_keys(file_contents, expected_error_count):
 def test_verify_snippet_start_end(file_contents, expected_error_count):
     """Test that various kinds of mismatched snippet-start and -end tags are
     counted correctly as errors."""
-    error_count = checkin_tests.verify_snippet_start_end(file_contents, "location")
+    error_count = pre_validate.verify_snippet_start_end(file_contents, "location")
     assert error_count == expected_error_count
