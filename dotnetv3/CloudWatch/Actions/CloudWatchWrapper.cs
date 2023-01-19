@@ -311,7 +311,7 @@ public class CloudWatchWrapper
     /// </summary>
     /// <param name="accountId">Account Id for the alarm.</param>
     /// <param name="region">Region for the alarm.</param>
-    /// <param name="emailTopicName">Amazon Simple Email Service (SNS) topic for the alarm email.</param>
+    /// <param name="emailTopicName">Amazon Simple Notification Service (SNS) topic for the alarm email.</param>
     /// <param name="alarmActions">Optional list of existing alarm actions to append to.</param>
     /// <returns>List of string actions for an alarm.</returns>
     public List<string> AddEmailAlarmAction(string accountId, string region,

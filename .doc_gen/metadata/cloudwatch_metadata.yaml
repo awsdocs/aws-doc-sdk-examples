@@ -102,8 +102,8 @@ cloudwatch_DeleteAlarms:
     cloudwatch: {DeleteAlarms}
 cloudwatch_DeleteAnomalyDetector:
   title: Delete a &CW; anomaly detector using an &AWS; SDK
-  title_abbrev: Delete anomaly detector
-  synopsis: delete &CWlong; anomaly detector.
+  title_abbrev: Delete an anomaly detector
+  synopsis: delete an &CWlong; anomaly detector.
   category:
   languages:
     .NET:
@@ -137,7 +137,7 @@ cloudwatch_DeleteDashboards:
 cloudwatch_DescribeAlarmHistory:
   title: Describe a &CW; alarm's history using an &AWS; SDK
   title_abbrev: Describe alarm history
-  synopsis: describe &CWlong; alarm history.
+  synopsis: describe an &CWlong; alarm history.
   category:
   languages:
     .NET:
@@ -501,8 +501,8 @@ cloudwatch_GetMetricStatistics:
     cloudwatch: {GetMetricStatistics}
 cloudwatch_GetMetricImage:
   title: Get a &CW; metric data image
-  title_abbrev: Get metric data image
-  synopsis: get &CWlong; metric data image.
+  title_abbrev: Get a metric data image
+  synopsis: get an &CWlong; metric data image.
   category:
   languages:
     .NET:
@@ -536,7 +536,7 @@ cloudwatch_ListDashboards:
 cloudwatch_ListMetrics:
   title: List &CW; metrics using an &AWS; SDK
   title_abbrev: List metrics
-  synopsis: list the metadata for &CWlong; metrics. To get data for a metric, use the GetMetricData, or GetMetricStatistics actions.
+  synopsis: list the metadata for &CWlong; metrics. To get data for a metric, use the GetMetricData or GetMetricStatistics actions.
   category:
   languages:
     .NET:
@@ -610,8 +610,8 @@ cloudwatch_ListMetrics:
     cloudwatch: {ListMetrics}
 cloudwatch_PutAnomalyDetector:
   title: Create a &CW; anomaly detector
-  title_abbrev: Create anomaly detector
-  synopsis: create a &CWlong; anomaly detector.
+  title_abbrev: Create an anomaly detector
+  synopsis: create an &CWlong; anomaly detector.
   category:
   languages:
     .NET:
@@ -627,8 +627,8 @@ cloudwatch_PutAnomalyDetector:
     cloudwatch: {PutAnomalyDetector}
 cloudwatch_PutDashboard:
   title: Create a &CW; dashboard
-  title_abbrev: Create dashboard
-  synopsis: create a &CWlong; dashboard.
+  title_abbrev: Create a dashboard
+  synopsis: create an &CWlong; dashboard.
   category:
   languages:
     .NET:
