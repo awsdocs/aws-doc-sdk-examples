@@ -34,6 +34,8 @@ Code excerpts that show you how to call individual service functions.
 - [Delete a bucket policy (permission to access resources) of an S3 bucket](./delete_bucket_policy.cpp) (
   DeleteBucketPolicy)
 - [Delete an object from an S3 bucket](./delete_object.cpp) (DeleteObject)
+- [Delete multiple objects from an S3 bucket](./delete_objects.cpp) 
+  (DeleteObjects)
 - [Delete the website configuration of an S3 bucket](./delete_website_config.cpp) (DeleteBucketWebsite)
 - [Get the access control list (ACL) for an S3 bucket](./get_bucket_acl.cpp) (GetBucketAcl)
 - [Get a bucket policy (permission to access resources) for an S3 bucket](./get_bucket_policy.cpp) (GetBucketPolicy)
@@ -79,7 +81,7 @@ Next, for information on code example structures and how to build and run the ex
    cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
    make
    ctest 
-   ./gtests/s3_gtest 
+   ./tests/s3_gtest 
 ```   
 
 ## Additional resources

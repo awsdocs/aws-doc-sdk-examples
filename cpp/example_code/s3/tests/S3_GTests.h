@@ -40,7 +40,8 @@ namespace AwsDocTest {
 
         static Aws::String GetArnForUser();
 
-        static Aws::String PutTestFileInBucket(const Aws::String &bucketName);
+        static Aws::String
+        PutTestFileInBucket(const Aws::String &bucketName, const Aws::String &key = "");
 
         static Aws::String GetBucketPolicy(const Aws::String &bucketName);
 
