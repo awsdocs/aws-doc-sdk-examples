@@ -3,7 +3,7 @@ find ../snippets -type f -delete && \
 REPORTS=issues .github/extract-snippets/extract-snippets.sh dryrun
 
 # If any of the local directories contain staged changes, try
-# and run .hook in those directories.
+# and run pre-commit.sh.
 for dir in $(ls -A) ; do
   if ! git diff --cached --quiet -- "$dir" ; then
     echo "Found changes in $dir"
