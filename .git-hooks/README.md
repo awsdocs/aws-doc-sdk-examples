@@ -6,8 +6,9 @@ run automated code-quality checks like unit tests and linters.
 ## Installation
 
 By default, git checks `.git/hooks` for existing hooks. This repository hosts hooks
-in a different location so they can be version controlled. Configure git to use these
-hooks by running `git config core.hooksPath .git-hooks`.
+in a different location so they can be version controlled. Without updating your local
+configuration, the hooks will not run. Configure git to use these hooks by running 
+`git config core.hooksPath .git-hooks`.
 
 ## Usage
 

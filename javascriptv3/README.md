@@ -76,7 +76,7 @@ for more information.
 1. Run `docker run -it -v ~/.aws/credentials:/root/.aws/credentials <image_name>`. `-it` launches an
    interactive terminal. `-v ~/.aws...` is optional but recommended. It will mount your local credentials
    file to the container.
-2. The terminal initiate a bash instance and change to the `javascriptv3` directory. Run tests from here
+2. The terminal initiates a bash instance and changes to the `javascriptv3` directory. Run tests from here
    by following the steps in the [Tests](#tests) section. Run examples by navigating to a service folder and
    following the README instructions there.
 
