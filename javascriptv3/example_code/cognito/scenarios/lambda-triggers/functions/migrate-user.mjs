@@ -5,6 +5,7 @@ This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
 https://docs.aws.amazon.com/cognito/latest/developerguide/user-pool-lambda-migrate-user.html.
 */
 
+// snippet-start:[javascript.v3.cognito.scenarios.lambda-triggers.MigrateUser]
 const validUsers = {
   belladonna: { password: "Test123", emailAddress: "bella@example.com" },
 };
@@ -28,7 +29,6 @@ const lookupUser = (username) => {
   }
 };
 
-// snippet-start:[javascript.v3.cognito.scenarios.lambda-triggers.MigrateUser]
 const handler = async (event) => {
   if (event.triggerSource == "UserMigration_Authentication") {
     // Authenticate the user with your existing user directory service
