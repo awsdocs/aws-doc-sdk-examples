@@ -357,6 +357,7 @@ def main():
     parser.add_argument(
         'action', choices=['deploy', 'demo', 'destroy'],
         help="Indicates the action the script performs.")
+    parser.print_usage = parser.print_help
     args = parser.parse_args()
 
     print('-'*88)

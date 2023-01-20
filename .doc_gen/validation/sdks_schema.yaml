@@ -10,6 +10,10 @@ sdk:
 version:
   long: include('entity_with_version_regex')
   short: include('entity_with_version_regex')
+  expanded:
+    long: str(upper_start=True, end_punc=False, check_aws=False)
+    short: str(upper_start=True, end_punc=False)
+  guide: str()
   caveat: str(required=False, upper_start=True, end_punc=True)
   bookmark: str(required=False)
   api_ref: include('api_ref', required=False)
