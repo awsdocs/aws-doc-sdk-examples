@@ -1,4 +1,4 @@
-package com.example.dynamodb.enhanced;
+package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.mapping.scanEx.import]
 // snippet-end:[dynamodb.java2.mapping.scanEx.import]

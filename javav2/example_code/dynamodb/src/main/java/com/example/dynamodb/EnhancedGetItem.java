@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[EnhancedPutItem.java demonstrates how to put an item into an Amazon DynamoDB table by using the enhanced client.]
+//snippet-sourcedescription:[EnhancedGetItem.java demonstrates how to retrieve an item from an Amazon DynamoDB table by using the enhanced client.]
 //snippet-keyword:[SDK for Java v2]
 //snippet-service:[Amazon DynamoDB]
 
@@ -6,30 +6,27 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+package com.example.dynamodb;
 
-package com.example.dynamodb.enhanced;
-
-// snippet-start:[dynamodb.java2.mapping.putitem.import]
-import com.example.dynamodb.Customer;
+// snippet-start:[dynamodb.java2.mapping.getitem.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.enhanced.dynamodb.model.GetItemEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-// snippet-end:[dynamodb.java2.mapping.putitem.import]
+// snippet-end:[dynamodb.java2.mapping.getitem.import]
 
 /*
  * Before running this code example, create an Amazon DynamoDB table named Customer with these columns:
- *   - id - the id of the record that is the key
+ *   - id - the id of the record that is the key. Be sure one of the id values is `id101`
  *   - custName - the customer name
  *   - email - the email value
- *   - registrationDate - an instant value when the item was added to the table
+ *   - registrationDate - an instant value when the item was added to the table. These values
+ *                        need to be in the form of `YYYY-MM-DDTHH:mm:ssZ`, such as 2022-07-11T00:00:00Z
  *
  * Also, ensure that you have set up your development environment, including your credentials.
  *
@@ -37,7 +34,8 @@ import java.time.ZoneOffset;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
-public class EnhancedPutItem {
+
+public class EnhancedGetItem {
 
     public static void main(String[] args) {
 
@@ -52,36 +50,31 @@ public class EnhancedPutItem {
             .dynamoDbClient(ddb)
             .build();
 
-        putRecord(enhancedClient) ;
+        getItem(enhancedClient);
         ddb.close();
     }
 
-    // snippet-start:[dynamodb.java2.mapping.putitem.main]
-    public static void putRecord(DynamoDbEnhancedClient enhancedClient) {
+    // snippet-start:[dynamodb.java2.mapping.getitem.main]
+    public static String getItem(DynamoDbEnhancedClient enhancedClient) {
+
+        Customer result = null;
 
         try {
-            DynamoDbTable<Customer> custTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
+            DynamoDbTable<Customer> table = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
+            Key key = Key.builder()
+                .partitionValue("id101").sortValue("tred@noserver.com")
+                .build();
 
-            // Create an Instant value.
-            LocalDate localDate = LocalDate.parse("2020-04-07");
-            LocalDateTime localDateTime = localDate.atStartOfDay();
-            Instant instant = localDateTime.toInstant(ZoneOffset.UTC);
-
-            // Populate the Table.
-            Customer custRecord = new Customer();
-            custRecord.setCustName("Tom red");
-            custRecord.setId("id119");
-            custRecord.setEmail("tred@noserver.com");
-            custRecord.setRegistrationDate(instant) ;
-
-            // Put the customer data into an Amazon DynamoDB table.
-            custTable.putItem(custRecord);
+            // Get the item by using the key.
+            result = table.getItem(
+                    (GetItemEnhancedRequest.Builder requestBuilder) -> requestBuilder.key(key));
+            System.out.println("******* The description value is " + result.getCustName());
 
         } catch (DynamoDbException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        System.out.println("Customer data added to the table.");
+        return result.getCustName();
     }
-    // snippet-end:[dynamodb.java2.mapping.putitem.main]
+    // snippet-end:[dynamodb.java2.mapping.getitem.main]
 }
