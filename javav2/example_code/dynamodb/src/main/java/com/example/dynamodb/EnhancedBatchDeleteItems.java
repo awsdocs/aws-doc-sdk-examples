@@ -6,10 +6,9 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-package com.example.dynamodb.enhanced;
+package com.example.dynamodb;
 
 // snippet-start:[dynamodb.java2.mapping.batchdelete.import]
-import com.example.dynamodb.Customer;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
