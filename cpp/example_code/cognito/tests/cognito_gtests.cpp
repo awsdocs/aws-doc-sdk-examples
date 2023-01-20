@@ -26,8 +26,8 @@ void AwsDocTest::Cognito_GTests::TearDownTestSuite() {
 }
 
 void AwsDocTest::Cognito_GTests::SetUp() {
-//    m_savedBuffer = std::cout.rdbuf();
-//    std::cout.rdbuf(&m_coutBuffer);
+    m_savedBuffer = std::cout.rdbuf();
+    std::cout.rdbuf(&m_coutBuffer);
 
     m_savedInBuffer = std::cin.rdbuf();
     std::cin.rdbuf(&m_cinBuffer);
