@@ -56,6 +56,7 @@ cross_RDSDataTracker:
     Python:
       versions:
         - sdk_version: 3
+          github: python/cross_service/aurora_item_tracker
           block_content: cross_RDSDataTracker_Python_block.xml
     JavaScript:
       versions:
@@ -128,6 +129,7 @@ cross_DynamoDBDataTracker:
     Python:
       versions:
         - sdk_version: 3
+          github: python/cross_service/dynamodb_item_tracker
           block_content: cross_DynamoDBDataTracker_Python_block.xml
     JavaScript:
       versions:
@@ -145,6 +147,7 @@ cross_ApiGatewayDataTracker:
     Python:
       versions:
         - sdk_version: 3
+          github: python/cross_service/apigateway_covid-19_tracker
           block_content: cross_ApiGatewayDataTracker_Python_block.xml
   services:
     api-gateway:
@@ -159,6 +162,7 @@ cross_ApiGatewayWebsocketChat:
     Python:
       versions:
         - sdk_version: 3
+          github: python/cross_service/apigateway_websocket_chat
           block_content: cross_ApiGatewayWebsocketChat_Python_block.xml
   services:
     api-gateway:
@@ -173,6 +177,7 @@ cross_AuroraRestLendingLibrary:
     Python:
       versions:
         - sdk_version: 3
+          github: python/cross_service/aurora_rest_lending_library
           block_content: cross_AuroraRestLendingLibrary_Python_block.xml
   services:
     api-gateway:
@@ -187,6 +192,7 @@ cross_StepFunctionsMessenger:
     Python:
       versions:
         - sdk_version: 3
+          github: python/cross_service/stepfunctions_messenger
           block_content: cross_StepFunctionsMessenger_Python_block.xml
   services:
     dynamodb:
@@ -207,6 +213,7 @@ cross_TextractExplorer:
     Python:
       versions:
         - sdk_version: 3
+          github: python/cross_service/textract_explorer
           block_content: cross_TextractExplorer_Python_block.xml
   services:
     s3:
@@ -223,6 +230,7 @@ cross_TextractComprehendDetectEntities:
     Python:
       versions:
         - sdk_version: 3
+          github: python/cross_service/textract_comprehend_notebook
           block_content: cross_TextractComprehendDetectEntities_Python_block.xml
   services:
     comprehend:
@@ -391,6 +399,7 @@ cross_RekognitionPhotoAnalyzer:
     Python:
       versions:
         - sdk_version: 3
+          github: python/cross_service/photo_analyzer
           block_content: cross_RekognitionPhotoAnalyzer_Python_block.xml
   services:
     rekognition:
@@ -497,6 +506,7 @@ cross_ShortLivedEmrCluster:
     Python:
       versions:
         - sdk_version: 3
+          github: python/example_code/emr
           block_content: cross_EmrShortLivedCluster_Python_block.xml
   services:
     ec2:
@@ -511,6 +521,7 @@ cross_LongLivedEmrCluster:
     Python:
       versions:
         - sdk_version: 3
+          github: python/example_code/emr
           block_content: cross_EmrLongLivedCluster_Python_block.xml
   services:
     ec2:

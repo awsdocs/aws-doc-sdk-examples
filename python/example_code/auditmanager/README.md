@@ -1,50 +1,54 @@
-# AWS Audit Manager code examples
+# Audit Manager code examples for the SDK for Python
 
-## Purpose
+## Overview
 
-Shows how to use the AWS SDK for Python (Boto3) with AWS Audit Manager to do the following:
+Shows how to use the AWS SDK for Python (Boto3) to work with AWS Audit Manager.
 
-* Create an assessment report that consists of evidence from one specific date.
-* Create custom controls and a custom framework based on the managed rules in an AWS Config conformance pack.
-* Create a custom framework with all standard controls using AWS Security Hub as their data source.
+<!--custom.overview.start-->
+<!--custom.overview.end-->
 
-*AWS Audit Manager helps you continually audit your AWS usage to simplify how you manage 
-risk and compliance with regulations and industry standards.*
-
-
-## Code examples
-
-### Scenario examples
-
-* [Create an assessment report that consists of evidence from one specific date](create_assessment_report.py)
-* [Create custom controls and a custom framework based on the managed rules in an AWS Config conformance pack](framework_from_conformance_pack.py) 
-* [Create a custom framework with all standard controls using AWS Security Hub as their data source](security_hub_custom_framework.py) 
+*Audit Manager helps you continuously audit your AWS usage to simplify how you manage risk and compliance with regulations and industry standards.*
 
 ## ⚠ Important
 
-- As an AWS best practice, grant this code least privilege, or only the 
-  permissions required to perform a task. For more information, see 
-  [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) 
-  in the *AWS Identity and Access Management 
-  User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are 
-  available only in specific Regions. For more information, see the 
-  [AWS Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/)
-  on the AWS website.
-- Running this code might result in charges to your AWS account.
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-## Running the code
+<!--custom.important.start-->
+<!--custom.important.end-->
+
+## Code examples
+### Scenarios
+
+Code examples that show you how to accomplish a specific task by calling multiple
+functions within the same service.
+
+* [Create a custom framework from an AWS Config conformance pack](framework_from_conformance_pack.py) 
+* [Create a custom framework that contains Amazon Security Hub controls](security_hub_custom_framework.py) 
+* [Create an assessment report that contains one day of evidence](create_assessment_report.py) 
+
+## Run the examples
 
 ### Prerequisites
 
-- You must have an AWS account, and have your default credentials and AWS Region
-  configured as described in the [AWS Tools and SDKs Shared Configuration and
-  Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-- You should be familiar with Audit Manager terminology and functionality. For a general 
+See the [README](../../README.md#Prerequisites) in the `python` folder for prerequisites.
+
+Install the packages required by these examples by running the following in a virtual environment:
+
+```
+python -m pip install -r requirements.txt
+```
+
+<!--custom.prerequisites.start-->
+See the following resources for more information:
+
+- Familiarize yourself with Audit Manager terminology and functionality. For a general 
 overview, see [What is AWS Audit Manager?](https://docs.aws.amazon.com/audit-manager/latest/userguide/what-is.html) and [AWS Audit Manager concepts and terminology](https://docs.aws.amazon.com/audit-manager/latest/userguide/concepts.html).
-- You must have completed all the prerequisites that are described in 
+- Complete all the prerequisites that are described in 
 [Setting up AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/userguide/setting-up.html). 
-- Your IAM identity must have the appropriate permissions to create resources in Audit 
+- Configure your IAM identity to have the appropriate permissions to create resources in Audit 
 Manager. Two suggested policies that grant these permissions are 
 [Example 2: Allow full administrator access](https://docs.aws.amazon.com/audit-manager/latest/userguide/security_iam_id-based-policy-examples.html#example-1) 
 and [Example 3: Allow management access](https://docs.aws.amazon.com/audit-manager/latest/userguide/security_iam_id-based-policy-examples.html#example-2).
@@ -54,35 +58,81 @@ and [Example 3: Allow management access](https://docs.aws.amazon.com/audit-manag
 must first [enable AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/gs-console.html), 
 then [deploy the conformance pack](https://docs.aws.amazon.com/config/latest/developerguide/conformance-pack-console.html) 
 that you want to use.
-- Python 3.8 or later
-- Boto3 1.19.32 or later
-- PyTest 6.0.2 or later (to run unit tests)
+<!--custom.prerequisites.end-->
 
-### Command
+### Instructions
 
-Each example can be at a command prompt with a command similar to the following.
+<!--custom.instructions.start-->
+<!--custom.instructions.end-->
+
+#### Create a custom framework from an AWS Config conformance pack
+
+This example shows you how to do the following:
+
+* Get a list of AWS Config conformance packs.
+* Create an Audit Manager custom control for each managed rule in a conformance pack.
+* Create an Audit Manager custom framework that contains the controls.
+
+Start the example by running the following at a command prompt:
+
+```
+python framework_from_conformance_pack.py
+```
+
+<!--custom.scenarios.auditmanager_Scenario_CustomFrameworkFromConformancePack.start-->
+<!--custom.scenarios.auditmanager_Scenario_CustomFrameworkFromConformancePack.end-->
+
+#### Create a custom framework that contains Amazon Security Hub controls
+
+This example shows you how to do the following:
+
+* Get a list of all standard controls that have Amazon Security Hub as their data source.
+* Create an Audit Manager custom framework that contains the controls.
+
+Start the example by running the following at a command prompt:
+
+```
+python security_hub_custom_framework.py
+```
+
+<!--custom.scenarios.auditmanager_Scenario_CustomFrameworkFromSecurityHub.start-->
+<!--custom.scenarios.auditmanager_Scenario_CustomFrameworkFromSecurityHub.end-->
+
+#### Create an assessment report that contains one day of evidence
+
+This example shows you how to create an Audit Manager assessment report that contains one day of evidence.
+
+
+Start the example by running the following at a command prompt:
 
 ```
 python create_assessment_report.py
 ```
 
-## Running the tests
+<!--custom.scenarios.auditmanager_Scenario_CreateAssessmentReport.start-->
+<!--custom.scenarios.auditmanager_Scenario_CreateAssessmentReport.end-->
 
-The unit tests in this module use the botocore Stubber. This captures requests before 
-they are sent to AWS, and returns a mocked response. To run all of the tests, 
-run the following in your [GitHub root]/python/example_code/auditmanager 
-folder.
+### Tests
 
-```    
-python -m pytest
-```
+⚠ Running tests might result in charges to your AWS account.
 
-## Additional information
+To find instructions for running these tests, see the [README](../../README.md#Tests)
+in the `python` folder.
 
-- [Boto3 AWS Audit Manager service reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/auditmanager.html)
-- [AWS Audit Manager documentation](https://docs.aws.amazon.com/audit-manager/latest/userguide/index.html)
+<!--custom.tests.start-->
+<!--custom.tests.end-->
+
+## Additional resources
+
+* [Audit Manager User Guide](https://docs.aws.amazon.com/audit-manager/latest/userguide/what-is.html)
+* [Audit Manager API Reference](https://docs.aws.amazon.com/audit-manager/latest/APIReference/Welcome.html)
+* [SDK for Python Audit Manager reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/auditmanager.html)
+
+<!--custom.resources.start-->
+<!--custom.resources.end-->
 
 ---
+
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
 SPDX-License-Identifier: Apache-2.0
