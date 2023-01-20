@@ -3,8 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { it, describe, expect } from "vitest";
-import { getUniqueName, postfix } from "../utils/util-string";
-import { testEqual, testThrows } from "../utils/util-test";
+import { getUniqueName, postfix, wrapText } from "../utils/util-string";
 
 describe("util-string", () => {
   describe("getUniqueName", () => {
@@ -22,14 +21,12 @@ describe("util-string", () => {
   });
 
   describe("postfix", () => {
-    it(
-      "should add the provided string to the end of the source string",
-      testEqual("Hello World", postfix("Hello ", "World"))
-    );
+    it("should add the provided string to the end of the source string", () => {
+      expect(postfix("Hello ", "World")).toEqual("Hello World");
+    });
 
-    it(
-      "should throw an error when given a non-string as the value to affix",
-      testThrows(() => postfix("Hello ", 1))
-    );
+    it("should throw an error when given a non-string as the value to affix", () => {
+      expect(() => postfix("Hello ", 123)).toThrow();
+    });
   });
 });
