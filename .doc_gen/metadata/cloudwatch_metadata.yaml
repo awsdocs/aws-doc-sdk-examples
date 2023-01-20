@@ -135,7 +135,7 @@ cloudwatch_DeleteDashboards:
   services:
     cloudwatch: {DeleteDashboards}
 cloudwatch_DescribeAlarmHistory:
-  title: Describe &CW; alarm's history using an &AWS; SDK
+  title: Describe &CW; alarm history using an &AWS; SDK
   title_abbrev: Describe alarm history
   synopsis: describe an &CWlong; alarm history.
   category:
