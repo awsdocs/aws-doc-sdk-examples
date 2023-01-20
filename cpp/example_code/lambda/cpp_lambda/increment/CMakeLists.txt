@@ -9,5 +9,5 @@ target_link_libraries(${PROJECT_NAME}
         AWS::aws-lambda-runtime
         jsoncpp
         )
-target_include_directories(${PROJECT_NAME} PUBLIC /opt/homebrew/include) # TODO: remove this
+
 aws_lambda_package_target(${PROJECT_NAME})

@@ -87,7 +87,9 @@ make
 make aws-lambda-package-cpp_lambda_calculator
 ```
 These build steps have generated two zip files which will be used by the sample 
-code in [Get started with functions](../get_started_with_functions_scenario.cpp).
+code in [Get started with functions](../get_started_with_functions_scenario.cpp). 
+The generated zip files have the same name because the executables must have the same name for `UpdateFunction`.
+The zip files can be renamed without changing their contents' names.
 
 Copy the file `cpp_lambda/increment/build/cpp_lambda_calculator.zip` to the 
 directory containing `get_started_with_functions_scenario.cpp` and rename it
