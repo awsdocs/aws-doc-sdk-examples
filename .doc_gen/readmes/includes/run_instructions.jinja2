@@ -1,0 +1,40 @@
+### Instructions
+
+<!--custom.instructions.start-->
+{{ customs['instructions'] -}}
+<!--custom.instructions.end-->
+
+{% for scenario in scenarios %}
+#### {{scenario['title_abbrev']}}
+
+{% if scenario['synopsis'] %}
+This example shows you how to {{scenario['synopsis']}}
+
+{% else %}
+This example shows you how to do the following:
+
+{% endif %}
+{% for syn in scenario['synopsis_list'] %}
+* {{syn}}
+{% endfor %}
+
+{% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 %}
+Start the example by running the following at a command prompt:
+
+```
+python {{scenario['file']}}
+```
+
+{% elif lang_config['name'] == 'Ruby' and lang_config['sdk_ver'] == 3 %}
+Start the example by running the following at a command prompt:
+
+```
+ruby {{scenario['file']}}
+```
+
+{% endif %}
+<!--custom.scenarios.{{ scenario['id'] }}.start-->
+{% if customs['scenarios'] %}{{ customs['scenarios'][scenario['id']] -}}{% endif %}
+<!--custom.scenarios.{{ scenario['id'] }}.end-->
+
+{% endfor %}

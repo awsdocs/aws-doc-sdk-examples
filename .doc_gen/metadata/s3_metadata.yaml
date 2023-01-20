@@ -593,7 +593,7 @@ s3_GetObjectAcl:
           excerpts:
             - description:
               snippet_tags:
-                - s3.cpp.get_acl_bucket.code
+                - s3.cpp.get_object_acl.code
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1647,6 +1647,15 @@ s3_GetBucketAcl:
             - description: Get the ACL permissions.
               snippet_tags:
                 - s3.JavaScript.perms.getBucketAclV3
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.get_acl_bucket.code
   services:
     s3: {GetBucketAcl}
 s3_PutBucketAcl:
@@ -1703,6 +1712,15 @@ s3_PutBucketAcl:
             - description: Put the bucket ACL.
               snippet_tags:
                 - s3.JavaScript.perms.putBucketAclV3
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.put_bucket_acl.code
   services:
     s3: {PutBucketAcl}
 s3_PutBucketPolicy:
@@ -1972,6 +1990,15 @@ s3_PutObjectAcl:
               snippet_tags:
                 - python.example_code.s3.helper.ObjectWrapper
                 - python.example_code.s3.PutObjectAcl
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.cpp.put_object_acl.code
   services:
     s3: {PutObjectAcl}
 s3_UploadPart:
