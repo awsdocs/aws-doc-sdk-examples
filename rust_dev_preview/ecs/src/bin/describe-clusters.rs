@@ -21,15 +21,22 @@ struct Opt {
 // List your clusters.
 // snippet-start:[ecs.rust.describe-clusters]
 async fn show_clusters(client: &aws_sdk_ecs::Client) -> Result<(), aws_sdk_ecs::Error> {
-    let resp = client.describe_clusters().send().await?;
+    let resp = client.list_clusters().send().await?;
 
-    let clusters = resp.clusters().unwrap_or_default();
-    println!("Found {} clusters:", clusters.len());
+    let cluster_arns = resp.cluster_arns().unwrap_or_default();
+    println!("Found {} clusters:", cluster_arns.len());
 
-    for cluster in clusters {
+    let clusters = client
+        .describe_clusters()
+        .set_clusters(Some(cluster_arns.into()))
+        .send()
+        .await?;
+
+    for cluster in clusters.clusters().unwrap_or_default() {
         println!("  ARN:  {}", cluster.cluster_arn().unwrap());
         println!("  Name: {}", cluster.cluster_name().unwrap());
     }
+
     Ok(())
 }
 // snippet-end:[ecs.rust.describe-clusters]

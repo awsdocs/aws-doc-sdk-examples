@@ -16,6 +16,10 @@ namespace AwsDoc {
         bool CreateBucket(const Aws::String &bucketName,
                           const Aws::Client::ClientConfiguration &clientConfig);
 
+        bool DeleteObjects(const std::vector<Aws::String> &objectKeys,
+                           const Aws::String &fromBucket,
+                           const Aws::Client::ClientConfiguration &clientConfig);
+
         bool DeleteBucket(const Aws::String &bucketName,
                           const Aws::Client::ClientConfiguration &clientConfig);
 
