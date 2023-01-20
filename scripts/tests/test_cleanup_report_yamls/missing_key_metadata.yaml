@@ -1,6 +1,0 @@
----
-bad_key:
-  - path: create_bucket.py
-    services:
-      - s3
-...

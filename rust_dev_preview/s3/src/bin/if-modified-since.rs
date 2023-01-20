@@ -81,7 +81,7 @@ async fn main() -> Result<(), Error> {
     ) = match head_object {
         Ok(output) => (Ok(output.last_modified().cloned()), output.e_tag),
         Err(err) => match err {
-            aws_sdk_s3::types::SdkError::ServiceError(err) => {
+            SdkError::ServiceError(err) => {
                 let http = err.raw().http();
                 match http.status() {
                     StatusCode::NOT_MODIFIED => (
@@ -99,7 +99,7 @@ async fn main() -> Result<(), Error> {
                             .get("etag")
                             .map(|t| t.to_str().unwrap().into()),
                     ),
-                    _ => (Err(aws_sdk_s3::types::SdkError::ServiceError(err)), None),
+                    _ => (Err(SdkError::ServiceError(err)), None),
                 }
             }
             _ => (Err(err), None),

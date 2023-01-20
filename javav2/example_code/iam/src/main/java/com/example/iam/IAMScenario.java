@@ -168,7 +168,7 @@ public class IAMScenario {
         TimeUnit.SECONDS.sleep(30);
         System.out.println("5. Gets temporary credentials by assuming the role.");
         System.out.println("Perform an Amazon S3 Service operation using the temporary credentials.");
-        assumeGivenRole(roleArn, roleSessionName, bucketName, accessKey, secretKey);
+        assumeRole(roleArn, roleSessionName, bucketName, accessKey, secretKey);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -300,7 +300,8 @@ public class IAMScenario {
     }
 
     // Invoke an Amazon S3 operation using the Assumed Role.
-    public static void assumeGivenRole(String roleArn, String roleSessionName, String bucketName, String keyVal, String keySecret) {
+    // snippet-start:[iam.java2.scenario.assumeRole]
+    public static void assumeRole(String roleArn, String roleSessionName, String bucketName, String keyVal, String keySecret) {
 
         // Use the creds of the new IAM user that was created in this code example.
         AwsBasicCredentials credentials = AwsBasicCredentials.create(keyVal, keySecret);
@@ -346,7 +347,7 @@ public class IAMScenario {
             System.exit(1);
         }
     }
-
+    // snippet-end:[iam.java2.scenario.assumeRole]
     public static void deleteRole(IamClient iam, String roleName, String polArn) {
 
         try {

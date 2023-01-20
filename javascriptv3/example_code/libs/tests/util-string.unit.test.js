@@ -2,7 +2,7 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { it, describe, expect } from "@jest/globals";
+import { it, describe, expect } from "vitest";
 import { getUniqueName, postfix } from "../utils/util-string";
 import { testEqual, testThrows } from "../utils/util-test";
 
