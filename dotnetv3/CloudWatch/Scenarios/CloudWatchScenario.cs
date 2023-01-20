@@ -22,6 +22,9 @@ public class CloudWatchScenario
     /*
     Before running this .NET code example, set up your development environment, including your credentials.
 
+    To enable billing metrics and statistics for this example, make sure billing alerts are enabled for your account:
+    https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#turning_on_billing_metrics
+
     This .NET example performs the following tasks:
         1. List and select a CloudWatch namespace.
         2. List and select a CloudWatch metric.
@@ -250,7 +253,7 @@ public class CloudWatchScenario
     /// <returns>A collection of billing statistics.</returns>
     private static async Task<List<Datapoint>> SetupBillingStatistics()
     {
-        // Make a request for EstimatedCharges with a period of one day for the past 7 days.
+        // Make a request for EstimatedCharges with a period of one day for the past seven days.
         var billingStatistics = await _cloudWatchWrapper.GetMetricStatistics(
             "AWS/Billing",
             "EstimatedCharges",
@@ -399,9 +402,9 @@ public class CloudWatchScenario
     /// <summary>
     /// Set up a dashboard using a call to the wrapper class.
     /// </summary>
-    /// <param name="customMetricNamespace">Metric namespace.</param>
-    /// <param name="customMetricName">Metric name.</param>
-    /// <param name="dashboardName">Name of the dashboard.</param>
+    /// <param name="customMetricNamespace">The metric namespace.</param>
+    /// <param name="customMetricName">The metric name.</param>
+    /// <param name="dashboardName">The name of the dashboard.</param>
     /// <returns>A list of validation messages.</returns>
     private static async Task<List<DashboardValidationMessage>> SetupDashboard(
         string customMetricNamespace, string customMetricName, string dashboardName)

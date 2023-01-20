@@ -21,7 +21,7 @@ Amazon CloudWatch is a monitoring and observability service built for DevOps eng
 Code excerpts that show you how to call individual service functions.
 
 * [Delete alarms](Actions/CloudWatchWrapper.cs) (`DeleteAlarmsAsync`)
-* [Delete anomaly detector](Actions/CloudWatchWrapper.cs) (`DeleteAnomalyDetectorAsync`)
+* [Delete an anomaly detector](Actions/CloudWatchWrapper.cs) (`DeleteAnomalyDetectorAsync`)
 * [Delete dashboards](Actions/CloudWatchWrapper.cs) (`DeleteDashboardsAsync`)
 * [Describe alarm history](Actions/CloudWatchWrapper.cs) (`DescribeAlarmHistoryAsync`)
 * [Describe alarms](Actions/CloudWatchWrapper.cs) (`DescribeAlarmsAsync`)
@@ -32,12 +32,12 @@ Code excerpts that show you how to call individual service functions.
 * [Get dashboard details](Actions/CloudWatchWrapper.cs) (`GetDashboardAsync`)
 * [Get metric data](Actions/CloudWatchWrapper.cs) (`GetMetricDataAsync`)
 * [Get metric statistics](Actions/CloudWatchWrapper.cs) (`GetMetricStatisticsAsync`)
-* [Get metric data image](Actions/CloudWatchWrapper.cs) (`GetMetricWidgetImageAsync`)
+* [Get a metric data image](Actions/CloudWatchWrapper.cs) (`GetMetricWidgetImageAsync`)
 * [List dashboards](Actions/CloudWatchWrapper.cs) (`ListDashboardsAsync`)
 * [List metrics](Actions/CloudWatchWrapper.cs) (`ListMetricsAsync`)
 * [Create anomaly detector](Actions/CloudWatchWrapper.cs) (`PutAnomalyDetectorAsync`)
-* [Create dashboard](Actions/CloudWatchWrapper.cs) (`PutDashboardAsync`)
-* [Create an alarm that watches a metric](Actions/CloudWatchWrapper.cs) (`PutMetricAlarmAsync`)
+* [Create a dashboard](Actions/CloudWatchWrapper.cs) (`PutDashboardAsync`)
+* [Create a metric alarm](Actions/CloudWatchWrapper.cs) (`PutMetricAlarmAsync`)
 * [Put data into a metric](Actions/CloudWatchWrapper.cs) (`PutMetricDataAsync`)
 
 ### Scenarios
@@ -54,6 +54,9 @@ multiple functions within the same service.
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
 ### Get started with billing, alarms, and metrics
+
+To enable billing metrics and statistics for this example, make sure
+[billing alerts are enabled](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#turning_on_billing_metrics) for your account.
 
 This interactive scenario runs at a command prompt and shows you how to use
 Amazon CloudWatch with the AWS SDK for .NET to do the following:
@@ -77,8 +80,8 @@ Amazon CloudWatch with the AWS SDK for .NET to do the following:
 1. Get and display a metric image.
 1. Clean up resources.
 
-Before you compile the .NET application, you can optionally set configuration values,
-including account and topic settings for sending an email from your alarm, in the `settings.json` file. 
+Before you compile the .NET application, you can optionally set configuration values in the `settings.json` file.
+These settings include your account and topic settings for sending an email from your alarm.
 Alternatively, add a `settings.local.json` file with your local settings, which will be loaded automatically 
 when the application runs.
 

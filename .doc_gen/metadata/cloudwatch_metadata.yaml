@@ -135,7 +135,7 @@ cloudwatch_DeleteDashboards:
   services:
     cloudwatch: {DeleteDashboards}
 cloudwatch_DescribeAlarmHistory:
-  title: Describe a &CW; alarm's history using an &AWS; SDK
+  title: Describe &CW; alarm's history using an &AWS; SDK
   title_abbrev: Describe alarm history
   synopsis: describe an &CWlong; alarm history.
   category:
@@ -644,8 +644,8 @@ cloudwatch_PutDashboard:
   services:
     cloudwatch: {PutDashboard}
 cloudwatch_PutMetricAlarm:
-  title: Create a &CW; alarm that watches a metric using an &AWS; SDK
-  title_abbrev: Create an alarm that watches a metric
+  title: Create a &CW; metric alarm using an &AWS; SDK
+  title_abbrev: Create a metric alarm
   synopsis: create or update an &CWlong; alarm and associate it with the specified metric, metric math expression, anomaly detection model, or Metrics Insights query.
   category:
   languages:
@@ -798,7 +798,7 @@ cloudwatch_PutMetricData:
 cloudwatch_PutMetricData_DataSet:
   title: Put a set of data into a &CW; metric using an &AWS; SDK
   title_abbrev: Put a set of data into a metric
-  synopsis: put a set of data into a &CWlong; metric.
+  synopsis: put a set of data into an &CWlong; metric.
   category:
   languages:
     Python:

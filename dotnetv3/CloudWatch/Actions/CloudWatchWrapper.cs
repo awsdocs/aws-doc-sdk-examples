@@ -6,7 +6,6 @@ using System.Text.Json;
 using Amazon.CloudWatch;
 using Amazon.CloudWatch.Model;
 using Microsoft.Extensions.Logging;
-using Metric = Amazon.CloudWatch.Model.Metric;
 
 namespace CloudWatchActions;
 
@@ -22,8 +21,8 @@ public class CloudWatchWrapper
     /// <summary>
     /// Constructor for the CloudWatch wrapper.
     /// </summary>
-    /// <param name="amazonCloudWatch">Injected CloudWatch client.</param>
-    /// <param name="logger">Injected logger for the wrapper.</param>
+    /// <param name="amazonCloudWatch">The injected CloudWatch client.</param>
+    /// <param name="logger">The injected logger for the wrapper.</param>
     public CloudWatchWrapper(IAmazonCloudWatch amazonCloudWatch, ILogger<CloudWatchWrapper> logger)
 
     {
@@ -63,13 +62,13 @@ public class CloudWatchWrapper
     /// <summary>
     /// Wrapper to get statistics for a specific CloudWatch metric.
     /// </summary>
-    /// <param name="metricNamespace">Namespace of the metric.</param>
-    /// <param name="metricName">Name of the metric.</param>
-    /// <param name="statistics">List of statistics to include.</param>
-    /// <param name="dimensions">List of dimensions to include.</param>
-    /// <param name="days">Days in the past to include.</param>
+    /// <param name="metricNamespace">The namespace of the metric.</param>
+    /// <param name="metricName">The name of the metric.</param>
+    /// <param name="statistics">The list of statistics to include.</param>
+    /// <param name="dimensions">The list of dimensions to include.</param>
+    /// <param name="days">The number of days in the past to include.</param>
     /// <param name="period">The period for the data.</param>
-    /// <returns>List of DataPoint objects for the statistics.</returns>
+    /// <returns>A list of DataPoint objects for the statistics.</returns>
     public async Task<List<Datapoint>> GetMetricStatistics(string metricNamespace,
         string metricName, List<string> statistics, List<Dimension> dimensions, int days, int period)
     {
@@ -93,8 +92,8 @@ public class CloudWatchWrapper
     /// <summary>
     /// Wrapper to create or add to a dashboard with metrics.
     /// </summary>
-    /// <param name="dashboardName">Name for the dashboard.</param>
-    /// <param name="dashboardBody">Metric data in JSON for the dashboard.</param>
+    /// <param name="dashboardName">The name for the dashboard.</param>
+    /// <param name="dashboardBody">The metric data in JSON for the dashboard.</param>
     /// <returns>A list of validation messages for the dashboard.</returns>
     public async Task<List<DashboardValidationMessage>> PutDashboard(string dashboardName,
         string dashboardBody)
@@ -136,7 +135,7 @@ public class CloudWatchWrapper
     /// <summary>
     /// Get a list of dashboards.
     /// </summary>
-    /// <returns>A ist of DashboardEntry objects.</returns>
+    /// <returns>A list of DashboardEntry objects.</returns>
     public async Task<List<DashboardEntry>> ListDashboards()
     {
         var results = new List<DashboardEntry>();
@@ -156,8 +155,8 @@ public class CloudWatchWrapper
     /// <summary>
     /// Wrapper to add metric data to a CloudWatch metric.
     /// </summary>
-    /// <param name="metricNamespace">Namespace of the metric.</param>
-    /// <param name="metricData">Data object for the metric data.</param>
+    /// <param name="metricNamespace">The namespace of the metric.</param>
+    /// <param name="metricData">A data object for the metric data.</param>
     /// <returns>True if successful.</returns>
     public async Task<bool> PutMetricData(string metricNamespace,
         List<MetricDatum> metricData)
@@ -177,10 +176,10 @@ public class CloudWatchWrapper
     /// <summary>
     /// Get an image for a metric graphed over time.
     /// </summary>
-    /// <param name="metricNamespace">Namespace of the metric.</param>
-    /// <param name="metric">Name of the metric.</param>
-    /// <param name="stat">Name of the stat to chart.</param>
-    /// <param name="period">Period to use for the chart.</param>
+    /// <param name="metricNamespace">The namespace of the metric.</param>
+    /// <param name="metric">The name of the metric.</param>
+    /// <param name="stat">The name of the stat to chart.</param>
+    /// <param name="period">The period to use for the chart.</param>
     /// <returns>A memory stream for the chart image.</returns>
     public async Task<MemoryStream> GetTimeSeriesMetricImage(string metricNamespace, string metric, string stat, int period)
     {
@@ -209,14 +208,14 @@ public class CloudWatchWrapper
     /// <summary>
     /// Save a metric image to a file.
     /// </summary>
-    /// <param name="memoryStream">Stream of data for the metric image.</param>
-    /// <param name="metricName">Name of the metric.</param>
-    /// <returns>The name of the file.</returns>
+    /// <param name="memoryStream">The MemoryStream for the metric image.</param>
+    /// <param name="metricName">The name of the metric.</param>
+    /// <returns>The path to the file.</returns>
     public string SaveMetricImage(MemoryStream memoryStream, string metricName)
     {
         var metricFileName = $"{metricName}_{DateTime.Now.Ticks}.png";
         using var sr = new StreamReader(memoryStream);
-        // Write the memory stream to a file.
+        // Writes the memory stream to a file.
         File.WriteAllBytes(metricFileName, memoryStream.ToArray());
         var filePath = Path.Join(AppDomain.CurrentDomain.BaseDirectory,
             metricFileName);
@@ -228,10 +227,10 @@ public class CloudWatchWrapper
     /// <summary>
     /// Get data for CloudWatch metrics.
     /// </summary>
-    /// <param name="minutesOfData">Minutes of data to include.</param>
+    /// <param name="minutesOfData">The number of minutes of data to include.</param>
     /// <param name="useDescendingTime">True to return the data descending by time.</param>
-    /// <param name="endDateUtc">End date for the data, in UTC.</param>
-    /// <param name="maxDataPoints">Maximum data points to include.</param>
+    /// <param name="endDateUtc">The end date for the data, in UTC.</param>
+    /// <param name="maxDataPoints">The maximum data points to include.</param>
     /// <param name="dataQueries">Optional data queries to include.</param>
     /// <returns>A list of the requested metric data.</returns>
     public async Task<List<MetricDataResult>> GetMetricData(int minutesOfData, bool useDescendingTime, DateTime? endDateUtc = null,
@@ -267,12 +266,12 @@ public class CloudWatchWrapper
     /// <summary>
     /// Add a metric alarm to send an email when the metric passes a threshold.
     /// </summary>
-    /// <param name="alarmDescription">Description of the alarm.</param>
-    /// <param name="alarmName">Name for the alarm.</param>
-    /// <param name="comparison">Type of comparison to use.</param>
-    /// <param name="metricName">Name of the metric for the alarm.</param>
-    /// <param name="metricNamespace">Namespace of the metric.</param>
-    /// <param name="threshold">Threshold value for the alarm.</param>
+    /// <param name="alarmDescription">A description of the alarm.</param>
+    /// <param name="alarmName">The name for the alarm.</param>
+    /// <param name="comparison">The type of comparison to use.</param>
+    /// <param name="metricName">The name of the metric for the alarm.</param>
+    /// <param name="metricNamespace">The namespace of the metric.</param>
+    /// <param name="threshold">The threshold value for the alarm.</param>
     /// <param name="alarmActions">Optional actions to execute when in an alarm state.</param>
     /// <returns>True if successful.</returns>
     public async Task<bool> PutMetricEmailAlarm(string alarmDescription, string alarmName, ComparisonOperator comparison,
@@ -309,11 +308,11 @@ public class CloudWatchWrapper
     /// <summary>
     /// Add specific email actions to a list of action strings for a CloudWatch alarm.
     /// </summary>
-    /// <param name="accountId">Account Id for the alarm.</param>
-    /// <param name="region">Region for the alarm.</param>
-    /// <param name="emailTopicName">Amazon Simple Notification Service (SNS) topic for the alarm email.</param>
+    /// <param name="accountId">The AccountId for the alarm.</param>
+    /// <param name="region">The region for the alarm.</param>
+    /// <param name="emailTopicName">An Amazon Simple Notification Service (SNS) topic for the alarm email.</param>
     /// <param name="alarmActions">Optional list of existing alarm actions to append to.</param>
-    /// <returns>List of string actions for an alarm.</returns>
+    /// <returns>A list of string actions for an alarm.</returns>
     public List<string> AddEmailAlarmAction(string accountId, string region,
         string emailTopicName, List<string>? alarmActions = null)
     {
@@ -351,8 +350,8 @@ public class CloudWatchWrapper
     /// <summary>
     /// Describe the current alarms for a specific metric.
     /// </summary>
-    /// <param name="metricNamespace">Namespace of the metric.</param>
-    /// <param name="metricName">Name of the metric.</param>
+    /// <param name="metricNamespace">The namespace of the metric.</param>
+    /// <param name="metricName">The name of the metric.</param>
     /// <returns>The list of alarm data.</returns>
     public async Task<List<MetricAlarm>> DescribeAlarmsForMetric(string metricNamespace, string metricName)
     {
@@ -398,7 +397,7 @@ public class CloudWatchWrapper
     /// <summary>
     /// Delete a list of alarms from CloudWatch.
     /// </summary>
-    /// <param name="alarmNames">List of names of alarms to delete.</param>
+    /// <param name="alarmNames">A list of names of alarms to delete.</param>
     /// <returns>True if successful.</returns>
     public async Task<bool> DeleteAlarms(List<string> alarmNames)
     {
@@ -416,7 +415,7 @@ public class CloudWatchWrapper
     /// <summary>
     /// Disable the actions for a list of alarms from CloudWatch.
     /// </summary>
-    /// <param name="alarmNames">List of names of alarms.</param>
+    /// <param name="alarmNames">A list of names of alarms.</param>
     /// <returns>True if successful.</returns>
     public async Task<bool> DisableAlarmActions(List<string> alarmNames)
     {
@@ -434,7 +433,7 @@ public class CloudWatchWrapper
     /// <summary>
     /// Enable the actions for a list of alarms from CloudWatch.
     /// </summary>
-    /// <param name="alarmNames">List of names of alarms.</param>
+    /// <param name="alarmNames">A list of names of alarms.</param>
     /// <returns>True if successful.</returns>
     public async Task<bool> EnableAlarmActions(List<string> alarmNames)
     {
