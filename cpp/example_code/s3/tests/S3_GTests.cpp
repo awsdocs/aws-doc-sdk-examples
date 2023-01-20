@@ -70,6 +70,7 @@ Aws::String AwsDocTest::S3_GTests::GetTestFilePath() {
     return s_testFilePath;
 }
 
+
 Aws::String AwsDocTest::S3_GTests::PutTestFileInBucket(const Aws::String &bucketName,
                                                        const Aws::String &key) {
     Aws::String filePath = GetTestFilePath();
