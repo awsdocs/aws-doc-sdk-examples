@@ -17,8 +17,8 @@ Code examples for each language's SDK can be found within the following subdirec
 | C++        | [cpp/](cpp)                           | 1           | ![[]](https://img.shields.io/badge/-GA-blue)          |
 | Go         | [gov2/](gov2)                         | 2           | ![[]](https://img.shields.io/badge/-GA-blue)          |
 | Go         | [go/](go)                             | 1           | ![[]](https://img.shields.io/badge/-deprecated-red)  |
-| Java       | [javav2/]()                           | 2           | ![[]](https://img.shields.io/badge/-GA-blue)          |
-| Java       | [java/](java)                         | 1           | ![[]](https://img.shields.io/badge/-deprecated-red)  |
+| Java       | [javav2/]()                           | 2           | ![[]](https://img.shields.io/badge/-GA-blue) (Recommended version) |
+| Java       | [java/](java)                         | 1           | ![[]](https://img.shields.io/badge/-GA-blue) (Not Recommended) |
 | JavaScript | [javascriptv3/](javascriptv3)         | 3           | ![[]](https://img.shields.io/badge/-GA-blue)          |
 | JavaScript | [javascript/](javascript)             | 2           | ![[]](https://img.shields.io/badge/-deprecated-red)  |
 | Kotlin     | [kotlin/](kotlin)                     |             | ![[]](https://img.shields.io/badge/-preview-brightgreen)       |
