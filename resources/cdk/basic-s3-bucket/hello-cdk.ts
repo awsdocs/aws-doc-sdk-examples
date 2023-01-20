@@ -1,8 +1,7 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-comment:[This goes in the bin dir.]
-// snippet-comment:[This is a full sample when you include my_ecs_construct-stack.ts, which goes in the lib dir.]
+// snippet-comment:[This is a full sample when you include hello-cdk-stack.ts, which goes in the lib dir.]
 // snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[Instantiates the stack in my_ecs_construct-stack.ts.]
+// snippet-sourcedescription:[Instantiates the stack in hello-cdk-stack.ts.]
 // snippet-keyword:[CDK V1.0.0]
 // snippet-keyword:[TypeScript]
 // snippet-sourcesyntax:[javascript]
@@ -21,11 +20,11 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-// snippet-start:[cdk.typescript.my_ecs_construct]
+// snippet-start:[cdk.typescript.hello-cdk]
 import * as core from '@aws-cdk/core';
 
-import { MyEcsConstructStack } from '../lib/my_ecs_construct-stack';
+import { HelloCdkStack } from '../lib/hello-cdk-stack';
 
 const app = new core.App();
-new MyEcsConstructStack(app, 'MyEcsConstruct');
-// snippet-end:[cdk.typescript.my_ecs_construct]
+new HelloCdkStack(app, 'HelloCdkStack');
+// snippet-end:[cdk.typescript.hello-cdk]

@@ -1,9 +1,9 @@
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-comment:[This goes in the bin dir.]
-// snippet-comment:[This is a full sample when you include my_ecs_construct-stack.ts, which goes in the lib dir.]
+// snippet-comment:[This is a full sample when you include HelloCdk.ts, which goes in the bin dir.]
 // snippet-sourceauthor:[Doug-AWS]
-// snippet-sourcedescription:[Instantiates the stack in my_ecs_construct-stack.ts.]
+// snippet-sourcedescription:[Creates an S3 bucket with versioning enabled.]
 // snippet-keyword:[CDK V1.0.0]
+// snippet-keyword:[s3.Bucket function]
 // snippet-keyword:[TypeScript]
 // snippet-sourcesyntax:[javascript]
 // snippet-service:[cdk]
@@ -21,11 +21,17 @@
 // This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-// snippet-start:[cdk.typescript.my_ecs_construct]
+// snippet-start:[cdk.typescript.hello-cdk-stack]
 import * as core from '@aws-cdk/core';
+import * as s3 from '@aws-cdk/aws-s3';
 
-import { MyEcsConstructStack } from '../lib/my_ecs_construct-stack';
+export class HelloCdkStack extends core.Stack {
+  constructor(scope: core.App, id: string, props?: core.StackProps) {
+    super(scope, id, props);
 
-const app = new core.App();
-new MyEcsConstructStack(app, 'MyEcsConstruct');
-// snippet-end:[cdk.typescript.my_ecs_construct]
+    new s3.Bucket(this, 'MyFirstBucket', {
+      versioned: true
+    });
+  }
+}
+// snippet-end:[cdk.typescript.hello-cdk-stack]
