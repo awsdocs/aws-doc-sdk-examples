@@ -4,4 +4,4 @@
 FROM node:18
 COPY . /javascriptv3
 RUN npm install --prefix /javascriptv3
-CMD ["bash", "-c", "cd /javascriptv3 && bash"]
+CMD ["bash"]
