@@ -210,7 +210,7 @@ public class CloudWatchScenario {
                 System.exit(1);
         }
         System.out.println("You selected "+selectedMetrics);
-        Dimension myDimension = getSpecificMet( cw, selectedNamespace, selectedMetrics);
+        Dimension myDimension = getSpecificMet( cw, selectedNamespace);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -911,9 +911,8 @@ public class CloudWatchScenario {
     }
     // snippet-end:[cloudwatch.java2.scenario.display.metrics.main]
 
-    public static Dimension getSpecificMet( CloudWatchClient cw, String namespace, String name) {
+    public static Dimension getSpecificMet( CloudWatchClient cw, String namespace) {
         try {
-            ArrayList<String> metList = new ArrayList<>();
             ListMetricsRequest request = ListMetricsRequest.builder()
                 .namespace(namespace)
                 .build();
@@ -941,9 +940,7 @@ public class CloudWatchScenario {
             ListMetricsIterable listRes = cw.listMetricsPaginator(request);
             listRes.stream()
                 .flatMap(r -> r.metrics().stream())
-                .forEach(metrics ->{
-                    metList.add(metrics.metricName());
-                });
+                .forEach(metrics -> metList.add(metrics.metricName()));
 
             return metList;
 
