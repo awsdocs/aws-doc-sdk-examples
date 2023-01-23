@@ -20,7 +20,7 @@ jobs:
       REGISTRY_ALIAS: aws-docs-sdk-examples
       IMAGE_TAG: latest
       REGION: us-east-1
-    name: Push Docker image to Docker Hub
+    name: Push Docker image to ECR Public
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
