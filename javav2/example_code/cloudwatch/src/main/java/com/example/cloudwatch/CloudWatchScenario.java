@@ -122,7 +122,7 @@ public class CloudWatchScenario {
             "  dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file). \n" +
             "  dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file). \n" +
             "  settings - The location of a JSON file from which various values are read. (See Readme file). \n" +
-            "  metricImage - The location of a BMP file that is used to create a graph. \n" ;
+            "  metricImage - The location of a BMP file that is used to create a graph. (See Readme file). \n" ;
 
         if (args.length != 7) {
              System.out.println(usage);
@@ -182,7 +182,7 @@ public class CloudWatchScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("2. List available metrics within the selected Namespace and select one from the list.");
+        System.out.println("2. List available metrics within the selected namespace and select one from the list.");
         ArrayList<String> metList = listMets(cw, selectedNamespace);
         for (int z=0; z<5; z++) {
             int index = z+1;
@@ -364,7 +364,7 @@ public class CloudWatchScenario {
             e.printStackTrace();
         }
     }
-    // snippet-start:[cloudwatch.java2.scenario.del.anomalydetector.main]
+    // snippet-end:[cloudwatch.java2.scenario.del.anomalydetector.main]
 
     // snippet-start:[cloudwatch.java2.scenario.del.alarm.main]
     public static void deleteCWAlarm(CloudWatchClient cw, String alarmName) {
@@ -706,7 +706,7 @@ public class CloudWatchScenario {
             String alarmName = rootNode.findValue("exampleAlarmName").toString().replaceAll("\"", "");
             String emailTopic = rootNode.findValue("emailTopic").toString().replaceAll("\"", "");
             String accountId = rootNode.findValue("accountId").toString().replaceAll("\"", "");
-            String region = "us-west-2";
+            String region = rootNode.findValue("region").toString().replaceAll("\"", "");
 
             // Create a List for alarm actions.
             List<String> alarmActions = new ArrayList<>();
