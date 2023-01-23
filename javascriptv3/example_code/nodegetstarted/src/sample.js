@@ -23,7 +23,7 @@ import { s3Client } from "./libs/s3Client.js";
 
 // Set the parameters
 const params = {
-  Bucket: "BUCKET_NAME", // The name of the bucket. For example, 'sample_bucket_101'.
+  Bucket: "BUCKET_NAME", // The name of the bucket. For example, 'sample-bucket-101'.
   Key: "KEY", // The name of the object. For example, 'sample_upload.txt'.
   Body: "BODY", // The content of the object. For example, 'Hello world!".
 };

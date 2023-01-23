@@ -2,6 +2,14 @@ acm:
   long: '&ACMlong;'
   short: '&ACM;'
   sort: ACM
+  expanded:
+    long: AWS Certificate Manager (ACM)
+    short: ACM
+  blurb: helps you to provision, manage, and renew publicly trusted TLS certificates on AWS based websites.
+  guide:
+    subtitle: User Guide
+    url: acm/latest/userguide/acm-overview.html
+  api_ref: acm/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: acm-2015-12-08
@@ -9,6 +17,14 @@ api-gateway:
   long: '&ABPlong;'
   short: '&ABP;'
   sort: API Gateway
+  expanded:
+    long: Amazon API Gateway
+    short: API Gateway
+  blurb: enables you to create and deploy your own REST and WebSocket APIs at any scale.
+  guide:
+    subtitle: Developer Guide
+    url: apigateway/latest/developerguide/welcome.html
+  api_ref: apigateway/latest/api/API_Operations.html
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
   version: apigateway-2015-07-09
@@ -16,6 +32,14 @@ apigatewaymanagementapi:
   long: '&ABPMAlong;'
   short: '&ABPMA;'
   sort: API Gateway Management
+  expanded:
+    long: Amazon API Gateway Management API
+    short: API Gateway Management API
+  blurb: allows you to directly manage runtime aspects of your deployed APIs.
+  guide:
+    subtitle: Developer Guide
+    url: apigateway/latest/developerguide/welcome.html
+  api_ref: apigateway/latest/api/API_Operations.html
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
   version: apigatewaymanagementapi-2018-11-29
@@ -23,6 +47,14 @@ application-autoscaling:
   long: '&APP-ASlong;'
   short: '&APP-AS;'
   sort: Application Auto Scaling
+  expanded:
+    long: Application Auto Scaling
+    short: Application Auto Scaling
+  blurb: configures auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling.
+  guide:
+    subtitle: User Guide
+    url: autoscaling/application/userguide/what-is-application-auto-scaling.html
+  api_ref: autoscaling/application/APIReference/Welcome.html
   tags:
     product_categories: {'Management &amp; Governance'}
   version: application-autoscaling-2016-02-06
@@ -30,6 +62,14 @@ auditmanager:
   long: '&AMlong;'
   short: '&AM;'
   sort: Audit Manager
+  expanded:
+    long: AWS Audit Manager
+    short: Audit Manager
+  blurb: helps you continuously audit your AWS usage to simplify how you manage risk and compliance with regulations and industry standards.
+  guide:
+    subtitle: User Guide
+    url: audit-manager/latest/userguide/what-is.html
+  api_ref: audit-manager/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: auditmanager-2017-07-25
@@ -37,6 +77,13 @@ aurora:
   long: '&AURlong;'
   short: '&AUR;'
   sort: Aurora
+  expanded:
+    long: Amazon Aurora
+    short: Aurora
+  blurb: is a fully managed relational database engine that's built for the cloud and compatible with MySQL and PostgreSQL. Amazon Aurora is part of Amazon RDS.
+  guide:
+    subtitle: User Guide
+    url: AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
   tags:
     product_categories: {'Database'}
   version: rds-2014-10-31
@@ -45,6 +92,14 @@ auto-scaling:
   long: '&ASlong;'
   short: '&ASlong;'
   sort: EC2 Auto Scaling
+  expanded:
+    long: Amazon EC2 Auto Scaling
+    short: EC2 Auto Scaling
+  blurb: automatically scales EC2 instances, either with scaling
+    policies or with scheduled scaling.
+  guide:
+    subtitle: User Guide
+    url: autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html
   tags:
     product_categories: {'Management &amp; Governance'}
   version: autoscaling-2011-01-01
@@ -53,6 +108,14 @@ batch:
   long: '&BATCHlong;'
   short: '&BATCH;'
   sort: Batch
+  expanded:
+    long: AWS Batch
+    short: Batch
+  blurb: enables you to run batch computing workloads on the AWS Cloud.
+  guide:
+    subtitle: User Guide
+    url: batch/latest/userguide/what-is-batch.html
+  api_ref: batch/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Compute'}
   version: batch-2016-08-10
@@ -60,14 +123,29 @@ cloudformation:
   long: '&CFNlong;'
   short: '&CFN;'
   sort: CloudFormation
+  expanded:
+    long: AWS CloudFormation
+    short: CloudFormation
+  blurb: enables you to create and provision AWS infrastructure deployments predictably and repeatedly.
+  guide:
+    subtitle: User Guide
+    url: AWSCloudFormation/latest/UserGuide/Welcome.html
+  api_ref: AWSCloudFormation/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Management &amp; Governance'}
   version: cloudformation-2010-05-15
-  api_ref: AWSCloudFormation/latest/APIReference/Welcome.html
 cloudfront:
   long: '&CFlong;'
   short: '&CF;'
   sort: CloudFront
+  expanded:
+    long: Amazon CloudFront
+    short: CloudFront
+  blurb: speeds up distribution of your static and dynamic web content, such as .html, .css, .php, image, and media files.
+  guide:
+    subtitle: Developer Guide
+    url: AmazonCloudFront/latest/DeveloperGuide/Introduction.html
+  api_ref: cloudfront/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
   version: cloudfront-2020-05-31
@@ -75,38 +153,73 @@ cloudwatch:
   long: '&CWlong;'
   short: '&CW;'
   sort: CloudWatch
+  expanded:
+    long: Amazon CloudWatch
+    short: CloudWatch
+  blurb: provides a reliable, scalable, and flexible monitoring solution that you can start using within minutes.
+  guide:
+    subtitle: User Guide
+    url: AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html
+  api_ref: AmazonCloudWatch/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Management &amp; Governance'}
   version: monitoring-2010-08-01
-  api_ref: AmazonCloudWatch/latest/APIReference/Welcome.html
 cloudwatch-events:
   long: '&CWElong;'
   short: '&CWE;'
   sort: CloudWatch Events
+  expanded:
+    long: Amazon CloudWatch Events
+    short: CloudWatch Events
+  blurb: send system events from AWS resources to AWS Lambda functions, Amazon Simple Notification Service topics, streams in Amazon Kinesis, and other target types.
+  guide:
+    subtitle: User Guide
+    url: AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html
+  api_ref: eventbridge/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Management &amp; Governance'}
   version: eventbridge-2015-10-07
-  api_ref: eventbridge/latest/APIReference/Welcome.html
 cloudwatch-logs:
   long: '&CWLlong;'
   short: '&CWL;'
   sort: CloudWatch Logs
+  expanded:
+    long: Amazon CloudWatch Logs
+    short: CloudWatch Logs
+  blurb: monitor, store, and access your log files from Amazon Elastic Compute Cloud instances, AWS CloudTrail, or other sources.
+  guide:
+    subtitle: User Guide
+    url: AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html
+  api_ref: AmazonCloudWatchLogs/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Management &amp; Governance'}
   version: logs-2014-03-28
-  api_ref: AmazonCloudWatchLogs/latest/APIReference/Welcome.html
 cognito-identity:
   long: '&COGID;'
   short: '&COGID;'
   sort: Cognito Identity
+  expanded:
+    long: Amazon Cognito Identity
+    short: Cognito Identity
+  blurb: enable you to create unique identities for your users and federate them with identity providers.
+  guide:
+    subtitle: Developer Guide
+    url: cognito/latest/developerguide/cognito-identity.html
+  api_ref: cognitoidentity/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-identity-2014-06-30
-  api_ref: cognitoidentity/latest/APIReference/Welcome.html
 cognito-identity-provider:
   long: '&COGIDP;'
   short: '&COGIDP;'
   sort: Cognito Identity Provider
+  expanded:
+    long: Amazon Cognito Identity Provider
+    short: Amazon Cognito Identity Provider
+  blurb: handles user authentication and authorization for your web and mobile apps.
+  guide:
+    subtitle: Developer Guide
+    url: cognito/latest/developerguide/cognito-user-identity-pools.html
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-idp-2016-04-18
@@ -115,14 +228,29 @@ cognito-sync:
   long: '&COGSYNClong;'
   short: '&COGSYNC;'
   sort: Cognito Sync
+  expanded:
+    long: Amazon Cognito Sync
+    short: Amazon Cognito Sync
+  blurb: makes it possible to sync application-related user data across devices.
+  guide:
+    subtitle: Developer Guide
+    url: cognito/latest/developerguide/cognito-sync.html
+  api_ref: cognitosync/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-sync-2014-06-30
-  api_ref: cognitosync/latest/APIReference/Welcome.html
 comprehend:
   long: '&CMPlong;'
   short: '&CMP;'
   sort: Comprehend
+  expanded:
+    long: Amazon Comprehend
+    short: Amazon Comprehend
+  blurb: uses natural language processing (NLP) to extract insights about the content of documents without the need of any special preprocessing.
+  guide:
+    subtitle: Developer Guide
+    url: comprehend/latest/dg/what-is.html
+  api_ref: comprehend/latest/APIReference/welcome.html
   tags:
     product_categories: {'Machine Learning'}
   version: comprehend-2017-11-27
@@ -130,14 +258,30 @@ config-service:
   long: '&CClong;'
   short: '&CC;'
   sort: Config
+  expanded:
+    long: AWS Config
+    short: AWS Config
+  blurb: provides a detailed view of the resources associated with your AWS account, including how they are configured,
+    how they are related to one another, and how the configurations and their relationships have changed over time.
+  guide:
+    subtitle: Developer Guide
+    url: config/latest/developerguide/WhatIsConfig.html
+  api_ref: config/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Management &amp; Governance'}
   version: config-2014-11-12
-  api_ref: config/latest/APIReference/Welcome.html
 device-farm:
   long: '&ATPlong;'
   short: '&ATP;'
   sort: Device Farm
+  expanded:
+    long: AWS Device Farm
+    short: Device Farm
+  blurb: is an app testing service that enables you to test your iOS, Android and Fire OS apps on real, physical phones and tablets that are hosted by AWS.
+  guide:
+    subtitle: Developer Guide
+    url: devicefarm/latest/developerguide/welcome.html
+  api_ref: devicefarm/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Front-End Web &amp; Mobile'}
   version: devicefarm-2015-06-23
@@ -145,14 +289,29 @@ dynamodb:
   long: '&DDBlong;'
   short: '&DDB;'
   sort: DynamoDB
+  expanded:
+    long: Amazon DynamoDB
+    short: DynamoDB
+  blurb: is a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.
+  guide:
+    subtitle: Developer Guide
+    url: amazondynamodb/latest/developerguide/Introduction.html
+  api_ref: amazondynamodb/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Database'}
   version: dynamodb-2012-08-10
-  api_ref: amazondynamodb/latest/APIReference/Welcome.html
 ebs:
   long: '&EBSlong;'
   short: '&EBS;'
   sort: EBS
+  expanded:
+    long: Amazon Elastic Block Store (Amazon EBS)
+    short: Amazon EBS
+  blurb: is a web service that provides block level storage volumes for use with Amazon Elastic Compute Cloud instances.
+  guide:
+    subtitle: User Guide
+    url: AWSEC2/latest/UserGuide/AmazonEBS.html
+  api_ref: AWSEC2/latest/APIReference/OperationList-query-ebs.html
   tags:
     product_categories: {'Storage'}
   version: ebs-2019-11-02
@@ -160,6 +319,15 @@ ec2:
   long: '&EC2long;'
   short: '&EC2;'
   sort: EC2
+  expanded:
+    long: Amazon Elastic Compute Cloud (Amazon EC2)
+    short: Amazon EC2
+  blurb: is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that
+    you use to build and host your software systems.
+  guide:
+    subtitle: User Guide
+    url: AWSEC2/latest/UserGuide/concepts.html
+  api_ref: AWSEC2/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Compute'}
   version: ec2-2016-11-15
@@ -167,6 +335,14 @@ ecr:
   long: '&ECRlong;'
   short: '&ECR;'
   sort: ECR
+  expanded:
+    long: Amazon Elastic Container Registry (Amazon ECR)
+    short: Amazon ECR
+  blurb: is a fully managed Docker container registry that makes it easy for developers to store, manage, and deploy Docker container images.
+  guide:
+    subtitle: User Guide
+    url: AmazonECR/latest/userguide/what-is-ecr.html
+  api_ref: AmazonECR/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Containers'}
   version: ecr-2015-09-21
@@ -174,6 +350,14 @@ ecs:
   long: '&ECSlong;'
   short: '&ECS;'
   sort: ECS
+  expanded:
+    long: Amazon Elastic Container Service (Amazon ECS)
+    short: Amazon ECS
+  blurb: is a highly scalable, fast, container management service that makes it easy to run, stop, and manage Docker containers on a cluster of Amazon EC2 instances.
+  guide:
+    subtitle: Developer Guide
+    url: AmazonECS/latest/developerguide/Welcome.html
+  api_ref: AmazonECS/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Containers'}
   version: ecs-2014-11-13
@@ -181,6 +365,14 @@ eks:
   long: '&EKSlong;'
   short: '&EKS;'
   sort: EKS
+  expanded:
+    long: Amazon Elastic Kubernetes Service (Amazon EKS)
+    short: Amazon EKS
+  blurb: is a managed service that makes it easy for you to run Kubernetes on AWS without needing to install and operate your own Kubernetes clusters.
+  guide:
+    subtitle: User Guide
+    url: eks/latest/userguide/what-is-eks.html
+  api_ref: eks/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Containers'}
   version: eks-2017-11-01
@@ -188,6 +380,14 @@ emr:
   long: '&EMRlong;'
   short: '&EMR;'
   sort: EMR
+  expanded:
+    long: Amazon EMR
+    short: Amazon EMR
+  blurb: is a web service that makes it easy to process vast amounts of data efficiently using Apache Hadoop and services offered by Amazon Web Services.
+  guide:
+    subtitle: Management Guide
+    url: emr/latest/ManagementGuide/emr-what-is-emr.html
+  api_ref: emr/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Analytics'}
   version: elasticmapreduce-2009-03-31
@@ -195,39 +395,76 @@ eventbridge:
   long: '&EVlong;'
   short: '&EV;'
   sort: EventBridge
+  expanded:
+    long: Amazon EventBridge
+    short: EventBridge
+  blurb: is a serverless event bus service that makes it easy to connect your applications with data from a variety of sources.
+  guide:
+    subtitle: User Guide
+    url: eventbridge/latest/userguide/eb-what-is.html
+  api_ref: eventbridge/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Application Integration'}
   version: eventbridge-2015-10-07
-  api_ref: eventbridge/latest/APIReference/Welcome.html
 glacier:
   long: '&GLlong;'
   short: '&GLshort;'
   sort: S3 Glacier
+  expanded:
+    long: Amazon S3 Glacier
+    short: S3 Glacier
+  blurb: provides durable and extremely low-cost storage for infrequently used data with security features for data archiving and backup.
+  guide:
+    subtitle: Developer Guide
+    url: amazonglacier/latest/dev/introduction.html
+  api_ref: amazonglacier/latest/dev/amazon-glacier-api.html
   tags:
     product_categories: {'Storage'}
   version: glacier-2012-06-01
-  api_ref: amazonglacier/latest/dev/amazon-glacier-api.html
 glue:
   long: '&GLUlong;'
   short: '&GLU;'
   sort: Glue
+  expanded:
+    long: AWS Glue
+    short: Glue
+  blurb: is a scalable, serverless data integration service that makes it easy to discover, prepare, and combine data for analytics, machine learning, and application development.
+  guide:
+    subtitle: Developer Guide
+    url: glue/latest/dg/what-is-glue.html
+  api_ref: glue/latest/dg/aws-glue-api.html
   tags:
     product_categories: {'Analytics'}
   version: glue-2017-03-31
-  api_ref: glue/latest/dg/aws-glue-api.html
 iam:
   bundle: iam
   long: '&IAMlong;'
   short: '&IAM;'
   sort: IAM
+  expanded:
+    long: AWS Identity and Access Management (IAM)
+    short: IAM
+  blurb: is a web service for securely controlling access to AWS services. With IAM, you can centrally manage permissions in your AWS account.
+  guide:
+    subtitle: User Guide
+    url: IAM/latest/UserGuide/introduction.html
+  api_ref: IAM/latest/APIReference/welcome.html
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: iam-2010-05-08
-  api_ref: IAM/latest/APIReference/welcome.html
 iot:
   long: '&IoTlong;'
   short: '&IoT;'
-  sort: IOT
+  sort: IoT
+  expanded:
+    long: AWS IoT
+    short: IoT
+  blurb: provides secure, bi-directional communication for Internet-connected devices (such as sensors, actuators,
+    embedded devices, wireless devices, and smart appliances) to connect to the AWS Cloud over MQTT, HTTPS, and LoRaWAN.
+  guide:
+    subtitle: Developer Guide
+    url: iot/latest/developerguide/what-is-aws-iot.html
+  api_ref: iot/latest/apireference/Welcome.html
   tags:
     product_categories: {'Internet of Things (IoT)'}
   version: iot-2015-05-28
@@ -235,6 +472,14 @@ keyspaces:
   long: '&KEYlong;'
   short: '&KEY;'
   sort: Keyspaces
+  expanded:
+    long: Amazon Keyspaces (for Apache Cassandra)
+    short: Amazon Keyspaces
+  blurb: is a scalable, highly available, and managed Apache Cassandra–compatible database service.
+  guide:
+    subtitle: Developer Guide
+    url: keyspaces/latest/devguide/what-is-keyspaces.html
+  api_ref: keyspaces/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Database'}
   version: keyspaces-2022-02-10
@@ -242,13 +487,29 @@ kinesis:
   long: '&AKlong;'
   short: '&AK;'
   sort: Kinesis
+  expanded:
+    long: Amazon Kinesis
+    short: Kinesis
+  blurb: makes it easy to collect, process, and analyze video and data streams in real time.
+  guide:
+    subtitle: Developer Guide
+    url: streams/latest/dev/introduction.html
+  api_ref: kinesis/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Analytics'}
   version: kinesis-2013-12-02
 kinesis-analytics-v2:
   long: '&AKAlong;'
   short: '&AKA;'
-  sort: Kinesis DataAnalytics
+  sort: Kinesis Data Analytics
+  expanded:
+    long: Amazon Kinesis Data Analytics
+    short: Kinesis Data Analytics
+  blurb: processes and analyzes streaming data using SQL or Java.
+  guide:
+    subtitle: Developer Guide
+    url: kinesisanalytics/latest/dev/what-is.html
+  api_ref: kinesisanalytics/latest/apiv2/Welcome.html
   tags:
     product_categories: {'Analytics'}
   version: kinesisanalyticsv2-2018-05-23
@@ -256,6 +517,14 @@ kms:
   long: '&KMSlong;'
   short: '&KMS;'
   sort: KMS
+  expanded:
+    long: AWS Key Management Service (AWS KMS)
+    short: AWS KMS
+  blurb: is an encryption and key management service scaled for the cloud.
+  guide:
+    subtitle: Developer Guide
+    url: kms/latest/developerguide/overview.html
+  api_ref: kms/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Cryptography &amp; PKI'}
   version: kms-2014-11-01
@@ -263,14 +532,29 @@ lambda:
   long: '&LAMlong;'
   short: '&LAM;'
   sort: Lambda
+  expanded:
+    long: AWS Lambda
+    short: Lambda
+  blurb: allows you to run code without provisioning or managing servers.
+  guide:
+    subtitle: Developer Guide
+    url: lambda/latest/dg/welcome.html
+  api_ref: lambda/latest/dg/API_Reference.html
   tags:
     product_categories: {'Compute'}
   version: lambda-2015-03-31
-  api_ref: lambda/latest/dg/API_Reference.html
 lex:
   long: '&LEX2long;'
   short: '&LEX2;'
   sort: Lex
+  expanded:
+    long: Amazon Lex
+    short: Amazon Lex
+  blurb: is an AWS service for building conversational interfaces into applications using voice and text.
+  guide:
+    subtitle: Developer Guide
+    url: lexv2/latest/dg/what-is.html
+  api_ref: lexv2/latest/APIReference/welcome.html
   tags:
     product_categories: {'Machine Learning'}
   version: runtime.lex.v2-2020-08-07
@@ -278,14 +562,29 @@ lookoutvision:
   long: '&LYRAlong;'
   short: '&LYRA;'
   sort: Lookout for Vision
+  expanded:
+    long: Amazon Lookout for Vision
+    short: Lookout for Vision
+  blurb: enables you to find visual defects in industrial products, accurately and at scale.
+  guide:
+    subtitle: Developer Guide
+    url: lookout-for-vision/latest/developer-guide/what-is.html
+  api_ref: lookout-for-vision/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Machine Learning'}
   version: lookoutvision-2020-11-20
-  api_ref: lookout-for-vision/latest/APIReference/Welcome.html
 medialive:
   long: '&EMLlong;'
   short: '&EML;'
   sort: MediaLive
+  expanded:
+    long: AWS Elemental MediaLive
+    short: MediaLive
+  blurb: is a video service that allows easy and reliable creation of live outputs for broadcast and streaming delivery.
+  guide:
+    subtitle: User Guide
+    url: medialive/latest/ug/what-is.html
+  api_ref: medialive/latest/apireference/what-is.html
   tags:
     product_categories: {'Media Services'}
   version: medialive-2017-10-14
@@ -293,6 +592,14 @@ mediapackage:
   long: '&EMPlong;'
   short: '&EMP;'
   sort: MediaPackage
+  expanded:
+    long: AWS Elemental MediaPackage
+    short: MediaPackage
+  blurb: is a just-in-time video packaging and origination service that delivers highly secure, scalable, and reliable video streams to a wide variety of playback devices.
+  guide:
+    subtitle: User Guide
+    url: mediapackage/latest/ug/what-is.html
+  api_ref: mediapackage/latest/apireference/what-is.html
   tags:
     product_categories: {'Media Services'}
   version: mediapackage-2017-10-12
@@ -300,6 +607,14 @@ organizations:
   long: '&AOlong;'
   short: '&AO;'
   sort: Organizations
+  expanded:
+    long: AWS Organizations
+    short: Organizations
+  blurb: consolidates multiple AWS accounts into an organization that you create and centrally manage.
+  guide:
+    subtitle: User Guide
+    url: organizations/latest/userguide/orgs_introduction.html
+  api_ref: organizations/latest/userguide/orgs_introduction.html
   tags:
     product_categories: {'Management &amp; Governance'}
   version: organizations-2016-11-28
@@ -307,6 +622,14 @@ personalize:
   long: "&PERSlong;"
   short: "&PERS;"
   sort: Personalize
+  expanded:
+    long: Amazon Personalize
+    short: Amazon Personalize
+  blurb: enables real-time personalization and recommendations, based on the same technology used at Amazon.com.
+  guide:
+    subtitle: Developer Guide
+    url: personalize/latest/dg/what-is-personalize.html
+  api_ref: personalize/latest/dg/API_Reference.html
   tags:
     product_categories: {'Machine Learning'}
   version: personalize-2018-05-22
@@ -314,6 +637,14 @@ personalize-runtime:
   long: "&PERSRlong;"
   short: "&PERSR;"
   sort: Personalize Runtime
+  expanded:
+    long: Amazon Personalize Runtime
+    short: Amazon Personalize Runtime
+  blurb: enables real-time personalization and recommendations, based on the same technology used at Amazon.com.
+  guide:
+    subtitle: Developer Guide
+    url: personalize/latest/dg/what-is-personalize.html
+  api_ref: personalize/latest/dg/API_Operations_Amazon_Personalize_Runtime.html
   tags:
     product_categories: {'Machine Learning'}
   version: personalize-runtime-2018-05-22
@@ -321,6 +652,14 @@ personalize-events:
   long: "&PERSElong;"
   short: "&PERSE;"
   sort: Personalize Events
+  expanded:
+    long: Amazon Personalize Events
+    short: Amazon Personalize Events
+  blurb: enables real-time personalization and recommendations, based on the same technology used at Amazon.com.
+  guide:
+    subtitle: Developer Guide
+    url: personalize/latest/dg/what-is-personalize.html
+  api_ref: personalize/latest/dg/API_Operations_Amazon_Personalize_Events.html
   tags:
     product_categories: {'Machine Learning'}
   version: personalize-events-2018-03-22
@@ -329,14 +668,29 @@ pinpoint:
   long: '&PINlong;'
   short: '&PIN;'
   sort: Pinpoint
+  expanded:
+    long: Amazon Pinpoint
+    short: Amazon Pinpoint
+  blurb: helps you engage your customers by sending them email, SMS and voice messages, and push notifications.
+  guide:
+    subtitle: Developer Guide
+    url: pinpoint/latest/developerguide/welcome.html
+  api_ref: pinpoint/latest/apireference/welcome.html
   tags:
     product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
   version: pinpoint-2016-12-01
-  api_ref: pinpoint/latest/apireference/welcome.html
 pinpoint-email:
   long: '&PIN-Email-API;'
   short: '&PIN-Email-API;'
   sort: Pinpoint Email
+  expanded:
+    long: Amazon Pinpoint Email
+    short: Amazon Pinpoint Email
+  blurb: helps you engage your customers by sending them email, SMS and voice messages, and push notifications.
+  guide:
+    subtitle: Developer Guide
+    url: pinpoint/latest/developerguide/welcome.html
+  api_ref: pinpoint/latest/apireference/welcome.html
   tags:
     product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
   version: pinpoint-email-2018-07-26
@@ -345,14 +699,29 @@ pinpoint-sms-voice:
   long: '&PIN-SMS-Voice-API;'
   short: '&PIN-SMS-Voice-API;'
   sort: Pinpoint SMS and Voice
+  expanded:
+    long: Amazon Pinpoint SMS and Voice
+    short: Amazon Pinpoint SMS and Voice
+  blurb: helps you engage your customers by sending them email, SMS and voice messages, and push notifications.
+  guide:
+    subtitle: Developer Guide
+    url: pinpoint/latest/developerguide/welcome.html
+  api_ref: pinpoint-sms-voice/latest/APIReference/welcome.html
   tags:
     product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
   version: pinpoint-sms-voice-2018-09-05
-  api_ref: pinpoint-sms-voice/latest/APIReference/welcome.html
 polly:
   long: '&POLlong;'
   short: '&POL;'
   sort: Polly
+  expanded:
+    long: Amazon Polly
+    short: Amazon Polly
+  blurb: is a Text-to-Speech (TTS) cloud service that converts text into lifelike speech.
+  guide:
+    subtitle: Developer Guide
+    url: polly/latest/dg/what-is.html
+  api_ref: polly/latest/dg/API_Reference.html
   tags:
     product_categories: {'Machine Learning'}
   version: polly-2016-06-10
@@ -360,6 +729,14 @@ qldb:
   long: '&QLDBlong;'
   short: '&QLDB;'
   sort: QLDB
+  expanded:
+    long: Amazon Quantum Ledger Database (Amazon QLDB)
+    short: Amazon QLDB
+  blurb: is a fully managed ledger database that provides a transparent, immutable, and cryptographically verifiable transaction log owned by a central trusted authority.
+  guide:
+    subtitle: Developer Guide
+    url: qldb/latest/developerguide/what-is.html
+  api_ref: qldb/latest/developerguide/api-reference.html
   tags:
     product_categories: {'Database'}
   version: qldb-2019-01-02
@@ -367,41 +744,78 @@ rds:
   long: '&RDSlong;'
   short: '&RDS;'
   sort: RDS
+  expanded:
+    long: Amazon Relational Database Service (Amazon RDS)
+    short: Amazon RDS
+  blurb: is a web service that makes it easier to set up, operate, and scale a relational database in the cloud.
+  guide:
+    subtitle: User Guide
+    url: AmazonRDS/latest/UserGuide/Welcome.html
+  api_ref: AmazonRDS/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Database'}
   version: rds-2014-10-31
-  api_ref: AmazonRDS/latest/APIReference/Welcome.html
 rds-data:
   long: '&RDSDataServicelong;'
   short: '&RDSDataService;'
   sort: RDS Data Service
+  expanded:
+    long: Amazon Relational Database Service (Amazon RDS) Data Service
+    short: Amazon RDS Data Service
+  blurb: provides an HTTP endpoint to run SQL statements on an Amazon Aurora Serverless v1 DB cluster.
+  guide:
+    subtitle: User Guide
+    url: AmazonRDS/latest/UserGuide/Welcome.html
+  api_ref: rdsdataservice/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Database'}
   version: rds-data-2018-08-01
-  api_ref: rdsdataservice/latest/APIReference/Welcome.html
 redshift:
   long: '&RSlong;'
   short: '&RS;'
   sort: Redshift
+  expanded:
+    long: Amazon Redshift
+    short: Amazon Redshift
+  blurb: is a fast, fully managed, petabyte-scale data warehouse service that makes it simple and cost-effective to
+    efficiently analyze all your data using your existing business intelligence tools.
+  guide:
+    subtitle: Management Guide
+    url: redshift/latest/mgmt/welcome.html
+  api_ref: redshift/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Database'}
   version: redshift-2012-12-01
-  api_ref: redshift/latest/APIReference/Welcome.html
 rekognition:
   caveat: The code examples in this chapter are intended to supplement the code examples
     found throughout the rest of this guide.
   long: '&REKlong;'
   short: '&REK;'
   sort: Rekognition
+  expanded:
+    long: Amazon Rekognition
+    short: Amazon Rekognition
+  blurb: makes it easy to add image and video analysis to your applications.
+  guide:
+    subtitle: Developer Guide
+    url: rekognition/latest/dg/what-is.html
+  api_ref: rekognition/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Machine Learning'}
   version: rekognition-2016-06-27
-  api_ref: rekognition/latest/APIReference/Welcome.html
 route-53:
   bundle: route-53
   long: '&R53long;'
   short: '&R53;'
   sort: Route 53
+  expanded:
+    long: Amazon Route 53
+    short: Route 53
+  blurb: is a highly available and scalable Domain Name System (DNS) web service.
+  guide:
+    subtitle: Developer Guide
+    url: Route53/latest/DeveloperGuide/Welcome.html
+  api_ref: Route53/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
   version: route53-2013-04-01
@@ -410,6 +824,14 @@ route53-domains:
   long: '&R53DRlong;'
   short: '&R53DR;'
   sort: Route 53 Domain Registration
+  expanded:
+    long: Amazon Route 53 Domain Registration
+    short: Route 53 Domain Registration
+  blurb: is a highly available and scalable Domain Name System (DNS) web service.
+  api_ref: Route53/latest/APIReference/API_Operations_Amazon_Route_53_Domains.html
+  guide:
+    subtitle: Developer Guide
+    url: Route53/latest/DeveloperGuide/Welcome.html
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
   version: route53domains-2014-05-15
@@ -417,22 +839,44 @@ route53-recovery-cluster:
   long: '&R53ARClong;'
   short: '&R53ARC;'
   sort: Application Recovery Controller
+  expanded:
+    long: Amazon Route 53 Application Recovery Controller (Route 53 ARC)
+    short: Route 53 ARC
+  blurb: gives you insights about whether your applications and resources are ready for recovery, and helps you move traffic across AWS Regions or away from Availability Zones for application disaster recovery.
+  guide:
+    subtitle: Developer Guide
+    url: r53recovery/latest/dg/what-is-route53-recovery.html
+  api_ref: routing-control/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Networking &amp; Content Delivery'}
   version: route53-recovery-cluster-2019-12-02
-  api_ref: routing-control/latest/APIReference/Welcome.html
 s3:
   long: '&S3long;'
   short: '&S3;'
   sort: S3
+  expanded:
+    long: Amazon Simple Storage Service (Amazon S3)
+    short: Amazon S3
+  blurb: is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
+  guide:
+    subtitle: User Guide
+    url: AmazonS3/latest/userguide/Welcome.html
+  api_ref: AmazonS3/latest/API/Welcome.html
   tags:
     product_categories: {'Storage'}
   version: s3-2006-03-01
-  api_ref: AmazonS3/latest/API/Welcome.html
 sagemaker:
   long: '&SMlong;'
   short: '&SM;'
   sort: SageMaker
+  expanded:
+    long: Amazon SageMaker
+    short: SageMaker
+  blurb: is a fully managed machine learning service.
+  guide:
+    subtitle: Developer Guide
+    url: sagemaker/latest/dg/whatis.html
+  api_ref: sagemaker/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Machine Learning'}
   version: sagemaker-2017-07-24
@@ -440,6 +884,14 @@ secrets-manager:
   long: '&ASMlong;'
   short: '&ASM;'
   sort: Secrets Manager
+  expanded:
+    long: AWS Secrets Manager
+    short: Secrets Manager
+  blurb: helps you to securely encrypt, store, and retrieve credentials for your databases and other services.
+  guide:
+    subtitle: User Guide
+    url: secretsmanager/latest/userguide/intro.html
+  api_ref: secretsmanager/latest/apireference/Welcome.html
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: secretsmanager-2017-10-17
@@ -448,15 +900,30 @@ ses:
   long: '&SESlong;'
   short: '&SES;'
   sort: SES
+  expanded:
+    long: Amazon Simple Email Service (Amazon SES)
+    short: Amazon SES
+  blurb: is a reliable, scalable, and cost-effective email service.
+  guide:
+    subtitle: Developer Guide
+    url: ses/latest/dg/Welcome.html
+  api_ref: ses/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Business Applications'}
   version: email-2010-12-01
-  api_ref: ses/latest/APIReference/Welcome.html
 sesv2:
   bundle: ses
   long: '&SESv2long;'
   short: '&SESv2;'
   sort: SES v2 API
+  expanded:
+    long: Amazon Simple Email Service (Amazon SES) v2 API
+    short: Amazon SES v2 API
+  blurb: is a reliable, scalable, and cost-effective email service.
+  guide:
+    subtitle: Developer Guide
+    url: ses/latest/dg/Welcome.html
+  api_ref: ses/latest/APIReference-V2/Welcome.html
   tags:
     product_categories: {'Business Applications'}
   version: sesv2-2019-09-27
@@ -464,6 +931,14 @@ sfn:
   long: '&SFNlong;'
   short: '&SFN;'
   sort: Step Functions
+  expanded:
+    long: AWS Step Functions
+    short: Step Functions
+  blurb: makes it easy to coordinate the components of distributed applications as a series of steps in a visual workflow.
+  guide:
+    subtitle: Developer Guide
+    url: step-functions/latest/dg/welcome.html
+  api_ref: step-functions/latest/apireference/Welcome.html
   tags:
     product_categories: {'Application Integration'}
   version: states-2016-11-23
@@ -471,6 +946,15 @@ snowball:
   long: '&Frozenlong;'
   short: '&Frozen;'
   sort: Snowball
+  expanded:
+    long: AWS Snowball
+    short: Snowball
+  blurb: uses physical storage devices to transfer large amounts of data between Amazon Simple Storage Service (Amazon S3)
+    and your onsite data storage location at faster-than-internet speeds.
+  guide:
+    subtitle: User Guide
+    url: snowball/latest/ug/whatissnowball.html
+  api_ref: snowball/latest/api-reference/API_Operations_Amazon_Import_Export_Snowball.html
   tags:
     product_categories: {'Storage'}
   version: snowball-2016-06-30
@@ -478,14 +962,29 @@ sns:
   long: '&SNSlong;'
   short: '&SNS;'
   sort: SNS
+  expanded:
+    long: Amazon Simple Notification Service (Amazon SNS)
+    short: Amazon SNS
+  blurb: is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
+  guide:
+    subtitle: Developer Guide
+    url: sns/latest/dg/welcome.html
+  api_ref: sns/latest/api/welcome.html
   tags:
     product_categories: {'Application Integration', 'Front-End Web &amp; Mobile'}
   version: sns-2010-03-31
-  api_ref: sns/latest/api/welcome.html
 sqs:
   long: '&SQSlong;'
   short: '&SQS;'
   sort: SQS
+  expanded:
+    long: Amazon Simple Queue Service (Amazon SQS)
+    short: Amazon SQS
+  blurb: is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications.
+  guide:
+    subtitle: Developer Guide
+    url: AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html
+  api_ref: AWSSimpleQueueService/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Application Integration'}
   version: sqs-2012-11-05
@@ -493,6 +992,14 @@ ssm:
   long: '&SYSlong;'
   short: '&SYS;'
   sort: Systems Manager
+  expanded:
+    long: AWS Systems Manager
+    short: Systems Manager
+  blurb: organizes, monitors, and automates management tasks on your AWS resources.
+  guide:
+    subtitle: User Guide
+    url: systems-manager/latest/userguide/what-is-systems-manager.html
+  api_ref: systems-manager/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Management &amp; Governance'}
   version: ssm-2014-11-06
@@ -501,38 +1008,75 @@ sts:
   long: '&STSlong;'
   short: '&STS;'
   sort: STS
+  expanded:
+    long: AWS Security Token Service (AWS STS)
+    short: AWS STS
+  blurb: creates and provides trusted users with temporary security credentials that can control access to your AWS resources.
+  guide:
+    subtitle: User Guide
+    url: IAM/latest/UserGuide/id_credentials_temp.html
+  api_ref: STS/latest/APIReference/welcome.html
   tags:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: sts-2011-06-15
-  api_ref: STS/latest/APIReference/welcome.html
 support:
   long: '&SUPlong;'
   short: '&SUP;'
   sort: Support
+  expanded:
+    long: AWS Support
+    short: AWS Support
+  blurb: provides support for users of Amazon Web Services.
+  guide:
+    subtitle: User Guide
+    url: awssupport/latest/user/getting-started.html
+  api_ref: support/latest/APIReference/welcome.html
   tags:
     product_categories: {'Customer Enablement Services'}
   version: support-2013-04-15
-  api_ref: support/latest/APIReference/welcome.html
 textract:
   long: '&TEXTRACTlong;'
   short: '&TEXTRACT;'
   sort: Textract
+  expanded:
+    long: Amazon Textract
+    short: Amazon Textract
+  blurb: enables you to add document text detection and analysis to your applications.
+  guide:
+    subtitle: Developer Guide
+    url: textract/latest/dg/what-is.html
+  api_ref: textract/latest/dg/API_Reference.html
   tags:
     product_categories: {'Machine Learning'}
   version: textract-2018-06-27
-  api_ref: textract/latest/dg/API_Reference.html
 transcribe:
   long: '&TSClong;'
   short: '&TSC;'
   sort: Transcribe
+  expanded:
+    long: Amazon Transcribe
+    short: Amazon Transcribe
+  blurb: provides transcription services for your audio files and audio streams.
+  guide:
+    subtitle: Developer Guide
+    url: transcribe/latest/dg/what-is.html
+  api_ref: transcribe/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Machine Learning'}
   version: transcribe-2017-10-26
-  api_ref: transcribe/latest/APIReference/Welcome.html
 transcribe-medical:
   long: '&TSClong;'
   short: '&TSC;'
-  sort: Transcribe medical
+  sort: Transcribe Medical
+  expanded:
+    long: Amazon Transcribe Medical
+    short: Amazon Transcribe Medical
+  blurb: is an automatic speech recognition (ASR) service designed for medical professionals who want to transcribe
+    medical-related speech, such as physician-dictated notes, drug safety monitoring, telemedicine appointments, or physician-patient conversations.
+  guide:
+    subtitle: Developer Guide
+    url: transcribe/latest/dg/transcribe-medical.html
+  api_ref: transcribe/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Machine Learning'}
   version: transcribe-2017-10-26
@@ -540,6 +1084,14 @@ translate:
   long: '&TSLlong;'
   short: '&TSL;'
   sort: Translate
+  expanded:
+    long: Amazon Translate
+    short: Amazon Translate
+  blurb: is a neural machine translation service for translating text to and from English across a breadth of supported languages.
+  guide:
+    subtitle: Developer Guide
+    url: translate/latest/dg/what-is.html
+  api_ref: translate/latest/APIReference/welcome.html
   tags:
     product_categories: {'Machine Learning'}
   version: translate-2017-07-01
