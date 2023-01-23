@@ -4,7 +4,7 @@
 ARG MSRV=1.62.1
 FROM rust:$MSRV
 COPY . /rust_dev_preview/
-WORKDIR /rust_dev_preview
+# WORKDIR /rust_dev_preview
 RUN apt-get update && \
   apt-get install libclang-dev -y && \
   cargo check --manifest-path /rust_dev_preview
