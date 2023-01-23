@@ -27,12 +27,12 @@ public class HelloService {
             "Where:\n" +
             "  namespace - The namespace to filter against (for example, AWS/EC2). \n" ;
 
-       // if (args.length != 1) {
-       //     System.out.println(usage);
-       //     System.exit(1);
-       // }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String namespace = "AWS/EC2";  //args[0];
+        String namespace = args[0];
         Region region = Region.US_EAST_1;
         CloudWatchClient cw = CloudWatchClient.builder()
             .region(region)
