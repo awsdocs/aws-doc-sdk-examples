@@ -1,0 +1,6 @@
+{
+  "ActivityName": "mvp-activity",
+  "StateMachineName": "mvp-state-machine",
+  "ExecutionName": "mvp-execution",
+  "RoleArn": "arn:aws:iam::704825161248:role/step-functions-mvp-role"
+}
