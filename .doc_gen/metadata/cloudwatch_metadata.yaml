@@ -838,6 +838,15 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
     - Clean up dashboards, alarms, and anomaly detectors.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.main
     .NET:
       versions:
         - sdk_version: 3
