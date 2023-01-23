@@ -40,16 +40,16 @@ Cross-service examples are located in the [_cross-services folder_](./example_co
 You can run tests for a specific service, or for every service in this repository. Choose whether to run unit tests, integration tests, or both.
 
 - To run both unit and integration tests for all services, run the following from this directory:
-  
-  `npm test` or `npm test -- @unit @integration`
 
-- To run only unit tests, provide the `@unit` tag as an argument:
-  
-  `npm test -- @unit`
+  `npm test`
 
-- To run only integration tests, provide the `@integration` tag as an argument:
-  
-  `npm test -- @integration`
+- To run only unit tests, set the `TEST_SCOPE` variable to `unit`:
+
+  `TEST_SCOPE=unit npm test`
+
+- To run only integration tests, set the `TEST_SCOPE` variable to `integration`:
+
+  `TEST_SCOPE=integration npm test`
 
 - To run tests for a specific service, follow the instructions in the service's README.
 
@@ -64,6 +64,21 @@ these examples in an isolated environment.
 undergoing active development. Refer to
 [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4127)
 for more information.
+
+### Build the Docker image
+
+1. Install and run docker on your machine.
+2. Navigate to the same directory as this readme.
+3. Run `docker build -t <image_name> .` where `image_name` is a name you provide for the image.
+
+### Launch the Docker container
+
+1. Run `docker run -it -v ~/.aws/credentials:/root/.aws/credentials <image_name>`. `-it` launches an
+   interactive terminal. `-v ~/.aws...` is optional but recommended. It will mount your local credentials
+   file to the container.
+2. The terminal initiates a bash instance at the root of the container. Run `cd javascriptv3` and then you
+   can run tests from here by following the steps in the [Tests](#tests) section. Run examples by navigating
+   to a service folder and following the README instructions there.
 
 ## Additional resources
 
