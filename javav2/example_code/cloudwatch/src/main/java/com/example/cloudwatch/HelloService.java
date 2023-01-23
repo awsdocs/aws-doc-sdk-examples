@@ -17,6 +17,14 @@ import software.amazon.awssdk.services.cloudwatch.model.CloudWatchException;
 import software.amazon.awssdk.services.cloudwatch.model.ListMetricsRequest;
 import software.amazon.awssdk.services.cloudwatch.paginators.ListMetricsIterable;
 
+// snippet-start:[cloudwatch.java2.hello.main]
+/**
+ * Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ */
 public class HelloService {
 
     public static void main(String[] args) {
@@ -43,7 +51,7 @@ public class HelloService {
         cw.close();
     }
 
-    // snippet-start:[cloudwatch.java2.list_metrics.pag.main]
+
     public static void listMets( CloudWatchClient cw, String namespace) {
         try {
             ListMetricsRequest request = ListMetricsRequest.builder()
@@ -60,5 +68,5 @@ public class HelloService {
             System.exit(1);
         }
     }
-    // snippet-end:[cloudwatch.java2.list_metrics.pag.main]
 }
+// snippet-end:[cloudwatch.java2.hello.main]
