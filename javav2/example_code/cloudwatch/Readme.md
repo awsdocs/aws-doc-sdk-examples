@@ -81,10 +81,9 @@ To successfully run the JUnit tests, define the following values in the test:
 - **costDateWeekSc** - The start date to use to get AWS/Billinget statistics. (for example, 2023-01-11T18:35:24.00Z). 
 - **dashboardNameSc** - The name of the dashboard to create in the scenario test. 
 - **dashboardJsonSc** - The location of the jsonWidgets fle to use to create a dashboard. 
-- **dashboardAddSc** - The location of the CloudDashboard.json file to use to update a dashboard. (See Readme file). \n" +
-- **settingsSc** - The location of the settings.json file from which various values are read. (See Readme file). \n" +
-- **metricImageSc** - The location of a BMP file that is used to create a graph.  \n" ;
-
+- **dashboardAddSc** - The location of the CloudDashboard.json file to use to update a dashboard. (See Readme file). 
+- **settingsSc** - The location of the settings.json file from which various values are read. (See Readme file). 
+- **metricImageSc** - The location of a BMP file that is used to create a graph.  
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
