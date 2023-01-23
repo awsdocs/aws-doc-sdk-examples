@@ -280,7 +280,7 @@ public class CloudWatchTest {
                 System.exit(1);
         }
         System.out.println("You selected "+selectedMetrics);
-        Dimension myDimension = CloudWatchScenario.getSpecificMet( cw, selectedNamespace, selectedMetrics);
+        Dimension myDimension = CloudWatchScenario.getSpecificMet( cw, selectedNamespace);
         System.out.println(CloudWatchScenario.DASHES);
 
         System.out.println(CloudWatchScenario.DASHES);
