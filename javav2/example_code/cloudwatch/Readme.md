@@ -1,90 +1,98 @@
 # Amazon CloudWatch Java code examples
 
-This README discusses how to run and test the Java code examples for Amazon CloudWatch.
+## Overview
+This README discusses how to run and test the AWS SDK for Java (v2) examples for Amazon CloudWatch.
 
-## Running the Amazon CloudWatch Java files
+Amazon CloudWatch enables you to monitor your complete stack (applications, infrastructure, network, and services) and use alarms, logs, and events data to take automated actions. 
+
+## ⚠️ Important
+* Running this code might result in charges to your AWS account. See [AWS Pricing](https://aws.amazon.com/pricing/).
+* Running the tests might result in charges to your AWS account.
+* We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+
+## Code examples
 
 The credential provider used in all code examples is ProfileCredentialsProvider. For more information, see [Using credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
-**IMPORTANT**
+### Get started
 
-The Java code examples perform AWS operations for the account and AWS Region for which you've specified credentials, and you may incur AWS service charges by running them. See the [AWS Pricing page](https://aws.amazon.com/pricing/) for details about the charges you can expect for a given service and operation.   
+- [Hello Amazon CloudWatch](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/HelloService.java) (listMetricsPaginator command)
 
-Some of these examples perform *destructive* operations on AWS resources, such as deleting a CloudWatch alarm. **Be very careful** when running an operation that deletes or modifies AWS resources in your account. It's best to create separate test-only resources when experimenting with these examples.
+### Single action
 
-To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information, 
-see [Get started with the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html). 
+Code excerpts that show you how to call individual service functions.
+
+- [Delete alarms](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/DeleteAlarm.java) (createKeyspace command)
+- [Delete an anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (DeleteAnomalyDetectorRequest command)
+- [Delete dashboards](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (deleteDashboards command)
+- [Describe alarm history](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (describeAlarmHistory command)
+- [Describe alarms](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (describeAlarms command)
+- [Describe alarms for a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (describeAlarmsForMetric command)
+- [Describe anomaly detectors](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (describeAnomalyDetectors command)
+- [Disable alarm actions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/DisableAlarmActions.java)  (disableAlarmActions command)
+- [Enable alarm actions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/EnableAlarmActions.java)  (enableAlarmActions command)
+- [Get metric data](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (getMetricData command)
+- [Get metric statistics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (getMetricStatistics command)
+- [Get a metric data image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (getMetricWidgetImage command)
+- [List metrics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (ListMetrics command)
+- [Create anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putAnomalyDetector command)
+- [Create a dashboard](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putDashboard command)
+- [Create a metric alarm](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putMetricAlarm command)
+- [Put data into a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putMetricData command)
 
 
- ## Testing the Amazon CloudWatch Java files
+### Scenario 
 
-You can test the Java code examples for Amazon CloudWatch by running a test file named **CloudWatchTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test is run, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
+- [Get started with billing, alarms, and metrics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (multiple commands)
+
+## Run the examples
+
+### Prerequisites
+
+To run these examples, set up your development environment. For more information, 
+see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
+
+ To run these examples, you require three JSON files. You can find these three files in this Github repository. The name of these files are: jsonWidgets.json, CloudDashboard.json, and settings.json. The  CloudWatchScenario depends on these files. 
+ 
+ **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
+
+ ## Test the examples
+ 
+ ⚠️ Running the tests might result in charges to your AWS account.
+
+You can test the Java code example for Amazon Keyspaces by running a test file named **KeyspaceTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+
+To successfully run the JUnit tests, define the following values in the test:
+
+- **logGroup** - The name of the log group to use. For example, **testgroup**.
+- **alarmName** – The name of the alarm to use. For example, **AlarmFeb**.
+- **instanceId** – The ID of the instance to use. You can obtain this value from the AWS Management Console. For example, **ami-04300000000**.
+- **streamName** - The name of the stream to use. This value is used to retrieve log events.
+- **ruleResource** – The Amazon Resource Name (ARN) of the user who owns the rule. You can obtain this value from the AWS Management Console.  
+-  **filterName**  - The name of the filter to use.
+- **destinationArn** - The ARN of the destination. This value is used to create subscription filters.
+- **roleArn** - The ARN of the user. This value is used to create subscription filters.
+- **filterPattern** - The filter pattern. For example, **Error**.
+- **myDateSc** - The start date to use to get metric statistics in the scenario test. (for example, 2023-01-11T18:35:24.00Z). 
+- **costDateWeekSc** - The start date to use to get AWS/Billinget statistics. (for example, 2023-01-11T18:35:24.00Z). 
+- **dashboardNameSc** - The name of the dashboard to create in the scenario test. 
+- **dashboardJsonSc** - The location of the jsonWidgets fle to use to create a dashboard. 
+- **dashboardAddSc** - The location of the CloudDashboard.json file to use to update a dashboard. (See Readme file). 
+- **settingsSc** - The location of the settings.json file from which various values are read. (See Readme file). 
+- **metricImageSc** - The location of a BMP file that is used to create a graph.  
+
+You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon CloudWatch resources and may incur charges on your account._
+**WARNING**: _Running these JUnit tests manipulates real AWS resources and might incur charges on your account._
 
- ### Properties file
-Before running the Amazon CloudWatch JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. For example, you define an alarm name for various tests. If you do not define all values, the JUnit tests fail.
+## Additional resources
+* [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
+* [User Guide - Amazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html).
+* [Interface KeyspacesClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudwatch/CloudWatchClient.html).
 
-Define these values to successfully run the JUnit tests:
-
-- **logGroup** - The name of the log group to use. For example, **testgroup**.
-
-- **alarmName** – The name of the alarm to use. For example, **AlarmFeb**.
-
-- **instanceId** – The ID of the instance to use. You can obtain this value from the AWS Management Console. For example, **ami-04300000000**.
-
-- **streamName** - The name of the stream to use. This value is used to retrieve log events.
-
-- **ruleResource** – The Amazon Resource Name (ARN) of the user who owns the rule. You can obtain this value from the AWS Management Console.  
--  **filterName**  - The name of the filter to use.
-
-- **destinationArn** - The ARN of the destination. This value is used to create subscription filters.
-
-- **roleArn** - The ARN of the user. This value is used to create subscription filters.
-
-- **filterPattern** - The filter pattern. For example, **Error**.
-
-### Command line
-
-To run the JUnit tests from the command line, you can use the following command.
-
-		mvn test
-
-You will see output from the JUnit tests, as shown here.
-
-	[INFO] -------------------------------------------------------
-	[INFO]  T E S T S
-	[INFO] -------------------------------------------------------
-	[INFO] Running CloudWatchServiceIntegrationTest
-	Test 1 passed
-	Test 2 passed
-	...
-	Done!
-	[INFO] Results:
-	[INFO]
-	[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
-	[INFO]
-	INFO] --------------------------------------------
-	[INFO] BUILD SUCCESS
-	[INFO]--------------------------------------------
-	[INFO] Total time:  12.003 s
-	[INFO] Finished at: 2020-02-10T14:25:08-05:00
-	[INFO] --------------------------------------------
-
-### Unsuccessful tests
-
-If you do not define the correct values in the properties file, your JUnit tests are not successful. You will see an error message such as the following. You need to double-check the values that you set in the properties file and run the tests again.
-
-	[INFO]
-	[INFO] --------------------------------------
-	[INFO] BUILD FAILURE
-	[INFO] --------------------------------------
-	[INFO] Total time:  19.038 s
-	[INFO] Finished at: 2020-02-10T14:41:51-05:00
-	[INFO] ---------------------------------------
-	[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.22.1:test (default-test) on project S3J2Project:  There are test failures.
-	[ERROR];
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
