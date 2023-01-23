@@ -122,7 +122,7 @@ public class CloudWatchScenario {
             "  dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file). \n" +
             "  dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file). \n" +
             "  settings - The location of a JSON file from which various values are read. (See Readme file). \n" +
-            "  metricImage - The location of a BMP file that is used to create a graph. (See Readme file). \n" ;
+            "  metricImage - The location of a BMP file that is used to create a graph. \n" ;
 
         if (args.length != 7) {
              System.out.println(usage);
