@@ -22,10 +22,10 @@ cloudwatch-events_PutRule:
           excerpts:
             - description: Create the client in a separate module and export it.
               snippet_tags:
-                - cloudwatch.JavaScript.events.createclientv3
+                - javascript.v3.cloudwatchevents.client
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
-                - cwEvents.JavaScript.cwe.putRuleV3
+                - javascript.v3.cloudwatchlogs.actions.PutRule
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
@@ -58,10 +58,10 @@ cloudwatch-events_PutEvents:
           excerpts:
             - description: Create the client in a separate module and export it.
               snippet_tags:
-                - cloudwatch.JavaScript.events.createclientv3
+                - javascript.v3.cloudwatchevents.client
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
-                - cwEvents.JavaScript.cwe.putEventsV3
+                - javascript.v3.cloudwatchlogs.actions.PutEvents
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
@@ -72,9 +72,9 @@ cloudwatch-events_PutEvents:
   services:
     cloudwatch-events: {PutEvents}
 cloudwatch-events_PutTargets:
-  title: Add a &LAM; function target using an &AWS; SDK
-  title_abbrev: Adding a &LAM; function target
-  synopsis: add an &LAMlong; function target to an &CWElong; event.
+  title: Add a target using an &AWS; SDK
+  title_abbrev: Adding a target
+  synopsis: add a target to an &CWElong; event.
   category:
   languages:
     Java:
@@ -94,10 +94,10 @@ cloudwatch-events_PutTargets:
           excerpts:
             - description: Create the client in a separate module and export it.
               snippet_tags:
-                - cloudwatch.JavaScript.events.createclientv3
+                - javascript.v3.cloudwatchevents.client
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
-                - cwEvents.JavaScript.cwe.putTargetsV3
+                - javascript.v3.cloudwatchlogs.actions.PutTargets
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-targets

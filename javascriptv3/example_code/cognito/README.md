@@ -46,7 +46,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 ### Prerequisites
 
 - [Set up AWS SDK for JavaScript](../README.rst)
-- Run `yarn` to install dependencies.
+- Run `npm i` to install dependencies.
 
 ### Instructions
 
@@ -65,8 +65,8 @@ its readme.
 
 ⚠️ Running the tests might result in charges to your AWS account.
 
-1. Run `yarn`
-1. Run `yarn test`
+1. Run `npm i`.
+2. Run `npm test` or `npm run integration-test`.
 
 ## Additional resources
 

@@ -41,7 +41,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ### Run a single action
 
-1. Run `yarn`
+1. Run `npm i`
 1. Create a new file in this directory and `import { functionName } from "./actions/action-name.js"`
    where `action-name` is the file name of the action you want to run, and `function-name` is the name of
    the exported function in that file.
@@ -51,8 +51,8 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ⚠️ Running the tests might result in charges to your AWS account.
 
-1. Run `yarn`
-1. Run `yarn test`
+1. Run `npm i`
+1. Run `npm test`
 
 ## Additional resources
 

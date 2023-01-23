@@ -1,0 +1,3 @@
+boto3>=1.24.60
+pytest>=6.0.2
+requests>=2.25.1

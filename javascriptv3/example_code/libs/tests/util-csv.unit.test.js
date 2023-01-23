@@ -1,4 +1,4 @@
-import { describe, it, expect, afterAll } from "@jest/globals";
+import { describe, it, expect, afterAll } from "vitest";
 import { testEqual } from "../utils/util-test.js";
 import { getUniqueName } from "../utils/util-string.js";
 import { getFirstEntry, getFirstValuesFromEntries, getSecondValuesFromEntries } from "../utils/util-csv.js";

@@ -27,11 +27,25 @@ There are currently no cross-service examples for the AWS SDK for Swift. To requ
 ### Prerequisites
 * You must have an AWS account, and have your default credentials and AWS Region configured as described in the [Getting started](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/getting-started.html) section of the _AWS SDK for Swift Developer Guide_.
 * You must have the [Swift](https://www.swift.org/) compiler (version 5.4 or later) and tools installed. If you have the latest version of Xcode installed, you already have the Swift tools. For detailed instructions, see [Setting up](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/setting-up.html) in the _AWS SDK for Swift Developer Guide_.
+* Some examples require newer versions of the Swift compiler. See the comment
+  at the top of the example's `Package.swift`  file to find the minimum Swift
+  tools version required by the example.
 
 ## Tests
 **Note**: Running the tests might result in charges to your AWS account.
 
 To run the tests for an example, use the command `swift test` in the example's directory.
+
+## Docker image (Beta)
+This example code will soon be available in a container image
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
+with all Swift examples with dependencies pre-resolved, allowing you to explore
+these examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for Swift image](https://gallery.ecr.aws/aws-docs-sdk-examples/swift) is available on ECR Public but is still
+undergoing active development. Refer to
+[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4132)
+for more information.
 
 ## Additional resources
 * [AWS SDK for Swift Developer Guide](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide) - Documentation for the AWS SDK for Swift

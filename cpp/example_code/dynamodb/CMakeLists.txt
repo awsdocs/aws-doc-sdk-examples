@@ -64,7 +64,6 @@ if(WIN32)
     endif(MSVC)
 endif()
 
-set(MOVIE_FILE_PATH "${CMAKE_SOURCE_DIR}/../../../resources/sample_files/movies.json")
 
 foreach(file ${AWSDOC_SOURCE})
     get_filename_component(EXAMPLE ${file} NAME_WE)
@@ -87,7 +86,7 @@ foreach(file ${AWSDOC_SOURCE})
             )
     target_compile_definitions(${EXAMPLE_EXE}
             PRIVATE
-            MOVIE_FILE_PATH="${MOVIE_FILE_PATH}"
+            MOVIE_FILE_PATH="${CMAKE_CURRENT_SOURCE_DIR}/../../../resources/sample_files/movies.json"
         )
 
  endforeach()
