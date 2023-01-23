@@ -5,6 +5,15 @@ cloudwatch_Hello:
   synopsis: get started using &CW;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.hello.main
     .NET:
       versions:
         - sdk_version: 3
