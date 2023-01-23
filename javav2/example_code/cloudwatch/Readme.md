@@ -32,7 +32,6 @@ Code excerpts that show you how to call individual service functions.
 - [Describe anomaly detectors](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (describeAnomalyDetectors command)
 - [Disable alarm actions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/DisableAlarmActions.java)  (disableAlarmActions command)
 - [Enable alarm actions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/EnableAlarmActions.java)  (enableAlarmActions command)
-- [Enable alarm actions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/EnableAlarmActions.java)  (enableAlarmActions command)
 - [Get metric data](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (getMetricData command)
 - [Get metric statistics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (getMetricStatistics command)
 - [Get a metric data image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (getMetricWidgetImage command)
