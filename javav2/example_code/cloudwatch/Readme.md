@@ -3,7 +3,7 @@
 ## Overview
 This README discusses how to run and test the AWS SDK for Java (v2) examples for Amazon CloudWatch.
 
-CloudWatch enables you to monitor your complete stack (applications, infrastructure, network, and services) and use alarms, logs, and events data to take automated actions. 
+Amazon CloudWatch enables you to monitor your complete stack (applications, infrastructure, network, and services) and use alarms, logs, and events data to take automated actions. 
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account. See [AWS Pricing](https://aws.amazon.com/pricing/).
