@@ -61,7 +61,6 @@ public class GetObjectData {
             .build();
 
         getObjectBytes(s3,bucketName,keyName, path);
-        s3.close();
     }
 
     // snippet-start:[s3.java2.getobjectdata.main]
