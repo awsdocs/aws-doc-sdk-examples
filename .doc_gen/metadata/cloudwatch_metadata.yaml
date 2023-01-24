@@ -115,6 +115,15 @@ cloudwatch_DeleteAnomalyDetector:
   synopsis: delete an &CWlong; anomaly detector.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.del.anomalydetector.main
     .NET:
       versions:
         - sdk_version: 3
@@ -132,6 +141,15 @@ cloudwatch_DeleteDashboards:
   synopsis: delete &CWlong; dashboards.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.del.dashboard.main
     .NET:
       versions:
         - sdk_version: 3
@@ -149,6 +167,15 @@ cloudwatch_DescribeAlarmHistory:
   synopsis: describe an &CWlong; alarm history.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.get.alarm.history.main
     .NET:
       versions:
         - sdk_version: 3
@@ -166,6 +193,15 @@ cloudwatch_DescribeAlarms:
   synopsis: describe &CWlong; alarms.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.describe.alarm.main
     .NET:
       versions:
         - sdk_version: 3
@@ -217,7 +253,7 @@ cloudwatch_DescribeAlarmsForMetric:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.java2.describe_alarms.main
+                - cloudwatch.java2.scenario.check.met.alarm.main
     Python:
       versions:
         - sdk_version: 3
@@ -267,6 +303,15 @@ cloudwatch_DescribeAnomalyDetectors:
   synopsis: describe &CWlong; anomaly detectors.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.describe.anomalydetector.main
     .NET:
       versions:
         - sdk_version: 3
@@ -469,6 +514,15 @@ cloudwatch_GetMetricData:
   synopsis: get &CWlong; metric data.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.get.met.data.main
     .NET:
       versions:
         - sdk_version: 3
@@ -486,6 +540,15 @@ cloudwatch_GetMetricStatistics:
   synopsis: get &CWlong; metric statistics.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.display.metrics.main
     .NET:
       versions:
         - sdk_version: 3
@@ -514,6 +577,15 @@ cloudwatch_GetMetricImage:
   synopsis: get an &CWlong; metric data image.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.get.metric.image.main
     .NET:
       versions:
         - sdk_version: 3
@@ -531,6 +603,15 @@ cloudwatch_ListDashboards:
   synopsis: list &CWlong; dashboards.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.list.dashboard.main
     .NET:
       versions:
         - sdk_version: 3
@@ -623,6 +704,15 @@ cloudwatch_PutAnomalyDetector:
   synopsis: create an &CWlong; anomaly detector.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.add.anomalydetector.main
     .NET:
       versions:
         - sdk_version: 3
@@ -640,6 +730,15 @@ cloudwatch_PutDashboard:
   synopsis: create an &CWlong; dashboard.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.create.dashboard.main
     .NET:
       versions:
         - sdk_version: 3
@@ -658,6 +757,15 @@ cloudwatch_PutMetricAlarm:
   synopsis: create or update an &CWlong; alarm and associate it with the specified metric, metric math expression, anomaly detection model, or Metrics Insights query.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.java2.scenario.create.alarm.main
     .NET:
       versions:
         - sdk_version: 3
@@ -676,15 +784,6 @@ cloudwatch_PutMetricAlarm:
             - description:
               snippet_tags:
                 - cloudwatch.kotlin.put_metric_alarm.main
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/cloudwatch
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - cloudwatch.java2.put_metric_alarm.main
     Python:
       versions:
         - sdk_version: 3
