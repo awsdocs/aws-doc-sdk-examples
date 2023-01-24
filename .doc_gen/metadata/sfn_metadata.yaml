@@ -555,7 +555,7 @@ sfn_Scenario_GetStartedStateMachines:
           DescribeStateMachine, GetActivityTask, Hello, ListActivities, ListStateMachines,
           SendTaskSuccess, StartExecution, StopExecution}
 sfn_Scenario_GetStartedStepFunctions:
-  title: Get started with &SFN; activities and state machines using an &AWS; SDK.
+  title: Get started with &SFN; using an &AWS; SDK
   title_abbrev: Get started with activities and state machines
   synopsis_list:
     - Create an activity.
