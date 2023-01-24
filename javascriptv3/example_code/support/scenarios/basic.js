@@ -306,10 +306,10 @@ const main = async () => {
       }' with data: \n${new TextDecoder().decode(attachment.data)}`
     );
 
-    // Confirm the support case should be resolved.
+    // Confirm that the support case should be resolved.
     const isResolved = await resolveCase(caseId);
     if (isResolved) {
-      // List the resolved cases and include the one created above.
+      // List the resolved cases and include the one previously created.
       // Resolved cases can take a while to appear.
       console.log(
         "\nWaiting for case status to be marked as resolved. This can take some time."

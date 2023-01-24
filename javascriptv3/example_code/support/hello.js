@@ -11,7 +11,7 @@ import {
   SupportClient,
 } from "@aws-sdk/client-support";
 
-// Change the value of 'region' to your preferred region.
+// Change the value of 'region' to your preferred AWS Region.
 const client = new SupportClient({ region: "us-east-1" });
 
 const getServiceCount = async () => {

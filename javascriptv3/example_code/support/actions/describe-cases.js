@@ -13,7 +13,7 @@ import { client } from "../libs/client.js";
 export const main = async () => {
   try {
     // Get all of the unresolved cases in your account.
-    // Filter, or expand, results by providing parameters to the DescribeCasesCommand. Refer
+    // Filter or expand results by providing parameters to the DescribeCasesCommand. Refer
     // to the TypeScript definition and the API doc for more information on possible parameters.
     // https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-support/interfaces/describecasescommandinput.html
     const response = await client.send(new DescribeCasesCommand({}));
