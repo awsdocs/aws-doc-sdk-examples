@@ -67,9 +67,9 @@ for more information.
 
 ### Build the Docker image
 
-1. Install and run docker on your machine.
+1. Install and run Docker on your machine.
 2. Navigate to the same directory as this readme.
-3. Run `docker build -t <image_name> .` where `image_name` is a name you provide for the image.
+3. Run `docker build -t <image_name> .` and replace `image_name` with a name for the image.
 
 ### Launch the Docker container
 
