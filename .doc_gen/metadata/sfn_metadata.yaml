@@ -553,5 +553,32 @@ sfn_Scenario_GetStartedStateMachines:
   services:
     sfn: {CreateActivity, CreateStateMachine, DeleteActivity, DeleteStateMachine, DescribeExecution,
           DescribeStateMachine, GetActivityTask, Hello, ListActivities, ListStateMachines,
-          SendTaskSuccess, StartExecution}
-    
+          SendTaskSuccess, StartExecution, StopExecution}
+sfn_Scenario_GetStartedStepFunctions:
+  title: Get started with &SFN; activities and state machines using an &AWS; SDK.
+  title_abbrev: Get started with activities and state machines
+  synopsis_list:
+    - Create an activity.
+    - Create a state machine.
+    - Create an execution.
+    - Run the worker then stop it.
+    - List executions.
+    - Delete the state machine and the activity.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.Usings
+                - StepFunctions.dotnetv3.StepFunctionsBasics
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.StepFunctionsWrapper
+  services:
+    sfn: {CreateActivity, CreateStateMachine, DeleteActivity, DeleteStateMachine,
+          StartExecution, StopExecution, ListExecutions}
