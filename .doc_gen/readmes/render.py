@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import config
+import datetime
 import jinja2
 import logging
 import os
@@ -16,12 +17,13 @@ class MissingMetadataError(Exception):
 
 
 class Renderer:
-    def __init__(self, scanner, sdk_ver, readme, svc_folder=None):
+    def __init__(self, scanner, sdk_ver, safe, svc_folder=None):
         env = jinja2.Environment(
             loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
             trim_blocks=True, lstrip_blocks=True
         )
         self.template = env.get_template("service_readme.jinja2")
+        self.template.globals['now'] = datetime.datetime.utcnow
         self.scanner = scanner
         self.sdk_ver = int(sdk_ver)
         self.lang_config = config.language[self.scanner.lang_name][self.sdk_ver].copy()
@@ -42,7 +44,7 @@ class Renderer:
                     "as a command line --svc_folder argument.")
         sdk_api_ref_tmpl = jinja2.Environment(loader=jinja2.BaseLoader()).from_string(self.lang_config['sdk_api_ref'])
         self.lang_config['sdk_api_ref'] = sdk_api_ref_tmpl.render(service=service_info)
-        self.readme = readme
+        self.safe = safe
 
     @staticmethod
     def _doc_link(url):
@@ -87,6 +89,7 @@ class Renderer:
             api = next(iter(pre['services'][self.scanner.svc_name]))
             action = {
                 'title_abbrev': pre['title_abbrev'],
+                'synopsis': pre['synopsis'],
                 'file': self.scanner.snippet(pre, self.sdk_ver, self.lang_config['service_folder'], api),
                 'api': api,
             }
@@ -120,7 +123,7 @@ class Renderer:
                     github = ver.get('github')
                     break
             if github is None:
-                logger.warning("Github path not specified for cross-service example: %s.", pre['title_abbrev'])
+                logger.warning("GitHub path not specified for cross-service example: %s.", pre['title_abbrev'])
             else:
                 base_folder = f"{config.language[self.scanner.lang_name][self.sdk_ver]['base_folder']}/"
                 if base_folder in github:
@@ -145,38 +148,36 @@ class Renderer:
     def _lang_level_double_dots(self):
         return '../' * self.lang_config['service_folder'].count('/')
 
-    @staticmethod
-    def _scrape_customs(readme_filename):
+    def _scrape_customs(self, readme_filename, sdk_short):
         customs = {}
         section = None
         subsection = None
-        try:
-            with open(readme_filename, 'r', encoding='utf-8') as readme:
-                for line in readme.readlines():
-                    if line.lstrip().startswith('<!--custom') and line.rstrip().endswith('start-->'):
-                        tag_parts = line.split('.')
-                        section = tag_parts[1]
-                        if len(tag_parts) > 3:
-                            subsection = tag_parts[2]
-                            if section not in customs:
-                                customs[section] = {subsection: ''}
-                            else:
-                                customs[section][subsection] = ''
+        with open(readme_filename, 'r', encoding='utf-8') as readme:
+            for line in readme.readlines():
+                if line.lstrip().startswith('<!--custom') and line.rstrip().endswith('start-->'):
+                    tag_parts = line.split('.')
+                    section = tag_parts[1]
+                    if len(tag_parts) > 3:
+                        subsection = tag_parts[2]
+                        if section not in customs:
+                            customs[section] = {subsection: ''}
                         else:
-                            customs[section] = ''
-                    elif line.lstrip().startswith('<!--custom') and line.rstrip().endswith('end-->'):
-                        end_section = line.split('.')[1]
-                        if end_section != section:
-                            logger.warning("Start section '%s' with non-matching end section '%s'.", section, end_section)
-                        section = None
-                        subsection = None
-                    elif section is not None:
-                        if subsection is None:
-                            customs[section] += line
-                        else:
-                            customs[section][subsection] += line
-        except FileNotFoundError:
-            logger.info("No existing %s file to scrape for custom metadata.", readme_filename)
+                            customs[section][subsection] = ''
+                    else:
+                        customs[section] = ''
+                elif line.lstrip().startswith('<!--custom') and line.rstrip().endswith('end-->'):
+                    end_section = line.split('.')[1]
+                    if end_section != section:
+                        logger.warning("Start section '%s' with non-matching end section '%s'.", section, end_section)
+                    section = None
+                    subsection = None
+                elif section is not None:
+                    if subsection is None:
+                        customs[section] += line
+                    else:
+                        customs[section][subsection] += line
+                elif line.lstrip().startswith(f'* [{sdk_short}'):
+                    self.lang_config['sdk_api_ref'] = line.split('(')[-1].split(')')[0]
         return customs
 
     def render(self):
@@ -190,8 +191,9 @@ class Renderer:
         self.lang_config['sdk_ver'] = self.sdk_ver
         self.lang_config['readme'] = f"{self._lang_level_double_dots()}README.md"
 
-        readme_filename = f'{self.lang_config["service_folder"]}/{self.readme}'
-        customs = self._scrape_customs(readme_filename)
+        readme_filename = f'{self.lang_config["service_folder"]}/{config.readme}'
+        readme_exists = os.path.exists(readme_filename)
+        customs = self._scrape_customs(readme_filename, sdk['short']) if readme_exists else {}
 
         readme_text = self.template.render(
             lang_config=self.lang_config,
@@ -204,6 +206,10 @@ class Renderer:
             customs=customs,
         )
         readme_text = self._expand_entities(readme_text)
+
+        if self.safe and readme_exists:
+            os.rename(readme_filename, f'{self.lang_config["service_folder"]}/{config.saved_readme}')
+
         with open(readme_filename, 'w', encoding='utf-8') as f:
             f.write(readme_text)
         print(f"Updated {readme_filename}.")
