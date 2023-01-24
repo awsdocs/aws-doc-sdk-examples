@@ -54,12 +54,12 @@ public class DeleteItem {
             .region(region)
             .build();
 
-        deleteDymamoDBItem(ddb, tableName, key, keyVal);
+        deleteDynamoDBItem(ddb, tableName, key, keyVal);
         ddb.close();
     }
 
    // snippet-start:[dynamodb.java2.delete_item.main]
-    public static void deleteDymamoDBItem(DynamoDbClient ddb, String tableName, String key, String keyVal) {
+    public static void deleteDynamoDBItem(DynamoDbClient ddb, String tableName, String key, String keyVal) {
         HashMap<String,AttributeValue> keyToGet = new HashMap<>();
         keyToGet.put(key, AttributeValue.builder()
             .s(keyVal)

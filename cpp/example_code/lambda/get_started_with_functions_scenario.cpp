@@ -50,18 +50,27 @@
 #include <aws/core/utils/HashingUtils.h>
 #include <fstream>
 #include "lambda_samples.h"
-
+#define USE_CPP_LAMBDA_FUNCTION 0
 namespace AwsDoc {
     namespace Lambda {
         static Aws::String ROLE_NAME("doc_example_lambda_calculator_cpp_role");
         static Aws::String LAMBDA_NAME("doc_example_lambda_calculator_cpp");
         static Aws::String LAMBDA_DESCRIPTION("AWS C++ Get started with functions.");
+#if USE_CPP_LAMBDA_FUNCTION
+        static Aws::String LAMBDA_HANDLER_NAME(
+                "cpp_lambda_calculator");
+        static Aws::String INCREMENT_LAMBDA_CODE(
+                SOURCE_DIR "/cpp_lambda_increment.zip");
+        static Aws::String CALCULATOR_LAMBDA_CODE(
+                SOURCE_DIR "/cpp_lambda_calculator.zip");
+#else
         static Aws::String LAMBDA_HANDLER_NAME(
                 "doc_example_lambda_calculator.lambda_handler");
         static Aws::String INCREMENT_LAMBDA_CODE(
                 SOURCE_DIR "/doc_example_lambda_increment.zip");
         static Aws::String CALCULATOR_LAMBDA_CODE(
                 SOURCE_DIR "/doc_example_lambda_calculator.zip");
+#endif
         static Aws::String ROLE_POLICY_ARN(
                 "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole");
         Aws::String INCREMENT_RESUlT_PREFIX("The result of the increment is ");
@@ -161,7 +170,23 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         Aws::Lambda::Model::CreateFunctionRequest request;
         request.SetFunctionName(LAMBDA_NAME);
         request.SetDescription(LAMBDA_DESCRIPTION); // Optional.
+#if USE_CPP_LAMBDA_FUNCTION
+        request.SetRuntime(Aws::Lambda::Model::Runtime::provided_al2);
+        request.SetTimeout(15);
+        request.SetMemorySize(128);
+
+        // Assume the AWS Lambda function was built in Docker with same architecture
+        // as this code.
+#if  defined(__x86_64__)
+        request.SetArchitectures({Aws::Lambda::Model::Architecture::x86_64});
+#elif defined(__aarch64__)
+         request.SetArchitectures({Aws::Lambda::Model::Architecture::arm64});
+#else
+#error "Unimplemented architecture"
+#endif // defined(architecture)
+#else
         request.SetRuntime(Aws::Lambda::Model::Runtime::python3_8);
+#endif
         request.SetRole(roleArn);
         request.SetHandler(LAMBDA_HANDLER_NAME);
         request.SetPublish(true);
@@ -192,6 +217,8 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                         << "Waiting for the IAM role to become available as a CreateFunction parameter. "
                         << seconds
                         << " seconds elapsed." << std::endl;
+
+                std::cout << outcome.GetError().GetMessage() << std::endl;
             }
         }
             // snippet-start:[cpp.example_code.lambda.create_function2]

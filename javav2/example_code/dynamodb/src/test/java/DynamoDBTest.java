@@ -172,7 +172,7 @@ public class DynamoDBTest {
     @Order(10)
     public void DeleteItem() {
 
-        DeleteItem.deleteDymamoDBItem(ddb,tableName,key,keyVal);
+        DeleteItem.deleteDynamoDBItem(ddb,tableName,key,keyVal);
         System.out.println("\n Test 10 passed");
     }
 

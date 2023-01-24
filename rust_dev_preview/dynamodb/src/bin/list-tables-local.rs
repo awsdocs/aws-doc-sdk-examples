@@ -20,6 +20,7 @@ async fn main() -> Result<(), Error> {
         .build();
 
     let client = Client::from_conf(dynamodb_local_config);
-    list_tables(&client).await
+    list_tables(&client).await?;
+    Ok(())
 }
 // snippet-end:[dynamodb.rust.list-tables-local]

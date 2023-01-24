@@ -1,0 +1,6 @@
+{% macro list_examples(examples) %}
+{% for ex in examples %}
+* [{{ ex['title_abbrev']}}]({{ex['file']}}) {% if ex['api'] %}(`{{ex['api']}}`){% endif %}
+
+{% endfor %}
+{% endmacro %}

@@ -17,10 +17,10 @@ jobs:
     if: github.event.pull_request.merged == true
     env:
       REGISTRY: public.ecr.aws
-      REGISTRY_ALIAS: aws-docs-sdk-examples
+      REGISTRY_ALIAS: b4v4v1s0
       IMAGE_TAG: latest
       REGION: us-east-1
-    name: Push Docker image to Docker Hub
+    name: Push Docker image to ECR Public
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -52,7 +52,7 @@ jobs:
           REPOSITORY: ruby
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
@@ -67,7 +67,7 @@ jobs:
           REPOSITORY: python
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
@@ -82,7 +82,7 @@ jobs:
           REPOSITORY: javascriptv3
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
@@ -97,7 +97,7 @@ jobs:
           REPOSITORY: rust_dev_preview
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
@@ -112,7 +112,7 @@ jobs:
           REPOSITORY: gov2
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
@@ -127,7 +127,7 @@ jobs:
           REPOSITORY: cpp
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
@@ -142,7 +142,7 @@ jobs:
           REPOSITORY: dotnetv3
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
@@ -157,7 +157,7 @@ jobs:
           REPOSITORY: javav2
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
@@ -172,7 +172,7 @@ jobs:
           REPOSITORY: kotlin
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
@@ -187,7 +187,7 @@ jobs:
           REPOSITORY: php
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
@@ -202,7 +202,7 @@ jobs:
           REPOSITORY: swift
         run: |
           aws ecr-public get-login-password --region $REGION | docker login --username AWS --password-stdin $REGISTRY/$REGISTRY_ALIAS
-          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile .
+          docker build -t $REPOSITORY -f ./$REPOSITORY/Dockerfile ./$REPOSITORY
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true

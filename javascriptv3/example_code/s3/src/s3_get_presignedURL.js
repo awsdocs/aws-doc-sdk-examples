@@ -12,7 +12,7 @@ Note: This example creates a bucket and object for demonstration purposes, then 
 Inputs (replace in code):
 
 Running the code:
-nodes3_get_presignedURL.js
+node s3_get_presignedURL.js
 
 [Outputs | Returns]:
 Uploads the specified file to the specified bucket.
@@ -25,18 +25,18 @@ import {
   PutObjectCommand,
   GetObjectCommand,
   DeleteObjectCommand,
-  DeleteBucketCommand }
-from "@aws-sdk/client-s3";
+  DeleteBucketCommand,
+} from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 // Set parameters
 // Create a random names for the S3 bucket and key.
 export const bucketParams = {
   Bucket: `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`,
   Key: `test-object-${Math.ceil(Math.random() * 10 ** 10)}`,
-  Body: "BODY"
+  Body: "BODY",
 };
 
 export const run = async () => {
@@ -46,7 +46,6 @@ export const run = async () => {
     const data = await s3Client.send(
       new CreateBucketCommand({ Bucket: bucketParams.Bucket })
     );
-    return data; // For unit tests.
     console.log(`Waiting for "${bucketParams.Bucket}" bucket creation...\n`);
   } catch (err) {
     console.log("Error creating bucket", err);
@@ -61,7 +60,6 @@ export const run = async () => {
         Body: bucketParams.Body,
       })
     );
-    return data; // For unit tests.
   } catch (err) {
     console.log("Error putting object", err);
   }
@@ -89,9 +87,11 @@ export const run = async () => {
   try {
     console.log(`\nDeleting object "${bucketParams.Key}"} from bucket`);
     const data = await s3Client.send(
-      new DeleteObjectCommand({ Bucket: bucketParams.Bucket, Key: bucketParams.Key })
+      new DeleteObjectCommand({
+        Bucket: bucketParams.Bucket,
+        Key: bucketParams.Key,
+      })
     );
-    return data; // For unit tests.
   } catch (err) {
     console.log("Error deleting object", err);
   }
@@ -99,14 +99,14 @@ export const run = async () => {
   try {
     console.log(`\nDeleting bucket ${bucketParams.Bucket}`);
     const data = await s3Client.send(
-      new DeleteBucketCommand({ Bucket: bucketParams.Bucket, Key: bucketParams.Key })
+      new DeleteBucketCommand({
+        Bucket: bucketParams.Bucket,
+        Key: bucketParams.Key,
+      })
     );
-    return data; // For unit tests.
   } catch (err) {
     console.log("Error deleting object", err);
   }
 };
 run();
 // snippet-end:[s3.JavaScript.buckets.getpresignedurlv3]
-// For unit testing only.
-// module.exports ={run, bucketParams};

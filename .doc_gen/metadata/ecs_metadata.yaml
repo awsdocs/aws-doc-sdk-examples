@@ -14,6 +14,15 @@ ecs_CreateCluster:
             - description:
               snippet_tags:
                 - ecs.rust.cluster-create
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecs.java2.create_cluster.main
   services:
     ecs: {CreateCluster}
 ecs_DeleteCluster:
@@ -34,9 +43,9 @@ ecs_DeleteCluster:
   services:
     ecs: {DeleteCluster}
 ecs_DescribeClusters:
-  title: List your &ECS; clusters using an &AWS; SDK
-  title_abbrev: List your clusters
-  synopsis: list your &ECS; clusters.
+  title: Describe your &ECS; clusters using an &AWS; SDK
+  title_abbrev: Describe clusters
+  synopsis: describe your &ECS; clusters.
   category:
   languages:
     Rust:
@@ -48,5 +57,99 @@ ecs_DescribeClusters:
             - description:
               snippet_tags:
                 - ecs.rust.describe-clusters
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecs.java2.des_cluster.main
   services:
     ecs: {DescribeClusters}
+ecs_CreateService:
+  title: Create an &ECS; service using an &AWS; SDK
+  title_abbrev: Create a service
+  synopsis: create an &ECS; service.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecs.java2.create_service.main
+  services:
+    ecs: {CreateService}
+ecs_DeleteService:
+  title: Delete an &ECS; service using an &AWS; SDK
+  title_abbrev: Delete a service
+  synopsis: delete an &ECS; service.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecs.java2.delete_service.main
+  services:
+    ecs: {DeleteService}
+ecs_ListClusters:
+  title: List your &ECS; clusters using an &AWS; SDK
+  title_abbrev: List clusters
+  synopsis: list your &ECS; clusters.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecs.java2.list_clusters.main
+  services:
+    ecs: {ListClusters}
+ecs_DescribeTasks:
+  title: Describe your &ECS; tasks using an &AWS; SDK
+  title_abbrev: Describe tasks
+  synopsis: describe your &ECS; tasks.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecs.java2.list_tasks.main
+  services:
+    ecs: {DescribeTasks}
+ecs_UpdateService:
+  title: Update an &ECS; service using an &AWS; SDK
+  title_abbrev: Update a service
+  synopsis: update an &ECS; service.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ecs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ecs.java2.update_service.main
+  services:
+    ecs: {UpdateService}

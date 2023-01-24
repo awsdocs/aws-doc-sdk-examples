@@ -36,5 +36,5 @@ export {
   pascalCase,
   postfix,
   snakeCase,
-  titleCase,
+  titleCase
 };
