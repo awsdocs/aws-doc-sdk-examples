@@ -11,7 +11,8 @@
     "example_code/cloudwatch-events",
     "example_code/lambda",
     "example_code/libs",
-    "example_code/sts"
+    "example_code/sts",
+    "example_code/support"
   ],
   "devDependencies": {
     "lerna": "^6.3.0"
