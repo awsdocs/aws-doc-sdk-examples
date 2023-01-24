@@ -58,10 +58,12 @@ def create_dataset(
 
     manifest_file = f"s3://{bucket}/{project_name}/manifests/{dataset_type}.manifest"
 
-    logger.info("Creating %s manifest file in %s.", dataset_type, manifest_file)
-    Datasets.create_manifest_file_s3(s3_resource, dataset_images, manifest_file)
+    logger.info("Creating %s manifest file in %s.",
+                dataset_type, manifest_file)
+    Datasets.create_manifest_file_s3(
+        s3_resource, dataset_images, manifest_file)
 
-    logger.info("Create %s dataset for project %s", dataset_type,project_name)
+    logger.info("Create %s dataset for project %s", dataset_type, project_name)
     Datasets.create_dataset(
         lookoutvision_client, project_name, manifest_file, dataset_type)
 
@@ -101,26 +103,35 @@ def main():
     A new project, training dataset, optional test dataset, and model are created.
     After model training is completed, you can use the code in inference.py to try your
     model with an image.
+    For the training and test folders, place normal images in a folder named normal and 
+    anomalous images in a folder named anomaly.
+    Make sure that bucket and the training/test S3 paths are in the same AWS Region.
     """
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO,
+                        format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser(usage=argparse.SUPPRESS)
     parser.add_argument("project", help="A unique name for your project")
     parser.add_argument(
         "bucket",
         help="The bucket used to upload your manifest files and store training output")
     parser.add_argument(
-        "training", help="The S3 path where the service gets the training images.")
+        "training", help="The S3 path where the service gets the training images. ")
     parser.add_argument(
-        "test", nargs="?", default=None,
-        help="(Optional) The S3 path where the service gets the test images.")
-    args = parser.parse_args()
+        "test", nargs = "?", default = None,
+        help = "(Optional) The S3 path where the service gets the test images.")
+    args=parser.parse_args()
 
-    project_name = args.project
-    bucket = args.bucket
-    training_images = args.training
-    test_images = args.test
-    lookoutvision_client = boto3.client("lookoutvision")
-    s3_resource = boto3.resource("s3")
+    project_name=args.project
+    bucket=args.bucket
+    training_images=args.training
+    test_images=args.test
+
+    session=boto3.Session(
+        profile_name = 'lookoutvision-access')
+
+    lookoutvision_client=session.client("lookoutvision")
+
+    s3_resource=session.resource("s3")
 
     print(f"Storing information in s3://{bucket}/{project_name}/")
     print("Creating project...")
