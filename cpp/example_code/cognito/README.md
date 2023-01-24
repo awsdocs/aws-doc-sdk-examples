@@ -48,6 +48,13 @@ sample Hello World-style application.
 
 Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
+#### Running the `Sign up a user with a user pool that requires MFA` scenario.
+
+The Amazon Cognito resources for `Sign up a user with a user pool that requires MFA` can be created by running the AWS CloudFormation
+`setup.yaml` script in [resources/cdk/cognito_scenario_user_pool_with_mfa](../../../resources/cdk/cognito_scenario_user_pool_with_mfa/setup.yaml).
+
+For instructions on how to run the script, see the [README](../../../resources/cdk/cognito_scenario_user_pool_with_mfa/README.md).
+
 The [Sign up a user with a user pool that requires MFA](./getting_started_with_user_pools.cpp) can optionally be built to use the 
 [qr-code-generator](https://github.com/nayuki/QR-Code-generator) library to create a QR code image for MFA authentication. A [conanfile.txt](conanfile.txt) is 
 included with the sample code and the `qr-code-generator` library can be installed using  the 

@@ -60,7 +60,7 @@ namespace AwsDoc {
     namespace Cognito {
         static const int ASTERISK_FILL_WIDTH = 88;
 
-        //! Routine with checks the user status in an Amazon Cognito user pool.
+        //! Routine which checks the user status in an Amazon Cognito user pool.
         /*!
          \sa checkAdminUserStatus()
          \param userName: A user name.
@@ -71,7 +71,7 @@ namespace AwsDoc {
                                          const Aws::String &userPoolID,
                                          const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
 
-        //! Routine with starts authorization of an Amazon Cognito user from a
+        //! Routine which starts authorization of an Amazon Cognito user from a
         //! tracked device.
         /*!
          \sa initiateAuthorization()
@@ -432,7 +432,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     return true;
 }
 
-//! Routine with checks the user status in an Amazon Cognito user pool.
+//! Routine which checks the user status in an Amazon Cognito user pool.
 /*!
  \sa checkAdminUserStatus()
  \param userName: A user name.
@@ -466,7 +466,7 @@ bool AwsDoc::Cognito::checkAdminUserStatus(const Aws::String &userName,
     return outcome.IsSuccess();
 }
 
-//! Routine with starts authorization of an Amazon Cognito user from a
+//! Routine which starts authorization of an Amazon Cognito user from a
 //! tracked device.
 /*!
  \sa initiateAuthorization()
