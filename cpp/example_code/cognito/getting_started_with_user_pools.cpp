@@ -19,12 +19,12 @@
  *  2. Confirm that the user was added to the user pool. (AdminGetUser)
  *  3. Request another confirmation code by email. (ResendConfirmationCode)
  *  4. Send the confirmation code received in the email. (ConfirmSignUp)
- *  5. Initiate authorization with a user name and password. (InitiateAuth)
+ *  5. Initiate authorization with a user name and password. (AdminInitiateAuth)
  *  6. Request a setup key for one-time password (TOTP)
  *     multi-factor authentication (MFA). (AssociateSoftwareToken)
  *  7. Send the MFA code copied from an authenticator app. (VerifySoftwareToken)
- *  8. Initiate authorization again with username and password. (InitiateAuth)
- *  9. Send a new MFA code copied from an authenticator app. (RespondToAuthChallenge)
+ *  8. Initiate authorization again with username and password. (AdminInitiateAuth)
+ *  9. Send a new MFA code copied from an authenticator app. (AdminRespondToAuthChallenge)
  *  10. Delete the user just added. (DeleteUser)
  *
  *
@@ -43,9 +43,9 @@
 #include <aws/cognito-idp/model/AssociateSoftwareTokenRequest.h>
 #include <aws/cognito-idp/model/ConfirmSignUpRequest.h>
 #include <aws/cognito-idp/model/DeleteUserRequest.h>
-#include <aws/cognito-idp/model/InitiateAuthRequest.h>
+#include <aws/cognito-idp/model/AdminInitiateAuthRequest.h>
 #include <aws/cognito-idp/model/ResendConfirmationCodeRequest.h>
-#include <aws/cognito-idp/model/RespondToAuthChallengeRequest.h>
+#include <aws/cognito-idp/model/AdminRespondToAuthChallengeRequest.h>
 #include <aws/cognito-idp/model/SignUpRequest.h>
 #include <aws/cognito-idp/model/VerifySoftwareTokenRequest.h>
 #include "cognito_samples.h"
@@ -71,21 +71,23 @@ namespace AwsDoc {
                                          const Aws::String &userPoolID,
                                          const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
 
-        //! Routine which starts authorization of an Amazon Cognito user from a
-        //! tracked device.
+        //! Routine which starts authorization of an Amazon Cognito with administrator
+        //! credentials.
         /*!
-         \sa initiateAuthorization()
+         \sa adminInitiateAuthorization()
          \param clientID: Client ID of tracked device.
+         \param userPoolID: An Amazon Cognito user pool ID.
          \param userName: A user name.
          \param password: A password.
          \param sessionResult: String to receive a session token.
          \return bool: Successful completion.
          */
-        static bool initiateAuthorization(const Aws::String &clientID,
-                                          const Aws::String &userName,
-                                          const Aws::String &password,
-                                          Aws::String &sessionResult,
-                                          const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
+        static bool adminInitiateAuthorization(const Aws::String &clientID,
+                                               const Aws::String &userPoolID,
+                                               const Aws::String &userName,
+                                               const Aws::String &password,
+                                               Aws::String &sessionResult,
+                                               const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
 
         //! Test routine passed as argument to askQuestion routine.
         /*!
@@ -94,7 +96,6 @@ namespace AwsDoc {
          \return bool: True if empty.
          */
         static bool testForEmptyString(const Aws::String &string);
-
 
         //! Test routine passed as argument to askQuestion routine.
         /*!
@@ -286,8 +287,8 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
               << std::endl;
 
     Aws::String session;
-    // 5. Initiate authorization with username and password. (InitiateAuth)
-    if (!initiateAuthorization(clientID, userName, password, session, client)) {
+    // 5. Initiate authorization with username and password. (AdminInitiateAuth)
+    if (!adminInitiateAuthorization(clientID, userPoolID,  userName, password, session, client)) {
         return false;
     }
 
@@ -366,8 +367,8 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     std::cout << "You have completed the MFA authentication setup." << std::endl;
     std::cout << "Now you will do a normal login." << std::endl;
 
-    // 8. Initiate authorization again with username and password. (InitiateAuth)
-    if (!initiateAuthorization(clientID, userName, password, session, client)) {
+    // 8. Initiate authorization again with username and password. (AdminInitiateAuth)
+    if (!adminInitiateAuthorization(clientID, userPoolID, userName, password, session, client)) {
         return false;
     }
 
@@ -376,18 +377,19 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
         Aws::String mfaCode = askQuestion(
                 "Re-enter the 6 digit code displayed in the authenticator app: ");
 
-        // 9. Send a new MFA code copied from an authenticator app. (RespondToAuthChallenge)
-        // snippet-start:[cpp.example_code.cognito.respond_to_auth_challenge]
-        Aws::CognitoIdentityProvider::Model::RespondToAuthChallengeRequest request;
+        // 9. Send a new MFA code copied from an authenticator app. (AdminRespondToAuthChallenge)
+        // snippet-start:[cpp.example_code.cognito.admin_respond_to_auth_challenge]
+        Aws::CognitoIdentityProvider::Model::AdminRespondToAuthChallengeRequest request;
         request.AddChallengeResponses("USERNAME", userName);
         request.AddChallengeResponses("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
         request.SetChallengeName(
                 Aws::CognitoIdentityProvider::Model::ChallengeNameType::SOFTWARE_TOKEN_MFA);
         request.SetClientId(clientID);
+        request.SetUserPoolId(userPoolID);
         request.SetSession(session);
 
-        Aws::CognitoIdentityProvider::Model::RespondToAuthChallengeOutcome outcome =
-                client.RespondToAuthChallenge(request);
+        Aws::CognitoIdentityProvider::Model::AdminRespondToAuthChallengeOutcome outcome =
+                client.AdminRespondToAuthChallenge(request);
 
         if (outcome.IsSuccess()) {
             std::cout << "Here is the response to the challenge.\n" <<
@@ -397,12 +399,12 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
             accessToken = outcome.GetResult().GetAuthenticationResult().GetAccessToken();
         }
         else {
-            std::cerr << "Error with CognitoIdentityProvider::RespondToAuthChallenge. "
+            std::cerr << "Error with CognitoIdentityProvider::AdminRespondToAuthChallenge. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
             return false;
         }
-        // snippet-end:[cpp.example_code.cognito.respond_to_auth_challenge]
+        // snippet-end:[cpp.example_code.cognito.admin_respond_to_auth_challenge]
 
         std::cout << "You have successfully added a user to Amazon Cognito."
                   << std::endl;
@@ -410,7 +412,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
 
     if (askYesNoQuestion("Would you like to delete the user you created? (y/n) ")) {
         // 10. Delete the user just added. (DeleteUser)
-        // snippet-start:[cpp.example_code.cognito_delete_user]
+        // snippet-start:[cpp.example_code.cognito.delete_user]
         Aws::CognitoIdentityProvider::Model::DeleteUserRequest request;
         request.SetAccessToken(accessToken);
 
@@ -426,7 +428,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                       << outcome.GetError().GetMessage()
                       << std::endl;
         }
-        // snippet-end:[cpp.example_code.cognito_delete_user]
+        // snippet-end:[cpp.example_code.cognito.delete_user]
     }
 
     return true;
@@ -442,7 +444,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
 bool AwsDoc::Cognito::checkAdminUserStatus(const Aws::String &userName,
                                            const Aws::String &userPoolID,
                                            const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client) {
-    // snippet-start:[cpp.example_code.cognito_admin_get_user]
+    // snippet-start:[cpp.example_code.cognito.admin_get_user]
     Aws::CognitoIdentityProvider::Model::AdminGetUserRequest request;
     request.SetUsername(userName);
     request.SetUserPoolId(userPoolID);
@@ -461,47 +463,51 @@ bool AwsDoc::Cognito::checkAdminUserStatus(const Aws::String &userName,
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
-    // snippet-end:[cpp.example_code.cognito_admin_get_user]
+    // snippet-end:[cpp.example_code.cognito.admin_get_user]
 
     return outcome.IsSuccess();
 }
 
-//! Routine which starts authorization of an Amazon Cognito user from a
-//! tracked device.
+//! Routine which starts authorization of an Amazon Cognito with administrator
+//! credentials.
 /*!
- \sa initiateAuthorization()
+ \sa adminInitiateAuthorization()
  \param clientID: Client ID of tracked device.
+ \param userPoolID: An Amazon Cognito user pool ID.
  \param userName: A user name.
  \param password: A password.
  \param sessionResult: String to receive a session token.
  \return bool: Successful completion.
  */
-bool AwsDoc::Cognito::initiateAuthorization(const Aws::String &clientID,
-                                            const Aws::String &userName,
-                                            const Aws::String &password,
-                                            Aws::String &sessionResult,
-                                            const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client) {
-    // snippet-start:[cpp.example_code.cognito_initiate_auth]
-    Aws::CognitoIdentityProvider::Model::InitiateAuthRequest request;
+bool AwsDoc::Cognito::adminInitiateAuthorization(const Aws::String &clientID,
+                                                 const Aws::String &userPoolID,
+                                                 const Aws::String &userName,
+                                                 const Aws::String &password,
+                                                 Aws::String &sessionResult,
+                                                 const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client) {
+    // snippet-start:[cpp.example_code.cognito.admin_initiate_auth]
+    Aws::CognitoIdentityProvider::Model::AdminInitiateAuthRequest request;
     request.SetClientId(clientID);
+    request.SetUserPoolId(userPoolID);
     request.AddAuthParameters("USERNAME", userName);
     request.AddAuthParameters("PASSWORD", password);
     request.SetAuthFlow(
-            Aws::CognitoIdentityProvider::Model::AuthFlowType::USER_PASSWORD_AUTH);
+            Aws::CognitoIdentityProvider::Model::AuthFlowType::ADMIN_USER_PASSWORD_AUTH);
 
-    Aws::CognitoIdentityProvider::Model::InitiateAuthOutcome outcome =
-            client.InitiateAuth(request);
+
+    Aws::CognitoIdentityProvider::Model::AdminInitiateAuthOutcome outcome =
+            client.AdminInitiateAuth(request);
 
     if (outcome.IsSuccess()) {
-        std::cout << "Call to InitiateAuth was successful." << std::endl;
+        std::cout << "Call to AdminInitiateAuth was successful." << std::endl;
         sessionResult = outcome.GetResult().GetSession();
     }
     else {
-        std::cerr << "Error with CognitoIdentityProvider::InitiateAuth. "
+        std::cerr << "Error with CognitoIdentityProvider::AdminInitiateAuth. "
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
-    // snippet-end:[cpp.example_code.cognito_initiate_auth]
+    // snippet-end:[cpp.example_code.cognito.admin_initiate_auth]
 
     return outcome.IsSuccess();
 }
