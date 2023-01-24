@@ -1,0 +1,13 @@
+{
+  "name": "example-javascriptv3-sts",
+  "version": "1.0.0",
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sts": "^3.254.0"
+  },
+  "type": "module"
+}
