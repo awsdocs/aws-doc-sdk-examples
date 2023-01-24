@@ -116,8 +116,8 @@ public class CloudWatchScenario {
             "Usage:\n" +
             "  <myDate> <costDateWeek> <dashboardName> <dashboardJson> <dashboardAdd> <settings> <metricImage>  \n\n" +
             "Where:\n" +
-            "  myDate - The start date to use to get metric statistics. (for example, 2023-01-11T18:35:24.00Z). \n" +
-            "  costDateWeek - The start date to use to get AWS/Billinget statistics. (for example, 2023-01-11T18:35:24.00Z). \n" +
+            "  myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z). \n" +
+            "  costDateWeek - The start date to use to get AWS/Billinget statistics. (For example, 2023-01-11T18:35:24.00Z). \n" +
             "  dashboardName - The name of the dashboard to create. \n" +
             "  dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file). \n" +
             "  dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file). \n" +
