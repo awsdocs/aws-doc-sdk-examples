@@ -40,13 +40,13 @@ public class UserAuthDemo {
         BigInteger A = clientKeys.right();
         InitiateAuthResponse initiateAuthResponse = initiateAuth(username, A.toString(16));
         System.out.println("InitiateAuth response: " + initiateAuthResponse);
-        // Get response from SRP initial auth
+        // Get response from SRP initial auth.
         BigInteger B = new BigInteger(initiateAuthResponse.challengeParameters().get("SRP_B"), 16);
         BigInteger salt = new BigInteger(initiateAuthResponse.challengeParameters().get("SALT"), 16);
         String userId = initiateAuthResponse.challengeParameters().get("USER_ID_FOR_SRP");
         String secretBlock = initiateAuthResponse.challengeParameters().get("SECRET_BLOCK");
 
-        // Calculate password claim signature
+        // Calculate password claim signature.
         String timestamp = SRPUtils.getCurrentTimestamp();
         System.out.println("Current timestamp: " + timestamp);
         byte[] passwordClaimSignature = SRPUtils.calculatePasswordClaimSignature(

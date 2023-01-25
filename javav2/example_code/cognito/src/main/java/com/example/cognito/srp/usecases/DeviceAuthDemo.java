@@ -38,12 +38,12 @@ public class DeviceAuthDemo {
         BigInteger A = clientKeys.right();
         RespondToAuthChallengeResponse deviceSrpChallengeResponse = respondToDeviceSrpAuthChallenge(username, deviceKey, A.toString(16));
         System.out.println("DeviceSrpAuth response: " + deviceSrpChallengeResponse);
-        // Get response from SRP initial auth
+        // Get response from SRP initial auth.
         BigInteger B = new BigInteger(deviceSrpChallengeResponse.challengeParameters().get("SRP_B"), 16);
         BigInteger salt = new BigInteger(deviceSrpChallengeResponse.challengeParameters().get("SALT"), 16);
         String secretBlock = deviceSrpChallengeResponse.challengeParameters().get("SECRET_BLOCK");
 
-        // Calculate password claim signature
+        // Calculate password claim signature.
         String timestamp = SRPUtils.getCurrentTimestamp();
         System.out.println("Current timestamp: " + timestamp);
         byte[] passwordClaimSignature = SRPUtils.calculatePasswordClaimSignature(
