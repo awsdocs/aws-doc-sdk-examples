@@ -69,7 +69,7 @@ public class StepFunctionsWrapper
     /// machine.</param>
     /// <param name="definition">A JSON string that defines the Step Functions
     /// state machine.</param>
-    /// <param name="roleArn">The Amazon Resource Name (ARN) of the role</param>
+    /// <param name="roleArn">The Amazon Resource Name (ARN) of the role.</param>
     /// <returns></returns>
     public async Task<string> CreateStateMachine(string stateMachineName, string definition, string roleArn)
     {

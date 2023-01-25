@@ -561,7 +561,7 @@ sfn_Scenario_GetStartedStepFunctions:
     - Create an activity.
     - Create a state machine.
     - Create an execution.
-    - Run the worker then stop it.
+    - Run the worker, then stop it.
     - List executions.
     - Delete the state machine and the activity.
   category: Scenarios

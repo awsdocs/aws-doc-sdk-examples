@@ -1,7 +1,7 @@
-# Amazon Step Functions code examples for the SDK for .NET
+# Step Functions code examples for the SDK for .NET
 
 ## Overview
-The examples in this folder perform Step Functions actions using the AWS SDK for .NET.
+The examples in this folder perform AWS Step Functions actions using the AWS SDK for .NET.
 
 AWS Step Functions is a visual workflow service that helps developers use AWS
 services to build distributed applications, automate processes, orchestrate

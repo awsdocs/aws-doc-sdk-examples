@@ -107,7 +107,7 @@ namespace SupportTests
         }
 
         /// <summary>
-        /// Tests the ListExecutions method. Expects to find that the state
+        /// Test the ListExecutions method. Expects to find that the state
         /// machine was executed at least once.
         /// </summary>
         /// <returns>An async Task.</returns>
@@ -121,7 +121,7 @@ namespace SupportTests
         }
 
         /// <summary>
-        /// tests the DeleteStateMachine method.
+        /// Test the DeleteStateMachine method.
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact()]
@@ -134,7 +134,7 @@ namespace SupportTests
         }
 
         /// <summary>
-        /// Tests the DeleteActivity test.
+        /// Test the DeleteActivity test.
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact()]

@@ -10,7 +10,7 @@ public class HelloStepFunctions
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the Amazon service.
+        // Set up dependency injection for AWS Step Functions.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)
@@ -27,7 +27,7 @@ public class HelloStepFunctions
 
         var stepFunctionsClient = host.Services.GetRequiredService<IAmazonStepFunctions>();
 
-        Console.WriteLine("Welcome to Amazon Step Functions. Let's list your State Machines actions:");
+        Console.WriteLine("Welcome to AWS Step Functions. Let's list your state machines:");
         var stateMachineListRequest = new ListStateMachinesRequest { MaxResults = 10 };
 
         do

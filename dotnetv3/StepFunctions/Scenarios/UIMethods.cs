@@ -17,14 +17,14 @@ public class UiMethods
     public void DisplayOverview()
     {
         Console.Clear();
-        DisplayTitle("Welcome to the Amazon Step Functions Demo");
+        DisplayTitle("Welcome to the AWS Step Functions Demo");
 
         Console.WriteLine("This example application will do the following:");
         Console.WriteLine("\t 1. Create an activity.");
-        Console.WriteLine("\t 2. Create a State Machine.");
-        Console.WriteLine("\t 3. Start an Execution.");
-        Console.WriteLine("\t 4. Run the worker, then stop it (sendTaskSuccess, sendTaskFailure)");
-        Console.WriteLine("\t 5. List Executions.");
+        Console.WriteLine("\t 2. Create a state machine.");
+        Console.WriteLine("\t 3. Start an execution.");
+        Console.WriteLine("\t 4. Run the worker, then stop it.");
+        Console.WriteLine("\t 5. List executions.");
         Console.WriteLine("\t 6. Clean up the resources created for the example.");
     }
 
@@ -33,7 +33,7 @@ public class UiMethods
     /// </summary>
     public void PressEnter()
     {
-        Console.Write("\nPlease press <Enter> to continue.");
+        Console.Write("\nPress <Enter> to continue.");
         _ = Console.ReadLine();
     }
 
@@ -50,7 +50,7 @@ public class UiMethods
     }
 
     /// <summary>
-    /// Display a line of hyphens, the centered text of the title and another
+    /// Display a line of hyphens, the centered text of the title, and another
     /// line of hyphens.
     /// </summary>
     /// <param name="strTitle">The string to be displayed.</param>
