@@ -32,7 +32,7 @@ public class SRPDemo {
             .build();
 
     static {
-        // Create user pool
+        // Create user pool.
         DeviceConfigurationType deviceConfig = DeviceConfigurationType.builder()
                 .challengeRequiredOnNewDevice(true)
                 .deviceOnlyRememberedOnUserPrompt(true)
@@ -50,7 +50,7 @@ public class SRPDemo {
                 .softwareTokenMfaConfiguration(SoftwareTokenMfaConfigType.builder().enabled(true).build())
                 .build();
         cognitoClient.setUserPoolMfaConfig(mfaRequest);
-        // Create user application client
+        // Create user application client.
         CreateUserPoolClientRequest userClientRequest = CreateUserPoolClientRequest.builder()
                 .clientName("my awesome application client for user")
                 .userPoolId(COGNITO_POOL_ID)
@@ -60,7 +60,7 @@ public class SRPDemo {
         CreateUserPoolClientResponse userClientResponse = cognitoClient.createUserPoolClient(userClientRequest);
         COGNITO_USER_CLIENT_ID = userClientResponse.userPoolClient().clientId();
         System.out.println("Application client for user is: " + COGNITO_USER_CLIENT_ID);
-        // Create admin application client
+        // Create admin application client.
         CreateUserPoolClientRequest adminClientRequest = CreateUserPoolClientRequest.builder()
                 .clientName("my awesome application client for admin")
                 .userPoolId(COGNITO_POOL_ID)
@@ -71,7 +71,7 @@ public class SRPDemo {
         COGNITO_ADMIN_CLIENT_ID = adminClientResponse.userPoolClient().clientId();
         COGNITO_ADMIN_CLIENT_SECRET = adminClientResponse.userPoolClient().clientSecret();
         System.out.println("Application client for admin is: " + COGNITO_ADMIN_CLIENT_ID);
-        // Create user
+        // Create user.
         AdminCreateUserRequest userRequest = AdminCreateUserRequest.builder()
                 .userPoolId(COGNITO_POOL_ID)
                 .username(COGNITO_USERNAME)
@@ -87,12 +87,12 @@ public class SRPDemo {
     }
 
     public static void main(String[] args) {
-        // 1. Start authentication with Admin credentials
+        // 1. Start authentication with Admin credentials.
         AdminInitiateAuthResponse authResponse = new AdminAuthDemo(cognitoClient, COGNITO_POOL_ID, COGNITO_ADMIN_CLIENT_ID, COGNITO_ADMIN_CLIENT_SECRET)
                 .adminInitiateAuth(COGNITO_USERNAME, COGNITO_PASSWORD);
         System.out.println(authResponse);
 
-        // 2. Get a token to associate an MFA application
+        // 2. Get a token to associate an MFA application.
         String session = authResponse.session();
         AssociateSoftwareTokenResponse associateResponse = new SoftwareTokenMFADemo(cognitoClient).associateSoftwareToken(session);
         session = associateResponse.session();
@@ -104,13 +104,13 @@ public class SRPDemo {
         String code = scanner.nextLine();
         VerifySoftwareTokenResponse verifyResponse = new SoftwareTokenMFADemo(cognitoClient).verifySoftwareToken(session, code);
 
-        // 3. Respond to an auth challenge [MFA_SETUP]
+        // 3. Respond to an auth challenge [MFA_SETUP].
         session = verifyResponse.session();
         AdminRespondToAuthChallengeResponse challengeResponse = new AdminAuthDemo(cognitoClient, COGNITO_POOL_ID, COGNITO_ADMIN_CLIENT_ID, COGNITO_ADMIN_CLIENT_SECRET)
                 .adminRespondToAuthChallenge(session, COGNITO_USERNAME);
         System.out.println("Challenge response: " + challengeResponse);
 
-        // 4. Confirm an MFA device for tracking
+        // 4. Confirm an MFA device for tracking.
         String accessToken = challengeResponse.authenticationResult().accessToken();
         String deviceGroupKey = challengeResponse.authenticationResult().newDeviceMetadata().deviceGroupKey();
         String deviceKey = challengeResponse.authenticationResult().newDeviceMetadata().deviceKey();
@@ -124,12 +124,12 @@ public class SRPDemo {
                     .updateDeviceStatus(accessToken, deviceKey);
         }
 
-        // 5. User SRP auth
+        // 5. User SRP auth.
         RespondToAuthChallengeResponse userSrpResponse = new UserAuthDemo(cognitoClient, COGNITO_POOL_ID, COGNITO_USER_CLIENT_ID)
                 .userSrpAuth(COGNITO_USERNAME, COGNITO_PASSWORD, deviceKey);
         System.out.println("User SRP response: " + userSrpResponse);
 
-        // 6. Device SRP Auth
+        // 6. Device SRP Auth.
         RespondToAuthChallengeResponse deviceSrpResponse = new DeviceAuthDemo(cognitoClient, COGNITO_USER_CLIENT_ID).deviceSrpAuth(COGNITO_USERNAME, deviceGroupKey, deviceKey, devicePassword);
         System.out.println("Device SRP response: " +  deviceSrpResponse);
     }

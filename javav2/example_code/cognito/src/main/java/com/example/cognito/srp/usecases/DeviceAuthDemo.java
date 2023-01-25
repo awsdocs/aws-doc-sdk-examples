@@ -51,7 +51,7 @@ public class DeviceAuthDemo {
                 a, A, B, salt,
                 Base64.getDecoder().decode(secretBlock));
 
-        RespondToAuthChallengeResponse challengeResponse = respondToDevicePasswordVerifierChallenge(username, secretBlock, timestamp,
+        RespondToAuthChallengeResponse challengeResponse = respondToAuthChallenge(username, secretBlock, timestamp,
                 Base64.getEncoder().encodeToString(passwordClaimSignature), deviceKey);
         System.out.println("RespondToAuthChallenge response: " + challengeResponse);
         return challengeResponse;
@@ -79,7 +79,7 @@ public class DeviceAuthDemo {
         return null;
     }
 
-    public RespondToAuthChallengeResponse respondToDevicePasswordVerifierChallenge(String username, String secretBlock, String timestamp,
+    public RespondToAuthChallengeResponse respondToAuthChallenge(String username, String secretBlock, String timestamp,
                                                                                    String passwordClaimSignature, String deviceKey) {
         Map<String, String> challengeResponses = new HashMap<>();
         challengeResponses.put("USERNAME", username);
