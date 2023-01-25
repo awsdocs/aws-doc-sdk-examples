@@ -195,6 +195,7 @@ cloudwatch-logs:
     product_categories: {'Management &amp; Governance'}
   version: logs-2014-03-28
 cognito-identity:
+  bundle: cognito-identity-provider
   long: '&COGID;'
   short: '&COGID;'
   sort: Cognito Identity
@@ -210,6 +211,7 @@ cognito-identity:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-identity-2014-06-30
 cognito-identity-provider:
+  bundle: cognito-identity-provider
   long: '&COGIDP;'
   short: '&COGIDP;'
   sort: Cognito Identity Provider
@@ -225,6 +227,7 @@ cognito-identity-provider:
   version: cognito-idp-2016-04-18
   api_ref: cognito-user-identity-pools/latest/APIReference/Welcome.html
 cognito-sync:
+  bundle: cognito-identity-provider
   long: '&COGSYNClong;'
   short: '&COGSYNC;'
   sort: Cognito Sync
