@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import argparse
+import config
 from scanner import Scanner
 from render import Renderer
 
@@ -12,7 +13,9 @@ def main():
     parser.add_argument('sdk_version', help="The major version of the SDK. Must match a version listed in sdks.yaml.")
     parser.add_argument('service', help="The targeted service. Must match a top-level field in services.yaml.")
     parser.add_argument('--svc_folder', help="Overrides the folder template to specify the service example folder.")
-    parser.add_argument('--safe', action='store_true', help="Save a copy of the original README as README.old.md.")
+    parser.add_argument(
+        '--safe', action='store_true',
+        help=f"Save a copy of the original README as the 'saved_readme' value specified in config.py ({config.saved_readme}).")
     args = parser.parse_args()
 
     try:
