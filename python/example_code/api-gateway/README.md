@@ -106,7 +106,7 @@ in the `python` folder.
 
 * [API Gateway Developer Guide](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html)
 * [API Gateway API Reference](https://docs.aws.amazon.com/apigateway/latest/api/API_Operations.html)
-* [SDK for Python API Gateway reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/api-gateway.html)
+* [SDK for Python API Gateway reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/apigateway.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

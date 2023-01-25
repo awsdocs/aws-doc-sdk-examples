@@ -55,7 +55,8 @@ This creates a README.md file in the `python/example_code/s3` folder.
 * `language` must match a top-level language in sdks.yaml.
 * `version` must be defined for the language in sdks.yaml.
 * `service` must match a top-level service in services.yaml.
-* `--safe` (optional) when specified, the existing README.md is renamed README.old.md.
+* `--safe` (optional) when specified, the existing README.md is renamed to the 
+`saved_readme` value in config.py (such as README.old.md).
 * `--svc_folder` (optional) overrides the output folder for the README.
 
 You can get inline usage info by using the `-h` flag:
