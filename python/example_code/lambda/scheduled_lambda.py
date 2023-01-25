@@ -13,11 +13,16 @@ information on AWS Chalice, see https://github.com/aws/chalice.
 """
 
 import logging
+import sys
 import time
 import boto3
 from botocore.exceptions import ClientError
 
-import lambda_basics
+from lambda_basics import LambdaWrapper
+
+# Add relative path to include demo_tools in this code example without need for setup.
+sys.path.append('../..')
+from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 
@@ -149,7 +154,7 @@ def usage_demo():
     """
     logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
     print('-'*88)
-    print("Welcome to the AWS Lambda basics demo.")
+    print("Welcome to the AWS Lambda scheduled rule demo.")
     print('-'*88)
 
     lambda_function_filename = 'lambda_handler_scheduled.py'
@@ -161,18 +166,22 @@ def usage_demo():
 
     iam_resource = boto3.resource('iam')
     lambda_client = boto3.client('lambda')
+    wrapper = LambdaWrapper(lambda_client, iam_resource)
     eventbridge_client = boto3.client('events')
     logs_client = boto3.client('logs')
 
+    print("Checking for IAM role for Lambda...")
+    iam_role, should_wait = wrapper.create_iam_role_for_lambda(lambda_role_name)
+    if should_wait:
+        logger.info("Giving AWS time to create resources...")
+        wait(10)
+
     print(f"Creating AWS Lambda function {lambda_function_name} from the "
           f"{lambda_handler_name} function in {lambda_function_filename}...")
-    deployment_package = lambda_basics.create_lambda_deployment_package(
-        lambda_function_filename)
-    iam_role = lambda_basics.create_iam_role_for_lambda(iam_resource, lambda_role_name)
-    lambda_function_arn = lambda_basics.exponential_retry(
-        lambda_basics.deploy_lambda_function, 'InvalidParameterValueException',
-        lambda_client, lambda_function_name, lambda_handler_name, iam_role,
-        deployment_package)
+    deployment_package = wrapper.create_deployment_package(
+        lambda_function_filename, lambda_function_filename)
+    lambda_function_arn = wrapper.create_function(
+        lambda_function_name, lambda_handler_name, iam_role, deployment_package)
 
     print(f"Scheduling {lambda_function_name} to run once per minute...")
     schedule_lambda_function(
@@ -198,7 +207,7 @@ def usage_demo():
 
     print("Cleaning up all resources created for the demo...")
     delete_event_rule(eventbridge_client, event_rule_name, lambda_function_name)
-    lambda_basics.delete_lambda_function(lambda_client, lambda_function_name)
+    wrapper.delete_function(lambda_function_name)
     print(f"Deleted {lambda_function_name}.")
     for policy in iam_role.attached_policies.all():
         policy.detach_role(RoleName=iam_role.name)
