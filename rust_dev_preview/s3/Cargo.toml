@@ -26,6 +26,9 @@ aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" 
 aws-endpoint = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 # snippet-end:[s3.rust.s3-object-lambda-cargo.toml]
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
+  "test-util",
+] }
 aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = ["rt-tokio"] }
 aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 sdk-examples-test-utils = { path = "../test-utils" }

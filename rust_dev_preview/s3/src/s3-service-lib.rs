@@ -29,7 +29,7 @@ pub async fn delete_bucket(client: &Client, bucket_name: &str) -> Result<(), Err
 // snippet-end:[rust.example_code.s3.basics.delete_bucket]
 
 // snippet-start:[rust.example_code.s3.basics.delete_objects]
-pub async fn delete_objects(client: &Client, bucket_name: &str) -> Result<(), Error> {
+pub async fn delete_objects(client: &Client, bucket_name: &str) -> Result<Vec<String>, Error> {
     let objects = client.list_objects_v2().bucket(bucket_name).send().await?;
 
     let mut delete_objects: Vec<ObjectIdentifier> = vec![];
@@ -39,6 +39,12 @@ pub async fn delete_objects(client: &Client, bucket_name: &str) -> Result<(), Er
             .build();
         delete_objects.push(obj_id);
     }
+
+    let return_keys = delete_objects
+        .iter()
+        .map(|o| o.key().unwrap().to_string())
+        .collect();
+
     client
         .delete_objects()
         .bucket(bucket_name)
@@ -47,8 +53,11 @@ pub async fn delete_objects(client: &Client, bucket_name: &str) -> Result<(), Er
         .await?;
 
     let objects: ListObjectsV2Output = client.list_objects_v2().bucket(bucket_name).send().await?;
+
+    eprintln!("{objects:?}");
+
     match objects.key_count {
-        0 => Ok(()),
+        0 => Ok(return_keys),
         _ => Err(Error::unhandled(
             "There were still objects left in the bucket.",
         )),
@@ -151,7 +160,8 @@ pub async fn create_bucket(
 mod test {
     use std::env::temp_dir;
 
-    use sdk_examples_test_utils::single_shot_client;
+    use aws_smithy_client::test_connection::TestConnection;
+    use sdk_examples_test_utils::{client_config, single_shot_client, test_event};
     use tokio::{fs::File, io::AsyncWriteExt};
     use uuid::Uuid;
 
@@ -175,15 +185,111 @@ mod test {
 
     #[tokio::test]
     async fn test_delete_objects() {
-        let client = single_shot_client!(
-            sdk: aws_sdk_s3,
-            status: 200,
-            response: r#""#
+        let client = aws_sdk_s3::Client::from_conf(
+            client_config!(aws_sdk_s3)
+                .http_connector(TestConnection::new(vec![
+                    // client.list_objects_v2().bucket(bucket_name)
+                    test_event!(
+                        r#""#,
+                        (
+                            200,
+                            r#"<?xml version="1.0" encoding="UTF-8"?><ListBucketResult>
+                            <Name>test</Name>
+                            <Contents><Key>obj1</Key></Contents>
+                            <Contents><Key>obj2</Key></Contents>
+                            <KeyCount>2</KeyCount>
+                            </ListBucketResult>"#
+                        )
+                    ),
+                    // client.delete_objects().delete(...(delete_objects)...))
+                    test_event!(r#""#, (200, r#"<?xml version="1.0" encoding="UTF-8"?>
+                    <DeleteResult>
+                        <Deleted>
+                            <DeleteMarker>true</DeleteMarker>
+                            <Key>obj1</Key>
+                        </Deleted>
+                        <Deleted>
+                            <DeleteMarker>true</DeleteMarker>
+                            <Key>obj2</Key>
+                        </Deleted>
+                    </DeleteResult>
+                    "#)),
+                    // client.list_objects_v2().bucket(bucket_name)
+                    test_event!(
+                        r#""#,
+                        (
+                            200,
+                            r#"<?xml version="1.0" encoding="UTF-8"?><ListBucketResult><Name>test</Name>
+                            <KeyCount>0</KeyCount>
+                            </ListBucketResult>"#
+                        )
+                    ),
+                ]))
+                .build(),
         );
 
         let resp = delete_objects(&client, "bucket_name").await;
 
         assert!(resp.is_ok(), "{resp:?}");
+        assert_eq!(resp.as_ref().unwrap(), &vec!["obj1", "obj2"], "{resp:?}");
+    }
+
+    #[tokio::test]
+    async fn test_delete_objects_failed() {
+        let client = aws_sdk_s3::Client::from_conf(
+            client_config!(aws_sdk_s3)
+                .http_connector(TestConnection::new(vec![
+                    // client.list_objects_v2().bucket(bucket_name)
+                    test_event!(
+                        r#""#,
+                        (
+                            200,
+                            r#"<?xml version="1.0" encoding="UTF-8"?><ListBucketResult>
+                            <Name>test</Name>
+                            <Contents><Key>obj1</Key></Contents>
+                            <Contents><Key>obj2</Key></Contents>
+                            <KeyCount>2</KeyCount>
+                            </ListBucketResult>"#
+                        )
+                    ),
+                    // client.delete_objects().delete(...(delete_objects)...))
+                    test_event!(
+                        r#""#,
+                        (
+                            200,
+                            r#"<?xml version="1.0" encoding="UTF-8"?>
+                    <DeleteResult>
+                        <Deleted>
+                            <DeleteMarker>true</DeleteMarker>
+                            <Key>obj1</Key>
+                        </Deleted>
+                        <Deleted>
+                            <DeleteMarker>true</DeleteMarker>
+                            <Key>obj2</Key>
+                        </Deleted>
+                    </DeleteResult>
+                    "#
+                        )
+                    ),
+                    // client.list_objects_v2().bucket(bucket_name)
+                    test_event!(
+                        r#""#,
+                        (
+                            200,
+                            r#"<?xml version="1.0" encoding="UTF-8"?><ListBucketResult>
+                            <Name>test</Name>
+                            <Contents><Key>obj3</Key></Contents>
+                            <KeyCount>1</KeyCount>
+                            </ListBucketResult>"#
+                        )
+                    ),
+                ]))
+                .build(),
+        );
+
+        let resp = delete_objects(&client, "bucket_name").await;
+
+        assert!(resp.is_err(), "{resp:?}");
     }
 
     #[tokio::test]
@@ -193,7 +299,7 @@ mod test {
             status: 200,
             response: r#"<?xml version="1.0" encoding="UTF-8"?>
 <ListBucketResult>
-   <Name>string</Name>
+   <Name>test</Name>
 </ListBucketResult>"#
         );
 

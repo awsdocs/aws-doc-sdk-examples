@@ -1,6 +1,4 @@
-use aws_smithy_client::test_connection::TestConnection;
 use aws_smithy_http::body::SdkBody;
-use http::StatusCode;
 
 pub mod macros;
 
@@ -9,8 +7,8 @@ pub mod macros;
 /// provided directly to a `Client::from_conf_conn`.
 pub fn single_shot(
     req: SdkBody,
-    res: (StatusCode, Vec<(&str, &str)>, SdkBody),
-) -> TestConnection<SdkBody> {
+    res: (http::StatusCode, Vec<(&str, &str)>, SdkBody),
+) -> aws_smithy_client::test_connection::TestConnection<SdkBody> {
     aws_smithy_client::test_connection::TestConnection::new(vec![
         (test_event!(req, (res.0, res.1, res.2))),
     ])
