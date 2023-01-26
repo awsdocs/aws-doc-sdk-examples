@@ -89,17 +89,17 @@ import java.util.List;
  *
  * This Java code example performs the following tasks:
  *
- * 1. List available namespaces from Amazon CloudWatch. Select a namespace from the list.
+ * 1. List available namespaces from Amazon CloudWatch.
  * 2. List available metrics within the selected Namespace.
  * 3. Get statistics for the selected metric over the last day.
  * 4. Get CloudWatch estimated billing for the last week.
  * 5. Create a new CloudWatch dashboard with metrics.
- * 6. List dashboards using a Paginator.
+ * 6. List dashboards using a paginator.
  * 7. Create a new custom metric by adding data for it.
  * 8. Add the custom metric to the dashboard.
  * 9. Create an alarm for the custom metric.
  * 10. Describe current alarms.
- * 11. Get current data for new custom metric.
+ * 11. Get current data for the new custom metric.
  * 12. Push data into the custom metric to trigger the alarm.
  * 13. Check the alarm state using the action DescribeAlarmsForMetric.
  * 14. Get alarm history for the new alarm.
@@ -116,17 +116,17 @@ public class CloudWatchScenario {
             "Usage:\n" +
             "  <myDate> <costDateWeek> <dashboardName> <dashboardJson> <dashboardAdd> <settings> <metricImage>  \n\n" +
             "Where:\n" +
-            "  myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z). \n" +
-            "  costDateWeek - The start date to use to get AWS/Billinget statistics. (For example, 2023-01-11T18:35:24.00Z). \n" +
+            "  myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z.) \n" +
+            "  costDateWeek - The start date to use to get AWS/Billinget statistics. (For example, 2023-01-11T18:35:24.00Z.) \n" +
             "  dashboardName - The name of the dashboard to create. \n" +
-            "  dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file). \n" +
-            "  dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file). \n" +
-            "  settings - The location of a JSON file from which various values are read. (See Readme file). \n" +
+            "  dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file.) \n" +
+            "  dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file.) \n" +
+            "  settings - The location of a JSON file from which various values are read. (See Readme file.) \n" +
             "  metricImage - The location of a BMP file that is used to create a graph. \n" ;
 
         if (args.length != 7) {
-             System.out.println(usage);
-             System.exit(1);
+            System.out.println(usage);
+            System.exit(1);
         }
 
         Region region = Region.US_EAST_1;
@@ -137,6 +137,7 @@ public class CloudWatchScenario {
         String dashboardAdd = args[4];
         String settings = args[5];
         String metricImage = args[6];
+
         Double dataPoint = Double.parseDouble("10.0");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         CloudWatchClient cw = CloudWatchClient.builder()
@@ -149,7 +150,7 @@ public class CloudWatchScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("1. List at least 5 available unique namespaces from Amazon CloudWatch. Select a CloudWatch Namespace from the list.");
+        System.out.println("1. List at least five available unique namespaces from Amazon CloudWatch. Select one from the list.");
         ArrayList<String> list = listNameSpaces(cw);
         for (int z=0; z<5; z++) {
             int index = z+1;
@@ -263,7 +264,7 @@ public class CloudWatchScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("6. List dashboards using a Paginator.");
+        System.out.println("6. List dashboards using a paginator.");
         listDashboards(cw);
         System.out.println(DASHES);
 
@@ -273,7 +274,7 @@ public class CloudWatchScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("8. Add additional metric to the dashboard.");
+        System.out.println("8. Add an additional metric to the dashboard.");
         addMetricToDashboard(cw, dashboardAdd, dashboardName);
         System.out.println(DASHES);
 
@@ -313,7 +314,7 @@ public class CloudWatchScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("16. Describe current anomaly detectors");
+        System.out.println("16. Describe current anomaly detectors.");
         describeAnomalyDetectors(cw, settings);
         System.out.println(DASHES);
 
@@ -330,7 +331,7 @@ public class CloudWatchScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("The Amazon CloudWatch example scenario has completed.");
+        System.out.println("The Amazon CloudWatch example scenario is complete.");
         System.out.println(DASHES);
         cw.close();
     }
