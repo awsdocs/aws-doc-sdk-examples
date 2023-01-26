@@ -55,10 +55,9 @@ The Amazon Cognito resources for `Sign up a user with a user pool that requires 
 
 For instructions on how to run the script, see the [README](../../../resources/cdk/cognito_scenario_user_pool_with_mfa/README.md).
 
-The [Sign up a user with a user pool that requires MFA](./getting_started_with_user_pools.cpp) can optionally be built to use the 
-[qr-code-generator](https://github.com/nayuki/QR-Code-generator) library to create a QR code image for MFA authentication. A [conanfile.txt](conanfile.txt) is 
-included with the sample code and the `qr-code-generator` library can be installed using  the 
-[Conan C++ package manager](https://conan.io/).
+Optionally, build [Sign up a user with a user pool that requires MFA](./getting_started_with_user_pools.cpp) to use the
+[qr-code-generator](https://github.com/nayuki/QR-Code-generator) library. This creates a QR code image for MFA authentication. 
+A [conanfile.txt](conanfile.txt) is included with the sample code. You can install the qr-code-generator library by using the [Conan C++ package manager](https://conan.io/).
 
 To install the `qr-code-generator` library using Conan, run the following command from the build directory.
 

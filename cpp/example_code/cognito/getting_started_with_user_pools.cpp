@@ -15,22 +15,22 @@
  *
  * Demonstrates adding a user to an Amazon Cognito user pool.
  *
- *  1. Add a user with a username, password and email address. (SignUp)
+ *  1. Add a user with a username, password, and email address. (SignUp)
  *  2. Confirm that the user was added to the user pool. (AdminGetUser)
  *  3. Request another confirmation code by email. (ResendConfirmationCode)
- *  4. Send the confirmation code received in the email. (ConfirmSignUp)
- *  5. Initiate authorization with a user name and password. (AdminInitiateAuth)
+ *  4. Send the confirmation code that's received in the email. (ConfirmSignUp)
+ *  5. Initiate authorization with a username and password. (AdminInitiateAuth)
  *  6. Request a setup key for one-time password (TOTP)
  *     multi-factor authentication (MFA). (AssociateSoftwareToken)
  *  7. Send the MFA code copied from an authenticator app. (VerifySoftwareToken)
  *  8. Initiate authorization again with username and password. (AdminInitiateAuth)
  *  9. Send a new MFA code copied from an authenticator app. (AdminRespondToAuthChallenge)
- *  10. Delete the user just added. (DeleteUser)
+ *  10. Delete the user that you just added. (DeleteUser)
  *
  *
- *  This example requires an already configured Amazon Cognito user pool.
+ *  This example requires a previously configured Amazon Cognito user pool.
  *
- *  To setup and run the example, refer to the instructions in the README.
+ *  To set up and run the example, refer to the instructions in the README.
  *
  */
 
@@ -63,7 +63,7 @@ namespace AwsDoc {
         //! Routine which checks the user status in an Amazon Cognito user pool.
         /*!
          \sa checkAdminUserStatus()
-         \param userName: A user name.
+         \param userName: A username.
          \param userPoolID: An Amazon Cognito user pool ID.
          \return bool: Successful completion.
          */
@@ -71,13 +71,13 @@ namespace AwsDoc {
                                          const Aws::String &userPoolID,
                                          const Aws::CognitoIdentityProvider::CognitoIdentityProviderClient &client);
 
-        //! Routine which starts authorization of an Amazon Cognito with administrator
-        //! credentials.
+        //! Routine which starts authorization of an Amazon Cognito user.
+        //! This routine requires administrator credentials.
         /*!
          \sa adminInitiateAuthorization()
          \param clientID: Client ID of tracked device.
          \param userPoolID: An Amazon Cognito user pool ID.
-         \param userName: A user name.
+         \param userName: A username.
          \param password: A password.
          \param sessionResult: String to receive a session token.
          \return bool: Successful completion.
@@ -167,9 +167,9 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     printAsterisksLine();
 
     std::cout
-            << "This scenario will add a user to a Cognito user pool."
+            << "This scenario will add a user to an Amazon Cognito user pool."
             << std::endl;
-    const Aws::String userName = askQuestion("Enter a new user name: ");
+    const Aws::String userName = askQuestion("Enter a new username: ");
     const Aws::String password = askQuestion("Enter a new password: ");
     const Aws::String email = askQuestion("Enter a valid email for the user: ");
 
@@ -180,7 +180,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     // snippet-end:[cpp.example_code.cognito.cognito_client]
     bool userExists = false;
     do {
-        // 1. Add a user with a username, password and email address.
+        // 1. Add a user with a username, password, and email address.
         // snippet-start:[cpp.example_code.cognito.signup]
         Aws::CognitoIdentityProvider::Model::SignUpRequest request;
         request.AddUserAttributes(
@@ -199,7 +199,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
         else if (outcome.GetError().GetErrorType() ==
                  Aws::CognitoIdentityProvider::CognitoIdentityProviderErrors::USERNAME_EXISTS) {
             std::cout
-                    << "The username already exists. Please enter a different user name."
+                    << "The username already exists. Please enter a different username."
                     << std::endl;
             userExists = true;
         }
@@ -250,7 +250,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
     printAsterisksLine();
 
     {
-        // 4. Send the confirmation code received in the email. (ConfirmSignUp)
+        // 4. Send the confirmation code that's received in the email. (ConfirmSignUp)
         const Aws::String confirmationCode = askQuestion(
                 "Enter the confirmation code that was emailed: ");
         // snippet-start:[cpp.example_code.cognito.confirm_signup]
@@ -283,7 +283,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
 
     printAsterisksLine();
 
-    std::cout << "Initiating authorization using the user name and password."
+    std::cout << "Initiating authorization using the username and password."
               << std::endl;
 
     Aws::String session;
@@ -365,7 +365,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
 
     printAsterisksLine();
     std::cout << "You have completed the MFA authentication setup." << std::endl;
-    std::cout << "Now you will do a normal login." << std::endl;
+    std::cout << "Now, sign in." << std::endl;
 
     // 8. Initiate authorization again with username and password. (AdminInitiateAuth)
     if (!adminInitiateAuthorization(clientID, userPoolID, userName, password, session, client)) {
@@ -410,8 +410,8 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
                   << std::endl;
     }
 
-    if (askYesNoQuestion("Would you like to delete the user you created? (y/n) ")) {
-        // 10. Delete the user just added. (DeleteUser)
+    if (askYesNoQuestion("Would you like to delete the user that you just added? (y/n) ")) {
+        // 10. Delete the user that you just added. (DeleteUser)
         // snippet-start:[cpp.example_code.cognito.delete_user]
         Aws::CognitoIdentityProvider::Model::DeleteUserRequest request;
         request.SetAccessToken(accessToken);
@@ -437,7 +437,7 @@ bool AwsDoc::Cognito::gettingStartedWithUserPools(const Aws::String &clientID,
 //! Routine which checks the user status in an Amazon Cognito user pool.
 /*!
  \sa checkAdminUserStatus()
- \param userName: A user name.
+ \param userName: A username.
  \param userPoolID: An Amazon Cognito user pool ID.
  \return bool: Successful completion.
  */
@@ -468,13 +468,13 @@ bool AwsDoc::Cognito::checkAdminUserStatus(const Aws::String &userName,
     return outcome.IsSuccess();
 }
 
-//! Routine which starts authorization of an Amazon Cognito with administrator
-//! credentials.
+//! Routine which starts authorization of an Amazon Cognito user.
+//! This routine requires administrator credentials.
 /*!
  \sa adminInitiateAuthorization()
  \param clientID: Client ID of tracked device.
  \param userPoolID: An Amazon Cognito user pool ID.
- \param userName: A user name.
+ \param userName: A username.
  \param password: A password.
  \param sessionResult: String to receive a session token.
  \return bool: Successful completion.
@@ -595,7 +595,7 @@ bool AwsDoc::Cognito::askYesNoQuestion(const Aws::String &string) {
             }
 
             if (!result) {
-                std::cout << "Please answer 'y' or 'n'." << std::endl;
+                std::cout << "Answer 'y' or 'n'." << std::endl;
             }
 
             return result;
@@ -612,7 +612,7 @@ bool AwsDoc::Cognito::askYesNoQuestion(const Aws::String &string) {
  */
 bool AwsDoc::Cognito::testForEmptyString(const Aws::String &string) {
     if (string.empty()) {
-        std::cout << "Please enter some text." << std::endl;
+        std::cout << "Enter some text." << std::endl;
         return false;
     }
 
@@ -676,7 +676,7 @@ static void writeQRCode(const qrcodegen::QrCode &qr) {
  \return void:
  */
 void AwsDoc::Cognito::saveQRCode(const std::string &string) {
-    const qrcodegen::QrCode::Ecc errCorLvl = qrcodegen::QrCode::Ecc::LOW;  // Error correction level
+    const qrcodegen::QrCode::Ecc errCorLvl = qrcodegen::QrCode::Ecc::LOW;  // Error correction level.
 
     const qrcodegen::QrCode qr = qrcodegen::QrCode::encodeText(string.c_str(),
                                                                errCorLvl);
