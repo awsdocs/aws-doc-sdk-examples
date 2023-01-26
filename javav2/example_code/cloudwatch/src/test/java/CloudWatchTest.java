@@ -220,7 +220,7 @@ public class CloudWatchTest {
         Double dataPoint = Double.parseDouble("10.0");
         System.out.println(CloudWatchScenario.DASHES);
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("1. List at least 5 available unique namespaces from Amazon CloudWatch. Select a CloudWatch Namespace from the list.");
+        System.out.println("1. List at least 5 available unique namespaces from Amazon CloudWatch. Select a CloudWatch namespace from the list.");
         ArrayList<String> list = CloudWatchScenario.listNameSpaces(cw);
         for (int z=0; z<5; z++) {
             System.out.println("    " +(z+1) +". " +list.get(z));
@@ -333,7 +333,7 @@ public class CloudWatchTest {
         System.out.println(CloudWatchScenario.DASHES);
 
         System.out.println(CloudWatchScenario.DASHES);
-        System.out.println("6. List dashboards using a Paginator.");
+        System.out.println("6. List dashboards using a paginator.");
         CloudWatchScenario.listDashboards(cw);
         System.out.println(CloudWatchScenario.DASHES);
 
@@ -353,7 +353,7 @@ public class CloudWatchTest {
         System.out.println(CloudWatchScenario.DASHES);
 
         System.out.println(CloudWatchScenario.DASHES);
-        System.out.println("10. Describe 10 current alarms.");
+        System.out.println("10. Describe ten current alarms.");
         CloudWatchScenario.describeAlarms(cw);
         System.out.println(CloudWatchScenario.DASHES);
 
