@@ -86,7 +86,7 @@ JavaScript:
       long: "&JSBlong; V2"
       short: "&JSB; V2"
       expanded:
-        long: "AWS SDK for JavaScript V3"
+        long: "AWS SDK for JavaScript V2"
         short: "SDK for JavaScript V2"
       guide: "sdk-for-javascript/v2/developer-guide/welcome.html"
       api_ref:

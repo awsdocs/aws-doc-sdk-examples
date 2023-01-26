@@ -6,7 +6,7 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
 
 Purpose:
-s3_getobject.js gets an object} from an Amazon Simple Storage Service (Amazon S3) bucket.
+s3_getobject.js gets an object from an Amazon Simple Storage Service (Amazon S3) bucket.
 
 Inputs (replace in code):
 - BUCKET_NAME
@@ -30,7 +30,7 @@ export const bucketParams = {
 
 export const run = async () => {
   try {
-    // Get the object} from the Amazon S3 bucket. It is returned as a ReadableStream.
+    // Get the object from the Amazon S3 bucket. It is returned as a ReadableStream.
     const data = await s3Client.send(new GetObjectCommand(bucketParams));
     // Convert the ReadableStream to a string.
     return await data.Body.transformToString();

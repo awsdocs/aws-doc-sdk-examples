@@ -391,6 +391,7 @@ cross_RekognitionPhotoAnalyzer:
     .NET:
       versions:
         - sdk_version: 3
+          github: dotnetv3/cross-service/PhotoAnalyzerApp
           block_content: cross_RekognitionPhotoAnalyzer_Net_block.xml
     JavaScript:
       versions:
