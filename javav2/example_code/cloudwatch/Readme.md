@@ -1,4 +1,4 @@
-# Amazon CloudWatch Java code examples
+# Amazon CloudWatch code examples for the SDK for Java
 
 ## Overview
 This README discusses how to run and test the AWS SDK for Java (v2) examples for Amazon CloudWatch.
@@ -6,7 +6,7 @@ This README discusses how to run and test the AWS SDK for Java (v2) examples for
 Amazon CloudWatch enables you to monitor your complete stack (applications, infrastructure, network, and services) and use alarms, logs, and events data to take automated actions. 
 
 ## ⚠️ Important
-* Running this code might result in charges to your AWS account. See [AWS Pricing](https://aws.amazon.com/pricing/).
+* Running this code might result in charges to your AWS account. For more information, see [AWS Pricing](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
