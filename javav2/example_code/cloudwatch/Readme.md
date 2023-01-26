@@ -23,6 +23,9 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 Code excerpts that show you how to call individual service functions.
 
+- [Create anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putAnomalyDetector command)
+- [Create a dashboard](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putDashboard command)
+- [Create a metric alarm](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putMetricAlarm command)
 - [Delete alarms](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/DeleteAlarm.java) (createKeyspace command)
 - [Delete an anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (DeleteAnomalyDetectorRequest command)
 - [Delete dashboards](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (deleteDashboards command)
@@ -36,9 +39,6 @@ Code excerpts that show you how to call individual service functions.
 - [Get metric statistics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (getMetricStatistics command)
 - [Get a metric data image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (getMetricWidgetImage command)
 - [List metrics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (ListMetrics command)
-- [Create anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putAnomalyDetector command)
-- [Create a dashboard](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putDashboard command)
-- [Create a metric alarm](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putMetricAlarm command)
 - [Put data into a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putMetricData command)
 
 
@@ -55,7 +55,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 To run these examples, set up your development environment. For more information, 
 see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
 
- To run these examples, you require three JSON files. You can find these three files in this Github repository. The name of these files are: jsonWidgets.json, CloudDashboard.json, and settings.json. The  CloudWatchScenario depends on these files. 
+To run these examples, you must have the following three JSON files: jsonWidgets.json, CloudDashboard.json, and settings.json. Find these files in this GitHub repository. The CloudWatch scenario depends on these files.
  
  **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
@@ -63,25 +63,25 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
  
  ⚠️ Running the tests might result in charges to your AWS account.
 
-You can test the Java code example for Amazon Keyspaces by running a test file named **KeyspaceTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Java code example for Amazon CloudWatch by running a test file named **CloudWatchTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-To successfully run the JUnit tests, define the following values in the test:
+To successfully run the tests, define the following values in the test:
 
 - **logGroup** - The name of the log group to use. For example, **testgroup**.
 - **alarmName** – The name of the alarm to use. For example, **AlarmFeb**.
-- **instanceId** – The ID of the instance to use. You can obtain this value from the AWS Management Console. For example, **ami-04300000000**.
+- **instanceId** – The ID of the instance to use. Get this value from the AWS Management Console. For example, **ami-04300000000**.
 - **streamName** - The name of the stream to use. This value is used to retrieve log events.
-- **ruleResource** – The Amazon Resource Name (ARN) of the user who owns the rule. You can obtain this value from the AWS Management Console.  
+- **ruleResource** – The Amazon Resource Name (ARN) of the user who owns the rule. Get this value from the AWS Management Console.  
 -  **filterName**  - The name of the filter to use.
 - **destinationArn** - The ARN of the destination. This value is used to create subscription filters.
 - **roleArn** - The ARN of the user. This value is used to create subscription filters.
 - **filterPattern** - The filter pattern. For example, **Error**.
-- **myDateSc** - The start date to use to get metric statistics in the scenario test. (for example, 2023-01-11T18:35:24.00Z). 
-- **costDateWeekSc** - The start date to use to get AWS/Billinget statistics. (for example, 2023-01-11T18:35:24.00Z). 
+- **myDateSc** - The start date to use to get metric statistics in the scenario test. (For example, 2023-01-11T18:35:24.00Z). 
+- **costDateWeekSc** - The start date to use to get AWS billing statistics. (For example, 2023-01-11T18:35:24.00Z.) 
 - **dashboardNameSc** - The name of the dashboard to create in the scenario test. 
-- **dashboardJsonSc** - The location of the jsonWidgets fle to use to create a dashboard. 
-- **dashboardAddSc** - The location of the CloudDashboard.json file to use to update a dashboard. (See Readme file). 
-- **settingsSc** - The location of the settings.json file from which various values are read. (See Readme file). 
+- **dashboardJsonSc** - The location of the jsonWidgets file to use to create a dashboard. 
+- **dashboardAddSc** - The location of the CloudDashboard.json file to use to update a dashboard. (See Readme file.) 
+- **settingsSc** - The location of the settings.json file from which various values are read. (See Readme file.) 
 - **metricImageSc** - The location of a BMP file that is used to create a graph.  
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
