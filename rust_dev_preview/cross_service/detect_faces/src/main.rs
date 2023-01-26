@@ -180,10 +180,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
             .or_default_provider()
             .or_else(aws_sdk_rekognition::Region::new("us-west-2"));
 
-    let s3_region_provider =
-        RegionProviderChain::first_try(s3_region.map(aws_sdk_s3::Region::new))
-            .or_default_provider()
-            .or_else(aws_sdk_s3::Region::new("us-west-2"));
+    let s3_region_provider = RegionProviderChain::first_try(s3_region.map(aws_sdk_s3::Region::new))
+        .or_default_provider()
+        .or_else(aws_sdk_s3::Region::new("us-west-2"));
     println!();
 
     if verbose {
