@@ -8,5 +8,4 @@ These resources are organized in the following sub-directories:
 |[/cdk](/resources/cdk)                  |CDK templates for setting up resources used in cross-service examples.           |
 |[/cfn](/resources/cfn)                  |CloudFormation templates for setting up resources used in cross-service examples.|
 |[/clients](/resources/clients)          |Front-end clients for running cross-service examples.                            |
-|[/iam_policies](/resources/iam_policies)|Miscellaneous IAM policies. Not actively maintained.                             |
 |[/sample_files](/resources/sample_files)|Sample files used for cross-service examples.     
