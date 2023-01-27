@@ -217,73 +217,47 @@ public class CloudWatchTest {
     @Test
     @Order(16)
     public void TestScenario() throws IOException {
+        Scanner sc = new Scanner(System.in);
         Double dataPoint = Double.parseDouble("10.0");
         System.out.println(CloudWatchScenario.DASHES);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("1. List at least 5 available unique namespaces from Amazon CloudWatch. Select a CloudWatch namespace from the list.");
+        System.out.println("1. List at least five available unique namespaces from Amazon CloudWatch. Select one from the list.");
         ArrayList<String> list = CloudWatchScenario.listNameSpaces(cw);
         for (int z=0; z<5; z++) {
-            System.out.println("    " +(z+1) +". " +list.get(z));
+            int index = z+1;
+            System.out.println("    " +index +". " +list.get(z));
         }
-        String option = reader.readLine();
+
         String selectedNamespace = "";
         String selectedMetrics = "";
-        switch (option) {
-            case "1":
-                selectedNamespace= list.get(0);
-                break;
-            case "2":
-                selectedNamespace= list.get(1);
-                break;
-            case "3":
-                selectedNamespace= list.get(2);
-                break;
-            case "4":
-                selectedNamespace= list.get(3);
-                break;
-            case "5":
-                selectedNamespace= list.get(4);
-                break;
-            default:
-                System.out.println("You did not select a valid option.");
-                System.exit(1);
+        int num = Integer.parseInt(sc.nextLine());
+        if (1 <= num && num <= 5){
+            selectedNamespace = list.get(num-1);
+        } else {
+            System.out.println("You did not select a valid option.");
+            System.exit(1);
         }
         System.out.println("You selected "+selectedNamespace);
         System.out.println(CloudWatchScenario.DASHES);
 
-        System.out.println(CloudWatchScenario.DASHES);
-        System.out.println("2. List available metrics within the selected Namespace and select one from the list.");
-        ArrayList<String> metList = CloudWatchScenario.listMets(cw, selectedNamespace);
+        System.out.println( CloudWatchScenario.DASHES);
+        System.out.println("2. List available metrics within the selected namespace and select one from the list.");
+        ArrayList<String> metList =  CloudWatchScenario.listMets(cw, selectedNamespace);
         for (int z=0; z<5; z++) {
             int index = z+1;
             System.out.println("    " +index +". " +metList.get(z));
         }
-        String metOption = reader.readLine();
-        switch (metOption) {
-            case "1":
-                selectedMetrics= metList.get(0);
-                break;
-            case "2":
-                selectedMetrics= metList.get(1);
-                break;
-            case "3":
-                selectedMetrics= metList.get(2);
-                break;
-            case "4":
-                selectedMetrics= metList.get(3);
-                break;
-            case "5":
-                selectedMetrics= metList.get(4);
-                break;
-            default:
-                System.out.println("You did not select a valid option.");
-                System.exit(1);
+        num = Integer.parseInt(sc.nextLine());
+        if (1 <= num && num <= 5){
+            selectedMetrics = metList.get(num-1);
+        } else {
+            System.out.println("You did not select a valid option.");
+            System.exit(1);
         }
         System.out.println("You selected "+selectedMetrics);
-        Dimension myDimension = CloudWatchScenario.getSpecificMet( cw, selectedNamespace);
-        System.out.println(CloudWatchScenario.DASHES);
+        Dimension myDimension =  CloudWatchScenario.getSpecificMet( cw, selectedNamespace);
+        System.out.println( CloudWatchScenario.DASHES);
 
-        System.out.println(CloudWatchScenario.DASHES);
+        System.out.println( CloudWatchScenario.DASHES);
         System.out.println("3. Get statistics for the selected metric over the last day.");
         String metricOption="";
         ArrayList<String> statTypes = new ArrayList<>();
@@ -297,26 +271,12 @@ public class CloudWatchTest {
             System.out.println("    " +(t+1) +". "+statTypes.get(t));
         }
         System.out.println("Select a metric statistic by entering a number from the preceding list:");
-        String myOption = reader.readLine();
-        switch (myOption) {
-            case "1":
-                metricOption= statTypes.get(0);
-                break;
-            case "2":
-                metricOption= statTypes.get(1);
-                break;
-            case "3":
-                metricOption= statTypes.get(2);
-                break;
-            case "4":
-                metricOption= statTypes.get(3);
-                break;
-            case "5":
-                metricOption= statTypes.get(4);
-                break;
-            default:
-                System.out.println("You did not select a valid option.");
-                System.exit(1);
+        num = Integer.parseInt(sc.nextLine());
+        if (1 <= num && num <= 5){
+            metricOption = statTypes.get(num-1);
+        } else {
+            System.out.println("You did not select a valid option.");
+            System.exit(1);
         }
         System.out.println("You selected "+metricOption);
         CloudWatchScenario.getAndDisplayMetricStatistics(cw, selectedNamespace, selectedMetrics, metricOption, myDateSc, myDimension);
