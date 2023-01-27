@@ -53,7 +53,7 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import java.util.*
+import java.util.Scanner
 import kotlin.system.exitProcess
 
 // snippet-start:[cloudwatch.kotlin.scenario.main]
@@ -151,7 +151,7 @@ suspend fun main(args: Array<String>) {
     for (z in 0..4) {
         println("    ${ z + 1}. ${metList?.get(z)}")
     }
-    num =  inOb.nextLine().toInt()
+    num = inOb.nextLine().toInt()
     if (1 <= num && num <= 5) {
         selectedMetrics = metList!![num - 1]
     } else {
@@ -422,7 +422,7 @@ suspend fun getAlarmHistory(fileName: String, date: String) {
         historyItemType = HistoryItemType.Action
     }
 
-    CloudWatchClient { credentialsProvider = EnvironmentCredentialsProvider(); region = "us-east-1"   }.use { cwClient ->
+    CloudWatchClient { credentialsProvider = EnvironmentCredentialsProvider(); region = "us-east-1" }.use { cwClient ->
         val response = cwClient.describeAlarmHistory(historyRequest)
         val historyItems = response.alarmHistoryItems
         if (historyItems != null) {
