@@ -1,4 +1,4 @@
-# [AWS STS code examples for the SDK for JavaScript (v3)
+# AWS STS code examples for the SDK for JavaScript (v3)
 
 ## Overview
 
@@ -14,8 +14,6 @@ AWS provides AWS STS as a web service that enables you to request temporary, lim
 - This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Code examples
-
-### Get started
 
 ### Single actions
 
