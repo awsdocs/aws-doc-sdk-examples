@@ -859,7 +859,7 @@ cloudwatch_PutMetricData:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.java2.put_metric_data.main
+                - cloudwatch.java2.scenario.add.met.alarm.main
     Python:
       versions:
         - sdk_version: 3
