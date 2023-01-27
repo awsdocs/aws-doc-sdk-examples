@@ -46,7 +46,7 @@ public class AuroraWrapper
     /// <param name="groupName">The name for the new parameter group.</param>
     /// <param name="description">A description for the new parameter group.</param>
     /// <returns>The new parameter group object.</returns>
-    public async Task<DBClusterParameterGroup> CreateCustomDBClusterParameterGroupAsync(
+    public async Task<DBClusterParameterGroup> CreateCustomClusterParameterGroupAsync(
         string parameterGroupFamily,
         string groupName,
         string description)
@@ -184,7 +184,7 @@ public class AuroraWrapper
     /// </summary>
     /// <param name="groupName">The name of the parameter group.</param>
     /// <returns>True if successful.</returns>
-    public async Task<bool> DeleteDBClusterParameterGroupByNameAsync(string groupName)
+    public async Task<bool> DeleteClusterParameterGroupByNameAsync(string groupName)
     {
         var request = new DeleteDBClusterParameterGroupRequest
         {
@@ -323,7 +323,7 @@ public class AuroraWrapper
     /// <param name="dbClusterIdentifier">DB cluster identifier.</param>
     /// <param name="snapshotIdentifier">Identifier for the snapshot.</param>
     /// <returns>DB snapshot object.</returns>
-    public async Task<DBClusterSnapshot> CreateDBClusterSnapshotByIdentifierAsync(string dbClusterIdentifier, string snapshotIdentifier)
+    public async Task<DBClusterSnapshot> CreateClusterSnapshotByIdentifierAsync(string dbClusterIdentifier, string snapshotIdentifier)
     {
         var response = await _amazonRDS.CreateDBClusterSnapshotAsync(
             new CreateDBClusterSnapshotRequest()
