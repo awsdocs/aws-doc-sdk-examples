@@ -48,11 +48,8 @@ Additionally, this repository contains sample code for the following AWS tooling
 
 | folder                                | service                                  |
 |---------------------------------------|------------------------------------------|
-| [aws-cli/](aws-cli)                   | AWS Command Line Interface (AWS CLI)     |
-| [cloudformation/](cloudformation)     | AWS CloudFormation                       |
 | [iam_policies/](iam_policies)         | AWS Identity and Access Management (IAM) |
 | [lambda_functions/](lambda_functions) | AWS Lambda                               |
-| [typescript/](typescript)             | AWS Cloud Development Kit (AWS CDK)      |
 
 # Contributing
 This repository thrives on your contributions! ❤️ To get involved, see the [CONTRIBUTING.md](CONTRIBUTING.md). 🙏
