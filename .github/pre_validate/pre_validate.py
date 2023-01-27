@@ -151,7 +151,16 @@ ALLOW_LIST = {
     'com/awssupport/latest/APIReference/index',
     'DescribeDbClusterParameterGroupsResponse',
     'DeleteCollectionExample/DeleteCollection',
-    'DescribeDbClusterParameterGroupsResponse'
+    'DescribeDbClusterParameterGroupsResponse',
+    'CreateCustomDBClusterParameterGroupAsync',
+    'CreateDBClusterSnapshotByIdentifierAsync',
+    'DeleteDBClusterParameterGroupByNameAsync',
+    'CreateCustomDBClusterParameterGroupAsync',
+    'DeleteDBClusterParameterGroupByNameAsync',
+    'CreateDBClusterSnapshotByIdentifierAsync',
+    'CreateCustomDBClusterParameterGroupAsync',
+    'CreateDBClusterSnapshotByIdentifierAsync',
+    'DeleteDBClusterParameterGroupByNameAsync',
 }
 
 def check_files(root, quiet):

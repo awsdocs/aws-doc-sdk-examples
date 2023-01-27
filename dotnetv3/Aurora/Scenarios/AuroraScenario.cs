@@ -511,9 +511,16 @@ public class AuroraScenario
             // Delete the DB instance.
             Console.WriteLine($"17. Deleting the DB instance {newInstance.DBInstanceIdentifier}.");
             await auroraWrapper.DeleteDBInstanceByIdentifierAsync(newInstance.DBInstanceIdentifier);
+        }
+
+        if (newCluster is not null && GetYesNoResponse($"\tClean up cluster {newCluster.DBClusterIdentifier}? (y/n)"))
+        {
+            // Delete the DB cluster.
+            Console.WriteLine($"18. Deleting the DB cluster {newCluster.DBClusterIdentifier}.");
+            await auroraWrapper.DeleteDBClusterByIdentifierAsync(newCluster.DBClusterIdentifier);
 
             // Wait for the DB instance to delete.
-            Console.WriteLine($"18. Waiting for the DB instance to delete...");
+            Console.WriteLine($"19. Waiting for the DB instance to delete...");
             bool isInstanceDeleted = false;
 
             while (!isInstanceDeleted)
@@ -524,14 +531,6 @@ public class AuroraScenario
             }
 
             Console.WriteLine("DB instance deleted.");
-        }
-
-        if (newCluster is not null && GetYesNoResponse($"\tClean up cluster {newCluster.DBClusterIdentifier}? (y/n)"))
-        {
-            // Delete the DB cluster.
-            Console.WriteLine($"19. Deleting the DB cluster {newCluster.DBClusterIdentifier}.");
-            await auroraWrapper.DeleteDBClusterByIdentifierAsync(newCluster.DBClusterIdentifier);
-
 
             // Wait for the DB cluster to delete.
             Console.WriteLine($"20. Waiting for the DB cluster to delete...");
