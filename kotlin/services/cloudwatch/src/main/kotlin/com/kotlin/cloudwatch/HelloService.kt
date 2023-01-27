@@ -41,7 +41,7 @@ suspend fun main(args: Array<String>) {
 
 suspend fun listAllMets(namespaceVal: String?) {
     val request = ListMetricsRequest {
-        namespace= namespaceVal
+        namespace = namespaceVal
     }
 
     CloudWatchClient { region = "us-east-1" }.use { cwClient ->
