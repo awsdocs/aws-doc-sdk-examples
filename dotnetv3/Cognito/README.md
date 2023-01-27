@@ -22,20 +22,21 @@ the minimum permissions required to perform the task. For more information, see
 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
-* [Confirm a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`ConfirmSignUpAsync`)
-* [Get a token to associate an MFA application with a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`AssociateSoftwareTokenAsync`)
-* [Get information about a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`AdminGetUserAsync`)
-* [Resend a confirmation code](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`ResendConfirmationCodeAsync`)
-* [Respond to an authentication challenge](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`RespondToAuthChallengeAsync`)
-* [Sign up a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`SignUpAsync`)
-* [Start authentication with a tracked device](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`InitiateAuthAsync`)
-* [Verify an MFA application with a user](scenarios/Cognito_Basics/Cognito_MVP/CognitoMethods.cs) (`VerifySoftwareTokenAsync`)
+* [Confirm a user](Actions/CofnitoWrapper.cs) (`ConfirmSignUpAsync`)
+* [Confirm an MFA Device for tracking](Actions/CognitoWrapper.cs)
+* [Get a token to associate an MFA application with a user](Actions/CognitoWrapper.cs) (`AssociateSoftwareTokenAsync`)
+* [Get information about a user](Actions/CognitoWrapper.cs) (`AdminGetUserAsync`)
+* [Resend a confirmation code](Actions/CognitoWrapper.cs) (`ResendConfirmationCodeAsync`)
+* [Respond to an authentication challenge](Actions/CognitoWrapper.cs) (`RespondToAuthChallengeAsync`)
+* [Sign up a user](Actions/CognitoWrapper.cs) (`SignUpAsync`)
+* [Start authentication with a tracked device](Actions/CognitoWrapper.cs) (`InitiateAuthAsync`)
+* [Verify an MFA application with a user](Actions/CognitoWrapper.cs) (`VerifySoftwareTokenAsync`)
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling
 multiple functions within the same service.
 
-[Sign up a user with a user pool that requires MFA](scenarios/Cognito_Basics/Cognito_MVP/)
+[Sign up a user with a user pool that requires MFA](scenarios/Cognito_Basics/CognitoBasics.cs)
 
 ## Run the examples
 
