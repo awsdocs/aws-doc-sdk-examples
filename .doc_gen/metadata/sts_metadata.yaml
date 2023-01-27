@@ -40,10 +40,10 @@ sts_AssumeRole:
           excerpts:
             - description: Create the client.
               snippet_tags:
-                - sts.JavaScript.createclientv3
+                - javascript.v3.sts.client
             - description: Assume the &IAM; role.
               snippet_tags:
-                - iam.JavaScript.sts.AssumeRoleV3
+                - javascript.v3.sts.actions.AssumeRole
         - sdk_version: 2
           github: javascript/example_code/sts
           sdkguide:

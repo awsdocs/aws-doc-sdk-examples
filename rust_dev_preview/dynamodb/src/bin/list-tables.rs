@@ -20,5 +20,6 @@ async fn main() -> Result<(), Error> {
 
     let shared_config = make_config(Opt::from_args()).await?;
     let client = Client::new(&shared_config);
-    list_tables(&client).await
+    list_tables(&client).await?;
+    Ok(())
 }

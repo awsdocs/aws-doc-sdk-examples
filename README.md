@@ -17,7 +17,7 @@ Code examples for each language's SDK can be found within the following subdirec
 | C++        | [cpp/](cpp)                           | 1           | ![[]](https://img.shields.io/badge/-GA-blue)          |
 | Go         | [gov2/](gov2)                         | 2           | ![[]](https://img.shields.io/badge/-GA-blue)          |
 | Go         | [go/](go)                             | 1           | ![[]](https://img.shields.io/badge/-deprecated-red)  |
-| Java       | [javav2/]()                           | 2           | ![[]](https://img.shields.io/badge/-GA-blue) (Recommended version) |
+| Java       | [javav2/](java2)                      | 2           | ![[]](https://img.shields.io/badge/-GA-blue) (Recommended version) |
 | Java       | [java/](java)                         | 1           | ![[]](https://img.shields.io/badge/-GA-blue) (Not Recommended) |
 | JavaScript | [javascriptv3/](javascriptv3)         | 3           | ![[]](https://img.shields.io/badge/-GA-blue)          |
 | JavaScript | [javascript/](javascript)             | 2           | ![[]](https://img.shields.io/badge/-deprecated-red)  |
@@ -48,11 +48,8 @@ Additionally, this repository contains sample code for the following AWS tooling
 
 | folder                                | service                                  |
 |---------------------------------------|------------------------------------------|
-| [aws-cli/](aws-cli)                   | AWS Command Line Interface (AWS CLI)     |
-| [cloudformation/](cloudformation)     | AWS CloudFormation                       |
 | [iam_policies/](iam_policies)         | AWS Identity and Access Management (IAM) |
 | [lambda_functions/](lambda_functions) | AWS Lambda                               |
-| [typescript/](typescript)             | AWS Cloud Development Kit (AWS CDK)      |
 
 # Contributing
 This repository thrives on your contributions! ❤️ To get involved, see the [CONTRIBUTING.md](CONTRIBUTING.md). 🙏

@@ -4,6 +4,18 @@
 {{ customs['instructions'] -}}
 <!--custom.instructions.end-->
 
+{% for hello_ex in hello %}
+#### {{ hello_ex['title_abbrev'] }}
+
+This example shows you how to {{ hello_ex['synopsis'] }}
+
+{% if lang_config['name'] == 'Go' and lang_config['sdk_ver'] == 2 %}
+```
+go run ./hello
+```
+{% endif %}
+{% endfor %}
+
 {% for scenario in scenarios %}
 #### {{scenario['title_abbrev']}}
 

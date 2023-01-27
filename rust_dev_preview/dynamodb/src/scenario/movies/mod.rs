@@ -48,14 +48,14 @@ where
     }
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct Movie {
     year: i32,
     title: String,
     info: MovieInfo,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct MovieInfo {
     #[serde(default = "Vec::new")]
     genres: Vec<String>,
@@ -157,7 +157,7 @@ impl From<&Movie> for PutRequest {
                 ),
             )
             .item(
-                "genre",
+                "genres",
                 AttributeValue::L(
                     movie
                         .info
@@ -168,5 +168,34 @@ impl From<&Movie> for PutRequest {
                 ),
             )
             .build()
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use aws_sdk_dynamodb::model::PutRequest;
+
+    use super::Movie;
+
+    #[test]
+    fn test_put_request_from_movie_and_back() {
+        let mut movie = Movie::new(2022, "Knives Out".into());
+        movie.cast_mut().append(&mut vec![
+            "Daniel Craig".into(),
+            "Edward Norton".into(),
+            "Janelle Monae".into(),
+        ]);
+        movie
+            .genres_mut()
+            .append(&mut vec!["Mystery".into(), "Comedy".into()]);
+
+        let request: PutRequest = (&movie).into();
+
+        let item = request.item().unwrap();
+        assert_eq!(item.len(), 4);
+
+        let movie_back: Movie = item.into();
+
+        assert_eq!(movie_back, movie);
     }
 }

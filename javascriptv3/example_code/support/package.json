@@ -1,0 +1,19 @@
+{
+  "name": "example-javascriptv3-support",
+  "version": "1.0.0",
+  "description": "Examples demonstrating how to use the AWS SDK for JavaScript (v3) to interact with AWS Support.",
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js"
+  },
+  "author": "corepyle@amazon.com",
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-support": "^3.245.0",
+    "inquirer": "^9.1.4",
+    "libs": "*"
+  },
+  "devDependencies": {
+    "vitest": "^0.27.0"
+  }
+}
