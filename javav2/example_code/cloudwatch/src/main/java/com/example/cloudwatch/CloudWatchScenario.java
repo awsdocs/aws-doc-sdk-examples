@@ -75,6 +75,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 // snippet-start:[cloudwatch.java2.scenario.main]
 /**
@@ -124,10 +125,10 @@ public class CloudWatchScenario {
             "  settings - The location of a JSON file from which various values are read. (See Readme file.) \n" +
             "  metricImage - The location of a BMP file that is used to create a graph. \n" ;
 
-        if (args.length != 7) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+       if (args.length != 7) {
+           System.out.println(usage);
+           System.exit(1);
+       }
 
         Region region = Region.US_EAST_1;
         String myDate = args[0];
@@ -138,8 +139,9 @@ public class CloudWatchScenario {
         String settings = args[5];
         String metricImage = args[6];
 
+
         Double dataPoint = Double.parseDouble("10.0");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        Scanner sc = new Scanner(System.in);
         CloudWatchClient cw = CloudWatchClient.builder()
             .region(region)
             .credentialsProvider(ProfileCredentialsProvider.create())
@@ -156,26 +158,13 @@ public class CloudWatchScenario {
             int index = z+1;
             System.out.println("    " +index +". " +list.get(z));
         }
-        String option = reader.readLine();
+
         String selectedNamespace = "";
         String selectedMetrics = "";
-        switch (option) {
-        case "1":
-            selectedNamespace= list.get(0);
-            break;
-        case "2":
-            selectedNamespace= list.get(1);
-            break;
-        case "3":
-            selectedNamespace= list.get(2);
-            break;
-        case "4":
-            selectedNamespace= list.get(3);
-            break;
-        case "5":
-            selectedNamespace= list.get(4);
-            break;
-        default:
+        int num = Integer.parseInt(sc.nextLine());
+        if (1 <= num && num <= 5){
+            selectedNamespace = list.get(num-1);
+        } else {
             System.out.println("You did not select a valid option.");
             System.exit(1);
         }
@@ -189,26 +178,12 @@ public class CloudWatchScenario {
             int index = z+1;
             System.out.println("    " +index +". " +metList.get(z));
         }
-        String metOption = reader.readLine();
-        switch (metOption) {
-            case "1":
-                selectedMetrics= metList.get(0);
-                break;
-            case "2":
-                selectedMetrics= metList.get(1);
-                break;
-            case "3":
-                selectedMetrics= metList.get(2);
-                break;
-            case "4":
-                selectedMetrics= metList.get(3);
-                break;
-            case "5":
-                selectedMetrics= metList.get(4);
-                break;
-            default:
-                System.out.println("You did not select a valid option.");
-                System.exit(1);
+        num = Integer.parseInt(sc.nextLine());
+        if (1 <= num && num <= 5){
+            selectedMetrics = metList.get(num-1);
+        } else {
+            System.out.println("You did not select a valid option.");
+            System.exit(1);
         }
         System.out.println("You selected "+selectedMetrics);
         Dimension myDimension = getSpecificMet( cw, selectedNamespace);
@@ -228,26 +203,12 @@ public class CloudWatchScenario {
             System.out.println("    " +(t+1) +". "+statTypes.get(t));
         }
         System.out.println("Select a metric statistic by entering a number from the preceding list:");
-        String myOption = reader.readLine();
-        switch (myOption) {
-            case "1":
-                metricOption= statTypes.get(0);
-                break;
-            case "2":
-                metricOption= statTypes.get(1);
-                break;
-            case "3":
-                metricOption= statTypes.get(2);
-                break;
-            case "4":
-                metricOption= statTypes.get(3);
-                break;
-            case "5":
-                metricOption= statTypes.get(4);
-                break;
-            default:
-                System.out.println("You did not select a valid option.");
-                System.exit(1);
+        num = Integer.parseInt(sc.nextLine());
+        if (1 <= num && num <= 5){
+            metricOption = statTypes.get(num-1);
+        } else {
+            System.out.println("You did not select a valid option.");
+            System.exit(1);
         }
         System.out.println("You selected "+metricOption);
         getAndDisplayMetricStatistics(cw, selectedNamespace, selectedMetrics, metricOption, myDate, myDimension);
@@ -284,7 +245,7 @@ public class CloudWatchScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("10. Describe 10 current alarms.");
+        System.out.println("10. Describe ten current alarms.");
         describeAlarms(cw);
         System.out.println(DASHES);
 
@@ -342,8 +303,8 @@ public class CloudWatchScenario {
             // Read values from the JSON file.
             JsonParser parser = new JsonFactory().createParser(new File(fileName));
             com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
-            String customMetricNamespace = rootNode.findValue("customMetricNamespace").toString().replaceAll("\"", "");
-            String customMetricName = rootNode.findValue("customMetricName").toString().replaceAll("\"", "");
+            String customMetricNamespace = rootNode.findValue("customMetricNamespace").asText();
+            String customMetricName = rootNode.findValue("customMetricName").asText();
 
             SingleMetricAnomalyDetector singleMetricAnomalyDetector = SingleMetricAnomalyDetector.builder()
                 .metricName(customMetricName)
@@ -446,8 +407,8 @@ public class CloudWatchScenario {
             // Read values from the JSON file.
             JsonParser parser = new JsonFactory().createParser(new File(fileName));
             com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
-            String customMetricNamespace = rootNode.findValue("customMetricNamespace").toString().replaceAll("\"", "");
-            String customMetricName = rootNode.findValue("customMetricName").toString().replaceAll("\"", "");
+            String customMetricNamespace = rootNode.findValue("customMetricNamespace").asText();
+            String customMetricName = rootNode.findValue("customMetricName").asText();
             DescribeAnomalyDetectorsRequest detectorsRequest = DescribeAnomalyDetectorsRequest.builder()
                 .maxResults(10)
                 .metricName(customMetricName)
@@ -474,8 +435,8 @@ public class CloudWatchScenario {
             // Read values from the JSON file.
             JsonParser parser = new JsonFactory().createParser(new File(fileName));
             com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
-            String customMetricNamespace = rootNode.findValue("customMetricNamespace").toString().replaceAll("\"", "");
-            String customMetricName = rootNode.findValue("customMetricName").toString().replaceAll("\"", "");
+            String customMetricNamespace = rootNode.findValue("customMetricNamespace").asText();
+            String customMetricName = rootNode.findValue("customMetricName").asText();
 
             SingleMetricAnomalyDetector singleMetricAnomalyDetector = SingleMetricAnomalyDetector.builder()
                 .metricName(customMetricName)
@@ -503,7 +464,7 @@ public class CloudWatchScenario {
             // Read values from the JSON file.
             JsonParser parser = new JsonFactory().createParser(new File(fileName));
             com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
-            String alarmName = rootNode.findValue("exampleAlarmName").toString().replaceAll("\"", "");
+            String alarmName = rootNode.findValue("exampleAlarmName").asText();
 
             Instant start = Instant.parse(date);
             Instant endDate = Instant.now();
@@ -538,8 +499,8 @@ public class CloudWatchScenario {
             // Read values from the JSON file.
             JsonParser parser = new JsonFactory().createParser(new File(fileName));
             com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
-            String customMetricNamespace = rootNode.findValue("customMetricNamespace").toString().replaceAll("\"", "");
-            String customMetricName = rootNode.findValue("customMetricName").toString().replaceAll("\"", "");
+            String customMetricNamespace = rootNode.findValue("customMetricNamespace").asText();
+            String customMetricName = rootNode.findValue("customMetricName").asText();
             boolean hasAlarm = false;
             int retries = 10;
 
@@ -573,8 +534,8 @@ public class CloudWatchScenario {
             // Read values from the JSON file.
             JsonParser parser = new JsonFactory().createParser(new File(fileName));
             com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
-            String customMetricNamespace = rootNode.findValue("customMetricNamespace").toString().replaceAll("\"", "");
-            String customMetricName = rootNode.findValue("customMetricName").toString().replaceAll("\"", "");
+            String customMetricNamespace = rootNode.findValue("customMetricNamespace").asText();
+            String customMetricName = rootNode.findValue("customMetricName").asText();
 
             // Set an Instant object.
             String time = ZonedDateTime.now( ZoneOffset.UTC ).format( DateTimeFormatter.ISO_INSTANT );
@@ -619,8 +580,8 @@ public class CloudWatchScenario {
             // Read values from the JSON file.
             JsonParser parser = new JsonFactory().createParser(new File(fileName));
             com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
-            String customMetricNamespace = rootNode.findValue("customMetricNamespace").toString().replaceAll("\"", "");
-            String customMetricName = rootNode.findValue("customMetricName").toString().replaceAll("\"", "");
+            String customMetricNamespace = rootNode.findValue("customMetricNamespace").asText();
+            String customMetricName = rootNode.findValue("customMetricName").asText();
 
             // Set the date.
             Instant nowDate = Instant.now();
@@ -702,12 +663,12 @@ public class CloudWatchScenario {
             // Read values from the JSON file.
             JsonParser parser = new JsonFactory().createParser(new File(fileName));
             com.fasterxml.jackson.databind.JsonNode rootNode = new ObjectMapper().readTree(parser);
-            String customMetricNamespace = rootNode.findValue("customMetricNamespace").toString().replaceAll("\"", "");
-            String customMetricName = rootNode.findValue("customMetricName").toString().replaceAll("\"", "");
-            String alarmName = rootNode.findValue("exampleAlarmName").toString().replaceAll("\"", "");
-            String emailTopic = rootNode.findValue("emailTopic").toString().replaceAll("\"", "");
-            String accountId = rootNode.findValue("accountId").toString().replaceAll("\"", "");
-            String region = rootNode.findValue("region").toString().replaceAll("\"", "");
+            String customMetricNamespace = rootNode.findValue("customMetricNamespace").asText();
+            String customMetricName = rootNode.findValue("customMetricName").asText();
+            String alarmName = rootNode.findValue("exampleAlarmName").asText();
+            String emailTopic = rootNode.findValue("emailTopic").asText();
+            String accountId = rootNode.findValue("accountId").asText();
+            String region = rootNode.findValue("region").asText();
 
             // Create a List for alarm actions.
             List<String> alarmActions = new ArrayList<>();
