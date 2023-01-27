@@ -14,6 +14,14 @@ import aws.sdk.kotlin.services.cloudwatch.paginators.listMetricsPaginated
 import kotlinx.coroutines.flow.transform
 import kotlin.system.exitProcess
 
+// snippet-start:[cloudwatch.java2.hello.main]
+/**
+Before running this Kotlin code example, set up your development environment,
+including your credentials.
+
+For more information, see the following documentation topic:
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+ */
 suspend fun main(args: Array<String>) {
 
     val usage = """
@@ -46,3 +54,4 @@ suspend fun listAllMets(namespaceVal: String?) {
             }
     }
 }
+// snippet-end:[cloudwatch.java2.hello.main]
