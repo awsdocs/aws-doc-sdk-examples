@@ -265,7 +265,7 @@ public class AuroraWrapper
     public async Task<List<DBCluster>> DescribeDBClustersPagedAsync(string? dbClusterIdentifier = null)
     {
         var results = new List<DBCluster>();
-        
+
         DescribeDBClustersResponse response;
         DescribeDBClustersRequest request = new DescribeDBClustersRequest
         {
@@ -297,7 +297,7 @@ public class AuroraWrapper
     public async Task<DBInstance> CreateDBInstanceInClusterAsync(
         string dbClusterIdentifier,
         string dbInstanceIdentifier,
-        string dbEngine, 
+        string dbEngine,
         string dbEngineVersion,
         string instanceClass)
     {
@@ -327,7 +327,7 @@ public class AuroraWrapper
     {
         var response = await _amazonRDS.CreateDBClusterSnapshotAsync(
             new CreateDBClusterSnapshotRequest()
-            { 
+            {
                 DBClusterIdentifier = dbClusterIdentifier,
                 DBClusterSnapshotIdentifier = snapshotIdentifier,
             });

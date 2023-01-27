@@ -113,8 +113,8 @@ public class AuroraScenario
             var newInstanceIdentifier = "Example-Instance-" + DateTime.Now.Ticks;
 
             newInstance = await CreateNewInstance(
-                newClusterIdentifier, 
-                engine, 
+                newClusterIdentifier,
+                engine,
                 engineVersionChoice.EngineVersion,
                 instanceClassChoice.DBInstanceClass,
                 newInstanceIdentifier
@@ -146,11 +146,11 @@ public class AuroraScenario
 
         Console.WriteLine($"1. The following is a list of available DB parameter group families for engine {engine}:");
 
-        var parameterGroupFamilies = 
+        var parameterGroupFamilies =
             engines.GroupBy(e => e.DBParameterGroupFamily).ToList();
         for (var i = 1; i <= parameterGroupFamilies.Count; i++)
         {
-            var parameterGroupFamily = parameterGroupFamilies[i-1];
+            var parameterGroupFamily = parameterGroupFamilies[i - 1];
             // List the available parameter group families.
             Console.WriteLine(
                 $"\t{i}. Family: {parameterGroupFamily.Key}");
@@ -396,10 +396,10 @@ public class AuroraScenario
     /// <param name="instanceIdentifier">Instance identifier to use for the DB instance.</param>
     /// <returns>The new DB instance.</returns>
     public static async Task<DBInstance?> CreateNewInstance(
-        string clusterIdentifier, 
-        string engineName, 
-        string engineVersion, 
-        string instanceClass, 
+        string clusterIdentifier,
+        string engineName,
+        string engineVersion,
+        string instanceClass,
         string instanceIdentifier)
     {
         Console.WriteLine(sepBar);
@@ -469,7 +469,7 @@ public class AuroraScenario
         // Create a snapshot.
         Console.WriteLine($"15. Creating snapshot from DB cluster {cluster.DBClusterIdentifier}.");
         var snapshot = await auroraWrapper.CreateDBClusterSnapshotByIdentifierAsync(
-            cluster.DBClusterIdentifier, 
+            cluster.DBClusterIdentifier,
             "ExampleSnapshot-" + DateTime.Now.Ticks);
 
         // Wait for the snapshot to be available
@@ -478,7 +478,7 @@ public class AuroraScenario
         Console.WriteLine($"16. Waiting for snapshot to be ready...");
         while (!isSnapshotReady)
         {
-            var snapshots = 
+            var snapshots =
                 await auroraWrapper.DescribeDBClusterSnapshotsByIdentifierAsync(cluster.DBClusterIdentifier);
             isSnapshotReady = snapshots.FirstOrDefault()?.Status == "available";
             snapshot = snapshots.First();

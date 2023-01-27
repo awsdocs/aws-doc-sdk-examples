@@ -25,7 +25,7 @@ public static class HelloAurora
         var rdsClient = host.Services.GetRequiredService<IAmazonRDS>();
 
         // You can use await and any of the async methods to get a response.
-        var response = await rdsClient.DescribeDBClustersAsync(new DescribeDBClustersRequest{ IncludeShared = true });
+        var response = await rdsClient.DescribeDBClustersAsync(new DescribeDBClustersRequest { IncludeShared = true });
         Console.WriteLine($"Hello Amazon RDS Aurora! Let's list some clusters in this account:");
         foreach (var cluster in response.DBClusters)
         {
