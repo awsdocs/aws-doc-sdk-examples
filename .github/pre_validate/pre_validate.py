@@ -214,7 +214,7 @@ def verify_sample_files(root_path):
             file_path = os.path.join(path, file_name)
             ext = os.path.splitext(file_name)[1].lstrip('.')
             if file_name not in EXPECTED_SAMPLE_FILES:
-                logger.error(f"File '%s' in %s was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in checkin_tests.py.", file_name, sample_files_folder)
+                logger.error(f"File '%s' in %s was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in pre_validate.py.", file_name, sample_files_folder)
                 error_count += 1
             if ext.lower() in MEDIA_FILE_TYPES:
                 if media_folder not in file_path:
@@ -226,7 +226,7 @@ def verify_sample_files(root_path):
 
     for sample_file in EXPECTED_SAMPLE_FILES:
         if sample_file not in file_list:
-            logger.error(f"Expected sample file '%s' was not found in '%s'. If this file was intentionally removed, remove it from the EXPECTED_SAMPLE_FILES list in checkin_tests.py.", sample_file, sample_files_folder)
+            logger.error(f"Expected sample file '%s' was not found in '%s'. If this file was intentionally removed, remove it from the EXPECTED_SAMPLE_FILES list in pre_validate.py.", sample_file, sample_files_folder)
             error_count += 1
     return error_count
 

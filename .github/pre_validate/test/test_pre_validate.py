@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 """
-This script contains tests that verify the checkin_tests script works as expected.
+This script contains tests that verify the pre_validate script works as expected.
 """
 import pytest
 
