@@ -77,10 +77,9 @@ Aurora with the AWS SDK for .NET to do the following:
 15. Create a snapshot of the DB cluster using the CreateDBClusterSnapshotAsync method.
 16. Wait for DB snapshot to be ready using the DescribeDBClusterSnapshotsAsync method.
 17. Delete the DB instance using the DeleteDBInstanceAsync method.
-18. Wait for DB instance to be deleted using DescribeDBInstancesAsync methods.
-19. Delete the DB cluster using the DeleteDBClusterAsync method.
-20. Wait for DB cluster to be deleted using the DescribeDBClustersAsync methods.
-21. Delete the cluster parameter group using the DeleteDBClusterParameterGroupAsync.
+18. Delete the DB cluster using the DeleteDBClusterAsync method.
+19. Wait for DB cluster to be deleted using the DescribeDBClustersAsync methods.
+20. Delete the cluster parameter group using the DeleteDBClusterParameterGroupAsync.
 
 After the example compiles, you can run it from the command line. To do so,
 navigate to the folder that contains the .csproj file and run the following

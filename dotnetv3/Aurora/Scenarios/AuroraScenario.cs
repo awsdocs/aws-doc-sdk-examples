@@ -43,10 +43,9 @@ public class AuroraScenario
     15. Create a snapshot of the DB cluster using the CreateDBClusterSnapshotAsync method.
     16. Wait for DB snapshot to be ready using the DescribeDBClusterSnapshotsAsync method.
     17. Delete the DB instance using the DeleteDBInstanceAsync method.
-    18. Wait for DB instance to be deleted using DescribeDBInstancesAsync methods.
-    19. Delete the DB cluster using the DeleteDBClusterAsync method.
-    20. Wait for DB cluster to be deleted using the DescribeDBClustersAsync methods.
-    21. Delete the cluster parameter group using the DeleteDBClusterParameterGroupAsync.
+    18. Delete the DB cluster using the DeleteDBClusterAsync method.
+    19. Wait for DB cluster to be deleted using the DescribeDBClustersAsync methods.
+    20. Delete the cluster parameter group using the DeleteDBClusterParameterGroupAsync.
     */
 
     private static readonly string sepBar = new('-', 80);
@@ -178,7 +177,7 @@ public class AuroraScenario
         Console.WriteLine(sepBar);
         Console.WriteLine($"2. Create new DB parameter group with family {dbParameterGroupFamily}:");
 
-        var parameterGroup = await auroraWrapper.CreateCustomDBClusterParameterGroupAsync(
+        var parameterGroup = await auroraWrapper.CreateCustomClusterParameterGroupAsync(
             dbParameterGroupFamily,
             "ExampleParameterGroup-" + DateTime.Now.Ticks,
             "New example parameter group");
@@ -340,9 +339,10 @@ public class AuroraScenario
             Console.WriteLine("10. Waiting for DB cluster to be ready...");
             while (newCluster.Status != "available")
             {
+                Console.Write(".");
+                Thread.Sleep(5000);
                 clusters = await auroraWrapper.DescribeDBClustersPagedAsync(clusterIdentifier);
                 newCluster = clusters.First();
-                Thread.Sleep(30000);
             }
         }
 
@@ -426,15 +426,14 @@ public class AuroraScenario
                 instanceClass
             );
 
-            // 11. Wait for the DB instance to be ready.
-
             Console.WriteLine("13. Waiting for DB instance to be ready...");
             while (!isInstanceReady)
             {
+                Console.Write(".");
+                Thread.Sleep(5000);
                 instances = await auroraWrapper.DescribeDBInstancesPagedAsync(instanceIdentifier);
                 isInstanceReady = instances.FirstOrDefault()?.DBInstanceStatus == "available";
                 newInstance = instances.First();
-                Thread.Sleep(30000);
             }
         }
 
@@ -468,7 +467,7 @@ public class AuroraScenario
         Console.WriteLine(sepBar);
         // Create a snapshot.
         Console.WriteLine($"15. Creating snapshot from DB cluster {cluster.DBClusterIdentifier}.");
-        var snapshot = await auroraWrapper.CreateDBClusterSnapshotByIdentifierAsync(
+        var snapshot = await auroraWrapper.CreateClusterSnapshotByIdentifierAsync(
             cluster.DBClusterIdentifier,
             "ExampleSnapshot-" + DateTime.Now.Ticks);
 
@@ -478,11 +477,12 @@ public class AuroraScenario
         Console.WriteLine($"16. Waiting for snapshot to be ready...");
         while (!isSnapshotReady)
         {
+            Console.Write(".");
+            Thread.Sleep(5000);
             var snapshots =
                 await auroraWrapper.DescribeDBClusterSnapshotsByIdentifierAsync(cluster.DBClusterIdentifier);
             isSnapshotReady = snapshots.FirstOrDefault()?.Status == "available";
             snapshot = snapshots.First();
-            Thread.Sleep(30000);
         }
 
         Console.WriteLine(
@@ -519,28 +519,16 @@ public class AuroraScenario
             Console.WriteLine($"18. Deleting the DB cluster {newCluster.DBClusterIdentifier}.");
             await auroraWrapper.DeleteDBClusterByIdentifierAsync(newCluster.DBClusterIdentifier);
 
-            // Wait for the DB instance to delete.
-            Console.WriteLine($"19. Waiting for the DB instance to delete...");
-            bool isInstanceDeleted = false;
-
-            while (!isInstanceDeleted)
-            {
-                var instance = await auroraWrapper.DescribeDBInstancesPagedAsync();
-                isInstanceDeleted = instance.All(i => i.DBInstanceIdentifier != newInstance.DBInstanceIdentifier);
-                Thread.Sleep(30000);
-            }
-
-            Console.WriteLine("DB instance deleted.");
-
             // Wait for the DB cluster to delete.
-            Console.WriteLine($"20. Waiting for the DB cluster to delete...");
+            Console.WriteLine($"19. Waiting for the DB cluster to delete...");
             bool isClusterDeleted = false;
 
             while (!isClusterDeleted)
             {
+                Console.Write(".");
+                Thread.Sleep(5000);
                 var cluster = await auroraWrapper.DescribeDBClustersPagedAsync();
                 isClusterDeleted = cluster.All(i => i.DBClusterIdentifier != newCluster.DBClusterIdentifier);
-                Thread.Sleep(30000);
             }
 
             Console.WriteLine("DB cluster deleted.");
@@ -548,8 +536,8 @@ public class AuroraScenario
 
         if (parameterGroup is not null && GetYesNoResponse($"\tClean up parameter group? (y/n)"))
         {
-            Console.WriteLine($"21. Deleting the DB parameter group {parameterGroup.DBClusterParameterGroupName}.");
-            await auroraWrapper.DeleteDBClusterParameterGroupByNameAsync(parameterGroup.DBClusterParameterGroupName);
+            Console.WriteLine($"20. Deleting the DB parameter group {parameterGroup.DBClusterParameterGroupName}.");
+            await auroraWrapper.DeleteClusterParameterGroupByNameAsync(parameterGroup.DBClusterParameterGroupName);
             Console.WriteLine("Parameter group deleted.");
         }
 

@@ -56,7 +56,7 @@ public class AuroraScenarioTests
     public async Task CreateDBClusterParameterGroup_ShouldSucceed()
     {
         var groupFamilyName = _configuration["parameterGroupFamily"];
-        var parameterGroup = await _wrapper.CreateCustomDBClusterParameterGroupAsync(_parameterGroupName,
+        var parameterGroup = await _wrapper.CreateCustomClusterParameterGroupAsync(_parameterGroupName,
             groupFamilyName, "New test parameter group");
 
         bool isParameterGroupReady = false;
@@ -190,7 +190,7 @@ public class AuroraScenarioTests
     {
         var clusterIdentifier = _configuration["clusterIdentifier"];
 
-        var snapshot = await _wrapper.CreateDBClusterSnapshotByIdentifierAsync(
+        var snapshot = await _wrapper.CreateClusterSnapshotByIdentifierAsync(
             clusterIdentifier, "ExampleSnapshot-" + DateTime.Now.Ticks);
 
         // Wait for the snapshot to be available.
@@ -240,7 +240,7 @@ public class AuroraScenarioTests
     [Order(10)]
     public async Task DeleteParameterGroup_ShouldNotFail()
     {
-        var result = await _wrapper.DeleteDBClusterParameterGroupByNameAsync(_parameterGroupName);
+        var result = await _wrapper.DeleteClusterParameterGroupByNameAsync(_parameterGroupName);
 
         Assert.True(result);
     }
