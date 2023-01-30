@@ -360,6 +360,5 @@ class CloudWatchTest {
         deleteAlarm(alarmName)
         deleteAnomalyDetector(settingsSc)
         println(DASHES)
-
     }
 }
