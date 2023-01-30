@@ -19,11 +19,11 @@ This example demonstrates how to package in an WebAssemlby module that uses the 
 - Install [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/#).
 
 ### ⚠ Important
-Your AWS credentials should be customized in file [src/lib.rs](./src/lib.rs) otherwise it will not make the request to the backend.
+Your AWS credentials should be customized in file [www/env.js](./www/env.js) otherwise it will not make the request to the backend.
 
 ### count-functions
 
-This example lists your Lambda functions and returns the amount for a certain region.
+This example lists your Lambda functions and returns the total amount found in a certain region.
 
 ```
 wasm-pack build --target web --out-dir www/pkg --dev
@@ -36,7 +36,7 @@ npm ci
 npm start
 ```
 
-Access your page at `http://localhost:3000` and you can select:
+Access your page at `http://localhost:3000`. Make your selection and press `Run`:
 
 - _REGION_ is the Region in which the client is created.
   If not supplied, defaults to **us-west-2**.

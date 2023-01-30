@@ -9,6 +9,7 @@ use aws_sdk_lambda::{Client, Region, PKG_VERSION};
 use aws_smithy_async::rt::sleep::{AsyncSleep, Sleep};
 use aws_smithy_client::erase::DynConnector;
 use aws_smithy_http::{body::SdkBody, result::ConnectorError};
+use serde::Deserialize;
 use wasm_bindgen::{prelude::*, JsCast};
 
 macro_rules! log {
@@ -17,9 +18,20 @@ macro_rules! log {
     }
 }
 
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct AwsCredentials {
+    pub access_key_id: String,
+    pub secret_access_key: String,
+    pub session_token: Option<String>,
+}
+
 #[wasm_bindgen(module = "env")]
 extern "C" {
     fn now() -> f64;
+
+    #[wasm_bindgen(js_name = retrieveCredentials)]
+    fn retrieve_credentials() -> JsValue;
 }
 
 #[wasm_bindgen(start)]
@@ -87,10 +99,12 @@ impl AsyncSleep for BrowserSleep {
 }
 
 fn static_credential_provider() -> impl ProvideCredentials {
+    let credentials = serde_wasm_bindgen::from_value::<AwsCredentials>(retrieve_credentials())
+        .expect("invalid credentials");
     Credentials::from_keys(
-        "access_key",
-        "secret_key",
-        Some("session_token".to_string()),
+        credentials.access_key_id,
+        credentials.secret_access_key,
+        credentials.session_token,
     )
 }
 

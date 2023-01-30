@@ -5,7 +5,7 @@
 
 import init, { main } from "./pkg/aws_wasm.js";
 
-export const initialize = async () => await init(); 
+export const initialize = async () => await init();
 
 const countFunctions = async () => {
   const region = String(document.getElementById("region").value || "us-west-2");
