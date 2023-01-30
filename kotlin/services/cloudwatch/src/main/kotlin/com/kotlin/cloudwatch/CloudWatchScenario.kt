@@ -105,18 +105,18 @@ suspend fun main(args: Array<String>) {
             metricImage - The location of a BMP file that is used to create a graph. 
     """
 
-    // if (args.size != 7) {
-    //    println(usage)
-    //    System.exit(1)
-    // }
+    if (args.size != 7) {
+        println(usage)
+        System.exit(1)
+    }
 
-    val myDate = "2023-01-11T18:35:24.00Z" // args[0]
-    val costDateWeek = "2023-01-11T18:35:24.00Z" // args[1]
-    val dashboardName = "ScottDashboard1" // args[2]
-    val dashboardJson = "C:\\AWS\\CloudWatch\\jsonWidgets.json" // args[3]
-    val dashboardAdd = "C:\\AWS\\CloudWatch\\CloudDashboard.json" // args[4]
-    val settings = "C:\\AWS\\CloudWatch\\settings.json" // args[5]
-    var metricImage = "C:\\AWS\\outputFile.bmp" // args[6]
+    val myDate = args[0]
+    val costDateWeek = args[1]
+    val dashboardName = args[2]
+    val dashboardJson = args[3]
+    val dashboardAdd = args[4]
+    val settings = args[5]
+    var metricImage = args[6]
     val dataPoint = "10.0".toDouble()
     val inOb = Scanner(System.`in`)
 
