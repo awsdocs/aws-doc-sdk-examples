@@ -5,6 +5,15 @@ cloudwatch_Hello:
   synopsis: get started using &CW;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.hello.main
     Java:
       versions:
         - sdk_version: 2
@@ -39,7 +48,7 @@ cloudwatch_DeleteAlarms:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.kotlin.delete_metrics.main
+                - cloudwatch.kotlin.scenario.del.alarm.main
     .NET:
       versions:
         - sdk_version: 3
@@ -115,6 +124,15 @@ cloudwatch_DeleteAnomalyDetector:
   synopsis: delete an &CWlong; anomaly detector.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.del.anomalydetector.main
     Java:
       versions:
         - sdk_version: 2
@@ -141,6 +159,15 @@ cloudwatch_DeleteDashboards:
   synopsis: delete &CWlong; dashboards.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.del.dashboard.main
     Java:
       versions:
         - sdk_version: 2
@@ -167,6 +194,15 @@ cloudwatch_DescribeAlarmHistory:
   synopsis: describe an &CWlong; alarm history.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.get.alarm.history.main
     Java:
       versions:
         - sdk_version: 2
@@ -193,6 +229,15 @@ cloudwatch_DescribeAlarms:
   synopsis: describe &CWlong; alarms.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.describe.alarm.main
     Java:
       versions:
         - sdk_version: 2
@@ -244,7 +289,7 @@ cloudwatch_DescribeAlarmsForMetric:
           excerpts:
             - description:
               snippet_tags:
-                - cloudwatch.kotlin.describe_alarms.main
+                - cloudwatch.kotlin.scenario.check.met.alarm.main
     Java:
       versions:
         - sdk_version: 2
@@ -303,6 +348,15 @@ cloudwatch_DescribeAnomalyDetectors:
   synopsis: describe &CWlong; anomaly detectors.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.describe.anomalydetector.main
     Java:
       versions:
         - sdk_version: 2
@@ -514,6 +568,15 @@ cloudwatch_GetMetricData:
   synopsis: get &CWlong; metric data.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.get.met.data.main
     Java:
       versions:
         - sdk_version: 2
@@ -540,6 +603,15 @@ cloudwatch_GetMetricStatistics:
   synopsis: get &CWlong; metric statistics.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.display.metrics.main
     Java:
       versions:
         - sdk_version: 2
@@ -577,6 +649,15 @@ cloudwatch_GetMetricImage:
   synopsis: get an &CWlong; metric data image.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.get.metric.image.main
     Java:
       versions:
         - sdk_version: 2
@@ -603,6 +684,15 @@ cloudwatch_ListDashboards:
   synopsis: list &CWlong; dashboards.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.list.dashboard.main
     Java:
       versions:
         - sdk_version: 2
@@ -629,6 +719,15 @@ cloudwatch_ListMetrics:
   synopsis: list the metadata for &CWlong; metrics. To get data for a metric, use the GetMetricData or GetMetricStatistics actions.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.list.metrics.main
     .NET:
       versions:
         - sdk_version: 3
@@ -704,6 +803,15 @@ cloudwatch_PutAnomalyDetector:
   synopsis: create an &CWlong; anomaly detector.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.add.anomalydetector.main
     Java:
       versions:
         - sdk_version: 2
@@ -730,6 +838,15 @@ cloudwatch_PutDashboard:
   synopsis: create an &CWlong; dashboard.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.create.dashboard.main
     Java:
       versions:
         - sdk_version: 2
@@ -851,6 +968,15 @@ cloudwatch_PutMetricData:
               snippet_tags:
                 - CloudWatch.dotnetv3.PutMetricDataSetup
                 - CloudWatch.dotnetv3.PutMetricData
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.kotlin.scenario.add.met.alarm.main           
     Java:
       versions:
         - sdk_version: 2
@@ -937,6 +1063,15 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
     - Clean up dashboards, alarms, and anomaly detectors.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                -  cloudwatch.kotlin.scenario.main 
     Java:
       versions:
         - sdk_version: 2
