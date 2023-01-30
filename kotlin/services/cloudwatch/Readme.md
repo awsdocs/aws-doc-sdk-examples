@@ -57,7 +57,7 @@ To run these examples, you must have the following three JSON files: jsonWidgets
 
   **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
- ## Test the examples
+ ## Tests
  
  ⚠️ Running the tests might result in charges to your AWS account.
 
@@ -74,7 +74,7 @@ To successfully run the tests, define the following values in the test:
 - **destinationArn** - The ARN of the destination. This value is used to create subscription filters.
 - **roleArn** - The ARN of the user. This value is used to create subscription filters.
 - **filterPattern** - The filter pattern. For example, **Error**.
-- **myDateSc** - The start date to use to get metric statistics in the scenario test. (For example, 2023-01-11T18:35:24.00Z). 
+- **myDateSc** - The start date to use to get metric statistics in the scenario test. (For example, 2023-01-11T18:35:24.00Z.) 
 - **costDateWeekSc** - The start date to use to get AWS billing statistics. (For example, 2023-01-11T18:35:24.00Z.) 
 - **dashboardNameSc** - The name of the dashboard to create in the scenario test. 
 - **dashboardJsonSc** - The location of the jsonWidgets file to use to create a dashboard. 
