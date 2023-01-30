@@ -47,7 +47,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
 import java.io.InputStream
-import java.util.*
+import java.util.Properties
+import java.util.Scanner
+import kotlin.collections.ArrayList
 import kotlin.system.exitProcess
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -218,7 +220,7 @@ class CloudWatchTest {
         val inOb = Scanner(System.`in`)
         val dataPoint = "10.0".toDouble()
         println(DASHES)
-        println("1. List at least 5 available unique namespaces from Amazon CloudWatch. Select a CloudWatch Namespace from the list.")
+        println("1. List at least five available unique namespaces from Amazon CloudWatch. Select a CloudWatch namespace from the list.")
         val list: ArrayList<String> = listNameSpaces()
         for (z in 0..4) {
             println("    ${z + 1}. ${list[z]}")
@@ -295,7 +297,7 @@ class CloudWatchTest {
         println(DASHES)
 
         println(DASHES)
-        println("6. List dashboards using a Paginator.")
+        println("6. List dashboards using a paginator.")
         listDashboards()
         println(DASHES)
 
@@ -305,7 +307,7 @@ class CloudWatchTest {
         println(DASHES)
 
         println(DASHES)
-        println("8. Add additional metric to the dashboard.")
+        println("8. Add an additional metric to the dashboard.")
         addMetricToDashboard(dashboardAddSc, dashboardNameSc)
         println(DASHES)
 
@@ -320,7 +322,7 @@ class CloudWatchTest {
         println(DASHES)
 
         println(DASHES)
-        println("11. Get current data for new custom metric.")
+        println("11. Get current data for the new custom metric.")
         getCustomMetricData(settingsSc)
         println(DASHES)
 
@@ -345,7 +347,7 @@ class CloudWatchTest {
         println(DASHES)
 
         println(DASHES)
-        println("16. Describe current anomaly detectors")
+        println("16. Describe current anomaly detectors.")
         describeAnomalyDetectors(settingsSc)
         println(DASHES)
 
