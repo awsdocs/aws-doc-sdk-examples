@@ -1071,7 +1071,7 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
           excerpts:
             - description:
               snippet_tags:
-                -  cloudwatch.kotlin.scenario.main 
+                - cloudwatch.kotlin.scenario.main 
     Java:
       versions:
         - sdk_version: 2
