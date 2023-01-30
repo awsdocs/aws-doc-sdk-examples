@@ -51,7 +51,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 ### Prerequisites
 
 To run these examples, set up your development environment. For more information, 
-see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html). 
+see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html). 
 
 To run these examples, you must have the following three JSON files: jsonWidgets.json, CloudDashboard.json, and settings.json. Find these files in this GitHub repository. The CloudWatch scenario depends on these files. In addition, to enable billing metrics and statistics for the scenario example, make sure billing alerts are enabled for your account. For more information, see [Enabling billing alerts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#turning_on_billing_metrics).
 
@@ -61,7 +61,7 @@ To run these examples, you must have the following three JSON files: jsonWidgets
  
  ⚠️ Running the tests might result in charges to your AWS account.
 
-You can test the Java code example for Amazon CloudWatch by running a test file named **CloudWatchTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
+You can test the Kotlin code example for Amazon CloudWatch by running a test file named **CloudWatchTest**. This file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
 To successfully run the tests, define the following values in the test:
 
@@ -89,8 +89,8 @@ You can run the JUnit tests from an IDE, such as IntelliJ, or from the command l
 **WARNING**: _Running these JUnit tests manipulates real AWS resources and might incur charges on your account._
 
 ## Additional resources
-* [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
+* [Developer Guide - AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 * [User Guide - Amazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html).
-* [Interface KeyspacesClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudwatch/CloudWatchClient.html).
+* [Interface CloudWatchClient](https://sdk.amazonaws.com/kotlin/api/latest/cloudwatch/aws.sdk.kotlin.services.cloudwatch/index.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
