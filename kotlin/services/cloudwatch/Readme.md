@@ -21,30 +21,30 @@ Amazon CloudWatch enables you to monitor your complete stack (applications, infr
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putAnomalyDetector command)
-- [Create a dashboard](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putDashboard command)
-- [Create a metric alarm](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putMetricAlarm command)
-- [Delete alarms](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/DeleteAlarm.java) (createKeyspace command)
-- [Delete an anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (DeleteAnomalyDetectorRequest command)
-- [Delete dashboards](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (deleteDashboards command)
-- [Describe alarm history](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (describeAlarmHistory command)
-- [Describe alarms](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (describeAlarms command)
-- [Describe alarms for a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (describeAlarmsForMetric command)
-- [Describe anomaly detectors](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (describeAnomalyDetectors command)
-- [Disable alarm actions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/DisableAlarmActions.java)  (disableAlarmActions command)
-- [Enable alarm actions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/EnableAlarmActions.java)  (enableAlarmActions command)
-- [Get metric data](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (getMetricData command)
-- [Get metric statistics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (getMetricStatistics command)
-- [Get a metric data image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (getMetricWidgetImage command)
-- [List metrics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (ListMetrics command)
-- [Put data into a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (putMetricData command)
+- [Create anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (putAnomalyDetector command)
+- [Create a dashboard](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (putDashboard command)
+- [Create a metric alarm](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (putMetricAlarm command)
+- [Delete alarms](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt) (createKeyspace command)
+- [Delete an anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (DeleteAnomalyDetectorRequest command)
+- [Delete dashboards](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (deleteDashboards command)
+- [Describe alarm history](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (describeAlarmHistory command)
+- [Describe alarms](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (describeAlarms command)
+- [Describe alarms for a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt) (describeAlarm command)
+- [Describe anomaly detectors](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (describeAnomalyDetectors command)
+- [Disable alarm actions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (disableAlarmActions command)
+- [Enable alarm actions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (enableAlarmActions command)
+- [Get metric data](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (getMetricData command)
+- [Get metric statistics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (getMetricStatistics command)
+- [Get a metric data image](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (getMetricWidgetImage command)
+- [List metrics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (ListMetrics command)
+- [Put data into a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (putMetricData command)
 
 
 ### Scenario 
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [Get started with billing, alarms, and metrics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/cloudwatch/src/main/java/com/example/cloudwatch/CloudWatchScenario.java)  (multiple commands)
+- [Get started with billing, alarms, and metrics](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (multiple commands)
 
 ## Run the examples
 
