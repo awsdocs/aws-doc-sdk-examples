@@ -1,4 +1,4 @@
-# Amazon CloudWatch code examples for the SDK for Kotlin
+# CloudWatch code examples for the SDK for Kotlin
 
 ## Overview
 This README discusses how to run and test the AWS SDK for Kotlin examples for Amazon CloudWatch.
