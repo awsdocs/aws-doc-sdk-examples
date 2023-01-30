@@ -52,9 +52,7 @@ import kotlin.system.exitProcess
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
-
 class CloudWatchTest {
-
     private var logGroup = ""
     private var alarmName = ""
     private var streamName = ""
@@ -79,7 +77,6 @@ class CloudWatchTest {
 
     @BeforeAll
     fun setup() {
-
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
         prop.load(input)
