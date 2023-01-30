@@ -10,7 +10,6 @@ use aws_smithy_async::rt::sleep::{AsyncSleep, Sleep};
 use aws_smithy_client::erase::DynConnector;
 use aws_smithy_http::{body::SdkBody, result::ConnectorError};
 use wasm_bindgen::{prelude::*, JsCast};
-use wasm_timer::{Delay, SystemTime, UNIX_EPOCH};
 
 macro_rules! log {
     ( $( $t:tt )* ) => {
@@ -18,10 +17,9 @@ macro_rules! log {
     }
 }
 
-#[wasm_bindgen(module = "/www/env.js")]
+#[wasm_bindgen(module = "env")]
 extern "C" {
-    #[wasm_bindgen(js_namespace = Date)]
-    fn now() -> u64;
+    fn now() -> f64;
 }
 
 #[wasm_bindgen(start)]
@@ -57,9 +55,7 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
         .await;
     let client = Client::new(&shared_config);
 
-    let now = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .expect("post epoch");
+    let now = std::time::Duration::new(now() as u64, 0);
     log!("current date in unix timestamp: {}", now.as_secs());
 
     let resp = client
@@ -85,7 +81,7 @@ struct BrowserSleep;
 impl AsyncSleep for BrowserSleep {
     fn sleep(&self, duration: std::time::Duration) -> Sleep {
         Sleep::new(Box::pin(async move {
-            Delay::new(duration).await.unwrap();
+            wasm_timer::Delay::new(duration).await.unwrap();
         }))
     }
 }

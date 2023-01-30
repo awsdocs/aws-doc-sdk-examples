@@ -1,3 +1,8 @@
-export const now = (value) => {
-    return Date.now(value);
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
+export const now = () => {
+    return Date.now();
 };
