@@ -70,16 +70,16 @@ import kotlin.system.exitProcess
  This Kotlin code example performs the following tasks:
 
  1. List available namespaces from Amazon CloudWatch. Select a namespace from the list.
- 2. List available metrics within the selected Namespace.
+ 2. List available metrics within the selected namespace.
  3. Get statistics for the selected metric over the last day.
  4. Get CloudWatch estimated billing for the last week.
  5. Create a new CloudWatch dashboard with metrics.
- 6. List dashboards using a Paginator.
+ 6. List dashboards using a paginator.
  7. Create a new custom metric by adding data for it.
  8. Add the custom metric to the dashboard.
  9. Create an alarm for the custom metric.
  10. Describe current alarms.
- 11. Get current data for new custom metric.
+ 11. Get current data for the new custom metric.
  12. Push data into the custom metric to trigger the alarm.
  13. Check the alarm state using the action DescribeAlarmsForMetric.
  14. Get alarm history for the new alarm.
@@ -96,12 +96,12 @@ suspend fun main(args: Array<String>) {
             <myDate> <costDateWeek> <dashboardName> <dashboardJson> <dashboardAdd> <settings> <metricImage>  
 
         Where:
-            myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z). 
-            costDateWeek - The start date to use to get AWS/Billinget statistics. (For example, 2023-01-11T18:35:24.00Z). 
+            myDate - The start date to use to get metric statistics. (For example, 2023-01-11T18:35:24.00Z.) 
+            costDateWeek - The start date to use to get AWS Billing and Cost Management statistics. (For example, 2023-01-11T18:35:24.00Z.) 
             dashboardName - The name of the dashboard to create. 
-            dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file). 
-            dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file). 
-            settings - The location of a JSON file from which various values are read. (See Readme file). 
+            dashboardJson - The location of a JSON file to use to create a dashboard. (See Readme file.) 
+            dashboardAdd - The location of a JSON file to use to update a dashboard. (See Readme file.) 
+            settings - The location of a JSON file from which various values are read. (See Readme file.) 
             metricImage - The location of a BMP file that is used to create a graph. 
     """
 
@@ -125,7 +125,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("1. List at least 5 available unique namespaces from Amazon CloudWatch. Select a CloudWatch Namespace from the list.")
+    println("1. List at least five available unique namespaces from Amazon CloudWatch. Select a CloudWatch namespace from the list.")
     val list: ArrayList<String> = listNameSpaces()
     for (z in 0..4) {
         println("    ${z + 1}. ${list[z]}")
@@ -202,7 +202,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("6. List dashboards using a Paginator.")
+    println("6. List dashboards using a paginator.")
     listDashboards()
     println(DASHES)
 
@@ -212,7 +212,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("8. Add additional metric to the dashboard.")
+    println("8. Add an additional metric to the dashboard.")
     addMetricToDashboard(dashboardAdd, dashboardName)
     println(DASHES)
 
@@ -227,7 +227,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("11. Get current data for new custom metric.")
+    println("11. Get current data for the new custom metric.")
     getCustomMetricData(settings)
     println(DASHES)
 
@@ -252,7 +252,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("16. Describe current anomaly detectors")
+    println("16. Describe current anomaly detectors.")
     describeAnomalyDetectors(settings)
     println(DASHES)
 
@@ -269,7 +269,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("The Amazon CloudWatch example scenario has completed.")
+    println("The Amazon CloudWatch example scenario is complete.")
     println(DASHES)
 }
 
@@ -586,7 +586,7 @@ suspend fun describeAlarms() {
 suspend fun createAlarm(fileName: String): String {
     // Read values from the JSON file.
     val parser = JsonFactory().createParser(File(fileName))
-    val rootNode: com.fasterxml.jackson.databind.JsonNode = ObjectMapper().readTree(parser)
+    val rootNode: JsonNode = ObjectMapper().readTree(parser)
     val customMetricNamespace = rootNode.findValue("customMetricNamespace").asText()
     val customMetricName = rootNode.findValue("customMetricName").asText()
     val alarmNameVal = rootNode.findValue("exampleAlarmName").asText()
