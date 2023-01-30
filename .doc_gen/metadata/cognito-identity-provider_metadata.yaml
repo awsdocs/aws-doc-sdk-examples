@@ -67,6 +67,16 @@ cognito-identity-provider_SignUp:
             - description:
               snippet_tags:
                 - javascript.v3.cognito-idp.actions.SignUp
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cognito.client_configuration
+                - cpp.example_code.cognito.cognito_client
+                - cpp.example_code.cognito.signup
   services:
     cognito-identity-provider: {SignUp}
 cognito-identity-provider_AdminGetUser:
@@ -121,6 +131,16 @@ cognito-identity-provider_AdminGetUser:
             - description:
               snippet_tags:
                 - javascript.v3.cognito-idp.actions.AdminGetUser
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cognito.client_configuration
+                - cpp.example_code.cognito.cognito_client
+                - cpp.example_code.cognito.admin_get_user
   services:
     cognito-identity-provider: {AdminGetUser}
 cognito-identity-provider_ResendConfirmationCode:
@@ -175,6 +195,16 @@ cognito-identity-provider_ResendConfirmationCode:
             - description:
               snippet_tags:
                 - javascript.v3.cognito-idp.actions.ResendConfirmationCode
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cognito.client_configuration
+                - cpp.example_code.cognito.cognito_client
+                - cpp.example_code.cognito.resend_confirmation
   services:
     cognito-identity-provider: {ResendConfirmationCode}
 cognito-identity-provider_ConfirmSignUp:
@@ -229,6 +259,16 @@ cognito-identity-provider_ConfirmSignUp:
             - description:
               snippet_tags:
                 - javascript.v3.cognito-idp.actions.ConfirmSignUp
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cognito.client_configuration
+                - cpp.example_code.cognito.cognito_client
+                - cpp.example_code.cognito.confirm_signup
   services:
     cognito-identity-provider: {ConfirmSignUp}
 cognito-identity-provider_ListUsers:
@@ -319,6 +359,16 @@ cognito-identity-provider_AdminInitiateAuth:
             - description:
               snippet_tags:
                 - javascript.v3.cognito-idp.actions.AdminInitiateAuth
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cognito.client_configuration
+                - cpp.example_code.cognito.cognito_client
+                - cpp.example_code.cognito.admin_initiate_auth
   services:
     cognito-identity-provider: {AdminInitiateAuth}
 cognito-identity-provider_AssociateSoftwareToken:
@@ -373,6 +423,16 @@ cognito-identity-provider_AssociateSoftwareToken:
             - description:
               snippet_tags:
                 - javascript.v3.cognito-idp.actions.AssociateSoftwareToken
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cognito.client_configuration
+                - cpp.example_code.cognito.cognito_client
+                - cpp.example_code.cognito.associate_software_token
   services:
     cognito-identity-provider: {AssociateSoftwareToken}
 cognito-identity-provider_VerifySoftwareToken:
@@ -427,6 +487,16 @@ cognito-identity-provider_VerifySoftwareToken:
             - description:
               snippet_tags:
                 - javascript.v3.cognito-idp.actions.VerifySoftwareToken
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cognito.client_configuration
+                - cpp.example_code.cognito.cognito_client
+                - cpp.example_code.cognito.verify_software_token
   services:
     cognito-identity-provider: {VerifySoftwareToken}
 cognito-identity-provider_AdminRespondToAuthChallenge:
@@ -482,6 +552,16 @@ cognito-identity-provider_AdminRespondToAuthChallenge:
             - description:
               snippet_tags:
                 - javascript.v3.cognito-idp.actions.AdminRespondToAuthChallenge
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cognito.client_configuration
+                - cpp.example_code.cognito.cognito_client
+                - cpp.example_code.cognito.admin_respond_to_auth_challenge
   services:
     cognito-identity-provider: {AdminRespondToAuthChallenge}
 cognito-identity-provider_ConfirmDevice:
@@ -587,6 +667,24 @@ cognito-identity-provider_RespondToAuthChallenge:
                 - javascript.v3.cognito-idp.actions.RespondToAuthChallenge
   services:
     cognito-identity-provider: {RespondToAuthChallenge}
+cognito-identity-provider_DeleteUser:
+  title: Delete an &COG; user using an &AWS; SDK
+  title_abbrev: Delete a user
+  synopsis: delete an &COG; user.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cognito.client_configuration
+                - cpp.example_code.cognito.cognito_client
+                - cpp.example_code.cognito.delete_user
+  services:
+    cognito-identity-provider: {DeleteUser}
 cognito-identity-provider_Scenario_SignUpUserWithMfa:
   title: Sign up a user with an &COG; user pool that requires MFA using an &AWS; SDK
   title_abbrev: Sign up a user with a user pool that requires MFA
@@ -656,6 +754,15 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
                 - javascript.v3.cognito-idp.actions.RespondToAuthChallenge
                 - javascript.v3.cognito-idp.scenarios.basic.VerifySoftwareTokenHandler
                 - javascript.v3.cognito-idp.actions.VerifySoftwareToken
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cognito.client_configuration
+                - cpp.example_code.getting_started_with_user_pools
   services:
     cognito-identity-provider: {ConfirmSignUp, ConfirmDevice, AssociateSoftwareToken,
                                 AdminGetUser, ListUsers, ResendConfirmationCode,

@@ -30,6 +30,29 @@ macro_rules! test_event {
                 .unwrap(),
         )
     }};
+    (
+        $req:expr,
+        (
+            $status:expr,
+            $headers:expr,
+            $res:expr
+        )
+    ) => {{
+        (
+            http::Request::builder()
+                .body(aws_smithy_http::body::SdkBody::from($req))
+                .unwrap(),
+            {
+                let mut builder = http::Response::builder().status($status);
+                for (k, v) in $headers {
+                    builder = builder.header(k, v);
+                }
+                builder
+                    .body(aws_smithy_http::body::SdkBody::from($res))
+                    .unwrap()
+            },
+        )
+    }};
 }
 
 /// Create a single-shot Client for `sdk_crate`. The `req` and `res` will be the
@@ -38,18 +61,21 @@ macro_rules! test_event {
 #[macro_export]
 macro_rules! single_shot_client {
     (sdk: $sdk_crate:ident, status: $status:expr, response: $res:expr) => {{
-        sdk_examples_test_utils::single_shot_client!($sdk_crate, "", $status, $res)
+        sdk_examples_test_utils::single_shot_client!($sdk_crate, "", $status, vec![], $res)
     }};
     (sdk: $sdk_crate:ident, request: $req:expr, status: $status:expr, response: $res:expr) => {{
-        sdk_examples_test_utils::single_shot_client!($sdk_crate, $res, $status, $res)
+        sdk_examples_test_utils::single_shot_client!($sdk_crate, $res, $status, vec![], $res)
+    }};
+    (sdk: $sdk_crate:ident, status: $status:expr, headers: $res_headers:expr, response: $res:expr) => {{
+        sdk_examples_test_utils::single_shot_client!($sdk_crate, "", $status, $res_headers, $res)
     }};
     // "Private" internal root macro.
-    ($sdk_crate:ident, $req:expr, $status:expr, $res:expr) => {{
+    ($sdk_crate:ident, $req:expr, $status:expr, $res_headers:expr, $res:expr) => {{
         $sdk_crate::Client::from_conf(
             sdk_examples_test_utils::client_config!($sdk_crate)
                 .http_connector(sdk_examples_test_utils::single_shot(
                     $req.into(),
-                    ($status.try_into().unwrap(), $res.into()),
+                    ($status.try_into().unwrap(), $res_headers, $res.into()),
                 ))
                 .build(),
         )

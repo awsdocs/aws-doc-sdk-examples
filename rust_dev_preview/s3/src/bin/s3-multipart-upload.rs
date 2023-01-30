@@ -144,7 +144,7 @@ async fn run_example() -> Result<(), Error> {
         .unwrap();
     // snippet-end:[rust.example_code.s3.complete_multipart_upload]
 
-    let data: GetObjectOutput = s3_service::download_object(&client, &bucket_name, &key).await;
+    let data: GetObjectOutput = s3_service::download_object(&client, &bucket_name, &key).await?;
     let data_length: u64 = data.content_length().try_into().unwrap();
     if file.metadata().unwrap().len() == data_length {
         println!("Data lengths match.");
