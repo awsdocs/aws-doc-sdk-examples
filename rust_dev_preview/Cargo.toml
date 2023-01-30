@@ -61,5 +61,6 @@ members = [
     "testing",
     "tls",
     "transcribestreaming",
-    "using-native-tls-instead-of-rustls"
+    "using-native-tls-instead-of-rustls",
+    "webassembly"
 ]

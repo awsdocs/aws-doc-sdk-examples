@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>AWS SDK example using WebAssembly</title>
+  <body>
+    <label for="region">AWS region:</label>
+    <select id="region" name="region">
+      <option value="us-east-1">US East (N. Virginia)</option>
+      <option value="us-west-2" selected>US West (Oregon)</option>
+      <option value="eu-central-1">Europe (Frankfurt)</option>
+     </select>
+    </input>
+    <label for="verbose" style="margin-left:10px;">Verbose:</label>
+    <input type="checkbox" id="verbose" name="verbose">
+    <br>
+    <input type="button" id="run" value="Count functions" style="margin:20px;">
+    <br>
+    <div><b>Amount of Lambda functions found in selected region:</b></div><span id="result"></span>
+
+    <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+    <script type="importmap">
+      {
+        "imports": {
+          "env": "./env.js"
+        }
+      }
+    </script>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
