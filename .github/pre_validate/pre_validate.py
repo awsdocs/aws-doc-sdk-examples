@@ -214,7 +214,7 @@ def verify_sample_files(root_path):
             file_path = os.path.join(path, file_name)
             ext = os.path.splitext(file_name)[1].lstrip('.')
             if file_name not in EXPECTED_SAMPLE_FILES:
-                logger.error(f"File '%s' in %s was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in checkin_tests.py.", file_name, sample_files_folder)
+                logger.error(f"File '%s' in %s was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in pre_validate.py.", file_name, sample_files_folder)
                 error_count += 1
             if ext.lower() in MEDIA_FILE_TYPES:
                 if media_folder not in file_path:
@@ -226,14 +226,14 @@ def verify_sample_files(root_path):
 
     for sample_file in EXPECTED_SAMPLE_FILES:
         if sample_file not in file_list:
-            logger.error(f"Expected sample file '%s' was not found in '%s'. If this file was intentionally removed, remove it from the EXPECTED_SAMPLE_FILES list in checkin_tests.py.", sample_file, sample_files_folder)
+            logger.error(f"Expected sample file '%s' was not found in '%s'. If this file was intentionally removed, remove it from the EXPECTED_SAMPLE_FILES list in pre_validate.py.", sample_file, sample_files_folder)
             error_count += 1
     return error_count
 
 def verify_no_secret_keys(file_contents, file_location):
     """Verify the file does not contain 20- or 40- length character strings,
     which may be secret keys. Allow strings in the allow list in
-    https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/scripts/checkin_tests.py."""
+    https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py."""
     error_count = 0
     twenties = re.findall("[^A-Z0-9][A][ACGIKNPRS][A-Z]{2}[A-Z0-9]{16}[^A-Z0-9]",
                           file_contents)
@@ -241,7 +241,7 @@ def verify_no_secret_keys(file_contents, file_location):
         if word[1:-1] in ALLOW_LIST:
             continue
         logger.error("20 character string '%s' found in %s and might be a secret "
-                     "access key. If not, add it to the allow list in https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/scripts/checkin_tests.py.", {word[1:-1]}, file_location)
+                     "access key. If not, add it to the allow list in https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py.", {word[1:-1]}, file_location)
         error_count += 1
 
     forties = re.findall("[^a-zA-Z0-9/+=][a-zA-Z0-9/+=]{40}[^a-zA-Z0-9/+=]",
@@ -250,7 +250,7 @@ def verify_no_secret_keys(file_contents, file_location):
         if word[1:-1] in ALLOW_LIST:
             continue
         logger.error("40 character string '%s' found in %s and might be a secret "
-                     "access key. If not, add it to the allow list in https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/scripts/checkin_tests.py.", {word[1:-1]}, file_location)
+                     "access key. If not, add it to the allow list in https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py", {word[1:-1]}, file_location)
         error_count += 1
 
     return error_count

@@ -3,7 +3,7 @@ acm:
   short: '&ACM;'
   sort: ACM
   expanded:
-    long: AWS Certificate Manager (ACM)
+    long: AWS Certificate Manager
     short: ACM
   blurb: helps you to provision, manage, and renew publicly trusted TLS certificates on AWS based websites.
   guide:
@@ -48,7 +48,7 @@ application-autoscaling:
   short: '&APP-AS;'
   sort: Application Auto Scaling
   expanded:
-    long: Application Auto Scaling
+    long: AWS Application Auto Scaling
     short: Application Auto Scaling
   blurb: configures auto scaling for resources beyond just EC2, either with scaling policies or with scheduled scaling.
   guide:
@@ -94,7 +94,7 @@ auto-scaling:
   sort: EC2 Auto Scaling
   expanded:
     long: Amazon EC2 Auto Scaling
-    short: EC2 Auto Scaling
+    short: Amazon EC2 Auto Scaling
   blurb: automatically scales EC2 instances, either with scaling
     policies or with scheduled scaling.
   guide:
@@ -110,7 +110,7 @@ batch:
   sort: Batch
   expanded:
     long: AWS Batch
-    short: Batch
+    short: AWS Batch
   blurb: enables you to run batch computing workloads on the AWS Cloud.
   guide:
     subtitle: User Guide
@@ -195,13 +195,14 @@ cloudwatch-logs:
     product_categories: {'Management &amp; Governance'}
   version: logs-2014-03-28
 cognito-identity:
+  bundle: cognito-identity-provider
   long: '&COGID;'
   short: '&COGID;'
   sort: Cognito Identity
   expanded:
     long: Amazon Cognito Identity
-    short: Cognito Identity
-  blurb: enable you to create unique identities for your users and federate them with identity providers.
+    short: Amazon Cognito Identity
+  blurb: enables you to create unique identities for your users and federate them with identity providers.
   guide:
     subtitle: Developer Guide
     url: cognito/latest/developerguide/cognito-identity.html
@@ -210,6 +211,7 @@ cognito-identity:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-identity-2014-06-30
 cognito-identity-provider:
+  bundle: cognito-identity-provider
   long: '&COGIDP;'
   short: '&COGIDP;'
   sort: Cognito Identity Provider
@@ -225,6 +227,7 @@ cognito-identity-provider:
   version: cognito-idp-2016-04-18
   api_ref: cognito-user-identity-pools/latest/APIReference/Welcome.html
 cognito-sync:
+  bundle: cognito-identity-provider
   long: '&COGSYNClong;'
   short: '&COGSYNC;'
   sort: Cognito Sync
@@ -305,7 +308,7 @@ ebs:
   short: '&EBS;'
   sort: EBS
   expanded:
-    long: Amazon Elastic Block Store (Amazon EBS)
+    long: Amazon Elastic Block Store
     short: Amazon EBS
   blurb: is a web service that provides block level storage volumes for use with Amazon Elastic Compute Cloud instances.
   guide:
@@ -320,7 +323,7 @@ ec2:
   short: '&EC2;'
   sort: EC2
   expanded:
-    long: Amazon Elastic Compute Cloud (Amazon EC2)
+    long: Amazon Elastic Compute Cloud
     short: Amazon EC2
   blurb: is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that
     you use to build and host your software systems.
@@ -336,7 +339,7 @@ ecr:
   short: '&ECR;'
   sort: ECR
   expanded:
-    long: Amazon Elastic Container Registry (Amazon ECR)
+    long: Amazon Elastic Container Registry
     short: Amazon ECR
   blurb: is a fully managed Docker container registry that makes it easy for developers to store, manage, and deploy Docker container images.
   guide:
@@ -351,7 +354,7 @@ ecs:
   short: '&ECS;'
   sort: ECS
   expanded:
-    long: Amazon Elastic Container Service (Amazon ECS)
+    long: Amazon Elastic Container Service
     short: Amazon ECS
   blurb: is a highly scalable, fast, container management service that makes it easy to run, stop, and manage Docker containers on a cluster of Amazon EC2 instances.
   guide:
@@ -366,7 +369,7 @@ eks:
   short: '&EKS;'
   sort: EKS
   expanded:
-    long: Amazon Elastic Kubernetes Service (Amazon EKS)
+    long: Amazon Elastic Kubernetes Service
     short: Amazon EKS
   blurb: is a managed service that makes it easy for you to run Kubernetes on AWS without needing to install and operate your own Kubernetes clusters.
   guide:
@@ -427,7 +430,7 @@ glue:
   sort: Glue
   expanded:
     long: AWS Glue
-    short: Glue
+    short: AWS Glue
   blurb: is a scalable, serverless data integration service that makes it easy to discover, prepare, and combine data for analytics, machine learning, and application development.
   guide:
     subtitle: Developer Guide
@@ -442,7 +445,7 @@ iam:
   short: '&IAM;'
   sort: IAM
   expanded:
-    long: AWS Identity and Access Management (IAM)
+    long: AWS Identity and Access Management
     short: IAM
   blurb: is a web service for securely controlling access to AWS services. With IAM, you can centrally manage permissions in your AWS account.
   guide:
@@ -458,7 +461,7 @@ iot:
   sort: IoT
   expanded:
     long: AWS IoT
-    short: IoT
+    short: AWS IoT
   blurb: provides secure, bi-directional communication for Internet-connected devices (such as sensors, actuators,
     embedded devices, wireless devices, and smart appliances) to connect to the AWS Cloud over MQTT, HTTPS, and LoRaWAN.
   guide:
@@ -518,7 +521,7 @@ kms:
   short: '&KMS;'
   sort: KMS
   expanded:
-    long: AWS Key Management Service (AWS KMS)
+    long: AWS Key Management Service
     short: AWS KMS
   blurb: is an encryption and key management service scaled for the cloud.
   guide:
@@ -730,7 +733,7 @@ qldb:
   short: '&QLDB;'
   sort: QLDB
   expanded:
-    long: Amazon Quantum Ledger Database (Amazon QLDB)
+    long: Amazon Quantum Ledger Database
     short: Amazon QLDB
   blurb: is a fully managed ledger database that provides a transparent, immutable, and cryptographically verifiable transaction log owned by a central trusted authority.
   guide:
@@ -745,7 +748,7 @@ rds:
   short: '&RDS;'
   sort: RDS
   expanded:
-    long: Amazon Relational Database Service (Amazon RDS)
+    long: Amazon Relational Database Service
     short: Amazon RDS
   blurb: is a web service that makes it easier to set up, operate, and scale a relational database in the cloud.
   guide:
@@ -760,7 +763,7 @@ rds-data:
   short: '&RDSDataService;'
   sort: RDS Data Service
   expanded:
-    long: Amazon Relational Database Service (Amazon RDS) Data Service
+    long: Amazon Relational Database Service Data Service
     short: Amazon RDS Data Service
   blurb: provides an HTTP endpoint to run SQL statements on an Amazon Aurora Serverless v1 DB cluster.
   guide:
@@ -840,7 +843,7 @@ route53-recovery-cluster:
   short: '&R53ARC;'
   sort: Application Recovery Controller
   expanded:
-    long: Amazon Route 53 Application Recovery Controller (Route 53 ARC)
+    long: Amazon Route 53 Application Recovery Controller
     short: Route 53 ARC
   blurb: gives you insights about whether your applications and resources are ready for recovery, and helps you move traffic across AWS Regions or away from Availability Zones for application disaster recovery.
   guide:
@@ -855,7 +858,7 @@ s3:
   short: '&S3;'
   sort: S3
   expanded:
-    long: Amazon Simple Storage Service (Amazon S3)
+    long: Amazon Simple Storage Service
     short: Amazon S3
   blurb: is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
   guide:
@@ -901,7 +904,7 @@ ses:
   short: '&SES;'
   sort: SES
   expanded:
-    long: Amazon Simple Email Service (Amazon SES)
+    long: Amazon Simple Email Service
     short: Amazon SES
   blurb: is a reliable, scalable, and cost-effective email service.
   guide:
@@ -917,7 +920,7 @@ sesv2:
   short: '&SESv2;'
   sort: SES v2 API
   expanded:
-    long: Amazon Simple Email Service (Amazon SES) v2 API
+    long: Amazon Simple Email Service v2 API
     short: Amazon SES v2 API
   blurb: is a reliable, scalable, and cost-effective email service.
   guide:
@@ -963,7 +966,7 @@ sns:
   short: '&SNS;'
   sort: SNS
   expanded:
-    long: Amazon Simple Notification Service (Amazon SNS)
+    long: Amazon Simple Notification Service
     short: Amazon SNS
   blurb: is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
   guide:
@@ -978,7 +981,7 @@ sqs:
   short: '&SQS;'
   sort: SQS
   expanded:
-    long: Amazon Simple Queue Service (Amazon SQS)
+    long: Amazon Simple Queue Service
     short: Amazon SQS
   blurb: is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications.
   guide:
@@ -1009,7 +1012,7 @@ sts:
   short: '&STS;'
   sort: STS
   expanded:
-    long: AWS Security Token Service (AWS STS)
+    long: AWS Security Token Service
     short: AWS STS
   blurb: creates and provides trusted users with temporary security credentials that can control access to your AWS resources.
   guide:
@@ -1025,7 +1028,7 @@ support:
   sort: Support
   expanded:
     long: AWS Support
-    short: AWS Support
+    short: Support
   blurb: provides support for users of Amazon Web Services.
   guide:
     subtitle: User Guide

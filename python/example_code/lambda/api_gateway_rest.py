@@ -20,12 +20,17 @@ import calendar
 import datetime
 import json
 import logging
+import sys
 import time
 import boto3
 from botocore.exceptions import ClientError
 import requests
 
-import lambda_basics
+from lambda_basics import LambdaWrapper
+
+# Add relative path to include demo_tools in this code example without need for setup.
+sys.path.append('../..')
+from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 
@@ -184,16 +189,21 @@ def usage_demo():
 
     iam_resource = boto3.resource('iam')
     lambda_client = boto3.client('lambda')
+    wrapper = LambdaWrapper(lambda_client, iam_resource)
     apig_client = boto3.client('apigateway')
+
+    print("Checking for IAM role for Lambda...")
+    iam_role, should_wait = wrapper.create_iam_role_for_lambda(lambda_role_name)
+    if should_wait:
+        logger.info("Giving AWS time to create resources...")
+        wait(10)
 
     print(f"Creating AWS Lambda function {lambda_function_name} from "
           f"{lambda_handler_name}...")
-    deployment_package = lambda_basics.create_lambda_deployment_package(lambda_filename)
-    iam_role = lambda_basics.create_iam_role_for_lambda(iam_resource, lambda_role_name)
-    lambda_function_arn = lambda_basics.exponential_retry(
-        lambda_basics.deploy_lambda_function, 'InvalidParameterValueException',
-        lambda_client, lambda_function_name, lambda_handler_name, iam_role,
-        deployment_package)
+    deployment_package = wrapper.create_deployment_package(
+        lambda_filename, lambda_filename)
+    lambda_function_arn = wrapper.create_function(
+        lambda_function_name, lambda_handler_name, iam_role, deployment_package)
 
     print(f"Creating Amazon API Gateway REST API {api_name}...")
     account_id = boto3.client('sts').get_caller_identity()['Account']
@@ -235,7 +245,7 @@ def usage_demo():
 
     print("Deleting the REST API, AWS Lambda function, and security role...")
     time.sleep(5)  # Short sleep avoids TooManyRequestsException.
-    lambda_basics.delete_lambda_function(lambda_client, lambda_function_name)
+    wrapper.delete_function(lambda_function_name)
     for pol in iam_role.attached_policies.all():
         pol.detach_role(RoleName=iam_role.name)
     iam_role.delete()

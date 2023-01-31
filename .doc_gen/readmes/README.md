@@ -15,7 +15,7 @@ required packages.
 
 ### Install packages
 
-A virtual environment is recommended. Create a virtual environment 
+We recommend a virtual environment. Create a virtual environment 
 and install packages by running the following commands in the
 `.doc_gen/readmes` folder:
 
@@ -26,7 +26,7 @@ python -m pip install -r requirements.txt
 ```
 
 Depending on how you have Python installed and on your operating system,
-the commands may vary slightly, for example on Windows use `py` in place of
+the commands might vary slightly. For example, on Windows, use `py` in place of
 `python` and uses backslashes in the `venv` path.
 
 ## Generate a README
@@ -55,7 +55,8 @@ This creates a README.md file in the `python/example_code/s3` folder.
 * `language` must match a top-level language in sdks.yaml.
 * `version` must be defined for the language in sdks.yaml.
 * `service` must match a top-level service in services.yaml.
-* `--readme` (optional) defines an alternate for the output README (default is README.md).
+* `--safe` (optional) when specified, the existing README.md is renamed to the 
+`saved_readme` value in config.py (such as README.old.md).
 * `--svc_folder` (optional) overrides the output folder for the README.
 
 You can get inline usage info by using the `-h` flag:
@@ -73,10 +74,12 @@ services.yaml.
 * `language` is a dictionary of language and version for each SDK. Fields are:
     * `base_folder` the root folder for the SDK version.
     * `service_folder` a Jinja template of the service folder for the SDK version.
-    This may not work in all cases. If not, use the `--svc_folder` override.
+    This might not work in all cases. If not, use the `--svc_folder` override.
     * `sdk_api_ref` a Jinja template of the SDK API Reference topic for the SDK version.
     This is used to create the link to the reference page in the Additional Resources
-    section, such as to the Boto3 S3 reference page for Python.
+    section, such as to the Boto3 S3 reference page for Python. This is a best effort,
+    and if the generated link is wrong, you can update it manually. On subsequent runs
+    of WRITEME, the existing link is kept. 
     
 ### Custom content
 
@@ -92,6 +95,7 @@ blocks that include custom content for specific SDK versions.
 
 Each README can have custom content in specific places. The first time you
 generate a README, it contains empty blocks designated by special comments, such as
+the following:
 
 ```
 <!--custom.prerequisites.start-->
@@ -99,5 +103,5 @@ generate a README, it contains empty blocks designated by special comments, such
 ```
 
 Any content you add within these comments is preserved in subsequent generations
-of the README. Do not change the names of these comments or remove them! Just leave them
-empty if you don't have need for custom content.
+of the README. Do not change the names of these comments or remove them. Keep them
+empty if you don't need custom content.

@@ -1,0 +1,9 @@
+{
+  "dashboardName": "example-new-dashboard2",
+  "exampleAlarmName": "example-metric-alarm",
+  "accountId": "1234567890",
+  "region": "us-east-1",
+  "emailTopic": "Default_CloudWatch_Alarms_Topic",
+  "customMetricNamespace": "example-namespace",
+  "customMetricName": "example-custom-metric"
+}

@@ -9,7 +9,10 @@ using Cassandra;
 namespace KeyspacesScenario;
 
 /// <summary>
-/// Class to perform CRUD methods on a Keyspaces (for Apache Cassandra) database.
+/// Class to perform CRUD methods on an Amazon Keyspaces (for Apache Cassandra) database.
+///
+/// NOTE: This sample uses a plain text authenticator for example purposes only.
+/// Recommended best practice is to use a SigV4 authentication plugin, if available.
 /// </summary>
 public class CassandraWrapper
 {

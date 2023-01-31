@@ -6,6 +6,7 @@ service:
   long: include('entity_regex')
   short: include('entity_regex')
   sort: regex('^[^&]\w', name='non-entity')
+  chapter_override: include('chapter_override', required=False)
   expanded:
     long: str(upper_start=True, end_punc=False, check_aws=False)
     short: str(upper_start=True, end_punc=False, check_aws=False)
@@ -18,6 +19,10 @@ service:
   caveat: str(required=False, upper_start=True, end_punc=True)
   bundle: service_name(required=False)
   tags: map(key=enum('product_categories'))
+
+chapter_override:
+    title: str(upper_start=True, end_punc=False)
+    title_abbrev: str(upper_start=True, end_punc=False)
 
 entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$|^&AWS; SDK for Kotlin Developer Guide$', name='valid entity')
 doc_url: regex('^(?!https://docs.aws.amazon.com/).+', name="relative documentation URL")

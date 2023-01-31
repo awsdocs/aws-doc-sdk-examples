@@ -109,7 +109,7 @@ class Scanner:
                         with open(os.path.join(root, f), 'r') as search_file:
                             for index, line in enumerate(search_file.readlines()):
                                 if tag in line:
-                                    tag_path = os.path.relpath(search_file.name, readme_folder)
+                                    tag_path = os.path.relpath(search_file.name, readme_folder).replace('\\', '/')
                                     if api_name != '':
                                         tag_path += f'#L{index+1}'
                                     break
