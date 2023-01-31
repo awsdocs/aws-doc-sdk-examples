@@ -1,6 +1,13 @@
 {{- template "prologue"}}
 {{- $doc_id := "service_code_examples"}}
+{{- $title := printf "Code examples for %s using &AWS; SDKs" .ServiceEntity.Short }}
+{{- if .ChapterOverrideTitle }}
+    {{- $title = .ChapterOverrideTitle }}
+{{- end }}
 {{- $title_abbrev := "Code examples"}}
+{{- if .ChapterOverrideTitleAbbrev }}
+    {{- $title_abbrev = .ChapterOverrideTitleAbbrev }}
+{{- end }}
 {{- $cross_service := index .CategorizedExampleSets "Cross-service examples"}}
 {{- $scenarios :=  index .CategorizedExampleSets "Scenarios"}}
 {{- $actions := index .CategorizedExampleSets "Actions"}}
@@ -16,7 +23,7 @@
 <chapter id="{{$doc_id}}" role="topic">
 {{end}}
     <info>
-        <title id="{{$doc_id}}.title">Code examples for {{.ServiceEntity.Short}} using &AWS; SDKs</title>
+        <title id="{{$doc_id}}.title">{{$title}}</title>
         <titleabbrev id="{{$doc_id}}.titleabbrev">{{$title_abbrev}}</titleabbrev>
         <abstract>
             <para>Code examples that show how to use {{.ServiceEntity.Short}} with an &AWS; SDK.</para>
