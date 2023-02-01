@@ -21,7 +21,7 @@ Amazon CloudWatch enables you to monitor your complete stack (applications, infr
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt  (putAnomalyDetector command)
+- [Create anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt)  (putAnomalyDetector command)
 - [Create a dashboard](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt)  (putDashboard command)
 - [Create a metric alarm](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt)  (putMetricAlarm command)
 - [Delete alarms](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt) (createKeyspace command)
