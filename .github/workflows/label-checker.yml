@@ -1,0 +1,47 @@
+---
+name: Label Checker
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
+      - unlabeled
+
+jobs:
+
+  check_labels:
+    name: Check Required labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://agilepathway/label-checker@v1.2.13
+        with:
+          all_of: status/code-review-complete,status/ready-to-merge
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+  check_text_labels:
+    name: Check Text labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://agilepathway/label-checker@v1.2.13
+        with:
+          one_of: status/text-review-complete,status/no-text-review-needed
+          none_of: status/text-review-needed
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+  check_test_labels:
+    name: Check Test labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://agilepathway/label-checker@v1.2.13
+        with:
+          one_of: status/test-review-complete,status/no-test-review-needed
+          none_of: status/test-review-needed
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+  check_hold_labels:
+    name: Check Holding Labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://agilepathway/label-checker@v1.2.13
+        with:
+          none_of: status/on-hold,status/future-release
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
