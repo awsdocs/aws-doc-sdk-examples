@@ -15,7 +15,7 @@ Amazon CloudWatch enables you to monitor your complete stack (applications, infr
 
 ### Get started
 
-- [Hello Amazon CloudWatch](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/HelloService.kt) (listMetricsPaginator command)
+- [Hello Amazon CloudWatch](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/HelloService.kt) (listMetricsPaginator command)
 
 ### Single action
 
