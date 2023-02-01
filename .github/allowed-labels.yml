@@ -76,37 +76,48 @@
   color: "663399"
   from_name: "CloudFormation"
 
-- name: status/needs-code-review
-  color: "008080"
+- name: status/code-review-needed
+  color: "AD1C21"
   description: "This work needs code review"
-  from_name: "Ready for review"
-- name: status/needs-text-review
-  color: "008080"
-  description: "This work needs editorial (text) review"
-  from_name: "Editorial"
-- name: status/needs-testing-review
-  color: "008080"
-  description: "This work needs its test reviewed"
-  from_name: "Ready for test review"
-
-- name: status/has-code-review
-  color: "7FFF00"
+  from_name: "status/needs-code-review"
+- name: status/code-review-complete
+  color: "1FC058"
   description: "Code review complete"
-- name: status/has-text-review
-  color: "7FFF00"
+  from_name: "status/has-code-review"
+  
+- name: status/text-review-needed
+  color: "AD1C21"
+  description: "This work needs editorial (text) review"
+  from_name: "status/needs-text-review"
+- name: status/text-review-complete
+  color: "1FC058"
   description: "Text review complete"
-- name: status/has-testing-review
-  color: "7FFF00"
+  from_name: "status/has-text-review"
+- name: status/no-text-review-needed
+  color: "5E2824"
+  description: "No text which needs review."
+
+- name: status/test-review-needed
+  color: "AD1C21"
+  description: "This work needs its test reviewed"
+  from_name: "status/needs-testing-review"
+- name: status/test-review-complete
+  color: "1FC058"
   description: "Testing review complete"
+  from_name: "status/has-testing-review"
+- name: status/no-test-review-needed
+  color: "5E2824"
+  description: "No tests which need review."
+
+- name: status/ready-to-merge
+  color: "1FC058"
+  description: "This work is READY TO MERGE"
+  from_name: "Ready for merge"
 
 - name: status/in-progress
   color: "008080"
   description: "This work is currently in progress"
   from_name: "Work in progress"
-- name: status/ready-to-merge
-  color: "7FFF00"
-  description: "This work is READY TO MERGE"
-  from_name: "Ready for merge"
 - name: status/back-to-author
   color: "00FFFF"
   from_name: "Back to author"
@@ -115,72 +126,27 @@
   color: "00FFFF"
   description: "This work needs input from the reporter"
   from_name: "needs input"
-- name: status/needs-research
+- name: research-spike
   color: "00FFFF"
   description: "This work needs research by the resolver"
-  from_name: "needs research"
+  from_name: "status/needs-research"
 - name: status/future-release
   color: "00FFFF"
   description: "Hold for merge until after release"
   from_name: "Future release"
 
-- name: status/duplicate
-  color: "00FFFF"
-  description: "This is a duplicate"
-  from_name: "duplicate"
 - name: status/stale
   color: "00FFFF"
   description: "This is stale"
-- name: status/icebox
-  color: "008080"
-  description: "This is old, but should not be closed"
-- name: status/ready
-  color: "008080"
-  description: "Ready for work to be done"
-  from_name: "Sprint ready"
 
-- name: type/code-example-request
-  color: "d8bfd8"
-  description: "Request for a code sample"
-  from_name: "code example request"
-- name: type/cross-service
-  color: "d8bfd8"
-  description: "This work is about a cross-service sample"
-  from_name: "Cross-service example"
-- name: type/mvp
-  color: "d8bfd8"
-  description: "This work is about an MVP sample"
-- name: type/dependency
-  color: "d8bfd8"
-  description: "This work is about a dependency"
-  from_name: "dependencies"
-- name: type/chore
-  color: "d8bfd8"
-  description: "This work is about a chore"
 - name: type/bug
   color: "d8bfd8"
   description: "A bug in an existing code sample"
   from_name: "bug"
-- name: type/enhancement
-  color: "d8bfd8"
-  description: "An enhancement to an existing code sample"
-  from_name: "enhancement"
 - name: type/epic
   color: "d8bfd8"
   description: "This is an Epic"
   from_name: "epic"
-- name: type/task
-  color: "d8bfd8"
-  description: "This work is a task that needs to be done"
-  from_name: "task"
-- name: type/user-story
-  color: "d8bfd8"
-  description: "This is a user story"
-  from_name: "user story"
-- name: type/sos
-  color: "d8bfd8"
-  description: "Internal: Relates to Scouring of the Services"
-  from_name: "SoS"
 - name: type/github-settings
   color: "5AF8F9"
   description: "This affects GitHub settings"
