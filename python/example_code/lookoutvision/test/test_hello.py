@@ -10,9 +10,7 @@ import boto3
 from botocore.exceptions import ClientError
 import pytest
 
-from getting_started import GettingStarted
-
-
+from hello import Hello
 
 
 @pytest.mark.parametrize('error_code,stop_on_method', [
@@ -20,7 +18,7 @@ from getting_started import GettingStarted
     ('TestException', 'stub_list_projects')
 
 ])
-def test_getting_started(make_stubber, stub_runner, error_code, stop_on_method):
+def test_hello(make_stubber, stub_runner, error_code, stop_on_method):
     lookoutvision_client = boto3.client('lookoutvision')
     lookoutvision_stubber = make_stubber(lookoutvision_client)
     project_name = 'test-project'
@@ -36,8 +34,8 @@ def test_getting_started(make_stubber, stub_runner, error_code, stop_on_method):
             [{'arn': project_arn, 'created': created}])
 
     if error_code is None:
-        GettingStarted.list_projects(lookoutvision_client)
+        Hello.list_projects(lookoutvision_client)
     else:
         with pytest.raises(ClientError) as exc_info:
-            GettingStarted.list_projects(lookoutvision_client)
+            Hello.list_projects(lookoutvision_client)
         assert exc_info.value.response['Error']['Code'] == error_code

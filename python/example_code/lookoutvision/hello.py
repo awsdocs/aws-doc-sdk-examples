@@ -1,7 +1,8 @@
+
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[python.example_code.lookoutvision.GettingStarted]
+# snippet-start:[python.example_code.lookoutvision.Hello]
 
 """
 This example shows how to list your Amazon Lookout for Vision projects.
@@ -12,8 +13,8 @@ the response is an empty list, but does confirm that you can call the
 from botocore.exceptions import ClientError
 import boto3
 
-class GettingStarted:
-    """ Getting Started class for Amazon Lookout for Vision """
+class Hello:
+    """ Hello world class for Amazon Lookout for Vision """
 
     @staticmethod
     def list_projects(lookoutvision_client):
@@ -43,10 +44,11 @@ def main():
     session = boto3.Session(profile_name='lookoutvision-access')
     lookoutvision_client = session.client("lookoutvision")
 
-    GettingStarted.list_projects(lookoutvision_client)
+    Hello.list_projects(lookoutvision_client)
 
 
 if __name__ == "__main__":
     main()
 
-# snippet-end:[python.example_code.lookoutvision.GettingStarted]
+# snippet-end:[python.example_code.lookoutvision.Hello]
+

@@ -351,14 +351,11 @@ lookoutvision_ListProjects:
   services:
     lookoutvision: {ListProjects}
 
-lookoutvision_GettingStarted:
-  title: Getting started with Amazon Lookout for Vision
-  title_abbrev: Getting Started
-  synopsis: list &LYRA; projects.
-  category:
-  guide_topic:
-    title: Call an Amazon Lookout for Vision operation
-    url: lookout-for-vision/latest/developer-guide/su-sdk-list-projects.html
+lookoutvision_Hello:
+  title: Hello &LYRA;
+  title_abbrev: Hello &LYRA;
+  synopsis: get started using &LYRAlong;.
+  category: Hello
   languages:
     Python:
       versions:
@@ -368,10 +365,9 @@ lookoutvision_GettingStarted:
           excerpts:
             - description:
               snippet_tags:
-                - python.example_code.lookoutvision.GettingStarted
-
+                - python.example_code.lookoutvision.Hello
   services:
-    lookoutvision: {GettingStarted}
+    lookoutvision: {ListProjects}
 
 
 lookoutvision_Scenario_CreateTrainStartModel:
