@@ -78,7 +78,7 @@ For more information, see [Credential providers](https://docs.aws.amazon.com/sdk
 
 ### Creating the resources
 
-Create an Amazon SNS queue. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html).
+Create an Amazon SNS topic. You must reference the ARN of the Amazon SNS topic in your Kotlin code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html).
 
 ## Understand the Publish/Subscription application
 
