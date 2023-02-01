@@ -28,7 +28,7 @@ Code excerpts that show you how to call individual service functions.
 - [Delete an anomaly detector](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt)  (deleteAnomalyDetectorRequest command)
 - [Delete dashboards](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt)  (deleteDashboards command)
 - [Describe alarm history](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt)  (describeAlarmHistory command)
-- [Describe alarms](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/example/cloudwatch/CloudWatchScenario.kt)  (describeAlarms command)
+- [Describe alarms](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt)  (describeAlarms command)
 - [Describe alarms for a metric](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt) (describeAlarm command)
 - [Describe anomaly detectors](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt)  (describeAnomalyDetectors command)
 - [Disable alarm actions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/kotlin/services/cloudwatch/src/main/kotlin/com/kotlin/cloudwatch/CloudWatchScenario.kt)  (disableAlarmActions command)
