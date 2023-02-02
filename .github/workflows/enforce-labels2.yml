@@ -18,4 +18,5 @@ jobs:
       - uses: docker://agilepathway/pull-request-label-checker:latest
         with:
           all_of: status/code-review-complete,status/ready-to-merge
+          one_of: status/test-review-complete,status/no-test-review-needed
           repo_token: ${{ secrets.GITHUB_TOKEN }}
