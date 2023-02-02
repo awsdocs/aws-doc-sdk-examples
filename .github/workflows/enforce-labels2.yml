@@ -12,10 +12,10 @@ on:
 jobs:
 
   check_labels:
-    name: Check labels
+    name: Check required labels
     runs-on: ubuntu-latest
     steps:
       - uses: docker://agilepathway/pull-request-label-checker:latest
         with:
-          one_of: major,minor,patch
+          all_of: status/code-review-complete,status/ready-to-merge
           repo_token: ${{ secrets.GITHUB_TOKEN }}
