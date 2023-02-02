@@ -21,7 +21,7 @@ and install packages by running the following commands in the
 
 ```
 python -m venv .venv
-.venv/Scripts/activate # Windows
+.venv\Scripts\activate # Windows
 source .venv/bin/activate # *nix
 python -m pip install -r requirements.txt
 ```
