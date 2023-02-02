@@ -1,0 +1,17 @@
+name: Enforce labels
+
+on:
+  pull_request:
+    types: [labeled, unlabeled, opened, edited, synchronize]
+jobs:
+  enforce-label:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: yogevbd/enforce-label-action@2.1.0
+      with:
+        REQUIRED_LABELS_ANY: "status/test-review-complete, status/no-test-review-needed"
+        REQUIRED_LABELS_ANY: "status/text-review-complete, status/no-text-review-needed"
+        REQUIRED_LABELS_ALL: "status/code-review-complete, status/ready-to-merge"
+
+        BANNED_LABELS: "status/test-review-needed, status/text-review-needed, status/code-review-needed"
+
