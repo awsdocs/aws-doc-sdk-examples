@@ -26,16 +26,17 @@ fun main(args: Array<String>) {
 
 @Controller
 class MessageResource {
+
     @Autowired
     var sns: SnsService? = null
 
     @GetMapping("/")
-    fun root(): String? {
+    fun root(): String {
         return "index"
     }
 
     @GetMapping("/subscribe")
-    fun add(): String? {
+    fun add(): String {
         return "sub"
     }
 
@@ -59,12 +60,12 @@ class MessageResource {
     fun addMessage(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
         val body = request.getParameter("body")
         val lang = request.getParameter("lang")
-        return@runBlocking sns?.pubTopic(body,lang)
+        return@runBlocking sns?.pubTopic(body, lang)
     }
 
     @RequestMapping(value = ["/getSubs"], method = [RequestMethod.GET])
     @ResponseBody
-    fun getSubs(request: HttpServletRequest?, response: HttpServletResponse?): String? = runBlocking{
+    fun getSubs(request: HttpServletRequest?, response: HttpServletResponse?): String? = runBlocking {
         return@runBlocking sns?.getAllSubscriptions()
     }
 }
