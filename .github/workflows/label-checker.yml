@@ -37,3 +37,11 @@ jobs:
           one_of: status/test-review-complete,status/no-test-review-needed
           none_of: status/test-review-needed
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+  check_hold_labels:
+    name: Check Holding Labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          none_of: status/on-hold,status/future-release
+          repo_token: ${{ secrets.GITHUB_TOKEN }}

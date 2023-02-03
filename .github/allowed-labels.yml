@@ -131,6 +131,9 @@
   color: "00FFFF"
   description: "This work needs research by the resolver"
   from_name: "status/needs-research"
+- name: status/on-hold
+  color: "1FC058"
+  description: "On Hold. Do not merge until released by author."
 - name: status/future-release
   color: "00FFFF"
   description: "Hold for merge until after release"
