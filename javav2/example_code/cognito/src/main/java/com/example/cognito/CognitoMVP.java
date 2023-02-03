@@ -54,7 +54,7 @@ import java.util.Scanner;
  * 2. Invokes the adminGetUser method to get the user's confirmation status.
  * 3. Invokes the ResendConfirmationCode method if the user requested another code.
  * 4. Invokes the confirmSignUp method.
- * 5. Invokes the initiateAuth to sign in. This results in being prompted to set up TOTP (time-based one-time password). (The response is “ChallengeName”: “MFA_SETUP”).
+ * 5. Invokes the AdminInitiateAuth to sign in. This results in being prompted to set up TOTP (time-based one-time password). (The response is “ChallengeName”: “MFA_SETUP”).
  * 6. Invokes the AssociateSoftwareToken method to generate a TOTP MFA private key. This can be used with Google Authenticator. 
  * 7. Invokes the VerifySoftwareToken method to verify the TOTP and register for MFA. 
  * 8. Invokes the AdminInitiateAuth to sign in again. This results in being prompted to submit a TOTP (Response: “ChallengeName”: “SOFTWARE_TOKEN_MFA”).
