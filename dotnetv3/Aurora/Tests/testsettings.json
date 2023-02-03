@@ -1,12 +1,13 @@
 {
   "parameterGroupName": "test-parameter-group",
-  "parameterGroupFamily": "mysql8.0",
+  "parameterGroupFamily": "aurora-mysql8.0",
   "modifyParameterName": "auto_increment_offset",
   "modifyParameterValue": "3",
-  "engineName": "mysql",
-  "engineVersion": "8.0.28",
+  "engineName": "aurora-mysql",
+  "engineVersion": "8.0.mysql_aurora.3.01.0",
   "clusterIdentifier": "test-cluster-1",
-  "clusterClass": "db.t3.micro",
+  "instanceIdentifier": "test-instance-1",
+  "instanceClass": "db.t3.medium",
   "adminUserName": "admin",
   "adminPassword": "EXAMPLEPASSWORD"
 }
