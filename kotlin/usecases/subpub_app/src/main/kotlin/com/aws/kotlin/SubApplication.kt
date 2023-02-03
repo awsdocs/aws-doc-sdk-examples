@@ -26,7 +26,6 @@ fun main(args: Array<String>) {
 
 @Controller
 class MessageResource {
-
     @Autowired
     var sns: SnsService? = null
 
