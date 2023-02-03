@@ -13,9 +13,9 @@ namespace AuroraTests;
 /// </summary>
 public class AuroraScenarioTests
 {
-    private readonly IConfiguration _configuration;
-    private readonly AuroraWrapper _wrapper;
-    private string _parameterGroupName = "";
+    private readonly IConfiguration configuration;
+    private readonly AuroraWrapper wrapper;
+    private readonly string parameterGroupName;
 
 
     /// <summary>
@@ -23,14 +23,14 @@ public class AuroraScenarioTests
     /// </summary>
     public AuroraScenarioTests()
     {
-        _configuration = new ConfigurationBuilder()
+        configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("testsettings.json") // Load test settings from .json file.
             .AddJsonFile("testsettings.local.json",
                 true) // Optionally load local settings.
             .Build();
-        _parameterGroupName = _configuration["parameterGroupName"];
-        _wrapper = new AuroraWrapper(new AmazonRDSClient());
+        parameterGroupName = configuration["parameterGroupName"];
+        wrapper = new AuroraWrapper(new AmazonRDSClient());
     }
 
     /// <summary>
@@ -39,10 +39,11 @@ public class AuroraScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(1)]
+    [Trait("Category", "Integration")]
     public async Task VerifyDescribeDBEngineVersions_ShouldSucceed()
     {
-        var engineName = _configuration["engineName"];
-        var versions = await _wrapper.DescribeDBEngineVersionsForEngineAsync(engineName);
+        var engineName = configuration["engineName"];
+        var versions = await wrapper.DescribeDBEngineVersionsForEngineAsync(engineName);
 
         Assert.NotEmpty(versions);
     }
@@ -53,18 +54,19 @@ public class AuroraScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(2)]
+    [Trait("Category", "Integration")]
     public async Task CreateDBClusterParameterGroup_ShouldSucceed()
     {
-        var groupFamilyName = _configuration["parameterGroupFamily"];
-        var parameterGroup = await _wrapper.CreateCustomClusterParameterGroupAsync(_parameterGroupName,
+        var groupFamilyName = configuration["parameterGroupFamily"];
+        var parameterGroup = await wrapper.CreateCustomClusterParameterGroupAsync(parameterGroupName,
             groupFamilyName, "New test parameter group");
 
         bool isParameterGroupReady = false;
         while (!isParameterGroupReady)
         {
-            var parameterGroups = await _wrapper.DescribeCustomDBClusterParameterGroupAsync(_parameterGroupName);
+            var parameterGroups = await wrapper.DescribeCustomDBClusterParameterGroupAsync(parameterGroupName);
             isParameterGroupReady = parameterGroups is not null;
-            Thread.Sleep(30000);
+            Thread.Sleep(5000);
         }
 
         Assert.NotNull(parameterGroup);
@@ -76,10 +78,11 @@ public class AuroraScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(3)]
+    [Trait("Category", "Integration")]
     public async Task DescribeDBClusterParameters_ShouldNotBeEmpty()
     {
         var parameters =
-            await _wrapper.DescribeDBClusterParametersInGroupAsync(_parameterGroupName);
+            await wrapper.DescribeDBClusterParametersInGroupAsync(parameterGroupName);
 
         Assert.NotEmpty(parameters);
     }
@@ -90,25 +93,26 @@ public class AuroraScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(4)]
+    [Trait("Category", "Integration")]
     public async Task ModifyClusterParameters_ShouldReturnGroupName()
     {
         var modifyParameters = new List<Parameter>();
         var parameters =
-            await _wrapper.DescribeDBClusterParametersInGroupAsync(_parameterGroupName);
+            await wrapper.DescribeDBClusterParametersInGroupAsync(parameterGroupName);
         foreach (var parameter in parameters)
         {
-            if (parameter.ParameterName == _configuration["modifyParameterName"])
+            if (parameter.ParameterName == configuration["modifyParameterName"])
             {
-                parameter.ParameterValue = _configuration["modifyParameterValue"];
+                parameter.ParameterValue = configuration["modifyParameterValue"];
                 modifyParameters.Add(parameter);
                 break;
             }
         }
 
         var groupName =
-            await _wrapper.ModifyIntegerParametersInGroupAsync(_parameterGroupName, modifyParameters);
+            await wrapper.ModifyIntegerParametersInGroupAsync(parameterGroupName, modifyParameters, 1);
 
-        Assert.Equal(_parameterGroupName, groupName);
+        Assert.Equal(parameterGroupName, groupName);
     }
 
     /// <summary>
@@ -117,28 +121,30 @@ public class AuroraScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(5)]
+    [Trait("Category", "Integration")]
     public async Task DescribeDBClusterParameters_ShouldReturnUserParameters()
     {
         var parameters =
-            await _wrapper.DescribeDBClusterParametersInGroupAsync(_parameterGroupName, "user");
+            await wrapper.DescribeDBClusterParametersInGroupAsync(parameterGroupName, "user");
 
         var parameterNames = parameters.Select(p => p.ParameterName);
 
-        Assert.Contains(_configuration["modifyParameterName"], parameterNames);
+        Assert.Contains(configuration["modifyParameterName"], parameterNames);
     }
 
     /// <summary>
-    /// Describe the orderable DB cluster options. Should return a list that is not empty.
+    /// Describe the orderable DB instance options. Should return a list that is not empty.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
     [Order(6)]
-    public async Task DescribeOrderableDBClusterOptions_ShouldNotBeEmpty()
+    [Trait("Category", "Integration")]
+    public async Task DescribeOrderableDBInstanceOptions_ShouldNotBeEmpty()
     {
-        var engineName = _configuration["engineName"];
-        var engineVersion = _configuration["engineVersion"];
+        var engineName = configuration["engineName"];
+        var engineVersion = configuration["engineVersion"];
         var clusterOptions =
-            await _wrapper.DescribeOrderableDBInstanceOptionsPagedAsync(engineName, engineVersion);
+            await wrapper.DescribeOrderableDBInstanceOptionsPagedAsync(engineName, engineVersion);
 
         Assert.NotEmpty(clusterOptions);
     }
@@ -149,18 +155,19 @@ public class AuroraScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(7)]
+    [Trait("Category", "Integration")]
     public async Task CreateDBCluster_ShouldReturnCluster()
     {
-        var parameterGroupName = _configuration["parameterGroupName"];
-        var engineName = _configuration["engineName"];
-        var engineVersion = _configuration["engineVersion"];
-        var clusterIdentifier = _configuration["clusterIdentifier"];
-        var adminUserName = _configuration["adminUserName"];
-        var adminPassword = _configuration["adminPassword"];
+        var parameterGroupName = configuration["parameterGroupName"];
+        var engineName = configuration["engineName"];
+        var engineVersion = configuration["engineVersion"];
+        var clusterIdentifier = configuration["clusterIdentifier"];
+        var adminUserName = configuration["adminUserName"];
+        var adminPassword = configuration["adminPassword"];
 
         bool isClusterReady = false;
 
-        var newCluster = await _wrapper.CreateDBClusterWithAdminAsync(
+        var newCluster = await wrapper.CreateDBClusterWithAdminAsync(
             "ExampleTestCluster",
             clusterIdentifier,
             parameterGroupName,
@@ -171,7 +178,7 @@ public class AuroraScenarioTests
         );
         while (!isClusterReady)
         {
-            var clusters = await _wrapper.DescribeDBClustersPagedAsync(clusterIdentifier);
+            var clusters = await wrapper.DescribeDBClustersPagedAsync(clusterIdentifier);
             isClusterReady = clusters.FirstOrDefault()?.Status == "available";
             newCluster = clusters.First();
             Thread.Sleep(30000);
@@ -181,16 +188,67 @@ public class AuroraScenarioTests
     }
 
     /// <summary>
-    /// Create a DB snapshot. Should return a snapshot cluster.
+    /// Describe the DB instances. Should return a list that is not empty.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
     [Order(8)]
+    [Trait("Category", "Integration")]
+    public async Task DescribeDBInstanceOptionsDBInstancesPaged_ShouldNotBeEmpty()
+    {
+        var instances =
+            await wrapper.DescribeDBInstancesPagedAsync();
+
+        Assert.NotEmpty(instances);
+    }
+
+    /// <summary>
+    /// Create the DB instance in the cluster. Should return the new instance.
+    /// </summary>
+    /// <returns>Async task.</returns>
+    [Fact]
+    [Order(9)]
+    [Trait("Category", "Integration")]
+    public async Task CreateDBInstanceInCluster_ShouldReturnCluster()
+    {
+        var engineName = configuration["engineName"];
+        var engineVersion = configuration["engineVersion"];
+        var clusterIdentifier = configuration["clusterIdentifier"];
+        var instanceIdentifier = configuration["instanceIdentifier"];
+        var instanceClass = configuration["instanceClass"];
+
+        bool isInstanceReady = false;
+
+        var newInstance = await wrapper.CreateDBInstanceInClusterAsync(
+            clusterIdentifier,
+            instanceIdentifier,
+            engineName,
+            engineVersion,
+            instanceClass
+        );
+        while (!isInstanceReady)
+        {
+            Thread.Sleep(5000);
+            var instances = await wrapper.DescribeDBInstancesPagedAsync(instanceIdentifier);
+            isInstanceReady = instances.FirstOrDefault()?.DBInstanceStatus == "available";
+            newInstance = instances.FirstOrDefault();
+        }
+
+        Assert.NotNull(newInstance);
+    }
+
+    /// <summary>
+    /// Create a DB snapshot. Should return a snapshot cluster.
+    /// </summary>
+    /// <returns>Async task.</returns>
+    [Fact]
+    [Order(10)]
+    [Trait("Category", "Integration")]
     public async Task CreateClusterSnapshot_ShouldNotBeEmpty()
     {
-        var clusterIdentifier = _configuration["clusterIdentifier"];
+        var clusterIdentifier = configuration["clusterIdentifier"];
 
-        var snapshot = await _wrapper.CreateClusterSnapshotByIdentifierAsync(
+        var snapshot = await wrapper.CreateClusterSnapshotByIdentifierAsync(
             clusterIdentifier, "ExampleSnapshot-" + DateTime.Now.Ticks);
 
         // Wait for the snapshot to be available.
@@ -198,13 +256,55 @@ public class AuroraScenarioTests
 
         while (!isSnapshotReady)
         {
-            var snapshots = await _wrapper.DescribeDBClusterSnapshotsByIdentifierAsync(clusterIdentifier);
+            Thread.Sleep(5000);
+            var snapshots = await wrapper.DescribeDBClusterSnapshotsByIdentifierAsync(clusterIdentifier);
             isSnapshotReady = snapshots.FirstOrDefault()?.Status == "available";
-            snapshot = snapshots.First();
-            Thread.Sleep(30000);
+            snapshot = snapshots.FirstOrDefault();
         }
 
         Assert.NotNull(snapshot);
+    }
+
+    /// <summary>
+    /// Describe the DB engine version options. Should return a list that is not empty.
+    /// </summary>
+    /// <returns>Async task.</returns>
+    [Fact]
+    [Order(11)]
+    [Trait("Category", "Integration")]
+    public async Task DescribeDBEngineVersionsForEngine_ShouldNotBeEmpty()
+    {
+        var engineName = configuration["engineName"];
+        var engineVersions =
+            await wrapper.DescribeDBEngineVersionsForEngineAsync(engineName, parameterGroupName);
+
+        Assert.NotEmpty(engineVersions);
+    }
+
+    /// <summary>
+    /// Delete the DB instance. Should not fail.
+    /// </summary>
+    /// <returns>Async task.</returns>
+    [Fact]
+    [Order(13)]
+    [Trait("Category", "Integration")]
+    public async Task DeleteInstance_ShouldNotFail()
+    {
+        var instanceIdentifier = configuration["instanceIdentifier"];
+
+        await wrapper.DeleteDBInstanceByIdentifierAsync(instanceIdentifier);
+
+        // Wait for the DB instance to delete.
+        bool isInstanceDeleted = false;
+
+        while (!isInstanceDeleted)
+        {
+            Thread.Sleep(30000);
+            var instances = await wrapper.DescribeDBInstancesPagedAsync();
+            isInstanceDeleted = instances.All(i => i.DBInstanceIdentifier != instanceIdentifier);
+        }
+
+        Assert.True(isInstanceDeleted);
     }
 
     /// <summary>
@@ -212,21 +312,22 @@ public class AuroraScenarioTests
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
-    [Order(9)]
+    [Order(14)]
+    [Trait("Category", "Integration")]
     public async Task DeleteCluster_ShouldNotFail()
     {
-        var clusterIdentifier = _configuration["clusterIdentifier"];
+        var clusterIdentifier = configuration["clusterIdentifier"];
 
-        await _wrapper.DeleteDBClusterByIdentifierAsync(clusterIdentifier);
+        await wrapper.DeleteDBClusterByIdentifierAsync(clusterIdentifier);
 
         // Wait for the DB cluster to delete.
         bool isClusterDeleted = false;
 
         while (!isClusterDeleted)
         {
-            var cluster = await _wrapper.DescribeDBClustersPagedAsync();
+            Thread.Sleep(5000);
+            var cluster = await wrapper.DescribeDBClustersPagedAsync();
             isClusterDeleted = cluster.All(i => i.DBClusterIdentifier != clusterIdentifier);
-            Thread.Sleep(30000);
         }
 
         Assert.True(isClusterDeleted);
@@ -237,10 +338,11 @@ public class AuroraScenarioTests
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
-    [Order(10)]
+    [Order(15)]
+    [Trait("Category", "Integration")]
     public async Task DeleteParameterGroup_ShouldNotFail()
     {
-        var result = await _wrapper.DeleteClusterParameterGroupByNameAsync(_parameterGroupName);
+        var result = await wrapper.DeleteClusterParameterGroupByNameAsync(parameterGroupName);
 
         Assert.True(result);
     }

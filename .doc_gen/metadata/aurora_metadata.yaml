@@ -1,4 +1,21 @@
 # zexi 0.4.0
+aurora_Hello:
+  title: Hello &AUR;
+  title_abbrev: Hello &AUR;
+  synopsis: get started using &AURlong;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.HelloAurora
+  services:
+    route53-domains: {ListPrices}
 aurora_DescribeDBClusterParameterGroups:
   title: Describe &AUR; DB cluster parameter groups using an &AWS; SDK
   title_abbrev: Describe DB cluster parameter groups
@@ -328,7 +345,7 @@ aurora_DeleteDBCluster:
           excerpts:
             - description:
               snippet_tags:
-                - Aurora.dotnetv3.DeleteDbCluster
+                - Aurora.dotnetv3.DeleteDBCluster
     Kotlin:
       versions:
         - sdk_version: 1

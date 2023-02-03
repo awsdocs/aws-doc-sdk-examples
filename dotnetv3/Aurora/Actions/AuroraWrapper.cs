@@ -118,14 +118,14 @@ public class AuroraWrapper
     /// </summary>
     /// <param name="groupName">The group name for the parameters.</param>
     /// <param name="parameters">The list of integer parameters to modify.</param>
+    /// <param name="newValue">Optional int value to set for parameters.</param>
     /// <returns>The name of the group that was modified.</returns>
-    public async Task<string> ModifyIntegerParametersInGroupAsync(string groupName, List<Parameter> parameters)
+    public async Task<string> ModifyIntegerParametersInGroupAsync(string groupName, List<Parameter> parameters, int newValue = 0)
     {
         foreach (var p in parameters)
         {
             if (p.IsModifiable && p.DataType == "integer")
             {
-                int newValue = 0;
                 while (newValue == 0)
                 {
                     Console.WriteLine(
@@ -363,7 +363,7 @@ public class AuroraWrapper
     }
     // snippet-end:[Aurora.dotnetv3.DescribeDBSnapshots]
 
-    // snippet-start:[Aurora.dotnetv3.DeleteDbCluster]
+    // snippet-start:[Aurora.dotnetv3.DeleteDBCluster]
     /// <summary>
     /// Delete a particular DB cluster.
     /// </summary>
@@ -380,7 +380,7 @@ public class AuroraWrapper
 
         return response.DBCluster;
     }
-    // snippet-end:[Aurora.dotnetv3.DeleteDbCluster]
+    // snippet-end:[Aurora.dotnetv3.DeleteDBCluster]
 
     // snippet-start:[Aurora.dotnetv3.DeleteDBInstance]
     /// <summary>
