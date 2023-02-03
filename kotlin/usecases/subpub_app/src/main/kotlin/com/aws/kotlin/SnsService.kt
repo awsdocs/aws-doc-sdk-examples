@@ -24,12 +24,10 @@ import javax.xml.transform.stream.StreamResult
 
 @Component
 class SnsService {
-
     var topicArnVal = "arn:aws:sns:us-west-2:814548047983:MyMailTopic"
 
     // Create a Subscription.
     suspend fun subEmail(email: String?): String? {
-
         val request = SubscribeRequest {
             protocol = "email"
             endpoint = email
@@ -44,7 +42,6 @@ class SnsService {
     }
 
     suspend fun pubTopic(messageVal: String, lang: String): String {
-
         val translateClient = TranslateClient { region = "us-east-1" }
         val body: String
 
@@ -82,7 +79,6 @@ class SnsService {
     }
 
     suspend fun unSubEmail(emailEndpoint: String) {
-
         val subscriptionArnVal = getTopicArnValue(emailEndpoint)
         val request = UnsubscribeRequest {
             subscriptionArn = subscriptionArnVal
@@ -95,7 +91,6 @@ class SnsService {
 
     // Returns the Sub Amazon Resource Name (ARN) based on the given endpoint used for unSub.
     suspend fun getTopicArnValue(endpoint: String): String? {
-
         var subArn: String
         val request = ListSubscriptionsByTopicRequest {
             topicArn = topicArnVal
