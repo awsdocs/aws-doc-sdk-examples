@@ -48,6 +48,7 @@ public class AuroraScenario
     20. Delete the cluster parameter group using the DeleteDBClusterParameterGroupAsync.
     */
 
+    //Todo: fix the sep bar
     private static readonly string sepBar = new('-', 80);
     private static AuroraWrapper auroraWrapper = null!;
     private static ILogger logger = null!;
@@ -194,7 +195,7 @@ public class AuroraScenario
     /// <summary>
     /// Get and describe parameters from a DBParameterGroup.
     /// </summary>
-    /// <param name="parameterGroupName">Name of the DBParameterGroup.</param>
+    /// <param name="parameterGroupName">The name of the DBParameterGroup.</param>
     /// <param name="parameterNames">Optional specific names of parameters to describe.</param>
     /// <returns>The list of requested parameters.</returns>
     public static async Task<List<Parameter>> DescribeParametersInGroupAsync(string parameterGroupName, List<string>? parameterNames = null)
