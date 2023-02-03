@@ -1,4 +1,6 @@
-﻿using Amazon.EventBridge;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
+using Amazon.EventBridge;
 using Amazon.EventBridge.Model;
 
 var client = new AmazonEventBridgeClient();
