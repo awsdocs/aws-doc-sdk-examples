@@ -15,7 +15,7 @@ aurora_Hello:
               snippet_tags:
                 - Aurora.dotnetv3.HelloAurora
   services:
-    route53-domains: {ListPrices}
+    services: {DescribeDBClusters}
 aurora_DescribeDBClusterParameterGroups:
   title: Describe &AUR; DB cluster parameter groups using an &AWS; SDK
   title_abbrev: Describe DB cluster parameter groups
