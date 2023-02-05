@@ -125,5 +125,10 @@ func main() {
 	certificateSSLArn := "arn:aws:us-east-1:1234567890:certificate/7a4c4086-706d-4f6f-a8a2-2c7cebad7264"
 	domain := "aws.example.com"
 	result, err := CreateDistribution(s3Client, cloudfrontClient, bucketName, originAccessIdentityID, certificateSSLArn, domain)
+	if err != nil {
+		fmt.Println("Couldn't Create Distribution. Please Check error message and try again.")
+		fmt.Println(err)
+		return
+	}
 	fmt.Println(result.Distribution.ARN)
 }
