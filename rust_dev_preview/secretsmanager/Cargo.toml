@@ -14,3 +14,74 @@ aws-sdk-secretsmanager = { git = "https://github.com/awslabs/aws-sdk-rust", bran
 tokio = { version = "1.20.1", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Codespaces
+Marketplace
+Explore
+ 
+@mowjoejoejoejoe 
+Your account has been flagged.
+Because of that, your profile is hidden from the public. If you believe this is a mistake, contact support to have your account status reviewed.
+https-www-bitore-net
+/
+demo-repository
+Private
+Cannot fork because forking is disabled.
+Code
+Issues
+1
+Pull requests
+2
+Actions
+Projects
+Security
+Insights
+Settings
+Auto Assign
+https://github.com/mowjoejoejoejoe/Requests.md/PR/#/54 #1
+Jobs
+Run details
+run
+failed 2 days ago in 6s
+Search logs
+1s
+Current runner version: '2.301.1'
+Operating System
+  Ubuntu
+  22.04.1
+  LTS
+Runner Image
+  Image: ubuntu-22.04
+  Version: 20230129.2
+  Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20230129.2/images/linux/Ubuntu2204-Readme.md
+  Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20230129.2
+Runner Image Provisioner
+  2.0.98.1
+GITHUB_TOKEN Permissions
+  Contents: read
+  Metadata: read
+  Packages: read
+Secret source: Actions
+Prepare workflow directory
+Prepare all required actions
+Getting action download info
+Download action repository 'wow-actions/auto-assign@v1' (SHA:707ec486377e28a595619469e26b375d8746b330)
+Complete job name: run
+4s
+Run wow-actions/auto-assign@v1
+  with:
+    GITHUB_TOKEN: ***
+    CONFIG_FILE: .github/auto-assign.yml
+(node:1675) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Error: HttpError: Resource not accessible by integration
+Error: Resource not accessible by integration
+0s
+Cleaning up orphan processes
+283,370,964,939
+283,370,964,939
+283,370,964,939
+cr12753750.00bitore341731337@gmail.com
