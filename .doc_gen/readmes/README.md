@@ -23,7 +23,7 @@ and install packages by running the following commands in the
 python -m venv .venv
 .venv\Scripts\activate # Windows
 source .venv/bin/activate # *nix
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 Depending on how you have Python installed and on your operating system,
