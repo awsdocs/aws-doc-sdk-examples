@@ -43,14 +43,6 @@ Additionally, example code might theoretically modify or delete existing AWS res
  * Be aware of the costs that might be charged to your account as a result.
  * Back up your important data.
 
-## Other examples
-Additionally, this repository contains sample code for the following AWS tooling:
-
-| folder                                | service                                  |
-|---------------------------------------|------------------------------------------|
-| [iam_policies/](iam_policies)         | AWS Identity and Access Management (IAM) |
-| [lambda_functions/](lambda_functions) | AWS Lambda                               |
-
 # Contributing
 This repository thrives on your contributions! ❤️ To get involved, see the [CONTRIBUTING.md](CONTRIBUTING.md). 🙏
 

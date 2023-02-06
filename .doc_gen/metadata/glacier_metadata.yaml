@@ -266,7 +266,7 @@ glacier_DeleteArchive:
           excerpts:
             - description:
               snippet_tags:
-                - glacier.java2.delete.main
+                - glacier.java2.delete.archive.main
     Python:
       versions:
         - sdk_version: 3
