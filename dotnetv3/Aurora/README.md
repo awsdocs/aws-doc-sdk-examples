@@ -57,29 +57,11 @@ multiple functions within the same service.
 This interactive scenario runs at a command prompt and shows you how to use
 Aurora with the AWS SDK for .NET to do the following:
 
-1.  Return a list of the available DB engine families for Aurora MySql using the DescribeDBEngineVersionsAsync method.
-2.  Select an engine family and create a custom DB cluster parameter group using the CreateDBClusterParameterGroupAsync method.
-3.  Get the parameter group using the DescribeDBClusterParameterGroupsAsync method.
-4.  Get some parameters in the group using the DescribeDBClusterParametersAsync method.
-5.  Parse and display some parameters in the group.
-6.  Modify the auto_increment_offset and auto_increment_increment parameters
-    using the ModifyDBClusterParameterGroupAsync method.
-7.  Get and display the updated parameters using the DescribeDBClusterParametersAsync method with a source of "user".
-8.  Get a list of allowed engine versions using the DescribeDBEngineVersionsAsync method.
-9.  Create an Aurora DB cluster that contains a MySql database and uses the parameter group 
-    using the CreateDBClusterAsync method.
-10. Wait for the DB cluster to be ready using the DescribeDBClustersAsync method.
-11. Display and select from a list of instance classes available for the selected engine and version
-    using the paginated DescribeOrderableDBInstanceOptions method.
-12. Create a database instance in the cluster using the CreateDBInstanceAsync method.
-13. Wait for the DB instance to be ready using the DescribeDBInstances method.
-14. Display the connection endpoint string for the new DB cluster.
-15. Create a snapshot of the DB cluster using the CreateDBClusterSnapshotAsync method.
-16. Wait for DB snapshot to be ready using the DescribeDBClusterSnapshotsAsync method.
-17. Delete the DB instance using the DeleteDBInstanceAsync method.
-18. Delete the DB cluster using the DeleteDBClusterAsync method.
-19. Wait for DB cluster to be deleted using the DescribeDBClustersAsync methods.
-20. Delete the cluster parameter group using the DeleteDBClusterParameterGroupAsync.
+* Create a custom Aurora DB cluster parameter group and set parameter values.
+* Create a DB cluster that is configured to use the parameter group.
+* Create a DB instance in the DB cluster that contains a database.
+* Take a snapshot of the DB cluster.
+* Delete the instance, DB cluster, and parameter group.
 
 After the example compiles, you can run it from the command line. To do so,
 navigate to the folder that contains the .csproj file and run the following

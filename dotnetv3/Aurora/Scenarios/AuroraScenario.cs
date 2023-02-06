@@ -75,7 +75,7 @@ public class AuroraScenario
 
         Console.WriteLine(sepBar);
         Console.WriteLine(
-            "Welcome to the Amazon Aurora scenario example.");
+            "Welcome to the Amazon Aurora: get started with DB clusters example.");
         Console.WriteLine(sepBar);
 
         DBClusterParameterGroup parameterGroup = null!;
