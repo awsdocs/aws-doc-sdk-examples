@@ -58,8 +58,10 @@ public class AuroraScenarioTests
     public async Task CreateDBClusterParameterGroup_ShouldSucceed()
     {
         var groupFamilyName = configuration["parameterGroupFamily"];
-        var parameterGroup = await wrapper.CreateCustomClusterParameterGroupAsync(parameterGroupName,
-            groupFamilyName, "New test parameter group");
+        var parameterGroup = await wrapper.CreateCustomClusterParameterGroupAsync(
+            groupFamilyName,
+            parameterGroupName,
+            "New test parameter group");
 
         bool isParameterGroupReady = false;
         while (!isParameterGroupReady)
@@ -275,8 +277,9 @@ public class AuroraScenarioTests
     public async Task DescribeDBEngineVersionsForEngine_ShouldNotBeEmpty()
     {
         var engineName = configuration["engineName"];
+        var groupFamilyName = configuration["parameterGroupFamily"];
         var engineVersions =
-            await wrapper.DescribeDBEngineVersionsForEngineAsync(engineName, parameterGroupName);
+            await wrapper.DescribeDBEngineVersionsForEngineAsync(engineName, groupFamilyName);
 
         Assert.NotEmpty(engineVersions);
     }

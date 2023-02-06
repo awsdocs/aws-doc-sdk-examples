@@ -48,7 +48,6 @@ public class AuroraScenario
     20. Delete the cluster parameter group using the DeleteDBClusterParameterGroupAsync.
     */
 
-    //Todo: fix the sep bar
     private static readonly string sepBar = new('-', 80);
     private static AuroraWrapper auroraWrapper = null!;
     private static ILogger logger = null!;
@@ -79,7 +78,7 @@ public class AuroraScenario
             "Welcome to the Amazon Aurora scenario example.");
         Console.WriteLine(sepBar);
 
-        DBClusterParameterGroup parameterGroup = null;
+        DBClusterParameterGroup parameterGroup = null!;
         DBCluster? newCluster = null;
         DBInstance? newInstance = null;
 
@@ -333,8 +332,8 @@ public class AuroraScenario
                 parameterGroup.DBClusterParameterGroupName,
                 engineName,
                 engineVersion,
-                username,
-                password
+                username!,
+                password!
             );
 
             Console.WriteLine("10. Waiting for DB cluster to be ready...");

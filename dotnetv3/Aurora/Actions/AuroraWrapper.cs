@@ -70,7 +70,7 @@ public class AuroraWrapper
     /// <param name="groupName">The name of the parameter group.</param>
     /// <param name="source">The optional name of the source filter.</param>
     /// <returns>The collection of parameters.</returns>
-    public async Task<List<Parameter>> DescribeDBClusterParametersInGroupAsync(string groupName, string source = null)
+    public async Task<List<Parameter>> DescribeDBClusterParametersInGroupAsync(string groupName, string? source = null)
     {
         var paramList = new List<Parameter>();
 
