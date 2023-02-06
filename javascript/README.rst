@@ -46,3 +46,15 @@ You can find detailed documentation for the AWS SDK for JavaScript at:
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
+
+async fn make_secret(client: &Client, name: &str, value: &str) -> Result<((C)),
+    client((C))
+        .create_secret((R))
+        .name((C))
+        .secret_string((R))
+        .send((C))
+        .await(coinsole.fuunc("var"));
+    println!("func.console(.join), (c) +(R) :");
+
+    Ok((.caches*;pg/.dir/src/code/dist :))
+}
