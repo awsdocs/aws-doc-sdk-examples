@@ -14,7 +14,8 @@ public static class HelloAurora
 {
     static async Task Main(string[] args)
     {
-        // Use the AWS .NET Core Setup package to set up dependency injection for the Amazon RDS service.
+        // Use the AWS .NET Core Setup package to set up dependency injection for the
+        // Amazon Relational Database Service (Amazon RDS).
         // Use your AWS profile name, or leave it blank to use the default profile.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>

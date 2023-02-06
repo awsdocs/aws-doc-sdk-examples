@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging.Debug;
 namespace AuroraScenario;
 
 /// <summary>
-/// Scenario for Aurora examples.
+/// Scenario for Amazon Aurora examples.
 /// </summary>
 public class AuroraScenario
 {
@@ -54,7 +54,7 @@ public class AuroraScenario
     private static readonly string engine = "aurora-mysql";
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the Amazon RDS service.
+        // Set up dependency injection for the Amazon Relational Database Service (Amazon RDS).
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)
@@ -158,7 +158,7 @@ public class AuroraScenario
         var choiceNumber = 0;
         while (choiceNumber < 1 || choiceNumber > parameterGroupFamilies.Count)
         {
-            Console.WriteLine("2. Select an available DB parameter group family by entering a number from the list above:");
+            Console.WriteLine("2. Select an available DB parameter group family by entering a number from the preceding list:");
             var choice = Console.ReadLine();
             Int32.TryParse(choice, out choiceNumber);
         }
@@ -320,10 +320,10 @@ public class AuroraScenario
         }
         else
         {
-            Console.WriteLine("Please enter an admin user name:");
+            Console.WriteLine("Enter an admin username:");
             var username = Console.ReadLine();
 
-            Console.WriteLine("Please enter an admin password:");
+            Console.WriteLine("Enter an admin password:");
             var password = Console.ReadLine();
 
             newCluster = await auroraWrapper.CreateDBClusterWithAdminAsync(
@@ -377,7 +377,7 @@ public class AuroraScenario
         var choiceNumber = 0;
         while (choiceNumber < 1 || choiceNumber > allowedInstances.Count)
         {
-            Console.WriteLine("11. Select an available DB instance class by entering a number from the list above:");
+            Console.WriteLine("11. Select an available DB instance class by entering a number from the preceding list:");
             var choice = Console.ReadLine();
             Int32.TryParse(choice, out choiceNumber);
         }
@@ -442,7 +442,7 @@ public class AuroraScenario
     }
 
     /// <summary>
-    /// Display a connection string for an RDS DB cluster.
+    /// Display a connection string for an Amazon RDS DB cluster.
     /// </summary>
     /// <param name="cluster">The DB cluster to use to get a connection string.</param>
     public static void DisplayConnectionString(DBCluster cluster)
@@ -458,7 +458,7 @@ public class AuroraScenario
     }
 
     /// <summary>
-    /// Create a snapshot from an RDS DB cluster.
+    /// Create a snapshot from an Amazon RDS DB cluster.
     /// </summary>
     /// <param name="cluster">DB cluster to use when creating a snapshot.</param>
     /// <returns>The snapshot object.</returns>
@@ -471,7 +471,7 @@ public class AuroraScenario
             cluster.DBClusterIdentifier,
             "ExampleSnapshot-" + DateTime.Now.Ticks);
 
-        // Wait for the snapshot to be available
+        // Wait for the snapshot to be available.
         bool isSnapshotReady = false;
 
         Console.WriteLine($"16. Waiting for snapshot to be ready...");
@@ -497,7 +497,7 @@ public class AuroraScenario
     /// <param name="newInstance">The instance to clean up.</param>
     /// <param name="newCluster">The cluster to clean up.</param>
     /// <param name="parameterGroup">The parameter group to clean up.</param>
-    /// <returns></returns>
+    /// <returns>Async Task.</returns>
     private static async Task CleanupResources(
         DBInstance? newInstance,
         DBCluster? newCluster,

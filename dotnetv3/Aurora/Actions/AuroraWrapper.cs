@@ -8,7 +8,7 @@ using Amazon.RDS.Model;
 namespace AuroraActions;
 
 /// <summary>
-/// Wrapper for the Aurora cluster client operations.
+/// Wrapper for the Amazon Aurora cluster client operations.
 /// </summary>
 public class AuroraWrapper
 {
@@ -205,8 +205,8 @@ public class AuroraWrapper
     /// <param name="parameterGroupName">The name of the parameter group.</param>
     /// <param name="dbEngine">The engine to use for the new cluster.</param>
     /// <param name="dbEngineVersion">The version of the engine to use.</param>
-    /// <param name="adminName">The admin user name.</param>
-    /// <param name="adminPassword">The admin master password.</param>
+    /// <param name="adminName">The admin username.</param>
+    /// <param name="adminPassword">The primary admin password.</param>
     /// <returns>The cluster object.</returns>
     public async Task<DBCluster> CreateDBClusterWithAdminAsync(
         string dbName,
@@ -285,7 +285,8 @@ public class AuroraWrapper
 
     // snippet-start:[Aurora.dotnetv3.CreateDBInstance]
     /// <summary>
-    /// Create an RDS DB instance with a particular set of properties. Use the action DescribeDBInstancesAsync
+    /// Create an Amazon Relational Database Service (Amazon RDS) DB instance
+    /// with a particular set of properties. Use the action DescribeDBInstancesAsync
     /// to determine when the DB instance is ready to use.
     /// </summary>
     /// <param name="dbInstanceIdentifier">DB instance identifier.</param>

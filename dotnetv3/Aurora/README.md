@@ -23,18 +23,18 @@ managed relational database engine that's compatible with MySQL and PostgreSQL.
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Create a DB instance in a DB cluster](Actions/AuroraWrapper.cs)(`CreateDBInstanceAsync`)
 * [Create a DB cluster](Actions/AuroraWrapper.cs)(`CreateDBClusterAsync`)
-* [Create a DB cluster snapshot](Actions/AuroraWrapper.cs)(`CreateDBClusterSnapshotAsync`)
 * [Create a DB cluster parameter group](Actions/AuroraWrapper.cs)(`CreateDBClusterParameterGroupAsync`)
+* [Create a DB cluster snapshot](Actions/AuroraWrapper.cs)(`CreateDBClusterSnapshotAsync`)
+* [Create a DB instance in a DB cluster](Actions/AuroraWrapper.cs)(`CreateDBInstanceAsync`)
 * [Delete a DB cluster](Actions/AuroraWrapper.cs)(`DeleteDBClusterAsync`)
 * [Delete a DB cluster parameter group](Actions/AuroraWrapper.cs)(`DeleteDBClusterParameterGroupAsync`)
 * [Delete a DB instance](Actions/AuroraWrapper.cs)(`DeleteDBInstanceAsync`)
-* [Describe DB instances](Actions/AuroraWrapper.cs)(`DescribeDBInstancesAsync`)
+* [Describe database engine versions](Actions/AuroraWrapper.cs)(`DescribeDBEngineVersionsAsync`)
 * [Describe DB cluster parameter groups](Actions/AuroraWrapper.cs)(`DescribeDBClusterParameterGroupsAsync`)
 * [Describe DB cluster snapshots](Actions/AuroraWrapper.cs)(`DescribeDBClusterSnapshotsAsync`)
 * [Describe DB clusters](Actions/AuroraWrapper.cs)(`DescribeDBClustersAsync`)
-* [Describe database engine versions](Actions/AuroraWrapper.cs)(`DescribeDBEngineVersionsAsync`)
+* [Describe DB instances](Actions/AuroraWrapper.cs)(`DescribeDBInstancesAsync`)
 * [Describe options for DB instances](Actions/AuroraWrapper.cs)(`DescribeOrderableDBInstanceOptionsAsync`)
 * [Get parameters from a DB cluster parameter group](Actions/AuroraWrapper.cs)(`GetDBClusterParametersAsync`)
 * [Update parameters in a DB cluster parameter group](Actions/AuroraWrapper.cs)(`ModifyDBClusterParameterGroupAsync`)
@@ -52,7 +52,7 @@ multiple functions within the same service.
 * To find prerequisites for running these examples, see the
   [README](../README.md#Prerequisites) in the dotnetv3 folder.
 
-### Get started with billing, alarms, and metrics
+### Get started with DB clusters
 
 This interactive scenario runs at a command prompt and shows you how to use
 Aurora with the AWS SDK for .NET to do the following:
@@ -92,7 +92,7 @@ dotnet run
 Alternatively, you can run the example from within your IDE.
 
 ## Additional resources
-* [AWS Aurora User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+* [Amazon Aurora User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
 * [Amazon RDS API Reference](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/Welcome.html)
 * [Amazon RDS API for .NET API reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/RDS/NRDS.html)
 
