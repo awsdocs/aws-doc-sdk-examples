@@ -247,7 +247,7 @@ func (basics TableBasics) Query(releaseYear int) ([]Movie, error) {
 	keyEx := expression.Key("year").Equal(expression.Value(releaseYear))
 	expr, err := expression.NewBuilder().WithKeyCondition(keyEx).Build()
 	if err != nil {
-		log.Printf("Couldn't build epxression for query. Here's why: %v\n", err)
+		log.Printf("Couldn't build expression for query. Here's why: %v\n", err)
 	} else {
 		response, err = basics.DynamoDbClient.Query(context.TODO(), &dynamodb.QueryInput{
 			TableName:                 aws.String(basics.TableName),
