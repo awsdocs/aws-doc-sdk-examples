@@ -245,7 +245,7 @@ public class CognitoWrapper
         Console.WriteLine($"{userName} was confirmed");
     }
 
-    // snippet-end:[Cognito.dotnetv3.ConfirmSignUUp]
+    // snippet-end:[Cognito.dotnetv3.ConfirmSignUp]
 
     // snippet-start:[Cognito.dotnetv3.ConfirmDevice]
     /// <summary>
