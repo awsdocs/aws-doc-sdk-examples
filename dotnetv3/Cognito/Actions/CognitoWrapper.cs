@@ -19,6 +19,7 @@ public class CognitoWrapper
         _cognitoService = cognitoService;
     }
 
+    // snippet-start:[Cognito.dotnetv3.ListUserPools]
     /// <summary>
     /// List the Amazon Cognito user pools for an account.
     /// </summary>
@@ -45,6 +46,9 @@ public class CognitoWrapper
         return userPools;
     }
 
+    // snippet-end:[Cognito.dotnetv3.ListUserPools]
+
+    // snippet-start:[Cognito.dotnetv3.ListUsers]
     /// <summary>
     /// Get a list of users for the Amazon Cognito user pool.
     /// </summary>
@@ -71,6 +75,9 @@ public class CognitoWrapper
         return users;
     }
 
+    // snippet-end:[Cognito.dotnetv3.ListUsers]
+
+    // snippet-start:[Cognito.dotnetv3.RespondToAuthChallenge]
     /// <summary>
     /// Respond to an authentication challenge.
     /// </summary>
@@ -99,6 +106,9 @@ public class CognitoWrapper
         Console.WriteLine("respondToAuthChallengeResult.getAuthenticationResult()" + respondToAuthChallengeResult.AuthenticationResult);
     }
 
+    // snippet-end:[Cognito.dotnetv3.RespondToAuthChallenge]
+
+    // snippet-start:[Cognito.dotnetv3.VerifySoftwareToken]
     /// <summary>
     /// Verify the TOTP and register for MFA.
     /// </summary>
@@ -118,6 +128,9 @@ public class CognitoWrapper
         return verifyResponse.Status;
     }
 
+    // snippet-end:[Cognito.dotnetv3.VerifySoftwareToken]
+
+    // snippet-start:[Cognito.dotnetv3.GetMFAToken]
     /// <summary>
     /// Get an MFA token to authenticate the user with the Google Authenticator.
     /// </summary>
@@ -138,6 +151,9 @@ public class CognitoWrapper
         return tokenResponse.Session;
     }
 
+    // snippet-end:[Cognito.dotnetv3.GetMFAToken]
+
+    // snippet-start:[Cognito.dotnetv3.InitiateAuthAsync]
     /// <summary>
     /// 
     /// </summary>
@@ -165,6 +181,9 @@ public class CognitoWrapper
         return response;
     }
 
+    // snippet-end:[Cognito.dotnetv3.InitiateAuthAsync]
+
+    // snippet-start:[Cognito.dotnetv3.ConfirmSignup]
     /// <summary>
     /// Confirm that the user has signed up.
     /// </summary>
@@ -185,6 +204,9 @@ public class CognitoWrapper
         Console.WriteLine($"{userName} was confirmed");
     }
 
+    // snippet-end:[Cognito.dotnetv3.ConfirmSignup]
+
+    // snippet-start:[Cognito.dotnetv3.ConfirmDevice]
     /// <summary>
     /// Initiates and confirms tracking of the device.
     /// </summary>
@@ -205,6 +227,9 @@ public class CognitoWrapper
         return response.UserConfirmationNecessary;
     }
 
+    // snippet-end:[Cognito.dotnetv3.ConfirmDevice]
+
+    // snippet-start:[Cognito.dotnetv3.ResendConfirmationCode]
     /// <summary>
     /// Send a new confirmation code to a user.
     /// </summary>
@@ -224,6 +249,9 @@ public class CognitoWrapper
         Console.WriteLine($"Method of delivery is {response.CodeDeliveryDetails.DeliveryMedium}");
     }
 
+    // snippet-end:[Cognito.dotnetv3.ResendConfirmationCode]
+
+    // snippet-start:[Cognito.dotnetv3.GetAdminUser]
     /// <summary>
     /// Get the specified user from an Amazon Cognito user pool with administrator access.
     /// </summary>
@@ -243,6 +271,9 @@ public class CognitoWrapper
         Console.WriteLine($"User status {response.UserStatus}");
     }
 
+    // snippet-end:[Cognito.dotnetv3.GetAdminUser]
+
+    // snippet-start:[Cognito.dotnetv3.signUp]
     /// <summary>
     /// Sign up a new user.
     /// </summary>
@@ -274,4 +305,6 @@ public class CognitoWrapper
         var response = await _cognitoService.SignUpAsync(signUpRequest);
         return response.UserConfirmed;
     }
+
+    // snippet-end:[Cognito.dotnetv3.signUp]
 }

@@ -29,7 +29,7 @@ cognito-identity-provider_SignUp:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.SignUp
+                - Cognito.dotnetv3.SignUp
     Kotlin:
       versions:
         - sdk_version: 1
@@ -93,7 +93,7 @@ cognito-identity-provider_AdminGetUser:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.GetAdminUser
+                - Cognito.dotnetv3.GetAdminUser
     Kotlin:
       versions:
         - sdk_version: 1
@@ -157,7 +157,7 @@ cognito-identity-provider_ResendConfirmationCode:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.ResendConfirmationCode
+                - Cognito.dotnetv3.ResendConfirmationCode
     Kotlin:
       versions:
         - sdk_version: 1
@@ -221,7 +221,7 @@ cognito-identity-provider_ConfirmSignUp:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.ConfirmSignUp
+                - Cognito.dotnetv3.ConfirmSignUp
     Kotlin:
       versions:
         - sdk_version: 1
@@ -385,7 +385,7 @@ cognito-identity-provider_AssociateSoftwareToken:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.GetSecretForAppMFA
+                - Cognito.dotnetv3.GetSecretForAppMFA
     Kotlin:
       versions:
         - sdk_version: 1
@@ -449,7 +449,7 @@ cognito-identity-provider_VerifySoftwareToken:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.VerifyTOTP
+                - Cognito.dotnetv3.VerifyTOTP
     Kotlin:
       versions:
         - sdk_version: 1
@@ -513,7 +513,7 @@ cognito-identity-provider_AdminRespondToAuthChallenge:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.AdminRespondToAuthChallenge
+                - Cognito.dotnetv3.AdminRespondToAuthChallenge
     Kotlin:
       versions:
         - sdk_version: 1
@@ -605,7 +605,7 @@ cognito-identity-provider_InitiateAuth:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.InitiateAuth
+                - Cognito.dotnetv3.InitiateAuth
     Python:
       versions:
         - sdk_version: 3
@@ -643,7 +643,7 @@ cognito-identity-provider_RespondToAuthChallenge:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.AdminRespondToAuthChallenge
+                - Cognito.dotnetv3.AdminRespondToAuthChallenge
     Python:
       versions:
         - sdk_version: 3
@@ -703,8 +703,9 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.Usings
-                - cognito.dotnetv3.CognitoBasics.Main
+                - Cognito.dotnetv3.Usings
+                - Cognito.dotnetv3.UIMethods
+                - Cognito.dotnetv3.Main
     Kotlin:
       versions:
         - sdk_version: 1

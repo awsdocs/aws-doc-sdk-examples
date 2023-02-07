@@ -1,13 +1,10 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
-using Microsoft.Extensions.Logging.Debug;
+// snippet-start:[Cognito.dotnetv3.HelloCognito]
 
 namespace CognitoActions;
+
 /// <summary>
 /// A class that introduces the Cognito Identity Provider by listing the
 /// user pools for the account.
@@ -54,3 +51,5 @@ public class HelloCognito
         }
     }
 }
+
+// snippet-end:[Cognito.dotnetv3.HelloCognito]

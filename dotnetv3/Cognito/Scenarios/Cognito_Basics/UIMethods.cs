@@ -1,4 +1,8 @@
-﻿namespace CognitoBasics;
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
+
+// snippet-start:[Cognito.dotnetv3.UIMethods]
+namespace CognitoBasics;
 
 /// <summary>
 /// Some useful methods to make screen display easier.
@@ -60,3 +64,5 @@ public class UiMethods
         Console.WriteLine(SepBar);
     }
 }
+
+// snippet-end:[Cognito.dotnetv3.UIMethods]

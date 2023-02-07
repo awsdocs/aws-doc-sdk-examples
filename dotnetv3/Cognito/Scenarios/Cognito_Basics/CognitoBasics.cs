@@ -1,7 +1,8 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-namespace ServiceActions;
+// snippet-start:[Cognito.dotnetv3.Main]
+namespace CognitoBasics;
 
 public class CognitoBasics
 {
@@ -73,7 +74,7 @@ public class CognitoBasics
         await cognitoWrapper.GetAdminUserAsync(userName, poolId);
 
         uiMethods.DisplayTitle("Get confirmation code");
-        Console.WriteLine("Conformation code sent to {userName}.);
+        Console.WriteLine($"Conformation code sent to {userName}.");
         Console.Write("Would you like to send a new code? (Yes/No) ");
         var answer = Console.ReadLine();
 
@@ -110,3 +111,5 @@ public class CognitoBasics
         await cognitoWrapper.RespondToAuthChallengeAsync(userName, clientId, mfaCode, session2);
     }
 }
+
+// snippet-end:[Cognito.dotnetv3.Main]
