@@ -15,6 +15,8 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminGetUse
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminGetUserResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitiateAuthRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitiateAuthResponse;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminRespondToAuthChallengeRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminRespondToAuthChallengeResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AssociateSoftwareTokenRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AssociateSoftwareTokenResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
@@ -174,14 +176,14 @@ public class CognitoMVP {
         challengeResponses.put("USERNAME", userName);
         challengeResponses.put("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
 
-        RespondToAuthChallengeRequest respondToAuthChallengeRequest = RespondToAuthChallengeRequest.builder()
+        AdminRespondToAuthChallengeRequest respondToAuthChallengeRequest = AdminRespondToAuthChallengeRequest.builder()
             .challengeName(ChallengeNameType.SOFTWARE_TOKEN_MFA)
             .clientId(clientId)
             .challengeResponses(challengeResponses)
             .session(session)
             .build();
 
-        RespondToAuthChallengeResponse respondToAuthChallengeResult = identityProviderClient.respondToAuthChallenge(respondToAuthChallengeRequest);
+        AdminRespondToAuthChallengeResponse respondToAuthChallengeResult = identityProviderClient.adminRespondToAuthChallenge(respondToAuthChallengeRequest);
         System.out.println("respondToAuthChallengeResult.getAuthenticationResult()" + respondToAuthChallengeResult.authenticationResult());
     }
     //snippet-end:[cognito.java2.verify.main]
