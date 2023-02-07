@@ -9,7 +9,7 @@
 
 namespace Iam\Basics;
 
-use Iam\IamService;
+use Iam\IAMService;
 use PHPUnit\Framework\TestCase;
 
 class IAMBasicsTests extends TestCase
@@ -27,7 +27,7 @@ class IAMBasicsTests extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::$uuid = uniqid();
-        self::$service = new IamService();
+        self::$service = new IAMService();
     }
 
     public function testItRunsWithoutThrowingAnException()

@@ -18,8 +18,8 @@
             <file>dynamodb/partiql_basics/PartiQLBasicsTests.php</file>
         </testsuite>
         <testsuite name="iam-basics">
-            <file>iam/iam_basics/tests/IamBasicsTests.php</file>
-            <file>iam/tests/IamServiceTest.php</file>
+            <file>iam/iam_basics/tests/IAMBasicsTests.php</file>
+            <file>iam/tests/IAMServiceTest.php</file>
         </testsuite>
         <testsuite name="glue-basics">
             <file>glue/GlueBasicsTests.php</file>

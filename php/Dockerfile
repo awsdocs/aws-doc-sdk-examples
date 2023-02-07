@@ -3,6 +3,6 @@
 # GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4131
 FROM composer/composer:latest
 COPY . /php/
-RUN cd /php/example_code/glue && \
-    composer install
+WORKDIR /php
+RUN find . -name "composer.json" -not -path "*vendor*" -exec bash -c "dirname {} | xargs -I % composer install --working-dir=%" \;
 CMD ["bash"]

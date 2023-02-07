@@ -3,10 +3,10 @@
 namespace Iam\Tests;
 
 use Exception;
-use Iam\IamService;
+use Iam\IAMService;
 use PHPUnit\Framework\TestCase;
 
-class IamServiceTest extends TestCase
+class IAMServiceTest extends TestCase
 {
     protected static $service;
     protected static $uuid;
@@ -21,12 +21,12 @@ class IamServiceTest extends TestCase
     public static function setUpBeforeClass(): void
     {
         self::$uuid = uniqid();
-        self::$service = new IamService();
+        self::$service = new IAMService();
     }
 
     public function testConstructor()
     {
-        self::assertInstanceOf(IamService::class, self::$service);
+        self::assertInstanceOf(IAMService::class, self::$service);
     }
 
     public function testAttachRolePolicy()

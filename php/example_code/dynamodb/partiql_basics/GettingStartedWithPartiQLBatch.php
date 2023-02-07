@@ -32,6 +32,8 @@ use Aws\DynamoDb\Marshaler;
 use DynamoDb;
 use DynamoDb\DynamoDBAttribute;
 
+use function AwsUtilities\testable_readline;
+
 class GettingStartedWithPartiQLBatch
 {
     public function run()
