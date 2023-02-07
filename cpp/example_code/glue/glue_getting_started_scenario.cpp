@@ -38,9 +38,9 @@
  *
  */
 
+#include <thread>
 #include <iostream>
 #include <aws/core/Aws.h>
-#include <aws/cloudformation/CloudFormationClient.h>
 #include <aws/glue/GlueClient.h>
 #include <aws/glue/model/CreateDatabaseRequest.h>
 #include <aws/glue/model/CreateCrawlerRequest.h>

@@ -13,6 +13,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+#include <thread>
 #include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/core/utils/Outcome.h>
