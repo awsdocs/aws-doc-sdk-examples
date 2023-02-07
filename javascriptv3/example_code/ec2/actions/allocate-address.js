@@ -20,7 +20,7 @@ import {
   AllocateAddressCommand,
   AssociateAddressCommand,
 } from "@aws-sdk/client-ec2";
-import { ec2Client } from "./libs/ec2Client";
+import { client } from "../libs/client";
 
 // Set the parameters
 const paramsAllocateAddress = { Domain: "vpc" };
