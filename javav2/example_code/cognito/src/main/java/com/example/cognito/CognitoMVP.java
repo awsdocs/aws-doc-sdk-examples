@@ -13,6 +13,10 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminGetUserRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminGetUserResponse;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitiateAuthRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitiateAuthResponse;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminRespondToAuthChallengeRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminRespondToAuthChallengeResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AssociateSoftwareTokenRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AssociateSoftwareTokenResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
@@ -20,8 +24,6 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.AuthFlowTyp
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ChallengeNameType;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ConfirmSignUpRequest;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.InitiateAuthRequest;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.InitiateAuthResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ResendConfirmationCodeRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ResendConfirmationCodeResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.RespondToAuthChallengeRequest;
@@ -54,7 +56,7 @@ import java.util.Scanner;
  * 2. Invokes the adminGetUser method to get the user's confirmation status.
  * 3. Invokes the ResendConfirmationCode method if the user requested another code.
  * 4. Invokes the confirmSignUp method.
- * 5. Invokes the initiateAuth to sign in. This results in being prompted to set up TOTP (time-based one-time password). (The response is “ChallengeName”: “MFA_SETUP”).
+ * 5. Invokes the AdminInitiateAuth to sign in. This results in being prompted to set up TOTP (time-based one-time password). (The response is “ChallengeName”: “MFA_SETUP”).
  * 6. Invokes the AssociateSoftwareToken method to generate a TOTP MFA private key. This can be used with Google Authenticator. 
  * 7. Invokes the VerifySoftwareToken method to verify the TOTP and register for MFA. 
  * 8. Invokes the AdminInitiateAuth to sign in again. This results in being prompted to submit a TOTP (Response: “ChallengeName”: “SOFTWARE_TOKEN_MFA”).
@@ -129,7 +131,7 @@ public class CognitoMVP {
 
         System.out.println(DASHES);
         System.out.println("5. Invokes the initiateAuth to sign in");
-        InitiateAuthResponse authResponse = initiateAuth(identityProviderClient, clientId, userName, password) ;
+        AdminInitiateAuthResponse authResponse = initiateAuth(identityProviderClient, clientId, userName, password, poolId) ;
         String mySession = authResponse.session() ;
         System.out.println(DASHES);
 
@@ -151,7 +153,7 @@ public class CognitoMVP {
         System.out.println(DASHES);
         System.out.println("8. Re-enter a 6-digit code displayed in Google Authenticator");
         String mfaCode = in.nextLine();
-        InitiateAuthResponse authResponse1 = initiateAuth(identityProviderClient, clientId, userName, password);
+        AdminInitiateAuthResponse authResponse1 = initiateAuth(identityProviderClient, clientId, userName, password, poolId);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -168,21 +170,20 @@ public class CognitoMVP {
     //snippet-start:[cognito.java2.verify.main]
     // Respond to an authentication challenge.
     public static void adminRespondToAuthChallenge(CognitoIdentityProviderClient identityProviderClient, String userName, String clientId, String mfaCode, String session) {
-
         System.out.println("SOFTWARE_TOKEN_MFA challenge is generated");
         Map<String, String> challengeResponses = new HashMap<>();
 
         challengeResponses.put("USERNAME", userName);
         challengeResponses.put("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
 
-        RespondToAuthChallengeRequest respondToAuthChallengeRequest = RespondToAuthChallengeRequest.builder()
+        AdminRespondToAuthChallengeRequest respondToAuthChallengeRequest = AdminRespondToAuthChallengeRequest.builder()
             .challengeName(ChallengeNameType.SOFTWARE_TOKEN_MFA)
             .clientId(clientId)
             .challengeResponses(challengeResponses)
             .session(session)
             .build();
 
-        RespondToAuthChallengeResponse respondToAuthChallengeResult = identityProviderClient.respondToAuthChallenge(respondToAuthChallengeRequest);
+        AdminRespondToAuthChallengeResponse respondToAuthChallengeResult = identityProviderClient.adminRespondToAuthChallenge(respondToAuthChallengeRequest);
         System.out.println("respondToAuthChallengeResult.getAuthenticationResult()" + respondToAuthChallengeResult.authenticationResult());
     }
     //snippet-end:[cognito.java2.verify.main]
@@ -190,7 +191,6 @@ public class CognitoMVP {
     //snippet-start:[cognito.java2.token.verify.main]
     // Verify the TOTP and register for MFA.
     public static void verifyTOTP(CognitoIdentityProviderClient identityProviderClient, String session, String code) {
-
         try {
             VerifySoftwareTokenRequest tokenRequest = VerifySoftwareTokenRequest.builder()
                 .userCode(code)
@@ -208,20 +208,20 @@ public class CognitoMVP {
     //snippet-end:[cognito.java2.token.verify.main]
 
     //snippet-start:[cognito.java2.initiateauth.main]
-    public static InitiateAuthResponse initiateAuth(CognitoIdentityProviderClient identityProviderClient, String clientId, String userName, String password) {
-
+    public static AdminInitiateAuthResponse initiateAuth(CognitoIdentityProviderClient identityProviderClient, String clientId, String userName, String password, String userPoolId) {
         try {
             Map<String,String> authParameters = new HashMap<>();
             authParameters.put("USERNAME", userName);
             authParameters.put("PASSWORD", password);
 
-            InitiateAuthRequest authRequest = InitiateAuthRequest.builder()
+            AdminInitiateAuthRequest authRequest = AdminInitiateAuthRequest.builder()
                 .clientId(clientId)
+                .userPoolId(userPoolId)
                 .authParameters(authParameters)
-                .authFlow(AuthFlowType.USER_PASSWORD_AUTH)
+                .authFlow(AuthFlowType.ADMIN_USER_PASSWORD_AUTH)
                 .build();
 
-            InitiateAuthResponse response = identityProviderClient.initiateAuth(authRequest);
+            AdminInitiateAuthResponse response = identityProviderClient.adminInitiateAuth(authRequest);
             System.out.println("Result Challenge is : " + response.challengeName() );
             return response;
 
@@ -236,7 +236,6 @@ public class CognitoMVP {
 
     //snippet-start:[cognito.java2.token.main]
     public static String getSecretForAppMFA(CognitoIdentityProviderClient identityProviderClient, String session) {
-
         AssociateSoftwareTokenRequest softwareTokenRequest = AssociateSoftwareTokenRequest.builder()
             .session(session)
             .build();
@@ -251,7 +250,6 @@ public class CognitoMVP {
 
     //snippet-start:[cognito.java2.confirm.signup.mvp.main]
     public static void confirmSignUp(CognitoIdentityProviderClient identityProviderClient, String clientId, String code, String userName) {
-
         try {
             ConfirmSignUpRequest signUpRequest = ConfirmSignUpRequest.builder()
                 .clientId(clientId)
@@ -271,7 +269,6 @@ public class CognitoMVP {
 
     //snippet-start:[cognito.java2.confirm.resend.mvp.main]
     public static void resendConfirmationCode(CognitoIdentityProviderClient identityProviderClient, String clientId, String userName) {
-
         try {
             ResendConfirmationCodeRequest codeRequest = ResendConfirmationCodeRequest.builder()
                 .clientId(clientId)
@@ -290,7 +287,6 @@ public class CognitoMVP {
 
     //snippet-start:[cognito.java2.signup.mvp.main]
     public static void signUp(CognitoIdentityProviderClient identityProviderClient, String clientId, String userName, String password, String email) {
-
         AttributeType userAttrs = AttributeType.builder()
             .name("email")
             .value(email)
@@ -298,7 +294,6 @@ public class CognitoMVP {
 
         List<AttributeType> userAttrsList = new ArrayList<>();
         userAttrsList.add(userAttrs);
-
         try {
             SignUpRequest signUpRequest = SignUpRequest.builder()
                 .userAttributes(userAttrsList)
@@ -320,7 +315,6 @@ public class CognitoMVP {
 
     //snippet-start:[cognito.java2.confirm.getuser.mvp.main]
     public static void getAdminUser(CognitoIdentityProviderClient identityProviderClient, String userName, String poolId) {
-
         try {
             AdminGetUserRequest userRequest = AdminGetUserRequest.builder()
                 .username(userName)
