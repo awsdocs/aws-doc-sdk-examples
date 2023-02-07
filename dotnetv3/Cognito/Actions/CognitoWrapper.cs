@@ -314,7 +314,7 @@ public class CognitoWrapper
 
     // snippet-end:[Cognito.dotnetv3.GetAdminUser]
 
-    // snippet-start:[Cognito.dotnetv3.signUp]
+    // snippet-start:[Cognito.dotnetv3.SignUp]
     /// <summary>
     /// Sign up a new user.
     /// </summary>
@@ -347,5 +347,5 @@ public class CognitoWrapper
         return response.UserConfirmed;
     }
 
-    // snippet-end:[Cognito.dotnetv3.signUp]
+    // snippet-end:[Cognito.dotnetv3.SignUp]
 }

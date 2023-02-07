@@ -458,7 +458,7 @@ cognito-identity-provider_VerifySoftwareToken:
           excerpts:
             - description:
               snippet_tags:
-                - Cognito.dotnetv3.VerifyTOTP
+                - Cognito.dotnetv3.VerifySoftwareToken
     Kotlin:
       versions:
         - sdk_version: 1
