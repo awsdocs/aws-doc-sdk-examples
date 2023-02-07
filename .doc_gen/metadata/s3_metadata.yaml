@@ -517,7 +517,7 @@ s3_DeleteObjects:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/S3
+          github: rust_dev_preview/s3
           excerpts:
             - description:
               snippet_tags:
