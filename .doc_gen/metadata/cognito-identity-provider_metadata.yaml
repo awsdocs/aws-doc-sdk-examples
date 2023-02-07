@@ -322,6 +322,15 @@ cognito-identity-provider_AdminInitiateAuth:
   synopsis: start authentication with &COG; and administrator credentials.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Cognito.dotnetv3.AdminInitiateAuth
     Kotlin:
       versions:
         - sdk_version: 1
@@ -385,7 +394,7 @@ cognito-identity-provider_AssociateSoftwareToken:
           excerpts:
             - description:
               snippet_tags:
-                - Cognito.dotnetv3.GetSecretForAppMFA
+                - Cognito.dotnetv3.AssociateSoftwareToken
     Kotlin:
       versions:
         - sdk_version: 1

@@ -27,7 +27,7 @@ public class CognitoWrapper
     public async Task<List<UserPoolDescriptionType>> ListUserPoolsAsync()
     {
         var response = new ListUserPoolsResponse();
-        var request = new ListUserPoolsRequest {  MaxResults= 10 };
+        var request = new ListUserPoolsRequest { MaxResults = 10 };
         var userPools = new List<UserPoolDescriptionType>();
 
         do
@@ -41,7 +41,7 @@ public class CognitoWrapper
 
             request.NextToken = response.NextToken;
         }
-        while ( response.NextToken is not null );
+        while (response.NextToken is not null);
 
         return userPools;
     }
@@ -76,6 +76,27 @@ public class CognitoWrapper
     }
 
     // snippet-end:[Cognito.dotnetv3.ListUsers]
+
+    // snippet-start:[Cognito.dotnetv3.AdminRespondToAuthChallenge]
+    public async Task<AuthenticationResultType> AdminRespondToAuthChallengeAsync(string userPoolId, string userName, string clientId, string mfaCode, string session)
+    {
+        var challengeResponses = new Dictionary<string, string>();
+        challengeResponses.Add("USERNAME", userName);
+        challengeResponses.Add("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
+
+        var request = new AdminRespondToAuthChallengeRequest
+        {
+            ClientId = clientId,
+            UserPoolId = userPoolId,
+            ChallengeResponses = challengeResponses,
+            Session = session
+        };
+
+        var response = await _cognitoService.AdminRespondToAuthChallengeAsync(request);
+        return response.AuthenticationResult;
+    }
+
+    // snippet-end:[Cognito.dotnetv3.AdminRespondToAuthChallenge]
 
     // snippet-start:[Cognito.dotnetv3.RespondToAuthChallenge]
     /// <summary>
@@ -130,7 +151,7 @@ public class CognitoWrapper
 
     // snippet-end:[Cognito.dotnetv3.VerifySoftwareToken]
 
-    // snippet-start:[Cognito.dotnetv3.GetMFAToken]
+    // snippet-start:[Cognito.dotnetv3.AssociateSoftwareToken]
     /// <summary>
     /// Get an MFA token to authenticate the user with the Google Authenticator.
     /// </summary>
@@ -151,16 +172,36 @@ public class CognitoWrapper
         return tokenResponse.Session;
     }
 
-    // snippet-end:[Cognito.dotnetv3.GetMFAToken]
+    // snippet-end:[Cognito.dotnetv3.AssociateSoftwareToken]
 
-    // snippet-start:[Cognito.dotnetv3.InitiateAuthAsync]
+    // snippet-start:[Cognito.dotnetv3.AdminInitiateAuth]
+    public async Task<string> AdminInitiateAuthAsync(string clientId, string userPoolId, string userName, string password)
+    {
+        var authParameters = new Dictionary<string, string>();
+        authParameters.Add("USERNAME", userName);
+        authParameters.Add("PASSWORD", password);
+
+        var request = new AdminInitiateAuthRequest
+        {
+            ClientId = clientId,
+            UserPoolId = userPoolId,
+            AuthParameters = authParameters,
+            AuthFlow = AuthFlowType.USER_PASSWORD_AUTH,
+        };
+
+        var response = await _cognitoService.AdminInitiateAuthAsync(request);
+        return response.Session;
+    }
+    // snippet-end:[Cognito.dotnetv3.AdminInitiateAuth]
+
+    // snippet-start:[Cognito.dotnetv3.InitiateAuth]
     /// <summary>
-    /// 
+    /// Initiate authorization.
     /// </summary>
-    /// <param name="clientId"></param>
-    /// <param name="userName"></param>
-    /// <param name="password"></param>
-    /// <returns></returns>
+    /// <param name="clientId">The client Id of the application.</param>
+    /// <param name="userName">The name of the user who is authenticating.</param>
+    /// <param name="password">The password for the user who is authenticating.</param>
+    /// <returns>The response from the call to InitiateAuthAsync</returns>
     public async Task<InitiateAuthResponse> InitiateAuthAsync(string clientId, string userName, string password)
     {
         var authParameters = new Dictionary<string, string>();
@@ -181,9 +222,9 @@ public class CognitoWrapper
         return response;
     }
 
-    // snippet-end:[Cognito.dotnetv3.InitiateAuthAsync]
+    // snippet-end:[Cognito.dotnetv3.InitiateAuth]
 
-    // snippet-start:[Cognito.dotnetv3.ConfirmSignup]
+    // snippet-start:[Cognito.dotnetv3.ConfirmSignUp]
     /// <summary>
     /// Confirm that the user has signed up.
     /// </summary>
@@ -204,7 +245,7 @@ public class CognitoWrapper
         Console.WriteLine($"{userName} was confirmed");
     }
 
-    // snippet-end:[Cognito.dotnetv3.ConfirmSignup]
+    // snippet-end:[Cognito.dotnetv3.ConfirmSignUUp]
 
     // snippet-start:[Cognito.dotnetv3.ConfirmDevice]
     /// <summary>

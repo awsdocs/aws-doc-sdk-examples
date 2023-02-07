@@ -22,10 +22,88 @@ namespace SupportTests
                 .Build();
         }
 
-        [Fact]
-        public void Test1()
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void CognitoWrapperTest()
         {
+            Assert.True(false, "This test needs an implementation");
+        }
 
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void ListUserPoolsAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void ListUsersAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void RespondToAuthChallengeAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void VerifySoftwareTokenAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void GetMFATokenAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void InitiateAuthAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void ConfirmSignupAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void ConfirmDeviceAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void ResendConfirmationCodeAsycTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void GetAdminUserAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
+        }
+
+        [Fact()]
+        [Trait("Category", "Integration")]
+        public void SignUpAsyncTest()
+        {
+            Assert.True(false, "This test needs an implementation");
         }
     }
 }
