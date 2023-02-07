@@ -20,8 +20,9 @@ and install packages by running the following commands in the
 `.doc_gen/readmes` folder:
 
 ```
-python -m venv venv
-venv/Scripts/activate
+python -m venv .venv
+.venv\Scripts\activate # Windows
+source .venv/bin/activate # *nix
 python -m pip install -r requirements.txt
 ```
 
