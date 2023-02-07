@@ -8,6 +8,7 @@ target/
 vendor/
 *.exe
 .idea
+.vscode
 venv
 .*~
 xcuserdata
