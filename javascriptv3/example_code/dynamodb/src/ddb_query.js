@@ -14,7 +14,7 @@ node ddb_query.js
 // snippet-start:[dynamodb.JavaScript.table.queryV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import { QueryCommand } from "@aws-sdk/client-dynamodb";
+import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { ddbClient } from "./libs/ddbClient.js";
 
 // Set the parameters
