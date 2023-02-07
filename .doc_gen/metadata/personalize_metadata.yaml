@@ -8,7 +8,7 @@ personalize_createBatchInferenceJob:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -34,7 +34,7 @@ personalize_createBatchSegmentJob:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -51,7 +51,7 @@ personalize_createCampaign:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -77,7 +77,7 @@ personalize_createDataset:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -103,7 +103,7 @@ personalize_createDatasetExportJob:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -129,7 +129,7 @@ personalize_createDatasetGroup:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -161,7 +161,7 @@ personalize_createDatasetImportJob:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -187,7 +187,7 @@ personalize_createDomainSchema:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -213,7 +213,7 @@ personalize_createEventTracker:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -239,7 +239,7 @@ personalize_createFilter:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -265,7 +265,7 @@ personalize_createRecommender:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -291,7 +291,7 @@ personalize_createSchema:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -317,7 +317,7 @@ personalize_createSolution:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -343,7 +343,7 @@ personalize_createSolutionVersion:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -539,7 +539,7 @@ personalize_updateCampaign:
     Java:
       versions:
         - sdk_version: 2
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
