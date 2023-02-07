@@ -9,5 +9,17 @@
 
 namespace AwsDoc {
     namespace RDS {
+        //! Routine which creates a Relational Database Service (Amazon RDS)
+        //! instance and creates a snapshot of the instance.
+        /*!
+         \sa gettingStartedWithDBInstances()
+         \param clientConfiguration: AWS client configuration.
+         \return bool: Successful completion.
+         */
+        bool gettingStartedWithDBInstances(
+                const Aws::Client::ClientConfiguration &clientConfig);
+
+    } // RDS
+} // AwsDoc
 
 #endif //RDS_EXAMPLES_RDS_SAMPLES_H

@@ -26,6 +26,13 @@ void AwsDocTest::RDS_GTests::TearDownTestSuite() {
 void AwsDocTest::RDS_GTests::SetUp() {
     m_savedBuffer = std::cout.rdbuf();
     std::cout.rdbuf(&m_coutBuffer);
+
+    m_savedInBuffer = std::cin.rdbuf();
+    std::cin.rdbuf(&m_cinBuffer);
+
+    // The following code is needed for the AwsDocTest::MyStringBuffer::underflow exception.
+    // Otherwise, an infinite loop occurs when looping for a result on an empty buffer.
+    std::cin.exceptions(std::ios_base::badbit);
 }
 
 void AwsDocTest::RDS_GTests::TearDown() {
@@ -33,9 +40,25 @@ void AwsDocTest::RDS_GTests::TearDown() {
         std::cout.rdbuf(m_savedBuffer);
         m_savedBuffer = nullptr;
     }
+
+    if (m_savedInBuffer != nullptr) {
+        std::cin.rdbuf(m_savedInBuffer);
+        std::cin.exceptions(std::ios_base::goodbit);
+        m_savedInBuffer = nullptr;
+    }
 }
 
 Aws::String AwsDocTest::RDS_GTests::preconditionError() {
     return "Failed to meet precondition.";
+}
+
+void AwsDocTest::RDS_GTests::AddCommandLineResponses(
+        const std::vector<std::string> &responses) {
+
+    std::stringstream stringStream;
+    for (auto &response: responses) {
+        stringStream << response << "\n";
+    }
+    m_cinBuffer.str(stringStream.str());
 }
 

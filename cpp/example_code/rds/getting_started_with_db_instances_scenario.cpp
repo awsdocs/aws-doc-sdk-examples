@@ -14,8 +14,7 @@
  *
  * Purpose
  *
- * Demonstrates using an Amazon Elastic Compute Cloud (Amazon EC2) Auto Scaling group
- * to manage Amazon EC2 instances.
+ * Demonstrates creating
  *
  * 1.  Specify the name of an existing EC2 launch template.
  * 2.   Or create a new EC2 launch template.
@@ -52,6 +51,7 @@
 #include <aws/rds/model/DescribeDBParametersRequest.h>
 #include <aws/rds/model/ModifyDBParameterGroupRequest.h>
 #include <aws/core/utils/UUID.h>
+#include "rds_samples.h"
 
 namespace AwsDoc {
     namespace RDS {
@@ -65,18 +65,6 @@ namespace AwsDoc {
         const Aws::String NO_NAME_PREFIX("");
         const Aws::String NO_SOURCE("");
         const Aws::String NO_PARAMETER_GROUP_FAMILY("");
-
-        //! Routine which waits for EC2 instances in an EC2 Auto Scaling group to
-        //! complete startup or shutdown.
-        /*!
-         \sa waitForInstances()
-         \param groupName: An EC2 Auto Scaling group name.
-         \param autoScalingGroups: Vector to receive 'AutoScalingGroup' records.
-         \param client: 'AutoScalingClient' instance.
-         \return bool: Successful completion.
-         */
-        bool gettingStartedWithDBInstances(
-                const Aws::Client::ClientConfiguration &clientConfig);
 
         //! Routine which waits for EC2 instances in an EC2 Auto Scaling group to
         //! complete startup or shutdown.
