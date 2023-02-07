@@ -5,15 +5,20 @@
     "guzzlehttp/guzzle": "^7.0",
     "ext-zip": "*"
   },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "3.*"
+  },
   "autoload": {
     "psr-0": {
       "": "*"
     },
     "psr-4": {
+      "AwsUtilities\\": "aws_utilities",
+
+      "AutoScaling\\": "auto-scaling",
       "DynamoDb\\": "dynamodb/",
       "DynamoDb\\Basics\\": "dynamodb/dynamodb_basics",
       "DynamoDb\\PartiQL_Basics\\": "dynamodb/partiql_basics",
-      "AwsUtilities\\": "aws_utilities",
       "Glue\\": "glue/",
       "Iam\\": "iam/",
       "Lambda\\": "lambda/",
