@@ -8,13 +8,13 @@
 
 package com.example.glacier;
 
-// snippet-start:[glacier.java2.delete.import]
+// snippet-start:[glacier.java2.delete.archive.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.glacier.GlacierClient;
 import software.amazon.awssdk.services.glacier.model.DeleteArchiveRequest;
 import software.amazon.awssdk.services.glacier.model.GlacierException;
-// snippet-end:[glacier.java2.delete.import]
+// snippet-end:[glacier.java2.delete.archive.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -52,9 +52,8 @@ public class DeleteArchive {
         glacier.close();
     }
 
-    // snippet-start:[glacier.java2.delete.main]
+    // snippet-start:[glacier.java2.delete.archive.main]
     public static void deleteGlacierArchive(GlacierClient glacier, String vaultName, String accountId, String archiveId) {
-
         try {
             DeleteArchiveRequest delArcRequest = DeleteArchiveRequest.builder()
                 .vaultName(vaultName)
@@ -70,5 +69,5 @@ public class DeleteArchive {
             System.exit(1);
         }
     }
-    // snippet-end:[glacier.java2.delete.main]
+    // snippet-end:[glacier.java2.delete.archive.main]
 }

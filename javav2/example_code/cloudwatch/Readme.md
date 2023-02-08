@@ -59,7 +59,7 @@ To run these examples, you must have the following three JSON files: jsonWidgets
 
   **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
- ## Test the examples
+ ## Tests
  
  ⚠️ Running the tests might result in charges to your AWS account.
 
@@ -93,6 +93,6 @@ You can run the JUnit tests from an IDE, such as IntelliJ, or from the command l
 ## Additional resources
 * [Developer Guide - AWS SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html).
 * [User Guide - Amazon CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html).
-* [Interface KeyspacesClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudwatch/CloudWatchClient.html).
+* [Interface CloudWatchClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/cloudwatch/CloudWatchClient.html).
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
