@@ -1,10 +1,16 @@
 {
-  "name": "example_javascriptv3_ec2",
+  "name": "example-javascriptv3-ec2",
   "version": "1.0.0",
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>, Corey Pyle<corepyle@amazon.com",
   "license": "Apache 2.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js"
+  },
   "dependencies": {
     "@aws-sdk/client-ec2": "^3.266.1"
   },
-  "type": "module"
+  "devDependencies": {
+    "vitest": "^0.28.4"
+  }
 }

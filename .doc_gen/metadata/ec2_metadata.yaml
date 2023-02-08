@@ -40,6 +40,15 @@ ec2_Hello:
             - description:
               snippet_tags:
                 - python.example_code.ec2.Hello
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.scenarios.Hello
   services:
     ec2: {DescribeSecurityGroups}
 ec2_CreateKeyPair:
