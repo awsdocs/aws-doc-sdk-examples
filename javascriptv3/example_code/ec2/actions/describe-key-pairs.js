@@ -1,30 +1,32 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-key-pairs.html
-
-Purpose:
-ec2_describekeypairs.js demonstrates how to retrieve information about one or more key pairs.
-
-Running the code:
-node ec2_describekeypairs.js
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
  */
-// snippet-start:[ec2.JavaScript.keypairs.describeKeyPairV3]
-// Import required AWS SDK clients and commands for Node.js
+
+import { fileURLToPath } from "url";
+
+// snippet-start: [ec2.JavaScript.keypairs.describeKeyPairV3]
 import { DescribeKeyPairsCommand } from "@aws-sdk/client-ec2";
-import { ec2Client } from "./libs/ec2Client";
-const run = async () => {
+
+import { client } from "../libs/client.js";
+
+export const main = async () => {
+  const command = new DescribeKeyPairsCommand({});
+
   try {
-    const data = await ec2Client.send(new DescribeKeyPairsCommand({}));
-    console.log("Success", JSON.stringify(data.KeyPairs));
-    return data;
+    const { KeyPairs } = await client.send(command);
+    const keyPairList = KeyPairs.map(
+      (kp) => ` • ${kp.KeyPairId}: ${kp.KeyName}`
+    ).join("\n");
+    console.log("The following key pairs were found in your account:")
+    console.log(keyPairList);
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
-// snippet-end:[ec2.JavaScript.keypairs.describeKeyPairV3]
-// For unit tests only.
-// module.exports ={run};
+// snippet-end: [ec2.JavaScript.keypairs.describeKeyPairV3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
