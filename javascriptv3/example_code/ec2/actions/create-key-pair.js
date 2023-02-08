@@ -1,37 +1,31 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-key-pairs.html
-
-Purpose:
-ec2_createkeypair.js demonstrates how to create an RSA key pair for an Amazon EC2 instance.
-
-Inputs (replace in code):
-- MY_KEY_PAIR
-
-Running the code:
-node ec2_createkeypair.js
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
  */
-// snippet-start:[ec2.JavaScript.keypairs.createKeyPairV3]
-// Import required AWS SDK clients and commands for Node.js
+
+import { fileURLToPath } from "url";
+
+// snippet-start: [ec2.JavaScript.keypairs.createKeyPairV3]
 import { CreateKeyPairCommand } from "@aws-sdk/client-ec2";
-import { ec2Client } from "./libs/ec2Client";
 
-// Set the parameters
-const params = { KeyName: "MY_KEY_PAIR" }; //MY_KEY_PAIR
+import { client } from "../libs/client.js";
 
-const run = async () => {
+export const main = async () => {
   try {
-    const data = await ec2Client.send(new CreateKeyPairCommand(params));
-    console.log(JSON.stringify(data));
-    return data;
+    // Create a key pair in EC2.
+    const { KeyMaterial } = await client.send(
+      // A unique name for the key pair. Up to 255 ASCII characters.
+      new CreateKeyPairCommand({ KeyName: "KEY_PAIR_NAME" })
+    );
+    // This logs your private key. Be sure to save it.
+    console.log(KeyMaterial);
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
-// snippet-end:[ec2.JavaScript.keypairs.createKeyPairV3]
-// For unit tests only.
-// module.exports ={run, params};
+// snippet-end: [ec2.JavaScript.keypairs.createKeyPairV3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

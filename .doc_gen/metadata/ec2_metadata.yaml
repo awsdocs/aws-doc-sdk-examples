@@ -94,6 +94,15 @@ ec2_CreateKeyPair:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.CreateKeyPair
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.keypairs.createKeyPairV3
     SAP ABAP:
       versions:
         - sdk_version: 1
