@@ -17,26 +17,17 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/describe-key-pairs.js";
+import { main } from "../actions/create-security-group.js";
 
-describe("create-key-pair", () => {
-  it("should log the returned key pairs", async () => {
+describe("create-security-group", () => {
+  it("should log the security group id", async () => {
     const logSpy = vi.spyOn(console, "log");
     send.mockResolvedValueOnce({
-      KeyPairs: [
-        {
-          KeyName: "foo",
-          KeyPairId: "bar",
-        },
-      ],
+      GroupId: "foo",
     });
 
     await main();
 
-    expect(logSpy).nthCalledWith(
-      1,
-      "The following key pairs were found in your account:"
-    );
-    expect(logSpy).nthCalledWith(2, " • bar: foo");
+    expect(logSpy).toHaveBeenCalledWith("foo");
   });
 });
