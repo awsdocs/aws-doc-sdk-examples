@@ -15,7 +15,7 @@ jobs:
     name: Check Required labels
     runs-on: ubuntu-latest
     steps:
-      - uses: docker://agilepathway/label-checker@v1.2.13
+      - uses: docker://agilepathway/pull-request-label-checker@v1.2.13
         with:
           all_of: status/code-review-complete,status/ready-to-merge
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -23,7 +23,7 @@ jobs:
     name: Check Text labels
     runs-on: ubuntu-latest
     steps:
-      - uses: docker://agilepathway/label-checker@v1.2.13
+      - uses: docker://agilepathway/pull-request-label-checker@v1.2.13
         with:
           one_of: status/text-review-complete,status/no-text-review-needed
           none_of: status/text-review-needed
@@ -32,7 +32,7 @@ jobs:
     name: Check Test labels
     runs-on: ubuntu-latest
     steps:
-      - uses: docker://agilepathway/label-checker@v1.2.13
+      - uses: docker://agilepathway/pull-request-label-checker@v1.2.13
         with:
           one_of: status/test-review-complete,status/no-test-review-needed
           none_of: status/test-review-needed
@@ -41,7 +41,7 @@ jobs:
     name: Check Holding Labels
     runs-on: ubuntu-latest
     steps:
-      - uses: docker://agilepathway/label-checker@v1.2.13
+      - uses: docker://agilepathway/pull-request-label-checker@v1.2.13
         with:
           none_of: status/on-hold,status/future-release
           repo_token: ${{ secrets.GITHUB_TOKEN }}
