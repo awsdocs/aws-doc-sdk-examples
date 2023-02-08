@@ -105,7 +105,7 @@ def main():
     model with an image.
     For the training and test folders, place normal images in a folder named normal and 
     anomalous images in a folder named anomaly.
-    Make sure that bucket and the training/test S3 paths are in the same AWS Region.
+    Make sure that bucket and the training/test Amazon S3 paths are in the same AWS Region.
     """
     logging.basicConfig(level=logging.INFO,
                         format="%(levelname)s: %(message)s")
@@ -115,10 +115,10 @@ def main():
         "bucket",
         help="The bucket used to upload your manifest files and store training output")
     parser.add_argument(
-        "training", help="The S3 path where the service gets the training images. ")
+        "training", help="The Amazon S3 path where the service gets the training images. ")
     parser.add_argument(
         "test", nargs = "?", default = None,
-        help = "(Optional) The S3 path where the service gets the test images.")
+        help = "(Optional) The Amazon S3 path where the service gets the test images.")
     args=parser.parse_args()
 
     project_name=args.project

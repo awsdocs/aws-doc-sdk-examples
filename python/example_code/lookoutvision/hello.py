@@ -7,19 +7,19 @@
 """
 This example shows how to list your Amazon Lookout for Vision projects.
 If you haven't previously created a project in the current AWS Region,
-the response is an empty list, but does confirm that you can call the
- Lookout for Vision API.
+the response is an empty list, however it confirms that you can call the
+Lookout for Vision API.
 """
 from botocore.exceptions import ClientError
 import boto3
 
 class Hello:
-    """ Hello world class for Amazon Lookout for Vision """
+    """ Hello class for Amazon Lookout for Vision """
 
     @staticmethod
     def list_projects(lookoutvision_client):
         """
-        Lists information about the projects that are in in your AWS account
+        Lists information about the projects that are in your AWS account
         and in the current AWS Region.
 
         : param lookoutvision_client: A Boto3 Lookout for Vision client.
@@ -37,9 +37,6 @@ class Hello:
 
 
 def main():
-    """
-    Entrypoint for script.
-    """
 
     session = boto3.Session(profile_name='lookoutvision-access')
     lookoutvision_client = session.client("lookoutvision")
