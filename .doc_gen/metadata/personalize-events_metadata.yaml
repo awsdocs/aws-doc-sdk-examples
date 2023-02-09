@@ -16,7 +16,7 @@ personalize-events_putEvents:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -33,7 +33,7 @@ personalize-events_putItems:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -59,7 +59,7 @@ personalize-events_putUsers:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:

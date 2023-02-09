@@ -2,6 +2,7 @@
 // SPDX - License - Identifier: Apache - 2.0
 
 #define AWS_DISABLE_DEPRECATION
+#include <thread>
 #include <awsdoc/s3-encryption/s3_encryption_examples.h>
 #include <aws/core/Aws.h>
 #include <aws/core/utils/UUID.h>
@@ -14,6 +15,7 @@
 #include <aws/kms/KMSClient.h>
 #include <aws/kms/model/CreateKeyRequest.h>
 #include <aws/kms/model/ScheduleKeyDeletionRequest.h>
+
 
 static const char AWSDOC_S3ENCRYPTION_BUCKET_PREFIX[] = "awsdoc-s3encryption-bucket-";
 static const char AWSDOC_S3ENCRYPTION_OBJECT_KEY_PREFIX[] = "awsdoc-s3encryption-key-";

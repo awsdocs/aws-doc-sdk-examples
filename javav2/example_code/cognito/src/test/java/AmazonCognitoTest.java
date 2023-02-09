@@ -8,6 +8,7 @@ import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentity.CognitoIdentityClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminInitiateAuthResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.InitiateAuthResponse;
 import java.io.*;
 import java.util.*;
@@ -91,8 +92,6 @@ public class AmazonCognitoTest {
             clientId =  prop.getProperty("clientId");
             secretkey =  prop.getProperty("secretkey");
             password = prop.getProperty("password");
-            confirmationCode = prop.getProperty("confirmationCode");
-            authFlow = prop.getProperty("authFlow");
             poolIdMVP = prop.getProperty("poolIdMVP");
             clientIdMVP = prop.getProperty("clientIdMVP");
             userNameMVP = prop.getProperty("userNameMVP");
@@ -237,7 +236,7 @@ public class AmazonCognitoTest {
         System.out.println("*** Rechecking the status of " + userNameMVP + " in the user pool");
         assertDoesNotThrow(() ->CognitoMVP.getAdminUser(cognitoIdentityProviderClient, userNameMVP, poolIdMVP));
 
-        InitiateAuthResponse authResponse = CognitoMVP.initiateAuth(cognitoIdentityProviderClient, clientIdMVP, userNameMVP, passwordMVP) ;
+        AdminInitiateAuthResponse authResponse = CognitoMVP.initiateAuth(cognitoIdentityProviderClient, clientIdMVP, userNameMVP, passwordMVP, userPoolId) ;
         assertNotNull(authResponse);
         String mySession = authResponse.session() ;
         assertTrue(!mySession.isEmpty());
@@ -252,16 +251,9 @@ public class AmazonCognitoTest {
         assertDoesNotThrow(() ->CognitoMVP.verifyTOTP(cognitoIdentityProviderClient, newSession, myCode));
         System.out.println("*** Re-enter a 6-digit code displayed in Google Authenticator");
         String mfaCode = in.nextLine();
-        InitiateAuthResponse authResponse1 =  CognitoMVP.initiateAuth(cognitoIdentityProviderClient, clientIdMVP, userNameMVP, passwordMVP);
+        AdminInitiateAuthResponse authResponse1 = CognitoMVP.initiateAuth(cognitoIdentityProviderClient, clientIdMVP, userNameMVP, passwordMVP, userPoolId);
         assertNotNull(authResponse1);
         String session2 = authResponse1.session();
         assertDoesNotThrow(() ->CognitoMVP.adminRespondToAuthChallenge(cognitoIdentityProviderClient, userNameMVP, clientIdMVP, mfaCode, session2));
-    }
-
-    @Test
-    @Order(18)
-    public void AdminInitiateAuth() {
-        AdminInitiateAuth.adminInitiateAuth(cognitoIdentityProviderClient, authFlow, clientId, userPoolId);
-        System.out.println("Test 18 passed");
     }
 }
