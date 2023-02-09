@@ -30,6 +30,7 @@
  *
  */
 
+#include <thread>
 #include <aws/core/Aws.h>
 #include <aws/iam/IAMClient.h>
 #include <aws/iam/model/CreateRoleRequest.h>

@@ -35,6 +35,7 @@
  *
  */
 
+#include <thread>
 #include <iostream>
 #include <iomanip>
 #include <aws/core/Aws.h>

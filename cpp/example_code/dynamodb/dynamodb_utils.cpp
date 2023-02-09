@@ -12,6 +12,7 @@
  */
 
 #include "dynamodb_samples.h"
+#include <thread>
 #include <aws/dynamodb/DynamoDBClient.h>
 #include <aws/dynamodb/model/CreateTableRequest.h>
 #include <aws/dynamodb/model/DeleteTableRequest.h>

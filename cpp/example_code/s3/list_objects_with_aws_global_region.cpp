@@ -3,6 +3,8 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+#include <thread>
+#include <iostream>
 #include <aws/core/Aws.h>
 #include <aws/core/utils/logging/LogLevel.h>
 #include <aws/core/client/ClientConfiguration.h>
@@ -11,7 +13,6 @@
 #include <aws/s3/model/HeadBucketRequest.h>
 #include <aws/s3/model/ListObjectsRequest.h>
 #include <aws/s3/model/DeleteBucketRequest.h>
-#include <iostream>
 #include <aws/core/utils/UUID.h>
 #include "awsdoc/s3/s3_examples.h"
 
