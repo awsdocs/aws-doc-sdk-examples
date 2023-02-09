@@ -272,7 +272,7 @@ class Datasets:
 
             # Update dataset entries.
             logger.info(f"Updating {dataset_type} dataset for project {project_name}"
-                "with entries from {updates_file}.")
+                f"with entries from {updates_file}.")
 
             with open(updates_file) as f:
                 manifest_file = f.read()

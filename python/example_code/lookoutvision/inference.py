@@ -254,8 +254,12 @@ def main():
 
         args = parser.parse_args()
 
-        lookoutvision_client = boto3.client("lookoutvision")
-        s3_resource = boto3.resource('s3')
+
+        session = boto3.Session(
+            profile_name='lookoutvision-access')
+
+        lookoutvision_client = session.client("lookoutvision")
+        s3_resource = session.resource('s3')
 
         # Get configuration information.
         with open(args.config, encoding="utf-8")  as config_file:
