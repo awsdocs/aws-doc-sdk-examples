@@ -12,10 +12,10 @@ import { client } from "../libs/client.js";
 
 // List at least the first arm64 image available for EC2 instances.
 export const main = async () => {
-  // Use the paginator to stop once you have the results you need.
+  // The paginate function is a wrapper around the base command.
   const paginator = paginateDescribeImages(
     // Without limiting the page size this call can take a long time. pageSize is just sugar for
-    // the MaxResults property in the DescribeImagesCommand.
+    // the MaxResults property in the base command.
     { client, pageSize: 25 },
     {
       // There are almost 70,000 images available. Be specific with your filtering
@@ -26,11 +26,11 @@ export const main = async () => {
   );
 
   try {
-    let arm64Images = [];
+    const arm64Images = [];
     for await (const page of paginator) {
       if (page.Images.length) {
-        arm64Images = arm64Images.concat(page.Images);
-        // Once we have at least 1 image, we can stop.
+        arm64Images.push(...page.Images);
+        // Once we have at least 1 result, we can stop.
         if (arm64Images.length >= 1) {
           break;
         }

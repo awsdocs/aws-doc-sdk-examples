@@ -1183,6 +1183,15 @@ ec2_DescribeInstanceTypes:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeInstanceTypes
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.actions.DescribeInstanceTypes
   services:
     ec2: {DescribeInstanceTypes}
 ec2_DescribeAddresses:
