@@ -2,9 +2,9 @@
 # Status: Beta
 # GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4132
 
-# Our examples require a variety of versions of Swift at a minimum depending
-# on what features of the SDK they use. Here we will just pull the most recent
-# version of the official Swift Docker image.
+# Our examples have various minimum Swift versions, depending on what features
+# of the SDK they use. Here we will just pull the most recent version of the
+# official Swift Docker image.
 
 FROM swift
 
