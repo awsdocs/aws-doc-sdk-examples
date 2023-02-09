@@ -5,7 +5,7 @@
 # Although some examples work on earlier versions of Swift, the
 # version below will run all examples.
 
-FROM swift:5.6
+FROM swift
 
 # Install Python for the scripts and tools.
 
@@ -16,5 +16,5 @@ RUN apt-get update && \
 
 COPY . /swift/
 RUN cd /swift/example_code/ && \
-    ../tools/swiftbuild */*
+    python3.10 ../tools/swiftbuild.py */*
 CMD ["bash"]
