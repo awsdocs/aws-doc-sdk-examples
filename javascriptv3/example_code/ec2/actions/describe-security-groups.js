@@ -1,42 +1,31 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-security-groups.html
-
-Purpose:
-ec2_describesecuritygroups.js demonstrates how to retrieve information about one or more security groups.
-
-Inputs (replace in code):
-- SECURITY_GROUP_ID
-
-Running the code:
-node ec2_describesecuritygroups.js
-
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
  */
-// snippet-start:[ec2.JavaScript.SecurityGroups.describeSecurityGroupsV3]
 
-// Import required AWS SDK clients and commands for Node.js
+import { fileURLToPath } from "url";
+
+// snippet-start: [ec2.JavaScript.SecurityGroups.describeSecurityGroupsV3]
 import { DescribeSecurityGroupsCommand } from "@aws-sdk/client-ec2";
-import { ec2Client } from "./libs/ec2Client";
 
-// Set the parameters
-const params = { GroupIds: ["SECURITY_GROUP_ID"] }; //SECURITY_GROUP_ID
+import { client } from "../libs/client.js";
 
-const run = async () => {
+// Log the details of a specific security group.
+export const main = async () => {
+  const command = new DescribeSecurityGroupsCommand({
+    GroupIds: ["SECURITY_GROUP_ID"],
+  });
+
   try {
-    const data = await ec2Client.send(
-      new DescribeSecurityGroupsCommand(params)
-    );
-    console.log("Success", JSON.stringify(data.SecurityGroups));
-    return data;
+    const { SecurityGroups } = await client.send(command);
+    console.log(JSON.stringify(SecurityGroups, null, 2));
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
+// snippet-end: [ec2.JavaScript.SecurityGroups.describeSecurityGroupsV3]
 
-// snippet-end:[ec2.JavaScript.SecurityGroups.describeSecurityGroupsV3]
-// For unit tests only.
-module.exports ={run, params};
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

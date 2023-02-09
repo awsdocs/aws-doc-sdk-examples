@@ -787,6 +787,15 @@ ec2_DescribeSecurityGroups:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.DescribeSecurityGroups
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.SecurityGroups.describeSecurityGroupsV3
     SAP ABAP:
       versions:
         - sdk_version: 1
