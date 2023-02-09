@@ -30,4 +30,15 @@ describe("create-security-group", () => {
 
     expect(logSpy).toHaveBeenCalledWith("foo");
   });
+
+  it("should log the error message", async () => {
+    const logSpy = vi.spyOn(console, "error");
+    send.mockRejectedValueOnce(new Error("Failed to create security group"));
+
+    await main();
+
+    expect(logSpy).toHaveBeenCalledWith(
+      new Error("Failed to create security group")
+    );
+  });
 });

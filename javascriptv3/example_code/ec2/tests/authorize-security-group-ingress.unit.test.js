@@ -31,4 +31,15 @@ describe("authorize-security-group-ingress", () => {
 
     expect(logSpy).toHaveBeenCalledWith(JSON.stringify(rules, null, 2));
   });
+
+  it("should log the error message", async () => {
+    const logSpy = vi.spyOn(console, "error");
+    send.mockRejectedValueOnce(new Error("Failed to authorize security group"));
+
+    await main();
+
+    expect(logSpy).toHaveBeenCalledWith(
+      new Error("Failed to authorize security group")
+    );
+  });
 });

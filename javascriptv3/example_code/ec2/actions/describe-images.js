@@ -10,7 +10,7 @@ import { paginateDescribeImages } from "@aws-sdk/client-ec2";
 
 import { client } from "../libs/client.js";
 
-// List at least the first arm64 image available for EC2 instances.
+// List at least the first i386 image available for EC2 instances.
 export const main = async () => {
   // The paginate function is a wrapper around the base command.
   const paginator = paginateDescribeImages(
@@ -21,7 +21,7 @@ export const main = async () => {
       // There are almost 70,000 images available. Be specific with your filtering
       // to increase efficiency.
       // See https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ec2/interfaces/describeimagescommandinput.html#filters
-      Filters: [{ Name: "architecture", Values: ["arm64"] }],
+      Filters: [{ Name: "architecture", Values: ["x86_64"] }],
     }
   );
 

@@ -39,4 +39,15 @@ describe("hello", () => {
     );
     expect(logSpy).nthCalledWith(2, " • groupId: groupName");
   });
+
+  it("should log the error message", async () => {
+    const logSpy = vi.spyOn(console, "error");
+    send.mockRejectedValueOnce(new Error("Failed to log the list of security groups"));
+
+    await main();
+
+    expect(logSpy).toHaveBeenCalledWith(
+      new Error("Failed to log the list of security groups")
+    );
+  });
 });

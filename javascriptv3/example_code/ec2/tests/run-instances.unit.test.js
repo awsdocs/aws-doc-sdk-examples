@@ -17,37 +17,38 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/describe-key-pairs.js";
+import { main } from "../actions/run-instances.js";
 
-describe("describe-key-pairs", () => {
-  it("should log the returned key pairs", async () => {
+describe("run-instances", () => {
+  it("should log the response from the EC2 run instances command", async () => {
     const logSpy = vi.spyOn(console, "log");
     send.mockResolvedValueOnce({
-      KeyPairs: [
+      Instances: [
         {
-          KeyName: "foo",
-          KeyPairId: "bar",
+          InstanceId: "i-0e8810a92833675aa",
         },
       ],
     });
 
     await main();
 
-    expect(logSpy).nthCalledWith(
-      1,
-      "The following key pairs were found in your account:"
-    );
-    expect(logSpy).nthCalledWith(2, " • bar: foo");
+    expect(logSpy).toHaveBeenCalledWith({
+      Instances: [
+        {
+          InstanceId: "i-0e8810a92833675aa",
+        },
+      ],
+    });
   });
 
   it("should log the error message", async () => {
     const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to describe key pairs"));
+    send.mockRejectedValueOnce(new Error("Failed to launch instances"));
 
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to describe key pairs")
+      new Error("Failed to launch instances")
     );
   });
 });

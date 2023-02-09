@@ -19,7 +19,8 @@ export const main = async () => {
     { client, pageSize: 25 },
     {
       Filters: [
-        { Name: "processor-info.supported-architecture", Values: ["arm64"] },
+        { Name: "processor-info.supported-architecture", Values: ["x86_64"] },
+        { Name: "free-tier-eligible", Values: ["true"] },
       ],
     }
   );

@@ -38,4 +38,15 @@ describe("describe-security-groups", () => {
       JSON.stringify(securityGroups, null, 2)
     );
   });
+
+  it("should log the error message", async () => {
+    const logSpy = vi.spyOn(console, "error");
+    send.mockRejectedValueOnce(new Error("Failed to describe security group"));
+
+    await main();
+
+    expect(logSpy).toHaveBeenCalledWith(
+      new Error("Failed to describe security group")
+    );
+  });
 });

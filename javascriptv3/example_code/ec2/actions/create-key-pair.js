@@ -13,11 +13,12 @@ import { client } from "../libs/client.js";
 export const main = async () => {
   try {
     // Create a key pair in EC2.
-    const { KeyMaterial } = await client.send(
+    const { KeyMaterial, KeyName } = await client.send(
       // A unique name for the key pair. Up to 255 ASCII characters.
       new CreateKeyPairCommand({ KeyName: "KEY_PAIR_NAME" })
     );
     // This logs your private key. Be sure to save it.
+    console.log(KeyName);
     console.log(KeyMaterial);
   } catch (err) {
     console.error(err);
