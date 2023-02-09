@@ -1129,6 +1129,15 @@ ec2_DescribeImages:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeImages
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.actions.DescribeImages
   services:
     ec2: {DescribeImages}
 ec2_DescribeInstanceTypes:
