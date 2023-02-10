@@ -14,28 +14,32 @@
  *
  * Purpose
  *
- * Demonstrates creating
+ * Demonstrates creating  a Relational Database Service (Amazon RDS)
+ * instance and optionally creating a snapshot of the instance.
  *
- * 1.  Specify the name of an existing EC2 launch template.
- * 2.   Or create a new EC2 launch template.
- * 3.  Retrieve a list of EC2 Availability Zones.
- * 4.  Create an EC2 Auto Scaling group with the specified Availability Zone.
- * 5.  Retrieve a description of the EC2 Auto Scaling group.
- * 6.  Check lifecycle state of the EC2 instances using DescribeAutoScalingInstances.
- * 7.  Optionally enable metrics collection for the EC2 Auto Scaling group.
- * 8.  Update the EC2 Auto Scaling group, setting a new maximum size.
- * 9.  Update the EC2 Auto Scaling group, setting a new desired capacity.
- * 10. Terminate an EC2 instance in the EC2 Auto Scaling group.
- * 11. Get a description of activities for the EC2 Auto Scaling group.
- * 12. Optionally list the metrics for the EC2 Auto Scaling group.
- * 13. Disable metrics collection if enabled.
- * 14. Delete the EC2 Auto Scaling group.
- * 15. Delete the EC2 launch template.
+ * 1.  Check if the DB parameter group already exists. (DescribeDBParameterGroups)
+ * 2.  Get available engine versions for the specified engine. (DescribeDBEngineVersions)
+ * 3.  Create a DB parameter group. (CreateDBParameterGroup)
+ * 4.  Get the parameters in the DB parameter group. (DescribeDBParameters)
+ * 5.  Modify the auto increment parameters in the group.(ModifyDBParameterGroup)
+ * 6.  Display the modified parameters in the group. (DescribeDBParameters)
+ * 7.  Check if the DB instance already exists. (DescribeDBInstances)
+ * 8.  Get a list of available engine versions. (DescribeDBEngineVersions)
+ * 9.  Get a list of micro instance classes. (DescribeOrderableDBInstanceOptions)
+ * 10. Create an RDS database instance. (CreateDBInstance)
+ * 11. Wait for the DB instance to become available. (DescribeDBInstances)
+ * 12. Display the connection string that can be used to connect a 'mysql' shell to the database.
+ * 13. Create a snapshot of the DB instance. (CreateDBSnapshot)
+ * 14. Wait for the snapshot to become available. (DescribeDBSnapshots)
+ * 15. Delete the DB instance. (DeleteDBInstance)
+ * 16. Wait for the DB instance to be deleted. (DescribeDBInstances)
+ * 17. Delete the parameter group. (DeleteDBParameterGroup)
  *
  */
 
 #include <iostream>
 #include <iomanip>
+#include <thread>
 #include <aws/core/Aws.h>
 #include <aws/rds/RDSClient.h>
 #include <aws/rds/model/CreateDBInstanceRequest.h>
@@ -62,9 +66,9 @@ namespace AwsDoc {
         const Aws::String DB_INSTANCE_IDENTIFIER("doc-example-instance");
         const Aws::String DB_NAME("docexampledb");
         const Aws::String AUTO_INCREMENT_PREFIX("auto_increment");
-        const Aws::String NO_NAME_PREFIX("");
-        const Aws::String NO_SOURCE("");
-        const Aws::String NO_PARAMETER_GROUP_FAMILY("");
+        const Aws::String NO_NAME_PREFIX;
+        const Aws::String NO_SOURCE;
+        const Aws::String NO_PARAMETER_GROUP_FAMILY;
 
         //! Routine which gets DB parameters using the 'DescribeDBParameters' api.
         /*!
@@ -99,15 +103,15 @@ namespace AwsDoc {
 
         //! Routine which gets a DB instance description.
         /*!
-         \sa getDBInstance()
+         \sa describeDBInstance()
          \param dbInstanceIdentifier: A DB instance identifier.
          \param instanceResult: The 'DBInstance' object containing the description.
          \param client: 'RDSClient' instance.
          \return bool: Successful completion.
          */
-        bool getDBInstance(const Aws::String &dbInstanceIdentifier,
-                           Aws::RDS::Model::DBInstance &instanceResult,
-                           const Aws::RDS::RDSClient &client);
+        bool describeDBInstance(const Aws::String &dbInstanceIdentifier,
+                                Aws::RDS::Model::DBInstance &instanceResult,
+                                const Aws::RDS::RDSClient &client);
 
         //! Routine which gets available 'micro' DB instance classes, displays the list
         //! to the user, and returns the user selection.
@@ -128,10 +132,22 @@ namespace AwsDoc {
         //! DB instance.
         /*!
         \sa displayConnection()
-        \param dbInstance: A 'DBInstance' objectd.
+        \param dbInstance: A 'DBInstance' object.
         \return void:
         */
-        void displayConnection(const Aws::RDS::Model::DBInstance& dbInstance);
+        void displayConnection(const Aws::RDS::Model::DBInstance &dbInstance);
+
+        //! Routine which deletes resources created by the scenario.
+        /*!
+        \sa cleanUpResources()
+        \param parameterGroupName: A parameter group name, this may be empty.
+        \param dbInstanceIdentifier: A DB instance identifier, this may be empty.
+        \param client: 'RDSClient' instance.
+        \return bool: Successful completion.
+        */
+        bool cleanUpResources(const Aws::String &parameterGroupName,
+                              const Aws::String &dbInstanceIdentifier,
+                              const Aws::RDS::RDSClient &client);
 
         //! Test routine passed as argument to askQuestion routine.
         /*!
@@ -185,7 +201,7 @@ namespace AwsDoc {
          \sa splitToInts()
          \param string: A string of ints.
          \param delimiter: Delimiter between the ints.
-         \return vector<int>: VEctor of ints.
+         \return vector<int>: Vector of ints.
          */
         std::vector<int> splitToInts(const Aws::String &string,
                                      char delimiter) {
@@ -196,7 +212,7 @@ namespace AwsDoc {
                 try {
                     result.push_back(std::stoi(split));
                 }
-                catch (std::exception e) {
+                catch (const std::exception &e) {
                     std::cerr << "askQuestionForIntRange error " << e.what()
                               << std::endl;
                 }
@@ -205,50 +221,85 @@ namespace AwsDoc {
 
             return result;
         }
+    }
 
+    //! Utility routine to print a line of asterisks to standard out.
+    /*!
+     \\sa printAsterisksLine()
+    \return void:
+     */
+    inline void printAsterisksLine() {
+        std::cout << std::setfill('*') << std::setw(88) << " "
+                  << std::endl;
     }
 }
 
+// snippet-start:[cpp.example_code.rds.get_started_instances]
+//! Routine which creates a Relational Database Service (Amazon RDS)
+//! instance and demonstrates several operations on that instance.
+/*!
+ \sa gettingStartedWithDBInstances()
+ \param clientConfiguration: AWS client configuration.
+ \return bool: Successful completion.
+ */
 bool AwsDoc::RDS::gettingStartedWithDBInstances(
         const Aws::Client::ClientConfiguration &clientConfig) {
+    // snippet-start:[cpp.example_code.rds.client]
     Aws::RDS::RDSClient client(clientConfig);
+    // snippet-end:[cpp.example_code.rds.client]
 
-    std::cout << "Checking for an existing DB instance parameter group named '" <<
+    printAsterisksLine();
+    std::cout << "Welcome to the Amazon Relational Database Service (Amazon RDS)"
+              << std::endl;
+    std::cout << "get started with DB instances demo." << std::endl;
+    printAsterisksLine();
+
+    std::cout << "Checking for an existing DB parameter group named '" <<
               PARAMETER_GROUP_NAME << "'." << std::endl;
-    Aws::String dbParameterGroupFamily;
+    Aws::String dbParameterGroupFamily("Undefined");
     bool parameterGroupFound = true;
     {
+        // 1. Check if the DB parameter group already exists.
+        // snippet-start:[cpp.example_code.rds.describe_db_parameter_groups1]
         Aws::RDS::Model::DescribeDBParameterGroupsRequest request;
         request.SetDBParameterGroupName(PARAMETER_GROUP_NAME);
 
-        Aws::RDS::Model::DescribeDBParameterGroupsOutcome outcome = client.DescribeDBParameterGroups(
-                request);
+        Aws::RDS::Model::DescribeDBParameterGroupsOutcome outcome =
+                client.DescribeDBParameterGroups(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "RDS::DescribeDBParameterGroups was successful." << std::endl;
+            std::cout << "DB parameter group named '" <<
+                      PARAMETER_GROUP_NAME << "' already exists." << std::endl;
             dbParameterGroupFamily = outcome.GetResult().GetDBParameterGroups()[0].GetDBParameterGroupFamily();
         }
+            // snippet-end:[cpp.example_code.rds.describe_db_parameter_groups1]
         else if (outcome.GetError().GetErrorType() ==
                  Aws::RDS::RDSErrors::D_B_PARAMETER_GROUP_NOT_FOUND_FAULT) {
+            std::cout << "DB parameter group named '" <<
+                      PARAMETER_GROUP_NAME << "' does not exist." << std::endl;
             parameterGroupFound = false;
         }
+            // snippet-start:[cpp.example_code.rds.describe_db_parameter_groups2]
         else {
             std::cerr << "Error with RDS::DescribeDBParameterGroups. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
             return false;
         }
+        // snippet-end:[cpp.example_code.rds.describe_db_parameter_groups2]
     }
 
     if (!parameterGroupFound) {
         Aws::Vector<Aws::RDS::Model::DBEngineVersion> engineVersions;
 
+        // 2. Get available engine versions for the specified engine.
         if (!getDBEngineVersions(DB_ENGINE, NO_PARAMETER_GROUP_FAMILY,
                                  engineVersions, client)) {
             return false;
         }
 
-        std::cout << "Here are the available DB parameter group families."
+        std::cout << "Getting available database engine versions for " << DB_ENGINE
+                  << "."
                   << std::endl;
         std::vector<Aws::String> families;
         for (const Aws::RDS::Model::DBEngineVersion &version: engineVersions) {
@@ -260,21 +311,24 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
             }
         }
 
-        int choice = askQuestionForIntRange("Choose a family index: ", 1,
-                                            families.size());
+        int choice = askQuestionForIntRange("Which family do you want to use? ", 1,
+                                            static_cast<int>(families.size()));
         dbParameterGroupFamily = families[choice - 1];
     }
     if (!parameterGroupFound) {
+        // 3.  Create a DB parameter group.
+        // snippet-start:[cpp.example_code.rds.create_db_parameter_group]
         Aws::RDS::Model::CreateDBParameterGroupRequest request;
         request.SetDBParameterGroupName(PARAMETER_GROUP_NAME);
         request.SetDBParameterGroupFamily(dbParameterGroupFamily);
         request.SetDescription("Example parameter group.");
 
-        Aws::RDS::Model::CreateDBParameterGroupOutcome outcome = client.CreateDBParameterGroup(
-                request);
+        Aws::RDS::Model::CreateDBParameterGroupOutcome outcome =
+                client.CreateDBParameterGroup(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "RDS::CreateDBParameterGroup was successful." << std::endl;
+            std::cout << "The DB parameter group was successfully created."
+                      << std::endl;
         }
         else {
             std::cerr << "Error with RDS::CreateDBParameterGroup. "
@@ -282,16 +336,20 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                       << std::endl;
             return false;
         }
+        // snippet-end:[cpp.example_code.rds.create_db_parameter_group]
     }
 
+    printAsterisksLine();
     std::cout << "Let's set some parameter values in your parameter group."
               << std::endl;
 
     Aws::String marker;
     Aws::Vector<Aws::RDS::Model::Parameter> autoIncrementParameters;
+    // 4.  Get the parameters in the DB parameter group.
     if (!getDBParameters(PARAMETER_GROUP_NAME, AUTO_INCREMENT_PREFIX, NO_SOURCE,
                          autoIncrementParameters,
                          client)) {
+        cleanUpResources(PARAMETER_GROUP_NAME, "", client);
         return false;
     }
 
@@ -327,15 +385,17 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
     }
 
     {
+        // 5.  Modify the auto increment parameters in the group.
+        // snippet-start:[cpp.example_code.rds.modify_db_parameter_group]
         Aws::RDS::Model::ModifyDBParameterGroupRequest request;
         request.SetDBParameterGroupName(PARAMETER_GROUP_NAME);
         request.SetParameters(updateParameters);
 
-        Aws::RDS::Model::ModifyDBParameterGroupOutcome outcome = client.ModifyDBParameterGroup(
-                request);
+        Aws::RDS::Model::ModifyDBParameterGroupOutcome outcome =
+                client.ModifyDBParameterGroup(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "RDS::ModifyDBClusterParameterGroup was successful."
+            std::cout << "The DB cluster parameter group was successfully modified."
                       << std::endl;
         }
         else {
@@ -343,32 +403,41 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                       << outcome.GetError().GetMessage()
                       << std::endl;
         }
+        // snippet-end:[cpp.example_code.rds.modify_db_parameter_group]
     }
 
     std::cout
             << "You can get a list of parameters you've set by specifying a source of 'user'."
             << std::endl;
 
-    Aws::Vector<Aws::RDS::Model::Parameter> userParamaters;
-    if (!getDBParameters(PARAMETER_GROUP_NAME, NO_NAME_PREFIX, "user", userParamaters,
+    Aws::Vector<Aws::RDS::Model::Parameter> userParameters;
+    // 6.  Display the modified parameters in the group
+    if (!getDBParameters(PARAMETER_GROUP_NAME, NO_NAME_PREFIX, "user", userParameters,
                          client)) {
+        cleanUpResources(PARAMETER_GROUP_NAME, "", client);
         return false;
     }
 
-    for (const auto &userParameter: userParamaters) {
+    for (const auto &userParameter: userParameters) {
         std::cout << "  " << userParameter.GetParameterName() << ", " <<
                   userParameter.GetDescription() << ", parameter value - "
                   << userParameter.GetParameterValue() << std::endl;
     }
 
+    printAsterisksLine();
     std::cout << "Checking for an existing DB instance." << std::endl;
 
     Aws::RDS::Model::DBInstance dbInstance;
-    if (!getDBInstance(DB_INSTANCE_IDENTIFIER, dbInstance, client)) {
+    // 7.  Check if the DB instance already exists.
+    if (!describeDBInstance(DB_INSTANCE_IDENTIFIER, dbInstance, client)) {
+        cleanUpResources(PARAMETER_GROUP_NAME, "", client);
         return false;
     }
 
-    if (!dbInstance.DbInstancePortHasBeenSet()) {
+    if (dbInstance.DbInstancePortHasBeenSet()) {
+        std::cout << "The DB instance already exists." << std::endl;
+    }
+    else {
         std::cout << "Let's create a DB instance." << std::endl;
         const Aws::String administratorName = askQuestion(
                 "Enter an administrator user name for the database: ");
@@ -376,8 +445,10 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                 "Enter a password for the administrator (at least 8 characters): ");
         Aws::Vector<Aws::RDS::Model::DBEngineVersion> engineVersions;
 
+        // 8.  Get a list of available engine versions.
         if (!getDBEngineVersions(DB_ENGINE, dbParameterGroupFamily, engineVersions,
                                  client)) {
+            cleanUpResources(PARAMETER_GROUP_NAME, "", client);
             return false;
         }
 
@@ -395,10 +466,12 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                                                                               1];
 
         Aws::String dbInstanceClass;
+        // 9.  Get a list of micro instance classes.
         if (!chooseMicroDBInstanceClass(engineVersion.GetEngine(),
                                         engineVersion.GetEngineVersion(),
                                         dbInstanceClass,
                                         client)) {
+            cleanUpResources(PARAMETER_GROUP_NAME, "", client);
             return false;
         }
 
@@ -412,6 +485,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                   << " and " << DB_ALLOCATED_STORAGE << " GiB of " << DB_STORAGE_TYPE
                   << " storage.\nThis typically takes several minutes." << std::endl;
 
+        // snippet-start:[cpp.example_code.rds.create_db_instance]
         Aws::RDS::Model::CreateDBInstanceRequest request;
         request.SetDBName(DB_NAME);
         request.SetDBInstanceIdentifier(DB_INSTANCE_IDENTIFIER);
@@ -424,32 +498,41 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
         request.SetMasterUsername(administratorName);
         request.SetMasterUserPassword(administratorPassword);
 
-        Aws::RDS::Model::CreateDBInstanceOutcome outcome = client.CreateDBInstance(
-                request);
+        Aws::RDS::Model::CreateDBInstanceOutcome outcome =
+                client.CreateDBInstance(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "RDS::CreateDBInstance was successful." << std::endl;
+            std::cout << "The DB instance creation has been initiated successfully."
+                      << std::endl;
         }
         else {
             std::cerr << "Error with RDS::CreateDBInstance. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
+            cleanUpResources(PARAMETER_GROUP_NAME, "", client);
             return false;
         }
+        // snippet-end:[cpp.example_code.rds.create_db_instance]
     }
+
+    std::cout << "Waiting for the DB instance to become available." << std::endl;
+
     int counter = 0;
+    // 11. Wait for the DB instance to become available.
     do {
         std::this_thread::sleep_for(std::chrono::seconds(1));
         ++counter;
-        if (counter > 800) {
+        if (counter > 900) {
             std::cerr << "Wait for instance to become available timed out ofter "
                       << counter
                       << " seconds." << std::endl;
+            cleanUpResources(PARAMETER_GROUP_NAME, DB_INSTANCE_IDENTIFIER, client);
             return false;
         }
 
         dbInstance = Aws::RDS::Model::DBInstance();
-        if (!getDBInstance(DB_INSTANCE_IDENTIFIER, dbInstance, client)) {
+        if (!describeDBInstance(DB_INSTANCE_IDENTIFIER, dbInstance, client)) {
+            cleanUpResources(PARAMETER_GROUP_NAME, DB_INSTANCE_IDENTIFIER, client);
             return false;
         }
 
@@ -460,77 +543,326 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
         }
     } while (dbInstance.GetDBInstanceStatus() != "available");
 
+    if (dbInstance.GetDBInstanceStatus() == "available") {
+        std::cout << "The DB instance has been created." << std::endl;
+    }
+
+    printAsterisksLine();
+
+    // 12. Display the connection string that can be used to connect a 'mysql' shell to the database.
     displayConnection(dbInstance);
 
-    if (askYesNoQuestion("Do you want to create a snapshot of your DB instance (y/n)? "))
-    {
+    printAsterisksLine();
+
+    if (askYesNoQuestion(
+            "Do you want to create a snapshot of your DB instance (y/n)? ")) {
         Aws::String snapshotID(DB_INSTANCE_IDENTIFIER + "-" +
-                               Aws::String(Aws::Utils::UUID::RandomUUID()).substr(0, 12));
+                               Aws::String(Aws::Utils::UUID::RandomUUID()));
         {
+            std::cout << "Creating a snapshot named " << snapshotID << "." << std::endl;
+            std::cout << "This typically takes a few minutes." << std::endl;
+
+            // 13. Create a snapshot of the DB instance.
+            // snippet-start:[cpp.example_code.rds.create_db_snapshot]
             Aws::RDS::Model::CreateDBSnapshotRequest request;
             request.SetDBInstanceIdentifier(DB_INSTANCE_IDENTIFIER);
             request.SetDBSnapshotIdentifier(snapshotID);
 
-            Aws::RDS::Model::CreateDBSnapshotOutcome outcome = client.CreateDBSnapshot(request);
+            Aws::RDS::Model::CreateDBSnapshotOutcome outcome =
+                    client.CreateDBSnapshot(request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "RDS::CreateDBSnapshot was successful." << std::endl;
-            }
-            else {
-                std::cerr << "Error with RDS::CreateDBSnapshot. " << outcome.GetError().GetMessage()
+                std::cout << "Snapshot creation was successfully initiated."
                           << std::endl;
             }
+            else {
+                std::cerr << "Error with RDS::CreateDBSnapshot. "
+                          << outcome.GetError().GetMessage()
+                          << std::endl;
+                cleanUpResources(PARAMETER_GROUP_NAME, DB_INSTANCE_IDENTIFIER, client);
+                return false;
+            }
+            // snippet-end:[cpp.example_code.rds.create_db_snapshot]
         }
 
         std::cout << "Waiting for snapshot to become available." << std::endl;
-        std::cout << "This may take a while." << std::endl;
 
         Aws::RDS::Model::DBSnapshot snapshot;
         counter = 0;
-        do{
+        do {
             std::this_thread::sleep_for(std::chrono::seconds(1));
             ++counter;
             if (counter > 600) {
-                std::cerr << "Wait for snapshot to be available timed out ofter " << counter
+                std::cerr << "Wait for snapshot to be available timed out ofter "
+                          << counter
                           << " seconds." << std::endl;
+                cleanUpResources(PARAMETER_GROUP_NAME, DB_INSTANCE_IDENTIFIER, client);
                 return false;
             }
+
+            // 14. Wait for the snapshot to become available.
+            // snippet-start:[cpp.example_code.rds.describe_db_snapshots]
             Aws::RDS::Model::DescribeDBSnapshotsRequest request;
             request.SetDBSnapshotIdentifier(snapshotID);
 
-            Aws::RDS::Model::DescribeDBSnapshotsOutcome outcome = client.DescribeDBSnapshots(request);
+            Aws::RDS::Model::DescribeDBSnapshotsOutcome outcome =
+                    client.DescribeDBSnapshots(request);
 
             if (outcome.IsSuccess()) {
                 snapshot = outcome.GetResult().GetDBSnapshots()[0];
             }
             else {
-                std::cerr << "Error with RDS::DescribeDBSnapshots. " << outcome.GetError().GetMessage()
+                std::cerr << "Error with RDS::DescribeDBSnapshots. "
+                          << outcome.GetError().GetMessage()
                           << std::endl;
+                cleanUpResources(PARAMETER_GROUP_NAME, DB_INSTANCE_IDENTIFIER, client);
                 return false;
             }
+            // snippet-end:[cpp.example_code.rds.describe_db_snapshots]
 
             if ((counter % 20) == 0) {
                 std::cout << "Current snapshot status is '"
                           << snapshot.GetStatus()
                           << "' after " << counter << " seconds." << std::endl;
             }
-        }while (snapshot.GetStatus() != "available");
+        } while (snapshot.GetStatus() != "available");
+
+        if (snapshot.GetStatus() != "available") {
+            std::cout << "A snapshot has been created." << std::endl;
+        }
     }
+
+    printAsterisksLine();
 
     bool result = true;
     if (askYesNoQuestion(
             "Do you want to delete the DB instance and parameter group (y/n)? ")) {
+        result = cleanUpResources(PARAMETER_GROUP_NAME, DB_INSTANCE_IDENTIFIER, client);
+    }
+
+    return result;
+}
+
+//! Routine which gets DB parameters using the 'DescribeDBParameters' api.
+/*!
+ \sa getDBParameters()
+ \param parameterGroupName: The name of the parameter group.
+ \param namePrefix: Prefix string to filter results by parameter name.
+ \param source: A source such as 'user', ignored if empty.
+ \param parametersResult: Vector of 'Parameter' objects returned by the routine.
+ \param client: 'RDSClient' instance.
+ \return bool: Successful completion.
+ */
+bool AwsDoc::RDS::getDBParameters(const Aws::String &parameterGroupName,
+                                  const Aws::String &namePrefix,
+                                  const Aws::String &source,
+                                  Aws::Vector<Aws::RDS::Model::Parameter> &parametersResult,
+                                  const Aws::RDS::RDSClient &client) {
+    // snippet-start:[cpp.example_code.rds.describe_db_parameters]
+    Aws::String marker;
+    do {
+        Aws::RDS::Model::DescribeDBParametersRequest request;
+        request.SetDBParameterGroupName(PARAMETER_GROUP_NAME);
+        if (!marker.empty()) {
+            request.SetMarker(marker);
+        }
+        if (!source.empty()) {
+            request.SetSource(source);
+        }
+
+        Aws::RDS::Model::DescribeDBParametersOutcome outcome =
+                client.DescribeDBParameters(request);
+
+        if (outcome.IsSuccess()) {
+            const Aws::Vector<Aws::RDS::Model::Parameter> &parameters =
+                    outcome.GetResult().GetParameters();
+            for (const Aws::RDS::Model::Parameter &parameter: parameters) {
+                if (!namePrefix.empty()) {
+                    if (parameter.GetParameterName().find(AUTO_INCREMENT_PREFIX) == 0) {
+                        parametersResult.push_back(parameter);
+                    }
+                }
+                else {
+                    parametersResult.push_back(parameter);
+                }
+
+            }
+
+            marker = outcome.GetResult().GetMarker();
+        }
+        else {
+            std::cerr << "Error with RDS::DescribeDBParameters. "
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+            return false;
+        }
+    } while (!marker.empty());
+    // snippet-end:[cpp.example_code.rds.describe_db_parameters]
+
+    return true;
+}
+
+//! Routine which gets available DB engine versions for an engine name and
+//! an optional parameter group family.
+/*!
+ \sa getDBEngineVersions()
+ \param engineName: A DB engine name.
+ \param parameterGroupFamily: A parameter group family name, ignored if empty.
+ \param engineVersionsResult: Vector of 'DBEngineVersion' objects returned by the routine.
+ \param client: 'RDSClient' instance.
+ \return bool: Successful completion.
+ */
+bool AwsDoc::RDS::getDBEngineVersions(const Aws::String &engineName,
+                                      const Aws::String &parameterGroupFamily,
+                                      Aws::Vector<Aws::RDS::Model::DBEngineVersion> &engineVersionsResult,
+                                      const Aws::RDS::RDSClient &client) {
+    // snippet-start:[cpp.example_code.rds.describe_db_engine_versions]
+    Aws::RDS::Model::DescribeDBEngineVersionsRequest request;
+    request.SetEngine(engineName);
+    if (!parameterGroupFamily.empty()) {
+        request.SetDBParameterGroupFamily(parameterGroupFamily);
+    }
+
+    Aws::RDS::Model::DescribeDBEngineVersionsOutcome outcome =
+            client.DescribeDBEngineVersions(request);
+
+    if (outcome.IsSuccess()) {
+        engineVersionsResult = outcome.GetResult().GetDBEngineVersions();
+    }
+    else {
+        std::cerr << "Error with RDS::DescribeDBEngineVersionsRequest. "
+                  << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+    // snippet-end:[cpp.example_code.rds.describe_db_engine_versions]
+
+    return outcome.IsSuccess();
+}
+
+//! Routine which gets a DB instance description.
+/*!
+ \sa describeDBInstance()
+ \param dbInstanceIdentifier: A DB instance identifier.
+ \param instanceResult: The 'DBInstance' object containing the description.
+ \param client: 'RDSClient' instance.
+ \return bool: Successful completion.
+ */
+bool AwsDoc::RDS::describeDBInstance(const Aws::String &dbInstanceIdentifier,
+                                     Aws::RDS::Model::DBInstance &instanceResult,
+                                     const Aws::RDS::RDSClient &client) {
+    // snippet-start:[cpp.example_code.rds.describe_db_instances]
+    Aws::RDS::Model::DescribeDBInstancesRequest request;
+    request.SetDBInstanceIdentifier(dbInstanceIdentifier);
+
+    Aws::RDS::Model::DescribeDBInstancesOutcome outcome =
+            client.DescribeDBInstances(request);
+
+    if (outcome.IsSuccess()) {
+        instanceResult = outcome.GetResult().GetDBInstances()[0];
+    }
+    else if (outcome.GetError().GetErrorType() !=
+             Aws::RDS::RDSErrors::D_B_INSTANCE_NOT_FOUND_FAULT) {
+        std::cerr << "Error with RDS::DescribeDBInstances. "
+                  << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+    // snippet-end:[cpp.example_code.rds.describe_db_instances]
+    return outcome.IsSuccess();
+}
+
+//! Routine which gets available 'micro' DB instance classes, displays the list
+//! to the user, and returns the user selection.
+/*!
+ \sa chooseMicroDBInstanceClass()
+ \param engineName: The DB engine name.
+ \param engineVersion: The DB engine version.
+ \param dbInstanceClass: String for DB instance class chosen by the user.
+ \param client: 'RDSClient' instance.
+ \return bool: Successful completion.
+ */
+bool AwsDoc::RDS::chooseMicroDBInstanceClass(const Aws::String &engine,
+                                             const Aws::String &engineVersion,
+                                             Aws::String &dbInstanceClass,
+                                             const Aws::RDS::RDSClient &client) {
+    // snippet-start:[cpp.example_code.rds.describe_orderable_db_instance_options]
+    std::vector<Aws::String> instanceClasses;
+    Aws::String marker;
+    do {
+        Aws::RDS::Model::DescribeOrderableDBInstanceOptionsRequest request;
+        request.SetEngine(engine);
+        request.SetEngineVersion(engineVersion);
+        if (!marker.empty()) {
+            request.SetMarker(marker);
+        }
+
+        Aws::RDS::Model::DescribeOrderableDBInstanceOptionsOutcome outcome =
+                client.DescribeOrderableDBInstanceOptions(request);
+
+        if (outcome.IsSuccess()) {
+            const Aws::Vector<Aws::RDS::Model::OrderableDBInstanceOption> &options =
+                    outcome.GetResult().GetOrderableDBInstanceOptions();
+            for (const Aws::RDS::Model::OrderableDBInstanceOption &option: options) {
+                const Aws::String &instanceClass = option.GetDBInstanceClass();
+                if (instanceClass.find("micro") != std::string::npos) {
+                    const Aws::String &instanceClass = option.GetDBInstanceClass();
+                    if (std::find(instanceClasses.begin(), instanceClasses.end(),
+                                  instanceClass) ==
+                        instanceClasses.end()) {
+                        instanceClasses.push_back(instanceClass);
+                    }
+                }
+            }
+            marker = outcome.GetResult().GetMarker();
+        }
+        else {
+            std::cerr << "Error with RDS::DescribeOrderableDBInstanceOptions. "
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+            return false;
+        }
+    } while (!marker.empty());
+    // snippet-end:[cpp.example_code.rds.describe_orderable_db_instance_options]
+
+    std::cout << "The available micro DB instance classes for your database engine are:"
+              << std::endl;
+    for (int i = 0; i < instanceClasses.size(); ++i) {
+        std::cout << "   " << i + 1 << ": " << instanceClasses[i] << std::endl;
+    }
+
+    int choice = askQuestionForIntRange(
+            "Which micro DB instance class do you want to use? ",
+            1, static_cast<int>(instanceClasses.size()));
+    dbInstanceClass = instanceClasses[choice - 1];
+    return true;
+}
+
+//! Routine which deletes resources created by the scenario.
+/*!
+\sa cleanUpResources()
+\param parameterGroupName: A parameter group name, this may be empty.
+\param dbInstanceIdentifier: A DB instance identifier, this may be empty.
+\param client: 'RDSClient' instance.
+\return bool: Successful completion.
+*/
+bool AwsDoc::RDS::cleanUpResources(const Aws::String &parameterGroupName,
+                                   const Aws::String &dbInstanceIdentifier,
+                                   const Aws::RDS::RDSClient &client) {
+    bool result = true;
+    if (!dbInstanceIdentifier.empty()) {
         {
+            // 15. Delete the DB instance.
+            // snippet-start:[cpp.example_code.rds.delete_db_instance]
             Aws::RDS::Model::DeleteDBInstanceRequest request;
-            request.SetDBInstanceIdentifier(DB_INSTANCE_IDENTIFIER);
+            request.SetDBInstanceIdentifier(dbInstanceIdentifier);
             request.SetSkipFinalSnapshot(true);
             request.SetDeleteAutomatedBackups(true);
 
-            Aws::RDS::Model::DeleteDBInstanceOutcome outcome = client.DeleteDBInstance(
-                    request);
+            Aws::RDS::Model::DeleteDBInstanceOutcome outcome =
+                    client.DeleteDBInstance(request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "RDS::DeleteDBInstance was successful." << std::endl;
+                std::cout << "DB instance deletion was successfully initiated."
+                          << std::endl;
             }
             else {
                 std::cerr << "Error with RDS::DeleteDBInstance. "
@@ -538,9 +870,16 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                           << std::endl;
                 result = false;
             }
+            // snippet-end:[cpp.example_code.rds.delete_db_instance]
         }
 
-        counter = 0;
+        std::cout
+                << "Waiting for DB instance to delete before deleting the parameter group."
+                << std::endl;
+        std::cout << "This may take a while." << std::endl;
+
+        int counter = 0;
+        Aws::RDS::Model::DBInstance dbInstance;
         do {
             std::this_thread::sleep_for(std::chrono::seconds(1));
             ++counter;
@@ -551,7 +890,8 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
             }
 
             dbInstance = Aws::RDS::Model::DBInstance();
-            if (!getDBInstance(DB_INSTANCE_IDENTIFIER, dbInstance, client)) {
+            // 16. Wait for the DB instance to be deleted.
+            if (!describeDBInstance(dbInstanceIdentifier, dbInstance, client)) {
                 return false;
             }
 
@@ -561,39 +901,51 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                           << "' after " << counter << " seconds." << std::endl;
             }
         } while (dbInstance.DBInstanceIdentifierHasBeenSet());
+    }
 
-        {
-            Aws::RDS::Model::DeleteDBParameterGroupRequest request;
-            request.SetDBParameterGroupName(PARAMETER_GROUP_NAME);
+    if (!parameterGroupName.empty()) {
+        // 17. Delete the parameter group.
+        // snippet-start:[cpp.example_code.rds.delete_parameter_group]
+        Aws::RDS::Model::DeleteDBParameterGroupRequest request;
+        request.SetDBParameterGroupName(parameterGroupName);
 
-            Aws::RDS::Model::DeleteDBParameterGroupOutcome outcome = client.DeleteDBParameterGroup(
-                    request);
+        Aws::RDS::Model::DeleteDBParameterGroupOutcome outcome =
+                client.DeleteDBParameterGroup(request);
 
-            if (outcome.IsSuccess()) {
-                std::cout << "RDS::DeleteDBParameterGroup was successful." << std::endl;
-            }
-            else {
-                std::cerr << "Error with RDS::DeleteDBParameterGroup. "
-                          << outcome.GetError().GetMessage()
-                          << std::endl;
-                result = false;
-            }
+        if (outcome.IsSuccess()) {
+            std::cout << "The DB parameter group was successfully deleted."
+                      << std::endl;
         }
+        else {
+            std::cerr << "Error with RDS::DeleteDBParameterGroup. "
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+            result = false;
+        }
+        // snippet-end:[cpp.example_code.rds.delete_parameter_group]
     }
 
     return result;
 }
+// snippet-end:[cpp.example_code.rds.get_started_instances]
+
 
 #ifndef TESTING_BUILD
 
 int main(int argc, const char *argv[]) {
+
+    (void) argc;  // Suppress unused warnings.
+    (void) argv;  // Suppress unused warnings.
+
     Aws::SDKOptions options;
     InitAPI(options);
 
     {
+        // snippet-start:[cpp.example_code.rds.client_configuration]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
+        // snippet-end:[cpp.example_code.rds.client_configuration]
         AwsDoc::RDS::gettingStartedWithDBInstances(clientConfig);
     }
 
@@ -603,6 +955,31 @@ int main(int argc, const char *argv[]) {
 }
 
 #endif // TESTING_BUILD
+
+
+//! Routine which prints a command and instructions for connecting to the
+//! DB instance.
+/*!
+\sa displayConnection()
+\param dbInstance: A 'DBInstance' object.
+\return void:
+*/
+void AwsDoc::RDS::displayConnection(const Aws::RDS::Model::DBInstance &dbInstance) {
+    std::cout << R"(You can now connect to your database using your favorite MySql client.
+One way to connect is by using the 'mysql' shell on an Amazon EC2 instance
+that is running in the same VPC as your DB instance. Pass the endpoint,
+port, and administrator user name to 'mysql' and enter your password
+when prompted:)" << std::endl;
+
+    std::cout << "  mysql -h " << dbInstance.GetEndpoint().GetAddress() << " -P "
+              << dbInstance.GetEndpoint().GetPort() << " - u "
+              << dbInstance.GetMasterUsername()
+              << " -p" << std::endl;
+
+    std::cout << "For more information, see the User Guide for Amazon RDS:\n"
+              << "  https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html#CHAP_GettingStarted.Connecting.MySQL"
+              << std::endl;
+}
 
 //! Test routine passed as argument to askQuestion routine.
 /*!
@@ -702,162 +1079,3 @@ int AwsDoc::RDS::askQuestionForIntRange(const Aws::String &string, int low,
     return result;
 }
 
-bool AwsDoc::RDS::getDBParameters(const Aws::String &parameterGroupName,
-                                  const Aws::String &namePrefix,
-                                  const Aws::String &source,
-                                  Aws::Vector<Aws::RDS::Model::Parameter> &parametersResult,
-                                  const Aws::RDS::RDSClient &client) {
-    Aws::String marker;
-    do {
-        Aws::RDS::Model::DescribeDBParametersRequest request;
-        request.SetDBParameterGroupName(PARAMETER_GROUP_NAME);
-        if (!marker.empty()) {
-            request.SetMarker(marker);
-        }
-        if (!source.empty()) {
-            request.SetSource(source);
-        }
-
-        Aws::RDS::Model::DescribeDBParametersOutcome outcome = client.DescribeDBParameters(
-                request);
-
-        if (outcome.IsSuccess()) {
-            const Aws::Vector<Aws::RDS::Model::Parameter> &parameters =
-                    outcome.GetResult().GetParameters();
-            for (const Aws::RDS::Model::Parameter &parameter: parameters) {
-                if (!namePrefix.empty()) {
-                    if (parameter.GetParameterName().find(AUTO_INCREMENT_PREFIX) == 0) {
-                        parametersResult.push_back(parameter);
-                    }
-                }
-                else {
-                    parametersResult.push_back(parameter);
-                }
-
-            }
-
-            marker = outcome.GetResult().GetMarker();
-        }
-        else {
-            std::cerr << "Error with RDS::DescribeDBParameters. "
-                      << outcome.GetError().GetMessage()
-                      << std::endl;
-            return false;
-        }
-    } while (!marker.empty());
-
-    return true;
-}
-
-bool AwsDoc::RDS::getDBEngineVersions(const Aws::String &engineName,
-                                      const Aws::String &parameterGroupFamily,
-                                      Aws::Vector<Aws::RDS::Model::DBEngineVersion> &engineVersionsResult,
-                                      const Aws::RDS::RDSClient &client) {
-    Aws::RDS::Model::DescribeDBEngineVersionsRequest request;
-    request.SetEngine(engineName);
-    if (!parameterGroupFamily.empty()) {
-        request.SetDBParameterGroupFamily(parameterGroupFamily);
-    }
-
-    Aws::RDS::Model::DescribeDBEngineVersionsOutcome outcome = client.DescribeDBEngineVersions(
-            request);
-
-    if (outcome.IsSuccess()) {
-        engineVersionsResult = outcome.GetResult().GetDBEngineVersions();
-    }
-    else {
-        std::cerr << "Error with RDS::DescribeDBEngineVersionsRequest. "
-                  << outcome.GetError().GetMessage()
-                  << std::endl;
-    }
-
-    return outcome.IsSuccess();
-}
-
-bool AwsDoc::RDS::getDBInstance(const Aws::String &dbInstanceIdentifier,
-                                Aws::RDS::Model::DBInstance &instanceResult,
-                                const Aws::RDS::RDSClient &client) {
-    Aws::RDS::Model::DescribeDBInstancesRequest request;
-    request.SetDBInstanceIdentifier(dbInstanceIdentifier);
-
-    Aws::RDS::Model::DescribeDBInstancesOutcome outcome = client.DescribeDBInstances(
-            request);
-
-    bool result = true;
-    if (outcome.IsSuccess()) {
-        instanceResult = outcome.GetResult().GetDBInstances()[0];
-    }
-    else if (outcome.GetError().GetErrorType() !=
-             Aws::RDS::RDSErrors::D_B_INSTANCE_NOT_FOUND_FAULT) {
-        std::cerr << "Error with RDS::DescribeDBInstances. "
-                  << outcome.GetError().GetMessage()
-                  << std::endl;
-        result = false;
-    }
-    return result;
-}
-
-bool AwsDoc::RDS::chooseMicroDBInstanceClass(const Aws::String &engine,
-                                             const Aws::String &engineVersion,
-                                             Aws::String &dbInstanceClass,
-                                             const Aws::RDS::RDSClient &client) {
-    std::vector<Aws::String> instanceClasses;
-    Aws::String marker;
-    do {
-        Aws::RDS::Model::DescribeOrderableDBInstanceOptionsRequest request;
-        request.SetEngine(engine);
-        request.SetEngineVersion(engineVersion);
-        if (!marker.empty()) {
-            request.SetMarker(marker);
-        }
-
-        Aws::RDS::Model::DescribeOrderableDBInstanceOptionsOutcome outcome =
-                client.DescribeOrderableDBInstanceOptions(request);
-
-        if (outcome.IsSuccess()) {
-            const Aws::Vector<Aws::RDS::Model::OrderableDBInstanceOption> &options =
-                    outcome.GetResult().GetOrderableDBInstanceOptions();
-            for (const Aws::RDS::Model::OrderableDBInstanceOption &option: options) {
-                Aws::String instanceClass = option.GetDBInstanceClass();
-                if (instanceClass.find("micro") != std::string::npos) {
-                    instanceClasses.push_back(option.GetDBInstanceClass());
-                }
-            }
-            marker = outcome.GetResult().GetMarker();
-        }
-        else {
-            std::cerr << "Error with RDS::DescribeOrderableDBInstanceOptions. "
-                      << outcome.GetError().GetMessage()
-                      << std::endl;
-            return false;
-        }
-    } while (!marker.empty());
-
-    std::cout << "The available micro DB instance classes for your database engine are:"
-              << std::endl;
-    for (int i = 0; i < instanceClasses.size(); ++i) {
-        std::cout << "   " << i + 1 << ": " << instanceClasses[i] << std::endl;
-    }
-
-    int choice = askQuestionForIntRange(
-            "Which micro DB instance class do you want to use? ",
-            1, static_cast<int>(instanceClasses.size()));
-    dbInstanceClass = instanceClasses[choice - 1];
-    return true;
-}
-
-void AwsDoc::RDS::displayConnection(const Aws::RDS::Model::DBInstance &dbInstance) {
-    std::cout << R"(You can now connect to your database using your favorite MySql client.
-One way to connect is by using the 'mysql' shell on an Amazon EC2 instance
-that is running in the same VPC as your DB instance. Pass the endpoint,
-port, and administrator user name to 'mysql' and enter your password
-when prompted:)" << std::endl;
-
-    std::cout << "  mysql -h " << dbInstance.GetEndpoint().GetAddress()  << " -P "
-    << dbInstance.GetEndpoint().GetPort() << " - u " << dbInstance.GetMasterUsername()
-    << " -p" << std::endl;
-
-    std::cout << "For more information, see the User Guide for Amazon RDS:\n"
-              <<   "  https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html#CHAP_GettingStarted.Connecting.MySQL"
-                 << std::endl;
-}

@@ -10,7 +10,7 @@
 namespace AwsDoc {
     namespace RDS {
         //! Routine which creates a Relational Database Service (Amazon RDS)
-        //! instance and creates a snapshot of the instance.
+        //! instance and demonstrates several operations on that instance.
         /*!
          \sa gettingStartedWithDBInstances()
          \param clientConfiguration: AWS client configuration.
