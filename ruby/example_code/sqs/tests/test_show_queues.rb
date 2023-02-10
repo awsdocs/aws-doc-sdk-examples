@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative "../sqs-ruby-example-show-queues"
+require_relative "../show_queues"
 
 describe "#list_queue_urls" do
   let(:sqs_client) do

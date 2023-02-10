@@ -8,7 +8,7 @@
 # 3. Get the queue's URL.
 # 4. Delete the queue.
 
-# snippet-start:[s3.sqs-ruby-example-using-queues.rb]
+# snippet-start:[ruby.example_code.sqs.ScenarioGettingStarted]
 
 require "aws-sdk-sqs"  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
@@ -41,4 +41,4 @@ puts queue_url
 
 # Delete the queue.
 sqs.delete_queue(queue_url: queue_url)
-# snippet-end:[s3.sqs-ruby-example-using-queues.rb]
+# snippet-end:[ruby.example_code.sqs.ScenarioGettingStarted]

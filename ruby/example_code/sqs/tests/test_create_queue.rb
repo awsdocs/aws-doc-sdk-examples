@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative "../sqs-ruby-example-create-queue"
+require_relative "../create_queue"
 
 describe "#queue_created?" do
   let(:queue_name) { "my-queue" }

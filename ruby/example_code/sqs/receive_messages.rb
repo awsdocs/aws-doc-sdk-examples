@@ -4,7 +4,7 @@
 # Purpose
 # This code example demonstrates how to receive messages in a queue in Amazon Simple Queue Service (Amazon SQS).
 
-# snippet-start:[s3.ruby.sqs-ruby-example-get-messages.rb]
+# snippet-start:[ruby.example_code.sqs.ReceiveMessages]
 
 require "aws-sdk-sqs"
 require "aws-sdk-sts"
@@ -72,4 +72,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
-# snippet-end:[s3.ruby.sqs-ruby-example-get-messages.rb]
+# snippet-end:[ruby.example_code.sqs.ReceiveMessages]
