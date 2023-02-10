@@ -44,6 +44,15 @@ sqs_CreateQueue:
             - description:
               snippet_tags:
                 - python.example_code.sqs.CreateQueue
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.sqs.CreateQueue
     SAP ABAP:
       versions:
         - sdk_version: 1
