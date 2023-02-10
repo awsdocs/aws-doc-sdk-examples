@@ -66,35 +66,71 @@ namespace AwsDoc {
         const Aws::String NO_SOURCE("");
         const Aws::String NO_PARAMETER_GROUP_FAMILY("");
 
-        //! Routine which waits for EC2 instances in an EC2 Auto Scaling group to
-        //! complete startup or shutdown.
+        //! Routine which gets DB parameters using the 'DescribeDBParameters' api.
         /*!
-         \sa waitForInstances()
-         \param groupName: An EC2 Auto Scaling group name.
-         \param autoScalingGroups: Vector to receive 'AutoScalingGroup' records.
-         \param client: 'AutoScalingClient' instance.
+         \sa getDBParameters()
+         \param parameterGroupName: The name of the parameter group.
+         \param namePrefix: Prefix string to filter results by parameter name.
+         \param source: A source such as 'user', ignored if empty.
+         \param parametersResult: Vector of 'Parameter' objects returned by the routine.
+         \param client: 'RDSClient' instance.
          \return bool: Successful completion.
          */
-        bool getParameters(const Aws::String &parameterGroupName,
-                           const Aws::String &namePrefix,
-                           const Aws::String &source,
-                           Aws::Vector<Aws::RDS::Model::Parameter> &parametersResult,
-                           const Aws::RDS::RDSClient &client);
+        bool getDBParameters(const Aws::String &parameterGroupName,
+                             const Aws::String &namePrefix,
+                             const Aws::String &source,
+                             Aws::Vector<Aws::RDS::Model::Parameter> &parametersResult,
+                             const Aws::RDS::RDSClient &client);
 
-        bool getEngineVersions(const Aws::String &engineName,
-                               const Aws::String &parameterGroupFamily,
-                               Aws::Vector<Aws::RDS::Model::DBEngineVersion> &engineVersionsResult,
-                               const Aws::RDS::RDSClient &client);
+        //! Routine which gets available DB engine versions for an engine name and
+        //! an optional parameter group family.
+        /*!
+         \sa getDBEngineVersions()
+         \param engineName: A DB engine name.
+         \param parameterGroupFamily: A parameter group family name, ignored if empty.
+         \param engineVersionsResult: Vector of 'DBEngineVersion' objects returned by the routine.
+         \param client: 'RDSClient' instance.
+         \return bool: Successful completion.
+         */
+        bool getDBEngineVersions(const Aws::String &engineName,
+                                 const Aws::String &parameterGroupFamily,
+                                 Aws::Vector<Aws::RDS::Model::DBEngineVersion> &engineVersionsResult,
+                                 const Aws::RDS::RDSClient &client);
 
+        //! Routine which gets a DB instance description.
+        /*!
+         \sa getDBInstance()
+         \param dbInstanceIdentifier: A DB instance identifier.
+         \param instanceResult: The 'DBInstance' object containing the description.
+         \param client: 'RDSClient' instance.
+         \return bool: Successful completion.
+         */
         bool getDBInstance(const Aws::String &dbInstanceIdentifier,
                            Aws::RDS::Model::DBInstance &instanceResult,
                            const Aws::RDS::RDSClient &client);
 
+        //! Routine which gets available 'micro' DB instance classes, displays the list
+        //! to the user, and returns the user selection.
+        /*!
+         \sa chooseMicroDBInstanceClass()
+         \param engineName: The DB engine name.
+         \param engineVersion: The DB engine version.
+         \param dbInstanceClass: String for DB instance class chosen by the user.
+         \param client: 'RDSClient' instance.
+         \return bool: Successful completion.
+         */
         bool chooseMicroDBInstanceClass(const Aws::String &engine,
                                         const Aws::String &engineVersion,
                                         Aws::String &dbInstanceClass,
                                         const Aws::RDS::RDSClient &client);
 
+        //! Routine which prints a command and instructions for connecting to the
+        //! DB instance.
+        /*!
+        \sa displayConnection()
+        \param dbInstance: A 'DBInstance' objectd.
+        \return void:
+        */
         void displayConnection(const Aws::RDS::Model::DBInstance& dbInstance);
 
         //! Test routine passed as argument to askQuestion routine.
@@ -143,6 +179,14 @@ namespace AwsDoc {
         int askQuestionForIntRange(const Aws::String &string, int low,
                                    int high);
 
+
+        //! Routine which converts a string of ints to a vector of ints.
+        /*!
+         \sa splitToInts()
+         \param string: A string of ints.
+         \param delimiter: Delimiter between the ints.
+         \return vector<int>: VEctor of ints.
+         */
         std::vector<int> splitToInts(const Aws::String &string,
                                      char delimiter) {
             std::vector<int> result;
@@ -199,8 +243,8 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
     if (!parameterGroupFound) {
         Aws::Vector<Aws::RDS::Model::DBEngineVersion> engineVersions;
 
-        if (!getEngineVersions(DB_ENGINE, NO_PARAMETER_GROUP_FAMILY,
-                               engineVersions, client)) {
+        if (!getDBEngineVersions(DB_ENGINE, NO_PARAMETER_GROUP_FAMILY,
+                                 engineVersions, client)) {
             return false;
         }
 
@@ -245,9 +289,9 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
 
     Aws::String marker;
     Aws::Vector<Aws::RDS::Model::Parameter> autoIncrementParameters;
-    if (!getParameters(PARAMETER_GROUP_NAME, AUTO_INCREMENT_PREFIX, NO_SOURCE,
-                       autoIncrementParameters,
-                       client)) {
+    if (!getDBParameters(PARAMETER_GROUP_NAME, AUTO_INCREMENT_PREFIX, NO_SOURCE,
+                         autoIncrementParameters,
+                         client)) {
         return false;
     }
 
@@ -306,8 +350,8 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
             << std::endl;
 
     Aws::Vector<Aws::RDS::Model::Parameter> userParamaters;
-    if (!getParameters(PARAMETER_GROUP_NAME, NO_NAME_PREFIX, "user", userParamaters,
-                       client)) {
+    if (!getDBParameters(PARAMETER_GROUP_NAME, NO_NAME_PREFIX, "user", userParamaters,
+                         client)) {
         return false;
     }
 
@@ -332,8 +376,8 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                 "Enter a password for the administrator (at least 8 characters): ");
         Aws::Vector<Aws::RDS::Model::DBEngineVersion> engineVersions;
 
-        if (!getEngineVersions(DB_ENGINE, dbParameterGroupFamily, engineVersions,
-                               client)) {
+        if (!getDBEngineVersions(DB_ENGINE, dbParameterGroupFamily, engineVersions,
+                                 client)) {
             return false;
         }
 
@@ -658,11 +702,11 @@ int AwsDoc::RDS::askQuestionForIntRange(const Aws::String &string, int low,
     return result;
 }
 
-bool AwsDoc::RDS::getParameters(const Aws::String &parameterGroupName,
-                                const Aws::String &namePrefix,
-                                const Aws::String &source,
-                                Aws::Vector<Aws::RDS::Model::Parameter> &parametersResult,
-                                const Aws::RDS::RDSClient &client) {
+bool AwsDoc::RDS::getDBParameters(const Aws::String &parameterGroupName,
+                                  const Aws::String &namePrefix,
+                                  const Aws::String &source,
+                                  Aws::Vector<Aws::RDS::Model::Parameter> &parametersResult,
+                                  const Aws::RDS::RDSClient &client) {
     Aws::String marker;
     do {
         Aws::RDS::Model::DescribeDBParametersRequest request;
@@ -705,10 +749,10 @@ bool AwsDoc::RDS::getParameters(const Aws::String &parameterGroupName,
     return true;
 }
 
-bool AwsDoc::RDS::getEngineVersions(const Aws::String &engineName,
-                                    const Aws::String &parameterGroupFamily,
-                                    Aws::Vector<Aws::RDS::Model::DBEngineVersion> &engineVersionsResult,
-                                    const Aws::RDS::RDSClient &client) {
+bool AwsDoc::RDS::getDBEngineVersions(const Aws::String &engineName,
+                                      const Aws::String &parameterGroupFamily,
+                                      Aws::Vector<Aws::RDS::Model::DBEngineVersion> &engineVersionsResult,
+                                      const Aws::RDS::RDSClient &client) {
     Aws::RDS::Model::DescribeDBEngineVersionsRequest request;
     request.SetEngine(engineName);
     if (!parameterGroupFamily.empty()) {
