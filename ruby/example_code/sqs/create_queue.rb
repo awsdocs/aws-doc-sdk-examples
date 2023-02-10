@@ -3,7 +3,7 @@
 
 # Purpose
 
-# snippet-start:[s3.ruby.sqs-ruby-example-create-queue.rb]
+# snippet-start:[sqs.ruby.create-queue]
 # This code example demonstrates how to create a queue in Amazon Simple Queue Service (Amazon SQS).
 
 require "aws-sdk-sqs"
@@ -41,4 +41,4 @@ def run_me
 end
 
 run_me if $PROGRAM_NAME == __FILE__
-# snippet-end:[s3.ruby.sqs-ruby-example-create-queue.rb]
+# snippet-end:[sqs.ruby.create-queue]
