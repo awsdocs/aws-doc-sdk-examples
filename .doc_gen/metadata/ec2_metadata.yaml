@@ -627,6 +627,15 @@ ec2_DisassociateAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.DisassociateAddress
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.actions.DisassociateAddress
   services:
     ec2: {DisassociateAddress}
 ec2_ReleaseAddress:
