@@ -37,7 +37,7 @@ public class CognitoBasics
         var uiMethods = host.Services.GetRequiredService<UiMethods>();
 
         // clientId - The app client Id value that you can get from the AWS CDK script.
-        string clientId = "29g6vl2hkmlo91ni1rfvm9ggqd"; // "*** REPLACE WITH POOL ID VALUE FROM CDK SCRIPT";
+        string clientId = "29g6vl2hkmlo91ni1rfvm9ggqd"; // "*** REPLACE WITH CLIENT ID VALUE FROM CDK SCRIPT";
 
         // poolId - The pool Id that you can get from the AWS CDK script.
         string poolId = "us-west-2_zffFiT8i6"; // "*** REPLACE WITH POOL ID VALUE FROM CDK SCRIPT";
@@ -60,7 +60,6 @@ public class CognitoBasics
             password = Console.ReadLine();
         }
         while (password == string.Empty);
-        Console.WriteLine($"\bSigning up {userName}...");
 
         do
         {
@@ -68,6 +67,7 @@ public class CognitoBasics
             email = Console.ReadLine();
         } while (email == string.Empty);
 
+        Console.WriteLine($"\nSigning up {userName}...");
         await cognitoWrapper.SignUpAsync(clientId, userName, password, email);
 
         Console.WriteLine($"Adding {userName} to the user pool");
@@ -84,7 +84,7 @@ public class CognitoBasics
             Console.WriteLine("Sending a new confirmation code");
         }
 
-        Console.Write("Confirmation code (from Email): ");
+        Console.Write("Enter confirmation code (from Email): ");
         string code = Console.ReadLine();
 
         await cognitoWrapper.ConfirmSignupAsync(clientId, code, userName);
@@ -96,7 +96,7 @@ public class CognitoBasics
         var authResponse = await cognitoWrapper.InitiateAuthAsync(clientId, userName, password);
         var mySession = authResponse.Session;
 
-        var newSession = await cognitoWrapper.GetMFATokenAsync(mySession);
+        var newSession = await cognitoWrapper.AssociateSoftwareTokenAsync(mySession);
 
         Console.Write("Enter the 6-digit code displayed in Google Authenticator: ");
         string myCode = Console.ReadLine();

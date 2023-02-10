@@ -1,6 +1,8 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using System.Net;
+
 namespace CognitoActions;
 
 /// <summary>
@@ -107,7 +109,7 @@ public class CognitoWrapper
     /// <param name="mfaCode">The multi-factor authentication code.</param>
     /// <param name="session">The current application session.</param>
     /// <returns>An async Task</returns>
-    public async Task RespondToAuthChallengeAsync(string userName, string clientId, string mfaCode, string session)
+    public async Task<AuthenticationResultType> RespondToAuthChallengeAsync(string userName, string clientId, string mfaCode, string session)
     {
         Console.WriteLine("SOFTWARE_TOKEN_MFA challenge is generated");
 
@@ -123,8 +125,9 @@ public class CognitoWrapper
             Session = session
         };
 
-        var respondToAuthChallengeResult = await _cognitoService.RespondToAuthChallengeAsync(respondToAuthChallengeRequest);
-        Console.WriteLine("respondToAuthChallengeResult.getAuthenticationResult()" + respondToAuthChallengeResult.AuthenticationResult);
+        var response = await _cognitoService.RespondToAuthChallengeAsync(respondToAuthChallengeRequest);
+        Console.WriteLine($"Response to Authentication {response.AuthenticationResult}");
+        return response.AuthenticationResult;
     }
 
     // snippet-end:[Cognito.dotnetv3.RespondToAuthChallenge]
@@ -157,7 +160,7 @@ public class CognitoWrapper
     /// </summary>
     /// <param name="session"></param>
     /// <returns></returns>
-    public async Task<string> GetMFATokenAsync(string session)
+    public async Task<string> AssociateSoftwareTokenAsync(string session)
     {
         var softwareTokenRequest = new AssociateSoftwareTokenRequest
         {
@@ -232,7 +235,7 @@ public class CognitoWrapper
     /// <param name="code">The confirmation code sent to the user.</param>
     /// <param name="userName">The user name.</param>
     /// <returns></returns>
-    public async Task ConfirmSignupAsync(string clientId, string code, string userName)
+    public async Task<bool> ConfirmSignupAsync(string clientId, string code, string userName)
     {
         var signUpRequest = new ConfirmSignUpRequest
         {
@@ -241,8 +244,13 @@ public class CognitoWrapper
             Username = userName,
         };
 
-        await _cognitoService.ConfirmSignUpAsync(signUpRequest);
-        Console.WriteLine($"{userName} was confirmed");
+        var response = await _cognitoService.ConfirmSignUpAsync(signUpRequest);
+        if (response.HttpStatusCode == HttpStatusCode.OK)
+        {
+            Console.WriteLine($"{userName} was confirmed");
+            return true;
+        }
+        return false;
     }
 
     // snippet-end:[Cognito.dotnetv3.ConfirmSignUp]
@@ -277,7 +285,7 @@ public class CognitoWrapper
     /// <param name="clientId">The Id of the client application.</param>
     /// <param name="userName">The user name of user who will receive the code.</param>
     /// <returns></returns>
-    public async Task ResendConfirmationCodeAsyc(string clientId, string userName)
+    public async Task<CodeDeliveryDetailsType> ResendConfirmationCodeAsyc(string clientId, string userName)
     {
         var codeRequest = new ResendConfirmationCodeRequest
         {
@@ -288,6 +296,8 @@ public class CognitoWrapper
         var response = await _cognitoService.ResendConfirmationCodeAsync(codeRequest);
 
         Console.WriteLine($"Method of delivery is {response.CodeDeliveryDetails.DeliveryMedium}");
+
+        return response.CodeDeliveryDetails;
     }
 
     // snippet-end:[Cognito.dotnetv3.ResendConfirmationCode]
@@ -299,7 +309,7 @@ public class CognitoWrapper
     /// <param name="userName">The name of the user.</param>
     /// <param name="poolId">The Id of the Amazon Cognito user pool.</param>
     /// <returns></returns>
-    public async Task GetAdminUserAsync(string userName, string poolId)
+    public async Task<UserStatusType> GetAdminUserAsync(string userName, string poolId)
     {
         AdminGetUserRequest userRequest = new AdminGetUserRequest
         {
@@ -310,6 +320,7 @@ public class CognitoWrapper
         var response = await _cognitoService.AdminGetUserAsync(userRequest);
 
         Console.WriteLine($"User status {response.UserStatus}");
+        return response.UserStatus;
     }
 
     // snippet-end:[Cognito.dotnetv3.GetAdminUser]
