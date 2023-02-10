@@ -52,7 +52,7 @@ sqs_CreateQueue:
           excerpts:
             - description:
               snippet_tags:
-                - sqs.ruby.create-queue
+                - ruby.example_code.sqs.CreateQueue
     SAP ABAP:
       versions:
         - sdk_version: 1
