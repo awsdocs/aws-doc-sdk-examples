@@ -104,7 +104,8 @@ for more information.
    interactive terminal. `-v <your_cred...` is optional but recommended. It will mount your local credentials
    file to the container.
 2. The terminal initiates a bash instance at the root of the container. Run `cd dotnetv3` and then you
-   can run examples and tests by navigating to a service folder and following the README instructions there.
+   can run examples and tests by navigating to a service folder and following the README instructions there. 
+   For example, navigate to the `dotnetv3/Route53/Scenarios` folder and execute the `dotnet run` command to build and run an interactive scenario for Amazon Route 53.
 
 ## Additional resources
 
