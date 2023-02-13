@@ -4,5 +4,5 @@
 FROM composer/composer:latest
 COPY . /php/
 WORKDIR /php
-RUN find . -name "composer.json" -not -path "*vendor*" -exec bash -c "dirname {} | xargs -I % composer install --working-dir=%" \;
+RUN find /php -name "composer.json" -not -path "*vendor*" -exec bash -c "dirname {} | xargs -I % composer install --working-dir=%" \;
 CMD ["bash"]
