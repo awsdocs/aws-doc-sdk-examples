@@ -6,11 +6,14 @@
 #include "rds_gtests.h"
 #include <fstream>
 #include <aws/core/client/ClientConfiguration.h>
+#include <aws/testing/mocks/http/MockHttpClient.h>
 
 Aws::SDKOptions AwsDocTest::RDS_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::RDS_GTests::s_clientConfig;
+static const char ALLOCATION_TAG[] = "RDS_GTEST";
 
 void AwsDocTest::RDS_GTests::SetUpTestSuite() {
+    s_options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     InitAPI(s_options);
 
     // s_clientConfig must be a pointer because the client config must be initialized
@@ -19,13 +22,13 @@ void AwsDocTest::RDS_GTests::SetUpTestSuite() {
 }
 
 void AwsDocTest::RDS_GTests::TearDownTestSuite() {
-     ShutdownAPI(s_options);
+    ShutdownAPI(s_options);
 
 }
 
 void AwsDocTest::RDS_GTests::SetUp() {
-    m_savedBuffer = std::cout.rdbuf();
-    std::cout.rdbuf(&m_coutBuffer);
+//    m_savedBuffer = std::cout.rdbuf();
+//    std::cout.rdbuf(&m_coutBuffer);
 
     m_savedInBuffer = std::cin.rdbuf();
     std::cin.rdbuf(&m_cinBuffer);
@@ -62,3 +65,36 @@ void AwsDocTest::RDS_GTests::AddCommandLineResponses(
     m_cinBuffer.str(stringStream.str());
 }
 
+int AwsDocTest::MyStringBuffer::underflow() {
+    int result = basic_stringbuf::underflow();
+    if (result == EOF) {
+        std::cerr << "Error AwsDocTest::MyStringBuffer::underflow." << std::endl;
+        throw std::underflow_error("AwsDocTest::MyStringBuffer::underflow");
+    }
+
+    return result;
+}
+
+AwsDocTest::MockHTTP::MockHTTP() {
+    mockHttpClient = Aws::MakeShared<MockHttpClient>(ALLOCATION_TAG);
+    mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
+    mockHttpClientFactory->SetClient(mockHttpClient);
+    SetHttpClientFactory(mockHttpClientFactory);
+    requestTmp = CreateHttpRequest(Aws::Http::URI("https://test.com/"),
+                                   Aws::Http::HttpMethod::HTTP_GET,
+                                   Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+}
+
+AwsDocTest::MockHTTP::~MockHTTP() {
+    Aws::Http::CleanupHttp();
+    Aws::Http::InitHttp();
+}
+
+void AwsDocTest::MockHTTP::addResponseWithBody(const std::string &body,
+                                               Aws::Http::HttpResponseCode httpResponseCode) {
+    std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
+            ALLOCATION_TAG, requestTmp);
+    goodResponse->SetResponseCode(httpResponseCode);
+    goodResponse->GetResponseBody() << body;
+    mockHttpClient->AddResponseToReturn(goodResponse);
+}

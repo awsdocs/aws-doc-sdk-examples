@@ -10,6 +10,11 @@
 #include <aws/core/Aws.h>
 #include <memory>
 #include <gtest/gtest.h>
+#include <aws/core/http/standard/StandardHttpRequest.h>
+
+class MockHttpClient;
+
+class MockHttpClientFactory;
 
 namespace AwsDocTest {
 
@@ -44,7 +49,24 @@ namespace AwsDocTest {
 
         MyStringBuffer m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
-   };
+    }; // RDS_GTests
+
+    class MockHTTP {
+    public:
+        MockHTTP();
+
+        virtual ~MockHTTP();
+
+        void addResponseWithBody(const std::string &body,
+                                 Aws::Http::HttpResponseCode httpResponseCode = Aws::Http::HttpResponseCode::OK);
+
+    private:
+
+        std::shared_ptr<MockHttpClient> mockHttpClient;
+        std::shared_ptr<MockHttpClientFactory> mockHttpClientFactory;
+        std::shared_ptr<Aws::Http::HttpRequest> requestTmp;
+    }; // MockHTTP
+
 } // AwsDocTest
 
 #endif //RDS_EXAMPLES_RDS_GTESTS_H

@@ -157,13 +157,6 @@ namespace AwsDoc {
          */
         bool testForEmptyString(const Aws::String &string);
 
-        //! Test routine passed as argument to askQuestion routine.
-        /*!
-         \sa alwaysTrueTest()
-         \return bool: Always true.
-         */
-        bool alwaysTrueTest(const Aws::String &) { return true; }
-
         //! Command line prompt/response utility function.
         /*!
          \\sa askQuestion()
@@ -370,7 +363,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                     autoIncParameter.GetAllowedValues(), '-');
             if (splitValues.size() == 2) {
                 int newValue = askQuestionForIntRange(
-                        Aws::String("Enter a new value int the range ") +
+                        Aws::String("Enter a new value in the range ") +
                         autoIncParameter.GetAllowedValues() + ": ",
                         splitValues[0], splitValues[1]);
                 autoIncParameter.SetParameterValue(std::to_string(newValue));
@@ -440,7 +433,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
     else {
         std::cout << "Let's create a DB instance." << std::endl;
         const Aws::String administratorName = askQuestion(
-                "Enter an administrator user name for the database: ");
+                "Enter an administrator username for the database: ");
         const Aws::String administratorPassword = askQuestion(
                 "Enter a password for the administrator (at least 8 characters): ");
         Aws::Vector<Aws::RDS::Model::DBEngineVersion> engineVersions;
@@ -502,7 +495,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                 client.CreateDBInstance(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "The DB instance creation has been initiated successfully."
+            std::cout << "The DB instance creation has started."
                       << std::endl;
         }
         else {
@@ -572,7 +565,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                     client.CreateDBSnapshot(request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "Snapshot creation was successfully initiated."
+                std::cout << "Snapshot creation has started."
                           << std::endl;
             }
             else {
@@ -685,7 +678,6 @@ bool AwsDoc::RDS::getDBParameters(const Aws::String &parameterGroupName,
                 else {
                     parametersResult.push_back(parameter);
                 }
-
             }
 
             marker = outcome.GetResult().GetMarker();
@@ -757,17 +749,22 @@ bool AwsDoc::RDS::describeDBInstance(const Aws::String &dbInstanceIdentifier,
     Aws::RDS::Model::DescribeDBInstancesOutcome outcome =
             client.DescribeDBInstances(request);
 
+    bool result = true;
     if (outcome.IsSuccess()) {
         instanceResult = outcome.GetResult().GetDBInstances()[0];
     }
+        // This example does not log an error if the DB instance does not exist.
+        // Instead, it returns false.
     else if (outcome.GetError().GetErrorType() !=
              Aws::RDS::RDSErrors::D_B_INSTANCE_NOT_FOUND_FAULT) {
-        std::cerr << "Error with RDS::DescribeDBInstances. "
+        result = false;
+        std::cerr << "Error with RDS::GetDBInstances. "
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
+
     // snippet-end:[cpp.example_code.rds.describe_db_instances]
-    return outcome.IsSuccess();
+    return result;
 }
 
 //! Routine which gets available 'micro' DB instance classes, displays the list
@@ -861,7 +858,7 @@ bool AwsDoc::RDS::cleanUpResources(const Aws::String &parameterGroupName,
                     client.DeleteDBInstance(request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "DB instance deletion was successfully initiated."
+                std::cout << "DB instance deletion has started."
                           << std::endl;
             }
             else {
@@ -883,7 +880,7 @@ bool AwsDoc::RDS::cleanUpResources(const Aws::String &parameterGroupName,
         do {
             std::this_thread::sleep_for(std::chrono::seconds(1));
             ++counter;
-            if (counter > 600) {
+            if (counter > 800) {
                 std::cerr << "Wait for instance to delete timed out ofter " << counter
                           << " seconds." << std::endl;
                 return false;
