@@ -912,6 +912,15 @@ ec2_DeleteSecurityGroup:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.DeleteSecurityGroup
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.SecurityGroups.deleteSecurityGroupV3
     SAP ABAP:
       versions:
         - sdk_version: 1
