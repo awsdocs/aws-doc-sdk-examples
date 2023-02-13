@@ -5,7 +5,7 @@
 # This code example demonstrates how to specify the time interval during which messages to an
 # Amazon Simple Queue Service (Amazon SQS) queue are not visible after being received.
 
-# snippet-start:[s3.sqs-ruby-example-message-visibility-timeout.rb]
+# snippet-start:[ruby.example_code.sqs.MessageVisibilityTimeout]
 
 require "aws-sdk-sqs"  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
@@ -41,4 +41,4 @@ begin
 rescue Aws::SQS::Errors::NonExistentQueue
   puts "Cannot receive messages for a queue named '#{receive_queue_name}', as it does not exist."
 end
-# snippet-end:[s3.sqs-ruby-example-message-visibility-timeout.rb]
+# snippet-end:[ruby.example_code.sqs.MessageVisibilityTimeout]

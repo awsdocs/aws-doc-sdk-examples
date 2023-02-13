@@ -4,7 +4,7 @@
 # Purpose
 # This code example demonstrates how to list the URLs of available queues in Amazon Simple Queue Service (Amazon SQS).
 
-# snippet-start:[s3.sqs-ruby-example-show-queues.rb]
+# snippet-start:[ruby.example_code.sqs.ShowQueues]
 
 require "aws-sdk-sqs"
 require "aws-sdk-sts"
@@ -67,5 +67,4 @@ def run_me
   list_queue_attributes(sqs_client, queue_url)
 end
 
-run_me if $PROGRAM_NAME == __FILE__
-# snippet-end:[s3.sqs-ruby-example-show-queues.rb]
+# snippet-end:[ruby.example_code.sqs.ShowQueues]

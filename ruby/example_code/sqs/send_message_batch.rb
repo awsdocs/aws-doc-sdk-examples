@@ -4,7 +4,7 @@
 # Purpose
 # This code example demonstrates how to send multiple messages as a batch to a queue in Amazon Simple Queue Service (Amazon SQS).
 
-# snippet-start:[s3.sqs-ruby-example-send-message-batch.rb]
+# snippet-start:[ruby.example_code.sqs.SendMessageBatch]
 
 require "aws-sdk-sqs"
 require "aws-sdk-sts"
@@ -75,5 +75,4 @@ def run_me
   end
 end
 
-run_me if $PROGRAM_NAME == __FILE__
-# snippet-end:[s3.sqs-ruby-example-send-message-batch.rb]
+# snippet-end:[ruby.example_code.sqs.SendMessageBatch]
