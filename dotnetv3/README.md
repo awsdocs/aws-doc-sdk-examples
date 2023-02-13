@@ -1,24 +1,33 @@
-# README for AWS SDK for .NET 3.x documentation examples
+# AWS SDK for .NET 3.x documentation examples
 
+## Overview
+The code examples in this topic show you how to use the AWS SDK for .NET 3.x with AWS.
 
-This workspace contains both single service and cross-service examples for the AWS SDK for .NET.
+The AWS SDK for .NET 3.x provides a .NET API for AWS infrastructure services. Using the SDK, you can build applications on top of Amazon S3, Amazon EC2, Amazon DynamoDB, and more.
 
-All of the examples run on version 3.5 or later of the AWS SDK for .NET using .NET Core 5.0.
-Each service directory also contains a **Readme.md** file with information about the code examples within that directory.
+## Types of code examples
+* **Single-service actions** - Code examples that show you how to call individual service functions.
 
-## AWS single-service examples
+* **Single-service scenarios** - Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-The AWS single-service C# .NET examples demonstrate how to perform simple API calls. They are divided into folders by the AWS service that they illustrate.
+* **Cross-service examples** - Sample applications that work across multiple AWS services.
 
-## AWS cross-service examples
+### Find code examples
+Single-service actions and scenarios are organized by AWS service in the [*dotnetv3 folder*](/dotnetv3/). A README in each folder lists and describes how to run the examples.
 
-AWS cross-service examples demonstrate how to combine multiple AWS services into a cohesive application. By following these examples, you will gain a deeper understanding of how to create C# .NET applications using .NET Core 5.0.
+Cross-service examples are located in the [*cross-services folder*](/dotnetv3/cross-service/). A README in each folder describes how to run the example.
 
-Each example in the cross-services example directory includes a README.md file that describes how to create and run the example.
+## ⚠️ Important
+* Running this code might result in charges to your AWS account.
+* Running the tests might result in charges to your AWS account.
+*  We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+* This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 ## Prerequisites
 
 To build and run the code examples for the AWS SDK for .NET, you need the following:
+
+- The appropriate [.NET SDK for .NET](https://dotnet.microsoft.com/en-us/download/visual-studio-sdks). Most examples use .NET 6, but some require .NET 5.
 
 - The AWS SDK for .NET. For more information, see the [AWS SDK for .NET
 Developer Guide](https://docs.aws.amazon.com/sdk-for-net/latest/developer-guide/welcome.html).
@@ -40,84 +49,11 @@ In general, follow these steps:
    and a **.csproj** file.
 4. Run the project using the ```dotnet run``` command.
 
-## Running the unit tests
+## Tests
+⚠️ Running the tests might result in charges to your AWS account.
 
-All of the code example projects have a companion unit test,
-where the name of the unit test project is the same as the tested project,
-with a **Test** suffix.
-
-We use [Xunit](https://xunit.net/) as the framework for our unit tests and
-in most cases use [moq4](https://github.com/moq/moq4) to create unit tests with mocked objects.
-You can create an Xunit project and install the **moq** Nuget package in that project with
-the following commands:
-
-```
-dotnet new xunit -o MyTestProject
-cd MyTestProject
-dotnet add package moq
-```
-
-A typical unit test looks something like the following,
-which tests a call to **CreateTableAsync** in the
-**CreateTable** project:
-
-```
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.Model;
-
-using Moq;
-
-using Xunit;
-
-namespace DynamoDBCRUD
-{
-    public class UnitTest1
-    {
-        private static readonly string _tableName = "testtable";
-
-        private IAmazonDynamoDB CreateMockDynamoDBClient()
-        {
-            var mockDynamoDBClient = new Mock<IAmazonDynamoDB>();
-
-            mockDynamoDBClient.Setup(client => client.CreateTableAsync(
-                It.IsAny<CreateTableRequest>(),
-                It.IsAny<CancellationToken>()))
-                .Callback<CreateTableRequest, CancellationToken>((request, token) =>
-                {
-                    if (!string.IsNullOrEmpty(_tableName))
-                    {
-                        bool areEqual = _tableName == request.TableName;
-                        Assert.True(areEqual, "The provided table name is not the one used to create the table");
-                    }
-                })
-                .Returns((CreateTableRequest r, CancellationToken token) =>
-                {
-                    return Task.FromResult(new CreateTableResponse { HttpStatusCode = HttpStatusCode.OK });
-                });
-
-            return mockDynamoDBClient.Object;
-        }
-
-        [Fact]
-        public async void CheckCreateTable()
-        {
-            IAmazonDynamoDB client = CreateMockDynamoDBClient();
-
-            var result = await CreateTable.MakeTableAsync(client, _tableName);
-
-            bool ok = result.HttpStatusCode == HttpStatusCode.OK;
-            Assert.True(ok, "Could NOT create table " + _tableName);
-        }
-    }
-}
-```
-
-To run this test,
-navigate to the **CreateTableTest** folder and run:
+Most service folders also include a test project and either integration tests, unit tests, or both. 
+To run all the tests, navigate to the folder that contains the test project and then issue the following command:
 
 ```
 dotnet test
@@ -129,21 +65,45 @@ If you want more information, run:
 dotnet test -l "console;verbosity=detailed"
 ```
 
+To specify either unit or integration tests only, use the following category filters with the desired verbosity:
+```
+dotnet test --filter Category=Unit -l "console;verbosity=detailed"
+```
+or
+```
+dotnet test --filter Category=Integration -l "console;verbosity=detailed"
+```
+
 ## Docker image (Beta)
 This example code will soon be available in a container image
 hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded 
-with all .NET examples with dependencies pre-resolved, allowing you to explore
+with all .NET examples ready to build and run, so that you can explore
 these examples in an isolated environment.
 
-⚠️ As of January 2023, the [SDK for .NET v3 image](https://gallery.ecr.aws/aws-docs-sdk-examples/dotnetv3) is available on ECR Public but is still
+⚠️ As of February 2023, the [SDK for .NET v3 image](https://gallery.ecr.aws/aws-docs-sdk-examples/dotnetv3) is available on ECR Public but is still
 undergoing active development. Refer to 
 [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4126) 
 for more information. 
 
+### Build the Docker image
+
+1. Install and run Docker on your machine.
+2. Navigate to the same directory as this README.
+3. Optionally, un-comment the .NET 5 setup in the Docker file. .NET 6 will be installed by default.
+4. Run `docker build -t <image_name> .` where `image_name` is a name you provide for the image.
+
+### Launch the Docker container
+
+1. Run `docker run -it -v <your_credentials_folder_path>/.aws/credentials:/root/.aws/credentials <image_name>`. `-it` launches an
+   interactive terminal. `-v <your_cred...` is optional but recommended. It will mount your local credentials
+   file to the container.
+2. The terminal initiates a bash instance at the root of the container. Run `cd dotnetv3`. Then, you
+   can run examples and tests by navigating to a service folder and following the README instructions there. 
+   For example, navigate to the `dotnetv3/Route53/Scenarios` folder and execute the `dotnet run` command to build and run an interactive scenario for Amazon Route 53.
+
 ## Additional resources
 
-- As an AWS best practice, grant all code least privilege, or only the permissions required to perform a task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the *AWS Identity and Access Management User Guide*.
-- This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [Region Table](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/) on the AWS website.
-- Running this code might result in charges to your AWS account.
+* [*AWS SDK for .NET Version 3 API Reference*](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/index.html)
+* [*AWS SDK for .NET Developer Guide*](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/welcome.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
