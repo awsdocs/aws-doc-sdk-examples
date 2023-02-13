@@ -5,6 +5,7 @@
 # This code example demonstrates how to send a message to a queue in Amazon Simple Queue Service (Amazon SQS).
 
 # snippet-start:[ruby.example_code.sqs.SendMessage]
+
 require "aws-sdk-sqs"
 require "aws-sdk-sts"
 

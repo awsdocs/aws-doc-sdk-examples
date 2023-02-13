@@ -67,5 +67,4 @@ def run_me
   list_queue_attributes(sqs_client, queue_url)
 end
 
-run_me if $PROGRAM_NAME == __FILE__
 # snippet-end:[ruby.example_code.sqs.ShowQueues]

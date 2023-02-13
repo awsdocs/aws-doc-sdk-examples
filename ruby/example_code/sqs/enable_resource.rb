@@ -36,3 +36,4 @@ sqs.set_queue_attributes({
   }
 })
 # snippet-end:[ruby.example_code.sqs.EnableResource]
+

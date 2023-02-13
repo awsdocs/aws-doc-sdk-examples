@@ -75,5 +75,5 @@ def run_me
   end
 end
 
-run_me if $PROGRAM_NAME == __FILE__
 # snippet-end:[ruby.example_code.sqs.SendMessageBatch]
+
