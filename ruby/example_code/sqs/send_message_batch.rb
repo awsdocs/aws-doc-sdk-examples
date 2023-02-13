@@ -76,4 +76,3 @@ def run_me
 end
 
 # snippet-end:[ruby.example_code.sqs.SendMessageBatch]
-
