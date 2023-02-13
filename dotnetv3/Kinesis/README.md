@@ -51,6 +51,13 @@ dotnet run
 
 Alternatively, you can run the example from within your IDE.
 
+## Tests
+
+⚠ Running the tests might result in charges to your AWS account.
+
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `dotnetv3` folder.
+
 ## Additional resources
 * [Amazon Kinesis Developer Guide](https://docs.aws.amazon.com/streams/latest/dev/introduction.html)
 * [Amazon Kinesis API Reference](https://docs.aws.amazon.com/kinesis/latest/APIReference/Welcome.html)
