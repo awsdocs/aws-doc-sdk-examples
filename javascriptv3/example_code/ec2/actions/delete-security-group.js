@@ -12,7 +12,7 @@ import { client } from "../libs/client.js";
 
 export const main = async () => {
   const command = new DeleteSecurityGroupCommand({
-    GroupId: "sg-0e8810a92833675aa",
+    GroupId: "GROUP_ID",
   });
 
   try {

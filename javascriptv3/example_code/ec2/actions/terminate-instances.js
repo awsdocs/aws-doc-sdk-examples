@@ -12,7 +12,7 @@ import { client } from "../libs/client.js";
 
 export const main = async () => {
   const command = new TerminateInstancesCommand({
-    InstanceIds: ["i-06e9c3b2aa4ef11f6"],
+    InstanceIds: ["INSTANCE_ID"],
   });
 
   try {
