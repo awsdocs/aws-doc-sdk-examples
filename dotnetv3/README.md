@@ -59,12 +59,6 @@ To run all the tests, navigate to the folder that contains the test project and 
 dotnet test
 ```
 
-Alternatively, you can open the example solution and use the Visual Studio Test Runner to run the tests.
-
-```
-dotnet test
-```
-
 If you want more information, run:
 
 ```
