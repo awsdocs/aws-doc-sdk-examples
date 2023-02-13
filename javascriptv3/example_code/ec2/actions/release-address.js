@@ -1,38 +1,31 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide//ec2-example-elastic-ip-addresses.html
+import { fileURLToPath } from "url";
 
-Purpose:
-ec2_releaseaddress.js demonstrates how to release an Elastic IP address.
-
-Inputs (replace in code):
-- ALLOCATION_ID
-
-Running the code:
-node ec2_releaseaddress.js
-*/
-
-// snippet-start:[ec2.JavaScript.Addresses.releaseAddressV3]
-// Import required AWS SDK clients and commands for Node.js
+// snippet-start: [ec2.JavaScript.Addresses.releaseAddressV3]
 import { ReleaseAddressCommand } from "@aws-sdk/client-ec2";
-import { ec2Client } from "./libs/ec2Client";
 
-// Set the parameters
-const paramsReleaseAddress = { AllocationId: "ALLOCATION_ID" }; //ALLOCATION_ID
+import { client } from "../libs/client.js";
 
-const run = async () => {
+export const main = async () => {
+  const command = new ReleaseAddressCommand({
+    // You can also use PublicIp, but that is for EC2 classic which is being retired.
+    AllocationId: "ALLOCATION_ID",
+  });
+
   try {
-    const data = await ec2Client.send(new ReleaseAddressCommand(paramsReleaseAddress));
-    console.log("Address released");
-    return data;
+    await client.send(command);
+    console.log("Successfully released address.");
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
-// snippet-end:[ec2.JavaScript.Addresses.releaseAddressV3]
-// For unit tests only.
-// module.exports ={run, paramsReleaseAddress};
+// snippet-end: [ec2.JavaScript.Addresses.releaseAddressV3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

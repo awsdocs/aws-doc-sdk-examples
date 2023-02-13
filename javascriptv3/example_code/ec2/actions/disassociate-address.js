@@ -13,8 +13,8 @@ import { client } from "../libs/client.js";
 // Disassociate an Elastic IP address from an instance.
 export const main = async () => {
   const command = new DisassociateAddressCommand({
-    // You can also use the AssociationId
-    PublicIp: "PUBLIC_IP",
+    // You can also use PublicIp, but that is for EC2 classic which is being retired.
+    AssociationId: "ASSOCIATION_ID",
   });
 
   try {
