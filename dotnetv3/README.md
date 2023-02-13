@@ -77,7 +77,7 @@ dotnet test --filter Category=Integration -l "console;verbosity=detailed"
 ## Docker image (Beta)
 This example code will soon be available in a container image
 hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded 
-with all .NET examples ready to build and run, allowing you to explore
+with all .NET examples ready to build and run, so that you can explore
 these examples in an isolated environment.
 
 ⚠️ As of February 2023, the [SDK for .NET v3 image](https://gallery.ecr.aws/aws-docs-sdk-examples/dotnetv3) is available on ECR Public but is still
@@ -87,17 +87,17 @@ for more information.
 
 ### Build the Docker image
 
-1. Install and run docker on your machine.
-2. Navigate to the same directory as this readme.
-3. Optionally un-comment the .NET 5 setup in the docker file. .NET 6 will be installed by default.
-3. Run `docker build -t <image_name> .` where `image_name` is a name you provide for the image.
+1. Install and run Docker on your machine.
+2. Navigate to the same directory as this README.
+3. Optionally, un-comment the .NET 5 setup in the Docker file. .NET 6 will be installed by default.
+4. Run `docker build -t <image_name> .` where `image_name` is a name you provide for the image.
 
 ### Launch the Docker container
 
 1. Run `docker run -it -v <your_credentials_folder_path>/.aws/credentials:/root/.aws/credentials <image_name>`. `-it` launches an
    interactive terminal. `-v <your_cred...` is optional but recommended. It will mount your local credentials
    file to the container.
-2. The terminal initiates a bash instance at the root of the container. Run `cd dotnetv3` and then you
+2. The terminal initiates a bash instance at the root of the container. Run `cd dotnetv3`. Then, you
    can run examples and tests by navigating to a service folder and following the README instructions there. 
    For example, navigate to the `dotnetv3/Route53/Scenarios` folder and execute the `dotnet run` command to build and run an interactive scenario for Amazon Route 53.
 
