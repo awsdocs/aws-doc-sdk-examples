@@ -75,6 +75,7 @@ struct ExampleCommand: ParsableCommand {
         //=====================================================================
 
         let tableName = String.uniqueName(withPrefix: "ddb-movies-sample", maxDigits: 8)
+
         print("Creating table \"\(tableName)\"...")
 
         let movieDatabase = try await MovieTable(region: awsRegion,
