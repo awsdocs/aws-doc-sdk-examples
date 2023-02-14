@@ -1,31 +1,44 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-security-groups.html
+import { fileURLToPath } from "url";
 
-Purpose:
-ec2_describeregionsandzones.js demonstrates how to retrieve information about Amazon EC2 regions and availability zones.
-
-Running the code:
-node ec2_describeregionsandzones.js
-*/
-// snippet-start:[ec2.JavaScript.Regions.describeRegionsV3]
-// Import required AWS SDK clients and commands for Node.js
+// snippet-start: [ec2.JavaScript.Regions.describeRegionsV3]
 import { DescribeRegionsCommand } from "@aws-sdk/client-ec2";
-import { ec2Client } from "./libs/ec2Client";
 
-const run = async () => {
+import { client } from "../libs/client.js";
+
+export const main = async () => {
+  const command = new DescribeRegionsCommand({
+    // By default this command will not show regions that require you to opt-in.
+    // When AllRegions true even the regions that require opt-in will be returned.
+    AllRegions: true,
+    // You can omit the Filters property if you want to get all regions.
+    Filters: [
+      {
+        Name: "region-name",
+        // You can specify multiple values for a filter.
+        // You can also use '*' as a wildcard. This will return all
+        // of the regions that start with `us-east-`.
+        Values: ["ap-southeast-4"],
+      },
+    ],
+  });
+
   try {
-    const data = await ec2Client.send(new DescribeRegionsCommand({}));
-    console.log("Availability Zones: ", data.Regions);
-    return data;
+    const { Regions } = await client.send(command);
+    const regionsList = Regions.map((reg) => ` • ${reg.RegionName}`);
+    console.log("Found regions:");
+    console.log(regionsList.join("\n"));
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
-// snippet-end:[ec2.JavaScript.Regions.describeRegionsV3]
-// For unit tests only.
-// module.exports ={run, params};
+// snippet-end: [ec2.JavaScript.Regions.describeRegionsV3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

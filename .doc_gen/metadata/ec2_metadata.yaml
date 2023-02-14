@@ -1111,6 +1111,15 @@ ec2_DescribeRegions:
             - description:
               snippet_tags:
                 - ec2.rust.ec2-helloworld
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.Regions.describeRegionsV3
     SAP ABAP:
       versions:
         - sdk_version: 1
