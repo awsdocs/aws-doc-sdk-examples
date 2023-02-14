@@ -1160,6 +1160,15 @@ ec2_MonitorInstances:
             - description:
               snippet_tags:
                 - ec2.rust.monitor-instance
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.Instances.monitorInstancesV3
     SAP ABAP:
       versions:
         - sdk_version: 1

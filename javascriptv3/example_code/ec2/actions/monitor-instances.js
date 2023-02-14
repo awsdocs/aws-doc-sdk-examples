@@ -1,52 +1,38 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-managing-instances.html
-
-Purpose:
-ec2_monitorinstances.js demonstrates how to enable detailed monitoring for Amazon EC2 instances.
-
-Inputs (replace in code):
-- INSTANCE_ID
-- STATE: 'ON' or 'OFF'
-
-Running the code:
-node ec2_monitorinstances.js
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-// snippet-start:[ec2.JavaScript.Instances.monitorInstancesV3]
-// Import required AWS SDK clients and commands for Node.js
-import {
-  MonitorInstancesCommand,
-  UnmonitorInstancesCommand,
-} from "@aws-sdk/client-ec2";
-import { ec2Client } from "./libs/ec2Client";
+import { fileURLToPath } from "url";
 
-// Set the parameters
-const params = { InstanceIds: ["INSTANCE_ID"] }; // Array of INSTANCE_IDs
+// snippet-start: [ec2.JavaScript.Instances.monitorInstancesV3]
+import { MonitorInstancesCommand } from "@aws-sdk/client-ec2";
 
-const run = async () => {
-  if (process.argv[4].toUpperCase() === "ON") {
-    try {
-      const data = await ec2Client.send(new MonitorInstancesCommand(params));
-      console.log("Success", data.InstanceMonitorings);
-      return data;
-    } catch (err) {
-      console.log("Error", err);
-    }
-  } else if (process.argv[4].toUpperCase() === "OFF") {
-    try {
-      const data = await ec2Client.send(new UnmonitorInstancesCommand(params));
-      console.log("Success", data.InstanceMonitorings);
-      return data;
-    } catch (err) {
-      console.log("Error", err);
-    }
+import { client } from "../libs/client.js";
+
+// Turn on detailed monitoring for the selected instance.
+// By default metrics are sent to Amazon CloudWatch every 5 minutes.
+// For a cost you can enable detailed monitoring which sends metrics every minute.
+export const main = async () => {
+  const command = new MonitorInstancesCommand({
+    InstanceIds: ["INSTANCE_ID"],
+  });
+
+  try {
+    const { InstanceMonitorings } = await client.send(command);
+    const instancesBeingMonitored = InstanceMonitorings.map(
+      (im) =>
+        ` • Detailed monitoring state for ${im.InstanceId} is ${im.Monitoring.State}.`
+    );
+    console.log("Monitoring status:");
+    console.log(instancesBeingMonitored.join("\n"));
+  } catch (err) {
+    console.error(err);
   }
 };
-run();
-// snippet-end:[ec2.JavaScript.Instances.monitorInstancesV3]
-// For unit tests only.
-// module.exports ={run, params};
+// snippet-end: [ec2.JavaScript.Instances.monitorInstancesV3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
