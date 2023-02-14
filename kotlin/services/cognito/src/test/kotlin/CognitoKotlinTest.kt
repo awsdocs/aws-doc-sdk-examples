@@ -52,7 +52,6 @@ class CognitoKotlinTest {
 
     @BeforeAll
     fun setup() {
-
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
 
@@ -102,7 +101,6 @@ class CognitoKotlinTest {
     @Test
     @Order(2)
     fun createUserPoolTest() = runBlocking {
-
         userPoolId = createPool(userPoolName).toString()
         Assertions.assertTrue(!userPoolId.isEmpty())
         println("Test 2 passed")
@@ -111,7 +109,6 @@ class CognitoKotlinTest {
     @Test
     @Order(3)
     fun createAdminUserTest() = runBlocking {
-
         createNewUser(userPoolId, username, email, password)
         println("Test 3 passed")
     }
@@ -119,7 +116,6 @@ class CognitoKotlinTest {
     @Test
     @Order(4)
     fun signUpUserTest() = runBlocking {
-
         signUp(clientId, secretkey, username, password, email)
         println("Test 4 passed")
     }
