@@ -114,7 +114,7 @@ suspend fun main(args: Array<String>) {
 
 // snippet-start:[cognito.kotlin.initiateauth.main]
 suspend fun checkAuthMethod(clientIdVal: String, userNameVal: String, passwordVal: String, userPoolIdVal: String): AdminInitiateAuthResponse {
-    val authParas = mutableMapOf <String, String>()
+    val authParas = mutableMapOf<String, String>()
     authParas["USERNAME"] = userNameVal
     authParas["PASSWORD"] = passwordVal
 
