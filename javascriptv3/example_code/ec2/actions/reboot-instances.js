@@ -1,37 +1,30 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/ec2-example-managing-instances.html
+import { fileURLToPath } from "url";
 
-Purpose:
-ec2_rebootinstances.js demonstrates how to queue a reboot request for one or more Amazon EC2 instances.
-
-Inputs (replace in code):
-- INSTANCE_ID
-
-Running the code:
-node ec2_rebootinstances.js
-*/
-// snippet-start:[ec2.JavaScript.Instances.rebootInstancesV3]
-// Import required AWS SDK clients and commands for Node.js
+// snippet-start: [ec2.JavaScript.Instances.rebootInstancesV3]
 import { RebootInstancesCommand } from "@aws-sdk/client-ec2";
-import { ec2Client } from "./libs/ec2Client.js";
 
-// Set the parameters
-const params = { InstanceIds: ["INSTANCE_ID"] }; // Array of INSTANCE_IDs
+import { client } from "../libs/client.js";
 
-const run = async () => {
+export const main = async () => {
+  const command = new RebootInstancesCommand({
+    InstanceIds: ["INSTANCE_ID"],
+  });
+
   try {
-    const data = await ec2Client.send(new RebootInstancesCommand(params));
-    console.log("Success", data.InstanceMonitorings);
-    return data;
+    await client.send(command);
+    console.log("Instance rebooted successfully.");
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
-// snippet-end:[ec2.JavaScript.Instances.rebootInstancesV3]
-// For unit tests only.
-// module.exports ={run, params};
+// snippet-end: [ec2.JavaScript.Instances.rebootInstancesV3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
