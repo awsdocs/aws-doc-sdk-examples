@@ -1,3 +1,8 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 import com.kotlin.cognito.adminRespondToAuthChallenge
 import com.kotlin.cognito.checkAuthMethod
 import com.kotlin.cognito.confirmSignUp
