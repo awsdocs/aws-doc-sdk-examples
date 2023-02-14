@@ -15,52 +15,28 @@ SQS is a fully managed message queuing service that makes it easy to decouple an
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Create a queue](./sqs-ruby-example-create-queue.rb) (`CreateQueue`)
+* [Create a queue](./create_queue.rb) (`CreateQueue`)
 
-* [Delete a queue](./sqs-ruby-example-delete-queue.rb) (`DeleteQueue`)
+* [Delete a queue](./delete_queue.rb) (`DeleteQueue`)
 
-* [Enable a resource](./sqs-ruby-example-get-messages.rb) (`SetQueueAttributes`)
+* [Enable a resource](./enable_resource.rb) (`SetQueueAttributes`)
 
-* [Enable long polling](./sqs-ruby-example-enable-long-polling.rb) (`SetQueueAttributes`)
+* [Receive messages](./receive_messages.rb) (`ReceiveMessage`)
 
-* [Get messages](./sqs-ruby-example-get-messages-with-long-polling.rb) (`ReceiveMessage`)
+* [Send a batch message](./send_message_batch.rb) (`SendMessageBatch`)
 
-* [Get messages with long-polling](./sqs-ruby-example-long-polling.rb) (`QueuePoller.poll`)
+* [Send a message](./send_message.rb) (`SendMessage`)
 
-* [List queues](./sqs-ruby-example-show-queues.rb) (`ListQueues`)
-
-* [List subscriptions](./sqs-ruby-example-enable-resource.rb) (`ListSubscriptions`)
-
-* [Poll messages](./sqs-ruby-example-poll-messages.rb) (`QueuePoller.poll`)
-
-* [Redirect a dead-letter queue](./sqs-ruby-example-redirect-queue-deadletters.rb) (`SetQueueAttributes`)
-
-* [Send a batch message](./sqs-ruby-example-send-message-batch.rb) (`SendMessageBatch`)
-
-* [Send a message](./sqs-ruby-example-send-message.rb) (`SendMessage`)
-
-* [Send a message to a queue](./sqs-ruby-example-send-receive-messages.rb) (`SendMessage`)
-
-* [Set time messages not visible after being received](./sqs-ruby-example-message-visibility-timeout.rb) (`ChangeMessageVisibility`)
-
-* [Visibility timeout (example 1)](./sqs-ruby-example-visibility-timeout.rb) (`ChangeMessageVisibility`)
-
-* [Visibility timeout (example 2)](./sqs-ruby-example-visibility-timeout2.rb) (`ChangeMessageVisibility`)
-
-
+* [Set time messages not visible after being received](./message_visibility_timeout.rb) (`ChangeMessageVisibility`)
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-* [Working with dead letter queues](./sqs-ruby-example-dead-letter-queue.rb)
+* [Getting started with SQS](./scenario_getting_started.rb)
 
-* [Working with messages](./sqs-ruby-example-send-receive-messages.rb)
+* [Working with dead letter queues](./scenario_dead_letter_queue.rb)
 
-* [Working with queues](./sqs-ruby-example-using-queues.rb)
-
-
-
-
+* [Working with polling](./scenario_polling.rb)
 
 ## Run the examples
 
