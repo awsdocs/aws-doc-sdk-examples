@@ -93,7 +93,7 @@ abstract class AWSServiceClass
     }
 
     /**
-     * The counterpart to create role
+     * The counterpart to create role.
      * @param $roleArn
      * @param $clientArgs
      * @return void
