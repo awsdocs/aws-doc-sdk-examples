@@ -1,3 +1,4 @@
+import com.kotlin.cognito.adminRespondToAuthChallenge
 import com.kotlin.cognito.checkAuthMethod
 import com.kotlin.cognito.confirmSignUp
 import com.kotlin.cognito.createIdPool
@@ -9,10 +10,12 @@ import com.kotlin.cognito.describePool
 import com.kotlin.cognito.getAdminUser
 import com.kotlin.cognito.getAllPools
 import com.kotlin.cognito.getPools
+import com.kotlin.cognito.getSecretForAppMFA
 import com.kotlin.cognito.listAllUserPoolClients
 import com.kotlin.cognito.listPoolIdentities
 import com.kotlin.cognito.resendConfirmationCode
 import com.kotlin.cognito.signUp
+import com.kotlin.cognito.verifyTOTP
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
@@ -220,5 +223,17 @@ class CognitoKotlinTest {
 
         val authResponse = checkAuthMethod(clientIdMVP, userName, password, poolIdMVP)
         val mySession = authResponse.session
+
+        val newSession = getSecretForAppMFA(mySession)
+        println("*** Enter the 6-digit code displayed in Google Authenticator")
+        val myCode = inOb.nextLine()
+
+        // Verify the TOTP and register for MFA.
+        verifyTOTP(newSession, myCode)
+        println("*** Re-enter a 6-digit code displayed in Google Authenticator")
+        val mfaCode: String = inOb.nextLine()
+        val authResponse1 = checkAuthMethod(clientId, userNameMVP, password, poolIdMVP)
+        val session2 = authResponse1.session
+        adminRespondToAuthChallenge(userName, clientId, mfaCode, session2)
     }
 }
