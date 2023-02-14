@@ -21,7 +21,7 @@
  * 2.  Get available engine versions for the specified engine. (DescribeDBEngineVersions)
  * 3.  Create a DB parameter group. (CreateDBParameterGroup)
  * 4.  Get the parameters in the DB parameter group. (DescribeDBParameters)
- * 5.  Modify the auto increment parameters in the group.(ModifyDBParameterGroup)
+ * 5.  Modify the auto increment parameters in the group. (ModifyDBParameterGroup)
  * 6.  Display the modified parameters in the group. (DescribeDBParameters)
  * 7.  Check if the DB instance already exists. (DescribeDBInstances)
  * 8.  Get a list of available engine versions. (DescribeDBEngineVersions)
