@@ -1179,6 +1179,21 @@ ec2_MonitorInstances:
                 - ec2.abapv1.monitor_instance
   services:
     ec2: {MonitorInstances}
+ec2_UnmonitorInstances:
+  title: Disable detailed monitoring for an &EC2; instance using an &AWS; SDK
+  title_abbrev: Disable detailed monitoring
+  synopsis: disable detailed monitoring on an &EC2; instance.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.actions.UnmonitorInstances
 ec2_RebootInstances:
   title: Reboot an &EC2; instance using an &AWS; SDK
   title_abbrev: Reboot an instance
@@ -1424,4 +1439,4 @@ ec2_Scenario_GetStartedInstances:
     ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair,
           CreateSecurityGroup, DeleteKeyPair, DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes,
           DescribeInstances, DescribeKeyPairs, DescribeSecurityGroups, DisassociateAddress,
-          ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances}
+          ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances, UnmonitorInstances}
