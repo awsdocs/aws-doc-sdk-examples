@@ -51,7 +51,7 @@ rds_CreateDBInstance:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.create_db_instance
+                - cpp.example_code.rds.CreateDBInstance
   services:
     rds: {CreateDBInstance}
 rds_DeleteDBInstance:
@@ -106,7 +106,7 @@ rds_DeleteDBInstance:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.delete_db_instance
+                - cpp.example_code.rds.DeleteDBInstance
   services:
     rds: {DeleteDBInstance} 
 rds_DescribeAccountAttributes:
@@ -195,7 +195,7 @@ rds_DescribeDBInstances:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.describe_db_instances
+                - cpp.example_code.rds.DescribeDBInstances
   services:
     rds: {DescribeDBInstances}         
 rds_ModifyDBInstance:
@@ -294,8 +294,8 @@ rds_DescribeDBParameterGroups:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.describe_db_parameter_groups1
-                - cpp.example_code.rds.describe_db_parameter_groups2
+                - cpp.example_code.rds.DescribeDBParameterGroups1
+                - cpp.example_code.rds.DescribeDBParameterGroups2
   services:
     rds: {DescribeDBParameterGroups}
 rds_CreateDBParameterGroup:
@@ -342,7 +342,7 @@ rds_CreateDBParameterGroup:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.create_db_parameter_group
+                - cpp.example_code.rds.CreateDBParameterGroup
   services:
     rds: {CreateDBParameterGroup}
 rds_DeleteDBParameterGroup:
@@ -389,7 +389,7 @@ rds_DeleteDBParameterGroup:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.delete_parameter_group
+                - cpp.example_code.rds.DeleteDBParameterGroup
   services:
     rds: {DeleteDBParameterGroup}
 rds_DescribeDBParameters:
@@ -445,7 +445,7 @@ rds_DescribeDBParameters:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.describe_db_parameters
+                - cpp.example_code.rds.DescribeDBParameters
   services:
     rds: {DescribeDBParameters}
 rds_ModifyDBParameterGroup:
@@ -492,7 +492,7 @@ rds_ModifyDBParameterGroup:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.modify_db_parameter_group
+                - cpp.example_code.rds.ModifyDBParameterGroup
   services:
     rds: {ModifyDBParameterGroup}
 rds_CreateDBSnapshot:
@@ -548,7 +548,7 @@ rds_CreateDBSnapshot:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.create_db_snapshot
+                - cpp.example_code.rds.CreateDBSnapshot
   services:
     rds: {CreateDBSnapshot}
 rds_DescribeDBSnapshots:
@@ -595,7 +595,7 @@ rds_DescribeDBSnapshots:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.describe_db_snapshots
+                - cpp.example_code.rds.DescribeDBSnapshots
   services:
     rds: {DescribeDBSnapshots}
 rds_DescribeDBEngineVersions:
@@ -642,7 +642,7 @@ rds_DescribeDBEngineVersions:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.describe_db_engine_versions
+                - cpp.example_code.rds.DescribeDBEngineVersions
   services:
     rds: {DescribeDBEngineVersions}
 rds_DescribeOrderableDBInstanceOptions:
@@ -689,7 +689,7 @@ rds_DescribeOrderableDBInstanceOptions:
               snippet_tags:
                 - cpp.example_code.rds.client_configuration
                 - cpp.example_code.rds.client
-                - cpp.example_code.rds.describe_orderable_db_instance_options
+                - cpp.example_code.rds.DescribeOrderableDBInstanceOptions
   services:
     rds: {DescribeOrderableDBInstanceOptions}
 rds_GenerateRDSAuthToken:

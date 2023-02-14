@@ -253,7 +253,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
     bool parameterGroupFound = true;
     {
         // 1. Check if the DB parameter group already exists.
-        // snippet-start:[cpp.example_code.rds.describe_db_parameter_groups1]
+        // snippet-start:[cpp.example_code.rds.DescribeDBParameterGroups1]
         Aws::RDS::Model::DescribeDBParameterGroupsRequest request;
         request.SetDBParameterGroupName(PARAMETER_GROUP_NAME);
 
@@ -265,21 +265,21 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                       PARAMETER_GROUP_NAME << "' already exists." << std::endl;
             dbParameterGroupFamily = outcome.GetResult().GetDBParameterGroups()[0].GetDBParameterGroupFamily();
         }
-            // snippet-end:[cpp.example_code.rds.describe_db_parameter_groups1]
+            // snippet-end:[cpp.example_code.rds.DescribeDBParameterGroups1]
         else if (outcome.GetError().GetErrorType() ==
                  Aws::RDS::RDSErrors::D_B_PARAMETER_GROUP_NOT_FOUND_FAULT) {
             std::cout << "DB parameter group named '" <<
                       PARAMETER_GROUP_NAME << "' does not exist." << std::endl;
             parameterGroupFound = false;
         }
-            // snippet-start:[cpp.example_code.rds.describe_db_parameter_groups2]
+            // snippet-start:[cpp.example_code.rds.DescribeDBParameterGroups2]
         else {
             std::cerr << "Error with RDS::DescribeDBParameterGroups. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
             return false;
         }
-        // snippet-end:[cpp.example_code.rds.describe_db_parameter_groups2]
+        // snippet-end:[cpp.example_code.rds.DescribeDBParameterGroups2]
     }
 
     if (!parameterGroupFound) {
@@ -310,7 +310,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
     }
     if (!parameterGroupFound) {
         // 3.  Create a DB parameter group.
-        // snippet-start:[cpp.example_code.rds.create_db_parameter_group]
+        // snippet-start:[cpp.example_code.rds.CreateDBParameterGroup]
         Aws::RDS::Model::CreateDBParameterGroupRequest request;
         request.SetDBParameterGroupName(PARAMETER_GROUP_NAME);
         request.SetDBParameterGroupFamily(dbParameterGroupFamily);
@@ -329,7 +329,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                       << std::endl;
             return false;
         }
-        // snippet-end:[cpp.example_code.rds.create_db_parameter_group]
+        // snippet-end:[cpp.example_code.rds.CreateDBParameterGroup]
     }
 
     printAsterisksLine();
@@ -379,7 +379,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
 
     {
         // 5.  Modify the auto increment parameters in the group.
-        // snippet-start:[cpp.example_code.rds.modify_db_parameter_group]
+        // snippet-start:[cpp.example_code.rds.ModifyDBParameterGroup]
         Aws::RDS::Model::ModifyDBParameterGroupRequest request;
         request.SetDBParameterGroupName(PARAMETER_GROUP_NAME);
         request.SetParameters(updateParameters);
@@ -396,7 +396,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                       << outcome.GetError().GetMessage()
                       << std::endl;
         }
-        // snippet-end:[cpp.example_code.rds.modify_db_parameter_group]
+        // snippet-end:[cpp.example_code.rds.ModifyDBParameterGroup]
     }
 
     std::cout
@@ -478,7 +478,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                   << " and " << DB_ALLOCATED_STORAGE << " GiB of " << DB_STORAGE_TYPE
                   << " storage.\nThis typically takes several minutes." << std::endl;
 
-        // snippet-start:[cpp.example_code.rds.create_db_instance]
+        // snippet-start:[cpp.example_code.rds.CreateDBInstance]
         Aws::RDS::Model::CreateDBInstanceRequest request;
         request.SetDBName(DB_NAME);
         request.SetDBInstanceIdentifier(DB_INSTANCE_IDENTIFIER);
@@ -505,7 +505,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
             cleanUpResources(PARAMETER_GROUP_NAME, "", client);
             return false;
         }
-        // snippet-end:[cpp.example_code.rds.create_db_instance]
+        // snippet-end:[cpp.example_code.rds.CreateDBInstance]
     }
 
     std::cout << "Waiting for the DB instance to become available." << std::endl;
@@ -556,7 +556,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
             std::cout << "This typically takes a few minutes." << std::endl;
 
             // 13. Create a snapshot of the DB instance.
-            // snippet-start:[cpp.example_code.rds.create_db_snapshot]
+            // snippet-start:[cpp.example_code.rds.CreateDBSnapshot]
             Aws::RDS::Model::CreateDBSnapshotRequest request;
             request.SetDBInstanceIdentifier(DB_INSTANCE_IDENTIFIER);
             request.SetDBSnapshotIdentifier(snapshotID);
@@ -575,7 +575,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                 cleanUpResources(PARAMETER_GROUP_NAME, DB_INSTANCE_IDENTIFIER, client);
                 return false;
             }
-            // snippet-end:[cpp.example_code.rds.create_db_snapshot]
+            // snippet-end:[cpp.example_code.rds.CreateDBSnapshot]
         }
 
         std::cout << "Waiting for snapshot to become available." << std::endl;
@@ -594,7 +594,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
             }
 
             // 14. Wait for the snapshot to become available.
-            // snippet-start:[cpp.example_code.rds.describe_db_snapshots]
+            // snippet-start:[cpp.example_code.rds.DescribeDBSnapshots]
             Aws::RDS::Model::DescribeDBSnapshotsRequest request;
             request.SetDBSnapshotIdentifier(snapshotID);
 
@@ -611,7 +611,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                 cleanUpResources(PARAMETER_GROUP_NAME, DB_INSTANCE_IDENTIFIER, client);
                 return false;
             }
-            // snippet-end:[cpp.example_code.rds.describe_db_snapshots]
+            // snippet-end:[cpp.example_code.rds.DescribeDBSnapshots]
 
             if ((counter % 20) == 0) {
                 std::cout << "Current snapshot status is '"
@@ -651,7 +651,7 @@ bool AwsDoc::RDS::getDBParameters(const Aws::String &parameterGroupName,
                                   const Aws::String &source,
                                   Aws::Vector<Aws::RDS::Model::Parameter> &parametersResult,
                                   const Aws::RDS::RDSClient &client) {
-    // snippet-start:[cpp.example_code.rds.describe_db_parameters]
+    // snippet-start:[cpp.example_code.rds.DescribeDBParameters]
     Aws::String marker;
     do {
         Aws::RDS::Model::DescribeDBParametersRequest request;
@@ -689,7 +689,7 @@ bool AwsDoc::RDS::getDBParameters(const Aws::String &parameterGroupName,
             return false;
         }
     } while (!marker.empty());
-    // snippet-end:[cpp.example_code.rds.describe_db_parameters]
+    // snippet-end:[cpp.example_code.rds.DescribeDBParameters]
 
     return true;
 }
@@ -708,7 +708,7 @@ bool AwsDoc::RDS::getDBEngineVersions(const Aws::String &engineName,
                                       const Aws::String &parameterGroupFamily,
                                       Aws::Vector<Aws::RDS::Model::DBEngineVersion> &engineVersionsResult,
                                       const Aws::RDS::RDSClient &client) {
-    // snippet-start:[cpp.example_code.rds.describe_db_engine_versions]
+    // snippet-start:[cpp.example_code.rds.DescribeDBEngineVersions]
     Aws::RDS::Model::DescribeDBEngineVersionsRequest request;
     request.SetEngine(engineName);
     if (!parameterGroupFamily.empty()) {
@@ -726,7 +726,7 @@ bool AwsDoc::RDS::getDBEngineVersions(const Aws::String &engineName,
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
-    // snippet-end:[cpp.example_code.rds.describe_db_engine_versions]
+    // snippet-end:[cpp.example_code.rds.DescribeDBEngineVersions]
 
     return outcome.IsSuccess();
 }
@@ -742,7 +742,7 @@ bool AwsDoc::RDS::getDBEngineVersions(const Aws::String &engineName,
 bool AwsDoc::RDS::describeDBInstance(const Aws::String &dbInstanceIdentifier,
                                      Aws::RDS::Model::DBInstance &instanceResult,
                                      const Aws::RDS::RDSClient &client) {
-    // snippet-start:[cpp.example_code.rds.describe_db_instances]
+    // snippet-start:[cpp.example_code.rds.DescribeDBInstances]
     Aws::RDS::Model::DescribeDBInstancesRequest request;
     request.SetDBInstanceIdentifier(dbInstanceIdentifier);
 
@@ -763,7 +763,7 @@ bool AwsDoc::RDS::describeDBInstance(const Aws::String &dbInstanceIdentifier,
                   << std::endl;
     }
 
-    // snippet-end:[cpp.example_code.rds.describe_db_instances]
+    // snippet-end:[cpp.example_code.rds.DescribeDBInstances]
     return result;
 }
 
@@ -781,7 +781,7 @@ bool AwsDoc::RDS::chooseMicroDBInstanceClass(const Aws::String &engine,
                                              const Aws::String &engineVersion,
                                              Aws::String &dbInstanceClass,
                                              const Aws::RDS::RDSClient &client) {
-    // snippet-start:[cpp.example_code.rds.describe_orderable_db_instance_options]
+    // snippet-start:[cpp.example_code.rds.DescribeOrderableDBInstanceOptions]
     std::vector<Aws::String> instanceClasses;
     Aws::String marker;
     do {
@@ -818,7 +818,7 @@ bool AwsDoc::RDS::chooseMicroDBInstanceClass(const Aws::String &engine,
             return false;
         }
     } while (!marker.empty());
-    // snippet-end:[cpp.example_code.rds.describe_orderable_db_instance_options]
+    // snippet-end:[cpp.example_code.rds.DescribeOrderableDBInstanceOptions]
 
     std::cout << "The available micro DB instance classes for your database engine are:"
               << std::endl;
@@ -848,7 +848,7 @@ bool AwsDoc::RDS::cleanUpResources(const Aws::String &parameterGroupName,
     if (!dbInstanceIdentifier.empty()) {
         {
             // 15. Delete the DB instance.
-            // snippet-start:[cpp.example_code.rds.delete_db_instance]
+            // snippet-start:[cpp.example_code.rds.DeleteDBInstance]
             Aws::RDS::Model::DeleteDBInstanceRequest request;
             request.SetDBInstanceIdentifier(dbInstanceIdentifier);
             request.SetSkipFinalSnapshot(true);
@@ -867,7 +867,7 @@ bool AwsDoc::RDS::cleanUpResources(const Aws::String &parameterGroupName,
                           << std::endl;
                 result = false;
             }
-            // snippet-end:[cpp.example_code.rds.delete_db_instance]
+            // snippet-end:[cpp.example_code.rds.DeleteDBInstance]
         }
 
         std::cout
@@ -902,7 +902,7 @@ bool AwsDoc::RDS::cleanUpResources(const Aws::String &parameterGroupName,
 
     if (!parameterGroupName.empty()) {
         // 17. Delete the parameter group.
-        // snippet-start:[cpp.example_code.rds.delete_parameter_group]
+        // snippet-start:[cpp.example_code.rds.DeleteDBParameterGroup]
         Aws::RDS::Model::DeleteDBParameterGroupRequest request;
         request.SetDBParameterGroupName(parameterGroupName);
 
@@ -919,7 +919,7 @@ bool AwsDoc::RDS::cleanUpResources(const Aws::String &parameterGroupName,
                       << std::endl;
             result = false;
         }
-        // snippet-end:[cpp.example_code.rds.delete_parameter_group]
+        // snippet-end:[cpp.example_code.rds.DeleteDBParameterGroup]
     }
 
     return result;
