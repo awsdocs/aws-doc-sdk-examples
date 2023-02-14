@@ -35,7 +35,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 * [Getting started with SQS](./scenario_getting_started.rb)
 
 * [Working with dead letter queues](./scenario_dead_letter_queue.rb)
-* 
+
 * [Working with polling](./scenario_polling.rb)
 
 ## Run the examples
