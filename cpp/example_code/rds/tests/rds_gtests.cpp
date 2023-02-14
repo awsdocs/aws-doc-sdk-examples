@@ -13,7 +13,6 @@ std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::RDS_GTests::s_clie
 static const char ALLOCATION_TAG[] = "RDS_GTEST";
 
 void AwsDocTest::RDS_GTests::SetUpTestSuite() {
-    s_options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     InitAPI(s_options);
 
     // s_clientConfig must be a pointer because the client config must be initialized
@@ -27,8 +26,8 @@ void AwsDocTest::RDS_GTests::TearDownTestSuite() {
 }
 
 void AwsDocTest::RDS_GTests::SetUp() {
-//    m_savedBuffer = std::cout.rdbuf();
-//    std::cout.rdbuf(&m_coutBuffer);
+    m_savedBuffer = std::cout.rdbuf();
+    std::cout.rdbuf(&m_coutBuffer);
 
     m_savedInBuffer = std::cin.rdbuf();
     std::cin.rdbuf(&m_cinBuffer);
@@ -90,11 +89,21 @@ AwsDocTest::MockHTTP::~MockHTTP() {
     Aws::Http::InitHttp();
 }
 
-void AwsDocTest::MockHTTP::addResponseWithBody(const std::string &body,
+bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
                                                Aws::Http::HttpResponseCode httpResponseCode) {
-    std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
-            ALLOCATION_TAG, requestTmp);
-    goodResponse->SetResponseCode(httpResponseCode);
-    goodResponse->GetResponseBody() << body;
-    mockHttpClient->AddResponseToReturn(goodResponse);
+
+    std::ifstream inStream(std::string(SRC_DIR) + "/" + fileName);
+    if (inStream) {
+        std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
+                ALLOCATION_TAG, requestTmp);
+        goodResponse->SetResponseCode(httpResponseCode);
+        goodResponse->GetResponseBody() << inStream.rdbuf();
+        mockHttpClient->AddResponseToReturn(goodResponse);
+        return true;
+    }
+
+    std::cerr << "MockHTTP::addResponseWithBody open file error '" << fileName << "'."
+              << std::endl;
+
+    return false;
 }

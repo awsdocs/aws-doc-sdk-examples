@@ -57,7 +57,7 @@ namespace AwsDocTest {
 
         virtual ~MockHTTP();
 
-        void addResponseWithBody(const std::string &body,
+        bool addResponseWithBody(const std::string &fileName,
                                  Aws::Http::HttpResponseCode httpResponseCode = Aws::Http::HttpResponseCode::OK);
 
     private:
