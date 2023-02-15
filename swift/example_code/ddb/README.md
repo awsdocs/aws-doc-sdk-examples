@@ -27,7 +27,8 @@ Code excerpts that show you how to call individual service functions.
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-* [DynamoDB Basics](./Basics/Sources/FILENAME). Description. (`Basics`)
+* [DynamoDB Basics](./basics/). Demonstrates a common series of
+  actions to create and perform common actions on a movie list database. (`Basics`)
 
 <!-- ### Cross-service examples
 Sample applications that work across multiple AWS services.
@@ -42,7 +43,7 @@ $ swift build
 ```
 
 To build one of these examples in Xcode, navigate to the example's directory
-(such as the `PutItem` directory, to build that example). Then type `xed.`
+(such as the `basics` directory, to build that example). Then type `xed.`
 to open the example directory in Xcode. You can then use standard Xcode build
 and run commands.
 
