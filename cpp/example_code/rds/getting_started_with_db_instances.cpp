@@ -190,7 +190,7 @@ namespace AwsDoc {
          */
         int askQuestionForIntRange(const Aws::String &string, int low,
                                    int high);
-        
+
         //! Routine which converts a string of ints to a vector of ints.
         /*!
          \sa splitToInts()
@@ -803,7 +803,6 @@ bool AwsDoc::RDS::chooseMicroDBInstanceClass(const Aws::String &engine,
             for (const Aws::RDS::Model::OrderableDBInstanceOption &option: options) {
                 const Aws::String &instanceClass = option.GetDBInstanceClass();
                 if (instanceClass.find("micro") != std::string::npos) {
-                    const Aws::String &instanceClass = option.GetDBInstanceClass();
                     if (std::find(instanceClasses.begin(), instanceClasses.end(),
                                   instanceClass) ==
                         instanceClasses.end()) {
