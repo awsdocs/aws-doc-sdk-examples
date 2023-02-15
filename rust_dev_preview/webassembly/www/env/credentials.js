@@ -3,10 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-export const now = () => {
-    return Date.now();
-};
-
 const parseCookie = str =>
   str
   .split(';')
@@ -35,5 +31,3 @@ export const setCredentials = () => {
     }));
     document.cookie = `credentials_aws=${credentials}; max-age=43200; path=/;`;
 }
-
-document.getElementById("set-credentials").addEventListener("click", setCredentials)
