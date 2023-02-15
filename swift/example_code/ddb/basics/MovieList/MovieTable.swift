@@ -244,7 +244,7 @@ public class MovieTable {
         )
         _ = try await client.putItem(input: input)
     }
-    // snippet-end:[ddb.swift.basics.add]
+    // snippet-end:[ddb.swift.basics.add-movie]
 
     // snippet-start:[ddb.swift.basics.add-args]
     /// Given a movie's details, add a movie to the Amazon DynamoDB table.
