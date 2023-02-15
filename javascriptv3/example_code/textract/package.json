@@ -1,0 +1,14 @@
+{
+  "name": "example-javascriptv3-textract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "detect_document_text.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-textract": "^3.271.0"
+  }
+}
