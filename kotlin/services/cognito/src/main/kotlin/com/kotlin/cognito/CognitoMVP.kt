@@ -13,13 +13,13 @@ import aws.sdk.kotlin.services.cognitoidentityprovider.CognitoIdentityProviderCl
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.AdminGetUserRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.AdminInitiateAuthRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.AdminInitiateAuthResponse
+import aws.sdk.kotlin.services.cognitoidentityprovider.model.AdminRespondToAuthChallengeRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.AssociateSoftwareTokenRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.AttributeType
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.AuthFlowType
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.ChallengeNameType
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.ConfirmSignUpRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.ResendConfirmationCodeRequest
-import aws.sdk.kotlin.services.cognitoidentityprovider.model.RespondToAuthChallengeRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.SignUpRequest
 import aws.sdk.kotlin.services.cognitoidentityprovider.model.VerifySoftwareTokenRequest
 import java.util.Scanner
@@ -155,7 +155,7 @@ suspend fun adminRespondToAuthChallenge(userName: String, clientIdVal: String?, 
     challengeResponsesOb["USERNAME"] = userName
     challengeResponsesOb["SOFTWARE_TOKEN_MFA_CODE"] = mfaCode
 
-    val respondToAuthChallengeRequest = RespondToAuthChallengeRequest {
+    val adminRespondToAuthChallengeRequest = AdminRespondToAuthChallengeRequest {
         challengeName = ChallengeNameType.SoftwareTokenMfa
         clientId = clientIdVal
         challengeResponses = challengeResponsesOb
@@ -163,7 +163,7 @@ suspend fun adminRespondToAuthChallenge(userName: String, clientIdVal: String?, 
     }
 
     CognitoIdentityProviderClient { region = "us-east-1" }.use { identityProviderClient ->
-        val respondToAuthChallengeResult = identityProviderClient.respondToAuthChallenge(respondToAuthChallengeRequest)
+        val respondToAuthChallengeResult = identityProviderClient.adminRespondToAuthChallenge(adminRespondToAuthChallengeRequest)
         println("respondToAuthChallengeResult.getAuthenticationResult() ${respondToAuthChallengeResult.authenticationResult}")
     }
 }
