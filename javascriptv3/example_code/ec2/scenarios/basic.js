@@ -6,7 +6,7 @@
 import { fileURLToPath } from "url";
 
 // snippet-start: [javascript.v3.ec2.scenarios.basic]
-import { mkdtempSync, writeFileSync, rmSync, chmodSync } from "fs";
+import { mkdtempSync, writeFileSync, rmSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
 import { createInterface } from "readline";

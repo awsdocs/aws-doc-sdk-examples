@@ -1194,6 +1194,8 @@ ec2_UnmonitorInstances:
             - description:
               snippet_tags:
                 - javascript.v3.ec2.actions.UnmonitorInstances
+  services:
+    ec2: {UnmonitorInstances}
 ec2_RebootInstances:
   title: Reboot an &EC2; instance using an &AWS; SDK
   title_abbrev: Reboot an instance
