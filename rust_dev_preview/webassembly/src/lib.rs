@@ -114,6 +114,10 @@ fn browser_credentials_cache() -> CredentialsCache {
         .into_credentials_cache()
 }
 
+/// At this moment, there is no standard mechanism to make an outbound
+/// HTTP request from within the guest Wasm module.
+/// Eventually that will be defined by the WebAssembly System Interface:
+/// https://github.com/WebAssembly/wasi-http
 #[async_trait(?Send)]
 trait MakeRequestBrowser {
     async fn send(
@@ -126,6 +130,11 @@ pub struct BrowserHttpClient {}
 
 #[async_trait(?Send)]
 impl MakeRequestBrowser for BrowserHttpClient {
+
+    /// The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+    /// will be used to actually send the outbound HTTP request.
+    /// Most of the logic here is around converting from
+    /// the [http::Request]'s shape to [web_sys::Request].
     async fn send(
         parts: http::request::Parts,
         body: SdkBody,
