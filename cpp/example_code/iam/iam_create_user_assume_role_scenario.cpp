@@ -68,6 +68,8 @@ namespace AwsDoc {
                                           const Aws::IAM::Model::User &user,
                                           const Aws::IAM::Model::Policy &policy);
     }
+
+    static const char ALLOCATION_TAG[] = "example_code";
 }
 
 //! Scenario to create an IAM user, create an IAM role, and apply the role to the user.
@@ -270,6 +272,7 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
                 Aws::Auth::AWSCredentials(credentials.GetAccessKeyId(),
                                           credentials.GetSecretAccessKey(),
                                           credentials.GetSessionToken()),
+                Aws::MakeShared<Aws::S3::S3EndpointProvider>(ALLOCATION_TAG),
                 clientConfig);
         Aws::S3::Model::ListBucketsOutcome listBucketsOutcome = s3Client.ListBuckets();
         if (!listBucketsOutcome.IsSuccess()) {
@@ -323,6 +326,7 @@ bool AwsDoc::IAM::iamCreateUserAssumeRoleScenario(
                 Aws::Auth::AWSCredentials(credentials.GetAccessKeyId(),
                                           credentials.GetSecretAccessKey(),
                                           credentials.GetSessionToken()),
+                Aws::MakeShared<Aws::S3::S3EndpointProvider>(ALLOCATION_TAG),
                 clientConfig);
         Aws::S3::Model::ListBucketsOutcome listBucketsOutcome = s3Client.ListBuckets();
         if (!listBucketsOutcome.IsSuccess()) {

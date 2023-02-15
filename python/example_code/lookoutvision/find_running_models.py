@@ -11,9 +11,13 @@ client.
 
 import logging
 import boto3
+
 from boto3.session import Session
 
+
 from botocore.exceptions import ClientError, EndpointConnectionError
+
+
 
 
 logger = logging.getLogger(__name__)
@@ -40,9 +44,10 @@ def find_running_models_in_project(lfv_client, project_name):
 
         for model in page['Models']:
             # Get model description and store hosted state, if model is running.
+
             model_description = lfv_client.describe_model(
-                ProjectName=project_name, ModelVersion=model["ModelVersion"]
-            )
+                    ProjectName=project_name, ModelVersion=model["ModelVersion"])
+
 
             logger.info("Checking: %s",
                         model_description["ModelDescription"]["ModelArn"])
@@ -106,8 +111,11 @@ def find_running_models():
         region_info['Models'] = []
         running_models_in_region = []
 
-        lfv_client = boto3.client(
-            "lookoutvision", region_name=region)
+        session = boto3.Session(
+            profile_name='lookoutvision-access',
+            region_name=region)
+        lfv_client = session.client("lookoutvision")
+
 
         # Get the projects in the current AWS Region.
 
@@ -125,6 +133,7 @@ def find_running_models():
 
         if region_info['Models']:
             running_models.append(region_info)
+
 
     return running_models
 

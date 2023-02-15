@@ -37,14 +37,14 @@ use Aws\Credentials\Credentials;
 use Aws\S3\Exception\S3Exception;
 use Aws\S3\S3Client;
 use Aws\Sts\StsClient;
-use Iam\IamService;
+use Iam\IAMService;
 
 echo("--------------------------------------\n");
 print("Welcome to the Amazon IAM getting started demo using PHP!\n");
 echo("--------------------------------------\n");
 # snippet-start:[php.example_code.iam.iam_basics.startService]
 $uuid = uniqid();
-$service = new IamService();
+$service = new IAMService();
 # snippet-end:[php.example_code.iam.iam_basics.startService]
 
 # snippet-start:[php.example_code.iam.iam_basics.createUser]

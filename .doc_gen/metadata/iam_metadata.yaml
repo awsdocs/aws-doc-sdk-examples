@@ -2286,7 +2286,7 @@ iam_DeleteUser:
                 - iam.JavaScript.users.deleteUserV3
         - sdk_version: 2
           github: javascript/example_code/iam
-          sdkguide: sdk-for-javascript/23/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-deleting-users
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-deleting-users
           excerpts:
             - description:
               snippet_tags:
@@ -2487,7 +2487,7 @@ iam_UpdateUser:
                 - iam.JavaScript.users.updateUserV3
         - sdk_version: 2
           github: javascript/example_code/iam
-          sdkguide: sdk-for-javascript/23/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-updating-users
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-updating-users
           excerpts:
             - description:
               snippet_tags:

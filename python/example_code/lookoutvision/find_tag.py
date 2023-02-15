@@ -94,7 +94,12 @@ def main():
     args = parser.parse_args()
     key = args.tag
     value = args.value
-    lookoutvision_client = boto3.client("lookoutvision")
+    
+  
+    session = boto3.Session(
+        profile_name='lookoutvision-access')
+
+    lookoutvision_client = session.client("lookoutvision")
 
     print(f"Searching your models for tag: {key} with value: {value}.")
     tagged_models = find_tag_in_projects(lookoutvision_client, key, value)

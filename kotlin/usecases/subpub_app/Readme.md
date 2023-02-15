@@ -14,7 +14,6 @@ You can create a web application that has subscription and publish functionality
 + Create the HTML files
 + Run the application
 
-
 ## Prerequisites
 
 To complete the tutorial, you need the following:
@@ -36,7 +35,7 @@ To complete the tutorial, you need the following:
 
 ### Creating the resources
 
-Create an Amazon SNS topic that you use in the Kotlin code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). 
+Create an Amazon SNS topic that you use in the Kotlin code. You need to reference the topic's ARN value in the Kotlin code. For information, see [Creating an Amazon SNS topic](https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html). 
 
 ## Understand the Publish/Subscription application
 
@@ -79,47 +78,53 @@ Perform these steps.
 At this point, you have a new project named **SpringKotlinSubPub**. Ensure that the gradle build  file resembles the following code.
 
 ```yaml
-     import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+   import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-     plugins {
-      id("org.springframework.boot") version "2.5.2"
-      id("io.spring.dependency-management") version "1.0.11.RELEASE"
-      kotlin("jvm") version "1.5.20"
-      kotlin("plugin.spring") version "1.5.20"
-      }
+plugins {
+    kotlin("jvm") version "1.7.10"
+    application
+}
 
-     group = "com.example"
-     version = "0.0.1-SNAPSHOT"
-     java.sourceCompatibility = JavaVersion.VERSION_1_8
+group = "me.scmacdon"
+version = "1.0-SNAPSHOT"
 
+buildscript {
     repositories {
-     mavenCentral()
-     mavenLocal()
+        maven("https://plugins.gradle.org/m2/")
     }
-
     dependencies {
-     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-     implementation("org.springframework.boot:spring-boot-starter-web")
-     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-     implementation("org.jetbrains.kotlin:kotlin-reflect")
-     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-     implementation ("javax.mail:javax.mail-api:1.5.5")
-     implementation ("com.sun.mail:javax.mail:1.5.5")
-     implementation("aws.sdk.kotlin:sns:0.9.4-beta")
-     implementation("aws.sdk.kotlin:translate:0.9.4-beta")
-     testImplementation("org.springframework.boot:spring-boot-starter-test")
-     }
+        classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
+    }
+}
 
-     tasks.withType<KotlinCompile> {
-      kotlinOptions {
+repositories {
+    mavenCentral()
+    jcenter()
+}
+apply(plugin = "org.jlleitschuh.gradle.ktlint")
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.4")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf:2.7.4")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("aws.sdk.kotlin:sns:0.19.0-beta")
+    implementation("aws.sdk.kotlin:translate:0.19.0-beta")
+    implementation("net.sourceforge.jexcelapi:jxl:2.6.10")
+    implementation("commons-io:commons-io:2.10.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
         jvmTarget = "1.8"
-      }
-     }
-
-    tasks.withType<Test> {
-     useJUnitPlatform()
     }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
  ```
      
  ## Create the Kotlin classes
@@ -141,26 +146,29 @@ At this point, you have a new project named **SpringKotlinSubPub**. Ensure that 
 The following Kotlin code represents the **SubApplication** and the **MessageResource** classes. Notice that the **SubApplication** uses the **@SpringBootApplication** annotation while the **MessageResource** class uses the **@Controller** annotation. In addition, the Spring Controller uses **runBlocking** and **@runBlocking**. Both are required and part of Kotlin Coroutine functionality. For more information, see [Coroutines basics](https://kotlinlang.org/docs/coroutines-basics.html).  
 
 ```kotlin
-     package com.aws.kotlin
+package com.aws.kotlin
 
-     import kotlinx.coroutines.runBlocking
-     import org.springframework.beans.factory.annotation.Autowired
-     import org.springframework.boot.autoconfigure.SpringBootApplication
-     import org.springframework.boot.runApplication
-     import org.springframework.stereotype.Controller
-     import org.springframework.web.bind.annotation.*
-     import javax.servlet.http.HttpServletRequest
-     import javax.servlet.http.HttpServletResponse
+import kotlinx.coroutines.runBlocking
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.ResponseBody
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
 
-     @SpringBootApplication
-     class SubApplication
+@SpringBootApplication
+open class SubApplication
 
-     fun main(args: Array<String>) {
-      runApplication<SubApplication>(*args)
-    }
+fun main(args: Array<String>) {
+    runApplication<SubApplication>(*args)
+}
 
-    @Controller
-    class MessageResource {
+@Controller
+class MessageResource {
 
     @Autowired
     var sns: SnsService? = null
@@ -175,7 +183,6 @@ The following Kotlin code represents the **SubApplication** and the **MessageRes
         return "sub"
     }
 
-
     @RequestMapping(value = ["/delSub"], method = [RequestMethod.POST])
     @ResponseBody
     fun delSub(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
@@ -183,14 +190,13 @@ The following Kotlin code represents the **SubApplication** and the **MessageRes
         sns?.unSubEmail(email)
         return@runBlocking "$email was successfully deleted!"
     }
-  
+
     @RequestMapping(value = ["/addEmail"], method = [RequestMethod.POST])
     @ResponseBody
     fun addItems(request: HttpServletRequest, response: HttpServletResponse?): String? = runBlocking {
         val email = request.getParameter("email")
         return@runBlocking sns?.subEmail(email)
     }
-
 
     @RequestMapping(value = ["/addMessage"], method = [RequestMethod.POST])
     @ResponseBody
@@ -204,8 +210,8 @@ The following Kotlin code represents the **SubApplication** and the **MessageRes
     @ResponseBody
     fun getSubs(request: HttpServletRequest?, response: HttpServletResponse?): String? = runBlocking{
         return@runBlocking sns?.getAllSubscriptions()
-     }
     }
+}
 ```
 
 ### SnsService class

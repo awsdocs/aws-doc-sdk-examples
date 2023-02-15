@@ -1,10 +1,36 @@
 # zexi 0.4.0
+aurora_Hello:
+  title: Hello &AUR;
+  title_abbrev: Hello &AUR;
+  synopsis: get started using &AURlong;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.HelloAurora
+  services:
+    aurora: {DescribeDBClusters}
 aurora_DescribeDBClusterParameterGroups:
   title: Describe &AUR; DB cluster parameter groups using an &AWS; SDK
   title_abbrev: Describe DB cluster parameter groups
   synopsis: describe &AUR; DB cluster parameter groups.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.DescribeDBClusterParameterGroups
     Kotlin:
       versions:
         - sdk_version: 1
@@ -41,6 +67,15 @@ aurora_CreateDBClusterParameterGroup:
   synopsis: create an &AUR; DB cluster parameter group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.CreateDBClusterParameterGroup
     Kotlin:
       versions:
         - sdk_version: 1
@@ -77,6 +112,15 @@ aurora_DeleteDBClusterParameterGroup:
   synopsis: delete an &AUR; DB cluster parameter group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.DeleteDBClusterParameterGroup
     Kotlin:
       versions:
         - sdk_version: 1
@@ -113,6 +157,15 @@ aurora_DescribeDBClusterParameters:
   synopsis: describe parameters from an &AUR; DB cluster parameter group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.DescribeDBClusterParameters
     Kotlin:
       versions:
         - sdk_version: 1
@@ -149,6 +202,15 @@ aurora_ModifyDBClusterParameterGroup:
   synopsis: update parameters in an &AUR; DB cluster parameter group.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.ModifyDBClusterParameterGroup
     Kotlin:
       versions:
         - sdk_version: 1
@@ -185,6 +247,15 @@ aurora_DescribeDBClusters:
   synopsis: describe &AUR; DB clusters.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.DescribeDBClusters
     Kotlin:
       versions:
         - sdk_version: 1
@@ -221,6 +292,15 @@ aurora_CreateDBCluster:
   synopsis: create an &AUR; DB cluster.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.CreateDBCluster
     Kotlin:
       versions:
         - sdk_version: 1
@@ -257,6 +337,15 @@ aurora_DeleteDBCluster:
   synopsis: delete an &AUR; DB cluster.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.DeleteDBCluster
     Kotlin:
       versions:
         - sdk_version: 1
@@ -293,6 +382,15 @@ aurora_CreateDBClusterSnapshot:
   synopsis: create an &AUR; DB cluster snapshot.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.CreateSnapshot
     Kotlin:
       versions:
         - sdk_version: 1
@@ -329,6 +427,15 @@ aurora_DescribeDBClusterSnapshots:
   synopsis: describe &AUR; DB cluster snapshots.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.DescribeDBSnapshots
     Kotlin:
       versions:
         - sdk_version: 1
@@ -365,6 +472,15 @@ aurora_CreateDBInstance:
   synopsis: create a DB instance in an &AUR; DB cluster.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.CreateDBInstance
     Kotlin:
       versions:
         - sdk_version: 1
@@ -401,6 +517,15 @@ aurora_DescribeDBEngineVersions:
   synopsis: describe &AUR; database engine versions.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.DescribeEngineVersionsAsync
     Kotlin:
       versions:
         - sdk_version: 1
@@ -437,6 +562,15 @@ aurora_DescribeOrderableDBInstanceOptions:
   synopsis: describe options for &AUR; DB instances.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.DescribeOrderableDBInstanceOptions
     Java:
       versions:
         - sdk_version: 2
@@ -464,6 +598,15 @@ aurora_DescribeDBInstances:
   synopsis: describe &AUR; DB instances.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.DescribeDBInstances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -500,6 +643,15 @@ aurora_DeleteDBInstance:
   synopsis: delete an &AUR; DB instance.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Aurora.dotnetv3.DeleteDBInstance
     Kotlin:
       versions:
         - sdk_version: 1
@@ -541,6 +693,19 @@ aurora_Scenario_GetStartedClusters:
     - Delete the instance, DB cluster, and parameter group.
   category: Scenarios
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Aurora
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - Aurora.dotnetv3.AuroraClusterScenario
+            - description: Wrapper methods that are called by the scenario to
+                manage &AUR; actions.
+              snippet_tags:
+                - Aurora.dotnetv3.AuroraWrapper
     Kotlin:
       versions:
         - sdk_version: 1

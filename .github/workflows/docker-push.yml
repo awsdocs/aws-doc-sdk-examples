@@ -5,12 +5,13 @@ permissions:
   contents: read
   id-token: write
 
-on:
-  pull_request_target:
-    types:
-      - closed
-    branches:
-      - 'main'
+# DISABLING PUSH UNTIL SEC REVIEW COMPLETE
+# on:
+#   pull_request_target:
+#     types:
+#       - closed
+#     branches:
+#       - 'main'
 
 jobs:
   push_to_registry:
