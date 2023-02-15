@@ -3,6 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+const EXAMPLE_CREDENTIALS = {
+    accessKeyId: "access_key",
+    secretAccessKey: "secret_key",
+    sessionToken: "session_token"
+};
+
 const parseCookie = str =>
   str
   .split(';')
@@ -14,14 +20,8 @@ const parseCookie = str =>
     return acc;
   }, {});
 
-const EXAMPLE_CREDENTIALS = {
-    accessKeyId: "access_key",
-    secretAccessKey: "secret_key",
-    sessionToken: "session_token"
-};
-
 export const retrieveCredentials = () => {
-    let cookie = parseCookie(document.cookie || "");
+    let cookie = parseCookie(document.cookie ?? "");
     return cookie.credentials_aws ? JSON.parse(cookie.credentials_aws) : EXAMPLE_CREDENTIALS;
 }
 

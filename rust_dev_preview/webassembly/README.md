@@ -6,7 +6,7 @@ This example demonstrates how to package in an WebAssemlby module that uses the 
 
 ## Code examples
 
-- [Show functions](lib.rs) (ListFunctions)
+- [Show functions](./src/lib.rs) (ListFunctions)
 
 ## Running the code examples
 
@@ -19,7 +19,7 @@ This example demonstrates how to package in an WebAssemlby module that uses the 
 - Install [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/#).
 
 ### ⚠ Important
-Your AWS credentials should be customized in file [www/env.js](./www/env.js) otherwise it will not make the request to the backend.
+Your AWS credentials should be customized in file [www/env/credentials.js](./www/env/credentials.js) otherwise it will not make the request to the backend.
 
 ### count-functions
 
@@ -38,9 +38,9 @@ npm start
 
 Access your page at `http://localhost:3000`. Make your selection and press `Run`:
 
-- _REGION_ is the Region in which the client is created.
+- **region** is the Region in which the client is created.
   If not supplied, defaults to **us-west-2**.
-- **-v** displays additional information.
+- **verbose** displays additional information.
 
 ## Resources
 
