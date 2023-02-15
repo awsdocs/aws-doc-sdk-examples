@@ -28,7 +28,6 @@ final class MovieTests: XCTestCase {
     ///     in order to remove them after testing is complete.
     override class func setUp() {
         super.setUp()
-        SDKLoggingSystem.initialize(logLevel: .error)
     }
 
     func testSimpleCreateMovie() {

@@ -46,9 +46,7 @@ public class MovieTable {
     /// ready to use by Amazon DynamoDB.
     ///
     init(region: String = "us-east-2", tableName: String? = nil) async throws {
-        print("Inside init for MovieTable")
         ddbClient = try DynamoDBClient(region: region)
-        print("  Client created")
         if tableName != nil {
             self.tableName = tableName!
         } else {
@@ -56,7 +54,6 @@ public class MovieTable {
                                 maxDigits: 8)
         }
 
-        print("  Calling createTable")
         try await self.createTable()
     }
 
@@ -84,7 +81,6 @@ public class MovieTable {
             ),
             tableName: self.tableName
         )
-        print("    Calling client.createTable")
         let output = try await client.createTable(input: input)
         if output.tableDescription == nil {
             throw MoviesError.TableNotFound
