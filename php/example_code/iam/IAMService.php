@@ -7,7 +7,7 @@ use Aws\Iam\Exception\IamException;
 use Aws\Iam\IamClient;
 use Aws\Result;
 
-class IamService
+class IAMService
 {
     public static int $maxWaitAttempts = 10;
     public static int $waitTime = 2;
@@ -81,14 +81,14 @@ class IamService
             } catch (IamException $exception) {
                 if ($verbose) {
                     echo "Attempt failed because of: {$exception->getMessage()}.\n";
-                    echo "Waiting " . IamService::$waitTime . " seconds before trying again.\n";
-                    echo (IamService::$maxWaitAttempts - $attempts) . " attempts left.\n";
+                    echo "Waiting " . IAMService::$waitTime . " seconds before trying again.\n";
+                    echo (IAMService::$maxWaitAttempts - $attempts) . " attempts left.\n";
                 }
                 ++$attempts;
-                if ($attempts > IamService::$maxWaitAttempts) {
+                if ($attempts > IAMService::$maxWaitAttempts) {
                     return false;
                 }
-                sleep(IamService::$waitTime);
+                sleep(IAMService::$waitTime);
             }
         }
         return $result;

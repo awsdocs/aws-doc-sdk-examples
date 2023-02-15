@@ -5,7 +5,7 @@
 # This code example demonstrates how to enable a resource to send a message to an
 # Amazon Simple Queue Service (Amazon SQS) queue.
 
-# snippet-start:[s3.ruby.sqs-ruby-example-enable-resource.rb]
+# snippet-start:[ruby.example_code.sqs.EnableResource]
 
 require "aws-sdk-sqs"  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
@@ -35,4 +35,4 @@ sqs.set_queue_attributes({
     Policy: policy
   }
 })
-# snippet-end:[s3.ruby.sqs-ruby-example-enable-resource.rb]
+# snippet-end:[ruby.example_code.sqs.EnableResource]

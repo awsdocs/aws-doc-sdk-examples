@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-require_relative "../sqs-ruby-example-send-message-batch"
+require_relative "../send_message_batch"
 
 describe "#messages_sent?" do
   let(:queue_name) { "my-queue" }

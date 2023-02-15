@@ -7,7 +7,7 @@
 # 2. Set long polling for an existing queue.
 # 3. Set long polling when receiving messages for a queue.
 
-# snippet-start:[s3.ruby.sqs-ruby-example-enable-long-polling.rb]
+# snippet-start:[ruby.example_code.sqs.ScenarioPolling]
 
 require "aws-sdk-sqs"  # v2: require 'aws-sdk'
 # Replace us-west-2 with the AWS Region you're using for Amazon SQS.
@@ -86,4 +86,4 @@ begin
 rescue Aws::SQS::Errors::NonExistentQueue
   puts "Cannot receive messages using Aws::SQS::QueuePoller for a queue named '#{receive_queue_name}', as it does not exist."
 end
-# snippet-end:[s3.ruby.sqs-ruby-example-enable-long-polling.rb]
+# snippet-end:[ruby.example_code.sqs.ScenarioPolling]

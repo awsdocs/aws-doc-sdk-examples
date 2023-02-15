@@ -5,7 +5,7 @@
 # This code example demonstrates how to create a dead-letter queue, get and set some queue attributes,
 # send a message to the queue, wait (poll) for the message to arrive, and receive the message.
 
-# snippet-start:[s3.ruby.sqs-ruby-example-dead-letter-queue.rb]
+# snippet-start:[ruby.example_code.sqs.ScenarioDeadLetterQueue]
 
 require "aws-sdk-sqs"  # v2: require 'aws-sdk'
 
@@ -86,4 +86,4 @@ if receive_message_result.messages.count > 0
 else
   puts "\nNo messages received."
 end
-# snippet-end:[s3.ruby.sqs-ruby-example-dead-letter-queue.rb]
+# snippet-end:[ruby.example_code.sqs.ScenarioDeadLetterQueue]

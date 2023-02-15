@@ -73,6 +73,13 @@ dotnet run
 
 Alternatively, you can run the example from within your IDE.
 
+## Tests
+
+⚠ Running the tests might result in charges to your AWS account.
+
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `dotnetv3` folder.
+
 ## Additional resources
 * [Amazon Aurora User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
 * [Amazon RDS API Reference](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/Welcome.html)
