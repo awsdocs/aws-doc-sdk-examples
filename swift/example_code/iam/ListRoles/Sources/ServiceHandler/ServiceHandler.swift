@@ -22,7 +22,7 @@ enum ServiceHandlerError: Error {
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.
 public class ServiceHandler {
-    public let client: IamClient
+    public let client: IAMClient
 
     /// Initialize and return a new ``ServiceHandler`` object, which is used
     /// to drive the AWS calls used for the example. The Region string
@@ -33,7 +33,7 @@ public class ServiceHandler {
     // snippet-start:[iam.swift.listroles.handler.init]
     public init() async {
         do {
-            client = try IamClient(region: "AWS_GLOBAL")
+            client = try IAMClient(region: "AWS_GLOBAL")
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
             exit(1)
