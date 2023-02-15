@@ -6,7 +6,9 @@
 import init, { main } from "aws-wasm";
 import { setCredentials } from "env";
 
-export const initialize = async () => await init();
+export const initialize = async () => {
+  await init();
+};
 
 const run = async () => {
   const region = String(document.getElementById("region").value || "us-west-2");
@@ -21,5 +23,7 @@ const run = async () => {
 };
 
 window.onload = initialize;
-document.getElementById("run").addEventListener("click", run)
-document.getElementById("set-credentials").addEventListener("click", setCredentials)
+document.getElementById("run").addEventListener("click", run);
+document
+  .getElementById("set-credentials")
+  .addEventListener("click", setCredentials);
