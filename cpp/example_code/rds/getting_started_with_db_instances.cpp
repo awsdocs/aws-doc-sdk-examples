@@ -190,8 +190,7 @@ namespace AwsDoc {
          */
         int askQuestionForIntRange(const Aws::String &string, int low,
                                    int high);
-
-
+        
         //! Routine which converts a string of ints to a vector of ints.
         /*!
          \sa splitToInts()
@@ -217,18 +216,18 @@ namespace AwsDoc {
 
             return result;
         }
-    }
 
-    //! Utility routine to print a line of asterisks to standard out.
-    /*!
-     \\sa printAsterisksLine()
-    \return void:
-     */
-    inline void printAsterisksLine() {
-        std::cout << std::setfill('*') << std::setw(88) << " "
-                  << std::endl;
-    }
-}
+        //! Utility routine to print a line of asterisks to standard out.
+        /*!
+         \\sa printAsterisksLine()
+        \return void:
+         */
+        inline void printAsterisksLine() {
+            std::cout << std::setfill('*') << std::setw(88) << " "
+                      << std::endl;
+        }
+    } // RDS
+} // AwsDoc
 
 // snippet-start:[cpp.example_code.rds.get_started_instances]
 //! Routine which creates a Relational Database Service (Amazon RDS)
