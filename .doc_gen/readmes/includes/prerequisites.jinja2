@@ -1,6 +1,10 @@
 ### Prerequisites
 
+{% if lang_config['name'] != 'C++' %}
+
 For prerequisites, see the [README]({{lang_config['readme']}}#Prerequisites) in the `{{lang_config['base_folder']}}` folder.
+
+{% endif %}
 
 {% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 %}
 Install the packages required by these examples by running the following in a virtual environment:
@@ -10,6 +14,7 @@ python -m pip install -r requirements.txt
 ```
 
 {% elif lang_config['name'] == 'C++' and lang_config['sdk_ver'] == 1 %}
+
 Before using the code examples, first complete the installation and setup steps
 for [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
 C++ Developer Guide.
