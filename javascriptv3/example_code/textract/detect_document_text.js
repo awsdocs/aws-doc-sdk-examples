@@ -9,7 +9,7 @@ const client = new TextractClient({ apiVersion: "2018-06-27" });
 /*File system package for importing images and converting the image data to ByteArray */
 const fs = require('fs');
 
-const main = async (event, context) => {
+const main = async () => {
     const textractParams = {
         Document: {
             Bytes: fs.readFileSync("simple-document-image.jpg")
