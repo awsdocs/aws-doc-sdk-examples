@@ -1444,6 +1444,15 @@ ec2_Scenario_GetStartedInstances:
             - description: Define a class that wraps Elastic IP actions.
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.class
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - javascript.v3.ec2.scenarios.basic
   services:
     ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair,
           CreateSecurityGroup, DeleteKeyPair, DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes,

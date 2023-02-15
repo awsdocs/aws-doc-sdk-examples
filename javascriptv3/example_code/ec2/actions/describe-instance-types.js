@@ -26,19 +26,19 @@ export const main = async () => {
   );
 
   try {
-    const arm64InstanceTypes = [];
+    const instanceTypes = [];
 
     for await (const page of paginator) {
       if (page.InstanceTypes.length) {
-        arm64InstanceTypes.push(...page.InstanceTypes);
+        instanceTypes.push(...page.InstanceTypes);
 
         // Once we have at least 1 result, we can stop.
-        if (arm64InstanceTypes.length >= 1) {
+        if (instanceTypes.length >= 1) {
           break;
         }
       }
     }
-    console.log(arm64InstanceTypes);
+    console.log(instanceTypes);
   } catch (err) {
     console.error(err);
   }
