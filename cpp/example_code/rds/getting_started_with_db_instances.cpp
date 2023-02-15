@@ -56,8 +56,8 @@
 #include <aws/core/utils/UUID.h>
 #include "rds_samples.h"
 
-#include <rds/model/DescribeDBSnapshotsRequest.h> // #include <aws/rds/model/DescribeDBSnapshotsRequest.h> fails a validation check.
-#include <rds/model/DescribeDBInstancesRequest.h> // #include <aws/rds/model/DescribeDBInstancesRequest.h> fails a validation check.
+#include <rds/model/DescribeDBSnapshotsRequest.h> // Full path fails a validation check.
+#include <rds/model/DescribeDBInstancesRequest.h> //  Full path fails a validation check.
 
 
 namespace AwsDoc {
