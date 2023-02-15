@@ -15,7 +15,7 @@ namespace AwsDocTest {
     bool addHttpResponses(MockHTTP &mockHttp);
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(RDS_GTests, delete_bucket) {
+    TEST_F(RDS_GTests, gettingStartedWithDBInstances) {
         AddCommandLineResponses(RESPONSES);
 
         bool result = AwsDoc::RDS::gettingStartedWithDBInstances(*s_clientConfig);
@@ -23,7 +23,7 @@ namespace AwsDocTest {
     }
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(RDS_GTests, delete_bucket_m_) {
+    TEST_F(RDS_GTests, gettingStartedWithDBInstances_m_) {
         AddCommandLineResponses(RESPONSES);
 
         MockHTTP mockHttp;
