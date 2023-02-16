@@ -5,8 +5,11 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start: [javascript.v3.ec2.actions.DescribeInstanceTypes]
-import { paginateDescribeInstanceTypes, DescribeInstanceTypesCommand } from "@aws-sdk/client-ec2";
+// snippet-start:[javascript.v3.ec2.actions.DescribeInstanceTypes]
+import {
+  paginateDescribeInstanceTypes,
+  DescribeInstanceTypesCommand,
+} from "@aws-sdk/client-ec2";
 
 import { client } from "../libs/client.js";
 
@@ -43,7 +46,7 @@ export const main = async () => {
     console.error(err);
   }
 };
-// snippet-end: [javascript.v3.ec2.actions.DescribeInstanceTypes]
+// snippet-end:[javascript.v3.ec2.actions.DescribeInstanceTypes]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start: [ec2.JavaScript.keypairs.describeKeyPairV3]
+// snippet-start:[ec2.JavaScript.keypairs.describeKeyPairV3]
 import { DescribeKeyPairsCommand } from "@aws-sdk/client-ec2";
 
 import { client } from "../libs/client.js";
@@ -18,13 +18,13 @@ export const main = async () => {
     const keyPairList = KeyPairs.map(
       (kp) => ` • ${kp.KeyPairId}: ${kp.KeyName}`
     ).join("\n");
-    console.log("The following key pairs were found in your account:")
+    console.log("The following key pairs were found in your account:");
     console.log(keyPairList);
   } catch (err) {
     console.error(err);
   }
 };
-// snippet-end: [ec2.JavaScript.keypairs.describeKeyPairV3]
+// snippet-end:[ec2.JavaScript.keypairs.describeKeyPairV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

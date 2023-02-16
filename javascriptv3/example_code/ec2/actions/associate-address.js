@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start: [javascript.v3.ec2.actions.AssociateAddress]
+// snippet-start:[javascript.v3.ec2.actions.AssociateAddress]
 import { AssociateAddressCommand } from "@aws-sdk/client-ec2";
 
 import { client } from "../libs/client.js";
@@ -32,7 +32,7 @@ export const main = async () => {
     console.error(err);
   }
 };
-// snippet-end: [javascript.v3.ec2.actions.AssociateAddress]
+// snippet-end:[javascript.v3.ec2.actions.AssociateAddress]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

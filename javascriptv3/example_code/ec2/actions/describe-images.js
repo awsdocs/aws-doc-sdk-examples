@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start: [javascript.v3.ec2.actions.DescribeImages]
+// snippet-start:[javascript.v3.ec2.actions.DescribeImages]
 import { paginateDescribeImages } from "@aws-sdk/client-ec2";
 
 import { client } from "../libs/client.js";
@@ -41,7 +41,7 @@ export const main = async () => {
     console.error(err);
   }
 };
-// snippet-end: [javascript.v3.ec2.actions.DescribeImages]
+// snippet-end:[javascript.v3.ec2.actions.DescribeImages]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

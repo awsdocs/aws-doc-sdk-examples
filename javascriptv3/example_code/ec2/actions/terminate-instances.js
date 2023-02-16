@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start: [javascript.v2.ec2.actions.TerminateInstances]
+// snippet-start:[javascript.v2.ec2.actions.TerminateInstances]
 import { TerminateInstancesCommand } from "@aws-sdk/client-ec2";
 
 import { client } from "../libs/client.js";
@@ -26,7 +26,7 @@ export const main = async () => {
     console.error(err);
   }
 };
-// snippet-end: [javascript.v2.ec2.actions.TerminateInstances]
+// snippet-end:[javascript.v2.ec2.actions.TerminateInstances]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

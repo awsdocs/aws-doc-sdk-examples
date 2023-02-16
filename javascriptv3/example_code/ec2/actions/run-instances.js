@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start: [ec2.JavaScript.Instances.create_instancesV3]
+// snippet-start:[ec2.JavaScript.Instances.create_instancesV3]
 import { RunInstancesCommand } from "@aws-sdk/client-ec2";
 
 import { client } from "../libs/client.js";
@@ -33,7 +33,7 @@ export const main = async () => {
     console.error(err);
   }
 };
-// snippet-end: [ec2.JavaScript.Instances.create_instancesV3]
+// snippet-end:[ec2.JavaScript.Instances.create_instancesV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

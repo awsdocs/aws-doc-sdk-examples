@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start: [javascript.v3.ec2.scenarios.basic]
+// snippet-start:[javascript.v3.ec2.scenarios.basic]
 import { mkdtempSync, writeFileSync, rmSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
@@ -501,7 +501,7 @@ export const main = async () => {
     );
   }
 };
-// snippet-end: [javascript.v3.ec2.scenarios.basic]
+// snippet-end:[javascript.v3.ec2.scenarios.basic]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
