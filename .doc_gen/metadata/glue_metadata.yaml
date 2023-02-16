@@ -999,12 +999,11 @@ glue_Scenario_GetStartedCrawlersJobs:
             - description: Create a class that wraps &GLU; functions that are
                 used in the scenario.
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.GlueMethods
+                - Glue.dotnetv3.GlueBasicsScenario.GlueWrapper
             - description: Create a class that runs the scenario.
               snippet_tags:
                 - Glue.dotnetv3.GlueBasics.GlobalUsings
                 - Glue.dotnetv3.GlueBasics.Main
-                - Glue.dotnetv3.GlueWrapper
                 - Glue.dotnetv3.GlueBasics.UiWrapper
     Kotlin:
       versions:
