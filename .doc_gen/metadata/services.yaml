@@ -80,7 +80,7 @@ aurora:
   expanded:
     long: Amazon Aurora
     short: Aurora
-  blurb: is a fully managed relational database engine that's built for the cloud and compatible with MySQL and PostgreSQL. Amazon Aurora is part of Amazon RDS.
+  blurb: is a fully managed relational database engine that's built for the cloud and compatible with MySQL and PostgreSQL. Amazon Aurora is part of Amazon Relational Database Service (Amazon RDS).
   guide:
     subtitle: User Guide
     url: AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
