@@ -205,9 +205,6 @@ s3_CopyObject:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: Copy the object.
               snippet_tags:
                 - s3.JavaScript.buckets.copyObjectV3

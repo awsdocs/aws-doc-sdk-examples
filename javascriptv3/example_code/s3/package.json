@@ -1,0 +1,18 @@
+{
+  "name": "example-javascriptv3-s3",
+  "version": "1.0.0",
+  "description": "Examples demonstrating how to use the AWS SDK for JavaScript (v3) to interact with Amazon S3.",
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js"
+  },
+  "author": "corepyle@amazon.com",
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.272.0",
+    "libs": "*"
+  },
+  "devDependencies": {
+    "vitest": "^0.27.3"
+  }
+}
