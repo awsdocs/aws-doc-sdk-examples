@@ -21,6 +21,7 @@ You will find these examples that use the **S3Client** class:
 
 - [Abort a multipart upload to an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/AbortMultipartUpload.java) (AbortMultipartUpload command)
 - [Copy an object from one S3 bucket to another S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CopyObject.java) (CopyObject command)
+- [Copy an object and set its storage](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CopyObjectStorage.java) (CopyObject command)
 - [Create and delete an access point for an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CreateAccessPoint.java) (CreateAccessPoint command)
 - [Create an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CreateBucket.java) (CreateBucket command)
 - [Create an Amazon S3 batch job](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/CreateJob.java) (CreateJob command)
@@ -35,6 +36,7 @@ You will find these examples that use the **S3Client** class:
 - [Get the content type of an object in an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectContentType.java) (HeadObject command)
 - [Read data from an S3 object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectData.java) (GetObjectAsBytes command)
 - [Get an object located in an S3 bucket by using the S3Presigner client object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectPresignedUrl.java) (PresignGetObject command)
+- [Get an object restore status](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectRestoreStatus.java) (headObject command)
 - [Read tags that belong to an object located in an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectTags.java) (GetObjectTagging command)
 - [Get an URL for an object located in an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectUrl.java) (GetUrl command)
 - [Use the AWS Key Management Service to encrypt data prior to placing the data into an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/KMSEncryptionExample.java) (Encrypt command)
