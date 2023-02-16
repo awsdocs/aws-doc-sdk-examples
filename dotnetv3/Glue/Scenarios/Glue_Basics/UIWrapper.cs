@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[Glue.dotnetv3.GlueBasics.UiWrapper]
 namespace GlueBasics;
 
 public class UiWrapper
@@ -63,3 +64,5 @@ public class UiWrapper
         Console.WriteLine(SepBar);
     }
 }
+
+// snippet-end:[Glue.dotnetv3.GlueBasics.UiWrapper]

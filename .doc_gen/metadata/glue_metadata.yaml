@@ -13,7 +13,7 @@ glue_GetCrawler:
           excerpts:
             - description:
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.GetSpecificCrawlerAsync
+                - Glue.dotnetv3.GetCrawler
     Kotlin:
       versions:
         - sdk_version: 1
@@ -93,7 +93,7 @@ glue_CreateCrawler:
           excerpts:
             - description:
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.CreateGlueCrawlerAsync
+                - Glue.dotnetv3.CreateCrawler
     Kotlin:
       versions:
         - sdk_version: 1
@@ -175,7 +175,7 @@ glue_StartCrawler:
           excerpts:
             - description:
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.StartSpecificCrawlerAsync
+                - Glue.dotnetv3.StartCrawler
     Kotlin:
       versions:
         - sdk_version: 1
@@ -257,7 +257,7 @@ glue_GetDatabase:
           excerpts:
             - description:
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.GetSpecificDatabaseAsync
+                - Glue.dotnetv3.GetDatabase
     Kotlin:
       versions:
         - sdk_version: 1
@@ -338,7 +338,7 @@ glue_GetTables:
           excerpts:
             - description:
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.GetGlueTablesAsync
+                - Glue.dotnetv3.GetTables
     Java:
       versions:
         - sdk_version: 2
@@ -410,7 +410,7 @@ glue_CreateJob:
           excerpts:
             - description:
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.CreateJobAsync
+                - Glue.dotnetv3.CreateJob
     PHP:
       versions:
         - sdk_version: 3
@@ -474,7 +474,7 @@ glue_StartJobRun:
           excerpts:
             - description:
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.StartJobAsync
+                - Glue.dotnetv3.StartJobRun
     PHP:
       versions:
         - sdk_version: 3
@@ -531,6 +531,14 @@ glue_ListJobs:
   synopsis: list &GLU; job definitions.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.ListJobs
     PHP:
       versions:
         - sdk_version: 3
@@ -592,7 +600,7 @@ glue_GetJobRuns:
           excerpts:
             - description:
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.GetJobRunsAsync
+                - Glue.dotnetv3.GetJobRuns
     PHP:
       versions:
         - sdk_version: 3
@@ -639,6 +647,14 @@ glue_GetJobRun:
   synopsis: get an &GLU; job run.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GetJobRun
     PHP:
       versions:
         - sdk_version: 3
@@ -702,7 +718,7 @@ glue_DeleteJob:
           excerpts:
             - description:
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.DeleteJobAsync
+                - Glue.dotnetv3.DeleteJob
     PHP:
       versions:
         - sdk_version: 3
@@ -756,6 +772,14 @@ glue_DeleteTable:
   synopsis: delete a table from an &GLUDCLong; database.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.DeleteTable
     PHP:
       versions:
         - sdk_version: 3
@@ -807,7 +831,7 @@ glue_DeleteDatabase:
           excerpts:
             - description:
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.DeleteDatabaseAsync
+                - Glue.dotnetv3.DeleteDatabase
     PHP:
       versions:
         - sdk_version: 3
@@ -869,7 +893,7 @@ glue_DeleteCrawler:
           excerpts:
             - description:
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.DeleteSpecificCrawlerAsync
+                - Glue.dotnetv3.DeleteCrawler
     PHP:
       versions:
         - sdk_version: 3
@@ -939,6 +963,14 @@ glue_GetJob:
   synopsis: get a job from the &GLUDCLong;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.GetJob
     JavaScript:
       versions:
         - sdk_version: 3
@@ -978,8 +1010,10 @@ glue_Scenario_GetStartedCrawlersJobs:
                 - Glue.dotnetv3.GlueBasicsScenario.GlueMethods
             - description: Create a class that runs the scenario.
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.GlobalUsings
-                - Glue.dotnetv3.GlueBasicsScenario.Main
+                - Glue.dotnetv3.GlueBasics.GlobalUsings
+                - Glue.dotnetv3.GlueBasics.Main
+                - Glue.dotnetv3.GlueWrapper
+                - Glue.dotnetv3.GlueBasics.UiWrapper
     Kotlin:
       versions:
         - sdk_version: 1
