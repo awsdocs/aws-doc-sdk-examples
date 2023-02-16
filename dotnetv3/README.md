@@ -80,7 +80,7 @@ hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/
 with all .NET examples ready to build and run, so that you can explore
 these examples in an isolated environment.
 
-⚠️ As of February 2023, the [SDK for .NET v3 image](https://gallery.ecr.aws/aws-docs-sdk-examples/dotnetv3) is available on ECR Public but is still
+⚠️ As of February 2023, the [SDK for .NET v3 image](https://gallery.ecr.aws/b4v4v1s0/dotnetv3) is available on ECR Public but is still
 undergoing active development. Refer to 
 [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4126) 
 for more information. 
