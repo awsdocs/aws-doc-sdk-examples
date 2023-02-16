@@ -963,14 +963,6 @@ glue_GetJob:
   synopsis: get a job from the &GLUDCLong;.
   category:
   languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Glue
-          excerpts:
-            - description:
-              snippet_tags:
-                - Glue.dotnetv3.GetJob
     JavaScript:
       versions:
         - sdk_version: 3
