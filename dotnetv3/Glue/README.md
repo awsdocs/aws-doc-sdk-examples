@@ -13,6 +13,10 @@ AWS Glue is a serverless data integration service that makes it easy to discover
 
 ## Code examples
 
+### Get started
+
+    [Hello Glue](actions/HelloGlue.cs)
+
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 

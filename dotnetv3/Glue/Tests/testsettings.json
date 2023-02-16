@@ -1,0 +1,10 @@
+{
+  "BucketName": "BUCKET NAME FROM CDK SCRIPT",
+  "CrawlerName": "NAME FOR CRAWLER",
+  "RoleName": "ROLE NAME FROM CDK SCRIPT",
+  "SourceData": "s3://crawler-public-us-east-1/flight/2016/csv",
+  "DbName": "test-flights-db",
+  "Cron": "cron(15 12 * * ? *)",
+  "ScriptURL": "PATH TO PYTHON SCRIPT",
+  "JobName": "glue-mvp-test-job"
+}
