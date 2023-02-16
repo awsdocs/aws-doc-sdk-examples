@@ -124,18 +124,15 @@ final class AttachRolePolicyTests: XCTestCase {
 
     func testAttachRolePolicy() async throws {
         do {
-            print("Creating role")
             let testRole = try await createTestRole()
 
             // Add some policies to the role.
 
-            print("Creating policies")
             var testPolicyARNs: [String] = []
             for _ in 1...5 {
                 let policyArn = try await createTestPolicy()
                 testPolicyARNs.append(policyArn)
             }
-            print("Attachking policy")
             // Attach the policies to the test role.
 
             for policyArn in testPolicyARNs {
