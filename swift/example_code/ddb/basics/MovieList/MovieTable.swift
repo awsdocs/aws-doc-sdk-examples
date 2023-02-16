@@ -26,6 +26,8 @@ enum MoviesError: Error {
     case InvalidAttributes
 }
 
+
+// snippet-start:[ddb.swift.basics]
 /// A class representing an Amazon DynamoDB table containing movie
 /// information.
 public class MovieTable {
@@ -234,6 +236,7 @@ public class MovieTable {
             throw MoviesError.UninitializedClient
         }
 
+        // Get a DynamoDB item containing the movie data.
         let item = try await movie.getAsItem()
 
         // Send the `PutItem` request to Amazon DynamoDB.
@@ -481,3 +484,4 @@ public class MovieTable {
     }
     // snippet-end:[ddb.swift.basics.delete]
 }
+// snippet-end:[ddb.swift.basics]

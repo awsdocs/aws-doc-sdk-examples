@@ -1627,6 +1627,42 @@ dynamodb_Scenario_GettingStartedMovies:
                 questions at a command prompt.
               snippet_tags:
                 - ruby.example_code.dynamodb.helper.Question
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/basics
+          excerpts:
+            - description: A Swift class that handles &DDB; calls to the &Swift;.
+              snippet_tags:
+                - ddb.swift.basics
+            - description: Creates a table to contain movie data.
+              snippet_tags:
+                - ddb.swift.basics.createtable
+            - description: Adds a single movie to the table.
+              snippet_tags:
+                - ddb.swift.basics.add-movie
+                - ddb.swift.basics.movie.getasitem
+            - description: Updates a single item in a table.
+              snippet_tags:
+                - ddb.swift.basics.update
+            - description: Retrieves a single item from the movie table.
+              snippet_tags:
+                - ddb.swift.basics.get
+            - description: Writes a batch of items to the movie table.
+              snippet_tags:
+                - ddb.swift.basics.populate
+            - description: Deletes a single item from the table.
+              snippet_tags:
+                - ddb.swift.basics.delete
+            - description: Queries the table for movies released in a particular year.
+              snippet_tags:
+                - ddb.swift.basics.getMovies-year
+            - description: Scans the table for movies released in a range of years.
+              snippet_tags:
+                - ddb.swift.basics.getmovies-range
+            - description: Deletes the movie table.
+              snippet_tags:
+                - ddb.swift.basics.deletetable
     JavaScript:
       versions:
         - sdk_version: 3
