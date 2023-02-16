@@ -999,7 +999,7 @@ glue_Scenario_GetStartedCrawlersJobs:
             - description: Create a class that wraps &GLU; functions that are
                 used in the scenario.
               snippet_tags:
-                - Glue.dotnetv3.GlueBasicsScenario.GlueWrapper
+                - Glue.dotnetv3.GlueBasics.GlueWrapper
             - description: Create a class that runs the scenario.
               snippet_tags:
                 - Glue.dotnetv3.GlueBasics.GlobalUsings
