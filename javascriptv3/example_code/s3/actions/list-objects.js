@@ -23,6 +23,7 @@ export const bucketParams = { Bucket: "BUCKET_NAME" };
 
 export const run = async () => {
   try {
+    // handle truncated lists
     const data = await s3Client.send(new ListObjectsCommand(bucketParams));
     console.log("Success", data);
     return data; // For unit tests.

@@ -503,9 +503,6 @@ s3_DeleteObjects:
             - description: Delete multiple objects.
               snippet_tags:
                 - s3.JavaScript.buckets.deletemultipleobjectsV3
-            - description: Delete all objects in a bucket.
-              snippet_tags:
-                - s3.JavaScript.buckets.deleteoallbjectsV3
     Ruby:
       versions:
         - sdk_version: 3
@@ -1288,9 +1285,6 @@ s3_PutObject:
             - description: Create the client.
               snippet_tags:
                 - s3.JavaScript.buckets.createclientv3
-            - description: Create and upload the object.
-              snippet_tags:
-                - s3.JavaScript.buckets.upload_putcommandV3
             - description: Upload the object.
               snippet_tags:
                 - s3.JavaScript.buckets.uploadV3

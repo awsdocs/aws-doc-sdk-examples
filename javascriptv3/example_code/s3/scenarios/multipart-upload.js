@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// snippet-start:[s3.JavaScript.buckets.multipartupload_v3]
+// snippet-start:[javascript.v3.s3.scenarios.multipartupload]
 import {
   CreateMultipartUploadCommand,
   UploadPartCommand,
@@ -96,4 +96,4 @@ export const run = async () => {
 };
 
 export default run();
-// snippet-end:[s3.JavaScript.buckets.multipartupload_v3]
+// snippet-end:[javascript.v3.s3.scenarios.multipartupload]

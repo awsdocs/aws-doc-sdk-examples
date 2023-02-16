@@ -18,7 +18,7 @@ node s3_copyobject.js
 // snippet-start:[s3.JavaScript.buckets.copyObjectV3]
 // Get service clients module and commands using ES6 syntax.
 import { CopyObjectCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js";
+import { s3Client } from "../src/libs/s3Client.js";
 
 // Set the bucket parameters.
 
