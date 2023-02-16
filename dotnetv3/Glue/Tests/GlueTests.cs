@@ -62,9 +62,9 @@ namespace GlueTests
         public async Task CreateCrawlerAsyncTest()
         {
             var success = await _wrapper.CreateCrawlerAsync(
-                _crawlerName, 
+                _crawlerName,
                 "Glue crawler created for testing.",
-                _roleName, 
+                _roleName,
                 _cron,
                 _sourceData,
                 _dbName);
@@ -128,6 +128,10 @@ namespace GlueTests
             Assert.NotEmpty(_tables);
         }
 
+        /// <summary>
+        /// Test creating an AWS Glue job.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact]
         [Order(5)]
         [Trait("Category", "Integration")]
@@ -137,13 +141,17 @@ namespace GlueTests
             Assert.True(success, "Couldn't create job.");
         }
 
+        /// <summary>
+        /// Test starting an AWS Glue job run.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact]
         [Order(6)]
         [Trait("Category", "Integration")]
         public async Task StartJobRunAsyncTest()
         {
             _jobRunId = await _wrapper.StartJobRunAsync(_jobName);
-            
+
             // Wait for the job run to complete or error out.
             var jobRunComplete = false;
             do
@@ -158,6 +166,10 @@ namespace GlueTests
             Assert.True(jobRunComplete, "Could not complete the job run.");
         }
 
+        /// <summary>
+        /// Test getting a list of job run information.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact]
         [Order(7)]
         [Trait("Category", "Integration")]
@@ -167,6 +179,10 @@ namespace GlueTests
             Assert.NotNull(jobRuns);
         }
 
+        /// <summary>
+        /// Test deleting an AWS Glue database.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact]
         [Order(8)]
         [Trait("Category", "Integration")]
@@ -176,12 +192,16 @@ namespace GlueTests
             Assert.True(success, "Could not delete the job.");
         }
 
+        /// <summary>
+        /// Test deleting an AWS Glue database table.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact]
         [Order(9)]
         [Trait("Category", "Integration")]
         public async Task DeleteTableAsyncTest()
         {
-            bool success;
+            bool success = false;
             _tables.ForEach(async table =>
             {
                 success = await _wrapper.DeleteTableAsync(table.Name);
@@ -189,6 +209,10 @@ namespace GlueTests
             Assert.True(success, "Could not delete tables.");
         }
 
+        /// <summary>
+        /// Test deleting an AWS Glue database.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact]
         [Order(10)]
         [Trait("Category", "Integration")]
@@ -198,6 +222,10 @@ namespace GlueTests
             Assert.True(success, "Could not delete database.");
         }
 
+        /// <summary>
+        /// Test deleting an AWS Glue crawler.
+        /// </summary>
+        /// <returns>An async Task.</returns>
         [Fact]
         [Order(11)]
         [Trait("Category", "Integration")]
