@@ -125,8 +125,8 @@ Define these values to successfully run the JUnit tests:
 - **encryptOutPath** - The path where a text file is written to after it's decrypted. This value is required for the **KMSEncryptionExample** test.
 - **keyId** - The id of the AWS KMS key to use to encrypt/decrypt the data. You can obtain the key ID value from the AWS Management Console. This value is required for the **KMSEncryptionExample** test.
 - **restoreImagePath** - The path of an image file used in the restore tests. For example, **C:/AWS/Sea10.jpg**.
-- restoreBucket = The name of a bucket used in the restore tests. 
-- restoreImageName = The name of an image file used in the restore tests. For example, **Sea10.jpg**.
+- **restoreBucket** - The name of a bucket used in the restore tests. 
+- **restoreImageName** - The name of an image file used in the restore tests. For example, **Sea10.jpg**.
 
 
 ###  Sample policy text
