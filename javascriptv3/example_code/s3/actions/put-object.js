@@ -1,55 +1,32 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-Purpose:
-s3_putobject.js uploads an existing file to an Amazon Simple Storage Service (Amazon S3) bucket.
+import { fileURLToPath } from "url";
 
-Inputs (replace in code):
-- BUCKET_NAME
-- OBJECT_PATH_AND_NAME: Relative path and name of object. For example '../myFiles/index.js'.
-
-Running the code:
-nodes3_putobject.js
-
-[Outputs | Returns]:
-Uploads the specified file to the specified bucket.
-
-*/
 // snippet-start:[s3.JavaScript.buckets.uploadV3]
-// Import required AWS SDK clients and commands for Node.js.
-import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
-import {path} from "path";
-import {fs} from "fs";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
-const file = "OBJECT_PATH_AND_NAME"; // Path to and name of object. For example '../myFiles/index.js'.
-const fileStream = fs.createReadStream(file);
+const client = new S3Client({});
 
-// Set the parameters
-export const uploadParams = {
-  Bucket: "BUCKET_NAME",
-  // Add the required 'Key' parameter using the 'path' module.
-  Key: path.basename(file),
-  // Add the required 'Body' parameter
-  Body: fileStream,
-};
+export const main = async () => {
+  const command = new PutObjectCommand({
+    Bucket: "test-bucket",
+    Key: "hello-s3.txt",
+    Body: "Hello S3!",
+  });
 
-
-// Upload file to specified bucket.
-export const run = async () => {
   try {
-    const data = await s3Client.send(new PutObjectCommand(uploadParams));
-    console.log("Success", data);
-    return data; // For unit tests.
+    const response = await client.send(command);
+    console.log(response);
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
-
 // snippet-end:[s3.JavaScript.buckets.uploadV3]
-// For unit testing only.
-// module.exports ={run, uploadParams};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
