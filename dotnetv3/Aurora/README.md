@@ -30,11 +30,11 @@ Shows how to use the AWS SDK for .NET to work with Amazon Aurora.
 
 Code excerpts that show you how to call individual service functions.
 
-* [Create a DB cluster](Actions/AuroraWrapper.cs#L41) (`CreateDBCluster`)
+* [Create a DB cluster](Actions/AuroraWrapper.cs#L199) (`CreateDBCluster`)
 * [Create a DB cluster parameter group](Actions/AuroraWrapper.cs#L41) (`CreateDBClusterParameterGroup`)
 * [Create a DB cluster snapshot](Actions/AuroraWrapper.cs#L320) (`CreateDBClusterSnapshot`)
 * [Create a DB instance in a DB cluster](Actions/AuroraWrapper.cs#L286) (`CreateDBInstance`)
-* [Delete a DB cluster](Actions/AuroraWrapper.cs#L181) (`DeleteDBCluster`)
+* [Delete a DB cluster](Actions/AuroraWrapper.cs#L367) (`DeleteDBCluster`)
 * [Delete a DB cluster parameter group](Actions/AuroraWrapper.cs#L181) (`DeleteDBClusterParameterGroup`)
 * [Delete a DB instance](Actions/AuroraWrapper.cs#L386) (`DeleteDBInstance`)
 * [Describe DB cluster parameter groups](Actions/AuroraWrapper.cs#L98) (`DescribeDBClusterParameterGroups`)
