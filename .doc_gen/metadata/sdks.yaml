@@ -206,8 +206,8 @@ Swift:
       short: "&Swift;"
       caveat: "This is prerelease documentation for an SDK in preview release. It is subject to change."
       expanded:
-        long: "&Swiftlong;"
-        short: "@Swift;"
+        long: "AWS SDK for Swift"
+        short: "SDK for Swift"
       guide: "sdk-for-swift/latest/developer-guide/home.html"
       api_ref:
         uid: "SdkForSwift"
