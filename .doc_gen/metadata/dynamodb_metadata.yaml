@@ -84,6 +84,14 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.rust.create-table
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/basics/MovieTable.swift
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.createtable
     JavaScript:
       versions:
         - sdk_version: 3
@@ -317,6 +325,14 @@ dynamodb_BatchWriteItem:
             - description:
               snippet_tags:
                 - ruby.example_code.dynamodb.BatchWriteItem
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/basics/MovieTable.swift
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.populate
     C++:
       versions:
         - sdk_version: 1
@@ -412,6 +428,14 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - dynamodb.rust.delete-table
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/basics/MovieTable.swift
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.deletetable
     JavaScript:
       versions:
         - sdk_version: 3
@@ -517,6 +541,15 @@ dynamodb_PutItem:
             - description:
               snippet_tags:
                 - dynamodb.rust.add-item
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/basics/MovieTable.swift
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.add-movie
+                - ddb.swift.basics.movie.getasitem
     JavaScript:
       versions:
         - sdk_version: 3
@@ -626,6 +659,14 @@ dynamodb_GetItem:
             - description:
               snippet_tags:
                 - ruby.example_code.dynamodb.GetItem
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/basics/MovieTable.swift
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.get
     JavaScript:
       versions:
         - sdk_version: 3
@@ -745,6 +786,14 @@ dynamodb_UpdateItem:
             - description:
               snippet_tags:
                 - ruby.example_code.dynamodb.UpdateItem.UpdateExpression
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/basics/MovieTable.swift
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.update
     JavaScript:
       versions:
         - sdk_version: 3
@@ -842,6 +891,14 @@ dynamodb_DeleteItem:
             - description:
               snippet_tags:
                 - dynamodb.rust.delete-item
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/basics/MovieTable.swift
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.delete
     Ruby:
       versions:
         - sdk_version: 3
@@ -1090,6 +1147,14 @@ dynamodb_Query:
             - description: Find the movies made in the specified year.
               snippet_tags:
                 - dynamodb.rust.movies-movies_in_year
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/basics/MovieTable.swift
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.getMovies-year
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1202,6 +1267,14 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - dynamodb.rust.list-items
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/basics/MovieTable.swift
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.getmovies-range
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1634,35 +1707,10 @@ dynamodb_Scenario_GettingStartedMovies:
           excerpts:
             - description: A Swift class that handles &DDB; calls to the &Swift;.
               snippet_tags:
-                - ddb.swift.basics
-            - description: Creates a table to contain movie data.
+                - ddb.swift.basics.movietable
+            - description: A Swift struct describing a movie.
               snippet_tags:
-                - ddb.swift.basics.createtable
-            - description: Adds a single movie to the table.
-              snippet_tags:
-                - ddb.swift.basics.add-movie
-                - ddb.swift.basics.movie.getasitem
-            - description: Updates a single item in a table.
-              snippet_tags:
-                - ddb.swift.basics.update
-            - description: Retrieves a single item from the movie table.
-              snippet_tags:
-                - ddb.swift.basics.get
-            - description: Writes a batch of items to the movie table.
-              snippet_tags:
-                - ddb.swift.basics.populate
-            - description: Deletes a single item from the table.
-              snippet_tags:
-                - ddb.swift.basics.delete
-            - description: Queries the table for movies released in a particular year.
-              snippet_tags:
-                - ddb.swift.basics.getMovies-year
-            - description: Scans the table for movies released in a range of years.
-              snippet_tags:
-                - ddb.swift.basics.getmovies-range
-            - description: Deletes the movie table.
-              snippet_tags:
-                - ddb.swift.basics.deletetable
+                - ddb.swift.basics.movie
     JavaScript:
       versions:
         - sdk_version: 3

@@ -5,7 +5,6 @@
 import XCTest
 import Foundation
 import AWSDynamoDB
-import AWSClientRuntime
 import ClientRuntime
 import SwiftUtilities
 
@@ -34,7 +33,7 @@ final class MovieTableTests: XCTestCase {
     func testInit() async throws {
         // Test creating a table with an automatically-generated table name.
 
-        let list1 = try await MovieTable()
+        let list1 = try await MovieTable(tableName: String.uniqueName(withPrefix: "ddb-movies-sample", maxDigits: 6))
         XCTAssertTrue(list1.tableName.starts(with:"ddb-movies-sample"), "Generated table name is not what is expected.")
 
         do {

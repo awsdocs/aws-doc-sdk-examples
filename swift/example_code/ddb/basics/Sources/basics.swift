@@ -27,9 +27,8 @@
 
 import Foundation
 import ArgumentParser
+import AWSDynamoDB
 import ClientRuntime
-import AWSClientRuntime
-import SwiftUtilities
 
 @testable import MovieList
 
@@ -74,7 +73,8 @@ struct ExampleCommand: ParsableCommand {
         //    the `MovieTable` class.
         //=====================================================================
 
-        let tableName = String.uniqueName(withPrefix: "ddb-movies-sample", maxDigits: 8)
+        let tableName = "ddb-movies-sample-\(Int.random(in: 1...Int.max))"
+        //let tableName = String.uniqueName(withPrefix: "ddb-movies-sample", maxDigits: 8)
 
         print("Creating table \"\(tableName)\"...")
 

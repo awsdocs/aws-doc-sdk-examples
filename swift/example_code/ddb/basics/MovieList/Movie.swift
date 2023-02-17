@@ -1,16 +1,19 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[ddb.swift.basics.movie]
 import Foundation
 import AWSDynamoDB
 
-/// The optional details of a movie's information.
+// snippet-start:[ddb.swift.basics.details]
+/// The optional details about a movie.
 public struct Details: Codable {
     /// The movie's rating, if available.
     var rating: Double?
     /// The movie's plot, if available.
     var plot: String?
 }
+// snippet-end:[ddb.swift.basics.details]
 
 /// A structure describing a movie. The `year` and `title` properties are
 /// required and are used as the key for Amazon DynamoDB operations. The
@@ -153,3 +156,4 @@ public struct Movie: Codable {
     }
     // snippet-end:[ddb.swift.basics.movie.getasitem]
  }
+ // snippet-end:[ddb.swift.basics.movie]

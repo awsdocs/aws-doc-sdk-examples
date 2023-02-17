@@ -5,11 +5,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[ddb.swift.basics.movietable]
 import Foundation
 import AWSDynamoDB
-import ClientRuntime
-import AWSClientRuntime
-import SwiftUtilities
 
 /// An enumeration of error codes representing issues that can arise when using
 /// the `MovieTable` class.
@@ -27,7 +25,6 @@ enum MoviesError: Error {
 }
 
 
-// snippet-start:[ddb.swift.basics]
 /// A class representing an Amazon DynamoDB table containing movie
 /// information.
 public class MovieTable {
@@ -47,14 +44,9 @@ public class MovieTable {
     /// `awaitTableActive()` to wait until the table's status is reported as
     /// ready to use by Amazon DynamoDB.
     ///
-    init(region: String = "us-east-2", tableName: String? = nil) async throws {
+    init(region: String = "us-east-2", tableName: String) async throws {
         ddbClient = try DynamoDBClient(region: region)
-        if tableName != nil {
-            self.tableName = tableName!
-        } else {
-            self.tableName = String.uniqueName(withPrefix: "ddb-movies-sample",
-                                maxDigits: 8)
-        }
+        self.tableName = tableName
 
         try await self.createTable()
     }
@@ -484,4 +476,4 @@ public class MovieTable {
     }
     // snippet-end:[ddb.swift.basics.delete]
 }
-// snippet-end:[ddb.swift.basics]
+// snippet-end:[ddb.swift.basics.movietable]
