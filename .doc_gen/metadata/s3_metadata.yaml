@@ -1808,9 +1808,6 @@ s3_PutBucketWebsite:
           github: javascriptv3/example_code/s3
           sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html#s3-example-static-web-host-set-website
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: Set the website configuration.
               snippet_tags:
                 - s3.JavaScript.website.putBucketWebsiteV3
