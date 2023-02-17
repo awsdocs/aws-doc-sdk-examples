@@ -1,36 +1,31 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
-Purpose:
-s3_deletebucket.js demonstrates how to delete an Amazon S3 bucket.
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-Inputs (replace in code):
-- BUCKET_NAME
+import { fileURLToPath } from "url";
 
-Running the code:
-nodes3_deletebucket.js
-*/
 // snippet-start:[s3.JavaScript.buckets.deleteBucketV3]
-// Import required AWS SDK clients and commands for Node.js.
-import { DeleteBucketCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
+import { DeleteBucketCommand, S3Client } from "@aws-sdk/client-s3";
 
-// Set the bucket parameters
-export const bucketParams = { Bucket: "BUCKET_NAME" };
+const client = new S3Client({})
 
-export const run = async () => {
+// Delete a bucket.
+export const main = async () => {
+  const command = new DeleteBucketCommand({
+    Bucket: "test-bucket",
+  });
+
   try {
-    const data = await s3Client.send(new DeleteBucketCommand(bucketParams));
-    return data; // For unit tests.
-    console.log("Success - bucket deleted");
+    const response = await client.send(command);
+    console.log(response);
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-// Invoke run() so these examples run out of the box.
-run();
 // snippet-end:[s3.JavaScript.buckets.deleteBucketV3]
-// For unit testing only.
-// module.exports ={run, bucketParams};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
