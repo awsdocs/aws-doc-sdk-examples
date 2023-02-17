@@ -87,7 +87,7 @@ dynamodb_CreateTable:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb/basics/MovieTable.swift
+          github: swift/example_code/ddb/basics
           excerpts:
             - description:
               snippet_tags:
@@ -328,7 +328,7 @@ dynamodb_BatchWriteItem:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb/basics/MovieTable.swift
+          github: swift/example_code/ddb/basics
           excerpts:
             - description:
               snippet_tags:
@@ -431,7 +431,7 @@ dynamodb_DeleteTable:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb/basics/MovieTable.swift
+          github: swift/example_code/ddb/basics
           excerpts:
             - description:
               snippet_tags:
@@ -544,7 +544,7 @@ dynamodb_PutItem:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb/basics/MovieTable.swift
+          github: swift/example_code/ddb/basics
           excerpts:
             - description:
               snippet_tags:
@@ -662,7 +662,7 @@ dynamodb_GetItem:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb/basics/MovieTable.swift
+          github: swift/example_code/ddb/basics
           excerpts:
             - description:
               snippet_tags:
@@ -789,7 +789,7 @@ dynamodb_UpdateItem:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb/basics/MovieTable.swift
+          github: swift/example_code/ddb/basics
           excerpts:
             - description:
               snippet_tags:
@@ -894,7 +894,7 @@ dynamodb_DeleteItem:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb/basics/MovieTable.swift
+          github: swift/example_code/ddb/basics
           excerpts:
             - description:
               snippet_tags:
@@ -1150,7 +1150,7 @@ dynamodb_Query:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb/basics/MovieTable.swift
+          github: swift/example_code/ddb/basics
           excerpts:
             - description:
               snippet_tags:
@@ -1270,7 +1270,7 @@ dynamodb_Scan:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/ddb/basics/MovieTable.swift
+          github: swift/example_code/ddb/basics
           excerpts:
             - description:
               snippet_tags:
