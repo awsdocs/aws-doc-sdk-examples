@@ -390,7 +390,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                 client.ModifyDBParameterGroup(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "The DB cluster parameter group was successfully modified."
+            std::cout << "The DB parameter group was successfully modified."
                       << std::endl;
         }
         else {
@@ -638,6 +638,8 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
     return result;
 }
 
+// snippet-start:[cpp.example_code.rds.DescribeDBParameters]
+
 //! Routine which gets DB parameters using the 'DescribeDBParameters' api.
 /*!
  \sa getDBParameters()
@@ -653,7 +655,6 @@ bool AwsDoc::RDS::getDBParameters(const Aws::String &parameterGroupName,
                                   const Aws::String &source,
                                   Aws::Vector<Aws::RDS::Model::Parameter> &parametersResult,
                                   const Aws::RDS::RDSClient &client) {
-    // snippet-start:[cpp.example_code.rds.DescribeDBParameters]
     Aws::String marker;
     do {
         Aws::RDS::Model::DescribeDBParametersRequest request;
@@ -691,10 +692,12 @@ bool AwsDoc::RDS::getDBParameters(const Aws::String &parameterGroupName,
             return false;
         }
     } while (!marker.empty());
-    // snippet-end:[cpp.example_code.rds.DescribeDBParameters]
 
     return true;
 }
+// snippet-end:[cpp.example_code.rds.DescribeDBParameters]
+
+// snippet-start:[cpp.example_code.rds.DescribeDBEngineVersions]
 
 //! Routine which gets available DB engine versions for an engine name and
 //! an optional parameter group family.
@@ -710,7 +713,6 @@ bool AwsDoc::RDS::getDBEngineVersions(const Aws::String &engineName,
                                       const Aws::String &parameterGroupFamily,
                                       Aws::Vector<Aws::RDS::Model::DBEngineVersion> &engineVersionsResult,
                                       const Aws::RDS::RDSClient &client) {
-    // snippet-start:[cpp.example_code.rds.DescribeDBEngineVersions]
     Aws::RDS::Model::DescribeDBEngineVersionsRequest request;
     request.SetEngine(engineName);
     if (!parameterGroupFamily.empty()) {
@@ -728,10 +730,12 @@ bool AwsDoc::RDS::getDBEngineVersions(const Aws::String &engineName,
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
-    // snippet-end:[cpp.example_code.rds.DescribeDBEngineVersions]
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.rds.DescribeDBEngineVersions]
+
+// snippet-start:[cpp.example_code.rds.DescribeDBInstances]
 
 //! Routine which gets a DB instance description.
 /*!
@@ -744,7 +748,6 @@ bool AwsDoc::RDS::getDBEngineVersions(const Aws::String &engineName,
 bool AwsDoc::RDS::describeDBInstance(const Aws::String &dbInstanceIdentifier,
                                      Aws::RDS::Model::DBInstance &instanceResult,
                                      const Aws::RDS::RDSClient &client) {
-    // snippet-start:[cpp.example_code.rds.DescribeDBInstances]
     Aws::RDS::Model::DescribeDBInstancesRequest request;
     request.SetDBInstanceIdentifier(dbInstanceIdentifier);
 
@@ -765,9 +768,11 @@ bool AwsDoc::RDS::describeDBInstance(const Aws::String &dbInstanceIdentifier,
                   << std::endl;
     }
 
-    // snippet-end:[cpp.example_code.rds.DescribeDBInstances]
     return result;
 }
+// snippet-end:[cpp.example_code.rds.DescribeDBInstances]
+
+// snippet-start:[cpp.example_code.rds.DescribeOrderableDBInstanceOptions]
 
 //! Routine which gets available 'micro' DB instance classes, displays the list
 //! to the user, and returns the user selection.
@@ -783,7 +788,6 @@ bool AwsDoc::RDS::chooseMicroDBInstanceClass(const Aws::String &engine,
                                              const Aws::String &engineVersion,
                                              Aws::String &dbInstanceClass,
                                              const Aws::RDS::RDSClient &client) {
-    // snippet-start:[cpp.example_code.rds.DescribeOrderableDBInstanceOptions]
     std::vector<Aws::String> instanceClasses;
     Aws::String marker;
     do {
@@ -819,7 +823,6 @@ bool AwsDoc::RDS::chooseMicroDBInstanceClass(const Aws::String &engine,
             return false;
         }
     } while (!marker.empty());
-    // snippet-end:[cpp.example_code.rds.DescribeOrderableDBInstanceOptions]
 
     std::cout << "The available micro DB instance classes for your database engine are:"
               << std::endl;
@@ -833,6 +836,7 @@ bool AwsDoc::RDS::chooseMicroDBInstanceClass(const Aws::String &engine,
     dbInstanceClass = instanceClasses[choice - 1];
     return true;
 }
+// snippet-end:[cpp.example_code.rds.DescribeOrderableDBInstanceOptions]
 
 //! Routine which deletes resources created by the scenario.
 /*!

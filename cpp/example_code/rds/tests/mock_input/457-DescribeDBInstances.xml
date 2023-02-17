@@ -41,7 +41,7 @@
                 <PreferredBackupWindow>03:30-04:00</PreferredBackupWindow>
                 <DeletionProtection>false</DeletionProtection>
                 <DBInstanceIdentifier>doc-example-instance</DBInstanceIdentifier>
-                <DBInstanceArn>arn:aws:rds:us-east-1:123502194722:db:doc-example-instance</DBInstanceArn>
+                <DBInstanceArn>arn:aws:rds:us-east-1:123456789:db:doc-example-instance</DBInstanceArn>
                 <Endpoint>
                     <HostedZoneId>Z2R2ITUGPM61AM</HostedZoneId>
                     <Address>doc-example-instance.cdx7lk6twjmf.us-east-1.rds.amazonaws.com</Address>

@@ -18,7 +18,7 @@
                 <SnapshotType>manual</SnapshotType>
                 <InstanceCreateTime>2023-02-13T14:50:12.138Z</InstanceCreateTime>
                 <DBSnapshotArn>
-                    arn:aws:rds:us-east-1:123502194722:snapshot:doc-example-instance-8d855480-090a-4a93-970b-758cfa568737
+                    arn:aws:rds:us-east-1:123456789:snapshot:doc-example-instance-8d855480-090a-4a93-970b-758cfa568737
                 </DBSnapshotArn>
                 <ProcessorFeatures/>
                 <StorageThroughput>0</StorageThroughput>

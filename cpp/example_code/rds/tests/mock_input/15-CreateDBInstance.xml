@@ -36,7 +36,7 @@
             <PreferredBackupWindow>03:30-04:00</PreferredBackupWindow>
             <DeletionProtection>false</DeletionProtection>
             <DBInstanceIdentifier>doc-example-instance</DBInstanceIdentifier>
-            <DBInstanceArn>arn:aws:rds:us-east-1:123502194722:db:doc-example-instance</DBInstanceArn>
+            <DBInstanceArn>arn:aws:rds:us-east-1:123456789:db:doc-example-instance</DBInstanceArn>
             <Engine>mysql</Engine>
             <PubliclyAccessible>true</PubliclyAccessible>
             <IAMDatabaseAuthenticationEnabled>false</IAMDatabaseAuthenticationEnabled>
