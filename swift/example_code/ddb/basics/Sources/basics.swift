@@ -25,6 +25,7 @@
 /// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 /// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[ddb.swift.basics]
 import Foundation
 import ArgumentParser
 import AWSDynamoDB
@@ -170,3 +171,4 @@ struct Main {
         }
     }
 }
+// snippet-end:[ddb.swift.basics]

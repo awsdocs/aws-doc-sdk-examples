@@ -76,10 +76,8 @@ public struct Movie: Codable {
     init(withItem item: [Swift.String:DynamoDBClientTypes.AttributeValue]) throws  {
         // Read the attributes.
 
-        guard let titleAttr = item["title"] else {
-            throw MoviesError.ItemNotFound
-        }
-        guard let yearAttr = item["year"] else {
+        guard let titleAttr = item["title"],
+              let yearAttr = item["year"] else {
             throw MoviesError.ItemNotFound
         }
         let infoAttr = item["info"] ?? nil

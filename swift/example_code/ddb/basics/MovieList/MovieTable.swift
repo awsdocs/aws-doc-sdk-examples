@@ -8,6 +8,8 @@
 // snippet-start:[ddb.swift.basics.movietable]
 import Foundation
 import AWSDynamoDB
+//import ClientRuntime
+//import AWSClientRuntime
 
 /// An enumeration of error codes representing issues that can arise when using
 /// the `MovieTable` class.
@@ -53,7 +55,7 @@ public class MovieTable {
 
     // snippet-start:[ddb.swift.basics.createtable]
     ///
-    /// Create the movie table in the Amazon DynamoDB data store.
+    /// Create a movie table in the Amazon DynamoDB data store.
     ///
     private func createTable() async throws {
         guard let client = self.ddbClient else {
