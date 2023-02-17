@@ -17,7 +17,7 @@ import { client } from "../libs/client.js";
 export const main = async () => {
   // The paginate function is a wrapper around the underlying command.
   const paginator = paginateDescribeInstanceTypes(
-    // Without limiting the page size this call can take a long time. pageSize is just sugar for
+    // Without limiting the page size, this call can take a long time. pageSize is just sugar for
     // the MaxResults property in the underlying command.
     { client, pageSize: 25 },
     {
@@ -35,7 +35,7 @@ export const main = async () => {
       if (page.InstanceTypes.length) {
         instanceTypes.push(...page.InstanceTypes);
 
-        // Once we have at least 1 result, we can stop.
+        // When we have at least 1 result, we can stop.
         if (instanceTypes.length >= 1) {
           break;
         }

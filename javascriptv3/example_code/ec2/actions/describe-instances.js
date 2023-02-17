@@ -11,7 +11,7 @@ import { DescribeInstancesCommand } from "@aws-sdk/client-ec2";
 import { client } from "../libs/client.js";
 
 // List all of your EC2 instances running with x86_64 architecture that were
-// launched this this month.
+// launched this month.
 export const main = async () => {
   const d = new Date();
   const year = d.getFullYear();

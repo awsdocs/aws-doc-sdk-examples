@@ -23,7 +23,7 @@ export const main = async () => {
         FromPort: 22,
         ToPort: 22,
         // Replace 0.0.0.0 with the IP address to authorize.
-        // For more information on this notation see
+        // For more information on this notation, see
         // https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation
         IpRanges: [{ CidrIp: "0.0.0.0/32" }],
       },

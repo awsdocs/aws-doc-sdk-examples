@@ -14,7 +14,7 @@ import { client } from "../libs/client.js";
 export const main = async () => {
   // The paginate function is a wrapper around the base command.
   const paginator = paginateDescribeImages(
-    // Without limiting the page size this call can take a long time. pageSize is just sugar for
+    // Without limiting the page size, this call can take a long time. pageSize is just sugar for
     // the MaxResults property in the base command.
     { client, pageSize: 25 },
     {

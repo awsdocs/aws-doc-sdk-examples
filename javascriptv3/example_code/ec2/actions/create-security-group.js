@@ -14,7 +14,7 @@ export const main = async () => {
   const command = new CreateSecurityGroupCommand({
     // Up to 255 characters in length. Cannot start with sg-.
     GroupName: "SECURITY_GROUP_NAME",
-    // Up to 255 characters in length
+    // Up to 255 characters in length.
     Description: "DESCRIPTION",
   });
 

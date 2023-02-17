@@ -15,7 +15,7 @@ export const main = async () => {
   // You can do that with the AllocateAddressCommand.
   const allocationId = "ALLOCATION_ID";
   // You need to create an EC2 instance before an IP address can be associated with it.
-  // YOu can do that with the RunInstancesCommand.
+  // You can do that with the RunInstancesCommand.
   const instanceId = "INSTANCE_ID";
   const command = new AssociateAddressCommand({
     AllocationId: allocationId,

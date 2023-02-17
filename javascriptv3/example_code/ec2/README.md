@@ -3,7 +3,7 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for JavaScript V3 to work with Amazon Elastic Compute Cloud.
+Shows how to use the AWS SDK for JavaScript V3 to work with Amazon Elastic Compute Cloud (Amazon EC2).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->

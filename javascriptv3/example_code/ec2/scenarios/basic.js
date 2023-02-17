@@ -44,7 +44,7 @@ const ssmClient = new SSMClient();
 const tmpDirectory = mkdtempSync(join(tmpdir(), "ec2-scenario-tmp"));
 
 const createKeyPair = async (keyPairName) => {
-  // Create a key pair in EC2.
+  // Create a key pair in Amazon EC2.
   const { KeyMaterial, KeyPairId } = await ec2Client.send(
     // A unique name for the key pair. Up to 255 ASCII characters.
     new CreateKeyPairCommand({ KeyName: keyPairName })
@@ -69,7 +69,7 @@ const describeKeyPair = async (keyPairName) => {
 const createSecurityGroup = async (securityGroupName) => {
   const command = new CreateSecurityGroupCommand({
     GroupName: securityGroupName,
-    Description: "A security group for the EC2 example.",
+    Description: "A security group for the Amazon EC2 example.",
   });
   const { GroupId } = await ec2Client.send(command);
   return GroupId;
@@ -416,7 +416,7 @@ export const main = async () => {
     // Creating the instance
     console.log(wrapText("Create the instance."));
     console.log(
-      "You get to choose which image you want. Select an amazon-linux-2 image from below:"
+      "You get to choose which image you want. Select an amazon-linux-2 image from the following:"
     );
     const imageDetails = await getAmznLinux2AMIs();
     const instanceTypeDetails = await getCompatibleInstanceTypes(imageDetails);
@@ -440,7 +440,7 @@ export const main = async () => {
 
     await promptToContinue();
 
-    // Understanding the IP address
+    // Understanding the IP address.
     console.log(wrapText("Understanding the IP address."));
     console.log(
       "When you stop and start an instance, the IP address will change. I'll restart your",
@@ -457,7 +457,7 @@ export const main = async () => {
     await promptToContinue();
     console.log(
       `If you want to the IP address to be static, you can associate an allocated`,
-      `IP address to your instance. I allocated ${publicIp} for you earlier, now I'll associate it to your instance.`
+      `IP address to your instance. I allocated ${publicIp} for you earlier, and now I'll associate it to your instance.`
     );
     associationId = await associateAddress({
       allocationId: ipAllocationId,
@@ -483,7 +483,7 @@ export const main = async () => {
   } catch (err) {
     console.error(err);
   } finally {
-    // Clean up
+    // Clean up.
     console.log(wrapText("Clean up."));
     console.log("Now I'll clean up all of the stuff I created.");
     await promptToContinue();

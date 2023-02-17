@@ -11,7 +11,7 @@ import { MonitorInstancesCommand } from "@aws-sdk/client-ec2";
 import { client } from "../libs/client.js";
 
 // Turn on detailed monitoring for the selected instance.
-// By default metrics are sent to Amazon CloudWatch every 5 minutes.
+// By default, metrics are sent to Amazon CloudWatch every 5 minutes.
 // For a cost you can enable detailed monitoring which sends metrics every minute.
 export const main = async () => {
   const command = new MonitorInstancesCommand({

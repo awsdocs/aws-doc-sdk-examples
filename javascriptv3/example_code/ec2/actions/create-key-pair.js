@@ -12,7 +12,7 @@ import { client } from "../libs/client.js";
 
 export const main = async () => {
   try {
-    // Create a key pair in EC2.
+    // Create a key pair in Amazon EC2.
     const { KeyMaterial, KeyName } = await client.send(
       // A unique name for the key pair. Up to 255 ASCII characters.
       new CreateKeyPairCommand({ KeyName: "KEY_PAIR_NAME" })
