@@ -559,9 +559,6 @@ s3_DeleteBucketWebsite:
           github: javascriptv3/example_code/s3
           sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html#s3-example-static-web-host-delete-website
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: Delete the website configuration from the bucket.
               snippet_tags:
                 - s3.JavaScript.website.deleteBucketWebsiteV3
