@@ -29,4 +29,14 @@ describe("copy-object", () => {
 
     expect(spy).toHaveBeenCalledWith("foo");
   });
+
+  it("should log errors", async () => {
+    send.mockRejectedValue("foo");
+
+    const spy = vi.spyOn(console, "error");
+
+    await main();
+
+    expect(spy).toHaveBeenCalledWith("foo");
+  });
 });

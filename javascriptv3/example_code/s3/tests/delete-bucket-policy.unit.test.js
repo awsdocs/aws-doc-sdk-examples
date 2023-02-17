@@ -17,17 +17,17 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-import { main } from "../actions/create-bucket.js";
+import { main } from "../actions/delete-bucket-policy.js";
 
-describe("copy-object", () => {
+describe("delete-bucket-policy", () => {
   it("should log the response from the service", async () => {
-    send.mockResolvedValue({ Location: "foo" });
+    send.mockResolvedValue("foo");
 
     const spy = vi.spyOn(console, "log");
 
     await main();
 
-    expect(spy).toHaveBeenCalledWith("Bucket created with location foo");
+    expect(spy).toHaveBeenCalledWith("foo");
   });
 
   it("should log errors", async () => {
