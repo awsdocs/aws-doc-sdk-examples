@@ -1,38 +1,32 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-Purpose:
-s3_createbucket.js demonstrates how to create an Amazon S3 bucket.
+import { fileURLToPath } from "url";
 
-Inputs (replace in code):
-- BUCKET_NAME
-
-Running the code:
-nodes3_createbucket.js
-*/
 // snippet-start:[s3.JavaScript.buckets.createBucketV3]
-// Get service clients module and commands using ES6 syntax.
-import { CreateBucketCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js";
+import { CreateBucketCommand, S3Client } from "@aws-sdk/client-s3";
 
-// Set the bucket parameters.
+const client = new S3Client({});
 
-export const bucketParams = { Bucket: "BUCKET_NAME" };
+export const main = async () => {
+  const command = new CreateBucketCommand({
+    // The name of the bucket. Bucket names are unique and have several other constraints.
+    // See https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html
+    Bucket: "bucket-name",
+  });
 
-// Create the Amazon S3 bucket.
-export const run = async () => {
   try {
-    const data = await s3Client.send(new CreateBucketCommand(bucketParams));
-    console.log("Success", data);
-    return data; // For unit tests.
+    const { Location } = await client.send(command);
+    console.log(`Bucket created with location ${Location}`);
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
 // snippet-end:[s3.JavaScript.buckets.createBucketV3]
-// For unit tests only.
-// module.exports ={run, bucketParams};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

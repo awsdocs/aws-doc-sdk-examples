@@ -17,16 +17,16 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-import { main } from "../actions/copy-object.js";
+import { main } from "../actions/create-bucket.js";
 
 describe("copy-object", () => {
   it("should log the response from the service", async () => {
-    send.mockResolvedValue("foo");
+    send.mockResolvedValue({ Location: "foo" });
 
     const spy = vi.spyOn(console, "log");
 
     await main();
 
-    expect(spy).toHaveBeenCalledWith("foo");
+    expect(spy).toHaveBeenCalledWith("Bucket created with location foo");
   });
 });
