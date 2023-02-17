@@ -154,6 +154,7 @@ namespace S3_BasicsScenario.Tests
         }
 
         [Fact()]
+        [Trait("Category", "Unit")]
         public async Task CreateBucketAsyncTest()
         {
             IAmazonS3 client = CreateMockS3Client();
@@ -171,6 +172,7 @@ namespace S3_BasicsScenario.Tests
         }
 
         [Fact()]
+        [Trait("Category", "Unit")]
         public async Task UploadFileAsyncTest()
         {
             IAmazonS3 client = CreateMockS3Client();
@@ -189,6 +191,7 @@ namespace S3_BasicsScenario.Tests
         }
 
         [Fact()]
+        [Trait("Category", "Unit")]
         public async Task DownloadObjectFromBucketAsyncTest()
         {
             IAmazonS3 client = CreateMockS3Client();
@@ -205,6 +208,7 @@ namespace S3_BasicsScenario.Tests
         }
 
         [Fact()]
+        [Trait("Category", "Unit")]
         public async Task CopyObjectInBucketAsyncTest()
         {
             IAmazonS3 client = CreateMockS3Client();
@@ -223,6 +227,7 @@ namespace S3_BasicsScenario.Tests
         }
 
         [Fact()]
+        [Trait("Category", "Unit")]
         public async Task ListBucketContentsAsyncTest()
         {
             IAmazonS3 client = CreateMockS3Client();
@@ -239,6 +244,7 @@ namespace S3_BasicsScenario.Tests
         }
 
         [Fact()]
+        [Trait("Category", "Unit")]
         public async Task DeleteBucketContentsAsyncTest()
         {
             IAmazonS3 client = CreateMockS3Client();
@@ -260,6 +266,7 @@ namespace S3_BasicsScenario.Tests
         }
 
         [Fact()]
+        [Trait("Category", "Unit")]
         public async Task DeleteBucketAsyncTest()
         {
             IAmazonS3 client = CreateMockS3Client();
