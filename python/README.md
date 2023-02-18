@@ -85,7 +85,7 @@ hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/
 with all Python examples with dependencies pre-resolved, allowing you to explore
 these examples in an isolated environment.
 
-⚠️ As of January 2023, the [SDK for Python image](https://gallery.ecr.aws/aws-docs-sdk-examples/python) is available on ECR Public but is still
+⚠️ As of January 2023, the [SDK for Python image](https://gallery.ecr.aws/b4v4v1s0/python) is available on ECR Public but is still
 undergoing active development. Refer to
 [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4125)
 for more information.

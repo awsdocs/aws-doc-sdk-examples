@@ -60,7 +60,7 @@ hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/
 with all JavaScript v3 examples with dependencies pre-resolved, allowing you to explore
 these examples in an isolated environment.
 
-⚠️ As of January 2023, the [SDK for JavaScript v3 image](https://gallery.ecr.aws/aws-docs-sdk-examples/javascriptv3) is available on ECR Public but is still
+⚠️ As of January 2023, the [SDK for JavaScript v3 image](https://gallery.ecr.aws/b4v4v1s0/javascriptv3) is available on ECR Public but is still
 undergoing active development. Refer to
 [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4127)
 for more information.
