@@ -14,6 +14,11 @@ This example shows you how to {{ hello_ex['synopsis'] }}
 go run ./hello
 ```
 {% endif %}
+{% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 %}
+```
+python hello.py
+```
+{% endif %}
 {% endfor %}
 
 {% for scenario in scenarios %}
