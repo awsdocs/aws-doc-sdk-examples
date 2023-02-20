@@ -35,8 +35,8 @@ namespace IAMUserExampleTests
         string BucketName = "bucket-to-delete";
 
         [Fact]
-        public async Task CreateGroupAsyncTest()
         [Trait("Category", "Unit")]
+        public async Task CreateGroupAsyncTest()
         {
             var mockIAMClient = new Mock<AmazonIdentityManagementServiceClient>();
             mockIAMClient.Setup(client => client.CreateGroupAsync(
