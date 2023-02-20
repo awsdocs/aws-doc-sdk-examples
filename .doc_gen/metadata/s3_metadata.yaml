@@ -644,9 +644,6 @@ s3_GetBucketPolicy:
           github: javascriptv3/example_code/s3
           sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-bucket-policies.html#s3-example-bucket-policies-get-policy
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: Get the bucket policy.
               snippet_tags:
                 - s3.JavaScript.policy.getBucketPolicyV3
