@@ -1522,9 +1522,6 @@ s3_PutBucketCors:
           github: javascriptv3/example_code/s3
           sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-configuring-buckets.html#s3-example-configuring-buckets-put-cors
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: Add a CORS rule.
               snippet_tags:
                 - s3.JavaScript.v3.cors.putBucketCors
