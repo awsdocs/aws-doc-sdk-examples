@@ -1,49 +1,36 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-Purpose:
-s3_delete_multiple_objects.js demonstrates how to delete multiple objects} from an Amazon Simple Storage Solution (S3) bucket.
+import { fileURLToPath } from "url";
 
-Inputs (replace in code):
-- BUCKET_NAME
-- KEY_1
-- KEY_2
-
-Running the code:
-nodes3_delete_multiple_objects.js
-*/
 // snippet-start:[s3.JavaScript.buckets.deletemultipleobjectsV3]
-import { DeleteObjectsCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js" // Helper function that creates an Amazon S3 service client module.
+import { DeleteObjectsCommand, S3Client } from "@aws-sdk/client-s3";
 
-export const bucketParams = {
-  Bucket: "BUCKET_NAME",
-  Delete: {
-    Objects: [
-      {
-        Key: "KEY_1",
-      },
-      {
-        Key: "KEY_2",
-      },
-    ],
-  },
-};
+const client = new S3Client({});
 
-export const run = async () => {
+export const main = async () => {
+  const command = new DeleteObjectsCommand({
+    Bucket: "test-bucket",
+    Delete: {
+      Objects: [{ Key: "object1.txt" }, { Key: "object2.txt" }],
+    },
+  });
+
   try {
-    const data = await s3Client.send(new DeleteObjectsCommand(bucketParams));
-    return data; // For unit tests.
-    console.log("Success. Object deleted.");
+    const { Deleted } = await client.send(command);
+    console.log(
+      `Successfully deleted ${Deleted.length} objects from S3 bucket. Deleted objects:`
+    );
+    console.log(Deleted.map((d) => ` • ${d.Key}`).join("\n"));
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
 // snippet-end:[s3.JavaScript.buckets.deletemultipleobjectsV3]
-// For unit testing only.
-// module.exports ={run, bucketParams};
 
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
