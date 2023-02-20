@@ -386,9 +386,6 @@ s3_DeleteObject:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: Delete an object.
               snippet_tags:
                 - s3.JavaScript.buckets.deleteobjectV3
