@@ -1,4 +1,21 @@
 # zexi 0.4.0
+glue_Hello:
+  title: Hello &GLU;
+  title_abbrev: Hello &GLU;
+  synopsis: get started using &GLUlong; (&GLU;).
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glue.dotnetv3.HelloGlue
+  services:
+    glue: {ListJobs}
 glue_GetCrawler:
   title: Get an &GLU; crawler using an &AWS; SDK
   title_abbrev: Get a crawler

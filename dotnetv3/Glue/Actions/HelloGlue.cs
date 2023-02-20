@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[Glue.dotnetv3.HelloGlue]
 namespace GlueActions;
 
 public class HelloGlue
@@ -49,3 +50,5 @@ public class HelloGlue
         }
     }
 }
+
+// snippet-end:[Glue.dotnetv3.HelloGlue]
