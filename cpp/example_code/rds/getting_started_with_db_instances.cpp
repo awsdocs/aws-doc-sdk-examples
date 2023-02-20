@@ -14,7 +14,7 @@
  *
  * Purpose
  *
- * Demonstrates creating  a Relational Database Service (Amazon RDS)
+ * Demonstrates creating an Amazon Relational Database Service (Amazon RDS)
  * instance and optionally creating a snapshot of the instance.
  *
  * 1.  Check if the DB parameter group already exists. (DescribeDBParameterGroups)
@@ -230,8 +230,8 @@ namespace AwsDoc {
 } // AwsDoc
 
 // snippet-start:[cpp.example_code.rds.get_started_instances]
-//! Routine which creates a Relational Database Service (Amazon RDS)
-//! instance and demonstrates several operations on that instance.
+//! Routine which creates an Amazon RDS instance and demonstrates several operations
+//! on that instance.
 /*!
  \sa gettingStartedWithDBInstances()
  \param clientConfiguration: AWS client configuration.
@@ -394,7 +394,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
                       << std::endl;
         }
         else {
-            std::cerr << "Error with RDS::ModifyDBClusterParameterGroup. "
+            std::cerr << "Error with RDS::ModifyDBParameterGroup. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
         }
@@ -406,7 +406,7 @@ bool AwsDoc::RDS::gettingStartedWithDBInstances(
             << std::endl;
 
     Aws::Vector<Aws::RDS::Model::Parameter> userParameters;
-    // 6.  Display the modified parameters in the group
+    // 6.  Display the modified parameters in the group.
     if (!getDBParameters(PARAMETER_GROUP_NAME, NO_NAME_PREFIX, "user", userParameters,
                          client)) {
         cleanUpResources(PARAMETER_GROUP_NAME, "", client);

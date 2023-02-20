@@ -78,8 +78,6 @@ endif()
 
 # Check whether the target system is Windows, including Win64.
 if(WIN32)
-    list(FILTER GTEST_SOURCE_FILES EXCLUDE REGEX "/gtest_list_buckets_disabling_dns_cache.cpp$") # Not supported in windows, see file for details
-
     # Check whether the compiler is some version of Microsoft Visual C++, or another compiler simulating C++.
     if(MSVC)
         source_group("Source Files" FILES ${GTEST_SOURCE_FILES})

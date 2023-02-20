@@ -9,7 +9,7 @@
 
 namespace AwsDoc {
     namespace RDS {
-        //! Routine which creates a Relational Database Service (Amazon RDS)
+        //! Routine which creates an Amazon Relational Database Service (Amazon RDS)
         //! instance and demonstrates several operations on that instance.
         /*!
          \sa gettingStartedWithDBInstances()
