@@ -21,7 +21,7 @@ const client = new S3Client({});
 export const main = async () => {
   // Grant a user READ access to a bucket.
   const command = new PutBucketAclCommand({
-    Bucket: "test-bucket-corey",
+    Bucket: "test-bucket",
     AccessControlPolicy: {
       Grants: [
         {

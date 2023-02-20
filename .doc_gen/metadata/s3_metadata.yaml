@@ -1101,9 +1101,6 @@ s3_ListObjects:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: List the objects.
               snippet_tags:
                 - s3.JavaScript.buckets.listObjectsV3

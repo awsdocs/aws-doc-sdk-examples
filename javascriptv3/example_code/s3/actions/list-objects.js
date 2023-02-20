@@ -1,37 +1,31 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-Purpose:
-s3_listobjects.js demonstrates how to list the objects in an Amazon S3 bucket.
+import { fileURLToPath } from "url";
 
-Inputs (replace in code):
-- BUCKET_NAME
-
-Running the code:
-nodes3_listobjects.js
-*/
 // snippet-start:[s3.JavaScript.buckets.listObjectsV3]
-// Import required AWS SDK clients and commands for Node.js.
-import { ListObjectsCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
+import { ListObjectsCommand, S3Client } from "@aws-sdk/client-s3";
 
-// Create the parameters for the bucket
-export const bucketParams = { Bucket: "BUCKET_NAME" };
+const client = new S3Client({});
 
-export const run = async () => {
+export const main = async () => {
+  const command = new ListObjectsCommand({
+    Bucket: "test-bucket-corey",
+  });
+
   try {
-    // handle truncated lists
-    const data = await s3Client.send(new ListObjectsCommand(bucketParams));
-    console.log("Success", data);
-    return data; // For unit tests.
+    const { Contents } = await client.send(command);
+    const contentsList = Contents.map((c) => ` • ${c.Key}`).join("\n");
+    console.log("Your bucket contains the following objects:\n", contentsList);
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
 // snippet-end:[s3.JavaScript.buckets.listObjectsV3]
-// For unit testing only.
-// module.exports ={run, bucketParams};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
