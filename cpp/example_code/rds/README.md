@@ -3,7 +3,7 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for C++ to work with Amazon Relational Database Service.
+Shows how to use the AWS SDK for C++ to work with Amazon Relational Database Service (Amazon RDS).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
