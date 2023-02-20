@@ -2,6 +2,15 @@
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 SPDX-License-Identifier: Apache-2.0
 */
+/*
+ * Test types are indicated by the test label ending.
+ *
+ * _1_ Requires credentials and pre-configured resources.
+ * _2_ Requires credentials and permissions.
+ * _3_ Does not require credentials.
+ *
+ */
+
 #include <gtest/gtest.h>
 #include <fstream>
 #include "autoscaling_gtests.h"
@@ -9,7 +18,7 @@ SPDX-License-Identifier: Apache-2.0
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE (readability-named-parameter)
-    TEST_F(AutoScaling_GTests, groups_and_instances_scenario) {
+    TEST_F(AutoScaling_GTests, groups_and_instances_scenario_2_) {
         AddCommandLineResponses({"n", // "Would you like to use an existing EC2 launch template (y/n)?"
                                  "integration_tests_template", // "Enter the name for a new EC2 launch template: "
                                  "integration_tests_group", // "Enter a name for the EC2 Auto Scaling group: "
