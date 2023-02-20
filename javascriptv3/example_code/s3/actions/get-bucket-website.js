@@ -1,38 +1,33 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-static-web-host.html.
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-Purpose:
-s3_getbucketwebsite.js demonstrates how to retrieve the website configuration of an Amazon S3 bucket.
+import { fileURLToPath } from "url";
 
-Inputs :
-- BUCKET_NAME
-
-Running the code:
-nodes3_getbucketwebsite.js
-*/
 // snippet-start:[s3.JavaScript.website.getBucketWebsiteV3]
+import { GetBucketWebsiteCommand, S3Client } from "@aws-sdk/client-s3";
 
+const client = new S3Client({});
 
-// Import required AWS SDK clients and commands for Node.js.
-import { GetBucketWebsiteCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
+export const main = async () => {
+  const command = new GetBucketWebsiteCommand({
+    Bucket: "test-bucket",
+  });
 
-// Create the parameters for calling
-export const bucketParams = { Bucket: "BUCKET_NAME" };
-
-export const run = async () => {
   try {
-    const data = await s3Client.send(new GetBucketWebsiteCommand(bucketParams));
-    console.log("Success", data);
-    return data; // For unit tests.
+    const { ErrorDocument, IndexDocument } = await client.send(command);
+    console.log(
+      `Your bucket is set up to host a website. It has an error document:`,
+      `${ErrorDocument.Key}, and an index document: ${IndexDocument.Suffix}.`
+    );
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
 // snippet-end:[s3.JavaScript.website.getBucketWebsiteV3]
-// For unit testing only.
-// module.exports ={run, bucketParams};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
