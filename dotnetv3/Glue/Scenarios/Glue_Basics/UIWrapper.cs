@@ -43,8 +43,8 @@ public class UiWrapper
     /// <summary>
     /// Pad a string with spaces to center it on the console display.
     /// </summary>
-    /// <param name="strToCenter"></param>
-    /// <returns></returns>
+    /// <param name="strToCenter">The string to center on the screen.</param>
+    /// <returns>The string padded to make it center on the screen.</returns>
     public string CenterString(string strToCenter)
     {
         var padAmount = (Console.WindowWidth - strToCenter.Length) / 2;

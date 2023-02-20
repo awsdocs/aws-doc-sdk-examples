@@ -15,24 +15,24 @@ AWS Glue is a serverless data integration service that makes it easy to discover
 
 ### Get started
 
-    [Hello Glue](actions/HelloGlue.cs)
+  [Hello Glue](Actions/HelloGlue.cs)
 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateCrawlerAsync`)
-- [Create a database](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateDatabaseAsync`)
-- [Create a job definition](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateJobAsync`)
-- [Delete a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteCrawlerAsync`)
-- [Delete a database from the AWS Glue Data Catalog](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteDatabaseAsync`)
-- [Delete a job definition](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteJobAsync`)
-- [Get all jobs](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetJobsAsync`)
-- [Get tables from a database](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetTablesAsync`)
-- [Get runs of a job](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetJobRunsAsync`)
-- [Get a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetCrawlerAsync`)
-- [Get a database](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetDatabaseAsync`)
-- [Start a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`StartCrawlerAsync`)
-- [Start a job run](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`StartJobRunAsync`)
+- [Create a crawler](Actions/GlueWrapper.cs) (`CreateCrawlerAsync`)
+- [Create a database](Actions/GlueWrapper.cs) (`CreateDatabaseAsync`)
+- [Create a job definition](Actions/GlueWrapper.cs) (`CreateJobAsync`)
+- [Delete a crawler](Actions/GlueWrapper.cs) (`DeleteCrawlerAsync`)
+- [Delete a database from the AWS Glue Data Catalog](Actions/GlueWrapper.cs) (`DeleteDatabaseAsync`)
+- [Delete a job definition](Actions/GlueWrapper.cs) (`DeleteJobAsync`)
+- [Get all jobs](Actions/GlueWrapper.cs) (`GetJobsAsync`)
+- [Get tables from a database](Actions/GlueWrapper.cs) (`GetTablesAsync`)
+- [Get runs of a job](Actions/GlueWrapper.cs) (`GetJobRunsAsync`)
+- [Get a crawler](Actions/GlueWrapper.cs) (`GetCrawlerAsync`)
+- [Get a database](Actions/GlueWrapper.cs) (`GetDatabaseAsync`)
+- [Start a crawler](Actions/GlueWrapper.cs) (`StartCrawlerAsync`)
+- [Start a job run](Actions/GlueWrapper.cs) (`StartJobRunAsync`)
 
 ### Scenario
 

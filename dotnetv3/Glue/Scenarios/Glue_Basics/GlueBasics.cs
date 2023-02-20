@@ -16,7 +16,7 @@ public class GlueBasics
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the Amazon service.
+        // Set up dependency injection for AWS Glue.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)

@@ -10,7 +10,7 @@ public class HelloGlue
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the Amazon service.
+        // Set up dependency injection for AWS Glue.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)
@@ -42,7 +42,7 @@ public class HelloGlue
         Console.WriteLine("Hello, Glue. Let's list your existing Glue Jobs:");
         if (jobNames.Count == 0)
         {
-            Console.WriteLine("You don't have any Glue jobs.");
+            Console.WriteLine("You don't have any AWS Glue jobs.");
         }
         else
         {

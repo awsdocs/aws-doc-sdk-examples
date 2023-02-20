@@ -12,7 +12,7 @@ public class GlueWrapper
     private readonly IAmazonGlue _amazonGlue;
 
     /// <summary>
-    /// Constructor for the Glue actions wrapper.
+    /// Constructor for the AWS Glue actions wrapper.
     /// </summary>
     /// <param name="amazonGlue"></param>
     public GlueWrapper(IAmazonGlue amazonGlue)
@@ -29,8 +29,8 @@ public class GlueWrapper
     /// <param name="role">The AWS Identity and Access Management (IAM) role to
     /// be assumed by the crawler.</param>
     /// <param name="schedule">The schedule on which the crawler will be executed.</param>
-    /// <param name="s3Path">The path to the Amazon Simple Storage Service (S3)
-    /// where the Python script has been stored.</param>
+    /// <param name="s3Path">The path to the Amazon Simple Storage Service (Amazon S3)
+    /// bucket where the Python script has been stored.</param>
     /// <param name="dbName">The name to use for the database that will be
     /// created by the crawler.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
