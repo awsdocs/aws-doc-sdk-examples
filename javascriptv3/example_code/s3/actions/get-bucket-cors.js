@@ -1,37 +1,40 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-configuring-buckets.html.
-
-Purpose:
-s3_getcors.js demonstrates how to retrieve the CORS configuration of an Amazon S3 bucket.
-
-Inputs :
-- BUCKET_NAME
-
-Running the code:
-nodes3_getcors.js
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
  */
+
+import { fileURLToPath } from "url";
+
 // snippet-start:[s3.JavaScript.cors.getBucketCorsV3]
+import { GetBucketCorsCommand, S3Client } from "@aws-sdk/client-s3";
 
-// Import required AWS SDK clients and commands for Node.js.
-import { GetBucketCorsCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
+const client = new S3Client({});
 
-// Create the parameters for calling
-export const bucketParams = { Bucket: "BUCKET_NAME" };
+export const main = async () => {
+  const command = new GetBucketCorsCommand({
+    Bucket: "test-bucket",
+  });
 
-export const run = async () => {
   try {
-    const data = await s3Client.send(new GetBucketCorsCommand(bucketParams));
-    console.log("Success", JSON.stringify(data.CORSRules));
-    return data; // For unit tests.
+    const { CORSRules } = await client.send(command);
+    CORSRules.forEach((cr, i) => {
+      console.log(
+        `\nCORSRule ${i + 1}`,
+        `\n${"-".repeat(10)}`,
+        `\nAllowedHeaders: ${cr.AllowedHeaders.join(" ")}`,
+        `\nAllowedMethods: ${cr.AllowedMethods.join(" ")}`,
+        `\nAllowedOrigins: ${cr.AllowedOrigins.join(" ")}`,
+        `\nExposeHeaders: ${cr.ExposeHeaders.join(" ")}`,
+        `\nMaxAgeSeconds: ${cr.MaxAgeSeconds}`
+      );
+    });
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
 // snippet-end:[s3.JavaScript.cors.getBucketCorsV3]
-// For unit testing only.
-// module.exports ={run, bucketParams};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
