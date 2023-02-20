@@ -1,45 +1,33 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
+import { fileURLToPath } from "url";
 
-Purpose:
-s3_getobject.js gets an object from an Amazon Simple Storage Service (Amazon S3) bucket.
-
-Inputs (replace in code):
-- BUCKET_NAME
-- KEY
-
-Running the code:
-node s3_getobject.js
-
-[Outputs | Returns]:
-Returns the object} from the Amazon S3 bucket.
-*/
 // snippet-start:[s3.JavaScript.buckets.getobjectV3]
-// Import required AWS SDK clients and commands for Node.js.
-import { GetObjectCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
+import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
-export const bucketParams = {
-  Bucket: "BUCKET_NAME",
-  Key: "KEY",
-};
+const client = new S3Client({})
 
-export const run = async () => {
+export const main = async () => {
+  const command = new GetObjectCommand({
+    Bucket: "test-bucket",
+    Key: "hello-s3.txt"
+  });
+
   try {
-    // Get the object from the Amazon S3 bucket. It is returned as a ReadableStream.
-    const data = await s3Client.send(new GetObjectCommand(bucketParams));
-    // Convert the ReadableStream to a string.
-    return await data.Body.transformToString();
+    const response = await client.send(command);
+    // The Body object also has 'transformToByteArray' and 'transformToWebStream' methods.
+    const str = await response.Body.transformToString();
+    console.log(str);
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-
-run();
 // snippet-end:[s3.JavaScript.buckets.getobjectV3]
-// For unit testing only.
-// module.exports ={run, bucketParams};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

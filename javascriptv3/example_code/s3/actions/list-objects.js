@@ -12,7 +12,7 @@ const client = new S3Client({});
 
 export const main = async () => {
   const command = new ListObjectsCommand({
-    Bucket: "test-bucket-corey",
+    Bucket: "test-bucket",
   });
 
   try {
