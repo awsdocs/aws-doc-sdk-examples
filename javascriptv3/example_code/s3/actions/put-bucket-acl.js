@@ -1,52 +1,58 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html.
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-Purpose:
-s3_putbucketacl.js demonstrates how to attach Access Control List (ACL) permissions to an Amazon
-Simple Storage Service (Amazon S3) bucket.
+import { fileURLToPath } from "url";
 
-Inputs (replace in code):
-- BUCKET_NAME
-- GRANTEE_1
-- GRANTEE_2
+// snippet-start:[s3.JavaScript.perms.putBucketAclV3]
+import {
+  PutBucketAclCommand,
+  GetBucketAclCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
 
-Running the code:
-nodes3_putbucketacl.js
+const client = new S3Client({});
 
-Outputs:
-Applies an ACL to an Amazon S3 bucket.
-*/
-//snippet-start:[s3.JavaScript.perms.putBucketAclV3]
-// Import required AWS SDK clients and commands for Node.js.
-import { PutBucketAclCommand } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
+// A majority of modern use cases in Amazon S3 no longer require the use of ACLs,
+// and we recommend that you disable ACLs except in unusual circumstances where
+// you need to control access for each object individually.
+// Consider a policy instead: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html
+export const main = async () => {
+  // Grant a user READ access to a bucket.
+  const command = new PutBucketAclCommand({
+    Bucket: "test-bucket-corey",
+    AccessControlPolicy: {
+      Grants: [
+        {
+          Grantee: {
+            // The canonical ID of the user. This ID is an obfuscated form of your AWS account number.
+            // It's unique to S3 and can't be found elsewhere.
+            // See: https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html
+            ID: "canonical-id-1",
+            Type: "CanonicalUser",
+          },
+          // One of FULL_CONTROL | READ | WRITE | READ_ACP | WRITE_ACP
+          // https://docs.aws.amazon.com/AmazonS3/latest/API/API_Grant.html#AmazonS3-Type-Grant-Permission
+          Permission: "FULL_CONTROL",
+        },
+      ],
+      Owner: {
+        ID: "canonical-id-2",
+      },
+    },
+  });
 
-// Set the parameters. For more information,
-// see https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putBucketAcl-property.
-export const bucketParams = {
-  Bucket: "BUCKET_NAME",
-  // 'GrantFullControl' allows grantee the read, write, read ACP, and write ACL permissions on the bucket.
-  // Use a canonical user ID for an AWS account, formatted as follows:
-  // id=002160194XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXa7a49125274
-  GrantFullControl: "GRANTEE_1",
-  // 'GrantWrite' allows grantee to create, overwrite, and delete any object in the bucket.
-  // For example, 'uri=http://acs.amazonaws.com/groups/s3/LogDelivery'
-  GrantWrite: "GRANTEE_2",
-};
-
-export const run = async () => {
   try {
-    const data = await s3Client.send(new PutBucketAclCommand(bucketParams));
-    console.log("Success, permissions added to bucket", data);
-    return data; // For unit tests.
+    const response = await client.send(command);
+    console.log(response);
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
-//snippet-end:[s3.JavaScript.perms.putBucketAclV3]
-// For unit testing only.
-// module.exports ={run, bucketParams};
+// snippet-end:[s3.JavaScript.perms.putBucketAclV3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

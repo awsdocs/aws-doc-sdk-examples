@@ -1673,9 +1673,6 @@ s3_PutBucketAcl:
           github: javascriptv3/example_code/s3
           sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html#s3-example-access-permissions-put-acl
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: Put the bucket ACL.
               snippet_tags:
                 - s3.JavaScript.perms.putBucketAclV3
