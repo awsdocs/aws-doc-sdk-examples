@@ -1913,9 +1913,6 @@ s3_ListBuckets:
           github: javascriptv3/example_code/s3
           sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-list-buckets
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: List the buckets.
               snippet_tags:
                 - s3.JavaScript.buckets.listBucketsV3
