@@ -4,6 +4,8 @@
 // snippet-start:[Glue.dotnetv3.GlueBasics.Main]
 
 using Amazon.Glue.Model;
+using Amazon.S3;
+using Amazon.S3.Model;
 
 namespace GlueBasics;
 
@@ -32,7 +34,7 @@ public class GlueBasics
 
         _configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("settings.json") // Load test settings from .json file.
+            .AddJsonFile("settings.json") // Load settings from .json file.
             .AddJsonFile("settings.local.json",
                 true) // Optionally load local settings.
             .Build();
@@ -139,6 +141,26 @@ public class GlueBasics
                 jobRunComplete = true;
             }
         } while (!jobRunComplete);
+
+        uiWrapper.DisplayTitle($"Data in {bucketName}");
+        
+        // Get the list of data stored in the S3 bucket.
+        AmazonS3Client s3Client = new AmazonS3Client();
+
+        var response = await s3Client.ListObjectsAsync(new ListObjectsRequest { BucketName = bucketName });
+        response.S3Objects.ForEach(s3Object =>
+        {
+            Console.WriteLine(s3Object.Key);
+        });
+
+        uiWrapper.DisplayTitle("AWS Glue jobs");
+        var jobNames = await wrapper.ListJobsAsync();
+        jobNames.ForEach(jobName =>
+        {
+            Console.WriteLine(jobName);
+        });
+
+        uiWrapper.PressEnter();
 
         uiWrapper.DisplayTitle("Get AWS Glue job run information");
         Console.WriteLine("Getting information about the AWS Glue job.");

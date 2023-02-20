@@ -29,7 +29,7 @@ public class GlueWrapper
     /// <param name="role">The AWS Identity and Access Management (IAM) role to
     /// be assumed by the crawler.</param>
     /// <param name="schedule">The schedule on which the crawler will be executed.</param>
-    /// <param name="s3Path">The path to the Amazin Simple Storage Service (S3)
+    /// <param name="s3Path">The path to the Amazon Simple Storage Service (S3)
     /// where the Python script has been stored.</param>
     /// <param name="dbName">The name to use for the database that will be
     /// created by the crawler.</param>
@@ -256,16 +256,17 @@ public class GlueWrapper
             JobName = jobName,
         };
 
-        do
-        {
-            var response = await _amazonGlue.GetJobRunsAsync(request);
-            jobRuns.AddRange(response.JobRuns);
-            if (response.NextToken is not null)
-            {
-                request.NextToken = response.NextToken;
-            }
+        // No need to loop to get all the log groups--the SDK does it for us behind the scenes
+        var paginatorForJobRuns =
+            _amazonGlue.Paginators.GetJobRuns(request);
 
-        } while (request.NextToken is not null);
+        await foreach(var response in paginatorForJobRuns.Responses)
+        {
+            response.JobRuns.ForEach(jobRun =>
+            {
+                jobRuns.Add(jobRun);
+            });
+        }
 
         return jobRuns;
     }
@@ -283,15 +284,13 @@ public class GlueWrapper
         var request = new GetTablesRequest { DatabaseName = dbName };
         var tables = new List<Table>();
 
-        do
+        // Get a paginator for listing the tables.
+        var tablePaginator = _amazonGlue.Paginators.GetTables(request);
+
+        await foreach (var response in tablePaginator.Responses)
         {
-            var response = await _amazonGlue.GetTablesAsync(request);
             tables.AddRange(response.TableList);
-            if (response.NextToken is not null)
-            {
-                request.NextToken = response.NextToken;
-            }
-        } while (request.NextToken is not null);
+        }
 
         return tables;
     }
