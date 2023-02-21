@@ -15,32 +15,32 @@ DynamoDB is a fully managed NoSQL database service that provides fast and predic
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Create a table](scenario_getting_started_movies.rb) (`CreateTable`)
+* [Create a table](scenario_getting_started_dynamodb.rb) (`CreateTable`)
 
-* [Delete a table](scenario_getting_started_movies.rb) (`DeleteTable`)
+* [Delete a table](scenario_getting_started_dynamodb.rb) (`DeleteTable`)
 
-* [Delete an item from a table](scenario_getting_started_movies.rb) (`DeleteItem`)
+* [Delete an item from a table](scenario_getting_started_dynamodb.rb) (`DeleteItem`)
 
-* [Get an item from a table](scenario_getting_started_movies.rb) (`GetItem`)
+* [Get an item from a table](scenario_getting_started_dynamodb.rb) (`GetItem`)
 
-* [Get information about a table](scenario_getting_started_movies.rb) (`DescribeTable`)
+* [Get information about a table](scenario_getting_started_dynamodb.rb) (`DescribeTable`)
 
-* [Put an item in a table](scenario_getting_started_movies.rb) (`PutItem`)
+* [Put an item in a table](scenario_getting_started_dynamodb.rb) (`PutItem`)
 
-* [Query a table](scenario_getting_started_movies.rb) (`Query`)
+* [Query a table](scenario_getting_started_dynamodb.rb) (`Query`)
 
-* [Scan a table](scenario_getting_started_movies.rb) (`Scan`)
+* [Scan a table](scenario_getting_started_dynamodb.rb) (`Scan`)
 
-* [Update an item in a table](scenario_getting_started_movies.rb) (`UpdateItem`)
+* [Update an item in a table](scenario_getting_started_dynamodb.rb) (`UpdateItem`)
 
-* [Write a batch of items](scenario_getting_started_movies.rb) (`BatchWriteItem`)
+* [Write a batch of items](scenario_getting_started_dynamodb.rb) (`BatchWriteItem`)
 
 
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-* [Get started using tables, items, and queries](scenario_getting_started_movies.rb)
+* [Get started using tables, items, and queries](scenario_getting_started_dynamodb.rb)
 
 
 
