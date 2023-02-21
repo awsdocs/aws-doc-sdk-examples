@@ -43,6 +43,42 @@ multiple functions within the same service.
 
 ## Run the examples
 
+### Get started running crawlers and jobs scenario
+
+This interactive scenario runs at a command prompt and shows you how to use 
+AWS Glue to do the following:
+
+1. Create and run a crawler that crawls a public Amazon Simple Storage
+   Service (Amazon S3) bucket and generates a metadata database that describes the
+   CSV-formatted data it finds.
+2. List information about databases and tables in your AWS Glue Data Catalog.
+3. Create and run a job that extracts CSV data from the source Amazon S3 bucket,
+   transforms it by removing and renaming fields, and loads JSON-formatted output into
+   another S3 bucket.
+4. List information about job runs and view some of the transformed data.
+5. Delete all resources created by the demo.
+
+This scenario requires the following scaffold resources:
+
+* An Amazon S3 bucket that can contain the Python ETL job script and can receive 
+output data.
+* An AWS Identity and Access Management (IAM) role that can be assumed by AWS Glue. 
+The role must grant read-write access to the S3 bucket and standard rights needed by 
+AWS Glue.
+
+You can deploy and destroy resources using the AWS Cloud Development Kit
+(AWS CDK). To do this, run `cdk deploy` or `cdk destroy` in the
+[/resources/cdk/glue_role_bucket](/resources/cdk/glue_role_bucket) folder.
+
+When the CDK script reports the name of the bucket and AWS Identify IAM Role
+that was created, open the settings.json file and fill in the BucketName and
+RoleName values. You can use whatever you like for the CrawlerName.
+
+Copy the Python script, flight_etl_job_script.py, from
+[/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py](/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py)
+to the new Amazon S3 bucket and Fill in the ScriptURL value using the path to the Python script where you
+put it in the newly created bucket.
+
 ### Prerequisites
 * To find prerequisites for running these examples, see the
   [README](../README.md#Prerequisites) in the dotnetv3 folder.

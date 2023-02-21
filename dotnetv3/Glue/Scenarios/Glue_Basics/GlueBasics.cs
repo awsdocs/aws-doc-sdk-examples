@@ -39,6 +39,11 @@ public class GlueBasics
                 true) // Optionally load local settings.
             .Build();
 
+        // These values are stored in settings.json
+        // Once you have run the CDK script to deploy the resources,
+        // edit the file to set "BucketName", "RoleName", and "ScriptURL"
+        // to the appropriate values. Also set "CrawlerName" to the name
+        // you want to give the crawler when it is created.
         string bucketName = _configuration["BucketName"];
         string crawlerName = _configuration["CrawlerName"];
         string roleName = _configuration["RoleName"];
