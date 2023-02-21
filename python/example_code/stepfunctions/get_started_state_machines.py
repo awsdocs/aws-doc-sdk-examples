@@ -113,7 +113,7 @@ class StateMachineScenario:
         :param state_machine_name: The name of the state machine.
         :param activity_arn: The ARN of an activity that is used as a step in the state
                              machine. This ARN is injected into the state machine
-                             definition it is used to create the state machine.
+                             definition that's used to create the state machine.
         :return: The ARN of the state machine.
         """
         state_machine_arn = self.state_machine.find(state_machine_name)
@@ -174,7 +174,7 @@ class StateMachineScenario:
             run_output = self.state_machine.describe_run(run_arn)
             status = run_output['status']
             if status == 'RUNNING':
-                print("The state machine is still running, let's let it finish.")
+                print("The state machine is still running, let's wait for it to finish.")
                 wait(1)
             elif status == 'SUCCEEDED':
                 print(f"ChatSFN: {json.loads(run_output['output'])['message']}")

@@ -7,7 +7,7 @@ import boto3
 def hello_stepfunctions(stepfunctions_client):
     """
     Use the AWS SDK for Python (Boto3) to create an AWS Step Functions client and list
-    the state machines in your account. This list may be empty if you have not created
+    the state machines in your account. This list might be empty if you haven't created
     any state machines.
     This example uses the default settings specified in your shared credentials
     and config files.
