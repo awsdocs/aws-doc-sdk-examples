@@ -40,6 +40,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(1)]
+    [Trait("Category", "Integration")]
     public async Task VerifySubscription_ShouldReturnTrue()
     {
         var result = await _supportWrapper.VerifySubscription();
@@ -53,6 +54,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(2)]
+    [Trait("Category", "Integration")]
     public async Task VerifySubscription_ShouldReturnFalse()
     {
         var supportClient = new AmazonAWSSupportClient(
@@ -71,6 +73,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(3)]
+    [Trait("Category", "Integration")]
     public async Task VerifyDescribeServices_ShouldNotBeEmpty()
     {
         var services = await _supportWrapper.DescribeServices();
@@ -83,6 +86,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(4)]
+    [Trait("Category", "Integration")]
     public async Task VerifyDescribeSeverityLevels_ShouldNotBeEmpty()
     {
         var services = await _supportWrapper.DescribeSeverityLevels();
@@ -95,6 +99,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(5)]
+    [Trait("Category", "Integration")]
     public async Task VerifyCreateCase_ShouldReturnId()
     {
         var serviceCode = _configuration["serviceCode"];
@@ -116,6 +121,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(6)]
+    [Trait("Category", "Integration")]
     public async Task VerifyCreateCaseWithInvalidCode_ShouldFail()
     {
         await Assert.ThrowsAsync<AmazonAWSSupportException>(async () =>
@@ -135,6 +141,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(7)]
+    [Trait("Category", "Integration")]
     public async Task VerifyAddAttachmentToSet_ShouldReturnId()
     {
         var fileName = _configuration["exampleFileName"];
@@ -162,6 +169,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(8)]
+    [Trait("Category", "Integration")]
     public async Task VerifyAddCommunicationToCase_ShouldReturnId()
     {
         var result = await _supportWrapper.AddCommunicationToCase(
@@ -178,6 +186,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(9)]
+    [Trait("Category", "Integration")]
     public async Task VerifyCommunicationForCase_ShouldNotBeEmpty()
     {
         var communications = await _supportWrapper.DescribeCommunications(_caseId!);
@@ -192,6 +201,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(10)]
+    [Trait("Category", "Integration")]
     public async Task VerifyDescribeAttachment_ShouldNotBeEmpty()
     {
         var attachment = await _supportWrapper.DescribeAttachment(_attachmentSetId!);
@@ -204,6 +214,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(11)]
+    [Trait("Category", "Integration")]
     public async Task VerifyDescribeCases_ShouldNotBeEmpty()
     {
         // Describe the cases. If it is empty, try again and allow time for the new case to appear.
@@ -230,6 +241,7 @@ public class SupportIntegrationTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(12)]
+    [Trait("Category", "Integration")]
     public async Task VerifyResolveCase_ShouldReturnResolved()
     {
         var result = await _supportWrapper.ResolveCase(_caseId!);

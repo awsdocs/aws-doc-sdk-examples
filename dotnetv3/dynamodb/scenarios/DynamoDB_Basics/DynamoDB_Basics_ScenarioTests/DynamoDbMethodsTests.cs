@@ -14,6 +14,7 @@ namespace DynamoDB_Basics_Scenario.Tests
 
         [Fact()]
         [Order(1)]
+        [Trait("Category", "Integration")]
         public async Task CreateMovieTableAsyncTest()
         {
             var success = await DynamoDbMethods.CreateMovieTableAsync(client, _tableName);
@@ -23,6 +24,7 @@ namespace DynamoDB_Basics_Scenario.Tests
 
         [Fact()]
         [Order(2)]
+        [Trait("Category", "Integration")]
         public async Task PutItemAsyncTest()
         {
             var newMovie = new Movie
@@ -37,6 +39,7 @@ namespace DynamoDB_Basics_Scenario.Tests
 
         [Fact()]
         [Order(3)]
+        [Trait("Category", "Integration")]
         public async Task UpdateItemAsyncTest()
         {
             var updateMovie = new Movie
@@ -57,6 +60,7 @@ namespace DynamoDB_Basics_Scenario.Tests
 
         [Fact()]
         [Order(4)]
+        [Trait("Category", "Integration")]
         public void ImportMoviesWithBadFileNameShouldReturnNullTest()
         {
             var movies = DynamoDbMethods.ImportMovies(_badMovieFile);
@@ -65,6 +69,7 @@ namespace DynamoDB_Basics_Scenario.Tests
 
         [Fact()]
         [Order(5)]
+        [Trait("Category", "Integration")]
         public async Task BatchWriteItemsAsyncTest()
         {
             var itemCount = await DynamoDbMethods.BatchWriteItemsAsync(client, _movieFileName);
@@ -73,6 +78,7 @@ namespace DynamoDB_Basics_Scenario.Tests
 
         [Fact()]
         [Order(6)]
+        [Trait("Category", "Integration")]
         public async Task GetItemAsyncTest()
         {
             var lookupMovie = new Movie
@@ -88,6 +94,7 @@ namespace DynamoDB_Basics_Scenario.Tests
 
         [Fact()]
         [Order(8)]
+        [Trait("Category", "Integration")]
         public async Task DeleteItemAsyncTest()
         {
             var movieToDelete = new Movie
@@ -102,6 +109,7 @@ namespace DynamoDB_Basics_Scenario.Tests
 
         [Fact()]
         [Order(9)]
+        [Trait("Category", "Integration")]
         public async Task QueryMoviesAsyncTest()
         {
             // Use Query to find all the movies released in 2010.
@@ -112,6 +120,7 @@ namespace DynamoDB_Basics_Scenario.Tests
 
         [Fact()]
         [Order(10)]
+        [Trait("Category", "Integration")]
         public async Task ScanTableAsyncTest()
         {
             int startYear = 2001;
@@ -122,6 +131,7 @@ namespace DynamoDB_Basics_Scenario.Tests
 
         [Fact()]
         [Order(11)]
+        [Trait("Category", "Integration")]
         public async void DeleteTableAsyncTest()
         {
             var success = await DynamoDbMethods.DeleteTableAsync(client, _tableName);
