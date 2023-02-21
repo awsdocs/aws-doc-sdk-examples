@@ -84,6 +84,7 @@ AwsDocTest::MockHTTP::~MockHTTP() {
 void AwsDocTest::MockHTTP::addResponseWithBody(const std::string &body) {
     std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
             ALLOCATION_TAG, requestTmp);
+    goodResponse->AddHeader("Content-Type", "text/json");
     goodResponse->SetResponseCode(Aws::Http::HttpResponseCode::OK);
     goodResponse->GetResponseBody() << body;
     mockHttpClient->AddResponseToReturn(goodResponse);
