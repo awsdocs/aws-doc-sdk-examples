@@ -7,7 +7,7 @@ sfn_Hello:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description:
@@ -42,7 +42,7 @@ sfn_CreateStateMachine:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description:
@@ -78,7 +78,7 @@ sfn_DeleteStateMachine:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description:
@@ -114,7 +114,7 @@ sfn_ListStateMachines:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description: Find a state machine by name by searching the list of
@@ -133,7 +133,7 @@ sfn_DescribeStateMachine:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description:
@@ -169,7 +169,7 @@ sfn_StartExecution:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description:
@@ -213,7 +213,7 @@ sfn_DescribeExecution:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description:
@@ -230,7 +230,7 @@ sfn_CreateActivity:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description:
@@ -248,7 +248,7 @@ sfn_ListActivities:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description:
@@ -266,7 +266,7 @@ sfn_GetActivityTask:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description:
@@ -284,7 +284,7 @@ sfn_SendTaskSuccess:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description:
@@ -302,7 +302,7 @@ sfn_DeleteActivity:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description:
@@ -326,7 +326,7 @@ sfn_Scenario_GetStartedStateMachines:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sfn
+          github: python/example_code/stepfunctions
           sdkguide:
           excerpts:
             - description: Run an interactive scenario at a command prompt.
