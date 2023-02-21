@@ -24,7 +24,7 @@ use Aws\Glue\GlueClient;
 use Aws\S3\S3Client;
 use AwsUtilities\AWSServiceClass;
 use GuzzleHttp\Psr7\Stream;
-use Iam\IamService;
+use Iam\IAMService;
 
 class GettingStartedWithGlue
 {
@@ -43,7 +43,7 @@ class GettingStartedWithGlue
 
         $glueClient = new GlueClient($clientArgs);
         $glueService = new GlueService($glueClient);
-        $iamService = new IamService();
+        $iamService = new IAMService();
         #snippet-start:[php.example_code.glue.basics.crawlerName]
         $crawlerName = "example-crawler-test-" . $uniqid;
         #snippet-end:[php.example_code.glue.basics.crawlerName]
@@ -92,12 +92,12 @@ class GettingStartedWithGlue
         $s3client->putObject([
             'Bucket' => $bucketName,
             'Key' => 'run_job.py',
-            'SourceFile' => 'glue/flight_etl_job_script.py'
+            'SourceFile' => __DIR__ . '/flight_etl_job_script.py'
         ]);
         $s3client->putObject([
             'Bucket' => $bucketName,
             'Key' => 'setup_scenario_getting_started.yaml',
-            'SourceFile' => 'glue/setup_scenario_getting_started.yaml'
+            'SourceFile' => __DIR__ . '/setup_scenario_getting_started.yaml'
         ]);
 
         #snippet-start:[php.example_code.glue.basics.getTables]

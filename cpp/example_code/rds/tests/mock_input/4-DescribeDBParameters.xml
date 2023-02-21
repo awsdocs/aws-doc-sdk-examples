@@ -1,0 +1,345 @@
+<DescribeDBParametersResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeDBParametersResult>
+        <Marker>aW5ub2RiX2RlZmF1bHRfcm93X2Zvcm1hdA==</Marker>
+        <Parameters>
+            <Parameter>
+                <AllowedValues>0,1</AllowedValues>
+                <ApplyType>static</ApplyType>
+                <DataType>boolean</DataType>
+                <Description>Controls whether user-defined functions that have only an xxx symbol for the main function
+                    can be loaded
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>allow-suspicious-udfs</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>false</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0,1</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>boolean</DataType>
+                <Description>Sets the autocommit mode</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>autocommit</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0,1</AllowedValues>
+                <ApplyType>static</ApplyType>
+                <DataType>boolean</DataType>
+                <Description>Controls whether the server autogenerates SSL key and certificate files in the data
+                    directory, if they do not already exist.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>auto_generate_certs</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>false</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>1-65535</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>Intended for use with master-to-master replication, and can be used to control the
+                    operation of AUTO_INCREMENT columns
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>auto_increment_increment</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>1-65535</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>Determines the starting point for the AUTO_INCREMENT column value</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>auto_increment_offset</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0,1</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>boolean</DataType>
+                <Description>When this variable has a value of 1 (the default), the server automatically grants the
+                    EXECUTE and ALTER ROUTINE privileges to the creator of a stored routine, if the user cannot already
+                    execute and alter or drop the routine.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>automatic_sp_privileges</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0,1</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>boolean</DataType>
+                <Description>This variable controls whether ALTER TABLE implicitly upgrades temporal columns found to be
+                    in pre-5.6.4 format.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>avoid_temporal_upgrade</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>1-65535</AllowedValues>
+                <ApplyType>static</ApplyType>
+                <DataType>integer</DataType>
+                <Description>The number of outstanding connection requests MySQL can have</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>back_log</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <ApplyType>static</ApplyType>
+                <DataType>string</DataType>
+                <Description>The MySQL installation base directory.</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>basedir</ParameterName>
+                <Source>system</Source>
+                <IsModifiable>false</IsModifiable>
+                <ParameterValue>/rdsdbbin/mysql</ParameterValue>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>4096-18446744073709547520</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>The size of the cache to hold the SQL statements for the binary log during a transaction.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_cache_size</ParameterName>
+                <Source>system</Source>
+                <IsModifiable>true</IsModifiable>
+                <ParameterValue>32768</ParameterValue>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>NONE,CRC32</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>string</DataType>
+                <Description>When enabled, this variable causes the master to write a checksum for each event in the
+                    binary log.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_checksum</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>IGNORE_ERROR,ABORT_SERVER</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>string</DataType>
+                <Description>Controls what happens when the server cannot write to the binary log.</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_error_action</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>ROW,STATEMENT,MIXED</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>string</DataType>
+                <Description>Row-based, Statement-based or Mixed replication</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_format</ParameterName>
+                <Source>system</Source>
+                <IsModifiable>true</IsModifiable>
+                <ParameterValue>MIXED</ParameterValue>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0-1000000</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>Controls how many microseconds the binary log commit waits before synchronizing the binary
+                    log file to disk.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_group_commit_sync_delay</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0-1000000</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>The maximum number of transactions to wait for before aborting the current delay as
+                    specified by binlog-group-commit-sync-delay.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_group_commit_sync_no_delay_count</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0,1</AllowedValues>
+                <ApplyType>static</ApplyType>
+                <MinimumEngineVersion>5.7.23</MinimumEngineVersion>
+                <DataType>boolean</DataType>
+                <Description>Controls how binary logs are iterated during GTID recovery</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_gtid_simple_recovery</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0-100000</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>How long in microseconds to keep reading transactions from the flush queue before
+                    proceeding with the group commit (and syncing the log to disk, if sync_binlog is greater than 0). If
+                    the value is 0 (the default), there is no timeout and the server keeps reading new transactions
+                    until the queue is empty.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_max_flush_queue_time</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0,1</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>boolean</DataType>
+                <Description>If this variable is enabled (the default), transactions are committed in the same order
+                    they are written to the binary log. If disabled, transactions may be committed in parallel.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_order_commits</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>full,minimal,noblob</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>string</DataType>
+                <Description>Whether the server logs full or minmal rows with row-based replication.</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_row_image</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0,1</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>boolean</DataType>
+                <Description>When enabled, it causes a MySQL 5.6.2 or later server to write informational log events
+                    such as row query log events into its binary log.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_rows_query_log_events</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>4096-18446744073709547520</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>This variable determines the size of the cache for the binary log to hold nontransactional
+                    statements issued during a transaction.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>binlog_stmt_cache_size</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>aes-128-ecb,aes-192-ecb,aes-256-ecb,aes-128-cbc,aes-192-cbc,aes-256-cbc</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>string</DataType>
+                <Description>This variable controls the block encryption mode for block-based algorithms such as AES. It
+                    affects encryption for AES_ENCRYPT() and AES_DECRYPT().
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>block_encryption_mode</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0-18446744073709547520</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>Limits the size of the MyISAM cache tree in bytes per thread.</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>bulk_insert_buffer_size</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>
+                    big5,dec8,cp850,hp8,koi8r,latin1,latin2,swe7,ascii,ujis,sjis,hebrew,tis620,euckr,koi8u,gb2312,greek,cp1250,gbk,latin5,armscii8,utf8,cp866,keybcs2,macce,macroman,cp852,latin7,utf8mb4,cp1251,cp1256,cp1257,binary,geostd8,cp932,eucjpms
+                </AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>string</DataType>
+                <Description>The character set for statements that arrive from the client.</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>character_set_client</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>0,1</AllowedValues>
+                <ApplyType>static</ApplyType>
+                <DataType>boolean</DataType>
+                <Description>Don"t ignore character set information sent by the client.</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>character-set-client-handshake</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>
+                    big5,dec8,cp850,hp8,koi8r,latin1,latin2,swe7,ascii,ujis,sjis,hebrew,tis620,euckr,koi8u,gb2312,greek,cp1250,gbk,latin5,armscii8,utf8,ucs2,cp866,keybcs2,macce,macroman,cp852,latin7,utf8mb4,cp1251,utf16,cp1256,cp1257,utf32,binary,geostd8,cp932,eucjpms
+                </AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>string</DataType>
+                <Description>The character set used for literals that do not have a character set introducer and for
+                    number-to-string conversion.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>character_set_connection</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>
+                    big5,dec8,cp850,hp8,koi8r,latin1,latin2,swe7,ascii,ujis,sjis,hebrew,tis620,euckr,koi8u,gb2312,greek,cp1250,gbk,latin5,armscii8,utf8,ucs2,cp866,keybcs2,macce,macroman,cp852,latin7,utf8mb4,cp1251,utf16,cp1256,cp1257,utf32,binary,geostd8,cp932,eucjpms
+                </AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>string</DataType>
+                <Description>The character set used by the default database.</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>character_set_database</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>
+                    big5,dec8,cp850,hp8,koi8r,latin1,latin2,swe7,ascii,ujis,sjis,hebrew,tis620,euckr,koi8u,gb2312,greek,cp1250,gbk,latin5,armscii8,utf8,ucs2,cp866,keybcs2,macce,macroman,cp852,latin7,utf8mb4,cp1251,utf16,cp1256,cp1257,utf32,binary,geostd8,cp932,eucjpms
+                </AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>string</DataType>
+                <Description>The file system character set.</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>character_set_filesystem</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>
+                    big5,dec8,cp850,hp8,koi8r,latin1,latin2,swe7,ascii,ujis,sjis,hebrew,tis620,euckr,koi8u,gb2312,greek,cp1250,gbk,latin5,armscii8,utf8,ucs2,cp866,keybcs2,macce,macroman,cp852,latin7,utf8mb4,cp1251,utf16,cp1256,cp1257,utf32,binary,geostd8,cp932,eucjpms
+                </AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>string</DataType>
+                <Description>The character set used for returning query results to the client.</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>character_set_results</ParameterName>
+                <Source>engine-default</Source>
+                <IsModifiable>true</IsModifiable>
+            </Parameter>
+        </Parameters>
+    </DescribeDBParametersResult>
+    <ResponseMetadata>
+        <RequestId>f87bc03c-3c89-4437-8269-3b728160eafe</RequestId>
+    </ResponseMetadata>
+</DescribeDBParametersResponse>

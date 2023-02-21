@@ -22,7 +22,7 @@ let package = Package(
         .package(
             name: "AWSSwiftSDK",
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.2.3"
+            from: "0.10.0"
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",

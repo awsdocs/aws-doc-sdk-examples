@@ -51,7 +51,7 @@ hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/
 with all Kotlin examples with dependencies pre-resolved, allowing you to explore
 these examples in an isolated environment.
 
-⚠️ As of January 2023, the [SDK for Kotlin image](https://gallery.ecr.aws/aws-docs-sdk-examples/kotlin) is available but still
+⚠️ As of January 2023, the [SDK for Kotlin image](https://gallery.ecr.aws/b4v4v1s0/kotlin) is available but still
 undergoing active development. Refer to
 [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4130)
 for more information.
