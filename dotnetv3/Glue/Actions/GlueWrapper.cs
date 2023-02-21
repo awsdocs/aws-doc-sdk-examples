@@ -260,7 +260,7 @@ public class GlueWrapper
         var paginatorForJobRuns =
             _amazonGlue.Paginators.GetJobRuns(request);
 
-        await foreach(var response in paginatorForJobRuns.Responses)
+        await foreach (var response in paginatorForJobRuns.Responses)
         {
             response.JobRuns.ForEach(jobRun =>
             {
