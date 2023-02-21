@@ -13,6 +13,6 @@
     "libs": "*"
   },
   "devDependencies": {
-    "vitest": "^0.27.3"
+    "vitest": "^0.28.5"
   }
 }

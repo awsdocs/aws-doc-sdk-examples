@@ -1,192 +1,118 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example follows the steps in "Getting started with Amazon S3" in the Amazon S3
-User Guide.
-    - https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-Purpose:
-Shows how to use the AWS SDK for JavaScript (v3) to get started using Amazon Simple Storage
-Service (Amazon S3). Create a bucket, move objects into and out of it, and delete all
-resources at the end of the demo.
+/* This example code showcases how Amazon S3 can be used as a core component of an application.
+ * We'll walk through how to:
+ * - Create a bucket
+ * - Upload files to the bucket
+ * - List files in the bucket
+ * - Copy files from another bucket to this one
+ * - Download files from the bucket
+ * - Empty the bucket
+ * - Delete the bucket
+ */
 
-Inputs (in command line):
-node s3_basics.js <the bucket name> <the AWS Region to use> <object name> <object content>
+// snippet-start:[javascript.v3.s3.scenarios.basic.imports]
+// Used to check if currently running file is this file.
+import { fileURLToPath } from "url";
+import { readdirSync, readFileSync } from "fs";
+import { createInterface } from "readline";
 
-Running the code:
-node s3_basics.js
-*/
-// snippet-start:[s3_basics.JavaScript.s3_basics]
+// A local helper utility.
+import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
+
 import {
+  S3Client,
   CreateBucketCommand,
   PutObjectCommand,
+  ListObjectsCommand,
   CopyObjectCommand,
-  DeleteObjectCommand,
+  GetObjectCommand,
+  DeleteObjectsCommand,
   DeleteBucketCommand,
-  GetObjectCommand
 } from "@aws-sdk/client-s3";
-import { s3Client } from "./s3_basics/libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
+// snippet-end:[javascript.v3.s3.scenarios.basic.imports]
 
-if (process.argv.length < 5) {
-  console.log(
-      "Usage: node s3_basics.js <the bucket name> <the AWS Region to use> <object name> <object content>\n" +
-      "Example: node s3_basics_full.js test-bucket 'test.txt' 'Test Content'"
-  );
-}
-const bucket_name = process.argv[2];
-const object_key = process.argv[3];
-const object_content = process.argv[4];
+// snippet-start[javascript.v3.s3.scenarios.basic.S3Client]
+// The region can be provided as an argument to S3Client or
+// declared in the AWS configuration file. In this case
+// we're using the region provided in the AWS configuration.
+const s3Client = new S3Client({});
+// snippet-end[javascript.v3.s3.scenarios.basic.S3Client]
 
-export const run = async (bucket_name, object_key, object_content) => {
-  try {
-    const create_bucket_params = {
-      Bucket: bucket_name
+// snippet-start[javascript.v3.s3.scenarios.basic.CreateBucket]
+export const createBucket = async ({ bucketName }) => {
+  const command = new CreateBucketCommand({ Bucket: bucketName });
+  await s3Client.send(command);
+  console.log("Bucket created successfully.");
+};
+// snippet-end[javascript.v3.s3.scenarios.basic.CreateBucket]
+
+// snippet-start[javascript.v3.s3.scenarios.basic.PutObject]
+export const uploadFilesToBucket = async ({ bucketName, folderPath }) => {
+  console.log(`Uploading files from ${folderPath}`);
+  const keys = readdirSync(folderPath);
+  const files = keys.map((key) => {
+    const filePath = `${folderPath}/${key}`;
+    const fileContent = readFileSync(filePath);
+    return {
+      Key: key,
+      Body: fileContent,
     };
-    console.log("\nCreating the bucket, named " + bucket_name + "...\n");
-    console.log("about to create");
-    const data = await s3Client.send(
-        new CreateBucketCommand(create_bucket_params)
+  });
+
+  for (let file of files) {
+    await s3Client.send(
+      new PutObjectCommand({
+        Bucket: bucketName,
+        Body: file.Body,
+        Key: file.Key,
+      })
     );
-    console.log("Bucket created at ", data.Location);
-    try {
-      console.log(
-          "\nCreated and uploaded an object named " +
-          object_key +
-          " to first bucket " +
-          bucket_name +
-          " ...\n"
-      );
-      // Set the parameters for the object to upload.
-      const object_upload_params = {
-        Bucket: bucket_name,
-        // Specify the name of the new object. For example, 'test.html'.
-        // To create a directory for the object, use '/'. For example, 'myApp/package.json'.
-        Key: object_key,
-        // Content of the new object.
-        Body: object_content,
-      };
-      // Create and upload the object to the first S3 bucket.
-      await s3Client.send(new PutObjectCommand(object_upload_params));
-      console.log(
-          "Successfully uploaded object: " +
-          object_upload_params.Bucket +
-          "/" +
-          object_upload_params.Key
-      );
-      try {
-        const download_bucket_params = {
-          Bucket: bucket_name,
-          Key: object_key
-        };
-        console.log(
-            "\nDownloading " +
-            object_key +
-            " from" +
-            bucket_name +
-            " ...\n"
-        );
-        // Create a helper function to convert a ReadableStream into a string.
-        const streamToString = (stream) =>
-            new Promise((resolve, reject) => {
-              const chunks = [];
-              stream.on("data", (chunk) => chunks.push(chunk));
-              stream.on("error", reject);
-              stream.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
-            });
-
-        // Get the object from the Amazon S3 bucket. It is returned as a ReadableStream.
-        const data = await s3Client.send(new GetObjectCommand(download_bucket_params));
-        // Convert the ReadableStream to a string.
-        const bodyContents = await streamToString(data.Body);
-        console.log(bodyContents);
-        try {
-          // Copy the object from the first bucket to the second bucket.
-          const copy_object_params = {
-            Bucket: bucket_name,
-            CopySource: "/" + bucket_name + "/" + object_key,
-            Key: "copy-destination/" + object_key,
-          };
-          console.log(
-              "\nCopying " +
-              object_key +
-              " from" +
-              bucket_name +
-              " to " +
-              bucket_name +
-              "/" +
-              copy_object_params.Key +
-              " ...\n"
-          );
-          await s3Client.send(new CopyObjectCommand(copy_object_params));
-          console.log("Success, object copied to folder.");
-          try {
-            console.log("\nDeleting " + object_key + " from" + bucket_name);
-            const delete_object_from_bucket_params = {
-              Bucket: bucket_name,
-              Key: object_key,
-            };
-
-            await s3Client.send(
-                new DeleteObjectCommand(delete_object_from_bucket_params)
-            );
-            console.log("Success. Object deleted from bucket.");
-            try {
-              console.log(
-                  "\nDeleting " +
-                  object_key +
-                  " from " +
-                  bucket_name +
-                  "/copy-destination folder"
-              );
-              const delete_object_from_folder_params = {
-                Bucket: bucket_name,
-                Key: "copy-destination/" + object_key,
-              };
-
-              await s3Client.send(
-                  new DeleteObjectCommand(delete_object_from_folder_params)
-              );
-              console.log("Success. Object deleted from folder.");
-              try {
-                console.log(
-                    "\nDeleting the bucket named " + bucket_name + "...\n"
-                );
-                const delete_bucket_params = {Bucket: bucket_name};
-                await s3Client.send(
-                    new DeleteBucketCommand(delete_bucket_params)
-                );
-                console.log("Success. First bucket deleted.");
-                return "Run successfully"; // For unit tests.
-              } catch (err) {
-                console.log("Error deleting object from folder.", err);
-                process.exit(1);
-              }
-            } catch (err) {
-              console.log("Error deleting  bucket.", err);
-              process.exit(1);
-            }
-          } catch (err) {
-            console.log("Error deleting object from  bucket.", err);
-            process.exit(1);
-          }
-        } catch (err) {
-          console.log("Error copying object from to folder", err);
-          process.exit(1);
-        }
-      } catch (err) {
-        console.log("Error downloading object", err);
-        process.exit(1);
-
-      }
-    }catch (err) {
-      console.log("Error creating and upload object to  bucket", err);
-      process.exit(1);
-    }
-    console.log("works");
-  } catch (err) {
-    console.log("Error creating bucket", err);
+    console.log(`${file.Key} uploaded successfully.`);
   }
 };
-run(bucket_name, object_key, object_content);
+// snippet-end[javascript.v3.s3.scenarios.basic.PutObject]
 
-// snippet-end:[s3_basics.JavaScript.s3_basics]
+const listFilesInBucket = async ({ bucketName }) => {};
+
+const copyFileFromBucket = async ({
+  sourceBucket,
+  sourceKey,
+  destinationBucket,
+  destinationKey,
+}) => {};
+
+const downloadFilesFromBucket = async ({ keys }) => {};
+
+const emptyBucket = async ({ bucketName }) => {};
+
+const deleteBucket = async ({ bucketName }) => {};
+
+// snippet-start:[javascript.v3.s3.scenarios.basic.main]
+const main = async () => {
+  const BUCKET_NAME = "my-bucket-corey";
+  const OBJECT_DIRECTORY = `${dirnameFromMetaUrl(
+    import.meta.url
+  )}../../../../resources/sample_files/.sample_media`;
+
+  try {
+    await createBucket({ bucketName: BUCKET_NAME });
+    await uploadFilesToBucket({
+      bucketName: BUCKET_NAME,
+      folderPath: OBJECT_DIRECTORY,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+// snippet-end:[javascript.v3.s3.scenarios.basic.main]
+
+// snippet-start:[javascript.v3.s3.scenarios.basic.runner]
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
+// snippet-end:[javascript.v3.s3.scenarios.basic.runner]

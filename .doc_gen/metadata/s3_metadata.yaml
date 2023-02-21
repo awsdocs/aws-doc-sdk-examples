@@ -2300,12 +2300,25 @@ s3_Scenario_GettingStarted:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/s3/scenarios/s3_basics/src
+          github: javascriptv3/example_code/s3/scenarios/basic.js
           sdkguide:
           excerpts:
-            - description:
+            - description: First let's import all of the modules we're going to need.
               snippet_tags:
-                - s3_basics.JavaScript.s3_basics
+                - javascript.v3.s3.scenarios.basic.imports
+            - description: We're going to need a mechanism that prompts the user with some options and lets them select one. This uses Node.js's 'readline' module.
+              snippet_tags:
+                - javascript.v3.s3.scenarios.basic.prompt
+            - description: Objects in S3 are stored in 'buckets'. Let's define a function for creating a new bucket.
+              snippet_tags:
+                - javascript.v3.s3.scenarios.basic.CreateBucket
+            - description: Buckets contain 'objects'. Here's our function to upload the contents of a directory to our bucket as objects.
+              snippet_tags:
+                - javascript.v3.s3.scenarios.basic.PutObject
+            - description: The 'main' function pulls everything together. If you run this file directly the main function will be called.
+              snippet_tags:
+                - javascript.v3.s3.scenarios.basic.main
+            
     Kotlin:
       versions:
         - sdk_version: 1
