@@ -46,7 +46,7 @@ You will find these examples that use the **S3Client** class:
 - [Read data from an Amazon S3 object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectData.java) (GetObjectAsBytes command)
 - [Read tags that belong to an object located in an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GetObjectTags.java) (GetObjectTagging command)
 - [Restore an archived copy of an object back into an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/RestoreObject.java) (RestoreObject command) 
-- [Retrieve a list of in-progress multipart uploads.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/ListMultipartUploads.java) (ListMultipartUploads command)
+- [Retrieve a list of in-progress multipart uploads](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/ListMultipartUploads.java) (ListMultipartUploads command)
 - [Set tags for an object in an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/ManagingObjectTags.java) (putObject command)
 - [Set the logging parameters for an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PutBucketLogging.java) (PutObject command)
 - [Set a new access control list (ACL) for an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/SetAcl.java) (PutBucketAcl command)
@@ -57,18 +57,21 @@ You will find these examples that use the **S3Client** class:
 - [Upload an object with retention configuration to an Amazon S3 object](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PutObjectRetention.java) (PutObjectRetention command)
 - [Use the AWS Key Management Service to encrypt data prior to placing the data into an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/KMSEncryptionExample.java) (Encrypt command)
 
-You will find these examples that use the **S3Presigner** class: 
+The following examples use the **S3Presigner** class:
+
 - [Use the S3Presigner client to create a presigned URL and upload an object to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlAndUploadObject.java) (PresignPutObject command)
 - [Use the S3Presigner client to create a presigned URL and upload an object that contains metadata to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlMetadata.java) (PresignPutObject command)
 - [Use the S3Presigner client to create a presigned URL and upload a PNG image file to an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/GeneratePresignedUrlUploadImage.java) (PresignPutObject command)
-- [Get a presigned object using a Java Swing app.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PresignedSwing.java) (using Swing command)
+- [Get a presigned object using a Java Swing app](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/PresignedSwing.java) (using Swing command)
 
-You will find these examples that use the **S3AsyncClient** class: 
+The following examples use the **S3AsyncClient** class: 
+
 - [Create an Amazon S3 object using the Async client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/CreateBucketAsync.java) (CreateBucket command)
 - [Read data from an Amazon S3 object using the Async client](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/GetObjectDataAsync.java) (GetObject command)
 - [Use the asynchronous client to place an object into an S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/async/S3AsyncOps.java) (PutObject command)
 
-You will find these examples that use the **S3TransferManager** class: 
+The following examples use the **S3TransferManager** class:  
+
 - [Download a file from an Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/FileDownload.java) (DownloadFile command)
 - [Download all objects in an Amazon S3 bucket to a local directory](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/DownloadToDirectory.java) (DownloadDirectory command)
 - [Copy an object to another Amazon S3 bucket](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/s3/src/main/java/com/example/s3/transfermanager/ObjectCopy.java) (CopyRequest command)
