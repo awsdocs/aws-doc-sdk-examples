@@ -49,7 +49,7 @@ type Item struct {
 }
 // snippet-end:[dynamodb.go.scan_items.struct]
 
-// Get the movies with a minimum rating of 8.0 in 2011
+// Get the movies with a minimum rating of 4.0 in 2013
 func main() {
     // snippet-start:[dynamodb.go.scan_items.session]
     // Initialize a session that the SDK will use to load
