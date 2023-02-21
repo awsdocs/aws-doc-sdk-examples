@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[Cognito.dotnetv3.CognitoWrapper]
 using System.Net;
 
 namespace CognitoActions;
@@ -15,7 +16,7 @@ public class CognitoWrapper
     /// <summary>
     /// Constructor for the wrapper class containing Amazon Cognito actions.
     /// </summary>
-    /// <param name="cognitoService"></param>
+    /// <param name="cognitoService">The Amazon Cognito client object.</param>
     public CognitoWrapper(IAmazonCognitoIdentityProvider cognitoService)
     {
         _cognitoService = cognitoService;
@@ -28,22 +29,14 @@ public class CognitoWrapper
     /// <returns>A list of UserPoolDescriptionType objects.</returns>
     public async Task<List<UserPoolDescriptionType>> ListUserPoolsAsync()
     {
-        var response = new ListUserPoolsResponse();
-        var request = new ListUserPoolsRequest { MaxResults = 10 };
         var userPools = new List<UserPoolDescriptionType>();
 
-        do
+        var userPoolsPaginator = _cognitoService.Paginators.ListUserPools(new ListUserPoolsRequest());
+
+        await foreach(var response in userPoolsPaginator.Responses)
         {
-            response = await _cognitoService.ListUserPoolsAsync(request);
-
-            if (response.UserPools.Count > 0)
-            {
-                userPools.AddRange(response.UserPools);
-            }
-
-            request.NextToken = response.NextToken;
+            userPools.AddRange(response.UserPools);
         }
-        while (response.NextToken is not null);
 
         return userPools;
     }
@@ -63,16 +56,13 @@ public class CognitoWrapper
             UserPoolId = userPoolId
         };
 
-        var response = new ListUsersResponse();
         var users = new List<UserType>();
 
-        do
+        var usersPaginator = _cognitoService.Paginators.ListUsers(request);
+        await foreach (var response in usersPaginator.Responses)
         {
-            response = await _cognitoService.ListUsersAsync(request);
             users.AddRange(response.Users);
-            request.PaginationToken = response.PaginationToken;
         }
-        while (response.PaginationToken is not null);
 
         return users;
     }
@@ -105,10 +95,10 @@ public class CognitoWrapper
     /// Respond to an authentication challenge.
     /// </summary>
     /// <param name="userName">The name of the user.</param>
-    /// <param name="clientId">The client Id</param>
+    /// <param name="clientId">The client Id.</param>
     /// <param name="mfaCode">The multi-factor authentication code.</param>
     /// <param name="session">The current application session.</param>
-    /// <returns>An async Task</returns>
+    /// <returns>An async Task.</returns>
     public async Task<AuthenticationResultType> RespondToAuthChallengeAsync(string userName, string clientId, string mfaCode, string session)
     {
         Console.WriteLine("SOFTWARE_TOKEN_MFA challenge is generated");
@@ -136,8 +126,8 @@ public class CognitoWrapper
     /// <summary>
     /// Verify the TOTP and register for MFA.
     /// </summary>
-    /// <param name="session"></param>
-    /// <param name="code"></param>
+    /// <param name="session">The name of the session.</param>
+    /// <param name="code">The MFA code.</param>
     /// <returns>The status of the software token.</returns>
     public async Task<VerifySoftwareTokenResponseType> VerifySoftwareTokenAsync(string session, string code)
     {
@@ -156,10 +146,10 @@ public class CognitoWrapper
 
     // snippet-start:[Cognito.dotnetv3.AssociateSoftwareToken]
     /// <summary>
-    /// Get an MFA token to authenticate the user with the Google Authenticator.
+    /// Get an MFA token to authenticate the user with the authenticator.
     /// </summary>
-    /// <param name="session"></param>
-    /// <returns></returns>
+    /// <param name="session">The session name.</param>
+    /// <returns>Returns the session name.</returns>
     public async Task<string> AssociateSoftwareTokenAsync(string session)
     {
         var softwareTokenRequest = new AssociateSoftwareTokenRequest
@@ -170,7 +160,7 @@ public class CognitoWrapper
         var tokenResponse = await _cognitoService.AssociateSoftwareTokenAsync(softwareTokenRequest);
         var secretCode = tokenResponse.SecretCode;
 
-        Console.Write("Enter the following token into Google Authenticator: {secretCode}");
+        Console.Write("Enter the following token into the authenticator: {secretCode}");
 
         return tokenResponse.Session;
     }
@@ -204,7 +194,7 @@ public class CognitoWrapper
     /// <param name="clientId">The client Id of the application.</param>
     /// <param name="userName">The name of the user who is authenticating.</param>
     /// <param name="password">The password for the user who is authenticating.</param>
-    /// <returns>The response from the call to InitiateAuthAsync</returns>
+    /// <returns>The response from the call to InitiateAuthAsync.</returns>
     public async Task<InitiateAuthResponse> InitiateAuthAsync(string clientId, string userName, string password)
     {
         var authParameters = new Dictionary<string, string>();
@@ -233,7 +223,7 @@ public class CognitoWrapper
     /// </summary>
     /// <param name="clientId">The Id of this application.</param>
     /// <param name="code">The confirmation code sent to the user.</param>
-    /// <param name="userName">The user name.</param>
+    /// <param name="userName">The username.</param>
     /// <returns></returns>
     public async Task<bool> ConfirmSignupAsync(string clientId, string code, string userName)
     {
@@ -283,9 +273,9 @@ public class CognitoWrapper
     /// Send a new confirmation code to a user.
     /// </summary>
     /// <param name="clientId">The Id of the client application.</param>
-    /// <param name="userName">The user name of user who will receive the code.</param>
+    /// <param name="userName">The username of user who will receive the code.</param>
     /// <returns></returns>
-    public async Task<CodeDeliveryDetailsType> ResendConfirmationCodeAsyc(string clientId, string userName)
+    public async Task<CodeDeliveryDetailsType> ResendConfirmationCodeAsync(string clientId, string userName)
     {
         var codeRequest = new ResendConfirmationCodeRequest
         {
@@ -330,7 +320,7 @@ public class CognitoWrapper
     /// Sign up a new user.
     /// </summary>
     /// <param name="clientId">The client Id of the application.</param>
-    /// <param name="userName">The user name to use.</param>
+    /// <param name="userName">The username to use.</param>
     /// <param name="password">The user's password.</param>
     /// <param name="email">The email address of the user.</param>
     /// <returns>A Boolean value indicating whether the user was confirmed.</returns>
@@ -360,3 +350,5 @@ public class CognitoWrapper
 
     // snippet-end:[Cognito.dotnetv3.SignUp]
 }
+
+// snippet-end:[Cognito.dotnetv3.CognitoWrapper]

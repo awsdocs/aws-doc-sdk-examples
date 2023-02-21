@@ -19,9 +19,9 @@ public class UiMethods
         Console.Clear();
         DisplayTitle("Welcome to the Amazon Cognito Demo");
 
-        Console.WriteLine("This example application will do the following:");
-        Console.WriteLine("\t 1. Sign up a user.");
-        Console.WriteLine("\t 2. Get the user's confirmation status.");
+        Console.WriteLine("This example application does the following:");
+        Console.WriteLine("\t 1. Signs up a user.");
+        Console.WriteLine("\t 2. Gets the user's confirmation status.");
         Console.WriteLine("\t 3. Resends the confirmation code if the user requested another code.");
         Console.WriteLine("\t 4. Confirms that the user signed up.");
         Console.WriteLine("\t 5. Invokes the initiateAuth to sign in. This results in being prompted to set up TOTP (time-based one-time password). (The response is “ChallengeName”: “MFA_SETUP”).");
@@ -43,8 +43,8 @@ public class UiMethods
     /// <summary>
     /// Pad a string with spaces to center it on the console display.
     /// </summary>
-    /// <param name="strToCenter"></param>
-    /// <returns></returns>
+    /// <param name="strToCenter">The string to pad with spaces.</param>
+    /// <returns>The padded string.</returns>
     public string CenterString(string strToCenter)
     {
         var padAmount = (Console.WindowWidth - strToCenter.Length) / 2;

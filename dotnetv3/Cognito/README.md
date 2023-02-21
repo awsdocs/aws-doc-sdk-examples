@@ -23,11 +23,14 @@ the minimum permissions required to perform the task. For more information, see
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 * [Confirm a user](Actions/CofnitoWrapper.cs) (`ConfirmSignUpAsync`)
-* [Confirm an MFA Device for tracking](Actions/CognitoWrapper.cs)
+* [Confirm an MFA Device for tracking](Actions/CognitoWrapper.cs) (`ConfirmDeviceAsync`)
 * [Get a token to associate an MFA application with a user](Actions/CognitoWrapper.cs) (`AssociateSoftwareTokenAsync`)
 * [Get information about a user](Actions/CognitoWrapper.cs) (`AdminGetUserAsync`)
+* [List user pools](Actions/CognitoWrapper.cs) (`ListUserPoolsAsync`)
+* [List users](Actions/CognitoWrapper.cs) (`ListUsersAsync`)
 * [Resend a confirmation code](Actions/CognitoWrapper.cs) (`ResendConfirmationCodeAsync`)
 * [Respond to an authentication challenge](Actions/CognitoWrapper.cs) (`RespondToAuthChallengeAsync`)
+* [Respond to SRP authentication challenges](Actions/CognitoWrapper.cs) (`AdminRespondToAuthChallengeAsync`)
 * [Sign up a user](Actions/CognitoWrapper.cs) (`SignUpAsync`)
 * [Start authentication with a tracked device](Actions/CognitoWrapper.cs) (`InitiateAuthAsync`)
 * [Verify an MFA application with a user](Actions/CognitoWrapper.cs) (`VerifySoftwareTokenAsync`)

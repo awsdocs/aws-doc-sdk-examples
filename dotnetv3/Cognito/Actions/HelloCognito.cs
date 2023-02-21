@@ -6,7 +6,7 @@
 namespace CognitoActions;
 
 /// <summary>
-/// A class that introduces the Cognito Identity Provider by listing the
+/// A class that introduces the Amazon Cognito Identity Provider by listing the
 /// user pools for the account.
 /// </summary>
 public class HelloCognito
@@ -30,13 +30,20 @@ public class HelloCognito
         logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
             .CreateLogger<HelloCognito>();
 
-        var cognitoWrapper = host.Services.GetRequiredService<CognitoWrapper>();
+        var amazonClient = host.Services.GetRequiredService<IAmazonCognitoIdentityProvider>();
 
         Console.Clear();
         Console.WriteLine("Hello Amazon Cognito.");
         Console.WriteLine("Let's get a list of your Amazon Cognito user pools.");
 
-        var userPools = await cognitoWrapper.ListUserPoolsAsync();
+        var userPools = new List<UserPoolDescriptionType>();
+
+        var userPoolsPaginator = amazonClient.Paginators.ListUserPools(new ListUserPoolsRequest());
+
+        await foreach(var response in userPoolsPaginator.Responses)
+        {
+            userPools.AddRange(response.UserPools);
+        }
 
         if (userPools.Count > 0)
         {

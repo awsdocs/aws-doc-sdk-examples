@@ -10,7 +10,7 @@ public class CognitoBasics
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the Amazon service.
+        // Set up dependency injection for Amazon Cognito.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)
@@ -28,7 +28,7 @@ public class CognitoBasics
 
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("settings.json") // Load test settings from .json file.
+            .AddJsonFile("settings.json") // Load settings from .json file.
             .AddJsonFile("settings.local.json",
                 true) // Optionally load local settings.
             .Build();
@@ -36,40 +36,57 @@ public class CognitoBasics
         var cognitoWrapper = host.Services.GetRequiredService<CognitoWrapper>();
         var uiMethods = host.Services.GetRequiredService<UiMethods>();
 
-        // clientId - The app client Id value that you can get from the AWS CDK script.
-        string clientId = "29g6vl2hkmlo91ni1rfvm9ggqd"; // "*** REPLACE WITH CLIENT ID VALUE FROM CDK SCRIPT";
+        // clientId - The app client Id value that you get from the AWS CDK script.
+        string clientId = configuration["ClientId"]; // "*** REPLACE WITH CLIENT ID VALUE FROM CDK SCRIPT";
 
-        // poolId - The pool Id that you can get from the AWS CDK script.
-        string poolId = "us-west-2_zffFiT8i6"; // "*** REPLACE WITH POOL ID VALUE FROM CDK SCRIPT";
-        var userName = string.Empty;
-        var password = string.Empty;
-        var email = string.Empty;
+        // poolId - The pool Id that you get from the AWS CDK script.
+        string poolId = configuration["PoolId"]; // "*** REPLACE WITH POOL ID VALUE FROM CDK SCRIPT";
+        var userName = configuration["UserName"];
+        var password = configuration["Password"];
+        var email = configuration["Email"];
+        var userPoolId = configuration["UserPoolId"];
 
-        do
+        // If the username wasn't set in the configuration file,
+        // get it from the user now.
+        if (userName is null)
         {
-            Console.Write("User name: ");
-            userName = Console.ReadLine();
+            do
+            {
+                Console.Write("Username: ");
+                userName = Console.ReadLine();
+            }
+            while (string.IsNullOrEmpty(userName));
         }
-        while (userName == string.Empty);
+        Console.WriteLine($"\nUsername: {userName}");
 
-        Console.WriteLine($"\nUser name: {userName}");
-
-        do
+        // If the password wasn't set in the configuration file,
+        // get it from the user now.
+        if (password is null)
         {
-            Console.Write("Password: ");
-            password = Console.ReadLine();
+            do
+            {
+                Console.Write("Password: ");
+                password = Console.ReadLine();
+            }
+            while (string.IsNullOrEmpty(password));
         }
-        while (password == string.Empty);
 
-        do
+        // If the email address wasn't set in the configuration file,
+        // get it from the user now.
+        if (email is null)
         {
-            Console.Write("Email: ");
-            email = Console.ReadLine();
-        } while (email == string.Empty);
+            do
+            {
+                Console.Write("Email: ");
+                email = Console.ReadLine();
+            } while (string.IsNullOrEmpty(email));
+        }
 
-        Console.WriteLine($"\nSigning up {userName}...");
+        // Now sign up the user.
+        Console.WriteLine($"\nSigning up {userName} with email address: {email}");
         await cognitoWrapper.SignUpAsync(clientId, userName, password, email);
 
+        // Add the user to the user pool.
         Console.WriteLine($"Adding {userName} to the user pool");
         await cognitoWrapper.GetAdminUserAsync(userName, poolId);
 
@@ -80,7 +97,7 @@ public class CognitoBasics
 
         if (answer.ToLower() == "YES")
         {
-            await cognitoWrapper.ResendConfirmationCodeAsyc(clientId, userName);
+            await cognitoWrapper.ResendConfirmationCodeAsync(clientId, userName);
             Console.WriteLine("Sending a new confirmation code");
         }
 
@@ -103,11 +120,10 @@ public class CognitoBasics
 
         // Verify the TOTP and register for MFA.
         await cognitoWrapper.GetAdminUserAsync(newSession, myCode);
-        Console.Write("Re-enter the 6-digit code displayed in Google Authenticator");
+        Console.Write("Re-enter the 6-digit code displayed in your authenticator");
         string mfaCode = Console.ReadLine();
 
-        var authResponse1 = await cognitoWrapper.InitiateAuthAsync(clientId, userName, password);
-        var session2 = authResponse1.Session;
+        var session2 = await cognitoWrapper.AdminInitiateAuthAsync(clientId, userPoolId, userName, password);
         await cognitoWrapper.RespondToAuthChallengeAsync(userName, clientId, mfaCode, session2);
     }
 }

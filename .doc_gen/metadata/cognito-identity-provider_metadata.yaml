@@ -5,6 +5,14 @@ cognito-identity-provider_ListUserPools:
   synopsis: list the &COG; user pools.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - Cognito.dotnetv3.ListUserPools
     Rust:
       versions:
         - sdk_version: 1
@@ -277,6 +285,15 @@ cognito-identity-provider_ListUsers:
   synopsis: list &COG; users.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Cognito.dotnetv3.ListUsers
     Kotlin:
       versions:
         - sdk_version: 1
@@ -579,6 +596,14 @@ cognito-identity-provider_ConfirmDevice:
   synopsis: confirm an MFA device for tracking by &COG;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - Cognito.dotnetv3.ConfirmDevice
     Python:
       versions:
         - sdk_version: 3
@@ -652,7 +677,7 @@ cognito-identity-provider_RespondToAuthChallenge:
           excerpts:
             - description:
               snippet_tags:
-                - Cognito.dotnetv3.AdminRespondToAuthChallenge
+                - Cognito.dotnetv3.RespondToAuthChallenge
     Python:
       versions:
         - sdk_version: 3
@@ -713,8 +738,9 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
             - description:
               snippet_tags:
                 - Cognito.dotnetv3.Usings
-                - Cognito.dotnetv3.UIMethods
                 - Cognito.dotnetv3.Main
+                - Cognito.dotnetv3.CognitoWrapper
+                - Cognito.dotnetv3.UIMethods
     Kotlin:
       versions:
         - sdk_version: 1

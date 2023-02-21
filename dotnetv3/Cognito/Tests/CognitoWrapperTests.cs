@@ -2,7 +2,6 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 using Amazon.CognitoIdentityProvider;
-using Amazon.CognitoIdentityProvider.Model;
 using Microsoft.Extensions.Configuration;
 
 namespace SupportTests
@@ -72,9 +71,9 @@ namespace SupportTests
         [Fact()]
         [Order(4)]
         [Trait("Category", "Integration")]
-        public async Task ResendConfirmationCodeAsycTest()
+        public async Task ResendConfirmationCodeAsyncTest()
         {
-            var codeDeliveryDetails = await _wrapper.ResendConfirmationCodeAsyc(_clientId, _userName);
+            var codeDeliveryDetails = await _wrapper.ResendConfirmationCodeAsync(_clientId, _userName);
             Assert.Equal(codeDeliveryDetails.Destination, _email);
         }
 
@@ -118,14 +117,6 @@ namespace SupportTests
         [Fact()]
         [Order(9)]
         [Trait("Category", "Integration")]
-        public async Task ConfirmDeviceAsyncTest()
-        {
-
-        }
-
-        [Fact()]
-        [Order(10)]
-        [Trait("Category", "Integration")]
         public async Task AssociateSoftwareTokenAsyncTest()
         {
             var newSession = _wrapper.AssociateSoftwareTokenAsync(_session);
@@ -133,7 +124,7 @@ namespace SupportTests
         }
 
         [Fact()]
-        [Order(11)]
+        [Order(10)]
         [Trait("Category", "Integration")]
         public async Task RespondToAuthChallengeAsyncTest()
         {
