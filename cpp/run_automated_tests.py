@@ -11,9 +11,9 @@ import glob
 # Script to run automated C++ tests.
 #
 # Types of automated tests.
-# 1. Requires credentials and pre-configured resources.
+# 1. Requires credentials, permissions, and AWS resources.
 # 2. Requires credentials and permissions.
-# 3. Does not require credentials.
+# 3. Does not require credentials (mocked if necessary).
 
 
 def build_tests(service="*"):
