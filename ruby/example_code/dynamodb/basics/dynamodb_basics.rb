@@ -1,14 +1,14 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-# snippet-start:[ruby.example_code.dynamodb.helper.DynamoDBBasics]
 require "aws-sdk-dynamodb"
 require "json"
 require "open-uri"
 require "pp"
 require "zip"
 
-# Encapsulates an Amazon DynamoDB table of movie data.
+# snippet-start:[ruby.example_code.ruby.DynamoDBBasics.full]
+# snippet-start:[ruby.example_code.ruby.DynamoDBBasics.decl]
 class DynamoDBBasics
   attr_reader :dynamo_resource
   attr_reader :table
@@ -16,9 +16,8 @@ class DynamoDBBasics
   def initialize(table_name)
     @dynamo_resource = Aws::DynamoDB::Resource.new
     @table = @dynamo_resource.table(table_name)
-    @logger = Logger.new($stdout)
-    @logger.level = Logger::DEBUG
   end
+  # snippet-end:[ruby.example_code.ruby.DynamoDBBasics.decl]
 
   # snippet-start:[ruby.example_code.dynamodb.PutItem]
   # Adds a movie to the table.
@@ -138,4 +137,6 @@ class DynamoDBBasics
   end
   # snippet-end:[ruby.example_code.dynamodb.DeleteItem]
 end
+# snippet-end:[ruby.example_code.ruby.DynamoDBBasics.full]
+
 

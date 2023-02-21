@@ -11,15 +11,10 @@ require "json"
 require "zip"
 require "cli/ui"
 require 'pry'
-require_relative("../../helpers/disclaimers")
+require_relative("../../helpers/rs/disclaimers")
 require_relative("../../helpers/decorators")
 require_relative("dynamodb_basics")
 require_relative('scaffold')
-
-@logger = Logger.new($stdout)
-@logger.level = Logger::WARN
-
-# snippet-start:[ruby.example_code.dynamodb.Scenario_GettingStartedDynamoDB]
 
 # Runs the DynamoDB getting started demo.
 # @return [Nil]
@@ -48,6 +43,7 @@ def run_scenario
   security
   puts "\e[H\e[2J"
 
+  # snippet-start:[ruby.example_code.dynamodb.Scenario_Basics]
   table_name = "doc-example-table-movies-#{rand(10**4)}"
   scaffold = Scaffold.new(table_name)
   dynamodb_wrapper = DynamoDBBasics.new(table_name)
@@ -150,6 +146,6 @@ rescue Aws::Errors::ServiceError
 rescue Errno::ENOENT
   true
 end
-# snippet-end:[ruby.example_code.dynamodb.Scenario_GettingStartedDynamoDB
+# snippet-end:[ruby.example_code.dynamodb.Scenario_Basics]
 
 run_scenario if __FILE__ == $PROGRAM_NAME

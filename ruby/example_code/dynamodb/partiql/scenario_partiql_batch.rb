@@ -11,15 +11,9 @@ require "json"
 require "zip"
 require "cli/ui"
 require 'pry'
-require_relative("../../helpers/disclaimers")
+require_relative("../../helpers/rs/disclaimers")
 require_relative("../../helpers/decorators")
-require_relative("dynamodb_basics")
-require_relative("dynamodb_partiql_basics")
-
-@logger = Logger.new($stdout)
-@logger.level = Logger::WARN
-
-# snippet-start:[ruby.example_code.dynamodb.Scenario_GettingStartedDynamoDBPartiQL]
+require_relative("partiql_batch")
 
 # Runs the DynamoDB getting started demo.
 # @return [Nil]
@@ -45,9 +39,10 @@ def run_scenario
   security
   puts "\e[H\e[2J"
 
+  # snippet-start:[ruby.example_code.dynamodb.Scenario_PartiQL_Batch]
   table_name = "doc-example-table-movies-partiql-#{rand(10**4)}"
   scaffold = Scaffold.new(table_name)
-  sdk = DynamoDBPartiQLBasics.new(table_name)
+  sdk = DynamoDBPartiQLBatch.new(table_name)
 
   new_step(1, "Create a new DynamoDB table if none already exists.")
   unless scaffold.exists?(table_name)
@@ -56,7 +51,7 @@ def run_scenario
     print "Done!\n".green
   end
 
-  new_step(2, "Write a batch of famous movies into the DynamoDB table.")
+  new_step(2, "Populate DynamoDB table with movie data.")
   download_file = "moviedata.json"
   puts("Downloading movie database to #{download_file}...")
   movie_data = scaffold.fetch_movie_data(download_file)
@@ -65,42 +60,21 @@ def run_scenario
   puts("Records added: #{movie_data.length}.")
   print "Done!\n".green
 
-  new_step(3, "Select a single item from the movies table.")
-  response = sdk.select_item_by_title("Star Wars")
-  puts("Items selected for title 'Star Wars': #{response.items.length}\n")
-  print "#{response.items.first}".yellow
-  print "\n\nDone!\n".green
-
-  new_step(4, "Update a single item from the movies table.")
-  puts "Let's correct the rating on The Big Lebowski to 10.0"
-  sdk.update_rating_by_title('The Big Lebowski', 1998, 10.0)
-  print "\nDone!\n".green
-
-  new_step(5, "Delete a single item from the movies table.")
-  puts "Let's delete The Silence of the Lambs because it's just too scary."
-  sdk.delete_item_by_title('The Silence of the Lambs', 1991)
-  print "\nDone!\n".green
-
-  new_step(6, "Insert a new item into the movies table.")
-  puts "Let's create a less-scary movie called The Prancing of the Lambs."
-  sdk.insert_item("The Prancing of the Lambs", 2005, 'A movie about happy livestock.', 5.0)
-  print "\nDone!\n".green
-
-  new_step(7, "Select a batch of items from the movies table.")
+  new_step(3, "Select a batch of items from the movies table.")
   puts "Let's select some popular movies for side-by-side comparison."
   response = sdk.batch_execute_select(['Star Wars', 'The Big Lebowski', 'The Prancing of the Lambs'])
   puts("Items selected: #{response.items.length}\n")
   print "\nDone!\n".green
 
-  new_step(8, "Delete a batch of items from the movies table.")
+  new_step(4, "Delete a batch of items from the movies table.")
   sdk.batch_execute_write([["Mean Girls", 2004], ['Goodfellas', 1977], ['The Prancing of the Lambs', 2005]])
   print "\nDone!\n".green
 
-  new_step(9, "Delete the table.")
+  new_step(5, "Delete the table.")
   if scaffold.exists?(table_name)
     scaffold.delete_table
   end
 end
-# snippet-end:[ruby.example_code.dynamodb.Scenario_GettingStartedDynamoDBPartiQL
+# snippet-end:[ruby.example_code.dynamodb.Scenario_PartiQL_Batch]
 
 run_scenario if __FILE__ == $PROGRAM_NAME

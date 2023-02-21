@@ -6,14 +6,14 @@
 require "json"
 require "rspec"
 require 'pry'
-require_relative("../dynamodb_partiql_basics")
+require_relative("../partiql/_partiql_single")
 require_relative("../scaffold")
 
-describe DynamoDBPartiQLBasics do
+describe DynamoDBPartiQLSingle do
   context "DynamoDBPartiQLWrapper" do
     table_name = "doc-example-table-movies-partiql-#{rand(10**4)}"
     scaffold = Scaffold.new(table_name)
-    sdk = DynamoDBPartiQLBasics.new(table_name)
+    sdk = DynamoDBPartiQLSingle.new(table_name)
 
     it "Create a new DynamoDB table", integ: "true" do
       scaffold.create_table(table_name)

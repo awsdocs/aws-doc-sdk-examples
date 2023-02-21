@@ -18,12 +18,12 @@ require "open-uri"
 require "pp"
 require "zip"
 
+# snippet-start:[ruby.example_code.dynamodb.Scaffold]
 # Encapsulates an Amazon DynamoDB table of movie data.
 class Scaffold
   attr_reader :dynamo_resource
   attr_reader :table_name
   attr_reader :table
-  attr_reader :movie_file_name
 
   def initialize(table_name)
     @dynamo_resource = Aws::DynamoDB::Resource.new
@@ -32,6 +32,7 @@ class Scaffold
     @logger = Logger.new($stdout)
     @logger.level = Logger::DEBUG
   end
+  # snippet-end:[ruby.example_code.dynamodb.Scaffold]
 
   # snippet-start:[ruby.example_code.dynamodb.DescribeTable]
   # Determines whether a table exists. As a side effect, stores the table in
@@ -73,11 +74,10 @@ class Scaffold
       ],
       provisioned_throughput: {read_capacity_units: 10, write_capacity_units: 10})
     @dynamo_resource.client.wait_until(:table_exists, table_name: table_name)
+    @table
   rescue Aws::DynamoDB::Errors::ServiceError => e
     @logger.error("Failed create table #{table_name}:\n#{e.code}: #{e.message}")
     raise
-  else
-    @table
   end
   # snippet-end:[ruby.example_code.dynamodb.CreateTable]
 
@@ -143,9 +143,8 @@ class Scaffold
     movie_data = JSON.parse(movie_json)
     # The sample file lists over 4000 movies. This returns only the first 250.
     movie_data.slice(0, 250)
-  rescue Errno::ENOENT
-    puts("File #{movie_file_name} not found. Before you can run this demo, you must "\
-         "download the file. For instructions, see the README.")
+  rescue StandardError => e
+    puts("Failure downloading movie data:\n#{e}")
     raise
   end
   # snippet-end:[ruby.example_code.dynamodb.helper.get_sample_movie_data]
