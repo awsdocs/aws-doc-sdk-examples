@@ -26,6 +26,14 @@ vi.doMock("fs", async () => {
   };
 });
 
+vi.doMock("libs/utils/util-io.js", async () => {
+  const actual = await vi.importActual("libs/utils/util-io.js");
+  return {
+    ...actual,
+    promptForText: async () => "my-bucket",
+  };
+})
+
 import {
   createBucket,
   listFilesInBucket,
@@ -45,7 +53,7 @@ describe("S3 basic scenario", () => {
 
       await createBucket("my-bucket");
 
-      expect(logSpy).toHaveBeenCalledWith("Bucket created successfully.");
+      expect(logSpy).toHaveBeenCalledWith("Bucket created successfully.\n");
     });
   });
 
@@ -83,7 +91,7 @@ describe("S3 basic scenario", () => {
 
       await listFilesInBucket({ bucketName: "my-bucket", folderPath: "" });
 
-      expect(logSpy).toHaveBeenCalledWith(` • file1\n • file2`);
+      expect(logSpy).toHaveBeenCalledWith(` • file1\n • file2\n`);
     });
   });
 });
