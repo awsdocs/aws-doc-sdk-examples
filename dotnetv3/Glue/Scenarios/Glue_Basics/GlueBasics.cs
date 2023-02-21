@@ -148,7 +148,7 @@ public class GlueBasics
         } while (!jobRunComplete);
 
         uiWrapper.DisplayTitle($"Data in {bucketName}");
-        
+
         // Get the list of data stored in the S3 bucket.
         AmazonS3Client s3Client = new AmazonS3Client();
 
