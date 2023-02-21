@@ -28,6 +28,11 @@ const snakeCase = pipe(downcaseSplit, join("_"));
 
 const titleCase = pipe(downcaseSplit, map(capitalize), join(" "));
 
+const wrapText = (text, char = "=") => {
+  const rule = char.repeat(80);
+  return `${rule}\n    ${text}\n${rule}\n`;
+};
+
 export {
   capitalize,
   downcaseSplit,
@@ -36,5 +41,6 @@ export {
   pascalCase,
   postfix,
   snakeCase,
-  titleCase
+  titleCase,
+  wrapText
 };

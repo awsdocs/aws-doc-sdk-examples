@@ -20,8 +20,10 @@ import { fileURLToPath } from "url";
 import { readdirSync, readFileSync } from "fs";
 import { createInterface } from "readline";
 
-// A local helper utility.
+// Local helper utils.
 import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
+import { promptForText, promptToContinue } from "libs/utils/util-io.js";
+import { wrapText } from "libs/utils/util-string.js";
 
 import {
   S3Client,
@@ -43,16 +45,20 @@ const s3Client = new S3Client({});
 // snippet-end[javascript.v3.s3.scenarios.basic.S3Client]
 
 // snippet-start[javascript.v3.s3.scenarios.basic.CreateBucket]
-export const createBucket = async ({ bucketName }) => {
+export const createBucket = async () => {
+  const bucketName = await promptForText(
+    "Enter a bucket name. Bucket names must be globally unique:"
+  );
   const command = new CreateBucketCommand({ Bucket: bucketName });
   await s3Client.send(command);
-  console.log("Bucket created successfully.");
+  console.log("Bucket created successfully.\n");
+  return bucketName;
 };
 // snippet-end[javascript.v3.s3.scenarios.basic.CreateBucket]
 
 // snippet-start[javascript.v3.s3.scenarios.basic.PutObject]
 export const uploadFilesToBucket = async ({ bucketName, folderPath }) => {
-  console.log(`Uploading files from ${folderPath}`);
+  console.log(`Uploading files from ${folderPath}\n`);
   const keys = readdirSync(folderPath);
   const files = keys.map((key) => {
     const filePath = `${folderPath}/${key}`;
@@ -76,34 +82,100 @@ export const uploadFilesToBucket = async ({ bucketName, folderPath }) => {
 };
 // snippet-end[javascript.v3.s3.scenarios.basic.PutObject]
 
-const listFilesInBucket = async ({ bucketName }) => {};
+export const listFilesInBucket = async ({ bucketName }) => {
+  const command = new ListObjectsCommand({ Bucket: bucketName });
+  const { Contents } = await s3Client.send(command);
+  const contentsList = Contents.map((c) => ` • ${c.Key}`).join("\n");
+  console.log("\nHere's a list of files in the bucket:");
+  console.log(contentsList + "\n");
+};
 
-const copyFileFromBucket = async ({
-  sourceBucket,
-  sourceKey,
-  destinationBucket,
-  destinationKey,
-}) => {};
+const copyFileFromBucket = async ({ destinationBucket }) => {
+  const answer = await promptForText(
+    "Would you like to copy an object from another bucket? (yes/no)"
+  );
+
+  if (answer === "no") {
+    return;
+  } else {
+    const copy = async () => {
+      try {
+        const sourceBucket = await promptForText("Enter source bucket name:");
+        const sourceKey = await promptForText("Enter source key:");
+        const destinationKey = await promptForText("Enter destination key:");
+
+        const command = new CopyObjectCommand({
+          Bucket: destinationBucket,
+          CopySource: `${sourceBucket}/${sourceKey}`,
+          Key: destinationKey,
+        });
+        await s3Client.send(command);
+        await copyFileFromBucket({ destinationBucket });
+      } catch (err) {
+        console.error(`Copy error.`);
+        console.error(err);
+        const retryAnswer = await promptForText("Try again? (yes/no)");
+        if (retryAnswer !== "no") {
+          await copy();
+        }
+      }
+    };
+    await copy();
+  }
+};
 
 const downloadFilesFromBucket = async ({ keys }) => {};
 
-const emptyBucket = async ({ bucketName }) => {};
+const emptyBucket = async ({ bucketName }) => {
+  const listObjectsCommand = new ListObjectsCommand({ Bucket: bucketName });
+  const { Contents } = await s3Client.send(listObjectsCommand);
+  const keys = Contents.map((c) => c.Key);
 
-const deleteBucket = async ({ bucketName }) => {};
+  const deleteObjectsCommand = new DeleteObjectsCommand({
+    Bucket: bucketName,
+    Delete: { Objects: keys.map((key) => ({ Key: key })) },
+  });
+  await s3Client.send(deleteObjectsCommand);
+  console.log(`${bucketName} emptied successfully.\n`);
+};
 
+const deleteBucket = async ({ bucketName }) => {
+  const command = new DeleteBucketCommand({ Bucket: bucketName });
+  await s3Client.send(command);
+  console.log(`${bucketName} deleted successfully.\n`);
+};
 // snippet-start:[javascript.v3.s3.scenarios.basic.main]
 const main = async () => {
-  const BUCKET_NAME = "my-bucket-corey";
   const OBJECT_DIRECTORY = `${dirnameFromMetaUrl(
     import.meta.url
   )}../../../../resources/sample_files/.sample_media`;
 
   try {
-    await createBucket({ bucketName: BUCKET_NAME });
+    console.log(wrapText("Welcome to the Amazon S3 getting started example."));
+    console.log("Let's create a bucket.");
+    const bucketName = await createBucket();
+    await promptToContinue();
+
+    console.log(wrapText("File upload."));
+    console.log(
+      "I have some default files ready to go. You can edit the source code to provide your own."
+    );
     await uploadFilesToBucket({
-      bucketName: BUCKET_NAME,
+      bucketName,
       folderPath: OBJECT_DIRECTORY,
     });
+
+    await listFilesInBucket({ bucketName });
+    await promptToContinue();
+
+    console.log(wrapText("Copy files."));
+    await copyFileFromBucket({ destinationBucket: bucketName });
+    await listFilesInBucket({ bucketName });
+    await promptToContinue();
+
+    console.log(wrapText("Clean up."));
+    await emptyBucket({ bucketName });
+    await deleteBucket({ bucketName });
   } catch (err) {
     console.error(err);
   }

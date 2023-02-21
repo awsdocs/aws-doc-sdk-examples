@@ -2306,9 +2306,11 @@ s3_Scenario_GettingStarted:
             - description: First let's import all of the modules we're going to need.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.imports
-            - description: We're going to need a mechanism that prompts the user with some options and lets them select one. This uses Node.js's 'readline' module.
+            - description: We're going to need a mechanism to work with user input. This a library local to the GitHub repo that uses Node.js's 'readline' module.
               snippet_tags:
-                - javascript.v3.s3.scenarios.basic.prompt
+                - javascript.v3.utils.promptToSelect
+                - javascript.v3.utils.promptToContinue
+                - javascript.v3.utils.promptForText
             - description: Objects in S3 are stored in 'buckets'. Let's define a function for creating a new bucket.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.CreateBucket
