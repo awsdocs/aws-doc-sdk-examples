@@ -40,7 +40,7 @@ public class HelloCognito
 
         var userPoolsPaginator = amazonClient.Paginators.ListUserPools(new ListUserPoolsRequest());
 
-        await foreach(var response in userPoolsPaginator.Responses)
+        await foreach (var response in userPoolsPaginator.Responses)
         {
             userPools.AddRange(response.UserPools);
         }

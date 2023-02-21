@@ -33,7 +33,7 @@ public class CognitoWrapper
 
         var userPoolsPaginator = _cognitoService.Paginators.ListUserPools(new ListUserPoolsRequest());
 
-        await foreach(var response in userPoolsPaginator.Responses)
+        await foreach (var response in userPoolsPaginator.Responses)
         {
             userPools.AddRange(response.UserPools);
         }
