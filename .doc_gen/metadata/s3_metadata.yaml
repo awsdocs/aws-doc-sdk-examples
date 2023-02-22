@@ -776,9 +776,6 @@ s3_GetObject:
           github: javascriptv3/example_code/s3
           sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-example-creating-buckets-get-object
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: Download the object.
               snippet_tags:
                 - s3.JavaScript.buckets.getobjectV3
@@ -1602,9 +1599,6 @@ s3_GetBucketAcl:
           github: javascriptv3/example_code/s3
           sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-access-permissions.html#s3-example-access-permissions-get-acl
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: Get the ACL permissions.
               snippet_tags:
                 - s3.JavaScript.perms.getBucketAclV3
@@ -2306,13 +2300,16 @@ s3_Scenario_GettingStarted:
             - description: First let's import all of the modules we're going to need.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.imports
-            - description: We're going to need a mechanism to work with user input.
-                           This a library local to the GitHub repo that uses Node.js's
-                           'readline' module.
+            - description: The imports above reference some helper utilities. These utilities
+                           are local to the GitHub repository linked at the start of
+                           this section. For your reference, see the following implementations
+                           of those utilities.
               snippet_tags:
+                - javascript.v3.utils.dirnameFromMetaUrl
                 - javascript.v3.utils.promptToSelect
                 - javascript.v3.utils.promptToContinue
                 - javascript.v3.utils.promptForText
+                - javascript.v3.utils.wrapText
             - description: Objects in S3 are stored in 'buckets'. Let's define a function
                            for creating a new bucket.
               snippet_tags:

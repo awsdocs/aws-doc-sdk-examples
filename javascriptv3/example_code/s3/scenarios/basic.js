@@ -17,8 +17,7 @@
 // snippet-start:[javascript.v3.s3.scenarios.basic.imports]
 // Used to check if currently running file is this file.
 import { fileURLToPath } from "url";
-import { readdirSync, readFileSync, writeFile, writeFileSync } from "fs";
-import { createInterface } from "readline";
+import { readdirSync, readFileSync, writeFileSync } from "fs";
 
 // Local helper utils.
 import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
