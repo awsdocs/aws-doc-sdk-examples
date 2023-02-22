@@ -35,15 +35,34 @@ Code excerpts that show you how to call individual service functions.
 
 * [Write a batch of items](basics/scenario_getting_started_dynamodb.rb) (`BatchWriteItem`)
 
+#### PartiQL examples
+PartiQL is a query language that is compatible with various NoSQL databases, including Amazon DynamoDB.
+To learn more, see the [DynamoDB PartiQL reference](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html).
 
+* [Get an item from a table using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
+
+* [Delete an item from a table using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
+
+* [Add an item to a table using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
+
+* [Update an item in a table using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
+
+* [using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
+
+* [using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
+
+* [Select a batch of items from a table using PartiQL](partiql/partiql_batch.rb) (`BatchExecuteStatement`)
+
+* [Delete a batch of items from a table using PartiQL](partiql/partiql_batch.rb) (`BatchExecuteStatement`)
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
 * [Get started using tables, items, and queries](basics/scenario_getting_started_dynamodb.rb)
 
+* [Execute singleton statements using PartiQL](partiql/scenario_partiql_single.rb)
 
-
+* [Execute batch statements using PartiQL](partiql/scenario_partiql_batch.rb)
 
 
 ## Run the examples
