@@ -22,8 +22,8 @@ Uploads the specified file to the specified bucket.
 // Import required AWS SDK clients and commands for Node.js.
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
-import {path} from "path";
-import {fs} from "fs";
+import path from "path";
+import fs from "fs";
 
 const file = "OBJECT_PATH_AND_NAME"; // Path to and name of object. For example '../myFiles/index.js'.
 const fileStream = fs.createReadStream(file);
