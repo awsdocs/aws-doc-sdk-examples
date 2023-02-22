@@ -8,9 +8,6 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-cre
 Purpose:
 s3_listbuckets.js demonstrates how to list all the buckets in an AWS account.
 
-Inputs (replace in code):
-- BUCKET_NAME
-
 Running the code:
 s3_getbucketwebsite s3_listobjects.js
 */
