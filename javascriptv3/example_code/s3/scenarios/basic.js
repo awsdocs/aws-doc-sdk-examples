@@ -37,14 +37,14 @@ import {
 } from "@aws-sdk/client-s3";
 // snippet-end:[javascript.v3.s3.scenarios.basic.imports]
 
-// snippet-start[javascript.v3.s3.scenarios.basic.S3Client]
+// snippet-start:[javascript.v3.s3.scenarios.basic.S3Client]
 // The region can be provided as an argument to S3Client or
 // declared in the AWS configuration file. In this case
 // we're using the region provided in the AWS configuration.
 const s3Client = new S3Client({});
-// snippet-end[javascript.v3.s3.scenarios.basic.S3Client]
+// snippet-end:[javascript.v3.s3.scenarios.basic.S3Client]
 
-// snippet-start[javascript.v3.s3.scenarios.basic.CreateBucket]
+// snippet-start:[javascript.v3.s3.scenarios.basic.CreateBucket]
 export const createBucket = async () => {
   const bucketName = await promptForText(
     "Enter a bucket name. Bucket names must be globally unique:"
@@ -54,9 +54,9 @@ export const createBucket = async () => {
   console.log("Bucket created successfully.\n");
   return bucketName;
 };
-// snippet-end[javascript.v3.s3.scenarios.basic.CreateBucket]
+// snippet-end:[javascript.v3.s3.scenarios.basic.CreateBucket]
 
-// snippet-start[javascript.v3.s3.scenarios.basic.PutObject]
+// snippet-start:[javascript.v3.s3.scenarios.basic.PutObject]
 export const uploadFilesToBucket = async ({ bucketName, folderPath }) => {
   console.log(`Uploading files from ${folderPath}\n`);
   const keys = readdirSync(folderPath);
@@ -80,9 +80,9 @@ export const uploadFilesToBucket = async ({ bucketName, folderPath }) => {
     console.log(`${file.Key} uploaded successfully.`);
   }
 };
-// snippet-end[javascript.v3.s3.scenarios.basic.PutObject]
+// snippet-end:[javascript.v3.s3.scenarios.basic.PutObject]
 
-// snippet-start[javascript.v3.s3.scenarios.basic.ListObjects]
+// snippet-start:[javascript.v3.s3.scenarios.basic.ListObjects]
 export const listFilesInBucket = async ({ bucketName }) => {
   const command = new ListObjectsCommand({ Bucket: bucketName });
   const { Contents } = await s3Client.send(command);
@@ -90,9 +90,9 @@ export const listFilesInBucket = async ({ bucketName }) => {
   console.log("\nHere's a list of files in the bucket:");
   console.log(contentsList + "\n");
 };
-// snippet-end[javascript.v3.s3.scenarios.basic.ListObjects]
+// snippet-end:[javascript.v3.s3.scenarios.basic.ListObjects]
 
-// snippet-start[javascript.v3.s3.scenarios.basic.CopyObject]
+// snippet-start:[javascript.v3.s3.scenarios.basic.CopyObject]
 export const copyFileFromBucket = async ({ destinationBucket }) => {
   const answer = await promptForText(
     "Would you like to copy an object from another bucket? (yes/no)"
@@ -126,9 +126,9 @@ export const copyFileFromBucket = async ({ destinationBucket }) => {
     await copy();
   }
 };
-// snippet-end[javascript.v3.s3.scenarios.basic.CopyObject]
+// snippet-end:[javascript.v3.s3.scenarios.basic.CopyObject]
 
-// snippet-start[javascript.v3.s3.scenarios.basic.GetObject]
+// snippet-start:[javascript.v3.s3.scenarios.basic.GetObject]
 export const downloadFilesFromBucket = async ({ bucketName }) => {
   const { Contents } = await s3Client.send(
     new ListObjectsCommand({ Bucket: bucketName })
@@ -146,9 +146,9 @@ export const downloadFilesFromBucket = async ({ bucketName }) => {
   }
   console.log("Files downloaded successfully.\n");
 };
-// snippet-end[javascript.v3.s3.scenarios.basic.GetObject]
+// snippet-end:[javascript.v3.s3.scenarios.basic.GetObject]
 
-// snippet-start[javascript.v3.s3.scenarios.basic.clean]
+// snippet-start:[javascript.v3.s3.scenarios.basic.clean]
 export const emptyBucket = async ({ bucketName }) => {
   const listObjectsCommand = new ListObjectsCommand({ Bucket: bucketName });
   const { Contents } = await s3Client.send(listObjectsCommand);
@@ -167,7 +167,7 @@ export const deleteBucket = async ({ bucketName }) => {
   await s3Client.send(command);
   console.log(`${bucketName} deleted successfully.\n`);
 };
-// snippet-end[javascript.v3.s3.scenarios.basic.clean]
+// snippet-end:[javascript.v3.s3.scenarios.basic.clean]
 
 // snippet-start:[javascript.v3.s3.scenarios.basic.main]
 const main = async () => {

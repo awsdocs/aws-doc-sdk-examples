@@ -2300,7 +2300,7 @@ s3_Scenario_GettingStarted:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/s3/scenarios/basic.js
+          github: javascriptv3/example_code/s3
           sdkguide:
           excerpts:
             - description: First let's import all of the modules we're going to need.
