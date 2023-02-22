@@ -17,7 +17,7 @@
 // snippet-start:[javascript.v3.s3.scenarios.basic.imports]
 // Used to check if currently running file is this file.
 import { fileURLToPath } from "url";
-import { readdirSync, readFileSync } from "fs";
+import { readdirSync, readFileSync, writeFile, writeFileSync } from "fs";
 import { createInterface } from "readline";
 
 // Local helper utils.
@@ -82,6 +82,7 @@ export const uploadFilesToBucket = async ({ bucketName, folderPath }) => {
 };
 // snippet-end[javascript.v3.s3.scenarios.basic.PutObject]
 
+// snippet-start[javascript.v3.s3.scenarios.basic.ListObjects]
 export const listFilesInBucket = async ({ bucketName }) => {
   const command = new ListObjectsCommand({ Bucket: bucketName });
   const { Contents } = await s3Client.send(command);
@@ -89,8 +90,10 @@ export const listFilesInBucket = async ({ bucketName }) => {
   console.log("\nHere's a list of files in the bucket:");
   console.log(contentsList + "\n");
 };
+// snippet-end[javascript.v3.s3.scenarios.basic.ListObjects]
 
-const copyFileFromBucket = async ({ destinationBucket }) => {
+// snippet-start[javascript.v3.s3.scenarios.basic.CopyObject]
+export const copyFileFromBucket = async ({ destinationBucket }) => {
   const answer = await promptForText(
     "Would you like to copy an object from another bucket? (yes/no)"
   );
@@ -123,10 +126,30 @@ const copyFileFromBucket = async ({ destinationBucket }) => {
     await copy();
   }
 };
+// snippet-end[javascript.v3.s3.scenarios.basic.CopyObject]
 
-const downloadFilesFromBucket = async ({ keys }) => {};
+// snippet-start[javascript.v3.s3.scenarios.basic.GetObject]
+export const downloadFilesFromBucket = async ({ bucketName }) => {
+  const { Contents } = await s3Client.send(
+    new ListObjectsCommand({ Bucket: bucketName })
+  );
+  const path = await promptForText("Enter destination path for files:");
 
-const emptyBucket = async ({ bucketName }) => {
+  for (let content of Contents) {
+    const obj = await s3Client.send(
+      new GetObjectCommand({ Bucket: bucketName, Key: content.Key })
+    );
+    writeFileSync(
+      `${path}/${content.Key}`,
+      await obj.Body.transformToByteArray()
+    );
+  }
+  console.log("Files downloaded successfully.\n");
+};
+// snippet-end[javascript.v3.s3.scenarios.basic.GetObject]
+
+// snippet-start[javascript.v3.s3.scenarios.basic.clean]
+export const emptyBucket = async ({ bucketName }) => {
   const listObjectsCommand = new ListObjectsCommand({ Bucket: bucketName });
   const { Contents } = await s3Client.send(listObjectsCommand);
   const keys = Contents.map((c) => c.Key);
@@ -139,11 +162,13 @@ const emptyBucket = async ({ bucketName }) => {
   console.log(`${bucketName} emptied successfully.\n`);
 };
 
-const deleteBucket = async ({ bucketName }) => {
+export const deleteBucket = async ({ bucketName }) => {
   const command = new DeleteBucketCommand({ Bucket: bucketName });
   await s3Client.send(command);
   console.log(`${bucketName} deleted successfully.\n`);
 };
+// snippet-end[javascript.v3.s3.scenarios.basic.clean]
+
 // snippet-start:[javascript.v3.s3.scenarios.basic.main]
 const main = async () => {
   const OBJECT_DIRECTORY = `${dirnameFromMetaUrl(
@@ -172,6 +197,9 @@ const main = async () => {
     await copyFileFromBucket({ destinationBucket: bucketName });
     await listFilesInBucket({ bucketName });
     await promptToContinue();
+
+    console.log(wrapText("Download files."));
+    await downloadFilesFromBucket({ bucketName });
 
     console.log(wrapText("Clean up."));
     await emptyBucket({ bucketName });

@@ -32,10 +32,12 @@ vi.doMock("libs/utils/util-io.js", async () => {
     ...actual,
     promptForText: async () => "my-bucket",
   };
-})
+});
 
 import {
   createBucket,
+  deleteBucket,
+  emptyBucket,
   listFilesInBucket,
   uploadFilesToBucket,
 } from "../scenarios/basic.js";
@@ -44,7 +46,7 @@ describe("S3 basic scenario", () => {
   const logSpy = vi.spyOn(console, "log");
 
   beforeEach(() => {
-    logSpy.mockReset();
+    vi.clearAllMocks();
   });
 
   describe("createBucket", () => {
@@ -83,7 +85,7 @@ describe("S3 basic scenario", () => {
     });
   });
 
-  describe("list files in bucket", () => {
+  describe("listFilesInBucket", () => {
     it("should list the files in the bucket", async () => {
       send.mockResolvedValueOnce({
         Contents: [{ Key: "file1" }, { Key: "file2" }],
@@ -92,6 +94,44 @@ describe("S3 basic scenario", () => {
       await listFilesInBucket({ bucketName: "my-bucket", folderPath: "" });
 
       expect(logSpy).toHaveBeenCalledWith(` • file1\n • file2\n`);
+    });
+  });
+
+  describe("emptyBucket", () => {
+    it("should call 'send' with the keys returned from ListObjects", async () => {
+      send.mockResolvedValueOnce({
+        Contents: [{ Key: "file1" }, { Key: "file2" }],
+      });
+
+      await emptyBucket({ bucketName: "my-bucket", folderPath: "" });
+
+      expect(send).toHaveBeenNthCalledWith(
+        2,
+        expect.objectContaining({
+          input: expect.objectContaining({
+            Bucket: "my-bucket",
+            Delete: {
+              Objects: [{ Key: "file1" }, { Key: "file2" }],
+            },
+          }),
+        })
+      );
+    });
+  });
+
+  describe("deleteBucket", () => {
+    it("should call 'send' with the provided bucket name", async () => {
+      send.mockResolvedValueOnce({});
+
+      await deleteBucket({ bucketName: "my-bucket" });
+
+      expect(send).toHaveBeenCalledWith(
+        expect.objectContaining({
+          input: expect.objectContaining({
+            Bucket: "my-bucket",
+          }),
+        })
+      );
     });
   });
 });

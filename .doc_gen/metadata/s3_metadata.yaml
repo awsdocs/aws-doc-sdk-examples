@@ -2306,21 +2306,45 @@ s3_Scenario_GettingStarted:
             - description: First let's import all of the modules we're going to need.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.imports
-            - description: We're going to need a mechanism to work with user input. This a library local to the GitHub repo that uses Node.js's 'readline' module.
+            - description: We're going to need a mechanism to work with user input.
+                           This a library local to the GitHub repo that uses Node.js's
+                           'readline' module.
               snippet_tags:
                 - javascript.v3.utils.promptToSelect
                 - javascript.v3.utils.promptToContinue
                 - javascript.v3.utils.promptForText
-            - description: Objects in S3 are stored in 'buckets'. Let's define a function for creating a new bucket.
+            - description: Objects in S3 are stored in 'buckets'. Let's define a function
+                           for creating a new bucket.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.CreateBucket
-            - description: Buckets contain 'objects'. Here's our function to upload the contents of a directory to our bucket as objects.
+            - description: Buckets contain 'objects'. Here's our function to upload the
+                           contents of a directory to our bucket as objects.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.PutObject
-            - description: The 'main' function pulls everything together. If you run this file directly the main function will be called.
+            - description: After we upload objects we should check to see if they were
+                           uploaded correctly. We can use ListObjects for that. We'll be
+                           using the 'Key' property, but there are other useful properties
+                           in the response as well.
+              snippet_tags:
+                - javascript.v3.s3.scenarios.basic.ListObjects
+            - description: Sometimes you may want to copy an object from one bucket to another.
+                           Use the CopyObject command for that.
+              snippet_tags:
+                - javascript.v3.s3.scenarios.basic.CopyObject
+            - description: There's no SDK method for getting multiple objects from a bucket.
+                           We'll need to create a list of objects we want to download and 
+                           iterate over them.
+              snippet_tags:
+                - javascript.v3.s3.scenarios.basic.GetObject
+            - description: We need some help cleaning up after ourselves. A bucket must be empty
+                           before it can be deleted. These two functions empty and delete the
+                           bucket.
+              snippet_tags:
+                - javascript.v3.s3.scenarios.basic.clean
+            - description: The 'main' function pulls everything together. If you run this
+                           file directly the main function will be called.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.main
-            
     Kotlin:
       versions:
         - sdk_version: 1
