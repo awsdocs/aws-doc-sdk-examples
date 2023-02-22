@@ -692,9 +692,12 @@ s3_HeadObject:
           github: javav2/example_code/s3
           sdkguide:
           excerpts:
-            - description:
+            - description: Determine the content type of an object.
               snippet_tags:
                 - s3.java2.getobjectcontenttype.main
+            - description: Get the restore status of an object.
+              snippet_tags:
+                - s3.java2.get.restore.status.main    
     Ruby:
       versions:
         - sdk_version: 3
