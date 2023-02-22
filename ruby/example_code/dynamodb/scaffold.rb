@@ -14,6 +14,7 @@
 # snippet-start:[ruby.example_code.dynamodb.helper.DynamoDBBasics]
 require "aws-sdk-dynamodb"
 require "json"
+require 'pry'
 require "open-uri"
 require "pp"
 require "zip"
@@ -41,9 +42,8 @@ class Scaffold
   # @param table_name [String] The name of the table to check.
   # @return [Boolean] True when the table exists; otherwise, False.
   def exists?(table_name)
-    @table = @dynamo_resource.table(table_name)
+    @dynamo_resource.client.describe_table(table_name: table_name)
     @logger.debug("Table #{table_name} exists")
-    true
   rescue Aws::DynamoDB::Errors::ResourceNotFoundException
     @logger.debug("Table #{table_name} doesn't exist")
     false
@@ -96,7 +96,7 @@ class Scaffold
       movies[index, slice_size].each do |movie|
         movie_items.append({put_request: { item: movie }})
       end
-      @dynamo_resource.batch_write_item({request_items: { @table_name => movie_items }})
+      @dynamo_resource.client.batch_write_item({request_items: { @table.name => movie_items }})
       index += slice_size
     end
   rescue Aws::DynamoDB::Errors::ServiceError => e

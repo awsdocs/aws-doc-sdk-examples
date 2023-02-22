@@ -11,8 +11,8 @@ require "json"
 require "zip"
 require "cli/ui"
 require 'pry'
-require_relative("../../helpers/rs/disclaimers")
-require_relative("../../helpers/decorators")
+require_relative("../../../helpers/disclaimers")
+require_relative("../../../helpers/decorators")
 require_relative("partiql_batch")
 
 # Runs the Amazon DynamoDB PartiQL demo.
@@ -62,8 +62,8 @@ def run_scenario
 
   new_step(3, "Select a batch of items from the movies table.")
   puts "Let's select some popular movies for side-by-side comparison."
-  response = sdk.batch_execute_select(['Star Wars', 'The Big Lebowski', 'The Prancing of the Lambs'])
-  puts("Items selected: #{response.items.length}\n")
+  response = sdk.batch_execute_select([["Mean Girls", 2004], ['Goodfellas', 1977], ['The Prancing of the Lambs', 2005]])
+  puts("Items selected: #{response['responses'].length}\n")
   print "\nDone!\n".green
 
   new_step(4, "Delete a batch of items from the movies table.")

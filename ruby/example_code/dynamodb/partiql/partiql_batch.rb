@@ -6,6 +6,7 @@ require "json"
 require "open-uri"
 require "pp"
 require "zip"
+require 'pry'
 require_relative '../scaffold'
 
 # snippet-start:[ruby.example_code.ruby.DynamoDBPartiQLBatch.full]
@@ -17,7 +18,7 @@ class DynamoDBPartiQLBatch
 
   def initialize(table_name)
     @dynamodb = Aws::DynamoDB::Resource.new
-    @table = @dynamo_resource.table(table_name)
+    @table = @dynamodb.table(table_name)
   end
   # snippet-end:[ruby.example_code.ruby.DynamoDBPartiQLBatch.decl]
 
@@ -27,10 +28,10 @@ class DynamoDBPartiQLBatch
   # @param batch_titles [Array] Collection of movie titles
   # @return [Aws::DynamoDB::Types::BatchExecuteStatementOutput]
   def batch_execute_select(batch_titles)
-    request_items = batch_titles.map do |title|
+    request_items = batch_titles.map do |title, year|
       {
-        statement: "SELECT * FROM \"#{@table.name}\" WHERE title=?",
-        parameters: [title]
+        statement: "SELECT * FROM \"#{@table.name}\" WHERE title=? and year=?",
+        parameters: [title, year]
       }
     end
     @dynamodb.client.batch_execute_statement({statements: request_items})

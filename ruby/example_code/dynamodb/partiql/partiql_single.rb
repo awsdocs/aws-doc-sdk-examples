@@ -5,6 +5,7 @@ require "aws-sdk-dynamodb"
 require "json"
 require "open-uri"
 require "pp"
+require 'pry'
 require "zip"
 require_relative '../scaffold'
 
@@ -17,7 +18,7 @@ class DynamoDBPartiQLSingle
 
   def initialize(table_name)
     @dynamodb = Aws::DynamoDB::Resource.new
-    @table = @dynamo_resource.table(table_name)
+    @table = @dynamodb.table(table_name)
   end
   # snippet-end:[ruby.example_code.ruby.DynamoDBPartiQLSingle.decl]
 

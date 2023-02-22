@@ -11,8 +11,8 @@ require "json"
 require "zip"
 require "cli/ui"
 require 'pry'
-require_relative("../../helpers/rs/disclaimers")
-require_relative("../../helpers/decorators")
+require_relative("../../../helpers/disclaimers")
+require_relative("../../../helpers/decorators")
 require_relative("partiql_single")
 
 # Runs the Amazon DynamoDB PartiQL demo.
@@ -40,7 +40,7 @@ def run_scenario
   puts "\e[H\e[2J"
 
   # snippet-start:[ruby.example_code.dynamodb.Scenario_PartiQL_Single]
-  table_name = "doc-example-table-movies-partiql-#{rand(10**4)}"
+  table_name = "doc-example-table-movies-partiql-#{rand(10**8)}"
   scaffold = Scaffold.new(table_name)
   sdk = DynamoDBPartiQLSingle.new(table_name)
 
