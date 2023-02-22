@@ -53,7 +53,10 @@ def main():
             "with entries from {args.updates_file}.")
 
         # Update the dataset.
-        lookoutvision_client = boto3.client('lookoutvision')
+        session = boto3.Session(
+            profile_name='lookoutvision-access')
+
+        lookoutvision_client = session.client("lookoutvision")
 
         status, status_message = Datasets.update_dataset_entries(lookoutvision_client,
                                                         args.project_name,

@@ -3,9 +3,8 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-#include <aws/cloudformation/CloudFormationClient.h>
 #include <aws/iam/IAMClient.h>
-#include <aws/iam/Model/GetRoleRequest.h>
+#include <aws/iam/model/GetRoleRequest.h>
 #include <fstream>
 #include "glue_samples.h"
 

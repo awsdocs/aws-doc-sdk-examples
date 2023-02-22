@@ -7,7 +7,7 @@ namespace Lambda;
 
 use Aws\Lambda\LambdaClient;
 use Aws\S3\S3Client;
-use Iam\IamService;
+use Iam\IAMService;
 use PHPUnit\Framework\TestCase;
 
 class LambdaTests extends TestCase
@@ -15,7 +15,7 @@ class LambdaTests extends TestCase
     protected array $clientArgs;
     protected LambdaClient $lambdaClient;
     protected LambdaService $lambdaService;
-    protected IamService $iamService;
+    protected IAMService $iamService;
     protected S3Client $s3client;
 
     public function __construct()
@@ -28,7 +28,7 @@ class LambdaTests extends TestCase
         ];
         $this->lambdaClient = new LambdaClient($this->clientArgs);
         $this->lambdaService = new LambdaService();
-        $this->iamService = new IamService();
+        $this->iamService = new IAMService();
         $this->s3client = new S3Client($this->clientArgs);
         parent::__construct();
     }
@@ -37,7 +37,7 @@ class LambdaTests extends TestCase
     {
         echo "start single action tests\n";
         $uniqid = uniqid();
-        $code = "lambda/lambda_handler_calculator.zip";
+        $code = __DIR__ . "/lambda_handler_calculator.zip";
         $functionName = "calculator-$uniqid";
         $lambda_assume_role_policy = "{
         \"Version\": \"2012-10-17\",
@@ -58,7 +58,7 @@ class LambdaTests extends TestCase
         $file = file_get_contents($code);
         $this->s3client->putObject([
             'Bucket' => $bucketName,
-            'Key' => $code,
+            'Key' => $functionName,
             'Body' => $file,
         ]);
         $handler = "lambda_handler_calculator";

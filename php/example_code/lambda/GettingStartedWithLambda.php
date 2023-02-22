@@ -8,7 +8,7 @@ namespace Lambda;
 
 use Aws\S3\S3Client;
 use GuzzleHttp\Psr7\Stream;
-use Iam\IamService;
+use Iam\IAMService;
 
 class GettingStartedWithLambda
 {
@@ -25,7 +25,7 @@ class GettingStartedWithLambda
         ];
         $uniqid = uniqid();
 
-        $iamService = new IamService();
+        $iamService = new IAMService();
         $s3client = new S3Client($clientArgs);
         $lambdaService = new LambdaService();
 
@@ -60,7 +60,7 @@ class GettingStartedWithLambda
         echo "Created bucket $bucketName.\n";
 
         $functionName = "doc_example_lambda_$uniqid";
-        $codeBasic = "lambda_handler_basic.zip";
+        $codeBasic = __DIR__ . "/lambda_handler_basic.zip";
         $handler = "lambda_handler_basic";
         $file = file_get_contents($codeBasic);
         $s3client->putObject([

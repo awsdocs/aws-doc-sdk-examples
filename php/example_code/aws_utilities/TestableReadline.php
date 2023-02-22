@@ -15,6 +15,8 @@ use function AwsUtilities\testable_readline;
  * type the values.
  */
 
+namespace AwsUtilities;
+
 function testable_readline($prompt)
 {
     global $LINES;

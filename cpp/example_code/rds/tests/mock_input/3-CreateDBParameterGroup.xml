@@ -1,0 +1,14 @@
+<CreateDBParameterGroupResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <CreateDBParameterGroupResult>
+        <DBParameterGroup>
+            <DBParameterGroupFamily>mysql5.7</DBParameterGroupFamily>
+            <DBParameterGroupName>doc-example-parameter-group</DBParameterGroupName>
+            <DBParameterGroupArn>arn:aws:rds:us-east-1:123456789:pg:doc-example-parameter-group</DBParameterGroupArn>
+            <Description>Example parameter group.</Description>
+        </DBParameterGroup>
+    </CreateDBParameterGroupResult>
+    <ResponseMetadata>
+        <RequestId>7bd5552a-0a90-4be8-8ed1-c7af78b07815</RequestId>
+    </ResponseMetadata>
+</CreateDBParameterGroupResponse>
+ 

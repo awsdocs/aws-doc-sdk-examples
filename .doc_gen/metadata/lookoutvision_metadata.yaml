@@ -350,6 +350,26 @@ lookoutvision_ListProjects:
                 - python.example_code.lookoutvision.ListProjects
   services:
     lookoutvision: {ListProjects}
+
+lookoutvision_Hello:
+  title: Hello &LYRA;
+  title_abbrev: Hello &LYRA;
+  synopsis: get started using &LYRAlong;.
+  category: Hello
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/lookoutvision
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.lookoutvision.Hello
+  services:
+    lookoutvision: {ListProjects}
+
+
 lookoutvision_Scenario_CreateTrainStartModel:
   title: Create, train, and start a &LYRA; model using an &AWS; SDK
   title_abbrev: Create, train, and start a model

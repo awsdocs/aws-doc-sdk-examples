@@ -179,6 +179,13 @@ files, see [Creating a dataset using an Amazon SageMaker Ground Truth manifest f
 
 Shows how to find a tag attached to a Lookout for Vision model.
 
+### hello.py
+
+Confirms that you can call Amazon Lookout for Vision operations.
+If you haven't previously created a project in the current AWS Region,
+the response is an empty list, however it confirms that you can call the
+ Lookout for Vision API.
+
 ### hosting.py
 
 A class that shows how to start and stop a Lookout for Vision project. Also shows how 
