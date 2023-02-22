@@ -5,7 +5,7 @@
 /*
  * Test types are indicated by the test label ending.
  *
- * _1_ Requires credentials and pre-configured resources.
+ * _1_ Requires credentials, permissions, and AWS resources.
  * _2_ Requires credentials and permissions.
  * _3_ Does not require credentials.
  *

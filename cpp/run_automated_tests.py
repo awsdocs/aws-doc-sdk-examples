@@ -6,6 +6,7 @@ import subprocess
 import sys
 import getopt
 import glob
+import re
 
 
 # Script to run automated C++ tests.
@@ -19,7 +20,8 @@ import glob
 def build_tests(service="*"):
     cmake_files = glob.glob( f"example_code/{service}/tests/CMakeLists.txt")
     cmake_files.extend(glob.glob( f"example_code/{service}/gtests/CMakeLists.txt"))
-    print(cmake_files)
+
+    subprocess.call(f"echo $PATH", shell=True)
 
     run_files = []
 
@@ -28,7 +30,7 @@ def build_tests(service="*"):
 
     has_error = False
     base_dir = os.getcwd()
-    build_dir = os.path.join(base_dir, "build")
+    build_dir = os.path.join(base_dir, "build_tests")
 
     os.makedirs(name=build_dir, exist_ok=True)
 
@@ -43,7 +45,7 @@ def build_tests(service="*"):
             has_error = True
             continue
 
-        result_code = subprocess.call("make", shell=True)
+        result_code = subprocess.call("cmake --build .", shell=True)
         if result_code != 0 :
             has_error = True
             continue
@@ -72,10 +74,33 @@ def run_tests(run_files = [], type1=False, type2=False, type3=False):
     if len(filters) > 0:
         filter_arg = f"--gtest_filter={':'.join(filters)}"
 
+    passed_tests = 0
+    failed_tests = 0
     for run_file in run_files :
-        error_code = subprocess.call(f"{run_file} {filter_arg}", shell=True)
-        if error_code != 0 :
+        run_test_cmd = f"{run_file} {filter_arg}"
+        print(f"Calling '{run_test_cmd}'.")
+        completed_process = subprocess.run(run_test_cmd, shell=True, capture_output=True)
+        if completed_process.returncode != 0 :
             has_error = True
+
+        print(completed_process.stderr.decode("utf-8"))
+
+        output = completed_process.stdout.decode("utf-8")
+        output = output.split('\n')
+        for line in output:
+            print(line)
+            match = re.search("\[  PASSED  \] (\d+) test", line)
+            if match is not None:
+                passed_tests = passed_tests + int(match.group(1))
+                continue
+            match = re.search("\[  FAILED  \] (\d+) test", line)
+            if match is not None:
+                failed_tests = failed_tests + int(match.group(1))
+                continue
+
+    print('-'*88)
+    print(f"{passed_tests} tests passed.")
+    print(f"{failed_tests} tests failed.")
 
     if has_error:
         return 1
@@ -85,8 +110,8 @@ def run_tests(run_files = [], type1=False, type2=False, type3=False):
 
 def main(argv):
     type1 = False
-    type2 = True
-    type3 = True
+    type2 = False
+    type3 = False
     service = "*"
 
     opts, args = getopt.getopt(argv, "h123s:")
