@@ -39,6 +39,7 @@ public class RDSInstanceScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(1)]
+    [Trait("Category", "Integration")]
     public async Task VerifyDescribeDBEngineVersions_ShouldSucceed()
     {
         var engineName = _configuration["engineName"];
@@ -53,6 +54,7 @@ public class RDSInstanceScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(2)]
+    [Trait("Category", "Integration")]
     public async Task CreateDbParameterGroup_ShouldSucceed()
     {
         var groupFamilyName = _configuration["parameterGroupFamily"];
@@ -76,6 +78,7 @@ public class RDSInstanceScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(3)]
+    [Trait("Category", "Integration")]
     public async Task DescribeDBParameters_ShouldNotBeEmpty()
     {
         var parameters =
@@ -90,6 +93,7 @@ public class RDSInstanceScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(4)]
+    [Trait("Category", "Integration")]
     public async Task ModifyParameters_ShouldReturnGroupName()
     {
         var modifyParameters = new List<Parameter>();
@@ -117,6 +121,7 @@ public class RDSInstanceScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(5)]
+    [Trait("Category", "Integration")]
     public async Task DescribeDBParameters_ShouldReturnUserParameters()
     {
         var parameters =
@@ -133,6 +138,7 @@ public class RDSInstanceScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(6)]
+    [Trait("Category", "Integration")]
     public async Task DescribeOrderableDBInstanceOptions_ShouldNotBeEmpty()
     {
         var engineName = _configuration["engineName"];
@@ -149,6 +155,7 @@ public class RDSInstanceScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(7)]
+    [Trait("Category", "Integration")]
     public async Task CreateDBInstance_ShouldReturnInstance()
     {
         var parameterGroupName = _configuration["parameterGroupName"];
@@ -189,6 +196,7 @@ public class RDSInstanceScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(8)]
+    [Trait("Category", "Integration")]
     public async Task CreateSnapshot_ShouldNotBeEmpty()
     {
         var instanceIdentifier = _configuration["instanceIdentifier"];
@@ -216,6 +224,7 @@ public class RDSInstanceScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(9)]
+    [Trait("Category", "Integration")]
     public async Task DeleteInstance_ShouldNotFail()
     {
         var instanceIdentifier = _configuration["instanceIdentifier"];
@@ -241,6 +250,7 @@ public class RDSInstanceScenarioTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(10)]
+    [Trait("Category", "Integration")]
     public async Task DeleteParameterGroup_ShouldNotFail()
     {
         var result = await _wrapper.DeleteDBParameterGroup(_parameterGroupName);

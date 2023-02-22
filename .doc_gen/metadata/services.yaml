@@ -428,6 +428,9 @@ glue:
   long: '&GLUlong;'
   short: '&GLU;'
   sort: Glue
+  chapter_override:
+    title: '&GLU; API code examples using &AWS; SDKs'
+    title_abbrev: '&GLU; API code examples'
   expanded:
     long: AWS Glue
     short: AWS Glue

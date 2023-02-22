@@ -26,6 +26,7 @@ namespace TransferUtilityBasics.Tests
         }
 
         [Fact()]
+        [Trait("Category", "Integration")]
         public async Task DownloadSingleFileAsyncTest()
         {
             var keyName = _configuration["FileToDownload"];
@@ -44,6 +45,7 @@ namespace TransferUtilityBasics.Tests
         }
 
         [Fact()]
+        [Trait("Category", "Integration")]
         public async Task DownloadS3DirectoryAsyncTest()
         {
             var downloadPath = $"{_localPath}\\TestDownloadFolder";
@@ -59,6 +61,7 @@ namespace TransferUtilityBasics.Tests
         }
 
         [Fact()]
+        [Trait("Category", "Integration")]
         public async Task UploadSingleFileAsyncTest()
         {
             var fileName = _configuration["FileToUpload"];
@@ -74,6 +77,7 @@ namespace TransferUtilityBasics.Tests
         }
 
         [Fact()]
+        [Trait("Category", "Integration")]
         public async Task UploadFullDirectoryAsyncTest()
         {
             var bucketName = _configuration["BucketName"];

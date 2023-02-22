@@ -18,6 +18,7 @@ namespace AutoScale_Basics.Tests
         private readonly string _LaunchTemplateName = "AutoScaleLaunchTemplateTest";
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task DeleteAutoScalingGroupTest()
         {
             var success = await AutoScaleMethods.DeleteAutoScalingGroupAsync(_Client, _GroupName);
@@ -25,6 +26,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task DeleteAutoScalingGroupGroupNonexistentTest()
         {
             var success = await AutoScaleMethods.DeleteAutoScalingGroupAsync(_Client, "NonExistentGroup");
@@ -32,6 +34,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task TerminateInstanceInAutoScalingGroupTest()
         {
             var instanceId = string.Empty;
@@ -40,6 +43,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task DescribeScalingActivitiesTest()
         {
             var activities = await AutoScaleMethods.DescribeAutoScalingActivitiesAsync(_Client, _GroupName);
@@ -47,6 +51,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task SetDesiredCapacityTest()
         {
             var success = await AutoScaleMethods.SetDesiredCapacityAsync(_Client, _GroupName, 3);
@@ -62,6 +67,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task DescribeAccountLimitsTest()
         {
             var success = await AutoScaleMethods.DescribeAccountLimitsAsync(_Client);
@@ -69,6 +75,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task DescribeAutoScalingGroupsTest()
         {
             var details = await AutoScaleMethods.DescribeAutoScalingGroupsAsync(_Client, _GroupName);
@@ -76,6 +83,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task EnableMetricsCollectionTest()
         {
             var success = await AutoScaleMethods.EnableMetricsCollectionAsync(_Client, _GroupName);
@@ -83,6 +91,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task UpdateAutoScalingGroupTest()
         {
             var success = await AutoScaleMethods.UpdateAutoScalingGroupAsync(_Client, _GroupName, _LaunchTemplateName, _ServiceLinkedRoleArn, 3);
@@ -90,6 +99,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task CreateAutoScalingGroupTest()
         {
             var success = await AutoScaleMethods.CreateAutoScalingGroup(_Client, _GroupName, _LaunchTemplateName, _ServiceLinkedRoleArn);

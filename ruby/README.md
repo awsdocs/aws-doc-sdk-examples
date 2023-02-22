@@ -81,7 +81,7 @@ hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/
 with all Ruby examples with dependencies pre-resolved, allowing you to explore
 these examples in an isolated environment.
 
-⚠️ As of January 2023, the [SDK for Ruby image](https://gallery.ecr.aws/aws-docs-sdk-examples/ruby) is available on ECR Public but is still
+⚠️ As of January 2023, the [SDK for Ruby image](https://gallery.ecr.aws/b4v4v1s0/ruby) is available on ECR Public but is still
 undergoing active development. Refer to
 [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4124)
 for more information.
