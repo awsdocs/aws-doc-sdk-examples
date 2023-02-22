@@ -15,7 +15,7 @@ require_relative("../../helpers/rs/disclaimers")
 require_relative("../../helpers/decorators")
 require_relative("partiql_batch")
 
-# Runs the DynamoDB getting started demo.
+# Runs the Amazon DynamoDB PartiQL demo.
 # @return [Nil]
 def run_scenario
   banner
@@ -28,10 +28,10 @@ def run_scenario
   puts ""
   puts "You have launched a demo of Amazon DynamoDB using PartiQL and the AWS for Ruby v3 SDK. Over the next 60 seconds,it will"
   puts "do the following:"
-  puts "    1. Get items from a table (single and batch) using PartiQL"
-  puts "    2. Update items in a table (single and batch) using PartiQL"
-  puts "    3. Delete items from a table (single and batch) using PartiQL"
-  puts "    4. Insert items into a table (single and batch) using PartiQL"
+  puts "    1. Get a batch of items from a table using PartiQL."
+  puts "    2. Update a batch of items in a table using PartiQL."
+  puts "    3. Delete a batch of from a table using PartiQL."
+  puts "    4. Insert a batch of items into a table using PartiQL."
   puts ""
 
   confirm_begin

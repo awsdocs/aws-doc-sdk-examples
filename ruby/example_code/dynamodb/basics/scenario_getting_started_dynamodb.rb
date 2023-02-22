@@ -16,7 +16,7 @@ require_relative("../../helpers/decorators")
 require_relative("dynamodb_basics")
 require_relative('scaffold')
 
-# Runs the DynamoDB getting started demo.
+# Runs the Amazon DynamoDB demo.
 # @return [Nil]
 def run_scenario
   banner
@@ -33,9 +33,9 @@ def run_scenario
   puts "    2. Write batch data into the table"
   puts "    3. Update an item in the table"
   puts "    4. Delete an item in the table."
-  puts "    5. Query the table using PartiQL"
-  puts "    6. Scan the table using PartiQL"
-  puts "    7. Destroy the DynamoDB table"
+  puts "    5. Query the table using PartiQL."
+  puts "    6. Scan the table using PartiQL."
+  puts "    7. Destroy the DynamoDB table."
   puts ""
 
   confirm_begin

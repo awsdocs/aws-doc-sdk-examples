@@ -22,7 +22,7 @@ class DynamoDBBasics
   # snippet-start:[ruby.example_code.dynamodb.PutItem]
   # Adds a movie to the table.
   #
-  # @param movie [Hash] The title, year, plot, rating of the movie.
+  # @param movie [Hash] The title, year, plot, and rating of the movie.
   def add_item(movie)
     @table.put_item(
       item: {
