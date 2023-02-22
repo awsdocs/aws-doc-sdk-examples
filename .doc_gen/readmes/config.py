@@ -10,7 +10,8 @@ categories = {
 }
 entities = {
     '&AWS;': 'AWS',
-    '&ASH;': 'Security Hub'
+    '&ASH;': 'Security Hub',
+    '&SLN;': 'Amazon States Language',
 }
 language = {
     'C++': {

@@ -36,6 +36,7 @@ namespace IAM_Basics_Scenario.Tests
         "}";
 
         [Fact, TestPriority(1)]
+        [Trait("Category", "Integration")]
         public async Task CreateUserAsyncTest()
         {
             var user = await IAM_Basics.CreateUserAsync(Client, UserName);
@@ -46,6 +47,7 @@ namespace IAM_Basics_Scenario.Tests
         }
 
         [Fact, TestPriority(2)]
+        [Trait("Category", "Integration")]
         public async Task CreateAccessKeyAsyncTest()
         {
             var accessKey = await IAM_Basics.CreateAccessKeyAsync(Client, UserName);
@@ -58,6 +60,7 @@ namespace IAM_Basics_Scenario.Tests
         }
 
         [Fact, TestPriority(3)]
+        [Trait("Category", "Integration")]
         public async Task CreateRoleAsyncTest()
         {
             string testAssumeRolePolicy = "{" +
@@ -82,6 +85,7 @@ namespace IAM_Basics_Scenario.Tests
         }
 
         [Fact, TestPriority(4)]
+        [Trait("Category", "Integration")]
         public async Task CreatePolicyAsyncTest()
         {
             // Create a policy with permissions to list Amazon S3 buckets
@@ -92,6 +96,7 @@ namespace IAM_Basics_Scenario.Tests
         }
 
         [Fact, TestPriority(5)]
+        [Trait("Category", "Integration")]
         public async Task AttachRoleAsyncTest()
         {
             // Attach the policy to the role we created earlier.
@@ -99,6 +104,7 @@ namespace IAM_Basics_Scenario.Tests
         }
 
         [Fact, TestPriority(6)]
+        [Trait("Category", "Integration")]
         public void DeleteResourcesTest()
         {
             // Delete all the resources created for the various tests.
