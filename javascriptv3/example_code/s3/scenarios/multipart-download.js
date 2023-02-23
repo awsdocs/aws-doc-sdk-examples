@@ -34,6 +34,9 @@ export const getRangeAndLength = (contentRange) => {
 
 export const isComplete = ({ end, length }) => end === length - 1;
 
+// When downloading a large file, you may want to break it down into
+// smaller pieces. S3 accepts a Range header to specify the start
+// and end of the byte range to be downloaded.
 const downloadInChunks = async ({ bucket, key }) => {
   const writeStream = createWriteStream(
     fileURLToPath(new URL(`./${key}`, import.meta.url))

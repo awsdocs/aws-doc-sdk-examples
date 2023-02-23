@@ -2207,9 +2207,6 @@ s3_Scenario_PresignedUrl:
           github: javascriptv3/example_code/s3
           sdkguide: sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html#s3-create-presigendurl
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - s3.JavaScript.buckets.createclientv3
             - description: Create a presigned URL to upload an object to a bucket.
               snippet_tags:
                 - s3.JavaScript.buckets.presignedurlv3

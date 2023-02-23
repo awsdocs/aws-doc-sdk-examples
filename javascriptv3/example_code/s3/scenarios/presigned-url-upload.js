@@ -1,87 +1,103 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/s3-example-creating-buckets.html.
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-Purpose:
-s3_put_presignedURL.js creates a presigned URL to upload a file to an Amazon Simple Storage Service (Amazon S3) bucket.
-
-Note: This example immediately deletes the object and bucket.
-
-Running the code:
-nodes3_put_presignedURL.js
-
-[Outputs | Returns]:
-Uploads the specified file to the specified bucket.
-*/
+import { fileURLToPath } from "url";
 
 // snippet-start:[s3.JavaScript.buckets.presignedurlv3]
-// Import the required AWS SDK clients and commands for Node.js
+import https from "https";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { fromIni } from "@aws-sdk/credential-providers";
+import { HttpRequest } from "@aws-sdk/protocol-http";
 import {
-  CreateBucketCommand,
-  DeleteObjectCommand,
-  PutObjectCommand,
-  DeleteBucketCommand }
-from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js"; // Helper function that creates an Amazon S3 service client module.
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import fetch from "node-fetch";
+  getSignedUrl,
+  S3RequestPresigner,
+} from "@aws-sdk/s3-request-presigner";
+import { parseUrl } from "@aws-sdk/url-parser";
+import { formatUrl } from "@aws-sdk/util-format-url";
+import { Hash } from "@aws-sdk/hash-node";
 
-// Set parameters
-// Create a random name for the Amazon Simple Storage Service (Amazon S3) bucket and key
-export const bucketParams = {
-  Bucket: `test-bucket-${Math.ceil(Math.random() * 10 ** 10)}`,
-  Key: `test-object-${Math.ceil(Math.random() * 10 ** 10)}`,
-  Body: "BODY"
+const createPresignedUrlWithoutClient = async ({ region, bucket, key }) => {
+  const url = parseUrl(`https://${bucket}.s3.${region}.amazonaws.com/${key}`);
+  const presigner = new S3RequestPresigner({
+    credentials: fromIni(),
+    region,
+    sha256: Hash.bind(null, "sha256"),
+  });
+
+  const signedUrlObject = await presigner.presign(
+    new HttpRequest({ ...url, method: "PUT" })
+  );
+  return formatUrl(signedUrlObject);
 };
-export const run = async () => {
-  try {
-    // Create an S3 bucket.
-    console.log(`Creating bucket ${bucketParams.Bucket}`);
-    await s3Client.send(new CreateBucketCommand({ Bucket: bucketParams.Bucket }));
-    console.log(`Waiting for "${bucketParams.Bucket}" bucket creation...`);
-  } catch (err) {
-    console.log("Error creating bucket", err);
-  }
-  try {
-    // Create a command to put the object in the S3 bucket.
-    const command = new PutObjectCommand(bucketParams);
-    // Create the presigned URL.
-    const signedUrl = await getSignedUrl(s3Client, command, {
-      expiresIn: 3600,
+
+const createPresignedUrlWithClient = async ({ region, bucket, key }) => {
+  const client = new S3Client({ region });
+  const command = new PutObjectCommand({ Bucket: bucket, Key: key });
+  return getSignedUrl(client, command, { expiresIn: 3600 });
+};
+
+function put(url, data) {
+  return new Promise((resolve, reject) => {
+    const req = https.request(
+      url,
+      { method: "PUT", headers: { "Content-Length": new Blob([data]).size } },
+      (res) => {
+        let responseBody = "";
+        res.on("data", (chunk) => {
+          responseBody += chunk;
+        });
+        res.on("end", () => {
+          resolve(responseBody);
+        });
+      }
+    );
+    req.on("error", (err) => {
+      reject(err);
     });
-    console.log(
-      `\nPutting "${bucketParams.Key}" using signedUrl with body "${bucketParams.Body}" in v3`
-    );
-    console.log(signedUrl);
-    const response = await fetch(signedUrl, {method: 'PUT', body: bucketParams.Body});
-    console.log(
-      `\nResponse returned by signed URL: ${await response.text()}\n`
-    );
-  } catch (err) {
-    console.log("Error creating presigned URL", err);
-  }
+    req.write(data);
+    req.end();
+  });
+}
+
+export const main = async () => {
+  const REGION = "us-east-1";
+  const BUCKET = "coreys-default-bucket";
+  const KEY = "corey_test.txt";
+
+  // There are two ways to generate a presigned URL.
+  // 1. Use createPresignedUrl without the S3 client.
+  // 2. Use getSignedUrl in conjunction with the S3 client and GetObjectCommand.
   try {
-    // Delete the object.
-    console.log(`\nDeleting object "${bucketParams.Key}"} from bucket`);
-    await s3Client.send(
-      new DeleteObjectCommand({ Bucket: bucketParams.Bucket, Key: bucketParams.Key })
-    );
+    const noClientUrl = await createPresignedUrlWithoutClient({
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    const clientUrl = await createPresignedUrlWithClient({
+      region: REGION,
+      bucket: BUCKET,
+      key: KEY,
+    });
+
+    // Once you have the presigned URL, you can provide your own file
+    // data. Refer to put() above.
+    console.log("Calling PUT using presigned URL without client");
+    await put(noClientUrl, "Hello World");
+
+    console.log("Calling PUT using presigned URL with client");
+    await put(clientUrl, "Hello World");
+
+    console.log("\nDone. Check your S3 console.");
   } catch (err) {
-    console.log("Error deleting object", err);
-  }
-  try {
-    // Delete the S3 bucket.
-    console.log(`\nDeleting bucket ${bucketParams.Bucket}`);
-    await s3Client.send(
-      new DeleteBucketCommand({ Bucket: bucketParams.Bucket })
-    );
-  } catch (err) {
-    console.log("Error deleting bucket", err);
+    console.error(err);
   }
 };
-run();
 // snippet-end:[s3.JavaScript.buckets.presignedurlv3]
-// For unit testing only.
-// module.exports ={run, bucketParams};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
