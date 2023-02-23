@@ -3,14 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { fileURLToPath } from "url";
+
 // snippet-start:[javascript.v3.s3.scenarios.multipartupload]
 import {
   CreateMultipartUploadCommand,
   UploadPartCommand,
   CompleteMultipartUploadCommand,
   AbortMultipartUploadCommand,
+  S3Client,
 } from "@aws-sdk/client-s3";
-import { s3Client } from "./libs/s3Client.js";
 
 const twentyFiveMB = 25 * 1024 * 1024;
 
@@ -18,8 +20,9 @@ export const createString = (size = twentyFiveMB) => {
   return "x".repeat(size);
 };
 
-export const run = async () => {
-  const bucketName = process.env.S3_BUCKET_NAME; // S3_BUCKET_NAME="BUCKET_NAME" && node s3_multipartupload.js
+export const main = async () => {
+  const s3Client = new S3Client({});
+  const bucketName = "test-bucket";
   const key = "multipart.txt";
   const str = createString();
   const buffer = Buffer.from(str, "utf8");
@@ -94,6 +97,9 @@ export const run = async () => {
     }
   }
 };
-
-export default run();
 // snippet-end:[javascript.v3.s3.scenarios.multipartupload]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
