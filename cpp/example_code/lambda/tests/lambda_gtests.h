@@ -38,6 +38,9 @@ namespace AwsDocTest {
         std::streambuf *m_savedBuffer = nullptr;
 
     private:
+
+        bool suppressStdOut();
+
         static Aws::SDKOptions s_options;
 
         std::stringbuf m_cinBuffer;

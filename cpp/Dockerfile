@@ -1,40 +1,45 @@
-# This DockerFile was copied from the AWS SDK for C++.
-# https://github.com/aws/aws-sdk-cpp/blob/master/CI/docker-file/Ubuntu/20.04/Dockerfile
-# Additional run steps were added.
+# Build this docker file from the sdk example code root directory in order to access the resources folder.
 
-# Using official ubuntu docker image
-FROM ubuntu:20.04
+FROM amazonlinux:2022
 
-# Install git, zip, python-pip, cmake, g++, zlib, libssl, libcurl, java, maven via apt
-# Specify DEBIAN_FRONTEND and TZ to prevent tzdata hanging
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    DEBIAN_FRONTEND="noninteractive" TZ="America/Los_Angeles" apt-get install -y git zip wget python3 python3-pip cmake g++ zlib1g-dev libssl-dev libcurl4-openssl-dev openjdk-8-jdk doxygen ninja-build
+USER root
 
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+# Setup the dependencies.
+RUN \
+  yum update -y && \
+  yum install -y gcc gcc-c++ make cmake libcurl-devel openssl-devel libuuid-devel pulseaudio-libs-devel git && \
+  yum clean all
 
-# Install maven
-RUN apt-get install -y maven
+ENV SERVICES="acm;autoscaling;cloudtrail;codebuild;codecommit;cognito-idp;dynamodb;ec2;elasticache;elasticbeanstalk;elasticfilesystem;email;events;glacier;glue;guardduty;iam;kinesis;lambda;logs;monitoring;monitoring;neptune;rds-data;redshift;s3;s3-crt;s3-encryption;secretsmanager;sesv2;sns;sqs;storagegateway;sts;transfer;transcribe;transcribestreaming"
 
-# Install awscli
-#RUN pip install awscli --upgrade
+# Build aws-sdk-cpp, building just the modules listed in SERVICES using the BUILD_ONLY argument.
+RUN \
+  cd /usr/local && \
+  git clone --recurse-submodules https://github.com/aws/aws-sdk-cpp.git && \
+  cd aws-sdk-cpp && \
+  mkdir -p build && \
+  cd build && \
+  cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONLY=${SERVICES} -DENABLE_TESTING=ON .. && \
+  make --jobs=3 install &&  \
+  cd /usr/local
 
-RUN mkdir /src
-COPY . /src/
-
-ENV SERVICES="autoscaling;ec2;iam;dynamodb;glue;lambda;monitoring;s3;sts"
-
-RUN mkdir /src/aws && \
-    cd /src/aws && \
-    git clone --recurse-submodules https://github.com/aws/aws-sdk-cpp && \
-    cd aws-sdk-cpp && \
-    mkdir build && \
+# Install googletest.
+RUN \
+    git clone https://github.com/google/googletest.git -b v1.13.0 && \
+    cd googletest && \
+    mkdir build  && \
     cd build && \
-    cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONLY=${SERVICES} -DENABLE_TESTING=OFF && \
+    cmake ..  -DBUILD_GMOCK=OFF && \
     make && \
     make install
 
-WORKDIR /src
+RUN mkdir -p /src/cpp
+COPY cpp /src/cpp/
+
+RUN mkdir -p /src/resources/sample_files
+COPY resources/sample_files /src/resources/sample_files
+
+WORKDIR /src/cpp/
 
 CMD ["bash"]
 

@@ -1,20 +1,30 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-import os
-import subprocess
-import sys
-import getopt
-import glob
-import re
-
-
 # Script to run automated C++ tests.
 #
 # Types of automated tests.
 # 1. Requires credentials, permissions, and AWS resources.
 # 2. Requires credentials and permissions.
 # 3. Does not require credentials (mocked if necessary).
+#
+# For example, the following command builds and runs tests of type 2 and 3.
+#
+#   'python3 run_automated_tests.py -23'
+#
+# The service can be specified with the -s option, which takes a regular expression.
+#
+# For example, the following command builds and runs tests of type 2 and 3 in service s3.
+#
+#   'python3 run_automated_tests.py -23 -s s3'
+#
+
+import os
+import subprocess
+import sys
+import getopt
+import glob
+import re
 
 
 def build_tests(service="*"):
@@ -77,18 +87,12 @@ def run_tests(run_files = [], type1=False, type2=False, type3=False):
     passed_tests = 0
     failed_tests = 0
     for run_file in run_files :
-        run_test_cmd = f"{run_file} {filter_arg}"
-        print(f"Calling '{run_test_cmd}'.")
-        completed_process = subprocess.run(run_test_cmd, shell=True, capture_output=True)
-        if completed_process.returncode != 0 :
-            has_error = True
+        print(f"Calling '{run_file} {filter_arg}'.")
+        proc = subprocess.Popen([run_file, filter_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        for line in proc.stdout:
+            line = line.decode("utf-8")
+            sys.stdout.write(line)
 
-        print(completed_process.stderr.decode("utf-8"))
-
-        output = completed_process.stdout.decode("utf-8")
-        output = output.split('\n')
-        for line in output:
-            print(line)
             match = re.search("\[  PASSED  \] (\d+) test", line)
             if match is not None:
                 passed_tests = passed_tests + int(match.group(1))
@@ -97,6 +101,11 @@ def run_tests(run_files = [], type1=False, type2=False, type3=False):
             if match is not None:
                 failed_tests = failed_tests + int(match.group(1))
                 continue
+
+        proc.wait()
+
+        if proc.returncode != 0 :
+            has_error = True
 
     print('-'*88)
     print(f"{passed_tests} tests passed.")

@@ -16,7 +16,10 @@ set(CMAKE_CXX_STANDARD 14)
 
 find_package(GTest)
 
-if(!GTest_FOUND)
+message(STATUS "gtest found ${GTest_FOUND}")
+
+if(NOT GTest_FOUND)
+    message(STATUS "fetching gtest")
     include(FetchContent)
     FetchContent_Declare(
             googletest

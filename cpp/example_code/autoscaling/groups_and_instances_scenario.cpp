@@ -649,6 +649,10 @@ bool AwsDoc::AutoScaling::waitForInstances(const Aws::String &groupName,
     int desiredCapacity = 0;
     std::this_thread::sleep_for(std::chrono::seconds(4));
     while (!ready) {
+        if (WAIT_FOR_INSTANCES_TIMEOUT < count) {
+            std::cerr << "Wait for instance timed out." << std::endl;
+            return false;
+        }
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
         ++count;
@@ -666,6 +670,11 @@ bool AwsDoc::AutoScaling::waitForInstances(const Aws::String &groupName,
                 break;
             }
             else {
+                if ((count % 5) == 0)
+                {
+                    std::cout << "No instance id's returned for group." << std::endl;
+                }
+
                 continue;
             }
         }
@@ -702,11 +711,6 @@ bool AwsDoc::AutoScaling::waitForInstances(const Aws::String &groupName,
             return false;
         }
         // snippet-end:[cpp.example_code.autoscaling.describe_autoscaling_instances2]
-
-        if (WAIT_FOR_INSTANCES_TIMEOUT < count) {
-            std::cerr << "Wait for instance timed out." << std::endl;
-            return false;
-        }
     }
 
     if (!describeGroup(groupName, autoScalingGroups, client)) {

@@ -16,8 +16,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_BUILD_TYPE Debug)
 
 find_package(GTest)
-
-if(!GTest_FOUND)
+if(NOT GTest_FOUND)
     include(FetchContent)
     FetchContent_Declare(
             googletest

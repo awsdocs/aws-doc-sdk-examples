@@ -255,6 +255,10 @@ bool AwsDocTest::DynamoDB_GTests::deleteItem(const Aws::String &tableName,
     return outcome.IsSuccess();
 }
 
+bool AwsDocTest::DynamoDB_GTests::suppressStdOut() {
+    return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
+}
+
 int AwsDocTest::MyStringBuffer::underflow() {
     int result = basic_stringbuf::underflow();
     if (result == EOF) {
