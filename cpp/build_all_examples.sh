@@ -34,7 +34,7 @@ do
     HAD_ERROR=true
     continue
   fi
-  make
+  cmake --build .
   if [ $? != 0 ]; then
     echo "ERROR with make ${$?}"
     HAD_ERROR=true

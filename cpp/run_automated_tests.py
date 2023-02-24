@@ -18,6 +18,10 @@
 #
 #   'python3 run_automated_tests.py -23 -s s3'
 #
+# export EXTRA_CMAKE_ARGS="-G \"Visual Studio 17 2022\""
+#
+# export BIN_SUBPATH_CMAKE=Debug
+
 
 import os
 import subprocess
@@ -44,12 +48,16 @@ def build_tests(service="*"):
 
     os.makedirs(name=build_dir, exist_ok=True)
 
+    cmake_args = os.getenv("EXTRA_CMAKE_ARGS")
+    if cmake_args is None :
+        cmake_args = ""
+
     for cmake_file in cmake_files :
         source_dir = os.path.dirname(cmake_file)
         module_build_dir = os.path.join(build_dir, source_dir)
         os.makedirs(name=module_build_dir, exist_ok=True)
         os.chdir(module_build_dir)
-        result_code = subprocess.call(f"cmake {os.path.join(base_dir, source_dir)}", shell=True)
+        result_code = subprocess.call(f"cmake {cmake_args} {os.path.join(base_dir, source_dir)}", shell=True)
         if result_code != 0 :
             print(f"Error with cmake for {source_dir}")
             has_error = True
@@ -60,7 +68,8 @@ def build_tests(service="*"):
             has_error = True
             continue
 
-        run_files.extend(glob.glob(f"{module_build_dir}/*_gtest"))
+        run_files.extend(glob.glob(f"{module_build_dir}*_gtest"))
+        run_files.extend(glob.glob(f"{module_build_dir}/Debug/*_gtest.exe"))
 
     if has_error :
         return [1, []]

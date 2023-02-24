@@ -14,6 +14,9 @@ project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 14)
 
+# Build shared libraries by default.
+set(BUILD_SHARED_LIBS ON)
+
 find_package(GTest)
 
 if(NOT GTest_FOUND)
@@ -35,12 +38,6 @@ if(MSVC)
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
 endif()
 
-# Build shared libraries by default.
-if(NOT BUILD_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS ON)
-endif()
-
-
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${CURRENT_TARGET_AWS_DEPENDENCIES})
 
@@ -52,6 +49,9 @@ add_executable(
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
+
+ 	set(CMAKE_BUILD_TYPE Debug) # Explicitly set this to support library copying and test automation.
+
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
     AWSSDK_CPY_DYN_LIBS(
             CURRENT_TARGET_AWS_DEPENDENCIES
