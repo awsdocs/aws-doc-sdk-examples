@@ -417,16 +417,39 @@ public class GlueScenario {
                 .maxResults(20)
                 .build();
 
-            GetJobRunsResponse response = glueClient.getJobRuns(runsRequest);
-            List<JobRun> jobRuns = response.jobRuns();
-            for (JobRun jobRun: jobRuns) {
-                System.out.println("Job run state is "+jobRun.jobRunState().name());
-                System.out.println("Job run Id is "+jobRun.id());
-                System.out.println("The Glue version is "+jobRun.glueVersion());
+            boolean jobDone = false ;
+            while (!jobDone) {
+                GetJobRunsResponse response = glueClient.getJobRuns(runsRequest);
+                List<JobRun> jobRuns = response.jobRuns();
+                for (JobRun jobRun : jobRuns) {
+                    String jobState = jobRun.jobRunState().name();
+                    if (jobState.compareTo("SUCCEEDED") == 0) {
+                        System.out.println(jobName + " has succeeded");
+                        jobDone = true;
+
+                    } else if (jobState.compareTo("STOPPED") == 0) {
+                        System.out.println("Job run has stopped");
+                        jobDone = true;
+
+                    } else if (jobState.compareTo("FAILED") == 0) {
+                        System.out.println("Job run has failed");
+                        jobDone = true;
+
+                    } else if (jobState.compareTo("TIMEOUT") == 0) {
+                        System.out.println("Job run has timed out");
+                        jobDone = true;
+
+                    } else {
+                        System.out.println("*** Job run state is " + jobRun.jobRunState().name());
+                        System.out.println("Job run Id is " + jobRun.id());
+                        System.out.println("The Glue version is " + jobRun.glueVersion());
+                    }
+                    TimeUnit.SECONDS.sleep(5);
+                }
             }
 
-        } catch (GlueException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+        } catch (GlueException | InterruptedException e) {
+            System.err.println(e.getMessage());
             System.exit(1);
         }
     }
