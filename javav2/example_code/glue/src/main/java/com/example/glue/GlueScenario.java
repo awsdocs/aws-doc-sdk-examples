@@ -17,8 +17,10 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import software.amazon.awssdk.services.glue.model.DatabaseInput;
 import software.amazon.awssdk.services.glue.model.CreateDatabaseRequest;
@@ -157,7 +159,7 @@ public class GlueScenario {
 
         System.out.println(DASHES);
         System.out.println("8. Start a Job run.");
-        startJob(glueClient, jobName);
+       // startJob(glueClient, jobName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -206,7 +208,7 @@ public class GlueScenario {
                 .build();
 
             glueClient.createDatabase(request);
-            System.out.println("The database was successfully created");
+            System.out.println(dbName +" was successfully created");
 
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -257,17 +259,20 @@ public class GlueScenario {
                 .name(crawlerName)
                 .build();
 
-            GetCrawlerResponse response = glueClient.getCrawler(crawlerRequest);
-            Instant createDate = response.crawler().creationTime();
-            DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime( FormatStyle.SHORT )
-                .withLocale( Locale.US)
-                .withZone( ZoneId.systemDefault() );
+            boolean ready = false;
+            while(!ready) {
+                GetCrawlerResponse response = glueClient.getCrawler(crawlerRequest);
+                String status = response.crawler().stateAsString();
+                if (status.compareTo("READY") == 0) {
+                    ready = true ;
+                }
+                Thread.sleep(3000);
+            }
 
-            formatter.format( createDate );
-            System.out.println("The create date of the Crawler is " + createDate );
+            System.out.println("Crawler is now ready");
 
-        } catch (GlueException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+        } catch (GlueException | InterruptedException e) {
+            System.err.println(e.getMessage());
             System.exit(1);
         }
     }
@@ -289,7 +294,6 @@ public class GlueScenario {
     }
 
     public static void getSpecificDatabase(GlueClient glueClient, String databaseName) {
-
         try {
             GetDatabaseRequest databasesRequest = GetDatabaseRequest.builder()
                 .name(databaseName)
@@ -312,8 +316,8 @@ public class GlueScenario {
         }
     }
 
-    public static void getGlueTables(GlueClient glueClient, String dbName){
-
+    public static String getGlueTables(GlueClient glueClient, String dbName){
+        String myTableName = "";
         try {
             GetTablesRequest tableRequest = GetTablesRequest.builder()
                 .databaseName(dbName)
@@ -321,22 +325,33 @@ public class GlueScenario {
 
             GetTablesResponse response = glueClient.getTables(tableRequest);
             List<Table> tables = response.tableList();
-            for (Table table: tables) {
-                System.out.println("Table name is: "+table.name());
+            if (tables.isEmpty()) {
+                System.out.println("No tables were returned");
+            } else {
+                for (Table table : tables) {
+                    myTableName = table.name();
+                    System.out.println("Table name is: " + myTableName);
+                }
             }
 
         } catch (GlueException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+        return myTableName;
     }
 
-    public static void startJob(GlueClient glueClient, String jobName) {
-
+    public static void startJob(GlueClient glueClient, String jobName, String inputDatabase, String inputTable, String outBucket) {
         try {
+            Map<String,String> myMap = new HashMap<>();
+            myMap.put("--input_database", inputDatabase);
+            myMap.put("--input_table", inputTable);
+            myMap.put("--output_bucket_url", outBucket);
+
             StartJobRunRequest runRequest = StartJobRunRequest.builder()
                 .workerType(WorkerType.G_1_X)
                 .numberOfWorkers(10)
+                .arguments(myMap)
                 .jobName(jobName)
                 .build();
 
@@ -350,11 +365,10 @@ public class GlueScenario {
     }
 
     public static void createJob(GlueClient glueClient, String jobName, String iam, String scriptLocation) {
-
         try {
             JobCommand command = JobCommand.builder()
                 .pythonVersion("3")
-                .name("MyJob1")
+                .name("glueetl")
                 .scriptLocation(scriptLocation)
                 .build();
 
