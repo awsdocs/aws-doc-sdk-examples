@@ -97,9 +97,10 @@ public class GlueScenario {
             "    crawlerName - The name of the crawler. \n" +
             "    jobName - The name you assign to this job definition."+
             "    scriptLocation - The Amazon S3 path to a script that runs a job." +
-            "    locationUri - The location of the database" ;
+            "    locationUri - The location of the database" +
+            "    bucketNameSc - The Amazon S3 bucket name used when creating a job" ;
 
-       if (args.length != 8) {
+       if (args.length != 9) {
             System.out.println(usage);
             System.exit(1);
        }
@@ -112,6 +113,7 @@ public class GlueScenario {
         String jobName = args[5];
         String scriptLocation = args[6];
         String locationUri = args[7];
+        String bucketNameSc = args[8];
 
         Region region = Region.US_EAST_1;
         GlueClient glueClient = GlueClient.builder()
@@ -148,8 +150,10 @@ public class GlueScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
+        System.out.println("*** Wait 5 MIN for the "+crawlerName +" to stop");
+        TimeUnit.MINUTES.sleep(5);
         System.out.println("6. Get tables.");
-        getGlueTables(glueClient, dbName);
+        String myTableName = getGlueTables(glueClient, dbName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -159,7 +163,7 @@ public class GlueScenario {
 
         System.out.println(DASHES);
         System.out.println("8. Start a Job run.");
-       // startJob(glueClient, jobName);
+        startJob(glueClient, jobName, dbName, myTableName, bucketNameSc );
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -195,7 +199,6 @@ public class GlueScenario {
     }
 
     public static void createDatabase(GlueClient glueClient, String dbName, String locationUri ) {
-
         try {
             DatabaseInput input = DatabaseInput.builder()
                 .description("Built with the AWS SDK for Java V2")
@@ -253,7 +256,6 @@ public class GlueScenario {
     }
 
     public static void getSpecificCrawler(GlueClient glueClient, String crawlerName) {
-
         try {
             GetCrawlerRequest crawlerRequest = GetCrawlerRequest.builder()
                 .name(crawlerName)
@@ -269,7 +271,7 @@ public class GlueScenario {
                 Thread.sleep(3000);
             }
 
-            System.out.println("Crawler is now ready");
+            System.out.println("The crawler is now ready");
 
         } catch (GlueException | InterruptedException e) {
             System.err.println(e.getMessage());
@@ -278,7 +280,6 @@ public class GlueScenario {
     }
 
     public static void startSpecificCrawler(GlueClient glueClient, String crawlerName) {
-
         try {
             StartCrawlerRequest crawlerRequest = StartCrawlerRequest.builder()
                 .name(crawlerName)
@@ -392,7 +393,6 @@ public class GlueScenario {
     }
 
     public static void getAllJobs(GlueClient glueClient) {
-
         try {
             GetJobsRequest jobsRequest = GetJobsRequest.builder()
                 .maxResults(10)
@@ -412,7 +412,6 @@ public class GlueScenario {
     }
 
     public static void getJobRuns(GlueClient glueClient, String jobName) {
-
         try {
             GetJobRunsRequest runsRequest = GetJobRunsRequest.builder()
                 .jobName(jobName)
@@ -434,7 +433,6 @@ public class GlueScenario {
     }
 
     public static void deleteJob(GlueClient glueClient, String jobName) {
-
         try {
             DeleteJobRequest jobRequest = DeleteJobRequest.builder()
                 .jobName(jobName)
@@ -450,7 +448,6 @@ public class GlueScenario {
     }
 
     public static void deleteDatabase(GlueClient glueClient, String databaseName) {
-
         try {
             DeleteDatabaseRequest request = DeleteDatabaseRequest.builder()
                 .name(databaseName)
@@ -466,7 +463,6 @@ public class GlueScenario {
     }
 
     public static void deleteSpecificCrawler(GlueClient glueClient, String crawlerName) {
-
         try {
             DeleteCrawlerRequest deleteCrawlerRequest = DeleteCrawlerRequest.builder()
                 .name(crawlerName)
