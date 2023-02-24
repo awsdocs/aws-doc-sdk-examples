@@ -27,10 +27,11 @@ describe("list-objects", () => {
 
     await main();
 
-    expect(spy).toHaveBeenCalledWith(
-      "Your bucket contains the following objects:\n",
-      " • foo"
+    expect(spy).toHaveBeenNthCalledWith(
+      1,
+      "Your bucket contains the following objects:\n"
     );
+    expect(spy).toHaveBeenNthCalledWith(2, " • foo\n");
   });
 
   it("should log errors", async () => {

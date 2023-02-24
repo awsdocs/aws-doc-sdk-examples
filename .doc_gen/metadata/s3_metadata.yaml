@@ -1095,12 +1095,11 @@ s3_ListObjects:
         - sdk_version: 3
           github: javascriptv3/example_code/s3
           excerpts:
-            - description: List the objects.
+            - description: List all of the objects in your bucket. If there is more than one
+                           object, IsTruncated and NextContinuationToken will be used to iterate
+                           over the full list.
               snippet_tags:
                 - s3.JavaScript.buckets.listObjectsV3
-            - description: List 1000 or more objects.
-              snippet_tags:
-                - s3.JavaScript.buckets.listManyObjectsV3
     Ruby:
       versions:
         - sdk_version: 3
