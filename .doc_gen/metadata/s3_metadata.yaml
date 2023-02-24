@@ -2508,3 +2508,22 @@ s3_MultipartCopy:
                 - S3.dotnetv3.MPUapiCopyObjectExample
   services:
     s3: {UploadCopyPart, InitiateMultipartUpload, GetObjectMetadata, CompleteMultipartUpload}
+s3_Scenario_ListObjectsWeb:
+  title: A web page that lists &S3; objects using an &AWS; SDK
+  title_abbrev: Create a web page that lists &S3; objects
+  synopsis: list &S3; objects in a web page.
+  category: Scenarios
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3/scenarios/web/list-objects
+          sdkguide:
+          excerpts:
+            - description: The following code is the relevant React component that makes calls
+                           to the &AWS; SDK. A runnable version of the application containing
+                           this component can be found at the GitHub link above.
+              snippet_tags:
+                - javascript.v3.scenarios.web.ListObjects
+  services:
+    s3: {ListObjects}
