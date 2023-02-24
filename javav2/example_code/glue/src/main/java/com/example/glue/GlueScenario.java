@@ -85,7 +85,6 @@ import software.amazon.awssdk.services.glue.model.DeleteCrawlerRequest;
 public class GlueScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
-
         final String usage = "\n" +
             "Usage:\n" +
             "    <iam> <s3Path> <cron> <dbName> <crawlerName> <jobName> \n\n" +
@@ -150,7 +149,7 @@ public class GlueScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("*** Wait 5 MIN for the "+crawlerName +" to stop");
+        System.out.println("*** Wait 5 min for the tables to become available");
         TimeUnit.MINUTES.sleep(5);
         System.out.println("6. Get tables.");
         String myTableName = getGlueTables(glueClient, dbName);
