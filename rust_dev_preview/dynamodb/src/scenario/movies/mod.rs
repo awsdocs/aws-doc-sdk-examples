@@ -55,7 +55,7 @@ pub struct Movie {
     info: MovieInfo,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct MovieInfo {
     #[serde(default = "Vec::new")]
     genres: Vec<String>,
