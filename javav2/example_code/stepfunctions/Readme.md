@@ -73,7 +73,7 @@ Define these value to successfully run the JUnit tests:
 - **activityNameSc** - The name of an activity to create for the Scenario test.
 - **stateMachineNameSc** – The name of the state machine to create for the Scenario test.
 
-You can obtain the JSON file to create a state machine in the following Github location. 
+You can obtain the JSON file to create a state machine in the following GitHub location. 
 
 https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files
 
