@@ -14,33 +14,41 @@ IAM is a web service for securely controlling access to AWS services. With IAM, 
 
 ## Code examples
 
+### Getting started
+- [Hello IAM](Actions/HelloIAM.cs)
+
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-- [Attach a policy to a role](AttachRolePolicyExample/AttachRolePolicyExample/AttachRolePolicy.cs) (`AttachRolePolicyAsync`)
-- [Create a policy](CreatePolicyExample/CreatePolicy.cs) (`CreatePolicyAsync`)
-- [Create a role](CreateRoleExample/CreateRole.cs) (`CreateRoleAsync`)
-- [Create a user](CreateUserExample/CreateUserExample/CreateUser.cs) (`CreateUserAsync`)
-- [Create an access key](CreateAccessKeyExample/CreateAccessKeyExample/CreateAccessKey.cs) (`CreateAccessKeyAsync`)
-- [Delete a role policy](DeleteRolePolicyExample/DeleteRolePolicyExample/DeleteRolePolicy.cs) (`DeleteRolePolicyAsync`)
-- [Delete a user](DeleteUserExample/DeleteUserExample/DeleteUser.cs) (`DeleteUserAsync`)
-- [Delete an access key](DeleteAccessKeyExample/DeleteAccessKeyExample/DeleteAccessKey.cs) (`DeleteAccessKeyAsync`)
-- [Detach a policy from a role](DetachRolePolicyExample/DetachRolePolicyExample/DetachRolePolicy.cs) (`DetatchRolePolicyAsync`)
-- [Get a policy](GetPolicyExample/GetPolicy.cs) (`GetPolicyAsync`)
-- [Get a role](GetRoleExample/GetRole.cs) (`GetRoleAsync`)
-- [Get the account password policy](GetAccountPasswordPolicyExample/GetAccountPasswordPolicy.cs) (`GetAccountPasswordPolicyAsync`)
-- [List groups](ListGroupsExample/ListGroups.cs) (`ListGroupsAsync`)
-- [List inline policies for a role](ListRolePoliciesExample/Program.cs) (`ListRolePoliciesAsync`)
-- [List policies](ListPoliciesExample/ListPolicies.cs) (`ListPoliciesAsync`)
-- [List policies attached to a role](ListAttachedRolePoliciesExample/ListAttachedRolePolicies.cs) (`ListAttachedRolePoliciesAsync`)
-- [List roles](ListRolesExample/ListRoles.cs) (`ListRolesAsync`)
-- [List SAML providers](ListSAMLProvidersExample/ListSAMLProviders.cs) (`ListSAMLProvidersAsync`)
-- [List users](ListUsersExample/ListUsers.cs) (`ListUsersAsync`)
+- [Add a policy to a group](Actions/IAMWrapper.cs) (`PutGroupPolicyAsync`)
+- [Attach a policy to a role](Actions/IAMWrapper.cs) (`AttachRolePolicyAsync`)
+- [Create a group](Actions/IAMWrapper.cs) (`CreateGroupAsync`)
+- [Create a policy](Actions/IAMWrapper.cs) (`CreatePolicyAsync`)
+- [Create a role](Actions/IAMWrapper.cs) (`CreateRoleAsync`)
+- [Create a service-linked role](Actions/IAMWrapper.cs) (`CreateServiceLinkedRoleAsync`)
+- [Create a user](Actions/IAMWrapper.cs) (`CreateUserAsync`)
+- [Create an access key](Actions/IAMWrapper.cs) (`CreateAccessKeyAsync`)
+- [Delete a policy](Actions/IAMWrapper.cs) (`DeletePolicyAsync`)
+- [Delete a role](Actions/IAMWrapper.cs) (`DelteRoleAsync`)
+- [Delete a role policy](Actions/IAMWrapper.cs) (`DeleteRolePolicyAsync`)
+- [Delete a user](Actions/IAMWrapper.cs) (`DeleteUserAsync`)
+- [Delete an access key](Actions/IAMWrapper.cs) (`DeleteAccessKeyAsync`)
+- [Detach a policy from a role](Actions/IAMWrapper.cs) (`DetatchRolePolicyAsync`)
+- [Get a policy](Actions/IAMWrapper.cs) (`GetPolicyAsync`)
+- [Get a role](Actions/IAMWrapper.cs) (`GetRoleAsync`)
+- [Get the account password policy](Actions/IAMWrapper.cs) (`GetAccountPasswordPolicyAsync`)
+- [List groups](Actions/IAMWrapper.cs) (`ListGroupsAsync`)
+- [List inline policies for a role](Actions/IAMWrapper.cs) (`ListRolePoliciesAsync`)
+- [List policies](Actions/IAMWrapper.cs) (`ListPoliciesAsync`)
+- [List policies attached to a role](Actions/IAMWrapper.cs) (`ListAttachedRolePoliciesAsync`)
+- [List roles](Actions/IAMWrapper.cs) (`ListRolesAsync`)
+- [List SAML providers](Actions/IAMWrapper.cs) (`ListSAMLProvidersAsync`)
+- [List users](Actions/IAMWrapper.cs) (`ListUsersAsync`)
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [Create a user and assume a role](IAM_Basics_Scenario/IAM_Basics_Scenario/IAM_Basics.cs)
+- [Create a user and assume a role](Scenarios/IAMBasics/IAMBasics.cs)
 
 ## Run the examples
 
