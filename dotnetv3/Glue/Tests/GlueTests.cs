@@ -15,6 +15,7 @@ namespace GlueTests
 
         private readonly IAmazonGlue _glueClient;
         private string _bucketName;
+        private string _bucketUrl;
         private string _crawlerName;
         private string _roleName;
         private string _sourceData;
@@ -42,6 +43,7 @@ namespace GlueTests
             _wrapper = new GlueWrapper(_glueClient);
 
             _bucketName = _configuration["BucketName"];
+            _bucketUrl = _configuration["BucketUrl"];
             _crawlerName = _configuration["CrawlerName"];
             _roleName = _configuration["RoleName"];
             _sourceData = _configuration["SourceData"];
@@ -137,7 +139,7 @@ namespace GlueTests
         [Trait("Category", "Integration")]
         public async Task CreateJobAsyncTest()
         {
-            var success = await _wrapper.CreateJobAsync(_jobName, _roleName, _description, _scriptUrl);
+            var success = await _wrapper.CreateJobAsync(_dbName, _tables[0].Name, _bucketUrl, _jobName, _roleName, _description, _scriptUrl);
             Assert.True(success, "Couldn't create job.");
         }
 
@@ -150,7 +152,7 @@ namespace GlueTests
         [Trait("Category", "Integration")]
         public async Task StartJobRunAsyncTest()
         {
-            _jobRunId = await _wrapper.StartJobRunAsync(_jobName);
+            _jobRunId = await _wrapper.StartJobRunAsync(_jobName, _dbName, _tables[0].Name, _bucketName);
 
             // Wait for the job run to complete or error out.
             var jobRunComplete = false;
@@ -204,7 +206,7 @@ namespace GlueTests
             bool success = false;
             _tables.ForEach(async table =>
             {
-                success = await _wrapper.DeleteTableAsync(table.Name);
+                success = await _wrapper.DeleteTableAsync(_dbName, table.Name);
             });
             Assert.True(success, "Could not delete tables.");
         }
