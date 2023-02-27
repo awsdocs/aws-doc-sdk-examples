@@ -18,9 +18,6 @@
 #
 #   'python3 run_automated_tests.py -23 -s s3'
 #
-# export EXTRA_CMAKE_ARGS="-G \"Visual Studio 17 2022\""
-#
-# export BIN_SUBPATH_CMAKE=Debug
 
 
 import os

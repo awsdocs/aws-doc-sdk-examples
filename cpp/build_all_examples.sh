@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run the automated tests for cpp.
+# Build the AWS example code for C++ .
 
 
 CMAKE_FILES=$(ls example_code/*/CMakeLists.txt)
