@@ -9,6 +9,7 @@ namespace IAMBasics;
 internal class S3Wrapper
 {
     private readonly IAmazonS3 _s3Service;
+    private readonly IAmazonSecurityTokenService _stsService;
 
     /// <summary>
     /// Constructor for the IAMWrapper class.
@@ -28,7 +29,7 @@ internal class S3Wrapper
             RoleArn = roleToAssume,
         };
 
-        var response = await client.AssumeRoleAsync(request);
+        var response = await _s3Service.AssumeRoleAsync(request);
 
         return response.Credentials;
 
