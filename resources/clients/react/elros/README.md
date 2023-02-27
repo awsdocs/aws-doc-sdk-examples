@@ -1,0 +1,3 @@
+- setup cognito
+- set env vars
+- run npm run dev or npm run deploy
