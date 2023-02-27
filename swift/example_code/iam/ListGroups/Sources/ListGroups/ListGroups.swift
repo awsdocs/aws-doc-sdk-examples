@@ -33,7 +33,6 @@ struct ExampleCommand: ParsableCommand {
 
         do {
             let groups = try await serviceHandler.listGroups()
-            
             print("Found \(groups.count) groups")
             for group in groups {
                 print("  \(group)")

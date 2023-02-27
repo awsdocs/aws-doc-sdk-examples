@@ -23,7 +23,7 @@ enum ServiceHandlerError: Error {
 
 /// A class containing all the code that interacts with the AWS SDK for Swift.
 public class ServiceHandler {
-    public let client: IamClient
+    public let client: IAMClient
 
     /// Initialize and return a new ``ServiceHandler`` object, which is used
     /// to drive the AWS calls used for the example. The Region string
@@ -34,7 +34,7 @@ public class ServiceHandler {
     // snippet-start:[iam.swift.getpolicy.handler.init]
     public init() async {
         do {
-            client = try IamClient(region: "AWS_GLOBAL")
+            client = try IAMClient(region: "AWS_GLOBAL")
         } catch {
             print("ERROR: ", dump(error, name: "Initializing Amazon IAM client"))
             exit(1)
@@ -43,12 +43,12 @@ public class ServiceHandler {
     // snippet-end:[iam.swift.getpolicy.handler.init]
 
     /// Returns information about the specified policy in a
-    /// `IamClientTypes.Policy` structure.
+    /// `IAMClientTypes.Policy` structure.
     ///
     /// - Parameter arn: The ARN of the policy to return.
-    /// - Returns: A `IamClientTypes.Policy` with the policy information.
+    /// - Returns: A `IAMClientTypes.Policy` with the policy information.
     // snippet-start:[iam.swift.getpolicy.handler.getpolicy]
-    public func getPolicy(arn: String) async throws -> IamClientTypes.Policy {
+    public func getPolicy(arn: String) async throws -> IAMClientTypes.Policy {
         let input = GetPolicyInput(
             policyArn: arn
         )
