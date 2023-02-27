@@ -23,18 +23,14 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 Code excerpts that show you how to call individual service functions.
 
-- [Create a state machine for AWS Step Functions.](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/CreateStateMachine.java) (createStateMachine command)
-- [Delete a state machine for AWS Step Functions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/DeleteStateMachine.java) (deleteStateMachine command)
 - [List existing activities](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/ListActivities.java) (listActivities command)
 - [List existing state machines](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/ListStateMachines.java) (listStateMachines command)
 - [Retrieve the history of a specific execution](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/GetExecutionHistory.java) (getExecutionHistory command)
-- [Retrieve the history of a specific execution](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/GetExecutionHistory.java) (getExecutionHistory command)
 - [Retrieve a list of failed executions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/GetFailedExecutions.java) (listExecutions command)
-- [Start a state machine execution](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/StartExecution.java) (startExecution command)
 
 ### Scenario 
 
-Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+Code examples that show you how to accomplish specific tasks by calling multiple functions within the same service.
 
 - [Get started with AWS Step Functions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (multiple commands)
 
