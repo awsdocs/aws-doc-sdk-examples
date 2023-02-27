@@ -23,13 +23,6 @@ import java.util.*;
 public class StepFunctionsTest {
 
     private static  SfnClient sfnClient;
-    private static String stateMachineArn = ""; // Gets dynamically set in a test.
-    private static String exeArn = "";  // Gets dynamically set in a test.
-    private static String jsonFile = "";
-    private static String jsonFileSM = "";
-    private static String roleARN = "";
-    private static String stateMachineName = "";
-
     private static String  roleNameSC = "";
     private static String  activityNameSC = "";
     private static String  stateMachineNameSC = "";
@@ -55,11 +48,6 @@ public class StepFunctionsTest {
             // load the properties file.
             prop.load(input);
 
-            // Populate the data members required for all tests.
-            jsonFile = prop.getProperty("jsonFile");
-            jsonFileSM = prop.getProperty("jsonFileSM");
-            roleARN = prop.getProperty("roleARN");
-            stateMachineName = prop.getProperty("stateMachineName");
             roleNameSC = prop.getProperty("roleNameSC");
             activityNameSC = prop.getProperty("activityNameSC");
             stateMachineNameSC = prop.getProperty("stateMachineNameSC");
@@ -78,53 +66,22 @@ public class StepFunctionsTest {
 
     @Test
     @Order(2)
-    public void CreateStateMachine() {
-        stateMachineArn = CreateStateMachine.createMachine(sfnClient, roleARN, stateMachineName, jsonFileSM);
-        assertTrue(!stateMachineArn.isEmpty());
+    public void ListActivities() {
+        ListActivities.listAllActivites(sfnClient);
         System.out.println("Test 2 passed");
+
     }
 
     @Test
     @Order(3)
-    public void StartExecution() {
-        exeArn = StartExecution.startWorkflow(sfnClient, stateMachineArn, jsonFile);
-        assertTrue(!stateMachineArn.isEmpty());
+    public void TestHello() {
+        HelloStepFunctions.listMachines(sfnClient);
         System.out.println("Test 3 passed");
+
     }
 
     @Test
     @Order(4)
-    public void ListStateMachines() {
-        ListStateMachines.listMachines(sfnClient);
-        System.out.println("Test 4 passed");
-    }
-
-    @Test
-    @Order(5)
-    public void ListActivities() {
-        ListActivities.listAllActivites(sfnClient);
-        System.out.println("Test 5 passed");
-
-    }
-
-
-    @Test
-    @Order(6)
-    public void GetExecutionHistory() {
-        GetExecutionHistory.getExeHistory(sfnClient,exeArn );
-        System.out.println("Test 6 passed");
-    }
-
-    @Test
-    @Order(7)
-    public void DeleteStateMachine() {
-
-        DeleteStateMachine.deleteMachine(sfnClient, stateMachineArn);
-        System.out.println("Test 7 passed");
-    }
-
-    @Test
-    @Order(8)
     public void TestSTFMVP() throws Exception {
         Region regionGl = Region.AWS_GLOBAL;
         IamClient iam = IamClient.builder()
@@ -220,6 +177,8 @@ public class StepFunctionsTest {
         System.out.println("7. Delete the state machines.");
         StepFunctionsScenario.deleteMachine(sfnClient, stateMachineArn);
         System.out.println(StepFunctionsScenario.DASHES);
+
+        System.out.println("Test 4 passed");
     }
 
 }
