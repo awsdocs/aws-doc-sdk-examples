@@ -56,9 +56,11 @@ import java.util.UUID;
 
 // snippet-start:[stepfunctions.java2.scenario.main]
 /**
- * To run this example, you need a JSON file that represents the Amazon States Language definition for the state machine.
+ * You can obtain the JSON file to create a state machine in the following GitHub location.
  *
- * To see an Amazon States Language definition example that you can use, see "Getting started with AWS Step Functions" at https://docs.aws.amazon.com/step-functions/latest/dg/getting-started.html.
+ * https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files
+ *
+ * To run this code example, place the chat_sfn_state_machine.json file into your project's resources folder.
  *
  * Also, set up your development environment, including your credentials.
  *
