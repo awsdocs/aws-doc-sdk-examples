@@ -76,7 +76,7 @@ You can obtain the JSON file to create a state machine in the following Github l
 
 https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files
 
-To run the Scenario test, place this file into your project's **resources** folder.
+To run the Scenario test, place the **chat_sfn_state_machine.json** file into your project's **resources** folder. If you do not, the test is not successful. 
 
 
 ## Additional resources
