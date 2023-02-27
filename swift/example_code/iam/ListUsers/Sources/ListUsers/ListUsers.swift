@@ -2,7 +2,7 @@
 // Swift Example: ListUsers
 //
 // An example showing how to use the Amazon Identity and Access Management (IAM)
-// `IamClient` function `listUsers()`.
+// `IAMClient` function `listUsers()`.
 //
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
