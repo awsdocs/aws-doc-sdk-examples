@@ -45,6 +45,7 @@ public class GlueBasics
         // to the appropriate values. Also set "CrawlerName" to the name
         // you want to give the crawler when it is created.
         string bucketName = _configuration["BucketName"];
+        string bucketUrl = _configuration["BucketUrl"];
         string crawlerName = _configuration["CrawlerName"];
         string roleName = _configuration["RoleName"];
         string sourceData = _configuration["SourceData"];
@@ -129,17 +130,18 @@ public class GlueBasics
         uiWrapper.DisplayTitle("Create AWS Glue job");
         Console.WriteLine("Creating a new AWS Glue job.");
         var description = "An AWS Glue job created using the AWS SDK for .NET";
-        var success = await wrapper.CreateJobAsync(jobName, roleName, description, scriptUrl);
+        var success = await wrapper.CreateJobAsync(dbName, tables[0].Name, bucketUrl,jobName, roleName, description, scriptUrl);
 
         uiWrapper.PressEnter();
 
         uiWrapper.DisplayTitle("Starting AWS Glue job");
         Console.WriteLine("Starting the new AWS Glue job...");
-        var jobRunId = await wrapper.StartJobRunAsync(jobName);
+        var jobRunId = await wrapper.StartJobRunAsync(jobName, dbName, tables[0].Name, bucketName);
         var jobRunComplete = false;
+        var jobRun = new JobRun();
         do
         {
-            var jobRun = await wrapper.GetJobRunAsync(jobName, jobRunId);
+            jobRun = await wrapper.GetJobRunAsync(jobName, jobRunId);
             if (jobRun.JobRunState == "SUCCEEDED" || jobRun.JobRunState == "STOPPED" ||
                 jobRun.JobRunState == "FAILED" || jobRun.JobRunState == "TIMEOUT")
             {
@@ -185,7 +187,7 @@ public class GlueBasics
         Console.WriteLine("Deleting the tables from the database.");
         tables.ForEach(async table =>
         {
-            success = await wrapper.DeleteTableAsync(table.Name);
+            success = await wrapper.DeleteTableAsync(dbName, table.Name);
         });
 
         Console.WriteLine("Deleting the database.");

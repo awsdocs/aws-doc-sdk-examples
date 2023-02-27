@@ -38,4 +38,10 @@
 	  <ProjectReference Include="..\Actions\GlueActions.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Content Update="testsettings.local.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
 </Project>

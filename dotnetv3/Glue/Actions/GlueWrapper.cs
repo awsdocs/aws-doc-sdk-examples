@@ -83,24 +83,32 @@ public class GlueWrapper
     /// <param name="description">A description of the job.</param>
     /// <param name="scriptUrl">The URL to the script.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
-    public async Task<bool> CreateJobAsync(string jobName, string roleName, string description, string scriptUrl)
+    public async Task<bool> CreateJobAsync(string dbName, string tableName, string bucketUrl, string jobName, string roleName, string description, string scriptUrl)
     {
         var command = new JobCommand
         {
             PythonVersion = "3",
-            Name = jobName,
+            Name = "glueetl",
             ScriptLocation = scriptUrl,
+        };
+
+        var arguments = new Dictionary<string, string>
+        {
+            { "--input_database", dbName },
+            { "--input_table", tableName },
+            { "--output_bucket_url", bucketUrl }
         };
 
         var request = new CreateJobRequest
         {
             Command = command,
+            DefaultArguments = arguments,
             Description = description,
             GlueVersion = "3.0",
             Name = jobName,
             NumberOfWorkers = 10,
             Role = roleName,
-            WorkerType = WorkerType.G1X
+            WorkerType = "G.1X"
         };
 
         var response = await _amazonGlue.CreateJobAsync(request);
@@ -157,9 +165,9 @@ public class GlueWrapper
     /// </summary>
     /// <param name="tableName">The table to delete.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
-    public async Task<bool> DeleteTableAsync(string tableName)
+    public async Task<bool> DeleteTableAsync(string dbName, string tableName)
     {
-        var response = await _amazonGlue.DeleteTableAsync(new DeleteTableRequest { Name = tableName });
+        var response = await _amazonGlue.DeleteTableAsync(new DeleteTableRequest { Name = tableName, DatabaseName = dbName });
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
@@ -343,11 +351,21 @@ public class GlueWrapper
     /// </summary>
     /// <param name="jobName">The name of the job.</param>
     /// <returns>A string representing the job run Id.</returns>
-    public async Task<string> StartJobRunAsync(string jobName)
+    public async Task<string> StartJobRunAsync(
+        string jobName,
+        string inputDatabase,
+        string inputTable,
+        string bucketName)
     {
         var request = new StartJobRunRequest
         {
-            JobName = jobName
+            JobName = jobName,
+            Arguments =new Dictionary<string, string>
+            {
+                {"--input_database", inputDatabase},
+                {"--input_table", inputTable},
+                {"--output_bucket_url", $"s3://{bucketName}/"}
+            }
         };
 
         var response = await _amazonGlue.StartJobRunAsync(request);
