@@ -60,10 +60,6 @@ Before running the JUnit tests, you must define values in the **config.propertie
 
 Define this value to successfully run the JUnit tests:
 
-- **jsonFile** - A JSON file that contains the values to pass to the worflow and used in the **StartExecution** test.
-- **jsonFileSM** – A JSON file that represents the Amazon States Language definition of the state machine and used in the **CreateStateMachine** test.
-- **roleARN** – The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role to use for this state machine and used in the **CreateStateMachine** test.
-- **stateMachineName** - The name of the state machine to create and used in the **CreateStateMachine** test.
 - **roleNameSc** - The name of the IAM role to create for the Scenario test.
 - **activityNameSc** - The name of an activity to create for the Scenario test.
 - **stateMachineNameSc** – The name of the state machine to create for the Scenario test.
