@@ -16,6 +16,7 @@ namespace AutoScale_Basics.Tests
         private static string launchTemplateId = string.Empty;
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task CreateLaunchTemplateAsyncTest()
         {
             launchTemplateId = await EC2Methods.CreateLaunchTemplateAsync(imageId, instanceType, launchTemplateName);
@@ -23,6 +24,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task DeleteLaunchTemplateAsyncTest()
         {
             var deletedLaunchTemplateName = await EC2Methods.DeleteLaunchTemplateAsync(launchTemplateId);
@@ -30,6 +32,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public async Task DescribeLaunchTemplateAsyncTest()
         {
             var success = await EC2Methods.DescribeLaunchTemplateAsync(launchTemplateName);

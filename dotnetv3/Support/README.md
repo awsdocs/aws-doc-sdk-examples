@@ -58,15 +58,10 @@ Alternatively, you can run the example from within your IDE.
 
 ## Tests
 
-⚠️ Running the tests might result in charges to your AWS account.
+⚠ Running the tests might result in charges to your AWS account.
 
-The solution includes a test project. To run the tests, navigate to the folder that contains the test project and then issue the following command:
-
-```
-dotnet test
-```
-
-Alternatively, you can open the example solution and use the Visual Studio Test Runner to run the tests.
+To find instructions for running these tests, see the [README](../README.md#Tests)
+in the `dotnetv3` folder.
 
 ## Additional resources
 * [AWS Support User Guide](https://docs.aws.amazon.com/awssupport/latest/user/index.html)

@@ -61,6 +61,7 @@ public class EC2WrapperTests
     /// <returns></returns>
     [Fact()]
     [Order(1)]
+    [Trait("Category", "Integration")]
     public async Task CreateKeyPairTest()
     {
         _keyPair = await _ec2Wrapper.CreateKeyPair(_keyPairName);
@@ -73,6 +74,7 @@ public class EC2WrapperTests
     /// </summary>
     [Fact()]
     [Order(2)]
+    [Trait("Category", "Integration")]
     public void SaveKeyPairTest()
     {
         _tempFileName = _ec2Wrapper.SaveKeyPair(_keyPair);
@@ -87,6 +89,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(3)]
+    [Trait("Category", "Integration")]
     public async Task DescribeKeyPairsTest()
     {
         var keyPairs = await _ec2Wrapper.DescribeKeyPairs(_keyPairName);
@@ -99,6 +102,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(4)]
+    [Trait("Category", "Integration")]
     public async Task CreateSecurityGroupTest()
     {
         _secGroupId = await _ec2Wrapper.CreateSecurityGroup(_groupName, _groupDescription);
@@ -112,6 +116,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(5)]
+    [Trait("Category", "Integration")]
     public async Task AuthorizeSecurityGroupIngressTest()
     {
         var success = await _ec2Wrapper.AuthorizeSecurityGroupIngress(_groupName);
@@ -125,6 +130,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(6)]
+    [Trait("Category", "Integration")]
     public async Task DescribeSecurityGroupsTest()
     {
         var secGroups = await _ec2Wrapper.DescribeSecurityGroups(_secGroupId);
@@ -137,6 +143,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(7)]
+    [Trait("Category", "Integration")]
     public async Task DescribeInstanceTest()
     {
         var instance = await _ec2Wrapper.DescribeInstance(_ec2InstanceId);
@@ -149,6 +156,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(8)]
+    [Trait("Category", "Integration")]
     public async Task DescribeImagesTest()
     {
         // Get list of available Amazon Linux 2 Amazon Machine Images (AMIs).
@@ -169,6 +177,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(9)]
+    [Trait("Category", "Integration")]
     public async Task DescribeInstanceTypesTest()
     {
         _instanceTypes = await _ec2Wrapper.DescribeInstanceTypes(_architecture);
@@ -181,6 +190,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(10)]
+    [Trait("Category", "Integration")]
     public async Task RunInstancesTest()
     {
         _ec2InstanceId = await _ec2Wrapper.RunInstances(_imageId, _instanceType, _keyPairName, _secGroupId);
@@ -201,6 +211,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(11)]
+    [Trait("Category", "Integration")]
     public async Task DescribeInstancesTest()
     {
         try
@@ -219,6 +230,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(12)]
+    [Trait("Category", "Integration")]
     public async Task AllocateAddressTest()
     {
         _allocationId = await _ec2Wrapper.AllocateAddress();
@@ -231,6 +243,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(13)]
+    [Trait("Category", "Integration")]
     public async Task AssociateAddressTest()
     {
         _associationId = await _ec2Wrapper.AssociateAddress(_allocationId, _ec2InstanceId);
@@ -243,6 +256,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(14)]
+    [Trait("Category", "Integration")]
     public async Task StopInstancesTest()
     {
         try
@@ -268,6 +282,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(15)]
+    [Trait("Category", "Integration")]
     public async Task StartInstancesTest()
     {
         try
@@ -296,6 +311,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(16)]
+    [Trait("Category", "Integration")]
     public async Task DisassociateIpTest()
     {
         var success = await _ec2Wrapper.DisassociateIp(_associationId);
@@ -308,6 +324,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(17)]
+    [Trait("Category", "Integration")]
     public async Task ReleaseAddressTest()
     {
         var success = await _ec2Wrapper.ReleaseAddress(_allocationId);
@@ -320,6 +337,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(18)]
+    [Trait("Category", "Integration")]
     public async Task TerminateInstanceTest()
     {
         var stateChange = await _ec2Wrapper.TerminateInstances(_ec2InstanceId);
@@ -340,6 +358,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(19)]
+    [Trait("Category", "Integration")]
     public async Task DeleteSecurityGroupTest()
     {
         var success = await _ec2Wrapper.DeleteSecurityGroup(_secGroupId);
@@ -352,6 +371,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(20)]
+    [Trait("Category", "Integration")]
     public async Task DeleteKeyPairTest()
     {
         var success = await _ec2Wrapper.DeleteKeyPair(_keyPair.KeyName);
@@ -363,6 +383,7 @@ public class EC2WrapperTests
     /// </summary>
     [Fact()]
     [Order(21)]
+    [Trait("Category", "Integration")]
     public void DeleteTempFileTest()
     {
         try
@@ -381,6 +402,7 @@ public class EC2WrapperTests
     /// <returns>Async task.</returns>
     [Fact()]
     [Order(22)]
+    [Trait("Category", "Integration")]
     public async Task GetEc2AmiListTest()
     {
         _images = await _ec2Wrapper.GetEC2AmiList();

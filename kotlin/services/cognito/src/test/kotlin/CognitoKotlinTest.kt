@@ -4,6 +4,7 @@
 */
 
 import com.kotlin.cognito.adminRespondToAuthChallenge
+import com.kotlin.cognito.checkAuthMethod
 import com.kotlin.cognito.confirmSignUp
 import com.kotlin.cognito.createIdPool
 import com.kotlin.cognito.createNewUser
@@ -15,9 +16,9 @@ import com.kotlin.cognito.getAdminUser
 import com.kotlin.cognito.getAllPools
 import com.kotlin.cognito.getPools
 import com.kotlin.cognito.getSecretForAppMFA
-import com.kotlin.cognito.initiateAuth
 import com.kotlin.cognito.listAllUserPoolClients
 import com.kotlin.cognito.listPoolIdentities
+import com.kotlin.cognito.resendConfirmationCode
 import com.kotlin.cognito.signUp
 import com.kotlin.cognito.verifyTOTP
 import kotlinx.coroutines.runBlocking
@@ -59,7 +60,6 @@ class CognitoKotlinTest {
 
     @BeforeAll
     fun setup() {
-
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
 
@@ -109,7 +109,6 @@ class CognitoKotlinTest {
     @Test
     @Order(2)
     fun createUserPoolTest() = runBlocking {
-
         userPoolId = createPool(userPoolName).toString()
         Assertions.assertTrue(!userPoolId.isEmpty())
         println("Test 2 passed")
@@ -118,7 +117,6 @@ class CognitoKotlinTest {
     @Test
     @Order(3)
     fun createAdminUserTest() = runBlocking {
-
         createNewUser(userPoolId, username, email, password)
         println("Test 3 passed")
     }
@@ -126,7 +124,6 @@ class CognitoKotlinTest {
     @Test
     @Order(4)
     fun signUpUserTest() = runBlocking {
-
         signUp(clientId, secretkey, username, password, email)
         println("Test 4 passed")
     }
@@ -198,24 +195,41 @@ class CognitoKotlinTest {
     @Test
     @Order(14)
     fun testCognitoMVP() = runBlocking {
+        println("*** Enter your use name")
         val inOb = Scanner(System.`in`)
-        println("*** Signing up $userNameMVP")
-        signUp(clientIdMVP, userNameMVP, passwordMVP, emailMVP)
-        getAdminUser(userNameMVP, poolIdMVP)
+        val userName = inOb.nextLine()
+        println(userName)
+
+        println("*** Enter your password")
+        val password: String = inOb.nextLine()
+
+        println("*** Enter your email")
+        val email = inOb.nextLine()
+
+        println("*** Signing up $userName")
+        signUp(clientIdMVP, userName, password, email)
+
+        println("*** Getting $userName in the user pool")
+        getAdminUser(userName, poolIdMVP)
+
+        println("*** Conformation code sent to $userName. Would you like to send a new code? (Yes/No)")
+        val ans = inOb.nextLine()
+
+        if (ans.compareTo("Yes") == 0) {
+            println("*** Sending a new confirmation code")
+            resendConfirmationCode(clientIdMVP, userName)
+        }
         println("*** Enter the confirmation code that was emailed")
         val code = inOb.nextLine()
-        confirmSignUp(clientIdMVP, code, userNameMVP)
-        getAdminUser(userNameMVP, poolIdMVP)
+        confirmSignUp(clientIdMVP, code, userName)
 
-        val authResponse = initiateAuth(clientIdMVP, userNameMVP, passwordMVP)
+        println("*** Rechecking the status of $userName in the user pool")
+        getAdminUser(userName, poolIdMVP)
+
+        val authResponse = checkAuthMethod(clientIdMVP, userName, password, poolIdMVP)
         val mySession = authResponse.session
-        if (mySession != null) {
-            Assertions.assertTrue(!mySession.isEmpty())
-        }
+
         val newSession = getSecretForAppMFA(mySession)
-        if (newSession != null) {
-            Assertions.assertTrue(!newSession.isEmpty())
-        }
         println("*** Enter the 6-digit code displayed in Google Authenticator")
         val myCode = inOb.nextLine()
 
@@ -223,12 +237,8 @@ class CognitoKotlinTest {
         verifyTOTP(newSession, myCode)
         println("*** Re-enter a 6-digit code displayed in Google Authenticator")
         val mfaCode: String = inOb.nextLine()
-        val authResponse1 = initiateAuth(clientIdMVP, userNameMVP, passwordMVP)
-        Assertions.assertNotNull(authResponse1)
+        val authResponse1 = checkAuthMethod(clientId, userNameMVP, password, poolIdMVP)
         val session2 = authResponse1.session
-        if (session2 != null) {
-            Assertions.assertTrue(!session2.isEmpty())
-        }
-        adminRespondToAuthChallenge(userNameMVP, clientIdMVP, mfaCode, session2)
+        adminRespondToAuthChallenge(userName, clientId, mfaCode, session2)
     }
 }

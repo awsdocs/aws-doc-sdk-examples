@@ -23,19 +23,19 @@ access.*
 
 ### Single action
 
-* [Listing Roles](../IamService.php) (ListRoles)
-* [Listing Users](../IamService.php) (ListUsers)
-* [Listing Groups](../IamService.php) (ListGroups)
-* [Attaching Role Policies](../IamService.php) (AttachRolePolicy)
-* [Getting an Account Password Policy](../IamService.php) (GetAccountPasswordPolicy)
-* [Listing SAML Providers](../IamService.php) (ListSAMLProviders)
-* [Listing Role Policies](../IamService.php) (ListRolePolicies)
-* [Getting a Role](../IamService.php) (GetRole)
-* [Listing Policies](../IamService.php) (ListPolicies)
-* [Creating a Service Linked Role](../IamService.php) (CreateServiceLinkedRole)
-* [Creating a Role](../IamService.php) (CreateRole)
-* [Listing Attached Role Policies](../IamService.php) (ListAttachedRolePolicies)
-* [Getting a Policy](../IamService.php) (GetPolicy)
+* [Attach Role Policies](../IAMService.php) (AttachRolePolicy)
+* [Create a Role](../IAMService.php) (CreateRole)
+* [Create a Service Linked Role](../IAMService.php) (CreateServiceLinkedRole)
+* [Get an Account Password Policy](../IAMService.php) (GetAccountPasswordPolicy)
+* [Get a Policy](../IAMService.php) (GetPolicy)
+* [Get a Role](../IAMService.php) (GetRole)
+* [List Attached Role Policies](../IAMService.php) (ListAttachedRolePolicies)
+* [List Groups](../IAMService.php) (ListGroups)
+* [List Policies](../IAMService.php) (ListPolicies)
+* [List Role Policies](../IAMService.php) (ListRolePolicies)
+* [List Roles](../IAMService.php) (ListRoles)
+* [List SAML Providers](../IAMService.php) (ListSAMLProviders)
+* [List Users](../IAMService.php) (ListUsers)
 
 ### Scenario
 

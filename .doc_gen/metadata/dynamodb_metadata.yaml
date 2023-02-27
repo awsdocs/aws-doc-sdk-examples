@@ -479,9 +479,9 @@ dynamodb_PutItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Puts an item into a table by using the enhanced client.
+            - description: Puts an item into a table using <ulink url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
-                - dynamodb.java2.mapping.putitem.main
+                - dynamodb.java2.put_item.main
     PHP:
       versions:
         - sdk_version: 3
@@ -705,9 +705,9 @@ dynamodb_UpdateItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Updates an item located in a table by using the enhanced client.
+            - description: Updates an item in a table using <ulink url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
-                - dynamodb.java2.mapping.moditem.main
+                - dynamodb.java2.update_item.main
     PHP:
       versions:
         - sdk_version: 3
@@ -1039,16 +1039,10 @@ dynamodb_Query:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Queries a table by using the enhanced client.
-              snippet_tags:
-                - dynamodb.java2.mapping.query.main
-            - description: Queries a table by using the enhanced client and a secondary index.
-              snippet_tags:
-                - dynamodb.java2.get_item_index.main
-            - description: Queries a table by using the DynamoDbClient.
+            - description: Queries a table by using <ulink url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
                 - dynamodb.java2.query.main
-            - description: Queries a table by using the DynamoDbClient and a secondary index.
+            - description: Queries a table by using <code>DynamoDbClient</code> and a secondary index.
               snippet_tags:
                 - dynamodb.java2.query_items_sec_index.main
     PHP:
@@ -1164,9 +1158,9 @@ dynamodb_Scan:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Scans an Amazon DynamoDB table by using the enhanced client.
+            - description: Scans an Amazon DynamoDB table using <ulink url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
-                - dynamodb.java2.mapping.scan.main
+                - dynamodb.java2.dynamoDB_scan.main
     PHP:
       versions:
         - sdk_version: 3

@@ -1,0 +1,9 @@
+<ModifyDBParameterGroupResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <ModifyDBParameterGroupResult>
+        <DBParameterGroupName>doc-example-parameter-group</DBParameterGroupName>
+    </ModifyDBParameterGroupResult>
+    <ResponseMetadata>
+        <RequestId>8cbc41e9-e0d1-42f0-af64-3e0ad2be4b62</RequestId>
+    </ResponseMetadata>
+</ModifyDBParameterGroupResponse>
+ 
