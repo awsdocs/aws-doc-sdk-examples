@@ -70,7 +70,7 @@ public struct Movie: Codable {
     /// Return a new `MovieTable` object, given an array mapping string to Amazon
     /// DynamoDB attribute values.
     /// 
-    /// - Parameter item: The item information provided the form used by
+    /// - Parameter item: The item information provided to the form used by
     ///   DynamoDB. This is an array of strings mapped to
     ///   `DynamoDBClientTypes.AttributeValue` values.
     init(withItem item: [Swift.String:DynamoDBClientTypes.AttributeValue]) throws  {

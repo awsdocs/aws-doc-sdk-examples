@@ -1,8 +1,7 @@
-# Amazon DynamoDB code examples for the SDK for Swift
+# DynamoDB code examples for the SDK for Swift
 ## Overview
 This folder contains code examples demonstrating how to use the AWS SDK for
-Swift to use the Amazon DynamoDB (DynamoDB) service. This
-README discusses how to run these examples.
+Swift to use Amazon DynamoDB. This README discusses how to run these examples.
 
 Amazon DynamoDB is a fully managed NoSQL database service that provides fast
 and predictable performance with seamless scalability. DynamoDB lets you
@@ -56,10 +55,10 @@ See the [Prerequisites](https://github.com/awsdocs/aws-doc-sdk-examples/tree/mai
 To run the tests for an example, use the command `swift test` in the example's directory.
 
 ## Additional resources
-* [DynamoDB developer guide](https://docs.aws.amazon.com/dynamodb/index.html)
-* [DynamoDB API reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)
+* [DynamoDB Developer Guide](https://docs.aws.amazon.com/dynamodb/index.html)
+* [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/)
 * [DynamoDB Developer Guide for Swift](https://docs.aws.amazon.com/sdk-for-swift/latest/developer-guide/examples-ddb.html)
-* [DynamoDB API reference for Swift](https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWSDynamoDB/Home)
+* [DynamoDB API Reference for Swift](https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWSDynamoDB/Home)
 * [Security best practices for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices-security.html)
 
 _Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0_

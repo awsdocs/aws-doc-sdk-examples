@@ -18,7 +18,7 @@ final class MovieTests: XCTestCase {
     /// 
     /// This function sets up the following:
     ///
-    ///     Configures AWS SDK log system to only log errors.
+    ///     Configures the AWS SDK log system to only log errors.
     ///     Instantiates the service handler, which is used to call
     ///     Amazon S3 functions.
     ///     Instantiates the demo cleanup handler, which is used to
@@ -149,7 +149,7 @@ final class MovieTests: XCTestCase {
         }
         let infoAttr = item["info"] ?? nil
 
-        // Get the values of the attributes
+        // Get the values of the attributes.
 
         var gotTitle: String? = nil
         var gotYear: Int? = nil

@@ -1,21 +1,21 @@
 /// An example that shows how to use the AWS SDK for Swift with Amazon
 /// DynamoDB to create and use a table that stores data about movies.
 ///
-/// 1. Use `createTable()` a table with partition `year` (N) and sort `title`
-///    (S).
+/// 1. Use `createTable()` to create a table with partition `year` (N) and
+///    sort `title` (S).
 /// 2. Add a new movie to the table using `putItem()`.
 /// 3. Update the rating and plot of the movie by using an update expression.
 ///    This uses `updateItem()` with the `updateExpression` and
 ///    `expressionAttributeValues` input parameters.
-/// 4. Take movies from the file `movies.json` and add them to the table
-///    using `batchWriteItem()`.
+/// 4. Take movies from the file `movies.json` and add them to the table using
+///    `batchWriteItem()`.
 /// 5. Use `getItem()` to get a movie using a key (partition + sort).
 /// 6. Delete a movie using `deleteItem()`.
 /// 7. Use a query with a key condition expression to return all the movies
 ///    released in a given year. This demonstrates the `query()` function with
 ///    its `keyConditionExpression` parameter.
 /// 8. Use `scan()` to return movies released in a range of years. Demonstrate
-///    paginate the data using the `filterExpression` and `exclusiveStartKey`
+///    paginating the data using the `filterExpression` and `exclusiveStartKey`
 ///    parameters.
 /// 9. Delete the table using `deleteTable()`.
 ///

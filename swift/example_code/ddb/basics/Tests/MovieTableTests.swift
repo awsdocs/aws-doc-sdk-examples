@@ -19,7 +19,7 @@ final class MovieTableTests: XCTestCase {
     /// 
     /// This function sets up the following:
     ///
-    ///     Configures AWS SDK log system to only log errors.
+    ///     Configures the AWS SDK log system to only log errors.
     ///     Instantiates the service handler, which is used to call
     ///     Amazon S3 functions.
     ///     Instantiates the demo cleanup handler, which is used to
