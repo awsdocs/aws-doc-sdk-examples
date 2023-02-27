@@ -8,8 +8,6 @@
 // snippet-start:[ddb.swift.basics.movietable]
 import Foundation
 import AWSDynamoDB
-//import ClientRuntime
-//import AWSClientRuntime
 
 /// An enumeration of error codes representing issues that can arise when using
 /// the `MovieTable` class.
