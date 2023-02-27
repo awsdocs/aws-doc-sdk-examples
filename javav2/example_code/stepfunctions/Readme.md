@@ -23,9 +23,19 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 
 Code excerpts that show you how to call individual service functions.
 
+- [Create an activity](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (createActivity command)
+- [Create a state machine](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (createStateMachine command)
+- [Delete an activity](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (deleteActivity command)
+- [Delete a state machine](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (deleteStateMachine command)
+- [Describe an execution](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (describeExecution command)
+- [Describe a state machine](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (describeStateMachine command)
+- [Get task data for an activity](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (getActivityTask command)
 - [List existing activities](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/ListActivities.java) (listActivities command)
+- [List state machines](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/HelloStepFunctions.java) (listStateMachines command)
 - [Retrieve the history of a specific execution](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/GetExecutionHistory.java) (getExecutionHistory command)
 - [Retrieve a list of failed executions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/GetFailedExecutions.java) (listExecutions command)
+- [Send a success response to a task](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (sendTaskSuccess command)
+- [Start a state machine](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (startExecution command)
 
 ### Scenario 
 
