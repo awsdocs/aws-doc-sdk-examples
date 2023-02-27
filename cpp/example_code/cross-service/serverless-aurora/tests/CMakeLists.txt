@@ -11,7 +11,7 @@ set(BUILD_SHARED_LIBS ON)
 project("ServerlessAuroraGTest")
 set(EXECUTABLE serverless_aurora_gtest)
 
-#Set the location of where Windows can find the installed libraries of the SDK.
+# Set the location of where Windows can find the installed libraries of the SDK.
 if(MSVC)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
@@ -50,7 +50,7 @@ if(MSVC AND BUILD_SHARED_LIBS)
 
     list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS})
 
-    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
+    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 
     add_custom_command(
             TARGET

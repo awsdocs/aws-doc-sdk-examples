@@ -49,7 +49,7 @@ add_executable(
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
 
-    set(CMAKE_BUILD_TYPE Debug) #Explicitly setting CMAKE_BUILD_TYPE is necessary in Windows to copy DLLs.
+    set(CMAKE_BUILD_TYPE Debug) # Explicitly setting CMAKE_BUILD_TYPE is necessary in Windows to copy DLLs.
 
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
     AWSSDK_CPY_DYN_LIBS(
