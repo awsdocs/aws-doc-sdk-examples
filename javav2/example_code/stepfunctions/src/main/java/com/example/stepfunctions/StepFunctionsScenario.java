@@ -225,6 +225,7 @@ public class StepFunctionsScenario {
         return "";
     }
 
+    // snippet-start:[stepfunctions.java2.describe_execution.main]
     public static void describeExe(SfnClient sfnClient, String executionArn) {
         try {
             DescribeExecutionRequest executionRequest = DescribeExecutionRequest.builder()
@@ -253,7 +254,9 @@ public class StepFunctionsScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[stepfunctions.java2.describe_execution.main]
 
+    // snippet-start:[stepfunctions.java2.task_success.main]
     public static void sendTaskSuccess(SfnClient sfnClient, String token, String json) {
         try {
             SendTaskSuccessRequest successRequest = SendTaskSuccessRequest.builder()
@@ -268,7 +271,9 @@ public class StepFunctionsScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[stepfunctions.java2.task_success.main]
 
+    // snippet-start:[stepfunctions.java2.activity_task.main]
     public static List<String> getActivityTask(SfnClient sfnClient, String actArn){
         List<String> myList = new ArrayList<>();
         GetActivityTaskRequest getActivityTaskRequest = GetActivityTaskRequest.builder()
@@ -280,7 +285,9 @@ public class StepFunctionsScenario {
         myList.add(response.input());
         return myList;
     }
+    // snippet-end:[stepfunctions.java2.activity_task.main]
 
+    // snippet-start:[stepfunctions.java2.delete_activity.main]
     public static void deleteActivity(SfnClient sfnClient, String actArn) {
         try {
             DeleteActivityRequest activityRequest = DeleteActivityRequest.builder()
@@ -295,7 +302,9 @@ public class StepFunctionsScenario {
             System.exit(1);
         }
     }
+    // snippet-end:[stepfunctions.java2.delete_activity.main]
 
+    // snippet-start:[stepfunctions.java2.describe_machine.main]
     public static void describeStateMachine(SfnClient sfnClient, String stateMachineArn) {
         try {
             DescribeStateMachineRequest stateMachineRequest = DescribeStateMachineRequest.builder()
@@ -312,7 +321,9 @@ public class StepFunctionsScenario {
             System.err.println(e.getMessage());
         }
     }
+    // snippet-end:[stepfunctions.java2.describe_machine.main]
 
+    // snippet-start:[stepfunctions.java2.delete_machine.main]
     public static void deleteMachine(SfnClient sfnClient, String stateMachineArn) {
         try {
             DeleteStateMachineRequest deleteStateMachineRequest = DeleteStateMachineRequest.builder()
@@ -335,26 +346,9 @@ public class StepFunctionsScenario {
         }
         System.out.println(stateMachineArn +" was successfully deleted.");
     }
+    // snippet-end:[stepfunctions.java2.delete_machine.main]
 
-    public static void getExeHistory(SfnClient sfnClient, String exeARN) {
-        try {
-            GetExecutionHistoryRequest historyRequest = GetExecutionHistoryRequest.builder()
-                .executionArn(exeARN)
-                .maxResults(10)
-                .build();
-
-            GetExecutionHistoryResponse historyResponse = sfnClient.getExecutionHistory(historyRequest);
-            List<HistoryEvent> events = historyResponse.events();
-            for (HistoryEvent event: events) {
-                System.out.println("The event type is "+event.type().toString());
-            }
-
-        } catch (SfnException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-    }
-
+    // snippet-start:[stepfunctions.java2.start_execute.main]
     public static String startWorkflow(SfnClient sfnClient, String stateMachineArn, String jsonEx) {
         UUID uuid = UUID.randomUUID();
         String uuidValue = uuid.toString();
@@ -374,7 +368,9 @@ public class StepFunctionsScenario {
         }
         return "";
     }
+    // snippet-end:[stepfunctions.java2.start_execute.main]
 
+    // snippet-start:[stepfunctions.java2.create_machine.main]
     public static String createMachine( SfnClient sfnClient, String roleARN, String stateMachineName, String json) {
         try {
             CreateStateMachineRequest machineRequest = CreateStateMachineRequest.builder()
@@ -393,7 +389,9 @@ public class StepFunctionsScenario {
         }
         return "";
     }
+    // snippet-end:[stepfunctions.java2.create_machine.main]
 
+    // snippet-start:[stepfunctions.java2.create_activity.main]
     public static String createActivity(SfnClient sfnClient, String activityName) {
         try {
             CreateActivityRequest activityRequest = CreateActivityRequest.builder()
@@ -409,5 +407,6 @@ public class StepFunctionsScenario {
         }
         return "";
     }
+    // snippet-end:[stepfunctions.java2.create_activity.main]
 }
 // snippet-end:[stepfunctions.java2.scenario.main]
