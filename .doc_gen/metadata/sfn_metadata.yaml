@@ -13,6 +13,15 @@ sfn_Hello:
             - description:
               snippet_tags:
                 - python.example_code.sfn.Hello
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.list_machines.main           
   services:
     sfn: {ListStateMachines}
 sfn_CreateStateMachine:
@@ -323,6 +332,15 @@ sfn_Scenario_GetStartedStateMachines:
     - Delete resources created by the example.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.scenario.main  
     Python:
       versions:
         - sdk_version: 3
