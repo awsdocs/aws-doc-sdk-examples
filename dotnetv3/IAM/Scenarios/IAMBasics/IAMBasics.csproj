@@ -9,8 +9,9 @@
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.4" />
-    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.100.79" />
-    <PackageReference Include="AWSSDK.S3" Version="3.7.103.14" />
+    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.100.80" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.103.15" />
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.101.14" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
   </ItemGroup>

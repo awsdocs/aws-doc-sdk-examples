@@ -8,5 +8,29 @@ namespace IAMBasics;
 /// </summary>
 internal class S3Wrapper
 {
+    private readonly IAmazonS3 _s3Service;
 
+    /// <summary>
+    /// Constructor for the IAMWrapper class.
+    /// </summary>
+    /// <param name="IAMService">An IAM client object.</param>
+    public S3Wrapper(IAmazonS3 s3Service)
+    {
+        _s3Service = s3Service;
+    }
+
+    public async Task<Credentials> AssumeS3Role(string roleName, string roleSession, string roleToAssume)
+    {
+        // Create the request to use with the AssumeRoleAsync call.
+        var request = new AssumeRoleRequest()
+        {
+            RoleSessionName = roleSession,
+            RoleArn = roleToAssume,
+        };
+
+        var response = await client.AssumeRoleAsync(request);
+
+        return response.Credentials;
+
+    }
 }

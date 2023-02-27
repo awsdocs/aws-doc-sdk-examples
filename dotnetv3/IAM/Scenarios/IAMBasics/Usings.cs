@@ -5,6 +5,9 @@
 global using Amazon;
 global using Amazon.IdentityManagement;
 global using Amazon.S3;
+global using Amazon.S3.Model;
+global using Amazon.SecurityToken;
+global using Amazon.SecurityToken.Model;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.Logging;
