@@ -57,7 +57,7 @@ You can run the JUnit tests from an IDE, such as IntelliJ, or from the command l
  ### Properties file
 Before running the JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. If you do not define all values, the JUnit tests fail.
 
-Define this value to successfully run the JUnit tests:
+Define these value to successfully run the JUnit tests:
 
 - **roleNameSc** - The name of the IAM role to create for the Scenario test.
 - **activityNameSc** - The name of an activity to create for the Scenario test.
