@@ -5,8 +5,6 @@
 import XCTest
 import Foundation
 import AWSDynamoDB
-//import AWSClientRuntime
-//import ClientRuntime
 import SwiftUtilities
 
 @testable import MovieList
