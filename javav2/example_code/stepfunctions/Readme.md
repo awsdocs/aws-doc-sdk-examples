@@ -24,7 +24,6 @@ The credential provider used in all code examples is ProfileCredentialsProvider.
 Code excerpts that show you how to call individual service functions.
 
 - [List existing activities](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/ListActivities.java) (listActivities command)
-- [List existing state machines](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/ListStateMachines.java) (listStateMachines command)
 - [Retrieve the history of a specific execution](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/GetExecutionHistory.java) (getExecutionHistory command)
 - [Retrieve a list of failed executions](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/stepfunctions/src/main/java/com/example/stepfunctions/GetFailedExecutions.java) (listExecutions command)
 
