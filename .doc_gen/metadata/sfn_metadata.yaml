@@ -139,6 +139,15 @@ sfn_DescribeStateMachine:
   synopsis: describe a &SFN; state machine.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.describe_machine.main
     Python:
       versions:
         - sdk_version: 3
@@ -219,6 +228,15 @@ sfn_DescribeExecution:
   synopsis: describe a &SFN; state machine run.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.describe_execution.main
     Python:
       versions:
         - sdk_version: 3
@@ -236,6 +254,15 @@ sfn_CreateActivity:
   synopsis: create a &SFN; activity.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.create_activity.main
     Python:
       versions:
         - sdk_version: 3
@@ -254,6 +281,15 @@ sfn_ListActivities:
   synopsis: list &SFN; activities.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.list_activities.main
     Python:
       versions:
         - sdk_version: 3
@@ -272,6 +308,15 @@ sfn_GetActivityTask:
   synopsis: get task data for a &SFN; activity.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.activity_task.main
     Python:
       versions:
         - sdk_version: 3
@@ -290,6 +335,15 @@ sfn_SendTaskSuccess:
   synopsis: send a success response to a &SFN; task.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.task_success.main
     Python:
       versions:
         - sdk_version: 3
@@ -308,6 +362,15 @@ sfn_DeleteActivity:
   synopsis: delete a &SFN; activity.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/stepfunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - stepfunctions.java2.delete_activity.main
     Python:
       versions:
         - sdk_version: 3
