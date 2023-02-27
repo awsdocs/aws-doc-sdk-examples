@@ -69,8 +69,14 @@ Define this value to successfully run the JUnit tests:
 - **roleARN** – The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role to use for this state machine and used in the **CreateStateMachine** test.
 - **stateMachineName** - The name of the state machine to create and used in the **CreateStateMachine** test.
 - **roleNameSc** - The name of the IAM role to create for the Scenario test.
-- *activityNameSc - The name of an activity to create for the Scenario test.
+- **activityNameSc** - The name of an activity to create for the Scenario test.
 - **stateMachineNameSc** – The name of the state machine to create for the Scenario test.
+
+You can obtain the JSON file to create a state machine in the following Github location. 
+
+https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files
+
+To run the Scenario test, place this file into your project's **resources** folder.
 
 
 ## Additional resources
