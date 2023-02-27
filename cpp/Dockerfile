@@ -1,4 +1,10 @@
 # Build this docker file from the sdk example code root directory in order to access the resources folder.
+#
+# To build the docker image, run the following command from the shell.
+# 'docker build -f cpp/Dockerfile -t <a_docker_file_name> .'
+#
+# The following command will run the docker image, copying your AWS credentials.
+# 'docker run -it --volume ~/.aws/credentials:/root/.aws/credentials <a_docker_file_name>'
 
 FROM amazonlinux:2022
 
@@ -10,7 +16,13 @@ RUN \
   yum install -y gcc gcc-c++ make cmake libcurl-devel openssl-devel libuuid-devel pulseaudio-libs-devel git && \
   yum clean all
 
-ENV SERVICES="acm;autoscaling;cloudtrail;codebuild;codecommit;cognito-idp;dynamodb;ec2;elasticache;elasticbeanstalk;elasticfilesystem;email;events;glacier;glue;guardduty;iam;kinesis;lambda;logs;monitoring;monitoring;neptune;rds-data;redshift;s3;s3-crt;s3-encryption;secretsmanager;sesv2;sns;sqs;storagegateway;sts;transfer;transcribe;transcribestreaming"
+# Build only the services needed for example code.
+ENV SERVICES="acm;autoscaling;cloudtrail;codebuild;codecommit;cognito-idp;dynamodb;ec2;elasticache;elasticbeanstalk"
+ENV SERVICES=${SERVICES}";elasticfilesystem;email;events;glacier;glue;guardduty;iam;kinesis;lambda;logs;monitoring"
+ENV SERVICES=${SERVICES}";monitoring;neptune;rds-data;redshift;s3;s3-crt;s3-encryption;secretsmanager;sesv2;sns;sqs"
+ENV SERVICES=${SERVICES}";storagegateway;sts;transfer;transcribe;transcribestreaming"
+
+RUN echo ${SERVICES}
 
 # Build aws-sdk-cpp, building just the modules listed in SERVICES using the BUILD_ONLY argument.
 RUN \
@@ -33,9 +45,11 @@ RUN \
     make && \
     make install
 
+# Copy the C++ example code.
 RUN mkdir -p /src/cpp
 COPY cpp /src/cpp/
 
+# The sample files are needed for some of the automated tests.
 RUN mkdir -p /src/resources/sample_files
 COPY resources/sample_files /src/resources/sample_files
 

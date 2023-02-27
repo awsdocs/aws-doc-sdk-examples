@@ -68,7 +68,7 @@ def build_tests(service="*"):
             has_error = True
             continue
 
-        run_files.extend(glob.glob(f"{module_build_dir}*_gtest"))
+        run_files.extend(glob.glob(f"{module_build_dir}/*_gtest"))
         run_files.extend(glob.glob(f"{module_build_dir}/Debug/*_gtest.exe"))
 
     if has_error :
