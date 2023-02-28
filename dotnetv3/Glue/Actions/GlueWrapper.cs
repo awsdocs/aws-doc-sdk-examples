@@ -48,9 +48,9 @@ public class GlueWrapper
         };
 
         var targetList = new List<S3Target>
-            {
-                s3Target,
-            };
+        {
+            s3Target,
+        };
 
         var targets = new CrawlerTargets
         {
@@ -360,7 +360,7 @@ public class GlueWrapper
         var request = new StartJobRunRequest
         {
             JobName = jobName,
-            Arguments =new Dictionary<string, string>
+            Arguments = new Dictionary<string, string>
             {
                 {"--input_database", inputDatabase},
                 {"--input_table", inputTable},

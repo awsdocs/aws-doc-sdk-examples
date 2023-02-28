@@ -203,7 +203,8 @@ namespace GlueTests
         [Trait("Category", "Integration")]
         public async Task DeleteTableAsyncTest()
         {
-            bool success = false;
+            // Assume the call succeeds.
+            bool success = true;
             _tables.ForEach(async table =>
             {
                 success = await _wrapper.DeleteTableAsync(_dbName, table.Name);

@@ -130,7 +130,7 @@ public class GlueBasics
         uiWrapper.DisplayTitle("Create AWS Glue job");
         Console.WriteLine("Creating a new AWS Glue job.");
         var description = "An AWS Glue job created using the AWS SDK for .NET";
-        var success = await wrapper.CreateJobAsync(dbName, tables[0].Name, bucketUrl,jobName, roleName, description, scriptUrl);
+        var success = await wrapper.CreateJobAsync(dbName, tables[0].Name, bucketUrl, jobName, roleName, description, scriptUrl);
 
         uiWrapper.PressEnter();
 
