@@ -203,9 +203,11 @@ namespace GlueTests
         [Trait("Category", "Integration")]
         public async Task DeleteTableAsyncTest()
         {
-            // Assume the call succeeds.
-            bool success = true;
-            _tables.ForEach(async table =>
+            // If there are no tables, then we can't test
+            // the DeleteTableAsync method.
+            var tables = await _wrapper.GetTablesAsync(_dbName);
+            bool success = (tables.Count > 0);
+            tables.ForEach(async table =>
             {
                 success = await _wrapper.DeleteTableAsync(_dbName, table.Name);
             });
