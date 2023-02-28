@@ -100,8 +100,7 @@ export const run = async () => {
     console.log(`\nDeleting bucket ${bucketParams.Bucket}`);
     const data = await s3Client.send(
       new DeleteBucketCommand({
-        Bucket: bucketParams.Bucket,
-        Key: bucketParams.Key,
+        Bucket: bucketParams.Bucket
       })
     );
   } catch (err) {
