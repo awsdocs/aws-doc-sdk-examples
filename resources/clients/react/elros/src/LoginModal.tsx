@@ -1,24 +1,21 @@
 import Form from "@cloudscape-design/components/form";
 import SpaceBetween from "@cloudscape-design/components/space-between";
 import Button, { ButtonProps } from "@cloudscape-design/components/button";
-import { Alert, FormField, Input, Modal, ModalProps } from "@cloudscape-design/components";
+import { Alert, FormField, Input, Modal } from "@cloudscape-design/components";
 import { useState } from "react";
 import { AuthStatus } from "./auth";
-import { useAuthStore } from "./store";
+import { useAuthStore } from "./store-auth";
+import { useUiStore } from "./store-ui";
 
-interface LoginProps {
-  show: boolean;
-}
-
-function LoginModal({ show }: LoginProps) {
+function LoginModal() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [error, setError] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { authManager, authStatus, handleAuth } = useAuthStore();
-
-
+  const { authManager, authStatus, error, handleAuth } = useAuthStore();
+  const {
+    login: { loginModalVisible, setLoginModalVisible },
+  } = useUiStore();
 
   const primaryButtonState: Record<AuthStatus, () => ButtonProps> = {
     reset_required: () => ({
@@ -30,7 +27,12 @@ function LoginModal({ show }: LoginProps) {
     signed_out: () => ({
       children: "Login",
       disabled: !(username && password),
-      onClick: () => handleAuth(() => authManager.signIn(username, password)),
+      onClick: () =>
+        handleAuth(async () => {
+          const result = await authManager.signIn(username, password);
+          setLoginModalVisible(false)
+          return result;
+        }),
     }),
     signed_in: () => ({
       children: "Logout",
@@ -44,7 +46,7 @@ function LoginModal({ show }: LoginProps) {
   };
 
   return (
-    <Modal visible={show} header={"Login"}>
+    <Modal visible={loginModalVisible} header={"Login"} onDismiss={() => setLoginModalVisible(false)}>
       <form onSubmit={(e) => e.preventDefault()}>
         <Form
           actions={

@@ -12,6 +12,7 @@
     "@cloudscape-design/components": "^3.0.209",
     "@cloudscape-design/global-styles": "^1.0.7",
     "amazon-cognito-identity-js": "^6.1.2",
+    "immer": "^9.0.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zustand": "^4.3.4"

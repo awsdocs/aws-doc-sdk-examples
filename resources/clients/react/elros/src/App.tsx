@@ -1,19 +1,19 @@
+import { lazy, Suspense } from "react";
 import ContentLayout from "@cloudscape-design/components/content-layout";
 import AppLayout from "@cloudscape-design/components/app-layout";
 import Header from "@cloudscape-design/components/header";
+import { Box } from "@cloudscape-design/components";
 
-import LoginModal from "./LoginModal";
-import { useAuthStore } from "./store";
-import { useEffect, useState } from "react";
-import { Button, Grid, SpaceBetween } from "@cloudscape-design/components";
+import "./App.css";
+import { useUiStore } from "./store-ui";
+
+const LazyLoginModal = lazy(() => import("./LoginModal"));
+const LazyWelcomeUser = lazy(() => import("./WelcomeUser"));
 
 function App() {
-  const { authStatus, authManager, handleAuth } = useAuthStore();
-  const [loginVisible, setLoginVisible] = useState(false);
-
-  useEffect(() => {
-    setLoginVisible(authStatus !== "signed_in");
-  }, [authStatus]);
+  const {
+    login: { enabled: loginEnabled },
+  } = useUiStore();
 
   return (
     <AppLayout
@@ -22,29 +22,30 @@ function App() {
       content={
         <ContentLayout
           header={
-            <Header
-              variant="h1"
-              description="A descendant of Elwing"
-              actions={
-                authStatus === "signed_in" ? (
-                  <div>
-                    Welcome {authManager.getUser()?.username}
-                    <Button
-                      onClick={() => handleAuth(() => authManager.signOut())}
-                    >
-                      Logout
-                    </Button>
-                  </div>
-                ) : (
-                  <Button onClick={() => setLoginVisible(true)}>Login</Button>
-                )
-              }
-            >
-              Elros
-            </Header>
+            <Box padding={{ top: "s" }}>
+              <Header
+                variant="h1"
+                description="A descendant of Elwing"
+                actions={
+                  // This is potentially a very common pattern that we could abstract into an HOC.
+                  // <Feature enabled={loginEnabled}><LazyComponent /></Feature> maybe?
+                  loginEnabled && (
+                    <Suspense>
+                      <LazyWelcomeUser />
+                    </Suspense>
+                  )
+                }
+              >
+                Elros
+              </Header>
+            </Box>
           }
         >
-          <LoginModal show={loginVisible} />
+          {loginEnabled && (
+            <Suspense>
+              <LazyLoginModal />
+            </Suspense>
+          )}
         </ContentLayout>
       }
     ></AppLayout>

@@ -1,9 +1,10 @@
 import {
   AuthenticationDetails,
   CognitoUser,
+  CognitoUserAttribute,
   CognitoUserPool,
 } from "amazon-cognito-identity-js";
-import { AuthManager, AuthResult } from "./auth";
+import { AuthManager, AuthResult, User } from "./auth";
 
 export class CognitoAuthManager implements AuthManager {
   private _cognitoUser: CognitoUser | null = null;
@@ -32,10 +33,28 @@ export class CognitoAuthManager implements AuthManager {
     });
   }
 
-  getUser() {
-    const username = this._cognitoUser?.getUsername();
+  private getAttribute(key: string, attributes: CognitoUserAttribute[]) {
+    return attributes.find((a) => a.getName() === key)?.getValue();
+  }
 
-    return username ? { username } : null;
+  getUser(): Promise<User | null> {
+    return new Promise((resolve, reject) => {
+      if (!this._cognitoUser) {
+        resolve(null);
+      } else {
+        this._cognitoUser?.getUserAttributes((err, attributes) => {
+          if (err) {
+            reject(new Error("Failed to get the user."));
+          }
+          if (!attributes) {
+            resolve(null);
+          } else {
+            const email = this.getAttribute("email", attributes);
+            email ? resolve({ username: email }) : resolve(null);
+          }
+        });
+      }
+    });
   }
 
   resetPassword(username: string, newPassword: string): Promise<AuthResult> {
