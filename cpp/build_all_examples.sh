@@ -42,8 +42,12 @@ do
   fi
 done
 
-if [ HAD_ERROR ]; then
+echo
+
+if [ $HAD_ERROR = true ]; then
+  echo "The build had errors."
   exit 1
 else
+  echo "The build was successful with no errors."
   exit 0
 fi

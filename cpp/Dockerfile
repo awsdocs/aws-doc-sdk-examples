@@ -10,7 +10,7 @@ FROM amazonlinux:2022
 
 USER root
 
-# Setup the dependencies.
+# Set up the dependencies.
 RUN \
   yum update -y && \
   yum install -y gcc gcc-c++ make cmake libcurl-devel openssl-devel libuuid-devel pulseaudio-libs-devel git && \
@@ -24,7 +24,7 @@ ENV SERVICES=${SERVICES}";storagegateway;sts;transfer;transcribe;transcribestrea
 
 RUN echo ${SERVICES}
 
-# Build aws-sdk-cpp, building just the modules listed in SERVICES using the BUILD_ONLY argument.
+# Build aws-sdk-cpp, building only the modules listed in SERVICES using the BUILD_ONLY argument.
 RUN \
   cd /usr/local && \
   git clone --recurse-submodules https://github.com/aws/aws-sdk-cpp.git && \
