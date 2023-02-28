@@ -48,7 +48,7 @@ where
     }
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Eq)]
 pub struct Movie {
     year: i32,
     title: String,
