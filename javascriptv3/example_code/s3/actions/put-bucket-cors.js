@@ -10,7 +10,7 @@ import { PutBucketCorsCommand, S3Client } from "@aws-sdk/client-s3";
 
 const client = new S3Client({})
 
-// By default Amazon S3 does not allow cross-origin requests. Use this command
+// By default, Amazon S3 doesn't allow cross-origin requests. Use this command
 // to explicitly allow cross-origin requests.
 export const main = async () => {
   const command = new PutBucketCorsCommand({

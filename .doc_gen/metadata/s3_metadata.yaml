@@ -2141,7 +2141,7 @@ s3_Scenario_BatchObjectVersioning:
 s3_Scenario_PresignedUrl:
   title: Create a presigned URL for &S3; using an &AWS; SDK
   title_abbrev: Create a presigned URL
-  synopsis: create a presigned URL for S3 and upload an object.
+  synopsis: create a presigned URL for Amazon S3 and upload an object.
   category: Scenarios
   languages:
     .NET:
@@ -2305,10 +2305,10 @@ s3_Scenario_GettingStarted:
           github: javascriptv3/example_code/s3
           sdkguide:
           excerpts:
-            - description: First let's import all of the modules we're going to need.
+            - description: First, import all the necessary modules.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.imports
-            - description: The imports above reference some helper utilities. These utilities
+            - description: The preceding imports reference some helper utilities. These utilities
                            are local to the GitHub repository linked at the start of
                            this section. For your reference, see the following implementations
                            of those utilities.
@@ -2322,26 +2322,26 @@ s3_Scenario_GettingStarted:
                            for creating a new bucket.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.CreateBucket
-            - description: Buckets contain 'objects'. Here's our function to upload the
-                           contents of a directory to our bucket as objects.
+            - description: Buckets contain 'objects'. This function uploads the
+                           contents of a directory to your bucket as objects.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.PutObject
-            - description: After we upload objects we should check to see if they were
-                           uploaded correctly. We can use ListObjects for that. We'll be
+            - description: After uploading objects, check to confirm that they were
+                           uploaded correctly. You can use ListObjects for that. You'll be
                            using the 'Key' property, but there are other useful properties
-                           in the response as well.
+                           in the response also.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.ListObjects
-            - description: Sometimes you may want to copy an object from one bucket to another.
+            - description: Sometimes you might want to copy an object from one bucket to another.
                            Use the CopyObject command for that.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.CopyObject
             - description: There's no SDK method for getting multiple objects from a bucket.
-                           We'll need to create a list of objects we want to download and 
+                           Instead, you'll create a list of objects to download and
                            iterate over them.
               snippet_tags:
                 - javascript.v3.s3.scenarios.basic.GetObject
-            - description: We need some help cleaning up after ourselves. A bucket must be empty
+            - description: It's time to clean up your resources. A bucket must be empty
                            before it can be deleted. These two functions empty and delete the
                            bucket.
               snippet_tags:
@@ -2522,7 +2522,7 @@ s3_Scenario_ListObjectsWeb:
           excerpts:
             - description: The following code is the relevant React component that makes calls
                            to the &AWS; SDK. A runnable version of the application containing
-                           this component can be found at the GitHub link above.
+                           this component can be found at the preceding GitHub link.
               snippet_tags:
                 - javascript.v3.scenarios.web.ListObjects
   services:

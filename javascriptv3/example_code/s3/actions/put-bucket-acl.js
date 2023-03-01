@@ -14,10 +14,10 @@ import {
 
 const client = new S3Client({});
 
-// A majority of modern use cases in Amazon S3 no longer require the use of ACLs,
-// and we recommend that you disable ACLs except in unusual circumstances where
+// Most Amazon S3 use cases don't require the use of access control lists (ACLs).
+// We recommend that you disable ACLs, except in unusual circumstances where
 // you need to control access for each object individually.
-// Consider a policy instead: https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html
+// Consider a policy instead. For more information see https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html.
 export const main = async () => {
   // Grant a user READ access to a bucket.
   const command = new PutBucketAclCommand({
@@ -27,8 +27,8 @@ export const main = async () => {
         {
           Grantee: {
             // The canonical ID of the user. This ID is an obfuscated form of your AWS account number.
-            // It's unique to S3 and can't be found elsewhere.
-            // See: https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html
+            // It's unique to Amazon S3 and can't be found elsewhere.
+            // For more information, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/finding-canonical-user-id.html.
             ID: "canonical-id-1",
             Type: "CanonicalUser",
           },

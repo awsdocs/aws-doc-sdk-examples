@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/* This example code showcases how Amazon S3 can be used as a core component of an application.
- * We'll walk through how to:
- * - Create a bucket
- * - Upload files to the bucket
- * - List files in the bucket
- * - Copy files from another bucket to this one
- * - Download files from the bucket
- * - Empty the bucket
- * - Delete the bucket
+/* This example code shows you how to use Amazon S3 can be used as a core component of an application.
+ * You'll do the following:
+ * - Create a bucket.
+ * - Upload files to the bucket.
+ * - List files in the bucket.
+ * - Copy files from another bucket to this one.
+ * - Download files from the bucket.
+ * - Empty the bucket.
+ * - Delete the bucket.
  */
 
 // snippet-start:[javascript.v3.s3.scenarios.basic.imports]
@@ -37,9 +37,9 @@ import {
 // snippet-end:[javascript.v3.s3.scenarios.basic.imports]
 
 // snippet-start:[javascript.v3.s3.scenarios.basic.S3Client]
-// The region can be provided as an argument to S3Client or
+// The Region can be provided as an argument to S3Client or
 // declared in the AWS configuration file. In this case
-// we're using the region provided in the AWS configuration.
+// we're using the Region provided in the AWS configuration.
 const s3Client = new S3Client({});
 // snippet-end:[javascript.v3.s3.scenarios.basic.S3Client]
 

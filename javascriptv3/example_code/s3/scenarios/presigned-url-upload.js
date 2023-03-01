@@ -82,7 +82,7 @@ export const main = async () => {
       key: KEY,
     });
 
-    // Once you have the presigned URL, you can provide your own file
+    // After you get the presigned URL, you can provide your own file
     // data. Refer to put() above.
     console.log("Calling PUT using presigned URL without client");
     await put(noClientUrl, "Hello World");
