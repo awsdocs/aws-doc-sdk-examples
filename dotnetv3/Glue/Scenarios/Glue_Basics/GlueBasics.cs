@@ -130,7 +130,7 @@ public class GlueBasics
         uiWrapper.DisplayTitle("Create AWS Glue job");
         Console.WriteLine("Creating a new AWS Glue job.");
         var description = "An AWS Glue job created using the AWS SDK for .NET";
-        var success = await wrapper.CreateJobAsync(dbName, tables[0].Name, bucketUrl, jobName, roleName, description, scriptUrl);
+        await wrapper.CreateJobAsync(dbName, tables[0].Name, bucketUrl, jobName, roleName, description, scriptUrl);
 
         uiWrapper.PressEnter();
 
@@ -152,7 +152,7 @@ public class GlueBasics
         uiWrapper.DisplayTitle($"Data in {bucketName}");
 
         // Get the list of data stored in the S3 bucket.
-        AmazonS3Client s3Client = new AmazonS3Client();
+        var s3Client = new AmazonS3Client();
 
         var response = await s3Client.ListObjectsAsync(new ListObjectsRequest { BucketName = bucketName });
         response.S3Objects.ForEach(s3Object =>
@@ -182,19 +182,19 @@ public class GlueBasics
 
         uiWrapper.DisplayTitle("Deleting resources");
         Console.WriteLine("Deleting the AWS Glue job used by the example.");
-        success = await wrapper.DeleteJobAsync(jobName);
+        await wrapper.DeleteJobAsync(jobName);
 
         Console.WriteLine("Deleting the tables from the database.");
         tables.ForEach(async table =>
         {
-            success = await wrapper.DeleteTableAsync(dbName, table.Name);
+            await wrapper.DeleteTableAsync(dbName, table.Name);
         });
 
         Console.WriteLine("Deleting the database.");
-        success = await wrapper.DeleteDatabaseAsync(dbName);
+        await wrapper.DeleteDatabaseAsync(dbName);
 
         Console.WriteLine("Deleting the AWS Glue crawler.");
-        success = await wrapper.DeleteCrawlerAsync(crawlerName);
+        await wrapper.DeleteCrawlerAsync(crawlerName);
 
         Console.WriteLine("The AWS Glue scenario has completed.");
         uiWrapper.PressEnter();

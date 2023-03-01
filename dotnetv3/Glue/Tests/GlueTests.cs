@@ -14,18 +14,17 @@ namespace GlueTests
     {
         private readonly IConfiguration _configuration;
         private readonly GlueWrapper _wrapper;
-        private static ITestOutputHelper _output;
         private readonly IAmazonGlue _glueClient;
-        private string _bucketName;
-        private string _bucketUrl;
-        private string _crawlerName;
-        private string _roleName;
-        private string _sourceData;
-        private string _dbName;
-        private string _cron;
-        private string _scriptUrl;
-        private string _jobName;
-        private string _description;
+        private readonly string _bucketName;
+        private readonly string _bucketUrl;
+        private readonly string _crawlerName;
+        private readonly string _roleName;
+        private readonly string _sourceData;
+        private readonly string _dbName;
+        private readonly string _cron;
+        private readonly string _scriptUrl;
+        private readonly string _jobName;
+        private readonly string _description;
         private static string _jobRunId;
         private static List<Table> _tables;
 
@@ -54,8 +53,6 @@ namespace GlueTests
             _scriptUrl = _configuration["ScriptURL"];
             _jobName = _configuration["JobName"];
             _description = "AWS Glue job created for testing.";
-
-            _output = new TestOutputHelper();
         }
 
         /// <summary>
@@ -117,7 +114,7 @@ namespace GlueTests
         [Trait("Category", "Integration")]
         public async Task GetDatabaseAsyncTest()
         {
-            var database = _wrapper.GetDatabaseAsync(_dbName);
+            var database = await _wrapper.GetDatabaseAsync(_dbName);
             Assert.NotNull(database);
         }
 
@@ -207,24 +204,15 @@ namespace GlueTests
         [Trait("Category", "Integration")]
         public async Task DeleteTableAsyncTest()
         {
-            // If there are no tables, then we can't test
-            // the DeleteTableAsync method.
-            var tables = await _wrapper.GetTablesAsync(_dbName);
-            bool success = (tables.Count == 0);
+            var success = false;
 
-            if (!success)
+            foreach (var table in _tables)
             {
-                // If there are one or more tables, try to delete them.
-                tables.ForEach(async table =>
-                {
-                    success = await _wrapper.DeleteTableAsync(_dbName, table.Name);
-                    Assert.True(success, $"Tried to delete table {table.Name} but couldn't.");
-                });
+                success = await _wrapper.DeleteTableAsync(_dbName, table.Name);
+                Assert.True(success, $"Tried to delete table {table.Name} but couldn't.");
             }
-            else
-            {
-                Assert.True(success, "Could not delete tables.");
-            }
+
+            Assert.True(success, "Could not delete the tables.");
         }
 
         /// <summary>
