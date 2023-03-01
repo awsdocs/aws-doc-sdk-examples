@@ -5,6 +5,8 @@ using Amazon.Glue;
 using Amazon.Glue.Model;
 using GlueActions;
 using Microsoft.Extensions.Configuration;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace GlueTests
 {
@@ -12,7 +14,7 @@ namespace GlueTests
     {
         private readonly IConfiguration _configuration;
         private readonly GlueWrapper _wrapper;
-
+        private static ITestOutputHelper _output;
         private readonly IAmazonGlue _glueClient;
         private string _bucketName;
         private string _bucketUrl;
@@ -52,6 +54,8 @@ namespace GlueTests
             _scriptUrl = _configuration["ScriptURL"];
             _jobName = _configuration["JobName"];
             _description = "AWS Glue job created for testing.";
+
+            _output = new TestOutputHelper();
         }
 
         /// <summary>
@@ -206,12 +210,21 @@ namespace GlueTests
             // If there are no tables, then we can't test
             // the DeleteTableAsync method.
             var tables = await _wrapper.GetTablesAsync(_dbName);
-            bool success = (tables.Count > 0);
-            tables.ForEach(async table =>
+            bool success = (tables.Count == 0);
+
+            if (!success)
             {
-                success = await _wrapper.DeleteTableAsync(_dbName, table.Name);
-            });
-            Assert.True(success, "Could not delete tables.");
+                // If there are one or more tables, try to delete them.
+                tables.ForEach(async table =>
+                {
+                    success = await _wrapper.DeleteTableAsync(_dbName, table.Name);
+                    Assert.True(success, $"Tried to delete table {table.Name} but couldn't.");
+                });
+            }
+            else
+            {
+                Assert.True(success, "Could not delete tables.");
+            }
         }
 
         /// <summary>
