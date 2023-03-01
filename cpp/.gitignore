@@ -1,3 +1,4 @@
 build/
 cmake-build*/
 .vs/
+build_tests

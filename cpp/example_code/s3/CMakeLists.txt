@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.8)
 # Set this project's name.
 project("s3-examples")
 
-#Set the location of where Windows can find the installed libraries of the SDK.
+# Set the location of where Windows can find the installed libraries of the SDK.
 if(MSVC)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
@@ -35,11 +35,11 @@ if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
 
-    set(CMAKE_BUILD_TYPE Debug) #Explicitly setting CMAKE_BUILD_TYPE is necessary in windows to copy dlls.
+    set(CMAKE_BUILD_TYPE Debug) # Explicitly setting CMAKE_BUILD_TYPE is necessary in windows to copy dlls.
 
     list(APPEND SERVICE_LIST s3 sts iam)
 
-     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})  #Choose this line if your executables are in /build/Debug
+     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 endif()
 
 # Add the code example-specific header files.
