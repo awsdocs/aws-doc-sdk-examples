@@ -11,9 +11,6 @@ package com.example.stepfunctions;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
@@ -33,23 +30,13 @@ import software.amazon.awssdk.services.sfn.model.DescribeStateMachineRequest;
 import software.amazon.awssdk.services.sfn.model.DescribeStateMachineResponse;
 import software.amazon.awssdk.services.sfn.model.GetActivityTaskRequest;
 import software.amazon.awssdk.services.sfn.model.GetActivityTaskResponse;
-import software.amazon.awssdk.services.sfn.model.GetExecutionHistoryRequest;
-import software.amazon.awssdk.services.sfn.model.GetExecutionHistoryResponse;
-import software.amazon.awssdk.services.sfn.model.HistoryEvent;
-import software.amazon.awssdk.services.sfn.model.ListStateMachinesResponse;
 import software.amazon.awssdk.services.sfn.model.SendTaskSuccessRequest;
-import software.amazon.awssdk.services.sfn.model.SendTaskSuccessResponse;
 import software.amazon.awssdk.services.sfn.model.SfnException;
 import software.amazon.awssdk.services.sfn.model.StartExecutionRequest;
 import software.amazon.awssdk.services.sfn.model.StartExecutionResponse;
-import software.amazon.awssdk.services.sfn.model.StateMachineListItem;
 import software.amazon.awssdk.services.sfn.model.StateMachineType;
-
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
@@ -70,12 +57,12 @@ import java.util.UUID;
  *
  * This Java code example performs the following tasks:
  *
- * 1. Creates an activity
- * 2. Creates a State Machine.
- * 3. Describes the State Machine.
- * 4. Starts execution of the state machine and interact with it..
+ * 1. Creates an activity.
+ * 2. Creates a state machine.
+ * 3. Describes the state machine.
+ * 4. Starts execution of the state machine and interacts with it.
  * 5. Describes the execution.
- * 6. Delete the activity."
+ * 6. Delete the activity.
  * 7. Deletes the state machine.
  */
 public class StepFunctionsScenario {
@@ -86,7 +73,7 @@ public class StepFunctionsScenario {
             "    <roleARN> <activityName> <stateMachineName>\n\n" +
             "Where:\n" +
             "    roleName - The name of the IAM role to create for this state machine.\n" +
-            "    activityName - The name of an activity to create" +
+            "    activityName - The name of an activity to create." +
             "    stateMachineName - The name of the state machine to create.\n";
 
        if (args.length != 3) {
@@ -133,10 +120,10 @@ public class StepFunctionsScenario {
         System.out.println(DASHES);
         System.out.println("1. Create an activity.");
         String activityArn = createActivity(sfnClient, activityName);
-        System.out.println("The ARN of the Activity is "+activityArn);
+        System.out.println("The ARN of the activity is "+activityArn);
         System.out.println(DASHES);
 
-        // Get JSON to use for the State Machine and place the activityArn value into it.
+        // Get JSON to use for the state machine and place the activityArn value into it.
         InputStream input = StepFunctionsScenario.class.getClassLoader().getResourceAsStream("chat_sfn_state_machine.json");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readValue(input, JsonNode.class);
@@ -152,14 +139,14 @@ public class StepFunctionsScenario {
         System.out.println(stateDefinition);
 
         System.out.println(DASHES);
-        System.out.println("2. Create a State Machine.");
+        System.out.println("2. Create a state machine.");
         String roleARN = createIAMRole(iam, roleName, polJSON );
         String stateMachineArn = createMachine(sfnClient, roleARN, stateMachineName, stateDefinition);
         System.out.println("The ARN of the state machine is "+stateMachineArn);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("3. Describe the State Machine.");
+        System.out.println("3. Describe the state machine.");
         describeStateMachine(sfnClient, stateMachineArn);
         System.out.println("What should ChatSFN call you?");
         String userName = sc.nextLine();
@@ -167,7 +154,7 @@ public class StepFunctionsScenario {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        // The json information to pass to the StartExecution call.
+        // The JSON to pass to the StartExecution call.
         String executionJson = "{ \"name\" : \""+userName +"\" }";
         System.out.println(executionJson);
         System.out.println("4. Start execution of the state machine and interact with it.");
@@ -209,7 +196,7 @@ public class StepFunctionsScenario {
         System.out.println(DASHES);
     }
 
-    public static String createIAMRole(IamClient iam, String rolename, String polJSON ) throws Exception {
+    public static String createIAMRole(IamClient iam, String rolename, String polJSON ) {
         try {
             CreateRoleRequest request = CreateRoleRequest.builder()
                 .roleName(rolename)
