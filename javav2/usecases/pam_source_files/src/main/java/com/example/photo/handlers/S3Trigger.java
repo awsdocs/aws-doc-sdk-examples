@@ -18,7 +18,7 @@ public class S3Trigger implements RequestHandler<S3Event, String> {
         String bucketName = event.getRecords().get(0).getS3().getBucket().getName();
         String objectKey = event.getRecords().get(0).getS3().getObject().getKey();
 
-        // Log the S3 bucket and object key.
+        // Log the S3 bucket and object key in the log file.
         context.getLogger().log("S3 object name: s3://" + bucketName + "/" + objectKey);
 
         AnalyzePhotos photos = new AnalyzePhotos();
