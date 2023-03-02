@@ -1,4 +1,4 @@
-# AWS Step Functions for the SDK for Java
+# Step Functions for the SDK for Java
 
 ## Overview
 This README discusses how to run and test the AWS SDK for Java (v2) examples for AWS Step Functions.
@@ -37,7 +37,7 @@ Code excerpts that show you how to call individual service functions.
 - [Send a success response to a task](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (sendTaskSuccess command)
 - [Start a state machine](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javav2/example_code/route53/src/main/java/com/example/route/StepFunctionsScenario.java) (startExecution command)
 
-### Scenario 
+### Scenarios
 
 Code examples that show you how to accomplish specific tasks by calling multiple functions within the same service.
 
@@ -52,7 +52,7 @@ see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java
 
 **Be very careful** when running an operation that deletes or modifies AWS resources in your account. We recommend creating separate test-only resources when experimenting with these examples.
 
- ## Test the AWS Step FunctionsJava files
+ ## Test the AWS Step Functions Java files
  
  ⚠️ Running the tests might result in charges to your AWS account.
 
@@ -67,7 +67,7 @@ You can run the JUnit tests from an IDE, such as IntelliJ, or from the command l
  ### Properties file
 Before running the JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. If you do not define all values, the JUnit tests fail.
 
-Define these value to successfully run the JUnit tests:
+Define the following values to successfully run the JUnit tests:
 
 - **roleNameSc** - The name of the IAM role to create for the Scenario test.
 - **activityNameSc** - The name of an activity to create for the Scenario test.
