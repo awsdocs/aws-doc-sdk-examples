@@ -130,7 +130,6 @@ pub struct BrowserHttpClient {}
 
 #[async_trait(?Send)]
 impl MakeRequestBrowser for BrowserHttpClient {
-
     /// The [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
     /// will be used to actually send the outbound HTTP request.
     /// Most of the logic here is around converting from
