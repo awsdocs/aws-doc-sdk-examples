@@ -2,8 +2,23 @@
 
 ⚠ Running tests might result in charges to your AWS account.
 
+{% if lang_config['name'] != 'C++' %}
+
 To find instructions for running these tests, see the [README]({{lang_config['readme']}}#Tests)
 in the `{{lang_config['base_folder']}}` folder.
+
+{% endif %}
+
+{% if lang_config['name'] == 'C++' and lang_config['sdk_ver'] == 1 %}
+
+```sh
+   cd <BUILD_DIR>
+   cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
+   make
+   ctest
+```
+
+{% endif %}
 
 <!--custom.tests.start-->
 {{ customs['tests'] -}}

@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.14)
 
 set(EXAMPLE_SERVICE_NAME "s3")
 set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
-set(CURRENT_TARGET_AWS_DEPENDENCIES s3 sts)
+set(CURRENT_TARGET_AWS_DEPENDENCIES s3 sts iam)
 
 # Set this project's name.
 project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
@@ -14,25 +14,29 @@ project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 14)
 
-include(FetchContent)
-FetchContent_Declare(
-        googletest
-        GIT_REPOSITORY https://github.com/google/googletest.git
-        GIT_TAG release-1.12.1
-)
-# For Windows: Prevent overriding the parent project's compiler/linker settings.
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
+# Build shared libraries by default.
+set(BUILD_SHARED_LIBS ON)
+
+find_package(GTest)
+
+if(NOT GTest_FOUND)
+    include(FetchContent)
+    FetchContent_Declare(
+            googletest
+            GIT_REPOSITORY https://github.com/google/googletest.git
+            GIT_TAG release-1.12.1
+    )
+
+    # For Windows: Prevent overriding the parent project's compiler/linker settings.
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(googletest)
+endif()
+
 
 # Set the location for Windows to find the installed libraries of the SDK.
 if(MSVC)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
-endif()
-
-# Build shared libraries by default.
-if(NOT BUILD_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS ON)
 endif()
 
 # Find the AWS SDK for C++ package.
@@ -46,18 +50,14 @@ add_executable(
 # and building as shared libraries, then dynamically link to those shared libraries.
 if(MSVC AND BUILD_SHARED_LIBS)
     add_definitions(-DUSE_IMPORT_EXPORT)
-    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    list(APPEND SERVICE_LIST ${CURRENT_TARGET_AWS_DEPENDENCIES})
-    #For IDE's like Xcode and Visual Studio this line will be ignored because Release/Debug 
-    #  is switched internally, but this is necessary for non-IDE builds.
 
-	
-    #TODO:Choose which of the following two lines to use to copy to the same folder where your executables are.
+    set(CMAKE_BUILD_TYPE Debug) # Explicitly set this to support library copying and test automation.
+
     AWSSDK_CPY_DYN_LIBS(
-        SERVICE_LIST
+        CURRENT_TARGET_AWS_DEPENDENCIES
         ""
         ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
-    )  #Choose this line if your executables are in /build/Debug
+    )  
 
     add_custom_command(
         TARGET
@@ -81,7 +81,7 @@ endif()
 
 # Check whether the target system is Windows, including Win64.
 if(WIN32)
-    list(FILTER AWSDOC_S3_SOURCE EXCLUDE REGEX "/gtest_list_buckets_disabling_dns_cache.cpp$") # Not supported in windows, see file for details
+    list(FILTER GTEST_SOURCE_FILES EXCLUDE REGEX "/gtest_list_buckets_disabling_dns_cache.cpp$") # Not supported in windows, see file for details
 
     # Check whether the compiler is some version of Microsoft Visual C++, or another compiler simulating C++.
     if(MSVC)

@@ -9,7 +9,7 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(Glue_GTests, glue_getting_started_scenario) {
+    TEST_F(Glue_GTests, glue_getting_started_scenario_1_) {
         const char* env_var = std::getenv("SCENARIO_ROLE_NAME");
         ASSERT_NE(env_var, nullptr) << preconditionError();
         Aws::String roleName(env_var);

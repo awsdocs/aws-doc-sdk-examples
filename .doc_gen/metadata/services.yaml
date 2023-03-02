@@ -1,9 +1,9 @@
 acm:
-  long: '&ACMlong;'
+  long: '&ACMlong; (&ACM;)'
   short: '&ACM;'
   sort: ACM
   expanded:
-    long: AWS Certificate Manager
+    long: AWS Certificate Manager (ACM)
     short: ACM
   blurb: helps you to provision, manage, and renew publicly trusted TLS certificates on AWS based websites.
   guide:
@@ -304,11 +304,11 @@ dynamodb:
     product_categories: {'Database'}
   version: dynamodb-2012-08-10
 ebs:
-  long: '&EBSlong;'
+  long: '&EBSlong; (&EBS;)'
   short: '&EBS;'
   sort: EBS
   expanded:
-    long: Amazon Elastic Block Store
+    long: Amazon Elastic Block Store (Amazon EBS)
     short: Amazon EBS
   blurb: is a web service that provides block level storage volumes for use with Amazon Elastic Compute Cloud instances.
   guide:
@@ -319,11 +319,11 @@ ebs:
     product_categories: {'Storage'}
   version: ebs-2019-11-02
 ec2:
-  long: '&EC2long;'
+  long: '&EC2long; (&EC2;)'
   short: '&EC2;'
   sort: EC2
   expanded:
-    long: Amazon Elastic Compute Cloud
+    long: Amazon Elastic Compute Cloud (Amazon EC2)
     short: Amazon EC2
   blurb: is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that
     you use to build and host your software systems.
@@ -335,11 +335,11 @@ ec2:
     product_categories: {'Compute'}
   version: ec2-2016-11-15
 ecr:
-  long: '&ECRlong;'
+  long: '&ECRlong; (&ECR;)'
   short: '&ECR;'
   sort: ECR
   expanded:
-    long: Amazon Elastic Container Registry
+    long: Amazon Elastic Container Registry (Amazon ECR)
     short: Amazon ECR
   blurb: is a fully managed Docker container registry that makes it easy for developers to store, manage, and deploy Docker container images.
   guide:
@@ -350,11 +350,11 @@ ecr:
     product_categories: {'Containers'}
   version: ecr-2015-09-21
 ecs:
-  long: '&ECSlong;'
+  long: '&ECSlong; (&ECS;)'
   short: '&ECS;'
   sort: ECS
   expanded:
-    long: Amazon Elastic Container Service
+    long: Amazon Elastic Container Service (Amazon ECS)
     short: Amazon ECS
   blurb: is a highly scalable, fast, container management service that makes it easy to run, stop, and manage Docker containers on a cluster of Amazon EC2 instances.
   guide:
@@ -365,11 +365,11 @@ ecs:
     product_categories: {'Containers'}
   version: ecs-2014-11-13
 eks:
-  long: '&EKSlong;'
+  long: '&EKSlong; (&EKS;)'
   short: '&EKS;'
   sort: EKS
   expanded:
-    long: Amazon Elastic Kubernetes Service
+    long: Amazon Elastic Kubernetes Service (Amazon EKS)
     short: Amazon EKS
   blurb: is a managed service that makes it easy for you to run Kubernetes on AWS without needing to install and operate your own Kubernetes clusters.
   guide:
@@ -428,6 +428,9 @@ glue:
   long: '&GLUlong;'
   short: '&GLU;'
   sort: Glue
+  chapter_override:
+    title: '&GLU; API code examples using &AWS; SDKs'
+    title_abbrev: '&GLU; API code examples'
   expanded:
     long: AWS Glue
     short: AWS Glue
@@ -441,11 +444,11 @@ glue:
   version: glue-2017-03-31
 iam:
   bundle: iam
-  long: '&IAMlong;'
+  long: '&IAMlong; (&IAM;)'
   short: '&IAM;'
   sort: IAM
   expanded:
-    long: AWS Identity and Access Management
+    long: AWS Identity and Access Management (IAM)
     short: IAM
   blurb: is a web service for securely controlling access to AWS services. With IAM, you can centrally manage permissions in your AWS account.
   guide:
@@ -517,11 +520,11 @@ kinesis-analytics-v2:
     product_categories: {'Analytics'}
   version: kinesisanalyticsv2-2018-05-23
 kms:
-  long: '&KMSlong;'
+  long: '&KMSlong; (&KMS;)'
   short: '&KMS;'
   sort: KMS
   expanded:
-    long: AWS Key Management Service
+    long: AWS Key Management Service (AWS KMS)
     short: AWS KMS
   blurb: is an encryption and key management service scaled for the cloud.
   guide:
@@ -729,11 +732,11 @@ polly:
     product_categories: {'Machine Learning'}
   version: polly-2016-06-10
 qldb:
-  long: '&QLDBlong;'
+  long: '&QLDBlong; (&QLDB;)'
   short: '&QLDB;'
   sort: QLDB
   expanded:
-    long: Amazon Quantum Ledger Database
+    long: Amazon Quantum Ledger Database (Amazon QLDB)
     short: Amazon QLDB
   blurb: is a fully managed ledger database that provides a transparent, immutable, and cryptographically verifiable transaction log owned by a central trusted authority.
   guide:
@@ -744,11 +747,11 @@ qldb:
     product_categories: {'Database'}
   version: qldb-2019-01-02
 rds:
-  long: '&RDSlong;'
+  long: '&RDSlong; (&RDS;)'
   short: '&RDS;'
   sort: RDS
   expanded:
-    long: Amazon Relational Database Service
+    long: Amazon Relational Database Service (Amazon RDS)
     short: Amazon RDS
   blurb: is a web service that makes it easier to set up, operate, and scale a relational database in the cloud.
   guide:
@@ -854,11 +857,11 @@ route53-recovery-cluster:
     product_categories: {'Networking &amp; Content Delivery'}
   version: route53-recovery-cluster-2019-12-02
 s3:
-  long: '&S3long;'
+  long: '&S3long; (&S3;)'
   short: '&S3;'
   sort: S3
   expanded:
-    long: Amazon Simple Storage Service
+    long: Amazon Simple Storage Service (Amazon S3)
     short: Amazon S3
   blurb: is storage for the internet. You can use Amazon S3 to store and retrieve any amount of data at any time, from anywhere on the web.
   guide:
@@ -900,11 +903,11 @@ secrets-manager:
   version: secretsmanager-2017-10-17
 ses:
   bundle: ses
-  long: '&SESlong;'
+  long: '&SESlong; (&SES;)'
   short: '&SES;'
   sort: SES
   expanded:
-    long: Amazon Simple Email Service
+    long: Amazon Simple Email Service (Amazon SES)
     short: Amazon SES
   blurb: is a reliable, scalable, and cost-effective email service.
   guide:
@@ -962,11 +965,11 @@ snowball:
     product_categories: {'Storage'}
   version: snowball-2016-06-30
 sns:
-  long: '&SNSlong;'
+  long: '&SNSlong; (&SNS;)'
   short: '&SNS;'
   sort: SNS
   expanded:
-    long: Amazon Simple Notification Service
+    long: Amazon Simple Notification Service (Amazon SNS)
     short: Amazon SNS
   blurb: is a web service that enables applications, end-users, and devices to instantly send and receive notifications from the cloud.
   guide:
@@ -977,11 +980,11 @@ sns:
     product_categories: {'Application Integration', 'Front-End Web &amp; Mobile'}
   version: sns-2010-03-31
 sqs:
-  long: '&SQSlong;'
+  long: '&SQSlong; (&SQS;)'
   short: '&SQS;'
   sort: SQS
   expanded:
-    long: Amazon Simple Queue Service
+    long: Amazon Simple Queue Service (Amazon SQS)
     short: Amazon SQS
   blurb: is a fully managed message queuing service that makes it easy to decouple and scale microservices, distributed systems, and serverless applications.
   guide:
@@ -1008,11 +1011,11 @@ ssm:
   version: ssm-2014-11-06
 sts:
   bundle: iam
-  long: '&STSlong;'
+  long: '&STSlong; (&STS;)'
   short: '&STS;'
   sort: STS
   expanded:
-    long: AWS Security Token Service
+    long: AWS Security Token Service (AWS STS)
     short: AWS STS
   blurb: creates and provides trusted users with temporary security credentials that can control access to your AWS resources.
   guide:

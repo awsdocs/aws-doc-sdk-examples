@@ -1,5 +1,22 @@
 ### Instructions
 
+{% if lang_config['name'] == 'JavaScript' and lang_config['sdk_ver'] == 3 %}
+**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
+
+**Run a single action**
+
+```bash
+node ./actions/<fileName>
+```
+
+**Run a scenario**
+Most scenarios can be run with the following command:
+```bash
+node ./scenarios/<fileName>
+```
+{% endif %}
+
 <!--custom.instructions.start-->
 {{ customs['instructions'] -}}
 <!--custom.instructions.end-->
@@ -12,6 +29,16 @@ This example shows you how to {{ hello_ex['synopsis'] }}
 {% if lang_config['name'] == 'Go' and lang_config['sdk_ver'] == 2 %}
 ```
 go run ./hello
+```
+{% endif %}
+{% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 %}
+```
+python hello.py
+```
+{% endif %}
+{% if lang_config['name'] == 'JavaScript' and lang_config['sdk_ver'] == 3 %}
+```bash
+node ./hello.js
 ```
 {% endif %}
 {% endfor %}

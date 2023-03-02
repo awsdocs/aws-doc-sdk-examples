@@ -39,8 +39,10 @@ void AwsDocTest::ServerlessAurora_GTests::TearDownTestSuite() {
 }
 
 void AwsDocTest::ServerlessAurora_GTests::SetUp() {
-    m_savedBuffer = std::cout.rdbuf();
-    std::cout.rdbuf(&m_coutBuffer);
+    if (suppressStdOut()) {
+        m_savedBuffer = std::cout.rdbuf();
+        std::cout.rdbuf(&m_coutBuffer);
+    }
 }
 
 void AwsDocTest::ServerlessAurora_GTests::TearDown() {
@@ -66,3 +68,9 @@ Aws::Utils::Json::JsonValue AwsDocTest::ServerlessAurora_GTests::workItemToJson(
     jsonValue.WithBool(AwsDoc::CrossService::HTTP_ARCHIVED_KEY, workItem.mArchived);
     return jsonValue;
 }
+
+
+bool AwsDocTest::ServerlessAurora_GTests::suppressStdOut() {
+    return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
+}
+

@@ -1,0 +1,36 @@
+<CreateDBSnapshotResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <CreateDBSnapshotResult>
+        <DBSnapshot>
+            <AllocatedStorage>5</AllocatedStorage>
+            <AvailabilityZone>us-east-1a</AvailabilityZone>
+            <DbiResourceId>db-CKGCM6BVK67HH7GSPRBYWX5DSU</DbiResourceId>
+            <DBInstanceIdentifier>doc-example-instance</DBInstanceIdentifier>
+            <Engine>mysql</Engine>
+            <PercentProgress>0</PercentProgress>
+            <VpcId>vpc-0d533261ecd9c2d4b</VpcId>
+            <IAMDatabaseAuthenticationEnabled>false</IAMDatabaseAuthenticationEnabled>
+            <SnapshotTarget>region</SnapshotTarget>
+            <DBSnapshotIdentifier>doc-example-instance-8d855480-090a-4a93-970b-758cfa568737</DBSnapshotIdentifier>
+            <OptionGroupName>default:mysql-5-7</OptionGroupName>
+            <EngineVersion>5.7.33</EngineVersion>
+            <MasterUsername>foo</MasterUsername>
+            <SnapshotType>manual</SnapshotType>
+            <InstanceCreateTime>2023-02-13T14:50:12.138Z</InstanceCreateTime>
+            <DBSnapshotArn>
+                arn:aws:rds:us-east-1:123456789:snapshot:doc-example-instance-8d855480-090a-4a93-970b-758cfa568737
+            </DBSnapshotArn>
+            <ProcessorFeatures/>
+            <StorageThroughput>0</StorageThroughput>
+            <TagList/>
+            <Encrypted>false</Encrypted>
+            <Port>3306</Port>
+            <LicenseModel>general-public-license</LicenseModel>
+            <StorageType>standard</StorageType>
+            <Status>creating</Status>
+        </DBSnapshot>
+    </CreateDBSnapshotResult>
+    <ResponseMetadata>
+        <RequestId>465002ad-a894-4e83-a615-304c31d55c4b</RequestId>
+    </ResponseMetadata>
+</CreateDBSnapshotResponse>
+ 
