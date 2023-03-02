@@ -29,7 +29,7 @@ public class DynamoDBService {
     }
 
     // Insert label data into an Amazon DynamoDB table.
-    public void putRecord(List<List<LabelCount>> list) {
+    public void putRecord(List<LabelCount> list) {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(getClient())
                 .build();
@@ -37,10 +37,8 @@ public class DynamoDBService {
         DynamoDbTable<com.example.photo.Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
                 TableSchema.fromBean(Label.class));
 
-        for (List<LabelCount> innerList : list) {
-            for (LabelCount count : innerList) {
-                addSingleRecord(table, count.getName(), count.getKey());
-            }
+        for (LabelCount count : list) {
+            addSingleRecord(table, count.getName(), count.getKey());
         }
     }
 
