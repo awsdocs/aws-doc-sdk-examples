@@ -182,12 +182,21 @@ namespace GlueTests
             Assert.NotNull(jobRuns);
         }
 
+        [Fact]
+        [Order(8)]
+        [Trait("Category", "Integration")]
+        public async Task ListJobsAsyncTest()
+        {
+            var jobs = await _wrapper.ListJobsAsync();
+            Assert.NotNull(jobs);
+        }
+
         /// <summary>
         /// Test deleting an AWS Glue database.
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact]
-        [Order(8)]
+        [Order(9)]
         [Trait("Category", "Integration")]
         public async Task DeleteJobAsyncTest()
         {
@@ -200,7 +209,7 @@ namespace GlueTests
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact]
-        [Order(9)]
+        [Order(10)]
         [Trait("Category", "Integration")]
         public async Task DeleteTableAsyncTest()
         {
@@ -220,7 +229,7 @@ namespace GlueTests
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact]
-        [Order(10)]
+        [Order(11)]
         [Trait("Category", "Integration")]
         public async Task DeleteDatabaseAsyncTest()
         {
@@ -233,7 +242,7 @@ namespace GlueTests
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact]
-        [Order(11)]
+        [Order(12)]
         [Trait("Category", "Integration")]
         public async Task DeleteCrawlerAsyncTest()
         {

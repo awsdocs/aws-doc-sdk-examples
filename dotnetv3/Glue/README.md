@@ -70,14 +70,31 @@ You can deploy and destroy resources using the AWS Cloud Development Kit
 (AWS CDK). To do this, run `cdk deploy` or `cdk destroy` in the
 [/resources/cdk/glue_role_bucket](/resources/cdk/glue_role_bucket) folder.
 
-When the CDK script reports the name of the bucket and AWS Identify IAM Role
-that was created, open the settings.json file and fill in the BucketName and
-RoleName values. You can use whatever you like for the CrawlerName.
+When the CDK script reports the name of the bucket and AWS Identity and Access Management (IAM) Role that was created, open the settings.json file and fill in
+the BucketName and RoleName values. You can use whatever you like for the rawlerName.
+
+settings.json contains the following values:
+
+`{
+  "BucketName": "BUCKET NAME FROM CDK SCRIPT",
+  "BucketUrl": "URL TO TO THE BUCKET CREATED BY CDK SCRIPT",
+  "CrawlerName": "NAME FOR CRAWLER",
+  "RoleName": "ROLE NAME FROM CDK SCRIPT",
+  "SourceData": "s3://crawler-public-us-east-1/flight/2016/csv",
+  "DbName": "example-flights-db",
+  "Cron": "cron(15 12 * * ? *)",
+  "ScriptURL": "PATH TO PYTHON SCRIPT",
+  "JobName": "glue-mvp-job"
+}`
+
+Here are some sample values for the URL settings:
+"BucketURL": `s3://bucket-name-from-script`
+"ScriptURL": `s3://bucket-name-from-script/flight_etl_job_script.py`
 
 Copy the Python script, flight_etl_job_script.py, from
 [/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py](/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py)
-to the new Amazon S3 bucket and Fill in the ScriptURL value using the path to the Python script where you
-put it in the newly created bucket.
+to the new Amazon S3 bucket and Fill in the ScriptURL value using the path to the
+Python script where you put it in the newly created bucket as shown above.
 
 ### Prerequisites
 * To find prerequisites for running these examples, see the
