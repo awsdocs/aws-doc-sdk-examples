@@ -1,0 +1,39 @@
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
+package com.example.photo;
+
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import java.util.List;
+
+@DynamoDbBean
+public class Photos {
+    private String id;
+    private int count;
+    private List<String> images;
+
+    @DynamoDbPartitionKey
+    public String getId() {
+        return this.id;
+    };
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getCount() {
+        return this.count;
+    }
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public List<String> getImages() {
+        return this.images;
+    }
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+}
