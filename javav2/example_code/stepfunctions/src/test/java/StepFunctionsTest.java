@@ -107,10 +107,8 @@ public class StepFunctionsTest {
         System.out.println(StepFunctionsScenario.DASHES);
         System.out.println("1. Create an activity.");
         String activityArn = StepFunctionsScenario.createActivity(sfnClient, activityNameSC);
-        System.out.println("The ARN of the Activity is "+activityArn);
+        System.out.println("The ARN of the activity is "+activityArn);
         System.out.println(StepFunctionsScenario.DASHES);
-
-        // Get JSON to use for the State Machine and place the activityArn value into it.
         InputStream input = StepFunctionsScenario.class.getClassLoader().getResourceAsStream("chat_sfn_state_machine.json");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode jsonNode = mapper.readValue(input, JsonNode.class);
@@ -126,14 +124,14 @@ public class StepFunctionsTest {
         System.out.println(stateDefinition);
 
         System.out.println(StepFunctionsScenario.DASHES);
-        System.out.println("2. Create a State Machine.");
+        System.out.println("2. Create a state machine.");
         String roleARN = StepFunctionsScenario.createIAMRole(iam, roleNameSC, polJSON );
         String stateMachineArn = StepFunctionsScenario.createMachine(sfnClient, roleARN, stateMachineNameSC, stateDefinition);
         System.out.println("The ARN of the state machine is "+stateMachineArn);
         System.out.println(StepFunctionsScenario.DASHES);
 
         System.out.println(StepFunctionsScenario.DASHES);
-        System.out.println("3. Describe the State Machine.");
+        System.out.println("3. Describe the state machine.");
         StepFunctionsScenario.describeStateMachine(sfnClient, stateMachineArn);
         System.out.println("What should ChatSFN call you?");
         String userName = sc.nextLine();
