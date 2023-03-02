@@ -1,28 +1,19 @@
- 
-//snippet-sourcedescription:[described_instances.cpp demonstrates how to retrieve information about Amazon EC2 instances.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon EC2]
-//snippet-service:[ec2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
+
 //snippet-start:[ec2.cpp.describe_instances.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
@@ -31,97 +22,115 @@
 #include <iomanip>
 #include <iostream>
 //snippet-end:[ec2.cpp.describe_instances.inc]
+#include "ec2_samples.h"
 
-/**
- * Describes all ec2 instances associated with an account
+//! Describe all Amazon Elastic Compute Cloud (Amazon EC2) instances associated with an account.
+/*!
+  \sa DescribeInstances()
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
  */
-int main(int argc, char** argv)
-{
-    Aws::SDKOptions options;
-    Aws::InitAPI(options);
-    {
-        // snippet-start:[ec2.cpp.describe_instances.code]
-        Aws::EC2::EC2Client ec2;
-        Aws::EC2::Model::DescribeInstancesRequest request;
-        bool header = false;
-        bool done = false;
-        while (!done)
-        {
-            auto outcome = ec2.DescribeInstances(request);
-            if (outcome.IsSuccess())
-            {
-                if (!header)
-                {
-                    std::cout << std::left <<
-                        std::setw(48) << "Name" <<
-                        std::setw(20) << "ID" <<
-                        std::setw(15) << "Ami" <<
-                        std::setw(15) << "Type" <<
-                        std::setw(15) << "State" <<
-                        std::setw(15) << "Monitoring" << std::endl;
-                    header = true;
-                }
+bool AwsDoc::EC2::DescribeInstances(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
+    // snippet-start:[ec2.cpp.describe_instances.code]
+    Aws::EC2::EC2Client ec2Client(clientConfiguration);
+    Aws::EC2::Model::DescribeInstancesRequest request;
+    bool header = false;
+    bool done = false;
+    while (!done) {
+        auto outcome = ec2Client.DescribeInstances(request);
+        if (outcome.IsSuccess()) {
+            if (!header) {
+                std::cout << std::left <<
+                          std::setw(48) << "Name" <<
+                          std::setw(20) << "ID" <<
+                          std::setw(25) << "Ami" <<
+                          std::setw(15) << "Type" <<
+                          std::setw(15) << "State" <<
+                          std::setw(15) << "Monitoring" << std::endl;
+                header = true;
+            }
 
-                const auto &reservations =
+            const std::vector<Aws::EC2::Model::Reservation> &reservations =
                     outcome.GetResult().GetReservations();
 
-                for (const auto &reservation : reservations)
-                {
-                    const auto &instances = reservation.GetInstances();
-                    for (const auto &instance : instances)
-                    {
-                        Aws::String instanceStateString =
+            for (const auto &reservation: reservations) {
+                const std::vector<Aws::EC2::Model::Instance> &instances =
+                        reservation.GetInstances();
+                for (const auto &instance: instances) {
+                    Aws::String instanceStateString =
                             Aws::EC2::Model::InstanceStateNameMapper::GetNameForInstanceStateName(
-                                instance.GetState().GetName());
+                                    instance.GetState().GetName());
 
-                        Aws::String type_string =
+                    Aws::String typeString =
                             Aws::EC2::Model::InstanceTypeMapper::GetNameForInstanceType(
-                                instance.GetInstanceType());
+                                    instance.GetInstanceType());
 
-                        Aws::String monitor_str =
+                    Aws::String monitorString =
                             Aws::EC2::Model::MonitoringStateMapper::GetNameForMonitoringState(
-                                instance.GetMonitoring().GetState());
-                        Aws::String name = "Unknown";
+                                    instance.GetMonitoring().GetState());
+                    Aws::String name = "Unknown";
 
-                        const auto &tags = instance.GetTags();
-                        auto nameIter = std::find_if(tags.cbegin(), tags.cend(),
-                            [](const Aws::EC2::Model::Tag &tag)
-                        {
-                            return tag.GetKey() == "Name";
-                        });
-                        if (nameIter != tags.cend())
-                        {
-                            name = nameIter->GetValue();
-                        }
-                        std::cout <<
-                            std::setw(48) << name <<
-                            std::setw(20) << instance.GetInstanceId() <<
-                            std::setw(15) << instance.GetImageId() <<
-                            std::setw(15) << type_string <<
-                            std::setw(15) << instanceStateString <<
-                            std::setw(15) << monitor_str << std::endl;
+                    const std::vector<Aws::EC2::Model::Tag> &tags = instance.GetTags();
+                    auto nameIter = std::find_if(tags.cbegin(), tags.cend(),
+                                                 [](const Aws::EC2::Model::Tag &tag) {
+                                                         return tag.GetKey() == "Name";
+                                                 });
+                    if (nameIter != tags.cend()) {
+                        name = nameIter->GetValue();
                     }
-                }
-
-                if (outcome.GetResult().GetNextToken().size() > 0)
-                {
-                    request.SetNextToken(outcome.GetResult().GetNextToken());
-                }
-                else
-                {
-                    done = true;
+                    std::cout <<
+                              std::setw(48) << name <<
+                              std::setw(20) << instance.GetInstanceId() <<
+                              std::setw(25) << instance.GetImageId() <<
+                              std::setw(15) << typeString <<
+                              std::setw(15) << instanceStateString <<
+                              std::setw(15) << monitorString << std::endl;
                 }
             }
-            else
-            {
-                std::cout << "Failed to describe ec2 instances:" <<
-                    outcome.GetError().GetMessage() << std::endl;
+
+            if (!outcome.GetResult().GetNextToken().empty()) {
+                request.SetNextToken(outcome.GetResult().GetNextToken());
+            }
+            else {
                 done = true;
             }
         }
-        // snippet-end:[ec2.cpp.describe_instances.code]
+        else {
+            std::cerr << "Failed to describe ec2Client instances:" <<
+                      outcome.GetError().GetMessage() << std::endl;
+            return false;
+        }
+    }
+    // snippet-end:[ec2.cpp.describe_instances.code]
+
+    return true;
+}
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_describe_instances'
+ *
+ */
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    (void) argc;
+    (void) argv;
+
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+    {
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+        AwsDoc::EC2::DescribeInstances(clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
 
+#endif // TESTING_BUILD

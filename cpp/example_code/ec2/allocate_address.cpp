@@ -1,28 +1,19 @@
- 
-//snippet-sourcedescription:[allocate_address.cpp demonstrates how to allocate an Elastic IP address for an Amazon EC2 instance.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon EC2]
-//snippet-service:[ec2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+  SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
+
 //snippet-start:[ec2.cpp.allocate_address.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
@@ -32,62 +23,93 @@
 #include <aws/ec2/model/AssociateAddressResponse.h>
 #include <iostream>
 //snippet-end:[ec2.cpp.allocate_address.inc]
+#include "ec2_samples.h"
 
-void AllocateAndAssociateAddress(const Aws::String& instance_id)
-{
+//! Allocate an Elastic IP address and associate it with an Amazon Elastic Compute Cloud
+//! (Amazon EC2) instance.
+/*!
+  \sa AllocateAndAssociateAddress()
+  \param instanceID: An Amazon EC2 instance ID.
+  \param allocationId: String to return the allocation ID of the address.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::EC2::AllocateAndAssociateAddress(const Aws::String &instanceId,
+                                              Aws::String &allocationId,
+                                              const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[ec2.cpp.allocate_address.code]
-    Aws::EC2::EC2Client ec2;
+    // snippet-start:[cpp.example_code.ec2.allocate_address.client]
+    Aws::EC2::EC2Client ec2Client(clientConfiguration);
+    // snippet-end:[cpp.example_code.ec2.allocate_address.client]
 
+    // snippet-start:[cpp.example_code.ec2.AllocateAddress]
     Aws::EC2::Model::AllocateAddressRequest request;
     request.SetDomain(Aws::EC2::Model::DomainType::vpc);
 
-    auto outcome = ec2.AllocateAddress(request);
-    if (!outcome.IsSuccess())
-    {
-        std::cout << "Failed to allocate elastic ip address:" <<
-            outcome.GetError().GetMessage() << std::endl;
-        return;
+    const Aws::EC2::Model::AllocateAddressOutcome outcome =
+            ec2Client.AllocateAddress(request);
+    if (!outcome.IsSuccess()) {
+        std::cerr << "Failed to allocate Elastic IP address:" <<
+                  outcome.GetError().GetMessage() << std::endl;
+        return false;
     }
 
-    Aws::String allocation_id = outcome.GetResult().GetAllocationId();
+    allocationId = outcome.GetResult().GetAllocationId();
+    // snippet-end:[cpp.example_code.ec2.AllocateAddress]
 
+    // snippet-start:[cpp.example_code.ec2.AssociateAddress]
     Aws::EC2::Model::AssociateAddressRequest associate_request;
-    associate_request.SetInstanceId(instance_id);
-    associate_request.SetAllocationId(allocation_id);
+    associate_request.SetInstanceId(instanceId);
+    associate_request.SetAllocationId(allocationId);
 
-    auto associate_outcome = ec2.AssociateAddress(associate_request);
-    if (!associate_outcome.IsSuccess())
-    {
-        std::cout << "Failed to associate elastic ip address" << allocation_id
-            << " with instance " << instance_id << ":" <<
-            associate_outcome.GetError().GetMessage() << std::endl;
-        return;
+    const Aws::EC2::Model::AssociateAddressOutcome associate_outcome =
+            ec2Client.AssociateAddress(associate_request);
+    if (!associate_outcome.IsSuccess()) {
+        std::cerr << "Failed to associate Elastic IP address " << allocationId
+                  << " with instance " << instanceId << ":" <<
+                  associate_outcome.GetError().GetMessage() << std::endl;
+        return false;
     }
 
-    std::cout << "Successfully associated elastic ip address " << allocation_id
-        << " with instance " << instance_id << std::endl;
+    std::cout << "Successfully associated Elastic IP address " << allocationId
+              << " with instance " << instanceId << std::endl;
+    // snippet-end:[cpp.example_code.ec2.AssociateAddress]
     // snippet-end:[ec2.cpp.allocate_address.code]
+
+    return true;
 }
 
-/**
- * Allocates an elastic IP address for an ec2 instance based on command line input
- */
-int main(int argc, char** argv)
-{
-    if (argc != 2)
-    {
-        std::cout << "Usage: allocate_address <instance_id>" << std::endl;
+/*
+*  main function
+*
+*  Usage: 'run_allocate_address <instance_id>'
+*
+*  Prerequisites: An Amazon EC2 instance to allocate an address for.
+*
+*/
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        std::cout << "Usage: run_allocate_address <instance_id>"
+                  << std::endl;
         return 1;
     }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String instance_id = argv[1];
-
-        AllocateAndAssociateAddress(instance_id);
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+        Aws::String instanceID = argv[1];
+        Aws::String allocationID;
+        AwsDoc::EC2::AllocateAndAssociateAddress(instanceID, allocationID,
+                                                 clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
 
+#endif // TESTING_BUILD

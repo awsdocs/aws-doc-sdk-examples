@@ -1,28 +1,19 @@
- 
-//snippet-sourcedescription:[create_security_group.cpp demonstrates how to create an Amazon EC2 security group.]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-keyword:[Amazon EC2]
-//snippet-service:[ec2]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
+
 //snippet-start:[ec2.cpp.create_security_group.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
@@ -33,10 +24,97 @@
 #include <aws/ec2/model/AuthorizeSecurityGroupIngressRequest.h>
 //snippet-end:[ec2.cpp.configure_security_group.inc]
 #include <iostream>
+#include "ec2_samples.h"
 
-void BuildSampleIngressRule(
-    Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest& authorize_request)
-{
+namespace AwsDoc {
+    namespace EC2 {
+        //! Build a sample ingress rule.
+        /*!
+          \sa BuildSampleIngressRule()
+          \param authorize_request: An 'AuthorizeSecurityGroupIngressRequest' instance.
+          \return void:
+         */
+        void BuildSampleIngressRule(
+                Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest &authorize_request);
+    } // EC2 {
+} // AwsDoc
+
+//! Create a security group.
+/*!
+  \sa CreateSecurityGroup()
+  \param groupName: A security group name.
+  \param description: A description.
+  \param vpcID: An Amazon Virtual Private Cloud (Amazon VPC) ID.
+  \param groupIDResult: A string to receive the group ID.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::EC2::CreateSecurityGroup(const Aws::String &groupName,
+                                      const Aws::String &description,
+                                      const Aws::String &vpcID,
+                                      Aws::String &groupIDResult,
+                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
+    // snippet-start:[ec2.cpp.create_security_group.code]
+    // snippet-start:[cpp.example_code.ec2.create_security_group.client]
+    Aws::EC2::EC2Client ec2Client(clientConfiguration);
+    // snippet-end:[cpp.example_code.ec2.create_security_group.client]
+    // snippet-start:[cpp.example_code.ec2.CreateSecurityGroup]
+    Aws::EC2::Model::CreateSecurityGroupRequest request;
+
+    request.SetGroupName(groupName);
+    request.SetDescription(description);
+    request.SetVpcId(vpcID);
+
+    const Aws::EC2::Model::CreateSecurityGroupOutcome outcome =
+            ec2Client.CreateSecurityGroup(request);
+
+    if (!outcome.IsSuccess()) {
+        std::cerr << "Failed to create security group:" <<
+                  outcome.GetError().GetMessage() << std::endl;
+        return false;
+    }
+
+    std::cout << "Successfully created security group named " << groupName <<
+              std::endl;
+    // snippet-end:[ec2.cpp.create_security_group.code]
+    // snippet-end:[cpp.example_code.ec2.CreateSecurityGroup]
+
+    groupIDResult = outcome.GetResult().GetGroupId();
+
+    // snippet-start:[ec2.cpp.configure_security_group01.code]
+    Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest authorizeRequest;
+
+    authorizeRequest.SetGroupName(groupName);
+    // snippet-end:[ec2.cpp.configure_security_group01.code]
+
+    BuildSampleIngressRule(authorizeRequest);
+
+    // snippet-start:[ec2.cpp.configure_security_group03.code]
+    const Aws::EC2::Model::AuthorizeSecurityGroupIngressOutcome authorizeOutcome =
+            ec2Client.AuthorizeSecurityGroupIngress(authorizeRequest);
+
+    if (!authorizeOutcome.IsSuccess()) {
+        std::cerr << "Failed to set ingress policy for security group " <<
+                  groupName << ":" << authorizeOutcome.GetError().GetMessage() <<
+                  std::endl;
+        return false;
+    }
+
+    std::cout << "Successfully added ingress policy to security group " <<
+              groupName << std::endl;
+    // snippet-end:[ec2.cpp.configure_security_group03.code]
+
+    return true;
+}
+
+//! Build a sample ingress rule.
+/*!
+  \sa BuildSampleIngressRule()
+  \param authorize_request: An 'AuthorizeSecurityGroupIngressRequest' instance.
+  \return void:
+ */
+void AwsDoc::EC2::BuildSampleIngressRule(
+        Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest &authorize_request) {
     // snippet-start:[ec2.cpp.configure_security_group02.code]
     Aws::EC2::Model::IpRange ip_range;
     ip_range.SetCidrIp("0.0.0.0/0");
@@ -59,64 +137,23 @@ void BuildSampleIngressRule(
     // snippet-end:[ec2.cpp.configure_security_group02.code]
 }
 
-void CreateSecurityGroup(
-    const Aws::String& group_name, const Aws::String& description,
-    const Aws::String& vpc_id)
-{
-    // snippet-start:[ec2.cpp.create_security_group.code]
-    Aws::EC2::EC2Client ec2;
-    Aws::EC2::Model::CreateSecurityGroupRequest request;
 
-    request.SetGroupName(group_name);
-    request.SetDescription(description);
-    request.SetVpcId(vpc_id);
-
-    auto outcome = ec2.CreateSecurityGroup(request);
-
-    if (!outcome.IsSuccess())
-    {
-        std::cout << "Failed to create security group:" <<
-            outcome.GetError().GetMessage() << std::endl;
-        return;
-    }
-
-    std::cout << "Successfully created security group named " << group_name <<
-        std::endl;
-    // snippet-end:[ec2.cpp.create_security_group.code]
-
-    // snippet-start:[ec2.cpp.configure_security_group01.code]
-    Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest authorize_request;
-
-    authorize_request.SetGroupName(group_name);
-    // snippet-end:[ec2.cpp.configure_security_group01.code]
-
-    BuildSampleIngressRule(authorize_request);
-
-    // snippet-start:[ec2.cpp.configure_security_group03.code]
-    auto ingress_req = ec2.AuthorizeSecurityGroupIngress(authorize_request);
-
-    if (!ingress_req.IsSuccess())
-    {
-        std::cout << "Failed to set ingress policy for security group " <<
-            group_name << ":" << ingress_req.GetError().GetMessage() <<
-            std::endl;
-        return;
-    }
-
-    std::cout << "Successfully added ingress policy to security group " <<
-        group_name << std::endl;
-    // snippet-end:[ec2.cpp.configure_security_group03.code]
-}
-
-/**
- * Creates an ec2 security group based on command line input
+/*
+ *
+ *  main function
+ *
+ *  Usage: run_create_security_group <group_name> <group_description> <vpc_id>
+ *
+ *  Prerequisites: An Amazon VPC ID.
+ *
  */
-int main(int argc, char** argv)
-{
-    if (argc != 4)
-    {
-        std::cout << "Usage: create_security_group <group_name> " <<
-            "<group_description> <vpc_id>" << std::endl;
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    if (argc != 4) {
+        std::cout << "Usage: run_create_security_group <group_name> " <<
+                  "<group_description> <vpc_id>" << std::endl;
         return 1;
     }
 
@@ -126,10 +163,16 @@ int main(int argc, char** argv)
         Aws::String group_name = argv[1];
         Aws::String group_desc = argv[2];
         Aws::String vpc_id = argv[3];
-
-        CreateSecurityGroup(group_name, group_desc, vpc_id);
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+        Aws::String groupIDResult;
+        AwsDoc::EC2::CreateSecurityGroup(group_name, group_desc, vpc_id,
+                                         groupIDResult, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
+
+#endif // TESTING_BUILD
 
