@@ -25,7 +25,6 @@ public class IAMWrapper
     /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> AttachRolePolicyAsync(string policyArn, string roleName)
     {
-        var client = new AmazonIdentityManagementServiceClient();
         var response = await _IAMService.AttachRolePolicyAsync(new AttachRolePolicyRequest
         {
             PolicyArn = policyArn,
