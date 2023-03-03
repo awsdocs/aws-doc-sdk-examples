@@ -1,9 +1,9 @@
-﻿global using Amazon;
-global using Amazon.CognitoIdentityProvider;
-global using Amazon.CognitoIdentityProvider.Model;
-global using Cognito_MVP;
-global using Microsoft.Extensions.Configuration;
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
+
+global using CognitoActions;
 global using Xunit;
+global using Xunit.Extensions.Ordering;
 
 // Optional.
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
