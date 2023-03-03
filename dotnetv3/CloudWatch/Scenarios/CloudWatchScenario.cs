@@ -734,7 +734,7 @@ public class CloudWatchScenario
     }
 
     /// <summary>
-    /// Create a dashboard with metrics.
+    /// Clean up created resources.
     /// </summary>
     /// <param name="metricNamespace">The namespace for metrics.</param>
     /// <param name="metric">The CloudWatch metric.</param>
