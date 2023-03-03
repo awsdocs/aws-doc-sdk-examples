@@ -35,6 +35,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Actions\IAMActions.csproj" />
+	  <ProjectReference Include="..\Scenarios\IamScenariosCommon\IamScenariosCommon.csproj" />
 	</ItemGroup>
 
 </Project>

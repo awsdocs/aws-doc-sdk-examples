@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-namespace IAMBasics;
+namespace IamScenariosCommon;
 
 public class UIWrapper
 {
@@ -10,7 +10,27 @@ public class UIWrapper
     /// <summary>
     /// Show information about the scenario.
     /// </summary>
-    public void DisplayOverview()
+    public void DisplayGroupsOverview()
+    {
+        Console.Clear();
+
+        DisplayTitle("Welcome to the IAM Groups Demo");
+        Console.WriteLine("This example application does the following:");
+        Console.WriteLine("\t1. Creates an Amazon Identity and Access Management (IAM) group.");
+        Console.WriteLine("\t2. Adds an IAM policy to the IAM group giving it full access to Amazon S3.");
+        Console.WriteLine("\t3. Creates a new IAM user.");
+        Console.WriteLine("\t4. Creates an IAM access key for the user.");
+        Console.WriteLine("\t5. Adds the user to the IAM group.");
+        Console.WriteLine("\t6. Lists the buckets on the account.");
+        Console.WriteLine("\t7. Proves that the user has full Amazon S3 access by creating a bucket.");
+        Console.WriteLine("\t8. List the buckets again to show the new bucket.");
+        Console.WriteLine("\t9. Cleans up all the resources created.");
+    }
+
+    /// <summary>
+    /// Show information about the scenario.
+    /// </summary>
+    public void DisplayBasicsOverview()
     {
         Console.Clear();
 

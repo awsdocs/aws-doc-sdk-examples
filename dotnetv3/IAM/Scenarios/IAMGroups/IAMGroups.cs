@@ -46,7 +46,7 @@ public class IAMGroups
         var wrapper = host.Services.GetRequiredService<IAMWrapper>();
         var uiWrapper = host.Services.GetRequiredService<UIWrapper>();
 
-        uiWrapper.DisplayOverview();
+        uiWrapper.DisplayGroupsOverview();
         uiWrapper.PressEnter();
 
         // Create an IAM group.
@@ -73,13 +73,26 @@ public class IAMGroups
         {
             Console.Write(" .");
         }
-        while (createKeyResponse.AccessKey.Status != StatusType.Active);
+        while (accessKey.Status != StatusType.Active);
 
-        await s3Wrapper.ListBucketsAsync(createKeyResponse.AccessKey);
+        var s3Client1 = new AmazonS3Client(accessKey.AccessKeyId, accessKey.SecretAccessKey);
+        var stsClient1 = new AmazonSecurityTokenServiceClient(accessKey.AccessKeyId, accessKey.SecretAccessKey);
+
+        var s3Wrapper = new S3Wrapper(s3Client1, stsClient1);
+
+        var buckets = await s3Wrapper.ListMyBucketsAsync();
+
+        if (buckets is not null)
+        {
+            buckets.ForEach(bucket =>
+            {
+                Console.WriteLine($"{bucket.BucketName}\tcreated on: {bucket.CreationDate}");
+            });
+        }
 
         // Show that the user also has write access to Amazon S3 by creating
         // a new bucket.
-        var success = await CreateS3BucketAsync(createKeyResponse.AccessKey, BucketName);
+        var success = await s3Wrapper.PutBucketAsync(BucketName);
 
         if (success)
         {

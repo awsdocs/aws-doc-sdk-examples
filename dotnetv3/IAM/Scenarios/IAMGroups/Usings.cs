@@ -9,6 +9,7 @@ global using Amazon.S3.Model;
 global using Amazon.SecurityToken;
 global using Amazon.SecurityToken.Model;
 global using IAMActions;
+global using IamScenariosCommon;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.Logging;

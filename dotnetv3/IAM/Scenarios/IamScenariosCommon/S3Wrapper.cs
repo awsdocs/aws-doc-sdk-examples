@@ -1,15 +1,12 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Amazon.S3;
-using Microsoft.Extensions.FileSystemGlobbing.Internal;
-
-namespace IAMGroups;
+namespace IamScenariosCommon;
 
 /// <summary>
 /// A class to perform S3 actions for the IAM Basics scenario.
 /// </summary>
-internal class S3Wrapper
+public class S3Wrapper
 {
     private IAmazonS3 _s3Service;
     private IAmazonSecurityTokenService _stsService;
@@ -44,6 +41,18 @@ internal class S3Wrapper
         var response = await _stsService.AssumeRoleAsync(request);
 
         return response.Credentials;
+    }
+
+    /// <summary>
+    /// Create a new Amazon S3 bucket.
+    /// </summary>
+    /// <param name="bucketName">The name for the new bucket.</param>
+    /// <returns>A Boolean value indicated whether the action completed
+    /// successfully.</returns>
+    public async Task<bool> PutBucketAsync(string bucketName)
+    {
+        var response = _s3Service.PutBucketAsync(bucketName);
+        return response.IsCompletedSuccessfully;
     }
 
     /// <summary>

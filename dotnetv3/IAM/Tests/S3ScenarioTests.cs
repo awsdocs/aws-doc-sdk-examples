@@ -1,9 +1,11 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
 namespace IAMTests
 {
-    public class IamWrapperTests
+    // A class to test the methods in the S3Wrapper class
+    // of the IamScenariosCommon project.
+    internal class S3ScenarioTests
     {
         private readonly IConfiguration _configuration;
 
@@ -12,12 +14,8 @@ namespace IAMTests
         private readonly string _s3PolicyName;
         private readonly string _roleName;
         private readonly string _assumePolicyName;
-        private readonly string _groupName;
 
-        /// <summary>
-        /// Constructor for the test class.
-        /// </summary>
-        public IamWrapperTests()
+        public S3ScenarioTests()
         {
             _configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -29,12 +27,7 @@ namespace IAMTests
             _userName = _configuration["UserName"];
             _s3PolicyName = _configuration["S3PolicyName"];
             _roleName = _configuration["RoleName"];
-            _assumePolicyName = _configuration["AssumePolicyName"];
-            _groupName = _configuration["GroupName"];
-
+            _assumePolicyName = _configuration[_assumePolicyName];
         }
-
-
-    } 
+    }
 }
-

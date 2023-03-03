@@ -1,8 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Amazon.Runtime;
-
 namespace IAMBasics;
 
 public class IAMBasics
@@ -38,8 +36,8 @@ public class IAMBasics
 
         var wrapper = host.Services.GetRequiredService<IAMWrapper>();
         var uiWrapper = host.Services.GetRequiredService<UIWrapper>();
-
-        uiWrapper.DisplayOverview();
+        
+        uiWrapper.DisplayBasicsOverview();
         uiWrapper.PressEnter();
 
         // First create a user. By default, the new user has
@@ -49,6 +47,30 @@ public class IAMBasics
         var user = await wrapper.CreateUserAsync(UserName);
         var userArn = user.Arn;
         Console.WriteLine($"Successfully created user: {UserName} with ARN: {userArn}.");
+
+        // Define a role policy document that allows the new user
+        // to assume the role.
+        // string assumeRolePolicyDocument = File.ReadAllText("assumePolicy.json");
+        string assumeRolePolicyDocument = "{" +
+          "\"Version\": \"2012-10-17\"," +
+          "\"Statement\": [{" +
+              "\"Effect\": \"Allow\"," +
+              "\"Principal\": {" +
+              $"	\"AWS\": \"{userArn}\"" +
+              "}," +
+              "\"Action\": \"sts:AssumeRole\"" +
+          "}]" +
+        "}";
+
+        // Permissions to list all buckets.
+        string policyDocument = "{" +
+            "\"Version\": \"2012-10-17\"," +
+            "	\"Statement\" : [{" +
+                "	\"Action\" : [\"s3:ListAllMyBuckets\"]," +
+                "	\"Effect\" : \"Allow\"," +
+                "	\"Resource\" : \"*\"" +
+            "}]" +
+        "}";
 
         // Create an AccessKey for the user.
         uiWrapper.DisplayTitle("Create access key");
@@ -82,30 +104,6 @@ public class IAMBasics
         {
             Console.WriteLine("Something went wrong. This shouldn't have worked.");
         }
-
-        // Define a role policy document that allows the new user
-        // to assume the role.
-        // string assumeRolePolicyDocument = File.ReadAllText("assumePolicy.json");
-        string assumeRolePolicyDocument = "{" +
-          "\"Version\": \"2012-10-17\"," +
-          "\"Statement\": [{" +
-              "\"Effect\": \"Allow\"," +
-              "\"Principal\": {" +
-              $"	\"AWS\": \"{userArn}\"" +
-              "}," +
-              "\"Action\": \"sts:AssumeRole\"" +
-          "}]" +
-        "}";
-
-        // Permissions to list all buckets.
-        string policyDocument = "{" +
-            "\"Version\": \"2012-10-17\"," +
-            "	\"Statement\" : [{" +
-                "	\"Action\" : [\"s3:ListAllMyBuckets\"]," +
-                "	\"Effect\" : \"Allow\"," +
-                "	\"Resource\" : \"*\"" +
-            "}]" +
-        "}";
 
         uiWrapper.DisplayTitle("Create IAM role");
         Console.WriteLine($"Creating the role: {RoleName}");

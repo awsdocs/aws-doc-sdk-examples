@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAMTests", "Tests\IAMTests.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IAMGroups", "Scenarios\IAMGroups\IAMGroups.csproj", "{B2B9BC93-7C77-4B11-A435-F017D5940F76}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IamScenariosCommon", "Scenarios\IamScenariosCommon\IamScenariosCommon.csproj", "{E2A9A321-23AA-4F1F-B109-549A93222793}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{B2B9BC93-7C77-4B11-A435-F017D5940F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2B9BC93-7C77-4B11-A435-F017D5940F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2B9BC93-7C77-4B11-A435-F017D5940F76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2A9A321-23AA-4F1F-B109-549A93222793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2A9A321-23AA-4F1F-B109-549A93222793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2A9A321-23AA-4F1F-B109-549A93222793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2A9A321-23AA-4F1F-B109-549A93222793}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{B1731AE1-381F-4044-BEBE-269FF7E24B1F} = {B987097B-189C-4D0B-99BC-E67CD705BCA0}
 		{6046A2FC-6A39-4C2D-8DD9-AA3740B17B88} = {5455D423-2AFC-4BC6-B79D-9DC4270D8F7D}
 		{B2B9BC93-7C77-4B11-A435-F017D5940F76} = {B987097B-189C-4D0B-99BC-E67CD705BCA0}
+		{E2A9A321-23AA-4F1F-B109-549A93222793} = {B987097B-189C-4D0B-99BC-E67CD705BCA0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {870D888D-5C8B-4057-8722-F73ECF38E513}
