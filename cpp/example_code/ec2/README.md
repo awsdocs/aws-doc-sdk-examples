@@ -3,7 +3,7 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for C++ to work with Amazon Elastic Compute Cloud (Amazon EC2) (Amazon EC2).
+Shows how to use the AWS SDK for C++ to work with Amazon Elastic Compute Cloud (Amazon EC2).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
@@ -21,6 +21,7 @@ Shows how to use the AWS SDK for C++ to work with Amazon Elastic Compute Cloud (
 <!--custom.important.end-->
 
 ## Code examples
+
 ### Single actions
 
 Code excerpts that show you how to call individual service functions.
@@ -33,26 +34,24 @@ Code excerpts that show you how to call individual service functions.
 * [Create and run an instance](create_instance.cpp#L46) (`RunInstances`)
 * [Delete a security group](delete_security_group.cpp#L34) (`DeleteSecurityGroup`)
 * [Delete a security key pair](delete_key_pair.cpp#L35) (`DeleteKeyPair`)
-* [Describe Availability Zones](None) (`DescribeAvailabilityZones`)
-* [Describe Regions](None) (`DescribeRegions`)
+* [Describe Availability Zones](describe_regions_and_zones.cpp#L70) (`DescribeAvailabilityZones`)
+* [Describe Regions](describe_regions_and_zones.cpp#L44) (`DescribeRegions`)
 * [Describe instances](describe_instances.cpp#L35) (`DescribeInstances`)
 * [Disable detailed monitoring](monitor_instance.cpp#L84) (`UnmonitorInstances`)
 * [Enable monitoring](monitor_instance.cpp#L37) (`MonitorInstances`)
 * [Get data about a security group](describe_security_groups.cpp#L36) (`DescribeSecurityGroups`)
 * [Get details about Elastic IP addresses](describe_addresses.cpp#L35) (`DescribeAddresses`)
 * [List security key pairs](describe_key_pairs.cpp#L35) (`DescribeKeyPairs`)
-* [Reboot an instance](None) (`RebootInstances`)
+* [Reboot an instance](reboot_instance.cpp#L35) (`RebootInstances`)
 * [Release an Elastic IP address](release_address.cpp#L33) (`ReleaseAddress`)
 * [Set inbound rules for a security group](allocate_address.cpp#L41) (`AuthorizeSecurityGroupIngress`)
-* [Start an instance](None) (`StartInstances`)
-* [Stop an instance](None) (`StopInstances`)
+* [Start an instance](start_stop_instance.cpp#L40) (`StartInstances`)
+* [Stop an instance](start_stop_instance.cpp#86) (`StopInstances`)
 * [Terminate an instance](terminate_instances.cpp#L32) (`TerminateInstances`)
 
 ## Run the examples
 
 ### Prerequisites
-
-
 
 Before using the code examples, first complete the installation and setup steps
 for [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
