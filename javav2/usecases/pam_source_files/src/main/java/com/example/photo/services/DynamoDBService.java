@@ -109,10 +109,7 @@ public class DynamoDBService {
         for (Photos photo : table.scan().items()) {
             WorkItem wi = new WorkItem();
             wi.setKey(photo.getId());
-
-            // Count uses 0 based value. Add 1 to value to get accurate label count.
-            int myCount = photo.getCount() + 1;
-            wi.setCount(myCount);
+            wi.setCount(photo.getCount());
             String listString = String.join(", ", photo.getImages());
             wi.setName(listString);
             dataList.add(wi);

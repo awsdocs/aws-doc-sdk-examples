@@ -24,7 +24,7 @@ public class Photos {
         this.id = id;
     }
 
-    @DynamoDbAtomicCounter
+    @DynamoDbAtomicCounter (startValue = 1)
     public Integer getCount() {
         return this.count;
     }
