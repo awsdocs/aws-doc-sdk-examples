@@ -46,12 +46,13 @@ public class DynamoDBService {
     }
 
     private void addSingleRecord(DynamoDbTable<Photos> table, String tag, String key) {
-        // Check to see if this tag exists in the Amazon DynamoDB table.
+        // Check to see if the label exists in the Amazon DynamoDB table.
+        // The count item uses an @DynamoDbAtomicCounter which means it is
+        // updated automatically. No need to manually set this value when the record is
+        // created or updated.
         if (!checkTagExists(table, tag)) {
             Photos photoRec = new Photos();
-            photoRec.setCount(1);
             photoRec.setId(tag);
-
             List<String> keyList = new ArrayList<>();
             keyList.add(key);
             photoRec.setImages(keyList);
@@ -108,7 +109,10 @@ public class DynamoDBService {
         for (Photos photo : table.scan().items()) {
             WorkItem wi = new WorkItem();
             wi.setKey(photo.getId());
-            wi.setCount(photo.getCount());
+
+            // Count uses 0 based value. Add 1 to value to get accurate label count.
+            int myCount = photo.getCount() + 1;
+            wi.setCount(myCount);
             String listString = String.join(", ", photo.getImages());
             wi.setName(listString);
             dataList.add(wi);
