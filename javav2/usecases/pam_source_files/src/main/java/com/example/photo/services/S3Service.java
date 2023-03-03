@@ -323,6 +323,8 @@ public class S3Service {
                 System.out.println("JPG object found and will be copied: " + s3Object.key());
                 copyS3Object(sourceBucket, s3Object.key());
                 count++;
+            } else {
+                System.out.println("The object is not a JPG");
             }
         }
 
