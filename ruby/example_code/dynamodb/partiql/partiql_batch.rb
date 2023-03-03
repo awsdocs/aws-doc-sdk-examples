@@ -6,8 +6,7 @@ require "json"
 require "open-uri"
 require "pp"
 require "zip"
-require 'pry'
-require_relative '../scaffold'
+require_relative "../scaffold"
 
 # snippet-start:[ruby.example_code.ruby.DynamoDBPartiQLBatch.full]
 # snippet-start:[ruby.example_code.ruby.DynamoDBPartiQLBatch.decl]
@@ -56,4 +55,3 @@ class DynamoDBPartiQLBatch
   # snippet-end:[ruby.example_code.dynamodb.partiql.batch_write]
 end
 # snippet-end:[ruby.example_code.ruby.DynamoDBPartiQLBatch.full]
-

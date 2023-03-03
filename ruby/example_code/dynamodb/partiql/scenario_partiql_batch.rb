@@ -10,7 +10,6 @@ require "logger"
 require "json"
 require "zip"
 require "cli/ui"
-require 'pry'
 require_relative("../../../helpers/disclaimers")
 require_relative("../../../helpers/decorators")
 require_relative("partiql_batch")
@@ -26,12 +25,13 @@ def run_scenario
   puts "#                                                                                                    #".yellow
   puts "######################################################################################################".yellow
   puts ""
-  puts "You have launched a demo of Amazon DynamoDB using PartiQL and the AWS for Ruby v3 SDK. Over the next 60 seconds,it will"
+  puts "You have launched a demo of Amazon DynamoDB using PartiQL and the AWS for Ruby v3 SDK. Over the next 60 seconds, it will"
   puts "do the following:"
-  puts "    1. Get a batch of items from a table using PartiQL."
-  puts "    2. Update a batch of items in a table using PartiQL."
-  puts "    3. Delete a batch of from a table using PartiQL."
-  puts "    4. Insert a batch of items into a table using PartiQL."
+  puts "    1. Create a new DynamoDB table."
+  puts "    2. Write batch data into the table"
+  puts "    3. Get a batch of items from a table using PartiQL."
+  puts "    4. Delete a batch of from a table using PartiQL."
+  puts "    5. Destroy the DynamoDB table."
   puts ""
 
   confirm_begin
@@ -62,12 +62,12 @@ def run_scenario
 
   new_step(3, "Select a batch of items from the movies table.")
   puts "Let's select some popular movies for side-by-side comparison."
-  response = sdk.batch_execute_select([["Mean Girls", 2004], ['Goodfellas', 1977], ['The Prancing of the Lambs', 2005]])
+  response = sdk.batch_execute_select([["Mean Girls", 2004], ["Goodfellas", 1977], ["The Prancing of the Lambs", 2005]])
   puts("Items selected: #{response['responses'].length}\n")
   print "\nDone!\n".green
 
   new_step(4, "Delete a batch of items from the movies table.")
-  sdk.batch_execute_write([["Mean Girls", 2004], ['Goodfellas', 1977], ['The Prancing of the Lambs', 2005]])
+  sdk.batch_execute_write([["Mean Girls", 2004], ["Goodfellas", 1977], ["The Prancing of the Lambs", 2005]])
   print "\nDone!\n".green
 
   new_step(5, "Delete the table.")

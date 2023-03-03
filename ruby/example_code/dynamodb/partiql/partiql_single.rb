@@ -5,9 +5,8 @@ require "aws-sdk-dynamodb"
 require "json"
 require "open-uri"
 require "pp"
-require 'pry'
 require "zip"
-require_relative '../scaffold'
+require_relative "../scaffold"
 
 # snippet-start:[ruby.example_code.ruby.DynamoDBPartiQLSingle.full]
 # snippet-start:[ruby.example_code.ruby.DynamoDBPartiQLSingle.decl]
@@ -23,11 +22,11 @@ class DynamoDBPartiQLSingle
   # snippet-end:[ruby.example_code.ruby.DynamoDBPartiQLSingle.decl]
 
   # snippet-start:[ruby.example_code.dynamodb.partiql.single_select]
-  # Gets a single record from a table using PartiQL
-  # Note: to perform more fine-grained selects,
-  # use the Client.query instance method instead
+  # Gets a single record from a table using PartiQL.
+  # Note: To perform more fine-grained selects,
+  # use the Client.query instance method instead.
   #
-  # @param title [String] The title of the movie to search
+  # @param title [String] The title of the movie to search.
   # @return [Aws::DynamoDB::Types::ExecuteStatementOutput]
   def select_item_by_title(title)
     request = {
@@ -39,11 +38,11 @@ class DynamoDBPartiQLSingle
   # snippet-end:[ruby.example_code.dynamodb.partiql.single_select]
 
   # snippet-start:[ruby.example_code.dynamodb.partiql.single_update]
-  # Updates a single record from a table using PartiQL
+  # Updates a single record from a table using PartiQL.
   #
-  # @param title [String] The title of the movie to update
-  # @param year [Integer] The year the movie was released
-  # @param rating [Float] The new rating to assign the title
+  # @param title [String] The title of the movie to update.
+  # @param year [Integer] The year the movie was released.
+  # @param rating [Float] The new rating to assign the title.
   # @return [Aws::DynamoDB::Types::ExecuteStatementOutput]
   def update_rating_by_title(title, year, rating)
     request = {
@@ -56,7 +55,7 @@ class DynamoDBPartiQLSingle
 
 
   # snippet-start:[ruby.example_code.dynamodb.partiql.single_delete]
-  # Deletes a single record from a table using PartiQL
+  # Deletes a single record from a table using PartiQL.
   #
   # @param title [String] The title of the movie to update.
   # @param year [Integer] The year the movie was released.
@@ -72,7 +71,7 @@ class DynamoDBPartiQLSingle
 
 
   # snippet-start:[ruby.example_code.dynamodb.partiql.single_insert]
-  # Adds a single record to a table using PartiQL
+  # Adds a single record to a table using PartiQL.
   #
   # @param title [String] The title of the movie to update.
   # @param year [Integer] The year the movie was released.
@@ -89,4 +88,3 @@ class DynamoDBPartiQLSingle
   # snippet-end:[ruby.example_code.dynamodb.partiql.single_insert]
 end
 # snippet-end:[ruby.example_code.ruby.DynamoDBPartiQLSingle.full]
-

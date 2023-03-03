@@ -4,17 +4,16 @@
 # Purpose
 #
 # Shows how to use the AWS SDK for Ruby with Amazon DynamoDB to
-# create and use a table that stores data about movies.
+# create, populate, and delete a table that stores data about movies.
 #
-# 1. Load the table with data from a JSON file.
-# 2. Perform basic operations like adding, getting, and updating data for individual movies.
-# 3. Use conditional expressions to update movie data only when it meets certain criteria.
-# 4. Query and scan the table to retrieve movie data that meets varying criteria.
+# 1. Create a new DynamoDB table
+# 2. Load the table with data from a JSON file.
+# 3. Delete table
 
 # snippet-start:[ruby.example_code.dynamodb.helper.DynamoDBBasics]
 require "aws-sdk-dynamodb"
 require "json"
-require 'pry'
+require "pry"
 require "open-uri"
 require "pp"
 require "zip"
@@ -150,4 +149,3 @@ class Scaffold
   # snippet-end:[ruby.example_code.dynamodb.helper.get_sample_movie_data]
 end
 # snippet-end:[ruby.example_code.dynamodb.helper.DynamoDBBasics]
-

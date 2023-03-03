@@ -47,10 +47,6 @@ To learn more, see the [DynamoDB PartiQL reference](https://docs.aws.amazon.com/
 
 * [Update an item in a table using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
 
-* [using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
-
-* [using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
-
 * [Select a batch of items from a table using PartiQL](partiql/partiql_batch.rb) (`BatchExecuteStatement`)
 
 * [Delete a batch of items from a table using PartiQL](partiql/partiql_batch.rb) (`BatchExecuteStatement`)
@@ -60,9 +56,9 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 * [Get started using tables, items, and queries](basics/scenario_getting_started_dynamodb.rb)
 
-* [Execute singleton statements using PartiQL](partiql/scenario_partiql_single.rb)
+* [Query a table using PartiQL](partiql/scenario_partiql_single.rb)
 
-* [Execute batch statements using PartiQL](partiql/scenario_partiql_batch.rb)
+* [Query a table by using batches of PartiQL statements](partiql/scenario_partiql_batch.rb)
 
 
 ## Run the examples

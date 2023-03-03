@@ -10,11 +10,10 @@ require "logger"
 require "json"
 require "zip"
 require "cli/ui"
-require 'pry'
-require_relative("../../helpers/rs/disclaimers")
-require_relative("../../helpers/decorators")
+require_relative("../../../helpers/disclaimers")
+require_relative("../../../helpers/decorators")
 require_relative("dynamodb_basics")
-require_relative('scaffold')
+require_relative("../scaffold")
 
 # Runs the Amazon DynamoDB demo.
 # @return [Nil]
@@ -67,14 +66,14 @@ def run_scenario
   print "Done!\n".green
 
   new_step(3, "Update a record in the DynamoDB table.")
-  my_movie[:rating] = CLI::UI::Prompt.ask("Let's update your movie you added with a new rating, e.g. 3:").to_i
+  my_movie[:rating] = CLI::UI::Prompt.ask("Let's update the movie you added with a new rating, e.g. 3:").to_i
   response = dynamodb_wrapper.update_item(my_movie)
   puts("Updated '#{my_movie[:title]}' with new attributes:")
   puts JSON.pretty_generate(response).green
   print "Done!\n".green
 
   new_step(4, "Get a record from the DynamoDB table.")
-  puts("Searching for #{my_movie[:title]} (#{my_movie[:year].to_s})...")
+  puts("Searching for #{my_movie[:title]} (#{my_movie[:year]})...")
   response = dynamodb_wrapper.get_item(my_movie[:title], my_movie[:year])
   puts JSON.pretty_generate(response).green
   print "Done!\n".green
@@ -100,7 +99,7 @@ def run_scenario
       break
     else
       continue = CLI::UI::Prompt.ask("Found no movies released in #{release_year}! Try another year? (y/n)")
-      break if not continue.eql?("y")
+      break if !continue.eql?("y")
     end
   end
   print "\nDone!\n".green
@@ -132,7 +131,7 @@ def run_scenario
     print "\nDone!\n".green
   end
 
-  new_step(8, 'Delete the DynamoDB table.')
+  new_step(8, "Delete the DynamoDB table.")
   answer = CLI::UI::Prompt.ask("Delete the table? (y/n)")
   if answer.eql?("y")
     dynamodb_wrapper.delete_table

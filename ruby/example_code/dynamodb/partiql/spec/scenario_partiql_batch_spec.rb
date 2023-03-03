@@ -26,21 +26,21 @@ describe DynamoDBPartiQLBatch do
     end
 
     it "returns a valid response when given a list of movies", integ: "true" do
-      movies = ['Star Wars', 'The Big Lebowski', 'The Prancing of the Lambs']
+      movies = ["Star Wars", "The Big Lebowski", "The Prancing of the Lambs"]
       response = sdk.batch_execute_select(movies)
-      expect(response['responses']).to be_an(Array)
-      expect(response['responses'].count).to eq(movies.length)
-      response['responses'].each do |movie_response|
+      expect(response["responses"]).to be_an(Array)
+      expect(response["responses"].count).to eq(movies.length)
+      response["responses"].each do |movie_response|
         expect(movie_response).to be_a(Aws::DynamoDB::Types::BatchStatementResponse)
       end
     end
 
     it "deletes a list of movies", integ: "true" do
-      movies = [["Mean Girls", 2004], ['The Prancing of the Lambs', 2005]]
+      movies = [["Mean Girls", 2004], ["The Prancing of the Lambs", 2005]]
       sdk.batch_execute_write(movies)
       movies.each do |movie|
         response = sdk.select_item_by_title(movie[0])
-        expect(response['items']).to be_empty
+        expect(response["items"]).to be_empty
       end
     end
 

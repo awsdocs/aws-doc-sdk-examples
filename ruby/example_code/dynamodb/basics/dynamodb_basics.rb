@@ -138,5 +138,3 @@ class DynamoDBBasics
   # snippet-end:[ruby.example_code.dynamodb.DeleteItem]
 end
 # snippet-end:[ruby.example_code.ruby.DynamoDBBasics.full]
-
-

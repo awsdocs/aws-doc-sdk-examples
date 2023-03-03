@@ -10,7 +10,6 @@ require "logger"
 require "json"
 require "zip"
 require "cli/ui"
-require 'pry'
 require_relative("../../../helpers/disclaimers")
 require_relative("../../../helpers/decorators")
 require_relative("partiql_single")
@@ -28,10 +27,13 @@ def run_scenario
   puts ""
   puts "You have launched a demo of Amazon DynamoDB using PartiQL and the AWS for Ruby v3 SDK. Over the next 60 seconds,it will"
   puts "do the following:"
-  puts "    1. Get a single item from a table using PartiQL"
-  puts "    2. Update a single item in a table using PartiQL"
-  puts "    3. Delete a single item from a table using PartiQL"
-  puts "    4. Insert a single item into a table using PartiQL"
+  puts "    1. Create a new DynamoDB table."
+  puts "    2. Write batch data into the table"
+  puts "    3. Get a single item from a table using PartiQL"
+  puts "    4. Update a single item in a table using PartiQL"
+  puts "    5. Delete a single item from a table using PartiQL"
+  puts "    6. Insert a single item into a table using PartiQL"
+  puts "    7. Destroy the DynamoDB table."
   puts ""
 
   confirm_begin
@@ -68,17 +70,17 @@ def run_scenario
 
   new_step(4, "Update a single item from the movies table.")
   puts "Let's correct the rating on The Big Lebowski to 10.0."
-  sdk.update_rating_by_title('The Big Lebowski', 1998, 10.0)
+  sdk.update_rating_by_title("The Big Lebowski", 1998, 10.0)
   print "\nDone!\n".green
 
   new_step(5, "Delete a single item from the movies table.")
   puts "Let's delete The Silence of the Lambs because it's just too scary."
-  sdk.delete_item_by_title('The Silence of the Lambs', 1991)
+  sdk.delete_item_by_title("The Silence of the Lambs", 1991)
   print "\nDone!\n".green
 
   new_step(6, "Insert a new item into the movies table.")
   puts "Let's create a less-scary movie called The Prancing of the Lambs."
-  sdk.insert_item("The Prancing of the Lambs", 2005, 'A movie about happy livestock.', 5.0)
+  sdk.insert_item("The Prancing of the Lambs", 2005, "A movie about happy livestock.", 5.0)
   print "\nDone!\n".green
 
   new_step(7, "Delete the table.")

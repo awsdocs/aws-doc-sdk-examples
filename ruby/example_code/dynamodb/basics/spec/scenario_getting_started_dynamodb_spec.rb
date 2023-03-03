@@ -5,7 +5,7 @@
 
 require "json"
 require "rspec"
-require 'pry'
+require "pry"
 require_relative("../basics/dynamodb_basics")
 require_relative("../scaffold")
 
