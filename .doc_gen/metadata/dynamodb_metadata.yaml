@@ -1338,21 +1338,21 @@ dynamodb_ExecuteStatement:
           sdkguide:
           excerpts:
             - description: Select a single item using PartiQL.
-                snippet_tags:
-                  - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
-                  - ruby.example_code.dynamodb.partiql.single_select
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_select
             - description: Update a single item using PartiQL.
-                snippet_tags:
-                  - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
-                  - ruby.example_code.dynamodb.partiql.single_update
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_update
             - description: Add a single item using PartiQL.
-                snippet_tags:
-                  - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
-                  - ruby.example_code.dynamodb.partiql.single_insert
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_insert
             - description: Delete a single item using PartiQL.
-                snippet_tags:
-                  - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
-                  - ruby.example_code.dynamodb.partiql.single_delete
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_delete
     C++:
       versions:
         - sdk_version: 1
