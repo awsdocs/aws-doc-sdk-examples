@@ -5,6 +5,7 @@
 
 package com.example.photo;
 
+import software.amazon.awssdk.enhanced.dynamodb.extensions.annotations.DynamoDbAtomicCounter;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @DynamoDbBean
 public class Photos {
     private String id;
-    private int count;
+    private Integer count;
     private List<String> images;
 
     @DynamoDbPartitionKey
@@ -23,10 +24,11 @@ public class Photos {
         this.id = id;
     }
 
-    public int getCount() {
+    @DynamoDbAtomicCounter
+    public Integer getCount() {
         return this.count;
     }
-    public void setCount(int count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 

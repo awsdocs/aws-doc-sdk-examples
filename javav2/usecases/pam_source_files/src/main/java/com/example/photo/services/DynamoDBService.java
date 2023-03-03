@@ -62,23 +62,14 @@ public class DynamoDBService {
                 .partitionValue(tag)
                 .build();
 
-            // Get the item by using the key.
-            Photos myPhoto = table.getItem(myKey);
-            int tagCount = myPhoto.getCount();
-            System.out.println("******* The current tag count is " + tagCount);
-
-            // Update the count.
-            int newCount = tagCount+1;
-            myPhoto.setCount(newCount);
-
             // Add the file name to the list.
+            Photos myPhoto = table.getItem(myKey);
+            Photos updatedPhoto = new Photos();
             List<String> imageList = myPhoto.getImages();
             imageList.add(key);
-            myPhoto.setImages(imageList);
-            System.out.println("The current count is "+myPhoto.getCount());
-            table.updateItem(myPhoto);
-            Photos myPhoto2 = table.getItem(myKey);
-            System.out.println("The current count is "+myPhoto2.getCount());
+            updatedPhoto.setId(tag);
+            updatedPhoto.setImages(imageList);
+            table.updateItem(updatedPhoto);
         }
     }
 
