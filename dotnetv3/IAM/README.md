@@ -21,6 +21,7 @@ IAM is a web service for securely controlling access to AWS services. With IAM, 
 Code excerpts that show you how to call individual service functions.
 
 - [Add a policy to a group](Actions/IAMWrapper.cs) (`PutGroupPolicyAsync`)
+- [Add a user to a group](Actions/IAMWrapper.cs) (`AddUserToGroupAsync`)
 - [Attach a policy to a role](Actions/IAMWrapper.cs) (`AttachRolePolicyAsync`)
 - [Create a group](Actions/IAMWrapper.cs) (`CreateGroupAsync`)
 - [Create a policy](Actions/IAMWrapper.cs) (`CreatePolicyAsync`)
@@ -32,10 +33,12 @@ Code excerpts that show you how to call individual service functions.
 - [Delete a role](Actions/IAMWrapper.cs) (`DelteRoleAsync`)
 - [Delete a role policy](Actions/IAMWrapper.cs) (`DeleteRolePolicyAsync`)
 - [Delete a user](Actions/IAMWrapper.cs) (`DeleteUserAsync`)
+- [Delete a user policy](Actions/IAMWrapper.cs) (`DeleteRolePolicyAsync`)
 - [Delete an access key](Actions/IAMWrapper.cs) (`DeleteAccessKeyAsync`)
 - [Detach a policy from a role](Actions/IAMWrapper.cs) (`DetatchRolePolicyAsync`)
 - [Get a policy](Actions/IAMWrapper.cs) (`GetPolicyAsync`)
 - [Get a role](Actions/IAMWrapper.cs) (`GetRoleAsync`)
+- [Get a user](Actions/IAMWrapper.cs) (`GetUserAsync`)
 - [Get the account password policy](Actions/IAMWrapper.cs) (`GetAccountPasswordPolicyAsync`)
 - [List groups](Actions/IAMWrapper.cs) (`ListGroupsAsync`)
 - [List inline policies for a role](Actions/IAMWrapper.cs) (`ListRolePoliciesAsync`)

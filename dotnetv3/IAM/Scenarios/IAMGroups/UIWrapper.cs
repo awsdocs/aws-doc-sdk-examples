@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-namespace IAMBasics;
+namespace IAMGroups;
 
 public class UIWrapper
 {
@@ -14,15 +14,17 @@ public class UIWrapper
     {
         Console.Clear();
 
-        DisplayTitle("Welcome to IAM Basics");
+        DisplayTitle("Welcome to the IAM Groups Demo");
         Console.WriteLine("This example application does the following:");
-        Console.WriteLine("\t1. Creates a user with no permissions.");
-        Console.WriteLine("\t2. Creates a role and policy that grant s3:ListAllMyBuckets permission.");
-        Console.WriteLine("\t3. Grants the user permission to assume the role.");
-        Console.WriteLine("\t4. Creates an S3 client object as the user and tries to list buckets (this will fail).");
-        Console.WriteLine("\t5. Gets temporary credentials by assuming the role.");
-        Console.WriteLine("\t6. Creates a new S3 client object with the temporary credentials and lists the buckets (this will succeed).");
-        Console.WriteLine("\t7. Deletes all the resources.");
+        Console.WriteLine("\t1. Creates an Amazon Identity and Access Management (IAM) group.");
+        Console.WriteLine("\t2. Adds an IAM policy to the IAM group giving it full access to Amazon S3.");
+        Console.WriteLine("\t3. Creates a new IAM user.");
+        Console.WriteLine("\t4. Creates an IAM access key for the user.");
+        Console.WriteLine("\t5. Adds the user to the IAM group.");
+        Console.WriteLine("\t6. Lists the buckets on the account.");
+        Console.WriteLine("\t7. Proves that the user has full Amazon S3 access by creating a bucket.");
+        Console.WriteLine("\t8. List the buckets again to show the new bucket.");
+        Console.WriteLine("\t9. Cleans up all the resources created.");
     }
 
     /// <summary>

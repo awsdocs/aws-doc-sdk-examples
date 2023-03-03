@@ -24,5 +24,21 @@ public class HelloIAM
         logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
             .CreateLogger<HelloIAM>();
 
+        // Getting started with IAM. List the policies for the account.
+        var iamClient = new AmazonIdentityManagementServiceClient();
+
+        var listPoliciesPaginator = iamClient.Paginators.ListPolicies(new ListPoliciesRequest());
+        var policies = new List<ManagedPolicy>();
+
+        await foreach(var response in listPoliciesPaginator.Responses)
+        {
+            policies.AddRange(response.Policies);
+        }
+
+        Console.WriteLine("Here are the policies defined for your account:\n");
+        policies.ForEach(policy =>
+        {
+            Console.WriteLine($"Created: {policy.CreateDate}\t{policy.PolicyName}\t{policy.Description}");
+        });
     }
 }

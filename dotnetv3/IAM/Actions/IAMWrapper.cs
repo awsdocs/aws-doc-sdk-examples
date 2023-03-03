@@ -1,6 +1,8 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using System.Net;
+
 namespace IAMActions;
 
 public class IAMWrapper
@@ -15,6 +17,26 @@ public class IAMWrapper
     {
         _IAMService = IAMService;
     }
+
+    // snippet-start:[IAM.dotnetv3.AddUserToGroupAsync]
+    /// <summary>
+    /// Add an existing IAM user to an existing IAM group.
+    /// </summary>
+    /// <param name="userName">The username of the user to add.</param>
+    /// <param name="groupName">The name of the group to add the user to.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
+    public async Task<bool> AddUserToGroupAsync(string userName, string groupName)
+    {
+        var response = await _IAMService.AddUserToGroupAsync(new AddUserToGroupRequest
+        {
+            GroupName = groupName,
+            UserName = userName,
+        });
+
+        return response.HttpStatusCode == HttpStatusCode.OK;
+    }
+
+    // snippet-end:[IAM.dotnetv3.AddUserToGroupAsync]
 
     // snippet-start:[IAM.dotnetv3.AttachRolePolicy]
     /// <summary>
@@ -37,6 +59,12 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.AttachRolePolicy]
 
     // snippet-start:[IAM.dotnetv3.CreateAccessKey]
+    /// <summary>
+    /// Create an IAM access key for a user.
+    /// </summary>
+    /// <param name="userName">The username for which to create the IAM access
+    /// key.</param>
+    /// <returns>The AccessKey.</returns>
     public async Task<AccessKey> CreateAccessKeyAsync(string userName)
     {
         var response = await _IAMService.CreateAccessKeyAsync(new CreateAccessKeyRequest
@@ -51,7 +79,12 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.CreateAccessKey]
 
     // snippet-start:[IAM.dotnetv3.CreateGroup]
-    public async Task<Group> CreateGroup(string groupName)
+    /// <summary>
+    /// Create an IAM group.
+    /// </summary>
+    /// <param name="groupName">The name to give the IAM group.</param>
+    /// <returns>The IAM group that was created.</returns>
+    public async Task<Group> CreateGroupAsync(string groupName)
     {
         var response = await _IAMService.CreateGroupAsync(new CreateGroupRequest { GroupName = groupName });
         return response.Group;
@@ -60,6 +93,12 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.CreateGroup]
 
     // snippet-start:[IAM.dotnetv3.CreatePolicy]
+    /// <summary>
+    /// Create an IAM policy.
+    /// </summary>
+    /// <param name="policyName">The name to give the new IAM policy.</param>
+    /// <param name="policyDocument">The policy document for the new policy.</param>
+    /// <returns>The new IAM policy object.</returns>
     public async Task<ManagedPolicy> CreatePolicyAsync(string policyName, string policyDocument)
     {
         var response = await _IAMService.CreatePolicyAsync(new CreatePolicyRequest
@@ -74,6 +113,13 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.CreatePolicy]
 
     // snippet-start:[IAM.dotnetv3.CreateRole]
+    /// <summary>
+    /// Create a new IAM role.
+    /// </summary>
+    /// <param name="roleName">The name of the IAM role.</param>
+    /// <param name="rolePolicyDocument">The name of the IAM pocliy document
+    /// for the new role.</param>
+    /// <returns></returns>
     public async Task<string> CreateRoleAsync(string roleName, string rolePolicyDocument)
     {
         var request = new CreateRoleRequest
@@ -89,6 +135,12 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.CreateRole]
 
     // snippet-start:[IAM.dotnetv3.CreateServiceLinkedRole]
+    /// <summary>
+    /// Create an IAM service linked role.
+    /// </summary>
+    /// <param name="serviceName">The name of the Amazon Service.</param>
+    /// <param name="description">A description of the IAM service linked role.</param>
+    /// <returns>The IAM role that was created.</returns>
     public async Task<Role> CreateServiceLinkedRoleAsync(string serviceName, string description)
     {
         var request = new CreateServiceLinkedRoleRequest
@@ -104,6 +156,11 @@ public class IAMWrapper
     // snippet-start:[IAM.dotnetv3.CreateServiceLinkedRole]
 
     // snippet-start:[IAM.dotnetv3.CreateUser]
+    /// <summary>
+    /// Create an IAM user.
+    /// </summary>
+    /// <param name="userName">The username for the new IAM user.</param>
+    /// <returns>The IAM user that was created.</returns>
     public async Task<User> CreateUserAsync(string userName)
     {
         var response = await _IAMService.CreateUserAsync(new CreateUserRequest { UserName = userName });
@@ -113,6 +170,13 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.CreateUser]
 
     // snippet-start:[IAM.dotnetv3.DeleteAccessKey]
+    /// <summary>
+    /// Delete an IAM user's access key.
+    /// </summary>
+    /// <param name="accessKeyId">The Id for the IAM access key.</param>
+    /// <param name="userName">The username of the user that owns the IAM
+    /// access key.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeleteAccessKeyAsync(string accessKeyId, string userName)
     {
         var response = await _IAMService.DeleteAccessKeyAsync(new DeleteAccessKeyRequest
@@ -127,6 +191,12 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.DeleteAccessKey]
 
     // snippet-start:[IAM.dotnetv3.DeletePolicy]
+    /// <summary>
+    /// Delete an IAM policy.
+    /// </summary>
+    /// <param name="policyArn">The Amazon Resource Name (ARN) of the policy to
+    /// delete.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeletePolicyAsync(string policyArn)
     {
         var response = await _IAMService.DeletePolicyAsync(new DeletePolicyRequest { PolicyArn = policyArn });
@@ -136,6 +206,11 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.DeletePolicy]
 
     // snippet-start:[IAM.dotnetv3.DeleteRole]
+    /// <summary>
+    /// Delete an IAM role.
+    /// </summary>
+    /// <param name="roleName">The name of the IAM role to delete.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeleteRoleAsync(string roleName)
     {
         var response = await _IAMService.DeleteRoleAsync(new DeleteRoleRequest {  RoleName = roleName });
@@ -145,6 +220,12 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.DeleteRole]
 
     // snippet-start:[IAM.dotnetv3.DeleteRolePolicy]
+    /// <summary>
+    /// Delete an IAM role policy.
+    /// </summary>
+    /// <param name="roleName">The name of the IAM role.</param>
+    /// <param name="policyName">The name of the IAM role policy to delete.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeleteRolePolicyAsync(string roleName, string policyName)
     {
         var response = await _IAMService.DeleteRolePolicyAsync(new DeleteRolePolicyRequest
@@ -159,6 +240,11 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.DeleteRolePolicy]
 
     // snippet-start:[IAM.dotnetv3.DeleteUser]
+    /// <summary>
+    /// Delete an IAM user.
+    /// </summary>
+    /// <param name="userName">The username of the IAM user to delete.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeleteUserAsync(string userName)
     {
         var response = await _IAMService.DeleteUserAsync(new DeleteUserRequest { UserName = userName });
@@ -169,6 +255,12 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.DeleteUser]
 
     // snippet-start:[IAM.dotnetv3.DeleteUserPolicy]
+    /// <summary>
+    /// Delete an IAM user policy.
+    /// </summary>
+    /// <param name="policyName">The name of the IAM policy to delete.</param>
+    /// <param name="userName">The username of the IAM user.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeleteUserPolicyAsync(string policyName, string userName)
     {
         var response = await _IAMService.DeleteUserPolicyAsync(new DeleteUserPolicyRequest { PolicyName = policyName, UserName = userName });
@@ -179,6 +271,12 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.DeleteUserPolicy]
 
     // snippet-start:[IAM.dotnetv3.DetachRolePolicy]
+    /// <summary>
+    /// Detach an IAM policy from an IAM role.
+    /// </summary>
+    /// <param name="policyArn">The Amazon Resource Name (ARN) of the IAM policy.</param>
+    /// <param name="roleName">The name of the IAM role.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DetachRolePolicyAsync(string policyArn, string roleName)
     {
         var response = await _IAMService.DetachRolePolicyAsync(new DetachRolePolicyRequest
@@ -193,6 +291,10 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.DetachRolePolicy]
 
     // snippet-start:[IAM.dotnetv3.GetAccountPasswordPolicy]
+    /// <summary>
+    /// Gets the IAM password policy for an AWS account.
+    /// </summary>
+    /// <returns>The PasswordPolicy for the AWS account.</returns>
     public async Task<PasswordPolicy> GetAccountPasswordPolicyAsync()
     {
         var response = await _IAMService.GetAccountPasswordPolicyAsync(new GetAccountPasswordPolicyRequest());
@@ -202,6 +304,11 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.GetAccountPasswordPolicy]
 
     // snippet-start:[IAM.dotnetv3.GetPolicy]
+    /// <summary>
+    /// Get information about an IAM policy.
+    /// </summary>
+    /// <param name="policyArn">The IAM policy to retrieve information for.</param>
+    /// <returns>The IAM policy.</returns>
     public async Task<ManagedPolicy> GetPolicyAsync(string policyArn)
     {
 
@@ -212,6 +319,12 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.GetPolicy]
 
     // snippet-start:[IAM.dotnetv3.GetRole]
+    /// <summary>
+    /// Get information about an IAM role.
+    /// </summary>
+    /// <param name="roleName">The name of the IAM role to retrieve information
+    /// for.</param>
+    /// <returns>The IAM role that was retrieved.</returns>
     public async Task<Role> GetRoleAsync(string roleName)
     {
         var response = await _IAMService.GetRoleAsync(new GetRoleRequest
@@ -224,7 +337,26 @@ public class IAMWrapper
 
     // snippet-end:[IAM.dotnetv3.GetRole]
 
+    // snippet-start:[IAM.dotnetv3.GetUser]
+    /// <summary>
+    /// Get information about an IAM user.
+    /// </summary>
+    /// <param name="userName">The user name of the user.</param>
+    /// <returns>An IAM user object.</returns>
+    public async Task<User> GetUserAsync(string userName)
+    {
+        var response = await _IAMService.GetUserAsync(new GetUserRequest { UserName = userName });
+        return response.User;
+    }
+
+    // snippet-end:[IAM.dotnetv3.GetUser]
+
     // snippet-start:[IAM.dotnetv3.ListAttachedRolePolicies]
+    /// <summary>
+    /// List the IAM role policies that are attached to an IAM role.
+    /// </summary>
+    /// <param name="roleName">The IAM role we want to list IAM policies for.</param>
+    /// <returns>A list of the IAM policies attached to the IAM role.</returns>
     public async Task<List<AttachedPolicyType>> ListAttachedRolePoliciesAsync(string roleName)
     {
         var attachedPolicies = new List<AttachedPolicyType>();
@@ -241,6 +373,10 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.ListAttachedRolePolicies]
 
     // snippet-start:[IAM.dotnetv3.ListGroups]
+    /// <summary>
+    /// List IAM groups.
+    /// </summary>
+    /// <returns>A list of IAM groups.</returns>
     public async Task<List<Group>> ListGroupsAsync()
     {
         var groupsPaginator = _IAMService.Paginators.ListGroups(new ListGroupsRequest());
@@ -257,6 +393,10 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.ListGroups]
 
     // snippet-start:[IAM.dotnetv3.ListPolicies]
+    /// <summary>
+    /// List IAM policies.
+    /// </summary>
+    /// <returns>A list of the IAM policies.</returns>
     public async Task<List<ManagedPolicy>> ListPoliciesAsync()
     {
         var listPoliciesPaginator = _IAMService.Paginators.ListPolicies(new ListPoliciesRequest());
@@ -273,6 +413,11 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.ListPolicies]
 
     // snippet-start:[IAM.dotnetv3.ListRolePolicies]
+    /// <summary>
+    /// List IAM role policies.
+    /// </summary>
+    /// <param name="roleName">The IAM role for which to list IAM policies.</param>
+    /// <returns>A list of IAM policy names.</returns>
     public async Task<List<string>> ListRolePoliciesAsync(string roleName)
     {
         var listRolePoliciesPaginator = _IAMService.Paginators.ListRolePolicies(new ListRolePoliciesRequest { RoleName = roleName });
@@ -289,6 +434,10 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.ListRolePolicies]
 
     // snippet-start:[IAM.dotnetv3.ListRoles]
+    /// <summary>
+    /// List IAM roles.
+    /// </summary>
+    /// <returns>A list of IAM roles.</returns>
     public async Task<List<Role>> ListRolesAsync()
     {
         var listRolesPaginator = _IAMService.Paginators.ListRoles(new ListRolesRequest());
@@ -305,6 +454,10 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.ListRoles]
 
     // snippet-start:[IAM.dotnetv3.ListSAMLProviders]
+    /// <summary>
+    /// List SAML authentication providers.
+    /// </summary>
+    /// <returns>A list of SAML providers.</returns>
     public async Task<List<SAMLProviderListEntry>> ListSAMLProvidersAsync()
     {
         var response = await _IAMService.ListSAMLProvidersAsync(new ListSAMLProvidersRequest());
@@ -314,6 +467,10 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.ListSAMLProviders]
 
     // snippet-start:[IAM.dotnetv3.ListUsers]
+    /// <summary>
+    /// List IAM users.
+    /// </summary>
+    /// <returns>A list of IAM users.</returns>
     public async Task<List<User>> ListUsersAsync()
     {
         var listUsersPaginator = _IAMService.Paginators.ListUsers(new ListUsersRequest());
@@ -330,6 +487,13 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.ListUsers]
 
     // snippet-start:[IAM.dotnetv3.PutGroupPolicy]
+    /// <summary>
+    /// Add or update an inline policy document that is embedded in an IAM group.
+    /// </summary>
+    /// <param name="groupName">The name of the IAM group.</param>
+    /// <param name="policyName">The name of the IAM policy.</param>
+    /// <param name="policyDocument">The policy document defining the IAM policy.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> PutGroupPolicyAsync(string groupName, string policyName, string policyDocument)
     {
         var request = new PutGroupPolicyRequest
@@ -344,4 +508,28 @@ public class IAMWrapper
     }
 
     // snippet-end:[IAM.dotnetv3.PutGroupPolicy]
+
+    public async Task<bool> WaitUntilAccessKeyIsReady(string accessKeyId)
+    {
+        var keyReady = false;
+
+        do
+        {
+            try
+            {
+                var response = await _IAMService.GetAccessKeyLastUsedAsync(
+                    new GetAccessKeyLastUsedRequest { AccessKeyId = accessKeyId });
+                if (response.UserName is not null)
+                {
+                    keyReady = true;
+                }
+            }
+            catch (NoSuchEntityException ex)
+            {
+                keyReady = false;
+            }
+        } while (!keyReady);
+
+        return keyReady;
+    }
 }

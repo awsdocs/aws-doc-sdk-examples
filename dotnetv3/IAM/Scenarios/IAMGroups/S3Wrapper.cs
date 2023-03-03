@@ -4,7 +4,7 @@
 using Amazon.S3;
 using Microsoft.Extensions.FileSystemGlobbing.Internal;
 
-namespace IAMBasics;
+namespace IAMGroups;
 
 /// <summary>
 /// A class to perform S3 actions for the IAM Basics scenario.
@@ -44,18 +44,6 @@ internal class S3Wrapper
         var response = await _stsService.AssumeRoleAsync(request);
 
         return response.Credentials;
-    }
-
-    /// <summary>
-    /// Create a new Amazon S3 bucket.
-    /// </summary>
-    /// <param name="bucketName">The name for the new bucket.</param>
-    /// <returns>A Boolean value indicated whether the action completed
-    /// successfully.</returns>
-    public async Task<bool> PutBucketAsync(string bucketName)
-    {
-        var response = _s3Service.PutBucketAsync(bucketName);
-        return response.IsCompletedSuccessfully;
     }
 
     /// <summary>
