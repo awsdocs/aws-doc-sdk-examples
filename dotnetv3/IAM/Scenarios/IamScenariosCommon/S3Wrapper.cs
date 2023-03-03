@@ -1,6 +1,8 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using System.Net;
+
 namespace IamScenariosCommon;
 
 /// <summary>
@@ -43,16 +45,10 @@ public class S3Wrapper
         return response.Credentials;
     }
 
-    /// <summary>
-    /// Create a new Amazon S3 bucket.
-    /// </summary>
-    /// <param name="bucketName">The name for the new bucket.</param>
-    /// <returns>A Boolean value indicated whether the action completed
-    /// successfully.</returns>
-    public async Task<bool> PutBucketAsync(string bucketName)
+    public async Task<bool> DeleteBucketAsync(string bucketName)
     {
-        var response = _s3Service.PutBucketAsync(bucketName);
-        return response.IsCompletedSuccessfully;
+        var result = await _s3Service.DeleteBucketAsync(new DeleteBucketRequest { BucketName = bucketName });
+        return result.HttpStatusCode == HttpStatusCode.OK;
     }
 
     /// <summary>
@@ -74,6 +70,18 @@ public class S3Wrapper
             Console.WriteLine($"Error: {ex.Message}");
             return null;
         }
+    }
+
+    /// <summary>
+    /// Create a new Amazon S3 bucket.
+    /// </summary>
+    /// <param name="bucketName">The name for the new bucket.</param>
+    /// <returns>A Boolean value indicated whether the action completed
+    /// successfully.</returns>
+    public async Task<bool> PutBucketAsync(string bucketName)
+    {
+        var response = await _s3Service.PutBucketAsync(new PutBucketRequest{ BucketName = bucketName });
+        return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
     /// <summary>
