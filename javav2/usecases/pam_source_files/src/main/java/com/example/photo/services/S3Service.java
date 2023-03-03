@@ -301,26 +301,52 @@ public class S3Service {
         return "";
     }
 
-    // Moves files from the source bucket to Storage bucket.
+    // Copy objects from the source bucket to storage bucket.
     public int copyFiles(String sourceBucket) {
         S3Client s3 = getClient();
 
         int count = 0;
-        // Only move JPEG images
+        // Only move .jpg images
         ListObjectsV2Request request = ListObjectsV2Request.builder()
             .bucket(sourceBucket)
             .build();
 
         ListObjectsV2Response response = s3.listObjectsV2(request);
         for (S3Object s3Object :  response.contents()) {
-            if ((s3Object.key().endsWith(".jpg")) || (s3Object.key().endsWith(".jpeg"))) {
+
+            // Check to make sure the object does not exist in the bucket. If the object exists
+            // it will not be copied again.
+            if ( checkS3ObjectDoesNotExist(s3Object.key())) {
+                System.out.println("Object exists in the bucket.");
+
+            } else if ((s3Object.key().endsWith(".jpg")) || (s3Object.key().endsWith(".jpeg"))) {
                 System.out.println("JPG object found and will be copied: " + s3Object.key());
                 copyS3Object(sourceBucket, s3Object.key());
-                count ++;
+                count++;
             }
         }
 
         return count;
+    }
+
+    // Returns true if object exists.
+    public boolean checkS3ObjectDoesNotExist(String keyName) {
+        S3Client s3 = getClient();
+        HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
+            .bucket(PhotoApplicationResources.STORAGE_BUCKET)
+            .key(keyName)
+            .build();
+
+        try {
+             HeadObjectResponse response = s3.headObject(headObjectRequest);
+             String contentType = response.contentType();
+             if (contentType.length() > 0)
+                 return true ;
+
+        } catch (S3Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+        }
+        return false;
     }
 
     public void copyS3Object(String sourceBucket, String objectKey) {
