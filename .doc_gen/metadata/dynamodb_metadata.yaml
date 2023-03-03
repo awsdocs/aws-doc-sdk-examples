@@ -1463,9 +1463,9 @@ dynamodb_BatchExecuteStatement:
           sdkguide:
           excerpts:
             - description: Read a batch of items using PartiQL.
-                snippet_tags:
-                  - ruby.example_code.ruby.DynamoDBPartiQLBatch.decl
-                  - ruby.example_code.dynamodb.partiql.batch_read
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLBatch.decl
+                - ruby.example_code.dynamodb.partiql.batch_read
             - description: Delete a batch of items using PartiQL.
               snippet_tags:
                 - ruby.example_code.ruby.DynamoDBPartiQLBatch.decl
