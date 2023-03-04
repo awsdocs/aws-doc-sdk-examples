@@ -1,13 +1,16 @@
 import { create } from "zustand";
-import { AuthManager, AuthStatus, AuthResult, User } from "./auth";
+import { AuthManager, AuthStatus, User } from "./auth";
 import { CognitoAuthManager } from "./cognito-auth";
 
 export interface AuthStore {
-  error: string;
+  error: string | null;
   authStatus: AuthStatus;
   authManager: AuthManager;
   currentUser: User | null;
-  handleAuth: (authFn: () => Promise<AuthResult>) => void;
+  token: string | null;
+  setAuthStatus: (authStatus: AuthStatus) => void;
+  setError: (error: string | null) => void;
+  setToken: (token: string | null) => void;
 }
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
@@ -15,24 +18,14 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   authStatus: "signed_out",
   authManager: new CognitoAuthManager(),
   currentUser: null,
-  handleAuth: async (authFn: () => Promise<AuthResult>) => {
-    try {
-      const { status } = await authFn();
-      if (status === "signed_in") {
-        set({ currentUser: await get().authManager.getUser() });
-      }
-      set({ authStatus: status });
-    } catch (err) {
-      console.log(err);
-      useAuthStore.setState({ authStatus: "failure" });
-      set({
-        error:
-          err instanceof Error
-            ? err.message
-            : typeof err === "string"
-            ? err
-            : "Unknown error",
-      });
-    }
+  token: null,
+  setAuthStatus: (authStatus: AuthStatus) => {
+    set({ authStatus });
+  },
+  setError(error: string | null) {
+    set({ error });
+  },
+  setToken(token: string | null) {
+    set({ token });
   },
 }));

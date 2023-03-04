@@ -3,7 +3,7 @@ import SpaceBetween from "@cloudscape-design/components/space-between";
 import Button, { ButtonProps } from "@cloudscape-design/components/button";
 import { Alert, FormField, Input, Modal } from "@cloudscape-design/components";
 import { useState } from "react";
-import { AuthStatus } from "./auth";
+import { AuthStatus, AuthSuccess } from "./auth";
 import { useAuthStore } from "./store-auth";
 import { useUiStore } from "./store-ui";
 
@@ -12,7 +12,8 @@ function LoginModal() {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { authManager, authStatus, error, handleAuth } = useAuthStore();
+  const { authManager, authStatus, error, setAuthStatus, setError, setToken } =
+    useAuthStore();
   const {
     login: { loginModalVisible, setLoginModalVisible },
   } = useUiStore();
@@ -21,32 +22,59 @@ function LoginModal() {
     reset_required: () => ({
       children: "Reset",
       disabled: newPassword !== confirmPassword,
-      onClick: () =>
-        handleAuth(() => authManager.resetPassword(username, newPassword)),
+      onClick: async () => {
+        try {
+          const authResult: AuthSuccess = await authManager.resetPassword(
+            username,
+            newPassword
+          );
+          setLoginModalVisible(false);
+          setError(null);
+          setAuthStatus(authResult.status);
+          setToken(authResult.token);
+        } catch (err) {
+          console.log(err);
+          setError("Failed to reset password.");
+        }
+      },
     }),
     signed_out: () => ({
       children: "Login",
       disabled: !(username && password),
-      onClick: () =>
-        handleAuth(async () => {
+      onClick: async () => {
+        try {
           const result = await authManager.signIn(username, password);
-          setLoginModalVisible(false)
-          return result;
-        }),
+          setError(null);
+          if (result.status !== "reset_required") {
+            setLoginModalVisible(false);
+            setToken(result.token);
+          }
+        } catch (err) {
+          console.log(err);
+          setError("Login attempt failed.");
+        }
+      },
     }),
     signed_in: () => ({
       children: "Logout",
-      onClick: () => handleAuth(() => authManager.signOut()),
-    }),
-    failure: () => ({
-      children: "Login",
-      disabled: !(username && password),
-      onClick: () => handleAuth(() => authManager.signIn(username, password)),
+      onClick: async () => {
+        try {
+          const result = await authManager.signOut();
+          setAuthStatus(result.status);
+          setToken(null);
+        } catch (err) {
+          console.log(err);
+        }
+      },
     }),
   };
 
   return (
-    <Modal visible={loginModalVisible} header={"Login"} onDismiss={() => setLoginModalVisible(false)}>
+    <Modal
+      visible={loginModalVisible}
+      header={"Login"}
+      onDismiss={() => setLoginModalVisible(false)}
+    >
       <form onSubmit={(e) => e.preventDefault()}>
         <Form
           actions={
@@ -70,7 +98,7 @@ function LoginModal() {
                   type="password"
                 />
               </FormField>
-              {authStatus === "failure" && (
+              {error && (
                 <Alert type="error" header="Error">
                   {error}
                 </Alert>
@@ -105,11 +133,6 @@ function LoginModal() {
                   type="password"
                 />
               </FormField>
-            </>
-          )}
-          {authStatus === "signed_in" && (
-            <>
-              <p>Logged in!</p>
             </>
           )}
         </Form>

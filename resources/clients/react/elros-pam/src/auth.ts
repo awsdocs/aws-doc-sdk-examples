@@ -1,19 +1,10 @@
-export type AuthResult = AuthSuccess | AuthFailure | AuthResetRequired | AuthSignOut;
+export type AuthResult = AuthSuccess | AuthResetRequired | AuthSignOut;
 
-export type AuthStatus =
-  | "signed_in"
-  | "signed_out"
-  | "reset_required"
-  | "failure";
+export type AuthStatus = "signed_in" | "signed_out" | "reset_required";
 
 export interface AuthSuccess {
   status: "signed_in";
   token: string;
-}
-
-export interface AuthFailure {
-  status: "failure";
-  error: Error;
 }
 
 export interface AuthResetRequired {
@@ -31,7 +22,10 @@ export interface User {
 
 export interface AuthManager {
   getUser(): Promise<User | null>;
-  resetPassword(username: string, password: string): Promise<AuthResult>;
-  signIn(username: string, password: string): Promise<AuthResult>;
-  signOut(): Promise<AuthResult>;
+  resetPassword(username: string, password: string): Promise<AuthSuccess>;
+  signIn(
+    username: string,
+    password: string
+  ): Promise<AuthSuccess | AuthResetRequired>;
+  signOut(): Promise<AuthSignOut>;
 }

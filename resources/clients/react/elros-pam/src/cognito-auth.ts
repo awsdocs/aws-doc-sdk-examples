@@ -1,10 +1,16 @@
 import {
   AuthenticationDetails,
   CognitoUser,
-  CognitoUserAttribute,
   CognitoUserPool,
 } from "amazon-cognito-identity-js";
-import { AuthManager, AuthResult, User } from "./auth";
+import {
+  AuthManager,
+  AuthResetRequired,
+  AuthResult,
+  AuthSignOut,
+  AuthSuccess,
+  User,
+} from "./auth";
 
 export class CognitoAuthManager implements AuthManager {
   private _cognitoUser: CognitoUser | null = null;
@@ -33,11 +39,7 @@ export class CognitoAuthManager implements AuthManager {
     });
   }
 
-  private getAttribute(key: string, attributes: CognitoUserAttribute[]) {
-    return attributes.find((a) => a.getName() === key)?.getValue();
-  }
-
-  getUser(): Promise<User | null> {
+  private getAttribute<T>(key: string): Promise<T | null> {
     return new Promise((resolve, reject) => {
       if (!this._cognitoUser) {
         resolve(null);
@@ -49,22 +51,27 @@ export class CognitoAuthManager implements AuthManager {
           if (!attributes) {
             resolve(null);
           } else {
-            const email = this.getAttribute("email", attributes);
-            email ? resolve({ username: email }) : resolve(null);
+            const attr = attributes.find((a) => a.getName() === key);
+            resolve(attr ? (attr.getValue() as T) : null);
           }
         });
       }
     });
   }
 
-  resetPassword(username: string, newPassword: string): Promise<AuthResult> {
+  async getUser(): Promise<User | null> {
+    const email = await this.getAttribute<string>("email");
+    return email ? { username: email } : null;
+  }
+
+  resetPassword(username: string, newPassword: string): Promise<AuthSuccess> {
     const cognitoUser = this.getCognitoUser();
 
     if (!cognitoUser) {
       throw new Error("Failed to reset password. Cognito user is missing.");
     }
 
-    return new Promise<AuthResult>((resolve, reject) => {
+    return new Promise<AuthSuccess>((resolve, reject) => {
       cognitoUser.completeNewPasswordChallenge(
         newPassword,
         {},
@@ -75,7 +82,11 @@ export class CognitoAuthManager implements AuthManager {
               if (authResult.status === "signed_in") {
                 resolve(authResult);
               } else {
-                reject(authResult);
+                reject(
+                  new Error(
+                    "Password reset successfully but failed to sign in."
+                  )
+                );
               }
             } catch (err) {
               reject(new Error("Failed to reset password."));
@@ -87,7 +98,10 @@ export class CognitoAuthManager implements AuthManager {
     });
   }
 
-  signIn(username: string, password: string): Promise<AuthResult> {
+  signIn(
+    username: string,
+    password: string
+  ): Promise<AuthSuccess | AuthResetRequired> {
     const authDetails = this.getAuthDetails(username, password);
     const cognitoUser = this.initCognitoUser(username);
 
@@ -100,6 +114,7 @@ export class CognitoAuthManager implements AuthManager {
           });
         },
         onFailure: (err) => {
+          console.log(err);
           reject(new Error("Incorrect username or password."));
         },
         newPasswordRequired: (userAttributes) => {
@@ -112,7 +127,7 @@ export class CognitoAuthManager implements AuthManager {
     });
   }
 
-  signOut(): Promise<AuthResult> {
+  signOut(): Promise<AuthSignOut> {
     return new Promise((resolve) => {
       const currentUser = this.getCognitoUser();
       currentUser

@@ -4,7 +4,8 @@ import { useUiStore } from "./store-ui";
 import { useAuthStore } from "./store-auth";
 
 function WelcomeUser() {
-  const { authStatus, authManager, currentUser, handleAuth } = useAuthStore();
+  const { authStatus, authManager, currentUser, setAuthStatus } =
+    useAuthStore();
   const {
     login: { setLoginModalVisible },
   } = useUiStore();
@@ -14,7 +15,12 @@ function WelcomeUser() {
       <div className="full-height-centered">
         Welcome, {currentUser?.username}.
       </div>
-      <Button onClick={() => handleAuth(() => authManager.signOut())}>
+      <Button
+        onClick={async () => {
+          const authStatus = await authManager.signOut();
+          setAuthStatus(authStatus.status);
+        }}
+      >
         Logout
       </Button>
     </SpaceBetween>
