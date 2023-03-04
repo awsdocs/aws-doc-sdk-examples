@@ -83,21 +83,21 @@ JavaScript:
   property: javascript
   sdk:
     2:
-      long: "&JSBlong; V2"
-      short: "&JSB; V2"
+      long: "&JSBlong; (v2)"
+      short: "&JSB; (v2)"
       expanded:
-        long: "AWS SDK for JavaScript V2"
-        short: "SDK for JavaScript V2"
+        long: "AWS SDK for JavaScript (v2)"
+        short: "SDK for JavaScript (v2)"
       guide: "sdk-for-javascript/v2/developer-guide/welcome.html"
       api_ref:
         uid: "AWSJavaScriptSDK"
         name: "&guide-jsb-api;"
     3:
-      long: "&JSBlong; V3"
-      short: "&JSB; V3"
+      long: "&JSBlong; (v3)"
+      short: "&JSB; (v3)"
       expanded:
-        long: "AWS SDK for JavaScript V3"
-        short: "SDK for JavaScript V3"
+        long: "AWS SDK for JavaScript (v3)"
+        short: "SDK for JavaScript (v3)"
       guide: "sdk-for-javascript/v3/developer-guide/welcome.html"
       api_ref:
         uid: "AWSJavaScriptSDKV3"

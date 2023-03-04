@@ -26,8 +26,10 @@ void AwsDocTest::Cognito_GTests::TearDownTestSuite() {
 }
 
 void AwsDocTest::Cognito_GTests::SetUp() {
-    m_savedBuffer = std::cout.rdbuf();
-    std::cout.rdbuf(&m_coutBuffer);
+    if (suppressStdOut()) {
+        m_savedBuffer = std::cout.rdbuf();
+        std::cout.rdbuf(&m_coutBuffer);
+    }
 
     m_savedInBuffer = std::cin.rdbuf();
     std::cin.rdbuf(&m_cinBuffer);
@@ -66,6 +68,11 @@ Aws::String AwsDocTest::Cognito_GTests::preconditionError() {
     return "Failed to meet precondition.";
 }
 
+bool AwsDocTest::Cognito_GTests::suppressStdOut() {
+    return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
+}
+
+
 AwsDocTest::MockHTTP::MockHTTP() {
     mockHttpClient = Aws::MakeShared<MockHttpClient>(ALLOCATION_TAG);
     mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
@@ -100,3 +107,4 @@ int AwsDocTest::MyStringBuffer::underflow() {
 
     return result;
 }
+

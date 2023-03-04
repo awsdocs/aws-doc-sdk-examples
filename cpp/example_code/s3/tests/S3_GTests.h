@@ -55,6 +55,9 @@ namespace AwsDocTest {
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
     private:
+
+        bool suppressStdOut();
+
         static void DeleteBuckets();
 
         static Aws::SDKOptions s_options;

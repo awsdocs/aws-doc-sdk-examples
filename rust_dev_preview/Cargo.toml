@@ -60,6 +60,5 @@ members = [
     "test-utils",
     "testing",
     "tls",
-    "transcribestreaming",
-    "using-native-tls-instead-of-rustls"
+    "transcribestreaming"
 ]
