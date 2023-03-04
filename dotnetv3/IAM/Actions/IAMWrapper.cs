@@ -486,6 +486,22 @@ public class IAMWrapper
 
     // snippet-end:[IAM.dotnetv3.ListUsers]
 
+    // snippet-start:[IAM.dotnetv3.RemoveUserFromGroup]
+    public async Task<bool> RemoveUserFromGroupAsync(string userName, string groupName)
+    {
+        // Remove the user from the group.
+        var removeUserRequest = new RemoveUserFromGroupRequest()
+        {
+            UserName = userName,
+            GroupName = groupName,
+        };
+
+        var response = await _IAMService.RemoveUserFromGroupAsync(removeUserRequest);
+        return response.HttpStatusCode == HttpStatusCode.OK;
+    }
+
+    //snippet-end:[IAM.dotnetv3.RemoveUserFromGroup]
+
     // snippet-start:[IAM.dotnetv3.PutGroupPolicy]
     /// <summary>
     /// Add or update an inline policy document that is embedded in an IAM group.

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 using Amazon.S3;
+using Amazon.S3.Model;
 using Amazon.SecurityToken;
 using Xunit;
 using IamScenariosCommon;
@@ -74,8 +75,24 @@ namespace IAMTests
         [Trait("Category", "Integration")]
         public async Task DeleteBucketAsyncTest()
         {
-            var success = await _s3Wrapper.DeleteBucketAsync($"{_bucketName}{_test_guid}");
-            Assert.True(success, $"Couldn't delete the bucket {_bucketName}{_test_guid}.");
+            var bucketName = $"{_bucketName}{_test_guid}";
+            await _s3Wrapper.DeleteBucketAsync(bucketName);
+
+            // Determine if the bucket still exists by trying
+            // to list the objects in it. This should raise an error.
+            var exception = Record.Exception(() => _s3Client.ListObjectsV2Async(new ListObjectsV2Request { BucketName = bucketName }).Wait());
+            Assert.NotNull(exception);
+
+            // The AWS SDK for .NET raises an AggregateException, so
+            // extract the AmazonS3Exception from it.
+            var s3Exception = exception?.InnerException as AmazonS3Exception;
+
+            // Make sure we have an AmazonS3Exception.
+            Assert.IsType<AmazonS3Exception>(s3Exception);
+
+            // Make sure that the error message is "NoSuchBucket" meaning
+            // that the Amazon S3 bucket in question no longer exists.
+            Assert.Equal("NoSuchBucket", ((AmazonS3Exception)s3Exception).ErrorCode);
         }
 
         [Fact()]

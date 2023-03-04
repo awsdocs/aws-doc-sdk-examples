@@ -101,6 +101,6 @@ public class IAMGroups
 
         uiWrapper.DisplayTitle("Clean up resources");
         Console.WriteLine("First delete the bucket we created.");
-        
+        Console.WriteLine("Now delete the ");
     }
 }
