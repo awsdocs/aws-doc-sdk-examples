@@ -35,15 +35,60 @@ minimum permissions required to perform the task. For more information, see
 * This code is not tested in every AWS Region. For more information, see 
 [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
+## Run the examples
+
 ### Prerequisites
 
 * You must have an AWS account, and have your default credentials and AWS Region
 configured as described in the 
 [AWS Tools and SDKs Shared Configuration and
 Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-* Python 3.6.0 or later
-* Pytest 6.0.2 or later (to run tests)
-* Boto3 1.18.50 or later
+* [Python 3.6.0 or later](https://www.python.org/)
+
+### Install packages
+
+Depending on how you have Python installed and on your operating system,
+the commands to install and run might vary slightly. For example, on Windows, use `py` 
+in place of `python`.
+
+Each example folder contains a `requirements.txt` file that defines the packages needed 
+to run that example. To install the required packages, first navigate to the example folder
+and create a virtual environment by running the following:
+
+```
+python -m venv .venv
+```
+
+This creates a virtual environment folder named `.venv`. Each virtual environment
+contains an independent set of Python packages. Activate the virtual environment by
+running one of the following:
+
+```
+.venv\Scripts\activate # Windows
+source .venv/bin/activate # Linux, macOS, or Unix
+```
+
+Install the packages for the example by running the following:
+
+```
+python -m pip install -r requirements.txt
+```
+
+This installs all of the packages listed in the `requirements.txt` file in the current
+folder.
+
+### Run the code
+
+Most examples have one or more files that contain a `__main__` runner. Each of these
+files can be run from the command line:
+
+```
+python file_with_main.py
+```
+
+Some examples require command line arguments. In these cases, you can run the example
+with a `-h` flag to get help. Each example has a README.md that describes additional 
+specifics about how to run the example and any other prerequisites. 
 
 ## Tests
 

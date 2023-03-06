@@ -16,6 +16,7 @@ import pytest
 
 IGNORE_FOLDERS = {
     'venv',
+    '.venv',
     '__pycache__',
     '.pytest_cache',
     'node_modules',
