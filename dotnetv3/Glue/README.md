@@ -13,22 +13,26 @@ AWS Glue is a serverless data integration service that makes it easy to discover
 
 ## Code examples
 
+### Get started
+
+  [Hello Glue](Actions/HelloGlue.cs)
+
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-- [Create a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateCrawlerAsync`)
-- [Create a database](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateDatabaseAsync`)
-- [Create a job definition](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`CreateJobAsync`)
-- [Delete a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteCrawlerAsync`)
-- [Delete a database from the AWS Glue Data Catalog](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteDatabaseAsync`)
-- [Delete a job definition](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`DeleteJobAsync`)
-- [Get all jobs](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetJobsAsync`)
-- [Get tables from a database](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetTablesAsync`)
-- [Get runs of a job](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetJobRunsAsync`)
-- [Get a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetCrawlerAsync`)
-- [Get a database](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`GetDatabaseAsync`)
-- [Start a crawler](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`StartCrawlerAsync`)
-- [Start a job run](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueMethods.cs) (`StartJobRunAsync`)
+- [Create a crawler](Actions/GlueWrapper.cs) (`CreateCrawlerAsync`)
+- [Create a database](Actions/GlueWrapper.cs) (`CreateDatabaseAsync`)
+- [Create a job definition](Actions/GlueWrapper.cs) (`CreateJobAsync`)
+- [Delete a crawler](Actions/GlueWrapper.cs) (`DeleteCrawlerAsync`)
+- [Delete a database from the AWS Glue Data Catalog](Actions/GlueWrapper.cs) (`DeleteDatabaseAsync`)
+- [Delete a job definition](Actions/GlueWrapper.cs) (`DeleteJobAsync`)
+- [Get all jobs](Actions/GlueWrapper.cs) (`GetJobsAsync`)
+- [Get tables from a database](Actions/GlueWrapper.cs) (`GetTablesAsync`)
+- [Get runs of a job](Actions/GlueWrapper.cs) (`GetJobRunsAsync`)
+- [Get a crawler](Actions/GlueWrapper.cs) (`GetCrawlerAsync`)
+- [Get a database](Actions/GlueWrapper.cs) (`GetDatabaseAsync`)
+- [Start a crawler](Actions/GlueWrapper.cs) (`StartCrawlerAsync`)
+- [Start a job run](Actions/GlueWrapper.cs) (`StartJobRunAsync`)
 
 ### Scenario
 
@@ -38,6 +42,59 @@ multiple functions within the same service.
 - [Get started running crawlers and jobs](scenarios/Glue_Basics_Scenario/Glue_Basics/GlueBasics.cs)
 
 ## Run the examples
+
+### Get started running crawlers and jobs scenario
+
+This interactive scenario runs at a command prompt and shows you how to use 
+AWS Glue to do the following:
+
+1. Create and run a crawler that crawls a public Amazon Simple Storage
+   Service (Amazon S3) bucket and generates a metadata database that describes the
+   CSV-formatted data it finds.
+2. List information about databases and tables in your AWS Glue Data Catalog.
+3. Create and run a job that extracts CSV data from the source Amazon S3 bucket,
+   transforms it by removing and renaming fields, and loads JSON-formatted output into
+   another S3 bucket.
+4. List information about job runs and view some of the transformed data.
+5. Delete all resources created by the demo.
+
+This scenario requires the following scaffold resources:
+
+* An Amazon S3 bucket that can contain the Python ETL job script and can receive 
+output data.
+* An AWS Identity and Access Management (IAM) role that can be assumed by AWS Glue. 
+The role must grant read-write access to the S3 bucket and standard rights needed by 
+AWS Glue.
+
+You can deploy and destroy resources using the AWS Cloud Development Kit
+(AWS CDK). To do this, run `cdk deploy` or `cdk destroy` in the
+[/resources/cdk/glue_role_bucket](/resources/cdk/glue_role_bucket) folder.
+
+When the CDK script reports the name of the bucket and AWS Identity and Access Management (IAM) Role that was created, open the settings.json file and fill in
+the BucketName and RoleName values. You can use whatever you like for the rawlerName.
+
+settings.json contains the following values:
+
+`{
+  "BucketName": "BUCKET NAME FROM CDK SCRIPT",
+  "BucketUrl": "URL TO TO THE BUCKET CREATED BY CDK SCRIPT",
+  "CrawlerName": "NAME FOR CRAWLER",
+  "RoleName": "ROLE NAME FROM CDK SCRIPT",
+  "SourceData": "s3://crawler-public-us-east-1/flight/2016/csv",
+  "DbName": "example-flights-db",
+  "Cron": "cron(15 12 * * ? *)",
+  "ScriptURL": "PATH TO PYTHON SCRIPT",
+  "JobName": "glue-mvp-job"
+}`
+
+Here are some sample values for the URL settings:
+"BucketURL": `s3://bucket-name-from-script`
+"ScriptURL": `s3://bucket-name-from-script/flight_etl_job_script.py`
+
+Copy the Python script, flight_etl_job_script.py, from
+[/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py](/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py)
+to the new Amazon S3 bucket and Fill in the ScriptURL value using the path to the
+Python script where you put it in the newly created bucket as shown above.
 
 ### Prerequisites
 * To find prerequisites for running these examples, see the
