@@ -19,6 +19,9 @@ from pathlib import Path
 ELROS_PATH = "./website"
 
 
+Lambdas = dict[str, lambda_cdk.Function]
+
+
 class RekognitionPhotoAnalyzerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         if "name" in kwargs:
@@ -69,7 +72,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
         return (user, group)
 
-    def _s3(self):
+    def _s3(self) -> tuple[s3.Bucket, s3.Bucket]:
         # give new user access to the bucket
         storage_bucket = s3.Bucket(
             self, f"{self.dns_prefix}-storage-bucket")
@@ -85,7 +88,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
         return (storage_bucket, working_bucket)
 
-    def _dynamodb(self):
+    def _dynamodb(self) -> tuple[ddb.Table, ddb.Table]:
         # create DynamoDB table to hold Rekognition results
         labels_table = ddb.Table(
             self, f"{self.prefix}-LabelsTable",
@@ -101,7 +104,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
         return (labels_table, jobs_table)
 
-    def _cognito(self):
+    def _cognito(self) -> tuple[cognito.UserPool, cognito.CfnUserPoolClient, cognito.UserPoolClient]:
         cognito_pool = cognito.UserPool(
             self, f"{self.prefix}-UserPool",
             password_policy=cognito.PasswordPolicy(
@@ -133,10 +136,10 @@ class RekognitionPhotoAnalyzerStack(Stack):
         )
         return (cognito_pool, cognito_user, cognito_app_client)
 
-    def _s3_website(self, gateway, app_client):
+    def _s3_website(self, gateway: apigateway.RestApi, app_client: cognito.UserPoolClient):
         website_bucket = s3.Bucket(
             self, f"{self.dns_prefix}-website",
-            public_read_access=True,
+            # public_read_access=True,
             website_index_document="index.html"
         )
         deployment = s3_deployment.BucketDeployment(
@@ -150,7 +153,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
         return (website_bucket, deployment)
 
-    def _api_gateway(self, lambdas, cognito_pool):
+    def _api_gateway(self, lambdas: Lambdas, cognito_pool: cognito.UserPool) -> None:
         api = apigateway.RestApi(
             self, f"{self.prefix}-RestApi",
             rest_api_name="PAM",
@@ -174,7 +177,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
         # self._api_gateway_route(
         #     api, 'archive', lambdas['Archive'], 'PUT', auth)
 
-    def _api_gateway_route(self, api, resource, lambda_fn, method, auth):
+    def _api_gateway_route(self, api: apigateway.RestApi, resource: str, lambda_fn: lambda_cdk.Function, method: str, auth: apigateway.CognitoUserPoolsAuthorizer) -> None:
         resource = api.root.add_resource(resource)
         resource.add_method(
             method,
@@ -183,7 +186,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
             authorization_type=apigateway.AuthorizationType.COGNITO,
         )
 
-    def _lambdas(self):
+    def _lambdas(self) -> Lambdas:
         self.layer = lambda_cdk.LayerVersion(
             self, f"{self.prefix}_LibraryLayer", code=self.lambda_code_asset())
         lambda_DetectLabels = self._lambda_DetectLabels(
@@ -202,39 +205,39 @@ class RekognitionPhotoAnalyzerStack(Stack):
             Archive=None,
         )
 
-    def lambda_runtime(self):
+    def lambda_runtime(self) -> lambda_cdk.Runtime:
         raise NotImplementedError()
 
-    def lambda_code_asset(self):
+    def lambda_code_asset(self) -> lambda_cdk.Code:
         raise NotImplementedError()
 
-    def lambda_DetectLabels_handler(self):
+    def lambda_DetectLabels_handler(self) -> str:
         raise NotImplementedError()
 
-    def lambda_Labels_handler(self):
+    def lambda_Labels_handler(self) -> str:
         raise NotImplementedError()
 
-    def lambda_ZipArchive_handler(self):
+    def lambda_ZipArchive_handler(self) -> str:
         raise NotImplementedError()
 
-    def lambda_Upload_handler(self):
+    def lambda_Upload_handler(self) -> str:
         raise NotImplementedError()
 
-    def lambda_Copy_handler(self):
+    def lambda_Copy_handler(self) -> str:
         raise NotImplementedError()
 
-    def lambda_Download_handler(self):
+    def lambda_Download_handler(self) -> str:
         raise NotImplementedError()
 
-    def lambda_Archive_handler(self):
+    def lambda_Archive_handler(self) -> str:
         raise NotImplementedError()
 
-    def _lambda_DetectLabels(self, storage_bucket, labels_table):
+    def _lambda_DetectLabels(self, storage_bucket: s3.Bucket, labels_table: ddb.Table):
         # create Lambda function
         lambda_function = lambda_cdk.Function(
             self, f'{self.prefix}-DetectLabelsFn',
-            # runtime=self.lambda_runtime(),
             runtime=self.lambda_runtime(),
+            # layers=self._layers()
             handler=self.lambda_DetectLabels_handler(),
             code=self.lambda_code_asset(),
             environment={
@@ -246,16 +249,25 @@ class RekognitionPhotoAnalyzerStack(Stack):
         # add Rekognition permissions for Lambda function
         statement = iam.PolicyStatement()
         statement.add_actions("rekognition:DetectLabels")
-        statement.add_resources(lambda_function.function_arn)
-        lambda_function.add_to_role_policy(statement)
+        # statement.add_resources(lambda_function.function_arn)
+        # lambda_function.role.add_to_principal_policy(iam.PolicyStatement(
+        #     actions=["rekognition:DetectLabels"],
+        #     # resources=[lambda_function.function_arn]
+        #     resources=[
+        #         self.format_arn(
+        #             service="lambda",
+        #             resource="function",
+        #             resource_name=lambda_function.function_name
+        #         )
+        #     ]
+        # ))
 
         # create trigger for Lambda function with image type suffixes
-        notification = s3_notifications.LambdaDestination(lambda_function)
-        notification.bind(self, storage_bucket)
-        storage_bucket.add_object_created_notification(
-            notification, s3.NotificationKeyFilter(suffix='.jpg'))
-        storage_bucket.add_object_created_notification(
-            notification, s3.NotificationKeyFilter(suffix='.jpeg'))
+        # notification = s3_notifications.LambdaDestination(lambda_function)
+        # storage_bucket.add_object_created_notification(
+        #     notification, s3.NotificationKeyFilter(suffix='.jpg'))
+        # storage_bucket.add_object_created_notification(
+        #     notification, s3.NotificationKeyFilter(suffix='.jpeg'))
 
         # grant permissions for lambda to read/write to DynamoDB table and bucket
         labels_table.grant_read_write_data(lambda_function)
@@ -263,7 +275,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
         return lambda_function
 
-    def _lambda_ZipArchive(self, working_bucket, jobs_table):
+    def _lambda_ZipArchive(self, working_bucket: s3.Bucket, jobs_table: ddb.Table):
         # create Lambda function
         lambda_function = lambda_cdk.Function(
             self, f'{self.prefix}-ZipArchiveFn',
@@ -288,7 +300,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
         return lambda_function
 
-    def _lambda_Labels(self, labels_table):
+    def _lambda_Labels(self, labels_table: ddb.Table):
         # create Lambda function
         lambda_function = lambda_cdk.Function(
             self, f'{self.prefix}-LabelsFn',
