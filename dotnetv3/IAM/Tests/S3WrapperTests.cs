@@ -20,12 +20,9 @@ namespace IAMTests
         private readonly S3Wrapper _s3Wrapper;
 
         // Values needed for user, role, and policies.
-        private readonly string _userName;
-        private readonly string _s3PolicyName;
-        private readonly string _roleName;
-        private readonly string _assumePolicyName;
-        private readonly string _bucketName;
-        private static string _test_guid;
+        private readonly string? _roleName;
+        private readonly string? _bucketName;
+        private static string? _test_guid;
 
         public S3WrapperTests()
         {
@@ -36,10 +33,7 @@ namespace IAMTests
                     true) // Optionally load local settings.
                 .Build();
 
-            _userName = _configuration["UserName"];
-            _s3PolicyName = _configuration["S3PolicyName"];
             _roleName = _configuration["RoleName"];
-            _assumePolicyName = _configuration["AssumePolicyName"];
             _bucketName = _configuration["BucketName"];
 
             _s3Client = new AmazonS3Client();

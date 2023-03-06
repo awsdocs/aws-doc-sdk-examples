@@ -12,8 +12,6 @@ public class IAMBasics
     private const string S3PolicyName = "s3-list-buckets-policy";
     private const string RoleName = "mvp-temporary-role";
 
-    private static readonly RegionEndpoint Region = RegionEndpoint.USEast2;
-
     static async Task Main(string[] args)
     {
         // Set up dependency injection for the Amazon service.

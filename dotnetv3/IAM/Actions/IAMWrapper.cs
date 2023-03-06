@@ -190,6 +190,18 @@ public class IAMWrapper
 
     // snippet-end:[IAM.dotnetv3.DeleteAccessKey]
 
+    // snippet-start:[IAM.dotnetv3.DeleteGroup]
+    /// <summary>
+    /// Delete an IAM group.
+    /// </summary>
+    /// <param name="groupName">The name of the IAM group to delete.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
+    public async Task<bool> DeleteGroupAsync(string groupName)
+    {
+        var response = await _IAMService.DeleteGroupAsync(new DeleteGroupRequest { GroupName = groupName });
+        return response.HttpStatusCode == HttpStatusCode.OK;
+    }
+
     // snippet-start:[IAM.dotnetv3.DeletePolicy]
     /// <summary>
     /// Delete an IAM policy.
@@ -546,7 +558,7 @@ public class IAMWrapper
                     keyReady = true;
                 }
             }
-            catch (NoSuchEntityException ex)
+            catch (NoSuchEntityException)
             {
                 keyReady = false;
             }
