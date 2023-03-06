@@ -29,6 +29,8 @@ Code excerpts that show you how to call individual service functions.
 - [Create a service-linked role](Actions/IAMWrapper.cs) (`CreateServiceLinkedRoleAsync`)
 - [Create a user](Actions/IAMWrapper.cs) (`CreateUserAsync`)
 - [Create an access key](Actions/IAMWrapper.cs) (`CreateAccessKeyAsync`)
+- [Delete a group](Actions/IAMWrapper.cs) (`DeleteGroupAsync`)
+- [Delete a group policy](Actions/IAMWrapper.cs) (`DeleteGroupPolicyAsync`)
 - [Delete a policy](Actions/IAMWrapper.cs) (`DeletePolicyAsync`)
 - [Delete a role](Actions/IAMWrapper.cs) (`DelteRoleAsync`)
 - [Delete a role policy](Actions/IAMWrapper.cs) (`DeleteRolePolicyAsync`)

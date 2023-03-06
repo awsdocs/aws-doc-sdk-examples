@@ -204,6 +204,28 @@ public class IAMWrapper
 
     // snippet-end:[IAM.dotnetv3.DeleteGroup]
 
+    // snippet-start:[IAM dotnetv3.DeleteGroupPolicy]
+    /// <summary>
+    /// Delete an IAM policy associated with an IAM group.
+    /// </summary>
+    /// <param name="groupName">The name of the IAM group associated with the
+    /// policy.</param>
+    /// <param name="policyName">The name of the policy to delete.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
+    public async Task<bool> DeleteGroupPolicyAsync(string groupName, string policyName)
+    {
+        var request = new DeleteGroupPolicyRequest()
+        {
+            GroupName = groupName,
+            PolicyName = policyName,
+        };
+
+        var response = await _IAMService.DeleteGroupPolicyAsync(request);
+        return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+    }
+
+    // snippet-end:[IAM.dotnetv3.DeleteGroupPolicy]
+
     // snippet-start:[IAM.dotnetv3.DeletePolicy]
     /// <summary>
     /// Delete an IAM policy.

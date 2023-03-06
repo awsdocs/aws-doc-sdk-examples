@@ -497,6 +497,15 @@ namespace IAMActions.Tests
         [Fact()]
         [Order(27)]
         [Trait("Category", "Integration")]
+        public async Task DeleteGroupPolicyAsyncTest()
+        {
+            var success = await _iamWrapper.DeleteGroupPolicyAsync(_groupName, _s3PolicyName);
+            Assert.True(success);
+        }
+
+        [Fact()]
+        [Order(27)]
+        [Trait("Category", "Integration")]
         public async Task DeleteGroupAsyncTest()
         {
             var success = await _iamWrapper.DeleteGroupAsync(_groupName);

@@ -101,6 +101,30 @@ public class IAMGroups
 
         uiWrapper.DisplayTitle("Clean up resources");
         Console.WriteLine("First delete the bucket we created.");
-        Console.WriteLine("Now delete the ");
+        await s3Wrapper.DeleteBucketAsync(BucketName);
+
+        Console.WriteLine($"Now remove the user, {UserName}, from the group, {GroupName}.");
+        await wrapper.RemoveUserFromGroupAsync(UserName, GroupName);
+
+        Console.WriteLine("Delete the user's access key.");
+        await wrapper.DeleteAccessKeyAsync(accessKey.AccessKeyId, UserName);
+
+        // Now we can safely delete the user.
+        Console.WriteLine("Now we can delete the user.");
+        await wrapper.DeleteUserAsync(UserName);
+
+        uiWrapper.PressEnter();
+
+        Console.WriteLine("Now we will delete the IAM policy attached to the group.");
+        await wrapper.DeleteGroupPolicyAsync(GroupName, PolicyName);
+
+        Console.WriteLine("Now we delete the IAM group.");
+        await wrapper.DeleteGroupAsync(GroupName);
+
+        uiWrapper.PressEnter();
+
+        Console.WriteLine("The IAM groups demo has completed.");
+
+        uiWrapper.PressEnter();
     }
 }
