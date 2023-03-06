@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[IAM.dotnetv3.HelloIAM]
 namespace IAMActions;
 
 public class HelloIAM
@@ -42,3 +43,5 @@ public class HelloIAM
         });
     }
 }
+
+// snippet-end:[IAM.dotnetv3.HelloIAM]

@@ -3,6 +3,7 @@
 
 using System.Net;
 
+// snippet-start:IAM.dotnetv3.IAMWrapper]
 namespace IAMActions;
 
 public class IAMWrapper
@@ -18,7 +19,7 @@ public class IAMWrapper
         _IAMService = IAMService;
     }
 
-    // snippet-start:[IAM.dotnetv3.AddUserToGroupAsync]
+    // snippet-start:[IAM.dotnetv3.AddUserToGroup]
     /// <summary>
     /// Add an existing IAM user to an existing IAM group.
     /// </summary>
@@ -36,7 +37,7 @@ public class IAMWrapper
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
-    // snippet-end:[IAM.dotnetv3.AddUserToGroupAsync]
+    // snippet-end:[IAM.dotnetv3.AddUserToGroup]
 
     // snippet-start:[IAM.dotnetv3.AttachRolePolicy]
     /// <summary>
@@ -591,3 +592,5 @@ public class IAMWrapper
         return keyReady;
     }
 }
+
+// snippet-end:IAM.dotnetv3.IAMWrapper]

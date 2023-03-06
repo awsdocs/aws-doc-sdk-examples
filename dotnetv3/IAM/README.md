@@ -35,7 +35,7 @@ Code excerpts that show you how to call individual service functions.
 - [Delete a role](Actions/IAMWrapper.cs) (`DelteRoleAsync`)
 - [Delete a role policy](Actions/IAMWrapper.cs) (`DeleteRolePolicyAsync`)
 - [Delete a user](Actions/IAMWrapper.cs) (`DeleteUserAsync`)
-- [Delete a user policy](Actions/IAMWrapper.cs) (`DeleteRolePolicyAsync`)
+- [Delete a user policy](Actions/IAMWrapper.cs) (`DeleteUserPolicyAsync`)
 - [Delete an access key](Actions/IAMWrapper.cs) (`DeleteAccessKeyAsync`)
 - [Detach a policy from a role](Actions/IAMWrapper.cs) (`DetatchRolePolicyAsync`)
 - [Get a policy](Actions/IAMWrapper.cs) (`GetPolicyAsync`)
