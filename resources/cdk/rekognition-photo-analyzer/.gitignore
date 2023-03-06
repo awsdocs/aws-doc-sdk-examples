@@ -1,2 +1,3 @@
 .venv/
 cdk.out
+__pycache__/
