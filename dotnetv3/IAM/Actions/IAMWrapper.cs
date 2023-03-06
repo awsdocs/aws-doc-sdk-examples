@@ -119,7 +119,7 @@ public class IAMWrapper
     /// <param name="roleName">The name of the IAM role.</param>
     /// <param name="rolePolicyDocument">The name of the IAM pocliy document
     /// for the new role.</param>
-    /// <returns></returns>
+    /// <returns>The Amazon Resource Name (ARN) of the role.</returns>
     public async Task<string> CreateRoleAsync(string roleName, string rolePolicyDocument)
     {
         var request = new CreateRoleRequest
@@ -224,7 +224,7 @@ public class IAMWrapper
         return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
     }
 
-    // snippet-end:[IAM.dotnetv3.DeleteGroupPolicy]
+    // snippet-end:[IAM dotnetv3.DeleteGroupPolicy]
 
     // snippet-start:[IAM.dotnetv3.DeletePolicy]
     /// <summary>

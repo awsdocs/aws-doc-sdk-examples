@@ -30,7 +30,7 @@ public class HelloIAM
         var listPoliciesPaginator = iamClient.Paginators.ListPolicies(new ListPoliciesRequest());
         var policies = new List<ManagedPolicy>();
 
-        await foreach(var response in listPoliciesPaginator.Responses)
+        await foreach (var response in listPoliciesPaginator.Responses)
         {
             policies.AddRange(response.Policies);
         }

@@ -18,7 +18,9 @@ namespace IAMActions.Tests
         // Values needed for user, role, and policies.
         private readonly string? _userName;
         private readonly string? _s3PolicyName;
+        private readonly string? _groupPolicyName;
         private readonly string? _roleName;
+        private readonly string? _rolePolicyName;
         private readonly string? _groupName;
 
         private readonly string? _policyDocument;
@@ -41,6 +43,7 @@ namespace IAMActions.Tests
 
             _userName = _configuration["UserName"];
             _s3PolicyName = _configuration["S3PolicyName"];
+            _groupPolicyName = _configuration["GroupPolicyName"];
             _roleName = _configuration["RoleName"];
             _groupName = _configuration["GroupName"];
 
@@ -76,7 +79,7 @@ namespace IAMActions.Tests
         /// is marked as "Quarantine because it is possible that an account
         /// doesn't have a password policy.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Async Task.</returns>
         [Fact()]
         [Trait("Category", "Quarantine")]
         public async Task GetAccountPasswordPolicy()
@@ -89,7 +92,7 @@ namespace IAMActions.Tests
         /// Test the call to create an IAM group. The resulting group object
         /// should not be null.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Async Task.</returns>
         [Fact()]
         [Order(1)]
         [Trait("Category", "Integration")]
@@ -107,7 +110,7 @@ namespace IAMActions.Tests
         /// Test the call to create an IAM policy. The resulting policy object
         /// should not be null.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Async Task.</returns>
         [Fact()]
         [Order(2)]
         [Trait("Category", "Integration")]
@@ -168,7 +171,7 @@ namespace IAMActions.Tests
         /// Test the call to attach an IAM policy to a role. Success should
         /// be true.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Async Task.</returns>
         [Fact()]
         [Order(5)]
         [Trait("Category", "Integration")]
@@ -203,7 +206,7 @@ namespace IAMActions.Tests
         /// Tests the call to list groups. The list returned by the call should
         /// have at least one group in it.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Async Task.</returns>
         [Fact()]
         [Order(7)]
         [Trait("Category", "Integration")]
@@ -217,13 +220,13 @@ namespace IAMActions.Tests
         /// Test the gall to add an IAM policy to a group. Success should
         /// be true.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Async Task.</returns>
         [Fact()]
         [Order(8)]
         [Trait("Category", "Integration")]
         public async Task PutGroupPolicyAsyncTest()
         {
-            var success = await _iamWrapper.PutGroupPolicyAsync(_groupName, _s3PolicyName, _policyDocument);
+            var success = await _iamWrapper.PutGroupPolicyAsync(_groupName, _groupPolicyName, _policyDocument);
             Assert.True(success, $"Could not attach policy {_s3PolicyName} to {_groupName}");
         }
 
@@ -231,7 +234,7 @@ namespace IAMActions.Tests
         /// Tests the call to list IAM roles. The list returned by the call
         /// should contain at least one IAM role.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Async Task.</returns>
         [Fact()]
         [Order(9)]
         [Trait("Category", "Integration")]
@@ -245,7 +248,7 @@ namespace IAMActions.Tests
         /// Test the call to list IAM policies. The list of policies returned
         /// by the call should contain at least one policy.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Async Task.</returns>
         [Fact()]
         [Order(10)]
         [Trait("Category", "Integration")]
@@ -259,7 +262,7 @@ namespace IAMActions.Tests
         /// Test the call to list IAM role policies. The list of rolePolicies
         /// returned from the call should have at least one role policy in it.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Async Task.</returns>
         [Fact()]
         [Order(11)]
         [Trait("Category", "Integration")]
@@ -462,7 +465,7 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task DeleteRolePolicyAsyncTest()
         {
-            var success = await _iamWrapper.DeleteRolePolicyAsync(_roleName, _s3PolicyName);
+            var success = await _iamWrapper.DeleteRolePolicyAsync(_roleName, _asumeRolePolicyName);
             Assert.True(success, "Could not delete the role policy.");
         }
 
@@ -499,7 +502,7 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task DeleteGroupPolicyAsyncTest()
         {
-            var success = await _iamWrapper.DeleteGroupPolicyAsync(_groupName, _s3PolicyName);
+            var success = await _iamWrapper.DeleteGroupPolicyAsync(_groupName, _groupPolicyName);
             Assert.True(success);
         }
 
