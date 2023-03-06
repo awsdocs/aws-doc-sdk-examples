@@ -20,15 +20,6 @@ and out of the database.
   configured as described in the [AWS Tools and SDKs Shared Configuration and
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
 - Python 3.7 or later
-- Boto3 1.14.47 or later
-- Chalice 1.20.0 or later
-- AWS CLI 1.18.147 or later
-- Requests 2.23.0 or later
-
-To run unit tests, you'll also need the following packages.
- 
-- PyTest 5.3.5 or later
-- Hypothesis 5.36.0 or later
 
 ## Cautions
 
@@ -44,6 +35,12 @@ To run unit tests, you'll also need the following packages.
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+Install prerequisites by running the following at a command prompt.
+
+   ```
+   python -m pip install -r requirements.txt
+   ``` 
 
 This example contains two deployment steps, a REST demo, and a cleanup step that
 all must be run separately.
