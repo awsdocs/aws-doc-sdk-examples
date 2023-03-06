@@ -5,8 +5,8 @@
 
 #include <gtest/gtest.h>
 #include <fstream>
-#include "rds_gtests.h"
-#include "rds_samples.h"
+#include "aurora_gtests.h"
+#include "aurora_samples.h"
 
 namespace AwsDocTest {
 
@@ -15,15 +15,15 @@ namespace AwsDocTest {
     bool addHttpResponses(MockHTTP &mockHttp);
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(RDS_GTests, gettingStartedWithDBInstances) {
+    TEST_F(Aurora_GTests, gettingStartedWithDBClusters) {
         AddCommandLineResponses(RESPONSES);
 
-        bool result = AwsDoc::RDS::gettingStartedWithDBInstances(*s_clientConfig);
+        bool result = AwsDoc::Aurora::gettingStartedWithDBClusters(*s_clientConfig);
         ASSERT_TRUE(result);
     }
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(RDS_GTests, gettingStartedWithDBInstances_m_) {
+    TEST_F(Aurora_GTests, gettingStartedWithDBInstances_m_) {
         AddCommandLineResponses(RESPONSES);
 
         MockHTTP mockHttp;

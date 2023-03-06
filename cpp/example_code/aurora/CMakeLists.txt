@@ -4,7 +4,7 @@
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.11)
 
-set(SERVICE_NAME rds)
+set(SERVICE_NAME aurora)
 set(SERVICE_COMPONENTS rds)
 
 # Set this project's name.

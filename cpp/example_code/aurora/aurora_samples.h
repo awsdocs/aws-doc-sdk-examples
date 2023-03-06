@@ -4,8 +4,8 @@
 */
 
 #pragma once
-#ifndef RDS_EXAMPLES_RDS_SAMPLES_H
-#define RDS_EXAMPLES_RDS_SAMPLES_H
+#ifndef RDS_EXAMPLES_AURORA_SAMPLES_H
+#define RDS_EXAMPLES_AURORA_SAMPLES_H
 
 namespace AwsDoc {
     namespace Aurora {
@@ -22,4 +22,4 @@ namespace AwsDoc {
     } // Aurora
 } // AwsDoc
 
-#endif //RDS_EXAMPLES_RDS_SAMPLES_H
+#endif //RDS_EXAMPLES_AURORA_SAMPLES_H

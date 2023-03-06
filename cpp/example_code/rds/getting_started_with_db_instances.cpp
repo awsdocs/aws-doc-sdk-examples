@@ -674,7 +674,7 @@ bool AwsDoc::RDS::getDBParameters(const Aws::String &parameterGroupName,
                     outcome.GetResult().GetParameters();
             for (const Aws::RDS::Model::Parameter &parameter: parameters) {
                 if (!namePrefix.empty()) {
-                    if (parameter.GetParameterName().find(AUTO_INCREMENT_PREFIX) == 0) {
+                    if (parameter.GetParameterName().find(namePrefix) == 0) {
                         parametersResult.push_back(parameter);
                     }
                 }
@@ -974,7 +974,7 @@ port, and administrator user name to 'mysql' and enter your password
 when prompted:)" << std::endl;
 
     std::cout << "  mysql -h " << dbInstance.GetEndpoint().GetAddress() << " -P "
-              << dbInstance.GetEndpoint().GetPort() << " - u "
+              << dbInstance.GetEndpoint().GetPort() << " -u "
               << dbInstance.GetMasterUsername()
               << " -p" << std::endl;
 

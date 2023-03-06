@@ -62,17 +62,16 @@
 #include <aws/rds/model/DescribeDBClusterParametersRequest.h>
 #include <aws/rds/model/ModifyDBClusterParameterGroupRequest.h>
 #include <aws/core/utils/UUID.h>
-#include "rds_samples.h"
+#include "aurora_samples.h"
 
 
 namespace AwsDoc {
     namespace Aurora {
-        const Aws::String DB_ENGINE("mysql");
-        const int DB_ALLOCATED_STORAGE = 5;
-        const Aws::String DB_STORAGE_TYPE("standard");
-        const Aws::String CLUSTER_PARAMETER_GROUP_NAME("doc-example-parameter-group");
-        const Aws::String DB_CLUSTER_IDENTIFIER("doc-example-cluster");
-        const Aws::String DB_INSTANCE_IDENTIFIER("doc-example-instance");
+        const Aws::String DB_ENGINE("aurora-mysql");
+        const Aws::String CLUSTER_PARAMETER_GROUP_NAME("doc-example-cpp-aurora-parameter-group");
+        const Aws::String DB_CLUSTER_IDENTIFIER("doc-example-cpp-aurora"
+                                                "");
+        const Aws::String DB_INSTANCE_IDENTIFIER("doc-example-cpp-instance");
         const Aws::String DB_NAME("docexampledb");
         const Aws::String AUTO_INCREMENT_PREFIX("auto_increment");
         const Aws::String NO_NAME_PREFIX;
@@ -137,17 +136,17 @@ namespace AwsDoc {
         //! Routine which gets available 'micro' DB instance classes, displays the list
         //! to the user, and returns the user selection.
         /*!
-         \sa chooseMicroDBInstanceClass()
+         \sa chooseDBInstanceClass()
          \param engineName: The DB engine name.
          \param engineVersion: The DB engine version.
          \param dbInstanceClass: String for DB instance class chosen by the user.
          \param client: 'RDSClient' instance.
          \return bool: Successful completion.
          */
-        bool chooseMicroDBInstanceClass(const Aws::String &engine,
-                                        const Aws::String &engineVersion,
-                                        Aws::String &dbInstanceClass,
-                                        const Aws::RDS::RDSClient &client);
+        bool chooseDBInstanceClass(const Aws::String &engine,
+                                   const Aws::String &engineVersion,
+                                   Aws::String &dbInstanceClass,
+                                   const Aws::RDS::RDSClient &client);
 
         //! Routine which prints a command and instructions for connecting to the
         //! DB cluster.
@@ -504,7 +503,6 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
         request.SetEngineVersion(engineVersionName);
         request.SetMasterUsername(administratorName);
         request.SetMasterUserPassword(administratorPassword);
-        request.SetAllocatedStorage(DB_ALLOCATED_STORAGE);
 
         Aws::RDS::Model::CreateDBClusterOutcome outcome =
                 client.CreateDBCluster(request);
@@ -574,19 +572,18 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
 
         Aws::String dbInstanceClass;
         // 9.  Get a list of micro instance classes.
-        if (!chooseMicroDBInstanceClass(engineName,
-                                        engineVersionName,
-                                        dbInstanceClass,
-                                        client)) {
+        if (!chooseDBInstanceClass(engineName,
+                                   engineVersionName,
+                                   dbInstanceClass,
+                                   client)) {
             cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME, DB_CLUSTER_IDENTIFIER, "",
                              client);
             return false;
         }
 
         std::cout << "Creating a DB instance named '" << DB_INSTANCE_IDENTIFIER
-                  << "' selected DB instance class '" << dbInstanceClass << "',"
-                  << " and " << DB_ALLOCATED_STORAGE << " GiB of " << DB_STORAGE_TYPE
-                  << " storage.\nThis typically takes several minutes." << std::endl;
+                  << "' with selected DB instance class '" << dbInstanceClass
+                  << "'.\nThis typically takes several minutes." << std::endl;
 
         // snippet-start:[cpp.example_code.rds.CreateDBInstance]
         Aws::RDS::Model::CreateDBInstanceRequest request;
@@ -800,6 +797,7 @@ bool AwsDoc::Aurora::getDBCLusterParameters(const Aws::String &parameterGroupNam
                                             const Aws::String &source,
                                             Aws::Vector<Aws::RDS::Model::Parameter> &parametersResult,
                                             const Aws::RDS::RDSClient &client) {
+    // snippet-start:[cpp.example_code.aurora.DescribeDBClusterParameters]
     Aws::String marker;
     do {
         Aws::RDS::Model::DescribeDBClusterParametersRequest request;
@@ -819,7 +817,7 @@ bool AwsDoc::Aurora::getDBCLusterParameters(const Aws::String &parameterGroupNam
                     outcome.GetResult().GetParameters();
             for (const Aws::RDS::Model::Parameter &parameter: parameters) {
                 if (!namePrefix.empty()) {
-                    if (parameter.GetParameterName().find(AUTO_INCREMENT_PREFIX) == 0) {
+                    if (parameter.GetParameterName().find(namePrefix) == 0) {
                         parametersResult.push_back(parameter);
                     }
                 }
@@ -837,6 +835,7 @@ bool AwsDoc::Aurora::getDBCLusterParameters(const Aws::String &parameterGroupNam
             return false;
         }
     } while (!marker.empty());
+    // snippet-end:[cpp.example_code.aurora.DescribeDBClusterParameters]
 
     return true;
 }
@@ -919,20 +918,20 @@ bool AwsDoc::Aurora::describeDBInstance(const Aws::String &dbInstanceIdentifier,
 
 // snippet-start:[cpp.example_code.aurora.DescribeOrderableDBInstanceOptions]
 
-//! Routine which gets available 'micro' DB instance classes, displays the list
+//! Routine which gets available DB instance classes, displays the list
 //! to the user, and returns the user selection.
 /*!
- \sa chooseMicroDBInstanceClass()
+ \sa chooseDBInstanceClass()
  \param engineName: The DB engine name.
  \param engineVersion: The DB engine version.
  \param dbInstanceClass: String for DB instance class chosen by the user.
  \param client: 'RDSClient' instance.
  \return bool: Successful completion.
  */
-bool AwsDoc::Aurora::chooseMicroDBInstanceClass(const Aws::String &engine,
-                                                const Aws::String &engineVersion,
-                                                Aws::String &dbInstanceClass,
-                                                const Aws::RDS::RDSClient &client) {
+bool AwsDoc::Aurora::chooseDBInstanceClass(const Aws::String &engine,
+                                           const Aws::String &engineVersion,
+                                           Aws::String &dbInstanceClass,
+                                           const Aws::RDS::RDSClient &client) {
     std::vector<Aws::String> instanceClasses;
     Aws::String marker;
     do {
@@ -951,13 +950,7 @@ bool AwsDoc::Aurora::chooseMicroDBInstanceClass(const Aws::String &engine,
                     outcome.GetResult().GetOrderableDBInstanceOptions();
             for (const Aws::RDS::Model::OrderableDBInstanceOption &option: options) {
                 const Aws::String &instanceClass = option.GetDBInstanceClass();
-                if (instanceClass.find("micro") != std::string::npos) {
-                    if (std::find(instanceClasses.begin(), instanceClasses.end(),
-                                  instanceClass) ==
-                        instanceClasses.end()) {
-                        instanceClasses.push_back(instanceClass);
-                    }
-                }
+                instanceClasses.push_back(instanceClass);
             }
             marker = outcome.GetResult().GetMarker();
         }
@@ -1033,7 +1026,7 @@ bool AwsDoc::Aurora::cleanUpResources(const Aws::String &parameterGroupName,
             // 15. Delete the DB cluster.
             // snippet-start:[cpp.example_code.aurora.DeleteDBCluster]
             Aws::RDS::Model::DeleteDBClusterRequest request;
-            request.SetDBClusterIdentifier(dbInstanceIdentifier);
+            request.SetDBClusterIdentifier(dbClusterIdentifier);
             request.SetSkipFinalSnapshot(true);
 
             Aws::RDS::Model::DeleteDBClusterOutcome outcome =
@@ -1132,6 +1125,7 @@ int main(int argc, const char *argv[]) {
     (void) argv;  // Suppress unused warnings.
 
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     InitAPI(options);
 
     {
@@ -1160,18 +1154,18 @@ int main(int argc, const char *argv[]) {
 */
 void AwsDoc::Aurora::displayConnection(const Aws::RDS::Model::DBCluster &dbCluster) {
     std::cout << R"(You can now connect to your database using your favorite MySql client.
-One way to connect is by using the 'mysql' shell on an Amazon EC2 cluster
+One way to connect is by using the 'mysql' shell on an Amazon EC2 instance
 that is running in the same VPC as your DB cluster. Pass the endpoint,
 port, and administrator user name to 'mysql' and enter your password
 when prompted:)" << std::endl;
 
     std::cout << "  mysql -h " << dbCluster.GetEndpoint() << " -P "
-              << dbCluster.GetPort() << " - u "
+              << dbCluster.GetPort() << " -u "
               << dbCluster.GetMasterUsername()
               << " -p" << std::endl;
 
     std::cout << "For more information, see the User Guide for Amazon RDS:\n"
-              << "  https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html#CHAP_GettingStarted.Connecting.MySQL"
+              << "  https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_GettingStartedAurora.CreatingConnecting.Aurora.html#CHAP_GettingStartedAurora.Aurora.Connect"
               << std::endl;
 }
 
