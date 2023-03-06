@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-@ComponentScan(basePackages = {"com.example.photo.services"})
+@ComponentScan(basePackages = { "com.example.photo.services" })
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/photo")
@@ -43,18 +43,17 @@ public class PhotoController {
     private final UploadEndpoint uploadEndpoint;
 
     @Autowired
-    public PhotoController(S3Service s3Service, DynamoDBService dbService, AnalyzePhotos analyzePhotos){
+    public PhotoController(S3Service s3Service, DynamoDBService dbService, AnalyzePhotos analyzePhotos) {
         this.s3Service = s3Service;
         this.dbService = dbService;
         this.analyzePhotos = analyzePhotos;
         this.uploadEndpoint = new UploadEndpoint(this.analyzePhotos, this.dbService, this.s3Service);
     }
 
-    @GetMapping("" )
+    @GetMapping("")
     public List<WorkItem> getItems() {
         return dbService.scanPhotoTable();
     }
-
 
     // Upload a video to analyze.
     @RequestMapping(value = "/upload2", method = RequestMethod.PUT)
@@ -69,7 +68,6 @@ public class PhotoController {
         return "";
     }
 
-
     // Upload a video to analyze.
     // Upload a video to analyze.
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -77,12 +75,12 @@ public class PhotoController {
     public String singleFileUpload(@RequestParam("file") MultipartFile file) {
         try {
             byte[] bytes = file.getBytes();
-            String fileName =  file.getOriginalFilename() ;
+            String fileName = file.getOriginalFilename();
             UUID uuid = UUID.randomUUID();
-            String unqueFileName = uuid +"-"+fileName;
+            String unqueFileName = uuid + "-" + fileName;
 
             UploadEndpoint endpoint = new UploadEndpoint(analyzePhotos, dbService, s3Service);
-            endpoint.upload(bytes,fileName);
+            endpoint.upload(bytes, fileName);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,15 +88,13 @@ public class PhotoController {
         return "";
     }
 
-
-
     // Copies all .jpg images from the specified bucket to Amazon S3 STORAGE_BUCKET.
     @RequestMapping(value = "/s3_copy", method = RequestMethod.PUT)
     @ResponseBody
     String copyFiles(HttpServletRequest request, HttpServletResponse response) {
-       String sourceBucket = request.getParameter("source");
-       int numFiles= uploadEndpoint.copyFiles(sourceBucket);
-       return "You copied " +numFiles +" files from "+sourceBucket;
+        String sourceBucket = request.getParameter("source");
+        int numFiles = uploadEndpoint.copyFiles(sourceBucket);
+        return "You copied " + numFiles + " files from " + sourceBucket;
     }
 
     // This controller method downloads the given image from the Amazon S3 bucket.
@@ -109,15 +105,15 @@ public class PhotoController {
             String tag = request.getParameter("tag");
             List<String> myObjects = dbService.getImagesTag(tag);
             Map<String, byte[]> mapReport = new HashMap<>();
-            for (String obName:myObjects){
+            for (String obName : myObjects) {
                 System.out.println(obName);
-                byte[] photoBytes = s3Service.getObjectBytes(PhotoApplicationResources.STORAGE_BUCKET, obName) ;
-                mapReport.put(obName,photoBytes);
+                byte[] photoBytes = s3Service.getObjectBytes(PhotoApplicationResources.STORAGE_BUCKET, obName);
+                mapReport.put(obName, photoBytes);
 
             }
             byte[] zipContent = s3Service.listBytesToZip(mapReport);
-            String zipName = tag+".zip";
-            return s3Service.putS3Object(PhotoApplicationResources.MANIFEST_BUCKET, zipName, zipContent);
+            String zipName = tag + ".zip";
+            return s3Service.putS3Object(PhotoApplicationResources.WORKING_BUCKET, zipName, zipContent);
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -27,7 +27,7 @@ public class RestoreEndpoint {
         String topicArn = this.snsService.createNotificationTopic(notify);
 
         Set<String> images = tags.stream().parallel().flatMap(this::imagesByTag).collect(Collectors.toSet());
-        String manifest = makeManifest(PhotoApplicationResources.STORAGE_BUCKET, images);
+        String manifest = makeManifest(PhotoApplicationResources.WORKING_BUCKET, images);
         String manifestArn = this.s3Service.putManifest(manifest);
         String jobId = this.s3Service.startRestore(manifestArn, tags);
 
@@ -38,7 +38,7 @@ public class RestoreEndpoint {
 
     private Stream<String> imagesByTag(String tag) {
         return this.dbService.getImagesTag(tag).stream();
-//        return Stream.of(tag + "1.jpg", tag+"2.jpg"); // For testing
+        // return Stream.of(tag + "1.jpg", tag+"2.jpg"); // For testing
     }
 
     private String makeManifest(String bucket, Collection<String> objects) {
