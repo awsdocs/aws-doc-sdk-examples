@@ -13,6 +13,7 @@ from aws_cdk import (
     Stack
 )
 from constructs import Construct
+from pathlib import Path
 
 
 ELROS_PATH = "./website"
@@ -251,8 +252,8 @@ class RekognitionPhotoAnalyzerStack(Stack):
         # create trigger for Lambda function with image type suffixes
         notification = s3_notifications.LambdaDestination(lambda_function)
         notification.bind(self, storage_bucket)
-        notification, s3.NotificationKeyFilter(suffix='
-           .jpg'))
+        storage_bucket.add_object_created_notification(
+            notification, s3.NotificationKeyFilter(suffix='.jpg'))
         storage_bucket.add_object_created_notification(
             notification, s3.NotificationKeyFilter(suffix='.jpeg'))
 
@@ -264,19 +265,19 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
     def _lambda_ZipArchive(self, working_bucket, jobs_table):
         # create Lambda function
-        lambda_function=lambda_cdk.Function(
+        lambda_function = lambda_cdk.Function(
             self, f'{self.prefix}-ZipArchiveFn',
-            runtime = self.lambda_runtime(),
-            handler = self.lambda_ZipArchive_handler(),
-            code = self.lambda_code_asset(),
-            environment = {
+            runtime=self.lambda_runtime(),
+            handler=self.lambda_ZipArchive_handler(),
+            code=self.lambda_code_asset(),
+            environment={
                 'WORKING_BUCKET_NAME': working_bucket.bucket_name,
                 'JOBS_TABLE_NAME': jobs_table.table_name
             }
         )
 
         # create trigger for Lambda function on job report suffix
-        notification=s3_notifications.LambdaDestination(lambda_function)
+        notification = s3_notifications.LambdaDestination(lambda_function)
         notification.bind(self, working_bucket)
         working_bucket.add_object_created_notification(
             notification, s3.NotificationKeyFilter(prefix='job-', suffix='/report.csv'))
@@ -289,12 +290,12 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
     def _lambda_Labels(self, labels_table):
         # create Lambda function
-        lambda_function=lambda_cdk.Function(
+        lambda_function = lambda_cdk.Function(
             self, f'{self.prefix}-LabelsFn',
-            runtime = self.lambda_runtime(),
-            handler = self.lambda_Labels_handler(),
-            code = self.lambda_code_asset(),
-            environment = {
+            runtime=self.lambda_runtime(),
+            handler=self.lambda_Labels_handler(),
+            code=self.lambda_code_asset(),
+            environment={
                 'LABELS_TABLE_NAME': labels_table.table_name
             }
         )
@@ -315,6 +316,38 @@ class PythonRekognitionPhotoAnalyzerStack(RekognitionPhotoAnalyzerStack):
 
     def lambda_DetectLabels_handler(self):
         return 'rekfunction.handler'
+
+    def lambda_Labels_handler(self):
+        return "rek.func"
+
+    def lambda_ZipArchive_handler(self):
+        return "rek.func"
+
+    def lambda_Upload_handler(self):
+        return "rek.func"
+
+    def lambda_Copy_handler(self):
+        return "rek.func"
+
+    def lambda_Download_handler(self):
+        return "rek.func"
+
+    def lambda_Archive_handler(self):
+        return "rek.func"
+
+
+class JavaRekognitionPhotoAnalyzerStack(RekognitionPhotoAnalyzerStack):
+    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
+        super().__init__(scope, id, **kwargs)
+
+    def lambda_runtime(self):
+        return lambda_cdk.Runtime.JAVA_11
+
+    def lambda_code_asset(self):
+        return lambda_cdk.Code.from_asset(str(Path(__file__) / '../../../../../javav2/usecases/pam_source_files/'))
+
+    def lambda_DetectLabels_handler(self):
+        return 'com.example.photo.handlers.S3Trigger.handleRequest'
 
     def lambda_Labels_handler(self):
         return "rek.func"
