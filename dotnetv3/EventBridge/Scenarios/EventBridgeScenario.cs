@@ -18,20 +18,29 @@ using Microsoft.Extensions.Logging.Debug;
 
 namespace EventBridgeScenario;
 
+// snippet-start:[EventBridge.dotnetv3.GettingStarted]
 public class EventBridgeScenario
 {
     /*
     Before running this .NET code example, set up your development environment, including your credentials.
 
-    This .NET example performs the following tasks:
-
+    This .NET example performs the following tasks with Amazon EventBridge (EventBridge):
+    - Create a rule.
+    - Add a target to a rule.
+    - Enable and disable rules.
+    - List rules and targets.
+    - Update rules and targets.
+    - Send events.
+    - Delete the rule.
     */
 
     private static ILogger logger = null!;
     private static EventBridgeWrapper _eventBridgeWrapper = null!;
     private static IConfiguration _configuration = null!;
 
-    private static AmazonIdentityManagementServiceClient? _iamClient = null!;
+    private static IAmazonIdentityManagementService? _iamClient = null!;
+    private static IAmazonSimpleNotificationService? _snsClient = null!;
+    private static IAmazonS3 _s3Client = null!;
 
     static async Task Main(string[] args)
     {
@@ -53,11 +62,7 @@ public class EventBridgeScenario
         logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
             .CreateLogger<EventBridgeScenario>();
 
-        _eventBridgeWrapper = host.Services.GetRequiredService<EventBridgeWrapper>();
-        var snsClient =
-            host.Services.GetRequiredService<IAmazonSimpleNotificationService>();
-        var s3Client =
-            host.Services.GetRequiredService<IAmazonS3>();
+        ServicesSetup(host);
 
         string topicArn = "";
 
@@ -73,44 +78,60 @@ public class EventBridgeScenario
 
             var roleArn = await CreateRole();
 
-            await CreateBucketWithEventBridgeEvents(s3Client);
+            await CreateBucketWithEventBridgeEvents();
 
-            topicArn = await CreateSnsTopic(snsClient);
+            topicArn = await CreateSnsTopic();
 
-            var email = await SubscribeToSnsTopic(snsClient, topicArn);
+            var email = await SubscribeToSnsTopic(topicArn);
 
             await AddSnsEventRule(roleArn, topicArn);
 
             await ListEventRules();
 
-            await ListRulesForTarget();
+            await ListRulesForTarget(topicArn);
 
             await ListTargets();
 
-            await UploadS3File(s3Client);
+            await UploadS3File(_s3Client);
 
             await ChangeRuleState(false);
 
-            await UpdateSnsEventRule(roleArn);
+            await UpdateSnsEventRule(roleArn, topicArn);
 
             await ChangeRuleState(true);
 
-            await UploadS3File(s3Client);
+            await UploadS3File(_s3Client);
 
             await UpdateToCustomRule();
 
             await TriggerCustomRule(email);
 
-            await CleanupResources(snsClient, s3Client, topicArn);
+            await CleanupResources(topicArn);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "There was a problem executing the scenario.");
-            await CleanupResources(snsClient, s3Client, topicArn);
+            await CleanupResources(topicArn);
         }
     }
 
+    /// <summary>
+    /// Populate the services for use within the console application.
+    /// </summary>
+    /// <param name="host">The services host</param>
+    private static void ServicesSetup(IHost host)
+    {
+        _eventBridgeWrapper = host.Services.GetRequiredService<EventBridgeWrapper>();
+        _snsClient = host.Services.GetRequiredService<IAmazonSimpleNotificationService>();
+        _s3Client = host.Services.GetRequiredService<IAmazonS3>();
+        _iamClient = host.Services.GetRequiredService<IAmazonIdentityManagementService>();
+    }
+
     // snippet-start:[EventBridge.dotnetv3.CreateRole]
+    /// <summary>
+    /// Create a role to be used by EventBridge.
+    /// </summary>
+    /// <returns>The role ARN.</returns>
     public static async Task<string> CreateRole()
     {
         var roleName = _configuration["roleName"];
@@ -169,29 +190,29 @@ public class EventBridgeScenario
 
     // snippet-start:[EventBridge.dotnetv3.CreateBucketWithEvents]
     /// <summary>
-    /// Create an Amazon S3 bucket with EventBridge events enabled
+    /// Create an Amazon S3 bucket with EventBridge events enabled.
     /// </summary>
     /// <returns>Async task.</returns>
-    private static async Task CreateBucketWithEventBridgeEvents(IAmazonS3 s3Client)
+    private static async Task CreateBucketWithEventBridgeEvents()
     {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Creating an Amazon S3 bucket with EventBridge events enabled.");
 
         var testBucketName = _configuration["testBucketName"];
 
-        var bucketExists = await Amazon.S3.Util.AmazonS3Util.DoesS3BucketExistV2Async(s3Client,
+        var bucketExists = await Amazon.S3.Util.AmazonS3Util.DoesS3BucketExistV2Async(_s3Client,
             testBucketName);
 
         if (!bucketExists)
         {
-            await s3Client.PutBucketAsync(new PutBucketRequest()
+            await _s3Client.PutBucketAsync(new PutBucketRequest()
             {
                 BucketName = testBucketName,
                 UseClientRegion = true
             });
         }
 
-        await s3Client.PutBucketNotificationAsync(new PutBucketNotificationRequest()
+        await _s3Client.PutBucketNotificationAsync(new PutBucketNotificationRequest()
         {
            BucketName = testBucketName,
            EventBridgeConfiguration = new EventBridgeConfiguration()
@@ -240,8 +261,7 @@ public class EventBridgeScenario
     /// Create an SNS topic that can used as an EventBridge target.
     /// </summary>
     /// <returns>Async task.</returns>
-    private static async Task<string> CreateSnsTopic(
-        IAmazonSimpleNotificationService snsClient)
+    private static async Task<string> CreateSnsTopic()
     {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine(
@@ -268,7 +288,7 @@ public class EventBridgeScenario
             { "Policy", topicPolicy }
         };
 
-        var topicResponse = await snsClient.CreateTopicAsync(new CreateTopicRequest()
+        var topicResponse = await _snsClient.CreateTopicAsync(new CreateTopicRequest()
         {
             Name = topicName,
             Attributes = topicAttributes
@@ -283,10 +303,11 @@ public class EventBridgeScenario
     }
 
     /// <summary>
-    /// Create an Amazon S3 bucket with EventBridge events enabled
+    /// Subscribe a user email to an Amazon Simple Notification Service (Amazon SNS) topic.
     /// </summary>
-    /// <returns>Async task.</returns>
-    private static async Task<string> SubscribeToSnsTopic(IAmazonSimpleNotificationService snsClient, string topicArn)
+    /// <param name="topicArn">The ARN of the Amazon SNS topic.</param>
+    /// <returns>The user's email.</returns>
+    private static async Task<string> SubscribeToSnsTopic(string topicArn)
     {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Enter your email to subscribe to the Amazon SNS topic:");
@@ -294,7 +315,7 @@ public class EventBridgeScenario
         var email = Console.ReadLine();
 
         var subscriptions = new List<string>();
-        var paginatedSubscriptions = snsClient.Paginators.ListSubscriptionsByTopic(
+        var paginatedSubscriptions = _snsClient.Paginators.ListSubscriptionsByTopic(
             new ListSubscriptionsByTopicRequest()
             {
                 TopicArn = topicArn
@@ -313,7 +334,7 @@ public class EventBridgeScenario
             return email;
         }
 
-        await snsClient.SubscribeAsync(new SubscribeRequest()
+        await _snsClient.SubscribeAsync(new SubscribeRequest()
         {
             TopicArn = topicArn,
             Protocol = "email",
@@ -324,7 +345,7 @@ public class EventBridgeScenario
 
         var code = Console.ReadLine();
 
-        await snsClient.ConfirmSubscriptionAsync(new ConfirmSubscriptionRequest()
+        await _snsClient.ConfirmSubscriptionAsync(new ConfirmSubscriptionRequest()
         {
             TopicArn = topicArn,
             Token = code
@@ -339,6 +360,8 @@ public class EventBridgeScenario
     /// <summary>
     /// Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
     /// </summary>
+    /// <param name="roleArn">The ARN of the role used by EventBridge.</param>
+    /// <param name="topicArn">The ARN of the Amazon SNS topic.</param>
     /// <returns>Async task.</returns>
     private static async Task AddSnsEventRule(string roleArn, string topicArn)
     {
@@ -357,7 +380,7 @@ public class EventBridgeScenario
     }
 
     /// <summary>
-    /// Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
+    /// List the event rules on the default event bus.
     /// </summary>
     /// <returns>Async task.</returns>
     private static async Task ListEventRules()
@@ -372,33 +395,33 @@ public class EventBridgeScenario
     }
 
     /// <summary>
-    /// Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
+    /// Update the event target to use a transform.
     /// </summary>
+    /// <param name="roleArn">The role ARN to use.</param>
+    /// <param name="topicArn">The Amazon SNS topic ARN target to update.</param>
     /// <returns>Async task.</returns>
-    private static async Task UpdateSnsEventRule(string roleArn)
+    private static async Task UpdateSnsEventRule(string roleArn, string topicArn)
     {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Let's update the event target with a transform.");
 
         var eventRuleName = _configuration["eventRuleName"];
         var testBucketName = _configuration["testBucketName"];
-        var topicArn = _configuration["topicArn"];
-        var topicName = _configuration["topicName"];
 
         await _eventBridgeWrapper.UpdateS3UploadRuleTargetWithTransform(eventRuleName, roleArn, topicArn);
-        Console.WriteLine($"\tUpdated event rule {eventRuleName} with SNS target {topicName} for bucket {testBucketName}.");
+        Console.WriteLine($"\tUpdated event rule {eventRuleName} with SNS target {topicArn} for bucket {testBucketName}.");
 
         Console.WriteLine(new string('-', 80));
     }
 
     /// <summary>
-    /// Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
+    /// Update the rule to use a custom event pattern.
     /// </summary>
     /// <returns>Async task.</returns>
     private static async Task UpdateToCustomRule()
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("Let's update the event pattern to be triggered by a custom event instead.");
+        Console.WriteLine("Updating the event pattern to be triggered by a custom event instead.");
 
         var eventRuleName = _configuration["eventRuleName"];
 
@@ -410,13 +433,14 @@ public class EventBridgeScenario
     }
 
     /// <summary>
-    /// Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
+    /// Send rule events for a custom rule using the user's email address.
     /// </summary>
+    /// <param name="email">The email address to include.</param>
     /// <returns>Async task.</returns>
     private static async Task TriggerCustomRule(string email)
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("Let's send some events to trigger the rule.");
+        Console.WriteLine("Sending an event to trigger the rule.");
 
         await _eventBridgeWrapper.PutCustomEmailEvent(email);
 
@@ -433,7 +457,8 @@ public class EventBridgeScenario
     private static async Task ListTargets()
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("We can list all of the targets for a particular rule.");
+        Console.WriteLine("List all of the targets for a particular rule.");
+
         var eventRuleName = _configuration["eventRuleName"];
         var targets = await _eventBridgeWrapper.ListAllTargetsOnRule(eventRuleName);
         targets.ForEach(t => Console.WriteLine($"\tTarget: {t.Arn} Id: {t.Id} Input: {t.Input}"));
@@ -444,13 +469,12 @@ public class EventBridgeScenario
     /// <summary>
     /// List all of the rules for a particular target.
     /// </summary>
+    /// <param name="topicArn">The ARN of the Amazon SNS topic.</param>
     /// <returns>Async task.</returns>
-    private static async Task ListRulesForTarget()
+    private static async Task ListRulesForTarget(string topicArn)
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("We can list all of the rules for a particular target.");
-
-        var topicArn = _configuration["topicArn"];
+        Console.WriteLine("List all of the rules for a particular target.");
 
         var rules = await _eventBridgeWrapper.ListAllRuleNamesByTarget(topicArn);
         rules.ForEach(r => Console.WriteLine($"\tRule: {r}"));
@@ -459,8 +483,9 @@ public class EventBridgeScenario
     }
 
     /// <summary>
-    /// List all of the rules for a particular target.
+    /// Enable or disable a particular rule.
     /// </summary>
+    /// <param name="isEnabled">True to enable the rule, otherwise false.</param>
     /// <returns>Async task.</returns>
     private static async Task ChangeRuleState(bool isEnabled)
     {
@@ -482,13 +507,11 @@ public class EventBridgeScenario
     }
 
     /// <summary>
-    /// Clean up created resources.
+    /// Clean up the resources from the scenario.
     /// </summary>
-    /// <param name="s3Client">The SNS client.</param>
-    /// <param name="s3Client">The S3 client.</param>
     /// <param name="topicArn">The Arn of the SNS topic to clean up.</param>
     /// <returns>Async task.</returns>
-    private static async Task CleanupResources(IAmazonSimpleNotificationService snsClient, IAmazonS3 s3Client, string topicArn)
+    private static async Task CleanupResources(string topicArn)
     {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine($"Clean up resources.");
@@ -504,7 +527,7 @@ public class EventBridgeScenario
         if (GetYesNoResponse($"\tDelete Amazon SNS subscription topic {topicName}? (y/n)"))
         {
             Console.WriteLine($"\tDeleting topic.");
-            await snsClient.DeleteTopicAsync(new DeleteTopicRequest()
+            await _snsClient.DeleteTopicAsync(new DeleteTopicRequest()
             {
                 TopicArn = topicArn
             });
@@ -515,14 +538,14 @@ public class EventBridgeScenario
         {
             Console.WriteLine($"\tDeleting bucket.");
             // Delete all objects in the bucket.
-            var deleteList = await s3Client.ListObjectsV2Async(new ListObjectsV2Request());
-            await s3Client.DeleteObjectsAsync(new DeleteObjectsRequest()
+            var deleteList = await _s3Client.ListObjectsV2Async(new ListObjectsV2Request());
+            await _s3Client.DeleteObjectsAsync(new DeleteObjectsRequest()
             {
                 Objects = deleteList.S3Objects
                     .Select(o => new KeyVersion{Key = o.Key}).ToList()
             });
             // Now delete the bucket.
-            await s3Client.DeleteBucketAsync(new DeleteBucketRequest()
+            await _s3Client.DeleteBucketAsync(new DeleteBucketRequest()
             {
                 BucketName = bucketName
             });
@@ -546,3 +569,4 @@ public class EventBridgeScenario
         return response;
     }
 }
+// snippet-end:[EventBridge.dotnetv3.GettingStarted]

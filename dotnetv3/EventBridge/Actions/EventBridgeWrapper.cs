@@ -1,7 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
 using Amazon.EventBridge;
@@ -9,20 +8,23 @@ using Amazon.EventBridge.Model;
 
 namespace EventBridgeActions;
 
+// snippet-start:[EventBridge.dotnetv3.EventBridgeWrapper]
+
+/// <summary>
+/// Wrapper for Amazon EventBridge (EventBridge) operations
+/// </summary>
 public class EventBridgeWrapper
 {
     private readonly IAmazonEventBridge _amazonEventBridge;
-    private readonly ILogger<EventBridgeWrapper> _logger;
 
     /// <summary>
     /// Constructor for the EventBridge wrapper.
     /// </summary>
     /// <param name="amazonEventBridge">The injected EventBridge client.</param>
     /// <param name="logger">The injected logger for the wrapper.</param>
-    public EventBridgeWrapper(IAmazonEventBridge amazonEventBridge, ILogger<EventBridgeWrapper> logger)
+    public EventBridgeWrapper(IAmazonEventBridge amazonEventBridge)
 
     {
-        _logger = logger;
         _amazonEventBridge = amazonEventBridge;
     }
 
@@ -339,3 +341,4 @@ public class EventBridgeWrapper
     }
     // snippet-end:[EventBridge.dotnetv3.DeleteRule]
 }
+// snippet-end:[EventBridge.dotnetv3.EventBridgeWrapper]

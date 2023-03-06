@@ -1079,7 +1079,7 @@ cloudwatch_GetStartedMetricsDashboardsAlarms:
           sdkguide:
           excerpts:
             - description:
-              snippet_tags:
+              snippet_tags:`
                 - cloudwatch.java2.scenario.main
     .NET:
       versions:
