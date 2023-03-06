@@ -1,22 +1,22 @@
-import { Header } from "@cloudscape-design/components";
-import Cards from "@cloudscape-design/components/cards";
-import { lazy, Suspense, useEffect, useState } from "react";
+import {
+  Button,
+  Cards,
+  Header,
+  SpaceBetween,
+  TextContent,
+} from "@cloudscape-design/components";
+import { useEffect, useState } from "react";
+import FileUpload from "./FileUpload";
 import { useAuthStore } from "./store-auth";
 
-const LazyLoginModal = lazy(() => import("./LoginModal"));
-const LazyWelcomeUser = lazy(() => import("./WelcomeUser"));
-
-import { TagImages, useTagsStore } from "./store-tags";
-import { useUiStore } from "./store-ui";
+import { Tag, useTagsStore } from "./store-tags";
 
 function TagsLayout() {
-  const { tagImagesList, fetchTags } = useTagsStore();
-  const [selectedTagImages, setSelectedTagImages] = useState<TagImages[]>([]);
-  const {
-    login: { enabled: loginEnabled },
-  } = useUiStore();
+  const { tagCollection, fetchTags } = useTagsStore();
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [selectedImageCount, setSelectedImageCount] = useState<number>(0);
 
-  const { token } = useAuthStore();
+  const { token, authStatus } = useAuthStore();
 
   useEffect(() => {
     if (token) {
@@ -24,57 +24,50 @@ function TagsLayout() {
     }
   }, [token]);
 
+  useEffect(() => {
+    const imageCount = selectedTags.reduce(
+      (count, nextTag) => count + nextTag.count,
+      0
+    );
+
+    setSelectedImageCount(imageCount);
+  }, [selectedTags]);
+
   return (
     <>
       <Cards
-        trackBy={(tagImages) => tagImages.tag.name}
+        trackBy={(tag) => tag.name}
+        empty={<TextContent>There are no tags to display.</TextContent>}
+        items={tagCollection}
+        stickyHeader={true}
         variant="full-page"
-        items={tagImagesList}
-        selectedItems={selectedTagImages}
-        onSelectionChange={({ detail }) => {
-          setSelectedTagImages(detail.selectedItems);
-        }}
-        selectionType="multi"
         header={
           <Header
-            variant="h1"
-            description="Image storage and tagging."
+            variant="awsui-h1-sticky"
+            counter={`${selectedImageCount}`}
             actions={
-              // This is potentially a very common pattern that we could abstract into an HOC.
-              // <Feature enabled={loginEnabled}><LazyComponent /></Feature> maybe?
-              loginEnabled && (
-                <Suspense>
-                  <LazyWelcomeUser />
-                </Suspense>
-              )
+              <SpaceBetween size="s" direction="horizontal">
+                <FileUpload disabled={authStatus !== "signed_in"} />
+                <Button
+                  disabled={authStatus !== "signed_in" || !selectedImageCount}
+                >
+                  Download
+                </Button>
+              </SpaceBetween>
             }
           >
-            Photo Archive
+            Download Images
           </Header>
         }
+        selectedItems={selectedTags}
+        onSelectionChange={({ detail }) => {
+          setSelectedTags(detail.selectedItems);
+        }}
+        selectionType="multi"
         cardDefinition={{
-          header: (tagImages) =>
-            `${tagImages.tag.name}  (${tagImages.images.length})`,
-          sections: [
-            {
-              id: "image-names",
-              header: "Image names",
-              content: (tagImages) => (
-                <ul>
-                  {tagImages.images.map((image) => (
-                    <li key={image.fileName}>{image.fileName}</li>
-                  ))}
-                </ul>
-              ),
-            },
-          ],
+          header: (tag) => `${tag.name}  (${tag.count})`,
         }}
       />
-      {loginEnabled && (
-        <Suspense>
-          <LazyLoginModal />
-        </Suspense>
-      )}
     </>
   );
 }

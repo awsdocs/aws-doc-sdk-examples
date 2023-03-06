@@ -12,11 +12,27 @@ function LoginModal() {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const { authManager, authStatus, error, setAuthStatus, setError, setToken } =
-    useAuthStore();
+  const {
+    authManager,
+    authStatus,
+    error,
+    setAuthStatus,
+    setError,
+    setToken,
+    setCurrentUser,
+  } = useAuthStore();
   const {
     login: { loginModalVisible, setLoginModalVisible },
   } = useUiStore();
+
+  const handleSignIn = async (result: AuthSuccess) => {
+    const user = await authManager.getUser();
+    setLoginModalVisible(false);
+    setError(null);
+    setCurrentUser(user);
+    setAuthStatus(result.status);
+    setToken(result.token);
+  };
 
   const primaryButtonState: Record<AuthStatus, () => ButtonProps> = {
     reset_required: () => ({
@@ -28,10 +44,7 @@ function LoginModal() {
             username,
             newPassword
           );
-          setLoginModalVisible(false);
-          setError(null);
-          setAuthStatus(authResult.status);
-          setToken(authResult.token);
+          await handleSignIn(authResult);
         } catch (err) {
           console.log(err);
           setError("Failed to reset password.");
@@ -46,8 +59,7 @@ function LoginModal() {
           const result = await authManager.signIn(username, password);
           setError(null);
           if (result.status !== "reset_required") {
-            setLoginModalVisible(false);
-            setToken(result.token);
+            await handleSignIn(result);
           }
         } catch (err) {
           console.log(err);

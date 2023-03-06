@@ -9,6 +9,7 @@ export interface AuthStore {
   currentUser: User | null;
   token: string | null;
   setAuthStatus: (authStatus: AuthStatus) => void;
+  setCurrentUser: (user: User | null) => void;
   setError: (error: string | null) => void;
   setToken: (token: string | null) => void;
 }
@@ -21,6 +22,9 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   token: null,
   setAuthStatus: (authStatus: AuthStatus) => {
     set({ authStatus });
+  },
+  setCurrentUser: (user: User | null) => {
+    set({ currentUser: user });
   },
   setError(error: string | null) {
     set({ error });
