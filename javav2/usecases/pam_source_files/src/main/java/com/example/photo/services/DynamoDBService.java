@@ -98,7 +98,7 @@ public class DynamoDBService {
         return result.getImages();
     }
 
-    // Scan the table to send data back to the client.
+    // Scan the table and send data back to the client.
     public List<WorkItem> scanPhotoTable() {
         ArrayList<WorkItem> dataList = new ArrayList<>();
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
