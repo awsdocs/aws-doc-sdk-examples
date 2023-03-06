@@ -15,35 +15,50 @@ DynamoDB is a fully managed NoSQL database service that provides fast and predic
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Create a table](scenario_getting_started_movies.rb) (`CreateTable`)
+* [Create a table](basics/scenario_getting_started_dynamodb.rb) (`CreateTable`)
 
-* [Delete a table](scenario_getting_started_movies.rb) (`DeleteTable`)
+* [Delete a table](basics/scenario_getting_started_dynamodb.rb) (`DeleteTable`)
 
-* [Delete an item from a table](scenario_getting_started_movies.rb) (`DeleteItem`)
+* [Delete an item from a table](basics/scenario_getting_started_dynamodb.rb) (`DeleteItem`)
 
-* [Get an item from a table](scenario_getting_started_movies.rb) (`GetItem`)
+* [Get an item from a table](basics/scenario_getting_started_dynamodb.rb) (`GetItem`)
 
-* [Get information about a table](scenario_getting_started_movies.rb) (`DescribeTable`)
+* [Get information about a table](basics/scenario_getting_started_dynamodb.rb) (`DescribeTable`)
 
-* [Put an item in a table](scenario_getting_started_movies.rb) (`PutItem`)
+* [Put an item in a table](basics/scenario_getting_started_dynamodb.rb) (`PutItem`)
 
-* [Query a table](scenario_getting_started_movies.rb) (`Query`)
+* [Query a table](basics/scenario_getting_started_dynamodb.rb) (`Query`)
 
-* [Scan a table](scenario_getting_started_movies.rb) (`Scan`)
+* [Scan a table](basics/scenario_getting_started_dynamodb.rb) (`Scan`)
 
-* [Update an item in a table](scenario_getting_started_movies.rb) (`UpdateItem`)
+* [Update an item in a table](basics/scenario_getting_started_dynamodb.rb) (`UpdateItem`)
 
-* [Write a batch of items](scenario_getting_started_movies.rb) (`BatchWriteItem`)
+* [Write a batch of items](basics/scenario_getting_started_dynamodb.rb) (`BatchWriteItem`)
 
+#### PartiQL examples
+PartiQL is a query language that is compatible with various NoSQL databases, including Amazon DynamoDB.
+To learn more, see the [DynamoDB PartiQL reference](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.html).
 
+* [Get an item from a table using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
+
+* [Delete an item from a table using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
+
+* [Add an item to a table using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
+
+* [Update an item in a table using PartiQL](partiql/partiql_single.rb) (`ExecuteStatement`)
+
+* [Select a batch of items from a table using PartiQL](partiql/partiql_batch.rb) (`BatchExecuteStatement`)
+
+* [Delete a batch of items from a table using PartiQL](partiql/partiql_batch.rb) (`BatchExecuteStatement`)
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-* [Get started using tables, items, and queries](scenario_getting_started_movies.rb)
+* [Get started using tables, items, and queries](basics/scenario_getting_started_dynamodb.rb)
 
+* [Query a table using PartiQL](partiql/scenario_partiql_single.rb)
 
-
+* [Query a table by using batches of PartiQL statements](partiql/scenario_partiql_batch.rb)
 
 
 ## Run the examples
