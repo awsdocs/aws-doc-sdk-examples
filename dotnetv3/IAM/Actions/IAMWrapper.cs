@@ -487,6 +487,12 @@ public class IAMWrapper
     // snippet-end:[IAM.dotnetv3.ListUsers]
 
     // snippet-start:[IAM.dotnetv3.RemoveUserFromGroup]
+    /// <summary>
+    /// Remove a user from an IAM group.
+    /// </summary>
+    /// <param name="userName">The username of the user to remove.</param>
+    /// <param name="groupName">The name of the IAM group to remove the user from.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> RemoveUserFromGroupAsync(string userName, string groupName)
     {
         // Remove the user from the group.

@@ -25,8 +25,9 @@ public class S3Wrapper
         _stsService = stsService;
     }
 
+    // snippet.start:[STS.dotnetv3.AssumeS3Role]
     /// <summary>
-    /// Assumes the IAM role for the current session.
+    /// Assumes an IAM role that allows S3 access for the current session.
     /// </summary>
     /// <param name="roleSession">A string representing the current session.</param>
     /// <param name="roleToAssume">The name of the IAM role to assume.</param>
@@ -45,6 +46,13 @@ public class S3Wrapper
         return response.Credentials;
     }
 
+    // snippet.end:[STS.dotnetv3.AssumeS3Role]
+
+    /// <summary>
+    /// Delete an Amazon S3 bucket.
+    /// </summary>
+    /// <param name="bucketName">Name of the Amazon S3 bucket to delete.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeleteBucketAsync(string bucketName)
     {
         var result = await _s3Service.DeleteBucketAsync(new DeleteBucketRequest { BucketName = bucketName });

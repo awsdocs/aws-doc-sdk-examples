@@ -47,6 +47,7 @@ Code excerpts that show you how to call individual service functions.
 - [List roles](Actions/IAMWrapper.cs) (`ListRolesAsync`)
 - [List SAML providers](Actions/IAMWrapper.cs) (`ListSAMLProvidersAsync`)
 - [List users](Actions/IAMWrapper.cs) (`ListUsersAsync`)
+- [Remove a user from a group](Actions/IAMWrapper.cs) (`RemoveUserFromGroupAsync`)
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.

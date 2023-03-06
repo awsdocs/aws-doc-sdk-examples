@@ -3,6 +3,7 @@
 
 using Amazon.S3;
 using Amazon.S3.Model;
+using Amazon.S3.Util;
 using Amazon.SecurityToken;
 using Xunit;
 using IamScenariosCommon;
@@ -56,9 +57,14 @@ namespace IAMTests
         [Trait("Category", "Integration")]
         public async Task PutBucketAsyncTest()
         {
+            // Create the bucket.
             _test_guid = Guid.NewGuid().ToString();
-            var success = await _s3Wrapper.PutBucketAsync($"{_bucketName}{_test_guid}");
-            Assert.True(success, "Could not create the bucket.");
+            var bucketName = $"{_bucketName}{_test_guid}";
+            await _s3Wrapper.PutBucketAsync(bucketName);
+
+            // Test that the new bucket exists.
+            var bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, bucketName);
+            Assert.True(bucketExists, "Could not create the bucket.");
         }
 
         [Fact()]
@@ -66,8 +72,11 @@ namespace IAMTests
         [Trait("Category", "Integration")]
         public async Task ListMyBucketsAsyncTest()
         {
+            // Since the PutBucketAsyncTest has been run, there
+            // should be at least one bucket.
             var buckets = await _s3Wrapper.ListMyBucketsAsync();
             Assert.NotNull(buckets);
+            Assert.True(buckets.Count >= 1, "There are no buckets to list.");
         }
 
         [Fact()]
@@ -75,38 +84,22 @@ namespace IAMTests
         [Trait("Category", "Integration")]
         public async Task DeleteBucketAsyncTest()
         {
+            // Try to delete the bucket.
             var bucketName = $"{_bucketName}{_test_guid}";
             await _s3Wrapper.DeleteBucketAsync(bucketName);
 
-            // Determine if the bucket still exists by trying
-            // to list the objects in it. This should raise an error.
-            var exception = Record.Exception(() => _s3Client.ListObjectsV2Async(new ListObjectsV2Request { BucketName = bucketName }).Wait());
-            Assert.NotNull(exception);
-
-            // The AWS SDK for .NET raises an AggregateException, so
-            // extract the AmazonS3Exception from it.
-            var s3Exception = exception?.InnerException as AmazonS3Exception;
-
-            // Make sure we have an AmazonS3Exception.
-            Assert.IsType<AmazonS3Exception>(s3Exception);
-
-            // Make sure that the error message is "NoSuchBucket" meaning
-            // that the Amazon S3 bucket in question no longer exists.
-            Assert.Equal("NoSuchBucket", ((AmazonS3Exception)s3Exception).ErrorCode);
+            // See if the bucket still exists.
+            var bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, bucketName);
+            Assert.False(bucketExists, "Could not delete the bucket.");
         }
 
         [Fact()]
         [Trait("Category", "Quarantine")]
-        public void AssumeS3RoleAsyncTest()
+        public async Task AssumeS3RoleAsyncTest()
         {
-            Assert.True(false, "This test needs an implementation");
-        }
-
-        [Fact()]
-        [Trait("Category", "Quarantine")]
-        public void UpdateClientsTest()
-        {
-            Assert.True(false, "This test needs an implementation");
+            var roleSession = "temporary_session";
+            var credentials = await _s3Wrapper.AssumeS3RoleAsync(roleSession, _roleName);
+            Assert.NotNull(credentials);
         }
     }
 }
