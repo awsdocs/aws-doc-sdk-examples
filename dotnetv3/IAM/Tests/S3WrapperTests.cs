@@ -29,7 +29,7 @@ namespace IAMTests
             _configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("testsettings.json") // Load test settings from .json file.
-                .AddJsonFile("testsettings.local.json", 
+                .AddJsonFile("testsettings.local.json",
                     true) // Optionally load local settings.
                 .Build();
 

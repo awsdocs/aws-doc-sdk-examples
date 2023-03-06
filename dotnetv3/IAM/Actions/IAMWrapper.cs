@@ -153,7 +153,7 @@ public class IAMWrapper
         return response.Role;
     }
 
-    // snippet-start:[IAM.dotnetv3.CreateServiceLinkedRole]
+    // snippet-end:[IAM.dotnetv3.CreateServiceLinkedRole]
 
     // snippet-start:[IAM.dotnetv3.CreateUser]
     /// <summary>
@@ -202,6 +202,8 @@ public class IAMWrapper
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
+    // snippet-end:[IAM.dotnetv3.DeleteGroup]
+
     // snippet-start:[IAM.dotnetv3.DeletePolicy]
     /// <summary>
     /// Delete an IAM policy.
@@ -225,7 +227,7 @@ public class IAMWrapper
     /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeleteRoleAsync(string roleName)
     {
-        var response = await _IAMService.DeleteRoleAsync(new DeleteRoleRequest {  RoleName = roleName });
+        var response = await _IAMService.DeleteRoleAsync(new DeleteRoleRequest { RoleName = roleName });
         return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
     }
 
@@ -374,7 +376,7 @@ public class IAMWrapper
         var attachedPolicies = new List<AttachedPolicyType>();
         var attachedRolePoliciesPaginator = _IAMService.Paginators.ListAttachedRolePolicies(new ListAttachedRolePoliciesRequest { RoleName = roleName });
 
-        await foreach(var response in attachedRolePoliciesPaginator.Responses)
+        await foreach (var response in attachedRolePoliciesPaginator.Responses)
         {
             attachedPolicies.AddRange(response.AttachedPolicies);
         }
@@ -394,7 +396,7 @@ public class IAMWrapper
         var groupsPaginator = _IAMService.Paginators.ListGroups(new ListGroupsRequest());
         var groups = new List<Group>();
 
-        await foreach(var response in groupsPaginator.Responses)
+        await foreach (var response in groupsPaginator.Responses)
         {
             groups.AddRange(response.Groups);
         }
@@ -414,7 +416,7 @@ public class IAMWrapper
         var listPoliciesPaginator = _IAMService.Paginators.ListPolicies(new ListPoliciesRequest());
         var policies = new List<ManagedPolicy>();
 
-        await foreach(var response in listPoliciesPaginator.Responses)
+        await foreach (var response in listPoliciesPaginator.Responses)
         {
             policies.AddRange(response.Policies);
         }
@@ -435,7 +437,7 @@ public class IAMWrapper
         var listRolePoliciesPaginator = _IAMService.Paginators.ListRolePolicies(new ListRolePoliciesRequest { RoleName = roleName });
         var policyNames = new List<string>();
 
-        await foreach(var response in listRolePoliciesPaginator.Responses)
+        await foreach (var response in listRolePoliciesPaginator.Responses)
         {
             policyNames.AddRange(response.PolicyNames);
         }
@@ -488,7 +490,7 @@ public class IAMWrapper
         var listUsersPaginator = _IAMService.Paginators.ListUsers(new ListUsersRequest());
         var users = new List<User>();
 
-        await foreach(var response in listUsersPaginator.Responses)
+        await foreach (var response in listUsersPaginator.Responses)
         {
             users.AddRange(response.Users);
         }

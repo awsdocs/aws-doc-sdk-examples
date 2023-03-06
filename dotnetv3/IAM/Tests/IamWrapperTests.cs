@@ -196,7 +196,7 @@ namespace IAMActions.Tests
 
             // Now clean up
             await _iamService.DeleteServiceLinkedRoleAsync(new DeleteServiceLinkedRoleRequest
-                { RoleName = role.RoleName });
+            { RoleName = role.RoleName });
         }
 
         /// <summary>

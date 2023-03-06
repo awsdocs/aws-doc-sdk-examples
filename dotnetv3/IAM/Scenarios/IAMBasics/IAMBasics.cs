@@ -33,7 +33,7 @@ public class IAMBasics
 
         var wrapper = host.Services.GetRequiredService<IAMWrapper>();
         var uiWrapper = host.Services.GetRequiredService<UIWrapper>();
-        
+
         uiWrapper.DisplayBasicsOverview();
         uiWrapper.PressEnter();
 

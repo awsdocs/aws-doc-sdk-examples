@@ -88,7 +88,7 @@ public class S3Wrapper
     /// successfully.</returns>
     public async Task<bool> PutBucketAsync(string bucketName)
     {
-        var response = await _s3Service.PutBucketAsync(new PutBucketRequest{ BucketName = bucketName });
+        var response = await _s3Service.PutBucketAsync(new PutBucketRequest { BucketName = bucketName });
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
