@@ -125,13 +125,13 @@ eventbridge_ListRuleNamesByTarget:
   synopsis: list &EVlong; rule names for a target.
   category:
   languages:
-    NET:
+    .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EventBridge
           sdkguide:
           excerpts:
-            - description: List all of the rule names using the target ARN.
+            - description: List all of the rule names using the target.
               snippet_tags:
                 - EventBridge.dotnetv3.ListRuleNamesByTarget
   services:
@@ -159,7 +159,7 @@ eventbridge_PutRule:
   synopsis: create an &EVlong; rule.
   category:
   languages:
-    NET:
+    .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EventBridge
@@ -228,7 +228,7 @@ eventbridge_PutEvents:
   synopsis: send &EVlong; events.
   category:
   languages:
-    NET:
+    .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EventBridge
@@ -294,7 +294,7 @@ eventbridge_PutTargets:
   synopsis: add an &LAMlong; function target to an &EVlong; event.
   category:
   languages:
-    NET:
+    .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EventBridge
@@ -352,14 +352,14 @@ eventbridge_Scenario_GettingStarted:
     - Delete the rule.
   category: Scenarios
   languages:
-    SAP ABAP:
+    .NET:
       versions:
         - sdk_version: 3
           github: dotnetv3/EventBridge
           excerpts:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
-                - CloudWatch.dotnetv3.GettingStarted
+                - EventBridge.dotnetv3.GettingStarted
             - description: Create a class that wraps &EV; operations.
               snippet_tags:
                 - EventBridge.dotnetv3.EventBridgeWrapper
