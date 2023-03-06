@@ -26,85 +26,14 @@ public class EventBridgeWrapper
         _amazonEventBridge = amazonEventBridge;
     }
 
+    // snippet-start:[EventBridge.dotnetv3.DescribeRule]
     /// <summary>
-    /// List event buses available.
+    /// Get the state for a rule by the rule name.
     /// </summary>
-    /// <returns>The list of event buses.</returns>
-    public async Task<List<EventBus>> ListAllEventBuses()
-    {
-        var results = new List<EventBus>();
-        var request = new ListEventBusesRequest();
-        ListEventBusesResponse response;
-        do
-        {
-            response = await _amazonEventBridge.ListEventBusesAsync(request);
-            results.AddRange(response.EventBuses);
-            request.NextToken = response.NextToken;
-
-        } while (response.NextToken is not null);
-
-        return results;
-    }
-
-    /// <summary>
-    /// Create a new event bus.
-    /// </summary>
-    /// <returns>The ARN of the new event bus.</returns>
-    public async Task<string> CreateEventBus(string name, string EventSource)
-    {
-        var response = await _amazonEventBridge.CreateEventBusAsync(
-            new CreateEventBusRequest()
-            {
-                Name = name,
-                EventSourceName = EventSource
-            });
-
-        return response.EventBusArn;
-    }
-
-    /// <summary>
-    /// Create a new event bus.
-    /// </summary>
-    /// <returns>A description of the new event bus.</returns>
-    public async Task<DescribeEventBusResponse> DescribeEventBus(string name)
-    {
-        var response = await _amazonEventBridge.DescribeEventBusAsync(
-            new DescribeEventBusRequest()
-            {
-                Name = name
-            });
-
-        return response;
-    }
-
-    /// <summary>
-    /// Add a rule with a particular pattern and name to an event bus.
-    /// </summary>
-    /// <param name="description">The description of the rule.</param>
-    /// <param name="eventPattern">The pattern for the event to match.</param>
-    /// <param name="name">The name for the rule.</param>
-    /// <param name="eventBusName">The optional name for the event bus. If empty, uses the default event bus.</param>
-    /// <returns>The Arn of the rule.</returns>
-    public async Task<string> AddRuleToEventBus(string description, string eventPattern, string name, string eventBusName = "default")
-    {
-        var response = await _amazonEventBridge.PutRuleAsync(
-            new PutRuleRequest()
-            {
-                Description = description,
-                EventPattern = eventPattern,
-                Name = name,
-                ScheduleExpression = "cron(0 12 * * ? *)",
-                EventBusName = eventBusName
-            });
-
-        return response.RuleArn;
-    }
-
-    /// <summary>
-    /// List rules on an event bus.
-    /// </summary>
-    /// <returns>The list of rules.</returns>
-    public async Task<RuleState> GetRuleStateByRuleName(string ruleName, string eventBusName)
+    /// <param name="ruleName">The name of the rule.</param>
+    /// <param name="eventBusName">The optional name of the event bus. If empty, uses the default event bus.</param>
+    /// <returns>The state of the rule.</returns>
+    public async Task<RuleState> GetRuleStateByRuleName(string ruleName, string? eventBusName = null)
     {
         var ruleResponse = await _amazonEventBridge.DescribeRuleAsync(
             new DescribeRuleRequest()
@@ -114,10 +43,13 @@ public class EventBridgeWrapper
             });
         return ruleResponse.State;
     }
+    // snippet-end:[EventBridge.dotnetv3.DescribeRule]
 
+    // snippet-start:[EventBridge.dotnetv3.EnableRule]
     /// <summary>
-    /// Enable a particular rule on an eventBus
+    /// Enable a particular rule on an event bus.
     /// </summary>
+    /// <param name="ruleName">The name of the rule.</param>
     /// <returns>True if successful.</returns>
     public async Task<bool> EnableRuleByName(string ruleName)
     {
@@ -128,10 +60,13 @@ public class EventBridgeWrapper
             });
         return ruleResponse.HttpStatusCode == HttpStatusCode.OK;
     }
+    // snippet-end:[EventBridge.dotnetv3.EnableRule]
 
+    // snippet-start:[EventBridge.dotnetv3.DisableRule]
     /// <summary>
-    /// Disable a particular rule on an eventBus
-    /// </summary>
+    /// Disable a particular rule on an event bus.
+    /// </summary
+    /// <param name="ruleName">The name of the rule.</param>
     /// <returns>True if successful.</returns>
     public async Task<bool> DisableRuleByName(string ruleName)
     {
@@ -143,18 +78,22 @@ public class EventBridgeWrapper
             });
         return ruleResponse.HttpStatusCode == HttpStatusCode.OK;
     }
+    // snippet-end:[EventBridge.dotnetv3.DisableRule]
 
+    // snippet-start:[EventBridge.dotnetv3.ListRules]
     /// <summary>
-    /// List rules on an event bus.
+    /// List the rules on an event bus.
     /// </summary>
+    /// <param name="eventBusArn">The optional Arn of the event bus. If empty, uses the default event bus.</param>
     /// <returns>The list of rules.</returns>
-    public async Task<List<Rule>> ListRulesForEventBus(string eventBusArn)
+    public async Task<List<Rule>> ListAllRulesForEventBus(string? eventBusArn = null)
     {
         var results = new List<Rule>();
         var request = new ListRulesRequest()
         {
             EventBusName = eventBusArn
         };
+        // Get all of the pages of rules.
         ListRulesResponse response;
         do
         {
@@ -166,71 +105,14 @@ public class EventBridgeWrapper
 
         return results;
     }
+    // snippet-end:[EventBridge.dotnetv3.ListRules]
 
+    // snippet-start:[EventBridge.dotnetv3.ListTargetsByRule]
     /// <summary>
-    /// Create an archive for all S3 events.
-    /// Events will only fire for buckets with EventBridge Events enabled.
+    /// List all of the targets matching a rule by name.
     /// </summary>
-    /// <returns>The ARN of the new event bus.</returns>
-    public async Task<string> CreateArchiveForS3Events(string archiveName, string eventBusArn)
-    {
-        string allS3EventsPattern = $@"{{
-              'source': ['aws.s3']
-            }}";
-
-        var response = await _amazonEventBridge.CreateArchiveAsync(
-            new CreateArchiveRequest()
-            {
-                ArchiveName = archiveName,
-                EventSourceArn = eventBusArn,
-                EventPattern = allS3EventsPattern,
-                RetentionDays = 1
-            });
-
-        return response.ArchiveArn;
-    }
-
-    /// <summary>
-    /// Create an archive for all S3 events.
-    /// Events will only fire for buckets with EventBridge Events enabled.
-    /// </summary>
-    /// <returns>The ARN of the new event bus.</returns>
-    public async Task<string> StartArchiveReplay(string eventBusArn)
-    {
-        var utcNow = DateTime.UtcNow;
-        string replayName = "testReplay" + utcNow.ToLongTimeString();
-        await _amazonEventBridge.StartReplayAsync(
-            new StartReplayRequest()
-            {
-                EventStartTime = utcNow.AddMinutes(-5),
-                EventEndTime = utcNow,
-                EventSourceArn = eventBusArn,
-                ReplayName = "TestReplay"
-            });
-
-        return replayName;
-    }
-
-    /// <summary>
-    /// Create an archive for all S3 events.
-    /// Events will only fire for buckets with EventBridge Events enabled.
-    /// </summary>
-    /// <returns>The ARN of the new event bus.</returns>
-    public async Task<string> CheckReplayStatus(string replayName)
-    {
-        var response = await _amazonEventBridge.DescribeReplayAsync(
-            new DescribeReplayRequest()
-            {
-                ReplayName = replayName
-            });
-
-        return response.State;
-    }
-
-    /// <summary>
-
-    /// </summary>
-    /// <returns></returns>
+    /// <param name="ruleName">The name of the rule.</param>
+    /// <returns>The list of targets.</returns>
     public async Task<List<Target>> ListAllTargetsOnRule(string ruleName)
     {
         var results = new List<Target>();
@@ -249,7 +131,14 @@ public class EventBridgeWrapper
 
         return results;
     }
+    // snippet-end:[EventBridge.dotnetv3.ListTargetsByRule]
 
+    // snippet-start:[EventBridge.dotnetv3.ListRuleNamesByTarget]
+    /// <summary>
+    /// List names of all rules matching a target.
+    /// </summary>
+    /// <param name="targetArn">The Arn of the target.</param>
+    /// <returns>The list of rule names.</returns>
     public async Task<List<string>> ListAllRuleNamesByTarget(string targetArn)
     {
         var results = new List<string>();
@@ -268,12 +157,17 @@ public class EventBridgeWrapper
 
         return results;
     }
+    // snippet-end:[EventBridge.dotnetv3.ListRuleNamesByTarget]
 
+    // snippet-start:[EventBridge.dotnetv3.PutRule]
     /// <summary>
-    /// Create a new event rule that triggers on an S3 upload.
+    /// Create a new event rule that triggers when an S3 object is created in a bucket.
     /// </summary>
+    /// <param name="roleArn">The Arn of the role.</param>
+    /// <param name="ruleName">The name to give the rule.</param>
+    /// <param name="bucketName">The name of the bucket to trigger the event.</param>
     /// <returns>The Arn of the new rule.</returns>
-    public async Task<string> PutS3UploadRule(string roleArn, string bucketName)
+    public async Task<string> PutS3UploadRule(string roleArn, string ruleName, string bucketName)
     {
         string eventPattern = $@"{{
               'source': ['aws.s3'],
@@ -287,7 +181,7 @@ public class EventBridgeWrapper
         var response = await _amazonEventBridge.PutRuleAsync(
             new PutRuleRequest()
             {
-                Name = "example-s3-upload-rule",
+                Name = ruleName,
                 Description = "Example S3 upload rule for EventBridge",
                 RoleArn = roleArn,
                 EventPattern = eventPattern
@@ -295,12 +189,18 @@ public class EventBridgeWrapper
 
         return response.RuleArn;
     }
+    // snippet-end:[EventBridge.dotnetv3.PutRule]
 
+    // snippet-start:[EventBridge.dotnetv3.PutTargetsTransform]
     /// <summary>
-    /// Create a new event rule that triggers on an S3 upload.
+    /// Update an S3 object created rule with a transform on the target.
     /// </summary>
-    /// <returns>The Arn of the new rule.</returns>
-    public async Task<bool> UpdateS3UploadRuleTargetWithTransform(string eventBusArn, string ruleName, string roleArn, string targetArn)
+    /// <param name="ruleName">The name of the rule.</param>
+    /// <param name="roleArn">The Arn of the role.</param>
+    /// <param name="targetArn">The Arn of the target.</param>
+    /// <param name="eventBusArn">Optional event bus Arn. If empty, uses the default event bus.</param>
+    /// <returns>True if successful.</returns>
+    public async Task<bool> UpdateS3UploadRuleTargetWithTransform(string ruleName, string roleArn, string targetArn, string? eventBusArn = null)
     {
         var targets = new List<Target>
         {
@@ -329,12 +229,15 @@ public class EventBridgeWrapper
 
         return response.FailedEntryCount == 0;
     }
+    // snippet-end:[EventBridge.dotnetv3.PutTargetsTransform]
 
+    // snippet-start:[EventBridge.dotnetv3.PutEvents]
     /// <summary>
-    /// Add an event to the event bus.
+    /// Add an event to the event bus that includes an email, message, and time.
     /// </summary>
-    /// <returns>The Arn of the new rule.</returns>
-    public async Task<bool> PutEvents(string email)
+    /// <param name="email">The email to use in the event detail of the custom event.</param>
+    /// <returns>True if successful.</returns>
+    public async Task<bool> PutCustomEmailEvent(string email)
     {
         var eventDetail = new
         {
@@ -358,11 +261,14 @@ public class EventBridgeWrapper
 
         return response.FailedEntryCount == 0;
     }
+    // snippet-end:[EventBridge.dotnetv3.PutEvents]
 
+    // snippet-start:[EventBridge.dotnetv3.PutCustomRulePattern]
     /// <summary>
-    /// Add an event to the event bus.
+    /// Update a rule to use a custom defined event pattern.
     /// </summary>
-    /// <returns>The Arn of the new rule.</returns>
+    /// <param name="ruleName">The name of the rule to update.</param>
+    /// <returns>The Arn of the updated rule.</returns>
     public async Task<string> UpdateCustomEventPattern(string ruleName)
     {
         string customEventsPattern = $@"{{
@@ -379,13 +285,20 @@ public class EventBridgeWrapper
 
         return response.RuleArn;
     }
+    // snippet-end:[EventBridge.dotnetv3.PutCustomRulePattern]
 
+    // snippet-start:[EventBridge.dotnetv3.PutSnsTarget]
     /// <summary>
-    /// Add a new rule.
+    /// Add an SNS target topic to a rule.
     /// </summary>
+    /// <param name="ruleName">The name of the rule to update.</param>
+    /// <param name="roleArn">The Arn of the role to use.</param>
+    /// <param name="targetArn">The Arn of the SNS target.</param>
+    /// <param name="eventBusArn">The optional event bus name, uses default if empty.</param>
     /// <returns>True if successful.</returns>
-    public async Task<bool> AddSnsTargetToRule(string eventBusArn, string ruleName, string roleArn, string targetArn)
+    public async Task<bool> AddSnsTargetToRule(string ruleName, string roleArn, string targetArn, string? eventBusArn = null)
     {
+        // Create the list of targets.
         var targets = new List<Target>
         {
             new Target()
@@ -395,6 +308,7 @@ public class EventBridgeWrapper
             }
         };
 
+        // Add the targets to the rule.
         var response = await _amazonEventBridge.PutTargetsAsync(
             new PutTargetsRequest()
             {
@@ -405,52 +319,13 @@ public class EventBridgeWrapper
 
         return response.FailedEntryCount == 0;
     }
+    // snippet-end:[EventBridge.dotnetv3.PutSnsTarget]
 
-    /// <summary>
-    /// Add a new rule.
-    /// </summary>
-    /// <returns>True if successful.</returns>
-    public async Task<bool> AddLambdaTargetToRule(string eventBusArn, string ruleName, string roleArn, string targetArn)
-    {
-        var targets = new List<Target>
-        {
-            new Target()
-            {
-                Arn = targetArn,
-                RoleArn = roleArn,
-
-            }
-        };
-
-        var response = await _amazonEventBridge.PutTargetsAsync(
-            new PutTargetsRequest()
-            {
-                EventBusName = eventBusArn,
-                Rule = ruleName,
-                Targets = targets,
-            });
-
-        return response.FailedEntryCount == 0;
-    }
-
-    /// <summary>
-    /// Delete an event bus by name.
-    /// </summary>
-    /// <returns>True if successful</returns>
-    public async Task<bool> DeleteEventBusByName(string name)
-    {
-        var response = await _amazonEventBridge.DeleteEventBusAsync(
-            new DeleteEventBusRequest()
-            {
-                Name = name
-            });
-
-        return response.HttpStatusCode == HttpStatusCode.OK;
-    }
-
+    // snippet-start:[EventBridge.dotnetv3.DeleteRule]
     /// <summary>
     /// Delete an event rule by name.
     /// </summary>
+    /// <param name="name">The name of the event rule.</param>
     /// <returns>True if successful</returns>
     public async Task<bool> DeleteRuleByName(string name)
     {
@@ -462,19 +337,5 @@ public class EventBridgeWrapper
 
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
-
-    /// <summary>
-    /// Delete an event archive by name.
-    /// </summary>
-    /// <returns>True if successful</returns>
-    public async Task<bool> DeleteArchiveByName(string name)
-    {
-        var response = await _amazonEventBridge.DeleteArchiveAsync(
-            new DeleteArchiveRequest()
-            {
-                ArchiveName = name
-            });
-
-        return response.HttpStatusCode == HttpStatusCode.OK;
-    }
+    // snippet-end:[EventBridge.dotnetv3.DeleteRule]
 }

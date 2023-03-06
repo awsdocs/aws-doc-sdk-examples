@@ -8,5 +8,5 @@
   "labmdaTargetArn": "arn:aws:sns:us-east-1:565846806325:eventbridge-test-topic",
   "eventBusName": "example-event-bus",
   "eventRuleName": "example-event-rule",
-  "eventArchive": "example-event-archive"
+  "testEmail": "test@example.com"
 }

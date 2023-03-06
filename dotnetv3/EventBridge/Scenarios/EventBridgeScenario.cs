@@ -1,7 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System.Runtime.CompilerServices;
 using Amazon.EventBridge;
 using Amazon.IdentityManagement;
 using Amazon.IdentityManagement.Model;
@@ -9,6 +8,7 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
+using EventBridgeActions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,7 +16,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Microsoft.Extensions.Logging.Debug;
 
-namespace EventBridgeActions;
+namespace EventBridgeScenario;
 
 public class EventBridgeScenario
 {
@@ -79,7 +79,7 @@ public class EventBridgeScenario
 
             var email = await SubscribeToSnsTopic(snsClient, topicArn);
 
-            await AddSnsEventRule(roleArn);
+            await AddSnsEventRule(roleArn, topicArn);
 
             await ListEventRules();
 
@@ -110,6 +110,7 @@ public class EventBridgeScenario
         }
     }
 
+    // snippet-start:[EventBridge.dotnetv3.CreateRole]
     public static async Task<string> CreateRole()
     {
         var roleName = _configuration["roleName"];
@@ -164,7 +165,9 @@ public class EventBridgeScenario
 
         return roleResult.Role.Arn;
     }
+    // snippet-end:[EventBridge.dotnetv3.CreateRole]
 
+    // snippet-start:[EventBridge.dotnetv3.CreateBucketWithEvents]
     /// <summary>
     /// Create an Amazon S3 bucket with EventBridge events enabled
     /// </summary>
@@ -198,9 +201,10 @@ public class EventBridgeScenario
 
         Console.WriteLine(new string('-', 80));
     }
+    // snippet-end:[EventBridge.dotnetv3.CreateBucketWithEvents]
 
     /// <summary>
-    /// Create an Amazon S3 bucket with EventBridge events enabled
+    /// Create and upload a file to an S3 bucket to trigger an event.
     /// </summary>
     /// <returns>Async task.</returns>
     private static async Task UploadS3File(IAmazonS3 s3Client)
@@ -226,14 +230,14 @@ public class EventBridgeScenario
             BucketName = testBucketName
         });
 
-        Console.WriteLine($"\tPress Enter to move on.");
+        Console.WriteLine($"\tPress Enter to continue.");
         Console.ReadLine();
 
         Console.WriteLine(new string('-', 80));
     }
 
     /// <summary>
-    /// Create an Amazon S3 bucket with EventBridge events enabled
+    /// Create an SNS topic that can used as an EventBridge target.
     /// </summary>
     /// <returns>Async task.</returns>
     private static async Task<string> CreateSnsTopic(
@@ -336,19 +340,17 @@ public class EventBridgeScenario
     /// Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
     /// </summary>
     /// <returns>Async task.</returns>
-    private static async Task AddSnsEventRule(string roleArn)
+    private static async Task AddSnsEventRule(string roleArn, string topicArn)
     {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Creating an EventBridge event that sends an email when an Amazon S3 object is created.");
 
         var eventRuleName = _configuration["eventRuleName"];
         var testBucketName = _configuration["testBucketName"];
-        var topicArn = _configuration["topicArn"];
         var topicName = _configuration["topicName"];
 
-        await _eventBridgeWrapper.PutS3UploadRule(roleArn, testBucketName);
-        await _eventBridgeWrapper.AddSnsTargetToRule(null, eventRuleName, roleArn,
-            topicArn);
+        await _eventBridgeWrapper.PutS3UploadRule(roleArn, eventRuleName, testBucketName);
+        await _eventBridgeWrapper.AddSnsTargetToRule(eventRuleName, roleArn, topicArn);
         Console.WriteLine($"\tAdded event rule {eventRuleName} with SNS target {topicName} for bucket {testBucketName}.");
 
         Console.WriteLine(new string('-', 80));
@@ -363,9 +365,7 @@ public class EventBridgeScenario
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Current event rules:");
 
-        var eventBusName = _configuration["eventBusName"];
-
-        var rules = await _eventBridgeWrapper.ListRulesForEventBus(eventBusName);
+        var rules = await _eventBridgeWrapper.ListAllRulesForEventBus();
         rules.ForEach(r => Console.WriteLine($"\tRule: {r.Name} Description: {r.Description} State: {r.State}"));
 
         Console.WriteLine(new string('-', 80));
@@ -385,8 +385,7 @@ public class EventBridgeScenario
         var topicArn = _configuration["topicArn"];
         var topicName = _configuration["topicName"];
 
-        await _eventBridgeWrapper.UpdateS3UploadRuleTargetWithTransform(null, eventRuleName, roleArn,
-            topicArn);
+        await _eventBridgeWrapper.UpdateS3UploadRuleTargetWithTransform(eventRuleName, roleArn, topicArn);
         Console.WriteLine($"\tUpdated event rule {eventRuleName} with SNS target {topicName} for bucket {testBucketName}.");
 
         Console.WriteLine(new string('-', 80));
@@ -419,7 +418,7 @@ public class EventBridgeScenario
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Let's send some events to trigger the rule.");
 
-        await _eventBridgeWrapper.PutEvents(email);
+        await _eventBridgeWrapper.PutCustomEmailEvent(email);
 
         Console.WriteLine($"\tEvents have been sent. Press enter to continue.");
         Console.ReadLine();
@@ -485,32 +484,20 @@ public class EventBridgeScenario
     /// <summary>
     /// Clean up created resources.
     /// </summary>
+    /// <param name="s3Client">The SNS client.</param>
+    /// <param name="s3Client">The S3 client.</param>
+    /// <param name="topicArn">The Arn of the SNS topic to clean up.</param>
     /// <returns>Async task.</returns>
     private static async Task CleanupResources(IAmazonSimpleNotificationService snsClient, IAmazonS3 s3Client, string topicArn)
     {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine($"Clean up resources.");
 
-        var eventArchive = _configuration["eventArchive"];
-        if (GetYesNoResponse($"\tDelete event archive {eventArchive}? (y/n)"))
-        {
-            Console.WriteLine($"\tDeleting event archive.");
-            await _eventBridgeWrapper.DeleteEventBusByName(eventArchive);
-        }
-
         var eventRuleName = _configuration["eventRuleName"];
         if (GetYesNoResponse($"\tDelete event rule {eventRuleName}? (y/n)"))
         {
             Console.WriteLine($"\tDeleting event rule.");
             await _eventBridgeWrapper.DeleteRuleByName(eventRuleName);
-        }
-
-        var eventBusName = _configuration["eventBusName"];
-        if (GetYesNoResponse($"\tDelete event bus {eventBusName}? (y/n)"))
-        {
-            Console.WriteLine($"\tDeleting event bus.");
-            var alarms = new List<string> { eventBusName };
-            await _eventBridgeWrapper.DeleteArchiveByName(eventBusName);
         }
 
         var topicName = _configuration["topicName"];
@@ -527,7 +514,14 @@ public class EventBridgeScenario
         if (GetYesNoResponse($"\tDelete Amazon S3 bucket {bucketName}? (y/n)"))
         {
             Console.WriteLine($"\tDeleting bucket.");
-            // todo: may have to delete all objects in the bucket here
+            // Delete all objects in the bucket.
+            var deleteList = await s3Client.ListObjectsV2Async(new ListObjectsV2Request());
+            await s3Client.DeleteObjectsAsync(new DeleteObjectsRequest()
+            {
+                Objects = deleteList.S3Objects
+                    .Select(o => new KeyVersion{Key = o.Key}).ToList()
+            });
+            // Now delete the bucket.
             await s3Client.DeleteBucketAsync(new DeleteBucketRequest()
             {
                 BucketName = bucketName
@@ -538,7 +532,7 @@ public class EventBridgeScenario
     }
 
     /// <summary>
-    /// Get a yes or no response from the user.
+    /// Helper method to get a yes or no response from the user.
     /// </summary>
     /// <param name="question">The question string to print on the console.</param>
     /// <returns>True if the user responds with a yes.</returns>
