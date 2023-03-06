@@ -23,23 +23,12 @@ Lambdas = dict[str, lambda_cdk.Function]
 
 
 class RekognitionPhotoAnalyzerStack(Stack):
-    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
-        if "name" in kwargs:
-            self.name = kwargs["name"]
-            del kwargs["name"]
-        else:
-            raise RuntimeError("Missing name for PAM stack")
+    def __init__(self, scope: Construct, lang: str, name="", email="", **kwargs) -> None:
+        self.email = email
 
-        if "email" in kwargs:
-            self.email = kwargs["email"]
-            del kwargs["email"]
-        else:
-            raise RuntimeError("Missing email for PAM stack")
+        id = f"{name}-{lang}-PAM"
 
         super().__init__(scope, id, **kwargs)
-
-        self.dns_prefix = f"{self.name}-sdk-code-examples-pam"
-        self.prefix = f"{self.name}-SDKCodeExamplesPAM"
 
         (user, group) = self._iam()
         self.user = user
@@ -64,8 +53,8 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
     def _iam(self):
         # create new IAM group and user
-        group = iam.Group(self, f"{self.prefix}-Group")
-        user = iam.User(self, f"{self.prefix}-User")
+        group = iam.Group(self, f"AppGroup")
+        user = iam.User(self, f"AppUser")
 
         # add IAM user to the new group
         user.add_to_group(group)
@@ -75,13 +64,13 @@ class RekognitionPhotoAnalyzerStack(Stack):
     def _s3(self) -> tuple[s3.Bucket, s3.Bucket]:
         # give new user access to the bucket
         storage_bucket = s3.Bucket(
-            self, f"{self.dns_prefix}-storage-bucket")
+            self, f"storage-bucket")
         storage_bucket.grant_read_write(self.user)
 
         # TODO: Policy for Glacier storage class for objects with tag rekognition: complete
 
         working_bucket = s3.Bucket(
-            self, f"{self.dns_prefix}-working-bucket")
+            self, f"working-bucket")
         working_bucket.grant_read_write(self.user)
 
         # TODO: Add 24-hour deletion policy
@@ -91,13 +80,13 @@ class RekognitionPhotoAnalyzerStack(Stack):
     def _dynamodb(self) -> tuple[ddb.Table, ddb.Table]:
         # create DynamoDB table to hold Rekognition results
         labels_table = ddb.Table(
-            self, f"{self.prefix}-LabelsTable",
+            self, f"LabelsTable",
             partition_key=ddb.Attribute(
                 name='Label', type=ddb.AttributeType.STRING)
         )
 
         jobs_table = ddb.Table(
-            self, f"{self.prefix}-JobsTable",
+            self, f"JobsTable",
             partition_key=ddb.Attribute(
                 name='JobId', type=ddb.AttributeType.STRING)
         )
@@ -106,7 +95,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
     def _cognito(self) -> tuple[cognito.UserPool, cognito.CfnUserPoolClient, cognito.UserPoolClient]:
         cognito_pool = cognito.UserPool(
-            self, f"{self.prefix}-UserPool",
+            self, f"UserPool",
             password_policy=cognito.PasswordPolicy(
                 # Password is 6 characters minimum length and no complexity requirements,
                 min_length=6,
@@ -124,9 +113,9 @@ class RekognitionPhotoAnalyzerStack(Stack):
             # send email with cognito.
         )
         cognito_app_client = cognito_pool.add_client(
-            f"{self.prefix}-AppClient")
+            f"AppClient")
         cognito_user = cognito.CfnUserPoolUser(
-            self, f"{self.prefix}-UserPool-DefaultUser",
+            self, f"UserPool-DefaultUser",
             user_pool_id=cognito_pool.user_pool_id,
             user_attributes=[cognito.CfnUserPoolUser.AttributeTypeProperty(
                 name="email",
@@ -138,12 +127,12 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
     def _s3_website(self, gateway: apigateway.RestApi, app_client: cognito.UserPoolClient):
         website_bucket = s3.Bucket(
-            self, f"{self.dns_prefix}-website",
+            self, f"website",
             # public_read_access=True,
             website_index_document="index.html"
         )
         deployment = s3_deployment.BucketDeployment(
-            self, f"{self.prefix}-DeployWebsite",
+            self, f"Website",
             sources=[
                 s3_deployment.Source.asset(ELROS_PATH)],
             destination_bucket=website_bucket
@@ -155,8 +144,8 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
     def _api_gateway(self, lambdas: Lambdas, cognito_pool: cognito.UserPool) -> None:
         api = apigateway.RestApi(
-            self, f"{self.prefix}-RestApi",
-            rest_api_name="PAM",
+            self, f"RestApi",
+            rest_api_name=self.stack_name,
             default_cors_preflight_options=apigateway.CorsOptions(
                 # TODO: Limit this to the s3Deployment bucket domain?
                 allow_origins=apigateway.Cors.ALL_ORIGINS,
@@ -165,7 +154,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
         )
 
         auth = apigateway.CognitoUserPoolsAuthorizer(
-            self, f"{self.prefix}-Authorizer",
+            self, f"Authorizer",
             cognito_user_pools=[cognito_pool]
         )
 
@@ -188,7 +177,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
     def _lambdas(self) -> Lambdas:
         self.layer = lambda_cdk.LayerVersion(
-            self, f"{self.prefix}_LibraryLayer", code=self.lambda_code_asset())
+            self, f"LibraryLayer", code=self.lambda_code_asset())
         lambda_DetectLabels = self._lambda_DetectLabels(
             self.storage_bucket, self.labels_table)
         lambda_ZipArchive = self._lambda_ZipArchive(
@@ -235,7 +224,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
     def _lambda_DetectLabels(self, storage_bucket: s3.Bucket, labels_table: ddb.Table):
         # create Lambda function
         lambda_function = lambda_cdk.Function(
-            self, f'{self.prefix}-DetectLabelsFn',
+            self, f'DetectLabelsFn',
             runtime=self.lambda_runtime(),
             # layers=self._layers()
             handler=self.lambda_DetectLabels_handler(),
@@ -278,7 +267,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
     def _lambda_ZipArchive(self, working_bucket: s3.Bucket, jobs_table: ddb.Table):
         # create Lambda function
         lambda_function = lambda_cdk.Function(
-            self, f'{self.prefix}-ZipArchiveFn',
+            self, f'ZipArchiveFn',
             runtime=self.lambda_runtime(),
             handler=self.lambda_ZipArchive_handler(),
             code=self.lambda_code_asset(),
@@ -303,7 +292,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
     def _lambda_Labels(self, labels_table: ddb.Table):
         # create Lambda function
         lambda_function = lambda_cdk.Function(
-            self, f'{self.prefix}-LabelsFn',
+            self, f'LabelsFn',
             runtime=self.lambda_runtime(),
             handler=self.lambda_Labels_handler(),
             code=self.lambda_code_asset(),
@@ -317,8 +306,8 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
 
 class PythonRekognitionPhotoAnalyzerStack(RekognitionPhotoAnalyzerStack):
-    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
-        super().__init__(scope, id, **kwargs)
+    def __init__(self, scope: Construct, name, email, **kwargs) -> None:
+        super().__init__(scope, "Python", name, email, **kwargs)
 
     def lambda_runtime(self):
         return lambda_cdk.Runtime.PYTHON_3_8
@@ -349,8 +338,8 @@ class PythonRekognitionPhotoAnalyzerStack(RekognitionPhotoAnalyzerStack):
 
 
 class JavaRekognitionPhotoAnalyzerStack(RekognitionPhotoAnalyzerStack):
-    def __init__(self, scope: Construct, id: str, **kwargs) -> None:
-        super().__init__(scope, id, **kwargs)
+    def __init__(self, scope: Construct,  name, email, **kwargs) -> None:
+        super().__init__(scope, "Java", name, email, **kwargs)
 
     def lambda_runtime(self):
         return lambda_cdk.Runtime.JAVA_11
