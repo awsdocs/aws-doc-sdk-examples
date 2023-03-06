@@ -56,13 +56,13 @@
 #include <aws/rds/model/DescribeDBClustersRequest.h>
 #include <aws/rds/model/DescribeDBClusterSnapshotsRequest.h>
 #include <aws/rds/model/DescribeDBEngineVersionsRequest.h>
+#include <aws/rds/model/DescribeDBInstancesRequest.h>
 #include <aws/rds/model/DescribeOrderableDBInstanceOptionsRequest.h>
 #include <aws/rds/model/DescribeDBClusterParameterGroupsRequest.h>
 #include <aws/rds/model/DescribeDBClusterParametersRequest.h>
 #include <aws/rds/model/ModifyDBClusterParameterGroupRequest.h>
 #include <aws/core/utils/UUID.h>
 #include "rds_samples.h"
-
 
 
 namespace AwsDoc {
@@ -288,7 +288,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
         }
             // snippet-end:[cpp.example_code.aurora.DescribeDBClusterParameterGroups1]
         else if (outcome.GetError().GetErrorType() ==
-                 Aws::RDS::RDSErrors::D_B_CLUSTER_PARAMETER_GROUP_NOT_FOUND_FAULT) {
+                 Aws::RDS::RDSErrors::D_B_PARAMETER_GROUP_NOT_FOUND_FAULT) {
             std::cout << "DB cluster parameter group named '" <<
                       CLUSTER_PARAMETER_GROUP_NAME << "' does not exist." << std::endl;
             parameterGroupFound = false;
@@ -360,7 +360,8 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
     Aws::String marker;
     Aws::Vector<Aws::RDS::Model::Parameter> autoIncrementParameters;
     // 4.  Get the parameters in the DB parameter group.
-    if (!getDBCLusterParameters(CLUSTER_PARAMETER_GROUP_NAME, AUTO_INCREMENT_PREFIX, NO_SOURCE,
+    if (!getDBCLusterParameters(CLUSTER_PARAMETER_GROUP_NAME, AUTO_INCREMENT_PREFIX,
+                                NO_SOURCE,
                                 autoIncrementParameters,
                                 client)) {
         cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME, "", "", client);
@@ -503,6 +504,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
         request.SetEngineVersion(engineVersionName);
         request.SetMasterUsername(administratorName);
         request.SetMasterUserPassword(administratorPassword);
+        request.SetAllocatedStorage(DB_ALLOCATED_STORAGE);
 
         Aws::RDS::Model::CreateDBClusterOutcome outcome =
                 client.CreateDBCluster(request);
@@ -559,7 +561,8 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
     Aws::RDS::Model::DBInstance dbInstance;
     // 7.  Check if the DB instance already exists.
     if (!describeDBInstance(DB_INSTANCE_IDENTIFIER, dbInstance, client)) {
-        cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME, DB_CLUSTER_IDENTIFIER, "", client);
+        cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME, DB_CLUSTER_IDENTIFIER, "",
+                         client);
         return false;
     }
 
@@ -575,7 +578,8 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
                                         engineVersionName,
                                         dbInstanceClass,
                                         client)) {
-            cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME, DB_CLUSTER_IDENTIFIER, "", client);
+            cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME, DB_CLUSTER_IDENTIFIER, "",
+                             client);
             return false;
         }
 
@@ -602,7 +606,8 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
             std::cerr << "Error with RDS::CreateDBInstance. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
-            cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME, DB_CLUSTER_IDENTIFIER, "", client);
+            cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME, DB_CLUSTER_IDENTIFIER, "",
+                             client);
             return false;
         }
         // snippet-end:[cpp.example_code.rds.CreateDBInstance]
@@ -734,11 +739,49 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
     if (askYesNoQuestion(
             "Do you want to delete the DB instance and parameter group (y/n)? ")) {
         result = cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME,
-                                  DB_CLUSTER_IDENTIFIER, DB_INSTANCE_IDENTIFIER, client);
+                                  DB_CLUSTER_IDENTIFIER, DB_INSTANCE_IDENTIFIER,
+                                  client);
     }
 
     return result;
 }
+
+// snippet-start:[cpp.example_code.aurora.DescribeDBClusters]
+//! Routine which gets a DB cluster description.
+/*!
+ \sa describeDBCluster()
+ \param dbClusterIdentifier: A DB cluster identifier.
+ \param clusterResult: The 'DBCluster' object containing the description.
+ \param client: 'RDSClient' instance.
+ \return bool: Successful completion.
+ */
+bool AwsDoc::Aurora::describeDBCluster(const Aws::String &dbClusterIdentifier,
+                                       Aws::RDS::Model::DBCluster &clusterResult,
+                                       const Aws::RDS::RDSClient &client) {
+    Aws::RDS::Model::DescribeDBClustersRequest request;
+    request.SetDBClusterIdentifier(dbClusterIdentifier);
+
+    Aws::RDS::Model::DescribeDBClustersOutcome outcome =
+            client.DescribeDBClusters(request);
+
+    bool result = true;
+    if (outcome.IsSuccess()) {
+        clusterResult = outcome.GetResult().GetDBClusters()[0];
+    }
+        // This example does not log an error if the DB cluster does not exist.
+        // Instead, it returns false.
+    else if (outcome.GetError().GetErrorType() !=
+             Aws::RDS::RDSErrors::D_B_CLUSTER_NOT_FOUND_FAULT) {
+        result = false;
+        std::cerr << "Error with Aurora::GDescribeDBClusters. "
+                  << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return result;
+
+}
+// snippet-end:[cpp.example_code.aurora.DescribeDBClusters]
 
 // snippet-start:[cpp.example_code.aurora.DescribeDBClusterParameters]
 
@@ -865,7 +908,7 @@ bool AwsDoc::Aurora::describeDBInstance(const Aws::String &dbInstanceIdentifier,
     else if (outcome.GetError().GetErrorType() !=
              Aws::RDS::RDSErrors::D_B_INSTANCE_NOT_FOUND_FAULT) {
         result = false;
-        std::cerr << "Error with Aurora::GetDBInstances. "
+        std::cerr << "Error with Aurora::DescribeDBInstances. "
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
@@ -953,6 +996,8 @@ bool AwsDoc::Aurora::cleanUpResources(const Aws::String &parameterGroupName,
                                       const Aws::String &dbInstanceIdentifier,
                                       const Aws::RDS::RDSClient &client) {
     bool result = true;
+    bool instanceDeleting = false;
+    bool clusterDeleting = false;
     if (!dbInstanceIdentifier.empty()) {
         {
             // 15. Delete the DB instance.
@@ -968,6 +1013,10 @@ bool AwsDoc::Aurora::cleanUpResources(const Aws::String &parameterGroupName,
             if (outcome.IsSuccess()) {
                 std::cout << "DB instance deletion has started."
                           << std::endl;
+                instanceDeleting = true;
+                std::cout
+                        << "Waiting for DB instance to delete before deleting the parameter group."
+                        << std::endl;
             }
             else {
                 std::cerr << "Error with Aurora::DeleteDBInstance. "
@@ -977,57 +1026,97 @@ bool AwsDoc::Aurora::cleanUpResources(const Aws::String &parameterGroupName,
             }
             // snippet-end:[cpp.example_code.aurora.DeleteDBInstance]
         }
+    }
 
-        std::cout
-                << "Waiting for DB instance to delete before deleting the parameter group."
-                << std::endl;
-        std::cout << "This may take a while." << std::endl;
+    if (!dbClusterIdentifier.empty()) {
+        {
+            // 15. Delete the DB cluster.
+            // snippet-start:[cpp.example_code.aurora.DeleteDBCluster]
+            Aws::RDS::Model::DeleteDBClusterRequest request;
+            request.SetDBClusterIdentifier(dbInstanceIdentifier);
+            request.SetSkipFinalSnapshot(true);
 
-        int counter = 0;
-        Aws::RDS::Model::DBInstance dbInstance;
-        do {
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-            ++counter;
-            if (counter > 800) {
-                std::cerr << "Wait for instance to delete timed out ofter " << counter
-                          << " seconds." << std::endl;
-                return false;
+            Aws::RDS::Model::DeleteDBClusterOutcome outcome =
+                    client.DeleteDBCluster(request);
+
+            if (outcome.IsSuccess()) {
+                std::cout << "DB cluster deletion has started."
+                          << std::endl;
+                clusterDeleting = true;
+                std::cout
+                        << "Waiting for DB cluster to delete before deleting the parameter group."
+                        << std::endl;
+                std::cout << "This may take a while." << std::endl;
             }
-
-            dbInstance = Aws::RDS::Model::DBInstance();
-            // 16. Wait for the DB instance to be deleted.
-            if (!describeDBInstance(dbInstanceIdentifier, dbInstance, client)) {
-                return false;
+            else {
+                std::cerr << "Error with Aurora::DeleteDBCluster. "
+                          << outcome.GetError().GetMessage()
+                          << std::endl;
+                result = false;
             }
+            // snippet-end:[cpp.example_code.aurora.DeleteDBCluster]
+        }
+    }
+    int counter = 0;
 
-            if (dbInstance.DBInstanceIdentifierHasBeenSet() && (counter % 20) == 0) {
+    while (clusterDeleting || instanceDeleting) {
+        // 16. Wait for the DB instance and cluster to be deleted.
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        ++counter;
+        if (counter > 800) {
+            std::cerr << "Wait for instance to delete timed out ofter " << counter
+                      << " seconds." << std::endl;
+            return false;
+        }
+
+        Aws::RDS::Model::DBInstance dbInstance = Aws::RDS::Model::DBInstance();
+
+        if (!describeDBInstance(dbInstanceIdentifier, dbInstance, client)) {
+            return false;
+        }
+        instanceDeleting = dbInstance.DBInstanceIdentifierHasBeenSet();
+
+        Aws::RDS::Model::DBCluster dbCluster = Aws::RDS::Model::DBCluster();
+
+        if (!describeDBCluster(dbClusterIdentifier, dbCluster, client)) {
+            return false;
+        }
+
+        clusterDeleting = dbCluster.DBClusterArnHasBeenSet();
+
+        if ((counter % 20) == 0) {
+            if (instanceDeleting) {
                 std::cout << "Current DB instance status is '"
-                          << dbInstance.GetDBInstanceStatus()
-                          << "' after " << counter << " seconds." << std::endl;
+                          << dbInstance.GetDBInstanceStatus() << "." << std::endl;
             }
-        } while (dbInstance.DBInstanceIdentifierHasBeenSet());
+
+            if (clusterDeleting) {
+                std::cout << "Current DB cluster status is '"
+                          << dbCluster.GetStatus() << "." << std::endl;
+            }
+        }
     }
 
     if (!parameterGroupName.empty()) {
-        // 17. Delete the parameter group.
-        // snippet-start:[cpp.example_code.aurora.DeleteDBParameterGroup]
-        Aws::RDS::Model::DeleteDBParameterGroupRequest request;
-        request.SetDBParameterGroupName(parameterGroupName);
+        // 17. Delete the cluster parameter group.
+        // snippet-start:[cpp.example_code.aurora.DeleteDBClusterParameterGroup]
+        Aws::RDS::Model::DeleteDBClusterParameterGroupRequest request;
+        request.SetDBClusterParameterGroupName(parameterGroupName);
 
-        Aws::RDS::Model::DeleteDBParameterGroupOutcome outcome =
-                client.DeleteDBParameterGroup(request);
+        Aws::RDS::Model::DeleteDBClusterParameterGroupOutcome outcome =
+                client.DeleteDBClusterParameterGroup(request);
 
         if (outcome.IsSuccess()) {
             std::cout << "The DB parameter group was successfully deleted."
                       << std::endl;
         }
         else {
-            std::cerr << "Error with Aurora::DeleteDBParameterGroup. "
+            std::cerr << "Error with Aurora::DeleteDBClusterParameterGroup. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
             result = false;
         }
-        // snippet-end:[cpp.example_code.aurora.DeleteDBParameterGroup]
+        // snippet-end:[cpp.example_code.aurora.DeleteDBClusterParameterGroup]
     }
 
     return result;
@@ -1076,7 +1165,7 @@ that is running in the same VPC as your DB cluster. Pass the endpoint,
 port, and administrator user name to 'mysql' and enter your password
 when prompted:)" << std::endl;
 
-    std::cout << "  mysql -h " << dbCluster.GetEndpoint()<< " -P "
+    std::cout << "  mysql -h " << dbCluster.GetEndpoint() << " -P "
               << dbCluster.GetPort() << " - u "
               << dbCluster.GetMasterUsername()
               << " -p" << std::endl;
@@ -1110,7 +1199,7 @@ bool AwsDoc::Aurora::testForEmptyString(const Aws::String &string) {
  */
 Aws::String AwsDoc::Aurora::askQuestion(const Aws::String &string,
                                         const std::function<bool(
-                                             Aws::String)> &test) {
+                                                Aws::String)> &test) {
     Aws::String result;
     do {
         std::cout << string;
@@ -1183,4 +1272,5 @@ int AwsDoc::Aurora::askQuestionForIntRange(const Aws::String &string, int low,
 
     return result;
 }
+
 

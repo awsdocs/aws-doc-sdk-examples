@@ -763,7 +763,7 @@ bool AwsDoc::RDS::describeDBInstance(const Aws::String &dbInstanceIdentifier,
     else if (outcome.GetError().GetErrorType() !=
              Aws::RDS::RDSErrors::D_B_INSTANCE_NOT_FOUND_FAULT) {
         result = false;
-        std::cerr << "Error with RDS::GetDBInstances. "
+        std::cerr << "Error with RDS::DescribeDBInstances. "
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
