@@ -110,8 +110,6 @@ public class DynamoDBService {
             WorkItem wi = new WorkItem();
             wi.setKey(photo.getId());
             wi.setCount(photo.getCount());
-            String listString = String.join(", ", photo.getImages());
-            wi.setName(listString);
             dataList.add(wi);
         }
 
