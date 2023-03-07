@@ -3058,7 +3058,7 @@ iam_CreateServiceLinkedRole:
   category:
   languages:
     .NET:
-      version:
+      versions:
         - sdk_version: 3
           github: dotnetv3/IAM
           sdkguide:
