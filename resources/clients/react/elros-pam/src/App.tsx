@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <LoginNavigation title="Photo Archive" />
+      <LoginNavigation title="Photo Asset Management" />
       <LoginModal />
       <AppLayout
         toolsHide={true}
