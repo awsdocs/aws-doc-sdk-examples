@@ -409,21 +409,6 @@ eventbridge:
   tags:
     product_categories: {'Application Integration'}
   version: eventbridge-2015-10-07
-firehose:
-  long: "&FHlong;"
-  short: "&FH;"
-  sort: Kinesis Data Firehose
-  api_ref: firehose/latest/APIReference/Welcome.html
-  expanded:
-    long: Amazon Kinesis Data Firehose
-    short: Kinesis Data Firehose
-  blurb: "is a fully managed service for delivering real-time streaming data to &AWS; destinations and third-party HTTP endpoints."
-  guide:
-    subtitle: User Guide
-    url: firehose/latest/dev/what-is-this-service.html
-  version: "firehose-2015-08-04"
-  tags:
-    product_categories: {'Analytics'}
 glacier:
   long: '&GLlong;'
   short: '&GLshort;'
