@@ -8,6 +8,7 @@ package com.example.photo.services;
 import com.example.photo.Job;
 import com.example.photo.PhotoApplicationResources;
 import com.example.photo.Photos;
+import com.example.photo.WorkCount;
 import com.example.photo.WorkItem;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
@@ -19,6 +20,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -99,7 +101,8 @@ public class DynamoDBService {
     }
 
     // Scan the table and send data back to the client.
-    public List<WorkItem> scanPhotoTable() {
+    public Map<String, WorkCount> scanPhotoTable() {
+        Map<String, WorkCount> myMap = new HashMap<>();
         ArrayList<WorkItem> dataList = new ArrayList<>();
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
             .dynamoDbClient(getClient())
@@ -107,13 +110,14 @@ public class DynamoDBService {
 
         DynamoDbTable<Photos> table = enhancedClient.table(PhotoApplicationResources.TAGS_TABLE, TableSchema.fromBean(Photos.class));
         for (Photos photo : table.scan().items()) {
-            WorkItem wi = new WorkItem();
-            wi.setKey(photo.getId());
-            wi.setCount(photo.getCount());
-            dataList.add(wi);
+            WorkCount wc = new WorkCount();
+          //  wi.setKey(photo.getId());
+            wc.setCount(photo.getCount());
+            myMap.put(photo.getId(),wc );
+          //  dataList.add(wi);
         }
 
-        return dataList;
+        return myMap;
     }
 
     /**

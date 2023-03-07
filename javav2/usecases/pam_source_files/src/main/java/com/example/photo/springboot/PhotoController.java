@@ -6,11 +6,14 @@
 package com.example.photo.springboot;
 
 import com.example.photo.PhotoApplicationResources;
+import com.example.photo.WorkCount;
 import com.example.photo.endpoints.UploadEndpoint;
 import com.example.photo.WorkItem;
 import com.example.photo.services.AnalyzePhotos;
 import com.example.photo.services.DynamoDBService;
 import com.example.photo.services.S3Service;
+import com.google.gson.Gson;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,6 +33,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.UUID;
 
 @ComponentScan(basePackages = {"com.example.photo.services"})
@@ -51,10 +55,23 @@ public class PhotoController {
     }
 
     @GetMapping("" )
-    public List<WorkItem> getItems() {
-        return dbService.scanPhotoTable();
+    public String getItems() {
+        Map map = dbService.scanPhotoTable();
+        Gson gson = new Gson();
+        Map m = new TreeMap();
+        m.put("labels", map);
+        String json = gson.toJson(m);
+        return json;
     }
 
+    /*
+    public static String toJson(List<Pojo> pojos) {
+      Gson gson = new Gson();
+      Map m = new TreeMap();
+      m.put("pojos", pojos);
+      return gson.toJson(m);
+  }
+     */
 
     // Upload a video to analyze.
     @RequestMapping(value = "/upload2", method = RequestMethod.PUT)
