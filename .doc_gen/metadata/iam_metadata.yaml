@@ -2900,7 +2900,7 @@ iam_CreateGroup:
           excerpts:
             - description:
               snippet_tags:
-                -IAM.dotnetv3.CreateGroup
+                - IAM.dotnetv3.CreateGroup
   services:
     iam: {CreateGroup}
 iam_AddUserToGroup:
@@ -2917,7 +2917,7 @@ iam_AddUserToGroup:
           excerpts:
             - description:
               snippet_tags:
-                -IAM.dotnetv3.AddUserToGroup
+                - IAM.dotnetv3.AddUserToGroup
   services:
     iam: {AddUserToGroup}
 iam_RemoveUserFromGroup:
@@ -2934,7 +2934,7 @@ iam_RemoveUserFromGroup:
           excerpts:
             - description:
               snippet_tags:
-                -IAM.dotnetv3.RemoveUserFromGroup
+                - IAM.dotnetv3.RemoveUserFromGroup
   services:
     iam: {RemoveUserFromGroup}
 iam_DeleteGroup:
