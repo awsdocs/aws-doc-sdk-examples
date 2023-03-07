@@ -72,7 +72,7 @@ changes to your AWS cloud environment.
 
 ```
 $ cdk bootstrap
-$ cdk deploy
+$ cdk deploy {STACK_NAME} # {PAM_NAME}-{Lang}-PAM from above
 ```
 
 ## Testing
@@ -85,5 +85,5 @@ To clean up, issue this command (this will NOT remove the DynamoDB
 table, CloudWatch logs, or S3 bucket -- you will need to do those manually) :
 
 ```
-$ cdk destroy
+$ cdk destroy {STACK_NAME}
 ```
