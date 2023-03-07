@@ -28,7 +28,7 @@ eventbridge_DeleteRule:
           github: dotnetv3/EventBridge
           sdkguide:
           excerpts:
-            - description: Delete a rule by its name
+            - description: Delete a rule by its name.
               snippet_tags:
                 - EventBridge.dotnetv3.DeleteRule
     Kotlin:
@@ -177,7 +177,7 @@ eventbridge_PutRule:
           github: kotlin/services/eventbridge
           sdkguide:
           excerpts:
-            - description: Create a scheduled rule
+            - description: Create a scheduled rule.
               snippet_tags:
                 - eventbridge.kotlin._create_schedule_rule.main
     Java:
@@ -186,7 +186,7 @@ eventbridge_PutRule:
           github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: Create a scheduled rule
+            - description: Create a scheduled rule.
               snippet_tags:
                 - eventbridge.java2._create_schedule_rule.main
     C++:
