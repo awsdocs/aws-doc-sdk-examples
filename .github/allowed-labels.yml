@@ -1,161 +1,132 @@
 - name: lang/all-languages
   color: "663399"
   description: "This issue relates to all AWS SDKs"
-  from_name: "All SDK languages"
 - name: lang/cpp
   color: "663399"
   description: "This issue relates to the AWS SDK for C++"
-  from_name: "C++"
 - name: lang/dotnet-v3
   color: "663399"
   description: "This issue relates to the AWS SDK for .NET V3"
-  from_name: ".NET"
 - name: lang/go-v1
   color: "663399"
   description: "This issue relates to the AWS SDK for Go V1"
 - name: lang/go-v2
   color: "663399"
   description: "This issue relates to the AWS SDK for Go V2"
-  from_name: "Go"
 - name: lang/java-v1
   color: "663399"
   description: "This issue relates to the AWS SDK for Java V1"
 - name: lang/java-v2
   color: "663399"
   description: "This issue relates to the AWS SDK for Java V2"
-  from_name: "Java"
 - name: lang/javascript-v2
   color: "663399"
   description: "This issue relates to the AWS SDK for Javascript V2"
 - name: lang/javascript-v3
   color: "663399"
-  from_name: "Javascript"
   description: "This issue relates to the AWS SDK for Javascript V3"
 - name: lang/kotlin
   color: "663399"
-  from_name: "Kotlin"
   description: "This issue relates to the AWS SDK for Kotlin"
 - name: lang/php
   color: "663399"
-  from_name: "PHP"
   description: "This issue relates to the AWS SDK for PHP"
 - name: lang/python
   color: "663399"
-  from_name: "Python"
   description: "This issue relates to the AWS SDK for Python (boto3)"
 - name: lang/ruby
   color: "663399"
-  from_name: "Ruby"
   description: "This issue relates to the AWS SDK for Ruby"
 - name: lang/rust
   color: "663399"
-  from_name: "Rust"
   description: "This issue relates to the AWS SDK for Rust (Preview)"
 - name: lang/swift
   color: "663399"
-  from_name: "swift"
   description: "This issue relates to the AWS SDK for Swift"
 - name: lang/typescript
   color: "663399"
-  from_name: "TypeScript"
   description: "This issue relates to the AWS SDK for Typescript"
 - name: lang/shell
   color: "663399"
-  from_name: "shell script"
   description: "Tools written in bash/sh"
 - name: tool/cli
   description: "Relates to the AWS CLI"
-  from_name: "CLI"
   color: "663399"
 - name: tool/cdk
   color: "663399"
   description: "Relates to the AWS Cloud Development Kit (CDK)"
-  from_name: "CDK"
 - name: tool/cloudformation
   description: "Relates to CloudFormation templates"
   color: "663399"
-  from_name: "CloudFormation"
-
-- name: status/code-review-needed
+- name: status/on-call-review-needed
   color: "AD1C21"
-  description: "This work needs code review"
-  from_name: "status/needs-code-review"
-- name: status/code-review-complete
+  description: "This work needs an on-call review"
+  from_name: "status/code-review-needed"
+- name: status/on-call-review-complete
   color: "1FC058"
   description: "Code review complete"
-  from_name: "status/has-code-review"
-  
+  from_name: "status/code-review-complete"
 - name: status/text-review-needed
   color: "AD1C21"
   description: "This work needs editorial (text) review"
-  from_name: "status/needs-text-review"
 - name: status/text-review-complete
   color: "1FC058"
   description: "Text review complete"
-  from_name: "status/has-text-review"
 - name: status/no-text-review-needed
   color: "5E2824"
-  description: "No text which needs review."
-
+  description: "No text which needs review"
 - name: status/test-review-needed
   color: "AD1C21"
   description: "This work needs its test reviewed"
-  from_name: "status/needs-testing-review"
 - name: status/test-review-complete
   color: "1FC058"
   description: "Testing review complete"
-  from_name: "status/has-testing-review"
 - name: status/no-test-review-needed
   color: "5E2824"
-  description: "No tests which need review."
-
+  description: "No tests which need review"
 - name: status/ready-to-merge
   color: "1FC058"
   description: "This work is READY TO MERGE"
-  from_name: "Ready for merge"
-
 - name: status/in-progress
   color: "008080"
   description: "This work is currently in progress"
-  from_name: "Work in progress"
 - name: status/back-to-author
   color: "00FFFF"
-  from_name: "Back to author"
   description: "This work needs further work (other)"
 - name: status/needs-input
   color: "00FFFF"
   description: "This work needs input from the reporter"
-  from_name: "needs input"
 - name: research-spike
   color: "00FFFF"
   description: "This work needs research by the resolver"
-  from_name: "status/needs-research"
 - name: status/on-hold
   color: "000000"
   description: "On Hold. Do not merge until released by author."
 - name: status/future-release
   color: "000000"
   description: "Hold for merge until after release"
-  from_name: "Future release"
-
 - name: status/stale
   color: "00FFFF"
   description: "This is stale"
-
 - name: type/bug
   color: "d8bfd8"
   description: "A bug in an existing code sample"
-  from_name: "bug"
-- name: type/epic
+- name: size/epic
   color: "d8bfd8"
-  description: "This is an Epic"
-  from_name: "epic"
+  description: "Contains many smaller pieces to work on separately"
+  from_name: "type/epic"
 - name: type/github-settings
   color: "5AF8F9"
   description: "This affects GitHub settings"
-  from_name: "github-settings"
-
 - name: priority/high
   color: "FF0000"
   description: "High Priority"
-  from_name: "High"
+- name: size/small
+  color: "e9ecef"
+  description: "A small amount of effort/complexity"
+- name: size/medium
+  color: "ced4da"
+  description: "A medium amount of effort/complexity"
+- name: size/large
+  color: "adb5bd"
+  description: "A large amount of effort/complexity"

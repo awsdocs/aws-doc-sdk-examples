@@ -34,7 +34,6 @@ jobs:
     steps:
       - uses: docker://agilepathway/pull-request-label-checker:latest
         with:
-          one_of: status/test-review-complete,status/no-test-review-needed
           none_of: status/test-review-needed
           repo_token: ${{ secrets.GITHUB_TOKEN }}
   check_hold_labels:
