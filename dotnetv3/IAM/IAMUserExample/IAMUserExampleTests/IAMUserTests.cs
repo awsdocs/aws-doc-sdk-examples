@@ -35,6 +35,7 @@ namespace IAMUserExampleTests
         string BucketName = "bucket-to-delete";
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task CreateGroupAsyncTest()
         {
             var mockIAMClient = new Mock<AmazonIdentityManagementServiceClient>();
@@ -75,6 +76,7 @@ namespace IAMUserExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task PutGroupPolicyAsyncTest()
         {
             var mockIAMClient = new Mock<AmazonIdentityManagementServiceClient>();
@@ -110,6 +112,7 @@ namespace IAMUserExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task CreateUserAsyncTest()
         {
             var mockIAMClient = new Mock<AmazonIdentityManagementServiceClient>();
@@ -147,6 +150,7 @@ namespace IAMUserExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task AddUserToGroupAsyncTest()
         {
             var mockIAMClient = new Mock<AmazonIdentityManagementServiceClient>();
@@ -187,6 +191,7 @@ namespace IAMUserExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task CreateAccessKeyAsyncTest()
         {
             var mockIAMClient = new Mock<AmazonIdentityManagementServiceClient>();
@@ -224,6 +229,7 @@ namespace IAMUserExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task ListBucketsAsyncTest()
         {
             var mockS3Client = new Mock<IAmazonS3>();
@@ -269,6 +275,7 @@ namespace IAMUserExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task CleanUpResourcesTest()
         {
             var mockIAMClient = new Mock<AmazonIdentityManagementServiceClient>();

@@ -5,6 +5,14 @@ cognito-identity-provider_ListUserPools:
   synopsis: list the &COG; user pools.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - Cognito.dotnetv3.ListUserPools
     Rust:
       versions:
         - sdk_version: 1
@@ -29,7 +37,7 @@ cognito-identity-provider_SignUp:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.SignUp
+                - Cognito.dotnetv3.SignUp
     Kotlin:
       versions:
         - sdk_version: 1
@@ -93,7 +101,7 @@ cognito-identity-provider_AdminGetUser:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.GetAdminUser
+                - Cognito.dotnetv3.GetAdminUser
     Kotlin:
       versions:
         - sdk_version: 1
@@ -157,7 +165,7 @@ cognito-identity-provider_ResendConfirmationCode:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.ResendConfirmationCode
+                - Cognito.dotnetv3.ResendConfirmationCode
     Kotlin:
       versions:
         - sdk_version: 1
@@ -221,7 +229,7 @@ cognito-identity-provider_ConfirmSignUp:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.ConfirmSignUp
+                - Cognito.dotnetv3.ConfirmSignUp
     Kotlin:
       versions:
         - sdk_version: 1
@@ -277,6 +285,15 @@ cognito-identity-provider_ListUsers:
   synopsis: list &COG; users.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Cognito.dotnetv3.ListUsers
     Kotlin:
       versions:
         - sdk_version: 1
@@ -322,6 +339,15 @@ cognito-identity-provider_AdminInitiateAuth:
   synopsis: start authentication with &COG; and administrator credentials.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Cognito.dotnetv3.AdminInitiateAuth
     Kotlin:
       versions:
         - sdk_version: 1
@@ -385,7 +411,7 @@ cognito-identity-provider_AssociateSoftwareToken:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.GetSecretForAppMFA
+                - Cognito.dotnetv3.AssociateSoftwareToken
     Kotlin:
       versions:
         - sdk_version: 1
@@ -449,7 +475,7 @@ cognito-identity-provider_VerifySoftwareToken:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.VerifyTOTP
+                - Cognito.dotnetv3.VerifySoftwareToken
     Kotlin:
       versions:
         - sdk_version: 1
@@ -513,7 +539,7 @@ cognito-identity-provider_AdminRespondToAuthChallenge:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.AdminRespondToAuthChallenge
+                - Cognito.dotnetv3.AdminRespondToAuthChallenge
     Kotlin:
       versions:
         - sdk_version: 1
@@ -570,6 +596,14 @@ cognito-identity-provider_ConfirmDevice:
   synopsis: confirm an MFA device for tracking by &COG;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - Cognito.dotnetv3.ConfirmDevice
     Python:
       versions:
         - sdk_version: 3
@@ -605,7 +639,7 @@ cognito-identity-provider_InitiateAuth:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.InitiateAuth
+                - Cognito.dotnetv3.InitiateAuth
     Python:
       versions:
         - sdk_version: 3
@@ -643,7 +677,7 @@ cognito-identity-provider_RespondToAuthChallenge:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.AdminRespondToAuthChallenge
+                - Cognito.dotnetv3.RespondToAuthChallenge
     Python:
       versions:
         - sdk_version: 3
@@ -703,8 +737,10 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
           excerpts:
             - description:
               snippet_tags:
-                - cognito.dotnetv3.CognitoBasics.Usings
-                - cognito.dotnetv3.CognitoBasics.Main
+                - Cognito.dotnetv3.Usings
+                - Cognito.dotnetv3.Main
+                - Cognito.dotnetv3.CognitoWrapper
+                - Cognito.dotnetv3.UIMethods
     Kotlin:
       versions:
         - sdk_version: 1

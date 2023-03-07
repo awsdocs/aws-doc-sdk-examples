@@ -30,8 +30,8 @@ Cross-service examples are located in the [_cross-services folder_](./example_co
 ### Prerequisites
 
 - Install the latest stable version of Node.js.
-
 - Set up a shared configuration file with your credentials. For more information, see the [AWS SDK for JavaScript (v3) Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-shared.html).
+- Install dependencies by running `npm i`
 
 ## Tests
 
@@ -60,7 +60,7 @@ hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/
 with all JavaScript v3 examples with dependencies pre-resolved, allowing you to explore
 these examples in an isolated environment.
 
-⚠️ As of January 2023, the [SDK for JavaScript v3 image](https://gallery.ecr.aws/aws-docs-sdk-examples/javascriptv3) is available on ECR Public but is still
+⚠️ As of January 2023, the [SDK for JavaScript v3 image](https://gallery.ecr.aws/b4v4v1s0/javascriptv3) is available on ECR Public but is still
 undergoing active development. Refer to
 [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4127)
 for more information.

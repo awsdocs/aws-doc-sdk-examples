@@ -19,13 +19,15 @@ void AwsDocTest::AutoScaling_GTests::SetUpTestSuite() {
 }
 
 void AwsDocTest::AutoScaling_GTests::TearDownTestSuite() {
-     ShutdownAPI(s_options);
+    ShutdownAPI(s_options);
 
 }
 
 void AwsDocTest::AutoScaling_GTests::SetUp() {
-    m_savedBuffer = std::cout.rdbuf();
-    std::cout.rdbuf(&m_coutBuffer);
+    if (suppressStdOut()) {
+        m_savedBuffer = std::cout.rdbuf();
+        std::cout.rdbuf(&m_coutBuffer);
+    }
 
     m_savedInBuffer = std::cin.rdbuf();
     std::cin.rdbuf(&m_cinBuffer);
@@ -60,6 +62,10 @@ void AwsDocTest::AutoScaling_GTests::AddCommandLineResponses(
 
 Aws::String AwsDocTest::AutoScaling_GTests::preconditionError() {
     return "Failed to meet precondition.";
+}
+
+bool AwsDocTest::AutoScaling_GTests::suppressStdOut() {
+    return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
 }
 
 

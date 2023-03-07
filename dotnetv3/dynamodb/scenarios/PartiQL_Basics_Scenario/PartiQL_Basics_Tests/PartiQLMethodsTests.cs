@@ -15,12 +15,14 @@ namespace PartiQL_Basics_Tests
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void Dispose()
         {
             _ = DynamoDBMethods.DeleteTableAsync(tableName);
         }
 
         [Fact(), TestPriority(1)]
+        [Trait("Category", "Integration")]
         public async Task InsertMoviesTest()
         {
             // Because InsertMovies calls ImportMovies, there is no
@@ -31,6 +33,7 @@ namespace PartiQL_Basics_Tests
         }
 
         [Fact(), TestPriority(2)]
+        [Trait("Category", "Integration")]
         public async Task GetSingleMovieTestExistingMovie()
         {
             var title = "Star Wars";
@@ -40,6 +43,7 @@ namespace PartiQL_Basics_Tests
         }
 
         [Fact(), TestPriority(3)]
+        [Trait("Category", "Integration")]
         public async Task GetSingleMovieTestNonexistentMovie()
         {
             var title = "MASH";
@@ -49,6 +53,7 @@ namespace PartiQL_Basics_Tests
         }
 
         [Fact(), TestPriority(4)]
+        [Trait("Category", "Integration")]
         public async Task GetMoviesTest()
         {
             int year = 2010;
@@ -58,6 +63,7 @@ namespace PartiQL_Basics_Tests
         }
 
         [Fact(), TestPriority(5)]
+        [Trait("Category", "Integration")]
         public async Task InsertSingleMovieTest()
         {
             var movieTitle = "Butch Cassidy and the Sundance Kid";
@@ -67,6 +73,7 @@ namespace PartiQL_Basics_Tests
         }
 
         [Fact(), TestPriority(6)]
+        [Trait("Category", "Integration")]
         public async Task UpdateSingleMovieTest()
         {
             var producer = "MGM";
@@ -78,6 +85,7 @@ namespace PartiQL_Basics_Tests
         }
 
         [Fact(), TestPriority(7)]
+        [Trait("Category", "Integration")]
         public async Task DeleteSingleMovieTest()
         {
             var movieTitle = "Butch Cassidy and the Sundance Kid";
