@@ -22,7 +22,7 @@ SPDX-License-Identifier: Apache-2.0
 #include "ec2_samples.h"
 
 
-//! Delete a cryptographic key pair.
+//! Delete an Amazon Elastic Compute Cloud (Amazon EC2) instance key pair.
 /*!
   \sa DeleteKeyPair()
   \param keyPairName: A name for a key pair.

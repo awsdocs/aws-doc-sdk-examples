@@ -31,7 +31,7 @@
  */
 bool AwsDoc::EC2::RebootInstance(const Aws::String &instanceId,
                                  const Aws::Client::ClientConfiguration &clientConfiguration) {
-    // snippet-start:[ec2Client.cpp.reboot_instance.code]
+    // snippet-start:[ec2.cpp.reboot_instance.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
 
     Aws::EC2::Model::RebootInstancesRequest request;
@@ -41,7 +41,7 @@ bool AwsDoc::EC2::RebootInstance(const Aws::String &instanceId,
     auto dry_run_outcome = ec2Client.RebootInstances(request);
     if (dry_run_outcome.IsSuccess()) {
         std::cerr
-                << "Failed dry run to reboot on instance. Should trigger an error."
+                << "Failed dry run to reboot on instance. A dry run should trigger an error."
                 <<
                 std::endl;
         return false;
@@ -63,7 +63,7 @@ bool AwsDoc::EC2::RebootInstance(const Aws::String &instanceId,
         std::cout << "Successfully rebooted instance " << instanceId <<
                   std::endl;
     }
-    // snippet-end:[ec2Client.cpp.reboot_instance.code]
+    // snippet-end:[ec2.cpp.reboot_instance.code]
 
     return outcome.IsSuccess();
 }

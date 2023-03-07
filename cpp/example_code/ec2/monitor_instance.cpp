@@ -43,7 +43,7 @@ bool AwsDoc::EC2::EnableMonitoring(const Aws::String &instanceId,
     auto dry_run_outcome = ec2Client.MonitorInstances(request);
     if (dry_run_outcome.IsSuccess()) {
         std::cerr
-                << "Failed dry run to enable monitoring on instance. Should trigger an error."
+                << "Failed dry run to enable monitoring on instance. A dry run should trigger an error."
                 <<
                 std::endl;
         return false;
@@ -90,7 +90,7 @@ bool AwsDoc::EC2::DisableMonitoring(const Aws::String &instanceId,
     auto undryRunOutcome = ec2Client.UnmonitorInstances(unrequest);
     if (undryRunOutcome.IsSuccess()) {
         std::cerr
-                << "Failed dry run to disable monitoring on instance. Should trigger an error."
+                << "Failed dry run to disable monitoring on instance. A dry run should trigger an error."
                 <<
                 std::endl;
         return false;

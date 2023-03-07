@@ -42,7 +42,7 @@ bool AwsDoc::EC2::TerminateInstances(const Aws::String &instanceID,
                   "' was terminated." << std::endl;
     }
     else {
-        std::cerr << "Failed to terminate ec2Client instance " << instanceID <<
+        std::cerr << "Failed to terminate ec2 instance " << instanceID <<
                   ", " <<
                   outcome.GetError().GetMessage() << std::endl;
         return false;

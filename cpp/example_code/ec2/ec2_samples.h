@@ -25,7 +25,7 @@ namespace AwsDoc {
                                          Aws::String &allocationId,
                                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Create a cryptographic key pair.
+        //! Create an Amazon EC2 instance key pair.
         /*!
           \sa CreateKeyPair()
           \param keyPairName: A name for a key pair.
@@ -51,7 +51,7 @@ namespace AwsDoc {
                                  Aws::String &groupIDResult,
                                  const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Delete a cryptographic key pair.
+        //! Delete an Amazon EC2 key pair.
         /*!
           \sa DeleteKeyPair()
           \param keyPairName: A name for a key pair.
@@ -80,7 +80,7 @@ namespace AwsDoc {
         bool
         DescribeAddresses(const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Describe all Amazon Elastic Compute Cloud (Amazon EC2) instances associated with an account.
+        //! Describe all Amazon EC2 instances associated with an account.
         /*!
           \sa DescribeInstances()
           \param clientConfiguration: AWS client configuration.
@@ -89,7 +89,7 @@ namespace AwsDoc {
         bool
         DescribeInstances(const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Describe all Amazon Elastic Compute Cloud (Amazon EC2) instance key pairs.
+        //! Describe all Amazon EC2 instance key pairs.
         /*!
           \sa DescribeKeyPairs()
           \param clientConfiguration: AWS client configuration.
@@ -98,7 +98,7 @@ namespace AwsDoc {
         bool
         DescribeKeyPairs(const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Describe all Amazon Elastic Compute Cloud (Amazon EC2) regions and zones.
+        //! Describe all Amazon EC2 regions and zones.
         /*!
           \sa DescribeRegionsAndZones()
           \param clientConfiguration: AWS client configuration.
@@ -107,7 +107,7 @@ namespace AwsDoc {
         bool DescribeRegionsAndZones(
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Describe all Amazon Elastic Compute Cloud (Amazon EC2) security groups, or a specific group.
+        //! Describe all Amazon EC2 security groups, or a specific group.
         /*!
           \sa DescribeSecurityGroups()
           \param groupID: A group name, ignored if empty.
@@ -117,7 +117,7 @@ namespace AwsDoc {
         bool DescribeSecurityGroups(const Aws::String &groupID,
                                     const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Enable detailed monitoring for an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+        //! Enable detailed monitoring for an Amazon EC2 instance.
         /*!
           \sa EnableMonitoring()
           \param instanceId: An ID for the Amazon EC2 instance.
@@ -127,7 +127,7 @@ namespace AwsDoc {
         bool EnableMonitoring(const Aws::String &instanceId,
                               const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Disable monitoring for an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+        //! Disable monitoring for an Amazon EC2 instance.
         /*!
           \sa DisableMonitoring()
           \param instanceId: An ID for the Amazon EC2 instance.
@@ -137,7 +137,7 @@ namespace AwsDoc {
         bool DisableMonitoring(const Aws::String &instanceId,
                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Reboot an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+        //! Reboot an Amazon EC2 instance.
         /*!
           \sa RebootInstance()
           \param instanceID: An Amazon EC2 instance ID.
@@ -156,7 +156,7 @@ namespace AwsDoc {
         bool ReleaseAddress(const Aws::String &allocationID,
                             const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Launch an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+        //! Launch an Amazon EC2 instance.
         /*!
           \sa RunInstance()
           \param instanceName: A name for the Amazon EC2 instance.
@@ -170,7 +170,7 @@ namespace AwsDoc {
                          Aws::String &instanceID,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Start an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+        //! Start an Amazon EC2 instance.
         /*!
           \sa StartInstance()
           \param instanceID: An Amazon EC2 instance ID.

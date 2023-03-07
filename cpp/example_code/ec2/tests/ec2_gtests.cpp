@@ -44,8 +44,10 @@ void AwsDocTest::EC2_GTests::TearDownTestSuite() {
 }
 
 void AwsDocTest::EC2_GTests::SetUp() {
-    m_savedBuffer = std::cout.rdbuf();
-    std::cout.rdbuf(&m_coutBuffer);
+    if (suppressStdOut()) {
+        m_savedBuffer = std::cout.rdbuf();
+        std::cout.rdbuf(&m_coutBuffer);
+    }
 
     m_savedInBuffer = std::cin.rdbuf();
     std::cin.rdbuf(&m_cinBuffer);
@@ -73,7 +75,7 @@ Aws::String AwsDocTest::EC2_GTests::preconditionError() {
 }
 
 void AwsDocTest::EC2_GTests::AddCommandLineResponses(
-        const std::vector<std::string> &responses) {
+                const std::vector<std::string> &responses) {
 
     std::stringstream stringStream;
     for (auto &response: responses) {
@@ -82,6 +84,9 @@ void AwsDocTest::EC2_GTests::AddCommandLineResponses(
     m_cinBuffer.str(stringStream.str());
 }
 
+bool AwsDocTest::EC2_GTests::suppressStdOut() {
+    return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
+}
 
 Aws::String AwsDocTest::EC2_GTests::uuidName(const Aws::String &name) {
     Aws::String uuid = Aws::Utils::UUID::RandomUUID();
@@ -114,7 +119,7 @@ bool AwsDocTest::EC2_GTests::terminateInstance(const Aws::String &instanceID) {
     Aws::EC2::Model::TerminateInstancesOutcome outcome =
             ec2Client.TerminateInstances(request);
     if (!outcome.IsSuccess()) {
-        std::cerr << "Failed to terminate ec2Client instance " << instanceID <<
+        std::cerr << "Failed to terminate ec2 instance " << instanceID <<
                   ", " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
@@ -149,13 +154,13 @@ Aws::String AwsDocTest::EC2_GTests::createInstance() {
             runRequest);
     Aws::String instanceID;
     if (!runOutcome.IsSuccess()) {
-        std::cerr << "Failed to launch ec2Client instance  based on ami " << amiID
+        std::cerr << "Failed to launch ec2 instance  based on ami " << amiID
                   << ":" << runOutcome.GetError().GetMessage() << std::endl;
     }
     else {
         const Aws::Vector<Aws::EC2::Model::Instance> &instances = runOutcome.GetResult().GetInstances();
         if (instances.empty()) {
-            std::cerr << "Failed to launch ec2Client instance  based on ami " <<
+            std::cerr << "Failed to launch ec2 instance  based on ami " <<
                       amiID << ":" <<
                       runOutcome.GetError().GetMessage() << std::endl;
         }

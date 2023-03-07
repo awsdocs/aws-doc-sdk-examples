@@ -36,7 +36,7 @@ SPDX-License-Identifier: Apache-2.0
  */
 bool AwsDoc::EC2::StartInstance(const Aws::String &instanceId,
                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
-    // snippet-start:[ec2Client.cpp.start_instance.code]
+    // snippet-start:[ec2.cpp.start_instance.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
 
     Aws::EC2::Model::StartInstancesRequest start_request;
@@ -46,7 +46,7 @@ bool AwsDoc::EC2::StartInstance(const Aws::String &instanceId,
     auto dry_run_outcome = ec2Client.StartInstances(start_request);
     if (dry_run_outcome.IsSuccess()) {
         std::cerr
-                << "Failed dry run to start instance. Should trigger an error."
+                << "Failed dry run to start instance. A dry run should trigger an error."
                 << std::endl;
         return false;
     }
@@ -68,7 +68,7 @@ bool AwsDoc::EC2::StartInstance(const Aws::String &instanceId,
         std::cout << "Successfully started instance " << instanceId <<
                   std::endl;
     }
-    // snippet-end:[ec2Client.cpp.start_instance.code]
+    // snippet-end:[ec2.cpp.start_instance.code]
 
     return start_instancesOutcome.IsSuccess();
 }
@@ -82,7 +82,7 @@ bool AwsDoc::EC2::StartInstance(const Aws::String &instanceId,
  */
 bool AwsDoc::EC2::StopInstance(const Aws::String &instanceId,
                                const Aws::Client::ClientConfiguration &clientConfiguration) {
-    // snippet-start:[ec2Client.cpp.stop_instance.code]
+    // snippet-start:[ec2.cpp.stop_instance.code]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
     Aws::EC2::Model::StopInstancesRequest request;
     request.AddInstanceIds(instanceId);
@@ -91,7 +91,7 @@ bool AwsDoc::EC2::StopInstance(const Aws::String &instanceId,
     auto dry_run_outcome = ec2Client.StopInstances(request);
     if (dry_run_outcome.IsSuccess()) {
         std::cerr
-                << "Failed dry run to stop instance. Should trigger an error."
+                << "Failed dry run to stop instance. A dry run should trigger an error."
                 << std::endl;
         return false;
     }
@@ -112,7 +112,7 @@ bool AwsDoc::EC2::StopInstance(const Aws::String &instanceId,
         std::cout << "Successfully stopped instance " << instanceId <<
                   std::endl;
     }
-    // snippet-end:[ec2Client.cpp.stop_instance.code]
+    // snippet-end:[ec2.cpp.stop_instance.code]
 
     return outcome.IsSuccess();
 }

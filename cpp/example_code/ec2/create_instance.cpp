@@ -53,7 +53,7 @@ bool AwsDoc::EC2::RunInstance(const Aws::String &instanceName,
     Aws::EC2::Model::RunInstancesOutcome runOutcome = ec2Client.RunInstances(
             runRequest);
     if (!runOutcome.IsSuccess()) {
-        std::cerr << "Failed to launch ec2Client instance " << instanceName <<
+        std::cerr << "Failed to launch EC2 instance " << instanceName <<
                   " based on ami " << amiId << ":" <<
                   runOutcome.GetError().GetMessage() << std::endl;
         return false;
@@ -61,7 +61,7 @@ bool AwsDoc::EC2::RunInstance(const Aws::String &instanceName,
 
     const Aws::Vector<Aws::EC2::Model::Instance> &instances = runOutcome.GetResult().GetInstances();
     if (instances.empty()) {
-        std::cerr << "Failed to launch ec2Client instance " << instanceName <<
+        std::cerr << "Failed to launch EC2 instance " << instanceName <<
                   " based on ami " << amiId << ":" <<
                   runOutcome.GetError().GetMessage() << std::endl;
         return false;
@@ -83,14 +83,14 @@ bool AwsDoc::EC2::RunInstance(const Aws::String &instanceName,
     Aws::EC2::Model::CreateTagsOutcome createOutcome = ec2Client.CreateTags(
             createRequest);
     if (!createOutcome.IsSuccess()) {
-        std::cerr << "Failed to tag ec2Client instance " << instanceID <<
+        std::cerr << "Failed to tag ec2 instance " << instanceID <<
                   " with name " << instanceName << ":" <<
                   createOutcome.GetError().GetMessage() << std::endl;
         return false;
     }
     // snippet-end:[cpp.example_code.ec2.CreateTags]
 
-    std::cout << "Successfully launched ec2Client instance " << instanceName <<
+    std::cout << "Successfully launched ec2 instance " << instanceName <<
               " based on ami " << amiId << std::endl;
     return true;
 }

@@ -36,11 +36,11 @@
  */
 bool AwsDoc::EC2::DescribeRegionsAndZones(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
-    // snippet-start:[ec2Client.cpp.describe_regions.code]
-    // snippet-start:[cpp.example_code.ec2Client.describe_regions.client]
+    // snippet-start:[ec2.cpp.describe_regions.code]
+    // snippet-start:[cpp.example_code.ec2.describe_regions.client]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
-    // snippet-end:[cpp.example_code.ec2Client.describe_regions.client]
-    // snippet-start:[cpp.example_code.ec2Client.DescribeRegions]
+    // snippet-end:[cpp.example_code.ec2.describe_regions.client]
+    // snippet-start:[cpp.example_code.ec2.DescribeRegions]
     Aws::EC2::Model::DescribeRegionsRequest request;
     auto outcome = ec2Client.DescribeRegions(request);
     bool result = true;
@@ -61,12 +61,12 @@ bool AwsDoc::EC2::DescribeRegionsAndZones(
                   outcome.GetError().GetMessage() << std::endl;
         result = false;
     }
-    // snippet-end:[cpp.example_code.ec2Client.DescribeRegions]
-    // snippet-end:[ec2Client.cpp.describe_regions.code]
+    // snippet-end:[cpp.example_code.ec2.DescribeRegions]
+    // snippet-end:[ec2.cpp.describe_regions.code]
 
     std::cout << std::endl;
 
-    // snippet-start:[ec2Client.cpp.describe_zones.code]
+    // snippet-start:[ec2.cpp.describe_zones.code]
     Aws::EC2::Model::DescribeAvailabilityZonesRequest describe_request;
     auto describe_outcome = ec2Client.DescribeAvailabilityZones(describe_request);
 
@@ -94,7 +94,7 @@ bool AwsDoc::EC2::DescribeRegionsAndZones(
                   describe_outcome.GetError().GetMessage() << std::endl;
         result = false;
     }
-    // snippet-end:[ec2Client.cpp.describe_zones.code]
+    // snippet-end:[ec2.cpp.describe_zones.code]
 
     return result;
 

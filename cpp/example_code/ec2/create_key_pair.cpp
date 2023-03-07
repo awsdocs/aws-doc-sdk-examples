@@ -23,7 +23,7 @@
 //snippet-end:[ec2.cpp.create_key_pair.inc]
 #include "ec2_samples.h"
 
-//! Create a cryptographic key pair.
+//! Create an Amazon Elastic Compute Cloud (Amazon EC2) instance key pair.
 /*!
   \sa CreateKeyPair()
   \param keyPairName: A name for a key pair.

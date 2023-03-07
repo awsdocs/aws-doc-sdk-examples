@@ -97,7 +97,7 @@ bool AwsDoc::EC2::DescribeInstances(
             }
         }
         else {
-            std::cerr << "Failed to describe ec2Client instances:" <<
+            std::cerr << "Failed to describe EC2 instances:" <<
                       outcome.GetError().GetMessage() << std::endl;
             return false;
         }
