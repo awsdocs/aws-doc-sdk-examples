@@ -2346,6 +2346,7 @@ iam_GetUser:
       versions:
         - sdk_version: 3
           github: dotnetv3/IAM
+          excerpts:
             - description:
               snippet_tags:
                 - IAM.dotnetv3.GetUser

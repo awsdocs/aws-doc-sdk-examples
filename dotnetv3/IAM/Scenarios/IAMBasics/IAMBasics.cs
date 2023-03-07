@@ -29,7 +29,7 @@ public class IAMBasics
         logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
             .CreateLogger<IAMBasics>();
 
-        
+
         IConfiguration configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("settings.json") // Load test settings from .json file.
@@ -189,3 +189,5 @@ public class IAMBasics
         Console.WriteLine("All done cleaning up our resources. Thank you for your patience.");
     }
 }
+
+// snippet-end:[IAM.dotnetv3.IAMBasics]
