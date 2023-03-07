@@ -61,11 +61,9 @@
 - name: status/on-call-review-needed
   color: "AD1C21"
   description: "This work needs an on-call review"
-  from_name: "status/code-review-needed"
 - name: status/on-call-review-complete
   color: "1FC058"
   description: "Code review complete"
-  from_name: "status/code-review-complete"
 - name: status/text-review-needed
   color: "AD1C21"
   description: "This work needs editorial (text) review"
@@ -85,7 +83,7 @@
   color: "5E2824"
   description: "No tests which need review"
 - name: status/ready-to-merge
-  color: "1FC058"
+  color: "7FFF00"
   description: "This work is READY TO MERGE"
 - name: status/in-progress
   color: "008080"
@@ -111,10 +109,12 @@
 - name: type/bug
   color: "d8bfd8"
   description: "A bug in an existing code sample"
+- name: type/internal
+  color: "000000"
+  description: "A PR linking to an internal issue"
 - name: size/epic
   color: "d8bfd8"
   description: "Contains many smaller pieces to work on separately"
-  from_name: "type/epic"
 - name: type/github-settings
   color: "5AF8F9"
   description: "This affects GitHub settings"
