@@ -43,4 +43,4 @@ public static class HelloEventBridge
         }
     }
 }
-// snippet-end:[EventBridge.dotnetv3.HelloCloudWatch]
+// snippet-end:[EventBridge.dotnetv3.HelloEventBridge]
