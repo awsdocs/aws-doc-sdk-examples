@@ -2963,12 +2963,12 @@ iam_DeleteGroupPolicy:
     .NET:
       versions:
         - sdk_version: 3
-        github: dotnetv3/IAM
-        sdkguide:
-        excerpts:
-          - description:
-            snippet_tags:
-              - IAM.dotnetv3.DeleteGroupPolicy
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteGroupPolicy
   services:
     iam: {DeleteGroupPolicy}
 iam_ListGroups:
