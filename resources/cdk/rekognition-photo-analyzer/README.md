@@ -19,6 +19,7 @@ Requirements:
 - python 3.x
 - docker
 - AWS access key & secret for AWS user with permissions to create resources listed above
+  - https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config
 
 ---
 
@@ -57,7 +58,7 @@ Configure the stack for your account:
 ```
 $ export PAM_NAME=$(whoami) # Or whatever name you want
 $ export PAM_EMAIL={yourrmail@domain}
-$ export AWS_ACCOUNT= # configure your AWS account environment as necessary
+$ aws configure # Or otherwise set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
 ```
 
 At this point you can now synthesize the CloudFormation template for this code.
