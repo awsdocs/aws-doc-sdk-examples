@@ -26,7 +26,7 @@ Requirements:
 First, you will need to install the AWS CDK:
 
 ```
-$ sudo npm install -g aws-cdk
+$ npm install -g aws-cdk
 ```
 
 You can check the toolkit version with this command:
