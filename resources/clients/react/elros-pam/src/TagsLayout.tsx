@@ -7,6 +7,8 @@ import {
 } from "@cloudscape-design/components";
 import { useEffect, useState } from "react";
 import FileUpload from "./FileUpload";
+import { uploadFile } from "./pam-api";
+import S3Transfer from "./S3Transfer";
 import { useAuthStore } from "./store-auth";
 
 import { Tag, useTagsStore } from "./store-tags";
@@ -33,6 +35,11 @@ function TagsLayout() {
     setSelectedImageCount(imageCount);
   }, [selectedTags]);
 
+  const handleUpload = async (file: File) => {
+    const response = await uploadFile(file, { token });
+    console.log(response);
+  }
+
   return (
     <>
       <Cards
@@ -47,7 +54,8 @@ function TagsLayout() {
             counter={`${selectedImageCount}`}
             actions={
               <SpaceBetween size="s" direction="horizontal">
-                <FileUpload disabled={authStatus !== "signed_in"} />
+                <S3Transfer />
+                <FileUpload disabled={authStatus !== "signed_in"} accept={[".jpg", ".jpeg"]} onSubmit={handleUpload}/>
                 <Button
                   disabled={authStatus !== "signed_in" || !selectedImageCount}
                 >
