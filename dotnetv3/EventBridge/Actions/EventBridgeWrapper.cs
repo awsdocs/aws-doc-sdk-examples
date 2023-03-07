@@ -5,6 +5,8 @@ using System.Net;
 using System.Text.Json;
 using Amazon.EventBridge;
 using Amazon.EventBridge.Model;
+using Amazon.Runtime.Internal.Util;
+using Microsoft.Extensions.Logging;
 
 namespace EventBridgeActions;
 
@@ -16,16 +18,18 @@ namespace EventBridgeActions;
 public class EventBridgeWrapper
 {
     private readonly IAmazonEventBridge _amazonEventBridge;
+    private readonly ILogger<EventBridgeWrapper> _logger;
 
     /// <summary>
     /// Constructor for the EventBridge wrapper.
     /// </summary>
     /// <param name="amazonEventBridge">The injected EventBridge client.</param>
     /// <param name="logger">The injected logger for the wrapper.</param>
-    public EventBridgeWrapper(IAmazonEventBridge amazonEventBridge)
+    public EventBridgeWrapper(IAmazonEventBridge amazonEventBridge, ILogger<EventBridgeWrapper> logger)
 
     {
         _amazonEventBridge = amazonEventBridge;
+        _logger = logger;
     }
 
     // snippet-start:[EventBridge.dotnetv3.DescribeRule]
@@ -171,15 +175,16 @@ public class EventBridgeWrapper
     /// <returns>The Arn of the new rule.</returns>
     public async Task<string> PutS3UploadRule(string roleArn, string ruleName, string bucketName)
     {
-        string eventPattern = $@"{{
-              'source': ['aws.s3'],
-              'detail-type': ['Object Created'],
-              'detail': {{
-                'bucket': {{
-                  'name': '{bucketName}']
-                }}
-              }}
-            }}";
+        string eventPattern = "{" +
+                              "\"source\": [\"aws.s3\"]," +
+                              "\"detail-type\": [\"Object Created\"]," +
+                              "\"detail\": {" +
+                              "\"bucket\": {" +
+                              "\"name\": [\"" + bucketName +"\"]" +
+                              "}" +
+                              "}" +
+                              "}";
+
         var response = await _amazonEventBridge.PutRuleAsync(
             new PutRuleRequest()
             {
@@ -198,18 +203,19 @@ public class EventBridgeWrapper
     /// Update an S3 object created rule with a transform on the target.
     /// </summary>
     /// <param name="ruleName">The name of the rule.</param>
-    /// <param name="roleArn">The Arn of the role.</param>
     /// <param name="targetArn">The Arn of the target.</param>
     /// <param name="eventBusArn">Optional event bus Arn. If empty, uses the default event bus.</param>
-    /// <returns>True if successful.</returns>
-    public async Task<bool> UpdateS3UploadRuleTargetWithTransform(string ruleName, string roleArn, string targetArn, string? eventBusArn = null)
+    /// <returns>The ID of the target.</returns>
+    public async Task<string> UpdateS3UploadRuleTargetWithTransform(string ruleName, string targetArn, string? eventBusArn = null)
     {
+        var targetID = Guid.NewGuid().ToString();
+
         var targets = new List<Target>
         {
             new Target()
             {
+                Id = targetID,
                 Arn = targetArn,
-                RoleArn = roleArn,
                 InputTransformer = new InputTransformer()
                 {
                     InputPathsMap = new Dictionary<string, string>()
@@ -217,7 +223,7 @@ public class EventBridgeWrapper
                         {"bucket", "$.detail.bucket.name"},
                         {"time", "$.time"}
                     },
-                    InputTemplate = "Notification: an object was uploaded to bucket <bucket> on <time>."
+                    InputTemplate = "\"Notification: an object was uploaded to bucket <bucket> at <time>.\""
                 }
             }
         };
@@ -228,10 +234,60 @@ public class EventBridgeWrapper
                 Rule = ruleName,
                 Targets = targets,
             });
-
-        return response.FailedEntryCount == 0;
+        if (response.FailedEntryCount > 0)
+        {
+            response.FailedEntries.ForEach(e =>
+            {
+                _logger.LogError(
+                    $"Failed to add target {e.TargetId}: {e.ErrorMessage}, code {e.ErrorCode}");
+            });
+        }
+        return targetID;
     }
     // snippet-end:[EventBridge.dotnetv3.PutTargetsTransform]
+
+    // snippet-start:[EventBridge.dotnetv3.PutCustomTransform]
+    /// <summary>
+    /// Update a custom rule with a transform on the target.
+    /// </summary>
+    /// <param name="ruleName">The name of the rule.</param>
+    /// <param name="targetArn">The Arn of the target.</param>
+    /// <param name="eventBusArn">Optional event bus Arn. If empty, uses the default event bus.</param>
+    /// <returns>The ID of the target.</returns>
+    public async Task<string> UpdateCustomRuleTargetWithTransform(string ruleName, string targetArn, string? eventBusArn = null)
+    {
+        var targetID = Guid.NewGuid().ToString();
+
+        var targets = new List<Target>
+        {
+            new Target()
+            {
+                Id = targetID,
+                Arn = targetArn,
+                InputTransformer = new InputTransformer()
+                {
+                    InputTemplate = "\"Notification: sample event was received.\""
+                }
+            }
+        };
+        var response = await _amazonEventBridge.PutTargetsAsync(
+            new PutTargetsRequest()
+            {
+                EventBusName = eventBusArn,
+                Rule = ruleName,
+                Targets = targets,
+            });
+        if (response.FailedEntryCount > 0)
+        {
+            response.FailedEntries.ForEach(e =>
+            {
+                _logger.LogError(
+                    $"Failed to add target {e.TargetId}: {e.ErrorMessage}, code {e.ErrorCode}");
+            });
+        }
+        return targetID;
+    }
+    // snippet-end:[EventBridge.dotnetv3.PutCustomTransform]
 
     // snippet-start:[EventBridge.dotnetv3.PutEvents]
     /// <summary>
@@ -273,10 +329,11 @@ public class EventBridgeWrapper
     /// <returns>The Arn of the updated rule.</returns>
     public async Task<string> UpdateCustomEventPattern(string ruleName)
     {
-        string customEventsPattern = $@"{{
-              'source': ['ExampleSource'],
-              'detail-type': ['ExampleType']
-            }}";
+        string customEventsPattern = "{" +
+                                     "\"source\": [\"ExampleSource\"]," +
+                                     "\"detail-type\": [\"ExampleType\"]" +
+                                     "}";
+
         var response = await _amazonEventBridge.PutRuleAsync(
             new PutRuleRequest()
             {
@@ -294,19 +351,20 @@ public class EventBridgeWrapper
     /// Add an SNS target topic to a rule.
     /// </summary>
     /// <param name="ruleName">The name of the rule to update.</param>
-    /// <param name="roleArn">The Arn of the role to use.</param>
     /// <param name="targetArn">The Arn of the SNS target.</param>
     /// <param name="eventBusArn">The optional event bus name, uses default if empty.</param>
-    /// <returns>True if successful.</returns>
-    public async Task<bool> AddSnsTargetToRule(string ruleName, string roleArn, string targetArn, string? eventBusArn = null)
+    /// <returns>The ID of the target.</returns>
+    public async Task<string> AddSnsTargetToRule(string ruleName, string targetArn, string? eventBusArn = null)
     {
-        // Create the list of targets.
+        var targetID = Guid.NewGuid().ToString();
+
+        // Create the list of targets and add a new target.
         var targets = new List<Target>
         {
             new Target()
             {
                 Arn = targetArn,
-                RoleArn = roleArn,
+                Id = targetID
             }
         };
 
@@ -319,22 +377,73 @@ public class EventBridgeWrapper
                 Targets = targets,
             });
 
-        return response.FailedEntryCount == 0;
+        if (response.FailedEntryCount > 0)
+        {
+            response.FailedEntries.ForEach(e =>
+            {
+                _logger.LogError(
+                    $"Failed to add target {e.TargetId}: {e.ErrorMessage}, code {e.ErrorCode}");
+            });
+        }
+
+        return targetID;
     }
     // snippet-end:[EventBridge.dotnetv3.PutSnsTarget]
+
+    // snippet-start:[EventBridge.dotnetv3.RemoveTargets]
+    /// <summary>
+    /// Delete an event rule by name.
+    /// </summary>
+    /// <param name="ruleName">The name of the event rule.</param>
+    /// <returns>True if successful</returns>
+    public async Task<bool> RemoveAllTargetsFromRule(string ruleName)
+    {
+        var targetIds = new List<string>();
+        var request = new ListTargetsByRuleRequest()
+        {
+            Rule = ruleName
+        };
+        ListTargetsByRuleResponse targetsResponse;
+        do
+        {
+            targetsResponse = await _amazonEventBridge.ListTargetsByRuleAsync(request);
+            targetIds.AddRange(targetsResponse.Targets.Select(t => t.Id));
+            request.NextToken = targetsResponse.NextToken;
+
+        } while (targetsResponse.NextToken is not null);
+
+        var removeResponse = await _amazonEventBridge.RemoveTargetsAsync(
+            new RemoveTargetsRequest()
+            {
+                Rule = ruleName,
+                Ids = targetIds
+            });
+
+        if (removeResponse.FailedEntryCount > 0)
+        {
+            removeResponse.FailedEntries.ForEach(e =>
+            {
+                _logger.LogError(
+                    $"Failed to remove target {e.TargetId}: {e.ErrorMessage}, code {e.ErrorCode}");
+            });
+        }
+
+        return removeResponse.HttpStatusCode == HttpStatusCode.OK;
+    }
+    // snippet-end:[EventBridge.dotnetv3.RemoveTargets]
 
     // snippet-start:[EventBridge.dotnetv3.DeleteRule]
     /// <summary>
     /// Delete an event rule by name.
     /// </summary>
-    /// <param name="name">The name of the event rule.</param>
+    /// <param name="ruleName">The name of the event rule.</param>
     /// <returns>True if successful</returns>
-    public async Task<bool> DeleteRuleByName(string name)
+    public async Task<bool> DeleteRuleByName(string ruleName)
     {
         var response = await _amazonEventBridge.DeleteRuleAsync(
             new DeleteRuleRequest()
             {
-                Name = name
+                Name = ruleName
             });
 
         return response.HttpStatusCode == HttpStatusCode.OK;

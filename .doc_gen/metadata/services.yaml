@@ -178,7 +178,7 @@ cloudwatch-events:
   api_ref: eventbridge/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Management &amp; Governance'}
-  version: eventbridge-2015-10-07
+  version: monitoring-2010-08-01
 cloudwatch-logs:
   long: '&CWLlong;'
   short: '&CWL;'

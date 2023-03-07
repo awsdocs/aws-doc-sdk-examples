@@ -1,12 +1,6 @@
 {
-  "roleName": "cloudwatch-events-rule-role",
-  "roleARN": "test-parameter-group",
-  "testBucketName": "example-bucket",
-  "topicName": "topic-name",
-  "topicArn": "arn:aws:sns:us-east-1:123456789012:eventbridge-test-topic",
-  "targetArn": "targetarn",
-  "labmdaTargetArn": "arn:aws:sns:us-east-1:565846806325:eventbridge-test-topic",
-  "eventBusName": "example-event-bus",
-  "eventRuleName": "example-event-rule",
-  "eventArchive": "example-event-archive"
+  "roleName": "eventbridge-events-rule-role",
+  "testBucketName": "ExampleBucket1",
+  "topicName": "example-eventbridge-topic-name",
+  "eventRuleName": "example-event-rule"
 }

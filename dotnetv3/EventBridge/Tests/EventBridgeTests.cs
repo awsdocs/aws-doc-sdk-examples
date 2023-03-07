@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 
 namespace EventBridgeTests;
 
+/// <summary>
+/// Tests for the EventBridgeWrapper class.
+/// </summary>
 public class EventBridgeTests
 {
     private readonly IConfiguration _configuration;
@@ -123,14 +126,13 @@ public class EventBridgeTests
     {
         // Arrange
         var eventRuleName = _configuration["eventRuleName"];
-        var roleArn = _configuration["roleArn"];
         var topicArn = _configuration["topicArn"];
 
         // Act
-        var result = await _eventBridgeWrapper.AddSnsTargetToRule(eventRuleName, roleArn, topicArn);
+        var result = await _eventBridgeWrapper.AddSnsTargetToRule(eventRuleName, topicArn);
 
         // Assert
-        Assert.True(result);
+        Assert.False(string.IsNullOrEmpty(result));
     }
 
     /// <summary>
@@ -181,15 +183,14 @@ public class EventBridgeTests
     {
         // Arrange
         var eventRuleName = _configuration["eventRuleName"];
-        var roleArn = _configuration["roleArn"];
         var topicArn = _configuration["topicArn"];
 
         // Act
         var result = await _eventBridgeWrapper.UpdateS3UploadRuleTargetWithTransform(
-            eventRuleName, roleArn, topicArn);
+            eventRuleName, topicArn);
 
         // Assert
-        Assert.True(result);
+        Assert.False(string.IsNullOrEmpty(result));
     }
 
     /// <summary>
@@ -229,10 +230,28 @@ public class EventBridgeTests
     }
 
     /// <summary>
-    /// Verify deleting an event rule returns a successful result.
+    /// Verify removing rule targets returns a successful result.
     /// <returns>Async task.</returns>
     [Fact]
     [Order(11)]
+    [Trait("Category", "Integration")]
+    public async Task RemoveTargets_ReturnsSuccessfulResult()
+    {
+        // Arrange
+        var eventRuleName = _configuration["eventRuleName"];
+
+        // Act
+        var result = await _eventBridgeWrapper.RemoveAllTargetsFromRule(eventRuleName);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    /// <summary>
+    /// Verify deleting an event rule returns a successful result.
+    /// <returns>Async task.</returns>
+    [Fact]
+    [Order(12)]
     [Trait("Category", "Integration")]
     public async Task DeleteEventRule_ReturnsSuccessfulResult()
     {

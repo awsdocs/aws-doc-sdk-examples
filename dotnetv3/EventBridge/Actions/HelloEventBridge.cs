@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-// snippet-start:[CloudWatch.dotnetv3.HelloEventBridge]
+// snippet-start:[EventBridge.dotnetv3.HelloEventBridge]
 using Microsoft.Extensions.Hosting;
 using Amazon.EventBridge;
 using Amazon.EventBridge.Model;
@@ -43,4 +43,4 @@ public static class HelloEventBridge
         }
     }
 }
-// snippet-end:[CloudWatch.dotnetv3.HelloCloudWatch]
+// snippet-end:[EventBridge.dotnetv3.HelloCloudWatch]

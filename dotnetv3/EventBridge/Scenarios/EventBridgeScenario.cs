@@ -59,6 +59,13 @@ public class EventBridgeScenario
             )
             .Build();
 
+        _configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("settings.json") // Load settings from .json file.
+            .AddJsonFile("settings.local.json",
+                true) // Optionally, load local settings.
+            .Build();
+
         logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
             .CreateLogger<EventBridgeScenario>();
 
@@ -96,13 +103,13 @@ public class EventBridgeScenario
 
             await ChangeRuleState(false);
 
-            await UpdateSnsEventRule(roleArn, topicArn);
+            await UpdateSnsEventRule(topicArn);
 
             await ChangeRuleState(true);
 
             await UploadS3File(_s3Client);
 
-            await UpdateToCustomRule();
+            await UpdateToCustomRule(topicArn);
 
             await TriggerCustomRule(email);
 
@@ -113,6 +120,9 @@ public class EventBridgeScenario
             logger.LogError(ex, "There was a problem executing the scenario.");
             await CleanupResources(topicArn);
         }
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine("The Amazon EventBridge example scenario is complete.");
+        Console.WriteLine(new string('-', 80));
     }
 
     /// <summary>
@@ -136,21 +146,18 @@ public class EventBridgeScenario
     {
         var roleName = _configuration["roleName"];
 
-        string assumeRolePolicy = @"{
-            'Version': '2012-10-17',
-            'Statement':
-            [
-                {
-                    'Effect': 'Allow',
-                    'Principal': {
-                    'Service': 'events.amazonaws.com'
-                    },
-                    'Action': 'sts:AssumeRole'
-                },
-            ],
-        }";
+        string assumeRolePolicy = "{" +
+                                  "\"Version\": \"2012-10-17\"," +
+                                  "\"Statement\": [{" +
+                                  "\"Effect\": \"Allow\"," +
+                                  "\"Principal\": {" +
+                                  $"\"Service\": \"events.amazonaws.com\"" +
+                                  "}," +
+                                  "\"Action\": \"sts:AssumeRole\"" +
+                                  "}]" +
+                                  "}";
 
-        var roleResult = await _iamClient.CreateRoleAsync(
+        var roleResult = await _iamClient!.CreateRoleAsync(
             new CreateRoleRequest()
             {
                 AssumeRolePolicyDocument = assumeRolePolicy,
@@ -158,28 +165,26 @@ public class EventBridgeScenario
                 RoleName = roleName
             });
 
-        string addAccessPolicy = @"{
-            'Version': '2012-10-17',
-            'Statement': [
-                {
-                  'Sid': ""CloudWatchEventsFullAccess"",
-                  'Effect': ""Allow"",
-                  'Resource': ""*"",
-                  'Action': ""events:*""
-                },
-                {
-                  'Sid': ""IAMPassRoleForCloudWatchEvents"",
-                  'Effect': ""Allow"",
-                  'Resource': ""arn:aws:iam::*:role/AWS_Events_Invoke_Targets"",
-                  'Action': ""iam:PassRole""
-                }
-            ]
-        }";
+        string addAccessPolicy = "{" +
+                                 "\"Version\": \"2012-10-17\"," +
+                                 "\"Statement\": [{" +
+                                 "\"Sid\": \"CloudWatchEventsFullAccess\"," +
+                                 "\"Effect\": \"Allow\"," +
+                                 "\"Resource\": \"*\"," +
+                                 "\"Action\": \"events:*\"" +
+                                 "}," +
+                                 "{" +
+                                 "\"Sid\": \"IAMPassRoleForCloudWatchEvents\"," +
+                                 "\"Effect\": \"Allow\"," +
+                                 "\"Resource\": \"arn:aws:iam::*:role/AWS_Events_Invoke_Targets\"," +
+                                 "\"Action\": \"iam:PassRole\"" +
+                                 "}]" +
+                                 "}";
 
         await _iamClient.PutRolePolicyAsync(
             new PutRolePolicyRequest()
             {
-                PolicyName = "CloudWatchEventsPolicy",
+                PolicyName = "EventBridgeEventsPolicy",
                 RoleName = roleName,
                 PolicyDocument = addAccessPolicy
             });
@@ -268,27 +273,26 @@ public class EventBridgeScenario
             "Creating an Amazon Simple Notification Service (Amazon SNS) topic for email subscriptions.");
 
         var topicName = _configuration["topicName"];
-        var topicPolicy = @"{
-            'Version': '2012-10-17',
-            'Statement': [
-                {
-                  'Sid': ""EventBridgePublishTopic"",
-                  'Effect': ""Allow"",
-                  `Principal`: {
-                    'Service': ""events.amazonaws.com""
-                    },
-                  'Resource': ""*"",
-                  'Action': ""sns:Publish""
-                }
-            ]
-        }";
+
+        string topicPolicy = "{" +
+                             "\"Version\": \"2012-10-17\"," +
+                             "\"Statement\": [{" +
+                             "\"Sid\": \"EventBridgePublishTopic\"," +
+                             "\"Effect\": \"Allow\"," +
+                             "\"Principal\": {" +
+                             $"\"Service\": \"events.amazonaws.com\"" +
+                             "}," +
+                             "\"Resource\": \"*\"," +
+                             "\"Action\": \"sns:Publish\"" +
+                             "}]" +
+                             "}";
 
         var topicAttributes = new Dictionary<string, string>()
         {
             { "Policy", topicPolicy }
         };
 
-        var topicResponse = await _snsClient.CreateTopicAsync(new CreateTopicRequest()
+        var topicResponse = await _snsClient!.CreateTopicAsync(new CreateTopicRequest()
         {
             Name = topicName,
             Attributes = topicAttributes
@@ -310,12 +314,17 @@ public class EventBridgeScenario
     private static async Task<string> SubscribeToSnsTopic(string topicArn)
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("Enter your email to subscribe to the Amazon SNS topic:");
+        
 
-        var email = Console.ReadLine();
+        string email = "";
+        while (string.IsNullOrEmpty(email))
+        {
+            Console.WriteLine("Enter your email to subscribe to the Amazon SNS topic:");
+            email = Console.ReadLine()!;
+        }
 
         var subscriptions = new List<string>();
-        var paginatedSubscriptions = _snsClient.Paginators.ListSubscriptionsByTopic(
+        var paginatedSubscriptions = _snsClient!.Paginators.ListSubscriptionsByTopic(
             new ListSubscriptionsByTopicRequest()
             {
                 TopicArn = topicArn
@@ -341,18 +350,10 @@ public class EventBridgeScenario
             Endpoint = email
         });
 
-        Console.WriteLine($"\tEnter the subscription confirmation code to confirm your subscription.");
+        Console.WriteLine($"Use the link in the email you received to confirm your subscription, then press enter to continue.");
 
-        var code = Console.ReadLine();
+        Console.ReadLine();
 
-        await _snsClient.ConfirmSubscriptionAsync(new ConfirmSubscriptionRequest()
-        {
-            TopicArn = topicArn,
-            Token = code
-        });
-
-        Console.WriteLine($"\tYou are now subscribed to emails for the test topic.");
-        
         Console.WriteLine(new string('-', 80));
         return email;
     }
@@ -373,7 +374,7 @@ public class EventBridgeScenario
         var topicName = _configuration["topicName"];
 
         await _eventBridgeWrapper.PutS3UploadRule(roleArn, eventRuleName, testBucketName);
-        await _eventBridgeWrapper.AddSnsTargetToRule(eventRuleName, roleArn, topicArn);
+        await _eventBridgeWrapper.AddSnsTargetToRule(eventRuleName, topicArn);
         Console.WriteLine($"\tAdded event rule {eventRuleName} with SNS target {topicName} for bucket {testBucketName}.");
 
         Console.WriteLine(new string('-', 80));
@@ -397,10 +398,9 @@ public class EventBridgeScenario
     /// <summary>
     /// Update the event target to use a transform.
     /// </summary>
-    /// <param name="roleArn">The role ARN to use.</param>
     /// <param name="topicArn">The Amazon SNS topic ARN target to update.</param>
     /// <returns>Async task.</returns>
-    private static async Task UpdateSnsEventRule(string roleArn, string topicArn)
+    private static async Task UpdateSnsEventRule(string topicArn)
     {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Let's update the event target with a transform.");
@@ -408,7 +408,7 @@ public class EventBridgeScenario
         var eventRuleName = _configuration["eventRuleName"];
         var testBucketName = _configuration["testBucketName"];
 
-        await _eventBridgeWrapper.UpdateS3UploadRuleTargetWithTransform(eventRuleName, roleArn, topicArn);
+        await _eventBridgeWrapper.UpdateS3UploadRuleTargetWithTransform(eventRuleName, topicArn);
         Console.WriteLine($"\tUpdated event rule {eventRuleName} with SNS target {topicArn} for bucket {testBucketName}.");
 
         Console.WriteLine(new string('-', 80));
@@ -418,7 +418,7 @@ public class EventBridgeScenario
     /// Update the rule to use a custom event pattern.
     /// </summary>
     /// <returns>Async task.</returns>
-    private static async Task UpdateToCustomRule()
+    private static async Task UpdateToCustomRule(string topicArn)
     {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Updating the event pattern to be triggered by a custom event instead.");
@@ -428,6 +428,11 @@ public class EventBridgeScenario
         await _eventBridgeWrapper.UpdateCustomEventPattern(eventRuleName);
 
         Console.WriteLine($"\tUpdated event rule {eventRuleName} to custom pattern.");
+
+        await _eventBridgeWrapper.UpdateCustomRuleTargetWithTransform(eventRuleName,
+            topicArn);
+
+        Console.WriteLine($"\tUpdated event target {topicArn}.");
 
         Console.WriteLine(new string('-', 80));
     }
@@ -519,6 +524,9 @@ public class EventBridgeScenario
         var eventRuleName = _configuration["eventRuleName"];
         if (GetYesNoResponse($"\tDelete event rule {eventRuleName}? (y/n)"))
         {
+            Console.WriteLine($"\tRemoving all targets from the event rule.");
+            await _eventBridgeWrapper.RemoveAllTargetsFromRule(eventRuleName);
+
             Console.WriteLine($"\tDeleting event rule.");
             await _eventBridgeWrapper.DeleteRuleByName(eventRuleName);
         }
@@ -527,7 +535,7 @@ public class EventBridgeScenario
         if (GetYesNoResponse($"\tDelete Amazon SNS subscription topic {topicName}? (y/n)"))
         {
             Console.WriteLine($"\tDeleting topic.");
-            await _snsClient.DeleteTopicAsync(new DeleteTopicRequest()
+            await _snsClient!.DeleteTopicAsync(new DeleteTopicRequest()
             {
                 TopicArn = topicArn
             });
@@ -538,9 +546,13 @@ public class EventBridgeScenario
         {
             Console.WriteLine($"\tDeleting bucket.");
             // Delete all objects in the bucket.
-            var deleteList = await _s3Client.ListObjectsV2Async(new ListObjectsV2Request());
+            var deleteList = await _s3Client.ListObjectsV2Async(new ListObjectsV2Request()
+            {
+                BucketName = bucketName
+            });
             await _s3Client.DeleteObjectsAsync(new DeleteObjectsRequest()
             {
+                BucketName = bucketName,
                 Objects = deleteList.S3Objects
                     .Select(o => new KeyVersion{Key = o.Key}).ToList()
             });
