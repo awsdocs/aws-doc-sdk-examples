@@ -2586,7 +2586,7 @@ iam_DetachUserPolicy:
                 - rust.example_code.iam.service.detach_user_policy
   services:
     iam: {DetachUserPolicy}
-iam_PutUserPolicy:
+iam_PutGroupPolicy:
   title: Create an inline &IAM; policy for a group using an &AWS; SDK
   title_abbrev: Create an inline policy for a group
   synopsis: create an inline &IAM; policy for a group.
@@ -2938,14 +2938,14 @@ iam_RemoveUserFromGroup:
   services:
     iam: {RemoveUserFromGroup}
 iam_DeleteGroup:
-    title: Delete an &IAM; group using an &AWS; SDK
-    title_abbrev: delete a group
-    synopsis: Delete an &IAM; group.
-    category:
-    languages:
-      .NET:
-        versions:
-          - sdk_version: 3
+  title: Delete an &IAM; group using an &AWS; SDK
+  title_abbrev: delete a group
+  synopsis: Delete an &IAM; group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
           github: dotnetv3/IAM
           sdkguide:
           excerpts:
