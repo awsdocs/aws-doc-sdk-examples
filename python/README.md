@@ -124,16 +124,54 @@ command prompt by including the `integ` mark.
 python -m pytest -m "integ"
 ```
 
-## Docker image (Beta)
-This example code will soon be available in a container image
-hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
-with all Python examples with dependencies pre-resolved, allowing you to explore
-these examples in an isolated environment.
+## Docker image
 
-⚠️ As of January 2023, the [SDK for Python image](https://gallery.ecr.aws/b4v4v1s0/python) is available on ECR Public but is still
-undergoing active development. Refer to
-[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4125)
+This example code will soon be available in a container image
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). 
+This image will be pre-loaded with all Python examples with dependencies pre-resolved, 
+allowing you to explore these examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for Python image](https://gallery.ecr.aws/b4v4v1s0/python) is available on ECR Public 
+but is still undergoing active development. Refer to [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4125)
 for more information.
+
+### Build the Docker image
+
+1. Install and run Docker on your machine.
+2. Navigate to the same directory as this README.
+3. Run `docker build -t <image_name> .` and replace `image_name` with a name for the image.
+
+### Launch the Docker container
+
+Run the Docker container with your image with the following command:
+
+**Windows**
+
+```
+docker run -it --volume <user root>\.aws:/root/.aws <image_name>
+```
+
+**macOS or Linux**
+```
+docker run -it -v ~/.aws/credentials:/root/.aws/credentials <image_name>
+```
+
+The terminal initiates a bash instance at the root of the container.
+The Python code examples are in the `python` folder and can be run by following
+the instructions in the READMEs in the various folders.
+
+### Run tests in the Docker container
+
+You can run all unit tests and write the output to a file by running the following command
+at the root of the container:  
+
+```
+python -m python.test_tools.run_all_tests > test-run-$(date +"%Y-%m-%d").out
+```
+
+You can run integration tests by passing a `-m "integ"` flag to the `run_all_tests` module.
+Integration tests create and destroy AWS resources and will incur charges on your account.
+Proceed with caution. 
 
 ## Additional resources
  
