@@ -13,7 +13,7 @@ eventbridge_Hello:
           excerpts:
             - description:
               snippet_tags:
-              - EventBridge.dotnetv3.HelloEventBridge
+                - EventBridge.dotnetv3.HelloEventBridge
   services:
     eventbridge: {ListEventBuses}
 eventbridge_DeleteRule:

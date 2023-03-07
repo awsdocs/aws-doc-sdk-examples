@@ -219,8 +219,8 @@ public class EventBridgeScenario
 
         await _s3Client.PutBucketNotificationAsync(new PutBucketNotificationRequest()
         {
-           BucketName = testBucketName,
-           EventBridgeConfiguration = new EventBridgeConfiguration()
+            BucketName = testBucketName,
+            EventBridgeConfiguration = new EventBridgeConfiguration()
         });
 
         Console.WriteLine($"\tAdded bucket {testBucketName} with EventBridge events enabled.");
@@ -296,7 +296,7 @@ public class EventBridgeScenario
         {
             Name = topicName,
             Attributes = topicAttributes
-            
+
         });
 
         Console.WriteLine($"\tAdded topic {topicName} for email subscriptions.");
@@ -314,7 +314,7 @@ public class EventBridgeScenario
     private static async Task<string> SubscribeToSnsTopic(string topicArn)
     {
         Console.WriteLine(new string('-', 80));
-        
+
 
         string email = "";
         while (string.IsNullOrEmpty(email))
@@ -554,7 +554,7 @@ public class EventBridgeScenario
             {
                 BucketName = bucketName,
                 Objects = deleteList.S3Objects
-                    .Select(o => new KeyVersion{Key = o.Key}).ToList()
+                    .Select(o => new KeyVersion { Key = o.Key }).ToList()
             });
             // Now delete the bucket.
             await _s3Client.DeleteBucketAsync(new DeleteBucketRequest()

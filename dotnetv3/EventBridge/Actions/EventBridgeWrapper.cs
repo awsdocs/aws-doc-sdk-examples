@@ -180,7 +180,7 @@ public class EventBridgeWrapper
                               "\"detail-type\": [\"Object Created\"]," +
                               "\"detail\": {" +
                               "\"bucket\": {" +
-                              "\"name\": [\"" + bucketName +"\"]" +
+                              "\"name\": [\"" + bucketName + "\"]" +
                               "}" +
                               "}" +
                               "}";
