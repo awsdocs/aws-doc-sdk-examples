@@ -2,16 +2,14 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[IAM.dotnetv3.IAMBasics]
+
+using Microsoft.Extensions.Configuration;
+
 namespace IAMBasics;
 
 public class IAMBasics
 {
     private static ILogger logger = null!;
-
-    // Values needed for user, role, and policies.
-    private const string UserName = "iam-mvp-user";
-    private const string S3PolicyName = "s3-list-buckets-policy";
-    private const string RoleName = "mvp-temporary-role";
 
     static async Task Main(string[] args)
     {
@@ -24,13 +22,26 @@ public class IAMBasics
             .ConfigureServices((_, services) =>
             services.AddAWSService<IAmazonIdentityManagementService>()
             .AddTransient<IAMWrapper>()
-            .AddTransient<S3Wrapper>()
             .AddTransient<UIWrapper>()
             )
             .Build();
 
         logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
             .CreateLogger<IAMBasics>();
+
+        
+        IConfiguration configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("settings.json") // Load test settings from .json file.
+            .AddJsonFile("settings.local.json",
+                true) // Optionally load local settings.
+            .Build();
+
+        // Values needed for user, role, and policies.
+        string userName = configuration["UserName"];
+        string s3PolicyName = configuration["PolicyName"];
+        string roleName = configuration["RoleName"];
+
 
         var wrapper = host.Services.GetRequiredService<IAMWrapper>();
         var uiWrapper = host.Services.GetRequiredService<UIWrapper>();
@@ -41,14 +52,15 @@ public class IAMBasics
         // First create a user. By default, the new user has
         // no permissions.
         uiWrapper.DisplayTitle("Create User");
-        Console.WriteLine($"Creating a new user with user name: {UserName}.");
-        var user = await wrapper.CreateUserAsync(UserName);
+        Console.WriteLine($"Creating a new user with user name: {userName}.");
+        var user = await wrapper.CreateUserAsync(userName);
         var userArn = user.Arn;
-        Console.WriteLine($"Successfully created user: {UserName} with ARN: {userArn}.");
+
+        Console.WriteLine($"Successfully created user: {userName} with ARN: {userArn}.");
+        uiWrapper.WaitABit(15, "Now let's wait for the user to be ready for use.");
 
         // Define a role policy document that allows the new user
         // to assume the role.
-        // string assumeRolePolicyDocument = File.ReadAllText("assumePolicy.json");
         string assumeRolePolicyDocument = "{" +
           "\"Version\": \"2012-10-17\"," +
           "\"Statement\": [{" +
@@ -73,7 +85,7 @@ public class IAMBasics
         // Create an AccessKey for the user.
         uiWrapper.DisplayTitle("Create access key");
         Console.WriteLine("Now let's create an access key for the new user.");
-        var accessKey = await wrapper.CreateAccessKeyAsync(UserName);
+        var accessKey = await wrapper.CreateAccessKeyAsync(userName);
 
         var accessKeyId = accessKey.AccessKeyId;
         var secretAccessKey = accessKey.SecretAccessKey;
@@ -87,51 +99,46 @@ public class IAMBasics
         // buckets. This should fail at this point because the user doesn't
         // have permissions to perform this task.
         uiWrapper.DisplayTitle("Try to display Amazon S3 buckets");
-        Console.WriteLine("Now let's try to display a list of the usesr's Amazon S3 buckets.");
+        Console.WriteLine("Now let's try to display a list of the user's Amazon S3 buckets.");
         var s3Client1 = new AmazonS3Client(accessKeyId, secretAccessKey);
         var stsClient1 = new AmazonSecurityTokenServiceClient(accessKeyId, secretAccessKey);
 
         var s3Wrapper = new S3Wrapper(s3Client1, stsClient1);
         var buckets = await s3Wrapper.ListMyBucketsAsync();
 
-        if (buckets is null)
-        {
-            Console.WriteLine("As expected, the call to list the buckets has returned a null list.");
-        }
-        else
-        {
-            Console.WriteLine("Something went wrong. This shouldn't have worked.");
-        }
+        Console.WriteLine(buckets is null
+            ? "As expected, the call to list the buckets has returned a null list."
+            : "Something went wrong. This shouldn't have worked.");
+
+        uiWrapper.PressEnter();
 
         uiWrapper.DisplayTitle("Create IAM role");
-        Console.WriteLine($"Creating the role: {RoleName}");
+        Console.WriteLine($"Creating the role: {roleName}");
 
         // Creating an IAM role to allow listing the S3 buckets. A role name
         // is not case sensitive and must be unique to the account for which it
         // is created.
-        var roleArn = await wrapper.CreateRoleAsync(RoleName, assumeRolePolicyDocument);
+        var roleArn = await wrapper.CreateRoleAsync(roleName, assumeRolePolicyDocument);
 
         uiWrapper.PressEnter();
 
         // Create a policy with permissions to list S3 buckets
         uiWrapper.DisplayTitle("Create IAM policy");
-        Console.WriteLine($"Creating the policy: {S3PolicyName}");
+        Console.WriteLine($"Creating the policy: {s3PolicyName}");
         Console.WriteLine("with permissions to list the Amazon S3 buckets for the account.");
-        var policy = await wrapper.CreatePolicyAsync(S3PolicyName, policyDocument);
+        var policy = await wrapper.CreatePolicyAsync(s3PolicyName, policyDocument);
 
         // Wait 15 seconds for the IAM policy to be available.
         uiWrapper.WaitABit(15, "Waiting for the policy to be available.");
 
         // Attach the policy to the role you created earlier.
-        uiWrapper.DisplayTitle("Attch new IAM policy");
+        uiWrapper.DisplayTitle("Attach new IAM policy");
         Console.WriteLine("Now let's attach the policy to the role.");
-        await wrapper.AttachRolePolicyAsync(policy.Arn, RoleName);
+        await wrapper.AttachRolePolicyAsync(policy.Arn, roleName);
 
         // Wait 15 seconds for the role to be updated.
         Console.WriteLine();
         uiWrapper.WaitABit(15, "Waiting for the policy to be attached.");
-
-        uiWrapper.PressEnter();
 
         // Use the AWS Security Token Service (AWS STS) to have the user
         // assume the role we created.
@@ -167,15 +174,15 @@ public class IAMBasics
         Console.WriteLine("Thank you for watching. The IAM Basics demo is complete.");
         Console.WriteLine("Please wait while we clean up the resources we created.");
 
-        await wrapper.DetachRolePolicyAsync(policy.Arn, RoleName);
+        await wrapper.DetachRolePolicyAsync(policy.Arn, roleName);
 
         await wrapper.DeletePolicyAsync(policy.Arn);
 
-        await wrapper.DeleteRoleAsync(RoleName);
+        await wrapper.DeleteRoleAsync(roleName);
 
-        await wrapper.DeleteAccessKeyAsync(accessKeyId, UserName);
+        await wrapper.DeleteAccessKeyAsync(accessKeyId, userName);
 
-        await wrapper.DeleteUserAsync(UserName);
+        await wrapper.DeleteUserAsync(userName);
 
         uiWrapper.PressEnter();
 

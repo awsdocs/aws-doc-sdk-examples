@@ -118,7 +118,7 @@ public class IAMWrapper
     /// Create a new IAM role.
     /// </summary>
     /// <param name="roleName">The name of the IAM role.</param>
-    /// <param name="rolePolicyDocument">The name of the IAM pocliy document
+    /// <param name="rolePolicyDocument">The name of the IAM policy document
     /// for the new role.</param>
     /// <returns>The Amazon Resource Name (ARN) of the role.</returns>
     public async Task<string> CreateRoleAsync(string roleName, string rolePolicyDocument)
