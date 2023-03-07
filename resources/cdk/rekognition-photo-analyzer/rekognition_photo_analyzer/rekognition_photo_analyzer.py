@@ -8,14 +8,18 @@ from aws_cdk import (
     aws_iam as iam,
     aws_lambda as lambda_cdk,
     aws_s3 as s3,
-    aws_s3_notifications as s3_notifications,
+    aws_s3_assets as s3_assets,
     aws_s3_deployment as s3_deployment,
+    aws_s3_notifications as s3_notifications,
+    BundlingOptions,
+    BundlingOutput,
+    DockerVolume,
     Duration,
     Stack
 )
 from constructs import Construct
 from pathlib import Path
-from typing import Optional
+import os
 
 
 ELROS_PATH = "./website"
@@ -265,8 +269,6 @@ class RekognitionPhotoAnalyzerStack(Stack):
         }
 
         self.lambda_code = self.lambda_code_asset()
-        # self.layer = lambda_cdk.LayerVersion(
-        #     self, f"LibraryLayer", code=self.lambda_code)
 
         lambda_DetectLabels = self._lambda(
             "DetectLabelsFn", self.lambda_DetectLabels_handler())
@@ -320,15 +322,12 @@ class RekognitionPhotoAnalyzerStack(Stack):
         raise NotImplementedError()
 
     def _lambda(self, name: str, handler: str):
-        # create Lambda function
         return lambda_cdk.Function(
             self, name,
             runtime=self.lambda_runtime(),
             handler=handler,
+            # This will ensure one copy of the code is shared by all the lambdas
             code=self.lambda_code,
-            # code=lambda_cdk.Code.from_inline(
-            #     "#" if self.lang == "Python" else "/* */"),
-            # layers=[self.layer],
             environment=self.lambda_environment
         )
 
@@ -373,25 +372,42 @@ class JavaRekognitionPhotoAnalyzerStack(RekognitionPhotoAnalyzerStack):
         return lambda_cdk.Runtime.JAVA_11
 
     def lambda_code_asset(self):
-        return lambda_cdk.Code.from_asset(str(Path(__file__) / '../../../../../javav2/usecases/pam_source_files/'))
+        return lambda_cdk.Code.from_asset(
+            str(Path(__file__) / '../../../../../javav2/usecases/pam_source_files/'),
+            bundling=BundlingOptions(
+                command=[
+                    "/bin/sh", "-c", "mvn clean install && \
+                            cp /asset-input/target/PhotoAssetRestSDK-1.0-SNAPSHOT.jar /asset-output/"
+                ],
+                image=self.lambda_runtime().bundling_image,
+                user="root",
+                output_type=BundlingOutput.ARCHIVED,
+                volumes=[
+                    DockerVolume(
+                        host_path=f"{os.getenv('HOME')}/.m2/",
+                        container_path="/root/.m2",
+                    )
+                ]
+            )
+        )
 
     def lambda_DetectLabels_handler(self):
-        return 'com.example.photo.handlers.S3Trigger.handleRequest'
+        return 'com.example.photo.handlers.S3Trigger'
 
     def lambda_Labels_handler(self):
-        return 'com.example.photo.handlers.GetHandler.handleRequest'
+        return 'com.example.photo.handlers.GetHandler'
 
     def lambda_ZipArchive_handler(self):
-        return 'com.example.photo.handlers.ZipArchiveHandler.handleRequest'
+        return 'com.example.photo.handlers.ZipArchiveHandler'
 
     def lambda_Upload_handler(self):
-        return 'com.example.photo.handlers.UploadHandler.handleRequest'
+        return 'com.example.photo.handlers.UploadHandler'
 
     def lambda_Copy_handler(self):
-        return 'com.example.photo.handlers.S3Copy.handleRequest'
+        return 'com.example.photo.handlers.S3Copy'
 
     def lambda_Download_handler(self):
-        return 'com.example.photo.handlers.Restore.handleRequest'
+        return 'com.example.photo.handlers.Restore'
 
     def lambda_Archive_handler(self):
         return ""
