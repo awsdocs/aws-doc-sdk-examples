@@ -62,5 +62,6 @@ members = [
     "test-utils",
     "testing",
     "tls",
-    "transcribestreaming"
+    "transcribestreaming",
+    "webassembly"
 ]
