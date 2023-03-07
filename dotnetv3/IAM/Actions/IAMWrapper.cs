@@ -3,7 +3,7 @@
 
 using System.Net;
 
-// snippet-start:IAM.dotnetv3.IAMWrapper]
+// snippet-start:[IAM.dotnetv3.IAMWrapper]
 namespace IAMActions;
 
 public class IAMWrapper
@@ -593,4 +593,4 @@ public class IAMWrapper
     }
 }
 
-// snippet-end:IAM.dotnetv3.IAMWrapper]
+// snippet-end:[IAM.dotnetv3.IAMWrapper]
