@@ -1832,6 +1832,18 @@ dynamodb_Scenario_PartiQLSingle:
                 - cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.waitTableActive
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.rust.partiql-make_table
+                - dynamodb.rust.partiql-add_item
+                - dynamodb.rust.partiql-query_item
+                - dynamodb.rust.partiql-remove_item
+                - dynamodb.rust.partiql-remove_table
   services:
     dynamodb: {ExecuteStatement}
 dynamodb_Scenario_PartiQLBatch:
