@@ -47,6 +47,12 @@ Activate your virtualenv:
 $ source .venv/bin/activate
 ```
 
+(or on Windows)
+
+```
+C:\> .venv\Scripts\activate.bat
+```
+
 Install the required dependencies:
 
 ```
@@ -58,6 +64,14 @@ Configure the stack for your account:
 ```
 $ export PAM_NAME=$(whoami) # Or whatever name you want
 $ export PAM_EMAIL={yourrmail@domain}
+$ aws configure # Or otherwise set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+```
+
+(or on Windows)
+
+```
+$ set PAM_NAME={your name}
+$ set PAM_EMAIL=youremail@domain
 $ aws configure # Or otherwise set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
 ```
 
