@@ -83,7 +83,7 @@ sts_AssumeRole:
           excerpts:
             - description:
               snippet_tags:
-                - sts.rust.assume-role
+                - sts.rust.assume_role
 
   services:
     sts: {AssumeRole}
