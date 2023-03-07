@@ -204,8 +204,8 @@ This example lists your DynamoDB tables.
 
 ### movies
 
-This example creates the DynamoDB table \_dynamo-movies-example** in **us-east-1**, waits for the table to be ready, adds a couple of rows to the table, and queries for those rows.
-Use **delete-table** to delete **dynamo-movies-example\_\_.
+This example creates the DynamoDB table `dynamo-movies-example` in **us-east-1**, waits for the table to be ready, adds a couple of rows to the table, and queries for those rows.
+Use **delete-table** to delete `dynamo-movies-example`.
 
 `cargo run --bin movies`
 
