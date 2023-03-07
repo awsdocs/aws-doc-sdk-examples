@@ -27,6 +27,7 @@ members = [
     "ecr",
     "ecs",
     "eks",
+    "firehose",
     "greengrassv2",
     "globalaccelerator",
     "iam",
@@ -57,8 +58,10 @@ members = [
     "sqs",
     "ssm",
     "stepfunction",
+    "sts",
     "test-utils",
     "testing",
     "tls",
-    "transcribestreaming"
+    "transcribestreaming",
+    "webassembly"
 ]
