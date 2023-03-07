@@ -383,6 +383,8 @@ class JavaRekognitionPhotoAnalyzerStack(RekognitionPhotoAnalyzerStack):
                 user="root",
                 output_type=BundlingOutput.ARCHIVED,
                 volumes=[
+                    # This shares the maven repo between host & container,
+                    # which both speeds up and
                     DockerVolume(
                         host_path=f"{os.getenv('HOME')}/.m2/",
                         container_path="/root/.m2",

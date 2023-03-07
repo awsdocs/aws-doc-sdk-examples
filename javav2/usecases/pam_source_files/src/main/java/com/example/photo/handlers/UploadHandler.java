@@ -12,13 +12,16 @@ public class UploadHandler implements RequestHandler<Map<String, String>, String
 
     @Override
     public String handleRequest(Map<String, String> event, Context context) {
+        String body = event.get("body");
+        context.getLogger().log("Got body: " + body);
         String fileName = event.get("file_name");
+        context.getLogger().log("Building URL for " + fileName);
         UUID uuid = UUID.randomUUID();
-        String unqueFileName = uuid + "-" + fileName;
+        String uniqueFileName = uuid + "-" + fileName;
 
         S3Service s3Service = new S3Service();
 
-        String signedURL = s3Service.signObjectToUpload(unqueFileName);
+        String signedURL = s3Service.signObjectToUpload(uniqueFileName);
 
         UploadResponse data = UploadResponse.from(signedURL);
 

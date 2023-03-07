@@ -1,22 +1,25 @@
-
 # PAM CDK
 
 This project will create the following in your AWS cloud environment:
-* IAM group
-* IAM user (added to the IAM group)
-* S3 bucket
-* DynamoDB table
-* Lambda function that performs image classification via AWS Rekognition when new images are uploaded to the S3 bucket
-* Roles and policies allowing appropriate access to these resources
+
+- IAM group
+- IAM user (added to the IAM group)
+- S3 buckets
+- DynamoDB tables
+- Lambda function that performs image classification via AWS Rekognition when new images are uploaded to the S3 bucket
+- API Gateway routing for lambda functions
+- Roles and policies allowing appropriate access to these resources
 
 ---
 
 Requirements:
-* git
-* npm (node.js)
-* python 3.x
-* AWS access key & secret for AWS user with permissions to create resources listed above
-  
+
+- git
+- npm (node.js)
+- python 3.x
+- docker
+- AWS access key & secret for AWS user with permissions to create resources listed above
+
 ---
 
 First, you will need to install the AWS CDK:
@@ -49,14 +52,23 @@ Install the required dependencies:
 $ pip install -r requirements.txt
 ```
 
+Configure the stack for your account:
+
+```
+$ export PAM_NAME=$(whoami) # Or whatever name you want
+$ export PAM_EMAIL={yourrmail@domain}
+$ export AWS_ACCOUNT= # configure your AWS account environment as necessary
+```
+
 At this point you can now synthesize the CloudFormation template for this code.
+{Lang} is one of "Java" or "Python", with more coming soon!
 
 ```
-$ cdk synth
+$ cdk synth ${PAM_NAME}-{Lang}-PAM
 ```
 
-If everything looks good, go ahead and deploy!  This step will actually make
-changes to your AWS cloud environment.  
+If everything looks good, go ahead and deploy! This step will actually make
+changes to your AWS cloud environment.
 
 ```
 $ cdk bootstrap
@@ -64,10 +76,11 @@ $ cdk deploy
 ```
 
 ## Testing
+
 Upload an image fie to the S3 bucket that was created by CloudFormation.
 The image will be automatically classified.
 Results can be found in DynamoDB, S3 bucket "results" folder, and CloudWatch logs for the Lambda function
-  
+
 To clean up, issue this command (this will NOT remove the DynamoDB
 table, CloudWatch logs, or S3 bucket -- you will need to do those manually) :
 
