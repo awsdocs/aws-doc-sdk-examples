@@ -2888,8 +2888,8 @@ iam_DeleteServerCertificate:
     iam: {DeleteServerCertificate}
 iam_CreateGroup:
   title: Create an &IAM; group using an &AWS; SDK
-  title_abbrev: create a group
-  synopsis: Create an &IAM; group.
+  title_abbrev: Create a group
+  synopsis: create an &IAM; group.
   category:
   languages:
     .NET:
@@ -2905,8 +2905,8 @@ iam_CreateGroup:
     iam: {CreateGroup}
 iam_AddUserToGroup:
   title: Add an &IAM; user to a group using an &AWS; SDK
-  title_abbrev: add a user to a group
-  synopsis: Add a user to an &IAM; group.
+  title_abbrev: Add a user to a group
+  synopsis: add a user to an &IAM; group.
   category:
   languages:
     .NET:
@@ -2922,8 +2922,8 @@ iam_AddUserToGroup:
     iam: {AddUserToGroup}
 iam_RemoveUserFromGroup:
   title: Remove an &IAM; user from a group using an &AWS; SDK
-  title_abbrev: remove a user from a group
-  synopsis: Remove a user from an &IAM; group.
+  title_abbrev: Remove a user from a group
+  synopsis: remove a user from an &IAM; group.
   category:
   languages:
     .NET:
@@ -2939,8 +2939,8 @@ iam_RemoveUserFromGroup:
     iam: {RemoveUserFromGroup}
 iam_DeleteGroup:
   title: Delete an &IAM; group using an &AWS; SDK
-  title_abbrev: delete a group
-  synopsis: Delete an &IAM; group.
+  title_abbrev: Delete a group
+  synopsis: delete an &IAM; group.
   category:
   languages:
     .NET:
@@ -2956,8 +2956,8 @@ iam_DeleteGroup:
     iam: {DeleteGroup}
 iam_DeleteGroupPolicy:
   title: Delete an &IAM; group policy using an &AWS; SDK
-  title_abbrev: delete a group policy
-  synopsis: Delete an &IAM group policy.
+  title_abbrev: Delete a group policy
+  synopsis: delete an &IAM group policy.
   category:
   languages:
     .NET:
