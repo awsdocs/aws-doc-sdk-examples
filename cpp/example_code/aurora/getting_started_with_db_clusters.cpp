@@ -15,28 +15,29 @@
  * Purpose
  *
  * Demonstrates creating an Amazon Relational Database Service (Amazon Aurora)
- * instance and optionally creating a snapshot of the instance.
+ * cluster and optionally creating a snapshot of the cluster.
  *
  * 1.  Check if the DB cluster parameter group already exists. (DescribeDBClusterParameterGroups)
  * 2.  Get available engine versions for the specified engine. (DescribeDBEngineVersions)
  * 3.  Create a DB cluster parameter group. (CreateDBClusterParameterGroup)
  * 4.  Get the parameters in the DB cluster parameter group. (DescribeDBClusterParameters)
- * 5.  Modify the auto increment parameters in the cluster parameter group. (ModifyDBClusterParameterGroup)
- * 6.  Display the modified parameters in the cluster parameter group. (DescribeDBClusterParameters)
+ * 5.  Modify the auto increment parameters in the DB cluster parameter group. (ModifyDBClusterParameterGroup)
+ * 6.  Display the modified parameters in the DB cluster parameter group. (DescribeDBClusterParameters)
  * 7.  Check if the DB cluster already exists. (DescribeDBClusters)
  * 8.  Get a list of available engine versions. (DescribeDBEngineVersions)
  * 9.  Create an Aurora database cluster. (CreateDBCluster)
  * 10. Wait for the DB cluster to become available. (DescribeDBClusters)
- * 11. Get a list of micro instance classes. (DescribeOrderableDBInstanceOptions)
- * 12. Create an Aurora database instance. (CreateDBInstance)
- * 13  Wait for the DB instance to become available. (DescribeDBInstances)
- * 14. Display the connection string that can be used to connect a 'mysql' shell to the database.
- * 15. Create a snapshot of the DB cluster. (CreateDBClusterSnapshot)
- * 16. Wait for the snapshot to become available. (DescribeDBClusterSnapshots)
- * 17. Delete the DB instance. (DeleteDBInstance)
- * 18  Delete the DB cluster. (DeleteDBCluster)
- * 19. Wait for the DB cluster and instance to be deleted. (DescribeDBInstances, DescribeDBClusters)
- * 20. Delete the DB cluster parameter group. (DeleteDBClusterParameterGroup)
+ * 11. Check if the DB instance already exists. (DescribeDBInstances)
+ * 12. Get a list of instance classes. (DescribeOrderableDBInstanceOptions)
+ * 13. Create a DB instance. (CreateDBInstance)
+ * 14. Wait for the DB instance to become available. (DescribeDBInstances)
+ * 15. Display the connection string that can be used to connect a 'mysql' shell to the database.
+ * 16. Create a snapshot of the DB cluster. (CreateDBClusterSnapshot)
+ * 17. Wait for the snapshot to become available. (DescribeDBClusterSnapshots)
+ * 18. Delete the DB instance. (DeleteDBInstance)
+ * 19. Delete the DB cluster. (DeleteDBCluster)
+ * 20. Wait for the DB cluster and instance to be deleted. (DescribeDBInstances, DescribeDBClusters)
+ * 21. Delete the DB cluster parameter group. (DeleteDBClusterParameterGroup)
  *
  */
 
@@ -68,7 +69,8 @@
 namespace AwsDoc {
     namespace Aurora {
         const Aws::String DB_ENGINE("aurora-mysql");
-        const Aws::String CLUSTER_PARAMETER_GROUP_NAME("doc-example-cpp-aurora-parameter-group");
+        const Aws::String CLUSTER_PARAMETER_GROUP_NAME(
+                "doc-example-cpp-aurora-parameter-group");
         const Aws::String DB_CLUSTER_IDENTIFIER("doc-example-cpp-aurora"
                                                 "");
         const Aws::String DB_INSTANCE_IDENTIFIER("doc-example-cpp-instance");
@@ -81,7 +83,7 @@ namespace AwsDoc {
         //! Routine which gets DB cluster parameters using the 'DescribeDBClusterParameters' api.
         /*!
          \sa getDBCLusterParameters()
-         \param parameterGroupName: The name of the parameter group.
+         \param parameterGroupName: The parameter group name.
          \param namePrefix: Prefix string to filter results by parameter name.
          \param source: A source such as 'user', ignored if empty.
          \param parametersResult: Vector of 'Parameter' objects returned by the routine.
@@ -123,7 +125,7 @@ namespace AwsDoc {
 
         //! Routine which gets a DB instance description.
         /*!
-         \sa describeDBCluster()
+         \sa describeDBInstance()
          \param dbInstanceIdentifier: A DB instance identifier.
          \param instanceResult: The 'DBInstance' object containing the description.
          \param client: 'RDSClient' instance.
@@ -133,7 +135,7 @@ namespace AwsDoc {
                                 Aws::RDS::Model::DBInstance &instanceResult,
                                 const Aws::RDS::RDSClient &client);
 
-        //! Routine which gets available 'micro' DB instance classes, displays the list
+        //! Routine which gets available DB instance classes, displays the list
         //! to the user, and returns the user selection.
         /*!
          \sa chooseDBInstanceClass()
@@ -358,7 +360,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
 
     Aws::String marker;
     Aws::Vector<Aws::RDS::Model::Parameter> autoIncrementParameters;
-    // 4.  Get the parameters in the DB parameter group.
+    // 4.  Get the parameters in the DB cluster parameter group.
     if (!getDBCLusterParameters(CLUSTER_PARAMETER_GROUP_NAME, AUTO_INCREMENT_PREFIX,
                                 NO_SOURCE,
                                 autoIncrementParameters,
@@ -399,7 +401,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
     }
 
     {
-        // 5.  Modify the auto increment parameters in the cluster parameter group.
+        // 5.  Modify the auto increment parameters in the DB cluster parameter group.
         // snippet-start:[cpp.example_code.aurora.ModifyDBClusterParameterGroup]
         Aws::RDS::Model::ModifyDBClusterParameterGroupRequest request;
         request.SetDBClusterParameterGroupName(CLUSTER_PARAMETER_GROUP_NAME);
@@ -425,7 +427,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
             << std::endl;
 
     Aws::Vector<Aws::RDS::Model::Parameter> userParameters;
-    // 6.  Display the modified parameters in the cluster parameter group.
+    // 6.  Display the modified parameters in the DB cluster parameter group.
     if (!getDBCLusterParameters(CLUSTER_PARAMETER_GROUP_NAME, NO_NAME_PREFIX, "user",
                                 userParameters,
                                 client)) {
@@ -557,7 +559,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
 
     printAsterisksLine();
     Aws::RDS::Model::DBInstance dbInstance;
-    // 7.  Check if the DB instance already exists.
+    // 11.  Check if the DB instance already exists.
     if (!describeDBInstance(DB_INSTANCE_IDENTIFIER, dbInstance, client)) {
         cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME, DB_CLUSTER_IDENTIFIER, "",
                          client);
@@ -571,7 +573,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
         std::cout << "Let's create a DB instance." << std::endl;
 
         Aws::String dbInstanceClass;
-        // 9.  Get a list of micro instance classes.
+        // 12.  Get a list of instance classes.
         if (!chooseDBInstanceClass(engineName,
                                    engineVersionName,
                                    dbInstanceClass,
@@ -585,6 +587,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
                   << "' with selected DB instance class '" << dbInstanceClass
                   << "'.\nThis typically takes several minutes." << std::endl;
 
+        // 13. Create a DB instance.
         // snippet-start:[cpp.example_code.rds.CreateDBInstance]
         Aws::RDS::Model::CreateDBInstanceRequest request;
         request.SetDBInstanceIdentifier(DB_INSTANCE_IDENTIFIER);
@@ -613,7 +616,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
     std::cout << "Waiting for the DB instance to become available." << std::endl;
 
     counter = 0;
-    // 11. Wait for the DB instance to become available.
+    // 14. Wait for the DB instance to become available.
     do {
         std::this_thread::sleep_for(std::chrono::seconds(1));
         ++counter;
@@ -644,7 +647,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
         std::cout << "The DB instance has been created." << std::endl;
     }
 
-    // 12. Display the connection string that can be used to connect a 'mysql' shell to the database.
+    // 15. Display the connection string that can be used to connect a 'mysql' shell to the database.
     displayConnection(dbCluster);
 
     printAsterisksLine();
@@ -657,7 +660,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
             std::cout << "Creating a snapshot named " << snapshotID << "." << std::endl;
             std::cout << "This typically takes a few minutes." << std::endl;
 
-            // 13. Create a snapshot of the DB cluster.
+            // 16. Create a snapshot of the DB cluster. (CreateDBClusterSnapshot)
             // snippet-start:[cpp.example_code.aurora.CreateDBClusterSnapshot]
             Aws::RDS::Model::CreateDBClusterSnapshotRequest request;
             request.SetDBClusterIdentifier(DB_CLUSTER_IDENTIFIER);
@@ -697,7 +700,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
                 return false;
             }
 
-            // 14. Wait for the snapshot to become available.
+            // 17. Wait for the snapshot to become available.
             // snippet-start:[cpp.example_code.aurora.DescribeDBClusterSnapshots]
             Aws::RDS::Model::DescribeDBClusterSnapshotsRequest request;
             request.SetDBClusterSnapshotIdentifier(snapshotID);
@@ -734,7 +737,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
 
     bool result = true;
     if (askYesNoQuestion(
-            "Do you want to delete the DB instance and parameter group (y/n)? ")) {
+            "Do you want to delete the DB cluster, DB instance and parameter group (y/n)? ")) {
         result = cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME,
                                   DB_CLUSTER_IDENTIFIER, DB_INSTANCE_IDENTIFIER,
                                   client);
@@ -962,14 +965,14 @@ bool AwsDoc::Aurora::chooseDBInstanceClass(const Aws::String &engine,
         }
     } while (!marker.empty());
 
-    std::cout << "The available micro DB instance classes for your database engine are:"
+    std::cout << "The available DB instance classes for your database engine are:"
               << std::endl;
     for (int i = 0; i < instanceClasses.size(); ++i) {
         std::cout << "   " << i + 1 << ": " << instanceClasses[i] << std::endl;
     }
 
     int choice = askQuestionForIntRange(
-            "Which micro DB instance class do you want to use? ",
+            "Which DB instance class do you want to use? ",
             1, static_cast<int>(instanceClasses.size()));
     dbInstanceClass = instanceClasses[choice - 1];
     return true;
@@ -993,7 +996,7 @@ bool AwsDoc::Aurora::cleanUpResources(const Aws::String &parameterGroupName,
     bool clusterDeleting = false;
     if (!dbInstanceIdentifier.empty()) {
         {
-            // 15. Delete the DB instance.
+            // 18. Delete the DB instance.
             // snippet-start:[cpp.example_code.aurora.DeleteDBInstance]
             Aws::RDS::Model::DeleteDBInstanceRequest request;
             request.SetDBInstanceIdentifier(dbInstanceIdentifier);
@@ -1023,7 +1026,7 @@ bool AwsDoc::Aurora::cleanUpResources(const Aws::String &parameterGroupName,
 
     if (!dbClusterIdentifier.empty()) {
         {
-            // 15. Delete the DB cluster.
+            // 19. Delete the DB cluster.
             // snippet-start:[cpp.example_code.aurora.DeleteDBCluster]
             Aws::RDS::Model::DeleteDBClusterRequest request;
             request.SetDBClusterIdentifier(dbClusterIdentifier);
@@ -1053,7 +1056,7 @@ bool AwsDoc::Aurora::cleanUpResources(const Aws::String &parameterGroupName,
     int counter = 0;
 
     while (clusterDeleting || instanceDeleting) {
-        // 16. Wait for the DB instance and cluster to be deleted.
+        // 20. Wait for the DB cluster and instance to be deleted.
         std::this_thread::sleep_for(std::chrono::seconds(1));
         ++counter;
         if (counter > 800) {
@@ -1063,19 +1066,21 @@ bool AwsDoc::Aurora::cleanUpResources(const Aws::String &parameterGroupName,
         }
 
         Aws::RDS::Model::DBInstance dbInstance = Aws::RDS::Model::DBInstance();
-
-        if (!describeDBInstance(dbInstanceIdentifier, dbInstance, client)) {
-            return false;
+        if (instanceDeleting) {
+            if (!describeDBInstance(dbInstanceIdentifier, dbInstance, client)) {
+                return false;
+            }
+            instanceDeleting = dbInstance.DBInstanceIdentifierHasBeenSet();
         }
-        instanceDeleting = dbInstance.DBInstanceIdentifierHasBeenSet();
 
         Aws::RDS::Model::DBCluster dbCluster = Aws::RDS::Model::DBCluster();
+        if (clusterDeleting) {
+            if (!describeDBCluster(dbClusterIdentifier, dbCluster, client)) {
+                return false;
+            }
 
-        if (!describeDBCluster(dbClusterIdentifier, dbCluster, client)) {
-            return false;
+            clusterDeleting = dbCluster.DBClusterArnHasBeenSet();
         }
-
-        clusterDeleting = dbCluster.DBClusterArnHasBeenSet();
 
         if ((counter % 20) == 0) {
             if (instanceDeleting) {
@@ -1091,7 +1096,7 @@ bool AwsDoc::Aurora::cleanUpResources(const Aws::String &parameterGroupName,
     }
 
     if (!parameterGroupName.empty()) {
-        // 17. Delete the cluster parameter group.
+        // 21. Delete the DB cluster parameter group.
         // snippet-start:[cpp.example_code.aurora.DeleteDBClusterParameterGroup]
         Aws::RDS::Model::DeleteDBClusterParameterGroupRequest request;
         request.SetDBClusterParameterGroupName(parameterGroupName);

@@ -2,6 +2,14 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+/*
+ * Test types are indicated by the test label ending.
+ *
+ * _1_ Requires credentials, permissions, and AWS resources.
+ * _2_ Requires credentials and permissions.
+ * _3_ Does not require credentials.
+ *
+ */
 
 #include <gtest/gtest.h>
 #include <fstream>
@@ -15,7 +23,7 @@ namespace AwsDocTest {
     bool addHttpResponses(MockHTTP &mockHttp);
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(Aurora_GTests, gettingStartedWithDBClusters) {
+    TEST_F(Aurora_GTests, gettingStartedWithDBClusters_2_) {
         AddCommandLineResponses(RESPONSES);
 
         bool result = AwsDoc::Aurora::gettingStartedWithDBClusters(*s_clientConfig);
@@ -23,14 +31,14 @@ namespace AwsDocTest {
     }
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(Aurora_GTests, gettingStartedWithDBInstances_m_) {
+    TEST_F(Aurora_GTests, gettingStartedWithDBInstances_3_) {
         AddCommandLineResponses(RESPONSES);
 
         MockHTTP mockHttp;
         bool result = addHttpResponses(mockHttp);
         ASSERT_TRUE(result) << preconditionError();
 
-        result = AwsDoc::RDS::gettingStartedWithDBInstances(*s_clientConfig);
+        result = AwsDoc::Aurora::gettingStartedWithDBClusters(*s_clientConfig);
         ASSERT_TRUE(result);
     }
 
@@ -40,12 +48,12 @@ namespace AwsDocTest {
                                                 "foo", // Enter an administrator username for the database:
                                                 "foo_Foo8", // Enter a password for the administrator (at least 8 characters):
                                                 "1", // The available engines for your parameter group are:
-                                                "1", // Which micro DB instance class do you want to use?
-                                                "y", // Do you want to create a snapshot of your DB instance (y/n)?
-                                                "y"}; // Do you want to delete the DB instance and parameter group (y/n)?
+                                                "1", // Which DB instance class do you want to use?
+                                                "y", // Do you want to create a snapshot of your DB cluster (y/n)?
+                                                "y"}; // Do you want to delete the DB cluster, DB instance and parameter group (y/n)?
 
     bool addHttpResponses(MockHTTP &mockHttp) {
-        if (!mockHttp.addResponseWithBody("mock_input/1-DescribeDBParameterGroups.xml",
+        if (!mockHttp.addResponseWithBody("mock_input/1-DescribeDBClusterParameterGroups.xml",
                                           Aws::Http::HttpResponseCode::NOT_FOUND)) {
             return false;
         }
@@ -53,13 +61,13 @@ namespace AwsDocTest {
                 "mock_input/2-DescribeDBEngineVersions.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/3-CreateDBParameterGroup.xml")) {
+        if (!mockHttp.addResponseWithBody("mock_input/3-CreateDBClusterParameterGroup.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/4-DescribeDBParameters.xml")) {
+        if (!mockHttp.addResponseWithBody("mock_input/4-DescribeDBClusterParameters.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/8-DescribeDBParameters.xml")) {
+        if (!mockHttp.addResponseWithBody("mock_input/5-DescribeDBClusterParameters.xml")) {
             return false;
         }
         if (!mockHttp.addResponseWithBody("mock_input/9-ModifyDBParameterGroup.xml")) {

@@ -2,6 +2,14 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+/*
+ * Test types are indicated by the test label ending.
+ *
+ * _1_ Requires credentials, permissions, and AWS resources.
+ * _2_ Requires credentials and permissions.
+ * _3_ Does not require credentials.
+ *
+ */
 
 #include <gtest/gtest.h>
 #include <fstream>
@@ -15,7 +23,7 @@ namespace AwsDocTest {
     bool addHttpResponses(MockHTTP &mockHttp);
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(RDS_GTests, gettingStartedWithDBInstances) {
+    TEST_F(RDS_GTests, gettingStartedWithDBInstances_2_) {
         AddCommandLineResponses(RESPONSES);
 
         bool result = AwsDoc::RDS::gettingStartedWithDBInstances(*s_clientConfig);
@@ -23,7 +31,7 @@ namespace AwsDocTest {
     }
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(RDS_GTests, gettingStartedWithDBInstances_m_) {
+    TEST_F(RDS_GTests, gettingStartedWithDBInstances_3_) {
         AddCommandLineResponses(RESPONSES);
 
         MockHTTP mockHttp;
