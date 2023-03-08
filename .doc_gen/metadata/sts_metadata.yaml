@@ -75,6 +75,16 @@ sts_AssumeRole:
             - description:
               snippet_tags:
                 - iam.swift.basics.sts.assumerole
+
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/sts/
+          excerpts:
+            - description:
+              snippet_tags:
+                - sts.rust.assume_role
+
   services:
     sts: {AssumeRole}
 sts_GetSessionToken:

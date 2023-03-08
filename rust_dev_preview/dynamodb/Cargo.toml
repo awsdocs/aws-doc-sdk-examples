@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = [
   "Russell Cohen <rcoh@amazon.com>",
   "Doug Schwartz <dougsch@amazon.com>",
+  "David Souther <davidsouther@gmail.com>"
 ]
 edition = "2021"
 
