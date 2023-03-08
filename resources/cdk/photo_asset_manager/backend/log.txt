@@ -1,0 +1,1639 @@
+Resources:
+  AppGroupA7923CE0:
+    Type: AWS::IAM::Group
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/AppGroup/Resource
+  AppUser56EEC556:
+    Type: AWS::IAM::User
+    Properties:
+      Groups:
+        - Ref: AppGroupA7923CE0
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/AppUser/Resource
+  AppUserDefaultPolicy977081C0:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - s3:GetObject*
+              - s3:GetBucket*
+              - s3:List*
+              - s3:DeleteObject*
+              - s3:PutObject
+              - s3:PutObjectLegalHold
+              - s3:PutObjectRetention
+              - s3:PutObjectTagging
+              - s3:PutObjectVersionTagging
+              - s3:Abort*
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - storagebucket3510E1B1
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - storagebucket3510E1B1
+                        - Arn
+                    - /*
+          - Action:
+              - s3:GetObject*
+              - s3:GetBucket*
+              - s3:List*
+              - s3:DeleteObject*
+              - s3:PutObject
+              - s3:PutObjectLegalHold
+              - s3:PutObjectRetention
+              - s3:PutObjectTagging
+              - s3:PutObjectVersionTagging
+              - s3:Abort*
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - workingbucket8E743FDC
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - workingbucket8E743FDC
+                        - Arn
+                    - /*
+        Version: "2012-10-17"
+      PolicyName: AppUserDefaultPolicy977081C0
+      Users:
+        - Ref: AppUser56EEC556
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/AppUser/DefaultPolicy/Resource
+  storagebucket3510E1B1:
+    Type: AWS::S3::Bucket
+    Properties:
+      LifecycleConfiguration:
+        Rules:
+          - Status: Enabled
+            TagFilters:
+              - Key: rekognition
+                Value: complete
+            Transitions:
+              - StorageClass: GLACIER
+                TransitionInDays: 1
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/storage-bucket/Resource
+  storagebucketNotifications12C4257C:
+    Type: Custom::S3BucketNotifications
+    Properties:
+      ServiceToken:
+        Fn::GetAtt:
+          - BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691
+          - Arn
+      BucketName:
+        Ref: storagebucket3510E1B1
+      NotificationConfiguration:
+        LambdaFunctionConfigurations:
+          - Events:
+              - s3:ObjectCreated:*
+            Filter:
+              Key:
+                FilterRules:
+                  - Name: suffix
+                    Value: .jpg
+            LambdaFunctionArn:
+              Fn::GetAtt:
+                - DetectLabelsFn20BB783B
+                - Arn
+          - Events:
+              - s3:ObjectCreated:*
+            Filter:
+              Key:
+                FilterRules:
+                  - Name: suffix
+                    Value: .jpeg
+            LambdaFunctionArn:
+              Fn::GetAtt:
+                - DetectLabelsFn20BB783B
+                - Arn
+      Managed: true
+    DependsOn:
+      - storagebucketAllowBucketNotificationsTocorepylePythonPAMDetectLabelsFn5707F3098075338C
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/storage-bucket/Notifications/Resource
+  storagebucketAllowBucketNotificationsTocorepylePythonPAMDetectLabelsFn5707F3098075338C:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - DetectLabelsFn20BB783B
+          - Arn
+      Principal: s3.amazonaws.com
+      SourceAccount:
+        Ref: AWS::AccountId
+      SourceArn:
+        Fn::GetAtt:
+          - storagebucket3510E1B1
+          - Arn
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/storage-bucket/AllowBucketNotificationsTocorepylePythonPAMDetectLabelsFn5707F309
+  workingbucket8E743FDC:
+    Type: AWS::S3::Bucket
+    Properties:
+      LifecycleConfiguration:
+        Rules:
+          - ExpirationInDays: 1
+            Status: Enabled
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/working-bucket/Resource
+  LabelsTableDD3C024F:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+        - AttributeName: Label
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: Label
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/LabelsTable/Resource
+  JobsTable1970BC16:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      KeySchema:
+        - AttributeName: JobId
+          KeyType: HASH
+      AttributeDefinitions:
+        - AttributeName: JobId
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/JobsTable/Resource
+  UserPool6BA7E5F2:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      AccountRecoverySetting:
+        RecoveryMechanisms:
+          - Name: admin_only
+            Priority: 1
+      AdminCreateUserConfig:
+        AllowAdminCreateUserOnly: true
+      EmailVerificationMessage: The verification code to your new account is {####}
+      EmailVerificationSubject: Verify your new account
+      MfaConfiguration: "OFF"
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 6
+          RequireLowercase: false
+          RequireNumbers: false
+          RequireSymbols: false
+          RequireUppercase: false
+      SmsVerificationMessage: The verification code to your new account is {####}
+      VerificationMessageTemplate:
+        DefaultEmailOption: CONFIRM_WITH_CODE
+        EmailMessage: The verification code to your new account is {####}
+        EmailSubject: Verify your new account
+        SmsMessage: The verification code to your new account is {####}
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/UserPool/Resource
+  UserPoolAppClientDD0407EC:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      UserPoolId:
+        Ref: UserPool6BA7E5F2
+      AllowedOAuthFlows:
+        - implicit
+        - code
+      AllowedOAuthFlowsUserPoolClient: true
+      AllowedOAuthScopes:
+        - profile
+        - phone
+        - email
+        - openid
+        - aws.cognito.signin.user.admin
+      CallbackURLs:
+        - https://example.com
+      SupportedIdentityProviders:
+        - COGNITO
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/UserPool/AppClient/Resource
+  UserPoolDefaultUser:
+    Type: AWS::Cognito::UserPoolUser
+    Properties:
+      UserPoolId:
+        Ref: UserPool6BA7E5F2
+      UserAttributes:
+        - Name: email
+          Value: corepyle@amazon.com
+      Username: corepyle@amazon.com
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/UserPool-DefaultUser
+  DetectLabelsFnServiceRole7160AEE3:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/DetectLabelsFn/ServiceRole/Resource
+  DetectLabelsFnServiceRoleDefaultPolicyBC449A42:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: rekognition:DetectLabels
+            Effect: Allow
+            Resource: "*"
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:ConditionCheckItem
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+              - dynamodb:DescribeTable
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - LabelsTableDD3C024F
+                  - Arn
+              - Ref: AWS::NoValue
+          - Action:
+              - s3:GetObject*
+              - s3:GetBucket*
+              - s3:List*
+              - s3:DeleteObject*
+              - s3:PutObject
+              - s3:PutObjectLegalHold
+              - s3:PutObjectRetention
+              - s3:PutObjectTagging
+              - s3:PutObjectVersionTagging
+              - s3:Abort*
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - storagebucket3510E1B1
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - storagebucket3510E1B1
+                        - Arn
+                    - /*
+        Version: "2012-10-17"
+      PolicyName: DetectLabelsFnServiceRoleDefaultPolicyBC449A42
+      Roles:
+        - Ref: DetectLabelsFnServiceRole7160AEE3
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/DetectLabelsFn/ServiceRole/DefaultPolicy/Resource
+  DetectLabelsFn20BB783B:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: d731302b4801ca18b59345bb26754cb824057ddf9bd7403207dd4e99f160aa15.zip
+      Role:
+        Fn::GetAtt:
+          - DetectLabelsFnServiceRole7160AEE3
+          - Arn
+      Environment:
+        Variables:
+          WORKING_BUCKET_NAME:
+            Ref: workingbucket8E743FDC
+          STORAGE_BUCKET_NAME:
+            Ref: storagebucket3510E1B1
+          JOBS_TABLE_NAME:
+            Ref: JobsTable1970BC16
+          LABELS_TABLE_NAME:
+            Ref: LabelsTableDD3C024F
+      Handler: rekfunction.handler
+      Runtime: python3.8
+    DependsOn:
+      - DetectLabelsFnServiceRoleDefaultPolicyBC449A42
+      - DetectLabelsFnServiceRole7160AEE3
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/DetectLabelsFn/Resource
+      aws:asset:path: asset.d731302b4801ca18b59345bb26754cb824057ddf9bd7403207dd4e99f160aa15
+      aws:asset:is-bundled: false
+      aws:asset:property: Code
+  LabelsFnServiceRoleED1B0093:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/LabelsFn/ServiceRole/Resource
+  LabelsFnServiceRoleDefaultPolicy2348BFAE:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:ConditionCheckItem
+              - dynamodb:DescribeTable
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - LabelsTableDD3C024F
+                  - Arn
+              - Ref: AWS::NoValue
+        Version: "2012-10-17"
+      PolicyName: LabelsFnServiceRoleDefaultPolicy2348BFAE
+      Roles:
+        - Ref: LabelsFnServiceRoleED1B0093
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/LabelsFn/ServiceRole/DefaultPolicy/Resource
+  LabelsFn2EB9F503:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: d731302b4801ca18b59345bb26754cb824057ddf9bd7403207dd4e99f160aa15.zip
+      Role:
+        Fn::GetAtt:
+          - LabelsFnServiceRoleED1B0093
+          - Arn
+      Environment:
+        Variables:
+          WORKING_BUCKET_NAME:
+            Ref: workingbucket8E743FDC
+          STORAGE_BUCKET_NAME:
+            Ref: storagebucket3510E1B1
+          JOBS_TABLE_NAME:
+            Ref: JobsTable1970BC16
+          LABELS_TABLE_NAME:
+            Ref: LabelsTableDD3C024F
+      Handler: rek.func
+      Runtime: python3.8
+    DependsOn:
+      - LabelsFnServiceRoleDefaultPolicy2348BFAE
+      - LabelsFnServiceRoleED1B0093
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/LabelsFn/Resource
+      aws:asset:path: asset.d731302b4801ca18b59345bb26754cb824057ddf9bd7403207dd4e99f160aa15
+      aws:asset:is-bundled: false
+      aws:asset:property: Code
+  UploadFnServiceRoleBC442095:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/UploadFn/ServiceRole/Resource
+  UploadFnServiceRoleDefaultPolicy1F739523:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - s3:PutObject
+              - s3:PutObjectLegalHold
+              - s3:PutObjectRetention
+              - s3:PutObjectTagging
+              - s3:PutObjectVersionTagging
+              - s3:Abort*
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - storagebucket3510E1B1
+                      - Arn
+                  - /*
+        Version: "2012-10-17"
+      PolicyName: UploadFnServiceRoleDefaultPolicy1F739523
+      Roles:
+        - Ref: UploadFnServiceRoleBC442095
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/UploadFn/ServiceRole/DefaultPolicy/Resource
+  UploadFnEA455C04:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: d731302b4801ca18b59345bb26754cb824057ddf9bd7403207dd4e99f160aa15.zip
+      Role:
+        Fn::GetAtt:
+          - UploadFnServiceRoleBC442095
+          - Arn
+      Environment:
+        Variables:
+          WORKING_BUCKET_NAME:
+            Ref: workingbucket8E743FDC
+          STORAGE_BUCKET_NAME:
+            Ref: storagebucket3510E1B1
+          JOBS_TABLE_NAME:
+            Ref: JobsTable1970BC16
+          LABELS_TABLE_NAME:
+            Ref: LabelsTableDD3C024F
+      Handler: rek.func
+      Runtime: python3.8
+    DependsOn:
+      - UploadFnServiceRoleDefaultPolicy1F739523
+      - UploadFnServiceRoleBC442095
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/UploadFn/Resource
+      aws:asset:path: asset.d731302b4801ca18b59345bb26754cb824057ddf9bd7403207dd4e99f160aa15
+      aws:asset:is-bundled: false
+      aws:asset:property: Code
+  CopyFnServiceRoleA9C8B8E1:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/CopyFn/ServiceRole/Resource
+  CopyFnServiceRoleDefaultPolicyC1E674BE:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - s3:PutObject
+              - s3:PutObjectLegalHold
+              - s3:PutObjectRetention
+              - s3:PutObjectTagging
+              - s3:PutObjectVersionTagging
+              - s3:Abort*
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - storagebucket3510E1B1
+                      - Arn
+                  - /*
+        Version: "2012-10-17"
+      PolicyName: CopyFnServiceRoleDefaultPolicyC1E674BE
+      Roles:
+        - Ref: CopyFnServiceRoleA9C8B8E1
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/CopyFn/ServiceRole/DefaultPolicy/Resource
+  CopyFn2992BD70:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: d731302b4801ca18b59345bb26754cb824057ddf9bd7403207dd4e99f160aa15.zip
+      Role:
+        Fn::GetAtt:
+          - CopyFnServiceRoleA9C8B8E1
+          - Arn
+      Environment:
+        Variables:
+          WORKING_BUCKET_NAME:
+            Ref: workingbucket8E743FDC
+          STORAGE_BUCKET_NAME:
+            Ref: storagebucket3510E1B1
+          JOBS_TABLE_NAME:
+            Ref: JobsTable1970BC16
+          LABELS_TABLE_NAME:
+            Ref: LabelsTableDD3C024F
+      Handler: rek.func
+      Runtime: python3.8
+    DependsOn:
+      - CopyFnServiceRoleDefaultPolicyC1E674BE
+      - CopyFnServiceRoleA9C8B8E1
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/CopyFn/Resource
+      aws:asset:path: asset.d731302b4801ca18b59345bb26754cb824057ddf9bd7403207dd4e99f160aa15
+      aws:asset:is-bundled: false
+      aws:asset:property: Code
+  DownloadFnServiceRole2F444B75:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/DownloadFn/ServiceRole/Resource
+  DownloadFnServiceRoleDefaultPolicy737B9BE4:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - dynamodb:BatchGetItem
+              - dynamodb:GetRecords
+              - dynamodb:GetShardIterator
+              - dynamodb:Query
+              - dynamodb:GetItem
+              - dynamodb:Scan
+              - dynamodb:ConditionCheckItem
+              - dynamodb:DescribeTable
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - LabelsTableDD3C024F
+                  - Arn
+              - Ref: AWS::NoValue
+          - Action:
+              - dynamodb:BatchWriteItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+              - dynamodb:DescribeTable
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - JobsTable1970BC16
+                  - Arn
+              - Ref: AWS::NoValue
+          - Action:
+              - s3:PutObject
+              - s3:PutObjectLegalHold
+              - s3:PutObjectRetention
+              - s3:PutObjectTagging
+              - s3:PutObjectVersionTagging
+              - s3:Abort*
+            Effect: Allow
+            Resource:
+              Fn::Join:
+                - ""
+                - - Fn::GetAtt:
+                      - workingbucket8E743FDC
+                      - Arn
+                  - /*
+          - Action: sns:subscribe
+            Effect: Allow
+            Resource: "*"
+        Version: "2012-10-17"
+      PolicyName: DownloadFnServiceRoleDefaultPolicy737B9BE4
+      Roles:
+        - Ref: DownloadFnServiceRole2F444B75
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/DownloadFn/ServiceRole/DefaultPolicy/Resource
+  DownloadFnB5322B3F:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: d731302b4801ca18b59345bb26754cb824057ddf9bd7403207dd4e99f160aa15.zip
+      Role:
+        Fn::GetAtt:
+          - DownloadFnServiceRole2F444B75
+          - Arn
+      Environment:
+        Variables:
+          WORKING_BUCKET_NAME:
+            Ref: workingbucket8E743FDC
+          STORAGE_BUCKET_NAME:
+            Ref: storagebucket3510E1B1
+          JOBS_TABLE_NAME:
+            Ref: JobsTable1970BC16
+          LABELS_TABLE_NAME:
+            Ref: LabelsTableDD3C024F
+      Handler: rek.func
+      Runtime: python3.8
+    DependsOn:
+      - DownloadFnServiceRoleDefaultPolicy737B9BE4
+      - DownloadFnServiceRole2F444B75
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/DownloadFn/Resource
+      aws:asset:path: asset.d731302b4801ca18b59345bb26754cb824057ddf9bd7403207dd4e99f160aa15
+      aws:asset:is-bundled: false
+      aws:asset:property: Code
+  RestApi0C43BF4B:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: corepyle-Python-PAM
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Resource
+  RestApiCloudWatchRoleE3ED6605:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: apigateway.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/CloudWatchRole/Resource
+  RestApiAccount7C83CF5A:
+    Type: AWS::ApiGateway::Account
+    Properties:
+      CloudWatchRoleArn:
+        Fn::GetAtt:
+          - RestApiCloudWatchRoleE3ED6605
+          - Arn
+    DependsOn:
+      - RestApi0C43BF4B
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Account
+  RestApiDeployment180EC503e8112f6364aa16bd4a43d4125b9ba082:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId:
+        Ref: RestApi0C43BF4B
+      Description: Automatically created by the RestApi construct
+    DependsOn:
+      - RestApidownloadOPTIONS46C5171B
+      - RestApidownloadPUT051B1A6C
+      - RestApidownload1EFA4094
+      - RestApilabelsGET2FE4E939
+      - RestApilabelsOPTIONSCDAF3C3C
+      - RestApilabels4DC28C97
+      - RestApiOPTIONS6AA64D2D
+      - RestApis3copyOPTIONSEBEF5905
+      - RestApis3copyPUT695FECD9
+      - RestApis3copyBFAB5C4E
+      - RestApiuploadOPTIONS3D60EAC5
+      - RestApiuploadPUTC37A0A1A
+      - RestApiuploadB3DA5A15
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Deployment/Resource
+  RestApiDeploymentStageprod3855DE66:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      RestApiId:
+        Ref: RestApi0C43BF4B
+      DeploymentId:
+        Ref: RestApiDeployment180EC503e8112f6364aa16bd4a43d4125b9ba082
+      StageName: prod
+    DependsOn:
+      - RestApiAccount7C83CF5A
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/DeploymentStage.prod/Resource
+  RestApiOPTIONS6AA64D2D:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Fn::GetAtt:
+          - RestApi0C43BF4B
+          - RootResourceId
+      RestApiId:
+        Ref: RestApi0C43BF4B
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/OPTIONS/Resource
+  RestApilabels4DC28C97:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - RestApi0C43BF4B
+          - RootResourceId
+      PathPart: labels
+      RestApiId:
+        Ref: RestApi0C43BF4B
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/labels/Resource
+  RestApilabelsOPTIONSCDAF3C3C:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Ref: RestApilabels4DC28C97
+      RestApiId:
+        Ref: RestApi0C43BF4B
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/labels/OPTIONS/Resource
+  RestApilabelsGETApiPermissioncorepylePythonPAMRestApiAB8D1D76GETlabels0DD12B8F:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - LabelsFn2EB9F503
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: RestApi0C43BF4B
+            - /
+            - Ref: RestApiDeploymentStageprod3855DE66
+            - /GET/labels
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/labels/GET/ApiPermission.corepylePythonPAMRestApiAB8D1D76.GET..labels
+  RestApilabelsGETApiPermissionTestcorepylePythonPAMRestApiAB8D1D76GETlabelsD2996DBA:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - LabelsFn2EB9F503
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: RestApi0C43BF4B
+            - /test-invoke-stage/GET/labels
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/labels/GET/ApiPermission.Test.corepylePythonPAMRestApiAB8D1D76.GET..labels
+  RestApilabelsGET2FE4E939:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      ResourceId:
+        Ref: RestApilabels4DC28C97
+      RestApiId:
+        Ref: RestApi0C43BF4B
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - LabelsFn2EB9F503
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/labels/GET/Resource
+  RestApiuploadB3DA5A15:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - RestApi0C43BF4B
+          - RootResourceId
+      PathPart: upload
+      RestApiId:
+        Ref: RestApi0C43BF4B
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/upload/Resource
+  RestApiuploadOPTIONS3D60EAC5:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Ref: RestApiuploadB3DA5A15
+      RestApiId:
+        Ref: RestApi0C43BF4B
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/upload/OPTIONS/Resource
+  RestApiuploadPUTApiPermissioncorepylePythonPAMRestApiAB8D1D76PUTupload5BAD3586:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - UploadFnEA455C04
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: RestApi0C43BF4B
+            - /
+            - Ref: RestApiDeploymentStageprod3855DE66
+            - /PUT/upload
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/upload/PUT/ApiPermission.corepylePythonPAMRestApiAB8D1D76.PUT..upload
+  RestApiuploadPUTApiPermissionTestcorepylePythonPAMRestApiAB8D1D76PUTupload989DEDBE:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - UploadFnEA455C04
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: RestApi0C43BF4B
+            - /test-invoke-stage/PUT/upload
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/upload/PUT/ApiPermission.Test.corepylePythonPAMRestApiAB8D1D76.PUT..upload
+  RestApiuploadPUTC37A0A1A:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: PUT
+      ResourceId:
+        Ref: RestApiuploadB3DA5A15
+      RestApiId:
+        Ref: RestApi0C43BF4B
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - UploadFnEA455C04
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/upload/PUT/Resource
+  RestApis3copyBFAB5C4E:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - RestApi0C43BF4B
+          - RootResourceId
+      PathPart: s3_copy
+      RestApiId:
+        Ref: RestApi0C43BF4B
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/s3_copy/Resource
+  RestApis3copyOPTIONSEBEF5905:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Ref: RestApis3copyBFAB5C4E
+      RestApiId:
+        Ref: RestApi0C43BF4B
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/s3_copy/OPTIONS/Resource
+  RestApis3copyPUTApiPermissioncorepylePythonPAMRestApiAB8D1D76PUTs3copyA5E276F3:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - CopyFn2992BD70
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: RestApi0C43BF4B
+            - /
+            - Ref: RestApiDeploymentStageprod3855DE66
+            - /PUT/s3_copy
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/s3_copy/PUT/ApiPermission.corepylePythonPAMRestApiAB8D1D76.PUT..s3_copy
+  RestApis3copyPUTApiPermissionTestcorepylePythonPAMRestApiAB8D1D76PUTs3copy6911E13E:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - CopyFn2992BD70
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: RestApi0C43BF4B
+            - /test-invoke-stage/PUT/s3_copy
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/s3_copy/PUT/ApiPermission.Test.corepylePythonPAMRestApiAB8D1D76.PUT..s3_copy
+  RestApis3copyPUT695FECD9:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: PUT
+      ResourceId:
+        Ref: RestApis3copyBFAB5C4E
+      RestApiId:
+        Ref: RestApi0C43BF4B
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - CopyFn2992BD70
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/s3_copy/PUT/Resource
+  RestApidownload1EFA4094:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+          - RestApi0C43BF4B
+          - RootResourceId
+      PathPart: download
+      RestApiId:
+        Ref: RestApi0C43BF4B
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/download/Resource
+  RestApidownloadOPTIONS46C5171B:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId:
+        Ref: RestApidownload1EFA4094
+      RestApiId:
+        Ref: RestApi0C43BF4B
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET,PUT,POST,DELETE,PATCH,HEAD'"
+              method.response.header.Access-Control-Allow-Credentials: "'true'"
+            StatusCode: "204"
+        RequestTemplates:
+          application/json: "{ statusCode: 200 }"
+        Type: MOCK
+      MethodResponses:
+        - ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: true
+            method.response.header.Access-Control-Allow-Origin: true
+            method.response.header.Access-Control-Allow-Methods: true
+            method.response.header.Access-Control-Allow-Credentials: true
+          StatusCode: "204"
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/download/OPTIONS/Resource
+  RestApidownloadPUTApiPermissioncorepylePythonPAMRestApiAB8D1D76PUTdownloadFB7A18FD:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - DownloadFnB5322B3F
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: RestApi0C43BF4B
+            - /
+            - Ref: RestApiDeploymentStageprod3855DE66
+            - /PUT/download
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/download/PUT/ApiPermission.corepylePythonPAMRestApiAB8D1D76.PUT..download
+  RestApidownloadPUTApiPermissionTestcorepylePythonPAMRestApiAB8D1D76PUTdownload812C703D:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName:
+        Fn::GetAtt:
+          - DownloadFnB5322B3F
+          - Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":execute-api:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - ":"
+            - Ref: RestApi0C43BF4B
+            - /test-invoke-stage/PUT/download
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/download/PUT/ApiPermission.Test.corepylePythonPAMRestApiAB8D1D76.PUT..download
+  RestApidownloadPUT051B1A6C:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: PUT
+      ResourceId:
+        Ref: RestApidownload1EFA4094
+      RestApiId:
+        Ref: RestApi0C43BF4B
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - ":apigateway:"
+              - Ref: AWS::Region
+              - :lambda:path/2015-03-31/functions/
+              - Fn::GetAtt:
+                  - DownloadFnB5322B3F
+                  - Arn
+              - /invocations
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/RestApi/Default/download/PUT/Resource
+  website333B7473:
+    Type: AWS::S3::Bucket
+    Properties:
+      Tags:
+        - Key: aws-cdk:cr-owned:99b50747
+          Value: "true"
+      WebsiteConfiguration:
+        IndexDocument: index.html
+    UpdateReplacePolicy: Retain
+    DeletionPolicy: Retain
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/website/Resource
+  WebsiteAwsCliLayer327FEA7E:
+    Type: AWS::Lambda::LayerVersion
+    Properties:
+      Content:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: 68b22621fff135f9e3f225bad7ff80fdf2f45c3d9910af601206a0d9b279933a.zip
+      Description: /opt/awscli/aws
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/Website/AwsCliLayer/Resource
+      aws:asset:path: asset.68b22621fff135f9e3f225bad7ff80fdf2f45c3d9910af601206a0d9b279933a.zip
+      aws:asset:is-bundled: false
+      aws:asset:property: Content
+  WebsiteCustomResourceF2875A30:
+    Type: Custom::CDKBucketDeployment
+    Properties:
+      ServiceToken:
+        Fn::GetAtt:
+          - CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536
+          - Arn
+      SourceBucketNames:
+        - Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+      SourceObjectKeys:
+        - 81584a2a8b7635383ae629f6b30a672a63f07cf77a28f6f12b956c28f6413315.zip
+      DestinationBucketName:
+        Ref: website333B7473
+      Prune: true
+    UpdateReplacePolicy: Delete
+    DeletionPolicy: Delete
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/Website/CustomResource/Default
+  CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/Resource
+  CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action:
+              - s3:GetObject*
+              - s3:GetBucket*
+              - s3:List*
+            Effect: Allow
+            Resource:
+              - Fn::Join:
+                  - ""
+                  - - "arn:"
+                    - Ref: AWS::Partition
+                    - ":s3:::"
+                    - Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+              - Fn::Join:
+                  - ""
+                  - - "arn:"
+                    - Ref: AWS::Partition
+                    - ":s3:::"
+                    - Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+                    - /*
+          - Action:
+              - s3:GetObject*
+              - s3:GetBucket*
+              - s3:List*
+              - s3:DeleteObject*
+              - s3:PutObject
+              - s3:PutObjectLegalHold
+              - s3:PutObjectRetention
+              - s3:PutObjectTagging
+              - s3:PutObjectVersionTagging
+              - s3:Abort*
+            Effect: Allow
+            Resource:
+              - Fn::GetAtt:
+                  - website333B7473
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - website333B7473
+                        - Arn
+                    - /*
+        Version: "2012-10-17"
+      PolicyName: CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF
+      Roles:
+        - Ref: CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/ServiceRole/DefaultPolicy/Resource
+  CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Fn::Sub: cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}
+        S3Key: 2bc265c5e0569aeb24a6349c15bd54e76e845892376515e036627ab0cc70bb64.zip
+      Role:
+        Fn::GetAtt:
+          - CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265
+          - Arn
+      Handler: index.handler
+      Layers:
+        - Ref: WebsiteAwsCliLayer327FEA7E
+      Runtime: python3.9
+      Timeout: 900
+    DependsOn:
+      - CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF
+      - CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRole89A01265
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Resource
+      aws:asset:path: asset.2bc265c5e0569aeb24a6349c15bd54e76e845892376515e036627ab0cc70bb64
+      aws:asset:is-bundled: false
+      aws:asset:property: Code
+  BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action: sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+        Version: "2012-10-17"
+      ManagedPolicyArns:
+        - Fn::Join:
+            - ""
+            - - "arn:"
+              - Ref: AWS::Partition
+              - :iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/Resource
+  BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyDocument:
+        Statement:
+          - Action: s3:PutBucketNotification
+            Effect: Allow
+            Resource: "*"
+        Version: "2012-10-17"
+      PolicyName: BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36
+      Roles:
+        - Ref: BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Role/DefaultPolicy/Resource
+  BucketNotificationsHandler050a0587b7544547bf325f094a3db8347ECC3691:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: AWS CloudFormation handler for "Custom::S3BucketNotifications" resources (@aws-cdk/aws-s3)
+      Code:
+        ZipFile: |
+          import boto3  # type: ignore
+          import json
+          import logging
+          import urllib.request
+
+          s3 = boto3.client("s3")
+
+          EVENTBRIDGE_CONFIGURATION = 'EventBridgeConfiguration'
+
+          CONFIGURATION_TYPES = ["TopicConfigurations", "QueueConfigurations", "LambdaFunctionConfigurations"]
+
+          def handler(event: dict, context):
+            response_status = "SUCCESS"
+            error_message = ""
+            try:
+              props = event["ResourceProperties"]
+              bucket = props["BucketName"]
+              notification_configuration = props["NotificationConfiguration"]
+              request_type = event["RequestType"]
+              managed = props.get('Managed', 'true').lower() == 'true'
+              stack_id = event['StackId']
+
+              if managed:
+                config = handle_managed(request_type, notification_configuration)
+              else:
+                config = handle_unmanaged(bucket, stack_id, request_type, notification_configuration)
+
+              put_bucket_notification_configuration(bucket, config)
+            except Exception as e:
+              logging.exception("Failed to put bucket notification configuration")
+              response_status = "FAILED"
+              error_message = f"Error: {str(e)}. "
+            finally:
+              submit_response(event, context, response_status, error_message)
+
+          def handle_managed(request_type, notification_configuration):
+            if request_type == 'Delete':
+              return {}
+            return notification_configuration
+
+          def handle_unmanaged(bucket, stack_id, request_type, notification_configuration):
+            external_notifications = find_external_notifications(bucket, stack_id)
+
+            if request_type == 'Delete':
+              return external_notifications
+
+            def with_id(notification):
+              notification['Id'] = f"{stack_id}-{hash(json.dumps(notification, sort_keys=True))}"
+              return notification
+
+            notifications = {}
+            for t in CONFIGURATION_TYPES:
+              external = external_notifications.get(t, [])
+              incoming = [with_id(n) for n in notification_configuration.get(t, [])]
+              notifications[t] = external + incoming
+
+            if EVENTBRIDGE_CONFIGURATION in notification_configuration:
+              notifications[EVENTBRIDGE_CONFIGURATION] = notification_configuration[EVENTBRIDGE_CONFIGURATION]
+            elif EVENTBRIDGE_CONFIGURATION in external_notifications:
+              notifications[EVENTBRIDGE_CONFIGURATION] = external_notifications[EVENTBRIDGE_CONFIGURATION]
+
+            return notifications
+
+          def find_external_notifications(bucket, stack_id):
+            existing_notifications = get_bucket_notification_configuration(bucket)
+            external_notifications = {}
+            for t in CONFIGURATION_TYPES:
+              external_notifications[t] = [n for n in existing_notifications.get(t, []) if not n['Id'].startswith(f"{stack_id}-")]
+
+            if EVENTBRIDGE_CONFIGURATION in existing_notifications:
+              external_notifications[EVENTBRIDGE_CONFIGURATION] = existing_notifications[EVENTBRIDGE_CONFIGURATION]
+
+            return external_notifications
+
+          def get_bucket_notification_configuration(bucket):
+            return s3.get_bucket_notification_configuration(Bucket=bucket)
+
+          def put_bucket_notification_configuration(bucket, notification_configuration):
+            s3.put_bucket_notification_configuration(Bucket=bucket, NotificationConfiguration=notification_configuration)
+
+          def submit_response(event: dict, context, response_status: str, error_message: str):
+            response_body = json.dumps(
+              {
+                "Status": response_status,
+                "Reason": f"{error_message}See the details in CloudWatch Log Stream: {context.log_stream_name}",
+                "PhysicalResourceId": event.get("PhysicalResourceId") or event["LogicalResourceId"],
+                "StackId": event["StackId"],
+                "RequestId": event["RequestId"],
+                "LogicalResourceId": event["LogicalResourceId"],
+                "NoEcho": False,
+              }
+            ).encode("utf-8")
+            headers = {"content-type": "", "content-length": str(len(response_body))}
+            try:
+              req = urllib.request.Request(url=event["ResponseURL"], headers=headers, data=response_body, method="PUT")
+              with urllib.request.urlopen(req) as response:
+                print(response.read().decode("utf-8"))
+              print("Status code: " + response.reason)
+            except Exception as e:
+                print("send(..) failed executing request.urlopen(..): " + str(e))
+      Handler: index.handler
+      Role:
+        Fn::GetAtt:
+          - BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC
+          - Arn
+      Runtime: python3.9
+      Timeout: 300
+    DependsOn:
+      - BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleDefaultPolicy2CF63D36
+      - BucketNotificationsHandler050a0587b7544547bf325f094a3db834RoleB6FB88EC
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/BucketNotificationsHandler050a0587b7544547bf325f094a3db834/Resource
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAA/2VSwU7DMAz9lt2zMDYJzl0RXEBMG3CtstSUsDSumkRTFfXfiZNuq8TJzy8vsZ+dNX945KuFONulrE9LrY48HJyQJxapKijR8vDSo+9Y+W0y+LTQU5biDrWSA6UT2qMGSimOzG542Hp5AkfchHLYChsFWrTHWvBAD0DfKmsVGvbsjXQEIj3Hr2KA/gv6JDoo02hweFWMrB6MaLGOHj7EMfeRwMgkNkY55IG63iHqi4OEL6DUCoybH/1nKJKxKghrwVleUGA1dBqHNop59vd0JUYmOtUIB2cx8LAH64pOpRndYCEl+ljodovYWRaX0iRDGcSr6HsJNEX2Bu4Hazqc0OV0KpLwOM6zmyS1T4/GcZLi3bvOu2kxlaaJV/EvSK14cbZxHmkJrPTWYTsvVKKpVd7DbohtmLsNv1/zldgsfq1Syz76Uy3wfY5/nYsgTnoCAAA=
+    Metadata:
+      aws:cdk:path: corepyle-Python-PAM/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Outputs:
+  RestApiEndpoint0551178A:
+    Value:
+      Fn::Join:
+        - ""
+        - - https://
+          - Ref: RestApi0C43BF4B
+          - .execute-api.
+          - Ref: AWS::Region
+          - "."
+          - Ref: AWS::URLSuffix
+          - /
+          - Ref: RestApiDeploymentStageprod3855DE66
+          - /
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - af-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+Parameters:
+  BootstrapVersion:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cdk-bootstrap/hnb659fds/version
+    Description: Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]
+Rules:
+  CheckBootstrapVersion:
+    Assertions:
+      - Assert:
+          Fn::Not:
+            - Fn::Contains:
+                - - "1"
+                  - "2"
+                  - "3"
+                  - "4"
+                  - "5"
+                - Ref: BootstrapVersion
+        AssertDescription: CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.
+

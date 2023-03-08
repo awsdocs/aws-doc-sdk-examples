@@ -8,15 +8,23 @@ from aws_cdk import (
     aws_iam as iam,
     aws_lambda as lambda_cdk,
     aws_s3 as s3,
+<<<<<<< HEAD:resources/cdk/rekognition-photo-analyzer/rekognition_photo_analyzer/rekognition_photo_analyzer.py
     aws_s3_deployment as s3_deployment,
+=======
+>>>>>>> 9fbe243c7 (separate frontend and backend cdk apps):resources/cdk/photo_asset_manager/backend/rekognition_photo_analyzer/rekognition_photo_analyzer.py
     aws_s3_notifications as s3_notifications,
+    CfnOutput,
     BundlingOptions,
     BundlingOutput,
     DockerVolume,
     Duration,
+<<<<<<< HEAD:resources/cdk/rekognition-photo-analyzer/rekognition_photo_analyzer/rekognition_photo_analyzer.py
     RemovalPolicy,
+=======
+>>>>>>> 9fbe243c7 (separate frontend and backend cdk apps):resources/cdk/photo_asset_manager/backend/rekognition_photo_analyzer/rekognition_photo_analyzer.py
     Stack,
 )
+
 from constructs import Construct
 from pathlib import Path
 from typing import Optional
@@ -24,9 +32,6 @@ from typing import Optional
 import os
 
 from . import models
-
-
-ELROS_PATH = "./website"
 
 
 Lambdas = dict[str, lambda_cdk.Function]
@@ -54,19 +59,37 @@ class RekognitionPhotoAnalyzerStack(Stack):
         (cognito_pool, cognito_user, app_client) = self._cognito()
         self.cognito_pool = cognito_pool
         self.cognito_user = cognito_user
+        CfnOutput(
+            self,
+            "CognitoAppClientId",
+            value=app_client.user_pool_client_id,
+            export_name="CognitoAppClientId",
+        )
+        CfnOutput(
+            self,
+            "CognitoUserPoolId",
+            value=cognito_pool.user_pool_id,
+            export_name="CognitoUserPoolId",
+        )
 
         self.lambdas = self._lambdas()
 
         self.gateway = self._api_gateway(self.lambdas, cognito_pool)
-        self._s3_website(self.gateway, app_client)
+        CfnOutput(
+            self, "ApiGatewayUrl", value=self.gateway.url, export_name="ApiGatewayUrl"
+        )
 
         self._permissions()
 
     def _s3(self) -> tuple[s3.Bucket, s3.Bucket]:
         # give new user access to the bucket
+<<<<<<< HEAD:resources/cdk/rekognition-photo-analyzer/rekognition_photo_analyzer/rekognition_photo_analyzer.py
         storage_bucket = s3.Bucket(
             self, f"storage-bucket", removal_policy=RemovalPolicy.DESTROY
         )
+=======
+        storage_bucket = s3.Bucket(self, f"storage-bucket")
+>>>>>>> 9fbe243c7 (separate frontend and backend cdk apps):resources/cdk/photo_asset_manager/backend/rekognition_photo_analyzer/rekognition_photo_analyzer.py
         storage_bucket.grant_read_write(self.user)
 
         # Policy for Glacier storage class for objects with tag rekognition: complete
@@ -80,9 +103,13 @@ class RekognitionPhotoAnalyzerStack(Stack):
             ],
         )
 
+<<<<<<< HEAD:resources/cdk/rekognition-photo-analyzer/rekognition_photo_analyzer/rekognition_photo_analyzer.py
         working_bucket = s3.Bucket(
             self, f"working-bucket", removal_policy=RemovalPolicy.DESTROY
         )
+=======
+        working_bucket = s3.Bucket(self, f"working-bucket")
+>>>>>>> 9fbe243c7 (separate frontend and backend cdk apps):resources/cdk/photo_asset_manager/backend/rekognition_photo_analyzer/rekognition_photo_analyzer.py
         working_bucket.grant_read_write(self.user)
 
         # Add 24-hour deletion policy
@@ -96,14 +123,20 @@ class RekognitionPhotoAnalyzerStack(Stack):
             self,
             f"LabelsTable",
             partition_key=ddb.Attribute(name="Label", type=ddb.AttributeType.STRING),
+<<<<<<< HEAD:resources/cdk/rekognition-photo-analyzer/rekognition_photo_analyzer/rekognition_photo_analyzer.py
             removal_policy=RemovalPolicy.DESTROY,
+=======
+>>>>>>> 9fbe243c7 (separate frontend and backend cdk apps):resources/cdk/photo_asset_manager/backend/rekognition_photo_analyzer/rekognition_photo_analyzer.py
         )
 
         jobs_table = ddb.Table(
             self,
             f"JobsTable",
             partition_key=ddb.Attribute(name="JobId", type=ddb.AttributeType.STRING),
+<<<<<<< HEAD:resources/cdk/rekognition-photo-analyzer/rekognition_photo_analyzer/rekognition_photo_analyzer.py
             removal_policy=RemovalPolicy.DESTROY,
+=======
+>>>>>>> 9fbe243c7 (separate frontend and backend cdk apps):resources/cdk/photo_asset_manager/backend/rekognition_photo_analyzer/rekognition_photo_analyzer.py
         )
 
         return (labels_table, jobs_table)
@@ -145,6 +178,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
         )
         return (cognito_pool, cognito_user, cognito_app_client)
 
+<<<<<<< HEAD:resources/cdk/rekognition-photo-analyzer/rekognition_photo_analyzer/rekognition_photo_analyzer.py
     def _s3_website(
         self, gateway: apigateway.RestApi, app_client: cognito.UserPoolClient
     ):
@@ -175,6 +209,12 @@ class RekognitionPhotoAnalyzerStack(Stack):
         # )
 
         self.api = apigateway.RestApi(
+=======
+    def _api_gateway(
+        self, lambdas: Lambdas, cognito_pool: cognito.UserPool
+    ) -> apigateway.RestApi:
+        api = apigateway.RestApi(
+>>>>>>> 9fbe243c7 (separate frontend and backend cdk apps):resources/cdk/photo_asset_manager/backend/rekognition_photo_analyzer/rekognition_photo_analyzer.py
             self,
             f"RestApi",
             rest_api_name=self.stack_name,
@@ -187,6 +227,7 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
         self.empty = models.Empty(self)
 
+<<<<<<< HEAD:resources/cdk/rekognition-photo-analyzer/rekognition_photo_analyzer/rekognition_photo_analyzer.py
         # self._api_gateway_route(
         #     "archive",
         #     lambdas["Archive"],
@@ -239,6 +280,25 @@ class RekognitionPhotoAnalyzerStack(Stack):
         if response_model == None:
             response_model = self.empty
         resource = self.api.root.add_resource(path)
+=======
+        self._api_gateway_route(api, "labels", lambdas["Labels"], "GET", auth)
+        self._api_gateway_route(api, "upload", lambdas["Upload"], "PUT", auth)
+        self._api_gateway_route(api, "s3_copy", lambdas["Copy"], "PUT", auth)
+        self._api_gateway_route(api, "download", lambdas["Download"], "PUT", auth)
+        # self._api_gateway_route(
+        #     api, 'archive', lambdas['Archive'], 'PUT', auth)
+        return api
+
+    def _api_gateway_route(
+        self,
+        api: apigateway.RestApi,
+        resource: str,
+        lambda_fn: lambda_cdk.Function,
+        method: str,
+        auth: apigateway.CognitoUserPoolsAuthorizer,
+    ) -> None:
+        resource = api.root.add_resource(resource)
+>>>>>>> 9fbe243c7 (separate frontend and backend cdk apps):resources/cdk/photo_asset_manager/backend/rekognition_photo_analyzer/rekognition_photo_analyzer.py
         resource.add_method(
             method,
             apigateway.LambdaIntegration(lambda_fn),
@@ -391,7 +451,6 @@ class RekognitionPhotoAnalyzerStack(Stack):
             environment=self.lambda_environment,
         )
 
-
 class PythonRekognitionPhotoAnalyzerStack(RekognitionPhotoAnalyzerStack):
     def __init__(self, scope: Construct, name, email, **kwargs) -> None:
         super().__init__(scope, "Python", name, email, **kwargs)
@@ -433,12 +492,20 @@ class JavaRekognitionPhotoAnalyzerStack(RekognitionPhotoAnalyzerStack):
 
     def lambda_code_asset(self):
         return lambda_cdk.Code.from_asset(
+<<<<<<< HEAD:resources/cdk/rekognition-photo-analyzer/rekognition_photo_analyzer/rekognition_photo_analyzer.py
             str(Path(__file__) / "../../../../../javav2/usecases/pam_source_files/"),
+=======
+            str(Path(__file__) / "../../../../../../javav2/usecases/pam_source_files/"),
+>>>>>>> 9fbe243c7 (separate frontend and backend cdk apps):resources/cdk/photo_asset_manager/backend/rekognition_photo_analyzer/rekognition_photo_analyzer.py
             bundling=BundlingOptions(
                 command=[
                     "/bin/sh",
                     "-c",
+<<<<<<< HEAD:resources/cdk/rekognition-photo-analyzer/rekognition_photo_analyzer/rekognition_photo_analyzer.py
                     "mvn install && \
+=======
+                    "mvn clean install && \
+>>>>>>> 9fbe243c7 (separate frontend and backend cdk apps):resources/cdk/photo_asset_manager/backend/rekognition_photo_analyzer/rekognition_photo_analyzer.py
                             cp /asset-input/target/PhotoAssetRestSDK-1.0-SNAPSHOT.jar /asset-output/",
                 ],
                 image=self.lambda_runtime().bundling_image,
