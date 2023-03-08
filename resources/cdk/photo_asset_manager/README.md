@@ -10,9 +10,7 @@ This project will create the following in your AWS cloud environment:
 - API Gateway routing for lambda functions
 - Roles and policies allowing appropriate access to these resources
 
----
-
-Requirements:
+### Prerequisites
 
 - git
 - npm (node.js)
@@ -35,7 +33,17 @@ You can check the toolkit version with this command:
 $ cdk --version
 ```
 
-Now you are ready to create a virtualenv from within this directory:
+Bootstrap the CDK:
+
+```
+$ cdk bootstrap
+```
+
+## Deploy steps
+
+### Backend
+
+Now you are ready to create a virtualenv. Run the following in the backend directory
 
 ```
 $ python3 -m venv .venv
@@ -88,6 +96,47 @@ changes to your AWS cloud environment.
 ```
 $ cdk bootstrap
 $ cdk deploy {STACK_NAME} # {PAM_NAME}-{Lang}-PAM from above
+```
+
+### Frontend
+
+Run the following in the backend directory:
+
+```
+$ python3 -m venv .venv
+```
+
+Activate your virtualenv:
+
+```
+$ source .venv/bin/activate
+```
+
+Install the required dependencies:
+
+```
+$ pip install -r requirements.txt
+```
+
+Configure the stack for your account:
+
+```
+$ export PAM_NAME=$(whoami) # Or whatever name you want
+$ export BACKEND_STACK_ID= # The stack id output from [the backend steps](#backend)
+$ export AWS_ACCOUNT= # configure your AWS account environment as necessary
+```
+
+Run synth.
+
+```
+$ cdk synth ${PAM_NAME}-FrontEnd-PAM
+```
+
+If everything looks good, go ahead and deploy! This step will actually make
+changes to your AWS cloud environment.
+
+```
+$ cdk deploy
 ```
 
 ## Testing
