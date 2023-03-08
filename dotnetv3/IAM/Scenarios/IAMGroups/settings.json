@@ -1,8 +1,6 @@
 {
-  "UserName": "iam-test-user",
-  "S3PolicyName": "s3-list-buckets-policy",
-  "RoleName": "test-temporary-role",
-  "AssumePolicyName": "test-trust-user",
-  "BucketName": "my-test-bucket",
-  "GroupName": "test-group"
+  "GroupUserName": "iam-group-user",
+  "GroupPolicyName": "group-policy",
+  "GroupBucketName": "my-group-bucket",
+  "GroupName": "s3-full-access-group"
 }
