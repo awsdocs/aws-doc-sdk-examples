@@ -380,8 +380,7 @@ kms_CreateGrant:
           github: dotnetv3/KMS
           sdkguide:
           excerpts:
-            - description: This examples grants a user permission to use a key for
-                encryption and decryption.
+            - description:
               snippet_tags:
                 - KMS.dotnetv3.CreateGrantExample
     Python:
@@ -389,8 +388,7 @@ kms_CreateGrant:
         - sdk_version: 3
           github: python/example_code/kms
           excerpts:
-            - description: This example grants permission to let a user generate a
-                data key that can be used for encryption.
+            - description:
               snippet_tags:
                 - python.example_code.kms.GrantManager
                 - python.example_code.kms.CreateGrant

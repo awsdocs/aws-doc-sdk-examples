@@ -451,7 +451,7 @@ iam_Scenario_AccountManagement:
 iam_CreateAccessKey:
   title: Create an &IAM; access key using an &AWS; SDK
   title_abbrev: Create an access key
-  synopsis: create an &IAM; access key.
+  synopsis: create an &IAM; access key. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     .NET:
@@ -554,7 +554,7 @@ iam_CreateAccessKey:
 iam_DeleteAccessKey:
   title: Delete an &IAM; access key using an &AWS; SDK
   title_abbrev: Delete an access key
-  synopsis: delete an &IAM; access key.
+  synopsis: delete an &IAM; access key. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     .NET:
@@ -675,7 +675,7 @@ iam_DeleteRolePolicy:
 iam_GetAccessKeyLastUsed:
   title: Get data about the last use of an &IAM; access key using an &AWS; SDK
   title_abbrev: Get data about the last use of an access key
-  synopsis: get data about the last use of an &IAM; access key.
+  synopsis: get data about the last use of an &IAM; access key. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Python:
@@ -719,7 +719,7 @@ iam_GetAccessKeyLastUsed:
 iam_ListAccessKeys:
   title: List a user's &IAM; access keys using an &AWS; SDK
   title_abbrev: List a user's access keys
-  synopsis: list a user's &IAM; access keys.
+  synopsis: list a user's &IAM; access keys. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Kotlin:
@@ -798,7 +798,7 @@ iam_ListAccessKeys:
 iam_UpdateAccessKey:
   title: Update an &IAM; access key using an &AWS; SDK
   title_abbrev: Update an access key
-  synopsis: update an &IAM; access key.
+  synopsis: update an &IAM; access key. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Java:
@@ -851,6 +851,7 @@ iam_UpdateAccessKey:
 iam_Scenario_ManageAccessKeys:
   title: Manage &IAM; access keys using an &AWS; SDK
   title_abbrev: Manage access keys
+  synopsis: manage access keys. &aws_sec_sdk_use-federation-warning;
   synopsis_list:
     - Create and list access keys.
     - Find out when and how an access key was last used.
@@ -2091,9 +2092,9 @@ iam_Scenario_RoleManagement:
   services:
     iam: {CreateRole, AttachRolePolicy, DetachRolePolicy, DeleteRole}
 iam_CreateUser:
-  title: Create an &IAM; user using an &AWS; SDK
+  title: Create an &IAM-user; using an &AWS; SDK
   title_abbrev: Create a user
-  synopsis: create an &IAM; user.
+  synopsis: create an &IAM-user;. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     .NET:
@@ -2206,9 +2207,9 @@ iam_CreateUser:
   services:
     iam: {CreateUser}
 iam_DeleteUser:
-  title: Delete an &IAM; user using an &AWS; SDK
+  title: Delete an &IAM-user; using an &AWS; SDK
   title_abbrev: Delete a user
-  synopsis: delete an &IAM; user.
+  synopsis: delete an &IAM-user;. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     .NET:
@@ -2311,9 +2312,9 @@ iam_DeleteUser:
   services:
     iam: {DeleteUser}
 iam_GetUser:
-  title: Get an &IAM; user using an &AWS; SDK
+  title: Get an &IAM-user; using an &AWS; SDK
   title_abbrev: Get a user
-  synopsis: get an &IAM; user.
+  synopsis: get an &IAM-user;. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Go:
@@ -2328,9 +2329,9 @@ iam_GetUser:
   services:
     iam: {GetUser}
 iam_ListUsers:
-  title: List &IAM; users using an &AWS; SDK
+  title: List &IAM-users; using an &AWS; SDK
   title_abbrev: List users
-  synopsis: list &IAM; users.
+  synopsis: list &IAM-users;. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     .NET:
@@ -2441,9 +2442,9 @@ iam_ListUsers:
   services:
     iam: {ListUsers}
 iam_UpdateUser:
-  title: Update an &IAM; user using an &AWS; SDK
+  title: Update an &IAM-user; using an &AWS; SDK
   title_abbrev: Update a user
-  synopsis: update an &IAM; user.
+  synopsis: update an &IAM-user;. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Kotlin:
@@ -2505,7 +2506,7 @@ iam_UpdateUser:
 iam_AttachUserPolicy:
   title: Attach an &IAM; policy to a user using an &AWS; SDK
   title_abbrev: Attach a policy to a user
-  synopsis: attach an &IAM; policy to a user.
+  synopsis: attach an &IAM; policy to a user. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Python:
@@ -2530,7 +2531,7 @@ iam_AttachUserPolicy:
 iam_DetachUserPolicy:
   title: Detach an &IAM; policy from a user using an &AWS; SDK
   title_abbrev: Detach a policy from a user
-  synopsis: detach an &IAM; policy from a user.
+  synopsis: detach an &IAM; policy from a user. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Python:
@@ -2555,7 +2556,7 @@ iam_DetachUserPolicy:
 iam_PutUserPolicy:
   title: Create an inline &IAM; policy for a user using an &AWS; SDK
   title_abbrev: Create an inline policy for a user
-  synopsis: create an inline &IAM; policy for a user.
+  synopsis: create an inline &IAM; policy for a user. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Go:
@@ -2589,7 +2590,7 @@ iam_PutUserPolicy:
 iam_ListUserPolicies:
   title: List inline &IAM; policies for a user using an &AWS; SDK
   title_abbrev: List inline policies for a user
-  synopsis: list inline &IAM; policies for a user.
+  synopsis: list inline &IAM; policies for a user. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Go:
@@ -2606,7 +2607,7 @@ iam_ListUserPolicies:
 iam_DeleteUserPolicy:
   title: Delete an inline &IAM; policy from a user using an &AWS; SDK
   title_abbrev: Delete an inline policy from a user
-  synopsis: delete an inline &IAM; policy from a user.
+  synopsis: delete an inline &IAM; policy from a user. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Go:
@@ -2646,10 +2647,11 @@ iam_DeleteUserPolicy:
   services:
     iam: {DeleteUserPolicy}
 iam_Scenario_UserPolicies:
-  title: Create read-only and read-write &IAM; users using an &AWS; SDK
+  title: Create read-only and read-write &IAM-users; using an &AWS; SDK
   title_abbrev: Create read-only and read-write users
+  synopsis: create users and attach policies to them. &aws_sec_sdk_use-federation-warning;
   synopsis_list:
-    - Create two &IAM; users.
+    - Create two &IAM-users;.
     - Attach a policy that lets one of the users get and put objects in an &S3long; (&S3;) bucket.
     - Attach a policy that lets the other user get objects from the bucket.
     - Obtain differing permissions to the bucket based on user credentials.
@@ -2661,7 +2663,7 @@ iam_Scenario_UserPolicies:
           github: python/example_code/iam/iam_basics
           sdkguide:
           excerpts:
-            - description: Create functions that wrap &IAM; user actions.
+            - description: Create functions that wrap &IAM-user; actions.
               snippet_tags:
                 - python.example_code.iam.user_wrapper.imports
                 - python.example_code.iam.CreateUser
@@ -3013,8 +3015,9 @@ iam_DeleteServiceLinkedRole:
   services:
     iam: {DeleteServiceLinkedRole}
 iam_Scenario_CreateUserAssumeRole:
-  title: Create an &IAM; user and assume a role with &STS; using an &AWS; SDK
+  title: Create an &IAM-user; and assume a role with &STS; using an &AWS; SDK
   title_abbrev: Create a user and assume a role
+  synopsis: create a user and assume a role. &aws_sec_sdk_use-federation-warning;
   synopsis_list:
     - Create a user who has no permissions.
     - Create a role that grants permission to list &S3; buckets for the account.
@@ -3038,7 +3041,7 @@ iam_Scenario_CreateUserAssumeRole:
           github: kotlin/services/iam
           sdkguide:
           excerpts:
-            - description: Create functions that wrap &IAM; user actions.
+            - description: Create functions that wrap &IAM-user; actions.
               snippet_tags:
                 - iam.kotlin.scenario.main
     Java:
@@ -3047,7 +3050,7 @@ iam_Scenario_CreateUserAssumeRole:
           github: javav2/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create functions that wrap &IAM; user actions.
+            - description: Create functions that wrap &IAM-user; actions.
               snippet_tags:
                 - iam.java2.scenario.main
     JavaScript:
@@ -3059,7 +3062,7 @@ iam_Scenario_CreateUserAssumeRole:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.scenario.createclientv3
-            - description: Create an &IAM; user and a role that grants permission
+            - description: Create an &IAM-user; and a role that grants permission
                 to list &S3; buckets. The user has rights only to assume the role.
                 After assuming the role, use temporary credentials to list buckets for
                 the account.
@@ -3080,7 +3083,7 @@ iam_Scenario_CreateUserAssumeRole:
           github: python/example_code/iam/iam_basics
           sdkguide:
           excerpts:
-            - description: Create an &IAM; user and a role that grants permission
+            - description: Create an &IAM-user; and a role that grants permission
                 to list &S3; buckets. The user has rights only to assume the role.
                 After assuming the role, use temporary credentials to list buckets for
                 the account.
