@@ -566,7 +566,7 @@ public class EventBridgeScenario
         if (GetYesNoResponse($"\tDelete role {roleName}? (y/n)"))
         {
             Console.WriteLine($"\tDetaching policy and deleting role.");
-            
+
             await _iamClient!.DetachRolePolicyAsync(new DetachRolePolicyRequest()
             {
                 RoleName = roleName,
