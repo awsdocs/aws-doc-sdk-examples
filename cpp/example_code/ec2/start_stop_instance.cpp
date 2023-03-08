@@ -30,7 +30,7 @@ SPDX-License-Identifier: Apache-2.0
 //! Start an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
   \sa StartInstance()
-  \param instanceID: An Amazon EC2 instance ID.
+  \param instanceID: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -73,10 +73,10 @@ bool AwsDoc::EC2::StartInstance(const Aws::String &instanceId,
     return start_instancesOutcome.IsSuccess();
 }
 
-//! Stop an Amazon EC2 instance.
+//! Stop an EC2 instance.
 /*!
   \sa StopInstance()
-  \param instanceID: An Amazon EC2 instance ID.
+  \param instanceID: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -128,7 +128,7 @@ void PrintUsage() {
  *
  *  Usage: 'sage: run_start_stop_instance <instance_id> <start|stop>"'
  *
- *  Prerequisites: An Amazon EC2 instance to start or stop.
+ *  Prerequisites: An EC2 instance to start or stop.
  *
 */
 

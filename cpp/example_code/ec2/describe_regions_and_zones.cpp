@@ -28,7 +28,7 @@
 #include <iostream>
 #include "ec2_samples.h"
 
-//! Describe all Amazon Elastic Compute Cloud (Amazon EC2) regions and zones.
+//! Describe all Amazon Elastic Compute Cloud (Amazon EC2) Regions and Availability Zones.
 /*!
   \sa DescribeRegionsAndZones()
   \param clientConfiguration: AWS client configuration.

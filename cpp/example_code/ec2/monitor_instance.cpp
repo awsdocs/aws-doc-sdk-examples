@@ -28,7 +28,7 @@
 //! Enable detailed monitoring for an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
   \sa EnableMonitoring()
-  \param instanceId: An ID for the Amazon EC2 instance.
+  \param instanceId: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -72,10 +72,10 @@ bool AwsDoc::EC2::EnableMonitoring(const Aws::String &instanceId,
     return monitorInstancesOutcome.IsSuccess();
 }
 
-//! Disable monitoring for an Amazon Elastic Compute Cloud (Amazon EC2) instance.
+//! Disable monitoring for an EC2 instance.
 /*!
   \sa DisableMonitoring()
-  \param instanceId: An ID for the Amazon EC2 instance.
+  \param instanceId: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -125,7 +125,7 @@ bool AwsDoc::EC2::DisableMonitoring(const Aws::String &instanceId,
  *
  *  Usage: 'run_monitor_instance <instance_id> <true|false>'
  *
- *  Prerequisites: An Amazon EC2 instance to monitor.
+ *  Prerequisites: An EC2 instance to monitor.
  *
 */
 

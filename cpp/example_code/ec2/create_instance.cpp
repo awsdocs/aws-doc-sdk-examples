@@ -27,7 +27,7 @@
 //! Launch an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
   \sa RunInstance()
-  \param instanceName: A name for the Amazon EC2 instance.
+  \param instanceName: A name for the EC2 instance.
   \param amiId: An Amazon Machine Image (AMI) identifier.
   \param instanceID: String to return the instance ID.
   \param clientConfiguration: AWS client configuration.
@@ -66,10 +66,10 @@ bool AwsDoc::EC2::RunInstance(const Aws::String &instanceName,
                   runOutcome.GetError().GetMessage() << std::endl;
         return false;
     }
-    // snippet-end:[cpp.example_code.ec2.RunInstances]
-    // snippet-end:[ec2.cpp.create_instance.code]
+     // snippet-end:[ec2.cpp.create_instance.code]
 
     instanceID = instances[0].GetInstanceId();
+    // snippet-end:[cpp.example_code.ec2.RunInstances]
 
     // snippet-start:[cpp.example_code.ec2.CreateTags]
     Aws::EC2::Model::Tag nameTag;

@@ -29,7 +29,7 @@
 //! (Amazon EC2) instance.
 /*!
   \sa AllocateAndAssociateAddress()
-  \param instanceID: An Amazon EC2 instance ID.
+  \param instanceID: An EC2 instance ID.
   \param allocationId: String to return the allocation ID of the address.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -84,7 +84,7 @@ bool AwsDoc::EC2::AllocateAndAssociateAddress(const Aws::String &instanceId,
 *
 *  Usage: 'run_allocate_address <instance_id>'
 *
-*  Prerequisites: An Amazon EC2 instance to allocate an address for.
+*  Prerequisites: An EC2 instance to allocate an address for.
 *
 */
 

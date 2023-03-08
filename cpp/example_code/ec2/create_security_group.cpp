@@ -44,7 +44,7 @@ namespace AwsDoc {
   \sa CreateSecurityGroup()
   \param groupName: A security group name.
   \param description: A description.
-  \param vpcID: An Amazon Virtual Private Cloud (Amazon VPC) ID.
+  \param vpcID: A virtual private cloud (VPC) ID.
   \param groupIDResult: A string to receive the group ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -144,7 +144,7 @@ void AwsDoc::EC2::BuildSampleIngressRule(
  *
  *  Usage: run_create_security_group <group_name> <group_description> <vpc_id>
  *
- *  Prerequisites: An Amazon VPC ID.
+ *  Prerequisites: A VPC ID.
  *
  */
 

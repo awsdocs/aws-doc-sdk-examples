@@ -25,7 +25,7 @@
 //! Reboot an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
   \sa RebootInstance()
-  \param instanceID: An Amazon EC2 instance ID.
+  \param instanceID: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -74,7 +74,7 @@ bool AwsDoc::EC2::RebootInstance(const Aws::String &instanceId,
  *
  *  Usage: 'sage: run_reboot_instance <instance_id>'
  *
- *  Prerequisites: An Amazon EC2 instance to reboot.
+ *  Prerequisites: An EC2 instance to reboot.
  *
 */
 
