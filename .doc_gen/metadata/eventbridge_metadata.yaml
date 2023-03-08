@@ -168,7 +168,7 @@ eventbridge_PutRule:
             - description: Create a rule that triggers when an &S3long; is created.
               snippet_tags:
                 - EventBridge.dotnetv3.PutRule
-            - description: Create a rule uses a custom pattern.
+            - description: Create a rule that uses a custom pattern.
               snippet_tags:
                 - EventBridge.dotnetv3.PutCustomRulePattern
     Kotlin:

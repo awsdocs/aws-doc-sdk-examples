@@ -49,15 +49,15 @@ public class EventBridgeTests
     [Trait("Category", "Integration")]
     public async Task AddRuleToEventBus_ShouldReturnNonEmptyArn()
     {
-        // Arrange
+        // Arrange.
         var roleArn = _configuration["roleArn"];
         var eventRuleName = _configuration["eventRuleName"];
         var testBucketName = _configuration["testBucketName"];
 
-        // Act
+        // Act.
         var arn = await _eventBridgeWrapper.PutS3UploadRule(roleArn, eventRuleName, testBucketName);
 
-        // Assert
+        // Assert.
         Assert.False(string.IsNullOrEmpty(arn));
     }
 
@@ -70,13 +70,13 @@ public class EventBridgeTests
     [Trait("Category", "Integration")]
     public async Task GetRuleStateByRuleName_ShouldReturnEnabled()
     {
-        // Arrange
+        // Arrange.
         var eventRuleName = _configuration["eventRuleName"];
 
-        // Act
+        // Act.
         var ruleState = await _eventBridgeWrapper.GetRuleStateByRuleName(eventRuleName);
 
-        // Assert
+        // Assert.
         Assert.Equal(RuleState.ENABLED, ruleState);
     }
 
@@ -89,11 +89,13 @@ public class EventBridgeTests
     [Trait("Category", "Integration")]
     public async Task DisableRuleByName_ShouldReturnTrue()
     {
-        // Arrange
+        // Arrange.
         var eventRuleName = _configuration["eventRuleName"];
 
-        // Disable the rule and check if it was successful
+        // Act.
         var success = await _eventBridgeWrapper.DisableRuleByName(eventRuleName);
+
+        // Assert.
         Assert.True(success);
     }
 
@@ -106,32 +108,32 @@ public class EventBridgeTests
     [Trait("Category", "Integration")]
     public async Task EnableRuleByName_ShouldReturnTrue()
     {
-        // Arrange
+        // Arrange.
         var eventRuleName = _configuration["eventRuleName"];
 
-        // Enable the rule
+        // Act.
         var result = await _eventBridgeWrapper.EnableRuleByName(eventRuleName);
 
-        // Check if the result is true
+        // Assert.
         Assert.True(result);
     }
 
     /// <summary>
-    /// Verify adding an SNS target to a rule returns successfully.
+    /// Verify adding an Amazon SNS target to a rule returns successfully.
     /// <returns>Async task.</returns>
     [Fact]
     [Order(5)]
     [Trait("Category", "Integration")]
     public async Task AddSnsTargetToRule_ReturnsSuccessfulResult()
     {
-        // Arrange
+        // Arrange.
         var eventRuleName = _configuration["eventRuleName"];
         var topicArn = _configuration["topicArn"];
 
-        // Act
+        // Act.
         var result = await _eventBridgeWrapper.AddSnsTargetToRule(eventRuleName, topicArn);
 
-        // Assert
+        // Assert.
         Assert.False(string.IsNullOrEmpty(result));
     }
 
@@ -143,13 +145,13 @@ public class EventBridgeTests
     [Trait("Category", "Integration")]
     public async Task ListAllTargetsOnRule_ReturnsSuccessfulResult()
     {
-        // Arrange
+        // Arrange.
         var eventRuleName = _configuration["eventRuleName"];
 
-        // Act
+        // Act.
         var result = await _eventBridgeWrapper.ListAllTargetsOnRule(eventRuleName);
 
-        // Assert
+        // Assert.
         Assert.NotNull(result);
         Assert.NotEmpty(result);
     }
@@ -162,13 +164,13 @@ public class EventBridgeTests
     [Trait("Category", "Integration")]
     public async Task ListAllRuleNamesByTarget_ReturnsSuccessfulResult()
     {
-        // Arrange
+        // Arrange.
         var topicArn = _configuration["topicArn"];
 
-        // Act
+        // Act.
         var result = await _eventBridgeWrapper.ListAllRuleNamesByTarget(topicArn);
 
-        // Assert
+        // Assert.
         Assert.NotNull(result);
         Assert.NotEmpty(result);
     }
@@ -181,15 +183,15 @@ public class EventBridgeTests
     [Trait("Category", "Integration")]
     public async Task UpdateS3UploadRuleTargetWithTransform_ReturnsSuccessfulResult()
     {
-        // Arrange
+        // Arrange.
         var eventRuleName = _configuration["eventRuleName"];
         var topicArn = _configuration["topicArn"];
 
-        // Act
+        // Act.
         var result = await _eventBridgeWrapper.UpdateS3UploadRuleTargetWithTransform(
             eventRuleName, topicArn);
 
-        // Assert
+        // Assert.
         Assert.False(string.IsNullOrEmpty(result));
     }
 
@@ -201,13 +203,13 @@ public class EventBridgeTests
     [Trait("Category", "Integration")]
     public async Task UpdateCustomEventPattern_ReturnsNonEmptyArn()
     {
-        // Arrange
+        // Arrange.
         var eventRuleName = _configuration["eventRuleName"];
 
-        // Act
+        // Act.
         var result = await _eventBridgeWrapper.UpdateCustomEventPattern(eventRuleName);
 
-        // Assert
+        // Assert.
         Assert.False(string.IsNullOrEmpty(result));
     }
 
@@ -219,13 +221,13 @@ public class EventBridgeTests
     [Trait("Category", "Integration")]
     public async Task PutEvents_ReturnsSuccessfulResult()
     {
-        // Arrange
+        // Arrange.
         var email = _configuration["testEmail"];
 
-        // Act
+        // Act.
         var result = await _eventBridgeWrapper.PutCustomEmailEvent(email);
 
-        // Assert
+        // Assert.
         Assert.True(result);
     }
 
@@ -237,13 +239,13 @@ public class EventBridgeTests
     [Trait("Category", "Integration")]
     public async Task RemoveTargets_ReturnsSuccessfulResult()
     {
-        // Arrange
+        // Arrange.
         var eventRuleName = _configuration["eventRuleName"];
 
-        // Act
+        // Act.
         var result = await _eventBridgeWrapper.RemoveAllTargetsFromRule(eventRuleName);
 
-        // Assert
+        // Assert.
         Assert.True(result);
     }
 
@@ -255,13 +257,13 @@ public class EventBridgeTests
     [Trait("Category", "Integration")]
     public async Task DeleteEventRule_ReturnsSuccessfulResult()
     {
-        // Arrange
+        // Arrange.
         var eventRuleName = _configuration["eventRuleName"];
 
-        // Act
+        // Act.
         var result = await _eventBridgeWrapper.DeleteRuleByName(eventRuleName);
 
-        // Assert
+        // Assert.
         Assert.True(result);
     }
 }

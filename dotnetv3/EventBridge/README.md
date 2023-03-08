@@ -61,6 +61,18 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 ### Instructions
 
 <!--custom.instructions.start-->
+Before you compile the .NET application, you can optionally set configuration values
+in the settings.json file. These settings include topic and bucket name settings for
+working with rules and targets. Alternatively, add a settings.local.json file with
+your local settings, which will be loaded automatically when the application runs.
+
+After the example compiles, you can run it from the command line. To do so, navigate to
+the folder that contains the .csproj file and run the following command:
+
+```
+dotnet run
+```
+Alternatively, you can run the example from within your IDE.
 <!--custom.instructions.end-->
 
 #### Hello EventBridge

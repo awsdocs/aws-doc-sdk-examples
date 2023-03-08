@@ -5,7 +5,6 @@ using System.Net;
 using System.Text.Json;
 using Amazon.EventBridge;
 using Amazon.EventBridge.Model;
-using Amazon.Runtime.Internal.Util;
 using Microsoft.Extensions.Logging;
 
 namespace EventBridgeActions;
@@ -13,7 +12,7 @@ namespace EventBridgeActions;
 // snippet-start:[EventBridge.dotnetv3.EventBridgeWrapper]
 
 /// <summary>
-/// Wrapper for Amazon EventBridge (EventBridge) operations
+/// Wrapper for Amazon EventBridge operations.
 /// </summary>
 public class EventBridgeWrapper
 {
@@ -90,7 +89,7 @@ public class EventBridgeWrapper
     /// <summary>
     /// List the rules on an event bus.
     /// </summary>
-    /// <param name="eventBusArn">The optional Arn of the event bus. If empty, uses the default event bus.</param>
+    /// <param name="eventBusArn">The optional ARN of the event bus. If empty, uses the default event bus.</param>
     /// <returns>The list of rules.</returns>
     public async Task<List<Rule>> ListAllRulesForEventBus(string? eventBusArn = null)
     {
@@ -143,7 +142,7 @@ public class EventBridgeWrapper
     /// <summary>
     /// List names of all rules matching a target.
     /// </summary>
-    /// <param name="targetArn">The Arn of the target.</param>
+    /// <param name="targetArn">The ARN of the target.</param>
     /// <returns>The list of rule names.</returns>
     public async Task<List<string>> ListAllRuleNamesByTarget(string targetArn)
     {
@@ -167,12 +166,12 @@ public class EventBridgeWrapper
 
     // snippet-start:[EventBridge.dotnetv3.PutRule]
     /// <summary>
-    /// Create a new event rule that triggers when an S3 object is created in a bucket.
+    /// Create a new event rule that triggers when an Amazon S3 object is created in a bucket.
     /// </summary>
-    /// <param name="roleArn">The Arn of the role.</param>
+    /// <param name="roleArn">The ARN of the role.</param>
     /// <param name="ruleName">The name to give the rule.</param>
     /// <param name="bucketName">The name of the bucket to trigger the event.</param>
-    /// <returns>The Arn of the new rule.</returns>
+    /// <returns>The ARN of the new rule.</returns>
     public async Task<string> PutS3UploadRule(string roleArn, string ruleName, string bucketName)
     {
         string eventPattern = "{" +
@@ -200,10 +199,10 @@ public class EventBridgeWrapper
 
     // snippet-start:[EventBridge.dotnetv3.PutTargetsTransform]
     /// <summary>
-    /// Update an S3 object created rule with a transform on the target.
+    /// Update an Amazon S3 object created rule with a transform on the target.
     /// </summary>
     /// <param name="ruleName">The name of the rule.</param>
-    /// <param name="targetArn">The Arn of the target.</param>
+    /// <param name="targetArn">The ARN of the target.</param>
     /// <param name="eventBusArn">Optional event bus Arn. If empty, uses the default event bus.</param>
     /// <returns>The ID of the target.</returns>
     public async Task<string> UpdateS3UploadRuleTargetWithTransform(string ruleName, string targetArn, string? eventBusArn = null)
@@ -251,7 +250,7 @@ public class EventBridgeWrapper
     /// Update a custom rule with a transform on the target.
     /// </summary>
     /// <param name="ruleName">The name of the rule.</param>
-    /// <param name="targetArn">The Arn of the target.</param>
+    /// <param name="targetArn">The ARN of the target.</param>
     /// <param name="eventBusArn">Optional event bus Arn. If empty, uses the default event bus.</param>
     /// <returns>The ID of the target.</returns>
     public async Task<string> UpdateCustomRuleTargetWithTransform(string ruleName, string targetArn, string? eventBusArn = null)
@@ -326,7 +325,7 @@ public class EventBridgeWrapper
     /// Update a rule to use a custom defined event pattern.
     /// </summary>
     /// <param name="ruleName">The name of the rule to update.</param>
-    /// <returns>The Arn of the updated rule.</returns>
+    /// <returns>The ARN of the updated rule.</returns>
     public async Task<string> UpdateCustomEventPattern(string ruleName)
     {
         string customEventsPattern = "{" +
@@ -348,10 +347,10 @@ public class EventBridgeWrapper
 
     // snippet-start:[EventBridge.dotnetv3.PutSnsTarget]
     /// <summary>
-    /// Add an SNS target topic to a rule.
+    /// Add an Amazon SNS target topic to a rule.
     /// </summary>
     /// <param name="ruleName">The name of the rule to update.</param>
-    /// <param name="targetArn">The Arn of the SNS target.</param>
+    /// <param name="targetArn">The ARN of the Amazon SNS target.</param>
     /// <param name="eventBusArn">The optional event bus name, uses default if empty.</param>
     /// <returns>The ID of the target.</returns>
     public async Task<string> AddSnsTargetToRule(string ruleName, string targetArn, string? eventBusArn = null)
@@ -395,7 +394,7 @@ public class EventBridgeWrapper
     /// Delete an event rule by name.
     /// </summary>
     /// <param name="ruleName">The name of the event rule.</param>
-    /// <returns>True if successful</returns>
+    /// <returns>True if successful.</returns>
     public async Task<bool> RemoveAllTargetsFromRule(string ruleName)
     {
         var targetIds = new List<string>();
@@ -437,7 +436,7 @@ public class EventBridgeWrapper
     /// Delete an event rule by name.
     /// </summary>
     /// <param name="ruleName">The name of the event rule.</param>
-    /// <returns>True if successful</returns>
+    /// <returns>True if successful.</returns>
     public async Task<bool> DeleteRuleByName(string ruleName)
     {
         var response = await _amazonEventBridge.DeleteRuleAsync(

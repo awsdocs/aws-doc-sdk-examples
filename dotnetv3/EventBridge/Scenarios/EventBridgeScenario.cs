@@ -24,7 +24,7 @@ public class EventBridgeScenario
     /*
     Before running this .NET code example, set up your development environment, including your credentials.
 
-    This .NET example performs the following tasks with Amazon EventBridge (EventBridge):
+    This .NET example performs the following tasks with Amazon EventBridge:
     - Create a rule.
     - Add a target to a rule.
     - Enable and disable rules.
@@ -44,7 +44,7 @@ public class EventBridgeScenario
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the Amazon service.
+        // Set up dependency injection for EventBridge.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)
@@ -72,6 +72,7 @@ public class EventBridgeScenario
         ServicesSetup(host);
 
         string topicArn = "";
+        string roleArn = "";
 
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Welcome to the Amazon EventBridge example scenario.");
@@ -79,11 +80,7 @@ public class EventBridgeScenario
 
         try
         {
-            Console.WriteLine(new string('-', 80));
-            Console.WriteLine("Creating a role to use with EventBridge.");
-            Console.WriteLine(new string('-', 80));
-
-            var roleArn = await CreateRole();
+            roleArn = await CreateRole();
 
             await CreateBucketWithEventBridgeEvents();
 
@@ -102,6 +99,8 @@ public class EventBridgeScenario
             await UploadS3File(_s3Client);
 
             await ChangeRuleState(false);
+
+            await GetRuleState();
 
             await UpdateSnsEventRule(topicArn);
 
@@ -128,7 +127,7 @@ public class EventBridgeScenario
     /// <summary>
     /// Populate the services for use within the console application.
     /// </summary>
-    /// <param name="host">The services host</param>
+    /// <param name="host">The services host.</param>
     private static void ServicesSetup(IHost host)
     {
         _eventBridgeWrapper = host.Services.GetRequiredService<EventBridgeWrapper>();
@@ -144,9 +143,13 @@ public class EventBridgeScenario
     /// <returns>The role ARN.</returns>
     public static async Task<string> CreateRole()
     {
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine("Creating a role to use with EventBridge and attaching managed policy AmazonEventBridgeFullAccess.");
+        Console.WriteLine(new string('-', 80));
+
         var roleName = _configuration["roleName"];
 
-        string assumeRolePolicy = "{" +
+        var assumeRolePolicy = "{" +
                                   "\"Version\": \"2012-10-17\"," +
                                   "\"Statement\": [{" +
                                   "\"Effect\": \"Allow\"," +
@@ -165,28 +168,11 @@ public class EventBridgeScenario
                 RoleName = roleName
             });
 
-        string addAccessPolicy = "{" +
-                                 "\"Version\": \"2012-10-17\"," +
-                                 "\"Statement\": [{" +
-                                 "\"Sid\": \"CloudWatchEventsFullAccess\"," +
-                                 "\"Effect\": \"Allow\"," +
-                                 "\"Resource\": \"*\"," +
-                                 "\"Action\": \"events:*\"" +
-                                 "}," +
-                                 "{" +
-                                 "\"Sid\": \"IAMPassRoleForCloudWatchEvents\"," +
-                                 "\"Effect\": \"Allow\"," +
-                                 "\"Resource\": \"arn:aws:iam::*:role/AWS_Events_Invoke_Targets\"," +
-                                 "\"Action\": \"iam:PassRole\"" +
-                                 "}]" +
-                                 "}";
-
-        await _iamClient.PutRolePolicyAsync(
-            new PutRolePolicyRequest()
+        await _iamClient.AttachRolePolicyAsync(
+            new AttachRolePolicyRequest()
             {
-                PolicyName = "EventBridgeEventsPolicy",
-                RoleName = roleName,
-                PolicyDocument = addAccessPolicy
+                PolicyArn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess",
+                RoleName = roleName
             });
 
         return roleResult.Role.Arn;
@@ -236,7 +222,7 @@ public class EventBridgeScenario
     private static async Task UploadS3File(IAmazonS3 s3Client)
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("Uploading a file to the test bucket.");
+        Console.WriteLine("Uploading a file to the test bucket. This will trigger a subscription email.");
 
         var testBucketName = _configuration["testBucketName"];
 
@@ -263,7 +249,7 @@ public class EventBridgeScenario
     }
 
     /// <summary>
-    /// Create an SNS topic that can used as an EventBridge target.
+    /// Create an Amazon Simple Notification Service (Amazon SNS) topic to use as an EventBridge target.
     /// </summary>
     /// <returns>Async task.</returns>
     private static async Task<string> CreateSnsTopic()
@@ -307,9 +293,9 @@ public class EventBridgeScenario
     }
 
     /// <summary>
-    /// Subscribe a user email to an Amazon Simple Notification Service (Amazon SNS) topic.
+    /// Subscribe a user email to an SNS topic.
     /// </summary>
-    /// <param name="topicArn">The ARN of the Amazon SNS topic.</param>
+    /// <param name="topicArn">The ARN of the SNS topic.</param>
     /// <returns>The user's email.</returns>
     private static async Task<string> SubscribeToSnsTopic(string topicArn)
     {
@@ -362,7 +348,7 @@ public class EventBridgeScenario
     /// Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
     /// </summary>
     /// <param name="roleArn">The ARN of the role used by EventBridge.</param>
-    /// <param name="topicArn">The ARN of the Amazon SNS topic.</param>
+    /// <param name="topicArn">The ARN of theSNS topic.</param>
     /// <returns>Async task.</returns>
     private static async Task AddSnsEventRule(string roleArn, string topicArn)
     {
@@ -372,10 +358,9 @@ public class EventBridgeScenario
         var eventRuleName = _configuration["eventRuleName"];
         var testBucketName = _configuration["testBucketName"];
         var topicName = _configuration["topicName"];
-
         await _eventBridgeWrapper.PutS3UploadRule(roleArn, eventRuleName, testBucketName);
         await _eventBridgeWrapper.AddSnsTargetToRule(eventRuleName, topicArn);
-        Console.WriteLine($"\tAdded event rule {eventRuleName} with SNS target {topicName} for bucket {testBucketName}.");
+        Console.WriteLine($"\tAdded event rule {eventRuleName} with Amazon SNS target {topicName} for bucket {testBucketName}.");
 
         Console.WriteLine(new string('-', 80));
     }
@@ -398,7 +383,7 @@ public class EventBridgeScenario
     /// <summary>
     /// Update the event target to use a transform.
     /// </summary>
-    /// <param name="topicArn">The Amazon SNS topic ARN target to update.</param>
+    /// <param name="topicArn">The SNS topic ARN target to update.</param>
     /// <returns>Async task.</returns>
     private static async Task UpdateSnsEventRule(string topicArn)
     {
@@ -409,7 +394,7 @@ public class EventBridgeScenario
         var testBucketName = _configuration["testBucketName"];
 
         await _eventBridgeWrapper.UpdateS3UploadRuleTargetWithTransform(eventRuleName, topicArn);
-        Console.WriteLine($"\tUpdated event rule {eventRuleName} with SNS target {topicArn} for bucket {testBucketName}.");
+        Console.WriteLine($"\tUpdated event rule {eventRuleName} with Amazon SNS target {topicArn} for bucket {testBucketName}.");
 
         Console.WriteLine(new string('-', 80));
     }
@@ -428,7 +413,6 @@ public class EventBridgeScenario
         await _eventBridgeWrapper.UpdateCustomEventPattern(eventRuleName);
 
         Console.WriteLine($"\tUpdated event rule {eventRuleName} to custom pattern.");
-
         await _eventBridgeWrapper.UpdateCustomRuleTargetWithTransform(eventRuleName,
             topicArn);
 
@@ -445,7 +429,7 @@ public class EventBridgeScenario
     private static async Task TriggerCustomRule(string email)
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("Sending an event to trigger the rule.");
+        Console.WriteLine("Sending an event to trigger the rule. This will trigger a subscription email.");
 
         await _eventBridgeWrapper.PutCustomEmailEvent(email);
 
@@ -474,7 +458,7 @@ public class EventBridgeScenario
     /// <summary>
     /// List all of the rules for a particular target.
     /// </summary>
-    /// <param name="topicArn">The ARN of the Amazon SNS topic.</param>
+    /// <param name="topicArn">The ARN of the SNS topic.</param>
     /// <returns>Async task.</returns>
     private static async Task ListRulesForTarget(string topicArn)
     {
@@ -512,9 +496,24 @@ public class EventBridgeScenario
     }
 
     /// <summary>
+    /// Get the current state of the rule.
+    /// </summary>
+    /// <returns>Async task.</returns>
+    private static async Task GetRuleState()
+    {
+        Console.WriteLine(new string('-', 80));
+        var eventRuleName = _configuration["eventRuleName"];
+
+        var state = await _eventBridgeWrapper.GetRuleStateByRuleName(eventRuleName);
+        Console.WriteLine($"Rule {eventRuleName} is in current state {state}.");
+
+        Console.WriteLine(new string('-', 80));
+    }
+
+    /// <summary>
     /// Clean up the resources from the scenario.
     /// </summary>
-    /// <param name="topicArn">The Arn of the SNS topic to clean up.</param>
+    /// <param name="topicArn">The ARN of the SNS topic to clean up.</param>
     /// <returns>Async task.</returns>
     private static async Task CleanupResources(string topicArn)
     {
@@ -522,7 +521,7 @@ public class EventBridgeScenario
         Console.WriteLine($"Clean up resources.");
 
         var eventRuleName = _configuration["eventRuleName"];
-        if (GetYesNoResponse($"\tDelete event rule {eventRuleName}? (y/n)"))
+        if (GetYesNoResponse($"\tDelete all targets and event rule {eventRuleName}? (y/n)"))
         {
             Console.WriteLine($"\tRemoving all targets from the event rule.");
             await _eventBridgeWrapper.RemoveAllTargetsFromRule(eventRuleName);
@@ -560,6 +559,23 @@ public class EventBridgeScenario
             await _s3Client.DeleteBucketAsync(new DeleteBucketRequest()
             {
                 BucketName = bucketName
+            });
+        }
+
+        var roleName = _configuration["roleName"];
+        if (GetYesNoResponse($"\tDelete role {roleName}? (y/n)"))
+        {
+            Console.WriteLine($"\tDetaching policy and deleting role.");
+            
+            await _iamClient!.DetachRolePolicyAsync(new DetachRolePolicyRequest()
+            {
+                RoleName = roleName,
+                PolicyArn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess",
+            });
+
+            await _iamClient!.DeleteRoleAsync(new DeleteRoleRequest()
+            {
+                RoleName = roleName
             });
         }
 
