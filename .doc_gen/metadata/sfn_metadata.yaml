@@ -19,7 +19,7 @@ sfn_Hello:
           github: javav2/example_code/stepfunctions
           sdkguide:
           excerpts:
-            - description:
+            - description: Java version of Hello.
               snippet_tags:
                 - stepfunctions.java2.list_machines.main           
   services:
