@@ -3,7 +3,7 @@ import SpaceBetween from "@cloudscape-design/components/space-between";
 import Button, { ButtonProps } from "@cloudscape-design/components/button";
 import { Alert, FormField, Input, Modal } from "@cloudscape-design/components";
 import { useState } from "react";
-import { AuthStatus, AuthSuccess } from "./auth";
+import { AuthResult, AuthStatus, AuthSuccess } from "./auth";
 import { useAuthStore } from "./store-auth";
 import { useUiStore } from "./store-ui";
 
@@ -26,12 +26,23 @@ function LoginModal() {
   } = useUiStore();
 
   const handleSignIn = async (result: AuthSuccess) => {
-    const user = await authManager.getUser();
-    setLoginModalVisible(false);
     setError(null);
-    setCurrentUser(user);
     setAuthStatus(result.status);
-    setToken(result.token);
+  };
+
+  const handleAuthResult = async (result: AuthResult) => {
+    setError(null);
+    setAuthStatus(result.status);
+
+    if (result.status === "signed_in") {
+      setLoginModalVisible(false);
+      const user = await authManager.getUser();
+      setCurrentUser(user);
+      setToken(result.token);
+    } else if (result.status === "signed_out") {
+      setCurrentUser(null);
+      setToken(null);
+    }
   };
 
   const primaryButtonState: Record<AuthStatus, () => ButtonProps> = {
@@ -44,7 +55,7 @@ function LoginModal() {
             username,
             newPassword
           );
-          await handleSignIn(authResult);
+          await handleAuthResult(authResult);
         } catch (err) {
           console.log(err);
           setError("Failed to reset password.");
@@ -57,10 +68,7 @@ function LoginModal() {
       onClick: async () => {
         try {
           const result = await authManager.signIn(username, password);
-          setError(null);
-          if (result.status !== "reset_required") {
-            await handleSignIn(result);
-          }
+          await handleAuthResult(result);
         } catch (err) {
           console.log(err);
           setError("Login attempt failed.");
@@ -72,8 +80,7 @@ function LoginModal() {
       onClick: async () => {
         try {
           const result = await authManager.signOut();
-          setAuthStatus(result.status);
-          setToken(null);
+          handleAuthResult(result);
         } catch (err) {
           console.log(err);
         }

@@ -116,8 +116,8 @@ export class PamStack extends Stack {
 
   private outputs() {
     [
-      [COGNITO_USER_POOL_ID_NAME, this.api.auth.appClient.userPoolClientId],
-      [COGNITO_APP_CLIENT_ID_NAME, this.api.auth.userPool.userPoolId],
+      [COGNITO_USER_POOL_ID_NAME, this.api.auth.userPool.userPoolId],
+      [COGNITO_APP_CLIENT_ID_NAME, this.api.auth.appClient.userPoolClientId],
       [API_GATEWAY_URL_NAME, this.api.restApi.url],
     ].forEach(([exportName, value]) => {
       new CfnOutput(this, exportName, { value, exportName });

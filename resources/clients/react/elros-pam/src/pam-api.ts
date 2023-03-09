@@ -10,33 +10,18 @@ const getHeaders = (config: PamApiConfig): { Authorization: string } | {} =>
   config.token ? { Authorization: config.token } : {};
 
 export const getTags = async (config: PamApiConfig): Promise<TagsResponse> => {
-  // const response = await fetch(
-  //   `${import.meta.env.VITE_API_GATEWAY_BASE_URL}/labels`,
-  //   {
-  //     headers: getHeaders(config),
-  //   }
-  // );
-  // return response.json();
-  return {
-    landscape: { count: 5 },
-    nature: { count: 5 },
-    portrait: { count: 3 },
-    street: { count: 1 },
-    travel: { count: 1 },
-    water: { count: 7 },
-    art: { count: 1 },
-    clouds: { count: 2 },
-    boating: { count: 11 },
-    sports: { count: 4 },
-    architecture: { count: 11 },
-    food: { count: 12 },
-    "ice-cream": { count: 1 },
-  };
+  const response = await fetch(
+    `${import.meta.env.VITE_API_GATEWAY_BASE_URL}labels`,
+    {
+      headers: getHeaders(config),
+    }
+  );
+  return response.json();
 };
 
 export const s3Copy = async (bucketName: string, config: PamApiConfig) => {
   const response = await fetch(
-    `${import.meta.env.VITE_API_GATEWAY_BASE_URL}/s3_copy`,
+    `${import.meta.env.VITE_API_GATEWAY_BASE_URL}s3_copy`,
     {
       method: "PUT",
       body: JSON.stringify({
@@ -56,7 +41,7 @@ export const s3Copy = async (bucketName: string, config: PamApiConfig) => {
 
 export const uploadFile = async (file: File, config: PamApiConfig) => {
   const response = await fetch(
-    `${import.meta.env.VITE_API_GATEWAY_BASE_URL}/upload`,
+    `${import.meta.env.VITE_API_GATEWAY_BASE_URL}upload`,
     {
       method: "PUT",
       body: JSON.stringify({
