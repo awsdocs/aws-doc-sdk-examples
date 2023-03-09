@@ -96,7 +96,7 @@ $ cdk destroy {STACK_NAME}
 
 ## Useful commands
 
-- `cdk ls` list the stacks based on your name & progrmming language
+- `cdk ls` list the stacks based on your name & programming language
 - `cdk deploy` deploy this stack to your default AWS account/region
 - `cdk diff` compare deployed stack with current state
 - `cdk synth` emits the synthesized CloudFormation template
