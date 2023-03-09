@@ -19,15 +19,23 @@ and configuration, replication, software patching, or cluster scaling.
 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
-* [TITLE](PATH TO SOURCE FILE WITH DDB CALLS)
-  (`SAMPLE-NAME`)
-
+* [Create a table](./basics/MovieList/MovieTable.swift)
+  (`CreateTable`)
+* [Add an item to a table](./basics/MovieList/MovieTable.swift) (`PutItem`)
+* [Update an item](./basics/MovieList/MovieTable.swift) (`UpdateItem`)
+* [Add the contents of a JSON file to a table](./basics/MovieList/MovieTable.swift) (`BatchWriteItem`)
+* [Get an item by key](./basics/MovieList/MovieTable.swift) (`GetItem`)
+* [Delete an item by key](./basics/MovieList/MovieTable.swift) (`DeleteItem`)
+* [Query a table](./basics/MovieList/MovieTable.swift) (`Query`)
+* [Scan a table with pagination](./basics/MovieList/MovieTable.swift) (`Scan`)
+* [Delete a table](./basics/MovieList/MovieTable.swift) (`DeleteTable`)
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-* [DynamoDB Basics](./basics/). Demonstrates a common series of
-  actions to create and perform common actions on a movie list database. (`Basics`)
+* [DynamoDB Basics](./basics/Sources/basics.swift). Demonstrates a common
+  series of actions to create and perform common actions on a movie list
+  database. (`Basics`)
 
 <!-- ### Cross-service examples
 Sample applications that work across multiple AWS services.
