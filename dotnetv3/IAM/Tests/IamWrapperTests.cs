@@ -15,12 +15,16 @@ namespace IAMActions.Tests
         private readonly IAmazonIdentityManagementService _iamService;
         private readonly IAMWrapper _iamWrapper;
 
-        // Values needed for user, role, and policies.
-        private readonly string? _userName;
-        private readonly string? _s3PolicyName;
-        private readonly string? _groupPolicyName;
+        // Values needed for IAM Basics scenario.
+        private readonly string? _s3ListBucketsPolicyName;
         private readonly string? _roleName;
-        private readonly string? _rolePolicyName;
+        private readonly string? _assumePolicyName;
+        private readonly string? _userName;
+
+        // Values for tests related to the IAM Groups scenario.
+        private readonly string? _groupUserName;
+        private readonly string? _groupPolicyName;
+        private readonly string? _groupBucketName;
         private readonly string? _groupName;
 
         private readonly string? _policyDocument;
@@ -41,10 +45,13 @@ namespace IAMActions.Tests
                     true) // Optionally load local settings.
                 .Build();
 
-            _userName = _configuration["UserName"];
-            _s3PolicyName = _configuration["S3PolicyName"];
-            _groupPolicyName = _configuration["GroupPolicyName"];
+            _s3ListBucketsPolicyName = _configuration["S3ListBucketsPolicyName"];
             _roleName = _configuration["RoleName"];
+            _assumePolicyName = _configuration["AssumePolicyName"];
+            _userName = _configuration["UserName"];
+
+            _groupUserName = _configuration["GroupUserName"];
+            _groupPolicyName = _configuration["GroupPolicyName"];
             _groupName = _configuration["GroupName"];
 
             // Permissions to list all buckets.
@@ -116,7 +123,7 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task CreatePolicyAsyncTest()
         {
-            var policy = await _iamWrapper.CreatePolicyAsync(_s3PolicyName, _policyDocument);
+            var policy = await _iamWrapper.CreatePolicyAsync(_s3ListBucketsPolicyName, _policyDocument);
             _policyArn = policy.Arn;
             Assert.NotNull(policy);
         }
@@ -134,6 +141,9 @@ namespace IAMActions.Tests
             var user = await _iamWrapper.CreateUserAsync(_userName);
             // Define a role policy document that allows the new user
             // to assume the role.
+
+            // Wait 15 seconds for the user to be active.
+            System.Threading.Thread.Sleep(15000);
 
             // Create the policy document here so we can save the value
             // of the user's Amazon Resource Name (ARN).
@@ -227,7 +237,7 @@ namespace IAMActions.Tests
         public async Task PutGroupPolicyAsyncTest()
         {
             var success = await _iamWrapper.PutGroupPolicyAsync(_groupName, _groupPolicyName, _policyDocument);
-            Assert.True(success, $"Could not attach policy {_s3PolicyName} to {_groupName}");
+            Assert.True(success, $"Could not attach policy {_s3ListBucketsPolicyName} to {_groupName}");
         }
 
         /// <summary>
@@ -413,8 +423,8 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task DeleteUserPolicyAsyncTest()
         {
-            var success = await _iamWrapper.DeleteUserPolicyAsync(_s3PolicyName, _userName);
-            Assert.True(success, $"Could not delete {_s3PolicyName}.");
+            var success = await _iamWrapper.DeleteUserPolicyAsync(_s3ListBucketsPolicyName, _userName);
+            Assert.True(success, $"Could not delete {_s3ListBucketsPolicyName}.");
         }
 
         /// <summary>
@@ -452,7 +462,7 @@ namespace IAMActions.Tests
         public async Task DetachRolePolicyAsyncTest()
         {
             var success = await _iamWrapper.DetachRolePolicyAsync(_policyArn, _roleName);
-            Assert.True(success, $"Couldn't detach policy, {_s3PolicyName} from {_roleName}.");
+            Assert.True(success, $"Couldn't detach policy, {_s3ListBucketsPolicyName} from {_roleName}.");
         }
 
         /// <summary>
@@ -465,7 +475,7 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task DeleteRolePolicyAsyncTest()
         {
-            var success = await _iamWrapper.DeleteRolePolicyAsync(_roleName, _asumeRolePolicyName);
+            var success = await _iamWrapper.DeleteRolePolicyAsync(_roleName, _assumePolicyName);
             Assert.True(success, "Could not delete the role policy.");
         }
 

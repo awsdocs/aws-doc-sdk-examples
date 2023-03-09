@@ -21,7 +21,7 @@ namespace IAMTests
 
         // Values needed for user, role, and policies.
         private readonly string? _roleName;
-        private readonly string? _bucketName;
+        private readonly string? _groupBucketName;
         private static string? _test_guid;
 
         public S3WrapperTests()
@@ -34,7 +34,7 @@ namespace IAMTests
                 .Build();
 
             _roleName = _configuration["RoleName"];
-            _bucketName = _configuration["BucketName"];
+            _groupBucketName = _configuration["GroupBucketName"];
 
             _s3Client = new AmazonS3Client();
             _stsClient = new AmazonSecurityTokenServiceClient();
@@ -52,12 +52,10 @@ namespace IAMTests
         public async Task PutBucketAsyncTest()
         {
             // Create the bucket.
-            _test_guid = Guid.NewGuid().ToString();
-            var bucketName = $"{_bucketName}{_test_guid}";
-            await _s3Wrapper.PutBucketAsync(bucketName);
+            await _s3Wrapper.PutBucketAsync(_groupBucketName);
 
             // Test that the new bucket exists.
-            var bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, bucketName);
+            var bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, _groupBucketName);
             Assert.True(bucketExists, "Could not create the bucket.");
         }
 
@@ -79,11 +77,10 @@ namespace IAMTests
         public async Task DeleteBucketAsyncTest()
         {
             // Try to delete the bucket.
-            var bucketName = $"{_bucketName}{_test_guid}";
-            await _s3Wrapper.DeleteBucketAsync(bucketName);
+            await _s3Wrapper.DeleteBucketAsync(_groupBucketName);
 
             // See if the bucket still exists.
-            var bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, bucketName);
+            var bucketExists = await AmazonS3Util.DoesS3BucketExistV2Async(_s3Client, _groupBucketName);
             Assert.False(bucketExists, "Could not delete the bucket.");
         }
 
