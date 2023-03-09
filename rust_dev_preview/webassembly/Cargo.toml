@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Eduardo Rodrigues <16357187+eduardomourar@users.noreply.github.com>"]
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
 
 [lib]
 crate-type = ["cdylib"]
