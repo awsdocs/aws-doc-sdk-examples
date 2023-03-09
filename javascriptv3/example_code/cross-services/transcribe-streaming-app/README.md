@@ -130,11 +130,8 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 19. Choose **Review Policy**.
 20. Choose **Save Changes**.   
 
-### Verifying an email address on Amazon SES 
-1. Open [AWS SES in the AWS Management Console](https://aws.amazon.com/SES/), and open the *Email Addresses* page.
-2. Choose **Verify a New Email Address**.
-3. Enter a working email address, and choose **Verify This Email Address**.
-4. Open the email in your email application, and verify it.
+### Verify an email address on Amazon SES 
+Create and verify an email address in Amazon SES. For more information, see [Creating and verifying identities in Amazon SES](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html).
 
 ## Create a Node.js project environment
 
