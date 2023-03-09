@@ -9,13 +9,13 @@ export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
   runtime: Runtime.NODEJS_18_X,
   handlers: {
-    archive: "",
+    // archive: "",
     copy: "",
     detectLabels: "",
     download: "",
     labels: "",
     upload: "",
-    zipArchive: "",
+    // zipArchive: "",
   },
 };
 export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
@@ -49,15 +49,16 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
   runtime: Runtime.JAVA_11,
   handlers: {
-    archive: "",
+    // archive: "",
     copy: "com.example.photo.handlers.S3Copy",
     detectLabels: "com.example.photo.handlers.S3Trigger",
     download: "com.example.photo.handlers.Restore",
     labels: "com.example.photo.handlers.GetHandler",
     upload: "com.example.photo.handlers.UploadHandler",
-    zipArchive: "com.example.photo.handlers.ZipArchiveHandler",
+    // zipArchive: "com.example.photo.handlers.ZipArchiveHandler",
   },
 };
+
 export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   codeAsset() {
     // Relative to cdk.json
@@ -66,12 +67,23 @@ export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
   runtime: Runtime.PYTHON_3_9,
   handlers: {
-    archive: "",
+    // archive: "",
     copy: "",
     detectLabels: "",
     download: "",
     labels: "",
     upload: "",
-    zipArchive: "",
+    // zipArchive: "",
   },
 };
+
+export const STRATEGIES: Record<string, PamLambdasStrategy> = {
+  java: JAVA_LAMBDAS_STRATEGY,
+  python: PYTHON_LAMBDAS_STRATEGY,
+  empty: EMPTY_LAMBDAS_STRATEGY,
+};
+
+export function getStrategy(language: string = ""): PamLambdasStrategy {
+  language = language.toLowerCase();
+  return STRATEGIES[language] ?? EMPTY_LAMBDAS_STRATEGY;
+}

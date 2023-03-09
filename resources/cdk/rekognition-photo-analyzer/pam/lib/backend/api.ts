@@ -37,7 +37,6 @@ export class PamApi extends Construct {
     this.auth = new PamAuth(this, "PamAuth", { email: props.email });
 
     const restApi = (this.restApi = new RestApi(this, "PamRestApi", {
-      // restApiName: scope.,
       defaultCorsPreflightOptions: {
         allowOrigins: Cors.ALL_ORIGINS,
         allowCredentials: true,

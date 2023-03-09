@@ -1,7 +1,12 @@
-import { Stack, StackProps } from "aws-cdk-lib";
+import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { LambdaDestination } from "aws-cdk-lib/aws-s3-notifications";
 import { Construct } from "constructs";
+import {
+  API_GATEWAY_URL_NAME,
+  COGNITO_APP_CLIENT_ID_NAME,
+  COGNITO_USER_POOL_ID_NAME,
+} from "../common";
 import { PamApi } from "./api";
 import { PamLambda, PamLambdasStrategy } from "./lambdas";
 import { PamBuckets, PamTables } from "./resources";
@@ -33,6 +38,7 @@ export class PamStack extends Stack {
     });
 
     this.permissions();
+    this.outputs();
   }
 
   private permissions() {
@@ -63,15 +69,14 @@ export class PamStack extends Stack {
 
     // ZipArchiveFn
     {
-      const fn = this.lambdas.fns.zipArchive;
-      this.buckets.working.addObjectCreatedNotification(
-        new LambdaDestination(fn),
-        { prefix: "job-", suffix: "/report.csv" }
-      );
-
-      // grant permissions for lambda to read/write to DynamoDB table and bucket
-      this.tables.jobs.grantReadWriteData(fn);
-      this.buckets.working.grantReadWrite(fn);
+      // const fn = this.lambdas.fns.zipArchive;
+      // this.buckets.working.addObjectCreatedNotification(
+      //   new LambdaDestination(fn),
+      //   { prefix: "job-", suffix: "/report.csv" }
+      // );
+      // // grant permissions for lambda to read/write to DynamoDB table and bucket
+      // this.tables.jobs.grantReadWriteData(fn);
+      // this.buckets.working.grantReadWrite(fn);
     }
 
     // LabelsFn
@@ -105,7 +110,17 @@ export class PamStack extends Stack {
 
     // ArchiveFn
     {
-      const fn = this.lambdas.fns.archive;
+      // const fn = this.lambdas.fns.archive;
     }
+  }
+
+  private outputs() {
+    [
+      [COGNITO_USER_POOL_ID_NAME, this.api.auth.appClient.userPoolClientId],
+      [COGNITO_APP_CLIENT_ID_NAME, this.api.auth.userPool.userPoolId],
+      [API_GATEWAY_URL_NAME, this.api.restApi.url],
+    ].forEach(([exportName, value]) => {
+      new CfnOutput(this, exportName, { value, exportName });
+    });
   }
 }

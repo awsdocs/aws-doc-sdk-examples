@@ -5,11 +5,11 @@ import { PamBuckets, PamTables } from "./resources";
 export interface PamLambdasStrategyHandlers {
   detectLabels: string;
   labels: string;
-  zipArchive: string;
+  // zipArchive: string;
   upload: string;
   copy: string;
   download: string;
-  archive: string;
+  // archive: string;
 }
 
 export interface PamLambdasStrategy {
@@ -43,21 +43,21 @@ export class PamLambda extends Construct {
       new Function(this, name, { runtime, handler, code, environment });
 
     const detectLabels = makeLambda("DetectLabelsFn", handlers.detectLabels);
-    const zipArchive = makeLambda("ZipArchiveFn", handlers.zipArchive);
+    // const zipArchive = makeLambda("ZipArchiveFn", handlers.zipArchive);
     const labels = makeLambda("LabelsFn", handlers.labels);
     const upload = makeLambda("UploadFn", handlers.upload);
     const copy = makeLambda("CopyFn", handlers.copy);
     const download = makeLambda("DowloadFn", handlers.download);
-    const archive = makeLambda("ArchiveFn", handlers.archive);
+    // const archive = makeLambda("ArchiveFn", handlers.archive);
 
     this.fns = {
       detectLabels,
-      zipArchive,
+      // zipArchive,
       labels,
       upload,
       copy,
       download,
-      archive,
+      // archive,
     };
   }
 }
