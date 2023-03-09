@@ -8,7 +8,6 @@ import com.example.photo.services.AnalyzePhotos;
 import com.example.photo.services.DynamoDBService;
 import com.example.photo.services.S3Service;
 
-
 // Tags the object after it's uploaded into the storage bucket.
 public class S3Trigger implements RequestHandler<S3Event, String> {
 
@@ -28,7 +27,8 @@ public class S3Trigger implements RequestHandler<S3Event, String> {
         // Tag the file
         UploadEndpoint endpoint = new UploadEndpoint(photos, dbService, s3Service);
         endpoint.tagAfterUpload(objectKey);
-        return "S3 object name captured successfully";
+
+        context.getLogger().log("Tagged image");
+        return "OK"; // Unused response
     }
 }
-

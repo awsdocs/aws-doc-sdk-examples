@@ -24,13 +24,13 @@ public class RestoreEndpoint {
     }
 
     public Job restore(String notify, List<String> tags) {
-        String topicArn = this.snsService.createNotificationTopic(notify);
 
         Set<String> images = tags.stream().parallel().flatMap(this::imagesByTag).collect(Collectors.toSet());
         String manifest = makeManifest(PhotoApplicationResources.WORKING_BUCKET, images);
         String manifestArn = this.s3Service.putManifest(manifest);
         String jobId = this.s3Service.startRestore(manifestArn, tags);
 
+        String topicArn = this.snsService.createNotificationTopic(notify, jobId);
         Job job = new Job(jobId, topicArn);
         this.dbService.putSubscription(job);
         return job;

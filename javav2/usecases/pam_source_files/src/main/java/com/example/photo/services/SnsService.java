@@ -1,5 +1,6 @@
 package com.example.photo.services;
 
+import com.example.photo.Job;
 import com.example.photo.PhotoApplicationResources;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -17,8 +18,11 @@ public class SnsService {
                 .build();
     }
 
-    public String createNotificationTopic(String notify) {
-        CreateTopicResponse response = getClient().createTopic(CreateTopicRequest.builder().build());
+    public String createNotificationTopic(String notify, String jobId) {
+        CreateTopicResponse response = getClient().createTopic(
+                CreateTopicRequest.builder()
+                        .name(jobId + "-notify-" + notify)
+                        .build());
         String topicArn = response.topicArn();
 
         getClient().subscribe(

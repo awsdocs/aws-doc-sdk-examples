@@ -12,10 +12,12 @@ import java.util.TreeMap;
 public class GetHandler implements RequestHandler<Object, String> {
     @Override
     public String handleRequest(Object o, Context context) {
+        context.getLogger().log("In Labels handler");
         DynamoDBService dbService = new DynamoDBService();
         Map<String, WorkCount> map = dbService.scanPhotoTable();
+        context.getLogger().log("Retrieved photos: " + map.size());
         Gson gson = new Gson();
-        Map<String, Map> m = new TreeMap<>();
+        Map<String, Map<String, WorkCount>> m = new TreeMap<>();
         m.put("labels", map);
         return gson.toJson(m);
     }

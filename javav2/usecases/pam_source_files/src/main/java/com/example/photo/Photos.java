@@ -12,22 +12,24 @@ import java.util.List;
 
 @DynamoDbBean
 public class Photos {
-    private String id;
+    private String labelId;
     private Integer count;
     private List<String> images;
 
     @DynamoDbPartitionKey
-    public String getId() {
-        return this.id;
+    public String getLabelId() {
+        return this.labelId;
     };
-    public void setId(String id) {
-        this.id = id;
+
+    public void setLabelId(String id) {
+        this.labelId = id;
     }
 
-    @DynamoDbAtomicCounter (startValue = 1)
+    @DynamoDbAtomicCounter(startValue = 1)
     public Integer getCount() {
         return this.count;
     }
+
     public void setCount(Integer count) {
         this.count = count;
     }
@@ -35,6 +37,7 @@ public class Photos {
     public List<String> getImages() {
         return this.images;
     }
+
     public void setImages(List<String> images) {
         this.images = images;
     }

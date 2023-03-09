@@ -5,6 +5,7 @@ import { PamLambdasStrategy } from "./lambdas";
 
 export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(10),
+  memorySize: 128,
   codeAsset() {
     return Code.fromAsset("");
   },
@@ -20,7 +21,8 @@ export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
 };
 export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
-  timeout: Duration.seconds(30),
+  timeout: Duration.seconds(90),
+  memorySize: 1024,
   codeAsset() {
     // Relative to cdk.json
     const javaSources = resolve("../../../javav2/usecases/pam_source_files/");
@@ -49,18 +51,18 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
   runtime: Runtime.JAVA_11,
   handlers: {
-    // archive: "",
-    copy: "com.example.photo.handlers.S3Copy",
+    ...EMPTY_LAMBDAS_STRATEGY.handlers,
+    copy: "com.example.photo.handlers.CopyHandler",
     detectLabels: "com.example.photo.handlers.S3Trigger",
-    download: "com.example.photo.handlers.Restore",
+    download: "com.example.photo.handlers.RestoreHandler",
     labels: "com.example.photo.handlers.GetHandler",
     upload: "com.example.photo.handlers.UploadHandler",
-    // zipArchive: "com.example.photo.handlers.ZipArchiveHandler",
   },
 };
 
 export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(60),
+  memorySize: 512,
   codeAsset() {
     // Relative to cdk.json
     const pythonSources = resolve("./rekognition_photo_analyzer");
@@ -68,13 +70,7 @@ export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
   runtime: Runtime.PYTHON_3_9,
   handlers: {
-    // archive: "",
-    copy: "",
-    detectLabels: "",
-    download: "",
-    labels: "",
-    upload: "",
-    // zipArchive: "",
+    ...EMPTY_LAMBDAS_STRATEGY.handlers,
   },
 };
 

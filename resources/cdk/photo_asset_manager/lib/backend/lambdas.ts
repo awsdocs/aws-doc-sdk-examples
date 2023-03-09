@@ -16,6 +16,7 @@ export interface PamLambdasStrategyHandlers {
 
 export interface PamLambdasStrategy {
   timeout: Duration;
+  memorySize: number; // In megabytes
   runtime: Runtime;
   codeAsset: () => Code;
   handlers: PamLambdasStrategyHandlers;
@@ -40,7 +41,7 @@ export class PamLambda extends Construct {
     };
 
     const code = props.strategy.codeAsset();
-    const { runtime, handlers, timeout } = props.strategy;
+    const { runtime, handlers, timeout, memorySize } = props.strategy;
     const makeLambda = (name: string, handler: string): Function =>
       new Function(this, name, {
         runtime,
@@ -48,6 +49,7 @@ export class PamLambda extends Construct {
         code,
         environment,
         timeout,
+        memorySize,
       });
 
     const detectLabels = makeLambda("DetectLabelsFn", handlers.detectLabels);

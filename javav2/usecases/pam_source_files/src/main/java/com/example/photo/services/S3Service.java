@@ -5,7 +5,6 @@
 
 package com.example.photo.services;
 
-import com.example.photo.PhotoApplication;
 import com.example.photo.PhotoApplicationResources;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Component;
