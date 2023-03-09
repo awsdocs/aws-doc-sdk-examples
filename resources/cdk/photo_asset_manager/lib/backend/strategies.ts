@@ -21,9 +21,7 @@ export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
 export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   codeAsset() {
     // Relative to cdk.json
-    const javaSources = resolve(
-      "../../../../javav2/usecases/pam_source_files/"
-    );
+    const javaSources = resolve("../../../javav2/usecases/pam_source_files/");
 
     return Code.fromAsset(javaSources, {
       bundling: {
@@ -62,7 +60,7 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
 export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   codeAsset() {
     // Relative to cdk.json
-    const pythonSources = resolve("./rekognition_photo_analyzer/lambda");
+    const pythonSources = resolve("./rekognition_photo_analyzer");
     return Code.fromAsset(pythonSources);
   },
   runtime: Runtime.PYTHON_3_9,

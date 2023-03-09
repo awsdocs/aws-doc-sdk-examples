@@ -10,21 +10,22 @@ This project will create the following in your AWS cloud environment:
 - API Gateway routing for lambda functions
 - Roles and policies allowing appropriate access to these resources
 
-### Prerequisites
+---
+
+Requirements:
 
 - git
 - npm (node.js)
-- python 3.x
 - docker
 - AWS access key & secret for AWS user with permissions to create resources listed above
   - https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config
 
 ---
 
-First, you will need to install the AWS CDK:
+First, you will need to install the dependencies in this project:
 
 ```
-$ npm install -g aws-cdk
+npm install
 ```
 
 You can check the toolkit version with this command:
@@ -33,61 +34,43 @@ You can check the toolkit version with this command:
 $ cdk --version
 ```
 
-Bootstrap the CDK:
+Export these variables:
+
+| Name      | Usage                                                    |
+| --------- | -------------------------------------------------------- |
+| PAM_NAME  | Short one-word name to identify this stack.              |
+| PAM_EMAIL | Email address for the pre-verified default user account. |
+| PAM_LANG  | Programming language for the lambdas in this deployment. |
+
+_bash/zsh_
 
 ```
-$ cdk bootstrap
+export PAM_NAME=
+export PAM_EMAIL=
+export PAM_LANG=
 ```
 
-## Deploy steps
-
-### Backend
-
-Now you are ready to create a virtualenv. Run the following in the backend directory
+_Windows cmd_
 
 ```
-$ python3 -m venv .venv
+set PAM_NAME=
+set PAM_EMAIL=
+set PAM_LANG=
 ```
 
-Activate your virtualenv:
+_Windows Powershell_
 
 ```
-$ source .venv/bin/activate
-```
-
-(or on Windows)
-
-```
-C:\> .venv\Scripts\activate.bat
-```
-
-Install the required dependencies:
-
-```
-$ pip install -r requirements.txt
-```
-
-Configure the stack for your account:
-
-```
-$ export PAM_NAME=$(whoami) # Or whatever name you want
-$ export PAM_EMAIL={yourrmail@domain}
-$ aws configure # Or otherwise set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
-```
-
-(or on Windows)
-
-```
-$ set PAM_NAME={your name}
-$ set PAM_EMAIL=youremail@domain
-$ aws configure # Or otherwise set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
+$Env:PAM_NAME =
+$Env:PAM_EMAIL =
+$Env:PAM_LANG =
 ```
 
 At this point you can now synthesize the CloudFormation template for this code.
-{Lang} is one of "Java" or "Python", with more coming soon!
+{PAM_LANG} is one of "Java" or "Python", with more coming soon!
 
 ```
-$ cdk synth ${PAM_NAME}-{Lang}-PAM
+cdk synth {PAM_NAME}-{PAM_LANG}-PAM
 ```
 
 If everything looks good, go ahead and deploy! This step will actually make
@@ -95,48 +78,7 @@ changes to your AWS cloud environment.
 
 ```
 $ cdk bootstrap
-$ cdk deploy {STACK_NAME} # {PAM_NAME}-{Lang}-PAM from above
-```
-
-### Frontend
-
-Run the following in the backend directory:
-
-```
-$ python3 -m venv .venv
-```
-
-Activate your virtualenv:
-
-```
-$ source .venv/bin/activate
-```
-
-Install the required dependencies:
-
-```
-$ pip install -r requirements.txt
-```
-
-Configure the stack for your account:
-
-```
-$ export PAM_NAME=$(whoami) # Or whatever name you want
-$ export BACKEND_STACK_ID= # The stack id output from [the backend steps](#backend)
-$ export AWS_ACCOUNT= # configure your AWS account environment as necessary
-```
-
-Run synth.
-
-```
-$ cdk synth ${PAM_NAME}-FrontEnd-PAM
-```
-
-If everything looks good, go ahead and deploy! This step will actually make
-changes to your AWS cloud environment.
-
-```
-$ cdk deploy
+$ cdk deploy {STACK_NAME} # {PAM_NAME}-{PAM_LANG}-PAM from above
 ```
 
 ## Testing
@@ -151,3 +93,10 @@ table, CloudWatch logs, or S3 bucket -- you will need to do those manually) :
 ```
 $ cdk destroy {STACK_NAME}
 ```
+
+## Useful commands
+
+- `cdk ls` list the stacks based on your name & progrmming language
+- `cdk deploy` deploy this stack to your default AWS account/region
+- `cdk diff` compare deployed stack with current state
+- `cdk synth` emits the synthesized CloudFormation template

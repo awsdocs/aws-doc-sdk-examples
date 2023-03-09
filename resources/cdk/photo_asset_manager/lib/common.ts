@@ -16,4 +16,4 @@ export const COGNITO_APP_CLIENT_ID_NAME = `${PAM_STACK_NAME}-CognitoAppClientID`
 export const API_GATEWAY_URL_NAME = `${PAM_STACK_NAME}-ApiGatewayUrl`;
 export const CLOUDFRONT_DISTRIBUTION_NAME = `${PAM_NAME}-FE-Distribution`;
 
-export const ELROS_PATH = resolve("../../../clients/react/elros-pam");
+export const ELROS_PATH = resolve("../../clients/react/elros-pam");
