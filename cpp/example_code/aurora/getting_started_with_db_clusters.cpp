@@ -588,7 +588,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
                   << "'.\nThis typically takes several minutes." << std::endl;
 
         // 13. Create a DB instance.
-        // snippet-start:[cpp.example_code.rds.CreateDBInstance]
+        // snippet-start:[cpp.example_code.aurora.CreateDBInstance]
         Aws::RDS::Model::CreateDBInstanceRequest request;
         request.SetDBInstanceIdentifier(DB_INSTANCE_IDENTIFIER);
         request.SetDBClusterIdentifier(DB_CLUSTER_IDENTIFIER);
@@ -610,7 +610,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
                              client);
             return false;
         }
-        // snippet-end:[cpp.example_code.rds.CreateDBInstance]
+        // snippet-end:[cpp.example_code.aurora.CreateDBInstance]
     }
 
     std::cout << "Waiting for the DB instance to become available." << std::endl;
