@@ -53,71 +53,107 @@ namespace AwsDocTest {
                                                 "y"}; // Do you want to delete the DB cluster, DB instance and parameter group (y/n)?
 
     bool addHttpResponses(MockHTTP &mockHttp) {
-        if (!mockHttp.addResponseWithBody("mock_input/1-DescribeDBClusterParameterGroups.xml",
-                                          Aws::Http::HttpResponseCode::NOT_FOUND)) {
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/1-DescribeDBClusterParameterGroups.xml",
+                Aws::Http::HttpResponseCode::NOT_FOUND)) {
             return false;
         }
         if (!mockHttp.addResponseWithBody(
                 "mock_input/2-DescribeDBEngineVersions.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/3-CreateDBClusterParameterGroup.xml")) {
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/3-CreateDBClusterParameterGroup.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/4-DescribeDBClusterParameters.xml")) {
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/4-DescribeDBClusterParameters.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/5-DescribeDBClusterParameters.xml")) {
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/5-DescribeDBClusterParameters.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/9-ModifyDBParameterGroup.xml")) {
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/8-ModifyDBClusterParameterGroup.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/10-DescribeDBParameters.xml")) {
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/9-DescribeDBClusterParameters.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/11-DescribeDBInstances.xml",
+        if (!mockHttp.addResponseWithBody("mock_input/10-DescribeDBClusters.xml",
                                           Aws::Http::HttpResponseCode::NOT_FOUND)) {
             return false;
         }
         if (!mockHttp.addResponseWithBody(
-                "mock_input/12-DescribeDBEngineVersions.xml")) {
+                "mock_input/11-DescribeDBEngineVersions.xml")) {
             return false;
         }
         if (!mockHttp.addResponseWithBody(
-                "mock_input/13-DescribeOrderableDBInstanceOptions.xml")) {
+                "mock_input/12-CreateDBCluster.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/15-CreateDBInstance.xml")) {
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/13-DescribeDBClusters.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/16-DescribeDBInstances.xml")) {
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/52-DescribeDBClusters.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/457-DescribeDBInstances.xml")) {
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/53-DescribeDBInstances.xml",
+                Aws::Http::HttpResponseCode::NOT_FOUND)) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/458-CreateDBSnapshot.xml")) {
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/54-DescribeOrderableDBInstanceOptions.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/459-DescribeDBSnapshots.xml")) {
+        if (!mockHttp.addResponseWithBody("mock_input/55-CreateDBInstance.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/564-DescribeDBSnapshots.xml")) {
+        if (!mockHttp.addResponseWithBody("mock_input/56-DescribeDBInstances.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/565-DeleteDBInstance.xml")) {
+        if (!mockHttp.addResponseWithBody("mock_input/448-DescribeDBInstances.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/566-DescribeDBInstances.xml")) {
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/449-CreateDBClusterSnapshot.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/666-DescribeDBInstances.xml",
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/450-DescribeDBClusterSnapshots.xml")) {
+            return false;
+        }
+        if (!mockHttp.addResponseWithBody(
+                "mock_input/625-DescribeDBClusterSnapshots.xml")) {
+            return false;
+        }
+        if (!mockHttp.addResponseWithBody("mock_input/626-DeleteDBInstance.xml")) {
+            return false;
+        }
+        if (!mockHttp.addResponseWithBody("mock_input/627-DeleteDBCLuster.xml")) {
+            return false;
+        }
+        if (!mockHttp.addResponseWithBody("mock_input/628-DescribeDBInstances.xml")) {
+            return false;
+        }
+        if (!mockHttp.addResponseWithBody("mock_input/629-DescribeDBClusters.xml")) {
+            return false;
+        }
+        if (!mockHttp.addResponseWithBody("mock_input/1532-DescribeDBInstances.xml",
+                                          Aws::Http::HttpResponseCode::NOT_FOUND)) {
+            return false;
+        }
+        if (!mockHttp.addResponseWithBody("mock_input/1533-DescribeDBClusters.xml",
                                           Aws::Http::HttpResponseCode::NOT_FOUND)) {
             return false;
         }
         if (!mockHttp.addResponseWithBody(
-                "mock_input/667-DeleteDBParameterGroup.xml")) {
+                "mock_input/1534-DeleteDBClusterParameterGroup.xml")) {
             return false;
         }
 

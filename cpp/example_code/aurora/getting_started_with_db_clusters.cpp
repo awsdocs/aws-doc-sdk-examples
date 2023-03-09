@@ -1130,7 +1130,6 @@ int main(int argc, const char *argv[]) {
     (void) argv;  // Suppress unused warnings.
 
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     InitAPI(options);
 
     {
