@@ -43,10 +43,6 @@ class RekognitionPhotoAnalyzerStack(Stack):
 
         super().__init__(scope, id, **kwargs)
 
-        (user, group) = self._iam()
-        self.user = user
-        self.group = group
-
         (storage_bucket, working_bucket) = self._s3()
         self.storage_bucket = storage_bucket
         self.working_bucket = working_bucket
@@ -65,16 +61,6 @@ class RekognitionPhotoAnalyzerStack(Stack):
         self._s3_website(self.gateway, app_client)
 
         self._permissions()
-
-    def _iam(self):
-        # create new IAM group and user
-        group = iam.Group(self, f"AppGroup")
-        user = iam.User(self, f"AppUser")
-
-        # add IAM user to the new group
-        user.add_to_group(group)
-
-        return (user, group)
 
     def _s3(self) -> tuple[s3.Bucket, s3.Bucket]:
         # give new user access to the bucket
