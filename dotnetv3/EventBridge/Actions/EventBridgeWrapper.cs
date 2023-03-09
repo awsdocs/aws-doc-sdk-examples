@@ -78,8 +78,7 @@ public class EventBridgeWrapper
         var ruleResponse = await _amazonEventBridge.DisableRuleAsync(
             new DisableRuleRequest()
             {
-                Name = ruleName,
-                //EventBusName = eventBusName
+                Name = ruleName
             });
         return ruleResponse.HttpStatusCode == HttpStatusCode.OK;
     }
@@ -175,13 +174,13 @@ public class EventBridgeWrapper
     public async Task<string> PutS3UploadRule(string roleArn, string ruleName, string bucketName)
     {
         string eventPattern = "{" +
-                              "\"source\": [\"aws.s3\"]," +
-                              "\"detail-type\": [\"Object Created\"]," +
-                              "\"detail\": {" +
-                              "\"bucket\": {" +
-                              "\"name\": [\"" + bucketName + "\"]" +
-                              "}" +
-                              "}" +
+                                "\"source\": [\"aws.s3\"]," +
+                                    "\"detail-type\": [\"Object Created\"]," +
+                                    "\"detail\": {" +
+                                        "\"bucket\": {" +
+                                            "\"name\": [\"" + bucketName + "\"]" +
+                                        "}" +
+                                    "}" +
                               "}";
 
         var response = await _amazonEventBridge.PutRuleAsync(
@@ -203,7 +202,7 @@ public class EventBridgeWrapper
     /// </summary>
     /// <param name="ruleName">The name of the rule.</param>
     /// <param name="targetArn">The ARN of the target.</param>
-    /// <param name="eventBusArn">Optional event bus Arn. If empty, uses the default event bus.</param>
+    /// <param name="eventBusArn">Optional event bus ARN. If empty, uses the default event bus.</param>
     /// <returns>The ID of the target.</returns>
     public async Task<string> UpdateS3UploadRuleTargetWithTransform(string ruleName, string targetArn, string? eventBusArn = null)
     {
@@ -251,7 +250,7 @@ public class EventBridgeWrapper
     /// </summary>
     /// <param name="ruleName">The name of the rule.</param>
     /// <param name="targetArn">The ARN of the target.</param>
-    /// <param name="eventBusArn">Optional event bus Arn. If empty, uses the default event bus.</param>
+    /// <param name="eventBusArn">Optional event bus ARN. If empty, uses the default event bus.</param>
     /// <returns>The ID of the target.</returns>
     public async Task<string> UpdateCustomRuleTargetWithTransform(string ruleName, string targetArn, string? eventBusArn = null)
     {

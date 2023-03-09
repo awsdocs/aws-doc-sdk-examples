@@ -165,7 +165,7 @@ eventbridge_PutRule:
           github: dotnetv3/EventBridge
           sdkguide:
           excerpts:
-            - description: Create a rule that triggers when an &S3long; is created.
+            - description: Create a rule that triggers when an object is added to an &S3long; bucket.
               snippet_tags:
                 - EventBridge.dotnetv3.PutRule
             - description: Create a rule that uses a custom pattern.

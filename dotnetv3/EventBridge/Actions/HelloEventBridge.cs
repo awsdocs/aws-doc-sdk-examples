@@ -5,6 +5,7 @@
 using Microsoft.Extensions.Hosting;
 using Amazon.EventBridge;
 using Amazon.EventBridge.Model;
+using Amazon.Extensions.NETCore.Setup;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EventBridgeActions;
@@ -17,7 +18,7 @@ public static class HelloEventBridge
         // Use your AWS profile name, or leave it blank to use the default profile.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
-                services.AddAWSService<IAmazonEventBridge>()
+                services.AddAWSService<IAmazonEventBridge>(new AWSOptions() { Profile = "default" })
             ).Build();
 
         // Now the client is available for injection.

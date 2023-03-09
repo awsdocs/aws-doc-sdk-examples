@@ -109,7 +109,7 @@ in the `dotnetv3` folder.
 
 * [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
 * [EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
-* [SDK for .NET EventBridge reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Eventbridge/NEventbridge.html)
+* [SDK for .NET EventBridge reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EventBridge/NEventBridge.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
