@@ -98,6 +98,7 @@ class StringExtension(String):
         self.end_punc = bool(kwargs.pop('end_punc', False))
         self.no_end_punc = bool(kwargs.pop('no_end_punc', False))
         self.end_punc_or_colon = bool(kwargs.pop('end_punc_or_colon', False))
+        self.end_punc_or_semicolon = bool(kwargs.pop('end_punc_or_semicolon', False))
         self.last_err = 'valid string'
 
     def get_name(self):
@@ -132,6 +133,10 @@ class StringExtension(String):
             valid = value[-1] in '!.?:'
             if not valid:
                 self.last_err = 'valid sentence or phrase: it must end with punctuation or a colon'
+        if valid and self.end_punc_or_semicolon:
+            valid = value[-1] in '!.?;'
+            if not valid:
+                self.last_err = 'valid sentence or phrase: it must end with punctuation or a semicolon'
         if valid:
             valid = super()._is_valid(value)
         return valid

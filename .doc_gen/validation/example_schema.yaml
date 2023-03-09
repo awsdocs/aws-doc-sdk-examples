@@ -6,7 +6,7 @@ map(include('example'), key=example_id())
 example:
   title: str(upper_start=True, no_end_punc=True)
   title_abbrev: str(upper_start=True, no_end_punc=True)
-  synopsis: str(required=False, lower_start=True, end_punc=True)
+  synopsis: str(required=False, lower_start=True, end_punc_or_semicolon=True)
   synopsis_list: list(str(upper_start=True, end_punc=True), required=False)
   category: str(required=False, upper_start=True, no_end_punc=True)
   guide_topic: include('guide_topic', required=False)
