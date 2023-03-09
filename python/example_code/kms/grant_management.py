@@ -26,19 +26,19 @@ class GrantManager:
 # snippet-start:[python.example_code.kms.CreateGrant]
     def create_grant(self, key_id):
         """
-        Creates a grant for a key that lets a user generate a symmetric data
+        Creates a grant for a key that lets a principal generate a symmetric data
         encryption key.
 
         :param key_id: The ARN or ID of the key.
         :return: The grant that is created.
         """
-        user = input(
-            f"Enter the ARN of an IAM user to grant that user GenerateDataKey "
-            f"permissions on key {key_id}.")
-        if user != '':
+        principal = input(
+            f"Enter the ARN of a principal, such as an IAM role, to grant that role "
+            f"GenerateDataKey permissions on key {key_id}: ")
+        if principal != '':
             try:
                 grant = self.kms_client.create_grant(
-                    KeyId=key_id, GranteePrincipal=user, Operations=['GenerateDataKey'])
+                    KeyId=key_id, GranteePrincipal=principal, Operations=['GenerateDataKey'])
             except ClientError as err:
                 logger.error(
                     "Couldn't create a grant on key %s. Here's why: %s",
