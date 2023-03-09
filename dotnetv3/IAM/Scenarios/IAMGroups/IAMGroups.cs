@@ -65,7 +65,7 @@ public class IAMGroups
         // Add an inline IAM policy it to the group.
         uiWrapper.DisplayTitle("Add policy to group");
         Console.WriteLine("Add an inline policy to the group that allows members to have full access to");
-        Console.WriteLine(");Amazon Sinple Storage Service (Amazon S3) buckets.");
+        Console.WriteLine("Amazon Simple Storage Service (Amazon S3) buckets.");
 
         await wrapper.PutGroupPolicyAsync(group.GroupName, groupPolicyName, S3FullAccessPolicy);
 
@@ -73,7 +73,9 @@ public class IAMGroups
 
         // Now create a new user.
         uiWrapper.DisplayTitle("Create an IAM user");
+        Console.WriteLine("Now let's create a new IAM user.");
         var groupUser = await wrapper.CreateUserAsync(groupUserName);
+
         Console.WriteLine("Now that we have created a user, let's create an IAM access key for the user.");
 
         // Create access and secret keys for the user.
@@ -93,10 +95,10 @@ public class IAMGroups
         uiWrapper.DisplayTitle("List buckets");
         Console.WriteLine("To prove that the user has access to Amazon S3, list the Amazon S3 buckets for the account.");
 
-        var s3Client1 = new AmazonS3Client(accessKey.AccessKeyId, accessKey.SecretAccessKey);
-        var stsClient1 = new AmazonSecurityTokenServiceClient(accessKey.AccessKeyId, accessKey.SecretAccessKey);
+        var s3Client = new AmazonS3Client(accessKey.AccessKeyId, accessKey.SecretAccessKey);
+        var stsClient = new AmazonSecurityTokenServiceClient(accessKey.AccessKeyId, accessKey.SecretAccessKey);
 
-        var s3Wrapper = new S3Wrapper(s3Client1, stsClient1);
+        var s3Wrapper = new S3Wrapper(s3Client, stsClient);
 
         var buckets = await s3Wrapper.ListMyBucketsAsync();
 

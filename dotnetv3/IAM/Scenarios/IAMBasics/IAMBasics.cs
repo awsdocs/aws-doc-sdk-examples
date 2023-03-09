@@ -39,7 +39,7 @@ public class IAMBasics
 
         // Values needed for user, role, and policies.
         string userName = configuration["UserName"];
-        string s3PolicyName = configuration["PolicyName"];
+        string s3PolicyName = configuration["S3PolicyName"];
         string roleName = configuration["RoleName"];
 
 
