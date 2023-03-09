@@ -800,7 +800,6 @@ bool AwsDoc::Aurora::getDBCLusterParameters(const Aws::String &parameterGroupNam
                                             const Aws::String &source,
                                             Aws::Vector<Aws::RDS::Model::Parameter> &parametersResult,
                                             const Aws::RDS::RDSClient &client) {
-    // snippet-start:[cpp.example_code.aurora.DescribeDBClusterParameters]
     Aws::String marker;
     do {
         Aws::RDS::Model::DescribeDBClusterParametersRequest request;
@@ -838,7 +837,6 @@ bool AwsDoc::Aurora::getDBCLusterParameters(const Aws::String &parameterGroupNam
             return false;
         }
     } while (!marker.empty());
-    // snippet-end:[cpp.example_code.aurora.DescribeDBClusterParameters]
 
     return true;
 }
