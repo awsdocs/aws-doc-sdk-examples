@@ -1,4 +1,6 @@
+import { Duration, RemovalPolicy } from "aws-cdk-lib";
 import { Code, Function, Runtime } from "aws-cdk-lib/aws-lambda";
+import { CfnSchema } from "aws-cdk-lib/aws-eventschemas";
 import { Construct } from "constructs";
 import { PamBuckets, PamTables } from "./resources";
 
@@ -13,6 +15,7 @@ export interface PamLambdasStrategyHandlers {
 }
 
 export interface PamLambdasStrategy {
+  timeout: Duration;
   runtime: Runtime;
   codeAsset: () => Code;
   handlers: PamLambdasStrategyHandlers;
@@ -37,10 +40,15 @@ export class PamLambda extends Construct {
     };
 
     const code = props.strategy.codeAsset();
-    const runtime = props.strategy.runtime;
-    const handlers = props.strategy.handlers;
+    const { runtime, handlers, timeout } = props.strategy;
     const makeLambda = (name: string, handler: string): Function =>
-      new Function(this, name, { runtime, handler, code, environment });
+      new Function(this, name, {
+        runtime,
+        handler,
+        code,
+        environment,
+        timeout,
+      });
 
     const detectLabels = makeLambda("DetectLabelsFn", handlers.detectLabels);
     // const zipArchive = makeLambda("ZipArchiveFn", handlers.zipArchive);
@@ -59,5 +67,51 @@ export class PamLambda extends Construct {
       download,
       // archive,
     };
+  }
+
+  private makeTests() {
+    const uploadTests = new CfnSchema(this, "PAMUploadFnTests", {
+      registryName: "lambda-testevent-schemas",
+      // schemaName: `_${upload.functionName}-schema`,
+      schemaName: ``,
+      type: "OpenApi3",
+      content: JSON.stringify({
+        openapi: "3.0.0",
+        info: {
+          version: "1.0.0",
+          title: "Event",
+        },
+        paths: {},
+        components: {
+          schemas: {
+            Event: {
+              type: "object",
+              required: ["path", "resource", "body", "httpMethod"],
+              properties: {
+                body: {
+                  type: "string",
+                },
+                httpMethod: {
+                  type: "string",
+                },
+                path: {
+                  type: "string",
+                },
+              },
+            },
+          },
+          examples: {
+            UploadLake: {
+              value: {
+                body: '{"file_name":"lake.jpeg"}',
+                path: "/upload",
+                httpMethod: "PUT",
+              },
+            },
+          },
+        },
+      }),
+    });
+    uploadTests.applyRemovalPolicy(RemovalPolicy.DESTROY);
   }
 }

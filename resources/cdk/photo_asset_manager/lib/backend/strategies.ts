@@ -1,9 +1,10 @@
-import { BundlingOutput } from "aws-cdk-lib";
+import { BundlingOutput, Duration } from "aws-cdk-lib";
 import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { resolve } from "path";
 import { PamLambdasStrategy } from "./lambdas";
 
 export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  timeout: Duration.seconds(10),
   codeAsset() {
     return Code.fromAsset("");
   },
@@ -19,6 +20,7 @@ export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
 };
 export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  timeout: Duration.seconds(30),
   codeAsset() {
     // Relative to cdk.json
     const javaSources = resolve("../../../javav2/usecases/pam_source_files/");
@@ -58,6 +60,7 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
 };
 
 export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  timeout: Duration.seconds(60),
   codeAsset() {
     // Relative to cdk.json
     const pythonSources = resolve("./rekognition_photo_analyzer");
