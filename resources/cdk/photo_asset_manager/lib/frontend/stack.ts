@@ -44,7 +44,7 @@ export class PamFrontendStack extends Stack {
       value: this.distribution.domainName,
     });
 
-    this.deployment = new BucketDeployment(this, "PamWebsiteDepoyment", {
+    this.deployment = new BucketDeployment(this, "PamWebsiteDeployment", {
       destinationBucket: this.bucket,
       sources: [
         Source.asset(ELROS_PATH, {
