@@ -43,7 +43,7 @@ public class IAMBasics
         string roleName = configuration["RoleName"];
 
 
-        var wrapper = host.Services.GetRequiredService<IAMWrapper>();
+        var iamWrapper = host.Services.GetRequiredService<IAMWrapper>();
         var uiWrapper = host.Services.GetRequiredService<UIWrapper>();
 
         uiWrapper.DisplayBasicsOverview();
@@ -53,7 +53,7 @@ public class IAMBasics
         // no permissions.
         uiWrapper.DisplayTitle("Create User");
         Console.WriteLine($"Creating a new user with user name: {userName}.");
-        var user = await wrapper.CreateUserAsync(userName);
+        var user = await iamWrapper.CreateUserAsync(userName);
         var userArn = user.Arn;
 
         Console.WriteLine($"Successfully created user: {userName} with ARN: {userArn}.");
@@ -85,7 +85,7 @@ public class IAMBasics
         // Create an AccessKey for the user.
         uiWrapper.DisplayTitle("Create access key");
         Console.WriteLine("Now let's create an access key for the new user.");
-        var accessKey = await wrapper.CreateAccessKeyAsync(userName);
+        var accessKey = await iamWrapper.CreateAccessKeyAsync(userName);
 
         var accessKeyId = accessKey.AccessKeyId;
         var secretAccessKey = accessKey.SecretAccessKey;
@@ -93,7 +93,7 @@ public class IAMBasics
         Console.WriteLine($"We have created the access key with Access key id: {accessKeyId}.");
 
         Console.WriteLine("Now let's wait until the IAM access key is ready to use.");
-        var keyReady = await wrapper.WaitUntilAccessKeyIsReady(accessKeyId);
+        var keyReady = await iamWrapper.WaitUntilAccessKeyIsReady(accessKeyId);
 
         // Now try listing the Amazon Simple Storage Service (Amazon S3)
         // buckets. This should fail at this point because the user doesn't
@@ -118,7 +118,7 @@ public class IAMBasics
         // Creating an IAM role to allow listing the S3 buckets. A role name
         // is not case sensitive and must be unique to the account for which it
         // is created.
-        var roleArn = await wrapper.CreateRoleAsync(roleName, assumeRolePolicyDocument);
+        var roleArn = await iamWrapper.CreateRoleAsync(roleName, assumeRolePolicyDocument);
 
         uiWrapper.PressEnter();
 
@@ -126,7 +126,7 @@ public class IAMBasics
         uiWrapper.DisplayTitle("Create IAM policy");
         Console.WriteLine($"Creating the policy: {s3PolicyName}");
         Console.WriteLine("with permissions to list the Amazon S3 buckets for the account.");
-        var policy = await wrapper.CreatePolicyAsync(s3PolicyName, policyDocument);
+        var policy = await iamWrapper.CreatePolicyAsync(s3PolicyName, policyDocument);
 
         // Wait 15 seconds for the IAM policy to be available.
         uiWrapper.WaitABit(15, "Waiting for the policy to be available.");
@@ -134,7 +134,7 @@ public class IAMBasics
         // Attach the policy to the role you created earlier.
         uiWrapper.DisplayTitle("Attach new IAM policy");
         Console.WriteLine("Now let's attach the policy to the role.");
-        await wrapper.AttachRolePolicyAsync(policy.Arn, roleName);
+        await iamWrapper.AttachRolePolicyAsync(policy.Arn, roleName);
 
         // Wait 15 seconds for the role to be updated.
         Console.WriteLine();
@@ -174,15 +174,15 @@ public class IAMBasics
         Console.WriteLine("Thank you for watching. The IAM Basics demo is complete.");
         Console.WriteLine("Please wait while we clean up the resources we created.");
 
-        await wrapper.DetachRolePolicyAsync(policy.Arn, roleName);
+        await iamWrapper.DetachRolePolicyAsync(policy.Arn, roleName);
 
-        await wrapper.DeletePolicyAsync(policy.Arn);
+        await iamWrapper.DeletePolicyAsync(policy.Arn);
 
-        await wrapper.DeleteRoleAsync(roleName);
+        await iamWrapper.DeleteRoleAsync(roleName);
 
-        await wrapper.DeleteAccessKeyAsync(accessKeyId, userName);
+        await iamWrapper.DeleteAccessKeyAsync(accessKeyId, userName);
 
-        await wrapper.DeleteUserAsync(userName);
+        await iamWrapper.DeleteUserAsync(userName);
 
         uiWrapper.PressEnter();
 

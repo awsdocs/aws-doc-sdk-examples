@@ -32,7 +32,6 @@ public class IAMGroups
             .ConfigureServices((_, services) =>
             services.AddAWSService<IAmazonIdentityManagementService>()
             .AddTransient<IAMWrapper>()
-            .AddTransient<S3Wrapper>()
             .AddTransient<UIWrapper>()
             )
             .Build();
