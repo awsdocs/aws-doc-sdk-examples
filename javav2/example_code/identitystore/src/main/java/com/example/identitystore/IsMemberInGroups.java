@@ -18,7 +18,7 @@ import software.amazon.awssdk.services.identitystore.model.MemberId;
 import software.amazon.awssdk.services.identitystore.model.GroupMembershipExistenceResult;
 import java.util.ArrayList;
 import java.util.List;
-// snippet-start:[Identitystore.java2.is_member_in_groups.import]
+// snippet-end:[Identitystore.java2.is_member_in_groups.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.

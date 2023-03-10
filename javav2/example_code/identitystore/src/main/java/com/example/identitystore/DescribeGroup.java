@@ -68,5 +68,5 @@ public class DescribeGroup {
 
         return "";
      }
-     // snippet-start:[identitystore.java2.describe_group.main]
+     // snippet-end:[identitystore.java2.describe_group.main]
 }
