@@ -21,8 +21,13 @@ public class GetHandler implements RequestHandler<Map<String, Object>, APIGatewa
         Map<String, Map<String, WorkCount>> m = new TreeMap<>();
         m.put("labels", map);
 
+        Map<String, String> headersMap = Map.of(
+            "Access-Control-Allow-Origin", "*"
+        );
+
     return new APIGatewayProxyResponseEvent()
         .withStatusCode(200)
+        .withHeaders(headersMap)
         .withBody(gson.toJson(m))
         .withIsBase64Encoded(false);
   }
