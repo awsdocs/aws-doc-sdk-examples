@@ -5,12 +5,19 @@
 
 import { Duration, RemovalPolicy } from "aws-cdk-lib";
 import { AttributeType, Table } from "aws-cdk-lib/aws-dynamodb";
-import { Bucket, StorageClass } from "aws-cdk-lib/aws-s3";
+import { Bucket, HttpMethods, StorageClass } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 
 export class PamBuckets extends Construct {
   readonly storage = new Bucket(this, "storage-bucket", {
     removalPolicy: RemovalPolicy.DESTROY,
+    cors: [
+      {
+        allowedHeaders: ["*"],
+        allowedMethods: [HttpMethods.PUT],
+        allowedOrigins: ["*"],
+      },
+    ],
   });
   readonly working = new Bucket(this, "working-bucket", {
     removalPolicy: RemovalPolicy.DESTROY,

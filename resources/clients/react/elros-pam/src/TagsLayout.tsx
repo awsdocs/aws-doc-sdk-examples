@@ -36,9 +36,9 @@ function TagsLayout() {
   }, [selectedTags]);
 
   const handleUpload = async (file: File) => {
-    const response = await uploadFile(file, { token });
-    console.log(response);
-  }
+    await uploadFile(file, { token });
+    fetchTags({ token });
+  };
 
   return (
     <>
@@ -55,7 +55,11 @@ function TagsLayout() {
             actions={
               <SpaceBetween size="s" direction="horizontal">
                 <S3Transfer />
-                <FileUpload disabled={authStatus !== "signed_in"} accept={[".jpg", ".jpeg"]} onSubmit={handleUpload}/>
+                <FileUpload
+                  disabled={authStatus !== "signed_in"}
+                  accept={[".jpg", ".jpeg"]}
+                  onSubmit={handleUpload}
+                />
                 <Button
                   disabled={authStatus !== "signed_in" || !selectedImageCount}
                 >

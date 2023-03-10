@@ -53,10 +53,10 @@ export const uploadFile = async (file: File, config: PamApiConfig) => {
   if (response.ok) {
     const { url } = await response.json();
     return fetch(url, {
+      method: "PUT",
       headers: {
-        "Content-Type": file.type,
+        "Content-Type": "image/jpeg",
         "Content-Length": `${file.size}`,
-        ...getHeaders(config),
       },
       body: await file.arrayBuffer(),
     });
