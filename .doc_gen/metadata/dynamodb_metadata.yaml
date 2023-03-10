@@ -75,6 +75,7 @@ dynamodb_CreateTable:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.dynamodb.Scaffold
                 - ruby.example_code.dynamodb.CreateTable
     Rust:
       versions:
@@ -235,6 +236,7 @@ dynamodb_DescribeTable:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.dynamodb.Scaffold
                 - ruby.example_code.dynamodb.DescribeTable
   services:
     dynamodb: {DescribeTable}
@@ -316,6 +318,7 @@ dynamodb_BatchWriteItem:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.BatchWriteItem
     C++:
       versions:
@@ -403,6 +406,7 @@ dynamodb_DeleteTable:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.dynamodb.Scaffold
                 - ruby.example_code.dynamodb.DeleteTable
     Rust:
       versions:
@@ -508,6 +512,7 @@ dynamodb_PutItem:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.PutItem
     Rust:
       versions:
@@ -625,6 +630,7 @@ dynamodb_GetItem:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.GetItem
     JavaScript:
       versions:
@@ -744,6 +750,7 @@ dynamodb_UpdateItem:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.UpdateItem.UpdateExpression
     JavaScript:
       versions:
@@ -849,6 +856,7 @@ dynamodb_DeleteItem:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.DeleteItem
     JavaScript:
       versions:
@@ -960,6 +968,16 @@ dynamodb_ListTables:
               snippet_tags:
                 - python.example_code.dynamodb.helper.Movies.class_decl
                 - python.example_code.dynamodb.ListTables
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Determine whether a table exists.
+              snippet_tags:
+                - ruby.example_code.dynamodb.Scaffold
+                - ruby.example_code.dynamodb.DescribeTable
     Rust:
       versions:
         - sdk_version: 1
@@ -1075,6 +1093,7 @@ dynamodb_Query:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.Query
     Rust:
       versions:
@@ -1187,6 +1206,7 @@ dynamodb_Scan:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.Scan
     Rust:
       versions:
@@ -1311,6 +1331,28 @@ dynamodb_ExecuteStatement:
               snippet_tags:
                 - python.example_code.dynamodb.helper.PartiQLWrapper.class_decl
                 - python.example_code.dynamodb.ExecuteStatement
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Select a single item using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_select
+            - description: Update a single item using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_update
+            - description: Add a single item using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_insert
+            - description: Delete a single item using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_delete
     C++:
       versions:
         - sdk_version: 1
@@ -1414,6 +1456,20 @@ dynamodb_BatchExecuteStatement:
               snippet_tags:
                 - python.example_code.dynamodb.helper.PartiQLBatchWrapper.class_decl
                 - python.example_code.dynamodb.BatchExecuteStatement
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Read a batch of items using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLBatch.decl
+                - ruby.example_code.dynamodb.partiql.batch_read
+            - description: Delete a batch of items using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLBatch.decl
+                - ruby.example_code.dynamodb.partiql.batch_write
     C++:
       versions:
         - sdk_version: 1
@@ -1607,7 +1663,7 @@ dynamodb_Scenario_GettingStartedMovies:
           excerpts:
             - description: Create a class that encapsulates a &DDB; table.
               snippet_tags:
-                - ruby.example_code.dynamodb.helper.Movies
+                - ruby.example_code.dynamodb.CreateTable
             - description: Create a helper function to download and extract the
                 sample JSON file.
               snippet_tags:
@@ -1616,11 +1672,7 @@ dynamodb_Scenario_GettingStartedMovies:
                 Run an interactive scenario to create the table and perform
                 actions on it.
               snippet_tags:
-                - ruby.example_code.dynamodb.Scenario_GettingStartedMovies
-            - description: This scenario uses the following helper class to ask
-                questions at a command prompt.
-              snippet_tags:
-                - ruby.example_code.dynamodb.helper.Question
+                - ruby.example_code.dynamodb.Scenario_Basics
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1759,6 +1811,14 @@ dynamodb_Scenario_PartiQLSingle:
             - description: Run a scenario that creates a table and runs PartiQL queries.
               snippet_tags:
                 - python.example_code.dynamodb.Scenario_PartiQLSingle
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description: Run a scenario that creates a table and runs PartiQL queries.
+              snippet_tags:
+                - ruby.example_code.dynamodb.Scenario_PartiQL_Single
     C++:
       versions:
         - sdk_version: 1
@@ -1772,6 +1832,18 @@ dynamodb_Scenario_PartiQLSingle:
                 - cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.waitTableActive
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.rust.partiql-make_table
+                - dynamodb.rust.partiql-add_item
+                - dynamodb.rust.partiql-query_item
+                - dynamodb.rust.partiql-remove_item
+                - dynamodb.rust.partiql-remove_table
   services:
     dynamodb: {ExecuteStatement}
 dynamodb_Scenario_PartiQLBatch:
@@ -1875,6 +1947,14 @@ dynamodb_Scenario_PartiQLBatch:
                 in batches.
               snippet_tags:
                 - python.example_code.dynamodb.Scenario_PartiQLBatch
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description: Run a scenario that creates a table and runs batch PartiQL queries.
+              snippet_tags:
+                - ruby.example_code.dynamodb.Scenario_PartiQL_Batch
     C++:
       versions:
         - sdk_version: 1

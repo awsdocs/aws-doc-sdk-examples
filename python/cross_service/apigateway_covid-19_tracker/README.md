@@ -25,11 +25,6 @@ tutorials in the
   configured as described in the [AWS Tools and SDKs Shared Configuration and
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
 - Python 3.7 or later
-- Boto3 1.14.20 or later
-- AWS Chalice 1.15.1 or later
-- AWS Command Line Interface (AWS CLI) 1.18.97 or later
-- Requests 2.23.0 or later
-- PyTest 5.3.5 or later (to run unit tests)
 - An Amazon S3 bucket
 
 ## Cautions
@@ -49,15 +44,9 @@ tutorials in the
 
 1. Install prerequisites by running the following at a command prompt.
 
-    ```
-    pip install -U chalice
-    pip install -U awscli
-    pip install -U requests
-    ``` 
-
-1. At a command prompt, navigate to the 
-`[GitHub root]/python/cross_service/apigateway_covid-19_tracker` 
-folder.
+   ```
+   python -m pip install -r requirements.txt
+   ``` 
 
 1. Run the following to create a deployment package in a subfolder named `out`.
 

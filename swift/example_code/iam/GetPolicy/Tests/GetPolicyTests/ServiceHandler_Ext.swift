@@ -22,9 +22,9 @@ public extension ServiceHandler {
     ///   - name: The name of the new policy.
     ///   - policyDocument: The policy document to assign to the new policy
     ///
-    /// - Returns: A `IamClientTypes.Policy` describing the new policy.
+    /// - Returns: A `IAMClientTypes.Policy` describing the new policy.
     ///
-    func createPolicy(name: String, policyDocument: String) async throws -> IamClientTypes.Policy {
+    func createPolicy(name: String, policyDocument: String) async throws -> IAMClientTypes.Policy {
         let input = CreatePolicyInput(
             policyDocument: policyDocument,
             policyName: name
@@ -47,9 +47,9 @@ public extension ServiceHandler {
 
     /// Delete an IAM policy.
     ///
-    /// - Parameter name: The `IamClientTypes.Policy` describing the policy to
+    /// - Parameter name: The `IAMClientTypes.Policy` describing the policy to
     ///   delete.
-    func deletePolicy(policy: IamClientTypes.Policy) async throws {
+    func deletePolicy(policy: IAMClientTypes.Policy) async throws {
         let input = DeletePolicyInput(
             policyArn: policy.arn
         )

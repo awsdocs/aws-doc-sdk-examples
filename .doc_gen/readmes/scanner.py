@@ -4,16 +4,17 @@
 import config
 import logging
 import os
+import re
 import yaml
 
 logger = logging.getLogger(__name__)
 
 
 class Scanner:
-    def __init__(self, meta_folder, language, service):
+    def __init__(self, meta_folder):
         self.meta_folder = meta_folder
-        self.lang_name = language
-        self.svc_name = service
+        self.lang_name = None
+        self.svc_name = None
         self.sdk_meta = None
         self.svc_meta = None
         self.example_meta = None
@@ -43,9 +44,17 @@ class Scanner:
         self._load_sdks()
         return self.sdk_meta[self.lang_name]
 
+    def sdks(self):
+        self._load_sdks()
+        return self.sdk_meta
+
     def service(self):
         self._load_services()
         return self.svc_meta[self.svc_name]
+
+    def services(self):
+        self._load_services()
+        return self.svc_meta
 
     def expand_entity(self, entity):
         self._load_services()
@@ -108,7 +117,7 @@ class Scanner:
                     try:
                         with open(os.path.join(root, f), 'r') as search_file:
                             for index, line in enumerate(search_file.readlines()):
-                                if tag in line:
+                                if re.findall(rf'\b{tag}\b', line):
                                     tag_path = os.path.relpath(search_file.name, readme_folder).replace('\\', '/')
                                     if api_name != '':
                                         tag_path += f'#L{index+1}'

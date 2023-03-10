@@ -75,14 +75,14 @@ class KeyPolicy:
         :param key_id: The ARN or ID of the key to set the policy to.
         :param policy: The existing policy of the key.
         """
-        user = input("Enter the ARN of an IAM user to set as the principal on the policy: ")
-        if key_id != '' and user != '':
+        principal = input("Enter the ARN of an IAM role to set as the principal on the policy: ")
+        if key_id != '' and principal != '':
             # The updated policy replaces the existing policy. Add a new statement to
             # the list along with the original policy statements.
             policy['Statement'].append({
-                "Sid": "Allow access for ExampleUser",
+                "Sid": "Allow access for ExampleRole",
                 "Effect": "Allow",
-                "Principal": {"AWS": user},
+                "Principal": {"AWS": principal},
                 "Action": [
                     "kms:Encrypt",
                     "kms:GenerateDataKey*",

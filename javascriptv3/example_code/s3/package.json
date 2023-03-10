@@ -1,0 +1,25 @@
+{
+  "name": "example-javascriptv3-s3",
+  "version": "1.0.0",
+  "description": "Examples demonstrating how to use the AWS SDK for JavaScript (v3) to interact with Amazon S3.",
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js"
+  },
+  "author": "corepyle@amazon.com",
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "@aws-crypto/sha256-browser": "^4.0.0",
+    "@aws-sdk/client-s3": "^3.272.0",
+    "@aws-sdk/credential-providers": "^3.276.0",
+    "@aws-sdk/hash-node": "^3.272.0",
+    "@aws-sdk/protocol-http": "^3.272.0",
+    "@aws-sdk/s3-request-presigner": "^3.276.0",
+    "@aws-sdk/url-parser": "^3.272.0",
+    "@aws-sdk/util-format-url": "^3.272.0",
+    "libs": "*"
+  },
+  "devDependencies": {
+    "vitest": "^0.28.5"
+  }
+}

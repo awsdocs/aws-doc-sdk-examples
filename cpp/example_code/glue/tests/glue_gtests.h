@@ -34,6 +34,9 @@ namespace AwsDocTest {
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
     private:
+
+        bool suppressStdOut();
+
         static Aws::SDKOptions s_options;
 
         std::stringbuf m_coutBuffer;  // Used to silence cout.
