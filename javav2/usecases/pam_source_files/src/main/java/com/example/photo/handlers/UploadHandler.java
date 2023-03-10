@@ -2,20 +2,27 @@ package com.example.photo.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.example.photo.services.S3Service;
 import com.google.gson.Gson;
 
 import java.util.Map;
 import java.util.UUID;
 
-public class UploadHandler implements RequestHandler<Map<String, String>, String> {
+import org.json.JSONObject;
+
+public class UploadHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     @Override
-    public String handleRequest(Map<String, String> event, Context context) {
-        String body = event.get("body");
+    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
+        JSONObject body = new JSONObject(input.getBody());
         context.getLogger().log("Got body: " + body);
-        String fileName = event.get("file_name");
+        String fileName = body.getString("file_name");
         context.getLogger().log("Building URL for " + fileName);
+        if (fileName == null || fileName.equals("")) {
+            throw new RuntimeException("Missing filename");
+        }
         UUID uuid = UUID.randomUUID();
         String uniqueFileName = uuid + "-" + fileName;
 
@@ -26,22 +33,29 @@ public class UploadHandler implements RequestHandler<Map<String, String>, String
         UploadResponse data = UploadResponse.from(signedURL);
 
         Gson gson = new Gson();
-        return gson.toJson(data);
+        Map<String, String> headersMap = Map.of(
+                "Access-Control-Allow-Origin", "*");
+
+        return new APIGatewayProxyResponseEvent()
+                .withStatusCode(200)
+                .withHeaders(headersMap)
+                .withBody(gson.toJson(data))
+                .withIsBase64Encoded(false);
+    }
+}
+
+class UploadResponse {
+    private final String url;
+
+    static UploadResponse from(String url) {
+        return new UploadResponse(url);
     }
 
-    static class UploadResponse {
-        private final String url;
+    private UploadResponse(String url) {
+        this.url = url;
+    }
 
-        static UploadResponse from(String url) {
-            return new UploadResponse(url);
-        }
-
-        private UploadResponse(String url) {
-            this.url = url;
-        }
-
-        public String getURL() {
-            return url;
-        }
+    public String getURL() {
+        return url;
     }
 }
