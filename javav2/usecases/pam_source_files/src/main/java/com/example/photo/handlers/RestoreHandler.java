@@ -2,6 +2,8 @@ package com.example.photo.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.example.photo.Job;
 import com.example.photo.endpoints.RestoreEndpoint;
 import com.example.photo.services.DynamoDBService;
@@ -10,19 +12,21 @@ import com.example.photo.services.SnsService;
 
 import org.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class RestoreHandler implements RequestHandler<Map<String, String>, String> {
+import static com.example.photo.PhotoApplicationResources.toJson;
+import static com.example.photo.PhotoApplicationResources.CORS_HEADER_MAP;
+
+public class RestoreHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     @Override
-    public String handleRequest(Map<String, String> event, Context context) {
+    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
         try {
             RestoreEndpoint restoreEndpoint = new RestoreEndpoint(new DynamoDBService(), new S3Service(),
                     new SnsService());
-            JSONObject body = new JSONObject(event.get("body"));
+            JSONObject body = new JSONObject(input.getBody());
             List<String> tags = body.getJSONArray("tags")
                     .toList()
                     .stream()
@@ -38,11 +42,20 @@ public class RestoreHandler implements RequestHandler<Map<String, String>, Strin
 
             context.getLogger().log("Started job " + job.getJobId() + " which will notify " + job.getTopicArn());
 
-            return "OK";
+            Map<String, String> headersMap = Map.of(
+                    "Access-Control-Allow-Origin", "*");
+
+            return new APIGatewayProxyResponseEvent()
+                    .withStatusCode(200)
+                    .withHeaders(headersMap)
+                    .withBody("{}")
+                    .withIsBase64Encoded(false);
         } catch (Exception e) {
-            String st = Arrays.stream(e.getStackTrace()).map(t -> t.toString()).collect(Collectors.joining("\n"));
-            context.getLogger().log("Error starting restore " + e.getMessage() + "\n" + st);
-            throw new RuntimeException(e);
+            return new APIGatewayProxyResponseEvent()
+                    .withStatusCode(500)
+                    .withHeaders(CORS_HEADER_MAP)
+                    .withBody(toJson(e))
+                    .withIsBase64Encoded(false);
         }
     }
 }

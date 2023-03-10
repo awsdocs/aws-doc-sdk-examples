@@ -5,6 +5,11 @@
 
 package com.example.photo;
 
+import java.util.Map;
+
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import com.google.gson.Gson;
+
 import software.amazon.awssdk.regions.Region;
 
 public class PhotoApplicationResources {
@@ -18,4 +23,20 @@ public class PhotoApplicationResources {
 
     public static final String REKOGNITION_TAG_KEY = "rekognition";
     public static final String REKOGNITION_TAG_VALUE = "complete";
+
+    public static final Map<String, String> CORS_HEADER_MAP = Map.of(
+            "Access-Control-Allow-Origin", "*");
+    public static final Gson gson = new Gson();
+
+    public static String toJson(Object src) {
+        return gson.toJson(src);
+    }
+
+    public static APIGatewayProxyResponseEvent makeResponse(Object src) {
+        return new APIGatewayProxyResponseEvent()
+                .withStatusCode(200)
+                .withHeaders(CORS_HEADER_MAP)
+                .withBody(toJson(src))
+                .withIsBase64Encoded(false);
+    }
 }

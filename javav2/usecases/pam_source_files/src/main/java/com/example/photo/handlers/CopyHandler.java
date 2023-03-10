@@ -1,28 +1,29 @@
 package com.example.photo.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.example.photo.services.S3Service;
-import com.google.gson.Gson;
+import org.json.JSONObject;
 
-import java.util.Map;
+import static com.example.photo.PhotoApplicationResources.makeResponse;
 
-public class CopyHandler implements RequestHandler<Map<String, String>, String> {
+public class CopyHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     @Override
-    public String handleRequest(Map<String, String> event, Context context) {
-        LambdaLogger logger = context.getLogger();
-        String sourceBucket = event.get("source");
-        logger.log("Copying files from: " + sourceBucket);
+    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
+        JSONObject body = new JSONObject(input.getBody());
+        context.getLogger().log("Got body: " + body);
+        String sourceBucket = body.getString("source");
+        context.getLogger().log("Copying files from: " + sourceBucket);
 
         S3Service s3Service = new S3Service();
         int numFiles = s3Service.copyFiles(sourceBucket);
 
         CopyHandlerResponse data = CopyHandlerResponse.from(numFiles, sourceBucket);
 
-        Gson gson = new Gson();
-        return gson.toJson(data);
+        return makeResponse(data);
     }
 }
 

@@ -6,23 +6,25 @@
 package com.example.photo;
 
 import software.amazon.awssdk.enhanced.dynamodb.extensions.annotations.DynamoDbAtomicCounter;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 import java.util.List;
 
 @DynamoDbBean
-public class Photos {
-    private String labelId;
+public class Photo {
+    private String id;
     private Integer count;
     private List<String> images;
 
     @DynamoDbPartitionKey
-    public String getLabelId() {
-        return this.labelId;
+    @DynamoDbAttribute("Label")
+    public String getId() {
+        return this.id;
     };
 
-    public void setLabelId(String id) {
-        this.labelId = id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @DynamoDbAtomicCounter(startValue = 1)

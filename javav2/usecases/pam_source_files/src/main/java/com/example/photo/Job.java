@@ -1,35 +1,30 @@
 package com.example.photo;
 
-import java.util.Objects;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
+@DynamoDbBean
 public class Job {
-    private final String jobId;
-    private final String topicArn;
+    private String jobId;
+    private String topicArn;
 
-    public Job(String jobId, String topicArn) {
-        this.jobId = jobId;
-        this.topicArn = topicArn;
-    }
-
+    @DynamoDbPartitionKey
+    @DynamoDbAttribute("JobId")
     public String getJobId() {
         return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
     public String getTopicArn() {
         return topicArn;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Job job = (Job) o;
-        return Objects.equals(jobId, job.jobId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(jobId);
+    public void setTopicArn(String topicArn) {
+        this.topicArn = topicArn;
     }
 
     @Override

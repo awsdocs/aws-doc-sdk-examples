@@ -5,12 +5,12 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.example.photo.services.S3Service;
-import com.google.gson.Gson;
-
-import java.util.Map;
 import java.util.UUID;
 
 import org.json.JSONObject;
+
+import static com.example.photo.PhotoApplicationResources.makeResponse;
+import static com.example.photo.PhotoApplicationResources.CORS_HEADER_MAP;
 
 public class UploadHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
@@ -20,8 +20,13 @@ public class UploadHandler implements RequestHandler<APIGatewayProxyRequestEvent
         context.getLogger().log("Got body: " + body);
         String fileName = body.getString("file_name");
         context.getLogger().log("Building URL for " + fileName);
+
         if (fileName == null || fileName.equals("")) {
-            throw new RuntimeException("Missing filename");
+            return new APIGatewayProxyResponseEvent()
+                    .withStatusCode(400)
+                    .withHeaders(CORS_HEADER_MAP)
+                    .withBody("{\"error\":\"Missing filename\"}")
+                    .withIsBase64Encoded(false);
         }
         UUID uuid = UUID.randomUUID();
         String uniqueFileName = uuid + "-" + fileName;
@@ -32,15 +37,7 @@ public class UploadHandler implements RequestHandler<APIGatewayProxyRequestEvent
 
         UploadResponse data = UploadResponse.from(signedURL);
 
-        Gson gson = new Gson();
-        Map<String, String> headersMap = Map.of(
-                "Access-Control-Allow-Origin", "*");
-
-        return new APIGatewayProxyResponseEvent()
-                .withStatusCode(200)
-                .withHeaders(headersMap)
-                .withBody(gson.toJson(data))
-                .withIsBase64Encoded(false);
+        return makeResponse(data);
     }
 }
 

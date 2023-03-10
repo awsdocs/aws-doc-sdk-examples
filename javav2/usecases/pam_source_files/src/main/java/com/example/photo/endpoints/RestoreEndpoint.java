@@ -31,7 +31,11 @@ public class RestoreEndpoint {
         String jobId = this.s3Service.startRestore(manifestArn, tags);
 
         String topicArn = this.snsService.createNotificationTopic(notify, jobId);
-        Job job = new Job(jobId, topicArn);
+
+        Job job = new Job();
+        job.setJobId(jobId);
+        job.setTopicArn(topicArn);
+
         this.dbService.putSubscription(job);
         return job;
     }
