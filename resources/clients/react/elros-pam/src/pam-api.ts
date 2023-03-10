@@ -1,22 +1,31 @@
 export interface PamApiConfig {
   token: string | null;
 }
+export interface Tag {
+  name: string;
+  count: number;
+}
 
 export interface TagsResponse {
-  [key: string]: { count: number };
+  labels: { [key: string]: { count: number } };
 }
 
 const getHeaders = (config: PamApiConfig): { Authorization: string } | {} =>
   config.token ? { Authorization: config.token } : {};
 
-export const getTags = async (config: PamApiConfig): Promise<TagsResponse> => {
+export const getTags = async (config: PamApiConfig): Promise<Tag[]> => {
   const response = await fetch(
     `${import.meta.env.VITE_API_GATEWAY_BASE_URL}labels`,
     {
       headers: getHeaders(config),
     }
   );
-  return response.json();
+
+  const tagsResponse: TagsResponse = await response.json();
+  return Object.entries(tagsResponse.labels).map(([name, { count }]) => ({
+    name,
+    count,
+  }));
 };
 
 export const s3Copy = async (bucketName: string, config: PamApiConfig) => {
@@ -37,6 +46,15 @@ export const s3Copy = async (bucketName: string, config: PamApiConfig) => {
     console.error(response);
     throw new Error("Copy failed.");
   }
+};
+
+export const initializeDownload = async (labels: string[]) => {
+  await fetch(`${import.meta.env.VITE_API_GATEWAY_BASE_URL}restore`, {
+    method: "PUT",
+    body: JSON.stringify({
+      labels,
+    }),
+  });
 };
 
 export const uploadFile = async (file: File, config: PamApiConfig) => {

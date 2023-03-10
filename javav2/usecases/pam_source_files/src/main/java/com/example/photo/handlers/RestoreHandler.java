@@ -27,7 +27,7 @@ public class RestoreHandler implements RequestHandler<APIGatewayProxyRequestEven
             RestoreEndpoint restoreEndpoint = new RestoreEndpoint(new DynamoDBService(), new S3Service(),
                     new SnsService());
             JSONObject body = new JSONObject(input.getBody());
-            List<String> tags = body.getJSONArray("tags")
+            List<String> tags = body.getJSONArray("labels")
                     .toList()
                     .stream()
                     .filter(String.class::isInstance)

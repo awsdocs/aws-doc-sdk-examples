@@ -4,6 +4,7 @@ import {
   Header,
   Modal,
   SpaceBetween,
+  Spinner,
 } from "@cloudscape-design/components";
 import { ChangeEvent, useRef, useState } from "react";
 
@@ -15,6 +16,7 @@ export interface FileUploadProps {
 
 function FileUpload({ disabled, onSubmit, accept }: FileUploadProps) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
@@ -46,6 +48,7 @@ function FileUpload({ disabled, onSubmit, accept }: FileUploadProps) {
       setError("No file selected.");
     } else {
       try {
+        setIsLoading(true);
         await onSubmit(file);
         setModalVisible(false);
       } catch (err) {
@@ -55,6 +58,8 @@ function FileUpload({ disabled, onSubmit, accept }: FileUploadProps) {
         } else {
           setError("Upload failed.");
         }
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -83,8 +88,10 @@ function FileUpload({ disabled, onSubmit, accept }: FileUploadProps) {
               >
                 Select file
               </Button>
-              <Button disabled={fileInput.current?.value.length === 0}>
-                Upload
+              <Button
+                disabled={isLoading || fileInput.current?.value.length === 0}
+              >
+                {isLoading ? <Spinner /> : "Upload"}
               </Button>
             </SpaceBetween>
             <input

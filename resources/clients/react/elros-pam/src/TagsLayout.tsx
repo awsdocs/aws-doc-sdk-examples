@@ -1,28 +1,34 @@
 import {
   Button,
   Cards,
+  Flashbar,
+  FlashbarProps,
   Header,
   SpaceBetween,
   TextContent,
 } from "@cloudscape-design/components";
 import { useEffect, useState } from "react";
 import FileUpload from "./FileUpload";
-import { uploadFile } from "./pam-api";
+import { initializeDownload, Tag, uploadFile } from "./pam-api";
 import S3Transfer from "./S3Transfer";
 import { useAuthStore } from "./store-auth";
 
-import { Tag, useTagsStore } from "./store-tags";
+import { useTagsStore } from "./store-tags";
+import { getTags } from "./pam-api";
 
 function TagsLayout() {
-  const { tagCollection, fetchTags } = useTagsStore();
+  const { tagCollection, setTags } = useTagsStore();
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [selectedImageCount, setSelectedImageCount] = useState<number>(0);
+  const [flashbarItems, setFlashbarItems] = useState<FlashbarProps["items"]>(
+    []
+  );
 
   const { token, authStatus } = useAuthStore();
 
   useEffect(() => {
     if (token) {
-      fetchTags({ token });
+      refreshTags();
     }
   }, [token]);
 
@@ -35,9 +41,28 @@ function TagsLayout() {
     setSelectedImageCount(imageCount);
   }, [selectedTags]);
 
+  const refreshTags = async () => {
+    const tagCollection = await getTags({ token });
+    setTags(tagCollection);
+  };
+
   const handleUpload = async (file: File) => {
     await uploadFile(file, { token });
-    fetchTags({ token });
+  };
+
+  const handleDownload = async () => {
+    await initializeDownload(selectedTags.map(t => t.name));
+    setFlashbarItems([
+      {
+        dismissible: true,
+        dismissLabel: "Dismiss message",
+        onDismiss: () => setFlashbarItems([]),
+        content:
+          "Your photos are being moved out of glacier storage. You will receive an email " +
+          "with a link to download a zip file.",
+        id: "download",
+      },
+    ]);
   };
 
   return (
@@ -49,27 +74,32 @@ function TagsLayout() {
         stickyHeader={true}
         variant="full-page"
         header={
-          <Header
-            variant="awsui-h1-sticky"
-            counter={`${selectedImageCount}`}
-            actions={
-              <SpaceBetween size="s" direction="horizontal">
-                <S3Transfer />
-                <FileUpload
-                  disabled={authStatus !== "signed_in"}
-                  accept={[".jpg", ".jpeg"]}
-                  onSubmit={handleUpload}
-                />
-                <Button
-                  disabled={authStatus !== "signed_in" || !selectedImageCount}
-                >
-                  Download
-                </Button>
-              </SpaceBetween>
-            }
-          >
-            Download Images
-          </Header>
+          <>
+            <Flashbar items={flashbarItems} />
+            <Header
+              variant="awsui-h1-sticky"
+              counter={`${selectedImageCount}`}
+              actions={
+                <SpaceBetween size="s" direction="horizontal">
+                  <Button iconName="refresh" onClick={() => refreshTags()} />
+                  <S3Transfer />
+                  <FileUpload
+                    disabled={authStatus !== "signed_in"}
+                    accept={[".jpg", ".jpeg"]}
+                    onSubmit={handleUpload}
+                  />
+                  <Button
+                    disabled={authStatus !== "signed_in" || !selectedImageCount}
+                    onClick={handleDownload}
+                  >
+                    Download
+                  </Button>
+                </SpaceBetween>
+              }
+            >
+              Download Images
+            </Header>
+          </>
         }
         selectedItems={selectedTags}
         onSelectionChange={({ detail }) => {
