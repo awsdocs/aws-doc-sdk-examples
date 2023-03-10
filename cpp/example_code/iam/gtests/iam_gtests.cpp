@@ -63,8 +63,10 @@ void AwsDocTest::IAM_GTests::TearDownTestSuite() {
 }
 
 void AwsDocTest::IAM_GTests::SetUp() {
-    m_savedBuffer = std::cout.rdbuf();
-    std::cout.rdbuf(&m_coutBuffer);
+    if (suppressStdOut()) {
+        m_savedBuffer = std::cout.rdbuf();
+        std::cout.rdbuf(&m_coutBuffer);
+    }
 }
 
 void AwsDocTest::IAM_GTests::TearDown() {
@@ -374,6 +376,10 @@ void AwsDocTest::IAM_GTests::deleteRolePolicy(const Aws::String &role,
         std::cerr << "Error deleteRolePolicy " << outcome.GetError().GetMessage() <<
                   std::endl;
     }
+}
+
+bool AwsDocTest::IAM_GTests::suppressStdOut() {
+    return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
 }
 
 

@@ -38,6 +38,9 @@ import {
 } from "@aws-sdk/client-ec2";
 import { paginateGetParametersByPath, SSMClient } from "@aws-sdk/client-ssm";
 
+import { promptToSelect, promptToContinue } from "libs/utils/util-io.js";
+import { wrapText } from "libs/utils/util-string.js";
+
 const ec2Client = new EC2Client();
 const ssmClient = new SSMClient();
 
@@ -147,7 +150,7 @@ const getAmznLinux2AMIs = async () => {
   const options = imageDetails.map(
     (image) => `${image.ImageId} - ${image.Description}`
   );
-  const [selectedIndex] = await promptWithOptions(options);
+  const [selectedIndex] = await promptToSelect(options);
 
   return imageDetails[selectedIndex];
 };
@@ -178,7 +181,7 @@ const getCompatibleInstanceTypes = async (imageDetails) => {
     (type) => `${type.InstanceType} - Memory:${type.MemoryInfo.SizeInMiB}`
   );
 
-  const [selectedIndex] = await promptWithOptions(
+  const [selectedIndex] = await promptToSelect(
     instanceTypeList,
     "Select an instance type."
   );
@@ -329,48 +332,6 @@ const deleteTemporaryDirectory = () => {
   } catch (err) {
     console.error(err);
   }
-};
-
-const wrapText = (text, char = "=") => {
-  const rule = char.repeat(80);
-  return `${rule}\n    ${text}\n${rule}\n`;
-};
-
-const promptToContinue = (prefix) => {
-  const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise((resolve) => {
-    rl.question(`\nPress enter to continue.\n`, () => {
-      rl.close();
-      resolve();
-    });
-  });
-};
-
-const promptWithOptions = (options, question = "") => {
-  const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-  const optionsList = options.map((opt, i) => `${i + 1}) ${opt}`).join("\n");
-
-  return new Promise((resolve) => {
-    rl.question(`${question}\n${optionsList}\n-> `, (answer) => {
-      rl.close();
-      const selected = parseInt(answer);
-      if (isNaN(selected) || selected < 1 || selected > options.length) {
-        console.log(
-          `Invalid option. Select a number between 1 and ${options.length}`
-        );
-        resolve(promptWithOptions(options));
-      } else {
-        resolve([selected - 1, options[selected - 1]]);
-      }
-    });
-  });
 };
 
 export const main = async () => {

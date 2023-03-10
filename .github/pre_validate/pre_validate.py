@@ -66,6 +66,8 @@ EXPECTED_SAMPLE_FILES = {
     'movies.json',
     'speech_sample.mp3',
     'chat_sfn_state_machine.json',
+    'market_2.jpg',
+    'spheres_2.jpg',
 }
 
 # media file types

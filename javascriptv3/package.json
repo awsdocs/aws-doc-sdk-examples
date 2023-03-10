@@ -13,7 +13,8 @@
     "example_code/libs",
     "example_code/sts",
     "example_code/support",
-    "example_code/ec2"
+    "example_code/ec2",
+    "example_code/s3"
   ],
   "devDependencies": {
     "lerna": "^6.3.0"

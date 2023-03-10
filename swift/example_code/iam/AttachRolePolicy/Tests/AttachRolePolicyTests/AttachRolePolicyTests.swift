@@ -133,7 +133,6 @@ final class AttachRolePolicyTests: XCTestCase {
                 let policyArn = try await createTestPolicy()
                 testPolicyARNs.append(policyArn)
             }
-
             // Attach the policies to the test role.
 
             for policyArn in testPolicyARNs {

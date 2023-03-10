@@ -2,6 +2,14 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+/*
+ * Test types are indicated by the test label ending.
+ *
+ * _1_ Requires credentials, permissions, and AWS resources.
+ * _2_ Requires credentials and permissions.
+ * _3_ Does not require credentials.
+ *
+ */
 
 #include <gtest/gtest.h>
 #include <fstream>
@@ -11,7 +19,7 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(S3_GTests, delete_bucket) {
+    TEST_F(S3_GTests, delete_bucket_2_) {
         Aws::String uuid = Aws::Utils::UUID::RandomUUID();
         Aws::String bucketName = "doc-example-bucket-" +
                                  Aws::Utils::StringUtils::ToLower(uuid.c_str());
