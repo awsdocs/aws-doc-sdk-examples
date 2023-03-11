@@ -8,7 +8,7 @@ public class UIWrapper
     public readonly string SepBar = new('-', Console.WindowWidth);
 
     /// <summary>
-    /// Show information about the scenario.
+    /// Show information about the IAM Groups scenario.
     /// </summary>
     public void DisplayGroupsOverview()
     {
@@ -28,7 +28,7 @@ public class UIWrapper
     }
 
     /// <summary>
-    /// Show information about the scenario.
+    /// Show information about the IAM Basics scenario.
     /// </summary>
     public void DisplayBasicsOverview()
     {

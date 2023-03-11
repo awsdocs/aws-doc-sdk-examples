@@ -139,6 +139,7 @@ namespace IAMActions.Tests
         public async Task CreateUserAsyncTest()
         {
             var user = await _iamWrapper.CreateUserAsync(_userName);
+
             // Define a role policy document that allows the new user
             // to assume the role.
 
