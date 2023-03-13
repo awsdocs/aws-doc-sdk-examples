@@ -1,6 +1,8 @@
 {
   "ActivityName": "mvp-activity",
   "StateMachineName": "mvp-state-machine",
-  "ExecutionName": "mvp-execution",
-  "RoleArn": "arn:aws:iam::704825161248:role/step-functions-mvp-role"
+  "RoleName": "step-functions-mvp-role",
+  "RepoBaseDir": "PATH TO THE FORK OF THE AWS CODE EXAMPLES REPOSITORY",
+  "JsonFilePath": "resources\\sample_files\\",
+  "JsonFileName": "chat_sfn_state_machine.json"
 }

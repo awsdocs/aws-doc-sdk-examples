@@ -7,14 +7,13 @@ namespace SupportTests
 {
     public class StepFunctionsWrapperTests
     {
-        private readonly IConfiguration _configuration;
-        private readonly string _activityName;
-        private readonly string _roleArn;
-        private static string _activityArn;
-        private static string _executionArn;
-        private static string _stateMachineArn;
-        private readonly string _stateMachineName;
-        private readonly string _executionName;
+        private readonly string? _activityName;
+        private readonly string? _roleArn;
+        private static string? _activityArn;
+        private static string? _executionArn;
+        private static string? _stateMachineArn;
+        private readonly string? _stateMachineName;
+
         private static IAmazonStepFunctions _client;
         private static StepFunctionsWrapper _wrapper;
 
@@ -23,17 +22,16 @@ namespace SupportTests
         /// </summary>
         public StepFunctionsWrapperTests()
         {
-            _configuration = new ConfigurationBuilder()
+            IConfiguration configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("testsettings.json") // Load test settings from .json file.
                 .AddJsonFile("testsettings.local.json",
                     true) // Optionally load local settings.
                 .Build();
 
-            _activityName = _configuration["ActivityName"];
-            _stateMachineName = _configuration["StateMachineName"];
-            _roleArn = _configuration["RoleArn"];
-            _executionName = _configuration["ExecutionName"];
+            _activityName = configuration["ActivityName"];
+            _stateMachineName = configuration["StateMachineName"];
+            _roleArn = configuration["RoleArn"];
 
             _client = new AmazonStepFunctionsClient();
             _wrapper = new StepFunctionsWrapper(_client);
@@ -53,14 +51,30 @@ namespace SupportTests
         }
 
         /// <summary>
+        /// Test the ListActivitiesAsync method. The list of activities
+        /// should have at least one activity in it.
+        /// </summary>
+        /// <returns></returns>
+        [Fact()]
+        [Order(2)]
+        [Trait("Category", "Integration")]
+        public async Task ListActivitiesAsyncTest()
+        {
+            var activities = await _wrapper.ListActivitiesAsync();
+            Assert.True(activities.Count >= 1);
+        }
+
+        /// <summary>
         /// Test the CreateStateMachine method.
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact()]
-        [Order(2)]
+        [Order(3)]
         [Trait("Category", "Integration")]
         public async Task CreateStateMachineTest()
         {
+            // Create a simple Step Functions state machine for testing
+            // purposes only.
             var stateDefinition = @"{
               ""Comment"": ""An example using a Task state."",
               ""StartAt"": ""getGreeting"",
@@ -81,16 +95,50 @@ namespace SupportTests
         }
 
         /// <summary>
-        /// Test the StartExecution method.
+        /// Test the DescribeStateMachineAsync method. The StateMachineArn
+        /// in the response should be equal to the value passed to the method.
+        /// </summary>
+        /// <returns></returns>
+        [Fact()]
+        [Order(4)]
+        [Trait("Category", "Integration")]
+        public async Task DescribeStateMachineAsyncTest()
+        {
+            var describeStateMachineResponse = await _wrapper.DescribeStateMachineAsync(_stateMachineArn);
+            Assert.Equal(describeStateMachineResponse.StateMachineArn, _stateMachineArn);
+        }
+
+        [Fact()]
+        [Order(5)]
+        [Trait("Category", "Integration")]
+        public async Task ListStateMachinesAsyncTest()
+        {
+            var stateMachines = await _wrapper.ListStateMachinesAsync();
+            Assert.True(stateMachines.Count >= 1);
+        }
+
+        /// <summary>
+        /// Test the StartExecutionAsync method.
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact()]
-        [Order(3)]
+        [Order(6)]
         [Trait("Category", "Integration")]
         public async Task StartExecutionTest()
         {
-            _executionArn = await _wrapper.StartExecution(_executionName, @"{ ""who"" : ""AWS Step Functions"" }", _stateMachineArn);
+            // Starts execution of the simpler Step Functions state machine
+            // created for testing pupposes only.
+            _executionArn = await _wrapper.StartExecutionAsync(@"{ ""who"" : ""AWS Step Functions"" }", _stateMachineArn);
             Assert.NotNull(_executionArn);
+        }
+
+        [Fact()]
+        [Order(7)]
+        [Trait("Category", "Integration")]
+        public async Task GetActivityTaskAsyncTest()
+        {
+            var response = await _wrapper.GetActivityTaskAsync(_activityArn, "MvpWorker");
+            Assert.NotNull(response);
         }
 
         /// <summary>
@@ -98,7 +146,7 @@ namespace SupportTests
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact()]
-        [Order(4)]
+        [Order(8)]
         [Trait("Category", "Integration")]
         public async Task StopExecutionTest()
         {
@@ -107,16 +155,34 @@ namespace SupportTests
         }
 
         /// <summary>
-        /// Test the ListExecutions method. Expects to find that the state
+        /// Test the DescribeExecutionAsync method. The method continues to
+        /// call DescribeExecutionAsync until the status is no longer RUNNING.
+        /// </summary>
+        /// <returns></returns>
+        [Fact()]
+        [Order(9)]
+        [Trait("Category", "Integration")]
+        public async Task DescribeExecutionAsyncTest()
+        {
+            DescribeExecutionResponse executionResponse;
+            do
+            {
+                executionResponse = await _wrapper.DescribeExecutionAsync(_executionArn);
+            } while (executionResponse.Status == ExecutionStatus.RUNNING);
+            Assert.NotEqual(ExecutionStatus.RUNNING, executionResponse.Status);
+        }
+
+        /// <summary>
+        /// Test the ListExecutionsAsync method. Expects to find that the state
         /// machine was executed at least once.
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact()]
-        [Order(5)]
+        [Order(10)]
         [Trait("Category", "Integration")]
         public async Task ListExecutionsTest()
         {
-            var executions = await _wrapper.ListExecutions(_stateMachineArn);
+            var executions = await _wrapper.ListExecutionsAsync(_stateMachineArn);
             Assert.True(executions.Count > 0);
         }
 
@@ -125,7 +191,7 @@ namespace SupportTests
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact()]
-        [Order(6)]
+        [Order(11)]
         [Trait("Category", "Integration")]
         public async Task DeleteStateMachineTest()
         {
@@ -138,7 +204,7 @@ namespace SupportTests
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact()]
-        [Order(7)]
+        [Order(12)]
         [Trait("Category", "Integration")]
         public async Task DeleteActivityTest()
         {

@@ -2,54 +2,37 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[StepFunctions.dotnetv3.HelloStepFunctions]
+
 namespace StepFunctionsActions;
+
+using Amazon.StepFunctions;
+using Amazon.StepFunctions.Model;
 
 public class HelloStepFunctions
 {
-    private static ILogger _logger = null!;
-
-    static async Task Main(string[] args)
+    static async Task Main()
     {
-        // Set up dependency injection for AWS Step Functions.
-        using var host = Host.CreateDefaultBuilder(args)
-            .ConfigureLogging(logging =>
-                logging.AddFilter("System", LogLevel.Debug)
-                    .AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Information)
-                    .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
-            .ConfigureServices((_, services) =>
-                services.AddAWSService<IAmazonStepFunctions>()
-                .AddTransient<StepFunctionsWrapper>()
-            )
-            .Build();
+        var stepFunctionsClient = new AmazonStepFunctionsClient();
 
-        _logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
-            .CreateLogger<HelloStepFunctions>();
-
-        var stepFunctionsClient = host.Services.GetRequiredService<IAmazonStepFunctions>();
-
-        Console.WriteLine("Welcome to AWS Step Functions. Let's list your state machines:");
+        Console.Clear();
+        Console.WriteLine("Welcome to AWS Step Functions");
+        Console.WriteLine("Let's list up to 10 of your state machines:");
         var stateMachineListRequest = new ListStateMachinesRequest { MaxResults = 10 };
 
-        do
+        // Get information for up to 10 Step Functions state machines.
+        var response = await stepFunctionsClient.ListStateMachinesAsync(stateMachineListRequest);
+
+        if (response.StateMachines.Count > 0)
         {
-            var response = await stepFunctionsClient.ListStateMachinesAsync(stateMachineListRequest);
-
-            if (response.StateMachines.Count == 0)
-            {
-                Console.WriteLine("Couldn't find any state machines.");
-            }
-            if (response.NextToken is not null)
-            {
-                stateMachineListRequest.NextToken = response.NextToken;
-            }
-
             response.StateMachines.ForEach(stateMachine =>
             {
-                Console.WriteLine($"Activity Name: {stateMachine.Name}\tCreated on: {stateMachine.CreationDate}");
-                Console.WriteLine($"{stateMachine.Type}");
+                Console.WriteLine($"State Machine Name: {stateMachine.Name}\tAmazon Resource Name (ARN): {stateMachine.StateMachineArn}");
             });
         }
-        while (stateMachineListRequest.NextToken is not null);
+        else
+        {
+            Console.WriteLine("\tNo state machines were found.");
+        }
     }
 }
 

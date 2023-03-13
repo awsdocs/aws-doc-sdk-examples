@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-// snippet-start:[StepFunctions.dotnetv3.UIMethods]
+// snippet-start:[StepFunctions.dotnetv3.StepFunctionsBasics.UIMethods]
 namespace StepFunctionsBasics;
 
 /// <summary>
@@ -62,4 +62,4 @@ public class UiMethods
     }
 }
 
-// snippet-end:[StepFunctions.dotnetv3.UIMethods]
+// snippet-end:[StepFunctions.dotnetv3.StepFunctionsBasics.UIMethods]

@@ -4,6 +4,15 @@ sfn_Hello:
   synopsis: get started using &SFN;.
   category: Hello
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.HelloStepFunctions
     Python:
       versions:
         - sdk_version: 3
@@ -137,7 +146,7 @@ sfn_ListStateMachines:
           excerpts:
             - description:
               snippet_tags:
-                - StepFunctions.dotnetv3.HelloStepFunctions
+                - StepFunctions.dotnetv3.ListStateMachines
     Kotlin:
       versions:
         - sdk_version: 1
@@ -184,6 +193,15 @@ sfn_DescribeStateMachine:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.describe_machine.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.DescribeStateMachine
     Java:
       versions:
         - sdk_version: 2
@@ -300,6 +318,15 @@ sfn_DescribeExecution:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.describe_execution.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.DescribeExecution
     Java:
       versions:
         - sdk_version: 2
@@ -335,6 +362,15 @@ sfn_CreateActivity:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.create_activity.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.CreateActivity
     Java:
       versions:
         - sdk_version: 2
@@ -371,6 +407,15 @@ sfn_ListActivities:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.list_activities.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.ListActivities
     Java:
       versions:
         - sdk_version: 2
@@ -411,6 +456,10 @@ sfn_GetActivityTask:
         - sdk_version: 3
           github: dotnetv3/StepFunctions
           sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.GetActivityTask
     Java:
       versions:
         - sdk_version: 2
@@ -448,6 +497,15 @@ sfn_SendTaskSuccess:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.task_success.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.SendTaskSuccess
     Java:
       versions:
         - sdk_version: 2
@@ -484,6 +542,15 @@ sfn_DeleteActivity:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.delete.activity.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.DeleteActivity
     Java:
       versions:
         - sdk_version: 2
@@ -526,6 +593,20 @@ sfn_Scenario_GetStartedStateMachines:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.scenario.main  
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - StepFunctions.dotnetv3.StepFunctionsBasics.Usings
+                - StepFunctions.dotnetv3.StepFunctionsBasics
+                - StepFunctions.dotnetv3.StepFunctionsBasics.UIMethods
+            - description: Define a class that wraps state machine and activity actions.
+              snippet_tags:
+                - StepFunctions.dotnetv3.StepFunctionsActions
     Java:
       versions:
         - sdk_version: 2
@@ -552,33 +633,5 @@ sfn_Scenario_GetStartedStateMachines:
                 - python.example_code.sfn.Activity_full
   services:
     sfn: {CreateActivity, CreateStateMachine, DeleteActivity, DeleteStateMachine, DescribeExecution,
-          DescribeStateMachine, GetActivityTask, Hello, ListActivities, ListStateMachines,
+          DescribeStateMachine, GetActivityTask, ListActivities, ListStateMachines,
           SendTaskSuccess, StartExecution, StopExecution}
-sfn_Scenario_GetStartedStepFunctions:
-  title: Get started with &SFN; using an &AWS; SDK
-  title_abbrev: Get started with activities and state machines
-  synopsis_list:
-    - Create an activity.
-    - Create a state machine.
-    - Create an execution.
-    - Run the worker, then stop it.
-    - List executions.
-    - Delete the state machine and the activity.
-  category: Scenarios
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/StepFunctions
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - StepFunctions.dotnetv3.Usings
-                - StepFunctions.dotnetv3.StepFunctionsBasics
-            - description:
-              snippet_tags:
-                - StepFunctions.dotnetv3.StepFunctionsWrapper
-  services:
-    sfn: {CreateActivity, CreateStateMachine, DeleteActivity, DeleteStateMachine,
-          StartExecution, StopExecution, ListExecutions}
