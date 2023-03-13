@@ -1,0 +1,6 @@
+{
+  "roleName": "eventbridge-events-rule-role",
+  "testBucketName": "ExampleBucket1",
+  "topicName": "example-eventbridge-topic-name",
+  "eventRuleName": "example-event-rule"
+}
