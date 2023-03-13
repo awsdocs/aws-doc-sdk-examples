@@ -75,6 +75,7 @@ dynamodb_CreateTable:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.dynamodb.Scaffold
                 - ruby.example_code.dynamodb.CreateTable
     Rust:
       versions:
@@ -84,14 +85,6 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.rust.create-table
-    Swift:
-      versions:
-        - sdk_version: 1
-          github: swift/example_code/ddb
-          excerpts:
-            - description:
-              snippet_tags:
-                - ddb.swift.basics.createtable
     JavaScript:
       versions:
         - sdk_version: 3
@@ -111,6 +104,14 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.createTable
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.createtable
   services:
     dynamodb: {CreateTable}
 dynamodb_BatchGetItem:
@@ -243,6 +244,7 @@ dynamodb_DescribeTable:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.dynamodb.Scaffold
                 - ruby.example_code.dynamodb.DescribeTable
   services:
     dynamodb: {DescribeTable}
@@ -324,15 +326,8 @@ dynamodb_BatchWriteItem:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.BatchWriteItem
-    Swift:
-      versions:
-        - sdk_version: 1
-          github: swift/example_code/ddb/
-          excerpts:
-            - description:
-              snippet_tags:
-                - ddb.swift.basics.populate
     C++:
       versions:
         - sdk_version: 1
@@ -342,6 +337,14 @@ dynamodb_BatchWriteItem:
             - description:
               snippet_tags:
                 - cpp.example_code.dynamodb.batch_write_item
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.populate
   services:
     dynamodb: {BatchWriteItem}
 dynamodb_DeleteTable:
@@ -419,6 +422,7 @@ dynamodb_DeleteTable:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.dynamodb.Scaffold
                 - ruby.example_code.dynamodb.DeleteTable
     Rust:
       versions:
@@ -428,14 +432,6 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - dynamodb.rust.delete-table
-    Swift:
-      versions:
-        - sdk_version: 1
-          github: swift/example_code/ddb
-          excerpts:
-            - description:
-              snippet_tags:
-                - ddb.swift.basics.deletetable
     JavaScript:
       versions:
         - sdk_version: 3
@@ -454,6 +450,14 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.deleteTable
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.deletetable
   services:
     dynamodb: {DeleteTable}
 dynamodb_PutItem:
@@ -503,9 +507,9 @@ dynamodb_PutItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Puts an item into a table by using the enhanced client.
+            - description: Puts an item into a table using <ulink url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
-                - dynamodb.java2.mapping.putitem.main
+                - dynamodb.java2.put_item.main
     PHP:
       versions:
         - sdk_version: 3
@@ -532,6 +536,7 @@ dynamodb_PutItem:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.PutItem
     Rust:
       versions:
@@ -541,15 +546,6 @@ dynamodb_PutItem:
             - description:
               snippet_tags:
                 - dynamodb.rust.add-item
-    Swift:
-      versions:
-        - sdk_version: 1
-          github: swift/example_code/ddb
-          excerpts:
-            - description:
-              snippet_tags:
-                - ddb.swift.basics.add-movie
-                - ddb.swift.basics.movie.getasitem
     JavaScript:
       versions:
         - sdk_version: 3
@@ -580,6 +576,15 @@ dynamodb_PutItem:
             - description: Put an item in a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.put
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.add-movie
+                - ddb.swift.basics.movie.getasitem
   services:
     dynamodb: {PutItem}
 dynamodb_GetItem:
@@ -658,15 +663,8 @@ dynamodb_GetItem:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.GetItem
-    Swift:
-      versions:
-        - sdk_version: 1
-          github: swift/example_code/ddb
-          excerpts:
-            - description:
-              snippet_tags:
-                - ddb.swift.basics.get
     JavaScript:
       versions:
         - sdk_version: 3
@@ -697,6 +695,14 @@ dynamodb_GetItem:
             - description: Get an item from a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.get
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.get
   services:
     dynamodb: {GetItem}
 dynamodb_UpdateItem:
@@ -746,9 +752,9 @@ dynamodb_UpdateItem:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Updates an item located in a table by using the enhanced client.
+            - description: Updates an item in a table using <ulink url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
-                - dynamodb.java2.mapping.moditem.main
+                - dynamodb.java2.update_item.main
     PHP:
       versions:
         - sdk_version: 3
@@ -785,15 +791,8 @@ dynamodb_UpdateItem:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.UpdateItem.UpdateExpression
-    Swift:
-      versions:
-        - sdk_version: 1
-          github: swift/example_code/ddb
-          excerpts:
-            - description:
-              snippet_tags:
-                - ddb.swift.basics.update
     JavaScript:
       versions:
         - sdk_version: 3
@@ -814,6 +813,14 @@ dynamodb_UpdateItem:
             - description: Update items by batch in a table using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.updateItemsV3
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.update
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
@@ -891,14 +898,6 @@ dynamodb_DeleteItem:
             - description:
               snippet_tags:
                 - dynamodb.rust.delete-item
-    Swift:
-      versions:
-        - sdk_version: 1
-          github: swift/example_code/ddb
-          excerpts:
-            - description:
-              snippet_tags:
-                - ddb.swift.basics.delete
     Ruby:
       versions:
         - sdk_version: 3
@@ -906,6 +905,7 @@ dynamodb_DeleteItem:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.DeleteItem
     JavaScript:
       versions:
@@ -947,6 +947,14 @@ dynamodb_DeleteItem:
             - description:
               snippet_tags:
                 - cpp.example_code.dynamodb.delete_item
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.delete
   services:
     dynamodb: {DeleteItem}
 dynamodb_ListTables:
@@ -1017,6 +1025,16 @@ dynamodb_ListTables:
               snippet_tags:
                 - python.example_code.dynamodb.helper.Movies.class_decl
                 - python.example_code.dynamodb.ListTables
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Determine whether a table exists.
+              snippet_tags:
+                - ruby.example_code.dynamodb.Scaffold
+                - ruby.example_code.dynamodb.DescribeTable
     Rust:
       versions:
         - sdk_version: 1
@@ -1096,16 +1114,10 @@ dynamodb_Query:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Queries a table by using the enhanced client.
-              snippet_tags:
-                - dynamodb.java2.mapping.query.main
-            - description: Queries a table by using the enhanced client and a secondary index.
-              snippet_tags:
-                - dynamodb.java2.get_item_index.main
-            - description: Queries a table by using the DynamoDbClient.
+            - description: Queries a table by using <ulink url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
                 - dynamodb.java2.query.main
-            - description: Queries a table by using the DynamoDbClient and a secondary index.
+            - description: Queries a table by using <code>DynamoDbClient</code> and a secondary index.
               snippet_tags:
                 - dynamodb.java2.query_items_sec_index.main
     PHP:
@@ -1138,6 +1150,7 @@ dynamodb_Query:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.Query
     Rust:
       versions:
@@ -1147,14 +1160,6 @@ dynamodb_Query:
             - description: Find the movies made in the specified year.
               snippet_tags:
                 - dynamodb.rust.movies-movies_in_year
-    Swift:
-      versions:
-        - sdk_version: 1
-          github: swift/example_code/ddb
-          excerpts:
-            - description:
-              snippet_tags:
-                - ddb.swift.basics.getMovies-year
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1180,6 +1185,14 @@ dynamodb_Query:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.query
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.getMovies-year
   services:
     dynamodb: {Query}
 dynamodb_Scan:
@@ -1229,9 +1242,9 @@ dynamodb_Scan:
           github: javav2/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Scans an Amazon DynamoDB table by using the enhanced client.
+            - description: Scans an Amazon DynamoDB table using <ulink url="http://docs.aws.amazon.com/sdk-for-java/latest/reference/software/amazon/awssdk/services/dynamodb/DynamoDbClient.html">DynamoDbClient</ulink>.
               snippet_tags:
-                - dynamodb.java2.mapping.scan.main
+                - dynamodb.java2.dynamoDB_scan.main
     PHP:
       versions:
         - sdk_version: 3
@@ -1258,6 +1271,7 @@ dynamodb_Scan:
           excerpts:
             - description:
               snippet_tags:
+                - ruby.example_code.ruby.DynamoDBBasics.decl
                 - ruby.example_code.dynamodb.Scan
     Rust:
       versions:
@@ -1267,14 +1281,6 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - dynamodb.rust.list-items
-    Swift:
-      versions:
-        - sdk_version: 1
-          github: swift/example_code/ddb
-          excerpts:
-            - description:
-              snippet_tags:
-                - ddb.swift.basics.getmovies-range
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1296,6 +1302,14 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.scan
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.getmovies-range
   services:
     dynamodb: {Scan}
 dynamodb_ExecuteStatement:
@@ -1390,6 +1404,28 @@ dynamodb_ExecuteStatement:
               snippet_tags:
                 - python.example_code.dynamodb.helper.PartiQLWrapper.class_decl
                 - python.example_code.dynamodb.ExecuteStatement
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Select a single item using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_select
+            - description: Update a single item using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_update
+            - description: Add a single item using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_insert
+            - description: Delete a single item using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLSingle.decl
+                - ruby.example_code.dynamodb.partiql.single_delete
     C++:
       versions:
         - sdk_version: 1
@@ -1493,6 +1529,20 @@ dynamodb_BatchExecuteStatement:
               snippet_tags:
                 - python.example_code.dynamodb.helper.PartiQLBatchWrapper.class_decl
                 - python.example_code.dynamodb.BatchExecuteStatement
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description: Read a batch of items using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLBatch.decl
+                - ruby.example_code.dynamodb.partiql.batch_read
+            - description: Delete a batch of items using PartiQL.
+              snippet_tags:
+                - ruby.example_code.ruby.DynamoDBPartiQLBatch.decl
+                - ruby.example_code.dynamodb.partiql.batch_write
     C++:
       versions:
         - sdk_version: 1
@@ -1686,7 +1736,7 @@ dynamodb_Scenario_GettingStartedMovies:
           excerpts:
             - description: Create a class that encapsulates a &DDB; table.
               snippet_tags:
-                - ruby.example_code.dynamodb.helper.Movies
+                - ruby.example_code.dynamodb.CreateTable
             - description: Create a helper function to download and extract the
                 sample JSON file.
               snippet_tags:
@@ -1695,28 +1745,7 @@ dynamodb_Scenario_GettingStartedMovies:
                 Run an interactive scenario to create the table and perform
                 actions on it.
               snippet_tags:
-                - ruby.example_code.dynamodb.Scenario_GettingStartedMovies
-            - description: This scenario uses the following helper class to ask
-                questions at a command prompt.
-              snippet_tags:
-                - ruby.example_code.dynamodb.helper.Question
-    Swift:
-      versions:
-        - sdk_version: 1
-          github: swift/example_code/ddb
-          excerpts:
-            - description:
-                A Swift class that handles &DDB; calls to the &Swift;.
-              snippet_tags:
-                - ddb.swift.basics.movietable
-            - description: The structures used by the MovieTable class to
-                represent movies.
-              snippet_tags:
-                - ddb.swift.basics.movie
-            - description: A program that uses the MovieTable class to access
-                a &DDB; database.
-              snippet_tags:
-                - ddb.swift.basics
+                - ruby.example_code.dynamodb.Scenario_Basics
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1745,6 +1774,23 @@ dynamodb_Scenario_GettingStartedMovies:
                 - cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.waitTableActive
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+                A Swift class that handles &DDB; calls to the &Swift;.
+              snippet_tags:
+                - ddb.swift.basics.movietable
+            - description: The structures used by the MovieTable class to
+                represent movies.
+              snippet_tags:
+                - ddb.swift.basics.movie
+            - description: A program that uses the MovieTable class to access
+                a &DDB; database.
+              snippet_tags:
+                - ddb.swift.basics
   services:
     dynamodb:
       {
@@ -1855,6 +1901,14 @@ dynamodb_Scenario_PartiQLSingle:
             - description: Run a scenario that creates a table and runs PartiQL queries.
               snippet_tags:
                 - python.example_code.dynamodb.Scenario_PartiQLSingle
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description: Run a scenario that creates a table and runs PartiQL queries.
+              snippet_tags:
+                - ruby.example_code.dynamodb.Scenario_PartiQL_Single
     C++:
       versions:
         - sdk_version: 1
@@ -1868,6 +1922,18 @@ dynamodb_Scenario_PartiQLSingle:
                 - cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.waitTableActive
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.rust.partiql-make_table
+                - dynamodb.rust.partiql-add_item
+                - dynamodb.rust.partiql-query_item
+                - dynamodb.rust.partiql-remove_item
+                - dynamodb.rust.partiql-remove_table
   services:
     dynamodb: {ExecuteStatement}
 dynamodb_Scenario_PartiQLBatch:
@@ -1971,6 +2037,14 @@ dynamodb_Scenario_PartiQLBatch:
                 in batches.
               snippet_tags:
                 - python.example_code.dynamodb.Scenario_PartiQLBatch
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/dynamodb
+          excerpts:
+            - description: Run a scenario that creates a table and runs batch PartiQL queries.
+              snippet_tags:
+                - ruby.example_code.dynamodb.Scenario_PartiQL_Batch
     C++:
       versions:
         - sdk_version: 1
