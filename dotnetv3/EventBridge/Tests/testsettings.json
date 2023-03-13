@@ -1,0 +1,9 @@
+{
+  "roleName": "eventbridge-test-rule-role",
+  "roleArn": "arn:aws:iam::1234567890:role/eventbridge-events-rule-role",
+  "testBucketName": "ExampleBucket1",
+  "topicName": "example-topic-name",
+  "topicArn": "arn:aws:sns:us-east-1:1234567890:eventbridge-test-topic",
+  "eventRuleName": "example-test-event-rule",
+  "testEmail": "test@example.com"
+}

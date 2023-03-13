@@ -11,8 +11,8 @@ namespace ListSNSTopicsExample
     using Amazon.SimpleNotificationService.Model;
 
     /// <summary>
-    /// An example to list the Amazon Simple Notification Service (Amazon SNS)
-    /// topics for the default user account. The code was written using the
+    /// Lists the Amazon Simple Notification Service (Amazon SNS)
+    /// topics for the current account. The code was written using the
     /// AWS SDK for .NET 3.7 and .NET Core 5.0.
     /// </summary>
     public class ListSNSTopics
