@@ -12,7 +12,7 @@ public class IAMGroups
 
     // Represents json code for AWS full access policy for Amazon Simple
     // Storage Service (Amazon S3).
-    private const string S3FullAccessPolicy = "{" +
+    private const string S3FullAccessPolicyDocument = "{" +
         "	\"Statement\" : [{" +
             "	\"Action\" : [\"s3:*\"]," +
             "	\"Effect\" : \"Allow\"," +
@@ -46,10 +46,10 @@ public class IAMGroups
                 true) // Optionally load local settings.
             .Build();
 
-        string groupUserName = configuration["GroupUserName"];
-        string groupName = configuration["GroupName"];
-        string groupPolicyName = configuration["GroupPolicyName"];
-        string groupBucketName = configuration["GroupBucketName"];
+        var groupUserName = configuration["GroupUserName"];
+        var groupName = configuration["GroupName"];
+        var groupPolicyName = configuration["GroupPolicyName"];
+        var groupBucketName = configuration["GroupBucketName"];
 
         var wrapper = host.Services.GetRequiredService<IAMWrapper>();
         var uiWrapper = host.Services.GetRequiredService<UIWrapper>();
@@ -67,7 +67,7 @@ public class IAMGroups
         Console.WriteLine("Add an inline policy to the group that allows members to have full access to");
         Console.WriteLine("Amazon Simple Storage Service (Amazon S3) buckets.");
 
-        await wrapper.PutGroupPolicyAsync(group.GroupName, groupPolicyName, S3FullAccessPolicy);
+        await wrapper.PutGroupPolicyAsync(group.GroupName, groupPolicyName, S3FullAccessPolicyDocument);
 
         uiWrapper.PressEnter();
 
@@ -76,21 +76,20 @@ public class IAMGroups
         Console.WriteLine("Now let's create a new IAM user.");
         var groupUser = await wrapper.CreateUserAsync(groupUserName);
 
-        Console.WriteLine("Now that we have created a user, let's create an IAM access key for the user.");
+        // Add the new user to the group.
+        uiWrapper.DisplayTitle("Add the user to the group");
+        Console.WriteLine("Adding the user to the group, which will give the user the same permissions as the group.");
+        await wrapper.AddUserToGroupAsync(groupUser.UserName, group.GroupName);
+
+        Console.WriteLine($"User, {groupUser.UserName}, has been added to the group, {group.GroupName}.");
+        uiWrapper.PressEnter();
+
+        Console.WriteLine("Now that we have created a user, and added the user to the group, let's create an IAM access key.");
 
         // Create access and secret keys for the user.
         var accessKey = await wrapper.CreateAccessKeyAsync(groupUserName);
         Console.WriteLine("Key created.");
         uiWrapper.WaitABit(15, "Waiting for the access key to be ready for use.");
-
-        // Add the new user to the group.
-        uiWrapper.DisplayTitle("Add the user to the group");
-        Console.WriteLine("Add the user to the group, which will give the user the same permissions as the group.");
-        await wrapper.AddUserToGroupAsync(groupUser.UserName, group.GroupName);
-
-        Console.WriteLine($"User, {groupUser.UserName}, has been added to the group, {group.GroupName}.");
-
-        uiWrapper.PressEnter();
 
         uiWrapper.DisplayTitle("List buckets");
         Console.WriteLine("To prove that the user has access to Amazon S3, list the Amazon S3 buckets for the account.");

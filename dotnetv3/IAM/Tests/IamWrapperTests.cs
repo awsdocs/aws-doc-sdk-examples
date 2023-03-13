@@ -26,8 +26,10 @@ namespace IAMActions.Tests
         private readonly string? _groupPolicyName;
         private readonly string? _groupBucketName;
         private readonly string? _groupName;
+        private readonly string? _s3FullAccessPolicyName;
 
-        private readonly string? _policyDocument;
+        private readonly string? _listBucketsPolicyDocument;
+        private readonly string? _s3FullAccessPolicyDocument;
 
         public static string? _assumeRolePolicyDocument;
         public static string? _policyArn;
@@ -46,6 +48,7 @@ namespace IAMActions.Tests
                 .Build();
 
             _s3ListBucketsPolicyName = _configuration["S3ListBucketsPolicyName"];
+            _s3FullAccessPolicyName = _configuration["S3FullAccessPolicyName"];
             _roleName = _configuration["RoleName"];
             _assumePolicyName = _configuration["AssumePolicyName"];
             _userName = _configuration["UserName"];
@@ -54,8 +57,11 @@ namespace IAMActions.Tests
             _groupPolicyName = _configuration["GroupPolicyName"];
             _groupName = _configuration["GroupName"];
 
+            _iamService = new AmazonIdentityManagementServiceClient();
+            _iamWrapper = new IAMWrapper(_iamService);
+
             // Permissions to list all buckets.
-            _policyDocument = "{" +
+            _listBucketsPolicyDocument = "{" +
                 "\"Version\": \"2012-10-17\"," +
                 "	\"Statement\" : [{" +
                     "	\"Action\" : [\"s3:ListAllMyBuckets\"]," +
@@ -64,8 +70,14 @@ namespace IAMActions.Tests
                 "}]" +
             "}";
 
-            _iamService = new AmazonIdentityManagementServiceClient();
-            _iamWrapper = new IAMWrapper(_iamService);
+            // Permissions for full access to S3.
+            _s3FullAccessPolicyDocument = "{" +
+                    "	\"Statement\" : [{" +
+                    "	\"Action\" : [\"s3:*\"]," +
+                    "	\"Effect\" : \"Allow\"," +
+                    "	\"Resource\" : \"*\"" +
+                "}]" +
+            "}";
         }
 
         /// <summary>
@@ -123,7 +135,7 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task CreatePolicyAsyncTest()
         {
-            var policy = await _iamWrapper.CreatePolicyAsync(_s3ListBucketsPolicyName, _policyDocument);
+            var policy = await _iamWrapper.CreatePolicyAsync(_s3ListBucketsPolicyName, _listBucketsPolicyDocument);
             _policyArn = policy.Arn;
             Assert.NotNull(policy);
         }
@@ -237,7 +249,7 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task PutGroupPolicyAsyncTest()
         {
-            var success = await _iamWrapper.PutGroupPolicyAsync(_groupName, _groupPolicyName, _policyDocument);
+            var success = await _iamWrapper.PutGroupPolicyAsync(_groupName, _groupPolicyName, _listBucketsPolicyDocument);
             Assert.True(success, $"Could not attach policy {_s3ListBucketsPolicyName} to {_groupName}");
         }
 
