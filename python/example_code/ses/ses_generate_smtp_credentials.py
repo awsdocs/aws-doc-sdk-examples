@@ -62,7 +62,7 @@ def calculate_key(secret_access_key, region):
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Convert a Secret Access Key for an IAM user to an SMTP password.')
+        description='Convert a Secret Access Key to an SMTP password.')
     parser.add_argument(
         'secret', help='The Secret Access Key to convert.')
     parser.add_argument(
