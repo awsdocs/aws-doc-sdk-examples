@@ -20,6 +20,7 @@ function TagsLayout() {
   const { tagCollection, setTags } = useTagsStore();
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [selectedImageCount, setSelectedImageCount] = useState<number>(0);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [flashbarItems, setFlashbarItems] = useState<FlashbarProps["items"]>(
     []
   );
@@ -46,40 +47,65 @@ function TagsLayout() {
     setTags(tagCollection);
   };
 
+  const setMessage = ({
+    id,
+    content,
+    type,
+  }: {
+    id: string;
+    content: string;
+    type: FlashbarProps.Type;
+  }) => {
+    setFlashbarItems([
+      {
+        dismissible: true,
+        dismissLabel: "Dismiss message",
+        onDismiss: () => setFlashbarItems([]),
+        content,
+        id,
+        type,
+      },
+    ]);
+  };
+
   const handleUpload = async (file: File) => {
     await uploadFile(file, { token });
   };
 
   const handleDownload = async () => {
     if (!currentUser?.username) {
-      setFlashbarItems([
-        {
-          dismissible: true,
-          dismissLabel: "Dismiss message",
-          onDismiss: () => setFlashbarItems([]),
-          content: "A email is required. Are you signed in?",
-          id: "download-failure",
-          type: "error",
-        },
-      ]);
+      setMessage({
+        id: "download-failure-params",
+        content: "A email is required. Are you signed in?",
+        type: "error",
+      });
       return;
     }
-    
-    await initializeDownload(
-      selectedTags.map((t) => t.name),
-      currentUser?.username
-    );
-    setFlashbarItems([
-      {
-        dismissible: true,
-        dismissLabel: "Dismiss message",
-        onDismiss: () => setFlashbarItems([]),
+
+    setIsDownloading(true);
+
+    try {
+      await initializeDownload(
+        selectedTags.map((t) => t.name),
+        currentUser?.username
+      );
+      setMessage({
+        id: "download-success",
         content:
           "Your photos are being moved out of glacier storage. You will receive an email " +
           "with a link to download a zip file.",
-        id: "download",
-      },
-    ]);
+        type: "info",
+      });
+    } catch (err) {
+      console.log(err);
+      setMessage({
+        id: "download-failure-server",
+        content: "Your photos failed to download.",
+        type: "error",
+      });
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   return (
@@ -106,7 +132,11 @@ function TagsLayout() {
                     onSubmit={handleUpload}
                   />
                   <Button
-                    disabled={authStatus !== "signed_in" || !selectedImageCount}
+                    disabled={
+                      authStatus !== "signed_in" ||
+                      !selectedImageCount ||
+                      isDownloading
+                    }
                     onClick={handleDownload}
                   >
                     Download
