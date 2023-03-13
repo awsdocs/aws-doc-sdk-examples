@@ -6,6 +6,7 @@ import {
   API_GATEWAY_URL_NAME,
   COGNITO_APP_CLIENT_ID_NAME,
   COGNITO_USER_POOL_ID_NAME,
+  COGNITO_USER_POOL_BASE_URL,
 } from "../common";
 import { PamApi } from "./api";
 import { PamLambda, PamLambdasStrategy } from "./lambdas";
@@ -15,6 +16,7 @@ export interface PamStackProps extends StackProps {
   // name: string;
   email: string;
   strategy: PamLambdasStrategy;
+  cloudfrontDistributionUrl: string;
 }
 
 export class PamStack extends Stack {
@@ -35,6 +37,7 @@ export class PamStack extends Stack {
     this.api = new PamApi(this, "PamApi", {
       lambdas: this.lambdas,
       email: props.email,
+      cloudfrontDistributionUrl: props.cloudfrontDistributionUrl
     });
 
     this.permissions();
@@ -117,6 +120,7 @@ export class PamStack extends Stack {
   private outputs() {
     [
       [COGNITO_USER_POOL_ID_NAME, this.api.auth.userPool.userPoolId],
+      [COGNITO_USER_POOL_BASE_URL, this.api.auth.userPoolDomain.baseUrl()],
       [COGNITO_APP_CLIENT_ID_NAME, this.api.auth.appClient.userPoolClientId],
       [API_GATEWAY_URL_NAME, this.api.restApi.url],
     ].forEach(([exportName, value]) => {

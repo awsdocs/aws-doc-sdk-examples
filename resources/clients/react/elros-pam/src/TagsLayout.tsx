@@ -24,7 +24,7 @@ function TagsLayout() {
     []
   );
 
-  const { token, authStatus } = useAuthStore();
+  const { token, authStatus, currentUser } = useAuthStore();
 
   useEffect(() => {
     if (token) {
@@ -51,7 +51,24 @@ function TagsLayout() {
   };
 
   const handleDownload = async () => {
-    await initializeDownload(selectedTags.map(t => t.name));
+    if (!currentUser?.username) {
+      setFlashbarItems([
+        {
+          dismissible: true,
+          dismissLabel: "Dismiss message",
+          onDismiss: () => setFlashbarItems([]),
+          content: "A email is required. Are you signed in?",
+          id: "download-failure",
+          type: "error",
+        },
+      ]);
+      return;
+    }
+    
+    await initializeDownload(
+      selectedTags.map((t) => t.name),
+      currentUser?.username
+    );
     setFlashbarItems([
       {
         dismissible: true,

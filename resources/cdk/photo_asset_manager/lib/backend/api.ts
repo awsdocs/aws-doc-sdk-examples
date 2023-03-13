@@ -18,6 +18,7 @@ import * as models from "./models";
 export interface PamApiProps {
   lambdas: PamLambda;
   email: string;
+  cloudfrontDistributionUrl: string
 }
 
 export class PamApi extends Construct {
@@ -27,7 +28,7 @@ export class PamApi extends Construct {
   constructor(scope: Construct, id: string, props: PamApiProps) {
     super(scope, id);
 
-    this.auth = new PamAuth(this, "PamAuth", { email: props.email });
+    this.auth = new PamAuth(this, "PamAuth", { email: props.email, cloudfrontDistributionUrl: props.cloudfrontDistributionUrl });
 
     const restApi = (this.restApi = new RestApi(this, "PamRestApi", {
       defaultCorsPreflightOptions: {

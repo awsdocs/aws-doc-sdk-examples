@@ -1,19 +1,22 @@
 import { Alert } from "@cloudscape-design/components";
 import AppLayout from "@cloudscape-design/components/app-layout";
+import { useEffect } from "react";
 
 import "./App.css";
-import LoginModal from "./LoginModal";
 import LoginNavigation from "./LoginNavigation";
 import { useAuthStore } from "./store-auth";
 import TagsLayout from "./TagsLayout";
 
 function App() {
-  const { authStatus } = useAuthStore();
+  const { authStatus, checkAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   return (
     <>
       <LoginNavigation title="Photo Asset Management" />
-      <LoginModal />
       <AppLayout
         toolsHide={true}
         navigationHide={true}

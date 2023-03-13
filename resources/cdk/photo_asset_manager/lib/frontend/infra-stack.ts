@@ -1,11 +1,4 @@
-import {
-  BundlingOutput,
-  CfnOutput,
-  DockerImage,
-  RemovalPolicy,
-  Stack,
-  StackProps,
-} from "aws-cdk-lib";
+import { CfnOutput, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
 import {
   CfnDistribution,
   CfnOriginAccessControl,
@@ -19,32 +12,20 @@ import {
   ServicePrincipal,
 } from "aws-cdk-lib/aws-iam";
 import { Bucket } from "aws-cdk-lib/aws-s3";
-import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
 import { Construct } from "constructs";
-import { writeFileSync } from "fs";
-import { join } from "path";
-import { CLOUDFRONT_DISTRIBUTION_NAME, ELROS_PATH } from "../common";
+import { CLOUDFRONT_DISTRIBUTION_NAME } from "../common";
 
-export interface PamFrontendStackProps extends StackProps {
-  cognitoUserPoolId: string;
-  cognitoAppClientId: string;
-  apiGatewayUrl: string;
-}
-
-export class PamFrontendStack extends Stack {
+// TODO: make this a construct instead of a stack
+export class PamFrontEndInfraStack extends Stack {
   readonly bucket: Bucket;
-  readonly deployment: BucketDeployment;
   readonly distribution: Distribution;
 
-  constructor(scope: Construct, id: string, props: PamFrontendStackProps) {
-    super(scope, id, props);
-
-    const env = this.makeEnvFile(props);
-    writeFileSync(join(ELROS_PATH, ".env"), env);
+  constructor(scope: Construct, id: string) {
+    super(scope, id);
 
     this.bucket = new Bucket(this, "website-bucket", {
       removalPolicy: RemovalPolicy.DESTROY,
-      autoDeleteObjects: true
+      autoDeleteObjects: true,
     });
 
     this.distribution = new Distribution(this, "website-distribution", {
@@ -95,31 +76,5 @@ export class PamFrontendStack extends Stack {
       exportName: CLOUDFRONT_DISTRIBUTION_NAME,
       value: this.distribution.domainName,
     });
-
-    this.deployment = new BucketDeployment(this, "PamWebsiteDeployment", {
-      destinationBucket: this.bucket,
-      sources: [
-        Source.asset(ELROS_PATH, {
-          bundling: {
-            image: new DockerImage("node:18"),
-            command: [
-              "/bin/sh",
-              "-c",
-              "npm i && npm run build && cp -r /asset-input/dist/* /asset-output/",
-            ],
-            user: "root",
-            outputType: BundlingOutput.NOT_ARCHIVED,
-          },
-        }),
-      ],
-    });
-  }
-
-  private makeEnvFile(props: PamFrontendStackProps) {
-    return [
-      `VITE_COGNITO_USER_POOL_ID=${props.cognitoUserPoolId}`,
-      `VITE_COGNITO_USER_POOL_CLIENT_ID=${props.cognitoAppClientId}`,
-      `VITE_API_GATEWAY_BASE_URL=${props.apiGatewayUrl}`,
-    ].join("\n");
   }
 }

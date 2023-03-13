@@ -3,18 +3,22 @@ import {
   AccountRecovery,
   CfnUserPoolUser,
   Mfa,
+  OAuthScope,
   UserPool,
   UserPoolClient,
+  UserPoolDomain,
 } from "aws-cdk-lib/aws-cognito";
 import { Construct } from "constructs";
 import { PAM_STACK_NAME } from "../common";
 
 export interface PamAuthProps {
   email: string;
+  cloudfrontDistributionUrl: string;
 }
 
 export class PamAuth extends Construct {
   readonly userPool: UserPool;
+  readonly userPoolDomain: UserPoolDomain;
   readonly appClient: UserPoolClient;
   readonly user: CfnUserPoolUser;
   constructor(scope: Construct, id: string, props: PamAuthProps) {
@@ -38,13 +42,19 @@ export class PamAuth extends Construct {
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
-    this.userPool.addDomain("PamLoginDomain", {
+    this.userPoolDomain = this.userPool.addDomain("PamLoginDomain", {
       cognitoDomain: {
         domainPrefix: PAM_STACK_NAME.toLowerCase(),
       },
     });
 
-    this.appClient = this.userPool.addClient("AppClient");
+    this.appClient = this.userPool.addClient("AppClient", {
+      oAuth: {
+        callbackUrls: [`https://${props.cloudfrontDistributionUrl}`],
+        flows: { implicitCodeGrant: true },
+        scopes: [OAuthScope.PROFILE, OAuthScope.OPENID]
+      },
+    });
 
     this.user = new CfnUserPoolUser(this, "UserPool-DefaultUser", {
       userPoolId: this.userPool.userPoolId,

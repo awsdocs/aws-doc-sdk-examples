@@ -11,6 +11,7 @@ import { Construct } from "constructs";
 export class PamBuckets extends Construct {
   readonly storage = new Bucket(this, "storage-bucket", {
     removalPolicy: RemovalPolicy.DESTROY,
+    autoDeleteObjects: true,
     cors: [
       {
         allowedHeaders: ["*"],
@@ -21,6 +22,7 @@ export class PamBuckets extends Construct {
   });
   readonly working = new Bucket(this, "working-bucket", {
     removalPolicy: RemovalPolicy.DESTROY,
+    autoDeleteObjects: true,
   });
 
   constructor(scope: Construct, id: string) {

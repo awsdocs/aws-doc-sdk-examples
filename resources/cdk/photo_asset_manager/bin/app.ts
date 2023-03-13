@@ -8,54 +8,82 @@ import { PamStack } from "../lib/backend/stack";
 import { getStrategy } from "../lib/backend/strategies";
 import {
   API_GATEWAY_URL_NAME,
+  CLOUDFRONT_DISTRIBUTION_NAME,
   COGNITO_APP_CLIENT_ID_NAME,
+  COGNITO_USER_POOL_BASE_URL,
   COGNITO_USER_POOL_ID_NAME,
-  PAM_EMAIL,
   PAM_LANG,
-  PAM_NAME,
   PAM_STACK_NAME,
+  PAM_FE_INFRA_STACK_NAME,
+  PAM_EMAIL,
+  PAM_FE_ASSET_STACK_NAME,
 } from "../lib/common";
-import { PamFrontendStack } from "../lib/frontend/stack";
+import { PamFrontEndAssetStack } from "../lib/frontend/asset-stack";
+import { PamFrontEndInfraStack } from "../lib/frontend/infra-stack";
 
 const cfnClient = new CloudFormationClient({});
 cfnClient.send(new ListExportsCommand({})).then(({ Exports = [] }) => {
-  const exports = filterExportsForStack(Exports);
-
+  const exports = {
+    ...getExportsForStack(PAM_STACK_NAME, Exports),
+    ...getExportsForStack(PAM_FE_INFRA_STACK_NAME, Exports),
+  };
   const app = new App();
 
-  // BE Stack
-  new PamStack(app, PAM_STACK_NAME, {
-    email: PAM_EMAIL,
-    strategy: getStrategy(PAM_LANG),
-  });
+  // Front-end stack
+  const infraStack = new PamFrontEndInfraStack(app, PAM_FE_INFRA_STACK_NAME);
 
-  // FE Stack, maybe
+  const cloudfrontDistributionUrl: string =
+    exports[CLOUDFRONT_DISTRIBUTION_NAME];
+
+  if (cloudfrontDistributionUrl) {
+    // Back-end stack
+    new PamStack(app, PAM_STACK_NAME, {
+      strategy: getStrategy(PAM_LANG),
+      email: PAM_EMAIL,
+      cloudfrontDistributionUrl
+    });
+  }
+
   const cognitoUserPoolId: string = exports[COGNITO_USER_POOL_ID_NAME];
   const cognitoAppClientId: string = exports[COGNITO_APP_CLIENT_ID_NAME];
   const apiGatewayUrl: string = exports[API_GATEWAY_URL_NAME];
+  const cognitoUserPoolBaseUrl: string = exports[COGNITO_USER_POOL_BASE_URL];
 
-  if (cognitoAppClientId && cognitoUserPoolId && apiGatewayUrl) {
-    new PamFrontendStack(app, `${PAM_NAME}-FE-PAM`, {
-      cognitoAppClientId,
-      cognitoUserPoolId,
+  // Front-end assets
+  if (
+    cognitoAppClientId &&
+    cognitoUserPoolId &&
+    apiGatewayUrl &&
+    cognitoUserPoolBaseUrl &&
+    cloudfrontDistributionUrl
+  ) {
+    new PamFrontEndAssetStack(app, PAM_FE_ASSET_STACK_NAME, {
       apiGatewayUrl,
+      bucket: infraStack.bucket,
+      cloudfrontDistributionUrl,
+      cognitoAppClientId,
+      cognitoUserPoolBaseUrl,
+      cognitoUserPoolId,
     });
   }
 });
 
-function filterExportsForStack(exports: Export[]): Record<string, string> {
-  return exports
-    .filter(
-      (exp) =>
-        exp.ExportingStackId?.includes(PAM_STACK_NAME) &&
-        exp.Name !== undefined &&
-        exp.Value !== undefined
-    )
-    .reduce(
-      (values, { Name, Value }): Record<string, string> => ({
-        ...values,
-        [Name!]: Value!,
-      }),
-      {} as Record<string, string>
-    );
+function makeStackExportsMap(exports: Export[]) {
+  return exports.reduce((stackExports, nextExport) => {
+    if (nextExport.ExportingStackId && nextExport.Name && nextExport.Value) {
+      const nextStackId = nextExport.ExportingStackId;
+      const nextStackName = nextStackId.split("/")[1];
+      return {
+        ...stackExports,
+        [nextStackName]: {
+          ...(stackExports[nextStackName] || {}),
+          [nextExport.Name]: nextExport.Value,
+        },
+      };
+    } else return stackExports;
+  }, {} as Record<string, Record<string, string>>);
+}
+
+function getExportsForStack(stackName: string, exports: Export[]) {
+  return makeStackExportsMap(exports)[stackName];
 }

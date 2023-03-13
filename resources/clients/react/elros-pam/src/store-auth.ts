@@ -1,35 +1,65 @@
 import { create } from "zustand";
-import { AuthManager, AuthStatus, User } from "./auth";
-import { CognitoAuthManager } from "./cognito-auth";
+import { decodeJwt } from "jose";
+
+export type AuthResult = AuthSuccess | AuthSignOut;
+
+export type AuthStatus = "signed_in" | "signed_out";
+
+export interface AuthSuccess {
+  status: "signed_in";
+  token: string;
+}
+
+export interface AuthSignOut {
+  status: "signed_out";
+}
+
+export interface User {
+  username: string;
+}
+
+interface Tokens {
+  accessToken: string;
+  idToken: string;
+}
 
 export interface AuthStore {
   error: string | null;
   authStatus: AuthStatus;
-  authManager: AuthManager;
   currentUser: User | null;
   token: string | null;
-  setAuthStatus: (authStatus: AuthStatus) => void;
-  setCurrentUser: (user: User | null) => void;
-  setError: (error: string | null) => void;
-  setToken: (token: string | null) => void;
+  checkAuth: () => void;
+  signIn: (tokens: Tokens) => void;
+  signOut: () => void;
 }
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
   error: "",
   authStatus: "signed_out",
-  authManager: new CognitoAuthManager(),
   currentUser: null,
   token: null,
-  setAuthStatus: (authStatus: AuthStatus) => {
-    set({ authStatus });
+  checkAuth() {
+    const params = new URLSearchParams(location.href.split('#')[1]);
+    const idToken = params.get("id_token");
+    const accessToken = params.get("access_token");
+    if (idToken && accessToken) {
+      get().signIn({ idToken, accessToken });
+    }
   },
-  setCurrentUser: (user: User | null) => {
-    set({ currentUser: user });
+  signIn({ idToken, accessToken }: Tokens) {
+    if (!(idToken && accessToken)) {
+      throw new Error("Failed to sign in. Missing tokens.");
+    }
+
+    const idTokenClaims = decodeJwt(idToken);
+    console.log(idTokenClaims)
+    set({
+      currentUser: { username: idTokenClaims['cognito:username'] as string },
+      token: accessToken,
+      authStatus: "signed_in",
+    });
   },
-  setError(error: string | null) {
-    set({ error });
-  },
-  setToken(token: string | null) {
-    set({ token });
+  signOut() {
+    set({ token: null, currentUser: null, authStatus: "signed_out" });
   },
 }));

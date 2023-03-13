@@ -48,13 +48,22 @@ export const s3Copy = async (bucketName: string, config: PamApiConfig) => {
   }
 };
 
-export const initializeDownload = async (labels: string[]) => {
-  await fetch(`${import.meta.env.VITE_API_GATEWAY_BASE_URL}restore`, {
-    method: "PUT",
-    body: JSON.stringify({
-      labels,
-    }),
-  });
+export const initializeDownload = async (labels: string[], notify: string) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_GATEWAY_BASE_URL}restore`,
+    {
+      method: "PUT",
+      body: JSON.stringify({
+        labels,
+        notify,
+      }),
+    }
+  );
+
+  if (!response.ok) {
+    console.error(response);
+    throw new Error("Download failed.");
+  }
 };
 
 export const uploadFile = async (file: File, config: PamApiConfig) => {
