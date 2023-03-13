@@ -64,7 +64,10 @@ IGNORE_FILES = {'AssemblyInfo.cs', 'metadata.yaml', '.travis.yml'}
 EXPECTED_SAMPLE_FILES = {
     'README.md',
     'movies.json',
-    'speech_sample.mp3'
+    'speech_sample.mp3',
+    'chat_sfn_state_machine.json',
+    'market_2.jpg',
+    'spheres_2.jpg',
 }
 
 # media file types

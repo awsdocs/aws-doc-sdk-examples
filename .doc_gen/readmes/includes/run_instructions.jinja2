@@ -1,5 +1,22 @@
 ### Instructions
 
+{% if lang_config['name'] == 'JavaScript' and lang_config['sdk_ver'] == 3 %}
+**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
+[JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).
+
+**Run a single action**
+
+```bash
+node ./actions/<fileName>
+```
+
+**Run a scenario**
+Most scenarios can be run with the following command:
+```bash
+node ./scenarios/<fileName>
+```
+{% endif %}
+
 <!--custom.instructions.start-->
 {{ customs['instructions'] -}}
 <!--custom.instructions.end-->
@@ -12,6 +29,16 @@ This example shows you how to {{ hello_ex['synopsis'] }}
 {% if lang_config['name'] == 'Go' and lang_config['sdk_ver'] == 2 %}
 ```
 go run ./hello
+```
+{% endif %}
+{% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 %}
+```
+python hello.py
+```
+{% endif %}
+{% if lang_config['name'] == 'JavaScript' and lang_config['sdk_ver'] == 3 %}
+```bash
+node ./hello.js
 ```
 {% endif %}
 {% endfor %}
@@ -43,6 +70,19 @@ Start the example by running the following at a command prompt:
 ```
 ruby {{scenario['file']}}
 ```
+{% elif lang_config['name'] == '.NET' and lang_config['sdk_ver'] == 3 %}
+Before you compile the .NET application, you can optionally set configuration values
+in the settings.json file. These settings include your account and topic settings for
+sending an email from your alarm. Alternatively, add a settings.local.json file with
+your local settings, which will be loaded automatically when the application runs.
+
+After the example compiles, you can run it from the command line. To do so, navigate to
+the folder that contains the .csproj file and run the following command:
+
+```
+dotnet run
+```
+Alternatively, you can run the example from within your IDE.
 
 {% endif %}
 <!--custom.scenarios.{{ scenario['id'] }}.start-->

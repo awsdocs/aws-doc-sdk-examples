@@ -32,53 +32,59 @@ import { fileURLToPath } from "url";
 import { log } from "./util-log.js";
 import { promiseAll, splitMapTrim } from "../ext-ramda.js";
 
-const deleteFiles = compose(promiseAll, map(unlink));
+export const deleteFiles = compose(promiseAll, map(unlink));
 
-const dirnameFromMetaUrl = (metaUrl) => {
+// snippet-start:[javascript.v3.utils.dirnameFromMetaUrl]
+export const dirnameFromMetaUrl = (metaUrl) => {
   return fileURLToPath(new URL(".", metaUrl));
 };
+// snippet-end:[javascript.v3.utils.dirnameFromMetaUrl]
 
-const getDelimitedEntries = curry((delimiter, str) =>
+export const getDelimitedEntries = curry((delimiter, str) =>
   pipe(getTmp, defaultTo(""), splitMapTrim(delimiter))(str)
 );
 
-const getNewLineDelimitedEntries = getDelimitedEntries("\n");
+export const getNewLineDelimitedEntries = getDelimitedEntries("\n");
 
-const getTmp = tryCatch(
+export const getTmp = tryCatch(
   (name) => readFileSync(`./${name}.tmp`, { encoding: "utf-8" }),
   always(null)
 );
 
-const setTmp = (name, data) =>
+export const setTmp = (name, data) =>
   writeFileSync(`./${name}.tmp`, data, { encoding: "utf-8" });
 
-const handleZipWarning = (resolve) => (w) => {
+export const handleZipWarning = (resolve) => (w) => {
   log(w);
   resolve();
 };
 
-const handleZipEnd = (resolve, path) => async () => {
+export const handleZipEnd = (resolve, path) => async () => {
   log(`Zipped successfully.`);
   const buffer = await readFile(path);
   resolve(buffer);
 };
 
-const makeDir = ifElse(existsSync, identity, tap(mkdirSync));
+export const makeDir = ifElse(existsSync, identity, tap(mkdirSync));
 
-const readLines = pipe(readFileSync, invoker(0, "toString"), split("\n"));
+export const readLines = pipe(
+  readFileSync,
+  invoker(0, "toString"),
+  split("\n")
+);
 
-const readSubdirSync = pipe(
+export const readSubdirSync = pipe(
   readdirSync,
   filter(invoker(0, "isDirectory")),
   map(prop("name"))
 );
 
 /**
- * 
- * @param {string} inputPath 
+ *
+ * @param {string} inputPath
  * @returns {Promise<Buffer>}
  */
-const zip = (inputPath) =>
+export const zip = (inputPath) =>
   new Promise((resolve, reject) => {
     try {
       readdirSync(inputPath);
@@ -102,16 +108,3 @@ const zip = (inputPath) =>
     archive.directory(inputPath, false);
     archive.finalize();
   });
-
-export {
-  deleteFiles,
-  dirnameFromMetaUrl,
-  getTmp,
-  makeDir,
-  readLines,
-  readSubdirSync,
-  getDelimitedEntries,
-  getNewLineDelimitedEntries,
-  setTmp,
-  zip,
-};

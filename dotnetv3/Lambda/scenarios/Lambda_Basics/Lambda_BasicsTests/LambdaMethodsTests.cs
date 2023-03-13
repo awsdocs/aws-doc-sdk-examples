@@ -34,6 +34,7 @@ namespace Lambda_Basics.Tests
 
         [Fact()]
         [Order(1)]
+        [Trait("Category", "Integration")]
         public async Task CreateLambdaFunctionTest()
         {
             var functionArn = await _LambdaMethods.CreateLambdaFunction(
@@ -49,6 +50,7 @@ namespace Lambda_Basics.Tests
 
         [Fact()]
         [Order(2)]
+        [Trait("Category", "Integration")]
         public async Task GetFunctionTest()
         {
             var functionConfig = await _LambdaMethods.GetFunction(_client, _configuration["FunctionName"]);
@@ -57,6 +59,7 @@ namespace Lambda_Basics.Tests
 
         [Fact()]
         [Order(3)]
+        [Trait("Category", "Integration")]
         public async Task ListFunctionsTest()
         {
             var functions = await _LambdaMethods.ListFunctions(_client);
@@ -65,6 +68,7 @@ namespace Lambda_Basics.Tests
 
         [Fact()]
         [Order(4)]
+        [Trait("Category", "Integration")]
         public async Task InvokeIncrementerTest()
         {
             // First make sure that the function is active.
@@ -89,6 +93,7 @@ namespace Lambda_Basics.Tests
 
         [Fact()]
         [Order(5)]
+        [Trait("Category", "Integration")]
         public async Task UpdateFunctionCodeTest()
         {
             await _LambdaMethods.UpdateFunctionCode(
@@ -109,6 +114,7 @@ namespace Lambda_Basics.Tests
 
         [Fact()]
         [Order(6)]
+        [Trait("Category", "Integration")]
         public async Task UpdateFunctionConfigurationAsyncTest()
         {
             var success = await _LambdaMethods.UpdateFunctionConfigurationAsync(
@@ -130,6 +136,7 @@ namespace Lambda_Basics.Tests
 
         [Fact()]
         [Order(7)]
+        [Trait("Category", "Integration")]
         public async Task InvokeArithmeticMultiplyFunctionTest()
         {
             var functionParameters = "{" +
@@ -147,6 +154,7 @@ namespace Lambda_Basics.Tests
 
         [Fact()]
         [Order(8)]
+        [Trait("Category", "Integration")]
         public async Task DeleteLambdaFunctionTest()
         {
             var success = await _LambdaMethods.DeleteLambdaFunction(
@@ -157,6 +165,7 @@ namespace Lambda_Basics.Tests
 
         [Fact()]
         [Order(9)]
+        [Trait("Category", "Integration")]
         public async Task DeleteLambdaFunctionTest_DoesntExist_ShouldFail()
         {
             var functionName = "nonexistent_function";

@@ -24,8 +24,8 @@ public class AmazonS3Test {
     private static S3Presigner presigner;
     private static S3ControlClient s3ControlClient;
 
-    // Define the data members required for the tests
-    private static String bucketName = "";
+    // Define the data members required for the tests.
+    private static String bucketName = "<Enter a bucket name>";
     private static String objectKey = "";
     private static String objectPath = "";
     private static String toBucket = "";
@@ -38,16 +38,19 @@ public class AmazonS3Test {
     private static String accountId="";
     private static String accessPointName="";
 
-    //Used for the Encryption test
+    // Used for the encryption test.
     private static String encryptObjectName="";
     private static String encryptObjectPath="";
     private static String encryptOutPath="";
     private static String keyId="";
 
+    // Used for restore tests.
+    private static String restoreImagePath = "";
+    private static String restoreBucket = "";
+    private static String restoreImageName = "";
+
     @BeforeAll
     public static void setUp() throws IOException {
-
-        // Run tests on Real AWS Resources
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         s3 = S3Client.builder()
                 .region(Region.US_EAST_1)
@@ -72,11 +75,9 @@ public class AmazonS3Test {
                 System.out.println("Sorry, unable to find config.properties");
                 return;
             }
-
-            //load a properties file from class path, inside static method
             prop.load(input);
 
-            // Populate the data members required for all tests
+            // Populate the data members required for all tests.
             bucketName = prop.getProperty("bucketName");
             objectKey = prop.getProperty("objectKey");
             objectPath= prop.getProperty("objectPath");
@@ -93,6 +94,9 @@ public class AmazonS3Test {
             encryptObjectPath = prop.getProperty("encryptObjectPath");
             encryptOutPath = prop.getProperty("encryptOutPath");
             keyId = prop.getProperty("keyId");
+            restoreImagePath = prop.getProperty("restoreImagePath");
+            restoreBucket = prop.getProperty("restoreBucket");
+            restoreImageName = prop.getProperty("restoreImageName");
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -109,15 +113,13 @@ public class AmazonS3Test {
     @Test
     @Order(2)
    public void createBucket() {
-
-      CreateBucket.createBucket(s3,bucketName);
-      System.out.println("Test 2 passed");
+       CreateBucket.createBucket(s3,bucketName);
+       System.out.println("Test 2 passed");
    }
 
     @Test
     @Order(3)
    public void putObject() {
-
        String result = PutObject.putS3Object(s3, bucketName, objectKey, objectPath);
        assertTrue(!result.isEmpty());
        System.out.println("Test 3 passed");
@@ -126,43 +128,38 @@ public class AmazonS3Test {
     @Test
     @Order(4)
    public void copyBucketObject() {
-
-      String result = CopyObject.copyBucketObject(s3,bucketName,objectKey,toBucket);
-      assertTrue(!result.isEmpty());
-      System.out.println("Test 4 passed");
-    }
+       String result = CopyObject.copyBucketObject(s3,bucketName,objectKey,toBucket);
+       assertTrue(!result.isEmpty());
+       System.out.println("Test 4 passed");
+   }
 
     @Test
     @Order(5)
     public void setBucketPolicy() {
-
-     String polText = SetBucketPolicy.getBucketPolicyFromFile(policyText);
-     assertTrue(!polText.isEmpty());
-     SetBucketPolicy.setPolicy(s3, bucketNamePolicy, polText);
-     System.out.println("Test 5 passed");
+        String polText = SetBucketPolicy.getBucketPolicyFromFile(policyText);
+        assertTrue(!polText.isEmpty());
+        SetBucketPolicy.setPolicy(s3, bucketNamePolicy, polText);
+        System.out.println("Test 5 passed");
     }
 
     @Test
     @Order(6)
     public void getBucketPolicy() {
-
-    String polText = GetBucketPolicy.getPolicy(s3, bucketNamePolicy);
-    assertTrue(!polText.isEmpty());
-    System.out.println("Test 6 passed");
+        String polText = GetBucketPolicy.getPolicy(s3, bucketNamePolicy);
+        assertTrue(!polText.isEmpty());
+        System.out.println("Test 6 passed");
     }
 
     @Test
     @Order(7)
     public void deleteBucketPolicy() {
-
-   DeleteBucketPolicy.deleteS3BucketPolicy(s3,bucketNamePolicy );
-   System.out.println("Test 7 passed");
+        DeleteBucketPolicy.deleteS3BucketPolicy(s3,bucketNamePolicy );
+        System.out.println("Test 7 passed");
     }
 
     @Test
     @Order(8)
-    public void setBucketACL()
-    {
+    public void setBucketACL() {
         System.out.format("Running Amazon S3 Test 8");
         System.out.println("for object: " + objectKey);
         System.out.println(" in bucket: " + bucketName);
@@ -173,12 +170,10 @@ public class AmazonS3Test {
     @Test
     @Order(9)
     public void getACL(){
-
         String result = GetAcl.getBucketACL(s3,objectKey,bucketName);
         assertTrue(!result.isEmpty());
         System.out.println("Test 9 passed");
     }
-
 
     @Test
     @Order(10)
@@ -190,7 +185,6 @@ public class AmazonS3Test {
     @Test
     @Order(11)
     public void GetObjectPresignedUrl() {
-
         GetObjectPresignedUrl.getPresignedUrl(presigner, presignBucket, presignKey);
         System.out.println("Test 11 passed");
     }
@@ -220,7 +214,6 @@ public class AmazonS3Test {
     @Test
     @Order(15)
     public void  LifecycleConfiguration() {
-
         LifecycleConfiguration.setLifecycleConfig(s3, bucketName, accountId);
         LifecycleConfiguration.getLifecycleConfig(s3, bucketName, accountId);
         LifecycleConfiguration.deleteLifecycleConfig(s3, bucketName, accountId);
@@ -251,4 +244,25 @@ public class AmazonS3Test {
         System.out.println("Test 19 passed");
     }
 
+    @Test
+    @Order(19)
+    public void copyObjectStorage() {
+        PutObject.putS3Object(s3, restoreBucket, restoreImageName, restoreImagePath);
+        CopyObjectStorage.copyBucketObject(s3,restoreBucket, restoreImageName, restoreBucket);
+        System.out.println("Test 19 passed");
+    }
+
+    @Test
+    @Order(20)
+    public void RestoreObject() {
+        RestoreObject.restoreS3Object(s3, restoreBucket, restoreImageName, accountId);
+        System.out.println("Test 20 passed");
+    }
+
+    @Test
+    @Order(21)
+    public void getRestoreStatus() {
+        GetObjectRestoreStatus.checkStatus(s3, restoreBucket, restoreImageName);
+        System.out.println("Test 21 passed");
+    }
 }

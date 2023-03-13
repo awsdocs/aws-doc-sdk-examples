@@ -25,9 +25,9 @@ public class ServiceHandler {
     // snippet-start:[s3.swift.basics.handler.init]
     public init() async {
         do {
-            client = try await S3Client()
+            client = try S3Client(region: "us-east-2")
         } catch {
-            print("ERROR: ", dump(error, name: "Initializing s3 client"))
+            print("ERROR: ", dump(error, name: "Initializing S3 client"))
             exit(1)
         }
     }
@@ -123,7 +123,7 @@ public class ServiceHandler {
         guard let body = output.body else {
             return
         }
-        let data = body.toBytes().toData()
+        let data = body.toBytes().getData()
         try data.write(to: fileUrl)
     }
     // snippet-end:[s3.swift.basics.handler.downloadfile]
@@ -149,7 +149,7 @@ public class ServiceHandler {
         guard let body = output.body else {
             return "".data(using: .utf8)!
         }
-        let data = body.toBytes().toData()
+        let data = body.toBytes().getData()
         return data
     }
     // snippet-end:[s3.swift.basics.handler.readfile]

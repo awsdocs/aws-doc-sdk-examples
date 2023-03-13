@@ -22,9 +22,6 @@ For a tutorial, see
   configured as described in the [AWS Tools and SDKs Shared Configuration and
   Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
 - Python 3.8.5 or later
-- Boto3 1.15.4 or later
-- Websockets 8.1 or later
-- PyTest 6.0.2 or later (to run unit tests)
 
 ## Cautions
 
@@ -40,6 +37,12 @@ For a tutorial, see
 - Running this code might result in charges to your AWS account.
 
 ## Running the code
+
+Install prerequisites by running the following at a command prompt.
+
+   ```
+   python -m pip install -r requirements.txt
+   ``` 
 
 This example requires AWS resources that can be deployed by the 
 AWS CloudFormation stack that is defined in the accompanying `setup.yaml` file.

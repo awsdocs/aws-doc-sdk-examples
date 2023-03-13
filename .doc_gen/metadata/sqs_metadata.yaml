@@ -44,6 +44,15 @@ sqs_CreateQueue:
             - description:
               snippet_tags:
                 - python.example_code.sqs.CreateQueue
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.sqs.CreateQueue
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -195,6 +204,15 @@ sqs_ListQueues:
             - description:
               snippet_tags:
                 - python.example_code.sqs.ListQueues
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.sqs.ShowQueues
     Rust:
       versions:
         - sdk_version: 1
@@ -283,6 +301,15 @@ sqs_DeleteQueue:
             - description:
               snippet_tags:
                 - python.example_code.sqs.DeleteQueue
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.sqs.DeleteQueue
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -367,6 +394,15 @@ sqs_SendMessage:
             - description:
               snippet_tags:
                 - python.example_code.sqs.SendMessage
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.sqs.SendMessage
     Rust:
       versions:
         - sdk_version: 1
@@ -437,6 +473,15 @@ sqs_SendMessageBatch:
             - description:
               snippet_tags:
                 - python.example_code.sqs.SendMessageBatch
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.sqs.SendMessageBatch
   services:
     sqs: {SendMessageBatch}
 sqs_ReceiveMessage:
@@ -484,6 +529,15 @@ sqs_ReceiveMessage:
             - description:
               snippet_tags:
                 - python.example_code.sqs.ReceiveMessage
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.sqs.ReceiveMessages
     Rust:
       versions:
         - sdk_version: 1
@@ -727,6 +781,15 @@ sqs_ChangeMessageVisibility:
             - description:
               snippet_tags:
                 - sqs.go-v2.ChangeMessageVisibility
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.sqs.MessageVisibilityTimeout
   services:
     sqs: {ChangeMessageVisibility}
 sqs_SetQueueAttributes:

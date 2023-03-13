@@ -43,6 +43,8 @@ public class AmazonCognitoTest {
     private static String userNameMVP="";
     private static String passwordMVP="";
     private static String emailMVP="";
+    private static String confirmationCode="";
+    private static String authFlow="";
 
 
     @BeforeAll

@@ -15,7 +15,7 @@ set(USING_CONAN TRUE)  # True if using Conan.
 project("ServerlessAurora")
 set(EXECUTABLE run_serverless_aurora)
 
-#Set the location of where Windows can find the installed libraries of the SDK.
+# Set the location of where Windows can find the installed libraries of the SDK.
 if(MSVC)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})

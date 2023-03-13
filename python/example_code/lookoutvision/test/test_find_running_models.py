@@ -66,7 +66,9 @@ def test_find_models_in_project(make_stubber, stub_runner, error_code, stop_on_m
 ])
 def test_find_running_models(make_stubber, stub_runner, monkeypatch,
                              error_code, stop_on_method):
+    
     lookoutvision_client = boto3.client('lookoutvision')
+
     lookoutvision_stubber = make_stubber(lookoutvision_client)
     project_name = 'test-project_name'
     model = 'test-model'
@@ -97,10 +99,15 @@ def test_find_running_models(make_stubber, stub_runner, monkeypatch,
         # Returns the previously created, and stubbed, lookoutvision client.
         return lookoutvision_client
 
+
+    monkeypatch.setattr(Session, 'client', get_boto_entity)
+    #monkeypatch.setattr(Session, 'profile_name', 'lookoutvision-access')
+
     # Patch AWS Region list
     monkeypatch.setattr(Session, 'get_available_regions', region_list)
     # Patch lookoutvision client to manage multiple AWS Region clients.
-    monkeypatch.setattr(boto3, 'client', get_boto_entity)
+    #monkeypatch.setattr(boto3, 'client', get_boto_entity)
+
 
     # Set up stubbed calls needed to mock getting running models.
     with stub_runner(error_code, stop_on_method) as runner:

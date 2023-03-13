@@ -1,0 +1,34 @@
+<DescribeDBParametersResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeDBParametersResult>
+        <Parameters>
+            <Parameter>
+                <AllowedValues>1-65535</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>Intended for use with master-to-master replication, and can be used to control the
+                    operation of AUTO_INCREMENT columns
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>auto_increment_increment</ParameterName>
+                <Source>user</Source>
+                <IsModifiable>true</IsModifiable>
+                <ParameterValue>3</ParameterValue>
+            </Parameter>
+            <Parameter>
+                <AllowedValues>1-65535</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>Determines the starting point for the AUTO_INCREMENT column value</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <ParameterName>auto_increment_offset</ParameterName>
+                <Source>user</Source>
+                <IsModifiable>true</IsModifiable>
+                <ParameterValue>2</ParameterValue>
+            </Parameter>
+        </Parameters>
+    </DescribeDBParametersResult>
+    <ResponseMetadata>
+        <RequestId>7d540796-3a43-4a38-90df-42c7b2e0f171</RequestId>
+    </ResponseMetadata>
+</DescribeDBParametersResponse>
+ 
