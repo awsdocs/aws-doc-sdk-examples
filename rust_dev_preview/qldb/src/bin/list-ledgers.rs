@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_qldb::{Client as QLDBClient, Error, Region, PKG_VERSION};
+use aws_sdk_qldb::{config::Region, meta::PKG_VERSION, Client as QLDBClient, Error};
 use structopt::StructOpt;
 use tokio_stream::StreamExt;
 

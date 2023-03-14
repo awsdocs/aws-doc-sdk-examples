@@ -4,11 +4,10 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::error::CreateBucketError;
-use aws_sdk_s3::model::{BucketLocationConstraint, CreateBucketConfiguration};
-use aws_sdk_s3::output::CreateBucketOutput;
-use aws_sdk_s3::types::SdkError;
-use aws_sdk_s3::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_s3::error::SdkError;
+use aws_sdk_s3::operation::create_bucket::{CreateBucketError, CreateBucketOutput};
+use aws_sdk_s3::types::{BucketLocationConstraint, CreateBucketConfiguration};
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]

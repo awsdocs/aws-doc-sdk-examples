@@ -5,7 +5,7 @@
 
 use std::net::{Ipv4Addr, SocketAddr};
 
-use aws_sdk_dynamodb::{types::DisplayErrorContext, Client};
+use aws_sdk_dynamodb::{error::DisplayErrorContext, Client};
 use axum::extract::Extension;
 use dynamodb_code_examples::scenario::error::Error;
 use dynamodb_code_examples::scenario::movies::server::{make_app, movies_in_year};

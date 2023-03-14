@@ -4,8 +4,8 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ssm::model::ParameterType;
-use aws_sdk_ssm::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_ssm::types::ParameterType;
+use aws_sdk_ssm::{config::Region, meta::PKG_VERSION, Client, Error};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]

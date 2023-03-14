@@ -4,11 +4,11 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_config::model::{
+use aws_sdk_config::types::{
     ConfigSnapshotDeliveryProperties, ConfigurationRecorder, DeliveryChannel,
     MaximumExecutionFrequency, RecordingGroup, ResourceType,
 };
-use aws_sdk_config::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_config::{config::Region, meta::PKG_VERSION, Client, Error};
 use std::process;
 use structopt::StructOpt;
 

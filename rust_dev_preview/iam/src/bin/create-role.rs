@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_iam::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_iam::{config::Region, meta::PKG_VERSION, Client, Error};
 use std::fs;
 use structopt::StructOpt;
 

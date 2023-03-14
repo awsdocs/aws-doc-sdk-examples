@@ -5,7 +5,7 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::config::retry::RetryConfig;
-use aws_sdk_s3::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]

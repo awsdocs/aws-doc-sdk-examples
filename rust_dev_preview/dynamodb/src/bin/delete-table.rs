@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_dynamodb::{types::DisplayErrorContext, Client};
+use aws_sdk_dynamodb::{error::DisplayErrorContext, Client};
 use dynamodb_code_examples::{
     make_config, scenario::delete::delete_table, scenario::error::Error, Opt as BaseOpt,
 };

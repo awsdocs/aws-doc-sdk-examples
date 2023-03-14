@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ecs::{Error, Region, PKG_VERSION};
+use aws_sdk_ecs::{config::Region, meta::PKG_VERSION, Error};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]

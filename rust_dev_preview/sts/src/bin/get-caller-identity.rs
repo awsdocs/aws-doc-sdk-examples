@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_sts::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_sts::{config::Region, meta::PKG_VERSION, Client, Error};
 use std::fmt::Debug;
 use structopt::StructOpt;
 

@@ -1,8 +1,8 @@
 use super::Movie;
 use crate::scenario::error::Error;
 use aws_sdk_dynamodb::{
-    client::fluent_builders::CreateTable,
-    model::{
+    operation::create_table::builders::CreateTableFluentBuilder,
+    types::{
         AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
         TableStatus, WriteRequest,
     },
@@ -54,7 +54,7 @@ pub fn create_table(
     primary_key: &str,
     sort_key: &str,
     capacity: i64,
-) -> CreateTable {
+) -> CreateTableFluentBuilder {
     info!("Creating table: {table_name} with capacity {capacity} and key structure {primary_key}:{sort_key}");
     client
         .create_table()

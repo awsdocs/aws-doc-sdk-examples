@@ -4,8 +4,8 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_iotsitewise::types::DisplayErrorContext;
-use aws_sdk_iotsitewise::{Client, Region, PKG_VERSION};
+use aws_sdk_iotsitewise::error::DisplayErrorContext;
+use aws_sdk_iotsitewise::{config::Region, meta::PKG_VERSION, Client};
 use aws_smithy_types_convert::date_time::DateTimeExt;
 use sitewise_code_examples::Error;
 use std::process;

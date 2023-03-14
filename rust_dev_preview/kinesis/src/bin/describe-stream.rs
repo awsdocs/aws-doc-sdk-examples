@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_kinesis::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_kinesis::{config::Region, meta::PKG_VERSION, Client, Error};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]

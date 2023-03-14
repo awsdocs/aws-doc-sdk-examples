@@ -4,13 +4,15 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_dynamodb::model::{
+use aws_sdk_dynamodb::types::{
     AttributeDefinition, AttributeValue, KeySchemaElement, KeyType, ProvisionedThroughput,
     ScalarAttributeType, TableStatus,
 };
-use aws_sdk_dynamodb::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_dynamodb::{config::Region, meta::PKG_VERSION, Client, Error};
 use aws_smithy_http::result::SdkError;
 
+use aws_sdk_dynamodb::operation::create_table::CreateTableError;
+use aws_sdk_dynamodb::operation::execute_statement::ExecuteStatementError;
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
 use std::io::{stdin, Read};
@@ -49,7 +51,7 @@ async fn make_table(
     client: &Client,
     table: &str,
     key: &str,
-) -> Result<(), SdkError<aws_sdk_dynamodb::error::CreateTableError>> {
+) -> Result<(), SdkError<CreateTableError>> {
     let ad = AttributeDefinition::builder()
         .attribute_name(key)
         .attribute_type(ScalarAttributeType::S)
@@ -94,10 +96,7 @@ struct Item {
 
 /// Add an item to the table.
 // snippet-start:[dynamodb.rust.partiql-add_item]
-async fn add_item(
-    client: &Client,
-    item: Item,
-) -> Result<(), SdkError<aws_sdk_dynamodb::error::ExecuteStatementError>> {
+async fn add_item(client: &Client, item: Item) -> Result<(), SdkError<ExecuteStatementError>> {
     match client
         .execute_statement()
         .statement(format!(

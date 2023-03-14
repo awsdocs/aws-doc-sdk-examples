@@ -4,8 +4,8 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_cognitoidentity::types::DisplayErrorContext;
-use aws_sdk_cognitoidentity::{Client, Region, PKG_VERSION};
+use aws_sdk_cognitoidentity::error::DisplayErrorContext;
+use aws_sdk_cognitoidentity::{config::Region, meta::PKG_VERSION, Client};
 use aws_smithy_types_convert::date_time::DateTimeExt;
 use cognitoidentity_code_examples::Error;
 use std::process;

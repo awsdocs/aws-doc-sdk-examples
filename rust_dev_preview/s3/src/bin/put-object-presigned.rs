@@ -4,8 +4,8 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::presigning::config::PresigningConfig;
-use aws_sdk_s3::{Client, Region, PKG_VERSION};
+use aws_sdk_s3::presigning::PresigningConfig;
+use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client};
 use std::error::Error;
 use std::time::Duration;
 use structopt::StructOpt;

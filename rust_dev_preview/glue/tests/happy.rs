@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
 
-use aws_sdk_glue::model::JobRunState;
+use aws_sdk_glue::types::JobRunState;
 use glue_code_examples::{
     clients::{GLUE_CLIENT, S3_CLIENT},
     GlueScenario, GlueScenarioArgs,

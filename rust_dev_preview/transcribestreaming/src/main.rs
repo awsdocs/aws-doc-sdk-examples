@@ -5,11 +5,11 @@
 
 use async_stream::stream;
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_transcribestreaming::model::{
+use aws_sdk_transcribestreaming::primitives::Blob;
+use aws_sdk_transcribestreaming::types::{
     AudioEvent, AudioStream, LanguageCode, MediaEncoding, TranscriptResultStream,
 };
-use aws_sdk_transcribestreaming::types::Blob;
-use aws_sdk_transcribestreaming::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_transcribestreaming::{config::Region, meta::PKG_VERSION, Client, Error};
 use bytes::BufMut;
 use std::time::Duration;
 use structopt::StructOpt;

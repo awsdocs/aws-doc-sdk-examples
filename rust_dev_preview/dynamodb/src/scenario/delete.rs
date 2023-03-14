@@ -5,8 +5,8 @@
 
 use crate::scenario::error::Error;
 use aws_sdk_dynamodb::{
-    model::AttributeValue,
-    output::{DeleteItemOutput, DeleteTableOutput},
+    operation::{delete_item::DeleteItemOutput, delete_table::DeleteTableOutput},
+    types::AttributeValue,
     Client,
 };
 

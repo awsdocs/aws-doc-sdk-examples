@@ -5,16 +5,17 @@
 
 // snippet-start:[rust.example_code.s3.large_files.scenario]
 
-use std::convert::TryInto;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::model::{CompletedMultipartUpload, CompletedPart};
-use aws_sdk_s3::output::{CreateMultipartUploadOutput, GetObjectOutput};
-use aws_sdk_s3::types::DisplayErrorContext;
-use aws_sdk_s3::{Client as S3Client, Region};
+use aws_sdk_s3::error::DisplayErrorContext;
+use aws_sdk_s3::operation::{
+    create_multipart_upload::CreateMultipartUploadOutput, get_object::GetObjectOutput,
+};
+use aws_sdk_s3::types::{CompletedMultipartUpload, CompletedPart};
+use aws_sdk_s3::{config::Region, Client as S3Client};
 use aws_smithy_http::byte_stream::{ByteStream, Length};
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};

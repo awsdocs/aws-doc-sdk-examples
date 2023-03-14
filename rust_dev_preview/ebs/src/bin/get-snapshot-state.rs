@@ -4,8 +4,8 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ec2::model::Filter;
-use aws_sdk_ec2::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_ec2::types::Filter;
+use aws_sdk_ec2::{config::Region, meta::PKG_VERSION, Client, Error};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]

@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_cloudwatchlogs::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_cloudwatchlogs::{config::Region, meta::PKG_VERSION, Client, Error};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]

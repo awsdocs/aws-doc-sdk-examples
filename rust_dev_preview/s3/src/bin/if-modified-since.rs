@@ -3,8 +3,9 @@
 
 // snippet-start:[s3.rust.if-modified-since]
 use aws_sdk_s3::{
-    error::HeadObjectError,
-    types::{ByteStream, DateTime, SdkError},
+    error::SdkError,
+    operation::head_object::HeadObjectError,
+    primitives::{ByteStream, DateTime},
     Client, Error,
 };
 use aws_smithy_types::date_time::Format;

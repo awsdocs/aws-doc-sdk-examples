@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_lambda::model::Runtime;
+use aws_sdk_lambda::types::Runtime;
 use aws_sdk_lambda::{Client, Error};
 use lambda_code_examples::{make_client, ArnOpt};
 use structopt::StructOpt;

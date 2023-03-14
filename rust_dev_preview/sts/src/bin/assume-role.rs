@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_sts::{Client, Error, PKG_VERSION};
+use aws_sdk_sts::{meta::PKG_VERSION, Client, Error};
 use aws_types::region::Region;
 use aws_types::sdk_config::SdkConfig;
 use structopt::StructOpt;
