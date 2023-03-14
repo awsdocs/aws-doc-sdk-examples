@@ -12,7 +12,7 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       # The Add Labels workflow adds a label to pull requests
       # based on the files included in the proposed change.
@@ -40,7 +40,7 @@ jobs:
       -
         name: Audit Labels
         if: success()
-        uses: crazy-max/ghaction-github-labeler@v3
+        uses: crazy-max/ghaction-github-labeler@v4
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           yaml-file: .github/allowed-labels.yml
