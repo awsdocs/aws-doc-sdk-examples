@@ -42,7 +42,7 @@ def get_routing_control_state(routing_control_arn, cluster_endpoints):
     :return: The routing control state response.
     """
 
-    # Best practice is to choose a random cluster endpoint to get routing control states.
+    # As a best practice, we recommend choosing a random cluster endpoint to get or set routing control states.
     # For more information, see https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
     random.shuffle(cluster_endpoints)
     for cluster_endpoint in cluster_endpoints:
@@ -70,7 +70,7 @@ def update_routing_control_state(
     :return: The routing control update response.
     """
 
-    # Best practice is to choose a random cluster endpoint to update routing control states.
+    # As a best practice, we recommend choosing a random cluster endpoint to get or set routing control states.
     # For more information, see https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
     random.shuffle(cluster_endpoints)
     for cluster_endpoint in cluster_endpoints:
