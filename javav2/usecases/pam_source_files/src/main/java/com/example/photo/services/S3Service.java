@@ -5,12 +5,11 @@
 
 package com.example.photo.services;
 
-import com.example.photo.PhotoApplication;
 import com.example.photo.PhotoApplicationResources;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
+import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
@@ -21,7 +20,19 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequ
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
-import software.amazon.awssdk.services.s3control.model.*;
+
+
+
+import software.amazon.awssdk.services.s3control.model.CreateJobRequest;
+import software.amazon.awssdk.services.s3control.model.JobManifest;
+import software.amazon.awssdk.services.s3control.model.JobManifestFormat;
+import software.amazon.awssdk.services.s3control.model.JobManifestLocation;
+import software.amazon.awssdk.services.s3control.model.JobManifestSpec;
+import software.amazon.awssdk.services.s3control.model.JobOperation;
+import software.amazon.awssdk.services.s3control.model.JobReport;
+import software.amazon.awssdk.services.s3control.model.S3GlacierJobTier;
+import software.amazon.awssdk.services.s3control.model.S3InitiateRestoreObjectOperation;
+import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -35,23 +46,24 @@ public class S3Service {
     // Create the S3Client object.
     private S3Client getClient() {
         return S3Client.builder()
-            .region(PhotoApplicationResources.REGION)
-            .build();
+                .region(PhotoApplicationResources.REGION)
+                .build();
     }
 
     private S3ControlClient getControlClient() {
         return S3ControlClient.builder()
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .region(PhotoApplicationResources.REGION)
+            .httpClient(ApacheHttpClient.create())
             .build();
     }
 
     private List<Tag> getObjectTags(String bucketName, String keyName) {
         S3Client s3 = getClient();
         GetObjectTaggingRequest request = GetObjectTaggingRequest.builder()
-            .bucket(bucketName)
-            .key(keyName)
-            .build();
+                .bucket(bucketName)
+                .key(keyName)
+                .build();
 
         GetObjectTaggingResponse response = s3.getObjectTagging(request);
         return response.tagSet();
@@ -63,10 +75,10 @@ public class S3Service {
 
     public static boolean tagsHasRekognized(Collection<Tag> tags) {
         return tags.stream()
-            .filter(tag -> tag.key().equals(PhotoApplicationResources.REKOGNITION_TAG_KEY))
-            .findAny()
-            .orElseGet(() -> Tag.builder().build())
-            .value().equals(PhotoApplicationResources.REKOGNITION_TAG_VALUE);
+                .filter(tag -> tag.key().equals(PhotoApplicationResources.REKOGNITION_TAG_KEY))
+                .findAny()
+                .orElseGet(() -> Tag.builder().build())
+                .value().equals(PhotoApplicationResources.REKOGNITION_TAG_VALUE);
     }
 
     // Check for tags on the S3 object.
@@ -76,8 +88,9 @@ public class S3Service {
     }
 
     public static boolean hasRekognizedTag(Collection<Tag> tags) {
-        for (Tag tag:tags) {
-            if (tag.key() == PhotoApplicationResources.REKOGNITION_TAG_KEY && tag.value() == PhotoApplicationResources.REKOGNITION_TAG_VALUE) {
+        for (Tag tag : tags) {
+            if (tag.key() == PhotoApplicationResources.REKOGNITION_TAG_KEY
+                    && tag.value() == PhotoApplicationResources.REKOGNITION_TAG_VALUE) {
                 return true;
             }
         }
@@ -88,10 +101,10 @@ public class S3Service {
         S3Client s3 = getClient();
         try {
             GetObjectRequest objectRequest = GetObjectRequest
-                .builder()
-                .key(keyName)
-                .bucket(bucketName)
-                .build();
+                    .builder()
+                    .key(keyName)
+                    .bucket(bucketName)
+                    .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             return objectBytes.asByteArray();
@@ -106,20 +119,18 @@ public class S3Service {
     // Tag the image.
     public void markAsRekognized(String objectName) {
         getClient().putObjectTagging(
-            PutObjectTaggingRequest.builder()
-                .key(objectName)
-                .bucket(PhotoApplicationResources.STORAGE_BUCKET)
-                .tagging(
-                    Tagging.builder()
-                        .tagSet(
-                            Tag.builder()
-                                .key(PhotoApplicationResources.REKOGNITION_TAG_KEY)
-                                .value(PhotoApplicationResources.REKOGNITION_TAG_VALUE)
-                                .build()
-                        )
-                        .build()
-                )
-                .build());
+                PutObjectTaggingRequest.builder()
+                        .key(objectName)
+                        .bucket(PhotoApplicationResources.STORAGE_BUCKET)
+                        .tagging(
+                                Tagging.builder()
+                                        .tagSet(
+                                                Tag.builder()
+                                                        .key(PhotoApplicationResources.REKOGNITION_TAG_KEY)
+                                                        .value(PhotoApplicationResources.REKOGNITION_TAG_VALUE)
+                                                        .build())
+                                        .build())
+                        .build());
     }
 
     // Returns the names of all images in the given bucket.
@@ -129,9 +140,9 @@ public class S3Service {
         List<String> keys = new ArrayList<>();
         try {
             ListObjectsRequest listObjects = ListObjectsRequest
-                .builder()
-                .bucket(bucketName)
-                .build();
+                    .builder()
+                    .bucket(bucketName)
+                    .build();
 
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
@@ -153,42 +164,67 @@ public class S3Service {
         UUID uuid = UUID.randomUUID();
         String key = uuid + ".csv";
         getClient().putObject(
-            PutObjectRequest.builder()
-                .bucket(PhotoApplicationResources.MANIFEST_BUCKET)
-                .key(key)
-                .build(),
-            RequestBody.fromString(manifest));
+                PutObjectRequest.builder()
+                        .bucket(PhotoApplicationResources.WORKING_BUCKET)
+                        .key(key)
+                        .build(),
+                RequestBody.fromString(manifest));
         return key;
     }
 
-    public String startRestore(String manifestArn, List<String> labels) {
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-        String label = Strings.join(labels, '-');
+    public String startRestore(String manifestArn, List<String> labels, String eTag, String accountId, String iamRoleArn) {
+        String uuid = java.util.UUID.randomUUID().toString();
+        String reportBucketName = "arn:aws:s3:::" +PhotoApplicationResources.WORKING_BUCKET;
+        String manifestLocation = "arn:aws:s3:::" +PhotoApplicationResources.WORKING_BUCKET +"/" +manifestArn;
+
+        JobManifestLocation jobManifestLocation = JobManifestLocation.builder()
+            .objectArn(manifestLocation)
+            .eTag(eTag)
+            .build();
+
+        JobManifestSpec manifestSpec = JobManifestSpec.builder()
+            .fieldsWithStrings(new String[]{"Bucket", "Key"})
+            .format("S3BatchOperations_CSV_20180820")
+            .build();
 
         JobManifest jobManifest = JobManifest.builder()
-            .location(
-                JobManifestLocation.builder()
-                    .objectArn(manifestArn)
-                    .build())
+            .spec(manifestSpec)
+            .location(jobManifestLocation)
             .build();
-        JobOperation jobOperation = JobOperation.builder()
-            .s3InitiateRestoreObject(
-                S3InitiateRestoreObjectOperation.builder()
-                    .expirationInDays(1)
-                    .glacierJobTier(S3GlacierJobTier.BULK)
-                    .build())
-            .build();
-        JobReport jobReport = JobReport.builder().bucket(PhotoApplicationResources.MANIFEST_BUCKET).build();
-        CreateJobRequest createJobRequest = CreateJobRequest.builder()
-            .description("Restore objects matching " + label + " on " + date + ".")
-            .operation(jobOperation)
-            .manifest(jobManifest)
-            .report(jobReport)
-            .clientRequestToken(date + '-' + label)
-            .build();
-        return getControlClient().createJob(createJobRequest).jobId();
-    }
 
+        S3InitiateRestoreObjectOperation s3Restore = S3InitiateRestoreObjectOperation.builder()
+            .expirationInDays(1)
+            .glacierJobTier(S3GlacierJobTier.BULK)
+            .build();
+
+        JobReport jobReport = JobReport.builder()
+            .bucket(reportBucketName)
+            .format("Report_CSV_20180820")
+            .enabled(true)
+            .reportScope("AllTasks")
+            .build();
+
+        JobOperation jobOperation = JobOperation.builder()
+            .s3InitiateRestoreObject(s3Restore)
+            .build();
+
+        CreateJobRequest jobRequest = CreateJobRequest.builder()
+            .accountId(accountId)
+            .description("Job created using the AWS Java SDK")
+            .manifest(jobManifest)
+            .operation(jobOperation)
+            .report(jobReport)
+            .priority(10)
+            .roleArn(iamRoleArn)
+            .clientRequestToken(uuid)
+            .confirmationRequired(false)
+            .build();
+
+       String jobId = getControlClient().createJob(jobRequest).jobId();
+       return jobId;
+
+
+    }
 
     // Places an image into a S3 bucket.
     public void putObject(byte[] data, String bucketName, String objectKey) {
@@ -198,7 +234,7 @@ public class S3Service {
                     .bucket(bucketName)
                     .key(objectKey)
                     .build(),
-                RequestBody.fromBytes(data));
+                    RequestBody.fromBytes(data));
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -206,35 +242,36 @@ public class S3Service {
     }
 
     /*
-    // Places an image into a S3 bucket.
-    public void putObject(byte[] data, String bucketName, String objectKey) {
-        S3Client s3 = getClient();
-        try {
-            s3.putObject(PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(objectKey)
-                    .build(),
-                RequestBody.fromBytes(data));
-        } catch (S3Exception e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-    // Pass a map and get back a byte[] that represents a ZIP of all images.
-    public byte[] listBytesToZip(Map<String, byte[]> mapReport) throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ZipOutputStream zos = new ZipOutputStream(baos);
-        for (Map.Entry<String, byte[]> report : mapReport.entrySet()) {
-            ZipEntry entry = new ZipEntry(report.getKey());
-            entry.setSize(report.getValue().length);
-            zos.putNextEntry(entry);
-            zos.write(report.getValue());
-        }
-        zos.closeEntry();
-        zos.close();
-        return baos.toByteArray();
-    }
-    */
+     * // Places an image into a S3 bucket.
+     * public void putObject(byte[] data, String bucketName, String objectKey) {
+     * S3Client s3 = getClient();
+     * try {
+     * s3.putObject(PutObjectRequest.builder()
+     * .bucket(bucketName)
+     * .key(objectKey)
+     * .build(),
+     * RequestBody.fromBytes(data));
+     * } catch (S3Exception e) {
+     * System.err.println(e.getMessage());
+     * System.exit(1);
+     * }
+     * }
+     * // Pass a map and get back a byte[] that represents a ZIP of all images.
+     * public byte[] listBytesToZip(Map<String, byte[]> mapReport) throws
+     * IOException {
+     * ByteArrayOutputStream baos = new ByteArrayOutputStream();
+     * ZipOutputStream zos = new ZipOutputStream(baos);
+     * for (Map.Entry<String, byte[]> report : mapReport.entrySet()) {
+     * ZipEntry entry = new ZipEntry(report.getKey());
+     * entry.setSize(report.getValue().length);
+     * zos.putNextEntry(entry);
+     * zos.write(report.getValue());
+     * }
+     * zos.closeEntry();
+     * zos.close();
+     * return baos.toByteArray();
+     * }
+     */
 
     // Pass a map and get back a byte[] that represents a ZIP of all images.
     public byte[] listBytesToZip(Map<String, byte[]> mapReport) throws IOException {
@@ -257,10 +294,10 @@ public class S3Service {
             Map<String, String> metadata = new HashMap<>();
             metadata.put("x-amz-meta-myVal", "test");
             PutObjectRequest putOb = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key(objectKey)
-                .metadata(metadata)
-                .build();
+                    .bucket(bucketName)
+                    .key(objectKey)
+                    .metadata(metadata)
+                    .build();
 
             s3.putObject(putOb, RequestBody.fromBytes(zipContent));
 
@@ -277,20 +314,20 @@ public class S3Service {
 
     public static String signBucket(String bucketName, String keyName) {
         S3Presigner presignerOb = S3Presigner.builder()
-            .region(PhotoApplicationResources.REGION)
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .build();
+                .region(PhotoApplicationResources.REGION)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
 
         try {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                .bucket(bucketName)
-                .key(keyName)
-                .build();
+                    .bucket(bucketName)
+                    .key(keyName)
+                    .build();
 
             GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-                .signatureDuration(Duration.ofMinutes(60))
-                .getObjectRequest(getObjectRequest)
-                .build();
+                    .signatureDuration(Duration.ofMinutes(60))
+                    .getObjectRequest(getObjectRequest)
+                    .build();
 
             PresignedGetObjectRequest presignedGetObjectRequest = presignerOb.presignGetObject(getObjectPresignRequest);
             return presignedGetObjectRequest.url().toString();
@@ -308,15 +345,16 @@ public class S3Service {
         int count = 0;
         // Only move .jpg images
         ListObjectsV2Request request = ListObjectsV2Request.builder()
-            .bucket(sourceBucket)
-            .build();
+                .bucket(sourceBucket)
+                .build();
 
         ListObjectsV2Response response = s3.listObjectsV2(request);
-        for (S3Object s3Object :  response.contents()) {
+        for (S3Object s3Object : response.contents()) {
 
-            // Check to make sure the object does not exist in the bucket. If the object exists
+            // Check to make sure the object does not exist in the bucket. If the object
+            // exists
             // it will not be copied again.
-            if ( checkS3ObjectDoesNotExist(s3Object.key())) {
+            if (checkS3ObjectDoesNotExist(s3Object.key())) {
                 System.out.println("Object exists in the bucket.");
 
             } else if ((s3Object.key().endsWith(".jpg")) || (s3Object.key().endsWith(".jpeg"))) {
@@ -335,15 +373,15 @@ public class S3Service {
     public boolean checkS3ObjectDoesNotExist(String keyName) {
         S3Client s3 = getClient();
         HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
-            .bucket(PhotoApplicationResources.STORAGE_BUCKET)
-            .key(keyName)
-            .build();
+                .bucket(PhotoApplicationResources.STORAGE_BUCKET)
+                .key(keyName)
+                .build();
 
         try {
-             HeadObjectResponse response = s3.headObject(headObjectRequest);
-             String contentType = response.contentType();
-             if (contentType.length() > 0)
-                 return true ;
+            HeadObjectResponse response = s3.headObject(headObjectRequest);
+            String contentType = response.contentType();
+            if (contentType.length() > 0)
+                return true;
 
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -355,11 +393,11 @@ public class S3Service {
         S3Client s3 = getClient();
 
         CopyObjectRequest copyReq = CopyObjectRequest.builder()
-            .sourceBucket(sourceBucket)
-            .sourceKey(objectKey)
-            .destinationBucket(PhotoApplicationResources.STORAGE_BUCKET)
-            .destinationKey(objectKey)
-            .build();
+                .sourceBucket(sourceBucket)
+                .sourceKey(objectKey)
+                .destinationBucket(PhotoApplicationResources.STORAGE_BUCKET)
+                .destinationKey(objectKey)
+                .build();
 
         try {
             s3.copyObject(copyReq);
@@ -373,20 +411,20 @@ public class S3Service {
     // New method to sign an object prior to uploading it
     public String signObjectToUpload(String keyName) {
         S3Presigner presigner = S3Presigner.builder()
-            .region(PhotoApplicationResources.REGION)
-            .build();
+                .region(PhotoApplicationResources.REGION)
+                .build();
 
         try {
             PutObjectRequest objectRequest = PutObjectRequest.builder()
-                .bucket(PhotoApplicationResources.STORAGE_BUCKET)
-                .key(keyName)
-                .contentType("image/jpeg")
-                .build();
+                    .bucket(PhotoApplicationResources.STORAGE_BUCKET)
+                    .key(keyName)
+                    .contentType("image/jpeg")
+                    .build();
 
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                .signatureDuration(Duration.ofMinutes(5))
-                .putObjectRequest(objectRequest)
-                .build();
+                    .signatureDuration(Duration.ofMinutes(5))
+                    .putObjectRequest(objectRequest)
+                    .build();
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
             String myURL = presignedRequest.url().toString();
@@ -396,7 +434,19 @@ public class S3Service {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        return "" ;
+        return "";
+    }
 
+    // Get the eTag value of the manifest required for createJob().
+    public String getETag(String key, String bucket) {
+        S3Client s3 = getClient();
+        GetObjectRequest objectRequest = GetObjectRequest.builder()
+            .key(key)
+            .bucket(bucket)
+            .build();
+
+        ResponseInputStream<GetObjectResponse> response = s3.getObject(objectRequest);
+        GetObjectResponse object = response.response();
+        return object.eTag();
     }
 }
