@@ -568,6 +568,29 @@ public class IAMWrapper
 
     // snippet-end:[IAM.dotnetv3.PutGroupPolicy]
 
+    // snippet-start:[IAM.dotnetv3.PutUserPolicy]
+    /// <summary>
+    /// Add or update an inline policy document that is embedded in an IAM user.
+    /// </summary>
+    /// <param name="userName">The name of the IAM user.</param>
+    /// <param name="policyName">The name of the IAM policy.</param>
+    /// <param name="policyDocument">The policy document defining the IAM policy.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
+    public async Task<bool> PutUserPolicyAsync(string userName, string policyName, string policyDocument)
+    {
+        var request = new PutUserPolicyRequest
+        {
+            UserName = userName,
+            PolicyName = policyName,
+            PolicyDocument = policyDocument
+        };
+
+        var response = await _IAMService.PutUserPolicyAsync(request);
+        return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+    }
+
+    // snippet-end:[IAM.dotnetv3.PutUserPolicy]
+
     public async Task<bool> WaitUntilAccessKeyIsReady(string accessKeyId)
     {
         var keyReady = false;

@@ -8,5 +8,6 @@
   "RoleName": "test-temporary-role",
   "AssumePolicyName": "test-trust-user",
   "BucketName": "my-test-bucket",
-  "UserName": "iam-test-user"
+  "UserName": "iam-test-user",
+  "UserPolicyName": "test-user-policy"
 }

@@ -18,13 +18,13 @@ namespace IAMActions.Tests
         // Values needed for IAM Basics scenario.
         private readonly string? _s3ListBucketsPolicyName;
         private readonly string? _roleName;
-        private readonly string? _assumePolicyName;
+        private readonly string? _rolePolicyName;
         private readonly string? _userName;
+        private readonly string? _userPolicyName;
 
         // Values for tests related to the IAM Groups scenario.
         private readonly string? _groupUserName;
         private readonly string? _groupPolicyName;
-        private readonly string? _groupBucketName;
         private readonly string? _groupName;
         private readonly string? _s3FullAccessPolicyName;
 
@@ -33,6 +33,7 @@ namespace IAMActions.Tests
 
         public static string? _assumeRolePolicyDocument;
         public static string? _policyArn;
+        public static string? _rolePolicyArn;
         public static string? _accessKeyId;
 
         /// <summary>
@@ -50,8 +51,10 @@ namespace IAMActions.Tests
             _s3ListBucketsPolicyName = _configuration["S3ListBucketsPolicyName"];
             _s3FullAccessPolicyName = _configuration["S3FullAccessPolicyName"];
             _roleName = _configuration["RoleName"];
-            _assumePolicyName = _configuration["AssumePolicyName"];
+            _rolePolicyName = _configuration["RolePolicyName"];
             _userName = _configuration["UserName"];
+            _userPolicyName = _configuration["UserPolicyName"];
+
 
             _groupUserName = _configuration["GroupUserName"];
             _groupPolicyName = _configuration["GroupPolicyName"];
@@ -126,21 +129,6 @@ namespace IAMActions.Tests
         }
 
         /// <summary>
-        /// Test the call to create an IAM policy. The resulting policy object
-        /// should not be null.
-        /// </summary>
-        /// <returns>Async Task.</returns>
-        [Fact()]
-        [Order(2)]
-        [Trait("Category", "Integration")]
-        public async Task CreatePolicyAsyncTest()
-        {
-            var policy = await _iamWrapper.CreatePolicyAsync(_s3ListBucketsPolicyName, _listBucketsPolicyDocument);
-            _policyArn = policy.Arn;
-            Assert.NotNull(policy);
-        }
-
-        /// <summary>
         /// Tests the call to create an IAM user. The IAM user returned should
         /// not be null.
         /// </summary>
@@ -177,6 +165,23 @@ namespace IAMActions.Tests
         }
 
         /// <summary>
+        /// Test the call to create an IAM policy. The resulting policy object
+        /// should not be null.
+        /// </summary>
+        /// <returns>Async Task.</returns>
+        [Fact()]
+        [Order(2)]
+        [Trait("Category", "Integration")]
+        public async Task CreatePolicyAsyncTest()
+        {
+            var policy = await _iamWrapper.CreatePolicyAsync(_s3ListBucketsPolicyName, _listBucketsPolicyDocument);
+            var rolePolicy = await _iamWrapper.CreatePolicyAsync(_rolePolicyName, _listBucketsPolicyDocument);
+            _policyArn = policy.Arn;
+            _rolePolicyArn = rolePolicy.Arn;
+            Assert.NotNull(policy);
+        }
+
+        /// <summary>
         /// Test the call to create an IAM role. The returned IAM role object
         /// should not be null.
         /// </summary>
@@ -200,7 +205,7 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task AttachRolePolicyAsyncTest()
         {
-            var success = await _iamWrapper.AttachRolePolicyAsync(_policyArn, _roleName);
+            var success = await _iamWrapper.AttachRolePolicyAsync(_rolePolicyArn, _roleName);
             Assert.True(success, "Couldn't attach the policy.");
         }
 
@@ -251,6 +256,15 @@ namespace IAMActions.Tests
         {
             var success = await _iamWrapper.PutGroupPolicyAsync(_groupName, _groupPolicyName, _listBucketsPolicyDocument);
             Assert.True(success, $"Could not attach policy {_s3ListBucketsPolicyName} to {_groupName}");
+        }
+
+        [Fact()]
+        [Order(9)]
+        [Trait("Category", "Integration")]
+        public async Task PutUserPolicyAsyncTest()
+        {
+            var success = await _iamWrapper.PutUserPolicyAsync(_userName, _userPolicyName, _listBucketsPolicyDocument);
+            Assert.True(success, "Couldn't insert inline policy.");
         }
 
         /// <summary>
@@ -436,8 +450,8 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task DeleteUserPolicyAsyncTest()
         {
-            var success = await _iamWrapper.DeleteUserPolicyAsync(_s3ListBucketsPolicyName, _userName);
-            Assert.True(success, $"Could not delete {_s3ListBucketsPolicyName}.");
+            var success = await _iamWrapper.DeleteUserPolicyAsync(_userPolicyName, _userName);
+            Assert.True(success, $"Could not delete {_userPolicyName}.");
         }
 
         /// <summary>
@@ -474,8 +488,8 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task DetachRolePolicyAsyncTest()
         {
-            var success = await _iamWrapper.DetachRolePolicyAsync(_policyArn, _roleName);
-            Assert.True(success, $"Couldn't detach policy, {_s3ListBucketsPolicyName} from {_roleName}.");
+            var success = await _iamWrapper.DetachRolePolicyAsync(_rolePolicyArn, _roleName);
+            Assert.True(success, $"Couldn't detach policy, {_rolePolicyName} from {_roleName}.");
         }
 
         /// <summary>
@@ -488,7 +502,7 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task DeleteRolePolicyAsyncTest()
         {
-            var success = await _iamWrapper.DeleteRolePolicyAsync(_roleName, _assumePolicyName);
+            var success = await _iamWrapper.DeleteRolePolicyAsync(_roleName, _rolePolicyName);
             Assert.True(success, "Could not delete the role policy.");
         }
 
