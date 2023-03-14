@@ -16,4 +16,13 @@
 #include "ec2_gtests.h"
 
 namespace AwsDocTest {
+    // NOLINTNEXTLINE(readability-named-parameter)
+    TEST_F(EC2_GTests, release_address_2_) {
+        Aws::String allocationID = allocateIPAddress();
+        ASSERT_FALSE(allocationID.empty()) << preconditionError() << std::endl;
+
+        auto result = AwsDoc::EC2::ReleaseAddress(allocationID, *s_clientConfig);
+        ASSERT_TRUE(result);
+    }
+
 } // namespace AwsDocTest

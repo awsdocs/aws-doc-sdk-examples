@@ -9,6 +9,7 @@
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/core/utils/UUID.h>
 #include <aws/ec2/EC2Client.h>
+#include <aws/ec2/model/AllocateAddressRequest.h>
 #include <aws/ec2/model/CreateKeyPairRequest.h>
 #include <aws/ec2/model/CreateSecurityGroupRequest.h>
 #include <aws/ec2/model/DeleteKeyPairRequest.h>
@@ -75,7 +76,7 @@ Aws::String AwsDocTest::EC2_GTests::preconditionError() {
 }
 
 void AwsDocTest::EC2_GTests::AddCommandLineResponses(
-                const std::vector<std::string> &responses) {
+        const std::vector<std::string> &responses) {
 
     std::stringstream stringStream;
     for (auto &response: responses) {
@@ -349,6 +350,26 @@ Aws::String AwsDocTest::EC2_GTests::getVpcID() {
     }
 
     return s_vpcID;
+}
+
+Aws::String AwsDocTest::EC2_GTests::allocateIPAddress() {
+    Aws::EC2::EC2Client ec2Client(*s_clientConfig);
+    Aws::EC2::Model::AllocateAddressRequest request;
+    request.SetDomain(Aws::EC2::Model::DomainType::vpc);
+
+    const Aws::EC2::Model::AllocateAddressOutcome outcome =
+            ec2Client.AllocateAddress(request);
+    Aws::String allocationID;
+    if (!outcome.IsSuccess()) {
+        std::cerr
+                << "EC2_GTests::allocateIPAddress: failed to allocate Elastic IP address:"
+                << outcome.GetError().GetMessage() << std::endl;
+    }
+    else {
+        allocationID = outcome.GetResult().GetAllocationId();
+    }
+
+    return allocationID;
 }
 
 int AwsDocTest::MyStringBuffer::underflow() {

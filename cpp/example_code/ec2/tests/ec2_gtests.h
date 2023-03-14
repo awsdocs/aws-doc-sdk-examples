@@ -33,6 +33,8 @@ namespace AwsDocTest {
 
         void AddCommandLineResponses(const std::vector<std::string> &responses);
 
+        static Aws::String allocateIPAddress();
+
         static bool releaseIPAddress(const Aws::String &allocationID);
 
         static bool terminateInstance(const Aws::String &instanceID);
