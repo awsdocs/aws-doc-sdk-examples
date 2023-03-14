@@ -130,3 +130,6 @@
 - name: size/large
   color: "adb5bd"
   description: "A large amount of effort/complexity"
+- name: cross-service-team
+  color: "e0cdff"
+  description: "PRs for the Cross Service Cloud Sherpas"
