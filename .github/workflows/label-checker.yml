@@ -2,6 +2,8 @@
 name: Label Checker
 on:
   pull_request:
+    branches:
+      - main
     types:
       - opened
       - synchronize
