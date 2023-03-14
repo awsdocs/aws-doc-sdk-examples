@@ -55,7 +55,7 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     console.log(idTokenClaims)
     set({
       currentUser: { username: idTokenClaims['cognito:username'] as string },
-      token: accessToken,
+      token: idToken,
       authStatus: "signed_in",
     });
   },

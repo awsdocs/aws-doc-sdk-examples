@@ -15,7 +15,6 @@ import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
 import { CLOUDFRONT_DISTRIBUTION_NAME } from "../common";
 
-// TODO: make this a construct instead of a stack
 export class PamFrontEndInfraStack extends Stack {
   readonly bucket: Bucket;
   readonly distribution: Distribution;

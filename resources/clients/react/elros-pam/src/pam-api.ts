@@ -11,7 +11,7 @@ export interface TagsResponse {
 }
 
 const getHeaders = (config: PamApiConfig): { Authorization: string } | {} =>
-  config.token ? { Authorization: config.token } : {};
+  config.token ? { Authorization: `Bearer ${config.token}` } : {};
 
 export const getTags = async (config: PamApiConfig): Promise<Tag[]> => {
   const response = await fetch(
@@ -48,7 +48,11 @@ export const s3Copy = async (bucketName: string, config: PamApiConfig) => {
   }
 };
 
-export const initializeDownload = async (labels: string[], notify: string) => {
+export const initializeDownload = async (
+  labels: string[],
+  notify: string,
+  config: PamApiConfig
+) => {
   const response = await fetch(
     `${import.meta.env.VITE_API_GATEWAY_BASE_URL}restore`,
     {
@@ -57,6 +61,7 @@ export const initializeDownload = async (labels: string[], notify: string) => {
         labels,
         notify,
       }),
+      headers: getHeaders(config),
     }
   );
 
@@ -74,6 +79,7 @@ export const uploadFile = async (file: File, config: PamApiConfig) => {
       body: JSON.stringify({
         file_name: file.name,
       }),
+      headers: getHeaders(config),
     }
   );
 

@@ -36,11 +36,11 @@ $ cdk --version
 
 Export these variables:
 
-| Name      | Usage                                                    |
-| --------- | -------------------------------------------------------- |
-| PAM_NAME  | Short one-word name to identify this stack.              |
-| PAM_EMAIL | Email address for the pre-verified default user account. |
-| PAM_LANG  | Programming language for the lambdas in this deployment. |
+| Name      | Usage                                                                   |
+| --------- | ----------------------------------------------------------------------- |
+| PAM_NAME  | Short one-word name to identify this stack.                             |
+| PAM_EMAIL | Email address for the pre-verified default user account.                |
+| PAM_LANG  | Programming language for the lambdas in this deployment (Java, Python). |
 
 _bash/zsh_
 
@@ -66,29 +66,33 @@ $Env:PAM_EMAIL =
 $Env:PAM_LANG =
 ```
 
-At this point you can now synthesize the CloudFormation template for this code.
-{PAM_LANG} is one of "Java" or "Python", with more coming soon!
+There are three stacks that need to be deployed:
+1. PamFrontEndInfraStack ({PAM_NAME}-FE-Infra-PAM) - Cloudfront distribution and S3 bucket host for static website files.
+2. PamStack ({PAM_NAME}-{PAM_LANG}-PAM) - The backend resources (Rekognition, Lambda, S3, Cognito, ApiGateway).
+3. PamFrontEndAssetStack ({PAM_NAME}-FE-Assets-PAM) - The static website assets.
+
+
+At this point you can now synthesize the CloudFormation template for this code. Run `cdk ls` to see
+a list of available stacks to synth/deploy.
 
 ```
-cdk synth {PAM_NAME}-{PAM_LANG}-PAM
+cdk synth {PAM_NAME}-FE-Infra-PAM
 ```
 
 If everything looks good, go ahead and deploy! This step will actually make
 changes to your AWS cloud environment.
 
 ```
-$ cdk bootstrap
-$ cdk deploy {STACK_NAME} # {PAM_NAME}-{PAM_LANG}-PAM from above
+$ cdk bootstrap # Only required once for the lifetime of your account.
+$ cdk deploy {STACK_NAME} # Deploy each of the three preceding stacks in order.
 ```
 
 ## Testing
 
-Upload an image fie to the S3 bucket that was created by CloudFormation.
-The image will be automatically classified.
-Results can be found in DynamoDB, S3 bucket "results" folder, and CloudWatch logs for the Lambda function
+After deploying the PamFrontEndInfraStack, your terminal should have a Cloudfront distribution URL.
+Navigate to that URL to see the deployed app.
 
-To clean up, issue this command (this will NOT remove the DynamoDB
-table, CloudWatch logs, or S3 bucket -- you will need to do those manually) :
+To clean up, run this command:
 
 ```
 $ cdk destroy {STACK_NAME}

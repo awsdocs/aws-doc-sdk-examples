@@ -4,6 +4,8 @@
  */
 
 import {
+  AuthorizationType,
+  CognitoUserPoolsAuthorizer,
   Cors,
   LambdaIntegration,
   Model,
@@ -18,17 +20,27 @@ import * as models from "./models";
 export interface PamApiProps {
   lambdas: PamLambda;
   email: string;
-  cloudfrontDistributionUrl: string
+  cloudfrontDistributionUrl: string;
 }
 
 export class PamApi extends Construct {
   readonly auth: PamAuth;
   readonly restApi: RestApi;
+  readonly apigAuthorizer: CognitoUserPoolsAuthorizer;
   private readonly empty: Model;
   constructor(scope: Construct, id: string, props: PamApiProps) {
     super(scope, id);
 
-    this.auth = new PamAuth(this, "PamAuth", { email: props.email, cloudfrontDistributionUrl: props.cloudfrontDistributionUrl });
+    this.auth = new PamAuth(this, "PamAuth", {
+      email: props.email,
+      cloudfrontDistributionUrl: props.cloudfrontDistributionUrl,
+    });
+
+    this.apigAuthorizer = new CognitoUserPoolsAuthorizer(
+      this,
+      "PamRestApiAuthorizer",
+      { cognitoUserPools: [this.auth.userPool] }
+    );
 
     const restApi = (this.restApi = new RestApi(this, "PamRestApi", {
       defaultCorsPreflightOptions: {
@@ -79,9 +91,8 @@ export class PamApi extends Construct {
           responseModels: { "application/json": response },
         },
       ],
-      // TODO: Uncomment after testing
-      // authorizer=this.authorizer,
-      // authorization_type=apigateway.AuthorizationType.COGNITO,
+      authorizer: this.apigAuthorizer,
+      authorizationType: AuthorizationType.COGNITO,
     });
   }
 }
