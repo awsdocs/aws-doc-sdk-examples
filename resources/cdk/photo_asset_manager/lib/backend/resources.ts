@@ -28,12 +28,10 @@ export class PamBuckets extends Construct {
   constructor(scope: Construct, id: string) {
     super(scope, id);
 
-    // Policy for Glacier storage class for objects with tag rekognition: complete
     this.storage.addLifecycleRule({
-      tagFilters: { rekognition: "complete" },
       transitions: [
         {
-          storageClass: StorageClass.GLACIER,
+          storageClass: StorageClass.INTELLIGENT_TIERING,
           transitionAfter: Duration.days(1),
         },
       ],

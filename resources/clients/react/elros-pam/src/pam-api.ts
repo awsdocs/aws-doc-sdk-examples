@@ -53,7 +53,7 @@ export const initializeDownload = async (
   config: PamApiConfig
 ) => {
   const response = await fetch(
-    `${import.meta.env.VITE_API_GATEWAY_BASE_URL}restore`,
+    `${import.meta.env.VITE_API_GATEWAY_BASE_URL}download`,
     {
       method: "PUT",
       body: JSON.stringify({
