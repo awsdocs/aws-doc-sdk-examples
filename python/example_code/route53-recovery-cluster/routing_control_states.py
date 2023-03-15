@@ -10,6 +10,7 @@ Recovery Controller to manage routing controls.
 
 import argparse
 import json
+import random
 
 # snippet-start:[python.example_code.route53-recovery-cluster.helper.get_recovery_client]
 import boto3
@@ -40,6 +41,10 @@ def get_routing_control_state(routing_control_arn, cluster_endpoints):
     :param cluster_endpoints: The list of cluster endpoints to query.
     :return: The routing control state response.
     """
+
+    # As a best practice, we recommend choosing a random cluster endpoint to get or set routing control states.
+    # For more information, see https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
+    random.shuffle(cluster_endpoints)
     for cluster_endpoint in cluster_endpoints:
         try:
             recovery_client = create_recovery_client(cluster_endpoint)
@@ -48,6 +53,7 @@ def get_routing_control_state(routing_control_arn, cluster_endpoints):
             return response
         except Exception as error:
             print(error)
+            raise error
 # snippet-end:[python.example_code.route53-recovery-cluster.GetRoutingControlState]
 
 
@@ -63,6 +69,10 @@ def update_routing_control_state(
     :param routing_control_state: The new routing control state.
     :return: The routing control update response.
     """
+
+    # As a best practice, we recommend choosing a random cluster endpoint to get or set routing control states.
+    # For more information, see https://docs.aws.amazon.com/r53recovery/latest/dg/route53-arc-best-practices.html#route53-arc-best-practices.regional
+    random.shuffle(cluster_endpoints)
     for cluster_endpoint in cluster_endpoints:
         try:
             recovery_client = create_recovery_client(cluster_endpoint)
@@ -105,5 +115,5 @@ if __name__ == '__main__':
         'cluster_endpoints', help="A JSON file containing the list of endpoints for the cluster.")
     args = parser.parse_args()
     with open(args.cluster_endpoints) as endpoints_file:
-        cluster_endpoints = json.load(endpoints_file)['ClusterEndpoints']
-    toggle_routing_control_state(args.routing_control_arn, cluster_endpoints)
+        loaded_cluster_endpoints = json.load(endpoints_file)['ClusterEndpoints']
+    toggle_routing_control_state(args.routing_control_arn, loaded_cluster_endpoints)
