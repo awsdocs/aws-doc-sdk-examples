@@ -26,7 +26,7 @@ public class PhotoApplicationResources {
     public static final String REKOGNITION_TAG_KEY = "rekognition";
     public static final String REKOGNITION_TAG_VALUE = "complete";
 
-    public static final String topicARN = "<Enter Topic ARN>";
+    public static final String topicARN = "<Enter topic ARN>";
 
     public static final Map<String, String> CORS_HEADER_MAP = Map.of(
         "Access-Control-Allow-Origin", "*");
