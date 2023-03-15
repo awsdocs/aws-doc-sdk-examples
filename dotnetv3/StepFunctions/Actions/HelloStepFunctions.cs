@@ -17,6 +17,7 @@ public class HelloStepFunctions
 
         var stepFunctionsClient = host.Services.GetRequiredService<IAmazonStepFunctions>();
 
+        Console.Clear();
         Console.WriteLine("Welcome to AWS Step Functions");
         Console.WriteLine("Let's list up to 10 of your state machines:");
         var stateMachineListRequest = new ListStateMachinesRequest { MaxResults = 10 };
@@ -24,11 +25,18 @@ public class HelloStepFunctions
         // Get information for up to 10 Step Functions state machines.
         var response = await stepFunctionsClient.ListStateMachinesAsync(stateMachineListRequest);
 
-        response.StateMachines.ForEach(stateMachine =>
+        if (response.StateMachines.Count > 0)
         {
-            Console.WriteLine($"Activity Name: {stateMachine.Name}\tCreated on: {stateMachine.CreationDate}");
-            Console.WriteLine($"{stateMachine.Type}");
-        });
+            response.StateMachines.ForEach(stateMachine =>
+            {
+                Console.WriteLine($"\tActivity Name: {stateMachine.Name}\tCreated on: {stateMachine.CreationDate}");
+                Console.WriteLine($"\t\t{stateMachine.Type}");
+            });
+        }
+        else
+        {
+            Console.WriteLine("\tNo state machines were found.");
+        }
     }
 }
 

@@ -22,31 +22,6 @@ public class StepFunctionsWrapper
         _amazonStepFunctions = amazonStepFunctions;
     }
 
-    // snippet-start:[StepFunctions.dotnetv3.ListActivities]
-    public async Task<List<ActivityListItem>> ListActivities()
-    {
-        Console.WriteLine("Welcome to Amazon Step Functions. Let's list your Step Functions actions:");
-        var request = new ListActivitiesRequest { MaxResults = 10 };
-        var activities = new List<ActivityListItem>();
-
-        do
-        {
-            var response = await _amazonStepFunctions.ListActivitiesAsync(request);
-
-            if (response.NextToken is not null)
-            {
-                request.NextToken = response.NextToken;
-            }
-
-            activities.AddRange(response.Activities);
-        }
-        while (request.NextToken is not null);
-
-        return activities;
-    }
-
-    // snippet-end:[StepFunctions.dotnetv3.ListActivities]
-
     // snippet-start:[StepFunctions.dotnetv3.CreateActivity]
     /// <summary>
     /// Create a Step Functions activity using the supplied name.
@@ -87,6 +62,120 @@ public class StepFunctionsWrapper
 
     // snippet-end:[StepFunctions.dotnetv3.CreateStateMachine]
 
+    // snippet-start:[StepFunctions.dotnetv3.DeleteActivity]
+    public async Task<bool> DeleteActivity(string activityArn)
+    {
+        var response = await _amazonStepFunctions.DeleteActivityAsync(new DeleteActivityRequest { ActivityArn = activityArn });
+        return response.HttpStatusCode == HttpStatusCode.OK;
+    }
+
+    // snippet-end:[StepFunctions.dotnetv3.DeleteActivity]
+    
+    // snippet-start:[StepFunctions.dotnetv3.DeleteStateMachine]
+    public async Task<bool> DeleteStateMachine(string stateMachineArn)
+    {
+        var response = await _amazonStepFunctions.DeleteStateMachineAsync(new DeleteStateMachineRequest
+            { StateMachineArn = stateMachineArn });
+        return response.HttpStatusCode == HttpStatusCode.OK;
+    }
+
+    // snippet-end:[StepFunctions.dotnetv3.DeleteStateMachine]
+
+    // snippet-start:[StepFunctions.dotnetv3.DescribeExecution]
+    public async Task<DescribeExecutionResponse> DescribeExecutionAsync(string executionArn)
+    {
+        var response = await _amazonStepFunctions.DescribeExecutionAsync(new DescribeExecutionRequest { ExecutionArn = executionArn });
+        return response;
+    }
+
+    // snippet-end:[StepFunctions.dotnetv3.DescribeExecution]
+
+    // snippet-start:[StepFunctions.dotnetv3.DescribeStateMachine]
+    public async Task<DescribeStateMachineResponse> DescribeStateMachineAsync(string StateMachineArn)
+    {
+        var response = await _amazonStepFunctions.DescribeStateMachineAsync(new DescribeStateMachineRequest { StateMachineArn = StateMachineArn });
+        return response;
+    }
+
+    // snippet-end:[StepFunctions.dotnetv3.DescribeStateMachine]
+
+    // snippet-start:[StepFunctions.dotnetv3.GetActivityTask]
+    public async Task<GetActivityTaskResponse> GetActivityTaskAsync(string activityArn, string workerName)
+    {
+        var response = await _amazonStepFunctions.GetActivityTaskAsync(new GetActivityTaskRequest
+            { ActivityArn = activityArn, WorkerName = workerName });
+        return response;
+    }
+
+    // snippet-end:[StepFunctions.dotnetv3.GetActivityTaskAsync]
+
+    // snippet-start:[StepFunctions.dotnetv3.ListActivities]
+    public async Task<List<ActivityListItem>> ListActivities()
+    {
+        Console.WriteLine("Welcome to Amazon Step Functions. Let's list your Step Functions actions:");
+        var request = new ListActivitiesRequest { MaxResults = 10 };
+        var activities = new List<ActivityListItem>();
+
+        do
+        {
+            var response = await _amazonStepFunctions.ListActivitiesAsync(request);
+
+            if (response.NextToken is not null)
+            {
+                request.NextToken = response.NextToken;
+            }
+
+            activities.AddRange(response.Activities);
+        }
+        while (request.NextToken is not null);
+
+        return activities;
+    }
+
+    // snippet-end:[StepFunctions.dotnetv3.ListActivities]
+
+    // snippet-start:[StepFunctions.dotnetv3.ListExecutions]
+    public async Task<List<ExecutionListItem>> ListExecutions(string stateMachineArn)
+    {
+        var executions = new List<ExecutionListItem>();
+        var response = new ListExecutionsResponse();
+        var request = new ListExecutionsRequest { StateMachineArn = stateMachineArn };
+
+        do
+        {
+            response = await _amazonStepFunctions.ListExecutionsAsync(new ListExecutionsRequest
+                { StateMachineArn = stateMachineArn });
+            executions.AddRange(response.Executions);
+            if (response.NextToken is not null)
+            {
+                request.NextToken = response.NextToken;
+            }
+        } while (response.NextToken is not null);
+
+        return executions;
+    }
+
+    // snippet-end:[StepFunctions.dotnetv3.ListExecutions]
+
+    // snippet-start:[StepFunctions.dotnetv3.ListStateMachines]
+    public async Task<List<StateMachineListItem>> ListStateMachinesAsync()
+    {
+        var stateMachines = new List<StateMachineListItem>();
+        var listStateMachinesPaginator =
+            _amazonStepFunctions.Paginators.ListStateMachines(new ListStateMachinesRequest());
+
+        await foreach(var response in listStateMachinesPaginator.Responses)
+        {
+            stateMachines.AddRange(response.StateMachines);
+        }
+
+        return stateMachines;
+    }
+
+    // snippet-end:[StepFunctions.dotnetv3.ListStateMachines]
+
+    // 
+
     // snippet-start:[StepFunctions.dotnetv3.StartExecution]
     /// <summary>
     /// Start execution of an AWS Step Functions state machine.
@@ -121,47 +210,6 @@ public class StepFunctionsWrapper
 
     // snippet-end:[StepFunctions.dotnetv3.StopExecution]
 
-    // snippet-start:[StepFunctions.dotnetv3.ListExecutions]
-    public async Task<List<ExecutionListItem>> ListExecutions(string stateMachineArn)
-    {
-        var executions = new List<ExecutionListItem>();
-        var response = new ListExecutionsResponse();
-        var request = new ListExecutionsRequest { StateMachineArn = stateMachineArn };
-
-        do
-        {
-            response = await _amazonStepFunctions.ListExecutionsAsync(new ListExecutionsRequest
-            { StateMachineArn = stateMachineArn });
-            executions.AddRange(response.Executions);
-            if (response.NextToken is not null)
-            {
-                request.NextToken = response.NextToken;
-            }
-        } while (response.NextToken is not null);
-
-        return executions;
-    }
-
-    // snippet-end:[StepFunctions.dotnetv3.ListExecutions]
-
-    // snippet-start:[StepFunctions.dotnetv3.DeleteStateMachine]
-    public async Task<bool> DeleteStateMachine(string stateMachineArn)
-    {
-        var response = await _amazonStepFunctions.DeleteStateMachineAsync(new DeleteStateMachineRequest
-        { StateMachineArn = stateMachineArn });
-        return response.HttpStatusCode == HttpStatusCode.OK;
-    }
-
-    // snippet-end:[StepFunctions.dotnetv3.DeleteStateMachine]
-
-    // snippet-start:[StepFunctions.dotnetv3.DeleteActivity]
-    public async Task<bool> DeleteActivity(string activityArn)
-    {
-        var response = await _amazonStepFunctions.DeleteActivityAsync(new DeleteActivityRequest { ActivityArn = activityArn });
-        return response.HttpStatusCode == HttpStatusCode.OK;
-    }
-
-    // snippet-end:[StepFunctions.dotnetv3.DeleteActivity]
 }
 
 // snippet-end:[StepFunctions.dotnetv3.StepFunctionsWrapper]
