@@ -15,7 +15,7 @@ import { Function } from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
 import { PamAuth } from "./auth";
 import { PamLambda } from "./lambdas";
-import * as models from "./models";
+import * as models from "./api_models";
 
 export interface PamApiProps {
   lambdas: PamLambda;
@@ -66,6 +66,7 @@ export class PamApi extends Construct {
     });
 
     this.route("restore", lambdas.download, "PUT", {
+      event: true,
       request: new models.DownloadRequestModel(this, { restApi }),
     });
   }
@@ -77,22 +78,36 @@ export class PamApi extends Construct {
     {
       request = this.empty,
       response = this.empty,
+      event = false,
     }: {
       request?: Model;
       response?: Model;
+      event?: boolean;
     }
   ) {
     const resource = this.restApi.root.addResource(path);
-    resource.addMethod(method, new LambdaIntegration(fn), {
-      requestModels: { "application/json": request },
-      methodResponses: [
-        {
-          statusCode: "200",
-          responseModels: { "application/json": response },
-        },
-      ],
-      authorizer: this.apigAuthorizer,
-      authorizationType: AuthorizationType.COGNITO,
-    });
+    resource.addMethod(
+      method,
+      new LambdaIntegration(fn, {
+        ...(event
+          ? {
+              requestParameters: {
+                "integration.request.header.X-Amz-Invocation-Type": "'Event'",
+              },
+            }
+          : {}),
+      }),
+      {
+        requestModels: { "application/json": request },
+        methodResponses: [
+          {
+            statusCode: "200",
+            responseModels: { "application/json": response },
+          },
+        ],
+        authorizer: this.apigAuthorizer,
+        authorizationType: AuthorizationType.COGNITO,
+      }
+    );
   }
 }
