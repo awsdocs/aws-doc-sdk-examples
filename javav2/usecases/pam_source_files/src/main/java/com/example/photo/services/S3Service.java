@@ -9,7 +9,6 @@ import com.example.photo.PhotoApplicationResources;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
-import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
@@ -20,22 +19,9 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequ
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
-
-
-
-import software.amazon.awssdk.services.s3control.model.CreateJobRequest;
-import software.amazon.awssdk.services.s3control.model.JobManifest;
-import software.amazon.awssdk.services.s3control.model.JobManifestFormat;
-import software.amazon.awssdk.services.s3control.model.JobManifestLocation;
-import software.amazon.awssdk.services.s3control.model.JobManifestSpec;
-import software.amazon.awssdk.services.s3control.model.JobOperation;
-import software.amazon.awssdk.services.s3control.model.JobReport;
-import software.amazon.awssdk.services.s3control.model.S3GlacierJobTier;
-import software.amazon.awssdk.services.s3control.model.S3InitiateRestoreObjectOperation;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.*;
 import java.util.zip.ZipEntry;
@@ -48,14 +34,6 @@ public class S3Service {
         return S3Client.builder()
                 .region(PhotoApplicationResources.REGION)
                 .build();
-    }
-
-    private S3ControlClient getControlClient() {
-        return S3ControlClient.builder()
-            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-            .region(PhotoApplicationResources.REGION)
-            .httpClient(ApacheHttpClient.create())
-            .build();
     }
 
     private List<Tag> getObjectTags(String bucketName, String keyName) {
@@ -160,72 +138,6 @@ public class S3Service {
         return null;
     }
 
-    public String putManifest(String manifest) {
-        UUID uuid = UUID.randomUUID();
-        String key = uuid + ".csv";
-        getClient().putObject(
-                PutObjectRequest.builder()
-                        .bucket(PhotoApplicationResources.WORKING_BUCKET)
-                        .key(key)
-                        .build(),
-                RequestBody.fromString(manifest));
-        return key;
-    }
-
-    public String startRestore(String manifestArn, List<String> labels, String eTag, String accountId, String iamRoleArn) {
-        String uuid = java.util.UUID.randomUUID().toString();
-        String reportBucketName = "arn:aws:s3:::" +PhotoApplicationResources.WORKING_BUCKET;
-        String manifestLocation = "arn:aws:s3:::" +PhotoApplicationResources.WORKING_BUCKET +"/" +manifestArn;
-
-        JobManifestLocation jobManifestLocation = JobManifestLocation.builder()
-            .objectArn(manifestLocation)
-            .eTag(eTag)
-            .build();
-
-        JobManifestSpec manifestSpec = JobManifestSpec.builder()
-            .fieldsWithStrings(new String[]{"Bucket", "Key"})
-            .format("S3BatchOperations_CSV_20180820")
-            .build();
-
-        JobManifest jobManifest = JobManifest.builder()
-            .spec(manifestSpec)
-            .location(jobManifestLocation)
-            .build();
-
-        S3InitiateRestoreObjectOperation s3Restore = S3InitiateRestoreObjectOperation.builder()
-            .expirationInDays(1)
-            .glacierJobTier(S3GlacierJobTier.BULK)
-            .build();
-
-        JobReport jobReport = JobReport.builder()
-            .bucket(reportBucketName)
-            .format("Report_CSV_20180820")
-            .enabled(true)
-            .reportScope("AllTasks")
-            .build();
-
-        JobOperation jobOperation = JobOperation.builder()
-            .s3InitiateRestoreObject(s3Restore)
-            .build();
-
-        CreateJobRequest jobRequest = CreateJobRequest.builder()
-            .accountId(accountId)
-            .description("Job created using the AWS Java SDK")
-            .manifest(jobManifest)
-            .operation(jobOperation)
-            .report(jobReport)
-            .priority(10)
-            .roleArn(iamRoleArn)
-            .clientRequestToken(uuid)
-            .confirmationRequired(false)
-            .build();
-
-       String jobId = getControlClient().createJob(jobRequest).jobId();
-       return jobId;
-
-
-    }
-
     // Places an image into a S3 bucket.
     public void putObject(byte[] data, String bucketName, String objectKey) {
         S3Client s3 = getClient();
@@ -240,38 +152,6 @@ public class S3Service {
             System.exit(1);
         }
     }
-
-    /*
-     * // Places an image into a S3 bucket.
-     * public void putObject(byte[] data, String bucketName, String objectKey) {
-     * S3Client s3 = getClient();
-     * try {
-     * s3.putObject(PutObjectRequest.builder()
-     * .bucket(bucketName)
-     * .key(objectKey)
-     * .build(),
-     * RequestBody.fromBytes(data));
-     * } catch (S3Exception e) {
-     * System.err.println(e.getMessage());
-     * System.exit(1);
-     * }
-     * }
-     * // Pass a map and get back a byte[] that represents a ZIP of all images.
-     * public byte[] listBytesToZip(Map<String, byte[]> mapReport) throws
-     * IOException {
-     * ByteArrayOutputStream baos = new ByteArrayOutputStream();
-     * ZipOutputStream zos = new ZipOutputStream(baos);
-     * for (Map.Entry<String, byte[]> report : mapReport.entrySet()) {
-     * ZipEntry entry = new ZipEntry(report.getKey());
-     * entry.setSize(report.getValue().length);
-     * zos.putNextEntry(entry);
-     * zos.write(report.getValue());
-     * }
-     * zos.closeEntry();
-     * zos.close();
-     * return baos.toByteArray();
-     * }
-     */
 
     // Pass a map and get back a byte[] that represents a ZIP of all images.
     public byte[] listBytesToZip(Map<String, byte[]> mapReport) throws IOException {
@@ -302,7 +182,7 @@ public class S3Service {
             s3.putObject(putOb, RequestBody.fromBytes(zipContent));
 
             // Now lets sign the ZIP
-            return signBucket(bucketName, objectKey);
+            return signArchive(bucketName, objectKey);
 
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
@@ -312,7 +192,7 @@ public class S3Service {
         return "";
     }
 
-    public static String signBucket(String bucketName, String keyName) {
+    public String signArchive(String bucketName, String keyName) {
         S3Presigner presignerOb = S3Presigner.builder()
                 .region(PhotoApplicationResources.REGION)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -325,7 +205,7 @@ public class S3Service {
                     .build();
 
             GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(60))
+                    .signatureDuration(Duration.ofMinutes(1440))
                     .getObjectRequest(getObjectRequest)
                     .build();
 
@@ -435,18 +315,5 @@ public class S3Service {
             System.exit(1);
         }
         return "";
-    }
-
-    // Get the eTag value of the manifest required for createJob().
-    public String getETag(String key, String bucket) {
-        S3Client s3 = getClient();
-        GetObjectRequest objectRequest = GetObjectRequest.builder()
-            .key(key)
-            .bucket(bucket)
-            .build();
-
-        ResponseInputStream<GetObjectResponse> response = s3.getObject(objectRequest);
-        GetObjectResponse object = response.response();
-        return object.eTag();
     }
 }

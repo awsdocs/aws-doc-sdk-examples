@@ -5,8 +5,7 @@
 
 package com.example.photo.springboot;
 
-import com.example.photo.Job;
-import com.example.photo.endpoints.RestoreEndpoint;
+import com.example.photo.endpoints.DownloadEndpoint;
 import com.example.photo.services.DynamoDBService;
 import com.example.photo.services.S3Service;
 import com.example.photo.services.SnsService;
@@ -21,19 +20,19 @@ import java.util.*;
 @RestController
 @RequestMapping("api/photo")
 public class RestoreController {
-    final RestoreEndpoint restoreEndpoint;
+    final DownloadEndpoint downloadEndpoint;
 
     @Autowired
     RestoreController(DynamoDBService dynamoDBService, S3Service s3Service, SnsService snsService) {
-        this.restoreEndpoint = new RestoreEndpoint(dynamoDBService, s3Service, snsService);
+        this.downloadEndpoint = new DownloadEndpoint(dynamoDBService, s3Service, snsService);
     }
 
     @PostMapping("/restore")
     @ResponseBody
-    public Job startRestore(@RequestBody CreateRestore createRestoreRequest) {
+    public String startRestore(@RequestBody CreateRestore createRestoreRequest) {
         String notify = createRestoreRequest.getNotify();
         List<String> tags = createRestoreRequest.getTags();
-        return restoreEndpoint.restore(notify, tags);
+        return downloadEndpoint.download(notify, tags);
     }
 
 }

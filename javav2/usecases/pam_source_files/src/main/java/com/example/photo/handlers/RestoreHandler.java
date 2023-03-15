@@ -2,23 +2,27 @@ package com.example.photo.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.example.photo.endpoints.RestoreEndpoint;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
+import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
+import com.example.photo.endpoints.DownloadEndpoint;
 import com.example.photo.services.DynamoDBService;
 import com.example.photo.services.S3Service;
 import com.example.photo.services.SnsService;
 import org.json.JSONObject;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class RestoreHandler implements RequestHandler<Map<String, String>, String> {
+import static com.example.photo.PhotoApplicationResources.toJson;
+import static com.example.photo.PhotoApplicationResources.CORS_HEADER_MAP;
+
+public class RestoreHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
     @Override
-    public String handleRequest(Map<String, String> event, Context context) {
+    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
         try {
-            RestoreEndpoint restoreEndpoint = new RestoreEndpoint(new DynamoDBService(), new S3Service(), new SnsService());
-            JSONObject body = new JSONObject(event.get("body"));
+            DownloadEndpoint restoreEndpoint = new DownloadEndpoint(new DynamoDBService(), new S3Service(), new SnsService());
+            JSONObject body = new JSONObject(input.getBody());
             List<String> tags = body.getJSONArray("tags")
                     .toList()
                     .stream()
@@ -26,12 +30,24 @@ public class RestoreHandler implements RequestHandler<Map<String, String>, Strin
                     .map(String.class::cast)
                     .collect(Collectors.toList());
             String notify = body.getString("notify");
+            context.getLogger().log("Restoring labels " + tags.stream().collect(Collectors.joining(" ")));
+            context.getLogger().log("Notifying " + notify);
 
-            restoreEndpoint.restore(notify, tags);
+            String msg = restoreEndpoint.download(notify, tags);
+            Map<String, String> headersMap = Map.of(
+                    "Access-Control-Allow-Origin", "*");
 
-            return "OK";
+            return new APIGatewayProxyResponseEvent()
+                    .withStatusCode(200)
+                    .withHeaders(headersMap)
+                    .withBody("{}")
+                    .withIsBase64Encoded(false);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return new APIGatewayProxyResponseEvent()
+                    .withStatusCode(500)
+                    .withHeaders(CORS_HEADER_MAP)
+                    .withBody(toJson(e))
+                    .withIsBase64Encoded(false);
         }
     }
 }
