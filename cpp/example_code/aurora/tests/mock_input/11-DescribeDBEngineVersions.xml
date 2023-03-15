@@ -1,45 +1,16 @@
-<DescribeDBEngineVersionsResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">   <DescribeDBEngineVersionsResult>
-     <DBEngineVersions>
-       <DBEngineVersion>
-         <SupportsBabelfish>false</SupportsBabelfish>
-         <MajorEngineVersion>5.7</MajorEngineVersion>
-         <DBEngineVersionDescription>Aurora (MySQL 5.7) 2.07.0</DBEngineVersionDescription>
-         <SupportsCertificateRotationWithoutRestart>false</SupportsCertificateRotationWithoutRestart>
-         <SupportedEngineModes>
-           <member>provisioned</member>
-         </SupportedEngineModes>
-         <SupportedCACertificateIdentifiers>
-           <member>rds-ca-2019</member>
-           <member>rds-ca-rsa2048-g1</member>
-         </SupportedCACertificateIdentifiers>
-         <SupportsGlobalDatabases>true</SupportsGlobalDatabases>
-         <DBParameterGroupFamily>aurora-mysql5.7</DBParameterGroupFamily>
-         <SupportsParallelQuery>false</SupportsParallelQuery>
-         <MinorEngineVersion>mysql_aurora.2.07.0</MinorEngineVersion>
-         <Engine>aurora-mysql</Engine>
-         <EngineVersion>5.7.mysql_aurora.2.07.0</EngineVersion>
-         <SupportsReadReplica>false</SupportsReadReplica>
-         <SupportsCluster>false</SupportsCluster>
-         <ValidUpgradeTarget>
-           <UpgradeTarget>
-             <EngineVersion>5.7.mysql_aurora.2.07.1</EngineVersion>
-             <SupportsBabelfish>false</SupportsBabelfish>
-             <MajorEngineVersion>5.7</MajorEngineVersion>
-             <AutoUpgrade>false</AutoUpgrade>
-             <Description>Aurora (MySQL 5.7) 2.07.1</Description>
-             <SupportedEngineModes>
-               <member>provisioned</member>
-             </SupportedEngineModes>
-             <SupportsSnapshotUpgrade>false</SupportsSnapshotUpgrade>
-             <SupportsGlobalDatabases>true</SupportsGlobalDatabases>
-             <SupportsParallelQuery>false</SupportsParallelQuery>
-             <MinorEngineVersion>mysql_aurora.2.07.1</MinorEngineVersion>
-             <Engine>aurora-mysql</Engine>
-             <SupportsLocalWriteForwarding>false</SupportsLocalWriteForwarding>
-             <IsMajorVersionUpgrade>false</IsMajorVersionUpgrade>
-           </UpgradeTarget>
-         </ValidUpgradeTarget>
-       </DBEngineVersion>
-     </DBEngineVersions>
-</DescribeDBEngineVersionsResult>
+<DescribeDBEngineVersionsResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeDBEngineVersionsResult>
+        <DBEngineVersions>
+            <DBEngineVersion>
+                <MajorEngineVersion>5.7</MajorEngineVersion>
+                <DBEngineVersionDescription>Aurora (MySQL 5.7) 2.07.0</DBEngineVersionDescription>
+                <SupportsGlobalDatabases>true</SupportsGlobalDatabases>
+                <DBParameterGroupFamily>aurora-mysql5.7</DBParameterGroupFamily>
+                <SupportsParallelQuery>false</SupportsParallelQuery>
+                <MinorEngineVersion>mysql_aurora.2.07.0</MinorEngineVersion>
+                <Engine>aurora-mysql</Engine>
+                <EngineVersion>5.7.mysql_aurora.2.07.0</EngineVersion>
+            </DBEngineVersion>
+        </DBEngineVersions>
+    </DescribeDBEngineVersionsResult>
 </DescribeDBEngineVersionsResponse>

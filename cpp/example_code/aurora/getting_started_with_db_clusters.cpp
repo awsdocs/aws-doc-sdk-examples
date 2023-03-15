@@ -452,7 +452,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
 
     Aws::String engineVersionName;
     Aws::String engineName;
-    if (dbCluster.DBClusterArnHasBeenSet()) {
+    if (dbCluster.DBClusterIdentifierHasBeenSet()) {
         std::cout << "The DB cluster already exists." << std::endl;
         engineVersionName = dbCluster.GetEngineVersion();
         engineName = dbCluster.GetEngine();
@@ -1075,7 +1075,7 @@ bool AwsDoc::Aurora::cleanUpResources(const Aws::String &parameterGroupName,
                 return false;
             }
 
-            clusterDeleting = dbCluster.DBClusterArnHasBeenSet();
+            clusterDeleting = dbCluster.DBClusterIdentifierHasBeenSet();
         }
 
         if ((counter % 20) == 0) {
