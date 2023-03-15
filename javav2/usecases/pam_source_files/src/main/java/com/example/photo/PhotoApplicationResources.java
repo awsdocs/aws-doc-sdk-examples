@@ -1,6 +1,6 @@
 /*
-  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  SPDX-License-Identifier: Apache-2.0
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.photo;
@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 import software.amazon.awssdk.regions.Region;
 
 public class PhotoApplicationResources {
+
+
     public static final Region REGION = Region.of(System.getenv("AWS_REGION"));
 
     public static final String STORAGE_BUCKET = System.getenv("STORAGE_BUCKET_NAME");
@@ -24,8 +26,10 @@ public class PhotoApplicationResources {
     public static final String REKOGNITION_TAG_KEY = "rekognition";
     public static final String REKOGNITION_TAG_VALUE = "complete";
 
+    public static final String topicARN = "<Enter Topic ARN>";
+
     public static final Map<String, String> CORS_HEADER_MAP = Map.of(
-            "Access-Control-Allow-Origin", "*");
+        "Access-Control-Allow-Origin", "*");
     public static final Gson gson = new Gson();
 
     public static String toJson(Object src) {
@@ -34,9 +38,9 @@ public class PhotoApplicationResources {
 
     public static APIGatewayProxyResponseEvent makeResponse(Object src) {
         return new APIGatewayProxyResponseEvent()
-                .withStatusCode(200)
-                .withHeaders(CORS_HEADER_MAP)
-                .withBody(toJson(src))
-                .withIsBase64Encoded(false);
+            .withStatusCode(200)
+            .withHeaders(CORS_HEADER_MAP)
+            .withBody(toJson(src))
+            .withIsBase64Encoded(false);
     }
 }
