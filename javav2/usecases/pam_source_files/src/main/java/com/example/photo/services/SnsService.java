@@ -7,15 +7,11 @@ import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsPro
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest;
 import software.amazon.awssdk.services.sns.model.CreateTopicResponse;
-<<<<<<< HEAD
-import software.amazon.awssdk.services.sns.model.SubscribeRequest;
-=======
 import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.PublishResponse;
 import software.amazon.awssdk.services.sns.model.SnsException;
 import software.amazon.awssdk.services.sns.model.SubscribeRequest;
 import software.amazon.awssdk.services.sns.model.SubscribeResponse;
->>>>>>> 30bc5c02f (added new logic)
 
 @Component
 public class SnsService {
@@ -42,8 +38,6 @@ public class SnsService {
 
         return topicArn;
     }
-<<<<<<< HEAD
-=======
 
     public void subTextSNS(String phoneNumber, String presignedURL) {
         try {
@@ -72,5 +66,4 @@ public class SnsService {
         PublishResponse result = getClient().publish(request);
         return "Message sent. Status was " + result.sdkHttpResponse().statusCode();
     }
->>>>>>> 30bc5c02f (added new logic)
 }

@@ -6,10 +6,6 @@
 package com.example.photo.services;
 
 import com.example.photo.PhotoApplicationResources;
-<<<<<<< HEAD
-import org.apache.logging.log4j.util.Strings;
-=======
->>>>>>> 30bc5c02f (added new logic)
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
@@ -23,16 +19,9 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequ
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
-<<<<<<< HEAD
-import software.amazon.awssdk.services.s3control.model.*;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-=======
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
->>>>>>> 30bc5c02f (added new logic)
 import java.time.Duration;
 import java.util.*;
 import java.util.zip.ZipEntry;
@@ -47,16 +36,6 @@ public class S3Service {
                 .build();
     }
 
-<<<<<<< HEAD
-    private S3ControlClient getControlClient() {
-        return S3ControlClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(PhotoApplicationResources.REGION)
-                .build();
-    }
-
-=======
->>>>>>> 30bc5c02f (added new logic)
     private List<Tag> getObjectTags(String bucketName, String keyName) {
         S3Client s3 = getClient();
         GetObjectTaggingRequest request = GetObjectTaggingRequest.builder()
@@ -159,49 +138,6 @@ public class S3Service {
         return null;
     }
 
-<<<<<<< HEAD
-    public String putManifest(String manifest) {
-        UUID uuid = UUID.randomUUID();
-        String key = uuid + ".csv";
-        getClient().putObject(
-                PutObjectRequest.builder()
-                        .bucket(PhotoApplicationResources.WORKING_BUCKET)
-                        .key(key)
-                        .build(),
-                RequestBody.fromString(manifest));
-        return key;
-    }
-
-    public String startRestore(String manifestArn, List<String> labels) {
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
-        String label = Strings.join(labels, '-');
-
-        JobManifest jobManifest = JobManifest.builder()
-                .location(
-                        JobManifestLocation.builder()
-                                .objectArn(manifestArn)
-                                .build())
-                .build();
-        JobOperation jobOperation = JobOperation.builder()
-                .s3InitiateRestoreObject(
-                        S3InitiateRestoreObjectOperation.builder()
-                                .expirationInDays(1)
-                                .glacierJobTier(S3GlacierJobTier.BULK)
-                                .build())
-                .build();
-        JobReport jobReport = JobReport.builder().bucket(PhotoApplicationResources.WORKING_BUCKET).build();
-        CreateJobRequest createJobRequest = CreateJobRequest.builder()
-                .description("Restore objects matching " + label + " on " + date + ".")
-                .operation(jobOperation)
-                .manifest(jobManifest)
-                .report(jobReport)
-                .clientRequestToken(date + '-' + label)
-                .build();
-        return getControlClient().createJob(createJobRequest).jobId();
-    }
-
-=======
->>>>>>> 30bc5c02f (added new logic)
     // Places an image into a S3 bucket.
     public void putObject(byte[] data, String bucketName, String objectKey) {
         S3Client s3 = getClient();
@@ -217,41 +153,6 @@ public class S3Service {
         }
     }
 
-<<<<<<< HEAD
-    /*
-     * // Places an image into a S3 bucket.
-     * public void putObject(byte[] data, String bucketName, String objectKey) {
-     * S3Client s3 = getClient();
-     * try {
-     * s3.putObject(PutObjectRequest.builder()
-     * .bucket(bucketName)
-     * .key(objectKey)
-     * .build(),
-     * RequestBody.fromBytes(data));
-     * } catch (S3Exception e) {
-     * System.err.println(e.getMessage());
-     * System.exit(1);
-     * }
-     * }
-     * // Pass a map and get back a byte[] that represents a ZIP of all images.
-     * public byte[] listBytesToZip(Map<String, byte[]> mapReport) throws
-     * IOException {
-     * ByteArrayOutputStream baos = new ByteArrayOutputStream();
-     * ZipOutputStream zos = new ZipOutputStream(baos);
-     * for (Map.Entry<String, byte[]> report : mapReport.entrySet()) {
-     * ZipEntry entry = new ZipEntry(report.getKey());
-     * entry.setSize(report.getValue().length);
-     * zos.putNextEntry(entry);
-     * zos.write(report.getValue());
-     * }
-     * zos.closeEntry();
-     * zos.close();
-     * return baos.toByteArray();
-     * }
-     */
-
-=======
->>>>>>> 30bc5c02f (added new logic)
     // Pass a map and get back a byte[] that represents a ZIP of all images.
     public byte[] listBytesToZip(Map<String, byte[]> mapReport) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -281,11 +182,7 @@ public class S3Service {
             s3.putObject(putOb, RequestBody.fromBytes(zipContent));
 
             // Now lets sign the ZIP
-<<<<<<< HEAD
-            return signBucket(bucketName, objectKey);
-=======
             return signArchive(bucketName, objectKey);
->>>>>>> 30bc5c02f (added new logic)
 
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
@@ -295,11 +192,7 @@ public class S3Service {
         return "";
     }
 
-<<<<<<< HEAD
-    public static String signBucket(String bucketName, String keyName) {
-=======
     public String signArchive(String bucketName, String keyName) {
->>>>>>> 30bc5c02f (added new logic)
         S3Presigner presignerOb = S3Presigner.builder()
                 .region(PhotoApplicationResources.REGION)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -312,11 +205,7 @@ public class S3Service {
                     .build();
 
             GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-<<<<<<< HEAD
-                    .signatureDuration(Duration.ofMinutes(60))
-=======
                     .signatureDuration(Duration.ofMinutes(1440))
->>>>>>> 30bc5c02f (added new logic)
                     .getObjectRequest(getObjectRequest)
                     .build();
 
@@ -426,9 +315,5 @@ public class S3Service {
             System.exit(1);
         }
         return "";
-<<<<<<< HEAD
-
-=======
->>>>>>> 30bc5c02f (added new logic)
     }
 }
