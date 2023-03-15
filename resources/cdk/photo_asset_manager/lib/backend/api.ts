@@ -66,6 +66,7 @@ export class PamApi extends Construct {
     });
 
     this.route("restore", lambdas.download, "PUT", {
+      event: true,
       request: new models.DownloadRequestModel(this, { restApi }),
     });
   }
