@@ -11,11 +11,13 @@ This script must be run from the root of the GitHub repo.
 """
 
 import os
+import platform
 import sys
 import pytest
 
 IGNORE_FOLDERS = {
     'venv',
+    '.venv',
     '__pycache__',
     '.pytest_cache',
     'node_modules',
@@ -40,7 +42,10 @@ def main():
         test_path = os.path.join(root_dir, test_dir)
         sys.path.append(test_path)
         os.chdir(test_path)
-        os.system('py -m pytest -m "not integ"')
+        if platform.system() == 'Windows':
+            os.system('py -m pytest -m "not integ"')
+        else:
+            os.system('python -m pytest -m "not integ"')
         sys.path = original_path.copy()
 
 

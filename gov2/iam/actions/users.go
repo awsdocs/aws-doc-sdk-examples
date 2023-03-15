@@ -18,8 +18,7 @@ import (
 // snippet-start:[gov2.iam.UserWrapper.complete]
 // snippet-start:[gov2.iam.UserWrapper.struct]
 
-// UserWrapper encapsulates AWS Identity and Access Management (IAM) user actions
-// used in the examples.
+// UserWrapper encapsulates user actions used in the examples.
 // It contains an IAM service client that is used to perform user actions.
 type UserWrapper struct {
 	IamClient *iam.Client
