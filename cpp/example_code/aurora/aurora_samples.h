@@ -10,7 +10,7 @@
 namespace AwsDoc {
     namespace Aurora {
         //! Routine which creates an Amazon Relational Database Service (Amazon Aurora)
-        //! instance and demonstrates several operations on that instance.
+        //! cluster and demonstrates several operations on that cluster.
         /*!
          \sa gettingStartedWithDBClusters()
          \param clientConfiguration: AWS client configuration.

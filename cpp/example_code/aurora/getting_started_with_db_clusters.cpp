@@ -18,13 +18,13 @@
  * cluster and optionally creating a snapshot of the cluster.
  *
  * 1.  Check if the DB cluster parameter group already exists. (DescribeDBClusterParameterGroups)
- * 2.  Get available engine versions for the specified engine. (DescribeDBEngineVersions)
+ * 2.  Get available parameter group families for the specified engine. (DescribeDBEngineVersions)
  * 3.  Create a DB cluster parameter group. (CreateDBClusterParameterGroup)
  * 4.  Get the parameters in the DB cluster parameter group. (DescribeDBClusterParameters)
  * 5.  Modify the auto increment parameters in the DB cluster parameter group. (ModifyDBClusterParameterGroup)
  * 6.  Display the modified parameters in the DB cluster parameter group. (DescribeDBClusterParameters)
  * 7.  Check if the DB cluster already exists. (DescribeDBClusters)
- * 8.  Get a list of available engine versions. (DescribeDBEngineVersions)
+ * 8.  Get a list of engine versions for the parameter group family. (DescribeDBEngineVersions)
  * 9.  Create an Aurora database cluster. (CreateDBCluster)
  * 10. Wait for the DB cluster to become available. (DescribeDBClusters)
  * 11. Check if the DB instance already exists. (DescribeDBInstances)
@@ -71,8 +71,7 @@ namespace AwsDoc {
         const Aws::String DB_ENGINE("aurora-mysql");
         const Aws::String CLUSTER_PARAMETER_GROUP_NAME(
                 "doc-example-cpp-aurora-parameter-group");
-        const Aws::String DB_CLUSTER_IDENTIFIER("doc-example-cpp-aurora"
-                                                "");
+        const Aws::String DB_CLUSTER_IDENTIFIER("doc-example-cpp-aurora");
         const Aws::String DB_INSTANCE_IDENTIFIER("doc-example-cpp-instance");
         const Aws::String DB_NAME("docexampledb");
         const Aws::String AUTO_INCREMENT_PREFIX("auto_increment");
@@ -307,13 +306,13 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
     if (!parameterGroupFound) {
         Aws::Vector<Aws::RDS::Model::DBEngineVersion> engineVersions;
 
-        // 2. Get available engine versions for the specified engine.
+        // 2. Get available parameter group families for the specified engine.
         if (!getDBEngineVersions(DB_ENGINE, NO_PARAMETER_GROUP_FAMILY,
                                  engineVersions, client)) {
             return false;
         }
 
-        std::cout << "Getting available database engine versions for " << DB_ENGINE
+        std::cout << "Getting available parameter group families for " << DB_ENGINE
                   << "."
                   << std::endl;
         std::vector<Aws::String> families;
@@ -467,14 +466,14 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
                 "Enter a password for the administrator (at least 8 characters): ");
         Aws::Vector<Aws::RDS::Model::DBEngineVersion> engineVersions;
 
-        // 8.  Get a list of available engine versions.
+        // 8.  Get a list of engine versions for the parameter group family.
         if (!getDBEngineVersions(DB_ENGINE, dbParameterGroupFamily, engineVersions,
                                  client)) {
             cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME, "", "", client);
             return false;
         }
 
-        std::cout << "The available engines for your parameter group are:" << std::endl;
+        std::cout << "The available engines for your parameter group family are:" << std::endl;
 
         int index = 1;
         for (const Aws::RDS::Model::DBEngineVersion &engineVersion: engineVersions) {
@@ -491,11 +490,10 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
         engineVersionName = engineVersion.GetEngineVersion();
         std::cout << "Creating a DB cluster named '" << DB_CLUSTER_IDENTIFIER
                   << "' and database '" << DB_NAME << "'.\n"
-                  << "The DB instance is configured to use your custom cluster parameter group '"
-                  << CLUSTER_PARAMETER_GROUP_NAME << "',\n"
+                  << "The DB cluster is configured to use your custom cluster parameter group '"
+                  << CLUSTER_PARAMETER_GROUP_NAME << "', and \n"
                   << "selected engine version " << engineVersion.GetEngineVersion()
-                  << ",\n"
-                  << " storage.\nThis typically takes several minutes." << std::endl;
+                  << ".\nThis typically takes several minutes." << std::endl;
 
         // snippet-start:[cpp.example_code.aurora.CreateDBCluster]
         Aws::RDS::Model::CreateDBClusterRequest request;
@@ -684,7 +682,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
             // snippet-end:[cpp.example_code.aurora.CreateDBClusterSnapshot]
         }
 
-        std::cout << "Waiting for snapshot to become available." << std::endl;
+        std::cout << "Waiting for the snapshot to become available." << std::endl;
 
         Aws::RDS::Model::DBClusterSnapshot snapshot;
         counter = 0;
@@ -1119,6 +1117,14 @@ bool AwsDoc::Aurora::cleanUpResources(const Aws::String &parameterGroupName,
 }
 // snippet-end:[cpp.example_code.aurora.get_started_clusters]
 
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_getting_started_with_db_clusters'
+ *
+ */
 
 #ifndef TESTING_BUILD
 

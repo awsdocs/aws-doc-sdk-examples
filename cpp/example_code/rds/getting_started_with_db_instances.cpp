@@ -931,6 +931,13 @@ bool AwsDoc::RDS::cleanUpResources(const Aws::String &parameterGroupName,
 }
 // snippet-end:[cpp.example_code.rds.get_started_instances]
 
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_getting_started_with_db_instances'
+ *
+ */
 
 #ifndef TESTING_BUILD
 

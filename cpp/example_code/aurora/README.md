@@ -52,8 +52,6 @@ functions within the same service.
 
 ### Prerequisites
 
-
-
 Before using the code examples, first complete the installation and setup steps
 for [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
 C++ Developer Guide.
@@ -62,16 +60,13 @@ sample Hello World-style application.
 
 Next, for information on code example structures and how to build and run the examples, see [Getting started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
-
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
 ### Instructions
 
-
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
-
 
 #### Get started with DB clusters
 
@@ -90,15 +85,12 @@ This example shows you how to do the following:
 
 ⚠ Running tests might result in charges to your AWS account.
 
-
-
 ```sh
    cd <BUILD_DIR>
    cmake <path-to-root-of-this-source-code> -DBUILD_TESTS=ON
    make
    ctest
 ```
-
 
 <!--custom.tests.start-->
 <!--custom.tests.end-->
