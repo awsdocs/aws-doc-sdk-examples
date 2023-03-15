@@ -87,7 +87,6 @@ function TagsLayout() {
     try {
       await initializeDownload(
         selectedTags.map((t) => t.name),
-        currentUser?.username,
         { token }
       );
       setMessage({

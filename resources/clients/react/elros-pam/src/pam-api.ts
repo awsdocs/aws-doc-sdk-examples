@@ -50,7 +50,6 @@ export const s3Copy = async (bucketName: string, config: PamApiConfig) => {
 
 export const initializeDownload = async (
   labels: string[],
-  notify: string,
   config: PamApiConfig
 ) => {
   const response = await fetch(
@@ -59,7 +58,6 @@ export const initializeDownload = async (
       method: "PUT",
       body: JSON.stringify({
         labels,
-        notify,
       }),
       headers: getHeaders(config),
     }
