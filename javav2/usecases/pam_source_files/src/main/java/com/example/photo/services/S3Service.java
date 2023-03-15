@@ -6,7 +6,10 @@
 package com.example.photo.services;
 
 import com.example.photo.PhotoApplicationResources;
+<<<<<<< HEAD
 import org.apache.logging.log4j.util.Strings;
+=======
+>>>>>>> 30bc5c02f (added new logic)
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
@@ -20,10 +23,16 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequ
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
+<<<<<<< HEAD
 import software.amazon.awssdk.services.s3control.model.*;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+=======
+import software.amazon.awssdk.http.apache.ApacheHttpClient;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+>>>>>>> 30bc5c02f (added new logic)
 import java.time.Duration;
 import java.util.*;
 import java.util.zip.ZipEntry;
@@ -38,6 +47,7 @@ public class S3Service {
                 .build();
     }
 
+<<<<<<< HEAD
     private S3ControlClient getControlClient() {
         return S3ControlClient.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -45,6 +55,8 @@ public class S3Service {
                 .build();
     }
 
+=======
+>>>>>>> 30bc5c02f (added new logic)
     private List<Tag> getObjectTags(String bucketName, String keyName) {
         S3Client s3 = getClient();
         GetObjectTaggingRequest request = GetObjectTaggingRequest.builder()
@@ -147,6 +159,7 @@ public class S3Service {
         return null;
     }
 
+<<<<<<< HEAD
     public String putManifest(String manifest) {
         UUID uuid = UUID.randomUUID();
         String key = uuid + ".csv";
@@ -187,6 +200,8 @@ public class S3Service {
         return getControlClient().createJob(createJobRequest).jobId();
     }
 
+=======
+>>>>>>> 30bc5c02f (added new logic)
     // Places an image into a S3 bucket.
     public void putObject(byte[] data, String bucketName, String objectKey) {
         S3Client s3 = getClient();
@@ -202,6 +217,7 @@ public class S3Service {
         }
     }
 
+<<<<<<< HEAD
     /*
      * // Places an image into a S3 bucket.
      * public void putObject(byte[] data, String bucketName, String objectKey) {
@@ -234,6 +250,8 @@ public class S3Service {
      * }
      */
 
+=======
+>>>>>>> 30bc5c02f (added new logic)
     // Pass a map and get back a byte[] that represents a ZIP of all images.
     public byte[] listBytesToZip(Map<String, byte[]> mapReport) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -263,7 +281,11 @@ public class S3Service {
             s3.putObject(putOb, RequestBody.fromBytes(zipContent));
 
             // Now lets sign the ZIP
+<<<<<<< HEAD
             return signBucket(bucketName, objectKey);
+=======
+            return signArchive(bucketName, objectKey);
+>>>>>>> 30bc5c02f (added new logic)
 
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
@@ -273,7 +295,11 @@ public class S3Service {
         return "";
     }
 
+<<<<<<< HEAD
     public static String signBucket(String bucketName, String keyName) {
+=======
+    public String signArchive(String bucketName, String keyName) {
+>>>>>>> 30bc5c02f (added new logic)
         S3Presigner presignerOb = S3Presigner.builder()
                 .region(PhotoApplicationResources.REGION)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -286,7 +312,11 @@ public class S3Service {
                     .build();
 
             GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
+<<<<<<< HEAD
                     .signatureDuration(Duration.ofMinutes(60))
+=======
+                    .signatureDuration(Duration.ofMinutes(1440))
+>>>>>>> 30bc5c02f (added new logic)
                     .getObjectRequest(getObjectRequest)
                     .build();
 
@@ -396,6 +426,9 @@ public class S3Service {
             System.exit(1);
         }
         return "";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 30bc5c02f (added new logic)
     }
 }
