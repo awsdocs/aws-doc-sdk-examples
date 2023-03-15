@@ -9,6 +9,7 @@ import {
   Cors,
   LambdaIntegration,
   Model,
+  PassthroughBehavior,
   RestApi,
 } from "aws-cdk-lib/aws-apigateway";
 import { Function } from "aws-cdk-lib/aws-lambda";
@@ -65,7 +66,7 @@ export class PamApi extends Construct {
       response: new models.CopyResponseModel(this, { restApi }),
     });
 
-    this.route("restore", lambdas.download, "PUT", {
+    this.route("download", lambdas.download, "PUT", {
       event: true,
       request: new models.DownloadRequestModel(this, { restApi }),
     });
@@ -91,9 +92,20 @@ export class PamApi extends Construct {
       new LambdaIntegration(fn, {
         ...(event
           ? {
+              proxy: false,
+              passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
               requestParameters: {
                 "integration.request.header.X-Amz-Invocation-Type": "'Event'",
               },
+              integrationResponses: [
+                {
+                  statusCode: "200",
+                  responseParameters: {
+                    "method.response.header.Access-Control-Allow-Origin":
+                      "'*'",
+                  },
+                },
+              ],
             }
           : {}),
       }),
@@ -102,6 +114,9 @@ export class PamApi extends Construct {
         methodResponses: [
           {
             statusCode: "200",
+            responseParameters: {
+              "method.response.header.Access-Control-Allow-Origin": true,
+            },
             responseModels: { "application/json": response },
           },
         ],

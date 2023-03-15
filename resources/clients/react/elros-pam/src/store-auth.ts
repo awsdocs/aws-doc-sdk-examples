@@ -52,7 +52,6 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     }
 
     const idTokenClaims = decodeJwt(idToken);
-    console.log(idTokenClaims)
     set({
       currentUser: { username: idTokenClaims['cognito:username'] as string },
       token: idToken,

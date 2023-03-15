@@ -50,16 +50,14 @@ export const s3Copy = async (bucketName: string, config: PamApiConfig) => {
 
 export const initializeDownload = async (
   labels: string[],
-  notify: string,
   config: PamApiConfig
 ) => {
   const response = await fetch(
-    `${import.meta.env.VITE_API_GATEWAY_BASE_URL}restore`,
+    `${import.meta.env.VITE_API_GATEWAY_BASE_URL}download`,
     {
       method: "PUT",
       body: JSON.stringify({
         labels,
-        notify,
       }),
       headers: getHeaders(config),
     }

@@ -87,13 +87,12 @@ function TagsLayout() {
     try {
       await initializeDownload(
         selectedTags.map((t) => t.name),
-        currentUser?.username,
         { token }
       );
       setMessage({
         id: "download-success",
         content:
-          "Your photos are being moved out of glacier storage. You will receive an email " +
+          "Your photos are being compressed. You will receive an email " +
           "with a link to download a zip file.",
         type: "info",
       });

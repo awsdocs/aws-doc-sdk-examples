@@ -10,24 +10,6 @@ interface PartialModelProps {
   restApi: ModelProps["restApi"];
 }
 
-export class ArchiveRequestModel extends Model {
-  constructor(scope: Construct, props: PartialModelProps) {
-    super(scope, "ArchiveRequestModel", {
-      ...props,
-      schema: {
-        schema: JsonSchemaVersion.DRAFT4,
-        type: JsonSchemaType.OBJECT,
-        properties: {
-          images: {
-            type: JsonSchemaType.ARRAY,
-            items: { type: JsonSchemaType.STRING },
-          },
-        },
-      },
-    });
-  }
-}
-
 export class LabelsResponseModel extends Model {
   constructor(scope: Construct, props: PartialModelProps) {
     super(scope, "LabelsResponseModel", {
