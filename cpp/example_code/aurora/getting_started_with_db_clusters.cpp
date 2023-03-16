@@ -357,7 +357,6 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
     std::cout << "Let's set some parameter values in your cluster parameter group."
               << std::endl;
 
-    Aws::String marker;
     Aws::Vector<Aws::RDS::Model::Parameter> autoIncrementParameters;
     // 4.  Get the parameters in the DB cluster parameter group.
     if (!getDBCLusterParameters(CLUSTER_PARAMETER_GROUP_NAME, AUTO_INCREMENT_PREFIX,
@@ -473,7 +472,8 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
             return false;
         }
 
-        std::cout << "The available engines for your parameter group family are:" << std::endl;
+        std::cout << "The available engines for your parameter group family are:"
+                  << std::endl;
 
         int index = 1;
         for (const Aws::RDS::Model::DBEngineVersion &engineVersion: engineVersions) {
@@ -798,7 +798,7 @@ bool AwsDoc::Aurora::getDBCLusterParameters(const Aws::String &parameterGroupNam
                                             const Aws::String &source,
                                             Aws::Vector<Aws::RDS::Model::Parameter> &parametersResult,
                                             const Aws::RDS::RDSClient &client) {
-    Aws::String marker;
+    Aws::String marker; // The marker is used for pagination.
     do {
         Aws::RDS::Model::DescribeDBClusterParametersRequest request;
         request.SetDBClusterParameterGroupName(CLUSTER_PARAMETER_GROUP_NAME);
@@ -932,7 +932,7 @@ bool AwsDoc::Aurora::chooseDBInstanceClass(const Aws::String &engine,
                                            Aws::String &dbInstanceClass,
                                            const Aws::RDS::RDSClient &client) {
     std::vector<Aws::String> instanceClasses;
-    Aws::String marker;
+    Aws::String marker; // The marker is used for pagination.
     do {
         Aws::RDS::Model::DescribeOrderableDBInstanceOptionsRequest request;
         request.SetEngine(engine);
