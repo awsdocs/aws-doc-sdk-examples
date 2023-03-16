@@ -23,7 +23,7 @@ public class DownloadEndpoint {
         this.snsService = snsService;
     }
 
-    public String download(String notify, List<String> tags)  {
+    public String download(String notify, List<String> tags) {
         try {
             // Now we have an image list, place them into a ZIP and presign it.
             Set<String> images = tags.stream().parallel().flatMap(this::imagesByTag).collect(Collectors.toSet());
@@ -38,18 +38,18 @@ public class DownloadEndpoint {
             // Now we need to ZIP the images.
             byte[] zipFile = this.s3Service.listBytesToZip(imageMap);
             String uuid = java.util.UUID.randomUUID().toString();
-            String zipName = uuid+"-archive.zip";
+            String zipName = uuid + ".zip";
 
             // Place the zip file into the working bucket and get back a presigned URL.
-            String presignedURL = this.s3Service.putS3Object(PhotoApplicationResources.WORKING_BUCKET, zipName, zipFile);
-            String message = "Your Archived images can be located here "+presignedURL;
-            return this.snsService.pubTopic(message);
-
+            String presignedURL = this.s3Service.putS3Object(PhotoApplicationResources.WORKING_BUCKET, zipName,
+                    zipFile);
+            String message = "Your Archived images can be located here " + presignedURL;
+            this.snsService.pubTopic(message);
+            return presignedURL;
         } catch (IOException e) {
             e.getMessage();
         }
-
-        return "";
+        return null;
     }
 
     private Stream<String> imagesByTag(String tag) {

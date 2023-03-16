@@ -18,36 +18,38 @@ import static com.example.photo.PhotoApplicationResources.CORS_HEADER_MAP;
 
 public class RestoreHandler implements RequestHandler<APIGatewayProxyRequestEvent, APIGatewayProxyResponseEvent> {
 
-    @Override
-    public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
-        try {
-            DownloadEndpoint restoreEndpoint = new DownloadEndpoint(new DynamoDBService(), new S3Service(), new SnsService());
-            JSONObject body = new JSONObject(input.getBody());
-            List<String> tags = body.getJSONArray("tags")
-                    .toList()
-                    .stream()
-                    .filter(String.class::isInstance)
-                    .map(String.class::cast)
-                    .collect(Collectors.toList());
-          //  String notify = body.getString("notify");
-            context.getLogger().log("Restoring labels " + tags.stream().collect(Collectors.joining(" ")));
-          //  context.getLogger().log("Notifying " + notify);
+  @Override
+  public APIGatewayProxyResponseEvent handleRequest(APIGatewayProxyRequestEvent input, Context context) {
+    try {
+      context.getLogger().log("RestoreHandler handleRequest" + toJson(input));
+      JSONObject body = new JSONObject(input.getBody());
+      List<String> labels = body.getJSONArray("tags")
+          .toList()
+          .stream()
+          .filter(String.class::isInstance)
+          .map(String.class::cast)
+          .collect(Collectors.toList());
+      context.getLogger().log("Restoring labels " + toJson(labels));
 
-            String msg = restoreEndpoint.download("notify", tags);
-            Map<String, String> headersMap = Map.of(
-                    "Access-Control-Allow-Origin", "*");
+      DownloadEndpoint restoreEndpoint = new DownloadEndpoint(new DynamoDBService(), new S3Service(), new SnsService());
+      String url = restoreEndpoint.download("notify", labels);
 
-            return new APIGatewayProxyResponseEvent()
-                    .withStatusCode(200)
-                    .withHeaders(headersMap)
-                    .withBody("{}")
-                    .withIsBase64Encoded(false);
-        } catch (Exception e) {
-            return new APIGatewayProxyResponseEvent()
-                    .withStatusCode(500)
-                    .withHeaders(CORS_HEADER_MAP)
-                    .withBody(toJson(e))
-                    .withIsBase64Encoded(false);
-        }
+      context.getLogger().log("Labels archived to URL " + url);
+
+      Map<String, String> headersMap = Map.of(
+          "Access-Control-Allow-Origin", "*");
+
+      return new APIGatewayProxyResponseEvent()
+          .withStatusCode(200)
+          .withHeaders(headersMap)
+          .withBody("{}")
+          .withIsBase64Encoded(false);
+    } catch (Exception e) {
+      return new APIGatewayProxyResponseEvent()
+          .withStatusCode(500)
+          .withHeaders(CORS_HEADER_MAP)
+          .withBody(toJson(e))
+          .withIsBase64Encoded(false);
     }
+  }
 }
