@@ -1,0 +1,12 @@
+<DeleteDBInstanceResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DeleteDBInstanceResult>
+        <DBInstance>
+            <DBInstanceArn>arn:aws:rds:us-test:111222222:db:doc-example-cpp-instance</DBInstanceArn>
+            <DBInstanceIdentifier>doc-example-cpp-instance</DBInstanceIdentifier>
+        </DBInstance>
+    </DeleteDBInstanceResult>
+    <ResponseMetadata>
+        <RequestId>919bfee1-5ea7-45c5-af03-491a76d2d9bc</RequestId>
+    </ResponseMetadata>
+</DeleteDBInstanceResponse>
+ 

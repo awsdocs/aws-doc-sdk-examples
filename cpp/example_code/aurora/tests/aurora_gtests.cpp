@@ -3,16 +3,16 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-#include "rds_gtests.h"
+#include "aurora_gtests.h"
 #include <fstream>
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/testing/mocks/http/MockHttpClient.h>
 
-Aws::SDKOptions AwsDocTest::RDS_GTests::s_options;
-std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::RDS_GTests::s_clientConfig;
+Aws::SDKOptions AwsDocTest::Aurora_GTests::s_options;
+std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::Aurora_GTests::s_clientConfig;
 static const char ALLOCATION_TAG[] = "RDS_GTEST";
 
-void AwsDocTest::RDS_GTests::SetUpTestSuite() {
+void AwsDocTest::Aurora_GTests::SetUpTestSuite() {
     InitAPI(s_options);
 
     // s_clientConfig must be a pointer because the client config must be initialized
@@ -20,12 +20,12 @@ void AwsDocTest::RDS_GTests::SetUpTestSuite() {
     s_clientConfig = std::make_unique<Aws::Client::ClientConfiguration>();
 }
 
-void AwsDocTest::RDS_GTests::TearDownTestSuite() {
+void AwsDocTest::Aurora_GTests::TearDownTestSuite() {
     ShutdownAPI(s_options);
 
 }
 
-void AwsDocTest::RDS_GTests::SetUp() {
+void AwsDocTest::Aurora_GTests::SetUp() {
     if (suppressStdOut()) {
         m_savedBuffer = std::cout.rdbuf();
         std::cout.rdbuf(&m_coutBuffer);
@@ -39,7 +39,7 @@ void AwsDocTest::RDS_GTests::SetUp() {
     std::cin.exceptions(std::ios_base::badbit);
 }
 
-void AwsDocTest::RDS_GTests::TearDown() {
+void AwsDocTest::Aurora_GTests::TearDown() {
     if (m_savedBuffer != nullptr) {
         std::cout.rdbuf(m_savedBuffer);
         m_savedBuffer = nullptr;
@@ -52,11 +52,11 @@ void AwsDocTest::RDS_GTests::TearDown() {
     }
 }
 
-Aws::String AwsDocTest::RDS_GTests::preconditionError() {
+Aws::String AwsDocTest::Aurora_GTests::preconditionError() {
     return "Failed to meet precondition.";
 }
 
-void AwsDocTest::RDS_GTests::AddCommandLineResponses(
+void AwsDocTest::Aurora_GTests::AddCommandLineResponses(
         const std::vector<std::string> &responses) {
 
     std::stringstream stringStream;
@@ -66,7 +66,7 @@ void AwsDocTest::RDS_GTests::AddCommandLineResponses(
     m_cinBuffer.str(stringStream.str());
 }
 
-bool AwsDocTest::RDS_GTests::suppressStdOut() {
+bool AwsDocTest::Aurora_GTests::suppressStdOut() {
     return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
 }
 

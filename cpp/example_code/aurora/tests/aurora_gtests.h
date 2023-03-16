@@ -4,8 +4,8 @@
 */
 
 #pragma once
-#ifndef RDS_EXAMPLES_RDS_GTESTS_H
-#define RDS_EXAMPLES_RDS_GTESTS_H
+#ifndef RDS_EXAMPLES_AURORA_GTESTS_H
+#define RDS_EXAMPLES_AURORA_GTESTS_H
 
 #include <aws/core/Aws.h>
 #include <memory>
@@ -22,7 +22,7 @@ namespace AwsDocTest {
         int underflow() override;
     };
 
-    class RDS_GTests : public testing::Test {
+    class Aurora_GTests : public testing::Test {
     protected:
 
         void SetUp() override;
@@ -52,7 +52,7 @@ namespace AwsDocTest {
 
         MyStringBuffer m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
-    }; // RDS_GTests
+    }; // Aurora_GTests
 
     class MockHTTP {
     public:
@@ -72,4 +72,4 @@ namespace AwsDocTest {
 
 } // AwsDocTest
 
-#endif //RDS_EXAMPLES_RDS_GTESTS_H
+#endif //RDS_EXAMPLES_AURORA_GTESTS_H

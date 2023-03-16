@@ -1,0 +1,22 @@
+<CreateDBClusterSnapshotResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <CreateDBClusterSnapshotResult>
+        <DBClusterSnapshot>
+            <AllocatedStorage>1</AllocatedStorage>
+            <EngineMode>provisioned</EngineMode>
+            <Engine>aurora-mysql</Engine>
+            <EngineVersion>5.7.mysql_aurora.2.07.0</EngineVersion>
+            <MasterUsername>foo</MasterUsername>
+            <SnapshotType>manual</SnapshotType>
+            <LicenseModel>aurora-mysql</LicenseModel>
+            <DBClusterIdentifier>doc-example-cpp-aurora</DBClusterIdentifier>
+            <DBClusterSnapshotArn>
+                arn:aws:rds:us-test:1112222:cluster-snapshot:doc-example-cpp-aurora-5ecbd3aa-e1eb-466f-aa5a-a6b44ce5deaa
+            </DBClusterSnapshotArn>
+            <Status>creating</Status>
+        </DBClusterSnapshot>
+    </CreateDBClusterSnapshotResult>
+    <ResponseMetadata>
+        <RequestId>5d472b49-3d8a-4d0a-a25d-5d7bbeb9f9c6</RequestId>
+    </ResponseMetadata>
+</CreateDBClusterSnapshotResponse>
+ 

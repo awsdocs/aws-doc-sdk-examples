@@ -1,0 +1,11 @@
+<DeleteDBClusterResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DeleteDBClusterResult>
+        <DBCluster>
+            <DBClusterArn>arn:aws:rds:us-test:11122222:cluster:doc-example-cpp-aurora</DBClusterArn>
+        </DBCluster>
+    </DeleteDBClusterResult>
+    <ResponseMetadata>
+        <RequestId>7787e198-7e37-4595-8d01-ac3021fe4e44</RequestId>
+    </ResponseMetadata>
+</DeleteDBClusterResponse>
+ 

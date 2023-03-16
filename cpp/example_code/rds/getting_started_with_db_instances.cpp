@@ -674,7 +674,7 @@ bool AwsDoc::RDS::getDBParameters(const Aws::String &parameterGroupName,
                     outcome.GetResult().GetParameters();
             for (const Aws::RDS::Model::Parameter &parameter: parameters) {
                 if (!namePrefix.empty()) {
-                    if (parameter.GetParameterName().find(AUTO_INCREMENT_PREFIX) == 0) {
+                    if (parameter.GetParameterName().find(namePrefix) == 0) {
                         parametersResult.push_back(parameter);
                     }
                 }
@@ -763,7 +763,7 @@ bool AwsDoc::RDS::describeDBInstance(const Aws::String &dbInstanceIdentifier,
     else if (outcome.GetError().GetErrorType() !=
              Aws::RDS::RDSErrors::D_B_INSTANCE_NOT_FOUND_FAULT) {
         result = false;
-        std::cerr << "Error with RDS::GetDBInstances. "
+        std::cerr << "Error with RDS::DescribeDBInstances. "
                   << outcome.GetError().GetMessage()
                   << std::endl;
     }
@@ -931,6 +931,13 @@ bool AwsDoc::RDS::cleanUpResources(const Aws::String &parameterGroupName,
 }
 // snippet-end:[cpp.example_code.rds.get_started_instances]
 
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_getting_started_with_db_instances'
+ *
+ */
 
 #ifndef TESTING_BUILD
 
@@ -974,7 +981,7 @@ port, and administrator user name to 'mysql' and enter your password
 when prompted:)" << std::endl;
 
     std::cout << "  mysql -h " << dbInstance.GetEndpoint().GetAddress() << " -P "
-              << dbInstance.GetEndpoint().GetPort() << " - u "
+              << dbInstance.GetEndpoint().GetPort() << " -u "
               << dbInstance.GetMasterUsername()
               << " -p" << std::endl;
 

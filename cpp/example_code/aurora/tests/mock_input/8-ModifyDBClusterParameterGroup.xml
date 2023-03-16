@@ -1,0 +1,9 @@
+<ModifyDBClusterParameterGroupResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <ModifyDBClusterParameterGroupResult>
+        <DBClusterParameterGroupName>doc-example-cpp-aurora-parameter-group</DBClusterParameterGroupName>
+    </ModifyDBClusterParameterGroupResult>
+    <ResponseMetadata>
+        <RequestId>acade088-4c3e-4cf9-a8b4-27442e496e11</RequestId>
+    </ResponseMetadata>
+</ModifyDBClusterParameterGroupResponse>
+ 

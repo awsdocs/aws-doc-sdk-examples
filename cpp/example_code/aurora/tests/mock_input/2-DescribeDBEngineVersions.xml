@@ -1,0 +1,15 @@
+<DescribeDBEngineVersionsResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeDBEngineVersionsResult>
+        <DBEngineVersions>
+            <DBEngineVersion>
+                <MajorEngineVersion>5.7</MajorEngineVersion>
+                <DBEngineVersionDescription>Aurora (MySQL 5.7) 2.07.0</DBEngineVersionDescription>
+                <DBParameterGroupFamily>aurora-mysql5.7</DBParameterGroupFamily>
+                <SupportsParallelQuery>false</SupportsParallelQuery>
+                <MinorEngineVersion>mysql_aurora.2.07.0</MinorEngineVersion>
+                <Engine>aurora-mysql</Engine>
+                <EngineVersion>5.7.mysql_aurora.2.07.0</EngineVersion>
+            </DBEngineVersion>
+        </DBEngineVersions>
+    </DescribeDBEngineVersionsResult>
+</DescribeDBEngineVersionsResponse>

@@ -59,6 +59,18 @@ aurora_DescribeDBClusterParameterGroups:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.DescribeDBClusterParameterGroups
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.DescribeDBClusterParameterGroups1
+                - cpp.example_code.aurora.DescribeDBClusterParameterGroups2
   services:
     aurora: {DescribeDBClusterParameterGroups}
 aurora_CreateDBClusterParameterGroup:
@@ -104,6 +116,17 @@ aurora_CreateDBClusterParameterGroup:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.CreateDBClusterParameterGroup
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.CreateDBClusterParameterGroup
   services:
     aurora: {CreateDBClusterParameterGroup}
 aurora_DeleteDBClusterParameterGroup:
@@ -149,6 +172,17 @@ aurora_DeleteDBClusterParameterGroup:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.DeleteDBClusterParameterGroup
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.DeleteDBClusterParameterGroup
   services:
     aurora: {DeleteDBClusterParameterGroup}
 aurora_DescribeDBClusterParameters:
@@ -194,6 +228,17 @@ aurora_DescribeDBClusterParameters:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.DescribeDBClusterParameters
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.DescribeDBClusterParameters
   services:
     aurora: {DescribeDBClusterParameters}
 aurora_ModifyDBClusterParameterGroup:
@@ -239,6 +284,17 @@ aurora_ModifyDBClusterParameterGroup:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.ModifyDBClusterParameterGroup
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.ModifyDBClusterParameterGroup
   services:
     aurora: {ModifyDBClusterParameterGroup}
 aurora_DescribeDBClusters:
@@ -284,6 +340,17 @@ aurora_DescribeDBClusters:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.DescribeDBClusters
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.DescribeDBClusters
   services:
     aurora: {DescribeDBClusters}
 aurora_CreateDBCluster:
@@ -329,6 +396,17 @@ aurora_CreateDBCluster:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.CreateDBCluster
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.CreateDBCluster
   services:
     aurora: {CreateDBCluster}
 aurora_DeleteDBCluster:
@@ -374,6 +452,17 @@ aurora_DeleteDBCluster:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.DeleteDBCluster
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.DeleteDBCluster
   services:
     aurora: {DeleteDBCluster}
 aurora_CreateDBClusterSnapshot:
@@ -419,6 +508,17 @@ aurora_CreateDBClusterSnapshot:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.CreateDBClusterSnapshot
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.CreateDBClusterSnapshot
   services:
     aurora: {CreateDBClusterSnapshot}
 aurora_DescribeDBClusterSnapshots:
@@ -464,6 +564,17 @@ aurora_DescribeDBClusterSnapshots:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.DescribeDBClusterSnapshots
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.DescribeDBClusterSnapshots
   services:
     aurora: {DescribeDBClusterSnapshots}
 aurora_CreateDBInstance:
@@ -509,6 +620,17 @@ aurora_CreateDBInstance:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.CreateDBInstance_InCluster
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.CreateDBInstance
   services:
     aurora: {CreateDBInstance}
 aurora_DescribeDBEngineVersions:
@@ -554,6 +676,17 @@ aurora_DescribeDBEngineVersions:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.DescribeDBEngineVersions
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.DescribeDBEngineVersions
   services:
     aurora: {DescribeDBEngineVersions}
 aurora_DescribeOrderableDBInstanceOptions:
@@ -590,6 +723,17 @@ aurora_DescribeOrderableDBInstanceOptions:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.DescribeOrderableDBInstanceOptions
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.DescribeOrderableDBInstanceOptions
   services:
     aurora: {DescribeOrderableDBInstanceOptions}
 aurora_DescribeDBInstances:
@@ -635,6 +779,17 @@ aurora_DescribeDBInstances:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.DescribeDBInstances
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.DescribeDBInstances
   services:
     aurora: {DescribeDBInstances}
 aurora_DeleteDBInstance:
@@ -680,6 +835,17 @@ aurora_DeleteDBInstance:
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_decl
                 - python.example_code.aurora.DeleteDBInstance
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.client
+                - cpp.example_code.aurora.DeleteDBInstance
   services:
     aurora: {DeleteDBInstance}
 aurora_Scenario_GetStartedClusters:
@@ -737,6 +903,16 @@ aurora_Scenario_GetStartedClusters:
                 manage &AUR; actions.
               snippet_tags:
                 - python.example_code.aurora.helper.AuroraWrapper_full
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.aurora.client_configuration
+                - cpp.example_code.aurora.get_started_clusters
   services:
     aurora: {CreateDBCluster, CreateDBClusterParameterGroup, CreateDBClusterSnapshot,
              CreateDBInstance, DeleteDBCluster, DeleteDBClusterParameterGroup, DeleteDBInstance,
