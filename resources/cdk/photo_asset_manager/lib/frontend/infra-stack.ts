@@ -13,7 +13,10 @@ import {
 } from "aws-cdk-lib/aws-iam";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Construct } from "constructs";
-import { CLOUDFRONT_DISTRIBUTION_NAME } from "../common";
+import {
+  CLOUDFRONT_DISTRIBUTION_NAME,
+  PAM_FE_INFRA_STACK_NAME,
+} from "../common";
 
 export class PamFrontEndInfraStack extends Stack {
   readonly bucket: Bucket;
@@ -36,7 +39,7 @@ export class PamFrontEndInfraStack extends Stack {
 
     const oac = new CfnOriginAccessControl(this, "website-bucket-oac", {
       originAccessControlConfig: {
-        name: "website-bucket-oac",
+        name: `${PAM_FE_INFRA_STACK_NAME}-website-bucket-oac`,
         originAccessControlOriginType: "s3",
         signingBehavior: "always",
         signingProtocol: "sigv4",

@@ -1,12 +1,15 @@
 import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { LambdaDestination } from "aws-cdk-lib/aws-s3-notifications";
+import { Subscription, Topic } from "aws-cdk-lib/aws-sns";
+import { EmailSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
 import {
   API_GATEWAY_URL_NAME,
   COGNITO_APP_CLIENT_ID_NAME,
   COGNITO_USER_POOL_ID_NAME,
   COGNITO_USER_POOL_BASE_URL,
+  PAM_EMAIL,
 } from "../common";
 import { PamApi } from "./api";
 import { PamLambda, PamLambdasStrategy } from "./lambdas";
@@ -23,21 +26,25 @@ export class PamStack extends Stack {
   readonly tables: PamTables;
   readonly buckets: PamBuckets;
   readonly lambdas: PamLambda;
+  readonly topic: Topic;
   readonly api: PamApi;
 
   constructor(scope: Construct, id: string, props: PamStackProps) {
     super(scope, id, props);
     this.tables = new PamTables(this, "PamTables");
     this.buckets = new PamBuckets(this, "PamBuckets");
+    this.topic = new Topic(this, "PamNotifier");
+    this.topic.addSubscription(new EmailSubscription(PAM_EMAIL));
     this.lambdas = new PamLambda(this, "PamLambdas", {
       buckets: this.buckets,
       tables: this.tables,
+      topic: this.topic,
       strategy: props.strategy,
     });
     this.api = new PamApi(this, "PamApi", {
       lambdas: this.lambdas,
       email: props.email,
-      cloudfrontDistributionUrl: props.cloudfrontDistributionUrl
+      cloudfrontDistributionUrl: props.cloudfrontDistributionUrl,
     });
 
     this.permissions();
@@ -70,18 +77,6 @@ export class PamStack extends Stack {
       this.buckets.storage.grantReadWrite(fn);
     }
 
-    // ZipArchiveFn
-    {
-      // const fn = this.lambdas.fns.zipArchive;
-      // this.buckets.working.addObjectCreatedNotification(
-      //   new LambdaDestination(fn),
-      //   { prefix: "job-", suffix: "/report.csv" }
-      // );
-      // // grant permissions for lambda to read/write to DynamoDB table and bucket
-      // this.tables.jobs.grantReadWriteData(fn);
-      // this.buckets.working.grantReadWrite(fn);
-    }
-
     // LabelsFn
     {
       const fn = this.lambdas.fns.labels;
@@ -100,6 +95,7 @@ export class PamStack extends Stack {
       this.tables.labels.grantReadData(fn);
       this.tables.jobs.grantWriteData(fn);
       this.buckets.working.grantPut(fn);
+      this.topic.grantPublish(fn);
       fn.role?.addToPrincipalPolicy(
         new PolicyStatement({ actions: ["sns:subscribe"], resources: ["*"] })
       );
@@ -109,11 +105,6 @@ export class PamStack extends Stack {
     {
       const fn = this.lambdas.fns.copy;
       this.buckets.storage.grantPut(fn);
-    }
-
-    // ArchiveFn
-    {
-      // const fn = this.lambdas.fns.archive;
     }
   }
 
