@@ -6,35 +6,28 @@
 package com.example.photo.springboot;
 
 import com.example.photo.PhotoApplicationResources;
-import com.example.photo.WorkCount;
 import com.example.photo.endpoints.UploadEndpoint;
-import com.example.photo.WorkItem;
 import com.example.photo.services.AnalyzePhotos;
 import com.example.photo.services.DynamoDBService;
 import com.example.photo.services.S3Service;
 import com.google.gson.Gson;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.UUID;
 
 @ComponentScan(basePackages = { "com.example.photo.services" })
 @CrossOrigin(origins = "*")
@@ -85,8 +78,6 @@ public class PhotoController {
         try {
             byte[] bytes = file.getBytes();
             String fileName = file.getOriginalFilename();
-            UUID uuid = UUID.randomUUID();
-            String unqueFileName = uuid + "-" + fileName;
 
             UploadEndpoint endpoint = new UploadEndpoint(analyzePhotos, dbService, s3Service);
             endpoint.upload(bytes, fileName);

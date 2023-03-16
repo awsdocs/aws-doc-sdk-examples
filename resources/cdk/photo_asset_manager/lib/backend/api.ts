@@ -20,9 +20,7 @@ import { PamAuth } from "./auth";
 import { PamLambda } from "./lambdas";
 import * as models from "./api_models";
 import { PAM_STACK_NAME } from "../common";
-import { Bucket } from "aws-cdk-lib/aws-s3";
 import { LogGroup } from "aws-cdk-lib/aws-logs";
-import { LogFormat } from "aws-cdk-lib/aws-ec2";
 
 export interface PamApiProps {
   lambdas: PamLambda;
