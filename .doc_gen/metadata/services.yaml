@@ -85,7 +85,7 @@ aurora:
     subtitle: User Guide
     url: AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
   tags:
-    product_categories: {'Database'}
+    product_categories: {'Databases'}
   version: rds-2014-10-31
   api_ref: AmazonRDS/latest/APIReference/Welcome.html
 auto-scaling:
@@ -255,7 +255,7 @@ comprehend:
     url: comprehend/latest/dg/what-is.html
   api_ref: comprehend/latest/APIReference/welcome.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: comprehend-2017-11-27
 config-service:
   long: '&CClong;'
@@ -301,7 +301,7 @@ dynamodb:
     url: amazondynamodb/latest/developerguide/Introduction.html
   api_ref: amazondynamodb/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Database'}
+    product_categories: {'Databases'}
   version: dynamodb-2012-08-10
 ebs:
   long: '&EBSlong; (&EBS;)'
@@ -487,7 +487,7 @@ iot:
     url: iot/latest/developerguide/what-is-aws-iot.html
   api_ref: iot/latest/apireference/Welcome.html
   tags:
-    product_categories: {'Internet of Things (IoT)'}
+    product_categories: {'IoT'}
   version: iot-2015-05-28
 keyspaces:
   long: '&KEYlong;'
@@ -502,7 +502,7 @@ keyspaces:
     url: keyspaces/latest/devguide/what-is-keyspaces.html
   api_ref: keyspaces/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Database'}
+    product_categories: {'Databases'}
   version: keyspaces-2022-02-10
 kinesis:
   long: '&AKlong;'
@@ -547,7 +547,7 @@ kms:
     url: kms/latest/developerguide/overview.html
   api_ref: kms/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Cryptography &amp; PKI'}
+    product_categories: {'Security, Identity, &amp; Compliance'}
   version: kms-2014-11-01
 lambda:
   long: '&LAMlong;'
@@ -577,7 +577,7 @@ lex:
     url: lexv2/latest/dg/what-is.html
   api_ref: lexv2/latest/APIReference/welcome.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: runtime.lex.v2-2020-08-07
 lookoutvision:
   long: '&LYRAlong;'
@@ -592,8 +592,23 @@ lookoutvision:
     url: lookout-for-vision/latest/developer-guide/what-is.html
   api_ref: lookout-for-vision/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: lookoutvision-2020-11-20
+mediaconvert:
+  long: '&EMClong;'
+  short: '&EMC;'
+  sort: MediaConvert
+  expanded:
+    long: AWS Elemental MediaConvert
+    short: MediaConvert
+  blurb: is a service that formats and compresses offline video content for delivery to televisions or connected devices.
+  guide:
+    subtitle: User Guide
+    url: mediaconvert/latest/ug/what-is.html
+  api_ref: mediaconvert/latest/apireference/custom-endpoints.html
+  tags:
+    product_categories: {'Media Services'}
+  version: mediaconvert-2017-08-29
 medialive:
   long: '&EMLlong;'
   short: '&EML;'
@@ -652,7 +667,7 @@ personalize:
     url: personalize/latest/dg/what-is-personalize.html
   api_ref: personalize/latest/dg/API_Reference.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: personalize-2018-05-22
 personalize-runtime:
   long: "&PERSRlong;"
@@ -667,7 +682,7 @@ personalize-runtime:
     url: personalize/latest/dg/what-is-personalize.html
   api_ref: personalize/latest/dg/API_Operations_Amazon_Personalize_Runtime.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: personalize-runtime-2018-05-22
 personalize-events:
   long: "&PERSElong;"
@@ -682,7 +697,7 @@ personalize-events:
     url: personalize/latest/dg/what-is-personalize.html
   api_ref: personalize/latest/dg/API_Operations_Amazon_Personalize_Events.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: personalize-events-2018-03-22
 pinpoint:
   bundle: pinpoint
@@ -744,7 +759,7 @@ polly:
     url: polly/latest/dg/what-is.html
   api_ref: polly/latest/dg/API_Reference.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: polly-2016-06-10
 qldb:
   long: '&QLDBlong; (&QLDB;)'
@@ -759,7 +774,7 @@ qldb:
     url: qldb/latest/developerguide/what-is.html
   api_ref: qldb/latest/developerguide/api-reference.html
   tags:
-    product_categories: {'Database'}
+    product_categories: {'Databases'}
   version: qldb-2019-01-02
 rds:
   long: '&RDSlong; (&RDS;)'
@@ -774,7 +789,7 @@ rds:
     url: AmazonRDS/latest/UserGuide/Welcome.html
   api_ref: AmazonRDS/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Database'}
+    product_categories: {'Databases'}
   version: rds-2014-10-31
 rds-data:
   long: '&RDSDataServicelong;'
@@ -789,7 +804,7 @@ rds-data:
     url: AmazonRDS/latest/UserGuide/Welcome.html
   api_ref: rdsdataservice/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Database'}
+    product_categories: {'Databases'}
   version: rds-data-2018-08-01
 redshift:
   long: '&RSlong;'
@@ -805,7 +820,7 @@ redshift:
     url: redshift/latest/mgmt/welcome.html
   api_ref: redshift/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Database'}
+    product_categories: {'Databases'}
   version: redshift-2012-12-01
 rekognition:
   caveat: The code examples in this chapter are intended to supplement the code examples
@@ -822,7 +837,7 @@ rekognition:
     url: rekognition/latest/dg/what-is.html
   api_ref: rekognition/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: rekognition-2016-06-27
 route-53:
   bundle: route-53
@@ -899,7 +914,7 @@ sagemaker:
     url: sagemaker/latest/dg/whatis.html
   api_ref: sagemaker/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: sagemaker-2017-07-24
 secrets-manager:
   long: '&ASMlong;'
@@ -1053,7 +1068,7 @@ support:
     url: awssupport/latest/user/getting-started.html
   api_ref: support/latest/APIReference/welcome.html
   tags:
-    product_categories: {'Customer Enablement Services'}
+    product_categories: {'Contact Center'}
   version: support-2013-04-15
 textract:
   long: '&TEXTRACTlong;'
@@ -1068,7 +1083,7 @@ textract:
     url: textract/latest/dg/what-is.html
   api_ref: textract/latest/dg/API_Reference.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: textract-2018-06-27
 transcribe:
   long: '&TSClong;'
@@ -1083,7 +1098,7 @@ transcribe:
     url: transcribe/latest/dg/what-is.html
   api_ref: transcribe/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: transcribe-2017-10-26
 transcribe-medical:
   long: '&TSClong;'
@@ -1099,7 +1114,7 @@ transcribe-medical:
     url: transcribe/latest/dg/transcribe-medical.html
   api_ref: transcribe/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: transcribe-2017-10-26
 translate:
   long: '&TSLlong;'
@@ -1114,5 +1129,5 @@ translate:
     url: translate/latest/dg/what-is.html
   api_ref: translate/latest/APIReference/welcome.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: translate-2017-07-01

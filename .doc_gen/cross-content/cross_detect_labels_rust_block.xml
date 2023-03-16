@@ -6,7 +6,7 @@
 <block>
   <para>
     Get EXIF information from a JPG, JPEG, or PNG file,
-    upload the image file to an &S3long; bucket,
+    upload the image file to an &S3; bucket,
     use &REKlong; to identify the three top attributes (<emphasis>labels</emphasis> in &REK;) in the file,
     and add the EXIF and label information to a &DDBlong; table in the Region.
   </para>

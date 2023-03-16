@@ -2,7 +2,7 @@
 aurora_Hello:
   title: Hello &AUR;
   title_abbrev: Hello &AUR;
-  synopsis: get started using &AURlong;.
+  synopsis: get started using &AUR;.
   category: Hello
   languages:
     .NET:

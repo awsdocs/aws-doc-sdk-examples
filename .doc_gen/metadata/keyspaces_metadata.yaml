@@ -1,7 +1,7 @@
 keyspaces_Hello:
   title: Hello &KEY;
   title_abbrev: Hello &KEY;
-  synopsis: get started using &KEYlong;.
+  synopsis: get started using &KEY;.
   category: Hello
   languages:
     .NET:

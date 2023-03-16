@@ -2,7 +2,7 @@
 route-53_Hello:
   title: Hello &R53DR;
   title_abbrev: Hello &R53DR;
-  synopsis: get started using &R53DRlong;.
+  synopsis: get started using &R53DR;.
   category: Hello
   languages:
     Kotlin:

@@ -1,7 +1,7 @@
 ec2_Hello:
   title: Hello &EC2;
   title_abbrev: Hello &EC2;
-  synopsis: get started using &EC2long; (&EC2;).
+  synopsis: get started using &EC2;.
   category: Hello
   languages:
     .NET:
