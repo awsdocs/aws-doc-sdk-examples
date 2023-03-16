@@ -23,7 +23,9 @@ Code excerpts that show you how to call individual service functions.
   (`CreateTable`)
 * [Add an item to a table](./basics/MovieList/MovieTable.swift) (`PutItem`)
 * [Update an item](./basics/MovieList/MovieTable.swift) (`UpdateItem`)
-* [Add the contents of a JSON file to a table](./basics/MovieList/MovieTable.swift) (`BatchWriteItem`)
+* [Add the contents of a JSON file to a
+  table](./basics/MovieList/MovieTable.swift) (`BatchWriteItem`)
+* [Get multiple items by key](./BatchGetItem/Sources/MovieDatabase.swift) (`BatchGetItem`)
 * [Get an item by key](./basics/MovieList/MovieTable.swift) (`GetItem`)
 * [Delete an item by key](./basics/MovieList/MovieTable.swift) (`DeleteItem`)
 * [Query a table](./basics/MovieList/MovieTable.swift) (`Query`)
