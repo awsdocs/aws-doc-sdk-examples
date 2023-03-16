@@ -34,9 +34,6 @@ import java.util.Scanner
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class StepFunctionsKotlinTest {
-
-    private var stateMachineArn = "" // Gets dynamically set in a test.
-    private var exeArn = "" // Gets dynamically set in a test.
     private var jsonFile = ""
     private var jsonFileSM = ""
     private var roleARN = ""
@@ -47,7 +44,6 @@ class StepFunctionsKotlinTest {
 
     @BeforeAll
     fun setup() {
-
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties") as InputStream
         val prop = Properties()
 
