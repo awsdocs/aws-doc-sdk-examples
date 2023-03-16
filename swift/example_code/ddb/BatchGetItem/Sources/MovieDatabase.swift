@@ -3,6 +3,7 @@
 /// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 /// SPDX-License-Identifier: Apache-2.0
 
+// snippet-start:[ddb.swift.batchgetitem.moviedatabase]
 import Foundation
 import AWSDynamoDB
 
@@ -29,7 +30,6 @@ enum MovieError: Error {
 }
 // snippet-end:[ddb.swift.batchgetitem.movieerror]
 
-// snippet-start:[ddb.swift.batchgetitem.moviedatabase]
 /// A class used to access the movies in a DynamoDB database.
 public class MovieDatabase {
     let tableName: String

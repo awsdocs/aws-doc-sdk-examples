@@ -17,8 +17,6 @@ public struct Info: Codable {
 }
 // snippet-end:[ddb.swift.batchgetitem.info]
 
-
-// snippet-start:[ddb.swift.batchgetitem.movie]
 public struct Movie: Codable {
     /// The year in which the movie was released.
     var year: Int
