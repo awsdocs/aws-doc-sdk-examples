@@ -14,57 +14,59 @@
  *
  **/
 
-//snippet-start:[ec2.cpp.delete_security_group.inc]
 #include <aws/core/Aws.h>
 #include <aws/ec2/EC2Client.h>
-#include <aws/ec2/model/DeleteSecurityGroupRequest.h>
+#include <aws/ec2/model/TerminateInstancesRequest.h>
 #include <iostream>
-//snippet-end:[ec2.cpp.delete_security_group.inc]
 #include "ec2_samples.h"
 
-//! Delete a security group.
+//! Terminate an Amazon Elastic Compute Cloud (Amazon EC2) instance.
 /*!
-  \sa DeleteSecurityGroup()
-  \param securityGroupID: A security group ID.
+  \sa TerminateInstances()
+  \param instanceID: An EC2 instance ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::EC2::DeleteSecurityGroup(const Aws::String &securityGroupID,
-                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
-    //snippet-start:[ec2.cpp.delete_security_group.code]
+bool AwsDoc::EC2::TerminateInstances(const Aws::String &instanceID,
+                                     const Aws::Client::ClientConfiguration &clientConfiguration) {
+// snippet-start:[cpp.example_code.ec2.TerminateInstances]
     Aws::EC2::EC2Client ec2Client(clientConfiguration);
-    Aws::EC2::Model::DeleteSecurityGroupRequest request;
 
-    request.SetGroupId(securityGroupID);
-    auto outcome = ec2Client.DeleteSecurityGroup(request);
+    Aws::EC2::Model::TerminateInstancesRequest request;
+    request.SetInstanceIds({instanceID});
 
-    if (!outcome.IsSuccess()) {
-        std::cerr << "Failed to delete security group " << securityGroupID <<
-                  ":" << outcome.GetError().GetMessage() << std::endl;
+    Aws::EC2::Model::TerminateInstancesOutcome outcome =
+            ec2Client.TerminateInstances(request);
+    if (outcome.IsSuccess()) {
+        std::cout << "Ec2 instance '" << instanceID <<
+                  "' was terminated." << std::endl;
     }
     else {
-        std::cout << "Successfully deleted security group " << securityGroupID <<
-                  std::endl;
+        std::cerr << "Failed to terminate ec2 instance " << instanceID <<
+                  ", " <<
+                  outcome.GetError().GetMessage() << std::endl;
+        return false;
     }
-    //snippet-end:[ec2.cpp.delete_security_group.code]
+// snippet-end:[cpp.example_code.ec2.TerminateInstances]
 
     return outcome.IsSuccess();
 }
 
 /*
+ *
  *  main function
  *
- *  Usage: 'run_delete_security_group <group_id>'
+ *  Usage: 'run_terminate_instances <instance_name>'
  *
- * Prerequisites: A security group to delete.
+ *  Prerequisites: An EC2 instance to terminate.
  *
-*/
+ */
 
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        std::cout << "run_delete_security_group <group_id>"
+        std::cout << "Usage: run_terminate_instances <instance_id>"
                   << std::endl;
         return 1;
     }
@@ -75,12 +77,11 @@ int main(int argc, char **argv) {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        Aws::String groupID = argv[1];
-        AwsDoc::EC2::DeleteSecurityGroup(groupID, clientConfig);
+        Aws::String instanceID = argv[1];
+        AwsDoc::EC2::TerminateInstances(instanceID, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
 
 #endif // TESTING_BUILD
-
