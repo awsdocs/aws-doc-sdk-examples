@@ -28,12 +28,12 @@ namespace PartiQL_Basics_Scenario
                     new AttributeDefinition
                     {
                         AttributeName = "title",
-                        AttributeType = "S",
+                        AttributeType = ScalarAttributeType.S,
                     },
                     new AttributeDefinition
                     {
                         AttributeName = "year",
-                        AttributeType = "N",
+                        AttributeType = ScalarAttributeType.N,
                     },
                 },
                 KeySchema = new List<KeySchemaElement>()
@@ -41,12 +41,12 @@ namespace PartiQL_Basics_Scenario
                     new KeySchemaElement
                     {
                         AttributeName = "year",
-                        KeyType = "HASH",
+                        KeyType = KeyType.HASH,
                     },
                     new KeySchemaElement
                     {
                         AttributeName = "title",
-                        KeyType = "RANGE",
+                        KeyType = KeyType.RANGE,
                     },
                 },
                 ProvisionedThroughput = new ProvisionedThroughput
