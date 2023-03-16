@@ -3,6 +3,7 @@ import { Code, Function, Runtime } from "aws-cdk-lib/aws-lambda";
 import { CfnSchema } from "aws-cdk-lib/aws-eventschemas";
 import { Construct } from "constructs";
 import { PamBuckets, PamTables } from "./resources";
+import { Topic } from "aws-cdk-lib/aws-sns";
 
 export interface PamLambdasStrategyHandlers {
   detectLabels: string;
@@ -26,6 +27,7 @@ export interface PamLambdasProps {
   buckets: PamBuckets;
   tables: PamTables;
   strategy: PamLambdasStrategy;
+  topic: Topic;
 }
 
 export class PamLambda extends Construct {
@@ -38,6 +40,7 @@ export class PamLambda extends Construct {
       LABELS_TABLE_NAME: props.tables.labels.tableName,
       STORAGE_BUCKET_NAME: props.buckets.storage.bucketName,
       WORKING_BUCKET_NAME: props.buckets.working.bucketName,
+      NOTIFICATION_TOPIC: props.topic.topicArn,
     };
 
     const code = props.strategy.codeAsset();
@@ -53,21 +56,17 @@ export class PamLambda extends Construct {
       });
 
     const detectLabels = makeLambda("DetectLabelsFn", handlers.detectLabels);
-    // const zipArchive = makeLambda("ZipArchiveFn", handlers.zipArchive);
     const labels = makeLambda("LabelsFn", handlers.labels);
     const upload = makeLambda("UploadFn", handlers.upload);
     const copy = makeLambda("CopyFn", handlers.copy);
     const download = makeLambda("DowloadFn", handlers.download);
-    // const archive = makeLambda("ArchiveFn", handlers.archive);
 
     this.fns = {
       detectLabels,
-      // zipArchive,
       labels,
       upload,
       copy,
       download,
-      // archive,
     };
   }
 

@@ -20,6 +20,7 @@ export class PamBuckets extends Construct {
       },
     ],
   });
+
   readonly working = new Bucket(this, "working-bucket", {
     removalPolicy: RemovalPolicy.DESTROY,
     autoDeleteObjects: true,

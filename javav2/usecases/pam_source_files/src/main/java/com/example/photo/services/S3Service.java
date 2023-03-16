@@ -18,8 +18,6 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
-import software.amazon.awssdk.services.s3control.S3ControlClient;
-import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Duration;
@@ -45,10 +43,6 @@ public class S3Service {
 
         GetObjectTaggingResponse response = s3.getObjectTagging(request);
         return response.tagSet();
-    }
-
-    private boolean hasBeenRekognized(String keyName) {
-        return tagsHasRekognized(getObjectTags(PhotoApplicationResources.STORAGE_BUCKET, keyName));
     }
 
     public static boolean tagsHasRekognized(Collection<Tag> tags) {

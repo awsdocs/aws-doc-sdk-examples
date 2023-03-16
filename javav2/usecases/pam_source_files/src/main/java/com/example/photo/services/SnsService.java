@@ -41,15 +41,15 @@ public class SnsService {
 
     public void subTextSNS(String phoneNumber, String presignedURL) {
         try {
-            String message = "Your Archived images can be located here "+presignedURL;
+            String message = "Your Archived images can be located here " + presignedURL;
             PublishRequest request = PublishRequest.builder()
-                .message(message)
-                .phoneNumber(phoneNumber)
-                .build();
+                    .message(message)
+                    .phoneNumber(phoneNumber)
+                    .build();
 
             PublishResponse result = getClient().publish(request);
-            System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
-
+            System.out
+                    .println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -57,13 +57,13 @@ public class SnsService {
         }
     }
 
-    public String pubTopic(String message) {
+    public PublishResponse pubTopic(String message) {
         PublishRequest request = PublishRequest.builder()
-            .message(message)
-            .topicArn(PhotoApplicationResources.topicARN)
-            .build();
+                .message(message)
+                .topicArn(PhotoApplicationResources.topicARN)
+                .build();
 
         PublishResponse result = getClient().publish(request);
-        return "Message sent. Status was " + result.sdkHttpResponse().statusCode();
+        return result;
     }
 }
