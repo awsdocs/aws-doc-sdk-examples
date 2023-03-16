@@ -43,14 +43,14 @@ namespace AwsDocTest {
     }
 
     const std::vector<std::string> RESPONSES = {"1", // Which family do you want to use?
-                                                "3", // Enter a new value in the range 1-65535:
-                                                "2", // Enter a new value in the range 1-65535:
+                                                "3", // Enter a new value between 1-65535:
+                                                "2", // Enter a new value between 1-65535:
                                                 "foo", // Enter an administrator username for the database:
                                                 "foo_Foo8", // Enter a password for the administrator (at least 8 characters):
                                                 "1", // The available engines for your parameter group are:
                                                 "1", // Which DB instance class do you want to use?
                                                 "y", // Do you want to create a snapshot of your DB cluster (y/n)?
-                                                "y"}; // Do you want to delete the DB cluster, DB instance and parameter group (y/n)?
+                                                "y"}; // Do you want to delete the DB cluster, DB instance, and parameter group (y/n)?
 
     bool addHttpResponses(MockHTTP &mockHttp) {
         if (!mockHttp.addResponseWithBody(

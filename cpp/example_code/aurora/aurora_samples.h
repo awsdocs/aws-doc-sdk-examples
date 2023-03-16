@@ -9,8 +9,9 @@
 
 namespace AwsDoc {
     namespace Aurora {
-        //! Routine which creates an Amazon Relational Database Service (Amazon Aurora)
-        //! cluster and demonstrates several operations on that cluster.
+        //! Routine which creates an Amazon Aurora DB cluster and demonstrates several
+        //! operations on that cluster. Aurora is part of Amazon Relational Database
+        //! Service (Amazon RDS).
         /*!
          \sa gettingStartedWithDBClusters()
          \param clientConfiguration: AWS client configuration.

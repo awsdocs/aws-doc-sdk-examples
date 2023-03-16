@@ -14,8 +14,8 @@
  *
  * Purpose
  *
- * Demonstrates creating an Amazon Relational Database Service (Amazon Aurora)
- * cluster and optionally creating a snapshot of the cluster.
+ * Demonstrates creating an Aurora DB cluster, and optionally creating a snapshot of the cluster.
+ * Aurora is part of Amazon Relational Database Service (Amazon RDS).
  *
  * 1.  Check if the DB cluster parameter group already exists. (DescribeDBClusterParameterGroups)
  * 2.  Get available parameter group families for the specified engine. (DescribeDBEngineVersions)
@@ -25,7 +25,7 @@
  * 6.  Display the modified parameters in the DB cluster parameter group. (DescribeDBClusterParameters)
  * 7.  Check if the DB cluster already exists. (DescribeDBClusters)
  * 8.  Get a list of engine versions for the parameter group family. (DescribeDBEngineVersions)
- * 9.  Create an Aurora database cluster. (CreateDBCluster)
+ * 9.  Create an Aurora DB cluster. (CreateDBCluster)
  * 10. Wait for the DB cluster to become available. (DescribeDBClusters)
  * 11. Check if the DB instance already exists. (DescribeDBInstances)
  * 12. Get a list of instance classes. (DescribeOrderableDBInstanceOptions)
@@ -79,7 +79,8 @@ namespace AwsDoc {
         const Aws::String NO_SOURCE;
         const Aws::String NO_PARAMETER_GROUP_FAMILY;
 
-        //! Routine which gets DB cluster parameters using the 'DescribeDBClusterParameters' api.
+        //! Routine which gets DB cluster parameters using the 'DescribeDBClusterParameters'
+        //! API operation.
         /*!
          \sa getDBCLusterParameters()
          \param parameterGroupName: The parameter group name.
@@ -249,7 +250,7 @@ namespace AwsDoc {
 } // AwsDoc
 
 // snippet-start:[cpp.example_code.aurora.get_started_clusters]
-//! Routine which creates an Amazon Aurora cluster and demonstrates several operations
+//! Routine which creates an Amazon Aurora DB cluster and demonstrates several operations
 //! on that cluster.
 /*!
  \sa gettingStartedWithDBClusters()
@@ -384,7 +385,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
                     autoIncParameter.GetAllowedValues(), '-');
             if (splitValues.size() == 2) {
                 int newValue = askQuestionForIntRange(
-                        Aws::String("Enter a new value in the range ") +
+                        Aws::String("Enter a new value between ") +
                         autoIncParameter.GetAllowedValues() + ": ",
                         splitValues[0], splitValues[1]);
                 autoIncParameter.SetParameterValue(std::to_string(newValue));
@@ -735,7 +736,7 @@ bool AwsDoc::Aurora::gettingStartedWithDBClusters(
 
     bool result = true;
     if (askYesNoQuestion(
-            "Do you want to delete the DB cluster, DB instance and parameter group (y/n)? ")) {
+            "Do you want to delete the DB cluster, DB instance, and parameter group (y/n)? ")) {
         result = cleanUpResources(CLUSTER_PARAMETER_GROUP_NAME,
                                   DB_CLUSTER_IDENTIFIER, DB_INSTANCE_IDENTIFIER,
                                   client);

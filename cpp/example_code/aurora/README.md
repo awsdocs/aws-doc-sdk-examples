@@ -8,7 +8,8 @@ Shows how to use the AWS SDK for C++ to work with Amazon Aurora (Aurora).
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-*Aurora is a fully managed relational database engine that's built for the cloud and compatible with MySQL and PostgreSQL. Amazon Aurora is part of Amazon RDS.*
+*Aurora is a fully managed relational database engine that's built for the cloud and compatible with MySQL and PostgreSQL. 
+Aurora is part of Amazon Relational Database Service (Amazon RDS).*
 
 ## ⚠ Important
 
