@@ -301,7 +301,6 @@ public class S3Service {
                     .build();
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
-            String myURL = presignedRequest.url().toString();
             return presignedRequest.url().toString();
 
         } catch (S3Exception e) {

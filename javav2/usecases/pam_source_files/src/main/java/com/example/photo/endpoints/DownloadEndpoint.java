@@ -23,10 +23,10 @@ public class DownloadEndpoint {
         this.snsService = snsService;
     }
 
-    public String download(String notify, List<String> tags) {
+    public String download(List<String> labels) {
         try {
             // Now we have an image list, place them into a ZIP and presign it.
-            Set<String> images = tags.stream().parallel().flatMap(this::imagesByTag).collect(Collectors.toSet());
+            Set<String> images = labels.stream().parallel().flatMap(this::imagesByTag).collect(Collectors.toSet());
             Map<String, byte[]> imageMap = new HashMap<>();
 
             for (String imageName : images) {

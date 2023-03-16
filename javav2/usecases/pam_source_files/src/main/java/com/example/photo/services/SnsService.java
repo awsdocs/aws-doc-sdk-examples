@@ -1,6 +1,5 @@
 package com.example.photo.services;
 
-import com.example.photo.Job;
 import com.example.photo.PhotoApplicationResources;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -11,7 +10,6 @@ import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.PublishResponse;
 import software.amazon.awssdk.services.sns.model.SnsException;
 import software.amazon.awssdk.services.sns.model.SubscribeRequest;
-import software.amazon.awssdk.services.sns.model.SubscribeResponse;
 
 @Component
 public class SnsService {
@@ -60,7 +58,7 @@ public class SnsService {
     public PublishResponse pubTopic(String message) {
         PublishRequest request = PublishRequest.builder()
                 .message(message)
-                .topicArn(PhotoApplicationResources.topicARN)
+                .topicArn(PhotoApplicationResources.TOPIC_ARN)
                 .build();
 
         PublishResponse result = getClient().publish(request);
