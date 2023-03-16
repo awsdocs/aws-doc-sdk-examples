@@ -6,7 +6,8 @@ using System.Net;
 namespace IamScenariosCommon;
 
 /// <summary>
-/// A class to perform S3 actions for the IAM Basics scenario.
+/// A class to perform Amazon Simple Storage Service (Amazon S3) actions for
+/// the IAM Basics scenario.
 /// </summary>
 public class S3Wrapper
 {
@@ -17,7 +18,7 @@ public class S3Wrapper
     /// Constructor for the S3Wrapper class.
     /// </summary>
     /// <param name="s3Service">An Amazon S3 client object.</param>
-    /// <param name="stsService">An  AWS Security Token Service (AWS STS)
+    /// <param name="stsService">An AWS Security Token Service (AWS STS)
     /// client object.</param>
     public S3Wrapper(IAmazonS3 s3Service, IAmazonSecurityTokenService stsService)
     {
@@ -27,7 +28,8 @@ public class S3Wrapper
 
     // snippet.start:[STS.dotnetv3.AssumeS3Role]
     /// <summary>
-    /// Assumes an IAM role that allows S3 access for the current session.
+    /// Assumes an AWS Identity and Access Management (IAM) role that allows
+    /// Amazon S3 access for the current session.
     /// </summary>
     /// <param name="roleSession">A string representing the current session.</param>
     /// <param name="roleToAssume">The name of the IAM role to assume.</param>
@@ -49,9 +51,9 @@ public class S3Wrapper
     // snippet.end:[STS.dotnetv3.AssumeS3Role]
 
     /// <summary>
-    /// Delete an Amazon S3 bucket.
+    /// Delete an S3 bucket.
     /// </summary>
-    /// <param name="bucketName">Name of the Amazon S3 bucket to delete.</param>
+    /// <param name="bucketName">Name of the S3 bucket to delete.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeleteBucketAsync(string bucketName)
     {
@@ -62,7 +64,7 @@ public class S3Wrapper
     /// <summary>
     /// List the buckets that are owned by the user's account.
     /// </summary>
-    /// <returns>Async Task</returns>
+    /// <returns>Async Task.</returns>
     public async Task<List<S3Bucket>?> ListMyBucketsAsync()
     {
         try
@@ -81,10 +83,10 @@ public class S3Wrapper
     }
 
     /// <summary>
-    /// Create a new Amazon S3 bucket.
+    /// Create a new S3 bucket.
     /// </summary>
     /// <param name="bucketName">The name for the new bucket.</param>
-    /// <returns>A Boolean value indicated whether the action completed
+    /// <returns>A Boolean value indicating whether the action completed
     /// successfully.</returns>
     public async Task<bool> PutBucketAsync(string bucketName)
     {
@@ -95,8 +97,7 @@ public class S3Wrapper
     /// <summary>
     /// Update the client objects with new client objects. This is available
     /// because the scenario uses the methods of this class without and then
-    /// with the proper permissions to list Amazon Simple Storage Service
-    /// (Amazon S3) buckets.
+    /// with the proper permissions to list S3 buckets.
     /// </summary>
     /// <param name="s3Service">The Amazon S3 client object.</param>
     /// <param name="stsService">The AWS STS client object.</param>

@@ -10,7 +10,7 @@ public class IAMGroups
 {
     private static ILogger logger = null!;
 
-    // Represents json code for AWS full access policy for Amazon Simple
+    // Represents JSON code for AWS full access policy for Amazon Simple
     // Storage Service (Amazon S3).
     private const string S3FullAccessPolicyDocument = "{" +
         "	\"Statement\" : [{" +
@@ -23,7 +23,7 @@ public class IAMGroups
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the Amazon service.
+        // Set up dependency injection for the AWS service.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)
@@ -62,7 +62,7 @@ public class IAMGroups
         Console.WriteLine("Let's begin by creating a new IAM group.");
         var group = await wrapper.CreateGroupAsync(groupName);
 
-        // Add an inline IAM policy it to the group.
+        // Add an inline IAM policy to the group.
         uiWrapper.DisplayTitle("Add policy to group");
         Console.WriteLine("Add an inline policy to the group that allows members to have full access to");
         Console.WriteLine("Amazon Simple Storage Service (Amazon S3) buckets.");
@@ -92,7 +92,7 @@ public class IAMGroups
         uiWrapper.WaitABit(15, "Waiting for the access key to be ready for use.");
 
         uiWrapper.DisplayTitle("List buckets");
-        Console.WriteLine("To prove that the user has access to Amazon S3, list the Amazon S3 buckets for the account.");
+        Console.WriteLine("To prove that the user has access to Amazon S3, list the S3 buckets for the account.");
 
         var s3Client = new AmazonS3Client(accessKey.AccessKeyId, accessKey.SecretAccessKey);
         var stsClient = new AmazonSecurityTokenServiceClient(accessKey.AccessKeyId, accessKey.SecretAccessKey);
@@ -122,7 +122,7 @@ public class IAMGroups
 
         uiWrapper.PressEnter();
 
-        Console.WriteLine("Let's list the user's Amazon S3 buckets again to show the new bucket.");
+        Console.WriteLine("Let's list the user's S3 buckets again to show the new bucket.");
 
         buckets = await s3Wrapper.ListMyBucketsAsync();
 

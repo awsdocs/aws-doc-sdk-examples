@@ -8,7 +8,8 @@ public class HelloIAM
 {
     static async Task Main(string[] args)
     {
-        // Getting started with IAM. List the policies for the account.
+        // Getting started with AWS Identity and Access Management (IAM). List
+        // the policies for the account.
         var iamClient = new AmazonIdentityManagementServiceClient();
 
         var listPoliciesPaginator = iamClient.Paginators.ListPolicies(new ListPoliciesRequest());

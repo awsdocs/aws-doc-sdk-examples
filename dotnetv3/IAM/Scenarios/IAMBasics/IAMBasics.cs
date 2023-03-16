@@ -13,7 +13,7 @@ public class IAMBasics
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for the Amazon service.
+        // Set up dependency injection for the AWS service.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)
@@ -122,7 +122,7 @@ public class IAMBasics
 
         uiWrapper.PressEnter();
 
-        // Create a policy with permissions to list S3 buckets
+        // Create a policy with permissions to list S3 buckets.
         uiWrapper.DisplayTitle("Create IAM policy");
         Console.WriteLine($"Creating the policy: {s3PolicyName}");
         Console.WriteLine("with permissions to list the Amazon S3 buckets for the account.");

@@ -68,7 +68,7 @@ public class UIWrapper
     }
 
     /// <summary>
-    /// Display a line of hyphens, the centered text of the title and another
+    /// Display a line of hyphens, the centered text of the title, and another
     /// line of hyphens.
     /// </summary>
     /// <param name="strTitle">The string to be displayed.</param>

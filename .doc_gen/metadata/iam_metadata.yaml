@@ -2957,7 +2957,7 @@ iam_DeleteGroup:
 iam_DeleteGroupPolicy:
   title: Delete an &IAM; group policy using an &AWS; SDK
   title_abbrev: Delete a group policy
-  synopsis: delete an &IAM group policy.
+  synopsis: delete an &IAM; group policy.
   category:
   languages:
     .NET:

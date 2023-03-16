@@ -73,7 +73,8 @@ namespace IAMActions.Tests
                 "}]" +
             "}";
 
-            // Permissions for full access to S3.
+            // Permissions for full access to Amazon Simple Storage Service
+            // (Amazon S3).
             _s3FullAccessPolicyDocument = "{" +
                     "	\"Statement\" : [{" +
                     "	\"Action\" : [\"s3:*\"]," +
@@ -98,7 +99,7 @@ namespace IAMActions.Tests
 
         /// <summary>
         /// Test the call to retrieve the account's password policy. This test
-        /// is marked as "Quarantine because it is possible that an account
+        /// is marked as "Quarantine" because it is possible that an account
         /// doesn't have a password policy.
         /// </summary>
         /// <returns>Async Task.</returns>
@@ -111,8 +112,8 @@ namespace IAMActions.Tests
         }
 
         /// <summary>
-        /// Test the call to create an IAM group. The resulting group object
-        /// should not be null.
+        /// Test the call to create an AWS Identity and Access Management (IAM)
+        /// group. The resulting group object should not be null.
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
@@ -219,13 +220,13 @@ namespace IAMActions.Tests
         [Trait("Category", "Integration")]
         public async Task CreateServiceLinkedRoleAsyncTest()
         {
-            // Create the service-linked role for Elastic Beanstalk.
+            // Create the service-linked role for AWS Elastic Beanstalk.
             var serviceName = "elasticbeanstalk.amazonaws.com";
             var description = "A role created for testing IAMWrapper methods.";
             var role = await _iamWrapper.CreateServiceLinkedRoleAsync(serviceName, description);
             Assert.NotNull(role);
 
-            // Now clean up
+            // Now clean up.
             await _iamService.DeleteServiceLinkedRoleAsync(new DeleteServiceLinkedRoleRequest
             { RoleName = role.RoleName });
         }
@@ -245,7 +246,7 @@ namespace IAMActions.Tests
         }
 
         /// <summary>
-        /// Test the gall to add an IAM policy to a group. Success should
+        /// Test the call to add an IAM policy to a group. Success should
         /// be true.
         /// </summary>
         /// <returns>Async Task.</returns>
@@ -310,7 +311,7 @@ namespace IAMActions.Tests
         }
 
         /// <summary>
-        /// Tests the call to list users. The list returned by t he call should
+        /// Tests the call to list users. The list returned by the call should
         /// contain at least one IAM user.
         /// </summary>
         /// <returns>Async Task.</returns>
@@ -338,7 +339,7 @@ namespace IAMActions.Tests
         }
 
         /// <summary>
-        /// Tests the call to create an IAM access key for a user. The retured
+        /// Tests the call to create an IAM access key for a user. The returned
         /// key should not be null.
         /// </summary>
         /// <returns>Async Task.</returns>
@@ -455,9 +456,9 @@ namespace IAMActions.Tests
         }
 
         /// <summary>
-        /// Tests the call to delete a user. Once the call returns, the test
+        /// Tests the call to delete a user. After the call returns, the test
         /// proves that the user no longer exists by attempting to get
-        /// information about the user. This should raise an exception since
+        /// information about the user. This should raise an exception because,
         /// if properly deleted, the user no longer exists.
         /// </summary>
         /// <returns>Async Task.</returns>
@@ -469,8 +470,8 @@ namespace IAMActions.Tests
             // Delete the user.
             var success = await _iamWrapper.DeleteUserAsync(_userName);
 
-            // Make sure that the user now longer exists. If the user has
-            // been deleted, a call to GetUserAsync will raise a NotSuchEntityException.
+            // Make sure that the user no longer exists. If the user has
+            // been deleted, a call to GetUserAsync will raise a NoSuchEntityException.
             var iamException = await Record.ExceptionAsync(() =>
                 _iamService.GetUserAsync(new GetUserRequest { UserName = _userName }));
             Assert.NotNull(iamException);

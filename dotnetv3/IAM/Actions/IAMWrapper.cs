@@ -41,10 +41,10 @@ public class IAMWrapper
 
     // snippet-start:[IAM.dotnetv3.AttachRolePolicy]
     /// <summary>
-    /// Attach an AWS Identity Management policy to a role.
+    /// Attach an IAM policy to a role.
     /// </summary>
     /// <param name="policyArn">The policy to attach.</param>
-    /// <param name="roleName">The role to which the policy will be attached.</param>
+    /// <param name="roleName">The role that the policy will be attached to.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> AttachRolePolicyAsync(string policyArn, string roleName)
     {
@@ -137,10 +137,10 @@ public class IAMWrapper
 
     // snippet-start:[IAM.dotnetv3.CreateServiceLinkedRole]
     /// <summary>
-    /// Create an IAM service linked role.
+    /// Create an IAM service-linked role.
     /// </summary>
-    /// <param name="serviceName">The name of the Amazon Service.</param>
-    /// <param name="description">A description of the IAM service linked role.</param>
+    /// <param name="serviceName">The name of the AWS Service.</param>
+    /// <param name="description">A description of the IAM service-linked role.</param>
     /// <returns>The IAM role that was created.</returns>
     public async Task<Role> CreateServiceLinkedRoleAsync(string serviceName, string description)
     {
@@ -378,7 +378,7 @@ public class IAMWrapper
     /// <summary>
     /// Get information about an IAM user.
     /// </summary>
-    /// <param name="userName">The user name of the user.</param>
+    /// <param name="userName">The username of the user.</param>
     /// <returns>An IAM user object.</returns>
     public async Task<User> GetUserAsync(string userName)
     {
@@ -392,7 +392,7 @@ public class IAMWrapper
     /// <summary>
     /// List the IAM role policies that are attached to an IAM role.
     /// </summary>
-    /// <param name="roleName">The IAM role we want to list IAM policies for.</param>
+    /// <param name="roleName">The IAM role to list IAM policies for.</param>
     /// <returns>A list of the IAM policies attached to the IAM role.</returns>
     public async Task<List<AttachedPolicyType>> ListAttachedRolePoliciesAsync(string roleName)
     {
