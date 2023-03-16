@@ -15,12 +15,12 @@ import aws.sdk.kotlin.services.sfn.model.ListActivitiesRequest
 // snippet-end:[stepfunctions.kotlin.list_activities.import]
 
 /**
-Before running this Kotlin code example, set up your development environment,
-including your credentials.
+ Before running this Kotlin code example, set up your development environment,
+ including your credentials.
 
-For more information, see the following documentation topic:
-https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
- */
+ For more information, see the following documentation topic:
+ https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+*/
 
 suspend fun main() {
     listAllActivites()
