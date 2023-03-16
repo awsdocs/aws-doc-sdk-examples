@@ -143,8 +143,9 @@ class StepFunctionsKotlinTest {
             println("ChatSFN: " + myList[1])
             println("$userName please specify a value.")
             val myAction = sc.nextLine()
-            if (myAction.compareTo("done") == 0)
+            if (myAction.compareTo("done") == 0) {
                 action = true
+            }
             println("You have selected $myAction")
             val taskJson = "{ \"action\" : \"$myAction\" }"
             println(taskJson)
