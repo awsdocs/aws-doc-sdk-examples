@@ -26,9 +26,7 @@ suspend fun main() {
     listMachines()
 }
 
-
 suspend fun listMachines() {
-
     SfnClient { region = "us-east-1" }.use { sfnClient ->
         val response = sfnClient.listStateMachines(ListStateMachinesRequest {})
         response.stateMachines?.forEach { machine ->
