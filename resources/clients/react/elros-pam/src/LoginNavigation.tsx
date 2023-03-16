@@ -31,9 +31,7 @@ function LoginNavigation({ title }: LoginNavigationProps) {
   const signedOutUtilities = (): TopNavigationProps.Utility => ({
     type: "button",
     text: "Sign in",
-    onClick: () => {
-      location.replace(import.meta.env.VITE_COGNITO_SIGN_IN_URL);
-    },
+    href: import.meta.env.VITE_COGNITO_SIGN_IN_URL,
   });
 
   return (
