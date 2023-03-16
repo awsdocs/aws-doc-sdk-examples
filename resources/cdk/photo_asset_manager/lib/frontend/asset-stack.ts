@@ -19,14 +19,10 @@ interface PamFrontEndAssetStackProps extends StackProps {
 export class PamFrontEndAssetStack extends Stack {
   readonly deployment: BucketDeployment;
 
-  constructor(
-    scope: Construct,
-    id: string,
-    props: PamFrontEndAssetStackProps
-  ) {
+  constructor(scope: Construct, id: string, props: PamFrontEndAssetStackProps) {
     super(scope, id, props);
-    this.deployment = this.makeBucketDeployment({ bucket: props.bucket });
     this.makeEnvFile(props);
+    this.deployment = this.makeBucketDeployment({ bucket: props.bucket });
   }
 
   private makeBucketDeployment({ bucket }: { bucket: Bucket }) {
@@ -49,9 +45,7 @@ export class PamFrontEndAssetStack extends Stack {
     });
   }
 
-  private makeEnvFile(
-    envVars: Omit<PamFrontEndAssetStackProps, "bucket">
-  ) {
+  private makeEnvFile(envVars: Omit<PamFrontEndAssetStackProps, "bucket">) {
     const body = [
       `VITE_COGNITO_USER_POOL_ID=${envVars.cognitoUserPoolId}`,
       `VITE_COGNITO_USER_POOL_CLIENT_ID=${envVars.cognitoAppClientId}`,
