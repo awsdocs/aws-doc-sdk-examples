@@ -205,7 +205,7 @@ public class IAMWrapper
 
     // snippet-end:[IAM.dotnetv3.DeleteGroup]
 
-    // snippet-start:[IAM dotnetv3.DeleteGroupPolicy]
+    // snippet-start:[IAM.dotnetv3.DeleteGroupPolicy]
     /// <summary>
     /// Delete an IAM policy associated with an IAM group.
     /// </summary>
@@ -225,7 +225,7 @@ public class IAMWrapper
         return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
     }
 
-    // snippet-end:[IAM dotnetv3.DeleteGroupPolicy]
+    // snippet-end:[IAM.dotnetv3.DeleteGroupPolicy]
 
     // snippet-start:[IAM.dotnetv3.DeletePolicy]
     /// <summary>

@@ -1129,7 +1129,7 @@ iam_ListPolicies:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.ListPoliciesExample
+                - IAM.dotnetv3.ListPolicies
     JavaScript:
       versions:
         - sdk_version: 3
