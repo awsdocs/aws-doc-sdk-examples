@@ -198,6 +198,7 @@ namespace IAMActions.Tests
         public async Task CreateRoleAsyncTest()
         {
             var role = await _iamWrapper.CreateRoleAsync(_roleName, _assumeRolePolicyDocument);
+
             Assert.NotNull(role);
         }
 
