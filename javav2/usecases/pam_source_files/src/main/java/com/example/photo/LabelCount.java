@@ -5,27 +5,32 @@
 
 package com.example.photo;
 
-public class WorkItem {
+public class LabelCount {
 
     private String key;
     private String name;
     private int count;
 
-    public void setKey (String key) {
+    public void setKey(String key) {
         this.key = key;
     }
+
     public String getKey() {
         return this.key;
     }
-    public void setName (String name) {
+
+    public void setName(String name) {
         this.name = name;
     }
+
     public String getName() {
         return this.name;
     }
+
     public int getCount() {
         return this.count;
     }
+
     public void setCount(int count) {
         this.count = count;
     }

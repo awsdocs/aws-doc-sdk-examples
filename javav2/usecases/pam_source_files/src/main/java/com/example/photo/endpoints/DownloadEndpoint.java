@@ -41,8 +41,8 @@ public class DownloadEndpoint {
             String zipName = uuid + ".zip";
 
             // Place the zip file into the working bucket and get back a presigned URL.
-            String presignedURL = this.s3Service.putS3Object(PhotoApplicationResources.WORKING_BUCKET, zipName,
-                    zipFile);
+            s3Service.putObject(zipFile, PhotoApplicationResources.WORKING_BUCKET, zipName);
+            String presignedURL = s3Service.signObjectToDownload(PhotoApplicationResources.WORKING_BUCKET, zipName);
             String message = "Your Archived images can be located here " + presignedURL;
             this.snsService.pubTopic(message);
             return presignedURL;
@@ -54,6 +54,5 @@ public class DownloadEndpoint {
 
     private Stream<String> imagesByTag(String tag) {
         return this.dbService.getImagesTag(tag).stream();
-        // return Stream.of(tag + "1.jpg", tag+"2.jpg"); // For testing
     }
 }

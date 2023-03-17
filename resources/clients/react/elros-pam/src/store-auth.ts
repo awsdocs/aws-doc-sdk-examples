@@ -24,10 +24,10 @@ interface Tokens {
 }
 
 export interface AuthStore {
-  error: string | null;
+  error: string;
   authStatus: AuthStatus;
   currentUser: User | null;
-  token: string | null;
+  token: string;
   checkAuth: () => void;
   signIn: (tokens: Tokens) => void;
   signOut: () => void;
@@ -37,9 +37,9 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   error: "",
   authStatus: "signed_out",
   currentUser: null,
-  token: null,
+  token: "",
   checkAuth() {
-    const params = new URLSearchParams(location.href.split('#')[1]);
+    const params = new URLSearchParams(location.href.split("#")[1]);
     const idToken = params.get("id_token");
     const accessToken = params.get("access_token");
     if (idToken && accessToken) {
@@ -48,17 +48,17 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
   },
   signIn({ idToken, accessToken }: Tokens) {
     if (!(idToken && accessToken)) {
-      throw new Error("Failed to sign in. Missing tokens.");
+      throw new Error("Failed to sign in. Tokens are empty.");
     }
 
     const idTokenClaims = decodeJwt(idToken);
     set({
-      currentUser: { username: idTokenClaims['cognito:username'] as string },
+      currentUser: { username: idTokenClaims["cognito:username"] as string },
       token: idToken,
       authStatus: "signed_in",
     });
   },
   signOut() {
-    set({ token: null, currentUser: null, authStatus: "signed_out" });
+    set({ token: "", currentUser: null, authStatus: "signed_out" });
   },
 }));

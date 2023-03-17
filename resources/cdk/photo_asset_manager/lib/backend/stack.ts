@@ -1,7 +1,7 @@
 import { CfnOutput, Stack, StackProps } from "aws-cdk-lib";
 import { PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { LambdaDestination } from "aws-cdk-lib/aws-s3-notifications";
-import { Subscription, Topic } from "aws-cdk-lib/aws-sns";
+import { Topic } from "aws-cdk-lib/aws-sns";
 import { EmailSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Construct } from "constructs";
 import {
@@ -94,7 +94,7 @@ export class PamStack extends Stack {
       const fn = this.lambdas.fns.download;
       this.tables.labels.grantReadData(fn);
       this.tables.jobs.grantWriteData(fn);
-      this.buckets.storage.grantRead(fn)
+      this.buckets.storage.grantRead(fn);
       this.buckets.working.grantReadWrite(fn);
       this.topic.grantPublish(fn);
       fn.role?.addToPrincipalPolicy(

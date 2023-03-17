@@ -97,7 +97,7 @@ function TagsLayout() {
         type: "info",
       });
     } catch (err) {
-      console.log(err);
+      console.log("UI Failed downloading", err);
       setMessage({
         id: "download-failure-server",
         content: "Your photos failed to download.",
@@ -124,7 +124,7 @@ function TagsLayout() {
               counter={`${selectedImageCount}`}
               actions={
                 <SpaceBetween size="s" direction="horizontal">
-                  <Button iconName="refresh" onClick={() => refreshTags()} />
+                  <Button iconName="refresh" onClick={refreshTags} />
                   <S3Transfer />
                   <FileUpload
                     disabled={authStatus !== "signed_in"}

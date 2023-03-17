@@ -11,13 +11,11 @@ export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
   runtime: Runtime.NODEJS_18_X,
   handlers: {
-    // archive: "",
     copy: "",
     detectLabels: "",
     download: "",
     labels: "",
     upload: "",
-    // zipArchive: "",
   },
 };
 export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {

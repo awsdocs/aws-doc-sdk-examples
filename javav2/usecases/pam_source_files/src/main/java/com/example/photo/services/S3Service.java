@@ -143,7 +143,6 @@ public class S3Service {
                     RequestBody.fromBytes(data));
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
-            System.exit(1);
         }
     }
 
@@ -162,56 +161,6 @@ public class S3Service {
         return baos.toByteArray();
     }
 
-    public String putS3Object(String bucketName, String objectKey, byte[] zipContent) {
-        S3Client s3 = getClient();
-        try {
-            Map<String, String> metadata = new HashMap<>();
-            metadata.put("x-amz-meta-myVal", "test");
-            PutObjectRequest putOb = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(objectKey)
-                    .metadata(metadata)
-                    .build();
-
-            s3.putObject(putOb, RequestBody.fromBytes(zipContent));
-
-            // Now lets sign the ZIP
-            return signArchive(bucketName, objectKey);
-
-        } catch (S3Exception e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-
-        return "";
-    }
-
-    public String signArchive(String bucketName, String keyName) {
-        S3Presigner presignerOb = S3Presigner.builder()
-                .region(PhotoApplicationResources.REGION)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
-
-        try {
-            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(keyName)
-                    .build();
-
-            GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(1440))
-                    .getObjectRequest(getObjectRequest)
-                    .build();
-
-            PresignedGetObjectRequest presignedGetObjectRequest = presignerOb.presignGetObject(getObjectPresignRequest);
-            return presignedGetObjectRequest.url().toString();
-
-        } catch (S3Exception e) {
-            e.getStackTrace();
-        }
-        return "";
-    }
-
     // Copy objects from the source bucket to storage bucket.
     public int copyFiles(String sourceBucket) {
         S3Client s3 = getClient();
@@ -226,11 +175,9 @@ public class S3Service {
         for (S3Object s3Object : response.contents()) {
 
             // Check to make sure the object does not exist in the bucket. If the object
-            // exists
-            // it will not be copied again.
+            // exists it will not be copied again.
             if (checkS3ObjectDoesNotExist(s3Object.key())) {
                 System.out.println("Object exists in the bucket.");
-
             } else if ((s3Object.key().endsWith(".jpg")) || (s3Object.key().endsWith(".jpeg"))) {
                 System.out.println("JPG object found and will be copied: " + s3Object.key());
                 copyS3Object(sourceBucket, s3Object.key());
@@ -256,7 +203,6 @@ public class S3Service {
             String contentType = response.contentType();
             if (contentType.length() > 0)
                 return true;
-
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
         }
@@ -283,6 +229,33 @@ public class S3Service {
     }
 
     // New method to sign an object prior to uploading it
+    public String signObjectToDownload(String bucketName, String keyName) {
+        S3Presigner presignerOb = S3Presigner.builder()
+                .region(PhotoApplicationResources.REGION)
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .build();
+
+        try {
+            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(keyName)
+                    .build();
+
+            GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
+                    .signatureDuration(Duration.ofMinutes(1440))
+                    .getObjectRequest(getObjectRequest)
+                    .build();
+
+            PresignedGetObjectRequest presignedGetObjectRequest = presignerOb.presignGetObject(getObjectPresignRequest);
+
+            return presignedGetObjectRequest.url().toString();
+        } catch (S3Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
     public String signObjectToUpload(String keyName) {
         S3Presigner presigner = S3Presigner.builder()
                 .region(PhotoApplicationResources.REGION)
@@ -302,11 +275,10 @@ public class S3Service {
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
             return presignedRequest.url().toString();
-
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
-            System.exit(1);
+            e.printStackTrace();
+            throw e;
         }
-        return "";
     }
 }

@@ -1,4 +1,4 @@
-import { CfnOutput, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
+import { Arn, CfnOutput, RemovalPolicy, Stack } from "aws-cdk-lib";
 import {
   CfnDistribution,
   CfnOriginAccessControl,
