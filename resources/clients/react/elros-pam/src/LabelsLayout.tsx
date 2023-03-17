@@ -9,38 +9,37 @@ import {
 } from "@cloudscape-design/components";
 import { useEffect, useState } from "react";
 import FileUpload from "./FileUpload";
-import { initializeDownload, Tag, uploadFile } from "./pam-api";
+import { Label } from "./pam-api";
 import S3Transfer from "./S3Transfer";
-import { useAuthStore } from "./store-auth";
+import { useStore } from "./store";
 
-import { useTagsStore } from "./store-tags";
-import { getTags } from "./pam-api";
-
-function TagsLayout() {
-  const { tagCollection, setTags } = useTagsStore();
-  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
-  const [selectedTagsCount, setSelectedTagsCount] = useState<number>(0);
+function LabelsLayout() {
+  const [selectedLabels, setSelectedTags] = useState<Label[]>([]);
+  const [selectedLabelsCount, setSelectedLabelsCount] = useState<number>(0);
   const [isDownloading, setIsDownloading] = useState(false);
   const [flashbarItems, setFlashbarItems] = useState<FlashbarProps["items"]>(
     []
   );
 
-  const { token, authStatus, currentUser } = useAuthStore();
+  const {
+    labels,
+    token,
+    authStatus,
+    currentUser,
+    getLabels,
+    uploadFile,
+    initializeDownload,
+  } = useStore();
 
   useEffect(() => {
     if (token) {
-      refreshTags();
+      getLabels();
     }
   }, [token]);
 
   useEffect(() => {
-    setSelectedTagsCount(selectedTags.length);
-  }, [selectedTags]);
-
-  const refreshTags = async () => {
-    const tagCollection = await getTags({ token });
-    setTags(tagCollection);
-  };
+    setSelectedLabelsCount(selectedLabels.length);
+  }, [selectedLabels]);
 
   const setMessage = ({
     id,
@@ -64,7 +63,7 @@ function TagsLayout() {
   };
 
   const handleUpload = async (file: File) => {
-    await uploadFile(file, { token });
+    await uploadFile(file);
   };
 
   const handleDownload = async () => {
@@ -80,10 +79,7 @@ function TagsLayout() {
     setIsDownloading(true);
 
     try {
-      await initializeDownload(
-        selectedTags.map((t) => t.name),
-        { token }
-      );
+      await initializeDownload(selectedLabels.map((t) => t.name));
       setMessage({
         id: "download-success",
         content:
@@ -108,7 +104,7 @@ function TagsLayout() {
       <Cards
         trackBy={(tag) => tag.name}
         empty={<TextContent>There are no tags to display.</TextContent>}
-        items={tagCollection}
+        items={labels}
         stickyHeader={true}
         variant="full-page"
         header={
@@ -118,7 +114,7 @@ function TagsLayout() {
               variant="awsui-h1-sticky"
               actions={
                 <SpaceBetween size="s" direction="horizontal">
-                  <Button iconName="refresh" onClick={refreshTags} />
+                  <Button iconName="refresh" onClick={getLabels} />
                   <S3Transfer />
                   <FileUpload
                     disabled={authStatus !== "signed_in"}
@@ -128,7 +124,7 @@ function TagsLayout() {
                   <Button
                     disabled={
                       authStatus !== "signed_in" ||
-                      !selectedTagsCount ||
+                      !selectedLabelsCount ||
                       isDownloading
                     }
                     onClick={handleDownload}
@@ -138,11 +134,11 @@ function TagsLayout() {
                 </SpaceBetween>
               }
             >
-              Download Tagged Images
+              Image Labels
             </Header>
           </>
         }
-        selectedItems={selectedTags}
+        selectedItems={selectedLabels}
         onSelectionChange={({ detail }) => {
           setSelectedTags(detail.selectedItems);
         }}
@@ -155,4 +151,4 @@ function TagsLayout() {
   );
 }
 
-export default TagsLayout;
+export default LabelsLayout;

@@ -1,27 +1,40 @@
 export interface PamApiConfig {
   token: string | null;
 }
-export interface Tag {
+export interface Label {
   name: string;
   count: number;
 }
 
-export interface TagsResponse {
+export interface LabelsResponse {
   labels: Record<string, { count: number }>;
 }
+
+const request: typeof fetch = async (input, init) => {
+  try {
+    const response = await fetch(input, init);
+    if (response.status === 401) {
+      throw new Error("Unauthorized");
+    }
+    return response;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+};
 
 const getHeaders = (config: PamApiConfig): { Authorization: string } | {} =>
   config.token ? { Authorization: `Bearer ${config.token}` } : {};
 
-export const getTags = async (config: PamApiConfig): Promise<Tag[]> => {
-  const response = await fetch(
+export const getLabels = async (config: PamApiConfig): Promise<Label[]> => {
+  const response = await request(
     `${import.meta.env.VITE_API_GATEWAY_BASE_URL}labels`,
     {
       headers: getHeaders(config),
     }
   );
 
-  const tagsResponse: TagsResponse = await response.json();
+  const tagsResponse: LabelsResponse = await response.json();
   return Object.entries(tagsResponse.labels).map(([name, { count }]) => ({
     name,
     count,
@@ -29,7 +42,7 @@ export const getTags = async (config: PamApiConfig): Promise<Tag[]> => {
 };
 
 export const s3Copy = async (bucketName: string, config: PamApiConfig) => {
-  const response = await fetch(
+  const response = await request(
     `${import.meta.env.VITE_API_GATEWAY_BASE_URL}s3_copy`,
     {
       method: "PUT",
@@ -52,7 +65,7 @@ export const initializeDownload = async (
   labels: string[],
   config: PamApiConfig
 ) => {
-  const response = await fetch(
+  const response = await request(
     `${import.meta.env.VITE_API_GATEWAY_BASE_URL}download`,
     {
       method: "PUT",
@@ -70,7 +83,7 @@ export const initializeDownload = async (
 };
 
 export const uploadFile = async (file: File, config: PamApiConfig) => {
-  const response = await fetch(
+  const response = await request(
     `${import.meta.env.VITE_API_GATEWAY_BASE_URL}upload`,
     {
       method: "PUT",
@@ -83,7 +96,7 @@ export const uploadFile = async (file: File, config: PamApiConfig) => {
 
   if (response.ok) {
     const { url } = await response.json();
-    return fetch(url, {
+    return request(url, {
       method: "PUT",
       headers: {
         "Content-Type": "image/jpeg",

@@ -9,20 +9,19 @@ import {
   Alert,
 } from "@cloudscape-design/components";
 import { useState } from "react";
-import { s3Copy } from "./pam-api";
-import { useAuthStore } from "./store-auth";
+import { useStore } from "./store";
 
 function S3Transfer() {
   const [modalVisible, setModalVisible] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sourceBucket, setSourceBucket] = useState("");
-  const { token, authStatus } = useAuthStore();
+  const { authStatus, s3Copy } = useStore();
 
   const handleCopy = async () => {
     setError(null);
     setSourceBucket("");
     try {
-      await s3Copy(sourceBucket, { token });
+      await s3Copy(sourceBucket);
     } catch (err) {
       setError((err as Error)?.message ?? "Copy failed.");
     }

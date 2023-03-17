@@ -4,11 +4,11 @@ import { useEffect } from "react";
 
 import "./App.css";
 import LoginNavigation from "./LoginNavigation";
-import { useAuthStore } from "./store-auth";
-import TagsLayout from "./TagsLayout";
+import { useStore } from "./store";
+import LabelsLayout from "./LabelsLayout";
 
 function App() {
-  const { authStatus, checkAuth } = useAuthStore();
+  const { authStatus, checkAuth } = useStore();
 
   useEffect(() => {
     checkAuth();
@@ -21,7 +21,7 @@ function App() {
         toolsHide={true}
         navigationHide={true}
         contentType="cards"
-        content={<TagsLayout />}
+        content={<LabelsLayout />}
         notifications={
           authStatus !== "signed_in" && (
             <Alert type="warning">

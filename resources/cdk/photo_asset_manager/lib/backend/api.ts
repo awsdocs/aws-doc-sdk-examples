@@ -7,11 +7,13 @@ import {
   AuthorizationType,
   CognitoUserPoolsAuthorizer,
   Cors,
+  GatewayResponse,
   LambdaIntegration,
   LogGroupLogDestination,
   MethodLoggingLevel,
   Model,
   PassthroughBehavior,
+  ResponseType,
   RestApi,
 } from "aws-cdk-lib/aws-apigateway";
 import { Function } from "aws-cdk-lib/aws-lambda";
@@ -64,6 +66,12 @@ export class PamApi extends Construct {
         },
       }
     ));
+
+    new GatewayResponse(this, "PamGatewayResponse", {
+      restApi,
+      type: ResponseType.DEFAULT_4XX,
+      responseHeaders: { "Access-Control-Allow-Origin": "'*'" },
+    });
 
     const lambdas = props.lambdas.fns;
     this.empty = new models.Empty(this, { restApi });
