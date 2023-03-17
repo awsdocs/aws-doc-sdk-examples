@@ -5,15 +5,13 @@ import {
 import { useCallback } from "react";
 
 import { useAuthStore, User } from "./store-auth";
-import { useTagsStore } from "./store-tags";
 
 export interface LoginNavigationProps {
   title: string;
 }
 
 function LoginNavigation({ title }: LoginNavigationProps) {
-  const { authStatus, currentUser, signOut } = useAuthStore();
-  const { clearTags } = useTagsStore();
+  const { authStatus, currentUser } = useAuthStore();
 
   const signedInUtilities: TopNavigationProps.Utility = {
     type: "menu-dropdown",
@@ -21,8 +19,7 @@ function LoginNavigation({ title }: LoginNavigationProps) {
     items: [{ id: "signout", text: "Sign out" }],
     onItemClick: async (clickEvent) => {
       if (clickEvent.detail.id === "signout") {
-        signOut();
-        clearTags();
+        location.assign(import.meta.env.VITE_COGNITO_SIGN_OUT_URL)
       }
     },
   };

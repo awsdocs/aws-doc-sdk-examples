@@ -48,9 +48,11 @@ export class PamAuth extends Construct {
       },
     });
 
+    const cloudfrontUrl = `https://${props.cloudfrontDistributionUrl}`;
     this.appClient = this.userPool.addClient("AppClient", {
       oAuth: {
-        callbackUrls: [`https://${props.cloudfrontDistributionUrl}`],
+        callbackUrls: [cloudfrontUrl],
+        logoutUrls: [cloudfrontUrl],
         flows: { implicitCodeGrant: true },
         scopes: [OAuthScope.PROFILE, OAuthScope.OPENID]
       },

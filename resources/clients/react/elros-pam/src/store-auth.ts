@@ -30,7 +30,6 @@ export interface AuthStore {
   token: string;
   checkAuth: () => void;
   signIn: (tokens: Tokens) => void;
-  signOut: () => void;
 }
 
 export const useAuthStore = create<AuthStore>((set, get) => ({
@@ -44,6 +43,8 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     const accessToken = params.get("access_token");
     if (idToken && accessToken) {
       get().signIn({ idToken, accessToken });
+    } else {
+      set({ token: null, currentUser: null, authStatus: "signed_out" });
     }
   },
   signIn({ idToken, accessToken }: Tokens) {

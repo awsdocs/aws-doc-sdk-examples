@@ -19,7 +19,7 @@ import { getTags } from "./pam-api";
 function TagsLayout() {
   const { tagCollection, setTags } = useTagsStore();
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
-  const [selectedImageCount, setSelectedImageCount] = useState<number>(0);
+  const [selectedTagsCount, setSelectedTagsCount] = useState<number>(0);
   const [isDownloading, setIsDownloading] = useState(false);
   const [flashbarItems, setFlashbarItems] = useState<FlashbarProps["items"]>(
     []
@@ -34,12 +34,7 @@ function TagsLayout() {
   }, [token]);
 
   useEffect(() => {
-    const imageCount = selectedTags.reduce(
-      (count, nextTag) => count + nextTag.count,
-      0
-    );
-
-    setSelectedImageCount(imageCount);
+    setSelectedTagsCount(selectedTags.length);
   }, [selectedTags]);
 
   const refreshTags = async () => {
@@ -121,7 +116,6 @@ function TagsLayout() {
             <Flashbar items={flashbarItems} />
             <Header
               variant="awsui-h1-sticky"
-              counter={`${selectedImageCount}`}
               actions={
                 <SpaceBetween size="s" direction="horizontal">
                   <Button iconName="refresh" onClick={refreshTags} />
@@ -134,7 +128,7 @@ function TagsLayout() {
                   <Button
                     disabled={
                       authStatus !== "signed_in" ||
-                      !selectedImageCount ||
+                      !selectedTagsCount ||
                       isDownloading
                     }
                     onClick={handleDownload}
@@ -144,7 +138,7 @@ function TagsLayout() {
                 </SpaceBetween>
               }
             >
-              Download Images
+              Download Tagged Images
             </Header>
           </>
         }

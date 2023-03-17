@@ -51,6 +51,7 @@ export class PamFrontEndAssetStack extends Stack {
       `VITE_COGNITO_USER_POOL_CLIENT_ID=${envVars.cognitoAppClientId}`,
       `VITE_API_GATEWAY_BASE_URL=${envVars.apiGatewayUrl}`,
       `VITE_COGNITO_SIGN_IN_URL=${envVars.cognitoUserPoolBaseUrl}/oauth2/authorize?response_type=token&client_id=${envVars.cognitoAppClientId}&redirect_uri=https://${envVars.cloudfrontDistributionUrl}`,
+      `VITE_COGNITO_SIGN_OUT_URL=${envVars.cognitoUserPoolBaseUrl}/logout?client_id=${envVars.cognitoAppClientId}&logout_uri=https://${envVars.cloudfrontDistributionUrl}`,
     ].join("\n");
 
     writeFileSync(join(ELROS_PATH, ".env"), body);
