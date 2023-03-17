@@ -13,8 +13,8 @@ export interface PamLambdasStrategyHandlers {
 }
 
 export interface PamLambdasStrategy {
-  timeout: Duration;
-  memorySize: number; // In megabytes
+  timeout?: Duration;
+  memorySize?: number; // In megabytes
   runtime: Runtime;
   codeAsset: () => Code;
   handlers: PamLambdasStrategyHandlers;
@@ -33,7 +33,6 @@ export class PamLambda extends Construct {
     super(scope, id);
 
     const environment = {
-      JOBS_TABLE_NAME: props.tables.jobs.tableName,
       LABELS_TABLE_NAME: props.tables.labels.tableName,
       STORAGE_BUCKET_NAME: props.buckets.storage.bucketName,
       WORKING_BUCKET_NAME: props.buckets.working.bucketName,

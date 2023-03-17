@@ -18,6 +18,7 @@ export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
     upload: "",
   },
 };
+
 export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(90),
   memorySize: 1024,
@@ -51,7 +52,7 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   handlers: {
     ...EMPTY_LAMBDAS_STRATEGY.handlers,
     copy: "com.example.photo.handlers.CopyHandler",
-    detectLabels: "com.example.photo.handlers.S3Trigger",
+    detectLabels: "com.example.photo.handlers.S3Handler",
     download: "com.example.photo.handlers.RestoreHandler",
     labels: "com.example.photo.handlers.GetHandler",
     upload: "com.example.photo.handlers.UploadHandler",
