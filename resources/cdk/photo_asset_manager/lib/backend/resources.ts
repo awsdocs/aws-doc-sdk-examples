@@ -38,20 +38,13 @@ export class PamBuckets extends Construct {
   }
 }
 
-export interface PamTablesProps {}
-
 export class PamTables extends Construct {
   readonly labels = new Table(this, "LabelsTable", {
     partitionKey: { name: "Label", type: AttributeType.STRING },
     removalPolicy: RemovalPolicy.DESTROY,
   });
 
-  readonly jobs = new Table(this, "JobsTable", {
-    partitionKey: { name: "JobId", type: AttributeType.STRING },
-    removalPolicy: RemovalPolicy.DESTROY,
-  });
-
-  constructor(scope: Construct, id: string, props: PamTablesProps = {}) {
+  constructor(scope: Construct, id: string) {
     super(scope, id);
   }
 }
