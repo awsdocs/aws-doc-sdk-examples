@@ -101,3 +101,18 @@ When implementing Lambda functions, application AWS resources are available in t
 1. Load all Images from the Labels Table matching the selected labels into a set (no duplicates).
 1. Read those images from the Storage bucket, and write them to a single zip archive in the Working bucket.
 1. Send a message to the Notification Topic with a link to a presigned GET url for that zip archive.
+
+## Deploying and Testing
+
+1. Create a stub hello-world lambda, and use that for all the handlers.
+1. Export `PAM_NAME`, `PAM_EMAIl`, and `PAM_LANG` (using your new language).
+1. Deploy the three phases
+   - `cdk deploy ${PAM_NAME}_FE_Infra_PAM`
+   - `cdk deploy ${PAM_NAME}_${PAM_LANG}_PAM`
+   - `cdk deploy ${PAM_NAME}_FE_Assets_PAM`
+1. Implement the Upload endpoint.
+   1. Implement the function.
+   1. Update the handler.
+   1. Run `cdk deploy ${PAM_NAME}_${PAM_LANG}_PAM`.
+   1. Test & iterate
+1. Repeat for DetectLabels, GetLabels, and PrepareDownload.
