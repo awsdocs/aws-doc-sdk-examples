@@ -7,7 +7,7 @@ export interface Tag {
 }
 
 export interface TagsResponse {
-  labels: { [key: string]: { count: number } };
+  labels: Record<string, { count: number }>;
 }
 
 const getHeaders = (config: PamApiConfig): { Authorization: string } | {} =>
@@ -43,8 +43,8 @@ export const s3Copy = async (bucketName: string, config: PamApiConfig) => {
   if (response.ok) {
     return response.json();
   } else {
-    console.error(response);
-    throw new Error("Copy failed.");
+    console.error("API Copy failed.", response);
+    throw new Error("API Copy failed.", { cause: response });
   }
 };
 
@@ -64,8 +64,8 @@ export const initializeDownload = async (
   );
 
   if (!response.ok) {
-    console.error(response);
-    throw new Error("Download failed.");
+    console.error("API Download failed.", response);
+    throw new Error("API Download failed.", { cause: response });
   }
 };
 
@@ -92,7 +92,7 @@ export const uploadFile = async (file: File, config: PamApiConfig) => {
       body: await file.arrayBuffer(),
     });
   } else {
-    console.error(response);
-    throw new Error("Upload failed.");
+    console.error("API Upload failed.", response);
+    throw new Error("API Upload failed.", { cause: response });
   }
 };

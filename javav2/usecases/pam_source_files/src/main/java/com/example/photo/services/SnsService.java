@@ -37,7 +37,7 @@ public class SnsService {
         return topicArn;
     }
 
-    public void subTextSNS(String phoneNumber, String presignedURL) {
+    public PublishResponse subTextSNS(String phoneNumber, String presignedURL) {
         try {
             String message = "Your Archived images can be located here " + presignedURL;
             PublishRequest request = PublishRequest.builder()
@@ -46,12 +46,12 @@ public class SnsService {
                     .build();
 
             PublishResponse result = getClient().publish(request);
-            System.out
-                    .println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
-
+            System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
+            return result;
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            e.printStackTrace();
+            throw e;
         }
     }
 
@@ -61,7 +61,6 @@ public class SnsService {
                 .topicArn(PhotoApplicationResources.TOPIC_ARN)
                 .build();
 
-        PublishResponse result = getClient().publish(request);
-        return result;
+        return getClient().publish(request);
     }
 }

@@ -113,8 +113,9 @@ public class PhotoController {
             }
             byte[] zipContent = s3Service.listBytesToZip(mapReport);
             String zipName = tag + ".zip";
-            return s3Service.putS3Object(PhotoApplicationResources.WORKING_BUCKET, zipName, zipContent);
-
+            s3Service.putObject(zipContent, PhotoApplicationResources.WORKING_BUCKET, zipName);
+            String url = s3Service.signObjectToDownload(PhotoApplicationResources.WORKING_BUCKET, zipName);
+            return url;
         } catch (Exception e) {
             e.printStackTrace();
         }

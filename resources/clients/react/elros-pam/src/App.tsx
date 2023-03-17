@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     checkAuth();
-  }, []);
+  }, [checkAuth]);
 
   return (
     <>
@@ -29,7 +29,7 @@ function App() {
             </Alert>
           )
         }
-      ></AppLayout>
+      />
     </>
   );
 }

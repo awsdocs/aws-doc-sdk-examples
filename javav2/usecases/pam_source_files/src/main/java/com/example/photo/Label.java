@@ -12,7 +12,7 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbParti
 import java.util.List;
 
 @DynamoDbBean
-public class Photo {
+public class Label {
     private String id;
     private Integer count;
     private List<String> images;

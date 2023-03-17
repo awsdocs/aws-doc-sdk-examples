@@ -9,7 +9,7 @@ import com.example.photo.services.DynamoDBService;
 import com.example.photo.services.S3Service;
 
 // Tags the object after it's uploaded into the storage bucket.
-public class S3Trigger implements RequestHandler<S3Event, String> {
+public class S3Handler implements RequestHandler<S3Event, String> {
 
     @Override
     public String handleRequest(S3Event event, Context context) {

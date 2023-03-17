@@ -5,11 +5,10 @@
 
 package com.example.photo.services;
 
-import com.example.photo.Job;
 import com.example.photo.PhotoApplicationResources;
-import com.example.photo.Photo;
+import com.example.photo.Label;
 import com.example.photo.WorkCount;
-import com.example.photo.WorkItem;
+import com.example.photo.LabelCount;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
@@ -32,27 +31,28 @@ public class DynamoDBService {
     }
 
     // Insert tag data into an Amazon DynamoDB table.
-    public void putRecord(List<List<WorkItem>> list) {
+    public void putRecord(List<List<LabelCount>> list) {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(getClient())
                 .build();
 
-        DynamoDbTable<com.example.photo.Photo> table = enhancedClient.table(PhotoApplicationResources.TAGS_TABLE,
-                TableSchema.fromBean(Photo.class));
-        for (List<WorkItem> innerList : list) {
-            for (WorkItem wi : innerList) {
+        DynamoDbTable<com.example.photo.Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
+                TableSchema.fromBean(Label.class));
+
+        for (List<LabelCount> innerList : list) {
+            for (LabelCount wi : innerList) {
                 addSingleRecord(table, wi.getName(), wi.getKey());
             }
         }
     }
 
-    private void addSingleRecord(DynamoDbTable<Photo> table, String tag, String key) {
+    private void addSingleRecord(DynamoDbTable<Label> table, String tag, String key) {
         // Check to see if the label exists in the Amazon DynamoDB table.
         // The count item uses an @DynamoDbAtomicCounter which means it is
         // updated automatically. No need to manually set this value when the record is
         // created or updated.
         if (!checkTagExists(table, tag)) {
-            Photo photoRec = new Photo();
+            Label photoRec = new Label();
             photoRec.setId(tag);
             List<String> keyList = new ArrayList<>();
             keyList.add(key);
@@ -65,8 +65,8 @@ public class DynamoDBService {
                     .build();
 
             // Add the file name to the list.
-            Photo myPhoto = table.getItem(myKey);
-            Photo updatedPhoto = new Photo();
+            Label myPhoto = table.getItem(myKey);
+            Label updatedPhoto = new Label();
             List<String> imageList = myPhoto.getImages();
             imageList.add(key);
             updatedPhoto.setId(tag);
@@ -75,12 +75,12 @@ public class DynamoDBService {
         }
     }
 
-    private Boolean checkTagExists(DynamoDbTable<Photo> table, String tag) {
+    private Boolean checkTagExists(DynamoDbTable<Label> table, String tag) {
         QueryConditional queryConditional = QueryConditional.keyEqualTo(Key.builder()
                 .partitionValue(tag)
                 .build());
 
-        Iterator<Photo> results = table.query(queryConditional).items().iterator();
+        Iterator<Label> results = table.query(queryConditional).items().iterator();
         return results.hasNext();
     }
 
@@ -89,14 +89,14 @@ public class DynamoDBService {
                 .dynamoDbClient(getClient())
                 .build();
 
-        DynamoDbTable<com.example.photo.Photo> table = enhancedClient.table(PhotoApplicationResources.TAGS_TABLE,
-                TableSchema.fromBean(Photo.class));
+        DynamoDbTable<com.example.photo.Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
+                TableSchema.fromBean(Label.class));
         Key key = Key.builder()
                 .partitionValue(tag)
                 .build();
 
         // Get the item by using the key.
-        Photo result = table.getItem(r -> r.key(key));
+        Label result = table.getItem(r -> r.key(key));
         return (result == null) ? List.of() : result.getImages();
     }
 
@@ -107,31 +107,15 @@ public class DynamoDBService {
                 .dynamoDbClient(getClient())
                 .build();
 
-        DynamoDbTable<Photo> table = enhancedClient.table(PhotoApplicationResources.TAGS_TABLE,
-                TableSchema.fromBean(Photo.class));
+        DynamoDbTable<Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
+                TableSchema.fromBean(Label.class));
 
-        for (Photo photo : table.scan().items()) {
+        for (Label photo : table.scan().items()) {
             WorkCount wc = new WorkCount();
             wc.setCount(photo.getCount());
             myMap.put(photo.getId(), wc);
         }
 
         return myMap;
-    }
-
-    /**
-     * Store the subscription and topic with the notification destination of a job.
-     * 
-     * @param job to watch for completion.
-     */
-    public void putSubscription(Job job) {
-        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(getClient())
-                .build();
-
-        DynamoDbTable<Job> table = enhancedClient.table(PhotoApplicationResources.JOBS_TABLE,
-                TableSchema.fromBean(Job.class));
-
-        table.putItem(job);
     }
 }

@@ -28,15 +28,13 @@ public class RestoreHandler implements RequestHandler<Map<String, Object>, Strin
           .collect(Collectors.toList());
       context.getLogger().log("Restoring labels " + toJson(labels));
 
-      DownloadEndpoint restoreEndpoint = new DownloadEndpoint(new DynamoDBService(), new S3Service(), new SnsService());
-      String url = restoreEndpoint.download(labels);
+      DownloadEndpoint downloadEndpoint = new DownloadEndpoint(new DynamoDBService(), new S3Service(), new SnsService());
+      String url = downloadEndpoint.download(labels);
 
       context.getLogger().log("Labels archived to URL " + url);
-
-      return "";
     } catch (Exception e) {
       context.getLogger().log(e.getMessage());
-      return "";
     }
+    return "";
   }
 }

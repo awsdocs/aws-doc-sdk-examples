@@ -24,12 +24,7 @@ function S3Transfer() {
     try {
       await s3Copy(sourceBucket, { token });
     } catch (err) {
-      console.error(err);
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Copy failed.");
-      }
+      setError((err as Error)?.message ?? "Copy failed.");
     }
   };
 

@@ -92,8 +92,8 @@ export class PamApi extends Construct {
     fn: Function,
     method: string,
     {
-      request = this.empty,
-      response = this.empty,
+      request: requestModel = this.empty,
+      response: responseModel = this.empty,
       event = false,
     }: {
       request?: Model;
@@ -104,40 +104,39 @@ export class PamApi extends Construct {
     const resource = this.restApi.root.addResource(path);
     resource.addMethod(
       method,
-      new LambdaIntegration(fn, {
-        ...(event
-          ? {
-              proxy: false,
-              passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
-              requestParameters: {
-                // "integration.request.body.tags": "method.request.body.tags",
-                "integration.request.header.X-Amz-Invocation-Type": "'Event'",
-              },
-              integrationResponses: [
-                {
-                  statusCode: "200",
-                  responseParameters: {
-                    "method.response.header.Access-Control-Allow-Origin": "'*'",
-                  },
-                },
-              ],
-            }
-          : {}),
-      }),
+      new LambdaIntegration(fn, { ...(event && EVENT_INTEGRATION_OPTIONS) }),
       {
-        requestModels: { "application/json": request },
-        methodResponses: [
-          {
-            statusCode: "200",
-            responseParameters: {
-              "method.response.header.Access-Control-Allow-Origin": true,
-            },
-            responseModels: { "application/json": response },
-          },
-        ],
+        requestModels: { "application/json": requestModel },
+        methodResponses: [statusOkResponse(responseModel)],
         authorizer: this.apigAuthorizer,
         authorizationType: AuthorizationType.COGNITO,
       }
     );
   }
 }
+
+function statusOkResponse(response: Model) {
+  return {
+    statusCode: "200",
+    responseParameters: {
+      "method.response.header.Access-Control-Allow-Origin": true,
+    },
+    responseModels: { "application/json": response },
+  };
+}
+
+const EVENT_INTEGRATION_OPTIONS = {
+  proxy: false,
+  passthroughBehavior: PassthroughBehavior.WHEN_NO_TEMPLATES,
+  requestParameters: {
+    "integration.request.header.X-Amz-Invocation-Type": "'Event'",
+  },
+  integrationResponses: [
+    {
+      statusCode: "200",
+      responseParameters: {
+        "method.response.header.Access-Control-Allow-Origin": "'*'",
+      },
+    },
+  ],
+};

@@ -1,6 +1,5 @@
 import { Duration, RemovalPolicy } from "aws-cdk-lib";
 import { Code, Function, Runtime } from "aws-cdk-lib/aws-lambda";
-import { CfnSchema } from "aws-cdk-lib/aws-eventschemas";
 import { Construct } from "constructs";
 import { PamBuckets, PamTables } from "./resources";
 import { Topic } from "aws-cdk-lib/aws-sns";
@@ -8,11 +7,9 @@ import { Topic } from "aws-cdk-lib/aws-sns";
 export interface PamLambdasStrategyHandlers {
   detectLabels: string;
   labels: string;
-  // zipArchive: string;
   upload: string;
   copy: string;
   download: string;
-  // archive: string;
 }
 
 export interface PamLambdasStrategy {
@@ -68,51 +65,5 @@ export class PamLambda extends Construct {
       copy,
       download,
     };
-  }
-
-  private makeTests() {
-    const uploadTests = new CfnSchema(this, "PAMUploadFnTests", {
-      registryName: "lambda-testevent-schemas",
-      // schemaName: `_${upload.functionName}-schema`,
-      schemaName: ``,
-      type: "OpenApi3",
-      content: JSON.stringify({
-        openapi: "3.0.0",
-        info: {
-          version: "1.0.0",
-          title: "Event",
-        },
-        paths: {},
-        components: {
-          schemas: {
-            Event: {
-              type: "object",
-              required: ["path", "resource", "body", "httpMethod"],
-              properties: {
-                body: {
-                  type: "string",
-                },
-                httpMethod: {
-                  type: "string",
-                },
-                path: {
-                  type: "string",
-                },
-              },
-            },
-          },
-          examples: {
-            UploadLake: {
-              value: {
-                body: '{"file_name":"lake.jpeg"}',
-                path: "/upload",
-                httpMethod: "PUT",
-              },
-            },
-          },
-        },
-      }),
-    });
-    uploadTests.applyRemovalPolicy(RemovalPolicy.DESTROY);
   }
 }
