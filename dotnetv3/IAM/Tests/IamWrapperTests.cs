@@ -17,10 +17,7 @@ namespace IAMActions.Tests
 
         // Values needed for IAM Basics scenario.
         private readonly string? _s3ListBucketsPolicyName;
-        private readonly string? _roleName;
         private readonly string? _rolePolicyName;
-        private readonly string? _userName;
-        private readonly string? _userPolicyName;
 
         // Values for tests related to the IAM Groups scenario.
         private readonly string? _groupUserName;
@@ -30,6 +27,12 @@ namespace IAMActions.Tests
 
         private readonly string? _listBucketsPolicyDocument;
         private readonly string? _s3FullAccessPolicyDocument;
+
+        private readonly string? _roleName;
+        private readonly string? _assumePolicyName;
+
+        private readonly string? _userName;
+        private readonly string? _userPolicyName;
 
         public static string? _assumeRolePolicyDocument;
         public static string? _policyArn;
@@ -48,17 +51,18 @@ namespace IAMActions.Tests
                     true) // Optionally load local settings.
                 .Build();
 
+            _groupUserName = _configuration["GroupUserName"];
+            _groupPolicyName = _configuration["GroupPolicyName"];
+            _groupName = _configuration["GroupName"];
+
             _s3ListBucketsPolicyName = _configuration["S3ListBucketsPolicyName"];
             _s3FullAccessPolicyName = _configuration["S3FullAccessPolicyName"];
+
             _roleName = _configuration["RoleName"];
             _rolePolicyName = _configuration["RolePolicyName"];
             _userName = _configuration["UserName"];
             _userPolicyName = _configuration["UserPolicyName"];
 
-
-            _groupUserName = _configuration["GroupUserName"];
-            _groupPolicyName = _configuration["GroupPolicyName"];
-            _groupName = _configuration["GroupName"];
 
             _iamService = new AmazonIdentityManagementServiceClient();
             _iamWrapper = new IAMWrapper(_iamService);
@@ -180,6 +184,7 @@ namespace IAMActions.Tests
             _policyArn = policy.Arn;
             _rolePolicyArn = rolePolicy.Arn;
             Assert.NotNull(policy);
+            Assert.NotNull(rolePolicy);
         }
 
         /// <summary>
@@ -256,11 +261,20 @@ namespace IAMActions.Tests
         public async Task PutGroupPolicyAsyncTest()
         {
             var success = await _iamWrapper.PutGroupPolicyAsync(_groupName, _groupPolicyName, _listBucketsPolicyDocument);
-            Assert.True(success, $"Could not attach policy {_s3ListBucketsPolicyName} to {_groupName}");
+            Assert.True(success, $"Could not embed policy {_s3ListBucketsPolicyName} to {_groupName}");
         }
 
         [Fact()]
         [Order(9)]
+        [Trait("Category", "Integration")]
+        public async Task PutRolePollicyTest()
+        {
+            var success = await _iamWrapper.PutRolePolicyAsync(_rolePolicyName, _roleName, _listBucketsPolicyDocument);
+            Assert.True(success, "Could not embed policy {_s3ListBucketsPolicyName}.");
+        }
+
+        [Fact()]
+        [Order(10)]
         [Trait("Category", "Integration")]
         public async Task PutUserPolicyAsyncTest()
         {
@@ -274,7 +288,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(9)]
+        [Order(11)]
         [Trait("Category", "Integration")]
         public async Task ListRolesAsyncTest()
         {
@@ -288,7 +302,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(10)]
+        [Order(12)]
         [Trait("Category", "Integration")]
         public async Task ListPoliciesAsyncTest()
         {
@@ -302,7 +316,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(11)]
+        [Order(13)]
         [Trait("Category", "Integration")]
         public async Task ListRolePoliciesAsyncTest()
         {
@@ -316,7 +330,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(12)]
+        [Order(14)]
         [Trait("Category", "Integration")]
         public async Task ListUsersAsyncTest()
         {
@@ -330,7 +344,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(13)]
+        [Order(15)]
         [Trait("Category", "Integration")]
         public async Task AddUserToGroupTest()
         {
@@ -344,7 +358,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(14)]
+        [Order(16)]
         [Trait("Category", "Integration")]
         public async Task CreateAccessKeyAsyncTest()
         {
@@ -361,7 +375,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(15)]
+        [Order(17)]
         [Trait("Category", "Integration")]
         public async Task GetRoleAsyncTest()
         {
@@ -376,7 +390,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(16)]
+        [Order(18)]
         [Trait("Category", "Integration")]
         public async Task GetPolicyAsyncTest()
         {
@@ -391,7 +405,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(17)]
+        [Order(19)]
         [Trait("Category", "Integration")]
         public async Task GetUserAsyncTest()
         {
@@ -405,7 +419,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(18)]
+        [Order(20)]
         [Trait("Category", "Integration")]
         public async Task ListAttachedRolePoliciesTest()
         {
@@ -419,7 +433,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(19)]
+        [Order(21)]
         [Trait("Category", "Integration")]
         public async Task DeleteAccessKeyAsyncTest()
         {
@@ -433,7 +447,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact]
-        [Order(20)]
+        [Order(22)]
         [Trait("Category", "Integration")]
         public async Task RemoveUserFromGroupTest()
         {
@@ -447,7 +461,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(21)]
+        [Order(23)]
         [Trait("Category", "Integration")]
         public async Task DeleteUserPolicyAsyncTest()
         {
@@ -463,7 +477,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(22)]
+        [Order(24)]
         [Trait("Category", "Integration")]
         public async Task DeleteUserAsyncTest()
         {
@@ -485,7 +499,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Aync Task.</returns>
         [Fact()]
-        [Order(23)]
+        [Order(25)]
         [Trait("Category", "Integration")]
         public async Task DetachRolePolicyAsyncTest()
         {
@@ -499,7 +513,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(24)]
+        [Order(26)]
         [Trait("Category", "Integration")]
         public async Task DeleteRolePolicyAsyncTest()
         {
@@ -513,7 +527,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(25)]
+        [Order(27)]
         [Trait("Category", "Integration")]
         public async Task DeleteRoleAsyncTest()
         {
@@ -527,7 +541,7 @@ namespace IAMActions.Tests
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
-        [Order(26)]
+        [Order(28)]
         [Trait("Category", "Integration")]
         public async Task DeletePolicyAsyncTest()
         {
@@ -536,7 +550,7 @@ namespace IAMActions.Tests
         }
 
         [Fact()]
-        [Order(27)]
+        [Order(29)]
         [Trait("Category", "Integration")]
         public async Task DeleteGroupPolicyAsyncTest()
         {
@@ -545,7 +559,7 @@ namespace IAMActions.Tests
         }
 
         [Fact()]
-        [Order(27)]
+        [Order(30)]
         [Trait("Category", "Integration")]
         public async Task DeleteGroupAsyncTest()
         {

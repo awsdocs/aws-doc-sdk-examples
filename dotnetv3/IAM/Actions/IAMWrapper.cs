@@ -568,6 +568,29 @@ public class IAMWrapper
 
     // snippet-end:[IAM.dotnetv3.PutGroupPolicy]
 
+    // sniooet-start:[IAM,dotnetv3,PutRolePolicy]
+    /// <summary>
+    /// Update the inline policy document embedded in a role.
+    /// </summary>
+    /// <param name="policyName">The name of the policy to embed.</param>
+    /// <param name="roleName">The name of the role to update.</param>
+    /// <param name="policyDocument">The policy document that defines the role.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
+    public async Task<bool> PutRolePolicyAsync(string policyName, string roleName, string policyDocument)
+    {
+        var request = new PutRolePolicyRequest
+        {
+            PolicyName = policyName,
+            RoleName = roleName,
+            PolicyDocument = policyDocument
+        };
+
+        var response = await _IAMService.PutRolePolicyAsync(request);
+        return response.HttpStatusCode == HttpStatusCode.OK;
+    }
+
+    // sniooet-end:[IAM,dotnetv3,PutRolePolicy]
+
     // snippet-start:[IAM.dotnetv3.PutUserPolicy]
     /// <summary>
     /// Add or update an inline policy document that is embedded in an IAM user.
@@ -590,7 +613,11 @@ public class IAMWrapper
     }
 
     // snippet-end:[IAM.dotnetv3.PutUserPolicy]
-
+    /// <summary>
+    /// Wait for a new access key to be ready to use.
+    /// </summary>
+    /// <param name="accessKeyId">The Id of the access key.</param>
+    /// <returns>A boolean value indicating the success of the action.</returns>
     public async Task<bool> WaitUntilAccessKeyIsReady(string accessKeyId)
     {
         var keyReady = false;

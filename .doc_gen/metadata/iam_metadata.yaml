@@ -2006,6 +2006,14 @@ iam_PutRolePolicy:
   synopsis: attach an inline policy to an &IAM; role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.PutRolePolicy
     C++:
       versions:
         - sdk_version: 1
