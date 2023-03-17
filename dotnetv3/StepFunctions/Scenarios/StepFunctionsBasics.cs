@@ -2,12 +2,17 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[StepFunctions.dotnetv3.StepFunctionsBasics]
+
+using Amazon.IdentityManagement;
+using Amazon.IdentityManagement.Model;
+
 namespace StepFunctionsBasics;
 
 public class StepFunctionsBasics
 {
     private static ILogger _logger = null!;
     private static IConfigurationRoot _configuration;
+    private static IAmazonIdentityManagementService _iamService;
 
     static async Task Main(string[] args)
     {
@@ -19,7 +24,8 @@ public class StepFunctionsBasics
                     .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
             .ConfigureServices((_, services) =>
             services.AddAWSService<IAmazonStepFunctions>()
-            .AddTransient<StepFunctionsWrapper>()
+                .AddAWSService<IAmazonIdentityManagementService>()
+                .AddTransient<StepFunctionsWrapper>()
             )
             .Build();
 
@@ -37,10 +43,12 @@ public class StepFunctionsBasics
         var activityName = _configuration["ActivityName"];
         var stateMachineName = _configuration["StateMachineName"];
         var executionName = _configuration["ExecutionName"];
-        var roleArn = _configuration["RoleArn"];
+        var roleName = _configuration["RoleName"];
 
         var uiMethods = new UiMethods();
         var stepFunctionsWrapper = host.Services.GetRequiredService<StepFunctionsWrapper>();
+
+        _iamService = host.Services.GetRequiredService<IAmazonIdentityManagementService>();
 
         Console.Clear();
         uiMethods.DisplayOverview();
@@ -50,10 +58,12 @@ public class StepFunctionsBasics
         Console.WriteLine("Let's start by creating an activity.");
         var activityArn = await stepFunctionsWrapper.CreateActivity(activityName);
 
+        // Find or creqte an IAM role that can be assumed by Step Functions.
+
         uiMethods.DisplayTitle("Create state machine");
         Console.WriteLine("Now we'll create a state machine.");
 
-        // Define the state machine.
+        // Load definition for the state machine from a JSON file.
         var stateDefinition = @"{
           ""Comment"": ""An example using a Task state."",
           ""StartAt"": ""getGreeting"",
@@ -69,8 +79,10 @@ public class StepFunctionsBasics
           }
         }";
 
+        var role = await GetOrCreateStateMachineRole(roleName);
+
         // Create the state machine.
-        var stateMachineArn = await stepFunctionsWrapper.CreateStateMachine(stateMachineName, stateDefinition, roleArn);
+        var stateMachineArn = await stepFunctionsWrapper.CreateStateMachine(stateMachineName, stateDefinition, role.Arn);
         uiMethods.PressEnter();
 
         Console.WriteLine("Now we'll start execution of the state machine.");
@@ -108,6 +120,48 @@ public class StepFunctionsBasics
         Console.WriteLine("Activity deleted.");
 
         Console.WriteLine("The Amazon Step Functions scenario is now complete.");
+    }
+
+    static async Task<Role> GetOrCreateStateMachineRole(string roleName)
+    {
+        // Define the policy document for the role.
+        var stateMachineRolePolicy = @"{
+         ""Version"": ""2012-10-17"",
+        ""Statement"": [{
+            ""Sid"": """",
+            ""Effect"": ""Allow"",
+            ""Principal"": {
+                ""Service"": ""states.amazonaws.com""},
+            ""Action"": ""sts:AssumeRole""}]}";
+
+        var role = new Role();
+        var roleExists = false;
+
+        try
+        {
+            var getRoleResponse = await _iamService.GetRoleAsync(new GetRoleRequest { RoleName = roleName });
+            roleExists = true;
+            role = getRoleResponse.Role;
+        }
+        catch (NoSuchEntityException noRole)
+        {
+            // The role doesn't exist. Create it.
+            Console.WriteLine($"Role, {roleName} doesn't exist. Creating it...");
+        }
+
+        if (!roleExists)
+        {
+            var request = new CreateRoleRequest
+            {
+                RoleName = roleName,
+                AssumeRolePolicyDocument = stateMachineRolePolicy,
+            };
+
+            var createRoleResponse = await _iamService.CreateRoleAsync(request);
+            role = createRoleResponse.Role;
+        }
+
+        return role;
     }
 }
 

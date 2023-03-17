@@ -174,7 +174,16 @@ public class StepFunctionsWrapper
 
     // snippet-end:[StepFunctions.dotnetv3.ListStateMachines]
 
-    // 
+    // snippet-start:[StepFunctions.dotnetv3.SendTaskSuccess]
+    public async Task<bool> SendTaskSuccess(string taskToken, string taskResponse)
+    {
+        var response = await _amazonStepFunctions.SendTaskSuccessAsync(new SendTaskSuccessRequest
+            { TaskToken = taskToken, Output = taskResponse });
+
+        return response.HttpStatusCode == HttpStatusCode.OK;
+    }
+
+    // snippet-end:[StepFunctions.dotnetv3.SendTaskSuccess]
 
     // snippet-start:[StepFunctions.dotnetv3.StartExecution]
     /// <summary>
