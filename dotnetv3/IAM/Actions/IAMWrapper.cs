@@ -568,7 +568,7 @@ public class IAMWrapper
 
     // snippet-end:[IAM.dotnetv3.PutGroupPolicy]
 
-    // sniooet-start:[IAM,dotnetv3.PutRolePolicy]
+    // sniooet-start:[IAM.dotnetv3.PutRolePolicy]
     /// <summary>
     /// Update the inline policy document embedded in a role.
     /// </summary>
@@ -589,7 +589,7 @@ public class IAMWrapper
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
-    // sniooet-end:[IAM,dotnetv3.PutRolePolicy]
+    // sniooet-end:[IAM.dotnetv3.PutRolePolicy]
 
     // snippet-start:[IAM.dotnetv3.PutUserPolicy]
     /// <summary>
