@@ -9,7 +9,6 @@ import com.example.photo.PhotoApplicationResources;
 import com.example.photo.Label;
 import com.example.photo.WorkCount;
 import com.example.photo.LabelCount;
-import org.springframework.stereotype.Component;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
@@ -22,7 +21,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-@Component
 public class DynamoDBService {
     private DynamoDbClient getClient() {
         return DynamoDbClient.builder()
@@ -30,7 +28,7 @@ public class DynamoDBService {
                 .build();
     }
 
-    // Insert tag data into an Amazon DynamoDB table.
+    // Insert label data into an Amazon DynamoDB table.
     public void putRecord(List<List<LabelCount>> list) {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(getClient())
@@ -40,28 +38,28 @@ public class DynamoDBService {
                 TableSchema.fromBean(Label.class));
 
         for (List<LabelCount> innerList : list) {
-            for (LabelCount wi : innerList) {
-                addSingleRecord(table, wi.getName(), wi.getKey());
+            for (LabelCount count : innerList) {
+                addSingleRecord(table, count.getName(), count.getKey());
             }
         }
     }
 
-    private void addSingleRecord(DynamoDbTable<Label> table, String tag, String key) {
+    private void addSingleRecord(DynamoDbTable<Label> table, String label, String key) {
         // Check to see if the label exists in the Amazon DynamoDB table.
         // The count item uses an @DynamoDbAtomicCounter which means it is
         // updated automatically. No need to manually set this value when the record is
         // created or updated.
-        if (!checkTagExists(table, tag)) {
+        if (!checkLabelExists(table, label)) {
             Label photoRec = new Label();
-            photoRec.setId(tag);
+            photoRec.setId(label);
             List<String> keyList = new ArrayList<>();
             keyList.add(key);
             photoRec.setImages(keyList);
             table.putItem(photoRec);
         } else {
-            // The tag exists in the table.
+            // The label exists in the table.
             Key myKey = Key.builder()
-                    .partitionValue(tag)
+                    .partitionValue(label)
                     .build();
 
             // Add the file name to the list.
@@ -69,22 +67,22 @@ public class DynamoDBService {
             Label updatedPhoto = new Label();
             List<String> imageList = myPhoto.getImages();
             imageList.add(key);
-            updatedPhoto.setId(tag);
+            updatedPhoto.setId(label);
             updatedPhoto.setImages(imageList);
             table.updateItem(updatedPhoto);
         }
     }
 
-    private Boolean checkTagExists(DynamoDbTable<Label> table, String tag) {
+    private Boolean checkLabelExists(DynamoDbTable<Label> table, String label) {
         QueryConditional queryConditional = QueryConditional.keyEqualTo(Key.builder()
-                .partitionValue(tag)
+                .partitionValue(label)
                 .build());
 
         Iterator<Label> results = table.query(queryConditional).items().iterator();
         return results.hasNext();
     }
 
-    public List<String> getImagesTag(String tag) {
+    public List<String> getImagesByLabel(String label) {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(getClient())
                 .build();
@@ -92,7 +90,7 @@ public class DynamoDBService {
         DynamoDbTable<com.example.photo.Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
                 TableSchema.fromBean(Label.class));
         Key key = Key.builder()
-                .partitionValue(tag)
+                .partitionValue(label)
                 .build();
 
         // Get the item by using the key.

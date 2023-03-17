@@ -14,10 +14,8 @@ import software.amazon.awssdk.services.rekognition.model.Label;
 import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.rekognition.model.S3Object;
 
-@Component
 public class AnalyzePhotos {
     public ArrayList<LabelCount> detectLabels(String bucketName, String key) {
         RekognitionClient rekClient = RekognitionClient.builder()

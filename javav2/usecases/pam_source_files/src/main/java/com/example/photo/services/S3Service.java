@@ -6,7 +6,6 @@
 package com.example.photo.services;
 
 import com.example.photo.PhotoApplicationResources;
-import org.springframework.stereotype.Component;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -25,48 +24,12 @@ import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-@Component
 public class S3Service {
     // Create the S3Client object.
     private S3Client getClient() {
         return S3Client.builder()
                 .region(PhotoApplicationResources.REGION)
                 .build();
-    }
-
-    private List<Tag> getObjectTags(String bucketName, String keyName) {
-        S3Client s3 = getClient();
-        GetObjectTaggingRequest request = GetObjectTaggingRequest.builder()
-                .bucket(bucketName)
-                .key(keyName)
-                .build();
-
-        GetObjectTaggingResponse response = s3.getObjectTagging(request);
-        return response.tagSet();
-    }
-
-    public static boolean tagsHasRekognized(Collection<Tag> tags) {
-        return tags.stream()
-                .filter(tag -> tag.key().equals(PhotoApplicationResources.REKOGNITION_TAG_KEY))
-                .findAny()
-                .orElseGet(() -> Tag.builder().build())
-                .value().equals(PhotoApplicationResources.REKOGNITION_TAG_VALUE);
-    }
-
-    // Check for tags on the S3 object.
-    public boolean tagCheck(String bucketName, String keyName) {
-        List<Tag> tags = getObjectTags(PhotoApplicationResources.STORAGE_BUCKET, keyName);
-        return hasRekognizedTag(tags);
-    }
-
-    public static boolean hasRekognizedTag(Collection<Tag> tags) {
-        for (Tag tag : tags) {
-            if (tag.key() == PhotoApplicationResources.REKOGNITION_TAG_KEY
-                    && tag.value() == PhotoApplicationResources.REKOGNITION_TAG_VALUE) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public byte[] getObjectBytes(String bucketName, String keyName) {
@@ -80,29 +43,11 @@ public class S3Service {
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             return objectBytes.asByteArray();
-
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            e.printStackTrace();
+            throw e;
         }
-        return null;
-    }
-
-    // Tag the image.
-    public void markAsRekognized(String objectName) {
-        getClient().putObjectTagging(
-                PutObjectTaggingRequest.builder()
-                        .key(objectName)
-                        .bucket(PhotoApplicationResources.STORAGE_BUCKET)
-                        .tagging(
-                                Tagging.builder()
-                                        .tagSet(
-                                                Tag.builder()
-                                                        .key(PhotoApplicationResources.REKOGNITION_TAG_KEY)
-                                                        .value(PhotoApplicationResources.REKOGNITION_TAG_VALUE)
-                                                        .build())
-                                        .build())
-                        .build());
     }
 
     // Returns the names of all images in the given bucket.
@@ -124,12 +69,11 @@ public class S3Service {
             }
 
             return keys;
-
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            e.printStackTrace();
+            throw e;
         }
-        return null;
     }
 
     // Places an image into a S3 bucket.
@@ -143,6 +87,8 @@ public class S3Service {
                     RequestBody.fromBytes(data));
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
+            e.printStackTrace();
+            throw e;
         }
     }
 
@@ -173,17 +119,15 @@ public class S3Service {
 
         ListObjectsV2Response response = s3.listObjectsV2(request);
         for (S3Object s3Object : response.contents()) {
-
             // Check to make sure the object does not exist in the bucket. If the object
             // exists it will not be copied again.
-            if (checkS3ObjectDoesNotExist(s3Object.key())) {
+            String key = s3Object.key();
+            if (checkS3ObjectDoesNotExist(key)) {
                 System.out.println("Object exists in the bucket.");
-            } else if ((s3Object.key().endsWith(".jpg")) || (s3Object.key().endsWith(".jpeg"))) {
-                System.out.println("JPG object found and will be copied: " + s3Object.key());
-                copyS3Object(sourceBucket, s3Object.key());
+            } else if ((key.endsWith(".jpg")) || (key.endsWith(".jpeg"))) {
+                System.out.println("JPG object found and will be copied: " + key);
+                copyS3Object(sourceBucket, key);
                 count++;
-            } else {
-                System.out.println("The object is not a JPG");
             }
         }
 
@@ -205,6 +149,8 @@ public class S3Service {
                 return true;
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
+            e.printStackTrace();
+            throw e;
         }
         return false;
     }
@@ -221,10 +167,10 @@ public class S3Service {
 
         try {
             s3.copyObject(copyReq);
-
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+            e.printStackTrace();
+            throw e;
         }
     }
 

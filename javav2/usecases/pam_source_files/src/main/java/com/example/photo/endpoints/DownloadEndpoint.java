@@ -26,7 +26,9 @@ public class DownloadEndpoint {
     public String download(List<String> labels) {
         try {
             // Now we have an image list, place them into a ZIP and presign it.
-            Set<String> images = labels.stream().parallel().flatMap(this::imagesByTag).collect(Collectors.toSet());
+            Set<String> images = labels.stream().parallel().flatMap(
+                (label) -> this.dbService.getImagesByLabel(label).stream())
+                .collect(Collectors.toSet());
             Map<String, byte[]> imageMap = new HashMap<>();
 
             for (String imageName : images) {
@@ -50,9 +52,5 @@ public class DownloadEndpoint {
             e.getMessage();
         }
         return null;
-    }
-
-    private Stream<String> imagesByTag(String tag) {
-        return this.dbService.getImagesTag(tag).stream();
     }
 }
