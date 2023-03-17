@@ -18,8 +18,8 @@ const request: typeof fetch = async (input, init) => {
     }
     return response;
   } catch (err) {
-    console.log(err);
-    throw err;
+    console.error("Fetch request failed.", err);
+    throw new Error("Fetch request failed.", { cause: err });
   }
 };
 
