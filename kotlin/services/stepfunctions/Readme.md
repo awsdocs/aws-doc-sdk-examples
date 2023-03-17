@@ -6,7 +6,7 @@ This README discusses how to run and test the AWS SDK for Kotlin examples for AW
 AWS Step Functions is a visual workflow service that helps developers use AWS services to build distributed applications, automate processes, orchestrate microservices, and create data and machine learning (ML) pipelines.
 
 ## ⚠️ Important
-* Running this code might result in charges to your AWS account. See [AWS Pricing](https://aws.amazon.com/pricing/).
+* Running this code might result in charges to your AWS account. For more information, see [AWS Pricing](https://aws.amazon.com/pricing/).
 * Running the tests might result in charges to your AWS account.
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege). 
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
@@ -69,7 +69,7 @@ Define the following values to successfully run the JUnit tests:
 - **activityNameSc** - The name of an activity to create for the Scenario test.
 - **stateMachineNameSc** – The name of the state machine to create for the Scenario test.
 
-You can obtain the JSON file to create a state machine in the following GitHub location. 
+You can obtain the JSON file to create a state machine in the following GitHub location: 
 
 https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files
 
