@@ -46,8 +46,6 @@ class StepFunctionsKotlinTest {
     fun setup() {
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties") as InputStream
         val prop = Properties()
-
-        // load the properties file.
         prop.load(input)
         jsonFile = prop.getProperty("jsonFile")
         jsonFileSM = prop.getProperty("jsonFileSM")
