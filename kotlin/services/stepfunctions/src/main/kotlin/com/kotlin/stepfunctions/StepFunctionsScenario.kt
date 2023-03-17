@@ -32,7 +32,7 @@ import kotlin.system.exitProcess
 /**
  To run this code example, place the chat_sfn_state_machine.json file into your project's resources folder.
 
- You can obtain the JSON file to create a state machine in the following GitHub location.
+ You can obtain the JSON file to create a state machine in the following GitHub location:
 
  https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files
 
@@ -49,7 +49,7 @@ import kotlin.system.exitProcess
  3. Describes the state machine.
  4. Starts execution of the state machine and interacts with it.
  5. Describes the execution.
- 6. Delete the activity.
+ 6. Deletes the activity.
  7. Deletes the state machine.
  */
 

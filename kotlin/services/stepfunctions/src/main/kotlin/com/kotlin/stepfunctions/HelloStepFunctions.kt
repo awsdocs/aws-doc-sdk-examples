@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[HelloStepFunctions.kt emonstrates how to list existing state machines for AWS Step Functions.]
+// snippet-sourcedescription:[HelloStepFunctions.kt demonstrates how to list existing state machines for AWS Step Functions.]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[AWS Step Functions]
 
