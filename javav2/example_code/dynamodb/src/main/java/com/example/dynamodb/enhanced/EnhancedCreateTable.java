@@ -1,5 +1,6 @@
-package com.example.dynamodb;
+package com.example.dynamodb.enhanced;
 // snippet-start:[dynamodb.java2.mapping.enhancedcreatetable.import]
+import com.example.dynamodb.Customer;
 import software.amazon.awssdk.core.internal.waiters.ResponseOrException;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
@@ -10,7 +11,7 @@ import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
 // snippet-start:[dynamodb.java2.mapping.enhancedcreatetable.main]
 public class EnhancedCreateTable {
-    public static void createTable(DynamoDbEnhancedClient  enhancedClient) {
+    public static void createTable(DynamoDbEnhancedClient enhancedClient) {
         // Create a DynamoDbTable object
         DynamoDbTable<Customer> customerTable = enhancedClient.table("Customer", TableSchema.fromBean(Customer.class));
         // Create the table

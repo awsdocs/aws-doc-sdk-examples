@@ -8,7 +8,6 @@
 
 #include <aws/core/Aws.h>
 #include <aws/core/client/ClientConfiguration.h>
-#include <aws/cloudformation/model/Output.h>
 #include <functional>
 
 namespace AwsDoc {

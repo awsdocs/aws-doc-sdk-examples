@@ -7,7 +7,7 @@ personalize-runtime_getRecommendations:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
@@ -45,7 +45,7 @@ personalize-runtime_getPersonalizedRanking:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascipt/example_code/personalize
+          github: javascriptv3/example_code/personalize
           sdkguide:
           excerpts:
             - description:
