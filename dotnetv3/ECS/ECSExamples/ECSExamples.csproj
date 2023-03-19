@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+ <ItemGroup>
+    <PackageReference Include="AWSSDK.EC2" Version="3.7.123.5" />
+    <PackageReference Include="AWSSDK.ECS" Version="3.7.104.38" />
+  </ItemGroup>
+</Project>
