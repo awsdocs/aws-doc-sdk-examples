@@ -3,7 +3,7 @@
 map(include('service'), key=regex('^[\da-z-]+$', name='service slug'))
 ---
 service:
-  long: include('entity_regex')
+  long: include('long_entity_regex')
   short: include('entity_regex')
   sort: regex('^[^&]\w', name='non-entity')
   chapter_override: include('chapter_override', required=False)
@@ -21,8 +21,9 @@ service:
   tags: map(key=enum('product_categories'))
 
 chapter_override:
-    title: str(upper_start=True, end_punc=False)
-    title_abbrev: str(upper_start=True, end_punc=False)
+    title: str(end_punc=False)
+    title_abbrev: str(end_punc=False)
 
-entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$|^&AWS; SDK for Kotlin Developer Guide$', name='valid entity')
+long_entity_regex: regex('^[&]([\dA-Za-z-_])+[;]( \(&([\dA-Za-z-_])+;\))?$', name='valid entity')
+entity_regex: regex('^[&]([\dA-Za-z-_])+[;]$', name='valid entity')
 doc_url: regex('^(?!https://docs.aws.amazon.com/).+', name="relative documentation URL")

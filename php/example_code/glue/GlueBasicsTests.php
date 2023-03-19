@@ -13,7 +13,7 @@ use Aws\CloudFormation\CloudFormationClient;
 use Aws\Glue\GlueClient;
 use Aws\Iam\IamClient;
 use Aws\S3\S3Client;
-use Iam\IamService;
+use Iam\IAMService;
 use PHPUnit\Framework\TestCase;
 
 class GlueBasicsTests extends TestCase
@@ -54,7 +54,7 @@ class GlueBasicsTests extends TestCase
         $iamClient = new IamClient($clientArgs);
 
         $glueService = new GlueService($glueClient);
-        $iamService = new IamService($iamClient);
+        $iamService = new IAMService($iamClient);
         $uniqid = uniqid();
 
         $template = file_get_contents('glue/setup_scenario_getting_started.yaml');

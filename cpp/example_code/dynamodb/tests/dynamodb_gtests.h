@@ -70,6 +70,9 @@ namespace AwsDocTest {
         static const Aws::String SIMPLE_PRIMARY_KEY;
 
     private:
+
+        bool suppressStdOut();
+
         static Aws::SDKOptions s_options;
 
         std::stringbuf m_coutBuffer;  // Use just to silence cout.

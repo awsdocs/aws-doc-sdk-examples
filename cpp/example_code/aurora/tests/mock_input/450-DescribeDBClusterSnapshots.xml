@@ -1,0 +1,15 @@
+<DescribeDBClusterSnapshotsResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeDBClusterSnapshotsResult>
+        <DBClusterSnapshots>
+            <DBClusterSnapshot>
+                <DBClusterSnapshotIdentifier>doc-example-cpp-aurora-5ecbd3aa-e1eb-466f-aa5a-a6b44ce5deaa
+                </DBClusterSnapshotIdentifier>
+                <Status>creating</Status>
+            </DBClusterSnapshot>
+        </DBClusterSnapshots>
+    </DescribeDBClusterSnapshotsResult>
+    <ResponseMetadata>
+        <RequestId>e3cdc86b-604a-463a-960b-e3e8ba487342</RequestId>
+    </ResponseMetadata>
+</DescribeDBClusterSnapshotsResponse>
+ 

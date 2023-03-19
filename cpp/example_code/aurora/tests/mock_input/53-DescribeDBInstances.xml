@@ -1,0 +1,9 @@
+<ErrorResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <Error>
+        <Type>Sender</Type>
+        <Code>DBInstanceNotFound</Code>
+        <Message>DBInstance doc-example-cpp-instance not found.</Message>
+    </Error>
+    <RequestId>6cd647d0-40b8-4336-b88d-52cf00674597</RequestId>
+</ErrorResponse>
+ 

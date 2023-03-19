@@ -33,6 +33,8 @@ use DynamoDb;
 use DynamoDb\DynamoDBAttribute;
 use DynamoDb\DynamoDBService;
 
+use function AwsUtilities\testable_readline;
+
 class GettingStartedWithDynamoDB
 {
     public function run()

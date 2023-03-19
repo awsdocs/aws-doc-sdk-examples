@@ -1,0 +1,9 @@
+<ErrorResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <Error>
+        <Type>Sender</Type>
+        <Code>DBParameterGroupNotFound</Code>
+        <Message>DBParameterGroup not found: doc-example-parameter-group</Message>
+    </Error>
+    <RequestId>ad9db88d-df22-4c3b-b3a3-e05dbf775491</RequestId>
+</ErrorResponse>
+ 

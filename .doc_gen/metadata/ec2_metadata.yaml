@@ -40,6 +40,15 @@ ec2_Hello:
             - description:
               snippet_tags:
                 - python.example_code.ec2.Hello
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.scenarios.Hello
   services:
     ec2: {DescribeSecurityGroups}
 ec2_CreateKeyPair:
@@ -85,6 +94,15 @@ ec2_CreateKeyPair:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.CreateKeyPair
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.keypairs.createKeyPairV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -93,6 +111,14 @@ ec2_CreateKeyPair:
             - description:
               snippet_tags:
                 - ec2.abapv1.create_key_pair
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.create_key_pair.code
   services:
     ec2: {CreateKeyPair}
 ec2_DescribeKeyPairs:
@@ -138,6 +164,15 @@ ec2_DescribeKeyPairs:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.DescribeKeyPairs
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.keypairs.describeKeyPairV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -146,6 +181,14 @@ ec2_DescribeKeyPairs:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_key_pairs
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.describe_key_pairs.code
   services:
     ec2: {DescribeKeyPairs}
 
@@ -192,6 +235,15 @@ ec2_CreateSecurityGroup:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.CreateSecurityGroup
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.SecurityGroups.createSecurityGroupV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -200,6 +252,15 @@ ec2_CreateSecurityGroup:
             - description:
               snippet_tags:
                 - ec2.abapv1.create_security_group
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.create_security_group.client
+                - cpp.example_code.ec2.CreateSecurityGroup
   services:
     ec2: {CreateSecurityGroup}
 ec2_RunInstances:
@@ -245,6 +306,15 @@ ec2_RunInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.RunInstances
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.Instances.create_instancesV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -253,6 +323,16 @@ ec2_RunInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.create_instance
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.create_instance.client
+                - cpp.example_code.ec2.RunInstances
   services:
     ec2: {RunInstances}
 ec2_CreateVpc:
@@ -318,6 +398,15 @@ ec2_StartInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StartInstances
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.Instances.start_stopInstancesV3
     Rust:
       versions:
         - sdk_version: 1
@@ -334,6 +423,14 @@ ec2_StartInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.start_instance
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.start_instance.code
   services:
     ec2: {StartInstances}
 ec2_StopInstances:
@@ -379,6 +476,15 @@ ec2_StopInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StopInstances
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.actions.StopInstances
     Rust:
       versions:
         - sdk_version: 1
@@ -395,6 +501,14 @@ ec2_StopInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.stop_instance
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.stop_instance.code
   services:
     ec2: {StopInstances}
 ec2_AllocateAddress:
@@ -440,6 +554,15 @@ ec2_AllocateAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AllocateAddress
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.Addresses.allocateAddressV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -448,6 +571,15 @@ ec2_AllocateAddress:
             - description:
               snippet_tags:
                 - ec2.abapv1.allocate_address
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.allocate_address.client
+                - cpp.example_code.ec2.AllocateAddress
   services:
     ec2: {AllocateAddress}
 ec2_AssociateAddress:
@@ -493,6 +625,15 @@ ec2_AssociateAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AssociateAddress
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.actions.AssociateAddress
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -501,6 +642,15 @@ ec2_AssociateAddress:
             - description:
               snippet_tags:
                 - ec2.abapv1.associate_address
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.allocate_address.client
+                - cpp.example_code.ec2.AssociateAddress
   services:
     ec2: {AssociateAddress}
 ec2_DisassociateAddress:
@@ -546,6 +696,15 @@ ec2_DisassociateAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.DisassociateAddress
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.actions.DisassociateAddress
   services:
     ec2: {DisassociateAddress}
 ec2_ReleaseAddress:
@@ -591,6 +750,15 @@ ec2_ReleaseAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.ReleaseAddress
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.Addresses.releaseAddressV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -599,6 +767,14 @@ ec2_ReleaseAddress:
             - description:
               snippet_tags:
                 - ec2.abapv1.release_address
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.release_address.code
   services:
     ec2: {ReleaseAddress}
 ec2_AuthorizeSecurityGroupIngress:
@@ -644,6 +820,25 @@ ec2_AuthorizeSecurityGroupIngress:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.AuthorizeSecurityGroupIngress
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.allocate_address.client
+                - ec2.cpp.configure_security_group02.code
+                - ec2.cpp.configure_security_group03.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.actions.AuthorizeSecurityGroupIngress
   services:
     ec2: {AuthorizeSecurityGroupIngress}
 ec2_DeleteKeyPair:
@@ -689,6 +884,15 @@ ec2_DeleteKeyPair:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.DeleteKeyPair
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.keypairs.deleteKeyPairV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -697,6 +901,14 @@ ec2_DeleteKeyPair:
             - description:
               snippet_tags:
                 - ec2.abapv1.delete_key_pair
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.delete_key_pair.code
   services:
     ec2: {DeleteKeyPair}
 ec2_DescribeSecurityGroups:
@@ -742,6 +954,15 @@ ec2_DescribeSecurityGroups:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.DescribeSecurityGroups
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.SecurityGroups.describeSecurityGroupsV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -750,6 +971,14 @@ ec2_DescribeSecurityGroups:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_security_groups
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.describe_security_groups.code
   services:
     ec2: {DescribeSecurityGroups}
 ec2_DeleteSecurityGroup:
@@ -795,6 +1024,15 @@ ec2_DeleteSecurityGroup:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.DeleteSecurityGroup
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.SecurityGroups.deleteSecurityGroupV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -803,6 +1041,14 @@ ec2_DeleteSecurityGroup:
             - description:
               snippet_tags:
                 - ec2.abapv1.delete_security_group
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.delete_security_group.code
   services:
     ec2: {DeleteSecurityGroup}
 ec2_DeleteSnapshot:
@@ -883,6 +1129,23 @@ ec2_TerminateInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.TerminateInstances
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.TerminateInstances
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v2.ec2.actions.TerminateInstances
   services:
     ec2: {TerminateInstances}
 ec2_DescribeInstances:
@@ -927,6 +1190,14 @@ ec2_DescribeInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeInstances
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.Instances.describeInstancesV3
     Rust:
       versions:
         - sdk_version: 1
@@ -943,6 +1214,14 @@ ec2_DescribeInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_instances
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.describe_instances.code
   services:
     ec2: {DescribeInstances}
 ec2_DescribeRegions:
@@ -959,6 +1238,15 @@ ec2_DescribeRegions:
             - description:
               snippet_tags:
                 - ec2.rust.ec2-helloworld
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.Regions.describeRegionsV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -967,6 +1255,15 @@ ec2_DescribeRegions:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_regions
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.describe_regions.client
+                - cpp.example_code.ec2.DescribeRegions
   services:
     ec2: {DescribeRegions}
 ec2_DescribeInstanceStatus:
@@ -999,6 +1296,15 @@ ec2_MonitorInstances:
             - description:
               snippet_tags:
                 - ec2.rust.monitor-instance
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.Instances.monitorInstancesV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -1007,8 +1313,41 @@ ec2_MonitorInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.monitor_instance
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.enable_monitor_instance.code
   services:
     ec2: {MonitorInstances}
+ec2_UnmonitorInstances:
+  title: Disable detailed monitoring for an &EC2; instance using an &AWS; SDK
+  title_abbrev: Disable detailed monitoring
+  synopsis: disable detailed monitoring on an &EC2; instance.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.disable_monitor_instance.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.actions.UnmonitorInstances
+  services:
+    ec2: {UnmonitorInstances}
 ec2_RebootInstances:
   title: Reboot an &EC2; instance using an &AWS; SDK
   title_abbrev: Reboot an instance
@@ -1032,6 +1371,15 @@ ec2_RebootInstances:
             - description:
               snippet_tags:
                 - ec2.rust.reboot-instance
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.Instances.rebootInstancesV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -1040,6 +1388,14 @@ ec2_RebootInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.reboot_instance  
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.reboot_instance.code
   services:
     ec2: {RebootInstances}
 ec2_DeleteVPC:
@@ -1075,6 +1431,15 @@ ec2_DescribeImages:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeImages
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.actions.DescribeImages
   services:
     ec2: {DescribeImages}
 ec2_DescribeInstanceTypes:
@@ -1120,6 +1485,15 @@ ec2_DescribeInstanceTypes:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeInstanceTypes
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.ec2.actions.DescribeInstanceTypes
   services:
     ec2: {DescribeInstanceTypes}
 ec2_DescribeAddresses:
@@ -1128,6 +1502,15 @@ ec2_DescribeAddresses:
   synopsis: get details about Elastic IP addresses.
   category:
   languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.JavaScript.Addresses.describeAddressesV3
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -1136,6 +1519,14 @@ ec2_DescribeAddresses:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_addresses
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.describe_addresses.code
   services:
     ec2: {DescribeAddresses}
 ec2_DescribeAvailabilityZones:
@@ -1152,8 +1543,35 @@ ec2_DescribeAvailabilityZones:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_availability_zones
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.describe_regions.client
+                - ec2.cpp.describe_zones.code
   services:
     ec2: {DescribeAvailabilityZones}
+ec2_CreateTags:
+  title: Add tags to &EC2; resources using an &AWS; SDK
+  title_abbrev: Add tags to resources
+  synopsis: add tags to &EC2; resources.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.create_instance.client
+                - cpp.example_code.ec2.CreateTags
+  services:
+    ec2: {CreateTags}
 ec2_Scenario_GetStartedInstances:
   title: Get started with &EC2; instances using an &AWS; SDK
   title_abbrev: Get started with instances
@@ -1223,8 +1641,17 @@ ec2_Scenario_GetStartedInstances:
             - description: Define a class that wraps Elastic IP actions.
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.class
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - javascript.v3.ec2.scenarios.basic
   services:
     ec2: {AllocateAddress, AssociateAddress, AuthorizeSecurityGroupIngress, CreateKeyPair,
           CreateSecurityGroup, DeleteKeyPair, DeleteSecurityGroup, DescribeImages, DescribeInstanceTypes,
           DescribeInstances, DescribeKeyPairs, DescribeSecurityGroups, DisassociateAddress,
-          ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances}
+          ReleaseAddress, RunInstances, StartInstances, StopInstances, TerminateInstances, UnmonitorInstances}

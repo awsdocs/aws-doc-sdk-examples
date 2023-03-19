@@ -1,0 +1,60 @@
+--- 
+files:
+  - path: src/main/java/com/example/identitystore/CreateGroup.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/CreateGroupMembership.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/CreateUser.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/DeleteGroup.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/DeleteGroupMembership.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/DeleteUser.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/DescribeGroup.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/DescribeGroupMembership.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/DescribeUser.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/GetGroupId.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/GetGroupMembershipId.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/GetUserId.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/IsMemberInGroups.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/ListGroupMemberships.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/ListGroupMembershipsForMember.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/ListGroups.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/ListUsers.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/UpdateGroup.java
+    services:
+      - identitystore
+  - path: src/main/java/com/example/identitystore/UpdateUser.java
+    services:
+      - identitystore
+  - path: src/test/java/IdentitystoreServiceTest.java

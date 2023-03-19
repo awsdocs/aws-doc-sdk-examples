@@ -1,0 +1,6 @@
+<DeleteDBParameterGroupResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <ResponseMetadata>
+        <RequestId>ba04225b-adf1-49a0-b718-211c78ba07bc</RequestId>
+    </ResponseMetadata>
+</DeleteDBParameterGroupResponse>
+ 

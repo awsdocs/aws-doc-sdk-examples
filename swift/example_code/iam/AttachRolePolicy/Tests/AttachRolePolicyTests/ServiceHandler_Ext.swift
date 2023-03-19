@@ -19,11 +19,11 @@ public extension ServiceHandler {
     /// Create a new managed AWS Identity and Access Management (IAM) policy.
     ///
     /// - Parameters:
-    ///   - name: The name of the new policy.d
+    ///   - name: The name of the new policy.
     ///   - policyDocument: The policy document to assign to the new policy.
     ///
-    /// - Returns: An `IamClientTypes.Policy` object representing the new policy.
-    func createPolicy(policyName: String, policyDocument: String) async throws -> IamClientTypes.Policy {
+    /// - Returns: An `IAMClientTypes.Policy` object representing the new policy.
+    func createPolicy(policyName: String, policyDocument: String) async throws -> IAMClientTypes.Policy {
         let input = CreatePolicyInput(
             policyDocument: policyDocument,
             policyName: policyName
@@ -134,8 +134,8 @@ public extension ServiceHandler {
     ///
     /// - Parameter name: A `String` giving the name of the user to get. If
     ///   this parameter is `nil`, the default user's information is returned.
-    /// - Returns: An `IamClientTypes.User` record describing the user.
-    func getUser(name: String?) async throws -> IamClientTypes.User {
+    /// - Returns: An `IAMClientTypes.User` record describing the user.
+    func getUser(name: String?) async throws -> IAMClientTypes.User {
         let input = GetUserInput(
             userName: name
         )

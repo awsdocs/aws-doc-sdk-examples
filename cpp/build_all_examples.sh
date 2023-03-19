@@ -1,12 +1,12 @@
 #!/bin/bash
-# Run the automated tests for cpp.
+# Build the AWS example code for C++ .
 
 
-TEST_CMAKE_FILES=$(ls example_code/*/CMakeLists.txt)
-TEST_CMAKE_FILES=($TEST_CMAKE_FILES)
-echo "TEST_CMAKE_FILES ${TEST_CMAKE_FILES}"
+CMAKE_FILES=$(ls example_code/*/CMakeLists.txt)
+CMAKE_FILES=($CMAKE_FILES)
+echo "CMAKE_FILES ${CMAKE_FILES}"
 
-len=${#TEST_CMAKE_FILES[@]}
+len=${#CMAKE_FILES[@]}
 echo "len ${len}"
 if [[ ${len} == 0 ]]; then
     echo "No CMake files found!"
@@ -20,7 +20,7 @@ echo "BUILD_DIR ${BUILD_DIR}"
 mkdir -pv ${BUILD_DIR}
 
 HAD_ERROR=false
-for MAKE_FILE in "${TEST_CMAKE_FILES[@]}"
+for MAKE_FILE in "${CMAKE_FILES[@]}"
 do
   SOURCE_DIR="${MAKE_FILE%CMakeLists.txt}"
   MODULE_BUILD_DIR="${BUILD_DIR}/${SOURCE_DIR}"
@@ -34,7 +34,7 @@ do
     HAD_ERROR=true
     continue
   fi
-  make
+  cmake --build .
   if [ $? != 0 ]; then
     echo "ERROR with make ${$?}"
     HAD_ERROR=true
@@ -42,8 +42,12 @@ do
   fi
 done
 
-if [ HAD_ERROR ]; then
+echo
+
+if [ $HAD_ERROR = true ]; then
+  echo "The build had errors."
   exit 1
 else
+  echo "The build was successful with no errors."
   exit 0
 fi

@@ -1,0 +1,22 @@
+<DescribeDBClusterParametersResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeDBClusterParametersResult>
+        <Marker>aW5ub2RiX2NoZWNrc3Vtcw==</Marker>
+        <Parameters>
+            <Parameter>
+                <AllowedValues>0,1</AllowedValues>
+                <ApplyType>static</ApplyType>
+                <DataType>boolean</DataType>
+                <Description>Controls whether user-defined functions that have only an xxx symbol for the main function
+                    can be loaded
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <Source>engine-default</Source>
+                <ParameterName>allow-suspicious-udfs</ParameterName>
+                <IsModifiable>false</IsModifiable>
+                <SupportedEngineModes>
+                    <member>provisioned</member>
+                </SupportedEngineModes>
+            </Parameter>
+        </Parameters>
+    </DescribeDBClusterParametersResult>
+</DescribeDBClusterParametersResponse>

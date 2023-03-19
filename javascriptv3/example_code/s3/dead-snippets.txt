@@ -1,0 +1,74 @@
+// snippet-start:[s3.HTML.photoAlbumExample.completeV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.HTML.photoAlbumExample.completeV3]
+
+// snippet-start:[s3.HTML.s3_PhotoViewer.completeV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.HTML.s3_PhotoViewer.completeV3]
+
+// snippet-start:[s3.JavaScript.s3_PhotoViewer.completeV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.s3_PhotoViewer.completeV3]
+
+// snippet-start:[s3.JavaScript.s3_PhotoViewer.configV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.s3_PhotoViewer.configV3]
+
+// snippet-start:[s3.JavaScript.s3_PhotoViewer.listAlbumV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.s3_PhotoViewer.listAlbumV3]
+
+// snippet-start:[s3.JavaScript.s3_PhotoViewer.viewAlbumV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.s3_PhotoViewer.viewAlbumV3]
+
+// snippet-start:[s3.JavaScript.photoAlbumExample.configV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.photoAlbumExample.configV3]
+
+// snippet-start:[s3.JavaScript.photoAlbumExample.listAlbumsV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.photoAlbumExample.listAlbumsV3]
+
+// snippet-start:[s3.JavaScript.photoAlbumExample.createAlbumV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.photoAlbumExample.createAlbumV3]
+
+// snippet-start:[s3.JavaScript.photoAlbumExample.viewAlbumV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.photoAlbumExample.viewAlbumV3]
+
+// snippet-start:[s3.JavaScript.photoAlbumExample.addPhotoV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.photoAlbumExample.addPhotoV3]
+
+// snippet-start:[s3.JavaScript.photoAlbumExample.deletePhotoV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.photoAlbumExample.deletePhotoV3]
+
+// snippet-start:[s3.JavaScript.photoAlbumExample.deleteAlbumV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.photoAlbumExample.deleteAlbumV3]
+
+// snippet-start:[s3.JavaScript.photoAlbumExample.completeV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.photoAlbumExample.completeV3]
+
+// snippet-start:[s3.JavaScript.buckets.upload_putcommandV3]
+This code example has been superseded by the example in
+Code examples > Amazon S3 > Create a web page that lists S3 objects
+// snippet-end:[s3.JavaScript.buckets.upload_putcommandV3]

@@ -2,7 +2,7 @@
 // Swift Example: GetRole
 //
 // An example showing how to use the Amazon Identity and Access Management (IAM)
-// `IamClient` function `getRole()`.
+// `IAMClient` function `getRole()`.
 //
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.

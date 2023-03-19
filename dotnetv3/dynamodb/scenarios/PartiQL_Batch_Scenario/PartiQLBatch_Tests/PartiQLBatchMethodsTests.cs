@@ -20,6 +20,7 @@ namespace PartiQL_Batch_Scenario.Tests
         }
 
         [Fact(), TestPriority(1)]
+        [Trait("Category", "Integration")]
         public async Task InsertMoviesTest()
         {
             // Because InsertMovies calls ImportMovies, there is not
@@ -30,6 +31,7 @@ namespace PartiQL_Batch_Scenario.Tests
         }
 
         [Fact(), TestPriority(2)]
+        [Trait("Category", "Integration")]
         public async Task GetBatchTest()
         {
             // Update multiple movies by using the BatchExecute statement.
@@ -43,6 +45,7 @@ namespace PartiQL_Batch_Scenario.Tests
         }
 
         [Fact(), TestPriority(3)]
+        [Trait("Category", "Integration")]
         public async Task UpdateBatchTest()
         {
             // Update multiple movies by using the BatchExecute statement.
@@ -58,6 +61,7 @@ namespace PartiQL_Batch_Scenario.Tests
         }
 
         [Fact(), TestPriority(4)]
+        [Trait("Category", "Integration")]
         public async Task DeleteBatchTest()
         {
             // Update multiple movies by using the BatchExecute statement.

@@ -1,0 +1,19 @@
+{
+  "name": "aws-wasm-app",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development",
+    "start": "webpack serve"
+  },
+  "dependencies": {
+    "aws-wasm": "file://./pkg",
+    "env": "file://./env"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}

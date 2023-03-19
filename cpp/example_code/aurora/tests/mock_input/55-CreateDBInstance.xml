@@ -1,0 +1,24 @@
+<CreateDBInstanceResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <CreateDBInstanceResult>
+        <DBInstance>
+            <AllocatedStorage>1</AllocatedStorage>
+            <DBParameterGroups>
+                <DBParameterGroup>
+                    <DBParameterGroupName>default.aurora-mysql5.7</DBParameterGroupName>
+                    <ParameterApplyStatus>in-sync</ParameterApplyStatus>
+                </DBParameterGroup>
+            </DBParameterGroups>
+            <EngineVersion>5.7.mysql_aurora.2.07.0</EngineVersion>
+            <MasterUsername>foo</MasterUsername>
+            <DBInstanceClass>db.r3.2xlarge</DBInstanceClass>
+            <StorageThroughput>0</StorageThroughput>
+            <DBInstanceIdentifier>doc-example-cpp-instance</DBInstanceIdentifier>
+            <DBInstanceArn>arn:aws:rds:us-test:11112222:db:doc-example-cpp-instance</DBInstanceArn>
+            <Engine>aurora-mysql</Engine>
+        </DBInstance>
+    </CreateDBInstanceResult>
+    <ResponseMetadata>
+        <RequestId>bf32a785-aff4-46d5-8d18-460133b556f3</RequestId>
+    </ResponseMetadata>
+</CreateDBInstanceResponse>
+ 

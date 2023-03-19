@@ -1,0 +1,22 @@
+<CreateDBClusterResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <CreateDBClusterResult>
+        <DBCluster>
+            <EngineVersion>5.7.mysql_aurora.2.07.0</EngineVersion>
+            <MasterUsername>foo</MasterUsername>
+            <DBClusterMembers/>
+            <HttpEndpointEnabled>false</HttpEndpointEnabled>
+            <Port>3306</Port>
+            <BackupRetentionPeriod>1</BackupRetentionPeriod>
+            <DBClusterIdentifier>doc-example-cpp-aurora</DBClusterIdentifier>
+            <DbClusterResourceId>cluster-AAAA</DbClusterResourceId>
+            <Status>creating</Status>
+            <Engine>aurora-mysql</Engine>
+            <DBClusterParameterGroup>doc-example-cpp-aurora-parameter-group</DBClusterParameterGroup>
+            <DBClusterArn>arn:aws:rds:us-test:11111:cluster:doc-example-cpp-aurora</DBClusterArn>
+        </DBCluster>
+    </CreateDBClusterResult>
+    <ResponseMetadata>
+        <RequestId>e6adecbd-79c7-47c5-82a8-11b684caa9fd</RequestId>
+    </ResponseMetadata>
+</CreateDBClusterResponse>
+ 

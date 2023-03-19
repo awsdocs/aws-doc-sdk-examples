@@ -1,0 +1,9 @@
+<ErrorResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <Error>
+        <Type>Sender</Type>
+        <Code>DBClusterNotFoundFault</Code>
+        <Message>DBCluster doc-example-cpp-aurora not found.</Message>
+    </Error>
+    <RequestId>96396538-f46b-4678-96fa-a580bb92cc9b</RequestId>
+</ErrorResponse>
+ 

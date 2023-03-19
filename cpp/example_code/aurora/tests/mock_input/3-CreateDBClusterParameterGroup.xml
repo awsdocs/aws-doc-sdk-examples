@@ -1,0 +1,12 @@
+<CreateDBClusterParameterGroupResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <CreateDBClusterParameterGroupResult>
+        <DBClusterParameterGroup>
+            <DBClusterParameterGroupArn>arn:aws:rds:us-test-1111222:cluster-pg:doc-example-cpp-aurora-parameter-group
+            </DBClusterParameterGroupArn>
+            <DBParameterGroupFamily>aurora-mysql5.7</DBParameterGroupFamily>
+            <DBClusterParameterGroupName>doc-example-cpp-aurora-parameter-group</DBClusterParameterGroupName>
+            <Description>Example cluster parameter group.</Description>
+        </DBClusterParameterGroup>
+    </CreateDBClusterParameterGroupResult>
+</CreateDBClusterParameterGroupResponse>
+ 
