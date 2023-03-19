@@ -347,7 +347,9 @@ mod test {
             let file_name = file_name.to_str().unwrap().to_string();
 
             let mut file = File::create(dir).await.unwrap();
-            file.write("test file".as_bytes()).await.unwrap();
+            let written_bytes = file.write("test file".as_bytes()).await.unwrap();
+
+            println!("Wrote bytes to s3 {written_bytes}");
 
             file_name
         };
