@@ -93,7 +93,6 @@ export class PamStack extends Stack {
     {
       const fn = this.lambdas.fns.download;
       this.tables.labels.grantReadData(fn);
-      this.tables.jobs.grantWriteData(fn);
       this.buckets.storage.grantRead(fn);
       this.buckets.working.grantReadWrite(fn);
       this.topic.grantPublish(fn);
