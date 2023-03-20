@@ -3178,7 +3178,7 @@ iam_Scenario_GroupBasics:
   title_abbrev: Create a group and add a user
   synopsis_list:
     - Create a group.
-    - Add full to &S3; to the group.
+    - Grant full &S3; access permissions to the group.
     - Create a new user with no permissions to access &S3;.
     - Add the user to the group.
     - Show that the user now has permissions to create and delete &S3; buckets.
