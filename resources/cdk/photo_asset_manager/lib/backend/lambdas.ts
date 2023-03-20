@@ -55,7 +55,7 @@ export class PamLambda extends Construct {
     const labels = makeLambda("LabelsFn", handlers.labels);
     const upload = makeLambda("UploadFn", handlers.upload);
     const copy = makeLambda("CopyFn", handlers.copy);
-    const download = makeLambda("DowloadFn", handlers.download);
+    const download = makeLambda("PrepareDownloadFn", handlers.download);
 
     this.fns = {
       detectLabels,
