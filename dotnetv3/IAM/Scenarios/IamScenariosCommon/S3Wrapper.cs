@@ -1,9 +1,10 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System.Net;
-
+// snippet-start:[IAM.dotnetv3.IAMCommon.S3Wrapper]
 namespace IamScenariosCommon;
+
+using System.Net;
 
 /// <summary>
 /// A class to perform Amazon Simple Storage Service (Amazon S3) actions for
@@ -107,3 +108,5 @@ public class S3Wrapper
         _stsService = stsService;
     }
 }
+
+// snippet-end:[IAM.dotnetv3.IAMCommon.S3Wrapper]
