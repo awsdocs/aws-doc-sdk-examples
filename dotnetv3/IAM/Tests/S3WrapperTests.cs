@@ -22,7 +22,6 @@ namespace IAMTests
         // Values needed for user, role, and policies.
         private readonly string? _roleName;
         private readonly string? _groupBucketName;
-        private static string? _test_guid;
 
         public S3WrapperTests()
         {
@@ -59,6 +58,10 @@ namespace IAMTests
             Assert.True(bucketExists, "Could not create the bucket.");
         }
 
+        /// <summary>
+        /// Tests the ListMyBucketsAsync method in the S3Wrapper class.
+        /// </summary>
+        /// <returns></returns>
         [Fact()]
         [Order(2)]
         [Trait("Category", "Integration")]
@@ -71,6 +74,10 @@ namespace IAMTests
             Assert.True(buckets.Count >= 1, "There are no buckets to list.");
         }
 
+        /// <summary>
+        /// Tests DeleteBucketAsync in the S3Wrapper class.
+        /// </summary>
+        /// <returns>Async Task.</returns>
         [Fact()]
         [Order(3)]
         [Trait("Category", "Integration")]
@@ -84,6 +91,13 @@ namespace IAMTests
             Assert.False(bucketExists, "Could not delete the bucket.");
         }
 
+        /// <summary>
+        /// Test the ability to assume a role using the AWS Security Token
+        /// Service (AWS STS). This test has been quarantined because it
+        /// requires resources to be set up in exactly the right order in order
+        /// for the test to succeed.
+        /// </summary>
+        /// <returns>Async Task.</returns>
         [Fact()]
         [Trait("Category", "Quarantine")]
         public async Task AssumeS3RoleAsyncTest()

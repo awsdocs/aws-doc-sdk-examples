@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[IAM.dotnetv3.IAMGroups]
 using Amazon.Runtime;
 using Microsoft.Extensions.Configuration;
 
@@ -165,3 +166,5 @@ public class IAMGroups
         uiWrapper.PressEnter();
     }
 }
+
+// snippet-end:[IAM.dotnetv3.IAMGroups]

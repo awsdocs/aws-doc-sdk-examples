@@ -1,6 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+// snippet-start:[IAM.dotnetv3.IAMCommon.UIWrapper]
 namespace IamScenariosCommon;
 
 public class UIWrapper
@@ -97,3 +98,5 @@ public class UIWrapper
         PressEnter();
     }
 }
+
+// snippet-end:[IAM.dotnetv3.IAMCommon.UIWrapper]

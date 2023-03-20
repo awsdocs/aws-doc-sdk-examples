@@ -3173,6 +3173,35 @@ iam_DeleteServiceLinkedRole:
                 - rust.example_code.iam.service.delete_service_linked_role
   services:
     iam: {DeleteServiceLinkedRole}
+iam_Scenario_GroupBasics:
+  title: Create an &IAM; group and ass a user to the group using an &AWS; SDK
+  title_abbrev: Create a group and add a user
+  synopsis_list:
+    - Create a group.
+    - Add full to &S3; to the group.
+    - Create a new user with no permissions to access &S3;.
+    - Add the user to the group.
+    - Show that the user now has permissions to create and delete &S3; buckets.
+    - Delete the &S3; bucket, the user, and the group.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM/IAMGroups
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnet3.IAMGroups.Usings
+                - IAM.dotnetv3.IAMWrapper
+                - IAM.dotnetv3.IAMGroups
+                - IAM.dotnetv3.IAMCommon.S3Wrapper
+                - IAM.dotnetv3.IAMCommon.UIWrapper
+  services:
+    iam: {AddUserToGroup, CreateGroup, CreateUser, CreateAccessKey, CreateRole,
+          CreatePolicy, AttachRolePolicy, PutGroupPolicy, DeleteGroup, DeleteGroupPolicy,
+          DeleteAccessKey, DeleteUser, RemoveUserFromGroup}
 iam_Scenario_CreateUserAssumeRole:
   title: Create an &IAM-user; and assume a role with &STS; using an &AWS; SDK
   title_abbrev: Create a user and assume a role
@@ -3188,7 +3217,7 @@ iam_Scenario_CreateUserAssumeRole:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/IAM/IAM_Basics_Scenario
+          github: dotnetv3/IAM/IAMBasics
           sdkguide:
           excerpts:
             - description:
@@ -3196,6 +3225,8 @@ iam_Scenario_CreateUserAssumeRole:
                 - IAM.dotnetv3.IAMBasics.Usings
                 - IAM.dotnetv3.IAMWrapper
                 - IAM.dotnetv3.IAMBasics
+                - IAM.dotnetv3.IAMCommon.S3Wrapper
+                - IAM.dotnetv3.IAMCommon.UIWrapper
     Kotlin:
       versions:
         - sdk_version: 1
