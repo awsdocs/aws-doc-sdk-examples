@@ -53,7 +53,7 @@ async fn show_cores(client: &Client) -> Result<(), Error> {
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display information.
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() -> Result<(), Box<Error>> {
     tracing_subscriber::fmt::init();
     let Opt { region, verbose } = Opt::from_args();
 
@@ -74,5 +74,5 @@ async fn main() -> Result<(), Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    show_cores(&client).await
+    show_cores(&client).await.map_err(Box::new)
 }
