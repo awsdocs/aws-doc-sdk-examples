@@ -1,54 +1,90 @@
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
 
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
 #include <aws/sns/model/DeleteTopicRequest.h>
 #include <iostream>
+#include "sns_samples.h"
 
-/**
- * Delete an SNS topic - demonstrates how to delete an Amazon SNS topic and all its subscriptions.
+// snippet-start:[sns.cpp.delete_topic.code]
+//! Delete an SNS topic.
+/*!
+  \sa deleteTopic()
+  \param topicARN: An SNS topic Amazon Resource Name (ARN).
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
  */
+bool AwsDoc::SNS::deleteTopic(const Aws::String &topicARN,
+                 const Aws::Client::ClientConfiguration &clientConfiguration)
+{
+    Aws::SNS::SNSClient snsClient(clientConfiguration);
+
+    Aws::SNS::Model::DeleteTopicRequest request;
+    request.SetTopicArn(topicARN);
+
+    const Aws::SNS::Model::DeleteTopicOutcome outcome = snsClient.DeleteTopic(request);
+
+    if (outcome.IsSuccess())
+    {
+        std::cout << "Successfully deleted topic " << topicARN << std::endl;
+    }
+    else
+    {
+        std::cout << "Error deleting topic " << topicARN << ":" <<
+                  outcome.GetError().GetMessage() << std::endl;
+    }
+
+    return outcome.IsSuccess();
+}
+// snippet-end:[sns.cpp.delete_topic.code]
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_delete_topic <topic_arn>'
+ *
+ *  Prerequisites: An existing SNS topic and its ARN.
+ *  
+*/
+
+#ifndef TESTING_BUILD
 
 int main(int argc, char ** argv)
 {
   if (argc != 2)
   {
-    std::cout << "Usage: delete_topic <topic_arn>" << std::endl;
+    std::cout << "Usage: run_delete_topic <topic_arn>" << std::endl;
     return 1;
   }
-  // snippet-start:[sns.cpp.delete_topic.code]
-  Aws::SDKOptions options;
-  Aws::InitAPI(options);
-  {
-    Aws::String topic_arn = argv[1];
-    Aws::SNS::SNSClient sns;
+    Aws::SDKOptions options;
 
-    Aws::SNS::Model::DeleteTopicRequest dt_req;
-    dt_req.SetTopicArn(topic_arn);
-
-    auto dt_out = sns.DeleteTopic(dt_req);
-
-    if (dt_out.IsSuccess())
+    Aws::InitAPI(options);
     {
-      std::cout << "Successfully deleted topic " << topic_arn << std::endl;
-    }
-    else
-    {
-      std::cout << "Error deleting topic " << topic_arn << ":" <<
-        dt_out.GetError().GetMessage() << std::endl;
-    }
-  }
+        const Aws::String topicARN(argv[1]);
 
-  Aws::ShutdownAPI(options);
-  // snippet-end:[sns.cpp.delete_topic.code]
-  return 0;
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::SNS::deleteTopic(topicARN, clientConfig);
+    }
+    Aws::ShutdownAPI(options);
+    return 0;
 }
+
+#endif // TESTING_BUILD
