@@ -50,7 +50,7 @@ public class MovieDatabase {
     ///       initialized successfully.
     ///     - `MovieError.CreateTableFailed` if the DynamoDB table could not
     ///       be created.
-    ///     - Appropriate DynamoDB errors may be thrown as well.
+    ///     - Appropriate DynamoDB errors might be thrown also.
     init(region: String = "us-east-2", jsonPath: String) async throws {
         ddbClient = try DynamoDBClient(region: region)
 
@@ -231,7 +231,7 @@ public class MovieDatabase {
 
         // For each chunk, create a list of write request records and populate
         // them with `PutRequest` requests, each specifying one movie from the
-        // chunk. Once the chunk's items are all in the `PutRequest` list,
+        // chunk. After the chunk's items are all in the `PutRequest` list,
         // send them to Amazon DynamoDB using the
         // `DynamoDBClient.batchWriteItem()` function.
 

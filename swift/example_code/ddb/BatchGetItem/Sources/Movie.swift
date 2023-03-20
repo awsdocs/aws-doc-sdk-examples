@@ -34,7 +34,7 @@ public struct Movie: Codable {
     ///   - title: The movie's title (`String`).
     ///   - year: The year in which the movie was released (`Int`).
     ///   - rating: The movie's rating (optional `Double`).
-    ///   - plot: The movie's plot (optional `String`)
+    ///   - plot: The movie's plot (optional `String`).
     init(title: String, year: Int, rating: Double? = nil, plot: String? = nil) {
         self.title = title
         self.year = year
@@ -50,7 +50,7 @@ public struct Movie: Codable {
     /// - Parameters:
     ///   - title: The movie's title (`String`).
     ///   - year: The year in which the movie was released (`Int`).
-    ///   - info: The optional rating and plot information for the movie in a
+    ///   - info: The optional rating and plot information for the movie in an
     ///     `Info` object.
     init(title: String, year: Int, info: Info?) {
         self.title = title

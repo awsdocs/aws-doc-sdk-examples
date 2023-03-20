@@ -25,7 +25,7 @@ final class MovieDatabaseTests: XCTestCase {
 
     }
 
-    /// Test attempting to initialize the database with an invalid JSON file
+    /// Test attempting to initialize the database with a non-valid JSON file
     /// path name.
     func testInitWithInvalidJSONPath() async {
         do {
