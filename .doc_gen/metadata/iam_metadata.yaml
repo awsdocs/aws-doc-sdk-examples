@@ -3193,7 +3193,7 @@ iam_Scenario_GroupBasics:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnet3.IAMGroups.Usings
+                - IAM.dotnetv3.IAMGroups.Usings
                 - IAM.dotnetv3.IAMWrapper
                 - IAM.dotnetv3.IAMGroups
                 - IAM.dotnetv3.IAMCommon.S3Wrapper
