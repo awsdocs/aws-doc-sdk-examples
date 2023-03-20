@@ -2,5 +2,8 @@
   "ActivityName": "test-activity-name",
   "StateMachineName": "test-state-machine",
   "ExecutionName": "mvp-execution",
-  "RoleArn": "REPLACE_WITH_ROLE_ARN"
+  "RoleArn": "REPLACE_WITH_ROLE_ARN",
+  "RepoBaseDir": "PATH TO THE FORK OF THE AWS CODE EXAMPLES REPOSITORY",
+  "JsonFilePath": "resources\\sample_files\\",
+  "JsonFileName": "chat_sfn_state_machine.json"
 }

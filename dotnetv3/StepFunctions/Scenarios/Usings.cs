@@ -11,5 +11,6 @@ global using Microsoft.Extensions.Logging.Console;
 global using Microsoft.Extensions.Logging.Debug;
 global using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 global using StepFunctionsActions;
+global using System.Text.Json;
 
 // snippet-end:[StepFunctions.dotnetv3.Usings]
