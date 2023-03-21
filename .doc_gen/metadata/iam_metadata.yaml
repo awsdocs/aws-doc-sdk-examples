@@ -3174,7 +3174,7 @@ iam_DeleteServiceLinkedRole:
   services:
     iam: {DeleteServiceLinkedRole}
 iam_Scenario_GroupBasics:
-  title: Create an &IAM; group and ass a user to the group using an &AWS; SDK
+  title: Create an &IAM; group and add a user to the group using an &AWS; SDK
   title_abbrev: Create a group and add a user
   synopsis_list:
     - Create a group.
