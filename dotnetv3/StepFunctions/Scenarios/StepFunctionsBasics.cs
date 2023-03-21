@@ -26,9 +26,9 @@ public class StepFunctionsBasics
                     .AddFilter<DebugLoggerProvider>("Microsoft", LogLevel.Information)
                     .AddFilter<ConsoleLoggerProvider>("Microsoft", LogLevel.Trace))
             .ConfigureServices((_, services) =>
-            services.AddAWSService<IAmazonStepFunctions>()
-                .AddAWSService<IAmazonIdentityManagementService>()
-                .AddTransient<StepFunctionsWrapper>()
+                services.AddAWSService<IAmazonStepFunctions>()
+                    .AddAWSService<IAmazonIdentityManagementService>()
+                    .AddTransient<StepFunctionsWrapper>()
             )
             .Build();
 
@@ -57,7 +57,7 @@ public class StepFunctionsBasics
         _iamService = host.Services.GetRequiredService<IAmazonIdentityManagementService>();
 
         // Load definition for the state machine from a JSON file.
-        var stateDefinition = File.ReadAllText($"{repoBaseDir}{jsonFilePath}{jsonFileName}");
+        var stateDefinitionJson = File.ReadAllText($"{repoBaseDir}{jsonFilePath}{jsonFileName}");
 
         Console.Clear();
         uiMethods.DisplayOverview();
@@ -67,15 +67,19 @@ public class StepFunctionsBasics
         Console.WriteLine("Let's start by creating an activity.");
         var activityArn = await stepFunctionsWrapper.CreateActivity(activityName);
 
-        // Find or creqte an IAM role that can be assumed by Step Functions.
+        // Swap the placeholder in the json file with the Amazon Resource Name (ARN)
+        // of the activity we just created.
+        var stateDefinition = stateDefinitionJson.Replace("{{DOC_EXAMPLE_ACTIVITY_ARN}}", activityArn);
 
         uiMethods.DisplayTitle("Create state machine");
         Console.WriteLine("Now we'll create a state machine.");
 
+        // Find or creqte an IAM role that can be assumed by Step Functions.
         var role = await GetOrCreateStateMachineRole(roleName);
 
         // Create the state machine.
-        var stateMachineArn = await stepFunctionsWrapper.CreateStateMachine(stateMachineName, stateDefinition, role.Arn);
+        var stateMachineArn =
+            await stepFunctionsWrapper.CreateStateMachine(stateMachineName, stateDefinition, role.Arn);
         uiMethods.PressEnter();
 
         Console.WriteLine($"The state machine has been created. Its Amazon Resource Name (ARN) is: {stateMachineArn}");
@@ -91,12 +95,18 @@ public class StepFunctionsBasics
             userName = Console.ReadLine();
         }
 
+        var executionJson = @"{""name"": " + userName + @"""}";
+
+        // Start the state machine execution.
+        Console.WriteLine("Now we'll start execution of the state machine.");
+        var executionArn = await stepFunctionsWrapper.StartExecution(executionName, executionJson, stateMachineArn);
+        Console.WriteLine("State machine started.");
+
         Console.WriteLine($"Thank you, {userName}. Now let's get started...");
         uiMethods.PressEnter();
 
         uiMethods.DisplayTitle("ChatSFN");
 
-        Console.WriteLine("Now we'll start execution of the state machine.");
         var isDone = false;
         var actionList = new List<string>();
         var response = new GetActivityTaskResponse();
@@ -121,20 +131,17 @@ public class StepFunctionsBasics
             var taskSuccess = await stepFunctionsWrapper.SendTaskSuccess(taskToken, taskJson);
         }
 
-        // Start the state machine execution.
-        var executionArn = await stepFunctionsWrapper.StartExecution(executionName, executionJson, stateMachineArn);
-        Console.WriteLine("State machine started.");
-
         var success = await stepFunctionsWrapper.StopExecution(executionArn);
         Console.WriteLine("State machine stopped.");
         uiMethods.PressEnter();
 
+        uiMethods.DisplayTitle("State machine executions");
         Console.WriteLine("Now let's take a look at the execution values for the state machine.");
 
         // List the executions.
         var executions = await stepFunctionsWrapper.ListExecutions(stateMachineArn);
 
-        uiMethods.DisplayTitle("Step function executions");
+        uiMethods.DisplayTitle("Step function execution values");
         executions.ForEach(execution =>
         {
             Console.WriteLine($"{execution.Name}\t{execution.StartDate} to {execution.StopDate}");
