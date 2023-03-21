@@ -16,7 +16,9 @@ import com.kotlin.stepfunctions.deleteMachine
 import com.kotlin.stepfunctions.describeExe
 import com.kotlin.stepfunctions.describeStateMachine
 import com.kotlin.stepfunctions.getActivityTask
+import com.kotlin.stepfunctions.listActivitesPagnator
 import com.kotlin.stepfunctions.listMachines
+import com.kotlin.stepfunctions.listStatemachinesPagnator
 import com.kotlin.stepfunctions.sendTaskSuccess
 import com.kotlin.stepfunctions.startWorkflow
 import kotlinx.coroutines.runBlocking
@@ -94,9 +96,14 @@ class StepFunctionsKotlinTest {
         }"""
 
         println(DASHES)
-        println("1. Create an activity.")
+        println("List activities using a Paginator.")
+        listActivitesPagnator()
+        println("Create an activity.")
         val activityArn = createActivity(activityNameSC)
         println("The ARN of the Activity is $activityArn")
+
+        println("List state machines using a paginator.")
+        listStatemachinesPagnator()
         println(DASHES)
 
         // Get JSON to use for the state machine and place the activityArn value into it.
@@ -113,7 +120,7 @@ class StepFunctionsKotlinTest {
         println(stateDefinition)
 
         println(DASHES)
-        println("2. Create a state machine.")
+        println("Create a state machine.")
         val roleARN = createIAMRole(roleNameSC, polJSON)
         val stateMachineArn = createMachine(roleARN, stateMachineNameSC, stateDefinition)
         println("The ARN of the state machine is $stateMachineArn")
@@ -121,7 +128,7 @@ class StepFunctionsKotlinTest {
         println(DASHES)
 
         println(DASHES)
-        println("3. Describe the state machine.")
+        println("Describe the state machine.")
         describeStateMachine(stateMachineArn)
         println("What should ChatSFN call you?")
         val userName = sc.nextLine()
@@ -132,7 +139,7 @@ class StepFunctionsKotlinTest {
         // The JSON to pass to the StartExecution call.
         val executionJson = "{ \"name\" : \"$userName\" }"
         println(executionJson)
-        println("4. Start execution of the state machine and interact with it.")
+        println("Start execution of the state machine and interact with it.")
         val runArn = startWorkflow(stateMachineArn, executionJson)
         println("The ARN of the state machine execution is $runArn")
         var myList: List<String>
@@ -152,17 +159,17 @@ class StepFunctionsKotlinTest {
         println(DASHES)
 
         println(DASHES)
-        println("5. Describe the execution.")
+        println("Describe the execution.")
         describeExe(runArn)
         println(DASHES)
 
         println(DASHES)
-        println("6. Delete the activity.")
+        println("Delete the activity.")
         deleteActivity(activityArn)
         println(DASHES)
 
         println(DASHES)
-        println("7. Delete the state machines.")
+        println("Delete the state machines.")
         deleteMachine(stateMachineArn)
         println(DASHES)
 
