@@ -1,0 +1,6 @@
+{
+  "GroupUserName": "iam-group-user",
+  "GroupPolicyName": "group-policy",
+  "GroupBucketName": "my-group-bucket",
+  "GroupName": "s3-full-access-group"
+}

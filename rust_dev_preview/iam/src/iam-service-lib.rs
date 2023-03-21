@@ -53,7 +53,7 @@ mod test_create_policy {
             response: include_str!("../testing/test_create_policy_response_success.xml")
         );
 
-        let response = create_policy(&client, "{}".into(), "test_role".into()).await;
+        let response = create_policy(&client, "{}", "test_role").await;
         assert!(response.is_ok());
     }
 
@@ -65,7 +65,7 @@ mod test_create_policy {
             response: include_str!("../testing/test_create_policy_response_malformed.xml")
         );
 
-        let response = create_policy(&client, "{}".into(), "test_role".into()).await;
+        let response = create_policy(&client, "{}", "test_role").await;
         assert!(response.is_err());
     }
 }

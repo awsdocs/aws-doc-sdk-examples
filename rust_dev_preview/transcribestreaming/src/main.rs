@@ -71,7 +71,7 @@ async fn main() -> Result<(), Error> {
     let client = Client::new(&shared_config);
 
     let input_stream = stream! {
-        let pcm = pcm_data(&*audio_file);
+        let pcm = pcm_data(&audio_file);
         for chunk in pcm.chunks(CHUNK_SIZE) {
             // Sleeping isn't necessary, but emphasizes the streaming aspect of this
             tokio::time::sleep(Duration::from_millis(100)).await;

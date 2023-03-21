@@ -35,6 +35,7 @@ struct Opt {
 }
 
 #[tokio::main]
+#[allow(clippy::result_large_err)]
 async fn main() -> Result<(), aws_sdk_eks::Error> {
     let Opt {
         region,
@@ -58,7 +59,8 @@ async fn main() -> Result<(), aws_sdk_eks::Error> {
                 .build(),
         )
         .send()
-        .await?;
+        .await
+        .map_err(Box::new);
     println!("cluster created: {:?}", cluster);
 
     let cluster_deleted = client.delete_cluster().name(&cluster_name).send().await?;

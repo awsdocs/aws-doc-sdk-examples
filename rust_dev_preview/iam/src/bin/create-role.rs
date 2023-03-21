@@ -112,7 +112,7 @@ mod test {
             response: "error body"
         );
 
-        let response = make_role(&client, "{}".into(), "test_role".into()).await;
+        let response = make_role(&client, "{}", "test_role").await;
         assert!(response.starts_with("Error creating role: "));
     }
 }
