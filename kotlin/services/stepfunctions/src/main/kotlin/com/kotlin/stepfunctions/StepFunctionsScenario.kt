@@ -73,14 +73,14 @@ suspend fun main(args: Array<String>) {
         stateMachineName - The name of the state machine to create.
     """
 
-    //if (args.size != 3) {
-    //    println(usage)
-    //    exitProcess(0)
-    //}
+    if (args.size != 3) {
+        println(usage)
+        exitProcess(0)
+    }
 
-    val roleName = "stepFunctionsRole405"//args[0]
-    val activityName = "ScottActivity3" // args[1]
-    val stateMachineName = "ScottMachine405" // args[2]
+    val roleName = args[0]
+    val activityName = args[1]
+    val stateMachineName = args[2]
     val sc = Scanner(System.`in`)
     var action = false
 
@@ -213,7 +213,7 @@ suspend fun listActivitesPagnator() {
             .transform { it.activities?.forEach { obj -> emit(obj) } }
             .collect { obj ->
                 println(" The activity ARN is ${obj.activityArn}")
-        }
+            }
     }
 }
 
