@@ -23,6 +23,11 @@ import aws.sdk.kotlin.services.sfn.model.ListStateMachinesRequest
  */
 
 suspend fun main() {
+    println(DASHES)
+    println("Welcome to the AWS Step Functions Hello example.")
+    println("Lets list up to ten of your state machines:")
+    println(DASHES)
+
     listMachines()
 }
 
