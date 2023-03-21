@@ -44,7 +44,7 @@ $ swift build
 
 To build one of these examples in Xcode, navigate to the example's directory
 (such as the `DeleteObjects` directory, to build that example), then type
-`xed.` to open the example directory in Xcode. You can then use standard Xcode
+`xed .` to open the example directory in Xcode. You can then use standard Xcode
 build and run commands.
 
 ### Prerequisites
