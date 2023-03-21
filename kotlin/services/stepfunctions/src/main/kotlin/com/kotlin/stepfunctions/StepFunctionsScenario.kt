@@ -8,6 +8,7 @@
 
 package com.kotlin.stepfunctions
 
+// snippet-start:[stepfunctions.kotlin.scenario.main]
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.CreateRoleRequest
 import aws.sdk.kotlin.services.sfn.SfnClient
@@ -18,17 +19,22 @@ import aws.sdk.kotlin.services.sfn.model.DeleteStateMachineRequest
 import aws.sdk.kotlin.services.sfn.model.DescribeExecutionRequest
 import aws.sdk.kotlin.services.sfn.model.DescribeStateMachineRequest
 import aws.sdk.kotlin.services.sfn.model.GetActivityTaskRequest
+import aws.sdk.kotlin.services.sfn.model.ListActivitiesRequest
+import aws.sdk.kotlin.services.sfn.model.ListStateMachinesRequest
 import aws.sdk.kotlin.services.sfn.model.SendTaskSuccessRequest
 import aws.sdk.kotlin.services.sfn.model.StartExecutionRequest
 import aws.sdk.kotlin.services.sfn.model.StateMachineType
+import aws.sdk.kotlin.services.sfn.paginators.listActivitiesPaginated
+import aws.sdk.kotlin.services.sfn.paginators.listStateMachinesPaginated
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.ObjectNode
+import kotlinx.coroutines.flow.transform
 import java.util.Scanner
 import java.util.UUID
 import kotlin.collections.ArrayList
 import kotlin.system.exitProcess
-// snippet-start:[stepfunctions.kotlin.scenario.main]
+
 /**
  To run this code example, place the chat_sfn_state_machine.json file into your project's resources folder.
 
@@ -44,13 +50,15 @@ import kotlin.system.exitProcess
 
  This Kotlin code example performs the following tasks:
 
- 1. Creates an activity.
- 2. Creates a state machine.
- 3. Describes the state machine.
- 4. Starts execution of the state machine and interacts with it.
- 5. Describes the execution.
- 6. Deletes the activity.
- 7. Deletes the state machine.
+ 1. List activities using a paginator.
+ 2. List state machines using a paginator.
+ 3. Creates an activity.
+ 4. Creates a state machine.
+ 5. Describes the state machine.
+ 6. Starts execution of the state machine and interacts with it.
+ 7. Describes the execution.
+ 8. Deletes the activity.
+ 9. Deletes the state machine.
  */
 
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
@@ -65,14 +73,14 @@ suspend fun main(args: Array<String>) {
         stateMachineName - The name of the state machine to create.
     """
 
-    if (args.size != 3) {
-        println(usage)
-        exitProcess(0)
-    }
+    //if (args.size != 3) {
+    //    println(usage)
+    //    exitProcess(0)
+    //}
 
-    val roleName = args[0]
-    val activityName = args[1]
-    val stateMachineName = args[2]
+    val roleName = "stepFunctionsRole405"//args[0]
+    val activityName = "ScottActivity3" // args[1]
+    val stateMachineName = "ScottMachine405" // args[2]
     val sc = Scanner(System.`in`)
     var action = false
 
@@ -95,7 +103,17 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("1. Create an activity.")
+    println("1. List activities using a Paginator.")
+    listActivitesPagnator()
+    println(DASHES)
+
+    println(DASHES)
+    println("2. List state machines using a paginator.")
+    listStatemachinesPagnator()
+    println(DASHES)
+
+    println(DASHES)
+    println("3. Create a new activity.")
     val activityArn = createActivity(activityName)
     println("The ARN of the Activity is $activityArn")
     println(DASHES)
@@ -114,15 +132,14 @@ suspend fun main(args: Array<String>) {
     println(stateDefinition)
 
     println(DASHES)
-    println("2. Create a state machine.")
+    println("4. Create a state machine.")
     val roleARN = createIAMRole(roleName, polJSON)
     val stateMachineArn = createMachine(roleARN, stateMachineName, stateDefinition)
     println("The ARN of the state machine is $stateMachineArn")
-    println("The ARN of the state machine is")
     println(DASHES)
 
     println(DASHES)
-    println("3. Describe the state machine.")
+    println("5. Describe the state machine.")
     describeStateMachine(stateMachineArn)
     println("What should ChatSFN call you?")
     val userName = sc.nextLine()
@@ -133,7 +150,7 @@ suspend fun main(args: Array<String>) {
     // The JSON to pass to the StartExecution call.
     val executionJson = "{ \"name\" : \"$userName\" }"
     println(executionJson)
-    println("4. Start execution of the state machine and interact with it.")
+    println("6. Start execution of the state machine and interact with it.")
     val runArn = startWorkflow(stateMachineArn, executionJson)
     println("The ARN of the state machine execution is $runArn")
     var myList: List<String>
@@ -153,17 +170,17 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("5. Describe the execution.")
+    println("7. Describe the execution.")
     describeExe(runArn)
     println(DASHES)
 
     println(DASHES)
-    println("6. Delete the activity.")
+    println("8. Delete the activity.")
     deleteActivity(activityArn)
     println(DASHES)
 
     println(DASHES)
-    println("7. Delete the state machines.")
+    println("9. Delete the state machines.")
     deleteMachine(stateMachineArn)
     println(DASHES)
 
@@ -171,6 +188,35 @@ suspend fun main(args: Array<String>) {
     println("The AWS Step Functions example scenario is complete.")
     println(DASHES)
 }
+
+suspend fun listStatemachinesPagnator() {
+    val machineRequest = ListStateMachinesRequest {
+        maxResults = 10
+    }
+
+    SfnClient { region = "us-east-1" }.use { sfnClient ->
+        sfnClient.listStateMachinesPaginated(machineRequest)
+            .transform { it.stateMachines?.forEach { obj -> emit(obj) } }
+            .collect { obj ->
+                println(" The state machine ARN is ${obj.stateMachineArn}")
+            }
+    }
+}
+
+suspend fun listActivitesPagnator() {
+    val activitiesRequest = ListActivitiesRequest {
+        maxResults = 10
+    }
+
+    SfnClient { region = "us-east-1" }.use { sfnClient ->
+        sfnClient.listActivitiesPaginated(activitiesRequest)
+            .transform { it.activities?.forEach { obj -> emit(obj) } }
+            .collect { obj ->
+                println(" The activity ARN is ${obj.activityArn}")
+        }
+    }
+}
+
 
 // snippet-start:[stepfunctions.kotlin.delete_machine.main]
 suspend fun deleteMachine(stateMachineArnVal: String?) {

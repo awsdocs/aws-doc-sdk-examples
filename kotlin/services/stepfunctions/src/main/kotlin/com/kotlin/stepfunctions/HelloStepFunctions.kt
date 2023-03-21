@@ -8,12 +8,12 @@
 */
 package com.kotlin.stepfunctions
 
+// snippet-start:[stepfunctions.kotlin.list_machines.main]
 // snippet-start:[stepfunctions.kotlin.list_machines.import]
 import aws.sdk.kotlin.services.sfn.SfnClient
 import aws.sdk.kotlin.services.sfn.model.ListStateMachinesRequest
 // snippet-end:[stepfunctions.kotlin.list_machines.import]
 
-// snippet-start:[stepfunctions.kotlin.list_machines.main]
 /**
  Before running this Kotlin code example, set up your development environment,
  including your credentials.
