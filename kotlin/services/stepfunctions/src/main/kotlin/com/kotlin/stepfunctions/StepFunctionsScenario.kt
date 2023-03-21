@@ -217,7 +217,6 @@ suspend fun listActivitesPagnator() {
     }
 }
 
-
 // snippet-start:[stepfunctions.kotlin.delete_machine.main]
 suspend fun deleteMachine(stateMachineArnVal: String?) {
     val deleteStateMachineRequest = DeleteStateMachineRequest {
