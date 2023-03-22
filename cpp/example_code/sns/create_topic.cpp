@@ -29,7 +29,7 @@
   \return bool: Function succeeded.
  */
 bool AwsDoc::SNS::createTopic(const Aws::String &topicName,
-                 const Aws::Client::ClientConfiguration &clientConfiguration) {
+                              const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SNS::SNSClient snsClient(clientConfiguration);
 
     Aws::SNS::Model::CreateTopicRequest request;
@@ -37,13 +37,11 @@ bool AwsDoc::SNS::createTopic(const Aws::String &topicName,
 
     const Aws::SNS::Model::CreateTopicOutcome outcome = snsClient.CreateTopic(request);
 
-    if (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         std::cout << "Successfully created topic " << topicName << std::endl;
     }
-    else
-    {
-        std::cout << "Error creating topic " << topicName << ":" <<
+    else {
+        std::cerr << "Error creating topic " << topicName << ":" <<
                   outcome.GetError().GetMessage() << std::endl;
     }
 
@@ -61,13 +59,11 @@ bool AwsDoc::SNS::createTopic(const Aws::String &topicName,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char ** argv)
-{
-  if (argc != 2)
-  {
-    std::cout << "Usage: run_create_topic <topic_name>" << std::endl;
-    return 1;
-  }
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        std::cout << "Usage: run_create_topic <topic_name>" << std::endl;
+        return 1;
+    }
     Aws::SDKOptions options;
 
     Aws::InitAPI(options);

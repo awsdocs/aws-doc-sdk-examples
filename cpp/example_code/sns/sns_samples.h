@@ -38,6 +38,32 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool getSMSType(const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Retrieve the properties of an SNS topic.
+        /*!
+          \sa getTopicAttributes()
+          \param topicARN: An SNS topic Amazon Resource Name (ARN).
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool getTopicAttributes(const Aws::String &topicARN,
+                         const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Retrieve a list of Amazon SNS subscriptions.
+        /*!
+          \sa listSubscriptions()
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool listSubscriptions(const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Retrieve a list of Amazon SNS topics.
+        /*!
+          \sa listTopics()
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool listTopics(const Aws::Client::ClientConfiguration &clientConfiguration);
     } // DynamoDB
 } // AwsDoc
 
