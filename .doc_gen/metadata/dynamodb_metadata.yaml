@@ -1073,6 +1073,14 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.listTables
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.listtables
   services:
     dynamodb: {ListTables}
 dynamodb_Query:
