@@ -178,7 +178,7 @@ static class LowLevelTableExample
         }
         catch (ResourceNotFoundException)
         {
-            // something went wrong during CreateTable
+            // Something went wrong during CreateTable.
         }
     }
     // snippet-end:[dynamodb.dotnetv3.DeleteExampleTable]
