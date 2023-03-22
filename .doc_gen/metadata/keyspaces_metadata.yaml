@@ -496,15 +496,13 @@ keyspaces_Scenario_GetStartedKeyspaces:
   title: Get started with &KEY; keyspaces and tables using an &AWS; SDK
   title_abbrev: Get started with keyspaces and tables
   synopsis_list:
-    - Create a keyspace.
-    - Create a table in the keyspace. The table is configured with a schema to hold movie data
-      and has point-in-time recovery enabled.
-    - Connect to the keyspace with a connection secured by TLS and authenticated with
-      Signature V4 (SigV4).
-    - Query the table by adding, retrieving, and updating movie data.
-    - Update the table by adding a column to track watched movies.
-    - Restore the table to a previous point in time.
-    - Delete the table and keyspace.
+    - Create a keyspace and table. The table schema holds movie data and 
+      has point-in-time recovery enabled.
+    - Connect to the keyspace using a secure TLS connection with SigV4 
+      authentication.
+    - Query the table. Add, retrieve, and update movie data.
+    - Update the table. Add a column to track watched movies.
+    - Restore the table to its previous state and clean up resources.
   category: Scenarios
   languages:
     .NET:
