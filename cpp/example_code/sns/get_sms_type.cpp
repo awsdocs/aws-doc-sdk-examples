@@ -27,8 +27,8 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SNS::getSMSType(const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool
+AwsDoc::SNS::getSMSType(const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SNS::SNSClient snsClient(clientConfiguration);
 
     Aws::SNS::Model::GetSMSAttributesRequest request;
@@ -36,18 +36,17 @@ bool AwsDoc::SNS::getSMSType(const Aws::Client::ClientConfiguration &clientConfi
     //Without the following line, GetSMSAttributes would retrieve all settings.
     request.AddAttributes("DefaultSMSType");
 
-    const Aws::SNS::Model::GetSMSAttributesOutcome outcome = snsClient.GetSMSAttributes(request);
+    const Aws::SNS::Model::GetSMSAttributesOutcome outcome = snsClient.GetSMSAttributes(
+            request);
 
-    if (outcome.IsSuccess())
-    {
-        for (auto const& att : outcome.GetResult().GetAttributes())
-        {
-            std::cout <<  att.first << ":  " <<  att.second << std::endl;
+    if (outcome.IsSuccess()) {
+        for (auto const &att: outcome.GetResult().GetAttributes()) {
+            std::cout << att.first << ":  " << att.second << std::endl;
         }
     }
-    else
-    {
-        std::cout << "Error while getting SMS Type: '" << outcome.GetError().GetMessage()
+    else {
+        std::cerr << "Error while getting SMS Type: '"
+                  << outcome.GetError().GetMessage()
                   << "'" << std::endl;
     }
 
@@ -65,26 +64,24 @@ bool AwsDoc::SNS::getSMSType(const Aws::Client::ClientConfiguration &clientConfi
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char ** argv)
-{
-  if (argc != 1)
-  {
-    std::cout << "Usage: run_get_sms_type" << std::endl;
-    return 1;
-  }
-  Aws::SDKOptions options;
-  Aws::InitAPI(options);
-  {
-      Aws::Client::ClientConfiguration clientConfig;
-      // Optional: Set to the AWS Region (overrides config file).
-      // clientConfig.region = "us-east-1";
+int main(int argc, char **argv) {
+    if (argc != 1) {
+        std::cout << "Usage: run_get_sms_type" << std::endl;
+        return 1;
+    }
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+    {
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
 
-      AwsDoc::SNS::getSMSType(clientConfig);
-  }
+        AwsDoc::SNS::getSMSType(clientConfig);
+    }
 
-  Aws::ShutdownAPI(options);
+    Aws::ShutdownAPI(options);
 
-  return 0;
+    return 0;
 }
 
 #endif // TESTING_BUILD

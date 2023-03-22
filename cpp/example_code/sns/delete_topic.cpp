@@ -29,8 +29,7 @@
   \return bool: Function succeeded.
  */
 bool AwsDoc::SNS::deleteTopic(const Aws::String &topicARN,
-                 const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+                              const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SNS::SNSClient snsClient(clientConfiguration);
 
     Aws::SNS::Model::DeleteTopicRequest request;
@@ -38,13 +37,11 @@ bool AwsDoc::SNS::deleteTopic(const Aws::String &topicARN,
 
     const Aws::SNS::Model::DeleteTopicOutcome outcome = snsClient.DeleteTopic(request);
 
-    if (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         std::cout << "Successfully deleted topic " << topicARN << std::endl;
     }
-    else
-    {
-        std::cout << "Error deleting topic " << topicARN << ":" <<
+    else {
+        std::cerr << "Error deleting topic " << topicARN << ":" <<
                   outcome.GetError().GetMessage() << std::endl;
     }
 
@@ -64,13 +61,11 @@ bool AwsDoc::SNS::deleteTopic(const Aws::String &topicARN,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char ** argv)
-{
-  if (argc != 2)
-  {
-    std::cout << "Usage: run_delete_topic <topic_arn>" << std::endl;
-    return 1;
-  }
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        std::cout << "Usage: run_delete_topic <topic_arn>" << std::endl;
+        return 1;
+    }
     Aws::SDKOptions options;
 
     Aws::InitAPI(options);
