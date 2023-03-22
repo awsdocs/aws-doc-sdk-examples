@@ -16,9 +16,9 @@ cross_RedshiftDataTracker:
     redshift:
     ses:
 cross_SQSMessageApp:
-  title: Create a web application that sends and retrieves messages by using the &SQSlong; API
+  title: Create a web application that sends and retrieves messages by using &SQS;
   title_abbrev: Create a messaging application
-  synopsis: create a messaging application by using the &SQSlong; API.
+  synopsis: create a messaging application by using &SQS;.
   languages:
     Kotlin:
       versions:
@@ -442,8 +442,8 @@ cross_DetectFaces:
   title: Detect faces in an image using an &AWS; SDK
   title_abbrev: Detect faces in an image
   synopsis_list:
-    - Save an image in an &S3long; &S3;) bucket.
-    - Use &REKlong; (&REK;) to detect facial details, such as age range, gender, and emotion (smiling, etc.).
+    - Save an image in an &S3; bucket.
+    - Use &REKlong; to detect facial details, such as age range, gender, and emotion (such as smiling).
     - Display those details.
   languages:
     Rust:
@@ -459,8 +459,8 @@ cross_DetectLabels:
   synopsis_list:
     - Get EXIF information from a a JPG, JPEG, or PNG file.
     - Upload the image file to an &S3long; (&S3;) bucket.
-    - Use &REKlong; (&REK;) to identify the three top attributes (labels in &REK;) in the file.
-    - Add the EXIF and label information to a &DDBlong; (&DDB;) table in the Region.
+    - Use &REKlong; to identify the three top attributes (labels in &REK;) in the file.
+    - Add the EXIF and label information to a &DDBlong; table in the Region.
   languages:
     Rust:
       versions:

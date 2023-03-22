@@ -1,7 +1,7 @@
 iam_Hello:
   title: Hello &IAM;
   title_abbrev: Hello &IAM;
-  synopsis: get started using &IAMlong; (&IAM;).
+  synopsis: get started using &IAM;.
   category: Hello
   languages:
     .NET:

@@ -1,0 +1,75 @@
+mediaconvert_CreateJob:
+  title: Create a &EMC; transcoding job using an &AWS; SDK
+  title_abbrev: Create a transcoding job
+  synopsis: create a &EMC; transcoding job.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.java.createjob.complete
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/mediaconvert
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.kotlin.createjob.main
+  services:
+    mediaconvert: {CreateJob}
+mediaconvert_ListJobs:
+  title: List &EMC; transcoding jobs using an &AWS; SDK
+  title_abbrev: List transcoding jobs
+  synopsis: list &EMC; transcoding jobs.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.java.list_jobs.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/mediaconvert
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.kotlin.list_jobs.main
+  services:
+    mediaconvert: {ListJobs}
+mediaconvert_GetJob:
+  title: Get a &EMC; transcoding job using an &AWS; SDK
+  title_abbrev: Get a transcoding job
+  synopsis: get a &EMC; transcoding job.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.java.get_job.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/mediaconvert
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.kotlin.get_job.main
+  services:
+    mediaconvert: {GetJob}

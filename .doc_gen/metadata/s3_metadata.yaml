@@ -2,7 +2,7 @@
 s3_Hello:
   title: Hello &S3;
   title_abbrev: Hello &S3;
-  synopsis: get started using &S3long; (&S3;).
+  synopsis: get started using &S3;.
   category: Hello
   languages:
     Python:

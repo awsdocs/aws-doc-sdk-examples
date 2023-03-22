@@ -2,7 +2,7 @@
 glue_Hello:
   title: Hello &GLU;
   title_abbrev: Hello &GLU;
-  synopsis: get started using &GLUlong; (&GLU;).
+  synopsis: get started using &GLU;.
   category: Hello
   languages:
     .NET:

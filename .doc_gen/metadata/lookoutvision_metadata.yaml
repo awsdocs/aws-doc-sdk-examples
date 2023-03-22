@@ -354,7 +354,7 @@ lookoutvision_ListProjects:
 lookoutvision_Hello:
   title: Hello &LYRA;
   title_abbrev: Hello &LYRA;
-  synopsis: get started using &LYRAlong;.
+  synopsis: get started using &LYRA;.
   category: Hello
   languages:
     Python:
