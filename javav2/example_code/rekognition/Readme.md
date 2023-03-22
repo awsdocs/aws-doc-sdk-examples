@@ -84,7 +84,7 @@ Define these values to successfully run the JUnit tests:
 - **textVid** - The name of the video that contains text.
 - **celVid** - The name of the video that contains celebrities.
 - **topicArn** - An ARN value of a SNS topic (you can obtain this value from the AWS Management Console).
-- **topicArn** - An ARN value of an IAM role (you can obtain this value from the AWS Management Console).
+- **roleArn** - An ARN value of an IAM role (you can obtain this value from the AWS Management Console).
 
 **Note**: You must create an IAM role and a valid SNS topic. You need to reference these values in the properties file. If you do not set these values, the tests fail. For information, see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).
 
