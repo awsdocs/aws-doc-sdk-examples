@@ -38,4 +38,8 @@ public class PhotoApplicationResources {
                 .withBody(toJson(src))
                 .withIsBase64Encoded(false);
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

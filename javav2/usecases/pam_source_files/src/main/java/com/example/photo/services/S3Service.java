@@ -10,8 +10,23 @@ import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsPro
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+<<<<<<< Updated upstream
 import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.services.s3.model.Tagging;
+=======
+import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
+import software.amazon.awssdk.services.s3.model.HeadObjectResponse;
+import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
+import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
+import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.S3Object;
+>>>>>>> Stashed changes
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
@@ -20,7 +35,13 @@ import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignReques
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.Duration;
+<<<<<<< Updated upstream
 import java.util.*;
+=======
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+>>>>>>> Stashed changes
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -28,18 +49,30 @@ public class S3Service {
     // Create the S3Client object.
     private S3Client getClient() {
         return S3Client.builder()
+<<<<<<< Updated upstream
                 .region(PhotoApplicationResources.REGION)
                 .build();
+=======
+            .region(PhotoApplicationResources.REGION)
+            .build();
+>>>>>>> Stashed changes
     }
 
     public byte[] getObjectBytes(String bucketName, String keyName) {
         S3Client s3 = getClient();
         try {
             GetObjectRequest objectRequest = GetObjectRequest
+<<<<<<< Updated upstream
                     .builder()
                     .key(keyName)
                     .bucket(bucketName)
                     .build();
+=======
+                .builder()
+                .key(keyName)
+                .bucket(bucketName)
+                .build();
+>>>>>>> Stashed changes
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             return objectBytes.asByteArray();
@@ -57,9 +90,15 @@ public class S3Service {
         List<String> keys = new ArrayList<>();
         try {
             ListObjectsRequest listObjects = ListObjectsRequest
+<<<<<<< Updated upstream
                     .builder()
                     .bucket(bucketName)
                     .build();
+=======
+                .builder()
+                .bucket(bucketName)
+                .build();
+>>>>>>> Stashed changes
 
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
@@ -84,7 +123,11 @@ public class S3Service {
                     .bucket(bucketName)
                     .key(objectKey)
                     .build(),
+<<<<<<< Updated upstream
                     RequestBody.fromBytes(data));
+=======
+                RequestBody.fromBytes(data));
+>>>>>>> Stashed changes
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -114,8 +157,13 @@ public class S3Service {
         int count = 0;
         // Only move .jpg images
         ListObjectsV2Request request = ListObjectsV2Request.builder()
+<<<<<<< Updated upstream
                 .bucket(sourceBucket)
                 .build();
+=======
+            .bucket(sourceBucket)
+            .build();
+>>>>>>> Stashed changes
 
         ListObjectsV2Response response = s3.listObjectsV2(request);
         for (S3Object s3Object : response.contents()) {
@@ -138,9 +186,15 @@ public class S3Service {
     public boolean checkS3ObjectDoesNotExist(String keyName) {
         S3Client s3 = getClient();
         HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
+<<<<<<< Updated upstream
                 .bucket(PhotoApplicationResources.STORAGE_BUCKET)
                 .key(keyName)
                 .build();
+=======
+            .bucket(PhotoApplicationResources.STORAGE_BUCKET)
+            .key(keyName)
+            .build();
+>>>>>>> Stashed changes
 
         try {
             HeadObjectResponse response = s3.headObject(headObjectRequest);
@@ -159,11 +213,19 @@ public class S3Service {
         S3Client s3 = getClient();
 
         CopyObjectRequest copyReq = CopyObjectRequest.builder()
+<<<<<<< Updated upstream
                 .sourceBucket(sourceBucket)
                 .sourceKey(objectKey)
                 .destinationBucket(PhotoApplicationResources.STORAGE_BUCKET)
                 .destinationKey(objectKey)
                 .build();
+=======
+            .sourceBucket(sourceBucket)
+            .sourceKey(objectKey)
+            .destinationBucket(PhotoApplicationResources.STORAGE_BUCKET)
+            .destinationKey(objectKey)
+            .build();
+>>>>>>> Stashed changes
 
         try {
             s3.copyObject(copyReq);
@@ -177,6 +239,7 @@ public class S3Service {
     // New method to sign an object prior to uploading it
     public String signObjectToDownload(String bucketName, String keyName) {
         S3Presigner presignerOb = S3Presigner.builder()
+<<<<<<< Updated upstream
                 .region(PhotoApplicationResources.REGION)
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
                 .build();
@@ -191,6 +254,22 @@ public class S3Service {
                     .signatureDuration(Duration.ofMinutes(1440))
                     .getObjectRequest(getObjectRequest)
                     .build();
+=======
+            .region(PhotoApplicationResources.REGION)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+
+        try {
+            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(keyName)
+                .build();
+
+            GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
+                .signatureDuration(Duration.ofMinutes(1440))
+                .getObjectRequest(getObjectRequest)
+                .build();
+>>>>>>> Stashed changes
 
             PresignedGetObjectRequest presignedGetObjectRequest = presignerOb.presignGetObject(getObjectPresignRequest);
 
@@ -204,6 +283,7 @@ public class S3Service {
 
     public String signObjectToUpload(String keyName) {
         S3Presigner presigner = S3Presigner.builder()
+<<<<<<< Updated upstream
                 .region(PhotoApplicationResources.REGION)
                 .build();
 
@@ -218,6 +298,22 @@ public class S3Service {
                     .signatureDuration(Duration.ofMinutes(5))
                     .putObjectRequest(objectRequest)
                     .build();
+=======
+            .region(PhotoApplicationResources.REGION)
+            .build();
+
+        try {
+            PutObjectRequest objectRequest = PutObjectRequest.builder()
+                .bucket(PhotoApplicationResources.STORAGE_BUCKET)
+                .key(keyName)
+                .contentType("image/jpeg")
+                .build();
+
+            PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
+                .signatureDuration(Duration.ofMinutes(5))
+                .putObjectRequest(objectRequest)
+                .build();
+>>>>>>> Stashed changes
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
             return presignedRequest.url().toString();
