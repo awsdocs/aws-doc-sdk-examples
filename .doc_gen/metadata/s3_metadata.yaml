@@ -2272,13 +2272,11 @@ s3_Scenario_GettingStarted:
   title: Get started with &S3; buckets and objects using an &AWS; SDK
   title_abbrev: Get started with buckets and objects
   synopsis_list:
-    - Create a bucket.
-    - Upload a file to the bucket.
+    - Create a bucket and upload a file to it.
     - Download an object from a bucket.
     - Copy an object to a subfolder in a bucket.
     - List the objects in a bucket.
-    - Delete the objects in a bucket.
-    - Delete a bucket.
+    - Delete the bucket objects and the bucket.
   category: Scenarios
   languages:
     .NET:
