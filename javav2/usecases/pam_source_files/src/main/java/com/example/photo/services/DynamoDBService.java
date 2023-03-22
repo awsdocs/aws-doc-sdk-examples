@@ -24,18 +24,18 @@ import java.util.Map;
 public class DynamoDBService {
     private DynamoDbClient getClient() {
         return DynamoDbClient.builder()
-                .region(PhotoApplicationResources.REGION)
-                .build();
+            .region(PhotoApplicationResources.REGION)
+            .build();
     }
 
     // Insert label data into an Amazon DynamoDB table.
     public void putRecord(List<LabelCount> list) {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(getClient())
-                .build();
+            .dynamoDbClient(getClient())
+            .build();
 
         DynamoDbTable<com.example.photo.Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
-                TableSchema.fromBean(Label.class));
+            TableSchema.fromBean(Label.class));
 
         for (LabelCount count : list) {
             addSingleRecord(table, count.getName(), count.getKey());
@@ -57,8 +57,8 @@ public class DynamoDBService {
         } else {
             // The label exists in the table.
             Key myKey = Key.builder()
-                    .partitionValue(label)
-                    .build();
+                .partitionValue(label)
+                .build();
 
             // Add the file name to the list.
             Label myPhoto = table.getItem(myKey);
@@ -73,8 +73,8 @@ public class DynamoDBService {
 
     private Boolean checkLabelExists(DynamoDbTable<Label> table, String label) {
         QueryConditional queryConditional = QueryConditional.keyEqualTo(Key.builder()
-                .partitionValue(label)
-                .build());
+            .partitionValue(label)
+            .build());
 
         Iterator<Label> results = table.query(queryConditional).items().iterator();
         return results.hasNext();
@@ -82,14 +82,14 @@ public class DynamoDBService {
 
     public List<String> getImagesByLabel(String label) {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(getClient())
-                .build();
+            .dynamoDbClient(getClient())
+            .build();
 
         DynamoDbTable<com.example.photo.Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
-                TableSchema.fromBean(Label.class));
+            TableSchema.fromBean(Label.class));
         Key key = Key.builder()
-                .partitionValue(label)
-                .build();
+            .partitionValue(label)
+            .build();
 
         // Get the item by using the key.
         Label result = table.getItem(r -> r.key(key));
@@ -100,11 +100,11 @@ public class DynamoDBService {
     public Map<String, WorkCount> scanPhotoTable() {
         Map<String, WorkCount> myMap = new HashMap<>();
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                .dynamoDbClient(getClient())
-                .build();
+            .dynamoDbClient(getClient())
+            .build();
 
         DynamoDbTable<Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
-                TableSchema.fromBean(Label.class));
+            TableSchema.fromBean(Label.class));
 
         for (Label photo : table.scan().items()) {
             WorkCount wc = new WorkCount();

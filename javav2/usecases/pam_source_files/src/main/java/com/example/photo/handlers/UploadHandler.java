@@ -6,9 +6,7 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyRequestEvent;
 import com.amazonaws.services.lambda.runtime.events.APIGatewayProxyResponseEvent;
 import com.example.photo.services.S3Service;
 import java.util.UUID;
-
 import org.json.JSONObject;
-
 import static com.example.photo.PhotoApplicationResources.makeResponse;
 import static com.example.photo.PhotoApplicationResources.CORS_HEADER_MAP;
 
@@ -32,9 +30,7 @@ public class UploadHandler implements RequestHandler<APIGatewayProxyRequestEvent
         String uniqueFileName = uuid + "-" + fileName;
 
         S3Service s3Service = new S3Service();
-
         String signedURL = s3Service.signObjectToUpload(uniqueFileName);
-
         UploadResponse data = UploadResponse.from(signedURL);
 
         return makeResponse(data);
@@ -43,15 +39,13 @@ public class UploadHandler implements RequestHandler<APIGatewayProxyRequestEvent
 
 class UploadResponse {
     private final String url;
-
-    static UploadResponse from(String url) {
-        return new UploadResponse(url);
-    }
-
     private UploadResponse(String url) {
         this.url = url;
     }
 
+    static UploadResponse from(String url) {
+        return new UploadResponse(url);
+    }
     public String getURL() {
         return url;
     }
