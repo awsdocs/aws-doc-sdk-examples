@@ -33,7 +33,6 @@ namespace SupportTests
             _activityName = _configuration["ActivityName"];
             _stateMachineName = _configuration["StateMachineName"];
             _roleArn = _configuration["RoleArn"];
-            _executionName = _configuration["ExecutionName"];
 
             _client = new AmazonStepFunctionsClient();
             _wrapper = new StepFunctionsWrapper(_client);
@@ -81,7 +80,7 @@ namespace SupportTests
         }
 
         /// <summary>
-        /// Test the StartExecution method.
+        /// Test the StartExecutionAsync method.
         /// </summary>
         /// <returns>An async Task.</returns>
         [Fact()]
@@ -89,7 +88,7 @@ namespace SupportTests
         [Trait("Category", "Integration")]
         public async Task StartExecutionTest()
         {
-            _executionArn = await _wrapper.StartExecution(_executionName, @"{ ""who"" : ""AWS Step Functions"" }", _stateMachineArn);
+            _executionArn = await _wrapper.StartExecutionAsync(@"{ ""name"" : ""AWS Step Functions"" }", _stateMachineArn);
             Assert.NotNull(_executionArn);
         }
 
@@ -107,7 +106,7 @@ namespace SupportTests
         }
 
         /// <summary>
-        /// Test the ListExecutions method. Expects to find that the state
+        /// Test the ListExecutionsAsync method. Expects to find that the state
         /// machine was executed at least once.
         /// </summary>
         /// <returns>An async Task.</returns>
@@ -116,7 +115,7 @@ namespace SupportTests
         [Trait("Category", "Integration")]
         public async Task ListExecutionsTest()
         {
-            var executions = await _wrapper.ListExecutions(_stateMachineArn);
+            var executions = await _wrapper.ListExecutionsAsync(_stateMachineArn);
             Assert.True(executions.Count > 0);
         }
 

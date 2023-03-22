@@ -45,6 +45,9 @@ public class StepFunctionsBasics
 
         var activityName = _configuration["ActivityName"];
         var stateMachineName = _configuration["StateMachineName"];
+
+        // The execution name must be unique to the user account and
+        // can't be reused for 90 days.
         var executionName = _configuration["ExecutionName"];
         var roleName = _configuration["RoleName"];
         var repoBaseDir = _configuration["RepoBaseDir"];
@@ -95,11 +98,11 @@ public class StepFunctionsBasics
             userName = Console.ReadLine();
         }
 
-        var executionJson = @"{""name"": " + userName + @"""}";
+        var executionJson = @"{""name"": """ + userName + @"""}";
 
         // Start the state machine execution.
         Console.WriteLine("Now we'll start execution of the state machine.");
-        var executionArn = await stepFunctionsWrapper.StartExecution(executionName, executionJson, stateMachineArn);
+        var executionArn = await stepFunctionsWrapper.StartExecutionAsync(executionJson, stateMachineArn);
         Console.WriteLine("State machine started.");
 
         Console.WriteLine($"Thank you, {userName}. Now let's get started...");
@@ -127,11 +130,19 @@ public class StepFunctionsBasics
 
             Console.WriteLine($"You have selected {userChoice}");
             var taskJson = @"{""action"": """ + userChoice + @"""}";
-            Console.WriteLine(taskJson);
-            var taskSuccess = await stepFunctionsWrapper.SendTaskSuccess(taskToken, taskJson);
+            Console.WriteLine($"{taskJson}");
+
+            var taskSuccess = await stepFunctionsWrapper.SendTaskSuccessAsync(taskToken, taskJson);
         }
 
         var success = await stepFunctionsWrapper.StopExecution(executionArn);
+        Console.WriteLine("Now we will wait for the execution to stop.");
+        DescribeExecutionResponse executionResponse;
+        do
+        {
+            executionResponse = await stepFunctionsWrapper.DescribeExecutionAsync(executionArn);
+        } while (executionResponse.Status == "RUNNING");
+
         Console.WriteLine("State machine stopped.");
         uiMethods.PressEnter();
 
@@ -139,13 +150,15 @@ public class StepFunctionsBasics
         Console.WriteLine("Now let's take a look at the execution values for the state machine.");
 
         // List the executions.
-        var executions = await stepFunctionsWrapper.ListExecutions(stateMachineArn);
+        var executions = await stepFunctionsWrapper.ListExecutionsAsync(stateMachineArn);
 
         uiMethods.DisplayTitle("Step function execution values");
         executions.ForEach(execution =>
         {
             Console.WriteLine($"{execution.Name}\t{execution.StartDate} to {execution.StopDate}");
         });
+
+        uiMethods.PressEnter();
 
         // Now delete the state machine and the activity.
         uiMethods.DisplayTitle("Clean up resources");

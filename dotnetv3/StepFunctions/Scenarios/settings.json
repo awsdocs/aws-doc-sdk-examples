@@ -1,7 +1,6 @@
 {
   "ActivityName": "mvp-activity",
   "StateMachineName": "mvp-state-machine",
-  "ExecutionName": "mvp-execution",
   "RoleName": "step-functions-mvp-role",
   "RepoBaseDir": "PATH TO THE FORK OF THE AWS CODE EXAMPLES REPOSITORY",
   "JsonFilePath": "resources\\sample_files\\",

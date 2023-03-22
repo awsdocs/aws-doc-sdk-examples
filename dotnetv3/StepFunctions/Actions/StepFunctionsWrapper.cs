@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-// snippet-start:[StepFunctions.dotnetv3.StepFunctionsWrapper]
+// snippet-start:[StepFunctions.dotnetv3.StepFunctionsActions]
 
 namespace StepFunctionsActions;
 
@@ -135,7 +135,7 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.ListActivities]
 
     // snippet-start:[StepFunctions.dotnetv3.ListExecutions]
-    public async Task<List<ExecutionListItem>> ListExecutions(string stateMachineArn)
+    public async Task<List<ExecutionListItem>> ListExecutionsAsync(string stateMachineArn)
     {
         var executions = new List<ExecutionListItem>();
         var response = new ListExecutionsResponse();
@@ -175,7 +175,7 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.ListStateMachines]
 
     // snippet-start:[StepFunctions.dotnetv3.SendTaskSuccess]
-    public async Task<bool> SendTaskSuccess(string taskToken, string taskResponse)
+    public async Task<bool> SendTaskSuccessAsync(string taskToken, string taskResponse)
     {
         var response = await _amazonStepFunctions.SendTaskSuccessAsync(new SendTaskSuccessRequest
             { TaskToken = taskToken, Output = taskResponse });
@@ -194,12 +194,11 @@ public class StepFunctionsWrapper
     /// <param name="stateMachineArn">The Amazon Resource Name (ARN) of the
     /// Step Functions state machine.</param>
     /// <returns></returns>
-    public async Task<string> StartExecution(string executionName, string executionJson, string stateMachineArn)
+    public async Task<string> StartExecutionAsync(string executionJson, string stateMachineArn)
     {
         var executionRequest = new StartExecutionRequest
         {
             Input = executionJson,
-            Name = executionName,
             StateMachineArn = stateMachineArn
         };
 
@@ -221,4 +220,4 @@ public class StepFunctionsWrapper
 
 }
 
-// snippet-end:[StepFunctions.dotnetv3.StepFunctionsWrapper]
+// snippet-end:[StepFunctions.dotnetv3.StepFunctionsActions]
