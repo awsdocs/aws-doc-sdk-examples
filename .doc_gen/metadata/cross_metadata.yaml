@@ -443,7 +443,7 @@ cross_DetectFaces:
   title_abbrev: Detect faces in an image
   synopsis_list:
     - Save an image in an &S3; bucket.
-    - Use &REKlong; to detect facial details, such as age range, gender, and emotion (smiling, etc.).
+    - Use &REKlong; to detect facial details, such as age range, gender, and emotion (such as smiling).
     - Display those details.
   languages:
     Rust:
