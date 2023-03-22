@@ -43,7 +43,6 @@ let package = Package(
             dependencies: [
                 .product(name: "AWSDynamoDB", package: "aws-sdk-swift"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
-//                "SwiftUtilities",
             ],
             path: "./Sources"
          ),

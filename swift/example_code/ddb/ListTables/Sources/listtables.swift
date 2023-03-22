@@ -45,13 +45,47 @@ struct ExampleCommand: ParsableCommand {
     func runAsync() async throws {
         SDKLoggingSystem.initialize(logLevel: .error)
 
-        print("Found \(movies.count) matching movies...")
-        for movie in movies {
-            print("\(movie.title): rating \(movie.info.rating != nil ? String(movie.info.rating!) : "(unrated)")")
-        }
+        let tableList = try await getTableList(region: awsRegion)
 
-        try await database.deleteTable()
+        // Output the table list.
+
+        print("Found \(tableList.count) matching tables...")
+        for table in tableList {
+            print(table)
+        }
     }
+}
+
+/// Get a list of the DynamoDB tables available in the specified Region.
+///
+/// - Parameter region: The AWS Region to list the tables for.
+///
+/// - Returns: An array of strings listing all of the Region's tables.
+func getTableList(region: String) async throws -> [String] {
+    var tableList: [String] = []
+    var lastEvaluated: String? = nil
+
+    let client = try DynamoDBClient(region: region)
+
+    // Iterate over the list of tables, 25 at a time, until we have the
+    // names of every table. Add each group to the `tableList` array.
+    // We know iteration is complete when `output.lastEvaluatedTableName`
+    // is `nil`.
+
+    repeat {
+        let input = ListTablesInput(
+            exclusiveStartTableName: lastEvaluated,
+            limit: 25
+        )
+        let output = try await client.listTables(input: input)
+        guard let tableNames = output.tableNames else {
+            return tableList
+        }
+        tableList.append(contentsOf: tableNames)
+        lastEvaluated = output.lastEvaluatedTableName
+    } while lastEvaluated != nil
+
+    return tableList
 }
 
 @main
