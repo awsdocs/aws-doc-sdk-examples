@@ -204,7 +204,7 @@ static class LowLevelTableExample
             catch (ResourceNotFoundException)
             {
                 // DescribeTable is eventually consistent. So you might
-                // get resource not found. So we handle the potential exception.
+                // get resource not found. We handle the potential exception.
             }
         } while (status != "ACTIVE");
     }
