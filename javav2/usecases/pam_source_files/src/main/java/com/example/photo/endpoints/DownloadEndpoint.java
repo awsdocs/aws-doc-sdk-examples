@@ -1,11 +1,8 @@
-<<<<<<< Updated upstream
-=======
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 
->>>>>>> Stashed changes
 package com.example.photo.endpoints;
 
 import com.example.photo.PhotoApplicationResources;
@@ -18,10 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-<<<<<<< Updated upstream
-import java.util.stream.Stream;
-=======
->>>>>>> Stashed changes
 
 public class DownloadEndpoint {
     final DynamoDBService dbService;

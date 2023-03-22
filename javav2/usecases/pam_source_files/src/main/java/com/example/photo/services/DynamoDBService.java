@@ -1,11 +1,8 @@
-<<<<<<< Updated upstream
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
 
-=======
->>>>>>> Stashed changes
 package com.example.photo.services;
 
 import com.example.photo.PhotoApplicationResources;
@@ -27,31 +24,18 @@ import java.util.Map;
 public class DynamoDBService {
     private DynamoDbClient getClient() {
         return DynamoDbClient.builder()
-<<<<<<< Updated upstream
-                .region(PhotoApplicationResources.REGION)
-                .build();
-=======
             .region(PhotoApplicationResources.REGION)
             .build();
->>>>>>> Stashed changes
     }
 
     // Insert label data into an Amazon DynamoDB table.
     public void putRecord(List<LabelCount> list) {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-<<<<<<< Updated upstream
-                .dynamoDbClient(getClient())
-                .build();
-
-        DynamoDbTable<com.example.photo.Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
-                TableSchema.fromBean(Label.class));
-=======
             .dynamoDbClient(getClient())
             .build();
 
         DynamoDbTable<com.example.photo.Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
             TableSchema.fromBean(Label.class));
->>>>>>> Stashed changes
 
         for (LabelCount count : list) {
             addSingleRecord(table, count.getName(), count.getKey());
@@ -73,13 +57,8 @@ public class DynamoDBService {
         } else {
             // The label exists in the table.
             Key myKey = Key.builder()
-<<<<<<< Updated upstream
-                    .partitionValue(label)
-                    .build();
-=======
                 .partitionValue(label)
                 .build();
->>>>>>> Stashed changes
 
             // Add the file name to the list.
             Label myPhoto = table.getItem(myKey);
@@ -94,13 +73,8 @@ public class DynamoDBService {
 
     private Boolean checkLabelExists(DynamoDbTable<Label> table, String label) {
         QueryConditional queryConditional = QueryConditional.keyEqualTo(Key.builder()
-<<<<<<< Updated upstream
-                .partitionValue(label)
-                .build());
-=======
             .partitionValue(label)
             .build());
->>>>>>> Stashed changes
 
         Iterator<Label> results = table.query(queryConditional).items().iterator();
         return results.hasNext();
@@ -108,16 +82,6 @@ public class DynamoDBService {
 
     public List<String> getImagesByLabel(String label) {
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-<<<<<<< Updated upstream
-                .dynamoDbClient(getClient())
-                .build();
-
-        DynamoDbTable<com.example.photo.Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
-                TableSchema.fromBean(Label.class));
-        Key key = Key.builder()
-                .partitionValue(label)
-                .build();
-=======
             .dynamoDbClient(getClient())
             .build();
 
@@ -126,7 +90,6 @@ public class DynamoDBService {
         Key key = Key.builder()
             .partitionValue(label)
             .build();
->>>>>>> Stashed changes
 
         // Get the item by using the key.
         Label result = table.getItem(r -> r.key(key));
@@ -137,19 +100,11 @@ public class DynamoDBService {
     public Map<String, WorkCount> scanPhotoTable() {
         Map<String, WorkCount> myMap = new HashMap<>();
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-<<<<<<< Updated upstream
-                .dynamoDbClient(getClient())
-                .build();
-
-        DynamoDbTable<Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
-                TableSchema.fromBean(Label.class));
-=======
             .dynamoDbClient(getClient())
             .build();
 
         DynamoDbTable<Label> table = enhancedClient.table(PhotoApplicationResources.LABELS_TABLE,
             TableSchema.fromBean(Label.class));
->>>>>>> Stashed changes
 
         for (Label photo : table.scan().items()) {
             WorkCount wc = new WorkCount();
