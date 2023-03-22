@@ -187,7 +187,7 @@ static class LowLevelTableExample
     private static async Task WaitUntilTableReady(string tableName)
     {
         string? status = null;
-        // Let us wait until table is created. Call DescribeTable.
+        // Wait until table is created. Call DescribeTable.
         do
         {
             Thread.Sleep(5000); // Wait 5 seconds.
