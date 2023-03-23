@@ -1,59 +1,86 @@
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
 
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
 #include <aws/sns/model/SetSMSAttributesRequest.h>
 #include <aws/sns/model/SetSMSAttributesResult.h>
 #include <iostream>
+#include "sns_samples.h"
 
-/**
- * Set the SMS type - demonstrates how to use Amazon SNS to set the DefaultSMSType attribute.
- * 
- * For more information on SetSMSAttributes, see https://docs.aws.amazon.com/sns/latest/api/API_SetSMSAttributes.html.
- * 
- * <sms_type> set to "Promotional" to indicate noncritical messages.
+// snippet-start:[sns.cpp.set_sms_type.code]
+//! Set the 'DefaultSMSType' attribute.
+/*!
+  \param smsType: The type of SMS message that you will send by default.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
  */
+bool AwsDoc::SNS::setSMSType(const Aws::String &smsType,
+                             const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::SNS::SNSClient snsClient(clientConfiguration);
 
-int main(int argc, char ** argv)
-{
-  if (argc != 2)
-  {
-    std::cout << "Usage: set_sms_type <sms_type> " << std::endl;
-    return 1;
-  }
-  // snippet-start:[sns.cpp.set_sms_type.code]
-  Aws::SDKOptions options;
-  Aws::InitAPI(options);
-  {
-    Aws::SNS::SNSClient sns;
-    Aws::String sms_type =  argv[1];
+    Aws::SNS::Model::SetSMSAttributesRequest request;
+    request.AddAttributes("DefaultSMSType", smsType);
 
-    Aws::SNS::Model::SetSMSAttributesRequest ssmst_req;
-    ssmst_req.AddAttributes("DefaultSMSType", sms_type);
+    const Aws::SNS::Model::SetSMSAttributesOutcome outcome = snsClient.SetSMSAttributes(
+            request);
 
-    auto ssmst_out = sns.SetSMSAttributes(ssmst_req);
-
-    if (ssmst_out.IsSuccess())
-    {
-      std::cout << "SMS Type set successfully " << std::endl;
+    if (outcome.IsSuccess()) {
+        std::cout << "SMS Type set successfully " << std::endl;
     }
-    else
-    {
-        std::cout << "Error while setting SMS Type: '" << ssmst_out.GetError().GetMessage()
-            << "'" << std::endl;
+    else {
+        std::cerr << "Error while setting SMS Type: '"
+                  << outcome.GetError().GetMessage()
+                  << "'" << std::endl;
     }
-  }
 
-  Aws::ShutdownAPI(options);
-  // snippet-end:[sns.cpp.set_sms_type.code]
-  return 0;
+    return outcome.IsSuccess();
 }
+// snippet-end:[sns.cpp.set_sms_type.code]
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_set_sms_type <sms_type>'
+ *
+*/
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        std::cout << "Usage: run_set_sms_type <sms_type> " << std::endl;
+        return 1;
+    }
+
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+    {
+        Aws::String smsType = argv[1];
+
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::SNS::setSMSType(smsType, clientConfig);
+    }
+
+    Aws::ShutdownAPI(options);
+    return 0;
+}
+
+#endif // TESTING_BUILD

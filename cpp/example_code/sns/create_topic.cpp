@@ -23,7 +23,6 @@
 // snippet-start:[sns.cpp.create_topic.code]
 //! Create an SNS topic.
 /*!
-  \sa createTopic()
   \param tableName: An SNS topic name.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -38,7 +37,9 @@ bool AwsDoc::SNS::createTopic(const Aws::String &topicName,
     const Aws::SNS::Model::CreateTopicOutcome outcome = snsClient.CreateTopic(request);
 
     if (outcome.IsSuccess()) {
-        std::cout << "Successfully created topic " << topicName << std::endl;
+        std::cout << "Successfully created topic " << topicName
+                  << " with topic ARN '" << outcome.GetResult().GetTopicArn()
+                  << "'." << std::endl;
     }
     else {
         std::cerr << "Error creating topic " << topicName << ":" <<
