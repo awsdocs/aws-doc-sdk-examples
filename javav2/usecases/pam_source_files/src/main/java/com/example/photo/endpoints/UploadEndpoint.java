@@ -24,23 +24,15 @@ public class UploadEndpoint {
         this.s3Service = s3Service;
     }
 
-    // This method has changed as the JPG has been placed into the Bucket via a
-    // Presigned URL
+    // Places the labels in an Amazon DynamoDB table.
     public void tagAfterUpload(String name) {
         List<LabelCount> labels = analyzePhotos.detectLabels(PhotoApplicationResources.STORAGE_BUCKET, name);
         dbService.putRecord(labels);
     }
 
-    // This method is only invoked from the Spring Controller and not the AWS Lambda
-    // handler.
+    // Put the image into the Amazon S3 bucket.
     public void upload(byte[] bytes, String name) {
-        // Put the file into the bucket.
         s3Service.putObject(bytes, PhotoApplicationResources.STORAGE_BUCKET, name);
         this.tagAfterUpload(name);
-    }
-
-    // Copy every object in source bucket with suffix .jpe?g to Storage Bucket.
-    public int copyFiles(String source) {
-        return s3Service.copyFiles(source);
     }
 }
