@@ -1,4 +1,4 @@
-# PAM CDK
+# AWS CDK for PAM
 
 This project will create the following in your AWS Cloud environment:
 
@@ -89,7 +89,7 @@ $ cdk bootstrap # Only required once for the lifetime of your account.
 $ cdk deploy {STACK_NAME} # Deploy each of the three preceding stacks in order.
 ```
 
-## Testing
+## Test
 
 After deploying the PamFrontEndInfraStack, your terminal should have a Cloudfront distribution URL.
 Navigate to that URL to see the deployed app.

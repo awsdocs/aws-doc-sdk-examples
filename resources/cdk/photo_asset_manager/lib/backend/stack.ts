@@ -55,7 +55,7 @@ export class PamStack extends Stack {
     // DetectLabelsFn
     {
       const fn = this.lambdas.fns.detectLabels;
-      // create trigger for Lambda function with image type suffixes
+      // Create trigger for AWS Lambda function with image type suffixes.
       const destination = new LambdaDestination(fn);
       this.buckets.storage.addObjectCreatedNotification(destination, {
         suffix: ".jpg",
@@ -64,7 +64,7 @@ export class PamStack extends Stack {
         suffix: ".jpeg",
       });
 
-      // add Rekognition permissions
+      // Add Amazon Rekognition permissions.
       fn.role?.addToPrincipalPolicy(
         new PolicyStatement({
           actions: ["rekognition:DetectLabels"],
@@ -72,7 +72,8 @@ export class PamStack extends Stack {
         })
       );
 
-      // grant permissions for DetectLabels to read/write to DynamoDB table and bucket
+      // Grant permissions for DetectLabels to read/write to an Amazon DynamoDB table and
+      // Amazon Simple Storage Service (Amazon S3) bucket.
       this.tables.labels.grantReadWriteData(fn);
       this.buckets.storage.grantReadWrite(fn);
     }

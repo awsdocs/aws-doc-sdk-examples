@@ -29,14 +29,14 @@ cfnClient.send(new ListExportsCommand({})).then(({ Exports = [] }) => {
   };
   const app = new App();
 
-  // Front-end stack
+  // Front-end stack.
   const infraStack = new PamFrontEndInfraStack(app, PAM_FE_INFRA_STACK_NAME);
 
   const cloudfrontDistributionUrl: string =
     exports[CLOUDFRONT_DISTRIBUTION_NAME];
 
   if (cloudfrontDistributionUrl) {
-    // Back-end stack
+    // Back-end stack.
     new PamStack(app, PAM_STACK_NAME, {
       strategy: getStrategy(PAM_LANG),
       email: PAM_EMAIL,
@@ -49,7 +49,7 @@ cfnClient.send(new ListExportsCommand({})).then(({ Exports = [] }) => {
   const apiGatewayUrl: string = exports[API_GATEWAY_URL_NAME];
   const cognitoUserPoolBaseUrl: string = exports[COGNITO_USER_POOL_BASE_URL];
 
-  // Front-end assets
+  // Front-end assets.
   if (
     cognitoAppClientId &&
     cognitoUserPoolId &&

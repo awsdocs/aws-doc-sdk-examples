@@ -25,20 +25,15 @@ export class PamAuth extends Construct {
     super(scope, id);
     this.userPool = new UserPool(this, "UserPool", {
       passwordPolicy: {
-        // Password is 6 characters minimum length and no complexity requirements,
         minLength: 6,
         requireDigits: false,
         requireLowercase: false,
         requireSymbols: false,
         requireUppercase: false,
       },
-      mfa: Mfa.OFF, // no MFA,
-      // no self-service account recovery,
+      mfa: Mfa.OFF,
       accountRecovery: AccountRecovery.NONE,
-      selfSignUpEnabled: false, // no self-registration,
-      // no assisted verification,
-      // no required or custom attributes,
-      // send email with cognito.
+      selfSignUpEnabled: false,
       removalPolicy: RemovalPolicy.DESTROY,
     });
 
