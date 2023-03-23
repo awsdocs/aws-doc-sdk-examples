@@ -4,7 +4,7 @@
  */
 
 use aws_config::{meta::region::RegionProviderChain, SdkConfig};
-use aws_sdk_lambda::{Client, Region, PKG_VERSION};
+use aws_sdk_lambda::{config::Region, meta::PKG_VERSION, Client};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]

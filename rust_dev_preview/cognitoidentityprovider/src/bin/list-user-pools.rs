@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_cognitoidentityprovider::types::DisplayErrorContext;
-use aws_sdk_cognitoidentityprovider::{Client, Region, PKG_VERSION};
+use aws_sdk_cognitoidentityprovider::error::DisplayErrorContext;
+use aws_sdk_cognitoidentityprovider::{config::Region, meta::PKG_VERSION, Client};
 use aws_smithy_types_convert::date_time::DateTimeExt;
 use cognitoidentityprovider_code_examples::Error;
 use std::process;

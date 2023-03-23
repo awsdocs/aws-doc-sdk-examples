@@ -4,10 +4,10 @@
  */
 
 use crate::scenario::error::Error;
-use aws_sdk_dynamodb::model::{
+use aws_sdk_dynamodb::operation::create_table::CreateTableOutput;
+use aws_sdk_dynamodb::types::{
     AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
 };
-use aws_sdk_dynamodb::output::CreateTableOutput;
 use aws_sdk_dynamodb::Client;
 
 // Create a table.

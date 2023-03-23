@@ -1,4 +1,4 @@
-use aws_sdk_dynamodb::{model::AttributeValue, Client};
+use aws_sdk_dynamodb::{types::AttributeValue, Client};
 use axum::{extract::Path, routing::get, Extension, Router};
 use tower_http::cors::{Any, CorsLayer};
 

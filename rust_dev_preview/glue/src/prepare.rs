@@ -5,10 +5,10 @@ use crate::{
     clients::{GLUE_CLIENT, S3_CLIENT},
     GlueMvpError, GlueScenario, CRAWLER_TARGET,
 };
-use aws_sdk_glue::model::{
+use aws_sdk_glue::types::{
     Crawler, CrawlerState, CrawlerTargets, DatabaseInput, Job, JobCommand, S3Target, Table,
 };
-use aws_sdk_s3::types::ByteStream;
+use aws_sdk_s3::primitives::ByteStream;
 use secrecy::ExposeSecret;
 use std::future::Future;
 use tracing::{info, instrument, warn};

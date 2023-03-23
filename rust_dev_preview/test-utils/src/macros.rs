@@ -90,13 +90,13 @@ macro_rules! client_config {
     ) => {
         /// TODO: remove after https://github.com/awslabs/smithy-rs/pull/2145
         $sdk_crate::Config::builder()
-            .credentials_provider($sdk_crate::Credentials::new(
+            .credentials_provider($sdk_crate::config::Credentials::new(
                 "ATESTCLIENT",
                 "atestsecretkey",
                 Some("atestsessiontoken".to_string()),
                 None,
                 "",
             ))
-            .region($sdk_crate::Region::new("us-east-1"))
+            .region($sdk_crate::config::Region::new("us-east-1"))
     };
 }

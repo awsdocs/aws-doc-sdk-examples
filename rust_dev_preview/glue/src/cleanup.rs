@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
 
-use aws_sdk_glue::model::CrawlerState;
+use aws_sdk_glue::types::CrawlerState;
 use tracing::{instrument, warn};
 
 use crate::{clients::GLUE_CLIENT, GlueMvpError, GlueScenario};
@@ -43,7 +43,7 @@ impl GlueScenario {
         let glue = GLUE_CLIENT.get().await;
 
         // Wait for crawler to finish.
-        let unknown_state = aws_sdk_glue::model::CrawlerState::from("unknown");
+        let unknown_state = aws_sdk_glue::types::CrawlerState::from("unknown");
         let crawler = glue
             .get_crawler()
             .name(self.crawler())

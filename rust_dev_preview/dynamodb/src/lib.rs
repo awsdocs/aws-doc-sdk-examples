@@ -6,7 +6,7 @@
 pub mod scenario;
 
 use aws_config::{meta::region::RegionProviderChain, SdkConfig};
-use aws_sdk_dynamodb::{Error, Region, PKG_VERSION};
+use aws_sdk_dynamodb::{config::Region, meta::PKG_VERSION, Error};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]

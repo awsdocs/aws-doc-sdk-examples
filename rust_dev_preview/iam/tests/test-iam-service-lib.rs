@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_iam::{Client as iamClient, Region};
+use aws_sdk_iam::{config::Region, Client as iamClient};
 use uuid::Uuid;
 
 #[ignore]
