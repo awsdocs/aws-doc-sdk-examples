@@ -18,7 +18,7 @@ import java.util.List;
 public class S3Handler implements RequestHandler<S3Event, String> {
     @Override
     public String handleRequest(S3Event event, Context context) {
-        // Get the S3 bucket and object key from the S3 event.
+        // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon S3 event.
         String bucketName = event.getRecords().get(0).getS3().getBucket().getName();
         String objectKey = event.getRecords().get(0).getS3().getObject().getKey();
 
@@ -27,10 +27,10 @@ public class S3Handler implements RequestHandler<S3Event, String> {
         AnalyzePhotos photos = new AnalyzePhotos();
         DynamoDBService dbService = new DynamoDBService();
 
-        // Tag the file
+        // Tag the file.
         List<LabelCount> labels = photos.detectLabels(PhotoApplicationResources.STORAGE_BUCKET, objectKey);
         dbService.putRecord(labels);
         context.getLogger().log("Tagged image");
-        return "OK"; // Unused response
+        return "OK";
     }
 }
