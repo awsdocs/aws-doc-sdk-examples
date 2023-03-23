@@ -161,10 +161,10 @@ namespace KeyspacesTests
             // This test defaults to not run since it can take up
             // to 20 minutes to restore the table.
             bool restoreTable = false;
-
+            var restoredTableName = $"{_tableName}_restored";
             if (restoreTable)
             {
-                var resourceArn = await _wrapper.RestoreTable(_keyspaceName, _tableName, _timeChanged);
+                var resourceArn = await _wrapper.RestoreTable(_keyspaceName, _tableName, restoredTableName, _timeChanged);
                 Assert.NotNull(resourceArn);
 
                 // Loop and call GetTable until the table has been restored. Once it has been
