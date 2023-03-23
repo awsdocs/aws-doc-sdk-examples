@@ -19,6 +19,8 @@ To run the service class tests run:
 cargo test
 */
 
+#![allow(clippy::result_large_err)]
+
 // snippet-start:[rust.example_code.iam.iam_basics.scenario]
 
 use aws_config::meta::region::RegionProviderChain;

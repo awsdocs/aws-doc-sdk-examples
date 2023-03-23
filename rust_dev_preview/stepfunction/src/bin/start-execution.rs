@@ -1,3 +1,10 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
+#![allow(clippy::result_large_err)]
+
 use aws_sdk_sfn::{Client, Error};
 use structopt::StructOpt;
 

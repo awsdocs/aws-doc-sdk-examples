@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_sdk_kms::{config::Region, Client};
 
 // snippet-start:[kms.rust.kms-helloworld]

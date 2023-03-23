@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_sdk_dynamodb::{error::DisplayErrorContext, Client};
 use dynamodb_code_examples::{
     make_config,

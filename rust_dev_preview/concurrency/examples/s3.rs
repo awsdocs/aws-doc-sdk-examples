@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_sdk_s3::primitives::ByteStream;
 use aws_sdk_s3::Client;
 use clap::Parser;

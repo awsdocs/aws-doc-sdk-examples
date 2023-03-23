@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 // snippet-start:[rust.example_code.s3.large_files.scenario]
 
 use std::fs::File;

@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_applicationautoscaling::types::ServiceNamespace;
 use aws_sdk_applicationautoscaling::{config::Region, meta::PKG_VERSION, Client, Error};

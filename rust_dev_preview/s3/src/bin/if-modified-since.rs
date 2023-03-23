@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
 
+#![allow(clippy::result_large_err)]
+
 // snippet-start:[s3.rust.if-modified-since]
 use aws_sdk_s3::{
     error::SdkError,

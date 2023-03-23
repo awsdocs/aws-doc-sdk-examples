@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use std::net::{Ipv4Addr, SocketAddr};
 
 use aws_sdk_dynamodb::{error::DisplayErrorContext, Client};
