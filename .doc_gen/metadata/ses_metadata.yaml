@@ -743,7 +743,7 @@ ses_Scenario_SendEmail:
           SendEmail, SendTemplatedEmail}
 ses_Scenario_ReplicateIdentities:
   title: Copy &SES; email and domain identities from one &AWS; Region to another using an &AWS; SDK
-  title_abbrev: Copy email and domain identities from one &AWS; Region to another
+  title_abbrev: Copy email and domain identities across Regions
   synopsis: copy &SES; email and domain identities from one &AWS; Region to another.
     When domain identities are managed by &R53;, verification records are copied to the
     domain for the destination Region.
