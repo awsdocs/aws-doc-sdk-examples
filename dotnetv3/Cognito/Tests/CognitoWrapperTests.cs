@@ -4,7 +4,7 @@
 using Amazon.CognitoIdentityProvider;
 using Microsoft.Extensions.Configuration;
 
-namespace SupportTests
+namespace CognitoWrapperTests
 {
     public class CognitoWrapperTests
     {

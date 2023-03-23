@@ -173,8 +173,8 @@ namespace Lambda_Basics
                 Role = role,
             };
 
-            var reponse = await client.CreateFunctionAsync(createFunctionRequest);
-            return reponse.FunctionArn;
+            var response = await client.CreateFunctionAsync(createFunctionRequest);
+            return response.FunctionArn;
         }
 
         // snippet-end:[lambda.dotnetv3.Lambda_Basics.CreateLambdaFunction]

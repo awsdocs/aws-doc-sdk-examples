@@ -1,6 +1,7 @@
 {
-    "FunctionName": "test-function",
-    "BucketName": "doc-example-bucket",
-    "Key": "function.zip",
-    "UpdateKey":  "updated-function.zip"
+  "FunctionName": "test-function",
+  "BucketName": "doc-example-bucket",
+  "Key": "function.zip",
+  "RoleName": "your-role-name",
+  "UpdateKey": "updated-function.zip"
 }
