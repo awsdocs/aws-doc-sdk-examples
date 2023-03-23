@@ -322,6 +322,7 @@ sfn_DescribeExecution:
         - sdk_version: 3
           github: dotnetv3/StepFunctions
           sdkguide:
+          excerpts:
             - description:
               snippet_tags:
                 - StepFunctions.dotnetv3.DescribeExecution
