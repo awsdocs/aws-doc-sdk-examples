@@ -50,7 +50,7 @@ iam_CreateAccountAlias:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -112,7 +112,7 @@ iam_DeleteAccountAlias:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -174,7 +174,7 @@ iam_ListAccountAliases:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -218,7 +218,7 @@ iam_GetAccountAuthorizationDetails:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -235,7 +235,7 @@ iam_GetAccountSummary:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -253,7 +253,7 @@ iam_GenerateCredentialReport:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -270,7 +270,7 @@ iam_GetCredentialReport:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -326,7 +326,7 @@ iam_GetAccountPasswordPolicy:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -399,7 +399,7 @@ iam_ListSAMLProviders:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -437,7 +437,7 @@ iam_Scenario_AccountManagement:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description: Create functions that wrap &IAM; account actions.
@@ -492,7 +492,7 @@ iam_CreateAccessKey:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -596,7 +596,7 @@ iam_DeleteAccessKey:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -690,7 +690,7 @@ iam_GetAccessKeyLastUsed:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -752,7 +752,7 @@ iam_ListAccessKeys:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -822,7 +822,7 @@ iam_UpdateAccessKey:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -870,7 +870,7 @@ iam_Scenario_ManageAccessKeys:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description: Create functions that wrap &IAM; access key actions.
@@ -923,7 +923,7 @@ iam_CreatePolicy:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -1046,7 +1046,7 @@ iam_DeletePolicy:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -1107,7 +1107,7 @@ iam_CreatePolicyVersion:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -1163,7 +1163,7 @@ iam_ListPolicies:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -1257,7 +1257,7 @@ iam_GetPolicy:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1306,7 +1306,7 @@ iam_GetPolicyVersion:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -1327,7 +1327,7 @@ iam_Scenario_RollbackPolicyVersion:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -1383,7 +1383,7 @@ iam_AttachRolePolicy:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description: Attach a policy to a role using the Boto3 Policy object.
@@ -1502,7 +1502,7 @@ iam_ListAttachedRolePolicies:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -1579,7 +1579,7 @@ iam_DetachRolePolicy:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description: Detach a policy from a role using the Boto3 Policy object.
@@ -1655,7 +1655,7 @@ iam_Scenario_PolicyManagement:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description: Create functions that wrap &IAM; policy actions.
@@ -1711,7 +1711,7 @@ iam_CreateRole:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -1788,7 +1788,7 @@ iam_ListRoles:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -1898,7 +1898,7 @@ iam_GetRole:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -1956,7 +1956,7 @@ iam_DeleteRole:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -2072,7 +2072,7 @@ iam_ListRolePolicies:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -2108,7 +2108,7 @@ iam_Scenario_RoleManagement:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description: Create functions that wrap &IAM; role actions.
@@ -2170,7 +2170,7 @@ iam_CreateUser:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -2275,7 +2275,7 @@ iam_DeleteUser:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -2414,7 +2414,7 @@ iam_ListUsers:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -2509,7 +2509,7 @@ iam_UpdateUser:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -2553,7 +2553,7 @@ iam_AttachUserPolicy:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -2578,7 +2578,7 @@ iam_DetachUserPolicy:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -2725,7 +2725,7 @@ iam_Scenario_UserPolicies:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description: Create functions that wrap &IAM-user; actions.
@@ -3027,7 +3027,7 @@ iam_ListGroups:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -3107,7 +3107,7 @@ iam_CreateServiceLinkedRole:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description:
@@ -3268,7 +3268,7 @@ iam_Scenario_CreateUserAssumeRole:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/iam/iam_basics
+          github: python/example_code/iam
           sdkguide:
           excerpts:
             - description: Create an &IAM-user; and a role that grants permission

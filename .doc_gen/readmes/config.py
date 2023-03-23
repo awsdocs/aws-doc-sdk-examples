@@ -10,7 +10,15 @@ categories = {
 }
 entities = {
     '&AWS;': 'AWS',
+    '&aws_sec_sdk_use-federation-warning;': '',
     '&ASH;': 'Security Hub',
+    '&DAX;': 'DynamoDB Accelerator',
+    '&GLUDCLong;': 'AWS Glue Data Catalog',
+    '&GLUDC;': 'Data Catalog',
+    '&IAM-user;': 'IAM user',
+    '&IAM-users;': 'IAM users',
+    '&kms-key;': 'KMS key',
+    '&kms-keys;': 'KMS keys',
     '&SLN;': 'Amazon States Language',
 }
 language = {

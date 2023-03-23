@@ -282,6 +282,7 @@ cross_LambdaAPIGateway:
     Python:
       versions:
         - sdk_version: 3
+          github: python/example_code/lambda/api_gateway_rest.py
           block_content: cross_LambdaAPIGateway_Python_block.xml
   services:
     api-gateway:
@@ -308,6 +309,7 @@ cross_LambdaScheduledEvents:
     Python:
       versions:
         - sdk_version: 3
+          github: python/example_code/lambda/scheduled_lambda.py
           block_content: cross_LambdaScheduledEvents_Python_block.xml
           add_services:
             cloudwatch-logs:
@@ -432,6 +434,7 @@ cross_RekognitionVideoDetection:
     Python:
       versions:
         - sdk_version: 3
+          github: python/example_code/rekognition/rekognition_video_detection.py
           block_content: cross_RekognitionVideoDetection_Python_block.xml
           add_services:
             sns:
@@ -501,34 +504,3 @@ cross_LambdaForBrowser:
   services:
     lambda:
     dynamodb:
-cross_ShortLivedEmrCluster:
-  title: Create a short-lived &EMR; cluster and run a step using an &AWS; SDK
-  title_abbrev: Create a short-lived &EMR; cluster and run a step
-  synopsis: create a short-lived &EMR; cluster that runs a step and automatically
-    terminates after the step completes.
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/emr
-          block_content: cross_EmrShortLivedCluster_Python_block.xml
-  services:
-    ec2:
-    emr:
-    iam:
-    s3:
-cross_LongLivedEmrCluster:
-  title: Create a long-lived &EMR; cluster and run steps using an &AWS; SDK
-  title_abbrev: Create a long-lived &EMR; cluster and run steps
-  synopsis: create a long-lived &EMR; cluster and run several steps.
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/emr
-          block_content: cross_EmrLongLivedCluster_Python_block.xml
-  services:
-    ec2:
-    emr:
-    iam:
-    s3:
