@@ -324,7 +324,7 @@ sfn_DescribeExecution:
           sdkguide:
             - description:
               snippet_tags:
-                - stepFunctions.dotnetv3.DescribeExecution
+                - StepFunctions.dotnetv3.DescribeExecution
     Java:
       versions:
         - sdk_version: 2

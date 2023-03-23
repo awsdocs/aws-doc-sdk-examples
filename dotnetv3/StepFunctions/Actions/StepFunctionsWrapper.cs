@@ -76,7 +76,7 @@ public class StepFunctionsWrapper
     }
 
     // snippet-end:[StepFunctions.dotnetv3.DeleteActivity]
-    
+
     // snippet-start:[StepFunctions.dotnetv3.DeleteStateMachine]
     /// <summary>
     /// Delete a Step Functions state machine.
@@ -87,7 +87,7 @@ public class StepFunctionsWrapper
     public async Task<bool> DeleteStateMachine(string stateMachineArn)
     {
         var response = await _amazonStepFunctions.DeleteStateMachineAsync(new DeleteStateMachineRequest
-            { StateMachineArn = stateMachineArn });
+        { StateMachineArn = stateMachineArn });
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
@@ -135,11 +135,11 @@ public class StepFunctionsWrapper
     public async Task<GetActivityTaskResponse> GetActivityTaskAsync(string activityArn, string workerName)
     {
         var response = await _amazonStepFunctions.GetActivityTaskAsync(new GetActivityTaskRequest
-            { ActivityArn = activityArn, WorkerName = workerName });
+        { ActivityArn = activityArn, WorkerName = workerName });
         return response;
     }
 
-    // snippet-end:[StepFunctions.dotnetv3.GetActivityTaskAsync]
+    // snippet-end:[StepFunctions.dotnetv3.GetActivityTask]
 
     // snippet-start:[StepFunctions.dotnetv3.ListActivities]
     /// <summary>
@@ -187,7 +187,7 @@ public class StepFunctionsWrapper
         do
         {
             response = await _amazonStepFunctions.ListExecutionsAsync(new ListExecutionsRequest
-                { StateMachineArn = stateMachineArn });
+            { StateMachineArn = stateMachineArn });
             executions.AddRange(response.Executions);
             if (response.NextToken is not null)
             {
@@ -211,7 +211,7 @@ public class StepFunctionsWrapper
         var listStateMachinesPaginator =
             _amazonStepFunctions.Paginators.ListStateMachines(new ListStateMachinesRequest());
 
-        await foreach(var response in listStateMachinesPaginator.Responses)
+        await foreach (var response in listStateMachinesPaginator.Responses)
         {
             stateMachines.AddRange(response.StateMachines);
         }
@@ -232,7 +232,7 @@ public class StepFunctionsWrapper
     public async Task<bool> SendTaskSuccessAsync(string taskToken, string taskResponse)
     {
         var response = await _amazonStepFunctions.SendTaskSuccessAsync(new SendTaskSuccessRequest
-            { TaskToken = taskToken, Output = taskResponse });
+        { TaskToken = taskToken, Output = taskResponse });
 
         return response.HttpStatusCode == HttpStatusCode.OK;
     }
