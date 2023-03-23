@@ -43,7 +43,7 @@ public class AnalyzePhotos {
             LabelCount item;
             for (Label label : labels) {
                 item = new LabelCount();
-                item.setKey(key); // identifies the photo
+                item.setKey(key);
                 item.setName(label.name());
                 list.add(item);
             }
