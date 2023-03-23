@@ -23,7 +23,6 @@
 // snippet-start:[sns.cpp.get_sms_type.code]
 //! Retrieve the settings for sending Amazon SMS messages.
 /*!
-  \sa getSMSType()
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */

@@ -23,7 +23,6 @@
 // snippet-start:[sns.cpp.list_subscriptions.code]
 //! Retrieve a list of Amazon SNS subscriptions.
 /*!
-  \sa listSubscriptions()
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */

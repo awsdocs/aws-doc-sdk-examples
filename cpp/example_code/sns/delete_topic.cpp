@@ -23,7 +23,6 @@
 // snippet-start:[sns.cpp.delete_topic.code]
 //! Delete an SNS topic.
 /*!
-  \sa deleteTopic()
   \param topicARN: An SNS topic Amazon Resource Name (ARN).
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -56,7 +55,7 @@ bool AwsDoc::SNS::deleteTopic(const Aws::String &topicARN,
  *  Usage: 'run_delete_topic <topic_arn>'
  *
  *  Prerequisites: An existing SNS topic and its ARN.
- *  
+ *
 */
 
 #ifndef TESTING_BUILD

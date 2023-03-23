@@ -23,7 +23,6 @@
 // snippet-start:[sns.cpp.list_topics.code]
 //! Retrieve a list of Amazon SNS topics.
 /*!
-  \sa listTopics()
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */

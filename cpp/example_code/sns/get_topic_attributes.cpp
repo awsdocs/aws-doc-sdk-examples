@@ -25,7 +25,6 @@
 // snippet-start:[sns.cpp.get_topic_attributes.code]
 //! Retrieve the properties of an SNS topic.
 /*!
-  \sa getTopicAttributes()
   \param topicARN: An SNS topic Amazon Resource Name (ARN).
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.

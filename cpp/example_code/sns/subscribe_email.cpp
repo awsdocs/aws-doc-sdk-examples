@@ -12,56 +12,78 @@
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
 #include <aws/sns/model/SubscribeRequest.h>
-#include <aws/sns/model/SubscribeResult.h>
 #include <iostream>
+#include "sns_samples.h"
+
 // snippet-start:[sns.cpp.subscribe_email.code]
-/**
- * Subscribe an email address endpoint to a topic - demonstrates how to initiate a subscription to an Amazon SNS topic with delivery
- *  to an email address.
- * 
- * SNS will send a subscription confirmation email to the email address provided which you need to confirm to 
- * receive messages.
- *
- * <protocol_value> set to "email" provides delivery of message via SMTP (see https://docs.aws.amazon.com/sns/latest/api/API_Subscribe.html for available protocols).
- * <topic_arn_value> can be obtained from run_list_topics executable and includes the "arn:" prefix.
+//! Subscribe to an Amazon SNS topic with delivery to an email address.
+/*!
+  \param topicARN: An SNS topic Amazon Resource Name (ARN).
+  \param emailAddress: An email address.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
  */
+bool AwsDoc::SNS::subscribeEmail(const Aws::String &topicARN,
+                                 const Aws::String &emailAddress,
+                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::SNS::SNSClient snsClient(clientConfiguration);
 
-int main(int argc, char ** argv)
-{
-  if (argc != 4)
-  {
-    std::cout << "Usage: subscribe_email <protocol_value=email> <topic_arn_value>"
-                 " <email_address>" << std::endl;
-    return 1;
-  }
+    Aws::SNS::Model::SubscribeRequest request;
+    request.SetTopicArn(topicARN);
+    request.SetProtocol("email");
+    request.SetEndpoint(emailAddress);
 
-  Aws::SDKOptions options;
-  Aws::InitAPI(options);
-  {
-    Aws::SNS::SNSClient sns;
-    Aws::String protocol = argv[1];
-    Aws::String topic_arn = argv[2];
-    Aws::String endpoint = argv[3];
+    const Aws::SNS::Model::SubscribeOutcome outcome = snsClient.Subscribe(request);
 
-    Aws::SNS::Model::SubscribeRequest s_req;
-    s_req.SetTopicArn(topic_arn);
-    s_req.SetProtocol(protocol);
-    s_req.SetEndpoint(endpoint);
-
-    auto s_out = sns.Subscribe(s_req);
-
-    if (s_out.IsSuccess())
-    {
-      std::cout << "Subscribed successfully " << std::endl;
+    if (outcome.IsSuccess()) {
+        std::cout << "Subscribed successfully." << std::endl;
+        std::cout << "Subscription ARN '" << outcome.GetResult().GetSubscriptionArn()
+                  << "'." << std::endl;
     }
-    else
-    {
-      std::cout << "Error while subscribing " << s_out.GetError().GetMessage()
-        << std::endl;
+    else {
+        std::cerr << "Error while subscribing " << outcome.GetError().GetMessage()
+                  << std::endl;
     }
-  }
 
-  Aws::ShutdownAPI(options);
-  return 0;
+    return outcome.IsSuccess();
 }
 // snippet-end:[sns.cpp.subscribe_email.code]
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_subscribe_email <topic_arn> <email_address>'
+ *
+ *  Prerequisites: An existing SNS topic and its ARN.
+ *
+*/
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    if (argc != 3) {
+        std::cout << "Usage: run_subscribe_email <topic_arn> <email_address>"
+                  << std::endl;
+        return 1;
+    }
+
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+    {
+        Aws::String topicArn = argv[1];
+        Aws::String emailAddress = argv[2];
+
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::SNS::subscribeEmail(topicArn, emailAddress, clientConfig);
+
+    }
+
+    Aws::ShutdownAPI(options);
+    return 0;
+}
+
+#endif // TESTING_BUILD
