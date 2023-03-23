@@ -14,7 +14,7 @@ namespace SupportTests
         private static string _executionArn;
         private static string _stateMachineArn;
         private readonly string _stateMachineName;
-        private readonly string _executionName;
+
         private static IAmazonStepFunctions _client;
         private static StepFunctionsWrapper _wrapper;
 
@@ -60,6 +60,8 @@ namespace SupportTests
         [Trait("Category", "Integration")]
         public async Task CreateStateMachineTest()
         {
+            // Create a simple Step Functions state machine for testing
+            // purposes only.
             var stateDefinition = @"{
               ""Comment"": ""An example using a Task state."",
               ""StartAt"": ""getGreeting"",
@@ -88,7 +90,9 @@ namespace SupportTests
         [Trait("Category", "Integration")]
         public async Task StartExecutionTest()
         {
-            _executionArn = await _wrapper.StartExecutionAsync(@"{ ""name"" : ""AWS Step Functions"" }", _stateMachineArn);
+            // Starts execution of the simpler Step Functions state machine
+            // created for testing pupposes only.
+            _executionArn = await _wrapper.StartExecutionAsync(@"{ ""who"" : ""AWS Step Functions"" }", _stateMachineArn);
             Assert.NotNull(_executionArn);
         }
 

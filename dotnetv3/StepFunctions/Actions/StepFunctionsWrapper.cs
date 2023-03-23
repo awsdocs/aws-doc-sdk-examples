@@ -6,7 +6,7 @@
 namespace StepFunctionsActions;
 
 /// <summary>
-/// Wrapper that performs AWS Step Functions actions.
+/// Wrapper that performs AWS Amazon Step Functions actions.
 /// </summary>
 public class StepFunctionsWrapper
 {
@@ -63,6 +63,12 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.CreateStateMachine]
 
     // snippet-start:[StepFunctions.dotnetv3.DeleteActivity]
+    /// <summary>
+    /// Delete a Step Machine activity.
+    /// </summary>
+    /// <param name="activityArn">The Amazon Resource Name (ARN) of
+    /// the activity.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeleteActivity(string activityArn)
     {
         var response = await _amazonStepFunctions.DeleteActivityAsync(new DeleteActivityRequest { ActivityArn = activityArn });
@@ -72,6 +78,12 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.DeleteActivity]
     
     // snippet-start:[StepFunctions.dotnetv3.DeleteStateMachine]
+    /// <summary>
+    /// Delete a Step Functions state machine.
+    /// </summary>
+    /// <param name="stateMachineArn">The Amazon Resource Name (ARN) of the
+    /// state machine.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> DeleteStateMachine(string stateMachineArn)
     {
         var response = await _amazonStepFunctions.DeleteStateMachineAsync(new DeleteStateMachineRequest
@@ -82,6 +94,12 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.DeleteStateMachine]
 
     // snippet-start:[StepFunctions.dotnetv3.DescribeExecution]
+    /// <summary>
+    /// Retrieve information about the specified Step Functions execution.
+    /// </summary>
+    /// <param name="executionArn">The Amazon Resource Name (ARN) of the
+    /// Step machines execution.</param>
+    /// <returns>The API response returned by the API.</returns>
     public async Task<DescribeExecutionResponse> DescribeExecutionAsync(string executionArn)
     {
         var response = await _amazonStepFunctions.DescribeExecutionAsync(new DescribeExecutionRequest { ExecutionArn = executionArn });
@@ -91,6 +109,12 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.DescribeExecution]
 
     // snippet-start:[StepFunctions.dotnetv3.DescribeStateMachine]
+    /// <summary>
+    /// Retrieve information about the specified Step Functions state machine.
+    /// </summary>
+    /// <param name="StateMachineArn">The Amazon Resource Name (ARN) of the
+    /// Step Functions state machine to retrieve.</param>
+    /// <returns>Information about the specified Step Functions state machine.</returns>
     public async Task<DescribeStateMachineResponse> DescribeStateMachineAsync(string StateMachineArn)
     {
         var response = await _amazonStepFunctions.DescribeStateMachineAsync(new DescribeStateMachineRequest { StateMachineArn = StateMachineArn });
@@ -100,6 +124,14 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.DescribeStateMachine]
 
     // snippet-start:[StepFunctions.dotnetv3.GetActivityTask]
+    /// <summary>
+    /// Retrieve a task with the specified Step Functions activity
+    /// with the specified Amazon Resource Name (ARN).
+    /// </summary>
+    /// <param name="activityArn">The Amazon Resource Name (ARN) of
+    /// the Step Functions activity.</param>
+    /// <param name="workerName">The name of the Step Functions worker.</param>
+    /// <returns>The response from the Step Functions activity.</returns>
     public async Task<GetActivityTaskResponse> GetActivityTaskAsync(string activityArn, string workerName)
     {
         var response = await _amazonStepFunctions.GetActivityTaskAsync(new GetActivityTaskRequest
@@ -110,6 +142,10 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.GetActivityTaskAsync]
 
     // snippet-start:[StepFunctions.dotnetv3.ListActivities]
+    /// <summary>
+    /// List the Step Functions activities for the current account.
+    /// </summary>
+    /// <returns>A list of ActivityListItems.</returns>
     public async Task<List<ActivityListItem>> ListActivities()
     {
         Console.WriteLine("Welcome to Amazon Step Functions. Let's list your Step Functions actions:");
@@ -135,6 +171,13 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.ListActivities]
 
     // snippet-start:[StepFunctions.dotnetv3.ListExecutions]
+    /// <summary>
+    /// Retrieve information about executions of a Step Functions
+    /// state machine.
+    /// </summary>
+    /// <param name="stateMachineArn">The Amazon Resource Name (ARN) of the
+    /// Step Functions state machine.</param>
+    /// <returns>A list of ExecutionListItem objects.</returns>
     public async Task<List<ExecutionListItem>> ListExecutionsAsync(string stateMachineArn)
     {
         var executions = new List<ExecutionListItem>();
@@ -158,6 +201,10 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.ListExecutions]
 
     // snippet-start:[StepFunctions.dotnetv3.ListStateMachines]
+    /// <summary>
+    /// Retrieve a list of Step Funcsions state machines.
+    /// </summary>
+    /// <returns>A list of StateMachineListItem objects.</returns>
     public async Task<List<StateMachineListItem>> ListStateMachinesAsync()
     {
         var stateMachines = new List<StateMachineListItem>();
@@ -175,6 +222,13 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.ListStateMachines]
 
     // snippet-start:[StepFunctions.dotnetv3.SendTaskSuccess]
+    /// <summary>
+    /// Indicate that the Step Functions task, indicated by the
+    /// task token, has completed successfully.
+    /// </summary>
+    /// <param name="taskToken"></param>
+    /// <param name="taskResponse"></param>
+    /// <returns></returns>
     public async Task<bool> SendTaskSuccessAsync(string taskToken, string taskResponse)
     {
         var response = await _amazonStepFunctions.SendTaskSuccessAsync(new SendTaskSuccessRequest
@@ -209,6 +263,12 @@ public class StepFunctionsWrapper
     // snippet-end:[StepFunctions.dotnetv3.StartExecution]
 
     // snippet-start:[StepFunctions.dotnetv3.StopExecution]
+    /// <summary>
+    /// Step execution of an Amazon Step Function workflow.
+    /// </summary>
+    /// <param name="executionArn">The Amazon Resource Name (ARN) of
+    /// the Step Functions execution to stop.</param>
+    /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> StopExecution(string executionArn)
     {
         var response =

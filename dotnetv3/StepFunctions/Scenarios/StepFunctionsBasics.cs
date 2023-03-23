@@ -46,9 +46,6 @@ public class StepFunctionsBasics
         var activityName = _configuration["ActivityName"];
         var stateMachineName = _configuration["StateMachineName"];
 
-        // The execution name must be unique to the user account and
-        // can't be reused for 90 days.
-        var executionName = _configuration["ExecutionName"];
         var roleName = _configuration["RoleName"];
         var repoBaseDir = _configuration["RepoBaseDir"];
         var jsonFilePath = _configuration["JsonFilePath"];
@@ -120,7 +117,10 @@ public class StepFunctionsBasics
         {
             response = await stepFunctionsWrapper.GetActivityTaskAsync(activityArn, "MvpWorker");
             taskToken = response.TaskToken;
-            Console.WriteLine($"ChatSFN: {response.Input}");
+            var taskJsonObject = JsonSerializer.Deserialize<TaskJson>(response.Input);
+            Console.WriteLine("ChatSFN: What would you like me to do?");
+            taskJsonObject.actions.ForEach(action => Console.WriteLine($"\t{action}"));
+
             Console.Write($"{userName}, please tell me your choice: ");
             userChoice = Console.ReadLine();
             if (userChoice.ToLower() == "done")
@@ -128,11 +128,12 @@ public class StepFunctionsBasics
                 isDone = true;
             }
 
-            Console.WriteLine($"You have selected {userChoice}");
-            var taskJson = @"{""action"": """ + userChoice + @"""}";
-            Console.WriteLine($"{taskJson}");
+            Console.WriteLine($"You have selected: {userChoice}");
+            var jsonResponse = @"{""action"": """ + userChoice + @"""}";
+            taskJsonObject = JsonSerializer.Deserialize<TaskJson>(jsonResponse);
+            Console.WriteLine($"Your {userChoice}:\t{taskJsonObject.message}");
 
-            var taskSuccess = await stepFunctionsWrapper.SendTaskSuccessAsync(taskToken, taskJson);
+            var taskSuccess = await stepFunctionsWrapper.SendTaskSuccessAsync(taskToken, jsonResponse);
         }
 
         var success = await stepFunctionsWrapper.StopExecution(executionArn);
