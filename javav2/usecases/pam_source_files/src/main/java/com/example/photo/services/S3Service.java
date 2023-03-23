@@ -10,15 +10,12 @@ import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsPro
 import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.CopyObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.HeadObjectRequest;
 import software.amazon.awssdk.services.s3.model.HeadObjectResponse;
 import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
-import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
-import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.model.S3Object;
@@ -62,7 +59,7 @@ public class S3Service {
         }
     }
 
-    // Returns the names of all images in the given bucket.
+    // Returns the names of all images in the given Amazon Simple Storage Service (Amazon S3) bucket.
     public List<String> listBucketObjects(String bucketName) {
         S3Client s3 = getClient();
         String keyName;
@@ -88,7 +85,7 @@ public class S3Service {
         }
     }
 
-    // Places an image into a S3 bucket.
+    // Places an image into an Amazon S3 bucket.
     public void putObject(byte[] data, String bucketName, String objectKey) {
         S3Client s3 = getClient();
         try {
@@ -96,7 +93,7 @@ public class S3Service {
                     .bucket(bucketName)
                     .key(objectKey)
                     .build(),
-                    RequestBody.fromBytes(data));
+                RequestBody.fromBytes(data));
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
@@ -119,40 +116,13 @@ public class S3Service {
         return baos.toByteArray();
     }
 
-    // Copy objects from the source bucket to storage bucket.
-    public int copyFiles(String sourceBucket) {
-        S3Client s3 = getClient();
-
-        int count = 0;
-        // Only move .jpg images
-        ListObjectsV2Request request = ListObjectsV2Request.builder()
-                .bucket(sourceBucket)
-                .build();
-
-        ListObjectsV2Response response = s3.listObjectsV2(request);
-        for (S3Object s3Object : response.contents()) {
-            // Check to make sure the object does not exist in the bucket. If the object
-            // exists it will not be copied again.
-            String key = s3Object.key();
-            if (checkS3ObjectDoesNotExist(key)) {
-                System.out.println("Object exists in the bucket.");
-            } else if ((key.endsWith(".jpg")) || (key.endsWith(".jpeg"))) {
-                System.out.println("JPG object found and will be copied: " + key);
-                copyS3Object(sourceBucket, key);
-                count++;
-            }
-        }
-
-        return count;
-    }
-
     // Returns true if object exists.
     public boolean checkS3ObjectDoesNotExist(String keyName) {
         S3Client s3 = getClient();
         HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
-                .bucket(PhotoApplicationResources.STORAGE_BUCKET)
-                .key(keyName)
-                .build();
+            .bucket(PhotoApplicationResources.STORAGE_BUCKET)
+            .key(keyName)
+            .build();
 
         try {
             HeadObjectResponse response = s3.headObject(headObjectRequest);
@@ -167,42 +137,23 @@ public class S3Service {
         return false;
     }
 
-    public void copyS3Object(String sourceBucket, String objectKey) {
-        S3Client s3 = getClient();
-
-        CopyObjectRequest copyReq = CopyObjectRequest.builder()
-                .sourceBucket(sourceBucket)
-                .sourceKey(objectKey)
-                .destinationBucket(PhotoApplicationResources.STORAGE_BUCKET)
-                .destinationKey(objectKey)
-                .build();
-
-        try {
-            s3.copyObject(copyReq);
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            e.printStackTrace();
-            throw e;
-        }
-    }
-
-    // New method to sign an object prior to uploading it
+    // New method to sign an object prior to uploading it.
     public String signObjectToDownload(String bucketName, String keyName) {
         S3Presigner presignerOb = S3Presigner.builder()
-                .region(PhotoApplicationResources.REGION)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(PhotoApplicationResources.REGION)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
         try {
             GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(keyName)
-                    .build();
+                .bucket(bucketName)
+                .key(keyName)
+                .build();
 
             GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(1440))
-                    .getObjectRequest(getObjectRequest)
-                    .build();
+                .signatureDuration(Duration.ofMinutes(1440))
+                .getObjectRequest(getObjectRequest)
+                .build();
 
             PresignedGetObjectRequest presignedGetObjectRequest = presignerOb.presignGetObject(getObjectPresignRequest);
 
@@ -216,20 +167,20 @@ public class S3Service {
 
     public String signObjectToUpload(String keyName) {
         S3Presigner presigner = S3Presigner.builder()
-                .region(PhotoApplicationResources.REGION)
-                .build();
+            .region(PhotoApplicationResources.REGION)
+            .build();
 
         try {
             PutObjectRequest objectRequest = PutObjectRequest.builder()
-                    .bucket(PhotoApplicationResources.STORAGE_BUCKET)
-                    .key(keyName)
-                    .contentType("image/jpeg")
-                    .build();
+                .bucket(PhotoApplicationResources.STORAGE_BUCKET)
+                .key(keyName)
+                .contentType("image/jpeg")
+                .build();
 
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                    .signatureDuration(Duration.ofMinutes(5))
-                    .putObjectRequest(objectRequest)
-                    .build();
+                .signatureDuration(Duration.ofMinutes(5))
+                .putObjectRequest(objectRequest)
+                .build();
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
             return presignedRequest.url().toString();
