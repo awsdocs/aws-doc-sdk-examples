@@ -40,7 +40,8 @@ bool AwsDoc::SNS::publishToTopic(const Aws::String &message,
     const Aws::SNS::Model::PublishOutcome outcome = snsClient.Publish(request);
 
     if (outcome.IsSuccess()) {
-        std::cout << "Message published successfully " << std::endl;
+        std::cout << "Message published successfully with id '"
+                  << outcome.GetResult().GetMessageId() << "'." << std::endl;
     }
     else {
         std::cerr << "Error while publishing message "

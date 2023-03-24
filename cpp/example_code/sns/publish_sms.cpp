@@ -55,8 +55,8 @@ bool AwsDoc::SNS::publishSms(const Aws::String &message,
     const Aws::SNS::Model::PublishOutcome outcome = snsClient.Publish(request);
 
     if (outcome.IsSuccess()) {
-        std::cout << "Message published successfully "
-                  << outcome.GetResult().GetMessageId()
+        std::cout << "Message published successfully with message id, '"
+                  << outcome.GetResult().GetMessageId() << "'."
                   << std::endl;
     }
     else {

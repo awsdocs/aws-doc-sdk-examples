@@ -70,7 +70,7 @@ bool AwsDoc::SNS::subscribeLambda(const Aws::String &topicARN,
 #ifndef TESTING_BUILD
 
 int main(int argc, char **argv) {
-    if (argc != 4) {
+    if (argc != 3) {
         std::cout << "Usage: run_subscribe_lambda <topic_arn> <lambda_function_arn>"
                   << std::endl;
         return 1;
