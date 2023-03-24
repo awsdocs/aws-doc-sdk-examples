@@ -14,7 +14,7 @@ export interface PamLambdasStrategyHandlers {
 
 export interface PamLambdasStrategy {
   timeout?: Duration;
-  memorySize?: number; // In megabytes
+  memorySize?: number; // In megabytes.
   runtime: Runtime;
   codeAsset: () => Code;
   handlers: PamLambdasStrategyHandlers;

@@ -33,7 +33,7 @@ export class PamBuckets extends Construct {
       ],
     });
 
-    // Add 24-hour deletion policy
+    // Add 24-hour deletion policy.
     this.working.addLifecycleRule({ expiration: Duration.days(1) });
   }
 }

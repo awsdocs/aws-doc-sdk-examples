@@ -23,7 +23,7 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(90),
   memorySize: 1024,
   codeAsset() {
-    // Relative to cdk.json
+    // Relative to cdk.json.
     const javaSources = resolve("../../../javav2/usecases/pam_source_files/");
 
     return Code.fromAsset(javaSources, {
@@ -38,8 +38,6 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
         user: "root",
         outputType: BundlingOutput.ARCHIVED,
         volumes: [
-          // # This shares the maven repo between host & container,
-          // # which both speeds up and
           {
             hostPath: `${process.env["HOME"]}/.m2/`,
             containerPath: "/root/.m2",
@@ -63,7 +61,7 @@ export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(60),
   memorySize: 512,
   codeAsset() {
-    // Relative to cdk.json
+    // Relative to cdk.json.
     const pythonSources = resolve("./rekognition_photo_analyzer");
     return Code.fromAsset(pythonSources);
   },

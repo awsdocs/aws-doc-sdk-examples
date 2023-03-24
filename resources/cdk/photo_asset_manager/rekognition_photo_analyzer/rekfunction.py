@@ -22,25 +22,25 @@ def handler(event, context):
         }
 
     try:
-        # Calls Amazon Rekognition DetectLabels API to classify images in S3
+        # Calls Amazon Rekognition DetectLabels API to classify images in Amazon Simple Storage Service (Amazon S3).
         response = rekognition.detect_labels(Image=image, MaxLabels=10, MinConfidence=70)
 
-        # Print response to console, visible via CloudWatch logs
+        # Print response to console, visible with Amazon CloudWatch logs.
         print(key,response["Labels"])
 
-        # Write results to JSON file in bucket results folder
+        # Write results to JSON file in bucket results folder.
         json_labels = json.dumps(response["Labels"])
         filename = os.path.basename(key)
         filename_prefix = os.path.splitext(filename)[0]
         obj = s3.put_object(Body=json_labels, Bucket=bucket_name, Key="results/"+filename_prefix+".json")
 
-        # Parse the JSON for DynamoDB
+        # Parse the JSON for Amazon DynamoDB.
         db_result = []
         db_labels = json.loads(json_labels)
         for label in db_labels:
             db_result.append(label["Name"])
 
-        # Write results to DynamoDB
+        # Write results to DynamoDB.
         dynamodb.put_item(TableName=(os.environ['TABLE_NAME']),
             Item = {
                 'image_name':{'S': key},
