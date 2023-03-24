@@ -228,8 +228,8 @@ public class SupportIntegrationTests
                 null,
                 false,
                 true,
-                DateTime.Today,
-                DateTime.Now);
+                DateTime.Today.Date,
+                DateTime.Today.Date.AddDays(1));
             retries++;
         }
         Assert.NotEmpty(todayCases);
