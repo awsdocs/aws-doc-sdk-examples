@@ -28,6 +28,7 @@
   \return bool: Function succeeded.
  */
 bool AwsDoc::SNS::createTopic(const Aws::String &topicName,
+                              Aws::String &topicARNResult,
                               const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SNS::SNSClient snsClient(clientConfiguration);
 
@@ -37,13 +38,16 @@ bool AwsDoc::SNS::createTopic(const Aws::String &topicName,
     const Aws::SNS::Model::CreateTopicOutcome outcome = snsClient.CreateTopic(request);
 
     if (outcome.IsSuccess()) {
+        topicARNResult = outcome.GetResult().GetTopicArn();
         std::cout << "Successfully created topic " << topicName
-                  << " with topic ARN '" << outcome.GetResult().GetTopicArn()
+                  << " with topic ARN '" << topicARNResult
                   << "'." << std::endl;
+
     }
     else {
         std::cerr << "Error creating topic " << topicName << ":" <<
                   outcome.GetError().GetMessage() << std::endl;
+        topicARNResult.clear();
     }
 
     return outcome.IsSuccess();
@@ -74,8 +78,8 @@ int main(int argc, char **argv) {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-
-        AwsDoc::SNS::createTopic(topicName, clientConfig);
+        Aws::String topicArnResult;
+        AwsDoc::SNS::createTopic(topicName, topicArnResult, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

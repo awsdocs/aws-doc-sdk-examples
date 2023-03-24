@@ -17,7 +17,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool createTopic(const Aws::String &topicName,
+        bool createTopic(const Aws::String &topicName, Aws::String &topicARNResult,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete an SNS topic.
