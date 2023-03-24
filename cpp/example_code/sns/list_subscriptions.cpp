@@ -30,24 +30,49 @@ bool AwsDoc::SNS::listSubscriptions(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SNS::SNSClient snsClient(clientConfiguration);
 
-    Aws::SNS::Model::ListSubscriptionsRequest request;
+    Aws::String nextToken; // Next token is used to handle a paginated response.
+    bool result = true;
+    Aws::Vector<Aws::SNS::Model::Subscription> subscriptions;
+    do {
+        Aws::SNS::Model::ListSubscriptionsRequest request;
 
-    const Aws::SNS::Model::ListSubscriptionsOutcome outcome = snsClient.ListSubscriptions(
-            request);
+        if (!nextToken.empty()) {
+            request.SetNextToken(nextToken);
+        }
 
-    if (outcome.IsSuccess()) {
-        std::cout << "Subscriptions list:" << std::endl;
-        for (auto const &subscription: outcome.GetResult().GetSubscriptions()) {
-            std::cout << "  * " << subscription.GetSubscriptionArn() << std::endl;
+        const Aws::SNS::Model::ListSubscriptionsOutcome outcome = snsClient.ListSubscriptions(
+                request);
+
+        if (outcome.IsSuccess()) {
+            const Aws::Vector<Aws::SNS::Model::Subscription> &newSubscriptions =
+                    outcome.GetResult().GetSubscriptions();
+            subscriptions.insert(subscriptions.cend(), newSubscriptions.begin(),
+                                 newSubscriptions.end());
+        }
+        else {
+            std::cerr << "Error listing subscriptions "
+                      << outcome.GetError().GetMessage()
+                      <<
+                      std::endl;
+            result = false;
+            break;
+        }
+
+        nextToken = outcome.GetResult().GetNextToken();
+    } while (!nextToken.empty());
+
+    if (result) {
+        if (subscriptions.empty()) {
+            std::cout << "No subscriptions found" << std::endl;
+        }
+        else {
+            std::cout << "Subscriptions list:" << std::endl;
+            for (auto const &subscription: subscriptions) {
+                std::cout << "  * " << subscription.GetSubscriptionArn() << std::endl;
+            }
         }
     }
-    else {
-        std::cerr << "Error listing subscriptions " << outcome.GetError().GetMessage()
-                  <<
-                  std::endl;
-    }
-
-    return outcome.IsSuccess();
+    return result;
 }
 // snippet-end:[sns.cpp.list_subscriptions.code]
 

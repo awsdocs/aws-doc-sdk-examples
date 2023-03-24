@@ -30,22 +30,35 @@ bool
 AwsDoc::SNS::listTopics(const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SNS::SNSClient snsClient(clientConfiguration);
 
-    Aws::SNS::Model::ListTopicsRequest request;
+    Aws::String nextToken; // Next token is used to handle a paginated response.
+    bool result = true;
+    do {
+        Aws::SNS::Model::ListTopicsRequest request;
 
-    const Aws::SNS::Model::ListTopicsOutcome outcome = snsClient.ListTopics(request);
-
-    if (outcome.IsSuccess()) {
-        std::cout << "Topics list:" << std::endl;
-        for (auto const &topic: outcome.GetResult().GetTopics()) {
-            std::cout << "  * " << topic.GetTopicArn() << std::endl;
+        if (!nextToken.empty()) {
+            request.SetNextToken(nextToken);
         }
-    }
-    else {
-        std::cerr << "Error listing topics " << outcome.GetError().GetMessage() <<
-                  std::endl;
-    }
 
-    return outcome.IsSuccess();
+        const Aws::SNS::Model::ListTopicsOutcome outcome = snsClient.ListTopics(
+                request);
+
+        if (outcome.IsSuccess()) {
+            std::cout << "Topics list:" << std::endl;
+            for (auto const &topic: outcome.GetResult().GetTopics()) {
+                std::cout << "  * " << topic.GetTopicArn() << std::endl;
+            }
+        }
+        else {
+            std::cerr << "Error listing topics " << outcome.GetError().GetMessage() <<
+                      std::endl;
+            result = false;
+            break;
+        }
+
+        nextToken = outcome.GetResult().GetNextToken();
+    } while (!nextToken.empty());
+
+    return result;
 }
 // snippet-end:[sns.cpp.list_topics.code]
 

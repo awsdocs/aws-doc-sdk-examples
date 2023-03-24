@@ -39,8 +39,17 @@ AwsDoc::SNS::getSMSType(const Aws::Client::ClientConfiguration &clientConfigurat
             request);
 
     if (outcome.IsSuccess()) {
-        for (auto const &att: outcome.GetResult().GetAttributes()) {
-            std::cout << att.first << ":  " << att.second << std::endl;
+        const Aws::Map<Aws::String, Aws::String> attributes =
+                outcome.GetResult().GetAttributes();
+        if (!attributes.empty()) {
+            for (auto const &att: attributes) {
+                std::cout << att.first << ":  " << att.second << std::endl;
+            }
+        }
+        else {
+            std::cout
+                    << "AwsDoc::SNS::getSMSType - an empty map of attributes was retrieved."
+                    << std::endl;
         }
     }
     else {
