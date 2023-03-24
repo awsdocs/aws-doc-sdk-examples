@@ -1,3 +1,4 @@
+// snippet-start:[iam.JavaScript.users.createrolev3]
 import { IAMClient, CreateRoleCommand } from "@aws-sdk/client-iam";
 import { createClientForDefaultRegion } from "../../libs/utils/util-aws-sdk.js";
 
@@ -26,5 +27,6 @@ const createRole = async (createRoleCommandInput) => {
 
   return client.send(command);
 };
+// snippet-end:[iam.JavaScript.users.createrolev3]
 
 export { createRole };

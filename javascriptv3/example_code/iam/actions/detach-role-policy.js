@@ -1,3 +1,4 @@
+// snippet-start:[iam.JavaScript.policies.detachRolePolicyV3]
 import { DetachRolePolicyCommand, IAMClient } from "@aws-sdk/client-iam";
 import { createClientForDefaultRegion } from "../../libs/utils/util-aws-sdk.js";
 
@@ -9,5 +10,6 @@ const detachRolePolicy = (roleName, policyArn) => {
   });
   return client.send(command);
 };
+// snippet-end:[iam.JavaScript.policies.detachRolePolicyV3]
 
 export { detachRolePolicy };

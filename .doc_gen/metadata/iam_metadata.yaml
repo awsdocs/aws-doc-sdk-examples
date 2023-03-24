@@ -1427,7 +1427,7 @@ iam_AttachRolePolicy:
                 - iam.JavaScript.createclientv3
             - description: Attach the policy.
               snippet_tags:
-                - iam.JavaScript.policies.attachRolePolicyV3
+                - javascript.v3.iam.actions.AttachRolePolicy
         - sdk_version: 2
           github: javascript/example_code/iam
           sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-policies.html#iam-examples-policies-attaching-role-policy
@@ -1973,7 +1973,7 @@ iam_DeleteRole:
                 - iam.JavaScript.createclientv3
             - description: Delete the role.
               snippet_tags:
-                - iam.JavaScript.users.deleterolev3
+                - javascript.v3.iam.actions.DeleteRole
     Ruby:
       versions:
         - sdk_version: 3
