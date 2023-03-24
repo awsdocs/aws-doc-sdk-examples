@@ -2,9 +2,7 @@
 
 This is the tech spec for the Photo Asset Management cross-service example. This doc details the specifics of the deliverable app.
 
-## How to read this document
-
-This contains the following sections
+## Table of contents
 
 * Introduction - A summary of app functionality.
 * Development / Deployment - Information on where to find AWS Cloud Development Kit (AWS CDK) deployment and development instructions.
