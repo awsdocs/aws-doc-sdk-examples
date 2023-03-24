@@ -94,9 +94,9 @@ cross_SnsPublishSubscription:
     sns:
     translate:
 cross_LexChatbotLanguages:
-  title: Create an &LEX2; Chatbot within a web application to engage your web site visitors
-  title_abbrev: Building an &LEX2; Chatbot 
-  synopsis: create a Chatbot to engage your web site visitors.
+  title: Create an &LEX2; chatbot to engage your website visitors
+  title_abbrev: Building an &LEX2; chatbot 
+  synopsis: create a chatbot to engage your website visitors.
   languages:
     Java:
       versions:
@@ -458,9 +458,9 @@ cross_DetectLabels:
   title_abbrev: Save EXIF and other image information
   synopsis_list:
     - Get EXIF information from a a JPG, JPEG, or PNG file.
-    - Upload the image file to an &S3long; (&S3;) bucket.
-    - Use &REKlong; to identify the three top attributes (labels in &REK;) in the file.
-    - Add the EXIF and label information to a &DDBlong; table in the Region.
+    - Upload the image file to an &S3; bucket.
+    - Use &REKlong; to identify the three top attributes (labels) in the file.
+    - Add the EXIF and label information to an &DDBlong; table in the Region.
   languages:
     Rust:
       versions:
@@ -475,7 +475,7 @@ cross_Telephone:
   title_abbrev: Convert text to speech and back to text
   synopsis_list:
     - Use &POLlong; to synthesize a plain text (UTF-8) input file to an audio file.
-    - Upload the audio file to an &S3long; (&S3;) bucket.
+    - Upload the audio file to an &S3; bucket.
     - Use &TSClong; to convert the audio file to text.
     - Display the text.
   languages:
@@ -518,8 +518,8 @@ cross_ShortLivedEmrCluster:
     iam:
     s3:
 cross_LongLivedEmrCluster:
-  title: Create a long-lived &EMR; cluster and run several steps using an &AWS; SDK
-  title_abbrev: Create a long-lived &EMR; cluster and run several steps
+  title: Create a long-lived &EMR; cluster and run steps using an &AWS; SDK
+  title_abbrev: Create a long-lived &EMR; cluster and run steps
   synopsis: create a long-lived &EMR; cluster and run several steps.
   languages:
     Python:

@@ -565,16 +565,14 @@ auto-scaling_Scenario_GroupsAndInstances:
   title: Manage &AS; groups and instances using an &AWS; SDK
   title_abbrev: Manage groups and instances
   synopsis_list:
-    - Create an &ASlong; group and configure it with a launch template and Availability
-      Zones.
-    - Get information about the group and running instances.
-    - Enable &CWlong; metrics collection on the group.
-    - Update the desired capacity of the group and wait for an instance to start.
+    - Create an &ASlong; group with a launch template and Availability
+      Zones, and get information about running instances.
+    - Enable &CWlong; metrics collection.
+    - Update the group's desired capacity and wait for an instance to start.
     - Terminate an instance in the group.
     - List scaling activities that occur in response to user requests and capacity
       changes.
-    - Get statistics for &CW; metrics that are collected during the example.
-    - Stop collecting metrics, terminate all instances, and delete the group.
+    - Get statistics for &CW; metrics, then clean up resources.
   category: Scenarios
   languages:
     .NET:

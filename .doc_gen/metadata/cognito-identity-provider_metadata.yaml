@@ -723,8 +723,7 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
   title: Sign up a user with an &COG; user pool that requires MFA using an &AWS; SDK
   title_abbrev: Sign up a user with a user pool that requires MFA
   synopsis_list:
-    - Sign up a user with a user name, password, and email address.
-    - Confirm the user from a code sent in email.
+    - Sign up and confirm a user with a username, password, and email address.
     - Set up multi-factor authentication by associating an MFA application with the user.
     - Sign in by using a password and an MFA code.
   category: Scenarios

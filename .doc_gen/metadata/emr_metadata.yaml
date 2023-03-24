@@ -108,9 +108,9 @@ emr_DescribeStep:
     emr: {DescribeStep}
 emr_Usage_InstallLibrariesWithSsm:
   title: Run a shell script to install libraries on &EMR; instances using an &AWS; SDK
-  title_abbrev: Run a shell script to install libraries on instances
-  synopsis: use &SYSlong; to run a shell script on &EMR; instances to install
-    additional libraries. This can be used to automate instance management instead
+  title_abbrev: Run a shell script to install libraries
+  synopsis: use &SYSlong; to run a shell script on &EMR; instances that installs
+    additional libraries. This way, you can automate instance management instead
     of running commands manually through an SSH connection.
   category: Scenarios
   languages:

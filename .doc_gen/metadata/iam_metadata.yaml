@@ -427,10 +427,10 @@ iam_Scenario_AccountManagement:
   title: Manage your &IAM; account using an &AWS; SDK
   title_abbrev: Manage your account
   synopsis_list:
-    - Get and update the alias for the account.
-    - Generate a report of users and their credentials.
+    - Get and update the account alias.
+    - Generate a report of users and credentials.
     - Get a summary of account usage.
-    - Get details about all users, groups, roles, and policies in your account, including
+    - Get details for all users, groups, roles, and policies in your account, including
       their relationships to each other.
   category: Scenarios
   languages:
@@ -2717,9 +2717,9 @@ iam_Scenario_UserPolicies:
   synopsis: create users and attach policies to them. &aws_sec_sdk_use-federation-warning;
   synopsis_list:
     - Create two &IAM-users;.
-    - Attach a policy that lets one of the users get and put objects in an &S3long; (&S3;) bucket.
-    - Attach a policy that lets the other user get objects from the bucket.
-    - Obtain differing permissions to the bucket based on user credentials.
+    - Attach a policy for one user to get and put objects in an &S3; bucket.
+    - Attach a policy for the second user to get objects from the bucket.
+    - Get different permissions to the bucket based on user credentials.
   category: Scenarios
   languages:
     Python:
@@ -3177,12 +3177,9 @@ iam_Scenario_GroupBasics:
   title: Create an &IAM; group and add a user to the group using an &AWS; SDK
   title_abbrev: Create a group and add a user
   synopsis_list:
-    - Create a group.
-    - Grant full &S3; access permissions to the group.
+    - Create a group and grant full &S3; access permissions to it.
     - Create a new user with no permissions to access &S3;.
-    - Add the user to the group.
-    - Show that the user now has permissions to create and delete &S3; buckets.
-    - Delete the &S3; bucket, the user, and the group.
+    - Add the user to the group and show that they now have permissions for &S3;, then clean up resources.
   category: Scenarios
   languages:
     .NET:
@@ -3207,11 +3204,10 @@ iam_Scenario_CreateUserAssumeRole:
   title_abbrev: Create a user and assume a role
   synopsis: create a user and assume a role. &aws_sec_sdk_use-federation-warning;
   synopsis_list:
-    - Create a user who has no permissions.
+    - Create a user with no permissions.
     - Create a role that grants permission to list &S3; buckets for the account.
     - Add a policy to let the user assume the role.
-    - Assume the role and list &S3; buckets using temporary credentials.
-    - Delete the policy, role, and user.
+    - Assume the role and list S3 buckets using temporary credentials, then clean up resources.
   category: Scenarios
   languages:
     .NET:
