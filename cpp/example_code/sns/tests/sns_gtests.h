@@ -17,7 +17,7 @@ namespace AwsDocTest {
         int underflow() override;
     };
 
-    class S3_GTests : public testing::Test {
+    class SNS_GTests : public testing::Test {
     protected:
 
         void SetUp() override;
@@ -30,6 +30,14 @@ namespace AwsDocTest {
 
         static Aws::String preconditionError();
 
+        static bool deleteTopic(const Aws::String &topicARN);
+
+        static bool createTopic(Aws::String &topicARN);
+
+        static Aws::String getStashedTopicARN();
+
+        static Aws::String uuidName(const Aws::String &name);
+
         void AddCommandLineResponses(const std::vector<std::string> &responses);
 
         // s_clientConfig must be a pointer because the client config must be initialized
@@ -40,6 +48,8 @@ namespace AwsDocTest {
 
         bool suppressStdOut();
 
+        static Aws::String s_stashedTopicARN;
+
         static Aws::SDKOptions s_options;
 
         std::stringbuf m_coutBuffer;  // Used to silence cout.
@@ -47,7 +57,7 @@ namespace AwsDocTest {
 
         MyStringBuffer m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
-    }; // S3_GTests
+    }; // SNS_GTests
 } // AwsDocTest
 
 #endif //S3_EXAMPLES_S3_GTESTS_H
