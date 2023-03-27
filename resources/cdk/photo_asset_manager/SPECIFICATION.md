@@ -123,11 +123,9 @@ Each language will implement these Lambda functions. These functions handle the 
 |Function	|Trigger	|Input example	|Output example	|Uses	|
 |---	|---	|---	|---	|---	|
 |Upload|APIG PUT /upload	|{"file_name": "maintain01.jpg"}	|{"url": "<presigned URL>"}	|`StorageBucket`	|
-|DetectLabels|S3 PutObject jpeg	|	|	|`StorageBucket`
-`LabelsTable`	|
+|DetectLabels|S3 PutObject jpeg	|	|	|`StorageBucket`, `LabelsTable`	|
 |LabelsFn|APIG GET /labels	|	|{"labels": {"maintain": {"count": 5}, "lake": {"count": 3}}}	|`LabelsTable`	|
-|PrepareDownload|APIG POST /download (event)	|{"labels": ["Mountain", "Lake"]}	|{}	|`LabelsTable`
-`WorkingBucket`	|
+|PrepareDownload|APIG POST /download (event)	|{"labels": ["Mountain", "Lake"]}	|{}	|`LabelsTable`, `WorkingBucket`	|
 
 **TIP**: The Java Lambdas were created during the building of this document. Refer to them for implementation insight.
 
