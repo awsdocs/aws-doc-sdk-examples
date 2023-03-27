@@ -1,6 +1,6 @@
 //
-// Tests for the `listtables` example for DynamoDB using the AWS SDK for
-// Swift.
+// Tests for the `listtables` example for Amazon DynamoDB using the AWS SDK
+// for Swift.
 //
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
@@ -33,11 +33,11 @@ let fakeTableNames = [
     "Said-Charge-Height",
     "Talk-Partial-That",
     "Keep-Nepal-Shirt",
-    "Died-Texas-Word",
+    "Dice-Texas-Word",
     "They-Grass-Nose",
     "Toward-Under-Weather",
     "Space-Strange-Share",
-    "Phrase-Died-Little",
+    "Phrase-Dice-Little",
     "Hers-Start-Pounds",
     "Held-Escape-Women",
     "Rush-Last-Rope",

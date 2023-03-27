@@ -9,7 +9,7 @@ import AWSDynamoDB
 import ClientRuntime
 
 /// A protocol describing the implementation of functions that allow either
-/// calling through to DynamoDB or mocking DynamoDB functions.
+/// calling through to Amazon DynamoDB or mocking DynamoDB functions.
 public protocol DatabaseSession {
     /// A mockable entry point for the Amazon DynamoDB function
     /// `listTables()`. A DynamoDB implementation of `DatabaseSession` should
@@ -34,7 +34,7 @@ public struct DynamoDBSession: DatabaseSession {
     // snippet-start:[ddb.swift.dynamodbsession.init]
     /// Initialize the `DatabaseSession`.
     ///
-    /// - Parameter region: The Amazon Region to use for DynamoDB.
+    /// - Parameter region: The AWS Region to use for DynamoDB.
     ///
     init(region: String = "us-east-2") throws {
         self.awsRegion = region
@@ -88,8 +88,7 @@ public class DatabaseManager {
 
         // Iterate over the list of tables, 25 at a time, until we have the
         // names of every table. Add each group to the `tableList` array.
-        // We know iteration is complete when `output.lastEvaluatedTableName`
-        // is `nil`.
+        // Iteration is complete when `output.lastEvaluatedTableName` is `nil`.
 
         repeat {
             let input = ListTablesInput(
