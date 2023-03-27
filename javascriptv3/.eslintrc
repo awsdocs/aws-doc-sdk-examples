@@ -1,19 +1,20 @@
 {
   "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
   "parserOptions": {
-    "ecmaVersion": 2020, // Allows for the parsing of modern ECMAScript features
+    "ecmaVersion": 2022, // Allows for the parsing of modern ECMAScript features
     "sourceType": "module" // Allows for the use of imports
   },
   "extends": [
+    "eslint:recommended",
     // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+    "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "env": { "es6": true, "node": true, "jest": true },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "eslint-plugin-import"],
   "rules": {
+    "import/no-unresolved": 2,
     "no-unused-vars": "off",
-    /** Turn off strict enforcement */
-    "no-undef": 1,
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
