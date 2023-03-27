@@ -3249,7 +3249,7 @@ iam_Scenario_CreateUserAssumeRole:
           excerpts:
             - description: Create the client.
               snippet_tags:
-                - iam.JavaScript.scenario.createclientv3
+                - iam.JavaScript.createclientv3
             - description: Create an &IAM-user; and a role that grants permission
                 to list &S3; buckets. The user has rights only to assume the role.
                 After assuming the role, use temporary credentials to list buckets for
