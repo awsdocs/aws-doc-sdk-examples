@@ -1080,7 +1080,7 @@ dynamodb_ListTables:
           excerpts:
             - description:
               snippet_tags:
-                - ddb.swift.basics.listtables
+                - ddb.swift.databasemanager.gettablelist
   services:
     dynamodb: {ListTables}
 dynamodb_Query:
