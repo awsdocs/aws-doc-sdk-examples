@@ -10,6 +10,11 @@
 #include <aws/core/Aws.h>
 #include <memory>
 #include <gtest/gtest.h>
+#include <aws/core/http/standard/StandardHttpRequest.h>
+
+class MockHttpClient;
+
+class MockHttpClientFactory;
 
 namespace AwsDocTest {
 
@@ -36,6 +41,8 @@ namespace AwsDocTest {
 
         static Aws::String getStashedTopicARN();
 
+        static Aws::String getSubscriptionARN();
+
         static Aws::String uuidName(const Aws::String &name);
 
         void AddCommandLineResponses(const std::vector<std::string> &responses);
@@ -49,6 +56,7 @@ namespace AwsDocTest {
         bool suppressStdOut();
 
         static Aws::String s_stashedTopicARN;
+        static Aws::String s_stashedSubscriptionARN;
 
         static Aws::SDKOptions s_options;
 
@@ -58,6 +66,23 @@ namespace AwsDocTest {
         MyStringBuffer m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
     }; // SNS_GTests
+
+
+    class MockHTTP {
+    public:
+        MockHTTP();
+
+        virtual ~MockHTTP();
+
+        bool addResponseWithBody(const std::string &fileName,
+                                 Aws::Http::HttpResponseCode httpResponseCode = Aws::Http::HttpResponseCode::OK);
+
+    private:
+
+        std::shared_ptr<MockHttpClient> mockHttpClient;
+        std::shared_ptr<MockHttpClientFactory> mockHttpClientFactory;
+        std::shared_ptr<Aws::Http::HttpRequest> requestTmp;
+    }; // MockHTTP
 } // AwsDocTest
 
 #endif //S3_EXAMPLES_S3_GTESTS_H

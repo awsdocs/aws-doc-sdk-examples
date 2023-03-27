@@ -17,7 +17,6 @@
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
 #include <aws/sns/model/SubscribeRequest.h>
-#include <aws/sns/model/SubscribeResult.h>
 #include <iostream>
 #include "sns_samples.h"
 
@@ -77,6 +76,7 @@ int main(int argc, char **argv) {
     }
 
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         Aws::String topicARN = argv[1];

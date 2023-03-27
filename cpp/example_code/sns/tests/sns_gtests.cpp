@@ -9,12 +9,19 @@
 #include <aws/sns/SNSClient.h>
 #include <aws/sns/model/CreateTopicRequest.h>
 #include <aws/sns/model/DeleteTopicRequest.h>
+#include <aws/sns/model/SubscribeRequest.h>
 #include <aws/core/utils/UUID.h>
+#include <aws/testing/mocks/http/MockHttpClient.h>
 
+namespace AwsDocTest {
+    static const char ALLOCATION_TAG[] = "SNS_GTEST";
+    Aws::SDKOptions SNS_GTests::s_options;
+    std::unique_ptr<Aws::Client::ClientConfiguration> SNS_GTests::s_clientConfig;
+    Aws::String SNS_GTests::s_stashedTopicARN;
+    Aws::String SNS_GTests::s_stashedSubscriptionARN;
 
-Aws::SDKOptions AwsDocTest::SNS_GTests::s_options;
-std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::SNS_GTests::s_clientConfig;
-Aws::String AwsDocTest::SNS_GTests::s_stashedTopicARN;
+    static const Aws::String TOPIC_NAME_PREFIX("gtests_topic");
+}
 
 void AwsDocTest::SNS_GTests::SetUpTestSuite() {
     InitAPI(s_options);
@@ -99,7 +106,7 @@ bool AwsDocTest::SNS_GTests::createTopic(Aws::String &topicARN) {
     Aws::SNS::SNSClient snsClient(*s_clientConfig);
 
     Aws::SNS::Model::CreateTopicRequest request;
-    Aws::String topicName = uuidName("gtests_topic");
+    Aws::String topicName = uuidName(TOPIC_NAME_PREFIX);
     request.SetName(topicName);
 
     const Aws::SNS::Model::CreateTopicOutcome outcome = snsClient.CreateTopic(request);
@@ -129,6 +136,51 @@ Aws::String AwsDocTest::SNS_GTests::uuidName(const Aws::String &name) {
            Aws::Utils::StringUtils::ToLower(uuid.c_str());
 }
 
+Aws::String AwsDocTest::SNS_GTests::getSubscriptionARN() {
+    if (s_stashedSubscriptionARN.empty()) {
+        Aws::String topicARN = getStashedTopicARN();
+        Aws::String lambdaEndpoint;
+        if (!topicARN.empty()) {
+            lambdaEndpoint = topicARN;
+            size_t snsStart = lambdaEndpoint.find("sns");
+            size_t topicStart = lambdaEndpoint.find(TOPIC_NAME_PREFIX);
+            if ((snsStart != std::string::npos) && (topicStart != std::string::npos)) {
+                lambdaEndpoint.replace(topicStart, lambdaEndpoint.length() - topicStart,
+                                       "function:hello_sns");
+                lambdaEndpoint.replace(snsStart, 3, "lambda");
+            }
+            else {
+                std::cerr
+                        << "SNS_GTests::getSubscriptionARN issue creating lambdaEndpoint '"
+                        << lambdaEndpoint << ",." << std::endl;
+                lambdaEndpoint.clear();
+            }
+        }
+        if (!lambdaEndpoint.empty()) {
+            Aws::SNS::SNSClient snsClient(*s_clientConfig);
+
+            Aws::SNS::Model::SubscribeRequest request;
+            request.SetTopicArn(topicARN);
+            request.SetProtocol("lambda");
+
+            request.SetEndpoint(lambdaEndpoint);
+
+            const Aws::SNS::Model::SubscribeOutcome outcome = snsClient.Subscribe(
+                    request);
+
+            if (outcome.IsSuccess()) {
+                s_stashedSubscriptionARN = outcome.GetResult().GetSubscriptionArn();
+            }
+            else {
+                std::cerr << "Error while subscribing "
+                          << outcome.GetError().GetMessage()
+                          << std::endl;
+            }
+        }
+    }
+    return s_stashedSubscriptionARN;
+}
+
 
 int AwsDocTest::MyStringBuffer::underflow() {
     int result = basic_stringbuf::underflow();
@@ -138,4 +190,39 @@ int AwsDocTest::MyStringBuffer::underflow() {
     }
 
     return result;
+}
+
+AwsDocTest::MockHTTP::MockHTTP() {
+    mockHttpClient = Aws::MakeShared<MockHttpClient>(ALLOCATION_TAG);
+    mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
+    mockHttpClientFactory->SetClient(mockHttpClient);
+    SetHttpClientFactory(mockHttpClientFactory);
+    requestTmp = CreateHttpRequest(Aws::Http::URI("https://test.com/"),
+                                   Aws::Http::HttpMethod::HTTP_GET,
+                                   Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+}
+
+AwsDocTest::MockHTTP::~MockHTTP() {
+    Aws::Http::CleanupHttp();
+    Aws::Http::InitHttp();
+}
+
+bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
+                                               Aws::Http::HttpResponseCode httpResponseCode) {
+
+    std::ifstream inStream(std::string(SRC_DIR) + "/" + fileName);
+    if (inStream) {
+        std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
+                ALLOCATION_TAG, requestTmp);
+        goodResponse->AddHeader("Content-Type", "text/xml");
+        goodResponse->SetResponseCode(httpResponseCode);
+        goodResponse->GetResponseBody() << inStream.rdbuf();
+        mockHttpClient->AddResponseToReturn(goodResponse);
+        return true;
+    }
+
+    std::cerr << "MockHTTP::addResponseWithBody open file error '" << fileName << "'."
+              << std::endl;
+
+    return false;
 }
