@@ -1,32 +1,44 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { fileURLToPath } from "url";
+
 // snippet-start:[iam.JavaScript.users.createrolev3]
-import { IAMClient, CreateRoleCommand } from "@aws-sdk/client-iam";
-import { createClientForDefaultRegion } from "../../libs/utils/util-aws-sdk.js";
+import { CreateRoleCommand, IAMClient } from "@aws-sdk/client-iam";
 
-const createRole = async (createRoleCommandInput) => {
-  const client = createClientForDefaultRegion(IAMClient);
+const client = new IAMClient({});
 
-  /**
-   * Example CreateRoleCommandInput:
-   * 
-   * {
-          Version: "2012-10-17",
-          Statement: [
-            {
-              Effect: "Allow",
-              Principal: {
-                Service: "lambda.amazonaws.com",
-              },
-              Action: "sts:AssumeRole",
-            },
-          ],
-        }),
-        RoleName: roleName,
-      }
-   */
-  const command = new CreateRoleCommand(createRoleCommandInput);
+export const main = async () => {
+  const command = new CreateRoleCommand({
+    AssumeRolePolicyDocument: {
+      Version: "2012-10-17",
+      Statement: [
+        {
+          Effect: "Allow",
+          Principal: {
+            Service: "lambda.amazonaws.com",
+          },
+          Action: "sts:AssumeRole",
+        },
+      ],
+    },
+    RoleName: "ROLE_NAME",
+  });
 
-  return client.send(command);
+  try {
+    const response = await client.send(command);
+    console.log(response);
+  } catch (err) {
+    console.error(err);
+  }
 };
 // snippet-end:[iam.JavaScript.users.createrolev3]
 
-export { createRole };
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
+
+// snippet-start:[iam.JavaScript.users.createrolev3]

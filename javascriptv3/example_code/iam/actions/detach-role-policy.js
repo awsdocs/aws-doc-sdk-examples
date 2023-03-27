@@ -1,15 +1,31 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { fileURLToPath } from "url";
+
 // snippet-start:[iam.JavaScript.policies.detachRolePolicyV3]
 import { DetachRolePolicyCommand, IAMClient } from "@aws-sdk/client-iam";
-import { createClientForDefaultRegion } from "../../libs/utils/util-aws-sdk.js";
 
-const detachRolePolicy = (roleName, policyArn) => {
-  const client = createClientForDefaultRegion(IAMClient);
+const client = new IAMClient({});
+
+export const main = async () => {
   const command = new DetachRolePolicyCommand({
-    PolicyArn: policyArn,
-    RoleName: roleName,
+    PolicyArn: "POLICY_ARN",
+    RoleName: "ROLE_NAME",
   });
-  return client.send(command);
+
+  try {
+    const response = await client.send(command);
+    console.log(response);
+  } catch (err) {
+    console.error(err);
+  }
 };
 // snippet-end:[iam.JavaScript.policies.detachRolePolicyV3]
 
-export { detachRolePolicy };
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

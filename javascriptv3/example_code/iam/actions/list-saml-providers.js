@@ -1,29 +1,28 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
-
-Purpose:
-iam_listsamlproviders.js demonstrates how to list the SAML provider resource objects defined in IAM in the account.
-
-Running the code:
-node iam_listsamlproviders.js
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-// snippet-start:[iam.JavaScript.listsamlprovidersV3]
-// Import required AWS SDK clients and commands for Node.js.
-import { iamClient } from "../src/libs/iamClient.js";
-import {ListSAMLProvidersCommand} from "@aws-sdk/client-iam";
+import { fileURLToPath } from "url";
 
-export const run = async () => {
-    try {
-        const results = await iamClient.send(new ListSAMLProvidersCommand({}));
-        console.log("Success", results);
-        return results;
-    } catch (err) {
-        console.log("Error", err);
-    }
-}
-run();
+// snippet-start:[iam.JavaScript.listsamlprovidersV3]
+import { ListSAMLProvidersCommand, IAMClient } from "@aws-sdk/client-iam";
+
+const client = new IAMClient({});
+
+export const main = async () => {
+  const command = new ListSAMLProvidersCommand({});
+
+  try {
+    const response = await client.send(command);
+    console.log(response);
+  } catch (err) {
+    console.error(err);
+  }
+};
 // snippet-end:[iam.JavaScript.listsamlprovidersV3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

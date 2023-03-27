@@ -1,16 +1,31 @@
-import { IAMClient, AttachRolePolicyCommand } from "@aws-sdk/client-iam";
-import { createClientForDefaultRegion } from "../../libs/utils/util-aws-sdk.js";
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-/* snippet-start:[javascript.v3.iam.actions.AttachRolePolicy] */
-const attachRolePolicy = async (roleName, policyArn) => {
-  const client = createClientForDefaultRegion(IAMClient);
+import { fileURLToPath } from "url";
+
+// snippet-start:[javascript.v3.iam.actions.AttachRolePolicy]
+import { AttachRolePolicyCommand, IAMClient } from "@aws-sdk/client-iam";
+
+const client = new IAMClient({});
+
+export const main = async () => {
   const command = new AttachRolePolicyCommand({
-    PolicyArn: policyArn, // For example, arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-    RoleName: roleName, // For example, lambda-basic-execution-role
+    PolicyArn: "POLICY_ARN",
+    RoleName: "ROLE_NAME",
   });
 
-  return client.send(command);
+  try {
+    const response = await client.send(command);
+    console.log(response);
+  } catch (err) {
+    console.error(err);
+  }
 };
-/* snippet-end:[javascript.v3.iam.actions.AttachRolePolicy] */
+// snippet-end:[javascript.v3.iam.actions.AttachRolePolicy]
 
-export { attachRolePolicy };
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

@@ -1,36 +1,30 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
-
-Purpose:
-iam_getaccountpasswordpolicy.js demonstrates how to retrieve the password policy for the AWS account.
-Inputs :
-- AWS_SERVICE_NAME. For example: 'elasticbeanstalk.amazonaws.com' (required)
-
-Running the code:
-node iam_createservicelinkedrole.js
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
-// snippet-start:[iam.JavaScript.createservicelinkedrolev3]
-// Import required AWS SDK clients and commands for Node.js.
-import { iamClient } from "../src/libs/iamClient.js";
-import { CreateServiceLinkedRoleCommand } from "@aws-sdk/client-iam";
-// Set the parameters.
-const params = {
-  AWSServiceName: "AWS_SERVICE_NAME" /* required */,
-};
+import { fileURLToPath } from "url";
 
-const run = async () => {
+// snippet-start:[iam.JavaScript.createservicelinkedrolev3]
+import { CreateServiceLinkedRoleCommand, IAMClient } from "@aws-sdk/client-iam";
+
+const client = new IAMClient({});
+
+export const main = async () => {
+  const command = new CreateServiceLinkedRoleCommand({
+    AWSServiceName: "AWS_SERVICE_NAME",
+  });
+
   try {
-    const data = await iamClient.send(
-      new CreateServiceLinkedRoleCommand(params)
-    );
-    console.log("Success", data);
+    const response = await client.send(command);
+    console.log(response);
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
 // snippet-end:[iam.JavaScript.createservicelinkedrolev3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

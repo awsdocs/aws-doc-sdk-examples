@@ -1,41 +1,33 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html.
-
-Purpose:
-iam_listrolepolicies.js demonstrates how to list the names of inline policies that are embedded in the specified IAM role.
-
-Inputs:
-- ROLE_NAME (required)
-- MARKER (optional)
-- MAX_ITEMS (optional)
-
-Running the code:
-node iam_listrolepolicies.js
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
+import { fileURLToPath } from "url";
+
 // snippet-start:[iam.JavaScript.listrolepoliciesv3]
-// Import required AWS SDK clients and commands for Node.js.
-import { iamClient } from "../src/libs/iamClient.js";
-import {ListRolePoliciesCommand} from "@aws-sdk/client-iam";
+import { ListRolePoliciesCommand, IAMClient } from "@aws-sdk/client-iam";
 
-// Set the parameters.
-export const params = {
-    RoleName: 'ROLE_NAME', /* This is a number value. Required */
-    Marker: 'MARKER', /* This is a string value. Optional */
-    MaxItems: 'MAX_ITEMS' /* This is a number value. Optional */
+const client = new IAMClient({});
+
+export const main = async () => {
+  const command = new ListRolePoliciesCommand({
+    RoleName: "ROLE_NAME" /* This is a number value. Required */,
+    // Use when results are truncated.
+    Marker: "MARKER",
+    MaxItems: 10,
+  });
+
+  try {
+    const response = await client.send(command);
+    console.log(response);
+  } catch (err) {
+    console.error(err);
+  }
 };
-
-export const run = async () => {
-    try {
-        const results = await iamClient.send(new ListRolePoliciesCommand(params));
-        console.log("Success", results);
-        return results;
-    } catch (err) {
-        console.log("Error", err);
-    }
-}
-run();
 // snippet-end:[iam.JavaScript.listrolepoliciesv3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

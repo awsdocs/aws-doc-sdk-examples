@@ -1,40 +1,31 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript version 3 (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html.
-
-Purpose:
-iam_listaccesskeys.js demonstrates how to retrieve information about the access keys of an IAM user.
-
-Inputs :
-- IAM_USER_NAME
-
-Running the code:
-node iam_listaccesskeys.js
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
  */
 
+import { fileURLToPath } from "url";
+
 // snippet-start:[iam.JavaScript.keys.listAccessKeysV3]
-// Import required AWS SDK clients and commands for Node.js.
-import { iamClient } from "../src/libs/iamClient.js";
-import { ListAccessKeysCommand } from "@aws-sdk/client-iam";
+import { ListAccessKeysCommand, IAMClient } from "@aws-sdk/client-iam";
 
-// Set the parameters.
-export const params = {
-  MaxItems: 5,
-  UserName: "IAM_USER_NAME", //IAM_USER_NAME
-};
+const client = new IAMClient({});
 
-export const run = async () => {
+export const main = async () => {
+  const command = new ListAccessKeysCommand({
+    MaxItems: 5,
+    UserName: "IAM_USER_NAME",
+  });
+
   try {
-    const data = await iamClient.send(new ListAccessKeysCommand(params));
-    console.log("Success", data);
-    return data;
+    const response = await client.send(command);
+    console.log(response);
   } catch (err) {
-    console.log("Error", err);
+    console.error(err);
   }
 };
-run();
 // snippet-end:[iam.JavaScript.keys.listAccessKeysV3]
 
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
