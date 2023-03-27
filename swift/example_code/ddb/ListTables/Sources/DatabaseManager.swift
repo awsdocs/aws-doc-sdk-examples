@@ -75,7 +75,7 @@ public class DatabaseManager {
     init(session: DatabaseSession) {
         self.session = session
     }
-    // snippet-start:[ddb.swift.databasemanager.init]
+    // snippet-end:[ddb.swift.databasemanager.init]
 
     // snippet-start:[ddb.swift.databasemanager.gettablelist]
     /// Get a list of the DynamoDB tables available in the specified Region.
