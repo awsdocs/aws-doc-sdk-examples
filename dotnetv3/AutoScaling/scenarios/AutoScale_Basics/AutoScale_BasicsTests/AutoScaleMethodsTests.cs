@@ -3,14 +3,26 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Amazon.AutoScaling;
+using Microsoft.Extensions.Configuration;
 
 namespace AutoScale_Basics.Tests
 {
     [TestClass()]
     public class AutoScaleMethodsTests
     {
+        private readonly IConfiguration _configuration;
         private readonly string _GroupName = "test-group-name";
         private readonly AmazonAutoScalingClient _Client = new AmazonAutoScalingClient();
+
+        public AutoScaleMethodsTests()
+        {
+            _configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("testsettings.json") // Load test settings from .json file.
+                .AddJsonFile("testsettings.local.json",
+                    true) // Optionally load local settings.
+                .Build();
+        }
 
         // the Amazon Resource Name (ARN) of the IAM service linked role.
         private readonly string _ServiceLinkedRoleArn = "<Enter Value>";
