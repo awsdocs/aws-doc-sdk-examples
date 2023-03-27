@@ -15,8 +15,8 @@ def lambda_handler(event, context):
         # Set up job payload
         payload = {
             'jobName': 'ruby-integ',
-            'jobQueue': 'arn:aws:batch:us-east-1:260778392212:job-queue/integ-test-runs',
-            'jobDefinition': 'arn:aws:batch:us-east-1:260778392212:job-definition/lang-ruby:9'
+            'jobQueue': 'arn:aws:batch:us-east-1:260778392212:job-queue/JobQueueEE3AD499-U9RwL1RI5OhB9W2r',
+            'jobDefinition': 'arn:aws:batch:us-east-1:260778392212:job-definition/batchjobdeffromecrE0E30-24044f1878c8bae:5'
         }
 
         # Submit job
