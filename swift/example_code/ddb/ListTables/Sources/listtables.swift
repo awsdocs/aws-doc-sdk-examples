@@ -43,9 +43,11 @@ struct ExampleCommand: ParsableCommand {
 
     /// Called by ``main()`` to asynchronously run the AWS example.
     func runAsync() async throws {
+        let session = try DynamoDBSession(region: awsRegion)
+        let dbManager = DatabaseManager(session: session)
         SDKLoggingSystem.initialize(logLevel: .error)
 
-        let tableList = try await getTableList(region: awsRegion)
+        let tableList = try await dbManager.getTableList()
 
         // Output the table list.
 
@@ -54,38 +56,6 @@ struct ExampleCommand: ParsableCommand {
             print(table)
         }
     }
-}
-
-/// Get a list of the DynamoDB tables available in the specified Region.
-///
-/// - Parameter region: The AWS Region to list the tables for.
-///
-/// - Returns: An array of strings listing all of the Region's tables.
-func getTableList(region: String) async throws -> [String] {
-    var tableList: [String] = []
-    var lastEvaluated: String? = nil
-
-    let client = try DynamoDBClient(region: region)
-
-    // Iterate over the list of tables, 25 at a time, until we have the
-    // names of every table. Add each group to the `tableList` array.
-    // We know iteration is complete when `output.lastEvaluatedTableName`
-    // is `nil`.
-
-    repeat {
-        let input = ListTablesInput(
-            exclusiveStartTableName: lastEvaluated,
-            limit: 25
-        )
-        let output = try await client.listTables(input: input)
-        guard let tableNames = output.tableNames else {
-            return tableList
-        }
-        tableList.append(contentsOf: tableNames)
-        lastEvaluated = output.lastEvaluatedTableName
-    } while lastEvaluated != nil
-
-    return tableList
 }
 
 @main
