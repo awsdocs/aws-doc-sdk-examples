@@ -28,9 +28,10 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SNS::subscribeApp(const Aws::String &topicARN,
-                               const Aws::String &endpointARN,
-                               const Aws::Client::ClientConfiguration &clientConfiguration) {
+bool
+AwsDoc::SNS::subscribeApp(const Aws::String &topicARN,
+                          const Aws::String &endpointARN,
+                          const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SNS::SNSClient snsClient(clientConfiguration);
 
     Aws::SNS::Model::SubscribeRequest request;

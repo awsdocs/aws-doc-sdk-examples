@@ -1,0 +1,8 @@
+<SubscribeResponse xmlns="https://sns.amazonaws.com/doc/2010-03-31/">
+    <SubscribeResult>
+        <SubscriptionArn>arn:aws:sns:us-test:123456789012:MyTopic:6b0e71bd-7e97-4d97-80ce-4a0994e55286</SubscriptionArn>
+    </SubscribeResult>
+    <ResponseMetadata>
+        <RequestId>c4407779-24a4-56fa-982c-3d927f93a775</RequestId>
+    </ResponseMetadata>
+</SubscribeResponse>
