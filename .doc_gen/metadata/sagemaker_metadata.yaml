@@ -195,13 +195,9 @@ sagemaker_Scenario_GettingStarted:
   title: Get started with &SM; models and endpoints using an &AWS; SDK
   title_abbrev: Get started with models and endpoints
   synopsis_list:
-    - Start a training job.
-    - Create a &SM; model.
+    - Start a training job and create a &SM; model.
     - Create an endpoint configuration.
-    - Create an endpoint.
-    - Delete an endpoint.
-    - Delete an endpoint configuration.
-    - Delete a model.
+    - Create an endpoint, then clean up resources.
   category: Scenarios
   languages:
     SAP ABAP:

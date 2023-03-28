@@ -59,8 +59,10 @@ void AwsDocTest::DynamoDB_GTests::TearDownTestSuite() {
 }
 
 void AwsDocTest::DynamoDB_GTests::SetUp() {
-    m_savedOutBuffer = std::cout.rdbuf();
-    std::cout.rdbuf(&m_coutBuffer);
+    if (suppressStdOut()) {
+        m_savedOutBuffer = std::cout.rdbuf();
+        std::cout.rdbuf(&m_coutBuffer);
+    }
 
     m_savedInBuffer = std::cin.rdbuf();
     std::cin.rdbuf(&m_cinBuffer);

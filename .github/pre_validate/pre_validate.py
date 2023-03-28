@@ -153,7 +153,9 @@ ALLOW_LIST = {
     'DeleteCollectionExample/DeleteCollection',
     'com/awssupport/latest/APIReference/index',
     'DescribeDbClusterParameterGroupsResponse',
-    'DeleteCollectionExample/DeleteCollection'
+    'DeleteCollectionExample/DeleteCollection',
+    'aws/rds/model/DescribeDBInstancesRequest',
+    'com/apigateway/latest/developerguide/set'
 }
 
 def check_files(root, quiet):

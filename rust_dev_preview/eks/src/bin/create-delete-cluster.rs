@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_eks::model::VpcConfigRequest;
-use aws_sdk_eks::{Client, Region, PKG_VERSION};
+use aws_sdk_eks::types::VpcConfigRequest;
+use aws_sdk_eks::{config::Region, meta::PKG_VERSION, Client};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -82,7 +84,7 @@ async fn remove_cluster(
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), aws_sdk_eks::Error> {
+async fn main() -> Result<(), Box<aws_sdk_eks::Error>> {
     let Opt {
         arn,
         cluster_name,
@@ -115,5 +117,7 @@ async fn main() -> Result<(), aws_sdk_eks::Error> {
 
     make_cluster(&client, &cluster_name, &arn, subnet_ids).await?;
 
-    remove_cluster(&client, &cluster_name).await
+    remove_cluster(&client, &cluster_name)
+        .await
+        .map_err(Box::new)
 }

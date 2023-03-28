@@ -26,8 +26,10 @@ void AwsDocTest::RDS_GTests::TearDownTestSuite() {
 }
 
 void AwsDocTest::RDS_GTests::SetUp() {
-    m_savedBuffer = std::cout.rdbuf();
-    std::cout.rdbuf(&m_coutBuffer);
+    if (suppressStdOut()) {
+        m_savedBuffer = std::cout.rdbuf();
+        std::cout.rdbuf(&m_coutBuffer);
+    }
 
     m_savedInBuffer = std::cin.rdbuf();
     std::cin.rdbuf(&m_cinBuffer);
@@ -62,6 +64,10 @@ void AwsDocTest::RDS_GTests::AddCommandLineResponses(
         stringStream << response << "\n";
     }
     m_cinBuffer.str(stringStream.str());
+}
+
+bool AwsDocTest::RDS_GTests::suppressStdOut() {
+    return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
 }
 
 int AwsDocTest::MyStringBuffer::underflow() {

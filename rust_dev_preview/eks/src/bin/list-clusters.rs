@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_eks::{Client, Region, PKG_VERSION};
+use aws_sdk_eks::{config::Region, meta::PKG_VERSION, Client};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -43,7 +45,7 @@ async fn show_clusters(client: &aws_sdk_eks::Client) -> Result<(), aws_sdk_eks::
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), aws_sdk_eks::Error> {
+async fn main() -> Result<(), Box<aws_sdk_eks::Error>> {
     let Opt { region, verbose } = Opt::from_args();
 
     if verbose {
@@ -68,5 +70,5 @@ async fn main() -> Result<(), aws_sdk_eks::Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = Client::new(&shared_config);
 
-    show_clusters(&client).await
+    show_clusters(&client).await.map_err(Box::new)
 }

@@ -105,7 +105,7 @@ lookoutvision_Scenario_FindTagInProjects:
     lookoutvision: {}
 lookoutvision_Scenario_ExportDatasets:
   title: Export the datasets from a &LYRA; project using an &AWS; SDK
-  title_abbrev: Export the datasets from a &LYRA; project
+  title_abbrev: Export the datasets from a project
   synopsis: export the datasets from a &LYRA; project.
   category: Scenarios
   guide_topic:
@@ -354,7 +354,7 @@ lookoutvision_ListProjects:
 lookoutvision_Hello:
   title: Hello &LYRA;
   title_abbrev: Hello &LYRA;
-  synopsis: get started using &LYRAlong;.
+  synopsis: get started using &LYRA;.
   category: Hello
   languages:
     Python:

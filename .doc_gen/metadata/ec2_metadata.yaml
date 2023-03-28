@@ -1,7 +1,7 @@
 ec2_Hello:
   title: Hello &EC2;
   title_abbrev: Hello &EC2;
-  synopsis: get started using &EC2long; (&EC2;).
+  synopsis: get started using &EC2;.
   category: Hello
   languages:
     .NET:
@@ -111,6 +111,14 @@ ec2_CreateKeyPair:
             - description:
               snippet_tags:
                 - ec2.abapv1.create_key_pair
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.create_key_pair.code
   services:
     ec2: {CreateKeyPair}
 ec2_DescribeKeyPairs:
@@ -173,6 +181,14 @@ ec2_DescribeKeyPairs:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_key_pairs
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.describe_key_pairs.code
   services:
     ec2: {DescribeKeyPairs}
 
@@ -236,6 +252,15 @@ ec2_CreateSecurityGroup:
             - description:
               snippet_tags:
                 - ec2.abapv1.create_security_group
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.create_security_group.client
+                - cpp.example_code.ec2.CreateSecurityGroup
   services:
     ec2: {CreateSecurityGroup}
 ec2_RunInstances:
@@ -298,6 +323,16 @@ ec2_RunInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.create_instance
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.create_instance.client
+                - cpp.example_code.ec2.RunInstances
   services:
     ec2: {RunInstances}
 ec2_CreateVpc:
@@ -388,6 +423,14 @@ ec2_StartInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.start_instance
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.start_instance.code
   services:
     ec2: {StartInstances}
 ec2_StopInstances:
@@ -458,6 +501,14 @@ ec2_StopInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.stop_instance
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.stop_instance.code
   services:
     ec2: {StopInstances}
 ec2_AllocateAddress:
@@ -520,6 +571,15 @@ ec2_AllocateAddress:
             - description:
               snippet_tags:
                 - ec2.abapv1.allocate_address
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.allocate_address.client
+                - cpp.example_code.ec2.AllocateAddress
   services:
     ec2: {AllocateAddress}
 ec2_AssociateAddress:
@@ -582,6 +642,15 @@ ec2_AssociateAddress:
             - description:
               snippet_tags:
                 - ec2.abapv1.associate_address
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.allocate_address.client
+                - cpp.example_code.ec2.AssociateAddress
   services:
     ec2: {AssociateAddress}
 ec2_DisassociateAddress:
@@ -698,6 +767,14 @@ ec2_ReleaseAddress:
             - description:
               snippet_tags:
                 - ec2.abapv1.release_address
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.release_address.code
   services:
     ec2: {ReleaseAddress}
 ec2_AuthorizeSecurityGroupIngress:
@@ -743,6 +820,16 @@ ec2_AuthorizeSecurityGroupIngress:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.AuthorizeSecurityGroupIngress
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.allocate_address.client
+                - ec2.cpp.configure_security_group02.code
+                - ec2.cpp.configure_security_group03.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -814,6 +901,14 @@ ec2_DeleteKeyPair:
             - description:
               snippet_tags:
                 - ec2.abapv1.delete_key_pair
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.delete_key_pair.code
   services:
     ec2: {DeleteKeyPair}
 ec2_DescribeSecurityGroups:
@@ -876,6 +971,14 @@ ec2_DescribeSecurityGroups:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_security_groups
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.describe_security_groups.code
   services:
     ec2: {DescribeSecurityGroups}
 ec2_DeleteSecurityGroup:
@@ -938,6 +1041,14 @@ ec2_DeleteSecurityGroup:
             - description:
               snippet_tags:
                 - ec2.abapv1.delete_security_group
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.delete_security_group.code
   services:
     ec2: {DeleteSecurityGroup}
 ec2_DeleteSnapshot:
@@ -1018,6 +1129,14 @@ ec2_TerminateInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.TerminateInstances
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.TerminateInstances
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1095,6 +1214,14 @@ ec2_DescribeInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_instances
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.describe_instances.code
   services:
     ec2: {DescribeInstances}
 ec2_DescribeRegions:
@@ -1128,6 +1255,15 @@ ec2_DescribeRegions:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_regions
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.describe_regions.client
+                - cpp.example_code.ec2.DescribeRegions
   services:
     ec2: {DescribeRegions}
 ec2_DescribeInstanceStatus:
@@ -1177,6 +1313,14 @@ ec2_MonitorInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.monitor_instance
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.enable_monitor_instance.code
   services:
     ec2: {MonitorInstances}
 ec2_UnmonitorInstances:
@@ -1185,6 +1329,14 @@ ec2_UnmonitorInstances:
   synopsis: disable detailed monitoring on an &EC2; instance.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.disable_monitor_instance.code
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1236,6 +1388,14 @@ ec2_RebootInstances:
             - description:
               snippet_tags:
                 - ec2.abapv1.reboot_instance  
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.reboot_instance.code
   services:
     ec2: {RebootInstances}
 ec2_DeleteVPC:
@@ -1359,6 +1519,14 @@ ec2_DescribeAddresses:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_addresses
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.cpp.describe_addresses.code
   services:
     ec2: {DescribeAddresses}
 ec2_DescribeAvailabilityZones:
@@ -1375,24 +1543,44 @@ ec2_DescribeAvailabilityZones:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_availability_zones
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.describe_regions.client
+                - ec2.cpp.describe_zones.code
   services:
     ec2: {DescribeAvailabilityZones}
+ec2_CreateTags:
+  title: Add tags to &EC2; resources using an &AWS; SDK
+  title_abbrev: Add tags to resources
+  synopsis: add tags to &EC2; resources.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.ec2.create_instance.client
+                - cpp.example_code.ec2.CreateTags
+  services:
+    ec2: {CreateTags}
 ec2_Scenario_GetStartedInstances:
   title: Get started with &EC2; instances using an &AWS; SDK
   title_abbrev: Get started with instances
   synopsis_list:
-    - Create a key pair that is used to secure SSH communication between your computer and
-      an EC2 instance.
-    - Create a security group that acts as a virtual firewall for your EC2 instances to
-      control incoming and outgoing traffic.
-    - Find an Amazon Machine Image (AMI) and a compatible instance type.
-    - Create an instance that is created from the instance type and AMI you select, and
-      is configured to use the security group and key pair created in this example.
+    - Create a key pair and security group.
+    - Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
     - Stop and restart the instance.
-    - Create an Elastic IP address and associate it as a consistent IP address for your instance.
-    - Connect to your instance with SSH, using both its public IP address and your Elastic IP
-      address.
-    - Clean up all of the resources created by this example.
+    - Associate an Elastic IP address with your instance.
+    - Connect to your instance with SSH, then clean up resources.
   category: Scenarios
   languages:
     .NET:

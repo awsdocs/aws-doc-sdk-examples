@@ -5,7 +5,7 @@
 ]>
 <block>
     <para>
-        Shows how to use the &SQSlong; API to 
+        Shows how to use the &SQS; API to
         develop a Spring REST API that sends and retrieves messages. 
     </para>
     <para>

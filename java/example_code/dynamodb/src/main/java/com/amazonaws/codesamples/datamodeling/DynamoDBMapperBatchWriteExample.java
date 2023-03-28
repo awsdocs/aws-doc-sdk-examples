@@ -8,7 +8,6 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample] 
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -26,6 +25,7 @@
 
 package com.amazonaws.codesamples.datamodeling;
 
+// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample.import]
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +41,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample.import]
 
+// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample]
 public class DynamoDBMapperBatchWriteExample {
 
     static AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();

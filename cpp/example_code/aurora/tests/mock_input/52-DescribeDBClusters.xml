@@ -1,0 +1,14 @@
+<DescribeDBClustersResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeDBClustersResult>
+        <DBClusters>
+            <DBCluster>
+                <Status>available</Status>
+                <DBClusterIdentifier>doc-example-cpp-aurora</DBClusterIdentifier>
+            </DBCluster>
+        </DBClusters>
+    </DescribeDBClustersResult>
+    <ResponseMetadata>
+        <RequestId>a0a1ff65-e80a-44ca-b163-c02831790847</RequestId>
+    </ResponseMetadata>
+</DescribeDBClustersResponse>
+ 

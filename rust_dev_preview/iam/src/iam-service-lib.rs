@@ -5,20 +5,14 @@
 
 // snippet-start:[rust.example_code.iam.scenario_getting_started.lib]
 
-use aws_sdk_iam::error::{
-    AttachRolePolicyError, CreateAccessKeyError, CreateServiceLinkedRoleError, DeleteUserError,
-    DeleteUserPolicyError, GetAccountPasswordPolicyError, GetRoleError,
-    ListAttachedRolePoliciesError, ListGroupsError, ListPoliciesError, ListRolePoliciesError,
-    ListRolesError, ListSAMLProvidersError, ListUsersError,
+use aws_sdk_iam::error::SdkError;
+use aws_sdk_iam::operation::{
+    attach_role_policy::*, create_access_key::*, create_role::*, create_service_linked_role::*,
+    delete_user::*, delete_user_policy::*, get_account_password_policy::*, get_role::*,
+    list_attached_role_policies::*, list_groups::*, list_policies::*, list_role_policies::*,
+    list_roles::*, list_saml_providers::*, list_users::*,
 };
-use aws_sdk_iam::model::{AccessKey, Policy, Role, User};
-use aws_sdk_iam::output::{
-    AttachRolePolicyOutput, CreateAccessKeyOutput, CreateRoleOutput, CreateServiceLinkedRoleOutput,
-    GetAccountPasswordPolicyOutput, GetRoleOutput, ListAttachedRolePoliciesOutput,
-    ListGroupsOutput, ListPoliciesOutput, ListRolePoliciesOutput, ListRolesOutput,
-    ListSamlProvidersOutput, ListUsersOutput,
-};
-use aws_sdk_iam::types::SdkError;
+use aws_sdk_iam::types::{AccessKey, Policy, Role, User};
 use aws_sdk_iam::Client as iamClient;
 use aws_sdk_iam::{Client, Error as iamError};
 use tokio::time::{sleep, Duration};
@@ -53,7 +47,7 @@ mod test_create_policy {
             response: include_str!("../testing/test_create_policy_response_success.xml")
         );
 
-        let response = create_policy(&client, "{}".into(), "test_role".into()).await;
+        let response = create_policy(&client, "{}", "test_role").await;
         assert!(response.is_ok());
     }
 
@@ -65,7 +59,7 @@ mod test_create_policy {
             response: include_str!("../testing/test_create_policy_response_malformed.xml")
         );
 
-        let response = create_policy(&client, "{}".into(), "test_role".into()).await;
+        let response = create_policy(&client, "{}", "test_role").await;
         assert!(response.is_err());
     }
 }

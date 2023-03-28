@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.4" />
+    <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.100.84" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.103.20" />
+    <PackageReference Include="AWSSDK.SecurityToken" Version="3.7.101.18" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Actions\IAMActions.csproj" />
+    <ProjectReference Include="..\IamScenariosCommon\IamScenariosCommon.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Content Include="settings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="settings.*.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<DependentUpon>settings.json</DependentUpon>
+		</Content>
+	</ItemGroup>
+
+</Project>

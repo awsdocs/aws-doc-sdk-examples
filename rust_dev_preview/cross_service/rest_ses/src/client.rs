@@ -7,8 +7,8 @@
 //!
 //! These wrappers add default ARNs for SDK resources the application accesses to common calls.
 use aws_config::SdkConfig;
-use aws_sdk_rdsdata::client::fluent_builders::ExecuteStatement;
-use aws_sdk_ses::client::fluent_builders::SendRawEmail;
+use aws_sdk_rdsdata::operation::execute_statement::builders::ExecuteStatementFluentBuilder;
+use aws_sdk_ses::operation::send_raw_email::builders::SendRawEmailFluentBuilder;
 use mail_builder::headers::address::Address;
 use secrecy::{ExposeSecret, Secret};
 use serde::Deserialize;
@@ -53,7 +53,7 @@ impl RdsClient {
     ///     .unwrap();
     /// # }
     /// ```
-    pub fn execute_statement(&self) -> ExecuteStatement {
+    pub fn execute_statement(&self) -> ExecuteStatementFluentBuilder {
         self.client
             .execute_statement()
             .secret_arn(self.secret_arn.expose_secret())
@@ -141,7 +141,7 @@ impl SesClient {
     }
 
     /// Prepares a SendRawEmail Amazon SES request with the source email & ARN configured.
-    pub fn send_raw_email(&self) -> SendRawEmail {
+    pub fn send_raw_email(&self) -> SendRawEmailFluentBuilder {
         self.client
             .send_raw_email()
             .source(self.source.clone().0)
@@ -160,9 +160,9 @@ macro_rules! params {
         {
             Some(vec![
             $(
-                aws_sdk_rdsdata::model::SqlParameter::builder()
+                aws_sdk_rdsdata::types::SqlParameter::builder()
                     .name($name.to_string())
-                    .value(aws_sdk_rdsdata::model::Field::StringValue($value.to_string().clone()))
+                    .value(aws_sdk_rdsdata::types::Field::StringValue($value.to_string().clone()))
                     .build(),
             )*
             ])

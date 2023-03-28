@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_iam::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_iam::{config::Region, meta::PKG_VERSION, Client, Error};
 use std::fs;
 use structopt::StructOpt;
 
@@ -112,7 +114,7 @@ mod test {
             response: "error body"
         );
 
-        let response = make_role(&client, "{}".into(), "test_role".into()).await;
+        let response = make_role(&client, "{}", "test_role").await;
         assert!(response.starts_with("Error creating role: "));
     }
 }

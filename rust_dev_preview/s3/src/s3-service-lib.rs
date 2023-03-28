@@ -5,15 +5,17 @@
 
 // snippet-start:[rust.example_code.s3.scenario_getting_started.lib]
 
-use aws_sdk_s3::error::{CopyObjectError, CreateBucketError, GetObjectError, PutObjectError};
-use aws_sdk_s3::model::{
+use aws_sdk_s3::operation::{
+    copy_object::{CopyObjectError, CopyObjectOutput},
+    create_bucket::{CreateBucketError, CreateBucketOutput},
+    get_object::{GetObjectError, GetObjectOutput},
+    list_objects_v2::ListObjectsV2Output,
+    put_object::{PutObjectError, PutObjectOutput},
+};
+use aws_sdk_s3::types::{
     BucketLocationConstraint, CreateBucketConfiguration, Delete, ObjectIdentifier,
 };
-use aws_sdk_s3::output::{
-    CopyObjectOutput, CreateBucketOutput, GetObjectOutput, ListObjectsV2Output, PutObjectOutput,
-};
-use aws_sdk_s3::types::{ByteStream, SdkError};
-use aws_sdk_s3::Client;
+use aws_sdk_s3::{error::SdkError, primitives::ByteStream, Client};
 use error::Error;
 use std::path::Path;
 use std::str;
@@ -347,7 +349,9 @@ mod test {
             let file_name = file_name.to_str().unwrap().to_string();
 
             let mut file = File::create(dir).await.unwrap();
-            file.write("test file".as_bytes()).await.unwrap();
+            let written_bytes = file.write("test file".as_bytes()).await.unwrap();
+
+            println!("Wrote bytes to s3 {written_bytes}");
 
             file_name
         };

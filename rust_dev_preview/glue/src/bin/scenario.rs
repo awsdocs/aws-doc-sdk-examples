@@ -1,6 +1,8 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
 
+#![allow(clippy::result_large_err)]
+
 /// This scenario follows the [AWS Glue Tutorial](https://docs.aws.amazon.com/glue/latest/ug/tutorial-add-crawler.html).
 use glue_code_examples::{GlueMvpError, GlueScenario};
 use tracing::{error, warn};

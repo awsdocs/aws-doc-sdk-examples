@@ -6,7 +6,7 @@
 <block>
   <para>
     Use &POLlong; to synthesize a plain text (UTF-8) input file to an audio file,
-    upload the audio file to an &S3long; bucket,
+    upload the audio file to an &S3; bucket,
     use &TSClong; to convert that audio file to text,
     and display the text.
   </para>

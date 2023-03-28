@@ -9,8 +9,9 @@
 //! RDS and data parsing errors behind the WorkItemError enum defined in the
 //! parent work_item mod.
 use aws_sdk_rdsdata::{
-    error::ExecuteStatementError, model::RecordsFormatType, output::ExecuteStatementOutput,
-    types::SdkError,
+    error::SdkError,
+    operation::execute_statement::{ExecuteStatementError, ExecuteStatementOutput},
+    types::RecordsFormatType,
 };
 use serde_json::from_str;
 

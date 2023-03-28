@@ -1,0 +1,14 @@
+<DescribeDBInstancesResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeDBInstancesResult>
+        <DBInstances>
+            <DBInstance>
+                <DBInstanceStatus>available</DBInstanceStatus>
+                <DBInstanceIdentifier>doc-example-cpp-instance</DBInstanceIdentifier>
+            </DBInstance>
+        </DBInstances>
+    </DescribeDBInstancesResult>
+    <ResponseMetadata>
+        <RequestId>42668fb0-174b-42d4-a1c0-b9cca702fb88</RequestId>
+    </ResponseMetadata>
+</DescribeDBInstancesResponse>
+ 

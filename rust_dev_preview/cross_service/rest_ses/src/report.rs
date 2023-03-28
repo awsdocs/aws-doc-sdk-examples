@@ -14,7 +14,7 @@ use actix_web::{
     web::{Data, Json},
     HttpResponse, ResponseError,
 };
-use aws_sdk_ses::{model::RawMessage, types::Blob};
+use aws_sdk_ses::{primitives::Blob, types::RawMessage};
 use mail_builder::MessageBuilder;
 use serde::Deserialize;
 use serde_json::json;

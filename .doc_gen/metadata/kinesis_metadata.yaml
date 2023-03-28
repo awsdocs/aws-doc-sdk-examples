@@ -345,11 +345,9 @@ kinesis_Scenario_GettingStarted:
   title: Get started with basic &AK; data stream operations using an &AWS; SDK
   title_abbrev: Get started with data streams
   synopsis_list:
-    - Create a stream.
-    - Put record in a stream.
+    - Create a stream and put a record in it.
     - Create a shard iterator.
-    - Read the record.
-    - Delete stream.
+    - Read the record, then clean up resources.
   category: Scenarios
   languages:
     SAP ABAP:

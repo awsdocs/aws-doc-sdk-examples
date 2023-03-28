@@ -104,6 +104,14 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.createTable
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.createtable
   services:
     dynamodb: {CreateTable}
 dynamodb_BatchGetItem:
@@ -158,6 +166,14 @@ dynamodb_BatchGetItem:
             - description:
               snippet_tags:
                 - cpp.example_code.dynamodb.batch_get_item
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.batchgetitem.batchget
   services:
     dynamodb: {BatchGetItem}
 dynamodb_DescribeTable:
@@ -329,6 +345,14 @@ dynamodb_BatchWriteItem:
             - description:
               snippet_tags:
                 - cpp.example_code.dynamodb.batch_write_item
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb/
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.populate
   services:
     dynamodb: {BatchWriteItem}
 dynamodb_DeleteTable:
@@ -434,6 +458,14 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.deleteTable
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.deletetable
   services:
     dynamodb: {DeleteTable}
 dynamodb_PutItem:
@@ -552,6 +584,15 @@ dynamodb_PutItem:
             - description: Put an item in a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.put
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.add-movie
+                - ddb.swift.basics.movie.getasitem
   services:
     dynamodb: {PutItem}
 dynamodb_GetItem:
@@ -662,6 +703,14 @@ dynamodb_GetItem:
             - description: Get an item from a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.get
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.get
   services:
     dynamodb: {GetItem}
 dynamodb_UpdateItem:
@@ -772,6 +821,14 @@ dynamodb_UpdateItem:
             - description: Update items by batch in a table using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.updateItemsV3
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.update
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
@@ -898,6 +955,14 @@ dynamodb_DeleteItem:
             - description:
               snippet_tags:
                 - cpp.example_code.dynamodb.delete_item
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.delete
   services:
     dynamodb: {DeleteItem}
 dynamodb_ListTables:
@@ -1008,6 +1073,14 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.listTables
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.databasemanager.gettablelist
   services:
     dynamodb: {ListTables}
 dynamodb_Query:
@@ -1128,6 +1201,14 @@ dynamodb_Query:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.query
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.getMovies-year
   services:
     dynamodb: {Query}
 dynamodb_Scan:
@@ -1237,6 +1318,14 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.scan
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.basics.getmovies-range
   services:
     dynamodb: {Scan}
 dynamodb_ExecuteStatement:
@@ -1494,7 +1583,7 @@ dynamodb_Usage_DaxDemo:
   title_abbrev: Accelerate reads with &DAX;
   synopsis_list:
     - Create and write data to a table with both the &DAX; and SDK clients.
-    - Get, query, and scan the table with both the &DAX; and SDK clients and compare their performance.
+    - Get, query, and scan the table with both clients and compare their performance.
   guide_topic:
     title: Developing with the &DAXlong; Client
     url: amazondynamodb/latest/developerguide/DAX.client.html
@@ -1527,16 +1616,15 @@ dynamodb_Usage_DaxDemo:
   services:
     dynamodb: {CreateTable, PutItem, GetItem, Query, Scan, DeleteTable}
 dynamodb_Scenario_GettingStartedMovies:
-  title: Get started using &DDB; tables, items, and queries using an &AWS; SDK
-  title_abbrev: Get started using tables, items, and queries
+  title: Get started with &DDB; tables, items, and queries using an &AWS; SDK
+  title_abbrev: Get started with tables, items, and queries
   synopsis_list:
     - Create a table that can hold movie data.
     - Put, get, and update a single movie in the table.
     - Write movie data to the table from a sample JSON file.
     - Query for movies that were released in a given year.
     - Scan for movies that were released in a range of years.
-    - Delete a movie from the table.
-    - Delete the table.
+    - Delete a movie from the table, then delete the table.
   category: Scenarios
   languages:
     .NET:
@@ -1701,6 +1789,23 @@ dynamodb_Scenario_GettingStartedMovies:
                 - cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.waitTableActive
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+                A Swift class that handles &DDB; calls to the &Swift;.
+              snippet_tags:
+                - ddb.swift.basics.movietable
+            - description: The structures used by the MovieTable class to
+                represent movies.
+              snippet_tags:
+                - ddb.swift.basics.movie
+            - description: A program that uses the MovieTable class to access
+                a &DDB; database.
+              snippet_tags:
+                - ddb.swift.basics
   services:
     dynamodb:
       {
@@ -1832,6 +1937,18 @@ dynamodb_Scenario_PartiQLSingle:
                 - cpp.example_code.dynamodb.scenario.createMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.deleteMoviesDynamoDBTable
                 - cpp.example_code.dynamodb.scenario.waitTableActive
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - dynamodb.rust.partiql-make_table
+                - dynamodb.rust.partiql-add_item
+                - dynamodb.rust.partiql-query_item
+                - dynamodb.rust.partiql-remove_item
+                - dynamodb.rust.partiql-remove_table
   services:
     dynamodb: {ExecuteStatement}
 dynamodb_Scenario_PartiQLBatch:

@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ecr::{Error, Region};
+use aws_sdk_ecr::{config::Region, Error};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
