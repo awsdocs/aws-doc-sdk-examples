@@ -12,10 +12,10 @@ package com.kotlin.mediaconvert
 // snippet-start:[mediaconvert.kotlin.get_job.import]
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
 import aws.sdk.kotlin.services.mediaconvert.endpoints.EndpointProvider
+import aws.smithy.kotlin.runtime.client.endpoints.Endpoint
 import aws.sdk.kotlin.services.mediaconvert.model.DescribeEndpointsRequest
 import aws.sdk.kotlin.services.mediaconvert.model.GetJobRequest
 import aws.sdk.kotlin.services.mediaconvert.model.GetJobResponse
-import aws.smithy.kotlin.runtime.http.endpoints.Endpoint
 import kotlin.system.exitProcess
 // snippet-end:[mediaconvert.kotlin.get_job.import]
 
