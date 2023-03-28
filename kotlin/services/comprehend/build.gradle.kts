@@ -33,10 +33,3 @@ dependencies {
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
-
-tasks.named<Test>("test") {
-    useJUnitPlatform()
-}
-dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
-}
