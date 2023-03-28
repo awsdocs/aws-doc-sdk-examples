@@ -15,7 +15,6 @@ buildscript {
 
     dependencies {
         classpath("org.jlleitschuh.gradle:ktlint-gradle:10.3.0")
-
     }
 }
 
