@@ -23,9 +23,9 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:route53:0.19.0-beta")
-    implementation("aws.sdk.kotlin:route53domains:0.19.0-beta")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    implementation("aws.sdk.kotlin:route53-jvm:0.21.3-beta")
+    implementation("aws.sdk.kotlin:route53domains-jvm:0.21.3-beta")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 tasks.withType<KotlinCompile>() {

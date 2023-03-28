@@ -14,8 +14,8 @@ import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
 import aws.sdk.kotlin.services.mediaconvert.model.DescribeEndpointsRequest
 import aws.sdk.kotlin.services.mediaconvert.model.JobStatus
 import aws.sdk.kotlin.services.mediaconvert.model.ListJobsRequest
-import aws.smithy.kotlin.runtime.http.endpoints.Endpoint
-import aws.smithy.kotlin.runtime.http.endpoints.EndpointProvider
+import aws.smithy.kotlin.runtime.client.endpoints.Endpoint
+import aws.smithy.kotlin.runtime.client.endpoints.EndpointProvider
 import kotlin.system.exitProcess
 // snippet-end:[mediaconvert.kotlin.list_jobs.import]
 
