@@ -3,6 +3,7 @@
 
 import logging
 import boto3
+import os
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -12,11 +13,16 @@ def lambda_handler(event, context):
         # Set up Batch client
         batch = boto3.client('batch')
 
+        print(f"JOB_NAME: {os.environ['JOB_NAME']}")
+        print(f"JOB_QUEUE: {os.environ['JOB_QUEUE']}")
+        print(f"JOB_DEFINITION: {os.environ['JOB_DEFINITION']}")
+
         # Set up job payload
         payload = {
-            'jobName': 'ruby-integ',
-            'jobQueue': 'arn:aws:batch:us-east-1:260778392212:job-queue/JobQueueEE3AD499-U9RwL1RI5OhB9W2r',
-            'jobDefinition': 'arn:aws:batch:us-east-1:260778392212:job-definition/batchjobdeffromecrE0E30-24044f1878c8bae:5'
+            'jobName': os.environ['JOB_NAME'],
+            'jobQueue': os.environ['JOB_QUEUE'],
+            'jobDefinition': os.environ['JOB_DEFINITION']
+            # 'jobDefinition': 'arn:aws:batch:us-east-1:260778392212:job-definition/batchjobdeffromecrE0E30-24044f1878c8bae:5'
         }
 
         # Submit job

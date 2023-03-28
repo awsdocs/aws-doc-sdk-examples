@@ -42,18 +42,15 @@ class ConsumerStack(Stack):
         sns_topic = sns.Topic.from_topic_arn(self, fanout_topic_name, topic_arn=fanout_topic_arn)
         container_image = ecs.EcrImage.from_registry("public.ecr.aws/b4v4v1s0/ruby:latest")
 
-        #############################################
-        ##                                         ##
-        ##                    IAM                  ##
-        ##                                         ##
-        #############################################
+        # Define the SQS queue in this account
+        sqs_queue = sqs.Queue(self, f'BatchJobQueue-{language_name}')
 
         # Create an IAM role for the SNS topic to send messages to the SQS queue
         sns_topic_role = iam.Role(
-            self, "SNSTopicRole",
+            self, f"SNSTopicRole-{language_name}",
             assumed_by=iam.ServicePrincipal('sns.amazonaws.com'),
             description='Allows the SNS topic to send messages to the SQS queue in this account',
-            role_name='SNSTopicRole'
+            role_name=f'SNSTopicRole-{language_name}'
         )
 
         # Policy to allow existing SNS topic to publish to new SQS queue
@@ -70,14 +67,14 @@ class ConsumerStack(Stack):
 
         # Execution role for Lambda function to use
         execution_role = iam.Role(
-            self, "LambdaExecutionRole",
+            self, f"LambdaExecutionRole-{language_name}",
             assumed_by=iam.ServicePrincipal('lambda.amazonaws.com'),
             description='Allows Lambda function to submit jobs to Batch',
-            role_name='LambdaExecutionRole'
+            role_name=f'LambdaExecutionRole-{language_name}'
         )
 
         batch_execution_role = iam.Role(
-            self, "MyRole",
+            self, f"BatchExecutionRole-{language_name}",
             assumed_by=iam.ServicePrincipal("ecs-tasks.amazonaws.com"),
             inline_policies={
                 "MyCustomPolicy": iam.PolicyDocument(
@@ -97,42 +94,25 @@ class ConsumerStack(Stack):
             },
             managed_policies=[
                 iam.ManagedPolicy.from_aws_managed_policy_name(
-                    "SystemAdministrator"
+                    "job-function/SystemAdministrator"
                 ),
                 iam.ManagedPolicy.from_aws_managed_policy_name(
-                    "AmazonECSTaskExecutionRolePolicy"
+                    "service-role/AmazonECSTaskExecutionRolePolicy"
                 )
             ]
-        )
-
-
-        # Define the SQS queue in this account
-        sqs_queue = sqs.Queue(self, 'BatchJobQueue')
-
-        # Define the Lambda function
-        function = _lambda.Function(self, 'SubmitBatchJob',
-            runtime=_lambda.Runtime.PYTHON_3_8,
-            handler='lambda_handler.lambda_handler',
-            role=execution_role,
-            code=_lambda.Code.from_asset('lambda'),
-            environment={
-                'LANGUAGE_NAME': language_name
-            }
         )
 
         # Batch resources commented out due to bug: https://github.com/aws/aws-cdk/issues/24783.
         # Using Alpha as workaround.
 
-        vpc = ec2.Vpc.from_lookup(self, "Vpc", is_default=True)
-
-        fargate_environment = batch_alpha.ComputeEnvironment(self, "MyFargateEnvironment",
+        fargate_environment = batch_alpha.ComputeEnvironment(self, f"FargateEnv-{language_name}",
             compute_resources=batch_alpha.ComputeResources(
                 type=batch_alpha.ComputeResourceType.FARGATE,
-                vpc=vpc
+                vpc=ec2.Vpc.from_lookup(self, "Vpc", is_default=True)
             )
         )
 
-        batch_alpha.JobDefinition(self, "batch-job-def-from-ecr",
+        job_definition = batch_alpha.JobDefinition(self, f"JobDefinition-{language_name}",
             container=batch_alpha.JobDefinitionContainer(
                 image=container_image,
                 execution_role=batch_execution_role
@@ -140,12 +120,26 @@ class ConsumerStack(Stack):
             platform_capabilities=[ batch_alpha.PlatformCapabilities.FARGATE ]
         )
 
-        batch_alpha.JobQueue(self, "JobQueue",
+        job_queue = batch_alpha.JobQueue(self, f"JobQueue-{language_name}",
             compute_environments=[batch_alpha.JobQueueComputeEnvironment(
                compute_environment=fargate_environment,
                order=1
             )]
         )
+
+        # Define the Lambda function
+        function = _lambda.Function(self, f'SubmitBatchJob-{language_name}',
+                                    runtime=_lambda.Runtime.PYTHON_3_8,
+                                    handler='lambda_handler.lambda_handler',
+                                    role=execution_role,
+                                    code=_lambda.Code.from_asset('lambda'),
+                                    environment={
+                                        'LANGUAGE_NAME': language_name,
+                                        'JOB_QUEUE': job_queue.job_queue_arn,
+                                        'JOB_DEFINITION': job_definition.job_definition_arn,
+                                        'JOB_NAME': f'job-{language_name}'
+                                    }
+                                    )
 
         #################################################
         ##                                             ##
