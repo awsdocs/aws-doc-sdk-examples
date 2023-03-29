@@ -2,7 +2,7 @@
 route-53_Hello:
   title: Hello &R53DR;
   title_abbrev: Hello &R53DR;
-  synopsis: get started using &R53DRlong;.
+  synopsis: get started using &R53DR;.
   category: Hello
   languages:
     Kotlin:
@@ -388,13 +388,10 @@ route-53_Scenario_GetStartedRoute53Domains:
   title: Get started with &R53DR; using an &AWS; SDK
   title_abbrev: Get started with domains
   synopsis_list:
-    - List current domains.
-    - List operations in the past year.
-    - View billing for the account in the past year.
-    - View prices for domain types.
+    - List current domains, and list operations in the past year.
+    - View billing for the past year, and view prices for domain types.
     - Get domain suggestions.
-    - Check domain availability.
-    - Check domain transferability.
+    - Check domain availability and transferability.
     - Optionally, request a domain registration.
     - Get an operation detail.
     - Optionally, get a domain detail.

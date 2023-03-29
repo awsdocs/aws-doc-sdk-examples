@@ -2,7 +2,7 @@
 glue_Hello:
   title: Hello &GLU;
   title_abbrev: Hello &GLU;
-  synopsis: get started using &GLUlong; (&GLU;).
+  synopsis: get started using &GLU;.
   category: Hello
   languages:
     .NET:
@@ -992,16 +992,14 @@ glue_GetJob:
     glue: {GetJob}
 glue_Scenario_GetStartedCrawlersJobs:
   title: Get started running &GLU; crawlers and jobs using an &AWS; SDK
-  title_abbrev: Get started running crawlers and jobs
+  title_abbrev: Get started with crawlers and jobs
   synopsis_list:
-    - Create and run a crawler that crawls a public &S3long; (&S3;) bucket and generates
-      a metadata database that describes the CSV-formatted data it finds.
+    - Create a crawler that crawls a public &S3; bucket and generates
+      a database of CSV-formatted metadata.
     - List information about databases and tables in your &GLUDCLong;.
-    - Create and run a job that extracts CSV data from the source &S3; bucket,
-      transforms it by removing and renaming fields, and loads JSON-formatted
-      output into another &S3; bucket.
-    - List information about job runs and view some of the transformed data.
-    - Delete all resources created by the demo.
+    - Create a job to extract CSV data from the S3 bucket, transform the data, and 
+      load JSON-formatted output into another S3 bucket.
+    - List information about job runs, view transformed data, and clean up resources.
   category: Scenarios
   guide_topic:
     title: "Tutorial: Getting started with &GLU; Studio"

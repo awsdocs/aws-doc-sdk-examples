@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_dynamodb::model::AttributeValue;
+use aws_sdk_dynamodb::types::AttributeValue;
 use aws_sdk_dynamodb::{Client, Error};
 
 pub struct Item {
@@ -71,7 +71,7 @@ pub async fn add_item(client: &Client, item: Item, table: &String) -> Result<Ite
 // snippet-start:[dynamodb.rust.add-item.test]
 #[cfg(test)]
 mod test {
-    use aws_sdk_dynamodb::model::AttributeValue;
+    use aws_sdk_dynamodb::types::AttributeValue;
     use sdk_examples_test_utils::single_shot_client;
 
     use super::{add_item, Item, ItemOut};

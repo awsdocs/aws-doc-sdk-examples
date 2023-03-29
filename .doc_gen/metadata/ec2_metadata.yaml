@@ -1,7 +1,7 @@
 ec2_Hello:
   title: Hello &EC2;
   title_abbrev: Hello &EC2;
-  synopsis: get started using &EC2long; (&EC2;).
+  synopsis: get started using &EC2;.
   category: Hello
   languages:
     .NET:
@@ -1576,18 +1576,11 @@ ec2_Scenario_GetStartedInstances:
   title: Get started with &EC2; instances using an &AWS; SDK
   title_abbrev: Get started with instances
   synopsis_list:
-    - Create a key pair that is used to secure SSH communication between your computer and
-      an EC2 instance.
-    - Create a security group that acts as a virtual firewall for your EC2 instances to
-      control incoming and outgoing traffic.
-    - Find an Amazon Machine Image (AMI) and a compatible instance type.
-    - Create an instance that is created from the instance type and AMI you select, and
-      is configured to use the security group and key pair created in this example.
+    - Create a key pair and security group.
+    - Select an Amazon Machine Image (AMI) and compatible instance type, then create an instance.
     - Stop and restart the instance.
-    - Create an Elastic IP address and associate it as a consistent IP address for your instance.
-    - Connect to your instance with SSH, using both its public IP address and your Elastic IP
-      address.
-    - Clean up all of the resources created by this example.
+    - Associate an Elastic IP address with your instance.
+    - Connect to your instance with SSH, then clean up resources.
   category: Scenarios
   languages:
     .NET:

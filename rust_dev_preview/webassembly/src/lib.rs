@@ -5,7 +5,7 @@
 
 use async_trait::async_trait;
 use aws_credential_types::{cache::CredentialsCache, provider::ProvideCredentials, Credentials};
-use aws_sdk_lambda::{Client, Region, PKG_VERSION};
+use aws_sdk_lambda::{config::Region, meta::PKG_VERSION, Client};
 use aws_smithy_async::rt::sleep::{AsyncSleep, Sleep};
 use aws_smithy_client::erase::DynConnector;
 use aws_smithy_http::{body::SdkBody, result::ConnectorError};

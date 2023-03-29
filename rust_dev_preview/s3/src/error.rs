@@ -26,11 +26,11 @@ impl From<aws_sdk_s3::Error> for Error {
     }
 }
 
-impl<T> From<aws_sdk_s3::types::SdkError<T>> for Error
+impl<T> From<aws_sdk_s3::error::SdkError<T>> for Error
 where
     T: StdError + Send + Sync + 'static,
 {
-    fn from(source: aws_sdk_s3::types::SdkError<T>) -> Self {
+    fn from(source: aws_sdk_s3::error::SdkError<T>) -> Self {
         Self::unhandled(source)
     }
 }

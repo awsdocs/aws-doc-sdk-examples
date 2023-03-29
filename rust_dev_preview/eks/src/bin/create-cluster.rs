@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_eks::model::VpcConfigRequest;
-use aws_sdk_eks::Region;
+use aws_sdk_eks::config::Region;
+use aws_sdk_eks::types::VpcConfigRequest;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -35,6 +37,7 @@ struct Opt {
 }
 
 #[tokio::main]
+#[allow(clippy::result_large_err)]
 async fn main() -> Result<(), aws_sdk_eks::Error> {
     let Opt {
         region,
@@ -58,7 +61,8 @@ async fn main() -> Result<(), aws_sdk_eks::Error> {
                 .build(),
         )
         .send()
-        .await?;
+        .await
+        .map_err(Box::new);
     println!("cluster created: {:?}", cluster);
 
     let cluster_deleted = client.delete_cluster().name(&cluster_name).send().await?;

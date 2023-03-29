@@ -2,10 +2,13 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0.
  */
+
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_polly::model::{OutputFormat, VoiceId};
-use aws_sdk_polly::presigning::config::PresigningConfig;
-use aws_sdk_polly::{Client, Region, PKG_VERSION};
+use aws_sdk_polly::presigning::PresigningConfig;
+use aws_sdk_polly::types::{OutputFormat, VoiceId};
+use aws_sdk_polly::{config::Region, meta::PKG_VERSION, Client};
 use std::error::Error;
 use std::fs;
 use std::time::Duration;

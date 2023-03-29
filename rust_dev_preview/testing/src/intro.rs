@@ -80,14 +80,14 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync + 'static>> {
         verbose,
     } = Opt::from_args();
 
-    let region_provider = RegionProviderChain::first_try(region.map(s3::Region::new))
+    let region_provider = RegionProviderChain::first_try(region.map(s3::config::Region::new))
         .or_default_provider()
-        .or_else(s3::Region::new("us-west-2"));
+        .or_else(s3::config::Region::new("us-west-2"));
 
     println!();
 
     if verbose {
-        println!("S3 client version: {}", s3::PKG_VERSION);
+        println!("S3 client version: {}", s3::meta::PKG_VERSION);
         println!(
             "Region:            {}",
             region_provider.region().await.unwrap().as_ref()

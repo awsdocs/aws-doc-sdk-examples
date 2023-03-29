@@ -3,7 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_kms::{Client, Region};
+#![allow(clippy::result_large_err)]
+
+use aws_sdk_kms::{config::Region, Client};
 
 // snippet-start:[kms.rust.kms-helloworld]
 /// Creates a random byte string that is cryptographically secure in __us-east-1__.

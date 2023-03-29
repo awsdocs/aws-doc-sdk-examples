@@ -74,12 +74,12 @@ namespace CreateDynamoDBTableExample
                     new AttributeDefinition
                     {
                         AttributeName = "ID",
-                        AttributeType = "S",
+                        AttributeType = ScalarAttributeType.S,
                     },
                     new AttributeDefinition
                     {
                         AttributeName = "Area",
-                        AttributeType = "S",
+                        AttributeType = ScalarAttributeType.S,
                     },
                 },
                 // The KeySchema describes how the attributes will used used
@@ -91,12 +91,12 @@ namespace CreateDynamoDBTableExample
                     new KeySchemaElement
                     {
                         AttributeName = "ID",
-                        KeyType = "HASH",
+                        KeyType = KeyType.HASH,
                     },
                     new KeySchemaElement
                     {
                         AttributeName = "Area",
-                        KeyType = "RANGE",
+                        KeyType = KeyType.RANGE,
                     },
                 },
                 ProvisionedThroughput = new ProvisionedThroughput

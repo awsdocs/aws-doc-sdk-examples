@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0.
 
-use aws_sdk_glue::model::{JobRun, JobRunState};
+use aws_sdk_glue::types::{JobRun, JobRunState};
 use futures::StreamExt;
 use tracing::{info, instrument, warn};
 
@@ -68,7 +68,7 @@ impl GlueScenario {
     #[instrument(skip(self))]
     pub async fn wait_for_job_run(&self, job_run_id: &str) -> Result<(), GlueMvpError> {
         let glue = GLUE_CLIENT.get().await;
-        let unknown_state = aws_sdk_glue::model::JobRunState::from("unknown");
+        let unknown_state = aws_sdk_glue::types::JobRunState::from("unknown");
 
         // snippet-start:[rust.glue.get_job_run]
         let get_job_run = || async {

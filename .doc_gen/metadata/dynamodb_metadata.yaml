@@ -166,6 +166,14 @@ dynamodb_BatchGetItem:
             - description:
               snippet_tags:
                 - cpp.example_code.dynamodb.batch_get_item
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.batchgetitem.batchget
   services:
     dynamodb: {BatchGetItem}
 dynamodb_DescribeTable:
@@ -1065,6 +1073,14 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.listTables
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/ddb
+          excerpts:
+            - description:
+              snippet_tags:
+                - ddb.swift.databasemanager.gettablelist
   services:
     dynamodb: {ListTables}
 dynamodb_Query:
@@ -1567,7 +1583,7 @@ dynamodb_Usage_DaxDemo:
   title_abbrev: Accelerate reads with &DAX;
   synopsis_list:
     - Create and write data to a table with both the &DAX; and SDK clients.
-    - Get, query, and scan the table with both the &DAX; and SDK clients and compare their performance.
+    - Get, query, and scan the table with both clients and compare their performance.
   guide_topic:
     title: Developing with the &DAXlong; Client
     url: amazondynamodb/latest/developerguide/DAX.client.html
@@ -1600,16 +1616,15 @@ dynamodb_Usage_DaxDemo:
   services:
     dynamodb: {CreateTable, PutItem, GetItem, Query, Scan, DeleteTable}
 dynamodb_Scenario_GettingStartedMovies:
-  title: Get started using &DDB; tables, items, and queries using an &AWS; SDK
-  title_abbrev: Get started using tables, items, and queries
+  title: Get started with &DDB; tables, items, and queries using an &AWS; SDK
+  title_abbrev: Get started with tables, items, and queries
   synopsis_list:
     - Create a table that can hold movie data.
     - Put, get, and update a single movie in the table.
     - Write movie data to the table from a sample JSON file.
     - Query for movies that were released in a given year.
     - Scan for movies that were released in a range of years.
-    - Delete a movie from the table.
-    - Delete the table.
+    - Delete a movie from the table, then delete the table.
   category: Scenarios
   languages:
     .NET:

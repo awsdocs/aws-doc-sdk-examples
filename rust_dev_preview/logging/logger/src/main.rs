@@ -2,9 +2,12 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0.
  */
+
+#![allow(clippy::result_large_err)]
+
 // snippet-start:[logging.rust.main]
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_dynamodb::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_dynamodb::{config::Region, meta::PKG_VERSION, Client, Error};
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]

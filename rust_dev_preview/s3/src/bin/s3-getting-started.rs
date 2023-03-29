@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 /*
 Purpose
 
@@ -20,7 +22,7 @@ user guide.
 // snippet-start:[rust.example_code.s3.basics.imports]
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_s3::{Client, Region};
+use aws_sdk_s3::{config::Region, Client};
 use s3_service::error::Error;
 use uuid::Uuid;
 
