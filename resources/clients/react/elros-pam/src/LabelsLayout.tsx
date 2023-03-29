@@ -10,7 +10,6 @@ import {
 import { useEffect, useState } from "react";
 import FileUpload from "./FileUpload";
 import { Label } from "./pam-api";
-import S3Transfer from "./S3Transfer";
 import { useStore } from "./store";
 
 function LabelsLayout() {
@@ -115,7 +114,6 @@ function LabelsLayout() {
               actions={
                 <SpaceBetween size="s" direction="horizontal">
                   <Button iconName="refresh" onClick={getLabels} />
-                  <S3Transfer />
                   <FileUpload
                     disabled={authStatus !== "signed_in"}
                     accept={[".jpg", ".jpeg"]}

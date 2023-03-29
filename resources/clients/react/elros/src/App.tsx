@@ -1,54 +1,36 @@
-import { lazy, Suspense } from "react";
-import ContentLayout from "@cloudscape-design/components/content-layout";
+import { Alert } from "@cloudscape-design/components";
 import AppLayout from "@cloudscape-design/components/app-layout";
-import Header from "@cloudscape-design/components/header";
-import { Box } from "@cloudscape-design/components";
+import { useEffect } from "react";
 
 import "./App.css";
-import { useUiStore } from "./store-ui";
-
-const LazyLoginModal = lazy(() => import("./LoginModal"));
-const LazyWelcomeUser = lazy(() => import("./WelcomeUser"));
+import HelpPanel from "./HelpPanel";
+import LoginNavigation from "./LoginNavigation";
+import { useStore } from "./store";
 
 function App() {
-  const {
-    login: { enabled: loginEnabled },
-  } = useUiStore();
+  const { authStatus, checkAuth } = useStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   return (
-    <AppLayout
-      toolsHide={true}
-      navigationHide={true}
-      content={
-        <ContentLayout
-          header={
-            <Box padding={{ top: "s" }}>
-              <Header
-                variant="h1"
-                description="A descendant of Elwing"
-                actions={
-                  // This is potentially a very common pattern that we could abstract into an HOC.
-                  // <Feature enabled={loginEnabled}><LazyComponent /></Feature> maybe?
-                  loginEnabled && (
-                    <Suspense>
-                      <LazyWelcomeUser />
-                    </Suspense>
-                  )
-                }
-              >
-                Elros
-              </Header>
-            </Box>
-          }
-        >
-          {loginEnabled && (
-            <Suspense>
-              <LazyLoginModal />
-            </Suspense>
-          )}
-        </ContentLayout>
-      }
-    ></AppLayout>
+    <>
+      <LoginNavigation title="Elros" />
+      <AppLayout
+        toolsHide={true}
+        navigationHide={true}
+        contentType="cards"
+        content={<HelpPanel />}
+        notifications={
+          authStatus !== "signed_in" && (
+            <Alert type="warning">
+              You are not logged in.
+            </Alert>
+          )
+        }
+      />
+    </>
   );
 }
 
