@@ -12,7 +12,14 @@ const wait = (seconds) =>
     }, seconds * 1000)
   );
 
+
 const retry = curry(
+  /**
+   * 
+   * @param {{ intervalInMs: number, maxRetries: number }} config 
+   * @param {Function} fn 
+   * @returns 
+   */
   (config, fn) =>
     new Promise((resolve, reject) => {
       const { intervalInMs = 500, maxRetries = 10 } = config;
