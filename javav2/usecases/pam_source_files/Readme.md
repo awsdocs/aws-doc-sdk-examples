@@ -111,10 +111,9 @@ The following table describes the AWS Lambda functions used by this application.
 
 | Function        |Trigger                 | Input                            | Output                                      | Uses                                |
 | -------------   | ---------------------- | ---------------------------------| --------------------------------------------| ------------------------------------|
-| Upload          | APIG PUT /upload       | See following example                        | See following example                                   | Storage bucket                      |
-| DetectLabels    | S3 PutObject jpeg      | See following example                        | N/A                                          | Label table                         |
-| LabelsFn        | APIG GET /labels       | N/A                              | {"labels": {"maintain": {"count": 5}}       | Storage bucket, Label table         |
-| PrepareDowload  | APIG POST /download    | {"labels": ["Mountain", "Lake"]} | N/A                                         | Labels table / Working bucket       |  
+| Upload          | APIG PUT /upload       | See following example            | See following example                       | Storage bucket                      |  
+| DetectLabels    | S3 PutObject jpeg      | See following example            | N/A                                         | Label table                         | 
+| LabelsFn        | APIG GET /labels       | N/A                              | {"labels": {"maintain": {"count": 5}}     | Storage bucket, Label table           |   | PrepareDowload  | APIG POST /download    | {"labels": ["Mountain", "Lake"]} | N/A                                         | Labels table / Working bucket       |  
 
 	
 **Note**: The Java application logic required to build these AWS Lambda functions is located later in this document.  	
@@ -162,23 +161,8 @@ The following JSON represents the input for the **LabelsFn** Lambda function.
 
 ```	
 
- **DowloadFn**
-
-The following JSON represents the input for the **DowloadFn** Lambda function.
-
-```xml
-{
-  "body": "{\"tags\": [\"Birch\", \"Coast\"]}",   
-  "resource": "/restore",
-  "path": "/restore",
-  "httpMethod": "PUT"
-}
-
-```	
-
-	
 #### API Gateway
-API Gateway provides HTTP API routes for the **Upload**, **Copy**, **Archive**, **LabelsFn**, and **PrepareDowload** AWS Lambda functions. Parameters for all routes are provided in the body of the request in a JSON object. The following table describes the API Gateway routes.	
+API Gateway provides HTTP API routes for the **UploadFn**, **LabelsFn**, **Labels**, and **DowloadFn** AWS Lambda functions. Parameters for all routes are provided in the body of the request in a JSON object. The following table describes the API Gateway routes.	
 	
 | Method        | Route            | Parameters                | Example response                                                | Lambda                      |
 | ------------- | -----------------| --------------------------| --------------------------------------------------------------- | ----------------------------|
