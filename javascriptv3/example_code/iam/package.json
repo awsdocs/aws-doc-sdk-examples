@@ -4,9 +4,15 @@
   "author": "corepyle@amazon.com",
   "license": "Apache-2.0",
   "type": "module",
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
   "dependencies": {
     "@aws-sdk/client-iam": "^3.299.0",
     "@aws-sdk/client-s3": "^3.299.0",
     "@aws-sdk/client-sts": "^3.299.0"
+  },
+  "devDependencies": {
+    "vitest": "^0.29.8"
   }
 }
