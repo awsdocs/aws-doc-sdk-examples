@@ -21,10 +21,10 @@
 #include "sns_samples.h"
 
 // snippet-start:[sns.cpp.subscribe_app.code]
-//! Subscribe to an Amazon SNS topic with delivery to a mobile app.
+//! Subscribe to an Amazon Simple Notification Service (Amazon SNS) topic with delivery to a mobile app.
 /*!
-  \param topicARN: An SNS topic Amazon Resource Name (ARN).
-  \param endpointARN: A mobile app or device endpoint ARN.
+  \param topicARN: The Amazon Resource Name (ARN) for an Amazon SNS topic.
+  \param endpointARN: The ARN for a mobile app or device endpoint.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -65,7 +65,8 @@ AwsDoc::SNS::subscribeApp(const Aws::String &topicARN,
  *  1. An existing SNS topic and its ARN.
  *  2. An application endpoint ARN.
  *     For information about creating an application endpoint, see
- *     https://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-devicetoken.html for more information.
+ *     https://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-devicetoken.html.
+ *
  */
 
 #ifndef TESTING_BUILD

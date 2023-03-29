@@ -16,7 +16,7 @@
 #include "sns_samples.h"
 
 // snippet-start:[sns.cpp.subscribe_email.code]
-//! Subscribe to an Amazon SNS topic with delivery to an email address.
+//! Subscribe to an Amazon Simple Notification Service (Amazon SNS) topic with delivery to an email address.
 /*!
   \param topicARN: An SNS topic Amazon Resource Name (ARN).
   \param emailAddress: An email address.

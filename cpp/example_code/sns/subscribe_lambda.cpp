@@ -22,10 +22,10 @@
 
 // snippet-start:[sns.cpp.subscribe_lamda.code]
 
-//! Subscribe to an Amazon SNS topic with delivery to a mobile app.
+//! Subscribe to an Amazon Simple Notification Service (Amazon SNS) topic with delivery to an AWS Lambda function.
 /*!
-  \param topicARN: An SNS topic Amazon Resource Name (ARN).
-  \param lambdaFunctionARN: An AWS Lambda function ARN.
+  \param topicARN: The Amazon Resource Name (ARN) for an Amazon SNS topic.
+  \param lambdaFunctionARN: The ARN for an AWS Lambda function.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -63,7 +63,7 @@ bool AwsDoc::SNS::subscribeLambda(const Aws::String &topicARN,
  *
  *  Prerequisites:
  *  1. An existing SNS topic and its ARN.
- *  2. An lambda function ARN.
+ *  2. A lambda function ARN.
 */
 
 #ifndef TESTING_BUILD

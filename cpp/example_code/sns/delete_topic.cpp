@@ -21,9 +21,9 @@
 #include "sns_samples.h"
 
 // snippet-start:[sns.cpp.delete_topic.code]
-//! Delete an SNS topic.
+//! Delete an Amazon Simple Notification Service (Amazon SNS) topic.
 /*!
-  \param topicARN: An SNS topic Amazon Resource Name (ARN).
+  \param topicARN: The Amazon Resource Name (ARN) for an Amazon SNS topic.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -37,7 +37,7 @@ bool AwsDoc::SNS::deleteTopic(const Aws::String &topicARN,
     const Aws::SNS::Model::DeleteTopicOutcome outcome = snsClient.DeleteTopic(request);
 
     if (outcome.IsSuccess()) {
-        std::cout << "Successfully deleted topic " << topicARN << std::endl;
+        std::cout << "Successfully deleted the Amazon SNS topic " << topicARN << std::endl;
     }
     else {
         std::cerr << "Error deleting topic " << topicARN << ":" <<

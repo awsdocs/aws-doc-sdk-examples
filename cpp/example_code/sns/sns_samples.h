@@ -11,34 +11,34 @@
 
 namespace AwsDoc {
     namespace SNS {
-        //! Create an SNS topic.
+        //! Create an Amazon Simple Notification Service (Amazon SNS) topic.
         /*!
-          \param topicName: An SNS topic name.
+          \param topicName: An Amazon SNS topic name.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
         bool createTopic(const Aws::String &topicName, Aws::String &topicARNResult,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Delete an SNS topic.
+        //! Delete an Amazon SNS topic.
         /*!
-          \param topicARN: An SNS topic Amazon Resource Name (ARN).
+          \param topicARN: The Amazon Resource Name (ARN) for an Amazon SNS topic.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
         bool deleteTopic(const Aws::String &topicARN,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Retrieve the settings for sending Amazon SMS messages.
+        //! Retrieve the default settings for sending Amazon SMS messages from your AWS account.
         /*!
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
         bool getSMSType(const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Retrieve the properties of an SNS topic.
+        //! Retrieve the properties of an Amazon SNS topic.
         /*!
-          \param topicARN: An SNS topic Amazon Resource Name (ARN).
+          \param topicARN: The ARN for an Amazon SNS topic.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -74,7 +74,7 @@ namespace AwsDoc {
         //! Send a message to an Amazon SNS topic.
         /*!
           \param message: The message to publish.
-          \param topicARN: An SNS topic Amazon Resource Name (ARN).
+          \param topicARN: The ARN for an Amazon SNS topic.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -82,7 +82,7 @@ namespace AwsDoc {
                             const Aws::String &topicARN,
                             const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Set the 'DefaultSMSType' attribute.
+        //! Set the default settings for sending SMS messages.
         /*!
           \param smsType: The type of SMS message that you will send by default.
           \param clientConfiguration: AWS client configuration.
@@ -93,8 +93,8 @@ namespace AwsDoc {
 
         //! Subscribe to an Amazon SNS topic with delivery to a mobile app.
         /*!
-          \param topicARN: An SNS topic Amazon Resource Name (ARN).
-          \param endpointARN: A mobile app or device endpoint ARN.
+          \param topicARN: The ARN for an Amazon SNS topic.
+          \param endpointARN: The ARN for a mobile app or device endpoint.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -102,9 +102,9 @@ namespace AwsDoc {
                           const Aws::String &endpointARN,
                           const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Subscribe to an Amazon SNS topic with delivery to a mobile app.
+        //! Subscribe to an Amazon SNS topic with delivery to an email address.
         /*!
-          \param topicARN: An SNS topic Amazon Resource Name (ARN).
+          \param topicARN: The ARN for an Amazon SNS topic.
           \param emailAddress: An email address.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
@@ -113,10 +113,10 @@ namespace AwsDoc {
                             const Aws::String &emailAddress,
                             const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Subscribe to an Amazon SNS topic with delivery to a mobile app.
+        //! Subscribe to an Amazon SNS topic with delivery to an AWS Lambda function.
         /*!
-          \param topicARN: An SNS topic ARN.
-          \param lambdaFunctionARN: An AWS Lambda function ARN.
+          \param topicARN: The ARN for an Amazon SNS topic.
+          \param lambdaFunctionARN: The ARN for an AWS Lambda function.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
@@ -126,7 +126,7 @@ namespace AwsDoc {
 
         //! Delete a subscription to an Amazon SNS topic..
         /*!
-          \param subscriptionARN: An SNS topic subscription ARN.
+          \param subscriptionARN: The ARN for an Amazon SNS topic subscription.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */

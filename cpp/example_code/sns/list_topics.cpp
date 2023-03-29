@@ -21,7 +21,7 @@
 #include "sns_samples.h"
 
 // snippet-start:[sns.cpp.list_topics.code]
-//! Retrieve a list of Amazon SNS topics.
+//! Retrieve a list of Amazon Simple Notification Service (Amazon SNS) topics.
 /*!
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.

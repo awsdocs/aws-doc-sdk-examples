@@ -21,9 +21,9 @@
 #include "sns_samples.h"
 
 // snippet-start:[sns.cpp.create_topic.code]
-//! Create an SNS topic.
+//! Create an Amazon Simple Notification Service (Amazon SNS) topic.
 /*!
-  \param tableName: An SNS topic name.
+  \param tableName: An Amazon SNS topic name.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -39,7 +39,7 @@ bool AwsDoc::SNS::createTopic(const Aws::String &topicName,
 
     if (outcome.IsSuccess()) {
         topicARNResult = outcome.GetResult().GetTopicArn();
-        std::cout << "Successfully created topic " << topicName
+        std::cout << "Successfully created an Amazon SNS topic " << topicName
                   << " with topic ARN '" << topicARNResult
                   << "'." << std::endl;
 

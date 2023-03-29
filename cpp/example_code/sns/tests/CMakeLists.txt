@@ -6,10 +6,10 @@ cmake_minimum_required(VERSION 3.14)
 
 set(EXAMPLE_SERVICE_NAME sns)
 set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
-set(CURRENT_TARGET_AWS_DEPENDENCIES  sns)
+set(CURRENT_TARGET_AWS_DEPENDENCIES sns)
 
 # Set this project's name.
-project("${EXAMPLE_SERVICE_NAME}-examples-gtests" )
+project("${EXAMPLE_SERVICE_NAME}-examples-gtests")
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 14)
@@ -19,7 +19,7 @@ set(BUILD_SHARED_LIBS ON)
 
 find_package(GTest)
 
-if(NOT GTest_FOUND)
+if (NOT GTest_FOUND)
     include(FetchContent)
     FetchContent_Declare(
             googletest
@@ -30,13 +30,13 @@ if(NOT GTest_FOUND)
     # For Windows: Prevent overriding the parent project's compiler/linker settings.
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
     FetchContent_MakeAvailable(googletest)
-endif()
+endif ()
 
 # Set the location for Windows to find the installed libraries of the SDK.
-if(MSVC)
+if (MSVC)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
-endif()
+endif ()
 
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${CURRENT_TARGET_AWS_DEPENDENCIES})
@@ -47,27 +47,25 @@ add_executable(
 
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
-if(MSVC AND BUILD_SHARED_LIBS)
-    add_definitions(-DUSE_IMPORT_EXPORT)
-
- 	set(CMAKE_BUILD_TYPE Debug) # Explicitly set this to support library copying and test automation.
+if (MSVC)
+    set(CMAKE_BUILD_TYPE Debug) # Explicitly set this to support library copying and test automation.
 
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
     AWSSDK_CPY_DYN_LIBS(
             CURRENT_TARGET_AWS_DEPENDENCIES
-        ""
-        ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+            ""
+            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
     )
 
     add_custom_command(
-        TARGET
-        ${CURRENT_TARGET}
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy
-                ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}/gtest.dll
-                ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+            TARGET
+            ${CURRENT_TARGET}
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}/${CMAKE_BUILD_TYPE}/gtest.dll
+            ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
     )
- endif()
+endif ()
 
 # GTEST_SOURCE_FILES can be defined in the command line to limit the files in a build, for example to one action.
 if (NOT DEFINED GTEST_SOURCE_FILES)
@@ -76,18 +74,18 @@ if (NOT DEFINED GTEST_SOURCE_FILES)
             GTEST_SOURCE_FILES
             "gtest_*.cpp"
     )
-endif()
+endif ()
 
 enable_testing()
 
-foreach(TEST_FILE ${GTEST_SOURCE_FILES})
+foreach (TEST_FILE ${GTEST_SOURCE_FILES})
     string(REPLACE "gtest_" "../" SOURCE_FILE ${TEST_FILE})
-     if (EXISTS ${SOURCE_FILE})
+    if (EXISTS ${SOURCE_FILE})
         list(APPEND GTEST_SOURCE ${SOURCE_FILE} ${TEST_FILE})
-    else()
+    else ()
         message("Error: no associated source file found for ${TEST_FILE}")
-    endif()
-endforeach()
+    endif ()
+endforeach ()
 
 target_sources(
         ${CURRENT_TARGET}
