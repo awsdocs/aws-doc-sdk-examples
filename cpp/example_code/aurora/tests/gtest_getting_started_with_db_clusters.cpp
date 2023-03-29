@@ -31,7 +31,7 @@ namespace AwsDocTest {
     }
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(Aurora_GTests, gettingStartedWithDBInstances_3_) {
+    TEST_F(Aurora_GTests, gettingStartedWithDBClusters_3_) {
         AddCommandLineResponses(RESPONSES);
 
         MockHTTP mockHttp;
@@ -135,7 +135,7 @@ namespace AwsDocTest {
         if (!mockHttp.addResponseWithBody("mock_input/626-DeleteDBInstance.xml")) {
             return false;
         }
-        if (!mockHttp.addResponseWithBody("mock_input/627-DeleteDBCLuster.xml")) {
+        if (!mockHttp.addResponseWithBody("mock_input/627-DeleteDBCluster.xml")) {
             return false;
         }
         if (!mockHttp.addResponseWithBody("mock_input/628-DescribeDBInstances.xml")) {

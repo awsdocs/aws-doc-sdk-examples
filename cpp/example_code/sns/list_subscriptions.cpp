@@ -21,7 +21,7 @@
 #include "sns_samples.h"
 
 // snippet-start:[sns.cpp.list_subscriptions.code]
-//! Retrieve a list of Amazon SNS subscriptions.
+//! Retrieve a list of Amazon Simple Notification Service (Amazon SNS) subscriptions.
 /*!
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.

@@ -21,9 +21,9 @@
 #include "sns_samples.h"
 
 // snippet-start:[sns.cpp.unsubscribe.code]
-//! Delete a subscription to an Amazon SNS topic..
+//! Delete a subscription to an Amazon Simple Notification Service (Amazon SNS) topic.
 /*!
-  \param subscriptionARN: An SNS topic subscription ARN.
+  \param subscriptionARN: The Amazon Resource Name (ARN) for an Amazon SNS topic subscription.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */

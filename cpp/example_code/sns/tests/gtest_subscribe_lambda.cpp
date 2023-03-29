@@ -20,7 +20,7 @@ namespace AwsDocTest {
     TEST_F(SNS_GTests, subscribe_lambda_3_) {
 
         MockHTTP mockHttp;
-        bool result = mockHttp.addResponseWithBody("mock_input/subscribe_email.xml");
+        bool result = mockHttp.addResponseWithBody("mock_input/subscribe_lambda.xml");
         ASSERT_TRUE(result) << preconditionError() << std::endl;
 
         Aws::String topicARN = "arn:aws:sns:us-test:123456789012:MyTopic";

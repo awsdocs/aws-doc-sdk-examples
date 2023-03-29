@@ -17,15 +17,14 @@
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
 #include <aws/sns/model/GetTopicAttributesRequest.h>
-#include <aws/sns/model/GetTopicAttributesResult.h>
 #include <iostream>
 #include "sns_samples.h"
 
 
 // snippet-start:[sns.cpp.get_topic_attributes.code]
-//! Retrieve the properties of an SNS topic.
+//! Retrieve the properties of an Amazon Simple Notification Service (Amazon SNS) topic.
 /*!
-  \param topicARN: An SNS topic Amazon Resource Name (ARN).
+  \param topicARN: The Amazon Resource Name (ARN) for an Amazon SNS topic.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */

@@ -22,7 +22,7 @@
 
 // snippet-start:[sns.cpp.publish_sms.code]
 /**
- * Publish SMS: use Amazon SNS to send an SMS text message to a phone number.
+ * Publish SMS: use Amazon Simple Notification Service (Amazon SNS) to send an SMS text message to a phone number.
  * Note: This requires additional AWS configuration prior to running example. 
  * 
  *  NOTE: When you start using Amazon SNS to send SMS messages, your AWS account is in the SMS sandbox and you can only

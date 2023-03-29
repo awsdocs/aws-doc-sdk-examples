@@ -21,10 +21,10 @@
 #include "sns_samples.h"
 
 // snippet-start:[sns.cpp.publish_to_topic.code]
-//! Send a message to an Amazon SNS topic.
+//! Send a message to an Amazon Simple Notification Service (Amazon SNS) topic.
 /*!
   \param message: The message to publish.
-  \param topicARN: An SNS topic Amazon Resource Name (ARN)..
+  \param topicARN: The Amazon Resource Name (ARN) for an Amazon SNS topic.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */

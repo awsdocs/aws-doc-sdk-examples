@@ -17,12 +17,11 @@
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
 #include <aws/sns/model/SetSMSAttributesRequest.h>
-#include <aws/sns/model/SetSMSAttributesResult.h>
 #include <iostream>
 #include "sns_samples.h"
 
 // snippet-start:[sns.cpp.set_sms_type.code]
-//! Set the 'DefaultSMSType' attribute.
+//! Set the default settings for sending SMS messages.
 /*!
   \param smsType: The type of SMS message that you will send by default.
   \param clientConfiguration: AWS client configuration.
