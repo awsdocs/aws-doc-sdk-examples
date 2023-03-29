@@ -51,7 +51,7 @@ namespace Lambda_Basics.Tests
                                     "}";
             var _LambdaRoleMethods = new LambdaRoleMethods();
             var roleArn = await _LambdaRoleMethods.CreateLambdaRole(_configuration["RoleName"], policyDocument);
-
+            System.Threading.Thread.Sleep(10000);
             var functionArn = await _LambdaMethods.CreateLambdaFunction(
                 _client,
                 _configuration["FunctionName"],

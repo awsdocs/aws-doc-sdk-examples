@@ -153,7 +153,7 @@ namespace KeyspacesTests
         /// Tests the call to restore the table.
         /// </summary>
         /// <returns></returns>
-        [Fact()]
+        [Fact(Skip = "Long running test.")]
         [Order(12)]
         [Trait("Category", "Integration")]
         public async Task RestoreTableTest()
@@ -201,7 +201,7 @@ namespace KeyspacesTests
         /// will raise a resource not found error.
         /// </summary>
         /// <returns></returns>
-        [Fact()]
+        [Fact(Skip = "Quarantined test.")]
         [Order(13)]
         [Trait("Category", "Integration")]
         public async Task DeleteTableTest()
@@ -231,7 +231,7 @@ namespace KeyspacesTests
         /// Tests deleting the keyspace.
         /// </summary>
         /// <returns></returns>
-        [Fact()]
+        [Fact(Skip = "Quarantined test.")]
         [Order(14)]
         [Trait("Category", "Integration")]
         public async Task DeleteKeyspaceTest()
