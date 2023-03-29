@@ -108,7 +108,6 @@ The backend of the PAM application is implemented by using these AWS Lambda func
 **Note**: These AWS Lambda names are short names. The full names that appear in the AWS Management Console depend on how you configure the provided AWS CDK script. Full names appear as {PAM_NAME}{Function Name}. For example, **MyApp-LambdasDetectLabelsFn**.
 
 The following table describes the AWS Lambda functions used by this application. 
-
 | Function        |Trigger                 | Input                            | Output                                      | Uses                                |
 | -------------   | ---------------------- | ---------------------------------| --------------------------------------------| ------------------------------------|
 | Upload          | APIG PUT /upload       | See following example            | See following example                       | Storage bucket                      |  
