@@ -18,14 +18,10 @@ import {
   DeletePolicyCommand,
   DetachRolePolicyCommand,
   IAMClient,
-  ListAccessKeysCommand,
-  GetUserCommand,
-  waitUntilUserExists,
-  waitUntilRoleExists,
 } from "@aws-sdk/client-iam";
 import { ListBucketsCommand, S3Client } from "@aws-sdk/client-s3";
 import { AssumeRoleCommand, STSClient } from "@aws-sdk/client-sts";
-import { retry, wait } from "libs/utils/util-timers.js";
+import { wait } from "libs/utils/util-timers.js";
 
 // Set the parameters.
 const iamClient = new IAMClient({});
@@ -56,11 +52,8 @@ export const main = async () => {
       },
     });
 
-    await waitUntilUserExists({ client: iamClient, maxWaitTime: 10 }, { UserName: userName });
-
-    await retry({ intervalInMs: 500, maxRetries: 20 }, () =>
-      getAccessKey(AccessKeyId, { iamClient, userName })
-    );
+    // Wait for the user and access key to exist.
+    await wait(10);
 
     // This fails and logs an error because the user does not have permission
     // to list Amazon S3 buckets.
@@ -119,6 +112,7 @@ export const main = async () => {
       },
     });
 
+    // Wait for the role to be attached.
     await wait(10);
 
     const { Credentials } = await stsClient.send(
@@ -190,45 +184,6 @@ const listBuckets = async (s3Client) => {
   } catch (err) {
     console.error(err);
   }
-};
-
-/**
- *
- * @param {string} userName
- * @param {{ iamClient: IAMClient }} config
- */
-const getUser = async (userName, { iamClient }) => {
-  console.log('getting user')
-  const { User } = await iamClient.send(
-    new GetUserCommand({
-      UserName: userName,
-    })
-  );
-
-  return User;
-};
-
-/**
- *
- * @param {string} accessKeyId
- * @param {{ iamClient: IAMClient, userName: string }} config
- */
-const getAccessKey = async (accessKeyId, { iamClient, userName }) => {
-  console.log('getting access key');
-  const { AccessKeyMetadata } = await iamClient.send(
-    new ListAccessKeysCommand({
-      UserName: userName,
-    })
-  );
-  const accessKey = AccessKeyMetadata.find(
-    (meta) => meta.AccessKeyId === accessKeyId
-  );
-
-  if (!accessKey) {
-    throw new Error(`Could not find access key with ID: ${accessKeyId}`);
-  }
-
-  return accessKey;
 };
 
 // snippet-end:[javascript.iam_scenarios.iam_basics]
