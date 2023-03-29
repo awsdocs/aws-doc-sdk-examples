@@ -6,10 +6,15 @@
   },
   "extends": [
     "eslint:recommended",
-    // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "plugin:@typescript-eslint/recommended"
   ],
+  "settings": {
+    "import/resolver": {
+      "typescript": true
+    }
+  },
   "env": { "es6": true, "node": true, "jest": true },
   "plugins": ["@typescript-eslint", "eslint-plugin-import"],
   "rules": {
