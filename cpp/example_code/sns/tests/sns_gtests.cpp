@@ -152,7 +152,7 @@ Aws::String AwsDocTest::SNS_GTests::getSubscriptionARN() {
             else {
                 std::cerr
                         << "SNS_GTests::getSubscriptionARN issue creating lambdaEndpoint '"
-                        << lambdaEndpoint << ",." << std::endl;
+                        << lambdaEndpoint << "'." << std::endl;
                 lambdaEndpoint.clear();
             }
         }
