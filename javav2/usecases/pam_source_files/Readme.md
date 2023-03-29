@@ -112,7 +112,8 @@ The following table describes the AWS Lambda functions used by this application.
 | -------------   | ---------------------- | ---------------------------------| --------------------------------------------| ------------------------------------|
 | Upload          | APIG PUT /upload       | See following example            | See following example                       | Storage bucket                      |  
 | DetectLabels    | S3 PutObject jpeg      | See following example            | N/A                                         | Label table                         | 
-| LabelsFn        | APIG GET /labels       | N/A                              | {"labels": {"maintain": {"count": 5}}       | Storage bucket, Label table         |   | PrepareDowload  | APIG POST /download    | {"labels": ["Mountain", "Lake"]} | N/A                                         | Labels table / Working bucket       |
+| PrepareDowload  | APIG POST /download    | {"labels": ["Mountain", "Lake"]} | N/A                                         | Labels table / Working bucket       |
+| LabelsFn        | APIG GET /labels       | N/A                              | {"labels": {"maintain": {"count": 5}}       | Storage bucket, Label table         |   
 |                 |                        |                                  |                                             |                                     |  
 
 	
