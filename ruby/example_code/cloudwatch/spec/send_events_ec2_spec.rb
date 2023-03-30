@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require_relative "../cw-ruby-example-send-events-ec2"
+require_relative "../show_alarms"
 require "rspec"
 
 describe "#topic_exists?", :integ do

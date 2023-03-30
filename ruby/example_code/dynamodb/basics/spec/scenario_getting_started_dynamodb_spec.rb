@@ -5,9 +5,8 @@
 
 require "json"
 require "rspec"
-require "pry"
-require_relative("../basics/dynamodb_basics")
-require_relative("../scaffold")
+require_relative "../dynamodb_basics"
+require_relative "../../scaffold"
 
 describe DynamoDBBasics do
   context "DynamoDBWrapper" do
