@@ -1,29 +1,9 @@
-
-<!--BEGIN STABILITY BANNER-->
----
-
 ![Stability: Stable](https://img.shields.io/badge/stability-Stable-success.svg?style=for-the-badge)
 
-> **This is a stable example. It should successfully build out of the box**
->
-> This example is built on Construct Libraries marked "Stable" and does not have any infrastructure prerequisites to build.
----
-<!--END STABILITY BANNER-->
+# Weathertop Producer Stack
 
-This project is intended to be sample code only. Not for use in production.
+This project will create a stack for producing events from EventBrudge and publishing them to a centralized SNS topic.
 
-This project will create the following in your AWS cloud environment:
-* IAM group
-* IAM user (added to the IAM group)
-* S3 bucket
-* DynamoDB table
-* Lambda function that performs image classification via AWS Rekognition when new images are uploaded to the S3 bucket
-* Roles and policies allowing appropriate access to these resources
-
-Rekognition labels will be written to CloudWatch logs, a results folder in the S3 bucket, as well as the DynamoDB table.  
-  
-This project was inspired by the AWS CDK workshop (https://cdkworkshop.com) and I highly recommend you go through that as well.
-  
 ---
 
 Requirements:
