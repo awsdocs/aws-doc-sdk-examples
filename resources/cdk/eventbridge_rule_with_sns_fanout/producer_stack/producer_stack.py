@@ -20,6 +20,17 @@ class ProducerStack(Stack):
 
         onboarded_languages = [
             'ruby'
+            # 'javav2'
+            # 'javascriptv3'
+            # 'gov2'
+            # 'python'
+            # 'dotnetv3'
+            # 'kotlin'
+            # 'rust_dev_preview'
+            # 'swift'
+            # 'cpp'
+            # 'gov2'
+            # 'sap-abap'
         ]
 
         # create a new SNS topic
