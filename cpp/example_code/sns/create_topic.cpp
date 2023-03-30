@@ -23,7 +23,8 @@
 // snippet-start:[sns.cpp.create_topic.code]
 //! Create an Amazon Simple Notification Service (Amazon SNS) topic.
 /*!
-  \param tableName: An Amazon SNS topic name.
+  \param topicName: An Amazon SNS topic name.
+  \param topicARNResult: String to return the Amazon Resource Name (ARN) for the topic.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
