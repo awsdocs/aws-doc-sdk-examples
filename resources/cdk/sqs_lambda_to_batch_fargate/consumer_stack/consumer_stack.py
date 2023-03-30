@@ -37,10 +37,13 @@ class ConsumerStack(Stack):
         #############################################
 
         # Define existing SNS topic in producer account
-        fanout_topic_name = "ProducerStack-MyTopic86869434-71bWvzg3W1sQ"
+        fanout_topic_name = "ProducerStack-fanouttopic6EFF7954-adlzfFFrp6LO"
         fanout_topic_arn = f'arn:aws:sns:us-east-1:808326389482:{fanout_topic_name}'
         sns_topic = sns.Topic.from_topic_arn(self, fanout_topic_name, topic_arn=fanout_topic_arn)
-        container_image = ecs.EcrImage.from_registry("public.ecr.aws/b4v4v1s0/ruby:latest")
+        container_image = ecs.EcrImage.from_registry(f"public.ecr.aws/b4v4v1s0/{language_name}:latest")
+
+        languge_name = os
+        client.get_parameter(Name=language, WithDecryption=True)
 
         # Define the SQS queue in this account
         sqs_queue = sqs.Queue(self, f'BatchJobQueue-{language_name}')
