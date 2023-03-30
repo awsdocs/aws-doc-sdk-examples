@@ -26,8 +26,8 @@ export const updateItem = async () => {
   const params = {
     TableName: "TABLE_NAME",
     Key: {
-      title: "MOVIE_NAME",
-      year: "MOVIE_YEAR",
+      PRIMARY_KEY: "VALUE_1", //e.g. title: "Rush"
+      SORT_KEY: "VALUE_2", // e.g. year: "2013"
     },
     ProjectionExpression: "#r",
     ExpressionAttributeNames: { "#r": "rank" },
