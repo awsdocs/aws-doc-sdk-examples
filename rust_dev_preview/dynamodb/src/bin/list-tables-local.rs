@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 // snippet-start:[dynamodb.rust.list-tables-local]
 use aws_sdk_dynamodb::{Client, Error};
 use dynamodb_code_examples::{make_config, scenario::list::list_tables, Opt};

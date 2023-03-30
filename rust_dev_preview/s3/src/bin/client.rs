@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 // snippet-start:[s3.rust.client-use]
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::Client;

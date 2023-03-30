@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_sdk_lambda::Error;
 use lambda_code_examples::{make_client, make_config, Opt as BaseOpt};
 use structopt::StructOpt;

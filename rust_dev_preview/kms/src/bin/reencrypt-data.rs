@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_kms::types::Blob;
-use aws_sdk_kms::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_kms::primitives::Blob;
+use aws_sdk_kms::{config::Region, meta::PKG_VERSION, Client, Error};
 use std::fs;
 use std::fs::File;
 use std::io::Write;

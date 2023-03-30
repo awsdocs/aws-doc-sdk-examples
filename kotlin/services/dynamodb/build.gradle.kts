@@ -23,12 +23,14 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:dynamodb:0.19.0-beta")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    implementation("aws.sdk.kotlin:dynamodb-jvm:0.21.3-beta")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation(kotlin("reflect"))
-    implementation("com.fasterxml.jackson.core:jackson-core:2.14.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.0")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.14.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.googlecode.json-simple:json-simple:1.1.1")
 }
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"

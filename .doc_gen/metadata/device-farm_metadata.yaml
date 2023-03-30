@@ -20,7 +20,7 @@ device-farm_Scenario_BrowserTesting:
     device-farm: {CreateTestGridUrl, GetTestGridSession}
 device-farm_Scenario_DeviceTesting:
   title: Upload and test mobile device packages with &ATP; using an &AWS; SDK
-  title_abbrev: Upload and test mobile device packages
+  title_abbrev: Upload and test device packages
   synopsis: upload and test mobile device packages with &ATP;.
   category: Scenarios
   languages:

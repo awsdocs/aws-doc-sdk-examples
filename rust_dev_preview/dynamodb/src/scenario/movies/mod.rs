@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use aws_sdk_dynamodb::model::{AttributeValue, PutRequest};
+use aws_sdk_dynamodb::types::{AttributeValue, PutRequest};
 use aws_smithy_client::SdkError;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -173,7 +173,7 @@ impl From<&Movie> for PutRequest {
 
 #[cfg(test)]
 mod test {
-    use aws_sdk_dynamodb::model::PutRequest;
+    use aws_sdk_dynamodb::types::PutRequest;
 
     use super::Movie;
 

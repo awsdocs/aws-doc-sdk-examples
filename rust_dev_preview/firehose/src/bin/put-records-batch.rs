@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_firehose::error::PutRecordBatchError;
-use aws_sdk_firehose::model::Record;
-use aws_sdk_firehose::output::PutRecordBatchOutput;
-use aws_sdk_firehose::types::{Blob, SdkError};
-use aws_sdk_firehose::{Client, Error, PKG_VERSION};
+use aws_sdk_firehose::error::SdkError;
+use aws_sdk_firehose::operation::put_record_batch::{PutRecordBatchError, PutRecordBatchOutput};
+use aws_sdk_firehose::primitives::Blob;
+use aws_sdk_firehose::types::Record;
+use aws_sdk_firehose::{meta::PKG_VERSION, Client, Error};
 use aws_types::region::Region;
 use structopt::StructOpt;
 

@@ -580,8 +580,7 @@ sfn_Scenario_GetStartedStateMachines:
     - Create a state machine from an &SLN; definition that contains the
       previously created activity as a step.
     - Run the state machine and respond to the activity with user input.
-    - Get the final status and output after the run completes.
-    - Delete resources created by the example.
+    - Get the final status and output after the run completes, then clean up resources.
   category: Scenarios
   languages:
     Kotlin:

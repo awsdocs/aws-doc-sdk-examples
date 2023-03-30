@@ -29,11 +29,11 @@ impl From<aws_sdk_dynamodb::Error> for Error {
     }
 }
 
-impl<T> From<aws_sdk_dynamodb::types::SdkError<T>> for Error
+impl<T> From<aws_sdk_dynamodb::error::SdkError<T>> for Error
 where
     T: StdError + Send + Sync + 'static,
 {
-    fn from(source: aws_sdk_dynamodb::types::SdkError<T>) -> Self {
+    fn from(source: aws_sdk_dynamodb::error::SdkError<T>) -> Self {
         Error::unhandled(source)
     }
 }

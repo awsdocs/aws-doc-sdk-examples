@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_sagemaker::{Client, Region, PKG_VERSION};
+use aws_sdk_sagemaker::{config::Region, meta::PKG_VERSION, Client};
 use aws_smithy_types_convert::date_time::DateTimeExt;
 use sagemaker_code_examples::Error;
 use structopt::StructOpt;

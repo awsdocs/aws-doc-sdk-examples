@@ -11,6 +11,7 @@ package com.kotlin.mediaconvert
 
 // snippet-start:[mediaconvert.kotlin.createjob.import]
 import aws.sdk.kotlin.services.mediaconvert.MediaConvertClient
+import aws.sdk.kotlin.services.mediaconvert.endpoints.EndpointProvider
 import aws.sdk.kotlin.services.mediaconvert.model.AacAudioDescriptionBroadcasterMix
 import aws.sdk.kotlin.services.mediaconvert.model.AacCodecProfile
 import aws.sdk.kotlin.services.mediaconvert.model.AacCodingMode
@@ -101,8 +102,7 @@ import aws.sdk.kotlin.services.mediaconvert.model.VideoCodecSettings
 import aws.sdk.kotlin.services.mediaconvert.model.VideoDescription
 import aws.sdk.kotlin.services.mediaconvert.model.VideoSelector
 import aws.sdk.kotlin.services.mediaconvert.model.VideoTimecodeInsertion
-import aws.smithy.kotlin.runtime.http.endpoints.Endpoint
-import aws.smithy.kotlin.runtime.http.endpoints.EndpointProvider
+import aws.smithy.kotlin.runtime.client.endpoints.Endpoint
 import java.util.HashMap
 import kotlin.math.roundToInt
 import kotlin.system.exitProcess

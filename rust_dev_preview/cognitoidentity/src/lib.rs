@@ -20,11 +20,11 @@ impl From<aws_sdk_cognitoidentity::Error> for Error {
     }
 }
 
-impl<T> From<aws_sdk_cognitoidentity::types::SdkError<T>> for Error
+impl<T> From<aws_sdk_cognitoidentity::error::SdkError<T>> for Error
 where
     T: StdError + Send + Sync + 'static,
 {
-    fn from(source: aws_sdk_cognitoidentity::types::SdkError<T>) -> Self {
+    fn from(source: aws_sdk_cognitoidentity::error::SdkError<T>) -> Self {
         Self {
             source: source.into(),
         }

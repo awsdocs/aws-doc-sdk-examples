@@ -28,6 +28,7 @@ Code excerpts that show you how to call individual service functions.
 * [Get an item by key](./basics/MovieList/MovieTable.swift) (`GetItem`)
 * [Get multiple items by key](./BatchGetItem/Sources/MovieDatabase.swift)
   (`BatchGetItem`)
+* [List all tables](./basics/ListTables/listtables.swift) (`ListTables`)
 * [Query a table](./basics/MovieList/MovieTable.swift) (`Query`)
 * [Scan a table with pagination](./basics/MovieList/MovieTable.swift) (`Scan`)
 * [Update an item](./basics/MovieList/MovieTable.swift) (`UpdateItem`)

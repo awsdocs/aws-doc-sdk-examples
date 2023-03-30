@@ -3,8 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_qldb::{Client as QLDBClient, Error, Region, PKG_VERSION};
+use aws_sdk_qldb::{config::Region, meta::PKG_VERSION, Client as QLDBClient, Error};
 use structopt::StructOpt;
 use tokio_stream::StreamExt;
 

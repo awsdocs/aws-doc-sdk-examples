@@ -23,9 +23,9 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:lexruntimeservice:0.19.0-beta")
-    implementation("aws.sdk.kotlin:lexmodelbuildingservice:0.19.0-beta")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
+    implementation("aws.sdk.kotlin:lexruntimeservice-jvm:0.21.3-beta")
+    implementation("aws.sdk.kotlin:lexmodelbuildingservice-jvm:0.21.3-beta")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }
 tasks.withType<KotlinCompile>() {

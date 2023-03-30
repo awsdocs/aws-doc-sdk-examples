@@ -23,7 +23,7 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:ecs:0.19.0-beta")
+    implementation("aws.sdk.kotlin:ecs-jvm:0.21.3-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }

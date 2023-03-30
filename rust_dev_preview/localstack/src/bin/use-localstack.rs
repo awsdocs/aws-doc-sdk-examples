@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 // snippet-start:[localstack.rust.use-localstack]
 use std::error::Error;
 

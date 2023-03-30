@@ -4,8 +4,9 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_polly::model::{OutputFormat, VoiceId};
-use aws_sdk_transcribe::model::{LanguageCode, Media, MediaFormat, TranscriptionJobStatus};
+use aws_sdk_polly::config::Region;
+use aws_sdk_polly::types::{OutputFormat, VoiceId};
+use aws_sdk_transcribe::types::{LanguageCode, Media, MediaFormat, TranscriptionJobStatus};
 use serde_json::{Result, Value};
 use std::fs;
 use std::path::Path;
@@ -92,7 +93,7 @@ async fn save_mp3_file(
         println!("Saving file {} to bucket {}", filename, bucket);
         println!();
     }
-    let body = aws_sdk_s3::types::ByteStream::from_path(Path::new(filename))
+    let body = aws_sdk_s3::primitives::ByteStream::from_path(Path::new(filename))
         .await
         .unwrap();
 
@@ -228,29 +229,33 @@ async fn main() -> Result<()> {
     let transcribe_region = region.clone();
 
     // Create region provider for each service client.
-    let polly_region_provider =
-        RegionProviderChain::first_try(polly_region.map(aws_sdk_polly::Region::new))
-            .or_default_provider()
-            .or_else(aws_sdk_polly::Region::new("us-west-2"));
+    let polly_region_provider = RegionProviderChain::first_try(polly_region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
 
-    let s3_region_provider =
-        RegionProviderChain::first_try(s3_region.map(aws_sdk_polly::Region::new))
-            .or_default_provider()
-            .or_else(aws_sdk_polly::Region::new("us-west-2"));
+    let s3_region_provider = RegionProviderChain::first_try(s3_region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
 
     let transcribe_region_provider =
-        RegionProviderChain::first_try(transcribe_region.map(aws_sdk_transcribe::Region::new))
+        RegionProviderChain::first_try(transcribe_region.map(Region::new))
             .or_default_provider()
-            .or_else(aws_sdk_transcribe::Region::new("us-west-2"));
+            .or_else(Region::new("us-west-2"));
 
     println!();
 
     if verbose {
-        println!("Polly client version:     {}", aws_sdk_polly::PKG_VERSION);
-        println!("S3 client version:        {}", aws_sdk_s3::PKG_VERSION);
+        println!(
+            "Polly client version:     {}",
+            aws_sdk_polly::meta::PKG_VERSION
+        );
+        println!(
+            "S3 client version:        {}",
+            aws_sdk_s3::meta::PKG_VERSION
+        );
         println!(
             "Transcribe client version {}",
-            aws_sdk_transcribe::PKG_VERSION
+            aws_sdk_transcribe::meta::PKG_VERSION
         );
         println!(
             "Region:                   {}",
