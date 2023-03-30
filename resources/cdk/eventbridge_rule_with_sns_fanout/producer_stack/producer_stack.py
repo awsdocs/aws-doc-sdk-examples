@@ -40,6 +40,8 @@ class ProducerStack(Stack):
         # add a target to the EventBridge rule to publish a message to the SNS topic
         rule.add_target(targets.SnsTopic(topic))
 
+        master_account = client.get_parameter(Name='weathertop_central', WithDecryption=True)
+
         statement1 = iam.PolicyStatement()
         statement1.add_any_principal()
         statement1.add_actions(
@@ -53,11 +55,11 @@ class ProducerStack(Stack):
                         "SNS:Subscribe"
                     )
         statement1.add_resources(topic.topic_arn)
-        statement1.add_condition("StringEquals", {"AWS:SourceOwner": "808326389482"})
+        statement1.add_condition("StringEquals", {"AWS:SourceOwner": master_account})
         topic.add_to_resource_policy(statement1)
 
         statement2 = iam.PolicyStatement()
-        statement2.add_arn_principal('arn:aws:iam::808326389482:root')
+        statement2.add_arn_principal(f'arn:aws:iam::{master_account}:root')
         for language_name in onboarded_languages:
             response = client.get_parameter(Name=f'{language_name}', WithDecryption=True)
             account_id = response['Parameter']['Value']
@@ -67,7 +69,7 @@ class ProducerStack(Stack):
         topic.add_to_resource_policy(statement2)
 
         statement3 = iam.PolicyStatement()
-        statement3.add_arn_principal('arn:aws:iam::808326389482:root')
+        statement3.add_arn_principal(f'arn:aws:iam::{master_account}:root')
         for language_name in onboarded_languages:
             response = client.get_parameter(Name=language_name, WithDecryption=True)
             account_id = response['Parameter']['Value']
