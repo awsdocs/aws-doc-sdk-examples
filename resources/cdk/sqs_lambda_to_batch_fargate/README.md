@@ -77,6 +77,12 @@ Install the required dependencies:
 ```
 $ pip install -r requirements.txt
 ```
+Before going any further, save your language name as an environment variable called `LANGUAGE_NAME`.
+
+If your language is Java, you would use:
+```
+$ export LANGUAGE_NAME=javav2
+```
 
 At this point you can now synthesize the CloudFormation template for this code.
 
