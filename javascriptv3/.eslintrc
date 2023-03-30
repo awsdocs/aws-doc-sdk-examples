@@ -2,7 +2,8 @@
   "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
   "parserOptions": {
     "ecmaVersion": 2022, // Allows for the parsing of modern ECMAScript features
-    "sourceType": "module" // Allows for the use of imports
+    "sourceType": "module", // Allows for the use of imports
+    "project": ["./tsconfig.json"]
   },
   "extends": [
     "eslint:recommended",
@@ -15,11 +16,19 @@
       "typescript": true
     }
   },
-  "env": { "es6": true, "node": true, "jest": true },
+  "env": { "es6": true, "node": true },
   "plugins": ["@typescript-eslint", "eslint-plugin-import"],
   "rules": {
     "import/no-unresolved": 2,
     "no-unused-vars": "off",
+    "prefer-rest-params": "off",
+    "require-await": "error",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
@@ -28,17 +37,9 @@
         "caughtErrorsIgnorePattern": "^_"
       }
     ],
-    "@typescript-eslint/ban-types": "off",
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/no-empty-interface": "off",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "prefer-rest-params": "off",
+    "@typescript-eslint/no-namespace": "warn",
     "@typescript-eslint/no-non-null-assertion": "off",
-
-    /** Warnings */
-    "@typescript-eslint/no-namespace": "warn"
+    "@typescript-eslint/no-unsafe-member-access": "error",
+    "@typescript-eslint/no-var-requires": "off"
   }
 }

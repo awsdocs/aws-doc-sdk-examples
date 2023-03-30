@@ -10,21 +10,19 @@ import { CreateAccessKeyCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
-  const command = new CreateAccessKeyCommand({ UserName: "IAM_USER_NAME" });
-
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+/**
+ *
+ * @param {string} userName
+ */
+export const createAccessKey = async (userName) => {
+  const command = new CreateAccessKeyCommand({ UserName: userName });
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.keys.createAccessKeyV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  createAccessKey("USER_NAME");
 }
 
 // snippet-start:[iam.JavaScript.keys.createAccessKeyV3]

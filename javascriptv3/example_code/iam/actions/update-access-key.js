@@ -6,27 +6,31 @@
 import { fileURLToPath } from "url";
 
 // snippet-start:[iam.JavaScript.keys.updateAccessKeyV3]
-import { UpdateAccessKeyCommand, IAMClient, StatusType } from "@aws-sdk/client-iam";
+import {
+  UpdateAccessKeyCommand,
+  IAMClient,
+  StatusType,
+} from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} userName
+ * @param {string} accessKeyId
+ */
+export const updateAccessKey = (userName, accessKeyId) => {
   const command = new UpdateAccessKeyCommand({
-    AccessKeyId: "ACCESS_KEY_ID",
-    Status: StatusType.Active,
-    UserName: "USER_NAME",
+    AccessKeyId: accessKeyId,
+    Status: StatusType.Inactive,
+    UserName: userName,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.keys.updateAccessKeyV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  updateAccessKey("USER_NAME", "ACCESS_KEY_ID");
 }

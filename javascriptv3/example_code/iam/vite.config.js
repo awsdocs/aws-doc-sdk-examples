@@ -7,8 +7,11 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    testTimeout: 50000,
-    hookTimeout: 50000,
-    threads: false
-  }
-})
+    testTimeout: 60000,
+    hookTimeout: 60000,
+    threads: false,
+    coverage: {
+      all: true,
+    },
+  },
+});

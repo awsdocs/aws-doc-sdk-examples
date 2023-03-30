@@ -10,22 +10,22 @@ import { DeleteAccessKeyCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} userName
+ * @param {string} accessKeyId
+ */
+export const deleteAccessKey = (userName, accessKeyId) => {
   const command = new DeleteAccessKeyCommand({
-    AccessKeyId: "ACCESS_KEY_ID",
-    UserName: "USER_NAME",
+    AccessKeyId: accessKeyId,
+    UserName: userName,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.keys.deleteAccessKeyV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  deleteAccessKey("USER_NAME", "ACCESS_KEY_ID");
 }

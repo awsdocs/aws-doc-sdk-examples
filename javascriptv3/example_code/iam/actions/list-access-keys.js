@@ -10,22 +10,23 @@ import { ListAccessKeysCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} userName
+ */
+export const listAccessKeys = async (userName) => {
   const command = new ListAccessKeysCommand({
     MaxItems: 5,
-    UserName: "IAM_USER_NAME",
+    UserName: userName,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+  const response = await client.send(command);
+  console.log(response.AccessKeyMetadata.map((x) => x.AccessKeyId).join("\n"));
+  return response;
 };
 // snippet-end:[iam.JavaScript.keys.listAccessKeysV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  listAccessKeys("USER_NAME");
 }

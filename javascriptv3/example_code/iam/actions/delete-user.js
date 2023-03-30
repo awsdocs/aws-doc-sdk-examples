@@ -10,19 +10,17 @@ import { DeleteUserCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
-  const command = new DeleteUserCommand({ UserName: "USER_NAME" });
-
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+/**
+ * 
+ * @param {string} name
+ */
+export const deleteUser = (name) => {
+  const command = new DeleteUserCommand({ UserName: name });
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.users.deleteUserV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  deleteUser("USER_NAME");
 }

@@ -10,21 +10,18 @@ import { ListUsersCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+export const listUsers = async () => {
   const command = new ListUsersCommand({ MaxItems: 10 });
 
-  try {
-    const { Users } = await client.send(command);
-    Users.forEach(({ UserName, CreateDate }) => {
-      console.log(`${UserName} created on: ${CreateDate}`);
-    });
-  } catch (err) {
-    console.error(err);
-  }
+  const response = await client.send(command);
+  response.Users?.forEach(({ UserName, CreateDate }) => {
+    console.log(`${UserName} created on: ${CreateDate}`);
+  });
+  return response;
 };
 // snippet-end:[iam.JavaScript.users.listUsersV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  listUsers();
 }

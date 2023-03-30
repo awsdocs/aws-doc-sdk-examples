@@ -10,21 +10,30 @@ import { GetAccessKeyLastUsedCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} accessKeyId
+ */
+export const getAccessKeyLastUsed = async (accessKeyId) => {
   const command = new GetAccessKeyLastUsedCommand({
-    AccessKeyId: "ACCESS_KEY_ID",
+    AccessKeyId: accessKeyId,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
+  const response = await client.send(command);
+  
+  if (response.AccessKeyLastUsed?.LastUsedDate) {
+    console.log(`
+    ${accessKeyId} was last used by ${response.UserName} via 
+    the ${response.AccessKeyLastUsed.ServiceName} service on
+    ${response.AccessKeyLastUsed.LastUsedDate.toISOString()}
+    `);
   }
+
+  return response;
 };
 // snippet-end:[iam.JavaScript.keys.getAccessKeyLastUsedV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  getAccessKeyLastUsed("ACCESS_KEY_ID");
 }

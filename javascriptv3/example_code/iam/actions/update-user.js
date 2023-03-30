@@ -10,22 +10,22 @@ import { UpdateUserCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} currentUserName
+ * @param {string} newUserName
+ */
+export const updateUser = async (currentUserName, newUserName) => {
   const command = new UpdateUserCommand({
-    UserName: "ORIGINAL_USER_NAME",
-    NewUserName: "NEW_USER_NAME",
+    UserName: currentUserName,
+    NewUserName: newUserName,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.users.updateUserV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  updateUser("CURRENT_USER_NAME", "NEW_USER_NAME");
 }

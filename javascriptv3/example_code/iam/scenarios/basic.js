@@ -51,7 +51,7 @@ export const main = async () => {
 
   // Retry the list buckets operation until it succeeds. InvalidAccessKeyId is
   // thrown while the user and access keys are still stabilizing.
-  await retry({ intervalInMs: 500, maxRetries: 20 }, async () => {
+  await retry({ intervalInMs: 1000, maxRetries: 60 }, async () => {
     try {
       return await listBuckets(s3Client);
     } catch (err) {
@@ -65,8 +65,8 @@ export const main = async () => {
   // is thrown while the user and access keys are still stabilizing.
   const { Role } = await retry(
     {
-      intervalInMs: 500,
-      maxRetries: 20,
+      intervalInMs: 1000,
+      maxRetries: 60,
     },
     () =>
       iamClient.send(
@@ -124,7 +124,7 @@ export const main = async () => {
 
   // Retry the assume role operation until it succeeds.
   const { Credentials } = await retry(
-    { intervalInMs: 500, maxRetries: 20 },
+    { intervalInMs: 1000, maxRetries: 60 },
     () =>
       stsClient.send(
         new AssumeRoleCommand({
@@ -146,7 +146,11 @@ export const main = async () => {
   });
 
   // List the Amazon S3 buckets again.
-  await listBuckets(s3Client);
+  // Retry the list buckets operation until it succeeds. AccessDenied might
+  // be thrown while the role policy is still stabilizing.
+  await retry({ intervalInMs: 1000, maxRetries: 60 }, () =>
+    listBuckets(s3Client)
+  );
 
   // Clean up.
   await iamClient.send(

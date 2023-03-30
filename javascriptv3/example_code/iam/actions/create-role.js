@@ -10,9 +10,13 @@ import { CreateRoleCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} roleName
+ */
+export const createRole = async (roleName) => {
   const command = new CreateRoleCommand({
-    AssumeRolePolicyDocument: {
+    AssumeRolePolicyDocument: JSON.stringify({
       Version: "2012-10-17",
       Statement: [
         {
@@ -23,22 +27,17 @@ export const main = async () => {
           Action: "sts:AssumeRole",
         },
       ],
-    },
-    RoleName: "ROLE_NAME",
+    }),
+    RoleName: roleName,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.users.createrolev3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  createRole("ROLE_NAME");
 }
 
 // snippet-start:[iam.JavaScript.users.createrolev3]

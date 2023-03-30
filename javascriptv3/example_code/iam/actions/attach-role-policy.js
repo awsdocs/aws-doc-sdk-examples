@@ -10,10 +10,15 @@ import { AttachRolePolicyCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ * 
+ * @param {string} policyArn 
+ * @param {string} roleName 
+ */
+export const attachRolePolicy = async (policyArn, roleName) => {
   const command = new AttachRolePolicyCommand({
-    PolicyArn: "POLICY_ARN",
-    RoleName: "ROLE_NAME",
+    PolicyArn: policyArn,
+    RoleName: roleName,
   });
 
   try {
@@ -27,5 +32,5 @@ export const main = async () => {
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  attachRolePolicy("POLICY_ARN", "ROLE_NAME");
 }

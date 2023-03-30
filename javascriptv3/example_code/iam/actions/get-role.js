@@ -10,21 +10,20 @@ import { GetRoleCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} roleName
+ */
+export const getRole = async (roleName) => {
   const command = new GetRoleCommand({
-    RoleName: "ROLE_NAME",
+    RoleName: roleName,
   });
 
-  try {
-    const { Role } = await client.send(command);
-    console.log(Role);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.getRoleV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  getRole("ROLE_NAME");
 }

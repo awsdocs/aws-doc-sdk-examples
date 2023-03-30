@@ -128,6 +128,16 @@ that require input or cannot run without human intervention.
 Every example should be covered by an integration test. Each integration test must
 run the example and verify it ran correctly.
 
+## Configure Visual Studio Code (VSCode)
+
+### ESLint
+
+To configure ESLint in VSCode, add the following to `settings.json`:
+
+```
+  "eslint.workingDirectories": ["./javascriptv3"],
+```
+
 ## Additional resources
 
 - [AWS SDK for JavaScript (v3)](https://github.com/aws/aws-sdk-js-v3)

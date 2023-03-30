@@ -10,19 +10,17 @@ import { DeleteRoleCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
-  const command = new DeleteRoleCommand({ RoleName: "ROLE_NAME" });
-
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+/**
+ *
+ * @param {string} roleName
+ */
+export const deleteRole = async (roleName) => {
+  const command = new DeleteRoleCommand({ RoleName: roleName });
+  return client.send(command);
 };
 // snippet-end:[javascript.v3.iam.actions.DeleteRole]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  deleteRole("ROLE_NAME");
 }
