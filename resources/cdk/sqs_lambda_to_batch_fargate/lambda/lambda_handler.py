@@ -13,9 +13,9 @@ def lambda_handler(event, context):
         # Set up Batch client
         batch = boto3.client('batch')
 
-        print(f"JOB_NAME: {os.environ['JOB_NAME']}")
-        print(f"JOB_QUEUE: {os.environ['JOB_QUEUE']}")
-        print(f"JOB_DEFINITION: {os.environ['JOB_DEFINITION']}")
+        logger.info(f"JOB_NAME: {os.environ['JOB_NAME']}")
+        logger.info(f"JOB_QUEUE: {os.environ['JOB_QUEUE']}")
+        logger.info(f"JOB_DEFINITION: {os.environ['JOB_DEFINITION']}")
 
         # Set up job payload
         payload = {
