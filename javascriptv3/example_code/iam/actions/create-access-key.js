@@ -14,7 +14,7 @@ const client = new IAMClient({});
  *
  * @param {string} userName
  */
-export const createAccessKey = async (userName) => {
+export const createAccessKey = (userName) => {
   const command = new CreateAccessKeyCommand({ UserName: userName });
   return client.send(command);
 };
