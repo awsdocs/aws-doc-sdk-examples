@@ -6,4 +6,4 @@ COPY . /ruby/
 RUN cd /ruby && \
     bundle config --delete frozen && \
     bundle install
-CMD ["bash"]
+CMD ["rspec", "."]
