@@ -1,8 +1,8 @@
 ![Stability: Stable](https://img.shields.io/badge/stability-Stable-success.svg?style=for-the-badge)
 
-# Weathertop Producer Stack
+# Weathertop ECR Stack
 
-This project will create a stack for producing events from EventBrudge and publishing them to a centralized SNS topic.
+This project will create a stack for hosting container images in Elastic Container Registry (ECR).
 
 ---
 
