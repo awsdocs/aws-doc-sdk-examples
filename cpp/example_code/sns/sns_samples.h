@@ -11,6 +11,8 @@
 
 namespace AwsDoc {
     namespace SNS {
+        bool gettingStartedWithSNSTopics(const Aws::Client::ClientConfiguration &clientConfiguration);
+
         //! Create an Amazon Simple Notification Service (Amazon SNS) topic.
         /*!
           \param topicName: An Amazon SNS topic name.
