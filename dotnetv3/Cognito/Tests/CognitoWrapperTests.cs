@@ -41,7 +41,7 @@ namespace CognitoWrapperTests
             _userPoolId = _configuration["UserPoolId"];
         }
 
-        [Fact()]
+        [Fact(Skip = "Requires user intervention.")]
         [Order(1)]
         [Trait("Category", "Integration")]
         public async Task SignUpAsyncTest()
