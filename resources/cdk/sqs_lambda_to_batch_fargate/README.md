@@ -12,24 +12,16 @@
 
 This project is intended to be sample code only. Not for use in production.
 
-This project will create the following in your AWS cloud environment:
-* IAM group
-* IAM user (added to the IAM group)
-* S3 bucket
-* DynamoDB table
-* Lambda function that performs image classification via AWS Rekognition when new images are uploaded to the S3 bucket
-* Roles and policies allowing appropriate access to these resources
+This project will create a CDK stack for running integration tests within a personal account based on a SNS fanout topic triggering within a centralized account.
 
-Rekognition labels will be written to CloudWatch logs, a results folder in the S3 bucket, as well as the DynamoDB table.  
-  
-This project was inspired by the AWS CDK workshop (https://cdkworkshop.com) and I highly recommend you go through that as well.
-  
+Test results will be written to CloudWatch logs.  
+    
 ---
 
 Requirements:
 * git
 * npm (node.js)
-* python 3.x
+* python 3.7
 * AWS access key & secret for AWS user with permissions to create resources listed above
   
 ---
