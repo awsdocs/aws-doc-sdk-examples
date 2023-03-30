@@ -42,8 +42,7 @@ class ConsumerStack(Stack):
         sns_topic = sns.Topic.from_topic_arn(self, fanout_topic_name, topic_arn=fanout_topic_arn)
         container_image = ecs.EcrImage.from_registry(f"public.ecr.aws/b4v4v1s0/{language_name}:latest")
 
-        languge_name = os
-        client.get_parameter(Name=language, WithDecryption=True)
+        # client.get_parameter(Name=language_name, WithDecryption=True)
 
         # Define the SQS queue in this account
         sqs_queue = sqs.Queue(self, f'BatchJobQueue-{language_name}')
