@@ -1,10 +1,10 @@
-# AWS SDK for Go (v2) code examples
+# SDK for Go V2 code examples
 
 ## Overview
 
-The code examples in this topic show you how to use the AWS SDK for Go (v2) with AWS. 
+The code examples in this topic show you how to use the AWS SDK for Go V2 with AWS. 
 
-The AWS SDK for Go (v2) provides a Go API for AWS infrastructure services. Using the 
+The SDK for Go V2 provides a Go API for AWS infrastructure services. Using the 
 SDK, you can build applications on top of Amazon S3, Amazon EC2, Amazon DynamoDB, 
 and more.
 
@@ -42,7 +42,24 @@ A README in each folder describes how to run the example.
 * You must have an AWS account, and have your default credentials and AWS Region
   configured as described in the
   [AWS Tools and SDKs Shared Configuration and Credentials Reference Guide](https://docs.aws.amazon.com/credref/latest/refdocs/creds-config-files.html).
-* Go 1.18 or later
+* [Go 1.18 or later](https://go.dev/doc/install)
+
+### Run the code
+
+Each example is a Go module that typically contains two packages that you can run: 
+`hello` and `cmd`. The `hello` package makes a single call to a service to verify that you 
+can use the service with the SDK. The `cmd` package runs more complex scenarios
+to show you how to accomplish specific tasks.
+
+For example, run the `hello` package from the command line:
+
+```
+go run ./hello
+```
+
+Some examples require command line arguments. In these cases, you can run the example
+with a `-h` flag to get help. Each example has a README.md that describes additional 
+specifics about how to run the example and any other prerequisites. 
 
 ## Tests
 
@@ -79,16 +96,54 @@ command prompt by including the `integration` tag.
 go test -tags=integration ./...
 ```
 
-## Docker image (Beta)
-This example code will soon be available in a container image
-hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
-with all Golang examples with dependencies pre-resolved, allowing you to explore
-these examples in an isolated environment.
+## Docker image
 
-⚠️ As of January 2023, the [SDK for Go v2 image](https://gallery.ecr.aws/b4v4v1s0/dotnetv3) is available on ECR Public but is still
-undergoing active development. Refer to
-[this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4129)
+This example code will soon be available in a container image
+hosted on [Amazon Elastic Container Registry (Amazon ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). 
+The image will be preloaded with all Go examples, with dependencies pre-resolved. 
+That way, you can explore the examples in an isolated environment.
+
+⚠️ As of January 2023, the [SDK for Go V2 image](https://gallery.ecr.aws/b4v4v1s0/gov2) is available on ECR Public 
+but is still undergoing active development. Refer to [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4125)
 for more information.
+
+### Build the Docker image
+
+1. Install and run Docker on your machine.
+2. Navigate to the same directory as this README.
+3. Run `docker build -t <image_name> .` and replace `image_name` with a name for the image.
+
+### Launch the Docker container
+
+Run the Docker container with your image with the following command:
+
+**Windows**
+
+```
+docker run -it --volume %USERPROFILE%\.aws:/root/.aws <image_name>
+```
+
+**macOS or Linux**
+```
+docker run -it -v ~/.aws/credentials:/root/.aws/credentials <image_name>
+```
+
+The terminal initiates a bash instance at the root of the container.
+The Go code examples are in the `gov2` folder and can be run by following
+the instructions in the READMEs in the various folders.
+
+### Run tests in the Docker container
+
+You can run all unit tests and write the output to a file by running the following command
+in the `gov2` directory of the container:  
+
+```
+./run_all_tests.sh
+```
+
+You can run integration tests by passing an `integration` argument to the `run_all_tests.sh` 
+script. Integration tests create and destroy AWS resources and will incur charges on your account.
+Proceed with caution. 
 
 ## Additional resources
 
