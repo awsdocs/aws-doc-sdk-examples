@@ -6,4 +6,5 @@ COPY . /ruby/
 RUN cd /ruby && \
     bundle config --delete frozen && \
     bundle install
+# TODO: add integration test tag
 CMD ["rspec", "."]
