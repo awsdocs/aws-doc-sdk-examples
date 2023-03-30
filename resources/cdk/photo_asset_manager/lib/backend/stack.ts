@@ -102,11 +102,6 @@ export class PamStack extends Stack {
       );
     }
 
-    // CopyFn
-    {
-      const fn = this.lambdas.fns.copy;
-      this.buckets.storage.grantPut(fn);
-    }
   }
 
   private outputs() {

@@ -8,7 +8,6 @@ export interface PamLambdasStrategyHandlers {
   detectLabels: string;
   labels: string;
   upload: string;
-  copy: string;
   download: string;
 }
 
@@ -54,14 +53,12 @@ export class PamLambda extends Construct {
     const detectLabels = makeLambda("DetectLabelsFn", handlers.detectLabels);
     const labels = makeLambda("LabelsFn", handlers.labels);
     const upload = makeLambda("UploadFn", handlers.upload);
-    const copy = makeLambda("CopyFn", handlers.copy);
     const download = makeLambda("PrepareDownloadFn", handlers.download);
 
     this.fns = {
       detectLabels,
       labels,
       upload,
-      copy,
       download,
     };
   }
