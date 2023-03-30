@@ -1,6 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
 
+import boto3
 from aws_cdk import (
     aws_iam as iam,
     aws_events as events,
@@ -15,14 +16,21 @@ class ProducerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
+        client = boto3.client('ssm')
+
+        onboarded_languages = [
+            'ruby'
+        ]
+
         # create a new SNS topic
-        topic = sns.Topic(self, "MyTopic")
+        topic = sns.Topic(self, "fanout-topic")
 
         # create a new EventBridge rule
         rule = events.Rule(
             self,
-            "MyRule",
+            "trigger-rule",
             schedule=events.Schedule.cron(
+                # Uncomment after testing
                 # minute="0",
                 # hour="22",
                 # week_day="FRI",
@@ -49,23 +57,22 @@ class ProducerStack(Stack):
         topic.add_to_resource_policy(statement1)
 
         statement2 = iam.PolicyStatement()
-        # statement2.add_aws_account_principal('808326389482')
-        # statement2.add_aws_account_principal('260778392212')
         statement2.add_arn_principal('arn:aws:iam::808326389482:root')
-        statement2.add_arn_principal('arn:aws:iam::260778392212:root')
+        for language in onboarded_languages:
+            response = client.get_parameter(Name=language, WithDecryption=True)
+            account_id = response['Parameter']['Value']
+            statement2.add_arn_principal(f'arn:aws:iam::{account_id}:root')
         statement2.add_actions("SNS:Subscribe")
         statement2.add_resources(topic.topic_arn)
         topic.add_to_resource_policy(statement2)
 
         statement3 = iam.PolicyStatement()
-        # statement3.add_aws_account_principal('808326389482')
-        # statement3.add_aws_account_principal('260778392212')
         statement3.add_arn_principal('arn:aws:iam::808326389482:root')
-        statement3.add_arn_principal('arn:aws:iam::260778392212:root')
+        for language in onboarded_languages:
+            response = client.get_parameter(Name=language, WithDecryption=True)
+            account_id = response['Parameter']['Value']
+            statement2.add_arn_principal(f'arn:aws:iam::{account_id}:root')
         statement3.add_actions("SNS:Publish")
         statement3.add_service_principal("events.amazonaws.com")
         statement3.add_resources(topic.topic_arn)
         topic.add_to_resource_policy(statement3)
-
-
-
