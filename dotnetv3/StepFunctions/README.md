@@ -84,9 +84,7 @@ This example shows you how to do the following:
 * Delete resources created by the example.
 
 Before you compile the .NET application, you can optionally set configuration values
-in the settings.json file. These settings include your account and topic settings for
-sending an email from your alarm. Alternatively, add a settings.local.json file with
-your local settings, which will be loaded automatically when the application runs.
+in the settings.json file.
 
 After the example compiles, you can run it from the command line. To do so, navigate to
 the folder that contains the .csproj file and run the following command:
