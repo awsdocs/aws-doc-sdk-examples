@@ -58,8 +58,8 @@ class ProducerStack(Stack):
 
         statement2 = iam.PolicyStatement()
         statement2.add_arn_principal('arn:aws:iam::808326389482:root')
-        for language in onboarded_languages:
-            response = client.get_parameter(Name=language, WithDecryption=True)
+        for language_name in onboarded_languages:
+            response = client.get_parameter(Name=f'account_mappings/{language_name}', WithDecryption=True)
             account_id = response['Parameter']['Value']
             statement2.add_arn_principal(f'arn:aws:iam::{account_id}:root')
         statement2.add_actions("SNS:Subscribe")
