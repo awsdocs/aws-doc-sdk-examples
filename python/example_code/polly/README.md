@@ -77,14 +77,14 @@ python polly_lipsync.py
 ```
 
 <!--custom.scenarios.polly_LipSync.start-->
-This example is a GUI application. Enter text into the input field; select engine,
-language, and voice parameters; and click the **Say it** button to see and hear the
+This example is a GUI application. Enter text into the input field, then select engine,
+language, and voice parameters. Choose the **Say it** button to see and hear the
 synthesized speech.
 
 If you enter text that is too long for synchronous synthesis, you are asked for the
-name of an existing Amazon S3 bucket. This bucket is used by Amazon Polly to store
-the output of the asynchronous synthesis task. After the task completes, the 
-application downloads the output and deletes the Amazon S3 object. 
+name of an existing Amazon Simple Storage Service (Amazon S3) bucket. This bucket is used 
+by Amazon Polly to store the output of the asynchronous synthesis task. After the task 
+completes, the application downloads the output and deletes the S3 object. 
 <!--custom.scenarios.polly_LipSync.end-->
 
 ### Tests

@@ -66,8 +66,8 @@ python -m pip install -r requirements.txt
 This scenario requires the following scaffold resources that are defined in the
 accompanying AWS CloudFormation script `setup_scenario_getting_started.yaml`.
 
-* An Amazon S3 bucket that can contain the Python ETL job script and can receive 
-output data.
+* An Amazon Simple Storage Service (Amazon S3) bucket that can contain the Python ETL 
+job script and receive output data.
 * An AWS Identity and Access Management (IAM) role that can be assumed by AWS Glue. 
 The role must grant read-write access to the S3 bucket and standard rights needed by 
 AWS Glue.

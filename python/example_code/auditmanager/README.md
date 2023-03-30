@@ -46,13 +46,13 @@ python -m pip install -r requirements.txt
 
 
 <!--custom.prerequisites.start-->
-See the following resources for more information:
+For more information, see the following resources:
 
 - Familiarize yourself with Audit Manager terminology and functionality. For a general 
 overview, see [What is AWS Audit Manager?](https://docs.aws.amazon.com/audit-manager/latest/userguide/what-is.html) and [AWS Audit Manager concepts and terminology](https://docs.aws.amazon.com/audit-manager/latest/userguide/concepts.html).
 - Complete all the prerequisites that are described in 
 [Setting up AWS Audit Manager](https://docs.aws.amazon.com/audit-manager/latest/userguide/setting-up.html). 
-- Configure your IAM identity to have the appropriate permissions to create resources in Audit 
+- Configure your AWS Identity and Access Management (IAM) identity to have the appropriate permissions to create resources in Audit 
 Manager. Two suggested policies that grant these permissions are 
 [Example 2: Allow full administrator access](https://docs.aws.amazon.com/audit-manager/latest/userguide/security_iam_id-based-policy-examples.html#example-1) 
 and [Example 3: Allow management access](https://docs.aws.amazon.com/audit-manager/latest/userguide/security_iam_id-based-policy-examples.html#example-2).

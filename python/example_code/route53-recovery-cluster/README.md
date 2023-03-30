@@ -58,7 +58,7 @@ python routing_control_state.py [routing_control_arn] [cluster_endpoints_json_fi
 
 #### Example arguments
 
-A routing control ARN looks something like this:
+A routing control Amazon Resource Name (ARN) looks something like this:
 
 `arn:aws:route53-recovery-control::123456789012:controlpanel/ffa374e10db34a90bc56EXAMPLE/routingcontrol/60649aEXAMPLE`
 

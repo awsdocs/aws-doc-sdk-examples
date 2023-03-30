@@ -81,7 +81,8 @@ python emr_usage_demo.py
 Shows how to write a job step that uses Apache Spark to read data from the
 [Amazon Customer Reviews Dataset](https://s3.amazonaws.com/amazon-reviews-pds/readme.html)
 and query the data for top-rated products in specific categories that contain 
-keywords in their product titles. Results are written to an Amazon S3 bucket.
+keywords in their product titles. Results are written to an Amazon Simple Storage 
+Service (Amazon S3) bucket.
 <!--custom.scenarios.emr_Scenario_LongLivedEmrCluster.end-->
 
 #### Create a short-lived Amazon EMR cluster and run a step
@@ -98,7 +99,7 @@ python emr_usage_demo.py
 <!--custom.scenarios.emr_Scenario_ShortLivedEmrCluster.start-->
 Shows how to write a job step that uses Apache Spark to estimate the value of pi by 
 performing a large number of parallelized calculations on cluster instances. Results
-are written both to Amazon EMR logs and to an Amazon S3 bucket. 
+are written to Amazon EMR logs and also to an S3 bucket. 
 <!--custom.scenarios.emr_Scenario_ShortLivedEmrCluster.end-->
 
 #### Run a shell script to install libraries
@@ -114,9 +115,9 @@ python install_libraries.py CLUSTER_ID SHELL_SCRIPT_PATH
 ``` 
 
 This example is intended to be run as part of the tutorial in 
-[Installing Additional Kernels and Libraries](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-jupyterhub-install-kernels-libs.html) 
-and requires that the cluster specified by *CLUSTER_ID* is set up to work with
-AWS Systems Manager and that you have previously uploaded a shell script
+[Installing Additional Kernels and Libraries](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-jupyterhub-install-kernels-libs.html). 
+The cluster specified by *CLUSTER_ID* must be set up to work with
+Systems Manager. You must also have previously uploaded a shell script
 to the Amazon S3 location specified by *SHELL_SCRIPT_PATH*. 
 <!--custom.scenarios.emr_Usage_InstallLibrariesWithSsm.end-->
 

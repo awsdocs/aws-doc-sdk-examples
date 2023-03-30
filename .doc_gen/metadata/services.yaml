@@ -496,7 +496,7 @@ keyspaces:
   expanded:
     long: Amazon Keyspaces (for Apache Cassandra)
     short: Amazon Keyspaces
-  blurb: is a scalable, highly available, and managed Apache Cassandra–compatible database service.
+  blurb: is a scalable, highly available, and managed Apache Cassandra-compatible database service.
   guide:
     subtitle: Developer Guide
     url: keyspaces/latest/devguide/what-is-keyspaces.html
