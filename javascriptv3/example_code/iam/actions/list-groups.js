@@ -12,7 +12,6 @@ const client = new IAMClient({});
 
 export const main = async () => {
   const command = new ListGroupsCommand({
-    RoleName: "ROLE_NAME",
     // Use when results are truncated.
     Marker: "MARKER",
     MaxItems: 10,

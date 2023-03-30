@@ -15,7 +15,7 @@ const client = new IAMClient({});
  * @param {string} currentUserName
  * @param {string} newUserName
  */
-export const updateUser = async (currentUserName, newUserName) => {
+export const updateUser = (currentUserName, newUserName) => {
   const command = new UpdateUserCommand({
     UserName: currentUserName,
     NewUserName: newUserName,

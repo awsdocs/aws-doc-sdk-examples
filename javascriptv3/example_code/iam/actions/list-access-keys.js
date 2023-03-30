@@ -21,7 +21,9 @@ export const listAccessKeys = async (userName) => {
   });
 
   const response = await client.send(command);
-  console.log(response.AccessKeyMetadata.map((x) => x.AccessKeyId).join("\n"));
+  console.log(
+    (response.AccessKeyMetadata || []).map((x) => x.AccessKeyId).join("\n")
+  );
   return response;
 };
 // snippet-end:[iam.JavaScript.keys.listAccessKeysV3]

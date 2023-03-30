@@ -14,7 +14,7 @@ const client = new IAMClient({});
  *
  * @param {string} roleName
  */
-export const deleteRole = async (roleName) => {
+export const deleteRole = (roleName) => {
   const command = new DeleteRoleCommand({ RoleName: roleName });
   return client.send(command);
 };

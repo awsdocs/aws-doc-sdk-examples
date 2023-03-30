@@ -14,7 +14,7 @@ const client = new IAMClient({});
  *
  * @param {string} roleName
  */
-export const getRole = async (roleName) => {
+export const getRole = (roleName) => {
   const command = new GetRoleCommand({
     RoleName: roleName,
   });

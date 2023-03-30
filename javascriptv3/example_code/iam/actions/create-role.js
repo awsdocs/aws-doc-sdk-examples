@@ -14,7 +14,7 @@ const client = new IAMClient({});
  *
  * @param {string} roleName
  */
-export const createRole = async (roleName) => {
+export const createRole = (roleName) => {
   const command = new CreateRoleCommand({
     AssumeRolePolicyDocument: JSON.stringify({
       Version: "2012-10-17",
