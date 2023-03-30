@@ -13,6 +13,7 @@ def lambda_handler(event, context):
         # Set up Batch client
         batch = boto3.client('batch')
 
+        # Log key details
         logger.info(f"JOB_NAME: {os.environ['JOB_NAME']}")
         logger.info(f"JOB_QUEUE: {os.environ['JOB_QUEUE']}")
         logger.info(f"JOB_DEFINITION: {os.environ['JOB_DEFINITION']}")
@@ -22,7 +23,6 @@ def lambda_handler(event, context):
             'jobName': os.environ['JOB_NAME'],
             'jobQueue': os.environ['JOB_QUEUE'],
             'jobDefinition': os.environ['JOB_DEFINITION']
-            # 'jobDefinition': 'arn:aws:batch:us-east-1:260778392212:job-definition/batchjobdeffromecrE0E30-24044f1878c8bae:5'
         }
 
         # Submit job
