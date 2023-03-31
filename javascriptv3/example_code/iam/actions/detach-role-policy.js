@@ -10,22 +10,22 @@ import { DetachRolePolicyCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} policyArn
+ * @param {string} roleName
+ */
+export const detachRolePolicy = (policyArn, roleName) => {
   const command = new DetachRolePolicyCommand({
-    PolicyArn: "POLICY_ARN",
-    RoleName: "ROLE_NAME",
+    PolicyArn: policyArn,
+    RoleName: roleName,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.policies.detachRolePolicyV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  detachRolePolicy("POLICY_ARN", "ROLE_NAME");
 }

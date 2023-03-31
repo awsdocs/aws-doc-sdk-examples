@@ -13,21 +13,20 @@ import {
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} roleName
+ */
+export const listAttachedRolePolicies = (roleName) => {
   const command = new ListAttachedRolePoliciesCommand({
-    RoleName: "ROLE_NAME",
+    RoleName: roleName,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.listattachedrolepoliciesV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  listAttachedRolePolicies("ROLE_NAME");
 }

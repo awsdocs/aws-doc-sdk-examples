@@ -11,22 +11,17 @@ import { AttachRolePolicyCommand, IAMClient } from "@aws-sdk/client-iam";
 const client = new IAMClient({});
 
 /**
- * 
- * @param {string} policyArn 
- * @param {string} roleName 
+ *
+ * @param {string} policyArn
+ * @param {string} roleName
  */
-export const attachRolePolicy = async (policyArn, roleName) => {
+export const attachRolePolicy = (policyArn, roleName) => {
   const command = new AttachRolePolicyCommand({
     PolicyArn: policyArn,
     RoleName: roleName,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[javascript.v3.iam.actions.AttachRolePolicy]
 
