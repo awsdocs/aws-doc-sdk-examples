@@ -3,12 +3,9 @@
 
 // snippet-start:[AutoScaling.dotnetv3.AutoScalingActions.HelloAutoScaling]
 
-using Amazon.AutoScaling.Internal;
-
 namespace AutoScalingActions;
 
 using Amazon.AutoScaling;
-using Amazon.AutoScaling.Model;
 
 public class HelloAutoScaling
 {

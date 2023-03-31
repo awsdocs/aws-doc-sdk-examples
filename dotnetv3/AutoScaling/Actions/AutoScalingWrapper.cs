@@ -299,7 +299,7 @@ public class AutoScalingWrapper
 
         if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
         {
-            Console.WriteLine($"You have terminated the instance {instanceId}");
+            Console.WriteLine($"You have terminated the instance: {instanceId}");
             return true;
         }
 
