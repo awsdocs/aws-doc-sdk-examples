@@ -123,16 +123,25 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
 Export one primary function from each example. Do not create examples
 that require input or cannot run without human intervention.
 
+Create function names that match the action name. `CreateUserCommand` becomes
+`createUser`.
+```
+export const createUser = (name) => {
+  const command = new CreateUserCommand({ UserName: name });
+  return client.send(command);
+};
+```
+
 ### Create tests
 
 Every example should be covered by an integration test. Each integration test must
 run the example and verify it ran correctly.
 
-## Configure Visual Studio Code (VSCode)
+## Configure Visual Studio Code (VS Code)
 
 ### ESLint
 
-To configure ESLint in VSCode, add the following to `settings.json`:
+To configure ESLint in VS Code, add the following to `settings.json`:
 
 ```
   "eslint.workingDirectories": ["./javascriptv3"],

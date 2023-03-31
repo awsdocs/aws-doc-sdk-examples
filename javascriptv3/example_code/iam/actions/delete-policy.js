@@ -10,19 +10,17 @@ import { DeletePolicyCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
-  const command = new DeletePolicyCommand({ PolicyArn: "POLICY_ARN" });
-
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+/**
+ *
+ * @param {string} policyArn
+ */
+export const deletePolicy = (policyArn) => {
+  const command = new DeletePolicyCommand({ PolicyArn: policyArn });
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.users.deletepolicyv3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  deletePolicy("POLICY_ARN");
 }

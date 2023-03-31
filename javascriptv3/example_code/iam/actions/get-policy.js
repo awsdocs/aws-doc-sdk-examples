@@ -10,21 +10,20 @@ import { GetPolicyCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} policyArn
+ */
+export const getPolicy = (policyArn) => {
   const command = new GetPolicyCommand({
-    PolicyArn: "POLICY_ARN",
+    PolicyArn: policyArn,
   });
 
-  try {
-    const { Policy } = await client.send(command);
-    console.log(Policy);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.policies.getPolicyV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  getPolicy("POLICY_ARN");
 }

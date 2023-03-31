@@ -10,29 +10,19 @@ import { ListPoliciesCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+export const listPolicies = () => {
   const command = new ListPoliciesCommand({
-    // Use when results are truncated.
-    Marker: "MARKER",
     MaxItems: 10,
     OnlyAttached: false,
-    PathPrefix: "PATH_PREFIX",
-    //  Options are "PermissionsPolicy" or "PermissionsBoundary"
-    PolicyUsageFilter: "POLICY_USAGE_FILTER",
-    // Options are "All", "AWS", "Local"
-    Scope: "SCOPE",
+    // List only the customer managed policies in your Amazon Web Services account.
+    Scope: "Local",
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.listpoliciesv3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  listPolicies();
 }
