@@ -98,6 +98,9 @@ sns_ListSubscriptions:
       versions:
         - github: gov2/sns/ListSubscriptions
           sdk_version: 2
+          excerpts:
+            - snippet_tags:
+                - sns.go-v2.ListSubscriptions
     PHP:
       versions:
         - sdk_version: 3
@@ -186,6 +189,9 @@ sns_ListTopics:
       versions:
         - github: gov2/sns/ListTopics
           sdk_version: 2
+          excerpts:
+            - snippet_tags:
+                - sns.go-v2.ListTopics
     PHP:
       versions:
         - sdk_version: 3
@@ -579,6 +585,9 @@ sns_CreateTopic:
       versions:
         - sdk_version: 2
           github: gov2/sns/CreateTopic
+          excerpts:
+            - snippet_tags:
+                - sns.go-v2.CreateTopic
     Kotlin:
       versions:
         - sdk_version: 1
@@ -767,6 +776,9 @@ sns_Publish:
       versions:
         - sdk_version: 2
           github: gov2/sns/Publish
+          excerpts:
+            - snippet_tags:
+                - sns.go-v2.Publish
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1001,6 +1013,9 @@ sns_Subscribe:
       versions:
         - sdk_version: 2
           github: gov2/sns/Subscribe
+          excerpts:
+            - snippet_tags:
+                - sns.go-v2.Subscribe
     Kotlin:
       versions:
         - sdk_version: 1
