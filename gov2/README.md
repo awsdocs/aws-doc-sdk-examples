@@ -103,8 +103,7 @@ hosted on [Amazon Elastic Container Registry (Amazon ECR)](https://docs.aws.amaz
 The image will be preloaded with all Go examples, with dependencies pre-resolved. 
 That way, you can explore the examples in an isolated environment.
 
-⚠️ As of January 2023, the [SDK for Go V2 image](https://gallery.ecr.aws/b4v4v1s0/gov2) is available on ECR Public 
-but is still undergoing active development. Refer to [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4125)
+⚠️ As of January 2023, the [SDK for Go V2 image](https://gallery.ecr.aws/b4v4v1s0/gov2) is available in the Amazon ECR Public Gallery but is still undergoing active development. Refer to [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4125)
 for more information.
 
 ### Build the Docker image
@@ -115,7 +114,7 @@ for more information.
 
 ### Launch the Docker container
 
-Run the Docker container with your image with the following command:
+Run the Docker container with your image using the following command:
 
 **Windows**
 
@@ -134,14 +133,14 @@ the instructions in the READMEs in the various folders.
 
 ### Run tests in the Docker container
 
-You can run all unit tests and write the output to a file by running the following command
+To run all unit tests and write the output to a file, run the following command
 in the `gov2` directory of the container:  
 
 ```
 ./run_all_tests.sh
 ```
 
-You can run integration tests by passing an `integration` argument to the `run_all_tests.sh` 
+To run integration tests, pass an `integration` argument to the `run_all_tests.sh` 
 script. Integration tests create and destroy AWS resources and will incur charges on your account.
 Proceed with caution. 
 
