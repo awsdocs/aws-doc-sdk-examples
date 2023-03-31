@@ -5,12 +5,12 @@
 
 #![allow(clippy::result_large_err)]
 
-use std::path::PathBuf;
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_textract::config::Region;
 use aws_sdk_textract::error::DisplayErrorContext;
 use aws_sdk_textract::primitives::Blob;
 use aws_sdk_textract::types::{BlockType, Document, FeatureType, QueriesConfig, Query};
+use std::path::PathBuf;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
@@ -22,7 +22,11 @@ struct Opt {
     #[structopt(long)]
     document_path: PathBuf,
 
-    #[structopt(short, long, default_value = "What is this customer's favorite pizza topping?")]
+    #[structopt(
+        short,
+        long,
+        default_value = "What is this customer's favorite pizza topping?"
+    )]
     query: String,
 }
 
@@ -42,35 +46,40 @@ async fn main() -> Result<(), aws_sdk_textract::Error> {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = aws_sdk_textract::Client::new(&shared_config);
 
-    let res = client.analyze_document()
+    let res = client
+        .analyze_document()
         .document(Document::builder().bytes(Blob::new(document_bytes)).build())
         .feature_types(FeatureType::Queries)
-        .queries_config(QueriesConfig::builder()
-            .queries(
-                Query::builder()
-                    .text(query)
-                    .build()
-            )
-            .build())
+        .queries_config(
+            QueriesConfig::builder()
+                .queries(Query::builder().text(query).build())
+                .build(),
+        )
         .send()
         .await
         .map_err(Box::new);
 
     match res {
         Ok(analyze_output) => {
-            let pizza_topping = analyze_output.blocks().unwrap_or_default().iter().filter_map(|block| {
-                match block.block_type()? {
+            let pizza_topping = analyze_output
+                .blocks()
+                .unwrap_or_default()
+                .iter()
+                .filter_map(|block| match block.block_type()? {
                     BlockType::QueryResult => Some(block),
-                    _ => None
-                }
-            }).filter_map(|block| {
-                block.text().map(ToOwned::to_owned)
-            }).next().expect("customer has a stated topping preference");
+                    _ => None,
+                })
+                .filter_map(|block| block.text().map(ToOwned::to_owned))
+                .next()
+                .expect("customer has a stated topping preference");
 
             println!("Sources say their favorite pizza topping is {pizza_topping}");
-        },
+        }
         Err(err) => {
-            println!("I really can't say what their favorite topping is. {}", DisplayErrorContext(&err));
+            println!(
+                "I really can't say what their favorite topping is. {}",
+                DisplayErrorContext(&err)
+            );
         }
     }
 
