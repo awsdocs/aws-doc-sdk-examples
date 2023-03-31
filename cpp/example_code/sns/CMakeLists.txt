@@ -5,7 +5,7 @@
 cmake_minimum_required(VERSION 3.8)
 
 set(SERVICE_NAME sns)
-set(SERVICE_COMPONENTS sns)
+set(SERVICE_COMPONENTS sns sqs)
 
 # Set this project's name.
 project("${SERVICE_NAME}-examples")
