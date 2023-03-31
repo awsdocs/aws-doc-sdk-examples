@@ -10,24 +10,37 @@ import { ListRolesCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-/**
- *
- * @param {string}[marker]
- * @returns {Promise<import("@aws-sdk/client-iam").ListRolesCommandOutput>}
- */
-export const listRoles = async (marker) => {
+export async function* listRoles() {
   const command = new ListRolesCommand({
-    Marker: marker,
     MaxItems: 10,
   });
 
-  const response = await client.send(command);
-  console.log(response.Roles?.map((r) => r.RoleName).join("\n"));
-  return response;
-};
+  /**
+   * @type {import("@aws-sdk/client-iam").ListRolesCommandOutput | undefined}
+   */
+  let response = await client.send(command);
+
+  while (response?.Roles?.length) {
+    for (const role of response.Roles) {
+      yield role;
+    }
+
+    if (response.IsTruncated) {
+      response = await client.send(
+        new ListRolesCommand({
+          Marker: response.Marker,
+        })
+      );
+    } else {
+      break;
+    }
+  }
+}
 // snippet-end:[iam.JavaScript.listrolesV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  listRoles();
+  for await (const role of listRoles()) {
+    console.log(role);
+  }
 }

@@ -1,0 +1,133 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { fileURLToPath } from "url";
+
+// snippet-start:[javascript.v3.iam.UploadServerCertificate]
+import { UploadServerCertificateCommand, IAMClient } from "@aws-sdk/client-iam";
+
+const client = new IAMClient({});
+
+/**
+ * The certificate body and private key were generated with the
+ * following command.
+ *
+ * ```
+ * openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \
+ * -keyout example.key -out example.crt -subj "/CN=example.com" \
+ * -addext "subjectAltName=DNS:example.com,DNS:www.example.net,IP:10.0.0.1"
+ * ```
+ */
+
+const certBody = `-----BEGIN CERTIFICATE-----
+MIIF6jCCA9ICCQCzB1kmGQZV5zANBgkqhkiG9w0BAQsFADCBtjELMAkGA1UEBhMC
+dXMxEDAOBgNVBAgMB0Zsb3JpZGExEDAOBgNVBAcMB0FsYWNodWExHDAaBgNVBAoM
+E0FtYXpvbiBXZWIgU2VydmljZXMxHzAdBgNVBAsMFlNESyBDb2RlIEV4YW1wbGVz
+IFRlYW0xIDAeBgNVBAMMF3Nka2NvZGVleGFtcGxlc3RlYW0uY29tMSIwIAYJKoZI
+hvcNAQkBFhNjb3JlcHlsZUBhbWF6b24uY29tMB4XDTIyMTIyMDE3Mzk1NFoXDTIz
+MTIyMDE3Mzk1NFowgbYxCzAJBgNVBAYTAnVzMRAwDgYDVQQIDAdGbG9yaWRhMRAw
+DgYDVQQHDAdBbGFjaHVhMRwwGgYDVQQKDBNBbWF6b24gV2ViIFNlcnZpY2VzMR8w
+HQYDVQQLDBZTREsgQ29kZSBFeGFtcGxlcyBUZWFtMSAwHgYDVQQDDBdzZGtjb2Rl
+ZXhhbXBsZXN0ZWFtLmNvbTEiMCAGCSqGSIb3DQEJARYTY29yZXB5bGVAYW1hem9u
+LmNvbTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAMRLiII3wBhx48WV
+jGnfV4pcSUDcTvpwGP3LfPDPXDxX/1TYygXenbGMqU+zmM3Q+NZ63R/4FX7YMUcm
+i69q5PuCTUeSCqqK5etXjRNXxwuV8gMD66zGYE6uFsJea9nJgqSSBsK81F3AdNNu
+jjRlaUE47BSJGGlDqXuEUB4odX6JQoFu5m2m1VlYvNIrMsYFByrdqhkX2IBBI6mh
+z0xG8Bqeipa5AlwNDLEtCLrfZASpQbH1ojf7Qh4BKesVdq0kUsU9NODUbSlrEwKE
+NDqYqZWRebAUY3Uz+UuDW7xSSXdOajnC32aH9afgvxYL3+jw4goZWp4+1wZapL5V
+v4XMxUyk5nw6PAJ8js1SSalIlo08Ppf1FkdYhH1RrUC77+v6kTfRYqwGMUggN7tv
+4BEOCjQoZNTqp5+mQvxyFUzvZEvt2pzGZtLqFi2tHpaT6prIjntowi6f4EMAZQdQ
+hIpZ+XXbGBahozb5yzyDS8Zjytsj/zvATlzmx5fyyv8zv0+tjImstGW6dfE3KW+6
+mPs3r3pe8lULlU5VefevjTzFsl7NtPTXku5ByudaJVaZwYWLlY5bdfGTkP3BXWNj
+cUmpYph4MiE4nd3pqU8whI46WkzNJlayrQmsDrTQ6Wkekeya5IGR04hJgLejgCwg
+np25C7dpvSQQVNelP5nhYJqaFW89AgMBAAEwDQYJKoZIhvcNAQELBQADggIBAEqW
+6KAYuhwF1tyR8U3pkTly3GGK5GfGknaPdLxSZN7z5wlTgoYaTA4x1YxKf4UNTqu0
+9Vz5HiFFW7n1mNjvnTf0Vnyr9P0sBRmb9HgzQ5KWnJ9t4QECjKZeYxby2PGbGdC4
+jF0y6rZBGzMGSSy/oyWRBuUXKjV6X38CpAwFdK/vUMyhZE6mSKDEzxjyUKopLK5C
+gXMBz713T6oMGszqIyyxZYriZSsaM8oD4SgevE0Yb4dQCtGOqLub2UQqmRdG3UkD
++7CRwTEX8tk4qSVi8jDWtLEgvDLh32r9f9pRoggEO9ErH+9Ov5qIyzNiRUb7Eb/g
+bXGpkn6kLImERpaEqufruvk7Tg1uw7MoRu7Vt1j+xitkx0J1BB8WEXF2REiA5XUv
+Gj2O1hVAN9fhKE9hWcigIGEu6UoXfddnxvlkd7LcUHHkKyII/Pq/SIKsiX1sTz8K
+z7TvJtq9TuEvnrle52VaOopdwX2wt+OL65axkcK7MY292Cw8tifhikj1997f+QWP
+aJ5O9X6LoULNVJqP3qTdg/uEFrDRhPzsjgxHhWRWwOtxF92UwH+IkUvkBDKiOERJ
+WqW7yFJksxhPcQ27YTV0K++78ey7m2I9PzGQXTzAJ3wPdzJdhs8q8hrhSqKRoDkp
+RbMUywFbXJlB0Jq4Ah3QZk70wPk+hTZB/KCh4tkR
+-----END CERTIFICATE-----
+`;
+
+// Generated with CodeWhisperer.
+const privateKey = `-----BEGIN PRIVATE KEY-----
+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
+TpM1u+un47YGTcz8BbZrHJ9hkXVIm/9NtndOkiglAoIBAQCD1HiIp3V1rlTXGMd8
+sSAnzOty0xPgN9+DGkCwc63YX1uFGrh8q5zy5Kp2ZkL4gsCNf8RpkanjaFhQYFeT
+16jjdryexPG27U+6VoKVkJRs7Oht5Y8ebQ2cmlpc9MLHzAsPvDXCd0CtRi/qp8wO
+OxS0Ylbcp+H7uMX0OvfAWnr9ft3EkEGr8UJYvK0/9YdRYoEnOGpTgV2+fil60rtX
+ez+inqpFqG0tVtiVqGpw3XposnxHLHUiTY1tIJxSrXZ11BIrC7PvpJJimtJpp9VU
+KUJacvcKVfa2InMLwx2O78xuV9FEYB7jfN69aYBkC1dez2qrqwzfYAQ5XlYk7O0D
+86w9AoIBAQCUrk1o+EgE3rxChTA+uD4s1j3F5l2TnotLwSGPC0dNlsBlHEqVm8ze
+DN+rqL+n8OV6hYdK8R2Nvz1vomGpEUqz648S+SdX0gof3Jas1ZMDbCip6kbLbJAi
+bZuAsjv+VkmaQ7FM3VEdxYZqLWm58IkqfTHhhE89RbndqA8KDVc49jG0ZDHubMK1
+QJUpXy5aiBN+lkb1zcLv34zYkQMKEdM3tMktrToksOkefjRsVk44xhq0OJNPcTiz
+WkOHd6/pPuLRe9p+ZwtJqsvaE4qc4yYwGm2Wgm8roEQKzXwrDzLldwXB9jicATHC
+lkC6roHhCkIJR8IJnOPBcrt//hbXo8P7
+-----END PRIVATE KEY-----
+`;
+
+/**
+ *
+ * @param {string} certificateName
+ */
+export const uploadServerCertificate = (certificateName) => {
+  const command = new UploadServerCertificateCommand({
+    ServerCertificateName: certificateName,
+    CertificateBody: certBody,
+    PrivateKey: privateKey,
+  });
+
+  return client.send(command);
+};
+// snippet-end:[javascript.v3.iam.UploadServerCertificate]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  uploadServerCertificate("CERTIFICATE_NAME");
+}

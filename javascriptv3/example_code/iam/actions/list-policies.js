@@ -10,7 +10,7 @@ import { ListPoliciesCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const listPolicies = () => {
+export async function* listPolicies() {
   const command = new ListPoliciesCommand({
     MaxItems: 10,
     OnlyAttached: false,
@@ -18,11 +18,32 @@ export const listPolicies = () => {
     Scope: "Local",
   });
 
-  return client.send(command);
-};
+  let response = await client.send(command);
+
+  while (response.Policies?.length) {
+    for (const policy of response.Policies) {
+      yield policy;
+    }
+
+    if (response.IsTruncated) {
+      response = await client.send(
+        new ListPoliciesCommand({
+          Marker: response.Marker,
+          MaxItems: 10,
+          OnlyAttached: false,
+          Scope: "Local",
+        })
+      );
+    } else {
+      break;
+    }
+  }
+}
 // snippet-end:[iam.JavaScript.listpoliciesv3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  listPolicies();
+  for await (const policy of listPolicies()) {
+    console.log(policy);
+  }
 }

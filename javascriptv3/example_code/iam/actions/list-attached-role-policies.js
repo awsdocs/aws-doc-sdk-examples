@@ -17,16 +17,35 @@ const client = new IAMClient({});
  *
  * @param {string} roleName
  */
-export const listAttachedRolePolicies = (roleName) => {
+export async function* listAttachedRolePolicies(roleName) {
   const command = new ListAttachedRolePoliciesCommand({
     RoleName: roleName,
   });
 
-  return client.send(command);
-};
+  let response = await client.send(command);
+
+  while (response.AttachedPolicies?.length) {
+    for (const policy of response.AttachedPolicies) {
+      yield policy;
+    }
+
+    if (response.IsTruncated) {
+      response = await client.send(
+        new ListAttachedRolePoliciesCommand({
+          RoleName: roleName,
+          Marker: response.Marker,
+        })
+      );
+    } else {
+      break;
+    }
+  }
+}
 // snippet-end:[iam.JavaScript.listattachedrolepoliciesV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  listAttachedRolePolicies("ROLE_NAME");
+  for await (const policy of listAttachedRolePolicies("ROLE_NAME")) {
+    console.log(policy);
+  }
 }

@@ -8,9 +8,9 @@
     "integration-test": "vitest run **/*.integration.test.js --coverage"
   },
   "dependencies": {
-    "@aws-sdk/client-iam": "^3.299.0",
-    "@aws-sdk/client-s3": "^3.299.0",
-    "@aws-sdk/client-sts": "^3.299.0"
+    "@aws-sdk/client-iam": "^3.303.0",
+    "@aws-sdk/client-s3": "^3.303.0",
+    "@aws-sdk/client-sts": "^3.303.0"
   },
   "devDependencies": {
     "@vitest/coverage-c8": "^0.29.8",

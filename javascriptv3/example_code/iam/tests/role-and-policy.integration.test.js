@@ -13,6 +13,40 @@ import { deletePolicy } from "../actions/delete-policy.js";
 import { attachRolePolicy } from "../actions/attach-role-policy.js";
 import { listAttachedRolePolicies } from "../actions/list-attached-role-policies.js";
 import { detachRolePolicy } from "../actions/detach-role-policy.js";
+import { IAMClient, waitUntilRoleExists } from "@aws-sdk/client-iam";
+import { putRolePolicy } from "../actions/put-role-policy.js";
+import { listRolePolicies } from "../actions/list-role-policies.js";
+import { deleteRolePolicy } from "../actions/delete-role-policy.js";
+
+const examplePolicy = JSON.stringify({
+  Version: "2012-10-17",
+  Statement: [
+    {
+      Sid: "VisualEditor0",
+      Effect: "Allow",
+      Action: [
+        "s3:ListBucketMultipartUploads",
+        "s3:ListBucketVersions",
+        "s3:ListBucket",
+        "s3:ListMultipartUploadParts",
+      ],
+      Resource: "arn:aws:s3:::test-bucket",
+    },
+    {
+      Sid: "VisualEditor1",
+      Effect: "Allow",
+      Action: [
+        "s3:ListStorageLensConfigurations",
+        "s3:ListAccessPointsForObjectLambda",
+        "s3:ListAllMyBuckets",
+        "s3:ListAccessPoints",
+        "s3:ListJobs",
+        "s3:ListMultiRegionAccessPoints",
+      ],
+      Resource: "*",
+    },
+  ],
+});
 
 describe("Role and policy test", () => {
   it("should create a role and a policy, list them, get role, attach them, and delete them", async () => {
@@ -20,9 +54,15 @@ describe("Role and policy test", () => {
     const roleName = getUniqueName("create-role-test");
     await createRole(roleName);
 
+    await waitUntilRoleExists(
+      { client: new IAMClient({}), maxWaitTime: 300 },
+      { RoleName: roleName }
+    );
+
     // List roles.
-    const role = await findRole(roleName);
-    expect(role).toBeDefined();
+    const foundRole = await findRole(roleName);
+    expect(foundRole).toBeDefined();
+    expect(foundRole?.RoleName).toEqual(roleName);
 
     // Get role.
     const getRoleResponse = await getRole(roleName);
@@ -40,14 +80,31 @@ describe("Role and policy test", () => {
 
     const policyArn = policy?.Arn;
 
+    // Attach inline policy to role.
+    const inlinePolicyName = getUniqueName("inline-policy-test");
+    await putRolePolicy(roleName, inlinePolicyName, examplePolicy);
+    let foundInlinePolicyName = await findInlineRolePolicy(
+      roleName,
+      inlinePolicyName
+    );
+    expect(foundInlinePolicyName).toEqual(inlinePolicyName);
+
+    // Delete inline policy.
+    await deleteRolePolicy(roleName, inlinePolicyName);
+    foundInlinePolicyName = await findInlineRolePolicy(
+      roleName,
+      inlinePolicyName
+    );
+    expect(foundInlinePolicyName).toBeUndefined();
+
     // Attach policy to role.
     await attachRolePolicy(policyArn, roleName);
-    let attachedPolicy = await findAttachedPolicy(roleName, policyArn);
+    let attachedPolicy = await findAttachedRolePolicy(roleName, policyArn);
     expect(attachedPolicy).toBeDefined();
 
     // Detach policy from role.
     await detachRolePolicy(policyArn, roleName);
-    attachedPolicy = await findAttachedPolicy(roleName, policyArn);
+    attachedPolicy = await findAttachedRolePolicy(roleName, policyArn);
     expect(attachedPolicy).toBeUndefined();
 
     // Get policy
@@ -71,10 +128,11 @@ describe("Role and policy test", () => {
  * @param {string} policyName
  */
 const findPolicy = async (policyName) => {
-  const listPoliciesResponse = await listPolicies();
-  return listPoliciesResponse.Policies?.find(
-    (p) => p.PolicyName === policyName
-  );
+  for await (const policy of listPolicies()) {
+    if (policy.PolicyName === policyName) {
+      return policy;
+    }
+  }
 };
 
 /**
@@ -83,8 +141,11 @@ const findPolicy = async (policyName) => {
  * @returns
  */
 const findRole = async (roleName) => {
-  const listRolesResponse = await listRoles();
-  return listRolesResponse.Roles?.find((r) => r.RoleName === roleName);
+  for await (const role of listRoles()) {
+    if (role.RoleName === roleName) {
+      return role;
+    }
+  }
 };
 
 /**
@@ -92,9 +153,23 @@ const findRole = async (roleName) => {
  * @param {string} roleName
  * @param {string} policyArn
  */
-const findAttachedPolicy = async (roleName, policyArn) => {
-  const listAttachedPoliciesResponse = await listAttachedRolePolicies(roleName);
-  return listAttachedPoliciesResponse.AttachedPolicies?.find(
-    (p) => p.PolicyArn === policyArn
-  );
+const findAttachedRolePolicy = async (roleName, policyArn) => {
+  for await (const policy of listAttachedRolePolicies(roleName)) {
+    if (policy.PolicyArn === policyArn) {
+      return policy;
+    }
+  }
+};
+
+/**
+ *
+ * @param {string} roleName
+ * @param {string} policyName
+ */
+const findInlineRolePolicy = async (roleName, policyName) => {
+  for await (const policy of listRolePolicies(roleName)) {
+    if (policy === policyName) {
+      return policy;
+    }
+  }
 };

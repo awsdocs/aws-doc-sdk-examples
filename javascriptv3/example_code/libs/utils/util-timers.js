@@ -24,6 +24,10 @@ const retry = (config, fn) =>
     fn()
       .then(resolve)
       .catch((err) => {
+        console.warn(
+          `Callback in retry function failed. Retrying... ${maxRetries}`
+        );
+        console.warn(err instanceof Error ? err.message : err);
         if (maxRetries === 0) {
           reject(err);
         } else {

@@ -10,21 +10,20 @@ import { DeleteServerCertificateCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} certName
+ */
+export const deleteServerCertificate = (certName) => {
   const command = new DeleteServerCertificateCommand({
-    ServerCertificateName: "CERTIFICATE_NAME",
+    ServerCertificateName: certName,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.certs.deleteServerCertificateV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  deleteServerCertificate("CERTIFICATE_NAME");
 }

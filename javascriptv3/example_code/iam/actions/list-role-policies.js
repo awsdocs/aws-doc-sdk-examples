@@ -10,24 +10,40 @@ import { ListRolePoliciesCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ * @param {string} roleName
+ */
+export async function* listRolePolicies(roleName) {
   const command = new ListRolePoliciesCommand({
-    RoleName: "ROLE_NAME" /* This is a number value. Required */,
-    // Use when results are truncated.
-    Marker: "MARKER",
+    RoleName: roleName,
     MaxItems: 10,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
+  let response = await client.send(command);
+
+  while (response.PolicyNames?.length) {
+    for (const policyName of response.PolicyNames) {
+      yield policyName;
+    }
+
+    if (response.IsTruncated) {
+      response = await client.send(
+        new ListRolePoliciesCommand({
+          RoleName: roleName,
+          MaxItems: 10,
+          Marker: response.Marker,
+        })
+      );
+    } else {
+      break;
+    }
   }
-};
+}
 // snippet-end:[iam.JavaScript.listrolepoliciesv3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  for await (const policyName of listRolePolicies("ROLE_NAME")) {
+    console.log(policyName);
+  }
 }

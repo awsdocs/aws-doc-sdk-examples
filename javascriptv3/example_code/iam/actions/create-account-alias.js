@@ -10,21 +10,21 @@ import { CreateAccountAliasCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+/**
+ *
+ * @param {string} alias - A unique name for the account alias.
+ * @returns
+ */
+export const createAccountAlias = (alias) => {
   const command = new CreateAccountAliasCommand({
-    AccountAlias: "ACCOUNT_ALIAS",
+    AccountAlias: alias,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
-  }
+  return client.send(command);
 };
 // snippet-end:[iam.JavaScript.alias.createAccountAliasV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  createAccountAlias("ALIAS");
 }

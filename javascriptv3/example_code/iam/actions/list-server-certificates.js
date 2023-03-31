@@ -10,19 +10,27 @@ import { ListServerCertificatesCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+export async function* listServerCertificates() {
   const command = new ListServerCertificatesCommand({});
+  let response = await client.send(command);
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
+  while (response.ServerCertificateMetadataList?.length) {
+    for await (const cert of response.ServerCertificateMetadataList) {
+      yield cert;
+    }
+
+    if (response.IsTruncated) {
+      response = await client.send(new ListServerCertificatesCommand({}));
+    } else {
+      break;
+    }
   }
-};
+}
 // snippet-end:[iam.JavaScript.certs.listServerCertificatesV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  for await (const cert of listServerCertificates()) {
+    console.log(cert);
+  }
 }

@@ -10,23 +10,35 @@ import { ListGroupsCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
-export const main = async () => {
+export async function* listGroups() {
   const command = new ListGroupsCommand({
-    // Use when results are truncated.
-    Marker: "MARKER",
     MaxItems: 10,
   });
 
-  try {
-    const response = await client.send(command);
-    console.log(response);
-  } catch (err) {
-    console.error(err);
+  let response = await client.send(command);
+
+  while (response.Groups?.length) {
+    for (const group of response.Groups) {
+      yield group;
+    }
+
+    if (response.IsTruncated) {
+      response = await client.send(
+        new ListGroupsCommand({
+          Marker: response.Marker,
+          MaxItems: 10,
+        })
+      );
+    } else {
+      break;
+    }
   }
-};
+}
 // snippet-end:[iam.JavaScript.listgroupsV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  for await (const group of listGroups()) {
+    console.log(group);
+  }
 }

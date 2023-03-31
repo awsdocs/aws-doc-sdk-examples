@@ -14,21 +14,38 @@ const client = new IAMClient({});
  *
  * @param {string} userName
  */
-export const listAccessKeys = async (userName) => {
+export async function* listAccessKeys(userName) {
   const command = new ListAccessKeysCommand({
     MaxItems: 5,
     UserName: userName,
   });
 
-  const response = await client.send(command);
-  console.log(
-    (response.AccessKeyMetadata || []).map((x) => x.AccessKeyId).join("\n")
-  );
-  return response;
-};
+  /**
+   * @type {import("@aws-sdk/client-iam").ListAccessKeysCommandOutput | undefined}
+   */
+  let response = await client.send(command);
+
+  while (response?.AccessKeyMetadata?.length) {
+    for (const key of response.AccessKeyMetadata) {
+      yield key;
+    }
+
+    if (response.IsTruncated) {
+      response = await client.send(
+        new ListAccessKeysCommand({
+          Marker: response.Marker,
+        })
+      );
+    } else {
+      break;
+    }
+  }
+}
 // snippet-end:[iam.JavaScript.keys.listAccessKeysV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  listAccessKeys("USER_NAME");
+  for await (const key of listAccessKeys("USER_NAME")) {
+    console.log(key);
+  }
 }

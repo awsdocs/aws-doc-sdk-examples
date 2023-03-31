@@ -93,27 +93,14 @@ const userInListUsersResponse = (userName, listUsersResponse) =>
 
 /**
  *
- * @param {string} accessKeyId
- * @param {import("@aws-sdk/client-iam").AccessKeyMetadata[]} accessKeyMetadata
- * @returns {import("@aws-sdk/client-iam").AccessKeyMetadata | undefined}
- */
-const accessKeyInListAccessKeysResponse = (accessKeyId, accessKeyMetadata) =>
-  accessKeyMetadata.find((a) => a.AccessKeyId === accessKeyId);
-
-/**
- *
  * @param {string} userName
  * @param {string} accessKeyId
  */
 const findAccessKeyMetadata = async (userName, accessKeyId) => {
   // List the access keys.
-  const listAccessKeysResponse = await listAccessKeys(userName);
-  if (!listAccessKeysResponse.AccessKeyMetadata) {
-    throw new Error("Missing AccessKeyMetadata");
+  for await (const accessKey of listAccessKeys(userName)) {
+    if (accessKey.AccessKeyId === accessKeyId) {
+      return accessKey;
+    }
   }
-
-  return accessKeyInListAccessKeysResponse(
-    accessKeyId,
-    listAccessKeysResponse.AccessKeyMetadata
-  );
 };
