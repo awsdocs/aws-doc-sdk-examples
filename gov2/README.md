@@ -96,7 +96,7 @@ command prompt by including the `integration` tag.
 go test -tags=integration ./...
 ```
 
-## Docker image
+## Docker image (Beta)
 
 This example code will soon be available in a container image
 hosted on [Amazon Elastic Container Registry (Amazon ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). 
