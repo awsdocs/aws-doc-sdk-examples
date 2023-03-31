@@ -70,7 +70,7 @@ class Scanner:
         self._load_examples()
         hello = {}
         for example_name, example in self.example_meta.items():
-            if example['category'] == config.categories['hello'] and self.lang_name in example['languages']:
+            if example.get('category', '') == config.categories['hello'] and self.lang_name in example['languages']:
                 hello[example_name] = example
         return hello
 
@@ -78,7 +78,7 @@ class Scanner:
         self._load_examples()
         actions = {}
         for example_name, example in self.example_meta.items():
-            if not example['category'] and self.lang_name in example['languages']:
+            if not example.get('category') and self.lang_name in example['languages']:
                 actions[example_name] = example
         return actions
 
@@ -86,7 +86,7 @@ class Scanner:
         self._load_examples()
         scenarios = {}
         for example_name, example in self.example_meta.items():
-            if example['category'] == config.categories['scenarios'] and self.lang_name in example['languages']:
+            if example.get('category', '') == config.categories['scenarios'] and self.lang_name in example['languages']:
                 scenarios[example_name] = example
         return scenarios
 
@@ -104,14 +104,17 @@ class Scanner:
         tag_path = None
         for ex_ver in example['languages'][self.lang_name]['versions']:
             if ex_ver['sdk_version'] == sdk_ver:
-                if 'github' in ex_ver and 'excerpts' in ex_ver:
-                    github = ex_ver['github']
-                    for t in ex_ver['excerpts'][0]['snippet_tags']:
-                        if api_name in t:
-                            tag = t
-                    if tag is None:
-                        tag = ex_ver['excerpts'][0]['snippet_tags'][0]
-        if github is not None:
+                github = ex_ver.get('github')
+                if github is not None:
+                    if 'excerpts' in ex_ver:
+                        for t in ex_ver['excerpts'][0]['snippet_tags']:
+                            if api_name in t:
+                                tag = t
+                        if tag is None:
+                            tag = ex_ver['excerpts'][0]['snippet_tags'][0]
+                    elif 'block_content' in ex_ver:
+                        tag_path = github
+        if github is not None and tag_path is None:
             for root, dirs, files in os.walk(github):
                 for f in files:
                     try:
