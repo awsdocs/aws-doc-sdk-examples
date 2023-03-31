@@ -1,7 +1,7 @@
-/**
- * Cognito User Pool
- * API Gateway
- */
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
 
 import {
   AuthorizationType,
@@ -85,6 +85,14 @@ export class PamApi extends Construct {
       response: new models.UploadResponseModel(this, { restApi }),
     });
 
+<<<<<<< HEAD
+    this.route("s3_copy", lambdas.copy, "PUT", {
+      request: new models.CopyRequestModel(this, { restApi }),
+      response: new models.CopyResponseModel(this, { restApi }),
+    });
+
+=======
+>>>>>>> 0b0947d67e7f390b00769ffc3edd7ba44801d429
     this.route("download", lambdas.download, "PUT", {
       event: true,
       request: new models.DownloadRequestModel(this, { restApi }),
