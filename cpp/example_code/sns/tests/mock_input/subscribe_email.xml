@@ -1,0 +1,8 @@
+<SubscribeResponse xmlns="http://sns.amazonaws.com/doc/2010-03-31/">
+    <SubscribeResult>
+        <SubscriptionArn>pending confirmation</SubscriptionArn>
+    </SubscribeResult>
+    <ResponseMetadata>
+        <RequestId>2b6ba971-452d-5608-877e-f5eadb517761</RequestId>
+    </ResponseMetadata>
+</SubscribeResponse>
