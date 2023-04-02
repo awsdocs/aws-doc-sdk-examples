@@ -12,7 +12,7 @@ glacier_CreateVault:
           excerpts:
             - description:
               snippet_tags:
-                - Glacier.dotnetv3.CreateVaultExample
+                - Glacier.dotnetv3.GlacierActions.CreateVault
     Java:
       versions:
         - sdk_version: 2
@@ -66,7 +66,7 @@ glacier_ListVaults:
           excerpts:
             - description:
               snippet_tags:
-                - Glacier.dotnetv3.ListVaultExample
+                - Glacier.dotnetv3.GlacierActions.ListVaults
     Java:
       versions:
         - sdk_version: 2
@@ -101,7 +101,7 @@ glacier_UploadArchive:
           excerpts:
             - description:
               snippet_tags:
-                - Glacier.dotnetv3.UploadArchiveHighLevelExample
+                - Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Upload
     Java:
       versions:
         - sdk_version: 2
@@ -197,7 +197,7 @@ glacier_ListJobs:
           excerpts:
             - description:
               snippet_tags:
-                - Glacier.dotnetv3.ListJobsExample
+                - Glacier.dotnetv3.GlacierActions.ListJobs
     Python:
       versions:
         - sdk_version: 3
@@ -292,7 +292,7 @@ glacier_DescribeJob:
           excerpts:
             - description:
               snippet_tags:
-                - Glacier.dotnetv3.DescribeArchiveExample
+                - Glacier.dotnetv3.GlacierActions.DescribeJobs
     Python:
       versions:
         - sdk_version: 3
@@ -450,7 +450,7 @@ glacier_AddTagsToVault:
           excerpts:
             - description:
               snippet_tags:
-                - Glacier.dotnetv3.AddTagsToVaultExample
+                - Glacier.dotnetv3.GlacierActions.AddTagsToVault
   services:
     glacier: {AddTagsToVault}
 glacier_ListTagsForVault:
@@ -466,7 +466,7 @@ glacier_ListTagsForVault:
           excerpts:
             - description:
               snippet_tags:
-                - Glacier.dotnetv3.ListTagsForVaultExample
+                - Glacier.dotnetv3.GlacierActions.ListTagsForVault
   services:
     glacier: {ListTagsForVault}
 glacier_DownloadArchive:
@@ -482,6 +482,6 @@ glacier_DownloadArchive:
           excerpts:
             - description:
               snippet_tags:
-                - Glacier.dotnetv3.DownloadArchiveHighLevelExample
+                - Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Download
   services:
-    glacier: {}
+    glacier: {DownloadArchive}
