@@ -1,4 +1,21 @@
 # zexi 0.4.2
+lambda_Hello:
+  title: Hello &LAM;
+  title_abbrev: Hello &LAM;
+  synopsis: get started using &LAM;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Lambda.dotnetv3.LambdaActions.HelloLambda
+  services:
+    lambda: {ListFunctions}
 lambda_CreateFunction:
   title: Create a &LAM; function using an &AWS; SDK
   title_abbrev: Create a function
@@ -13,7 +30,7 @@ lambda_CreateFunction:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.CreateLambdaFunction
+                - Lambda.dotnetv3.LambdaActions.CreateLambdaFunction
     Kotlin:
       versions:
         - sdk_version: 1
@@ -105,7 +122,7 @@ lambda_DeleteFunction:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.DeleteLambdaFunction
+                - Lambda.dotnetv3.LambdaActions.DeleteLambdaFunction
     Kotlin:
       versions:
         - sdk_version: 1
@@ -196,8 +213,7 @@ lambda_Invoke:
           excerpts:
             - description:
               snippet_tags:
-                - Lambda.dotnetv3.InvokeFunctionExample
-                - lambda.dotnetv3.Lambda_Basics.InvokeFunction
+                - Lambda.dotnetv3.LambdaActions.InvokeFunction
     Kotlin:
       versions:
         - sdk_version: 1
@@ -289,7 +305,7 @@ lambda_GetFunction:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.GetFunction
+                - Lambda.dotnetv3.LambdaActions.GetFunction
     PHP:
       versions:
         - sdk_version: 3
@@ -362,7 +378,7 @@ lambda_UpdateFunctionCode:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.UpdateFunctionCode
+                - Lambda.dotnetv3.LambdaActions.UpdateFunctionCode
     PHP:
       versions:
         - sdk_version: 3
@@ -434,7 +450,7 @@ lambda_UpdateFunctionConfiguration:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.UpdateLambdaConfiguration
+                - Lambda.dotnetv3.LambdaActions.UpdateFunctionConfiguration
     PHP:
       versions:
         - sdk_version: 3
@@ -508,11 +524,7 @@ lambda_ListFunctions:
           excerpts:
             - description:
               snippet_tags:
-                - Lambda.dotnetv3.ListFunctionsExample
-                - lambda.dotnetv3.Lambda_Basics.ListFunctions
-            - description: List functions using a paginator.
-              snippet_tags:
-                - Lambda.dotnetv3.ListFunctionsExample.Paginator
+                - Lambda.dotnetv3.LambdaActions.ListFunctions
     PHP:
       versions:
         - sdk_version: 3
@@ -592,10 +604,15 @@ lambda_Scenario_GettingStartedFunctions:
           github: dotnetv3/Lambda
           sdkguide:
           excerpts:
-            - description:
+            - description: Create methods that perform &LAM; actions.
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.GlobalUsings
-                - lambda.dotnetv3.Lambda_Basics.main
+                - Lambda.dotnetv3.LambdaActions.LambdaWrapper
+            - description: Create a function that runs the scenario.
+              snippet_tags:
+                - Lambda.dotnetv3.LambdaBasics.Usings
+                - Lambda.dotnetv3.LambdaBasics
+                - Lambda.dotnetv3.LambdaActions.LambdaRoleWrapper
+                - Lambda.dotnetv3.LambdaScenarioCommon.UIWrapper
             - description: Define a &LAM; handler that increments a number.
               snippet_tags:
                 - lambda.dotnetv3.handler.increment

@@ -3,7 +3,8 @@
   "IncrementHandler": "LambdaIncrement::LambdaIncrement.Function::FunctionHandler",
   "CalculatorHandler": "LambdaCalculator::LambdaCalculator.Function::FunctionHandler",
   "BucketName": "doc-example-bucket",
-  "Key": "LambdaIncrement.zip",
-  "UpdateKey": "LambdaCalculator.zip",
-  "RoleName": "lambda-support"
+  "IncrementKey": "LambdaIncrement.zip",
+  "CalculatorKey": "LambdaCalculator.zip",
+  "RoleName": "lambda-support",
+  "PolicyArn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
