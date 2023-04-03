@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DescribeCertificates\DescribeCertificate.csproj" />
+    <ProjectReference Include="..\DescribeCertificate\DescribeCertificate.csproj" />
   </ItemGroup>
 
 </Project>

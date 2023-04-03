@@ -5,7 +5,7 @@ namespace Lambda_Basics
     /// Methods to manage AWS Identity and Access Management (IAM) roles for
     /// the Lambda Basics scenario.
     /// </summary>
-    internal class LambdaRoleMethods
+    public class LambdaRoleMethods
     {
         private readonly AmazonIdentityManagementServiceClient _client;
 

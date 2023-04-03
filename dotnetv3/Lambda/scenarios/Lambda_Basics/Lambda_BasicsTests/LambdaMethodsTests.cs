@@ -37,12 +37,27 @@ namespace Lambda_Basics.Tests
         [Trait("Category", "Integration")]
         public async Task CreateLambdaFunctionTest()
         {
+            string policyDocument = "{" +
+                                    " \"Version\": \"2012-10-17\"," +
+                                    " \"Statement\": [ " +
+                                    "    {" +
+                                    "        \"Effect\": \"Allow\"," +
+                                    "        \"Principal\": {" +
+                                    "            \"Service\": \"lambda.amazonaws.com\" " +
+                                    "    }," +
+                                    "        \"Action\": \"sts:AssumeRole\" " +
+                                    "    }" +
+                                    "]" +
+                                    "}";
+            var _LambdaRoleMethods = new LambdaRoleMethods();
+            var roleArn = await _LambdaRoleMethods.CreateLambdaRole(_configuration["RoleName"], policyDocument);
+            System.Threading.Thread.Sleep(10000);
             var functionArn = await _LambdaMethods.CreateLambdaFunction(
                 _client,
                 _configuration["FunctionName"],
                 _configuration["BucketName"],
                 _configuration["Key"],
-                _configuration["RoleArn"],
+                roleArn,
                 _configuration["IncrementHandler"]);
 
             NotNull(functionArn);

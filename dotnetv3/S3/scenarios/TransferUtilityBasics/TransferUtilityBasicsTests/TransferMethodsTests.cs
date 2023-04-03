@@ -1,6 +1,8 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using Xunit.Extensions.Ordering;
+
 namespace TransferUtilityBasics.Tests
 {
     public class TransferMethodsTests
@@ -9,7 +11,7 @@ namespace TransferUtilityBasics.Tests
 
         readonly IAmazonS3 _client;
         readonly TransferUtility transferUtil;
-        private readonly string _localPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\TransferFolderTest";
+        private readonly string _localPath = $".\\TransferFolderTest";
 
         public TransferMethodsTests()
         {
@@ -26,6 +28,7 @@ namespace TransferUtilityBasics.Tests
         }
 
         [Fact()]
+        [Order(1)]
         [Trait("Category", "Integration")]
         public async Task DownloadSingleFileAsyncTest()
         {
@@ -50,14 +53,15 @@ namespace TransferUtilityBasics.Tests
         {
             var downloadPath = $"{_localPath}\\TestDownloadFolder";
             var s3Path = _configuration["S3Path"];
-
+            Directory.CreateDirectory(downloadPath);
             var success = await TransferMethods.DownloadS3DirectoryAsync(
                 transferUtil,
                 _configuration["BucketName"],
-                downloadPath,
-                s3Path);
+                s3Path,
+                downloadPath
+                );
 
-            Assert.True(success, "Couldn't download files from {s3Path}.");
+            Assert.True(success, $"Couldn't download files from {s3Path}.");
         }
 
         [Fact()]

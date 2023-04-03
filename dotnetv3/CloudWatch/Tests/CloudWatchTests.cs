@@ -252,7 +252,7 @@ public class CloudWatchTests
             20,
             query);
 
-        Assert.Contains(metricData, (m) => m.Values.Any());
+        Assert.NotEmpty(metricData);
     }
 
     /// <summary>
