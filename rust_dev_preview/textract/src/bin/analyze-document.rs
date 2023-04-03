@@ -33,6 +33,7 @@ struct Opt {
 #[tokio::main]
 #[allow(clippy::result_large_err)]
 async fn main() -> Result<(), aws_sdk_textract::Error> {
+    tracing_subscriber::fmt::init();
     let Opt {
         region,
         query,
@@ -52,7 +53,7 @@ async fn main() -> Result<(), aws_sdk_textract::Error> {
         .feature_types(FeatureType::Queries)
         .queries_config(
             QueriesConfig::builder()
-                .queries(Query::builder().text(query).build())
+                .queries(Query::builder().text(&query).build())
                 .build(),
         )
         .send()
@@ -71,13 +72,13 @@ async fn main() -> Result<(), aws_sdk_textract::Error> {
                 })
                 .filter_map(|block| block.text().map(ToOwned::to_owned))
                 .next()
-                .expect("customer has a stated topping preference");
+                .expect("found query result");
 
-            println!("Sources say their favorite pizza topping is {pizza_topping}");
+            println!("{query} {pizza_topping}");
         }
         Err(err) => {
             println!(
-                "I really can't say what their favorite topping is. {}",
+                "Could not answer query '{query}'\n\t{}",
                 DisplayErrorContext(&err)
             );
         }
