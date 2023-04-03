@@ -10,9 +10,7 @@ describe("util-timers", () => {
     });
 
     it("should call a function multiple times if that function fails", async () => {
-      const fn = vi.fn(() => {
-        throw new Error("Fail");
-      });
+      const fn = vi.fn(() => Promise.reject(new Error("Fail")));
       await retry({ intervalInMs: 1, maxRetries: 3 }, fn).catch(() => {});
       expect(fn).toHaveBeenCalledTimes(4);
     });
@@ -20,7 +18,7 @@ describe("util-timers", () => {
     it("should retry a function if it fails, but succeeds on the second try", async () => {
       const fn = vi.fn(() => {
         if (fn.mock.calls.length === 1) {
-          throw new Error("Fail");
+          return Promise.reject(new Error("Fail"));
         }
         return Promise.resolve(true);
       });

@@ -13,19 +13,16 @@ import {
 
 const client = new IAMClient({});
 
-export const main = async () => {
+export const getAccountPasswordPolicy = async () => {
   const command = new GetAccountPasswordPolicyCommand({});
 
-  try {
-    const { PasswordPolicy } = await client.send(command);
-    console.log(PasswordPolicy);
-  } catch (err) {
-    console.error(err);
-  }
+  const response = await client.send(command);
+  console.log(response.PasswordPolicy);
+  return response;
 };
 // snippet-end:[iam.JavaScript.getaccountpasswordpolicyV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  getAccountPasswordPolicy();
 }

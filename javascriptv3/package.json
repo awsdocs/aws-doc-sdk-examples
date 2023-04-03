@@ -21,10 +21,12 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.56.0",
     "@typescript-eslint/parser": "^5.56.0",
+    "@vitest/coverage-c8": "^0.29.8",
     "eslint": "^8.36.0",
     "eslint-import-resolver-typescript": "^3.5.4",
     "eslint-plugin-import": "^2.27.5",
     "lerna": "^6.3.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "vitest": "^0.29.8"
   }
 }

@@ -10,6 +10,11 @@ import { ListPoliciesCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
+/**
+ * A generator function that handles paginated results.
+ * The AWS SDK for JavaScript (v3) provides {@link https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html#paginators | paginator} functions to simplify this.
+ *
+ */
 export async function* listPolicies() {
   const command = new ListPoliciesCommand({
     MaxItems: 10,

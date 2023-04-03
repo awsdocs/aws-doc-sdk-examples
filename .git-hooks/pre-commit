@@ -11,7 +11,10 @@ for dir in $(ls -A) ; do
       # This commit hook is run from the project root. Changing
       # directories here lets us simplify the shell scripts.
       cd $dir
-      "./hook_scripts/pre-commit.sh"
+      if ! "./hook_scripts/pre-commit.sh" ; then
+        echo "pre-commit hook failed in $dir"
+        exit 1
+      fi
       cd ..
     fi
   fi

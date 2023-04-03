@@ -10,6 +10,11 @@ import { ListServerCertificatesCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 
+/**
+ * A generator function that handles paginated results.
+ * The AWS SDK for JavaScript (v3) provides {@link https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html#paginators | paginator} functions to simplify this.
+ *
+ */
 export async function* listServerCertificates() {
   const command = new ListServerCertificatesCommand({});
   let response = await client.send(command);

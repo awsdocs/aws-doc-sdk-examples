@@ -11,9 +11,5 @@
     "@aws-sdk/client-iam": "^3.303.0",
     "@aws-sdk/client-s3": "^3.303.0",
     "@aws-sdk/client-sts": "^3.303.0"
-  },
-  "devDependencies": {
-    "@vitest/coverage-c8": "^0.29.8",
-    "vitest": "^0.29.8"
   }
 }
