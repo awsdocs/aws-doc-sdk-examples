@@ -111,7 +111,7 @@ public class GlacierWrapper
         };
 
         var response = await _glacierService.DescribeVaultAsync(request);
-        
+
         // Display the information about the vault.
         Console.WriteLine($"{response.VaultName}\tARN: {response.VaultARN}");
         Console.WriteLine($"Created on: {response.CreationDate}\tNumber of Archives: {response.NumberOfArchives}\tSize (in bytes): {response.SizeInBytes}");
