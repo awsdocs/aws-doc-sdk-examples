@@ -24,5 +24,3 @@ export const createAccessKey = (userName) => {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   createAccessKey("USER_NAME");
 }
-
-// snippet-start:[iam.JavaScript.keys.createAccessKeyV3]
