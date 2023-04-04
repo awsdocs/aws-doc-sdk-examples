@@ -7,9 +7,9 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_ecr::{config::Region, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -48,7 +48,7 @@ async fn show_repos(client: &aws_sdk_ecr::Client) -> Result<(), aws_sdk_ecr::Err
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let Opt { region, verbose } = Opt::from_args();
+    let Opt { region, verbose } = Opt::parse();
 
     if verbose {
         tracing_subscriber::fmt::init();

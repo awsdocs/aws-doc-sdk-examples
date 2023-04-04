@@ -6,8 +6,8 @@
 #![allow(clippy::result_large_err)]
 
 use aws_sdk_lambda::{Client, Error};
+use clap::Parser;
 use lambda_code_examples::{make_client, ArnOpt};
-use structopt::StructOpt;
 
 // Runs a Lambda function.
 // snippet-start:[lambda.rust.invoke-function]
@@ -32,7 +32,7 @@ async fn run_function(client: &Client, arn: &str) -> Result<(), Error> {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let ArnOpt { arn, base } = ArnOpt::from_args();
+    let ArnOpt { arn, base } = ArnOpt::parse();
 
     let client = make_client(base).await;
 

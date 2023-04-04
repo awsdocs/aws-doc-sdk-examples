@@ -7,9 +7,9 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_ecr::{config::Region, meta::PKG_VERSION, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -67,7 +67,7 @@ async fn main() -> Result<(), Error> {
         region,
         repository,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     if verbose {
         tracing_subscriber::fmt::init();

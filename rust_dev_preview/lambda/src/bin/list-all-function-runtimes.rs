@@ -6,10 +6,10 @@
 #![allow(clippy::result_large_err)]
 
 use aws_sdk_lambda::Error;
+use clap::Parser;
 use lambda_code_examples::{make_client, make_config, Opt as BaseOpt};
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     #[structopt(flatten)]
     base: BaseOpt,
@@ -77,7 +77,7 @@ async fn show_lambdas(language: &str, region: &str, verbose: bool) -> Result<(),
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { language, base } = Opt::from_args();
+    let Opt { language, base } = Opt::parse();
     let language = language.as_deref().unwrap_or_default();
     let verbose = base.verbose;
 
