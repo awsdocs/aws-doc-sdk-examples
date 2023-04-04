@@ -35,12 +35,27 @@ export const main = async () => {
     new CreateUserCommand({ UserName: userName })
   );
 
+  if (!User) {
+    throw new Error("User not created");
+  }
+
   // Create an access key. This key is used to authenticate the new user to
   // Amazon S3 and AWS Security Token Service (AWS STS).
   // It's not best practice to use access keys. For more information, see https://aws.amazon.com/iam/resources/best-practices/.
+  const createAccessKeyResponse = await iamClient.send(
+    new CreateAccessKeyCommand({ UserName: userName })
+  );
+
+  if (
+    !createAccessKeyResponse.AccessKey?.AccessKeyId ||
+    !createAccessKeyResponse.AccessKey?.SecretAccessKey
+  ) {
+    throw new Error("Access key not created");
+  }
+
   const {
     AccessKey: { AccessKeyId, SecretAccessKey },
-  } = await iamClient.send(new CreateAccessKeyCommand({ UserName: userName }));
+  } = createAccessKeyResponse;
 
   let s3Client = new S3Client({
     credentials: {
@@ -51,21 +66,15 @@ export const main = async () => {
 
   // Retry the list buckets operation until it succeeds. InvalidAccessKeyId is
   // thrown while the user and access keys are still stabilizing.
-  await retry({ intervalInMs: 2000, maxRetries: 60 }, async () => {
-    try {
-      return await listBuckets(s3Client);
-    } catch (err) {
-      if (err.Code?.includes("InvalidAccessKeyId")) {
-        throw err;
-      }
-    }
-  });
+  await retry({ intervalInMs: 2000, maxRetries: 60 }, () =>
+    listBuckets(s3Client)
+  );
 
   // Retry the create role operation until it succeeds. A MalformedPolicyDocument error
   // is thrown while the user and access keys are still stabilizing.
   const { Role } = await retry(
     {
-      intervalInMs: 1000,
+      intervalInMs: 2000,
       maxRetries: 60,
     },
     () =>
@@ -89,6 +98,10 @@ export const main = async () => {
       )
   );
 
+  if (!Role) {
+    throw new Error("Role not created");
+  }
+
   // Create a policy that allows the user to list Amazon S3 buckets.
   const { Policy: listBucketPolicy } = await iamClient.send(
     new CreatePolicyCommand({
@@ -105,6 +118,10 @@ export const main = async () => {
       PolicyName: policyName,
     })
   );
+
+  if (!listBucketPolicy) {
+    throw new Error("Policy not created");
+  }
 
   // Attach the policy granting the 's3:ListAllMyBuckets' action to the role.
   await iamClient.send(
@@ -124,7 +141,7 @@ export const main = async () => {
 
   // Retry the assume role operation until it succeeds.
   const { Credentials } = await retry(
-    { intervalInMs: 1000, maxRetries: 60 },
+    { intervalInMs: 2000, maxRetries: 60 },
     () =>
       stsClient.send(
         new AssumeRoleCommand({
@@ -137,6 +154,10 @@ export const main = async () => {
       )
   );
 
+  if (!Credentials?.AccessKeyId || !Credentials?.SecretAccessKey) {
+    throw new Error("Credentials not created");
+  }
+
   s3Client = new S3Client({
     credentials: {
       accessKeyId: Credentials.AccessKeyId,
@@ -148,7 +169,7 @@ export const main = async () => {
   // List the Amazon S3 buckets again.
   // Retry the list buckets operation until it succeeds. AccessDenied might
   // be thrown while the role policy is still stabilizing.
-  await retry({ intervalInMs: 1000, maxRetries: 60 }, () =>
+  await retry({ intervalInMs: 2000, maxRetries: 60 }, () =>
     listBuckets(s3Client)
   );
 
@@ -192,6 +213,11 @@ export const main = async () => {
  */
 const listBuckets = async (s3Client) => {
   const { Buckets } = await s3Client.send(new ListBucketsCommand({}));
+
+  if (!Buckets) {
+    throw new Error("Buckets not listed");
+  }
+
   console.log(Buckets.map((bucket) => bucket.Name).join("\n"));
 };
 
