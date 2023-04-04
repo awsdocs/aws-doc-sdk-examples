@@ -5,7 +5,11 @@ import aws_cdk as cdk
 
 from consumer_stack.consumer_stack import ConsumerStack
 
-env_USA = cdk.Environment(account="260778392212", region="us-east-1")
+import os
+
+account = cdk.Aws
+
+env_USA = cdk.Environment(account='260778392212', region="us-east-1")
 
 app = App()
 ConsumerStack(app, "ConsumerStack", env=env_USA)

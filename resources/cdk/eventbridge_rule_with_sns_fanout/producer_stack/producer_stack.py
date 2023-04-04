@@ -51,7 +51,8 @@ class ProducerStack(Stack):
         # add a target to the EventBridge rule to publish a message to the SNS topic
         rule.add_target(targets.SnsTopic(topic))
 
-        master_account = client.get_parameter(Name='weathertop_central', WithDecryption=True)
+        response = client.get_parameter(Name='weathertop_central', WithDecryption=True)
+        master_account = response['Parameter']['Value']
 
         statement1 = iam.PolicyStatement()
         statement1.add_any_principal()
