@@ -1433,7 +1433,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
-    uri (0.11.0)
+    uri (0.12.1)
     zip (2.0.2)
 
 PLATFORMS
