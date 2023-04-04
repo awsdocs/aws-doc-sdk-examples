@@ -1,8 +1,0 @@
-{
-  "GroupName": "mvp-group-name",
-  "ImageId": "ami-05803413c51f242b7",
-  "InstanceType": "t2.micro",
-  "LaunchTemplateName": "AutoScaleLaunchTemplate",
-  "AvailabilityZone": "availability zone matching ImageId",
-  "ServiceLinkedRoleArn": "<Enter Value>"
-}
