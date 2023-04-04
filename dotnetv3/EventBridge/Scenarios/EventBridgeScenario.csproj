@@ -7,22 +7,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="settings.json" />
-    <None Remove="settings.local.json" />
-  </ItemGroup>
 
 	<ItemGroup>
 		<Content Include="settings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
-		<Content Include="settings.local.json">
+		<Content Include="settings.*.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			<DependentUpon>settings.json</DependentUpon>
 		</Content>
 	</ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
     <PackageReference Include="AWSSDK.EventBridge" Version="3.7.101.20" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.2" />
     <PackageReference Include="AWSSDK.IdentityManagement" Version="3.7.100.81" />
