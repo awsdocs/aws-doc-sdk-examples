@@ -16,6 +16,7 @@ from aws_cdk import (
     aws_ecr as ecr,
     aws_batch as batch,
     aws_batch_alpha as batch_alpha,
+    Aws,
     Stack
 )
 from constructs import Construct
@@ -29,6 +30,10 @@ class ConsumerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
+        # Weathertop Central variables
+        # TODO: Store these values in distributed keystore
+        master_account_id = '808326389482'
+        fanout_topic_name = "ProducerStack-fanouttopic6EFF7954-pYvxBdNPbEWM"
 
         #############################################
         ##                                         ##
@@ -36,13 +41,11 @@ class ConsumerStack(Stack):
         ##                                         ##
         #############################################
 
-        # Define existing SNS topic in producer account
-        fanout_topic_name = "ProducerStack-fanouttopic6EFF7954-QUCVUVFOWZDA"
-        fanout_topic_arn = f'arn:aws:sns:us-east-1:808326389482:{fanout_topic_name}'
+        # Locate SNS topic in Weathertop Central account
+        fanout_topic_arn = f'arn:aws:sns:us-east-1:{master_account_id}:{fanout_topic_name}'
         sns_topic = sns.Topic.from_topic_arn(self, fanout_topic_name, topic_arn=fanout_topic_arn)
-        container_image = ecs.EcrImage.from_registry(f"public.ecr.aws/b4v4v1s0/{language_name}:latest")
 
-        # client.get_parameter(Name=language_name, WithDecryption=True)
+        container_image = ecs.EcrImage.from_registry(f"public.ecr.aws/b4v4v1s0/{language_name}:latest")
 
         # Define the SQS queue in this account
         sqs_queue = sqs.Queue(self, f'BatchJobQueue-{language_name}')
@@ -193,8 +196,8 @@ class ConsumerStack(Stack):
         statement = iam.PolicyStatement()
         statement.add_resources(sqs_queue.queue_arn)
         statement.add_actions("sqs:*")
-        statement.add_arn_principal('arn:aws:iam::808326389482:root')
-        statement.add_arn_principal('arn:aws:iam::260778392212:root')
+        statement.add_arn_principal(f'arn:aws:iam::{master_account_id}:root')
+        statement.add_arn_principal(f'arn:aws:iam::{Aws.ACCOUNT_ID}:root')
         statement.add_condition("ArnLike", {"aws:SourceArn": fanout_topic_arn})
         sqs_queue.add_to_resource_policy(statement)
 
