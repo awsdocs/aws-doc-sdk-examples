@@ -44,7 +44,7 @@ public class EventBridgeScenario
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for EventBridge.
+        // Set up dependency injection for Amazon EventBridge.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)
@@ -142,7 +142,7 @@ public class EventBridgeScenario
     /// <summary>
     /// Create a role to be used by EventBridge.
     /// </summary>
-    /// <returns>The role ARN.</returns>
+    /// <returns>The role Amazon Resource Name (ARN).</returns>
     public static async Task<string> CreateRole()
     {
         Console.WriteLine(new string('-', 80));
@@ -184,13 +184,13 @@ public class EventBridgeScenario
 
     // snippet-start:[EventBridge.dotnetv3.CreateBucketWithEvents]
     /// <summary>
-    /// Create an Amazon S3 bucket with EventBridge events enabled.
+    /// Create an Amazon Simple Storage Service (Amazon S3) bucket with EventBridge events enabled.
     /// </summary>
     /// <returns>Async task.</returns>
     private static async Task CreateBucketWithEventBridgeEvents()
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("Creating an Amazon S3 bucket with EventBridge events enabled.");
+        Console.WriteLine("Creating an S3 bucket with EventBridge events enabled.");
 
         var testBucketName = _configuration["testBucketName"];
 
@@ -369,7 +369,7 @@ public class EventBridgeScenario
     /// <summary>
     /// Add an SNS target to the rule.
     /// </summary>
-    /// <param name="topicArn">The ARN of theSNS topic.</param>
+    /// <param name="topicArn">The ARN of the SNS topic.</param>
     /// <returns>Async task.</returns>
     private static async Task AddSnsTarget(string topicArn)
     {
