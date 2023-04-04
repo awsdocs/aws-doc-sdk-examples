@@ -91,7 +91,7 @@ async fn main() -> Result<(), Box<aws_sdk_eks::Error>> {
         region,
         subnet_ids,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     if verbose {
         tracing_subscriber::fmt::init();

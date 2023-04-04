@@ -77,7 +77,7 @@ async fn list_identities(client: &Client, pool_id: &str) -> Result<(), Error> {
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    if let Err(err) = run_example(Opt::from_args()).await {
+    if let Err(err) = run_example(Opt::parse()).await {
         eprintln!("Error: {}", DisplayErrorContext(err));
         process::exit(1);
     }

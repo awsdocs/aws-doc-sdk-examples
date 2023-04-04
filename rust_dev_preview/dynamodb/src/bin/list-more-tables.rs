@@ -20,7 +20,7 @@ use dynamodb_code_examples::{make_config, scenario::list::list_tables_iterative,
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let config = make_config(Opt::from_args()).await?;
+    let config = make_config(Opt::parse()).await?;
     let client = Client::new(&config);
 
     list_tables_iterative(&client).await?;

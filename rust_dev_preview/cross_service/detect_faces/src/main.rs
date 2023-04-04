@@ -153,7 +153,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         filename,
         region,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     // Make sure filename ends with .jpg, .jpeg, or .png
     let mut content_type = String::new();

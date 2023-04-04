@@ -67,7 +67,7 @@ async fn main() -> Result<(), Error> {
         region,
         repository,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     if verbose {
         tracing_subscriber::fmt::init();

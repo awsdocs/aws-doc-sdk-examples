@@ -71,7 +71,7 @@ struct Opt {
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
-    if let Err(err) = run_example(Opt::from_args()).await {
+    if let Err(err) = run_example(Opt::parse()).await {
         eprintln!("Error: {}", DisplayErrorContext(err));
         process::exit(1);
     }

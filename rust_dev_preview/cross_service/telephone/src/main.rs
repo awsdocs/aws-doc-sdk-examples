@@ -221,7 +221,7 @@ async fn main() -> Result<()> {
         job_name,
         region,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     // Copy the Region for each service client.
     let polly_region = region.clone();

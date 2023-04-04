@@ -13,7 +13,7 @@ use dynamodb_code_examples::{make_config, scenario::list::list_tables, Opt};
 /// Lists your tables in DynamoDB local.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let config = make_config(Opt::from_args()).await?;
+    let config = make_config(Opt::parse()).await?;
     let dynamodb_local_config = aws_sdk_dynamodb::config::Builder::from(&config)
         .endpoint_url(
             // 8000 is the default dynamodb port

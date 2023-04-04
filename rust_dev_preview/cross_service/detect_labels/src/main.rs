@@ -235,7 +235,7 @@ async fn main() -> Result<(), exif::Error> {
         region,
         table,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let dynamo_region = region.clone();
     let s3_region = region.clone();

@@ -41,7 +41,7 @@ async fn show_arns(client: &Client) -> Result<(), Error> {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let client = make_client(Opt::from_args()).await;
+    let client = make_client(Opt::parse()).await;
 
     show_arns(&client).await
 }

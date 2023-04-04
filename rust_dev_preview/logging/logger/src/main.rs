@@ -27,7 +27,7 @@ async fn main() -> Result<(), Error> {
     env_logger::init();
     // snippet-end:[logging.rust.main-logger-init]
 
-    let Opt { region, verbose } = Opt::from_args();
+    let Opt { region, verbose } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

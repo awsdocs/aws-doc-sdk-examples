@@ -32,7 +32,7 @@ async fn run_function(client: &Client, arn: &str) -> Result<(), Error> {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let ArnOpt { arn, base } = ArnOpt::from_args();
+    let ArnOpt { arn, base } = ArnOpt::parse();
 
     let client = make_client(base).await;
 

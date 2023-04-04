@@ -20,7 +20,7 @@ use dynamodb_code_examples::{make_config, scenario::list::list_tables_limit_10, 
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let shared_config = make_config(Opt::from_args()).await?;
+    let shared_config = make_config(Opt::parse()).await?;
     let client = Client::new(&shared_config);
 
     list_tables_limit_10(&client).await

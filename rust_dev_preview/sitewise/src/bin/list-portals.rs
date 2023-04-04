@@ -76,7 +76,7 @@ async fn list_portals(client: &Client) -> Result<(), Error> {
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    if let Err(err) = run_example(Opt::from_args()).await {
+    if let Err(err) = run_example(Opt::parse()).await {
         eprintln!("Error: {}", DisplayErrorContext(err));
         process::exit(1);
     }

@@ -32,7 +32,7 @@ async fn main() -> Result<(), Error> {
         arn,
         input,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let shared_config = aws_config::load_from_env().await;
     let client = Client::new(&shared_config);

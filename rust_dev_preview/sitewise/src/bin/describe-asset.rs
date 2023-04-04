@@ -183,7 +183,7 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    if let Err(err) = run_example(Opt::from_args()).await {
+    if let Err(err) = run_example(Opt::parse()).await {
         eprintln!("Error: {}", DisplayErrorContext(err));
         process::exit(1);
     }

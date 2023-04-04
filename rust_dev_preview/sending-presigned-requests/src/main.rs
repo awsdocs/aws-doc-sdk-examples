@@ -61,7 +61,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         object,
         expires_in,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

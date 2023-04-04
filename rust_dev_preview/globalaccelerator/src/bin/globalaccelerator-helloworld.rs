@@ -46,7 +46,7 @@ async fn show_accelerators(client: &Client) -> Result<(), Error> {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { verbose } = Opt::from_args();
+    let Opt { verbose } = Opt::parse();
 
     // Global Accelerator is a global service with its API in us-west-2
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));

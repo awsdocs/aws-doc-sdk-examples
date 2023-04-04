@@ -31,7 +31,7 @@ struct Opt {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { table, base } = Opt::from_args();
+    let Opt { table, base } = Opt::parse();
 
     let shared_config = make_config(base).await?;
     let client = Client::new(&shared_config);

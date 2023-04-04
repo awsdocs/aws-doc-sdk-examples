@@ -77,7 +77,7 @@ async fn show_lambdas(language: &str, region: &str, verbose: bool) -> Result<(),
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { language, base } = Opt::from_args();
+    let Opt { language, base } = Opt::parse();
     let language = language.as_deref().unwrap_or_default();
     let verbose = base.verbose;
 

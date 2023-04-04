@@ -46,7 +46,7 @@ async fn show_clusters(client: &aws_sdk_eks::Client) -> Result<(), aws_sdk_eks::
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() -> Result<(), Box<aws_sdk_eks::Error>> {
-    let Opt { region, verbose } = Opt::from_args();
+    let Opt { region, verbose } = Opt::parse();
 
     if verbose {
         tracing_subscriber::fmt::init();

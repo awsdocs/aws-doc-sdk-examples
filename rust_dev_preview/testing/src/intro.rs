@@ -78,7 +78,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync + 'static>> {
         prefix,
         region,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(s3::config::Region::new))
         .or_default_provider()

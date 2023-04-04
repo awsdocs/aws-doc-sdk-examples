@@ -24,7 +24,7 @@ struct Opt {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { arn, verbose } = Opt::from_args();
+    let Opt { arn, verbose } = Opt::parse();
 
     let shared_config = aws_config::load_from_env().await;
     let client = Client::new(&shared_config);
