@@ -2135,6 +2135,7 @@ s3_Scenario_BatchObjectVersioning:
     Python:
       versions:
         - sdk_version: 3
+          github: s3_versioning/batch_versioning.py
           block_content: scenario_S3BatchObjectVersioning_Python_block.xml
   services:
     s3: {}

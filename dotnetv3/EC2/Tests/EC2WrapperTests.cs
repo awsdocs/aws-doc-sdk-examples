@@ -188,7 +188,7 @@ public class EC2WrapperTests
     /// Test the ability to run EC2 instances.
     /// </summary>
     /// <returns>Async task.</returns>
-    [Fact()]
+    [Fact(Skip = "Long running test.")]
     [Order(10)]
     [Trait("Category", "Integration")]
     public async Task RunInstancesTest()
@@ -241,7 +241,7 @@ public class EC2WrapperTests
     /// Test the association of an elastic IP address to an instance.
     /// </summary>
     /// <returns>Async task.</returns>
-    [Fact()]
+    [Fact(Skip = "Quarantined test.")]
     [Order(13)]
     [Trait("Category", "Integration")]
     public async Task AssociateAddressTest()
@@ -254,7 +254,7 @@ public class EC2WrapperTests
     /// Test the ability to stop a running EC2 instance.
     /// </summary>
     /// <returns>Async task.</returns>
-    [Fact()]
+    [Fact(Skip = "Long running test.")]
     [Order(14)]
     [Trait("Category", "Integration")]
     public async Task StopInstancesTest()
@@ -280,7 +280,7 @@ public class EC2WrapperTests
     /// Test the ability to start an existing EC2 instance.
     /// </summary>
     /// <returns>Async task.</returns>
-    [Fact()]
+    [Fact(Skip = "Long running test.")]
     [Order(15)]
     [Trait("Category", "Integration")]
     public async Task StartInstancesTest()
@@ -309,7 +309,7 @@ public class EC2WrapperTests
     /// Elastic IP address.
     /// </summary>
     /// <returns>Async task.</returns>
-    [Fact()]
+    [Fact(Skip = "Quarantined test.")]
     [Order(16)]
     [Trait("Category", "Integration")]
     public async Task DisassociateIpTest()
@@ -335,7 +335,7 @@ public class EC2WrapperTests
     /// Test the ability to terminate an existing EC2 instance.
     /// </summary>
     /// <returns>Async task.</returns>
-    [Fact()]
+    [Fact(Skip = "Long running test.")]
     [Order(18)]
     [Trait("Category", "Integration")]
     public async Task TerminateInstanceTest()

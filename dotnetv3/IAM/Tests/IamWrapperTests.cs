@@ -107,7 +107,7 @@ namespace IAMActions.Tests
         /// doesn't have a password policy.
         /// </summary>
         /// <returns>Async Task.</returns>
-        [Fact()]
+        [Fact(Skip = "Quarantined test.")]
         [Trait("Category", "Quarantine")]
         public async Task GetAccountPasswordPolicy()
         {

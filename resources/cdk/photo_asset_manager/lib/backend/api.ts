@@ -58,12 +58,13 @@ export class PamApi extends Construct {
         defaultCorsPreflightOptions: {
           allowOrigins: Cors.ALL_ORIGINS,
           allowCredentials: true,
-        },
-        deployOptions: {
-          accessLogDestination: new LogGroupLogDestination(access),
-          loggingLevel: MethodLoggingLevel.INFO,
-          dataTraceEnabled: true,
-        },
+        }
+      
+   //     deployOptions: {
+   //       accessLogDestination: new LogGroupLogDestination(access),
+   //       loggingLevel: MethodLoggingLevel.INFO,
+   //       dataTraceEnabled: true,
+   //     },
       }
     ));
 
@@ -82,11 +83,6 @@ export class PamApi extends Construct {
     this.route("upload", lambdas.upload, "PUT", {
       request: new models.UploadRequestModel(this, { restApi }),
       response: new models.UploadResponseModel(this, { restApi }),
-    });
-
-    this.route("s3_copy", lambdas.copy, "PUT", {
-      request: new models.CopyRequestModel(this, { restApi }),
-      response: new models.CopyResponseModel(this, { restApi }),
     });
 
     this.route("download", lambdas.download, "PUT", {

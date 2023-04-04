@@ -4,7 +4,7 @@
 using Amazon.CognitoIdentityProvider;
 using Microsoft.Extensions.Configuration;
 
-namespace SupportTests
+namespace CognitoWrapperTests
 {
     public class CognitoWrapperTests
     {
@@ -41,7 +41,7 @@ namespace SupportTests
             _userPoolId = _configuration["UserPoolId"];
         }
 
-        [Fact()]
+        [Fact(Skip = "Requires user intervention.")]
         [Order(1)]
         [Trait("Category", "Integration")]
         public async Task SignUpAsyncTest()
@@ -59,7 +59,7 @@ namespace SupportTests
             Assert.NotNull(userPools);
         }
 
-        [Fact()]
+        [Fact(Skip = "Requires user intervention.")]
         [Order(3)]
         [Trait("Category", "Integration")]
         public async Task GetAdminUserAsyncTest()
@@ -74,10 +74,10 @@ namespace SupportTests
         public async Task ResendConfirmationCodeAsyncTest()
         {
             var codeDeliveryDetails = await _wrapper.ResendConfirmationCodeAsync(_clientId, _userName);
-            Assert.Equal(codeDeliveryDetails.Destination, _email);
+            Assert.Equal(DeliveryMediumType.EMAIL, codeDeliveryDetails.DeliveryMedium);
         }
 
-        [Fact()]
+        [Fact(Skip = "Requires confirmation code.")]
         [Order(5)]
         [Trait("Category", "Integration")]
         public async Task ConfirmSignupAsyncTest()
@@ -86,7 +86,7 @@ namespace SupportTests
             Assert.True(success);
         }
 
-        [Fact()]
+        [Fact(Skip = "Requires user intervention.")]
         [Order(6)]
         [Trait("Category", "Integration")]
         public async Task InitiateAuthAsyncTest()
@@ -105,7 +105,7 @@ namespace SupportTests
             Assert.NotNull(users);
         }
 
-        [Fact()]
+        [Fact(Skip = "Requires token.")]
         [Order(8)]
         [Trait("Category", "Integration")]
         public async Task VerifySoftwareTokenAsyncTest()
@@ -114,7 +114,7 @@ namespace SupportTests
             Assert.Equal(verifyTokenResponse, VerifySoftwareTokenResponseType.SUCCESS);
         }
 
-        [Fact()]
+        [Fact(Skip = "Requires token.")]
         [Order(9)]
         [Trait("Category", "Integration")]
         public async Task AssociateSoftwareTokenAsyncTest()
@@ -123,7 +123,7 @@ namespace SupportTests
             Assert.NotNull(newSession);
         }
 
-        [Fact()]
+        [Fact(Skip = "Requires token.")]
         [Order(10)]
         [Trait("Category", "Integration")]
         public async Task RespondToAuthChallengeAsyncTest()

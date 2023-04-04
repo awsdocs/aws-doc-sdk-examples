@@ -379,7 +379,7 @@ glacier_Usage_UploadNotifyInitiate:
   title_abbrev: Archive a file, get notifications, and initiate a job
   synopsis_list:
     - Create an &GLlong; vault.
-    - Configure the vault to publish notifications to an &SNSlong; (&SNS;) topic.
+    - Configure the vault to publish notifications to an &SNS; topic.
     - Upload an archive file to the vault.
     - Initiate an archive retrieval job.
   languages:

@@ -1,4 +1,19 @@
 # zexi 0.4.0
+cross_PAM:
+  title: Create a photo asset management application that lets users manage photos using labels
+  title_abbrev: Create a serverless application to manage photos
+  synopsis: create a serverless application that lets users manage photos using labels.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_PAM_Java_block.xml
+  services:
+    sns:
+    s3:
+    dynamodb:
+    rekognition:
+    lambda:
 cross_RedshiftDataTracker:
   title: Create an &RSlong; item tracker
   title_abbrev: Create a web application to track &RS; data

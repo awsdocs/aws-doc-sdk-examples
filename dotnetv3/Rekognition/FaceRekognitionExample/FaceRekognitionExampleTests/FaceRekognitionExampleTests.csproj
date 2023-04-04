@@ -31,4 +31,10 @@
     <ProjectReference Include="..\FaceRekognitionExample\FaceRekognitionExample.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="test.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,8 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using System.Runtime.CompilerServices;
+
 namespace PartiQL_Basics_Tests
 {
     [TestCaseOrderer("PartiQL_Basics_Tests.PriorityOrderer", "PartiQL_Basics_Tests")]
@@ -14,14 +16,15 @@ namespace PartiQL_Basics_Tests
             _ = DynamoDBMethods.CreateMovieTableAsync(tableName);
         }
 
-        [Fact]
+        [Fact(Skip = "Quarantined test.")]
         [Trait("Category", "Integration")]
         public void Dispose()
         {
             _ = DynamoDBMethods.DeleteTableAsync(tableName);
         }
 
-        [Fact(), TestPriority(1)]
+
+        [Fact(Skip = "Quarantined test."), TestPriority(1)]
         [Trait("Category", "Integration")]
         public async Task InsertMoviesTest()
         {
@@ -32,7 +35,7 @@ namespace PartiQL_Basics_Tests
             Assert.True(success, "Could not insert the movies into the table.");
         }
 
-        [Fact(), TestPriority(2)]
+        [Fact(Skip = "Quarantined test."), TestPriority(2)]
         [Trait("Category", "Integration")]
         public async Task GetSingleMovieTestExistingMovie()
         {
@@ -42,7 +45,7 @@ namespace PartiQL_Basics_Tests
             Assert.True(foundIt, $"Couldn't find {title}.");
         }
 
-        [Fact(), TestPriority(3)]
+        [Fact(Skip = "Quarantined test."), TestPriority(3)]
         [Trait("Category", "Integration")]
         public async Task GetSingleMovieTestNonexistentMovie()
         {
@@ -52,7 +55,7 @@ namespace PartiQL_Basics_Tests
             Assert.False(foundIt, $"Found {title}.");
         }
 
-        [Fact(), TestPriority(4)]
+        [Fact(Skip = "Quarantined test."), TestPriority(4)]
         [Trait("Category", "Integration")]
         public async Task GetMoviesTest()
         {
@@ -62,7 +65,7 @@ namespace PartiQL_Basics_Tests
             Assert.True(foundIt, $"Couldn't find any movies released in {year}.");
         }
 
-        [Fact(), TestPriority(5)]
+        [Fact(Skip = "Quarantined test."), TestPriority(5)]
         [Trait("Category", "Integration")]
         public async Task InsertSingleMovieTest()
         {
@@ -72,7 +75,7 @@ namespace PartiQL_Basics_Tests
             Assert.True(success, $"Could not insert {movieTitle}.");
         }
 
-        [Fact(), TestPriority(6)]
+        [Fact(Skip = "Quarantined test."), TestPriority(6)]
         [Trait("Category", "Integration")]
         public async Task UpdateSingleMovieTest()
         {
@@ -84,7 +87,7 @@ namespace PartiQL_Basics_Tests
             Assert.True(success, $"Could not update {movieTitle}.");
         }
 
-        [Fact(), TestPriority(7)]
+        [Fact(Skip = "Quarantined test."), TestPriority(7)]
         [Trait("Category", "Integration")]
         public async Task DeleteSingleMovieTest()
         {

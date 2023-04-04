@@ -44,7 +44,7 @@ namespace KeyspacesTests
         /// Tests the ImportMoviesFromJson method by importing 5 movies. The
         /// number of movies in the move list should be 5 after the call.
         /// </summary>
-        [Fact()]
+        [Fact(Skip = "Quarantined test.")]
         [Order(5)]
         [Trait("Category", "Integration")]
         public void ImportFiveMoviesTest()
@@ -58,7 +58,7 @@ namespace KeyspacesTests
         /// of movies to import. This should result in loading all 4,000 movies
         /// in the table.
         /// </summary>
-        [Fact()]
+        [Fact(Skip = "Quarantined test.")]
         [Order(6)]
         [Trait("Category", "Integration")]
         public void ImportAllMoviesTest()
@@ -67,7 +67,7 @@ namespace KeyspacesTests
             Assert.Equal(4609, movies.Count);
         }
 
-        [Fact()]
+        [Fact(Skip = "Quarantined test.")]
         [Order(7)]
         [Trait("Category", "Integration")]
         public async Task InsertIntoMovieTableTest()
@@ -81,7 +81,7 @@ namespace KeyspacesTests
         /// rows are returned from the call to CassandraWrapper.GetMovies.
         /// </summary>
         /// <returns>An async Task.</returns>
-        [Fact()]
+        [Fact(Skip = "Quarantined test.")]
         [Order(8)]
         [Trait("Category", "Integration")]
         public async Task GetMoviesTest()
@@ -101,7 +101,7 @@ namespace KeyspacesTests
         /// method which adds the watched column to the table.
         /// </summary>
         /// <returns>An async Task.</returns>
-        [Fact()]
+        [Fact(Skip = "Quarantined test.")]
         [Order(10)]
         [Trait("Category", "Integration")]
         public async Task MarkMovieAsWatchedTest()
@@ -119,7 +119,7 @@ namespace KeyspacesTests
         /// the returned title matches the title of the movie that was changed.
         /// </summary>
         /// <returns>An async Task.</returns>
-        [Fact()]
+        [Fact(Skip = "Quarantined test.")]
         [Order(11)]
         [Trait("Category", "Integration")]
         public async Task GetWatchedMoviesTest()

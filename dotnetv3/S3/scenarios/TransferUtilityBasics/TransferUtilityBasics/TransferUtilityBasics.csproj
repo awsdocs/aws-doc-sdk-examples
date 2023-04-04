@@ -25,4 +25,11 @@
 		</Content>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Remove="TransferFolderTest\**" />
+	  <Content Remove="TransferFolderTest\**" />
+	  <EmbeddedResource Remove="TransferFolderTest\**" />
+	  <None Remove="TransferFolderTest\**" />
+	</ItemGroup>
+
 </Project>

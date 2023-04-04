@@ -1,61 +1,96 @@
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
 
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
 #include <aws/sns/model/GetSMSAttributesRequest.h>
-#include <aws/sns/model/GetSMSAttributesResult.h>
 #include <iostream>
+#include "sns_samples.h"
 
-/**
- * Get the SMS type - demonstrates how to retrieve the settings for sending Amazon SMS messages.
- * 
- * For more information on SetSMSAttributes, see https://docs.aws.amazon.com/sns/latest/api/API_SetSMSAttributes.html.
+// snippet-start:[sns.cpp.get_sms_type.code]
+//! Retrieve the default settings for sending SMS messages from your AWS account by using
+//! Amazon Simple Notification Service (Amazon SNS).
+/*!
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
  */
+bool
+AwsDoc::SNS::getSMSType(const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::SNS::SNSClient snsClient(clientConfiguration);
 
-int main(int argc, char ** argv)
-{
-  if (argc != 1)
-  {
-    std::cout << "Usage: get_sms_type" << std::endl;
-    return 1;
-  }
-  // snippet-start:[sns.cpp.get_sms_type.code]
-  Aws::SDKOptions options;
-  Aws::InitAPI(options);
-  {
-    Aws::SNS::SNSClient sns;
-
-    Aws::SNS::Model::GetSMSAttributesRequest gsmst_req;
-    //Set the request to only retrieve the DefaultSMSType setting. 
+    Aws::SNS::Model::GetSMSAttributesRequest request;
+    //Set the request to only retrieve the DefaultSMSType setting.
     //Without the following line, GetSMSAttributes would retrieve all settings.
-    gsmst_req.AddAttributes("DefaultSMSType");
+    request.AddAttributes("DefaultSMSType");
 
-    auto gsmst_out = sns.GetSMSAttributes(gsmst_req);
+    const Aws::SNS::Model::GetSMSAttributesOutcome outcome = snsClient.GetSMSAttributes(
+            request);
 
-    if (gsmst_out.IsSuccess())
-    {
-        for (auto const& att : gsmst_out.GetResult().GetAttributes())
-        {
-            std::cout <<  att.first << ":  " <<  att.second << std::endl;
+    if (outcome.IsSuccess()) {
+        const Aws::Map<Aws::String, Aws::String> attributes =
+                outcome.GetResult().GetAttributes();
+        if (!attributes.empty()) {
+            for (auto const &att: attributes) {
+                std::cout << att.first << ":  " << att.second << std::endl;
+            }
+        }
+        else {
+            std::cout
+                    << "AwsDoc::SNS::getSMSType - an empty map of attributes was retrieved."
+                    << std::endl;
         }
     }
-    else
-    {
-      std::cout << "Error while getting SMS Type: '" << gsmst_out.GetError().GetMessage()
-        << "'" << std::endl;
+    else {
+        std::cerr << "Error while getting SMS Type: '"
+                  << outcome.GetError().GetMessage()
+                  << "'" << std::endl;
     }
-  }
 
-  Aws::ShutdownAPI(options);
-  // snippet-end:[sns.cpp.get_sms_type.code]
-  return 0;
+    return outcome.IsSuccess();
 }
+// snippet-end:[sns.cpp.get_sms_type.code]
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_get_sms_type'
+ *
+ */
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    if (argc != 1) {
+        std::cout << "Usage: run_get_sms_type" << std::endl;
+        return 1;
+    }
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
+    {
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::SNS::getSMSType(clientConfig);
+    }
+
+    Aws::ShutdownAPI(options);
+
+    return 0;
+}
+
+#endif // TESTING_BUILD

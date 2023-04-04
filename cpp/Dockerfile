@@ -1,6 +1,6 @@
-# Build this docker file from the sdk example code root directory in order to access the resources folder.
+# To build the docker image, run the following command from the shell. This command must be run in
+# the "aws-doc-sdk-examples" directory, the parent directory of "cpp", in order to access the resources folder.
 #
-# To build the docker image, run the following command from the shell.
 # 'docker build -f cpp/Dockerfile -t <a_docker_file_name> .'
 #
 # The following command will run the docker image, copying your AWS credentials.
@@ -21,8 +21,6 @@ ENV SERVICES="acm;autoscaling;cloudtrail;codebuild;codecommit;cognito-idp;dynamo
 ENV SERVICES=${SERVICES}";elasticfilesystem;email;events;glacier;glue;guardduty;iam;kinesis;lambda;logs;monitoring"
 ENV SERVICES=${SERVICES}";monitoring;neptune;rds;rds-data;redshift;s3;s3-crt;s3-encryption;secretsmanager;sesv2;sns;sqs"
 ENV SERVICES=${SERVICES}";storagegateway;sts;transfer;transcribe;transcribestreaming"
-
-RUN echo ${SERVICES}
 
 # Build aws-sdk-cpp, building only the modules listed in SERVICES using the BUILD_ONLY argument.
 RUN \

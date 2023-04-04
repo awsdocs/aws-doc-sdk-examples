@@ -11,7 +11,6 @@ export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
   runtime: Runtime.NODEJS_18_X,
   handlers: {
-    copy: "",
     detectLabels: "",
     download: "",
     labels: "",
@@ -49,7 +48,6 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   runtime: Runtime.JAVA_11,
   handlers: {
     ...EMPTY_LAMBDAS_STRATEGY.handlers,
-    copy: "com.example.photo.handlers.CopyHandler",
     detectLabels: "com.example.photo.handlers.S3Handler",
     download: "com.example.photo.handlers.RestoreHandler",
     labels: "com.example.photo.handlers.GetHandler",

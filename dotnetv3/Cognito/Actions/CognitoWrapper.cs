@@ -345,7 +345,7 @@ public class CognitoWrapper
         };
 
         var response = await _cognitoService.SignUpAsync(signUpRequest);
-        return response.UserConfirmed;
+        return response.HttpStatusCode == HttpStatusCode.OK;
     }
 
     // snippet-end:[Cognito.dotnetv3.SignUp]
