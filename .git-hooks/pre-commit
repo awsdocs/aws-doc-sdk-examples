@@ -1,3 +1,10 @@
+
+tag=[PRE-COMMIT]
+
+function log {
+  echo "$tag $1"
+}
+
 # If any of the local directories contain staged changes, try
 # and run pre-commit.sh.
 for dir in $(ls -A) ; do
@@ -5,15 +12,15 @@ for dir in $(ls -A) ; do
   staged=$(git diff --cached --name-only -- "$dir")
 
   if [ -n "$staged" ] ; then
-    echo "The following files have staged changes in $dir:\n$staged"
+    log "The following files have staged changes in $dir:\n$staged"
     if [ -x "${dir}/hook_scripts/pre-commit.sh" ] ; then
     
       # Enter directory.
       cd $dir
 
-      echo "Working from $(pwd)..."
+      log "Working from $(pwd)..."
       if ! "./hook_scripts/pre-commit.sh" ; then
-        echo "$dir's pre-commit hook failed."
+        log "$dir's pre-commit hook failed."
         exit 1
       fi
 
