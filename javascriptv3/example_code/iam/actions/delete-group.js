@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start:[javascript.v3.actions.DeleteGroup]
+// snippet-start:[javascript.v3.iam.actions.DeleteGroup]
 import { DeleteGroupCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
@@ -23,7 +23,7 @@ export const deleteGroup = async (groupName) => {
   console.log(response);
   return response;
 };
-// snippet-end:[javascript.v3.actions.DeleteGroup]
+// snippet-end:[javascript.v3.iam.actions.DeleteGroup]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

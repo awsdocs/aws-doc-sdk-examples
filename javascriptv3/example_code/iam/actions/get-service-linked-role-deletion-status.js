@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start:[iam.JavaScript.policies.getPolicyV3]
+// snippet-start:[javascript.v3.iam.actions.GetServiceLinkedRoleDeletionStatus]
 import { GetServiceLinkedRoleDeletionStatusCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
@@ -21,7 +21,7 @@ export const getServiceLinkedRoleDeletionStatus = (deletionTaskId) => {
 
   return client.send(command);
 };
-// snippet-end:[iam.JavaScript.policies.getPolicyV3]
+// snippet-end:[javascript.v3.iam.actions.GetServiceLinkedRoleDeletionStatus]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

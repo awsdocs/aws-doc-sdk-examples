@@ -39,5 +39,3 @@ export const createRole = (roleName) => {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   createRole("ROLE_NAME");
 }
-
-// snippet-start:[iam.JavaScript.users.createrolev3]

@@ -51,7 +51,7 @@ export const main = async () => {
 
   // Retry the list buckets operation until it succeeds. InvalidAccessKeyId is
   // thrown while the user and access keys are still stabilizing.
-  await retry({ intervalInMs: 1000, maxRetries: 60 }, async () => {
+  await retry({ intervalInMs: 2000, maxRetries: 60 }, async () => {
     try {
       return await listBuckets(s3Client);
     } catch (err) {

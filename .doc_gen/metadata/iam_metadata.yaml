@@ -62,9 +62,6 @@ iam_CreateAccountAlias:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-creating
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Create the account alias.
               snippet_tags:
                 - iam.JavaScript.alias.createAccountAliasV3
@@ -124,9 +121,6 @@ iam_DeleteAccountAlias:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-deleting
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Delete the account alias.
               snippet_tags:
                 - iam.JavaScript.alias.deleteAccountAliasV3
@@ -186,9 +180,6 @@ iam_ListAccountAliases:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-listing
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: List the account aliases.
               snippet_tags:
                 - iam.JavaScript.alias.listAccountAliasesV3
@@ -299,9 +290,6 @@ iam_GetAccountPasswordPolicy:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Get the account password policy.
               snippet_tags:
                 - iam.JavaScript.getaccountpasswordpolicyV3
@@ -372,9 +360,6 @@ iam_ListSAMLProviders:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: List the SAML providers.
               snippet_tags:
                 - iam.JavaScript.listsamlprovidersV3
@@ -513,9 +498,6 @@ iam_CreateAccessKey:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-creating
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Create the access key.
               snippet_tags:
                 - iam.JavaScript.keys.createAccessKeyV3
@@ -617,9 +599,6 @@ iam_DeleteAccessKey:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-deleting
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Delete the access key.
               snippet_tags:
                 - iam.JavaScript.keys.deleteAccessKeyV3
@@ -679,6 +658,15 @@ iam_DeleteRolePolicy:
             - description:
               snippet_tags:
                 - IAM.dotnetv3.DeleteRolePolicy
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.iam.actions.DeleteRolePolicy
   services:
     iam: {DeleteRolePolicy}
 iam_GetAccessKeyLastUsed:
@@ -702,9 +690,6 @@ iam_GetAccessKeyLastUsed:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-last-used
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Get the access key.
               snippet_tags:
                 - iam.JavaScript.keys.getAccessKeyLastUsedV3
@@ -773,9 +758,6 @@ iam_ListAccessKeys:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-listing
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: List the access keys.
               snippet_tags:
                 - iam.JavaScript.keys.listAccessKeysV3
@@ -834,9 +816,6 @@ iam_UpdateAccessKey:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-access-keys.html#iam-examples-managing-access-keys-updating
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Update the access key.
               snippet_tags:
                 - iam.JavaScript.keys.updateAccessKeyV3
@@ -945,9 +924,6 @@ iam_CreatePolicy:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-creating
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Create the policy.
               snippet_tags:
                 - iam.JavaScript.policies.createPolicyV3
@@ -1058,9 +1034,6 @@ iam_DeletePolicy:
           github: javascriptv3/example_code/iam/
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Delete the policy.
               snippet_tags:
                 - iam.JavaScript.users.deletepolicyv3
@@ -1136,9 +1109,6 @@ iam_ListPolicies:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: List the policies.
               snippet_tags:
                 - iam.JavaScript.listpoliciesv3
@@ -1232,9 +1202,6 @@ iam_GetPolicy:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-getting
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Get the policy.
               snippet_tags:
                 - iam.JavaScript.policies.getPolicyV3
@@ -1422,9 +1389,6 @@ iam_AttachRolePolicy:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-attaching-role-policy
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Attach the policy.
               snippet_tags:
                 - javascript.v3.iam.actions.AttachRolePolicy
@@ -1475,9 +1439,6 @@ iam_ListAttachedRolePolicies:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: List the policies that are attached to a role.
               snippet_tags:
                 - iam.JavaScript.listattachedrolepoliciesV3
@@ -1610,9 +1571,6 @@ iam_DetachRolePolicy:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-policies.html#iam-examples-policies-detaching-role-policy
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Detach the policy.
               snippet_tags:
                 - iam.JavaScript.policies.detachRolePolicyV3
@@ -1746,9 +1704,6 @@ iam_CreateRole:
         - sdk_version: 3
           github: javascriptv3/example_code/iam
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Create the role.
               snippet_tags:
                 - iam.JavaScript.users.createrolev3
@@ -1809,9 +1764,6 @@ iam_ListRoles:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: List the roles.
               snippet_tags:
                 - iam.JavaScript.listrolesV3
@@ -1871,9 +1823,6 @@ iam_GetRole:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Get the role.
               snippet_tags:
                 - iam.JavaScript.getRoleV3
@@ -1968,9 +1917,6 @@ iam_DeleteRole:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Delete the role.
               snippet_tags:
                 - javascript.v3.iam.actions.DeleteRole
@@ -2022,6 +1968,15 @@ iam_PutRolePolicy:
             - description:
               snippet_tags:
                 - iam.cpp.put_role_policy.code
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.iam.actions.PutRolePolicy
   services:
     iam: {PutRolePolicy}
 iam_ListRolePolicies:
@@ -2045,9 +2000,6 @@ iam_ListRolePolicies:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: List the policies.
               snippet_tags:
                 - iam.JavaScript.listrolepoliciesv3
@@ -2215,12 +2167,9 @@ iam_CreateUser:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-creating-users
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Create the user.
               snippet_tags:
-                - iam.JavaScript.users.getUserV3
+                - javascript.v3.iam.actions.CreateUser
         - sdk_version: 2
           github: javascript/example_code/iam
           sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-creating-users
@@ -2312,9 +2261,6 @@ iam_DeleteUser:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-deleting-users
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Delete the user.
               snippet_tags:
                 - iam.JavaScript.users.deleteUserV3
@@ -2459,9 +2405,6 @@ iam_ListUsers:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-listing-users
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: List the users.
               snippet_tags:
                 - iam.JavaScript.users.listUsersV3
@@ -2521,9 +2464,6 @@ iam_UpdateUser:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-managing-users.html#iam-examples-managing-users-updating-users
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Update the user.
               snippet_tags:
                 - iam.JavaScript.users.updateUserV3
@@ -2766,9 +2706,6 @@ iam_ListServerCertificates:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-listing
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: List the certificates.
               snippet_tags:
                 - iam.JavaScript.certs.listServerCertificatesV3
@@ -2801,9 +2738,6 @@ iam_GetServerCertificate:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-getting
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Get a server certificate.
               snippet_tags:
                 - iam.JavaScript.certs.getServerCertificateV3
@@ -2836,9 +2770,6 @@ iam_UpdateServerCertificate:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-updating
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Update a server certificate.
               snippet_tags:
                 - iam.JavaScript.certs.updateServerCertificateV3
@@ -2859,6 +2790,40 @@ iam_UpdateServerCertificate:
                 - iam.cpp.update_server_cert.code
   services:
     iam: {UpdateServerCertificate}
+iam_GetServiceLinkedRoleDeletionStatus:
+  title: Get an &IAM; service-linked role's deletion status using an &AWS; SDK
+  title_abbrev: Get a service-linked role's deletion status
+  synopsis: get an &IAM; service-linked role's deletion status.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.iam.actions.GetServiceLinkedRoleDeletionStatus
+  services:
+    iam: {GetServiceLinkedRoleDeletionStatus}
+iam_DeleteSAMLProvider:
+  title: Delete an &IAM; SAML provider using an &AWS; SDK
+  title_abbrev: Delete SAML provider
+  synopsis: delete an &IAM; SAML provider.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.iam.actions.DeleteSAMLProvider
+  services:
+    iam: {DeleteSAMLProvider}
 iam_DeleteServerCertificate:
   title: Delete an &IAM; server certificate using an &AWS; SDK
   title_abbrev: Delete a server certificate
@@ -2871,9 +2836,6 @@ iam_DeleteServerCertificate:
           github: javascriptv3/example_code/iam
           sdkguide: sdk-for-javascript/v3/developer-guide/iam-examples-server-certificates.html#iam-examples-server-certificates-deleting
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Delete a server certificate.
               snippet_tags:
                 - iam.JavaScript.certs.deleteServerCertificateV3
@@ -2909,6 +2871,15 @@ iam_CreateGroup:
             - description:
               snippet_tags:
                 - IAM.dotnetv3.CreateGroup
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.iam.actions.CreateGroup
   services:
     iam: {CreateGroup}
 iam_AddUserToGroup:
@@ -2960,6 +2931,15 @@ iam_DeleteGroup:
             - description:
               snippet_tags:
                 - IAM.dotnetv3.DeleteGroup
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.iam.actions.DeleteGroup
   services:
     iam: {DeleteGroup}
 iam_DeleteGroupPolicy:
@@ -3000,9 +2980,6 @@ iam_ListGroups:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: List the groups.
               snippet_tags:
                 - iam.JavaScript.listgroupsV3
@@ -3059,6 +3036,23 @@ iam_ListGroups:
                 - iam.swift.listgroups.handler.listgroups
   services:
     iam: {ListGroups}
+iam_CreateSAMLProvider:
+  title: Create an &IAM; SAML provider using an &AWS; SDK
+  title_abbrev: Create a SAML provider
+  synopsis: create an &IAM; SAML provider
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.iam.actions.CreateSAMLProvider
+  services:
+    iam: {CreateSAMLProvider}
 iam_CreateServiceLinkedRole:
   title: Create an &IAM; service-linked role using an &AWS; SDK
   title_abbrev: Create a service-linked role
@@ -3080,9 +3074,6 @@ iam_CreateServiceLinkedRole:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Create a service-linked role.
               snippet_tags:
                 - iam.JavaScript.createservicelinkedrolev3
@@ -3171,8 +3162,34 @@ iam_DeleteServiceLinkedRole:
             - description:
               snippet_tags:
                 - rust.example_code.iam.service.delete_service_linked_role
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.iam.actions.DeleteServiceLinkedRole
   services:
     iam: {DeleteServiceLinkedRole}
+iam_UploadServerCertificate:
+  title: Upload an &IAM; server certificate using an &AWS; SDK
+  title_abbrev: Upload a server certificate
+  synopsis: upload an &IAM; server certificate.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.iam.actions.UploadServerCertificate
+  services:
+    iam: {UploadServerCertificate}
 iam_Scenario_GroupBasics:
   title: Create an &IAM; group and add a user to the group using an &AWS; SDK
   title_abbrev: Create a group and add a user
@@ -3247,9 +3264,6 @@ iam_Scenario_CreateUserAssumeRole:
           github: javascriptv3/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - iam.JavaScript.createclientv3
             - description: Create an &IAM-user; and a role that grants permission
                 to list &S3; buckets. The user has rights only to assume the role.
                 After assuming the role, use temporary credentials to list buckets for

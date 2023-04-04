@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start:[javascript.v3.actions.CreateSAMLProvider]
+// snippet-start:[javascript.v3.iam.actions.CreateSAMLProvider]
 import { CreateSAMLProviderCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
@@ -53,7 +53,7 @@ export const createSAMLProvider = async (providerName) => {
   console.log(response);
   return response;
 };
-// snippet-end:[javascript.v3.actions.CreateSAMLProvider]
+// snippet-end:[javascript.v3.iam.actions.CreateSAMLProvider]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

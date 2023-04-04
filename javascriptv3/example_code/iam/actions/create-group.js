@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start:[javascript.v3.actions.CreateGroup]
+// snippet-start:[javascript.v3.iam.actions.CreateGroup]
 import { CreateGroupCommand, IAMClient } from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
@@ -21,7 +21,7 @@ export const createGroup = async (groupName) => {
   console.log(response);
   return response;
 };
-// snippet-end:[javascript.v3.actions.CreateGroup]
+// snippet-end:[javascript.v3.iam.actions.CreateGroup]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
