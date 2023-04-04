@@ -1,6 +1,6 @@
 ![Stability: Stable](https://img.shields.io/badge/stability-Stable-success.svg?style=for-the-badge)
 
-# Weathertop ECR Stack
+# Elastic Container Registry (ECR) Public Repositories Stack
 
 This project will create a stack for hosting container images in Elastic Container Registry (ECR).
 
@@ -17,57 +17,57 @@ Requirements:
 First, you will need to install the AWS CDK:
 
 ```
-$ sudo npm install -g aws-cdk
+sudo npm install -g aws-cdk
 ```
 
 You can check the toolkit version with this command:
 
 ```
-$ cdk --version
+cdk --version
 ```
 
 Now you are ready to create a virtualenv:
 
 ```
-$ python3 -m venv .venv
+python3 -m venv .venv
 ```
 
 Activate your virtualenv:
 
 ```
-$ source .venv/bin/activate
+source .venv/bin/activate
 ```
 
 Install the required dependencies:
 
 ```
-$ pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 At this point you can now synthesize the CloudFormation template for this code.
 
 ```
-$ cdk synth
+cdk synth
 ```
 
 If everything looks good, go ahead and deploy!  This step will actually make
 changes to your AWS cloud environment.  
 
 ```
-$ cdk bootstrap
-$ cdk deploy
+cdk bootstrap
+cdk deploy
 ```
 
 To clean up, issue this command:
 
 ```
-$ cdk destroy
+cdk destroy
 ```
 
 To exit the virtualenv python environment:
 
 ```
-$ deactivate
+deactivate
 ```
 
 # Useful commands

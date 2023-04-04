@@ -54,9 +54,10 @@ class ProducerStack(Stack):
         response = client.get_parameter(Name='weathertop_central', WithDecryption=True)
         master_account = response['Parameter']['Value']
 
-        statement1 = iam.PolicyStatement()
-        statement1.add_any_principal()
-        statement1.add_actions(
+        # Set up base SNS permissions
+        sns_permissions = iam.PolicyStatement()
+        sns_permissions.add_any_principal()
+        sns_permissions.add_actions(
                         "SNS:Publish",
                         "SNS:RemovePermission",
                         "SNS:SetTopicAttributes",
@@ -66,27 +67,30 @@ class ProducerStack(Stack):
                         "SNS:AddPermission",
                         "SNS:Subscribe"
                     )
-        statement1.add_resources(topic.topic_arn)
-        statement1.add_condition("StringEquals", {"AWS:SourceOwner": master_account})
-        topic.add_to_resource_policy(statement1)
+        sns_permissions.add_resources(topic.topic_arn)
+        sns_permissions.add_condition("StringEquals", {"AWS:SourceOwner": master_account})
+        topic.add_to_resource_policy(sns_permissions)
 
-        statement2 = iam.PolicyStatement()
-        statement2.add_arn_principal(f'arn:aws:iam::{master_account}:root')
+        # Set up cross-account Subscription permissions for every onboarded language
+        subscribe_permissions = iam.PolicyStatement()
+        subscribe_permissions.add_arn_principal(f'arn:aws:iam::{master_account}:root')
         for language_name in onboarded_languages:
             response = client.get_parameter(Name=f'{language_name}', WithDecryption=True)
             account_id = response['Parameter']['Value']
-            statement2.add_arn_principal(f'arn:aws:iam::{account_id}:root')
-        statement2.add_actions("SNS:Subscribe")
-        statement2.add_resources(topic.topic_arn)
-        topic.add_to_resource_policy(statement2)
+            subscribe_permissions.add_arn_principal(f'arn:aws:iam::{account_id}:root')
+        subscribe_permissions.add_actions("SNS:Subscribe")
+        subscribe_permissions.add_resources(topic.topic_arn)
+        topic.add_to_resource_policy(subscribe_permissions)
 
-        statement3 = iam.PolicyStatement()
-        statement3.add_arn_principal(f'arn:aws:iam::{master_account}:root')
+        # Set up cross-account Publish permissions for every onboarded language
+        publish_permissions = iam.PolicyStatement()
+        publish_permissions.add_arn_principal(f'arn:aws:iam::{master_account}:root')
         for language_name in onboarded_languages:
             response = client.get_parameter(Name=language_name, WithDecryption=True)
             account_id = response['Parameter']['Value']
-            statement2.add_arn_principal(f'arn:aws:iam::{account_id}:root')
-        statement3.add_actions("SNS:Publish")
-        statement3.add_service_principal("events.amazonaws.com")
-        statement3.add_resources(topic.topic_arn)
-        topic.add_to_resource_policy(statement3)
+            subscribe_permissions.add_arn_principal(f'arn:aws:iam::{account_id}:root')
+        publish_permissions.add_actions("SNS:Publish")
+        publish_permissions.add_service_principal("events.amazonaws.com")
+        publish_permissions.add_resources(topic.topic_arn)
+        topic.add_to_resource_policy(publish_permissions)
+
