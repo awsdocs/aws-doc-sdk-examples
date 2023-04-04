@@ -13,7 +13,7 @@ public class MediaConvertWrapper
     /// <summary>
     /// Constructor for the MediaConvert wrapper.
     /// </summary>
-    /// <param name="amazonEventBridge">The injected MediaConvert client.</param>
+    /// <param name="amazonMediaConvert">The injected MediaConvert client.</param>
     public MediaConvertWrapper(IAmazonMediaConvert amazonMediaConvert)
 
     {
