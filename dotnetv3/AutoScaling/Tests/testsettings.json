@@ -1,7 +1,0 @@
-{
-  "GroupName": "test-group-name",
-  "ImageId": "ami-05803413c51f242b7",
-  "InstanceType": "t2.micro",
-  "LaunchTemplateName": "AutoScaleLaunchTemplate",
-  "ServiceLinkedRoleArn": "<Enter Value>"
-}
