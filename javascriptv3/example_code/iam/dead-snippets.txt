@@ -1,0 +1,19 @@
+// snippet-start:[iam.JavaScript.users.getUserV3]
+This code example has been superseded by the example in
+Code examples > Actions and scenarios > IAM
+// snippet-end:[iam.JavaScript.users.getUserV3]
+
+// snippet-start:[iam.JavaScript.policies.attachRolePolicyV3]
+This code example has been superseded by the example in
+Code examples > Actions and scenarios > IAM
+// snippet-end:[iam.JavaScript.policies.attachRolePolicyV3]
+
+// snippet-start:[iam.JavaScript.users.deleterolev3]
+This code example has been superseded by the example in
+Code examples > Actions and scenarios > IAM
+// snippet-end:[iam.JavaScript.users.deleterolev3]
+
+// snippet-start:[iam.JavaScript.scenario.createclientv3]
+This code example has been superseded by the example in
+Code examples > Actions and scenarios > IAM
+// snippet-end:[iam.JavaScript.scenario.createclientv3]
