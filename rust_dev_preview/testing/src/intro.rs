@@ -8,10 +8,10 @@ use aws_config::meta::region::RegionProviderChain;
 // So we can refer to the S3 package as s3 for the rest of the example.
 use aws_sdk_s3 as s3;
 // snippet-end:[testing.rust.intro-import]
+use clap::Parser;
 use std::error::Error;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

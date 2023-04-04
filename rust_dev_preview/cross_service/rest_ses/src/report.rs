@@ -104,7 +104,7 @@ pub async fn send_report(
 const FONT_SIZE: f64 = 12.0;
 fn make_report(items: Vec<WorkItem>) -> Result<Vec<u8>, ReportError> {
     let path = format!("{ATTACHMENT_NAME}.{}.xlsx", Uuid::new_v4());
-    let workbook = Workbook::new(path.as_str());
+    let workbook = Workbook::new(path.as_str()).map_err(|e| ReportError::XslxError(e))?;
 
     let body_format = &workbook.add_format().set_font_size(FONT_SIZE);
     let date_format = &workbook

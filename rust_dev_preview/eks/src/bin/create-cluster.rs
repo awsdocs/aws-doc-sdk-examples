@@ -8,9 +8,9 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_eks::config::Region;
 use aws_sdk_eks::types::VpcConfigRequest;
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The region
     #[structopt(short, long)]

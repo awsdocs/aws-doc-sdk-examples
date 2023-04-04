@@ -13,9 +13,9 @@ use aws_sdk_s3::{
     operation::copy_object::{CopyObjectError, CopyObjectOutput},
     Client, Error,
 };
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

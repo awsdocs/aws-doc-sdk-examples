@@ -8,9 +8,9 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_polly::types::{Engine, Voice};
 use aws_sdk_polly::{config::Region, meta::PKG_VERSION, Client, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

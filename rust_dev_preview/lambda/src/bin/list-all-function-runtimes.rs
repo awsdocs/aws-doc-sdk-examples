@@ -6,10 +6,10 @@
 #![allow(clippy::result_large_err)]
 
 use aws_sdk_lambda::Error;
+use clap::Parser;
 use lambda_code_examples::{make_client, make_config, Opt as BaseOpt};
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     #[structopt(flatten)]
     base: BaseOpt,

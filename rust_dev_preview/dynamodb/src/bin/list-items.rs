@@ -6,10 +6,10 @@
 #![allow(clippy::result_large_err)]
 
 use aws_sdk_dynamodb::{Client, Error};
+use clap::Parser;
 use dynamodb_code_examples::{make_config, scenario::list::list_items, Opt as BaseOpt};
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The name of the table.
     #[structopt(short, long)]

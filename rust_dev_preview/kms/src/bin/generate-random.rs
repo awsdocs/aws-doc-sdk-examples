@@ -7,10 +7,10 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_kms::{config::Region, meta::PKG_VERSION, Client, Error};
+use clap::Parser;
 use std::process;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

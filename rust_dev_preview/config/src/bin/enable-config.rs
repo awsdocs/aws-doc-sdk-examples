@@ -11,10 +11,10 @@ use aws_sdk_config::types::{
     MaximumExecutionFrequency, RecordingGroup, ResourceType,
 };
 use aws_sdk_config::{config::Region, meta::PKG_VERSION, Client, Error};
+use clap::Parser;
 use std::process;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

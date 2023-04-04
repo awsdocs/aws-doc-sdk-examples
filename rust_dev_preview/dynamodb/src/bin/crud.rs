@@ -15,14 +15,14 @@ use aws_smithy_http::result::SdkError;
 
 use aws_sdk_dynamodb::operation::create_table::CreateTableError;
 use aws_sdk_dynamodb::operation::put_item::PutItemError;
+use clap::Parser;
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
 use std::io::{stdin, Read};
 use std::time::Duration;
 use std::{iter, process};
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// Whether to run in interactive mode (you have to press return between operations)
     #[structopt(short, long)]

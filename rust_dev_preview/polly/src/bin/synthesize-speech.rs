@@ -8,11 +8,11 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_polly::types::{OutputFormat, VoiceId};
 use aws_sdk_polly::{config::Region, meta::PKG_VERSION, Client, Error};
+use clap::Parser;
 use std::fs;
-use structopt::StructOpt;
 use tokio::io::AsyncWriteExt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

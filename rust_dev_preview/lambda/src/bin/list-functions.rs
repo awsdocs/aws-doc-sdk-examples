@@ -6,8 +6,8 @@
 #![allow(clippy::result_large_err)]
 
 use aws_sdk_lambda::{Client, Error};
+use clap::Parser;
 use lambda_code_examples::{make_client, Opt};
-use structopt::StructOpt;
 
 // Lists the ARNs of your Lambda functions.
 // snippet-start:[lambda.rust.list-functions]

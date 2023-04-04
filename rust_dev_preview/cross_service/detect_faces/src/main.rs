@@ -5,9 +5,9 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::config::Region;
+use clap::Parser;
 use std::error::Error;
 use std::path::Path;
-use structopt::StructOpt;
 
 #[derive(Debug)]
 struct Person {
@@ -17,7 +17,7 @@ struct Person {
     emotion: String,
 }
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The Amazon S3 bucket where we upload the picture.
     #[structopt(short, long)]

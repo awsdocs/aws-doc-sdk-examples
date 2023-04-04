@@ -8,9 +8,9 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::types::{Delete, ObjectIdentifier};
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

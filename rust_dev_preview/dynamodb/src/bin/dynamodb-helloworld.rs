@@ -10,9 +10,9 @@ use aws_sdk_dynamodb::types::{
     AttributeDefinition, KeySchemaElement, KeyType, ProvisionedThroughput, ScalarAttributeType,
 };
 use aws_sdk_dynamodb::{config::Region, meta::PKG_VERSION, Client, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

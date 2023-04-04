@@ -7,10 +7,10 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_qldb::{config::Region, meta::PKG_VERSION, Client as QLDBClient, Error};
-use structopt::StructOpt;
+use clap::Parser;
 use tokio_stream::StreamExt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

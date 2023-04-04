@@ -9,11 +9,11 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_iotsitewise::error::DisplayErrorContext;
 use aws_sdk_iotsitewise::{config::Region, meta::PKG_VERSION, Client};
 use aws_smithy_types_convert::date_time::DateTimeExt;
+use clap::Parser;
 use sitewise_code_examples::Error;
 use std::process;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

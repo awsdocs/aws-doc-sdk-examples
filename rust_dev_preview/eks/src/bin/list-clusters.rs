@@ -7,9 +7,9 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_eks::{config::Region, meta::PKG_VERSION, Client};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

@@ -8,9 +8,9 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_applicationautoscaling::types::ServiceNamespace;
 use aws_sdk_applicationautoscaling::{config::Region, meta::PKG_VERSION, Client, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

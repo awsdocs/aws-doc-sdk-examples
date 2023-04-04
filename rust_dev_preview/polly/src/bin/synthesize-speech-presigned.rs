@@ -9,12 +9,12 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_polly::presigning::PresigningConfig;
 use aws_sdk_polly::types::{OutputFormat, VoiceId};
 use aws_sdk_polly::{config::Region, meta::PKG_VERSION, Client};
+use clap::Parser;
 use std::error::Error;
 use std::fs;
 use std::time::Duration;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The default AWS Region.
     #[structopt(short, long)]

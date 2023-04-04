@@ -7,8 +7,8 @@
 
 // snippet-start:[dynamodb.rust.list-tables-local]
 use aws_sdk_dynamodb::{Client, Error};
+use clap::Parser;
 use dynamodb_code_examples::{make_config, scenario::list::list_tables, Opt};
-use structopt::StructOpt;
 
 /// Lists your tables in DynamoDB local.
 #[tokio::main]

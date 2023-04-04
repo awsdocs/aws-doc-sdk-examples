@@ -7,9 +7,9 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_ssm::{config::Region, meta::PKG_VERSION, Client, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

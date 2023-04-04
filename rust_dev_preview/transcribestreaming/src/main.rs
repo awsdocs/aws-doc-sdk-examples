@@ -13,10 +13,10 @@ use aws_sdk_transcribestreaming::types::{
 };
 use aws_sdk_transcribestreaming::{config::Region, meta::PKG_VERSION, Client, Error};
 use bytes::BufMut;
+use clap::Parser;
 use std::time::Duration;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]

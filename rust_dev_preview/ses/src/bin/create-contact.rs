@@ -7,9 +7,9 @@
 
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_sesv2::{config::Region, meta::PKG_VERSION, Client, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The name of the contact list.
     #[structopt(short, long)]

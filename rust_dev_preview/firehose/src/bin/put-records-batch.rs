@@ -12,9 +12,9 @@ use aws_sdk_firehose::primitives::Blob;
 use aws_sdk_firehose::types::Record;
 use aws_sdk_firehose::{meta::PKG_VERSION, Client, Error};
 use aws_types::region::Region;
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(long)]
