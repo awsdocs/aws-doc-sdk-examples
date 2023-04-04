@@ -68,6 +68,8 @@ EXPECTED_SAMPLE_FILES = {
     'chat_sfn_state_machine.json',
     'market_2.jpg',
     'spheres_2.jpg',
+    'sample_cert.pem',
+    'sample_private_key.pem'
 }
 
 # media file types
