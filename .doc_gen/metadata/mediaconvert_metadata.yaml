@@ -1,9 +1,38 @@
+mediaconvert_Hello:
+  title: Hello &EMC;
+  title_abbrev: Hello &EMC;
+  synopsis: get started using &EMC;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/MediaConvert
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - MediaConvert.dotnetv3.HelloMediaConvert
+  services:
+    mediaconvert: {DescribeEndpoints}
 mediaconvert_CreateJob:
   title: Create a &EMC; transcoding job using an &AWS; SDK
   title_abbrev: Create a transcoding job
   synopsis: create a &EMC; transcoding job.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/MediaConvert
+          sdkguide:
+          excerpts:
+            - description: Get the endpoint and set up the client.
+              snippet_tags:
+                - MediaConvert.dotnetv3.CreateJobSetup
+            - description: Create the job.
+              snippet_tags:
+                - MediaConvert.dotnetv3.CreateJob
     Java:
       versions:
         - sdk_version: 2
