@@ -607,7 +607,6 @@ auto-scaling_Scenario_GroupsAndInstances:
                 manage launch templates and metrics. These functions wrap &AS;,
                 &EC2;, and &CW; actions.
               snippet_tags:
-                - AutoScaling.dotnetv3.AutoScalingActions.Usings
                 - AutoScaling.dotnetv3.AutoScalingActions.AutoScalingWrapper
                 - AutoScaling.dotnetv3.AutoScalingActions.EC2Wrapper
                 - AutoScaling.dotnetv3.AutoScalingActions.CloudWatchWrapper
