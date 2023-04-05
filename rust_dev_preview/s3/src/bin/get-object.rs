@@ -33,7 +33,9 @@ async fn get_object(client: Client, opt: Opt) -> Result<usize, anyhow::Error> {
 
     let mut byte_count = 0_usize;
     while let Some(bytes) = object.body.try_next().await? {
-        byte_count += file.write(&bytes)?;
+        let bytes = file.write(&bytes)?;
+        byte_count += bytes;
+        trace!("Intermediate write of {bytes}");
     }
 
     Ok(byte_count)
