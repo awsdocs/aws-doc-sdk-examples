@@ -35,7 +35,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Actions\MediaConvertActions.csproj" />
-    <ProjectReference Include="..\MediaConvertActions\MediaConvertActions.csproj" />
   </ItemGroup>
 
 </Project>

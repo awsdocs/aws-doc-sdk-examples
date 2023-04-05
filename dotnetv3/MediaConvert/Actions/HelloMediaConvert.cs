@@ -18,7 +18,7 @@ public static class HelloMediaConvert
         Console.WriteLine();
 
         // You can use await and any of the async methods to get a response.
-        // Let's get the MediaConvert endpoints
+        // Let's get the MediaConvert endpoints.
         var response = await mediaConvertClient.DescribeEndpointsAsync(
             new DescribeEndpointsRequest()
             );

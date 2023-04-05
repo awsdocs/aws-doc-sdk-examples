@@ -37,7 +37,7 @@ public class MediaConvertTests
     }
 
     /// <summary>
-    /// Create a job. The returned job Id should not be empty.
+    /// Create a job. The returned job ID should not be empty.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
