@@ -25,7 +25,7 @@ public class MediaConvertWrapper
     /// <summary>
     /// Create a job to convert a media file.
     /// </summary>
-    /// <param name="mediaConvertRole">The ARN of the media convert role, as specified here:
+    /// <param name="mediaConvertRole">The Amazon Resource Name (ARN) of the media convert role, as specified here:
     /// https://docs.aws.amazon.com/mediaconvert/latest/ug/creating-the-iam-role-in-mediaconvert-configured.html</param>
     /// <param name="fileInput">The Amazon Simple Storage Service (Amazon S3) location of the input media file</param>
     /// <param name="fileOutput">The Amazon S3 location for the output media file.</param>
@@ -205,7 +205,7 @@ public class MediaConvertWrapper
         {
             Console.WriteLine($"Creating job for input file {fileInput}.");
             CreateJobResponse createJobResponse = await _amazonMediaConvert.CreateJobAsync(createJobRequest);
-            Console.WriteLine("Created job with Job Id: {0}", createJobResponse.Job.Id);
+            Console.WriteLine("Created job with Job ID: {0}", createJobResponse.Job.Id);
             jobId = createJobResponse.Job.Id;
         }
         catch (BadRequestException bre)
