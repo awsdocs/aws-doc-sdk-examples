@@ -15,13 +15,13 @@ SES is a reliable, scalable, and cost-effective email service.
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
-* [Get statistics](./ses_get_statistics.rb) (`GetSendStatistics`)
+* [Get statistics](v1/ses_get_statistics.rb) (`GetSendStatistics`)
 
-* [List emails](./ses_list_emails.rb) (`ListTemplates`)
+* [List emails](v1/ses_list_emails.rb) (`ListTemplates`)
 
-* [Send an email](./ses_send_email.rb) (`SendEmail`)
+* [Send an email](v1/ses_send_email.rb) (`SendEmail`)
 
-* [Send a verification](./ses_send_verification.rb) (`VerifyEmailIdentity`)
+* [Send a verification](v1/ses_send_verification.rb) (`VerifyEmailIdentity`)
 
 
 
