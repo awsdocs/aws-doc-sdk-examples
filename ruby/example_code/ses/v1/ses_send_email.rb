@@ -66,14 +66,13 @@ begin
       }
     },
     source: sender,
-  # Uncomment the following line to use a configuration set.
-  # configuration_set_name: configsetname,
+    # Uncomment the following line to use a configuration set.
+    # configuration_set_name: configsetname,
     )
 
   puts "Email sent to " + recipient
 
-
-  # If something goes wrong, display an error message.
+# If something goes wrong, display an error message.
 rescue Aws::SES::Errors::ServiceError => error
   puts "Email not sent. Error message: #{error}"
 end
