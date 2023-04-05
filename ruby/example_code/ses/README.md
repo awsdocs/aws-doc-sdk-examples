@@ -23,7 +23,7 @@ Code excerpts that show you how to call individual service functions.
 
 * [Send a verification](v1/ses_send_verification.rb) (`VerifyEmailIdentity`)
 
-
+* [Send an email using SESv2](v2/send_email.rb) (`SendEmail`)
 
 
 
