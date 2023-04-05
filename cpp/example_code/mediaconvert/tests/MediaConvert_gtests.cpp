@@ -3,7 +3,7 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-#include "service_gtests.h"
+#include "MediaConvert_gtests.h"
 #include <fstream>
 #include <aws/core/client/ClientConfiguration.h>
 

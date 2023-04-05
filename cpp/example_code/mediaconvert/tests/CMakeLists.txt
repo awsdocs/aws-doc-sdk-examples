@@ -4,7 +4,7 @@
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.14)
 
-set(EXAMPLE_SERVICE_NAME "ServiceTemplate")
+set(EXAMPLE_SERVICE_NAME MediaConvert)
 set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
 set(CURRENT_TARGET_AWS_DEPENDENCIES  )
 
@@ -16,6 +16,8 @@ set(CMAKE_CXX_STANDARD 14)
 
 # Build shared libraries by default.
 set(BUILD_SHARED_LIBS ON)
+
+include(CTest)
 
 find_package(GTest)
 
