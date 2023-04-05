@@ -27,7 +27,7 @@ public class CreateJob
         // For information on creating this role, see
         // https://docs.aws.amazon.com/mediaconvert/latest/ug/creating-the-iam-role-in-mediaconvert-configured.html
         var mediaConvertRole = _configuration["mediaConvertRoleARN"];
-        
+
         // Include the file input and output locations in settings.json or settings.local.json.
         var fileInput = _configuration["fileInput"];
         var fileOutput = _configuration["fileOutput"];
