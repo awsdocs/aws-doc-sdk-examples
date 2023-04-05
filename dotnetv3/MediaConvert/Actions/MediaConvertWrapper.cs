@@ -49,7 +49,7 @@ public class MediaConvertWrapper
         };
         createJobRequest.Settings = jobSettings;
 
-#region OutputGroup
+        #region OutputGroup
         OutputGroup ofg = new OutputGroup
         {
             Name = "File Group",
@@ -68,7 +68,7 @@ public class MediaConvertWrapper
             NameModifier = "_1"
         };
 
-#region VideoDescription
+        #region VideoDescription
         VideoDescription vdes = new VideoDescription
         {
             ScalingBehavior = ScalingBehavior.DEFAULT,
@@ -124,9 +124,9 @@ public class MediaConvertWrapper
             ParDenominator = 1
         };
         output.VideoDescription.CodecSettings.H264Settings = h264;
-#endregion VideoDescription
+        #endregion VideoDescription
 
-#region AudioDescription
+        #region AudioDescription
         AudioDescription ades = new AudioDescription
         {
             LanguageCodeControl = AudioLanguageCodeControl.FOLLOW_INPUT,
@@ -151,9 +151,9 @@ public class MediaConvertWrapper
         };
         ades.CodecSettings.AacSettings = aac;
         output.AudioDescriptions.Add(ades);
-#endregion AudioDescription
+        #endregion AudioDescription
 
-#region Mp4 Container
+        #region Mp4 Container
         output.ContainerSettings = new ContainerSettings
         {
             Container = ContainerType.MP4
@@ -165,13 +165,13 @@ public class MediaConvertWrapper
             MoovPlacement = Mp4MoovPlacement.PROGRESSIVE_DOWNLOAD
         };
         output.ContainerSettings.Mp4Settings = mp4;
-#endregion Mp4 Container
+        #endregion Mp4 Container
 
         ofg.Outputs.Add(output);
         createJobRequest.Settings.OutputGroups.Add(ofg);
-#endregion OutputGroup
+        #endregion OutputGroup
 
-#region Input
+        #region Input
         Input input = new Input
         {
             FilterEnable = InputFilterEnable.AUTO,
@@ -199,7 +199,7 @@ public class MediaConvertWrapper
         };
 
         createJobRequest.Settings.Inputs.Add(input);
-#endregion Input
+        #endregion Input
         var jobId = "";
         try
         {
