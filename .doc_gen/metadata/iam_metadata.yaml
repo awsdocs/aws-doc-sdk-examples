@@ -3039,7 +3039,7 @@ iam_ListGroups:
 iam_CreateSAMLProvider:
   title: Create an &IAM; SAML provider using an &AWS; SDK
   title_abbrev: Create a SAML provider
-  synopsis: create an &IAM; SAML provider
+  synopsis: create an &IAM; SAML provider.
   category:
   languages:
     JavaScript:
