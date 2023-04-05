@@ -44,13 +44,12 @@
 
 namespace AwsDoc {
     namespace MediaConvert {
-        const char CACHED_ENDPOINT_FILE[] = "cached_endpoint.txt";
         const char INPUT_FILE_PLACEHOLDER[] = "<INPUT_FILE_PLACEHOLDER>";
         const char OUTPUT_FILE_PLACEHOLDER[] = "<OUTPUT_FILE_PLACEHOLDER>";
         const char AUDIO_SOURCE_NAME[] = "Audio Select 1";
     }
 }
-
+// snippet-start:[cpp.example_code.mediaconvert.create_job]
 //! Create a MediaConvert job.
 /*!
   \param mediaConvertRole: An IAM role ARN for the job.
@@ -66,38 +65,14 @@ bool AwsDoc::MediaConvert::createJob(const Aws::String &mediaConvertRole,
                                      const Aws::String &fileOutput,
                                      const Aws::String &jobSettingsFile,
                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
-    Aws::String endpoint;
-
     // MediaConvert has a low request limit for DescribeEndpoints.
-    // The best practice is to request the endpoint once, and then cache or hardcode it.
-    // Otherwise, you’ll quickly hit your low limit.
-    std::ifstream endpointCache(CACHED_ENDPOINT_FILE);
-    if (endpointCache) {
-        endpointCache >> endpoint;
-    }
-    else {
-        Aws::MediaConvert::MediaConvertClient endpointClient(clientConfiguration);
-        Aws::MediaConvert::Model::DescribeEndpointsRequest request;
-        auto outcome = endpointClient.DescribeEndpoints(request);
-        if (outcome.IsSuccess()) {
-            auto endpoints = outcome.GetResult().GetEndpoints();
-            if (endpoints.empty()) {
-                std::cerr << "DescribeEndpoints, no endpoints returned" << std::endl;
-                return false;
-            }
-            // Need to strip https:// from endpoint for C++.
-            endpoint = endpoints[0].GetUrl().substr(8);
-
-            std::cout << "Using media convert endpoint '" << endpoint << "'."
-                      << std::endl;
-            std::ofstream endpointCacheOut(CACHED_ENDPOINT_FILE);
-            endpointCacheOut << endpoint;
-        }
-        else {
-            std::cerr << "DescribeEndpoints error - " << outcome.GetError().GetMessage()
-                      << std::endl;
-            return false;
-        }
+    // "getEndpointUriHelper" uses caching to limit requests.
+    // See utils.cpp.
+    Aws::String endpoint = getEndpointUriHelper(clientConfiguration);
+    if (endpoint.empty())
+    {
+        std::cerr << "createJob error getting endpoint." << std::endl;
+        return false;
     }
 
     Aws::MediaConvert::Model::CreateJobRequest createJobRequest;
@@ -305,6 +280,7 @@ bool AwsDoc::MediaConvert::createJob(const Aws::String &mediaConvertRole,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.mediaconvert.create_job]
 
 /*
  *

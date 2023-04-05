@@ -11,13 +11,16 @@
 #include <memory>
 #include <gtest/gtest.h>
 
+class MockHttpClient;
+class MockHttpClientFactory;
+
 namespace AwsDocTest {
 
     class MyStringBuffer : public std::stringbuf {
         int underflow() override;
     };
 
-    class S3_GTests : public testing::Test {
+    class MediaConvert_GTests : public testing::Test {
     protected:
 
         void SetUp() override;
@@ -36,6 +39,9 @@ namespace AwsDocTest {
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
+        // This endpoint cache must be created in SetUp to ensure mocks work correctly.
+        void createEndpointCache();
+
     private:
 
         bool suppressStdOut();
@@ -47,7 +53,24 @@ namespace AwsDocTest {
 
         MyStringBuffer m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
-    }; // S3_GTests
+    }; // MediaConvert_GTests
+
+
+    class MockHTTP {
+    public:
+        MockHTTP();
+
+        virtual ~MockHTTP();
+
+        bool addResponseWithBody(const std::string &fileName,
+                                 Aws::Http::HttpResponseCode httpResponseCode = Aws::Http::HttpResponseCode::OK);
+
+    private:
+
+        std::shared_ptr<MockHttpClient> mockHttpClient;
+        std::shared_ptr<MockHttpClientFactory> mockHttpClientFactory;
+        std::shared_ptr<Aws::Http::HttpRequest> requestTmp;
+    }; // MockHTTP
 } // AwsDocTest
 
 #endif //S3_EXAMPLES_S3_GTESTS_H

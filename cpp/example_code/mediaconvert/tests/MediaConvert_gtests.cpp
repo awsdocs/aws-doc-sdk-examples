@@ -6,11 +6,17 @@
 #include "MediaConvert_gtests.h"
 #include <fstream>
 #include <aws/core/client/ClientConfiguration.h>
+#include <aws/mediaconvert/MediaConvertClient.h>
+#include <aws/mediaconvert/Model/DescribeEndpointsRequest.h>
+#include <aws/testing/mocks/http/MockHttpClient.h>
+#include "mediaconvert_samples.h"
 
-Aws::SDKOptions AwsDocTest::S3_GTests::s_options;
-std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::S3_GTests::s_clientConfig;
 
-void AwsDocTest::S3_GTests::SetUpTestSuite() {
+Aws::SDKOptions AwsDocTest::MediaConvert_GTests::s_options;
+std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::MediaConvert_GTests::s_clientConfig;
+static const char ALLOCATION_TAG[] = "RDS_GTEST";
+
+void AwsDocTest::MediaConvert_GTests::SetUpTestSuite() {
     InitAPI(s_options);
 
     // s_clientConfig must be a pointer because the client config must be initialized
@@ -18,12 +24,12 @@ void AwsDocTest::S3_GTests::SetUpTestSuite() {
     s_clientConfig = std::make_unique<Aws::Client::ClientConfiguration>();
 }
 
-void AwsDocTest::S3_GTests::TearDownTestSuite() {
+void AwsDocTest::MediaConvert_GTests::TearDownTestSuite() {
      ShutdownAPI(s_options);
 
 }
 
-void AwsDocTest::S3_GTests::SetUp() {
+void AwsDocTest::MediaConvert_GTests::SetUp() {
     if (suppressStdOut()) {
         m_savedBuffer = std::cout.rdbuf();
         std::cout.rdbuf(&m_coutBuffer);
@@ -35,9 +41,11 @@ void AwsDocTest::S3_GTests::SetUp() {
     // The following code is needed for the AwsDocTest::MyStringBuffer::underflow exception.
     // Otherwise, an infinite loop occurs when looping for a result on an empty buffer.
     std::cin.exceptions(std::ios_base::badbit);
+
+    createEndpointCache();
 }
 
-void AwsDocTest::S3_GTests::TearDown() {
+void AwsDocTest::MediaConvert_GTests::TearDown() {
     if (m_savedBuffer != nullptr) {
         std::cout.rdbuf(m_savedBuffer);
         m_savedBuffer = nullptr;
@@ -50,11 +58,11 @@ void AwsDocTest::S3_GTests::TearDown() {
     }
 }
 
-Aws::String AwsDocTest::S3_GTests::preconditionError() {
+Aws::String AwsDocTest::MediaConvert_GTests::preconditionError() {
     return "Failed to meet precondition.";
 }
 
-void AwsDocTest::S3_GTests::AddCommandLineResponses(
+void AwsDocTest::MediaConvert_GTests::AddCommandLineResponses(
         const std::vector<std::string> &responses) {
 
     std::stringstream stringStream;
@@ -65,8 +73,28 @@ void AwsDocTest::S3_GTests::AddCommandLineResponses(
 }
 
 
-bool AwsDocTest::S3_GTests::suppressStdOut() {
+bool AwsDocTest::MediaConvert_GTests::suppressStdOut() {
     return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
+}
+
+void AwsDocTest::MediaConvert_GTests::createEndpointCache() {
+    Aws::MediaConvert::MediaConvertClient endpointClient(*s_clientConfig);
+    Aws::MediaConvert::Model::DescribeEndpointsRequest request;
+    auto outcome = endpointClient.DescribeEndpoints(request);
+    Aws::String endpoint = "aaaaaaa.mediaconvert.us-test.amazonaws.com";
+    if (outcome.IsSuccess()) {
+        auto endpoints = outcome.GetResult().GetEndpoints();
+        if (!endpoints.empty()) {
+              // Need to strip https:// from endpoint for C++.
+            endpoint = endpoints[0].GetUrl().substr(8);
+         }
+    }
+    else {
+        std::cerr << "DescribeEndpoints error - " << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+    std::ofstream endpointCacheOut(AwsDoc::MediaConvert::CACHED_ENDPOINT_FILE);
+    endpointCacheOut << endpoint;
 }
 
 
@@ -78,4 +106,39 @@ int AwsDocTest::MyStringBuffer::underflow() {
     }
 
     return result;
+}
+
+AwsDocTest::MockHTTP::MockHTTP() {
+    mockHttpClient = Aws::MakeShared<MockHttpClient>(ALLOCATION_TAG);
+    mockHttpClientFactory = Aws::MakeShared<MockHttpClientFactory>(ALLOCATION_TAG);
+    mockHttpClientFactory->SetClient(mockHttpClient);
+    SetHttpClientFactory(mockHttpClientFactory);
+    requestTmp = CreateHttpRequest(Aws::Http::URI("https://test.com/"),
+                                   Aws::Http::HttpMethod::HTTP_GET,
+                                   Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
+}
+
+AwsDocTest::MockHTTP::~MockHTTP() {
+    Aws::Http::CleanupHttp();
+    Aws::Http::InitHttp();
+}
+
+bool AwsDocTest::MockHTTP::addResponseWithBody(const std::string &fileName,
+                                               Aws::Http::HttpResponseCode httpResponseCode) {
+
+    std::ifstream inStream(std::string(SRC_DIR) + "/" + fileName);
+    if (inStream) {
+        std::shared_ptr<Aws::Http::Standard::StandardHttpResponse> goodResponse = Aws::MakeShared<Aws::Http::Standard::StandardHttpResponse>(
+                ALLOCATION_TAG, requestTmp);
+        goodResponse->AddHeader("Content-Type", "text/json");
+        goodResponse->SetResponseCode(httpResponseCode);
+        goodResponse->GetResponseBody() << inStream.rdbuf();
+        mockHttpClient->AddResponseToReturn(goodResponse);
+        return true;
+    }
+
+    std::cerr << "MockHTTP::addResponseWithBody open file error '" << fileName << "'."
+              << std::endl;
+
+    return false;
 }

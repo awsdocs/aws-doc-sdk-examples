@@ -42,6 +42,8 @@ if(NOT DEFINED AWSDOC_SOURCE)
     file(GLOB AWSDOC_SOURCE
         "*.cpp"
     )
+
+    list(FILTER AWSDOC_SOURCE EXCLUDE REGEX "/utils.cpp$")
 endif()
 
 foreach(file ${AWSDOC_SOURCE})
@@ -50,7 +52,9 @@ foreach(file ${AWSDOC_SOURCE})
     # Build the code example executables.
     set(EXAMPLE_EXE run_${EXAMPLE})
 
-    add_executable(${EXAMPLE_EXE} ${file})
+    add_executable(${EXAMPLE_EXE}
+            ${file}
+            utils.cpp)
 
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
             ${AWSSDK_PLATFORM_DEPS})

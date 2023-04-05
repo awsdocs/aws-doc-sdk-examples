@@ -19,6 +19,7 @@
 #include <aws/mediaconvert/Model/ListJobsRequest.h>
 #include "mediaconvert_samples.h"
 
+// snippet-start:[cpp.example_code.mediaconvert.list_jobs]
 //! Retrieve a list of created jobs.
 /*!
   \param clientConfiguration: AWS client configuration.
@@ -26,7 +27,20 @@
  */
 bool AwsDoc::MediaConvert::listJobs(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
-    Aws::MediaConvert::MediaConvertClient endpointClient(clientConfiguration);
+
+    // MediaConvert has a low request limit for DescribeEndpoints.
+    // "getEndpointUriHelper" uses caching to limit requests.
+    // See utils.cpp.
+    Aws::String endpoint = getEndpointUriHelper(clientConfiguration);
+
+    if (endpoint.empty())
+    {
+        return false;
+    }
+
+    Aws::Client::ClientConfiguration endpointConfiguration(clientConfiguration);
+    endpointConfiguration.endpointOverride = endpoint;
+    Aws::MediaConvert::MediaConvertClient client(endpointConfiguration);
 
     bool result = true;
     Aws::String nextToken; // Used to handle paginated results.
@@ -35,7 +49,7 @@ bool AwsDoc::MediaConvert::listJobs(
         if (!nextToken.empty()) {
             request.SetNextToken(nextToken);
         }
-        const Aws::MediaConvert::Model::ListJobsOutcome outcome = endpointClient.ListJobs(
+        const Aws::MediaConvert::Model::ListJobsOutcome outcome = client.ListJobs(
                 request);
         if (outcome.IsSuccess()) {
             const Aws::Vector<Aws::MediaConvert::Model::Job> &jobs =
@@ -59,6 +73,7 @@ bool AwsDoc::MediaConvert::listJobs(
 
     return result;
 }
+// snippet-end:[cpp.example_code.mediaconvert.list_jobs]
 
 /*
  *

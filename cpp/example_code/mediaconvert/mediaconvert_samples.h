@@ -7,8 +7,11 @@
 #ifndef MEDIACONVERT_EXAMPLES_MEDIACONVERT_SAMPLES_H
 #define MEDIACONVERT_EXAMPLES_MEDIACONVERT_SAMPLES_H
 
+#include <aws/core/client/ClientConfiguration.h>
+
 namespace AwsDoc {
     namespace MediaConvert {
+        extern const char CACHED_ENDPOINT_FILE[];
 
         //! Create a MediaConvert job.
         /*!
@@ -41,11 +44,19 @@ namespace AwsDoc {
 
         //! Retrieve the information for a specific completed transcoding job.
         /*!
+          \param jobID: A jab ID.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool getJob(
-                const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool getJob(const Aws::String& jobID,
+                    const Aws::Client::ClientConfiguration &clientConfiguration);
+
+        //! Utility routine to handle caching of a retrieved endpoint.
+        /*!
+          \param clientConfiguration: AWS client configuration.
+          \return Aws::String: The endpoint URI.
+         */
+        Aws::String getEndpointUriHelper(const Aws::Client::ClientConfiguration &clientConfiguration);
     } // namespace MediaConvert
 } // namespace AwsDoc
 

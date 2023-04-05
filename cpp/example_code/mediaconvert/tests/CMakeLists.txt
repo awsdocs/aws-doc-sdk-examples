@@ -96,6 +96,7 @@ target_sources(
         PUBLIC
         ${GTEST_SOURCE}
         test_main.cpp
+        ../utils.cpp
         ${EXAMPLE_SERVICE_NAME}_gtests.cpp
 )
 
@@ -110,6 +111,7 @@ target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC
         TESTING_BUILD
+        SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
 target_link_libraries(
