@@ -4,7 +4,7 @@
 # Purpose
 # This code example demonstrates how to send a message to Amazon Simple Email Service (Amazon SES) email address.
 
-# snippet-start:[ruby.example_code.ses.v1.ses_send_email]
+# snippet-start:[ruby.example_code.ses.v1.send_email]
 
 require "aws-sdk-ses"  # v2: require 'aws-sdk'
 
@@ -14,7 +14,7 @@ sender = "sender@example.com"
 
 # Replace recipient@example.com with a "To" address. If your account
 # is still in the sandbox, this address must be verified.
-recipient = "sender@example.com"
+recipient = "recipient@example.com"
 
 # Specify a configuration set. To use a configuration
 # set, uncomment the next line and line 74.
@@ -38,7 +38,7 @@ encoding = "UTF-8"
 
 # Create a new SES client in the us-west-2 region.
 # Replace us-west-2 with the AWS Region you're using for Amazon SES.
-ses = Aws::SES::Client.new(region: "us-east-1")
+ses = Aws::SES::Client.new(region: "us-west-2")
 
 # Try to send the email.
 begin
@@ -66,15 +66,15 @@ begin
       }
     },
     source: sender,
-    # Uncomment the following line to use a configuration set.
-    # configuration_set_name: configsetname,
-  )
+  # Uncomment the following line to use a configuration set.
+  # configuration_set_name: configsetname,
+    )
 
   puts "Email sent to " + recipient
 
 
-# If something goes wrong, display an error message.
+  # If something goes wrong, display an error message.
 rescue Aws::SES::Errors::ServiceError => error
   puts "Email not sent. Error message: #{error}"
 end
-# snippet-end:[ruby.example_code.ses.v1.ses_send_email]
+# snippet-end:[ruby.example_code.ses.v1.send_email]
