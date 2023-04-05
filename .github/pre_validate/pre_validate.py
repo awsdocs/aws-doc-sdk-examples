@@ -69,7 +69,8 @@ EXPECTED_SAMPLE_FILES = {
     'market_2.jpg',
     'spheres_2.jpg',
     'sample_cert.pem',
-    'sample_private_key.pem'
+    'sample_private_key.pem',
+    'sample_saml_metadata.xml',
 }
 
 # media file types
