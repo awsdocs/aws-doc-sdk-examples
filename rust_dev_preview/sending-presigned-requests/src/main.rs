@@ -8,11 +8,11 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::presigning::{PresignedRequest, PresigningConfig};
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client};
+use clap::Parser;
 use std::error::Error;
 use std::time::Duration;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -61,7 +61,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         object,
         expires_in,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

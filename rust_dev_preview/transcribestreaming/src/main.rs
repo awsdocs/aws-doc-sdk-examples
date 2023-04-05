@@ -13,10 +13,10 @@ use aws_sdk_transcribestreaming::types::{
 };
 use aws_sdk_transcribestreaming::{config::Region, meta::PKG_VERSION, Client, Error};
 use bytes::BufMut;
+use clap::Parser;
 use std::time::Duration;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -51,7 +51,7 @@ async fn main() -> Result<(), Error> {
         region,
         audio_file,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

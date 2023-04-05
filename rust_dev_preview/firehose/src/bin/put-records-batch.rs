@@ -12,9 +12,9 @@ use aws_sdk_firehose::primitives::Blob;
 use aws_sdk_firehose::types::Record;
 use aws_sdk_firehose::{meta::PKG_VERSION, Client, Error};
 use aws_types::region::Region;
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(long)]
@@ -61,7 +61,7 @@ async fn main() -> Result<(), Error> {
         region,
         verbose,
         firehose_stream,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

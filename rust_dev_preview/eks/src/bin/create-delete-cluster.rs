@@ -8,9 +8,9 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_eks::types::VpcConfigRequest;
 use aws_sdk_eks::{config::Region, meta::PKG_VERSION, Client};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -91,7 +91,7 @@ async fn main() -> Result<(), Box<aws_sdk_eks::Error>> {
         region,
         subnet_ids,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     if verbose {
         tracing_subscriber::fmt::init();

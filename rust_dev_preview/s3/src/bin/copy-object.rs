@@ -13,9 +13,9 @@ use aws_sdk_s3::{
     operation::copy_object::{CopyObjectError, CopyObjectOutput},
     Client, Error,
 };
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -118,7 +118,7 @@ async fn main() -> Result<(), Error> {
         key,
         name,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

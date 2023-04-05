@@ -8,9 +8,9 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_eks::config::Region;
 use aws_sdk_eks::types::VpcConfigRequest;
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The region
     #[structopt(short, long)]
@@ -44,7 +44,7 @@ async fn main() -> Result<(), aws_sdk_eks::Error> {
         cluster_name,
         role_arn,
         subnet_id,
-    } = Opt::from_args();
+    } = Opt::parse();
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
         .or_else(Region::new("us-west-2"));
