@@ -6,7 +6,7 @@
 
 # snippet-start:[ruby.example_code.ses.v2.send_email]
 require 'aws-sdk-sesv2' # v2: require 'aws-sdk'
-require_relative '../config' # Recipient and sender email addresses.
+require_relative 'config' # Recipient and sender email addresses.
 
 # Set up SESv2 client
 client = Aws::SESV2::Client.new(region: AWS_REGION)
