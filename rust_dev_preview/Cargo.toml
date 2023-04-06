@@ -28,11 +28,11 @@ members = [
     "ecs",
     "eks",
     "firehose",
-    "greengrassv2",
     "globalaccelerator",
+    "glue",
+    "greengrassv2",
     "iam",
     "iot",
-    "glue",
     "kinesis",
     "kms",
     "lambda",
@@ -61,6 +61,7 @@ members = [
     "sts",
     "test-utils",
     "testing",
+    "textract",
     "tls",
     "transcribestreaming"
 ]
