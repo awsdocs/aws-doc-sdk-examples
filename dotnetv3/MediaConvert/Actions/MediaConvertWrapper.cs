@@ -135,7 +135,7 @@ public class MediaConvertWrapper
         AudioDescription ades = new AudioDescription
         {
             LanguageCodeControl = AudioLanguageCodeControl.FOLLOW_INPUT,
-            // This name matches one specified in the Inputs below.
+            // This name matches one specified in the following Inputs.
             AudioSourceName = "Audio Selector 1",
             CodecSettings = new AudioCodecSettings
             {

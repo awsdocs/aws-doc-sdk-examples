@@ -33,7 +33,7 @@ public class CreateJob
         var fileOutput = _configuration["fileOutput"];
 
         // Load the customer endpoint, if it is known.
-        // Once you know what your Region-specific endpoint is, set it here, or in your settings.local.json file.
+        // When you know what your Region-specific endpoint is, set it here, or set it in your settings.local.json file.
         var mediaConvertEndpoint = _configuration["mediaConvertEndpoint"];
 
         Console.WriteLine("Welcome to the MediaConvert Create Job example.");

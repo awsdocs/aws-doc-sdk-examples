@@ -52,7 +52,7 @@ your local settings, which will be loaded automatically when the application run
 * **fileInput** - The Amazon Simple Storage Service (Amazon S3) location of the input media file.
 * **fileOutput** - The Amazon S3 location for the output media file.
 * **mediaConvertEndpoint** - The optional customer-specific endpoint.
-* **mediaConvertRoleARN** - The Amazon Resource Name (ARN) of the Media Convert role, as specified [here](https://docs.aws.amazon.com/mediaconvert/latest/ug/creating-the-iam-role-in-mediaconvert-configured.html).
+* **mediaConvertRoleARN** - The Amazon Resource Name (ARN) of the MediaConvert role, as specified [here](https://docs.aws.amazon.com/mediaconvert/latest/ug/creating-the-iam-role-in-mediaconvert-configured.html).
 
 <!--custom.prerequisites.end-->
 
