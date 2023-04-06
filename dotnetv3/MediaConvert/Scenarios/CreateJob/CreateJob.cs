@@ -1,8 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-// snippet-start:[MediaConvert.dotnetv3.CreateJobSetup]
-
 using Microsoft.Extensions.Configuration;
 using Amazon.MediaConvert;
 using Amazon.MediaConvert.Model;
@@ -22,6 +20,8 @@ public class CreateJob
             .AddJsonFile("settings.json") // Load settings from .json file.
             .AddJsonFile("settings.local.json", true) // Optionally, load local settings.
             .Build();
+
+        // snippet-start:[MediaConvert.dotnetv3.CreateJobSetup]
 
         // MediaConvert role Amazon Resource Name (ARN). 
         // For information on creating this role, see
@@ -65,6 +65,7 @@ public class CreateJob
         var jobId = await wrapper.CreateJob(mediaConvertRole!, fileInput!, fileOutput!);
         Console.WriteLine($"Created job with Job ID: {jobId}");
         Console.WriteLine(new string('-', 80));
+        // snippet-end:[MediaConvert.dotnetv3.CreateJobSetup]
 
         Console.WriteLine(new string('-', 80));
         Console.WriteLine($"Getting job information for Job ID {jobId}");
@@ -84,5 +85,3 @@ public class CreateJob
         Console.WriteLine(new string('-', 80));
     }
 }
-
-// snippet-end:[MediaConvert.dotnetv3.CreateJobSetup]

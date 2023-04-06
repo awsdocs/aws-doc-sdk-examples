@@ -29,6 +29,9 @@ mediaconvert_CreateJob:
           excerpts:
             - description: Get the endpoint and set up the client.
               snippet_tags:
+                - MediaConvert.dotnetv3.Setup
+            - description:
+              snippet_tags:
                 - MediaConvert.dotnetv3.CreateJobSetup
             - description: Create the job using the wrapper method and return the job ID.
               snippet_tags:
@@ -64,7 +67,13 @@ mediaconvert_ListJobs:
           github: dotnetv3/MediaConvert
           sdkguide:
           excerpts:
-            - description:
+            - description: Get the endpoint and set up the client.
+              snippet_tags:
+                - MediaConvert.dotnetv3.Setup
+            - description: List the jobs with a particular status.
+              snippet_tags:
+                - MediaConvert.dotnetv3.ListJobsSetup
+            - description: List the jobs using a paginator.
               snippet_tags:
                 - MediaConvert.dotnetv3.ListJobs
     Java:
@@ -98,6 +107,12 @@ mediaconvert_GetJob:
           github: dotnetv3/MediaConvert
           sdkguide:
           excerpts:
+            - description: Get the endpoint and set up the client.
+              snippet_tags:
+                - MediaConvert.dotnetv3.Setup
+            - description: Get a job by its ID.
+              snippet_tags:
+                - MediaConvert.dotnetv3.GetJobSetup
             - description:
               snippet_tags:
                 - MediaConvert.dotnetv3.GetJob
