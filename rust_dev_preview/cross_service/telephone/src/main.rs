@@ -7,14 +7,14 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_polly::config::Region;
 use aws_sdk_polly::types::{OutputFormat, VoiceId};
 use aws_sdk_transcribe::types::{LanguageCode, Media, MediaFormat, TranscriptionJobStatus};
+use clap::Parser;
 use serde_json::{Result, Value};
 use std::fs;
 use std::path::Path;
 use std::time::Duration;
-use structopt::StructOpt;
 use tokio::io::AsyncWriteExt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -221,7 +221,7 @@ async fn main() -> Result<()> {
         job_name,
         region,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     // Copy the Region for each service client.
     let polly_region = region.clone();

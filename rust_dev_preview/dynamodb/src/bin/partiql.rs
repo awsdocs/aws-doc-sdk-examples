@@ -15,14 +15,14 @@ use aws_smithy_http::result::SdkError;
 
 use aws_sdk_dynamodb::operation::create_table::CreateTableError;
 use aws_sdk_dynamodb::operation::execute_statement::ExecuteStatementError;
+use clap::Parser;
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
 use std::io::{stdin, Read};
 use std::time::Duration;
 use std::{iter, process};
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// Whether to run in interactive mode (you have to press return between operations)
     #[structopt(short, long)]
@@ -208,7 +208,7 @@ async fn main() -> Result<(), Error> {
         interactive,
         region,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

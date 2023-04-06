@@ -8,11 +8,11 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_kms::primitives::Blob;
 use aws_sdk_kms::{config::Region, meta::PKG_VERSION, Client, Error};
+use clap::Parser;
 use std::fs::File;
 use std::io::Write;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -86,7 +86,7 @@ async fn main() -> Result<(), Error> {
         region,
         text,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

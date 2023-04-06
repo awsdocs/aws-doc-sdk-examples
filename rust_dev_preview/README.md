@@ -54,7 +54,14 @@ The following environment variables are specific to the AWS SDK for Rust.
 
 You must have an AWS account, and have configured your default credentials and AWS Region as described in [Getting started with the AWS SDK for Rust](https://docs.aws.amazon.com/sdk-for-rust/latest/dg/getting-started.html).
 
+You must have the [Cargo](https://doc.rust-lang.org/cargo/) build tool, which is typically installed via [rustup](https://rustup.rs/).
+
+Each example has one or more examples that can be executed with `cargo run --bin [program name]`.
 See the individual readme files in each service directory for information about specific code examples for that service.
+
+Unit tests for each example can be run with `cargo test`, and these will not cause any changes or charges to your AWS account.
+Integration tests may cause changes or charges to your AWS account, and are described individually for each example.
+However, they can be run with `cargo test -- --ignored`.
 
 ## Resources
 
@@ -63,6 +70,7 @@ See the individual readme files in each service directory for information about 
 - [AWS SDK for Rust Developer Guide](https://docs.aws.amazon.com/sdk-for-rust/latest/dg)
 
 ## Docker image (Beta)
+
 This example code will soon be available in a container image
 hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
 with all Rust examples with dependencies pre-resolved, allowing you to explore
