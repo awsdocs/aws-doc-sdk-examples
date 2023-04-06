@@ -5,6 +5,15 @@ eventbridge_Hello:
   synopsis: get started using &EV;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.java2._list_buses.main
     .NET:
       versions:
         - sdk_version: 3
@@ -74,6 +83,15 @@ eventbridge_DisableRule:
   synopsis: disable an &EVlong; rule.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Disable a rule by its rule name.
+              snippet_tags:
+                - eventbridge.java2.disable.rule.main
     .NET:
       versions:
         - sdk_version: 3
@@ -91,6 +109,15 @@ eventbridge_EnableRule:
   synopsis: enable an &EVlong; rule.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Enable a rule by its rule name.
+              snippet_tags:
+                - eventbridge.java2.disable.rule.main
     .NET:
       versions:
         - sdk_version: 3
@@ -108,6 +135,15 @@ eventbridge_ListRules:
   synopsis: list &EVlong; rules.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Enable a rule by its rule name.
+              snippet_tags:
+                - eventbridge.java2._list_rules.main
     .NET:
       versions:
         - sdk_version: 3
@@ -125,6 +161,15 @@ eventbridge_ListRuleNamesByTarget:
   synopsis: list &EVlong; rule names for a target.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: List all of the rule names using the target.
+              snippet_tags:
+                - eventbridge.java2.list.rules.target.main
     .NET:
       versions:
         - sdk_version: 3
@@ -142,6 +187,15 @@ eventbridge_ListTargetsByRule:
   synopsis: list &EVlong; targets for a rule.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: List all of the targets for a rule using the rule name.
+              snippet_tags:
+                - eventbridge.java2.list.target.rules.main
     .NET:
       versions:
         - sdk_version: 3
@@ -294,6 +348,15 @@ eventbridge_PutTargets:
   synopsis: add a target to an &EVlong; event.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Add an &SNS; topic as a target for a rule.
+              snippet_tags:
+                - eventbridge.java2.puttargetstransform.main
     .NET:
       versions:
         - sdk_version: 3
@@ -345,6 +408,15 @@ eventbridge_RemoveTargets:
   synopsis: remove &EVlong; targets from a rule.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Remove all of the targets for a rule using the rule name.
+              snippet_tags:
+                - eventbridge.java2.delete.targets.main
     .NET:
       versions:
         - sdk_version: 3
@@ -366,6 +438,15 @@ eventbridge_Scenario_GettingStarted:
     - Send events, then clean up resources.
   category: Scenarios
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Remove all of the targets for a rule using the rule name.
+              snippet_tags:
+                - eventbridge.java2.mvp.main
     .NET:
       versions:
         - sdk_version: 3

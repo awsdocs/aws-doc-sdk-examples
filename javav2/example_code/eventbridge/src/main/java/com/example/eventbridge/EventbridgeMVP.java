@@ -379,6 +379,7 @@ public class EventbridgeMVP {
     }
     // snippet-end:[eventbridge.java2._delete_rule.main]
 
+    // snippet-start:[eventbridge.java2.delete.targets.main]
     public static void deleteTargetsFromRule(EventBridgeClient eventBrClient, String eventRuleName) {
         // First get all targets that will be deleted.
         ListTargetsByRuleRequest request = ListTargetsByRuleRequest.builder()
@@ -399,6 +400,7 @@ public class EventbridgeMVP {
             System.out.println("Successfully removed the target");
         }
     }
+    // snippet-end:[eventbridge.java2.delete.targets.main]
 
     // snippet-start:[eventbridge.java2._put_event.main]
     public static void triggerCustomRule(EventBridgeClient eventBrClient, String email) {
@@ -448,7 +450,7 @@ public class EventbridgeMVP {
         }
     }
 
-    // Update the rule to use a custom event pattern.
+    // snippet-start:[eventbridge.java2.puttargetstransform.main]
     public static void updateToCustomRule(EventBridgeClient eventBrClient, String ruleName) {
         String customEventsPattern = "{" +
             "\"source\": [\"ExampleSource\"]," +
@@ -463,6 +465,7 @@ public class EventbridgeMVP {
 
         eventBrClient.putRule(request);
     }
+    // snippet-end:[eventbridge.java2.puttargetstransform.main]
 
     // Update an Amazon S3 object created rule with a transform on the target.
     public static void updateSnsEventRule(EventBridgeClient eventBrClient, String topicArn, String ruleName){
@@ -514,6 +517,7 @@ public class EventbridgeMVP {
     }
     // snippet-end:[eventbridge.java2._describe_rule.main]
 
+    // snippet-start:[eventbridge.java2.disable.rule.main]
     public static void changeRuleState(EventBridgeClient eventBrClient, String eventRuleName, Boolean isEnabled) {
         try {
             if (!isEnabled) {
@@ -536,6 +540,7 @@ public class EventbridgeMVP {
             System.exit(1);
         }
     }
+    // snippet-end:[eventbridge.java2.disable.rule.main]
 
     // Create and upload a file to an S3 bucket to trigger an event.
     public static void uploadTextFiletoS3(S3Client s3Client, String bucketName) throws IOException {
@@ -563,6 +568,7 @@ public class EventbridgeMVP {
         }
     }
 
+    // snippet-start:[eventbridge.java2.list.rules.target.main]
     public static void listTargetRules(EventBridgeClient eventBrClient, String topicArn) {
         ListRuleNamesByTargetRequest ruleNamesByTargetRequest = ListRuleNamesByTargetRequest.builder()
             .targetArn(topicArn)
@@ -574,7 +580,9 @@ public class EventbridgeMVP {
             System.out.println("The rule name is "+rule);
         }
     }
+    // snippet-end:[eventbridge.java2.list.rules.target.main]
 
+    // snippet-start:[eventbridge.java2.list.target.rules.main]
     public static void listTargets(EventBridgeClient eventBrClient, String ruleName) {
         ListTargetsByRuleRequest ruleRequest = ListTargetsByRuleRequest.builder()
             .rule(ruleName)
@@ -586,6 +594,7 @@ public class EventbridgeMVP {
             System.out.println("Target ARN: "+target.arn());
         }
     }
+    // snippet-end:[eventbridge.java2.list.target.rules.main]
 
     // Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
     public static void addSnsEventRule(EventBridgeClient eventBrClient, String ruleName, String topicArn, String topicName, String eventRuleName, String bucketName) {
