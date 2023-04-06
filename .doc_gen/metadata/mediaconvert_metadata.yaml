@@ -58,6 +58,15 @@ mediaconvert_ListJobs:
   synopsis: list &EMC; transcoding jobs.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/MediaConvert
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - MediaConvert.dotnetv3.ListJobs
     Java:
       versions:
         - sdk_version: 2
@@ -83,6 +92,15 @@ mediaconvert_GetJob:
   synopsis: get a &EMC; transcoding job.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/MediaConvert
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - MediaConvert.dotnetv3.GetJob
     Java:
       versions:
         - sdk_version: 2

@@ -12,6 +12,7 @@ public class MediaConvertTests
 {
     private readonly IConfiguration _configuration;
     private readonly MediaConvertWrapper _mediaConvertWrapper;
+    public static string? _jobId;
 
     /// <summary>
     /// Constructor for the test class.
@@ -53,9 +54,46 @@ public class MediaConvertTests
         var fileOutput = _configuration["fileOutput"];
 
         // Act.
-        var id = await _mediaConvertWrapper.CreateJob(mediaConvertRole!, fileInput!, fileOutput!);
+        var jobId = await _mediaConvertWrapper.CreateJob(mediaConvertRole!, fileInput!, fileOutput!);
+        _jobId = jobId;
 
         // Assert.
-        Assert.False(string.IsNullOrEmpty(id));
+        Assert.False(string.IsNullOrEmpty(_jobId));
+    }
+
+    /// <summary>
+    /// List jobs. The returned list should not be empty.
+    /// </summary>
+    /// <returns>Async task.</returns>
+    [Fact]
+    [Order(2)]
+    [Trait("Category", "Integration")]
+    public async Task ListJobs_ShouldNotBeEmpty()
+    {
+        // Arrange.
+
+        // Act.
+        var jobs = await _mediaConvertWrapper.ListAllJobsByStatus();
+
+        // Assert.
+        Assert.NotEmpty(jobs);
+    }
+
+    /// <summary>
+    /// Get a job by ID. Should not return null.
+    /// </summary>
+    /// <returns>Async task.</returns>
+    [Fact]
+    [Order(3)]
+    [Trait("Category", "Integration")]
+    public async Task GetJob_ShouldNotBeNull()
+    {
+        // Arrange.
+
+        // Act.
+        var job = await _mediaConvertWrapper.GetJobById(_jobId!);
+
+        // Assert.
+        Assert.NotNull(job);
     }
 }

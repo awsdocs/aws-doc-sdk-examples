@@ -32,7 +32,8 @@ public class CreateJob
         var fileInput = _configuration["fileInput"];
         var fileOutput = _configuration["fileOutput"];
 
-        // Load the customer input, if it is known.
+        // Load the customer endpoint, if it is known.
+        // Once you know what your Region-specific endpoint is, set it here, or in your settings.local.json file.
         var mediaConvertEndpoint = _configuration["mediaConvertEndpoint"];
 
         Console.WriteLine("Welcome to the MediaConvert Create Job example.");
@@ -45,8 +46,9 @@ public class CreateJob
             DescribeEndpointsResponse describeResponse = await client.DescribeEndpointsAsync(describeRequest);
             mediaConvertEndpoint = describeResponse.Endpoints[0].Url;
         }
-
+        Console.WriteLine(new string('-', 80));
         Console.WriteLine($"Using endpoint {mediaConvertEndpoint}.");
+        Console.WriteLine(new string('-', 80));
         // Since we have a service url for MediaConvert, we do not
         // need to set RegionEndpoint. If we do, the ServiceURL will
         // be overwritten.
@@ -58,8 +60,28 @@ public class CreateJob
         AmazonMediaConvertClient mcClient = new AmazonMediaConvertClient(mcConfig);
 
         var wrapper = new MediaConvertWrapper(mcClient);
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine($"Creating job for input file {fileInput}.");
+        var jobId = await wrapper.CreateJob(mediaConvertRole!, fileInput!, fileOutput!);
+        Console.WriteLine($"Created job with Job ID: {jobId}");
+        Console.WriteLine(new string('-', 80));
 
-        await wrapper.CreateJob(mediaConvertRole!, fileInput!, fileOutput!);
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine($"Getting job information for Job ID {jobId}");
+        var job = await wrapper.GetJobById(jobId);
+        Console.WriteLine($"Job {job.Id} created on {job.CreatedAt:d} has status {job.Status}.");
+        Console.WriteLine(new string('-', 80));
+
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine($"Listing all complete jobs.");
+        var completeJobs = await wrapper.ListAllJobsByStatus(JobStatus.COMPLETE);
+        completeJobs.ForEach(j =>
+        {
+            Console.WriteLine($"Job {j.Id} created on {j.CreatedAt:d} has status {j.Status}.");
+        });
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine("MediaConvert Create Job example complete.");
+        Console.WriteLine(new string('-', 80));
     }
 }
 

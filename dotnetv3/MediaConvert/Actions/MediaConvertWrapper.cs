@@ -15,7 +15,6 @@ public class MediaConvertWrapper
     /// </summary>
     /// <param name="amazonMediaConvert">The injected MediaConvert client.</param>
     public MediaConvertWrapper(IAmazonMediaConvert amazonMediaConvert)
-
     {
         _amazonMediaConvert = amazonMediaConvert;
     }
@@ -30,7 +29,8 @@ public class MediaConvertWrapper
     /// <param name="fileInput">The Amazon Simple Storage Service (Amazon S3) location of the input media file</param>
     /// <param name="fileOutput">The Amazon S3 location for the output media file.</param>
     /// <returns>The ID of the new job.</returns>
-    public async Task<string> CreateJob(string mediaConvertRole, string fileInput, string fileOutput)
+    public async Task<string> CreateJob(string mediaConvertRole, string fileInput,
+        string fileOutput)
     {
         CreateJobRequest createJobRequest = new CreateJobRequest
         {
@@ -50,6 +50,7 @@ public class MediaConvertWrapper
         createJobRequest.Settings = jobSettings;
 
         #region OutputGroup
+
         OutputGroup ofg = new OutputGroup
         {
             Name = "File Group",
@@ -69,6 +70,7 @@ public class MediaConvertWrapper
         };
 
         #region VideoDescription
+
         VideoDescription vdes = new VideoDescription
         {
             ScalingBehavior = ScalingBehavior.DEFAULT,
@@ -112,7 +114,8 @@ public class MediaConvertWrapper
             FieldEncoding = H264FieldEncoding.PAFF,
             SceneChangeDetect = H264SceneChangeDetect.ENABLED,
             QualityTuningLevel = H264QualityTuningLevel.SINGLE_PASS,
-            FramerateConversionAlgorithm = H264FramerateConversionAlgorithm.DUPLICATE_DROP,
+            FramerateConversionAlgorithm =
+                H264FramerateConversionAlgorithm.DUPLICATE_DROP,
             UnregisteredSeiTimecode = H264UnregisteredSeiTimecode.DISABLED,
             GopSizeUnits = H264GopSizeUnits.FRAMES,
             ParControl = H264ParControl.SPECIFIED,
@@ -124,9 +127,11 @@ public class MediaConvertWrapper
             ParDenominator = 1
         };
         output.VideoDescription.CodecSettings.H264Settings = h264;
+
         #endregion VideoDescription
 
         #region AudioDescription
+
         AudioDescription ades = new AudioDescription
         {
             LanguageCodeControl = AudioLanguageCodeControl.FOLLOW_INPUT,
@@ -151,9 +156,11 @@ public class MediaConvertWrapper
         };
         ades.CodecSettings.AacSettings = aac;
         output.AudioDescriptions.Add(ades);
+
         #endregion AudioDescription
 
         #region Mp4 Container
+
         output.ContainerSettings = new ContainerSettings
         {
             Container = ContainerType.MP4
@@ -165,13 +172,16 @@ public class MediaConvertWrapper
             MoovPlacement = Mp4MoovPlacement.PROGRESSIVE_DOWNLOAD
         };
         output.ContainerSettings.Mp4Settings = mp4;
+
         #endregion Mp4 Container
 
         ofg.Outputs.Add(output);
         createJobRequest.Settings.OutputGroups.Add(ofg);
+
         #endregion OutputGroup
 
         #region Input
+
         Input input = new Input
         {
             FilterEnable = InputFilterEnable.AUTO,
@@ -199,13 +209,15 @@ public class MediaConvertWrapper
         };
 
         createJobRequest.Settings.Inputs.Add(input);
+
         #endregion Input
+
         var jobId = "";
         try
         {
-            Console.WriteLine($"Creating job for input file {fileInput}.");
-            CreateJobResponse createJobResponse = await _amazonMediaConvert.CreateJobAsync(createJobRequest);
-            Console.WriteLine("Created job with Job ID: {0}", createJobResponse.Job.Id);
+            CreateJobResponse createJobResponse =
+                await _amazonMediaConvert.CreateJobAsync(createJobRequest);
+
             jobId = createJobResponse.Job.Id;
         }
         catch (BadRequestException bre)
@@ -221,7 +233,52 @@ public class MediaConvertWrapper
             else
                 throw;
         }
+
         return jobId;
     }
     // snippet-end:[MediaConvert.dotnetv3.CreateJob]
+
+    // snippet-start:[MediaConvert.dotnetv3.ListJobs]
+    /// <summary>
+    /// List all of the jobs with a particular status using a paginator.
+    /// </summary>
+    /// <param name="status">The status to use when listing jobs.</param>
+    /// <returns>The list of jobs matching the status.</returns>
+    public async Task<List<Job>> ListAllJobsByStatus(JobStatus? status = null)
+    {
+        var returnedJobs = new List<Job>();
+
+        var paginatedJobs = _amazonMediaConvert.Paginators.ListJobs(
+                new ListJobsRequest
+                {
+                    Status = status
+                });
+
+        // Get the entire list using the paginator.
+        await foreach (var job in paginatedJobs.Jobs)
+        {
+            returnedJobs.Add(job);
+        }
+
+        return returnedJobs;
+    }
+    // snippet-end:[MediaConvert.dotnetv3.ListJobs]
+
+    // snippet-start:[MediaConvert.dotnetv3.GetJob]
+    /// <summary>
+    /// Get the job information for a job by its ID.
+    /// </summary>
+    /// <param name="jobId">The ID of the job.</param>
+    /// <returns>The Job object.</returns>
+    public async Task<Job> GetJobById(string jobId)
+    {
+        var jobResponse = await _amazonMediaConvert.GetJobAsync(
+                new GetJobRequest
+                {
+                    Id = jobId
+                });
+
+        return jobResponse.Job;
+    }
+    // snippet-end:[MediaConvert.dotnetv3.GetJob]
 }
