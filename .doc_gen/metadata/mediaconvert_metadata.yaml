@@ -1,7 +1,7 @@
 mediaconvert_Hello:
   title: Hello &EMC;
   title_abbrev: Hello &EMC;
-  synopsis: get started using &EMC;.
+  synopsis: get started using &EMClong;.
   category: Hello
   languages:
     .NET:
@@ -18,7 +18,7 @@ mediaconvert_Hello:
 mediaconvert_CreateJob:
   title: Create a &EMC; transcoding job using an &AWS; SDK
   title_abbrev: Create a transcoding job
-  synopsis: create a &EMC; transcoding job.
+  synopsis: create an &EMClong; transcoding job.
   category:
   languages:
     .NET:
@@ -55,7 +55,7 @@ mediaconvert_CreateJob:
 mediaconvert_ListJobs:
   title: List &EMC; transcoding jobs using an &AWS; SDK
   title_abbrev: List transcoding jobs
-  synopsis: list &EMC; transcoding jobs.
+  synopsis: list &EMClong; transcoding jobs.
   category:
   languages:
     .NET:
@@ -89,7 +89,7 @@ mediaconvert_ListJobs:
 mediaconvert_GetJob:
   title: Get a &EMC; transcoding job using an &AWS; SDK
   title_abbrev: Get a transcoding job
-  synopsis: get a &EMC; transcoding job.
+  synopsis: get an &EMClong; transcoding job.
   category:
   languages:
     .NET:

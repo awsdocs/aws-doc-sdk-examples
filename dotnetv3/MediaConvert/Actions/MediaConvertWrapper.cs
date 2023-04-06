@@ -26,7 +26,7 @@ public class MediaConvertWrapper
     /// </summary>
     /// <param name="mediaConvertRole">The Amazon Resource Name (ARN) of the media convert role, as specified here:
     /// https://docs.aws.amazon.com/mediaconvert/latest/ug/creating-the-iam-role-in-mediaconvert-configured.html</param>
-    /// <param name="fileInput">The Amazon Simple Storage Service (Amazon S3) location of the input media file</param>
+    /// <param name="fileInput">The Amazon Simple Storage Service (Amazon S3) location of the input media file.</param>
     /// <param name="fileOutput">The Amazon S3 location for the output media file.</param>
     /// <returns>The ID of the new job.</returns>
     public async Task<string> CreateJob(string mediaConvertRole, string fileInput,

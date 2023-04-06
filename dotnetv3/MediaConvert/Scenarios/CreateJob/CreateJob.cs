@@ -25,7 +25,7 @@ public class CreateJob
 
         // MediaConvert role Amazon Resource Name (ARN). 
         // For information on creating this role, see
-        // https://docs.aws.amazon.com/mediaconvert/latest/ug/creating-the-iam-role-in-mediaconvert-configured.html
+        // https://docs.aws.amazon.com/mediaconvert/latest/ug/creating-the-iam-role-in-mediaconvert-configured.html.
         var mediaConvertRole = _configuration["mediaConvertRoleARN"];
 
         // Include the file input and output locations in settings.json or settings.local.json.
@@ -37,7 +37,7 @@ public class CreateJob
         var mediaConvertEndpoint = _configuration["mediaConvertEndpoint"];
 
         Console.WriteLine("Welcome to the MediaConvert Create Job example.");
-        // If we do not have the customer-specific endpoint, request it here.
+        // If you don't have the customer-specific endpoint, request it here.
         if (string.IsNullOrEmpty(mediaConvertEndpoint))
         {
             Console.WriteLine("Getting customer-specific MediaConvert endpoint.");
@@ -49,8 +49,8 @@ public class CreateJob
         Console.WriteLine(new string('-', 80));
         Console.WriteLine($"Using endpoint {mediaConvertEndpoint}.");
         Console.WriteLine(new string('-', 80));
-        // Since we have a service url for MediaConvert, we do not
-        // need to set RegionEndpoint. If we do, the ServiceURL will
+        // Because you have a service URL for MediaConvert, you don't
+        // need to set RegionEndpoint. If you do, the ServiceURL will
         // be overwritten.
         AmazonMediaConvertConfig mcConfig = new AmazonMediaConvertConfig
         {
