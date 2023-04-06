@@ -57,7 +57,6 @@ bool AwsDoc::MediaConvert::describeEndpoints(
         }
     } while (!nextToken.empty());
 
-
     return result;
 }
 // snippet-end:[cpp.example_code.mediaconvert.describe_endpoints]
