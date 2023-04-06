@@ -160,10 +160,10 @@ public class EventbridgeMVP {
             "}";
 
         Scanner sc = new Scanner(System.in);
-        String roleName = "EventRole191"; // args[0] ;
-        String bucketName ="eventbridgebucket191" ; // args[1] ;
-        String topicName = "myeventbridgetopic191" ; // args[2] ;
-        String eventRuleName = "example-event-rule191"; // args[3] ;
+        String roleName = args[0] ;
+        String bucketName = args[1] ;
+        String topicName = args[2] ;
+        String eventRuleName = args[3] ;
 
         System.out.println(DASHES);
         System.out.println("Welcome to the Amazon EventBridge example scenario.");
