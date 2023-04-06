@@ -23,7 +23,7 @@ public class CreateJob
             .AddJsonFile("settings.local.json", true) // Optionally, load local settings.
             .Build();
 
-        // MediaConvert role ARN. 
+        // MediaConvert role Amazon Resource Name (ARN). 
         // For information on creating this role, see
         // https://docs.aws.amazon.com/mediaconvert/latest/ug/creating-the-iam-role-in-mediaconvert-configured.html
         var mediaConvertRole = _configuration["mediaConvertRoleARN"];
