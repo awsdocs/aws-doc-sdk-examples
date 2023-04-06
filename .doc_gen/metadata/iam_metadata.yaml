@@ -21,6 +21,15 @@ iam_Hello:
             - description:
               snippet_tags:
                 - gov2.iam.Hello
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.iam.hello
   services:
     iam: {ListPolicies}
 iam_CreateAccountAlias:
