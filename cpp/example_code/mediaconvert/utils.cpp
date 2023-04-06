@@ -36,7 +36,7 @@ namespace AwsDoc {
 Aws::String AwsDoc::MediaConvert::getEndpointUriHelper(const Aws::Client::ClientConfiguration &clientConfiguration)
 {
     // MediaConvert has a low request limit for DescribeEndpoints.
-    // The best practice is to request the endpoint once, and then cache or hardcode it.
+    // The best practice is to request the endpoint once, and then cache it.
     // Otherwise, you’ll quickly hit your low limit.
     std::string endpoint;
     std::ifstream endpointCache(CACHED_ENDPOINT_FILE);

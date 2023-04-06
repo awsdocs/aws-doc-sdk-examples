@@ -49,7 +49,7 @@ namespace AwsDoc {
         const char AUDIO_SOURCE_NAME[] = "Audio Select 1";
     }
 }
-// snippet-start:[cpp.example_code.mediaconvert.create_job]
+// snippet-start:[cpp.example_code.mediaconvert.CreateJob]
 //! Create a MediaConvert job.
 /*!
   \param mediaConvertRole: An IAM role ARN for the job.
@@ -280,7 +280,7 @@ bool AwsDoc::MediaConvert::createJob(const Aws::String &mediaConvertRole,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.mediaconvert.create_job]
+// snippet-end:[cpp.example_code.mediaconvert.CreateJob]
 
 /*
  *

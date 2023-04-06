@@ -61,8 +61,8 @@ mediaconvert_CreateJob:
             - description:
               snippet_tags:
                 - cpp.example_code.mediaconvert.get_endpoint_uri_helper
-                - cpp.example_code.mediaconvert.create_job
-   services:
+                - cpp.example_code.mediaconvert.CreateJob
+  services:
     mediaconvert: {CreateJob}
 mediaconvert_ListJobs:
   title: List &EMC; transcoding jobs using an &AWS; SDK
@@ -110,7 +110,7 @@ mediaconvert_ListJobs:
             - description:
               snippet_tags:
                 - cpp.example_code.mediaconvert.get_endpoint_uri_helper
-                - cpp.example_code.mediaconvert.list_jobs
+                - cpp.example_code.mediaconvert.ListJobs
   services:
     mediaconvert: {ListJobs}
 mediaconvert_GetJob:
@@ -159,6 +159,6 @@ mediaconvert_GetJob:
             - description:
               snippet_tags:
                 - cpp.example_code.mediaconvert.get_endpoint_uri_helper
-                - cpp.example_code.mediaconvert.get_job
+                - cpp.example_code.mediaconvert.GetJob
   services:
     mediaconvert: {GetJob}

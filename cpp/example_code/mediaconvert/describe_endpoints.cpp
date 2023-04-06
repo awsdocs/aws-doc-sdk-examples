@@ -19,7 +19,6 @@
 #include <aws/mediaconvert/Model/DescribeEndpointsRequest.h>
 #include "mediaconvert_samples.h"
 
-// snippet-start:[cpp.example_code.mediaconvert.describe_endpoints]
 //! Retrieve the account api endpoint.
 /*!
   \param clientConfiguration: AWS client configuration.
@@ -59,7 +58,6 @@ bool AwsDoc::MediaConvert::describeEndpoints(
 
     return result;
 }
-// snippet-end:[cpp.example_code.mediaconvert.describe_endpoints]
 
 /*
  *

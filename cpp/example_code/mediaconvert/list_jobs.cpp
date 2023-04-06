@@ -19,7 +19,7 @@
 #include <aws/mediaconvert/Model/ListJobsRequest.h>
 #include "mediaconvert_samples.h"
 
-// snippet-start:[cpp.example_code.mediaconvert.list_jobs]
+// snippet-start:[cpp.example_code.mediaconvert.ListJobs]
 //! Retrieve a list of created jobs.
 /*!
   \param clientConfiguration: AWS client configuration.
@@ -73,7 +73,7 @@ bool AwsDoc::MediaConvert::listJobs(
 
     return result;
 }
-// snippet-end:[cpp.example_code.mediaconvert.list_jobs]
+// snippet-end:[cpp.example_code.mediaconvert.ListJobs]
 
 /*
  *

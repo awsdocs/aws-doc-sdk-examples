@@ -19,7 +19,7 @@
 #include <aws/mediaconvert/Model/GetJobRequest.h>
 #include "mediaconvert_samples.h"
 
-// snippet-start:[cpp.example_code.mediaconvert.get_job]
+// snippet-start:[cpp.example_code.mediaconvert.GetJob]
 //! Retrieve the information for a specific completed transcoding job.
 /*!
   \param clientConfiguration: AWS client configuration.
@@ -56,7 +56,7 @@ bool AwsDoc::MediaConvert::getJob(const Aws::String& jobID,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.mediaconvert.get_job]
+// snippet-end:[cpp.example_code.mediaconvert.GetJob]
 
 /*
  *
