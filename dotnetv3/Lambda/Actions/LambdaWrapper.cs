@@ -28,8 +28,8 @@ public class LambdaWrapper
     /// Creates a new Lambda function.
     /// </summary>
     /// <param name="functionName">The name of the function.</param>
-    /// <param name="s3Bucket">The S3 bucket where the zip file containing
-    /// the code is located.</param>
+    /// <param name="s3Bucket">The Amazon Simple Storage Service (Amazon S3)
+    /// bucket where the zip file containing the code is located.</param>
     /// <param name="s3Key">The Amazon S3 key of the zip file.</param>
     /// <param name="role">The Amazon Resource Name (ARN) of a role with the
     /// appropriate Lambda permissions.</param>
@@ -85,8 +85,8 @@ public class LambdaWrapper
 
         var response = await _lambdaService.DeleteFunctionAsync(request);
 
-        // A return value of NoContent means that the request was processed,
-        // in this case, the function was deleted, and the return value
+        // A return value of NoContent means that the request was processed.
+        // In this case, the function was deleted, and the return value
         // is intentionally blank.
         return response.HttpStatusCode == System.Net.HttpStatusCode.NoContent;
     }
@@ -118,7 +118,8 @@ public class LambdaWrapper
     /// Invoke a Lambda function.
     /// </summary>
     /// <param name="functionName">The name of the Lambda function to
-    /// invoke.</param>
+    /// invoke.</param
+    /// <param name="parameters">The parameter values that will be passed to the function.</param>
     /// <returns>A System Threading Task.</returns>
     public async Task<string> InvokeFunctionAsync(
         string functionName,

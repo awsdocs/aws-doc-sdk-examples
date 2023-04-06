@@ -12,7 +12,7 @@ using Amazon.IdentityManagement.Model;
 namespace LambdaTests
 {
     /// <summary>
-    /// Test methods for the LambdaMethods class in the Lambda Basics scenario.
+    /// Test methods for the LambdaMethods class in the AWS Lambda Basics scenario.
     /// </summary>
     public class LambdaMethodsTests
     {
@@ -105,7 +105,8 @@ namespace LambdaTests
 
         /// <summary>
         /// Test the LambdaRoleWrapper method AttachLambdaRolePolicyAsync which
-        /// attaches an IAM policy to the IAM role created for the scenario.
+        /// attaches an AWS Identity and Access Management (IAM) policy to the
+        /// IAM role created for the scenario.
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]

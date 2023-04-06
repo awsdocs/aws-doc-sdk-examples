@@ -8,7 +8,7 @@ public class UIWrapper
     public readonly string SepBar = new('-', Console.WindowWidth);
 
     /// <summary>
-    /// Show information about the Amazon S3 Basics scenario.
+    /// Show information about the AWS Lambda Basics scenario.
     /// </summary>
     public void DisplayLambdaBasicsOverview()
     {
@@ -16,32 +16,15 @@ public class UIWrapper
 
         DisplayTitle("Welcome to AWS Lambda Basics");
         Console.WriteLine("This example application does the following:");
-        Console.WriteLine("\t1. Create an Amazon Identity Management role that will be assumed by the functions we create.");
-        Console.WriteLine("\t2. Attach an IAM role policy that has Lambda permissions.");
-        Console.WriteLine("\t3. Create a Lambda function that increments the value passed to it.");
-        Console.WriteLine("\t4. Calls the increment function and passed a value.");
+        Console.WriteLine("\t1. Creates an AWS Identity and Access Management (IAM) role that will be assumed by the functions we create.");
+        Console.WriteLine("\t2. Attaches an IAM role policy that has Lambda permissions.");
+        Console.WriteLine("\t3. Creates a Lambda function that increments the value passed to it.");
+        Console.WriteLine("\t4. Calls the increment function and passes a value.");
         Console.WriteLine("\t5. Updates the code so that the function is a simple calculator.");
         Console.WriteLine("\t6. Calls the calculator function with the values entered.");
         Console.WriteLine("\t7. Deletes the Lambda function.");
         Console.WriteLine("\t7. Detaches the IAM role policy.");
         Console.WriteLine("\t8. Deletes the IAM role.");
-        PressEnter();
-    }
-
-    /// <summary>
-    /// Show information about the Amazon S3 Basics scenario.
-    /// </summary>
-    public void DisplayTransferUtilityBasicsOverview()
-    {
-        Console.Clear();
-
-        DisplayTitle("Amazon S3 Transfer Utility Basics");
-        Console.WriteLine("This program shows how to use the Amazon S3 Transfer Utility.");
-        Console.WriteLine("It performs the following actions:");
-        Console.WriteLine("\t1. Upload a single object to an S3 bucket.");
-        Console.WriteLine("\t2. Upload an entire directory from the local computer to an\n\t  S3 bucket.");
-        Console.WriteLine("\t3. Download a single object from an S3 bucket.");
-        Console.WriteLine("\t4. Download the objects in an S3 bucket to a local directory.");
         PressEnter();
     }
 

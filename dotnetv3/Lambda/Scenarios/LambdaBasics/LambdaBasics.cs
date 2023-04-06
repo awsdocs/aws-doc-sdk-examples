@@ -68,18 +68,19 @@ public class LambdaBasics
 
         uiWrapper.DisplayLambdaBasicsOverview();
 
-        // Create the policy to use with the Lambda functions and then attach the
+        // Create the policy to use with the AWS Lambda functions and then attach the
         // policy to a new role.
         var roleArn = await lambdaRoleWrapper.CreateLambdaRoleAsync(roleName, policyDocument);
 
         Console.WriteLine("Waiting for role to become active.");
         uiWrapper.WaitABit(15, "Wait until the role is active before trying to use it.");
 
-        // Attach the appropriate IAM role policy to the new role.
+        // Attach the appropriate AWS Access and Identity Management (IAM) role policy to the new role.
         var success = await lambdaRoleWrapper.AttachLambdaRolePolicyAsync(policyArn, roleName);
         uiWrapper.WaitABit(10, "Allow time for the IAM policy to be attached to the role.");
 
-        // Create the Lambda function using a zip file stored in an S3 bucket.
+        // Create the Lambda function using a zip file stored in an Amazon Simple Storage Service
+        // (Amazon S3) bucket.
         uiWrapper.DisplayTitle("Create Lambda Function");
         Console.WriteLine($"Creating the AWS Lambda function: {functionName}.");
         var lambdaArn = await lambdaWrapper.CreateLambdaFunctionAsync(

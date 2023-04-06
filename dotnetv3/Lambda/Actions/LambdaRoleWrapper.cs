@@ -17,8 +17,8 @@ public class LambdaRoleWrapper
     }
 
     /// <summary>
-    /// Attach an IAM role policy to the IAM role to be assumed by the Lambda
-    /// functions created for the scenario.
+    /// Attach an AWS Identity and Access Management (IAM) role policy to the
+    /// IAM role to be assumed by the AWS Lambda functions created for the scenario.
     /// </summary>
     /// <param name="policyArn">The Amazon Resource Name (ARN) of the IAM policy.</param>
     /// <param name="roleName">The name of the IAM role to attach the IAM policy to.</param>
@@ -30,12 +30,11 @@ public class LambdaRoleWrapper
     }
 
     /// <summary>
-    /// Create a new AWS Identity and Access Management (IAM) role.
+    /// Create a new IAM role.
     /// </summary>
     /// <param name="roleName">The name of the IAM role to create.</param>
     /// <param name="policyDocument">The policy document for the new IAM role.</param>
-    /// <returns>A string representing the Amazon Resource Name (ARN) for
-    /// newly created role.</returns>
+    /// <returns>A string representing the ARN for newly created role.</returns>
     public async Task<string> CreateLambdaRoleAsync(string roleName, string policyDocument)
     {
         var request = new CreateRoleRequest
