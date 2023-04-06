@@ -19,29 +19,25 @@
 // OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 //snippet-start:[cdk.typescript.widgets.exports_main_v1]
-/* 
-This code uses callbacks to handle asynchronous function responses.
-It currently demonstrates using an async-await pattern. 
-AWS supports both the async-await and promises patterns.
-For more information, see the following: 
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
-https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/calling-services-asynchronously.html
-https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html 
-*/
-const AWS = require('aws-sdk');
-const S3 = new AWS.S3();
 
+import {
+  S3Client,
+  ListObjectsV2Command,
+} from '@aws-sdk/client-s3';
+
+// In the following code we are using AWS JS SDK v3
+// See https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html
+const S3 = new S3Client({});
 const bucketName = process.env.BUCKET;
 
 exports.main = async function(event, context) {
   try {
-    var method = event.httpMethod;
+    const method = event.httpMethod;
 
     if (method === "GET") {
       if (event.path === "/") {
-        const data = await S3.listObjectsV2({ Bucket: bucketName }).promise();
-        var body = {
+        const data = await S3.send(new ListObjectsV2Command({ Bucket: bucketName }));
+        const body = {
           widgets: data.Contents.map(function(e) { return e.Key })
         };
         return {
@@ -59,7 +55,7 @@ exports.main = async function(event, context) {
       body: "We only accept GET /"
     };
   } catch(error) {
-    var body = error.stack || JSON.stringify(error, null, 2);
+    const body = error.stack || JSON.stringify(error, null, 2);
     return {
       statusCode: 400,
         headers: {},
