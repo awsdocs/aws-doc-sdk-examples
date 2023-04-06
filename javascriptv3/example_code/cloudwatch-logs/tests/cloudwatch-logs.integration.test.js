@@ -59,9 +59,9 @@ const testCreateFilter = async (name, pattern) => {
   const descSubFiltersMod = await import(
     "../actions/describe-subscription-filters.js"
   );
-  const { subscriptionFilters } = await descSubFiltersMod.default;
+  const result = await descSubFiltersMod.default;
 
-  expect(subscriptionFilters[0].filterName).toBe(name);
+  expect(result?.subscriptionFilters[0].filterName).toBe(name);
 };
 
 const testDeleteFilter = async () => {

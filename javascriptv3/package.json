@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "test": "./scripts/test.sh",
-    "lint": "lint-staged"
+    "lint": "lint-staged",
+    "ci-lint": "eslint"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
@@ -28,7 +29,7 @@
     "@typescript-eslint/parser": "^5.57.1",
     "@vitest/coverage-c8": "^0.29.8",
     "eslint": "^8.37.0",
-    "eslint-import-resolver-typescript": "^3.5.4",
+    "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
     "lerna": "^6.3.0",
     "lint-staged": "^13.2.0",
