@@ -23,8 +23,12 @@ namespace AwsDoc {
     namespace SNS {
 static const char TOPIC_NAME[] = "getting_started_topic";
         static const Aws::Vector<Aws::String> QUEUE_NAME = {"getting_started_queue1", "getting_started_queue2"};
-        static Aws::String FIFO_SUFFIX = ".fifo";
+        static const Aws::String FIFO_SUFFIX = ".fifo";
 
+        static const Aws::String TONE_ATTRIBUTE("tone");
+        static const Aws::Vector<Aws::String>  TONES = {"serious", "funny", "earnest", "sincere"};
+
+        static
 
         //! Test routine passed as argument to askQuestion routine.
         /*!
@@ -69,20 +73,26 @@ static const char TOPIC_NAME[] = "getting_started_topic";
 } // namespace AwsDoc
 
 bool AwsDoc::SNS::gettingStartedWithSNSTopics(const Aws::Client::ClientConfiguration &clientConfiguration) {
+    std::cout << "Welcome to getting started with SNS topics." << std::endl;
+    std::cout << "In this workflow, you will create an SNS topic and subscribe 2 SQS queues to" << std::endl;
+    std::cout << "the topic." << std::endl;
+    std::cout << "You can select from several options for configuring the topic and subscriptions." << std::endl;
+    std::cout << "You can then post to the topic and see the results in the queues." << std::endl;
     Aws::SNS::SNSClient client(clientConfiguration);
     // Create a new topic. This call will succeed even if a topic with the same name was
     // already created.
     bool isFifoTopic = askYesNoQuestion("Would you like to work with FIFO topics? (y/n) ");
 
     bool contentBasedDeduplication = false;
+    Aws::String topicName;
     if (isFifoTopic)
     {
         contentBasedDeduplication = askYesNoQuestion("Would you like to use content based deduplication? (y/n) ");
     }
     Aws::String topicARN;
     {
+        topicName = askQuestion("Enter a name for your SNS topic: ");
         Aws::SNS::Model::CreateTopicRequest request;
-        Aws::String topicName(TOPIC_NAME);
 
         if (isFifoTopic) {
             request.AddAttributes("FifoTopic", "true");
@@ -90,6 +100,8 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(const Aws::Client::ClientConfigura
                 request.AddAttributes("ContentBasedDeduplication", "true");
             }
             topicName = topicName + FIFO_SUFFIX;
+
+            std::cout << "Because you have selected a FIFO topic, '.fifo' must be appended to the topic name." << std::endl;
         }
 
         request.SetName(topicName);
@@ -97,8 +109,10 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(const Aws::Client::ClientConfigura
         Aws::SNS::Model::CreateTopicOutcome outcome = client.CreateTopic(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "SNS::CreateTopic was successful." << std::endl;
             topicARN = outcome.GetResult().GetTopicArn();
+            std::cout << "Your new topic with the name '" << topicName << "' and the topic Amazon Resource Name (ARN) " << std::endl;
+            std::cout << "'" << topicARN <<"' has been created." << std::endl;
+
         }
         else {
             std::cerr << "Error with SNS::CreateTopic. " << outcome.GetError().GetMessage()
@@ -106,35 +120,55 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(const Aws::Client::ClientConfigura
         }
     }
 
-
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
     // Create an SQS queue.
+    std::cout << "Now you will create 2 SNS queues to subscribe to the topic." << std::endl;
     Aws::Vector<Aws::String> queueURLS;
-    for (auto queueName : QUEUE_NAME) {
+    Aws::Vector<Aws::String> queueNames;
+    bool filteringMessages = false;
+    bool first = true;
+    for (int i = 1; i <= 2; ++i) {
         Aws::String queueURL;
+        Aws::String queueName;
         {
+            std::ostringstream ostringstream;
+            ostringstream << "Enter a name for your " << ((i == 1) ? "first" : "second")
+            << " SQS queue. ";
+            queueName = askQuestion(ostringstream.str());
             Aws::SQS::Model::CreateQueueRequest request;
             if (isFifoTopic) {
                 request.AddAttributes(Aws::SQS::Model::QueueAttributeName::FifoQueue,
                                       "true");
                 queueName = queueName + FIFO_SUFFIX;
+
+                if (first) // Only explain this once.
+                {
+                    std::cout << "Because you are creating a FIFO SQS queue, '.fifo' must be appended to the queue name." << std::endl;
+                }
             }
 
             request.SetQueueName(queueName);
+            queueNames.push_back(queueName);
 
             Aws::SQS::Model::CreateQueueOutcome outcome = sqsClient.CreateQueue(
                     request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "SQS::CreateQueue was successful." << std::endl;
-                queueURL = outcome.GetResult().GetQueueUrl();
+                 queueURL = outcome.GetResult().GetQueueUrl();
+                std::cout << "Your new SQS queue with the name '" << queueName << "' and the queue URL " << std::endl;
+                std::cout << "'" << queueURL <<"' has been created." << std::endl;
             }
             else {
                 std::cerr << "Error with SQS::CreateQueue. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
             }
+        }
+
+        if (first) // Only explain this once.
+        {
+            std::cout << "The queue URL will be used to retrieve the queue ARN, which will be used to create a subscription." << std::endl;
         }
 
         // Get the queue ARN attribute.
@@ -148,7 +182,6 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(const Aws::Client::ClientConfigura
                     request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "SQS::GetQueueAttributes was successful." << std::endl;
                 const Aws::Map<Aws::SQS::Model::QueueAttributeName, Aws::String> &attributes =
                         outcome.GetResult().GetAttributes();
                 const auto &iter = attributes.find(
@@ -162,6 +195,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(const Aws::Client::ClientConfigura
                             << std::endl;
                     return false;
                 }
+                std::cout << "The queue ARN '" << queueARN << "' has been retrieved." << std::endl;
             }
             else {
                 std::cerr << "Error with SQS::GetQueueAttributes. "
@@ -176,11 +210,73 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(const Aws::Client::ClientConfigura
             request.SetTopicArn(topicARN);
             request.SetProtocol("sqs");
             request.SetEndpoint(queueARN);
+            if (first)
+            {
+                std::cout << "Subscriptions to a topic can have filters." << std::endl;
+                std::cout << "If you add a filter to this subscription, then only the filtered messages "
+                << "will be received in the queue." << std::endl;
+                std::cout << "For information about message filtering, "
+                << "see https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html" << std::endl;
+                std::cout << "For this example, you can filter messages by a \""<< TONE_ATTRIBUTE << "\" attribute." << std::endl;
+            }
+            std::ostringstream ostringstream;
+            ostringstream << "Would you like to filter messages for \"" << queueName << "\"'s subscription to the topic \""
+                                                                                       << topicName << "\"?  (y/n)";
+
+            if (askYesNoQuestion(ostringstream.str()))
+            {
+                std::cout << "You can filter messages by one or more of the following \""
+                << TONE_ATTRIBUTE << "\" attributes." << std::endl;
+
+                std::set<Aws::String> filterSelections;
+                int selection = 0;
+                do {
+                    for (size_t i = 0; i < TONES.size(); ++i) {
+                        std::cout << "  " << (i + 1) << ". " << TONES[i] << std::endl;
+                    }
+                    selection = askQuestionForIntRange(
+                            "Enter a number (or zero to continue): ",
+                            0, static_cast<int>(TONES.size()));
+
+                    if (selection != 0)
+                    {
+                        filterSelections.insert(TONES[selection - 1]);
+                    }
+                } while (selection != 0);
+
+                if (!filterSelections.empty())
+                {
+                    filteringMessages = true;
+                    std::ostringstream jsonPolicyStream;
+                    jsonPolicyStream << "{ \"" << TONE_ATTRIBUTE << "\": [";
+
+                    for (size_t i = 0; i < TONES.size(); ++i)
+                    {
+                        jsonPolicyStream << "\"" << TONES[i] << "\"";
+                        if (i < TONES.size() - 1)
+                        {
+                            jsonPolicyStream << ",";
+                        }
+                    }
+                    jsonPolicyStream << "] }";
+
+                    Aws::String jsonPolicy = jsonPolicyStream.str();
+
+                    std::cout << "This is the filter policy for this subscription." << std::endl;
+                    std::cout << jsonPolicy << std::endl;
+
+                    request.AddAttributes("FilterPolicy", jsonPolicy);
+                }
+                else{
+                    std::cout << "Because you did not select any attributes, no filter will be added to this subscription." << std::endl;
+                }
+            }
 
             Aws::SNS::Model::SubscribeOutcome outcome = client.Subscribe(request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "SNS::Subscribe was successful." << std::endl;
+                std::cout << "The queue '" << queueName << "' has been subscribed to the topic '"
+                << "'" << topicName << "'." << std::endl;
             }
             else {
                 std::cerr << "Error with SNS::Subscribe. "
@@ -191,30 +287,59 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(const Aws::Client::ClientConfigura
         queueURLS.push_back(queueURL);
     }
 
-    int deduplicationID = 1;
     // Post to the topic.
-    {
+    first = true;
+    do {
         Aws::SNS::Model::PublishRequest request;
         request.SetTopicArn(topicARN);
+        Aws::String message = askQuestion("Enter a message text to publish.  ");
         request.SetMessage("Greetings SQS queue!");
         if (isFifoTopic) {
-            request.SetMessageGroupId("1");
-            if (!contentBasedDeduplication) {
-                request.SetMessageDeduplicationId(std::to_string(deduplicationID));
-                deduplicationID = deduplicationID + 1;
+            if (first)
+            {
+                std::cout << "Because your are using a FIFO topic, you must set a message group ID." << std::endl;
+                std::cout << "All messages within the same group will be received in the order they were published." << std::endl;
             }
+            Aws::String messageGroupID = askQuestion("Enter a message group ID for this message. ");
+            request.SetMessageGroupId(messageGroupID);
+            if (!contentBasedDeduplication) {
+                if (first)
+                {
+                    std::cout << "Because you are not using content-based deduplication, you must enter a deduplication ID." << std::endl;
+                    std::cout << "If a message with a particular deduplication ID is successfully published to an SNS FIFO "
+                    << "topic, any message published with the same deduplication ID, within the five-minute deduplication "
+                    << "interval, is accepted but not delivered." << std::endl;
+                }
+                Aws::String deduplicationID = askQuestion("Enter a deduplication ID for this message. ");
+                request.SetMessageDeduplicationId(deduplicationID);
+            }
+        }
+
+        if (filteringMessages && askYesNoQuestion("Would you like to add an attribute to this message? (y/n) "))
+        {
+            for (size_t i = 0; i < TONES.size(); ++i) {
+                std::cout << "  " << (i + 1) << ". " << TONES[i] << std::endl;
+            }
+            int selection = askQuestionForIntRange(
+                    "Enter a number for an attribute: ",
+                    1, static_cast<int>(TONES.size()));
+            Aws::SNS::Model::MessageAttributeValue messageAttributeValue;
+            messageAttributeValue.SetStringValue(TONES[selection - 1]);
+            request.AddMessageAttributes(TONE_ATTRIBUTE, messageAttributeValue);
         }
 
         Aws::SNS::Model::PublishOutcome outcome = client.Publish(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "SNS::Publish was successful." << std::endl;
+            std::cout << "Your message was successfully published." << std::endl;
         }
         else {
             std::cerr << "Error with SNS::Publish. " << outcome.GetError().GetMessage()
                       << std::endl;
         }
-    }
+
+        first = false;
+    } while (askYesNoQuestion("Would you like to post another message? (y/n) "));
 
     for (const auto& queueURL : queueURLS) {
         // Poll the queue
@@ -227,7 +352,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(const Aws::Client::ClientConfigura
                     request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "SQS::ReceiveMessage was successful." << std::endl;
+                std::cout << "Here are the messages for" << std::endl;
                 for (const Aws::SQS::Model::Message &message: outcome.GetResult().GetMessages()) {
                     std::cout << "  Message : '" << message.GetBody() << "'."
                               << std::endl;
