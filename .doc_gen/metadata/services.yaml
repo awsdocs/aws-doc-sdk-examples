@@ -90,11 +90,11 @@ aurora:
   api_ref: AmazonRDS/latest/APIReference/Welcome.html
 auto-scaling:
   long: '&ASlong;'
-  short: '&ASlong;'
+  short: '&AS;'
   sort: EC2 Auto Scaling
   expanded:
     long: Amazon EC2 Auto Scaling
-    short: Amazon EC2 Auto Scaling
+    short: Auto Scaling
   blurb: automatically scales EC2 instances, either with scaling
     policies or with scheduled scaling.
   guide:
