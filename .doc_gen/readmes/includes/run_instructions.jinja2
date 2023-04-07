@@ -43,6 +43,17 @@ node ./hello.js
 {% endif %}
 {% endfor %}
 
+{% if lang_config['name'] == 'Go' and lang_config['sdk_ver'] == 2 %}
+#### Run a scenario
+
+All scenarios can be run with the `cmd` runner. To get a list of scenarios
+and to get help for running a scenario, use the following command:
+
+```
+go run ./cmd -h
+```
+{% endif %}
+
 {% for scenario in scenarios %}
 #### {{scenario['title_abbrev']}}
 
