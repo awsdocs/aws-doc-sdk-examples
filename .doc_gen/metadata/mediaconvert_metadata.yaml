@@ -53,6 +53,15 @@ mediaconvert_CreateJob:
             - description:
               snippet_tags:
                 - mediaconvert.kotlin.createjob.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.mediaconvert.get_endpoint_uri_helper
+                - cpp.example_code.mediaconvert.CreateJob
   services:
     mediaconvert: {CreateJob}
 mediaconvert_ListJobs:
@@ -93,6 +102,15 @@ mediaconvert_ListJobs:
             - description:
               snippet_tags:
                 - mediaconvert.kotlin.list_jobs.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.mediaconvert.get_endpoint_uri_helper
+                - cpp.example_code.mediaconvert.ListJobs
   services:
     mediaconvert: {ListJobs}
 mediaconvert_GetJob:
@@ -133,5 +151,14 @@ mediaconvert_GetJob:
             - description:
               snippet_tags:
                 - mediaconvert.kotlin.get_job.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.mediaconvert.get_endpoint_uri_helper
+                - cpp.example_code.mediaconvert.GetJob
   services:
     mediaconvert: {GetJob}
