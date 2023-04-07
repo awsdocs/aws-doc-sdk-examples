@@ -2802,7 +2802,7 @@ iam_UpdateServerCertificate:
 iam_GetServiceLinkedRoleDeletionStatus:
   title: Get an &IAM; service-linked role's deletion status using an &AWS; SDK
   title_abbrev: Get a service-linked role's deletion status
-  synopsis: get an &IAM; service-linked role's deletion status.
+  synopsis: get an &IAMlong; (&IAM;) service-linked role's deletion status.
   category:
   languages:
     JavaScript:
@@ -2819,7 +2819,7 @@ iam_GetServiceLinkedRoleDeletionStatus:
 iam_DeleteSAMLProvider:
   title: Delete an &IAM; SAML provider using an &AWS; SDK
   title_abbrev: Delete SAML provider
-  synopsis: delete an &IAM; SAML provider.
+  synopsis: delete an &IAMlong; (&IAM;) SAML provider.
   category:
   languages:
     JavaScript:
@@ -3048,7 +3048,7 @@ iam_ListGroups:
 iam_CreateSAMLProvider:
   title: Create an &IAM; SAML provider using an &AWS; SDK
   title_abbrev: Create a SAML provider
-  synopsis: create an &IAM; SAML provider.
+  synopsis: create an &IAMlong; (&IAM;) SAML provider.
   category:
   languages:
     JavaScript:
@@ -3185,7 +3185,7 @@ iam_DeleteServiceLinkedRole:
 iam_UploadServerCertificate:
   title: Upload an &IAM; server certificate using an &AWS; SDK
   title_abbrev: Upload a server certificate
-  synopsis: upload an &IAM; server certificate.
+  synopsis: upload an &IAMlong; (&IAM;) server certificate.
   category:
   languages:
     JavaScript:
