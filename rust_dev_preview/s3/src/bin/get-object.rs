@@ -16,7 +16,7 @@ struct Opt {
     destination: PathBuf,
 }
 
-// snippet-start:[s3.rust.get-object]
+// snippet-start:[s3.rust.get_object]
 async fn get_object(client: Client, opt: Opt) -> Result<usize, anyhow::Error> {
     trace!("bucket:      {}", opt.bucket);
     trace!("object:      {}", opt.object);
@@ -40,7 +40,7 @@ async fn get_object(client: Client, opt: Opt) -> Result<usize, anyhow::Error> {
 
     Ok(byte_count)
 }
-// snippet-end:[s3.rust.get-object]
+// snippet-end:[s3.rust.get_object]
 
 #[tokio::main]
 async fn main() {
