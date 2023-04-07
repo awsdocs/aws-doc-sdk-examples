@@ -1,0 +1,70 @@
+/* Style for the FAB container */
+.Microphone {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Style for the FAB buttons */
+.Microphone button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  color: #ffffff;
+  background-color: #555555;
+  border: none;
+  outline: none;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+/* Style for the FAB buttons hover effect */
+.Microphone button:hover {
+  background-color: red;
+  box-shadow: 0 0 10px 10px rgba(255, 0, 0, 0.25);
+}
+
+/* Shape for the record button */
+.Microphone button::before {
+  content: "🎙️";
+}
+
+/* Style for the button shapes */
+.Microphone button::before {
+  font-weight: 900;
+  font-size: 24px;
+  text-align: center;
+  line-height: 1;
+  display: block;
+  margin-top: -1px;
+}
+
+.Microphone button.recording {
+  background-color: #ff0000;
+  box-shadow: 0px 0px 10px 5px rgba(255, 0, 0, 0.5);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.Microphone button.recording::before {
+  opacity: 0.75;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0px 0px 10px 5px rgba(255, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow: 0px 0px 20px 10px rgba(255, 0, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0px 0px 10px 5px rgba(255, 0, 0, 0.5);
+  }
+}

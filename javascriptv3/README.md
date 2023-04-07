@@ -96,6 +96,8 @@ being accepted, adhere to the following guidelines.
     actions/
       {action-name}.js
     scenarios/
+      web/
+        {web-scenario-name}/
       {scenario-name}.js
     tests/
       {integ-test-name}.integration.test.js
