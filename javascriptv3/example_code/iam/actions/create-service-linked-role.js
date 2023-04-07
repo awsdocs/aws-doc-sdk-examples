@@ -16,7 +16,7 @@ const client = new IAMClient({});
  */
 export const createServiceLinkedRole = async (serviceName) => {
   const command = new CreateServiceLinkedRoleCommand({
-    // For a list of AWS service that support service-linked roles,
+    // For a list of AWS services that support service-linked roles,
     // see https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html.
     // 
     // For a list of AWS service endpoints, see https://docs.aws.amazon.com/general/latest/gr/aws-service-information.html.

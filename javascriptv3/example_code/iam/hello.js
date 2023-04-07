@@ -12,7 +12,7 @@ const client = new IAMClient({});
 
 export const listLocalPolicies = async () => {
   /**
-   * In v3, the clients expose paginateOperationName APIs that are written using async generators, allowing you to use async iterators in a for await..of loop.
+   * In v3, the clients expose paginateOperationName APIs that are written using async generators so that you can use async iterators in a for await..of loop.
    * https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html#paginators
    */
   const paginator = paginateListPolicies(

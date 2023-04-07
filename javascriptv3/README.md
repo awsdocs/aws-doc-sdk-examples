@@ -135,7 +135,7 @@ export const createUser = (name) => {
 ### Create tests
 
 Every example should be covered by an integration test. Each integration test must
-run the example and verify it ran correctly.
+run the example and verify that it ran correctly.
 
 ## Configure Visual Studio Code (VS Code)
 

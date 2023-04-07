@@ -8,7 +8,7 @@ function log {
 # If any of the local directories contain staged changes, try
 # and run pre-commit.sh.
 for dir in $(ls -A) ; do
-  # Get a list of filenames for changed files.
+  # Get a list of file names for changed files.
   staged=$(git diff --cached --name-only -- "$dir")
 
   if [ -n "$staged" ] ; then

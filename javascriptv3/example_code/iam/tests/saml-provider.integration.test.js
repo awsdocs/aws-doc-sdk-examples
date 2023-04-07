@@ -6,18 +6,18 @@ import { deleteSAMLProvider } from "../actions/delete-saml-provider.js";
 
 describe("SAML provider", () => {
   it("should create, list, and delete a SAML provider", async () => {
-    // Create SAML provider
+    // Create SAML provider.
     const providerName = getUniqueName("saml-provider");
     const { SAMLProviderArn } = await createSAMLProvider(providerName);
     if (!SAMLProviderArn) {
       throw new Error("SAMLProviderArn is undefined");
     }
 
-    // List SAML provider
+    // List SAML provider.
     let provider = await findSAMLProvider(SAMLProviderArn);
     expect(provider?.Arn).toEqual(SAMLProviderArn);
 
-    // Delete SAML provider
+    // Delete SAML provider.
     await deleteSAMLProvider(SAMLProviderArn);
 
     provider = await findSAMLProvider(SAMLProviderArn);

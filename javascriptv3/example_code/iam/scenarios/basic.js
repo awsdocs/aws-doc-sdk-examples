@@ -40,7 +40,7 @@ export const main = async () => {
   }
 
   // Create an access key. This key is used to authenticate the new user to
-  // Amazon S3 and AWS Security Token Service (AWS STS).
+  // Amazon Simple Storage Service (Amazon S3) and AWS Security Token Service (AWS STS).
   // It's not best practice to use access keys. For more information, see https://aws.amazon.com/iam/resources/best-practices/.
   const createAccessKeyResponse = await iamClient.send(
     new CreateAccessKeyCommand({ UserName: userName })
@@ -108,7 +108,7 @@ export const main = async () => {
     throw new Error("Role not created");
   }
 
-  // Create a policy that allows the user to list Amazon S3 buckets.
+  // Create a policy that allows the user to list S3 buckets.
   const { Policy: listBucketPolicy } = await iamClient.send(
     new CreatePolicyCommand({
       PolicyDocument: JSON.stringify({
@@ -172,7 +172,7 @@ export const main = async () => {
     },
   });
 
-  // List the Amazon S3 buckets again.
+  // List the S3 buckets again.
   // Retry the list buckets operation until it succeeds. AccessDenied might
   // be thrown while the role policy is still stabilizing.
   await retry({ intervalInMs: 2000, maxRetries: 60 }, () =>
