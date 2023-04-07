@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.14)
 
 set(EXAMPLE_SERVICE_NAME MediaConvert)
 set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
-set(CURRENT_TARGET_AWS_DEPENDENCIES  mediaconvert)
+set(CURRENT_TARGET_AWS_DEPENDENCIES mediaconvert)
 
 # Set this project's name.
 project("${EXAMPLE_SERVICE_NAME}-examples-gtests")
@@ -35,7 +35,7 @@ if (NOT GTest_FOUND)
 endif ()
 
 # Set the location for Windows to find the installed libraries of the SDK.
-if(MSVC)
+if (MSVC)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
 endif ()
@@ -49,9 +49,7 @@ add_executable(
 
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
-if (MSVC AND BUILD_SHARED_LIBS)
-    add_definitions(-DUSE_IMPORT_EXPORT)
-
+if (MSVC)
     set(CMAKE_BUILD_TYPE Debug) # Explicitly set this to support library copying and test automation.
 
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
