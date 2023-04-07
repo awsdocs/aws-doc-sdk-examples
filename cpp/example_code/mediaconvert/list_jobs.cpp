@@ -28,7 +28,7 @@
 bool AwsDoc::MediaConvert::listJobs(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
 
-    // MediaConvert has a low request limit for DescribeEndpoints.
+    // AWS Elemental MediaConvert has a low request limit for DescribeEndpoints.
     // "getEndpointUriHelper" uses caching to limit requests.
     // See utils.cpp.
     Aws::String endpoint = getEndpointUriHelper(clientConfiguration);

@@ -22,12 +22,13 @@
 // snippet-start:[cpp.example_code.mediaconvert.GetJob]
 //! Retrieve the information for a specific completed transcoding job.
 /*!
+  \param jobID: A job ID.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
 bool AwsDoc::MediaConvert::getJob(const Aws::String& jobID,
         const Aws::Client::ClientConfiguration &clientConfiguration) {
-    // MediaConvert has a low request limit for DescribeEndpoints.
+    // AWS Elemental MediaConvert has a low request limit for DescribeEndpoints.
     // "getEndpointUriHelper" uses caching to limit requests.
     // See utils.cpp.
     Aws::String endpoint = getEndpointUriHelper(clientConfiguration);

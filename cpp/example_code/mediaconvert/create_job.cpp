@@ -23,7 +23,7 @@
 #include <fstream>
 
 /* ----------------------------------------------
- * Permissions IAM user needs to run this example
+ * Permissions that an IAM user needs to run this example.
  * ----------------------------------------------
  *
     {
@@ -50,11 +50,13 @@ namespace AwsDoc {
     }
 }
 // snippet-start:[cpp.example_code.mediaconvert.CreateJob]
-//! Create a MediaConvert job.
+//! Create an AWS Elemental MediaConvert job.
 /*!
-  \param mediaConvertRole: An IAM role ARN for the job.
-  \param fileInput: A URI to an input file that is stored in Amazon S3 or on an HTTP(S) server.
-  \param fileOutput: A URI for an S3 output location and the output filename base.
+  \param mediaConvertRole: An Amazon Resource Name (ARN) for the AWS Identity and
+                           Access Management (IAM) role for the job.
+  \param fileInput: A URI to an input file that is stored in Amazon Simple Storage Service
+                    (Amazon S3) or on an HTTP(S) server.
+  \param fileOutput: A URI for an Amazon S3 output location and the output file name base.
   \param jobSettingsFile: An optional JSON settings file.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
@@ -69,8 +71,7 @@ bool AwsDoc::MediaConvert::createJob(const Aws::String &mediaConvertRole,
     // "getEndpointUriHelper" uses caching to limit requests.
     // See utils.cpp.
     Aws::String endpoint = getEndpointUriHelper(clientConfiguration);
-    if (endpoint.empty())
-    {
+    if (endpoint.empty()) {
         std::cerr << "createJob error getting endpoint." << std::endl;
         return false;
     }
@@ -92,7 +93,7 @@ bool AwsDoc::MediaConvert::createJob(const Aws::String &mediaConvertRole,
         std::vector<char> buffer(jobSettingsStream.tellg());
         jobSettingsStream.seekg(0);
         jobSettingsStream.read(buffer.data(), buffer.size());
-         std::string jobSettingsJSON(buffer.data(), buffer.size());
+        std::string jobSettingsJSON(buffer.data(), buffer.size());
         size_t pos = jobSettingsJSON.find(INPUT_FILE_PLACEHOLDER);
         if (pos != std::string::npos) {
             jobSettingsJSON.replace(pos, strlen(INPUT_FILE_PLACEHOLDER), fileInput);
@@ -289,7 +290,7 @@ bool AwsDoc::MediaConvert::createJob(const Aws::String &mediaConvertRole,
  *  Usage: 'run_create_job <media_convert_role> <file_input> <file_output> [media_convert_endpoint]'
  *
  *  Prerequisites:
- *  1. IAM role for media convert.
+ *  1. IAM role for MediaConvert.
  *  2. Input media file in an S3 bucket.
  *
  */
@@ -303,15 +304,15 @@ int main(int argc, char **argv) {
 Usage:
     run_create_job <media_convert_role> <file_input> <file_output> [job_settings_file]
 Where:
-    media_convert_role - IAM role for media convert.
-    file_input - S3 input location.
-    file_output - S3 output location and the output filename base.
-    job_settings_file - optional JSON job settings.
+    media_convert_role - IAM role for MediaConvert.
+    file_input - Amazon S3 input location.
+    file_output - Amazon S3 output location and the output file name base.
+    job_settings_file - Optional JSON job settings.
 )";
         return 1;
     }
 
-    //	Initialize the C++ SDK
+    //	Initialize the AWS SDK for C++.
     Aws::SDKOptions options;
     options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
@@ -335,4 +336,5 @@ Where:
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif // TESTING_BUILD

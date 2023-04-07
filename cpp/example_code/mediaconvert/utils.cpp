@@ -33,9 +33,9 @@ namespace AwsDoc {
   \param clientConfiguration: AWS client configuration.
   \return Aws::String: The endpoint URI.
  */
-Aws::String AwsDoc::MediaConvert::getEndpointUriHelper(const Aws::Client::ClientConfiguration &clientConfiguration)
-{
-    // MediaConvert has a low request limit for DescribeEndpoints.
+Aws::String AwsDoc::MediaConvert::getEndpointUriHelper(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
+    // AWS Elemental MediaConvert has a low request limit for DescribeEndpoints.
     // The best practice is to request the endpoint once, and then cache it.
     // Otherwise, you’ll quickly hit your low limit.
     std::string endpoint;

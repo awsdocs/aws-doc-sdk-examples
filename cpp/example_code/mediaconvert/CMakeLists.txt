@@ -17,36 +17,36 @@ set(CMAKE_CXX_STANDARD 11)
 set(BUILD_SHARED_LIBS ON)
 
 # Set the location of where Windows can find the installed libraries of the SDK.
-if(MSVC)
+if (MSVC)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
-endif()
+endif ()
 
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
 # If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
 # and building as shared libraries, then dynamically link to those shared libraries.
-if(MSVC AND BUILD_SHARED_LIBS)
+if (MSVC AND BUILD_SHARED_LIBS)
     set(CMAKE_BUILD_TYPE Debug) # Explicitly setting CMAKE_BUILD_TYPE is necessary in Windows to copy DLLs.
 
     list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS})
 
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-endif()
+    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+endif ()
 
 # AWSDOC_SOURCE can be defined in the command line to limit the files in a build. For example,
 # you can limit files to one action.
-if(NOT DEFINED AWSDOC_SOURCE)
+if (NOT DEFINED AWSDOC_SOURCE)
     file(GLOB AWSDOC_SOURCE
-        "*.cpp"
-    )
+            "*.cpp"
+            )
 
     list(FILTER AWSDOC_SOURCE EXCLUDE REGEX "/utils.cpp$")
-endif()
+endif ()
 
-foreach(file ${AWSDOC_SOURCE})
+foreach (file ${AWSDOC_SOURCE})
     get_filename_component(EXAMPLE ${file} NAME_WE)
 
     # Build the code example executables.
@@ -59,9 +59,9 @@ foreach(file ${AWSDOC_SOURCE})
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
             ${AWSSDK_PLATFORM_DEPS})
 
-endforeach()
+endforeach ()
 
-if(BUILD_TESTS)
+if (BUILD_TESTS)
     add_subdirectory(tests)
-endif()
+endif ()
 

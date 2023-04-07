@@ -12,6 +12,7 @@
 #include <gtest/gtest.h>
 
 class MockHttpClient;
+
 class MockHttpClientFactory;
 
 namespace AwsDocTest {
@@ -39,7 +40,7 @@ namespace AwsDocTest {
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
-        // This endpoint cache must be created in SetUp to ensure mocks work correctly.
+        // This endpoint cache must be created in SetUp to make sure that mocks work correctly.
         void createEndpointCache();
 
     private:

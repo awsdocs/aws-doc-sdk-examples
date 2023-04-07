@@ -25,7 +25,7 @@ void AwsDocTest::MediaConvert_GTests::SetUpTestSuite() {
 }
 
 void AwsDocTest::MediaConvert_GTests::TearDownTestSuite() {
-     ShutdownAPI(s_options);
+    ShutdownAPI(s_options);
 
 }
 
@@ -85,9 +85,9 @@ void AwsDocTest::MediaConvert_GTests::createEndpointCache() {
     if (outcome.IsSuccess()) {
         auto endpoints = outcome.GetResult().GetEndpoints();
         if (!endpoints.empty()) {
-              // Need to strip https:// from endpoint for C++.
+            // Need to strip https:// from endpoint for C++.
             endpoint = endpoints[0].GetUrl().substr(8);
-         }
+        }
     }
     else {
         std::cerr << "DescribeEndpoints error - " << outcome.GetError().GetMessage()

@@ -16,11 +16,11 @@
 #include "MediaConvert_gtests.h"
 
 namespace AwsDocTest {
-        // NOLINTNEXTLINE(readability-named-parameter)
-            TEST_F(MediaConvert_GTests, list_jobs_2_ ) {
+    // NOLINTNEXTLINE(readability-named-parameter)
+    TEST_F(MediaConvert_GTests, list_jobs_2_) {
 
-                auto result = AwsDoc::MediaConvert::listJobs(*s_clientConfig);
-                ASSERT_TRUE(result);
-            }
+        auto result = AwsDoc::MediaConvert::listJobs(*s_clientConfig);
+        ASSERT_TRUE(result);
+    }
 
 } // namespace AwsDocTest

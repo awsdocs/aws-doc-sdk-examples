@@ -11,12 +11,12 @@
  *
  */
 
-#include <gtest/gtest.h>
-#include "mediaconvert_samples.h"
 #include "MediaConvert_gtests.h"
+#include "mediaconvert_samples.h"
+#include <gtest/gtest.h>
 
 namespace AwsDocTest {
-    // NOLINTNEXTLINE(readability-named-parameter)
+// NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(MediaConvert_GTests, create_job_3_) {
         MockHTTP mockHttp;
         bool result = mockHttp.addResponseWithBody("mock_input/createJob.json");
