@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "@aws-sdk/client-iam": "^3.241.0",
-    "@types/ramda": "^0.28.15",
     "vitest": "^0.26.3"
   }
 }

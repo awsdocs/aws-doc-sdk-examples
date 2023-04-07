@@ -2,13 +2,21 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "./scripts/test.sh"
+    "test": "./scripts/test.sh",
+    "lint": "lint-staged",
+    "ci-lint": "eslint"
+  },
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx}": [
+      "eslint --fix"
+    ]
   },
   "workspaces": [
     "example_code/cloudwatch",
     "example_code/cloudwatch-logs",
     "example_code/cognito",
     "example_code/cloudwatch-events",
+    "example_code/iam",
     "example_code/lambda",
     "example_code/libs",
     "example_code/sts",
@@ -17,6 +25,15 @@
     "example_code/s3"
   ],
   "devDependencies": {
-    "lerna": "^6.3.0"
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@vitest/coverage-c8": "^0.29.8",
+    "eslint": "^8.37.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "lerna": "^6.3.0",
+    "lint-staged": "^13.2.0",
+    "typescript": "^4.9.5",
+    "vitest": "^0.29.8"
   }
 }

@@ -14,9 +14,5 @@
     "archiver": "^5.3.1",
     "ramda": "^0.28.0",
     "uuid": "^9.0.0"
-  },
-  "devDependencies": {
-    "@types/ramda": "^0.28.15",
-    "vitest": "^0.26.3"
   }
 }

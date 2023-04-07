@@ -1,0 +1,34 @@
+name: JavaScript
+
+on:
+  push:
+    paths:
+      - "javascriptv3/**"
+    branches:
+      - main
+  pull_request:
+    paths:
+      - "javascriptv3/**"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout files
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+        with:
+          files: "javascriptv3/**/*.{js,ts,jsx,tsx}"
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - run: npm ci --prefix javascriptv3
+        name: Install dependencies
+      - run: |
+          changed_files=(${{steps.changed-files.outputs.all_changed_files}})
+          npm run --prefix javascriptv3 ci-lint -- ${changed_files[@]//javascriptv3\/}
+        name: Lint added and modified files

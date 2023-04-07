@@ -1,17 +1,30 @@
-# Always run the metadata check.
-find ../snippets -type f -delete && \
-REPORTS=issues .github/extract-snippets/extract-snippets.sh dryrun
+
+tag=[PRE-COMMIT]
+
+function log {
+  echo "$tag $1"
+}
 
 # If any of the local directories contain staged changes, try
 # and run pre-commit.sh.
 for dir in $(ls -A) ; do
-  if ! git diff --cached --quiet -- "$dir" ; then
-    echo "Found changes in $dir"
+  # Get a list of file names for changed files.
+  staged=$(git diff --cached --name-only -- "$dir")
+
+  if [ -n "$staged" ] ; then
+    log "The following files have staged changes in $dir:\n$staged"
     if [ -x "${dir}/hook_scripts/pre-commit.sh" ] ; then
-      # This commit hook is run from the project root. Changing
-      # directories here lets us simplify the shell scripts.
+    
+      # Enter directory.
       cd $dir
-      "./hook_scripts/pre-commit.sh"
+
+      log "Working from $(pwd)..."
+      if ! "./hook_scripts/pre-commit.sh" ; then
+        log "$dir's pre-commit hook failed."
+        exit 1
+      fi
+
+      # Exit directory.
       cd ..
     fi
   fi
