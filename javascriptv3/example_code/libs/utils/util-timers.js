@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { curry } from "ramda";
-
 const wait = (seconds) =>
   new Promise((resolve) =>
     setTimeout(() => {

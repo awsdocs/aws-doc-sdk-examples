@@ -31,7 +31,7 @@ export const runEC2Instance = async () => {
  *
  * @param {string} instanceId
  */
-export const terminateEC2Instance = async (instanceId) => {
+export const terminateEC2Instance = (instanceId) => {
   const command = new TerminateInstancesCommand({ InstanceIds: [instanceId] });
   return client.send(command);
 };
