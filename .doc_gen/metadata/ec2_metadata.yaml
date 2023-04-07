@@ -7,7 +7,7 @@ ec2_Hello:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/ec2
+          github: dotnetv3/EC2
           sdkguide:
           excerpts:
             - description:
@@ -1586,7 +1586,7 @@ ec2_Scenario_GetStartedInstances:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/ec2
+          github: dotnetv3/EC2
           sdkguide:
           excerpts:
             - description: Run a scenario at a command prompt.

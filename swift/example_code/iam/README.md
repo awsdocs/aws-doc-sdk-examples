@@ -36,7 +36,7 @@ Code excerpts that show you how to call individual service functions.
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-* [IAM Basics](./Basics/Sources/Basics). Demonstrates a common series of
+* [IAM Basics](./basics/Sources/Basics/Basics.swift). Demonstrates a common series of
   actions to create a user, create access keys, create roles and policies,
   assume the role, and use the role's permissions to perform calls to Amazon
   Simple Storage Service (S3) actions. (`Basics`)

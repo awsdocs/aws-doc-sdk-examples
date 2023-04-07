@@ -828,7 +828,7 @@ rekognition_VideoDetection:
     Kotlin:
       versions:
         - sdk_version: 1
-          github: kotlin/example_code/rekognition/
+          github: kotlin/services/rekognition
           sdkguide:
           excerpts:
             - description: Detect faces in a video stored in an &S3; bucket.

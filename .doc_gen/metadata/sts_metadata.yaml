@@ -27,7 +27,7 @@ sts_AssumeRole:
     Ruby:
       versions:
         - sdk_version: 3
-          github: ruby/example_code/sts
+          github: ruby/example_code/iam
           excerpts:
             - description:
               snippet_tags:
