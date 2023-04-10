@@ -40,7 +40,7 @@ personalize-events_putItems:
               snippet_tags:
                 - personalize.JavaScript.putItemsV3
   services:
-    personalize: {PutItems}
+    personalize-events: {PutItems}
 personalize-events_putUsers:
   title: Incrementally import users into &PERSE; Events using an &AWS; SDK
   title_abbrev: Incrementally import a user

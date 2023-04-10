@@ -194,7 +194,7 @@ iam_ListAccountAliases:
                 - iam.JavaScript.alias.listAccountAliasesV3
         - sdk_version: 2
           github: javascript/example_code/iam
-          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html4#iam-examples-account-aliases-listing
+          sdkguide: sdk-for-javascript/v2/developer-guide/iam-examples-account-aliases.html#iam-examples-account-aliases-listing
           excerpts:
             - description:
               snippet_tags:
@@ -544,7 +544,7 @@ iam_CreateAccessKey:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/Basics
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -645,7 +645,7 @@ iam_DeleteAccessKey:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/Basics
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -980,7 +980,7 @@ iam_CreatePolicy:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/Basics
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1073,7 +1073,7 @@ iam_DeletePolicy:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/Basics
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1167,7 +1167,7 @@ iam_ListPolicies:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/ListPolicies
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1258,7 +1258,7 @@ iam_GetPolicy:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/GetPolicy
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1387,7 +1387,7 @@ iam_AttachRolePolicy:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/AttachRolePolicy
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1497,7 +1497,7 @@ iam_ListAttachedRolePolicies:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/ListAttachedRolePolicies
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1602,7 +1602,7 @@ iam_DetachRolePolicy:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/Basics
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1703,7 +1703,7 @@ iam_CreateRole:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/CreateRole
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1804,7 +1804,7 @@ iam_ListRoles:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/ListRoles
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1881,7 +1881,7 @@ iam_GetRole:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/GetRole
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1948,7 +1948,7 @@ iam_DeleteRole:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/Basics
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2050,7 +2050,7 @@ iam_ListRolePolicies:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/ListRolePolicies
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2156,7 +2156,7 @@ iam_CreateUser:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/CreateUser
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2292,7 +2292,7 @@ iam_DeleteUser:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/Basics
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2394,7 +2394,7 @@ iam_ListUsers:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/ListUsers
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2586,7 +2586,7 @@ iam_PutUserPolicy:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/Basics
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2653,7 +2653,7 @@ iam_DeleteUserPolicy:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/Basics
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -3038,7 +3038,7 @@ iam_ListGroups:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/ListGroups
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -3132,7 +3132,7 @@ iam_CreateServiceLinkedRole:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/CreateServiceLinkedRole
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -3211,7 +3211,7 @@ iam_Scenario_GroupBasics:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/IAM/IAMGroups
+          github: dotnetv3/IAM
           sdkguide:
           excerpts:
             - description:
@@ -3239,7 +3239,7 @@ iam_Scenario_CreateUserAssumeRole:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/IAM/IAMBasics
+          github: dotnetv3/IAM
           sdkguide:
           excerpts:
             - description:
