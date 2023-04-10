@@ -81,7 +81,7 @@ cdk deploy
 ```
 
 ## Testing the app
-Upload an image fie to the S3 bucket that was created by CloudFormation.
+Upload an image file to the S3 bucket that was created by CloudFormation.
 The image will be automatically classified.
 Results can be found in DynamoDB, S3 bucket "results" folder, and CloudWatch logs for the Lambda function
   
