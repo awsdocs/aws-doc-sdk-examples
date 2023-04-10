@@ -75,7 +75,7 @@ public class LambdaBasics
         Console.WriteLine("Waiting for role to become active.");
         uiWrapper.WaitABit(15, "Wait until the role is active before trying to use it.");
 
-        // Attach the appropriate AWS Access and Identity Management (IAM) role policy to the new role.
+        // Attach the appropriate AWS Identity and Access Management (IAM) role policy to the new role.
         var success = await lambdaRoleWrapper.AttachLambdaRolePolicyAsync(policyArn, roleName);
         uiWrapper.WaitABit(10, "Allow time for the IAM policy to be attached to the role.");
 

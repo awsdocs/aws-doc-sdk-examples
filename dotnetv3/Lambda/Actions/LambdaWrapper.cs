@@ -191,7 +191,7 @@ public class LambdaWrapper
 
     // snippet-start:[Lambda.dotnetv3.LambdaActions.UpdateFunctionConfiguration]
     /// <summary>
-    /// Update the code of an Lambda function.
+    /// Update the code of a Lambda function.
     /// </summary>
     /// <param name="functionName">The name of the function to update.</param>
     /// <param name="functionHandler">The code that performs the function's actions.</param>

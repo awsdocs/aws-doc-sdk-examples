@@ -154,7 +154,7 @@ namespace LambdaTests
 
         /// <summary>
         /// Tests the LambdaWrapper method ListFunctionsAsync to list existing
-        /// Lambda function for the current account.
+        /// Lambda functions for the current account.
         /// </summary>
         /// <returns>Async Task.</returns>
         [Fact()]
@@ -167,7 +167,7 @@ namespace LambdaTests
         }
 
         /// <summary>
-        /// Test the LambdaWrapper method InvokeIncremterAsync to invoke the
+        /// Test the LambdaWrapper method InvokeIncrementerAsync to invoke the
         /// increment function.
         /// </summary>
         /// <returns>Async Task.</returns>

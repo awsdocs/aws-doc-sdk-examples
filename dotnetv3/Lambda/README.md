@@ -79,8 +79,7 @@ This example shows you how to do the following:
 * List the functions for your account, then clean up resources.
 
 Before you compile the .NET application, you can optionally set configuration values
-in the settings.json file. These settings include your account and topic settings for
-sending an email from your alarm. Alternatively, add a settings.local.json file with
+in the settings.json file. Alternatively, add a settings.local.json file with
 your local settings, which will be loaded automatically when the application runs.
 
 After the example compiles, you can run it from the command line. To do so, navigate to
@@ -99,10 +98,9 @@ own:
  * [LambdaIncrement.zip](LambdaIncrement.zip)
  * [LambdaCalculator.zip](LambdaCalculator.zip)
  
-### Configuration settings
+##### Configuration settings
 
-The scenario getting you started with Lambda functions includes the following
-settings in *settings.json*:
+The scenario includes the following settings in *settings.json*:
 
  * **FunctionName** - a name for the Lambda function.
  * **Handler** - The name of the handler in the increment function.
@@ -110,7 +108,7 @@ settings in *settings.json*:
  * **BucketName** - The name of the bucket containing the Zip files for the sample functions.
  * **IncrementKey** - "LambdaIncrement.zip",
  * **CalculatorKey** - "LambdaCalculator.zip",
- * **RoleName** - The name of the Amazon Identity Management role that gives the scenario permissions to access Lambda.
+ * **RoleName** - The name of the IAM role that gives the scenario permissions to access Lambda.
  * **PolicyArn** - The Amazon Resource Name (ARN) of a policy giving the IAM role permissions to access Lambda.
 <!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
 
