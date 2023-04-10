@@ -2,7 +2,7 @@
 
 # Scheduled Event Producer Stack
 
-This project will create a stack for producing events from EventBrudge and publishing them to a centralized SNS topic.
+This project will create a stack for producing events from EventBridge and publishing them to a centralized SNS topic.
 
 ---
 
