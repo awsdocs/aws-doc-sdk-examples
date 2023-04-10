@@ -27,6 +27,7 @@ Code excerpts that show you how to call individual service functions.
 - [Delete one or more objects from a bucket](src/bin/delete-objects.rs) (DeleteObjects)
 - [Delete an empty bucket](src/s3-service-lib.rs) (DeleteBucket)
 - [Get a presigned URI for an object](src/bin/get-object-presigned.rs) (GetObject)
+- [Get an object and write it to a local file](src/bin/get-object.rs) (GetObject)
 - [List your buckets](src/bin/list-buckets.rs) (ListBuckets)
 - [List the objects in a bucket](src/bin/list-objects.rs) (ListObjectsV2)
 - [List the versions of the objects in a bucket](src/bin/list-object-versions.rs) (ListObjectVersions)

@@ -797,7 +797,7 @@ s3_GetObject:
           excerpts:
             - description:
               snippet_tags:
-                - rust.example_code.s3.basics.get_object
+                - s3.rust.get_object
     SAP ABAP:
       versions:
         - sdk_version: 1
