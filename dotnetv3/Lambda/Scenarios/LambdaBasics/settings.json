@@ -1,0 +1,10 @@
+{
+  "FunctionName": "LambdaExample",
+  "Handler": "LambdaIncrement::LambdaIncrement.Function::FunctionHandler",
+  "UpdatedHandler": "LambdaCalculator::LambdaCalculator.Function::FunctionHandler",
+  "BucketName": "doc-example-bucket",
+  "IncrementKey": "LambdaIncrement.zip",
+  "CalculatorKey": "LambdaCalculator.zip",
+  "RoleName": "lambda-support",
+  "PolicyArn": "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
