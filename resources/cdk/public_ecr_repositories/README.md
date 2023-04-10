@@ -6,13 +6,14 @@ This project will create a stack for hosting container images in Elastic Contain
 
 ---
 
-Requirements:
-* git
+## System requirements
 * npm (node.js)
 * python 3.x
 * AWS access key & secret for AWS user with permissions to create resources listed above
   
 ---
+
+## CDK setup & deployment
 
 First, you will need to install the AWS CDK:
 
@@ -43,6 +44,8 @@ Install the required dependencies:
 ```
 pip install -r requirements.txt
 ```
+---
+## Stack deployment
 
 At this point you can now synthesize the CloudFormation template for this code.
 
@@ -50,8 +53,8 @@ At this point you can now synthesize the CloudFormation template for this code.
 cdk synth
 ```
 
-If everything looks good, go ahead and deploy!  This step will actually make
-changes to your AWS cloud environment.  
+If everything looks good, go ahead and deploy! This step will actually make
+changes to your AWS cloud environment.
 
 ```
 cdk bootstrap
@@ -79,4 +82,4 @@ deactivate
  * `cdk docs`        open CDK documentation
 
 ---
-This code has been tested and verified to run with AWS CDK 1.100.0 (build d996c6d)
+This code has been tested and verified to run with AWS CDK 2.70.0 (build c13a0f1).

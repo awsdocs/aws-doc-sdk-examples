@@ -25,7 +25,7 @@ class PublicEcrRepositoriesStack(Stack):
 
         for language in languages:
 
-            usage_text = f'This image provides a pre-built for SDK for {language} environment and is recommended for local testing of SDK for {language} example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/{language}/README.md#docker-image-beta.'
+            usage_text = f'This image provides a pre-built SDK for {language} environment and is recommended for local testing of SDK for {language} example code. It is not intended for production usage. For detailed and up-to-date steps on running this image, please see https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/{language}/README.md#docker-image-beta.'
             repository_description = f'This image provides a pre-built for SDK for {language} environment and is recommended for local testing of SDK for {language} example code."'
             ecr.CfnPublicRepository(self, f"{language}",
                 repository_name=language,

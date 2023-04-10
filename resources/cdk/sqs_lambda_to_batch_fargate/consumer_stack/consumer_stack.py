@@ -25,15 +25,12 @@ import os
 
 # Raises KeyError if environment variable doesn't exist
 language_name = os.environ["LANGUAGE_NAME"]
+producer_account_id = os.environ["PRODUCER_ACCOUNT_ID"]
+fanout_topic_name = os.environ["FANOUT_TOPIC_NAME"] # TODO: Store value in distributed keystore
 
 class ConsumerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
-
-        # Weathertop Central variables
-        # TODO: Store these values in distributed keystore
-        master_account_id = '808326389482'
-        fanout_topic_name = "ProducerStack-fanouttopic6EFF7954-pYvxBdNPbEWM"
 
         #############################################
         ##                                         ##

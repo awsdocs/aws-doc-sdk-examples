@@ -6,13 +6,21 @@ This project will create a stack for producing events from EventBridge and publi
 
 ---
 
-Requirements:
-* git
+## System requirements:
 * npm (node.js)
 * python 3.x
-* AWS access key & secret for AWS user with permissions to create resources listed above
+* AWS access key & secret for AWS user with permissions to create resources listed above.
+* Store system parameters (see below)
   
+### Store system parameters
+
+Before you get started, execute [store_system_parameters.py](store_system_params.py) as described in the code comments:
+
+```
+python3 store_system_params.py
+```
 ---
+## CDK setup & deployment
 
 First, you will need to install the AWS CDK:
 
@@ -79,4 +87,4 @@ deactivate
  * `cdk docs`        open CDK documentation
 
 ---
-This code has been tested and verified to run with AWS CDK 1.100.0 (build d996c6d)
+This code has been tested and verified to run with AWS CDK 2.70.0 (build c13a0f1).

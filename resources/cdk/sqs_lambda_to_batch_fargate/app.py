@@ -7,11 +7,9 @@ from consumer_stack.consumer_stack import ConsumerStack
 
 import os
 
-account = cdk.Aws
-
-env_USA = cdk.Environment(account='260778392212', region="us-east-1")
-
 app = App()
-ConsumerStack(app, "ConsumerStack", env=env_USA)
+ConsumerStack(app, "ConsumerStack",
+    env=cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION')),
+    )
 
 app.synth()

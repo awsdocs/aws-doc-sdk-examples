@@ -1,22 +1,16 @@
 import boto3
 
+### The purpose of this script is to customize an AWS environment
+### with specific langauges and AWS Account ID's where language-specific
+### integration tests will be executed. You must update this file with at least 1
+### AWS Acount ID and language to test on Line 14.
+
 # Set up the AWS client
 client = boto3.client('ssm')
 
 # Define the parameters to write
 parameters = {
-    'ruby': '260778392212',
-    'weathertop_central': '808326389482',
-    # 'javav2': '000000000000',
-    # 'javascriptv3': '000000000000',
-    # 'python': '000000000000',
-    # 'dotnetv3': '000000000000',
-    # 'kotlin': '000000000000',
-    # 'rust_dev_preview': '000000000000',
-    # 'swift': '000000000000',
-    # 'cpp': '000000000000',
-    # 'gov2': '000000000000',
-    # 'sap-abap': '000000000000',
+    # 'language_name': '000000000000'
 }
 
 # Method to write parameters to Parameter Store
