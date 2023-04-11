@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListEventBuses.java demonstrates how to list your Amazon EventBridge buses.]
+//snippet-sourcedescription:[HelloEventBridge.java demonstrates how to list your Amazon EventBridge buses.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon EventBridge]
 
@@ -27,10 +27,6 @@ import java.util.List;
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
- *
- * This Java code example performs the following tasks:
- *
- * 1. Creates a role to use with Amazon EventBridge.
  *
  */
 public class HelloEventBridge {
