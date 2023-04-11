@@ -3,7 +3,7 @@
   "display": "Node 18",
 
   "compilerOptions": {
-    "lib": ["es2022"],
+    "lib": ["es2022", "DOM"],
     "module": "commonjs",
     "target": "es2022",
 
@@ -11,6 +11,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "jsx": "react-jsx"
   }
 }
