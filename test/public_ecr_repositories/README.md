@@ -2,7 +2,13 @@
 
 # Elastic Container Registry (ECR) Public Repositories Stack
 
-This project will create a stack for hosting container images in Elastic Container Registry (ECR).
+The code in this directory deploys a CDK stack for hosting container images in Elastic Container Registry (ECR).
+
+This stack can be deployed in isolation; however, it serves a purpose in this repository's [test automation architecture](../README.md).
+
+Specifically, a GitHub Action workflow builds and publishes Docker images into the ECR Repositories managed by this stack.
+
+![weathertop-comp-1.png](..%2Farchitecture_diagrams%2Fpng%2Fweathertop-comp-1.png)
 
 ---
 

@@ -1,38 +1,31 @@
 ![Stability: Stable](https://img.shields.io/badge/stability-Stable-success.svg?style=for-the-badge)
 
-# Batch Fargate Consumer Stack with Cross-Account Trigger
+# Scheduled Event Producer Stack
 
-This project will create a CDK stack for running integration tests within a personal account based on a SNS fanout topic triggering within a centralized account.
+The code in this directory deploys a CDK stack that produces events.
 
-Test results will be written to CloudWatch logs.  
+This stack can be deployed in isolation; however, it serves a purpose in this repository's [test automation architecture](../README.md).
+
+Specifically, it deploys a scheduled EventBridge rule that publishes a message to an SNS topic to which many "consumer" SQS topics are subscribed.
+
+
+![weathertop-comp-2.png](..%2Farchitecture_diagrams%2Fpng%2Fweathertop-comp-2.png)
 
 ---
-## System requirements
+## System requirements:
 * npm (node.js)
-* python 3.7
-* AWS access key & secret for AWS user with permissions to create resources listed above
+* python 3.x
+* AWS access key & secret for AWS user with permissions to create resources listed above.
+* Successfully written [system parameters](#storing-system-parameters)
+  
+### Storing system parameters
 
-### Required environment variables
-Before going any further, save your language name as an environment variable called `LANGUAGE_NAME`.
+Before you get started, execute [store_system_parameters.py](store_system_params.py) as described in the code comments:
 
-If your language is Java, you would use:
 ```
-export LANGUAGE_NAME=javav2
-```
-
-Also, save the AWS Account ID of the AWS account that is currently emitting 
-events that this stack will process.
-```
-export PRODUCER_ACCOUNT_ID=12345678901
-```
-
-Lastly, save the name of the SNS topic that will be producing the events mentioned above.
-If created using [this Producer CDK code](../eventbridge_rule_with_sns_fanout/README.md) it will look something like this:
-```
-export FANOUT_TOPIC_NAME="ProducerStack-fanouttopic6EFF7954-pYvxBdNPbEWM"
+python3 store_system_params.py
 ```
 ---
-
 ## CDK setup & deployment
 
 First, you will need to install the AWS CDK:
