@@ -58,6 +58,9 @@
 - name: tool/cloudformation
   description: "Relates to CloudFormation templates"
   color: "663399"
+- name: tool/integration-testing
+  description: "Relates to integration testing"
+  color: "663399"
 - name: status/on-call-review-needed
   color: "AD1C21"
   description: "This work needs an on-call review"
