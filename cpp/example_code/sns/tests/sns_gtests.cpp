@@ -10,6 +10,7 @@
 #include <aws/sns/model/CreateTopicRequest.h>
 #include <aws/sns/model/DeleteTopicRequest.h>
 #include <aws/sns/model/SubscribeRequest.h>
+#include <aws/sns/model/UnsubscribeRequest.h>
 #include <aws/core/utils/UUID.h>
 #include <aws/testing/mocks/http/MockHttpClient.h>
 
@@ -36,8 +37,14 @@ void AwsDocTest::SNS_GTests::TearDownTestSuite() {
         deleteTopic(s_stashedTopicARN);
         s_stashedTopicARN.clear();
     }
-    ShutdownAPI(s_options);
 
+    if (!s_stashedSubscriptionARN.empty())
+    {
+        unsubscribe(s_stashedSubscriptionARN);
+        s_stashedSubscriptionARN.clear();
+    }
+
+    ShutdownAPI(s_options);
 }
 
 void AwsDocTest::SNS_GTests::SetUp() {
@@ -137,7 +144,8 @@ Aws::String AwsDocTest::SNS_GTests::uuidName(const Aws::String &name) {
 }
 
 Aws::String AwsDocTest::SNS_GTests::getSubscriptionARN() {
-    if (s_stashedSubscriptionARN.empty()) {
+    Aws::String result;
+
         Aws::String topicARN = getStashedTopicARN();
         Aws::String lambdaEndpoint;
         if (!topicARN.empty()) {
@@ -169,7 +177,7 @@ Aws::String AwsDocTest::SNS_GTests::getSubscriptionARN() {
                     request);
 
             if (outcome.IsSuccess()) {
-                s_stashedSubscriptionARN = outcome.GetResult().GetSubscriptionArn();
+                result = outcome.GetResult().GetSubscriptionArn();
             }
             else {
                 std::cerr << "Error while subscribing "
@@ -177,8 +185,33 @@ Aws::String AwsDocTest::SNS_GTests::getSubscriptionARN() {
                           << std::endl;
             }
         }
+
+    return result;
+}
+
+Aws::String AwsDocTest::SNS_GTests::getStashedSubscription() {
+    if (s_stashedSubscriptionARN.empty())
+    {
+        s_stashedSubscriptionARN = getSubscriptionARN();
     }
+
     return s_stashedSubscriptionARN;
+}
+
+bool AwsDocTest::SNS_GTests::unsubscribe(const Aws::String &subscriptionARN) {
+    Aws::SNS::SNSClient snsClient(*s_clientConfig);
+
+    Aws::SNS::Model::UnsubscribeRequest request;
+    request.SetSubscriptionArn(subscriptionARN);
+
+    const Aws::SNS::Model::UnsubscribeOutcome outcome = snsClient.Unsubscribe(request);
+
+    if (!outcome.IsSuccess()) {
+        std::cerr << "Error while unsubscribing " << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return outcome.IsSuccess();
 }
 
 

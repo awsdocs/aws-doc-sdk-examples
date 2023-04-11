@@ -6,8 +6,6 @@
 #include <aws/core/Aws.h>
 #include <aws/sns/model/CreateTopicRequest.h>
 #include <aws/sns/model/DeleteTopicRequest.h>
-#include <aws/sns/model/GetTopicAttributesRequest.h>
-#include <aws/sns/model/ListTopicsRequest.h>
 #include <aws/sns/model/PublishRequest.h>
 #include <aws/sns/model/SubscribeRequest.h>
 #include <aws/sns/model/UnsubscribeRequest.h>
@@ -19,15 +17,15 @@
 #include <aws/sqs/model/ReceiveMessageRequest.h>
 #include <aws/sqs/model/SetQueueAttributesRequest.h>
 #include <aws/sqs/SQSClient.h>
+#include <iomanip>
 #include "sns_samples.h"
 
 namespace AwsDoc {
     namespace SNS {
-        static const char TOPIC_NAME[] = "getting_started_topic";
         static const Aws::String FIFO_SUFFIX = ".fifo";
-        static const int NUMBER_OF_QUEUES = 1;
+        static const int NUMBER_OF_QUEUES = 2;
         static const Aws::String TONE_ATTRIBUTE("tone");
-        static const Aws::Vector<Aws::String> TONES = {"serious", "funny", "earnest",
+        static const Aws::Vector<Aws::String> TONES = {"friendly", "funny", "earnest",
                                                        "sincere"};
 
         Aws::String createPolicyForQueue(const Aws::String& queueARN,
@@ -72,33 +70,63 @@ namespace AwsDoc {
         int askQuestionForIntRange(const Aws::String &string, int low,
                                    int high);
 
+        //! Utility routine to print a line of asterisks to standard out.
+        /*!
+         \\sa printAsterisksLine()
+        \return void:
+         */
+        inline void printAsterisksLine() {
+            std::cout << "\n" << std::setfill('*') << std::setw(88) << "\n"
+                      << std::endl;
+        }
+
+        //! Test routine passed as argument to askQuestion routine.
+        /*!
+         \sa alwaysTrueTest()
+         \return bool: Always true.
+         */
+        bool alwaysTrueTest(const Aws::String &) { return true; }
     } // namespace SNS
 } // namespace AwsDoc
 
 bool AwsDoc::SNS::gettingStartedWithSNSTopics(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
     std::cout << "Welcome to getting started with SNS topics." << std::endl;
+    printAsterisksLine();
     std::cout << "In this workflow, you will create an SNS topic and subscribe "
               << NUMBER_OF_QUEUES <<
-              " SQS queues to" << std::endl;
-    std::cout << "the topic." << std::endl;
+              " SQS queues to the topic." << std::endl;
     std::cout
-            << "You can select from several options for configuring the topic and the subscriptions for the \" "
-               "<< NUMBER_OF_QUEUES << \" queues." << std::endl;
+            << "You can select from several options for configuring the topic and the subscriptions for the "
+               << NUMBER_OF_QUEUES << " queues." << std::endl;
     std::cout << "You can then post to the topic and see the results in the queues."
               << std::endl;
     Aws::SNS::SNSClient client(clientConfiguration);
+
+    printAsterisksLine();
+
     // Create a new topic. This call will succeed even if a topic with the same name was
     // already created.
+    std::cout << "SNS topics can be configured as FIFO (First-In-First-Out)." << std::endl;
+    std::cout << "FIFO topics deliver messages in order and support deduplication and message filtering." << std::endl;
     bool isFifoTopic = askYesNoQuestion(
             "Would you like to work with FIFO topics? (y/n) ");
 
     bool contentBasedDeduplication = false;
     Aws::String topicName;
     if (isFifoTopic) {
+        printAsterisksLine();
+        std::cout << "Because you have chosen a FIFO topic, deduplication is supported." << std::endl;
+        std::cout << "Duplication is determined by either a duplication ID or content-based deduplication." << std::endl;
+        std::cout << "If a message is successfully published to an SNS FIFO topic, any message published and determined to be a duplicate, " << std::endl;
+        std::cout << "within the five-minute deduplication interval, is accepted but not delivered." << std::endl;
+        std::cout << "For more information about deduplication, see https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html." << std::endl;
         contentBasedDeduplication = askYesNoQuestion(
-                "Would you like to use content based deduplication? (y/n) ");
+                "Would you like to use content-based deduplication instead of a duplication ID? (y/n) ");
     }
+
+    printAsterisksLine();
+
     Aws::String topicARN;
     {
         topicName = askQuestion("Enter a name for your SNS topic: ");
@@ -136,6 +164,8 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
 
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
+    printAsterisksLine();
+
     // Create an SQS queue.
     std::cout << "Now you will create " << NUMBER_OF_QUEUES
               << " SNS queues to subscribe to the topic." << std::endl;
@@ -148,8 +178,10 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
         Aws::String queueURL;
         Aws::String queueName;
         {
-            std::ostringstream ostringstream;
-            ostringstream << "Enter a name for SQS queue " << NUMBER_OF_QUEUES << ". ";
+            printAsterisksLine();
+            std::ostringstream  ostringstream;
+            ostringstream << "Enter a name for " << (first ? "an" : "the next")
+            << " SQS queue. ";
             queueName = askQuestion(ostringstream.str());
             Aws::SQS::Model::CreateQueueRequest request;
             if (isFifoTopic) {
@@ -225,6 +257,11 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
             }
         }
             // Give the queue permission to receive messages.
+            if (first)
+            {
+                std::cout << "An IAM policy must be attached to an SQS queue enabling it to receive "
+                             "messages from an SNS topic." << std::endl;
+            }
         {
             Aws::SQS::Model::SetQueueAttributesRequest request;
             request.SetQueueUrl(queueURL);
@@ -236,7 +273,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                     request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "SQS::SetQueueAttributes was successful." << std::endl;
+                std::cout << "The attributes for the queue '" << queueName << "' were successfully updated." << std::endl;
             }
             else {
                 std::cerr << "Error with SQS::SetQueueAttributes. "
@@ -244,83 +281,90 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                           << std::endl;
             }
         }
-#if 1
+
+        printAsterisksLine();
+
         // Subscribe the queue.
         {
             Aws::SNS::Model::SubscribeRequest request;
             request.SetTopicArn(topicARN);
             request.SetProtocol("sqs");
             request.SetEndpoint(queueARN);
-            if (first) {
-                std::cout << "Subscriptions to a topic can have filters." << std::endl;
-                std::cout
-                        << "If you add a filter to this subscription, then only the filtered messages "
-                        << "will be received in the queue." << std::endl;
-                std::cout << "For information about message filtering, "
-                          << "see https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html"
-                          << std::endl;
-                std::cout << "For this example, you can filter messages by a \""
-                          << TONE_ATTRIBUTE << "\" attribute." << std::endl;
-            }
-            std::ostringstream ostringstream;
-            ostringstream << "Would you like to filter messages for \"" << queueName
-                          << "\"'s subscription to the topic \""
-                          << topicName << "\"?  (y/n)";
-
-            if (askYesNoQuestion(ostringstream.str())) {
-                std::cout
-                        << "You can filter messages by one or more of the following \""
-                        << TONE_ATTRIBUTE << "\" attributes." << std::endl;
-
-                std::vector<Aws::String> filterSelections;
-                int selection = 0;
-                do {
-                    for (size_t i = 0; i < TONES.size(); ++i) {
-                        std::cout << "  " << (i + 1) << ". " << TONES[i] << std::endl;
-                    }
-                    selection = askQuestionForIntRange(
-                            "Enter a number (or enter zero to not add anything more): ",
-                            0, static_cast<int>(TONES.size()));
-
-                    if (selection != 0) {
-                        Aws::String selectedTone(TONES[selection - 1]);
-                        // Add the tone to the selection if it is not already added.
-                        if (std::find(filterSelections.begin(), filterSelections.end(),
-                                      selectedTone)
-                            == filterSelections.end()) {
-                            filterSelections.push_back(selectedTone);
-                        }
-                    }
-                } while (selection != 0);
-
-                if (!filterSelections.empty()) {
-                    filteringMessages = true;
-                    std::ostringstream jsonPolicyStream;
-                    jsonPolicyStream << "{ \"" << TONE_ATTRIBUTE << "\": [";
-
-
-                    for (size_t i = 0; i < filterSelections.size(); ++i) {
-                        jsonPolicyStream << "\"" << filterSelections[i] << "\"";
-                        if (i < filterSelections.size() - 1) {
-                            jsonPolicyStream << ",";
-                        }
-                    }
-                    jsonPolicyStream << "] }";
-
-                    Aws::String jsonPolicy = jsonPolicyStream.str();
-
-                    std::cout << "This is the filter policy for this subscription."
+            if (isFifoTopic) {
+                if (first) {
+                    std::cout << "Subscriptions to a FIFO topic can have filters."
                               << std::endl;
-                    std::cout << jsonPolicy << std::endl;
-
-                    request.AddAttributes("FilterPolicy", jsonPolicy);
-                }
-                else {
                     std::cout
-                            << "Because you did not select any attributes, no filter will be added to this subscription."
-                            << std::endl;
+                            << "If you add a filter to this subscription, then only the filtered messages "
+                            << "will be received in the queue." << std::endl;
+                    std::cout << "For information about message filtering, "
+                              << "see https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html"
+                              << std::endl;
+                    std::cout << "For this example, you can filter messages by a \""
+                              << TONE_ATTRIBUTE << "\" attribute." << std::endl;
                 }
-            }
+                std::ostringstream ostringstream;
+                ostringstream << "Would you like to filter messages for \"" << queueName
+                              << "\"'s subscription to the topic \""
+                              << topicName << "\"?  (y/n)";
+
+                if (askYesNoQuestion(ostringstream.str())) {
+                    std::cout
+                            << "You can filter messages by one or more of the following \""
+                            << TONE_ATTRIBUTE << "\" attributes." << std::endl;
+
+                    std::vector<Aws::String> filterSelections;
+                    int selection;
+                    do {
+                        for (size_t j = 0; j < TONES.size(); ++j) {
+                            std::cout << "  " << (j + 1) << ". " << TONES[j]
+                                      << std::endl;
+                        }
+                        selection = askQuestionForIntRange(
+                                "Enter a number (or enter zero to not add anything more): ",
+                                0, static_cast<int>(TONES.size()));
+
+                        if (selection != 0) {
+                            const Aws::String &selectedTone(TONES[selection - 1]);
+                            // Add the tone to the selection if it is not already added.
+                            if (std::find(filterSelections.begin(),
+                                          filterSelections.end(),
+                                          selectedTone)
+                                == filterSelections.end()) {
+                                filterSelections.push_back(selectedTone);
+                            }
+                        }
+                    } while (selection != 0);
+
+                    if (!filterSelections.empty()) {
+                        filteringMessages = true;
+                        std::ostringstream jsonPolicyStream;
+                        jsonPolicyStream << "{ \"" << TONE_ATTRIBUTE << "\": [";
+
+
+                        for (size_t j = 0; j < filterSelections.size(); ++j) {
+                            jsonPolicyStream << "\"" << filterSelections[j] << "\"";
+                            if (j < filterSelections.size() - 1) {
+                                jsonPolicyStream << ",";
+                            }
+                        }
+                        jsonPolicyStream << "] }";
+
+                        Aws::String jsonPolicy = jsonPolicyStream.str();
+
+                        std::cout << "This is the filter policy for this subscription."
+                                  << std::endl;
+                        std::cout << jsonPolicy << std::endl;
+
+                        request.AddAttributes("FilterPolicy", jsonPolicy);
+                    }
+                    else {
+                        std::cout
+                                << "Because you did not select any attributes, no filter will be added to this subscription."
+                                << std::endl;
+                    }
+                }
+            }  // if (isFifoTopic)
 
             Aws::SNS::Model::SubscribeOutcome outcome = client.Subscribe(request);
 
@@ -339,13 +383,16 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                           << std::endl;
             }
         }
-#endif
+
+        first = false;
         queueURLS.push_back(queueURL);
     }
 
     // Post to the topic.
     first = true;
-    do {
+     do {
+         printAsterisksLine();
+
         Aws::SNS::Model::PublishRequest request;
         request.SetTopicArn(topicARN);
         Aws::String message = askQuestion("Enter a message text to publish.  ");
@@ -367,10 +414,6 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                     std::cout
                             << "Because you are not using content-based deduplication, you must enter a deduplication ID."
                             << std::endl;
-                    std::cout
-                            << "If a message with a particular deduplication ID is successfully published to an SNS FIFO "
-                            << "topic, any message published with the same deduplication ID, within the five-minute deduplication "
-                            << "interval, is accepted but not delivered." << std::endl;
                 }
                 Aws::String deduplicationID = askQuestion(
                         "Enter a deduplication ID for this message. ");
@@ -405,46 +448,88 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
         first = false;
     } while (askYesNoQuestion("Would you like to post another message? (y/n) "));
 
-    for (const auto &queueURL: queueURLS) {
+    printAsterisksLine();
+
+    std::cout << "Now the SQS queue will be polled to retrieve the messages." << std::endl;
+    askQuestion("Press any key to continue...", alwaysTrueTest);
+
+    for (size_t i = 0; i < queueURLS.size(); ++i) {
         // Poll the queue
+        std::vector<Aws::String> messages;
         std::vector<Aws::String> receiptHandles;
+       while(1)
         {
             Aws::SQS::Model::ReceiveMessageRequest request;
-            request.SetQueueUrl(queueURL);
+            request.SetMaxNumberOfMessages(10);
+            request.SetQueueUrl(queueURLS[i]);
 
+            // Setting WaitTimeSecondes to non-zero enables long polling.
+            // For information about long polling, see
+            // https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html
+            request.SetWaitTimeSeconds(1);
             Aws::SQS::Model::ReceiveMessageOutcome outcome = sqsClient.ReceiveMessage(
                     request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "Here are the messages for" << std::endl;
-                for (const Aws::SQS::Model::Message &message: outcome.GetResult().GetMessages()) {
-                    std::cout << "  Message : '" << message.GetBody() << "'."
-                              << std::endl;
-                    receiptHandles.push_back(message.GetReceiptHandle());
+                const Aws::Vector<Aws::SQS::Model::Message>& newMessages = outcome.GetResult().GetMessages();
+                if (newMessages.empty())
+                {
+                    break;
+                }
+                else{
+                    for (const Aws::SQS::Model::Message &message: newMessages)
+                    {
+                        messages.push_back(message.GetBody());
+                        receiptHandles.push_back(message.GetReceiptHandle());
+                    }
                 }
             }
             else {
                 std::cerr << "Error with SQS::ReceiveMessage. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
+                break;
             }
         }
-#if 1
+
+        printAsterisksLine();
+
+        if (messages.empty())
+        {
+            std::cout << "No messages were ";
+        }
+        else if (messages.size() == 1)
+        {
+            std::cout << "One message was ";
+        }
+        else{
+            std::cout << messages.size() << " messages were ";
+        }
+        std::cout << "received by the queue '" << queueNames[i]
+                  << "'." << std::endl;
+        for (const Aws::String &message: messages) {
+            std::cout << "  Message : '" << message << "'."
+                      << std::endl;
+        }
+
         // Delete the messages.
         if (!receiptHandles.empty()) {
             Aws::SQS::Model::DeleteMessageBatchRequest request;
-            request.SetQueueUrl(queueURL);
+            request.SetQueueUrl(queueURLS[i]);
+            int id = 1; // Id's must be unique within a batch delete request.
             for (const Aws::String &receiptHandle: receiptHandles) {
-                request.AddEntries(
-                        Aws::SQS::Model::DeleteMessageBatchRequestEntry().WithReceiptHandle(
-                                receiptHandle));
+                Aws::SQS::Model::DeleteMessageBatchRequestEntry entry;
+                entry.SetId(std::to_string(id));
+                ++id;
+                entry.SetReceiptHandle(receiptHandle);
+                request.AddEntries(entry);
             }
 
             Aws::SQS::Model::DeleteMessageBatchOutcome outcome = sqsClient.DeleteMessageBatch(
                     request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "SQS::DeleteMessageBatch was successful." << std::endl;
+                std::cout << "The batch delete of messages were successful." << std::endl;
             }
             else {
                 std::cerr << "Error with SQS::DeleteMessageBatch. "
@@ -452,8 +537,9 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                           << std::endl;
             }
         }
-#endif
     }
+
+    printAsterisksLine();
 
     if (askYesNoQuestion("Would you like to delete the SQS queues? (y/n) ")) {
         for (const auto &queueURL: queueURLS) {
@@ -464,7 +550,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                     request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "SQS::DeleteQueue was successful." << std::endl;
+                std::cout << "The queue with URL '" << queueURL << "' was successfully deleted." << std::endl;
             }
             else {
                 std::cerr << "Error with SQS::DeleteQueue. "
@@ -480,7 +566,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
             Aws::SNS::Model::UnsubscribeOutcome outcome = client.Unsubscribe(request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "SNS::Unsubscribe was successful." << std::endl;
+                std::cout << "Unsubscribe of subscritpion ARN '" << subscriptionARN << "' was successful." << std::endl;
             }
             else {
                 std::cerr << "Error with SNS::Unsubscribe. "
@@ -490,6 +576,8 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
         }
     }
 
+    printAsterisksLine();
+
     if (askYesNoQuestion("Would you like to delete the SNS topic? (y/n) ")) {
         Aws::SNS::Model::DeleteTopicRequest request;
         request.SetTopicArn(topicARN);
@@ -497,7 +585,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
         Aws::SNS::Model::DeleteTopicOutcome outcome = client.DeleteTopic(request);
 
         if (outcome.IsSuccess()) {
-            std::cout << "SNS::DeleteTopicRequest was successful." << std::endl;
+            std::cout << "The topic with ARN '" << topicARN << "' was successfully deleted." << std::endl;
         }
         else {
             std::cerr << "Error with SNS::DeleteTopicRequest. "
