@@ -11,12 +11,12 @@
     "test": "exit 0"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity": "^3.165.0",
-    "@aws-sdk/client-comprehend": "^3.165.0",
-    "@aws-sdk/client-ses": "^3.165.0",
-    "@aws-sdk/client-transcribe-streaming": "^3.165.0",
-    "@aws-sdk/client-translate": "^3.165.0",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.165.0",
+    "@aws-sdk/client-cognito-identity": "^3.310.0",
+    "@aws-sdk/client-comprehend": "^3.310.0",
+    "@aws-sdk/client-ses": "^3.310.0",
+    "@aws-sdk/client-transcribe-streaming": "^3.310.0",
+    "@aws-sdk/client-translate": "^3.310.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.310.0",
     "get-user-media-promise": "^1.1.4",
     "buffer": "^6.0.3",
     "stream": "0.0.2",
