@@ -444,7 +444,7 @@ eventbridge_Scenario_GettingStarted:
           github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: Remove all of the targets for a rule by using the rule name.
+            - description: 
               snippet_tags:
                 - eventbridge.java2.mvp.main
     .NET:
