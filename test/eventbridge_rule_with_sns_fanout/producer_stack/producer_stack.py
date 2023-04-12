@@ -7,7 +7,9 @@ from aws_cdk import (
     aws_events as events,
     aws_events_targets as targets,
     aws_sns as sns,
+    aws_kinesis as kinesis,
     aws_sns_subscriptions as subscriptions,
+    Aws,
     Stack
 )
 from constructs import Construct
@@ -33,6 +35,11 @@ class ProducerStack(Stack):
             # 'sap-abap'
         ]
 
+        account_ids = []
+        for language_name in onboarded_languages:
+            response = client.get_parameter(Name=language_name, WithDecryption=True)
+            account_ids.append(response['Parameter']['Value'])
+
         # create a new SNS topic
         topic = sns.Topic(self, "fanout-topic")
 
@@ -51,9 +58,6 @@ class ProducerStack(Stack):
         # add a target to the EventBridge rule to publish a message to the SNS topic
         rule.add_target(targets.SnsTopic(topic))
 
-        response = client.get_parameter(Name='weathertop_central', WithDecryption=True)
-        master_account = response['Parameter']['Value']
-
         # Set up base SNS permissions
         sns_permissions = iam.PolicyStatement()
         sns_permissions.add_any_principal()
@@ -68,29 +72,87 @@ class ProducerStack(Stack):
                         "SNS:Subscribe"
                     )
         sns_permissions.add_resources(topic.topic_arn)
-        sns_permissions.add_condition("StringEquals", {"AWS:SourceOwner": master_account})
+        sns_permissions.add_condition("StringEquals", {"AWS:SourceOwner": Aws.ACCOUNT_ID})
         topic.add_to_resource_policy(sns_permissions)
 
         # Set up cross-account Subscription permissions for every onboarded language
         subscribe_permissions = iam.PolicyStatement()
-        subscribe_permissions.add_arn_principal(f'arn:aws:iam::{master_account}:root')
-        for language_name in onboarded_languages:
-            response = client.get_parameter(Name=f'{language_name}', WithDecryption=True)
-            account_id = response['Parameter']['Value']
-            subscribe_permissions.add_arn_principal(f'arn:aws:iam::{account_id}:root')
+        subscribe_permissions.add_arn_principal(f'arn:aws:iam::{Aws.ACCOUNT_ID}:root')
+        for id in account_ids:
+            subscribe_permissions.add_arn_principal(f'arn:aws:iam::{id}:root')
         subscribe_permissions.add_actions("SNS:Subscribe")
         subscribe_permissions.add_resources(topic.topic_arn)
         topic.add_to_resource_policy(subscribe_permissions)
 
         # Set up cross-account Publish permissions for every onboarded language
         publish_permissions = iam.PolicyStatement()
-        publish_permissions.add_arn_principal(f'arn:aws:iam::{master_account}:root')
-        for language_name in onboarded_languages:
-            response = client.get_parameter(Name=language_name, WithDecryption=True)
-            account_id = response['Parameter']['Value']
-            subscribe_permissions.add_arn_principal(f'arn:aws:iam::{account_id}:root')
+        publish_permissions.add_arn_principal(f'arn:aws:iam::{Aws.ACCOUNT_ID}:root')
+        for id in account_ids:
+            subscribe_permissions.add_arn_principal(f'arn:aws:iam::{id}:root')
         publish_permissions.add_actions("SNS:Publish")
         publish_permissions.add_service_principal("events.amazonaws.com")
         publish_permissions.add_resources(topic.topic_arn)
         topic.add_to_resource_policy(publish_permissions)
+
+        # Logging
+
+        # Create the Kinesis stream
+        kinesis_stream = kinesis.Stream(
+            self,
+            "KinesisStream",
+            stream_name="KinesisLogStream",
+            shard_count=1,
+        )
+
+        # Define the IAM role
+        kinesis_role = iam.Role(
+            self,
+            "KinesisRole",
+            assumed_by=iam.ServicePrincipal("logs.amazonaws.com"),
+            description="IAM Role for CloudWatch Logs to put data into a cross-account Kinesis stream",
+            role_name="CloudWatchLogsToKinesis"
+        )
+
+        # Define the policy document that allows the role to put data into the Kinesis stream
+        policy_statement= iam.PolicyStatement(
+                    effect=iam.Effect.ALLOW,
+                    actions=[
+                        "kinesis:PutRecord",
+                        "kinesis:PutRecords",
+                    ],
+                    resources=[
+                        kinesis_stream.stream_arn,
+                    ],
+                )
+
+        # Add the policy document to the role
+        kinesis_role.add_to_policy(policy_statement)
+
+        # # Set up cross-account Publish permissions for every onboarded language
+        # log_trust_policy = iam.PolicyStatement()
+        # log_trust_policy.add_actions("sts:AssumeRole")
+        # # log_trust_policy.add_service_principal("logs.amazonaws.com")
+        # log_trust_policy.add_resource(kinesis_stream.stream_arn)
+        # log_trust_policy.add_condition("StringLike", {"aws:SourceArn": f"arn:aws:logs:us-east-1:{Aws.ACCOUNT_ID}:*"})
+        # for id in account_ids:
+        #     log_trust_policy.add_condition("StringLike",{"aws:SourceArn": f"arn:aws:logs:us-east-1:{id}:*"})
+        # kinesis_role.add_to_policy(log_trust_policy)
+
+        # Set up cross-account Publish permissions for every onboarded language
+        log_trust_policy = iam.PolicyStatement(
+            effect=iam.Effect.ALLOW,
+            actions=["sts:AssumeRole"],
+            resources=[kinesis_role.role_arn],
+        )
+        log_trust_policy.add_condition(
+            "StringLike",
+            {"aws:SourceArn": f"arn:aws:logs:us-east-1:{Aws.ACCOUNT_ID}:*"},
+        )
+        for id in account_ids:
+            log_trust_policy.add_condition(
+                "StringLike", {"aws:SourceArn": f"arn:aws:logs:us-east-1:{id}:*"}
+            )
+
+        kinesis_role.add_to_policy(log_trust_policy)
+
 

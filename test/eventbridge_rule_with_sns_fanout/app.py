@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from aws_cdk import App
+import aws_cdk as cdk
 
 from producer_stack.producer_stack import ProducerStack
 
