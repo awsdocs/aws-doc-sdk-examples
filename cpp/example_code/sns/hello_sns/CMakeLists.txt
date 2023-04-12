@@ -1,0 +1,46 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# Set the minimum required version of CMake for this project.
+cmake_minimum_required(VERSION 3.8)
+
+# Set the AWS service components used by this project.
+set(SERVICE_COMPONENTS sns)
+
+# Set this project's name.
+project("hello_sns")
+
+# Set the C++ standard to use to build this target.
+# C++ 11 is required for the AWS SDK for C++.
+set(CMAKE_CXX_STANDARD 11)
+
+# Build shared libraries by default.
+##set(BUILD_SHARED_LIBS ON)
+
+# For Windows builds.
+# Set the location of where CMake can find the installed libraries of the AWS SDK.
+if (MSVC)
+    string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
+    list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
+endif ()
+
+# Find the AWS SDK for C++ package.
+find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
+
+# For Windows builds.
+# The AWS shared libraries are copied to the same folder as the executable.
+if (MSVC)
+    set(CMAKE_BUILD_TYPE Debug) # Explicitly setting CMAKE_BUILD_TYPE is necessary in Windows to copy DLLs.
+
+    list(APPEND SERVICE_LIST ${SERVICE_COMPONENTS})
+
+    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
+    AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+endif ()
+
+add_executable(${PROJECT_NAME}
+        hello_sns.cpp)
+
+target_link_libraries(${PROJECT_NAME}
+        ${AWSSDK_LINK_LIBRARIES})
+
