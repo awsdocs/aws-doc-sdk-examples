@@ -516,4 +516,4 @@ cross_LambdaForBrowser:
   services:
     lambda:
     dynamodb:
-    
+   
