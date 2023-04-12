@@ -90,14 +90,14 @@ import java.util.Scanner;
  *
  * This Java V2 example performs the following tasks with Amazon EventBridge:
  *
- * 1. Creates an IAM role to use with Amazon EventBridge.
- * 2. Creates an Amazon S3 bucket with EventBridge events enabled.
- * 3. Creates a rule that triggers when an object is uploaded to S3.
- * 4. List rules on the event bus.
- * 5. Creates a new SNS topic and let the user subscribe to it.
+ * 1. Creates an AWS Identity and Access Management (IAM) role to use with Amazon EventBridge.
+ * 2. Amazon Simple Storage Service (Amazon S3) bucket with EventBridge events enabled.
+ * 3. Creates a rule that triggers when an object is uploaded to Amazon S3.
+ * 4. Lists rules on the event bus.
+ * 5. Creates a new Amazon Simple Notification Service (Amazon SNS) topic and lets the user subscribe to it.
  * 6. Adds a target to the rule that sends an email to the specified topic.
  * 7. Creates an EventBridge event that sends an email when an Amazon S3 object is created.
- * 8. List Targets.
+ * 8. Lists Targets.
  * 9. Lists the rules for the same target.
  * 10. Triggers the rule by uploading a file to the Amazon S3 bucket.
  * 11. Disables a specific rule.
@@ -106,7 +106,8 @@ import java.util.Scanner;
  * 14. Enables a specific rule.
  * 15. Triggers the updated rule by uploading a file to the Amazon S3 bucket.
  * 16. Updates the rule to be a custom rule pattern.
- * 17. Cleans up resources
+ * 17. Sending an event to trigger the rule.
+ * 18. Cleans up resources.
  *
  */
 public class EventbridgeMVP {
@@ -118,13 +119,30 @@ public class EventbridgeMVP {
             "Where:\n" +
             "    roleName - The name of the role to create.\n" +
             "    bucketName - The Amazon Simple Storage Service (Amazon S3) bucket name to create.\n" +
-            "    topicName - The name of the AWS Simple Notification Service (AWS SNS) topic to create.\n" +
+            "    topicName - The name of the Amazon Simple Notification Service (Amazon SNS) topic to create.\n" +
             "    eventRuleName - The Amazon EventBridge rule name to create.\n" ;
 
         if (args.length != 5) {
             System.out.println(usage);
             System.exit(1);
         }
+
+        String polJSON = "{" +
+            "\"Version\": \"2012-10-17\"," +
+            "\"Statement\": [{" +
+            "\"Effect\": \"Allow\"," +
+            "\"Principal\": {" +
+            "\"Service\": \"events.amazonaws.com\"" +
+            "}," +
+            "\"Action\": \"sts:AssumeRole\"" +
+            "}]" +
+            "}";
+
+        Scanner sc = new Scanner(System.in);
+        String roleName = args[0] ;
+        String bucketName = args[1] ;
+        String topicName = args[2] ;
+        String eventRuleName = args[3] ;
 
         Region region = Region.US_EAST_1;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
@@ -148,34 +166,17 @@ public class EventbridgeMVP {
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        String polJSON = "{" +
-            "\"Version\": \"2012-10-17\"," +
-            "\"Statement\": [{" +
-            "\"Effect\": \"Allow\"," +
-            "\"Principal\": {" +
-            "\"Service\": \"events.amazonaws.com\"" +
-            "}," +
-            "\"Action\": \"sts:AssumeRole\"" +
-            "}]" +
-            "}";
-
-        Scanner sc = new Scanner(System.in);
-        String roleName = args[0] ;
-        String bucketName = args[1] ;
-        String topicName = args[2] ;
-        String eventRuleName = args[3] ;
-
         System.out.println(DASHES);
         System.out.println("Welcome to the Amazon EventBridge example scenario.");
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("1. Create an IAM role to use with Amazon EventBridge.");
+        System.out.println("1. Create an AWS Identity and Access Management (IAM) role to use with Amazon EventBridge.");
         String roleArn = createIAMRole(iam, roleName, polJSON);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("2. Creates an Amazon S3 bucket with EventBridge events enabled.");
+        System.out.println("2. Create an S3 bucket with EventBridge events enabled.");
         if (checkBucket(s3Client, bucketName)) {
             System.out.println("Bucket "+ bucketName +" already exists. Ending this scenario.");
             System.exit(1);
@@ -187,7 +188,7 @@ public class EventbridgeMVP {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("3. Create a rule that triggers when an object is uploaded to S3.");
+        System.out.println("3. Create a rule that triggers when an object is uploaded to Amazon S3.");
         Thread.sleep(10000);
         addEventRule(eventBrClient, roleArn, bucketName, eventRuleName);
         System.out.println(DASHES);
@@ -207,7 +208,7 @@ public class EventbridgeMVP {
         System.out.println("Enter your email to subscribe to the Amazon SNS topic:");
         String email = sc.nextLine();
         subEmail(snsClient, topicArn, email);
-        System.out.println("Use the link in the email you received to confirm your subscription. Then press enter to continue.");
+        System.out.println("Use the link in the email you received to confirm your subscription. Then, press Enter to continue.");
         sc.nextLine();
         System.out.println(DASHES);
 
@@ -227,8 +228,8 @@ public class EventbridgeMVP {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println(" 10. Trigger the rule by uploading a file to the Amazon S3 bucket.");
-        System.out.println("Press enter to continue.");
+        System.out.println(" 10. Trigger the rule by uploading a file to the S3 bucket.");
+        System.out.println("Press Enter to continue.");
         sc.nextLine();
         uploadTextFiletoS3(s3Client, bucketName);
         System.out.println(DASHES);
@@ -254,14 +255,14 @@ public class EventbridgeMVP {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println(" 15. Trigger the updated rule by uploading a file to the Amazon S3 bucket.");
-        System.out.println("Press enter to continue.");
+        System.out.println(" 15. Trigger the updated rule by uploading a file to the S3 bucket.");
+        System.out.println("Press Enter to continue.");
         sc.nextLine();
         uploadTextFiletoS3(s3Client, bucketName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println(" 16.Update the rule to be a custom rule pattern.");
+        System.out.println(" 16. Update the rule to be a custom rule pattern.");
         updateToCustomRule(eventBrClient, eventRuleName);
         System.out.println("Updated event rule "+eventRuleName +" to use a custom pattern.");
         updateCustomRuleTargetWithTransform(eventBrClient, topicArn, eventRuleName);
@@ -269,14 +270,14 @@ public class EventbridgeMVP {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("16. Sending an event to trigger the rule. This will trigger a subscription email.");
+        System.out.println("17. Sending an event to trigger the rule. This will trigger a subscription email.");
         triggerCustomRule(eventBrClient, email);
         System.out.println("Events have been sent. Press Enter to continue.");
         sc.nextLine();
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("17. Clean up resources");
+        System.out.println("18. Clean up resources.");
         System.out.println("Do you want to clean up resources (y/n)");
         String ans = sc.nextLine();
         if (ans.compareTo("y") == 0) {
@@ -320,7 +321,7 @@ public class EventbridgeMVP {
     }
 
     public static void deleteS3Bucket( S3Client s3Client, String bucketName) {
-        // Remove all the objects from the Amazon S3 bucket.
+        // Remove all the objects from the S3 bucket.
         ListObjectsRequest listObjects = ListObjectsRequest.builder()
             .bucket(bucketName)
             .build();
@@ -343,7 +344,7 @@ public class EventbridgeMVP {
 
         s3Client.deleteObjects(dor);
 
-        // Delete the Amazon S3 bucket
+        // Delete the S3 bucket.
         DeleteBucketRequest deleteBucketRequest = DeleteBucketRequest.builder()
             .bucket(bucketName)
             .build();
@@ -381,7 +382,7 @@ public class EventbridgeMVP {
 
     // snippet-start:[eventbridge.java2.delete.targets.main]
     public static void deleteTargetsFromRule(EventBridgeClient eventBrClient, String eventRuleName) {
-        // First get all targets that will be deleted.
+        // First, get all targets that will be deleted.
         ListTargetsByRuleRequest request = ListTargetsByRuleRequest.builder()
             .rule(eventRuleName)
             .build();
@@ -389,7 +390,7 @@ public class EventbridgeMVP {
         ListTargetsByRuleResponse response = eventBrClient.listTargetsByRule(request);
         List<Target> allTargets = response.targets();
 
-        //Get all Targets and delete them.
+        // Get all targets and delete them.
         for (Target myTarget:allTargets) {
             RemoveTargetsRequest removeTargetsRequest = RemoveTargetsRequest.builder()
                 .rule(eventRuleName)
@@ -544,7 +545,7 @@ public class EventbridgeMVP {
 
     // Create and upload a file to an S3 bucket to trigger an event.
     public static void uploadTextFiletoS3(S3Client s3Client, String bucketName) throws IOException {
-        // Create a unique file name
+        // Create a unique file name.
         String fileSuffix = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         String fileName = "TextFile"+fileSuffix+".txt";
 
@@ -714,9 +715,9 @@ public class EventbridgeMVP {
     }
     // snippet-end:[eventbridge.java2._create_rule.main]
 
+    // Determine if the S3 bucket exists.
     public static Boolean checkBucket(S3Client s3Client, String bucketName) {
         try {
-            // Determine if the Amazon S3 bucket exists.
             HeadBucketRequest headBucketRequest = HeadBucketRequest.builder()
                 .bucket(bucketName)
                 .build();
@@ -729,7 +730,7 @@ public class EventbridgeMVP {
         return false;
     }
 
-    // Set the Amazon S3 bucket notification configuration.
+    // Set the S3 bucket notification configuration.
     public static void setBucketNotification(S3Client s3Client, String bucketName) {
         try {
             EventBridgeConfiguration eventBridgeConfiguration = EventBridgeConfiguration.builder()

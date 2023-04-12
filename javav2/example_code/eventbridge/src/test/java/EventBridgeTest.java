@@ -28,7 +28,6 @@ public class EventBridgeTest {
 
     @BeforeAll
     public static void setUp() throws IOException {
-
         region = Region.US_WEST_2;
         eventBrClient = EventBridgeClient.builder()
                 .region(region)
@@ -43,16 +42,13 @@ public class EventBridgeTest {
                 System.out.println("Sorry, unable to find config.properties");
                 return;
             }
-
-            //load a properties file from class path, inside static method
             prop.load(input);
 
-            // Populate the data members required for all tests
+            // Populate the data members required for all tests.
             roleNameSc = prop.getProperty("roleNameSc");
             bucketNameSc = prop.getProperty("bucketNameSc");
             topicNameSc = prop.getProperty("topicNameSc");
             eventRuleNameSc = prop.getProperty("eventRuleNameSc");
-
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -107,16 +103,12 @@ public class EventBridgeTest {
             .build();
 
         System.out.println(DASHES);
-        System.out.println("Welcome to the Amazon EventBridge example scenario.");
-        System.out.println(DASHES);
-
-        System.out.println(DASHES);
-        System.out.println("1. Create an IAM role to use with Amazon EventBridge.");
+        System.out.println("1. Create an AWS Identity and Access Management (IAM) role to use with Amazon EventBridge.");
         String roleArn = EventbridgeMVP.createIAMRole(iam, roleNameSc, polJSON);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("2. Creates an Amazon S3 bucket with EventBridge events enabled.");
+        System.out.println("2. Create an S3 bucket with EventBridge events enabled.");
         if (EventbridgeMVP.checkBucket(s3Client, bucketNameSc)) {
             System.out.println("Bucket "+ bucketNameSc +" already exists. Ending this scenario.");
             System.exit(1);
@@ -128,7 +120,7 @@ public class EventBridgeTest {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("3. Create a rule that triggers when an object is uploaded to S3.");
+        System.out.println("3. Create a rule that triggers when an object is uploaded to Amazon S3.");
         Thread.sleep(10000);
         EventbridgeMVP.addEventRule(eventBrClient, roleArn, bucketNameSc, eventRuleNameSc);
         System.out.println(DASHES);
@@ -148,7 +140,7 @@ public class EventBridgeTest {
         System.out.println("Enter your email to subscribe to the Amazon SNS topic:");
         String email = sc.nextLine();
         EventbridgeMVP.subEmail(snsClient, topicArn, email);
-        System.out.println("Use the link in the email you received to confirm your subscription. Then press enter to continue.");
+        System.out.println("Use the link in the email you received to confirm your subscription. Then, press Enter to continue.");
         sc.nextLine();
         System.out.println(DASHES);
 
@@ -168,8 +160,8 @@ public class EventBridgeTest {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println(" 10. Trigger the rule by uploading a file to the Amazon S3 bucket.");
-        System.out.println("Press enter to continue.");
+        System.out.println(" 10. Trigger the rule by uploading a file to the S3 bucket.");
+        System.out.println("Press Enter to continue.");
         sc.nextLine();
         EventbridgeMVP.uploadTextFiletoS3(s3Client, bucketNameSc);
         System.out.println(DASHES);
@@ -181,7 +173,7 @@ public class EventBridgeTest {
 
         System.out.println(DASHES);
         System.out.println("12. Check and print the state of the rule.");
-        EventbridgeMVP. checkRule(eventBrClient, eventRuleNameSc);
+        EventbridgeMVP.checkRule(eventBrClient, eventRuleNameSc);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -195,14 +187,14 @@ public class EventBridgeTest {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println(" 15. Trigger the updated rule by uploading a file to the Amazon S3 bucket.");
-        System.out.println("Press enter to continue.");
+        System.out.println(" 15. Trigger the updated rule by uploading a file to the S3 bucket.");
+        System.out.println("Press Enter to continue.");
         sc.nextLine();
         EventbridgeMVP.uploadTextFiletoS3(s3Client, bucketNameSc);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println(" 16.Update the rule to be a custom rule pattern.");
+        System.out.println(" 16. Update the rule to be a custom rule pattern.");
         EventbridgeMVP.updateToCustomRule(eventBrClient, eventRuleNameSc);
         System.out.println("Updated event rule "+eventRuleNameSc +" to use a custom pattern.");
         EventbridgeMVP.updateCustomRuleTargetWithTransform(eventBrClient, topicArn, eventRuleNameSc);
@@ -210,14 +202,14 @@ public class EventBridgeTest {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("16. Sending an event to trigger the rule. This will trigger a subscription email.");
+        System.out.println("17. Sending an event to trigger the rule. This will trigger a subscription email.");
         EventbridgeMVP.triggerCustomRule(eventBrClient, email);
         System.out.println("Events have been sent. Press Enter to continue.");
         sc.nextLine();
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("17. Clean up resources");
+        System.out.println("18. Clean up resources.");
         System.out.println("Do you want to clean up resources (y/n)");
         String ans = sc.nextLine();
         if (ans.compareTo("y") == 0) {
@@ -225,10 +217,6 @@ public class EventBridgeTest {
         } else {
             System.out.println("The resources will not be cleaned up. ");
         }
-        System.out.println(DASHES);
-
-        System.out.println(DASHES);
-        System.out.println("The Amazon EventBridge example scenario has successfully completed.");
         System.out.println(DASHES);
     }
 }
