@@ -10,7 +10,7 @@ client = boto3.client('ssm')
 
 # Define the parameters to write
 parameters = {
-    # 'language_name': '000000000000'
+    # 'python': '123456789012'
 }
 
 # Method to write parameters to Parameter Store
