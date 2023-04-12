@@ -10,7 +10,7 @@ Specifically, an SQS topic consumes messages from a cross-account SNS topic. SQS
 
 ![weathertop-comp-2.png](..%2Farchitecture_diagrams%2Fpng%2Fweathertop-comp-2.png)
 
----
+git pu---
 ## System requirements
 * npm (node.js)
 * python 3.7  
