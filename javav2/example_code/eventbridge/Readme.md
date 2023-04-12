@@ -57,10 +57,10 @@ You can test the Java code example for Amazon EventBridge by running a test file
 
 To successfully run the JUnit tests, define the following values in the test:
 
-- **roleName** - The name of the role to create." +
-- **bucketName** - The Amazon Simple Storage Service (Amazon S3) bucket name to create." +
-- **topicName** - The name of the AWS Simple Notification Service (AWS SNS) topic to create." +
-- **eventRuleName** - The Amazon EventBridge rule name to create." ;
+- **roleName** - The name of the role to create.
+- **bucketName** - The Amazon Simple Storage Service (Amazon S3) bucket name to create.
+- **topicName** - The name of the AWS Simple Notification Service (AWS SNS) topic to create.
+- **eventRuleName** - The Amazon EventBridge rule name to create.
 
 You can run the JUnit tests from an IDE, such as IntelliJ, or from the command line. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
