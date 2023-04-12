@@ -356,7 +356,10 @@ eventbridge_PutTargets:
           excerpts:
             - description: Add an &SNS; topic as a target for a rule.
               snippet_tags:
-                - eventbridge.java2.puttargetstransform.main
+                - eventBridge.java.putSnsTarget.main 
+            - description: Add an input transformer to a target for a rule.
+              snippet_tags:
+                - eventbridge.java2.puttargetstransform.main  
     .NET:
       versions:
         - sdk_version: 3

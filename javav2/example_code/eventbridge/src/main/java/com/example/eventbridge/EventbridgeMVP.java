@@ -204,7 +204,7 @@ public class EventbridgeMVP {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("6. Add a target to the rule that sends an email to the specified topic");
+        System.out.println("6. Add a target to the rule that sends an email to the specified topic.");
         System.out.println("Enter your email to subscribe to the Amazon SNS topic:");
         String email = sc.nextLine();
         subEmail(snsClient, topicArn, email);
@@ -597,6 +597,7 @@ public class EventbridgeMVP {
     }
     // snippet-end:[eventbridge.java2.list.target.rules.main]
 
+    // snippet-start:[eventBridge.java.putSnsTarget.main]
     // Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
     public static void addSnsEventRule(EventBridgeClient eventBrClient, String ruleName, String topicArn, String topicName, String eventRuleName, String bucketName) {
         String targetID = java.util.UUID.randomUUID().toString();
@@ -616,6 +617,7 @@ public class EventbridgeMVP {
         eventBrClient.putTargets(request);
         System.out.println("Added event rule "+eventRuleName +" with Amazon SNS target "+topicName +" for bucket "+bucketName +".");
     }
+    // snippet-end:[eventBridge.java.putSnsTarget.main]
 
     public static void subEmail(SnsClient snsClient, String topicArn, String email) {
         try {
