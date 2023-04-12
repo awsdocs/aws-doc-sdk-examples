@@ -186,7 +186,7 @@ def check_files(root, quiet):
                 file_count += 1
                 if not quiet:
                     print("\nChecking File: " + file_path)
-                with open(file_path) as f:
+                with open(file_path, encoding='utf-8') as f:
                     file_contents = f.read()
 
                 error_count += verify_no_deny_list_words(file_contents, file_path)
