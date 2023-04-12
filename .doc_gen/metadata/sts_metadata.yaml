@@ -70,7 +70,7 @@ sts_AssumeRole:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/Basics
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
