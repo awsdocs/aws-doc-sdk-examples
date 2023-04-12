@@ -515,4 +515,5 @@ cross_LambdaForBrowser:
           block_content: cross_LambdaForBrowser_JavaScriptV3_block.xml
   services:
     lambda:
-    dynamodb:    
+    dynamodb:
+    
