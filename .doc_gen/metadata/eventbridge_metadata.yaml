@@ -89,7 +89,7 @@ eventbridge_DisableRule:
           github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: Disable a rule by its rule name.
+            - description: Disable a rule by using its rule name.
               snippet_tags:
                 - eventbridge.java2.disable.rule.main
     .NET:
@@ -115,7 +115,7 @@ eventbridge_EnableRule:
           github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: Enable a rule by its rule name.
+            - description: Enable a rule by using its rule name.
               snippet_tags:
                 - eventbridge.java2.disable.rule.main
     .NET:
@@ -141,7 +141,7 @@ eventbridge_ListRules:
           github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: Enable a rule by its rule name.
+            - description: Enable a rule by using its rule name.
               snippet_tags:
                 - eventbridge.java2._list_rules.main
     .NET:
@@ -167,7 +167,7 @@ eventbridge_ListRuleNamesByTarget:
           github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: List all of the rule names using the target.
+            - description: List all of the rule names by using the target.
               snippet_tags:
                 - eventbridge.java2.list.rules.target.main
     .NET:
@@ -193,7 +193,7 @@ eventbridge_ListTargetsByRule:
           github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: List all of the targets for a rule using the rule name.
+            - description: List all of the targets for a rule by using the rule name.
               snippet_tags:
                 - eventbridge.java2.list.target.rules.main
     .NET:
@@ -414,7 +414,7 @@ eventbridge_RemoveTargets:
           github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: Remove all of the targets for a rule using the rule name.
+            - description: Remove all of the targets for a rule by using the rule name.
               snippet_tags:
                 - eventbridge.java2.delete.targets.main
     .NET:
@@ -444,7 +444,7 @@ eventbridge_Scenario_GettingStarted:
           github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: Remove all of the targets for a rule using the rule name.
+            - description: Remove all of the targets for a rule by using the rule name.
               snippet_tags:
                 - eventbridge.java2.mvp.main
     .NET:
