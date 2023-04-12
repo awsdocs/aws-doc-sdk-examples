@@ -39,7 +39,7 @@ class ConsumerStack(Stack):
         #############################################
 
         # Locate SNS topic in Weathertop Central account
-        fanout_topic_arn = f'arn:aws:sns:us-east-1:{master_account_id}:{fanout_topic_name}'
+        fanout_topic_arn = f'arn:aws:sns:us-east-1:{producer_account_id}:{fanout_topic_name}'
         sns_topic = sns.Topic.from_topic_arn(self, fanout_topic_name, topic_arn=fanout_topic_arn)
 
         container_image = ecs.EcrImage.from_registry(f"public.ecr.aws/b4v4v1s0/{language_name}:latest")
@@ -193,10 +193,34 @@ class ConsumerStack(Stack):
         statement = iam.PolicyStatement()
         statement.add_resources(sqs_queue.queue_arn)
         statement.add_actions("sqs:*")
-        statement.add_arn_principal(f'arn:aws:iam::{master_account_id}:root')
+        statement.add_arn_principal(f'arn:aws:iam::{producer_account_id}:root')
         statement.add_arn_principal(f'arn:aws:iam::{Aws.ACCOUNT_ID}:root')
         statement.add_condition("ArnLike", {"aws:SourceArn": fanout_topic_arn})
         sqs_queue.add_to_resource_policy(statement)
+
+        destination_role_name = 'CloudWatchLogsDestinationRole'
+        log_group_name = '/aws/lambda/my-function'
+        filter_name = 'MyFilter'
+        filter_pattern = ''
+
+        # Create IAM role in destination account
+        destination_role = iam.Role(self, 'DestinationRole',
+                                    assumed_by=iam.AccountPrincipal(producer_account_id),
+                                    role_name=destination_role_name)
+
+        # Allow source account to publish logs to destination role
+        destination_role.add_to_policy(iam.PolicyStatement(
+            actions=['logs:PutSubscriptionFilter'],
+            resources=[f'arn:aws:logs:{self.region}:{producer_account_id}:destination:log-group:{log_group_name}:*'],
+            conditions={
+                "StringEquals": {
+                    "aws:SourceAccount": {Aws.ACCOUNT_ID}
+                }
+            }
+        ))
+
+
+
 
 
 
