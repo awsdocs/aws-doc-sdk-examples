@@ -96,6 +96,7 @@ in the `python` folder.
 * [SDK for Python Kinesis reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesisanalyticsv2.html)
 
 <!--custom.resources.start-->
+* [SDK for Python Kinesis Data Analytics reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/kinesisanalyticsv2.html)
 <!--custom.resources.end-->
 
 ---
