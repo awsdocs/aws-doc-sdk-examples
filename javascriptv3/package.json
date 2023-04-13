@@ -19,6 +19,7 @@
     "example_code/iam",
     "example_code/lambda",
     "example_code/libs",
+    "example_code/reactnative/ReactNativeApp",
     "example_code/sts",
     "example_code/support",
     "example_code/ec2",

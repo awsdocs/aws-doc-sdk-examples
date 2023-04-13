@@ -146,7 +146,7 @@ run the example and verify that it ran correctly.
 To configure ESLint in VS Code, add the following to `settings.json`:
 
 ```
-  "eslint.workingDirectories": ["./javascriptv3"],
+  "eslint.workingDirectories": ["javascriptv3/example_code/reactnative/ReactNativeApp", "javascriptv3"],
 ```
 
 ## Additional resources
