@@ -11,9 +11,10 @@ set(SERVICE_COMPONENTS sns)
 project("hello_sns")
 
 # Set the C++ standard to use to build this target.
-# C++ 11 is required for the AWS SDK for C++.
+# At least C++ 11 is required for the AWS SDK for C++.
 set(CMAKE_CXX_STANDARD 11)
 
+# Use the MSVC variable to determine if this is a Windows build.
 set(WINDOWS_BUILD ${MSVC})
 
 if (WINDOWS_BUILD) # Set the location where CMake can find the installed libraries for the AWS SDK.

@@ -28,10 +28,41 @@ namespace AwsDoc {
         static const Aws::Vector<Aws::String> TONES = {"friendly", "funny", "earnest",
                                                        "sincere"};
 
+        //! Create an IAM policy which gives an SQS queue permission to receives messages
+        //! from an SNS topic.
+        /*!
+         \sa createPolicyForQueue()
+         \param queueARN: The SQS queue ARN.
+         \param topicARN: The SNS topic ARN.
+         \return Aws::String: The policy as JSON.
+         */
         Aws::String createPolicyForQueue(const Aws::String &queueARN,
                                          const Aws::String &topicARN);
 
+        //! Routine allowing the user to select attributes for a filter policy.
+        /*!
+         \sa getFilterPolicyFromUser()
+         \return Aws::String: The filter policy as JSON.
+         */
         Aws::String getFilterPolicyFromUser();
+
+        //! Routine which deletes AWS resources create by this scenario.
+        /*!
+         \sa cleanUp()
+         \param topicARN: The ARN of an SNS topic.
+         \param queueURLS: A vector of SQS queue URLs.
+         \param subscriptionARNS: A vector of SNS subscriptions.
+         \param snsClient: An SNS client.
+         \param sqsClient: An SQS client.
+         \param askUser: If true, user interaction is enabled.
+         \return bool: Function succeeded.
+         */
+        bool cleanUp(const Aws::String& topicARN,
+                     const Aws::Vector<Aws::String>& queueURLS,
+                     const Aws::Vector<Aws::String>& subscriptionARNS,
+                     const Aws::SNS::SNSClient& snsClient,
+                     const Aws::SQS::SQSClient& sqsClient,
+                     bool askUser = false);
 
         //! Test routine passed as argument to askQuestion routine.
         /*!
@@ -103,7 +134,8 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
             << NUMBER_OF_QUEUES << " queues." << std::endl;
     std::cout << "You can then post to the topic and see the results in the queues."
               << std::endl;
-    Aws::SNS::SNSClient client(clientConfiguration);
+
+    Aws::SNS::SNSClient snsClient(clientConfiguration);
 
     printAsterisksLine();
 
@@ -141,6 +173,11 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
 
     printAsterisksLine();
 
+
+    Aws::SQS::SQSClient sqsClient(clientConfiguration);
+    Aws::Vector<Aws::String> queueURLS;
+    Aws::Vector<Aws::String> subscriptionARNS;
+
     Aws::String topicARN;
     {
         topicName = askQuestion("Enter a name for your SNS topic. ");
@@ -160,7 +197,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
 
         request.SetName(topicName);
 
-        Aws::SNS::Model::CreateTopicOutcome outcome = client.CreateTopic(request);
+        Aws::SNS::Model::CreateTopicOutcome outcome = snsClient.CreateTopic(request);
 
         if (outcome.IsSuccess()) {
             topicARN = outcome.GetResult().GetTopicArn();
@@ -173,19 +210,23 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
             std::cerr << "Error with SNS::CreateTopic. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
+
+            cleanUp(topicARN,
+                    queueURLS,
+                    subscriptionARNS,
+                    snsClient,
+                    sqsClient);
+
+            return false;
         }
     }
-
-    Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
     printAsterisksLine();
 
     // Create an SQS queue.
     std::cout << "Now you will create " << NUMBER_OF_QUEUES
               << " SNS queues to subscribe to the topic." << std::endl;
-    Aws::Vector<Aws::String> queueURLS;
     Aws::Vector<Aws::String> queueNames;
-    Aws::Vector<Aws::String> subscriptionARNS;
     bool filteringMessages = false;
     bool first = true;
     for (int i = 1; i <= NUMBER_OF_QUEUES; ++i) {
@@ -227,8 +268,17 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                 std::cerr << "Error with SQS::CreateQueue. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
+
+                cleanUp(topicARN,
+                        queueURLS,
+                        subscriptionARNS,
+                        snsClient,
+                        sqsClient);
+
+                return false;
             }
         }
+        queueURLS.push_back(queueURL);
 
         if (first) // Only explain this once.
         {
@@ -259,6 +309,13 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                     std::cerr
                             << "Error ARN attribute not returned by GetQueueAttribute."
                             << std::endl;
+
+                    cleanUp(topicARN,
+                            queueURLS,
+                            subscriptionARNS,
+                            snsClient,
+                            sqsClient);
+
                     return false;
                 }
                 std::cout << "The queue ARN '" << queueARN << "' has been retrieved."
@@ -268,6 +325,14 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                 std::cerr << "Error with SQS::GetQueueAttributes. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
+
+                cleanUp(topicARN,
+                        queueURLS,
+                        subscriptionARNS,
+                        snsClient,
+                        sqsClient);
+
+                return false;
             }
         }
 
@@ -295,6 +360,14 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                 std::cerr << "Error with SQS::SetQueueAttributes. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
+
+                cleanUp(topicARN,
+                        queueURLS,
+                        subscriptionARNS,
+                        snsClient,
+                        sqsClient);
+
+                return false;
             }
         }
 
@@ -345,7 +418,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                 }
             }  // if (isFifoTopic)
 
-            Aws::SNS::Model::SubscribeOutcome outcome = client.Subscribe(request);
+            Aws::SNS::Model::SubscribeOutcome outcome = snsClient.Subscribe(request);
 
             if (outcome.IsSuccess()) {
                 Aws::String subscriptionARN = outcome.GetResult().GetSubscriptionArn();
@@ -360,12 +433,19 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                 std::cerr << "Error with SNS::Subscribe. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
+
+                cleanUp(topicARN,
+                        queueURLS,
+                        subscriptionARNS,
+                        snsClient,
+                        sqsClient);
+
+                return false;
             }
         }
 
         first = false;
-        queueURLS.push_back(queueURL);
-    }
+     }
 
     // Post to the topic.
     first = true;
@@ -414,7 +494,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
             request.AddMessageAttributes(TONE_ATTRIBUTE, messageAttributeValue);
         }
 
-        Aws::SNS::Model::PublishOutcome outcome = client.Publish(request);
+        Aws::SNS::Model::PublishOutcome outcome = snsClient.Publish(request);
 
         if (outcome.IsSuccess()) {
             std::cout << "Your message was successfully published." << std::endl;
@@ -422,6 +502,14 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
         else {
             std::cerr << "Error with SNS::Publish. " << outcome.GetError().GetMessage()
                       << std::endl;
+
+            cleanUp(topicARN,
+                    queueURLS,
+                    subscriptionARNS,
+                    snsClient,
+                    sqsClient);
+
+            return false;
         }
 
         first = false;
@@ -437,7 +525,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
         // Poll the queue
         std::vector<Aws::String> messages;
         std::vector<Aws::String> receiptHandles;
-        while (1) {
+        while (true) {
             Aws::SQS::Model::ReceiveMessageRequest request;
             request.SetMaxNumberOfMessages(10);
             request.SetQueueUrl(queueURLS[i]);
@@ -465,7 +553,14 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                 std::cerr << "Error with SQS::ReceiveMessage. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
-                break;
+
+                cleanUp(topicARN,
+                        queueURLS,
+                        subscriptionARNS,
+                        snsClient,
+                        sqsClient);
+
+                return false;
             }
         }
 
@@ -511,13 +606,36 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                 std::cerr << "Error with SQS::DeleteMessageBatch. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
+                cleanUp(topicARN,
+                        queueURLS,
+                        subscriptionARNS,
+                        snsClient,
+                        sqsClient);
+
+                return false;
             }
         }
     }
 
-    printAsterisksLine();
+    return cleanUp(topicARN,
+                   queueURLS,
+                   subscriptionARNS,
+                   snsClient,
+                   sqsClient,
+                   true); // askUser
+ }
 
-    if (askYesNoQuestion("Would you like to delete the SQS queues? (y/n) ")) {
+
+bool AwsDoc::SNS::cleanUp(const Aws::String &topicARN,
+                          const Aws::Vector<Aws::String> &queueURLS,
+                          const Aws::Vector<Aws::String> &subscriptionARNS,
+                          const Aws::SNS::SNSClient& snsClient,
+                          const Aws::SQS::SQSClient& sqsClient,
+                          bool askUser) {
+    bool result = true;
+    if (!queueURLS.empty() && askUser && askYesNoQuestion("Would you like to delete the SQS queues? (y/n) ")) {
+        printAsterisksLine();
+
         for (const auto &queueURL: queueURLS) {
             Aws::SQS::Model::DeleteQueueRequest request;
             request.SetQueueUrl(queueURL);
@@ -533,6 +651,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                 std::cerr << "Error with SQS::DeleteQueue. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
+                result = false;
             }
         }
 
@@ -540,7 +659,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
             Aws::SNS::Model::UnsubscribeRequest request;
             request.SetSubscriptionArn(subscriptionARN);
 
-            Aws::SNS::Model::UnsubscribeOutcome outcome = client.Unsubscribe(request);
+            Aws::SNS::Model::UnsubscribeOutcome outcome = snsClient.Unsubscribe(request);
 
             if (outcome.IsSuccess()) {
                 std::cout << "Unsubscribe of subscritpion ARN '" << subscriptionARN
@@ -550,17 +669,18 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                 std::cerr << "Error with SNS::Unsubscribe. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
+                result = false;
             }
         }
     }
 
-    printAsterisksLine();
+    if (!topicARN.empty() && askUser && askYesNoQuestion("Would you like to delete the SNS topic? (y/n) ")) {
+        printAsterisksLine();
 
-    if (askYesNoQuestion("Would you like to delete the SNS topic? (y/n) ")) {
         Aws::SNS::Model::DeleteTopicRequest request;
         request.SetTopicArn(topicARN);
 
-        Aws::SNS::Model::DeleteTopicOutcome outcome = client.DeleteTopic(request);
+        Aws::SNS::Model::DeleteTopicOutcome outcome = snsClient.DeleteTopic(request);
 
         if (outcome.IsSuccess()) {
             std::cout << "The topic with ARN '" << topicARN
@@ -570,11 +690,37 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
             std::cerr << "Error with SNS::DeleteTopicRequest. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
+            result = false;
         }
     }
 
-    return true;
+    return result;
 }
+
+Aws::String AwsDoc::SNS::createPolicyForQueue(const Aws::String &queueARN,
+                                              const Aws::String &topicARN) {
+    std::ostringstream policyStream;
+    policyStream << R"({
+        "Statement": [
+        {
+            "Effect": "Allow",
+                    "Principal": {
+                "Service": "sns.amazonaws.com"
+            },
+            "Action": "sqs:SendMessage",
+                    "Resource": ")" << queueARN << R"(",
+                    "Condition": {
+                "ArnEquals": {
+                    "aws:SourceArn": ")" << topicARN << R"("
+                }
+            }
+        }
+        ]
+    })";
+
+    return policyStream.str();
+}
+
 
 #ifndef TESTING_BUILD
 
@@ -695,30 +841,6 @@ int AwsDoc::SNS::askQuestionForIntRange(const Aws::String &string, int low,
     }
 
     return result;
-}
-
-Aws::String AwsDoc::SNS::createPolicyForQueue(const Aws::String &queueARN,
-                                              const Aws::String &topicARN) {
-    std::ostringstream policyStream;
-    policyStream << R"({
-        "Statement": [
-        {
-            "Effect": "Allow",
-                    "Principal": {
-                "Service": "sns.amazonaws.com"
-            },
-            "Action": "sqs:SendMessage",
-                    "Resource": ")" << queueARN << R"(",
-                    "Condition": {
-                "ArnEquals": {
-                    "aws:SourceArn": ")" << topicARN << R"("
-                }
-            }
-        }
-        ]
-    })";
-
-    return policyStream.str();
 }
 
 Aws::String AwsDoc::SNS::getFilterPolicyFromUser() {
