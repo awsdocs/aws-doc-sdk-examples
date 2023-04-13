@@ -7,7 +7,7 @@ require_relative "../scenario_create_user_assume_role"
 describe "create user assume role scenario" do
   context "runs against AWS (integration tests)", integ: true do
 
-    it "runs without errors", integ: true do
+    it "runs without errors", quarantine: true do
       iam_resource = Aws::IAM::Resource.new
       scenario = ScenarioCreateUserAssumeRole.new(iam_resource)
 

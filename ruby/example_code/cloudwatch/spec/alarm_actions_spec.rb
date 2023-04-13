@@ -4,7 +4,7 @@
 require_relative "../alarm_actions"
 require "rspec"
 
-describe "#alarm_created_or_updated?", :integ do
+describe "#alarm_created_or_updated?", :quarantine do
   let(:alarm_name) { "ObjectsInBucket" }
   let(:alarm_description) { "Objects exist in this bucket for more than 1 day." }
   let(:metric_name) { "NumberOfObjects" }

@@ -7,7 +7,7 @@ require_relative "../iam_wrapper"
 describe "iam_wrapper usage demo" do
   inputs = %w(1 1 batch.amazonaws.com y)
 
-  context "runs against AWS (integration tests)", integ: true do
+  context "runs against AWS (integration tests)", quarantine: true do
     it "runs without errors", integ: true do
       iam_resource = Aws::IAM::Resource.new
       wrapper = IamWrapper.new(iam_resource)
