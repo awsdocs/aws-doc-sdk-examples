@@ -16,6 +16,7 @@ from aws_cdk import (
     aws_ecr as ecr,
     aws_batch as batch,
     aws_batch_alpha as batch_alpha,
+    aws_kinesis as kinesis,
     Aws,
     Stack
 )
@@ -37,6 +38,48 @@ class ConsumerStack(Stack):
         ##                 RESOURCES               ##
         ##                                         ##
         #############################################
+
+        # Logs
+
+        # # Find the Kinesis stream in the destination account
+        # kinesis_stream = kinesis.Stream.from_stream_arn(
+        #     self, "KinesisLogStream",
+        #     stream_arn=f"arn:aws:kinesis:us-east-1:{producer_account_id}:stream/KinesisLogStream"
+        # )
+
+        # # Create the IAM role in the source account with permissions to put records to the Kinesis stream in the destination account
+        # role = iam.Role(
+        #     self, "MyIAMRole",
+        #     assumed_by=iam.ServicePrincipal("logs.amazonaws.com"),
+        #     managed_policies=[
+        #         iam.ManagedPolicy.from_aws_managed_policy_name("AmazonKinesisFullAccess")
+        #     ],
+        # )
+        #
+        # # Add a condition to the role to allow cross-account access to the Kinesis stream
+        # role.add_to_policy(iam.PolicyStatement(
+        #     effect=iam.Effect.ALLOW,
+        #     actions=["kinesis:PutRecord"],
+        #     resources=[kinesis_stream.stream_arn],
+        #     conditions={
+        #         "StringEquals": {
+        #             "kinesis:StreamAccount": producer_account_id
+        #         }
+        #     }
+        # ))
+
+        # role_arn = f"arn:aws:iam::{producer_account_id}:role/CloudWatchLogsToKinesis"
+        # role = iam.Role.from_role_arn(self, "CloudWatchLogsToKinesis", role_arn)
+        #
+        # # Create the CloudWatch Logs subscription filter in the source account
+        # log_group = logs.LogGroup.from_log_group_name(self, "MyLogGroup", f"/{language_name}")
+        # filter = logs.CfnSubscriptionFilter(
+        #     self, "MySubscriptionFilter",
+        #     log_group_name=log_group.log_group_name,
+        #     filter_pattern="ERROR",
+        #     destination_arn=kinesis_stream.stream_arn,
+        #     role_arn=role.role_arn,
+        # )
 
         # Locate SNS topic in Weathertop Central account
         fanout_topic_arn = f'arn:aws:sns:us-east-1:{producer_account_id}:{fanout_topic_name}'
@@ -106,20 +149,31 @@ class ConsumerStack(Stack):
 
         # Container logging
 
-        # create the Kinesis data stream in the destination account
-        kinesis_stream = kinesis.Stream.from_stream_arn(self, 'MyDataStream',
-                                                        stream_arn=f'arn:aws:kinesis:us-east-1:{producer_account_id}:stream/KinesisLogStream',
-                                                        retention_period=aws_cdk.Duration.days(1))
+        # # create the cross-account IAM role to allow the source account to send data to the Kinesis stream
+        # role = iam.Role(self, 'MyCrossAccountRole',
+        #                 assumed_by=iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
+        #                 role_name='cross-account-role')
+        #
+        # role.add_to_policy(iam.PolicyStatement(
+        #     effect=iam.Effect.ALLOW,
+        #     actions=['kinesis:PutRecord', 'kinesis:PutRecords'],
+        #     resources=[kinesis_stream.stream_arn]))
 
-        # create the cross-account IAM role to allow the source account to send data to the Kinesis stream
-        role = iam.Role(self, 'MyCrossAccountRole',
-                        assumed_by=iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
-                        role_name='cross-account-role')
+        # Create an IAM role that can assume the role in the producer account
+        consumer_log_role = iam.Role(
+            self,
+            "ConsumerLogRole",
+            assumed_by=iam.AccountPrincipal(account_id=producer_account_id),
+            role_name="ConsumerLogRole"
+        )
 
-        role.add_to_policy(iam.PolicyStatement(
-            effect=iam.Effect.ALLOW,
-            actions=['kinesis:PutRecord', 'kinesis:PutRecords'],
-            resources=[kinesis_stream.stream_arn]))
+        # Grant permission to assume the role in the producer account
+        producer_log_role = iam.Role.from_role_arn(
+            self,
+            "ProducerLogRole",
+            role_arn="arn:aws:iam::808326389482:role/ProducerLogRole"
+        )
+        producer_log_role.grant(consumer_log_role, "sts:AssumeRole")
 
         # Batch resources commented out due to bug: https://github.com/aws/aws-cdk/issues/24783.
         # Using Alpha as workaround.
@@ -131,27 +185,28 @@ class ConsumerStack(Stack):
             )
         )
 
+        # Configure AWS Batch to use the log group in the producer account
+        log_config = batch_alpha.LogConfiguration(
+            log_driver=batch_alpha.LogDriver.AWSLOGS,
+            options={
+                "awslogs-group": "/aws/lambda/my-function",
+                "awslogs-region": "us-east-1",
+                "awslogs-stream-prefix": "my-prefix",
+                "awslogs-multiline-pattern": "{timestamp=*Z, request_id=\"*\"}"
+            }
+        )
+
         job_definition = batch_alpha.JobDefinition(self, f"JobDefinition-{language_name}",
             container=batch_alpha.JobDefinitionContainer(
                 image=container_image,
                 execution_role=batch_execution_role,
-                log_configuration=batch_alpha.LogConfiguration(
-                    log_driver=batch_alpha.LogDriver.AWSLOGS,
-                    options={
-                        'awslogs-group': '/ecs/my-container',
-                        'awslogs-region': 'us-east-1',
-                        'awslogs-stream-prefix': f'container/{language_name}',
-                        'awslogs-create-group': 'true',
-                        'awslogs-multiline-pattern': '{timestamp_format}',
-                        'awslogs-datetime-format': '%Y-%m-%dT%H:%M:%S.%fZ'
-                    }
-                ),
-                environment={
-                    'KINESIS_STREAM_NAME': 'my-data-stream',
-                    'KINESIS_STREAM_ARN': kinesis_stream.stream_arn,
-                    'AWS_REGION': 'REGION',
-                    'CROSS_ACCOUNT_ROLE_ARN': role.role_arn
-                }
+                log_configuration=log_config
+                # environment={
+                #     'KINESIS_STREAM_NAME': 'KinesisLogStream',
+                #     'KINESIS_STREAM_ARN': kinesis_stream.stream_arn,
+                #     'AWS_REGION': 'us-east-1',
+                #     'CROSS_ACCOUNT_ROLE_ARN': role.role_arn
+                # }
             ),
             platform_capabilities=[ batch_alpha.PlatformCapabilities.FARGATE ]
         )
@@ -232,45 +287,6 @@ class ConsumerStack(Stack):
         statement.add_condition("ArnLike", {"aws:SourceArn": fanout_topic_arn})
         sqs_queue.add_to_resource_policy(statement)
 
-        # Logs
-
-        # Create the Kinesis stream in the destination account
-        stream = kinesis.Stream.from_stream_arn(
-            self, "MyKinesisStream",
-            stream_arn=f"arn:aws:kinesis:us-east-1:{producer_account_id}:stream/MyKinesisStream"
-        )
-
-        # Create the IAM role in the source account with permissions to put records to the Kinesis stream in the destination account
-        role = iam.Role(
-            self, "MyIAMRole",
-            role_name="MyIAMRole",
-            assumed_by=iam.ServicePrincipal("logs.amazonaws.com"),
-            managed_policies=[
-                iam.ManagedPolicy.from_aws_managed_policy_name("AmazonKinesisFullAccess")
-            ],
-        )
-
-        # Add a condition to the role to allow cross-account access to the Kinesis stream
-        role.add_to_policy(iam.PolicyStatement(
-            effect=iam.Effect.ALLOW,
-            actions=["kinesis:PutRecord"],
-            resources=[stream.stream_arn],
-            conditions={
-                "StringEquals": {
-                    "kinesis:StreamAccount": producer_account_id
-                }
-            }
-        ))
-
-        # Create the CloudWatch Logs subscription filter in the source account
-        log_group = logs.LogGroup.from_log_group_name(self, "MyLogGroup", "/aws/lambda/MyLambdaFunction")
-        filter = logs.CfnSubscriptionFilter(
-            self, "MySubscriptionFilter",
-            log_group_name=log_group.log_group_name,
-            filter_pattern="ERROR",
-            destination_arn=stream.stream_arn,
-            role_arn=role.role_arn,
-        )
 
 
 

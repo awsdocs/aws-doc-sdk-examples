@@ -9,6 +9,7 @@ from aws_cdk import (
     aws_sns as sns,
     aws_kinesis as kinesis,
     aws_sns_subscriptions as subscriptions,
+    aws_logs as logs,
     Aws,
     Stack
 )
@@ -96,37 +97,50 @@ class ProducerStack(Stack):
 
         # Logging
 
-        # Create the Kinesis stream
-        kinesis_stream = kinesis.Stream(
+        # Create an IAM role that allows cross-account access
+        producer_log_role = iam.Role(
             self,
-            "KinesisStream",
-            stream_name="KinesisLogStream",
-            shard_count=1,
+            "ProducerLogRole",
+            assumed_by=iam.AccountPrincipal(account_id='260778392212'),
+            role_name="ProducerLogRole"
         )
 
-        # Define the IAM role
-        kinesis_role = iam.Role(
-            self,
-            "KinesisRole",
-            assumed_by=iam.ServicePrincipal("logs.amazonaws.com"),
-            description="IAM Role for CloudWatch Logs to put data into a cross-account Kinesis stream",
-            role_name="CloudWatchLogsToKinesis"
+        # Grant permission to write to the log group
+        log_group = logs.LogGroup.from_log_group_name(
+            self, "LogGroup", "/aws/lambda/my-function-name"
         )
+        log_group.grant_write(producer_log_role)
 
-        # Define the policy document that allows the role to put data into the Kinesis stream
-        policy_statement= iam.PolicyStatement(
-                    effect=iam.Effect.ALLOW,
-                    actions=[
-                        "kinesis:PutRecord",
-                        "kinesis:PutRecords",
-                    ],
-                    resources=[
-                        kinesis_stream.stream_arn,
-                    ],
-                )
+        # # Export the IAM role ARN
+        # core.CfnOutput(
+        #     self,
+        #     "ProducerLogRoleArn",
+        #     value=producer_log_role.role_arn,
+        #     export_name="ProducerLogRoleArn"
+        # )
 
-        # Add the policy document to the role
-        kinesis_role.add_to_policy(policy_statement)
+        # # Export the ARN of the consumer role as an output
+        # core.CfnOutput(
+        #     self,
+        #     "ConsumerRoleArn",
+        #     value=consumer_role.role_arn,
+        #     export_name="ConsumerRoleArn"
+        # )
+
+        # # Define the policy document that allows the role to put data into the Kinesis stream
+        # policy_statement= iam.PolicyStatement(
+        #             effect=iam.Effect.ALLOW,
+        #             actions=[
+        #                 "kinesis:PutRecord",
+        #                 "kinesis:PutRecords",
+        #             ],
+        #             resources=[
+        #                 kinesis_stream.stream_arn,
+        #             ],
+        #         )
+        #
+        # # Add the policy document to the role
+        # kinesis_role.add_to_policy(policy_statement)
 
         # # Set up cross-account Publish permissions for every onboarded language
         # log_trust_policy = iam.PolicyStatement()
@@ -138,21 +152,22 @@ class ProducerStack(Stack):
         #     log_trust_policy.add_condition("StringLike",{"aws:SourceArn": f"arn:aws:logs:us-east-1:{id}:*"})
         # kinesis_role.add_to_policy(log_trust_policy)
 
-        # Set up cross-account Publish permissions for every onboarded language
-        log_trust_policy = iam.PolicyStatement(
-            effect=iam.Effect.ALLOW,
-            actions=["sts:AssumeRole"],
-            resources=[kinesis_role.role_arn],
-        )
-        log_trust_policy.add_condition(
-            "StringLike",
-            {"aws:SourceArn": f"arn:aws:logs:us-east-1:{Aws.ACCOUNT_ID}:*"},
-        )
-        for id in account_ids:
-            log_trust_policy.add_condition(
-                "StringLike", {"aws:SourceArn": f"arn:aws:logs:us-east-1:{id}:*"}
-            )
-
-        kinesis_role.add_to_policy(log_trust_policy)
+        # # Set up cross-account Publish permissions for every onboarded language
+        # trust_statement = iam.PolicyStatement(
+        #     effect=iam.Effect.ALLOW,
+        #     actions=["sts:AssumeRole"],
+        #     resources=[kinesis_role.role_arn],
+        # )
+        # # trust_statement.add_service_principal("logs.amazonaws.com")
+        # # for id in account_ids:
+        # #     trust_statement.add_condition(
+        # #         "StringLike",
+        # #         {"aws:SourceArn": f"arn:aws:logs:us-east-1:{id}:*"}
+        # #     )
+        # # trust_statement.add_condition(
+        # #     "StringLike",
+        # #     {"aws:SourceArn": f"arn:aws:logs:us-east-1:{Aws.ACCOUNT_ID}:*"},
+        # # )
+        # kinesis_role.add_to_policy(trust_statement)
 
 
