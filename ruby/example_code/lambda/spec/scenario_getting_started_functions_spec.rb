@@ -5,10 +5,10 @@
 
 require "json"
 require "rspec"
-require_relative("../../../../../../aws-doc-sdk-examples/ruby/helpers/disclaimers")
-require_relative("../../../../../../aws-doc-sdk-examples/ruby/helpers/decorators")
-require_relative("../lambda_basics")
-require_relative("../lambda_function")
+require_relative "../../../helpers/disclaimers"
+require_relative "../../../helpers/decorators"
+require_relative "../lambda_basics"
+require_relative "../lambda_function"
 
 describe LambdaWrapper do
   context "LambdaWrapper" do

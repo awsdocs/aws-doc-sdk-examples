@@ -6,6 +6,7 @@
 require "aws-sdk-lambda"
 require "aws-sdk-s3"
 require "aws-sdk-iam"
+require "aws-sdk-cloudwatchlogs"
 require "logger"
 require "json"
 require "zip"
