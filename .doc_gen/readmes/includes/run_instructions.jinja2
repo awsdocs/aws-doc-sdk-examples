@@ -68,6 +68,10 @@ This example shows you how to do the following:
 * {{syn}}
 {% endfor %}
 
+<!--custom.scenario_prereqs.{{ scenario['id'] }}.start-->
+{% if customs['scenario_prereqs'] %}{{ customs['scenario_prereqs'][scenario['id']] -}}{% endif %}
+<!--custom.scenario_prereqs.{{ scenario['id'] }}.end-->
+
 {% if lang_config['name'] == 'Python' and lang_config['sdk_ver'] == 3 %}
 Start the example by running the following at a command prompt:
 
