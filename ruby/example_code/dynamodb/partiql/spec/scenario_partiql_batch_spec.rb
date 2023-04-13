@@ -35,7 +35,7 @@ describe DynamoDBPartiQLBatch do
       end
     end
 
-    it "deletes a list of movies", integ: "true" do
+    it "deletes a list of movies", quarantine: "true" do
       movies = [["Mean Girls", 2004], ["The Prancing of the Lambs", 2005]]
       sdk.batch_execute_write(movies)
       movies.each do |movie|

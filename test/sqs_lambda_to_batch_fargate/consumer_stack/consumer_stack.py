@@ -27,7 +27,7 @@ import os
 # Raises KeyError if environment variable doesn't exist
 language_name = os.environ["LANGUAGE_NAME"]
 producer_account_id = os.environ["PRODUCER_ACCOUNT_ID"]
-fanout_topic_name = os.environ["FANOUT_TOPIC_NAME"] # TODO: Store value in distributed keystore
+fanout_topic_name = os.environ["FANOUT_TOPIC_NAME"]
 
 class ConsumerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
@@ -130,7 +130,9 @@ class ConsumerStack(Stack):
             container=batch_alpha.JobDefinitionContainer(
                 image=container_image,
                 execution_role=batch_execution_role,
-                log_configuration=log_config
+                log_configuration=log_config,
+                assign_public_ip=True,
+                command="./run_tests.sh",
             ),
             platform_capabilities=[ batch_alpha.PlatformCapabilities.FARGATE ]
         )

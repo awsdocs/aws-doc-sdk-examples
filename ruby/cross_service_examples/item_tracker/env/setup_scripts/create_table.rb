@@ -64,16 +64,18 @@ class SetupDatabase
 
 end
 
-# Checks for a database cluster & creates a table if none exists.
-begin
-  setup = SetupDatabase.new
-  if setup.database_exists?
-    unless setup.table_exists?
-      setup.create_table
+if __FILE__ == $0
+    # Checks for a database cluster & creates a table if none exists.
+    begin
+      setup = SetupDatabase.new
+      if setup.database_exists?
+        unless setup.table_exists?
+          setup.create_table
+        end
+      else
+        raise "No DB cluster exists! Please run CDK script found in resources/cdk/aurora_serverless_app."
+      end
+    rescue StandardError => e
+      raise "Failed while checking for or creating existing database/tables:\n#{e}"
     end
-  else
-    raise "No DB cluster exists! Please run CDK script found in resources/cdk/aurora_serverless_app."
-  end
-rescue StandardError => e
-  raise "Failed while checking for or creating existing database/tables:\n#{e}"
 end
