@@ -1,6 +1,9 @@
 import com.example.eventbridge.*;
 import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -64,15 +67,14 @@ public class EventBridgeTest {
 
     @Test
     @Order(2)
-    public void HelloEventBridge() {
+    public void helloEventBridge() {
         HelloEventBridge.listBuses(eventBrClient);
         System.out.println("Test 5 passed");
     }
 
     @Test
     @Order(3)
-    public void EventBridgeTest() throws InterruptedException, IOException {
-
+    public void eventBridgeTest() throws InterruptedException, IOException {
         String polJSON = "{" +
             "\"Version\": \"2012-10-17\"," +
             "\"Statement\": [{" +
@@ -105,6 +107,7 @@ public class EventBridgeTest {
         System.out.println(DASHES);
         System.out.println("1. Create an AWS Identity and Access Management (IAM) role to use with Amazon EventBridge.");
         String roleArn = EventbridgeMVP.createIAMRole(iam, roleNameSc, polJSON);
+        assertFalse(roleArn.isEmpty());
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -133,6 +136,7 @@ public class EventBridgeTest {
         System.out.println(DASHES);
         System.out.println("5. Create a new SNS topic for testing and let the user subscribe to the topic.");
         String topicArn = EventbridgeMVP.createSnsTopic(snsClient, topicNameSc);
+        assertFalse(topicArn.isEmpty());
         System.out.println(DASHES);
 
         System.out.println(DASHES);
