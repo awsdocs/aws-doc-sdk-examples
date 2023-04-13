@@ -78,6 +78,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+
 // snippet-start:[eventbridge.java2.mvp.main]
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -139,10 +140,10 @@ public class EventbridgeMVP {
             "}";
 
         Scanner sc = new Scanner(System.in);
-        String roleName = args[0] ;
-        String bucketName = args[1] ;
-        String topicName = args[2] ;
-        String eventRuleName = args[3] ;
+        String roleName = args[0];
+        String bucketName = args[1];
+        String topicName = args[2];
+        String eventRuleName = args[3];
 
         Region region = Region.US_EAST_1;
         EventBridgeClient eventBrClient = EventBridgeClient.builder()
@@ -339,7 +340,7 @@ public class EventbridgeMVP {
         DeleteObjectsRequest dor = DeleteObjectsRequest.builder()
             .bucket(bucketName)
             .delete(Delete.builder()
-                .objects(toDelete).build())
+            .objects(toDelete).build())
             .build();
 
         s3Client.deleteObjects(dor);
