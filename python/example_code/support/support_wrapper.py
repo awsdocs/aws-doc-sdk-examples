@@ -185,7 +185,7 @@ class SupportWrapper:
 
     # snippet-end:[python.example_code.support.AddCommunicationToCase]
 
-    # snippet-start:[python.example_code.support.ResolveCase]
+    # snippet-start:[python.example_code.support.DescribeCommunications]
     def describe_all_case_communications(self, case_id):
         """
         Describe all the communications for a case using a paginator.
@@ -210,7 +210,7 @@ class SupportWrapper:
                 raise
         else:
             return communications
-    # snippet-end:[python.example_code.support.CreateCase]
+    # snippet-end:[python.example_code.support.DescribeCommunications]
 
     # snippet-start:[python.example_code.support.DescribeAttachment]
     def describe_attachment(self, attachment_id):
