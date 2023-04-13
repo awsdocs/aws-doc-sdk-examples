@@ -39,48 +39,6 @@ class ConsumerStack(Stack):
         ##                                         ##
         #############################################
 
-        # Logs
-
-        # # Find the Kinesis stream in the destination account
-        # kinesis_stream = kinesis.Stream.from_stream_arn(
-        #     self, "KinesisLogStream",
-        #     stream_arn=f"arn:aws:kinesis:us-east-1:{producer_account_id}:stream/KinesisLogStream"
-        # )
-
-        # # Create the IAM role in the source account with permissions to put records to the Kinesis stream in the destination account
-        # role = iam.Role(
-        #     self, "MyIAMRole",
-        #     assumed_by=iam.ServicePrincipal("logs.amazonaws.com"),
-        #     managed_policies=[
-        #         iam.ManagedPolicy.from_aws_managed_policy_name("AmazonKinesisFullAccess")
-        #     ],
-        # )
-        #
-        # # Add a condition to the role to allow cross-account access to the Kinesis stream
-        # role.add_to_policy(iam.PolicyStatement(
-        #     effect=iam.Effect.ALLOW,
-        #     actions=["kinesis:PutRecord"],
-        #     resources=[kinesis_stream.stream_arn],
-        #     conditions={
-        #         "StringEquals": {
-        #             "kinesis:StreamAccount": producer_account_id
-        #         }
-        #     }
-        # ))
-
-        # role_arn = f"arn:aws:iam::{producer_account_id}:role/CloudWatchLogsToKinesis"
-        # role = iam.Role.from_role_arn(self, "CloudWatchLogsToKinesis", role_arn)
-        #
-        # # Create the CloudWatch Logs subscription filter in the source account
-        # log_group = logs.LogGroup.from_log_group_name(self, "MyLogGroup", f"/{language_name}")
-        # filter = logs.CfnSubscriptionFilter(
-        #     self, "MySubscriptionFilter",
-        #     log_group_name=log_group.log_group_name,
-        #     filter_pattern="ERROR",
-        #     destination_arn=kinesis_stream.stream_arn,
-        #     role_arn=role.role_arn,
-        # )
-
         # Locate SNS topic in Weathertop Central account
         fanout_topic_arn = f'arn:aws:sns:us-east-1:{producer_account_id}:{fanout_topic_name}'
         sns_topic = sns.Topic.from_topic_arn(self, fanout_topic_name, topic_arn=fanout_topic_arn)
@@ -147,34 +105,6 @@ class ConsumerStack(Stack):
             ]
         )
 
-        # Container logging
-
-        # # create the cross-account IAM role to allow the source account to send data to the Kinesis stream
-        # role = iam.Role(self, 'MyCrossAccountRole',
-        #                 assumed_by=iam.ServicePrincipal('ecs-tasks.amazonaws.com'),
-        #                 role_name='cross-account-role')
-        #
-        # role.add_to_policy(iam.PolicyStatement(
-        #     effect=iam.Effect.ALLOW,
-        #     actions=['kinesis:PutRecord', 'kinesis:PutRecords'],
-        #     resources=[kinesis_stream.stream_arn]))
-
-        # Create an IAM role that can assume the role in the producer account
-        consumer_log_role = iam.Role(
-            self,
-            "ConsumerLogRole",
-            assumed_by=iam.AccountPrincipal(account_id=producer_account_id),
-            role_name="ConsumerLogRole"
-        )
-
-        # Grant permission to assume the role in the producer account
-        producer_log_role = iam.Role.from_role_arn(
-            self,
-            "ProducerLogRole",
-            role_arn="arn:aws:iam::808326389482:role/ProducerLogRole"
-        )
-        producer_log_role.grant(consumer_log_role, "sts:AssumeRole")
-
         # Batch resources commented out due to bug: https://github.com/aws/aws-cdk/issues/24783.
         # Using Alpha as workaround.
 
@@ -189,9 +119,9 @@ class ConsumerStack(Stack):
         log_config = batch_alpha.LogConfiguration(
             log_driver=batch_alpha.LogDriver.AWSLOGS,
             options={
-                "awslogs-group": "/aws/lambda/my-function",
+                "awslogs-group": "/aws/batch",
                 "awslogs-region": "us-east-1",
-                "awslogs-stream-prefix": "my-prefix",
+                "awslogs-stream-prefix": f"{language_name}",
                 "awslogs-multiline-pattern": "{timestamp=*Z, request_id=\"*\"}"
             }
         )
@@ -201,12 +131,6 @@ class ConsumerStack(Stack):
                 image=container_image,
                 execution_role=batch_execution_role,
                 log_configuration=log_config
-                # environment={
-                #     'KINESIS_STREAM_NAME': 'KinesisLogStream',
-                #     'KINESIS_STREAM_ARN': kinesis_stream.stream_arn,
-                #     'AWS_REGION': 'us-east-1',
-                #     'CROSS_ACCOUNT_ROLE_ARN': role.role_arn
-                # }
             ),
             platform_capabilities=[ batch_alpha.PlatformCapabilities.FARGATE ]
         )
