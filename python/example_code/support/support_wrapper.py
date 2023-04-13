@@ -90,7 +90,7 @@ class SupportWrapper:
     # snippet-start:[python.example_code.support.CreateCase]
     def create_case(self, service, category, severity):
         """
-        Create a new support case. TODO: add default parameter for attachmentId
+        Create a new support case.
 
         :param service: The service to use for the new case.
         :param category: The category to use for the new case.
@@ -122,6 +122,123 @@ class SupportWrapper:
             return case_id
     # snippet-end:[python.example_code.support.CreateCase]
 
+    # snippet-start:[python.example_code.support.AddAttachmentToSet]
+    def add_attachment_to_set(self):
+        """
+        Add an attachment to a set, or create a new attachment set if one does not exist.
+
+        :return: The attachment set ID.
+        """
+        try:
+            # Create a sample file to attach
+            with open('attachment_file.txt', 'w') as f:
+                f.write("This is a sample file for attachment to a support case.")
+            with open('attachment_file.txt', 'rb') as f:
+                file_data = f.read()
+            response = self.support_client.add_attachments_to_set(
+                attachments=[
+                    {
+                        'fileName': 'attachment_file.txt',
+                        'data': file_data
+                    }
+                ])
+            new_set_id = response['attachmentSetId']
+        except ClientError as err:
+            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
+                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                            "examples.")
+            else:
+                logger.error(
+                    "Couldn't add attachment. Here's why: %s: %s",
+                    err.response['Error']['Code'], err.response['Error']['Message'])
+                raise
+        else:
+            return new_set_id
+    # snippet-end:[python.example_code.support.AddAttachmentToSet]
+
+    # snippet-start:[python.example_code.support.AddCommunicationToCase]
+    def add_communication_to_case(self, attachment_set_id, case_id):
+        """
+        Add a communication and an attachment set to a case.
+
+        :param attachment_set_id: The ID of an existing attachment set.
+        :param case_id: The ID of the case.
+        """
+        try:
+            self.support_client.add_communication_to_case(
+                caseId=case_id,
+                communicationBody="This is an example communication added to a support case.",
+                attachmentSetId=attachment_set_id
+            )
+
+        except ClientError as err:
+            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
+                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                            "examples.")
+            else:
+                logger.error(
+                    "Couldn't add communication. Here's why: %s: %s",
+                    err.response['Error']['Code'], err.response['Error']['Message'])
+                raise
+
+    # snippet-end:[python.example_code.support.AddCommunicationToCase]
+
+    # snippet-start:[python.example_code.support.ResolveCase]
+    def describe_all_case_communications(self, case_id):
+        """
+        Describe all the communications for a case using a paginator.
+
+        :param case_id: The ID of the case.
+        :return: The communications for the case.
+        """
+        try:
+            communications = []
+            paginator = self.support_client.get_paginator('describe_communications')
+            for page in paginator.paginate(caseId=case_id):
+                communications += page['communications']
+        except ClientError as err:
+            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
+                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                            "examples.")
+            else:
+                logger.error(
+                    "Couldn't describe communications. Here's why: %s: %s",
+                    err.response['Error']['Code'], err.response['Error']['Message'])
+                raise
+        else:
+            return communications
+    # snippet-end:[python.example_code.support.CreateCase]
+
+    # snippet-start:[python.example_code.support.DescribeAttachment]
+    def describe_attachment(self, attachment_id):
+        """
+        Get information about an attachment by its attachmentID.
+
+        :param attachment_id: The ID of the attachment.
+        :return: The name of the attached file.
+        """
+        try:
+            response = self.support_client.describe_attachment(
+                attachmentId=attachment_id
+            )
+            attached_file = response['attachment']['fileName']
+        except ClientError as err:
+            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
+                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                            "examples.")
+            else:
+                logger.error(
+                    "Couldn't get attachment description. Here's why: %s: %s",
+                    err.response['Error']['Code'], err.response['Error']['Message'])
+                raise
+        else:
+            return attached_file
+    # snippet-end:[python.example_code.support.DescribeAttachment]
+
     # snippet-start:[python.example_code.support.ResolveCase]
     def resolve_case(self, case_id):
         """
@@ -147,5 +264,38 @@ class SupportWrapper:
                 raise
         else:
             return final_status
-    # snippet-end:[python.example_code.support.CreateCase]
+    # snippet-end:[python.example_code.support.ResolveCase]
+
+    # snippet-start:[python.example_code.support.DescribeCases]
+    def describe_cases(self, after_time, before_time, include_resolved):
+        """
+        Describe support cases over a period of time, optionally filtering
+        by status.
+
+        :param case_id: The ID of the case to resolve.
+        :return: The final status of the case.
+        """
+        try:
+            cases = []
+            paginator = self.support_client.get_paginator('describe_cases')
+            for page in paginator.paginate(
+                    afterTime=after_time,
+                    beforeTime=before_time,
+                    includeResolvedCases=include_resolved,
+                    language='en'):
+                cases += page['cases']
+        except ClientError as err:
+            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
+                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                            "examples.")
+            else:
+                logger.error(
+                    "Couldn't resolve case. Here's why: %s: %s",
+                    err.response['Error']['Code'], err.response['Error']['Message'])
+                raise
+        else:
+            resolved_cases = filter(lambda case: case['status'] == 'resolved', cases)
+            return resolved_cases
+    # snippet-end:[python.example_code.support.DescribeCases]
 # snippet-end:[python.example_code.support.SupportWrapper_full]
