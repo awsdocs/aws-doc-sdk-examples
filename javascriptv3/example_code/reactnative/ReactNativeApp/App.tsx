@@ -22,45 +22,66 @@ const client = new S3Client({
   }),
 });
 
+enum MessageType {
+  SUCCESS,
+  FAILURE,
+  EMPTY,
+}
+
 const App = () => {
   const [bucketName, setBucketName] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
+  const [msg, setMsg] = useState<{message: string; type: MessageType}>({
+    message: '',
+    type: MessageType.EMPTY,
+  });
 
   const createBucket = useCallback(async () => {
-    setSuccessMsg('');
-    setErrorMsg('');
-    console.log(bucketName);
+    setMsg({message: '', type: MessageType.EMPTY});
 
     try {
       await client.send(new CreateBucketCommand({Bucket: bucketName}));
-      setSuccessMsg(`Bucket "${bucketName}" created.`);
+      setMsg({
+        message: `Bucket "${bucketName}" created.`,
+        type: MessageType.SUCCESS,
+      });
     } catch (e) {
       console.error(e);
-      setErrorMsg(e instanceof Error ? e.message : 'Unknown error');
+      setMsg({
+        message: e instanceof Error ? e.message : 'Unknown error',
+        type: MessageType.FAILURE,
+      });
     }
   }, [bucketName]);
 
   const deleteBucket = useCallback(async () => {
-    setSuccessMsg('');
-    setErrorMsg('');
-    console.log(bucketName);
+    setMsg({message: '', type: MessageType.EMPTY});
+
     try {
       await client.send(new DeleteBucketCommand({Bucket: bucketName}));
-      setSuccessMsg(`Bucket "${bucketName}" deleted.`);
+      setMsg({
+        message: `Bucket "${bucketName}" deleted.`,
+        type: MessageType.SUCCESS,
+      });
     } catch (e) {
-      setErrorMsg(e instanceof Error ? e.message : 'Unknown error');
+      setMsg({
+        message: e instanceof Error ? e.message : 'Unknown error',
+        type: MessageType.FAILURE,
+      });
     }
   }, [bucketName]);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.successText}>
-        {successMsg ? `Success: ${successMsg}` : ''}
-      </Text>
-      <Text style={styles.failureText}>
-        {errorMsg ? `Error: ${errorMsg}` : ''}
-      </Text>
+      {msg.type !== MessageType.EMPTY && (
+        <Text
+          style={
+            msg.type === MessageType.SUCCESS
+              ? styles.successText
+              : styles.failureText
+          }>
+          {msg.message}
+        </Text>
+      )}
       <View>
         <TextInput
           onChangeText={text => setBucketName(text)}
