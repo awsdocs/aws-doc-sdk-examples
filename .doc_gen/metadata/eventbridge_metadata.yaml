@@ -628,4 +628,3 @@ eventbridge_Scenario_createAndTriggerARule:
                 - cloudwatch.cross-service.Ruby.displayReminder
   services:
     eventbridge: {PutRule, PutEvents}
- 
