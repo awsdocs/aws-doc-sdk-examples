@@ -9,14 +9,6 @@
 
 package com.kotlin.eventbridge
 
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileWriter
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Scanner
-import java.util.UUID
 import aws.sdk.kotlin.services.eventbridge.EventBridgeClient
 import aws.sdk.kotlin.services.eventbridge.model.DeleteRuleRequest
 import aws.sdk.kotlin.services.eventbridge.model.DescribeRuleRequest
@@ -57,7 +49,16 @@ import aws.sdk.kotlin.services.sns.model.DeleteTopicRequest
 import aws.sdk.kotlin.services.sns.model.SubscribeRequest
 import aws.smithy.kotlin.runtime.content.asByteStream
 import kotlinx.coroutines.delay
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.UUID
+import java.util.Scanner
+import java.util.Date
 import kotlin.system.exitProcess
+
 // snippet-start:[eventbridge.kotlin.mvp.main]
 /*
  Before running this Kotlin code example, set up your development environment,
