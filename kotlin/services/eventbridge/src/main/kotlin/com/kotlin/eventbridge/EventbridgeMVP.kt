@@ -54,9 +54,7 @@ import java.io.File
 import java.io.FileWriter
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.util.UUID
-import java.util.Scanner
-import java.util.Date
+import java.util.*
 import kotlin.system.exitProcess
 
 // snippet-start:[eventbridge.kotlin.mvp.main]
