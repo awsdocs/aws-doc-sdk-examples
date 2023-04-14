@@ -12,12 +12,12 @@ import {
 import {fromCognitoIdentityPool} from '@aws-sdk/credential-providers';
 
 const client = new S3Client({
-  // The region where the S3 bucket will be created. Replace this with your region.
+  // The AWS Region where the Amazon Simple Storage Service (Amazon S3) bucket will be created. Replace this with your Region.
   region: 'us-east-2',
   credentials: fromCognitoIdentityPool({
-    // Replace the value of 'identityPoolId' with the ID of an Amazon Cognito identity pool in your Cognito region.
+    // Replace the value of 'identityPoolId' with the ID of an Amazon Cognito identity pool in your Amazon Cognito Region.
     identityPoolId: 'us-east-2:fa8837b4-d4e6-49b2-98d3-1c0a6683e3aa',
-    // Replace the value of 'region' with your Cognito region.
+    // Replace the value of 'region' with your Amazon Cognito Region.
     clientConfig: {region: 'us-east-2'},
   }),
 });
