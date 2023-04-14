@@ -1,4 +1,4 @@
-// snippet-sourcedescription:[EventbridgeMVP.kt demonstrates how to perform various Amazon EventBridge tasks using the AWS SDK for Java v2.]
+// snippet-sourcedescription:[EventbridgeMVP.kt demonstrates how to perform various Amazon EventBridge tasks using the AWS SDK for Kotlin.]
 // snippet-keyword:[AWS SDK for Kotlin]
 // snippet-service:[Amazon EventBridge]
 
@@ -30,6 +30,7 @@ import aws.sdk.kotlin.services.iam.model.DeleteRoleRequest
 import aws.sdk.kotlin.services.iam.model.DetachRolePolicyRequest
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.CreateBucketRequest
+import aws.sdk.kotlin.services.eventbridge.model.Target
 import aws.sdk.kotlin.services.s3.model.Delete
 import aws.sdk.kotlin.services.s3.model.DeleteBucketRequest
 import aws.sdk.kotlin.services.s3.model.DeleteObjectsRequest
@@ -87,7 +88,7 @@ import kotlin.system.exitProcess
  17. Sending an event to trigger the rule.
  18. Cleans up resources.
 */
-val DASHES: String? = String(CharArray(80)).replace("\u0000", "-")
+val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
 suspend fun main(args: Array<String>) {
     val usage = """
     Usage:
@@ -442,7 +443,7 @@ suspend fun updateSnsEventRule(topicArn: String?, ruleName: String?) {
         inputTemplate = "\"Notification: an object was uploaded to bucket <bucket> at <time>.\""
         inputPathsMap = myMap
     }
-    val targetOb = aws.sdk.kotlin.services.eventbridge.model.Target {
+    val targetOb = Target {
         id = targetId
         arn = topicArn
         inputTransformer = inputTransOb
@@ -517,6 +518,7 @@ suspend fun uploadTextFiletoS3(bucketName: String?) {
     }
 }
 
+// snippet-start:[eventbridge.kotlin.list.rules.target.main]
 suspend fun listTargetRules(topicArnVal: String?) {
     val ruleNamesByTargetRequest = ListRuleNamesByTargetRequest {
         targetArn = topicArnVal
@@ -529,8 +531,9 @@ suspend fun listTargetRules(topicArnVal: String?) {
         }
     }
 }
+// snippet-end:[eventbridge.kotlin.list.rules.target.main]
 
-// snippet-start:[eventbridge.kotlin.list.target.rules.main]
+// snippet-start:[eventbridge.kotlin.list.targets.main]
 suspend fun listTargets(ruleName: String?) {
     val ruleRequest = ListTargetsByRuleRequest {
         rule = ruleName
@@ -543,19 +546,18 @@ suspend fun listTargets(ruleName: String?) {
         }
     }
 }
-// snippet-end:[eventbridge.kotlin.list.target.rules.main]
+// snippet-end:[eventbridge.kotlin.list.targets.main]
 
-// snippet-end:[eventbridge.java2.list.target.rules.main]
 // Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
 suspend fun addSnsEventRule(ruleName: String?, topicArn: String?, topicName: String, eventRuleName: String, bucketName: String) {
     val targetID = UUID.randomUUID().toString()
 
-    val myTarget = aws.sdk.kotlin.services.eventbridge.model.Target {
+    val myTarget = Target {
         id = targetID
         arn = topicArn
     }
 
-    val targetsOb = mutableListOf<aws.sdk.kotlin.services.eventbridge.model.Target>()
+    val targetsOb = mutableListOf<Target>()
     targetsOb.add(myTarget)
 
     val request = PutTargetsRequest {
@@ -613,7 +615,7 @@ suspend fun createSnsTopic(topicName: String): String? {
     }
 }
 
-// snippet-start:[eventbridge.kotlin_list_rules.main]
+// snippet-start:[eventbridge.kotlin._list_rules.main]
 suspend fun listRules() {
     val rulesRequest = ListRulesRequest {
         eventBusName = "default"
