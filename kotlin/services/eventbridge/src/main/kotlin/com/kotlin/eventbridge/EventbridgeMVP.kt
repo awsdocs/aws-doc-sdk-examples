@@ -9,6 +9,14 @@
 
 package com.kotlin.eventbridge
 
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Scanner
+import java.util.UUID
 import aws.sdk.kotlin.services.eventbridge.EventBridgeClient
 import aws.sdk.kotlin.services.eventbridge.model.DeleteRuleRequest
 import aws.sdk.kotlin.services.eventbridge.model.DescribeRuleRequest
@@ -23,6 +31,7 @@ import aws.sdk.kotlin.services.eventbridge.model.PutEventsRequestEntry
 import aws.sdk.kotlin.services.eventbridge.model.PutRuleRequest
 import aws.sdk.kotlin.services.eventbridge.model.PutTargetsRequest
 import aws.sdk.kotlin.services.eventbridge.model.RemoveTargetsRequest
+import aws.sdk.kotlin.services.eventbridge.model.Target
 import aws.sdk.kotlin.services.iam.IamClient
 import aws.sdk.kotlin.services.iam.model.AttachRolePolicyRequest
 import aws.sdk.kotlin.services.iam.model.CreateRoleRequest
@@ -30,7 +39,6 @@ import aws.sdk.kotlin.services.iam.model.DeleteRoleRequest
 import aws.sdk.kotlin.services.iam.model.DetachRolePolicyRequest
 import aws.sdk.kotlin.services.s3.S3Client
 import aws.sdk.kotlin.services.s3.model.CreateBucketRequest
-import aws.sdk.kotlin.services.eventbridge.model.Target
 import aws.sdk.kotlin.services.s3.model.Delete
 import aws.sdk.kotlin.services.s3.model.DeleteBucketRequest
 import aws.sdk.kotlin.services.s3.model.DeleteObjectsRequest
@@ -49,16 +57,7 @@ import aws.sdk.kotlin.services.sns.model.DeleteTopicRequest
 import aws.sdk.kotlin.services.sns.model.SubscribeRequest
 import aws.smithy.kotlin.runtime.content.asByteStream
 import kotlinx.coroutines.delay
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileWriter
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Scanner
-import java.util.UUID
 import kotlin.system.exitProcess
-
 // snippet-start:[eventbridge.kotlin.mvp.main]
 /*
  Before running this Kotlin code example, set up your development environment,
