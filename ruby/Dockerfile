@@ -6,4 +6,4 @@ COPY . /ruby/
 RUN cd /ruby && \
     bundle config --delete frozen && \
     bundle install
-CMD ["./run_tests.sh"]
+CMD ["./ruby/run_tests.sh"]
