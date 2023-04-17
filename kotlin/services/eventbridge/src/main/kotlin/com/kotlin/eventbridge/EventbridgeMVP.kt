@@ -68,7 +68,7 @@ import kotlin.system.exitProcess
  This Kotlin example performs the following tasks with Amazon EventBridge:
 
  1. Creates an AWS Identity and Access Management (IAM) role to use with Amazon EventBridge.
- 2. Amazon Simple Storage Service (Amazon S3) bucket with EventBridge events enabled.
+ 2. Creates an Amazon Simple Storage Service (Amazon S3) bucket with EventBridge events enabled.
  3. Creates a rule that triggers when an object is uploaded to Amazon S3.
  4. Lists rules on the event bus.
  5. Creates a new Amazon Simple Notification Service (Amazon SNS) topic and lets the user subscribe to it.
@@ -76,14 +76,14 @@ import kotlin.system.exitProcess
  7. Creates an EventBridge event that sends an email when an Amazon S3 object is created.
  8. Lists targets.
  9. Lists the rules for the same target.
- 10. Triggers the rule by uploading a file to the Amazon S3 bucket.
+ 10. Triggers the rule by uploading a file to the S3 bucket.
  11. Disables a specific rule.
- 12. Checks and print the state of the rule.
+ 12. Checks and prints the state of the rule.
  13. Adds a transform to the rule to change the text of the email.
  14. Enables a specific rule.
- 15. Triggers the updated rule by uploading a file to the Amazon S3 bucket.
- 16. Updates the rule to be a custom rule pattern.
- 17. Sending an event to trigger the rule.
+ 15. Triggers the updated rule by uploading a file to the S3 bucket.
+ 16. Updates the rule to a custom rule pattern.
+ 17. Sends an event to trigger the rule.
  18. Cleans up resources.
 */
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
@@ -162,7 +162,7 @@ suspend fun main(args: Array<String>) {
     println("Enter your email to subscribe to the Amazon SNS topic:")
     val email = sc.nextLine()
     subEmail(topicArn, email)
-    println("Use the link in the email you received to confirm your subscription. Then press enter to continue.")
+    println("Use the link in the email you received to confirm your subscription. Then press Enter to continue.")
     sc.nextLine()
     println(DASHES)
 
@@ -172,7 +172,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("8. List Targets.")
+    println("8. List targets.")
     listTargets(eventRuleName)
     println(DASHES)
 
@@ -183,7 +183,7 @@ suspend fun main(args: Array<String>) {
 
     println(DASHES)
     println("10. Trigger the rule by uploading a file to the S3 bucket.")
-    println("Press enter to continue.")
+    println("Press Enter to continue.")
     sc.nextLine()
     uploadTextFiletoS3(bucketName)
     println(DASHES)
@@ -216,7 +216,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("16. Update the rule to be a custom rule pattern.")
+    println("16. Update the rule to a custom rule pattern.")
     updateToCustomRule(eventRuleName)
     println("Updated event rule $eventRuleName to use a custom pattern.")
     updateCustomRuleTargetWithTransform(topicArn, eventRuleName)
@@ -224,7 +224,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
-    println("17. Sending an event to trigger the rule. This will trigger a subscription email.")
+    println("17. Send an event to trigger the rule. This will trigger a subscription email.")
     triggerCustomRule(email)
     println("Events have been sent. Press Enter to continue.")
     sc.nextLine()
@@ -496,7 +496,6 @@ suspend fun changeRuleState(eventRuleName: String, isEnabled: Boolean?) {
 // Create and upload a file to an S3 bucket to trigger an event.
 @Throws(IOException::class)
 suspend fun uploadTextFiletoS3(bucketName: String?) {
-    // Create a unique file name
     val fileSuffix = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
     val fileName = "TextFile$fileSuffix.txt"
     val myFile = File(fileName)
@@ -546,10 +545,9 @@ suspend fun listTargets(ruleName: String?) {
 }
 // snippet-end:[eventbridge.kotlin.list.targets.main]
 
-// Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
+// Add a rule that triggers an SNS target when a file is uploaded to an S3 bucket.
 suspend fun addSnsEventRule(ruleName: String?, topicArn: String?, topicName: String, eventRuleName: String, bucketName: String) {
     val targetID = UUID.randomUUID().toString()
-
     val myTarget = Target {
         id = targetID
         arn = topicArn
@@ -678,7 +676,7 @@ suspend fun setBucketNotification(bucketName: String) {
     }
 }
 
-// Create an Amazon S3 bucket using a waiter.
+// Create an S3 bucket using a waiter.
 suspend fun createBucket(bucketName: String) {
     val request = CreateBucketRequest {
         bucket = bucketName
@@ -695,7 +693,7 @@ suspend fun createBucket(bucketName: String) {
 
 suspend fun checkBucket(bucketName: String?): Boolean {
     try {
-        // Determine if the Amazon S3 bucket exists.
+        // Determine if the S3 bucket exists.
         val headBucketRequest = HeadBucketRequest {
             bucket = bucketName
         }
