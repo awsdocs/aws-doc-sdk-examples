@@ -5,5 +5,6 @@ FROM ruby:3.1.2-buster
 COPY . /ruby/
 RUN cd /ruby && \
     bundle config --delete frozen && \
-    bundle install
+    bundle install \
+WORKDIR /ruby
 CMD ["./run_tests.sh"]
