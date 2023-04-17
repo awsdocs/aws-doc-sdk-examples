@@ -1,7 +1,7 @@
 # Multi-Language Integration Test Runner
 This directory contains the source and infrastructure code for running multi-language integration tests in AWS.
 
-## Problem & solution statement
+## Problem and solution statement
 This repository contains example code written in [11 of the AWS-supported Software Development Kit (SDK) languages](../README.md#how-this-repository-is-organized). 
 This code must be tested to ensure its accuracy and functionality over time. 
 However, while this repository contains comprehensive test coverage, each test must be manually-triggered and can take many hours to complete.
