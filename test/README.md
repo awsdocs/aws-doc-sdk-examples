@@ -4,7 +4,7 @@ This directory contains the source and infrastructure code for running multi-lan
 ## Problem and solution statement
 This repository contains example code written in [11 of the AWS-supported Software Development Kit (SDK) languages](../README.md#how-this-repository-is-organized). 
 This code must be tested to ensure its accuracy and functionality over time. 
-However, while this repository contains comprehensive test coverage, each test must be manually-triggered and can take many hours to complete.
+However, while this repository contains comprehensive test coverage, each test must be manually triggered and can take many hours to complete.
 
 This solution offers centralized triggering and language-agnostic test orchestration. In exchange, it requires ["automation-friendly" tests]() and the deployment of the below CDK stacks.
 
