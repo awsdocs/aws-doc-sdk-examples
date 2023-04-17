@@ -109,7 +109,7 @@ suspend fun main(args: Array<String>) {
         "}]" +
         "}"
 
-    if (args.size != 5) {
+    if (args.size != 4) {
         println(usage)
         exitProcess(1)
     }
@@ -388,6 +388,7 @@ suspend fun triggerCustomRule(email: String) {
 }
 // snippet-end:[eventbridge.kotlin._put_event.main]
 
+// snippet-start:[eventbridge.kotlin._put_target.custom.transform.main]
 suspend fun updateCustomRuleTargetWithTransform(topicArn: String?, ruleName: String?) {
     val targetId = UUID.randomUUID().toString()
 
@@ -395,7 +396,7 @@ suspend fun updateCustomRuleTargetWithTransform(topicArn: String?, ruleName: Str
         inputTemplate = "\"Notification: sample event was received.\""
     }
 
-    val target = aws.sdk.kotlin.services.eventbridge.model.Target {
+    val target = Target {
         id = targetId
         arn = topicArn
         inputTransformer = inputTransformerOb
@@ -411,6 +412,7 @@ suspend fun updateCustomRuleTargetWithTransform(topicArn: String?, ruleName: Str
         eventBrClient.putTargets(targetsRequest)
     }
 }
+// snippet-end:[eventbridge.kotlin._put_target.custom.transform.main]
 
 // snippet-start:[eventbridge.kotlin.puttargetstransform.main]
 suspend fun updateToCustomRule(ruleName: String?) {
@@ -545,6 +547,7 @@ suspend fun listTargets(ruleName: String?) {
 }
 // snippet-end:[eventbridge.kotlin.list.targets.main]
 
+// snippet-start:[eventBridge.kotlin.putSnsTarget.main]
 // Add a rule that triggers an SNS target when a file is uploaded to an S3 bucket.
 suspend fun addSnsEventRule(ruleName: String?, topicArn: String?, topicName: String, eventRuleName: String, bucketName: String) {
     val targetID = UUID.randomUUID().toString()
@@ -567,6 +570,7 @@ suspend fun addSnsEventRule(ruleName: String?, topicArn: String?, topicName: Str
         println("Added event rule $eventRuleName with Amazon SNS target $topicName for bucket $bucketName.")
     }
 }
+// snippet-end:[eventBridge.kotlin.putSnsTarget.main]
 
 suspend fun subEmail(topicArnVal: String?, email: String?) {
     val request = SubscribeRequest {

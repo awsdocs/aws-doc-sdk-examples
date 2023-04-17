@@ -306,6 +306,9 @@ eventbridge_PutRule:
             - description: Create a scheduled rule.
               snippet_tags:
                 - eventbridge.kotlin._create_schedule_rule.main
+            - description: Create a rule that triggers when an object is added to an &S3long; bucket.
+              snippet_tags:
+                - eventbridge.kotlin._create_rule.main    
     Java:
       versions:
         - sdk_version: 2
@@ -315,6 +318,9 @@ eventbridge_PutRule:
             - description: Create a scheduled rule.
               snippet_tags:
                 - eventbridge.java2._create_schedule_rule.main
+            - description: Create a rule that triggers when an object is added to an &S3long; bucket.
+              snippet_tags:
+                - eventbridge.kotlin._create_rule.main      
     C++:
       versions:
         - sdk_version: 1
@@ -428,7 +434,10 @@ eventbridge_PutTargets:
           excerpts:
             - description:
               snippet_tags:
-                - eventbridge.kotlin.puttargetstransform.main 
+                - eventBridge.kotlin.putSnsTarget.main
+            - description: Add an input transformer to a target for a rule.
+              snippet_tags:
+                - eventbridge.kotlin._put_target.custom.transform.main     
     Java:
       versions:
         - sdk_version: 2
@@ -440,7 +449,7 @@ eventbridge_PutTargets:
                 - eventBridge.java.putSnsTarget.main 
             - description: Add an input transformer to a target for a rule.
               snippet_tags:
-                - eventbridge.java2.puttargetstransform.main  
+                - eventbridge.java2._put_target.custom.transform.main 
     .NET:
       versions:
         - sdk_version: 3
