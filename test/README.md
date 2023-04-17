@@ -6,7 +6,7 @@ This repository contains example code written in [11 of the AWS-supported Softwa
 This code must be tested to ensure its accuracy and functionality over time. 
 However, while this repository contains comprehensive test coverage, each test must be manually triggered and can take many hours to complete.
 
-This solution offers centralized triggering and language-agnostic test orchestration. In exchange, it requires ["automation-friendly" tests]() and the deployment of the below CDK stacks.
+This solution offers centralized triggering and language-agnostic test orchestration. In exchange, it requires ["automation-friendly" tests]() and the deployment of the following AWS Cloud Development Kit (AWS CDK) stacks.
 
 ## Design features
 The following design features make this tool easy to use:
