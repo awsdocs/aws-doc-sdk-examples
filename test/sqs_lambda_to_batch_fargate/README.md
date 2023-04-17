@@ -10,7 +10,8 @@ Specifically, an Amazon Simple Queue Service (Amazon SQS) topic consumes message
 
 ![weathertop-comp-2.png](..%2Farchitecture_diagrams%2Fpng%2Fweathertop-comp-2.png)
 
-git pu---
+---
+
 ## System requirements
 * npm (node.js)
 * python 3.7  

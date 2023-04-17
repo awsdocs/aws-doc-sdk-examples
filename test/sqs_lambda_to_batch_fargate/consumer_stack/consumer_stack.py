@@ -212,10 +212,3 @@ class ConsumerStack(Stack):
         statement.add_arn_principal(f'arn:aws:iam::{Aws.ACCOUNT_ID}:root')
         statement.add_condition("ArnLike", {"aws:SourceArn": fanout_topic_arn})
         sqs_queue.add_to_resource_policy(statement)
-
-
-
-
-
-
-

@@ -94,9 +94,3 @@ class ProducerStack(Stack):
         publish_permissions.add_service_principal("events.amazonaws.com")
         publish_permissions.add_resources(topic.topic_arn)
         topic.add_to_resource_policy(publish_permissions)
-
-
-
-
-
-

@@ -13,7 +13,6 @@
 # snippet-start:[ruby.example_code.dynamodb.helper.DynamoDBBasics]
 require "aws-sdk-dynamodb"
 require "json"
-require "pry"
 require "open-uri"
 require "pp"
 require "zip"
