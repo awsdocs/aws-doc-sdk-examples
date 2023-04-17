@@ -19,7 +19,7 @@ In addition to the source code in this repository, this solution consists of the
 
 | Stack                                                | Function                                                          | Purpose                                                                                                                                                    |
 |------------------------------------------------------|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Public Images](./public_ecr_repositories)     | Holds versions of language-specialized Docker images.             | Event-based production of ready-to-run Docker images for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html) |
+| [Public Images](./public_ecr_repositories)     | Holds versions of language-specialized Docker images.             | Event-based production of ready-to-run Docker images for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html). |
 | [Producer](./eventbridge_rule_with_sns_fanout) | Publishes a scheduled message to an SNS topic.                    | Centralized cron-based triggering of integration tests.                                                                                                    |
 | [Consumer](./sqs_lambda_to_batch_fargate)      | Consumes a message to trigger integration tests on Batch Fargate. | Federated integration testing of example code for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html).       |
 
