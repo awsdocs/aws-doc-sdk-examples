@@ -75,7 +75,7 @@ At this point you can now synthesize the AWS CloudFormation template for this co
 cdk synth
 ```
 
-If everything looks good, go ahead and deploy!  This step will actually make
+If everything looks good, go ahead and deploy. This step will actually make
 changes to your AWS cloud environment.  
 
 ```
