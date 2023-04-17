@@ -26,6 +26,7 @@ import com.kotlin.eventbridge.updateToCustomRule
 import com.kotlin.eventbridge.uploadTextFiletoS3
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
 import org.junit.jupiter.api.Order
@@ -33,8 +34,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
 import java.io.InputStream
-import java.util.Properties
-import java.util.Scanner
+import java.util.*
 import kotlin.system.exitProcess
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -85,6 +85,7 @@ class EventBridgeKotlinTest {
         println(DASHES)
         println("1. Create an AWS Identity and Access Management (IAM) role to use with Amazon EventBridge.")
         val roleArn = createIAMRole(roleNameSc, polJSON)
+        Assertions.assertFalse(roleArn!!.isEmpty())
         println(DASHES)
 
         println(DASHES)
@@ -113,6 +114,7 @@ class EventBridgeKotlinTest {
         println(DASHES)
         println("5. Create a new SNS topic for testing and let the user subscribe to the topic.")
         val topicArn = createSnsTopic(topicNameSc)
+        Assertions.assertFalse(topicArn!!.isEmpty())
         println(DASHES)
 
         println(DASHES)
