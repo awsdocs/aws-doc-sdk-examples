@@ -20,18 +20,18 @@ In addition to the source code in this repository, this solution consists of the
 | Stack                                                | Function                                                          | Purpose                                                                                                                                                    |
 |------------------------------------------------------|-------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Public Images](./public_ecr_repositories)     | Holds versions of language-specialized Docker images.             | Event-based production of ready-to-run Docker images for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html). |
-| [Producer](./eventbridge_rule_with_sns_fanout) | Publishes a scheduled message to an SNS topic.                    | Centralized cron-based triggering of integration tests.                                                                                                    |
-| [Consumer](./sqs_lambda_to_batch_fargate)      | Consumes a message to trigger integration tests on Batch Fargate. | Federated integration testing of example code for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html).       |
+| [Producer](./eventbridge_rule_with_sns_fanout) | Publishes a scheduled message to an Amazon Simple Notification Service (Amazon SNS) topic.                    | Centralized cron-based triggering of integration tests.                                                                                                    |
+| [Consumer](./sqs_lambda_to_batch_fargate)      | Consumes a message to trigger integration tests on AWS Batch with AWS Fargate. | Federated integration testing of example code for each [supported SDK](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html).       |
 
-The following diagram shows the behavior of this GitHub repository and the above stacks: 
+The following diagram shows the behavior of this GitHub repository and the preceding stacks: 
 
 ![weathertop-high-level-architecture.png](architecture_diagrams%2Fpng%2Fweathertop-high-level-architecture.png)
 
 ---
 
 ## How it works
-On the surface, this solution orchestrates the execution of distributed integration testing for the 11 [supported SDK's](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html).
-Under the hood, it relies on the source code in this repository and the CDK stacks listed below.
+On the surface, this solution orchestrates the execution of distributed integration testing for the 11 [supported SDKs](https://docs.aws.amazon.com/sdkref/latest/guide/version-support-matrix.html).
+Under the hood, it relies on the source code in this repository and the following CDK stacks.
 
 ### 1. Image production
 Image repositories are managed from an AWS account in which the [Public images stack]() is deployed.
@@ -43,15 +43,15 @@ See [CDK stack](./public_ecr_repositories).
 ### 2. Centralized eventing
 Events are emitted from an AWS account in which the [Producer Stack](./eventbridge_rule_with_sns_fanout) is deployed.
 
-This stack contains a cron-based EventBridge rule that writes to a singular SNS topic. 
-Through a cross-account integration, SQS queues in different AWS accounts can subscribe to this topic.
+This stack contains a cron-based Amazon EventBridge rule that writes to a singular SNS topic. 
+Through a cross-account integration, Amazon Simple Queue Service (Amazon SQS) queues in different AWS accounts can subscribe to this topic.
 
 See [CDK stack](./eventbridge_rule_with_sns_fanout).
 
 ### 3. Distributed testing
 Testing is performed in AWS accounts in which the [Consumer Stack](./sqs_lambda_to_batch_fargate) is deployed.
 
-This stack contains a Lambda function that submits jobs to AWS Batch. 
-Through a secure integration, this Lambda function is triggered via a SQS queue subscribed to a cross-account topic.
+This stack contains an AWS Lambda function that submits jobs to AWS Batch. 
+Through a secure integration, this Lambda function is triggered by an SQS queue that's subscribed to a cross-account topic.
 
 See [CDK stack](./sqs_lambda_to_batch_fargate).

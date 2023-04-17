@@ -1,21 +1,21 @@
 ![Stability: Stable](https://img.shields.io/badge/stability-Stable-success.svg?style=for-the-badge)
 
-# Scheduled Event Producer Stack
+# Scheduled Event Producer stack
 
-The code in this directory deploys a CDK stack that produces events.
+The code in this directory deploys an AWS Cloud Development Kit (AWS CDK) stack that produces events.
 
 This stack can be deployed in isolation; however, it serves a purpose in this repository's [test automation architecture](../README.md).
 
-Specifically, it deploys a scheduled EventBridge rule that publishes a message to an SNS topic to which many "consumer" SQS topics are subscribed.
+Specifically, it deploys a scheduled Amazon EventBridge rule that publishes a message to an Amazon Simple Notification Service (Amazon SNS) topic. Many "consumer" Amazon Simple Queue Service (Amazon SQS) topics are subscribed to the SNS topic.
 
 
 ![weathertop-comp-2.png](..%2Farchitecture_diagrams%2Fpng%2Fweathertop-comp-2.png)
 
 ---
-## System requirements:
+## System requirements
 * npm (node.js)
 * python 3.x
-* AWS access key & secret for AWS user with permissions to create resources listed above.
+* AWS access key and secret for AWS user with permissions to create the preceding resources
 * Successfully written [system parameters](#storing-system-parameters)
   
 ### Storing system parameters
@@ -26,9 +26,9 @@ Before you get started, execute [store_system_parameters.py](store_system_params
 python3 store_system_params.py
 ```
 ---
-## CDK setup & deployment
+## AWS CDK setup and deployment
 
-First, you will need to install the AWS CDK:
+First, install the AWS CDK:
 
 ```
 sudo npm install -g aws-cdk
@@ -58,13 +58,13 @@ Install the required dependencies:
 pip install -r requirements.txt
 ```
 
-At this point you can now synthesize the CloudFormation template for this code.
+At this point you can now synthesize the AWS CloudFormation template for this code.
 
 ```
 cdk synth
 ```
 
-If everything looks good, go ahead and deploy!  This step will actually make
+If everything looks good, go ahead and deploy.  This step will actually make
 changes to your AWS cloud environment.  
 
 ```

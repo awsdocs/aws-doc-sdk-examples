@@ -41,25 +41,25 @@ class ProducerStack(Stack):
             response = client.get_parameter(Name=language_name, WithDecryption=True)
             account_ids.append(response['Parameter']['Value'])
 
-        # create a new SNS topic
+        # Create a new Amazon Simple Notification Service (Amazon SNS) topic.
         topic = sns.Topic(self, "fanout-topic")
 
-        # create a new EventBridge rule
+        # Create a new Amazon EventBridge rule.
         rule = events.Rule(
             self,
             "trigger-rule",
             schedule=events.Schedule.cron(
-                # Uncomment after testing
+                # Uncomment after testing.
                 # minute="0",
                 # hour="22",
                 # week_day="FRI",
             ),
         )
 
-        # add a target to the EventBridge rule to publish a message to the SNS topic
+        # Add a target to the EventBridge rule to publish a message to the SNS topic.
         rule.add_target(targets.SnsTopic(topic))
 
-        # Set up base SNS permissions
+        # Set up base Amazon SNS permissions.
         sns_permissions = iam.PolicyStatement()
         sns_permissions.add_any_principal()
         sns_permissions.add_actions(
@@ -76,7 +76,7 @@ class ProducerStack(Stack):
         sns_permissions.add_condition("StringEquals", {"AWS:SourceOwner": Aws.ACCOUNT_ID})
         topic.add_to_resource_policy(sns_permissions)
 
-        # Set up cross-account Subscription permissions for every onboarded language
+        # Set up cross-account Subscription permissions for every onboarded language.
         subscribe_permissions = iam.PolicyStatement()
         subscribe_permissions.add_arn_principal(f'arn:aws:iam::{Aws.ACCOUNT_ID}:root')
         for id in account_ids:
@@ -85,7 +85,7 @@ class ProducerStack(Stack):
         subscribe_permissions.add_resources(topic.topic_arn)
         topic.add_to_resource_policy(subscribe_permissions)
 
-        # Set up cross-account Publish permissions for every onboarded language
+        # Set up cross-account Publish permissions for every onboarded language.
         publish_permissions = iam.PolicyStatement()
         publish_permissions.add_arn_principal(f'arn:aws:iam::{Aws.ACCOUNT_ID}:root')
         for id in account_ids:

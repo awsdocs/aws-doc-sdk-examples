@@ -1,12 +1,12 @@
 ![Stability: Stable](https://img.shields.io/badge/stability-Stable-success.svg?style=for-the-badge)
 
-# Batch Fargate Consumer Stack
+# AWS Batch on Fargate Consumer stack
 
-The code in this directory deploys a CDK stack capable of running integration tests.
+The code in this directory deploys an AWS Cloud Development Kit (AWS CDK) stack capable of running integration tests.
 
 This stack can be deployed in isolation; however, it serves a purpose in this repository's [test automation architecture](../README.md).
 
-Specifically, an SQS topic consumes messages from a cross-account SNS topic. SQS then triggers a Lambda function which submits a new AWS Batch job containing test commands.
+Specifically, an Amazon Simple Queue Service (Amazon SQS) topic consumes messages from a cross-account Amazon Simple Notification Service (Amazon SNS) topic. Amazon SQS then triggers an AWS Lambda function that submits a new AWS Batch job containing test commands.
 
 ![weathertop-comp-2.png](..%2Farchitecture_diagrams%2Fpng%2Fweathertop-comp-2.png)
 
@@ -14,24 +14,24 @@ git pu---
 ## System requirements
 * npm (node.js)
 * python 3.7  
-* AWS access key & secret for AWS user with permissions to create resources listed above
+* AWS access key and secret for AWS user with permissions to create the preceding resources
 
 ### Environment variables
-Before going any further, save your language name as an environment variable called `LANGUAGE_NAME`.
+Before continuing, save your language name as an environment variable called `LANGUAGE_NAME`.
 
-If your language is Java, you would use:
+For example, if your language is Java, use:
 ```
 export LANGUAGE_NAME=javav2
 ```
 
-Also, save the AWS Account ID of the AWS account that is currently emitting 
-events that this stack will process.
+Also, save the AWS account ID of the AWS account that is currently emitting 
+events for this stack to process.
 ```
 export PRODUCER_ACCOUNT_ID=12345678901
 ```
 
-Lastly, save the name of the SNS topic that will be producing the events mentioned above.
-If created using [this Producer CDK code](../eventbridge_rule_with_sns_fanout/README.md) it will look something like this:
+Lastly, save the name of the SNS topic that will be producing the previously mentioned events.
+If created using [this Producer CDK code](../eventbridge_rule_with_sns_fanout/README.md), it will look something like this:
 ```
 export FANOUT_TOPIC_NAME=ProducerStack-fanouttopic6EFF7954-pYvxBdNPbEWM
 ```

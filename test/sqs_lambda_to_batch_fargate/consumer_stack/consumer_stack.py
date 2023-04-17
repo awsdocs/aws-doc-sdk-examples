@@ -24,7 +24,7 @@ from constructs import Construct
 import json
 import os
 
-# Raises KeyError if environment variable doesn't exist
+# Raises KeyError if environment variable doesn't exist.
 language_name = os.environ["LANGUAGE_NAME"]
 producer_account_id = os.environ["PRODUCER_ACCOUNT_ID"]
 fanout_topic_name = os.environ["FANOUT_TOPIC_NAME"]
@@ -39,16 +39,16 @@ class ConsumerStack(Stack):
         ##                                         ##
         #############################################
 
-        # Locate SNS topic in Weathertop Central account
+        # Locate Amazon Simple Notification Service (Amazon SNS) topic in Weathertop Central account.
         fanout_topic_arn = f'arn:aws:sns:us-east-1:{producer_account_id}:{fanout_topic_name}'
         sns_topic = sns.Topic.from_topic_arn(self, fanout_topic_name, topic_arn=fanout_topic_arn)
 
         container_image = ecs.EcrImage.from_registry(f"public.ecr.aws/b4v4v1s0/{language_name}:latest")
 
-        # Define the SQS queue in this account
+        # Define the Amazon Simple Queue Service (Amazon SQS) queue in this account.
         sqs_queue = sqs.Queue(self, f'BatchJobQueue-{language_name}')
 
-        # Create an IAM role for the SNS topic to send messages to the SQS queue
+        # Create an AWS Identity and Access Management (IAM) role for the SNS topic to send messages to the SQS queue.
         sns_topic_role = iam.Role(
             self, f"SNSTopicRole-{language_name}",
             assumed_by=iam.ServicePrincipal('sns.amazonaws.com'),
@@ -56,7 +56,7 @@ class ConsumerStack(Stack):
             role_name=f'SNSTopicRole-{language_name}'
         )
 
-        # Policy to allow existing SNS topic to publish to new SQS queue
+        # Policy to allow existing SNS topic to publish to new SQS queue.
         sns_topic_policy = iam.PolicyStatement(
             effect=iam.Effect.ALLOW,
             actions=["sqs:SendMessage"],
@@ -68,7 +68,7 @@ class ConsumerStack(Stack):
             }
         )
 
-        # Execution role for Lambda function to use
+        # Execution role for AWS Lambda function to use.
         execution_role = iam.Role(
             self, f"LambdaExecutionRole-{language_name}",
             assumed_by=iam.ServicePrincipal('lambda.amazonaws.com'),
@@ -115,7 +115,7 @@ class ConsumerStack(Stack):
             )
         )
 
-        # Configure AWS Batch to use the log group in the producer account
+        # Configure AWS Batch to use the log group in the producer account.
         log_config = batch_alpha.LogConfiguration(
             log_driver=batch_alpha.LogDriver.AWSLOGS,
             # options={
@@ -144,7 +144,7 @@ class ConsumerStack(Stack):
             )]
         )
 
-        # Define the Lambda function
+        # Define the Lambda function.
         function = _lambda.Function(self, f'SubmitBatchJob-{language_name}',
                                     runtime=_lambda.Runtime.PYTHON_3_8,
                                     handler='lambda_handler.lambda_handler',
@@ -164,10 +164,10 @@ class ConsumerStack(Stack):
         ##                                             ##
         #################################################
 
-        # Add the SQS queue as an event source for the Lambda function
+        # Add the SQS queue as an event source for the Lambda function.
         function.add_event_source(_event_sources.SqsEventSource(sqs_queue))
 
-        # Create an SNS subscription for the SQS queue
+        # Create an SNS subscription for the SQS queue.
         subs.SqsSubscription(sqs_queue, raw_message_delivery=True).bind(sns_topic)
         sns_topic.add_subscription(subs.SqsSubscription(sqs_queue))
 
@@ -177,13 +177,13 @@ class ConsumerStack(Stack):
         ##                                      ##
         ##########################################
 
-        # Add SNS-SQS policy to the IAM role
+        # Add the Amazon SNS and Amazon SQS policy to the IAM role.
         sns_topic_role.add_to_policy(sns_topic_policy)
 
-        # Grant permissions to allow the function to receive messages from the queue
+        # Grant permissions to allow the function to receive messages from the queue.
         sqs_queue.grant_consume_messages(function)
 
-        # Grant permissions to allow the function to read messages from the queue and to write logs to CloudWatch
+        # Grant permissions to allow the function to read messages from the queue and to write logs to Amazon CloudWatch.
         function.add_to_role_policy(
             statement=iam.PolicyStatement(
                 actions=['sqs:ReceiveMessage'],
@@ -204,7 +204,7 @@ class ConsumerStack(Stack):
             )
         )
 
-        # Define policy for allow cross-account SNS-SQS access
+        # Define policy that allows cross-account Amazon SNS and Amazon SQS access.
         statement = iam.PolicyStatement()
         statement.add_resources(sqs_queue.queue_arn)
         statement.add_actions("sqs:*")
