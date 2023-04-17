@@ -37,7 +37,7 @@ export FANOUT_TOPIC_NAME=ProducerStack-fanouttopic6EFF7954-pYvxBdNPbEWM
 ```
 ---
 
-## CDK setup & deployment
+## AWS CDK setup and deployment
 
 First, you will need to install the AWS CDK:
 
