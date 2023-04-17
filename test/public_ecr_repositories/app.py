@@ -3,7 +3,7 @@ import os
 
 import aws_cdk as cdk
 
-from public_ecr_repositories.public_ecr_repositories_stack import PublicEcrRepositoriesStack
+from public_ecr_repositories_stack.public_ecr_repositories_stack import PublicEcrRepositoriesStack
 
 app = cdk.App()
 PublicEcrRepositoriesStack(app, "PublicEcrRepositoriesStack",

@@ -39,7 +39,7 @@ class ConsumerStack(Stack):
         ##                                         ##
         #############################################
 
-        # Locate Amazon Simple Notification Service (Amazon SNS) topic in Weathertop Central account.
+        # Locate Amazon Simple Notification Service (Amazon SNS) topic in the producer account.
         fanout_topic_arn = f'arn:aws:sns:us-east-1:{producer_account_id}:{fanout_topic_name}'
         sns_topic = sns.Topic.from_topic_arn(self, fanout_topic_name, topic_arn=fanout_topic_arn)
 
@@ -132,7 +132,7 @@ class ConsumerStack(Stack):
                 execution_role=batch_execution_role,
                 log_configuration=log_config,
                 assign_public_ip=True,
-                command=["./ruby/run_tests.sh"], # Bug: absence of this field does not
+                command=["./ruby/run_tests.sh"]
             ),
             platform_capabilities=[ batch_alpha.PlatformCapabilities.FARGATE ]
         )
