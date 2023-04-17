@@ -76,15 +76,6 @@
 - name: status/no-text-review-needed
   color: "5E2824"
   description: "No text which needs review"
-- name: status/test-review-needed
-  color: "AD1C21"
-  description: "This work needs its test reviewed"
-- name: status/test-review-complete
-  color: "1FC058"
-  description: "Testing review complete"
-- name: status/no-test-review-needed
-  color: "5E2824"
-  description: "No tests that need review"
 - name: status/ready-to-merge
   color: "7FFF00"
   description: "This work is READY TO MERGE"
@@ -121,9 +112,9 @@
 - name: type/github-settings
   color: "5AF8F9"
   description: "This affects GitHub settings"
-- name: priority/high
+- name: urgent
   color: "FF0000"
-  description: "High Priority"
+  description: "Very important and needs attention"
 - name: size/small
   color: "e9ecef"
   description: "A small amount of effort/complexity"
