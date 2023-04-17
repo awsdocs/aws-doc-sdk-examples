@@ -39,7 +39,7 @@ export FANOUT_TOPIC_NAME=ProducerStack-fanouttopic6EFF7954-pYvxBdNPbEWM
 
 ## AWS CDK setup and deployment
 
-First, you will need to install the AWS CDK:
+First, install the AWS CDK:
 
 ```
 sudo npm install -g aws-cdk
