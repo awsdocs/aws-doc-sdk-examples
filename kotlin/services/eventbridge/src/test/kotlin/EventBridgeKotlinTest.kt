@@ -46,9 +46,9 @@ class EventBridgeKotlinTest {
     private var eventRuleNameSc = ""
     private var json = ""
     private var targetId = ""
+
     @BeforeAll
     fun setup() {
-
         val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
         val prop = Properties()
         prop.load(input)
@@ -182,7 +182,7 @@ class EventBridgeKotlinTest {
         println(DASHES)
 
         println(DASHES)
-        println("17. Sending an event to trigger the rule. This will trigger a subscription email.")
+        println("17. Send an event to trigger the rule. This will trigger a subscription email.")
         triggerCustomRule(email)
         println("Events have been sent. Press Enter to continue.")
         sc.nextLine()
