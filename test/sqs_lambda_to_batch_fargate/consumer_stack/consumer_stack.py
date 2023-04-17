@@ -117,7 +117,13 @@ class ConsumerStack(Stack):
 
         # Configure AWS Batch to use the log group in the producer account.
         log_config = batch_alpha.LogConfiguration(
-            log_driver=batch_alpha.LogDriver.AWSLOGS
+            log_driver=batch_alpha.LogDriver.AWSLOGS,
+            # options={
+            #     "awslogs-group": "/aws/batch",
+            #     "awslogs-region": "us-east-1",
+            #     "awslogs-stream-prefix": f"{language_name}",
+            #     "awslogs-multiline-pattern": "{timestamp=*Z, request_id=\"*\"}"
+            # }
         )
 
         job_definition = batch_alpha.JobDefinition(self, f"JobDefinition-{language_name}",
