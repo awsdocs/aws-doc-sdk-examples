@@ -7,4 +7,4 @@ RUN cd /ruby && \
     bundle config --delete frozen && \
     bundle install
 WORKDIR /ruby
-CMD ["rspec",".","--tag","integ","--tag","~@quarantine"]
+CMD ["rspec","--tag","integ","--tag","~@quarantine"]

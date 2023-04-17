@@ -132,7 +132,6 @@ class ConsumerStack(Stack):
                 execution_role=batch_execution_role,
                 log_configuration=log_config,
                 assign_public_ip=True,
-                command=["./ruby/run_tests.sh"]
             ),
             platform_capabilities=[ batch_alpha.PlatformCapabilities.FARGATE ]
         )
