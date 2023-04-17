@@ -86,11 +86,11 @@ deactivate
 
 # Useful commands
 
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
+ * `cdk ls`          List all stacks in the app
+ * `cdk synth`       Emit the synthesized CloudFormation template
+ * `cdk deploy`      Deploy this stack to your default AWS account/Region
+ * `cdk diff`        Dompare deployed stack with current state
+ * `cdk docs`        Open CDK documentation
 
 ---
 This code has been tested and verified to run with AWS CDK 2.70.0 (build c13a0f1).
