@@ -10,9 +10,9 @@ This solution offers centralized triggering and language-agnostic test orchestra
 
 ## Design features
 The following design features make this tool easy to use:
-* **Serverless**. Requires no stateful infrastructure
-* **No pipeline**. Relies on events, not manual interaction.
-* **All code**. The entire solution is deployable via CDK.
+* **Serverless** - Requires no stateful infrastructure
+* **No pipeline** - Relies on events, not manual interaction
+* **All code** - The entire solution is deployable by using the AWS CDK
 
 ## Architecture
 In addition to the source code in this repository, this solution consists of the following CDK stacks:
