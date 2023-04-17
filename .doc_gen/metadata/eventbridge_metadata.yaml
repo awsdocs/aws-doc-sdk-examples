@@ -320,7 +320,7 @@ eventbridge_PutRule:
                 - eventbridge.java2._create_schedule_rule.main
             - description: Create a rule that triggers when an object is added to an &S3long; bucket.
               snippet_tags:
-                - eventbridge.kotlin._create_rule.main      
+                - eventbridge.java2._create_rule.main     
     C++:
       versions:
         - sdk_version: 1
