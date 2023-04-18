@@ -16,7 +16,8 @@ class DynamoDBPartiQLBatch
   attr_reader :table
 
   def initialize(table_name)
-    @dynamodb = Aws::DynamoDB::Resource.new
+    client = Aws::DynamoDB::Client.new(region: 'us-east-1')
+    @dynamodb = Aws::DynamoDB::Resource.new(client: client)
     @table = @dynamodb.table(table_name)
   end
   # snippet-end:[ruby.example_code.ruby.DynamoDBPartiQLBatch.decl]
