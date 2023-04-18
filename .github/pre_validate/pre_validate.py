@@ -164,6 +164,8 @@ ALLOW_LIST = {
     'aws/rds/model/DescribeDBInstancesRequest',
     'com/apigateway/latest/developerguide/set',
     'com/pinpoint/latest/apireference/welcome',
+    'src/main/java/com/example/s3/S3BucketOps',
+    'src/main/java/com/example/s3/ListObjects',
 }
 
 def check_files(root, quiet):
