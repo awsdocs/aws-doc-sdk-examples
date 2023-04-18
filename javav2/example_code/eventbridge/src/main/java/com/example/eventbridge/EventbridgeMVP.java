@@ -426,6 +426,7 @@ public class EventbridgeMVP {
     }
     // snippet-end:[eventbridge.java2._put_event.main]
 
+    // snippet-start:[eventbridge.java2._put_target.custom.transform.main]
     public static void updateCustomRuleTargetWithTransform(EventBridgeClient eventBrClient, String topicArn, String ruleName){
         String targetId = java.util.UUID.randomUUID().toString();
         InputTransformer inputTransformer = InputTransformer.builder()
@@ -451,6 +452,7 @@ public class EventbridgeMVP {
             System.exit(1);
         }
     }
+    // snippet-end:[eventbridge.java2._put_target.custom.transform.main]
 
     // snippet-start:[eventbridge.java2.puttargetstransform.main]
     public static void updateToCustomRule(EventBridgeClient eventBrClient, String ruleName) {
