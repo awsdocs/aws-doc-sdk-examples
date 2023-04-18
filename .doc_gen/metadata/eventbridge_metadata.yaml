@@ -5,6 +5,15 @@ eventbridge_Hello:
   synopsis: get started using &EV;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._list_buses.main
     Java:
       versions:
         - sdk_version: 2
@@ -66,6 +75,24 @@ eventbridge_DescribeRule:
   synopsis: describe an &EVlong; rule.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.java2._describe_rule.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._describe_rule.main
     .NET:
       versions:
         - sdk_version: 3
@@ -83,6 +110,15 @@ eventbridge_DisableRule:
   synopsis: disable an &EVlong; rule.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.disable.rule.main
     Java:
       versions:
         - sdk_version: 2
@@ -109,6 +145,15 @@ eventbridge_EnableRule:
   synopsis: enable an &EVlong; rule.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.disable.rule.main
     Java:
       versions:
         - sdk_version: 2
@@ -135,6 +180,15 @@ eventbridge_ListRules:
   synopsis: list &EVlong; rules.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._list_rules.main
     Java:
       versions:
         - sdk_version: 2
@@ -161,6 +215,15 @@ eventbridge_ListRuleNamesByTarget:
   synopsis: list &EVlong; rule names for a target.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.list.rules.target.main
     Java:
       versions:
         - sdk_version: 2
@@ -187,6 +250,15 @@ eventbridge_ListTargetsByRule:
   synopsis: list &EVlong; targets for a rule.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.list.targets.main
     Java:
       versions:
         - sdk_version: 2
@@ -234,6 +306,9 @@ eventbridge_PutRule:
             - description: Create a scheduled rule.
               snippet_tags:
                 - eventbridge.kotlin._create_schedule_rule.main
+            - description: Create a rule that triggers when an object is added to an &S3long; bucket.
+              snippet_tags:
+                - eventbridge.kotlin._create_rule.main    
     Java:
       versions:
         - sdk_version: 2
@@ -243,6 +318,9 @@ eventbridge_PutRule:
             - description: Create a scheduled rule.
               snippet_tags:
                 - eventbridge.java2._create_schedule_rule.main
+            - description: Create a rule that triggers when an object is added to an &S3long; bucket.
+              snippet_tags:
+                - eventbridge.java2._create_rule.main     
     C++:
       versions:
         - sdk_version: 1
@@ -348,6 +426,18 @@ eventbridge_PutTargets:
   synopsis: add a target to an &EVlong; event.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventBridge.kotlin.putSnsTarget.main
+            - description: Add an input transformer to a target for a rule.
+              snippet_tags:
+                - eventbridge.kotlin._put_target.custom.transform.main     
     Java:
       versions:
         - sdk_version: 2
@@ -359,7 +449,7 @@ eventbridge_PutTargets:
                 - eventBridge.java.putSnsTarget.main 
             - description: Add an input transformer to a target for a rule.
               snippet_tags:
-                - eventbridge.java2.puttargetstransform.main  
+                - eventbridge.java2._put_target.custom.transform.main 
     .NET:
       versions:
         - sdk_version: 3
@@ -411,6 +501,15 @@ eventbridge_RemoveTargets:
   synopsis: remove &EVlong; targets from a rule.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.delete.targets.main 
     Java:
       versions:
         - sdk_version: 2
@@ -441,6 +540,15 @@ eventbridge_Scenario_GettingStarted:
     - Send events, then clean up resources.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.mvp.main 
     Java:
       versions:
         - sdk_version: 2
@@ -529,4 +637,3 @@ eventbridge_Scenario_createAndTriggerARule:
                 - cloudwatch.cross-service.Ruby.displayReminder
   services:
     eventbridge: {PutRule, PutEvents}
-   
