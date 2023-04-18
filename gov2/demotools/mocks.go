@@ -44,3 +44,8 @@ func (mock *MockQuestioner) AskFloat64(question string, validators ...IAnswerVal
 	answerFloat, _ := strconv.ParseFloat(mock.Next(question), 64)
 	return answerFloat
 }
+
+func (mock *MockQuestioner) AskChoice(question string, choices []string) int {
+	answerInt, _ := strconv.Atoi(mock.Next(question))
+	return answerInt
+}
