@@ -6,7 +6,7 @@
 //snippet-start:[javascript.v3.cross_service.supplement.list_widgets]
 import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 
-// In the following code we are using AWS JS SDK v3
+// The following code uses the AWS SDK for JavaScript (v3).
 // See https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html
 const s3Client = new S3Client({});
 
