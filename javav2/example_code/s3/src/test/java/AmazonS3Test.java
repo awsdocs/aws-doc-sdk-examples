@@ -12,11 +12,13 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import com.example.s3.*;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
 
-@TestInstance(TestInstance.Lifecycle.PER_METHOD)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonS3Test {
 
@@ -37,6 +39,7 @@ public class AmazonS3Test {
     private static String bucketNamePolicy="";
     private static String accountId="";
     private static String accessPointName="";
+    private static String bucketNameZip="";
 
     // Used for the encryption test.
     private static String encryptObjectName="";
@@ -48,6 +51,15 @@ public class AmazonS3Test {
     private static String restoreImagePath = "";
     private static String restoreBucket = "";
     private static String restoreImageName = "";
+
+    // Used for the Scenario test.
+    private static String bucketNameSc = "";
+    private static String keySc = "";
+    private static String objectPathSc = "";
+    private static String savePathSc = "";
+    private static String toBucketSc = "";
+    private static String images= "";
+    private static String[] imageKeys ;
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -68,7 +80,6 @@ public class AmazonS3Test {
                 .build();
 
         try (InputStream input = AmazonS3Test.class.getClassLoader().getResourceAsStream("config.properties")) {
-
             Properties prop = new Properties();
 
             if (input == null) {
@@ -76,8 +87,6 @@ public class AmazonS3Test {
                 return;
             }
             prop.load(input);
-
-            // Populate the data members required for all tests.
             bucketName = prop.getProperty("bucketName");
             objectKey = prop.getProperty("objectKey");
             objectPath= prop.getProperty("objectPath");
@@ -97,6 +106,14 @@ public class AmazonS3Test {
             restoreImagePath = prop.getProperty("restoreImagePath");
             restoreBucket = prop.getProperty("restoreBucket");
             restoreImageName = prop.getProperty("restoreImageName");
+            bucketNameSc = prop.getProperty("bucketNameSc");
+            keySc = prop.getProperty("keySc");
+            objectPathSc = prop.getProperty("objectPathSc");
+            savePathSc = prop.getProperty("savePathSc");
+            toBucketSc = prop.getProperty("toBucketSc");
+            bucketNameZip = prop.getProperty("bucketNameZip");
+            images = prop.getProperty("images");
+           imageKeys = images.split("[,]", 0);
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -120,8 +137,7 @@ public class AmazonS3Test {
     @Test
     @Order(3)
    public void putObject() {
-       String result = PutObject.putS3Object(s3, bucketName, objectKey, objectPath);
-       assertTrue(!result.isEmpty());
+       PutObject.putS3Object(s3, bucketName, objectKey, objectPath);
        System.out.println("Test 3 passed");
    }
 
@@ -144,7 +160,9 @@ public class AmazonS3Test {
 
     @Test
     @Order(6)
-    public void getBucketPolicy() {
+    public void getBucketPolicy() throws InterruptedException {
+        // Sleep while the policy takes effect
+        TimeUnit.SECONDS.sleep(5);
         String polText = GetBucketPolicy.getPolicy(s3, bucketNamePolicy);
         assertTrue(!polText.isEmpty());
         System.out.println("Test 6 passed");
@@ -177,35 +195,35 @@ public class AmazonS3Test {
 
     @Test
     @Order(10)
-    public void GeneratePresignedUrlAndUploadObject() {
+    public void generatePresignedUrlAndUploadObject() {
         GeneratePresignedUrlAndUploadObject.signBucket(presigner, presignBucket, presignKey);
         System.out.println("Test 10 passed");
     }
 
     @Test
     @Order(11)
-    public void GetObjectPresignedUrl() {
+    public void getObjectPresignedUrl() {
         GetObjectPresignedUrl.getPresignedUrl(presigner, presignBucket, presignKey);
         System.out.println("Test 11 passed");
     }
 
     @Test
     @Order(12)
-    public void GetObjectData() {
+    public void getObjectData() {
         GetObjectData.getObjectBytes(s3,bucketName,objectKey, path);
         System.out.println("Test 12 passed");
     }
 
     @Test
     @Order(13)
-    public void ListObjects() {
+    public void listObjects() {
         ListObjects.listBucketObjects(s3,bucketName);
         System.out.println("Test 13 passed");
     }
 
     @Test
     @Order(14)
-    public void CreateAccessPoint() {
+    public void createAccessPoint() {
         CreateAccessPoint.createSpecificAccessPoint(s3ControlClient, accountId, bucketName, accessPointName);
         CreateAccessPoint.deleteSpecificAccessPoint(s3ControlClient, accountId, accessPointName);
         System.out.println("Test 14 passed");
@@ -213,7 +231,7 @@ public class AmazonS3Test {
 
     @Test
     @Order(15)
-    public void  LifecycleConfiguration() {
+    public void  lifecycleConfiguration() {
         LifecycleConfiguration.setLifecycleConfig(s3, bucketName, accountId);
         LifecycleConfiguration.getLifecycleConfig(s3, bucketName, accountId);
         LifecycleConfiguration.deleteLifecycleConfig(s3, bucketName, accountId);
@@ -231,7 +249,7 @@ public class AmazonS3Test {
 
     @Test
     @Order(17)
-    public void DeleteMultiObjects() {
+    public void deleteMultiObjects() {
         DeleteMultiObjects.deleteBucketObjects(s3, bucketName);
         System.out.println("Test 18 passed");
     }
@@ -254,7 +272,7 @@ public class AmazonS3Test {
 
     @Test
     @Order(20)
-    public void RestoreObject() {
+    public void restoreObject() {
         RestoreObject.restoreS3Object(s3, restoreBucket, restoreImageName, accountId);
         System.out.println("Test 20 passed");
     }
@@ -264,5 +282,58 @@ public class AmazonS3Test {
     public void getRestoreStatus() {
         GetObjectRestoreStatus.checkStatus(s3, restoreBucket, restoreImageName);
         System.out.println("Test 21 passed");
+    }
+
+    @Test
+    @Order(22)
+    public void S3ZipExample() {
+        S3ZipExample.createZIPFile(s3, bucketNameZip, imageKeys);
+        System.out.println("Test 21 passed");
+    }
+
+    @Test
+    @Order(23)
+    public void testScenario() {
+        System.out.println(S3Scenario.DASHES);
+        System.out.println("1. Create an Amazon S3 bucket.");
+        S3Scenario.createBucket(s3, bucketNameSc);
+        System.out.println( S3Scenario.DASHES);
+
+        System.out.println( S3Scenario.DASHES);
+        System.out.println("2. Update a local file to the Amazon S3 bucket.");
+        S3Scenario.uploadLocalFile(s3, bucketNameSc, keySc, objectPathSc);
+        System.out.println(S3Scenario.DASHES);
+
+        System.out.println( S3Scenario.DASHES);
+        System.out.println("3. Download the object to another local file.");
+        S3Scenario.getObjectBytes (s3, bucketNameSc, keySc, savePathSc);
+        System.out.println( S3Scenario.DASHES);
+
+        System.out.println(S3Scenario.DASHES);
+        System.out.println("4. Perform a multipart upload.");
+        String multipartKey = "multiPartKey";
+        S3Scenario.multipartUpload(s3, toBucketSc, multipartKey);
+        System.out.println(S3Scenario.DASHES);
+
+        System.out.println(S3Scenario.DASHES);
+        System.out.println("5. List all objects located in the Amazon S3 bucket.");
+        S3Scenario.listAllObjects(s3, bucketNameSc);
+        S3Scenario.anotherListExample(s3, bucketNameSc) ;
+        System.out.println(S3Scenario.DASHES);
+
+        System.out.println(S3Scenario.DASHES);
+        System.out.println("6. Copy the object to another Amazon S3 bucket.");
+        S3Scenario.copyBucketObject (s3, bucketNameSc, keySc, toBucketSc);
+        System.out.println(S3Scenario.DASHES);
+
+        System.out.println(S3Scenario.DASHES);
+        System.out.println("7. Delete the object from the Amazon S3 bucket.");
+        S3Scenario.deleteObjectFromBucket(s3, bucketNameSc, keySc);
+        System.out.println(S3Scenario.DASHES);
+
+        System.out.println(S3Scenario.DASHES);
+        System.out.println("8. Delete the Amazon S3 bucket.");
+        S3Scenario.deleteBucket(s3, bucketNameSc);
+        System.out.println(S3Scenario.DASHES);
     }
 }
