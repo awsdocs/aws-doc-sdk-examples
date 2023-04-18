@@ -4,6 +4,7 @@
  */
 
 // snippet-start:[rust.example_code.iam.scenario_getting_started.lib]
+pub mod clients;
 
 use aws_sdk_iam::error::SdkError;
 use aws_sdk_iam::operation::{
