@@ -7,7 +7,7 @@
 import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 
 // The following code uses the AWS SDK for JavaScript (v3).
-// See https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html
+// For more information, see https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html.
 const s3Client = new S3Client({});
 
 /**
@@ -23,7 +23,7 @@ const listObjectNames = async (bucketName) => {
     throw err;
   }
 
-  // Map the response to a list of strings representing the keys of the S3 objects.
+  // Map the response to a list of strings representing the keys of the Amazon Simple Storage Service (Amazon S3) objects.
   // Filter out any objects that don't have keys.
   return Contents.map(({ Key }) => Key).filter((k) => !!k);
 };
