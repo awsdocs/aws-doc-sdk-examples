@@ -14,7 +14,8 @@ class DynamoDBBasics
   attr_reader :table
 
   def initialize(table_name)
-    @dynamo_resource = Aws::DynamoDB::Resource.new
+    client = Aws::DynamoDB::Client.new(region: "us-east-1")
+    @dynamo_resource = Aws::DynamoDB::Resource.new(client: client)
     @table = @dynamo_resource.table(table_name)
   end
   # snippet-end:[ruby.example_code.ruby.DynamoDBBasics.decl]
