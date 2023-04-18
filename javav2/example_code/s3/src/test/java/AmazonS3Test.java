@@ -12,6 +12,8 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import com.example.s3.*;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
@@ -158,7 +160,9 @@ public class AmazonS3Test {
 
     @Test
     @Order(6)
-    public void getBucketPolicy() {
+    public void getBucketPolicy() throws InterruptedException {
+        // Sleep while the policy takes effect
+        TimeUnit.SECONDS.sleep(5);
         String polText = GetBucketPolicy.getPolicy(s3, bucketNamePolicy);
         assertTrue(!polText.isEmpty());
         System.out.println("Test 6 passed");
