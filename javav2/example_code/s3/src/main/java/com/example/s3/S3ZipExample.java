@@ -40,18 +40,17 @@ public class S3ZipExample {
             "  <bucketName> <imageKeys> \n\n" +
             "Where:\n" +
             "  bucketName - The Amazon S3 bucket where JPG images are located. \n" +
-            "  imageKeys -  An string array of images located in the S3 bucket and to be placed into a ZIP file ";
+            "  keys -  A comma separated list of images (without spaces) located in the S3 bucket and to be placed into a ZIP file. For example,  For example pic1.jpg,pic2.jpg";
 
-        if (args.length != 2) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+       if (args.length != 2) {
+           System.out.println(usage);
+           System.exit(1);
+       }
 
         // Replace with your S3 bucket name.
         String bucketName = args[0];
-
-        // Update to specify the JPG images in the specified S3 bucket. For example {"pic1.jpg", "pic2.jpg", "pic3.jpg"}
-        String[] imageKeys = {"file.jpg", "file2.jpg", "file3.jpg"};
+        String keys = args[1];
+        String[] imageKeys = keys.split("[,]", 0);
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
             .region(region)

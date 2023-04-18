@@ -56,10 +56,8 @@ public class AmazonS3Test {
     private static String objectPathSc = "";
     private static String savePathSc = "";
     private static String toBucketSc = "";
-
-    // Specify the JPG images in the specified S3 bucket for the ZIP test. For example {"pic1.jpg", "pic2.jpg", "pic3.jpg"}
-    String[] imageKeys = {"4b7a0f44-5195-494a-a341-03bc1dfe435d-Duck.jpg", "123f6a36-3dd6-4cd0-856f-b11f3890fc09-sun888.jpg", "37b45484-1bb4-409b-a0e5-cdd7ddc84810-Owl500.jpg", "388a428e-7924-435d-b415-a734d5ed10f4-dog2.jpg", "69cacf03-7ad8-471a-bcda-e619994ce7a2-Owl7000.jpg"};
-
+    private static String images= "";
+    private static String[] imageKeys ;
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -112,6 +110,8 @@ public class AmazonS3Test {
             savePathSc = prop.getProperty("savePathSc");
             toBucketSc = prop.getProperty("toBucketSc");
             bucketNameZip = prop.getProperty("bucketNameZip");
+            images = prop.getProperty("images");
+           imageKeys = images.split("[,]", 0);
 
         } catch (IOException ex) {
             ex.printStackTrace();
