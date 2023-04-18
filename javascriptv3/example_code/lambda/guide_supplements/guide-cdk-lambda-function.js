@@ -9,8 +9,10 @@ import { S3Client, ListObjectsCommand } from "@aws-sdk/client-s3";
 // In the following code we are using AWS JS SDK v3
 // See https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/index.html
 const s3Client = new S3Client({});
-const bucketName = process.env.BUCKET;
 
+/**
+ * @param {string} bucketName
+ */
 const listObjectNames = async (bucketName) => {
   const command = new ListObjectsCommand({ Bucket: bucketName });
   const { Contents } = await s3Client.send(command);
@@ -39,16 +41,26 @@ const routeRequest = (lambdaEvent) => {
     return handleGetRequest();
   }
 
-  return buildResponseBody(400, "Unsupported HTTP method.");
+  const error = new Error(
+    `Unimplemented HTTP method: ${lambdaEvent.httpMethod}`
+  );
+  error.name = "UnimplementedHTTPMethodError";
+  throw error;
 };
 
 const handleGetRequest = async () => {
-  const objects = await listObjectNames(bucketName);
+  if (process.env.BUCKET === "undefined") {
+    const err = new Error(`No bucket name provided.`);
+    err.name = "MissingBucketName";
+    throw err;
+  }
+
+  const objects = await listObjectNames(process.env.BUCKET);
   return buildResponseBody(200, objects);
 };
 
 /**
- * @typedef { statusCode: number, body: string, headers: Record<string, string> } Response
+ * @typedef {{statusCode: number, body: string, headers: Record<string, string> }} LambdaResponse
  */
 
 /**
@@ -57,7 +69,7 @@ const handleGetRequest = async () => {
  * @param {Record<string, string>} headers
  * @param {Record<string, unknown>} body
  *
- * @returns {Response}
+ * @returns {LambdaResponse}
  */
 const buildResponseBody = (status, body, headers = {}) => {
   return {
@@ -77,8 +89,16 @@ export const handler = async (event) => {
   } catch (err) {
     console.error(err);
 
-    if (err && err.name === "EmptyBucketError") {
-      return buildResponseBody(204, {});
+    if (err.name === "MissingBucketName") {
+      return buildResponseBody(400, err.message);
+    }
+
+    if (err.name === "EmptyBucketError") {
+      return buildResponseBody(204, []);
+    }
+
+    if (err.name === "UnimplementedHTTPMethodError") {
+      return buildResponseBody(400, err.message);
     }
 
     return buildResponseBody(500, err.message || "Unknown server error");

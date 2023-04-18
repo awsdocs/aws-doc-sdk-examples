@@ -7,6 +7,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
+    "test": "vitest run **/*.unit.test.js",
     "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
