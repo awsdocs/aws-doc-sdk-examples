@@ -20,6 +20,10 @@ access.*
 
 ## Code examples
 
+### Get started
+
+* [Hello IAM](src/bin/hello.rs#L8) (`ListPolicies`)
+
 ### Single action
 
 * [Listing roles](src/iam-service-lib.rs) (ListRoles)
