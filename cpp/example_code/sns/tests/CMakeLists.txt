@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.14)
 
 set(EXAMPLE_SERVICE_NAME sns)
 set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
-set(CURRENT_TARGET_AWS_DEPENDENCIES sns)
+set(CURRENT_TARGET_AWS_DEPENDENCIES sns sqs)
 
 # Set this project's name.
 project("${EXAMPLE_SERVICE_NAME}-examples-gtests")
