@@ -12,12 +12,7 @@
 AWS SDK for Java 2.0 documentation examples
 ###########################################
 
-These are examples for the `AWS SDK for Java public documentation <javasdk-docs_>`_.
-
-Prerequisites
-=============
-
-To build and run these examples, you need the following:
+To build and run these AWS SDK for Java v2 code examples, you need the following:
 
 * `Apache Maven <https://maven.apache.org/>`_ (>3.0)
 * `AWS SDK for Java <https://aws.amazon.com/sdk-for-java/>`_ (downloaded and extracted somewhere on
