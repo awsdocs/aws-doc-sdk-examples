@@ -8,7 +8,7 @@ Shows how to use the AWS SDK for Java 2.x to work with Amazon Elastic Compute Cl
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-*Amazon EC2 is a web service that provides resizable computing capacityâ€”literally, servers in Amazon's data centersâ€”that you use to build and host your software systems.*
+Amazon EC2 is a web service that provides secure, resizable compute capacity in the cloud. It is designed to make web-scale cloud computing easier for developers.
 
 ## ⚠ Important
 
