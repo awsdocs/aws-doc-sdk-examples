@@ -201,28 +201,20 @@ Because you built the JAR file that contains the dependencies, you can run an ex
 
           java -cp target/S3J2Project-1.0-SNAPSHOT.jar com.example.s3.ListObjects mybucket
 
-For systems with Bash support
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Tests
+-----
 
-As an alternative to setting the **CLASSPATH** and specifying the full namespace of the class to
-run, we've included a **bash** script, **run_example.sh**, that you can use on Linux, Unix, or OS X
-(or on Windows by using `Cygwin <https://www.cygwin.com/>`_, `MingW <http://www.mingw.org/>`_, or
-`Bash on Ubuntu on Windows <https://msdn.microsoft.com/en-us/commandline/wsl/about>`_).
+You can test the Java code examples for a given AWS service by running a test file located in this Github repository. The test file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
-You can execute **run_example.sh** as shown::
+You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
-    ./run_example.sh S3BucketOps
+	Test 3 passed
 
-This runs the `S3BucketOps <example_code/s3/src/main/java/com/example/s3/S3BucketOps.java>`_
-example (assuming that you've built the examples first).
+**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
 
-If the example requires arguments, pass the argument list in quotation marks::
+ ### Properties file
 
-  ./run_example.sh S3BucketOps "<arg1> <arg2> <arg3>"
-
-.. _maven: https://maven.apache.org/
-.. _javasdk: https://aws.amazon.com/sdk-for-java/
-.. _javasdk-docs: http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/
+Before running a JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. You can refer to the Java code examples for a explanation of what the values are. For example, if you are running Amazon S3 tests, look in the various S3 code example Java files for an explanation of the values. 
 
 Docker image (Beta)
 ===================
