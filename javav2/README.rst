@@ -210,7 +210,7 @@ You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the comma
 
 	Test 3 passed
 
-**WARNING**: _Running these JUnit tests manipulates real Amazon resources and may incur charges on your account._
+WARNING: Running these JUnit tests manipulates real Amazon resources and may incur charges on your account.
 
  ### Properties file
 
