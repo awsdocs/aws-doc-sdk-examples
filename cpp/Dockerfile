@@ -8,7 +8,7 @@
 
 FROM amazonlinux:2022
 
-USER root
+#USER root
 
 # Set up the dependencies.
 RUN \
