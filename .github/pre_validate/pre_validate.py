@@ -167,6 +167,7 @@ ALLOW_LIST = {
     'src/main/java/com/example/s3/S3BucketOps',
     'src/main/java/com/example/s3/ListObjects',
     'src/main/java/com/example/dynamodb/Query',
+    'com/firehose/latest/APIReference/Welcome',
 }
 
 def check_files(root, quiet):
