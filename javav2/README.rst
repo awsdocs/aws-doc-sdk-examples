@@ -202,7 +202,7 @@ Because you built the JAR file that contains the dependencies, you can run an ex
           java -cp target/S3J2Project-1.0-SNAPSHOT.jar com.example.s3.ListObjects mybucket
 
 Tests
------
+=====
 
 You can test the Java code examples for a given AWS service by running a test file located in this Github repository. The test file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see [https://junit.org/junit5/](https://junit.org/junit5/).
 
