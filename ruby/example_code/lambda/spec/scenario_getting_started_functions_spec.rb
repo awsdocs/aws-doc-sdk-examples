@@ -15,7 +15,7 @@ describe LambdaWrapper do
     custom_name = "lambda-function-#{rand(10**4)}"
     source_file = "lambda_function"
     wrapper = LambdaWrapper.new
-    role, policy = wrapper.manage_iam("#{custom_name}-role", "create")
+    # role, policy = wrapper.manage_iam("#{custom_name}-role", "create")
 
     it "creates IAM role and attaches policy", integ: "false" do
       expect(role["role"]["role_name"]).to eq("#{custom_name}-role")
