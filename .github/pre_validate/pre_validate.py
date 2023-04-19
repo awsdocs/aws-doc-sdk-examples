@@ -172,6 +172,7 @@ ALLOW_LIST = {
     'src/main/java/com/example/iam/CreateUser',
     'src/main/java/com/example/iam/DeleteUser',
     'src/main/java/com/example/iam/UpdateUser',
+    'src/main/java/com/example/kms/ListGrants',
 }
 
 def check_files(root, quiet):
