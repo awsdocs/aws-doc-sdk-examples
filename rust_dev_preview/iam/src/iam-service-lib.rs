@@ -4,7 +4,6 @@
  */
 
 // snippet-start:[rust.example_code.iam.scenario_getting_started.lib]
-pub mod clients;
 
 use aws_sdk_iam::error::SdkError;
 use aws_sdk_iam::operation::{
@@ -13,9 +12,10 @@ use aws_sdk_iam::operation::{
     list_attached_role_policies::*, list_groups::*, list_policies::*, list_role_policies::*,
     list_roles::*, list_saml_providers::*, list_users::*,
 };
-use aws_sdk_iam::types::{AccessKey, Policy, Role, User};
+use aws_sdk_iam::types::{AccessKey, Policy, PolicyScopeType, Role, User};
 use aws_sdk_iam::Client as iamClient;
 use aws_sdk_iam::{Client, Error as iamError};
+use futures::StreamExt;
 use tokio::time::{sleep, Duration};
 
 // snippet-start:[rust.example_code.iam.service.create_policy]
@@ -368,20 +368,40 @@ pub async fn delete_user_policy(
 
 // snippet-start:[rust.example_code.iam.service.list_policies]
 pub async fn list_policies(
-    client: &iamClient,
-    path_prefix: Option<String>,
-    marker: Option<String>,
-    max_items: Option<i32>,
-) -> Result<ListPoliciesOutput, SdkError<ListPoliciesError>> {
-    let response = client
+    client: iamClient,
+    path_prefix: String,
+    max_items: i32,
+) -> Result<Vec<String>, SdkError<ListPoliciesError>> {
+    let mut list_policies = client
         .list_policies()
-        .set_path_prefix(path_prefix)
-        .set_marker(marker)
-        .set_max_items(max_items)
-        .send()
-        .await?;
+        .path_prefix(path_prefix)
+        .max_items(max_items)
+        .scope(PolicyScopeType::Local)
+        .into_paginator()
+        .send();
 
-    Ok(response)
+    let mut v = Vec::new();
+
+    while let Some(list_policies_output) = list_policies.next().await {
+        match list_policies_output {
+            Ok(list_policies) => {
+                if let Some(policies) = list_policies.policies() {
+                    for policy in policies {
+                        let policy_name = policy
+                            .policy_name()
+                            .unwrap_or_else(|| "Missing policy name.")
+                            .to_string();
+                        println!("{}", policy_name);
+                        v.push(policy_name);
+                    }
+                }
+            }
+
+            Err(err) => return Err(err),
+        }
+    }
+
+    Ok(v)
 }
 // snippet-end:[rust.example_code.iam.service.list_policies]
 
