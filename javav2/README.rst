@@ -86,6 +86,8 @@ The following tutorials use the synchronous Java client to build sample applicat
 
 The following tutorials are AWS Lambda use cases: 
 
++ `Creating a photo asset management application using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/pam_source_files>`_ - Discusses how to develop a photo asset management application that lets users manage photos using labels. This serverless application used many AWS services.
+
 + `Creating AWS serverless workflows using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_workflows_stepfunctions>`_ - Discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 
 + `Building an AWS Workflow that sends notifications over multiple channels <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels>`_ - Discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
