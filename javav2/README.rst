@@ -9,17 +9,17 @@
    limitations under the License.
 
 ###########################################
-AWS SDK for Java 2.0 documentation examples
+AWS SDK for Java (v2) code examples
 ###########################################
 
-To build and run these AWS SDK for Java v2 code examples, you need the following:
+To build and run these AWS SDK for Java (v2) code examples, you need the following:
 
 * `Apache Maven <https://maven.apache.org/>`_ (>3.0)
 * `AWS SDK for Java <https://aws.amazon.com/sdk-for-java/>`_ (downloaded and extracted somewhere on
   your machine)
-* **All Java Version 2 examples assume that you have setup your credentials in the credentials file in the .aws folder**. For information about how to set AWS credentials and the AWS Region, see `Set up AWS credentials and Region for development <http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>`_ in the *AWS SDK for Java Developer Guide*. You should also set the *AWS Region* within which the operations will be performed. If a Region is not set, the default Region used is **us-east-1**. 
+* **All Java (v2) examples assume that you have set up your credentials in the credentials file in the .aws folder**. For information about how to set AWS credentials and the AWS Region, see `Set up AWS credentials and Region for development <http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>`_ in the *AWS SDK for Java Developer Guide*. You should also set the *AWS Region* within which the operations will be performed. If a Region is not set, the default Region used is **us-east-1**. 
   
-  After you set your AWS credentails in the credentials file located in the .aws folder, you can create a service client like this.
+  After you set your AWS credentials in the credentials file located in the .aws folder, you can create a service client like this.
   
            Region region = Region.US_WEST_2;
          
@@ -30,15 +30,15 @@ To build and run these AWS SDK for Java v2 code examples, you need the following
 
 **Note**: For more information about setting your AWS credentials, see  `Supplying and retrieving AWS credentials <https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html>`_.
 
-AWS Java code examples
-======================
+AWS SDK for Java
+================
 
 The **javav2** folder in this repository contains examples of complete use cases, and AWS service-based code examples.
 
 Use cases
 ---------
 
-In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java V2. Most of these AWS SDK for Java V2 tutorials use the Synchronous Java client.
+In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java. Most of these AWS SDK for Java tutorials use the Synchronous Java client.
 
 If you are interested in using the Asynchronous Java client, see one of these tutorials:
 
@@ -46,43 +46,33 @@ If you are interested in using the Asynchronous Java client, see one of these tu
 
 + `Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_async>`_ - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the Spring Framework is used with the AWS SDK for Java asynchronous client for Amazon Simple Notification Service (Amazon SNS).
 
-The following tutorials use the synchronous Java client to build sample relational & non relational database applications:
+The following tutorials use the synchronous Java client to build sample relational & and non-relational database applications:
 
 + `Creating your first AWS Java web application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project>`_ - Discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk to create a web application.
 
-+ `Creating a React and Spring REST application that queries Amazon Redshift data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/CreatingSpringRedshiftRest>`_ - Discusses how to develop a Spring REST API that queries Amazon Redshift data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.
++ `Creating a React and Spring REST application that queries Amazon Redshift data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/CreatingSpringRedshiftRest>`_ - Discusses how to develop a Spring REST API that queries Amazon Redshift data. The Spring REST API uses the AWS SDK for Java to invoke AWS services and is used by a React application that displays the data.
 
-+ `Creating a React and Spring REST application that queries Amazon Aurora Serverless data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_Spring_RDS_%20Rest>`_ - Discusses how to develop a Spring REST API that queries Amazon Aurora Serverless data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.
++ `Creating a React and Spring REST application that queries Amazon Aurora Serverless data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_Spring_RDS_%20Rest>`_ - Discusses how to develop a Spring REST API that queries Amazon Aurora Serverless data. The Spring REST API uses the AWS SDK for Java to invoke AWS services and is used by a React application that displays the data.
 
 + `Creating a React and Spring REST application that queries Amazon RDS for MySQL <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker>`_ - Discusses how to develop a Spring REST API that queries Amazon Relational Database Service (Amazon RDS) MySQL data. The Spring REST API uses the Java JDBC API to query MySQL data that is used by a React application that displays the data.
 
-+ `Creating a React and Spring REST application that queries Amazon DynamoDB data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app>`_ - Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data.
-
-+ `Creating a Job Posting Site using Amazon Aurora and Amazon Translate <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_amazon_aurora_app>`_ - Discusses how to create a web MVC application that uses Amazon Aurora (for Amazon RDS), the Java JDBC API, and Amazon Translate to display job listing data.
-
-+ `Creating a Job Posting Site using Amazon Redshift and Amazon Translate <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_redshift_application>`_ - Discusses how to create a web MVC application that uses the Amazon Redshift Data API and Amazon Translate to display job listing data. 
-
-+ `Creating_mongodb_item_tracker <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_mongoDB_app>`_ - Discusses using Amazon EC2 (which hosts a MongoDB instance) with Amazon Simple Email Service (Amazon SES) and AWS Elastic Beanstalk to create a web application that tracks work items. 
++ `Creating a React and Spring REST application that queries Amazon DynamoDB data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app>`_ - Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Java to invoke AWS services and is used by a React application that displays the data.
 
 The following tutorials use the synchronous Java client to build sample applications:
 
 + `Creating a dynamic web application that analyzes photos using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app>`_ - Discusses using the AWS SDK for Java and various AWS services, such as Amazon Rekognition, to analyze images. This web MVC applicatio analyzes many images and generate a report that breaks down each image into a series of labels.
 
-+ `Creating a Spring Boot Application that has publish/subscription functionality <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_sample_app>`_ - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the application is created using the Spring Framework with the AWS SDK for Java V2 API for Amazon SNS. 
++ `Creating a Spring Boot Application that has publish/subscription functionality <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_sample_app>`_ - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the application is created using the Spring Framework with the AWS SDK for Java API for Amazon SNS. 
 
 + `Creating an  Amazon Simple Queue Service message application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application>`_ - Discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web application.
 
-+ `Building a Spring Boot web application that Streams Amazon S3 content over HTTP <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_spring_stream_app>`_ - Discusses how to create a web MVC application that streams Amazon S3 video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework is used with the AWS SDK for Java API to create the application.
-
-+ `Creating AWS video analyzer applications using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/video_analyzer_application>`_ - Discusses using the AWS SDK for Java and various AWS services, such as the  Amazon Rekognition service, to analyze videos. The application analyzes a video located in an Amazon S3 bucket and generates and emails a report that breaks the video into a series of labels.
++ `Building a Spring Boot web application that Streams Amazon S3 content over HTTP <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_spring_stream_app>`_ - Discusses how to create a web MVC application that streams Amazon Simple Storage Service (Amazon S3) video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework is used with the AWS SDK for Java API to create the application.
 
 + `Using Amazon Cognito to require a user to log into a web application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_amazon_cognito_app>`_ - Discusses how to use Amazon Cognito to require a web MVC application to authenticate with users defined in an Amazon Cognito user pool.
 
-+ `Building an Amazon Lex Chatbot that handles multiple languages <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lex_chatbot>`_ - Discusses how to create an Amazon Lex chatbot within a web application to engage your website visitors. In addition, this chatbot supports multiple languages that lets users interact with the chatbot in the languages of their choice (for example, French).
++ `Building an Amazon Lex chatbot that handles multiple languages <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lex_chatbot>`_ - Discusses how to create an Amazon Lex chatbot within a web application to engage your website visitors. In addition, this chatbot supports multiple languages that lets users interact with the chatbot in the languages of their choice (for example, French).
 
-+ `Creating an AWS document analyzer application using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_document_analyzer>`_ - Discusses how to use Amazon Textract and Amazon S3 to analyze PDF document images.
-
-+ `Create an Amazon Personalize app with the AWS SDK for Java V2 <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_amazon_personalize_app>`_ - Discusses how to complete the Amazon Personalize workflow from start to finish with the AWS SDK for Java V2. The project trains two different models with the movie-lens dataset: one with the User-Personalization (`aws-user-personalization`) recipe for creating personalized recommendations for your users, and one with the item-to-item similarities (`aws-sims`) recipe to generate recommendations for items that are similar to a given item.
++ `Create an Amazon personalize app with the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_amazon_personalize_app>`_ - Discusses how to complete the Amazon personalize workflow from start to finish with the AWS SDK for Java. The project trains two different models with the movie-lens dataset: one with the user-personalization (`aws-user-personalization`) recipe for creating personalized recommendations for your users, and one with the item-to-item similarities (`aws-sims`) recipe to generate recommendations for items that are similar to a given item.
 
 The following tutorials are AWS Lambda use cases: 
 
@@ -92,7 +82,7 @@ The following tutorials are AWS Lambda use cases:
 
 + `Building an AWS Workflow that sends notifications over multiple channels <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels>`_ - Discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
 
-+ `Creating an AWS serverless workflow that modifies Amazon Redshift data by using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_workflow_redshift>`_ - Discusses how to develop a workflow using AWS Step Functions that can modify Amazon Redshift data using the AWS SDK for Java V2.
++ `Creating an AWS serverless workflow that modifies Amazon Redshift data by using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_workflow_redshift>`_ - Discusses how to develop a workflow using AWS Step Functions that can modify Amazon Redshift data using the AWS SDK for Java.
 
 + `Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_etl_workflow>`_ - Discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function.
 
@@ -100,7 +90,7 @@ The following tutorials are AWS Lambda use cases:
 
 + `Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_ppe>`_ - Discusses how to create a Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon S3 bucket. The Lambda function updates an Amazon DynamoDB table with the results and sends an email message. 
 
-+ `Using Amazon API Gateway to invoke Lambda functions <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_apigateway>`_ - Discusses how to use Amazon API Gateway to invoke a Lambda function. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
++ `Building an AWS workflow that sends notifications over multiple channels <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels>`_ - Discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
 
 + `Creating Lambda functions that tags digital assets located in Amazon S3 buckets <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_tag_assets>`_ - Discusses how to create a Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket.
 
@@ -201,17 +191,17 @@ Because you built the JAR file that contains the dependencies, you can run an ex
 Tests
 =====
 
-You can test the Java code examples for a given AWS service by running a test file located in this Github repository. The test file uses JUnit 5 to run the JUnit tests and is located in the **src/test/java** folder. For more information, see https://junit.org/junit5/.
+You can test the Java code examples for a given AWS service by running a test file located in this GitHub repository. The test file uses JUnit 5 to run the JUnit tests. It's located in the **src/test/java** folder. For more information, see https://junit.org/junit5/.
 
 You can run the JUnit tests from a Java IDE, such as IntelliJ, or from the command line by using Maven. As each test runs, you can view messages that inform you if the various tests succeed or fail. For example, the following message informs you that Test 3 passed.
 
 	Test 3 passed
 
-WARNING: Running these JUnit tests manipulates real Amazon resources and may incur charges on your account.
+WARNING: Running these JUnit tests manipulates real Amazon resources and might incur charges on your account.
 
  ### Properties file
 
-Before running a JUnit tests, you must define values in the **config.properties** file located in the **resources** folder. This file contains values that are required to run the JUnit tests. You can refer to the Java code examples for a explanation of what the values are. For example, if you are running Amazon S3 tests, look in the various S3 code example Java files for an explanation of the values. 
+Before running the JUnit tests, you must define required values in the **config.properties** file that's located in the **resources** folder. To learn what the values represent, you can refer to the Java code examples. For example, if you are running Amazon S3 tests, look in the various Amazon S3 code example Java files for an explanation of the values. 
 
 Docker image (Beta)
 ===================
