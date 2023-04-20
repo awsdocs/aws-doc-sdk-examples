@@ -8,8 +8,8 @@
     "axios": "^0.27.2"
   },
   "peerDependencies": {
-    "@cloudscape-design/components": "^3.0.65",
-    "@cloudscape-design/global-styles": "^1.0.1",
+    "@cloudscape-design/components": "^3.0.251",
+    "@cloudscape-design/global-styles": "^1.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
