@@ -166,6 +166,13 @@ ALLOW_LIST = {
     'com/pinpoint/latest/apireference/welcome',
     'src/main/java/com/example/s3/S3BucketOps',
     'src/main/java/com/example/s3/ListObjects',
+    'src/main/java/com/example/dynamodb/Query',
+    'com/firehose/latest/APIReference/Welcome',
+    'src/main/java/com/example/iam/CreateRole',
+    'src/main/java/com/example/iam/CreateUser',
+    'src/main/java/com/example/iam/DeleteUser',
+    'src/main/java/com/example/iam/UpdateUser',
+    'src/main/java/com/example/kms/ListGrants',
 }
 
 def check_files(root, quiet):
