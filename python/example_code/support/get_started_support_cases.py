@@ -59,7 +59,7 @@ class SupportCasesScenario:
 
         service_choices = [services_list[index]['name'] for index in range(min(len(services_list), 10))]
         selected_index = q.choose(
-            "Select an example support service by entering a number from the preceeding list:",
+            "Select an example support service by entering a number from the preceding list:",
             service_choices)
         selected_service = services_list[selected_index]
         print('-' * 88)
@@ -75,7 +75,7 @@ class SupportCasesScenario:
         print(f"Available support categories for Service {service['name']} {len(service['categories'])}:")
         categories_choices = [category['name'] for category in service['categories']]
         selected_index = q.choose(
-            "Select an example support category by entering a number from the preceeding list:",
+            "Select an example support category by entering a number from the preceding list:",
             categories_choices)
         selected_category = service['categories'][selected_index]
         print('-' * 88)
@@ -92,7 +92,7 @@ class SupportCasesScenario:
         print(f"Available severity levels:")
         severity_choices = [level['name'] for level in severity_levels_list]
         selected_index = q.choose(
-            "Select an example severity level by entering a number from the preceeding list:",
+            "Select an example severity level by entering a number from the preceding list:",
             severity_choices)
         selected_severity = severity_levels_list[selected_index]
         print('-' * 88)

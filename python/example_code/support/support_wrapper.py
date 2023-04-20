@@ -130,7 +130,7 @@ class SupportWrapper:
         :return: The attachment set ID.
         """
         try:
-            # Create a sample file to attach
+            # Create a sample file to attach.
             with open('attachment_file.txt', 'w') as f:
                 f.write("This is a sample file for attachment to a support case.")
             with open('attachment_file.txt', 'rb') as f:
