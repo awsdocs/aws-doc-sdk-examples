@@ -18,6 +18,7 @@ Shows how to use the AWS SDK for Python (Boto3) to work with AWS Support.
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
 <!--custom.important.start-->
+You must have a Business, Enterprise On-Ramp, or Enterprise Support plan in order to run these examples.
 <!--custom.important.end-->
 
 ## Code examples
@@ -116,7 +117,7 @@ in the `python` folder.
 ## Additional resources
 
 * [Support User Guide](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html)
-* [Support API Reference](https://docs.aws.amazon.com/support/latest/APIReference/welcome.html)
+* [Support API Reference](https://docs.aws.amazon.com/awssupport/latest/APIReference/welcome.html)
 * [SDK for Python Support reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/stepfunctions.html)
 
 <!--custom.resources.start-->
