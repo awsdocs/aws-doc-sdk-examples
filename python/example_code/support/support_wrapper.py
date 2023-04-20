@@ -106,7 +106,7 @@ class SupportWrapper:
                 communicationBody='Example support case body.',
                 language='en',
                 issueType='customer-service'
-                )
+            )
             case_id = response['caseId']
         except ClientError as err:
             if err.response['Error']['Code'] == 'SubscriptionRequiredException':
@@ -171,7 +171,6 @@ class SupportWrapper:
                 communicationBody="This is an example communication added to a support case.",
                 attachmentSetId=attachment_set_id
             )
-
         except ClientError as err:
             if err.response['Error']['Code'] == 'SubscriptionRequiredException':
                 logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
@@ -272,7 +271,9 @@ class SupportWrapper:
         Describe support cases over a period of time, optionally filtering
         by status.
 
-        :param case_id: The ID of the case to resolve.
+        :param after_time: The start time to include for cases.
+        :param before_time: The end time to include for cases.
+        :param include_resolved: True to include resolved cases in the results.
         :return: The final status of the case.
         """
         try:
@@ -291,7 +292,7 @@ class SupportWrapper:
                             "examples.")
             else:
                 logger.error(
-                    "Couldn't resolve case. Here's why: %s: %s",
+                    "Couldn't describe cases. Here's why: %s: %s",
                     err.response['Error']['Code'], err.response['Error']['Message'])
                 raise
         else:

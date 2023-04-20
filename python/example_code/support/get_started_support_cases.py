@@ -57,7 +57,7 @@ class SupportCasesScenario:
         print(f"AWS Support client returned {len(services_list)} services.")
         print("Displaying first 10 services:")
 
-        service_choices = [services_list[index]['name'] for index in range(10)]
+        service_choices = [services_list[index]['name'] for index in range(min(len(services_list), 10))]
         selected_index = q.choose(
             "Select an example support service by entering a number from the preceeding list:",
             service_choices)
@@ -72,7 +72,7 @@ class SupportCasesScenario:
         :return: The selected category.
         """
         print('-' * 88)
-        print(f"Available support categories for Service {service['name']}:")
+        print(f"Available support categories for Service {service['name']} {len(service['categories'])}:")
         categories_choices = [category['name'] for category in service['categories']]
         selected_index = q.choose(
             "Select an example support category by entering a number from the preceeding list:",
@@ -133,8 +133,9 @@ class SupportCasesScenario:
         add to the communication.
         """
         print('-' * 88)
-        print("Adding a communication and attachment set to the case.")
+        print(f"Adding a communication and attachment set to the case.")
         self.support_wrapper.add_communication_to_case(attachment_set_id, case_id)
+        print(f"Added a communication and attachment set {attachment_set_id} to the case {case_id}.")
         print('-' * 88)
 
     def list_communications(self, case_id):
@@ -146,6 +147,7 @@ class SupportCasesScenario:
         """
         print('-' * 88)
         print("Let's list the communications for our case.")
+        attachment_id = ''
         communications = self.support_wrapper.describe_all_case_communications(case_id)
         for communication in communications:
             print(f"\tCommunication created on {communication['timeCreated']} "
@@ -199,7 +201,7 @@ class SupportCasesScenario:
         print('-'*88)
         print("Welcome to the AWS Support get started with support cases demo.")
         print('-'*88)
-        '''
+
         selected_service = self.display_and_select_service()
         selected_category = self.display_and_select_category(selected_service)
         selected_severity = self.display_and_select_severity()
@@ -209,8 +211,7 @@ class SupportCasesScenario:
         new_attachment_id = self.list_communications(new_case_id)
         self.describe_case_attachment(new_attachment_id)
         self.resolve_case(new_case_id)
-        time.sleep(10)
-        '''
+        wait(10)
         self.list_resolved_cases()
 
         print("\nThanks for watching!")

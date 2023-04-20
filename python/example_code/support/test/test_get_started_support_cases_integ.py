@@ -14,14 +14,14 @@ def mock_wait(monkeypatch):
 
 
 @pytest.mark.integ
-def test_run_get_started_support_cases_integ(input_mocker, capsys):
+def test_run_get_started_scenario_integ(input_mocker, capsys):
     support_client = boto3.client('support')
-    scenario = SupportCasesScenario(
-        SupportWrapper(support_client))
+    support_wrapper = SupportWrapper(support_client)
+    scenario = SupportCasesScenario(support_wrapper)
 
     input_mocker.mock_answers([
-        10,        # Support service choice.
-        5,         # Category choice.
+        1,        # Support service choice.
+        1,         # Category choice.
         1,         # Severity choice.
     ])
 
