@@ -4,7 +4,7 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_iam::{config::Region, types::PolicyScopeType, Client as iamClient};
+use aws_sdk_iam::{config::Region, Client as iamClient};
 use uuid::Uuid;
 
 #[ignore]
@@ -175,7 +175,7 @@ async fn test_list_policies() {
     let client = iamClient::new(&shared_config);
 
     let result =
-        iam_service::list_policies(client, Some(PolicyScopeType::Local), None, None, None).await;
+        iam_service::list_policies(client, "/".to_string()).await;
 
     assert!(result.is_ok());
 }

@@ -367,15 +367,14 @@ pub async fn delete_user_policy(
 // snippet-end:[rust.example_code.iam.service.delete_user_policy]
 
 // snippet-start:[rust.example_code.iam.service.list_policies]
+// snippet-start:[rust.example_code.iam.hello]
 pub async fn list_policies(
     client: iamClient,
     path_prefix: String,
-    max_items: i32,
 ) -> Result<Vec<String>, SdkError<ListPoliciesError>> {
     let mut list_policies = client
         .list_policies()
         .path_prefix(path_prefix)
-        .max_items(max_items)
         .scope(PolicyScopeType::Local)
         .into_paginator()
         .send();
@@ -403,6 +402,7 @@ pub async fn list_policies(
 
     Ok(v)
 }
+// snippet-end:[rust.example_code.iam.hello]
 // snippet-end:[rust.example_code.iam.service.list_policies]
 
 // snippet-start:[rust.example_code.iam.service.list_groups]
