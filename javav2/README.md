@@ -2,21 +2,20 @@
 
 To build and run these AWS SDK for Java (v2) code examples, you need the following:
 
-* `Apache Maven <https://maven.apache.org/>`_ (>3.0)
-* `AWS SDK for Java <https://aws.amazon.com/sdk-for-java/>`_ (downloaded and extracted somewhere on
+* [Apache Maven](https://maven.apache.org/) (>3.0)
+* [AWS SDK for Java](https://aws.amazon.com/sdk-for-java/) (downloaded and extracted somewhere on
   your machine)
-* **All Java (v2) examples assume that you have set up your credentials in the credentials file in the .aws folder**. For information about how to set AWS credentials and the AWS Region, see `Set up AWS credentials and Region for development <http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html>`_ in the *AWS SDK for Java Developer Guide*. You should also set the *AWS Region* within which the operations will be performed. If a Region is not set, the default Region used is **us-east-1**. 
+* **All Java (v2) examples assume that you have set up your credentials in the credentials file in the .aws folder**. For information about how to set AWS credentials and the AWS Region, see [Set up AWS credentials and Region for development](http://docs.aws.amazon.com/sdk-for-java/v2/developer-guide/setup-credentials.html) in the *AWS SDK for Java Developer Guide*. You should also set the *AWS Region* within which the operations will be performed. If a Region is not set, the default Region used is **us-east-1**. 
   
   After you set your AWS credentials in the credentials file located in the .aws folder, you can create a service client like this.
   
            Region region = Region.US_WEST_2;
-         
            S3Client s3 = S3Client.builder()
              .region(region)
              .build();
 
 
-**Note**: For more information about setting your AWS credentials, see  `Supplying and retrieving AWS credentials <https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html>`_.
+**Note**: For more information about setting your AWS credentials, see  [Supplying and retrieving AWS credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
 
 ## AWS SDK for Java
 
