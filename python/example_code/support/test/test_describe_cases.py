@@ -18,7 +18,7 @@ class MockManager:
 
     def setup_stubs(self, error, stop_on, stubber):
         with self.stub_runner(error, stop_on) as runner:
-            runner.add(stubber.stub_describe_cases, self.support_cases)
+            runner.add(stubber.stub_describe_cases, self.support_cases, True)
 
 
 @pytest.fixture
@@ -26,7 +26,7 @@ def mock_mgr(stub_runner, scenario_data, input_mocker):
     return MockManager(stub_runner, scenario_data, input_mocker)
 
 
-def test_describe_cases(mock_mgr, capsys):
+def test_describe_resolved_cases(mock_mgr, capsys):
     mock_mgr.setup_stubs(None, None, mock_mgr.scenario_data.stubber)
 
     mock_mgr.scenario_data.scenario.list_resolved_cases(*mock_mgr.scenario_args)
@@ -34,7 +34,6 @@ def test_describe_cases(mock_mgr, capsys):
     capt = capsys.readouterr()
     for case in mock_mgr.support_cases:
         assert case['caseId'] in capt.out
-
 
 @pytest.mark.parametrize('error, stop_on_index', [
     ('TESTERROR-stub_describe_cases', 0),

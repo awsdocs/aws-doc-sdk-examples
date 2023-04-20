@@ -111,6 +111,19 @@ class SupportCasesScenario:
         print('-' * 88)
         return case_id
 
+    def list_open_cases(self):
+        """
+        List the open cases for the current day.
+        """
+        print('-' * 88)
+        print("Let's list the open cases for the current day.")
+        start_time = str(datetime.utcnow().date())
+        end_time = str(datetime.utcnow().date() + timedelta(days=1))
+        open_cases = self.support_wrapper.describe_cases(start_time, end_time, False)
+        for case in open_cases:
+            print(f"\tCase: {case['caseId']}: status {case['status']}.")
+        print('-' * 88)
+
     def create_attachment_set(self):
         """
         Create an attachment set with a sample file.
@@ -206,6 +219,8 @@ class SupportCasesScenario:
         selected_category = self.display_and_select_category(selected_service)
         selected_severity = self.display_and_select_severity()
         new_case_id = self.create_example_case(selected_service, selected_category, selected_severity)
+        wait(10)
+        self.list_open_cases()
         new_attachment_set_id = self.create_attachment_set()
         self.add_communication(new_case_id, new_attachment_set_id)
         new_attachment_id = self.list_communications(new_case_id)

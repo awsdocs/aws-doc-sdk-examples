@@ -266,14 +266,15 @@ class SupportWrapper:
     # snippet-end:[python.example_code.support.ResolveCase]
 
     # snippet-start:[python.example_code.support.DescribeCases]
-    def describe_cases(self, after_time, before_time, include_resolved):
+    def describe_cases(self, after_time, before_time, resolved):
         """
         Describe support cases over a period of time, optionally filtering
         by status.
 
         :param after_time: The start time to include for cases.
         :param before_time: The end time to include for cases.
-        :param include_resolved: True to include resolved cases in the results.
+        :param resolved: True to include resolved cases in the results,
+            otherwise results are open cases.
         :return: The final status of the case.
         """
         try:
@@ -282,7 +283,7 @@ class SupportWrapper:
             for page in paginator.paginate(
                     afterTime=after_time,
                     beforeTime=before_time,
-                    includeResolvedCases=include_resolved,
+                    includeResolvedCases=resolved,
                     language='en'):
                 cases += page['cases']
         except ClientError as err:
@@ -296,7 +297,8 @@ class SupportWrapper:
                     err.response['Error']['Code'], err.response['Error']['Message'])
                 raise
         else:
-            resolved_cases = filter(lambda case: case['status'] == 'resolved', cases)
-            return resolved_cases
+            if resolved:
+                cases = filter(lambda case: case['status'] == 'resolved', cases)
+            return cases
     # snippet-end:[python.example_code.support.DescribeCases]
 # snippet-end:[python.example_code.support.SupportWrapper_full]

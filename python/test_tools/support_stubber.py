@@ -90,16 +90,15 @@ class SupportStubber(ExampleStubber):
 
     def stub_resolve_case(self, case_id, error_code=None):
         expected_params = {'caseId': case_id}
-        response = {
-            'finalCaseStatus': 'resolved'}
+        response = {'finalCaseStatus': 'resolved'}
         self._stub_bifurcator(
             'resolve_case', expected_params, response, error_code=error_code)
 
-    def stub_describe_cases(self, cases, error_code=None):
+    def stub_describe_cases(self, cases, resolved, error_code=None):
         start_time = str(datetime.utcnow().date())
         end_time = str(datetime.utcnow().date() + timedelta(days=1))
         expected_params = {'afterTime': start_time, 'beforeTime': end_time,
-                           'includeResolvedCases': True, 'language': 'en'}
+                           'includeResolvedCases': resolved, 'language': 'en'}
         response = {'cases': cases}
         self._stub_bifurcator(
             'describe_cases', expected_params, response, error_code=error_code)
