@@ -24,7 +24,7 @@ Shows how to use the AWS SDK for Java 2.x to work with Amazon Simple Storage Ser
 
 ### Prerequisites
 
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `javav2` folder.
+For prerequisites, see the [README](../../README.rst#Prerequisites) in the `javav2` folder.
 
 
 <!--custom.prerequisites.start-->
@@ -106,7 +106,7 @@ This example shows you how to do the following operations:
 ⚠ Running tests might result in charges to your AWS account.
 
 
-To find instructions for running these tests, see the [README](../../README.md#Tests)
+To find instructions for running these tests, see the [README](../../README.rst#Tests)
 in the `javav2` folder.
 
 
