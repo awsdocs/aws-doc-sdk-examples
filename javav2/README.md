@@ -1,16 +1,4 @@
-.. Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0
-   International License (the "License"). You may not use this file except in compliance with the
-   License. A copy of the License is located at http://creativecommons.org/licenses/by-nc-sa/4.0/.
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-   either express or implied. See the License for the specific language governing permissions and
-   limitations under the License.
-
-###########################################
-AWS SDK for Java (v2) code examples
-###########################################
+# AWS SDK for Java (v2) code examples
 
 To build and run these AWS SDK for Java (v2) code examples, you need the following:
 
@@ -30,13 +18,11 @@ To build and run these AWS SDK for Java (v2) code examples, you need the followi
 
 **Note**: For more information about setting your AWS credentials, see  `Supplying and retrieving AWS credentials <https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html>`_.
 
-AWS SDK for Java
-================
+## AWS SDK for Java
 
 The **javav2** folder in this repository contains examples of complete use cases, and AWS service-based code examples.
 
-Use cases
----------
+### Use cases
 
 In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java. Most of these AWS SDK for Java tutorials use the Synchronous Java client.
 
@@ -44,79 +30,71 @@ If you are interested in using the Asynchronous Java client, see one of these tu
 
 + [Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_async) - Discusses using the AWS SDK for Java (asynchronous client) and various AWS services, such as the Amazon Rekognition service, to analyze images. This web MVC application can analyze many images and generate a report that breaks down each image into a series of labels.
 
-+ `Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_async>`_ - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the Spring Framework is used with the AWS SDK for Java asynchronous client for Amazon Simple Notification Service (Amazon SNS).
++ [Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_async) - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the Spring Framework is used with the AWS SDK for Java asynchronous client for Amazon Simple Notification Service (Amazon SNS).
 
 The following tutorials use the synchronous Java client to build sample relational & and non-relational database applications:
 
-+ `Creating your first AWS Java web application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project>`_ - Discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk to create a web application.
++ [Creating your first AWS Java web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_first_project) - Discusses using Amazon DynamoDB, Amazon Simple Notification Service (Amazon SNS), and AWS Elastic Beanstalk to create a web application.
 
-+ `Creating a React and Spring REST application that queries Amazon Redshift data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/CreatingSpringRedshiftRest>`_ - Discusses how to develop a Spring REST API that queries Amazon Redshift data. The Spring REST API uses the AWS SDK for Java to invoke AWS services and is used by a React application that displays the data.
++ [Creating a React and Spring REST application that queries Amazon Redshift data](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/CreatingSpringRedshiftRest) - Discusses how to develop a Spring REST API that queries Amazon Redshift data. The Spring REST API uses the AWS SDK for Java to invoke AWS services and is used by a React application that displays the data.
 
-+ `Creating a React and Spring REST application that queries Amazon Aurora Serverless data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_Spring_RDS_%20Rest>`_ - Discusses how to develop a Spring REST API that queries Amazon Aurora Serverless data. The Spring REST API uses the AWS SDK for Java to invoke AWS services and is used by a React application that displays the data.
++ [Creating a React and Spring REST application that queries Amazon Aurora Serverless data](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_Spring_RDS_%20Rest) - Discusses how to develop a Spring REST API that queries Amazon Aurora Serverless data. The Spring REST API uses the AWS SDK for Java to invoke AWS services and is used by a React application that displays the data.
 
-+ `Creating a React and Spring REST application that queries Amazon RDS for MySQL <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker>`_ - Discusses how to develop a Spring REST API that queries Amazon Relational Database Service (Amazon RDS) MySQL data. The Spring REST API uses the Java JDBC API to query MySQL data that is used by a React application that displays the data.
++ [Creating a React and Spring REST application that queries Amazon RDS for MySQL](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_rds_item_tracker) - Discusses how to develop a Spring REST API that queries Amazon Relational Database Service (Amazon RDS) MySQL data. The Spring REST API uses the Java JDBC API to query MySQL data that is used by a React application that displays the data.
 
-+ `Creating a React and Spring REST application that queries Amazon DynamoDB data <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app>`_ - Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Java to invoke AWS services and is used by a React application that displays the data.
++ [Creating a React and Spring REST application that queries Amazon DynamoDB data](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_dynamodb_web_app) - Discusses how to develop a Spring REST API that queries Amazon DynamoDB data. The Spring REST API uses the AWS SDK for Java to invoke AWS services and is used by a React application that displays the data.
 
 The following tutorials use the synchronous Java client to build sample applications:
 
-+ `Creating a dynamic web application that analyzes photos using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app>`_ - Discusses using the AWS SDK for Java and various AWS services, such as Amazon Rekognition, to analyze images. This web MVC applicatio analyzes many images and generate a report that breaks down each image into a series of labels.
++ [Creating a dynamic web application that analyzes photos using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_app) - Discusses using the AWS SDK for Java and various AWS services, such as Amazon Rekognition, to analyze images. This web MVC applicatio analyzes many images and generate a report that breaks down each image into a series of labels.
 
-+ `Creating a Spring Boot Application that has publish/subscription functionality <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_sample_app>`_ - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the application is created using the Spring Framework with the AWS SDK for Java API for Amazon SNS. 
++ [Creating a Spring Boot Application that has publish/subscription functionality](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_sns_sample_app) - Discusses how to create a web MVC application that has subscription and publish functionality. In this tutorial, the application is created using the Spring Framework with the AWS SDK for Java API for Amazon SNS. 
 
-+ `Creating an  Amazon Simple Queue Service message application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application>`_ - Discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web application.
++ [Creating an  Amazon Simple Queue Service message application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_message_application)  - Discusses using the AWS SDK for Java and the Amazon Simple Queue Service (Amazon SQS) to create a basic messaging web application.
 
-+ `Building a Spring Boot web application that Streams Amazon S3 content over HTTP <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_spring_stream_app>`_ - Discusses how to create a web MVC application that streams Amazon Simple Storage Service (Amazon S3) video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework is used with the AWS SDK for Java API to create the application.
++ [Building a Spring Boot web application that Streams Amazon S3 content over HTTP](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_spring_stream_app) - Discusses how to create a web MVC application that streams Amazon Simple Storage Service (Amazon S3) video content over HTTP. The video is displayed in the application’s view. In this tutorial, the Spring Framework is used with the AWS SDK for Java API to create the application.
 
-+ `Using Amazon Cognito to require a user to log into a web application <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_amazon_cognito_app>`_ - Discusses how to use Amazon Cognito to require a web MVC application to authenticate with users defined in an Amazon Cognito user pool.
++ [Using Amazon Cognito to require a user to log into a web application](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_amazon_cognito_app) - Discusses how to use Amazon Cognito to require a web MVC application to authenticate with users defined in an Amazon Cognito user pool.
 
-+ `Building an Amazon Lex chatbot that handles multiple languages <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lex_chatbot>`_ - Discusses how to create an Amazon Lex chatbot within a web application to engage your website visitors. In addition, this chatbot supports multiple languages that lets users interact with the chatbot in the languages of their choice (for example, French).
++ [Building an Amazon Lex chatbot that handles multiple languages](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lex_chatbot) - Discusses how to create an Amazon Lex chatbot within a web application to engage your website visitors. In addition, this chatbot supports multiple languages that lets users interact with the chatbot in the languages of their choice (for example, French).
 
-+ `Create an Amazon personalize app with the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_amazon_personalize_app>`_ - Discusses how to complete the Amazon personalize workflow from start to finish with the AWS SDK for Java. The project trains two different models with the movie-lens dataset: one with the user-personalization (`aws-user-personalization`) recipe for creating personalized recommendations for your users, and one with the item-to-item similarities (`aws-sims`) recipe to generate recommendations for items that are similar to a given item.
++ [Create an Amazon personalize app with the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_amazon_personalize_app) -  Discusses how to complete the Amazon personalize workflow from start to finish with the AWS SDK for Java. The project trains two different models with the movie-lens dataset: one with the user-personalization (`aws-user-personalization`) recipe for creating personalized recommendations for your users, and one with the item-to-item similarities (`aws-sims`) recipe to generate recommendations for items that are similar to a given item.
 
 The following tutorials are AWS Lambda use cases: 
 
-+ `Creating a photo asset management application using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/pam_source_files>`_ - Discusses how to develop a photo asset management application that lets users manage photos using labels. This serverless application uses many AWS services.
++ [Creating a photo asset management application using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/pam_source_files) - Discusses how to develop a photo asset management application that lets users manage photos using labels. This serverless application uses many AWS services.
 
-+ `Creating AWS serverless workflows using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_workflows_stepfunctions>`_ - Discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
++ [Creating AWS serverless workflows using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_workflows_stepfunctions) - Discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 
-+ `Building an AWS Workflow that sends notifications over multiple channels <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels>`_ - Discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
++ [Building an AWS Workflow that sends notifications over multiple channels](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels) - Discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
 
-+ `Creating an AWS serverless workflow that modifies Amazon Redshift data by using the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_workflow_redshift>`_ - Discusses how to develop a workflow using AWS Step Functions that can modify Amazon Redshift data using the AWS SDK for Java.
++ [Creating an AWS serverless workflow that modifies Amazon Redshift data by using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/create_workflow_redshift) - Discusses how to develop a workflow using AWS Step Functions that can modify Amazon Redshift data using the AWS SDK for Java.
 
-+ `Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_etl_workflow>`_ - Discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function.
++ [Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/Creating_etl_workflow) - Discusses how to develop an AWS serverless workflow that performs an Extract, Transform, and Load (ETL) job. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function.
 
-+ `Creating scheduled events to invoke Lambda functions <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events>`_ - Discusses how to create a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
++ [Creating scheduled events to invoke Lambda functions](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_scheduled_events) - Discusses how to create a scheduled event that invokes an AWS Lambda function by using Amazon CloudWatch Events. In addition, the AWS Lambda function is created by using the AWS Lambda Java runtime API and invokes multiple AWS services to perform a specific use case.
 
-+ `Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_ppe>`_ - Discusses how to create a Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon S3 bucket. The Lambda function updates an Amazon DynamoDB table with the results and sends an email message. 
++ [Creating an Amazon Web Services Lambda function that detects images with Personal Protective Equipment](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_ppe) - Discusses how to create a Lambda function that detects personal protective equipment (PPE) in digital assets located in an Amazon S3 bucket. The Lambda function updates an Amazon DynamoDB table with the results and sends an email message. 
 
-+ `Building an AWS workflow that sends notifications over multiple channels <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels>`_ - Discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
++ [Building an AWS workflow that sends notifications over multiple channels](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_multiple_channels) - Discusses how to develop an AWS serverless workflow that sends notifications over multiple channels. In this AWS tutorial, you create an AWS serverless workflow by using AWS Step Functions, the AWS SDK for Java, and Lambda functions. Each workflow step is implemented by using an AWS Lambda function. 
 
-+ `Creating Lambda functions that tags digital assets located in Amazon S3 buckets <https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_tag_assets>`_ - Discusses how to create a Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket.
++ [Creating Lambda functions that tags digital assets located in Amazon S3 buckets](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_lambda_tag_assets) - Discusses how to create a Lambda function that automatically tags digital assets located in an Amazon Simple Storage Service (Amazon S3) bucket.
 
+### AWS service examples
 
-
-
-AWS service examples
---------------------
-
-The AWS service-specific Java examples are located in the **example_code** folder. The examples are divided into directories by AWS service (**s3**, **sqs**, and so on). Within
-each, you'll find a **pom.xml** file used for building the examples with Maven.
+The AWS service-specific Java examples are located in the **example_code** folder. The examples are divided into directories by AWS service (**s3**, **sqs**, and so on). Within each, you'll find a **pom.xml** file used for building the examples with Maven.
 
 
-Build and run the service examples
-==================================
+## Build and run the service examples
 
-Build the examples using  Apache Maven or Gradle
-------------------------------------------------
+### Build the examples using  Apache Maven or Gradle
 
 To run these examples, you can setup your development environment to use Apache Maven or Gradle to configure and build AWS SDK for Java projects. For more information,  
 see "Get started with the AWS SDK for Java 2.x" located at https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html.
 
 **Note:** Add the POM file you find in a service-specific folder to the POM file in the project. Then create a package that you find in the examples and you can start adding the Java classes to your project.
 
-Build the examples from the command line
------------------------------------------
+### Build the examples from the command line
 
 To build any of the service examples, open a command-prompt (terminal) window and change to the directory containing the examples
 you want to build or run. Then type::
@@ -169,8 +147,7 @@ Once the examples are built, you can run them to see them in action.
    still have Maven installed, however (the Makefile wraps Maven commands).
 
 
-Run the service examples
-------------------------
+### Run the service examples
 
 **IMPORTANT**
 
@@ -188,8 +165,7 @@ Because you built the JAR file that contains the dependencies, you can run an ex
 
           java -cp target/S3J2Project-1.0-SNAPSHOT.jar com.example.s3.ListObjects mybucket
 
-Tests
-=====
+### Tests
 
 You can test the Java code examples for a given AWS service by running a test file located in this GitHub repository. The test file uses JUnit 5 to run the JUnit tests. It's located in the **src/test/java** folder. For more information, see https://junit.org/junit5/.
 
@@ -203,8 +179,7 @@ WARNING: Running these JUnit tests manipulates real Amazon resources and might i
 
 Before running the JUnit tests, you must define required values in the **config.properties** file that's located in the **resources** folder. To learn what the values represent, you can refer to the Java code examples. For example, if you are running Amazon S3 tests, look in the various Amazon S3 code example Java files for an explanation of the values. 
 
-Docker image (Beta)
-===================
+### Docker image (Beta)
 
 This example code will soon be available in a container image
 hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
