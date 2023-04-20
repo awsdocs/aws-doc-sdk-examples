@@ -176,6 +176,7 @@ ALLOW_LIST = {
     'com/redshift/latest/APIReference/Welcome',
     'src/main/java/com/example/sns/ListOptOut',
     'src/main/java/com/example/sns/ListTopics',
+    'src/main/java/com/example/sqs/SQSExample',
 }
 
 def check_files(root, quiet):
