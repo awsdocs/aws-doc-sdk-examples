@@ -388,7 +388,7 @@ pub async fn list_policies(
                     for policy in policies {
                         let policy_name = policy
                             .policy_name()
-                            .unwrap_or_else(|| "Missing policy name.")
+                            .unwrap_or("Missing policy name.")
                             .to_string();
                         println!("{}", policy_name);
                         v.push(policy_name);
