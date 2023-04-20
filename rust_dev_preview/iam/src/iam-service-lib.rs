@@ -367,7 +367,7 @@ pub async fn delete_user_policy(
 // snippet-end:[rust.example_code.iam.service.delete_user_policy]
 
 // snippet-start:[rust.example_code.iam.service.list_policies]
-// snippet-start:[rust.example_code.iam.hello]
+// snippet-start:[rust.example_code.iam.hello_lib]
 pub async fn list_policies(
     client: iamClient,
     path_prefix: String,
@@ -402,7 +402,7 @@ pub async fn list_policies(
 
     Ok(v)
 }
-// snippet-end:[rust.example_code.iam.hello]
+// snippet-end:[rust.example_code.iam.hello_lib]
 // snippet-end:[rust.example_code.iam.service.list_policies]
 
 // snippet-start:[rust.example_code.iam.service.list_groups]
