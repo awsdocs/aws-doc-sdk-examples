@@ -56,7 +56,7 @@ Code excerpts that show you how to call individual service functions.
 ⚠ Running tests might result in charges to your AWS account.
 
 
-To find instructions for running these tests, see the [README](../../README.md#Tests)
+To find instructions for running these tests, see the [README](../../README.md#tests)
 in the `javav2` folder.
 
 
