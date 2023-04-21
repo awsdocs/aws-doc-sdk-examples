@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SetBucketEventBridgeNotification.java demonstrates how to enables notifications of specified events for an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-sourcedescription:[SetBucketEventBridgeNotification.java demonstrates how to enable notifications of specified events for an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon S3]
 /*
