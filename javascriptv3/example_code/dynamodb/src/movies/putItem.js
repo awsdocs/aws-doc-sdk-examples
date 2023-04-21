@@ -26,8 +26,8 @@ export const putItem = async () => {
   export const params = {
     TableName: "TABLE_NAME",
     Item: {
-      primaryKey: "VALUE_1",
-      sortKey: "VALUE_2",
+      PRIMARY_KEY: "VALUE_1", //e.g. title: "Rush"
+      SORT_KEY: "VALUE_2", // e.g. year: "2013"
     },
   };
   try {
