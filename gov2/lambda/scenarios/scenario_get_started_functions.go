@@ -43,7 +43,7 @@ func (helper *ScenarioHelper) Pause(secs int) {
 	time.Sleep(time.Duration(secs) * time.Second)
 }
 
-// CreateDeploymentPackage creates a Lambda deployment package from a source file. The
+// CreateDeploymentPackage creates an AWS Lambda deployment package from a source file. The
 // deployment package is stored in .zip format in a bytes.Buffer. The buffer can be
 // used to pass a []byte to Lambda when creating the function.
 // The specified destinationFile is the name to give the file when it's deployed to Lambda.
@@ -80,7 +80,7 @@ func (helper *ScenarioHelper) CreateDeploymentPackage(sourceFile string, destina
 // GetStartedFunctionsScenario shows you how to use AWS Lambda to perform the following
 // actions:
 //
-//  1. Create an IAM role and Lambda function, then upload handler code.
+//  1. Create an AWS Identity and Access Management (IAM) role and Lambda function, then upload handler code.
 //  2. Invoke the function with a single parameter and get results.
 //  3. Update the function code and configure with an environment variable.
 //  4. Invoke the function with new parameters and get results. Display the returned execution log.
@@ -207,7 +207,7 @@ func (scenario GetStartedFunctionsScenario) CreateFunction(role *iamtypes.Role) 
 // InvokeIncrement invokes a Lambda function that increments a number. The function
 // parameters are contained in a Go struct that is used to serialize the parameters to
 // a JSON payload that is passed to the function.
-// The result payload is deserialized into a Go struct that contain an int value.
+// The result payload is deserialized into a Go struct that contains an int value.
 func (scenario GetStartedFunctionsScenario) InvokeIncrement(funcName string) {
 	parameters := actions.IncrementParameters{Action: "increment"}
 	log.Println("Let's invoke our function. This function increments a number.")
@@ -247,8 +247,8 @@ func (scenario GetStartedFunctionsScenario) UpdateFunction(funcName string) {
 	log.Println(strings.Repeat("-", 88))
 }
 
-// InvokeCalculator invokes the Lambda calculator function. The parameters stored in a
-// Go struct that is used to serialize the parameters to a JSON payload that is passed
+// InvokeCalculator invokes the Lambda calculator function. The parameters are stored in a
+// Go struct that is used to serialize the parameters to a JSON payload. That payload is then passed
 // to the function.
 // The result payload is deserialized to a Go struct that stores the result as either an
 // int or float32, depending on the kind of operation that was specified.
@@ -267,7 +267,7 @@ func (scenario GetStartedFunctionsScenario) InvokeCalculator(funcName string) {
 		}
 		invokeOutput := scenario.functionWrapper.Invoke(funcName, calcParameters, true)
 		var payload any
-		if choice == 3 { // divide-by results in a float
+		if choice == 3 { // divide-by results in a float.
 			payload = actions.LambdaResultFloat{}
 		} else {
 			payload = actions.LambdaResultInt{}

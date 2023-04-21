@@ -21,7 +21,7 @@ import (
 // `-scenario` can be one of the following:
 //
 //   - `functions` - Runs an interactive scenario that shows you how to create and
-//     invoke a Lambda function, then update the code and invoke it again.
+//     invoke an AWS Lambda function, then update the code and invoke it again.
 func main() {
 	scenarioMap := map[string]func(sdkConfig aws.Config){
 		"functions": runGetStartedFunctionsScenario,

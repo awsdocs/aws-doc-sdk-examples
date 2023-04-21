@@ -20,7 +20,7 @@ import (
 // snippet-start:[gov2.lambda.FunctionWrapper.struct]
 
 // FunctionWrapper encapsulates function actions used in the examples.
-// It contains a Lambda service client that is used to perform user actions.
+// It contains an AWS Lambda service client that is used to perform user actions.
 type FunctionWrapper struct {
 	LambdaClient *lambda.Client
 }
