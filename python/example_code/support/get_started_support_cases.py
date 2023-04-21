@@ -8,16 +8,16 @@ Shows how to use the AWS SDK for Python (Boto3) with AWS Support to
 do the following:
 
 1.  Get and display services. Select a service from the list.
-    2.  Select a category from the selected service.
-    3.  Get and display severity levels and select a severity level from the list.
-    4.  Create a support case using the selected service, category, and severity level.
-    5.  Get and display a list of open support cases for the current day.
-    6.  Create an attachment set with a sample text file to add to the case.
-    7.  Add a communication with the attachment to the support case.
-    8.  List the communications of the support case.
-    9.  Describe the attachment set.
-    10. Resolve the support case.
-    11. Get a list of resolved cases for the current day.
+2.  Select a category from the selected service.
+3.  Get and display severity levels and select a severity level from the list.
+4.  Create a support case using the selected service, category, and severity level.
+5.  Get and display a list of open support cases for the current day.
+6.  Create an attachment set with a sample text file to add to the case.
+7.  Add a communication with the attachment to the support case.
+8.  List the communications of the support case.
+9.  Describe the attachment set.
+10. Resolve the support case.
+11. Get a list of resolved cases for the current day.
 """
 
 from datetime import datetime, timedelta
@@ -57,7 +57,7 @@ class SupportCasesScenario:
         print(f"AWS Support client returned {len(services_list)} services.")
         print("Displaying first 10 services:")
 
-        service_choices = [services_list[index]['name'] for index in range(min(len(services_list), 10))]
+        service_choices = [svc['name'] for svc in services_list[:10]]
         selected_index = q.choose(
             "Select an example support service by entering a number from the preceding list:",
             service_choices)
@@ -69,6 +69,7 @@ class SupportCasesScenario:
         """
         Lists categories for a support service and prompts the user to select one.
 
+        :param service: The service of the categories.
         :return: The selected category.
         """
         print('-' * 88)
@@ -102,6 +103,9 @@ class SupportCasesScenario:
         """
         Creates an example support case with the user's selections.
 
+        :param service: The service for the new case.
+        :param category: The category for the new case.
+        :param severity_level: The severity level for the new case.
         :return: The caseId of the new support case.
         """
         print('-' * 88)
@@ -207,8 +211,7 @@ class SupportCasesScenario:
             print(f"\tCase: {case['caseId']}: status {case['status']}.")
         print('-' * 88)
 
-    def run_scenario(
-            self):
+    def run_scenario(self):
         logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 
         print('-'*88)

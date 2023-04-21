@@ -130,16 +130,11 @@ class SupportWrapper:
         :return: The attachment set ID.
         """
         try:
-            # Create a sample file to attach.
-            with open('attachment_file.txt', 'w') as f:
-                f.write("This is a sample file for attachment to a support case.")
-            with open('attachment_file.txt', 'rb') as f:
-                file_data = f.read()
             response = self.support_client.add_attachments_to_set(
                 attachments=[
                     {
                         'fileName': 'attachment_file.txt',
-                        'data': file_data
+                        'data': b"This is a sample file for attachment to a support case."
                     }
                 ])
             new_set_id = response['attachmentSetId']
