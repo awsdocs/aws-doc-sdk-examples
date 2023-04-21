@@ -4,11 +4,10 @@
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.8)
 
-set(SERVICE_NAME sns)
-set(SERVICE_COMPONENTS sns)
+set(SERVICE_COMPONENTS sns sqs)
 
 # Set this project's name.
-project("${SERVICE_NAME}-examples")
+project(topics_and_queues)
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 11)
@@ -36,27 +35,11 @@ if (MSVC)
     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 endif ()
 
-# AWSDOC_SOURCE can be defined in the command line to limit the files in a build. For example,
-# you can limit files to one action.
-if (NOT DEFINED AWSDOC_SOURCE)
-    file(GLOB AWSDOC_SOURCE
-            "*.cpp"
-            )
-endif ()
+add_executable(${PROJECT_NAME}
+        messaging_with_topics_and_queues.cpp)
 
-foreach (file ${AWSDOC_SOURCE})
-    get_filename_component(EXAMPLE ${file} NAME_WE)
-
-    # Build the code example executables.
-    set(EXAMPLE_EXE run_${EXAMPLE})
-
-    add_executable(${EXAMPLE_EXE} ${file})
-
-    target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
-            ${AWSSDK_PLATFORM_DEPS})
-
-endforeach ()
-
+target_link_libraries(${PROJECT_NAME} ${AWSSDK_LINK_LIBRARIES}
+        ${AWSSDK_PLATFORM_DEPS})
 
 if (BUILD_TESTS)
     add_subdirectory(tests)

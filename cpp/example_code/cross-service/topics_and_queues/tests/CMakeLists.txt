@@ -5,8 +5,8 @@
 cmake_minimum_required(VERSION 3.14)
 
 set(EXAMPLE_SERVICE_NAME sns)
-set(CURRENT_TARGET "${EXAMPLE_SERVICE_NAME}_gtest")
-set(CURRENT_TARGET_AWS_DEPENDENCIES sns)
+set(CURRENT_TARGET "topics_and_queues_gtest")
+set(CURRENT_TARGET_AWS_DEPENDENCIES sns sqs)
 
 # Set this project's name.
 project("${EXAMPLE_SERVICE_NAME}-examples-gtests")
@@ -67,30 +67,12 @@ if (MSVC)
     )
 endif ()
 
-# GTEST_SOURCE_FILES can be defined in the command line to limit the files in a build, for example to one action.
-if (NOT DEFINED GTEST_SOURCE_FILES)
-    file(
-            GLOB
-            GTEST_SOURCE_FILES
-            "gtest_*.cpp"
-    )
-endif ()
-
 enable_testing()
-
-foreach (TEST_FILE ${GTEST_SOURCE_FILES})
-    string(REPLACE "gtest_" "../" SOURCE_FILE ${TEST_FILE})
-    if (EXISTS ${SOURCE_FILE})
-        list(APPEND GTEST_SOURCE ${SOURCE_FILE} ${TEST_FILE})
-    else ()
-        message("Error: no associated source file found for ${TEST_FILE}")
-    endif ()
-endforeach ()
 
 target_sources(
         ${CURRENT_TARGET}
         PUBLIC
-        ${GTEST_SOURCE}
+        gtest_messaging_with_topics_and_queues.cpp
         test_main.cpp
         ${EXAMPLE_SERVICE_NAME}_gtests.cpp
 )
