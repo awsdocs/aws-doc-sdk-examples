@@ -4,11 +4,9 @@
 # 'docker build -f cpp/Dockerfile -t <a_docker_file_name> .'
 #
 # The following command will run the docker image, copying your AWS credentials.
-# 'docker run -it --volume ~/.aws/credentials:/root/.aws/credentials <a_docker_file_name>'
+# 'docker run -it --volume ~/.aws/credentials:/home/tests/.aws/credentials <a_docker_file_name>'
 
 FROM amazonlinux:2022
-
-#USER root
 
 # Set up the dependencies.
 RUN \
@@ -43,8 +41,10 @@ RUN \
     make && \
     make install
 
+
 # Copy the C++ example code.
 RUN mkdir -p /src/cpp
+
 COPY cpp /src/cpp/
 
 # The sample files are needed for some of the automated tests.
@@ -52,6 +52,11 @@ RUN mkdir -p /src/resources/sample_files
 COPY resources/sample_files /src/resources/sample_files
 
 WORKDIR /src/cpp/
+
+RUN useradd -ms /bin/bash tests && \
+    chown tests /src/cpp
+
+USER tests
 
 CMD ["bash"]
 
