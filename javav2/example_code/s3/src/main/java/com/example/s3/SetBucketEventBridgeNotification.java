@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[SetBucketEventBridgeNotification.java demonstrates how to enable notifications of specified events for an Amazon Simple Storage Service (Amazon S3) bucket.]
+//snippet-sourcedescription:[SetBucketEventBridgeNotification.java demonstrates how to enables notifications of specified events for an Amazon Simple Storage Service (Amazon S3) bucket.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon S3]
 /*
@@ -50,6 +50,7 @@ public class SetBucketEventBridgeNotification {
         s3Client.close();
     }
 
+    // snippet-start:[s3.java2.s3_enable_notifications.main]
     public static void setBucketNotification(S3Client s3Client, String bucketName, String topicArn, String id) {
         try {
             List<Event> events = new ArrayList<>();
@@ -74,7 +75,7 @@ public class SetBucketEventBridgeNotification {
                 .skipDestinationValidation(true)
                 .build();
 
-            // Set the bucket notification configuration.
+            // Set the bucket notification configuration
             s3Client.putBucketNotificationConfiguration(configurationRequest);
             System.out.println("Added bucket " + bucketName + " with EventBridge events enabled.");
 
@@ -83,4 +84,5 @@ public class SetBucketEventBridgeNotification {
             System.exit(1);
         }
     }
+    // snippet-end:[s3.java2.s3_enable_notifications.main]
 }
