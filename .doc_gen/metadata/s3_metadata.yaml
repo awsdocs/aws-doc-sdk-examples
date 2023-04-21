@@ -752,6 +752,9 @@ s3_GetObject:
             - description: Get an object by using the S3Presigner client object using an <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
               snippet_tags:
                 - presigned.java2.getobjectpresigned.main
+            - description: Get an object by using a ResponseTransformer object and <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client</ulink>.
+              snippet_tags:
+                - s3.java2.getobjectdata.transformer.main
     PHP:
       versions:
         - sdk_version: 3
