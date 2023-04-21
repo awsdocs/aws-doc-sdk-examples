@@ -75,7 +75,7 @@ public class SetBucketEventBridgeNotification {
                 .skipDestinationValidation(true)
                 .build();
 
-            // Set the bucket notification configuration
+            // Set the bucket notification configuration.
             s3Client.putBucketNotificationConfiguration(configurationRequest);
             System.out.println("Added bucket " + bucketName + " with EventBridge events enabled.");
 
