@@ -2,12 +2,14 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[Glacier.dotnetv3.GlacierActions]
+
+using System.Net;
 using Amazon.Glacier;
 using Amazon.Glacier.Model;
 using Amazon.Glacier.Transfer;
 using Amazon.Runtime;
 
-namespace ServiceActions;
+namespace GlacierActions;
 
 /// <summary>
 /// A class implementing methods for Amazon Simple Storage Service Glacier
@@ -22,7 +24,7 @@ public class GlacierWrapper
     /// <summary>
     /// Constructor for the GlacierWrapper.
     /// </summary>
-    /// <param name="glacierService">The injected Glacier client object.</param>
+    /// <param name="glacierService">The injected Amazon S3 Glacier client object.</param>
     public GlacierWrapper(IAmazonGlacier glacierService)
     {
         _glacierService = glacierService;
@@ -49,7 +51,7 @@ public class GlacierWrapper
         };
 
         var response = await _glacierService.AddTagsToVaultAsync(request);
-        return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        return response.HttpStatusCode == HttpStatusCode.NoContent;
     }
     // snippet-end:[Glacier.dotnetv3.GlacierActions.AddTagsToVault]
 
@@ -74,7 +76,7 @@ public class GlacierWrapper
 
         Console.WriteLine($"Created {vaultName} at: {response.Location}");
 
-        return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
+        return response.HttpStatusCode == HttpStatusCode.Created;
     }
     // snippet-end:[Glacier.dotnetv3.GlacierActions.CreateVault]
 
@@ -83,7 +85,7 @@ public class GlacierWrapper
     {
         var request = new ListJobsRequest
         {
-            // Using a hyphen "=" for the Account Id will
+            // Using a hyphen "-" for the Account Id will
             // cause the SDK to use the Account Id associated
             // with the default user.
             AccountId = "-",
@@ -127,7 +129,7 @@ public class GlacierWrapper
 
     // snippet-start:[Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Download]
     /// <summary>
-    /// Down an archive from an Amazon S3 Glacier vault using the Archive
+    /// Download an archive from an Amazon S3 Glacier vault using the Archive
     /// Transfer Manager.
     /// </summary>
     /// <param name="vaultName">The name of the vault containing the object.</param>
@@ -187,7 +189,7 @@ public class GlacierWrapper
     {
         var request = new ListJobsRequest
         {
-            // Using a hyphen "=" for the Account Id will
+            // Using a hyphen "-" for the Account Id will
             // cause the SDK to use the Account Id associated
             // with the current account.
             AccountId = "-",
@@ -212,7 +214,7 @@ public class GlacierWrapper
     {
         var request = new ListTagsForVaultRequest
         {
-            // Using a hyphen "=" for the Account Id will
+            // Using a hyphen "-" for the Account Id will
             // cause the SDK to use the Account Id associated
             // with the default user.
             AccountId = "-",
@@ -234,7 +236,7 @@ public class GlacierWrapper
     public async Task<List<DescribeVaultOutput>> ListVaultsAsync()
     {
         var glacierVaultPaginator = _glacierService.Paginators.ListVaults(
-    new ListVaultsRequest { AccountId = "-" });
+            new ListVaultsRequest { AccountId = "-" });
         var vaultList = new List<DescribeVaultOutput>();
 
         await foreach (var vault in glacierVaultPaginator.VaultList)
@@ -253,17 +255,16 @@ public class GlacierWrapper
     /// </summary>
     /// <param name="vaultName">The name of the Amazon S3 Glacier vault to upload
     /// the archive to.</param>
-    /// <param name="archiveName">The name of the archive to upload to the vault.</param>
-    /// <param name="description">The description of the vault.</param>
+    /// <param name="archiveFilePath">The file path of the archive to upload to the vault.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
-    public async Task<string> UploadArchiveWithArchiveManager(string vaultName, string description, string archiveName)
+    public async Task<string> UploadArchiveWithArchiveManager(string vaultName, string archiveFilePath)
     {
         try
         {
             var manager = new ArchiveTransferManager(_glacierService);
 
             // Upload an archive.
-            var response = await manager.UploadAsync(vaultName, "upload archive test", archiveName);
+            var response = await manager.UploadAsync(vaultName, "upload archive test", archiveFilePath);
             return response.ArchiveId;
         }
         catch (AmazonGlacierException ex)
@@ -274,6 +275,7 @@ public class GlacierWrapper
     }
 
     // snippet-end:[Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Upload]
+
 }
 
 // snippet-end:[Glacier.dotnetv3.GlacierActions]

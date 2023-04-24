@@ -1,4 +1,21 @@
 # zexi 0.4.0
+glacier_Hello:
+  title: Hello &GLlong;
+  title_abbrev: Hello &GLlong;
+  synopsis: get started using &GLlong;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.HelloGlacier
+  services:
+    glacier: {ListVaults}
 glacier_CreateVault:
   title: Create an &GLlong; vault using an &AWS; SDK
   title_abbrev: Create a vault
@@ -305,6 +322,22 @@ glacier_DescribeJob:
                 - python.example_code.glacier.DescribeJob
   services:
     glacier: {DescribeJob}
+glacier_DescribeVault:
+  title: Describe an &GLlong; vault using an &AWS; SDK
+  title_abbrev: Describe a vault
+  synopsis: describe an &GLlong; vault.
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Glacier
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Glacier.dotnetv3.GlacierActions.DescribeVault
+  services:
+    glacier: {DescribeVault}
 glacier_GetJobOutput:
   title: Get &GLlong; job output using an &AWS; SDK
   title_abbrev: Get job output
