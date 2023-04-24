@@ -80,24 +80,6 @@ public class GlacierWrapper
     }
     // snippet-end:[Glacier.dotnetv3.GlacierActions.CreateVault]
 
-    // snippet-start:[Glacier.dotnetv3.GlacierActions.DescribeJobs]
-    public async Task<List<GlacierJobDescription>> DescribeJobsAsync(string vaultName)
-    {
-        var request = new ListJobsRequest
-        {
-            // Using a hyphen "-" for the Account Id will
-            // cause the SDK to use the Account Id associated
-            // with the default user.
-            AccountId = "-",
-            VaultName = vaultName,
-        };
-
-        var response = await _glacierService.ListJobsAsync(request);
-        return response.JobList;
-    }
-
-    // snippet-end:[Glacier.dotnetv3.GlacierActions.DescribeJobs]
-
     // snippet-start:[Glacier.dotnetv3.GlacierActions.DescribeVault]
     /// <summary>
     /// Describe an Amazon S3 Glacier vault.

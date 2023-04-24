@@ -301,15 +301,6 @@ glacier_DescribeJob:
   title_abbrev: Describe a job
   synopsis: describe an &GLlong; job.
   languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Glacier
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - Glacier.dotnetv3.GlacierActions.DescribeJobs
     Python:
       versions:
         - sdk_version: 3

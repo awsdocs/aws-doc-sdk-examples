@@ -112,13 +112,4 @@ public class GlacierWrapperTests
         Assert.True(success);
     }
 
-    [Fact()]
-    [Order(9)]
-    [Trait("Category", "Integration")]
-    public async Task DescribeJobsAsyncTest()
-    {
-        var jobs = await _glacierWrapper.DescribeJobsAsync(_vaultName);
-        Assert.NotNull(jobs);
-    }
-
 }
