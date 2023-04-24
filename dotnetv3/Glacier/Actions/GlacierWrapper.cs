@@ -132,7 +132,7 @@ public class GlacierWrapper
 
             // Download an archive.
             Console.WriteLine("Initiating the archive retrieval job and then polling SQS queue for the archive to be available.");
-            Console.WriteLine("Once the archive is available, downloading will begin.");
+            Console.WriteLine("When the archive is available, downloading will begin.");
             await manager.DownloadAsync(vaultName, archiveId, localFilePath, options);
 
             return true;
@@ -145,7 +145,7 @@ public class GlacierWrapper
     }
 
     /// <summary>
-    /// Event handler to track the progress of the Archive Transfer manager.
+    /// Event handler to track the progress of the Archive Transfer Manager.
     /// </summary>
     /// <param name="sender">The object that raised the event.</param>
     /// <param name="args">The argument values from the object that raised the
