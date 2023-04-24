@@ -47,7 +47,7 @@ async fn convert_text(
     verbose: bool,
     client: &aws_sdk_polly::Client,
     filename: &str,
-) -> Result<String> {
+) -> Result<String, anyhow::Error> {
     if verbose {
         println!("Opening text file {} to convert to audio", filename);
         println!();
@@ -92,7 +92,7 @@ async fn save_mp3_file(
     client: &aws_sdk_s3::Client,
     bucket: &str,
     filename: &str,
-) -> Result<String> {
+) -> Result<String, anyhow::Error> {
     if verbose {
         println!("Saving file {} to bucket {}", filename, bucket);
         println!();
@@ -124,7 +124,7 @@ async fn convert_audio(
     client: &aws_sdk_transcribe::Client,
     uri: &str,
     job_name: &str,
-) -> Result<()> {
+) -> Result<(), anyhow::Error> {
     if verbose {
         println!("Opening audio file location {} to get text", uri);
         println!();
@@ -213,7 +213,7 @@ async fn convert_audio(
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<()> {
+async fn main() -> Result<(), anyhow::Error> {
     tracing_subscriber::fmt::init();
 
     let Opt {
