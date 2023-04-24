@@ -19,7 +19,7 @@ Running the code:
 (javascriptv3/example_code/dynamodb/scenarios/dynamodb_basics/src).
 2. Import this file as a module and then call `main()`. Do this from 
 another file, or use the following command:
-`node -e 'import("./dynamodb_basics.js").then(({ main }) => main())`
+`node -e 'import("./dynamodb_basics.js").then(({ main }) => main())'`
 */
 
 // snippet-start:[javascript.dynamodb_scenarios.dynamodb_basics]

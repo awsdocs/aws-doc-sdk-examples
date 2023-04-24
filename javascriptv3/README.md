@@ -31,7 +31,7 @@ Cross-service examples are located in the [_cross-services folder_](./example_co
 
 - Install the latest stable version of Node.js.
 - Set up a shared configuration file with your credentials. For more information, see the [AWS SDK for JavaScript (v3) Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-shared.html).
-- Install dependencies by running `npm i`
+- Install dependencies by running `npm i` from the same path as this document.
 
 ## Tests
 
