@@ -20,7 +20,7 @@ ts-node ddb_deleteitem.js
 // snippet-start:[dynamodb.JavaScript.item.deleteItemV3]
 // Import required AWS SDK clients and commands for Node.js
 import { DeleteItemCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "./libs/ddbClient.js";
+import { ddbClient } from "../src/libs/ddbClient.js";
 
 // Set the parameters
 export const params = {

@@ -19,7 +19,7 @@ node ddb_getitem.js
 // snippet-start:[dynamodb.JavaScript.item.getItemV3]
 // Import required AWS SDK clients and commands for Node.js
 import { GetItemCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "./libs/ddbClient.js";
+import { ddbClient } from "../src/libs/ddbClient.js";
 
 // Set the parameters
 export const params = {

@@ -6,42 +6,44 @@ which is available at https://github.com/aws/aws-sdk-js-v3. This example is in t
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html.
 
 Purpose:
-ddb_query.js demonstrates how to find items in an Amazon DynamoDB table.
+ddb_scan.js demonstrates how to return items and attributes from an Amazon DynamoDB table.
 
 Running the code:
-node ddb_query.js
+node ddb_scan.js
 */
-// snippet-start:[dynamodb.JavaScript.table.queryV3]
+// snippet-start:[dynamodb.JavaScript.table.scanV3]
 
 // Import required AWS SDK clients and commands for Node.js
-import { QueryCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "./libs/ddbClient.js";
+import { ScanCommand } from "@aws-sdk/client-dynamodb";
+import { ddbClient } from "../src/libs/ddbClient.js";
 
-// Set the parameters
+// Set the parameters.
 export const params = {
-  KeyConditionExpression: "Season = :s and Episode > :e",
-  FilterExpression: "contains (Subtitle, :topic)",
+  // Specify which items in the results are returned.
+  FilterExpression: "Subtitle = :topic AND Season = :s AND Episode = :e",
+  // Define the expression attribute value, which are substitutes for the values you want to compare.
   ExpressionAttributeValues: {
+    ":topic": { S: "SubTitle2" },
     ":s": { N: "1" },
     ":e": { N: "2" },
-    ":topic": { S: "SubTitle" },
   },
-  ProjectionExpression: "Episode, Title, Subtitle",
+  // Set the projection expression, which the the attributes that you want.
+  ProjectionExpression: "Season, Episode, Title, Subtitle",
   TableName: "EPISODES_TABLE",
 };
 
 export const run = async () => {
   try {
-    const data = await ddbClient.send(new QueryCommand(params));
+    const data = await ddbClient.send(new ScanCommand(params));
     data.Items.forEach(function (element) {
       console.log(element.Title.S + " (" + element.Subtitle.S + ")");
     });
     return data;
   } catch (err) {
-    console.error(err);
+    console.log("Error", err);
   }
 };
 run();
-// snippet-end:[dynamodb.JavaScript.table.queryV3]
+// snippet-end:[dynamodb.JavaScript.table.scanV3]
 // For unit tests only.
 // module.exports ={run, params};

@@ -21,7 +21,7 @@ node ddb_createtable.js
 // snippet-start:[dynamodb.JavaScript.table.createTableV3]
 // Import required AWS SDK clients and commands for Node.js
 import { CreateTableCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "./libs/ddbClient.js";
+import { ddbClient } from "../src/libs/ddbClient.js";
 
 // Set the parameters
 export const params = {

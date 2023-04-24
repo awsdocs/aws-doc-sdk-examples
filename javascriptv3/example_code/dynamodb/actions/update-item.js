@@ -20,7 +20,7 @@ node ddb_updateitem.js
 
 // Import required AWS SDK clients and commands for Node.js
 import { UpdateItemCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "./libs/ddbClient.js";
+import { ddbClient } from "../src/libs/ddbClient.js";
 
 export const params = {
     TableName: "TABLE_NAME",
