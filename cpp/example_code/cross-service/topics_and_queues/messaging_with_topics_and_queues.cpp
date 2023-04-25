@@ -2,6 +2,33 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ * Purpose
+ *
+ * Demonstrates messaging with topics and queues using Amazon Simple Notification
+ * Service (Amazon SNS) and Amazon Simple Queue Service (Amazon SQS).
+ *
+ * 1.  Create an Amazon SNS topic, either FIFO (First-In-First-Out) or non-FIFO. (CreateTopic)
+ * 2.  Create an SQS queue. (CreateQueue)
+ * 3.  Get the SQS queue ARN attribute. (GetQueueAttributes)
+ * 4.  Set the SQS queue policy attribute with a policy enabling the receiving of SNS messages. (SetQueueAttributes)
+ * 5.  Subscribe the SQS queue to the SNS topic. (Subscribe)
+ * 6.  Publish a message to the SNS topic. (Publish)
+ * 7.  Poll an SQS queue for its messages. (ReceiveMessage)
+ * 8.  Delete a batch of messages from an SQS queue. (DeleteMessageBatch)
+ * 9.  Delete an SQS queue. (DeleteQueue)
+ * 10. Unsubscribe an SNS subscription. (Unsubscribe)
+ * 11. Delete an SNS topic. (DeleteTopic)
+ *
+ */
 
 #include <aws/core/Aws.h>
 #include <aws/sns/model/CreateTopicRequest.h>
@@ -18,33 +45,33 @@
 #include <aws/sqs/model/SetQueueAttributesRequest.h>
 #include <aws/sqs/SQSClient.h>
 #include <iomanip>
-#include "sns_samples.h"
+#include "topics_and_queues_samples.h"
 
 namespace AwsDoc {
-    namespace SNS {
+    namespace TopicsAndQueues {
         static const Aws::String FIFO_SUFFIX = ".fifo";
         static const int NUMBER_OF_QUEUES = 2;
         static const Aws::String TONE_ATTRIBUTE("tone");
-        static const Aws::Vector<Aws::String> TONES = {"friendly", "funny", "earnest",
+        static const Aws::Vector<Aws::String> TONES = {"cheerful", "funny", "serious",
                                                        "sincere"};
 
-        //! Create an IAM policy which gives an SQS queue permission to receives messages
-        //! from an SNS topic.
+        //! Create an IAM policy which gives an Amazon SQS queue permission to receives messages
+        //! from an TopicsAndQueues topic.
         /*!
          \sa createPolicyForQueue()
-         \param queueARN: The SQS queue ARN.
-         \param topicARN: The SNS topic ARN.
+         \param queueARN: The Amazon SQS queue Amazon Resource Name (ARN).
+         \param topicARN: The Amazon SNS topic ARN.
          \return Aws::String: The policy as JSON.
          */
-        Aws::String createPolicyForQueue(const Aws::String &queueARN,
+        static Aws::String createPolicyForQueue(const Aws::String &queueARN,
                                          const Aws::String &topicARN);
 
-        //! Routine allowing the user to select attributes for a filter policy.
+        //! Routine allowing the user to select attributes for a subscription filter policy.
         /*!
          \sa getFilterPolicyFromUser()
          \return Aws::String: The filter policy as JSON.
          */
-        Aws::String getFilterPolicyFromUser();
+        static Aws::String getFilterPolicyFromUser();
 
         //! Routine which deletes AWS resources create by this scenario.
         /*!
@@ -57,7 +84,7 @@ namespace AwsDoc {
          \param askUser: If true, user interaction is enabled.
          \return bool: Function succeeded.
          */
-        bool cleanUp(const Aws::String& topicARN,
+        static bool cleanUp(const Aws::String& topicARN,
                      const Aws::Vector<Aws::String>& queueURLS,
                      const Aws::Vector<Aws::String>& subscriptionARNS,
                      const Aws::SNS::SNSClient& snsClient,
@@ -70,7 +97,7 @@ namespace AwsDoc {
          \param string: A string to test.
          \return bool: True if empty.
          */
-        bool testForEmptyString(const Aws::String &string);
+        static bool testForEmptyString(const Aws::String &string);
 
         //! Command line prompt/response utility function.
         /*!
@@ -79,7 +106,7 @@ namespace AwsDoc {
          \param test: Test function for response.
          \return Aws::String: User's response.
          */
-        Aws::String askQuestion(const Aws::String &string,
+        static Aws::String askQuestion(const Aws::String &string,
                                 const std::function<bool(
                                         Aws::String)> &test = testForEmptyString);
 
@@ -89,7 +116,7 @@ namespace AwsDoc {
          \param string: A question prompt expecting a 'y' or 'n' response.
          \return bool: True if yes.
          */
-        bool askYesNoQuestion(const Aws::String &string);
+        static bool askYesNoQuestion(const Aws::String &string);
 
         //! Command line prompt/response utility function for an int result confined to
         //! a range.
@@ -100,7 +127,7 @@ namespace AwsDoc {
          \param high: High inclusive.
          \return int: User's response.
          */
-        int askQuestionForIntRange(const Aws::String &string, int low,
+        static int askQuestionForIntRange(const Aws::String &string, int low,
                                    int high);
 
         //! Utility routine to print a line of asterisks to standard out.
@@ -108,7 +135,7 @@ namespace AwsDoc {
          \\sa printAsterisksLine()
         \return void:
          */
-        inline void printAsterisksLine() {
+        static void printAsterisksLine() {
             std::cout << "\n" << std::setfill('*') << std::setw(88) << "\n"
                       << std::endl;
         }
@@ -118,13 +145,18 @@ namespace AwsDoc {
          \sa alwaysTrueTest()
          \return bool: Always true.
          */
-        bool alwaysTrueTest(const Aws::String &) { return true; }
-    } // namespace SNS
+        static bool alwaysTrueTest(const Aws::String &) { return true; }
+    } // namespace TopicsAndQueues
 } // namespace AwsDoc
 
-bool AwsDoc::SNS::gettingStartedWithSNSTopics(
+//! Scenario for messaging with topics and queues using Amazon SNS and Amazon SQS.
+/*!
+ \param clientConfig Aws client configuration.
+ \return bool: Successful completion.
+ */
+bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
         const Aws::Client::ClientConfiguration &clientConfiguration) {
-    std::cout << "Welcome to getting started with SNS topics." << std::endl;
+    std::cout << "Welcome to messaging with topics and queues." << std::endl;
     printAsterisksLine();
     std::cout << "In this workflow, you will create an SNS topic and subscribe "
               << NUMBER_OF_QUEUES <<
@@ -181,6 +213,8 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
     Aws::String topicARN;
     {
         topicName = askQuestion("Enter a name for your SNS topic. ");
+
+        // 1.  Create an Amazon SNS topic, either FIFO or non-FIFO.
         Aws::SNS::Model::CreateTopicRequest request;
 
         if (isFifoTopic) {
@@ -207,7 +241,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
 
         }
         else {
-            std::cerr << "Error with SNS::CreateTopic. "
+            std::cerr << "Error with TopicsAndQueues::CreateTopic. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
 
@@ -223,9 +257,8 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
 
     printAsterisksLine();
 
-    // Create an SQS queue.
     std::cout << "Now you will create " << NUMBER_OF_QUEUES
-              << " SNS queues to subscribe to the topic." << std::endl;
+              << " SQS queues to subscribe to the topic." << std::endl;
     Aws::Vector<Aws::String> queueNames;
     bool filteringMessages = false;
     bool first = true;
@@ -238,6 +271,8 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
             ostringstream << "Enter a name for " << (first ? "an" : "the next")
                           << " SQS queue. ";
             queueName = askQuestion(ostringstream.str());
+
+            // 2.  Create an SQS queue.
             Aws::SQS::Model::CreateQueueRequest request;
             if (isFifoTopic) {
                 request.AddAttributes(Aws::SQS::Model::QueueAttributeName::FifoQueue,
@@ -287,9 +322,10 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                     << std::endl;
         }
 
-        // Get the queue ARN attribute.
+
         Aws::String queueARN;
         {
+            // 3.  Get the SQS queue ARN attribute.
             Aws::SQS::Model::GetQueueAttributesRequest request;
             request.SetQueueUrl(queueURL);
             request.AddAttributeNames(Aws::SQS::Model::QueueAttributeName::QueueArn);
@@ -336,13 +372,14 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
             }
         }
 
-        // Give the queue an IAM Policy with permission to receive messages.
+
         if (first) {
             std::cout
                     << "An IAM policy must be attached to an SQS queue enabling it to receive "
                        "messages from an SNS topic." << std::endl;
         }
         {
+            // 4.  Set the SQS queue policy attribute with a policy enabling the receiving of SNS messages.
             Aws::SQS::Model::SetQueueAttributesRequest request;
             request.SetQueueUrl(queueURL);
             Aws::String policy = createPolicyForQueue(queueARN, topicARN);
@@ -373,8 +410,8 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
 
         printAsterisksLine();
 
-        // Subscribe the queue.
         {
+            // 5.  Subscribe the SQS queue to the SNS topic.
             Aws::SNS::Model::SubscribeRequest request;
             request.SetTopicArn(topicARN);
             request.SetProtocol("sqs");
@@ -430,7 +467,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                 subscriptionARNS.push_back(subscriptionARN);
             }
             else {
-                std::cerr << "Error with SNS::Subscribe. "
+                std::cerr << "Error with TopicsAndQueues::Subscribe. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
 
@@ -447,11 +484,11 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
         first = false;
      }
 
-    // Post to the topic.
     first = true;
     do {
         printAsterisksLine();
 
+        // 6.  Publish a message to the SNS topic.
         Aws::SNS::Model::PublishRequest request;
         request.SetTopicArn(topicARN);
         Aws::String message = askQuestion("Enter a message text to publish.  ");
@@ -500,7 +537,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
             std::cout << "Your message was successfully published." << std::endl;
         }
         else {
-            std::cerr << "Error with SNS::Publish. " << outcome.GetError().GetMessage()
+            std::cerr << "Error with TopicsAndQueues::Publish. " << outcome.GetError().GetMessage()
                       << std::endl;
 
             cleanUp(topicARN,
@@ -522,7 +559,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
     askQuestion("Press any key to continue...", alwaysTrueTest);
 
     for (size_t i = 0; i < queueURLS.size(); ++i) {
-        // Poll the queue
+        // 7.  Poll an SQS queue for its messages.
         std::vector<Aws::String> messages;
         std::vector<Aws::String> receiptHandles;
         while (true) {
@@ -582,7 +619,7 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
                       << std::endl;
         }
 
-        // Delete the messages.
+        // 8.  Delete a batch of messages from an SQS queue.
         if (!receiptHandles.empty()) {
             Aws::SQS::Model::DeleteMessageBatchRequest request;
             request.SetQueueUrl(queueURLS[i]);
@@ -626,17 +663,18 @@ bool AwsDoc::SNS::gettingStartedWithSNSTopics(
  }
 
 
-bool AwsDoc::SNS::cleanUp(const Aws::String &topicARN,
-                          const Aws::Vector<Aws::String> &queueURLS,
-                          const Aws::Vector<Aws::String> &subscriptionARNS,
-                          const Aws::SNS::SNSClient& snsClient,
-                          const Aws::SQS::SQSClient& sqsClient,
-                          bool askUser) {
+bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
+                                      const Aws::Vector<Aws::String> &queueURLS,
+                                      const Aws::Vector<Aws::String> &subscriptionARNS,
+                                      const Aws::SNS::SNSClient& snsClient,
+                                      const Aws::SQS::SQSClient& sqsClient,
+                                      bool askUser) {
     bool result = true;
     if (!queueURLS.empty() && askUser && askYesNoQuestion("Would you like to delete the SQS queues? (y/n) ")) {
         printAsterisksLine();
 
         for (const auto &queueURL: queueURLS) {
+            // 9.  Delete an SQS queue.
             Aws::SQS::Model::DeleteQueueRequest request;
             request.SetQueueUrl(queueURL);
 
@@ -656,6 +694,7 @@ bool AwsDoc::SNS::cleanUp(const Aws::String &topicARN,
         }
 
         for (const auto &subscriptionARN: subscriptionARNS) {
+            // 10. Unsubscribe an SNS subscription.
             Aws::SNS::Model::UnsubscribeRequest request;
             request.SetSubscriptionArn(subscriptionARN);
 
@@ -666,7 +705,7 @@ bool AwsDoc::SNS::cleanUp(const Aws::String &topicARN,
                           << "' was successful." << std::endl;
             }
             else {
-                std::cerr << "Error with SNS::Unsubscribe. "
+                std::cerr << "Error with TopicsAndQueues::Unsubscribe. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
                 result = false;
@@ -677,6 +716,7 @@ bool AwsDoc::SNS::cleanUp(const Aws::String &topicARN,
     if (!topicARN.empty() && askUser && askYesNoQuestion("Would you like to delete the SNS topic? (y/n) ")) {
         printAsterisksLine();
 
+        // 11. Delete an SNS topic.
         Aws::SNS::Model::DeleteTopicRequest request;
         request.SetTopicArn(topicARN);
 
@@ -687,7 +727,7 @@ bool AwsDoc::SNS::cleanUp(const Aws::String &topicARN,
                       << "' was successfully deleted." << std::endl;
         }
         else {
-            std::cerr << "Error with SNS::DeleteTopicRequest. "
+            std::cerr << "Error with TopicsAndQueues::DeleteTopicRequest. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
             result = false;
@@ -697,8 +737,16 @@ bool AwsDoc::SNS::cleanUp(const Aws::String &topicARN,
     return result;
 }
 
-Aws::String AwsDoc::SNS::createPolicyForQueue(const Aws::String &queueARN,
-                                              const Aws::String &topicARN) {
+//! Create an IAM policy which gives an Amazon SQS queue permission to receives messages
+//! from an TopicsAndQueues topic.
+/*!
+ \sa createPolicyForQueue()
+ \param queueARN: The Amazon SQS queue Amazon Resource Name (ARN).
+ \param topicARN: The Amazon SNS topic ARN.
+ \return Aws::String: The policy as JSON.
+ */
+Aws::String AwsDoc::TopicsAndQueues::createPolicyForQueue(const Aws::String &queueARN,
+                                                          const Aws::String &topicARN) {
     std::ostringstream policyStream;
     policyStream << R"({
         "Statement": [
@@ -721,6 +769,13 @@ Aws::String AwsDoc::SNS::createPolicyForQueue(const Aws::String &queueARN,
     return policyStream.str();
 }
 
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_messaging_with_topics_and_queues'
+ *
+ */
 
 #ifndef TESTING_BUILD
 
@@ -737,7 +792,7 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::SNS::gettingStartedWithSNSTopics(clientConfig);
+        AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
@@ -751,7 +806,7 @@ int main(int argc, char **argv) {
  \param string: A string to test.
  \return bool: True if empty.
  */
-bool AwsDoc::SNS::testForEmptyString(const Aws::String &string) {
+bool AwsDoc::TopicsAndQueues::testForEmptyString(const Aws::String &string) {
     if (string.empty()) {
         std::cout << "Enter some text." << std::endl;
         return false;
@@ -767,8 +822,8 @@ bool AwsDoc::SNS::testForEmptyString(const Aws::String &string) {
  \param test: Test function for response.
  \return Aws::String: User's response.
  */
-Aws::String AwsDoc::SNS::askQuestion(const Aws::String &string,
-                                     const std::function<bool(
+Aws::String AwsDoc::TopicsAndQueues::askQuestion(const Aws::String &string,
+                                                 const std::function<bool(
                                              Aws::String)> &test) {
     Aws::String result;
     do {
@@ -785,7 +840,7 @@ Aws::String AwsDoc::SNS::askQuestion(const Aws::String &string,
  \param string: A question prompt expecting a 'y' or 'n' response.
  \return bool: True if yes.
  */
-bool AwsDoc::SNS::askYesNoQuestion(const Aws::String &string) {
+bool AwsDoc::TopicsAndQueues::askYesNoQuestion(const Aws::String &string) {
     Aws::String resultString = askQuestion(string, [](
             const Aws::String &string1) -> bool {
             bool result = false;
@@ -813,8 +868,8 @@ bool AwsDoc::SNS::askYesNoQuestion(const Aws::String &string) {
  \param high: High inclusive.
  \return int: User's response.
  */
-int AwsDoc::SNS::askQuestionForIntRange(const Aws::String &string, int low,
-                                        int high) {
+int AwsDoc::TopicsAndQueues::askQuestionForIntRange(const Aws::String &string, int low,
+                                                    int high) {
     Aws::String resultString = askQuestion(string, [low, high](
             const Aws::String &string1) -> bool {
             try {
@@ -843,7 +898,12 @@ int AwsDoc::SNS::askQuestionForIntRange(const Aws::String &string, int low,
     return result;
 }
 
-Aws::String AwsDoc::SNS::getFilterPolicyFromUser() {
+//! Routine allowing the user to select attributes for a subscription filter policy.
+/*!
+ \sa getFilterPolicyFromUser()
+ \return Aws::String: The filter policy as JSON.
+ */
+Aws::String AwsDoc::TopicsAndQueues::getFilterPolicyFromUser() {
     std::cout
             << "You can filter messages by one or more of the following \""
             << TONE_ATTRIBUTE << "\" attributes." << std::endl;

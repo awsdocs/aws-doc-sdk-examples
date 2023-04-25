@@ -12,12 +12,12 @@
  */
 
 #include <gtest/gtest.h>
-#include "sns_samples.h"
-#include "sns_gtests.h"
+#include "topics_and_queues_samples.h"
+#include "topics_and_queues_gtests.h"
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SNS_GTests, getting_startedV1_2_) {
+    TEST_F(TopicsAndQueues_GTests, getting_startedV1_2_) {
 
         AddCommandLineResponses({
                                         "n", // Would you like to work with FIFO topics? (y/n)
@@ -33,12 +33,13 @@ namespace AwsDocTest {
                                         "y" // Would you like to delete the SNS topic? (y/n)
                                 });
 
-        auto result = AwsDoc::SNS::gettingStartedWithSNSTopics(*s_clientConfig);
+        auto result = AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
+                *s_clientConfig);
         ASSERT_TRUE(result);
     }
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SNS_GTests, getting_startedV2_2_) {
+    TEST_F(TopicsAndQueues_GTests, getting_startedV2_2_) {
 
         AddCommandLineResponses({
                                         "y", // Would you like to work with FIFO topics? (y/n)
@@ -59,12 +60,13 @@ namespace AwsDocTest {
                                         "y" // Would you like to delete the SNS topic? (y/n)
                                 });
 
-        auto result = AwsDoc::SNS::gettingStartedWithSNSTopics(*s_clientConfig);
+        auto result = AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
+                *s_clientConfig);
         ASSERT_TRUE(result);
     }
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SNS_GTests, getting_startedV3_2_) {
+    TEST_F(TopicsAndQueues_GTests, getting_startedV3_2_) {
 
         AddCommandLineResponses({
                                         "y", // Would you like to work with FIFO topics? (y/n)
@@ -87,12 +89,13 @@ namespace AwsDocTest {
                                         "y" // Would you like to delete the SNS topic? (y/n)
                                 });
 
-        auto result = AwsDoc::SNS::gettingStartedWithSNSTopics(*s_clientConfig);
+        auto result = AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
+                *s_clientConfig);
         ASSERT_TRUE(result);
     }
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SNS_GTests, getting_startedV4_2_) {
+    TEST_F(TopicsAndQueues_GTests, getting_startedV4_2_) {
 
         AddCommandLineResponses({
                                         "y", // Would you like to work with FIFO topics? (y/n)
@@ -121,13 +124,14 @@ namespace AwsDocTest {
                                         "y" // Would you like to delete the SNS topic? (y/n)
                                 });
 
-        auto result = AwsDoc::SNS::gettingStartedWithSNSTopics(*s_clientConfig);
+        auto result = AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
+                *s_clientConfig);
         ASSERT_TRUE(result);
     }
 
 
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SNS_GTests, getting_startedV5_2_) {
+    TEST_F(TopicsAndQueues_GTests, getting_startedV5_2_) {
 
         AddCommandLineResponses({
                                         "y", // Would you like to work with FIFO topics? (y/n)
@@ -154,7 +158,8 @@ namespace AwsDocTest {
                                         "y" // Would you like to delete the SNS topic? (y/n)
                                 });
 
-        auto result = AwsDoc::SNS::gettingStartedWithSNSTopics(*s_clientConfig);
+        auto result = AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
+                *s_clientConfig);
         ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest

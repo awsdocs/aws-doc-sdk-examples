@@ -4,7 +4,6 @@
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.14)
 
-set(EXAMPLE_SERVICE_NAME sns)
 set(CURRENT_TARGET "topics_and_queues_gtest")
 set(CURRENT_TARGET_AWS_DEPENDENCIES sns sqs)
 
@@ -73,8 +72,9 @@ target_sources(
         ${CURRENT_TARGET}
         PUBLIC
         gtest_messaging_with_topics_and_queues.cpp
+        ../messaging_with_topics_and_queues.cpp
         test_main.cpp
-        ${EXAMPLE_SERVICE_NAME}_gtests.cpp
+        topics_and_queues_gtests.cpp
 )
 
 target_include_directories(

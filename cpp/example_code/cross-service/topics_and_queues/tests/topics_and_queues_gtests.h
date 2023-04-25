@@ -22,7 +22,7 @@ namespace AwsDocTest {
         int underflow() override;
     };
 
-    class SNS_GTests : public testing::Test {
+    class TopicsAndQueues_GTests : public testing::Test {
     protected:
 
         void SetUp() override;
@@ -32,22 +32,6 @@ namespace AwsDocTest {
         static void SetUpTestSuite();
 
         static void TearDownTestSuite();
-
-        static Aws::String preconditionError();
-
-        static bool deleteTopic(const Aws::String &topicARN);
-
-        static bool createTopic(Aws::String &topicARN);
-
-        static Aws::String getStashedTopicARN();
-
-        static Aws::String getSubscriptionARN();
-
-        static Aws::String getStashedSubscription();
-
-        static bool unsubscribe(const Aws::String& subscriptionARN);
-
-        static Aws::String uuidName(const Aws::String &name);
 
         void AddCommandLineResponses(const std::vector<std::string> &responses);
 
@@ -59,9 +43,6 @@ namespace AwsDocTest {
 
         bool suppressStdOut();
 
-        static Aws::String s_stashedTopicARN;
-        static Aws::String s_stashedSubscriptionARN;
-
         static Aws::SDKOptions s_options;
 
         std::stringbuf m_coutBuffer;  // Used to silence cout.
@@ -69,7 +50,7 @@ namespace AwsDocTest {
 
         MyStringBuffer m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
-    }; // SNS_GTests
+    }; // TopicsAndQueues_GTests
 
 
     class MockHTTP {

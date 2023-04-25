@@ -7,7 +7,9 @@ cmake_minimum_required(VERSION 3.8)
 set(SERVICE_COMPONENTS sns sqs)
 
 # Set this project's name.
-project(topics_and_queues)
+project(messaging_with_topics_and_queues)
+
+set(EXECUTABLE_NAME run_${PROJECT_NAME})
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 11)
@@ -35,10 +37,11 @@ if (MSVC)
     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
 endif ()
 
-add_executable(${PROJECT_NAME}
+add_executable(${EXECUTABLE_NAME}
         messaging_with_topics_and_queues.cpp)
 
-target_link_libraries(${PROJECT_NAME} ${AWSSDK_LINK_LIBRARIES}
+target_link_libraries(${EXECUTABLE_NAME}
+        ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS})
 
 if (BUILD_TESTS)
