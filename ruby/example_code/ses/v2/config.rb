@@ -6,5 +6,5 @@ SENDER_EMAIL = "sender@example.com"
 # is still in the sandbox, this address must be verified.
 RECIPIENT_EMAIL = "recipient@example.com"
 
-# Replace 'us-east-1' with your preferred AWS Region
+# Replace 'us-east-1' with your preferred AWS Region.
 AWS_REGION = "us-east-1"
