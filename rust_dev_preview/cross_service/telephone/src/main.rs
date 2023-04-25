@@ -3,12 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use anyhow::{Context, Result};
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_polly::config::Region;
 use aws_sdk_polly::types::{OutputFormat, VoiceId};
 use aws_sdk_transcribe::types::{LanguageCode, Media, MediaFormat, TranscriptionJobStatus};
 use clap::Parser;
-use serde_json::{Result, Value};
+use serde_json::Value;
 use std::fs;
 use std::path::Path;
 use std::time::Duration;
@@ -42,42 +43,45 @@ struct Opt {
 /// with the ".txt" extension replaced by ".mp3".
 /// If successful, returns the name of the audio file.
 // snippet-start:[telephone.rust.main-convert_text]
-async fn convert_text(verbose: bool, client: &aws_sdk_polly::Client, filename: &str) -> String {
+async fn convert_text(
+    verbose: bool,
+    client: &aws_sdk_polly::Client,
+    filename: &str,
+) -> Result<String, anyhow::Error> {
     if verbose {
         println!("Opening text file {} to convert to audio", filename);
         println!();
     }
 
-    let content = fs::read_to_string(filename);
+    let content = fs::read_to_string(filename)?;
 
     let resp = client
         .synthesize_speech()
         .output_format(OutputFormat::Mp3)
-        .text(content.unwrap())
+        .text(content)
         .voice_id(VoiceId::Joanna)
-        .send();
+        .send()
+        .await
+        .context("synthesizing text")?;
 
     // Get MP3 data from response and save it to a file.
     let mut blob = resp
-        .await
-        .unwrap()
         .audio_stream
         .collect()
         .await
-        .expect("failed to read data");
+        .context("reading audio data")?;
 
-    let parts: Vec<&str> = filename.split('.').collect();
-    let out_file = format!("{}{}", String::from(parts[0]), ".mp3");
+    let out_file = format!("{}{}", filename.split('.').nth(1).unwrap(), ".mp3");
 
     let mut file = tokio::fs::File::create(&out_file)
         .await
-        .expect("failed to create file");
+        .context("creating file")?;
 
     file.write_all_buf(&mut blob)
         .await
-        .expect("failed to write to file");
+        .context("writing to file")?;
 
-    out_file
+    Ok(out_file)
 }
 // snippet-end:[telephone.rust.main-convert_text]
 
@@ -88,14 +92,13 @@ async fn save_mp3_file(
     client: &aws_sdk_s3::Client,
     bucket: &str,
     filename: &str,
-) -> String {
+) -> Result<String, anyhow::Error> {
     if verbose {
         println!("Saving file {} to bucket {}", filename, bucket);
         println!();
     }
-    let body = aws_sdk_s3::primitives::ByteStream::from_path(Path::new(filename))
-        .await
-        .unwrap();
+
+    let body = aws_sdk_s3::primitives::ByteStream::from_path(Path::new(filename)).await?;
 
     client
         .put_object()
@@ -103,15 +106,14 @@ async fn save_mp3_file(
         .key(filename)
         .body(body)
         .send()
-        .await
-        .unwrap();
+        .await?;
 
     let mut uri: String = "s3://".to_owned();
     uri.push_str(bucket);
     uri.push('/');
     uri.push_str(filename);
 
-    uri
+    Ok(uri)
 }
 // snippet-end:[telephone.rust.main-save_mp3_file]
 
@@ -122,7 +124,7 @@ async fn convert_audio(
     client: &aws_sdk_transcribe::Client,
     uri: &str,
     job_name: &str,
-) -> Result<()> {
+) -> Result<(), anyhow::Error> {
     if verbose {
         println!("Opening audio file location {} to get text", uri);
         println!();
@@ -137,8 +139,7 @@ async fn convert_audio(
         .media_format(MediaFormat::Mp3)
         .language_code(LanguageCode::EnUs)
         .send()
-        .await
-        .unwrap();
+        .await?;
 
     let mut snooze: u64 = 100;
     let mut snooze_total = snooze;
@@ -152,7 +153,7 @@ async fn convert_audio(
             .transcription_job_name(job_name)
             .send()
             .await
-            .unwrap();
+            .context("getting transcription job info")?;
 
         let job = resp.transcription_job.unwrap();
 
@@ -175,7 +176,7 @@ async fn convert_audio(
                     println!();
                 }
 
-                let json_body = reqwest::get(uri).await.unwrap().text().await.unwrap();
+                let json_body = reqwest::get(uri).await?.text().await?;
 
                 if verbose {
                     println!("body = {:?}", json_body);
@@ -212,7 +213,7 @@ async fn convert_audio(
 ///    If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<()> {
+async fn main() -> Result<(), anyhow::Error> {
     tracing_subscriber::fmt::init();
 
     let Opt {
@@ -287,15 +288,19 @@ async fn main() -> Result<()> {
     let transcribe_client = aws_sdk_transcribe::Client::new(&transcribe_shared_config);
 
     // Convert text to MP3 file.
-    let mp3_file = convert_text(verbose, &polly_client, &filename).await;
+    let mp3_file = convert_text(verbose, &polly_client, &filename)
+        .await
+        .context("converting text to audio")?;
 
     // Save MP3 file in Amazon S3 bucket.
-    let uri = save_mp3_file(verbose, &s3_client, &bucket, &mp3_file).await;
+    let uri = save_mp3_file(verbose, &s3_client, &bucket, &mp3_file)
+        .await
+        .context("saving mp3 file")?;
 
     // Transcribe MP3 file and show results.
     convert_audio(verbose, &transcribe_client, &uri, &job_name)
         .await
-        .expect("Could not convert audio file to text");
+        .context("converting audio to text")?;
 
     Ok(())
 }

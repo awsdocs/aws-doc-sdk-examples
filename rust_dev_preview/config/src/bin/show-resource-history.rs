@@ -52,8 +52,8 @@ async fn show_history(client: &Client, id: &str, res: ResourceType) -> Result<()
 /// NOTE: AWS Config must be enabled to discover resources.
 /// # Arguments
 ///
-/// * `-i ID` - The ID of the resource.
-/// * `--resource-type RESOURCE-TYPE` - The resource type, such as `AWS::EC2::SecurityGroup`.
+/// * `[-i ID]` - The ID of the resource.
+/// * `[--resource-type RESOURCE-TYPE]` - The resource type, such as `AWS::EC2::SecurityGroup`.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
