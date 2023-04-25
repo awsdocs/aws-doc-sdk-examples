@@ -8,7 +8,7 @@ Shows how to use the AWS SDK for .NET to work with Amazon Elastic Compute Cloud 
 <!--custom.overview.start-->
 <!--custom.overview.end-->
 
-*Amazon EC2 is a web service that provides resizable computing capacityâ€”literally, servers in Amazon's data centersâ€”that you use to build and host your software systems.*
+*Amazon EC2 is a web service that provides resizable computing capacity—literally, servers in Amazon's data centers—that you use to build and host your software systems.*
 
 ## ⚠ Important
 
@@ -74,8 +74,8 @@ functions within the same service.
 
 For general instructions to run the examples, see the [README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
 
-Some projects may include a settings.json file. Before compiling the project,
-you may change these values to match your own account and resources. Alternatively, add a settings.local.json file with
+Some projects might include a settings.json file. Before compiling the project,
+you can change these values to match your own account and resources. Alternatively, add a settings.local.json file with
 your local settings, which will be loaded automatically when the application runs.
 
 After the example compiles, you can run it from the command line. To do so, navigate to
@@ -130,7 +130,7 @@ in the `dotnetv3` folder.
 
 * [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
 * [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
-* [SDK for .NET Amazon EC2 reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Ec2/NEc2.html)
+* [SDK for .NET Amazon EC2 reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/EC2/NEC2.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

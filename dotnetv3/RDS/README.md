@@ -67,8 +67,8 @@ Sample applications that work across multiple AWS services.
 
 For general instructions to run the examples, see the [README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
 
-Some projects may include a settings.json file. Before compiling the project,
-you may change these values to match your own account and resources. Alternatively, add a settings.local.json file with
+Some projects might include a settings.json file. Before compiling the project,
+you can change these values to match your own account and resources. Alternatively, add a settings.local.json file with
 your local settings, which will be loaded automatically when the application runs.
 
 After the example compiles, you can run it from the command line. To do so, navigate to
@@ -118,7 +118,7 @@ in the `dotnetv3` folder.
 
 * [Amazon RDS User Guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)
 * [Amazon RDS API Reference](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/Welcome.html)
-* [SDK for .NET Amazon RDS reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Rds/NRds.html)
+* [SDK for .NET Amazon RDS reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/RDS/NRDS.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
