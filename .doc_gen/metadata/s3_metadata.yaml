@@ -2162,7 +2162,8 @@ s3_Scenario_BatchObjectVersioning:
 s3_Scenario_PresignedUrl:
   title: Create a presigned URL for &S3; using an &AWS; SDK
   title_abbrev: Create a presigned URL
-  synopsis: create a presigned URL for Amazon S3 and upload an object. For all AWS Regions launched after March 20, 2019 you need to specify the endpoint-url and AWS Region with the request. 
+  synopsis: create a presigned URL for Amazon S3 and upload an object. For all AWS Regions launched after March 20, 2019, you need to specify the endpoint-url and AWS Region with the request. 
+
   category: Scenarios
   languages:
     .NET:
