@@ -21,7 +21,7 @@ node ddbdoc_get_item.js
 // snippet-start:[dynamodb.JavaScript.docClient.getV3]
 
 import { GetCommand } from "@aws-sdk/lib-dynamodb";
-import { ddbDocClient } from "./libs/ddbDocClient";
+import { ddbDocClient } from "../src/libs/ddbDocClient";
 
 // Set the parameters.
 export const params = {

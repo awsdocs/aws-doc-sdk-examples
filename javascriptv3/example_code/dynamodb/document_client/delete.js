@@ -19,7 +19,7 @@ node ddbdoc_delete_item.js
 // snippet-start:[dynamodb.JavaScript.docClient.deleteV3]
 
 import { DeleteCommand } from "@aws-sdk/lib-dynamodb";
-import { ddbDocClient } from "./libs/ddbDocClient";
+import { ddbDocClient } from "../src/libs/ddbDocClient";
 
 // Set the parameters
 export const params = {
