@@ -61,8 +61,8 @@ functions within the same service.
 
 For general instructions to run the examples, see the [README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
 
-Some projects may include a settings.json file. Before compiling the project,
-you may change these values to match your own account and resources. Alternatively, add a settings.local.json file with
+Some projects might include a settings.json file. Before compiling the project,
+you can change these values to match your own account and resources. Alternatively, add a settings.local.json file with
 your local settings, which will be loaded automatically when the application runs.
 
 After the example compiles, you can run it from the command line. To do so, navigate to
@@ -99,7 +99,7 @@ This example shows you how to do the following:
 
 <!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
 Before you run the getting started with Lambda scenario, you have to upload
-the two files to an Amazon Simple Storage Service (Amazon S3) bucket that you
+the following two files to an Amazon Simple Storage Service (Amazon S3) bucket that you
 own:
 
  * [LambdaIncrement.zip](LambdaIncrement.zip)
@@ -107,16 +107,16 @@ own:
  
 ##### Configuration settings
 
-The scenario includes the following settings in *settings.json*:
+The scenario includes the following settings in `settings.json`:
 
- * **FunctionName** - a name for the Lambda function.
- * **Handler** - The name of the handler in the increment function.
- * **UpdatedHandler** - The name of the handler for the calculator function.
- * **BucketName** - The name of the bucket containing the Zip files for the sample functions.
- * **IncrementKey** - "LambdaIncrement.zip",
- * **CalculatorKey** - "LambdaCalculator.zip",
- * **RoleName** - The name of the IAM role that gives the scenario permissions to access Lambda.
- * **PolicyArn** - The Amazon Resource Name (ARN) of a policy giving the IAM role permissions to access Lambda.
+ * `FunctionName` - a name for the Lambda function.
+ * `Handler` - "LambdaIncrement::LambdaIncrement.Function::FunctionHandler"
+ * `UpdatedHandler` - "LambdaCalculator::LambdaCalculator.Function::FunctionHandler"
+ * `BucketName` - The name of the bucket containing the Zip files for the sample functions.
+ * `IncrementKey` - "LambdaIncrement.zip",
+ * `CalculatorKey` - "LambdaCalculator.zip",
+ * `RoleName` - The name of the IAM role that gives the scenario permissions to access Lambda.
+ * `PolicyArn` - The Amazon Resource Name (ARN) of a policy giving the IAM role permissions to access Lambda.
 <!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.end-->
 
 ### Tests

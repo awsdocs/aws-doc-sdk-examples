@@ -68,8 +68,8 @@ functions within the same service.
 
 For general instructions to run the examples, see the [README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
 
-Some projects may include a settings.json file. Before compiling the project,
-you may change these values to match your own account and resources. Alternatively, add a settings.local.json file with
+Some projects might include a settings.json file. Before compiling the project,
+you can change these values to match your own account and resources. Alternatively, add a settings.local.json file with
 your local settings, which will be loaded automatically when the application runs.
 
 After the example compiles, you can run it from the command line. To do so, navigate to
@@ -108,34 +108,30 @@ This scenario requires the following scaffold resources:
   AWS Glue.
 
 
-  You can deploy and destroy resources using the AWS Cloud Development Kit
+  You can deploy and destroy these resources using the AWS Cloud Development Kit
   (AWS CDK). To do this, run `cdk deploy` or `cdk destroy` in the
   [/resources/cdk/glue_role_bucket](/resources/cdk/glue_role_bucket) folder.
   
-When the CDK script reports the name of the bucket and AWS Identity and Access Management (IAM) Role that was created, open the settings.json file and fill in
-  the BucketName and RoleName values. You can use whatever you like for the crawlerName.
+When the AWS CDK script reports the name of the bucket and AWS Identity and Access Management (IAM) Role that was created, open the `settings.json` file and fill in
+  the BucketName, RoleName and ScriptURL values.
 
-  settings.json contains the following values:
+You should also copy the Python script `flight_etl_job_script.py` from
+[/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py](/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py)
+to the Amazon S3 bucket.
 
-    "BucketName": "BUCKET NAME FROM CDK SCRIPT",
-    "BucketUrl": "URL TO TO THE BUCKET CREATED BY CDK SCRIPT",
-    "CrawlerName": "NAME FOR CRAWLER",
-    "RoleName": "ROLE NAME FROM CDK SCRIPT",
+Example:
+
+    "BucketName": "bucket-name-from-cdk-script",
+    "CrawlerName": "any-name-for-crawler",
+    "RoleName": "role-name-from-cdk-script",
     "SourceData": "s3://crawler-public-us-east-1/flight/2016/csv",
     "DbName": "example-flights-db",
     "Cron": "cron(15 12 * * ? *)",
-    "ScriptURL": "PATH TO PYTHON SCRIPT",
+    "ScriptURL": s3://bucket-name-from-cdk-script/flight_etl_job_script.py
     "JobName": "glue-mvp-job"
 
-You should also copy the Python script, flight_etl_job_script.py, from
-[/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py](/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py)
-to an Amazon S3 bucket and use that bucket location to populate the URL settings.
-
-    "BucketURL": s3://bucket-name-from-script`
-    "ScriptURL": s3://bucket-name-from-script/flight_etl_job_script.py
 
 <!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
-
 
 <!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
 <!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->

@@ -64,8 +64,8 @@ functions within the same service.
 
 For general instructions to run the examples, see the [README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
 
-Some projects may include a settings.json file. Before compiling the project,
-you may change these values to match your own account and resources. Alternatively, add a settings.local.json file with
+Some projects might include a settings.json file. Before compiling the project,
+you can change these values to match your own account and resources. Alternatively, add a settings.local.json file with
 your local settings, which will be loaded automatically when the application runs.
 
 After the example compiles, you can run it from the command line. To do so, navigate to
@@ -122,7 +122,7 @@ in the `dotnetv3` folder.
 
 * [Route 53 Domain Registration Developer Guide](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html)
 * [Route 53 Domain Registration API Reference](https://docs.aws.amazon.com/Route53/latest/APIReference/API_Operations_Amazon_Route_53_Domains.html)
-* [SDK for .NET Route 53 Domain Registration reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Route53-domains/NRoute53-domains.html)
+* [SDK for .NET Route 53 Domain Registration reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Route53Domains/NRoute53Domains.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

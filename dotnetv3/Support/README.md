@@ -28,6 +28,14 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 
 <!--custom.prerequisites.start-->
+
+
+You must have a Business, Enterprise On-Ramp, or Enterprise Support plan to use the AWS Support API.
+
+If you call the AWS Support API from an account that doesn't have a Business, Enterprise On-Ramp, or Enterprise Support 
+plan, the SubscriptionRequiredException error message appears. For information about changing your support plan, see 
+[AWS Premium Support](http://aws.amazon.com/premiumsupport/).
+.
 <!--custom.prerequisites.end-->
 
 
@@ -63,8 +71,8 @@ functions within the same service.
 
 For general instructions to run the examples, see the [README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
 
-Some projects may include a settings.json file. Before compiling the project,
-you may change these values to match your own account and resources. Alternatively, add a settings.local.json file with
+Some projects might include a settings.json file. Before compiling the project,
+you can change these values to match your own account and resources. Alternatively, add a settings.local.json file with
 your local settings, which will be loaded automatically when the application runs.
 
 After the example compiles, you can run it from the command line. To do so, navigate to
@@ -120,8 +128,8 @@ in the `dotnetv3` folder.
 ## Additional resources
 
 * [Support User Guide](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html)
-* [Support API Reference](https://docs.aws.amazon.com/support/latest/APIReference/welcome.html)
-* [SDK for .NET Support reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Support/NSupport.html)
+* [Support API Reference](https://docs.aws.amazon.com/awssupport/latest/APIReference/welcome.html)
+* [SDK for .NET Support reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/AWSSupport/NAWSSupport.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

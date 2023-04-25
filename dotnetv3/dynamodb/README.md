@@ -73,8 +73,8 @@ Sample applications that work across multiple AWS services.
 
 For general instructions to run the examples, see the [README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
 
-Some projects may include a settings.json file. Before compiling the project,
-you may change these values to match your own account and resources. Alternatively, add a settings.local.json file with
+Some projects might include a settings.json file. Before compiling the project,
+you can change these values to match your own account and resources. Alternatively, add a settings.local.json file with
 your local settings, which will be loaded automatically when the application runs.
 
 After the example compiles, you can run it from the command line. To do so, navigate to
@@ -191,7 +191,7 @@ in the `dotnetv3` folder.
 
 * [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 * [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-* [SDK for .NET DynamoDB reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Dynamodb/NDynamodb.html)
+* [SDK for .NET DynamoDB reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/DynamoDBv2/NDynamoDBv2.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

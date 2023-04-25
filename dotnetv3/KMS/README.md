@@ -51,8 +51,8 @@ Code excerpts that show you how to call individual service functions.
 
 For general instructions to run the examples, see the [README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
 
-Some projects may include a settings.json file. Before compiling the project,
-you may change these values to match your own account and resources. Alternatively, add a settings.local.json file with
+Some projects might include a settings.json file. Before compiling the project,
+you can change these values to match your own account and resources. Alternatively, add a settings.local.json file with
 your local settings, which will be loaded automatically when the application runs.
 
 After the example compiles, you can run it from the command line. To do so, navigate to
@@ -87,7 +87,7 @@ in the `dotnetv3` folder.
 
 * [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
 * [AWS KMS API Reference](https://docs.aws.amazon.com/kms/latest/APIReference/Welcome.html)
-* [SDK for .NET AWS KMS reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Kms/NKms.html)
+* [SDK for .NET AWS KMS reference](https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/KeyManagementService/NKeyManagementService.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->
