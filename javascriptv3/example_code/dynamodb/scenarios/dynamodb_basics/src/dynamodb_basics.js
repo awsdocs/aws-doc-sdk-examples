@@ -94,6 +94,54 @@ const putItem = async (tableName, attributes) => {
 
   await ddbDocClient.send(command);
 };
+/**
+ * @typedef {{ title: string, info: { plot: string, rank: number }, year: number }} Movie
+ */
+
+/**
+ * @param {unknown} movies
+ * @returns {Movie[]}
+ */
+const validateMovies = (input) => {
+  const movies = JSON.parse(input, "utf8");
+
+  if (!Array.isArray(movies)) {
+    throw new Error("File contents are not an array.");
+  }
+
+  if (movies.length === 0) {
+    throw new Error("File contents are empty.");
+  }
+
+  if (
+    movies.some(
+      (
+        /**
+          @type {unknown}
+        */
+        m
+      ) => {
+        if (typeof m !== "object") {
+          return true;
+        }
+        if (typeof m.year !== "number") {
+          return true;
+        }
+        if (typeof m.title !== "string") {
+          return true;
+        }
+        if (typeof m.info !== "object") {
+          return true;
+        }
+        return false;
+      }
+    )
+  ) {
+    throw new Error("File contents contain invalid data.");
+  } else {
+    return movies;
+  }
+};
 
 /**
  *
@@ -103,7 +151,7 @@ const putItem = async (tableName, attributes) => {
  */
 const batchWriteMoviesFromFile = async (tableName, filePath) => {
   const fileContents = fs.readFileSync(filePath);
-  const movies = JSON.parse(fileContents, "utf8");
+  const movies = validateMovies(fileContents);
 
   // Map movies to RequestItems.
   const putMovieRequestItems = movies.map(({ year, title, info }) => ({
@@ -168,7 +216,7 @@ const updateMovie = async (
 };
 
 /**
- * @param {{ title: string, info: { plot: string, rank: number }, year: number }} movie
+ * @param {Movie} movie
  */
 const logMovie = (movie) => {
   console.log(` | Title: "${movie.title}".`);
@@ -205,7 +253,7 @@ const getMovie = async (tableName, title, year) => {
       TableName: tableName,
       Key: {
         title,
-        year
+        year,
       },
       // By default, reads are eventually consistent. "ConsistentRead: true" represents
       // a strongly consistent read. This guarantees that the most up-to-date data is returned. It
@@ -256,7 +304,7 @@ const findMoviesBetweenYears = async (
     })
   );
 
-  if (LastEvaluatedKey) {
+  if (LastEvaluatedKey && Array.isArray(Items)) {
     return Items.concat(
       await findMoviesBetweenYears(
         tableName,
