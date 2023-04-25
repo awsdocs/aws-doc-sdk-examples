@@ -34,10 +34,10 @@ These examples also require the following resources:
 * A client ID to use for authenticating with Amazon Cognito.
 
 
-  To create these resources, run the AWS CloudFormation script in the
-  [resources/cdk/cognito_scenario_user_pool_with_mfa](../../../resources/cdk/cognito_scenario_user_pool_with_mfa)
-  folder. This script outputs a user pool ID and a client ID that you can use to run
-  the scenario.
+To create these resources, run the AWS CloudFormation script in the
+[resources/cdk/cognito_scenario_user_pool_with_mfa](../../../resources/cdk/cognito_scenario_user_pool_with_mfa)
+folder. This script outputs a user pool ID and a client ID that you can use to run
+the scenario.
 <!--custom.prerequisites.end-->
 
 ### Single actions
