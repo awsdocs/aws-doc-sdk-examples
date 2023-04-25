@@ -167,7 +167,9 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
     std::cout << "You can then post to the topic and see the results in the queues."
               << std::endl;
 
+    // snippet-start:[cpp.example_code.cross-service.topics_and_queues.sqs_client]
     Aws::SNS::SNSClient snsClient(clientConfiguration);
+    // snippet-end:[cpp.example_code.cross-service.topics_and_queues.sqs_client]
 
     printAsterisksLine();
 
@@ -412,10 +414,12 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
 
         {
             // 5.  Subscribe the SQS queue to the SNS topic.
+            // snippet-start:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue1]
             Aws::SNS::Model::SubscribeRequest request;
             request.SetTopicArn(topicARN);
             request.SetProtocol("sqs");
             request.SetEndpoint(queueARN);
+            // snippet-end:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue1]
             if (isFifoTopic) {
                 if (first) {
                     std::cout << "Subscriptions to a FIFO topic can have filters."
@@ -454,7 +458,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                     }
                 }
             }  // if (isFifoTopic)
-
+            // snippet-start:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue2]
             Aws::SNS::Model::SubscribeOutcome outcome = snsClient.Subscribe(request);
 
             if (outcome.IsSuccess()) {
@@ -479,6 +483,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
 
                 return false;
             }
+            // snippet-start:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue2]
         }
 
         first = false;
@@ -788,9 +793,11 @@ int main(int argc, char **argv) {
 
     Aws::InitAPI(options);
     {
+        // snippet-start:[cpp.example_code.cross-service.topics_and_queues.config]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
+        // snippet-end:[cpp.example_code.cross-service.topics_and_queues.config]
 
         AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(clientConfig);
     }

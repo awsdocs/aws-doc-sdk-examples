@@ -532,3 +532,16 @@ cross_LongLivedEmrCluster:
     emr:
     iam:
     s3:
+workflow_MessagesTopicsAndQueues:
+  title: Publish &SNS; message to &SQS; queues using an &AWS; SDK
+  title_abbrev: Publish &SNS; message to &SQS; queues
+  synopsis: publish &SNS; message to &SQS; queues.
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cross-service/topics_and_queues
+          block_content: workflow_MessagesTopicsAndQueues_cpp_block.xml
+  services:
+    sns:
+    sqs:
