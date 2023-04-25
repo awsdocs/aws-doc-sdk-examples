@@ -20,7 +20,7 @@ node scanTable.js
 // snippet-start:[dynamodb.JavaScript.movies.scanV3]
 
 // Import required AWS SDK clients and commands for Node.js.
-import { ddbDocClient } from "../libs/ddbDocClient.js";
+import { ddbDocClient } from "../src/libs/ddbDocClient.js";
 import { ScanCommand } from "@aws-sdk/lib-dynamodb";
 // Set the parameters.
 export const params = {

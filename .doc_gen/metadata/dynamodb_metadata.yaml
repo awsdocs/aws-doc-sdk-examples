@@ -567,7 +567,7 @@ dynamodb_PutItem:
                 - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Put an item in a table using the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.movies.putItemV3
+                - dynamodb.JavaScript.docClient.putV3
             - description: Put an item in a table using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.putItemV3
@@ -686,7 +686,7 @@ dynamodb_GetItem:
                 - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Get an item from a table.
               snippet_tags:
-                - dynamodb.JavaScript.movies.getItemV3
+                - dynamodb.JavaScript.item.getItemV3
             - description: Get an item from a table using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.getItemV3
@@ -814,7 +814,7 @@ dynamodb_UpdateItem:
                 - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Update an item in a table using the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.movies.updateItemV3
+                - dynamodb.JavaScript.docClient.updateV3
             - description: Update an item in a table using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.updateItemV3
@@ -929,7 +929,7 @@ dynamodb_DeleteItem:
                 - dynamodb.JavaScript.scenario.basics.createdocclientv3
             - description: Delete an item from a table using the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.movies.deleteV3
+                - dynamodb.JavaScript.docClient.deleteV3
             - description: Delete an item from a table using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.deleteItemV3
@@ -1193,7 +1193,7 @@ dynamodb_Query:
                 - dynamodb.JavaScript.tables.createdocclientv3
             - description: Query the table using the &DDB; document client.
               snippet_tags:
-                - dynamodb.JavaScript.movies.queryV3
+                - dynamodb.JavaScript.docClient.queryV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying

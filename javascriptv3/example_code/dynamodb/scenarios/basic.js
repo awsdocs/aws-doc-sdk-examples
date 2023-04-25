@@ -41,8 +41,8 @@ import {
   waitUntilTableNotExists,
 } from "@aws-sdk/client-dynamodb";
 
-import { ddbClient } from "../libs/ddbClient.js";
-import { ddbDocClient } from "../libs/ddbDocClient.js";
+import { ddbClient } from "./dynamodb_basics/libs/ddbClient.js";
+import { ddbDocClient } from "./dynamodb_basics/libs/ddbDocClient.js";
 
 /**
  * @param {string} tableName

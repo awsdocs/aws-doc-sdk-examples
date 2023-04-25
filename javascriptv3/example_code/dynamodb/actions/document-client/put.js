@@ -23,7 +23,7 @@ node ddbdoc_put_item.js
 // snippet-start:[dynamodb.JavaScript.docClient.putV3]
 
 import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { ddbDocClient } from "./libs/ddbDocClient";
+import { ddbDocClient } from "../src/libs/ddbDocClient";
 
 // Set the parameters.
 export const params = {

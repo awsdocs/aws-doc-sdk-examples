@@ -23,7 +23,7 @@ node writeData.js
 
 import fs from "fs";
 import * as R from "ramda";
-import { ddbDocClient } from "../libs/ddbDocClient.js";
+import { ddbDocClient } from "../src/libs/ddbDocClient.js";
 import { BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
 
 export const writeData = async () => {

@@ -16,7 +16,7 @@ node ddbdoc_update_query.js
 */
 // snippet-start:[dynamodb.JavaScript.docClient.queryV3]
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
-import { ddbDocClient } from "./libs/ddbDocClient";
+import { ddbDocClient } from "../src/libs/ddbDocClient";
 
 // Set the parameters
 export const params = {

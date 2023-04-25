@@ -5,11 +5,12 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "test": "echo 'No test script found.'"
+    "integration-test": "vitest run **/*.integration.test.js --coverage"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.210.0",
     "@aws-sdk/lib-dynamodb": "^3.210.0",
+    "libs": "*",
     "ramda": "^0.29.0"
   },
   "devDependencies": {

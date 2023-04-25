@@ -1,53 +1,45 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-/* ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html.
+import { fileURLToPath } from "url";
 
-Purpose:
-ddb_batchgetitem.js demonstrates how to retrieve items from an Amazon DynamoDB table.
-
-INPUTS:
-- TABLE
-- KEY_NAME
-- KEY_VALUE
-- ATTRIBUTE_NAME
-
-Running the code:
-node ddb_batchgetitem.js
-*/
 // snippet-start:[dynamodb.JavaScript.batch.GetItemV3]
-// Import required AWS SDK clients and commands for Node.js
-import { BatchGetItemCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "../src/libs/ddbClient.js";
+import { BatchGetItemCommand, DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-// Set the parameters
-export const params = {
-  RequestItems: {
-    TABLE_NAME: {
-      Keys: [
-        {
-          KEY_NAME_1: { N: "KEY_VALUE" },
-          KEY_NAME_2: { N: "KEY_VALUE" },
-          KEY_NAME_3: { N: "KEY_VALUE" },
-        },
-      ],
-      ProjectionExpression: "ATTRIBUTE_NAME",
+const client = new DynamoDBClient({});
+
+export const main = async () => {
+  const command = new BatchGetItemCommand({
+    RequestItems: {
+      // Each key in this object is the name of a table. This example here refers
+      // to a PageAnalytics table.
+      PageAnalytics: {
+        // Each entry in Keys is an object that specifies a primary key.
+        Keys: [
+          {
+            // "PageName" is the partition key (simple primary key).
+            // "S" specifies a string as the data type for the value "Home".
+            PageName: { S: "Home" },
+          },
+          {
+            PageName: { S: "About" },
+          },
+        ],
+        // Only return the "PageName" and "PageViews" attributes.
+        ProjectionExpression: "PageName, PageViews",
+      },
     },
-  },
-};
+  });
 
-export const run = async () => {
-  try {
-    const data = await ddbClient.send(new BatchGetItemCommand(params));
-    console.log("Success, items retrieved", data);
-    return data;
-  } catch (err) {
-    console.log("Error", err);
-  }
+  const response = await client.send(command);
+  console.log(response.Responses['PageAnalytics']);
+  return response;
 };
-run();
 // snippet-end:[dynamodb.JavaScript.batch.GetItemV3]
 
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

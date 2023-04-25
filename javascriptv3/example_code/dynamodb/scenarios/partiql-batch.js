@@ -33,8 +33,8 @@ import {
     waitUntilTableNotExists,
 } from "@aws-sdk/client-dynamodb";
 
-import {ddbClient} from "../libs/ddbClient.js";
-import {ddbDocClient} from "../libs/ddbDocClient.js";
+import {ddbClient} from "./partiQL_basics/libs/ddbClient.js";
+import {ddbDocClient} from "./partiQL_basics/libs/ddbDocClient.js";
 
 /**
  * @param {string} tableName
