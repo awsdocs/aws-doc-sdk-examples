@@ -108,9 +108,9 @@ This scenario requires the following scaffold resources:
   AWS Glue.
 
 
-  You can deploy and destroy these resources using the AWS Cloud Development Kit
-  (AWS CDK). To do this, run `cdk deploy` or `cdk destroy` in the
-  [/resources/cdk/glue_role_bucket](/resources/cdk/glue_role_bucket) folder.
+You can deploy and destroy these resources using the AWS Cloud Development Kit
+(AWS CDK). To do this, run `cdk deploy` or `cdk destroy` in the
+[/resources/cdk/glue_role_bucket](/resources/cdk/glue_role_bucket) folder.
   
 When the AWS CDK script reports the name of the bucket and AWS Identity and Access Management (IAM) Role that was created, open the `settings.json` file and fill in
   the BucketName, RoleName and ScriptURL values.
