@@ -1,69 +1,43 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html.
-
-Purpose:
-ddb_createtable.js demonstrates how to create an Amazon DynamoDB table.
-
-INPUTS:
-- TABLE_NAME
-- ATTRIBUTE_NAME_1: the name of the partition key
-- ATTRIBUTE_NAME_2: the name of the sort key (optional)
-- ATTRIBUTE_TYPE: the type of the attribute (e.g., N [for a number], S [for a string] etc.)
-
-Running the code:
-node ddb_createtable.js
-*/
+import { fileURLToPath } from "url";
 
 // snippet-start:[dynamodb.JavaScript.table.createTableV3]
-// Import required AWS SDK clients and commands for Node.js
-import { CreateTableCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "../src/libs/ddbClient.js";
+import { CreateTableCommand, DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-// Set the parameters
-export const params = {
-  AttributeDefinitions: [
-    {
-      AttributeName: "Season", //ATTRIBUTE_NAME_1
-      AttributeType: "N", //ATTRIBUTE_TYPE
-    },
-    {
-      AttributeName: "Episode", //ATTRIBUTE_NAME_2
-      AttributeType: "N", //ATTRIBUTE_TYPE
-    },
-  ],
-  KeySchema: [
-    {
-      AttributeName: "Season", //ATTRIBUTE_NAME_1
-      KeyType: "HASH",
-    },
-    {
-      AttributeName: "Episode", //ATTRIBUTE_NAME_2
-      KeyType: "RANGE",
-    },
-  ],
-  ProvisionedThroughput: {
-    ReadCapacityUnits: 1,
-    WriteCapacityUnits: 1,
-  },
-  TableName: "TEST_TABLE", //TABLE_NAME
-  StreamSpecification: {
-    StreamEnabled: false,
-  },
-};
+const client = new DynamoDBClient({});
 
-export const run = async () => {
-  try {
-    const data = await ddbClient.send(new CreateTableCommand(params));
-    console.log("Table Created", data);
-    return data;
-  } catch (err) {
-    console.log("Error", err);
-  }
+export const main = async () => {
+  const command = new CreateTableCommand({
+    TableName: "EspressoDrinks",
+    AttributeDefinitions: [
+      {
+        AttributeName: "DrinkName",
+        AttributeType: "S"
+      }
+    ],
+    KeySchema: [
+      {
+        AttributeName: "DrinkName",
+        KeyType: "HASH"
+      }
+    ],
+    ProvisionedThroughput: {
+      ReadCapacityUnits: 1,
+      WriteCapacityUnits: 1,
+    }
+  });
+
+  const response = await client.send(command);
+  console.log(response);
+  return response;
 };
-run();
 // snippet-end:[dynamodb.JavaScript.table.createTableV3]
 
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
