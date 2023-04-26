@@ -156,8 +156,8 @@ Running this example requires permissions for both SNS and SQS.
 
 ## Additional resources
 
-[Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
-[Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
-[Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
-[Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
-[AWS SDK for C++ Developer Guide](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/welcome.html)
+* [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
+* [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
+* [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
+* [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
+* [AWS SDK for C++ Developer Guide](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/welcome.html)
