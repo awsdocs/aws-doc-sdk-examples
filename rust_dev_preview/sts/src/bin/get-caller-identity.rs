@@ -13,11 +13,11 @@ use std::fmt::Debug;
 #[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
-    #[structopt(long)]
+    #[structopt(short, long)]
     region: Option<String>,
 
     /// Whether to display additional information.
-    #[structopt(long)]
+    #[structopt(short, long)]
     verbose: bool,
 }
 
