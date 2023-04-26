@@ -21,6 +21,8 @@ export const main = async () => {
           {
             // "PageName" is the partition key (simple primary key).
             // "S" specifies a string as the data type for the value "Home".
+            // For more information on data types, 
+            // see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes.
             PageName: { S: "Home" },
           },
           {

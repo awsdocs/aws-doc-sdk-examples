@@ -1,63 +1,58 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
-*/
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-/* ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html.
+import { fileURLToPath } from "url";
 
-Purpose:
-ddb_batchwriteitem.js demonstrates how to put items or delete items into an Amazon DynamoDB table.
-
-INPUTS:
-- TABLE_NAME
-- KEYS
-- KEY_VALUES
-- ATTRIBUTE_VALUES
-
-Running the code:
-node ddb_batchwriteitem.js
-*/
 // snippet-start:[dynamodb.JavaScript.batch.WriteItemV3]
-// Import required AWS SDK clients and commands for Node.js
-import { BatchWriteItemCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "../src/libs/ddbClient.js";
+import {
+  BatchWriteItemCommand,
+  DynamoDBClient,
+} from "@aws-sdk/client-dynamodb";
 
-// Set the parameters
-export const params = {
-  RequestItems: {
-    TABLE_NAME: [
-      {
-        PutRequest: {
-          Item: {
-            KEY: { N: "KEY_VALUE" },
-            ATTRIBUTE_1: { S: "ATTRIBUTE_1_VALUE" },
-            ATTRIBUTE_2: { N: "ATTRIBUTE_2_VALUE" },
+const client = new DynamoDBClient({});
+
+export const main = async () => {
+  const command = new BatchWriteItemCommand({
+    RequestItems: {
+      // Each key in this object is the name of a table. This example here refers
+      // to a Coffees table.
+      Coffees: [
+        // Each entry in Coffees is an object that defines either a PutRequest or DeleteRequest.
+        {
+          // Each PutRequest object defines one item to be inserted into the table.
+          PutRequest: {
+            // The keys of Item are attribute names. Each attribute value is an object with a data type and value.
+            // For more information on data types,
+            // see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes
+            Item: {
+              Name: { S: "Donkey Kick" },
+              Process: { S: "Wet-Hulled" },
+              Flavors: { SS: ["Earth", "Syrup", "Spice"] },
+            },
           },
         },
-      },
-      {
-        PutRequest: {
-          Item: {
-            KEY: { N: "KEY_VALUE" },
-            ATTRIBUTE_1: { S: "ATTRIBUTE_1_VALUE" },
-            ATTRIBUTE_2: { N: "ATTRIBUTE_2_VALUE" },
+        {
+          PutRequest: {
+            Item: {
+              Name: { S: "Flora Ethiopia" },
+              Process: { S: "Washed" },
+              Flavors: { SS: ["Stone Fruit", "Toasted Almond", "Delicate"] },
+            },
           },
         },
-      },
-    ],
-  },
-};
+      ],
+    },
+  });
 
-export const run = async () => {
-  try {
-    const data = await ddbClient.send(new BatchWriteItemCommand(params));
-    console.log("Success, items inserted", data);
-    return data;
-  } catch (err) {
-    console.log("Error", err);
-  }
+  const response = await client.send(command);
+  console.log(response);
+  return response;
 };
-run();
 // snippet-end:[dynamodb.JavaScript.batch.WriteItemV3]
 
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
