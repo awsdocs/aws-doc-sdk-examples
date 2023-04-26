@@ -1,5 +1,14 @@
 #  Creating AWS video analyzer applications using the AWS SDK for Java
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Discusses how to develop a sample web application that analyzes MP4 videos located within an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java V2.     |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 4/25/2023        |
+| Required Skills   | Java, Maven  |
+
 ## Purpose
 You can create a Java web application that analyzes videos for label detection by using the Java SDK for Java version 2. The application created in this AWS tutorial lets you upload a video (MP4 file) to an Amazon Simple Storage Service (Amazon S3) bucket. Then the appliction uses the Amazon Rekognition service to analyze the video. The results are used to populate a data model and then a report is generated and emailed to a specific user by using the Amazon Simple Email Service (SES).
 
