@@ -10,7 +10,7 @@
 | Required Skills   | Java, Maven  |
 
 ## Purpose
-You can create a Java web application that analyzes videos for label detection by using the Java SDK for Java version 2. The application created in this AWS tutorial lets you upload a video (MP4 file) to an Amazon Simple Storage Service (Amazon S3) bucket. Then the appliction uses the Amazon Rekognition service to analyze the video. The results are used to populate a data model and then a report is generated and emailed to a specific user by using the Amazon Simple Email Service (SES).
+You can create a web application that analyzes videos for label detection by using the Java SDK for Java version 2. The application created in this AWS tutorial lets use the Amazon Rekognition service to analyze the video located in a S3 bucket. The results are used to populate a report that is emailed to a specific user by using the Amazon Simple Email Service (SES).
 
 The following illustration shows a report that is generated after the application completes analyzing the video.
 
