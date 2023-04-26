@@ -41,6 +41,14 @@ support_Hello:
             - description: Invoke `main()` to run the example.
               snippet_tags:
                 - javascript.v3.support.scenarios.Hello
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/support
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.support.Hello
   services:
     support: {DescribeServices}
 support_AddAttachment:
@@ -85,6 +93,15 @@ support_AddAttachment:
             - description:
               snippet_tags:
                 - javascript.v3.support.actions.AddAttachmentsToSet
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/support
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.support.SupportWrapper_decl
+                - python.example_code.support.AddAttachmentToSet
   services:
     support: {AddAttachmentsToSet}
 support_AddCommunication:
@@ -129,6 +146,15 @@ support_AddCommunication:
             - description:
               snippet_tags:
                 - javascript.v3.support.actions.AddCommunicationToCase
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/support
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.support.SupportWrapper_decl
+                - python.example_code.support.AddCommunicationToCase
   services:
     support: {AddCommunicationToCase}
 support_CreateCase:
@@ -173,6 +199,15 @@ support_CreateCase:
             - description:
               snippet_tags:
                 - javascript.v3.support.actions.CreateCase
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/support
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.support.SupportWrapper_decl
+                - python.example_code.support.CreateCase
   services:
     support: {CreateCase}
 support_DescribeAttachment:
@@ -217,6 +252,15 @@ support_DescribeAttachment:
             - description:
               snippet_tags:
                 - javascript.v3.support.actions.DescribeAttachment
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/support
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.support.SupportWrapper_decl
+                - python.example_code.support.DescribeAttachment
   services:
     support: {DescribeAttachment}
 support_DescribeCases:
@@ -261,6 +305,15 @@ support_DescribeCases:
             - description:
               snippet_tags:
                 - javascript.v3.support.actions.DescribeCases
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/support
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.support.SupportWrapper_decl
+                - python.example_code.support.DescribeCases
   services:
     support: {DescribeCases}
 support_DescribeCommunications:
@@ -305,6 +358,15 @@ support_DescribeCommunications:
             - description:
               snippet_tags:
                 - support.javascriptv3.actions.DescribeCommunications
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/support
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.support.SupportWrapper_decl
+                - python.example_code.support.DescribeCommunications
   services:
     support: {DescribeCommunications}
 support_DescribeServices:
@@ -340,6 +402,15 @@ support_DescribeServices:
             - description:
               snippet_tags:
                 - Support.dotnetv3.DescribeServices
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/support
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.support.SupportWrapper_decl
+                - python.example_code.support.DescribeServices
   services:
     support: {DescribeServices}
 support_DescribeSeverityLevels:
@@ -383,6 +454,15 @@ support_DescribeSeverityLevels:
             - description: 
               snippet_tags:
                 - javascript.v3.support.actions.DescribeSeverityLevels
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/support
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.support.SupportWrapper_decl
+                - python.example_code.support.DescribeSeverityLevels
   services:
     support: {DescribeSeverityLevels}
 support_ResolveCase:
@@ -427,6 +507,15 @@ support_ResolveCase:
             - description:
               snippet_tags:
                 - javascript.v3.support.actions.ResolveCase
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/support
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.support.SupportWrapper_decl
+                - python.example_code.support.ResolveCase
   services:
     support: {ResolveCase}
 support_Scenario_GetStartedSupportCases:
@@ -481,6 +570,18 @@ support_Scenario_GetStartedSupportCases:
             - description: Run an interactive scenario in the terminal.
               snippet_tags:
                 - javascript.v3.support.scenarios.basic
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/support
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.support.Scenario_GetStartedSupportCases
+            - description: Define a class that wraps support client actions.
+              snippet_tags:
+                - python.example_code.support.SupportWrapper_full
   services:
     support: {AddAttachmentsToSet, AddCommunicationToCase, CreateCase, DescribeAttachment,
               DescribeCases, DescribeCommunications, DescribeServices, DescribeSeverityLevels,

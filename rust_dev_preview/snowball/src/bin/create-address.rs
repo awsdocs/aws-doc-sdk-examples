@@ -76,16 +76,16 @@ async fn add_address(client: &Client, address: Address) -> Result<(), Error> {
 /// * `[-r REGION]` - The Region in which the client is created.
 ///    If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///    If the environment variable is not set, defaults to **us-west-2**.
-/// * `--city CITY` - The required city portion of the address.
+/// * `[--city CITY]` - The required city portion of the address.
 /// * `[--company COMPANY]` - The company portion of the address.
-/// * `--country COUNTRY` - The required country portion of the address.
+/// * `[--country COUNTRY]` - The required country portion of the address.
 /// * `[--landmark LANDMARK]` - The landmark portion of the address.
-/// * `--name NAME` - The required name portion of the address.
-/// * `--phone-number PHONE-NUMBER` - The required phone number portion of the address.
-/// * `--postal-code POSTAL-CODE` - The required postal code (zip in USA) portion of the address.
+/// * `[--name NAME]` - The required name portion of the address.
+/// * `[--phone-number PHONE-NUMBER]` - The required phone number portion of the address.
+/// * `[--postal-code POSTAL-CODE]` - The required postal code (zip in USA) portion of the address.
 /// * `[--prefecture-or-district PREFECTURE-OR-DISTRICT]` - The prefecture or district portion of the address.
-/// * `--state STATE` - The required state portion of the address. It must be (two is best) upper-case letters.
-/// * `--street1 STREET1` - The required first street portion of the address.
+/// * `[--state STATE]` - The required state portion of the address. It must be (two is best) upper-case letters.
+/// * `[--street1 STREET1]` - The required first street portion of the address.
 /// * `[--street2 STREET2]` - The second street portion of the address.
 /// * `[--street3 STREET3]` - The third street portion of the address.
 /// * `[-v]` - Whether to display additional information.
