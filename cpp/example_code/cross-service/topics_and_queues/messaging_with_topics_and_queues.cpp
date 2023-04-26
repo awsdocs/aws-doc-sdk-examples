@@ -483,7 +483,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
 
                 return false;
             }
-            // snippet-start:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue2]
+            // snippet-end:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue2]
         }
 
         first = false;
