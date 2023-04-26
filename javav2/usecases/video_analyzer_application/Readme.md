@@ -747,8 +747,6 @@ public class VideoController {
 
 ```
 
-**Note**: Change the **bucketName** variable to match your bucket. 
-
 ### VideoDetectFaces class
 
 The following Java code represents the **VideoDetectFaces** class. This class uses the Amazon Rekognition API to analyze the video obtained from an Amazon S3 bucket. In this example, the video is analyzed by invoking the **RekognitionClient** object’s **startFaceDetection** method. This returns a **StartFaceDetectionResponse** object. You can get the job id number by invoking the **StartFaceDetectionResponse** object’s **jobId** method.
@@ -883,8 +881,6 @@ public class VideoDetectFaces {
 }
 
  ```
-
-**Note**: Specifiy valid **topicArn** and **roleArn** values. See the **Prerequisites** section at the start of this tutorial. 
 
 ### WriteExcel class
 
@@ -1058,6 +1054,7 @@ public class VideoApplicationResources {
     public static final String ROLE_ARN = "<Enter value>";
 }
 
+**Note**: Specifiy valid values. See the **Prerequisites** section at the start of this tutorial. 
 
 ```
 
