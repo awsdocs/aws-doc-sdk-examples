@@ -4,13 +4,13 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a sample web application that analyzes MP4 videos located within an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java V2. This example shows how to perform an Asynchronous AWS operation within a web application. |
+| Description | Discusses how to develop a sample web application that analyzes MP4 videos located within an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java V2. This example shows how to perform an asynchronous AWS operation within a web application. |
 | Audience   |  Developer (beginner / intermediate)        |
 | Updated   | 4/25/2023        |
 | Required Skills   | Java, Maven  |
 
 ## Purpose
-You can create a web application that analyzes videos for label detection by using the AWS SDK for Java v2. The application created in this AWS tutorial lets use the Amazon Rekognition service to analyze the video located in a S3 bucket. The results are used to populate a report that is emailed to a specific user by using the Amazon Simple Email Service (SES).
+You can create a web application that analyzes videos for label detection by using the AWS SDK for Java v2. The application created in this AWS tutorial uses the Amazon Rekognition service to analyze the video located in a S3 bucket. The results are used to populate a report that is emailed to a specific user by using the Amazon Simple Email Service (SES).
 
 The following illustration shows a report that is generated after the application completes analyzing the video.
 
@@ -84,54 +84,39 @@ At this point, you have a new project named **SpringVideoAnalyzer**.
 
 ![AWS Video Analyzer](images/pic3.png)
 
-Add the following dependencies for the Amazon services (AWS SDK for Java version 2).
-
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>ses</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>rekognition</artifactId>
-     </dependency>
-     <dependency>
-      <groupId>software.amazon.awssdk</groupId>
-      <artifactId>s3</artifactId>
-     </dependency>
-
-   **Note:** Ensure that you are using Java 1.8 (as shown in the following **pom.xml** file).
-
-   Add the Spring Boot dependencies. The **pom.xml** file looks like the following.
+Make sure that the**pom.xml** file looks like the following.
 
 ```xml
      <?xml version="1.0" encoding="UTF-8"?>
-     <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-      <modelVersion>4.0.0</modelVersion>
-      <groupId>SpringVideoAnalyzer</groupId>
-      <artifactId>SpringVideoAnalyzer</artifactId>
-      <version>1.0-SNAPSHOT</version>
-     <parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>SpringVideoAnalyzer</groupId>
+    <artifactId>SpringVideoAnalyzer</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
-     </parent>
-     <properties>
-        <java.version>1.8</java.version>
-     </properties>
-     <dependencyManagement>
+    </parent>
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.10.54</version>
+                <version>2.20.45</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
-     </dependencyManagement>
-     <dependencies>
+    </dependencyManagement>
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -150,10 +135,10 @@ Add the following dependencies for the Amazon services (AWS SDK for Java version
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
-        <dependency>
+         <dependency>
             <groupId>javax.mail</groupId>
-            <artifactId>javax.mail-api</artifactId>
-            <version>1.6.2</version>
+            <artifactId>mailapi</artifactId>
+            <version>1.4.3</version>
         </dependency>
         <dependency>
             <groupId>javax.mail</groupId>
@@ -176,7 +161,7 @@ Add the following dependencies for the Amazon services (AWS SDK for Java version
                 </exclusion>
             </exclusions>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb</artifactId>
         </dependency>
@@ -192,16 +177,37 @@ Add the following dependencies for the Amazon services (AWS SDK for Java version
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>s3</artifactId>
         </dependency>
-      </dependencies>
-      <build>
+    </dependencies>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-resource-ebextensions</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/.ebextensions</directory>
+                                    <targetPath>.ebextensions</targetPath>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-      </build>
-     </project>
+    </build>
+</project>
 ```
 
 ## Create the Java classes
