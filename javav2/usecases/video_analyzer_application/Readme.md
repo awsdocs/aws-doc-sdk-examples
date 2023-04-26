@@ -69,7 +69,7 @@ To generate a report, enter an email address and choose **Analyze Video**. A mas
 
 ![AWS Video Analyzer](images/videoReport.png)
 
-**Note** Depending upon the size of the video, this may take a few minutes. To test this functionality, keep the video under 20 seconds. Also, there can only be one video in the Amazon S3 bucket. 
+**Note:** Depending upon the size of the video, this may take a few minutes. To test this functionality, keep the video under 20 seconds. Also, there can only be one video in the Amazon S3 bucket. 
 
 ## Create an IntelliJ project named SpringVideoAnalyzer
 
