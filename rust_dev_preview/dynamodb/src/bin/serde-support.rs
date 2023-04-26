@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+
 /*
     This piece of code serves as an example for serde-support feature as described on RFC30.
     When features are not enabled, it will simply print how you can enable said feature.
