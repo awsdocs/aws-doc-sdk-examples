@@ -66,7 +66,7 @@ The AWS Video Analyzer application supports viewing video (MP4 file) information
 
 To generate a report, enter an email address and choose **Analyze Video**. A mask is displayed to let the user know the report is being created. 
 
-![AWS Video Analyzer](images/pic2.png)
+![AWS Video Analyzer](images/videoRepoprt.png)
 
 **Note** Depending upon the size of the video, this may take a few minutes. To test this functionality, keep the video under 20 seconds. Also, there can only be one video in the Amazon S3 bucket. 
 
