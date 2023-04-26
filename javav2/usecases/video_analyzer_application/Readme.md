@@ -80,11 +80,7 @@ To generate a report, enter an email address and choose **Analyze Video**. A mas
 
 ## Add the POM dependencies to your project
 
-At this point, you have a new project named **SpringVideoAnalyzer**.
-
-![AWS Video Analyzer](images/pic3.png)
-
-Make sure that the**pom.xml** file looks like the following.
+At this point, you have a new project named **SpringVideoAnalyzer**. Make sure that the**pom.xml** file looks like the following.
 
 ```xml
      <?xml version="1.0" encoding="UTF-8"?>
