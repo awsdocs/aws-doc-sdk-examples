@@ -22,7 +22,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          # Full git history is needed to get a proper list of changed files within `super-linter`
+          # Full git history is needed to get a proper list of changed files within `super-linter`. Added Java
           fetch-depth: 0
 
       - name: Lint Code Base
@@ -36,4 +36,5 @@ jobs:
           VALIDATE_PYTHON_PYLINT: true
           VALIDATE_RUBY: true
           VALIDATE_CSHARP: true
+          VALIDATE_JAVA: true
           VALIDATE_KOTLIN: true
