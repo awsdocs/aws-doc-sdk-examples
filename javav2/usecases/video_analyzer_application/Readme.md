@@ -4,7 +4,7 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a sample web application that analyzes MP4 videos located within an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java V2.     |
+| Description | Discusses how to develop a sample web application that analyzes MP4 videos located within an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java V2. This example shows how to perform an Asynchronous AWS operation within a web application. |
 | Audience   |  Developer (beginner / intermediate)        |
 | Updated   | 4/25/2023        |
 | Required Skills   | Java, Maven  |
