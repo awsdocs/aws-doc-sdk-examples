@@ -73,7 +73,7 @@ async fn main() -> Result<(), Error> {
 
     // Trap out-of-range-values:
     match length {
-        1...1024 => {
+        1..=1024 => {
             println!("Generating a {} byte random string", length);
         }
         _ => {
