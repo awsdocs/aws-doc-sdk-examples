@@ -1,4 +1,4 @@
-#  Creating AWS video analyzer applications using the AWS SDK for Java
+#  Creating an AWS video analyzer application using the AWS SDK for Java
 
 ## Overview
 
