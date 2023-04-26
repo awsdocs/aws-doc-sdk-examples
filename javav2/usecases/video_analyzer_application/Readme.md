@@ -344,7 +344,7 @@ The following Java code represents the **FaceItems** class that stores data retu
 
 ### S3Service class
 
-The following class uses the Amazon S3 API to perform S3 operations. For example, the **putObject** method places the video into the specified Amazon S3 bucket. Be sure to replace the bucket name in this code example with your bucket name.
+The following class uses the Amazon S3 API to perform S3 operations. 
 
 ```java
    package com.example.video;
@@ -499,7 +499,7 @@ public class S3Service {
 
  ```
 
-**Note**: In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is because this application is deployed to Elastic Beanstalk where environment variables are set (shown later in this tutorial).
+**Note**: In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials.
 
 ### SendMessage class
 
