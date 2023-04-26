@@ -56,6 +56,8 @@ An Amazon S3 bucket named **video[somevalue]**. Be sure to use this bucket name 
 
 You must create an IAM role and a valid SNS topic. You need to reference these values in the **VideoDetectFaces** class. If you do not set these values, the application that you create does not work. For information, see [Configuring Amazon Rekognition Video](https://docs.aws.amazon.com/rekognition/latest/dg/api-video-roles.html).  
 
+**Note**: You must specify the AWS resource values in the **VideoApplicationResources** class. 
+
 
 ## Understand the AWS Video Analyzer application
 
@@ -225,7 +227,8 @@ Create these Java classes:
 + **VideoApplication** - Used as the base class for the Spring Boot application.
 + **VideoController** - Used as the Spring Boot controller that handles HTTP requests.
 + **VideoDetectFaces** - Uses the Amazon Rekognition API to analyze the video.
-+ **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.     
++ **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.    
++ **VideoApplicationResources** - Used to store AWS resource values. 
 
 ### BucketItem class
 
@@ -350,86 +353,45 @@ The following Java code represents the **FaceItems** class that stores data retu
 The following class uses the Amazon S3 API to perform S3 operations. For example, the **putObject** method places the video into the specified Amazon S3 bucket. Be sure to replace the bucket name in this code example with your bucket name.
 
 ```java
-    package com.example.video;
+   package com.example.video;
 
-    import org.springframework.stereotype.Component;
-    import org.w3c.dom.Document;
-    import org.w3c.dom.Element;
-    import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-    import software.amazon.awssdk.core.sync.RequestBody;
-    import software.amazon.awssdk.regions.Region;
-    import software.amazon.awssdk.services.s3.S3Client;
-    import software.amazon.awssdk.services.s3.model.*;
-    import javax.xml.parsers.DocumentBuilder;
-    import javax.xml.parsers.DocumentBuilderFactory;
-    import javax.xml.parsers.ParserConfigurationException;
-    import javax.xml.transform.Transformer;
-    import javax.xml.transform.TransformerException;
-    import javax.xml.transform.TransformerFactory;
-    import javax.xml.transform.dom.DOMSource;
-    import javax.xml.transform.stream.StreamResult;
-    import java.io.StringWriter;
-    import java.time.Instant;
-    import java.util.ArrayList;
-    import java.util.List;
-    import java.util.ListIterator;
+import org.springframework.stereotype.Component;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.StringWriter;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
-    @Component
-    public class S3Service {
-
+@Component
+public class S3Service {
     private  S3Client s3 ;
-
     private S3Client getClient() {
-
         Region region = Region.US_EAST_1;
-        S3Client s3 = S3Client.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(region)
-                .build();
-        return s3;
+        return S3Client.builder()
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .region(region)
+            .build();
     }
 
-      // Places an image into a S3 bucket
-      public String putObject(byte[] data, String bucketName, String objectKey) {
-
-        s3 = getClient();
-
-        // Delete the existing video - this use case can only have 1 MP4 file
-        String objectName= getKeyName(bucketName);
-        ArrayList<ObjectIdentifier> toDelete = new ArrayList<ObjectIdentifier>();
-        toDelete.add(ObjectIdentifier.builder().key(objectName).build());
-
-        try {
-
-            DeleteObjectsRequest objectsRequest = DeleteObjectsRequest.builder()
-                    .bucket(bucketName)
-                    .delete(Delete.builder().objects(toDelete).build())
-                    .build();
-            s3.deleteObjects(objectsRequest);
-
-            // Put a MP4 into the bucket
-            PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
-                            .bucket(bucketName)
-                            .key(objectKey)
-                            .build(),
-                    RequestBody.fromBytes(data));
-
-            return response.eTag();
-
-        } catch (S3Exception e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-        return "";
-    }
     public String ListAllObjects(String bucketName) {
-
         s3 = getClient();
         long sizeLg;
         Instant DateIn;
         BucketItem myItem ;
-
-        List bucketItems = new ArrayList<BucketItem>();
+        List<BucketItem> bucketItems = new ArrayList<>();
         try {
             ListObjectsRequest listObjects = ListObjectsRequest
                     .builder()
@@ -438,13 +400,11 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
 
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
-
-            for (ListIterator iterVals = objects.listIterator(); iterVals.hasNext(); ) {
-                S3Object myValue = (S3Object) iterVals.next();
+            for (S3Object myValue : objects) {
                 myItem = new BucketItem();
                 myItem.setKey(myValue.key());
                 myItem.setOwner(myValue.owner().displayName());
-                sizeLg = myValue.size() / 1024 ;
+                sizeLg = myValue.size() / 1024;
                 myItem.setSize(String.valueOf(sizeLg));
                 DateIn = myValue.lastModified();
                 myItem.setDate(String.valueOf(DateIn));
@@ -452,7 +412,6 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
                 // Push the items to the list
                 bucketItems.add(myItem);
             }
-
             return convertToString(toXml(bucketItems));
 
         } catch (S3Exception e) {
@@ -460,79 +419,66 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             System.exit(1);
         }
         return null ;
-     }
+    }
 
     public String getKeyName(String bucketName) {
+        s3 = getClient();
+        String keyName="";
+        try {
+            ListObjectsRequest listObjects = ListObjectsRequest.builder()
+                .bucket(bucketName)
+                .build();
 
-            s3 = getClient();
-            String keyName="";
-
-            try {
-                ListObjectsRequest listObjects = ListObjectsRequest
-                        .builder()
-                        .bucket(bucketName)
-                        .build();
-
-                ListObjectsResponse res = s3.listObjects(listObjects);
-                List<S3Object> objects = res.contents();
-
-                for (ListIterator iterVals = objects.listIterator(); iterVals.hasNext(); ) {
-                    S3Object myValue = (S3Object) iterVals.next();
-                    keyName = myValue.key();
-                }
-
-                return keyName;
-
-            } catch (S3Exception e) {
-                System.err.println(e.awsErrorDetails().errorMessage());
-                System.exit(1);
+            ListObjectsResponse res = s3.listObjects(listObjects);
+            List<S3Object> objects = res.contents();
+            for (S3Object myValue : objects) {
+                keyName = myValue.key();
             }
-            return null ;
+            return keyName;
+
+        } catch (S3Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
+        return null ;
+    }
 
-     // Convert Bucket item data into XML to pass back to the view
-     private Document toXml(List<BucketItem> itemList) {
-
+    // Convert Bucket item data into XML to pass back to the view.
+    private Document toXml(List<BucketItem> itemList) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
-            // Start building the XML
+            // Start building the XML.
             Element root = doc.createElement( "Items" );
             doc.appendChild( root );
 
-            // Get the elements from the collection
-            int custCount = itemList.size();
+            // Iterate through the collection.
+            for (BucketItem myItem : itemList) {
+                // Get the WorkItem object from the collection.
+                Element item = doc.createElement("Item");
+                root.appendChild(item);
 
-            // Iterate through the collection
-            for ( int index=0; index < custCount; index++) {
+                // Set Key.
+                Element id = doc.createElement("Key");
+                id.appendChild(doc.createTextNode(myItem.getKey()));
+                item.appendChild(id);
 
-                // Get the WorkItem object from the collection
-                BucketItem myItem = itemList.get(index);
+                // Set Owner.
+                Element name = doc.createElement("Owner");
+                name.appendChild(doc.createTextNode(myItem.getOwner()));
+                item.appendChild(name);
 
-                Element item = doc.createElement( "Item" );
-                root.appendChild( item );
+                // Set Date.
+                Element date = doc.createElement("Date");
+                date.appendChild(doc.createTextNode(myItem.getDate()));
+                item.appendChild(date);
 
-                // Set Key
-                Element id = doc.createElement( "Key" );
-                id.appendChild( doc.createTextNode(myItem.getKey()) );
-                item.appendChild( id );
-
-                // Set Owner
-                Element name = doc.createElement( "Owner" );
-                name.appendChild( doc.createTextNode(myItem.getOwner() ) );
-                item.appendChild( name );
-
-                // Set Date
-                Element date = doc.createElement( "Date" );
-                date.appendChild( doc.createTextNode(myItem.getDate() ) );
-                item.appendChild( date );
-
-                // Set Size
-                Element desc = doc.createElement( "Size" );
-                desc.appendChild( doc.createTextNode(myItem.getSize() ) );
-                item.appendChild( desc );
+                // Set Size.
+                Element desc = doc.createElement("Size");
+                desc.appendChild(doc.createTextNode(myItem.getSize()));
+                item.appendChild(desc);
             }
 
             return doc;
@@ -540,9 +486,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             e.printStackTrace();
         }
         return null;
-       }
+    }
 
-      private String convertToString(Document xml) {
+    private String convertToString(Document xml) {
         try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
@@ -554,8 +500,9 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
             ex.printStackTrace();
         }
         return null;
-       }
-      }
+    }
+}
+
  ```
 
 **Note**: In this example, an **EnvironmentVariableCredentialsProvider** is used for the credentials. This is because this application is deployed to Elastic Beanstalk where environment variables are set (shown later in this tutorial).
@@ -735,32 +682,33 @@ The following Java code represents the **VideoController** class that handles HT
 ```java
      package com.example.video;
 
-    import org.springframework.beans.factory.annotation.Autowired;
-    import org.springframework.stereotype.Controller;
-    import org.springframework.web.bind.annotation.*;
-    import javax.servlet.http.HttpServletRequest;
-    import javax.servlet.http.HttpServletResponse;
-    import org.springframework.web.servlet.ModelAndView;
-    import org.springframework.web.multipart.MultipartFile;
-    import org.springframework.web.servlet.view.RedirectView;
-    import java.io.IOException;
-    import java.io.InputStream;
-    import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
+import java.util.List;
 
-    @Controller
-    public class VideoController {
+@Controller
+public class VideoController {
+    private final S3Service s3Client;
+    private final WriteExcel writeExcel;
+    private final SendMessages sendMessage;
+    private final VideoDetectFaces detectFaces;
 
-    @Autowired
-    S3Service s3Client;
-
-    @Autowired
-    WriteExcel excel ;
-
-    @Autowired
-    SendMessages sendMessage;
-
-    @Autowired
-    VideoDetectFaces detectFaces;
+    @Autowired()
+    VideoController(
+        S3Service s3Client,
+        WriteExcel writeExcel,
+        SendMessages sendMessage,
+        VideoDetectFaces detectFaces
+    ) {
+        this.s3Client = s3Client;
+        this.writeExcel = writeExcel;
+        this.sendMessage = sendMessage;
+        this.detectFaces = detectFaces;
+    }
 
     @GetMapping("/")
     public String root() {
@@ -776,62 +724,39 @@ The following Java code represents the **VideoController** class that handles HT
     public String process() {
         return "process";
     }
-    
-    private String bucketName = "<Enter your bucket name>";
 
     @RequestMapping(value = "/getvideo", method = RequestMethod.GET)
     @ResponseBody
     String getImages(HttpServletRequest request, HttpServletResponse response) {
-
-        return s3Client.ListAllObjects("scottexamplevideo");
+        return s3Client.ListAllObjects(VideoApplicationResources.STORAGE_BUCKET);
     }
 
-    // Upload a MP4 to an Amazon S3 bucket
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    // generates a report after analyzing a video in an Amazon S3 bucket
+    @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
-    public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
-
-        try {
-            byte[] bytes = file.getBytes();
-            String name =  file.getOriginalFilename() ;
-
-            // Put the MP4 file into an Amazon S3 bucket
-            int yy = 0;
-            s3Client.putObject(bytes, bucketName, name);
-            // return "You have placed " +name + " into the S3 bucket";
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new ModelAndView(new RedirectView("video"));
-     }
-
-     // generates a report after analyzing a video in an Amazon S3 bucket
-     @RequestMapping(value = "/report", method = RequestMethod.POST)
-     @ResponseBody
-     String report(HttpServletRequest request, HttpServletResponse response) {
-
+    String report(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getParameter("email");
-        String myKey = s3Client.getKeyName(bucketName);
-        String jobNum = detectFaces.StartFaceDetection(bucketName, myKey);
+        String myKey = s3Client.getKeyName(VideoApplicationResources.STORAGE_BUCKET);
+        String jobNum = detectFaces.StartFaceDetection(VideoApplicationResources.STORAGE_BUCKET, myKey);
         List<FaceItems> items = detectFaces.GetFaceResults(jobNum);
-        InputStream excelData = excel.exportExcel(items);
+        InputStream excelData = writeExcel.exportExcel(items);
 
         try {
-            //email the report
             sendMessage.sendReport(excelData, email);
 
         } catch (Exception e) {
-
             e.printStackTrace();
         }
         return "The "+ myKey +" video has been successfully analyzed and the report is sent to "+email;
-      } 
-     }
+    }
+}
+
 ```
 
 **Note**: Change the **bucketName** variable to match your bucket. 
 
 ### VideoDetectFaces class
+
 The following Java code represents the **VideoDetectFaces** class. This class uses the Amazon Rekognition API to analyze the video obtained from an Amazon S3 bucket. In this example, the video is analyzed by invoking the **RekognitionClient** object’s **startFaceDetection** method. This returns a **StartFaceDetectionResponse** object. You can get the job id number by invoking the **StartFaceDetectionResponse** object’s **jobId** method.
 
 You can get the results of the job by invoking the **GetFaceResults** method. Notice in this code example, a while loop is used to wait until the job is finished. This method returns a list where each element is a **FaceItems** object. 
@@ -839,61 +764,51 @@ You can get the results of the job by invoking the **GetFaceResults** method. No
 ```java
     package com.example.video;
 
-    import org.springframework.stereotype.Component;
-    import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-    import software.amazon.awssdk.regions.Region;
-    import software.amazon.awssdk.services.rekognition.RekognitionClient;
-    import software.amazon.awssdk.services.rekognition.model.*;
-    import software.amazon.awssdk.services.rekognition.model.S3Object;
-    import java.util.ArrayList;
-    import java.util.List;
+import org.springframework.stereotype.Component;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.rekognition.RekognitionClient;
+import software.amazon.awssdk.services.rekognition.model.*;
+import software.amazon.awssdk.services.rekognition.model.S3Object;
+import java.util.ArrayList;
+import java.util.List;
 
-    @Component
-    public class VideoDetectFaces {
-
-    String topicArn = "<enter a topic ARN>";
-    String roleArn = "<enter your role ARN>"
-
+@Component
+public class VideoDetectFaces {
     private RekognitionClient getRecClient() {
         Region region = Region.US_EAST_1;
-        RekognitionClient rekClient = RekognitionClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(region)
-                .build();
-        return rekClient;
+        return RekognitionClient.builder()
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .region(region)
+            .build();
     }
 
     private NotificationChannel getChannel() {
-
-        NotificationChannel channel = NotificationChannel.builder()
-                .snsTopicArn(topicArn)
-                .roleArn(roleArn)
-                .build();
-        return channel;
+        return NotificationChannel.builder()
+            .snsTopicArn(VideoApplicationResources.TOPIC_ARN)
+            .roleArn(VideoApplicationResources.ROLE_ARN)
+            .build();
     }
 
     public String StartFaceDetection(String bucket, String video) {
-
-     String startJobId="";
-
+        String startJobId;
         try {
-
             RekognitionClient rekClient = getRecClient();
             software.amazon.awssdk.services.rekognition.model.S3Object s3Obj = S3Object.builder()
-                    .bucket(bucket)
-                    .name(video)
-                    .build();
+                .bucket(bucket)
+                .name(video)
+                .build();
 
             Video vidOb = Video.builder()
-                    .s3Object(s3Obj)
-                    .build();
+                .s3Object(s3Obj)
+                .build();
 
             StartFaceDetectionRequest faceDetectionRequest = StartFaceDetectionRequest.builder()
-                    .jobTag("Faces")
-                    .notificationChannel(getChannel())
-                    .faceAttributes(FaceAttributes.ALL)
-                    .video(vidOb)
-                    .build();
+                .jobTag("Faces")
+                .notificationChannel(getChannel())
+                .faceAttributes(FaceAttributes.ALL)
+                .video(vidOb)
+                .build();
 
             StartFaceDetectionResponse startLabelDetectionResult = rekClient.startFaceDetection(faceDetectionRequest);
             startJobId=startLabelDetectionResult.jobId();
@@ -904,17 +819,16 @@ You can get the results of the job by invoking the **GetFaceResults** method. No
             System.exit(1);
         }
         return "";
-     }
+    }
 
-     // Processes the Job and returns of List of labels
-     public List<FaceItems> GetFaceResults(String startJobId) {
-
+    // Processes the Job and returns of List of labels.
+    public List<FaceItems> GetFaceResults(String startJobId) {
         List<FaceItems> items =new ArrayList<>();
         try {
             RekognitionClient rekClient = getRecClient();
             String paginationToken=null;
             GetFaceDetectionResponse faceDetectionResponse=null;
-            Boolean finished = false;
+            boolean finished = false;
             String status="";
             int yy=0 ;
 
@@ -923,17 +837,15 @@ You can get the results of the job by invoking the **GetFaceResults** method. No
                     paginationToken = faceDetectionResponse.nextToken();
 
                 GetFaceDetectionRequest recognitionRequest = GetFaceDetectionRequest.builder()
-                        .jobId(startJobId)
-                        .nextToken(paginationToken)
-                        .maxResults(10)
-                        .build();
+                    .jobId(startJobId)
+                    .nextToken(paginationToken)
+                    .maxResults(10)
+                    .build();
 
-                // Wait until the job succeeds
+                // Wait until the job succeeds.
                 while (!finished) {
-
                     faceDetectionResponse = rekClient.getFaceDetection(recognitionRequest);
                     status = faceDetectionResponse.jobStatusAsString();
-
                     if (status.compareTo("SUCCEEDED") == 0)
                         finished = true;
                     else {
@@ -942,17 +854,13 @@ You can get the results of the job by invoking the **GetFaceResults** method. No
                     }
                     yy++;
                 }
-
                 finished = false;
 
-                // Push face information to the list
+                // Push face information to the list.
                 List<FaceDetection> faces= faceDetectionResponse.faces();
-
                 FaceItems faceItem;
                 for (FaceDetection face: faces) {
-
                     faceItem = new FaceItems();
-
                     String age = face.face().ageRange().toString();
                     String beard = face.face().beard().toString();
                     String eyeglasses = face.face().eyeglasses().toString();
@@ -966,22 +874,20 @@ You can get the results of the job by invoking the **GetFaceResults** method. No
                     faceItem.setEyesOpen(eyesOpen);
                     faceItem.setMustache(mustache);
                     faceItem.setSmile(smile);
-
                     items.add(faceItem);
-                   }
+                }
 
-            } while (faceDetectionResponse !=null && faceDetectionResponse.nextToken() != null);
-
+            } while (faceDetectionResponse.nextToken() != null);
             return items;
-
 
         } catch(RekognitionException | InterruptedException e) {
             System.out.println(e.getMessage());
             System.exit(1);
         }
         return null;
-       }
-      }
+    }
+}
+
  ```
 
 **Note**: Specifiy valid **topicArn** and **roleArn** values. See the **Prerequisites** section at the start of this tutorial. 
@@ -993,84 +899,79 @@ The following Java code represents the **WriteExcel** class.
 ```java
      package com.example.video;
 
-    import jxl.CellView;
-    import jxl.Workbook;
-    import jxl.WorkbookSettings;
-    import jxl.format.UnderlineStyle;
-    import jxl.write.Label;
-    import jxl.write.Number;
-    import jxl.write.WritableCellFormat;
-    import jxl.write.WritableFont;
-    import jxl.write.WritableSheet;
-    import jxl.write.WritableWorkbook;
-    import jxl.write.WriteException;
-    import org.springframework.stereotype.Component;
-    import java.io.IOException;
-    import java.util.List;
-    import java.util.Locale;
+import jxl.CellView;
+import jxl.Workbook;
+import jxl.WorkbookSettings;
+import jxl.format.UnderlineStyle;
+import jxl.write.Label;
+import jxl.write.Number;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
+import org.springframework.stereotype.Component;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
-    @Component
-    public class WriteExcel {
-
+@Component
+public class WriteExcel {
     private WritableCellFormat timesBoldUnderline;
     private WritableCellFormat times;
 
-    // Returns an InputStream that represents the Excel Report
+    // Returns an InputStream that represents the Excel Report.
     public java.io.InputStream exportExcel( List<FaceItems> list) {
-
         try {
-            java.io.InputStream is = write(list);
-            return is ;
+            return write(list);
         } catch(WriteException | IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    // Generates the report and returns an inputstream
+    // Generates the report and returns an inputstream.
     public java.io.InputStream write( List<FaceItems> list) throws IOException, WriteException {
-        java.io.OutputStream os = new java.io.ByteArrayOutputStream() ;
+        ByteArrayOutputStream os = new java.io.ByteArrayOutputStream() ;
         WorkbookSettings wbSettings = new WorkbookSettings();
-
         wbSettings.setLocale(new Locale("en", "EN"));
 
-        // Create a Workbook - pass the OutputStream
+        // Create a Workbook - pass the OutputStream.
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
 
-        //Need to get the WorkItem from each list
+        //Need to get the WorkItem from each list.
         workbook.createSheet("Video Analyzer Sheet", 0);
         WritableSheet excelSheet = workbook.getSheet(0);
         createLabel(excelSheet);
         createContent(excelSheet, list);
 
-        // Close the workbook
+        // Close the workbook.
         workbook.write();
         workbook.close();
 
-        // Get an inputStram that represents the Report
-        java.io.ByteArrayOutputStream stream = new java.io.ByteArrayOutputStream();
-        stream = (java.io.ByteArrayOutputStream)os;
+        // Get an InputStram that represents the Report.
+        java.io.ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        stream = os;
         byte[] myBytes = stream.toByteArray();
-        java.io.InputStream is = new java.io.ByteArrayInputStream(myBytes) ;
+        return new java.io.ByteArrayInputStream(myBytes);
+    }
 
-        return is ;
-      }
-
-     // Create Headings in the Excel spreadsheet
-     private void createLabel(WritableSheet sheet)
+    // Create Headings in the Excel spreadsheet.
+    private void createLabel(WritableSheet sheet)
             throws WriteException {
-        // Create a times font
+        // Create a times font.
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-        // Define the cell format
+        // Define the cell format.
         times = new WritableCellFormat(times10pt);
-        // Lets automatically wrap the cells
+        // Lets automatically wrap the cells.
         times.setWrap(true);
 
-        // create create a bold font with unterlines
+        // create create a bold font with unterlines.
         WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
                 UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        // Lets automatically wrap the cells
+        // Lets automatically wrap the cells.
         timesBoldUnderline.setWrap(true);
 
         CellView cv = new CellView();
@@ -1078,26 +979,20 @@ The following Java code represents the **WriteExcel** class.
         cv.setFormat(timesBoldUnderline);
         cv.setAutosize(true);
 
-        // Write a few headers
-        addCaption(sheet, 0, 0, "Age Range");
-        addCaption(sheet, 1, 0, "Beard");
-        addCaption(sheet, 2, 0, "Eye glasses");
-        addCaption(sheet, 3, 0, "Eyes open");
-        addCaption(sheet, 4, 0, "Mustache");
-        addCaption(sheet, 4, 0, "Smile");
-     }
+        // Write a few headers.
+        addCaption(sheet, 0, "Age Range");
+        addCaption(sheet, 1, "Beard");
+        addCaption(sheet, 2, "Eye glasses");
+        addCaption(sheet, 3, "Eyes open");
+        addCaption(sheet, 4, "Mustache");
+        addCaption(sheet, 4, "Smile");
+    }
 
-     // Write the Work Item Data to the Excel Report
-     private int createContent(WritableSheet sheet, List<FaceItems> list) throws WriteException {
-
+    // Write the Work Item Data to the Excel Report.
+    private int createContent(WritableSheet sheet, List<FaceItems> list) throws WriteException {
         int size = list.size() ;
-
-        //  list
         for (int i = 0; i < size; i++) {
-
-            FaceItems fi = (FaceItems)list.get(i);
-
-            //Get tne item values
+            FaceItems fi = list.get(i);
             String age = fi.getAgeRange();
             String beard = fi.getBeard();
             String eyeglasses = fi.getEyeglasses();
@@ -1111,26 +1006,25 @@ The following Java code represents the **WriteExcel** class.
             addLabel(sheet, 3, i + 2, eyesOpen);
             addLabel(sheet, 4, i + 2, mustache);
             addLabel(sheet, 5, i + 2, smile);
-         }
+        }
         return size;
-       }
+    }
 
-     private void addCaption(WritableSheet sheet, int column, int row, String s)
+    private void addCaption(WritableSheet sheet, int column, String s)
             throws WriteException {
         Label label;
-        label = new Label(column, row, s, timesBoldUnderline);
-
+        label = new Label(column, 0, s, timesBoldUnderline);
         int cc = countString(s);
         sheet.setColumnView(column, cc);
         sheet.addCell(label);
-     }
+    }
 
     private void addNumber(WritableSheet sheet, int column, int row,
                            Integer integer) throws WriteException {
         Number number;
         number = new Number(column, row, integer, times);
         sheet.addCell(number);
-     }
+    }
 
     private void addLabel(WritableSheet sheet, int column, int row, String s)
             throws WriteException {
@@ -1141,10 +1035,8 @@ The following Java code represents the **WriteExcel** class.
             sheet.setColumnView(column, 150);
         else
             sheet.setColumnView(column, cc+6);
-
         sheet.addCell(label);
-
-     }
+    }
 
     private int countString (String ss) {
         int count = 0;
@@ -1154,9 +1046,27 @@ The following Java code represents the **WriteExcel** class.
                 count++;
         }
         return count;
-      }
-     }
+    }
+}
  ```
+ 
+ ### VideoApplicationResources class
+
+The following Java code represents the **VideoApplicationResources** class. Make suee that you specify the correct AWS resource files.
+
+```java
+
+package com.example.video;
+
+public class VideoApplicationResources {
+    public static final String STORAGE_BUCKET = "<Enter value>";
+    public static final String TOPIC_ARN = "<Enter value>";
+    public static final String ROLE_ARN = "<Enter value>";
+}
+
+
+```
+
 
 ## Create the HTML files
 
