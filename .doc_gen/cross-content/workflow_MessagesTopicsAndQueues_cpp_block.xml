@@ -9,6 +9,6 @@
     </para>
     <para>
         For complete source code and instructions demonstrating messaging with topics and queues using &SNSlong; and &SQSlong;, see the full example on
-        <ulink url="https://github.com/meyertst-aws/aws-doc-sdk-examples/tree/4480-sns-mvp-scout/cpp/example_code/cross-service/topics_and_queues">GitHub</ulink>.
+        <ulink url="https://github.com/meyertst-aws/aws-doc-sdk-examples/tree/4480-sns-mvp-scout/cpp/example_code/cross-service/topics_and_queues+">GitHub</ulink>.
     </para>
 </block>
