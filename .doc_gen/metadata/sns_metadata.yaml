@@ -1228,9 +1228,9 @@ sns_SetSubscriptionAttributesRedrivePolicy:
   services:
     sns: {SetSubscriptionAttributesRedrivePolicy}
 sns_Subscribe_Queue:
-  title: Subscribe an &SQS queue to an &SNS; topic using an &AWS; SDK
+  title: Subscribe an &SQS; queue to an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe a queue to a topic
-  synopsis: subscribe an &SQS queue so it receives notifications from an &SNS; topic.
+  synopsis: subscribe an &SQS; queue so it receives notifications from an &SNS; topic.
   category:
   languages:
     C++:
