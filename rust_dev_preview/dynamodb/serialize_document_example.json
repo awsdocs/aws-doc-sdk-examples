@@ -1,0 +1,47 @@
+{
+    "table_name": "MusicCollection",
+    "item": {
+        "AlbumTitle": {
+            "S": "Somewhat Famouss"
+        },
+        "Artists": {
+            "S": "No One You Know"
+        },
+        "SongTitle": {
+            "S": "Call Me Today"
+        }
+    },
+    "expected": {
+        "key": {
+            "value": null,
+            "exists": true,
+            "comparison_operator": null,
+            "attribute_value_list": [
+                {
+                    "Bool": true
+                },
+                {
+                    "Null": false
+                }
+            ]
+        }
+    },
+    "return_values": "AllNew",
+    "return_consumed_capacity": "Total",
+    "return_item_collection_metrics": "Size",
+    "conditional_operator": "And",
+    "condition_expression": "stuff",
+    "expression_attribute_names": {
+        "key": "names"
+    },
+    "expression_attribute_values": {
+        "key": {
+            "Ns": [
+                "42.2",
+                "-19",
+                "7.5",
+                "3.14"
+            ]
+        }
+    }
+}
