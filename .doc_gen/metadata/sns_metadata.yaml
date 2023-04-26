@@ -1,4 +1,21 @@
 # zexi 0.4.0
+sns_Hello:
+  title: Hello &SNS;
+  title_abbrev: Hello &SNS;
+  synopsis: get started using &SNS;.
+  category: Hello
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sns/hello_sns
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.s3.Hello
+  services:
+    sns: {ListTopics}
 sns_GetTopicAttributes:
   title: Get the properties of an &SNS; topic using an &AWS; SDK
   title_abbrev: Get the properties of a topic

@@ -11,6 +11,7 @@
  *
  **/
 
+// snippet-start:[cpp.example_code.sns.hello_sns]
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
 #include <aws/sns/model/ListTopicsRequest.h>
@@ -27,7 +28,6 @@ int main(int argc, char **argv) {
         Aws::SNS::SNSClient snsClient(clientConfig);
 
         Aws::String nextToken; // Next token is used to handle a paginated response.
-        bool result = true;
         do {
             Aws::SNS::Model::ListTopicsRequest request;
 
@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
 
             if (outcome.IsSuccess()) {
                 std::cout << "Topics list:" << std::endl;
-                for (auto const &topic: outcome.GetResult().GetTopics()) {
+                for (const Aws::SNS::Model::Topic &topic: outcome.GetResult().GetTopics()) {
                     std::cout << "  * " << topic.GetTopicArn() << std::endl;
                 }
             }
@@ -48,7 +48,6 @@ int main(int argc, char **argv) {
                 std::cerr << "Error listing topics " << outcome.GetError().GetMessage()
                           <<
                           std::endl;
-                result = false;
                 return 1;
             }
 
@@ -59,3 +58,4 @@ int main(int argc, char **argv) {
     Aws::ShutdownAPI(options);
     return 0;
 }
+// snippet-end:[cpp.example_code.sns.hello_sns]
