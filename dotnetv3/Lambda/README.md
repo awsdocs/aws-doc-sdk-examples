@@ -98,7 +98,7 @@ This example shows you how to do the following:
 
 
 <!--custom.scenarios.lambda_Scenario_GettingStartedFunctions.start-->
-Before you run the getting started with Lambda scenario, you have to upload
+Before you can run the getting started with Lambda scenario, you must upload
 the following two files to an Amazon Simple Storage Service (Amazon S3) bucket that you
 own:
 
@@ -109,10 +109,10 @@ own:
 
 The scenario includes the following settings in `settings.json`:
 
- * `FunctionName` - a name for the Lambda function.
+ * `FunctionName` - A name for the Lambda function.
  * `Handler` - "LambdaIncrement::LambdaIncrement.Function::FunctionHandler"
  * `UpdatedHandler` - "LambdaCalculator::LambdaCalculator.Function::FunctionHandler"
- * `BucketName` - The name of the bucket containing the Zip files for the sample functions.
+ * `BucketName` - The name of the bucket containing the .zip files for the sample functions.
  * `IncrementKey` - "LambdaIncrement.zip",
  * `CalculatorKey` - "LambdaCalculator.zip",
  * `RoleName` - The name of the IAM role that gives the scenario permissions to access Lambda.

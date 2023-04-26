@@ -28,8 +28,8 @@ For prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3
 
 
 <!--custom.prerequisites.start-->
-To enable billing metrics and statistics for these examples, make sure
-[billing alerts are enabled](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#turning_on_billing_metrics) for your account.
+To enable billing metrics and statistics for these examples, make sure to
+[enable billing alerts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/monitor_estimated_charges_with_cloudwatch.html#turning_on_billing_metrics) for your account.
 <!--custom.prerequisites.end-->
 
 

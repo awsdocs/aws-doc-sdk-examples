@@ -101,23 +101,23 @@ This example shows you how to do the following:
 
 <!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
 This scenario requires the following scaffold resources:
-* An Amazon S3 bucket that can contain the Python ETL job script and can receive
+* An S3 bucket that can contain the Python ETL job script and receive
   output data.
 * An AWS Identity and Access Management (IAM) role that can be assumed by AWS Glue.
   The role must grant read-write access to the S3 bucket and standard rights needed by
   AWS Glue.
 
 
-You can deploy and destroy these resources using the AWS Cloud Development Kit
+You can deploy and destroy these resources by using the AWS Cloud Development Kit
 (AWS CDK). To do this, run `cdk deploy` or `cdk destroy` in the
 [/resources/cdk/glue_role_bucket](/resources/cdk/glue_role_bucket) folder.
   
-When the AWS CDK script reports the name of the bucket and AWS Identity and Access Management (IAM) Role that was created, open the `settings.json` file and fill in
-  the BucketName, RoleName and ScriptURL values.
+When the AWS CDK script reports the bucket name and the IAM role that was created, open the `settings.json` file and fill in
+  the BucketName, RoleName, and ScriptURL values.
 
-You should also copy the Python script `flight_etl_job_script.py` from
+Also copy the Python script `flight_etl_job_script.py` from
 [/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py](/aws-doc-sdk-examples/python/example_code/glue/flight_etl_job_script.py)
-to the Amazon S3 bucket.
+to the S3 bucket.
 
 Example:
 

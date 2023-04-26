@@ -102,21 +102,21 @@ This example shows you how to do the following:
 
 
 <!--custom.scenarios.auto-scaling_Scenario_GroupsAndInstances.start-->
-##### Configuration Settings
+##### Configuration settings
 
 This example uses several configuration settings that are stored in `settings.json`
 to change the existing values.
 
-Note: The image ID, instance type, and availability zone must be available in the AWS Region used by the account
-used to run the scenario. In order to get valid settings, see: [Find a Linux AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
+Note: The image ID, instance type, and Availability Zone must be available in the same AWS Region as the account that's
+used to run the scenario. For information about how to get valid settings, see [Find a Linux AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html).
 
-* `GroupName` - The name to use for the autoscaling group.
-* `ImageId` - The image ID to use with the AutoScaling template. The AMI-ID column of the Amazon EC2 image locator table.
+* `GroupName` - The name to use for the Auto Scaling group.
+* `ImageId` - The image ID to use with the Amazon EC2 Auto Scaling template. The AMI-ID column of the Amazon EC2 image locator table.
 * `InstanceType` - The instance type to use with the template. The Instance Type column of the Amazon EC2 image locator table.
 * `LaunchTemplateName` - The name of the launch template.
-* `AvailabilityZone` - The availability zone for the launch template. The Zone column of the Amazon EC2 image locator table.
+* `AvailabilityZone` - The Availability Zone for the launch template. The Zone column of the Amazon EC2 image locator table.
 * `ServiceLinkedRoleArn` - The Amazon Resource Name (ARN) of a serivce-linked role that will be used
-                             to create the AutoScaling group.
+                             to create the Auto Scaling group.
 
 <!--custom.scenarios.auto-scaling_Scenario_GroupsAndInstances.end-->
 
