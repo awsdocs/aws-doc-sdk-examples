@@ -212,13 +212,7 @@ At this point, you have a new project named **SpringVideoAnalyzer**. Make sure t
 
 Create a Java package in the **main/java** folder named **com.example.video**.
 
-![AWS Photo Analyzer](images/pic4png.png)
-
-The Java files go into this package.
-
-![AWS Photo Analyzer](images/pic5.png)
-
-Create these Java classes:
+The Java files go into this package. Create these Java classes:
 
 + **BucketItem** - Used as a model that stores Amazon S3 bucket information.   
 + **FaceItem** - Used as a model that stores details obtained by analyzing the video.
@@ -228,7 +222,7 @@ Create these Java classes:
 + **VideoController** - Used as the Spring Boot controller that handles HTTP requests.
 + **VideoDetectFaces** - Uses the Amazon Rekognition API to analyze the video.
 + **WriteExcel** – Uses the JXL API (this is not an AWS API) to dynamically generate a report.    
-+ **VideoApplicationResources** - Used to store AWS resource values. 
++ **VideoApplicationResources** - Used to store AWS resource values. You must update values in this class.
 
 ### BucketItem class
 
