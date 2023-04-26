@@ -1,49 +1,30 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html.
+import { fileURLToPath } from "url";
 
-Purpose:
-ddb_deleteitem.js demonstrates how to delete an item from an Amazon DynamoDB table.
-
-INPUTS:
-- TABLE
-- KEY_NAME
-- VALUE
-
-Running the code:
-ts-node ddb_deleteitem.js
-
-*/
 // snippet-start:[dynamodb.JavaScript.item.deleteItemV3]
-// Import required AWS SDK clients and commands for Node.js
-import { DeleteItemCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "../src/libs/ddbClient.js";
+import { DeleteItemCommand, DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-// Set the parameters
-export const params = {
-  TableName: "CUSTOMER_LIST_NEWEST",
-  Key: {
-    CUSTOMER_ID: { N: "1" },
-  },
-};
+const client = new DynamoDBClient({});
 
-export const run = async () => {
-  try {
-    const data = await ddbClient.send(new DeleteItemCommand(params));
-    console.log("Success, item deleted", data);
-    return data;
-  } catch (err) {
-    console.log("Error", err);
-    /*if (err && err.code === "ResourceNotFoundException") {
-      console.log("Error: Table not found");
-    } else if (err && err.code === "ResourceInUseException") {
-      console.log("Error: Table in use");
-    }*/
-  }
+export const main = async () => {
+  const command = new DeleteItemCommand({
+    TableName: "Drinks",
+    Key: {
+      Name: { S: "Pumpkin Spice Latte" },
+    },
+  });
+
+  const response = await client.send(command);
+  console.log(response);
+  return response;
 };
-run();
 // snippet-end:[dynamodb.JavaScript.item.deleteItemV3]
 
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

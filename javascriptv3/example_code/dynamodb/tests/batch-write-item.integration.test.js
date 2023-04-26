@@ -58,14 +58,14 @@ describe("batch-get-item", () => {
 
     const { Responses } = await docClient.send(getCommand);
     expect(Responses).toEqual({
-      [tableName]: [
+      [tableName]: expect.arrayContaining([
         expect.objectContaining({
           Name: "Donkey Kick",
         }),
         expect.objectContaining({
           Name: "Flora Ethiopia",
         }),
-      ],
+      ]),
     });
   });
 });

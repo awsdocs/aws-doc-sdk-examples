@@ -10,16 +10,17 @@ import { main } from "../actions/create-table.js";
 
 describe("create-table", () => {
   const client = new DynamoDBClient({});
+  const tableName = "EspressoDrinks"
 
   afterAll(async () => {
     const command = new DeleteTableCommand({
-      TableName: "EspressoDrinks",
+      TableName: tableName,
     });
     await client.send(command);
   });
 
   it("should create a table", async () => {
     await main();
-    await waitUntilTableExists({ client }, { TableName: "EspressoDrinks" });
+    await waitUntilTableExists({ client }, { TableName: tableName });
   });
 });
