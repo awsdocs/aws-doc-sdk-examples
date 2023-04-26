@@ -60,9 +60,9 @@ You must create an IAM role and a valid SNS topic. You need to reference these v
 
 ## Understand the AWS Video Analyzer application
 
-The AWS Video Analyzer application supports uploading a video (MP4 file) to an Amazon S3 bucket. After the video is uploaded, you can confirm that the video is located in the Amazon S3 bucket by choosing the **Show Video** button.
+The AWS Video Analyzer application supports viewing video (MP4 file) information that is located in an Amazon S3 bucket. That is, you can confirm that the video is located in the Amazon S3 bucket by choosing the **Show Video** button.
 
-![AWS Video Analyzer](images/pic1.png)
+![AWS Video Analyzer](images/video.png)
 
 To generate a report, enter an email address and choose **Analyze Video**. A mask is displayed to let the user know the report is being created. 
 
