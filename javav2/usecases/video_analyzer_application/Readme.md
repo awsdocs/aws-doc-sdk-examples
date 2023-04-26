@@ -22,7 +22,6 @@ This application uses the following AWS services:
 *	Amazon Rekognition
 *	Amazon S3
 *	Amazon SES
-*	AWS Elastic Beanstalk
 
 #### Topics
 
