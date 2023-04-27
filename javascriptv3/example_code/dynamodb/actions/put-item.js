@@ -1,44 +1,31 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html.
+import { fileURLToPath } from "url";
 
-Purpose:
-ddb_putitem.js demonstrates how to create or replace an item in an Amazon DynamoDB table.
-
-INPUTS:
-- TABLE_NAME
-
-Running the code:
-node ddb_putitem.js
-*/
 // snippet-start:[dynamodb.JavaScript.item.putItemV3]
+import { PutItemCommand, DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-// Import required AWS SDK clients and commands for Node.js
-import { PutItemCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "../src/libs/ddbClient.js";
+const client = new DynamoDBClient({});
 
-// Set the parameters
-export const params = {
-  TableName: "TABLE_NAME",
-  Item: {
-    CUSTOMER_ID: { N: "001" },
-    CUSTOMER_NAME: { S: "Richard Roe" },
-  },
+export const main = async () => {
+  const command = new PutItemCommand({
+    TableName: "Cookies",
+    Item: {
+      Flavor: { S: "Chocolate Chip" },
+      Variants: { SS: ["White Chocolate Chip", "Chocolate Chunk"] },
+    },
+  });
+
+  const response = await client.send(command);
+  console.log(response);
+  return response;
 };
-
-export const run = async () => {
-  try {
-    const data = await ddbClient.send(new PutItemCommand(params));
-    console.log(data);
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
-};
-run();
 // snippet-end:[dynamodb.JavaScript.item.putItemV3]
-// For unit tests only.
-// module.exports ={run, params};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
