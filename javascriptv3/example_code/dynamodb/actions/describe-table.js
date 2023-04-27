@@ -1,37 +1,28 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html.
+import { fileURLToPath } from "url";
 
-Purpose:
-ddb_describetable.js demonstrates how to retrieve information about an Amazon DynamoDB table.
-
-INPUTS:
-- TABLE_NAME
-
-Running the code:
-node ddb_describetable.js
-*/
 // snippet-start:[dynamodb.JavaScript.table.describeTableV3]
-// Import required AWS SDK clients and commands for Node.js
-import { DescribeTableCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "../src/libs/ddbClient.js";
+import { DescribeTableCommand, DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-// Set the parameters
-export const params = { TableName: "TABLE_NAME" }; //TABLE_NAME
+const client = new DynamoDBClient({});
 
-export const run = async () => {
-  try {
-    const data = await ddbClient.send(new DescribeTableCommand(params));
-    console.log("Success", data);
-    // console.log("Success", data.Table.KeySchema);
-    return data;
-  } catch (err) {
-    console.log("Error", err);
-  }
+export const main = async () => {
+  const command = new DescribeTableCommand({
+    TableName: "Pastries",
+  });
+
+  const response = await client.send(command);
+  console.log(`TABLE NAME: ${response.Table.TableName}`);
+  console.log(`TABLE ITEM COUNT: ${response.Table.ItemCount}`);
+  return response;
 };
-run();
 // snippet-end:[dynamodb.JavaScript.table.describeTableV3]
 
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
