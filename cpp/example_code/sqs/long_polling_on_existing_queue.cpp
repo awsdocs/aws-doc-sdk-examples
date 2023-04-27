@@ -1,75 +1,95 @@
-//snippet-sourcedescription:[long_polling_on_existing_queue.cpp demonstrates how to change the amount of time an Amazon SQS queue waits for a message to arrive.]
-//snippet-service:[sqs]
-//snippet-keyword:[Amazon Simple Queue Service]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
+
 //snippet-start:[sqs.cpp.long_polling_on_existing-queue.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/SetQueueAttributesRequest.h>
 #include <iostream>
 //snippet-end:[sqs.cpp.long_polling_on_existing-queue.inc]
+#include "sqs_samples.h"
 
-/**
- * Modifies an sqs queue to have a long poll wait time, based on command line input
+//! Set an Amazon Simple Queue Service (Amazon SQS) queue's poll wait time.
+/*!
+  \param queueUrl: An Amazon SQS queue URL.
+  \param pollTimeSeconds: The receive message wait time in seconds.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
  */
-int main(int argc, char** argv)
-{
-    if (argc != 3)
-    {
-        std::cout << "Usage: long_polling_on_existing_queue <queue_url> " <<
-            "<long_poll_time_in_seconds>" << std::endl;
+bool AwsDoc::SQS::SetQueueLongPollingAttribute(const Aws::String &queueURL,
+                                               const Aws::String &pollTimeSeconds,
+                                               const Aws::Client::ClientConfiguration &clientConfiguration) {
+    // snippet-start:[sqsClient.cpp.long_polling_on_existing-queue.code]
+    Aws::SQS::SQSClient sqsClient(clientConfiguration);
+
+    Aws::SQS::Model::SetQueueAttributesRequest request;
+    request.SetQueueUrl(queueURL);
+    request.AddAttributes(
+            Aws::SQS::Model::QueueAttributeName::ReceiveMessageWaitTimeSeconds,
+            pollTimeSeconds);
+
+    const Aws::SQS::Model::SetQueueAttributesOutcome outcome = sqsClient.SetQueueAttributes(
+            request);
+    if (outcome.IsSuccess()) {
+        std::cout << "Successfully updated long polling time for queue " <<
+                  queueURL << " to " << pollTimeSeconds << std::endl;
+    }
+    else {
+        std::cout << "Error updating long polling time for queue " <<
+                  queueURL << ": " << outcome.GetError().GetMessage() <<
+                  std::endl;
+    }
+    // snippet-end:[sqsClient.cpp.long_polling_on_existing-queue.code]
+
+    return outcome.IsSuccess();
+}
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_long_polling_on_existing_queue <queue_url> <long_poll_time_in_seconds>'
+ *
+ *  Prerequisites: An existing SQS queue.
+ *
+ */
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    if (argc != 3) {
+        std::cout << "Usage: run_long_polling_on_existing_queue <queue_url> " <<
+                  "<long_poll_time_in_seconds>" << std::endl;
         return 1;
     }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String queue_url = argv[1];
-        Aws::String poll_time = argv[2];
+        Aws::String queueUrl = argv[1];
+        Aws::String pollTime = argv[2];
 
-        // snippet-start:[sqs.cpp.long_polling_on_existing-queue.code]
-        Aws::SQS::SQSClient sqs;
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
 
-        Aws::SQS::Model::SetQueueAttributesRequest request;
-        request.SetQueueUrl(queue_url);
-        request.AddAttributes(
-            Aws::SQS::Model::QueueAttributeName::ReceiveMessageWaitTimeSeconds,
-            poll_time);
-
-        auto outcome = sqs.SetQueueAttributes(request);
-        if (outcome.IsSuccess())
-        {
-            std::cout << "Successfully updated long polling time for queue " <<
-                queue_url << " to " << poll_time << std::endl;
-        }
-        else
-        {
-            std::cout << "Error updating long polling time for queue " <<
-                queue_url << ": " << outcome.GetError().GetMessage() <<
-                std::endl;
-        }
-        // snippet-end:[sqs.cpp.long_polling_on_existing-queue.code]
+        AwsDoc::SQS::SetQueueLongPollingAttribute(queueUrl, pollTime, clientConfig)
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
 
+#endif // TESTING_BUILD

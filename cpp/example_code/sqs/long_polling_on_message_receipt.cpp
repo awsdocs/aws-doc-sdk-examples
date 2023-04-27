@@ -1,26 +1,19 @@
-//snippet-sourcedescription:[long_polling_on_message_receipt.cpp demonstrates how to retrieve messages from an Amazon SQS queue using long-poll support.]
-//snippet-service:[sqs]
-//snippet-keyword:[Amazon Simple Queue Service]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
+
 //snippet-start:[sqs.cpp.long_polling_on_message_receipt.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
@@ -29,74 +22,76 @@
 //snippet-end:[sqs.cpp.long_polling_on_message_receipt.inc]
 #include <aws/sqs/model/DeleteMessageRequest.h>
 #include <iostream>
+#include "sqs_samples.h"
 
-void ReceiveMessage(const Aws::String& queue_url, int wait_time)
+//! Receive a message from an Amazon Simple Queue Service (Amazon SQS) queue
+//! specifying the wait time.
+/*!
+  \param queueUrl: An Amazon SQS queue URL.
+  \param waitTimeSeconds: The wait time in seconds.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::SQS::ReceiveMessageWithWaitTime(const Aws::String &queueUrl,
+                                int waitTimeSeconds,
+                                const Aws::Client::ClientConfiguration &clientConfiguration)
 {
     // Let's make sure the request timeout is larger than the maximum possible
     // long poll time so that valid ReceiveMessage requests don't fail on long
     // poll queues
-    Aws::Client::ClientConfiguration client_cfg;
-    client_cfg.requestTimeoutMs = 30000;
+    Aws::Client::ClientConfiguration customConfiguration(clientConfiguration);
+    customConfiguration.requestTimeoutMs = 30000;
 
-    // snippet-start:[sqs.cpp.long_polling_on_message_receipt.code]
-    Aws::SQS::SQSClient sqs(client_cfg);
+    // snippet-start:[sqsClient.cpp.long_polling_on_message_receipt.code]
+    Aws::SQS::SQSClient sqsClient(customConfiguration);
 
     Aws::SQS::Model::ReceiveMessageRequest request;
-    request.SetQueueUrl(queue_url);
+    request.SetQueueUrl(queueUrl);
     request.SetMaxNumberOfMessages(1);
-    request.SetWaitTimeSeconds(wait_time);
+    request.SetWaitTimeSeconds(waitTimeSeconds);
 
-    auto outcome = sqs.ReceiveMessage(request);
-    if (!outcome.IsSuccess())
-    {
-        std::cout << "Error receiving message from queue " << queue_url << ": "
-            << outcome.GetError().GetMessage() << std::endl;
-        return;
-    }
-
-    const auto& messages = outcome.GetResult().GetMessages();
-    if (messages.size() == 0)
-    {
-        std::cout << "No messages received from queue " << queue_url <<
-            std::endl;
-        return;
-    }
-
-    const auto& message = messages[0];
-    std::cout << "Received message:" << std::endl;
-    std::cout << "  MessageId: " << message.GetMessageId() << std::endl;
-    std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
-    std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
-    // snippet-end:[sqs.cpp.long_polling_on_message_receipt.code]
-
-    Aws::SQS::Model::DeleteMessageRequest delete_request;
-    delete_request.SetQueueUrl(queue_url);
-    delete_request.SetReceiptHandle(message.GetReceiptHandle());
-
-    auto delete_outcome = sqs.DeleteMessage(delete_request);
-    if (delete_outcome.IsSuccess())
-    {
-        std::cout << "Successfully deleted message " << message.GetMessageId()
-            << " from queue " << queue_url << std::endl;
+    auto outcome = sqsClient.ReceiveMessage(request);
+    if (outcome.IsSuccess()) {
+        const auto &messages = outcome.GetResult().GetMessages();
+        if (messages.empty()) {
+            std::cout << "No messages received from queue " << queueUrl <<
+                      std::endl;
+        }
+        else {
+            const auto &message = messages[0];
+            std::cout << "Received message:" << std::endl;
+            std::cout << "  MessageId: " << message.GetMessageId() << std::endl;
+            std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
+            std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
+        }
     }
     else
     {
-        std::cout << "Error deleting message " << message.GetMessageId() << 
-            " from queue " << queue_url << ": " <<
-
-            delete_outcome.GetError().GetMessage() << std::endl;
+        std::cout << "Error receiving message from queue " << queueUrl << ": "
+                  << outcome.GetError().GetMessage() << std::endl;
     }
+    // snippet-end:[sqsClient.cpp.long_polling_on_message_receipt.code]
+
+    return outcome.IsSuccess();
 }
 
-/**
- * Receives (and deletes) a message from an sqs queue via long polling, based on
- * command line input
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_long_polling_on_message_receipt <queue_url> <long_poll_time_in_seconds>'
+ *
+ *  Prerequisites: An existing SQS queue.
+ *
  */
+
+#ifndef TESTING_BUILD
+
 int main(int argc, char** argv)
 {
     if (argc != 3)
     {
-        std::cout << "Usage: long_polling_on_message_receipt <queue_url> " <<
+        std::cout << "Usage: run_long_polling_on_message_receipt <queue_url> " <<
             "<long_poll_time_in_seconds>" << std::endl;
         return 1;
     }
@@ -104,15 +99,22 @@ int main(int argc, char** argv)
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String queue_url = argv[1];
+        Aws::String queueUrl = argv[1];
 
-        int wait_time = 1;
+        int waitTime = 1;
         Aws::StringStream ss(argv[2]);
-        ss >> wait_time;
+        ss >> waitTime;
 
-        ReceiveMessage(queue_url, wait_time);
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::SQS::ReceiveMessageWithWaitTime(queueUrl, waitTime, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;
 }
+
+#endif // TESTING_BUILD
+
 

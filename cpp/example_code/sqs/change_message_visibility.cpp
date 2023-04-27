@@ -1,116 +1,117 @@
-//snippet-sourcedescription:[change_message_visibility.cpp demonstrates how to change the visibility timeout of a message in an Amazon SQS queue.]
-//snippet-service:[sqs]
-//snippet-keyword:[Amazon Simple Queue Service]
-//snippet-keyword:[C++]
-//snippet-sourcesyntax:[cpp]
-//snippet-keyword:[Code Sample]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[]
-//snippet-sourceauthor:[AWS]
-
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-
-    http://aws.amazon.com/apache2.0/
-
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
+
 //snippet-start:[sqs.cpp.change_message_visibility.inc]
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ChangeMessageVisibilityRequest.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
-#include <aws/sqs/model/ReceiveMessageResult.h>
 #include <iostream>
 //snippet-end:[sqs.cpp.change_message_visibility.inc]
+#include "sqs_samples.h"
 
-void ChangeMessageVisibility(
-    const Aws::String& queue_url, int visibility_timeout)
+// snippet-start:[cpp.example_code.sqs.ChangeMessageVisibility]
+//! Changes the visibility timeout of a message in an Amazon Simple Queue Service
+//! (Amazon SQS) queue.
+/*!
+  \param queueUrl: An Amazon SQS queue URL.
+  \param messageReceiptHandle: A message receipt handle.
+  \param visibilityTimeoutSeconds: Visibility timeout in seconds.
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
+ */
+bool AwsDoc::SQS::ChangeMessageVisibility(
+    const Aws::String& queue_url,
+    const Aws::String& messageReceiptHandle,
+    int visibilityTimeoutSeconds,
+    const Aws::Client::ClientConfiguration &clientConfiguration)
 {
-    // Let's make sure the request timeout is larger than the maximum possible
-    // long poll time so that valid ReceiveMessage requests don't fail on long
-    // poll queues
-    Aws::Client::ClientConfiguration client_config;
-    client_config.requestTimeoutMs = 30000;
+    Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
-    Aws::SQS::SQSClient sqs(client_config);
-
-    Aws::SQS::Model::ReceiveMessageRequest receive_request;
-    receive_request.SetQueueUrl(queue_url);
-    receive_request.SetMaxNumberOfMessages(1);
-
-    auto receive_outcome = sqs.ReceiveMessage(receive_request);
-    if (!receive_outcome.IsSuccess())
-    {
-        std::cout << "Error receiving message from queue " << queue_url << ": "
-            << receive_outcome.GetError().GetMessage() << std::endl;
-        return;
-    }
-
-    const auto& messages = receive_outcome.GetResult().GetMessages();
-    if (messages.size() == 0)
-    {
-        std::cout << "No messages received from queue " << queue_url <<
-            std::endl;
-        return;
-    }
-
-    const auto& message = messages[0];
-    std::cout << "Received message:" << std::endl;
-    std::cout << "  MessageId: " << message.GetMessageId() << std::endl;
-    std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
-    std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
-
-    // snippet-start:[sqs.cpp.change_message_visibility.code]
+    // snippet-start:[sqsClient.cpp.change_message_visibility.code]
     Aws::SQS::Model::ChangeMessageVisibilityRequest request;
     request.SetQueueUrl(queue_url);
-    request.SetReceiptHandle(message.GetReceiptHandle());
-    request.SetVisibilityTimeout(visibility_timeout);
-    auto outcome = sqs.ChangeMessageVisibility(request);
+    request.SetReceiptHandle(messageReceiptHandle);
+    request.SetVisibilityTimeout(visibilityTimeoutSeconds);
+
+    auto outcome = sqsClient.ChangeMessageVisibility(request);
     if (outcome.IsSuccess())
     {
         std::cout << "Successfully changed visibility of message " <<
-            message.GetMessageId() << " from queue " << queue_url << std::endl;
+            messageReceiptHandle << " from queue " << queue_url << std::endl;
     }
     else
     {
-        std::cout << "Error changing visibility of message " <<
-            message.GetMessageId() << " from queue " << queue_url << ": " <<
+        std::cout << "Error changing visibility of message from queue "
+        << queue_url << ": " <<
             outcome.GetError().GetMessage() << std::endl;
     }
-    // snippet-end:[sqs.cpp.change_message_visibility.code]
-}
+    // snippet-end:[sqsClient.cpp.change_message_visibility.code]
 
-/**
- * Changes the visibility timeout of a message received from an SQS queue, based
- * on command line input
+    return outcome.IsSuccess();
+}
+// snippet-end:[cpp.example_code.sqs.ChangeMessageVisibility]
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_change_message_visibility <queue_url> <message_receipt_handle>
+ *          <visibility_timeout_in_seconds>'
+ *
+ *  Prerequisites: An existing SQS queue and a message in the queue.
+ *
  */
+
+#ifndef TESTING_BUILD
+
 int main(int argc, char** argv)
 {
-    if (argc != 3)
+    if (argc != 4)
     {
-        std::cout << "Usage: change_message_visibility <queue_url> " <<
-            "<visibility_timeout_in_seconds>" << std::endl;
+        std::cout << "Usage: run_change_message_visibility <queue_url> " <<
+            "<message_receipt_handle> <visibility_timeout_in_seconds>" << std::endl;
         return 1;
     }
 
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        Aws::String queue_url = argv[1];
-        int visibility_timeout = 0;
-        Aws::StringStream ss(argv[2]);
-        ss >> visibility_timeout;
-        ChangeMessageVisibility(queue_url, visibility_timeout);
+        Aws::String queueUrl = argv[1];
+        Aws::String messageReceiptHandle = argv[2];
+
+        int visibilityTimeout = 0;
+        Aws::StringStream ss(argv[3]);
+        ss >> visibilityTimeout;
+
+        // snippet-start:[cpp.example_code.sqs.ChangeMessageVisibility.config]
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+        // snippet-end:[cpp.example_code.sqs.ChangeMessageVisibility.config]
+
+        AwsDoc::SQS::ChangeMessageVisibility(queueUrl,
+                                             messageReceiptHandle,
+                                             visibilityTimeout,
+                                             clientConfig);
     }
     Aws::ShutdownAPI(options);
 
     return 0;
 }
+
+#endif // TESTING_BUILD
 
