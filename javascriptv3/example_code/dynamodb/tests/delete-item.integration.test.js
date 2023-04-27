@@ -1,61 +1,17 @@
-import { describe, it, expect, beforeAll, afterAll } from "vitest";
-import {
-  CreateTableCommand,
-  DeleteTableCommand,
-  DynamoDBClient,
-  waitUntilTableExists,
-} from "@aws-sdk/client-dynamodb";
-import {
-  DynamoDBDocumentClient,
-  PutCommand,
-  GetCommand,
-} from "@aws-sdk/lib-dynamodb";
+import { describe, it, expect } from "vitest";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
 import { main } from "../actions/delete-item.js";
+import { tableSetupTeardown } from "../libs/dynamodb-test.utils.js";
 
 describe("delete-item", () => {
   const client = new DynamoDBClient({});
   const docClient = DynamoDBDocumentClient.from(client);
   const tableName = "Drinks";
 
-  beforeAll(async () => {
-    const createTableCommand = new CreateTableCommand({
-      TableName: tableName,
-      AttributeDefinitions: [
-        {
-          AttributeName: "Name",
-          AttributeType: "S",
-        },
-      ],
-      KeySchema: [
-        {
-          AttributeName: "Name",
-          KeyType: "HASH",
-        },
-      ],
-      ProvisionedThroughput: {
-        ReadCapacityUnits: 1,
-        WriteCapacityUnits: 1,
-      },
-    });
-    await client.send(createTableCommand);
-    await waitUntilTableExists({ client }, { TableName: tableName });
-
-    const putCommand = new PutCommand({
-      TableName: tableName,
-      Item: {
-        Name: "Pumpkin Spice Latte",
-      },
-    });
-
-    await docClient.send(putCommand);
-  });
-
-  afterAll(async () => {
-    const deleteTableCommand = new DeleteTableCommand({
-      TableName: tableName,
-    });
-    await client.send(deleteTableCommand);
-  });
+  tableSetupTeardown(tableName, { AttributeName: "Name", AttributeType: "S" }, [
+    { Name: { S: "Pumpkin Spice Latte" } },
+  ]);
 
   it("should remove an item from a database", async () => {
     const getCommand = new GetCommand({

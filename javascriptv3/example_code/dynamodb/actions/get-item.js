@@ -1,42 +1,30 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at// https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html.
+import { fileURLToPath } from "url";
 
-Purpose:
-ddb_getitem.js demonstrates how to retrieve the attributes of an item from an Amazon DynamoDB table.
-
-INPUTS:
-- TABLE_NAME
-- KEY_NAME: the primary key of the table, e.g., 'CUSTOMER_ID'
-- KEY_VALUE: the value of the primary key row containing the attribute value
-- ATTRIBUTE_NAME: the name of the attribute column containing the attribute value
-
-Running the code:
-node ddb_getitem.js
-*/
 // snippet-start:[dynamodb.JavaScript.item.getItemV3]
-// Import required AWS SDK clients and commands for Node.js
-import { GetItemCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "../src/libs/ddbClient.js";
+import { GetItemCommand, DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-// Set the parameters
-export const params = {
-  TableName: "TABLE_NAME", //TABLE_NAME
-  Key: {
-    KEY_NAME: { N: "KEY_VALUE" },
-  },
-  ProjectionExpression: "ATTRIBUTE_NAME",
-};
+const client = new DynamoDBClient({});
 
-export const run = async () => {
-  const data = await ddbClient.send(new GetItemCommand(params));
-  console.log("Success", data.Item);
-  return data;
-  
+export const main = async () => {
+  const command = new GetItemCommand({
+    TableName: "CafeTreats",
+    Key: {
+      TreatId: { N: "101" },
+    },
+  });
+
+  const response = await client.send(command);
+  console.log(response);
+  return response;
 };
-run();
 // snippet-end:[dynamodb.JavaScript.item.getItemV3]
-// For unit tests only.
-// module.exports ={run, params};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
