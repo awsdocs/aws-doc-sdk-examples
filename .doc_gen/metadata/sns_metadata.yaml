@@ -1010,10 +1010,13 @@ sns_Subscribe:
     C++:
       versions:
         - sdk_version: 1
-          github: cpp/example_code/sns
+          github: cpp/example_code/cross-service/topics_and_queues
           excerpts:
             - snippet_tags:
-                - sns.cpp.subscribe_email.code
+                - cpp.example_code.cross-service.topics_and_queues.config
+                - cpp.example_code.cross-service.topics_and_queues.sqs_client
+                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue1
+                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue2
     Go:
       versions:
         - sdk_version: 2
@@ -1236,13 +1239,10 @@ sns_Subscribe_Queue:
     C++:
       versions:
         - sdk_version: 1
-          github: cpp/example_code/cross-service/topics_and_queues
+          github: cpp/example_code/sns
           excerpts:
             - snippet_tags:
-                - cpp.example_code.cross-service.topics_and_queues.config
-                - cpp.example_code.cross-service.topics_and_queues.sqs_client
-                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue1
-                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue2
+                - sns.cpp.subscribe_email.code
       services:
         sns: {Subscribe}
 sns_CreatePlatformEndpoint:
