@@ -109,9 +109,8 @@ class StringExtension(String):
             return True
         valid = True
         if self.check_aws:
-            # All occurrences of AWS must be entities or within a word (including hyphens).
-            # https://regex101.com/r/JoKjfE/1
-            valid = len(re.findall('(?<![&\\da-zA-Z])AWS|AWS(?![;\\da-zA-Z\\-])', value)) == 0
+            # All occurrences of AWS must be entities or within a word.
+            valid = len(re.findall('(?<![&\\da-zA-Z])AWS|AWS(?![;\\da-zA-Z])', value)) == 0
             if not valid:
                 self.last_err = 'valid string: it contains a non-entity usage of "AWS"'
         if valid and self.upper_start:
