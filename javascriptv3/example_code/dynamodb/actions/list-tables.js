@@ -1,33 +1,25 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html.
+import { fileURLToPath } from "url";
 
-Purpose:
-ddb_listtables.js demonstrates how to retrieve a list of Amazon DynamoDB table names.
-
-Running the code:
-node ddb_listtables.js
-*/
 // snippet-start:[dynamodb.JavaScript.table.listTablesV3]
+import { ListTablesCommand, DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
-// Import required AWS SDK clients and commands for Node.js
-import { ListTablesCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "../src/libs/ddbClient.js";
+const client = new DynamoDBClient({});
 
-export const run = async () => {
-  try {
-    const data = await ddbClient.send(new ListTablesCommand({}));
-    console.log(data);
-    // console.log(data.TableNames.join("\n"));
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
+export const main = async () => {
+  const command = new ListTablesCommand({});
+
+  const response = await client.send(command);
+  console.log(response);
+  return response;
 };
-run();
 // snippet-end:[dynamodb.JavaScript.table.listTablesV3]
-// For unit tests only.
-// module.exports ={run};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
