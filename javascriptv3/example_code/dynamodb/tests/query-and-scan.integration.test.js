@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { main } from "../actions/query.js";
+import { main as query } from "../actions/query.js";
+import { main as scan } from "../actions/scan.js";
 import { tableSetupTeardown } from "../libs/dynamodb-test.utils.js";
 
 describe("query", () => {
@@ -30,8 +31,12 @@ describe("query", () => {
   );
 
   it("should return a list of pies matching the query", async () => {
-    const response = await main();
-    expect(response.Items.length).toBe(1);
-    expect(response.Items[0].CrustType.S).toBe("Graham Cracker");
+    const queryResponse = await query();
+    expect(queryResponse.Items.length).toBe(1);
+    expect(queryResponse.Items[0].CrustType.S).toBe("Graham Cracker");
+
+    const scanResponse = await scan();
+    expect(scanResponse.Items.length).toBe(1);
+    expect(scanResponse.Items[0].CrustType.S).toBe("Graham Cracker");
   });
 });
