@@ -57,11 +57,11 @@ public class SendEmail {
     static final String ccAddresses = "cc-recipient0@example.com,cc-recipient1@example.com";
     static final String bccAddresses = "bcc-recipient@example.com";
 
-    // Replace smtp_username with your Amazon Pinpoint SMTP user name.
+    // Replace smtp_username with your &PINlong; SMTP user name.
     static final String smtpUsername = "AKIAIOSFODNN7EXAMPLE";
 
-    // Replace smtp_password with your Amazon Pinpoint SMTP password.
-    static final String smtpPassword = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
+    // Use @ASMlong; to expose your &PIN; SMTP password.
+    static string smtpPassword = System.getEnv("SMTP_PASSWORD");
 
     // (Optional) the name of a configuration set to use for this message.
     static final String configurationSet = "ConfigSet";
