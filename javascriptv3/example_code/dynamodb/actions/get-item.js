@@ -13,6 +13,9 @@ const client = new DynamoDBClient({});
 export const main = async () => {
   const command = new GetItemCommand({
     TableName: "CafeTreats",
+    // For more information on data types,
+    // see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes and
+    // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html#Programming.LowLevelAPI.DataTypeDescriptors
     Key: {
       TreatId: { N: "101" },
     },
