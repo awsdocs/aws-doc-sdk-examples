@@ -27,6 +27,9 @@
         <testsuite name="lambda-basics">
             <file>lambda/LambdaTests.php</file>
         </testsuite>
+        <testsuite name="auto-scaling-basics">
+            <file>auto-scaling/AutoScalingBasicsTests.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
@@ -36,6 +39,10 @@
             <directory suffix=".php">glue</directory>
             <directory suffix=".php">iam</directory>
             <directory suffix=".php">lambda</directory>
+            <directory suffix=".php">auto-scaling</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">*vendor*</directory>
+        </exclude>
     </coverage>
 </phpunit>

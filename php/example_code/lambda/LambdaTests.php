@@ -18,7 +18,7 @@ class LambdaTests extends TestCase
     protected IAMService $iamService;
     protected S3Client $s3client;
 
-    public function __construct()
+    public function setup(): void
     {
         echo "constructor";
         $this->clientArgs = [
@@ -30,7 +30,6 @@ class LambdaTests extends TestCase
         $this->lambdaService = new LambdaService();
         $this->iamService = new IAMService();
         $this->s3client = new S3Client($this->clientArgs);
-        parent::__construct();
     }
 
     public function testSingleActionCalls()
