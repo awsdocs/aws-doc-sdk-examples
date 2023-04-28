@@ -1,47 +1,36 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3. This example is in the 'AWS SDK for JavaScript v3 Developer Guide' at
-https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html.
+import { fileURLToPath } from "url";
 
-Purpose:
-ddb_query.js demonstrates how to find items in an Amazon DynamoDB table.
-
-Running the code:
-node ddb_query.js
-*/
 // snippet-start:[dynamodb.JavaScript.table.queryV3]
+import { DynamoDBClient, QueryCommand } from "@aws-sdk/client-dynamodb";
 
-// Import required AWS SDK clients and commands for Node.js
-import { QueryCommand } from "@aws-sdk/client-dynamodb";
-import { ddbClient } from "../src/libs/ddbClient.js";
+const client = new DynamoDBClient({});
 
-// Set the parameters
-export const params = {
-  KeyConditionExpression: "Season = :s and Episode > :e",
-  FilterExpression: "contains (Subtitle, :topic)",
-  ExpressionAttributeValues: {
-    ":s": { N: "1" },
-    ":e": { N: "2" },
-    ":topic": { S: "SubTitle" },
-  },
-  ProjectionExpression: "Episode, Title, Subtitle",
-  TableName: "EPISODES_TABLE",
+export const main = async () => {
+  const command = new QueryCommand({
+    KeyConditionExpression: "Flavor = :flavor",
+    ExpressionAttributeValues: {
+      ":flavor": { S: "Key Lime" },
+      ":searchKey": { S: "no coloring" },
+    },
+    FilterExpression: "contains (Description, :searchKey)",
+    ProjectionExpression: "Flavor, CrustType, Description",
+    TableName: "Pies",
+  });
+
+  const response = await client.send(command);
+  response.Items.forEach(function (pie) {
+    console.log(`${pie.Flavor.S} - ${pie.Description.S}\n`);
+  });
+  return response;
 };
-
-export const run = async () => {
-  try {
-    const data = await ddbClient.send(new QueryCommand(params));
-    data.Items.forEach(function (element) {
-      console.log(element.Title.S + " (" + element.Subtitle.S + ")");
-    });
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
-};
-run();
 // snippet-end:[dynamodb.JavaScript.table.queryV3]
-// For unit tests only.
-// module.exports ={run, params};
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

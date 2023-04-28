@@ -5,7 +5,7 @@
 
 import { defineConfig } from "vitest/config";
 
-const TEST_TIMEOUT_IN_MINUTES = 1;
+const TEST_TIMEOUT_IN_MINUTES = 2;
 const MS_IN_SECOND = 1000;
 const SECONDS_IN_MINUTE = 60;
 

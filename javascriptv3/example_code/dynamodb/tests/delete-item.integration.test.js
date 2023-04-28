@@ -9,9 +9,11 @@ describe("delete-item", () => {
   const docClient = DynamoDBDocumentClient.from(client);
   const tableName = "Drinks";
 
-  tableSetupTeardown(tableName, { AttributeName: "Name", AttributeType: "S" }, [
-    { Name: { S: "Pumpkin Spice Latte" } },
-  ]);
+  tableSetupTeardown(
+    tableName,
+    [{ AttributeName: "Name", AttributeType: "S" }],
+    [{ Name: { S: "Pumpkin Spice Latte" } }]
+  );
 
   it("should remove an item from a database", async () => {
     const getCommand = new GetCommand({

@@ -7,10 +7,12 @@ import { DynamoDBClient, GetItemCommand } from "@aws-sdk/client-dynamodb";
 describe("put-item", () => {
   const tableName = "Cookies";
 
-  tableSetupTeardown(tableName, {
-    AttributeName: "Flavor",
-    AttributeType: "S",
-  });
+  tableSetupTeardown(tableName, [
+    {
+      AttributeName: "Flavor",
+      AttributeType: "S",
+    },
+  ]);
 
   it("should list my table", async () => {
     await main();

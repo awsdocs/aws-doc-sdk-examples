@@ -8,10 +8,12 @@ describe("get-item", () => {
 
   tableSetupTeardown(
     tableName,
-    {
-      AttributeName: "TreatId",
-      AttributeType: "N",
-    },
+    [
+      {
+        AttributeName: "TreatId",
+        AttributeType: "N",
+      },
+    ],
     [{ TreatId: { N: "101" } }]
   );
 

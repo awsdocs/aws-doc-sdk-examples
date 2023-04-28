@@ -8,7 +8,7 @@ describe("batch-get-item", () => {
 
   tableSetupTeardown(
     tableName,
-    { AttributeName: "PageName", AttributeType: "S" },
+    [{ AttributeName: "PageName", AttributeType: "S" }],
     [
       { PageName: { S: "Home" }, PageViews: { N: "10" } },
       { PageName: { S: "About" }, PageViews: { N: "2" } },

@@ -10,7 +10,9 @@ describe("batch-get-item", () => {
   const docClient = DynamoDBDocumentClient.from(client);
   const tableName = "Coffees";
 
-  tableSetupTeardown(tableName, { AttributeName: "Name", AttributeType: "S" });
+  tableSetupTeardown(tableName, [
+    { AttributeName: "Name", AttributeType: "S" },
+  ]);
 
   it("should insert items into the table", async () => {
     await main();

@@ -5,13 +5,12 @@ import { tableSetupTeardown } from "../libs/dynamodb-test.utils.js";
 describe("describe-table", () => {
   const tableName = "Pastries";
 
-  tableSetupTeardown(
-    tableName,
+  tableSetupTeardown(tableName, [
     {
       AttributeName: "ButterLayerCount",
       AttributeType: "N",
     },
-  );
+  ]);
 
   it("should log the table name", async () => {
     const consoleSpy = vi.spyOn(console, "log");

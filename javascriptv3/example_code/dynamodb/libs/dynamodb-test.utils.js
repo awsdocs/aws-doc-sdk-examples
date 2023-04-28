@@ -16,7 +16,7 @@ import { BatchWriteItemCommand } from "@aws-sdk/client-dynamodb";
 /**
  *
  * @param {string} tableName
- * @param {import('@aws-sdk/client-dynamodb').AttributeDefinition} primaryKey
+ * @param {import('@aws-sdk/client-dynamodb').AttributeDefinition[]} primaryKey
  * @param {Record<string, import('@aws-sdk/client-dynamodb').AttributeValue>[]} items
  */
 export const tableSetupTeardown = (
@@ -27,12 +27,16 @@ export const tableSetupTeardown = (
   const client = new DynamoDBClient({});
   const createTableCommand = new CreateTableCommand({
     TableName: tableName,
-    AttributeDefinitions: [primaryKey],
+    AttributeDefinitions: primaryKey,
     KeySchema: [
       {
-        AttributeName: primaryKey.AttributeName,
+        AttributeName: primaryKey[0].AttributeName,
         KeyType: "HASH",
       },
+      ...(primaryKey[1] ? [{
+        AttributeName: primaryKey[1].AttributeName,
+        KeyType: "RANGE",
+      }] : [])
     ],
     ProvisionedThroughput: {
       ReadCapacityUnits: 5,
