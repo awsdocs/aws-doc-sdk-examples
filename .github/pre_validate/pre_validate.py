@@ -22,6 +22,7 @@ import re
 import argparse
 import logging
 import sys
+from words import WORDS
 
 logger = logging.getLogger(__name__)
 
@@ -81,7 +82,7 @@ EXPECTED_SAMPLE_FILES = {
 MEDIA_FILE_TYPES = {'mp3', 'wav'}
 
 # list of words that should never be in code examples
-DENY_LIST = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'}
+DENY_LIST = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'} .union(WORDS)
 
 # whitelist of 20- or 40-character strings to allow
 ALLOW_LIST = {
