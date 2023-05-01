@@ -10,10 +10,6 @@
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.210.0",
     "@aws-sdk/lib-dynamodb": "^3.210.0",
-    "libs": "*",
-    "ramda": "^0.29.0"
-  },
-  "devDependencies": {
-    "@types/ramda": "^0.29.0"
+    "libs": "*"
   }
 }

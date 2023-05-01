@@ -1,67 +1,59 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3.
+import { fileURLToPath } from "url";
 
-Purpose:
-writeData.js demonstrates how to use the Amazon DynamoDB document client write data from a JSON file Amazon DynamoDB table.
-
-Inputs (replace in code):
-This example requires that you download 'movies.json' from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html, and put it
-in the same folder as the example.
-- TABLE_NAME
-- MOVIE_NAME
-- MOVIE_YEAR
-- MOVIE_PLOT
-- MOVIE_RANK
-
-Running the code:
-node writeData.js
-*/
 // snippet-start:[dynamodb.JavaScript.movies.batchwriteV3]
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import {
+  BatchWriteCommand,
+  DynamoDBDocumentClient,
+} from "@aws-sdk/lib-dynamodb";
+import { readFileSync } from "fs";
 
-import fs from "fs";
-import * as R from "ramda";
-import { ddbDocClient } from "../src/libs/ddbDocClient.js";
-import { BatchWriteCommand } from "@aws-sdk/lib-dynamodb";
+import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
+import { chunkArray } from "libs/utils/util-array.js";
 
-export const writeData = async () => {
-  // Before you run this example, download 'movies.json' from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.Js.02.html,
-  // and put it in the same folder as the example.
-  // Get the movie data parse to convert into a JSON object.
-  const allMovies = JSON.parse(fs.readFileSync("moviedata.json", "utf8"));
-  // Split the table into segments of 25.
-  const dataSegments = R.splitEvery(25, allMovies);
-  const TABLE_NAME = "TABLE_NAME"
-  try {
-    // Loop batch write operation 10 times to upload 250 items.
-    for (let i = 0; i < 10; i++) {
-      const segment = dataSegments[i];
-      for (let j = 0; j < 25; j++) {
-        const params = {
-          RequestItems: {
-            [TABLE_NAME]: [
-              {
-                // Destination Amazon DynamoDB table name.
-                PutRequest: {
-                  Item: {
-                    year: segment[j].year,
-                    title: segment[j].title,
-                    info: segment[j].info,
-                  },
-                },
-              },
-            ],
-          },
-        };
-        ddbDocClient.send(new BatchWriteCommand(params));
+const dirname = dirnameFromMetaUrl(import.meta.url);
+
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
+
+export const main = async () => {
+  const file = readFileSync(
+    `${dirname}../../../../../resources/sample_files/movies.json`
+  );
+
+  const movies = JSON.parse(file.toString());
+
+  // chunkArray is a local convenience function. It takes an array and returns
+  // a generator function. The generator function yields every N items.
+  const movieChunks = chunkArray(movies, 25);
+
+  // For every chunk of 25 movies, make one BatchWrite request.
+  for (const chunk of movieChunks) {
+    const putRequests = chunk.map((movie) => ({
+      PutRequest: {
+        Item: movie,
+      },
+    }));
+
+    const command = new BatchWriteCommand({
+      RequestItems: {
+        // An existing table is required. A composite key of 'title' and 'year' is recommended
+        // to account for duplicate titles.
+        ["BatchWriteMoviesTable"]: putRequests
       }
-      console.log("Success, table updated.");
-    }
-  } catch (error) {
-    console.log("Error", error);
+    });
+
+    await docClient.send(command);
   }
 };
-writeData();
 // snippet-end:[dynamodb.JavaScript.movies.batchwriteV3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

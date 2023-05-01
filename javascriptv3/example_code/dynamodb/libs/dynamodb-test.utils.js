@@ -4,6 +4,7 @@
  */
 
 import {
+  BillingMode,
   CreateTableCommand,
   DeleteTableCommand,
   DynamoDBClient,
@@ -19,11 +20,7 @@ import { BatchWriteItemCommand } from "@aws-sdk/client-dynamodb";
  * @param {import('@aws-sdk/client-dynamodb').AttributeDefinition[]} primaryKey
  * @param {Record<string, import('@aws-sdk/client-dynamodb').AttributeValue>[]} items
  */
-export const tableSetupTeardown = (
-  tableName,
-  primaryKey,
-  items = []
-) => {
+export const tableSetupTeardown = (tableName, primaryKey, items = []) => {
   const client = new DynamoDBClient({});
   const createTableCommand = new CreateTableCommand({
     TableName: tableName,
@@ -33,15 +30,16 @@ export const tableSetupTeardown = (
         AttributeName: primaryKey[0].AttributeName,
         KeyType: "HASH",
       },
-      ...(primaryKey[1] ? [{
-        AttributeName: primaryKey[1].AttributeName,
-        KeyType: "RANGE",
-      }] : [])
+      ...(primaryKey[1]
+        ? [
+            {
+              AttributeName: primaryKey[1].AttributeName,
+              KeyType: "RANGE",
+            },
+          ]
+        : []),
     ],
-    ProvisionedThroughput: {
-      ReadCapacityUnits: 5,
-      WriteCapacityUnits: 5,
-    },
+    BillingMode: BillingMode.PAY_PER_REQUEST,
   });
   const deleteTableCommand = new DeleteTableCommand({ TableName: tableName });
 
