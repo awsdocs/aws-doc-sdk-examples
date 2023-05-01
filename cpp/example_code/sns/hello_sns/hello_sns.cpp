@@ -17,6 +17,16 @@
 #include <aws/sns/model/ListTopicsRequest.h>
 #include <iostream>
 
+/*
+ *  A "Hello SNS" starter application which initializes an Amazon Simple Notification
+ *  Service (Amazon SNS) client and lists the Amazon SNS topics in the current account.
+ *
+ *  main function
+ *
+ *  Usage: 'hello_sns'
+ *
+ */
+
 int main(int argc, char **argv) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
@@ -27,6 +37,7 @@ int main(int argc, char **argv) {
 
         Aws::SNS::SNSClient snsClient(clientConfig);
 
+        Aws::Vector<Aws::SNS::Model::Topic> allTopics;
         Aws::String nextToken; // Next token is used to handle a paginated response.
         do {
             Aws::SNS::Model::ListTopicsRequest request;
@@ -39,21 +50,34 @@ int main(int argc, char **argv) {
                     request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "Topics list:" << std::endl;
-                for (const Aws::SNS::Model::Topic &topic: outcome.GetResult().GetTopics()) {
-                    std::cout << "  * " << topic.GetTopicArn() << std::endl;
+                const Aws::Vector<Aws::SNS::Model::Topic> &paginatedTopics =
+                        outcome.GetResult().GetTopics();
+                if (!paginatedTopics.empty()) {
+                    allTopics.insert(allTopics.cend(), paginatedTopics.cbegin(),
+                                     paginatedTopics.cend());
                 }
             }
             else {
                 std::cerr << "Error listing topics " << outcome.GetError().GetMessage()
-                          <<
-                          std::endl;
+                          << std::endl;
                 return 1;
             }
 
             nextToken = outcome.GetResult().GetNextToken();
         } while (!nextToken.empty());
+
+        std::cout << "Hello Amazon SNS! You have " << allTopics.size() << " topic"
+                  << (allTopics.size() == 1 ? "" : "s") << " in your account."
+                  << std::endl;
+
+        if (!allTopics.empty()) {
+            std::cout << "Here are your topic ARNs." << std::endl;
+            for (const Aws::SNS::Model::Topic &topic: allTopics) {
+                std::cout << "  * " << topic.GetTopicArn() << std::endl;
+            }
+        }
     }
+
 
     Aws::ShutdownAPI(options);
     return 0;

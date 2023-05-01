@@ -1,6 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+# snippet-start:[cpp.example_code.sns.hello_sns.cmake]
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.8)
 
@@ -37,4 +38,4 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
         ${AWSSDK_LINK_LIBRARIES})
-
+# snippet-end:[cpp.example_code.sns.hello_sns.cmake]
