@@ -167,9 +167,9 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
     std::cout << "You can then post to the topic and see the results in the queues."
               << std::endl;
 
-    // snippet-start:[cpp.example_code.cross-service.topics_and_queues.sqs_client]
+    // snippet-start:[cpp.example_code.cross-service.topics_and_queues.sns_client]
     Aws::SNS::SNSClient snsClient(clientConfiguration);
-    // snippet-end:[cpp.example_code.cross-service.topics_and_queues.sqs_client]
+    // snippet-end:[cpp.example_code.cross-service.topics_and_queues.sns_client]
 
     printAsterisksLine();
 
@@ -208,7 +208,9 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
     printAsterisksLine();
 
 
+    // snippet-start:[cpp.example_code.cross-service.topics_and_queues.sqs_client]
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
+    // snippet-end:[cpp.example_code.cross-service.topics_and_queues.sqs_client]
     Aws::Vector<Aws::String> queueURLS;
     Aws::Vector<Aws::String> subscriptionARNS;
 
@@ -626,6 +628,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
 
         // 8.  Delete a batch of messages from an SQS queue.
         if (!receiptHandles.empty()) {
+            // snippet-start:[cpp.example_code.cross-service.topics_and_queues.sqs.DeleteMessageBatch]
             Aws::SQS::Model::DeleteMessageBatchRequest request;
             request.SetQueueUrl(queueURLS[i]);
             int id = 1; // Id's must be unique within a batch delete request.
@@ -656,6 +659,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
 
                 return false;
             }
+            // snippet-end:[cpp.example_code.cross-service.topics_and_queues.sqs.DeleteMessageBatch]
         }
     }
 
