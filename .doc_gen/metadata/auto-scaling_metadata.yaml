@@ -14,6 +14,14 @@ auto-scaling_Hello:
             - description:
               snippet_tags:
                 - AutoScaling.dotnetv3.AutoScalingActions.HelloAutoScaling
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.basics.helloService
   services:
     auto-scaling: {DescribeAutoScalingGroups}
 auto-scaling_CreateAutoScalingGroup:
@@ -30,6 +38,14 @@ auto-scaling_CreateAutoScalingGroup:
             - description:
               snippet_tags:
                 - AutoScaling.dotnetv3.AutoScalingActions.CreateAutoScalingGroup
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.createAutoScalingGroup
     Kotlin:
       versions:
         - sdk_version: 1
@@ -106,6 +122,14 @@ auto-scaling_DeleteAutoScalingGroup:
             - description:
               snippet_tags:
                 - autoscale.java2.del_scaling_group.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.deleteAutoScalingGroup
     Python:
       versions:
         - sdk_version: 3
@@ -165,6 +189,14 @@ auto-scaling_DescribeAutoScalingGroups:
             - description:
               snippet_tags:
                 - autoscale.java2.describe_instances.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.describeAutoScalingGroups
     Python:
       versions:
         - sdk_version: 3
@@ -224,6 +256,14 @@ auto-scaling_UpdateAutoScalingGroup:
             - description:
               snippet_tags:
                 - AutoScaling.dotnetv3.AutoScalingActions.UpdateAutoScalingGroup
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.updateAutoScalingGroup
     Python:
       versions:
         - sdk_version: 3
@@ -285,6 +325,14 @@ auto-scaling_TerminateInstanceInAutoScalingGroup:
             - description:
               snippet_tags:
                 - AutoScaling.dotnetv3.AutoScalingActions.TerminateInstanceInAutoScalingGroup
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.terminateInstanceInAutoScalingGroup
     Python:
       versions:
         - sdk_version: 3
@@ -339,6 +387,14 @@ auto-scaling_SetDesiredCapacity:
             - description:
               snippet_tags:
                 - AutoScaling.dotnetv3.AutoScalingActions.SetDesiredCapacity
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.setDesiredCapacity
     Python:
       versions:
         - sdk_version: 3
@@ -393,6 +449,14 @@ auto-scaling_DescribeAutoScalingInstances:
             - description:
               snippet_tags:
                 - AutoScaling.dotnetv3.AutoScalingActions.DescribeAutoScalingInstances
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.describeAutoScalingInstances
     Python:
       versions:
         - sdk_version: 3
@@ -447,6 +511,14 @@ auto-scaling_DescribeScalingActivities:
             - description:
               snippet_tags:
                 - AutoScaling.dotnetv3.AutoScalingActions.DescribeScalingActivities
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.describeScalingActivities
     Python:
       versions:
         - sdk_version: 3
@@ -501,6 +573,14 @@ auto-scaling_EnableMetricsCollection:
             - description:
               snippet_tags:
                 - AutoScaling.dotnetv3.AutoScalingActions.EnableMetricsCollection
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.enableMetricsCollection
     Python:
       versions:
         - sdk_version: 3
@@ -555,6 +635,14 @@ auto-scaling_DisableMetricsCollection:
             - description:
               snippet_tags:
                 - AutoScaling.dotnetv3.AutoScalingActions.DisableMetricsCollection
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.disableMetricsCollection
     Python:
       versions:
         - sdk_version: 3
@@ -628,6 +716,14 @@ auto-scaling_Scenario_GroupsAndInstances:
             - description:
               snippet_tags:
                 - autoscale.java2.create_scaling_scenario.main  
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.basics.scenario
     Python:
       versions:
         - sdk_version: 3
