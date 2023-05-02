@@ -887,7 +887,7 @@ public class VideoDetectFaces {
 The following Java code represents the **WriteExcel** class.
 
 ```java
-     package com.example.video;
+package com.example.video;
 
 import jxl.CellView;
 import jxl.Workbook;
