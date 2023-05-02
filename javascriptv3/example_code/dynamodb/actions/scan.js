@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start:[dynamodb.JavaScript.table.queryV3]
+// snippet-start:[dynamodb.JavaScript.table.scanV3]
 import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
 
 const client = new DynamoDBClient({});
@@ -29,7 +29,7 @@ export const main = async () => {
   });
   return response;
 };
-// snippet-end:[dynamodb.JavaScript.table.queryV3]
+// snippet-end:[dynamodb.JavaScript.table.scanV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

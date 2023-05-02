@@ -1,47 +1,33 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3.
+import { fileURLToPath } from "url";
 
-Purpose:
-scanTable.js demonstrates how to return items and attributes from an Amazon DynamoDB table.
-
-
-Inputs (replace in code):
-- TABLE_NAME
-- MOVIE_RANK
-- MOVIE_NAME
-- MOVIE_YEAR
-
-Running the code:
-node scanTable.js
-*/
 // snippet-start:[dynamodb.JavaScript.movies.scanV3]
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBDocumentClient, ScanCommand } from "@aws-sdk/lib-dynamodb";
 
-// Import required AWS SDK clients and commands for Node.js.
-import { ddbDocClient } from "../src/libs/ddbDocClient.js";
-import { ScanCommand } from "@aws-sdk/lib-dynamodb";
-// Set the parameters.
-export const params = {
-  TableName: "TABLE_NAME",
-  ProjectionExpression: "#r, #y, title",
-  ExpressionAttributeNames: { "#r": "rank", "#y": "year" },
-  FilterExpression: "title = :t and #y = :y and info.#r = :r",
-  ExpressionAttributeValues: {
-    ":r": "MOVIE_RANK",
-    ":y": "MOVIE_YEAR",
-    ":t": "MOVIE_NAME",
-  },
-};
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
-export const scanTable = async () => {
-  try {
-    const data = await ddbDocClient.send(new ScanCommand(params));
-    console.log("success", data.Items);
-  } catch (err) {
-    console.log("Error", err);
+export const main = async () => {
+  const command = new ScanCommand({
+    ProjectionExpression: "#Name, Color, AvgLifeSpan",
+    ExpressionAttributeNames: { "#Name": "Name" },
+    TableName: "Birds",
+  });
+
+  const response = await docClient.send(command);
+  for (const bird of response.Items) {
+    console.log(`${bird.Name} - (${bird.Color}, ${bird.AvgLifeSpan})`);
   }
+  return response;
 };
-scanTable();
 // snippet-end:[dynamodb.JavaScript.movies.scanV3]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
