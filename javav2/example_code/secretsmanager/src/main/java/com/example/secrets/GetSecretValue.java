@@ -24,11 +24,16 @@ import software.amazon.awssdk.services.secretsmanager.model.SecretsManagerExcept
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ * We recommend that you cache your secret values by using client-side caching.
+ *
+ * Caching secrets improves the speed and reduces your costs. For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieving-secrets.html
  */
 public class GetSecretValue {
 
     public static void main(String[] args) {
-
         final String usage = "\n" +
             "Usage:\n" +
             "    <secretName> \n\n" +
