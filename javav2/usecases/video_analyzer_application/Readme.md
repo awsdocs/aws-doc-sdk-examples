@@ -4,13 +4,13 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a sample web application that analyzes MP4 videos located within an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java V2. This example shows how to perform an asynchronous AWS operation within a web application. |
+| Description | Discusses how to develop a sample web application that analyzes MP4 videos located within an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java (v2). This example shows how to perform an asynchronous AWS operation within a web application. |
 | Audience   |  Developer (beginner / intermediate)        |
 | Updated   | 4/25/2023        |
 | Required Skills   | Java, Maven  |
 
 ## Purpose
-You can create a web application that analyzes videos for label detection by using the AWS SDK for Java v2. The application created in this AWS tutorial uses the Amazon Rekognition service to analyze the video located in a S3 bucket. The results are used to populate a report that is emailed to a specific user by using the Amazon Simple Email Service (SES).
+You can create a web application that analyzes videos for label detection by using the AWS SDK for Java (v2). The application created in this AWS tutorial uses the Amazon Rekognition service to analyze a video that's in an S3 bucket. The results are used to populate a report that is emailed to a specific user by using the Amazon Simple Email Service (Amazon SES).
 
 The following illustration shows a report that is generated after the application completes analyzing the video.
 
@@ -61,7 +61,7 @@ You must create an IAM role and a valid SNS topic. You need to reference these v
 
 ## Understand the AWS Video Analyzer application
 
-The AWS Video Analyzer application supports viewing video (MP4 file) information that is located in an Amazon S3 bucket. That is, you can confirm that the video is located in the Amazon S3 bucket by choosing the **Show Video** button.
+The AWS Video Analyzer application supports viewing video (MP4 file) information that's in an S3 bucket. You can confirm that the video is located in the S3 bucket by choosing the **Show Video** button.
 
 ![AWS Video Analyzer](images/video.png)
 
@@ -69,7 +69,7 @@ To generate a report, enter an email address and choose **Analyze Video**. A mas
 
 ![AWS Video Analyzer](images/videoReport.png)
 
-**Note:** Depending upon the size of the video, this may take a few minutes. To test this functionality, keep the video under 20 seconds. Also, there can only be one video in the Amazon S3 bucket. 
+**Note:** Depending on the size of the video, this might take a few minutes. To test this functionality, make the video less than 20 seconds long. Also, there can only be one video in the S3 bucket. 
 
 ## Create an IntelliJ project named SpringVideoAnalyzer
 
@@ -403,7 +403,7 @@ public class S3Service {
                 DateIn = myValue.lastModified();
                 myItem.setDate(String.valueOf(DateIn));
 
-                // Push the items to the list
+                // Push the items to the list.
                 bucketItems.add(myItem);
             }
             return convertToString(toXml(bucketItems));
@@ -927,7 +927,7 @@ public class WriteExcel {
         WorkbookSettings wbSettings = new WorkbookSettings();
         wbSettings.setLocale(new Locale("en", "EN"));
 
-        // Create a Workbook - pass the OutputStream.
+        // Create a Workbook and pass the OutputStream.
         WritableWorkbook workbook = Workbook.createWorkbook(os, wbSettings);
 
         //Need to get the WorkItem from each list.
@@ -940,7 +940,7 @@ public class WriteExcel {
         workbook.write();
         workbook.close();
 
-        // Get an InputStram that represents the Report.
+        // Get an InputStream that represents the Report.
         java.io.ByteArrayOutputStream stream = new ByteArrayOutputStream();
         stream = os;
         byte[] myBytes = stream.toByteArray();
@@ -950,18 +950,15 @@ public class WriteExcel {
     // Create Headings in the Excel spreadsheet.
     private void createLabel(WritableSheet sheet)
             throws WriteException {
-        // Create a times font.
+        // Create a Times font.
         WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-        // Define the cell format.
         times = new WritableCellFormat(times10pt);
-        // Lets automatically wrap the cells.
         times.setWrap(true);
 
-        // create create a bold font with unterlines.
+        // Create a bold font with underlines.
         WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
                 UnderlineStyle.SINGLE);
         timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        // Lets automatically wrap the cells.
         timesBoldUnderline.setWrap(true);
 
         CellView cv = new CellView();
@@ -1042,7 +1039,7 @@ public class WriteExcel {
  
  ### VideoApplicationResources class
 
-The following Java code represents the **VideoApplicationResources** class. Make suee that you specify the correct AWS resource files.
+The following Java code represents the **VideoApplicationResources** class. Make sure to specify the correct AWS resource files.
 
 ```java
 
