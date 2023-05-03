@@ -31,7 +31,7 @@
  */
 bool
 AwsDoc::SQS::ListQueues(const Aws::Client::ClientConfiguration &clientConfiguration) {
-    // snippet-start:[sqsClient.cpp.list_queues.code]
+    // snippet-start:[sqs.cpp.list_queues.code]
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
     Aws::SQS::Model::ListQueuesRequest lq_req;
@@ -48,7 +48,7 @@ AwsDoc::SQS::ListQueues(const Aws::Client::ClientConfiguration &clientConfigurat
         std::cerr << "Error listing queues: " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    // snippet-end:[sqsClient.cpp.list_queues.code]
+    // snippet-end:[sqs.cpp.list_queues.code]
 
     return outcome.IsSuccess();
 }
