@@ -25,31 +25,36 @@ final class CognitoIdentityDemoTests: XCTestCase {
     
     /// **Test:** Attempt to find an identity pool that doesn't exist. If no error occurs, the test
     /// fails.
-    func testFindNonexistent() {
-        Task() {
-            do {
-                let poolID = try await identityTester?.getIdentityPoolID(name: "BogusPoolIsBogus")
-                XCTAssertNil(poolID, "Found identity pool that does not exist")
-            } catch {
-                print("ERROR: ", dump(error, name: "Finding identity pool that doesn't exist"))
-            }
+    func testFindNonexistent() async {
+        do {
+            let poolID = try await identityTester?.getIdentityPoolID(name: "BogusPoolIsBogus")
+            XCTAssertNil(poolID, "Found identity pool that does not exist")
+        } catch {
+            print("ERROR: ", dump(error, name: "Finding identity pool that doesn't exist"))
         }
     }
     
     /// **Test:** Create (or locate, if it already exists) an identity pool. Then try to find it
     /// a second time.. Make sure the returned IDs match. If not, the test fails.
-    func testCreateThenFind() {
-        Task() {
-            do {
-                let firstPoolID = try await identityTester!.getIdentityPoolID(name: "testCreateThenFind")
-                XCTAssertNotNil(firstPoolID, "Unable to create or obtain test pool")
-                
-                let secondPoolID = try await identityTester?.createIdentityPool(name: "testCreateThenFind")
-                XCTAssertNotNil(secondPoolID, "Unable to find test pool")
-                XCTAssertTrue(firstPoolID == secondPoolID, "Found pool ID doesn't match created pool ID")
-            } catch {
-                print("ERROR: ", dump(error, name: "Find/create of identity pool"))
-            }
+    func testCreateThenFind() async {
+        do {
+            // Create the test pool, or get its ID if it already exists.
+            let firstPoolID = try await identityTester!.getOrCreateIdentityPoolID(name: "testCreateThenFind")
+            XCTAssertNotNil(firstPoolID, "Unable to create or obtain test pool")
+            
+            // Find the test pool's ID but only if it exists.
+            let secondPoolID = try await identityTester?.getIdentityPoolID(name: "testCreateThenFind")
+            XCTAssertNotNil(secondPoolID, "Unable to find test pool")
+
+            // Delete the identity pool so we don't leave it around.
+
+            try await identityTester!.deleteIdentityPool(id: secondPoolID!)
+
+            // Ensure that the two requests returned the same pool ID.
+
+            XCTAssertEqual(firstPoolID, secondPoolID, "Found pool ID doesn't match created pool ID")
+        } catch {
+            print("ERROR: ", dump(error, name: "Find/create of identity pool"))
         }
     }
 }
