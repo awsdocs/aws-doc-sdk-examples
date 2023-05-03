@@ -9,4 +9,5 @@ interface RunnableExample
 {
     public function runExample();
     public function helloService();
+    public function cleanUp();
 }

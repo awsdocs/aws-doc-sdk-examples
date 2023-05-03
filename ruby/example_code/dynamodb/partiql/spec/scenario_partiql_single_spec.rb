@@ -14,24 +14,24 @@ describe DynamoDBPartiQLSingle do
     scaffold = Scaffold.new(table_name)
     sdk = DynamoDBPartiQLSingle.new(table_name)
 
-    it "Create a new DynamoDB table", integ: "true" do
+    it "Create a new DynamoDB table", integ: true do
       scaffold.create_table(table_name)
       expect(scaffold.exists?(table_name)).to be_truthy
     end
 
-    it "Write a batch of famous movies into the DynamoDB table", integ: "true" do
+    it "Write a batch of famous movies into the DynamoDB table", integ: true do
       movie_data = scaffold.fetch_movie_data("moviedata.json")
       scaffold.write_batch(movie_data)
       expect(movie_data.length).to be > 200
     end
 
-    it "should return items with given title", integ: "true" do
+    it "should return items with given title", integ: true do
       response = sdk.select_item_by_title("Star Wars")
       expect(response.items.length).to be >= 1
       expect(response.items.first["title"]).to eq("Star Wars")
     end
 
-    it "should update the rating for the given title and year", integ: "true" do
+    it "should update the rating for the given title and year", integ: true do
       title = "The Big Lebowski"
       year = 1998
       rating = 10.0
@@ -41,7 +41,7 @@ describe DynamoDBPartiQLSingle do
       expect(updated_item["info"]["rating"]["N"].to_i).to eq(rating)
     end
 
-    it "should delete the item with the given title and year", integ: "true" do
+    it "should delete the item with the given title and year", integ: true do
       title = "The Silence of the Lambs"
       year = 1991
       sdk.delete_item_by_title(title, year)
@@ -50,7 +50,7 @@ describe DynamoDBPartiQLSingle do
       expect(deleted_item).to be_nil
     end
 
-    it "should add a new item with the given details", integ: "true" do
+    it "should add a new item with the given details", integ: true do
       title = "The Prancing of the Lambs"
       year = 2005
       description = "A movie about happy livestock."
@@ -64,7 +64,7 @@ describe DynamoDBPartiQLSingle do
       expect(new_item["info"]).not_to be_nil
     end
 
-    it "deletes DynamoDB table", integ: "true" do
+    it "deletes DynamoDB table", integ: true do
       if scaffold.exists?(table_name)
         scaffold.delete_table
       end

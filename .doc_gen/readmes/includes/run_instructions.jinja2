@@ -17,6 +17,25 @@ node ./scenarios/<fileName>
 ```
 {% endif %}
 
+{% if lang_config['name'] == '.NET' and lang_config['sdk_ver'] == 3 %}
+For general instructions to run the examples, see the
+[README](../README.md#building-and-running-the-code-examples) in the `dotnetv3` folder.
+
+Some projects might include a settings.json file. Before compiling the project,
+you can change these values to match your own account and resources. Alternatively,
+add a settings.local.json file with your local settings, which will be loaded automatically
+when the application runs.
+
+After the example compiles, you can run it from the command line. To do so, navigate to
+the folder that contains the .csproj file and run the following command:
+
+```
+dotnet run
+```
+
+Alternatively, you can run the example from within your IDE.
+
+{% endif %}
 <!--custom.instructions.start-->
 {{ customs['instructions'] -}}
 <!--custom.instructions.end-->
@@ -85,20 +104,8 @@ Start the example by running the following at a command prompt:
 ```
 ruby {{scenario['file']}}
 ```
-{% elif lang_config['name'] == '.NET' and lang_config['sdk_ver'] == 3 %}
-Before you compile the .NET application, you can optionally set configuration values
-in the settings.json file. Alternatively, add a settings.local.json file with
-your local settings, which will be loaded automatically when the application runs.
-
-After the example compiles, you can run it from the command line. To do so, navigate to
-the folder that contains the .csproj file and run the following command:
-
-```
-dotnet run
-```
-Alternatively, you can run the example from within your IDE.
-
 {% endif %}
+
 <!--custom.scenarios.{{ scenario['id'] }}.start-->
 {% if customs['scenarios'] %}{{ customs['scenarios'][scenario['id']] -}}{% endif %}
 <!--custom.scenarios.{{ scenario['id'] }}.end-->

@@ -11,6 +11,7 @@ Shows how to send email by using an Amazon Pinpoint SMTP server.
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from os import environ
 import logging
 import smtplib
 
@@ -77,13 +78,13 @@ def main():
         <a href='https://docs.python.org/3/library/smtplib.html'>
         smtplib</a> library.</p>
     </body>
-    </html>
-                """
+    </html>"""
 
-    # Replace smtp_username and smtp_password with your Amazon Pinpoint SMTP user name
-    # and password.
+    # Replace smtp_username your &PINlong; SMTP user name.
     smtp_username = "AKIAIOSFODNN7EXAMPLE"
-    smtp_password = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+
+    # Use &ASMlong; to expose your &PIN; SMTP password.
+    smtp_password = environ["SMTP_PASSWORD"]
 
     print("Sending email through SMTP server.")
     try:

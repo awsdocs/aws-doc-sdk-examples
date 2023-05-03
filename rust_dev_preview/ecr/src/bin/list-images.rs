@@ -55,7 +55,7 @@ async fn show_images(
 /// Lists the images in an Amazon Elastic Container Registry repository.
 /// # Arguments
 ///
-/// * `[-repository REPOSITORY]` - The ECR repository containing images.
+/// * `[--repository REPOSITORY]` - The ECR repository containing images.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.

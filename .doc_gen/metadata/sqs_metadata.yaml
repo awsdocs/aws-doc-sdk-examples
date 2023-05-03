@@ -730,7 +730,7 @@ sqs_AuthorizeS3ToSendMessage:
               snippet_tags:
                 - SQS.dotnetv3.AuthorizeS3ToSendMessageExample
   services:
-    sqs: {}
+    sqs: {SendMessage}
 sqs_GetQueueAttributes:
   title: Get attributes for an &SQS; queue
   title_abbrev: Get attributes for a queue

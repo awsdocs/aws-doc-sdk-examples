@@ -811,7 +811,10 @@ sns_Publish:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SNS/SNSMessageExample/
+          github: dotnetv3/SNS
+          excerpts:
+            - snippet_tags:
+                - SNS.dotnetv3.PublishToSNSTopicExample
     PHP:
       versions:
         - sdk_version: 3

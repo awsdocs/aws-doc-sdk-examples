@@ -29,7 +29,7 @@ const createPresignedUrlWithoutClient = async ({ region, bucket, key }) => {
   return formatUrl(signedUrlObject);
 };
 
-const createPresignedUrlWithClient = async ({ region, bucket, key }) => {
+const createPresignedUrlWithClient = ({ region, bucket, key }) => {
   const client = new S3Client({ region });
   const command = new GetObjectCommand({ Bucket: bucket, Key: key });
   return getSignedUrl(client, command, { expiresIn: 3600 });
@@ -37,8 +37,8 @@ const createPresignedUrlWithClient = async ({ region, bucket, key }) => {
 
 export const main = async () => {
   const REGION = "us-east-1";
-  const BUCKET = "coreys-default-bucket";
-  const KEY = "corey_mug.jpg";
+  const BUCKET = "example_bucket";
+  const KEY = "example_file.jpg";
 
   try {
     const noClientUrl = await createPresignedUrlWithoutClient({
