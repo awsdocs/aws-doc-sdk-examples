@@ -32,7 +32,7 @@
  */
 bool AwsDoc::SQS::GetQueueURL(const Aws::String &queueName,
                               const Aws::Client::ClientConfiguration &clientConfiguration) {
-    // snippet-start:[sqsClient.cpp.get_queue_url.code]
+    // snippet-start:[sqs.cpp.get_queue_url.code]
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
     Aws::SQS::Model::GetQueueUrlRequest request;
@@ -47,7 +47,7 @@ bool AwsDoc::SQS::GetQueueURL(const Aws::String &queueName,
         std::cerr << "Error getting url for queue " << queueName << ": " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    // snippet-end:[sqsClient.cpp.get_queue_url.code]
+    // snippet-end:[sqs.cpp.get_queue_url.code]
 
     return outcome.IsSuccess();
 }

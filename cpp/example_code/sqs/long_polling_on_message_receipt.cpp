@@ -33,16 +33,15 @@
   \return bool: Function succeeded.
  */
 bool AwsDoc::SQS::ReceiveMessageWithWaitTime(const Aws::String &queueUrl,
-                                int waitTimeSeconds,
-                                const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+                                             int waitTimeSeconds,
+                                             const Aws::Client::ClientConfiguration &clientConfiguration) {
     // Let's make sure the request timeout is larger than the maximum possible
     // long poll time so that valid ReceiveMessage requests don't fail on long
     // poll queues
     Aws::Client::ClientConfiguration customConfiguration(clientConfiguration);
     customConfiguration.requestTimeoutMs = 30000;
 
-    // snippet-start:[sqsClient.cpp.long_polling_on_message_receipt.code]
+    // snippet-start:[sqs.cpp.long_polling_on_message_receipt.code]
     Aws::SQS::SQSClient sqsClient(customConfiguration);
 
     Aws::SQS::Model::ReceiveMessageRequest request;
@@ -65,12 +64,11 @@ bool AwsDoc::SQS::ReceiveMessageWithWaitTime(const Aws::String &queueUrl,
             std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
         }
     }
-    else
-    {
+    else {
         std::cout << "Error receiving message from queue " << queueUrl << ": "
                   << outcome.GetError().GetMessage() << std::endl;
     }
-    // snippet-end:[sqsClient.cpp.long_polling_on_message_receipt.code]
+    // snippet-end:[sqs.cpp.long_polling_on_message_receipt.code]
 
     return outcome.IsSuccess();
 }
@@ -87,12 +85,10 @@ bool AwsDoc::SQS::ReceiveMessageWithWaitTime(const Aws::String &queueUrl,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc != 3)
-    {
+int main(int argc, char **argv) {
+    if (argc != 3) {
         std::cout << "Usage: run_long_polling_on_message_receipt <queue_url> " <<
-            "<long_poll_time_in_seconds>" << std::endl;
+                  "<long_poll_time_in_seconds>" << std::endl;
         return 1;
     }
 

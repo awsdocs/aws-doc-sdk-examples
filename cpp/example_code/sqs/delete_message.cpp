@@ -35,7 +35,7 @@ bool AwsDoc::SQS::DeleteMessage(const Aws::String &queueUrl,
                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
-    // snippet-start:[sqsClient.cpp.delete_message.code]
+    // snippet-start:[sqs.cpp.delete_message.code]
     Aws::SQS::Model::DeleteMessageRequest request;
     request.SetQueueUrl(queueUrl);
     request.SetReceiptHandle(messageReceiptHandle);
@@ -50,7 +50,7 @@ bool AwsDoc::SQS::DeleteMessage(const Aws::String &queueUrl,
         std::cerr << "Error deleting message from queue " << queueUrl << ": " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    // snippet-end:[sqsClient.cpp.delete_message.code]
+    // snippet-end:[sqs.cpp.delete_message.code]
 
     return outcome.IsSuccess();
 }

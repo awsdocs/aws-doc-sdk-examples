@@ -22,8 +22,8 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool ChangeMessageVisibility(
-                const Aws::String& queue_url,
-                const Aws::String& messageReceiptHandle,
+                const Aws::String &queue_url,
+                const Aws::String &messageReceiptHandle,
                 int visibilityTimeoutSeconds,
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
@@ -34,7 +34,7 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool CreateQueue(
-                const Aws::String& queueName,
+                const Aws::String &queueName,
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Create an Amazon Simple Queue Service (Amazon SQS) queue configured for
@@ -46,8 +46,8 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool CreateLongPollingQueue(
-                const Aws::String& queueName,
-                const Aws::String& pollTimeSeconds,
+                const Aws::String &queueName,
+                const Aws::String &pollTimeSeconds,
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete a message from an Amazon Simple Queue Service (Amazon SQS) queue.
@@ -57,8 +57,8 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool DeleteMessage(const Aws::String& queueUrl,
-                           const Aws::String& messageReceiptHandle,
+        bool DeleteMessage(const Aws::String &queueUrl,
+                           const Aws::String &messageReceiptHandle,
                            const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete an Amazon Simple Queue Service (Amazon SQS) queue.
@@ -67,8 +67,8 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool DeleteQueue(const Aws::String& queueURL,
-                                      const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool DeleteQueue(const Aws::String &queueURL,
+                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
 
         //! Get the URL for an Amazon Simple Queue Service (Amazon SQS) queue.
@@ -77,8 +77,8 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool GetQueueURL(const Aws::String& queueName,
-                                      const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool GetQueueURL(const Aws::String &queueName,
+                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! List the Amazon Simple Queue Service (Amazon SQS) queues within an AWS account.
         /*!
@@ -93,8 +93,8 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool PurgeQueue(const Aws::String& queueUrl,
-                                     const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool PurgeQueue(const Aws::String &queueUrl,
+                        const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Receive a message from an Amazon Simple Queue Service (Amazon SQS) queue.
         /*!
@@ -114,8 +114,8 @@ namespace AwsDoc {
           \return bool: Function succeeded.
          */
         bool ReceiveMessageWithWaitTime(const Aws::String &queueUrl,
-                            int waitTimeSeconds,
-                            const Aws::Client::ClientConfiguration &clientConfiguration);
+                                        int waitTimeSeconds,
+                                        const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Send a message to an Amazon Simple Queue Service (Amazon SQS) queue.
         /*!
@@ -124,9 +124,9 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool SendMessage(const Aws::String& queueUrl,
-                                      const Aws::String& messageBody,
-                                      const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool SendMessage(const Aws::String &queueUrl,
+                         const Aws::String &messageBody,
+                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Connect an Amazon Simple Queue Service (Amazon SQS) queue to an associated
         //! Amazon SQS dead letter queue.
@@ -137,8 +137,8 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool SetDeadLetterQueue(const Aws::String& srcQueueUrl,
-                                const Aws::String& deadLetterQueueARN,
+        bool SetDeadLetterQueue(const Aws::String &srcQueueUrl,
+                                const Aws::String &deadLetterQueueARN,
                                 int maxReceiveCount,
                                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
@@ -149,9 +149,9 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool SetQueueLongPollingAttribute(const Aws::String& queueURL,
-                                          const Aws::String& pollTimeSeconds,
-                                const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool SetQueueLongPollingAttribute(const Aws::String &queueURL,
+                                          const Aws::String &pollTimeSeconds,
+                                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Set the value of one of the Amazon Simple Queue Service (Amazon SQS) queue attributes.
         /*!
@@ -161,10 +161,10 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool SetQueueAttributes(const Aws::String& queueURL,
-                                             Aws::SQS::Model::QueueAttributeName attributeName,
-                                             const Aws::String& attribute,
-                                             const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool SetQueueAttributes(const Aws::String &queueURL,
+                                Aws::SQS::Model::QueueAttributeName attributeName,
+                                const Aws::String &attribute,
+                                const Aws::Client::ClientConfiguration &clientConfiguration);
     } // namespace SQS
 } // namespace AwsDoc
 #endif //SQS_EXAMPLES_SQS_SAMPLES_H

@@ -32,7 +32,7 @@
 bool AwsDoc::SQS::SetQueueLongPollingAttribute(const Aws::String &queueURL,
                                                const Aws::String &pollTimeSeconds,
                                                const Aws::Client::ClientConfiguration &clientConfiguration) {
-    // snippet-start:[sqsClient.cpp.long_polling_on_existing-queue.code]
+    // snippet-start:[sqs.cpp.long_polling_on_existing-queue.code]
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
     Aws::SQS::Model::SetQueueAttributesRequest request;
@@ -52,7 +52,7 @@ bool AwsDoc::SQS::SetQueueLongPollingAttribute(const Aws::String &queueURL,
                   queueURL << ": " << outcome.GetError().GetMessage() <<
                   std::endl;
     }
-    // snippet-end:[sqsClient.cpp.long_polling_on_existing-queue.code]
+    // snippet-end:[sqs.cpp.long_polling_on_existing-queue.code]
 
     return outcome.IsSuccess();
 }

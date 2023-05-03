@@ -35,7 +35,7 @@ bool AwsDoc::SQS::CreateLongPollingQueue(
         const Aws::String &queueName,
         const Aws::String &pollTimeSeconds,
         const Aws::Client::ClientConfiguration &clientConfiguration) {
-    // snippet-start:[sqsClient.cpp.long_polling_on_create_queue.code]
+    // snippet-start:[sqs.cpp.long_polling_on_create_queue.code]
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
     Aws::SQS::Model::CreateQueueRequest request;
@@ -53,7 +53,7 @@ bool AwsDoc::SQS::CreateLongPollingQueue(
         std::cout << "Error creating queue " << queueName << ": " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    // snippet-end:[sqsClient.cpp.long_polling_on_create_queue.code]
+    // snippet-end:[sqs.cpp.long_polling_on_create_queue.code]
 
     return outcome.IsSuccess();
 }

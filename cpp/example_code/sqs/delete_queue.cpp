@@ -33,7 +33,7 @@
 bool AwsDoc::SQS::DeleteQueue(const Aws::String &queueURL,
                               const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
-    // snippet-start:[sqsClient.cpp.delete_queue.code]
+    // snippet-start:[sqs.cpp.delete_queue.code]
     Aws::SQS::Model::DeleteQueueRequest request;
     request.SetQueueUrl(queueURL);
 
@@ -46,7 +46,7 @@ bool AwsDoc::SQS::DeleteQueue(const Aws::String &queueURL,
         std::cerr << "Error deleting queue " << queueURL << ": " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    // snippet-end:[sqsClient.cpp.delete_queue.code]
+    // snippet-end:[sqs.cpp.delete_queue.code]
     return outcome.IsSuccess();
 }
 // snippet-end:[cpp.example_code.sqs.DeleteQueue]

@@ -45,7 +45,7 @@ bool AwsDoc::SQS::SetDeadLetterQueue(const Aws::String &srcQueueUrl,
 
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
-    // snippet-start:[sqsClient.cpp.set_redrive_policy.code]
+    // snippet-start:[sqs.cpp.set_redrive_policy.code]
     Aws::SQS::Model::SetQueueAttributesRequest request;
     request.SetQueueUrl(srcQueueUrl);
     request.AddAttributes(
@@ -63,7 +63,7 @@ bool AwsDoc::SQS::SetDeadLetterQueue(const Aws::String &srcQueueUrl,
                   srcQueueUrl << ": " << outcome.GetError().GetMessage() <<
                   std::endl;
     }
-    // snippet-end:[sqsClient.cpp.set_redrive_policy.code]
+    // snippet-end:[sqs.cpp.set_redrive_policy.code]
 
     return outcome.IsSuccess();
 }

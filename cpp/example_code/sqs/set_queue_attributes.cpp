@@ -29,11 +29,10 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SQS::SetQueueAttributes(const Aws::String& queueURL,
+bool AwsDoc::SQS::SetQueueAttributes(const Aws::String &queueURL,
                                      Aws::SQS::Model::QueueAttributeName attributeName,
-                                     const Aws::String& attribute,
-                                     const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+                                     const Aws::String &attribute,
+                                     const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
     Aws::SQS::Model::SetQueueAttributesRequest request;
@@ -42,18 +41,18 @@ bool AwsDoc::SQS::SetQueueAttributes(const Aws::String& queueURL,
             attributeName,
             attribute);
 
-    const Aws::SQS::Model::SetQueueAttributesOutcome outcome = sqsClient.SetQueueAttributes(request);
-    if (outcome.IsSuccess())
-    {
+    const Aws::SQS::Model::SetQueueAttributesOutcome outcome = sqsClient.SetQueueAttributes(
+            request);
+    if (outcome.IsSuccess()) {
         std::cout << "Successfully set the attribute  " <<
-        Aws::SQS::Model::QueueAttributeNameMapper::GetNameForQueueAttributeName(attributeName)
-        << " with value " << attribute << " in queue " <<
-                                                       attribute << "." << std::endl;
+                  Aws::SQS::Model::QueueAttributeNameMapper::GetNameForQueueAttributeName(
+                          attributeName)
+                  << " with value " << attribute << " in queue " <<
+                  attribute << "." << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Error setting attribute for  queue " <<
-                                                                  queueURL << ": " << outcome.GetError().GetMessage() <<
+                  queueURL << ": " << outcome.GetError().GetMessage() <<
                   std::endl;
     }
 
@@ -73,12 +72,10 @@ bool AwsDoc::SQS::SetQueueAttributes(const Aws::String& queueURL,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc != 4)
-    {
+int main(int argc, char **argv) {
+    if (argc != 4) {
         std::cout << "Usage: run_set_queue_attributes <source_queue_url> " <<
-            "<attribute_name> <attribute_value>" << std::endl;
+                  "<attribute_name> <attribute_value>" << std::endl;
         return 1;
     }
 
@@ -91,10 +88,10 @@ int main(int argc, char** argv)
         Aws::String attributeValue = argv[3];
 
         Aws::SQS::Model::QueueAttributeName attributeName =
-                Aws::SQS::Model::QueueAttributeNameMapper::GetQueueAttributeNameForName(attributeStr);
+                Aws::SQS::Model::QueueAttributeNameMapper::GetQueueAttributeNameForName(
+                        attributeStr);
 
-        if (attributeName == Aws::SQS::Model::QueueAttributeName::NOT_SET)
-        {
+        if (attributeName == Aws::SQS::Model::QueueAttributeName::NOT_SET) {
             std::cerr << "Invalid attribute '" << attributeStr << "'." << std::endl;
             return 1;
         }
@@ -107,7 +104,7 @@ int main(int argc, char** argv)
 
         AwsDoc::SQS::SetQueueAttributes(queueUrl, attributeName,
                                         attributeValue, clientConfig);
-     }
+    }
     Aws::ShutdownAPI(options);
     return 0;
 }

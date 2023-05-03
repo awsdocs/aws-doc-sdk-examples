@@ -29,42 +29,39 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SQS::ReceiveMessage(const Aws::String& queueUrl,
-                    const Aws::Client::ClientConfiguration &clientConfiguration)
-{
-    // snippet-start:[sqsClient.cpp.receive_message.code]
+bool AwsDoc::SQS::ReceiveMessage(const Aws::String &queueUrl,
+                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
+    // snippet-start:[sqs.cpp.receive_message.code]
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
     Aws::SQS::Model::ReceiveMessageRequest request;
     request.SetQueueUrl(queueUrl);
     request.SetMaxNumberOfMessages(1);
 
-    const Aws::SQS::Model::ReceiveMessageOutcome outcome = sqsClient.ReceiveMessage(request);
-    if (outcome.IsSuccess())
-    {
+    const Aws::SQS::Model::ReceiveMessageOutcome outcome = sqsClient.ReceiveMessage(
+            request);
+    if (outcome.IsSuccess()) {
 
-        const Aws::Vector<Aws::SQS::Model::Message>& messages =
+        const Aws::Vector<Aws::SQS::Model::Message> &messages =
                 outcome.GetResult().GetMessages();
-        if (!messages.empty())
-        {
-            const Aws::SQS::Model::Message& message = messages[0];
+        if (!messages.empty()) {
+            const Aws::SQS::Model::Message &message = messages[0];
             std::cout << "Received message:" << std::endl;
             std::cout << "  MessageId: " << message.GetMessageId() << std::endl;
             std::cout << "  ReceiptHandle: " << message.GetReceiptHandle() << std::endl;
             std::cout << "  Body: " << message.GetBody() << std::endl << std::endl;
-            }
-        else{
+        }
+        else {
             std::cout << "No messages received from queue " << queueUrl <<
                       std::endl;
 
         }
     }
-    else
-    {
+    else {
         std::cerr << "Error receiving message from queue " << queueUrl << ": "
                   << outcome.GetError().GetMessage() << std::endl;
     }
-    // snippet-end:[sqsClient.cpp.receive_message.code]
+    // snippet-end:[sqs.cpp.receive_message.code]
     return outcome.IsSuccess();
 }
 // snippet-end:[cpp.example_code.sqs.ReceiveMessage]
@@ -81,10 +78,8 @@ bool AwsDoc::SQS::ReceiveMessage(const Aws::String& queueUrl,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc != 2)
-    {
+int main(int argc, char **argv) {
+    if (argc != 2) {
         std::cout << "Usage: run_receive_message <queue_url>" << std::endl;
         return 1;
     }

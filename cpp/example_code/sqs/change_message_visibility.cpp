@@ -34,32 +34,29 @@
   \return bool: Function succeeded.
  */
 bool AwsDoc::SQS::ChangeMessageVisibility(
-    const Aws::String& queue_url,
-    const Aws::String& messageReceiptHandle,
-    int visibilityTimeoutSeconds,
-    const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+        const Aws::String &queue_url,
+        const Aws::String &messageReceiptHandle,
+        int visibilityTimeoutSeconds,
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
-    // snippet-start:[sqsClient.cpp.change_message_visibility.code]
+    // snippet-start:[sqs.cpp.change_message_visibility.code]
     Aws::SQS::Model::ChangeMessageVisibilityRequest request;
     request.SetQueueUrl(queue_url);
     request.SetReceiptHandle(messageReceiptHandle);
     request.SetVisibilityTimeout(visibilityTimeoutSeconds);
 
     auto outcome = sqsClient.ChangeMessageVisibility(request);
-    if (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         std::cout << "Successfully changed visibility of message " <<
-            messageReceiptHandle << " from queue " << queue_url << std::endl;
+                  messageReceiptHandle << " from queue " << queue_url << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Error changing visibility of message from queue "
-        << queue_url << ": " <<
-            outcome.GetError().GetMessage() << std::endl;
+                  << queue_url << ": " <<
+                  outcome.GetError().GetMessage() << std::endl;
     }
-    // snippet-end:[sqsClient.cpp.change_message_visibility.code]
+    // snippet-end:[sqs.cpp.change_message_visibility.code]
 
     return outcome.IsSuccess();
 }
@@ -78,12 +75,11 @@ bool AwsDoc::SQS::ChangeMessageVisibility(
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc != 4)
-    {
+int main(int argc, char **argv) {
+    if (argc != 4) {
         std::cout << "Usage: run_change_message_visibility <queue_url> " <<
-            "<message_receipt_handle> <visibility_timeout_in_seconds>" << std::endl;
+                  "<message_receipt_handle> <visibility_timeout_in_seconds>"
+                  << std::endl;
         return 1;
     }
 

@@ -27,21 +27,18 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SQS::PurgeQueue(const Aws::String& queueUrl,
-                                 const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::SQS::PurgeQueue(const Aws::String &queueUrl,
+                             const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
     Aws::SQS::Model::PurgeQueueRequest request;
     request.SetQueueUrl(queueUrl);
 
     const Aws::SQS::Model::PurgeQueueOutcome outcome = sqsClient.PurgeQueue(request);
-    if (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         std::cout << "Successfully purged queue " << std::endl;
     }
-    else
-    {
+    else {
         std::cout << "Error purging queue " << outcome.GetError().GetMessage()
                   << std::endl;
     }
@@ -62,10 +59,8 @@ bool AwsDoc::SQS::PurgeQueue(const Aws::String& queueUrl,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc != 2)
-    {
+int main(int argc, char **argv) {
+    if (argc != 2) {
         std::cout << "Usage: run_purge_queue <queue_url>" << std::endl;
         return 1;
     }
@@ -85,5 +80,6 @@ int main(int argc, char** argv)
     Aws::ShutdownAPI(options);
     return 0;
 }
+
 #endif
 

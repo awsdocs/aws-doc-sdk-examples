@@ -31,11 +31,10 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SQS::SendMessage(const Aws::String& queueUrl,
-                                const Aws::String& messageBody,
-                                const Aws::Client::ClientConfiguration &clientConfiguration)
-{
-    // snippet-start:[sqsClient.cpp.send_message.code]
+bool AwsDoc::SQS::SendMessage(const Aws::String &queueUrl,
+                              const Aws::String &messageBody,
+                              const Aws::Client::ClientConfiguration &clientConfiguration) {
+    // snippet-start:[sqs.cpp.send_message.code]
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
     Aws::SQS::Model::SendMessageRequest request;
@@ -43,17 +42,15 @@ bool AwsDoc::SQS::SendMessage(const Aws::String& queueUrl,
     request.SetMessageBody(messageBody);
 
     const Aws::SQS::Model::SendMessageOutcome outcome = sqsClient.SendMessage(request);
-    if (outcome.IsSuccess())
-    {
+    if (outcome.IsSuccess()) {
         std::cout << "Successfully sent message to " << queueUrl <<
                   std::endl;
     }
-    else
-    {
+    else {
         std::cerr << "Error sending message to " << queueUrl << ": " <<
                   outcome.GetError().GetMessage() << std::endl;
     }
-    // snippet-end:[sqsClient.cpp.send_message.code]
+    // snippet-end:[sqs.cpp.send_message.code]
 
     return outcome.IsSuccess();
 }
@@ -71,12 +68,10 @@ bool AwsDoc::SQS::SendMessage(const Aws::String& queueUrl,
 
 #ifndef TESTING_BUILD
 
-int main(int argc, char** argv)
-{
-    if (argc != 3)
-    {
+int main(int argc, char **argv) {
+    if (argc != 3) {
         std::cout << "Usage: run_send_message <queue_url> <message_body>" <<
-            std::endl;
+                  std::endl;
         return 1;
     }
 
