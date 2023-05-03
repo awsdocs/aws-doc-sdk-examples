@@ -32,8 +32,6 @@ def build_tests(service="*"):
     cmake_files = glob.glob( f"example_code/{service}/tests/CMakeLists.txt")
     cmake_files.extend(glob.glob( f"example_code/{service}/gtests/CMakeLists.txt"))
 
-    subprocess.call(f"echo $PATH", shell=True)
-
     run_files = []
 
     if len (cmake_files) == 0:
@@ -46,21 +44,25 @@ def build_tests(service="*"):
     os.makedirs(name=build_dir, exist_ok=True)
 
     cmake_args = os.getenv("EXTRA_CMAKE_ARGS")
-    if cmake_args is None :
-        cmake_args = ""
 
     for cmake_file in cmake_files :
         source_dir = os.path.dirname(cmake_file)
         module_build_dir = os.path.join(build_dir, source_dir)
         os.makedirs(name=module_build_dir, exist_ok=True)
         os.chdir(module_build_dir)
-        result_code = subprocess.call(f"cmake {cmake_args} {os.path.join(base_dir, source_dir)}", shell=True)
+
+        cmake_command = ['cmake']
+        if cmake_args is not None:
+            cmake_command.append(cmake_args)
+        cmake_command.append(os.path.join(base_dir, source_dir))
+
+        result_code = subprocess.call(cmake_command, shell=False)
         if result_code != 0 :
             print(f"Error with cmake for {source_dir}")
             has_error = True
             continue
 
-        result_code = subprocess.call("cmake --build .", shell=True)
+        result_code = subprocess.call(['cmake', '--build', '.'], shell=False)
         if result_code != 0 :
             has_error = True
             continue
