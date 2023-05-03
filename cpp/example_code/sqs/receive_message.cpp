@@ -22,14 +22,14 @@
 //snippet-end:[sqs.cpp.receive_message.inc]
 #include "sqs_samples.h"
 
-// snippet-start:[cpp.example_code.sqs.ReceiveMessage]
+// snippet-start:[cpp.example_code.sqs.receiveMessage]
 //! Receive a message from an Amazon Simple Queue Service (Amazon SQS) queue.
 /*!
   \param queueUrl: An Amazon SQS queue URL.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SQS::ReceiveMessage(const Aws::String &queueUrl,
+bool AwsDoc::SQS::receiveMessage(const Aws::String &queueUrl,
                                  const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[sqs.cpp.receive_message.code]
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
@@ -64,7 +64,7 @@ bool AwsDoc::SQS::ReceiveMessage(const Aws::String &queueUrl,
     // snippet-end:[sqs.cpp.receive_message.code]
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.sqs.ReceiveMessage]
+// snippet-end:[cpp.example_code.sqs.receiveMessage]
 
 /*
 *
@@ -88,13 +88,13 @@ int main(int argc, char **argv) {
     Aws::InitAPI(options);
     {
         Aws::String queue_url = argv[1];
-        // snippet-start:[cpp.example_code.sqs.ReceiveMessage.config]
+        // snippet-start:[cpp.example_code.sqs.receiveMessage.config]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        // snippet-end:[cpp.example_code.sqs.ReceiveMessage.config]
+        // snippet-end:[cpp.example_code.sqs.receiveMessage.config]
 
-        AwsDoc::SQS::ReceiveMessage(queue_url, clientConfig);
+        AwsDoc::SQS::receiveMessage(queue_url, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

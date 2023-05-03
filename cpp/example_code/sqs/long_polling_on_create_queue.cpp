@@ -31,7 +31,7 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SQS::CreateLongPollingQueue(
+bool AwsDoc::SQS::createLongPollingQueue(
         const Aws::String &queueName,
         const Aws::String &pollTimeSeconds,
         const Aws::Client::ClientConfiguration &clientConfiguration) {
@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::SQS::CreateLongPollingQueue(queueName, pollTime, clientConfig);
+        AwsDoc::SQS::createLongPollingQueue(queueName, pollTime, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

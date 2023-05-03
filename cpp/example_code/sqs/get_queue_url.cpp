@@ -30,7 +30,7 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SQS::GetQueueURL(const Aws::String &queueName,
+bool AwsDoc::SQS::getQueueUrl(const Aws::String &queueName,
                               const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[sqs.cpp.get_queue_url.code]
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
@@ -82,7 +82,7 @@ int main(int argc, char **argv) {
         // clientConfig.region = "us-east-1";
         // snippet-end:[cpp.example_code.sqs.GetQueueUrl.config]
 
-        AwsDoc::SQS::GetQueueURL(queueName, clientConfig);
+        AwsDoc::SQS::getQueueUrl(queueName, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

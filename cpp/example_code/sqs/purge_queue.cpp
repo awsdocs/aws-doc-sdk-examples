@@ -20,14 +20,14 @@
 #include <iostream>
 #include "sqs_samples.h"
 
-// snippet-start:[cpp.example_code.sqs.PurgeQueue]
+// snippet-start:[cpp.example_code.sqs.purgeQueue]
 //! Delete the messages from an Amazon Simple Queue Service (Amazon SQS) queue.
 /*!
   \param queueUrl: An Amazon SQS queue URL.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SQS::PurgeQueue(const Aws::String &queueUrl,
+bool AwsDoc::SQS::purgeQueue(const Aws::String &queueUrl,
                              const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
 
@@ -45,7 +45,7 @@ bool AwsDoc::SQS::PurgeQueue(const Aws::String &queueUrl,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.sqs.PurgeQueue]
+// snippet-end:[cpp.example_code.sqs.purgeQueue]
 
 /*
 *
@@ -75,7 +75,7 @@ int main(int argc, char **argv) {
 
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        AwsDoc::SQS::PurgeQueue(queueUrl, clientConfig);
+        AwsDoc::SQS::purgeQueue(queueUrl, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

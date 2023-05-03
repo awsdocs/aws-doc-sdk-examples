@@ -32,11 +32,11 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SQS::ReceiveMessageWithWaitTime(const Aws::String &queueUrl,
+bool AwsDoc::SQS::receiveMessageWithWaitTime(const Aws::String &queueUrl,
                                              int waitTimeSeconds,
                                              const Aws::Client::ClientConfiguration &clientConfiguration) {
     // Let's make sure the request timeout is larger than the maximum possible
-    // long poll time so that valid ReceiveMessage requests don't fail on long
+    // long poll time so that valid receiveMessage requests don't fail on long
     // poll queues
     Aws::Client::ClientConfiguration customConfiguration(clientConfiguration);
     customConfiguration.requestTimeoutMs = 30000;
@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::SQS::ReceiveMessageWithWaitTime(queueUrl, waitTime, clientConfig);
+        AwsDoc::SQS::receiveMessageWithWaitTime(queueUrl, waitTime, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

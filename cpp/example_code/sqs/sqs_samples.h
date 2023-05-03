@@ -8,6 +8,7 @@
 #define SQS_EXAMPLES_SQS_SAMPLES_H
 
 #include <aws/core/client/ClientConfiguration.h>
+#include <aws/sqs/model/QueueAttributeName.h>
 
 namespace AwsDoc {
     namespace SQS {
@@ -21,7 +22,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool ChangeMessageVisibility(
+        bool changeMessageVisibility(
                 const Aws::String &queue_url,
                 const Aws::String &messageReceiptHandle,
                 int visibilityTimeoutSeconds,
@@ -33,7 +34,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool CreateQueue(
+        bool createQueue(
                 const Aws::String &queueName,
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
@@ -45,7 +46,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool CreateLongPollingQueue(
+        bool createLongPollingQueue(
                 const Aws::String &queueName,
                 const Aws::String &pollTimeSeconds,
                 const Aws::Client::ClientConfiguration &clientConfiguration);
@@ -57,7 +58,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool DeleteMessage(const Aws::String &queueUrl,
+        bool deleteMessage(const Aws::String &queueUrl,
                            const Aws::String &messageReceiptHandle,
                            const Aws::Client::ClientConfiguration &clientConfiguration);
 
@@ -67,7 +68,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool DeleteQueue(const Aws::String &queueURL,
+        bool deleteQueue(const Aws::String &queueURL,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
 
@@ -77,7 +78,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool GetQueueURL(const Aws::String &queueName,
+        bool getQueueUrl(const Aws::String &queueName,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! List the Amazon Simple Queue Service (Amazon SQS) queues within an AWS account.
@@ -85,7 +86,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool ListQueues(const Aws::Client::ClientConfiguration &clientConfiguration);
+        bool listQueues(const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Delete the messages from an Amazon Simple Queue Service (Amazon SQS) queue.
         /*!
@@ -93,7 +94,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool PurgeQueue(const Aws::String &queueUrl,
+        bool purgeQueue(const Aws::String &queueUrl,
                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Receive a message from an Amazon Simple Queue Service (Amazon SQS) queue.
@@ -102,7 +103,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool ReceiveMessage(const Aws::String &queueUrl,
+        bool receiveMessage(const Aws::String &queueUrl,
                             const Aws::Client::ClientConfiguration &clientConfiguration);
 
         //! Receive a message from an Amazon Simple Queue Service (Amazon SQS) queue
@@ -113,7 +114,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool ReceiveMessageWithWaitTime(const Aws::String &queueUrl,
+        bool receiveMessageWithWaitTime(const Aws::String &queueUrl,
                                         int waitTimeSeconds,
                                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
@@ -124,7 +125,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool SendMessage(const Aws::String &queueUrl,
+        bool sendMessage(const Aws::String &queueUrl,
                          const Aws::String &messageBody,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
@@ -137,7 +138,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool SetDeadLetterQueue(const Aws::String &srcQueueUrl,
+        bool setDeadLetterQueue(const Aws::String &srcQueueUrl,
                                 const Aws::String &deadLetterQueueARN,
                                 int maxReceiveCount,
                                 const Aws::Client::ClientConfiguration &clientConfiguration);
@@ -149,7 +150,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool SetQueueLongPollingAttribute(const Aws::String &queueURL,
+        bool setQueueLongPollingAttribute(const Aws::String &queueURL,
                                           const Aws::String &pollTimeSeconds,
                                           const Aws::Client::ClientConfiguration &clientConfiguration);
 
@@ -161,7 +162,7 @@ namespace AwsDoc {
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
-        bool SetQueueAttributes(const Aws::String &queueURL,
+        bool setQueueAttributes(const Aws::String &queueURL,
                                 Aws::SQS::Model::QueueAttributeName attributeName,
                                 const Aws::String &attribute,
                                 const Aws::Client::ClientConfiguration &clientConfiguration);

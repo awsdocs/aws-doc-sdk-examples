@@ -23,7 +23,7 @@
 //snippet-end:[sqs.cpp.change_message_visibility.inc]
 #include "sqs_samples.h"
 
-// snippet-start:[cpp.example_code.sqs.ChangeMessageVisibility]
+// snippet-start:[cpp.example_code.sqs.changeMessageVisibility]
 //! Changes the visibility timeout of a message in an Amazon Simple Queue Service
 //! (Amazon SQS) queue.
 /*!
@@ -33,7 +33,7 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SQS::ChangeMessageVisibility(
+bool AwsDoc::SQS::changeMessageVisibility(
         const Aws::String &queue_url,
         const Aws::String &messageReceiptHandle,
         int visibilityTimeoutSeconds,
@@ -60,7 +60,7 @@ bool AwsDoc::SQS::ChangeMessageVisibility(
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.sqs.ChangeMessageVisibility]
+// snippet-end:[cpp.example_code.sqs.changeMessageVisibility]
 
 /*
  *
@@ -93,13 +93,13 @@ int main(int argc, char **argv) {
         Aws::StringStream ss(argv[3]);
         ss >> visibilityTimeout;
 
-        // snippet-start:[cpp.example_code.sqs.ChangeMessageVisibility.config]
+        // snippet-start:[cpp.example_code.sqs.changeMessageVisibility.config]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        // snippet-end:[cpp.example_code.sqs.ChangeMessageVisibility.config]
+        // snippet-end:[cpp.example_code.sqs.changeMessageVisibility.config]
 
-        AwsDoc::SQS::ChangeMessageVisibility(queueUrl,
+        AwsDoc::SQS::changeMessageVisibility(queueUrl,
                                              messageReceiptHandle,
                                              visibilityTimeout,
                                              clientConfig);

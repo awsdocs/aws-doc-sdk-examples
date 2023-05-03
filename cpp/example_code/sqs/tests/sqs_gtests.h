@@ -17,7 +17,7 @@ namespace AwsDocTest {
         int underflow() override;
     };
 
-    class S3_GTests : public testing::Test {
+    class SQS_GTests : public testing::Test {
     protected:
 
         void SetUp() override;
@@ -31,6 +31,22 @@ namespace AwsDocTest {
         static Aws::String preconditionError();
 
         void AddCommandLineResponses(const std::vector<std::string> &responses);
+
+        static Aws::String uuidName(const Aws::String &name);
+
+        static bool deleteQueueWithName(const Aws::String &name);
+
+        static Aws::String getQueueUrl(const Aws::String &name);
+
+        static bool deleteQueueWithUrl(const Aws::String &queueUrl);
+
+        static Aws::String createQueue(const Aws::String &name);
+
+        static Aws::String getCachedQueueUrl();
+
+        static Aws::String getMessageReceiptHandle();
+
+        static Aws::String getQueueArn(const Aws::String &queueUrl);
 
         // s_clientConfig must be a pointer because the client config must be initialized
         // after InitAPI.
@@ -47,7 +63,9 @@ namespace AwsDocTest {
 
         MyStringBuffer m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
-    }; // S3_GTests
+
+        static Aws::String s_cachedQueueUrl;
+    }; // SQS_GTests
 } // AwsDocTest
 
 #endif //S3_EXAMPLES_S3_GTESTS_H

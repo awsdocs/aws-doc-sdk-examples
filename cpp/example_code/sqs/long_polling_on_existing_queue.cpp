@@ -29,7 +29,7 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SQS::SetQueueLongPollingAttribute(const Aws::String &queueURL,
+bool AwsDoc::SQS::setQueueLongPollingAttribute(const Aws::String &queueURL,
                                                const Aws::String &pollTimeSeconds,
                                                const Aws::Client::ClientConfiguration &clientConfiguration) {
     // snippet-start:[sqs.cpp.long_polling_on_existing-queue.code]
@@ -86,7 +86,7 @@ int main(int argc, char **argv) {
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
 
-        AwsDoc::SQS::SetQueueLongPollingAttribute(queueUrl, pollTime, clientConfig)
+        AwsDoc::SQS::setQueueLongPollingAttribute(queueUrl, pollTime, clientConfig)
     }
     Aws::ShutdownAPI(options);
     return 0;
