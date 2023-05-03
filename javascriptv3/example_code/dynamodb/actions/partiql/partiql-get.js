@@ -5,31 +5,26 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start:[dynamodb.JavaScript.partiQL.updateItemsV3]
+// snippet-start:[dynamodb.JavaScript.partiQL.getItemV3]
 import {
-  BatchExecuteStatementCommand,
+  ExecuteStatementCommand,
   DynamoDBClient,
 } from "@aws-sdk/client-dynamodb";
 
 const client = new DynamoDBClient({});
 
 export const main = async () => {
-  const eggUpdates = [
-    ["duck", "fried"],
-    ["chicken", "omelette"],
-  ];
-  const command = new BatchExecuteStatementCommand({
-    Statements: eggUpdates.map((change) => ({
-      Statement: "UPDATE Eggs SET Style=? where Variety=?",
-      Parameters: [{ S: change[1] }, { S: change[0] }],
-    })),
+  const command = new ExecuteStatementCommand({
+    Statement: "SELECT * FROM CloudTypes WHERE IsStorm=?",
+    Parameters: [{ BOOL: "false" }],
+    ConsistentRead: true,
   });
 
   const response = await client.send(command);
   console.log(response);
   return response;
 };
-// snippet-end:[dynamodb.JavaScript.partiQL.updateItemsV3]
+// snippet-end:[dynamodb.JavaScript.partiQL.getItemV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
