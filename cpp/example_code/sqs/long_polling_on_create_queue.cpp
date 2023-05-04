@@ -18,7 +18,6 @@
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/CreateQueueRequest.h>
-#include <aws/sqs/model/CreateQueueResult.h>
 #include <iostream>
 //snippet-end:[sqs.cpp.long_polling_on_create_queue.inc]
 #include "sqs_samples.h"

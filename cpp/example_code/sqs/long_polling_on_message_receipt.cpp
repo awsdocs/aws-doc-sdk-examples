@@ -18,7 +18,6 @@
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ReceiveMessageRequest.h>
-#include <aws/sqs/model/ReceiveMessageResult.h>
 //snippet-end:[sqs.cpp.long_polling_on_message_receipt.inc]
 #include <aws/sqs/model/DeleteMessageRequest.h>
 #include <iostream>

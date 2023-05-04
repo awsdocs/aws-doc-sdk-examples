@@ -129,60 +129,49 @@ Aws::String AwsDocTest::SQS_GTests::createQueue(const Aws::String &name) {
 Aws::String AwsDocTest::SQS_GTests::getCachedQueueUrl() {
     if (s_cachedQueueUrl.empty()) {
         s_cachedQueueUrl = createQueue(uuidName("test_cached"));
+        if (!s_cachedQueueUrl.empty()) // Have one message in queue.
+        {
+            sendMessage(s_cachedQueueUrl, "initial message");
+        }
     }
 
     return s_cachedQueueUrl;
 }
 
 Aws::String AwsDocTest::SQS_GTests::getMessageReceiptHandle() {
+    Aws::SQS::SQSClient sqsClient(*s_clientConfig);
     Aws::String queueUrl = getCachedQueueUrl();
     Aws::String messageReceiptHandle;
     if (!queueUrl.empty()) {
-        Aws::SQS::SQSClient sqsClient(*s_clientConfig);
+        sendMessage(queueUrl, "test message");
+        Aws::SQS::Model::ReceiveMessageRequest request;
+        request.SetQueueUrl(queueUrl);
+        request.SetMaxNumberOfMessages(1);
+        request.SetWaitTimeSeconds(1);
 
-        {
-            Aws::SQS::Model::SendMessageRequest request;
-            request.SetQueueUrl(queueUrl);
-            request.SetMessageBody("test message");
+        const Aws::SQS::Model::ReceiveMessageOutcome outcome = sqsClient.ReceiveMessage(
+                request);
+        if (outcome.IsSuccess()) {
 
-            const Aws::SQS::Model::SendMessageOutcome outcome = sqsClient.SendMessage(
-                    request);
-            if (!outcome.IsSuccess()) {
-                std::cerr << "getMessageReceiptHandle error sending message to "
-                          << queueUrl << ": " <<
-                          outcome.GetError().GetMessage() << std::endl;
-            }
-        }
-
-        {
-            Aws::SQS::Model::ReceiveMessageRequest request;
-            request.SetQueueUrl(queueUrl);
-            request.SetMaxNumberOfMessages(1);
-            request.SetWaitTimeSeconds(1);
-
-            const Aws::SQS::Model::ReceiveMessageOutcome outcome = sqsClient.ReceiveMessage(
-                    request);
-            if (outcome.IsSuccess()) {
-
-                const Aws::Vector<Aws::SQS::Model::Message> &messages =
-                        outcome.GetResult().GetMessages();
-                if (!messages.empty()) {
-                    messageReceiptHandle = messages[0].GetReceiptHandle();
-                }
-                else {
-                    std::cerr
-                            << "getMessageReceiptHandle No messages received from queue "
-                            << queueUrl <<
-                            std::endl;
-
-                }
+            const Aws::Vector<Aws::SQS::Model::Message> &messages =
+                    outcome.GetResult().GetMessages();
+            if (!messages.empty()) {
+                messageReceiptHandle = messages[0].GetReceiptHandle();
             }
             else {
-                std::cerr << "Error receiving message from queue " << queueUrl << ": "
-                          << outcome.GetError().GetMessage() << std::endl;
-            }
+                std::cerr
+                        << "getMessageReceiptHandle No messages received from queue "
+                        << queueUrl <<
+                        std::endl;
 
+            }
         }
+        else {
+            std::cerr << "Error receiving message from queue " << queueUrl << ": "
+                      << outcome.GetError().GetMessage() << std::endl;
+        }
+
+
     }
 
     return messageReceiptHandle;
@@ -251,4 +240,22 @@ Aws::String AwsDocTest::SQS_GTests::getQueueArn(const Aws::String &queueUrl) {
                   << std::endl;
     }
     return queueArn;
+}
+
+bool AwsDocTest::SQS_GTests::sendMessage(const Aws::String &queueUrl,
+                                         const Aws::String &messageText) {
+    Aws::SQS::SQSClient sqsClient(*s_clientConfig);
+    Aws::SQS::Model::SendMessageRequest request;
+    request.SetQueueUrl(queueUrl);
+    request.SetMessageBody(messageText);
+
+    const Aws::SQS::Model::SendMessageOutcome outcome = sqsClient.SendMessage(
+            request);
+    if (!outcome.IsSuccess()) {
+        std::cerr << "getMessageReceiptHandle error sending message to "
+                  << queueUrl << ": " <<
+                  outcome.GetError().GetMessage() << std::endl;
+    }
+
+    return outcome.IsSuccess();
 }

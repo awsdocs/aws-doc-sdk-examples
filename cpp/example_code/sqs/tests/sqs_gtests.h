@@ -48,13 +48,16 @@ namespace AwsDocTest {
 
         static Aws::String getQueueArn(const Aws::String &queueUrl);
 
+        static bool sendMessage(const Aws::String &queueUrl,
+                                const Aws::String &messageText);
+
         // s_clientConfig must be a pointer because the client config must be initialized
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
     private:
 
-        bool suppressStdOut();
+        static bool suppressStdOut();
 
         static Aws::SDKOptions s_options;
 

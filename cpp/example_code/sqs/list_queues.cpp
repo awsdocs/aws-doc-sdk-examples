@@ -18,7 +18,6 @@
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/ListQueuesRequest.h>
-#include <aws/sqs/model/ListQueuesResult.h>
 #include <iostream>
 //snippet-end:[sqs.cpp.list_queues.inc]
 #include "sqs_samples.h"

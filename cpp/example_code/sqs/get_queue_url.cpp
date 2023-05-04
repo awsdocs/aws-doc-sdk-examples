@@ -18,7 +18,6 @@
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/GetQueueUrlRequest.h>
-#include <aws/sqs/model/GetQueueUrlResult.h>
 #include <iostream>
 //snippet-end:[sqs.cpp.get_queue_url.inc]
 #include "sqs_samples.h"

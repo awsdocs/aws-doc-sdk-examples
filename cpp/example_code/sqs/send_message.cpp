@@ -18,7 +18,6 @@
 #include <aws/core/Aws.h>
 #include <aws/sqs/SQSClient.h>
 #include <aws/sqs/model/SendMessageRequest.h>
-#include <aws/sqs/model/SendMessageResult.h>
 #include <iostream>
 //snippet-end:[sqs.cpp.send_message.inc]
 #include "sqs_samples.h"
