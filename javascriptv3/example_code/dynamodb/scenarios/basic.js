@@ -1,460 +1,239 @@
-/* Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-SPDX-License-Identifier: Apache-2.0
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
-ABOUT THIS NODE.JS EXAMPLE: This example works with the AWS SDK for JavaScript (v3),
-which is available at https://github.com/aws/aws-sdk-js-v3.
-
-Purpose:
-This scenario demonstrates how to:
-    - Create a table that can hold movie data.
-    - Write movie data to the table from a sample JSON file.
-    - Put, get, update, and delete a single movie in the table.
-    - Scan for movies that were released in a range of years.
-    - Query for movies that were released in a given year.
-    - Delete the table.
-
-
-Running the code:
-1. Change directories to the same directory as this file
-(javascriptv3/example_code/dynamodb/scenarios/dynamodb_basics/src).
-2. Import this file as a module and then call `main()`. Do this from 
-another file, or use the following command:
-`node -e 'import("./dynamodb_basics.js").then(({ main }) => main())'`
-*/
+import { fileURLToPath } from "url";
 
 // snippet-start:[javascript.dynamodb_scenarios.dynamodb_basics]
-import fs from "fs";
-import { splitEvery } from "ramda";
+import { readFileSync } from "fs";
 import {
-  PutCommand,
-  GetCommand,
-  UpdateCommand,
-  BatchWriteCommand,
-  DeleteCommand,
-  ScanCommand,
-  QueryCommand,
-} from "@aws-sdk/lib-dynamodb";
-import {
+  BillingMode,
   CreateTableCommand,
   DeleteTableCommand,
+  DynamoDBClient,
   waitUntilTableExists,
-  waitUntilTableNotExists,
 } from "@aws-sdk/client-dynamodb";
 
-import { ddbClient } from "./dynamodb_basics/libs/ddbClient.js";
-import { ddbDocClient } from "./dynamodb_basics/libs/ddbDocClient.js";
-
 /**
- * @param {string} tableName
+ * This module is a convenience library. It abstracts DynamoDB's data type
+ * descriptors (S, N, B, BOOL, etc.) by marshalling JavaScript objects into
+ * AttributeValue shapes.
  */
-const createTable = async (tableName) => {
-  await ddbClient.send(
-    new CreateTableCommand({
-      AttributeDefinitions: [
-        {
-          AttributeName: "year",
-          AttributeType: "N",
-        },
-        {
-          AttributeName: "title",
-          AttributeType: "S",
-        },
-      ],
-      KeySchema: [
-        {
-          AttributeName: "year",
-          KeyType: "HASH",
-        },
-        {
-          AttributeName: "title",
-          KeyType: "RANGE",
-        },
-      ],
-      // Enables "on-demand capacity mode".
-      BillingMode: "PAY_PER_REQUEST",
-      TableName: tableName,
-    })
-  );
-  await waitUntilTableExists(
-    { client: ddbClient, maxWaitTime: 15, maxDelay: 2, minDelay: 1 },
-    { TableName: tableName }
-  );
-};
+import {
+  BatchWriteCommand,
+  DeleteCommand,
+  DynamoDBDocumentClient,
+  GetCommand,
+  PutCommand,
+  UpdateCommand,
+  QueryCommand,
+} from "@aws-sdk/lib-dynamodb";
 
-/**
- *
- * @param {string} tableName
- * @param {Record<string, any> | undefined} attributes
- */
-const putItem = async (tableName, attributes) => {
-  const command = new PutCommand({
+// These modules are local to our GitHub repository. We recommend
+// cloning the project from GitHub if you want to run this example.
+// https://github.com/awsdocs/aws-doc-sdk-examples
+import { getUniqueName } from "libs/utils/util-string.js";
+import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
+import { chunkArray } from "libs/utils/util-array.js";
+
+const dirname = dirnameFromMetaUrl(import.meta.url);
+const tableName = getUniqueName("Movies");
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
+
+const log = (msg) => console.log(`[SCENARIO] ${msg}`);
+
+export const main = async () => {
+  /**
+   * Create a table.
+   */
+
+  const createTableCommand = new CreateTableCommand({
     TableName: tableName,
-    Item: attributes,
+    // This example will be doing a large write to the database.
+    // Without setting the billing mode to PAY_PER_REQUEST, the
+    // large write is throttled.
+    BillingMode: BillingMode.PAY_PER_REQUEST,
+    // Define the attributes that are necessary for the key schema.
+    AttributeDefinitions: [
+      {
+        AttributeName: "year",
+        // 'N' is a data type descriptor that represents a number type.
+        // See the following link for a list of all data type descriptors.
+        // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html#Programming.LowLevelAPI.DataTypeDescriptors
+        AttributeType: "N",
+      },
+      { AttributeName: "title", AttributeType: "S" },
+    ],
+    // The KeySchema defines the primary key. The primary key can be
+    // a partition key, or a combination of a partition key and a sort key.
+    // Key schema design is important. For more info, see
+    // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html
+    KeySchema: [
+      // The way your data is accessed determines how you structure your keys.
+      // The movies table will be queried for movies by year. It makes sense
+      // to make year our partition (HASH) key.
+      { AttributeName: "year", KeyType: "HASH" },
+      { AttributeName: "title", KeyType: "RANGE" },
+    ],
   });
 
-  await ddbDocClient.send(command);
-};
-/**
- * @typedef {{ title: string, info: { plot: string, rank: number }, year: number }} Movie
- */
+  log("Creating a table.");
+  const createTableResponse = await client.send(createTableCommand);
+  log(`Table created: ${JSON.stringify(createTableResponse.TableDescription)}`);
 
-/**
- * @param {unknown} movies
- * @returns {Movie[]}
- */
-const validateMovies = (input) => {
-  const movies = JSON.parse(input, "utf8");
+  // This polls with DescribeTableCommand until the requested table is 'ACTIVE'.
+  // You cannot write to a table before it is active.
+  log("Waiting for the table to be active.");
+  await waitUntilTableExists({ client }, { TableName: tableName });
+  log("Table active.");
 
-  if (!Array.isArray(movies)) {
-    throw new Error("File contents are not an array.");
-  }
+  /**
+   * Add a movie to the table.
+   */
 
-  if (movies.length === 0) {
-    throw new Error("File contents are empty.");
-  }
+  log("Adding a single movie to the table.");
+  // PutCommand is the first example usage of 'lib-dynamodb'.
+  const putCommand = new PutCommand({
+    TableName: tableName,
+    Item: {
+      // In 'client-dynamodb', the AttributeValue would be required (`year: { N: 1981 }`)
+      // 'lib-dynamodb' simplifies the usage ( `year: 1981` )
+      year: 1981,
+      // The preceding KeySchema defines 'title' as our sort (RANGE) key, so 'title'
+      // is required.
+      title: "The Evil Dead",
+      // Every other attribute is optional.
+      info: {
+        genres: ["Horror"],
+      },
+    },
+  });
+  await docClient.send(putCommand);
+  log("The movie was added.");
 
-  if (
-    movies.some(
-      (
-        /**
-          @type {unknown}
-        */
-        m
-      ) => {
-        if (typeof m !== "object") {
-          return true;
-        }
-        if (typeof m.year !== "number") {
-          return true;
-        }
-        if (typeof m.title !== "string") {
-          return true;
-        }
-        if (typeof m.info !== "object") {
-          return true;
-        }
-        return false;
-      }
-    )
-  ) {
-    throw new Error("File contents contain invalid data.");
-  } else {
-    return movies;
-  }
-};
+  /**
+   * Get a movie from the table.
+   */
 
-/**
- *
- * @param {string} tableName
- * @param {string} filePath
- * @returns { { movieCount: number } } The number of movies written to the database.
- */
-const batchWriteMoviesFromFile = async (tableName, filePath) => {
-  const fileContents = fs.readFileSync(filePath);
-  const movies = validateMovies(fileContents);
+  log("Getting a single movie from the table.");
+  const getCommand = new GetCommand({
+    TableName: tableName,
+    // Requires the complete primary key. For the movies table, the primary key
+    // is only the id (partition key).
+    Key: {
+      year: 1981,
+      title: "The Evil Dead",
+    },
+    // Set this to ensure recent writes are reflected.
+    // For more information, see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadConsistency.html.
+    ConsistentRead: true,
+  });
+  const getResponse = await docClient.send(getCommand);
+  log(`Got the movie: ${JSON.stringify(getResponse.Item)}`);
 
-  // Map movies to RequestItems.
-  const putMovieRequestItems = movies.map(({ year, title, info }) => ({
-    PutRequest: { Item: { year, title, info } },
-  }));
+  /**
+   * Update a movie in the table.
+   */
 
-  // Organize RequestItems into batches of 25. 25 is the max number of items in a batch request.
-  const putMovieBatches = splitEvery(25, putMovieRequestItems);
-  const batchCount = putMovieBatches.length;
+  log("Updating a single movie in the table.");
+  const updateCommand = new UpdateCommand({
+    TableName: tableName,
+    Key: { year: 1981, title: "The Evil Dead" },
+    // This update expression appends "Comedy" to the list of genres.
+    // For more information on update expressions, see
+    // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html
+    UpdateExpression: "set #i.#g = list_append(#i.#g, :vals)",
+    ExpressionAttributeNames: { "#i": "info", "#g": "genres" },
+    ExpressionAttributeValues: {
+      ":vals": ["Comedy"],
+    },
+    ReturnValues: "ALL_NEW",
+  });
+  const updateResponse = await docClient.send(updateCommand);
+  log(`Movie updated: ${JSON.stringify(updateResponse.Attributes)}`);
 
-  // Map batches to promises.
-  const batchRequests = putMovieBatches.map(async (batch, i) => {
+  /**
+   * Delete a movie from the table.
+   */
+
+  log("Deleting a single movie from the table.");
+  const deleteCommand = new DeleteCommand({
+    TableName: tableName,
+    Key: { year: 1981, title: "The Evil Dead" },
+  });
+  await client.send(deleteCommand);
+  log("Movie deleted.");
+
+  /**
+   * Upload a batch of movies.
+   */
+
+  log("Adding movies from local JSON file.");
+  const file = readFileSync(
+    `${dirname}../../../../resources/sample_files/movies.json`
+  );
+  const movies = JSON.parse(file.toString());
+  // chunkArray is a local convenience function. It takes an array and returns
+  // a generator function. The generator function yields every N items.
+  const movieChunks = chunkArray(movies, 25);
+  // For every chunk of 25 movies, make one BatchWrite request.
+  for (const chunk of movieChunks) {
+    const putRequests = chunk.map((movie) => ({
+      PutRequest: {
+        Item: movie,
+      },
+    }));
+
     const command = new BatchWriteCommand({
       RequestItems: {
-        [tableName]: batch,
+        [tableName]: putRequests,
       },
     });
 
-    await ddbDocClient.send(command).then(() => {
-      console.log(
-        `Wrote batch ${i + 1} of ${batchCount} with ${batch.length} items.`
-      );
-    });
-  });
-
-  // Wait for all batch requests to resolve.
-  await Promise.all(batchRequests);
-
-  return { movieCount: movies.length };
-};
-
-/**
- *
- * @param {string} tableName
- * @param {{
- * existingMovieName: string,
- * existingMovieYear: string,
- * newMoviePlot: string,
- * newMovieRank: string}} keyUpdate
- */
-const updateMovie = async (
-  tableName,
-  { existingMovieName, existingMovieYear, newMoviePlot, newMovieRank }
-) => {
-  await ddbClient.send(
-    new UpdateCommand({
-      TableName: tableName,
-      Key: {
-        title: existingMovieName,
-        year: existingMovieYear,
-      },
-      // Define expressions for the new or updated attributes.
-      ExpressionAttributeNames: { "#r": "rank" },
-      UpdateExpression: "set info.plot = :p, info.#r = :r",
-      ExpressionAttributeValues: {
-        ":p": newMoviePlot,
-        ":r": newMovieRank,
-      },
-      ReturnValues: "ALL_NEW",
-    })
-  );
-};
-
-/**
- * @param {Movie} movie
- */
-const logMovie = (movie) => {
-  console.log(` | Title: "${movie.title}".`);
-  console.log(` | Plot: "${movie.info.plot}`);
-  console.log(` | Year: ${movie.year}`);
-  console.log(` | Rank: ${movie.info.rank}`);
-};
-
-/**
- *
- * @param {{ title: string, info: { plot: string, rank: number }, year: number }[]} movies
- */
-const logMovies = (movies) => {
-  console.log("\n");
-  movies.forEach((movie, i) => {
-    if (i > 0) {
-      console.log("-".repeat(80));
-    }
-
-    logMovie(movie);
-  });
-};
-
-/**
- *
- * @param {string} tableName
- * @param {string} title
- * @param {number} year
- * @returns
- */
-const getMovie = async (tableName, title, year) => {
-  const { Item } = await ddbDocClient.send(
-    new GetCommand({
-      TableName: tableName,
-      Key: {
-        title,
-        year,
-      },
-      // By default, reads are eventually consistent. "ConsistentRead: true" represents
-      // a strongly consistent read. This guarantees that the most up-to-date data is returned. It
-      // can also result in higher latency and a potential for server errors.
-      ConsistentRead: true,
-    })
-  );
-
-  return Item;
-};
-
-/**
- *
- * @param {string} tableName
- * @param {{ title: string, year: number }} key
- */
-const deleteMovie = async (tableName, key) => {
-  await ddbDocClient.send(
-    new DeleteCommand({
-      TableName: tableName,
-      Key: key,
-    })
-  );
-};
-
-/**
- *
- * @param {string} tableName
- * @param {number} startYear
- * @param {number} endYear
- * @param {Record<string, any>} startKey
- * @returns {Promise<{}[]>}
- */
-const findMoviesBetweenYears = async (
-  tableName,
-  startYear,
-  endYear,
-  startKey = undefined
-) => {
-  const { Items, LastEvaluatedKey } = await ddbClient.send(
-    new ScanCommand({
-      ConsistentRead: true,
-      TableName: tableName,
-      ExpressionAttributeNames: { "#y": "year" },
-      FilterExpression: "#y BETWEEN :y1 AND :y2",
-      ExpressionAttributeValues: { ":y1": startYear, ":y2": endYear },
-      ExclusiveStartKey: startKey,
-    })
-  );
-
-  if (LastEvaluatedKey && Array.isArray(Items)) {
-    return Items.concat(
-      await findMoviesBetweenYears(
-        tableName,
-        startYear,
-        endYear,
-        LastEvaluatedKey
-      )
-    );
-  } else {
-    return Items;
+    await docClient.send(command);
   }
-};
+  log("Movies added.");
 
-/**
- *
- * @param {string} tableName
- * @param {number} year
- * @returns
- */
-const queryMoviesByYear = async (tableName, year) => {
-  const command = new QueryCommand({
-    ConsistentRead: true,
-    ExpressionAttributeNames: { "#y": "year" },
+  /**
+   * Query for movies by year.
+   */
+
+  log("Querying for all movies from 1981.");
+  const queryCommand = new QueryCommand({
     TableName: tableName,
-    ExpressionAttributeValues: {
-      ":y": year,
-    },
     KeyConditionExpression: "#y = :y",
-  });
-
-  const { Items } = await ddbDocClient.send(command);
-
-  return Items;
-};
-
-/**
- *
- * @param {*} tableName
- */
-const deleteTable = async (tableName) => {
-  await ddbDocClient.send(new DeleteTableCommand({ TableName: tableName }));
-  await waitUntilTableNotExists(
-    {
-      client: ddbClient,
-      maxWaitTime: 10,
-      maxDelay: 2,
-      minDelay: 1,
+    // 'year' is a reserved word in DynamoDB. Indicate that it's an attribute
+    // name by using an expression attribute name.
+    ExpressionAttributeNames: {
+      "#y": "year",
     },
-    { TableName: tableName }
-  );
-};
-export const runScenario = async ({
-  tableName,
-  newMovieName,
-  newMovieYear,
-  existingMovieName,
-  existingMovieYear,
-  newMovieRank,
-  newMoviePlot,
-  moviesPath,
-}) => {
-  console.log(`Creating table named: ${tableName}`);
-  await createTable(tableName);
-  console.log(`\nTable created.`);
-
-  console.log(`\nAdding "${newMovieName}" to ${tableName}.`);
-  await putItem(tableName, { title: newMovieName, year: newMovieYear });
-  console.log("\nSuccess - single movie added.");
-
-  console.log("\nWriting hundreds of movies in batches.");
-  const { movieCount } = await batchWriteMoviesFromFile(tableName, moviesPath);
-  console.log(`\nWrote ${movieCount} movies to database.`);
-
-  console.log(`\nGetting "${existingMovieName}."`);
-  const originalMovie = await getMovie(
-    tableName,
-    existingMovieName,
-    existingMovieYear
-  );
-  logMovie(originalMovie);
-
-  console.log(`\nUpdating "${existingMovieName}" with a new plot and rank.`);
-  await updateMovie(tableName, {
-    existingMovieName,
-    existingMovieYear,
-    newMoviePlot,
-    newMovieRank,
+    ExpressionAttributeValues: {
+      ":y": 1981,
+    },
+    ConsistentRead: true,
   });
-  console.log(`\n"${existingMovieName}" updated.`);
+  const { Items } = await docClient.send(queryCommand);
+  log(`Movies: ${Items.map((m) => m.title).join(", ")}`);
 
-  console.log(`\nGetting latest info for "${existingMovieName}"`);
-  const updatedMovie = await getMovie(
-    tableName,
-    existingMovieName,
-    existingMovieYear
-  );
-  logMovie(updatedMovie);
+  /**
+   * Delete the table.
+   */
 
-  console.log(`\nDeleting "${newMovieName}."`);
-  await deleteMovie(tableName, { title: newMovieName, year: newMovieYear });
-  console.log(`\n"${newMovieName} deleted.`);
-
-  const [scanY1, scanY2] = [1985, 2003];
-  console.log(
-    `\nScanning ${tableName} for movies that premiered between ${scanY1} and ${scanY2}.`
-  );
-  const scannedMovies = await findMoviesBetweenYears(tableName, scanY1, scanY1);
-  logMovies(scannedMovies);
-
-  const queryY = 2003;
-  console.log(`Querying ${tableName} for movies that premiered in ${queryY}.`);
-  const queriedMovies = await queryMoviesByYear(tableName, queryY);
-  logMovies(queriedMovies);
-
-  console.log(`Deleting ${tableName}.`);
-  await deleteTable(tableName);
-  console.log(`${tableName} deleted.`);
+  const deleteTableCommand = new DeleteTableCommand({ TableName: tableName });
+  log(`Deleting table ${tableName}.`);
+  await client.send(deleteTableCommand);
+  log("Table deleted.");
 };
-
-const main = async () => {
-  const args = {
-    tableName: "myNewTable",
-    newMovieName: "myMovieName",
-    newMovieYear: 2022,
-    existingMovieName: "This Is the End",
-    existingMovieYear: 2013,
-    newMovieRank: 200,
-    newMoviePlot: "A coder cracks code...",
-    moviesPath: "../../../../../../resources/sample_files/movies.json",
-  };
-
-  try {
-    await runScenario(args);
-  } catch (err) {
-    // Some extra error handling here to be sure the table is cleaned up if something
-    // goes wrong during the scenario run.
-
-    console.error(err);
-
-    const tableName = args.tableName;
-
-    if (tableName) {
-      console.log(`Attempting to delete ${tableName}`);
-      await ddbClient
-        .send(new DeleteTableCommand({ TableName: tableName }))
-        .then(() => console.log(`\n${tableName} deleted.`))
-        .catch((err) => console.error(`\nFailed to delete ${tableName}.`, err));
-    }
-  }
-};
-
-export { main };
 // snippet-end:[javascript.dynamodb_scenarios.dynamodb_basics]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  try {
+    await main();
+  } catch (err) {
+    console.error(err);
+    client.send(new DeleteTableCommand({ TableName: tableName }));
+  }
+}
