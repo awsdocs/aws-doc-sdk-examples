@@ -37,9 +37,9 @@ cognito-identity_CreateIdentityPool:
   services:
     cognito-identity: {CreateIdentityPool, ListIdentityPools}
 cognito-identity_DeleteIdentityPool:
-  title: Delete a &COGID; with a specified name
+  title: Delete an &COGID; with a specified name
   title_abbrev: Delete an identity pool
-  synopsis: delete a &COGID; given its ID.
+  synopsis: delete an &COGID; given its ID.
   category:
   languages:
     Swift:
@@ -48,7 +48,7 @@ cognito-identity_DeleteIdentityPool:
           github: swift/example_code/cognito-identity/FindOrCreateIdentityPool
           sdkguide: sdk-for-swift/latest/developer-guide/getting-started.html
           excerpts:
-            - description: Delete an identity pool.
+            - description: Delete the specified identity pool.
               snippet_tags:
                 - cognitoidentity.swift.delete-identity-pool
   services:

@@ -41,9 +41,10 @@ public class CognitoIdentityHandler {
         repeat {
             /// `token` is a value returned by `ListIdentityPools()` if the
             /// returned list of identity pools is only a partial list. You
-            /// use the `token` to tell Cognito that you want to continue
-            /// where you left off previously; specifying `nil` or not
-            /// providing it means "start at the beginning."
+            /// use the `token` to tell Amazon Cognito that you want to
+            /// continue where you left off previously. If you specify `nil`
+            /// or you don't provide the token, Amazon Cognito will start at
+            /// the beginning.
             
             let listPoolsInput = ListIdentityPoolsInput(maxResults: 25, nextToken: token)
             
@@ -76,8 +77,8 @@ public class CognitoIdentityHandler {
     /// - Parameters:
     ///   - name: The name of the identity pool whose ID should be returned
     ///
-    /// - Returns: A string containing the ID of the specified identity pool
-    ///   or `nil` on error or if not found
+    /// - Returns: A string containing the ID of the specified identity pool.
+    ///   Returns `nil` if there's an error or if the pool isn't found.
     ///
     public func getOrCreateIdentityPoolID(name: String) async throws -> String? {
         // See if the pool already exists. If it doesn't, create it.

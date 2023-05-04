@@ -16,8 +16,8 @@ struct FindOrCreateIdentityPool {
     static func main() async {
         let identityDemo: CognitoIdentityHandler
 
-        // Create the Cognito handler. This object contains functions
-        // that send requests to Cognito using the AWS SDK for Swift.
+        // Create the Amazon Cognito handler. This object contains functions
+        // that send requests to Amazon Cognito using the AWS SDK for Swift.
 
         do {
             identityDemo = try await CognitoIdentityHandler()
@@ -26,7 +26,7 @@ struct FindOrCreateIdentityPool {
             exit(1)
         }
 
-        // Get the ID of the identity pool, creating it if necessary
+        // Get the ID of the identity pool, creating it if necessary.
 
         do {
             guard let poolID = try await identityDemo.getOrCreateIdentityPoolID(name: "SuperSpecialPool") else {
