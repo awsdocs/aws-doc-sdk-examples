@@ -905,6 +905,24 @@ sqs_SetQueueAttributes:
           excerpts:
             - description:
               snippet_tags:
+                - cpp.example_code.sqs.LongPollingAttribute.config
+                - cpp.example_code.sqs.LongPollingAttribute
+  services:
+    sqs: {SetQueueAttributes}
+sqs_SetQueueAttributes_generic:
+  title: Set the attributes for an &SQS; queue
+  title_abbrev: Set the attributes for a queue
+  synopsis: set the attributes for an &SQS; queue.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
                 - cpp.example_code.sqs.SetQueueAttributes.config
                 - cpp.example_code.sqs.SetQueueAttributes
   services:

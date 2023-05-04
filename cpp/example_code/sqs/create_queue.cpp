@@ -22,7 +22,7 @@
 //snippet-end:[sqs.cpp.create_queue.inc]
 #include "sqs_samples.h"
 
-// snippet-start:[cpp.example_code.sqs.createQueue]
+// snippet-start:[cpp.example_code.sqs.CreateQueue]
 //! Create an Amazon Simple Queue Service (Amazon SQS) queue.
 /*!
   \param queueName: An Amazon SQS queue name.
@@ -50,7 +50,7 @@ bool AwsDoc::SQS::createQueue(const Aws::String &queueName,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.sqs.createQueue]
+// snippet-end:[cpp.example_code.sqs.CreateQueue]
 
 /*
  *
@@ -72,11 +72,11 @@ int main(int argc, char **argv) {
     Aws::InitAPI(options);
     {
         Aws::String queue_name = argv[1];
-        // snippet-start:[cpp.example_code.sqs.createQueue.config]
+        // snippet-start:[cpp.example_code.sqs.CreateQueue.config]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        // snippet-end:[cpp.example_code.sqs.createQueue.config]
+        // snippet-end:[cpp.example_code.sqs.CreateQueue.config]
 
         AwsDoc::SQS::createQueue(queue_name, clientConfig);
     }

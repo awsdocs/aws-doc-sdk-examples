@@ -22,7 +22,7 @@
 //snippet-end:[sqs.cpp.send_message.inc]
 #include "sqs_samples.h"
 
-// snippet-start:[cpp.example_code.sqs.sendMessage]
+// snippet-start:[cpp.example_code.sqs.SendMessage]
 //! Send a message to an Amazon Simple Queue Service (Amazon SQS) queue.
 /*!
   \param queueUrl: An Amazon SQS queue URL.
@@ -53,7 +53,7 @@ bool AwsDoc::SQS::sendMessage(const Aws::String &queueUrl,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.sqs.sendMessage]
+// snippet-end:[cpp.example_code.sqs.SendMessage]
 
 /*
 *
@@ -80,11 +80,11 @@ int main(int argc, char **argv) {
         Aws::String queue_url = argv[1];
         Aws::String msg_body = argv[2];
 
-        // snippet-start:[cpp.example_code.sqs.sendMessage.config]
+        // snippet-start:[cpp.example_code.sqs.SendMessage.config]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        // snippet-end:[cpp.example_code.sqs.sendMessage.config]
+        // snippet-end:[cpp.example_code.sqs.SendMessage.config]
 
         AwsDoc::SQS::sendMessage(queue_url, msg_body, clientConfig);
     }

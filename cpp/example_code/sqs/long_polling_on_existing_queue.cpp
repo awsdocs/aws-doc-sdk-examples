@@ -22,6 +22,7 @@
 //snippet-end:[sqs.cpp.long_polling_on_existing-queue.inc]
 #include "sqs_samples.h"
 
+// snippet-start:[cpp.example_code.sqs.LongPollingAttribute]
 //! Set an Amazon Simple Queue Service (Amazon SQS) queue's poll wait time.
 /*!
   \param queueUrl: An Amazon SQS queue URL.
@@ -56,6 +57,7 @@ bool AwsDoc::SQS::setQueueLongPollingAttribute(const Aws::String &queueURL,
 
     return outcome.IsSuccess();
 }
+// snippet-end:[cpp.example_code.sqs.LongPollingAttribute]
 
 /*
  *
@@ -82,11 +84,13 @@ int main(int argc, char **argv) {
         Aws::String queueUrl = argv[1];
         Aws::String pollTime = argv[2];
 
+    // snippet-start:[cpp.example_code.sqs.LongPollingAttribute.config]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
+    // snippet-end:[cpp.example_code.sqs.LongPollingAttribute.config]
 
-        AwsDoc::SQS::setQueueLongPollingAttribute(queueUrl, pollTime, clientConfig)
+        AwsDoc::SQS::setQueueLongPollingAttribute(queueUrl, pollTime, clientConfig);
     }
     Aws::ShutdownAPI(options);
     return 0;

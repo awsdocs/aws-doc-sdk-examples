@@ -22,7 +22,7 @@
 //snippet-end:[sqs.cpp.list_queues.inc]
 #include "sqs_samples.h"
 
-// snippet-start:[cpp.example_code.sqs.listQueues]
+// snippet-start:[cpp.example_code.sqs.ListQueues]
 //! List the Amazon Simple Queue Service (Amazon SQS) queues within an AWS account.
 /*!
   \param clientConfiguration: AWS client configuration.
@@ -51,7 +51,7 @@ AwsDoc::SQS::listQueues(const Aws::Client::ClientConfiguration &clientConfigurat
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.sqs.listQueues]
+// snippet-end:[cpp.example_code.sqs.ListQueues]
 
 /*
  *
@@ -67,11 +67,11 @@ int main(int argc, char **argv) {
     Aws::SDKOptions options;
     Aws::InitAPI(options);
     {
-        // snippet-start:[cpp.example_code.sqs.listQueues.config]
+        // snippet-start:[cpp.example_code.sqs.ListQueues.config]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        // snippet-end:[cpp.example_code.sqs.listQueues.config]
+        // snippet-end:[cpp.example_code.sqs.ListQueues.config]
 
         AwsDoc::SQS::listQueues(clientConfig);
     }

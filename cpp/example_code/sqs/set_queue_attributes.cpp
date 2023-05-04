@@ -20,7 +20,7 @@
 #include <iostream>
 #include "sqs_samples.h"
 
-// snippet-start:[cpp.example_code.sqs.setQueueAttributes]
+// snippet-start:[cpp.example_code.sqs.SetQueueAttributes]
 //! Set the value of one of the Amazon Simple Queue Service (Amazon SQS) queue attributes.
 /*!
   \param queueUrl: An Amazon SQS queue URL.
@@ -48,7 +48,7 @@ bool AwsDoc::SQS::setQueueAttributes(const Aws::String &queueURL,
                   Aws::SQS::Model::QueueAttributeNameMapper::GetNameForQueueAttributeName(
                           attributeName)
                   << " with value " << attribute << " in queue " <<
-                  attribute << "." << std::endl;
+                  queueURL << "." << std::endl;
     }
     else {
         std::cout << "Error setting attribute for  queue " <<
@@ -58,7 +58,7 @@ bool AwsDoc::SQS::setQueueAttributes(const Aws::String &queueURL,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.sqs.setQueueAttributes]
+// snippet-end:[cpp.example_code.sqs.SetQueueAttributes]
 
 /*
  *
@@ -96,11 +96,11 @@ int main(int argc, char **argv) {
             return 1;
         }
 
-        // snippet-start:[cpp.example_code.sqs.setQueueAttributes.config]
+        // snippet-start:[cpp.example_code.sqs.SetQueueAttributes.config]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        // snippet-end:[cpp.example_code.sqs.setQueueAttributes.config]
+        // snippet-end:[cpp.example_code.sqs.SetQueueAttributes.config]
 
         AwsDoc::SQS::setQueueAttributes(queueUrl, attributeName,
                                         attributeValue, clientConfig);

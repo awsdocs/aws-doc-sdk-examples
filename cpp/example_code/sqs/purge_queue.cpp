@@ -20,7 +20,7 @@
 #include <iostream>
 #include "sqs_samples.h"
 
-// snippet-start:[cpp.example_code.sqs.purgeQueue]
+// snippet-start:[cpp.example_code.sqs.PurgeQueue]
 //! Delete the messages from an Amazon Simple Queue Service (Amazon SQS) queue.
 /*!
   \param queueUrl: An Amazon SQS queue URL.
@@ -45,7 +45,7 @@ bool AwsDoc::SQS::purgeQueue(const Aws::String &queueUrl,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.sqs.purgeQueue]
+// snippet-end:[cpp.example_code.sqs.PurgeQueue]
 
 /*
 *

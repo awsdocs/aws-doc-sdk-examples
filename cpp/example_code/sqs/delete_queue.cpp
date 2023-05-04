@@ -23,7 +23,7 @@
 //snippet-end:[sqs.cpp.delete_queue.inc]
 #include "sqs_samples.h"
 
-// snippet-start:[cpp.example_code.sqs.deleteQueue]
+// snippet-start:[cpp.example_code.sqs.DeleteQueue]
 //! Delete an Amazon Simple Queue Service (Amazon SQS) queue.
 /*!
   \param queueURL: An Amazon SQS queue URL.
@@ -49,7 +49,7 @@ bool AwsDoc::SQS::deleteQueue(const Aws::String &queueURL,
     // snippet-end:[sqs.cpp.delete_queue.code]
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.sqs.deleteQueue]
+// snippet-end:[cpp.example_code.sqs.DeleteQueue]
 
 /*
  *
@@ -74,11 +74,11 @@ int main(int argc, char **argv) {
     {
         Aws::String queueUrl = argv[1];
 
-        // snippet-start:[cpp.example_code.sqs.deleteQueue.config]
+        // snippet-start:[cpp.example_code.sqs.DeleteQueue.config]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        // snippet-end:[cpp.example_code.sqs.deleteQueue.config]
+        // snippet-end:[cpp.example_code.sqs.DeleteQueue.config]
 
         AwsDoc::SQS::deleteQueue(queueUrl, clientConfig);
     }

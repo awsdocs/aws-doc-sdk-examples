@@ -27,7 +27,7 @@
 
 static Aws::String MakeRedrivePolicy(const Aws::String &queueArn, int maxReceiveCount);
 
-// snippet-start:[cpp.example_code.sqs.setDeadLetterQueue]
+// snippet-start:[cpp.example_code.sqs.SetDeadLetterQueue]
 //! Connect an Amazon Simple Queue Service (Amazon SQS) queue to an associated
 //! Amazon SQS dead letter queue.
 /*!
@@ -89,7 +89,7 @@ Aws::String MakeRedrivePolicy(const Aws::String &queueArn, int maxReceiveCount) 
     return policy_map.View().WriteReadable();
 }
 // snippet-end:[sqs.cpp.make_redrive_policy.code]
-// snippet-end:[cpp.example_code.sqs.setDeadLetterQueue]
+// snippet-end:[cpp.example_code.sqs.SetDeadLetterQueue]
 
 /*
  *
@@ -120,11 +120,11 @@ int main(int argc, char **argv) {
         int maxReceiveCount = 1;
         ss >> maxReceiveCount;
 
-        // snippet-start:[cpp.example_code.sqs.setDeadLetterQueue.config]
+        // snippet-start:[cpp.example_code.sqs.SetDeadLetterQueue.config]
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
-        // snippet-end:[cpp.example_code.sqs.setDeadLetterQueue.config]
+        // snippet-end:[cpp.example_code.sqs.SetDeadLetterQueue.config]
 
         AwsDoc::SQS::setDeadLetterQueue(srcQueueUrl, deadLetterQueueArn,
                                         maxReceiveCount, clientConfig);
