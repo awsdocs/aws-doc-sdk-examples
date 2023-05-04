@@ -62,7 +62,7 @@ bool AwsDoc::SQS::deleteMessage(const Aws::String &queueUrl,
 *
 *  Usage: 'run_delete_message <queue_url> <message_receipt_handle>'
 *
-*  Prerequisites: An existing SQS queue and a message in the queue.
+*  Prerequisites: An existing Amazon SQS queue and a message in the queue.
 *
 */
 

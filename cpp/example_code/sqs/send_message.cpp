@@ -61,7 +61,7 @@ bool AwsDoc::SQS::sendMessage(const Aws::String &queueUrl,
 *
 *  Usage: 'run_send_message <queue_url> <message_body>'
 *
-*  Prerequisites: An existing SQS queue.
+*  Prerequisites: An existing Amazon SQS queue.
 *
 */
 

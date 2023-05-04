@@ -97,7 +97,7 @@ Aws::String MakeRedrivePolicy(const Aws::String &queueArn, int maxReceiveCount) 
  *
  *  Usage: 'run_dead_letter_queue <source_queue_url> <dead_letter_queue_arn> <max_messages>'
  *
- *  Prerequisites: An existing SQS queue and a an existing dead letter queue.
+ *  Prerequisites: An existing Amazon SQS queue and a an existing dead letter queue.
  *
  */
 

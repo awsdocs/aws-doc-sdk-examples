@@ -53,7 +53,7 @@ bool AwsDoc::SQS::purgeQueue(const Aws::String &queueUrl,
 *
 *  Usage: 'run_purge_queue <queue_url>'
 *
-*  Prerequisites: An existing SQS queue.
+*  Prerequisites: An existing Amazon SQS queue.
 *
 */
 

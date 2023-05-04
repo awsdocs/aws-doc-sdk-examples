@@ -57,7 +57,7 @@ bool AwsDoc::SQS::deleteQueue(const Aws::String &queueURL,
  *
  *  Usage: 'Usage: run_delete_queue <queue_url>'
  *
- *  Prerequisites: An existing SQS queue to delete.
+ *  Prerequisites: An existing Amazon SQS queue to delete.
  *
  */
 

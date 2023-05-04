@@ -72,7 +72,7 @@ bool AwsDoc::SQS::receiveMessage(const Aws::String &queueUrl,
 *
 *  Usage: 'run_receive_message <queue_url>'
 *
-*  Prerequisites: An existing SQS queue.
+*  Prerequisites: An existing Amazon SQS queue.
 *
 */
 

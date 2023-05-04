@@ -69,7 +69,7 @@ bool AwsDoc::SQS::changeMessageVisibility(
  *  Usage: 'run_change_message_visibility <queue_url> <message_receipt_handle>
  *          <visibility_timeout_in_seconds>'
  *
- *  Prerequisites: An existing SQS queue and a message in the queue.
+ *  Prerequisites: An existing Amazon SQS queue and a message in the queue.
  *
  */
 

@@ -65,7 +65,7 @@ bool AwsDoc::SQS::setQueueLongPollingAttribute(const Aws::String &queueURL,
  *
  *  Usage: 'run_long_polling_on_existing_queue <queue_url> <long_poll_time_in_seconds>'
  *
- *  Prerequisites: An existing SQS queue.
+ *  Prerequisites: An existing Amazon SQS queue.
  *
  */
 

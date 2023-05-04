@@ -58,7 +58,7 @@ bool AwsDoc::SQS::getQueueUrl(const Aws::String &queueName,
  *
  *  Usage: 'Usage: run_get_queue_url <queue_name>'
   *
- *  Prerequisites: An existing SQS queue.
+ *  Prerequisites: An existing Amazon SQS queue.
  *
  */
 

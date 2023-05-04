@@ -78,7 +78,7 @@ bool AwsDoc::SQS::receiveMessageWithWaitTime(const Aws::String &queueUrl,
  *
  *  Usage: 'run_long_polling_on_message_receipt <queue_url> <long_poll_time_in_seconds>'
  *
- *  Prerequisites: An existing SQS queue.
+ *  Prerequisites: An existing Amazon SQS queue.
  *
  */
 

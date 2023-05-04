@@ -28,7 +28,7 @@ namespace AwsDoc {
                 int visibilityTimeoutSeconds,
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Create an Amazon Simple Queue Service (Amazon SQS) queue.
+        //! Create an Amazon SQS queue.
         /*!
           \param queueName: An Amazon SQS queue name.
           \param clientConfiguration: AWS client configuration.
@@ -38,8 +38,7 @@ namespace AwsDoc {
                 const Aws::String &queueName,
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Create an Amazon Simple Queue Service (Amazon SQS) queue configured for
-        //! long polling.
+        //! Create an Amazon SQS queue configured for long polling.
         /*!
           \param queueName: An Amazon SQS queue name.
           \param pollTimeSeconds: The receive message wait time in seconds.
@@ -51,7 +50,7 @@ namespace AwsDoc {
                 const Aws::String &pollTimeSeconds,
                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Delete a message from an Amazon Simple Queue Service (Amazon SQS) queue.
+        //! Delete a message from an Amazon SQS queue.
         /*!
           \param queueUrl: An Amazon SQS queue URL.
           \param messageReceiptHandle: A message receipt handle.
@@ -62,7 +61,7 @@ namespace AwsDoc {
                            const Aws::String &messageReceiptHandle,
                            const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Delete an Amazon Simple Queue Service (Amazon SQS) queue.
+        //! Delete an Amazon SQS queue.
         /*!
           \param queueURL: An Amazon SQS queue URL.
           \param clientConfiguration: AWS client configuration.
@@ -72,7 +71,7 @@ namespace AwsDoc {
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
 
-        //! Get the URL for an Amazon Simple Queue Service (Amazon SQS) queue.
+        //! Get the URL for an Amazon SQS queue.
         /*!
           \param queueName: An Amazon SQS queue name.
           \param clientConfiguration: AWS client configuration.
@@ -81,14 +80,14 @@ namespace AwsDoc {
         bool getQueueUrl(const Aws::String &queueName,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! List the Amazon Simple Queue Service (Amazon SQS) queues within an AWS account.
+        //! List the Amazon SQS queues within an AWS account.
         /*!
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */
         bool listQueues(const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Delete the messages from an Amazon Simple Queue Service (Amazon SQS) queue.
+        //! Delete the messages from an Amazon SQS queue.
         /*!
           \param queueUrl: An Amazon SQS queue URL.
           \param clientConfiguration: AWS client configuration.
@@ -97,7 +96,7 @@ namespace AwsDoc {
         bool purgeQueue(const Aws::String &queueUrl,
                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Receive a message from an Amazon Simple Queue Service (Amazon SQS) queue.
+        //! Receive a message from an Amazon SQS queue.
         /*!
           \param queueUrl: An Amazon SQS queue URL.
           \param clientConfiguration: AWS client configuration.
@@ -106,8 +105,7 @@ namespace AwsDoc {
         bool receiveMessage(const Aws::String &queueUrl,
                             const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Receive a message from an Amazon Simple Queue Service (Amazon SQS) queue
-        //! specifying the wait time.
+        //! Receive a message from an Amazon SQS queue specifying the wait time.
         /*!
           \param queueUrl: An Amazon SQS queue URL.
           \param waitTimeSeconds: The wait time in seconds.
@@ -118,7 +116,7 @@ namespace AwsDoc {
                                         int waitTimeSeconds,
                                         const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Send a message to an Amazon Simple Queue Service (Amazon SQS) queue.
+        //! Send a message to an Amazon SQS queue.
         /*!
           \param queueUrl: An Amazon SQS queue URL.
           \param messageBody: A message body.
@@ -129,8 +127,7 @@ namespace AwsDoc {
                          const Aws::String &messageBody,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Connect an Amazon Simple Queue Service (Amazon SQS) queue to an associated
-        //! Amazon SQS dead letter queue.
+        //! Connect an Amazon SQS queue to an associated Amazon SQS dead letter queue.
         /*!
           \param srcQueueUrl: An Amazon SQS queue URL.
           \param deadLetterQueueARN: The Amazon Resource Name (ARN) of an Amazon SQS dead letter queue.
@@ -143,7 +140,7 @@ namespace AwsDoc {
                                 int maxReceiveCount,
                                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Set an Amazon Simple Queue Service (Amazon SQS) queue's poll time.
+        //! Set an Amazon SQS queue's poll time.
         /*!
           \param queueUrl: An Amazon SQS queue URL.
           \param pollTimeSeconds: The receive message wait time in seconds.
@@ -154,7 +151,7 @@ namespace AwsDoc {
                                           const Aws::String &pollTimeSeconds,
                                           const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Set the value of one of the Amazon Simple Queue Service (Amazon SQS) queue attributes.
+        //! Set the value of one of the Amazon SQS queue's attributes.
         /*!
           \param queueUrl: An Amazon SQS queue URL.
           \param attributeName: An attribute name enum.
