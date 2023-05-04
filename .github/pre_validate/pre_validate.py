@@ -52,7 +52,6 @@ EXT_LOOKUP = {
 
 # folders to skip
 IGNORE_FOLDERS = {
-    '.doc_gen',
     '.pytest_cache',
     '__pycache__',
     'cdk.out',
@@ -63,7 +62,7 @@ IGNORE_FOLDERS = {
 }
 
 # files to skip
-IGNORE_FILES = {'AssemblyInfo.cs', 'metadata.yaml', '.travis.yml'}
+IGNORE_FILES = {'AssemblyInfo.cs', '.travis.yml', '.moviedata.json', 'movies.json'}
 
 # sample files
 EXPECTED_SAMPLE_FILES = {
@@ -167,6 +166,10 @@ ALLOW_LIST = {
     'com/pinpoint/latest/apireference/welcome',
     'src/main/java/com/example/s3/S3BucketOps',
     'src/main/java/com/example/s3/ListObjects',
+    'amazondynamodb/latest/developerguide/DAX',
+    'apigateway/latest/developerguide/welcome',
+    'devicefarm/latest/developerguide/welcome',
+    'AWSEC2/latest/APIReference/OperationList',
 }
 
 def check_files(root, quiet):
@@ -206,10 +209,9 @@ def check_files(root, quiet):
 
 
 def verify_no_deny_list_words(file_contents, file_location):
-    """Verify no segments of the file are in the list of denied words."""
+    """Verify no words in the file are in the list of denied words."""
     error_count = 0
-    segments = file_contents.split('/')
-    for word in segments:
+    for word in file_contents.split():
         if word in DENY_LIST:
             logger.error(f"Word '%s' in %s is not allowed.", word, file_location)
             error_count += 1
