@@ -3,6 +3,12 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
+import com.example.s3.*;
+import com.example.s3.util.MemoryLog4jAppender;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.Configuration;
+
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
