@@ -25,7 +25,7 @@
 /*!
   \param queueUrl: An Amazon SQS queue URL.
   \param attributeName: An attribute name enum.
-  \param visibilityTimeoutSeconds: The attribute value as a string.
+  \param attribute: The attribute value as a string.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
