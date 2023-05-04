@@ -8,6 +8,8 @@
  * _1_ Requires credentials, permissions, and AWS resources.
  * _2_ Requires credentials and permissions.
  * _3_ Does not require credentials.
+*
+ * -*L_ Designates a test with a long execution time.
  *
  */
 
@@ -22,8 +24,9 @@ namespace AwsDocTest {
 
     bool addHttpResponses(MockHTTP &mockHttp);
 
+    // Only run the un-mocked test in special cases because of its long execution time.
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(RDS_GTests, gettingStartedWithDBInstances_2_) {
+    TEST_F(RDS_GTests, gettingStartedWithDBInstances_2L_) {
         AddCommandLineResponses(RESPONSES);
 
         bool result = AwsDoc::RDS::gettingStartedWithDBInstances(*s_clientConfig);
