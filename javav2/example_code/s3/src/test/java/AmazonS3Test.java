@@ -8,21 +8,21 @@ import com.example.s3.util.MemoryLog4jAppender;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.Configuration;
-
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-
-import com.example.s3.*;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3control.S3ControlClient;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -341,5 +341,24 @@ public class AmazonS3Test {
         System.out.println("8. Delete the Amazon S3 bucket.");
         S3Scenario.deleteBucket(s3, bucketNameSc);
         System.out.println(S3Scenario.DASHES);
+    }
+    @Test
+    @Order(24)
+    public void s3UriParsingTest(){
+        String url = "https://s3.us-west-1.amazonaws.com/myBucket/resources/doc.txt?versionId=abc123&partNumber=77&partNumber=88";
+        ParseUri.parseS3UriExample(s3,url);
+        final LoggerContext context = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(false);
+        final Configuration configuration = context.getConfiguration();
+        final MemoryLog4jAppender memoryLog4jAppender = (MemoryLog4jAppender) configuration.getAppender("MemoryLog4jAppender");
+        final Map<String, String> eventMap = memoryLog4jAppender.getEventMap();
+
+        Assertions.assertTrue(() -> eventMap.get("region").equals("us-west-1"));
+        Assertions.assertTrue(() -> eventMap.get("bucket").equals("myBucket"));
+        Assertions.assertTrue(() -> eventMap.get("key").equals("resources/doc.txt"));
+        Assertions.assertTrue(() -> eventMap.get("isPathStyle").equals("true"));
+        Assertions.assertTrue(() -> eventMap.get("rawQueryParameters").equals("{versionId=[abc123], partNumber=[77, 88]}"));
+        Assertions.assertTrue(() -> eventMap.get("firstMatchingRawQueryParameter-versionId").equals("abc123"));
+        Assertions.assertTrue(() -> eventMap.get("firstMatchingRawQueryParameter-partNumber").equals("77"));
+        Assertions.assertTrue(() -> eventMap.get("firstMatchingRawQueryParameter").equals("[77, 88]"));
     }
 }

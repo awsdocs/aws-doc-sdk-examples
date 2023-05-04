@@ -9,8 +9,7 @@
 */
 package com.example.s3;
 
-// snippet-start:[s3.java2.parseuri.import]
-
+// snippet-start:[s3.java2.scenario_uriparsing.import]
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.regions.Region;
@@ -21,7 +20,7 @@ import software.amazon.awssdk.services.s3.S3Utilities;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
-// snippet-end:[s3.java2.parseuri.import]
+// snippet-end:[s3.java2.scenario_uriparsing.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including access to temporary credentials.
@@ -41,8 +40,12 @@ public class ParseUri {
         parseS3UriExample(s3Client, url);
     }
 
-
-    // snippet-start:[s3.java2.parseuri.main]
+    // snippet-start:[s3.java2.scenario_uriparsing.main]
+    /**
+     *
+     * @param s3Client - An S3Client through which you acquire an S3Uri instance.
+     * @param s3ObjectUrl - A complex URL (String) that is used to demonstrate S3Uri capabilities.
+     */
     public static void parseS3UriExample(S3Client s3Client, String s3ObjectUrl) {
         logger.info(s3ObjectUrl);
         //Console output: 'https://s3.us-west-1.amazonaws.com/myBucket/resources/doc.txt?versionId=abc123&partNumber=77&partNumber=88'.
@@ -110,6 +113,6 @@ public class ParseUri {
             logger.info("{}: {}", s3UriElement, element.toString());
         }
     }
-    // snippet-end:[s3.java2.parseuri.main]
+    // snippet-end:[s3.java2.scenario_uriparsing.main]
 }
 
