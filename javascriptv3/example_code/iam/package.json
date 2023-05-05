@@ -1,15 +1,15 @@
 {
-  "name": "iam",
+  "name": "example-javascriptv3-iam",
   "version": "1.0.0",
-  "main": "index.js",
   "author": "corepyle@amazon.com",
   "license": "Apache-2.0",
   "type": "module",
-  "dependencies": {
-    "@aws-sdk/client-iam": "^3.168.0",
-    "ramda": "^0.28.0"
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js --coverage"
   },
-  "devDependencies": {
-    "@types/ramda": "^0.28.15"
+  "dependencies": {
+    "@aws-sdk/client-iam": "^3.303.0",
+    "@aws-sdk/client-s3": "^3.303.0",
+    "@aws-sdk/client-sts": "^3.303.0"
   }
 }

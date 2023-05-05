@@ -1,4 +1,20 @@
 # zexi 0.4.0
+cross_PAM:
+  title: Create a photo asset management application that lets users manage photos using labels
+  title_abbrev: Create a serverless application to manage photos
+  synopsis: create a serverless application that lets users manage photos using labels.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_PAM_Java_block.xml
+  service_main: rekognition
+  services:
+    sns:
+    s3:
+    dynamodb:
+    rekognition:
+    lambda:
 cross_RedshiftDataTracker:
   title: Create an &RSlong; item tracker
   title_abbrev: Create a web application to track &RS; data
@@ -12,6 +28,7 @@ cross_RedshiftDataTracker:
       versions:
         - sdk_version: 1
           block_content: cross_RedshiftDataTracker_Kotlin_block.xml
+  service_main: redshift
   services:
     redshift:
     ses:
@@ -28,6 +45,7 @@ cross_SQSMessageApp:
       versions:
         - sdk_version: 2
           block_content: cross_SQSMessage_Java_block.xml
+  service_main: sqs
   services:
     sqs:
     comprehend:
@@ -67,6 +85,7 @@ cross_RDSDataTracker:
       versions:
         - sdk_version: 1
           block_content: cross_RDSDataTracker_cpp_block.xml
+  service_main: aurora
   services:
     aurora:
     rds:
@@ -90,6 +109,7 @@ cross_SnsPublishSubscription:
       versions:
         - sdk_version: 2
           block_content: cross_SNSSubPub_Java_block.xml
+  service_main: translate
   services:
     sns:
     translate:
@@ -106,6 +126,7 @@ cross_LexChatbotLanguages:
       versions:
         - sdk_version: 3
           block_content: cross_Lex_JavaScript_block.xml
+  service_main: lex
   services:
     lex:
     translate:
@@ -138,6 +159,7 @@ cross_DynamoDBDataTracker:
       versions:
         - sdk_version: 3
           block_content: cross_DynamoDBDataTracker_JavaScript_block.xml
+  service_main: dynamodb
   services:
     dynamodb:
     ses:
@@ -152,6 +174,7 @@ cross_ApiGatewayDataTracker:
         - sdk_version: 3
           github: python/cross_service/apigateway_covid-19_tracker
           block_content: cross_ApiGatewayDataTracker_Python_block.xml
+  service_main: api-gateway
   services:
     api-gateway:
     cloudformation:
@@ -167,6 +190,7 @@ cross_ApiGatewayWebsocketChat:
         - sdk_version: 3
           github: python/cross_service/apigateway_websocket_chat
           block_content: cross_ApiGatewayWebsocketChat_Python_block.xml
+  service_main: api-gateway
   services:
     api-gateway:
     dynamodb:
@@ -182,10 +206,11 @@ cross_AuroraRestLendingLibrary:
         - sdk_version: 3
           github: python/cross_service/aurora_rest_lending_library
           block_content: cross_AuroraRestLendingLibrary_Python_block.xml
+  service_main: aurora
   services:
     api-gateway:
+    aurora:
     lambda:
-    rds:
     secrets-manager:
 cross_StepFunctionsMessenger:
   title: Create a messenger application with &SFN;
@@ -197,6 +222,7 @@ cross_StepFunctionsMessenger:
         - sdk_version: 3
           github: python/cross_service/stepfunctions_messenger
           block_content: cross_StepFunctionsMessenger_Python_block.xml
+  service_main: sfn
   services:
     dynamodb:
     lambda:
@@ -218,6 +244,7 @@ cross_TextractExplorer:
         - sdk_version: 3
           github: python/cross_service/textract_explorer
           block_content: cross_TextractExplorer_Python_block.xml
+  service_main: textract
   services:
     s3:
     sns:
@@ -235,6 +262,7 @@ cross_TextractComprehendDetectEntities:
         - sdk_version: 3
           github: python/cross_service/textract_comprehend_notebook
           block_content: cross_TextractComprehendDetectEntities_Python_block.xml
+  service_main: textract
   services:
     comprehend:
     s3:
@@ -257,6 +285,7 @@ cross_SubmitDataApp:
       versions:
         - sdk_version: 3
           block_content: cross_SubmitDataApp_JavaScript_block.xml
+  service_main: dynamodb
   services:
     dynamodb:
     sns:
@@ -283,6 +312,7 @@ cross_LambdaAPIGateway:
       versions:
         - sdk_version: 3
           block_content: cross_LambdaAPIGateway_Python_block.xml
+  service_main: lambda
   services:
     api-gateway:
     lambda:
@@ -311,6 +341,7 @@ cross_LambdaScheduledEvents:
           block_content: cross_LambdaScheduledEvents_Python_block.xml
           add_services:
             cloudwatch-logs:
+  service_main: lambda
   services:
     eventbridge:
     lambda:
@@ -327,6 +358,7 @@ cross_ServerlessWorkflows:
       versions:
         - sdk_version: 3
           block_content: cross_ServerlessWorkflows_JavaScript_block.xml
+  service_main: sfn
   services:
     dynamodb:
     lambda:
@@ -341,6 +373,7 @@ cross_TranscriptionApp:
       versions:
         - sdk_version: 3
           block_content: cross_TranscriptionApp_JavaScript_block.xml
+  service_main: transcribe
   services:
     cognito-identity:
     s3:
@@ -355,6 +388,7 @@ cross_TranscriptionStreamingApp:
       versions:
         - sdk_version: 3
           block_content: cross_TranscriptionStreamingApp_JavaScript_block.xml
+  service_main: transcribe
   services:
     translate:
     comprehend:
@@ -373,6 +407,7 @@ cross_RekognitionPhotoAnalyzerPPE:
       versions:
         - sdk_version: 3
           block_content: cross_RekognitionPhotoAnalyzerPPE_JavaScript_block.xml
+  service_main: rekognition
   services:
     rekognition:
     s3:
@@ -405,6 +440,7 @@ cross_RekognitionPhotoAnalyzer:
         - sdk_version: 3
           github: python/cross_service/photo_analyzer
           block_content: cross_RekognitionPhotoAnalyzer_Python_block.xml
+  service_main: rekognition
   services:
     rekognition:
     s3:
@@ -436,6 +472,7 @@ cross_RekognitionVideoDetection:
           add_services:
             sns:
             sqs:
+  service_main: rekognition
   services:
     rekognition:
 cross_DetectFaces:
@@ -450,6 +487,7 @@ cross_DetectFaces:
       versions:
         - sdk_version: 1
           block_content: cross_detect_faces_rust_block.xml
+  service_main: rekognition
   services:
     rekognition: {}
     s3: {}
@@ -466,6 +504,7 @@ cross_DetectLabels:
       versions:
         - sdk_version: 1
           block_content: cross_detect_labels_rust_block.xml
+  service_main: rekognition
   services:
     dynamodb: {}
     rekognition: {}
@@ -483,6 +522,7 @@ cross_Telephone:
       versions:
         - sdk_version: 1
           block_content: cross_telephone_rust_block.xml
+  service_main: polly
   services:
     polly: {}
     s3: {}
@@ -498,40 +538,10 @@ cross_LambdaForBrowser:
           block_content: cross_LambdaForBrowser_JavaScript_block.xml
         - sdk_version: 3
           block_content: cross_LambdaForBrowser_JavaScriptV3_block.xml
+  service_main: lambda
   services:
     lambda:
     dynamodb:
-cross_ShortLivedEmrCluster:
-  title: Create a short-lived &EMR; cluster and run a step using an &AWS; SDK
-  title_abbrev: Create a short-lived &EMR; cluster and run a step
-  synopsis: create a short-lived &EMR; cluster that runs a step and automatically
-    terminates after the step completes.
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/emr
-          block_content: cross_EmrShortLivedCluster_Python_block.xml
-  services:
-    ec2:
-    emr:
-    iam:
-    s3:
-cross_LongLivedEmrCluster:
-  title: Create a long-lived &EMR; cluster and run steps using an &AWS; SDK
-  title_abbrev: Create a long-lived &EMR; cluster and run steps
-  synopsis: create a long-lived &EMR; cluster and run several steps.
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: python/example_code/emr
-          block_content: cross_EmrLongLivedCluster_Python_block.xml
-  services:
-    ec2:
-    emr:
-    iam:
-    s3:
 workflow_MessagesTopicsAndQueues:
   title: Publish &SNS; message to &SQS; queues using an &AWS; SDK
   title_abbrev: Publish &SNS; message to &SQS; queues

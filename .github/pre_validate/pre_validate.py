@@ -51,10 +51,14 @@ EXT_LOOKUP = {
 
 # folders to skip
 IGNORE_FOLDERS = {
-    'venv',
-    '__pycache__',
+    '.doc_gen',
     '.pytest_cache',
-    '.doc_gen'
+    '__pycache__',
+    'cdk.out',
+    'node_modules',
+    'dist',
+    'target',
+    'venv'
 }
 
 # files to skip
@@ -68,6 +72,9 @@ EXPECTED_SAMPLE_FILES = {
     'chat_sfn_state_machine.json',
     'market_2.jpg',
     'spheres_2.jpg',
+    'sample_cert.pem',
+    'sample_private_key.pem',
+    'sample_saml_metadata.xml',
 }
 
 # media file types
@@ -155,7 +162,21 @@ ALLOW_LIST = {
     'DescribeDbClusterParameterGroupsResponse',
     'DeleteCollectionExample/DeleteCollection',
     'aws/rds/model/DescribeDBInstancesRequest',
-    'com/apigateway/latest/developerguide/set'
+    'com/apigateway/latest/developerguide/set',
+    'com/pinpoint/latest/apireference/welcome',
+    'src/main/java/com/example/s3/S3BucketOps',
+    'src/main/java/com/example/s3/ListObjects',
+    'src/main/java/com/example/dynamodb/Query',
+    'com/firehose/latest/APIReference/Welcome',
+    'src/main/java/com/example/iam/CreateRole',
+    'src/main/java/com/example/iam/CreateUser',
+    'src/main/java/com/example/iam/DeleteUser',
+    'src/main/java/com/example/iam/UpdateUser',
+    'src/main/java/com/example/kms/ListGrants',
+    'com/redshift/latest/APIReference/Welcome',
+    'src/main/java/com/example/sns/ListOptOut',
+    'src/main/java/com/example/sns/ListTopics',
+    'src/main/java/com/example/sqs/SQSExample',
 }
 
 def check_files(root, quiet):
@@ -182,7 +203,7 @@ def check_files(root, quiet):
                 file_count += 1
                 if not quiet:
                     print("\nChecking File: " + file_path)
-                with open(file_path) as f:
+                with open(file_path, encoding='utf-8') as f:
                     file_contents = f.read()
 
                 error_count += verify_no_deny_list_words(file_contents, file_path)

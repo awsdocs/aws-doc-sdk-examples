@@ -71,42 +71,6 @@ export class UploadResponseModel extends Model {
   }
 }
 
-export class CopyRequestModel extends Model {
-  constructor(scope: Construct, props: PartialModelProps) {
-    super(scope, "CopyRequestModel", {
-      ...props,
-      schema: {
-        schema: JsonSchemaVersion.DRAFT4,
-        type: JsonSchemaType.OBJECT,
-        properties: {
-          source: {
-            schema: JsonSchemaVersion.DRAFT4,
-            type: JsonSchemaType.STRING,
-          },
-        },
-      },
-    });
-  }
-}
-
-export class CopyResponseModel extends Model {
-  constructor(scope: Construct, props: PartialModelProps) {
-    super(scope, "CopyResponseModel", {
-      ...props,
-      schema: {
-        schema: JsonSchemaVersion.DRAFT4,
-        type: JsonSchemaType.OBJECT,
-        properties: {
-          count: {
-            schema: JsonSchemaVersion.DRAFT4,
-            type: JsonSchemaType.INTEGER,
-          },
-        },
-      },
-    });
-  }
-}
-
 export class DownloadRequestModel extends Model {
   constructor(scope: Construct, props: PartialModelProps) {
     super(scope, "DownloadRequestModel", {

@@ -24,7 +24,7 @@ class GlueBasicsTests extends TestCase
     private array $clientArgs;
     private S3Client $s3Client;
 
-    public function __construct()
+    public function setup(): void
     {
         $this->clientArgs = [
             'region' => 'us-west-2',
@@ -32,7 +32,6 @@ class GlueBasicsTests extends TestCase
             'profile' => 'default',
         ];
         $this->s3Client = new S3Client($this->clientArgs);
-        parent::__construct();
     }
 
     public function testItRunsWithoutThrowingAnException()

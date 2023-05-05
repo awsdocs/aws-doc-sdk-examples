@@ -44,7 +44,7 @@ public class EventBridgeScenario
 
     static async Task Main(string[] args)
     {
-        // Set up dependency injection for EventBridge.
+        // Set up dependency injection for Amazon EventBridge.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)
@@ -84,17 +84,19 @@ public class EventBridgeScenario
 
             await CreateBucketWithEventBridgeEvents();
 
+            await AddEventRule(roleArn);
+
+            await ListEventRules();
+
             topicArn = await CreateSnsTopic();
 
             var email = await SubscribeToSnsTopic(topicArn);
 
-            await AddSnsEventRule(roleArn, topicArn);
-
-            await ListEventRules();
-
-            await ListRulesForTarget(topicArn);
+            await AddSnsTarget(topicArn);
 
             await ListTargets();
+
+            await ListRulesForTarget(topicArn);
 
             await UploadS3File(_s3Client);
 
@@ -140,7 +142,7 @@ public class EventBridgeScenario
     /// <summary>
     /// Create a role to be used by EventBridge.
     /// </summary>
-    /// <returns>The role ARN.</returns>
+    /// <returns>The role Amazon Resource Name (ARN).</returns>
     public static async Task<string> CreateRole()
     {
         Console.WriteLine(new string('-', 80));
@@ -174,20 +176,21 @@ public class EventBridgeScenario
                 PolicyArn = "arn:aws:iam::aws:policy/AmazonEventBridgeFullAccess",
                 RoleName = roleName
             });
-
+        // Allow time for the role to be ready.
+        Thread.Sleep(10000);
         return roleResult.Role.Arn;
     }
     // snippet-end:[EventBridge.dotnetv3.CreateRole]
 
     // snippet-start:[EventBridge.dotnetv3.CreateBucketWithEvents]
     /// <summary>
-    /// Create an Amazon S3 bucket with EventBridge events enabled.
+    /// Create an Amazon Simple Storage Service (Amazon S3) bucket with EventBridge events enabled.
     /// </summary>
     /// <returns>Async task.</returns>
     private static async Task CreateBucketWithEventBridgeEvents()
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine("Creating an Amazon S3 bucket with EventBridge events enabled.");
+        Console.WriteLine("Creating an S3 bucket with EventBridge events enabled.");
 
         var testBucketName = _configuration["testBucketName"];
 
@@ -336,7 +339,7 @@ public class EventBridgeScenario
             Endpoint = email
         });
 
-        Console.WriteLine($"Use the link in the email you received to confirm your subscription, then press enter to continue.");
+        Console.WriteLine($"Use the link in the email you received to confirm your subscription, then press Enter to continue.");
 
         Console.ReadLine();
 
@@ -345,20 +348,37 @@ public class EventBridgeScenario
     }
 
     /// <summary>
-    /// Add a rule which triggers an SNS target when a file is uploaded to an S3 bucket.
+    /// Add a rule which triggers when a file is uploaded to an S3 bucket.
     /// </summary>
     /// <param name="roleArn">The ARN of the role used by EventBridge.</param>
-    /// <param name="topicArn">The ARN of theSNS topic.</param>
     /// <returns>Async task.</returns>
-    private static async Task AddSnsEventRule(string roleArn, string topicArn)
+    private static async Task AddEventRule(string roleArn)
     {
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Creating an EventBridge event that sends an email when an Amazon S3 object is created.");
 
         var eventRuleName = _configuration["eventRuleName"];
         var testBucketName = _configuration["testBucketName"];
-        var topicName = _configuration["topicName"];
+
         await _eventBridgeWrapper.PutS3UploadRule(roleArn, eventRuleName, testBucketName);
+        Console.WriteLine($"\tAdded event rule {eventRuleName} for bucket {testBucketName}.");
+
+        Console.WriteLine(new string('-', 80));
+    }
+
+    /// <summary>
+    /// Add an SNS target to the rule.
+    /// </summary>
+    /// <param name="topicArn">The ARN of the SNS topic.</param>
+    /// <returns>Async task.</returns>
+    private static async Task AddSnsTarget(string topicArn)
+    {
+        Console.WriteLine(new string('-', 80));
+        Console.WriteLine("Adding a target to the rule to that sends an email when the rule is triggered.");
+
+        var eventRuleName = _configuration["eventRuleName"];
+        var testBucketName = _configuration["testBucketName"];
+        var topicName = _configuration["topicName"];
         await _eventBridgeWrapper.AddSnsTargetToRule(eventRuleName, topicArn);
         Console.WriteLine($"\tAdded event rule {eventRuleName} with Amazon SNS target {topicName} for bucket {testBucketName}.");
 
@@ -433,7 +453,7 @@ public class EventBridgeScenario
 
         await _eventBridgeWrapper.PutCustomEmailEvent(email);
 
-        Console.WriteLine($"\tEvents have been sent. Press enter to continue.");
+        Console.WriteLine($"\tEvents have been sent. Press Enter to continue.");
         Console.ReadLine();
 
         Console.WriteLine(new string('-', 80));

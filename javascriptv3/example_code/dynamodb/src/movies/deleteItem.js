@@ -8,10 +8,10 @@ deleteItem.js demonstrates how to use the Amazon DynamoDB document client to del
 
 Inputs (replace in code):
 - TABLE_NAME
-- primaryKey - The name of the primary key. For example, "title".
+- "PRIMARY_KEY" - The name of the primary key. For example, "title".
 - VALUE_1: Value for the primary key. (The format for the datatype must match the schema. For example,
 // if the primaryKey is a number, VALUE_1 has no inverted commas.)
-- sortKey - The name of the sort key. Only required if the table has sort key. For example, "year".
+- "SORT_KEY" - The name of the sort key. Only required if the table has sort key. For example, "year".
 - VALUE_2: Value for the primary key. (The format for the datatype must match the schema.)
 
 Running the code:
@@ -26,8 +26,8 @@ import { ddbDocClient } from "../libs/ddbDocClient.js";
 export const params = {
   TableName: "TABLE_NAME",
   Key: {
-    primaryKey: "VALUE_1",
-    sortKey: "VALUE_2",
+    PRIMARY_KEY: "VALUE_1", //e.g. title: "Rush"
+    SORT_KEY: "VALUE_2", // e.g. year: "2013"
   },
 };
 

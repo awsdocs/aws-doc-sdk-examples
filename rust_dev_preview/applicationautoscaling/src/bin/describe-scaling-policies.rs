@@ -8,9 +8,9 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_applicationautoscaling::types::ServiceNamespace;
 use aws_sdk_applicationautoscaling::{config::Region, meta::PKG_VERSION, Client, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -52,7 +52,7 @@ async fn show_policies(client: &Client) -> Result<(), Error> {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { region, verbose } = Opt::from_args();
+    let Opt { region, verbose } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

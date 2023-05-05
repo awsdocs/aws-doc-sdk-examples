@@ -10,7 +10,7 @@ ddb_getitem.js demonstrates how to retrieve the attributes of an item from an Am
 INPUTS:
 - TABLE_NAME
 - KEY_NAME: the primary key of the table, e.g., 'CUSTOMER_ID'
-- KEY_NAME_VALUE: the value of the primary key row containing the attribute value
+- KEY_VALUE: the value of the primary key row containing the attribute value
 - ATTRIBUTE_NAME: the name of the attribute column containing the attribute value
 
 Running the code:

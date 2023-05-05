@@ -8,9 +8,9 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_sesv2::types::{Body, Content, Destination, EmailContent, Message};
 use aws_sdk_sesv2::{config::Region, meta::PKG_VERSION, Client, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The contact list containing email addresses to send the message to.
     #[structopt(short, long)]
@@ -108,7 +108,7 @@ async fn main() -> Result<(), Error> {
         message,
         subject,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

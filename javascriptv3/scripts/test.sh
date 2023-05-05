@@ -7,6 +7,10 @@ elif [ "$TEST_SCOPE" == "integration" ]; then
 fi
 
 if [ -z $TEST_SCOPE ]; then
-  lerna run test
-  lerna run integration-test
+   if ! lerna run test ; then
+     exit 1
+   fi
+   if ! lerna run integration-test ; then
+     exit 1
+   fi
 fi

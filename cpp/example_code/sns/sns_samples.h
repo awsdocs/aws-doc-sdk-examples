@@ -11,8 +11,6 @@
 
 namespace AwsDoc {
     namespace SNS {
-        bool gettingStartedWithSNSTopics(const Aws::Client::ClientConfiguration &clientConfiguration);
-
         //! Create an Amazon Simple Notification Service (Amazon SNS) topic.
         /*!
           \param topicName: An Amazon SNS topic name.
@@ -32,7 +30,8 @@ namespace AwsDoc {
         bool deleteTopic(const Aws::String &topicARN,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Retrieve the default settings for sending Amazon SMS messages from your AWS account.
+        //! Retrieve the default settings for sending SMS messages from your AWS account
+        //! by using Amazon SNS.
         /*!
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
@@ -136,7 +135,7 @@ namespace AwsDoc {
                              const Aws::String &lambdaFunctionARN,
                              const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Delete a subscription to an Amazon SNS topic..
+        //! Delete a subscription to an Amazon SNS topic.
         /*!
           \param subscriptionARN: The ARN for an Amazon SNS topic subscription.
           \param clientConfiguration: AWS client configuration.

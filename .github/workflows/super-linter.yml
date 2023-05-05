@@ -35,6 +35,5 @@ jobs:
           VALIDATE_PYTHON: true
           VALIDATE_PYTHON_PYLINT: true
           VALIDATE_RUBY: true
-          VALIDATE_JAVASCRIPT_ES: true
           VALIDATE_CSHARP: true
           VALIDATE_KOTLIN: true

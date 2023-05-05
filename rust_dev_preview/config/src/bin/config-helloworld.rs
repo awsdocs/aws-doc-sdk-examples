@@ -8,9 +8,9 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_config::types::ResourceType;
 use aws_sdk_config::{config::Region, meta::PKG_VERSION, Client, Error};
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -54,8 +54,8 @@ async fn get_history(client: &Client, id: &str, res: ResourceType) -> Result<(),
 /// NOTE: AWS Config must be enabled to discover resources
 /// # Arguments
 ///
-/// * `-resource_id RESOURCE-ID` - The ID of the resource.
-/// * `-resource_type RESOURCE-TYPE` - The type of resource, such as **AWS::EC2::SecurityGroup**.
+/// * `[--resource_id RESOURCE-ID]` - The ID of the resource.
+/// * `[--resource_type RESOURCE-TYPE]` - The type of resource, such as **AWS::EC2::SecurityGroup**.
 /// * `[-r REGION]` - The AWS Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
@@ -68,7 +68,7 @@ async fn main() -> Result<(), Error> {
         resource_id,
         resource_type,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

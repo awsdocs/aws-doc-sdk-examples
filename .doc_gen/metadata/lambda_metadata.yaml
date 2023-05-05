@@ -1,4 +1,29 @@
 # zexi 0.4.2
+lambda_Hello:
+  title: Hello &LAM;
+  title_abbrev: Hello &LAM;
+  synopsis: get started using &LAM;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/Lambda
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - Lambda.dotnetv3.LambdaActions.HelloLambda
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.lambda.Hello
+  services:
+    lambda: {ListFunctions}
 lambda_CreateFunction:
   title: Create a &LAM; function using an &AWS; SDK
   title_abbrev: Create a function
@@ -13,7 +38,16 @@ lambda_CreateFunction:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.CreateLambdaFunction
+                - Lambda.dotnetv3.LambdaActions.CreateLambdaFunction
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.lambda.FunctionWrapper.struct
+                - gov2.lambda.CreateFunction
     Kotlin:
       versions:
         - sdk_version: 1
@@ -105,7 +139,16 @@ lambda_DeleteFunction:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.DeleteLambdaFunction
+                - Lambda.dotnetv3.LambdaActions.DeleteLambdaFunction
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.lambda.FunctionWrapper.struct
+                - gov2.lambda.DeleteFunction
     Kotlin:
       versions:
         - sdk_version: 1
@@ -196,8 +239,16 @@ lambda_Invoke:
           excerpts:
             - description:
               snippet_tags:
-                - Lambda.dotnetv3.InvokeFunctionExample
-                - lambda.dotnetv3.Lambda_Basics.InvokeFunction
+                - Lambda.dotnetv3.LambdaActions.InvokeFunction
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.lambda.FunctionWrapper.struct
+                - gov2.lambda.Invoke
     Kotlin:
       versions:
         - sdk_version: 1
@@ -289,7 +340,16 @@ lambda_GetFunction:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.GetFunction
+                - Lambda.dotnetv3.LambdaActions.GetFunction
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.lambda.FunctionWrapper.struct
+                - gov2.lambda.GetFunction
     PHP:
       versions:
         - sdk_version: 3
@@ -362,7 +422,16 @@ lambda_UpdateFunctionCode:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.UpdateFunctionCode
+                - Lambda.dotnetv3.LambdaActions.UpdateFunctionCode
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.lambda.FunctionWrapper.struct
+                - gov2.lambda.UpdateFunctionCode
     PHP:
       versions:
         - sdk_version: 3
@@ -434,7 +503,16 @@ lambda_UpdateFunctionConfiguration:
           excerpts:
             - description:
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.UpdateLambdaConfiguration
+                - Lambda.dotnetv3.LambdaActions.UpdateFunctionConfiguration
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.lambda.FunctionWrapper.struct
+                - gov2.lambda.UpdateFunctionConfiguration
     PHP:
       versions:
         - sdk_version: 3
@@ -508,11 +586,16 @@ lambda_ListFunctions:
           excerpts:
             - description:
               snippet_tags:
-                - Lambda.dotnetv3.ListFunctionsExample
-                - lambda.dotnetv3.Lambda_Basics.ListFunctions
-            - description: List functions using a paginator.
+                - Lambda.dotnetv3.LambdaActions.ListFunctions
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/lambda
+          excerpts:
+            - description:
               snippet_tags:
-                - Lambda.dotnetv3.ListFunctionsExample.Paginator
+                - gov2.lambda.FunctionWrapper.struct
+                - gov2.lambda.ListFunctions
     PHP:
       versions:
         - sdk_version: 3
@@ -592,10 +675,15 @@ lambda_Scenario_GettingStartedFunctions:
           github: dotnetv3/Lambda
           sdkguide:
           excerpts:
-            - description:
+            - description: Create methods that perform &LAM; actions.
               snippet_tags:
-                - lambda.dotnetv3.Lambda_Basics.GlobalUsings
-                - lambda.dotnetv3.Lambda_Basics.main
+                - Lambda.dotnetv3.LambdaActions.LambdaWrapper
+            - description: Create a function that runs the scenario.
+              snippet_tags:
+                - Lambda.dotnetv3.LambdaBasics.Usings
+                - Lambda.dotnetv3.LambdaBasics
+                - Lambda.dotnetv3.LambdaActions.LambdaRoleWrapper
+                - Lambda.dotnetv3.LambdaScenarioCommon.UIWrapper
             - description: Define a &LAM; handler that increments a number.
               snippet_tags:
                 - lambda.dotnetv3.handler.increment
@@ -604,6 +692,28 @@ lambda_Scenario_GettingStartedFunctions:
                 operations.
               snippet_tags:
                 - lambda.dotnetv3.handler.arithmetic
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/lambda
+          excerpts:
+            - description: Create an interactive scenario that shows you how to get
+                started with &LAM; functions.
+              snippet_tags:
+                - gov2.lambda.Scenario_GetStartedFunctions
+            - description: Create a struct that wraps individual &LAM; actions.
+              snippet_tags:
+                - gov2.lambda.FunctionWrapper.complete
+            - description: Create a struct that implements functions to help run the scenario.
+              snippet_tags:
+                - gov2.lambda.GetStartedFunctions_Helper
+            - description: Define a &LAM; handler that increments a number.
+              snippet_tags:
+                - gov2.lambda.handlers.increment
+            - description:
+                Define a second &LAM; handler that performs arithmetic operations.
+              snippet_tags:
+                - gov2.lambda.handlers.arithmetic
     Kotlin:
       versions:
         - sdk_version: 1

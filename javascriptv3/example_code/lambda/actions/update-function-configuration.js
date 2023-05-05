@@ -7,17 +7,14 @@ import {
   UpdateFunctionConfigurationCommand,
 } from "@aws-sdk/client-lambda";
 import { readFileSync } from "fs";
-import { createClientForDefaultRegion } from "../../libs/utils/util-aws-sdk.js";
 import { dirnameFromMetaUrl } from "../../libs/utils/util-fs.js";
 
 const dirname = dirnameFromMetaUrl(import.meta.url);
 
 /** snippet-start:[javascript.v3.lambda.actions.UpdateFunctionConfiguration] */
-const updateFunctionConfiguration = async (funcName) => {
-  const client = createClientForDefaultRegion(LambdaClient);
-  const config = readFileSync(
-    `${dirname}../functions/config.json`
-  ).toString();
+const updateFunctionConfiguration = (funcName) => {
+  const client = new LambdaClient({});
+  const config = readFileSync(`${dirname}../functions/config.json`).toString();
   const command = new UpdateFunctionConfigurationCommand({
     ...JSON.parse(config),
     FunctionName: funcName,

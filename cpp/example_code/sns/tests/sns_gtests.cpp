@@ -214,7 +214,6 @@ bool AwsDocTest::SNS_GTests::unsubscribe(const Aws::String &subscriptionARN) {
     return outcome.IsSuccess();
 }
 
-
 int AwsDocTest::MyStringBuffer::underflow() {
     int result = basic_stringbuf::underflow();
     if (result == EOF) {

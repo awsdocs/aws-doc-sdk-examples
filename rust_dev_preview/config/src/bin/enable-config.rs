@@ -11,10 +11,10 @@ use aws_sdk_config::types::{
     MaximumExecutionFrequency, RecordingGroup, ResourceType,
 };
 use aws_sdk_config::{config::Region, meta::PKG_VERSION, Client, Error};
+use clap::Parser;
 use std::process;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -175,7 +175,7 @@ async fn main() -> Result<(), Error> {
         sns_arn,
         type_,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

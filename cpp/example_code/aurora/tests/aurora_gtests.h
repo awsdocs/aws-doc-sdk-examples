@@ -43,7 +43,7 @@ namespace AwsDocTest {
 
     private:
 
-        bool suppressStdOut();
+        static bool suppressStdOut();
 
         static Aws::SDKOptions s_options;
 

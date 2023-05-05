@@ -185,8 +185,8 @@ public class SupportWrapper
             new DescribeCommunicationsRequest()
             {
                 CaseId = caseId,
-                AfterTime = afterTime?.ToString("G"),
-                BeforeTime = beforeTime?.ToString("G")
+                AfterTime = afterTime?.ToString("s"),
+                BeforeTime = beforeTime?.ToString("s")
             });
         // Get the entire list using the paginator.
         await foreach (var communications in paginateCommunications.Communications)
@@ -224,8 +224,8 @@ public class SupportWrapper
                 DisplayId = displayId,
                 IncludeCommunications = includeCommunication,
                 IncludeResolvedCases = includeResolvedCases,
-                AfterTime = afterTime?.ToString("o"),
-                BeforeTime = beforeTime?.ToString("o"),
+                AfterTime = afterTime?.ToString("s"),
+                BeforeTime = beforeTime?.ToString("s"),
                 Language = language
             });
         // Get the entire list using the paginator.

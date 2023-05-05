@@ -30,8 +30,6 @@ import { listFunctions } from "../actions/list-functions.js";
 import { updateFunctionCode } from "../actions/update-function-code.js";
 import { updateFunctionConfiguration } from "../actions/update-function-configuration.js";
 
-const retryOver30Seconds = retry({ intervalInMs: 2000, maxRetries: 15 });
-
 describe("Creating, getting, invoking, listing, updating, and deleting", () => {
   const iamClient = new IAMClient({ region: DEFAULT_REGION });
   const roleName = "test-lambda-actions-role-name";
@@ -103,9 +101,13 @@ describe("Creating, getting, invoking, listing, updating, and deleting", () => {
   const testCreateFunction = async () => {
     // A role goes into a busy state after attaching a policy
     // and there's no explicit waiter available for this.
-    await retryOver30Seconds(() => createFunction(funcName, roleArn));
+    await retry({ intervalInMs: 2000, maxRetries: 15 }, () =>
+      createFunction(funcName, roleArn)
+    );
 
-    const response = await retryOver30Seconds(() => getFunction(funcName));
+    const response = await retry({ intervalInMs: 2000, maxRetries: 15 }, () =>
+      getFunction(funcName)
+    );
     expect(path(["Configuration", "FunctionName"], response)).toBe(funcName);
   };
 
@@ -149,7 +151,7 @@ describe("Creating, getting, invoking, listing, updating, and deleting", () => {
     await testCreateFunction();
     await waitForFunctionActive({ FunctionName: funcName });
     await updateFunctionConfiguration(funcName);
-    await retryOver30Seconds(testInvokeFunction);
+    await retry({ intervalInMs: 2000, maxRetries: 15 }, testInvokeFunction);
     await testListFunctions();
     await testUpdateFunction();
     await testDeleteFunction();

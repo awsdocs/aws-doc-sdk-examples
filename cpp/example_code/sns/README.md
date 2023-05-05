@@ -3,7 +3,7 @@
 
 ## Overview
 
-Shows how to use the AWS SDK for C++ to work with Amazon Simple Notification Service (Amazon SNS) (Amazon SNS).
+Shows how to use the AWS SDK for C++ to work with Amazon Simple Notification Service (Amazon SNS).
 
 <!--custom.overview.start-->
 <!--custom.overview.end-->

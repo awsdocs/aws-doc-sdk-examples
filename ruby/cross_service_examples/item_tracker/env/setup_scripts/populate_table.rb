@@ -31,10 +31,12 @@ class PopulateTable
   end
 end
 
-# Checks for Aurora DB cluster & creates table if none exists.
-begin
-  setup = PopulateTable.new
-  setup.add_records
-rescue StandardError => e
-  raise "Failed while creating new database records:\n#{e}"
+if __FILE__ == $0
+    # Checks for Aurora DB cluster & creates table if none exists.
+  begin
+    setup = PopulateTable.new
+    setup.add_records
+  rescue StandardError => e
+    raise "Failed while creating new database records:\n#{e}"
+  end
 end

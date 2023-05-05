@@ -1,0 +1,14 @@
+# aws-doc-sdk-examples CODEOWNERS
+
+# This is a comment.
+# Each line is a file pattern followed by one or more owners.
+# Order is important; the last matching pattern takes the most
+# precedence. For more information, see the following GitHub documentation:
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# For example, in this file @rlhagerm and @irenepsmith own any files in the /dotnetv3/
+# directory and any of its subdirectories.
+# Note that you will not be assigned as a reviewer if you are the 
+# author of the PR.
+
+/dotnetv3/ @rlhagerm @irenepsmith

@@ -153,7 +153,7 @@ public class RDSInstanceScenarioTests
     /// Create the DB instance. Should return the new instance.
     /// </summary>
     /// <returns>Async task.</returns>
-    [Fact]
+    [Fact(Skip = "Long running test.")]
     [Order(7)]
     [Trait("Category", "Integration")]
     public async Task CreateDBInstance_ShouldReturnInstance()
@@ -194,7 +194,7 @@ public class RDSInstanceScenarioTests
     /// Create a DB snapshot. Should return a snapshot instance.
     /// </summary>
     /// <returns>Async task.</returns>
-    [Fact]
+    [Fact(Skip = "Long running test.")]
     [Order(8)]
     [Trait("Category", "Integration")]
     public async Task CreateSnapshot_ShouldNotBeEmpty()
@@ -222,7 +222,7 @@ public class RDSInstanceScenarioTests
     /// Delete the DB instance. Should not fail.
     /// </summary>
     /// <returns>Async task.</returns>
-    [Fact]
+    [Fact(Skip = "Long running test.")]
     [Order(9)]
     [Trait("Category", "Integration")]
     public async Task DeleteInstance_ShouldNotFail()

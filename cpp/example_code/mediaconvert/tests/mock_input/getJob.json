@@ -1,0 +1,149 @@
+{
+  "job": {
+    "arn": "arn:aws:mediaconvert:us-test-1234567890123:jobs/1234567890123-abcdef",
+    "id": "1234567890123-abcdef",
+    "createdAt": 1680707229,
+    "queue": "arn:aws:mediaconvert:us-test-1234567890123:queues/Default",
+    "userMetadata": {
+      "Customer": "Amazon"
+    },
+    "role": "arn:aws:iam::1234567890123:role/media_convert_test",
+    "settings": {
+      "timecodeConfig": {
+        "source": "EMBEDDED"
+      },
+      "outputGroups": [
+        {
+          "name": "File Group",
+          "outputs": [
+            {
+              "containerSettings": {
+                "container": "MP4",
+                "mp4Settings": {
+                  "cslgAtom": "INCLUDE",
+                  "freeSpaceBox": "EXCLUDE",
+                  "moovPlacement": "PROGRESSIVE_DOWNLOAD"
+                }
+              },
+              "videoDescription": {
+                "scalingBehavior": "DEFAULT",
+                "timecodeInsertion": "DISABLED",
+                "antiAlias": "ENABLED",
+                "sharpness": 50,
+                "codecSettings": {
+                  "codec": "H_264",
+                  "h264Settings": {
+                    "parNumerator": 1,
+                    "numberReferenceFrames": 3,
+                    "syntax": "DEFAULT",
+                    "softness": 0,
+                    "framerateDenominator": 1,
+                    "gopClosedCadence": 1,
+                    "gopSize": 90.0,
+                    "slices": 1,
+                    "gopBReference": "DISABLED",
+                    "slowPal": "DISABLED",
+                    "parDenominator": 1,
+                    "spatialAdaptiveQuantization": "ENABLED",
+                    "temporalAdaptiveQuantization": "ENABLED",
+                    "flickerAdaptiveQuantization": "DISABLED",
+                    "entropyEncoding": "CABAC",
+                    "bitrate": 5000000,
+                    "framerateControl": "SPECIFIED",
+                    "rateControlMode": "CBR",
+                    "codecProfile": "MAIN",
+                    "telecine": "NONE",
+                    "framerateNumerator": 30,
+                    "minIInterval": 0,
+                    "adaptiveQuantization": "HIGH",
+                    "codecLevel": "AUTO",
+                    "fieldEncoding": "PAFF",
+                    "sceneChangeDetect": "ENABLED",
+                    "qualityTuningLevel": "SINGLE_PASS",
+                    "framerateConversionAlgorithm": "DUPLICATE_DROP",
+                    "unregisteredSeiTimecode": "DISABLED",
+                    "gopSizeUnits": "FRAMES",
+                    "parControl": "SPECIFIED",
+                    "numberBFramesBetweenReferenceFrames": 2,
+                    "repeatPps": "DISABLED"
+                  }
+                },
+                "afdSignaling": "NONE",
+                "dropFrameTimecode": "ENABLED",
+                "respondToAfd": "NONE",
+                "colorMetadata": "INSERT"
+              },
+              "audioDescriptions": [
+                {
+                  "audioSourceName": "Audio Select 1",
+                  "codecSettings": {
+                    "codec": "AAC",
+                    "aacSettings": {
+                      "audioDescriptionBroadcasterMix": "NORMAL",
+                      "bitrate": 64000,
+                      "rateControlMode": "CBR",
+                      "codecProfile": "LC",
+                      "codingMode": "CODING_MODE_2_0",
+                      "rawFormat": "NONE",
+                      "sampleRate": 48000,
+                      "specification": "MPEG4"
+                    }
+                  },
+                  "languageCodeControl": "FOLLOW_INPUT"
+                }
+              ],
+              "nameModifier": "_1"
+            }
+          ],
+          "outputGroupSettings": {
+            "type": "FILE_GROUP_SETTINGS",
+            "fileGroupSettings": {
+              "destination": "s3://test-bucket/output"
+            }
+          }
+        }
+      ],
+      "adAvailOffset": 0,
+      "inputs": [
+        {
+          "audioSelectors": {
+            "Audio Select 1": {
+              "tracks": [
+                1
+              ],
+              "offset": 0,
+              "defaultSelection": "NOT_DEFAULT",
+              "selectorType": "TRACK",
+              "programSelection": 1
+            }
+          },
+          "videoSelector": {
+            "colorSpace": "FOLLOW"
+          },
+          "filterEnable": "AUTO",
+          "psiControl": "USE_PSI",
+          "filterStrength": 0,
+          "deblockFilter": "DISABLED",
+          "denoiseFilter": "DISABLED",
+          "timecodeSource": "EMBEDDED",
+          "fileInput": "s3://test-bucket/test.mp4"
+        }
+      ]
+    },
+    "status": "SUBMITTED",
+    "timing": {
+      "submitTime": 16807000000
+    },
+    "accelerationSettings": {
+      "mode": "DISABLED"
+    },
+    "statusUpdateInterval": "SECONDS_60",
+    "priority": 0,
+    "accelerationStatus": "NOT_APPLICABLE",
+    "messages": {
+      "info": [],
+      "warning": []
+    },
+    "clientRequestToken": "1111111111-0000-AAAA-BBBB-22222222222"
+  }
+}

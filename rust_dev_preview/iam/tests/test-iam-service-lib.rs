@@ -174,12 +174,9 @@ async fn test_list_policies() {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
-    let policies = iam_service::list_policies(&client, None, None, None)
-        .await
-        .unwrap();
-    for policy in policies.policies.unwrap() {
-        println!("{}", policy.policy_name.unwrap());
-    }
+    let result = iam_service::list_policies(client, "/".to_string()).await;
+
+    assert!(result.is_ok());
 }
 
 #[ignore]

@@ -644,7 +644,7 @@ dynamodb_GetItem:
           excerpts:
             - description: Gets an item from a table by using the DynamoDbClient.
               snippet_tags:
-                - dynamodb.java2.query.main
+                - dynamodb.java2.get_item.main
     PHP:
       versions:
         - sdk_version: 3

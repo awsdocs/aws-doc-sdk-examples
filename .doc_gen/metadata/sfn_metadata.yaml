@@ -4,6 +4,15 @@ sfn_Hello:
   synopsis: get started using &SFN;.
   category: Hello
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.HelloStepFunctions
     Python:
       versions:
         - sdk_version: 3
@@ -39,6 +48,15 @@ sfn_CreateStateMachine:
   synopsis: create a &SFN; state machine.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.CreateStateMachine
     Kotlin:
       versions:
         - sdk_version: 1
@@ -75,6 +93,15 @@ sfn_DeleteStateMachine:
   synopsis: delete a &SFN; state machine.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.DeleteStateMachine
     Kotlin:
       versions:
         - sdk_version: 1
@@ -111,6 +138,15 @@ sfn_ListStateMachines:
   synopsis: list &SFN; state machines.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.ListStateMachines
     Kotlin:
       versions:
         - sdk_version: 1
@@ -157,6 +193,15 @@ sfn_DescribeStateMachine:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.describe_machine.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.DescribeStateMachine
     Java:
       versions:
         - sdk_version: 2
@@ -184,6 +229,15 @@ sfn_StartExecution:
   synopsis: start a &SFN; state machine run.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.StartExecution
     Kotlin:
       versions:
         - sdk_version: 1
@@ -220,6 +274,15 @@ sfn_ListExecutions:
   synopsis: list &SFN; state machine runs.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.ListExecutions
     Kotlin:
       versions:
         - sdk_version: 1
@@ -255,6 +318,15 @@ sfn_DescribeExecution:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.describe_execution.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.DescribeExecution
     Java:
       versions:
         - sdk_version: 2
@@ -290,6 +362,15 @@ sfn_CreateActivity:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.create_activity.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.CreateActivity
     Java:
       versions:
         - sdk_version: 2
@@ -326,6 +407,15 @@ sfn_ListActivities:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.list_activities.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.ListActivities
     Java:
       versions:
         - sdk_version: 2
@@ -357,11 +447,19 @@ sfn_GetActivityTask:
       versions:
         - sdk_version: 1
           github: kotlin/services/stepfunctions
-          sdkguide:
           excerpts:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.activity_task.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.GetActivityTask
     Java:
       versions:
         - sdk_version: 2
@@ -371,6 +469,7 @@ sfn_GetActivityTask:
             - description:
               snippet_tags:
                 - stepfunctions.java2.activity_task.main
+                - StepFunctions.dotnetv3.StopExecution
     Python:
       versions:
         - sdk_version: 3
@@ -398,6 +497,15 @@ sfn_SendTaskSuccess:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.task_success.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.SendTaskSuccess
     Java:
       versions:
         - sdk_version: 2
@@ -434,6 +542,15 @@ sfn_DeleteActivity:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.delete.activity.main
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - StepFunctions.dotnetv3.DeleteActivity
     Java:
       versions:
         - sdk_version: 2
@@ -475,6 +592,20 @@ sfn_Scenario_GetStartedStateMachines:
             - description:
               snippet_tags:
                 - stepfunctions.kotlin.scenario.main  
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/StepFunctions
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - StepFunctions.dotnetv3.StepFunctionsBasics.Usings
+                - StepFunctions.dotnetv3.StepFunctionsBasics
+                - StepFunctions.dotnetv3.StepFunctionsBasics.UIMethods
+            - description: Define a class that wraps state machine and activity actions.
+              snippet_tags:
+                - StepFunctions.dotnetv3.StepFunctionsActions
     Java:
       versions:
         - sdk_version: 2
@@ -501,6 +632,5 @@ sfn_Scenario_GetStartedStateMachines:
                 - python.example_code.sfn.Activity_full
   services:
     sfn: {CreateActivity, CreateStateMachine, DeleteActivity, DeleteStateMachine, DescribeExecution,
-          DescribeStateMachine, GetActivityTask, Hello, ListActivities, ListStateMachines,
-          SendTaskSuccess, StartExecution}
-    
+          DescribeStateMachine, GetActivityTask, ListActivities, ListStateMachines,
+          SendTaskSuccess, StartExecution, StopExecution}

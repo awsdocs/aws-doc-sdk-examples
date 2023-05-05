@@ -1,0 +1,6 @@
+{
+  "fileInput": "s3://example-input-file",
+  "fileOutput": "s3://example-output-destination",
+  "mediaConvertEndpoint": "",
+  "mediaConvertRoleARN": ""
+}

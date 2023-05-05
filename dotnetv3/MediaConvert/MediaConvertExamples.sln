@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33414.496
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{06445566-34A3-41D1-AB36-E735DBF4C53A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scenarios", "Scenarios", "{00C07E64-2CDD-4FA4-BC90-7FD8DBB9C04A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9FC02E7C-CC29-4724-8294-A9569AB0A78C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CreateJob", "Scenarios\CreateJob\CreateJob.csproj", "{6181EF97-B1DC-48D3-A294-2635F4AB2705}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaConvertTests", "Tests\MediaConvertTests.csproj", "{BA74E6DA-36DD-4505-8506-96C1DAEDA6AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaConvertActions", "Actions\MediaConvertActions.csproj", "{AE5E7184-82F0-45C8-8FED-91A10959C213}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6181EF97-B1DC-48D3-A294-2635F4AB2705}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6181EF97-B1DC-48D3-A294-2635F4AB2705}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6181EF97-B1DC-48D3-A294-2635F4AB2705}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6181EF97-B1DC-48D3-A294-2635F4AB2705}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA74E6DA-36DD-4505-8506-96C1DAEDA6AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA74E6DA-36DD-4505-8506-96C1DAEDA6AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA74E6DA-36DD-4505-8506-96C1DAEDA6AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA74E6DA-36DD-4505-8506-96C1DAEDA6AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE5E7184-82F0-45C8-8FED-91A10959C213}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE5E7184-82F0-45C8-8FED-91A10959C213}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE5E7184-82F0-45C8-8FED-91A10959C213}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE5E7184-82F0-45C8-8FED-91A10959C213}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6181EF97-B1DC-48D3-A294-2635F4AB2705} = {00C07E64-2CDD-4FA4-BC90-7FD8DBB9C04A}
+		{BA74E6DA-36DD-4505-8506-96C1DAEDA6AD} = {9FC02E7C-CC29-4724-8294-A9569AB0A78C}
+		{AE5E7184-82F0-45C8-8FED-91A10959C213} = {06445566-34A3-41D1-AB36-E735DBF4C53A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8CCAD8FD-49BD-4EF8-B24F-A80FBF5DEAC2}
+	EndGlobalSection
+EndGlobal

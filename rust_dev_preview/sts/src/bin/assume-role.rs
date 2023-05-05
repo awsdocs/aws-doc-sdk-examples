@@ -9,16 +9,16 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_sts::{meta::PKG_VERSION, Client, Error};
 use aws_types::region::Region;
 use aws_types::sdk_config::SdkConfig;
-use structopt::StructOpt;
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
-    #[structopt(long)]
+    #[structopt(short, long)]
     region: Option<String>,
 
     /// Whether to display additional information.
-    #[structopt(long)]
+    #[structopt(short, long)]
     verbose: bool,
 
     /// Whether to display additional information.
@@ -86,7 +86,7 @@ async fn main() -> Result<(), Error> {
         verbose,
         role_arn,
         role_session_name,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

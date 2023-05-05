@@ -6,6 +6,7 @@
 #![allow(clippy::result_large_err)]
 
 use aws_sdk_dynamodb::{error::DisplayErrorContext, Client};
+use clap::Parser;
 use dynamodb_code_examples::{
     make_config,
     scenario::add::{add_item, Item},
@@ -13,7 +14,6 @@ use dynamodb_code_examples::{
     Opt as BaseOpt,
 };
 use std::process;
-use structopt::StructOpt;
 
 #[derive(thiserror::Error, Debug)]
 #[error(
@@ -25,7 +25,7 @@ struct PermissionError {
     p_type: String,
 }
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The permission type of the user, standard_user or admin.
     #[structopt(short, long)]
@@ -71,7 +71,7 @@ struct Opt {
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() {
-    if let Err(err) = run_example(Opt::from_args()).await {
+    if let Err(err) = run_example(Opt::parse()).await {
         eprintln!("Error: {}", DisplayErrorContext(err));
         process::exit(1);
     }

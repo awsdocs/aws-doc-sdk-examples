@@ -24,7 +24,7 @@ namespace AwsDocTest {
         ASSERT_TRUE(result) << preconditionError() << std::endl;
 
         Aws::String topicARN = "arn:aws:sns:us-test:123456789012:MyTopic";
-        Aws::String email = "example@amazon.com";
+        Aws::String email = "example@example.com";
         result = AwsDoc::SNS::subscribeEmail(topicARN, email, *s_clientConfig);
         ASSERT_TRUE(result);
     }

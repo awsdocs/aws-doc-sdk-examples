@@ -6,7 +6,7 @@
 | -----------  | ----------- |
 | Description  | Discusses how to develop a photo asset management application that lets users manage photos using labels. This application is developed by using the AWS SDK for Java (v2).     |
 | Audience     |  Developer (beginner / intermediate)        |
-| Updated      | 2/22/2023        |
+| Updated      | 3/29/2023        |
 | Required skills   | Java, Maven  |
 
 ## Purpose
@@ -108,13 +108,13 @@ The backend of the PAM application is implemented by using these AWS Lambda func
 **Note**: These AWS Lambda names are short names. The full names that appear in the AWS Management Console depend on how you configure the provided AWS CDK script. Full names appear as {PAM_NAME}{Function Name}. For example, **MyApp-LambdasDetectLabelsFn**.
 
 The following table describes the AWS Lambda functions used by this application. 
-
 | Function        |Trigger                 | Input                            | Output                                      | Uses                                |
 | -------------   | ---------------------- | ---------------------------------| --------------------------------------------| ------------------------------------|
-| Upload          | APIG PUT /upload       | See following example                        | See following example                                   | Storage bucket                      |
-| DetectLabels    | S3 PutObject jpeg      | See following example                        | N/A                                          | Label table                         |
-| LabelsFn        | APIG GET /labels       | N/A                              | {"labels": {"maintain": {"count": 5}}       | Storage bucket, Label table         |
-| PrepareDowload  | APIG POST /download    | {"labels": ["Mountain", "Lake"]} | N/A                                         | Labels table / Working bucket       |  
+| Upload          | APIG PUT /upload       | See following example            | See following example                       | Storage bucket                      |  
+| DetectLabels    | S3 PutObject jpeg      | See following example            | N/A                                         | Label table                         | 
+| PrepareDowload  | APIG POST /download    | {"labels": ["Mountain", "Lake"]} | N/A                                         | Labels table / Working bucket       |
+| LabelsFn        | APIG GET /labels       | N/A                              | {"labels": {"maintain": {"count": 5}}       | Storage bucket, Label table         |   
+|                 |                        |                                  |                                             |                                     |  
 
 	
 **Note**: The Java application logic required to build these AWS Lambda functions is located later in this document.  	
@@ -162,23 +162,8 @@ The following JSON represents the input for the **LabelsFn** Lambda function.
 
 ```	
 
- **DowloadFn**
-
-The following JSON represents the input for the **DowloadFn** Lambda function.
-
-```xml
-{
-  "body": "{\"tags\": [\"Birch\", \"Coast\"]}",   
-  "resource": "/restore",
-  "path": "/restore",
-  "httpMethod": "PUT"
-}
-
-```	
-
-	
 #### API Gateway
-API Gateway provides HTTP API routes for the **Upload**, **Copy**, **Archive**, **LabelsFn**, and **PrepareDowload** AWS Lambda functions. Parameters for all routes are provided in the body of the request in a JSON object. The following table describes the API Gateway routes.	
+API Gateway provides HTTP API routes for the **UploadFn**, **LabelsFn**, **Labels**, and **DowloadFn** AWS Lambda functions. Parameters for all routes are provided in the body of the request in a JSON object. The following table describes the API Gateway routes.	
 	
 | Method        | Route            | Parameters                | Example response                                                | Lambda                      |
 | ------------- | -----------------| --------------------------| --------------------------------------------------------------- | ----------------------------|
@@ -1389,4 +1374,3 @@ Congratulations! You have created and deployed the Photo Asset Management applic
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
-

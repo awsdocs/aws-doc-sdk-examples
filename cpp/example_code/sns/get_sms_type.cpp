@@ -21,7 +21,8 @@
 #include "sns_samples.h"
 
 // snippet-start:[sns.cpp.get_sms_type.code]
-//! Retrieve the default settings for sending Amazon SMS messages from your AWS account.
+//! Retrieve the default settings for sending SMS messages from your AWS account by using
+//! Amazon Simple Notification Service (Amazon SNS).
 /*!
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.

@@ -63,7 +63,7 @@ bool AwsDoc::SNS::subscribeLambda(const Aws::String &topicARN,
  *
  *  Prerequisites:
  *  1. An existing SNS topic and its ARN.
- *  2. A lambda function ARN.
+ *  2. A Lambda function ARN.
 */
 
 #ifndef TESTING_BUILD

@@ -1,7 +1,0 @@
----
-# Amazon S3 examples for React Native app
-files:
-  - path: App.js
-    services:
-      - s3
-...

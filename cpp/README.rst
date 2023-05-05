@@ -46,6 +46,12 @@ undergoing active development. Refer to
 [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4133)
 for more information.
 
+Automated tests
+===================
+
+The automated tests for C++ examples can be run using the Python script [run_automated_tests.py](run_automated_tests.py). The script contains instructions for its use.
+
+For information about the dependencies needed to run the examples, see the [DockerFile](Dockerfile).
 
 Additional information
 =============

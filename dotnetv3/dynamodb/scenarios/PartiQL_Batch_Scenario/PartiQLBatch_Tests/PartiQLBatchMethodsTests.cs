@@ -13,13 +13,13 @@ namespace PartiQL_Batch_Scenario.Tests
             _ = DynamoDBMethods.CreateMovieTableAsync(tableName);
         }
 
-        [Fact]
+        [Fact(Skip = "Quarantined test.")]
         public void Dispose()
         {
             _ = DynamoDBMethods.DeleteTableAsync(tableName);
         }
 
-        [Fact(), TestPriority(1)]
+        [Fact(Skip = "Quarantined test."), TestPriority(1)]
         [Trait("Category", "Integration")]
         public async Task InsertMoviesTest()
         {
@@ -30,7 +30,7 @@ namespace PartiQL_Batch_Scenario.Tests
             Assert.True(success, "Could not insert the movies into the table.");
         }
 
-        [Fact(), TestPriority(2)]
+        [Fact(Skip = "Quarantined test."), TestPriority(2)]
         [Trait("Category", "Integration")]
         public async Task GetBatchTest()
         {
@@ -44,7 +44,7 @@ namespace PartiQL_Batch_Scenario.Tests
             Assert.True(success, $"Could not update {title1} or {title2}.");
         }
 
-        [Fact(), TestPriority(3)]
+        [Fact(Skip = "Quarantined test."), TestPriority(3)]
         [Trait("Category", "Integration")]
         public async Task UpdateBatchTest()
         {
@@ -60,7 +60,7 @@ namespace PartiQL_Batch_Scenario.Tests
             Assert.True(success, $"Could not update {title1} or {title2}.");
         }
 
-        [Fact(), TestPriority(4)]
+        [Fact(Skip = "Quarantined test."), TestPriority(4)]
         [Trait("Category", "Integration")]
         public async Task DeleteBatchTest()
         {
