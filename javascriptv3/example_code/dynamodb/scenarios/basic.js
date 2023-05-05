@@ -27,7 +27,8 @@ import {
   GetCommand,
   PutCommand,
   UpdateCommand,
-  QueryCommand,
+  paginateQuery,
+  paginateScan,
 } from "@aws-sdk/lib-dynamodb";
 
 // These modules are local to our GitHub repository. We recommend
@@ -201,21 +202,56 @@ export const main = async () => {
    */
 
   log("Querying for all movies from 1981.");
-  const queryCommand = new QueryCommand({
-    TableName: tableName,
-    KeyConditionExpression: "#y = :y",
-    // 'year' is a reserved word in DynamoDB. Indicate that it's an attribute
-    // name by using an expression attribute name.
-    ExpressionAttributeNames: {
-      "#y": "year",
-    },
-    ExpressionAttributeValues: {
-      ":y": 1981,
-    },
-    ConsistentRead: true,
-  });
-  const { Items } = await docClient.send(queryCommand);
-  log(`Movies: ${Items.map((m) => m.title).join(", ")}`);
+  const paginatedQuery = paginateQuery(
+    { client: docClient },
+    {
+      TableName: tableName,
+      //For more information on query expressions, see
+      // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#Query.KeyConditionExpressions
+      KeyConditionExpression: "#y = :y",
+      // 'year' is a reserved word in DynamoDB. Indicate that it's an attribute
+      // name by using an expression attribute name.
+      ExpressionAttributeNames: { "#y": "year" },
+      ExpressionAttributeValues: { ":y": 1981 },
+      ConsistentRead: true,
+    }
+  );
+  /**
+   * @type { Record<string, any>[] };
+   */
+  const movies1981 = [];
+  for await (const page of paginatedQuery) {
+    movies1981.push(...page.Items);
+  }
+  log(`Movies: ${movies1981.map((m) => m.title).join(", ")}`);
+
+  /**
+   * Scan the table for movies between 1980 and 1990.
+   */
+
+  log(`Scan for movies released between 1980 and 1990`);
+  const paginatedScan = paginateScan(
+    { client: docClient },
+    {
+      TableName: tableName,
+      FilterExpression: "#y between :y1 and :y2",
+      ExpressionAttributeNames: { "#y": "year" },
+      ExpressionAttributeValues: { ":y1": 1980, ":y2": 1990 },
+      ConsistentRead: true,
+    }
+  );
+  /**
+   * @type { Record<string, any>[] };
+   */
+  const movies1980to1990 = [];
+  for await (const page of paginatedScan) {
+    movies1980to1990.push(...page.Items);
+  }
+  log(
+    `Movies: ${movies1980to1990
+      .map((m) => `${m.title} (${m.year})`)
+      .join(", ")}`
+  );
 
   /**
    * Delete the table.
