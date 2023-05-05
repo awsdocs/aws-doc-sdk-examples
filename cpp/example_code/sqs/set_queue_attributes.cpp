@@ -21,7 +21,7 @@
 #include "sqs_samples.h"
 
 // snippet-start:[cpp.example_code.sqs.SetQueueAttributes]
-//! Set the value of one of an Amazon Simple Queue Service (Amazon SQS) queue's attributes.
+//! Set the value for an attribute in an Amazon Simple Queue Service (Amazon SQS) queue.
 /*!
   \param queueUrl: An Amazon SQS queue URL.
   \param attributeName: An attribute name enum.

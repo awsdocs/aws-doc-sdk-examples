@@ -24,7 +24,7 @@
 #include "sqs_samples.h"
 
 //! Receive a message from an Amazon Simple Queue Service (Amazon SQS) queue
-//! specifying the wait time.
+//! that specifies the wait time.
 /*!
   \param queueUrl: An Amazon SQS queue URL.
   \param waitTimeSeconds: The wait time in seconds.
@@ -34,9 +34,9 @@
 bool AwsDoc::SQS::receiveMessageWithWaitTime(const Aws::String &queueUrl,
                                              int waitTimeSeconds,
                                              const Aws::Client::ClientConfiguration &clientConfiguration) {
-    // Let's make sure the request timeout is larger than the maximum possible
+    // Make sure the request timeout is larger than the maximum possible
     // long poll time so that valid receiveMessage requests don't fail on long
-    // poll queues
+    // poll queues.
     Aws::Client::ClientConfiguration customConfiguration(clientConfiguration);
     customConfiguration.requestTimeoutMs = 30000;
 

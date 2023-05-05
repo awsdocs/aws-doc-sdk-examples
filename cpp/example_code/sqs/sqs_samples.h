@@ -127,11 +127,11 @@ namespace AwsDoc {
                          const Aws::String &messageBody,
                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Connect an Amazon SQS queue to an associated Amazon SQS dead letter queue.
+        //! Connect an Amazon SQS queue to an associated dead-letter queue.
         /*!
           \param srcQueueUrl: An Amazon SQS queue URL.
-          \param deadLetterQueueARN: The Amazon Resource Name (ARN) of an Amazon SQS dead letter queue.
-          \param maxReceiveCount: The max receive count of a message before it is sent to the dead letter queue.
+          \param deadLetterQueueARN: The Amazon Resource Name (ARN) of a dead-letter queue.
+          \param maxReceiveCount: The max receive count of a message before it is sent to the dead-letter queue.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */

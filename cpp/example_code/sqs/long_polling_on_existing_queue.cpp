@@ -23,7 +23,7 @@
 #include "sqs_samples.h"
 
 // snippet-start:[cpp.example_code.sqs.LongPollingAttribute]
-//! Set an Amazon Simple Queue Service (Amazon SQS) queue's poll wait time.
+//! Set the wait time for an Amazon Simple Queue Service (Amazon SQS) queue poll.
 /*!
   \param queueUrl: An Amazon SQS queue URL.
   \param pollTimeSeconds: The receive message wait time in seconds.

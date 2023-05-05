@@ -29,11 +29,11 @@ static Aws::String MakeRedrivePolicy(const Aws::String &queueArn, int maxReceive
 
 // snippet-start:[cpp.example_code.sqs.SetDeadLetterQueue]
 //! Connect an Amazon Simple Queue Service (Amazon SQS) queue to an associated
-//! Amazon SQS dead letter queue.
+//! dead-letter queue.
 /*!
   \param srcQueueUrl: An Amazon SQS queue URL.
-  \param deadLetterQueueARN: The Amazon Resource Name (ARN) of an Amazon SQS dead letter queue.
-  \param maxReceiveCount: The max receive count of a message before it is sent to the dead letter queue.
+  \param deadLetterQueueARN: The Amazon Resource Name (ARN) of an Amazon SQS dead-letter queue.
+  \param maxReceiveCount: The max receive count of a message before it is sent to the dead-letter queue.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -68,10 +68,10 @@ bool AwsDoc::SQS::setDeadLetterQueue(const Aws::String &srcQueueUrl,
     return outcome.IsSuccess();
 }
 
-//! Make a redrive policy for a dead letter queue.
+//! Make a redrive policy for a dead-letter queue.
 /*!
-  \param queueArn: An Amazon SQS ARN for the dead letter queue.
-  \param maxReceiveCount: The max receive count of a message before it is sent to the dead letter queue.
+  \param queueArn: An Amazon SQS ARN for the dead-letter queue.
+  \param maxReceiveCount: The max receive count of a message before it is sent to the dead-letter queue.
   \return Aws::String: Policy as JSON string.
  */
 // snippet-start:[sqs.cpp.make_redrive_policy.code]
@@ -97,7 +97,7 @@ Aws::String MakeRedrivePolicy(const Aws::String &queueArn, int maxReceiveCount) 
  *
  *  Usage: 'run_dead_letter_queue <source_queue_url> <dead_letter_queue_arn> <max_messages>'
  *
- *  Prerequisites: An existing Amazon SQS queue and a an existing dead letter queue.
+ *  Prerequisites: An existing Amazon SQS queue and an existing dead-letter queue.
  *
  */
 

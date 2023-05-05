@@ -910,8 +910,10 @@ sqs_SetQueueAttributes:
   services:
     sqs: {SetQueueAttributes}
 sqs_SetQueueAttributes_generic:
-  title: Set the attributes for an &SQS; queue
-  title_abbrev: Set the attributes for a queue
+  title: Set &SQS; queue attributes 
+
+  title_abbrev: Set queue attributes 
+
   synopsis: set the attributes for an &SQS; queue.
   category:
   languages:
@@ -928,9 +930,12 @@ sqs_SetQueueAttributes_generic:
   services:
     sqs: {SetQueueAttributes}
 sqs_DeadLetterQueue:
-  title: Configure a dead letter queue in &SQS;
-  title_abbrev: Configure a dead letter queue
-  synopsis: configure a dead letter queue in &SQS;.
+  title: Configure a dead-letter queue in &SQS;
+
+  title_abbrev: Configure a dead-letter queue
+
+  synopsis: configure a dead-letter queue in &SQS;.
+
   category:
   languages:
     C++:
