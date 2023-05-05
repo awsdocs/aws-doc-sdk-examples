@@ -18,7 +18,7 @@
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(SNS_GTests, get_subscriptionAttributes_2_) {
-        Aws::String subscriptionARN = getSubscriptionARN();
+        Aws::String subscriptionARN = getStashedSubscription();
         ASSERT_FALSE(subscriptionARN.empty()) << preconditionError() << std::endl;
 
         auto result = AwsDoc::SNS::getSubscriptionAttributes(subscriptionARN,

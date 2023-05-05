@@ -38,8 +38,7 @@ void AwsDocTest::SNS_GTests::TearDownTestSuite() {
         s_stashedTopicARN.clear();
     }
 
-    if (!s_stashedSubscriptionARN.empty())
-    {
+    if (!s_stashedSubscriptionARN.empty()) {
         unsubscribe(s_stashedSubscriptionARN);
         s_stashedSubscriptionARN.clear();
     }
@@ -146,52 +145,51 @@ Aws::String AwsDocTest::SNS_GTests::uuidName(const Aws::String &name) {
 Aws::String AwsDocTest::SNS_GTests::getSubscriptionARN() {
     Aws::String result;
 
-        Aws::String topicARN = getStashedTopicARN();
-        Aws::String lambdaEndpoint;
-        if (!topicARN.empty()) {
-            lambdaEndpoint = topicARN;
-            size_t snsStart = lambdaEndpoint.find("sns");
-            size_t topicStart = lambdaEndpoint.find(TOPIC_NAME_PREFIX);
-            if ((snsStart != std::string::npos) && (topicStart != std::string::npos)) {
-                lambdaEndpoint.replace(topicStart, lambdaEndpoint.length() - topicStart,
-                                       "function:hello_sns");
-                lambdaEndpoint.replace(snsStart, 3, "lambda");
-            }
-            else {
-                std::cerr
-                        << "SNS_GTests::getSubscriptionARN issue creating lambdaEndpoint '"
-                        << lambdaEndpoint << "'." << std::endl;
-                lambdaEndpoint.clear();
-            }
+    Aws::String topicARN = getStashedTopicARN();
+    Aws::String lambdaEndpoint;
+    if (!topicARN.empty()) {
+        lambdaEndpoint = topicARN;
+        size_t snsStart = lambdaEndpoint.find("sns");
+        size_t topicStart = lambdaEndpoint.find(TOPIC_NAME_PREFIX);
+        if ((snsStart != std::string::npos) && (topicStart != std::string::npos)) {
+            lambdaEndpoint.replace(topicStart, lambdaEndpoint.length() - topicStart,
+                                   "function:hello_sns");
+            lambdaEndpoint.replace(snsStart, 3, "lambda");
         }
-        if (!lambdaEndpoint.empty()) {
-            Aws::SNS::SNSClient snsClient(*s_clientConfig);
-
-            Aws::SNS::Model::SubscribeRequest request;
-            request.SetTopicArn(topicARN);
-            request.SetProtocol("lambda");
-
-            request.SetEndpoint(lambdaEndpoint);
-
-            const Aws::SNS::Model::SubscribeOutcome outcome = snsClient.Subscribe(
-                    request);
-
-            if (outcome.IsSuccess()) {
-                result = outcome.GetResult().GetSubscriptionArn();
-            }
-            else {
-                std::cerr << "Error while subscribing "
-                          << outcome.GetError().GetMessage()
-                          << std::endl;
-            }
+        else {
+            std::cerr
+                    << "SNS_GTests::getSubscriptionARN issue creating lambdaEndpoint '"
+                    << lambdaEndpoint << "'." << std::endl;
+            lambdaEndpoint.clear();
         }
+    }
+    if (!lambdaEndpoint.empty()) {
+        Aws::SNS::SNSClient snsClient(*s_clientConfig);
+
+        Aws::SNS::Model::SubscribeRequest request;
+        request.SetTopicArn(topicARN);
+        request.SetProtocol("lambda");
+
+        request.SetEndpoint(lambdaEndpoint);
+
+        const Aws::SNS::Model::SubscribeOutcome outcome = snsClient.Subscribe(
+                request);
+
+        if (outcome.IsSuccess()) {
+            result = outcome.GetResult().GetSubscriptionArn();
+        }
+        else {
+            std::cerr << "Error while subscribing "
+                      << outcome.GetError().GetMessage()
+                      << std::endl;
+        }
+    }
 
     return result;
 }
 
 Aws::String AwsDocTest::SNS_GTests::getStashedSubscription() {
-    if (s_stashedSubscriptionARN.empty())
-    {
+    if (s_stashedSubscriptionARN.empty()) {
         s_stashedSubscriptionARN = getSubscriptionARN();
     }
 

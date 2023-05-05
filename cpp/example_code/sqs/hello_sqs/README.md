@@ -1,8 +1,8 @@
-# Hello SNS for the SDK for C++
+# Hello SQS for the SDK for C++
 
 ## Overview
 
-This folder provides a CMake "Hello SNS" project which uses the AWS SDK of C++ to call the Amazon Simple Notification Service (Amazon SNS).
+This folder provides a CMake "Hello SQS" project which uses the AWS SDK of C++ to call the Amazon Simple Queue Service (Amazon SQS).
 
 ## ⚠ Important
 
@@ -11,7 +11,7 @@ This folder provides a CMake "Hello SNS" project which uses the AWS SDK of C++ t
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-## Run the Hello SNS App
+## Run the Hello SQS App
 
 ### Prerequisites
 
@@ -33,26 +33,24 @@ cd build
 cmake --build ..
 ```
 
-The built executable is named `hello_sns`.
+The built executable is named `hello_sqs`.
 
-
-This example can be run with the AWS Managed Policy "arn:aws:iam::aws:policy/AmazonSNSReadOnlyAccess".
-
+This example can be run with the AWS Managed Policy "arn:aws:iam::aws:policy/AmazonSQSReadOnlyAccess".
 
 You can also use CMake to generate the input files for your native build system.
 For more information, see https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html.
 
 The [CMakeLists.txt](CMakeLists.txt) file contains the build settings. If your build is failing (particularly on Windows), you may need to modify this file.
 
-The [hello_sns.cpp](hello_sns.cpp) file contains the C++ source code, including a "main" function.
+The [hello_sqs.cpp](hello_sqs.cpp) file contains the C++ source code, including a "main" function.
 
 
 
 ## Additional resources
 
-* [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
-* [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
-* [SDK for C++ Amazon SNS reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-sns/html/annotated.html)
+* [Amazon SQS Developer Guide](https://docs.aws.amazon.com/sqs/latest/dg/welcome.html)
+* [Amazon SQS API Reference](https://docs.aws.amazon.com/sqs/latest/api/welcome.html)
+* [SDK for C++ Amazon SQS reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-sqs/html/annotated.html)
 
 ---
 

@@ -1,0 +1,41 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# snippet-start:[cpp.example_code.sqs.hello_sqs.cmake]
+# Set the minimum required version of CMake for this project.
+cmake_minimum_required(VERSION 3.8)
+
+# Set the AWS service components used by this project.
+set(SERVICE_COMPONENTS sqs)
+
+# Set this project's name.
+project("hello_sqs")
+
+# Set the C++ standard to use to build this target.
+# At least C++ 11 is required for the AWS SDK for C++.
+set(CMAKE_CXX_STANDARD 11)
+
+# Use the MSVC variable to determine if this is a Windows build.
+set(WINDOWS_BUILD ${MSVC})
+
+if (WINDOWS_BUILD) # Set the location where CMake can find the installed libraries for the AWS SDK.
+    string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
+    list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
+endif ()
+
+# Find the AWS SDK for C++ package.
+find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
+
+if (WINDOWS_BUILD) 
+    set(CMAKE_BUILD_TYPE Debug) # Explicitly set CMAKE_BUILD_TYPE to match the selected Visual Studio build configuration.
+
+    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
+    AWSSDK_CPY_DYN_LIBS(SERVICE_COMPONENTS "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+endif ()
+
+add_executable(${PROJECT_NAME}
+        hello_sqs.cpp)
+
+target_link_libraries(${PROJECT_NAME}
+        ${AWSSDK_LINK_LIBRARIES})
+# snippet-end:[cpp.example_code.sqs.hello_sqs.cmake]

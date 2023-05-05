@@ -679,8 +679,8 @@ bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
                                       const Aws::SQS::SQSClient& sqsClient,
                                       bool askUser) {
     bool result = true;
+    printAsterisksLine();
     if (!queueURLS.empty() && askUser && askYesNoQuestion("Would you like to delete the SQS queues? (y/n) ")) {
-        printAsterisksLine();
 
         for (const auto &queueURL: queueURLS) {
             // 9.  Delete an SQS queue.
@@ -722,8 +722,8 @@ bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
         }
     }
 
+    printAsterisksLine();
     if (!topicARN.empty() && askUser && askYesNoQuestion("Would you like to delete the SNS topic? (y/n) ")) {
-        printAsterisksLine();
 
         // 11. Delete an SNS topic.
         Aws::SNS::Model::DeleteTopicRequest request;
