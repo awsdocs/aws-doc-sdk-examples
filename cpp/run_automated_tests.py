@@ -26,6 +26,7 @@ import sys
 import getopt
 import glob
 import re
+import datetime
 
 
 def build_tests(service="*"):
@@ -150,10 +151,13 @@ def main(argv):
         elif opt in ("-s"):
             service = arg
 
+    start_time = datetime.datetime.now()
     [err_code, run_files] = build_tests(service=service)
 
     if err_code == 0 :
         err_code = run_tests(run_files = run_files, type1=type1, type2=type2, type3=type3)
+
+    print(f"Execution duration - {datetime.datetime.now() - start_time}")
 
     return err_code
 
