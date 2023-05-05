@@ -31,7 +31,7 @@ import webbrowser
 
 import boto3
 import qrcode
-from warrant import aws_srp
+from pycognito import aws_srp
 
 from cognito_idp_actions import CognitoIdentityProviderWrapper
 
