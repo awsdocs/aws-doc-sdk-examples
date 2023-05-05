@@ -31,7 +31,8 @@ import {
   paginateScan,
 } from "@aws-sdk/lib-dynamodb";
 
-// These modules are local to our GitHub repository. We recommend cloning the project from GitHub if you want to run this example.
+// These modules are local to our GitHub repository. We recommend cloning 
+// the project from GitHub if you want to run this example.
 // For more information, see https://github.com/awsdocs/aws-doc-sdk-examples.
 import { getUniqueName } from "libs/utils/util-string.js";
 import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
