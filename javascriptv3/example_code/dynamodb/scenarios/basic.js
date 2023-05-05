@@ -31,8 +31,7 @@ import {
   paginateScan,
 } from "@aws-sdk/lib-dynamodb";
 
-// These modules are local to our GitHub repository. We recommend
-// cloning the project from GitHub if you want to run this example.
+// These modules are local to our GitHub repository. We recommend cloning the project from GitHub if you want to run this example.
 // For more information, see https://github.com/awsdocs/aws-doc-sdk-examples.
 import { getUniqueName } from "libs/utils/util-string.js";
 import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
@@ -230,10 +229,15 @@ export const main = async () => {
    */
 
   log(`Scan for movies released between 1980 and 1990`);
+  // A 'Scan' operation always reads every item in the table. If your design requires
+  // the use of 'Scan', consider indexing your table or changing your design.
+  // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-query-scan.html
   const paginatedScan = paginateScan(
     { client: docClient },
     {
       TableName: tableName,
+      // Scan uses a filter expression instead of a key condition expression. Scan will
+      // read the entire table and then apply the filter.
       FilterExpression: "#y between :y1 and :y2",
       ExpressionAttributeNames: { "#y": "year" },
       ExpressionAttributeValues: { ":y1": 1980, ":y2": 1990 },
