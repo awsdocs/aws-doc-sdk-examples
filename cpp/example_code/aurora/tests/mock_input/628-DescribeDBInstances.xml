@@ -1,0 +1,14 @@
+<DescribeDBInstancesResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeDBInstancesResult>
+        <DBInstances>
+            <DBInstance>
+                <DBInstanceStatus>deleting</DBInstanceStatus>
+                <DBInstanceIdentifier>doc-example-cpp-instance</DBInstanceIdentifier>
+            </DBInstance>
+        </DBInstances>
+    </DescribeDBInstancesResult>
+    <ResponseMetadata>
+        <RequestId>1cec0b22-92fd-427c-a080-05bca0558020</RequestId>
+    </ResponseMetadata>
+</DescribeDBInstancesResponse>
+ 

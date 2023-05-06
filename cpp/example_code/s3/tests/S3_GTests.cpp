@@ -333,8 +333,10 @@ Aws::String AwsDocTest::S3_GTests::GetBucketPolicy(const Aws::String &bucketName
 }
 
 void AwsDocTest::S3_GTests::SetUp() {
-    m_savedBuffer = std::cout.rdbuf();
-    std::cout.rdbuf(&m_coutBuffer);
+    if (suppressStdOut()) {
+        m_savedBuffer = std::cout.rdbuf();
+        std::cout.rdbuf(&m_coutBuffer);
+    }
 }
 
 void AwsDocTest::S3_GTests::TearDown() {
@@ -342,6 +344,10 @@ void AwsDocTest::S3_GTests::TearDown() {
         std::cout.rdbuf(m_savedBuffer);
         m_savedBuffer = nullptr;
     }
+}
+
+bool AwsDocTest::S3_GTests::suppressStdOut() {
+    return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
 }
 
 

@@ -33,6 +33,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(1)]
+    [Trait("Category", "Integration")]
     public async Task VerifyCreateVocabulary_ValidName_ShouldSucceed()
     {
         var vocabularyName = _configuration["customVocabularyName"];
@@ -54,6 +55,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(2)]
+    [Trait("Category", "Integration")]
     public async Task VerifyCreateVocabulary_NonValidName_ShouldThrowException()
     {
         var vocabularyName = " ";
@@ -72,6 +74,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(3)]
+    [Trait("Category", "Integration")]
     public async Task GetVocabulary_ValidName_ShouldSucceed()
     {
         var vocabularyName = _configuration["customVocabularyName"];
@@ -92,6 +95,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(4)]
+    [Trait("Category", "Integration")]
     public async Task GetVocabulary_WrongName_ShouldThrowException()
     {
         await Assert.ThrowsAsync<Amazon.TranscribeService.Model.BadRequestException>(async () =>
@@ -106,6 +110,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(5)]
+    [Trait("Category", "Integration")]
     public async Task UpdateVocabulary_ShouldSucceed()
     {
         var vocabularyName = _configuration["customVocabularyName"];
@@ -127,6 +132,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(6)]
+    [Trait("Category", "Integration")]
     public async Task UpdateVocabulary_WrongName_ShouldThrowException()
     {
         var phrases = new List<string> { "testPhraseUpdate" };
@@ -143,6 +149,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(7)]
+    [Trait("Category", "Integration")]
     public async Task ListVocabulary_ShouldReturnResults()
     {
         var result = await _wrapper.ListCustomVocabularies();
@@ -155,6 +162,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(8)]
+    [Trait("Category", "Integration")]
     public async Task DeleteVocabulary_ShouldSucceed()
     {
         var vocabularyName = _configuration["customVocabularyName"];
@@ -168,6 +176,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(9)]
+    [Trait("Category", "Integration")]
     public async Task VerifyCreateTranscriptionJob_ValidMedia_ShouldComplete()
     {
         var mediaLocation = _configuration["transcriptionMediaLocation"];
@@ -194,6 +203,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(10)]
+    [Trait("Category", "Integration")]
     public async Task VerifyCreateTranscriptionJob_MissingMedia_ShouldThrowException()
     {
         var mediaLocation = _configuration["transcriptionMediaLocation"];
@@ -214,6 +224,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(11)]
+    [Trait("Category", "Integration")]
     public async Task ListTranscriptionJobs_ShouldReturnResults()
     {
         var result = await _wrapper.ListTranscriptionJobs();
@@ -226,6 +237,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(11)]
+    [Trait("Category", "Integration")]
     public async Task DeleteTranscriptionJob_ShouldSucceed()
     {
         var transcriptionJobName = _configuration["transcriptionJobName"];
@@ -239,6 +251,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(12)]
+    [Trait("Category", "Integration")]
     public async Task VerifyCreateMedicalTranscriptionJob_ValidMedia_ShouldComplete()
     {
         var mediaLocation = _configuration["transcriptionMediaLocation"];
@@ -266,6 +279,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(13)]
+    [Trait("Category", "Integration")]
     public async Task VerifyCreateMedicalTranscriptionJob_DuplicateName_ShouldThrowException()
     {
         var mediaLocation = _configuration["transcriptionMediaLocation"];
@@ -286,6 +300,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(14)]
+    [Trait("Category", "Integration")]
     public async Task ListMedicalTranscriptionJobs_ShouldReturnResults()
     {
         var result = await _wrapper.ListMedicalTranscriptionJobs();
@@ -298,6 +313,7 @@ public class TranscribeExampleTests
     /// <returns>Async task.</returns>
     [Fact]
     [Order(15)]
+    [Trait("Category", "Integration")]
     public async Task DeleteMedicalTranscriptionJob_ShouldSucceed()
     {
         var medicalTranscriptionJobName = _configuration["medicalTranscriptionJobName"];

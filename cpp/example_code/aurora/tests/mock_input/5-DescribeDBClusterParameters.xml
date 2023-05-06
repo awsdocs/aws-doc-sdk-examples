@@ -1,0 +1,21 @@
+<DescribeDBClusterParametersResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeDBClusterParametersResult>
+        <Parameters>
+            <Parameter>
+                <AllowedValues>0,1</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>boolean</DataType>
+                <Description>Enables per-index compression-related statistics in the
+                    INFORMATION_SCHEMA.INNODB_CMP_PER_INDEX table.
+                </Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <Source>engine-default</Source>
+                <ParameterName>innodb_cmp_per_index_enabled</ParameterName>
+                <IsModifiable>true</IsModifiable>
+                <SupportedEngineModes>
+                    <member>provisioned</member>
+                </SupportedEngineModes>
+            </Parameter>
+        </Parameters>
+    </DescribeDBClusterParametersResult>
+</DescribeDBClusterParametersResponse>

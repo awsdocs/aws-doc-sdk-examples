@@ -1,0 +1,18 @@
+<DescribeDBClusterParametersResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeDBClusterParametersResult>
+        <Parameters>
+            <Parameter>
+                <AllowedValues>1-65535</AllowedValues>
+                <ApplyType>dynamic</ApplyType>
+                <DataType>integer</DataType>
+                <Description>Description text</Description>
+                <ApplyMethod>pending-reboot</ApplyMethod>
+                <Source>user</Source>
+                <ParameterName>auto_increment_increment</ParameterName>
+                <IsModifiable>true</IsModifiable>
+                <ParameterValue>3</ParameterValue>
+            </Parameter>
+        </Parameters>
+    </DescribeDBClusterParametersResult>
+</DescribeDBClusterParametersResponse>
+ 

@@ -82,7 +82,7 @@ async fn remove_cluster(
 ///   If the environment variable is not set, defaults to **us-west-2**.
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
-async fn main() -> Result<(), aws_sdk_eks::Error> {
+async fn main() -> Result<(), Box<aws_sdk_eks::Error>> {
     let Opt {
         arn,
         cluster_name,
@@ -115,5 +115,7 @@ async fn main() -> Result<(), aws_sdk_eks::Error> {
 
     make_cluster(&client, &cluster_name, &arn, subnet_ids).await?;
 
-    remove_cluster(&client, &cluster_name).await
+    remove_cluster(&client, &cluster_name)
+        .await
+        .map_err(Box::new)
 }

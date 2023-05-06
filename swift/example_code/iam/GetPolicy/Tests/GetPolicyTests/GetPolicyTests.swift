@@ -41,7 +41,7 @@ final class GetPolicyTests: XCTestCase {
         tdSem.wait()
     }
 
-    private func createTestPolicy(name: String? = nil) async throws -> IamClientTypes.Policy {
+    private func createTestPolicy(name: String? = nil) async throws -> IAMClientTypes.Policy {
         let policyName = name ?? String.uniqueName()
 
         // The policy document is a JSON string describing the policy. For

@@ -1,0 +1,17 @@
+<DescribeOrderableDBInstanceOptionsResponse xmlns="http://rds.amazonaws.com/doc/2014-10-31/">
+    <DescribeOrderableDBInstanceOptionsResult>
+        <OrderableDBInstanceOptions>
+            <OrderableDBInstanceOption>
+                <OutpostCapable>false</OutpostCapable>
+                <AvailabilityZones>
+                    <AvailabilityZone>
+                        <Name>us-east-1a</Name>
+                    </AvailabilityZone>
+                </AvailabilityZones>
+                <Engine>aurora-mysql</Engine>
+                <EngineVersion>5.7.mysql_aurora.2.07.0</EngineVersion>
+                <DBInstanceClass>db.r3.2xlarge</DBInstanceClass>
+            </OrderableDBInstanceOption>
+        </OrderableDBInstanceOptions>
+    </DescribeOrderableDBInstanceOptionsResult>
+</DescribeOrderableDBInstanceOptionsResponse>

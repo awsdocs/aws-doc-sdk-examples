@@ -17,6 +17,7 @@ namespace AutoScale_Basics.Tests
         private string _GroupName = "test-group-name";
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public void GetCloudWatchMetricsAsyncTest()
         {
             var metrics = CloudWatchMethods.GetCloudWatchMetricsAsync(_GroupName);
@@ -24,6 +25,7 @@ namespace AutoScale_Basics.Tests
         }
 
         [TestMethod()]
+        [TestProperty("Category", "Integration")]
         public void GetMetricStatisticsAsyncTest()
         {
             var metricStatistics = CloudWatchMethods.GetMetricStatisticsAsync(_GroupName);

@@ -11,11 +11,11 @@ jobs:
     env:
       REPORTS: issues
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v3
         with:
           python-version: "3.9.x"
       - run: bash .github/extract-snippets/extract-snippets.sh dryrun

@@ -20,7 +20,7 @@ AWS Glue is a serverless data integration service that makes it easier to discov
 
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
 
-- [Prepare a new crawler, configure its job, and make sure an s3 bucket is prepared](src/pepare.rs) (CreateDatabase, CreateCrawler, GetCrmake sureawler, GetDatabase, GetTable, CreateJob, GetJob)
+- [Prepare a new crawler, configure its job, and make sure an s3 bucket is prepared](src/prepare.rs) (CreateDatabase, CreateCrawler, GetCrmake sureawler, GetDatabase, GetTable, CreateJob, GetJob)
 - [Start a new job run, wait for the job run to complete](src/run.rs) (StartJobRun, GetJobRun, ListJobs)
 - [Clean up the resources created for the run](src/cleanup.rs) ()
 

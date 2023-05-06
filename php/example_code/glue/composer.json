@@ -10,8 +10,8 @@
     "psr-4": {
       "Glue\\": "../glue/",
       "Iam\\": "../iam",
-      "AwsUtilities\\": "../../aws_utilities"
+      "AwsUtilities\\": "../aws_utilities"
     },
-    "files": ["../../aws_utilities/TestableReadline.php"]
+    "files": ["../aws_utilities/TestableReadline.php"]
   }
 }

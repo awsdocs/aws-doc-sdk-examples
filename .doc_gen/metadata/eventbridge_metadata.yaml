@@ -1,10 +1,36 @@
 # zexi 0.4.0
+eventbridge_Hello:
+  title: Hello &EV;
+  title_abbrev: Hello &EV;
+  synopsis: get started using &EV;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - EventBridge.dotnetv3.HelloEventBridge
+  services:
+    eventbridge: {ListEventBuses}
 eventbridge_DeleteRule:
-  title: Delete an &EV; scheduled rule using an &AWS; SDK
-  title_abbrev: Delete a scheduled rule
-  synopsis: delete an &EVlong; scheduled rule.
+  title: Delete an &EV; rule using an &AWS; SDK
+  title_abbrev: Delete a rule
+  synopsis: delete an &EVlong; rule.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description: Delete a rule by its name.
+              snippet_tags:
+                - EventBridge.dotnetv3.DeleteRule
     Kotlin:
       versions:
         - sdk_version: 1
@@ -25,19 +51,133 @@ eventbridge_DeleteRule:
                 - eventbridge.java2._delete_rule.main
   services:
     eventbridge: {DeleteRule}
-eventbridge_PutRule:
-  title: Create an &EV; scheduled rule using an &AWS; SDK
-  title_abbrev: Create a scheduled rule
-  synopsis: create an &EVlong; scheduled rule.
+eventbridge_DescribeRule:
+  title: Describe an &EV; rule using an &AWS; SDK
+  title_abbrev: Describe a rule
+  synopsis: describe an &EVlong; rule.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description: Get the state of a rule using the rule description.
+              snippet_tags:
+                - EventBridge.dotnetv3.DescribeRule
+  services:
+    eventbridge: {DescribeRule}
+eventbridge_DisableRule:
+  title: Disable an &EV; rule using an &AWS; SDK
+  title_abbrev: Disable a rule
+  synopsis: disable an &EVlong; rule.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description: Disable a rule by its rule name.
+              snippet_tags:
+                - EventBridge.dotnetv3.DisableRule
+  services:
+    eventbridge: {DisableRule}
+eventbridge_EnableRule:
+  title: Enable an &EV; rule using an &AWS; SDK
+  title_abbrev: Enable a rule
+  synopsis: enable an &EVlong; rule.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description: Enable a rule by its rule name.
+              snippet_tags:
+                - EventBridge.dotnetv3.EnableRule
+  services:
+    eventbridge: {EnableRule}
+eventbridge_ListRules:
+  title: List &EV; rules using an &AWS; SDK
+  title_abbrev: List rules
+  synopsis: list &EVlong; rules.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description: List all of the rules for an event bus.
+              snippet_tags:
+                - EventBridge.dotnetv3.ListRules
+  services:
+    eventbridge: {ListRules}
+eventbridge_ListRuleNamesByTarget:
+  title: List &EV; rule names for a target using an &AWS; SDK
+  title_abbrev: List rule names for a target
+  synopsis: list &EVlong; rule names for a target.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description: List all of the rule names using the target.
+              snippet_tags:
+                - EventBridge.dotnetv3.ListRuleNamesByTarget
+  services:
+    eventbridge: {ListRuleNamesByTarget}
+eventbridge_ListTargetsByRule:
+  title: List &EV; targets for a rule using an &AWS; SDK
+  title_abbrev: List targets for a rule
+  synopsis: list &EVlong; targets for a rule.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description: List all of the targets for a rule using the rule name.
+              snippet_tags:
+                - EventBridge.dotnetv3.ListTargetsByRule
+  services:
+    eventbridge: {ListTargetsByRule}
+eventbridge_PutRule:
+  title: Create an &EV; rule using an &AWS; SDK
+  title_abbrev: Create a rule
+  synopsis: create an &EVlong; rule.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description: Create a rule that triggers when an object is added to an &S3long; bucket.
+              snippet_tags:
+                - EventBridge.dotnetv3.PutRule
+            - description: Create a rule that uses a custom pattern.
+              snippet_tags:
+                - EventBridge.dotnetv3.PutCustomRulePattern
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/eventbridge
           sdkguide:
           excerpts:
-            - description:
+            - description: Create a scheduled rule.
               snippet_tags:
                 - eventbridge.kotlin._create_schedule_rule.main
     Java:
@@ -46,7 +186,7 @@ eventbridge_PutRule:
           github: javav2/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description:
+            - description: Create a scheduled rule.
               snippet_tags:
                 - eventbridge.java2._create_schedule_rule.main
     C++:
@@ -88,6 +228,15 @@ eventbridge_PutEvents:
   synopsis: send &EVlong; events.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description: Send an event that matches a custom pattern for a rule.
+              snippet_tags:
+                - EventBridge.dotnetv3.PutEvents
     Kotlin:
       versions:
         - sdk_version: 1
@@ -140,11 +289,23 @@ eventbridge_PutEvents:
   services:
     eventbridge: {PutEvents}
 eventbridge_PutTargets:
-  title: Add a &LAM; function target using an &AWS; SDK
-  title_abbrev: Add a &LAM; function target
-  synopsis: add an &LAMlong; function target to an &EVlong; event.
+  title: Add a target using an &AWS; SDK
+  title_abbrev: Add a target
+  synopsis: add a target to an &EVlong; event.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description: Add an &SNS; topic as a target for a rule.
+              snippet_tags:
+                - EventBridge.dotnetv3.PutSnsTarget
+            - description: Add an input transformer to a target for a rule.
+              snippet_tags:
+                - EventBridge.dotnetv3.PutTargetsTransform
     C++:
       versions:
         - sdk_version: 1
@@ -178,6 +339,50 @@ eventbridge_PutTargets:
                 - eventBridge.JavaScript.eb.putTargets
   services:
     eventbridge: {PutTargets}
+eventbridge_RemoveTargets:
+  title: Remove &EV; targets from a rule using an &AWS; SDK
+  title_abbrev: Remove targets from a rule
+  synopsis: remove &EVlong; targets from a rule.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          sdkguide:
+          excerpts:
+            - description: Remove all of the targets for a rule using the rule name.
+              snippet_tags:
+                - EventBridge.dotnetv3.RemoveTargets
+  services:
+    eventbridge: {RemoveTargets}
+eventbridge_Scenario_GettingStarted:
+  title: Get started with &EV; rules and targets using an &AWS; SDK
+  title_abbrev: Get started with rules and targets
+  synopsis_list:
+    - Create a rule.
+    - Add a target to a rule.
+    - Enable and disable rules.
+    - List rules and targets.
+    - Update rules and targets.
+    - Send events.
+    - Delete the rule.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/EventBridge
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - EventBridge.dotnetv3.GettingStarted
+            - description: Create a class that wraps &EV; operations.
+              snippet_tags:
+                - EventBridge.dotnetv3.EventBridgeWrapper
+  services:
+    eventbridge: {PutRule, ListRules, PutTargets, ListTargetsByRule, ListRuleNamesByTarget,
+                  DisableRule, DescribeRule, EnableRule, PutEvents, DeleteRule}
 eventbridge_Scenario_createAndTriggerARule:
   title: Create and trigger a rule in &EVlong; using an &AWS; SDK
   title_abbrev: Create and trigger a rule
@@ -242,4 +447,4 @@ eventbridge_Scenario_createAndTriggerARule:
               snippet_tags:
                 - cloudwatch.cross-service.Ruby.displayReminder
   services:
-    eventbridge: {}
+    eventbridge: {PutRule, PutEvents}

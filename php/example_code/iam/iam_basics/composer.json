@@ -5,7 +5,7 @@
   },
   "autoload": {
     "files": [
-      "../IamService.php"
+      "../IAMService.php"
     ]
   }
 }

@@ -122,7 +122,7 @@ class GlueService extends \AwsUtilities\AWSServiceClass
         if ($nextToken) {
             $arguments['NextToken'] = $nextToken;
         }
-        if (!isEmpty($tags)) {
+        if (!empty($tags)) {
             $arguments['Tags'] = $tags;
         }
         return $this->glueClient->listJobs($arguments);

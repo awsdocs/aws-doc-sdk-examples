@@ -4,6 +4,15 @@ iam_Hello:
   synopsis: get started using &IAMlong; (&IAM;).
   category: Hello
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.HelloIAM
     Go:
       versions:
         - sdk_version: 2
@@ -283,7 +292,7 @@ iam_GetAccountPasswordPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.GetAccountPasswordPolicyExample
+                - IAM.dotnetv3.GetAccountPasswordPolicy
     JavaScript:
       versions:
         - sdk_version: 3
@@ -356,7 +365,7 @@ iam_ListSAMLProviders:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.ListSAMLProvidersExample
+                - IAM.dotnetv3.ListSAMLProviders
     JavaScript:
       versions:
         - sdk_version: 3
@@ -451,7 +460,7 @@ iam_Scenario_AccountManagement:
 iam_CreateAccessKey:
   title: Create an &IAM; access key using an &AWS; SDK
   title_abbrev: Create an access key
-  synopsis: create an &IAM; access key.
+  synopsis: create an &IAM; access key. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     .NET:
@@ -554,7 +563,7 @@ iam_CreateAccessKey:
 iam_DeleteAccessKey:
   title: Delete an &IAM; access key using an &AWS; SDK
   title_abbrev: Delete an access key
-  synopsis: delete an &IAM; access key.
+  synopsis: delete an &IAM; access key. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     .NET:
@@ -565,7 +574,7 @@ iam_DeleteAccessKey:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.DeleteResourcesAsync
+                - IAM.dotnetv3.DeleteAccessKey
     Kotlin:
       versions:
         - sdk_version: 1
@@ -669,13 +678,13 @@ iam_DeleteRolePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.DeleteRolePolicyExample
+                - IAM.dotnetv3.DeleteRolePolicy
   services:
     iam: {DeleteRolePolicy}
 iam_GetAccessKeyLastUsed:
   title: Get data about the last use of an &IAM; access key using an &AWS; SDK
   title_abbrev: Get data about the last use of an access key
-  synopsis: get data about the last use of an &IAM; access key.
+  synopsis: get data about the last use of an &IAM; access key. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Python:
@@ -719,7 +728,7 @@ iam_GetAccessKeyLastUsed:
 iam_ListAccessKeys:
   title: List a user's &IAM; access keys using an &AWS; SDK
   title_abbrev: List a user's access keys
-  synopsis: list a user's &IAM; access keys.
+  synopsis: list a user's &IAM; access keys. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Kotlin:
@@ -798,7 +807,7 @@ iam_ListAccessKeys:
 iam_UpdateAccessKey:
   title: Update an &IAM; access key using an &AWS; SDK
   title_abbrev: Update an access key
-  synopsis: update an &IAM; access key.
+  synopsis: update an &IAM; access key. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Java:
@@ -851,6 +860,7 @@ iam_UpdateAccessKey:
 iam_Scenario_ManageAccessKeys:
   title: Manage &IAM; access keys using an &AWS; SDK
   title_abbrev: Manage access keys
+  synopsis: manage access keys. &aws_sec_sdk_use-federation-warning;
   synopsis_list:
     - Create and list access keys.
     - Find out when and how an access key was last used.
@@ -891,7 +901,7 @@ iam_CreatePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.CreatePolicyAsync
+                - IAM.dotnetv3.CreatePolicy
     Kotlin:
       versions:
         - sdk_version: 1
@@ -998,6 +1008,14 @@ iam_DeletePolicy:
   synopsis: delete an &IAM; policy.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeletePolicy
     Go:
       versions:
         - sdk_version: 2
@@ -1111,7 +1129,7 @@ iam_ListPolicies:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.ListPoliciesExample
+                - IAM.dotnetv3.ListPolicies
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1198,7 +1216,7 @@ iam_GetPolicy:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.GetPolicyExample
+                - IAM.dotnetv3.GetPolicy
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1331,7 +1349,7 @@ iam_AttachRolePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.AttachPolicy
+                - IAM.dotnetv3.AttachRolePolicy
     Kotlin:
       versions:
         - sdk_version: 1
@@ -1450,7 +1468,7 @@ iam_ListAttachedRolePolicies:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.ListAttachedRolePoliciesExample
+                - IAM.dotnetv3.ListAttachedRolePolicies
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1530,7 +1548,7 @@ iam_DetachRolePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.DeleteResourcesAsync
+                - IAM.dotnetv3.DetachRolePolicy
     Go:
       versions:
         - sdk_version: 2
@@ -1670,7 +1688,7 @@ iam_CreateRole:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.CreateRoleAsync
+                - IAM.dotnetv3.CreateRole
     Java:
       versions:
         - sdk_version: 2
@@ -1766,7 +1784,7 @@ iam_ListRoles:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.ListRolesExample
+                - IAM.dotnetv3.ListRoles
     Python:
       versions:
         - sdk_version: 3
@@ -1846,7 +1864,7 @@ iam_GetRole:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.GetRoleExample
+                - IAM.dotnetv3.GetRole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1918,6 +1936,14 @@ iam_DeleteRole:
   synopsis: delete an &IAM; role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteRole
     Go:
       versions:
         - sdk_version: 2
@@ -1980,6 +2006,14 @@ iam_PutRolePolicy:
   synopsis: attach an inline policy to an &IAM; role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.PutRolePolicy
     C++:
       versions:
         - sdk_version: 1
@@ -2004,7 +2038,7 @@ iam_ListRolePolicies:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.ListRolePoliciesExample
+                - IAM.dotnetv3.ListRolePolicies
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2091,9 +2125,9 @@ iam_Scenario_RoleManagement:
   services:
     iam: {CreateRole, AttachRolePolicy, DetachRolePolicy, DeleteRole}
 iam_CreateUser:
-  title: Create an &IAM; user using an &AWS; SDK
+  title: Create an &IAM-user; using an &AWS; SDK
   title_abbrev: Create a user
-  synopsis: create an &IAM; user.
+  synopsis: create an &IAM-user;. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     .NET:
@@ -2104,7 +2138,7 @@ iam_CreateUser:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.CreateUserAsync
+                - IAM.dotnetv3.CreateUser
     Kotlin:
       versions:
         - sdk_version: 1
@@ -2206,9 +2240,9 @@ iam_CreateUser:
   services:
     iam: {CreateUser}
 iam_DeleteUser:
-  title: Delete an &IAM; user using an &AWS; SDK
+  title: Delete an &IAM-user; using an &AWS; SDK
   title_abbrev: Delete a user
-  synopsis: delete an &IAM; user.
+  synopsis: delete an &IAM-user;. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     .NET:
@@ -2219,7 +2253,7 @@ iam_DeleteUser:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.DeleteResourcesAsync
+                - IAM.dotnetv3.DeleteUser
     Kotlin:
       versions:
         - sdk_version: 1
@@ -2311,11 +2345,19 @@ iam_DeleteUser:
   services:
     iam: {DeleteUser}
 iam_GetUser:
-  title: Get an &IAM; user using an &AWS; SDK
+  title: Get an &IAM-user; using an &AWS; SDK
   title_abbrev: Get a user
-  synopsis: get an &IAM; user.
+  synopsis: get an &IAM-user;. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.GetUser
     Go:
       versions:
         - sdk_version: 2
@@ -2328,9 +2370,9 @@ iam_GetUser:
   services:
     iam: {GetUser}
 iam_ListUsers:
-  title: List &IAM; users using an &AWS; SDK
+  title: List &IAM-users; using an &AWS; SDK
   title_abbrev: List users
-  synopsis: list &IAM; users.
+  synopsis: list &IAM-users;. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     .NET:
@@ -2341,7 +2383,7 @@ iam_ListUsers:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.ListUsersExample
+                - IAM.dotnetv3.ListUsers
     Kotlin:
       versions:
         - sdk_version: 1
@@ -2441,9 +2483,9 @@ iam_ListUsers:
   services:
     iam: {ListUsers}
 iam_UpdateUser:
-  title: Update an &IAM; user using an &AWS; SDK
+  title: Update an &IAM-user; using an &AWS; SDK
   title_abbrev: Update a user
-  synopsis: update an &IAM; user.
+  synopsis: update an &IAM-user;. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Kotlin:
@@ -2505,7 +2547,7 @@ iam_UpdateUser:
 iam_AttachUserPolicy:
   title: Attach an &IAM; policy to a user using an &AWS; SDK
   title_abbrev: Attach a policy to a user
-  synopsis: attach an &IAM; policy to a user.
+  synopsis: attach an &IAM; policy to a user. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Python:
@@ -2530,7 +2572,7 @@ iam_AttachUserPolicy:
 iam_DetachUserPolicy:
   title: Detach an &IAM; policy from a user using an &AWS; SDK
   title_abbrev: Detach a policy from a user
-  synopsis: detach an &IAM; policy from a user.
+  synopsis: detach an &IAM; policy from a user. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Python:
@@ -2552,10 +2594,26 @@ iam_DetachUserPolicy:
                 - rust.example_code.iam.service.detach_user_policy
   services:
     iam: {DetachUserPolicy}
+iam_PutGroupPolicy:
+  title: Create an inline &IAM; policy for a group using an &AWS; SDK
+  title_abbrev: Create an inline policy for a group
+  synopsis: create an inline &IAM; policy for a group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.PutGroupPolicy
+  services:
+    iam: {PutGroupPolicy}
 iam_PutUserPolicy:
   title: Create an inline &IAM; policy for a user using an &AWS; SDK
   title_abbrev: Create an inline policy for a user
-  synopsis: create an inline &IAM; policy for a user.
+  synopsis: create an inline &IAM; policy for a user. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Go:
@@ -2589,7 +2647,7 @@ iam_PutUserPolicy:
 iam_ListUserPolicies:
   title: List inline &IAM; policies for a user using an &AWS; SDK
   title_abbrev: List inline policies for a user
-  synopsis: list inline &IAM; policies for a user.
+  synopsis: list inline &IAM; policies for a user. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
     Go:
@@ -2606,9 +2664,17 @@ iam_ListUserPolicies:
 iam_DeleteUserPolicy:
   title: Delete an inline &IAM; policy from a user using an &AWS; SDK
   title_abbrev: Delete an inline policy from a user
-  synopsis: delete an inline &IAM; policy from a user.
+  synopsis: delete an inline &IAM; policy from a user. &aws_sec_sdk_use-federation-warning;
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteUserPolicy
     Go:
       versions:
         - sdk_version: 2
@@ -2646,10 +2712,11 @@ iam_DeleteUserPolicy:
   services:
     iam: {DeleteUserPolicy}
 iam_Scenario_UserPolicies:
-  title: Create read-only and read-write &IAM; users using an &AWS; SDK
+  title: Create read-only and read-write &IAM-users; using an &AWS; SDK
   title_abbrev: Create read-only and read-write users
+  synopsis: create users and attach policies to them. &aws_sec_sdk_use-federation-warning;
   synopsis_list:
-    - Create two &IAM; users.
+    - Create two &IAM-users;.
     - Attach a policy that lets one of the users get and put objects in an &S3long; (&S3;) bucket.
     - Attach a policy that lets the other user get objects from the bucket.
     - Obtain differing permissions to the bucket based on user credentials.
@@ -2661,7 +2728,7 @@ iam_Scenario_UserPolicies:
           github: python/example_code/iam/iam_basics
           sdkguide:
           excerpts:
-            - description: Create functions that wrap &IAM; user actions.
+            - description: Create functions that wrap &IAM-user; actions.
               snippet_tags:
                 - python.example_code.iam.user_wrapper.imports
                 - python.example_code.iam.CreateUser
@@ -2827,6 +2894,91 @@ iam_DeleteServerCertificate:
                 - iam.cpp.delete_server_cert.code
   services:
     iam: {DeleteServerCertificate}
+iam_CreateGroup:
+  title: Create an &IAM; group using an &AWS; SDK
+  title_abbrev: Create a group
+  synopsis: create an &IAM; group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreateGroup
+  services:
+    iam: {CreateGroup}
+iam_AddUserToGroup:
+  title: Add an &IAM; user to a group using an &AWS; SDK
+  title_abbrev: Add a user to a group
+  synopsis: add a user to an &IAM; group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.AddUserToGroup
+  services:
+    iam: {AddUserToGroup}
+iam_RemoveUserFromGroup:
+  title: Remove an &IAM; user from a group using an &AWS; SDK
+  title_abbrev: Remove a user from a group
+  synopsis: remove a user from an &IAM; group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.RemoveUserFromGroup
+  services:
+    iam: {RemoveUserFromGroup}
+iam_DeleteGroup:
+  title: Delete an &IAM; group using an &AWS; SDK
+  title_abbrev: Delete a group
+  synopsis: delete an &IAM; group.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteGroup
+  services:
+    iam: {DeleteGroup}
+iam_DeleteGroupPolicy:
+  title: Delete an &IAM; group policy using an &AWS; SDK
+  title_abbrev: Delete a group policy
+  synopsis: delete an &IAM; group policy.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.DeleteGroupPolicy
+  services:
+    iam: {DeleteGroupPolicy}
 iam_ListGroups:
   title: List &IAM; groups using an &AWS; SDK
   title_abbrev: List groups
@@ -2841,7 +2993,7 @@ iam_ListGroups:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.ListGroupsExample
+                - IAM.dotnetv3.ListGroups
     JavaScript:
       versions:
         - sdk_version: 3
@@ -2913,6 +3065,15 @@ iam_CreateServiceLinkedRole:
   synopsis: create an &IAM; service-linked role.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.CreateServiceLinkedRole
     JavaScript:
       versions:
         - sdk_version: 3
@@ -3012,9 +3173,39 @@ iam_DeleteServiceLinkedRole:
                 - rust.example_code.iam.service.delete_service_linked_role
   services:
     iam: {DeleteServiceLinkedRole}
+iam_Scenario_GroupBasics:
+  title: Create an &IAM; group and ass a user to the group using an &AWS; SDK
+  title_abbrev: Create a group and add a user
+  synopsis_list:
+    - Create a group.
+    - Grant full &S3; access permissions to the group.
+    - Create a new user with no permissions to access &S3;.
+    - Add the user to the group.
+    - Show that the user now has permissions to create and delete &S3; buckets.
+    - Delete the &S3; bucket, the user, and the group.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/IAM/IAMGroups
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - IAM.dotnetv3.IAMGroups.Usings
+                - IAM.dotnetv3.IAMWrapper
+                - IAM.dotnetv3.IAMGroups
+                - IAM.dotnetv3.IAMCommon.S3Wrapper
+                - IAM.dotnetv3.IAMCommon.UIWrapper
+  services:
+    iam: {AddUserToGroup, CreateGroup, CreateUser, CreateAccessKey, CreateRole,
+          CreatePolicy, AttachRolePolicy, PutGroupPolicy, DeleteGroup, DeleteGroupPolicy,
+          DeleteAccessKey, DeleteUser, RemoveUserFromGroup}
 iam_Scenario_CreateUserAssumeRole:
-  title: Create an &IAM; user and assume a role with &STS; using an &AWS; SDK
+  title: Create an &IAM-user; and assume a role with &STS; using an &AWS; SDK
   title_abbrev: Create a user and assume a role
+  synopsis: create a user and assume a role. &aws_sec_sdk_use-federation-warning;
   synopsis_list:
     - Create a user who has no permissions.
     - Create a role that grants permission to list &S3; buckets for the account.
@@ -3026,19 +3217,23 @@ iam_Scenario_CreateUserAssumeRole:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/IAM/IAM_Basics_Scenario
+          github: dotnetv3/IAM/IAMBasics
           sdkguide:
           excerpts:
             - description:
               snippet_tags:
-                - IAM.dotnetv3.IAM_BasicsScenario
+                - IAM.dotnetv3.IAMBasics.Usings
+                - IAM.dotnetv3.IAMWrapper
+                - IAM.dotnetv3.IAMBasics
+                - IAM.dotnetv3.IAMCommon.S3Wrapper
+                - IAM.dotnetv3.IAMCommon.UIWrapper
     Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/iam
           sdkguide:
           excerpts:
-            - description: Create functions that wrap &IAM; user actions.
+            - description: Create functions that wrap &IAM-user; actions.
               snippet_tags:
                 - iam.kotlin.scenario.main
     Java:
@@ -3047,7 +3242,7 @@ iam_Scenario_CreateUserAssumeRole:
           github: javav2/example_code/iam
           sdkguide:
           excerpts:
-            - description: Create functions that wrap &IAM; user actions.
+            - description: Create functions that wrap &IAM-user; actions.
               snippet_tags:
                 - iam.java2.scenario.main
     JavaScript:
@@ -3059,7 +3254,7 @@ iam_Scenario_CreateUserAssumeRole:
             - description: Create the client.
               snippet_tags:
                 - iam.JavaScript.scenario.createclientv3
-            - description: Create an &IAM; user and a role that grants permission
+            - description: Create an &IAM-user; and a role that grants permission
                 to list &S3; buckets. The user has rights only to assume the role.
                 After assuming the role, use temporary credentials to list buckets for
                 the account.
@@ -3080,7 +3275,7 @@ iam_Scenario_CreateUserAssumeRole:
           github: python/example_code/iam/iam_basics
           sdkguide:
           excerpts:
-            - description: Create an &IAM; user and a role that grants permission
+            - description: Create an &IAM-user; and a role that grants permission
                 to list &S3; buckets. The user has rights only to assume the role.
                 After assuming the role, use temporary credentials to list buckets for
                 the account.

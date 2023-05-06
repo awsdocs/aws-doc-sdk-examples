@@ -39,7 +39,7 @@
         {{- range $category := $svc_examples.CategoryNamesSorted}}
         {{- if ne $category "Hello"}}
         {{- with $cat_examples := index $svc_examples.CategorizedExampleSets $category}}
-        <section>
+        <section id="{{makeId $cat_examples.CategoryName}}">
             <info>
                 <title>{{$cat_examples.CategoryName}}</title>
                 <titleabbrev>{{$cat_examples.CategoryName}}</titleabbrev>

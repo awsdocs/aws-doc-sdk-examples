@@ -33,8 +33,10 @@ void AwsDocTest::STS_GTests::TearDownTestSuite() {
 }
 
 void AwsDocTest::STS_GTests::SetUp() {
-    m_savedBuffer = std::cout.rdbuf();
-    std::cout.rdbuf(&m_coutBuffer);
+    if (suppressStdOut()) {
+        m_savedBuffer = std::cout.rdbuf();
+        std::cout.rdbuf(&m_coutBuffer);
+    }
 }
 
 void AwsDocTest::STS_GTests::TearDown() {
@@ -134,6 +136,10 @@ Aws::String AwsDocTest::STS_GTests::getUserArn() {
 
 Aws::String AwsDocTest::STS_GTests::preconditionError() {
     return "Failed to meet precondition.";
+}
+
+bool AwsDocTest::STS_GTests::suppressStdOut() {
+    return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
 }
 
 
