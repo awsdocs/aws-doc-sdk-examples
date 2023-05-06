@@ -3,66 +3,59 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use Aws\Result;
 use Aws\SesV2\SesV2Client;
 use Illuminate\Http\Request;
-use Aws\Laravel\AwsFacade as AWS;
 
 class ItemsController extends Controller
 {
-    protected Item $item;
-
-    public function __construct(Item $item)
-    {
-        $this->item = $item;
-        parent::__construct();
-    }
-
     /**
      * Display a listing of the resource.
      *
      */
-    public function index(string $state = null)
+    public function index(Item $item, string $state = null)
     {
-        return $this->item->getItemsByState($state);
+        return $item->getItemsByState($state);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     * @param Item $item
      * @return string JSON
      */
-    public function store(Request $request): string
+    public function store(Request $request, Item $item): string
     {
-        return $this->item->storeItem($request->input());
+        return $item->storeItem($request->input());
     }
 
     /**
      * Set a work item to the archived state.
      *
+     * @param Item $item
      * @param $itemId
      * @return string
      */
-    public function archive($itemId)
+    public function archive(Item $item, $itemId)
     {
-        return $this->item->archiveItem($itemId);
+        return $item->archiveItem($itemId);
     }
 
     /**
      * Send a summary of the selected state to the email provided.
      *
      * @param Request $request
-     * @return \Aws\Result
+     * @param SesV2Client $sesV2Client
+     * @param Item $item
+     * @return Result
      */
-    public function report(Request $request)
+    public function report(Request $request, SesV2Client $sesV2Client, Item $item)
     {
-        /** @var SesV2Client $sesClient */
-        $sesClient = AWS::createClient('sesv2');
-
         $email = $request->input('email');
 
-        $reportData = $this->item->getItemsByState($request->input('status'));
-        return $sesClient->sendEmail([
+        $reportData = $item->getItemsByState($request->input('status'));
+        return $sesV2Client->sendEmail([
             'Content' => [
                 'Simple' => [
                     'Body' => [

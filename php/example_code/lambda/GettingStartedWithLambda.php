@@ -14,6 +14,7 @@ class GettingStartedWithLambda
 {
     public function run()
     {
+        echo("\n");
         echo("--------------------------------------\n");
         print("Welcome to the AWS Lambda getting started demo using PHP!\n");
         echo("--------------------------------------\n");

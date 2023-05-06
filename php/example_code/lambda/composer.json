@@ -9,8 +9,8 @@
     },
     "psr-4": {
       "Lambda\\": "../lambda/",
-      "Iam\\": "../iam",
-      "AwsUtilities\\": "../aws_utilities"
+      "Iam\\": "../iam/",
+      "AwsUtilities\\": "../aws_utilities/"
     },
     "files": ["../aws_utilities/TestableReadline.php"]
   }

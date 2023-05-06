@@ -6,6 +6,9 @@ use Exception;
 use Iam\IAMService;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @group integ
+ */
 class IAMServiceTest extends TestCase
 {
     protected static $service;
