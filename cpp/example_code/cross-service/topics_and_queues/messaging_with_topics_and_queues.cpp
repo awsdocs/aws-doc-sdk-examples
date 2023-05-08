@@ -64,7 +64,7 @@ namespace AwsDoc {
          \return Aws::String: The policy as JSON.
          */
         static Aws::String createPolicyForQueue(const Aws::String &queueARN,
-                                         const Aws::String &topicARN);
+                                                const Aws::String &topicARN);
 
         //! Routine allowing the user to select attributes for a subscription filter policy.
         /*!
@@ -84,12 +84,12 @@ namespace AwsDoc {
          \param askUser: If true, user interaction is enabled.
          \return bool: Function succeeded.
          */
-        static bool cleanUp(const Aws::String& topicARN,
-                     const Aws::Vector<Aws::String>& queueURLS,
-                     const Aws::Vector<Aws::String>& subscriptionARNS,
-                     const Aws::SNS::SNSClient& snsClient,
-                     const Aws::SQS::SQSClient& sqsClient,
-                     bool askUser = false);
+        static bool cleanUp(const Aws::String &topicARN,
+                            const Aws::Vector<Aws::String> &queueURLS,
+                            const Aws::Vector<Aws::String> &subscriptionARNS,
+                            const Aws::SNS::SNSClient &snsClient,
+                            const Aws::SQS::SQSClient &sqsClient,
+                            bool askUser = false);
 
         //! Test routine passed as argument to askQuestion routine.
         /*!
@@ -107,8 +107,8 @@ namespace AwsDoc {
          \return Aws::String: User's response.
          */
         static Aws::String askQuestion(const Aws::String &string,
-                                const std::function<bool(
-                                        Aws::String)> &test = testForEmptyString);
+                                       const std::function<bool(
+                                               Aws::String)> &test = testForEmptyString);
 
         //! Command line prompt/response for yes/no question.
         /*!
@@ -128,7 +128,7 @@ namespace AwsDoc {
          \return int: User's response.
          */
         static int askQuestionForIntRange(const Aws::String &string, int low,
-                                   int high);
+                                          int high);
 
         //! Utility routine to print a line of asterisks to standard out.
         /*!
@@ -173,8 +173,6 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
 
     printAsterisksLine();
 
-    // Create a new topic. This call will succeed even if a topic with the same name was
-    // already created.
     std::cout << "SNS topics can be configured as FIFO (First-In-First-Out)."
               << std::endl;
     std::cout
@@ -190,16 +188,18 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
         std::cout << "Because you have chosen a FIFO topic, deduplication is supported."
                   << std::endl;
         std::cout
-                << "Deduplication IDs are either set in the message or automatically generated from content using a hash function."
-                << std::endl;
+                << "Deduplication IDs are either set in the message or automatically generated "
+                << "from content using a hash function." << std::endl;
         std::cout
-                << "If a message is successfully published to an SNS FIFO topic, any message published and determined to have the same deduplication ID, "
+                << "If a message is successfully published to an SNS FIFO topic, any message "
+                << "published and determined to have the same deduplication ID, "
                 << std::endl;
         std::cout
                 << "within the five-minute deduplication interval, is accepted but not delivered."
                 << std::endl;
         std::cout
-                << "For more information about deduplication, see https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html."
+                << "For more information about deduplication, "
+                << "see https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html."
                 << std::endl;
         contentBasedDeduplication = askYesNoQuestion(
                 "Would you like to use content-based deduplication instead of entering a deduplication ID? (y/n) ");
@@ -286,16 +286,16 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                 if (first) // Only explain this once.
                 {
                     std::cout
-                            << "Because you are creating a FIFO SQS queue, '.fifo' must be appended to the queue name."
-                            << std::endl;
+                            << "Because you are creating a FIFO SQS queue, '.fifo' must "
+                            << "be appended to the queue name." << std::endl;
                 }
             }
 
             request.SetQueueName(queueName);
             queueNames.push_back(queueName);
 
-            Aws::SQS::Model::CreateQueueOutcome outcome = sqsClient.CreateQueue(
-                    request);
+            Aws::SQS::Model::CreateQueueOutcome outcome =
+                    sqsClient.CreateQueue(request);
 
             if (outcome.IsSuccess()) {
                 queueURL = outcome.GetResult().GetQueueUrl();
@@ -322,8 +322,8 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
         if (first) // Only explain this once.
         {
             std::cout
-                    << "The queue URL will be used to retrieve the queue ARN, which will be used to create a subscription."
-                    << std::endl;
+                    << "The queue URL will be used to retrieve the queue ARN, which will "
+                    << "be used to create a subscription." << std::endl;
         }
 
 
@@ -334,8 +334,8 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
             request.SetQueueUrl(queueURL);
             request.AddAttributeNames(Aws::SQS::Model::QueueAttributeName::QueueArn);
 
-            Aws::SQS::Model::GetQueueAttributesOutcome outcome = sqsClient.GetQueueAttributes(
-                    request);
+            Aws::SQS::Model::GetQueueAttributesOutcome outcome =
+                    sqsClient.GetQueueAttributes(request);
 
             if (outcome.IsSuccess()) {
                 const Aws::Map<Aws::SQS::Model::QueueAttributeName, Aws::String> &attributes =
@@ -390,8 +390,8 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
             request.AddAttributes(Aws::SQS::Model::QueueAttributeName::Policy,
                                   policy);
 
-            Aws::SQS::Model::SetQueueAttributesOutcome outcome = sqsClient.SetQueueAttributes(
-                    request);
+            Aws::SQS::Model::SetQueueAttributesOutcome outcome =
+                    sqsClient.SetQueueAttributes(request);
 
             if (outcome.IsSuccess()) {
                 std::cout << "The attributes for the queue '" << queueName
@@ -455,8 +455,8 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                     }
                     else {
                         std::cout
-                                << "Because you did not select any attributes, no filter will be added to this subscription."
-                                << std::endl;
+                                << "Because you did not select any attributes, no filter "
+                                << "will be added to this subscription." << std::endl;
                     }
                 }
             }  // if (isFifoTopic)
@@ -489,7 +489,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
         }
 
         first = false;
-     }
+    }
 
     first = true;
     do {
@@ -506,8 +506,8 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                         << "Because your are using a FIFO topic, you must set a message group ID."
                         << std::endl;
                 std::cout
-                        << "All messages within the same group will be received in the order they were published."
-                        << std::endl;
+                        << "All messages within the same group will be received in the "
+                        << "order they were published." << std::endl;
             }
             Aws::String messageGroupID = askQuestion(
                     "Enter a message group ID for this message. ");
@@ -515,8 +515,8 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
             if (!contentBasedDeduplication) {
                 if (first) {
                     std::cout
-                            << "Because you are not using content-based deduplication, you must enter a deduplication ID."
-                            << std::endl;
+                            << "Because you are not using content-based deduplication, "
+                            << "you must enter a deduplication ID." << std::endl;
                 }
                 Aws::String deduplicationID = askQuestion(
                         "Enter a deduplication ID for this message. ");
@@ -544,7 +544,8 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
             std::cout << "Your message was successfully published." << std::endl;
         }
         else {
-            std::cerr << "Error with TopicsAndQueues::Publish. " << outcome.GetError().GetMessage()
+            std::cerr << "Error with TopicsAndQueues::Publish. "
+                      << outcome.GetError().GetMessage()
                       << std::endl;
 
             cleanUp(topicARN,
@@ -578,8 +579,8 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
             // For information about long polling, see
             // https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html
             request.SetWaitTimeSeconds(1);
-            Aws::SQS::Model::ReceiveMessageOutcome outcome = sqsClient.ReceiveMessage(
-                    request);
+            Aws::SQS::Model::ReceiveMessageOutcome outcome =
+                    sqsClient.ReceiveMessage(request);
 
             if (outcome.IsSuccess()) {
                 const Aws::Vector<Aws::SQS::Model::Message> &newMessages = outcome.GetResult().GetMessages();
@@ -640,8 +641,8 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                 request.AddEntries(entry);
             }
 
-            Aws::SQS::Model::DeleteMessageBatchOutcome outcome = sqsClient.DeleteMessageBatch(
-                    request);
+            Aws::SQS::Model::DeleteMessageBatchOutcome outcome =
+                    sqsClient.DeleteMessageBatch(request);
 
             if (outcome.IsSuccess()) {
                 std::cout << "The batch delete of messages were successful."
@@ -669,26 +670,27 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                    snsClient,
                    sqsClient,
                    true); // askUser
- }
+}
 
 
 bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
                                       const Aws::Vector<Aws::String> &queueURLS,
                                       const Aws::Vector<Aws::String> &subscriptionARNS,
-                                      const Aws::SNS::SNSClient& snsClient,
-                                      const Aws::SQS::SQSClient& sqsClient,
+                                      const Aws::SNS::SNSClient &snsClient,
+                                      const Aws::SQS::SQSClient &sqsClient,
                                       bool askUser) {
     bool result = true;
     printAsterisksLine();
-    if (!queueURLS.empty() && askUser && askYesNoQuestion("Would you like to delete the SQS queues? (y/n) ")) {
+    if (!queueURLS.empty() && askUser &&
+        askYesNoQuestion("Would you like to delete the SQS queues? (y/n) ")) {
 
         for (const auto &queueURL: queueURLS) {
             // 9.  Delete an SQS queue.
             Aws::SQS::Model::DeleteQueueRequest request;
             request.SetQueueUrl(queueURL);
 
-            Aws::SQS::Model::DeleteQueueOutcome outcome = sqsClient.DeleteQueue(
-                    request);
+            Aws::SQS::Model::DeleteQueueOutcome outcome =
+                    sqsClient.DeleteQueue(request);
 
             if (outcome.IsSuccess()) {
                 std::cout << "The queue with URL '" << queueURL
@@ -707,7 +709,8 @@ bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
             Aws::SNS::Model::UnsubscribeRequest request;
             request.SetSubscriptionArn(subscriptionARN);
 
-            Aws::SNS::Model::UnsubscribeOutcome outcome = snsClient.Unsubscribe(request);
+            Aws::SNS::Model::UnsubscribeOutcome outcome =
+                    snsClient.Unsubscribe(request);
 
             if (outcome.IsSuccess()) {
                 std::cout << "Unsubscribe of subscritpion ARN '" << subscriptionARN
@@ -723,7 +726,8 @@ bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
     }
 
     printAsterisksLine();
-    if (!topicARN.empty() && askUser && askYesNoQuestion("Would you like to delete the SNS topic? (y/n) ")) {
+    if (!topicARN.empty() && askUser &&
+        askYesNoQuestion("Would you like to delete the SNS topic? (y/n) ")) {
 
         // 11. Delete an SNS topic.
         Aws::SNS::Model::DeleteTopicRequest request;
@@ -835,7 +839,7 @@ bool AwsDoc::TopicsAndQueues::testForEmptyString(const Aws::String &string) {
  */
 Aws::String AwsDoc::TopicsAndQueues::askQuestion(const Aws::String &string,
                                                  const std::function<bool(
-                                             Aws::String)> &test) {
+                                                         Aws::String)> &test) {
     Aws::String result;
     do {
         std::cout << string;
