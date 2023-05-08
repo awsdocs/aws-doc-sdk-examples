@@ -6,30 +6,33 @@
 import { fileURLToPath } from "url";
 
 // snippet-start:[dynamodb.JavaScript.partiQL.getItemsV3]
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+
 import {
+  DynamoDBDocumentClient,
   BatchExecuteStatementCommand,
-  DynamoDBClient,
-} from "@aws-sdk/client-dynamodb";
+} from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 export const main = async () => {
   const command = new BatchExecuteStatementCommand({
     Statements: [
       {
         Statement: "SELECT * FROM PepperMeasurements WHERE Unit=?",
-        Parameters: [{ S: "Teaspoons" }],
+        Parameters: ["Teaspoons"],
         ConsistentRead: true,
       },
       {
         Statement: "SELECT * FROM PepperMeasurements WHERE Unit=?",
-        Parameters: [{ S: "Grams" }],
+        Parameters: ["Grams"],
         ConsistentRead: true,
       },
     ],
   });
 
-  const response = await client.send(command);
+  const response = await docClient.send(command);
   console.log(response);
   return response;
 };

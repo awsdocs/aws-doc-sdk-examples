@@ -24,6 +24,6 @@ describe("partiql-get", () => {
     const response = await main();
 
     expect(response.Items.length).toBe(1);
-    expect(response.Items[0].IsStorm.BOOL).toBe(false);
+    expect(response.Items[0].IsStorm).toBe(false);
   });
 });

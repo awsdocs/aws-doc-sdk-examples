@@ -6,20 +6,23 @@
 import { fileURLToPath } from "url";
 
 // snippet-start:[dynamodb.JavaScript.partiQL.updateItemV3]
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+
 import {
   ExecuteStatementCommand,
-  DynamoDBClient,
-} from "@aws-sdk/client-dynamodb";
+  DynamoDBDocumentClient,
+} from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 export const main = async () => {
   const command = new ExecuteStatementCommand({
     Statement: "UPDATE EyeColors SET IsRecessive=? where Color=?",
-    Parameters: [{ BOOL: "true" }, { S: "blue" }],
+    Parameters: [true, "blue"],
   });
 
-  const response = await client.send(command);
+  const response = await docClient.send(command);
   console.log(response);
   return response;
 };

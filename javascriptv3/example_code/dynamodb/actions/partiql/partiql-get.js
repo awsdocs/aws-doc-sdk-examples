@@ -6,21 +6,24 @@
 import { fileURLToPath } from "url";
 
 // snippet-start:[dynamodb.JavaScript.partiQL.getItemV3]
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+
 import {
   ExecuteStatementCommand,
-  DynamoDBClient,
-} from "@aws-sdk/client-dynamodb";
+  DynamoDBDocumentClient,
+} from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 export const main = async () => {
   const command = new ExecuteStatementCommand({
     Statement: "SELECT * FROM CloudTypes WHERE IsStorm=?",
-    Parameters: [{ BOOL: "false" }],
+    Parameters: [false],
     ConsistentRead: true,
   });
 
-  const response = await client.send(command);
+  const response = await docClient.send(command);
   console.log(response);
   return response;
 };

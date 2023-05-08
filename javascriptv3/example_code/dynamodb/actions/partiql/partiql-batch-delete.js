@@ -6,29 +6,31 @@
 import { fileURLToPath } from "url";
 
 // snippet-start:[dynamodb.JavaScript.partiQL.deleteItemsV3]
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+
 import {
+  DynamoDBDocumentClient,
   BatchExecuteStatementCommand,
-  DynamoDBClient,
-} from "@aws-sdk/client-dynamodb";
+} from "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
 
 export const main = async () => {
   const command = new BatchExecuteStatementCommand({
     Statements: [
       {
         Statement: "DELETE FROM Flavors where Name=?",
-        
-        Parameters: [{ S: "Grape" }],
+        Parameters: ["Grape"],
       },
       {
         Statement: "DELETE FROM Flavors where Name=?",
-        Parameters: [{ S: "Strawberry" }],
+        Parameters: ["Strawberry"],
       },
     ],
   });
 
-  const response = await client.send(command);
+  const response = await docClient.send(command);
   console.log(response);
   return response;
 };

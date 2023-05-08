@@ -21,7 +21,7 @@ describe("partiql-batch-get", () => {
     const response = await main();
 
     expect(response.Responses.length).toBe(2);
-    expect(response.Responses[0].Item.Unit.S).toBe("Teaspoons");
-    expect(response.Responses[1].Item.Unit.S).toBe("Grams");
+    expect(response.Responses[0].Item.Unit).toBe("Teaspoons");
+    expect(response.Responses[1].Item.Unit).toBe("Grams");
   });
 });
