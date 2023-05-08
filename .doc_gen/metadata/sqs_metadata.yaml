@@ -845,6 +845,19 @@ sqs_GetQueueAttributes:
             - description:
               snippet_tags:
                 - SQS.dotnetv3.GetQueueAttributesExample
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cross-service.topics_and_queues.config
+                - cpp.example_code.cross-service.topics_and_queues.sqs_client
+                - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes1
+                - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes2
+                - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes3
   services:
     sqs: {GetQueueAttributes}
 sqs_ChangeMessageVisibility:

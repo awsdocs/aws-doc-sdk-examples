@@ -328,6 +328,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
         Aws::String queueARN;
         {
             // 3.  Get the SQS queue ARN attribute.
+            // snippet-start:[cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes1]
             Aws::SQS::Model::GetQueueAttributesRequest request;
             request.SetQueueUrl(queueURL);
             request.AddAttributeNames(Aws::SQS::Model::QueueAttributeName::QueueArn);
@@ -342,7 +343,10 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                         Aws::SQS::Model::QueueAttributeName::QueueArn);
                 if (iter != attributes.end()) {
                     queueARN = iter->second;
+                    std::cout << "The queue ARN '" << queueARN << "' has been retrieved."
+                              << std::endl;
                 }
+               // snippet-end:[cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes1]
                 else {
                     std::cerr
                             << "Error ARN attribute not returned by GetQueueAttribute."
@@ -356,14 +360,14 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
 
                     return false;
                 }
-                std::cout << "The queue ARN '" << queueARN << "' has been retrieved."
-                          << std::endl;
+                // snippet-start:[cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes2]
             }
             else {
                 std::cerr << "Error with SQS::GetQueueAttributes. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
 
+                // snippet-end:[cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes2]
                 cleanUp(topicARN,
                         queueURLS,
                         subscriptionARNS,
@@ -371,7 +375,9 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                         sqsClient);
 
                 return false;
+                // snippet-start:[cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes3]
             }
+            // snippet-end:[cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes3]
         }
 
         if (first) {
