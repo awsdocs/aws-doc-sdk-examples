@@ -207,7 +207,6 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
 
     printAsterisksLine();
 
-
     // snippet-start:[cpp.example_code.cross-service.topics_and_queues.sqs_client]
     Aws::SQS::SQSClient sqsClient(clientConfiguration);
     // snippet-end:[cpp.example_code.cross-service.topics_and_queues.sqs_client]
@@ -326,7 +325,6 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                     << "be used to create a subscription." << std::endl;
         }
 
-
         Aws::String queueARN;
         {
             // 3.  Get the SQS queue ARN attribute.
@@ -376,12 +374,12 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
             }
         }
 
-
         if (first) {
             std::cout
                     << "An IAM policy must be attached to an SQS queue enabling it to receive "
                        "messages from an SNS topic." << std::endl;
         }
+
         {
             // 4.  Set the SQS queue policy attribute with a policy enabling the receiving of SNS messages.
             Aws::SQS::Model::SetQueueAttributesRequest request;
