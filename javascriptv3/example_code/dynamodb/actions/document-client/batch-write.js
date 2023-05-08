@@ -13,6 +13,9 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 import { readFileSync } from "fs";
 
+// These modules are local to our GitHub repository. We recommend cloning 
+// the project from GitHub if you want to run this example.
+// For more information, see https://github.com/awsdocs/aws-doc-sdk-examples.
 import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
 import { chunkArray } from "libs/utils/util-array.js";
 
