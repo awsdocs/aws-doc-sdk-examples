@@ -4,7 +4,7 @@
 # Purpose
 # This code example demonstrates how to send a message to Amazon Simple Email Service (Amazon SES) email address.
 
-# snippet-start:[s3.ruby.ses_send_email.rb]
+# snippet-start:[ruby.example_code.ses.v1.send_email]
 
 require "aws-sdk-ses"  # v2: require 'aws-sdk'
 
@@ -68,13 +68,12 @@ begin
     source: sender,
     # Uncomment the following line to use a configuration set.
     # configuration_set_name: configsetname,
-  )
+    )
 
   puts "Email sent to " + recipient
-
 
 # If something goes wrong, display an error message.
 rescue Aws::SES::Errors::ServiceError => error
   puts "Email not sent. Error message: #{error}"
 end
-# snippet-end:[s3.ruby.ses_send_email.rb]
+# snippet-end:[ruby.example_code.ses.v1.send_email]

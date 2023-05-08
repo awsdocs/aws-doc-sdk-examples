@@ -60,7 +60,7 @@ def test_scenario(make_stubber, stub_runner, monkeypatch, error_code, stop_on_me
     aws_srp.AWSSRP.get_auth_params = lambda s: {
         'USERNAME': user_name, 'SRP_A': 'test-srp-a', 'DEVICE_KEY': device_key}
     tstamp = str(datetime.utcnow())
-    aws_srp.AWSSRP.process_challenge = lambda s, x: {
+    aws_srp.AWSSRP.process_challenge = lambda s, x, r: {
         'TIMESTAMP': tstamp, 'USERNAME': user_name,
         'PASSWORD_CLAIM_SECRET_BLOCK': 'test-secret-block',
         'PASSWORD_CLAIM_SIGNATURE': 'test-signature',
@@ -109,7 +109,7 @@ def test_scenario(make_stubber, stub_runner, monkeypatch, error_code, stop_on_me
             {})
         runner.add(
             cognito_idp_stubber.stub_respond_to_auth_challenge, client_id,
-            'DEVICE_PASSWORD_VERIFIER', aws_srp.AWSSRP.process_challenge('s', True),
+            'DEVICE_PASSWORD_VERIFIER', aws_srp.AWSSRP.process_challenge('s', True, True),
             '', access_token=access_token)
 
     if error_code is None:

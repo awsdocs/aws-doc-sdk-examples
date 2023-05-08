@@ -4,7 +4,7 @@
 # Purpose
 # This code example demonstrates how to verify an email address for Amazon Simple Email Service (Amazon SES).
 
-# snippet-start:[s3.ruby.ses_send_verification.rb]
+# snippet-start:[ruby.example_code.ses.v1.send_verification]
 
 require "aws-sdk-ses"  # v2: require 'aws-sdk'
 
@@ -27,4 +27,4 @@ begin
 rescue Aws::SES::Errors::ServiceError => error
   puts "Email not sent. Error message: #{error}"
 end
-# snippet-end:[s3.ruby.ses_send_verification.rb]
+# snippet-end:[ruby.example_code.ses.v1.send_verification]
