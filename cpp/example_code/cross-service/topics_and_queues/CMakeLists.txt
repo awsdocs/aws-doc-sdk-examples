@@ -17,8 +17,11 @@ set(CMAKE_CXX_STANDARD 11)
 # Build shared libraries by default.
 set(BUILD_SHARED_LIBS ON)
 
+# Use the MSVC variable to determine if this is a Windows build.
+set(WINDOWS_BUILD ${MSVC})
+
 # Set the location of where Windows can find the installed libraries of the SDK.
-if (MSVC)
+if (WINDOWS_BUILD)
     string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
     list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
 endif ()
@@ -26,9 +29,7 @@ endif ()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
-# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
-# and building as shared libraries, then dynamically link to those shared libraries.
-if (MSVC)
+if (WINDOWS_BUILD)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
 
     # set(BIN_SUB_DIR "/Debug") # if you are building from the command line you may need to uncomment this
