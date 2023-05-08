@@ -18,7 +18,7 @@ sqs_Hello:
               snippet_tags:
                 - cpp.example_code.sqs.hello_sqs
   services:
-    sns: {ListQueues}
+    sqs: {ListQueues}
 sqs_CreateQueue:
   title: Create an &SQS; queue using an &AWS; SDK
   title_abbrev: Create a queue
