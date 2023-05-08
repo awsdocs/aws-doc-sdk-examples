@@ -1,4 +1,24 @@
 # zexi 0.4.0
+sns_Hello:
+  title: Hello &SQS;
+  title_abbrev: Hello &SQS;
+  synopsis: get started using &SQS;.
+  category: Hello
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs/hello_sqs
+          sdkguide:
+          excerpts:
+            - description: Code for the CMakeLists.txt CMake file.
+              snippet_tags:
+                - cpp.example_code.sqs.hello_sqs.cmake
+            - description: Code for the hello_sqs.cpp source file.
+              snippet_tags:
+                - cpp.example_code.sqs.hello_sqs
+  services:
+    sns: {ListQueues}
 sqs_CreateQueue:
   title: Create an &SQS; queue using an &AWS; SDK
   title_abbrev: Create a queue
@@ -881,7 +901,7 @@ sqs_ChangeMessageVisibility:
                 - cpp.example_code.sqs.ChangeMessageVisibility
   services:
     sqs: {ChangeMessageVisibility}
-sqs_SetQueueAttributes:
+sqs_EnableLongPollingCreatingQueue:
   title: Change how long an &SQS; queue waits for a message
   title_abbrev: Change how long a queue waits for a message
   synopsis: change how long an &SQS; queue waits for a message to arrive.
@@ -918,11 +938,9 @@ sqs_SetQueueAttributes:
                 - cpp.example_code.sqs.LongPollingAttribute
   services:
     sqs: {SetQueueAttributes}
-sqs_SetQueueAttributes_generic:
-  title: Set &SQS; queue attributes 
-
-  title_abbrev: Set queue attributes 
-
+sqs_SetQueueAttributes:
+  title: Set &SQS; queue attributes
+  title_abbrev: Set queue attributes
   synopsis: set the attributes for an &SQS; queue.
   category:
   languages:
@@ -940,11 +958,8 @@ sqs_SetQueueAttributes_generic:
     sqs: {SetQueueAttributes}
 sqs_DeadLetterQueue:
   title: Configure a dead-letter queue in &SQS;
-
   title_abbrev: Configure a dead-letter queue
-
   synopsis: configure a dead-letter queue in &SQS;.
-
   category:
   languages:
     C++:

@@ -26,12 +26,14 @@ endif ()
 # Find the AWS SDK for C++ package.
 find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
-if (WINDOWS_BUILD) 
-    set(CMAKE_BUILD_TYPE Debug) # Explicitly set CMAKE_BUILD_TYPE to match the selected Visual Studio build configuration.
-
+if(WINDOWS_BUILD)
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
-    AWSSDK_CPY_DYN_LIBS(SERVICE_COMPONENTS "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-endif ()
+
+    # set(BIN_SUB_DIR "/Debug") # if you are building from the command line you may need to uncomment this
+    # and set the proper subdirectory to the executables' location.
+
+    AWSSDK_CPY_DYN_LIBS(SERVICE_COMPONENTS "" ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR})
+endif()
 
 add_executable(${PROJECT_NAME}
         hello_sqs.cpp)
