@@ -1,5 +1,5 @@
 # zexi 0.4.0
-sns_Hello:
+sqs_Hello:
   title: Hello &SQS;
   title_abbrev: Hello &SQS;
   synopsis: get started using &SQS;.
