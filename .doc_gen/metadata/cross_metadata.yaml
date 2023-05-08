@@ -543,9 +543,9 @@ cross_LambdaForBrowser:
     lambda:
     dynamodb:
 workflow_MessagesTopicsAndQueues:
-  title: Publish &SNS; message to &SQS; queues using an &AWS; SDK
-  title_abbrev: Publish &SNS; message to &SQS; queues
-  synopsis: publish &SNS; message to &SQS; queues.
+  title: Publish &SNS; messages to &SQS; queues using an &AWS; SDK
+  title_abbrev: Publish &SNS; messages to &SQS; queues
+  synopsis: publish &SNS; messages to &SQS; queues.
   languages:
     C++:
       versions:
