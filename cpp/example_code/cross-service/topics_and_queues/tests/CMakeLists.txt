@@ -48,7 +48,7 @@ add_executable(
 )
 
 if (WINDOWS_BUILD)
-    # set(BIN_SUB_DIR "/Debug") # if you are building from the command line you may need to uncomment this
+    # set(BIN_SUB_DIR "/Debug") # If you are building from the command line you may need to uncomment this
     # and set the proper subdirectory to the executables' location.
 
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
