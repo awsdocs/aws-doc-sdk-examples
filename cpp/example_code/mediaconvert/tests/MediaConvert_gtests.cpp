@@ -7,7 +7,7 @@
 #include <fstream>
 #include <aws/core/client/ClientConfiguration.h>
 #include <aws/mediaconvert/MediaConvertClient.h>
-#include <aws/mediaconvert/Model/DescribeEndpointsRequest.h>
+#include <aws/mediaconvert/model/DescribeEndpointsRequest.h>
 #include <aws/testing/mocks/http/MockHttpClient.h>
 #include "mediaconvert_samples.h"
 

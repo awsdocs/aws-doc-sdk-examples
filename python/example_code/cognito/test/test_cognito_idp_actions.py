@@ -268,7 +268,7 @@ def test_sign_in_with_tracked_device(make_stubber, stub_runner, error_code, stop
     aws_srp.AWSSRP.get_auth_params = lambda s: {
         'USERNAME': user_name, 'SRP_A': 'test-srp-a', 'DEVICE_KEY': device_key}
     tstamp = str(datetime.utcnow())
-    aws_srp.AWSSRP.process_challenge = lambda s, x: {
+    aws_srp.AWSSRP.process_challenge = lambda s, x, r: {
         'TIMESTAMP': tstamp, 'USERNAME': user_name,
         'PASSWORD_CLAIM_SECRET_BLOCK': 'test-secret-block',
         'PASSWORD_CLAIM_SIGNATURE': 'test-signature',
@@ -284,7 +284,7 @@ def test_sign_in_with_tracked_device(make_stubber, stub_runner, error_code, stop
             {})
         runner.add(
             cognito_idp_stubber.stub_respond_to_auth_challenge, client_id,
-            'DEVICE_PASSWORD_VERIFIER', aws_srp.AWSSRP.process_challenge('s', True),
+            'DEVICE_PASSWORD_VERIFIER', aws_srp.AWSSRP.process_challenge('s', True, True),
             '', access_token=access_token)
     if error_code is None:
         got_access_token = wrapper.sign_in_with_tracked_device(

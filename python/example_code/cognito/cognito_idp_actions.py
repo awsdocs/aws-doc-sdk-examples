@@ -313,7 +313,7 @@ class CognitoIdentityProviderWrapper:
         device_and_pw_hash = aws_srp.hash_sha256(device_and_pw.encode('utf-8'))
         salt = aws_srp.pad_hex(aws_srp.get_random(16))
         x_value = aws_srp.hex_to_long(aws_srp.hex_hash(salt + device_and_pw_hash))
-        verifier = aws_srp.pad_hex(pow(srp_helper.g, x_value, srp_helper.big_n))
+        verifier = aws_srp.pad_hex(pow(srp_helper.val_g, x_value, srp_helper.big_n))
         device_secret_verifier_config = {
             "PasswordVerifier": base64.standard_b64encode(bytearray.fromhex(verifier)).decode('utf-8'),
             "Salt": base64.standard_b64encode(bytearray.fromhex(salt)).decode('utf-8')
@@ -386,7 +386,7 @@ class CognitoIdentityProviderWrapper:
 
             challenge_params = response_auth['ChallengeParameters']
             challenge_params['USER_ID_FOR_SRP'] = device_group_key + device_key
-            cr = srp_helper.process_challenge(challenge_params)
+            cr = srp_helper.process_challenge(challenge_params, {'USERNAME': user_name})
             cr['USERNAME'] = user_name
             cr['DEVICE_KEY'] = device_key
             response_verifier = self.cognito_idp_client.respond_to_auth_challenge(

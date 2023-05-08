@@ -9,6 +9,7 @@
  * _2_ Requires credentials and permissions.
  * _3_ Does not require credentials.
  *
+ * -*L_ Designates a test with a long execution time.
  */
 
 #include <gtest/gtest.h>
@@ -22,8 +23,9 @@ namespace AwsDocTest {
 
     bool addHttpResponses(MockHTTP &mockHttp);
 
+    // Only run the un-mocked test in special cases because of its long execution time.
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(Aurora_GTests, gettingStartedWithDBClusters_2_) {
+    TEST_F(Aurora_GTests, gettingStartedWithDBClusters_2L_) {
         AddCommandLineResponses(RESPONSES);
 
         bool result = AwsDoc::Aurora::gettingStartedWithDBClusters(*s_clientConfig);

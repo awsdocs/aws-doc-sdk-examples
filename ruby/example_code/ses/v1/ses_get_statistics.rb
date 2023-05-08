@@ -4,7 +4,7 @@
 # Purpose
 # This code example demonstrates how to gets your Amazon Simple Email Service (Amazon SES) statistics.
 
-# snippet-start:[s3.ruby.ses_get_statistics.rb]
+# snippet-start:[ruby.example_code.ses.v1.get_statistics]
 
 require "aws-sdk-ses"  # v2: require 'aws-sdk'
 
@@ -34,4 +34,4 @@ begin
 rescue Aws::SES::Errors::ServiceError => error
   puts "Error: #{error}"
 end
-# snippet-end:[s3.ruby.ses_get_statistics.rb]
+# snippet-end:[ruby.example_code.ses.v1.get_statistics]
