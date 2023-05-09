@@ -801,7 +801,6 @@ int main(int argc, char **argv) {
     (void) argv;
 
     Aws::SDKOptions options;
-    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
 
     Aws::InitAPI(options);
     {
