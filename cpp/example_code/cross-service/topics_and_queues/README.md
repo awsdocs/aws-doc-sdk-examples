@@ -73,7 +73,7 @@ If you add a filter, you can select one or more “tone” attributes to filter 
 The application now prompts you to add the second queue. Repeat the previous steps for the second queue.
 
 The following diagram shows the topic and queue options.
-[Image: Image.jpg]
+![Diagram of the options](images/fifo_topics_diagram.png)
 
 After you create the topic and subscribe both queues, the application lets you publish messages to the topic.
 
