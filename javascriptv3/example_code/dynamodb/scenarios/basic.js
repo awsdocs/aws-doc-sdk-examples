@@ -16,8 +16,8 @@ import {
 } from "@aws-sdk/client-dynamodb";
 
 /**
- * This module is a convenience library. It abstracts DynamoDB's data type
- * descriptors (S, N, B, BOOL, etc.) by marshalling JavaScript objects into
+ * This module is a convenience library. It abstracts Amazon DynamoDB's data type
+ * descriptors (such as S, N, B, and BOOL) by marshalling JavaScript objects into
  * AttributeValue shapes.
  */
 import {
@@ -52,16 +52,16 @@ export const main = async () => {
 
   const createTableCommand = new CreateTableCommand({
     TableName: tableName,
-    // This example will be doing a large write to the database.
-    // Without setting the billing mode to PAY_PER_REQUEST, the
-    // large write is throttled.
+    // This example performs a large write to the database.
+    // Set the billing mode to PAY_PER_REQUEST to
+    // avoid throttling the large write.
     BillingMode: BillingMode.PAY_PER_REQUEST,
     // Define the attributes that are necessary for the key schema.
     AttributeDefinitions: [
       {
         AttributeName: "year",
         // 'N' is a data type descriptor that represents a number type.
-        // See the following link for a list of all data type descriptors.
+        // For a list of all data type descriptors, see the following link.
         // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html#Programming.LowLevelAPI.DataTypeDescriptors
         AttributeType: "N",
       },
@@ -85,7 +85,7 @@ export const main = async () => {
   log(`Table created: ${JSON.stringify(createTableResponse.TableDescription)}`);
 
   // This polls with DescribeTableCommand until the requested table is 'ACTIVE'.
-  // You cannot write to a table before it is active.
+  // You can't write to a table before it's active.
   log("Waiting for the table to be active.");
   await waitUntilTableExists({ client }, { TableName: tableName });
   log("Table active.");
@@ -127,7 +127,7 @@ export const main = async () => {
       year: 1981,
       title: "The Evil Dead",
     },
-    // Set this to ensure recent writes are reflected.
+    // Set this to make sure that recent writes are reflected.
     // For more information, see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadConsistency.html.
     ConsistentRead: true,
   });
@@ -206,7 +206,7 @@ export const main = async () => {
     { client: docClient },
     {
       TableName: tableName,
-      //For more information on query expressions, see
+      //For more information about query expressions, see
       // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#Query.KeyConditionExpressions
       KeyConditionExpression: "#y = :y",
       // 'year' is a reserved word in DynamoDB. Indicate that it's an attribute

@@ -13,7 +13,7 @@ const client = new DynamoDBClient({});
 export const main = async () => {
   const command = new PutItemCommand({
     TableName: "Cookies",
-    // For more information on data types,
+    // For more information about data types,
     // see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes and
     // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html#Programming.LowLevelAPI.DataTypeDescriptors
     Item: {

@@ -16,7 +16,7 @@ const client = new DynamoDBClient({});
 export const main = async () => {
   const command = new BatchWriteItemCommand({
     RequestItems: {
-      // Each key in this object is the name of a table. This example here refers
+      // Each key in this object is the name of a table. This example refers
       // to a Coffees table.
       Coffees: [
         // Each entry in Coffees is an object that defines either a PutRequest or DeleteRequest.
@@ -24,7 +24,7 @@ export const main = async () => {
           // Each PutRequest object defines one item to be inserted into the table.
           PutRequest: {
             // The keys of Item are attribute names. Each attribute value is an object with a data type and value.
-            // For more information on data types,
+            // For more information about data types,
             // see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes
             Item: {
               Name: { S: "Donkey Kick" },

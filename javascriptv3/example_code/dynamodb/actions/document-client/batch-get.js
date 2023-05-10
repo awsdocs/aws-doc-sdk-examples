@@ -14,7 +14,7 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 export const main = async () => {
   const command = new BatchGetCommand({
-    // Each key in this object is the name of a table. This example here refers
+    // Each key in this object is the name of a table. This example refers
     // to a Books table.
     RequestItems: {
       Books: {

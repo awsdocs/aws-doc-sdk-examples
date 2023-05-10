@@ -33,16 +33,16 @@ export const main = async () => {
   log("Creating a table.");
   const createTableCommand = new CreateTableCommand({
     TableName: tableName,
-    // This example will be doing a large write to the database.
-    // Without setting the billing mode to PAY_PER_REQUEST, the
-    // large write is throttled.
+    // This example performs a large write to the database.
+    // Set the billing mode to PAY_PER_REQUEST to
+    // avoid throttling the large write.
     BillingMode: BillingMode.PAY_PER_REQUEST,
     // Define the attributes that are necessary for the key schema.
     AttributeDefinitions: [
       {
         AttributeName: "varietal",
         // 'S' is a data type descriptor that represents a number type.
-        // See the following link for a list of all data type descriptors.
+        // For a list of all data type descriptors, see the following link.
         // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html#Programming.LowLevelAPI.DataTypeDescriptors
         AttributeType: "S",
       },
@@ -61,7 +61,7 @@ export const main = async () => {
    */
 
   // This polls with DescribeTableCommand until the requested table is 'ACTIVE'.
-  // You cannot write to a table before it is active.
+  // You can't write to a table before it's active.
   log("Waiting for the table to be active.");
   await waitUntilTableExists({ client }, { TableName: tableName });
   log("Table active.");
@@ -73,7 +73,7 @@ export const main = async () => {
   log("Inserting a coffee into the table.");
   // The base client is used here instead of 'lib-dynamodb'. There's
   // a bug (https://github.com/aws/aws-sdk-js-v3/issues/4703) in the SDK
-  // causing list parameters not to be handled correctly.
+  // causing list parameters to not be handled correctly.
   const addItemStatementCommand = new BaseExecuteStatementCommand({
     // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ql-reference.insert.html
     Statement: `INSERT INTO ${tableName} value {'varietal':?, 'profile':?}`,

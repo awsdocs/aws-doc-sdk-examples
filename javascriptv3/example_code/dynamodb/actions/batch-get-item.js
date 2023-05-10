@@ -13,7 +13,7 @@ const client = new DynamoDBClient({});
 export const main = async () => {
   const command = new BatchGetItemCommand({
     RequestItems: {
-      // Each key in this object is the name of a table. This example here refers
+      // Each key in this object is the name of a table. This example refers
       // to a PageAnalytics table.
       PageAnalytics: {
         // Each entry in Keys is an object that specifies a primary key.
@@ -21,7 +21,7 @@ export const main = async () => {
           {
             // "PageName" is the partition key (simple primary key).
             // "S" specifies a string as the data type for the value "Home".
-            // For more information on data types, 
+            // For more information about data types, 
             // see https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes and
             // https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.LowLevelAPI.html#Programming.LowLevelAPI.DataTypeDescriptors
             PageName: { S: "Home" },
