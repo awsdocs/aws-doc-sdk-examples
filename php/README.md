@@ -34,7 +34,7 @@ To run or test these code examples, you need the following:
 
 For more information, see [Getting Started](https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started_index.html) in the *AWS SDK for PHP Developer Guide*.
 
-## Running the code
+## Run the code
 
 By default, these code examples run using the default AWS credential provider chain, which includes using an AWS shared credentials file and profiles.
 For more information, see [Using the AWS Credentials File and Credential Profiles](https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials_profiles.html) in the *AWS SDK for PHP Developer Guide*.
