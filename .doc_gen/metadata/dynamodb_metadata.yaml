@@ -1,4 +1,21 @@
 # zexi 0.4.0
+dynamodb_Hello:
+  title: Hello &DDB;
+  title_abbrev: Hello &DDB;
+  synopsis: get started using &DDB;.
+  category: Hello
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.dynamodb.hello 
+  services:
+    dynamodb: {ListTables}
 dynamodb_CreateTable:
   title: Create a &DDB; table using an &AWS; SDK
   title_abbrev: Create a table
