@@ -41,7 +41,7 @@ namespace ServerAccessLoggingExample
 
             try
             {
-                // Update Bucket Policy for target bucket to allow logs to be delivered to the bucket
+                // Update bucket policy for target bucket to allow delivery of logs to it.
                 await SetBucketPolicyToAllowLogDelivery(client, bucketName, logBucketName,
                     logObjectKeyPrefix, accountId);
 
