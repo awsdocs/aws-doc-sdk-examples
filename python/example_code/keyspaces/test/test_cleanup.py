@@ -39,7 +39,7 @@ def mock_mgr(stub_runner, scenario_data, input_mocker):
 def test_cleanup(mock_mgr, capsys):
     mock_mgr.setup_stubs(None, None, mock_mgr.scenario_data.stubber)
 
-    mock_mgr.scenario_data.scenario.cleanup()
+    mock_mgr.scenario_data.scenario.cleanup('not-a-path')
 
     capt = capsys.readouterr()
     assert "Keyspace deleted" in capt.out
@@ -55,7 +55,7 @@ def test_cleanup_error(
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:
-        mock_mgr.scenario_data.scenario.cleanup()
+        mock_mgr.scenario_data.scenario.cleanup('not-a-path')
     assert exc_info.value.response['Error']['Code'] == error
 
     assert error in caplog.text

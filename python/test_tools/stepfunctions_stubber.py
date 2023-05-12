@@ -72,11 +72,13 @@ class StepFunctionsStubber(ExampleStubber):
             'describe_state_machine', expected_params, response, error_code=error_code)
 
     def stub_start_execution(
-            self, state_machine_arn, run_arn, run_input=None,
+            self, state_machine_arn, run_arn, run_input=None, run_name=None,
             error_code=None):
         expected_params = {'stateMachineArn': state_machine_arn}
         if run_input is not None:
             expected_params['input'] = json.dumps(run_input)
+        if run_name is not None:
+            expected_params['name'] = run_name
         response = {'executionArn': run_arn, 'startDate': datetime.now()}
         self._stub_bifurcator(
             'start_execution', expected_params, response, error_code=error_code)
