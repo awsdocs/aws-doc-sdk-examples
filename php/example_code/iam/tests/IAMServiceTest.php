@@ -140,7 +140,7 @@ class IAMServiceTest extends TestCase
      */
     public function testDeleteAccessKey($values)
     {
-        self::$service->deleteAccessKey($values['key']['AccessKeyId']);
+        self::$service->deleteAccessKey($values['key']['AccessKeyId'], $values['user']['UserName']);
         self::$service->deleteUser($values['user']['UserName']);
 
         self::assertTrue(true); // No exceptions thrown.

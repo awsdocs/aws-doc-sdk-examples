@@ -96,7 +96,6 @@ in the `php` folder.
 
 
 <!--custom.tests.start-->
-The tests for IAM follow a legacy process and are not currently recommended.
 <!--custom.tests.end-->
 
 ## Additional resources
