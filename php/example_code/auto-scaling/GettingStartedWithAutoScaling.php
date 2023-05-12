@@ -38,6 +38,7 @@ class GettingStartedWithAutoScaling implements RunnableExample
 
     public function runExample()
     {
+        echo("\n");
         echo("--------------------------------------\n");
         print("Welcome to the Amazon EC2 Auto Scaling getting started demo using PHP!\n");
         echo("--------------------------------------\n");

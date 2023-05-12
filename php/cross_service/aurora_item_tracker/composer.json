@@ -1,7 +1,6 @@
 {
-    "name": "laravel/laravel",
+    "name": "awsdocs/aws-doc-sdk-examples-php-cross-service-aurora-item-tracker",
     "type": "project",
-    "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {

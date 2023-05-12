@@ -30,8 +30,9 @@ class GettingStartedWithGlue
 {
     public function run()
     {
+        echo("\n");
         echo("--------------------------------------\n");
-        print("Welcome to the Amazon Glue getting started demo using PHP!\n");
+        print("Welcome to the AWS Glue getting started demo using PHP!\n");
         echo("--------------------------------------\n");
 
         $clientArgs = [
