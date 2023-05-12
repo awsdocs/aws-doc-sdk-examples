@@ -127,7 +127,7 @@ $deletePolicy = $service->deletePolicy($listAllBucketsPolicy['Arn']);
 echo "Delete policy: {$listAllBucketsPolicy['PolicyName']}\n";
 $deletedRole = $service->deleteRole($assumeRoleRole['Arn']);
 echo "Deleted role: {$assumeRoleRole['RoleName']}\n";
-$deletedKey = $service->deleteAccessKey($key['AccessKeyId']);
+$deletedKey = $service->deleteAccessKey($key['AccessKeyId'], $user['UserName']);
 $deletedUser = $service->deleteUser($user['UserName']);
 echo "Delete user: {$user['UserName']}\n";
 
