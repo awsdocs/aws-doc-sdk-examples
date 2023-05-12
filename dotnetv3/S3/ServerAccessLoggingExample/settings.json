@@ -1,0 +1,6 @@
+{
+  "BucketName": "DOC-EXAMPLE-SOURCE-BUCKET",
+  "LogBucketName": "DOC-EXAMPLE-DESTINATION-BUCKET",
+  "LogObjectKeyPrefix": "access-logs/",
+  "AccountId": "111122223333"
+}

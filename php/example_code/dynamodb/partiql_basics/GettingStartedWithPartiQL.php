@@ -38,6 +38,7 @@ class GettingStartedWithPartiQL
 {
     public function run()
     {
+        echo("\n");
         echo("--------------------------------------\n");
         print("Welcome to the Amazon DynamoDB - PartiQL getting started demo using PHP!\n");
         echo("--------------------------------------\n");
