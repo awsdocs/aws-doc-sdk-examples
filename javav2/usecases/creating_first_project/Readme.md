@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a dynamic web MVC application by using the AWS SDK for Java (v2).   |
 | Audience   |  Developer (beginner)        |
-| Updated   | 5/5/2022        |
+| Updated   | 5/13/2023        |
 | Required skills   | Java, Maven  |
 
 ## Purpose
@@ -120,7 +120,7 @@ Make sure that the **pom.xml** file resembles the following XML code.
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.17.136</version>
+                <version>2.20.45</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -217,40 +217,44 @@ In the **com.example.handlingformsubmission** package, create the **GreetingCont
 ```java
 	package com.example.handlingformsubmission;
 
-	import org.springframework.beans.factory.annotation.Autowired;
-	import org.springframework.stereotype.Controller;
-	import org.springframework.ui.Model;
-	import org.springframework.web.bind.annotation.GetMapping;
-	import org.springframework.web.bind.annotation.ModelAttribute;
-	import org.springframework.web.bind.annotation.PostMapping;
+    import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.stereotype.Controller;
+    import org.springframework.ui.Model;
+    import org.springframework.web.bind.annotation.GetMapping;
+    import org.springframework.web.bind.annotation.ModelAttribute;
+    import org.springframework.web.bind.annotation.PostMapping;
 
-	@Controller
-	public class GreetingController {
+    @Controller
+    public class GreetingController {
+        private final DynamoDBEnhanced dde;
+        private final PublishTextSMS msg;
 
-    	@Autowired
-    	private DynamoDBEnhanced dde;
+    @Autowired
+    GreetingController(
+        DynamoDBEnhanced dde,
+        PublishTextSMS msg
+    ) {
+        this.dde = dde;
+        this.msg = msg;
+    }
 
-    	@Autowired
-    	private PublishTextSMS msg;
+    @GetMapping("/")
+    public String greetingForm(Model model) {
+        model.addAttribute("greeting", new Greeting());
+        return "greeting";
+    }
 
-    	@GetMapping("/")
-    	public String greetingForm(Model model) {
-          model.addAttribute("greeting", new Greeting());
-          return "greeting";
-    	}
+    @PostMapping("/greeting")
+    public String greetingSubmit(@ModelAttribute Greeting greeting) {
+        //Persist submitted data into a DynamoDB table using the Enhanced Client
+        dde.injectDynamoItem(greeting);
 
-    	@PostMapping("/greeting")
-    	public String greetingSubmit(@ModelAttribute Greeting greeting) {
+        // Send a mobile notification
+        msg.sendMessage(greeting.getId());
 
-          // Stores data in an Amazon DynamoDB table.
-          dde.injectDynamoItem(greeting);
-
-          // Sends a text notification.
-          msg.sendMessage(greeting.getId());
-
-          return "result";
-    	}
-      }
+        return "result";
+    }
+  }
 ```
 
 ### Create the Greeting class
@@ -360,7 +364,7 @@ This class represents contains the annotation required for the enhanced client. 
 
 ### Create the DynamoDBEnhanced class
 
-In the **com.example.handlingformsubmission** package, create the **DynamoDBEnhanced** class. This class uses the DynamoDB API that injects data into a DynamoDB table by using the enhanced client. To inject data into a DynamoDB table, create a **DynamoDbTable** object by invoking the **DynamoDbEnhancedClient** object's **table** method and passing the table name (in this example, **Greeting**). Next, create a **GreetingItems** object and populate it with data values that you want to store (in this example, the data items are submitted from the form).
+In the **com.example.handlingformsubmission** package, create the **DynamoDBEnhanced** class. This class uses the DynamoDB API that injects data into a DynamoDB table by using the enhanced client. To inject data into a DynamoDB table, create a **DynamoDbTable** object by invoking the **DynamoDbEnhancedClient** object's **table** method and passing the table name (in this example, **Greeting**). Next, create a **GreetingItems** object and populate it with data values that you want to store (in this example, the data items are submitted from the web form).
 
 Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object for the **items** method. Finally, invoke the **DynamoDbEnhancedClient** object's **putItem** method, and pass the **PutItemEnhancedRequest** object. The following Java code represents the **DynamoDBEnhanced** class.
 
@@ -434,32 +438,31 @@ Create a class named **PublishTextSMS** that sends a text message when a new ite
    @Component("PublishTextSMS")
    public class PublishTextSMS {
 
-    public void sendMessage(String id) {
+       public void sendMessage(String id) {
 
-        Region region = Region.US_EAST_1;
-        SnsClient snsClient = SnsClient.builder()
-                .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+          Region region = Region.US_EAST_1;
+          SnsClient snsClient = SnsClient.builder()
+              .region(region)
+              .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+              .build();
         
-	String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
-        String phoneNumber="<Enter a valid mobile number>"; // Replace with a mobile phone number.
+	      String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
+          String phoneNumber="<Enter a valid mobile number>"; // Replace with a mobile phone number.
 
-        try {
-            PublishRequest request = PublishRequest.builder()
-                    .message(message)
-                    .phoneNumber(phoneNumber)
-                    .build();
+          try {
+              PublishRequest request = PublishRequest.builder()
+                  .message(message)
+                  .phoneNumber(phoneNumber)
+                  .build();
 
-            snsClient.publish(request);
+              snsClient.publish(request);
 
-        } catch (SnsException e) {
-
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
+          } catch (SnsException e) {
+              System.err.println(e.awsErrorDetails().errorMessage());
+              System.exit(1);
+          }
         }
-     }
-   }
+    }
 ```
 
 **Note:** Be sure to specify a valid mobile number for the **phoneNumber** variable.
