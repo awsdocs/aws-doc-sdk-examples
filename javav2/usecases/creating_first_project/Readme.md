@@ -307,7 +307,7 @@ In the **com.example.handlingformsubmission** package, create the **Greeting** c
  ```
 ### Create the GreetingItems class
 
-This class represents contains the annotation required for the enhanced client. The data members in this class map to the columns in the DynamoDB **Greeting** table.  
+This class contains the annotation required for the enhanced client. The data members in this class map to the columns in the DynamoDB **Greeting** table.  
 
 ```java
   package com.example.handlingformsubmission;
