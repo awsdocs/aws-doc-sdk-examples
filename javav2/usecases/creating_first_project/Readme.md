@@ -246,10 +246,11 @@ In the **com.example.handlingformsubmission** package, create the **GreetingCont
 
     @PostMapping("/greeting")
     public String greetingSubmit(@ModelAttribute Greeting greeting) {
-        //Persist submitted data into a DynamoDB table using the Enhanced Client
+        
+        // Persist submitted data into a DynamoDB table.
         dde.injectDynamoItem(greeting);
 
-        // Send a mobile notification
+        // Send a mobile notification.
         msg.sendMessage(greeting.getId());
 
         return "result";
