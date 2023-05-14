@@ -205,7 +205,7 @@ In the **com.example** package, create a Java class named **GreetingApplication*
        public class GreetingApplication {
 
          public static void main(String[] args) {
-          SpringApplication.run(GreetingApplication.class, args);
+            SpringApplication.run(GreetingApplication.class, args);
         }
      }
 ```
@@ -266,8 +266,7 @@ In the **com.example.handlingformsubmission** package, create the **Greeting** c
 	package com.example.handlingformsubmission;
 
 	public class Greeting {
-
-	private String id;
+	    private String id;
     	private String body;
     	private String name;
     	private String title;
@@ -303,7 +302,7 @@ In the **com.example.handlingformsubmission** package, create the **Greeting** c
     	public void setBody(String body) {
         	this.body = body;
     	}
-       }
+    }
  ```
 ### Create the GreetingItems class
 
@@ -317,48 +316,46 @@ This class contains the annotation required for the enhanced client. The data me
 
   @DynamoDbBean
   public class GreetingItems {
+      private String id;
+      private String name;
+      private String message;
+      private String title;
 
-    private String id;
-    private String name;
-    private String message;
-    private String title;
+      public GreetingItems(){
+      }
 
-    public GreetingItems()
-    {
-    }
+      public String getId() {
+          return this.id;
+      }
 
-    public String getId() {
-        return this.id;
-    }
+      @DynamoDbPartitionKey
+      public void setId(String id) {
+          this.id = id;
+      }
 
-    @DynamoDbPartitionKey
-    public void setId(String id) {
-        this.id = id;
-    }
+      public String getName() {
+          return this.name;
+      }
 
-    public String getName() {
-        return this.name;
-    }
+      public void setName(String name) {
+          this.name = name;
+      }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+      public String getMessage(){
+          return this.message;
+      }
 
-    public String getMessage(){
-        return this.message;
-    }
+      public void setMessage(String message){
+          this.message = message;
+      }
 
-    public void setMessage(String message){
-        this.message = message;
-    }
+      public String getTitle() {
+          return this.title;
+      }
 
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
+      public void setTitle(String title) {
+          this.title = title;
+      }
   }
 
 ```
@@ -386,17 +383,16 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
     public class DynamoDBEnhanced {
 
      public void injectDynamoItem(Greeting item){
-
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
-                .region(region)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(region)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
         try {
             DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
-                    .dynamoDbClient(ddb)
-                    .build();
+                .dynamoDbClient(ddb)
+                .build();
 
             DynamoDbTable<GreetingItems> mappedTable = enhancedClient.table("Greeting", TableSchema.fromBean(GreetingItems.class));
             GreetingItems gi = new GreetingItems();
@@ -406,8 +402,8 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
             gi.setId(item.getId());
 
             PutItemEnhancedRequest enReq = PutItemEnhancedRequest.builder(GreetingItems.class)
-                    .item(gi)
-                    .build();
+                .item(gi)
+                .build();
 
             mappedTable.putItem(enReq);
 
@@ -438,17 +434,15 @@ Create a class named **PublishTextSMS** that sends a text message when a new ite
 
    @Component("PublishTextSMS")
    public class PublishTextSMS {
-
        public void sendMessage(String id) {
-
-          Region region = Region.US_EAST_1;
-          SnsClient snsClient = SnsClient.builder()
-              .region(region)
-              .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-              .build();
+           Region region = Region.US_EAST_1;
+           SnsClient snsClient = SnsClient.builder()
+               .region(region)
+               .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+               .build();
         
-	      String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
-          String phoneNumber="<Enter a valid mobile number>"; // Replace with a mobile phone number.
+	       String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
+           String phoneNumber="<Enter a valid mobile number>"; // Replace with a mobile phone number.
 
           try {
               PublishRequest request = PublishRequest.builder()
