@@ -70,7 +70,7 @@ The following shows the application that you will create.
 
 When you choose **Submit**, the data is submitted to a Spring Controller and persisted into a DynamoDB table named **Greeting**. Then, a text message is sent to a user using Amazon SNS. The following is the **Greeting** table.
 
-![AWS Blog Application](images/table.png)
+![AWS Blog Application](images/greetTable.png)
 
 After the table is updated with a new item, a text message is sent to notify a mobile user.
 
