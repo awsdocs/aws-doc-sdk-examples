@@ -263,100 +263,100 @@ In the **com.example.handlingformsubmission** package, create the **GreetingCont
 In the **com.example.handlingformsubmission** package, create the **Greeting** class. This class represents the model for the Spring Boot application. The following Java code represents this class.  
 
 ```java
-	package com.example.handlingformsubmission;
+package com.example.handlingformsubmission;
 
-	public class Greeting {
-	    private String id;
-    	private String body;
-    	private String name;
-    	private String title;
+public class Greeting {
+	private String id;
+    private String body;
+    private String name;
+    private String title;
 
-    	public String getTitle() {
-        	return this.title;
-    	}
-
-    	public void setTitle(String title) {
-        	this.title = title;
-    	}
-
-    	public String getName() {
-        	return this.name;
-    	}
-
-    	public void setName(String name) {
-        	this.name = name;
-    	}
-
-    	public String getId() {
-        	return id;
-    	}
-
-    	public void setId(String id) {
-        	this.id = id;
-    	}
-
-    	public String getBody() {
-        	return this.body;
-    	}
-
-    	public void setBody(String body) {
-        	this.body = body;
-    	}
+    public String getTitle() {
+       	return this.title;
     }
+
+    public void setTitle(String title) {
+       	this.title = title;
+    }
+
+    public String getName() {
+       	return this.name;
+    }
+
+    public void setName(String name) {
+       	this.name = name;
+    }
+
+    public String getId() {
+       	return id;
+    }
+
+    public void setId(String id) {
+       	this.id = id;
+    }
+
+    public String getBody() {
+       	return this.body;
+    }
+
+    public void setBody(String body) {
+       	this.body = body;
+    }
+}
  ```
 ### Create the GreetingItems class
 
 This class contains the annotation required for the enhanced client. The data members in this class map to the columns in the DynamoDB **Greeting** table.  
 
 ```java
-  package com.example.handlingformsubmission;
+package com.example.handlingformsubmission;
 
-  import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
-  import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
-  @DynamoDbBean
-  public class GreetingItems {
-      private String id;
-      private String name;
-      private String message;
-      private String title;
+@DynamoDbBean
+public class GreetingItems {
+    private String id;
+    private String name;
+    private String message;
+    private String title;
 
-      public GreetingItems(){
-      }
+    public GreetingItems() {
+    }
 
-      public String getId() {
-          return this.id;
-      }
+    public String getId() {
+        return this.id;
+    }
 
-      @DynamoDbPartitionKey
-      public void setId(String id) {
-          this.id = id;
-      }
+    @DynamoDbPartitionKey
+    public void setId(String id) {
+        this.id = id;
+    }
 
-      public String getName() {
-          return this.name;
-      }
+    public String getName() {
+        return this.name;
+    }
 
-      public void setName(String name) {
-          this.name = name;
-      }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-      public String getMessage(){
-          return this.message;
-      }
+    public String getMessage(){
+        return this.message;
+    }
 
-      public void setMessage(String message){
-          this.message = message;
-      }
+    public void setMessage(String message){
+        this.message = message;
+    }
 
-      public String getTitle() {
-          return this.title;
-      }
+    public String getTitle() {
+        return this.title;
+    }
 
-      public void setTitle(String title) {
-          this.title = title;
-      }
-  }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+}
 
 ```
 
@@ -367,22 +367,21 @@ In the **com.example.handlingformsubmission** package, create the **DynamoDBEnha
 Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object for the **items** method. Finally, invoke the **DynamoDbEnhancedClient** object's **putItem** method, and pass the **PutItemEnhancedRequest** object. The following Java code represents the **DynamoDBEnhanced** class.
 
 ```java
-     package com.example.handlingformsubmission;
+package com.example.handlingformsubmission;
 
-    import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-    import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
-    import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
-    import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-    import software.amazon.awssdk.enhanced.dynamodb.model.PutItemEnhancedRequest;
-    import software.amazon.awssdk.regions.Region;
-    import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-    import org.springframework.stereotype.Component;
-    import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.enhanced.dynamodb.model.PutItemEnhancedRequest;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import org.springframework.stereotype.Component;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 
-    @Component("DynamoDBEnhanced")
-    public class DynamoDBEnhanced {
-
-     public void injectDynamoItem(Greeting item){
+@Component("DynamoDBEnhanced")
+public class DynamoDBEnhanced {
+    public void injectDynamoItem(Greeting item){
         Region region = Region.US_EAST_1;
         DynamoDbClient ddb = DynamoDbClient.builder()
             .region(region)
@@ -411,8 +410,8 @@ Create a **PutItemEnhancedRequest** object and pass the **GreetingItems** object
             System.err.println(e.getMessage());
             System.exit(1);
         }
-     }
-   }
+    }
+}
 ```
 
 **Note:** The **EnvironmentVariableCredentialsProvider** is used to create a **DynamoDbClient** because this application will be deployed to Elastic Beanstalk. You can set up environment variables on Elastic Beanstalk so that the  **DynamoDbClient** is successfully created. 	
@@ -423,41 +422,41 @@ Create a class named **PublishTextSMS** that sends a text message when a new ite
 
 ```java
    
-   package com.example.handlingformsubmission;
+package com.example.handlingformsubmission;
 
-   import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-   import software.amazon.awssdk.regions.Region;
-   import software.amazon.awssdk.services.sns.SnsClient;
-   import software.amazon.awssdk.services.sns.model.PublishRequest;
-   import software.amazon.awssdk.services.sns.model.SnsException;
-   import org.springframework.stereotype.Component;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.PublishRequest;
+import software.amazon.awssdk.services.sns.model.SnsException;
+import org.springframework.stereotype.Component;
 
-   @Component("PublishTextSMS")
-   public class PublishTextSMS {
-       public void sendMessage(String id) {
-           Region region = Region.US_EAST_1;
-           SnsClient snsClient = SnsClient.builder()
-               .region(region)
-               .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-               .build();
+@Component("PublishTextSMS")
+public class PublishTextSMS {
+    public void sendMessage(String id) {
+        Region region = Region.US_EAST_1;
+        SnsClient snsClient = SnsClient.builder()
+            .region(region)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
         
-	       String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
-           String phoneNumber="<Enter a valid mobile number>"; // Replace with a mobile phone number.
+	    String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
+        String phoneNumber="<Enter a valid mobile number>"; // Replace with a mobile phone number.
 
-          try {
-              PublishRequest request = PublishRequest.builder()
-                  .message(message)
-                  .phoneNumber(phoneNumber)
-                  .build();
+        try {
+            PublishRequest request = PublishRequest.builder()
+                .message(message)
+                .phoneNumber(phoneNumber)
+                .build();
 
-              snsClient.publish(request);
+            snsClient.publish(request);
 
-          } catch (SnsException e) {
-              System.err.println(e.awsErrorDetails().errorMessage());
-              System.exit(1);
-          }
+        } catch (SnsException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
         }
     }
+}
 ```
 
 **Note:** Be sure to specify a valid mobile number for the **phoneNumber** variable.
