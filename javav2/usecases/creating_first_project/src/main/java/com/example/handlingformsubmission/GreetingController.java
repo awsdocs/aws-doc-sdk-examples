@@ -35,7 +35,7 @@ public class GreetingController {
     @PostMapping("/greeting")
     public String greetingSubmit(@ModelAttribute Greeting greeting) {
         
-        //Persist submitted data into a DynamoDB table.
+        // Persist submitted data into a DynamoDB table.
         dde.injectDynamoItem(greeting);
 
         // Send a mobile notification.
