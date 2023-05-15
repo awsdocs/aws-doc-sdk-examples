@@ -1281,6 +1281,8 @@ sns_Subscribe_Filtered:
                 - cpp.example_code.cross-service.topics_and_queues.config
                 - cpp.example_code.cross-service.topics_and_queues.sns_client
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter
+                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter1
+                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter2
   services:
     sns: {Subscribe}
 sns_CreatePlatformEndpoint:

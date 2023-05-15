@@ -51,9 +51,11 @@ namespace AwsDoc {
     namespace TopicsAndQueues {
         static const Aws::String FIFO_SUFFIX = ".fifo";
         static const int NUMBER_OF_QUEUES = 2;
+        // snippet-start:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter1]
         static const Aws::String TONE_ATTRIBUTE("tone");
         static const Aws::Vector<Aws::String> TONES = {"cheerful", "funny", "serious",
                                                        "sincere"};
+        // snippet-end:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter1]
 
         //! Create an IAM policy which gives an Amazon SQS queue permission to receives messages
         //! from an TopicsAndQueues topic.
@@ -918,6 +920,7 @@ int AwsDoc::TopicsAndQueues::askQuestionForIntRange(const Aws::String &string, i
     return result;
 }
 
+// snippet-start:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter2]
 //! Routine allowing the user to select attributes for a subscription filter policy.
 /*!
  \sa getFilterPolicyFromUser()
@@ -970,3 +973,4 @@ Aws::String AwsDoc::TopicsAndQueues::getFilterPolicyFromUser() {
 
     return result;
 }
+// snippet-end:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter2]
