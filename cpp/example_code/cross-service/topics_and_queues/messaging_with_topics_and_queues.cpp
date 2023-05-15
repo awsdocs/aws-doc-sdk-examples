@@ -51,11 +51,11 @@ namespace AwsDoc {
     namespace TopicsAndQueues {
         static const Aws::String FIFO_SUFFIX = ".fifo";
         static const int NUMBER_OF_QUEUES = 2;
-        // snippet-start:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter1]
+        // snippet-start:[cpp.example_code.cross-service.topics_and_queues.attribute_declare]
         static const Aws::String TONE_ATTRIBUTE("tone");
         static const Aws::Vector<Aws::String> TONES = {"cheerful", "funny", "serious",
                                                        "sincere"};
-        // snippet-end:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter1]
+        // snippet-end:[cpp.example_code.cross-service.topics_and_queues.attribute_declare]
 
         //! Create an AWS Identity and Access Management (IAM) policy that gives an
         //! SQS queue permission to receive messages from an SNS topic.
