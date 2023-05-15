@@ -90,7 +90,7 @@ All configurations include a message text.
 Enter a message group ID for this message.
 ```
 
-If this is a FIFO topic, then you must include a group ID. The group ID can contain up to 128 alphanumeric characters `(a-z, A-Z, 0-9)` and punctuation `(!"#$%&'()*+,-./:;<=>?@[\]^_\`{|}~).`
+If this is a FIFO topic, then you must include a group ID. The group ID can contain up to 128 alphanumeric characters `(a-z, A-Z, 0-9)` and punctuation `(!"#$%&'()*+,-./:;<=>?@[\]^_``{|}~)`.
 For more information about group IDs, see [Message grouping for FIFO topics](https://docs.aws.amazon.com/sns/latest/dg/fifo-message-grouping.html).
 
 
@@ -98,7 +98,7 @@ For more information about group IDs, see [Message grouping for FIFO topics](htt
 Enter a deduplication ID for this message.
 ```
 
-If this is a FIFO topic and content-based deduplication is not enabled, then you must enter a deduplication ID. The message deduplication ID can contain up to 128 alphanumeric characters `(a-z, A-Z, 0-9)` and punctuation `(!"#$%&'()*+,-./:;<=>?@[\]^_\`{|}~).`
+If this is a FIFO topic and content-based deduplication is not enabled, then you must enter a deduplication ID. The message deduplication ID can contain up to 128 alphanumeric characters `(a-z, A-Z, 0-9)` and punctuation `(!"#$%&'()*+,-./:;<=>?@[\]^_``{|}~)`.
 
 
 ```
