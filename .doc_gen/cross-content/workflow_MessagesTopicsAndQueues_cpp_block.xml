@@ -5,10 +5,10 @@
 ]>
 <block>
     <para>
-        Demonstrates messaging with topics and queues using &SNSlong; and &SQSlong;.
+        Demonstrates messaging with topics and queues using &SNSlong; (&SNS;) and &SQSlong; (&SQS;).
     </para>
     <para>
-        For complete source code and instructions demonstrating messaging with topics and queues using &SNSlong; and &SQSlong;, see the full example on
+        For complete source code and instructions that demonstrate messaging with topics and queues in &SNS; and &SQS;, see the full example on
         <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/cpp/example_code/cross-service/topics_and_queues">GitHub</ulink>.
     </para>
 </block>
