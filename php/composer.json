@@ -1,0 +1,27 @@
+{
+    "require": {
+        "aws/aws-sdk-php": "^3.209",
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-0": {
+            "": "*"
+        },
+        "psr-4": {
+            "AwsUtilities\\": "example_code/aws_utilities",
+
+            "AutoScaling\\": "example_code/auto-scaling",
+            "DynamoDb\\": "example_code/dynamodb/",
+            "DynamoDb\\Basics\\": "example_code/dynamodb/dynamodb_basics",
+            "DynamoDb\\PartiQL_Basics\\": "example_code/dynamodb/partiql_basics",
+            "Glue\\": "example_code/glue/",
+            "Iam\\": "example_code/iam/",
+            "Lambda\\": "example_code/lambda/",
+            "S3\\": "example_code/s3/"
+        },
+        "files": [
+            "example_code/aws_utilities/TestableReadline.php",
+            "example_code/aws_utilities/LoadMovieData.php"
+        ]
+    }
+}

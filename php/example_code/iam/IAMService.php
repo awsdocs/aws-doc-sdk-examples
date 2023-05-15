@@ -191,11 +191,12 @@ class IAMService
     # snippet-end:[php.example_code.iam.service.createAccessKey]
 
     # snippet-start:[php.example_code.iam.service.deleteAccessKey]
-    public function deleteAccessKey($accessKeyId)
+    public function deleteAccessKey($accessKeyId, $userName)
     {
-        return $this->customWaiter(function () use ($accessKeyId) {
+        return $this->customWaiter(function () use ($accessKeyId, $userName) {
             return $this->iamClient->deleteAccessKey([
                 'AccessKeyId' => $accessKeyId,
+                'UserName' => $userName,
             ]);
         });
     }
@@ -386,4 +387,34 @@ class IAMService
         $this->iamClient->updateAccountPasswordPolicy($array);
     }
     # snippet-end:[php.example_code.iam.service.updateAccountPasswordPolicy]
+
+    public function listUserPolicies(string $userName)
+    {
+        return $this->iamClient->listUserPolicies([
+            'UserName' => $userName,
+        ]);
+    }
+
+    public function deleteUserPolicy(string $userName, string $policyName)
+    {
+        return $this->iamClient->deleteUserPolicy([
+            'PolicyName' => $policyName,
+            'UserName' => $userName,
+        ]);
+    }
+
+    public function listAccessKeys(string $userName)
+    {
+        return $this->iamClient->listAccessKeys([
+            'UserName' => $userName,
+        ]);
+    }
+
+    public function deleteRolePolicy(string $policyName, string $roleName)
+    {
+        return $this->iamClient->deleteRolePolicy([
+            'PolicyName' => $policyName,
+            'RoleName' => $roleName,
+        ]);
+    }
 }

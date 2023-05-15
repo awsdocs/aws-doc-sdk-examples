@@ -1,4 +1,21 @@
 # zexi 0.4.0
+dynamodb_Hello:
+  title: Hello &DDB;
+  title_abbrev: Hello &DDB;
+  synopsis: get started using &DDB;.
+  category: Hello
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/dynamodb
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.dynamodb.hello 
+  services:
+    dynamodb: {ListTables}
 dynamodb_CreateTable:
   title: Create a &DDB; table using an &AWS; SDK
   title_abbrev: Create a table
@@ -91,10 +108,7 @@ dynamodb_CreateTable:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-creating-a-table
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Create the table.
+            - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.createTableV3
         - sdk_version: 2
@@ -144,12 +158,9 @@ dynamodb_BatchGetItem:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-reading
           excerpts:
-            - description: Create the client.
+            - description:
               snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Get the items.
-              snippet_tags:
-                - dynamodb.JavaScript.batch.GetItemV3
+                - javascript.v3.dynamodb.doc-client.BatchGet
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-reading
@@ -223,10 +234,7 @@ dynamodb_DescribeTable:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-describing-a-table
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Describe the table.
+            - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.describeTableV3
         - sdk_version: 2
@@ -311,13 +319,7 @@ dynamodb_BatchWriteItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createclientv3
-            - description: Create the document client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createdocclientv3
-            - description: Add the items to the table.
+            - description:
               snippet_tags:
                 - dynamodb.JavaScript.movies.batchwriteV3
         - sdk_version: 2
@@ -445,10 +447,7 @@ dynamodb_DeleteTable:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createclientv3
-            - description: Delete the table.
+            - description: 
               snippet_tags:
                 - dynamodb.JavaScript.item.deleteTableV3
         - sdk_version: 2
@@ -559,21 +558,9 @@ dynamodb_PutItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description: Create the client.
+            - description: 
               snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createclientv3
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createdocclientv3
-            - description: Put an item in a table using the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.movies.putItemV3
-            - description: Put an item in a table using PartiQL.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.putItemV3
-            - description: Put items by batch in a table using PartiQL.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.putItemsV3
+                - dynamodb.JavaScript.docClient.putV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-writing-an-item
@@ -678,21 +665,9 @@ dynamodb_GetItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description: Create the client.
+            - description:
               snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createclientv3
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createdocclientv3
-            - description: Get an item from a table.
-              snippet_tags:
-                - dynamodb.JavaScript.movies.getItemV3
-            - description: Get an item from a table using PartiQL.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.getItemV3
-            - description: Get items by batch from a table using PartiQL.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.getItemsV3
+                - dynamodb.JavaScript.docClient.getV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-dynamodb-utilities.html#dynamodb-example-document-client-get
@@ -806,21 +781,9 @@ dynamodb_UpdateItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description: Create the client.
+            - description:
               snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createclientv3
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createdocclientv3
-            - description: Update an item in a table using the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.movies.updateItemV3
-            - description: Update an item in a table using PartiQL.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.updateItemV3
-            - description: Update items by batch in a table using PartiQL.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.updateItemsV3
+                - dynamodb.JavaScript.docClient.updateV3
     Swift:
       versions:
         - sdk_version: 1
@@ -921,21 +884,9 @@ dynamodb_DeleteItem:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
           excerpts:
-            - description: Create the client.
+            - description:
               snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createclientv3
-            - description: Create the document client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createdocclientv3
-            - description: Delete an item from a table using the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.movies.deleteV3
-            - description: Delete an item from a table using PartiQL.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.deleteItemV3
-            - description: Delete an item from a table by batch using PartiQL.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.deleteItemsV3
+                - dynamodb.JavaScript.docClient.deleteV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
@@ -1060,10 +1011,7 @@ dynamodb_ListTables:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-examples-using-tables.html#dynamodb-examples-using-tables-listing-tables
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: List the tables.
+            - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.listTablesV3
         - sdk_version: 2
@@ -1182,18 +1130,9 @@ dynamodb_Query:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying
           excerpts:
-            - description: Create the client.
+            - description:
               snippet_tags:
-                - dynamodb.JavaScript.tables.createclientv3
-            - description: Query the table.
-              snippet_tags:
-                - dynamodb.JavaScript.table.queryV3
-            - description: Create the client for the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.tables.createdocclientv3
-            - description: Query the table using the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.movies.queryV3
+                - dynamodb.JavaScript.docClient.queryV3
         - sdk_version: 2
           github: javascript/example_code/dynamodb
           sdkguide: sdk-for-javascript/v2/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying
@@ -1302,13 +1241,7 @@ dynamodb_Scan:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createclientv3
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createdocclientv3
-            - description: Scan a table using the &DDB; document client.
+            - description:
               snippet_tags:
                 - dynamodb.JavaScript.movies.scanV3
         - sdk_version: 2
@@ -1381,12 +1314,6 @@ dynamodb_ExecuteStatement:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.createclientv3
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.createdocclientv3
             - description: Create an item using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.putItemV3
@@ -1506,12 +1433,6 @@ dynamodb_BatchExecuteStatement:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.createclientv3
-            - description: Create the &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.partiQL.createdocclientv3
             - description: Create a batch of items using PartiQL.
               snippet_tags:
                 - dynamodb.JavaScript.partiQL.putItemsV3
@@ -1767,13 +1688,7 @@ dynamodb_Scenario_GettingStartedMovies:
           github: javascriptv3/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Create a &DDB; client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createclientv3
-            - description: Create a &DDB; document client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.basics.createdocclientv3
-            - description: Run the scenario.
+            - description:
               snippet_tags:
                 - javascript.dynamodb_scenarios.dynamodb_basics
     C++:
@@ -1883,13 +1798,7 @@ dynamodb_Scenario_PartiQLSingle:
           github: javascriptv3/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.partiQL.basics.createclientv3
-            - description: Create the document client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.partiQL.createdocclientv3
-            - description: Query single items.
+            - description: Execute single PartiQL statements.
               snippet_tags:
                 - javascript.dynamodb_scenarios.partiQL_basics
     PHP:
@@ -2017,13 +1926,7 @@ dynamodb_Scenario_PartiQLBatch:
           github: javascriptv3/example_code/dynamodb
           sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.partiQL.basics.createclientv3
-            - description: Create the document client.
-              snippet_tags:
-                - dynamodb.JavaScript.scenario.partiQL.createdocclientv3
-            - description: Query items by batch.
+            - description: Execute batch PartiQL statements. 
               snippet_tags:
                 - javascript.dynamodb_scenarios.partiQL_batch_basics
     PHP:

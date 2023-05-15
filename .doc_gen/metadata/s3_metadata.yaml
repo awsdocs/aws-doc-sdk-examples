@@ -2562,3 +2562,21 @@ s3_Scenario_ListObjectsWeb:
                 - javascript.v3.scenarios.web.ListObjects
   services:
     s3: {ListObjects}
+s3_Scenario_URIParsing:
+  title: Parse &S3; URIs using an &AWS; SDK
+  title_abbrev: Parse URIs
+  synopsis: parse &S3; URIs to extract important components like the bucket name and object key.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Parse an &S3; URI by using the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Uri.html">S3Uri</ulink> class.
+              snippet_tags:
+                - s3.java2.scenario_uriparsing.import
+                - s3.java2.scenario_uriparsing.main
+  services:
+    s3: {}

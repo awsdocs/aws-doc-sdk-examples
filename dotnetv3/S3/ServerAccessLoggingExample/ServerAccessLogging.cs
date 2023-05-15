@@ -9,21 +9,29 @@
 /// logs. The example was created using the AWS SDK for .NET version 3.7
 /// and .NET Core 5.0.
 /// </summary>
+
 namespace ServerAccessLoggingExample
 {
     // snippet-start:[S3.dotnetv3.ServerAccessLoggingExample]
     using System;
+    using System.IO;
     using System.Threading.Tasks;
+    using Microsoft.Extensions.Configuration;
     using Amazon.S3;
     using Amazon.S3.Model;
 
     public class ServerAccessLogging
     {
+        private static IConfiguration _configuration = null!;
+
         public static async Task Main()
         {
-            string bucketName = "doc-example-bucket";
-            string logBucketName = "doc-example-logs-bucket";
-            string logObjectKeyPrefix = "Logs";
+            LoadConfig();
+
+            string bucketName = _configuration["BucketName"];
+            string logBucketName = _configuration["LogBucketName"];
+            string logObjectKeyPrefix = _configuration["LogObjectKeyPrefix"];
+            string accountId = _configuration["AccountId"];
 
             // If the AWS Region defined for your default user is different
             // from the Region where your Amazon S3 bucket is located,
@@ -33,12 +41,13 @@ namespace ServerAccessLoggingExample
 
             try
             {
-                // Grant Log Delivery group permission to write log entries
-                // to the target bucket.
-                await GrantPermissionsToWriteLogsAsync(client, logBucketName);
+                // Update bucket policy for target bucket to allow delivery of logs to it.
+                await SetBucketPolicyToAllowLogDelivery(client, bucketName, logBucketName,
+                    logObjectKeyPrefix, accountId);
 
                 // Enable logging on the source bucket.
-                await EnableLoggingAsync(client, bucketName, logBucketName, logObjectKeyPrefix);
+                await EnableLoggingAsync(client, bucketName, logBucketName,
+                    logObjectKeyPrefix);
             }
             catch (AmazonS3Exception e)
             {
@@ -51,28 +60,51 @@ namespace ServerAccessLoggingExample
         /// Amazon S3 bucket where the logs will be stored.
         /// </summary>
         /// <param name="client">The initialized Amazon S3 client which will be used
-        /// to create and apply an ACL for the logging bucket.</param>
+        /// to apply the bucket policy.</param>
+        /// <param name="sourceBucketName">The name of the source bucket.</param>
         /// <param name="logBucketName">The name of the bucket where logging
         /// information will be stored.</param>
-        public static async Task GrantPermissionsToWriteLogsAsync(IAmazonS3 client, string logBucketName)
+        /// <param name="logPrefix">The logging prefix where the logs should be delivered.</param>
+        /// <param name="accountId">The account id of the account where the source bucket exists.</param>
+        /// <returns>Async task.</returns>
+        public static async Task SetBucketPolicyToAllowLogDelivery(
+            IAmazonS3 client,
+            string sourceBucketName,
+            string logBucketName,
+            string logPrefix,
+            string accountId)
         {
-            var aclResponse = await client.GetACLAsync(new GetACLRequest { BucketName = logBucketName });
-            var bucketACL = aclResponse.AccessControlList;
+            var resourceArn = @"""arn:aws:s3:::" + logBucketName + "/" + logPrefix + @"*""";
 
-            bucketACL.AddGrant(new S3Grantee { URI = "http://acs.amazonaws.com/groups/s3/LogDelivery" }, S3Permission.WRITE);
-            bucketACL.AddGrant(new S3Grantee { URI = "http://acs.amazonaws.com/groups/s3/LogDelivery" }, S3Permission.READ_ACP);
-            var setACLRequest = new PutACLRequest
+            var newPolicy = @"{
+                                ""Statement"":[{
+                                ""Sid"": ""S3ServerAccessLogsPolicy"",
+                                ""Effect"": ""Allow"",
+                                ""Principal"": { ""Service"": ""logging.s3.amazonaws.com"" },
+                                ""Action"": [""s3:PutObject""],
+                                ""Resource"": [" + resourceArn + @"],
+                                ""Condition"": {
+                                ""ArnLike"": { ""aws:SourceArn"": ""arn:aws:s3:::" + sourceBucketName + @""" },
+                                ""StringEquals"": { ""aws:SourceAccount"": """ + accountId + @""" }
+                                        }
+                                    }]
+                                }";
+            Console.WriteLine($"The policy to apply to bucket {logBucketName} to enable logging:");
+            Console.WriteLine(newPolicy);
+
+            PutBucketPolicyRequest putRequest = new PutBucketPolicyRequest
             {
-                AccessControlList = bucketACL,
                 BucketName = logBucketName,
+                Policy = newPolicy,
             };
-            await client.PutACLAsync(setACLRequest);
+            await client.PutBucketPolicyAsync(putRequest);
+            Console.WriteLine("Policy applied.");
         }
 
         /// <summary>
         /// This method enables logging for an Amazon S3 bucket. Logs will be stored
-        /// in the bucket you selected for logging. Each the logObjectKeyPrefix
-        /// will be prepended to each log oject.
+        /// in the bucket you selected for logging. Selected prefix
+        /// will be prepended to each log object.
         /// </summary>
         /// <param name="client">The initialized Amazon S3 client which will be used
         /// to configure and apply logging to the selected Amazon S3 bucket.</param>
@@ -81,13 +113,15 @@ namespace ServerAccessLoggingExample
         /// <param name="logBucketName">The name of the Amazon S3 bucket where logging
         /// information will be stored.</param>
         /// <param name="logObjectKeyPrefix">The prefix to prepend to each
-        /// object key</param>
+        /// object key.</param>
+        /// <returns>Async task.</returns>
         public static async Task EnableLoggingAsync(
             IAmazonS3 client,
             string bucketName,
             string logBucketName,
             string logObjectKeyPrefix)
         {
+            Console.WriteLine($"Enabling logging for bucket {bucketName}.");
             var loggingConfig = new S3BucketLoggingConfig
             {
                 TargetBucketName = logBucketName,
@@ -100,6 +134,19 @@ namespace ServerAccessLoggingExample
                 LoggingConfig = loggingConfig,
             };
             await client.PutBucketLoggingAsync(putBucketLoggingRequest);
+            Console.WriteLine($"Logging enabled.");
+        }
+
+        /// <summary>
+        /// Loads configuration from settings files.
+        /// </summary>
+        public static void LoadConfig()
+        {
+            _configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("settings.json") // Load settings from .json file.
+                .AddJsonFile("settings.local.json", true) // Optionally, load local settings.
+                .Build();
         }
     }
 
