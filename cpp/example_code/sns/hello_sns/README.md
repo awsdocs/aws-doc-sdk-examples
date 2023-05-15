@@ -2,7 +2,7 @@
 
 ## Overview
 
-This folder provides a CMake "Hello SNS" project which uses the AWS SDK of C++ to call the Amazon Simple Notification Service (Amazon SNS).
+This folder provides a CMake "Hello SNS" project that uses the AWS SDK for C++ to call Amazon Simple Notification Service (Amazon SNS).
 
 ## ⚠ Important
 
@@ -11,7 +11,7 @@ This folder provides a CMake "Hello SNS" project which uses the AWS SDK of C++ t
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-## Run the Hello SNS App
+## Run the Hello SNS app
 
 ### Prerequisites
 
@@ -25,7 +25,7 @@ This example uses the CMake build system. For information about the CMake build 
 
 Many Integrated Development Environments (IDEs) support CMake. If your preferred IDE supports CMake, follow the IDE's instructions to open this CMake project.
 
-This project can also be built from a command line interface using the following commands.
+You can build this project from a command line interface using the following commands.
 
 ```sh
 mkdir build 
@@ -36,13 +36,13 @@ cmake --build ..
 The built executable is named `hello_sns`.
 
 
-This example can be run with the AWS Managed Policy "arn:aws:iam::aws:policy/AmazonSNSReadOnlyAccess".
+You can run this example with the AWS managed policy "arn:aws:iam::aws:policy/AmazonSNSReadOnlyAccess".
 
 
 You can also use CMake to generate the input files for your native build system.
 For more information, see https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html.
 
-The [CMakeLists.txt](CMakeLists.txt) file contains the build settings. If your build is failing (particularly on Windows), you may need to modify this file.
+The [CMakeLists.txt](CMakeLists.txt) file contains the build settings. If your build is failing (particularly on Windows), you might need to modify this file.
 
 The [hello_sns.cpp](hello_sns.cpp) file contains the C++ source code, including a "main" function.
 

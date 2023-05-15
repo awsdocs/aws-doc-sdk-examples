@@ -19,7 +19,7 @@
 
 /*
  *  A "Hello SNS" starter application which initializes an Amazon Simple Notification
- *  Service (Amazon SNS) client and lists the Amazon SNS topics in the current account.
+ *  Service (Amazon SNS) client and lists the SNS topics in the current account.
  *
  *  main function
  *

@@ -3,17 +3,17 @@
 ## Overview
 
 
-Publish and subscribe is a mechanism for passing information. It’s used in social media, and it’s also used internally in software applications. A producer publishes a message, and the subscribers receive the message. In software, publish and subscribe notifications makes message passing flexible and robust. The producers of messages are decoupled from the consumers of messages.
+Publish and subscribe is a mechanism for passing information. It’s used in social media, and it’s also used internally in software applications. A producer publishes a message, and the subscribers receive the message. In software, publish and subscribe notifications make message passing flexible and robust. The producers of messages are decoupled from the consumers of messages.
 
 Use the sample code in this folder to explore publishing and subscribing to a topic by using filters and queues. This tutorial does not create a complete end-to-end application. Instead, you can use it to play around with a publish and subscribe architecture.
 
 You can create an Amazon SNS topic and subscribe two Amazon SQS queues to the topic. You can enable FIFO (First-In-First-Out) queueing, and you can add filtered subscriptions. Then, you can publish messages to the topic and see the results in the queues.
 
-You can publish and subscribe using just SNS. But combining SNS with SQS gives you more flexibility in how the messages are consumed.
+You can publish and subscribe using Amazon SNS alone. But combining Amazon SNS with Amazon SQS gives you more flexibility in how the messages are consumed.
 
-SNS is a push service. It pushes to endpoints such as email addresses, mobile application endpoints, or SQS queues. (For a full list of endpoints, see [SNS event destinations](https://docs.aws.amazon.com/sns/latest/dg/sns-event-destinations.html)).
+Amazon SNS is a push service. It pushes to endpoints such as email addresses, mobile application endpoints, or SQS queues. (For a full list of endpoints, see [SNS event destinations](https://docs.aws.amazon.com/sns/latest/dg/sns-event-destinations.html)).
 
-With SQS, messages are received from a queue by polling. With polling, the subscriber receives messages by callling a receive message api. Any code can poll the queue. Also, the messages stay in the queue until you delete them. This gives you more flexibility in how the messages are processed.
+With Amazon SQS, messages are received from a queue by polling. With polling, the subscriber receives messages by calling a receive message API. Any code can poll the queue. Also, the messages stay in the queue until you delete them. This gives you more flexibility in how the messages are processed.
 
 The sample code builds a command line application that asks you for input. This is implemented in multiple programming languages, and the interface can vary slightly between languages. The following shows the interface for the C++ implementation.
 
@@ -27,7 +27,7 @@ You configure FIFO (First-In-First-Out) topics when you create them. Choosing a 
 
 
 ```
-Would you like to use content-based deduplication instead of a deduplication ID? (y/n)
+Use content-based deduplication instead of a deduplication ID? (y/n)
 ```
 
 Deduplication is only available for FIFO topics. Deduplication prevents the subscriber from responding more than once to events that are determined to be duplicates. If a message gets published to an SNS FIFO topic and it’s found to be a duplicate within the five-minute deduplication interval, the message is accepted but not delivered. For more information, see [Message deduplication for FIFO topics](https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html).
@@ -40,7 +40,7 @@ Enter a name for your SNS topic:
 
 Topic names can have 1-256 characters. They can contain uppercase and lowercase ASCII letters, numbers, underscores, and hyphens. If you chose a FIFO topic, the application automatically adds a “.fifo” suffix, which is required for FIFO topics.
 
-### Create two SQS queues.
+### Create two SQS queues
 
 Now, configure two SQS queues to subscribe to your topic. Separate queues for each subscriber can be helpful. For 
 instance, you can customize how messages are consumed and how messages are filtered.
@@ -53,7 +53,7 @@ Queue names can have 1-80 characters. They can contain uppercase and lowercase A
 
 
 ```
-Would you like to filter messages for "<queue name>.fifo"s subscription to 
+Filter messages for "<queue name>.fifo"s subscription to 
 the topic "<topic name>.fifo"?  (y/n)
 ```
 
@@ -66,7 +66,7 @@ You can filter messages by one or more of the following "tone" attributes.
 2. funny
 3. serious
 4. sincere
-Enter a number (or enter zero to not add anything more)
+Enter a number (or enter zero to stop adding more)
 ```
 
 If you add a filter, you can select one or more “tone” attributes to filter by. When you’re done, enter “0’” to continue.
@@ -102,7 +102,7 @@ If this is a FIFO topic and content-based deduplication is not enabled, then you
 
 
 ```
-Would you like to add an attribute to this message? (y/n) y
+Add an attribute to this message? (y/n) y
 ```
 
 If you added a filter to one of the subscriptions, you can choose to add a filtering attribute to the message.
@@ -120,7 +120,7 @@ Select a number for an attribute.
 
 
 ```
-Would you like to post another message? (y/n)
+Post another message? (y/n)
 ```
 
 You can post as many messages as you want.
@@ -148,7 +148,7 @@ C++ Developer Guide.
 This example uses the CMake build system. For information about the CMake build system, see https://cmake.org/.
 Many Integrated Development Environments (IDEs) support CMake. If your preferred IDE supports CMake, follow the IDE's instructions to open this CMake project.
 
-This project can also be built from a command line interface by using the following commands.
+You can also build this project from a command line interface by using the following commands.
 
 
 ```
@@ -159,7 +159,7 @@ cmake —build ..
 
 This builds the executable named “run_topics_and_queues”.
 
-Running this example requires IAM permissions for both SNS and SQS.
+Running this example requires AWS Identity and Access Management (IAM) permissions for both SNS and SQS.
 
 ## Additional resources
 

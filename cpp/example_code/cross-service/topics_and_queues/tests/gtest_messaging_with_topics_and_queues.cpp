@@ -25,12 +25,12 @@ namespace AwsDocTest {
                                         "tests_v1_1", // Enter a name for an SQS queue.
                                         "tests_v1_2", // Enter a name for the next SQS queue.
                                         "test message v1 1", // Enter a message text to publish.
-                                        "y", // Would you like to post another message? (y/n)
+                                        "y", // Post another message? (y/n)
                                         "test message v1 2", // Enter a message text to publish.
-                                        "n", // Would you like to post another message? (y/n)
+                                        "n", // Post another message? (y/n)
                                         "", // Press any key to continue...
-                                        "y", // Would you like to delete the SQS queues? (y/n)
-                                        "y" // Would you like to delete the SNS topic? (y/n)
+                                        "y", // Delete the SQS queues? (y/n)
+                                        "y" // Delete the SNS topic? (y/n)
                                 });
 
         auto result = AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
@@ -43,21 +43,21 @@ namespace AwsDocTest {
 
         AddCommandLineResponses({
                                         "y", // Would you like to work with FIFO topics? (y/n)
-                                        "y", // Would you like to use content-based deduplication instead of entering a deduplication ID? (y/n)
+                                        "y", // Use content-based deduplication instead of entering a deduplication ID? (y/n)
                                         "tests_v2", // Enter a name for your SNS topic.
                                         "tests_v2_1", // Enter a name for an SQS queue.
-                                        "n", // Would you like to filter messages for ""tests_v2_1".fifo"'s subscription to the topic "tests_v2.fifo"?  (y/n)
+                                        "n", // Filter messages for ""tests_v2_1".fifo"'s subscription to the topic "tests_v2.fifo"?  (y/n)
                                         "tests_v2_2", // Enter a name for the next SQS queue.
-                                        "n", // Would you like to filter messages for ""tests_v2_1".fifo"'s subscription to the topic "tests_v2.fifo"?  (y/n)
+                                        "n", // Filter messages for ""tests_v2_1".fifo"'s subscription to the topic "tests_v2.fifo"?  (y/n)
                                         "test message v2 1", // Enter a message text to publish.
                                         "1", // Enter a message group ID for this message.
                                         "y", // Would you like to post another message? (y/n)
                                         "test message v2 2", // Enter a message text to publish.
                                         "1", // Enter a message group ID for this message.
-                                        "n", // Would you like to post another message? (y/n)
+                                        "n", // Post another message? (y/n)
                                         "", // Press any key to continue...
-                                        "y", // Would you like to delete the SQS queues? (y/n)
-                                        "y" // Would you like to delete the SNS topic? (y/n)
+                                        "y", // Delete the SQS queues? (y/n)
+                                        "y" // Delete the SNS topic? (y/n)
                                 });
 
         auto result = AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
@@ -70,23 +70,23 @@ namespace AwsDocTest {
 
         AddCommandLineResponses({
                                         "y", // Would you like to work with FIFO topics? (y/n)
-                                        "n", // Would you like to use content-based deduplication instead of entering a deduplication ID? (y/n)
+                                        "n", // Use content-based deduplication instead of entering a deduplication ID? (y/n)
                                         "tests_v3", // Enter a name for your SNS topic.
                                         "tests_v3_1", // Enter a name for an SQS queue.
-                                        "n", // Would you like to filter messages for ""tests_v2_1".fifo"'s subscription to the topic "tests_v2.fifo"?  (y/n)
+                                        "n", // Filter messages for ""tests_v2_1".fifo"'s subscription to the topic "tests_v2.fifo"?  (y/n)
                                         "tests_v3_2", // Enter a name for the next SQS queue.
-                                        "n", // Would you like to filter messages for ""tests_v2_1".fifo"'s subscription to the topic "tests_v2.fifo"?  (y/n)
+                                        "n", // Filter messages for ""tests_v2_1".fifo"'s subscription to the topic "tests_v2.fifo"?  (y/n)
                                         "test message v3 1", // Enter a message text to publish.
                                         "1", // Enter a message group ID for this message.
                                         "1", // Enter a deduplication ID for this message.
-                                        "y", // Would you like to post another message? (y/n)
+                                        "y", // Post another message? (y/n)
                                         "test message v3 2", // Enter a message text to publish.
                                         "1", // Enter a message group ID for this message.
                                         "2", // Enter a deduplication ID for this message.
-                                        "n", // Would you like to post another message? (y/n)
+                                        "n", // Post another message? (y/n)
                                         "", // Press any key to continue...
-                                        "y", // Would you like to delete the SQS queues? (y/n)
-                                        "y" // Would you like to delete the SNS topic? (y/n)
+                                        "y", // Delete the SQS queues? (y/n)
+                                        "y" // Delete the SNS topic? (y/n)
                                 });
 
         auto result = AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
@@ -99,29 +99,29 @@ namespace AwsDocTest {
 
         AddCommandLineResponses({
                                         "y", // Would you like to work with FIFO topics? (y/n)
-                                        "y", // Would you like to use content-based deduplication instead of entering a deduplication ID? (y/n)
+                                        "y", // Use content-based deduplication instead of entering a deduplication ID? (y/n)
                                         "tests_v4", // Enter a name for your SNS topic.
                                         "tests_v4_1", // Enter a name for an SQS queue.
-                                        "y", // Would you like to filter messages for ""tests_v4_1".fifo"'s subscription to the topic "tests_v4.fifo"?  (y/n)
-                                        "1", // Enter a number (or enter zero to not add anything more).
-                                        "2", // Enter a number (or enter zero to not add anything more).
-                                        "0", // Enter a number (or enter zero to not add anything more).
+                                        "y", // Filter messages for ""tests_v4_1".fifo"'s subscription to the topic "tests_v4.fifo"?  (y/n)
+                                        "1", // Enter a number (or enter zero to stop adding more).
+                                        "2", // Enter a number (or enter zero to stop adding more).
+                                        "0", // Enter a number (or enter zero to stop adding more).
                                         "tests_v4_2", // Enter a name for the next SQS queue.
-                                        "n", // Would you like to filter messages for ""tests_v4_1".fifo"'s subscription to the topic "tests_v4.fifo"?  (y/n)
+                                        "n", // Filter messages for ""tests_v4_1".fifo"'s subscription to the topic "tests_v4.fifo"?  (y/n)
                                         "test message v4 1", // Enter a message text to publish.
                                         "1", // Enter a message group ID for this message.
                                         "1", // Enter a deduplication ID for this message.
-                                        "y", // Would you like to add an attribute to this message? (y/n)
+                                        "y", // Add an attribute to this message? (y/n)
                                         "1", // Enter a number for an attribute.
-                                        "y", // Would you like to post another message? (y/n)
+                                        "y", // Post another message? (y/n)
                                         "test message v4 2", // Enter a message text to publish.
                                         "1", // Enter a message group ID for this message.
                                         "2", // Enter a deduplication ID for this message.
-                                        "n", // Would you like to add an attribute to this message? (y/n)
-                                        "n", // Would you like to post another message? (y/n)
+                                        "n", // Add an attribute to this message? (y/n)
+                                        "n", // Post another message? (y/n)
                                         "", // Press any key to continue...
-                                        "y", // Would you like to delete the SQS queues? (y/n)
-                                        "y" // Would you like to delete the SNS topic? (y/n)
+                                        "y", // Delete the SQS queues? (y/n)
+                                        "y" // Delete the SNS topic? (y/n)
                                 });
 
         auto result = AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
@@ -135,27 +135,27 @@ namespace AwsDocTest {
 
         AddCommandLineResponses({
                                         "y", // Would you like to work with FIFO topics? (y/n)
-                                        "n", // Would you like to use content-based deduplication instead of entering a deduplication ID? (y/n)
+                                        "n", // Use content-based deduplication instead of entering a deduplication ID? (y/n)
                                         "tests_v5", // Enter a name for your SNS topic.
                                         "tests_v5_1", // Enter a name for an SQS queue.
-                                        "y", // Would you like to filter messages for ""tests_v5_1".fifo"'s subscription to the topic "tests_v5.fifo"?  (y/n)
-                                        "1", // Enter a number (or enter zero to not add anything more).
-                                        "2", // Enter a number (or enter zero to not add anything more).
-                                        "0", // Enter a number (or enter zero to not add anything more).
+                                        "y", // Filter messages for ""tests_v5_1".fifo"'s subscription to the topic "tests_v5.fifo"?  (y/n)
+                                        "1", // Enter a number (or enter zero to stop adding more).
+                                        "2", // Enter a number (or enter zero to stop adding more).
+                                        "0", // Enter a number (or enter zero to stop adding more).
                                         "tests_v5_2", // Enter a name for the next SQS queue.
-                                        "n", // Would you like to filter messages for ""tests_v5_1".fifo"'s subscription to the topic "tests_v5.fifo"?  (y/n)
+                                        "n", // Filter messages for ""tests_v5_1".fifo"'s subscription to the topic "tests_v5.fifo"?  (y/n)
                                         "test message v5 1", // Enter a message text to publish.
                                         "1", // Enter a message group ID for this message.
-                                        "y", // Would you like to add an attribute to this message? (y/n)
+                                        "y", // Add an attribute to this message? (y/n)
                                         "1", // Enter a number for an attribute.
-                                        "y", // Would you like to post another message? (y/n)
+                                        "y", // Post another message? (y/n)
                                         "test message v5 2", // Enter a message text to publish.
                                         "1", // Enter a message group ID for this message.
-                                        "n", // Would you like to add an attribute to this message? (y/n)
-                                        "n", // Would you like to post another message? (y/n)
+                                        "n", // Add an attribute to this message? (y/n)
+                                        "n", // Post another message? (y/n)
                                         "", // Press any key to continue...
-                                        "y", // Would you like to delete the SQS queues? (y/n)
-                                        "y" // Would you like to delete the SNS topic? (y/n)
+                                        "y", // Delete the SQS queues? (y/n)
+                                        "y" // Delete the SNS topic? (y/n)
                                 });
 
         auto result = AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(

@@ -24,7 +24,7 @@
 // snippet-start:[sns.cpp.get_subscription_attributes.code]
 //! Retrieve the properties of an Amazon Simple Notification Service (Amazon SNS) subscription.
 /*!
-  \param topicARN: The Amazon Resource Name (ARN) for an Amazon SNS subscription.
+  \param topicARN: The Amazon Resource Name (ARN) for an SNS subscription.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */

@@ -18,8 +18,8 @@
 #include <iostream>
 
 /*
- *  A "Hello SQS" starter application which initializes an Amazon Simple Queue Service
- *  (Amazon SQS) client and lists the Amazon SQS queues in the current account.
+ *  A "Hello SQS" starter application that initializes an Amazon Simple Queue Service
+ *  (Amazon SQS) client and lists the SQS queues in the current account.
  *
  *  main function
  *

@@ -16,10 +16,10 @@
  * Demonstrates messaging with topics and queues using Amazon Simple Notification
  * Service (Amazon SNS) and Amazon Simple Queue Service (Amazon SQS).
  *
- * 1.  Create an Amazon SNS topic, either FIFO (First-In-First-Out) or non-FIFO. (CreateTopic)
+ * 1.  Create an SNS topic, either FIFO (First-In-First-Out) or non-FIFO. (CreateTopic)
  * 2.  Create an SQS queue. (CreateQueue)
  * 3.  Get the SQS queue ARN attribute. (GetQueueAttributes)
- * 4.  Set the SQS queue policy attribute with a policy enabling the receiving of SNS messages. (SetQueueAttributes)
+ * 4.  Set the SQS queue policy attribute with a policy enabling the receipt of SNS messages. (SetQueueAttributes)
  * 5.  Subscribe the SQS queue to the SNS topic. (Subscribe)
  * 6.  Publish a message to the SNS topic. (Publish)
  * 7.  Poll an SQS queue for its messages. (ReceiveMessage)
@@ -57,25 +57,25 @@ namespace AwsDoc {
                                                        "sincere"};
         // snippet-end:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter1]
 
-        //! Create an IAM policy which gives an Amazon SQS queue permission to receives messages
-        //! from an TopicsAndQueues topic.
+        //! Create an AWS Identity and Access Management (IAM) policy that gives an
+        //! SQS queue permission to receive messages from an SNS topic.
         /*!
          \sa createPolicyForQueue()
-         \param queueARN: The Amazon SQS queue Amazon Resource Name (ARN).
-         \param topicARN: The Amazon SNS topic ARN.
+         \param queueARN: The SQS queue Amazon Resource Name (ARN).
+         \param topicARN: The SNS topic ARN.
          \return Aws::String: The policy as JSON.
          */
         static Aws::String createPolicyForQueue(const Aws::String &queueARN,
                                                 const Aws::String &topicARN);
 
-        //! Routine allowing the user to select attributes for a subscription filter policy.
+        //! Routine that lets the user select attributes for a subscription filter policy.
         /*!
          \sa getFilterPolicyFromUser()
          \return Aws::String: The filter policy as JSON.
          */
         static Aws::String getFilterPolicyFromUser();
 
-        //! Routine which deletes AWS resources create by this scenario.
+        //! Routine that deletes AWS resources created by this scenario.
         /*!
          \sa cleanUp()
          \param topicARN: The ARN of an SNS topic.
@@ -204,7 +204,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                 << "see https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html."
                 << std::endl;
         contentBasedDeduplication = askYesNoQuestion(
-                "Would you like to use content-based deduplication instead of entering a deduplication ID? (y/n) ");
+                "Use content-based deduplication instead of entering a deduplication ID? (y/n) ");
     }
 
     printAsterisksLine();
@@ -323,8 +323,8 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
         if (first) // Only explain this once.
         {
             std::cout
-                    << "The queue URL will be used to retrieve the queue ARN, which will "
-                    << "be used to create a subscription." << std::endl;
+                    << "The queue URL is used to retrieve the queue ARN, which is "
+                    << "used to create a subscription." << std::endl;
         }
 
         Aws::String queueARN;
@@ -384,12 +384,12 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
 
         if (first) {
             std::cout
-                    << "An IAM policy must be attached to an SQS queue enabling it to receive "
+                    << "An IAM policy must be attached to an SQS queue, enabling it to receive "
                        "messages from an SNS topic." << std::endl;
         }
 
         {
-            // 4.  Set the SQS queue policy attribute with a policy enabling the receiving of SNS messages.
+            // 4.  Set the SQS queue policy attribute with a policy enabling the receipt of SNS messages.
             Aws::SQS::Model::SetQueueAttributesRequest request;
             request.SetQueueUrl(queueURL);
             Aws::String policy = createPolicyForQueue(queueARN, topicARN);
@@ -444,7 +444,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                 }
 
                 std::ostringstream ostringstream;
-                ostringstream << "Would you like to filter messages for \"" << queueName
+                ostringstream << "Filter messages for \"" << queueName
                               << "\"'s subscription to the topic \""
                               << topicName << "\"?  (y/n)";
 
@@ -533,7 +533,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
         }
 
         if (filteringMessages && askYesNoQuestion(
-                "Would you like to add an attribute to this message? (y/n) ")) {
+                "Add an attribute to this message? (y/n) ")) {
             for (size_t i = 0; i < TONES.size(); ++i) {
                 std::cout << "  " << (i + 1) << ". " << TONES[i] << std::endl;
             }
@@ -566,7 +566,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
         }
 
         first = false;
-    } while (askYesNoQuestion("Would you like to post another message? (y/n) "));
+    } while (askYesNoQuestion("Post another message? (y/n) "));
 
     printAsterisksLine();
 
@@ -640,7 +640,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
             // snippet-start:[cpp.example_code.cross-service.topics_and_queues.sqs.DeleteMessageBatch]
             Aws::SQS::Model::DeleteMessageBatchRequest request;
             request.SetQueueUrl(queueURLS[i]);
-            int id = 1; // Id's must be unique within a batch delete request.
+            int id = 1; // Ids must be unique within a batch delete request.
             for (const Aws::String &receiptHandle: receiptHandles) {
                 Aws::SQS::Model::DeleteMessageBatchRequestEntry entry;
                 entry.SetId(std::to_string(id));
@@ -653,7 +653,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                     sqsClient.DeleteMessageBatch(request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "The batch delete of messages was successful."
+                std::cout << "The batch deletion of messages was successful."
                           << std::endl;
             }
             else {
@@ -690,7 +690,7 @@ bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
     bool result = true;
     printAsterisksLine();
     if (!queueURLS.empty() && askUser &&
-        askYesNoQuestion("Would you like to delete the SQS queues? (y/n) ")) {
+        askYesNoQuestion("Delete the SQS queues? (y/n) ")) {
 
         for (const auto &queueURL: queueURLS) {
             // 9.  Delete an SQS queue.
@@ -721,7 +721,7 @@ bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
                     snsClient.Unsubscribe(request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "Unsubscribe of subscritpion ARN '" << subscriptionARN
+                std::cout << "Unsubscribe of subscription ARN '" << subscriptionARN
                           << "' was successful." << std::endl;
             }
             else {
@@ -735,7 +735,7 @@ bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
 
     printAsterisksLine();
     if (!topicARN.empty() && askUser &&
-        askYesNoQuestion("Would you like to delete the SNS topic? (y/n) ")) {
+        askYesNoQuestion("Delete the SNS topic? (y/n) ")) {
 
         // 11. Delete an SNS topic.
         Aws::SNS::Model::DeleteTopicRequest request;
@@ -758,12 +758,11 @@ bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
     return result;
 }
 
-//! Create an IAM policy which gives an Amazon SQS queue permission to receives messages
-//! from an TopicsAndQueues topic.
+//! Create an IAM policy that gives an SQS queue permission to receive messages from an SNS topic.
 /*!
  \sa createPolicyForQueue()
- \param queueARN: The Amazon SQS queue Amazon Resource Name (ARN).
- \param topicARN: The Amazon SNS topic ARN.
+ \param queueARN: The SQS queue Amazon Resource Name (ARN).
+ \param topicARN: The SNS topic ARN.
  \return Aws::String: The policy as JSON.
  */
 Aws::String AwsDoc::TopicsAndQueues::createPolicyForQueue(const Aws::String &queueARN,
@@ -921,7 +920,7 @@ int AwsDoc::TopicsAndQueues::askQuestionForIntRange(const Aws::String &string, i
 }
 
 // snippet-start:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter2]
-//! Routine allowing the user to select attributes for a subscription filter policy.
+//! Routine that lets the user select attributes for a subscription filter policy.
 /*!
  \sa getFilterPolicyFromUser()
  \return Aws::String: The filter policy as JSON.
@@ -939,7 +938,7 @@ Aws::String AwsDoc::TopicsAndQueues::getFilterPolicyFromUser() {
                       << std::endl;
         }
         selection = askQuestionForIntRange(
-                "Enter a number (or enter zero to not add anything more). ",
+                "Enter a number (or enter zero to stop adding more). ",
                 0, static_cast<int>(TONES.size()));
 
         if (selection != 0) {
