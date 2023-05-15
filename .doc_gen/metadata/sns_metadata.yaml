@@ -1266,7 +1266,7 @@ sns_Subscribe_Queue:
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue2
   services:
     sns: {Subscribe}
-sns_Subscribe_Queue_With_Filter:
+sns_Subscribe_Filtered:
   title: Subscribe with a filter to an &SNS; topic using an &AWS; SDK
   title_abbrev: Subscribe with a filter to a topic
   synopsis: subscribe with a filter to an &SNS; topic.
