@@ -42,7 +42,8 @@ Topic names can have 1-256 characters. They can contain uppercase and lowercase 
 
 ### Create two SQS queues.
 
-Now, configure two SQS queues to subscribe to your topic.
+Now, configure two SQS queues to subscribe to your topic. Separate queues for each subscriber can be helpful. For 
+instance, you can customize how messages are consumed and how messages are filtered.
 
 ```
 Enter a name for an SQS queue.

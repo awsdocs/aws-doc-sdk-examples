@@ -1266,6 +1266,23 @@ sns_Subscribe_Queue:
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue2
   services:
     sns: {Subscribe}
+sns_Subscribe_Queue_With_Filter:
+  title: Subscribe with a filter to an &SNS; topic using an &AWS; SDK
+  title_abbrev: Subscribe with a filter to a topic
+  synopsis: subscribe with a filter to an &SNS; topic.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cross-service/topics_and_queues
+          excerpts:
+            - snippet_tags:
+                - cpp.example_code.cross-service.topics_and_queues.config
+                - cpp.example_code.cross-service.topics_and_queues.sns_client
+                - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter
+  services:
+    sns: {Subscribe}
 sns_CreatePlatformEndpoint:
   title: Create a platform endpoint for &SNS; push notifications using an &AWS; SDK
   title_abbrev: Create a platform endpoint for push notifications

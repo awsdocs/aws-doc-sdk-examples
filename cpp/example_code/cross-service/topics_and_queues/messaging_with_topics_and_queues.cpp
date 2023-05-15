@@ -420,6 +420,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
 
         {
             // 5.  Subscribe the SQS queue to the SNS topic.
+            // snippet-start:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter]
             // snippet-start:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue1]
             Aws::SNS::Model::SubscribeRequest request;
             request.SetTopicArn(topicARN);
@@ -490,6 +491,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                 return false;
             }
             // snippet-end:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue2]
+            // snippet-end:[cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter]
         }
 
         first = false;
@@ -507,7 +509,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
         if (isFifoTopic) {
             if (first) {
                 std::cout
-                        << "Because your are using a FIFO topic, you must set a message group ID."
+                        << "Because you are using a FIFO topic, you must set a message group ID."
                         << std::endl;
                 std::cout
                         << "All messages within the same group will be received in the "
@@ -649,7 +651,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                     sqsClient.DeleteMessageBatch(request);
 
             if (outcome.IsSuccess()) {
-                std::cout << "The batch delete of messages were successful."
+                std::cout << "The batch delete of messages was successful."
                           << std::endl;
             }
             else {
