@@ -15,9 +15,7 @@ import kotlinx.coroutines.runBlocking
 import java.util.UUID
 
 class UploadHandler : RequestHandler<APIGatewayProxyRequestEvent?, APIGatewayProxyResponseEvent?> {
-    val CORS_HEADER_MAP: Map<String, String> = java.util.Map.of(
-        "Access-Control-Allow-Origin", "*"
-    )
+    val CORS_HEADER_MAP: Map<String, String> = java.util.Map.of("Access-Control-Allow-Origin", "*")
 
     fun toJson(src: Any?): String? {
         val gson = Gson()
