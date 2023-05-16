@@ -51,7 +51,7 @@ namespace AwsDocTest {
                                         "n", // Filter messages for ""tests_v2_1".fifo"'s subscription to the topic "tests_v2.fifo"?  (y/n)
                                         "test message v2 1", // Enter a message text to publish.
                                         "1", // Enter a message group ID for this message.
-                                        "y", // Would you like to post another message? (y/n)
+                                        "y", // Post another message? (y/n)
                                         "test message v2 2", // Enter a message text to publish.
                                         "1", // Enter a message group ID for this message.
                                         "n", // Post another message? (y/n)
