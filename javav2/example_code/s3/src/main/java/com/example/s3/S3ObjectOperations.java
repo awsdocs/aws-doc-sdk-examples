@@ -116,7 +116,7 @@ public class S3ObjectOperations {
                     .build();
         }
         // snippet-end:[s3.java2.s3_object_operations.pagination]
-        // snippet-start:[s3.java2.s3_object_operations.iterative]
+
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
                 .bucket(bucketName)
                 .maxKeys(1)
@@ -130,7 +130,7 @@ public class S3ObjectOperations {
 
         // snippet-end:[s3.java2.s3_object_operations.iterative]
         // snippet-start:[s3.java2.s3_object_operations.stream]
-        // Helper method to work with paginated collection of items directly
+        // Helper method to work with paginated collection of items directly.
         listRes.contents().stream()
                 .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
 
