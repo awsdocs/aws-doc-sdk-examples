@@ -1,16 +1,44 @@
+using Amazon.S3;
+using Amazon.S3.Model;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.SqlTypes;
+using System.Net.Mime;
+using Newtonsoft.Json;
 
 namespace PamApi.Controllers;
 
 [Route("")]
 public class ApiController : ControllerBase
 {
+    private readonly IAmazonS3 _amazonS3;
+    public ApiController(IAmazonS3 amazonS3)
+    {
+        _amazonS3 = amazonS3;
+    }
+
     // PUT prod/upload
     [HttpPut("upload")]
-    public IActionResult Upload([FromBody] string file_name)
+    public async Task<IActionResult> Upload()
     {
-        var response = new { url = "testurl" };
+        var rawRequestBody = await new StreamReader(Request.Body).ReadToEndAsync();
+        var uploadRequest =
+            JsonConvert.DeserializeObject<UploadRequest>(rawRequestBody);
+        var uuid = Guid.NewGuid().ToString();
+        var uniqueFileName = $"{uuid}-{uploadRequest.file_name}";
+        var uploadBucketName = Environment.GetEnvironmentVariable("STORAGE_BUCKET_NAME");
+        
+        var preSignedUrlResponse = _amazonS3.GetPreSignedURL(
+            new GetPreSignedUrlRequest()
+            {
+                BucketName = uploadBucketName,
+                Key = uniqueFileName,
+                ContentType = "image/jpeg",
+                Expires = DateTime.UtcNow.AddMinutes(5),
+                Verb = HttpVerb.PUT
+            });
+
+        var response = new UploadResponse() { url = preSignedUrlResponse };
         return Ok(response);
     }
 

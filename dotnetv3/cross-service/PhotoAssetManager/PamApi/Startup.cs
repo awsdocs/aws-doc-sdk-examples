@@ -1,3 +1,6 @@
+using Amazon.S3;
+using Microsoft.Net.Http.Headers;
+
 namespace PamApi;
 
 public class Startup
@@ -12,15 +15,17 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddAWSService<IAmazonS3>();
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(
                 policy =>
                 {
-                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                    policy.AllowAnyOrigin().AllowAnyMethod().WithHeaders(HeaderNames.ContentType);
                 });
         });
         services.AddControllers();
+        services.AddSwaggerGen();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -29,6 +34,12 @@ public class Startup
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                options.RoutePrefix = string.Empty;
+            });
         }
 
         app.UseCors();
