@@ -38,6 +38,15 @@ namespace AwsDoc {
          */
         bool getSMSType(const Aws::Client::ClientConfiguration &clientConfiguration);
 
+        //! Retrieve the properties of an Amazon Simple Notification Service (Amazon SNS) subscription.
+        /*!
+          \param subscriptionARN: The Amazon Resource Name (ARN) for an Amazon SNS subscription.
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
+        bool getSubscriptionAttributes(const Aws::String &subscriptionARN,
+                                                    const Aws::Client::ClientConfiguration &clientConfiguration);
+
         //! Retrieve the properties of an Amazon SNS topic.
         /*!
           \param topicARN: The ARN for an Amazon SNS topic.
