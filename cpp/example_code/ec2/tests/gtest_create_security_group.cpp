@@ -25,9 +25,11 @@ namespace AwsDocTest {
         Aws::String groupID;
         auto result = AwsDoc::EC2::CreateSecurityGroup(groupName, "description",
                                                        vpcID, groupID, *s_clientConfig);
-        ASSERT_TRUE(result);
+        EXPECT_TRUE(result);
 
-        deleteSecurityGroup(groupID);
+        if (!groupID.empty()) {
+            deleteSecurityGroup(groupID);
+        }
     }
 
 } // namespace AwsDocTest
