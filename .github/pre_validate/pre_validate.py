@@ -50,7 +50,14 @@ EXT_LOOKUP = {
     'md': 'Markdown'
 }
 
-# folders to skip
+# If you get a lot of false-flagged 40-character errors 
+# in specific folders or files, you can omit them from 
+# these scans by adding them to the following lists. 
+# However, because this script is mostly run as a GitHub 
+# action in a clean environment (aside from testing), 
+# exhaustive ignore lists shouldn't be necessary.
+
+# Folders to skip.
 IGNORE_FOLDERS = {
     '.pytest_cache',
     '__pycache__',
@@ -58,13 +65,16 @@ IGNORE_FOLDERS = {
     'node_modules',
     'dist',
     'target',
-    'venv'
+    'venv',
+    '.venv', 
+    '.bin',
+    '.obj'
 }
 
-# files to skip
-IGNORE_FILES = {'AssemblyInfo.cs', '.travis.yml', '.moviedata.json', 'movies.json'}
+# Files to skip.
+IGNORE_FILES = {'AssemblyInfo.cs', '.travis.yml', 'moviedata.json', '.moviedata.json', 'movies.json', 'package-lock.json'}
 
-# sample files
+# Sample files.
 EXPECTED_SAMPLE_FILES = {
     'README.md',
     'movies.json',
@@ -77,13 +87,13 @@ EXPECTED_SAMPLE_FILES = {
     'sample_saml_metadata.xml',
 }
 
-# media file types
+# Media file types.
 MEDIA_FILE_TYPES = {'mp3', 'wav'}
 
-# list of words that should never be in code examples
+# List of words that should never be in code examples.
 DENY_LIST = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'} .union(WORDS)
 
-# whitelist of 20- or 40-character strings to allow
+# Allowlist of 20- or 40-character strings to allow.
 ALLOW_LIST = {
     'AGPAIFFQAVRFFEXAMPLE',
     'AKIA111111111EXAMPLE',
@@ -212,7 +222,7 @@ def verify_no_deny_list_words(file_contents, file_location):
     """Verify no words in the file are in the list of denied words."""
     error_count = 0
     for word in file_contents.split():
-        if word in DENY_LIST:
+        if word.lower() in DENY_LIST:
             logger.error(f"Word '%s' in %s is not allowed.", word, file_location)
             error_count += 1
     return error_count
@@ -249,7 +259,7 @@ def verify_sample_files(root_path):
 
 def verify_no_secret_keys(file_contents, file_location):
     """Verify the file does not contain 20- or 40- length character strings,
-    which may be secret keys. Allow strings in the allow list in
+    which might be secret keys. Allow strings in the allowlist in
     https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py."""
     error_count = 0
     twenties = re.findall("[^A-Z0-9][A][ACGIKNPRS][A-Z]{2}[A-Z0-9]{16}[^A-Z0-9]",
