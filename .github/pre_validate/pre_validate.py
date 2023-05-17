@@ -68,7 +68,7 @@ IGNORE_FOLDERS = {
     'venv',
     '.venv', 
     'bin',
-    '.obj'
+    'obj'
 }
 
 # Files to skip.
