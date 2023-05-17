@@ -97,14 +97,15 @@ A Amazon Cognito user pool is created via the AWS CDK, using the email address p
 
 ### ⭐ S3 buckets
 
-PAM uses two buckets. `{name}-pam-pambucketsstorage-bucket{random}` (the Storage Bucket) and `{name}-pam-pambucketsworking-bucket{random}` (the Working Bucket) provide the long-term Amazon S3 Intelligent-Tiering storage and ephemeral manifest and zip download storage, respectively.
+PAM uses two buckets. `{NAME}-pam-pambucketsstorage-bucket{RANDOM}` (the Storage Bucket) and `{NAME}-pam-pambucketsworking-bucket{RANDOM}` (the Working Bucket) provide the long-term Amazon S3 Intelligent-Tiering storage and ephemeral manifest and zip download storage, respectively. The CDK downcases both `{NAME}` and `{RANDOM}` to create
+a valid bucket name.
 
 The Storage Bucket has a notification configuration when objects are PUT to call the DetectLabels Lambda. The Working Bucket has a lifecycle configuration to delete objects after 24 hours.
 
 | Bucket                                        | Policies                    | Use                                                                                |
 | --------------------------------------------- | --------------------------- | ---------------------------------------------------------------------------------- |
-| `{name}-pam-pambucketsstorage-bucket{random}` | DetectLabels on jpeg images | All the images that are being stored in the application.                           |
-| `{name}-pam-pambucketsworking-bucket{random}` | Delete after 1 day          | Working files with a short lifetime, that are not intended to be stored long-term. |
+| `{NAME}-pam-pambucketsstorage-bucket{RANDOM}` | DetectLabels on jpeg images | All the images that are being stored in the application.                           |
+| `{NAME}-pam-pambucketsworking-bucket{RANDOM}` | Delete after 1 day          | Working files with a short lifetime, that are not intended to be stored long-term. |
 
 ### ⭐ DynamoDB
 
