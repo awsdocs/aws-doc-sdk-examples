@@ -32,7 +32,11 @@ The common stack is used by all deployments of the PAM app. These include the S3
 
 The resources in Common are deployed for all instances of the app, and use the same AWS CDK definitions. An implementer for the spec in a particular language should be familiar with the resources described, as they will be the resources that the Lambda function implementations interact with. Per-language implementers will create several Lambda function implementations, and will also create “best practice” AWS CDK layers for their language’s Lambda deployment.
 
-All resources will share a `{NAME}` marker, chosen at AWS CDK runtime. While the AWS CDK will truncate any generated IDs to avoid name lengths (such as exceeding the DNS length of 64 characters), it should be kept short and concise for easy legibility in the generated resource IDs. Customer must provide an `{EMAIL}` to use for account creation. This PII will only be used for the Amazon Cognito user pool and SNS topic.
+All resources share a `{NAME}` marker (a concatenation of `{PAM_NAME}-{PAM_LANG}`), chosen at AWS CDK runtime.
+Every resource is appended with a `{RANDOM}` unique ID. While the AWS CDK will truncate any generated IDs to avoid
+name lengths (such as exceeding the DNS length of 64 characters), it should be kept short and concise for easy
+legibility in the generated resource IDs. Customer must provide an `{EMAIL}` to use for account creation. This PII
+will only be used for the Amazon Cognito user pool and SNS topic.
 
 
 ## Audience
@@ -53,8 +57,10 @@ Refer to [README.md](../tree/main/resources/cdk/photo_asset_manager/README.md) f
 
 # Frontend
 
-The frontend is a single React app using the Cloudscape Design System. It allows users to authenticate with an Amazon Cognito flow. All requests are then authn/authz to that token. The app is deployed to an Amazon S3 website. The frontend will only be available via the S3 website bucket name. The name will be `{NAME}-sdk-code-examples-pam.s3.{REGION}.amazonaws.com`. This domain name is necessary for CORS requests and Amazon Cognito configuration.
-
+The frontend is a single React app using the Cloudscape Design System. It allows users to authenticate
+with an Amazon Cognito flow. All requests are then authn/authz to that token. The app is deployed to an
+Amazon S3 bucket and publicly exposed using an Amazon CloudFront distribution. The frontend will only 
+be available via the S3 website bucket name. The name will be dynamically created during the CDK deployment.
 ### Login and API
 
 The static website will redirect to the Amazon Cognito hosted UI. The user can log in with their provided email and the
@@ -89,22 +95,22 @@ A Amazon Cognito user pool is created via the AWS CDK, using the email address p
 
 ### ⭐ S3 buckets
 
-PAM uses two buckets. `{NAME}-sdk-code-examples-pam-storage-bucket` (the Storage Bucket) and `{NAME}-sdk-code-examples-pam-working-bucket` (the Working Bucket) provide the long-term Amazon S3 Intelligent-Tiering storage and ephemeral manifest and zip download storage, respectively.
+PAM uses two buckets. `{name}-pam-pambucketsstorage-bucket{random}` (the Storage Bucket) and `{name}-pam-pambucketsworking-bucket{random}` (the Working Bucket) provide the long-term Amazon S3 Intelligent-Tiering storage and ephemeral manifest and zip download storage, respectively.
 
 The Storage Bucket has a notification configuration when objects are PUT to call the DetectLabels Lambda. The Working Bucket has a lifecycle configuration to delete objects after 24 hours.
 
 |Bucket	|Policies	|Use	|
 |---	|---	|---	|
-|`{NAME}-sdk-code-examples-pam-storage-bucket`	|DetectLabels on jpeg images	|All the images that are being stored in the application.	|
-|`{NAME}-sdk-code-examples-pam-working-bucket`	|Delete after 1 day	|Working files with a short lifetime, that are not intended to be stored long-term.	|
+|`{name}-pam-pambucketsstorage-bucket{random}`	|DetectLabels on jpeg images	|All the images that are being stored in the application.	|
+|`{name}-pam-pambucketsworking-bucket{random}`	|Delete after 1 day	|Working files with a short lifetime, that are not intended to be stored long-term.	|
 
 ### ⭐ DynamoDB
 
-PAM uses one DynamoDB table to track data. The LabelsTable, `{NAME}-SDKCodeExamplesPAM-Labels`, contains the labels found by Amazon Rekognition. It has a simple primary key with an attribute `Label` of type `S`. 
+PAM uses one DynamoDB table to track data. The LabelsTable, `{NAME}-PAM-PamTablesLabelsTable{RANDOM}`, contains the labels found by Amazon Rekognition. It has a simple primary key with an attribute `Label` of type `S`. 
 
 |Table	|Key	|Use	|
 |---	|---	|---	|
-|`{NAME}-SDKCodeExamplesPAM-LabelsTable`	|Label: S	|Track the detected labels and each label's image count and image list.	|
+|`{NAME}-PAM-PamTablesLabelsTable{RANDOM}`	|Label: S	|Track the detected labels and each label's image count and image list.	|
 
 ### ⭐ Amazon Rekognition
 
@@ -203,7 +209,7 @@ Each implementation will include a README describing the language-specific detai
 * `s3:ReadItem` on `StorageBucket`.
 * `s3:ReadItem` and `s3:PutItem` on `WorkingBucket`.
 * `sns:Subscribe` on `*`.
-* `sns:Publish` on `arn:aws:sns:{REGION}:{ACCOUNT_ID}/{NAME}-SDKCodeExamplePAM-*`.
+* `sns:Publish` on `arn:aws:sns:{REGION}:{ACCOUNT_ID}/{NAME}-PAM-*`.
 
 ## Appendix B - Lambda triggers
 * Storage bucket [OBJECT_CREATED] - When the user uploads a *.jpg/*.jpeg  to the presigned URL in the storage bucket, the DetectLabelsFn function is invoked.
