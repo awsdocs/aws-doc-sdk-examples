@@ -58,10 +58,10 @@ Refer to [README.md](../tree/main/resources/cdk/photo_asset_manager/README.md) f
 
 # Frontend
 
-The frontend is a single React app using the Cloudscape Design System. It allows users to authenticate
+The frontend is a single React app that uses the Cloudscape Design System. With the React app, users can authenticate
 with an Amazon Cognito flow. All requests are then authn/authz to that token. The app is deployed to an
-Amazon S3 bucket and publicly exposed using an Amazon CloudFront distribution. The frontend will only
-be available via the S3 website bucket name. The name will be dynamically created during the CDK deployment.
+Amazon S3 bucket and publicly exposed using an Amazon CloudFront distribution. The name is dynamically created during 
+the AWS CDK deployment.
 
 ### Login and API
 
@@ -97,7 +97,7 @@ A Amazon Cognito user pool is created via the AWS CDK, using the email address p
 
 ### ⭐ S3 buckets
 
-PAM uses two buckets. `{NAME}-pam-pambucketsstorage-bucket{RANDOM}` (the Storage Bucket) and `{NAME}-pam-pambucketsworking-bucket{RANDOM}` (the Working Bucket) provide the long-term Amazon S3 Intelligent-Tiering storage and ephemeral manifest and zip download storage, respectively. The CDK downcases both `{NAME}` and `{RANDOM}` to create
+PAM uses two buckets. `{NAME}-pam-pambucketsstorage-bucket{RANDOM}` (the Storage Bucket) and `{NAME}-pam-pambucketsworking-bucket{RANDOM}` (the Working Bucket) provide the long-term Amazon S3 Intelligent-Tiering storage and ephemeral manifest and zip download storage, respectively. The AWS CDK lowercases both `{NAME}` and `{RANDOM}` to create
 a valid bucket name.
 
 The Storage Bucket has a notification configuration when objects are PUT to call the DetectLabels Lambda. The Working Bucket has a lifecycle configuration to delete objects after 24 hours.
