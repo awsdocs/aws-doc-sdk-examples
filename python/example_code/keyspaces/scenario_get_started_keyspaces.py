@@ -119,7 +119,7 @@ class KeyspaceScenario:
                 with open(cert_path, 'w') as cert_file:
                     cert_file.write(cert)
         else:
-            q.ask(f"Certificate {cert_path} found. Press enter to continue.")
+            q.ask(f"Certificate {cert_path} found. Press Enter to continue.")
         print(f"Certificate {cert_path} will be used to secure the connection to your keyspace.")
         return cert_path
 
@@ -209,7 +209,7 @@ class KeyspaceScenario:
             if (cert_path == os.path.join(os.path.dirname(__file__), QueryManager.DEFAULT_CERT_FILE)
                     and os.path.exists(cert_path)):
                 os.remove(cert_path)
-                print("Removed certificate downloaded for this demo.")
+                print("Removed certificate that was downloaded for this demo.")
 
     def run_scenario(self):
         logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
