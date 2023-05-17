@@ -116,7 +116,7 @@ public class S3ObjectOperations {
                     .build();
         }
         // snippet-end:[s3.java2.s3_object_operations.pagination]
-
+        // snippet-start:[s3.java2.s3_object_operations.iterative]
         ListObjectsV2Request listReq = ListObjectsV2Request.builder()
                 .bucket(bucketName)
                 .maxKeys(1)
