@@ -67,7 +67,7 @@ IGNORE_FOLDERS = {
     'target',
     'venv',
     '.venv', 
-    '.bin',
+    'bin',
     '.obj'
 }
 
