@@ -43,7 +43,7 @@ func CopyItem(sess *session.Session, sourceBucket *string, targetBucket *string,
     // Copy the item
     _, err := svc.CopyObject(&s3.CopyObjectInput{
         Bucket:     targetBucket,
-        CopySource: aws.String(url.PathEscape(source)),
+        CopySource: aws.String(url.QueryEscape(source)),
         Key:        item,
     })
     // snippet-end:[s3.go.copy_object.call]
