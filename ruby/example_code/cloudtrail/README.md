@@ -56,4 +56,9 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 * [CodeTrail API Reference](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/Welcome.html)
 <!--custom.resources.end-->
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0
