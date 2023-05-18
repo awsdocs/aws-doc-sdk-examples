@@ -1,5 +1,13 @@
+using Amazon;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
+using Amazon.Rekognition;
 using Amazon.S3;
+using Amazon.SimpleNotificationService;
+using Amazon.Util;
 using Microsoft.Net.Http.Headers;
+using PamServices;
+using System.Reflection;
 
 namespace PamApi;
 
@@ -8,6 +16,8 @@ public class Startup
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
+
+        ConfigureDynamoDB();
     }
 
     public IConfiguration Configuration { get; }
@@ -16,6 +26,18 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddAWSService<IAmazonS3>();
+        services.AddAWSService<IAmazonDynamoDB>();
+        services.AddAWSService<IAmazonRekognition>();
+        services.AddAWSService<IAmazonSimpleNotificationService>();
+        services.AddTransient<IDynamoDBContext, DynamoDBContext>();
+
+
+        //services.AddTransient<IDynamoDBContext>(c => new
+        //    DynamoDBContext(c.GetService<IAmazonDynamoDB>(),
+        //        new DynamoDBContextConfig()));
+
+        services.AddTransient<LabelService>();
+
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(
@@ -58,5 +80,14 @@ public class Startup
                 await context.Response.WriteAsync("Welcome to running ASP.NET Core on AWS Lambda");
             });
         });
+    }
+
+    private void ConfigureDynamoDB()
+    {
+        var labelsTableName = Environment.GetEnvironmentVariable("LABELS_TABLE_NAME");
+        if (labelsTableName != null)
+        {
+            AWSConfigsDynamoDB.Context.AddMapping(new TypeMapping(typeof(Label), labelsTableName));
+        }
     }
 }
