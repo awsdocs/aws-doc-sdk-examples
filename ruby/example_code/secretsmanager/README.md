@@ -35,7 +35,6 @@ The quickest way to interact with this example code is to invoke a [Scenario](#S
 
 ### Tests
 <!--custom.tests.start-->
-The example code in this directory is not currently tested.
 
 ## Contribute
 Code examples thrive on community contribution.

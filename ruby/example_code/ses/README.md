@@ -67,8 +67,12 @@ To find instructions for running these tests, see the [README](../../README.md#T
 in the `ruby` folder.
 
 
-
 <!--custom.tests.start-->
+
+## Contribute
+Code examples thrive on community contribution.
+
+To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md).
 <!--custom.tests.end-->
 
 ## Additional resources

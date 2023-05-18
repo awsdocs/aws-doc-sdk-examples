@@ -61,9 +61,7 @@ To find instructions for running these tests, see the [README](../../README.md#T
 in the `ruby` folder.
 
 
-
 <!--custom.tests.start-->
-The example code in this directory is not currently tested.
 
 ## Contribute
 Code examples thrive on community contribution.

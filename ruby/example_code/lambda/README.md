@@ -93,7 +93,6 @@ in the `ruby` folder.
 
 
 <!--custom.tests.start-->
-The example code in this directory is not currently tested.
 
 ## Contribute
 Code examples thrive on community contribution.
