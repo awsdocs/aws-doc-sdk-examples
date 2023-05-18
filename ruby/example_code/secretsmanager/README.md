@@ -29,16 +29,19 @@ Code excerpts that show you how to call individual service functions.
 See the [Ruby README.md](../../../ruby/README.md) for prerequisites.
 
 ### Instructions
-The easiest way to interact with this example code is by invoking [Single Actions](#single-actions) from your command line. This may require some modification to override hard-coded values, and some actions also expect runtime parameters. For example, `ruby some_action.rb ARG1 ARG2` will invoke `some_action.rb` with two arguments.
-
-## Contributing
-Code examples thrive on community contribution!
-* To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md)
+<!--custom.instructions.start-->
+The quickest way to interact with this example code is to invoke a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
+<!--custom.instructions.end-->
 
 ### Tests
-⚠️ Running tests might result in charges to your AWS account.
+<!--custom.tests.start-->
+The example code in this directory is not currently tested.
 
-This service is not currently tested.
+## Contribute
+Code examples thrive on community contribution.
+
+To learn more about the contributing process, see [CONTRIBUTING.md](../../../CONTRIBUTING.md).
+<!--custom.tests.end-->
 
 ## Additional resources
 * [Service Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
