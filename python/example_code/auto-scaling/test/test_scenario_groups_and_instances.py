@@ -127,8 +127,6 @@ def test_get_launch_template(make_stubber, stub_runner, monkeypatch, error_code,
                 as_stubber.stub_terminate_instance_in_auto_scaling_group, inst_id, True,
                 activities[0])
         runner.add(
-            as_stubber.stub_describe_auto_scaling_groups, [group_name], [group])
-        runner.add(
             as_stubber.stub_describe_auto_scaling_instances, instance_ids, instances)
         runner.add(as_stubber.stub_delete_auto_scaling_group, group_name)
         runner.add(ec2_stubber.stub_delete_launch_template, template_name)

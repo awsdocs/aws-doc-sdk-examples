@@ -120,7 +120,7 @@ class AuroraClusterScenario:
                 cluster_name, parameter_group['DBClusterParameterGroupName'], db_name,
                 db_engine, engine_choices[engine_index], admin_username, admin_password)
             while cluster.get('Status') != 'available':
-                wait(10)
+                wait(30)
                 cluster = self.aurora_wrapper.get_db_cluster(cluster_name)
             print("Cluster created and available.\n")
         print("Cluster data:")
@@ -151,7 +151,7 @@ class AuroraClusterScenario:
             db_inst = self.aurora_wrapper.create_instance_in_cluster(
                 cluster_name, cluster_name, cluster['Engine'], inst_choices[inst_index])
             while db_inst.get('DBInstanceStatus') != 'available':
-                wait(10)
+                wait(30)
                 db_inst = self.aurora_wrapper.get_db_instance(cluster_name)
         print("Instance data:")
         pp(db_inst)
@@ -187,7 +187,7 @@ class AuroraClusterScenario:
             print(f"Creating a snapshot named {snapshot_id}. This typically takes a few minutes.")
             snapshot = self.aurora_wrapper.create_cluster_snapshot(snapshot_id, cluster_name)
             while snapshot.get('Status') != 'available':
-                wait(10)
+                wait(30)
                 snapshot = self.aurora_wrapper.get_cluster_snapshot(snapshot_id)
             pp(snapshot)
             print('-'*88)
@@ -214,7 +214,7 @@ class AuroraClusterScenario:
             print("Waiting for the DB instance and DB cluster to delete.\n"
                   "This typically takes several minutes.")
             while db_inst is not None or cluster is not None:
-                wait(10)
+                wait(30)
                 if db_inst is not None:
                     db_inst = self.aurora_wrapper.get_db_instance(db_inst['DBInstanceIdentifier'])
                 if cluster is not None:
@@ -231,6 +231,7 @@ class AuroraClusterScenario:
         parameter_group = self.create_parameter_group(db_engine, parameter_group_name)
         self.set_user_parameters(parameter_group_name)
         cluster = self.create_cluster(cluster_name, db_engine, db_name, parameter_group)
+        wait(5)
         db_inst = self.create_instance(cluster)
         self.display_connection(cluster)
         self.create_snapshot(cluster_name)

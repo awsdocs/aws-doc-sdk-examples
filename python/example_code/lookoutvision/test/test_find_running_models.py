@@ -67,8 +67,8 @@ def test_find_models_in_project(make_stubber, stub_runner, error_code, stop_on_m
 def test_find_running_models(make_stubber, stub_runner, monkeypatch,
                              error_code, stop_on_method):
     
+    boto3_session = boto3.Session()
     lookoutvision_client = boto3.client('lookoutvision')
-
     lookoutvision_stubber = make_stubber(lookoutvision_client)
     project_name = 'test-project_name'
     model = 'test-model'
@@ -87,24 +87,11 @@ def test_find_running_models(make_stubber, stub_runner, monkeypatch,
     project_arn = 'test-arn'
     region = 'us-east-1'
 
-    def region_list(*args, **kwargs):
-        # Patches call to Session.get_available_regions.
-        # Returns a single AWS Region list.
-        return [region]
-
-    def get_boto_entity(
-            client, region_name=None, aws_session_token=None):
-        # Patches lookoutvision cient.
-        # Needed as clients are created for multiple AWS Regions.
-        # Returns the previously created, and stubbed, lookoutvision client.
-        return lookoutvision_client
-
-
-    monkeypatch.setattr(Session, 'client', get_boto_entity)
+    monkeypatch.setattr(boto3_session, 'client', lambda c, region_name: lookoutvision_client)
     #monkeypatch.setattr(Session, 'profile_name', 'lookoutvision-access')
 
     # Patch AWS Region list
-    monkeypatch.setattr(Session, 'get_available_regions', region_list)
+    monkeypatch.setattr(boto3_session, 'get_available_regions', lambda service_name: [region])
     # Patch lookoutvision client to manage multiple AWS Region clients.
     #monkeypatch.setattr(boto3, 'client', get_boto_entity)
 
@@ -124,9 +111,9 @@ def test_find_running_models(make_stubber, stub_runner, monkeypatch,
                    })
 
     if error_code is None:
-        running_models = find_running_models()
+        running_models = find_running_models(boto3_session)
         assert len(running_models) == 1
     else:
         with pytest.raises(ClientError) as exc_info:
-            find_running_models()
+            find_running_models(boto3_session)
         assert exc_info.value.response['Error']['Code'] == error_code

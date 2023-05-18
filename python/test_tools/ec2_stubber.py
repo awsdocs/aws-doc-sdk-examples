@@ -65,11 +65,13 @@ class Ec2Stubber(ExampleStubber):
             'describe_vpcs', expected_params, response, error_code=error_code)
 
     def stub_create_security_group(
-            self, group_name, group_id, group_description=ANY, error_code=None):
+            self, group_name, group_id, group_description=ANY, vpc_id=None, error_code=None):
         expected_params = {
             'GroupName': group_name,
             'Description': group_description,
         }
+        if vpc_id is not None:
+            expected_params['VpcId'] = vpc_id
         response = {'GroupId': group_id}
         self._stub_bifurcator(
             'create_security_group', expected_params, response, error_code=error_code)

@@ -177,22 +177,23 @@ def test_create_security_groups(
     ec2_resource = boto3.resource('ec2')
     ec2_stubber = make_stubber(ec2_resource.meta.client)
     vpc_id = 'test-vpc'
-    sec_groups = {kind: f'sg-{kind}' for kind in ['manager', 'worker']}
+    sec_group_manager = 'test-manager'
+    sec_group_worker = 'test-worker'
 
     with stub_runner(error_code, stop_on_method) as runner:
         runner.add(
             ec2_stubber.stub_describe_vpcs, {vpc_id: True},
             [{'Name': 'isDefault', 'Values': ['true']}])
         runner.add(
-            ec2_stubber.stub_create_security_group, 'test-manager',
-            'EMR manager group.', vpc_id, sec_groups['manager'])
+            ec2_stubber.stub_create_security_group, sec_group_manager, sec_group_manager,
+            'EMR manager group.', vpc_id=vpc_id)
         runner.add(
-            ec2_stubber.stub_create_security_group, 'test-worker',
-            'EMR worker group.', vpc_id, sec_groups['worker'])
+            ec2_stubber.stub_create_security_group, sec_group_worker, sec_group_worker,
+            'EMR worker group.', vpc_id=vpc_id)
 
     if error_code is None:
         got_groups = emr_usage_demo.create_security_groups('test', ec2_resource)
-        assert [group.id for group in got_groups.values()] == list(sec_groups.values())
+        assert [group.id for group in got_groups.values()] == [sec_group_manager, sec_group_worker]
     else:
         with pytest.raises(ClientError) as exc_info:
             emr_usage_demo.create_security_groups('test', ec2_resource)
