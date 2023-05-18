@@ -44,8 +44,17 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 <!--custom.tests.end-->
 
 ## Additional resources
-* [Service Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
-* [Service API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/)
-* [SDK API reference guide](https://aws.amazon.com/developer/language/ruby/)
+<!--custom.resources.start-->
+* [More Ruby CodeBuild code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/cb-examples.html)
+* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
+* [SDK for Ruby CodeBuild Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CodeBuild.html)
+* [CodeBuild User Guide](https://docs.aws.amazon.com/codebuild/)
+* [CodeBuild API Reference](https://docs.aws.amazon.com/codebuild/latest/APIReference/Welcome.html)
 
-Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
+<!--custom.resources.end-->
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+SPDX-License-Identifier: Apache-2.0

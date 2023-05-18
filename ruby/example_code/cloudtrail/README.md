@@ -48,8 +48,12 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 <!--custom.tests.end-->
 
 ## Additional resources
-* [Service Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
-* [Service API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/)
-* [SDK API reference guide](https://aws.amazon.com/developer/language/ruby/)
+<!--custom.resources.start-->
+* [More Ruby CodeBuild code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/cb-examples.html)
+* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
+* [SDK for Ruby CloudTrail Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/CloudTrail.html)
+* [CloudTrail User Guide](https://docs.aws.amazon.com/cloudtrail/)
+* [CodeTrail API Reference](https://docs.aws.amazon.com/awscloudtrail/latest/APIReference/Welcome.html)
+<!--custom.resources.end-->
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

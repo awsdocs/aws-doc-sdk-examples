@@ -81,12 +81,12 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 <!--custom.tests.end-->
 
 ## Additional resources
-
-* [EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
+!--custom.resources.start-->
+* [More Ruby EventBridge code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_eventbridge_code_examples.html)
+* [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
+* [SDK for Ruby EventBridge Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EventBridge.html)
+* [EventBridge Developer Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html)
 * [EventBridge API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
-* [SDK for Ruby EventBridge reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/Eventbridge.html)
-
-<!--custom.resources.start-->
 <!--custom.resources.end-->
 
 ---
