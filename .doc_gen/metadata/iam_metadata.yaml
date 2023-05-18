@@ -30,6 +30,18 @@ iam_Hello:
             - description:
               snippet_tags:
                 - javascript.v3.iam.hello
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/iam
+          excerpts:
+            - description: From src/bin/hello.rs.
+              snippet_tags:
+                - rust.example_code.iam.hello_bin
+            - description: From src/iam-service-lib.rs.
+              snippet_tags:
+                - rust.example_code.iam.hello_lib
+
   services:
     iam: {ListPolicies}
 iam_CreateAccountAlias:

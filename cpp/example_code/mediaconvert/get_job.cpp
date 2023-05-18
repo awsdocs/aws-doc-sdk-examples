@@ -16,7 +16,7 @@
 
 #include <aws/core/Aws.h>
 #include <aws/mediaconvert/MediaConvertClient.h>
-#include <aws/mediaconvert/Model/GetJobRequest.h>
+#include <aws/mediaconvert/model/GetJobRequest.h>
 #include "mediaconvert_samples.h"
 
 // snippet-start:[cpp.example_code.mediaconvert.GetJob]

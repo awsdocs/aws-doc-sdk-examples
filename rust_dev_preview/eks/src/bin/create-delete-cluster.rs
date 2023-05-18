@@ -22,7 +22,7 @@ struct Opt {
 
     /// The Amazon Resource Name (ARN) of the IAM role that provides permissions
     /// for the Kubernetes control plane to make calls to AWS API operations on your behalf.
-    #[structopt(long)]
+    #[structopt(short, long)]
     arn: String,
 
     /// The subnet IDs for your Amazon EKS nodes.
@@ -75,9 +75,9 @@ async fn remove_cluster(
 /// Creates and deletes an Amazon Elastic Kubernetes Service cluster.
 /// # Arguments
 ///
-/// * `-a ARN]` - The ARN of the role for the cluster.
-/// * `-c CLUSTER-NAME` - The name of the cluster.
-/// * `-s SUBNET-IDS` - The subnet IDs of the cluster.
+/// * `[-a ARN]` - The ARN of the role for the cluster.
+/// * `[-c CLUSTER-NAME]` - The name of the cluster.
+/// * `[-s SUBNET-IDS]` - The subnet IDs of the cluster.
 ///   You must specify at least two subnet IDs in separate AZs.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.

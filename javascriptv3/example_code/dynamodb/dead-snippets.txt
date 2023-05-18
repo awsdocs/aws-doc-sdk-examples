@@ -1,0 +1,4 @@
+// snippet-start[dynamodb.JavaScript.movies.queryV3]
+This code example has been superseded by the example in
+Code examples > Actions and scenarios > DynamoDB
+// snippet-end[dynamodb.JavaScript.movies.queryV3]

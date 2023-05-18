@@ -180,6 +180,17 @@ ALLOW_LIST = {
     'apigateway/latest/developerguide/welcome',
     'devicefarm/latest/developerguide/welcome',
     'AWSEC2/latest/APIReference/OperationList',
+    'src/main/java/com/example/dynamodb/Query',
+    'com/firehose/latest/APIReference/Welcome',
+    'src/main/java/com/example/iam/CreateRole',
+    'src/main/java/com/example/iam/CreateUser',
+    'src/main/java/com/example/iam/DeleteUser',
+    'src/main/java/com/example/iam/UpdateUser',
+    'src/main/java/com/example/kms/ListGrants',
+    'com/redshift/latest/APIReference/Welcome',
+    'src/main/java/com/example/sns/ListOptOut',
+    'src/main/java/com/example/sns/ListTopics',
+    'src/main/java/com/example/sqs/SQSExample'
 }
 
 def check_files(root, quiet):

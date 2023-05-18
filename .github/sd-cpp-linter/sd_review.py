@@ -597,7 +597,7 @@ def get_clang_tidy_warnings(
     try:
         with message_group(f"Running:\n\t{command}"):
             subprocess.run(
-                command, capture_output=True, shell=True, check=True, encoding="utf-8"
+                command.split(), capture_output=True, shell=False, check=True, encoding="utf-8"
             )
     except subprocess.CalledProcessError:
         pass

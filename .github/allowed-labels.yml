@@ -127,3 +127,6 @@
 - name: cross-service-team
   color: "e0cdff"
   description: "PRs for the Cross Service Cloud Sherpas"
+- name: type/tracking
+  color: "5aa9f9"
+  description: "Similar to an Epic, but used to track a single individual's multi-part issues."
