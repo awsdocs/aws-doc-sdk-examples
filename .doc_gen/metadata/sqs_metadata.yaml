@@ -91,15 +91,9 @@ sqs_CreateQueue:
           github: javascriptv3/example_code/sqs
           sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-create-queue
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Create an &SQS; standard queue.
               snippet_tags:
                 - sqs.JavaScript.queues.createQueueV3
-            - description: Create an &SQS; queue that waits for a message to arrive.
-              snippet_tags:
-                - sqs.JavaScript.longPoll.createQueueV3
         - sdk_version: 2
           github: javascript/example_code/sqs
           sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-create-queue
@@ -178,9 +172,6 @@ sqs_GetQueueUrl:
           github: javascriptv3/example_code/sqs
           sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-get-queue-url
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Get the URL for an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.queues.getQueueUrlV3
@@ -276,9 +267,6 @@ sqs_ListQueues:
           github: javascriptv3/example_code/sqs
           sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-listing-queues
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: List your &SQS; queues.
               snippet_tags:
                 - sqs.JavaScript.queues.listQueuesV3
@@ -375,9 +363,6 @@ sqs_DeleteQueue:
           github: javascriptv3/example_code/sqs
           sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-delete-queue
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Delete an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.queues.deleteQueueV3
@@ -486,9 +471,6 @@ sqs_SendMessage:
           github: javascriptv3/example_code/sqs
           sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-sending
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Send a message to an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.messages.sendMessageV3
@@ -632,14 +614,11 @@ sqs_ReceiveMessage:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
+          sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Receive a message from an  &SQS; queue using long-poll support.
               snippet_tags:
-                - sqs.JavaScript.longPoll.receiveMessageV3
+                - sqs.JavaScript.messages.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
           sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
@@ -716,11 +695,8 @@ sqs_DeleteMessage:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-receiving
+          sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Receive and delete &SQS; messages.
               snippet_tags:
                 - sqs.JavaScript.messages.receiveMessageV3
@@ -870,11 +846,8 @@ sqs_ChangeMessageVisibility:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-managing-visibility-timeout.html#sqs-examples-managing-visibility-timeout-setting
+          sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Receive an &SQS; message and change its timeout visibility.
               snippet_tags:
                 - sqs.JavaScript.visibility.receiveMessageV3
@@ -920,25 +893,6 @@ sqs_EnableLongPollingCreatingQueue:
   synopsis: change how long an &SQS; queue waits for a message to arrive.
   category:
   languages:
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-existing-queue
-          excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
-            - description: Change how long an &SQS; queue waits for a message to arrive.
-              snippet_tags:
-                - sqs.JavaScript.longPoll.setQueueAttributesV3
-        - sdk_version: 2
-          github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-existing-queue
-          excerpts:
-            - description: Change how long an &SQS; queue waits for a message to arrive.
-              snippet_tags:
-                - sqs.JavaScript.longPoll.setQueueAttributes
     C++:
       versions:
         - sdk_version: 1
@@ -967,6 +921,15 @@ sqs_SetQueueAttributes:
               snippet_tags:
                 - cpp.example_code.sqs.SetQueueAttributes.config
                 - cpp.example_code.sqs.SetQueueAttributes
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.JavaScript.messages.setQueueAttributesV3
   services:
     sqs: {SetQueueAttributes}
 sqs_DeadLetterQueue:

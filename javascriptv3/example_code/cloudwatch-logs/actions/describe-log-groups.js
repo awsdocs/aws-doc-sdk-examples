@@ -3,20 +3,32 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { fileURLToPath } from "url";
+
 // snippet-start:[javascript.v3.cloudwatchlogs.actions.DescribeLogGroups]
-import { DescribeLogGroupsCommand } from "@aws-sdk/client-cloudwatch-logs";
-import { client } from "../libs/client.js";
+import {
+  paginateDescribeLogGroups,
+  CloudWatchLogsClient,
+} from "@aws-sdk/client-cloudwatch-logs";
 
-const run = async () => {
-  // This command will return a list of all log groups in your account.
-  const command = new DescribeLogGroupsCommand({});
+const client = new CloudWatchLogsClient({});
 
-  try {
-    return await client.send(command);
-  } catch (err) {
-    console.error(err);
+export const main = async () => {
+  const paginatedLogGroups = paginateDescribeLogGroups({ client }, {});
+  const logGroups = [];
+
+  for await (const page of paginatedLogGroups) {
+    if (page.logGroups && page.logGroups.every((lg) => !!lg)) {
+      logGroups.push(...page.logGroups);
+    }
   }
-};
 
-export default run();
+  console.log(logGroups);
+  return logGroups;
+};
 // snippet-end:[javascript.v3.cloudwatchlogs.actions.DescribeLogGroups]
+
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
