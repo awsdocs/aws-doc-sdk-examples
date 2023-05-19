@@ -916,23 +916,6 @@ s3_GetBucketLifecycleConfiguration:
                 - python.example_code.s3.GetBucketLifecycleConfiguration
   services:
     s3: {GetBucketLifecycleConfiguration}
-s3_SetBucketNotification:
-  title: Enable notifications of specified events on an &S3; bucket using an &AWS; SDK
-  title_abbrev: Enable notifications
-  synopsis: enable notifications on an S3 bucket.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.java2.s3_enable_notifications.main    
-  services:
-    s3: {PutBucketLogging}
 s3_ServiceAccessLogging:
   title: Enable logging on an &S3; bucket using an &AWS; SDK
   title_abbrev: Enable logging
@@ -2082,6 +2065,15 @@ s3_PutBucketNotification:
             - description:
               snippet_tags:
                 - S3.dotnetv3.EnableNotificationsExample
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.s3_enable_notifications.main
   services:
     s3: {PutBucketNotificationConfiguration}
 s3_TransferAcceleration:
