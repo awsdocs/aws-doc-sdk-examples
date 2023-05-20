@@ -72,7 +72,6 @@ public class ECSScenario
         catch (Exception ex)
         {
             logger.LogError(ex, "There was a problem executing the scenario.");
-            //await CleanupResources();
         }
 
     }
