@@ -17,7 +17,7 @@ public class ECSWrapper
     private readonly ILogger<ECSWrapper> _logger;
 
     /// <summary>
-    /// Constructor for the CloudWatch wrapper.
+    /// Constructor for the ECS wrapper.
     /// </summary>
     /// <param name="ecsClient">The injected ECS client.</param>
     /// <param name="logger">The injected logger for the wrapper.</param>
