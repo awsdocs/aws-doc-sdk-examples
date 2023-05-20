@@ -50,13 +50,13 @@ public class ECSScenario
             .CreateLogger<ECSScenario>();
 
 
-        var loggerECSWarper = LoggerFactory.Create(builder => { builder.AddConsole(); })
+        var loggerECSWarpper = LoggerFactory.Create(builder => { builder.AddConsole(); })
           .CreateLogger<ECSWrapper>();
 
 
         var amazonECSClient = new AmazonECSClient();
 
-        _ecsWrapper = new ECSWrapper(amazonECSClient, loggerECSWarper);
+        _ecsWrapper = new ECSWrapper(amazonECSClient, loggerECSWarpper);
 
         Console.WriteLine(new string('-', 80));
         Console.WriteLine("Welcome to the Amazon ECS example scenario.");
@@ -86,12 +86,12 @@ public class ECSScenario
         Console.WriteLine($"1. List Cluster ARNs from ECS.");
         var arns = await _ecsWrapper.GetClusterARNSAsync();
 
-      
-       foreach(var arn in arns)
-       {
+
+        foreach (var arn in arns)
+        {
             Console.WriteLine($"Cluster arn: {arn}");
             Console.WriteLine($"Cluster name: {arn.Split("/").Last()}");
-       }
+        }
 
         Console.WriteLine(new string('-', 80));
 
@@ -116,7 +116,7 @@ public class ECSScenario
 
             var serviceARNs = await _ecsWrapper.GetServiceARNSAsync(clusterARN);
 
-            foreach(var serviceARN in serviceARNs)
+            foreach (var serviceARN in serviceARNs)
             {
                 Console.WriteLine($"Service arn: {serviceARN}");
                 Console.WriteLine($"Service name: {serviceARN.Split("/").Last()}");
