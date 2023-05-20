@@ -109,7 +109,7 @@ public class ECSScenario
 
         foreach (var clusterARN in clusterARNs)
         {
-            Console.WriteLine($"Geting services for cluster name: {clusterARN.Split("/").Last()}");
+            Console.WriteLine($"Getting services for cluster name: {clusterARN.Split("/").Last()}");
             Console.WriteLine(new string('.', 5));
 
 
@@ -141,7 +141,7 @@ public class ECSScenario
 
         foreach (var clusterARN in clusterARNs)
         {
-            Console.WriteLine($"Geting tasks for cluster name: {clusterARN.Split("/").Last()}");
+            Console.WriteLine($"Getting tasks for cluster name: {clusterARN.Split("/").Last()}");
             Console.WriteLine(new string('.', 5));
 
 
