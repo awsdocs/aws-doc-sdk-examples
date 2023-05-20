@@ -57,9 +57,6 @@ command:
 ```
 dotnet run
 ```
-Alternatively, you can run the example from within your IDE.
-mmand:
-
 
 
 Alternatively, you can run the example from within your IDE.
