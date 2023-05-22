@@ -44,7 +44,7 @@ Code excerpts that show you how to call individual service functions.
 
 
 <!--custom.instructions.start-->
-The quickest way to interact with this example code is to invoke a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
+The quickest way to interact with this example code is to invoke a [Single Action](#single-actions) from your command line. For example, `ruby some_example.rb` will invoke `some_example.rb`.
 <!--custom.instructions.end-->
 
 
