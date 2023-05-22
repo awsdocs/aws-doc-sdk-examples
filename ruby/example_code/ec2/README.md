@@ -22,6 +22,51 @@ Shows how to use the AWS SDK for Ruby to work with Amazon Elastic Compute Cloud 
 
 ## Code examples
 
+### Single actions
+Code excerpts that show you how to call individual service functions.
+
+* [Create an instance](./ec2-ruby-example-create-instance.rb) (`CreateInstance`)
+
+* [Create a key pair](./ec2-ruby-example-create-key-pair.rb) (`CreateKeyPair`)
+
+* [Create a route table](./ec2-ruby-example-create-route-table.rb) (`CreateRouteTable`)
+
+* [Create a security group](./ec2-ruby-example-create-security-group.rb) (`CreateSecurityGroup`)
+
+* [Create a subnet](./ec2-ruby-example-create-subnet.rb) (`CreateSubnet`)
+
+* [Create a VPC](./ec2-ruby-example-create-vpc.rb) (`CreateVPC`)
+
+* [Get instance information by tag](./ec2-ruby-example-get-instance-info-by-tag.rb) (`DescribeInstances`)
+
+* [List instance state](./ec2-ruby-example-list-state-instance-i-123abc.rb) (`DescribeInstances`)
+
+* [Reboot an instance](./ec2-ruby-example-reboot-instance-i-123abc.rb) (`RebootInstance`)
+
+* [Display list of available AWS Regions](./ec2-ruby-example-regions-availability-zones.rb) (`DescribeRegions`)
+
+* [Start an instance](./ec2-ruby-example-start-instance-i-123abc.rb) (`StarInstance`)
+
+* [Stop an instance](./ec2-ruby-example-stop-instance-i-123abc.rb) (`StopInstance`)
+
+* [Terminate an instance](./ec2-ruby-example-terminate-instance-i-123abc.rb) (`TerminateInstance`)
+
+
+
+### Scenarios
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+
+* [Create an internet gateway and attach it to a VPC](./ec2-ruby-example-attach-igw-vpc.rb)
+
+* [Manage addresses](./ec2-ruby-example-elastic-ips.rb)
+
+* [Manage key pairs](./ec2-ruby-example-key-pairs.rb)
+
+* [Manage security groups](./ec2-ruby-example-security-group.rb)
+
+* [Manage instances](./ec2-ruby-example-manage-instances.rb)
+
+
 ### Prerequisites
 
 For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby` folder.
