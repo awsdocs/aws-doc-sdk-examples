@@ -22,6 +22,26 @@ Shows how to use the AWS SDK for Ruby to work with Amazon CloudWatch.
 
 ## Code examples
 
+### Single actions
+Code excerpts that show you how to call individual service functions.
+
+* [Create an alarm](./cw-ruby-example-create-alarm.rb) (`CreateAlarm`)
+
+* [Show alarms](./cw-ruby-example-show-alarms.rb) (`DescribeAlarms`)
+
+* [Disable alarm actions](./cw-ruby-example-alarm-actions.rb) (`DisableAlarmActions`)
+
+
+
+### Scenarios
+Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.
+
+* [Manage alarms](./cw-ruby-example-alarm-basics.rb)
+
+* [Disable alarm actions](./cw-ruby-example-alarm-actions.rb)
+
+* [Add metrics](./cw-ruby-example-metrics-basics.rb)
+
 ### Prerequisites
 
 For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby` folder.
