@@ -26,6 +26,16 @@ Shows how to use the AWS SDK for Ruby to work with AWS Key Management Service (A
 
 For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby` folder.
 
+### Single actions
+Code excerpts that show you how to call individual service functions.
+
+* [Create a key](./create_key.rb) (`CreateKey`)
+
+* [Decrypt a blob](./decrypt_data.rb) (`Decrypt`)
+
+* [Encrypt data](./encrypt_data.rb) (`Encrypt`)
+
+* [Re-encrypt data](./re_encrypt_data.rb) (`ReEncrypt`)
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
