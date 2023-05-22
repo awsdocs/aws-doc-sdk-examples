@@ -2,6 +2,7 @@
   "name": "example-javascriptv3-sqs",
   "version": "1.0.0",
   "author": "Corey Pyle <corepyle@amazon.com>",
+  "type": "module",
   "license": "Apache-2.0",
   "scripts": {
     "integration-test": "vitest run **/*.integration.test.js"
