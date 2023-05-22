@@ -22,6 +22,10 @@ Shows how to use the AWS SDK for Ruby to work with Amazon Elastic Compute Cloud 
 
 ## Code examples
 
+### Prerequisites
+
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby` folder.
+
 ### Single actions
 Code excerpts that show you how to call individual service functions.
 
@@ -65,11 +69,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 * [Manage security groups](./ec2-ruby-example-security-group.rb)
 
 * [Manage instances](./ec2-ruby-example-manage-instances.rb)
-
-
-### Prerequisites
-
-For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby` folder.
 
 
 <!--custom.prerequisites.start-->
