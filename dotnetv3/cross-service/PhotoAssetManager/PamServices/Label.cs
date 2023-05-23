@@ -19,8 +19,6 @@ public class Label
     [DynamoDBProperty("Label")]
     public string LabelID { get; set; }
 
-    [DynamoDBProperty("count")]
-    public int Count { get; set; }
 
     [DynamoDBProperty("images")]
     public List<string> Images { get; set; }

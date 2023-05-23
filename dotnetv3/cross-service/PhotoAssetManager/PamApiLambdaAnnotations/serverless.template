@@ -85,7 +85,7 @@
           "RootGet": {
             "Type": "HttpApi",
             "Properties": {
-              "Path": "/substract/{x}/{y}",
+              "Path": "/subtract/{x}/{y}",
               "Method": "GET",
               "PayloadFormatVersion": "2.0"
             }

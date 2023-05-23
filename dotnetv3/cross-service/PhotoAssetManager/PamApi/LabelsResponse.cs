@@ -13,7 +13,7 @@ public class LabelsResponse
     {
         Labels = new Dictionary<string, LabelCount>();
         labelsList.ForEach(l => 
-            Labels.Add(l.LabelID, new LabelCount(){Count = l.Count}));
+            Labels.Add(l.LabelID, new LabelCount(){Count = l.Images.Count}));
     }
 }
 

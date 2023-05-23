@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
+
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
@@ -31,12 +34,10 @@ public class Startup
         services.AddAWSService<IAmazonSimpleNotificationService>();
         services.AddTransient<IDynamoDBContext, DynamoDBContext>();
 
-
-        //services.AddTransient<IDynamoDBContext>(c => new
-        //    DynamoDBContext(c.GetService<IAmazonDynamoDB>(),
-        //        new DynamoDBContextConfig()));
-
         services.AddTransient<LabelService>();
+        services.AddTransient<StorageService>();
+        services.AddTransient<ImageService>();
+        services.AddTransient<NotificationService>();
 
         services.AddCors(options =>
         {

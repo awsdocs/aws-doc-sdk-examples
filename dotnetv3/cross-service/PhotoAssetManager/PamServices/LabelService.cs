@@ -70,19 +70,17 @@ public class LabelService
     /// <returns>Async Task.</returns>
     public async Task<List<string>> GetAllImagesForLabels(List<string> labels)
     {
+        var uniqueImages = new List<string>();
         // Get all of the records for the labels.
-        var scanFilter = new ScanFilter();
-        scanFilter.AddCondition("Label", ScanOperator.In, labels);
-        var scan = _amazonDynamoDbContext.FromScanAsync<Label>(
-            new ScanOperationConfig()
-            {
-                Filter = scanFilter
-            });
+        foreach (var labelKey in labels)
+        {
+            var record = await _amazonDynamoDbContext.LoadAsync<Label>(labelKey);
+            uniqueImages.AddRange(record.Images);
+        }
+        // Get a unique list of images.
+        uniqueImages = uniqueImages.Distinct().ToList();
 
-        var scanResponse = await scan.GetRemainingAsync();
-        // Combine the results to a unique list of images.
-        var uniqueImages = scanResponse.SelectMany(s => s.Images).Distinct();
-        return uniqueImages.ToList();
+        return uniqueImages;
     }
 
     /// <summary>
@@ -110,6 +108,6 @@ public class LabelService
     private async Task<Label> GetNewOrExistingLabelRecord(string labelKey)
     {
         var existingLabel = await _amazonDynamoDbContext.LoadAsync<Label>(labelKey);
-        return existingLabel ?? new Label { LabelID = labelKey };
+        return existingLabel ?? new Label { LabelID = labelKey, Images = new List<string>()};
     }
 }
