@@ -26,6 +26,14 @@ Shows how to use the AWS SDK for Ruby to work with Amazon Polly.
 
 For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby` folder.
 
+### Single actions
+Code excerpts that show you how to call individual service functions.
+
+* [Describe voices](./polly_describe_voices.rb) (`DescribeVoices`)
+
+* [List lexicons](./polly_list_lexicons.rb) (`ListLexicons`)
+
+* [Synthesize speech](./polly_synthesize_speech.rb) (`SynthesizeSpeech`)
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
@@ -36,7 +44,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 
 <!--custom.instructions.start-->
-The quickest way to interact with this example code is to invoke a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
+The quickest way to interact with this example code is to invoke a [Single Action](#single-actions) from your command line. For example, `ruby some_example.rb` will invoke `some_example.rb`.
 <!--custom.instructions.end-->
 
 

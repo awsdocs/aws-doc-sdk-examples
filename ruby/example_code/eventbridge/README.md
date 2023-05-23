@@ -30,6 +30,11 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
 
+### Single actions
+Code excerpts that show you how to call individual service functions.
+
+* [Create a job](./create_job.rb) (`CreateJob`)
+
 ### Scenarios
 
 Code examples that show you how to accomplish a specific task by calling multiple

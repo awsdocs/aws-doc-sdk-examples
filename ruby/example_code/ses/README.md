@@ -26,6 +26,18 @@ Shows how to use the AWS SDK for Ruby to work with Amazon Simple Email Service (
 
 For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby` folder.
 
+### Single actions
+Code excerpts that show you how to call individual service functions.
+
+* [Get statistics](v1/ses_get_statistics.rb) (`GetSendStatistics`)
+
+* [List emails](v1/ses_list_emails.rb) (`ListTemplates`)
+
+* [Send an email](v1/ses_send_email.rb) (`SendEmail`)
+
+* [Send a verification](v1/ses_send_verification.rb) (`VerifyEmailIdentity`)
+
+* [Send an email using SESv2](v2/send_email.rb) (`SendEmail`)
 
 <!--custom.prerequisites.start-->
 <!--custom.prerequisites.end-->
@@ -36,7 +48,7 @@ For prerequisites, see the [README](../../README.md#Prerequisites) in the `ruby`
 
 
 <!--custom.instructions.start-->
-The quickest way to interact with this example code is to invoke a [Scenario](#Scenarios) from your command line. For example, `ruby some_scenario.rb` will invoke `some_scenario.rb`.
+The quickest way to interact with this example code is to invoke a [Single Action](#single-actions) from your command line. For example, `ruby some_action.rb` will invoke `some_action.rb`.
 <!--custom.instructions.end-->
 
 
