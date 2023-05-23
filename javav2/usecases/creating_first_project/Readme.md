@@ -96,7 +96,7 @@ At this point, you have a new project named **Greetings**.
 Make sure that the **pom.xml** file resembles the following XML code.
 
 ```xml
-	<?xml version="1.0" encoding="UTF-8"?>
+    <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -215,7 +215,7 @@ In the **com.example** package, create a Java class named **GreetingApplication*
 In the **com.example.handlingformsubmission** package, create the **GreetingController** class. This class functions as the controller for the Spring Boot application. It handles HTTP requests and returns a view. In this example, notice the **@Autowired** annotation that creates a managed Spring bean. The following Java code represents this class.
 
 ```java
-	package com.example.handlingformsubmission;
+    package com.example.handlingformsubmission;
 
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Controller;
@@ -266,7 +266,7 @@ In the **com.example.handlingformsubmission** package, create the **Greeting** c
 package com.example.handlingformsubmission;
 
 public class Greeting {
-	private String id;
+    private String id;
     private String body;
     private String name;
     private String title;
@@ -440,8 +440,8 @@ public class PublishTextSMS {
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
         
-	    String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
-        String phoneNumber="<Enter a valid mobile number>"; // Replace with a mobile phone number.
+	String message = "A new item with ID value "+ id +" was added to the DynamoDB table";
+        String phoneNumber = "<Enter a valid mobile number>"; // Replace with a mobile phone number.
 
         try {
             PublishRequest request = PublishRequest.builder()
