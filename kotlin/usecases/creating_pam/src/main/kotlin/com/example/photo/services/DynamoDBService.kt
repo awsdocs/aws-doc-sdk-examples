@@ -38,7 +38,7 @@ class DynamoDBService {
             updateCount(PhotoApplicationResources.LABELS_TABLE, label)
             updateTableList(PhotoApplicationResources.LABELS_TABLE, label, keyVal)
         } else {
-            // There are records. Check to see if Label exists.
+            // There are records. Check to see if a Label exists.
             val labelCount = checkTagExists(label)
             if (labelCount > 0) {
                 // The Label exists in the table.

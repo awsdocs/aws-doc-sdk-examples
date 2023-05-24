@@ -95,7 +95,7 @@ The application dynamically creates a .zip file, stores the file in the S3 worki
 
 ### Understand the AWS resources used by the PAM application 	
 
-This section describes the AWS resources that the PAM application uses. You don't need to manually deploy any of these AWS resources, such as the AWS Lambda functions, by using the AWS Management Console. Instead, you can deploy all of them by running a provided AWS CDK script. Instructions on how to deploy these AWS resources are provided later in this document. 
+This section describes the AWS resources that the PAM application uses. You don't need to manually deploy any of these AWS resources, such as the AWS Lambda functions, by using the AWS Management Console. Instead, you can deploy all of them by running a provided AWS CDK script. Instructions for deploying these AWS resources are provided later in this document. 
 
 #### Lambda functions
 
@@ -117,7 +117,7 @@ The following table describes the AWS Lambda functions used by this application.
 | PrepareDowload  | APIG POST /download    | {"labels": ["Mountain", "Lake"]} | N/A                                         | Labels table / Working bucket       |  
 
 	
-**Note**: The Java application logic required to build these AWS Lambda functions is located later in this document.  	
+**Note**: The Java application logic required to build these AWS Lambda functions appears later in this document.  	
 
 **Upload**
 
@@ -1138,21 +1138,21 @@ For complete instuctions on how to run the supplied AWS CDK script, see [PAM CDK
 
 ### Update the Lambda functions
 
-After you execute the AWS CDK script, the Lambda functions are created. However, you need to replace the ones installed using the AWS CDK with the ones you created by using the AWS SDK for Kotlin. To perform this task, you can run Kotlin code that automatically updates the Lambda functions using a FAT JAR created by using the Kotlin SDK.  Perform these tasks.
+After you execute the AWS CDK script, the Lambda functions are created. However, you need to replace the ones installed using the AWS CDK with the ones you created by using the AWS SDK for Kotlin. To perform this task, you can run Kotlin code that automatically updates the Lambda functions using a FAT JAR created by using the Kotlin SDK. Perform the following tasks:
 
-1. Update the PhotoApplicationResources with the AWS resource names that the CDK Script created. Make sure that you update **LABELS_TABLE**, **STORAGE_BUCKET**, **WORKING_BUCKET**, and **TOPIC_ARN** values. 
+1. Update the PhotoApplicationResources with the AWS resource names that the AWS CDK script created. Make sure to update the **LABELS_TABLE**, **STORAGE_BUCKET**, **WORKING_BUCKET**, and **TOPIC_ARN** values. 
 
-2. Create the JAR FAR by running **ShawdowJar**, as shown in this illustration. 
+2. Create the FAT JAR by running **shadowJar**, as shown in the following illustration.  
 
 ![AWS Photo Analyzer](images/KotlinShawdow.png)
 
-3. Place the FAT JAR into the Amazon S3 bucket named **pambucketsstoragebucket** that the AWS CDK script created. You can use the AWS Management console to perform this task. 
+3. Use the AWS Management Console to place the FAT JAR into the Amazon S3 bucket named **pambucketsstoragebucket**. (This was created by the AWS CDK script.)  
 
 ![AWS Photo Analyzer](images/kotlinJarS3.png)
 
 4. Create a new Kotlin project. For information about the gradle dependencies, see [Lambda code examples for the SDK for Kotlin](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/services/lambda).
  
-5. Add the following Kotlin code to the project and update the Kotlin variable names with the resources created by the AWS CDK script. Make sure you specify the exact names as specified in the AWS Lambda Console. Otherwise, the code does not work. Run this code. 
+5. Add the following Kotlin code to the project and update the Kotlin variable names with the resources created by the AWS CDK script. Make sure to specify the exact names, which are provided in the AWS Lambda console. Otherwise, the code does not work. Run the following code.  
 
 ```java
 package com.pam
@@ -1196,7 +1196,7 @@ suspend fun updateFunctionCode(functionNameVal: String?, bucketName: String?, ke
 
 ```
 
-Once done, you will see a message that the AWS Lambda functions have been updated with the Kotlin FAT JAR. 
+When done, you see a message that the AWS Lambda functions have been updated with the Kotlin FAT JAR. 
 
 ![AWS Photo Analyzer](images/kotlinProgram.png)
 

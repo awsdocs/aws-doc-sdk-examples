@@ -24,7 +24,7 @@ class DownloadEndpoint {
         val snsService = SnsService()
         val imageMap: HashMap<String, ByteArray> = HashMap()
 
-        // Now we have an image list, place them into a ZIP and presign it.
+        // Now that you have an image list, place the images into a ZIP and presign the ZIP.
         val images = labels.asFlow()
             .flatMapConcat { label ->
                 withContext(Dispatchers.IO) {

@@ -19,7 +19,7 @@ import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
 class S3Service {
-    // Place the upload image into an Amazon S3 bucket
+    // Place the upload image into an Amazon S3 bucket.
     suspend fun putObject(data: ByteArray, objectKey: String) {
         val request = PutObjectRequest {
             bucket = PhotoApplicationResources.STORAGE_BUCKET
