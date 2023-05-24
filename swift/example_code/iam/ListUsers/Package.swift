@@ -5,23 +5,22 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-
 import PackageDescription
 
 let package = Package(
-// snippet-start:[iam.swift.listusers.package.attributes]
+    // snippet-start:[iam.swift.listusers.package.attributes]
     name: "listusers",
     platforms: [
         .macOS(.v11),
         .iOS(.v13)
     ],
-// snippet-end:[iam.swift.listusers.package.attributes]
-// snippet-start:[iam.swift.listusers.package.dependencies]
+    // snippet-end:[iam.swift.listusers.package.attributes]
+    // snippet-start:[iam.swift.listusers.package.dependencies]
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.3.0"
+            from: "0.15.0"
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
@@ -32,47 +31,32 @@ let package = Package(
             path: "../../../modules/SwiftUtilities"
         ),
     ],
-// snippet-end:[iam.swift.listusers.package.dependencies]
-// snippet-start:[iam.swift.listusers.package.targets]
+    // snippet-end:[iam.swift.listusers.package.dependencies]
+    // snippet-start:[iam.swift.listusers.package.targets]
     targets: [
         // A target defines a module or a test suite. A target can depend on
         // other targets in this package. They can also depend on products in
         // other packages that this package depends on.
-// snippet-start:[iam.swift.listusers.package.target.executable]
+        // snippet-start:[iam.swift.listusers.package.target.executable]
         .executableTarget(
             name: "listusers",
             dependencies: [
-                "ServiceHandler",
+                .product(name: "AWSIAM", package: "aws-sdk-swift"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
-            path: "./Sources/ListUsers",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Sources"
         ),
-// snippet-end:[iam.swift.listusers.package.target.executable]
-// snippet-start:[iam.swift.listusers.package.target.handler]
-        .target(
-            name: "ServiceHandler",
-            dependencies: [
-                .product(name: "AWSIAM", package: "aws-sdk-swift"),
-            ],
-            path: "./Sources/ServiceHandler"
-        ),
-// snippet-end:[iam.swift.listusers.package.target.handler]
-// snippet-start:[iam.swift.listusers.package.target.tests]
+        // snippet-end:[iam.swift.listusers.package.target.executable]
+        // snippet-start:[iam.swift.listusers.package.target.tests]
         .testTarget(
             name: "listusers-tests",
             dependencies: [
                 "listusers",
                 "SwiftUtilities"
             ],
-            path: "./Tests/ListUsersTests",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Tests/ListUsersTests"
         )
-// snippet-end:[iam.swift.listusers.package.target.tests]
+        // snippet-end:[iam.swift.listusers.package.target.tests]
     ]
-// snippet-end:[iam.swift.listusers.package.targets]
+    // snippet-end:[iam.swift.listusers.package.targets]
 )

@@ -5,94 +5,192 @@
 import XCTest
 import Foundation
 import AWSIAM
-import AWSClientRuntime
 import ClientRuntime
 import SwiftUtilities
 
-@testable import ServiceHandler
+@testable import listusers
 
-/// Perform tests on the sample program. Call Amazon service functions
-/// using the global `ListUsersTests.serviceHandler` property. Also, manage
-/// the demo cleanup handler object using the global
-/// `ListUsersTests.demoCleanup` property.
-final class ListUsersTests: XCTestCase {
-    static var serviceHandler: ServiceHandler? = nil
+/// An implementation of `UserSession` that returns mocked data instead of
+/// calling AWS SDK for Swift.
+public struct MockUserSession: UserSession {
+    /// The number of users to make up.
+    var numUsers: Int
+    /// The list of imaginary user names.
+    var nameList: [String] = []
 
-    /// Class-wide setup function for the test case, which is run *once*
-    /// before any tests are run.
+    /// Initialize the session by generating the specified number of fake
+    /// user names.
     ///
-    /// This function sets up the following:
-    ///
-    ///     Configures the AWS SDK log system to only log errors.
-    ///     Initializes the service handler, which is used to call
-    ///     Amazon Identity and Access Management (IAM) functions.
-    ///     Initializes the demo cleanup handler, which is used to
-    ///     track the names of the files and buckets created by the tests
-    ///     in order to remove them after testing is complete.
-    override class func setUp() {
-        let tdSem = TestWaiter(name: "Setup")
-        super.setUp()
-        SDKLoggingSystem.initialize(logLevel: .error)
-
-        Task() {
-            ListUsersTests.serviceHandler = await ServiceHandler()
-            tdSem.signal()
+    /// - Parameters:
+    ///   - numUsers: The number of pretend users to create for use when
+    ///     testing.
+    init(numUsers: Int = 250) {
+        self.numUsers = numUsers
+    
+        for _ in 1...numUsers {
+            nameList.append(self.fakeName())
         }
-        tdSem.wait()
     }
 
-    /// Called after **each** `testX()` function that follows, in order
-    /// to clean up after each test is run.
-    override func tearDown() async throws {
-        let tdSem = TestWaiter(name: "Teardown")
-
-        Task() {
-            tdSem.signal()
-        }
-        tdSem.wait()
-    }
-
-    func testListUsers() async throws {
-        let testNames = [
-            "JamesJameson",
-            "MariaMarino",
-            "XavierHabanero",
-            "SashaSchiff"
+    /// Return a fake user name by randomly concatenating one of a number
+    /// of surnames and one of a number of given names at random. Then a
+    /// partial UUID is appended to that to further ensure uniqueness.
+    ///
+    /// - Returns: A string of the form "surname-givenname-partialuuid".
+    private func fakeName() -> String {
+        let givenNames = [
+            "Amanda", "Bailey", "Carlos", "Denise", "Eduard", "Fatima",
+            "Imani", "Jakob", "Kwame", "Malik", "Ahmed", "Thomas", "Ravi",
+            "Gerard", "Samuel", "Isaac", "Lakshmi", "Xavier", "Fumiko"
+        ]
+        let surnames = [
+            "Jones", "Tanaka", "Richards", "Watanabe", "Yamaguchi",
+            "Aguta", "Ndiaye", "Atkins", "Qasim", "Ayad", "Habib",
+            "Estevez", "Garcia", "Hernandez", "Blackrock", "Patel"
         ]
 
-        do {
-            var createdNames: [String] = []
+        let name = surnames.randomElement()! + "-" + givenNames.randomElement()!
+        return String.uniqueName(withPrefix: name, maxDigits: 11)
+    }
 
-            // Get a list of the pre-existing users.
-            let previousUsers = try await ListUsersTests.serviceHandler!.listUsers()
+    /// Determine whether or not the given list of users matches the fake
+    /// set of users supposedly available through IAM.
+    ///
+    /// - Parameters:
+    ///   - names: An array of user name strings.
+    ///
+    /// - Returns: `true` if the specified list of user names matches the
+    /// pre-generated list.
+    public func verifyList(names: [String]) -> Bool {
+        return nameList == names
+    }
 
-            // Create the test users.
-            for name in testNames {
-                _ = try await ListUsersTests.serviceHandler!.createUser(name: name)
-                createdNames.append(name)
-            }
+    /// Mocked implementation of the `IAMClient.listUsers()` function.
+    /// 
+    /// - Parameters:
+    ///   - input: The input parameters in a ``ListUsersInput`` record.
+    ///
+    /// - Returns: A `ListUsersOutputResponse` with the mock results.
+    ///
+    /// > Note: Most of the data in the returned record is the same for
+    ///   every returned user, and is mostly not valid. The only data
+    ///   we test for is the user name, since that's all the main program
+    ///   cares about.
+    public func listUsers(input: ListUsersInput) async throws
+                -> ListUsersOutputResponse {
+        var output = ListUsersOutputResponse(
+            isTruncated: false,
+            marker: nil,
+            users: nil
+        )
 
-            // Ask AWS for a list of users.
-            let users = try await ListUsersTests.serviceHandler!.listUsers()
+        // Determine where in the user list to start at given the value
+        // of the input's `marker`.
 
-            // Ensure that we got back the expected number of users: the
-            // number we created plus the number that previously existed.
-            XCTAssertTrue(users.count == testNames.count + previousUsers.count, "Incorrect number of users created. Should be \(testNames.count) but is instead \(users.count).")
-
-            // For each user AWS reported, remove it from the list of names we
-            // created. When done, there should be no entries left in the list
-            // of names we created.
-            for user in users {
-                createdNames = createdNames.filter { $0 != user.name }
-            }
-            XCTAssertTrue(createdNames.count == 0, "Created user list doesn't match expected list.")
-
-            // Remove the test users.
-            for name in testNames {
-                _ = try await ListUsersTests.serviceHandler!.deleteUser(name: name)
-            }
-        } catch {
-            throw error
+        var start = 0
+        if input.marker != nil {
+            start = Int(input.marker!)!
         }
+
+        var maxItems = 100
+
+        // Adjust the requested number of items based on the caller's
+        // specification and the actual available number of items.
+
+        if input.maxItems != nil {
+            maxItems = input.maxItems!
+        }
+
+        if start + maxItems > self.numUsers {
+            maxItems = self.numUsers - start
+        }
+
+        // Make a list of just the names to return.
+
+        let names = Array(nameList[start ..< Swift.min(
+                                start + maxItems, self.numUsers)])
+
+        // Now create the IAMClientTypes.User objects for each user.
+
+        var users: [IAMClientTypes.User] = []
+
+        for name in names {
+            let user = IAMClientTypes.User(
+                arn: "arn:this-is-not-a-real-arn",
+                createDate: Date(),
+                passwordLastUsed: nil,
+                path: name,
+                permissionsBoundary: nil,
+                tags: [],
+                userId: "0000000000",
+                userName: name
+            )
+            users.append(user)
+        }
+
+        output.users = users
+
+        // Update the `isTruncated` flag and the `marker` to let the caller
+        // know whether or not there are more results available, and to record
+        // where the next batch of results begins.
+
+        start += maxItems
+        if start < self.numUsers {
+            output.marker = String(start)
+            output.isTruncated = true
+        } else {
+            output.marker = nil
+            output.isTruncated = false
+        }
+
+        return output
+    }
+}
+
+/// Perform tests on the sample program without using AWS requests, by
+/// using the mocked Amazon IAM functions through `MockUserSession`.
+final class ListUsersTests: XCTestCase {
+    /// Class-wide setup function for the test case, which is run *once*
+    /// before any tests are run.
+    override class func setUp() {
+        super.setUp()
+        SDKLoggingSystem.initialize(logLevel: .error)
+    }
+
+    /// Test the mocked ``listUsers()`` function itself.
+    func testListUsers() async throws {
+        let session = MockUserSession()
+
+        var input = ListUsersInput(maxItems: 33)
+        var output: ListUsersOutputResponse
+        var userNames: [String] = []
+
+        repeat {
+            output = try await session.listUsers(input: input)
+            
+            guard let users = output.users else {
+                break
+            }
+
+            for user in users {
+                userNames.append(user.userName ?? "<unknown>")
+            }
+
+            input.marker = output.marker
+        } while output.isTruncated == true
+
+        XCTAssertTrue(session.verifyList(names: userNames),
+                "Returned list of names doesn't match.")
+    }
+
+    /// Test the main program's ``getUserNames()`` function.
+    func testGetUserNames() async throws {
+        let session = MockUserSession()
+
+        let command = try ExampleCommand.parse([])
+        let names = try await command.getUserNames(session: session)
+
+        XCTAssertTrue(session.verifyList(names: names),
+                "Returned list of names doesn't match.")
     }
 }
