@@ -1401,10 +1401,10 @@ dynamodb_BatchExecuteStatement:
           excerpts:
             - description: Use batches of INSERT statements to add items.
               snippet_tags:
-                - PartiQL.dotnetv3.PartiQLBatchScenario-GetBatch
+                - PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies
             - description: Use batches of SELECT statements to get items.
               snippet_tags:
-                - PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies
+                - PartiQL.dotnetv3.PartiQLBatchScenario-GetBatch
             - description: Use batches of UPDATE statements to update items.
               snippet_tags:
                 - PartiQL.dotnetv3.PartiQLBatchScenario-UpdateBatch
