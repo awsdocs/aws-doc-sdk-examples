@@ -1,4 +1,4 @@
-# ***Publish and subscribe to topics using filters and queues***
+# ***Publish and subscribe to topics using filters and queues using the AWS SDK for Java V2***
 
 ## Overview
 
@@ -7,7 +7,7 @@ Publish and subscribe is a mechanism for passing information. It’s used in soc
 
 Use the sample code in this folder to explore publishing and subscribing to a topic by using filters and queues. This tutorial does not create a complete end-to-end application. Instead, you can use it to play around with a publish and subscribe architecture.
 
-You can create an Amazon SNS topic and subscribe two Amazon SQS queues to the topic. You can enable FIFO (First-In-First-Out) queueing, and you can add filtered subscriptions. Then, you can publish messages to the topic and see the results in the queues.
+You can create an Amazon SNS topic and subscribe an Amazon SQS queue to the topic. You can enable FIFO (First-In-First-Out) queueing, and you can add filtered subscriptions. Then, you can publish messages to the topic and see the results in the queues.
 
 You can publish and subscribe using Amazon SNS alone. But combining Amazon SNS with Amazon SQS gives you more flexibility in how the messages are consumed.
 
@@ -15,7 +15,7 @@ Amazon SNS is a push service. It pushes to endpoints such as email addresses, mo
 
 With Amazon SQS, messages are received from a queue by polling. With polling, the subscriber receives messages by calling a receive message API. Any code can poll the queue. Also, the messages stay in the queue until you delete them. This gives you more flexibility in how the messages are processed.
 
-The sample code builds a command line application that asks you for input. This is implemented in multiple programming languages, and the interface can vary slightly between languages. The following shows the interface for the Java implementation.
+The AWS SDK for Java v2 sample code builds a command line application that asks you for input. The following shows the interface for the Java implementation.
 
 ### Create an SNS topic
 
@@ -40,9 +40,9 @@ Enter a name for your SNS topic:
 
 Topic names can have 1-256 characters. They can contain uppercase and lowercase ASCII letters, numbers, underscores, and hyphens. If you chose a FIFO topic, the application automatically adds a “.fifo” suffix, which is required for FIFO topics.
 
-### Create two SQS queues
+### Create an SQS queue
 
-Now, configure two SQS queues to subscribe to your topic. Separate queues for each subscriber can be helpful. For 
+Now, configure an SQS queue to subscribe to your topic. Separate queues for each subscriber can be helpful. For 
 instance, you can customize how messages are consumed and how messages are filtered.
 
 ```
@@ -71,12 +71,10 @@ Enter a number (or enter zero to stop adding more)
 
 If you add a filter, you can select one or more “tone” attributes to filter by. When you’re done, enter “0’” to continue.
 
-The application now prompts you to add the second queue. Repeat the previous steps for the second queue.
-
 The following diagram shows the topic and queue options.
 ![Diagram of the options](images/fifo_topics_diagram.png)
 
-After you create the topic and subscribe both queues, the application lets you publish messages to the topic.
+After you create the topic and subscribe the queue, the application lets you publish messages to the topic.
 
 
 ```
@@ -139,8 +137,7 @@ When you are done posting messages, the application polls the queues and display
 
 ### Prerequisites
 
-Before using the code examples, first complete the installation and setup steps of [Getting started](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html) in the AWS SDK for
-C++ Developer Guide.
+Before using the code examples, make sure to properly set up your development environment. For information, see [Setting up the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
 
 ###  Instructions
