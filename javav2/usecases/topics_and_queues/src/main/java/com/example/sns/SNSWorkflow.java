@@ -76,17 +76,17 @@ import com.google.gson.JsonPrimitive;
 public class SNSWorkflow {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static final String contentId = "ContentID";
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) {
         final String usage = "\n" +
             "Usage:\n" +
             "    <fifoQueueARN>\n\n" +
             "Where:\n" +
             "    accountId - Your AWS account Id value." ;
 
-        if (args.length != 1) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+       // if (args.length != 1) {
+       //     System.out.println(usage);
+       //     System.exit(1);
+       // }
 
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
@@ -99,7 +99,7 @@ public class SNSWorkflow {
             .build();
 
         Scanner in = new Scanner(System.in);
-        String accountId = "<enter your account id>" ;
+        String accountId = "814548047983" ;
         String useFIFO;
         String duplication = "n";
         String topicName;
@@ -325,7 +325,7 @@ public class SNSWorkflow {
                 .build();
 
             DeleteTopicResponse result = snsClient.deleteTopic(request);
-            System.out.println("\n\nStatus was " + result.sdkHttpResponse().statusCode());
+            System.out.println("Status was " + result.sdkHttpResponse().statusCode());
 
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());

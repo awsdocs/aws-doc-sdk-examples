@@ -142,19 +142,8 @@ Before using the code examples, make sure to properly set up your development en
 
 ###  Instructions
 
-This example uses the CMake build system. For information about the CMake build system, see https://cmake.org/.
-Many Integrated Development Environments (IDEs) support CMake. If your preferred IDE supports CMake, follow the IDE's instructions to open this CMake project.
+This example uses Apache Maven to set up the AWS SDK for Java v2. The POM file is located in this folder. For information, see [Set up an Apache Maven project](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup-project-maven.html).
 
-You can also build this project from a command line interface by using the following commands.
-
-
-```
-mkdir build 
-cd build
-cmake —build ..
-```
-
-This builds the executable named “run_topics_and_queues”.
 
 Running this example requires AWS Identity and Access Management (IAM) permissions for both SNS and SQS.
 
@@ -164,5 +153,5 @@ Running this example requires AWS Identity and Access Management (IAM) permissio
 * [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
 * [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
 * [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
-* [AWS SDK for C++ Developer Guide](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/welcome.html)
+* [AWS SDK for Java V2 Developer Guide](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html)
 
