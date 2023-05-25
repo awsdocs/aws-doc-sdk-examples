@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[HelloSNS.java demonstrates how to  list the event topics using a paginated response.]
+//snippet-sourcedescription:[HelloSNS.java demonstrates how to list the event topics using a paginated response.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Amazon Simple Notification Service]
 /*

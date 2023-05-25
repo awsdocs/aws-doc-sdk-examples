@@ -61,11 +61,11 @@ import com.google.gson.JsonPrimitive;
  *
  *  This Java example performs these tasks:
  *
- * 1. Allows the user to select from three options.
- * 2. Creates an SNS topic.
- * 3. Creates an SQS queue.
- * 4. Gets the SQS queue ARN attribute.
- * 5. Attaches an IAM policy to the queue.
+ * 1. Gives the user three options to choose from.
+ * 2. Creates an Amazon Simple Notification Service (Amazon SNS) topic.
+ * 3. Creates an Amazon Simple Queue Service (Amazon SQS) queue.
+ * 4. Gets the SQS queue Amazon Resource Name (ARN) attribute.
+ * 5. Attaches an AWS Identity and Access Management (IAM) policy to the queue.
  * 6. Subscribes to the SQS queue.
  * 7. Publishes a message to the topic.
  * 8. Displays the messages.
@@ -99,7 +99,7 @@ public class SNSWorkflow {
             .build();
 
         Scanner in = new Scanner(System.in);
-        String accountId = "<Enter your account number>" ;
+        String accountId = "<enter your account id>" ;
         String useFIFO;
         String duplication = "n";
         String topicName;
@@ -118,9 +118,9 @@ public class SNSWorkflow {
 
         System.out.println(DASHES);
         System.out.println("Welcome to messaging with topics and queues.");
-        System.out.println("In this workflow, you will create an SNS topic and subscribe 2 SQS queues to the topic.\n" +
-            "You can select from several options for configuring the topic and the subscriptions for the 2 queues.\n" +
-            "You can then post to the topic and see the results in the queues.");
+        System.out.println("In this workflow, you will create an SNS topic and subscribe an SQS queue to the topic.\n" +
+            "You can select from several options for configuring the topic and the subscriptions for the queue.\n" +
+            "You can then post to the topic and see the results in the queue.");
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -130,7 +130,7 @@ public class SNSWorkflow {
         useFIFO = in.nextLine();
         if (useFIFO.compareTo("y") == 0) {
             selectFIFO = true;
-            System.out.println("You have selected to use FIFO");
+            System.out.println("You have selected FIFO");
             System.out.println(" Because you have chosen a FIFO topic, deduplication is supported.\n" +
                 "        Deduplication IDs are either set in the message or automatically generated from content using a hash function.\n" +
                 "        If a message is successfully published to an SNS FIFO topic, any message published and determined to have the same deduplication ID,\n" +
@@ -143,7 +143,7 @@ public class SNSWorkflow {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("2. Create a  topic.");
+        System.out.println("2. Create a topic.");
         System.out.println("Enter a name for your SNS topic.");
         topicName = in.nextLine();
         if (selectFIFO) {
@@ -169,7 +169,7 @@ public class SNSWorkflow {
             sqsQueueName = sqsQueueName + ".fifo";
         }
         sqsQueueUrl = createQueue(sqsClient, sqsQueueName, selectFIFO);
-        System.out.println("The Queue URL is "+sqsQueueUrl);
+        System.out.println("The queue URL is "+sqsQueueUrl);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -286,7 +286,7 @@ public class SNSWorkflow {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("8. Display the message. Enter any key to continue.");
+        System.out.println("8. Display the message. Press any key to continue.");
         in.nextLine();
         messageList = receiveMessages(sqsClient, sqsQueueUrl, msgAttValue);
         for (Message mes :messageList) {
@@ -296,25 +296,25 @@ public class SNSWorkflow {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("9. Delete the received message. Enter any key to continue.");
+        System.out.println("9. Delete the received message. Press any key to continue.");
         in.nextLine();
         deleteMessages(sqsClient, sqsQueueUrl, messageList);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("10. Unsubscribe from the topic and delete the queue. Enter any key to continue.");
+        System.out.println("10. Unsubscribe from the topic and delete the queue. Press any key to continue.");
         in.nextLine();
         unSub(snsClient, subscriptionArn);
         deleteSQSQueue(sqsClient, sqsQueueName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("11. Delete the topic. Enter any key to continue.");
+        System.out.println("11. Delete the topic. Press any key to continue.");
         in.nextLine();
         deleteSNSTopic(snsClient, topicArn);
 
         System.out.println(DASHES);
-        System.out.println("The SNS/SQS Workflow has completed successfully.");
+        System.out.println("The SNS/SQS workflow has completed successfully.");
         System.out.println(DASHES);
     }
 
@@ -439,7 +439,7 @@ public class SNSWorkflow {
     public static void pubMessageFIFO(SnsClient snsClient, String message, String topicArn, String msgAttValue, String duplication) {
         try {
             PublishRequest request;
-            // Means the user did not select to use a message attribute.
+            // Means the user did not choose to use a message attribute.
             UUID uuid = UUID.randomUUID();
             UUID uuid1 = UUID.randomUUID();
             if (msgAttValue.isEmpty() ) {
@@ -474,7 +474,7 @@ public class SNSWorkflow {
                         .topicArn(topicArn)
                         .build();
                 } else {
-                    // Create a publish request with the message and attributes
+                    // Create a publish request with the message and attributes.
                     request = PublishRequest.builder()
                         .topicArn(topicArn)
                         .message(message)
@@ -485,7 +485,7 @@ public class SNSWorkflow {
                 }
             }
 
-            // Publish the message to the topic
+            // Publish the message to the topic.
             PublishResponse result = snsClient.publish(request);
             System.out.println(result.messageId() + " Message sent. Status was " + result.sdkHttpResponse().statusCode());
 
