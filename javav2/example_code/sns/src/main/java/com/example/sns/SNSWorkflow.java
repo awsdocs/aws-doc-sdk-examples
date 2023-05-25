@@ -83,10 +83,10 @@ public class SNSWorkflow {
             "Where:\n" +
             "    accountId - Your AWS account Id value." ;
 
-      //  if (args.length != 1) {
- //           System.out.println(usage);
-       //     System.exit(1);
-     //   }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
         SnsClient snsClient = SnsClient.builder()
             .region(Region.US_EAST_1)
@@ -99,7 +99,7 @@ public class SNSWorkflow {
             .build();
 
         Scanner in = new Scanner(System.in);
-        String accountId = "814548047983" ;
+        String accountId = "<Enter your account number>" ;
         String useFIFO;
         String duplication = "n";
         String topicName;
