@@ -45,14 +45,11 @@ public class ECSScenario
             builder.AddConsole();
         });
 
-
         logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
             .CreateLogger<ECSScenario>();
 
-
         var loggerECSWarpper = LoggerFactory.Create(builder => { builder.AddConsole(); })
           .CreateLogger<ECSWrapper>();
-
 
         var amazonECSClient = new AmazonECSClient();
 
@@ -73,7 +70,6 @@ public class ECSScenario
         {
             logger.LogError(ex, "There was a problem executing the scenario.");
         }
-
     }
 
     /// <summary>
@@ -85,7 +81,6 @@ public class ECSScenario
         Console.WriteLine($"1. List Cluster ARNs from ECS.");
         var arns = await _ecsWrapper.GetClusterARNSAsync();
 
-
         foreach (var arn in arns)
         {
             Console.WriteLine($"Cluster arn: {arn}");
@@ -93,7 +88,6 @@ public class ECSScenario
         }
 
         Console.WriteLine(new string('-', 80));
-
     }
 
 
@@ -105,7 +99,6 @@ public class ECSScenario
         Console.WriteLine(new string('-', 80));
         Console.WriteLine($"2. List Service ARNs in every cluster.");
         var clusterARNs = await _ecsWrapper.GetClusterARNSAsync();
-
 
         foreach (var clusterARN in clusterARNs)
         {
@@ -119,13 +112,10 @@ public class ECSScenario
             {
                 Console.WriteLine($"Service arn: {serviceARN}");
                 Console.WriteLine($"Service name: {serviceARN.Split("/").Last()}");
-
             }
-
         }
 
         Console.WriteLine(new string('-', 80));
-
     }
 
 
@@ -138,12 +128,10 @@ public class ECSScenario
         Console.WriteLine($"3. List Task ARNs in every cluster.");
         var clusterARNs = await _ecsWrapper.GetClusterARNSAsync();
 
-
         foreach (var clusterARN in clusterARNs)
         {
             Console.WriteLine($"Getting tasks for cluster name: {clusterARN.Split("/").Last()}");
             Console.WriteLine(new string('.', 5));
-
 
             var taskARNs = await _ecsWrapper.GetTaskARNsAsync(clusterARN);
 
@@ -151,10 +139,7 @@ public class ECSScenario
             {
                 Console.WriteLine($"Task arn: {taskARN}");
             }
-
         }
-
         Console.WriteLine(new string('-', 80));
-
     }
 }

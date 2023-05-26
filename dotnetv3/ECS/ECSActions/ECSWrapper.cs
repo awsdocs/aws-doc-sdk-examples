@@ -40,26 +40,24 @@ public class ECSWrapper
         // Get a list of all the clusters in your AWS account
         try
         {
-            var listClustersResponse = await _ecsClient.ListClustersAsync(new ListClustersRequest
+
+            var listClustersResponse = _ecsClient.Paginators.ListClusters(new ListClustersRequest
             {
             });
 
             var clusterArns = listClustersResponse.ClusterArns;
 
             // Print the ARNs of the clusters
-            foreach (var clusterArn in clusterArns)
+            await foreach (var clusterArn in clusterArns)
             {
                 clusterArnList.Add(clusterArn);
             }
 
-            if (clusterArns.Count == 0)
+            if (clusterArnList.Count == 0)
             {
                 _logger.LogWarning("No clusters found in your AWS account.");
             }
-
-
             return clusterArnList;
-
         }
         catch (Exception e)
         {
@@ -82,19 +80,23 @@ public class ECSWrapper
         {
             Cluster = clusterARN
         };
+        // Call the ListServices API operation and get the list of service ARNs
+        var serviceList = _ecsClient.Paginators.ListServices(request);
 
-        string nextToken = null;
-        do
+        await foreach (var serviceARN in serviceList.ServiceArns)
         {
-            request.NextToken = nextToken;
-            var response = await _ecsClient.ListServicesAsync(request);
-            serviceArns.AddRange(response.ServiceArns);
-            nextToken = response.NextToken;
-        } while (nextToken != null);
+            if (serviceARN is null)
+                continue;
 
+            serviceArns.Add(serviceARN);
+        }
+
+        if (serviceArns.Count == 0)
+        {
+            _logger.LogWarning($"No services found in cluster {clusterARN} .");
+        }
 
         return serviceArns;
-
     }
 
     /// <summary>
@@ -109,25 +111,25 @@ public class ECSWrapper
         {
             Cluster = clusterARN
         };
+        List<string> taskArns = new List<string>();
 
         // Call the ListTasks API operation and get the list of task ARNs
-        List<string> taskArns = new List<string>();
-        string nextToken = null;
-        do
+        var tasks = _ecsClient.Paginators.ListTasks(listTasksRequest);
+
+        await foreach (var task in tasks.TaskArns)
         {
-            listTasksRequest.NextToken = nextToken;
-            var listTasksResponse = await _ecsClient.ListTasksAsync(listTasksRequest);
-            taskArns.AddRange(listTasksResponse.TaskArns);
-            nextToken = listTasksResponse.NextToken;
-        } while (nextToken != null);
+            if (task is null)
+                continue;
+
+
+            taskArns.Add(task);
+        }
 
         if (taskArns.Count == 0)
         {
             _logger.LogWarning("No tasks found in cluster: " + clusterARN);
         }
 
-
         return taskArns;
     }
-
 }

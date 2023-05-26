@@ -23,7 +23,7 @@ public class HelloECS
         var amazonECSClient = new AmazonECSClient();
 
         // You can use await and any of the async methods to get a response.
-        var response = await amazonECSClient.ListClustersAsync(new ListClustersRequest{});
+        var response = await amazonECSClient.ListClustersAsync(new ListClustersRequest { });
 
         Console.WriteLine($"Hello Amazon ECS! Following are some cluster ARNS available in the your aws account");
         Console.WriteLine();
