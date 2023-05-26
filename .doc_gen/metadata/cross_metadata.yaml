@@ -563,4 +563,3 @@ cross_MessagesTopicsAndQueues:
   services:
     sns:
     sqs:
-        
