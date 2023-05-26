@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 
-const send = vi.fn(async () => {});
+const send = vi.fn(() => Promise.resolve());
 
 vi.doMock("@aws-sdk/client-s3", async () => {
   const actual = await vi.importActual("@aws-sdk/client-s3");
@@ -12,13 +12,11 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-import {
-  getObjectRange,
-  getRangeAndLength,
-  isComplete,
-} from "../scenarios/multipart-download.js";
+const { getObjectRange, getRangeAndLength, isComplete } = await import(
+  "../scenarios/multipart-download.js"
+);
 
-describe("multipart-download", async () => {
+describe("multipart-download", () => {
   describe("getObjectRange", () => {
     it("should call 'send' with the provided range", async () => {
       await getObjectRange({

@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/unmonitor-instances.js";
+const { main } = await import("../actions/unmonitor-instances.js");
 
 describe("unmonitor-instances", () => {
   it("should log a list instance monitoring details", async () => {
