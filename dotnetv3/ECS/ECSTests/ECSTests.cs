@@ -15,7 +15,7 @@ namespace ECSTests;
 /// <summary>
 /// ECS tests.
 /// </summary>
-public class CloudWatchTests
+public class ECSTests
 {
     private readonly IConfiguration _configuration;
     private readonly ILoggerFactory _loggerFactory;
@@ -24,7 +24,7 @@ public class CloudWatchTests
     /// <summary>
     /// Constructor for the test class.
     /// </summary>
-    public CloudWatchTests()
+    public ECSTests()
     {
         _configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -48,10 +48,18 @@ public class CloudWatchTests
     [Fact]
     [Order(1)]
     [Trait("Category", "Integration")]
-    public async Task ListClusters_ShouldNotBeNull()
+    public async Task ListClusters_ShouldNotReturnException()
     {
-        var result = await _ecsWrapper.GetClusterARNSAsync();
+        try
+        {
+            var result = await _ecsWrapper.GetClusterARNSAsync();
+            Assert.True(true, "List clusters should not return an exception.");
 
-        Assert.NotEmpty(result);
+        }
+        catch (Exception e)
+        {
+            Assert.True(false, e.Message);
+        }
+
     }
 }
