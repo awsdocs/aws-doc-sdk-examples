@@ -8,9 +8,7 @@ using Amazon.Rekognition;
 using Amazon.S3;
 using Amazon.SimpleNotificationService;
 using Amazon.Util;
-using Microsoft.Net.Http.Headers;
 using PamServices;
-using System.Reflection;
 
 namespace PamApi;
 
@@ -39,14 +37,7 @@ public class Startup
         services.AddTransient<ImageService>();
         services.AddTransient<NotificationService>();
 
-        services.AddCors(options =>
-        {
-            options.AddDefaultPolicy(
-                policy =>
-                {
-                    policy.AllowAnyOrigin().AllowAnyMethod().WithHeaders(HeaderNames.ContentType);
-                });
-        });
+        services.AddCors();
         services.AddControllers();
         services.AddSwaggerGen();
     }
@@ -65,7 +56,11 @@ public class Startup
             });
         }
 
-        app.UseCors();
+        app.UseCors(x => 
+            x.AllowAnyMethod()
+            .AllowAnyHeader()
+            .SetIsOriginAllowed(origin => true)
+            .AllowCredentials());
 
         app.UseHttpsRedirection();
 
@@ -83,6 +78,9 @@ public class Startup
         });
     }
 
+    /// <summary>
+    /// Configure a table mapping for the environment variable table name.
+    /// </summary>
     private void ConfigureDynamoDB()
     {
         var labelsTableName = Environment.GetEnvironmentVariable("LABELS_TABLE_NAME");

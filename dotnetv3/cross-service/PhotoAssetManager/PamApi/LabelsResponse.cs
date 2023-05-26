@@ -5,6 +5,9 @@ using PamServices;
 
 namespace PamApi;
 
+/// <summary>
+/// The response object for a labels request.
+/// </summary>
 public class LabelsResponse
 {
     public Dictionary<string, LabelCount> Labels { get; set; }
@@ -12,8 +15,8 @@ public class LabelsResponse
     public LabelsResponse(List<Label> labelsList)
     {
         Labels = new Dictionary<string, LabelCount>();
-        labelsList.ForEach(l => 
-            Labels.Add(l.LabelID, new LabelCount(){Count = l.Images.Count}));
+        labelsList.ForEach(l =>
+            Labels.Add(l.LabelID, new LabelCount() { Count = l.Images.Count }));
     }
 }
 

@@ -4,9 +4,9 @@
 namespace PamApi;
 
 /// <summary>
-/// The request object for an upload.
+/// The download request from the UI.
 /// </summary>
-public class UploadRequest
+public class DownloadRequest
 {
-    public string file_name { get; set; } = null!;
+    public string[] labels { get; set; } = null!;
 }

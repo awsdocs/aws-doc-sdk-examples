@@ -5,13 +5,7 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PamApi", "PamApi\PamApi.csproj", "{429164CB-9BCA-4030-B476-69836363EE0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PamApi.Tests", "PamApi.Tests\PamApi.Tests.csproj", "{BDEB3037-9F4D-405A-9308-249E086DD8F6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PamApiLambdaAnnotations", "PamApiLambdaAnnotations\PamApiLambdaAnnotations.csproj", "{0D8BC0A7-BF35-4342-9967-69E9CF7E09EB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PamApiLambdaAnnotations.Tests", "PamApiLambdaAnnotations.Tests\PamApiLambdaAnnotations.Tests.csproj", "{26ED83ED-9D48-49FF-A8B6-833FBDFA86C3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PamServices", "PamServices\PamServices.csproj", "{18845A17-4124-451F-98F8-CB8334AE01E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PamServices", "PamServices\PamServices.csproj", "{18845A17-4124-451F-98F8-CB8334AE01E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,18 +17,6 @@ Global
 		{429164CB-9BCA-4030-B476-69836363EE0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{429164CB-9BCA-4030-B476-69836363EE0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{429164CB-9BCA-4030-B476-69836363EE0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BDEB3037-9F4D-405A-9308-249E086DD8F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDEB3037-9F4D-405A-9308-249E086DD8F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDEB3037-9F4D-405A-9308-249E086DD8F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDEB3037-9F4D-405A-9308-249E086DD8F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0D8BC0A7-BF35-4342-9967-69E9CF7E09EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0D8BC0A7-BF35-4342-9967-69E9CF7E09EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0D8BC0A7-BF35-4342-9967-69E9CF7E09EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0D8BC0A7-BF35-4342-9967-69E9CF7E09EB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26ED83ED-9D48-49FF-A8B6-833FBDFA86C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26ED83ED-9D48-49FF-A8B6-833FBDFA86C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26ED83ED-9D48-49FF-A8B6-833FBDFA86C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26ED83ED-9D48-49FF-A8B6-833FBDFA86C3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{18845A17-4124-451F-98F8-CB8334AE01E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{18845A17-4124-451F-98F8-CB8334AE01E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18845A17-4124-451F-98F8-CB8334AE01E2}.Release|Any CPU.ActiveCfg = Release|Any CPU

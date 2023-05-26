@@ -26,12 +26,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="7.2.0" />
+    <PackageReference Include="Amazon.Lambda.S3Events" Version="3.0.1" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.103.5" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.7" />
     <PackageReference Include="AWSSDK.Rekognition" Version="3.7.107.1" />
     <PackageReference Include="AWSSDK.S3" Version="3.7.104.16" />
     <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.101.66" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
   <ItemGroup>

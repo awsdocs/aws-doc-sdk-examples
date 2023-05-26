@@ -34,6 +34,32 @@
           }
         }
       }
+    },
+    "UploadEventHandler" : {
+      "Type" : "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "PamApi::PamApi.DetectLabelsFunction::FunctionHandler",
+        "Runtime": "dotnet6",
+        "CodeUri": "",
+        "Description": "Upload event handler",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [ "AWSLambda_FullAccess" ]
+      }
+    },
+    "DownloadHandler" : {
+      "Type" : "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "PamApi::PamApi.DownloadFunction::FunctionHandler",
+        "Runtime": "dotnet6",
+        "CodeUri": "",
+        "Description": "Download event handler",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [ "AWSLambda_FullAccess" ]
+      }
     }
   },
   "Outputs": {

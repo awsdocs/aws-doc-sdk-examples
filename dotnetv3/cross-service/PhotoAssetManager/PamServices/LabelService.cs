@@ -96,6 +96,7 @@ public class LabelService
         if (!labelRecord.Images.Contains(imageName))
         {
             labelRecord.Images.Add(imageName);
+            labelRecord.Count = labelRecord.Images.Count;
             await _amazonDynamoDbContext.SaveAsync<Label>(labelRecord);
         }
     }

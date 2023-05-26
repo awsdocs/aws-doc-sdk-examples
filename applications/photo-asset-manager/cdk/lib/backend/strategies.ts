@@ -74,7 +74,7 @@ export const DOTNET_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   memorySize: 1024,
   codeAsset() {
     // Relative to cdk.json.
-    const dotnetSources = resolve("../../../dotnetv3/cross-service/PhotoAssetManager/PamApi");
+    const dotnetSources = resolve("../../../dotnetv3/cross-service/PhotoAssetManager");
 
     return Code.fromAsset(dotnetSources, {
       bundling: {
@@ -83,6 +83,7 @@ export const DOTNET_LAMBDAS_STRATEGY: PamLambdasStrategy = {
           "-c",
           " dotnet tool install -g Amazon.Lambda.Tools"+
           " && dotnet build"+
+          " && cd PamApi"+
           " && dotnet lambda package --output-package /asset-output/function.zip",
         ],
         image: Runtime.DOTNET_6.bundlingImage,
@@ -94,8 +95,8 @@ export const DOTNET_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   runtime: Runtime.DOTNET_6,
   handlers: {
     ...EMPTY_LAMBDAS_STRATEGY.handlers,
-    detectLabels: "PamApi::PamApi.LambdaEntryPoint::FunctionHandlerAsync",
-    download: "PamApi::PamApi.LambdaEntryPoint::FunctionHandlerAsync",
+    detectLabels: "PamApi::PamApi.DetectLabelsFunction::FunctionHandler",
+    download: "PamApi::PamApi.DownloadFunction::FunctionHandler",
     labels: "PamApi::PamApi.LambdaEntryPoint::FunctionHandlerAsync",
     upload: "PamApi::PamApi.LambdaEntryPoint::FunctionHandlerAsync",
   },

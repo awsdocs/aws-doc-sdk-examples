@@ -18,10 +18,18 @@ public class NotificationService
         _amazonSns = amazonSns;
     }
 
-    public async Task SendNotification(string topicArn, string message)
+    /// <summary>
+    /// Send a notification to subscribers.
+    /// </summary>
+    /// <param name="topicArn">The Arn of the topic.</param>
+    /// <param name="subject">The message subject.</param>
+    /// <param name="message">The message text.</param>
+    /// <returns>Async task.</returns>
+    public async Task SendNotification(string topicArn, string subject, string message)
     {
         var notificationRequest = new PublishRequest()
         {
+            Subject = subject,
             TopicArn = topicArn,
             Message = message
         };

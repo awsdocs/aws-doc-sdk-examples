@@ -3,7 +3,6 @@
 
 using Amazon.S3;
 using Amazon.S3.Model;
-using System.IO;
 using System.IO.Compression;
 
 namespace PamServices;
@@ -57,11 +56,12 @@ public class StorageService
         string uuid = Guid.NewGuid().ToString();
         string archiveName = "image_archive_" + uuid + ".zip";
 
+        var uploadId = await InitiateUploadZip(archiveName, workingBucket);
+
         using MemoryStream zipMS = new MemoryStream();
         var archive = new ZipArchive(zipMS, ZipArchiveMode.Create, true);
 
-        var uploadId = await InitiateUploadZip(archive, archiveName, workingBucket);
-
+        // Add each image to the archive stream as they are fetched.
         foreach (var s3Key in imageKeys)
         {
             var entry = archive.CreateEntry(Path.GetFileName(s3Key),
@@ -76,6 +76,7 @@ public class StorageService
         archive.Dispose();
         zipMS.Position = 0;
 
+        // Upload the archive from the stream.
         await UploadZip(archiveName, uploadId, zipMS, workingBucket);
 
         var downloadUrl = GetPresignedUrlForGetArchive(archiveName, workingBucket);
@@ -84,7 +85,13 @@ public class StorageService
         return downloadUrl;
     }
 
-    public async Task<string> InitiateUploadZip(ZipArchive archive, string archiveName,
+    /// <summary>
+    /// Initiate the multipart upload of the zip archive.
+    /// </summary>
+    /// <param name="archiveName">The name of the archive.</param>
+    /// <param name="archiveBucket">The S3 bucket for the archive.</param>
+    /// <returns></returns>
+    public async Task<string> InitiateUploadZip(string archiveName,
         string archiveBucket)
     {
 
@@ -100,6 +107,14 @@ public class StorageService
         return uploadId;
     }
 
+    /// <summary>
+    /// Upload the zip archive with a multipart upload.
+    /// </summary>
+    /// <param name="archiveName">The name of the archive.</param>
+    /// <param name="uploadId">The ID of the upload.</param>
+    /// <param name="zipStream">The memory stream of the zip.</param>
+    /// <param name="archiveBucket">The S3 bucket for the archive.</param>
+    /// <returns></returns>
     public async Task<string> UploadZip(string archiveName, string uploadId, MemoryStream zipStream, string archiveBucket)
     {
         long contentLength = zipStream.Length;
@@ -133,6 +148,14 @@ public class StorageService
         return await CompleteUploadZip(archiveName, uploadId, archiveBucket, uploadResponses);
     }
 
+    /// <summary>
+    /// Complete the multipart upload.
+    /// </summary>
+    /// <param name="archiveName">The name of the archive.</param>
+    /// <param name="uploadId">The ID of the upload.</param>
+    /// <param name="archiveBucket">The S3 bucket for the archive.</param>
+    /// <param name="uploadResponses">The multipart upload responses.</param>
+    /// <returns></returns>
     private async Task<string> CompleteUploadZip(string archiveName, string uploadId,
         string archiveBucket, List<UploadPartResponse> uploadResponses)
     {
@@ -166,8 +189,9 @@ public class StorageService
             {
                 BucketName = storageBucket,
                 Key = archiveKey,
-                Expires = DateTime.UtcNow.AddHours(6),
+                Expires = DateTime.UtcNow.AddHours(24),
                 Verb = HttpVerb.GET
+
             });
 
         return preSignedUrlResponse;
