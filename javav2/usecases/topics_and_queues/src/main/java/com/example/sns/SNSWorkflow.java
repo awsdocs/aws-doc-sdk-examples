@@ -45,7 +45,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.UUID;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -74,7 +73,6 @@ import com.google.gson.JsonPrimitive;
  */
 public class SNSWorkflow {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-    public static final String contentId = "ContentID";
     public static void main(String[] args) {
         final String usage = "\n" +
             "Usage:\n" +
@@ -102,6 +100,8 @@ public class SNSWorkflow {
         String useFIFO;
         String duplication = "n";
         String topicName;
+        String deduplicationID = null;
+        String groupId = null;
 
         String topicArn;
         String sqsQueueName;
@@ -136,8 +136,17 @@ public class SNSWorkflow {
                 "        within the five-minute deduplication interval, is accepted but not delivered.\n" +
                 "        For more information about deduplication, see https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html.");
 
-            System.out.println("Would you like to use content-based deduplication instead of entering a deduplication ID?");
+            System.out.println("Would you like to use content-based deduplication instead of entering a deduplication ID? (y/n)");
             duplication = in.nextLine();
+            if (duplication.compareTo("y")==0) {
+                System.out.println("Please enter a group id value");
+                groupId = in.nextLine();
+            } else {
+                System.out.println("Please enter deduplication Id value");
+                deduplicationID = in.nextLine();
+                System.out.println("Please enter a group id value");
+                groupId = in.nextLine();
+            }
         }
         System.out.println(DASHES);
 
@@ -149,7 +158,7 @@ public class SNSWorkflow {
             System.out.println("Because you have selected a FIFO topic, '.fifo' must be appended to the topic name.");
             topicName = topicName+".fifo";
             System.out.println("The name of the topic is "+topicName);
-            topicArn = createFIFO(snsClient, topicName);
+            topicArn = createFIFO(snsClient, topicName, duplication);
             System.out.println("The ARN of the FIFO topic is "+topicArn);
 
         } else {
@@ -180,7 +189,8 @@ public class SNSWorkflow {
         System.out.println(DASHES);
         System.out.println("5. Attach an IAM policy to the queue.");
 
-        // Define the policy to use.
+        // Define the policy to use. Make sure that you change the REGION if you are running this code
+        // in a different region.
         String policy = "{\n" +
             "     \"Statement\": [\n" +
             "     {\n" +
@@ -275,7 +285,7 @@ public class SNSWorkflow {
             }
             System.out.println("Enter a message.");
             message = in.nextLine();
-            pubMessageFIFO(snsClient, message, topicArn, msgAttValue, duplication);
+            pubMessageFIFO(snsClient, message, topicArn, msgAttValue, duplication, groupId, deduplicationID);
 
         } else {
             System.out.println("Enter a message.");
@@ -368,6 +378,7 @@ public class SNSWorkflow {
         }
     }
 
+    // snippet-start:[sqs.java2.sqs_example.delete_batch_messages]
     public static void deleteMessages(SqsClient sqsClient, String queueUrl, List<Message> messages) {
         try {
             List<DeleteMessageBatchRequestEntry> entries = new ArrayList<>();
@@ -392,6 +403,7 @@ public class SNSWorkflow {
             System.exit(1);
         }
     }
+    // snippet-end:[sqs.java2.sqs_example.delete_batch_messages]
 
     public static List<Message> receiveMessages(SqsClient sqsClient, String queueUrl, String msgAttValue) {
         try {
@@ -435,25 +447,29 @@ public class SNSWorkflow {
         }
     }
 
-    public static void pubMessageFIFO(SnsClient snsClient, String message, String topicArn, String msgAttValue, String duplication) {
+    public static void pubMessageFIFO(SnsClient snsClient,
+                                      String message,
+                                      String topicArn,
+                                      String msgAttValue,
+                                      String duplication,
+                                      String groupId,
+                                      String deduplicationID ) {
+
         try {
             PublishRequest request;
             // Means the user did not choose to use a message attribute.
-            UUID uuid = UUID.randomUUID();
-            UUID uuid1 = UUID.randomUUID();
             if (msgAttValue.isEmpty() ) {
                 if (duplication.compareTo("y") == 0) {
                     request = PublishRequest.builder()
                         .message(message)
-                        .messageDeduplicationId(contentId)
-                        .messageGroupId(uuid1.toString())
+                        .messageGroupId(groupId)
                         .topicArn(topicArn)
                         .build();
                 } else {
                     request = PublishRequest.builder()
                         .message(message)
-                        .messageDeduplicationId(uuid.toString())
-                        .messageGroupId(uuid1.toString())
+                        .messageDeduplicationId(deduplicationID)
+                        .messageGroupId(groupId)
                         .topicArn(topicArn)
                         .build();
                 }
@@ -468,8 +484,7 @@ public class SNSWorkflow {
                 if (duplication.compareTo("y") == 0) {
                     request = PublishRequest.builder()
                         .message(message)
-                        .messageDeduplicationId(contentId)
-                        .messageGroupId(uuid1.toString())
+                        .messageGroupId(groupId)
                         .topicArn(topicArn)
                         .build();
                 } else {
@@ -477,8 +492,8 @@ public class SNSWorkflow {
                     request = PublishRequest.builder()
                         .topicArn(topicArn)
                         .message(message)
-                        .messageDeduplicationId(uuid.toString())
-                        .messageGroupId(uuid1.toString())
+                        .messageDeduplicationId(deduplicationID)
+                        .messageGroupId(groupId)
                         .messageAttributes(messageAttributes)
                         .build();
                 }
@@ -643,12 +658,17 @@ public class SNSWorkflow {
         return "";
     }
 
-    public static String createFIFO(SnsClient snsClient, String topicName) {
+    public static String createFIFO(SnsClient snsClient, String topicName, String duplication) {
         try {
             // Create a FIFO topic by using the SNS service client.
             Map<String, String> topicAttributes = new HashMap<>();
-            topicAttributes.put("FifoTopic", "true");
-            topicAttributes.put("ContentBasedDeduplication", "false");
+            if (duplication.compareTo("n")==0) {
+                topicAttributes.put("FifoTopic", "true");
+                topicAttributes.put("ContentBasedDeduplication", "false");
+            } else {
+                topicAttributes.put("FifoTopic", "true");
+                topicAttributes.put("ContentBasedDeduplication", "true");
+            }
 
             CreateTopicRequest topicRequest = CreateTopicRequest.builder()
                 .name(topicName)

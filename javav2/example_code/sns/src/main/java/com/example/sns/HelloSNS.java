@@ -5,7 +5,7 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
+//snippet-start:[sns.java2.hello.main]
 package com.example.sns;
 
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
@@ -39,3 +39,4 @@ public class HelloSNS {
         }
     }
 }
+//snippet-end:[sns.java2.hello.main]

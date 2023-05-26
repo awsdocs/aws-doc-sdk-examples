@@ -4,13 +4,11 @@
 */
 import com.example.sns.*;
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.Message;
-import java.io.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -61,7 +59,7 @@ public class AWSSNSTest {
         System.out.println("2. Create a  topic.");
         topicName = "topic1000";
         topicName = topicName+".fifo";
-        topicArn = SNSWorkflow.createFIFO(snsClient, topicName);
+        topicArn = SNSWorkflow.createFIFO(snsClient, topicName, "n");
         System.out.println("The ARN of the FIFO topic is "+topicArn);
         System.out.println(DASHES);
 
@@ -112,7 +110,7 @@ public class AWSSNSTest {
         System.out.println(DASHES);
         System.out.println("7. Publish a message to the topic.");
         message = "Hello there";
-        SNSWorkflow.pubMessageFIFO(snsClient, message, topicArn, msgAttValue, duplication);
+        SNSWorkflow.pubMessageFIFO(snsClient, message, topicArn, msgAttValue, duplication, "", "");
         System.out.println(DASHES);
 
         System.out.println(DASHES);
