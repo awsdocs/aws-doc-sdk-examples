@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/delete-security-group.js";
+const { main } = await import("../actions/delete-security-group.js");
 
 describe("delete-security-group", () => {
   it("should log a success message", async () => {

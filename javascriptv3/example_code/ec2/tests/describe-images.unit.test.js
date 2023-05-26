@@ -15,7 +15,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/describe-images.js";
+const { main } = await import("../actions/describe-images.js");
 
 describe("describe-images", () => {
   it("should log the arm64 images", async () => {
@@ -45,6 +45,7 @@ describe("describe-images", () => {
     const logSpy = vi.spyOn(console, "log");
     const errorSpy = vi.spyOn(console, "error");
     paginateDescribeImages.mockReturnValueOnce(
+      // eslint-disable-next-line require-yield
       (async function* () {
         throw new Error("Retrieval failed");
       })()

@@ -22,7 +22,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/reboot-instances.js";
+const { main } = await import("../actions/reboot-instances.js");
 
 describe("reboot-instances", () => {
   it("should log a success message", async () => {

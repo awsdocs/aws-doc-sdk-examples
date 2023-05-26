@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-import { main } from "../actions/put-bucket-cors.js";
+const { main } = await import("../actions/put-bucket-cors.js");
 
 describe("put-bucket-cors", () => {
   it("should log the response from the service", async () => {
