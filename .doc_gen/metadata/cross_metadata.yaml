@@ -562,5 +562,4 @@ cross_MessagesTopicsAndQueues:
           block_content: workflow_MessagesTopicsAndQueues_cpp_block.xml
   services:
     sns:
-    sqs:
-    
+    sqs:    
