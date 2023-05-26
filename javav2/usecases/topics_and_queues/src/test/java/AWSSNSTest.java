@@ -40,6 +40,8 @@ public class AWSSNSTest {
         String sqsQueueArn ;
         String subscriptionArn;
         boolean selectFIFO = false;
+        String groupId = "group1";
+        String deduplicationID = "dup100";
 
         String message ;
         List<Message> messageList;
@@ -110,7 +112,7 @@ public class AWSSNSTest {
         System.out.println(DASHES);
         System.out.println("7. Publish a message to the topic.");
         message = "Hello there";
-        SNSWorkflow.pubMessageFIFO(snsClient, message, topicArn, msgAttValue, duplication, "", "");
+        SNSWorkflow.pubMessageFIFO(snsClient, message, topicArn, msgAttValue, duplication, groupId, deduplicationID);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
