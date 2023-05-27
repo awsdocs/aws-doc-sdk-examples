@@ -5,6 +5,15 @@ sns_Hello:
   synopsis: get started using &SNS;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sns
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sns.java2.hello.main
     C++:
       versions:
         - sdk_version: 1
