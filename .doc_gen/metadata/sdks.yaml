@@ -214,3 +214,20 @@ Swift:
         name: "&guide-swift-api;"
         link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x"
   guide: "&guide-swift-dev;"
+CLI:
+  property: cli
+  sdk:
+    1:
+      long: "&CLIlong;"
+      short: "&CLI;"
+      expanded:
+        long: "AWS Command Line Interface"
+        short: "Command Line Interface"
+      guide: "cli"
+      api_ref:
+        uid: "aws-cli"
+        name: "&guide-cli-ref;"
+      title_override:
+        title: "Additional code examples for the &CLIlong;"
+        title_abbrev: "Additional code examples"
+  guide: "&guide-cli-ug;"

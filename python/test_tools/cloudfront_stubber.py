@@ -59,7 +59,8 @@ class CloudFrontStubber(ExampleStubber):
                     'ViewerCertificate': {
                         'CertificateSource': distrib['cert_source'],
                         'Certificate': distrib['cert']
-                    }
+                    },
+                    'Staging': False,
                 } for index, distrib in enumerate(distribs)]
             }
         }

@@ -13,9 +13,13 @@ import {
   DeleteFunctionCommand,
   AddPermissionCommand,
 } from "@aws-sdk/client-lambda";
-import { DEFAULT_REGION } from "./constants.js";
+import {
+  CloudWatchLogsClient,
+  paginateDescribeLogGroups,
+} from "@aws-sdk/client-cloudwatch-logs";
 
-const client = new LambdaClient({ region: DEFAULT_REGION });
+const lambdaClient = new LambdaClient({});
+const cloudWatchLogsClient = new CloudWatchLogsClient({});
 
 /**
  *
@@ -33,14 +37,14 @@ export const createFunction = async (name, roleArn) => {
     Runtime: Runtime.nodejs16x,
   });
 
-  return await client.send(command);
+  return await lambdaClient.send(command);
 };
 
 export const deleteFunction = async (functionName) => {
   const command = new DeleteFunctionCommand({ FunctionName: functionName });
 
   try {
-    return await client.send(command);
+    return await lambdaClient.send(command);
   } catch (err) {
     console.error(err);
   }
@@ -50,11 +54,25 @@ export const addPermissionLogsInvokeFunction = async (
   functionName,
   logGroupName
 ) => {
-  const describeLogGroupsMod = await import(
-    "../actions/describe-log-groups.js"
+  const logGroupPaginator = paginateDescribeLogGroups(
+    { client: cloudWatchLogsClient },
+    {}
   );
-  const { logGroups } = await describeLogGroupsMod.default;
-  const logGroup = logGroups.find((lg) => lg.logGroupName === logGroupName);
+
+  let logGroup;
+
+  for await (const page of logGroupPaginator) {
+    if (
+      (logGroup = page.logGroups.find((lg) => lg.logGroupName === logGroupName))
+    ) {
+      break;
+    }
+  }
+
+  if (!logGroup) {
+    throw new Error("No matching log group found.");
+  }
+
   const command = new AddPermissionCommand({
     FunctionName: functionName,
     StatementId: `${functionName}${Date.now()}`,
@@ -63,5 +81,5 @@ export const addPermissionLogsInvokeFunction = async (
     SourceArn: logGroup.arn,
   });
 
-  return client.send(command);
+  return lambdaClient.send(command);
 };

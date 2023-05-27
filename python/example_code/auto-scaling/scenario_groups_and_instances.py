@@ -183,17 +183,24 @@ def print_simplified_group(group):
             print(f"\t\t{inst['InstanceId']}: {inst['LifecycleState']}")
 
 
-def wait_for_instances(group_name, as_wrapper):
+def wait_for_group(group_name, as_wrapper):
+    """
+    Waits for instances to start or stop in an Auto Scaling group.
+    Prints the data for each instance after scaling activities are complete.
+    """
+    group = as_wrapper.describe_group(group_name)
+    instance_ids = [i['InstanceId'] for i in group['Instances']]
+    return wait_for_instances(instance_ids, as_wrapper)
+
+
+def wait_for_instances(instance_ids, as_wrapper):
     """
     Waits for instances to start or stop in an Auto Scaling group.
     Prints the data for each instance after scaling activities are complete.
     """
     ready = False
-    instance_ids = []
     instances = []
     while not ready:
-        group = as_wrapper.describe_group(group_name)
-        instance_ids = [i['InstanceId'] for i in group['Instances']]
         instances = as_wrapper.describe_instances(instance_ids) if instance_ids else []
         if all([x['LifecycleState'] in ['Terminated', 'InService'] for x in instances]):
             ready = True
@@ -248,7 +255,7 @@ def run_scenario(as_wrapper, svc_helper):
     print("Created group:")
     pp(group)
     print("Waiting for instance to start...")
-    wait_for_instances(group_name, as_wrapper)
+    wait_for_group(group_name, as_wrapper)
     print('-'*88)
 
     use_metrics = q.ask(
@@ -279,7 +286,7 @@ def run_scenario(as_wrapper, svc_helper):
     print_simplified_group(group)
     print('-'*88)
     print("Waiting for the new instance to start...")
-    instance_ids = wait_for_instances(group_name, as_wrapper)
+    instance_ids = wait_for_group(group_name, as_wrapper)
     print('-'*88)
 
     print(f"Let's terminate one of the instances in {group_name}.")
@@ -296,7 +303,7 @@ def run_scenario(as_wrapper, svc_helper):
     print(f"Here's the state of {group_name}:")
     print_simplified_group(group)
     print("Waiting for the scaling activities to complete...")
-    wait_for_instances(group_name, as_wrapper)
+    wait_for_group(group_name, as_wrapper)
     print('-'*88)
 
     print(f"Let's get a report of scaling activities for {group_name}.")
@@ -350,7 +357,7 @@ def run_scenario(as_wrapper, svc_helper):
         print(f"Stopping {inst_id}.")
         as_wrapper.terminate_instance(inst_id, True)
     print("Waiting for instances to stop...")
-    wait_for_instances(group_name, as_wrapper)
+    wait_for_instances(instance_ids, as_wrapper)
     print(f"Deleting {group_name}.")
     as_wrapper.delete_group(group_name)
     print('-'*88)

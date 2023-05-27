@@ -43,6 +43,10 @@ namespace AwsDocTest {
 
         static Aws::String getSubscriptionARN();
 
+        static Aws::String getStashedSubscription();
+
+        static bool unsubscribe(const Aws::String& subscriptionARN);
+
         static Aws::String uuidName(const Aws::String &name);
 
         void AddCommandLineResponses(const std::vector<std::string> &responses);

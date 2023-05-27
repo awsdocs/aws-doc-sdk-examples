@@ -24,7 +24,12 @@ const request: typeof fetch = async (input, init) => {
 };
 
 const getHeaders = (config: PamApiConfig): { Authorization: string } | {} =>
-  config.token ? { Authorization: `Bearer ${config.token}` } : {};
+  config.token
+    ? {
+        Authorization: `Bearer ${config.token}`,
+        "Content-Type": "application/json",
+      }
+    : {};
 
 export const getLabels = async (config: PamApiConfig): Promise<Label[]> => {
   const response = await request(

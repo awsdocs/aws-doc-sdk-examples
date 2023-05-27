@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/start-instances.js";
+const { main } = await import("../actions/start-instances.js");
 
 describe("start-instances", () => {
   it("should log the instances that were started", async () => {

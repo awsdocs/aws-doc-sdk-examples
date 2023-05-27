@@ -1,4 +1,24 @@
 # zexi 0.4.0
+sqs_Hello:
+  title: Hello &SQS;
+  title_abbrev: Hello &SQS;
+  synopsis: get started using &SQS;.
+  category: Hello
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs/hello_sqs
+          sdkguide:
+          excerpts:
+            - description: Code for the CMakeLists.txt CMake file.
+              snippet_tags:
+                - cpp.example_code.sqs.hello_sqs.cmake
+            - description: Code for the hello_sqs.cpp source file.
+              snippet_tags:
+                - cpp.example_code.sqs.hello_sqs
+  services:
+    sqs: {ListQueues}
 sqs_CreateQueue:
   title: Create an &SQS; queue using an &AWS; SDK
   title_abbrev: Create a queue
@@ -71,15 +91,9 @@ sqs_CreateQueue:
           github: javascriptv3/example_code/sqs
           sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-create-queue
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Create an &SQS; standard queue.
               snippet_tags:
                 - sqs.JavaScript.queues.createQueueV3
-            - description: Create an &SQS; queue that waits for a message to arrive.
-              snippet_tags:
-                - sqs.JavaScript.longPoll.createQueueV3
         - sdk_version: 2
           github: javascript/example_code/sqs
           sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-create-queue
@@ -98,6 +112,16 @@ sqs_CreateQueue:
             - description:
               snippet_tags:
                 - sqs.go-v2.CreateQueue
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.sqs.CreateQueue.config
+                - cpp.example_code.sqs.CreateQueue
   services:
     sqs: {CreateQueue}
 sqs_GetQueueUrl:
@@ -148,9 +172,6 @@ sqs_GetQueueUrl:
           github: javascriptv3/example_code/sqs
           sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-get-queue-url
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Get the URL for an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.queues.getQueueUrlV3
@@ -169,6 +190,16 @@ sqs_GetQueueUrl:
             - description: Get the URL for an &SQS; queue.
               snippet_tags:
                 - sqs.go-v2.GetQueueUrl
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.sqs.GetQueueUrl.config
+                - cpp.example_code.sqs.GetQueueUrl
   services:
     sqs: {GetQueueUrl}
 sqs_ListQueues:
@@ -236,9 +267,6 @@ sqs_ListQueues:
           github: javascriptv3/example_code/sqs
           sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-listing-queues
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: List your &SQS; queues.
               snippet_tags:
                 - sqs.JavaScript.queues.listQueuesV3
@@ -257,6 +285,16 @@ sqs_ListQueues:
             - description: List your &SQS; queues.
               snippet_tags:
                 - sqs.go-v2.ListQueues
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.sqs.ListQueues.config
+                - cpp.example_code.sqs.ListQueues
   services:
     sqs: {ListQueues}
 sqs_DeleteQueue:
@@ -325,9 +363,6 @@ sqs_DeleteQueue:
           github: javascriptv3/example_code/sqs
           sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-delete-queue
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Delete an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.queues.deleteQueueV3
@@ -347,6 +382,16 @@ sqs_DeleteQueue:
               snippet_tags:
                 - sqs.go-v2.DeleteQueue
 
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.sqs.DeleteQueue.config
+                - cpp.example_code.sqs.DeleteQueue
   services:
     sqs: {DeleteQueue}
 sqs_SendMessage:
@@ -426,9 +471,6 @@ sqs_SendMessage:
           github: javascriptv3/example_code/sqs
           sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-sending
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Send a message to an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.messages.sendMessageV3
@@ -447,6 +489,16 @@ sqs_SendMessage:
             - description: Send a message to an &SQS; queue.
               snippet_tags:
                 - sqs.go-v2.SendMessage
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.sqs.SendMessage.config
+                - cpp.example_code.sqs.SendMessage
   services:
     sqs: {SendMessage}
 sqs_SendMessageBatch:
@@ -562,14 +614,11 @@ sqs_ReceiveMessage:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
+          sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Receive a message from an  &SQS; queue using long-poll support.
               snippet_tags:
-                - sqs.JavaScript.longPoll.receiveMessageV3
+                - sqs.JavaScript.messages.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
           sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
@@ -585,6 +634,16 @@ sqs_ReceiveMessage:
             - description: Receive a message from an &SQS; queue.
               snippet_tags:
                 - sqs.go-v2.ReceiveMessage
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.sqs.ReceiveMessage.config
+                - cpp.example_code.sqs.ReceiveMessage
   services:
     sqs: {ReceiveMessage}
 sqs_DeleteMessage:
@@ -636,11 +695,8 @@ sqs_DeleteMessage:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-send-receive-messages.html#sqs-examples-send-receive-messages-receiving
+          sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Receive and delete &SQS; messages.
               snippet_tags:
                 - sqs.JavaScript.messages.receiveMessageV3
@@ -659,6 +715,16 @@ sqs_DeleteMessage:
             - description:
               snippet_tags:
                 - sqs.go-v2.DeleteMessage
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.sqs.DeleteMessage.config
+                - cpp.example_code.sqs.DeleteMessage
   services:
     sqs: {DeleteMessage}
 sqs_DeleteMessageBatch:
@@ -676,6 +742,15 @@ sqs_DeleteMessageBatch:
             - description:
               snippet_tags:
                 - python.example_code.sqs.DeleteMessageBatch
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cross-service/topics_and_queues
+          excerpts:
+            - snippet_tags:
+                - cpp.example_code.cross-service.topics_and_queues.config
+                - cpp.example_code.cross-service.topics_and_queues.sqs_client
+                - cpp.example_code.cross-service.topics_and_queues.sqs.DeleteMessageBatch
   services:
     sqs: {DeleteMessageBatch}
 sqs_Scenario_SendReceiveBatch:
@@ -746,6 +821,19 @@ sqs_GetQueueAttributes:
             - description:
               snippet_tags:
                 - SQS.dotnetv3.GetQueueAttributesExample
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cross-service.topics_and_queues.config
+                - cpp.example_code.cross-service.topics_and_queues.sqs_client
+                - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes1
+                - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes2
+                - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes3
   services:
     sqs: {GetQueueAttributes}
 sqs_ChangeMessageVisibility:
@@ -758,11 +846,8 @@ sqs_ChangeMessageVisibility:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-managing-visibility-timeout.html#sqs-examples-managing-visibility-timeout-setting
+          sdkguide:
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - sqs.JavaScript.createclientv3
             - description: Receive an &SQS; message and change its timeout visibility.
               snippet_tags:
                 - sqs.JavaScript.visibility.receiveMessageV3
@@ -790,32 +875,78 @@ sqs_ChangeMessageVisibility:
             - description:
               snippet_tags:
                 - ruby.example_code.sqs.MessageVisibilityTimeout
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.sqs.ChangeMessageVisibility.config
+                - cpp.example_code.sqs.ChangeMessageVisibility
   services:
     sqs: {ChangeMessageVisibility}
-sqs_SetQueueAttributes:
+sqs_EnableLongPollingCreatingQueue:
   title: Change how long an &SQS; queue waits for a message
   title_abbrev: Change how long a queue waits for a message
   synopsis: change how long an &SQS; queue waits for a message to arrive.
   category:
   languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.sqs.LongPollingAttribute.config
+                - cpp.example_code.sqs.LongPollingAttribute
+  services:
+    sqs: {SetQueueAttributes}
+sqs_SetQueueAttributes:
+  title: Set &SQS; queue attributes
+  title_abbrev: Set queue attributes
+  synopsis: set the attributes for an &SQS; queue.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.sqs.SetQueueAttributes.config
+                - cpp.example_code.sqs.SetQueueAttributes
     JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/sqs
-          sdkguide: sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-existing-queue
+          sdkguide:
           excerpts:
-            - description: Create the client.
+            - description:
               snippet_tags:
-                - sqs.JavaScript.createclientv3
-            - description: Change how long an &SQS; queue waits for a message to arrive.
-              snippet_tags:
-                - sqs.JavaScript.longPoll.setQueueAttributesV3
-        - sdk_version: 2
-          github: javascript/example_code/sqs
-          sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-existing-queue
+                - sqs.JavaScript.messages.setQueueAttributesV3
+  services:
+    sqs: {SetQueueAttributes}
+sqs_DeadLetterQueue:
+  title: Configure a dead-letter queue in &SQS;
+  title_abbrev: Configure a dead-letter queue
+  synopsis: configure a dead-letter queue in &SQS;.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sqs
+          sdkguide:
           excerpts:
-            - description: Change how long an &SQS; queue waits for a message to arrive.
+            - description:
               snippet_tags:
-                - sqs.JavaScript.longPoll.setQueueAttributes
+                - cpp.example_code.sqs.SetDeadLetterQueue.config
+                - cpp.example_code.sqs.SetDeadLetterQueue
   services:
     sqs: {SetQueueAttributes}

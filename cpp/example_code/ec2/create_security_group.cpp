@@ -84,7 +84,7 @@ bool AwsDoc::EC2::CreateSecurityGroup(const Aws::String &groupName,
     // snippet-start:[ec2.cpp.configure_security_group01.code]
     Aws::EC2::Model::AuthorizeSecurityGroupIngressRequest authorizeRequest;
 
-    authorizeRequest.SetGroupName(groupName);
+    authorizeRequest.SetGroupId(groupIDResult);
     // snippet-end:[ec2.cpp.configure_security_group01.code]
 
     BuildSampleIngressRule(authorizeRequest);

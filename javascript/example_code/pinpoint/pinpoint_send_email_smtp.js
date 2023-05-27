@@ -10,7 +10,7 @@
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
-*/
+ */
 
 // snippet-sourcedescription:[pinpoint_send_email_smtp demonstrates how to send a transactional email message by using the Amazon Pinpoint SMTP interface and the Nodemailer module.]
 // snippet-service:[Amazon Pinpoint]
@@ -60,11 +60,11 @@ var toAddresses = "recipient@example.com";
 var ccAddresses = "cc-recipient0@example.com,cc-recipient1@example.com";
 var bccAddresses = "bcc-recipient@example.com";
 
-// Replace smtp_username with your Amazon Pinpoint SMTP user name.
+// Replace smtp_username with your &PINlong; SMTP user name.
 const smtpUsername = "AKIAIOSFODNN7EXAMPLE";
 
-// Replace smtp_password with your Amazon Pinpoint SMTP password.
-const smtpPassword = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
+// Use &ASMlong; to expose your &PIN; SMTP password.
+const smtpPassword = process.env["SMTP_PASSWORD"];
 
 // (Optional) the name of a configuration set to use for this message.
 var configurationSet = "ConfigSet";
@@ -92,8 +92,7 @@ var body_html = `<html>
 var tag0 = "key0=value0";
 var tag1 = "key1=value1";
 
-async function main(){
-
+async function main() {
   // Create the SMTP transport.
   let transporter = nodemailer.createTransport({
     host: smtpEndpoint,
@@ -101,8 +100,8 @@ async function main(){
     secure: false, // true for 465, false for other ports
     auth: {
       user: smtpUsername,
-      pass: smtpPassword
-    }
+      pass: smtpPassword,
+    },
   });
 
   // Specify the fields in the email.
@@ -116,14 +115,14 @@ async function main(){
     html: body_html,
     // Custom headers for configuration set and message tags.
     headers: {
-      'X-SES-CONFIGURATION-SET': configurationSet,
-      'X-SES-MESSAGE-TAGS': tag0,
-      'X-SES-MESSAGE-TAGS': tag1
-    }
+      "X-SES-CONFIGURATION-SET": configurationSet,
+      "X-SES-MESSAGE-TAGS": tag0,
+      "X-SES-MESSAGE-TAGS": tag1,
+    },
   };
 
   // Send the email.
-  let info = await transporter.sendMail(mailOptions)
+  let info = await transporter.sendMail(mailOptions);
 
   console.log("Message sent! Message ID: ", info.messageId);
 }
@@ -131,5 +130,3 @@ async function main(){
 main().catch(console.error);
 
 // snippet-end:[pinpoint.javascript.pinpoint_send_email_smtp.complete]
-
-

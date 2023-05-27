@@ -7,6 +7,7 @@ COPY . /gov2
 RUN go env -w GOPROXY=direct
 ## Run tests in all gov2 folders.
 ## Pass 'integration' to run_all_tests.sh to run integration tests.
+## Output to a file by appending > test-run-unit-$(date +"%Y-%m-%d").out
 #RUN cd /gov2 && \
 #  ./run_all_tests.sh
 CMD ["bash"]

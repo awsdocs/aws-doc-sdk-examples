@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [ "$1" = '-h' ] || [ "$1" = '--help' ]
+then
+  echo "Welcome to the test runner script for the AWS SDK for PHP."
+  echo "Filter by test type with the following tags:"
+  echo "  --unit - Only run Unit tests."
+  echo "  --integ - Only run Integration tests."
+fi
+if [ "$1" = '--unit' ]
+then
+  echo "Running Unit tests..."
+  find cross_service/ -name "phpunit.xml" -not -path "*vendor*" -exec bash -c "dirname {} | xargs -I % vendor/phpunit/phpunit/phpunit -c %/phpunit.xml --group unit" \;
+  cd example_code || exit 1
+  vendor/phpunit/phpunit/phpunit --group unit
+  exit 0
+fi
+
+if [ "$1" = '--integ' ]
+then
+  echo "Running Integration tests..."
+  find cross_service/ -name "phpunit.xml" -not -path "*vendor*" -exec bash -c "dirname {} | xargs -I % vendor/phpunit/phpunit/phpunit -c %/phpunit.xml --group integ" \;
+  vendor/phpunit/phpunit/phpunit --testsuite scenarios --group integ
+  exit 0
+fi
+
+echo "Running all tests..."
+find cross_service/ -name "phpunit.xml" -not -path "*vendor*" -exec bash -c "dirname {} | xargs -I % vendor/phpunit/phpunit/phpunit -c %/phpunit.xml" \;
+cd example_code || exit 1
+vendor/phpunit/phpunit/phpunit

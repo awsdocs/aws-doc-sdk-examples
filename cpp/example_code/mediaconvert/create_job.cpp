@@ -17,8 +17,8 @@
 #include <aws/core/Aws.h>
 #include <aws/core/utils/json/JsonSerializer.h>
 #include <aws/mediaconvert/MediaConvertClient.h>
-#include <aws/mediaconvert/Model/DescribeEndpointsRequest.h>
-#include <aws/mediaconvert/Model/CreateJobRequest.h>
+#include <aws/mediaconvert/model/DescribeEndpointsRequest.h>
+#include <aws/mediaconvert/model/CreateJobRequest.h>
 #include "mediaconvert_samples.h"
 #include <fstream>
 

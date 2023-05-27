@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-import { main } from "../actions/put-object.js";
+const { main } = await import("../actions/put-object.js");
 
 describe("put-object", () => {
   it("should log the response from the service", async () => {

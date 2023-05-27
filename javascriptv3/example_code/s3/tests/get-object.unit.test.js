@@ -17,14 +17,14 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-import { main } from "../actions/get-object.js";
+const { main } = await import("../actions/get-object.js");
 
 describe("get-object", () => {
   it("should log the response from the service", async () => {
     send.mockResolvedValue({
       Body: {
-        async transformToString() {
-          return "foo";
+        transformToString() {
+          return Promise.resolve("foo");
         },
       },
     });

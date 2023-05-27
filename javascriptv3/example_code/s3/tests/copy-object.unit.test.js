@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-import { main } from "../actions/copy-object.js";
+const { main } = await import("../actions/copy-object.js");
 
 describe("copy-object", () => {
   it("should log the response from the service", async () => {

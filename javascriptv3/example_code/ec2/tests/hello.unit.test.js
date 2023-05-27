@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../hello.js";
+const { main } = await import("../hello.js");
 
 describe("hello", () => {
   it("should log a list of security groups", async () => {
@@ -32,7 +32,7 @@ describe("hello", () => {
     });
 
     await main();
-    
+
     expect(logSpy).nthCalledWith(
       1,
       "Hello, Amazon EC2! Let's list up to 10 of your security groups:"
@@ -42,7 +42,9 @@ describe("hello", () => {
 
   it("should log the error message", async () => {
     const logSpy = vi.spyOn(console, "error");
-    send.mockRejectedValueOnce(new Error("Failed to log the list of security groups"));
+    send.mockRejectedValueOnce(
+      new Error("Failed to log the list of security groups")
+    );
 
     await main();
 

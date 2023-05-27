@@ -109,14 +109,17 @@ class KeyspaceScenario:
         print("Checking for TLS certificate...")
         cert_path = os.path.join(os.path.dirname(__file__), QueryManager.DEFAULT_CERT_FILE)
         if not os.path.exists(cert_path):
-            if q.ask(f"Do you want to download one from {QueryManager.CERT_URL}? (y/n) ",
-                     q.is_yesno):
+            cert_choice = q.ask(
+                f"Press enter to download a certificate from {QueryManager.CERT_URL} "
+                f"or enter the full path to the certificate you want to use: ")
+            if cert_choice:
+                cert_path = cert_choice
+            else:
                 cert = requests.get(QueryManager.CERT_URL).text
                 with open(cert_path, 'w') as cert_file:
                     cert_file.write(cert)
-            else:
-                cert_path = q.ask(
-                    "Enter the full path to the TLS certificate you want to use: ", q.non_empty)
+        else:
+            q.ask(f"Certificate {cert_path} found. Press Enter to continue.")
         print(f"Certificate {cert_path} will be used to secure the connection to your keyspace.")
         return cert_path
 
@@ -182,10 +185,13 @@ class KeyspaceScenario:
             for movie in movies:
                 print(movie.title)
 
-    def cleanup(self):
+    def cleanup(self, cert_path):
         """
         1. Deletes the table and waits for it to be removed.
         2. Deletes the keyspace.
+
+        :param cert_path: The path of the TLS certificate used in the demo. If the
+                          certificate was downloaded during the demo, it is removed.
         """
         if q.ask(f"Do you want to delete your {self.ks_wrapper.table_name} table and "
                  f"{self.ks_wrapper.ks_name} keyspace? (y/n) ", q.is_yesno):
@@ -200,6 +206,10 @@ class KeyspaceScenario:
             self.ks_wrapper.delete_keyspace()
             print("Keyspace deleted. If you chose to restore your table during the "
                   "demo, the original table is also deleted.")
+            if (cert_path == os.path.join(os.path.dirname(__file__), QueryManager.DEFAULT_CERT_FILE)
+                    and os.path.exists(cert_path)):
+                os.remove(cert_path)
+                print("Removed certificate that was downloaded for this demo.")
 
     def run_scenario(self):
         logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
@@ -216,7 +226,7 @@ class KeyspaceScenario:
                 cert_file_path, boto3.DEFAULT_SESSION, self.ks_wrapper.ks_name) as qm:
             self.query_table(qm)
             self.update_and_restore_table(qm)
-        self.cleanup()
+        self.cleanup(cert_file_path)
 
         print("\nThanks for watching!")
         print('-'*88)

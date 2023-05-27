@@ -22,7 +22,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/release-address.js";
+const { main } = await import("../actions/release-address.js");
 
 describe("release-address", () => {
   it("should log a success message", async () => {
@@ -41,8 +41,6 @@ describe("release-address", () => {
 
     await main();
 
-    expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to release address")
-    );
+    expect(logSpy).toHaveBeenCalledWith(new Error("Failed to release address"));
   });
 });

@@ -9,7 +9,7 @@ function runCommand() {
     kind='unit'
   fi
   echo Running $kind tests...
-  for d in ./*/ ; do /bin/bash -c "(cd '$d' && go test -tags=$@ ./... >> /gov2/test-$kind-run-$dt.out)"; done
+  for d in ./*/ ; do /bin/bash -c "(cd '$d' && go test -tags=$@ ./...)"; done
 }
 
 runCommand $1

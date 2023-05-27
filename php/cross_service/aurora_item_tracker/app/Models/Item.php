@@ -3,16 +3,15 @@
 namespace App\Models;
 
 use Aws\RDSDataService\RDSDataServiceClient;
-use Aws\Laravel\AwsFacade as AWS;
 
 class Item
 {
     protected RDSDataServiceClient $client;
     protected array $connection = [];
 
-    public function __construct()
+    public function __construct(RDSDataServiceClient $client)
     {
-        $this->client = AWS::createClient('rdsdataservice');
+        $this->client = $client;
         $this->connection['database'] = env('DATABASE');
         $this->connection['resourceArn'] = env('RESOURCE_ARN');
         $this->connection['secretArn'] = env('SECRET_ARN');

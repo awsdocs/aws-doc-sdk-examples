@@ -91,7 +91,7 @@ aurora:
 auto-scaling:
   long: '&ASlong;'
   short: '&AS;'
-  sort: EC2 Auto Scaling
+  sort: Auto Scaling
   expanded:
     long: Amazon EC2 Auto Scaling
     short: Auto Scaling
@@ -194,8 +194,23 @@ cloudwatch-logs:
   tags:
     product_categories: {'Management &amp; Governance'}
   version: logs-2014-03-28
+cognito:
+  long: '&COGlong;'
+  short: '&COG;'
+  sort: Cognito
+  expanded:
+    long: Amazon Cognito
+    short: Amazon Cognito
+  blurb: handles user authentication and authorization for your web and mobile apps.
+  guide:
+    subtitle: Landing Page
+    url: cognito/
+  api_ref: cognito/
+  tags:
+    product_categories: {'Security, Identity, &amp; Compliance'}
+  version: cognito-idp-2016-04-18
 cognito-identity:
-  bundle: cognito-identity-provider
+  bundle: cognito
   long: '&COGID;'
   short: '&COGID;'
   sort: Cognito Identity
@@ -211,7 +226,7 @@ cognito-identity:
     product_categories: {'Security, Identity, &amp; Compliance'}
   version: cognito-identity-2014-06-30
 cognito-identity-provider:
-  bundle: cognito-identity-provider
+  bundle: cognito
   long: '&COGIDP;'
   short: '&COGIDP;'
   sort: Cognito Identity Provider
@@ -227,7 +242,7 @@ cognito-identity-provider:
   version: cognito-idp-2016-04-18
   api_ref: cognito-user-identity-pools/latest/APIReference/Welcome.html
 cognito-sync:
-  bundle: cognito-identity-provider
+  bundle: cognito
   long: '&COGSYNClong;'
   short: '&COGSYNC;'
   sort: Cognito Sync
@@ -713,7 +728,7 @@ pinpoint:
     url: pinpoint/latest/developerguide/welcome.html
   api_ref: pinpoint/latest/apireference/welcome.html
   tags:
-    product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
+    product_categories: {'Business Applications'}
   version: pinpoint-2016-12-01
 pinpoint-email:
   long: '&PIN-Email-API;'
@@ -728,7 +743,7 @@ pinpoint-email:
     url: pinpoint/latest/developerguide/welcome.html
   api_ref: pinpoint/latest/apireference/welcome.html
   tags:
-    product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
+    product_categories: {'Business Applications'}
   version: pinpoint-email-2018-07-26
 pinpoint-sms-voice:
   bundle: pinpoint
@@ -744,7 +759,7 @@ pinpoint-sms-voice:
     url: pinpoint/latest/developerguide/welcome.html
   api_ref: pinpoint-sms-voice/latest/APIReference/welcome.html
   tags:
-    product_categories: {'Front-End Web &amp; Mobile', 'Business Applications'}
+    product_categories: {'Business Applications'}
   version: pinpoint-sms-voice-2018-09-05
 polly:
   long: '&POLlong;'
@@ -1007,7 +1022,7 @@ sns:
     url: sns/latest/dg/welcome.html
   api_ref: sns/latest/api/welcome.html
   tags:
-    product_categories: {'Application Integration', 'Front-End Web &amp; Mobile'}
+    product_categories: {'Application Integration'}
   version: sns-2010-03-31
 sqs:
   long: '&SQSlong; (&SQS;)'
@@ -1101,8 +1116,8 @@ transcribe:
     product_categories: {'Machine Learning &amp; AI'}
   version: transcribe-2017-10-26
 transcribe-medical:
-  long: '&TSClong;'
-  short: '&TSC;'
+  long: '&TSCMlong;'
+  short: '&TSCM;'
   sort: Transcribe Medical
   expanded:
     long: Amazon Transcribe Medical

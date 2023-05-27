@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/allocate-address.js";
+const { main } = await import("../actions/allocate-address.js");
 
 describe("allocate-address", () => {
   it("should log id of the created address and the address itself", async () => {
