@@ -1,0 +1,12 @@
+<Configuration status="ERROR">
+    <Appenders>
+        <Console name="Out">
+            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} %-5p %c:%L - %encode{%m}{CRLF}%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Out"/>
+        </Root>
+    </Loggers>
+</Configuration>
