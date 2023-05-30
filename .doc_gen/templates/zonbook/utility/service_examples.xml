@@ -49,7 +49,7 @@
             {{- if eq 1 (len .RelatedExamples)}}
                 {{- $codex_text = "code example"}}
             {{- end}}
-            <para>Action examples are code excerpts that are not designed to be run in isolation. You can see this action in
+            <para>Action examples are code excerpts from larger programs and must be run in context. You can see this action in
             context in the following {{$codex_text}}:
             </para>
             <itemizedlist>
