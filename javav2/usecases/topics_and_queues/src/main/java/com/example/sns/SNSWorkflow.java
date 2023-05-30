@@ -96,7 +96,7 @@ public class SNSWorkflow {
             .build();
 
         Scanner in = new Scanner(System.in);
-        String accountId = "<Add your AWS Account number>" ;
+        String accountId = args[0];
         String useFIFO;
         String duplication = "n";
         String topicName;
