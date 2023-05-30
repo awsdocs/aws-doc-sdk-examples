@@ -18,13 +18,13 @@ vi.doMock("@aws-sdk/client-support", async () => {
   };
 });
 
-vi.doMock("inquirer", async () => {
-  return {
+vi.doMock("inquirer", () => {
+  return Promise.resolve({
     default: { prompt },
-  };
+  });
 });
 
-import {
+const {
   verifyAccount,
   getService,
   getCategory,
@@ -39,14 +39,14 @@ import {
   resolveCase,
   findCase,
   getTodaysResolvedCases,
-} from "../scenarios/basic.js";
+} = await import("../scenarios/basic.js");
 
 describe("Basic", () => {
   beforeEach(() => {
     vi.resetAllMocks();
   });
 
-  describe("verifyAccount", async () => {
+  describe("verifyAccount", () => {
     it("should not throw an error if the client call was successful", async () => {
       expect.assertions(1);
       send.mockResolvedValueOnce();
@@ -232,7 +232,7 @@ describe("Basic", () => {
       ).toEqual(case1);
     });
 
-    it("should continue pagination when the case is not found", async () => {
+    it("should continue pagination when the case is not found", () => {
       const case1 = { caseId: "case1", subject: "One" };
       const case2 = { caseId: "case2", subject: "One" };
       send.mockResolvedValueOnce({ cases: [case2] });
@@ -241,7 +241,7 @@ describe("Basic", () => {
       ).resolves.toEqual(case2);
     });
 
-    it("should throw an error when the case is not found after pagination", async () => {
+    it("should throw an error when the case is not found after pagination", () => {
       const case1 = { caseId: "case1", subject: "One" };
       send.mockResolvedValueOnce({ cases: [] });
       expect(

@@ -111,4 +111,11 @@ language = {
             'sdk_api_ref': 'https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWS{{service["name"] | capitalize}}/Home',
         }
     },
+    'CLI': {
+        1: {
+            'base_folder': 'aws-cli',
+            'service_folder': 'aws-cli/bash-linux/{{service["name"]}}',
+            'sdk_api_ref': 'https://awscli.amazonaws.com/v2/documentation/api/latest/reference/{{service["name"]}}/index.html',
+        }
+    },
 }

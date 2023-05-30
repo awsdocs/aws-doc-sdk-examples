@@ -8,6 +8,10 @@ cross_PAM:
       versions:
         - sdk_version: 2
           block_content: cross_PAM_Java_block.xml
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_PAM_Kotlin_block.xml    
   service_main: rekognition
   services:
     sns:
@@ -542,4 +546,20 @@ cross_LambdaForBrowser:
   services:
     lambda:
     dynamodb:
-   
+cross_MessagesTopicsAndQueues:
+  title: Publish &SNS; messages to &SQS; queues using an &AWS; SDK
+  title_abbrev: Publish messages to queues
+  synopsis_list:
+    - Create topic (FIFO or non-FIFO).
+    - Subscribe several queues to the topic with an option to apply a filter.
+    - Publish messages to the topic.
+    - Poll the queues for messages received.
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cross-service/topics_and_queues
+          block_content: workflow_MessagesTopicsAndQueues_cpp_block.xml
+  services:
+    sns:
+    sqs:

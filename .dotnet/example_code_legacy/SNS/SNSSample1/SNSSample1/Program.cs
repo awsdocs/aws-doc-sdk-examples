@@ -30,7 +30,7 @@ namespace SNSSample1
             // Options: Promotional, Transactional
             v3.StringValue = "Promotional";
             messageAttributes.Add("AWS.SNS.SMS.SMSType", v3);
-            SendSMSMessageAsync(snsClient, "Hello from AWS SNS!", "+1 XXX YYYYYY", messageAttributes).Wait();
+            SendSMSMessageAsync(snsClient, "Hello from AWS SNS!", "+1 111 1111111", messageAttributes).Wait();
         }
 
 

@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-import { main } from "../actions/put-bucket-acl.js";
+const { main } = await import("../actions/put-bucket-acl.js");
 
 describe("put-bucket-acl", () => {
   it("should log the response from the service", async () => {

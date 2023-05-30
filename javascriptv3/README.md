@@ -90,6 +90,8 @@ being accepted, adhere to the following guidelines.
 - `javascriptv3` is considered the project root.
 - All examples exist under `example_code`.
 - Each directory under `example_code` corresponds to an AWS service.
+- Directory names should be lowercase with underscores.
+- File names should be lowercase with dashes.
 - `cross-services` is a special directory for examples that use multiple services.
 - A service directory has the following structure:
   - ```

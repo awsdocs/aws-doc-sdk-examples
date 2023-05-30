@@ -62,7 +62,7 @@ func main() {
 
     // Copy the item
     _, err = svc.CopyObject(&s3.CopyObjectInput{Bucket: aws.String(other),
-        CopySource: aws.String(url.PathEscape(source)), Key: aws.String(item)})
+        CopySource: aws.String(url.QueryEscape(source)), Key: aws.String(item)})
     if err != nil {
         exitErrorf("Unable to copy item from bucket %q to bucket %q, %v", bucket, other, err)
     }

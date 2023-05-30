@@ -23,10 +23,10 @@ import software.amazon.awssdk.services.cloudwatchlogs.model.PutSubscriptionFilte
  *
  * aws lambda add-permission --function-name "lamda1" --statement-id "lamda1"
  * --principal "logs.us-west-2.amazonaws.com" --action "lambda:InvokeFunction"
- * --source-arn "arn:aws:logs:us-west-2:xxxxxx047983:log-group:testgroup:*"
- * --source-account "xxxxxx047983"
+ * --source-arn "arn:aws:logs:us-west-2:111111111111:log-group:testgroup:*"
+ * --source-account "111111111111"
  *
- * Make sure you replace the function name with your function name and replace the xxxxxx with your account details.
+ * Make sure you replace the function name with your function name and replace '111111111111' with your account details.
  * For more information, see "Subscription Filters with AWS Lambda" in the Amazon CloudWatch Logs Guide.
  *
  *
@@ -48,7 +48,7 @@ public class PutSubscriptionFilter {
             "  filter - A filter name (for example, myfilter).\n" +
             "  pattern - A filter pattern (for example, ERROR).\n" +
             "  logGroup - A log group name (testgroup).\n" +
-            "  functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:xxxxxx047983:function:lamda1) .\n" ;
+            "  functionArn - An AWS Lambda function ARN (for example, arn:aws:lambda:us-west-2:111111111111:function:lambda1) .\n" ;
 
         if (args.length != 4) {
             System.out.println(usage);

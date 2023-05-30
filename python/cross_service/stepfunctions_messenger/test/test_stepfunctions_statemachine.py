@@ -5,6 +5,7 @@
 Unit tests for stepfunctions_statemachine.py
 """
 
+import json
 import boto3
 from botocore.exceptions import ClientError
 import pytest
@@ -23,7 +24,7 @@ def test_create(make_stubber, error_code):
     arn = 'test-arn'
 
     stepfunctions_stubber.stub_create_state_machine(
-        name, definition, role_arn, arn, error_code=error_code)
+        name, json.dumps(definition), role_arn, arn, error_code=error_code)
 
     if error_code is None:
         got_arn = state_machine.create(name, definition, role_arn)
@@ -114,7 +115,7 @@ def test_describe(make_stubber, error_code):
     role_arn = 'test-role_arn'
 
     stepfunctions_stubber.stub_describe_state_machine(
-        state_machine.state_machine_arn, name, definition, role_arn,
+        state_machine.state_machine_arn, name, definition, 'ACTIVE', role_arn,
         error_code=error_code)
 
     if error_code is None:
@@ -142,7 +143,7 @@ def test_start_run(make_stubber, run_input, error_code):
     run_arn = 'test-run_arn'
 
     stepfunctions_stubber.stub_start_execution(
-        state_machine.state_machine_arn, run_name, run_arn, run_input,
+        state_machine.state_machine_arn, run_arn, run_input, run_name=run_name,
         error_code=error_code)
 
     if error_code is None:

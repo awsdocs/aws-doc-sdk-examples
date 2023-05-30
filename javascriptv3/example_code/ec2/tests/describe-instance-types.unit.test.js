@@ -15,7 +15,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/describe-instance-types.js";
+const { main } = await import("../actions/describe-instance-types.js");
 
 describe("describe-instance-types", () => {
   it("should log the arm64 instances", async () => {
@@ -43,6 +43,7 @@ describe("describe-instance-types", () => {
     const logSpy = vi.spyOn(console, "log");
     const errorSpy = vi.spyOn(console, "error");
     paginateDescribeInstanceTypes.mockReturnValueOnce(
+      // eslint-disable-next-line require-yield
       (async function* () {
         throw new Error("Retrieval failed");
       })()

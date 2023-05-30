@@ -137,6 +137,17 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - s3.swift.basics.handler.createbucket
+    CLI:
+      versions:
+        - sdk_version: 1
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.iecho
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.CreateBucket
   services:
     s3: {CreateBucket}
 s3_CopyObject:
@@ -258,6 +269,16 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - s3.swift.basics.handler.copyfile
+    CLI:
+      versions:
+        - sdk_version: 1
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.CopyObject
   services:
     s3: {CopyObject}
 s3_DeleteBucketPolicy:
@@ -405,6 +426,16 @@ s3_DeleteObject:
             - description:
               snippet_tags:
                 - s3.swift.basics.handler.deletefile
+    CLI:
+      versions:
+        - sdk_version: 1
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.DeleteObject
   services:
     s3: {DeleteObject}
 s3_DeleteObjects:
@@ -521,6 +552,16 @@ s3_DeleteObjects:
             - description:
               snippet_tags:
                 - cpp.example_code.s3.delete_objects
+    CLI:
+      versions:
+        - sdk_version: 1
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.DeleteObjects
   services:
     s3: {DeleteObjects}
 s3_DeleteBucketWebsite:
@@ -820,6 +861,16 @@ s3_GetObject:
             - description: Read an object into a Swift Data object.
               snippet_tags:
                 - s3.swift.basics.handler.readfile
+    CLI:
+      versions:
+        - sdk_version: 1
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.GetObject
   services:
     s3: {GetObject}
 s3_GetObject_IfModifiedSince:
@@ -1144,6 +1195,16 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - s3.swift.basics.handler.listbucketfiles
+    CLI:
+      versions:
+        - sdk_version: 1
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.ListObjects
   services:
     s3: {ListObjects}
 s3_ListObjectVersions:
@@ -1310,6 +1371,16 @@ s3_PutObject:
             - description: Upload the contents of a Swift Data object to a bucket.
               snippet_tags:
                 - s3.swift.basics.handler.createfile
+    CLI:
+      versions:
+        - sdk_version: 1
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.PutObject
   services:
     s3: {PutObject}
 s3_RestoreObject:
@@ -1439,6 +1510,16 @@ s3_DeleteBucket:
             - description:
               snippet_tags:
                 - s3.swift.basics.handler.deletebucket
+    CLI:
+      versions:
+        - sdk_version: 1
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.DeleteBucket
   services:
     s3: {DeleteBucket}
 s3_GetBucketCors:
@@ -1861,6 +1942,15 @@ s3_HeadBucket:
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.HeadBucket
+    CLI:
+      versions:
+        - sdk_version: 1
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.HeadBucket
   services:
     s3: {HeadBucket}
 s3_ListBuckets:
@@ -2472,7 +2562,22 @@ s3_Scenario_GettingStarted:
             - description: A Swift command-line program to manage the SDK calls.
               snippet_tags:
                 - s3.swift.basics.example
-
+    CLI:
+      versions:
+        - sdk_version: 1
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.getting_started_scenario
+                - aws-cli.bash-linux.s3.CreateBucket
+                - aws-cli.bash-linux.s3.PutObject
+                - aws-cli.bash-linux.s3.GetObject
+                - aws-cli.bash-linux.s3.CopyObject
+                - aws-cli.bash-linux.s3.ListObjects
+                - aws-cli.bash-linux.s3.DeleteObjects
+                - aws-cli.bash-linux.s3.DeleteBucket
   services:
     s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}
 s3_Scenario_ManageACLs:

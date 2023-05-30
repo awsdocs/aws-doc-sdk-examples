@@ -8,7 +8,6 @@ namespace PartiQL_Batch_Scenario
         private static readonly AmazonDynamoDBClient Client = new();
 
         // snippet-start:[PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies]
-
         /// <summary>
         /// Inserts movies imported from a JSON file into the movie table by
         /// using an Amazon DynamoDB PartiQL INSERT statement.
@@ -101,20 +100,19 @@ namespace PartiQL_Batch_Scenario
                 return null;
             }
         }
-
         // snippet-end:[PartiQL.dotnetv3.PartiQLBatchScenario-InsertMovies]
 
         // snippet-start:[PartiQL.dotnetv3.PartiQLBatchScenario-GetBatch]
-
         /// <summary>
-        /// 
+        /// Gets movies from the movie table by
+        /// using an Amazon DynamoDB PartiQL SELECT statement.
         /// </summary>
-        /// <param name="tableName"></param>
-        /// <param name="title1"></param>
-        /// <param name="title2"></param>
-        /// <param name="year1"></param>
-        /// <param name="year2"></param>
-        /// <returns></returns>
+        /// <param name="tableName">The name of the table.</param>
+        /// <param name="title1">The title of the first movie.</param>
+        /// <param name="title2">The title of the second movie.</param>
+        /// <param name="year1">The year of the first movie.</param>
+        /// <param name="year2">The year of the second movie.</param>
+        /// <returns>True if successful.</returns>
         public static async Task<bool> GetBatch(
             string tableName,
             string title1,
@@ -166,11 +164,9 @@ namespace PartiQL_Batch_Scenario
             }
 
         }
-
         // snippet-end:[PartiQL.dotnetv3.PartiQLBatchScenario-GetBatch]
 
         // snippet-start:[PartiQL.dotnetv3.PartiQLBatchScenario-UpdateBatch]
-
         /// <summary>
         /// Updates information for multiple movies.
         /// </summary>
@@ -228,11 +224,9 @@ namespace PartiQL_Batch_Scenario
 
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
-
         // snippet-end:[PartiQL.dotnetv3.PartiQLBatchScenario-UpdateBatch]
 
         // snippet-start:[PartiQL.dotnetv3.PartiQLBatchScenario-DeleteBatch]
-
         /// <summary>
         /// Deletes multiple movies using a PartiQL BatchExecuteAsync
         /// statement.
@@ -283,7 +277,6 @@ namespace PartiQL_Batch_Scenario
 
             return response.HttpStatusCode == System.Net.HttpStatusCode.OK;
         }
-
         // snippet-end:[PartiQL.dotnetv3.PartiQLBatchScenario-DeleteBatch]
     }
 }

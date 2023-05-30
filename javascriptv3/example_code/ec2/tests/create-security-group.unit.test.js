@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/create-security-group.js";
+const { main } = await import("../actions/create-security-group.js");
 
 describe("create-security-group", () => {
   it("should log the security group id", async () => {

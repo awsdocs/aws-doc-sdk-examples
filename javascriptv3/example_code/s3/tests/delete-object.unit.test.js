@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-import { main } from "../actions/delete-object.js";
+const { main } = await import("../actions/delete-object.js");
 
 describe("delete-object", () => {
   it("should log the response from the service", async () => {

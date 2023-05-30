@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/terminate-instances.js";
+const { main } = await import("../actions/terminate-instances.js");
 
 describe("terminate-instances", () => {
   it("should log the instances that were terminated", async () => {
@@ -42,6 +42,8 @@ describe("terminate-instances", () => {
 
     await main();
 
-    expect(logSpy).toHaveBeenCalledWith(new Error("Failed to terminate instances"));
+    expect(logSpy).toHaveBeenCalledWith(
+      new Error("Failed to terminate instances")
+    );
   });
 });
