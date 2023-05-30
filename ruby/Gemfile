@@ -7,7 +7,6 @@ gem "multi_json"
 gem "mail"
 gem "mime"
 gem "json"
-gem "multi_json"
 gem "openssl"
 gem "open-uri"
 gem "pp"
@@ -22,3 +21,4 @@ gem "sinatra"
 gem 'sequel'
 gem 'rack'
 gem 'rack-test'
+gem 'optparse'
