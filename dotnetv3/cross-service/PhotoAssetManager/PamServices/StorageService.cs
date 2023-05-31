@@ -23,7 +23,7 @@ public class StorageService
     /// Generate a unique filename and presigned url for uploading an image.
     /// </summary>
     /// <param name="fileName">The filename of the image.</param>
-    /// /// <param name="storageBucket">The name of the storage bucket.</param>
+    /// <param name="storageBucket">The name of the storage bucket.</param>
     /// <returns>The presigned url.</returns>
     public string GetPresignedUrlForImage(string fileName, string storageBucket)
     {
@@ -53,8 +53,8 @@ public class StorageService
     public async Task<string> GenerateZipFromImages(List<string> imageKeys,
         string storageBucket, string workingBucket)
     {
-        string uuid = Guid.NewGuid().ToString();
-        string archiveName = "image_archive_" + uuid + ".zip";
+        var uuid = Guid.NewGuid().ToString();
+        var archiveName = "image_archive_" + uuid + ".zip";
 
         var uploadId = await InitiateUploadZip(archiveName, workingBucket);
 
@@ -79,7 +79,7 @@ public class StorageService
         // Upload the archive from the stream.
         await UploadZip(archiveName, uploadId, zipMS, workingBucket);
 
-        var downloadUrl = GetPresignedUrlForGetArchive(archiveName, workingBucket);
+        var downloadUrl = GetPresignedUrlForArchive(archiveName, workingBucket);
 
         await zipMS.DisposeAsync();
         return downloadUrl;
@@ -90,18 +90,16 @@ public class StorageService
     /// </summary>
     /// <param name="archiveName">The name of the archive.</param>
     /// <param name="archiveBucket">The S3 bucket for the archive.</param>
-    /// <returns></returns>
-    public async Task<string> InitiateUploadZip(string archiveName,
+    /// <returns>The ID for the upload.</returns>
+    private async Task<string> InitiateUploadZip(string archiveName,
         string archiveBucket)
     {
-
         var initiateUploadResponse = await _amazonS3.InitiateMultipartUploadAsync(
             new InitiateMultipartUploadRequest()
             {
                 BucketName = archiveBucket,
                 Key = archiveName,
-                ContentType = "application/zip",
-
+                ContentType = "application/zip"
             });
         var uploadId = initiateUploadResponse.UploadId;
         return uploadId;
@@ -114,8 +112,8 @@ public class StorageService
     /// <param name="uploadId">The ID of the upload.</param>
     /// <param name="zipStream">The memory stream of the zip.</param>
     /// <param name="archiveBucket">The S3 bucket for the archive.</param>
-    /// <returns></returns>
-    public async Task<string> UploadZip(string archiveName, string uploadId, MemoryStream zipStream, string archiveBucket)
+    /// <returns>The key for the completed upload.</returns>
+    private async Task<string> UploadZip(string archiveName, string uploadId, MemoryStream zipStream, string archiveBucket)
     {
         long contentLength = zipStream.Length;
         long partSize = 5 * (long)Math.Pow(2, 20); // 5 MB
@@ -155,7 +153,7 @@ public class StorageService
     /// <param name="uploadId">The ID of the upload.</param>
     /// <param name="archiveBucket">The S3 bucket for the archive.</param>
     /// <param name="uploadResponses">The multipart upload responses.</param>
-    /// <returns></returns>
+    /// <returns>The key for the completed upload.</returns>
     private async Task<string> CompleteUploadZip(string archiveName, string uploadId,
         string archiveBucket, List<UploadPartResponse> uploadResponses)
     {
@@ -180,9 +178,9 @@ public class StorageService
     /// Get a presigned URL for a zip file to download.
     /// </summary>
     /// <param name="archiveKey">The key of the archive object.</param>
-    /// /// <param name="storageBucket">The name of the storage bucket.</param>
+    /// <param name="storageBucket">The name of the storage bucket.</param>
     /// <returns>The presigned url.</returns>
-    public string GetPresignedUrlForGetArchive(string archiveKey, string storageBucket)
+    public string GetPresignedUrlForArchive(string archiveKey, string storageBucket)
     {
         var preSignedUrlResponse = _amazonS3.GetPreSignedURL(
             new GetPreSignedUrlRequest()
@@ -196,5 +194,4 @@ public class StorageService
 
         return preSignedUrlResponse;
     }
-
 }

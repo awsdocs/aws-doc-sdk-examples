@@ -1,12 +1,12 @@
 {
   "profiles": {
-    "PamApi.Tests": {
+    "PamApiAnnotations": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:64221;http://localhost:64222"
+      "applicationUrl": "https://localhost:58567;http://localhost:58568"
     }
   }
 }

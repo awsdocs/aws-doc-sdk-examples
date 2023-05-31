@@ -32,7 +32,8 @@ public class LabelService
         // Save the label in the table.
         await _amazonDynamoDbContext.SaveAsync(newLabel);
         // Return the newly created label.
-        return await _amazonDynamoDbContext.LoadAsync<Label>(newLabel.LabelID);
+        var labelRecord = await _amazonDynamoDbContext.LoadAsync<Label>(newLabel.LabelID);
+        return labelRecord;
     }
 
     /// <summary>
@@ -67,7 +68,7 @@ public class LabelService
     /// Get all of the images for a set of labels.
     /// </summary>
     /// <param name="labels">The labels to fetch for images.</param>
-    /// <returns>Async Task.</returns>
+    /// <returns>A collection of unique image names.</returns>
     public async Task<List<string>> GetAllImagesForLabels(List<string> labels)
     {
         var uniqueImages = new List<string>();

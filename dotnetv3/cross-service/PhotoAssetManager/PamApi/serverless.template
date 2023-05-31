@@ -35,7 +35,7 @@
         }
       }
     },
-    "UploadEventHandler" : {
+    "DetectLabelsHandler" : {
       "Type" : "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PamApi::PamApi.DetectLabelsFunction::FunctionHandler",

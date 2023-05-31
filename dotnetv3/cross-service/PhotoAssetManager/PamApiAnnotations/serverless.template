@@ -1,0 +1,165 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Description": "An AWS Serverless Application.",
+  "Resources": {
+    "PamApiAnnotationsFunctionsDefaultGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "Runtime": "dotnet6",
+        "CodeUri": ".",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Zip",
+        "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_Default_Generated::Default",
+        "Events": {
+          "RootGet": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/",
+              "Method": "GET",
+              "PayloadFormatVersion": "2.0"
+            }
+          }
+        }
+      }
+    },
+    "PamApiAnnotationsFunctionsGetGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "Runtime": "dotnet6",
+        "CodeUri": ".",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Zip",
+        "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_Get_Generated::Get",
+        "Events": {
+          "RootGet": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/labels",
+              "Method": "GET",
+              "PayloadFormatVersion": "2.0"
+            }
+          }
+        }
+      }
+    },
+    "PamApiAnnotationsFunctionsAddGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "Runtime": "dotnet6",
+        "CodeUri": ".",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Zip",
+        "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_Add_Generated::Add",
+        "Events": {
+          "RootGet": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/add/{x}/{y}",
+              "Method": "GET",
+              "PayloadFormatVersion": "2.0"
+            }
+          }
+        }
+      }
+    },
+    "PamApiAnnotationsFunctionsUploadGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootPut"
+        ]
+      },
+      "Properties": {
+        "Runtime": "dotnet6",
+        "CodeUri": ".",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Zip",
+        "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_Upload_Generated::Upload",
+        "Events": {
+          "RootPut": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/upload",
+              "Method": "PUT",
+              "PayloadFormatVersion": "2.0"
+            }
+          }
+        }
+      }
+    },
+    "DetectLabelsHandler": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "PamApiAnnotations::PamApiAnnotations.DetectLabelsFunction::FunctionHandler",
+        "Runtime": "dotnet6",
+        "CodeUri": "",
+        "Description": "Upload event handler",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambda_FullAccess"
+        ]
+      }
+    },
+    "DownloadHandler": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "PamApiAnnotations::PamApiAnnotations.DownloadFunction::FunctionHandler",
+        "Runtime": "dotnet6",
+        "CodeUri": "",
+        "Description": "Download event handler",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": null,
+        "Policies": [
+          "AWSLambda_FullAccess"
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "ApiURL": {
+      "Description": "API endpoint URL for Prod environment",
+      "Value": {
+        "Fn::Sub": "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-namespace PamApi;
+namespace PamServices;
 
 /// <summary>
 /// The request object for an upload.
