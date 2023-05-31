@@ -179,4 +179,13 @@ public class AWSSNSTest {
         DeleteTopic.deleteSNSTopic(snsClient, topicArn);
         System.out.println("Test 16 passed");
     }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(17)
+    public void HelloSNS() {
+        HelloSNS.listSNSTopics(snsClient);
+        System.out.println("Test 17 passed");
+    }
+
 }
