@@ -175,7 +175,7 @@ public class AWSSNSTest {
     @Test
     @Tag("IntegrationTest")
     @Order(16)
-    public void DeleteTopic() {
+    public void deleteTopic() {
         DeleteTopic.deleteSNSTopic(snsClient, topicArn);
         System.out.println("Test 16 passed");
     }
@@ -183,7 +183,7 @@ public class AWSSNSTest {
     @Test
     @Tag("IntegrationTest")
     @Order(17)
-    public void HelloSNS() {
+    public void helloSNS() {
         HelloSNS.listSNSTopics(snsClient);
         System.out.println("Test 17 passed");
     }
