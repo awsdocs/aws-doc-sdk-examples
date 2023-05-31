@@ -21,7 +21,6 @@ import com.example.sqs.*;
 public class SQSIntegrationTest {
 
     private static SqsClient sqsClient;
-
     private static String queueName ="";
     private static String queueUrl ="" ; // set dynamically in the test
     private static String message ="";
@@ -29,7 +28,7 @@ public class SQSIntegrationTest {
     private static List<Message> messages = null; // set dynamically in the test
 
     @BeforeAll
-    public static void setUp() throws IOException {
+    public static void setUp() {
         sqsClient = SqsClient.builder()
             .region(Region.US_WEST_2)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
