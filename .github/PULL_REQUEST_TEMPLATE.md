@@ -1,4 +1,7 @@
-<!-- Thank you for making a submission to the *aws-doc-sdk-examples* repository. Please provide an overview of the intended changes from this PR. -->
+<!--
+Thank you for making a submission to the *aws-doc-sdk-examples* repository. Please provide an overview of the intended changes from this PR.
+The title should be in the format <Language(s)>: <what you did> <with which service(s)>
+-->
 
 This pull request...
 
