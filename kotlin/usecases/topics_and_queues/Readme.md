@@ -142,7 +142,7 @@ Before using the code examples, make sure to properly set up your development en
 
 ###  Instructions
 
-This example uses gradle build file is located in this folder. For information, see [Basic set up](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup-basic-onetime-setup.html).
+This example uses a gradle build file that is located in this folder. For information, see [Basic set up](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup-basic-onetime-setup.html).
 
 
 Running this example requires AWS Identity and Access Management (IAM) permissions for both SNS and SQS.
