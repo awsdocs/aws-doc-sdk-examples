@@ -100,7 +100,7 @@ An Amazon Cognito user pool is created via the AWS CDK, using the email address 
 PAM uses two buckets. `{NAME}-pam-pambucketsstorage-bucket{RANDOM}` (the Storage Bucket) and `{NAME}-pam-pambucketsworking-bucket{RANDOM}` (the Working Bucket) provide the long-term Amazon S3 Intelligent-Tiering storage and ephemeral manifest and zip download storage, respectively. The AWS CDK lowercases both `{NAME}` and `{RANDOM}` to create
 a valid bucket name.
 
-The Storage Bucket has a notification configuration when objects are PUT to call the DetectLabels Lambda. The Working Bucket has a lifecycle configuration to delete objects after 24 hours.
+The Storage Bucket has a notification configuration when objects are PUT to call the `DetectLabels` Lambda. The Working Bucket has a lifecycle configuration to delete objects after 24 hours.
 
 | Bucket                                        | Policies                    | Use                                                                                |
 | --------------------------------------------- | --------------------------- | ---------------------------------------------------------------------------------- |
@@ -109,7 +109,7 @@ The Storage Bucket has a notification configuration when objects are PUT to call
 
 ### ⭐ DynamoDB
 
-PAM uses one DynamoDB table to track data. The LabelsTable, `{NAME}-PAM-PamTablesLabelsTable{RANDOM}`, contains the labels found by Amazon Rekognition. It has a simple primary key with an attribute `Label` of type `S`.
+PAM uses one DynamoDB table to track data. The Labels table, `{NAME}-PAM-PamTablesLabelsTable{RANDOM}`, contains the labels found by Amazon Rekognition. It has a simple primary key with an attribute `Label` of type `S`.
 
 | Table                                     | Key      | Use                                                                    |
 | ----------------------------------------- | -------- | ---------------------------------------------------------------------- |
@@ -148,14 +148,14 @@ Each language will implement these Lambda functions. These functions handle the 
 This Lambda will be triggered by uploads to the Storage Bucket.
 
 1. Run Amazon Rekognition’s `detectLabels` on each incoming object.
-2. If Amazon Rekognition’s `detectLabels` succeeds, update the Labels Table. For each Label key, add the image object key to the list in the Images column and increment the Count column. These must be atomic operations. If the enhanced DynamoDB client supports atomic counter fields, use them. Otherwise, the request can use update expressions to atomically update Count and Images.
+2. If Amazon Rekognition’s `detectLabels` succeeds, update `LabelsTable`. For each Label key, add the image object key to the list in the Images column and increment the Count column. These must be atomic operations. If the enhanced DynamoDB client supports atomic counter fields, use them. Otherwise, the request can use update expressions to atomically update Count and Images.
 
 > UpdateExpression: ` ADD Count :one, Images :im``g
  `ExpressionAttributeValues: `":one": AttributeValue::N(1), ":img": AttributeValue::S({object_key})`
 
 ### ⭐ LabelsFn
 
-1. Load the `Label` and `Count` columns from the LabelsTable.
+1. Load the `Label` and `Count` columns from `LabelsTable`.
 2. Return a JSON document with a single object. The top level object has one property key for each label. Each key has a value of an object with a single property `count` whose value is the numeric count of images matching that label.
 
 ### ⭐ PrepareDownloadFn
@@ -197,17 +197,17 @@ Each implementation will include a README describing the language-specific detai
 
 **Lambda Function (DetectLabels):**
 
-- `dyanmodb:PutItem` and `dynamodb:UpdateItem` on LabelsTable.
+- `dyanmodb:PutItem` and `dynamodb:UpdateItem` on `LabelsTable`.
 - `rekognition:DetectLabels` on `*`.
 - `s3:ReadObject` on Storage bucket.
 
 **Lambda Function (LabelsFn):**
 
-- `dynamodb:ReadItem` on LabelsTable.
+- `dynamodb:ReadItem` on `LabelsTable`.
 
 **Lambda Function (PrepareDownload):**
 
-- `dynamodb:ReadItem` on LabelsTable.
+- `dynamodb:ReadItem` on `LabelsTable`.
 - `s3:ReadItem` on `StorageBucket`.
 - `s3:ReadItem` and `s3:PutItem` on `WorkingBucket`.
 - `sns:Subscribe` on `*`.
@@ -215,4 +215,4 @@ Each implementation will include a README describing the language-specific detai
 
 ## Appendix B - Lambda triggers
 
-- Storage bucket [OBJECT_CREATED] - When the user uploads a _.jpg/_.jpeg to the presigned URL in the storage bucket, the DetectLabelsFn function is invoked.
+- Storage bucket [OBJECT_CREATED] - When the user uploads a _.jpg_/_.jpeg_ to the presigned URL in the storage bucket, the `DetectLabelsFn` function is invoked.
