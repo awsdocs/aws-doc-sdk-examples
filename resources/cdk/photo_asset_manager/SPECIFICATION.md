@@ -140,7 +140,7 @@ Each language will implement these Lambda functions. These functions handle the 
 
 ### ⭐ Upload
 
-1. Create a presigned Amazon S3 URL in the Storage Bucket. The object key shall be the provided file name, prefixed with a UUIDv4 and a /. The presigned URL will allow a `PUT` method operation with `Content-Type` `image/jpeg`. The expiration will live for 5 minutes (5 \* 60 \* 1000 ms = 300,000 ms).
+1. Create a presigned Amazon S3 URL in the Storage Bucket. The object key shall be the provided file name, prefixed with a UUIDv4 and a `/`. The presigned URL will allow a `PUT` method operation with `Content-Type` `image/jpeg`. The expiration will live for 5 minutes (5 \* 60 \* 1000 ms = 300,000 ms).
 2. Return a serialized JSON object with a single key, “url”, containing the value of the presigned URL.
 
 ### ⭐ DetectLabels
