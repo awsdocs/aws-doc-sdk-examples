@@ -155,8 +155,8 @@ This Lambda will be triggered by uploads to the Storage Bucket.
 
 ### ⭐ LabelsFn
 
-1. Load the `Label` and Count columns from the LabelsTable.
-2. Return a JSON document with a single object. The top level object has one property key for each label. Each key has a value of an object with a single property, “count”, whose value is the numeric count of images matching that label.
+1. Load the `Label` and `Count` columns from the LabelsTable.
+2. Return a JSON document with a single object. The top level object has one property key for each label. Each key has a value of an object with a single property `count` whose value is the numeric count of images matching that label.
 
 ### ⭐ PrepareDownloadFn
 
