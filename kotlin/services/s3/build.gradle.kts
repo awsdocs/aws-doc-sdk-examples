@@ -26,6 +26,7 @@ dependencies {
     implementation("aws.sdk.kotlin:s3-jvm:0.26.0-beta")
     implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("aws.smithy.kotlin:aws-signing-crt:0.21.0")
     testImplementation(kotlin("test"))
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
