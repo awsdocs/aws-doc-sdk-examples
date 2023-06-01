@@ -1,4 +1,4 @@
-# ***Publish and subscribe to topics using filters and queues using the AWS SDK for Java V2***
+# ***Publish and subscribe to topics using filters and queues using the AWS SDK for Kotlin***
 
 ## Overview
 
@@ -137,12 +137,12 @@ When you are done posting messages, the application polls the queues and display
 
 ### Prerequisites
 
-Before using the code examples, make sure to properly set up your development environment. For information, see [Setting up the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
+Before using the code examples, make sure to properly set up your development environment. For information, see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
 
 
 ###  Instructions
 
-This example uses Apache Maven to set up the AWS SDK for Java v2. The POM file is located in this folder. For information, see [Set up an Apache Maven project](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup-project-maven.html).
+This example uses gradle build file is located in this folder. For information, see [Basic set up](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup-basic-onetime-setup.html).
 
 
 Running this example requires AWS Identity and Access Management (IAM) permissions for both SNS and SQS.
@@ -153,5 +153,5 @@ Running this example requires AWS Identity and Access Management (IAM) permissio
 * [Amazon SNS API Reference](https://docs.aws.amazon.com/sns/latest/api/welcome.html)
 * [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
 * [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
-* [AWS SDK for Java V2 Developer Guide](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html)
+* [AWS SDK for Kotlin Developer Guide](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/home.html)
 
