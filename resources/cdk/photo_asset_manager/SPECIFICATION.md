@@ -83,7 +83,7 @@ A GET request is made to `/labels`. The labels are displayed to the user who can
 
 ### ⭐ API Gateway
 
-API Gateway provides HTTP API routes for the Lambda integrations `LabelsFn`, `UploadFn`, and `PrepareDownloadFn`. Each endpoint is configured with a an Amazon Cognito authorizer. Parameters for all routes are provided in the body of the request in a JSON object. Each parameter is a top-level item in the request body JSON object.
+API Gateway provides HTTP API routes for the Lambda integrations `LabelsFn`, `UploadFn`, and `PrepareDownloadFn`. Each endpoint is configured with an Amazon Cognito authorizer. Parameters for all routes are provided in the body of the request in a JSON object. Each parameter is a top-level item in the request body JSON object.
 
 | Method | Route     | Parameters        | Example response                                            | Lambda            |
 | ------ | --------- | ----------------- | ----------------------------------------------------------- | ----------------- |
