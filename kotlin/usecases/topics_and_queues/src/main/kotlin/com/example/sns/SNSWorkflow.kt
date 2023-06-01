@@ -56,9 +56,9 @@ This Kotlin example performs these tasks:
  */
 
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
-suspend fun main() {
+suspend fun main(args: Array<String>) {
     val input = Scanner(System.`in`)
-    val accountId = "814548047983"
+    val accountId = args[0]
     val useFIFO: String
     var duplication = "n"
     var topicName: String
