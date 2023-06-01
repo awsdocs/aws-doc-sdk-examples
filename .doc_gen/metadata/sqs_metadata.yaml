@@ -5,6 +5,15 @@ sqs_Hello:
   synopsis: get started using &SQS;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.java2.hello.main
     C++:
       versions:
         - sdk_version: 1

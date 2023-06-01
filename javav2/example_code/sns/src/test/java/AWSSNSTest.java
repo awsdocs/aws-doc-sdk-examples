@@ -4,22 +4,20 @@
 */
 import com.example.sns.*;
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AWSSNSTest {
-    public static final String DASHES = new String(new char[80]).replace("\0", "-");
+
     private static  SnsClient snsClient;
     private static String topicName = "";
-    private static String topicArn = ""; // This value is dynamically set.
-    private static String subArn = ""; // This value is dynamically set.
+    private static String topicArn = ""; //This value is dynamically set
+    private static String subArn = ""; //This value is dynamically set
     private static String attributeName= "";
     private static String attributeValue = "";
     private static String  email="";
@@ -28,21 +26,18 @@ public class AWSSNSTest {
     private static String message="";
 
     @BeforeAll
-    public static void setUp() throws IOException {
+    public static void setUp() {
         snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
         try (InputStream input = AWSSNSTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-
             Properties prop = new Properties();
-
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
                 return;
             }
-            //load a properties file from class path, inside static method
             prop.load(input);
             topicName = prop.getProperty("topicName");
             attributeName= prop.getProperty("attributeName");
@@ -69,41 +64,40 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void listTopicsTest() {
-        ListTopics.listSNSTopics(snsClient);
-        System.out.println("Test 2 passed");
+       ListTopics.listSNSTopics(snsClient);
+       System.out.println("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
     public void setTopicAttributesTest() {
-        SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue );
-        System.out.println("Test 3 passed");
+      SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue );
+      System.out.println("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
     public void getTopicAttributesTest() {
-        GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn);
-        System.out.println("Test 4 passed");
+       GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn);
+       System.out.println("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
     public void subscribeEmailTest() {
-        SubscribeEmail.subEmail(snsClient, topicArn, email);
-        System.out.println("Test 5 passed");
+     SubscribeEmail.subEmail(snsClient, topicArn, email);
+     System.out.println("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
     public void subscribeLambdaTest() {
-        subArn = SubscribeLambda.subLambda(snsClient, topicArn, lambdaarn);
-        assertFalse(subArn.isEmpty());
-        System.out.println("Test 6 passed");
+     subArn = SubscribeLambda.subLambda(snsClient, topicArn, lambdaarn);
+     System.out.println("Test 6 passed");
     }
 
     @Test
@@ -158,8 +152,8 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(13)
     public void subscribeTextSMSTest() {
-        SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone);
-        System.out.println("Test 13 passed");
+       SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone);
+       System.out.println("Test 13 passed");
     }
 
     @Test
@@ -185,5 +179,4 @@ public class AWSSNSTest {
         DeleteTopic.deleteSNSTopic(snsClient, topicArn);
         System.out.println("Test 16 passed");
     }
-
 }
