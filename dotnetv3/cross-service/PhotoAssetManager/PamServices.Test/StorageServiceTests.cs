@@ -34,8 +34,8 @@ public class StorageServiceTests
         // Assert.
         mockService.Verify(ms => ms.GetPreSignedURL(
             It.Is<GetPreSignedUrlRequest>(r =>
-                r.BucketName == bucketName && 
-                r.Key.EndsWith(fileName) && 
+                r.BucketName == bucketName &&
+                r.Key.EndsWith(fileName) &&
                 r.ContentType == "image/jpeg" &&
                 r.Expires > DateTime.UtcNow &&
                 r.Verb == HttpVerb.PUT)), Times.Once);
@@ -96,21 +96,21 @@ public class StorageServiceTests
 
         // Mock getting objects.
         var responseFirstFile = new GetObjectResponse()
-            { ResponseStream = firstMemoryStream };
+        { ResponseStream = firstMemoryStream };
         mockService.Setup(ms =>
             ms.GetObjectAsync(
                 It.Is<GetObjectRequest>(r => r.Key == "file1.jpg"),
                 CancellationToken.None)).ReturnsAsync(responseFirstFile);
 
         var responseSecondFile = new GetObjectResponse()
-            { ResponseStream = secondMemoryStream };
+        { ResponseStream = secondMemoryStream };
         mockService.Setup(ms =>
             ms.GetObjectAsync(
                 It.Is<GetObjectRequest>(r => r.Key == "file2.jpg"),
                 CancellationToken.None)).ReturnsAsync(responseSecondFile);
 
         var responseInitiateUpload = new InitiateMultipartUploadResponse()
-            { UploadId = "uploadId" };
+        { UploadId = "uploadId" };
 
         mockService.Setup(ms =>
             ms.InitiateMultipartUploadAsync(

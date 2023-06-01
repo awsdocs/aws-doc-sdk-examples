@@ -68,7 +68,7 @@ public class StorageService
                 CompressionLevel.NoCompression);
             await using var entryStream = entry.Open();
             var request = new GetObjectRequest
-                { BucketName = storageBucket, Key = s3Key };
+            { BucketName = storageBucket, Key = s3Key };
             using var getObjectResponse = await _amazonS3.GetObjectAsync(request);
             await getObjectResponse.ResponseStream.CopyToAsync(entryStream);
         }

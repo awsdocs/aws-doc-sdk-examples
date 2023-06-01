@@ -33,7 +33,7 @@ public class NotificationServiceTests
 
         // Assert.
         mockService.Verify(mn => mn.PublishAsync(
-            It.Is<PublishRequest>(r => 
+            It.Is<PublishRequest>(r =>
                 r.Subject == subject && r.TopicArn == topicArn && r.Message == message), CancellationToken.None), Times.Once);
     }
 }

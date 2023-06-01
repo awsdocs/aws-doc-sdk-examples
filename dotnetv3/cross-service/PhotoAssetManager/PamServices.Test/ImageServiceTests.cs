@@ -35,7 +35,7 @@ public class ImageServiceTests
         var service = new ImageService(mockService.Object);
 
         // Act.
-        var labels = await service.DetectLabels("keyName","bucketName");
+        var labels = await service.DetectLabels("keyName", "bucketName");
 
         // Assert.
         Assert.Equal(3, labels.Count);

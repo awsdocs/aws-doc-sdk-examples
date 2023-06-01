@@ -60,7 +60,7 @@ public class ApiController : ControllerBase
     public async Task<IActionResult> TestInsert(string label, string[] images)
     {
         await _labelService.CreateItem(new Label()
-        { LabelID = label, Images = images.ToList(), Count = images.Length});
+        { LabelID = label, Images = images.ToList(), Count = images.Length });
         return Ok();
     }
 

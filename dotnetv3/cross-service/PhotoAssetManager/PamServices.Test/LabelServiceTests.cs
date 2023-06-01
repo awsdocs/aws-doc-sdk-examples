@@ -23,7 +23,7 @@ public class LabelServiceTests
         // Arrange.
         var mockContext = new Mock<IDynamoDBContext>();
         var newLabel = new Label
-            { LabelID = "newLabel", Images = new List<string>() { "newLabelImage.jpg" } };
+        { LabelID = "newLabel", Images = new List<string>() { "newLabelImage.jpg" } };
 
         // Mock adding a new label.
         mockContext.Setup(mc =>
@@ -52,7 +52,7 @@ public class LabelServiceTests
         // Arrange.
         var mockContext = new Mock<IDynamoDBContext>();
         var mockScan = new Mock<AsyncSearch<Label>>();
-        var response = new List<Label> { new(){ LabelID = "BLabel" }, new() { LabelID = "ALabel" } };
+        var response = new List<Label> { new() { LabelID = "BLabel" }, new() { LabelID = "ALabel" } };
 
         // Only return the mock collection if there is no filter.
 
@@ -100,8 +100,8 @@ public class LabelServiceTests
 
         // Assert.
         mockContext.Verify(mc => mc.SaveAsync<Label>(
-            It.Is<Label>(l => 
-                l.LabelID == "label1" && l.Images.Count == 1 && l.Images.Contains("image1.jpg")), 
+            It.Is<Label>(l =>
+                l.LabelID == "label1" && l.Images.Count == 1 && l.Images.Contains("image1.jpg")),
             CancellationToken.None), Times.Once);
 
         mockContext.Verify(mc => mc.SaveAsync<Label>(
@@ -121,13 +121,13 @@ public class LabelServiceTests
         var mockContext = new Mock<IDynamoDBContext>();
 
         var imageName = "image2.jpg";
-        var labelsList = new List<string>() { "label1"};
+        var labelsList = new List<string>() { "label1" };
 
         // Mock adding a new label.
         mockContext.Setup(mc =>
             mc.LoadAsync<Label>(
                 It.Is<string>(k => k == "label1"),
-                CancellationToken.None)).ReturnsAsync(new Label(){LabelID = "label1", Images = new List<string>(){"image1.jpg"}});
+                CancellationToken.None)).ReturnsAsync(new Label() { LabelID = "label1", Images = new List<string>() { "image1.jpg" } });
 
         var service = new LabelService(mockContext.Object);
 
@@ -170,7 +170,7 @@ public class LabelServiceTests
         var service = new LabelService(mockContext.Object);
 
         // Act.
-        var images =await service.GetAllImagesForLabels(labelsList);
+        var images = await service.GetAllImagesForLabels(labelsList);
 
         // Assert.
         Assert.Contains("image1.jpg", images);

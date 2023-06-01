@@ -110,6 +110,6 @@ public class LabelService
     private async Task<Label> GetNewOrExistingLabelRecord(string labelKey)
     {
         var existingLabel = await _amazonDynamoDbContext.LoadAsync<Label>(labelKey);
-        return existingLabel ?? new Label { LabelID = labelKey, Images = new List<string>()};
+        return existingLabel ?? new Label { LabelID = labelKey, Images = new List<string>() };
     }
 }

@@ -56,7 +56,7 @@ public class Startup
             });
         }
 
-        app.UseCors(x => 
+        app.UseCors(x =>
             x.AllowAnyMethod()
             .AllowAnyHeader()
             .SetIsOriginAllowed(origin => true)
