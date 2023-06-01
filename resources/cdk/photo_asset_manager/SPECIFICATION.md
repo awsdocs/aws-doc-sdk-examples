@@ -93,7 +93,7 @@ API Gateway provides HTTP API routes for the Lambda integrations `LabelsFn`, `Up
 
 ### ⭐ Amazon Cognito
 
-A Amazon Cognito user pool is created via the AWS CDK, using the email address provided during deployment. A temporary password will be sent to that email address.
+An Amazon Cognito user pool is created via the AWS CDK, using the email address provided during deployment. A temporary password will be sent to that email address.
 
 ### ⭐ S3 buckets
 
