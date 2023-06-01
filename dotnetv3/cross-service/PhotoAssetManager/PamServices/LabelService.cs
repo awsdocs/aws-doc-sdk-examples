@@ -39,7 +39,7 @@ public class LabelService
     /// <summary>
     /// Get all items.
     /// </summary>
-    /// <returns>A collection of Labels.</returns>
+    /// <returns>A collection of Labels in alphabetical order.</returns>
     public async Task<IList<Label>> GetAllItems()
     {
         var scan = _amazonDynamoDbContext.FromScanAsync<Label>(
@@ -47,7 +47,7 @@ public class LabelService
         );
 
         var scanResponse = await scan.GetRemainingAsync();
-        return scanResponse;
+        return scanResponse.OrderBy(l => l.LabelID.ToLower()).ToList();
     }
 
     /// <summary>

@@ -52,7 +52,7 @@ public class LabelServiceTests
         // Arrange.
         var mockContext = new Mock<IDynamoDBContext>();
         var mockScan = new Mock<AsyncSearch<Label>>();
-        var response = new List<Label> { new Label(), new Label() };
+        var response = new List<Label> { new(){ LabelID = "BLabel" }, new() { LabelID = "ALabel" } };
 
         // Only return the mock collection if there is no filter.
 
@@ -71,6 +71,7 @@ public class LabelServiceTests
 
         // Assert.
         Assert.Equal(2, labels.Count);
+        Assert.True(labels.First().LabelID == "ALabel");
     }
 
     /// <summary>
