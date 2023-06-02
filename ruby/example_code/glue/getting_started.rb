@@ -36,8 +36,6 @@ class GlueCrawlerJobScenario
   def run(crawler_name, db_name, db_prefix, data_source, job_script, job_name)
     wrapper = GlueWrapper.new(@glue_client)
 
-    wrapper.upload_job_script(job_script, @glue_bucket)
-
     # Explain that script has been uploaded.
     # The script essentially reads flight data from a table,
     # performs some transformations and simplifications,
@@ -49,12 +47,11 @@ class GlueCrawlerJobScenario
     if crawler.nil?
       puts "Creating crawler #{crawler_name}."
       wrapper.create_crawler(crawler_name, @glue_service_role.arn, db_name, db_prefix, data_source)
-      puts "Created crawler #{crawler_name}."
+      puts "Successfully created #{crawler_name}:"
       crawler = wrapper.get_crawler(crawler_name)
+      puts JSON.pretty_generate(crawler).yellow
     end
-    pp crawler
     print "\nDone!\n".green
-    puts '-' * 88
 
     new_step(2, "Run a crawler to output a database")
     puts "When you run the crawler, it crawls data stored in #{data_source} and creates a metadata database in the AWS Glue Data Catalog that describes the data in the data source."
@@ -63,31 +60,31 @@ class GlueCrawlerJobScenario
     puts "Let's wait for the crawler to run. This typically takes a few minutes."
     crawler_state = nil
     while crawler_state != 'READY'
-      custom_wait(15)
+      custom_wait(30)
       crawler = wrapper.get_crawler(crawler_name)
       crawler_state = crawler['state']
-      puts "Crawler is #{crawler['state']}."
+      print "Status check: #{crawler['state']}.".yellow
     end
     print "\nDone!\n".green
-    puts '-' * 88
 
     new_step(3, "Query the database")
     database = wrapper.get_database(db_name)
     puts "The crawler created database #{db_name}:"
-    pp database
-    puts 'The database contains these tables:'
+    print "#{database}".yellow
+    puts "\nThe database contains these tables:"
     tables = wrapper.get_tables(db_name)
     tables.each_with_index do |table, index|
-      puts "\t#{index + 1}. #{table['name']}"
+      print "\t#{index + 1}. #{table['name']}".yellow
     end
     print "\nDone!\n".green
     puts '-' * 88
 
-    new_step(4, "Create a job definition")
-    puts "Creating job definition #{job_name}."
+    new_step(4, "Create a job definition that runs an ETL script")
+    puts "Uploading Python ETL script to S3..."
+    wrapper.upload_job_script(job_script, @glue_bucket)
+    puts "Creating job definition #{job_name}:\n"
     response = wrapper.create_job(job_name, 'Getting started example job.', @glue_service_role.arn, "s3://#{@glue_bucket.name}/#{job_script}")
-    puts "New job definition:\n"
-    pp response
+    puts JSON.pretty_generate(response).yellow
     print "\nDone!\n".green
 
 
@@ -110,7 +107,7 @@ class GlueCrawlerJobScenario
       custom_wait(10)
       job_run = wrapper.get_job_runs(job_name)
       job_run_status = job_run[0]['job_run_state']
-      puts "Job #{job_name}/#{job_run_id} is #{job_run_status}."
+      print "Status check: #{job_name}/#{job_run_id} - #{job_run_status}.".yellow
     end
     puts '-' * 88
 
@@ -122,7 +119,7 @@ class GlueCrawlerJobScenario
         # Print the key name of each object in the bucket.
         @glue_bucket.objects.each do |object_summary|
           if object_summary.key.include?('run-')
-            puts object_summary.key
+            print "#{object_summary.key}".yellow
           end
         end
 
@@ -130,11 +127,11 @@ class GlueCrawlerJobScenario
         desired_sample_objects = 1
         @glue_bucket.objects.each do |object_summary|
           if object_summary.key.include?('run-')
-            puts "Sample run file contents:\n"
             if desired_sample_objects > 0
               sample_object = @glue_bucket.object(object_summary.key)
               sample = sample_object.get(range: 'bytes=0-255').body.read
-              puts "Sample run file contents:\n#{sample}"
+              puts "\nSample run file contents:"
+              print "#{sample}".yellow
               desired_sample_objects -= 1
             end
           end
@@ -182,7 +179,6 @@ def main
   job_script_filepath = 'job_script.py'
   resource_names = YAML.load_file('resource_names.yaml')
 
-
   # Instantiate existing IAM role.
   iam = Aws::IAM::Resource.new(region: 'us-east-1')
   iam_role_name = resource_names['glue_service_role']
@@ -199,19 +195,18 @@ def main
     s3_bucket
   )
 
-  random_name = rand(10 ** 4)
-
+  random_int = rand(10 ** 4)
   scenario.run(
-    "doc-example-crawler-#{random_name}",
-    "doc-example-database-#{random_name}",
-    "doc-example-#{random_name}-",
+    "doc-example-crawler-#{random_int}",
+    "doc-example-database-#{random_int}",
+    "doc-example-#{random_int}-",
     's3://crawler-public-us-east-1/flight/2016/csv',
     job_script_filepath,
-    "doc-example-job-#{random_name}"
+    "doc-example-job-#{random_int}"
   )
 
   puts '-' * 88
-  puts "To destroy scaffold resources, including the IAM role and S3 bucket used in this scenario, run 'ruby scaffold.rb destroy'."
+  puts "To destroy scaffold resources, run cdk destroy'."
   puts "\nThanks for watching!"
   puts '-' * 88
 # rescue Exception => e
