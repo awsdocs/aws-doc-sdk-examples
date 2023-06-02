@@ -165,6 +165,13 @@ SNS topics are created using the AWS CDK. The `PrepareDownloadFn` Lambda publish
 # README
 
 Each implementation will include a README describing the language-specific details. While it should follow the [cross service README template](https://github.com/awsdocs/aws-doc-sdk-examples/wiki/single-cross-service-level-README-template), the content is left to the language writer in the best style for their language.
+  
+## Suggested Title
+> Create a photo asset management application with the AWS SDK for \<language\> (\<version\>)
+  
+### Suggested Overview
+> The Photo Asset Management (PAM) example app uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images. Those images are analyzed with label detection and the labels are stored in an Amazon DynamoDB table. Users can later request a bundle of images matching those labels. When images are requested, they will be retrieved from Amazon S3, zipped, and the user is sent a link to the zip.
+
 
 # Resources
 
