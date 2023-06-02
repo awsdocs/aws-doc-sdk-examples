@@ -2343,7 +2343,7 @@ s3_Scenario_PresignedUrl:
       versions:
         - sdk_version: 1
           github: kotlin/services/s3
-          sdkguide:
+          sdkguide: sdk-for-kotlin/latest/developer-guide/presign-requests.html
           excerpts:
             - description: Create a GetObject presigned request and use the URL to download an object.
               snippet_tags:
