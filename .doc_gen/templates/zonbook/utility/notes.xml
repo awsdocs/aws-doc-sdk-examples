@@ -3,7 +3,9 @@
 {{- $scenarios := index . 1}}
 {{- $crosses := index . 2}}
 {{- if $actions}}
-<para><emphasis>Actions</emphasis> are code excerpts from larger programs and must be run in context. While actions show you how to call individual service functions, you can see actions in context in their related scenarios and cross-service examples.</para>
+<para><emphasis>Actions</emphasis> are code excerpts from larger programs and must be run in context. While actions
+    show you how to call individual service functions, you can see actions in context in their related scenarios and
+    cross-service examples.</para>
 {{- end}}
 {{- if $scenarios}}
 <para><emphasis>Scenarios</emphasis> are code examples that show you how to accomplish a specific task by
