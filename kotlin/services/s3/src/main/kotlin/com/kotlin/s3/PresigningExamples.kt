@@ -42,7 +42,6 @@ import kotlin.time.Duration.Companion.hours
  * See https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup-basic-onetime-setup.html#setup-login-sso.
  */
 fun main(): Unit = runBlocking {
-
     val s3 = S3Client.fromEnvironment()
     val bucketName = UUID.randomUUID().toString()
     val keyName = "bar"
