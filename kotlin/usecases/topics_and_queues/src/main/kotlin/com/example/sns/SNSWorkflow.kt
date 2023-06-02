@@ -32,6 +32,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import java.util.Scanner
+import kotlin.system.exitProcess
 
 /**
 Before running this Kotlin code example, set up your development environment,
@@ -57,6 +58,18 @@ This Kotlin example performs these tasks:
 
 val DASHES: String = String(CharArray(80)).replace("\u0000", "-")
 suspend fun main(args: Array<String>) {
+
+    val usage = """
+        Usage: <accountId>
+    
+        Where:
+            accountId - The id of your AWS account. (You can obtain this value from the AWS Management Console.)
+        """
+
+    if (args.size != 1) {
+        println(usage)
+        exitProcess(0)
+    }
     val input = Scanner(System.`in`)
     val accountId = args[0]
     val useFIFO: String
