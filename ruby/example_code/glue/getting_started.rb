@@ -23,14 +23,15 @@ require_relative("../../helpers/waiters")
 require_relative('glue_wrapper')
 
 @logger = Logger.new($stdout)
-@logger.level = Logger::WARN
+# @logger.level = Logger::WARN
 
 # snippet-start:[ruby.example_code.glue.Scenario_GetStartedCrawlersJobs]
 class GlueCrawlerJobScenario
-  def initialize(glue_client, glue_service_role, glue_bucket)
+  def initialize(glue_client, glue_service_role, glue_bucket, logger)
     @glue_client = glue_client
     @glue_service_role = glue_service_role
     @glue_bucket = glue_bucket
+    @logger = logger
   end
 
   def run(crawler_name, db_name, db_prefix, data_source, job_script, job_name)
@@ -44,7 +45,7 @@ class GlueCrawlerJobScenario
     new_step(1, "Create a crawler")
     puts "Checking for crawler #{crawler_name}."
     crawler = wrapper.get_crawler(crawler_name)
-    if crawler.nil?
+    if crawler == false
       puts "Creating crawler #{crawler_name}."
       wrapper.create_crawler(crawler_name, @glue_service_role.arn, db_name, db_prefix, data_source)
       puts "Successfully created #{crawler_name}:"
@@ -53,21 +54,21 @@ class GlueCrawlerJobScenario
     end
     print "\nDone!\n".green
 
-    new_step(2, "Run a crawler to output a database")
+    new_step(2, "Run a crawler to output a database.")
     puts "When you run the crawler, it crawls data stored in #{data_source} and creates a metadata database in the AWS Glue Data Catalog that describes the data in the data source."
     puts "In this example, the source data is in CSV format."
     wrapper.start_crawler(crawler_name)
     puts "Let's wait for the crawler to run. This typically takes a few minutes."
     crawler_state = nil
     while crawler_state != 'READY'
-      custom_wait(30)
+      custom_wait(15)
       crawler = wrapper.get_crawler(crawler_name)
-      crawler_state = crawler['state']
-      print "Status check: #{crawler['state']}.".yellow
+      crawler_state = crawler[0]['state']
+      print "Status check: #{crawler_state}.".yellow
     end
     print "\nDone!\n".green
 
-    new_step(3, "Query the database")
+    new_step(3, "Query the database.")
     database = wrapper.get_database(db_name)
     puts "The crawler created database #{db_name}:"
     print "#{database}".yellow
@@ -79,7 +80,7 @@ class GlueCrawlerJobScenario
     print "\nDone!\n".green
     puts '-' * 88
 
-    new_step(4, "Create a job definition that runs an ETL script")
+    new_step(4, "Create a job definition that runs an ETL script.")
     puts "Uploading Python ETL script to S3..."
     wrapper.upload_job_script(job_script, @glue_bucket)
     puts "Creating job definition #{job_name}:\n"
@@ -111,7 +112,7 @@ class GlueCrawlerJobScenario
     end
     puts '-' * 88
 
-    new_step(6, "View results from a successful job run")
+    new_step(6, "View results from a successful job run.")
     if job_run_status == 'SUCCEEDED'
       puts "Data from your job run is stored in your S3 bucket '#{@glue_bucket.name}'. Files include:"
       begin
@@ -166,12 +167,13 @@ def main
   puts ""
   puts "You have launched a demo of AWS Glue using the AWS for Ruby v3 SDK. Over the next 60 seconds, it will"
   puts "do the following:"
-  puts "    1. Create a basic IAM role and policy for Lambda invocation."
-  puts "    2. Create a new Lambda function."
-  puts "    3. Invoke the Lambda function."
-  puts "    4. Update the Lambda function code."
-  puts "    5. Update the Lambda function configuration."
-  puts "    6. Destroy the Lambda function and associated IAM role."
+  puts "    1. Create a crawler."
+  puts "    2. Run a crawler to output a database."
+  puts "    3. Query the database."
+  puts "    4. Create a job definition that runs an ETL script."
+  puts "    5. Start a new job."
+  puts "    6. View results from a successful job run."
+  puts "    7. Delete job definition and crawler."
   puts ""
 
   confirm_begin
@@ -196,7 +198,8 @@ def main
   scenario = GlueCrawlerJobScenario.new(
     Aws::Glue::Client.new(region: 'us-east-1'),
     iam_role,
-    s3_bucket
+    s3_bucket,
+    @logger
   )
 
   random_int = rand(10 ** 4)

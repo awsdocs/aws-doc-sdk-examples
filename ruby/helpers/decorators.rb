@@ -4,9 +4,8 @@
 # frozen_string_literal: true
 require_relative "colorizer"
 
-def banner
-  Dir.chdir(File.dirname(__FILE__))
-  text = File.read("banner.txt")
+def banner(filepath)
+  text = File.read(filepath)
   puts text.red
 end
 

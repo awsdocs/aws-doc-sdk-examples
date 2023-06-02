@@ -24,7 +24,8 @@ class GlueWrapper
     @glue_client.get_crawler(name: name)
   rescue Aws::Glue::Errors::EntityNotFoundException
     @logger.info("Crawler #{name} doesn't exist.")
-  rescue StandardError => e
+    false
+  rescue Aws::Glue::Errors::GlueException => e
     @logger.error("Couldn't get crawler #{name}: \n#{e.message}")
     raise
   end
@@ -52,7 +53,7 @@ class GlueWrapper
         ]
       }
     )
-  rescue StandardError => e
+  rescue Aws::Glue::Errors::GlueException => e
     @logger.error("Couldn't create crawler: \n#{e.message}")
     raise
   end
@@ -65,7 +66,7 @@ class GlueWrapper
   # @return [void]
   def start_crawler(name)
     @glue_client.start_crawler(name: name)
-  rescue StandardError => e
+  rescue Aws::Glue::Errors::ServiceError => e
     @logger.error("Couldn't start crawler #{name}: \n#{e.message}")
     raise
   end
@@ -78,7 +79,7 @@ class GlueWrapper
   # @return [void]
   def delete_crawler(name)
     @glue_client.delete_crawler(name: name)
-  rescue StandardError => e
+  rescue Aws::Glue::Errors::ServiceError => e
     @logger.error("Couldn't delete crawler #{name}: \n#{e.message}")
     raise
   end
@@ -92,7 +93,7 @@ class GlueWrapper
   def get_database(name)
       response = @glue_client.get_database(name: name)
       response.database
-  rescue StandardError => e
+  rescue Aws::Glue::Errors::GlueException => e
     @logger.error("Couldn't get database #{name}: \n#{e.message}")
     raise
   end
@@ -106,7 +107,7 @@ class GlueWrapper
   def get_tables(db_name)
     response = @glue_client.get_tables(database_name: db_name)
     response.table_list
-  rescue StandardError => e
+  rescue Aws::Glue::Errors::GlueException => e
     @logger.error("Couldn't get tables #{db_name}: \n#{e.message}")
     raise
   end
@@ -132,7 +133,7 @@ class GlueWrapper
       },
       glue_version: '3.0'
     )
-  rescue StandardError => e
+  rescue Aws::Glue::Errors::GlueException => e
     @logger.error("Couldn't create job #{name}: \n#{e.message}")
     raise
   end
@@ -156,7 +157,7 @@ class GlueWrapper
       }
     )
     response.job_run_id
-  rescue StandardError => e
+  rescue Aws::Glue::Errors::GlueException => e
     @logger.error("Couldn't start job run #{name}: \n#{e.message}")
     raise
   end
@@ -168,7 +169,7 @@ class GlueWrapper
   # @return [Aws::Glue::Types::ListJobsResponse]
   def list_jobs
     @glue_client.list_jobs
-  rescue StandardError => e
+  rescue Aws::Glue::Errors::GlueException => e
     @logger.error("Couldn't list jobs: \n#{e.message}")
     raise
   end
@@ -182,7 +183,7 @@ class GlueWrapper
   def get_job_runs(job_name)
     response = @glue_client.get_job_runs(job_name: job_name)
     response.job_runs
-  rescue StandardError => e
+  rescue Aws::Glue::Errors::GlueException => e
     @logger.error("Couldn't get job runs: \n#{e.message}")
   end
   # snippet-end:[ruby.example_code.glue.GetJobRuns]
@@ -194,7 +195,7 @@ class GlueWrapper
   # @return [void]
   def delete_job(job_name)
     @glue_client.delete_job(job_name: job_name)
-  rescue StandardError => e
+  rescue Aws::Glue::Errors::ServiceError => e
     @logger.error("Couldn't delete job: \n#{e.message}")
   end
   # snippet-end:[ruby.example_code.glue.DeleteJob]
