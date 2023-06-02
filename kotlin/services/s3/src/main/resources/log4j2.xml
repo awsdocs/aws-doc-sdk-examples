@@ -8,7 +8,7 @@
         <Root level="INFO">
             <AppenderRef ref="Out"/>
         </Root>
-        <logger name="httpTraceMiddleware" level="DEBUG" additivity="false">
+        <logger name="httpTraceMiddleware" level="INFO" additivity="false">
             <AppenderRef ref="Out"/>
         </logger>
         <logger name="com.kotlin.s3.PresignTests" level="INFO" additivity="false">
