@@ -5,10 +5,10 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "LABELS_TABLE_NAME": "rachel-test-2-dotnet-PAM-PamTablesLabelsTable6998F453-M0I4CL0OLQ5X",
-        "NOTIFICATION_TOPIC": "arn:aws:sns:us-east-1:565846806325:rachel-test-2-dotnet-PAM-PamNotifier9D8DBE72-9VpA7pxGJXtG",
-        "STORAGE_BUCKET_NAME": "rachel-test-2-dotnet-pam-pambucketsstoragebucket0-xei4yh8y6l8q",
-        "WORKING_BUCKET_NAME": "rachel-test-2-dotnet-pam-pambucketsworkingbucket9-1rupthtir72se"
+        "LABELS_TABLE_NAME": "",
+        "NOTIFICATION_TOPIC": "",
+        "STORAGE_BUCKET_NAME": "",
+        "WORKING_BUCKET_NAME": ""
       },
       "applicationUrl": "https://localhost:64219;http://localhost:64220"
     },

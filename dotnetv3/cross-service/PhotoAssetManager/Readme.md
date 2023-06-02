@@ -53,14 +53,14 @@ The Visual Studio solution **PhotoAssetManager.sln** includes several projects w
 - **PamApi** - A Lambda Serverless Api project that includes an ApiController for the serverless endpoints, a swagger ui for development environments, and the separate Download and DetectLabels functions. 
   - This is the project that will be packaged and deployed when using the `dotnet` language option when setting up the CDK stack.
 - **PamApiAnnotations** - A [Lambda Annotations](https://github.com/aws/aws-lambda-dotnet/blob/master/Libraries/src/Amazon.Lambda.Annotations/README.md) project that includes a version of the serverless endpoints that use Lambda Annotations for .NET.
-  - This is the project that will be packaged and deployed when using the `dotnet_annotations` language option when setting up the CDK stack.
+  - This is the project that will be packaged and deployed when using the `dotnetla` language option when setting up the CDK stack.
 - **PamServices** - A C# library project that includes shared classes and custom services and business logic.
   - The services in this project are injected into the Api projects' dependency injection setup in the Startup.cs files.
 - **PamServices.Test** - An XUnit test project with unit tests for the PamServices project classes.
 
 ### Local development
-The PamApi projects include a Swagger integration and setup, with additional test endpoints that can be used for investigating the various application functionality.
-You can access this UI by running the project from Visual Studio in debug mode. 
+The PamApi project includes a Swagger integration and setup, with additional test endpoints that can be used for investigating the various application functionality.
+You can access this UI by running the `PamApi` project from Visual Studio in debug mode. 
 
 ![pam_api_swagger.png](pam_api_swagger.png)
 
@@ -70,6 +70,12 @@ For local development, you will also need to set the following environment varia
 * STORAGE_BUCKET_NAME
 * WORKING_BUCKET_NAME
 * NOTIFICATION_TOPIC
+
+For local debugging of the `PamApiAnnotations` project and the `Download` and 
+`DetectLabels` functions, you can use the [Mock Lambda Test Tool](https://github.com/aws/aws-lambda-dotnet/blob/master/Tools/LambdaTestTool/README.md).
+To run the tool for debugging, select the tool from the `Debug` menu in Visual Studio.
+
+![pam_mock_lambda.png](pam_mock_lambda.png)
 
 ## Delete the resources
 

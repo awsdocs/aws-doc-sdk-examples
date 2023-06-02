@@ -11,5 +11,6 @@
   "s3-prefix": "PamApiAnnotations/",
   "template": "serverless.template",
   "template-parameters": "",
-  "docker-host-build-output-dir": "./bin/Release/lambda-publish"
+  "docker-host-build-output-dir": "./bin/Release/lambda-publish",
+  "environment-variables": "LABELS_TABLE_NAME=value,STORAGE_BUCKET_NAME=value2,WORKING_BUCKET_NAME=value3,NOTIFICATION_TOPIC=value4"
 }

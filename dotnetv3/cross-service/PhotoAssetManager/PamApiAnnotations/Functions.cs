@@ -25,26 +25,14 @@ namespace PamApiAnnotations
             _labelService = labelService;
         }
 
-        /// <summary>
-        /// Root route that provides information about the other requests that can be made.
-        ///
-        /// PackageType is currently required to be set to LambdaPackageType.Image till the upcoming .NET 6 managed
-        /// runtime is available. Once the .NET 6 managed runtime is available PackageType will be optional and will
-        /// default to Zip.
-        /// </summary>
-        /// <returns>API descriptions.</returns>
-        [LambdaFunction()]
-        [HttpApi(LambdaHttpMethod.Get, "/")]
-        public string Default()
-        {
-            var docs = @"Annotations example.";
-            return docs;
-        }
-
         // GET /labels
+        /// <summary>
+        /// Get the list of all available image labels.
+        /// </summary>
+        /// <returns>A list of labels with counts.</returns>
         [LambdaFunction()]
         [HttpApi(LambdaHttpMethod.Get, "/labels")]
-        public async Task<LabelsResponse> Get()
+        public async Task<LabelsResponse> GetLabels()
         {
             var allLabels = await _labelService.GetAllItems();
             var response = new LabelsResponse(allLabels.ToList());
@@ -52,6 +40,11 @@ namespace PamApiAnnotations
         }
 
         // PUT /upload
+        /// <summary>
+        /// Prepare a presigned url for uploading an image.
+        /// </summary>
+        /// <param name="uploadRequest">Request including the filename of the image.</param>
+        /// <returns>The presigned upload url, valid for 5 minutes.</returns>
         [LambdaFunction()]
         [HttpApi(LambdaHttpMethod.Put, "/upload")]
         public UploadResponse Upload([FromBody] UploadRequest uploadRequest)
@@ -64,22 +57,5 @@ namespace PamApiAnnotations
             return response;
         }
 
-        /// <summary>
-        /// Perform x + y
-        ///
-        /// PackageType is currently required to be set to LambdaPackageType.Image till the upcoming .NET 6 managed
-        /// runtime is available. Once the .NET 6 managed runtime is available PackageType will be optional and will
-        /// default to Zip.
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns>Sum of x and y.</returns>
-        [LambdaFunction()]
-        [HttpApi(LambdaHttpMethod.Get, "/add/{x}/{y}")]
-        public int Add(int x, int y, ILambdaContext context)
-        {
-            context.Logger.LogInformation($"{x} plus {y} is {x + y}");
-            return x + y;
-        }
     }
 }

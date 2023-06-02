@@ -3,96 +3,6 @@
   "Transform": "AWS::Serverless-2016-10-31",
   "Description": "An AWS Serverless Application.",
   "Resources": {
-    "PamApiAnnotationsFunctionsDefaultGenerated": {
-      "Type": "AWS::Serverless::Function",
-      "Metadata": {
-        "Tool": "Amazon.Lambda.Annotations",
-        "SyncedEvents": [
-          "RootGet"
-        ]
-      },
-      "Properties": {
-        "Runtime": "dotnet6",
-        "CodeUri": ".",
-        "MemorySize": 256,
-        "Timeout": 30,
-        "Policies": [
-          "AWSLambdaBasicExecutionRole"
-        ],
-        "PackageType": "Zip",
-        "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_Default_Generated::Default",
-        "Events": {
-          "RootGet": {
-            "Type": "HttpApi",
-            "Properties": {
-              "Path": "/",
-              "Method": "GET",
-              "PayloadFormatVersion": "2.0"
-            }
-          }
-        }
-      }
-    },
-    "PamApiAnnotationsFunctionsGetGenerated": {
-      "Type": "AWS::Serverless::Function",
-      "Metadata": {
-        "Tool": "Amazon.Lambda.Annotations",
-        "SyncedEvents": [
-          "RootGet"
-        ]
-      },
-      "Properties": {
-        "Runtime": "dotnet6",
-        "CodeUri": ".",
-        "MemorySize": 256,
-        "Timeout": 30,
-        "Policies": [
-          "AWSLambdaBasicExecutionRole"
-        ],
-        "PackageType": "Zip",
-        "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_Get_Generated::Get",
-        "Events": {
-          "RootGet": {
-            "Type": "HttpApi",
-            "Properties": {
-              "Path": "/labels",
-              "Method": "GET",
-              "PayloadFormatVersion": "2.0"
-            }
-          }
-        }
-      }
-    },
-    "PamApiAnnotationsFunctionsAddGenerated": {
-      "Type": "AWS::Serverless::Function",
-      "Metadata": {
-        "Tool": "Amazon.Lambda.Annotations",
-        "SyncedEvents": [
-          "RootGet"
-        ]
-      },
-      "Properties": {
-        "Runtime": "dotnet6",
-        "CodeUri": ".",
-        "MemorySize": 256,
-        "Timeout": 30,
-        "Policies": [
-          "AWSLambdaBasicExecutionRole"
-        ],
-        "PackageType": "Zip",
-        "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_Add_Generated::Add",
-        "Events": {
-          "RootGet": {
-            "Type": "HttpApi",
-            "Properties": {
-              "Path": "/add/{x}/{y}",
-              "Method": "GET",
-              "PayloadFormatVersion": "2.0"
-            }
-          }
-        }
-      }
-    },
     "PamApiAnnotationsFunctionsUploadGenerated": {
       "Type": "AWS::Serverless::Function",
       "Metadata": {
@@ -151,6 +61,36 @@
         "Policies": [
           "AWSLambda_FullAccess"
         ]
+      }
+    },
+    "PamApiAnnotationsFunctionsGetLabelsGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootGet"
+        ]
+      },
+      "Properties": {
+        "Runtime": "dotnet6",
+        "CodeUri": ".",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "PackageType": "Zip",
+        "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_GetLabels_Generated::GetLabels",
+        "Events": {
+          "RootGet": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/labels",
+              "Method": "GET",
+              "PayloadFormatVersion": "2.0"
+            }
+          }
+        }
       }
     }
   },

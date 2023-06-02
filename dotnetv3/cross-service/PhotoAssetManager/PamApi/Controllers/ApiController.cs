@@ -1,19 +1,12 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Amazon.S3;
-using Amazon.S3.Model;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.SqlTypes;
-using System.Net.Mime;
-using System.Text.Json;
 using Amazon.Lambda.Core;
 using PamServices;
 
 namespace PamApi.Controllers;
 
-[Route("")]
 public class ApiController : ControllerBase
 {
     private readonly LabelService _labelService;
@@ -34,6 +27,11 @@ public class ApiController : ControllerBase
     }
 
     // PUT /upload
+    /// <summary>
+    /// Prepare a presigned url for uploading an image.
+    /// </summary>
+    /// <param name="uploadRequest">Request including the filename of the image.</param>
+    /// <returns>The presigned upload url, valid for 5 minutes.</returns>
     [HttpPut("upload")]
     public IActionResult Upload([FromBody] UploadRequest uploadRequest)
     {
@@ -46,6 +44,10 @@ public class ApiController : ControllerBase
     }
 
     // GET /labels
+    /// <summary>
+    /// Get the list of all available image labels.
+    /// </summary>
+    /// <returns>A list of labels with counts.</returns>
     [HttpGet("labels")]
     public async Task<IActionResult> Get()
     {
@@ -56,6 +58,12 @@ public class ApiController : ControllerBase
     }
 
     // GET /test-insert
+    /// <summary>
+    /// Test an insert with a label and image list.
+    /// </summary>
+    /// <param name="label">The label to add.</param>
+    /// <param name="images">The image names for the label.</param>
+    /// <returns>An OK result.</returns>
     [HttpGet("test-insert")]
     public async Task<IActionResult> TestInsert(string label, string[] images)
     {
@@ -65,6 +73,12 @@ public class ApiController : ControllerBase
     }
 
     // GET /test-detect
+    /// <summary>
+    /// Test a detect operation with an S3 bucket and image key.
+    /// </summary>
+    /// <param name="bucket">The S3 bucket of the image.</param>
+    /// <param name="key">The image key.</param>
+    /// <returns>An OK result.</returns>
     [HttpGet("test-detect")]
     public async Task<IActionResult> TestDetect(string bucket, string key)
     {

@@ -139,7 +139,7 @@ export const STRATEGIES: Record<string, PamLambdasStrategy> = {
   java: JAVA_LAMBDAS_STRATEGY,
   python: PYTHON_LAMBDAS_STRATEGY,
   dotnet: DOTNET_LAMBDAS_STRATEGY,
-  dotnet_annotations: DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY,
+  dotnetla: DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY,
   empty: EMPTY_LAMBDAS_STRATEGY,
 };
 
