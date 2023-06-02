@@ -1,4 +1,5 @@
 require 'aws-sdk-glue'
+require 'aws-sdk-s3'
 
 class GlueWrapper
   def initialize(glue_client)
@@ -122,4 +123,21 @@ class GlueWrapper
       puts "Couldn't get job runs. Here's why: #{e.message}"
     end
   end
+
+  def upload_job_script(file_path, bucket_resource)
+    begin
+      File.open(file_path) do |file|
+        bucket_resource.client.put_object({
+         body: file,
+         bucket: bucket_resource.name,
+         key: file_path
+       })
+      end
+      puts "Uploaded job script '#{file_path}' to the example bucket."
+    rescue Aws::S3::Errors::S3UploadFailedError => e
+      puts "Couldn't upload job script. Here's why: #{e.message}"
+      raise
+    end
+  end
+
 end

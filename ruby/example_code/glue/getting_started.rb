@@ -1,3 +1,12 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+
+# frozen_string_literal: true
+
+# To run this demo, you will need Ruby 2.6 or later, plus dependencies.
+# For more information, see:
+# https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/ruby/README.md
+
 require 'aws-sdk-glue'
 require 'aws-sdk-iam'
 require 'aws-sdk-s3'
@@ -8,7 +17,9 @@ require 'optparse'
 require 'cli/ui'
 require 'yaml'
 require 'pry'
-
+require_relative("../../helpers/disclaimers")
+require_relative("../../helpers/decorators")
+require_relative("../../helpers/waiters")
 require_relative('glue_wrapper')
 
 @logger = Logger.new($stdout)
@@ -22,36 +33,17 @@ class GlueCrawlerJobScenario
     @glue_bucket = glue_bucket
   end
 
-  def wait(seconds, tick = 12)
-    progress = '|/-\\'
-    waited = 0
-    while waited < seconds
-      tick.times do |frame|
-        print "\r#{progress[frame % progress.length]}"
-        sleep(1.0 / tick)
-      end
-      waited += 1
-    end
-  end
-
-  def upload_job_script(file_path)
-    begin
-      File.open(file_path) do |file|
-      @glue_bucket.client.put_object({
-        body: file_path,
-        bucket: @glue_bucket.name,
-        key: file_path
-      })
-      end
-      puts "Uploaded job script '#{file_path}' to the example bucket."
-    rescue Aws::S3::Errors::S3UploadFailedError => e
-      puts "Couldn't upload job script. Here's why: #{e.message}"
-      raise
-    end
-  end
-
   def run(crawler_name, db_name, db_prefix, data_source, job_script, job_name)
     wrapper = GlueWrapper.new(@glue_client)
+
+    wrapper.upload_job_script(job_script, @glue_bucket)
+
+    # Explain that script has been uploaded.
+    # The script essentially reads flight data from a table,
+    # performs some transformations and simplifications,
+    # and writes the transformed data to an S3 bucket.
+
+    new_step(1, "Create a crawler")
     puts "Checking for crawler #{crawler_name}."
     crawler = wrapper.get_crawler(crawler_name)
     if crawler.nil?
@@ -61,77 +53,161 @@ class GlueCrawlerJobScenario
       crawler = wrapper.get_crawler(crawler_name)
     end
     pp crawler
+    print "\nDone!\n".green
     puts '-' * 88
 
+    new_step(2, "Run a crawler to output a database")
     puts "When you run the crawler, it crawls data stored in #{data_source} and creates a metadata database in the AWS Glue Data Catalog that describes the data in the data source."
     puts "In this example, the source data is in CSV format."
-    ready = false
-    until ready
-      print 'Ready to start the crawler? (y/n) '
-      ready = is_yesno(gets.chomp)
-    end
     wrapper.start_crawler(crawler_name)
     puts "Let's wait for the crawler to run. This typically takes a few minutes."
     crawler_state = nil
     while crawler_state != 'READY'
-      wait(10)
+      custom_wait(15)
       crawler = wrapper.get_crawler(crawler_name)
-      crawler_state = crawler['State']
-      puts "Crawler is #{crawler['State']}."
+      crawler_state = crawler['state']
+      puts "Crawler is #{crawler['state']}."
     end
+    print "\nDone!\n".green
     puts '-' * 88
 
+    new_step(3, "Query the database")
     database = wrapper.get_database(db_name)
     puts "The crawler created database #{db_name}:"
     pp database
     puts 'The database contains these tables:'
     tables = wrapper.get_tables(db_name)
     tables.each_with_index do |table, index|
-      puts "\t#{index + 1}. #{table['Name']}"
+      puts "\t#{index + 1}. #{table['name']}"
     end
-    table_index = 0
-    until table_index.between?(1, tables.length)
-      print 'Enter the number of a table to see more detail: '
-      table_index = gets.chomp.to_i
-    end
-    pp tables[table_index - 1]
+    print "\nDone!\n".green
     puts '-' * 88
 
+    new_step(4, "Create a job definition")
     puts "Creating job definition #{job_name}."
-    wrapper.create_job(job_name, 'Getting started example job.', @glue_service_role.arn, "s3://#{@glue_bucket.name}/#{job_script}")
-    puts 'Created job definition.'
+    response = wrapper.create_job(job_name, 'Getting started example job.', @glue_service_role.arn, "s3://#{@glue_bucket.name}/#{job_script}")
+    puts "New job definition:\n"
+    pp response
+    print "\nDone!\n".green
+
+
+    # puts "When you run the job, it extracts data from #{data_source}, transforms it " \
+    #  "by using the #{job_script} script, and loads the output into " \
+    #  "S3 bucket #{self.glue_bucket.name}."
+    # puts "In this example, the data is transformed from CSV to JSON, and only a few " \
+    #  "fields are included in the output."
+
+    new_step(5, "Start a new job")
+    job_run_status = nil
+    job_run_id = wrapper.start_job_run(
+      job_name,
+      db_name,
+      tables[0]['name'],
+      @glue_bucket.name
+    )
+    puts "Job #{job_name} started. Let's wait for it to run."
+    until ['SUCCEEDED', 'STOPPED', 'FAILED', 'TIMEOUT'].include?(job_run_status)
+      custom_wait(10)
+      job_run = wrapper.get_job_runs(job_name)
+      job_run_status = job_run[0]['job_run_state']
+      puts "Job #{job_name}/#{job_run_id} is #{job_run_status}."
+    end
+    puts '-' * 88
+
+    new_step(6, "View results from a successful job run")
+    if job_run_status == 'SUCCEEDED'
+      puts "Data from your job run is stored in your S3 bucket '#{@glue_bucket.name}'. Files include:"
+      begin
+
+        # Print the key name of each object in the bucket.
+        @glue_bucket.objects.each do |object_summary|
+          if object_summary.key.include?('run-')
+            puts object_summary.key
+          end
+        end
+
+        # Print the first 256 bytes of a run file
+        desired_sample_objects = 1
+        @glue_bucket.objects.each do |object_summary|
+          if object_summary.key.include?('run-')
+            puts "Sample run file contents:\n"
+            if desired_sample_objects > 0
+              sample_object = @glue_bucket.object(object_summary.key)
+              sample = sample_object.get(range: 'bytes=0-255').body.read
+              puts "Sample run file contents:\n#{sample}"
+              desired_sample_objects -= 1
+            end
+          end
+        end
+      rescue Aws::S3::Errors::ServiceError => e
+        logger.error(
+          "Couldn't get job run data. Here's why: %s: %s",
+          e.response.error.code, e.response.error.message
+        )
+        raise
+      end
+    end
+
+    puts '-' * 88
+
   end
 
 end
 def main
-  puts '-' * 88
-  puts "Welcome to the AWS Glue getting started with crawlers and jobs scenario."
-  puts '-' * 88
 
-  resource_names = YAML.load_file('resource_names.yaml')
+  banner('../../helpers/banner.txt')
+  puts "######################################################################################################".yellow
+  puts "#                                                                                                    #".yellow
+  puts "#                                          EXAMPLE CODE DEMO:                                        #".yellow
+  puts "#                                              AWS Glue                                              #".yellow
+  puts "#                                                                                                    #".yellow
+  puts "######################################################################################################".yellow
+  puts ""
+  puts "You have launched a demo of AWS Glue using the AWS for Ruby v3 SDK. Over the next 60 seconds, it will"
+  puts "do the following:"
+  puts "    1. Create a basic IAM role and policy for Lambda invocation."
+  puts "    2. Create a new Lambda function."
+  puts "    3. Invoke the Lambda function."
+  puts "    4. Update the Lambda function code."
+  puts "    5. Update the Lambda function configuration."
+  puts "    6. Destroy the Lambda function and associated IAM role."
+  puts ""
+
+  confirm_begin
+  billing
+  security
+  puts "\e[H\e[2J"
+
+  # Set input file names
   job_script_filepath = 'job_script.py'
+  resource_names = YAML.load_file('resource_names.yaml')
 
-  glue_client = Aws::Glue::Client.new(region: 'us-east-1')
 
+  # Instantiate existing IAM role.
   iam = Aws::IAM::Resource.new(region: 'us-east-1')
   iam_role_name = resource_names['glue_service_role']
   iam_role = iam.role(iam_role_name)
 
+  # Instantiate existing S3 bucket.
   s3 = Aws::S3::Resource.new(region: 'us-east-1')
   s3_bucket_name = resource_names['glue_bucket']
   s3_bucket = s3.bucket(s3_bucket_name)
 
-  scenario = GlueCrawlerJobScenario.new(glue_client, iam_role, s3_bucket)
+  scenario = GlueCrawlerJobScenario.new(
+    Aws::Glue::Client.new(region: 'us-east-1'),
+    iam_role,
+    s3_bucket
+  )
 
-  scenario.upload_job_script(job_script_filepath)
+  random_name = rand(10 ** 4)
 
   scenario.run(
-    'doc-example-crawler',
-    'doc-example-database',
-    'doc-example-',
+    "doc-example-crawler-#{random_name}",
+    "doc-example-database-#{random_name}",
+    "doc-example-#{random_name}-",
     's3://crawler-public-us-east-1/flight/2016/csv',
     job_script_filepath,
-    'doc-example-job'
+    "doc-example-job-#{random_name}"
   )
 
   puts '-' * 88
