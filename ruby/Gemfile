@@ -21,4 +21,3 @@ gem "sinatra"
 gem 'sequel'
 gem 'rack'
 gem 'rack-test'
-gem 'optparse'

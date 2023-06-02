@@ -54,7 +54,7 @@ Set up the AWS resources needed to run this example as follows:
 2. Populate your database with a table and data using the following commands:
      ```bash
      cd ruby/cross_service_examples/item-tracker/helpers
-     ruby scaffold.rb # Checks for database and creates a new table.
+     ruby create_table.rb # Checks for database and creates a new table.
      ruby populate_data.rb # Creates a table with 10 records.
      ```
 3. Register your email address with Amazon Simple Email Service (SES) using the instructions in [Creating and verifying identities in Amazon SES](https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html).
