@@ -34,7 +34,7 @@ class GlueCrawlerJobScenario
   end
 
   def run(crawler_name, db_name, db_prefix, data_source, job_script, job_name)
-    wrapper = GlueWrapper.new(@glue_client)
+    wrapper = GlueWrapper.new(@glue_client, @logger)
 
     # Explain that script has been uploaded.
     # The script essentially reads flight data from a table,
@@ -144,6 +144,10 @@ class GlueCrawlerJobScenario
         raise
       end
     end
+
+    new_step(7, "Delete job definition and crawler.")
+    wrapper.delete_job(job_name)
+    wrapper.delete_crawler(crawler_name)
 
     puts '-' * 88
 
