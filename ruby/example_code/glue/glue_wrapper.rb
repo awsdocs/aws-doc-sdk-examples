@@ -1,6 +1,6 @@
-require 'aws-sdk-glue'
-require 'aws-sdk-s3'
-require 'logger'
+require "aws-sdk-glue"
+require "aws-sdk-s3"
+require "logger"
 
 # snippet-start:[ruby.example_code.glue.GlueWrapper.full]
 # snippet-start:[ruby.example_code.glue.GlueWrapper.decl]
@@ -91,11 +91,11 @@ class GlueWrapper
   # @param name [String] The name of the database to retrieve information about.
   # @return [Aws::Glue::Types::Database, nil] The database object if found, or nil if not found.
   def get_database(name)
-      response = @glue_client.get_database(name: name)
-      response.database
-  rescue Aws::Glue::Errors::GlueException => e
-    @logger.error("Couldn't get database #{name}: \n#{e.message}")
-    raise
+    response = @glue_client.get_database(name: name)
+    response.database
+rescue Aws::Glue::Errors::GlueException => e
+  @logger.error("Couldn't get database #{name}: \n#{e.message}")
+  raise
   end
   # snippet-end:[ruby.example_code.glue.GetDatabase]
 
@@ -127,11 +127,11 @@ class GlueWrapper
       description: description,
       role: role_arn,
       command: {
-        name: 'glueetl',
+        name: "glueetl",
         script_location: script_location,
-        python_version: '3'
+        python_version: "3"
       },
-      glue_version: '3.0'
+      glue_version: "3.0"
     )
   rescue Aws::Glue::Errors::GlueException => e
     @logger.error("Couldn't create job #{name}: \n#{e.message}")
