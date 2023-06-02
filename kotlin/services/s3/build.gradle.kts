@@ -39,3 +39,4 @@ tasks.withType<KotlinCompile>() {
 tasks.test {
     useJUnitPlatform()
 }
+
