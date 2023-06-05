@@ -54,7 +54,7 @@ While developing this example, we have kept two other personas in mind:
 
 # Development / deployment
 
-Refer to [README.md](README.md) for deployment instructions and [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on modifying the AWS CDK script.
+Refer to [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on modifying the AWS CDK script and [README.md](README.md) for deployment instructions.
 
 # Frontend
 
