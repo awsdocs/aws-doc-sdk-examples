@@ -1,5 +1,5 @@
 def custom_wait(seconds, tick = 12)
-  progress = '|/-\\'
+  progress = "|/-\\"
   waited = 0
   while waited < seconds
     tick.times do |frame|
