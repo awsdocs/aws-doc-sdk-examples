@@ -42,7 +42,7 @@ public class ECSTests
     }
 
     /// <summary>
-    /// List the metrics. Should not be null.
+    /// List the clusters. Should not be null.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]
