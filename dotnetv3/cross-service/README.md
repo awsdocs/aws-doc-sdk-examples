@@ -17,7 +17,7 @@ using the AWS SDK for .NET.
 
 ### [Serverless photo asset management application](PhotoAssetManager/Readme.md)
 
-Create a Photo Asset Management (PAM) example app that uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images. Those images are analyzed with label detection and the labels are stored in an Amazon DynamoDB table. Users can later request a bundle of images matching those labels. When images are requested, they will be retrieved from Amazon S3, zipped, and the user is sent a link to the zip.
+Create a Photo Asset Management (PAM) example app that uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images. Those images are analyzed with label detection and the labels are stored in an Amazon DynamoDB table. Users can later request a bundle of images matching those labels. When images are requested, they are retrieved from Amazon S3, zipped, and the user is sent a link to the zip.
 
 The application uses the following services:
 

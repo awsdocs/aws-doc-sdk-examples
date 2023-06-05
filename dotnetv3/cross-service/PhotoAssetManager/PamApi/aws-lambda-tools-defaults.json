@@ -12,7 +12,7 @@
     "s3-prefix"     : "PamApi/",
     "template"      : "serverless.template",
     "template-parameters" : "",
-    "s3-bucket"           : "cdk-hnb659fds-assets-565846806325-us-east-1",
-    "stack-name"          : "PAM-dotnet-api-test-4",
+    "s3-bucket"           : "",
+    "stack-name"          : "",
     "environment-variables" : "LABELS_TABLE_NAME=value,STORAGE_BUCKET_NAME=value2,WORKING_BUCKET_NAME=value3,NOTIFICATION_TOPIC=value4"
 }

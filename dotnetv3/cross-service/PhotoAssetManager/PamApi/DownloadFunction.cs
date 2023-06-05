@@ -56,7 +56,7 @@ public class DownloadFunction
     }
 
     /// <summary>
-    /// Starts the download and zip operation
+    /// Starts the download and zip operation.
     /// </summary>
     /// <param name="input">The string input.</param>
     /// <param name="context">The Lambda context.</param>
