@@ -16,7 +16,6 @@ require "logger"
 require "optparse"
 require "cli/ui"
 require "yaml"
-# require "pry"
 require_relative("../../../helpers/disclaimers")
 require_relative("../../../helpers/decorators")
 require_relative("../../../helpers/waiters")
@@ -167,3 +166,5 @@ describe GlueWrapper do
     end
   end
 end
+# snippet-end:[ruby.example_code.glue.Scenario_GetStartedCrawlersJobs]
+
