@@ -15,7 +15,7 @@ struct Opt {
     #[structopt(short, long)]
     region: Option<String>,
 
-    /// The ID of the instance to stop.
+    /// The ID of the instance to start.
     #[structopt(short, long)]
     instance_id: String,
 
