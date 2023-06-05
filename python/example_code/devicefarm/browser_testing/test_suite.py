@@ -157,7 +157,7 @@ class TestHelloSuite:
             pytest.param("Covered Bridges Today", "Covered Bridges Today"),
             pytest.param("Kurt Godel", "Kurt Gödel"),
             pytest.param("N//ng language", "Nǁng language"),
-            pytest.param("Who the Fuck Is Jackson Pollock?", "Who the $&% Is Jackson Pollock?")
+            pytest.param("Who the Frick Is Jackson Pollock?", "Who the $&% Is Jackson Pollock?")
         ])
     def test_redirect_titles(self, query, expected):
         """

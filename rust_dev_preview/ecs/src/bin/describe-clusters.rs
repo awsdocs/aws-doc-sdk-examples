@@ -3,11 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ecs::{Error, Region, PKG_VERSION};
-use structopt::StructOpt;
+#![allow(clippy::result_large_err)]
 
-#[derive(Debug, StructOpt)]
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_ecs::{config::Region, meta::PKG_VERSION, Error};
+use clap::Parser;
+
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -50,7 +52,7 @@ async fn show_clusters(client: &aws_sdk_ecs::Client) -> Result<(), aws_sdk_ecs::
 /// * `[-v]` - Whether to display additional information.
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let Opt { region, verbose } = Opt::from_args();
+    let Opt { region, verbose } = Opt::parse();
 
     if verbose {
         tracing_subscriber::fmt::init();

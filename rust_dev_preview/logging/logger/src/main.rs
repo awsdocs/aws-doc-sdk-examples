@@ -2,12 +2,15 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0.
  */
+
+#![allow(clippy::result_large_err)]
+
 // snippet-start:[logging.rust.main]
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_dynamodb::{Client, Error, Region, PKG_VERSION};
-use structopt::StructOpt;
+use aws_sdk_dynamodb::{config::Region, meta::PKG_VERSION, Client, Error};
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -24,7 +27,7 @@ async fn main() -> Result<(), Error> {
     env_logger::init();
     // snippet-end:[logging.rust.main-logger-init]
 
-    let Opt { region, verbose } = Opt::from_args();
+    let Opt { region, verbose } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

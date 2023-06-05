@@ -10,7 +10,6 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.s3_scenario.import]
-import java.io.FileInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -73,7 +72,6 @@ import software.amazon.awssdk.services.s3.model.CopyObjectResponse;
 public class S3Scenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws IOException {
-
         final String usage = "\n" +
             "Usage:\n" +
             "    <bucketName> <key> <objectPath> <savePath> <toBucket>\n\n" +
@@ -154,7 +152,7 @@ public class S3Scenario {
         s3.close();
     }
 
-    // Create a bucket by using a S3Waiter object
+    // Create a bucket by using a S3Waiter object.
     public static void createBucket( S3Client s3Client, String bucketName) {
         try {
             S3Waiter s3Waiter = s3Client.waiter();
@@ -188,11 +186,11 @@ public class S3Scenario {
     }
 
     /**
-     * Upload an object in parts
+     * Upload an object in parts.
      */
-    private static void multipartUpload(S3Client s3, String bucketName, String key) {
+    public static void multipartUpload(S3Client s3, String bucketName, String key) {
         int mB = 1024 * 1024;
-        // First create a multipart upload and get the upload id
+        // First create a multipart upload and get the upload id.
         CreateMultipartUploadRequest createMultipartUploadRequest = CreateMultipartUploadRequest.builder()
             .bucket(bucketName)
             .key(key)
@@ -202,7 +200,7 @@ public class S3Scenario {
         String uploadId = response.uploadId();
         System.out.println(uploadId);
 
-        // Upload all the different parts of the object
+        // Upload all the different parts of the object.
         UploadPartRequest uploadPartRequest1 = UploadPartRequest.builder()
             .bucket(bucketName)
             .key(key)
@@ -240,31 +238,6 @@ public class S3Scenario {
         return ByteBuffer.wrap(b);
     }
 
-    // Return a byte array
-    private static byte[] getObjectFile(String filePath) {
-        FileInputStream fileInputStream = null;
-        byte[] bytesArray = null;
-
-        try {
-            File file = new File(filePath);
-            bytesArray = new byte[(int) file.length()];
-            fileInputStream = new FileInputStream(file);
-            fileInputStream.read(bytesArray);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fileInputStream != null) {
-                try {
-                    fileInputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return bytesArray;
-    }
-
     public static void getObjectBytes (S3Client s3, String bucketName, String keyName, String path ) {
         try {
             GetObjectRequest objectRequest = GetObjectRequest
@@ -298,11 +271,10 @@ public class S3Scenario {
             .key(key)
             .build();
 
-        s3.putObject(objectRequest, RequestBody.fromBytes(getObjectFile(objectPath)));
+        s3.putObject(objectRequest, RequestBody.fromFile(new File(objectPath)));
     }
 
     public static void listAllObjects(S3Client s3, String bucketName) {
-
         ListObjectsV2Request listObjectsReqManual = ListObjectsV2Request.builder()
             .bucket(bucketName)
             .maxKeys(1)
@@ -326,7 +298,6 @@ public class S3Scenario {
     }
 
     public static void anotherListExample(S3Client s3, String bucketName) {
-
        ListObjectsV2Request listReq = ListObjectsV2Request.builder()
            .bucket(bucketName)
            .maxKeys(1)
@@ -334,12 +305,12 @@ public class S3Scenario {
 
        ListObjectsV2Iterable listRes = s3.listObjectsV2Paginator(listReq);
 
-       // Process response pages
+       // Process response pages.
        listRes.stream()
            .flatMap(r -> r.contents().stream())
            .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
 
-        // Helper method to work with paginated collection of items directly
+        // Helper method to work with paginated collection of items directly.
         listRes.contents().stream()
             .forEach(content -> System.out.println(" Key: " + content.key() + " size = " + content.size()));
 
@@ -348,9 +319,7 @@ public class S3Scenario {
         }
     }
 
-
     public static void deleteObjectFromBucket(S3Client s3, String bucketName, String key) {
-
         DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
             .bucket(bucketName)
             .key(key)
@@ -361,7 +330,6 @@ public class S3Scenario {
     }
 
     public static String copyBucketObject (S3Client s3, String fromBucket, String objectKey, String toBucket) {
-
         String encodedUrl = null;
         try {
             encodedUrl = URLEncoder.encode(fromBucket + "/" + objectKey, StandardCharsets.UTF_8.toString());
@@ -383,10 +351,8 @@ public class S3Scenario {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-
         return "";
     }
 }
-
 // snippet-end:[s3.java2.s3_scenario.main]
 

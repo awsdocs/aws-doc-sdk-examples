@@ -141,7 +141,7 @@ comprehend_Usage_ComprehendClassifier:
     - Create an &CMP; multi-label classifier.
     - Train the classifier on sample data.
     - Run a classification job on a second set of data.
-    - Extract the job output data from &S3long; (&S3;).
+    - Extract the job output data from &S3;.
   category: Scenarios
   languages:
     Python:
@@ -382,9 +382,7 @@ comprehend_Usage_DetectApis:
   title: Detect document elements with &CMP; and an &AWS; SDK
   title_abbrev: Detect document elements
   synopsis_list:
-    - Detect languages in a document.
-    - Detect entities in a document.
-    - Detect key phrases in a document.
+    - Detect languages, entities, and key phrases in a document.
     - Detect personally identifiable information (PII) in a document.
     - Detect the sentiment of a document.
     - Detect syntax elements in a document.
@@ -482,7 +480,7 @@ comprehend_Usage_TopicModeler:
   synopsis_list:
     - Run an &CMP; topic modeling job on sample data.
     - Get information about the job.
-    - Extract job output data from &S3long; (&S3;).
+    - Extract job output data from &S3;.
   category: Scenarios
   languages:
     Python:

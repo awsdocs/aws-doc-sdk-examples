@@ -1,10 +1,10 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX - License - Identifier: Apache - 2.0
 
-require_relative "../cw-ruby-example-send-events-ec2"
+require_relative "../show_alarms"
 require "rspec"
 
-describe "#topic_exists?", :integ do
+describe "#topic_exists?", :quarantine do
   let(:topic_arn) { "arn:aws:sns:us-east-1:111111111111:aws-doc-sdk-examples-topic" }
   let(:sns_client) do
     Aws::SNS::Client.new(
@@ -25,7 +25,7 @@ describe "#topic_exists?", :integ do
   end
 end
 
-describe "#create_topic", :integ do
+describe "#create_topic", :quarantine do
   let(:topic_name) { "aws-doc-sdk-examples-topic" }
   let(:email_address) { "mary@example.com" }
   let(:topic_arn) { "arn:aws:sns:us-east-1:111111111111:#{topic_name}" }
@@ -49,7 +49,7 @@ describe "#create_topic", :integ do
   end
 end
 
-describe "#role_exists?", :integ do
+describe "#role_exists?", :quarantine do
   let(:role_name) { "aws-doc-sdk-examples-cloudwatch-events-rule-role" }
   let(:role_arn) { "arn:aws:iam::111111111111:role/#{role_name}" }
   let(:iam_client) do
@@ -75,7 +75,7 @@ describe "#role_exists?", :integ do
   end
 end
 
-describe "#create_role", :integ do
+describe "#create_role", :quarantine do
   let(:role_name) { "aws-doc-sdk-examples-cloudwatch-events-rule-role" }
   let(:role_arn) { "arn:aws:iam::111111111111:role/#{role_name}" }
   let(:iam_client) do
@@ -101,7 +101,7 @@ describe "#create_role", :integ do
   end
 end
 
-describe "#rule_exists?", :integ do
+describe "#rule_exists?", :quarantine do
   let(:rule_name) { "aws-doc-sdk-examples-ec2-state-change" }
   let(:cloudwatchevents_client) do
     Aws::CloudWatchEvents::Client.new(
@@ -124,7 +124,7 @@ describe "#rule_exists?", :integ do
   end
 end
 
-describe "#rule_created?", :integ do
+describe "#rule_created?", :quarantine do
   let(:rule_name) { "aws-doc-sdk-examples-ec2-state-change" }
   let(:rule_description) { "Triggers when any available EC2 instance starts." }
   let(:instance_state) { "running" }
@@ -157,7 +157,7 @@ describe "#rule_created?", :integ do
   end
 end
 
-describe "#log_group_exists?", :integ do
+describe "#log_group_exists?", :quarantine do
   let(:log_group_name) { "aws-doc-sdk-examples-cloudwatch-log" }
   let(:cloudwatchlogs_client) do
     Aws::CloudWatchLogs::Client.new(
@@ -178,7 +178,7 @@ describe "#log_group_exists?", :integ do
   end
 end
 
-describe "#log_group_created?", :integ do
+describe "#log_group_created?", :quarantine do
   let(:log_group_name) { "aws-doc-sdk-examples-cloudwatch-log" }
   let(:cloudwatchlogs_client) do
     Aws::CloudWatchLogs::Client.new(
@@ -195,7 +195,7 @@ describe "#log_group_created?", :integ do
   end
 end
 
-describe "#log_event", :integ do
+describe "#log_event", :quarantine do
   let(:log_group_name) { "aws-doc-sdk-examples-cloudwatch-log" }
   let(:log_stream_name) { "#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/" \
     "#{SecureRandom.uuid}"
@@ -225,7 +225,7 @@ describe "#log_event", :integ do
   end
 end
 
-describe "#instance_restarted?", :integ do
+describe "#instance_restarted?", :quarantine do
   let(:instance_id) { "i-033c48ef067af3dEX" }
   let(:log_group_name) { "aws-doc-sdk-examples-cloudwatch-log" }
   let(:ec2_client) do
@@ -308,7 +308,7 @@ describe "#instance_restarted?", :integ do
   end
 end
 
-describe "#display_rule_activity", :integ do
+describe "#display_rule_activity", :quarantine do
   let(:rule_name) { "aws-doc-sdk-examples-ec2-state-change" }
   let(:start_time) { Time.now - 600 }
   let(:end_time) { Time.now }
@@ -345,7 +345,7 @@ describe "#display_rule_activity", :integ do
   end
 end
 
-describe "#display_log_data", :integ do
+describe "#display_log_data", :quarantine do
   let(:log_group_name) { "aws-doc-sdk-examples-cloudwatch-log" }
   let(:log_stream_name) { "#{Time.now.year}/#{Time.now.month}/#{Time.now.day}/" \
     "#{SecureRandom.uuid}"

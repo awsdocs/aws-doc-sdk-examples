@@ -8,10 +8,10 @@ use aws_config::meta::region::RegionProviderChain;
 // So we can refer to the S3 package as s3 for the rest of the example.
 use aws_sdk_s3 as s3;
 // snippet-end:[testing.rust.intro-import]
+use clap::Parser;
 use std::error::Error;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -78,16 +78,16 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync + 'static>> {
         prefix,
         region,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
-    let region_provider = RegionProviderChain::first_try(region.map(s3::Region::new))
+    let region_provider = RegionProviderChain::first_try(region.map(s3::config::Region::new))
         .or_default_provider()
-        .or_else(s3::Region::new("us-west-2"));
+        .or_else(s3::config::Region::new("us-west-2"));
 
     println!();
 
     if verbose {
-        println!("S3 client version: {}", s3::PKG_VERSION);
+        println!("S3 client version: {}", s3::meta::PKG_VERSION);
         println!(
             "Region:            {}",
             region_provider.region().await.unwrap().as_ref()

@@ -3,19 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_sts::{Client, Error, Region, PKG_VERSION};
-use std::fmt::Debug;
-use structopt::StructOpt;
+#![allow(clippy::result_large_err)]
 
-#[derive(Debug, StructOpt)]
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_sts::{config::Region, meta::PKG_VERSION, Client, Error};
+use clap::Parser;
+use std::fmt::Debug;
+
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
-    #[structopt(long)]
+    #[structopt(short, long)]
     region: Option<String>,
 
     /// Whether to display additional information.
-    #[structopt(long)]
+    #[structopt(short, long)]
     verbose: bool,
 }
 
@@ -52,7 +54,7 @@ async fn get_caller_identity(client: &Client) -> Result<(), Error> {
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
-    let Opt { region, verbose } = Opt::from_args();
+    let Opt { region, verbose } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

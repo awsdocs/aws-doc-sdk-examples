@@ -8,9 +8,8 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperQueryScanExample] 
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -26,6 +25,7 @@
 
 package com.amazonaws.codesamples.datamodeling;
 
+// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperQueryScanExample.import]
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,7 +44,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperQueryScanExample.import]
 
+// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperQueryScanExample]
 public class DynamoDBMapperQueryScanExample {
 
     static AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();

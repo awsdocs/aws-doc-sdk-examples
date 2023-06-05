@@ -14,11 +14,8 @@ import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 // snippet-end:[s3.java2.s3_object_upload.import]
@@ -50,9 +47,6 @@ public class PutObject {
         String bucketName = args[0];
         String objectKey = args[1];
         String objectPath = args[2];
-        System.out.println("Putting object " + objectKey +" into bucket "+bucketName);
-        System.out.println("  in bucket: " + bucketName);
-
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
@@ -60,14 +54,13 @@ public class PutObject {
             .credentialsProvider(credentialsProvider)
             .build();
 
-        String result = putS3Object(s3, bucketName, objectKey, objectPath);
-        System.out.println("Tag information: "+result);
+        putS3Object(s3, bucketName, objectKey, objectPath);
         s3.close();
     }
 
     // snippet-start:[s3.java2.s3_object_upload.main]
-    public static String putS3Object(S3Client s3, String bucketName, String objectKey, String objectPath) {
-
+    // This example uses RequestBody.fromFile to avoid loading the whole file into memory.
+    public static void putS3Object(S3Client s3, String bucketName, String objectKey, String objectPath) {
         try {
             Map<String, String> metadata = new HashMap<>();
             metadata.put("x-amz-meta-myVal", "test");
@@ -77,42 +70,13 @@ public class PutObject {
                 .metadata(metadata)
                 .build();
 
-            PutObjectResponse response = s3.putObject(putOb, RequestBody.fromBytes(getObjectFile(objectPath)));
-            return response.eTag();
+            s3.putObject(putOb, RequestBody.fromFile(new File(objectPath)));
+            System.out.println("Successfully placed " + objectKey +" into bucket "+bucketName);
 
         } catch (S3Exception e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-
-        return "";
     }
-
-    // Return a byte array.
-    private static byte[] getObjectFile(String filePath) {
-
-        FileInputStream fileInputStream = null;
-        byte[] bytesArray = null;
-
-        try {
-            File file = new File(filePath);
-            bytesArray = new byte[(int) file.length()];
-            fileInputStream = new FileInputStream(file);
-            fileInputStream.read(bytesArray);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fileInputStream != null) {
-                try {
-                    fileInputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return bytesArray;
-    }
-    // snippet-end:[s3.java2.s3_object_upload.main]
+   // snippet-end:[s3.java2.s3_object_upload.main]
 }

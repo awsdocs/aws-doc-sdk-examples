@@ -22,6 +22,7 @@ import re
 import argparse
 import logging
 import sys
+from words import WORDS
 
 logger = logging.getLogger(__name__)
 
@@ -49,18 +50,31 @@ EXT_LOOKUP = {
     'md': 'Markdown'
 }
 
-# folders to skip
+# If you get a lot of false-flagged 40-character errors 
+# in specific folders or files, you can omit them from 
+# these scans by adding them to the following lists. 
+# However, because this script is mostly run as a GitHub 
+# action in a clean environment (aside from testing), 
+# exhaustive ignore lists shouldn't be necessary.
+
+# Folders to skip.
 IGNORE_FOLDERS = {
-    'venv',
-    '__pycache__',
     '.pytest_cache',
-    '.doc_gen'
+    '__pycache__',
+    'cdk.out',
+    'node_modules',
+    'dist',
+    'target',
+    'venv',
+    '.venv', 
+    'bin',
+    'obj'
 }
 
-# files to skip
-IGNORE_FILES = {'AssemblyInfo.cs', 'metadata.yaml', '.travis.yml'}
+# Files to skip.
+IGNORE_FILES = {'AssemblyInfo.cs', '.travis.yml', 'moviedata.json', '.moviedata.json', 'movies.json', 'package-lock.json'}
 
-# sample files
+# Sample files.
 EXPECTED_SAMPLE_FILES = {
     'README.md',
     'movies.json',
@@ -68,15 +82,18 @@ EXPECTED_SAMPLE_FILES = {
     'chat_sfn_state_machine.json',
     'market_2.jpg',
     'spheres_2.jpg',
+    'sample_cert.pem',
+    'sample_private_key.pem',
+    'sample_saml_metadata.xml',
 }
 
-# media file types
+# Media file types.
 MEDIA_FILE_TYPES = {'mp3', 'wav'}
 
-# list of words that should never be in code examples
-DENY_LIST = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'}
+# List of words that should never be in code examples.
+DENY_LIST = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'} .union(WORDS)
 
-# whitelist of 20- or 40-character strings to allow
+# Allowlist of 20- or 40-character strings to allow.
 ALLOW_LIST = {
     'AGPAIFFQAVRFFEXAMPLE',
     'AKIA111111111EXAMPLE',
@@ -154,7 +171,26 @@ ALLOW_LIST = {
     'com/awssupport/latest/APIReference/index',
     'DescribeDbClusterParameterGroupsResponse',
     'DeleteCollectionExample/DeleteCollection',
-    'aws/rds/model/DescribeDBInstancesRequest'
+    'aws/rds/model/DescribeDBInstancesRequest',
+    'com/apigateway/latest/developerguide/set',
+    'com/pinpoint/latest/apireference/welcome',
+    'src/main/java/com/example/s3/S3BucketOps',
+    'src/main/java/com/example/s3/ListObjects',
+    'amazondynamodb/latest/developerguide/DAX',
+    'apigateway/latest/developerguide/welcome',
+    'devicefarm/latest/developerguide/welcome',
+    'AWSEC2/latest/APIReference/OperationList',
+    'src/main/java/com/example/dynamodb/Query',
+    'com/firehose/latest/APIReference/Welcome',
+    'src/main/java/com/example/iam/CreateRole',
+    'src/main/java/com/example/iam/CreateUser',
+    'src/main/java/com/example/iam/DeleteUser',
+    'src/main/java/com/example/iam/UpdateUser',
+    'src/main/java/com/example/kms/ListGrants',
+    'com/redshift/latest/APIReference/Welcome',
+    'src/main/java/com/example/sns/ListOptOut',
+    'src/main/java/com/example/sns/ListTopics',
+    'src/main/java/com/example/sqs/SQSExample'
 }
 
 def check_files(root, quiet):
@@ -181,7 +217,7 @@ def check_files(root, quiet):
                 file_count += 1
                 if not quiet:
                     print("\nChecking File: " + file_path)
-                with open(file_path) as f:
+                with open(file_path, encoding='utf-8') as f:
                     file_contents = f.read()
 
                 error_count += verify_no_deny_list_words(file_contents, file_path)
@@ -194,11 +230,10 @@ def check_files(root, quiet):
 
 
 def verify_no_deny_list_words(file_contents, file_location):
-    """Verify no segments of the file are in the list of denied words."""
+    """Verify no words in the file are in the list of denied words."""
     error_count = 0
-    segments = file_contents.split('/')
-    for word in segments:
-        if word in DENY_LIST:
+    for word in file_contents.split():
+        if word.lower() in DENY_LIST:
             logger.error(f"Word '%s' in %s is not allowed.", word, file_location)
             error_count += 1
     return error_count
@@ -235,7 +270,7 @@ def verify_sample_files(root_path):
 
 def verify_no_secret_keys(file_contents, file_location):
     """Verify the file does not contain 20- or 40- length character strings,
-    which may be secret keys. Allow strings in the allow list in
+    which might be secret keys. Allow strings in the allowlist in
     https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py."""
     error_count = 0
     twenties = re.findall("[^A-Z0-9][A][ACGIKNPRS][A-Z]{2}[A-Z0-9]{16}[^A-Z0-9]",

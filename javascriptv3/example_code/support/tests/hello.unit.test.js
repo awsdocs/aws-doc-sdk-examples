@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-support", async () => {
   };
 });
 
-import { main } from "../hello.js";
+const { main } = await import("../hello.js");
 
 describe("hello service", () => {
   beforeEach(() => {

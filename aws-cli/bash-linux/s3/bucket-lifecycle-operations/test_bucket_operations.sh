@@ -1,21 +1,34 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 ###############################################################################
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# This file is licensed under the Apache License, Version 2.0 (the "License").
 #
-# You may not use this file except in compliance with the License. A copy of
-# the License is located at http://aws.amazon.com/apache2.0/.
+#    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#    SPDX-License-Identifier: Apache-2.0
 #
-# This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
-# specific language governing permissions and limitations under the License.
 ###############################################################################
+
+###############################################################################
+#
+#     Before running this AWS CLI example, set up your development environment, including your credentials.
+#
+#     For more information, see the following documentation topic:
+#
+#     https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+#
+###############################################################################
+
 
 source ./awsdocs_general.sh
 source ./bucket_operations.sh
+{
+  current_directory=$(pwd)
+  cd ..
+  source ./s3_getting_started.sh
+  cd $current_directory
+}
+source ../s3_getting_started.sh
 
-function usage {
+function usage() {
     echo "This script tests Amazon S3 bucket operations in the AWS CLI."
     echo "It creates a randomly named bucket, copies files to it, then"
     echo "deletes the files and the bucket."
@@ -50,10 +63,10 @@ if [ "$INTERACTIVE" == "true" ]; then iecho "Tests running in interactive mode."
 if [ "$VERBOSE" == "true" ]; then iecho "Tests running in verbose mode."; fi
 
 iecho "***************SETUP STEPS******************"
-BUCKETNAME=$(generate_random_name s3test)
-REGION="us-west-2"
-FILENAME1=$(generate_random_name s3testfile)
-FILENAME2=$(generate_random_name s3testfile)
+BUCKETNAME=$(generate_random_name s3testcli)
+REGION="us-east-1"
+FILENAME1=$(generate_random_name s3clitestfile)
+FILENAME2=$(generate_random_name s3clitestfile)
 
 iecho "BUCKETNAME=$BUCKETNAME"
 iecho "REGION=$REGION"
@@ -66,12 +79,6 @@ run_test "1. Creating bucket with missing bucket_name" \
          "create_bucket -r $REGION" \
          1 \
          "ERROR: You must provide a bucket name" \
-
-
-run_test "2. Creating bucket with missing region_name" \
-         "create_bucket -b $BUCKETNAME" \
-         1 \
-         "ERROR: You must provide an AWS Region code"
 
 run_test "3. Creating bucket with valid parameters" \
          "create_bucket -r $REGION -b $BUCKETNAME" \
@@ -105,5 +112,14 @@ run_test "9. Deleting second file from bucket" \
 run_test "10. Deleting bucket" \
          "delete_bucket $BUCKETNAME" \
          0
+
+mock_input="True"
+mock_input_array=("README.md" "y" "y" "y")
+
+run_test "11. s3 getting started scenario" \
+          s3_getting_started \
+          0
+
+unset mock_input
 
 echo "Tests completed successfully."

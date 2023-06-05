@@ -1,10 +1,12 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
+import os
 import pytest
 
 from keyspace import KeyspaceWrapper
 from scenario_get_started_keyspaces import KeyspaceScenario
+from query import QueryManager
 
 
 @pytest.fixture
@@ -19,7 +21,7 @@ def test_run_keyspace_scenario_integ(input_mocker, capsys):
     input_mocker.mock_answers([
         'doc_example_test_keyspace',    # Create keyspace.
         'movietabletest',               # Create table.
-        'y',                            # Ensure TLS cert.
+        '',                             # Ensure TLS cert.
         1,                              # Query table.
         '', 'y',                        # Update and restore table.
         'y',                            # Cleanup.

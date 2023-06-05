@@ -3,6 +3,7 @@
 
 import argparse
 import config
+import logging
 from scanner import Scanner
 from render import Renderer
 
@@ -25,6 +26,10 @@ def main():
     parser.add_argument(
         '--safe', action='store_true',
         help=f"Save a copy of the original README as the 'saved_readme' value specified in config.py ({config.saved_readme}).")
+    parser.add_argument(
+        '--verbose', action='store_true',
+        help="When set, output verbose debugging info."
+    )
     args = parser.parse_args()
 
     if int(args.sdk_version) not in sdks[args.language]['sdk']:
@@ -33,6 +38,9 @@ def main():
               f"{args.language}: {args.sdk_version} (for {args.language}, choose from "
               f"{', '.join([str(v) for v in sdks[args.language]['sdk']])})")
         return
+
+    if args.verbose:
+        logging.basicConfig(level=logging.DEBUG)
 
     try:
         scanner.lang_name = args.language

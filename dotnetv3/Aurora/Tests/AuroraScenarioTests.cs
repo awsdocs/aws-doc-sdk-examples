@@ -160,7 +160,6 @@ public class AuroraScenarioTests
     [Trait("Category", "Integration")]
     public async Task CreateDBCluster_ShouldReturnCluster()
     {
-        var parameterGroupName = configuration["parameterGroupName"];
         var engineName = configuration["engineName"];
         var engineVersion = configuration["engineVersion"];
         var clusterIdentifier = configuration["clusterIdentifier"];
@@ -208,7 +207,7 @@ public class AuroraScenarioTests
     /// Create the DB instance in the cluster. Should return the new instance.
     /// </summary>
     /// <returns>Async task.</returns>
-    [Fact]
+    [Fact(Skip = "Long running test.")]
     [Order(9)]
     [Trait("Category", "Integration")]
     public async Task CreateDBInstanceInCluster_ShouldReturnCluster()
@@ -288,7 +287,7 @@ public class AuroraScenarioTests
     /// Delete the DB instance. Should not fail.
     /// </summary>
     /// <returns>Async task.</returns>
-    [Fact]
+    [Fact(Skip = "Long running test.")]
     [Order(13)]
     [Trait("Category", "Integration")]
     public async Task DeleteInstance_ShouldNotFail()

@@ -30,6 +30,7 @@ require 'vendor/autoload.php';
 
 use Aws\S3\S3Client;
 
+echo("\n");
 echo("--------------------------------------\n");
 print("Welcome to the Amazon S3 getting started demo using PHP!\n");
 echo("--------------------------------------\n");

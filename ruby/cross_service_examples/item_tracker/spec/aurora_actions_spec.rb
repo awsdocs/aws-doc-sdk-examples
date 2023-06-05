@@ -9,12 +9,17 @@ require "aws-sdk-rdsdataservice"
 require "aws-sdk-ses"
 require_relative "../src/aurora"
 require_relative "../src/report"
+require_relative "../env/setup_scripts/create_table"
+require_relative "../env/setup_scripts/create_table"
 
 describe "CRUD commands on Aurora > " do
   rds_client = Aws::RDSDataService::Client.new
   ses_client = Aws::SES::Client.new
   config = YAML.safe_load(File.open(File.join(File.dirname(__FILE__), "./../env", "config.yml")))
   let(:wrapper) { AuroraActions.new(config, rds_client) }
+
+  # TODO: Create DB & Table
+  # TODO: Populate Table
 
   it "Adds a new item" do
     item_data = {

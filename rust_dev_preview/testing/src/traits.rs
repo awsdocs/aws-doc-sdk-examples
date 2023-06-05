@@ -12,7 +12,7 @@ use std::str::FromStr;
 
 // snippet-start:[testing.rust.traits-trait]
 pub struct ListObjectsResult {
-    pub objects: Vec<s3::model::Object>,
+    pub objects: Vec<s3::types::Object>,
     pub continuation_token: Option<String>,
     pub has_more: bool,
 }
@@ -70,7 +70,7 @@ impl ListObjects for S3ListObjects {
 pub struct TestListObjects {
     expected_bucket: String,
     expected_prefix: String,
-    pages: Vec<Vec<s3::model::Object>>,
+    pages: Vec<Vec<s3::types::Object>>,
 }
 
 #[async_trait]
@@ -136,7 +136,7 @@ async fn determine_prefix_file_size(
 // snippet-start:[testing.rust.traits-tests]
 #[tokio::test]
 async fn test_single_page() {
-    use s3::model::Object;
+    use s3::types::Object;
 
     // Create a TestListObjects instance with just one page of two objects in it
     let fake = TestListObjects {
@@ -159,7 +159,7 @@ async fn test_single_page() {
 
 #[tokio::test]
 async fn test_multiple_pages() {
-    use s3::model::Object;
+    use s3::types::Object;
 
     // This time, we add a helper function for making pages
     fn make_page(sizes: &[i64]) -> Vec<Object> {

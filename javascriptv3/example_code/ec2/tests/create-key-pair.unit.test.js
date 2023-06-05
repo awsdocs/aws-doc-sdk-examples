@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/create-key-pair.js";
+const { main } = await import("../actions/create-key-pair.js");
 
 describe("create-key-pair", () => {
   it("should log the key material", async () => {

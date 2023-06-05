@@ -4,9 +4,10 @@
  */
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_s3::config::Region;
+use clap::Parser;
 use std::error::Error;
 use std::path::Path;
-use structopt::StructOpt;
 
 #[derive(Debug)]
 struct Person {
@@ -16,7 +17,7 @@ struct Person {
     emotion: String,
 }
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The Amazon S3 bucket where we upload the picture.
     #[structopt(short, long)]
@@ -39,7 +40,7 @@ struct Opt {
 // snippet-start:[detect_faces-save_bucket.rust.main]
 async fn save_bucket(
     client: &aws_sdk_s3::Client,
-    body: aws_sdk_s3::types::ByteStream,
+    body: aws_sdk_s3::primitives::ByteStream,
     bucket: &str,
     content_type: &str,
     key: &str,
@@ -65,12 +66,12 @@ async fn save_bucket(
 async fn describe_faces(
     verbose: bool,
     client: &aws_sdk_rekognition::Client,
-    image: aws_sdk_rekognition::model::Image,
+    image: aws_sdk_rekognition::types::Image,
 ) -> Result<(), aws_sdk_rekognition::Error> {
     let resp = client
         .detect_faces()
         .image(image)
-        .attributes(aws_sdk_rekognition::model::Attribute::All)
+        .attributes(aws_sdk_rekognition::types::Attribute::All)
         .send()
         .await?;
 
@@ -152,7 +153,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
         filename,
         region,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     // Make sure filename ends with .jpg, .jpeg, or .png
     let mut content_type = String::new();
@@ -175,22 +176,24 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let s3_region = region.clone();
     let rek_region = region.clone();
 
-    let rek_region_provider =
-        RegionProviderChain::first_try(rek_region.map(aws_sdk_rekognition::Region::new))
-            .or_default_provider()
-            .or_else(aws_sdk_rekognition::Region::new("us-west-2"));
-
-    let s3_region_provider = RegionProviderChain::first_try(s3_region.map(aws_sdk_s3::Region::new))
+    let rek_region_provider = RegionProviderChain::first_try(rek_region.map(Region::new))
         .or_default_provider()
-        .or_else(aws_sdk_s3::Region::new("us-west-2"));
+        .or_else(Region::new("us-west-2"));
+
+    let s3_region_provider = RegionProviderChain::first_try(s3_region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
     println!();
 
     if verbose {
         println!(
             "Rekognition client version: {}",
-            aws_sdk_rekognition::PKG_VERSION
+            aws_sdk_rekognition::meta::PKG_VERSION
         );
-        println!("S3 client version:          {}", aws_sdk_s3::PKG_VERSION);
+        println!(
+            "S3 client version:          {}",
+            aws_sdk_s3::meta::PKG_VERSION
+        );
         println!("Bucket:                     {}", bucket);
         println!("Filename:                   {}", filename);
 
@@ -214,19 +217,19 @@ async fn main() -> Result<(), Box<dyn Error>> {
         .await;
     let rek_client = aws_sdk_rekognition::Client::new(&rek_shared_config);
 
-    let body = aws_sdk_s3::types::ByteStream::from_path(path).await;
+    let body = aws_sdk_s3::primitives::ByteStream::from_path(path).await;
 
     let key: String = String::from("uploads/") + &filename;
 
     save_bucket(&s3_client, body.unwrap(), &bucket, &content_type, &filename)
         .await
         .unwrap();
-    let s3_obj = aws_sdk_rekognition::model::S3Object::builder()
+    let s3_obj = aws_sdk_rekognition::types::S3Object::builder()
         .bucket(bucket)
         .name(key)
         .build();
 
-    let s3_img = aws_sdk_rekognition::model::Image::builder()
+    let s3_img = aws_sdk_rekognition::types::Image::builder()
         .s3_object(s3_obj)
         .build();
 

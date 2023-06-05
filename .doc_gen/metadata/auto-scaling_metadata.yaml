@@ -1,4 +1,29 @@
 # zexi 0.4.0
+auto-scaling_Hello:
+  title: Hello &AS;
+  title_abbrev: Hello &AS;
+  synopsis: get started using &AS;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/AutoScaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - AutoScaling.dotnetv3.AutoScalingActions.HelloAutoScaling
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.basics.helloService
+  services:
+    auto-scaling: {DescribeAutoScalingGroups}
 auto-scaling_CreateAutoScalingGroup:
   title: Create an &AS; group using an &AWS; SDK
   title_abbrev: Create a group
@@ -12,7 +37,15 @@ auto-scaling_CreateAutoScalingGroup:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.CreateAutoScalingGroup
+                - AutoScaling.dotnetv3.AutoScalingActions.CreateAutoScalingGroup
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.createAutoScalingGroup
     Kotlin:
       versions:
         - sdk_version: 1
@@ -72,7 +105,7 @@ auto-scaling_DeleteAutoScalingGroup:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.DeleteAutoScalingGroup
+                - AutoScaling.dotnetv3.AutoScalingActions.DeleteAutoScalingGroup
     Kotlin:
       versions:
         - sdk_version: 1
@@ -89,6 +122,14 @@ auto-scaling_DeleteAutoScalingGroup:
             - description:
               snippet_tags:
                 - autoscale.java2.del_scaling_group.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.deleteAutoScalingGroup
     Python:
       versions:
         - sdk_version: 3
@@ -131,7 +172,7 @@ auto-scaling_DescribeAutoScalingGroups:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingInstances
+                - AutoScaling.dotnetv3.AutoScalingActions.DescribeAutoScalingInstances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -148,6 +189,14 @@ auto-scaling_DescribeAutoScalingGroups:
             - description:
               snippet_tags:
                 - autoscale.java2.describe_instances.main
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.describeAutoScalingGroups
     Python:
       versions:
         - sdk_version: 3
@@ -206,7 +255,15 @@ auto-scaling_UpdateAutoScalingGroup:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.UpdateAutoScalingGroup
+                - AutoScaling.dotnetv3.AutoScalingActions.UpdateAutoScalingGroup
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.updateAutoScalingGroup
     Python:
       versions:
         - sdk_version: 3
@@ -267,7 +324,15 @@ auto-scaling_TerminateInstanceInAutoScalingGroup:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.TerminateInstanceInAutoScalingGroup
+                - AutoScaling.dotnetv3.AutoScalingActions.TerminateInstanceInAutoScalingGroup
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.terminateInstanceInAutoScalingGroup
     Python:
       versions:
         - sdk_version: 3
@@ -321,7 +386,15 @@ auto-scaling_SetDesiredCapacity:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.SetDesiredCapacity
+                - AutoScaling.dotnetv3.AutoScalingActions.SetDesiredCapacity
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.setDesiredCapacity
     Python:
       versions:
         - sdk_version: 3
@@ -375,7 +448,15 @@ auto-scaling_DescribeAutoScalingInstances:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.DescribeAutoScalingInstances
+                - AutoScaling.dotnetv3.AutoScalingActions.DescribeAutoScalingInstances
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.describeAutoScalingInstances
     Python:
       versions:
         - sdk_version: 3
@@ -429,7 +510,15 @@ auto-scaling_DescribeScalingActivities:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.DescribeScalingActivities
+                - AutoScaling.dotnetv3.AutoScalingActions.DescribeScalingActivities
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.describeScalingActivities
     Python:
       versions:
         - sdk_version: 3
@@ -483,7 +572,15 @@ auto-scaling_EnableMetricsCollection:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.EnableMetricsCollection
+                - AutoScaling.dotnetv3.AutoScalingActions.EnableMetricsCollection
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.enableMetricsCollection
     Python:
       versions:
         - sdk_version: 3
@@ -537,7 +634,15 @@ auto-scaling_DisableMetricsCollection:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.DisableMetricsCollection
+                - AutoScaling.dotnetv3.AutoScalingActions.DisableMetricsCollection
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.service.disableMetricsCollection
     Python:
       versions:
         - sdk_version: 3
@@ -565,16 +670,14 @@ auto-scaling_Scenario_GroupsAndInstances:
   title: Manage &AS; groups and instances using an &AWS; SDK
   title_abbrev: Manage groups and instances
   synopsis_list:
-    - Create an &ASlong; group and configure it with a launch template and Availability
-      Zones.
-    - Get information about the group and running instances.
-    - Enable &CWlong; metrics collection on the group.
-    - Update the desired capacity of the group and wait for an instance to start.
+    - Create an &ASlong; group with a launch template and Availability
+      Zones, and get information about running instances.
+    - Enable &CWlong; metrics collection.
+    - Update the group's desired capacity and wait for an instance to start.
     - Terminate an instance in the group.
     - List scaling activities that occur in response to user requests and capacity
       changes.
-    - Get statistics for &CW; metrics that are collected during the example.
-    - Stop collecting metrics, terminate all instances, and delete the group.
+    - Get statistics for &CW; metrics, then clean up resources.
   category: Scenarios
   languages:
     .NET:
@@ -585,14 +688,16 @@ auto-scaling_Scenario_GroupsAndInstances:
           excerpts:
             - description:
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.global-usings
-                - AutoScale.dotnetv3.AutoScale_Basics.main
+                - AutoScaling.dotnetv3.AutoScalingBasics.Usings
+                - AutoScaling.dotnetv3.AutoScalingBasics
+                - AutoScaling.dotnetv3.AutoScalingBasics.UIWrapper
             - description: Define functions that are called by the scenario to
-                manage launch templates and metrics. These functions wrap
-                &EC2; and &CW; actions.
+                manage launch templates and metrics. These functions wrap &AS;,
+                &EC2;, and &CW; actions.
               snippet_tags:
-                - AutoScale.dotnetv3.AutoScale_Basics.EC2Methods
-                - AutoScale.dotnetv3.AutoScale_Basics.CloudWatchMethods
+                - AutoScaling.dotnetv3.AutoScalingActions.AutoScalingWrapper
+                - AutoScaling.dotnetv3.AutoScalingActions.EC2Wrapper
+                - AutoScaling.dotnetv3.AutoScalingActions.CloudWatchWrapper
     Kotlin:
       versions:
         - sdk_version: 1
@@ -611,6 +716,14 @@ auto-scaling_Scenario_GroupsAndInstances:
             - description:
               snippet_tags:
                 - autoscale.java2.create_scaling_scenario.main  
+    PHP:
+      versions:
+        - sdk_version: 3
+          github: php/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - php.example_code.auto-scaling.basics.scenario
     Python:
       versions:
         - sdk_version: 3

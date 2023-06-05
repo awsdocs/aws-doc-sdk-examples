@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/associate-address.js";
+const { main } = await import("../actions/associate-address.js");
 
 describe("associate-address", () => {
   it("should log the details of the new association", async () => {

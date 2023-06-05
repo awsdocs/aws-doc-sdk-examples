@@ -17,7 +17,7 @@ sts_AssumeRole:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sts/sts_temporary_credentials
+          github: python/example_code/sts
           sdkguide:
           excerpts:
             - description: Assume an &IAM; role that requires an MFA token and use
@@ -27,7 +27,7 @@ sts_AssumeRole:
     Ruby:
       versions:
         - sdk_version: 3
-          github: ruby/example_code/sts
+          github: ruby/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -70,7 +70,7 @@ sts_AssumeRole:
     Swift:
       versions:
         - sdk_version: 1
-          github: swift/example_code/iam/Basics
+          github: swift/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -97,7 +97,7 @@ sts_GetSessionToken:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sts/sts_temporary_credentials
+          github: python/example_code/sts
           sdkguide:
           excerpts:
             - description: Get a session token by passing an MFA token and use
@@ -121,7 +121,7 @@ sts_Scenario_AssumeRoleMfa:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sts/sts_temporary_credentials
+          github: python/example_code/sts
           sdkguide:
           excerpts:
             - description: Create an &IAM-user;, register an MFA device, and create a
@@ -157,7 +157,7 @@ sts_Scenario_ConstructFederatedUrl:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sts/sts_temporary_credentials
+          github: python/example_code/sts
           sdkguide:
           excerpts:
             - description: Create a role that grants read-only access to the current
@@ -192,7 +192,7 @@ sts_Scenario_SessionTokenMfa:
     Python:
       versions:
         - sdk_version: 3
-          github: python/example_code/sts/sts_temporary_credentials
+          github: python/example_code/sts
           sdkguide:
           excerpts:
             - description: Create an &IAM-user;, register an MFA device, and create a

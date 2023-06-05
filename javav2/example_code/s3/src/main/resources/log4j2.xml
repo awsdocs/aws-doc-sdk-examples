@@ -3,11 +3,13 @@
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c:%L - %m%n" />
         </Console>
+        <MemoryLog4jAppender name="MemoryLog4jAppender"/>
     </Appenders>
 
     <Loggers>
         <Root level="WARN">
             <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="MemoryLog4jAppender"/>
         </Root>
         <Logger name="software.amazon.awssdk" level="WARN" />
         <Logger name="software.amazon.awssdk.request" level="INFO" />

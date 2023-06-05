@@ -22,7 +22,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/disassociate-address.js";
+const { main } = await import("../actions/disassociate-address.js");
 
 describe("disassociate-address", () => {
   it("should log a success message", async () => {

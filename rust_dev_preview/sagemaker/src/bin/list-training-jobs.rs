@@ -3,13 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_sagemaker::{Client, Region, PKG_VERSION};
-use aws_smithy_types_convert::date_time::DateTimeExt;
-use sagemaker_code_examples::Error;
-use structopt::StructOpt;
+#![allow(clippy::result_large_err)]
 
-#[derive(Debug, StructOpt)]
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_sagemaker::{config::Region, meta::PKG_VERSION, Client};
+use aws_smithy_types_convert::date_time::DateTimeExt;
+use clap::Parser;
+use sagemaker_code_examples::Error;
+
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -61,7 +63,7 @@ async fn show_jobs(client: &Client) -> Result<(), Error> {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { region, verbose } = Opt::from_args();
+    let Opt { region, verbose } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

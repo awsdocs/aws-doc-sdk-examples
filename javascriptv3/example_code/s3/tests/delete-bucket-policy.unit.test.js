@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-s3", async () => {
   };
 });
 
-import { main } from "../actions/delete-bucket-policy.js";
+const { main } = await import("../actions/delete-bucket-policy.js");
 
 describe("delete-bucket-policy", () => {
   it("should log the response from the service", async () => {

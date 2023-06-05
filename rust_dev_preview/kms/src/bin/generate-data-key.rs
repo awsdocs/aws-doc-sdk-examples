@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_kms::model::DataKeySpec;
-use aws_sdk_kms::{Client, Error, Region, PKG_VERSION};
-use structopt::StructOpt;
+#![allow(clippy::result_large_err)]
 
-#[derive(Debug, StructOpt)]
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_kms::types::DataKeySpec;
+use aws_sdk_kms::{config::Region, meta::PKG_VERSION, Client, Error};
+use clap::Parser;
+
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -63,7 +65,7 @@ async fn main() -> Result<(), Error> {
         key,
         region,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

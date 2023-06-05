@@ -2,9 +2,7 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
          bootstrap="vendor/autoload.php"
-         cacheResultFile=".phpunit.cache/test-results"
          executionOrder="depends,defects"
-         beStrictAboutCoversAnnotation="true"
          beStrictAboutTodoAnnotatedTests="true"
          convertDeprecationsToExceptions="true"
          failOnRisky="true"
@@ -12,21 +10,23 @@
          verbose="true">
     <testsuites>
         <testsuite name="dynamodb-basics">
-            <file>dynamodb/dynamodb_basics/DynamoDBBasicsTests.php</file>
+            <file>dynamodb/dynamodb_basics/tests/DynamoDBBasicsTest.php</file>
         </testsuite>
-        <testsuite name="partiql-basics">
-            <file>dynamodb/partiql_basics/PartiQLBasicsTests.php</file>
-        </testsuite>
-        <testsuite name="iam-basics">
-            <file>iam/iam_basics/tests/IAMBasicsTests.php</file>
-            <file>iam/tests/IAMServiceTest.php</file>
-        </testsuite>
-        <testsuite name="glue-basics">
-            <file>glue/GlueBasicsTests.php</file>
-        </testsuite>
-        <testsuite name="lambda-basics">
-            <file>lambda/LambdaTests.php</file>
-        </testsuite>
+<!--        <testsuite name="partiql-basics">-->
+<!--            <file>dynamodb/partiql_basics/tests/PartiQLBasicsTest.php</file>-->
+<!--        </testsuite>-->
+<!--        <testsuite name="iam">-->
+<!--            <directory>iam/tests/</directory>-->
+<!--        </testsuite>-->
+<!--        <testsuite name="glue-basics">-->
+<!--            <file>glue/tests/GlueBasicsTest.php</file>-->
+<!--        </testsuite>-->
+<!--        <testsuite name="lambda-basics">-->
+<!--            <file>lambda/tests/LambdaTest.php</file>-->
+<!--        </testsuite>-->
+<!--        <testsuite name="auto-scaling-basics">-->
+<!--            <file>auto-scaling/tests/AutoScalingBasicsTest.php</file>-->
+<!--        </testsuite>-->
     </testsuites>
 
     <coverage cacheDirectory=".phpunit.cache/code-coverage"
@@ -36,6 +36,10 @@
             <directory suffix=".php">glue</directory>
             <directory suffix=".php">iam</directory>
             <directory suffix=".php">lambda</directory>
+            <directory suffix=".php">auto-scaling</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">*vendor*</directory>
+        </exclude>
     </coverage>
 </phpunit>

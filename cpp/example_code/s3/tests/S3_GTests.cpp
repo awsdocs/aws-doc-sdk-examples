@@ -185,6 +185,7 @@ bool AwsDocTest::S3_GTests::CreateBucket(const Aws::String &bucketName) {
     Aws::S3::S3Client client(*s_clientConfig);
     Aws::S3::Model::CreateBucketRequest request;
     request.SetBucket(bucketName);
+    request.SetObjectOwnership(Aws::S3::Model::ObjectOwnership::BucketOwnerPreferred); // Needed for the ACL tests.
     if (s_clientConfig->region != Aws::Region::US_EAST_1) {
         Aws::S3::Model::CreateBucketConfiguration createBucketConfiguration;
         createBucketConfiguration.WithLocationConstraint(

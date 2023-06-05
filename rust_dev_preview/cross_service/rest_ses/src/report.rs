@@ -14,13 +14,13 @@ use actix_web::{
     web::{Data, Json},
     HttpResponse, ResponseError,
 };
-use aws_sdk_ses::{model::RawMessage, types::Blob};
+use aws_sdk_ses::{primitives::Blob, types::RawMessage};
 use mail_builder::MessageBuilder;
 use serde::Deserialize;
 use serde_json::json;
 use thiserror::Error;
 use uuid::Uuid;
-use xlsxwriter::Workbook;
+use xlsxwriter::{Format, Workbook};
 
 #[derive(Debug, Error)]
 pub enum ReportError {
@@ -104,17 +104,23 @@ pub async fn send_report(
 const FONT_SIZE: f64 = 12.0;
 fn make_report(items: Vec<WorkItem>) -> Result<Vec<u8>, ReportError> {
     let path = format!("{ATTACHMENT_NAME}.{}.xlsx", Uuid::new_v4());
-    let workbook = Workbook::new(path.as_str());
+    let workbook = Workbook::new(path.as_str()).map_err(ReportError::XslxError)?;
 
-    let body_format = &workbook.add_format().set_font_size(FONT_SIZE);
-    let date_format = &workbook
-        .add_format()
-        .set_num_format("dd/mm/yyyy")
-        .set_font_size(FONT_SIZE);
-    let header_format = &workbook
-        .add_format()
-        .set_bold()
-        .set_font_size(FONT_SIZE * 1.125);
+    let body_format = {
+        let mut format = Format::new();
+        format.set_font_size(FONT_SIZE);
+        Some(format)
+    };
+    let date_format = {
+        let mut format = Format::new();
+        format.set_num_format("dd/mm/yyyy").set_font_size(FONT_SIZE);
+        Some(format)
+    };
+    let header_format = {
+        let mut format = Format::new();
+        format.set_bold().set_font_size(FONT_SIZE * 1.125);
+        Some(format)
+    };
 
     let mut report_sheet = workbook
         .add_worksheet(Some("Workitems"))
@@ -129,14 +135,14 @@ fn make_report(items: Vec<WorkItem>) -> Result<Vec<u8>, ReportError> {
                 .try_into()
                 .map_err(|e| ReportError::Other(format!("{e}")))?;
             report_sheet
-                .write_string(0, col, text, Some(header_format))
+                .write_string(0, col, text, header_format.as_ref())
                 .map_err(ReportError::XslxError)?;
         }
 
         for (row, item) in items.iter().enumerate() {
             for (col, (text, format)) in [
                 (item.name(), None),
-                (item.date().to_string().as_str(), Some(date_format)),
+                (item.date().to_string().as_str(), date_format.as_ref()),
                 (item.guide(), None),
                 (item.description(), None),
                 (item.status(), None),
@@ -151,7 +157,7 @@ fn make_report(items: Vec<WorkItem>) -> Result<Vec<u8>, ReportError> {
                     .try_into()
                     .map_err(|e| ReportError::Other(format!("{e}")))?;
                 report_sheet
-                    .write_string(row, col, text, format.or(Some(body_format)))
+                    .write_string(row, col, text, format.or(body_format.as_ref()))
                     .map_err(ReportError::XslxError)?;
             }
         }

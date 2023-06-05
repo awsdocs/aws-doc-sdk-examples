@@ -5,22 +5,17 @@
 
 // snippet-start:[rust.example_code.iam.scenario_getting_started.lib]
 
-use aws_sdk_iam::error::{
-    AttachRolePolicyError, CreateAccessKeyError, CreateServiceLinkedRoleError, DeleteUserError,
-    DeleteUserPolicyError, GetAccountPasswordPolicyError, GetRoleError,
-    ListAttachedRolePoliciesError, ListGroupsError, ListPoliciesError, ListRolePoliciesError,
-    ListRolesError, ListSAMLProvidersError, ListUsersError,
+use aws_sdk_iam::error::SdkError;
+use aws_sdk_iam::operation::{
+    attach_role_policy::*, create_access_key::*, create_role::*, create_service_linked_role::*,
+    delete_user::*, delete_user_policy::*, get_account_password_policy::*, get_role::*,
+    list_attached_role_policies::*, list_groups::*, list_policies::*, list_role_policies::*,
+    list_roles::*, list_saml_providers::*, list_users::*,
 };
-use aws_sdk_iam::model::{AccessKey, Policy, Role, User};
-use aws_sdk_iam::output::{
-    AttachRolePolicyOutput, CreateAccessKeyOutput, CreateRoleOutput, CreateServiceLinkedRoleOutput,
-    GetAccountPasswordPolicyOutput, GetRoleOutput, ListAttachedRolePoliciesOutput,
-    ListGroupsOutput, ListPoliciesOutput, ListRolePoliciesOutput, ListRolesOutput,
-    ListSamlProvidersOutput, ListUsersOutput,
-};
-use aws_sdk_iam::types::SdkError;
+use aws_sdk_iam::types::{AccessKey, Policy, PolicyScopeType, Role, User};
 use aws_sdk_iam::Client as iamClient;
 use aws_sdk_iam::{Client, Error as iamError};
+use futures::StreamExt;
 use tokio::time::{sleep, Duration};
 
 // snippet-start:[rust.example_code.iam.service.create_policy]
@@ -372,22 +367,42 @@ pub async fn delete_user_policy(
 // snippet-end:[rust.example_code.iam.service.delete_user_policy]
 
 // snippet-start:[rust.example_code.iam.service.list_policies]
+// snippet-start:[rust.example_code.iam.hello_lib]
 pub async fn list_policies(
-    client: &iamClient,
-    path_prefix: Option<String>,
-    marker: Option<String>,
-    max_items: Option<i32>,
-) -> Result<ListPoliciesOutput, SdkError<ListPoliciesError>> {
-    let response = client
+    client: iamClient,
+    path_prefix: String,
+) -> Result<Vec<String>, SdkError<ListPoliciesError>> {
+    let mut list_policies = client
         .list_policies()
-        .set_path_prefix(path_prefix)
-        .set_marker(marker)
-        .set_max_items(max_items)
-        .send()
-        .await?;
+        .path_prefix(path_prefix)
+        .scope(PolicyScopeType::Local)
+        .into_paginator()
+        .send();
 
-    Ok(response)
+    let mut v = Vec::new();
+
+    while let Some(list_policies_output) = list_policies.next().await {
+        match list_policies_output {
+            Ok(list_policies) => {
+                if let Some(policies) = list_policies.policies() {
+                    for policy in policies {
+                        let policy_name = policy
+                            .policy_name()
+                            .unwrap_or("Missing policy name.")
+                            .to_string();
+                        println!("{}", policy_name);
+                        v.push(policy_name);
+                    }
+                }
+            }
+
+            Err(err) => return Err(err),
+        }
+    }
+
+    Ok(v)
 }
+// snippet-end:[rust.example_code.iam.hello_lib]
 // snippet-end:[rust.example_code.iam.service.list_policies]
 
 // snippet-start:[rust.example_code.iam.service.list_groups]

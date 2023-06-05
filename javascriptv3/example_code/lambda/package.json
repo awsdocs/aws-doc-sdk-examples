@@ -7,6 +7,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
+    "test": "vitest run **/*.unit.test.js",
     "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
@@ -16,7 +17,6 @@
   },
   "devDependencies": {
     "@aws-sdk/client-iam": "^3.241.0",
-    "@types/ramda": "^0.28.15",
     "vitest": "^0.26.3"
   }
 }

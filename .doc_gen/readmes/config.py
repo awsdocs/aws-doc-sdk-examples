@@ -10,7 +10,15 @@ categories = {
 }
 entities = {
     '&AWS;': 'AWS',
+    '&aws_sec_sdk_use-federation-warning;': '',
     '&ASH;': 'Security Hub',
+    '&DAX;': 'DynamoDB Accelerator',
+    '&GLUDCLong;': 'AWS Glue Data Catalog',
+    '&GLUDC;': 'Data Catalog',
+    '&IAM-user;': 'IAM user',
+    '&IAM-users;': 'IAM users',
+    '&kms-key;': 'KMS key',
+    '&kms-keys;': 'KMS keys',
     '&SLN;': 'Amazon States Language',
 }
 language = {
@@ -101,6 +109,13 @@ language = {
             'base_folder': 'swift',
             'service_folder': 'swift/example_code/{{service["name"]}}',
             'sdk_api_ref': 'https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWS{{service["name"] | capitalize}}/Home',
+        }
+    },
+    'CLI': {
+        1: {
+            'base_folder': 'aws-cli',
+            'service_folder': 'aws-cli/bash-linux/{{service["name"]}}',
+            'sdk_api_ref': 'https://awscli.amazonaws.com/v2/documentation/api/latest/reference/{{service["name"]}}/index.html',
         }
     },
 }

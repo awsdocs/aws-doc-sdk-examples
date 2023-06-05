@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_eks::model::VpcConfigRequest;
-use aws_sdk_eks::{Client, Region, PKG_VERSION};
-use structopt::StructOpt;
+#![allow(clippy::result_large_err)]
 
-#[derive(Debug, StructOpt)]
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_eks::types::VpcConfigRequest;
+use aws_sdk_eks::{config::Region, meta::PKG_VERSION, Client};
+use clap::Parser;
+
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -20,7 +22,7 @@ struct Opt {
 
     /// The Amazon Resource Name (ARN) of the IAM role that provides permissions
     /// for the Kubernetes control plane to make calls to AWS API operations on your behalf.
-    #[structopt(long)]
+    #[structopt(short, long)]
     arn: String,
 
     /// The subnet IDs for your Amazon EKS nodes.
@@ -73,9 +75,9 @@ async fn remove_cluster(
 /// Creates and deletes an Amazon Elastic Kubernetes Service cluster.
 /// # Arguments
 ///
-/// * `-a ARN]` - The ARN of the role for the cluster.
-/// * `-c CLUSTER-NAME` - The name of the cluster.
-/// * `-s SUBNET-IDS` - The subnet IDs of the cluster.
+/// * `[-a ARN]` - The ARN of the role for the cluster.
+/// * `[-c CLUSTER-NAME]` - The name of the cluster.
+/// * `[-s SUBNET-IDS]` - The subnet IDs of the cluster.
 ///   You must specify at least two subnet IDs in separate AZs.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.
@@ -89,7 +91,7 @@ async fn main() -> Result<(), Box<aws_sdk_eks::Error>> {
         region,
         subnet_ids,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     if verbose {
         tracing_subscriber::fmt::init();

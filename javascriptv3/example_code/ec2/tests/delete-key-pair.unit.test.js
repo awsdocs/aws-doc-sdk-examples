@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/delete-key-pair.js";
+const { main } = await import("../actions/delete-key-pair.js");
 
 describe("delete-key-pair", () => {
   it("should log a success message", async () => {

@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_kms::{Client, Error, Region, PKG_VERSION};
-use std::process;
-use structopt::StructOpt;
+#![allow(clippy::result_large_err)]
 
-#[derive(Debug, StructOpt)]
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_kms::{config::Region, meta::PKG_VERSION, Client, Error};
+use clap::Parser;
+use std::process;
+
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -62,7 +64,7 @@ async fn main() -> Result<(), Error> {
         length,
         region,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()
@@ -71,7 +73,7 @@ async fn main() -> Result<(), Error> {
 
     // Trap out-of-range-values:
     match length {
-        1...1024 => {
+        1..=1024 => {
             println!("Generating a {} byte random string", length);
         }
         _ => {

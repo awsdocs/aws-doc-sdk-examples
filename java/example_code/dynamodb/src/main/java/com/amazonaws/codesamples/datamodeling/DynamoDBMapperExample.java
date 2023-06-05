@@ -8,9 +8,8 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperExample] 
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -24,6 +23,7 @@
 */
 package com.amazonaws.codesamples.datamodeling;
 
+// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperExample.import]
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -38,7 +38,9 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverted;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConverter;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperExample.import]
 
+// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperExample]
 public class DynamoDBMapperExample {
 
     static AmazonDynamoDB client;

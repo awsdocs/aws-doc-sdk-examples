@@ -1,0 +1,164 @@
+mediaconvert_Hello:
+  title: Hello &EMC;
+  title_abbrev: Hello &EMC;
+  synopsis: get started using &EMClong;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/MediaConvert
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - MediaConvert.dotnetv3.HelloMediaConvert
+  services:
+    mediaconvert: {DescribeEndpoints}
+mediaconvert_CreateJob:
+  title: Create a &EMC; transcoding job using an &AWS; SDK
+  title_abbrev: Create a transcoding job
+  synopsis: create an &EMClong; transcoding job.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/MediaConvert
+          sdkguide:
+          excerpts:
+            - description: Get the endpoint and set up the client.
+              snippet_tags:
+                - MediaConvert.dotnetv3.Setup
+            - description:
+              snippet_tags:
+                - MediaConvert.dotnetv3.CreateJobSetup
+            - description: Create the job using the wrapper method and return the job ID.
+              snippet_tags:
+                - MediaConvert.dotnetv3.CreateJob
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.java.createjob.complete
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/mediaconvert
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.kotlin.createjob.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.mediaconvert.get_endpoint_uri_helper
+                - cpp.example_code.mediaconvert.CreateJob
+  services:
+    mediaconvert: {CreateJob}
+mediaconvert_ListJobs:
+  title: List &EMC; transcoding jobs using an &AWS; SDK
+  title_abbrev: List transcoding jobs
+  synopsis: list &EMClong; transcoding jobs.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/MediaConvert
+          sdkguide:
+          excerpts:
+            - description: Get the endpoint and set up the client.
+              snippet_tags:
+                - MediaConvert.dotnetv3.Setup
+            - description: List the jobs with a particular status.
+              snippet_tags:
+                - MediaConvert.dotnetv3.ListJobsSetup
+            - description: List the jobs using a paginator.
+              snippet_tags:
+                - MediaConvert.dotnetv3.ListJobs
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.java.list_jobs.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/mediaconvert
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.kotlin.list_jobs.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.mediaconvert.get_endpoint_uri_helper
+                - cpp.example_code.mediaconvert.ListJobs
+  services:
+    mediaconvert: {ListJobs}
+mediaconvert_GetJob:
+  title: Get a &EMC; transcoding job using an &AWS; SDK
+  title_abbrev: Get a transcoding job
+  synopsis: get an &EMClong; transcoding job.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/MediaConvert
+          sdkguide:
+          excerpts:
+            - description: Get the endpoint and set up the client.
+              snippet_tags:
+                - MediaConvert.dotnetv3.Setup
+            - description: Get a job by its ID.
+              snippet_tags:
+                - MediaConvert.dotnetv3.GetJobSetup
+            - description:
+              snippet_tags:
+                - MediaConvert.dotnetv3.GetJob
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.java.get_job.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/mediaconvert
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - mediaconvert.kotlin.get_job.main
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/mediaconvert
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.mediaconvert.get_endpoint_uri_helper
+                - cpp.example_code.mediaconvert.GetJob
+  services:
+    mediaconvert: {GetJob}

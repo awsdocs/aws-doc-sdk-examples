@@ -31,7 +31,7 @@ Cross-service examples are located in the [_cross-services folder_](./example_co
 
 - Install the latest stable version of Node.js.
 - Set up a shared configuration file with your credentials. For more information, see the [AWS SDK for JavaScript (v3) Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/loading-node-credentials-shared.html).
-- Install dependencies by running `npm i`
+- Install dependencies by running `npm i` from the same path as this document.
 
 ## Tests
 
@@ -79,6 +79,77 @@ for more information.
 2. The terminal initiates a bash instance at the root of the container. Run `cd javascriptv3` and then you
    can run tests from here by following the steps in the [Tests](#tests) section. Run examples by navigating
    to a service folder and following the README instructions there.
+
+## Contribute
+
+Contributions are welcome. To increase the likelihood of your contribution
+being accepted, adhere to the following guidelines.
+
+### Maintain directory structure
+
+- `javascriptv3` is considered the project root.
+- All examples exist under `example_code`.
+- Each directory under `example_code` corresponds to an AWS service.
+- Directory names should be lowercase with underscores.
+- File names should be lowercase with dashes.
+- `cross-services` is a special directory for examples that use multiple services.
+- A service directory has the following structure:
+  - ```
+    actions/
+      {action-name}.js
+    scenarios/
+      web/
+        {web-scenario-name}/
+      {scenario-name}.js
+    tests/
+      {integ-test-name}.integration.test.js
+      {unit-test-name}.unit.test.js
+    client.js
+    package.json
+    README.md
+    vite.config.js
+    ```
+
+### Create runnable actions and scenarios
+
+Place the following code at the bottom of each example
+to make it runnable from the command line.
+
+```
+// Invoke main function if this file was run directly.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  functionName();
+}
+```
+
+### Create testable actions and scenarios
+
+Export one primary function from each example. Do not create examples
+that require input or cannot run without human intervention.
+
+Create function names that match the action name. `CreateUserCommand` becomes
+`createUser`.
+```
+export const createUser = (name) => {
+  const command = new CreateUserCommand({ UserName: name });
+  return client.send(command);
+};
+```
+
+### Create tests
+
+Every example should be covered by an integration test. Each integration test must
+run the example and verify that it ran correctly.
+
+## Configure Visual Studio Code (VS Code)
+
+### ESLint
+
+To configure ESLint in VS Code, add the following to `settings.json`:
+
+```
+  "eslint.workingDirectories": ["javascriptv3/example_code/reactnative/ReactNativeApp", "javascriptv3"],
+```
 
 ## Additional resources
 

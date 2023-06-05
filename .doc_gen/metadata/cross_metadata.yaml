@@ -1,4 +1,24 @@
 # zexi 0.4.0
+cross_PAM:
+  title: Create a photo asset management application that lets users manage photos using labels
+  title_abbrev: Create a serverless application to manage photos
+  synopsis: create a serverless application that lets users manage photos using labels.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_PAM_Java_block.xml
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_PAM_Kotlin_block.xml    
+  service_main: rekognition
+  services:
+    sns:
+    s3:
+    dynamodb:
+    rekognition:
+    lambda:
 cross_RedshiftDataTracker:
   title: Create an &RSlong; item tracker
   title_abbrev: Create a web application to track &RS; data
@@ -12,13 +32,14 @@ cross_RedshiftDataTracker:
       versions:
         - sdk_version: 1
           block_content: cross_RedshiftDataTracker_Kotlin_block.xml
+  service_main: redshift
   services:
     redshift:
     ses:
 cross_SQSMessageApp:
-  title: Create a web application that sends and retrieves messages by using the &SQSlong; API
+  title: Create a web application that sends and retrieves messages by using &SQS;
   title_abbrev: Create a messaging application
-  synopsis: create a messaging application by using the &SQSlong; API.
+  synopsis: create a messaging application by using &SQS;.
   languages:
     Kotlin:
       versions:
@@ -28,6 +49,7 @@ cross_SQSMessageApp:
       versions:
         - sdk_version: 2
           block_content: cross_SQSMessage_Java_block.xml
+  service_main: sqs
   services:
     sqs:
     comprehend:
@@ -67,6 +89,7 @@ cross_RDSDataTracker:
       versions:
         - sdk_version: 1
           block_content: cross_RDSDataTracker_cpp_block.xml
+  service_main: aurora
   services:
     aurora:
     rds:
@@ -90,13 +113,14 @@ cross_SnsPublishSubscription:
       versions:
         - sdk_version: 2
           block_content: cross_SNSSubPub_Java_block.xml
+  service_main: translate
   services:
     sns:
     translate:
 cross_LexChatbotLanguages:
-  title: Create an &LEX2; Chatbot within a web application to engage your web site visitors
-  title_abbrev: Building an &LEX2; Chatbot 
-  synopsis: create a Chatbot to engage your web site visitors.
+  title: Create an &LEX2; chatbot to engage your website visitors
+  title_abbrev: Building an &LEX2; chatbot 
+  synopsis: create a chatbot to engage your website visitors.
   languages:
     Java:
       versions:
@@ -106,6 +130,7 @@ cross_LexChatbotLanguages:
       versions:
         - sdk_version: 3
           block_content: cross_Lex_JavaScript_block.xml
+  service_main: lex
   services:
     lex:
     translate:
@@ -138,6 +163,7 @@ cross_DynamoDBDataTracker:
       versions:
         - sdk_version: 3
           block_content: cross_DynamoDBDataTracker_JavaScript_block.xml
+  service_main: dynamodb
   services:
     dynamodb:
     ses:
@@ -152,6 +178,7 @@ cross_ApiGatewayDataTracker:
         - sdk_version: 3
           github: python/cross_service/apigateway_covid-19_tracker
           block_content: cross_ApiGatewayDataTracker_Python_block.xml
+  service_main: api-gateway
   services:
     api-gateway:
     cloudformation:
@@ -167,6 +194,7 @@ cross_ApiGatewayWebsocketChat:
         - sdk_version: 3
           github: python/cross_service/apigateway_websocket_chat
           block_content: cross_ApiGatewayWebsocketChat_Python_block.xml
+  service_main: api-gateway
   services:
     api-gateway:
     dynamodb:
@@ -182,10 +210,11 @@ cross_AuroraRestLendingLibrary:
         - sdk_version: 3
           github: python/cross_service/aurora_rest_lending_library
           block_content: cross_AuroraRestLendingLibrary_Python_block.xml
+  service_main: aurora
   services:
     api-gateway:
+    aurora:
     lambda:
-    rds:
     secrets-manager:
 cross_StepFunctionsMessenger:
   title: Create a messenger application with &SFN;
@@ -197,6 +226,7 @@ cross_StepFunctionsMessenger:
         - sdk_version: 3
           github: python/cross_service/stepfunctions_messenger
           block_content: cross_StepFunctionsMessenger_Python_block.xml
+  service_main: sfn
   services:
     dynamodb:
     lambda:
@@ -218,6 +248,7 @@ cross_TextractExplorer:
         - sdk_version: 3
           github: python/cross_service/textract_explorer
           block_content: cross_TextractExplorer_Python_block.xml
+  service_main: textract
   services:
     s3:
     sns:
@@ -235,6 +266,7 @@ cross_TextractComprehendDetectEntities:
         - sdk_version: 3
           github: python/cross_service/textract_comprehend_notebook
           block_content: cross_TextractComprehendDetectEntities_Python_block.xml
+  service_main: textract
   services:
     comprehend:
     s3:
@@ -257,6 +289,7 @@ cross_SubmitDataApp:
       versions:
         - sdk_version: 3
           block_content: cross_SubmitDataApp_JavaScript_block.xml
+  service_main: dynamodb
   services:
     dynamodb:
     sns:
@@ -283,6 +316,7 @@ cross_LambdaAPIGateway:
       versions:
         - sdk_version: 3
           block_content: cross_LambdaAPIGateway_Python_block.xml
+  service_main: lambda
   services:
     api-gateway:
     lambda:
@@ -311,6 +345,7 @@ cross_LambdaScheduledEvents:
           block_content: cross_LambdaScheduledEvents_Python_block.xml
           add_services:
             cloudwatch-logs:
+  service_main: lambda
   services:
     eventbridge:
     lambda:
@@ -327,6 +362,7 @@ cross_ServerlessWorkflows:
       versions:
         - sdk_version: 3
           block_content: cross_ServerlessWorkflows_JavaScript_block.xml
+  service_main: sfn
   services:
     dynamodb:
     lambda:
@@ -341,6 +377,7 @@ cross_TranscriptionApp:
       versions:
         - sdk_version: 3
           block_content: cross_TranscriptionApp_JavaScript_block.xml
+  service_main: transcribe
   services:
     cognito-identity:
     s3:
@@ -355,6 +392,7 @@ cross_TranscriptionStreamingApp:
       versions:
         - sdk_version: 3
           block_content: cross_TranscriptionStreamingApp_JavaScript_block.xml
+  service_main: transcribe
   services:
     translate:
     comprehend:
@@ -373,6 +411,7 @@ cross_RekognitionPhotoAnalyzerPPE:
       versions:
         - sdk_version: 3
           block_content: cross_RekognitionPhotoAnalyzerPPE_JavaScript_block.xml
+  service_main: rekognition
   services:
     rekognition:
     s3:
@@ -405,6 +444,7 @@ cross_RekognitionPhotoAnalyzer:
         - sdk_version: 3
           github: python/cross_service/photo_analyzer
           block_content: cross_RekognitionPhotoAnalyzer_Python_block.xml
+  service_main: rekognition
   services:
     rekognition:
     s3:
@@ -436,20 +476,22 @@ cross_RekognitionVideoDetection:
           add_services:
             sns:
             sqs:
+  service_main: rekognition
   services:
     rekognition:
 cross_DetectFaces:
   title: Detect faces in an image using an &AWS; SDK
   title_abbrev: Detect faces in an image
   synopsis_list:
-    - Save an image in an &S3long; &S3;) bucket.
-    - Use &REKlong; (&REK;) to detect facial details, such as age range, gender, and emotion (smiling, etc.).
+    - Save an image in an &S3; bucket.
+    - Use &REKlong; to detect facial details, such as age range, gender, and emotion (such as smiling).
     - Display those details.
   languages:
     Rust:
       versions:
         - sdk_version: 1
           block_content: cross_detect_faces_rust_block.xml
+  service_main: rekognition
   services:
     rekognition: {}
     s3: {}
@@ -458,14 +500,15 @@ cross_DetectLabels:
   title_abbrev: Save EXIF and other image information
   synopsis_list:
     - Get EXIF information from a a JPG, JPEG, or PNG file.
-    - Upload the image file to an &S3long; (&S3;) bucket.
-    - Use &REKlong; (&REK;) to identify the three top attributes (labels in &REK;) in the file.
-    - Add the EXIF and label information to a &DDBlong; (&DDB;) table in the Region.
+    - Upload the image file to an &S3; bucket.
+    - Use &REKlong; to identify the three top attributes (labels) in the file.
+    - Add the EXIF and label information to an &DDBlong; table in the Region.
   languages:
     Rust:
       versions:
         - sdk_version: 1
           block_content: cross_detect_labels_rust_block.xml
+  service_main: rekognition
   services:
     dynamodb: {}
     rekognition: {}
@@ -475,7 +518,7 @@ cross_Telephone:
   title_abbrev: Convert text to speech and back to text
   synopsis_list:
     - Use &POLlong; to synthesize a plain text (UTF-8) input file to an audio file.
-    - Upload the audio file to an &S3long; (&S3;) bucket.
+    - Upload the audio file to an &S3; bucket.
     - Use &TSClong; to convert the audio file to text.
     - Display the text.
   languages:
@@ -483,6 +526,7 @@ cross_Telephone:
       versions:
         - sdk_version: 1
           block_content: cross_telephone_rust_block.xml
+  service_main: polly
   services:
     polly: {}
     s3: {}
@@ -498,37 +542,28 @@ cross_LambdaForBrowser:
           block_content: cross_LambdaForBrowser_JavaScript_block.xml
         - sdk_version: 3
           block_content: cross_LambdaForBrowser_JavaScriptV3_block.xml
+  service_main: lambda
   services:
     lambda:
     dynamodb:
-cross_ShortLivedEmrCluster:
-  title: Create a short-lived &EMR; cluster and run a step using an &AWS; SDK
-  title_abbrev: Create a short-lived &EMR; cluster and run a step
-  synopsis: create a short-lived &EMR; cluster that runs a step and automatically
-    terminates after the step completes.
+cross_MessagesTopicsAndQueues:
+  title: Publish &SNS; messages to &SQS; queues using an &AWS; SDK
+  title_abbrev: Publish messages to queues
+  synopsis_list:
+    - Create topic (FIFO or non-FIFO).
+    - Subscribe several queues to the topic with an option to apply a filter.
+    - Publish messages to the topic.
+    - Poll the queues for messages received.
   languages:
-    Python:
+    Java:
       versions:
-        - sdk_version: 3
-          github: python/example_code/emr
-          block_content: cross_EmrShortLivedCluster_Python_block.xml
-  services:
-    ec2:
-    emr:
-    iam:
-    s3:
-cross_LongLivedEmrCluster:
-  title: Create a long-lived &EMR; cluster and run several steps using an &AWS; SDK
-  title_abbrev: Create a long-lived &EMR; cluster and run several steps
-  synopsis: create a long-lived &EMR; cluster and run several steps.
-  languages:
-    Python:
+        - sdk_version: 2
+          block_content: workflow_MessagesTopicsAndQueues_java_block.xml
+    C++:
       versions:
-        - sdk_version: 3
-          github: python/example_code/emr
-          block_content: cross_EmrLongLivedCluster_Python_block.xml
+        - sdk_version: 1
+          github: cpp/example_code/cross-service/topics_and_queues
+          block_content: workflow_MessagesTopicsAndQueues_cpp_block.xml
   services:
-    ec2:
-    emr:
-    iam:
-    s3:
+    sns:
+    sqs:

@@ -3,11 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_dynamodb::{Client, Error};
-use dynamodb_code_examples::{make_config, scenario::list::list_items, Opt as BaseOpt};
-use structopt::StructOpt;
+#![allow(clippy::result_large_err)]
 
-#[derive(Debug, StructOpt)]
+use aws_sdk_dynamodb::{Client, Error};
+use clap::Parser;
+use dynamodb_code_examples::{make_config, scenario::list::list_items, Opt as BaseOpt};
+
+#[derive(Debug, Parser)]
 struct Opt {
     /// The name of the table.
     #[structopt(short, long)]
@@ -29,7 +31,7 @@ struct Opt {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { table, base } = Opt::from_args();
+    let Opt { table, base } = Opt::parse();
 
     let shared_config = make_config(base).await?;
     let client = Client::new(&shared_config);

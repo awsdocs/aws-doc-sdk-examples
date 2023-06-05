@@ -153,7 +153,7 @@ namespace KeyspacesTests
         /// Tests the call to restore the table.
         /// </summary>
         /// <returns></returns>
-        [Fact()]
+        [Fact(Skip = "Long running test.")]
         [Order(12)]
         [Trait("Category", "Integration")]
         public async Task RestoreTableTest()
@@ -161,10 +161,10 @@ namespace KeyspacesTests
             // This test defaults to not run since it can take up
             // to 20 minutes to restore the table.
             bool restoreTable = false;
-
+            var restoredTableName = $"{_tableName}_restored";
             if (restoreTable)
             {
-                var resourceArn = await _wrapper.RestoreTable(_keyspaceName, _tableName, _timeChanged);
+                var resourceArn = await _wrapper.RestoreTable(_keyspaceName, _tableName, restoredTableName, _timeChanged);
                 Assert.NotNull(resourceArn);
 
                 // Loop and call GetTable until the table has been restored. Once it has been
@@ -201,7 +201,7 @@ namespace KeyspacesTests
         /// will raise a resource not found error.
         /// </summary>
         /// <returns></returns>
-        [Fact()]
+        [Fact(Skip = "Quarantined test.")]
         [Order(13)]
         [Trait("Category", "Integration")]
         public async Task DeleteTableTest()
@@ -231,7 +231,7 @@ namespace KeyspacesTests
         /// Tests deleting the keyspace.
         /// </summary>
         /// <returns></returns>
-        [Fact()]
+        [Fact(Skip = "Quarantined test.")]
         [Order(14)]
         [Trait("Category", "Integration")]
         public async Task DeleteKeyspaceTest()

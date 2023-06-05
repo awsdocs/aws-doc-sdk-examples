@@ -6,11 +6,12 @@
 extern crate exif;
 
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_dynamodb::model::AttributeValue;
+use aws_sdk_dynamodb::config::Region;
+use aws_sdk_dynamodb::types::AttributeValue;
+use clap::Parser;
 use std::process;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The S3 bucket.
     #[structopt(short, long)]
@@ -48,7 +49,7 @@ struct Edata {
 
 // snippet-start:[detect_labels-add_file_to_bucket.rust.main]
 async fn add_file_to_bucket(client: &aws_sdk_s3::Client, bucket: &str, filename: &str) {
-    let body = aws_sdk_s3::types::ByteStream::from_path(std::path::Path::new(filename)).await;
+    let body = aws_sdk_s3::primitives::ByteStream::from_path(std::path::Path::new(filename)).await;
 
     match body {
         Ok(b) => {
@@ -175,12 +176,12 @@ async fn get_label_data(
     bucket: &str,
     key: &str,
 ) -> Vec<Litem> {
-    let s3_obj = aws_sdk_rekognition::model::S3Object::builder()
+    let s3_obj = aws_sdk_rekognition::types::S3Object::builder()
         .bucket(bucket)
         .name(key)
         .build();
 
-    let s3_img = aws_sdk_rekognition::model::Image::builder()
+    let s3_img = aws_sdk_rekognition::types::Image::builder()
         .s3_object(s3_obj)
         .build();
 
@@ -234,38 +235,39 @@ async fn main() -> Result<(), exif::Error> {
         region,
         table,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let dynamo_region = region.clone();
     let s3_region = region.clone();
     let rek_region = region.clone();
 
-    let dynamo_region_provider =
-        RegionProviderChain::first_try(dynamo_region.map(aws_sdk_dynamodb::Region::new))
-            .or_default_provider()
-            .or_else(aws_sdk_dynamodb::Region::new("us-west-2"));
-
-    let rek_region_provider =
-        RegionProviderChain::first_try(rek_region.map(aws_sdk_rekognition::Region::new))
-            .or_default_provider()
-            .or_else(aws_sdk_rekognition::Region::new("us-west-2"));
-
-    let s3_region_provider = RegionProviderChain::first_try(s3_region.map(aws_sdk_s3::Region::new))
+    let dynamo_region_provider = RegionProviderChain::first_try(dynamo_region.map(Region::new))
         .or_default_provider()
-        .or_else(aws_sdk_s3::Region::new("us-west-2"));
+        .or_else(Region::new("us-west-2"));
+
+    let rek_region_provider = RegionProviderChain::first_try(rek_region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
+
+    let s3_region_provider = RegionProviderChain::first_try(s3_region.map(Region::new))
+        .or_default_provider()
+        .or_else(Region::new("us-west-2"));
 
     println!();
 
     if verbose {
         println!(
             "DynamoDB client version:    {}",
-            aws_sdk_dynamodb::PKG_VERSION
+            aws_sdk_dynamodb::meta::PKG_VERSION
         );
         println!(
             "Rekognition client version: {}",
-            aws_sdk_dynamodb::PKG_VERSION
+            aws_sdk_dynamodb::meta::PKG_VERSION
         );
-        println!("S3 client version:          {}", aws_sdk_s3::PKG_VERSION);
+        println!(
+            "S3 client version:          {}",
+            aws_sdk_s3::meta::PKG_VERSION
+        );
         println!("Filename:                   {}", &filename);
         println!("Bucket:                     {}", &bucket);
         println!("Table:                      {}", &table);

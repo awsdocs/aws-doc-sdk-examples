@@ -5,6 +5,24 @@ eventbridge_Hello:
   synopsis: get started using &EV;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._list_buses.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.java2._list_buses.main
     .NET:
       versions:
         - sdk_version: 3
@@ -57,6 +75,24 @@ eventbridge_DescribeRule:
   synopsis: describe an &EVlong; rule.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.java2._describe_rule.main
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._describe_rule.main
     .NET:
       versions:
         - sdk_version: 3
@@ -74,6 +110,24 @@ eventbridge_DisableRule:
   synopsis: disable an &EVlong; rule.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.disable.rule.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Disable a rule by using its rule name.
+              snippet_tags:
+                - eventbridge.java2.disable.rule.main
     .NET:
       versions:
         - sdk_version: 3
@@ -91,6 +145,24 @@ eventbridge_EnableRule:
   synopsis: enable an &EVlong; rule.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.disable.rule.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Enable a rule by using its rule name.
+              snippet_tags:
+                - eventbridge.java2.disable.rule.main
     .NET:
       versions:
         - sdk_version: 3
@@ -108,6 +180,24 @@ eventbridge_ListRules:
   synopsis: list &EVlong; rules.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin._list_rules.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Enable a rule by using its rule name.
+              snippet_tags:
+                - eventbridge.java2._list_rules.main
     .NET:
       versions:
         - sdk_version: 3
@@ -125,6 +215,24 @@ eventbridge_ListRuleNamesByTarget:
   synopsis: list &EVlong; rule names for a target.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.list.rules.target.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: List all of the rule names by using the target.
+              snippet_tags:
+                - eventbridge.java2.list.rules.target.main
     .NET:
       versions:
         - sdk_version: 3
@@ -142,6 +250,24 @@ eventbridge_ListTargetsByRule:
   synopsis: list &EVlong; targets for a rule.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.list.targets.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: List all of the targets for a rule by using the rule name.
+              snippet_tags:
+                - eventbridge.java2.list.target.rules.main
     .NET:
       versions:
         - sdk_version: 3
@@ -180,6 +306,9 @@ eventbridge_PutRule:
             - description: Create a scheduled rule.
               snippet_tags:
                 - eventbridge.kotlin._create_schedule_rule.main
+            - description: Create a rule that triggers when an object is added to an &S3long; bucket.
+              snippet_tags:
+                - eventbridge.kotlin._create_rule.main    
     Java:
       versions:
         - sdk_version: 2
@@ -189,6 +318,9 @@ eventbridge_PutRule:
             - description: Create a scheduled rule.
               snippet_tags:
                 - eventbridge.java2._create_schedule_rule.main
+            - description: Create a rule that triggers when an object is added to an &S3long; bucket.
+              snippet_tags:
+                - eventbridge.java2._create_rule.main     
     C++:
       versions:
         - sdk_version: 1
@@ -294,6 +426,30 @@ eventbridge_PutTargets:
   synopsis: add a target to an &EVlong; event.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventBridge.kotlin.putSnsTarget.main
+            - description: Add an input transformer to a target for a rule.
+              snippet_tags:
+                - eventbridge.kotlin._put_target.custom.transform.main     
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Add an &SNS; topic as a target for a rule.
+              snippet_tags:
+                - eventBridge.java.putSnsTarget.main 
+            - description: Add an input transformer to a target for a rule.
+              snippet_tags:
+                - eventbridge.java2._put_target.custom.transform.main 
     .NET:
       versions:
         - sdk_version: 3
@@ -345,6 +501,24 @@ eventbridge_RemoveTargets:
   synopsis: remove &EVlong; targets from a rule.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.delete.targets.main 
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: Remove all of the targets for a rule by using the rule name.
+              snippet_tags:
+                - eventbridge.java2.delete.targets.main
     .NET:
       versions:
         - sdk_version: 3
@@ -360,15 +534,30 @@ eventbridge_Scenario_GettingStarted:
   title: Get started with &EV; rules and targets using an &AWS; SDK
   title_abbrev: Get started with rules and targets
   synopsis_list:
-    - Create a rule.
-    - Add a target to a rule.
+    - Create a rule and add a target to it.
     - Enable and disable rules.
-    - List rules and targets.
-    - Update rules and targets.
-    - Send events.
-    - Delete the rule.
+    - List and update rules and targets.
+    - Send events, then clean up resources.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/eventbridge
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - eventbridge.kotlin.mvp.main 
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/eventbridge
+          sdkguide:
+          excerpts:
+            - description: 
+              snippet_tags:
+                - eventbridge.java2.mvp.main
     .NET:
       versions:
         - sdk_version: 3

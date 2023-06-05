@@ -3,14 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_sdk_dynamodb::{types::DisplayErrorContext, Client};
+#![allow(clippy::result_large_err)]
+
+use aws_sdk_dynamodb::{error::DisplayErrorContext, Client};
+use clap::Parser;
 use dynamodb_code_examples::{
     make_config, scenario::delete::delete_item, scenario::error::Error, Opt as BaseOpt,
 };
 use std::process;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The name of the table.
     #[structopt(short, long)]
@@ -43,7 +45,7 @@ struct Opt {
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    if let Err(err) = run_example(Opt::from_args()).await {
+    if let Err(err) = run_example(Opt::parse()).await {
         eprintln!("Error: {}", DisplayErrorContext(err));
         process::exit(1);
     }

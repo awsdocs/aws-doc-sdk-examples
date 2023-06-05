@@ -5,15 +5,17 @@
 
 // snippet-start:[rust.example_code.s3.scenario_getting_started.lib]
 
-use aws_sdk_s3::error::{CopyObjectError, CreateBucketError, GetObjectError, PutObjectError};
-use aws_sdk_s3::model::{
+use aws_sdk_s3::operation::{
+    copy_object::{CopyObjectError, CopyObjectOutput},
+    create_bucket::{CreateBucketError, CreateBucketOutput},
+    get_object::{GetObjectError, GetObjectOutput},
+    list_objects_v2::ListObjectsV2Output,
+    put_object::{PutObjectError, PutObjectOutput},
+};
+use aws_sdk_s3::types::{
     BucketLocationConstraint, CreateBucketConfiguration, Delete, ObjectIdentifier,
 };
-use aws_sdk_s3::output::{
-    CopyObjectOutput, CreateBucketOutput, GetObjectOutput, ListObjectsV2Output, PutObjectOutput,
-};
-use aws_sdk_s3::types::{ByteStream, SdkError};
-use aws_sdk_s3::Client;
+use aws_sdk_s3::{error::SdkError, primitives::ByteStream, Client};
 use error::Error;
 use std::path::Path;
 use std::str;
@@ -100,7 +102,6 @@ pub async fn copy_object(
 // snippet-end:[rust.example_code.s3.basics.copy_object]
 
 // snippet-start:[rust.example_code.s3.basics.download_object]
-// snippet-start:[rust.example_code.s3.basics.get_object]
 pub async fn download_object(
     client: &Client,
     bucket_name: &str,
@@ -113,7 +114,6 @@ pub async fn download_object(
         .send()
         .await
 }
-// snippet-end:[rust.example_code.s3.basics.get_object]
 // snippet-end:[rust.example_code.s3.basics.download_object]
 
 // snippet-start:[rust.example_code.s3.basics.upload_object]

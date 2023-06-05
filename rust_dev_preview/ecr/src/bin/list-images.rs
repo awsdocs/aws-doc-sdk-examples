@@ -3,11 +3,13 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_ecr::{Error, Region, PKG_VERSION};
-use structopt::StructOpt;
+#![allow(clippy::result_large_err)]
 
-#[derive(Debug, StructOpt)]
+use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_ecr::{config::Region, meta::PKG_VERSION, Error};
+use clap::Parser;
+
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -53,7 +55,7 @@ async fn show_images(
 /// Lists the images in an Amazon Elastic Container Registry repository.
 /// # Arguments
 ///
-/// * `[-repository REPOSITORY]` - The ECR repository containing images.
+/// * `[--repository REPOSITORY]` - The ECR repository containing images.
 /// * `[-r REGION]` - The Region in which the client is created.
 ///   If not supplied, uses the value of the **AWS_REGION** environment variable.
 ///   If the environment variable is not set, defaults to **us-west-2**.
@@ -65,7 +67,7 @@ async fn main() -> Result<(), Error> {
         region,
         repository,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     if verbose {
         tracing_subscriber::fmt::init();

@@ -3,22 +3,26 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_dynamodb::model::{
+use aws_sdk_dynamodb::types::{
     AttributeDefinition, AttributeValue, KeySchemaElement, KeyType, ProvisionedThroughput,
     ScalarAttributeType, Select, TableStatus,
 };
-use aws_sdk_dynamodb::{Client, Error, Region, PKG_VERSION};
+use aws_sdk_dynamodb::{config::Region, meta::PKG_VERSION, Client, Error};
 use aws_smithy_http::result::SdkError;
 
+use aws_sdk_dynamodb::operation::create_table::CreateTableError;
+use aws_sdk_dynamodb::operation::put_item::PutItemError;
+use clap::Parser;
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};
 use std::io::{stdin, Read};
 use std::time::Duration;
 use std::{iter, process};
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// Whether to run in interactive mode (you have to press return between operations)
     #[structopt(short, long)]
@@ -49,7 +53,7 @@ async fn make_table(
     client: &Client,
     table: &str,
     key: &str,
-) -> Result<(), SdkError<aws_sdk_dynamodb::error::CreateTableError>> {
+) -> Result<(), SdkError<CreateTableError>> {
     let ad = AttributeDefinition::builder()
         .attribute_name(key)
         .attribute_type(ScalarAttributeType::S)
@@ -94,10 +98,7 @@ struct Item {
 
 /// Add an item to the table.
 // snippet-start:[dynamodb.rust.crud-add_item]
-async fn add_item(
-    client: &Client,
-    item: Item,
-) -> Result<(), SdkError<aws_sdk_dynamodb::error::PutItemError>> {
+async fn add_item(client: &Client, item: Item) -> Result<(), SdkError<PutItemError>> {
     let user_av = AttributeValue::S(item.value);
     let type_av = AttributeValue::S(item.utype);
     let age_av = AttributeValue::S(item.age);
@@ -209,7 +210,7 @@ async fn main() -> Result<(), Error> {
         interactive,
         region,
         verbose,
-    } = Opt::from_args();
+    } = Opt::parse();
 
     let region_provider = RegionProviderChain::first_try(region.map(Region::new))
         .or_default_provider()

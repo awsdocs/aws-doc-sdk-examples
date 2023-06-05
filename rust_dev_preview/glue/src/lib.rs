@@ -6,7 +6,7 @@ pub mod clients;
 pub mod prepare;
 pub mod run;
 
-use aws_sdk_glue::model::Table;
+use aws_sdk_glue::types::Table;
 use clap::Parser;
 use secrecy::Secret;
 use std::time::Duration;

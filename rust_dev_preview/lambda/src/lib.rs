@@ -4,10 +4,10 @@
  */
 
 use aws_config::{meta::region::RegionProviderChain, SdkConfig};
-use aws_sdk_lambda::{Client, Region, PKG_VERSION};
-use structopt::StructOpt;
+use aws_sdk_lambda::{config::Region, meta::PKG_VERSION, Client};
+use clap::Parser;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 pub struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -18,7 +18,7 @@ pub struct Opt {
     pub verbose: bool,
 }
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 pub struct ArnOpt {
     #[structopt(flatten)]
     pub base: Opt,

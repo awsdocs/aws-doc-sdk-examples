@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/run-instances.js";
+const { main } = await import("../actions/run-instances.js");
 
 describe("run-instances", () => {
   it("should log the response from the EC2 run instances command", async () => {

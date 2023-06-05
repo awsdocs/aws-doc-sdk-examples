@@ -237,8 +237,8 @@ public static class SupportCaseScenario
                 null,
                 false,
                 false,
-                DateTime.Today,
-                DateTime.Now);
+                DateTime.UtcNow.Date,
+                DateTime.UtcNow);
         }
 
         foreach (var openCase in currentOpenCases)
@@ -373,8 +373,8 @@ public static class SupportCaseScenario
             null,
             false,
             true,
-            DateTime.Today,
-            DateTime.Now);
+            DateTime.UtcNow.Date,
+            DateTime.UtcNow);
 
         foreach (var currentCase in currentCases)
         {

@@ -3,15 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_cognitosync::types::DisplayErrorContext;
-use aws_sdk_cognitosync::{Client, Region, PKG_VERSION};
+use aws_sdk_cognitosync::error::DisplayErrorContext;
+use aws_sdk_cognitosync::{config::Region, meta::PKG_VERSION, Client};
 use aws_smithy_types_convert::date_time::DateTimeExt;
+use clap::Parser;
 use cognitosync_code_examples::Error;
 use std::process;
-use structopt::StructOpt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// The AWS Region.
     #[structopt(short, long)]
@@ -73,7 +75,7 @@ async fn show_pools(client: &Client) -> Result<(), Error> {
 async fn main() {
     tracing_subscriber::fmt::init();
 
-    if let Err(err) = run_example(Opt::from_args()).await {
+    if let Err(err) = run_example(Opt::parse()).await {
         eprintln!("Error: {}", DisplayErrorContext(err));
         process::exit(1);
     }

@@ -108,9 +108,9 @@ emr_DescribeStep:
     emr: {DescribeStep}
 emr_Usage_InstallLibrariesWithSsm:
   title: Run a shell script to install libraries on &EMR; instances using an &AWS; SDK
-  title_abbrev: Run a shell script to install libraries on instances
-  synopsis: use &SYSlong; to run a shell script on &EMR; instances to install
-    additional libraries. This can be used to automate instance management instead
+  title_abbrev: Run a shell script to install libraries
+  synopsis: use &SYSlong; to run a shell script on &EMR; instances that installs
+    additional libraries. This way, you can automate instance management instead
     of running commands manually through an SSH connection.
   category: Scenarios
   languages:
@@ -125,3 +125,30 @@ emr_Usage_InstallLibrariesWithSsm:
                 - emr.python.jupyterhub.installlibraries
   services:
     emr: {ListInstances}
+emr_Scenario_ShortLivedEmrCluster:
+  title: Create a short-lived &EMR; cluster and run a step using an &AWS; SDK
+  title_abbrev: Create a short-lived &EMR; cluster and run a step
+  synopsis: create a short-lived &EMR; cluster that runs a step and automatically
+    terminates after the step completes.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: emr_usage_demo.py
+          block_content: cross_EmrShortLivedCluster_Python_block.xml
+  services:
+    emr: {}
+emr_Scenario_LongLivedEmrCluster:
+  title: Create a long-lived &EMR; cluster and run steps using an &AWS; SDK
+  title_abbrev: Create a long-lived &EMR; cluster and run steps
+  synopsis: create a long-lived &EMR; cluster and run several steps.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: emr_usage_demo.py
+          block_content: cross_EmrLongLivedCluster_Python_block.xml
+  services:
+    emr: {}

@@ -8,9 +8,8 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[ ]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample] 
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * This file is licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License. A copy of
@@ -26,6 +25,7 @@
 
 package com.amazonaws.codesamples.datamodeling;
 
+// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample.import]
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,11 +41,12 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+// snippet-end:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample.import]
 
+// snippet-start:[dynamodb.java.codeexample.DynamoDBMapperBatchWriteExample]
 public class DynamoDBMapperBatchWriteExample {
 
     static AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().build();
-    static SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     public static void main(String[] args) throws Exception {
         try {
@@ -68,31 +69,31 @@ public class DynamoDBMapperBatchWriteExample {
     private static void testBatchSave(DynamoDBMapper mapper) {
 
         Book book1 = new Book();
-        book1.id = 901;
-        book1.inPublication = true;
-        book1.ISBN = "902-11-11-1111";
-        book1.pageCount = 100;
-        book1.price = 10;
-        book1.productCategory = "Book";
-        book1.title = "My book created in batch write";
+        book1.setId(901);
+        book1.setInPublication(true);
+        book1.setISBN("902-11-11-1111");
+        book1.setPageCount(100);
+        book1.setPrice(10);
+        book1.setProductCategory("Book");
+        book1.setTitle("My book created in batch write");
 
         Book book2 = new Book();
-        book2.id = 902;
-        book2.inPublication = true;
-        book2.ISBN = "902-11-12-1111";
-        book2.pageCount = 200;
-        book2.price = 20;
-        book2.productCategory = "Book";
-        book2.title = "My second book created in batch write";
+        book2.setId(902);
+        book2.setInPublication(true);
+        book2.setISBN("902-11-12-1111");
+        book2.setPageCount(200);
+        book2.setPrice(20);
+        book2.setProductCategory("Book");
+        book2.setTitle("My second book created in batch write");
 
         Book book3 = new Book();
-        book3.id = 903;
-        book3.inPublication = false;
-        book3.ISBN = "902-11-13-1111";
-        book3.pageCount = 300;
-        book3.price = 25;
-        book3.productCategory = "Book";
-        book3.title = "My third book created in batch write";
+        book3.setId(903);
+        book3.setInPublication(false);
+        book3.setISBN("902-11-13-1111");
+        book3.setPageCount(300);
+        book3.setPrice(25);
+        book3.setProductCategory("Book");
+        book3.setTitle("My third book created in batch write");
 
         System.out.println("Adding three books to ProductCatalog table.");
         mapper.batchSave(Arrays.asList(book1, book2, book3));
@@ -110,19 +111,19 @@ public class DynamoDBMapperBatchWriteExample {
 
         // Create Forum item to save
         Forum forumItem = new Forum();
-        forumItem.name = "Test BatchWrite Forum";
-        forumItem.threads = 0;
-        forumItem.category = "Amazon Web Services";
+        forumItem.setName("Test BatchWrite Forum");
+        forumItem.setThreads(0);
+        forumItem.setCategory("Amazon Web Services");
 
         // Create Thread item to save
         Thread threadItem = new Thread();
-        threadItem.forumName = "AmazonDynamoDB";
-        threadItem.subject = "My sample question";
-        threadItem.message = "BatchWrite message";
+        threadItem.setForumName("AmazonDynamoDB");
+        threadItem.setSubject("My sample question");
+        threadItem.setMessage("BatchWrite message");
         List<String> tags = new ArrayList<String>();
         tags.add("batch operations");
         tags.add("write");
-        threadItem.tags = new HashSet<String>(tags);
+        threadItem.setTags(new HashSet<String>(tags));
 
         // Load ProductCatalog item to delete
         Book book3 = mapper.load(Book.class, 903);
@@ -132,7 +133,7 @@ public class DynamoDBMapperBatchWriteExample {
 
         DynamoDBMapperConfig config = DynamoDBMapperConfig.builder()
             .withSaveBehavior(DynamoDBMapperConfig.SaveBehavior.CLOBBER)
-        .build();
+            .build();
 
         mapper.batchWrite(objectsToWrite, objectsToDelete, config);
     }

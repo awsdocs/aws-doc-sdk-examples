@@ -19,16 +19,19 @@ and configuration, replication, software patching, or cluster scaling.
 
 ### Single actions
 Code excerpts that show you how to call individual service functions.
+* [Add an item to a table](./basics/MovieList/MovieTable.swift) (`PutItem`)
+* [Add the contents of a JSON file to a table](./basics/MovieList/MovieTable.swift) (`BatchWriteItem`)
 * [Create a table](./basics/MovieList/MovieTable.swift)
   (`CreateTable`)
-* [Add an item to a table](./basics/MovieList/MovieTable.swift) (`PutItem`)
-* [Update an item](./basics/MovieList/MovieTable.swift) (`UpdateItem`)
-* [Add the contents of a JSON file to a table](./basics/MovieList/MovieTable.swift) (`BatchWriteItem`)
-* [Get an item by key](./basics/MovieList/MovieTable.swift) (`GetItem`)
 * [Delete an item by key](./basics/MovieList/MovieTable.swift) (`DeleteItem`)
+* [Delete a table](./basics/MovieList/MovieTable.swift) (`DeleteTable`)
+* [Get an item by key](./basics/MovieList/MovieTable.swift) (`GetItem`)
+* [Get multiple items by key](./BatchGetItem/Sources/MovieDatabase.swift)
+  (`BatchGetItem`)
+* [List all tables](./basics/ListTables/listtables.swift) (`ListTables`)
 * [Query a table](./basics/MovieList/MovieTable.swift) (`Query`)
 * [Scan a table with pagination](./basics/MovieList/MovieTable.swift) (`Scan`)
-* [Delete a table](./basics/MovieList/MovieTable.swift) (`DeleteTable`)
+* [Update an item](./basics/MovieList/MovieTable.swift) (`UpdateItem`)
 
 ### Scenarios
 Code examples that show you how to accomplish a specific task by calling multiple functions within the same service.

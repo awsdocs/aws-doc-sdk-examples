@@ -3,9 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_sdk_dynamodb::{Client, Error};
+use clap::Parser;
 use dynamodb_code_examples::{make_config, scenario::list::list_tables_iterative, Opt};
-use structopt::StructOpt;
 
 /// Lists your DynamoDB tables.
 /// # Arguments
@@ -18,7 +20,7 @@ use structopt::StructOpt;
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let config = make_config(Opt::from_args()).await?;
+    let config = make_config(Opt::parse()).await?;
     let client = Client::new(&config);
 
     list_tables_iterative(&client).await?;

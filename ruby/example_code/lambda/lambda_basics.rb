@@ -6,12 +6,13 @@
 require "aws-sdk-lambda"
 require "aws-sdk-s3"
 require "aws-sdk-iam"
+require "aws-sdk-cloudwatchlogs"
 require "logger"
 require "json"
 require "zip"
 
-$cloudwatch_client = Aws::CloudWatchLogs::Client.new
-$iam_client = Aws::IAM::Client.new
+$cloudwatch_client = Aws::CloudWatchLogs::Client.new(region: 'us-east-1')
+$iam_client = Aws::IAM::Client.new(region: 'us-east-1')
 
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.full]
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.decl]

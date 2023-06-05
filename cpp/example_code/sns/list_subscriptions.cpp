@@ -1,57 +1,108 @@
 /*
-   Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-   This file is licensed under the Apache License, Version 2.0 (the "License").
-   You may not use this file except in compliance with the License. A copy of
-   the License is located at
-    http://aws.amazon.com/apache2.0/
-   This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied. See the License for the
-   specific language governing permissions and limitations under the License.
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
 
 #include <aws/core/Aws.h>
 #include <aws/sns/SNSClient.h>
 #include <aws/sns/model/ListSubscriptionsRequest.h>
-#include <aws/sns/model/ListSubscriptionsResult.h>
 #include <iostream>
+#include "sns_samples.h"
 
-/**
- * Lists subscriptions - demonstrates how to retrieve a list of Amazon SNS subscriptions.
+// snippet-start:[sns.cpp.list_subscriptions.code]
+//! Retrieve a list of Amazon Simple Notification Service (Amazon SNS) subscriptions.
+/*!
+  \param clientConfiguration: AWS client configuration.
+  \return bool: Function succeeded.
  */
+bool AwsDoc::SNS::listSubscriptions(
+        const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::SNS::SNSClient snsClient(clientConfiguration);
 
-int main(int argc, char ** argv)
-{
-  if (argc != 1)
-  {
-    std::cout << "Usage: list_subscriptions" << std::endl;
-    return 1;
-  }
-  // snippet-start:[sns.cpp.list_subscriptions.code]
-  Aws::SDKOptions options;
-  Aws::InitAPI(options);
-  {
-    Aws::SNS::SNSClient sns;
+    Aws::String nextToken; // Next token is used to handle a paginated response.
+    bool result = true;
+    Aws::Vector<Aws::SNS::Model::Subscription> subscriptions;
+    do {
+        Aws::SNS::Model::ListSubscriptionsRequest request;
 
-    Aws::SNS::Model::ListSubscriptionsRequest ls_req;
+        if (!nextToken.empty()) {
+            request.SetNextToken(nextToken);
+        }
 
-    auto ls_out = sns.ListSubscriptions(ls_req);
+        const Aws::SNS::Model::ListSubscriptionsOutcome outcome = snsClient.ListSubscriptions(
+                request);
 
-    if (ls_out.IsSuccess())
-    {
-        std::cout << "Subscriptions list:" << std::endl;
-        for (auto const& subscription : ls_out.GetResult().GetSubscriptions())
-        {
-            std::cout << "  * " << subscription.GetSubscriptionArn() << std::endl;
+        if (outcome.IsSuccess()) {
+            const Aws::Vector<Aws::SNS::Model::Subscription> &newSubscriptions =
+                    outcome.GetResult().GetSubscriptions();
+            subscriptions.insert(subscriptions.cend(), newSubscriptions.begin(),
+                                 newSubscriptions.end());
+        }
+        else {
+            std::cerr << "Error listing subscriptions "
+                      << outcome.GetError().GetMessage()
+                      <<
+                      std::endl;
+            result = false;
+            break;
+        }
+
+        nextToken = outcome.GetResult().GetNextToken();
+    } while (!nextToken.empty());
+
+    if (result) {
+        if (subscriptions.empty()) {
+            std::cout << "No subscriptions found" << std::endl;
+        }
+        else {
+            std::cout << "Subscriptions list:" << std::endl;
+            for (auto const &subscription: subscriptions) {
+                std::cout << "  * " << subscription.GetSubscriptionArn() << std::endl;
+            }
         }
     }
-    else
-    {
-      std::cout << "Error listing subscriptions " << ls_out.GetError().GetMessage() <<
-        std::endl;
-    }
-  }
-
-  Aws::ShutdownAPI(options);
-  // snippet-end:[sns.cpp.list_subscriptions.code]
-  return 0;
+    return result;
 }
+// snippet-end:[sns.cpp.list_subscriptions.code]
+
+/*
+ *
+ *  main function
+ *
+ *  Usage: 'run_list_subscriptions'
+ *
+*/
+
+#ifndef TESTING_BUILD
+
+int main(int argc, char **argv) {
+    if (argc != 1) {
+        std::cout << "Usage: run_list_subscriptions" << std::endl;
+        return 1;
+    }
+    Aws::SDKOptions options;
+
+    Aws::InitAPI(options);
+    {
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::SNS::listSubscriptions(clientConfig);
+    }
+    Aws::ShutdownAPI(options);
+    return 0;
+}
+
+#endif // TESTING_BUILD

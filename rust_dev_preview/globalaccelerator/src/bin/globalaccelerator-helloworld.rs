@@ -3,12 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+#![allow(clippy::result_large_err)]
+
 use aws_config::meta::region::RegionProviderChain;
-use aws_sdk_globalaccelerator::{Client, Error, Region, PKG_VERSION};
-use structopt::StructOpt;
+use aws_sdk_globalaccelerator::{config::Region, meta::PKG_VERSION, Client, Error};
+use clap::Parser;
 use tokio_stream::StreamExt;
 
-#[derive(Debug, StructOpt)]
+#[derive(Debug, Parser)]
 struct Opt {
     /// Whether to display additional information.
     #[structopt(short, long)]
@@ -44,7 +46,7 @@ async fn show_accelerators(client: &Client) -> Result<(), Error> {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { verbose } = Opt::from_args();
+    let Opt { verbose } = Opt::parse();
 
     // Global Accelerator is a global service with its API in us-west-2
     let region_provider = RegionProviderChain::first_try(Region::new("us-west-2"));

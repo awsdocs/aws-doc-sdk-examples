@@ -711,6 +711,9 @@ ses_Scenario_SendEmail:
           github: python/example_code/ses
           sdkguide:
           excerpts:
+            - description: Verify an email address with &SES; and send messages.
+              snippet_tags:
+                - python.example_code.ses.Scenario_SendEmail
             - description: Create functions to wrap &SES; identity actions.
               snippet_tags:
                 - python.example_code.ses.SesIdentity
@@ -734,16 +737,13 @@ ses_Scenario_SendEmail:
                 - python.example_code.ses.SesMailSender
                 - python.example_code.ses.SendEmail
                 - python.example_code.ses.SendTemplatedEmail
-            - description: Verify an email address with &SES; and send messages.
-              snippet_tags:
-                - python.example_code.ses.Scenario_SendEmail
   services:
     ses: {VerifyDomainIdentity, VerifyEmailIdentity, GetIdentityVerificationAttributes, DeleteIdentity,
           ListIdentities, CreateTemplate, DeleteTemplate, GetTemplate, ListTemplates, UpdateTemplate,
           SendEmail, SendTemplatedEmail}
 ses_Scenario_ReplicateIdentities:
   title: Copy &SES; email and domain identities from one &AWS; Region to another using an &AWS; SDK
-  title_abbrev: Copy email and domain identities from one &AWS; Region to another
+  title_abbrev: Copy email and domain identities across Regions
   synopsis: copy &SES; email and domain identities from one &AWS; Region to another.
     When domain identities are managed by &R53;, verification records are copied to the
     domain for the destination Region.

@@ -30,7 +30,6 @@ public class AmazonComprehendTest {
                 .build();
 
         try (InputStream input = AmazonComprehendTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-
             Properties prop = new Properties();
 
             if (input == null) {

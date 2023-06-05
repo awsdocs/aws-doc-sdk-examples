@@ -13,7 +13,6 @@
 # snippet-start:[ruby.example_code.dynamodb.helper.DynamoDBBasics]
 require "aws-sdk-dynamodb"
 require "json"
-require "pry"
 require "open-uri"
 require "pp"
 require "zip"
@@ -26,7 +25,8 @@ class Scaffold
   attr_reader :table
 
   def initialize(table_name)
-    @dynamo_resource = Aws::DynamoDB::Resource.new
+    client = Aws::DynamoDB::Client.new(region: "us-east-1")
+    @dynamo_resource = Aws::DynamoDB::Resource.new(client: client)
     @table_name = table_name
     @table = nil
     @logger = Logger.new($stdout)

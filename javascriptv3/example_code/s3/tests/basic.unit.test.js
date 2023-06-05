@@ -30,17 +30,17 @@ vi.doMock("libs/utils/util-io.js", async () => {
   const actual = await vi.importActual("libs/utils/util-io.js");
   return {
     ...actual,
-    promptForText: async () => "my-bucket",
+    promptForText: () => Promise.resolve("my-bucket"),
   };
 });
 
-import {
+const {
   createBucket,
   deleteBucket,
   emptyBucket,
   listFilesInBucket,
   uploadFilesToBucket,
-} from "../scenarios/basic.js";
+} = await import("../scenarios/basic.js");
 
 describe("S3 basic scenario", () => {
   const logSpy = vi.spyOn(console, "log");

@@ -1,0 +1,16 @@
+{
+  "require": {
+    "aws/aws-sdk-php": "^3.209",
+    "guzzlehttp/guzzle": "^7.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "": "*"
+    },
+    "psr-4": {
+      "AutoScaling\\": "../auto-scaling/",
+      "Iam\\": "../iam/",
+      "AwsUtilities\\": "../aws_utilities/"
+    }
+  }
+}

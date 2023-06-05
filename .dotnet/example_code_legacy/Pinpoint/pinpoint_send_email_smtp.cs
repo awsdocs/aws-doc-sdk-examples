@@ -54,11 +54,11 @@ namespace PinpointEmailSMTP
         static string ccAddress = "cc-recipient@example.com"; 
         static string bccAddress = "bcc-recipient@example.com";
 
-        // Replace smtp_username with your Amazon Pinpoint SMTP user name.
+        // Replace smtp_username with your &PINlong; SMTP user name.
         static string smtpUsername = "AKIAIOSFODNN7EXAMPLE";
 
-        // Replace smtp_password with your Amazon Pinpoint SMTP password.
-        static string smtpPassword = "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY";
+        // Use @ASMlong; to expose your &PIN; SMTP password.
+        static string smtpPassword = System.getEnvironmentVariable("SMTP_PASSWORD");
 
         // (Optional) the name of a configuration set to use for this message.
         static string configurationSet = "ConfigSet";
