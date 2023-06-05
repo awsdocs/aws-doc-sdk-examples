@@ -1,6 +1,6 @@
-//snippet-sourcedescription:[HelloSNS.java demonstrates how to list the event topics using a paginated response.]
-//snippet-keyword:[AWS SDK for Kotlin]
-//snippet-keyword:[Amazon Simple Notification Service]
+// snippet-sourcedescription:[HelloSNS.java demonstrates how to list the event topics using a paginated response.]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Amazon Simple Notification Service]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -14,7 +14,6 @@ import aws.sdk.kotlin.services.sns.SnsClient
 import aws.sdk.kotlin.services.sns.model.ListTopicsRequest
 import aws.sdk.kotlin.services.sns.paginators.listTopicsPaginated
 import kotlinx.coroutines.flow.transform
-
 
 /**
 Before running this Kotlin code example, set up your development environment,
