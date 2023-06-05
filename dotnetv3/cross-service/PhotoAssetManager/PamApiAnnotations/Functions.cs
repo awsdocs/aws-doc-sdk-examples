@@ -39,7 +39,7 @@ namespace PamApiAnnotations
             context.Logger.Log($"Test logging: getting labels.");
             var allLabels = await _labelService.GetAllItems();
             var labelsResponse = new LabelsResponse(allLabels.ToList());
-            
+
             // Return the proxy response so the headers can be customized.
             return new APIGatewayHttpApiV2ProxyResponse
             {
