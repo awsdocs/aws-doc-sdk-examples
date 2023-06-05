@@ -22,7 +22,6 @@ import org.springframework.stereotype.Component;
 public class AnalyzePhotos {
 
     public ArrayList DetectLabels(byte[] bytes, String key) {
-
         Region region = Region.US_EAST_2;
         RekognitionClient rekClient = RekognitionClient.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -30,10 +29,8 @@ public class AnalyzePhotos {
                 .build();
 
         try {
-
-            SdkBytes sourceBytes = SdkBytes.fromByteArray(bytes);
-
             // Create an Image object for the source image
+            SdkBytes sourceBytes = SdkBytes.fromByteArray(bytes);
             Image souImage = Image.builder()
                     .bytes(sourceBytes)
                     .build();
@@ -42,7 +39,6 @@ public class AnalyzePhotos {
                     .image(souImage)
                     .maxLabels(10)
                     .build();
-
             DetectLabelsResponse labelsResponse = rekClient.detectLabels(detectLabelsRequest);
 
             // Write the results to a WorkItem instance

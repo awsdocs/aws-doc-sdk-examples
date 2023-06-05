@@ -86,10 +86,10 @@ public class RDSGetStudents {
 
 
     // Convert the list to XML.
-    private Document toXml(List<Student> itemList) {
-
+   private Document toXml(List<Student> itemList) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
@@ -99,7 +99,6 @@ public class RDSGetStudents {
 
             // Loop through the list.
             for (Student myStudent: itemList) {
-
                 Element item = doc.createElement( "Student" );
                 root.appendChild( item );
 

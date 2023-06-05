@@ -30,10 +30,8 @@ import java.util.ListIterator;
 
 @Component
 public class S3Service {
-
     private  S3Client s3 ;
     private S3Client getClient() {
-
         Region region = Region.US_EAST_1;
         S3Client s3 = S3Client.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -45,7 +43,6 @@ public class S3Service {
 
     // Places an image into a S3 bucket
     public String putObject(byte[] data, String bucketName, String objectKey) {
-
         s3 = getClient();
 
         // Delete the existing video - this use case can only have 1 MP4 file
@@ -54,14 +51,13 @@ public class S3Service {
         toDelete.add(ObjectIdentifier.builder().key(objectName).build());
 
         try {
-
             DeleteObjectsRequest objectsRequest = DeleteObjectsRequest.builder()
                     .bucket(bucketName)
                     .delete(Delete.builder().objects(toDelete).build())
                     .build();
             s3.deleteObjects(objectsRequest);
 
-            //Put a file into the bucket
+            //Put a file into the bucket.
             PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
                             .bucket(bucketName)
                             .key(objectKey)
@@ -94,12 +90,11 @@ public class S3Service {
             ListObjectsResponse res = s3.listObjects(listObjects);
             List<S3Object> objects = res.contents();
 
-            for (ListIterator iterVals = objects.listIterator(); iterVals.hasNext(); ) {
-                S3Object myValue = (S3Object) iterVals.next();
+            for (S3Object myValue : objects) {
                 myItem = new BucketItem();
                 myItem.setKey(myValue.key());
                 myItem.setOwner(myValue.owner().displayName());
-                sizeLg = myValue.size() / 1024 ;
+                sizeLg = myValue.size() / 1024;
                 myItem.setSize(String.valueOf(sizeLg));
                 DateIn = myValue.lastModified();
                 myItem.setDate(String.valueOf(DateIn));
@@ -118,76 +113,66 @@ public class S3Service {
     }
 
    public String getKeyName(String bucketName) {
+       s3 = getClient();
+       String keyName="";
+       try {
+           ListObjectsRequest listObjects = ListObjectsRequest
+               .builder()
+               .bucket(bucketName)
+               .build();
 
-            s3 = getClient();
-            String keyName="";
+           ListObjectsResponse res = s3.listObjects(listObjects);
+           List<S3Object> objects = res.contents();
+           for (S3Object myValue : objects) {
+               keyName = myValue.key();
+           }
 
-            try {
-                ListObjectsRequest listObjects = ListObjectsRequest
-                        .builder()
-                        .bucket(bucketName)
-                        .build();
+           return keyName;
 
-                ListObjectsResponse res = s3.listObjects(listObjects);
-                List<S3Object> objects = res.contents();
-
-                for (ListIterator iterVals = objects.listIterator(); iterVals.hasNext(); ) {
-                    S3Object myValue = (S3Object) iterVals.next();
-                    keyName = myValue.key();
-                }
-
-                return keyName;
-
-            } catch (S3Exception e) {
-                System.err.println(e.awsErrorDetails().errorMessage());
-                System.exit(1);
-            }
-            return null ;
-        }
+       } catch (S3Exception e) {
+           System.err.println(e.awsErrorDetails().errorMessage());
+           System.exit(1);
+       }
+       return null ;
+   }
 
     // Convert Bucket item data into XML to pass back to the view.
     private Document toXml(List<BucketItem> itemList) {
-
         try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.newDocument();
+           DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+           factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+           DocumentBuilder builder = factory.newDocumentBuilder();
+           Document doc = builder.newDocument();
 
-            // Start building the XML
-            Element root = doc.createElement( "Items" );
-            doc.appendChild( root );
-
-            // Get the elements from the collection
-            int custCount = itemList.size();
+           // Start building the XML
+           Element root = doc.createElement( "Items" );
+           doc.appendChild( root );
 
             // Iterate through the collection
-            for ( int index=0; index < custCount; index++) {
-
+            for (BucketItem myItem : itemList) {
                 // Get the WorkItem object from the collection
-                BucketItem myItem = itemList.get(index);
-
-                Element item = doc.createElement( "Item" );
-                root.appendChild( item );
+                Element item = doc.createElement("Item");
+                root.appendChild(item);
 
                 // Set Key
-                Element id = doc.createElement( "Key" );
-                id.appendChild( doc.createTextNode(myItem.getKey()) );
-                item.appendChild( id );
+                Element id = doc.createElement("Key");
+                id.appendChild(doc.createTextNode(myItem.getKey()));
+                item.appendChild(id);
 
                 // Set Owner
-                Element name = doc.createElement( "Owner" );
-                name.appendChild( doc.createTextNode(myItem.getOwner() ) );
-                item.appendChild( name );
+                Element name = doc.createElement("Owner");
+                name.appendChild(doc.createTextNode(myItem.getOwner()));
+                item.appendChild(name);
 
                 // Set Date
-                Element date = doc.createElement( "Date" );
-                date.appendChild( doc.createTextNode(myItem.getDate() ) );
-                item.appendChild( date );
+                Element date = doc.createElement("Date");
+                date.appendChild(doc.createTextNode(myItem.getDate()));
+                item.appendChild(date);
 
                 // Set Size
-                Element desc = doc.createElement( "Size" );
-                desc.appendChild( doc.createTextNode(myItem.getSize() ) );
-                item.appendChild( desc );
+                Element desc = doc.createElement("Size");
+                desc.appendChild(doc.createTextNode(myItem.getSize()));
+                item.appendChild(desc);
             }
 
             return doc;

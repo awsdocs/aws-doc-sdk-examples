@@ -51,9 +51,7 @@ public class S3Service {
 
         s3AsyncClient = getClient();
         final AtomicReference<byte[]> reference = new AtomicReference<>();
-
         try {
-
             GetObjectRequest objectRequest = GetObjectRequest.builder()
                     .bucket(bucketName)
                     .key(keyName)
@@ -113,7 +111,7 @@ public class S3Service {
                     if (resp != null) {
 
                         List<S3Object> objects = resp.contents();
-                        for (ListIterator iterVals = objects.listIterator(); iterVals.hasNext(); ) {
+                        for (ListIterator<S3Object> iterVals = objects.listIterator(); iterVals.hasNext(); ) {
                             S3Object myValue = (S3Object) iterVals.next();
                             keyName = myValue.key();
                             keys.add(keyName);
@@ -145,16 +143,13 @@ public class S3Service {
 
     // Places an image into a S3 bucket.
     public String putObject(byte[] data, String bucketName, String objectKey) {
-
         s3AsyncClient = getClient();
 
         try {
-
             PutObjectRequest objectRequest =  PutObjectRequest.builder()
                     .bucket(bucketName)
                     .key(objectKey)
                     .build();
-
 
             // Put the object into the bucket.
             CompletableFuture<PutObjectResponse> future = s3AsyncClient.putObject(objectRequest,
@@ -249,9 +244,9 @@ public class S3Service {
 
     // Convert items into XML to pass back to the view.
     private Document toXml(List<BucketItem> itemList) {
-
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
@@ -259,37 +254,31 @@ public class S3Service {
             Element root = doc.createElement( "Items" );
             doc.appendChild( root );
 
-            // Get the elements from the collection.
-            int custCount = itemList.size();
-
             // Iterate through the collection.
-            for ( int index=0; index < custCount; index++) {
-
+            for (BucketItem myItem : itemList) {
                 // Get the WorkItem object from the collection.
-                BucketItem myItem = itemList.get(index);
-
-                Element item = doc.createElement( "Item" );
-                root.appendChild( item );
+                Element item = doc.createElement("Item");
+                root.appendChild(item);
 
                 // Set Key.
-                Element id = doc.createElement( "Key" );
-                id.appendChild( doc.createTextNode(myItem.getKey()) );
-                item.appendChild( id );
+                Element id = doc.createElement("Key");
+                id.appendChild(doc.createTextNode(myItem.getKey()));
+                item.appendChild(id);
 
                 // Set Owner.
-                Element name = doc.createElement( "Owner" );
-                name.appendChild( doc.createTextNode(myItem.getOwner() ) );
-                item.appendChild( name );
+                Element name = doc.createElement("Owner");
+                name.appendChild(doc.createTextNode(myItem.getOwner()));
+                item.appendChild(name);
 
                 // Set Date.
-                Element date = doc.createElement( "Date" );
-                date.appendChild( doc.createTextNode(myItem.getDate() ) );
-                item.appendChild( date );
+                Element date = doc.createElement("Date");
+                date.appendChild(doc.createTextNode(myItem.getDate()));
+                item.appendChild(date);
 
                 // Set Size.
-                Element desc = doc.createElement( "Size" );
-                desc.appendChild( doc.createTextNode(myItem.getSize() ) );
-                item.appendChild( desc );
+                Element desc = doc.createElement("Size");
+                desc.appendChild(doc.createTextNode(myItem.getSize()));
+                item.appendChild(desc);
             }
 
             return doc;

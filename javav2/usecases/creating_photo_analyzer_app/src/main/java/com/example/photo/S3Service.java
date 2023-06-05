@@ -146,9 +146,7 @@ public class S3Service {
 
     // Places an image into a S3 bucket.
     public String putObject(byte[] data, String bucketName, String objectKey) {
-
         s3 = getClient();
-
         try {
             PutObjectResponse response = s3.putObject(PutObjectRequest.builder()
                             .bucket(bucketName)
@@ -167,9 +165,9 @@ public class S3Service {
 
     // Convert items into XML to pass back to the view.
     private Document toXml(List<BucketItem> itemList) {
-
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
@@ -182,10 +180,8 @@ public class S3Service {
 
             // Iterate through the collection.
             for ( int index=0; index < custCount; index++) {
-
                 // Get the WorkItem object from the collection.
                 BucketItem myItem = itemList.get(index);
-
                 Element item = doc.createElement( "Item" );
                 root.appendChild( item );
 

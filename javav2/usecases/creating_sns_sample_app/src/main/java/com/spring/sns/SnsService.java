@@ -30,11 +30,8 @@ import java.util.List;
 
 @Component
 public class SnsService {
-
-    String topicArn = "arn:aws:sns:us-west-2:814548047983:MyMailTopic";
-
+    String topicArn = "<Enter topic ARN here>";
     private SnsClient getSnsClient() {
-
         Region region = Region.US_WEST_2;
         SnsClient snsClient = SnsClient.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
@@ -45,7 +42,6 @@ public class SnsService {
     }
 
     public String pubTopic(String message, String lang) {
-
         try {
             String body;
             Region region = Region.US_WEST_2;
@@ -70,7 +66,6 @@ public class SnsService {
                     body = textResponse.translatedText();
 
             } else  {
-
                 TranslateTextRequest textRequest = TranslateTextRequest.builder()
                         .sourceLanguageCode("en")
                         .targetLanguageCode("es")
@@ -98,9 +93,7 @@ public class SnsService {
     }
 
     public void unSubEmail(String emailEndpoint) {
-
      try {
-
          String subscriptionArn = getTopicArnValue(emailEndpoint);
          SnsClient snsClient =  getSnsClient();
 
@@ -118,7 +111,6 @@ public class SnsService {
 
   // Returns the Sub ARN based on the given endpoint
   private String getTopicArnValue(String endpoint){
-
         SnsClient snsClient =  getSnsClient();
         try {
             String subArn = "";
@@ -129,15 +121,12 @@ public class SnsService {
 
             ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
             List<Subscription> allSubs  = result.subscriptions();
-
             for (Subscription sub: allSubs) {
-
-            if (sub.endpoint().compareTo(endpoint)==0) {
-
-                subArn = sub.subscriptionArn();
-                return subArn;
+                if (sub.endpoint().compareTo(endpoint)==0) {
+                    subArn = sub.subscriptionArn();
+                    return subArn;
+                }
             }
-         }
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
@@ -145,12 +134,8 @@ public class SnsService {
       return "";
   }
 
-
-
-
     // Create a Subscription.
     public String subEmail(String email) {
-
        try {
             SnsClient snsClient =  getSnsClient();
             SubscribeRequest request = SubscribeRequest.builder()
@@ -172,10 +157,7 @@ public class SnsService {
 
 
     public String getAllSubscriptions() {
-
-
-        List subList = new ArrayList<String>() ;
-
+        List<String> subList = new ArrayList<>() ;
         try {
             SnsClient snsClient =  getSnsClient();
             ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
@@ -184,7 +166,6 @@ public class SnsService {
 
             ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
             List<Subscription> allSubs  = result.subscriptions();
-
             for (Subscription sub: allSubs) {
                 subList.add(sub.endpoint());
             }
@@ -198,9 +179,9 @@ public class SnsService {
 
    // Convert the list to XML to pass back to the view.
     private Document toXml(List<String> subsList) {
-
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
