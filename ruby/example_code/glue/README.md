@@ -78,13 +78,17 @@ This example shows you how to do the following:
 <!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.start-->
 <!--custom.scenario_prereqs.glue_Scenario_GetStartedCrawlersJobs.end-->
 
-Start the example by running the following at a command prompt:
+Before you run the example, you will need to set up an S3 bucket linked with an IAM role.
+To accomplish this, navigate to the [glue_role_bucket CDK script](../../../resources/cdk/glue_role_bucket) and follow the instructions.
+
+After completing setup, you can run the following at a command prompt:
 
 ```
 ruby glue_wrapper.rb
 ```
 
 <!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.start-->
+
 <!--custom.scenarios.glue_Scenario_GetStartedCrawlersJobs.end-->
 
 ### Tests

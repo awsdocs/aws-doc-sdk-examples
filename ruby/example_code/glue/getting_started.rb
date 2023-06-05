@@ -23,7 +23,6 @@ require_relative("../../helpers/waiters")
 require_relative("glue_wrapper")
 
 @logger = Logger.new($stdout)
-# @logger.level = Logger::WARN
 
 # snippet-start:[ruby.example_code.glue.Scenario_GetStartedCrawlersJobs]
 class GlueCrawlerJobScenario
@@ -36,11 +35,6 @@ class GlueCrawlerJobScenario
 
   def run(crawler_name, db_name, db_prefix, data_source, job_script, job_name)
     wrapper = GlueWrapper.new(@glue_client, @logger)
-
-    # Explain that script has been uploaded.
-    # The script essentially reads flight data from a table,
-    # performs some transformations and simplifications,
-    # and writes the transformed data to an S3 bucket.
 
     new_step(1, "Create a crawler")
     puts "Checking for crawler #{crawler_name}."
@@ -55,10 +49,10 @@ class GlueCrawlerJobScenario
     print "\nDone!\n".green
 
     new_step(2, "Run a crawler to output a database.")
-    puts "When you run the crawler, it crawls data stored in #{data_source} and creates a metadata database in the AWS Glue Data Catalog that describes the data in the data source."
-    puts "In this example, the source data is in CSV format."
+    puts "Location of input data analyzed by crawler: #{data_source}"
+    puts "Outputs: a Data Catalog database in CSV format containing metadata on input."
     wrapper.start_crawler(crawler_name)
-    puts "Let's wait for the crawler to run. This typically takes a few minutes."
+    puts "Starting crawler... (this typically takes a few minutes)"
     crawler_state = nil
     while crawler_state != "READY"
       custom_wait(15)
@@ -78,7 +72,6 @@ class GlueCrawlerJobScenario
       print "\t#{index + 1}. #{table['name']}".yellow
     end
     print "\nDone!\n".green
-    puts "-" * 88
 
     new_step(4, "Create a job definition that runs an ETL script.")
     puts "Uploading Python ETL script to S3..."
@@ -87,13 +80,6 @@ class GlueCrawlerJobScenario
     response = wrapper.create_job(job_name, "Getting started example job.", @glue_service_role.arn, "s3://#{@glue_bucket.name}/#{job_script}")
     puts JSON.pretty_generate(response).yellow
     print "\nDone!\n".green
-
-
-    # puts "When you run the job, it extracts data from #{data_source}, transforms it " \
-    #  "by using the #{job_script} script, and loads the output into " \
-    #  "S3 bucket #{self.glue_bucket.name}."
-    # puts "In this example, the data is transformed from CSV to JSON, and only a few " \
-    #  "fields are included in the output."
 
     new_step(5, "Start a new job")
     job_run_status = nil
@@ -110,7 +96,7 @@ class GlueCrawlerJobScenario
       job_run_status = job_run[0]["job_run_state"]
       print "Status check: #{job_name}/#{job_run_id} - #{job_run_status}.".yellow
     end
-    puts "-" * 88
+    print "\nDone!\n".green
 
     new_step(6, "View results from a successful job run.")
     if job_run_status == "SUCCEEDED"
@@ -145,16 +131,21 @@ class GlueCrawlerJobScenario
         raise
       end
     end
+    print "\nDone!\n".green
 
     new_step(7, "Delete job definition and crawler.")
     wrapper.delete_job(job_name)
+    puts "Job deleted: #{job_name}."
     wrapper.delete_crawler(crawler_name)
-
-    puts "-" * 88
-
+    puts "Crawler deleted: #{crawler_name}."
+    wrapper.delete_table(db_name, tables[0]["name"])
+    puts "Table deleted: #{tables[0]["name"]} in #{db_name}."
+    wrapper.delete_database(db_name)
+    puts "Database deleted: #{db_name}."
+    print "\nDone!\n".green
   end
-
 end
+
 def main
 
   banner("../../helpers/banner.txt")
@@ -213,14 +204,12 @@ def main
   )
 
   puts "-" * 88
-  puts "To destroy scaffold resources, run cdk destroy'."
-  puts "\nThanks for watching!"
+  puts "You have reached the end of this tour of AWS Glue."
+  puts "To destroy CDK-created resources, run:\n       cdk destroy"
   puts "-" * 88
-# rescue Exception => e
-#   @logger.error("Something went wrong with the example:\n #{e}")
+
 end
 # snippet-end:[ruby.example_code.glue.Scenario_GetStartedCrawlersJobs]
-
 
 if __FILE__ == $0
   main

@@ -250,7 +250,6 @@ rescue Aws::Glue::Errors::GlueException => e
        key: file_path
      })
     end
-    puts "Uploaded job script '#{file_path}' to the example bucket."
   rescue Aws::S3::Errors::S3UploadFailedError => e
     @logger.error("S3 could not upload job script: \n#{e.message}")
     raise
