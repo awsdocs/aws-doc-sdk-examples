@@ -7,7 +7,7 @@ export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(10),
   memorySize: 128,
   codeAsset() {
-    return Code.fromAsset("");
+    return Code.fromAsset("./missing");
   },
   runtime: Runtime.NODEJS_18_X,
   handlers: {
