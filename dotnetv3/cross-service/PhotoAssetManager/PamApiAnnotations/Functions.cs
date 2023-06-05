@@ -1,8 +1,10 @@
+using System.Net;
+using System.Text.Json;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.Annotations;
 using Amazon.Lambda.Annotations.APIGateway;
-using PamApi;
 using PamServices;
+using Amazon.Lambda.APIGatewayEvents;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
@@ -32,11 +34,19 @@ namespace PamApiAnnotations
         /// <returns>A list of labels with counts.</returns>
         [LambdaFunction()]
         [HttpApi(LambdaHttpMethod.Get, "/labels")]
-        public async Task<LabelsResponse> GetLabels()
+        public async Task<APIGatewayHttpApiV2ProxyResponse> GetLabels(ILambdaContext context)
         {
+            context.Logger.Log($"Test logging: getting labels.");
             var allLabels = await _labelService.GetAllItems();
-            var response = new LabelsResponse(allLabels.ToList());
-            return response;
+            var labelsResponse = new LabelsResponse(allLabels.ToList());
+            
+            // Return the proxy response so the headers can be customized.
+            return new APIGatewayHttpApiV2ProxyResponse
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = JsonSerializer.Serialize(labelsResponse),
+                Headers = new Dictionary<string, string> { { "Access-Control-Allow-Origin", "*" } }
+            };
         }
 
         // PUT /upload
@@ -47,15 +57,21 @@ namespace PamApiAnnotations
         /// <returns>The presigned upload url, valid for 5 minutes.</returns>
         [LambdaFunction()]
         [HttpApi(LambdaHttpMethod.Put, "/upload")]
-        public UploadResponse Upload([FromBody] UploadRequest uploadRequest)
+        public APIGatewayHttpApiV2ProxyResponse Upload([FromBody] UploadRequest uploadRequest)
         {
             var storageBucketName = Environment.GetEnvironmentVariable("STORAGE_BUCKET_NAME");
 
             var presignedUrl = _storageService.GetPresignedUrlForImage(uploadRequest.file_name, storageBucketName!);
 
-            var response = new UploadResponse() { url = presignedUrl };
-            return response;
-        }
+            var uploadResponse = new UploadResponse() { url = presignedUrl };
 
+            // Return the proxy response so the headers can be customized.
+            return new APIGatewayHttpApiV2ProxyResponse
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = JsonSerializer.Serialize(uploadResponse),
+                Headers = new Dictionary<string, string> { { "Access-Control-Allow-Origin", "*" } }
+            };
+        }
     }
 }

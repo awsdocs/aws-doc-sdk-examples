@@ -130,8 +130,8 @@ export const DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY: PamLambdasStrategy = {
     ...EMPTY_LAMBDAS_STRATEGY.handlers,
     detectLabels: "PamApiAnnotations::PamApiAnnotations.DetectLabelsFunction::FunctionHandler",
     download: "PamApiAnnotations::PamApiAnnotations.DownloadFunction::FunctionHandler",
-    labels: "PamApiAnnotations::PamApiAnnotations.LambdaEntryPoint::FunctionHandlerAsync",
-    upload: "PamApiAnnotations::PamApiAnnotations.LambdaEntryPoint::FunctionHandlerAsync",
+    labels: "PamApiAnnotations::PamApiAnnotations.Functions_GetLabels_Generated::GetLabels",
+    upload: "PamApiAnnotations::PamApiAnnotations.Functions_Upload_Generated::Upload",
   },
 };
 

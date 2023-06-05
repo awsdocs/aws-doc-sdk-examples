@@ -4,7 +4,7 @@
 
 This example shows you how to use the AWS SDK for .NET (v3) to create a photo management application using AWS services and a serverless architecture.
 
-The Photo Asset Management (PAM) example app uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images that are analyzed with label detection. Those labels are then stored in an Amazon DynamoDB table. Users can later request a bundle of images associated with a list of labels. When images are requested, they will be retrieved from Amazon S3, zipped, and the user is sent a link to download the resulting zip file.
+The Photo Asset Management (PAM) example app uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images that are analyzed with label detection. Those labels are then stored in an Amazon DynamoDB table. Users can later request a bundle of images associated with a list of labels. When images are requested, they are retrieved from Amazon S3, zipped, and the user is sent a link to download the resulting zip file.
 
 ![pam_overview.png](pam_overview.png)
 
@@ -76,6 +76,10 @@ For local debugging of the `PamApiAnnotations` project and the `Download` and
 To run the tool for debugging, select the tool from the `Debug` menu in Visual Studio.
 
 ![pam_mock_lambda.png](pam_mock_lambda.png)
+
+### Application notes
+* The maximum pixel size for analysis is 1000x1000. Larger images will not be analyzed.
+* Some email clients do not support the long length download urls. You may need to remove any spaces from the url before downloading.
 
 ## Delete the resources
 

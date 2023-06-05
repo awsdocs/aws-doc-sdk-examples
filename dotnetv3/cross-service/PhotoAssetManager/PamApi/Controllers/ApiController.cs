@@ -51,7 +51,7 @@ public class ApiController : ControllerBase
     [HttpGet("labels")]
     public async Task<IActionResult> Get()
     {
-        LambdaLogger.Log($"test logging: getting labels.");
+        LambdaLogger.Log($"Test logging: getting labels.");
         var allLabels = await _labelService.GetAllItems();
         var response = new LabelsResponse(allLabels.ToList());
         return Ok(response);

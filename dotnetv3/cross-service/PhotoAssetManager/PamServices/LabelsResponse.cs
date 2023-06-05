@@ -8,13 +8,13 @@ namespace PamServices;
 /// </summary>
 public class LabelsResponse
 {
-    public Dictionary<string, LabelCount> Labels { get; set; }
+    public Dictionary<string, LabelCount> labels { get; set; }
 
     public LabelsResponse(List<Label> labelsList)
     {
-        Labels = new Dictionary<string, LabelCount>();
+        labels = new Dictionary<string, LabelCount>();
         labelsList.ForEach(l =>
-            Labels.Add(l.LabelID, new LabelCount() { Count = l.Images.Count }));
+            labels.Add(l.LabelID, new LabelCount() { count = l.Images.Count }));
     }
 }
 
@@ -23,5 +23,5 @@ public class LabelsResponse
 /// </summary>
 public class LabelCount
 {
-    public int Count { get; set; }
+    public int count { get; set; }
 }

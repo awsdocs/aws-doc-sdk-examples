@@ -3,36 +3,6 @@
   "Transform": "AWS::Serverless-2016-10-31",
   "Description": "An AWS Serverless Application.",
   "Resources": {
-    "PamApiAnnotationsFunctionsUploadGenerated": {
-      "Type": "AWS::Serverless::Function",
-      "Metadata": {
-        "Tool": "Amazon.Lambda.Annotations",
-        "SyncedEvents": [
-          "RootPut"
-        ]
-      },
-      "Properties": {
-        "Runtime": "dotnet6",
-        "CodeUri": ".",
-        "MemorySize": 256,
-        "Timeout": 30,
-        "Policies": [
-          "AWSLambdaBasicExecutionRole"
-        ],
-        "PackageType": "Zip",
-        "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_Upload_Generated::Upload",
-        "Events": {
-          "RootPut": {
-            "Type": "HttpApi",
-            "Properties": {
-              "Path": "/upload",
-              "Method": "PUT",
-              "PayloadFormatVersion": "2.0"
-            }
-          }
-        }
-      }
-    },
     "DetectLabelsHandler": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
@@ -77,7 +47,7 @@
         "MemorySize": 256,
         "Timeout": 30,
         "Policies": [
-          "AWSLambdaBasicExecutionRole"
+          "AWSLambda_FullAccess"
         ],
         "PackageType": "Zip",
         "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_GetLabels_Generated::GetLabels",
@@ -87,6 +57,36 @@
             "Properties": {
               "Path": "/labels",
               "Method": "GET",
+              "PayloadFormatVersion": "2.0"
+            }
+          }
+        }
+      }
+    },
+    "PamApiAnnotationsFunctionsUploadGenerated": {
+      "Type": "AWS::Serverless::Function",
+      "Metadata": {
+        "Tool": "Amazon.Lambda.Annotations",
+        "SyncedEvents": [
+          "RootPut"
+        ]
+      },
+      "Properties": {
+        "Runtime": "dotnet6",
+        "CodeUri": ".",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambda_FullAccess"
+        ],
+        "PackageType": "Zip",
+        "Handler": "PamApiAnnotations::PamApiAnnotations.Functions_Upload_Generated::Upload",
+        "Events": {
+          "RootPut": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/upload",
+              "Method": "PUT",
               "PayloadFormatVersion": "2.0"
             }
           }
