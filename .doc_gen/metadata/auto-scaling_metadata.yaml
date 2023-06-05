@@ -22,6 +22,14 @@ auto-scaling_Hello:
             - description:
               snippet_tags:
                 - php.example_code.auto-scaling.basics.helloService
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust/example_code/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscaling.rust.list-autoscaling-groups
   services:
     auto-scaling: {DescribeAutoScalingGroups}
 auto-scaling_CreateAutoScalingGroup:
@@ -554,7 +562,7 @@ auto-scaling_EnableMetricsCollection:
           github: kotlin/services/autoscale
           excerpts:
             - description:
-              snippet_tags: 
+              snippet_tags:
                 - autoscale.kotlin.enable_collection.main
     Java:
       versions:
@@ -616,7 +624,7 @@ auto-scaling_DisableMetricsCollection:
           github: kotlin/services/autoscale
           excerpts:
             - description:
-              snippet_tags: 
+              snippet_tags:
                 - autoscale.kotlin.disable_collection.main
     Java:
       versions:
@@ -706,7 +714,7 @@ auto-scaling_Scenario_GroupsAndInstances:
           excerpts:
             - description:
               snippet_tags:
-                - autoscale.kotlin.create_scaling_scenario.main 
+                - autoscale.kotlin.create_scaling_scenario.main
     Java:
       versions:
         - sdk_version: 2
@@ -715,7 +723,7 @@ auto-scaling_Scenario_GroupsAndInstances:
           excerpts:
             - description:
               snippet_tags:
-                - autoscale.java2.create_scaling_scenario.main  
+                - autoscale.java2.create_scaling_scenario.main
     PHP:
       versions:
         - sdk_version: 3
@@ -747,7 +755,16 @@ auto-scaling_Scenario_GroupsAndInstances:
               snippet_tags:
                 - cpp.example_code.autoscaling.groups_and_instances_scenario
   services:
-    auto-scaling: {CreateAutoScalingGroup, DeleteAutoScalingGroup, DisableMetricsCollection,
-                   EnableMetricsCollection, DescribeAutoScalingGroups, DescribeAutoScalingInstances,
-                   DescribeScalingActivities, SetDesiredCapacity, TerminateInstanceInAutoScalingGroup,
-                   UpdateAutoScalingGroup}
+    auto-scaling:
+      {
+        CreateAutoScalingGroup,
+        DeleteAutoScalingGroup,
+        DisableMetricsCollection,
+        EnableMetricsCollection,
+        DescribeAutoScalingGroups,
+        DescribeAutoScalingInstances,
+        DescribeScalingActivities,
+        SetDesiredCapacity,
+        TerminateInstanceInAutoScalingGroup,
+        UpdateAutoScalingGroup,
+      }
