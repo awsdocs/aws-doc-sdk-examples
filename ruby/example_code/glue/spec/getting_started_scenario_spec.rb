@@ -22,10 +22,6 @@ require_relative("../../../helpers/waiters")
 require_relative("../glue_wrapper")
 require_relative("../getting_started")
 
-@logger = Logger.new($stdout)
-# @logger.level = Logger::WARN
-
-# snippet-start:[ruby.example_code.glue.Scenario_GetStartedCrawlersJobs]
 describe GlueWrapper do
   context "GlueWrapper" do
     resource_names = YAML.load_file("../resource_names.yaml")
@@ -98,12 +94,6 @@ describe GlueWrapper do
       print "\nDone!\n".green
     end
 
-    # puts "When you run the job, it extracts data from #{data_source}, transforms it " \
-    #  "by using the #{job_script} script, and loads the output into " \
-    #  "S3 bucket #{self.glue_bucket.name}."
-    # puts "In this example, the data is transformed from CSV to JSON, and only a few " \
-    #  "fields are included in the output."
-
     it "Starts a new job", integ: false do
       tables = wrapper.get_tables(db_name)
       job_run_status = nil
@@ -166,5 +156,4 @@ describe GlueWrapper do
     end
   end
 end
-# snippet-end:[ruby.example_code.glue.Scenario_GetStartedCrawlersJobs]
 

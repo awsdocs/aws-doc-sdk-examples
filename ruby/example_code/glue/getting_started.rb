@@ -219,6 +219,8 @@ def main
 # rescue Exception => e
 #   @logger.error("Something went wrong with the example:\n #{e}")
 end
+# snippet-end:[ruby.example_code.glue.Scenario_GetStartedCrawlersJobs]
+
 
 if __FILE__ == $0
   main
