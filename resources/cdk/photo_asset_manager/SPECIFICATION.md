@@ -54,7 +54,7 @@ While developing this example, we have kept two other personas in mind:
 
 # Development / deployment
 
-Refer to [README.md](../tree/main/resources/cdk/photo_asset_manager/README.md) for deployment instructions and [DEVELOPMENT.md](../tree/main/resources/cdk/photo_asset_manager/DEVELOPMENT.md) for instructions on modifying the AWS CDK script.
+Refer to [README.md](README.md) for deployment instructions and [DEVELOPMENT.md](DEVELOPMENT.md) for instructions on modifying the AWS CDK script.
 
 # Frontend
 
@@ -215,4 +215,4 @@ Each implementation will include a README describing the language-specific detai
 
 ## Appendix B - Lambda triggers
 
-- Storage bucket [OBJECT_CREATED] - When the user uploads a _.jpg_/_.jpeg_ to the presigned URL in the storage bucket, the `DetectLabelsFn` function is invoked.
+- Storage bucket [OBJECT_CREATED] - When the user uploads a _.jpg_ or _.jpeg_ to the presigned URL in the storage bucket, the `DetectLabelsFn` function is invoked.
