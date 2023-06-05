@@ -11,7 +11,7 @@ per-language AWS Lambda implementations.
 To add a new supported implementation language:
 1. Create a new project in the appropriate language folder.
 1. Implement the Lambda functions.
-1. Edit [`./lib/backend/strategies.ts`](./lib/backend/strategies.ts) and add a new `PamLambdaStrategy` for the language.
+1. Edit [`./lib/backend/strategies.ts`](./cdk/lib/backend/strategies.ts) and add a new `PamLambdaStrategy` for the language.
 (Copy or refer to an existing instance.)
    1. Register this language in the `STRATEGIES` constant.
    1. Update the current languages in the README.
