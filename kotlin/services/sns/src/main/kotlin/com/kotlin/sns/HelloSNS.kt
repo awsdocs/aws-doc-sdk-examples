@@ -6,7 +6,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-
 package com.kotlin.sns
 
 // snippet-start:[sns.kotlin.hello.main]
@@ -32,7 +31,7 @@ suspend fun listTopicsPag() {
             .transform { it.topics?.forEach { topic -> emit(topic) } }
             .collect { topic ->
                 println("The topic ARN is ${topic.topicArn}")
-        }
+            }
     }
 }
 // snippet-end:[sns.kotlin.hello.main]
