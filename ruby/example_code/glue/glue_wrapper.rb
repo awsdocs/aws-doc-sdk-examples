@@ -26,7 +26,7 @@ class GlueWrapper
     @logger.info("Crawler #{name} doesn't exist.")
     false
   rescue Aws::Glue::Errors::GlueException => e
-    @logger.error("Couldn't get crawler #{name}: \n#{e.message}")
+    @logger.error("Glue could not get crawler #{name}: \n#{e.message}")
     raise
   end
   # snippet-end:[ruby.example_code.glue.GetCrawler]
@@ -54,7 +54,7 @@ class GlueWrapper
       }
     )
   rescue Aws::Glue::Errors::GlueException => e
-    @logger.error("Couldn't create crawler: \n#{e.message}")
+    @logger.error("Glue could not create crawler: \n#{e.message}")
     raise
   end
   # snippet-end:[ruby.example_code.glue.CreateCrawler]
@@ -67,7 +67,7 @@ class GlueWrapper
   def start_crawler(name)
     @glue_client.start_crawler(name: name)
   rescue Aws::Glue::Errors::ServiceError => e
-    @logger.error("Couldn't start crawler #{name}: \n#{e.message}")
+    @logger.error("Glue could not start crawler #{name}: \n#{e.message}")
     raise
   end
   # snippet-end:[ruby.example_code.glue.StartCrawler]
@@ -80,7 +80,7 @@ class GlueWrapper
   def delete_crawler(name)
     @glue_client.delete_crawler(name: name)
   rescue Aws::Glue::Errors::ServiceError => e
-    @logger.error("Couldn't delete crawler #{name}: \n#{e.message}")
+    @logger.error("Glue could not delete crawler #{name}: \n#{e.message}")
     raise
   end
   # snippet-end:[ruby.example_code.glue.DeleteCrawler]
@@ -94,7 +94,7 @@ class GlueWrapper
     response = @glue_client.get_database(name: name)
     response.database
 rescue Aws::Glue::Errors::GlueException => e
-  @logger.error("Couldn't get database #{name}: \n#{e.message}")
+  @logger.error("Glue could not get database #{name}: \n#{e.message}")
   raise
   end
   # snippet-end:[ruby.example_code.glue.GetDatabase]
@@ -108,7 +108,7 @@ rescue Aws::Glue::Errors::GlueException => e
     response = @glue_client.get_tables(database_name: db_name)
     response.table_list
   rescue Aws::Glue::Errors::GlueException => e
-    @logger.error("Couldn't get tables #{db_name}: \n#{e.message}")
+    @logger.error("Glue could not get tables #{db_name}: \n#{e.message}")
     raise
   end
   # snippet-end:[ruby.example_code.glue.GetTables]
@@ -134,7 +134,7 @@ rescue Aws::Glue::Errors::GlueException => e
       glue_version: "3.0"
     )
   rescue Aws::Glue::Errors::GlueException => e
-    @logger.error("Couldn't create job #{name}: \n#{e.message}")
+    @logger.error("Glue could not create job #{name}: \n#{e.message}")
     raise
   end
   # snippet-end:[ruby.example_code.glue.CreateJob]
@@ -158,7 +158,7 @@ rescue Aws::Glue::Errors::GlueException => e
     )
     response.job_run_id
   rescue Aws::Glue::Errors::GlueException => e
-    @logger.error("Couldn't start job run #{name}: \n#{e.message}")
+    @logger.error("Glue could not start job run #{name}: \n#{e.message}")
     raise
   end
   # snippet-end:[ruby.example_code.glue.StartJobRun]
@@ -170,7 +170,7 @@ rescue Aws::Glue::Errors::GlueException => e
   def list_jobs
     @glue_client.list_jobs
   rescue Aws::Glue::Errors::GlueException => e
-    @logger.error("Couldn't list jobs: \n#{e.message}")
+    @logger.error("Glue could not list jobs: \n#{e.message}")
     raise
   end
   # snippet-end:[ruby.example_code.glue.ListJobs]
@@ -184,9 +184,21 @@ rescue Aws::Glue::Errors::GlueException => e
     response = @glue_client.get_job_runs(job_name: job_name)
     response.job_runs
   rescue Aws::Glue::Errors::GlueException => e
-    @logger.error("Couldn't get job runs: \n#{e.message}")
+    @logger.error("Glue could not get job runs: \n#{e.message}")
   end
-  # snippet-end:[ruby.example_code.glue.GetJobRuns]
+  # snippet-end:[ruby.example_code.glue.GetJobRun]
+
+  # snippet-start:[ruby.example_code.glue.GetJobRun]
+  # Retrieves data for a specific job run.
+  #
+  # @param job_name [String] The name of the job run to retrieve data for.
+  # @return [Glue::Types::GetJobRunResponse]
+  def get_job_run(job_name, run_id)
+    @glue_client.get_job_run(job_name: job_name, run_id: run_id)
+  rescue Aws::Glue::Errors::GlueException => e
+    @logger.error("Glue could not get job runs: \n#{e.message}")
+  end
+  # snippet-end:[ruby.example_code.glue.GetJobRun]
 
   # snippet-start:[ruby.example_code.glue.DeleteJob]
   # Deletes a job with the specified name.
@@ -196,10 +208,34 @@ rescue Aws::Glue::Errors::GlueException => e
   def delete_job(job_name)
     @glue_client.delete_job(job_name: job_name)
   rescue Aws::Glue::Errors::ServiceError => e
-    @logger.error("Couldn't delete job: \n#{e.message}")
+    @logger.error("Glue could not delete job: \n#{e.message}")
   end
   # snippet-end:[ruby.example_code.glue.DeleteJob]
 
+  # snippet-start:[ruby.example_code.glue.DeleteTable]
+  # Deletes a table with the specified name.
+  #
+  # @param database_name [String] The name of the catalog database in which the table resides.
+  # @param table_name [String] The name of the table to be deleted.
+  # @return [void]
+  def delete_table(database_name, table_name)
+    @glue_client.delete_table(database_name: database_name, name: table_name)
+  rescue Aws::Glue::Errors::ServiceError => e
+    @logger.error("Glue could not delete job: \n#{e.message}")
+  end
+  # snippet-end:[ruby.example_code.glue.DeleteTable]
+
+  # snippet-start:[ruby.example_code.glue.DeleteDatabase]
+  # Removes a specified database from a Data Catalog.
+  #
+  # @param database_name [String] The name of the database to delete.
+  # @return [void]
+  def delete_database(database_name)
+    @glue_client.delete_database(name: database_name)
+  rescue Aws::Glue::Errors::ServiceError => e
+    @logger.error("Glue could not delete database: \n#{e.message}")
+  end
+  # snippet-end:[ruby.example_code.glue.DeleteDatabase]
 
   # Uploads a job script file to an S3 bucket.
   #
@@ -216,7 +252,7 @@ rescue Aws::Glue::Errors::GlueException => e
     end
     puts "Uploaded job script '#{file_path}' to the example bucket."
   rescue Aws::S3::Errors::S3UploadFailedError => e
-    @logger.error("Couldn't upload job script. Here's why: #{e.message}")
+    @logger.error("S3 could not upload job script: \n#{e.message}")
     raise
   end
 
