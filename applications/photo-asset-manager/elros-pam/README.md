@@ -1,7 +1,7 @@
 # Developer guide
 
 This is the front-end of the Photo Asset Manager (PAM) cross-service example. You can
-run this in isolation, but it is meant to be deployed using the companion [AWS CDK script](../../../cdk/photo_asset_manager/README.md).
+run this in isolation, but it is meant to be deployed using the companion [AWS CDK script](../cdk/README.md).
 
 ## Prerequisites
 
