@@ -626,8 +626,9 @@ The following Java code represents the **ExcelService** class that uses the **jx
     // Convert population data into XML.
     private static Document toXml(List<PopData> itemList) {
 
-        try {
+    try {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.newDocument();
 
@@ -707,11 +708,11 @@ The following Java code represents the **ExcelService** class that uses the **jx
         }
 
         return doc;
-        } catch(ParserConfigurationException e) {
+    } catch(ParserConfigurationException e) {
         e.printStackTrace();
-        }
-        return null;
-        }
+    }
+    return null;
+    }
 
       private static String convertToString(Document xml) {
         try {

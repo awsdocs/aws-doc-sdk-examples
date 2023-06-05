@@ -14,7 +14,6 @@ import java.util.Map;
 public class DocumentHandler {
 
     public String handleRequest(Map<String,String> event, Context context) throws IOException, BiffException {
-
         LambdaLogger logger = context.getLogger();
         logger.log("Getting excel doc from the Amazon S3 bucket");
 
