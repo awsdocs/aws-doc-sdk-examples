@@ -63,5 +63,6 @@ public class ImageServiceTests
 
         // Assert.
         Assert.NotNull(labels);
+        Assert.Empty(labels);
     }
 }
