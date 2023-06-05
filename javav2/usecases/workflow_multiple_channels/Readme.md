@@ -595,6 +595,7 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
