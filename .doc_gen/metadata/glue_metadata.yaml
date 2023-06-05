@@ -14,6 +14,14 @@ glue_Hello:
             - description:
               snippet_tags:
                 - Glue.dotnetv3.HelloGlue
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.list_jobs
   services:
     glue: {ListJobs}
 glue_GetCrawler:
@@ -997,7 +1005,7 @@ glue_Scenario_GetStartedCrawlersJobs:
     - Create a crawler that crawls a public &S3; bucket and generates
       a database of CSV-formatted metadata.
     - List information about databases and tables in your &GLUDCLong;.
-    - Create a job to extract CSV data from the S3 bucket, transform the data, and 
+    - Create a job to extract CSV data from the S3 bucket, transform the data, and
       load JSON-formatted output into another S3 bucket.
     - List information about job runs, view transformed data, and clean up resources.
   category: Scenarios
