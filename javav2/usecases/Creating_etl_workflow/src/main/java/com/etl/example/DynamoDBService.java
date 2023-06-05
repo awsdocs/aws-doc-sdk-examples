@@ -34,9 +34,7 @@ public class DynamoDBService {
 
         return ddb;
     }
-
     public void injectETLData(String myDom)  throws JDOMException, IOException {
-
         SAXBuilder builder = new SAXBuilder();
         Document jdomDocument = builder.build(new InputSource(new StringReader(myDom)));
         org.jdom2.Element root = ((org.jdom2.Document) jdomDocument).getRootElement();
@@ -44,7 +42,6 @@ public class DynamoDBService {
         List<org.jdom2.Element> items = root.getChildren("Item");
 
         for (org.jdom2.Element element : items) {
-
             pop.setName(element.getChildText("Name"));
             pop.setCode(element.getChildText("Code"));
             pop.set2010(element.getChildText("Date2010"));
@@ -71,7 +68,6 @@ public class DynamoDBService {
                 .build();
 
         try {
-
             // Create a DynamoDbTable object.
             DynamoDbTable<Population> workTable = enhancedClient.table("Country", TableSchema.fromBean(Population.class));
 

@@ -23,7 +23,6 @@ public class S3Service {
 
         return s3;
     }
-
     public byte[] getObjectBytes (String bucketName, String keyName) {
 
         try {
