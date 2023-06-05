@@ -53,6 +53,9 @@ Resources:
       aws:cdk:path: doc-example-glue-scenario-stack/AWSGlueServiceRole-DocExample/DefaultPolicy/Resource
   docexampleglue6E2F12E5:
     Type: AWS::S3::Bucket
+    Properties:
+      VersioningConfiguration:
+        Status: Enabled
     UpdateReplacePolicy: Delete
     DeletionPolicy: Delete
     Metadata:
