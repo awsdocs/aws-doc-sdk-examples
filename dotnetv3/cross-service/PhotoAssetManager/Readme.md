@@ -34,8 +34,8 @@ To run the code in this example, you need the following:
 
 + An AWS account.
 + .NET 6
-+ Docker
-+ npm (node.js)
++ Docker Desktop
++ NodeJS 18+
 + To set up your development environment,
   see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html).
 
@@ -50,7 +50,7 @@ to use the AWS Cloud Development Kit (AWS CDK) or AWS Command Line Interface
 
 The Visual Studio solution **PhotoAssetManager.sln** includes several projects with different purposes for this example.
 
-- **PamApi** - A Lambda Serverless Api project that includes an ApiController for the serverless endpoints, a swagger ui for development environments, and the separate Download and DetectLabels functions. 
+- **PamApi** - A Lambda Serverless Api project that includes an ApiController for the serverless endpoints, a Swagger UI for development environments, and the separate Download and DetectLabels functions. 
   - This is the project that will be packaged and deployed when using the `dotnet` language option when setting up the CDK stack.
 - **PamApiAnnotations** - A [Lambda Annotations](https://github.com/aws/aws-lambda-dotnet/blob/master/Libraries/src/Amazon.Lambda.Annotations/README.md) project that includes a version of the serverless endpoints that use Lambda Annotations for .NET.
   - This is the project that will be packaged and deployed when using the `dotnetla` language option when setting up the CDK stack.
@@ -78,7 +78,7 @@ To run the tool for debugging, select the tool from the `Debug` menu in Visual S
 ![pam_mock_lambda.png](pam_mock_lambda.png)
 
 ### Application notes
-* The maximum pixel size for analysis is 1000x1000. Larger images will not be analyzed.
+* The maximum pixel size for analysis is 10000x10000. Larger images will not be analyzed.
 * Some email clients do not support the long length download urls. You may need to remove any spaces from the url before downloading.
 
 ## Delete the resources
