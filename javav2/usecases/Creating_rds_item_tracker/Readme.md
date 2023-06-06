@@ -131,7 +131,7 @@ Active items are queried from the database and used to dynamically create an Exc
 
 At this point, you have a new project named **ItemTrackerRDSRest**.
 
-**Note:** Make sure to use Java 11 (as shown in the following example).
+**Note:** Make sure to use Java 17 (as shown in the following example).
 
 Confirm that the **pom.xml** file looks like the following example.
 
@@ -147,19 +147,19 @@ Confirm that the **pom.xml** file looks like the following example.
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.6.4</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>11</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.17.146</version>
+                <version>2.20.45</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -176,6 +176,15 @@ Confirm that the **pom.xml** file looks like the following example.
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>secretsmanager</artifactId>
+          </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -223,11 +232,6 @@ Confirm that the **pom.xml** file looks like the following example.
             <version>1.6.5</version>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
             <version>2.6.10</version>
@@ -235,7 +239,7 @@ Confirm that the **pom.xml** file looks like the following example.
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.6</version>
+            <version>2.7</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -255,10 +259,6 @@ Confirm that the **pom.xml** file looks like the following example.
     </dependencies>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
         </plugins>
     </build>
 </project>
