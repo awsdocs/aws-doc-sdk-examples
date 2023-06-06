@@ -77,7 +77,7 @@ The following figure shows the workflow you'll create with this tutorial, which 
 
 The following describes each step in the workflow:
 + **Start** - Initiates the workflow and passes in a date value.
-+ **Determine the missing students** – Determines the students that are absent for the given day. For this AWS tutorial, a Amazon DynamoDB table is queried to track the students that are absent. This workflow step dynamically creates XML that contains the students queried from the database and passes the XML to the next step. 
++ **Determine the missing students** – Determines the students that are absent for the given day. For this AWS tutorial, an Amazon DynamoDB table is queried to track the students that are absent. This workflow step dynamically creates XML that contains the students queried from the database and passes the XML to the next step. 
 + **Send all notifications** – Parses the XML that contains all absent students. For each student, this step invokes Amazon SNS to send a mobile text message, Amazon Pinpoint to send a voice message, and Amazon SES to send an email message.  
 + **End** - Stops the workflow.
 
@@ -174,9 +174,9 @@ To define a workflow that sends notifications over multiple channels by using AW
 
 ![AWS Tracking Application](images/workflowmodelA.png)
 
-Workflows can pass data between steps. For example, the **Determine the missing students** step queries the **students** table, dynamically creates XML, and passes XML to the **Send All Notifications** step. 
+Workflows can pass data between steps. For example, the **Determine the missing students** step queries the **Students** table, dynamically creates XML, and passes XML to the **Send All Notifications** step. 
 
-**Note**: Later in this tutorial, you'll create application logic in the Lambda function to read data from the Amazon RDS table.  
+**Note**: Later in this tutorial, you'll create application logic in the Lambda function to read data from the Amazon DynamoDB table.  
 
 #### To create a workflow
 
@@ -242,7 +242,7 @@ Create a Java project to develop Lambda functions by using the Lambda Java runti
 At this point, you have a new project named **LambdaNotifications**. Add the following code to your project's pom.xml file. 
 
 ```xml
-        <?xml version="1.0" encoding="UTF-8"?>
+      <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -262,7 +262,7 @@ At this point, you have a new project named **LambdaNotifications**. Add the fol
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.17.136</version>
+                <version>2.20.45</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -307,20 +307,18 @@ At this point, you have a new project named **LambdaNotifications**. Add the fol
             <version>1.7.36</version>
         </dependency>
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.41</version>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>dynamodb-enhanced</artifactId>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>ses</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.9.0</version>
-        </dependency>
-        <dependency>
+           <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.17.2</version>
@@ -349,17 +347,28 @@ At this point, you have a new project named **LambdaNotifications**. Add the fol
             <version>5.6.0</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-    </dependencies>
+      </dependencies>
     <build>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -377,17 +386,17 @@ At this point, you have a new project named **LambdaNotifications**. Add the fol
 
 ## Create Lambda functions by using the AWS SDK for Java
 
-Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are two workflow steps that each correspond to a Java class. There are also extra classes that invoke the AWS services. The following figure shows the Java classes in the project. All Java classes are located in a package named **com.example.messages**.
+Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are two workflow steps that each correspond to a Java class. There are also extra classes that invoke the AWS services. The following figure shows the Java classes in the project. All Java classes are located in a package named **com.example**.
 
 ![AWS Tracking Application](images/projectfiles2.png)
 
 To create a Lambda function by using the Lambda runtime API, implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
 
 Create these Java classes, which are described in the following sections:
-+ **ConnectionHelper** - Used to connect to the Amazon RDS instance.  
++ **StudentData** - An Amazon DynamoDB class used to work with the Amazon DynamoDB enhanced client.  
 + **ListMissingStudentsHandler** - Used as the first step in the workflow. This class queries data from the Amazon RDS instance. 
 + **HandlerVoiceNot** - Used as the second step in the workflow. Sends out messages over multiple channels.
-+ **RDSGetStudents** - Queries data from the student table using the Java Database Connectivity (JDBC) API. 
++ **GetStudents** - Queries data from the Student table using the Amazon DynamoDB Enhanced client. 
 + **SendNotifications** - Uses the AWS SDK for Java (v2) to invoke the Amazon SNS, Amazon Pinpoint, and Amazon SES services.
 + **Student** - A Java class that defines data members to store student data. 
 
