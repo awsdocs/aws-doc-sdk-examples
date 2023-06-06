@@ -396,79 +396,121 @@ Create these Java classes, which are described in the following sections:
 + **StudentData** - An Amazon DynamoDB class used to work with the Amazon DynamoDB enhanced client.  
 + **ListMissingStudentsHandler** - Used as the first step in the workflow. This class queries data from the Amazon RDS instance. 
 + **HandlerVoiceNot** - Used as the second step in the workflow. Sends out messages over multiple channels.
-+ **GetStudents** - Queries data from the Student table using the Amazon DynamoDB Enhanced client. 
++ **GetStudents** - Queries data from the Student table by using the Amazon DynamoDB Enhanced client. 
 + **SendNotifications** - Uses the AWS SDK for Java (v2) to invoke the Amazon SNS, Amazon Pinpoint, and Amazon SES services.
 + **Student** - A Java class that defines data members to store student data. 
 
-### ConnectionHelper class
+### StudentData class
 
-The following Java code represents the **ConnectionHelper** class.
+The following Java code represents the **StudentData** class.
 
 ```java
-     package com.example.messages;
+    package com.example;
 
-     import java.sql.Connection;
-     import java.sql.DriverManager;
-     import java.sql.SQLException;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
+import java.time.Instant;
 
-     public class ConnectionHelper {
+@DynamoDbBean
+public class StudentData {
 
-      private static ConnectionHelper instance;
-      private String url;
-      private ConnectionHelper() {
-        url = "jdbc:mysql://localhost:3306/mydb?useSSL=false";
-      }
+    private String id;
 
-      public static Connection getConnection() throws SQLException {
-        if (instance == null)
-            instance = new ConnectionHelper();
+    private String firstName;
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root", "root1234");
-        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            e.getStackTrace();
-        }
-        return null;
-      }
+    private String lastName;
+    private String email;
+    private String mobileNumber ;
+    private String phoneNumber;
+
+    private Instant date;
+
+
+    public Instant getDate() {
+        return this.date;
     }
+
+    public void setDate(Instant date) {
+        this.date = date;
+    }
+    @DynamoDbPartitionKey
+    public String getId() {
+        return this.id;
+    }
+
+    public void setId(String id) {
+      this.id = id;
+    }
+
+    public void setPhoneNunber(String phoneNunber) {
+        this.phoneNumber = phoneNunber;
+    }
+
+    public String getPhoneNunber() {
+        return this.phoneNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public String getMobileNumber() {
+        return this.mobileNumber;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+}
+
  ```
-
-**Note**: The URL value is **localhost:3306**. This value is modified after the Amazon RDS instance is created. The Lambda function uses this URL to communicate with the database. You must also be sure to specify the user name and password for your Amazon RDS instance.
-
 ### ListMissingStudentsHandler class
 
-This Java code represents the **ListMissingStudentsHandler** class. The class creates a Lamdba function that reads the passed in date value and queries the **student** table using this value.  The **handleRequest** method returns XML that specifies all of the absent students. The XML is passed to the second step in the workflow.
+This Java code represents the **ListMissingStudentsHandler** class. The class creates a Lamdba function that reads the passed in date value and queries the **Students** table using this value.  The **handleRequest** method returns XML that specifies all of the absent students. The XML is passed to the second step in the workflow.
 
 ```java
-     package com.example.messages;
+package com.example;
 
-     import com.amazonaws.services.lambda.runtime.Context;
-     import com.amazonaws.services.lambda.runtime.RequestHandler;
-     import com.amazonaws.services.lambda.runtime.LambdaLogger;
-     import java.util.Map;
-    
-     public class ListMissingStudentsHandler implements RequestHandler<Map<String,String>, String> {
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+import java.util.Map;
 
-      @Override
-      public String handleRequest(Map<String,String> event, Context context) {
-        
-	LambdaLogger logger = context.getLogger();
+public class ListMissingStudentsHandler implements RequestHandler<Map<String,String>, String> {
+
+    @Override
+    public String handleRequest(Map<String,String> event, Context context) {
+        LambdaLogger logger = context.getLogger();
         String date = event.get("date");
         logger.log("DATE: " + date);
 
-        // Query the student table and get back XML.
-        RDSGetStudents students = new RDSGetStudents();
-         String xml = null;
-        try {
-            xml = students.getStudentsRDS(date);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        GetStudents students = new GetStudents();
+        String xml = students.getStudentsData(date);
         logger.log("XML: " + xml);
         return xml;
-      }
-     }
+    }
+}
  ```
 
 ### HandlerVoiceNot class
@@ -482,7 +524,7 @@ The **HandlerVoiceNot** class is the second step in the workflow. It creates a *
 The following code represents the **HandlerVoiceNot** method. In this example, the XML that is passed to the Lambda function is stored in the **xml** variable. 
 
 ```java
-     package com.example.messages;
+package com.example;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -492,17 +534,13 @@ import javax.mail.MessagingException;
 import java.io.IOException;
 
 public class HandlerVoiceNot implements RequestHandler<String, String> {
-
     @Override
     public String handleRequest(String event, Context context) {
-
         LambdaLogger logger = context.getLogger();
         String xml = event;
         int num =0;
         SendNotifications sn = new SendNotifications();
-
         try {
-
            sn.handleTextMessage(xml);
            sn.handleVoiceMessage(xml);
            num = sn.handleEmailMessage(xml);
