@@ -390,6 +390,7 @@ The following Java code represents the **ReportController** class.
 ```java
 package com.aws.rest;
 
+import com.google.gson.Gson;
 import jxl.write.WriteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -399,6 +400,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "*")
@@ -421,17 +423,19 @@ public class ReportController {
         this.sm = sm;
     }
 
-    @PostMapping("")
+        @PostMapping("")
     public String sendReport(@RequestBody Map<String, String> body) {
-        var list = dbService.getItemsDataSQLReport(0);
+        List<WorkItem> list = dbService.getItemsDataSQLReport(0);
+        Gson gson = new Gson();
         try {
             InputStream is = writeExcel.write(list);
             sm.sendReport(is, body.get("email"));
-            return "Report generated & sent";
+            return gson.toJson("ok");
+
         } catch (IOException | WriteException e) {
             e.printStackTrace();
         }
-        return "Failed to generate report";
+        return gson.toJson("error");
     }
 }
 ```
