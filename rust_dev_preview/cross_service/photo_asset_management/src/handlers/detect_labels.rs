@@ -130,8 +130,8 @@ mod test {
     use super::prepare_update_expression;
     use aws_config::SdkConfig;
 
-    #[test]
-    fn test_prepare_update_statement() {
+    #[tokio::test]
+    async fn test_prepare_update_statement() {
         let object = "object".to_string();
         let label = aws_sdk_rekognition::types::Label::builder()
             .name("label")
@@ -149,10 +149,17 @@ mod test {
             .map(|s| s.to_string())
             .collect::<Vec<String>>();
         let update_inner_debug = split.get(1).expect("inner as Debug");
-        // This assertion is flaky, the order of ExpressionAttributeValues is not consistent
-        assert_eq!(
-            update_inner_debug,
-            r#"{ table_name: None, key: Some({"Label": S("label")}), attribute_updates: None, expected: None, conditional_operator: None, return_values: None, return_consumed_capacity: None, return_item_collection_metrics: None, update_expression: Some("SET Count = Count + :one SET Images = Images + :image"), condition_expression: None, expression_attribute_names: None, expression_attribute_values: Some({":image": S("object"), ":one": N("1")}) } }"#
-        );
+
+        assert!(update_inner_debug.contains("table_name: None"));
+        assert!(update_inner_debug.contains("key: Some({\"Label\": S(\"label\")})"));
+        assert!(update_inner_debug.contains("update_expression: Some(\"SET #Count = if_not_exists(#Count, :zero) + :one, Images = list_append(if_not_exists(Images, :empty), :image)\")"));
+        assert!(update_inner_debug
+            .contains("expression_attribute_names: Some({\"#Count\": \"Count\"})"));
+        assert!(update_inner_debug.contains("\":empty\": L([])"));
+        assert!(update_inner_debug.contains("\":image\": L([S(\"object\")])"));
+        assert!(update_inner_debug.contains("\":one\": N(\"1\")"));
+        assert!(update_inner_debug.contains("\":zero\": N(\"0\")"));
+
+        ()
     }
 }

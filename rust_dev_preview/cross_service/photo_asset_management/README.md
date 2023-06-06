@@ -30,3 +30,7 @@ cargo lambda watch
 ```
 
 In another terminal, run `cargo lambda invoke &lt;name-of-bin&gt; --data-file examples/&lt;name-of-bin&gt;.json`.
+
+## Deploying
+
+Follow the instructions in the [PAM application CDK README](../../../applications/photo-asset-manager/cdk/README.md), using `PAM_LANG=rust`.

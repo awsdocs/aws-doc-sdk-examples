@@ -1,4 +1,3 @@
-use anyhow::anyhow;
 use aws_sdk_dynamodb::primitives::DateTime;
 use aws_sdk_s3::primitives::ByteStream;
 use aws_smithy_types_convert::date_time::DateTimeExt;
@@ -49,8 +48,7 @@ impl<'a> ZipUpload<'a> {
             .unwrap_or_else(|| DateTime::from_millis(0))
             .to_chrono_utc()?
             .naive_utc()
-            .try_into()
-            .map_err(|_| anyhow!("Failed to convert to DateTime"))?;
+            .try_into()?;
 
         let length = object.content_length();
         tracing::info!(key, ?last_modified, length, "Adding bytes to zip");
