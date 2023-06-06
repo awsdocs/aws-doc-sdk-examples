@@ -148,10 +148,6 @@ public class DatabaseService {
     // Inject a new submission.
     public void injestNewSubmission(WorkItem item) {
         Connection c = null;
-        // Get the Amazon RDS creds from Secrets Manager.
-        SecretsManagerClient secretClient = getSecretClient();
-        String secretName = "itemtracker/mysql";
-
         // Get the Amazon RDS credentials from AWS Secrets Manager.
         String secret = getSecretValues();
         Gson gson = new Gson();
