@@ -44,20 +44,24 @@ import java.io.ByteArrayOutputStream;
 public class SendNotifications {
 
     public String handleEmailMessage(String myDom) throws JDOMException, IOException, MessagingException {
-
         String myEmail = "";
         SesClient client = SesClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
 
+        /*
+         Uses the SAXBuilder class from JDOM, and by setting the feature
+         "http://apache.org/xml/features/disallow-doctype-decl" to true,
+         it disables the processing of Document Type Declarations (DTDs) in XML documents.
+         */
         SAXBuilder builder = new SAXBuilder();
+        builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         Document jdomDocument = builder.build(new InputSource(new StringReader(myDom)));
         org.jdom2.Element root = jdomDocument.getRootElement();
 
         // Get the list of children elements.
         List<org.jdom2.Element> students = root.getChildren("Student");
         for (org.jdom2.Element element : students) {
-
             myEmail = element.getChildText("Email");
             sendEmailMessage(client, myEmail);
         }
@@ -67,20 +71,19 @@ public class SendNotifications {
 
 
     public String handleTextMessage(String myDom) throws JDOMException, IOException{
-
         String mobileNum = "";
         SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+            .region(Region.US_EAST_1)
+            .build();
 
         SAXBuilder builder = new SAXBuilder();
+        builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         Document jdomDocument = builder.build(new InputSource(new StringReader(myDom)));
         org.jdom2.Element root = jdomDocument.getRootElement();
 
         // get the list of children agent elements.
         List<org.jdom2.Element> students = root.getChildren("Student");
         for (org.jdom2.Element element : students) {
-
             mobileNum = element.getChildText("Mobile");
             publishTextSMS(snsClient, mobileNum);
         }
@@ -89,11 +92,9 @@ public class SendNotifications {
     }
 
     public String handleVoiceMessage(String myDom) throws JDOMException, IOException{
-
         String mobileNum = "";
         List<String> listVal = new ArrayList<>();
         listVal.add("application/json");
-
         Map<String, List<String>> values = new HashMap<>();
         values.put("Content-Type", listVal);
 
@@ -107,13 +108,13 @@ public class SendNotifications {
                 .build();
 
         SAXBuilder builder = new SAXBuilder();
+        builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         Document jdomDocument = builder.build(new InputSource(new StringReader(myDom)));
         org.jdom2.Element root = jdomDocument.getRootElement();
 
         // get a list of children elements.
         List<org.jdom2.Element> students = root.getChildren("Student");
         for (org.jdom2.Element element : students) {
-
             mobileNum = element.getChildText("Phone");
             sendVoiceMsg( client, mobileNum);
         }
@@ -122,7 +123,6 @@ public class SendNotifications {
       }
 
     private void sendVoiceMsg(PinpointSmsVoiceClient client, String mobileNumber) {
-
         String languageCode = "en-US";
         String voiceName = "Matthew";
 
@@ -157,9 +157,7 @@ public class SendNotifications {
     }
 
     private void publishTextSMS(SnsClient snsClient, String phoneNumber) {
-
         String message = "Please be advised that your student was marked absent from school today.";
-
         try {
             PublishRequest request = PublishRequest.builder()
                     .message(message)
@@ -175,7 +173,6 @@ public class SendNotifications {
     }
 
     private void sendEmailMessage(SesClient client, String recipient) throws MessagingException, IOException {
-
             // The email body for non-HTML email clients.
             String bodyText = "Hello,\r\n" + "Please be advised that your student was marked absent from school today. ";
 
@@ -226,7 +223,6 @@ public class SendNotifications {
 
             try {
                 System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
-
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 message.writeTo(outputStream);
                 ByteBuffer buf = ByteBuffer.wrap(outputStream.toByteArray());

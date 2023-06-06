@@ -198,9 +198,9 @@ public class SnsService {
 
    // Convert the list to XML to pass back to the view.
     private Document toXml(List<String> subsList) {
-
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 

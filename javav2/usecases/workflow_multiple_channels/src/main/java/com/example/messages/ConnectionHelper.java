@@ -18,6 +18,8 @@ public class ConnectionHelper {
     }
 
     public static Connection getConnection() throws SQLException {
+
+      /*
         if (instance == null)
             instance = new ConnectionHelper();
 
@@ -28,5 +30,18 @@ public class ConnectionHelper {
             e.getStackTrace();
         }
         return null;
+
+       */
+
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                String url = "jdbc:mysql://awstracker.csf1if1wwrox.us-east-1.rds.amazonaws.com:3306/mydatabase";
+                String username = "root";
+                String password = "root1234";
+
+                return DriverManager.getConnection(url, username, password);
+            } catch (ClassNotFoundException e) {
+                throw new SQLException("MySQL JDBC driver not found.", e);
+            }
     }
 }

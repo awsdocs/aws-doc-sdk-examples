@@ -4,9 +4,9 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a Spring REST API that queries Amazon Relational Database Service (Amazon RDS) for MySQL data. The Spring REST API uses the JDBC API and the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/).  |
+| Description | Discusses how to develop a Spring REST API that queries Amazon Relational Database Service (Amazon RDS) for MySQL data. The Spring REST API uses the JDBC API and the AWS SDK for Java (v2) to invoke AWS services and is used by a React application that displays the data. The React application uses Cloudscape. For information, see [Cloudscape](https://cloudscape.design/). This example also uses AWS Secrets Manager to store MySQL credentials.|
 | Audience   |  Developer (intermediate)        |
-| Updated   | 10/27/2022        |
+| Updated   | 06/6/2023        |
 | Required skills   | Java, Maven, JavaScript  |
 
 ## Purpose
@@ -70,6 +70,14 @@ After you create the database, in the **Connectivity & security** section, view 
 ![AWS Tracking Application](images/trackEndpoint2.png)
       
 **Note:** You must set up an inbound rule for the security group to connect to the database from your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up an inbound rule, you can connect to the database from a client such as MySQL Workbench. For more information, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).  
+
+### Setup AWS Secrets Manager to store database values
+
+This application uses AWS Secrets Manager to store database values. It is better practice to store your database credentials in AWS Secrets Manager as opposed to hard coding them into your Java application logic. Once you setup a database secret, you have user name, password, and host, as shown in this illustration.
+
+![AWS Tracking Application](images/databaseCreds.png)
+
+For information, see [Create an AWS Secrets Manager database secret](https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_database_secret.html).
 
 ## Understand the AWS Tracker React application 
 
