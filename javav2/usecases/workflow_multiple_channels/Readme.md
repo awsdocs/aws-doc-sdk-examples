@@ -386,11 +386,9 @@ At this point, you have a new project named **LambdaNotifications**. Add the fol
 
 ## Create Lambda functions by using the AWS SDK for Java
 
-Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are two workflow steps that each correspond to a Java class. There are also extra classes that invoke the AWS services. The following figure shows the Java classes in the project. All Java classes are located in a package named **com.example**.
+Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are two workflow steps that each correspond to a Java class. There are also extra classes that invoke the AWS services. All Java classes are located in a package named **com.example**.
 
-![AWS Tracking Application](images/projectfiles2.png)
-
-To create a Lambda function by using the Lambda runtime API, implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
+To create an AWS Lambda function by using the Lambda runtime API, implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
 
 Create these Java classes, which are described in the following sections:
 + **StudentData** - An Amazon DynamoDB class used to work with the Amazon DynamoDB enhanced client.  
@@ -405,7 +403,7 @@ Create these Java classes, which are described in the following sections:
 The following Java code represents the **StudentData** class.
 
 ```java
-    package com.example;
+package com.example;
 
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
@@ -554,98 +552,119 @@ public class HandlerVoiceNot implements RequestHandler<String, String> {
 
  ```
 
-### RDSGetStudents class
+### GetStudents class
 
-The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS instance. The result set is stored in XML which is passed to the second step in the worlkflow. 
+The **GetStudents** class uses the Amazon Java v2 API to query data from the **Students** table. 
 
 ```java
-       package com.example.messages;
+       package com.example;
 
-       import org.w3c.dom.Document;
-       import org.w3c.dom.Element;
-       import javax.xml.parsers.DocumentBuilder;
-       import javax.xml.parsers.DocumentBuilderFactory;
-       import javax.xml.parsers.ParserConfigurationException;
-       import javax.xml.transform.Transformer;
-       import javax.xml.transform.TransformerException;
-       import javax.xml.transform.TransformerFactory;
-       import javax.xml.transform.dom.DOMSource;
-       import javax.xml.transform.stream.StreamResult;
-       import java.io.StringWriter;
-       import java.sql.PreparedStatement;
-       import java.sql.Connection;
-       import java.sql.SQLException;
-       import java.sql.ResultSet;
-       import java.util.ArrayList;
-       import java.util.List;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.Expression;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-       public class RDSGetStudents {
+public class GetStudents {
 
-       public String getStudentsRDS(String date ) throws SQLException {
+    private DynamoDbClient getDynamoDBClient() {
+        Region region = Region.US_WEST_2;
+        DynamoDbClient ddb = DynamoDbClient.builder()
+            .region(region)
+            .build();
+        return ddb;
+    }
 
-        Connection c = null;
-        String query = "";
+    public String getStudentsData(String date) {
+        DynamoDbClient ddbClient = getDynamoDBClient();
+        DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
+            .dynamoDbClient(ddbClient)
+            .build();
 
-        try {
+        DynamoDbTable<StudentData> table = enhancedClient.table("Students", TableSchema.fromBean(StudentData.class));
+        AttributeValue attr = AttributeValue.builder()
+            .s(date)
+            .build();
 
-            c = ConnectionHelper.getConnection();
-            ResultSet rs = null;
+        Map<String, AttributeValue> myMap = new HashMap<>();
+        myMap.put(":val1",attr);
 
-            // Use prepared statements.
-            PreparedStatement pstmt = null;
-            query = "Select first, phone, mobile, email FROM students where date = '" +date +"'";
-            pstmt = c.prepareStatement(query);
-            rs = pstmt.executeQuery();
+        Map<String, String> myExMap = new HashMap<>();
+        myExMap.put("#mydate", "date");
 
-            List<Student> studentList = new ArrayList<>();
-            while (rs.next()) {
+        // Set the Expression so only active items are queried from the Work table.
+        Expression expression = Expression.builder()
+            .expressionValues(myMap)
+            .expressionNames(myExMap)
+            .expression("#mydate = :val1")
+            .build();
 
-                Student student = new Student();
+        ScanEnhancedRequest enhancedRequest = ScanEnhancedRequest.builder()
+            .filterExpression(expression)
+            .limit(15)
+            .build();
 
-                String name = rs.getString(1);
-                String phone = rs.getString(2);
-                String mobile = rs.getString(3);
-                String email = rs.getString(4);
+        List<Student> studentList = new ArrayList<>();
+        for (StudentData singleStudent : table.scan(enhancedRequest).items()) {
+            Student student = new Student();
+            student.setFirstName(singleStudent.getFirstName());
+            student.setLastName(singleStudent.getLastName());
+            student.setMobileNumber(singleStudent.getMobileNumber());
+            student.setPhoneNunber(singleStudent.getPhoneNunber());
+            student.setEmail(singleStudent.getEmail());
 
-                student.setFirstName(name);
-                student.setMobileNumber(mobile);
-                student.setPhoneNunber(phone);
-                student.setEmail(email);
-
-                // Push the Student object to the list.
-                studentList.add(student);
-            }
-
-            return convertToString(toXml(studentList));
-
-          } catch (SQLException e) {
-            e.printStackTrace();
-         } finally {
-            c.close();
-         }
-         return null;
+            // Push the Student object to the list.
+            studentList.add(student);
         }
+        return convertToString(toXml(studentList));
+    }
 
-       private String convertToString(Document xml) {
+    private String convertToString(Document xmlDocument) {
         try {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            StreamResult result = new StreamResult(new StringWriter());
-            DOMSource source = new DOMSource(xml);
-            transformer.transform(source, result);
-            return result.getWriter().toString();
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer transformer;
+            transformer = tf.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 
-        } catch(TransformerException ex) {
+            // A character stream that collects its output in a string buffer,
+            // which can then be used to construct a string.
+            StringWriter writer = new StringWriter();
+
+            // Transform document to string
+            transformer.transform(new DOMSource(xmlDocument), new StreamResult(writer));
+            return writer.getBuffer().toString();
+
+        } catch (TransformerException ex) {
             ex.printStackTrace();
         }
         return null;
-       }
+    }
 
 
-       // Convert the list to XML.
-       private Document toXml(List<Student> itemList) {
-
+    // Convert the list to XML.
+    private Document toXml(List<Student> itemList) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
@@ -655,7 +674,6 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
 
             // Loop through the list.
             for (Student myStudent: itemList) {
-
                 Element item = doc.createElement( "Student" );
                 root.appendChild( item );
 
@@ -685,8 +703,8 @@ The **RDSGetStudents** class uses the JDBC API to query data from the Amazon RDS
             e.printStackTrace();
         }
         return null;
-        }  
-       }
+    }
+}
 ```
 
 ### SendNotifications class
@@ -957,109 +975,6 @@ The following Java class represents the **Student** class.
      }
 ```
 
-## Set up the Amazon RDS instance
-
-In this step, you create an Amazon RDS MySQL instance that is used by the Lambda function.
-
-1. Sign in to the AWS Management Console and open the Amazon RDS console at https://console.aws.amazon.com/rds/.
-
-2. In the upper-right corner of the AWS Management Console, choose the AWS Region in which you want to create the DB instance. This example uses the US West (Oregon) Region.
-
-3. In the navigation pane, choose **Databases**.
-
-4. Choose **Create database**.
-
-5. On the **Create database** page, make sure that the **Standard Create** option is chosen, and then select **MySQL**.
-
-![AWS Tracking Application](images/RDS.png)
-
-6. In the **Templates** section, select **Free tier**.
-
-![AWS Tracking Application](images/TemplateRDS.png)
-
-7. In the **Settings** section, set the following values:
-
-+ **DB instance identifier** – awstracker
-+ **Master username** – root
-+ **Auto generate a password** – Turn off this option.
-+ **Master password** – root1234
-+ **Confirm password** – root1234
-	
-![AWS Tracking Application](images/RDSSettings.png)
-
-8. In the **DB instance size** section, set the following values:
-
-+ **DB instance performance type** – Burstable
-+ **DB instance class** – db.t2.micro
-
-9. In the **Storage** section, use the default values.
-
-10. In the **Connectivity** section, open **Additional connectivity configuration** and set the following values:
-
-+ **Virtual Private Cloud (VPC)** – Choose the default.
-+ **Subnet group** – Choose the default.
-+ **Publicly accessible** – Yes
-+ **VPC security groups** – Choose an existing VPC security group that is configured for access.
-+ **Availability Zone** – No Preference
-+ **Database port** – 3306
-
-11. Open the **Additional configuration** section, and enter **awstracker** for the initial database name. Keep the default settings for the other options.
-
-12. To create your Amazon RDS MySQL DB instance, choose **Create database**. Your new DB instance appears in the **Databases** list with the status **Creating**.
-
-13. Wait for the status of your new DB instance to show as **Available**. Then, choose the DB instance name to show its details.
-
-**Note**: You must set up inbound rules for the security group to connect to the database. You can set up an inbound rule for your development environment. Setting up an inbound rule essentially means enabling an IP address to use the database. After you set up the inbound rules, you can connect to the database from a client such as MySQL Workbench. For information about setting up security group inbound rules, see [Controlling Access with Security Groups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.RDSSecurityGroups.html).
-
-### Get the endpoint
-
-In the **Connectivity & security** section, view the endpoint and port of the DB instance.
-
-![AWS Tracking Application](images/RDSEndpoint.png)
-
-### Modify the ConnectionHelper class
-
-Modify the **ConnectionHelper** class by updating the url value with the endpoint of the database.
-
-     url = "jdbc:mysql://awstracker.<url to rds>.amazonaws.com/awstracker";
-
-In the previous line of code, **awstracker** is the database schema. You must also update this line of code with the correct user name and password.
-
-      Class.forName("com.mysql.jdbc.Driver").newInstance();
-         return DriverManager.getConnection(instance.url, "root","root1234");
-
-**Note**: If you do not modify the **ConnectionHelper** class, your Lambda function cannot interact with the Amazon RDS database.
-
-### Create the database schema and table
-
-You can use [MySQL Workbench](https://www.mysql.com/products/workbench/) to connect to the Amazon RDS MySQL instance and create a database schema and the **student** table. To connect to the database, open MySQL Workbench and connect to database.
-
-![AWS Tracking Application](images/MySQL.png)
-
-**Note**: If you have issues connecting to the database, be sure to recheck your inbound rules.
-
-Create a schema named **awstracker** by using the following SQL command.
-
-     CREATE SCHEMA awstracker;
-     
-In the **awstracker** schema, create a table named **student** by using the following SQL command:     
-
-     CREATE TABLE `mydb`.`student` (
-      `idstudent` INT NOT NULL AUTO_INCREMENT,
-       `first` VARCHAR(45) NULL,
-       `last` VARCHAR(45) NULL,
-       `date` DATE NULL,
-       `mobile` VARCHAR(45) NULL,
-       `phone` VARCHAR(45) NULL,
-       `email` VARCHAR(45) NULL,
-       PRIMARY KEY (`idstudent`));
-       
-After you're done, you see a new table in your database.
-
-![AWS Tracking Application](images/database.png)
-
-Using MySQL Workbench, enter some records that you will use to test your Lambda functions. Enter the date value for some records as 2021-02-01. 
-
 ## Package the project that contains the Lambda functions
 
 Package up the project into a .jar (JAR) file that you can deploy as a Lambda function by using the following Maven command.
@@ -1118,9 +1033,9 @@ Copy the Lambda ARN value. Then, open the Step Functions console. In the **Deter
 
 You can invoke the workflow on the Step Functions console. An execution receives JSON input. For this example, you can pass the following JSON data to the workflow.  
 
-     {
-     "date": "2021-02-01"
-     }
+   {
+    "date": "2023-06-06T00:00:00Z"
+   }
 
 **Note**: Change the date value to match the date values in the **students** table. Otherwise, you will receive an empty result set. 
 
