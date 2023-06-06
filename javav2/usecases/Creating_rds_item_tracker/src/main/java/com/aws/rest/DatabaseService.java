@@ -54,9 +54,8 @@ public class DatabaseService {
         Connection c = null;
         String query;
         // Get the Amazon RDS credentials from AWS Secrets Manager.
-        String secret = getSecretValues();
         Gson gson = new Gson();
-        User user = gson.fromJson(String.valueOf(secret), User.class);
+        User user = gson.fromJson(String.valueOf(getSecretValues()), User.class);
         System.out.println(user.getPassword());
         System.out.println(user.getUsername());
         System.out.println(user.getHost());
@@ -85,9 +84,8 @@ public class DatabaseService {
         WorkItem item;
 
         // Get the Amazon RDS credentials from AWS Secrets Manager.
-        String secret = getSecretValues();
         Gson gson = new Gson();
-        User user = gson.fromJson(String.valueOf(secret), User.class);
+        User user = gson.fromJson(String.valueOf(getSecretValues()), User.class);
         System.out.println(user.getPassword());
         System.out.println(user.getUsername());
         System.out.println(user.getHost());
@@ -149,9 +147,8 @@ public class DatabaseService {
     public void injestNewSubmission(WorkItem item) {
         Connection c = null;
         // Get the Amazon RDS credentials from AWS Secrets Manager.
-        String secret = getSecretValues();
         Gson gson = new Gson();
-        User user = gson.fromJson(String.valueOf(secret), User.class);
+        User user = gson.fromJson(String.valueOf(getSecretValues()), User.class);
         System.out.println(user.getPassword());
         System.out.println(user.getUsername());
         System.out.println(user.getHost());
