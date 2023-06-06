@@ -186,7 +186,7 @@ rescue Aws::Glue::Errors::GlueException => e
   rescue Aws::Glue::Errors::GlueException => e
     @logger.error("Glue could not get job runs: \n#{e.message}")
   end
-  # snippet-end:[ruby.example_code.glue.GetJobRun]
+  # snippet-end:[ruby.example_code.glue.GetJobRuns]
 
   # snippet-start:[ruby.example_code.glue.GetJobRun]
   # Retrieves data for a specific job run.
