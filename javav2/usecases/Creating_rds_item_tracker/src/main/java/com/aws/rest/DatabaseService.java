@@ -56,10 +56,6 @@ public class DatabaseService {
         // Get the Amazon RDS credentials from AWS Secrets Manager.
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(getSecretValues()), User.class);
-        System.out.println(user.getPassword());
-        System.out.println(user.getUsername());
-        System.out.println(user.getHost());
-
         try {
             c = ConnectionHelper.getConnection(user.getHost(), user.getUsername(), user.getPassword());
             query = "update work set archive = ? where idwork ='" +id + "' ";
@@ -86,10 +82,6 @@ public class DatabaseService {
         // Get the Amazon RDS credentials from AWS Secrets Manager.
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(getSecretValues()), User.class);
-        System.out.println(user.getPassword());
-        System.out.println(user.getUsername());
-        System.out.println(user.getHost());
-
         try {
             c = ConnectionHelper.getConnection(user.getHost(), user.getUsername(), user.getPassword());
             ResultSet rs = null;
@@ -149,10 +141,6 @@ public class DatabaseService {
         // Get the Amazon RDS credentials from AWS Secrets Manager.
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(getSecretValues()), User.class);
-        System.out.println(user.getPassword());
-        System.out.println(user.getUsername());
-        System.out.println(user.getHost());
-
         try {
             c = ConnectionHelper.getConnection(user.getHost(), user.getUsername(), user.getPassword());
             PreparedStatement ps;
