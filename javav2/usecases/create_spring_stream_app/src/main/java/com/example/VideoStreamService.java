@@ -39,14 +39,11 @@ import java.util.ArrayList;
 
 @Service
 public class VideoStreamService {
-
     public static final String CONTENT_TYPE = "Content-Type";
     public static final String CONTENT_LENGTH = "Content-Length";
     public static final String VIDEO_CONTENT = "video/";
     private S3Client s3 = null ;
-
     private S3Client getClient() {
-
         // Create the S3Client object.
         Region region = Region.US_WEST_2;
         s3 = S3Client.builder()
@@ -60,7 +57,6 @@ public class VideoStreamService {
     // Places a new video into an Amazon S3 bucket.
     public void putVideo(byte[] bytes, String bucketName, String fileName, String description) {
         s3 = getClient();
-
         try {
             // Set the tags to apply to the object.
             String theTags = "name="+fileName+"&description="+description;
@@ -84,7 +80,6 @@ public class VideoStreamService {
       s3 = getClient();
 
       try {
-
           ListObjectsRequest listObjects = ListObjectsRequest
                   .builder()
                   .bucket(bucketName)
@@ -95,7 +90,6 @@ public class VideoStreamService {
           List<String> keys = new ArrayList<>();
 
          for (S3Object myValue: objects) {
-
               String key = myValue.key(); // We need the key to get the tags.
 
               //Get the tags.
@@ -131,9 +125,7 @@ public class VideoStreamService {
         Tags myTag ;
         ArrayList<String> keys = new ArrayList<>();
         ArrayList<String> values = new ArrayList<>();
-
         for ( int index=0; index < count; index++) {
-
             if (index % 2 == 0)
                 keys.add(myList.get(index));
             else
@@ -154,9 +146,7 @@ public class VideoStreamService {
 
     // Reads a video from a bucket and returns a ResponseEntity.
     public ResponseEntity<byte[]> getObjectBytes (String bucketName, String keyName) {
-
         s3 = getClient();
-
         try {
             // Create a GetObjectRequest instance.
             GetObjectRequest objectRequest = GetObjectRequest
@@ -182,9 +172,9 @@ public class VideoStreamService {
 
     // Converts a list to XML data.
      private Document toXml(List<Tags> itemList) {
-
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
@@ -194,7 +184,6 @@ public class VideoStreamService {
 
             // Iterate through the list.
             for (Tags myItem: itemList) {
-
                 Element item = doc.createElement( "Tag" );
                 root.appendChild( item );
 
@@ -202,7 +191,7 @@ public class VideoStreamService {
                 Element id = doc.createElement( "Name" );
                 id.appendChild( doc.createTextNode(myItem.getName() ) );
                 item.appendChild( id );
-.
+
                 // Set Description.
                 Element name = doc.createElement( "Description" );
                 name.appendChild( doc.createTextNode(myItem.getDesc() ) );

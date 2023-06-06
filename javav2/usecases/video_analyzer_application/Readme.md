@@ -486,6 +486,7 @@ The following class uses the Amazon S3 API to perform S3 operations. For example
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
@@ -781,7 +782,6 @@ The following Java code represents the **VideoController** class that handles HT
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
-
         try {
             byte[] bytes = file.getBytes();
             String name =  file.getOriginalFilename() ;
@@ -800,7 +800,6 @@ The following Java code represents the **VideoController** class that handles HT
      @RequestMapping(value = "/report", method = RequestMethod.POST)
      @ResponseBody
      String report(HttpServletRequest request, HttpServletResponse response) {
-
         String email = request.getParameter("email");
         String myKey = s3Client.getKeyName(bucketName);
         String jobNum = detectFaces.StartFaceDetection(bucketName, myKey);
@@ -864,11 +863,8 @@ You can get the results of the job by invoking the **GetFaceResults** method. No
     }
 
     public String StartFaceDetection(String bucket, String video) {
-
-     String startJobId="";
-
+        String startJobId="";
         try {
-
             RekognitionClient rekClient = getRecClient();
             software.amazon.awssdk.services.rekognition.model.S3Object s3Obj = S3Object.builder()
                     .bucket(bucket)
@@ -1085,7 +1081,6 @@ The following Java code represents the **WriteExcel** class.
 
         //  list
         for (int i = 0; i < size; i++) {
-
             FaceItems fi = (FaceItems)list.get(i);
 
             //Get tne item values

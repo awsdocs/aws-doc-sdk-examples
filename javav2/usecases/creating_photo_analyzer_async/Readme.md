@@ -696,7 +696,6 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
 
        // Returns the names of all images and data within an XML document.
        public String ListAllObjects(String bucketName) {
-
          s3AsyncClient = getClient();
          final AtomicReference<List<BucketItem>> reference = new AtomicReference<>();
 
@@ -757,10 +756,10 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
       }
 
       // Convert items into XML to pass back to the view.
-      private Document toXml(List<BucketItem> itemList) {
-
+     private Document toXml(List<BucketItem> itemList) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.newDocument();
 
@@ -772,33 +771,30 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
             int custCount = itemList.size();
 
             // Iterate through the collection.
-            for ( int index=0; index < custCount; index++) {
-
+            for (BucketItem myItem : itemList) {
                 // Get the WorkItem object from the collection.
-                BucketItem myItem = itemList.get(index);
-
-                Element item = doc.createElement( "Item" );
-                root.appendChild( item );
+                Element item = doc.createElement("Item");
+                root.appendChild(item);
 
                 // Set Key.
-                Element id = doc.createElement( "Key" );
-                id.appendChild( doc.createTextNode(myItem.getKey()) );
-                item.appendChild( id );
+                Element id = doc.createElement("Key");
+                id.appendChild(doc.createTextNode(myItem.getKey()));
+                item.appendChild(id);
 
                 // Set Owner.
-                Element name = doc.createElement( "Owner" );
-                name.appendChild( doc.createTextNode(myItem.getOwner() ) );
-                item.appendChild( name );
+                Element name = doc.createElement("Owner");
+                name.appendChild(doc.createTextNode(myItem.getOwner()));
+                item.appendChild(name);
 
                 // Set Date.
-                Element date = doc.createElement( "Date" );
-                date.appendChild( doc.createTextNode(myItem.getDate() ) );
-                item.appendChild( date );
+                Element date = doc.createElement("Date");
+                date.appendChild(doc.createTextNode(myItem.getDate()));
+                item.appendChild(date);
 
                 // Set Size.
-                Element desc = doc.createElement( "Size" );
-                desc.appendChild( doc.createTextNode(myItem.getSize() ) );
-                item.appendChild( desc );
+                Element desc = doc.createElement("Size");
+                desc.appendChild(doc.createTextNode(myItem.getSize()));
+                item.appendChild(desc);
             }
 
             return doc;
@@ -806,7 +802,7 @@ The following class uses the Amazon S3 Java API to perform Amazon S3 operations.
             e.printStackTrace();
         }
         return null;
-      }
+    }
 
       private String convertToString(Document xml) {
         try {
