@@ -4,13 +4,14 @@
 
 | Heading      | Description |
 | ----------- | ----------- |
-| Description | Discusses how to develop a workflow with AWS Step Functions to send notifications over multiple channels. Also discusses how to use the Amazon Relational Database Service (Amazon RDS) within an AWS Lambda function.     |
+| Description | Discusses how to develop a workflow with AWS Step Functions to send notifications over multiple channels.   |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 5/13/2022        |
+| Updated   | 6/6/2023        |
 | Required skills   | Java, Maven  |
 
 ## Purpose
-You can use Amazon Web Services to create a workflow that sends notifications over multiple channels. There are many practical business needs for this type of functionality. For example, a weather agency might need to warn many people about a storm, or a school might want to send parents alerts when kids are missing. 
+
+You can use Amazon Web Services to create a workflow that sends notifications over multiple channels. There are many practical business needs for this type of functionality. For example, a weather agency might need to warn many people about a storm, or a school might want to send parents alerts when kids are absent. 
 
 The use case for this AWS tutorial assumes that you work at a school and you need to alert parents when a student skips school. Do you send an email message, do you phone the parents, or do you send a text message to a mobile device? The AWS workflow created in this tutorial sends messages over multiple channels, including email, as shown in the following illustration. 
 
@@ -36,7 +37,6 @@ To send notifications over multiple channels, you can use the following AWS serv
 + Create Lambda functions by using the Lambda Java API
 + Package the project that contains Lambda functions
 + Deploy Lambda functions
-+ Create the Amazon RDS database 
 + Add Lambda functions to workflows
 + Invoke the workflow from the AWS Management Console
 
@@ -47,6 +47,20 @@ To use this tutorial, you need the following:
 + A Java IDE. (The IntelliJ IDE is used for this tutorial.)
 + Java 1.8 JDK.
 + Maven 3.6 or later.
++ Make sure that you have properly set up your development environment. For information, see [Setting up the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
+
+### Creating the resources
+
+Create a DynamoDB table named **Students** that contains a partition key named id. In addition, add these columns:
+
++ date - A value that specifies the date when the student was absent.
++ first - A String value that specifies the student's first name.
++ last - A String  value that specifies the student's last name.
++ mobile - A String value that specifies the mobile number.
++ phone - A String value that specifies the home phone number.
++ email - A String value that specifies the email address.
+
+For information about creating a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 ### Important
 
