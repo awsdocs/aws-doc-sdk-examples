@@ -28,9 +28,6 @@ C++:
       api_ref:
         uid: "SdkForCpp"
         name: "&guide-cpp-api;"
-      title_override:
-        title: "Additional code examples for the &CPPlong;"
-        title_abbrev: "Additional code examples"
   guide: "&guide-cpp-dev;"
 Go:
   property: go
@@ -150,9 +147,6 @@ PHP:
       api_ref:
         uid: "SdkForPHPV3"
         name: "&guide-php-api;"
-      title_override:
-        title: "Additional code examples for the &PHPlong;"
-        title_abbrev: "Additional code examples"
   guide: "&guide-php-dev;"
 Python:
   property: python
