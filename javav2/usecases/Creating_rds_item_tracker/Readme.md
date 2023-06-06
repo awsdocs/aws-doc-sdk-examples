@@ -423,7 +423,7 @@ public class ReportController {
         this.sm = sm;
     }
 
-        @PostMapping("")
+    @PostMapping("")
     public String sendReport(@RequestBody Map<String, String> body) {
         List<WorkItem> list = dbService.getItemsDataSQLReport(0);
         Gson gson = new Gson();
@@ -435,7 +435,7 @@ public class ReportController {
         } catch (IOException | WriteException e) {
             e.printStackTrace();
         }
-        return gson.toJson("error");
+        return gson.toJson("error happened");
     }
 }
 ```
