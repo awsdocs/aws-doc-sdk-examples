@@ -36,7 +36,9 @@ Within each directory, you will find SDK-specific instructions for understanding
 
 ### Example applications
 
-Full example applications can be found in the [applications](./applications/) directory. The examples here show how the SDKs can be used in the context of a production-like application.
+The [applications](./applications/) directory contains the language-agnostic components of example applications, which show how the SDKs can be used in the context of a production-like application. 
+
+To view the language-specific components for each example application, see the `cross-service` folder in the sub-directory for your desired language (e.g. `python/cross-service`).
 
 ## Invoke example code
 
