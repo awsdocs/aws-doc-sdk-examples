@@ -77,21 +77,11 @@ The following figure shows the workflow you'll create with this tutorial, which 
 
 The following describes each step in the workflow:
 + **Start** - Initiates the workflow and passes in a date value.
-+ **Determine the missing students** – Determines the students that are absent for the given day. For this AWS tutorial, a MySQL database is queried to track the students that are absent. This workflow step dynamically creates XML that contains the students queried from the database and passes the XML to the next step. This example shows how a Lambda function can query data from an Amazon RDS table.
++ **Determine the missing students** – Determines the students that are absent for the given day. For this AWS tutorial, a Amazon DynamoDB table is queried to track the students that are absent. This workflow step dynamically creates XML that contains the students queried from the database and passes the XML to the next step. 
 + **Send all notifications** – Parses the XML that contains all absent students. For each student, this step invokes Amazon SNS to send a mobile text message, Amazon Pinpoint to send a voice message, and Amazon SES to send an email message.  
 + **End** - Stops the workflow.
 
-In this AWS tutorial, an Amazon RDS MySQL database is used to track the students who are absent. The MySQL table is named **students** and contains the following fields:
-
-+ **idstudents** - An int value that represents the PK.
-+ **date** - A date value that specifies the date when the student was absent.
-+ **first** - A VARCHAR(45) value that specifies the student's first name.
-+ **last** - A VARCHAR(45) value that specifies the student's last name.
-+ **mobile** - A VARCHAR(45) value that specifies the mobile number.
-+ **phone** - A VARCHAR(45) value that specifies the home phone number.
-+ **email** - A VARCHAR(45) value that specifies the email address.
-
-The workflow queries the **students** table to get all absent students, and dynamically creates XML that contains the absent students.  
+The workflow queries the **Students** table to get all absent students, and dynamically creates XML that contains the absent students.  
 
 ```xml
        <?xml version="1.0" encoding="UTF-8"?>
