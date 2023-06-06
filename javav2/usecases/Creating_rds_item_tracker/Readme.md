@@ -272,9 +272,10 @@ Create a Java package in the **main/java** folder named **com.aws.rest**. The fo
 + **MainController** - Represents the Spring Controller that handles HTTP requests to handle data operations.
 + **ReportController** - Represents a second Spring Controller that handles HTTP requests that generates a report.
 + **ConnectionHelper** - Establishes a connection to the Amazon RDS for MySQL database.
-+ **DatabaseService** - A Spring class that extends **CrudRepository** and uses the AWS SDK for Java (v2) that performs database operations. 
++ **DatabaseService** - Uses the AWS SDK for Java (v2) to get AWS Secrets Manager values and the JDBC API to perform database operations. 
 + **WorkItem** - Represents the application's data model.
 + **WriteExcel** - Uses the Java Excel API to dynamically create a report. (This does not use AWS SDK for Java API operations).
++ **User** - Represents data that is parsed from AWS Secrets Manager. 
 
 ### App class 
 
@@ -436,34 +437,25 @@ public class ReportController {
 ```
 ### ConnectionHelper class 
 
-The following class connects to the Amazon RDS for MySQL database. Enter your endpoint, the user name, and the password. Otherwise, your code won't work. Replace the URL endpoint value with the endpoint value you obtained while setting up the Amazon RDS database.
+The following class connects to the Amazon RDS for MySQL database. 
 
 ```java
 
 package com.aws.rest;
 
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-    public class ConnectionHelper {
+public class ConnectionHelper {
 
-      private String url;
-      private static ConnectionHelper instance;
-
-      private ConnectionHelper() {
-        url = "jdbc:mysql://<Enter DataBase URL>:3306/mydb?useSSL=false";
-      }
-
-      public static Connection getConnection() throws SQLException {
-        if (instance == null) {
-            instance = new ConnectionHelper();
-        }
+    public static Connection getConnection(String host, String user, String password) throws SQLException {
         try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root1234");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url2 = "jdbc:mysql://"+host+":3306/mydb?useSSL=false";
+            return DriverManager.getConnection(url2, user, password);
 
-        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.getStackTrace();
         }
         return null;
@@ -485,12 +477,20 @@ package com.aws.rest;
 
 ### DatabaseService class
 
-The following Java code represents the **DatabaseService** class. This class uses the JDBC API to perform CRUD operations in the Amazon RDS MySQL database. Notice the use of [Interface PreparedStatement](https://docs.oracle.com/javase/7/docs/api/java/sql/PreparedStatement.html) when using SQL statements. For example, in the **getItemsDataSQLReport** method, you use this object to query data from the **work** table.
+The following Java code represents the **DatabaseService** class. This class uses AWS Secrets Manager to retrieve database credentials required to connect to the AWS RDS MySQL database. For information about the AWS Secret Manager Java API, see [Interface SecretsManagerClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/secretsmanager/SecretsManagerClient.html).
+
+This class also uses the JDBC API to perform CRUD operations in the Amazon RDS MySQL database. Notice the use of [Interface PreparedStatement](https://docs.oracle.com/javase/7/docs/api/java/sql/PreparedStatement.html) when using SQL statements. For example, in the **getItemsDataSQLReport** method, you use this object to query data from the **work** table.
 
 ```java
 package com.aws.rest;
 
+import com.google.gson.Gson;
 import org.springframework.stereotype.Component;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -507,13 +507,43 @@ import java.util.UUID;
 @Component
 public class DatabaseService {
 
+    private SecretsManagerClient getSecretClient() {
+        Region region = Region.US_WEST_2;
+        return SecretsManagerClient.builder()
+            .region(region)
+            .credentialsProvider(ProfileCredentialsProvider.create())
+            .build();
+    }
+
+    private String getSecretValues() {
+        // Get the Amazon RDS creds from Secrets Manager.
+        SecretsManagerClient secretClient = getSecretClient();
+        String secretName = "itemtracker/mysql";
+
+        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
+            .secretId(secretName)
+            .build();
+
+        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
+        return valueResponse.secretString();
+    }
+
     // Set the specified item to archive.
     public void flipItemArchive(String id) {
         Connection c = null;
         String query;
+        // Get the Amazon RDS credentials from AWS Secrets Manager.
+        String secret = getSecretValues();
+        Gson gson = new Gson();
+        User user = gson.fromJson(String.valueOf(secret), User.class);
+        System.out.println(user.getPassword());
+        System.out.println(user.getUsername());
+        System.out.println(user.getHost());
+
         try {
-            c = ConnectionHelper.getConnection();
+            c = ConnectionHelper.getConnection(user.getHost(), user.getUsername(), user.getPassword());
             query = "update work set archive = ? where idwork ='" +id + "' ";
+            assert c != null;
             PreparedStatement updateForm = c.prepareStatement(query);
             updateForm.setBoolean(1, true);
             updateForm.execute();
@@ -533,14 +563,23 @@ public class DatabaseService {
         String username = "user";
         WorkItem item;
 
+        // Get the Amazon RDS credentials from AWS Secrets Manager.
+        String secret = getSecretValues();
+        Gson gson = new Gson();
+        User user = gson.fromJson(String.valueOf(secret), User.class);
+        System.out.println(user.getPassword());
+        System.out.println(user.getUsername());
+        System.out.println(user.getHost());
+
         try {
-            c = ConnectionHelper.getConnection();
+            c = ConnectionHelper.getConnection(user.getHost(), user.getUsername(), user.getPassword());
             ResultSet rs = null;
             PreparedStatement pstmt = null;
             if (flag == 0) {
                 // Retrieves active data from the MySQL database
                 int arch = 0;
                 query = "Select idwork,username,date,description,guide,status,archive FROM work where username=? and archive=?;";
+                assert c != null;
                 pstmt = c.prepareStatement(query);
                 pstmt.setString(1, username);
                 pstmt.setInt(2, arch);
@@ -548,7 +587,8 @@ public class DatabaseService {
             }else if (flag == 1)  {
                 // Retrieves archive data from the MySQL database
                 int arch = 1;
-                query = "Select idwork,username,date,description,guide,status, archive  FROM work where username=? and archive=?;";
+                query = "Select idwork,username,date,description,guide,status,archive  FROM work where username=? and archive=?;";
+                assert c != null;
                 pstmt = c.prepareStatement(query);
                 pstmt.setString(1, username);
                 pstmt.setInt(2, arch);
@@ -556,6 +596,7 @@ public class DatabaseService {
             } else {
                 // Retrieves all data from the MySQL database
                 query = "Select idwork,username,date,description,guide,status, archive FROM work";
+                assert c != null;
                 pstmt = c.prepareStatement(query);
                 rs = pstmt.executeQuery();
             }
@@ -586,8 +627,20 @@ public class DatabaseService {
     // Inject a new submission.
     public void injestNewSubmission(WorkItem item) {
         Connection c = null;
+        // Get the Amazon RDS creds from Secrets Manager.
+        SecretsManagerClient secretClient = getSecretClient();
+        String secretName = "itemtracker/mysql";
+
+        // Get the Amazon RDS credentials from AWS Secrets Manager.
+        String secret = getSecretValues();
+        Gson gson = new Gson();
+        User user = gson.fromJson(String.valueOf(secret), User.class);
+        System.out.println(user.getPassword());
+        System.out.println(user.getUsername());
+        System.out.println(user.getHost());
+
         try {
-            c = ConnectionHelper.getConnection();
+            c = ConnectionHelper.getConnection(user.getHost(), user.getUsername(), user.getPassword());
             PreparedStatement ps;
 
             // Convert rev to int.
@@ -609,6 +662,7 @@ public class DatabaseService {
 
             // Inject an item into the system.
             String insert = "INSERT INTO work (idwork, username,date,description, guide, status, archive) VALUES(?,?, ?,?,?,?,?);";
+            assert c != null;
             ps = c.prepareStatement(insert);
             ps.setString(1, workId);
             ps.setString(2, name);
@@ -626,7 +680,6 @@ public class DatabaseService {
         }
     }
 }
-
 
 ```
 
@@ -899,6 +952,38 @@ public class WriteExcel {
 }
 ```
 **Note:** Notice that the **SendMessages** is part of this Java file. You must update the email **sender** address with a verified email address. Otherwise, the email is not sent. For more information, see [Verifying email addresses in Amazon SES](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-email-addresses.html).       
+
+### User class
+
+The following represents the User class that helps parse AWS Secrets Manager values. 
+
+```java
+
+package com.aws.rest;
+
+public class User {
+
+    private String username;
+    private String  password;
+
+    private String host;
+
+
+    //getter
+    String getUsername(){
+        return this.username;
+    }
+
+    String getPassword(){
+        return this.password;
+    }
+
+    String getHost(){
+        return this.host;
+    }
+
+}
+```
 
 ## Run the application 
 
