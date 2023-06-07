@@ -80,11 +80,11 @@ A GET request is made to `/labels`. The labels are displayed to the user who can
 
 API Gateway provides HTTP API routes for the Lambda integrations `LabelsFn`, `UploadFn`, and `PrepareDownloadFn`. Each endpoint is configured with a an Amazon Cognito authorizer. Parameters for all routes are provided in the body of the request in a JSON object. Each parameter is a top-level item in the request body JSON object.
 
-| Method | Route     | Parameters        | Example response                                            | Lambda            |
-| ------ | --------- | ----------------- | ----------------------------------------------------------- | ----------------- |
-| PUT    | /upload   | file_name: string | {"url": "presigned URL"}                                    | UploadFn          |
-| GET    | /labels   |                   | {"labels": {"maintain": {"count": 5}, "lake": {"count": 3}} | LabelsFn          |
-| POST   | /download | labels: string[]  | {} (event)                                                  | PrepareDownloadFn |
+| Method | Route     | Parameters        | Example response                                             | Lambda            |
+| ------ | --------- | ----------------- | ------------------------------------------------------------ | ----------------- |
+| PUT    | /upload   | file_name: string | {"url": "presigned URL"}                                     | UploadFn          |
+| GET    | /labels   |                   | {"labels": {"maintain": {"count": 5}, "lake": {"count": 3}}} | LabelsFn          |
+| POST   | /download | labels: string[]  | {} (event)                                                   | PrepareDownloadFn |
 
 ### ⭐ Amazon Cognito
 
@@ -161,6 +161,8 @@ This Lambda will be triggered by uploads to the Storage Bucket.
 4. Send an SNS message including this presigned URL.
 
 SNS topics are created using the AWS CDK. The `PrepareDownloadFn` Lambda publishes messages by calling the Amazon SNS service client’s publish().
+
+WARNING: Presigned URLs are often longer than email client limits, and email clients may insert newlines or spaces for formatting that breaks the URL. This is a known limitation of using SNS, and the Code Examples team are looking for alternatives. However, SNS does not send rich html, and the design goals do not allow for PAM to handle PII directly.
 
 # README
 
