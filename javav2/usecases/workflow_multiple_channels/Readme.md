@@ -54,8 +54,8 @@ To use this tutorial, you need the following:
 Create an Amazon DynamoDB table named **Students** that contains a partition key named id. In addition, add these columns:
 
 + date - A value that specifies the date when the student was absent.
-+ first - A String value that specifies the student's first name.
-+ last - A String  value that specifies the student's last name.
++ firstName - A String value that specifies the student's first name.
++ lastName - A String  value that specifies the student's last name.
 + mobile - A String value that specifies the mobile number.
 + phone - A String value that specifies the home phone number.
 + email - A String value that specifies the email address.
