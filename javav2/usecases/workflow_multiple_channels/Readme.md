@@ -60,6 +60,10 @@ Create a DynamoDB table named **Students** that contains a partition key named i
 + phone - A String value that specifies the home phone number.
 + email - A String value that specifies the email address.
 
+Add a couple of records so your Workflow executes.  
+
+![AWS Tracking Application](images/sampleData.png)
+
 For information about creating a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 ### Important
