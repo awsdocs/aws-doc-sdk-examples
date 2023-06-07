@@ -75,7 +75,7 @@ After you create the database, in the **Connectivity & security** section, view 
 
 This application uses AWS Secrets Manager to store database values. It is better practice to store your database credentials in AWS Secrets Manager as opposed to hard coding them into your Java application logic. You can use the AWS Secrets Manager Java API to retrieve these values (this application logic is shown later in this document).
 
-Once you setup a database secret, you have username, password, and host values, as shown in this illustration.
+Create a secret named **itemtracker/mysql** that stores username, password, and host values, as shown in this illustration.
 
 ![AWS Tracking Application](images/databaseCreds.png)
 
