@@ -51,7 +51,7 @@ To use this tutorial, you need the following:
 
 ### Creating the resources
 
-Create a DynamoDB table named **Students** that contains a partition key named id. In addition, add these columns:
+Create an Amazon DynamoDB table named **Students** that contains a partition key named id. In addition, add these columns:
 
 + date - A value that specifies the date when the student was absent.
 + first - A String value that specifies the student's first name.
@@ -64,7 +64,7 @@ Add a couple of records so your Workflow executes.
 
 ![AWS Tracking Application](images/sampleData.png)
 
-For information about creating a DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
+For information about creating an Amazon DynamoDB table, see [Create a Table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
 ### Important
 
