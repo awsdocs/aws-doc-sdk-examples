@@ -659,7 +659,6 @@ public class GetStudents {
         return null;
     }
 
-
     // Convert the list to XML.
     private Document toXml(List<Student> itemList) {
         try {
@@ -699,6 +698,7 @@ public class GetStudents {
             }
 
          return doc;
+        
         } catch(ParserConfigurationException e) {
             e.printStackTrace();
         }
@@ -712,7 +712,7 @@ public class GetStudents {
 The **SendNotifications** class uses the Amazon SES API, the Amazon SNS API, and the Amazon Pinpoint API to send messages. Each student in the XML is sent a message. 
 
 ```java
-       package com.example.messages;
+package com.example;
 
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
@@ -743,15 +743,14 @@ import java.io.IOException;
 import java.io.StringReader;
 
 public class SendNotifications {
-
     public int handleEmailMessage(String myDom) throws JDOMException, IOException, MessagingException {
-
-        String myEmail = "";
+        String myEmail;
         SesClient client = SesClient.builder()
-                .region(Region.US_EAST_1)
+                .region(Region.US_WEST_2)
                 .build();
 
         SAXBuilder builder = new SAXBuilder();
+        builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         Document jdomDocument = builder.build(new InputSource(new StringReader(myDom)));
         org.jdom2.Element root = jdomDocument.getRootElement();
 
@@ -759,7 +758,6 @@ public class SendNotifications {
         int countStudents = 0;
         List<org.jdom2.Element> students = root.getChildren("Student");
         for (org.jdom2.Element element : students) {
-
             myEmail = element.getChildText("Email");
             sendEmail(client, myEmail);
             countStudents++;
@@ -769,20 +767,19 @@ public class SendNotifications {
     }
 
     public String handleTextMessage(String myDom) throws JDOMException, IOException{
-
         String mobileNum = "";
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
 
         SAXBuilder builder = new SAXBuilder();
+        builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         Document jdomDocument = builder.build(new InputSource(new StringReader(myDom)));
         org.jdom2.Element root = jdomDocument.getRootElement();
 
-        // Get the list of children agent elements.
+        // get the list of children agent elements.
         List<org.jdom2.Element> students = root.getChildren("Student");
         for (org.jdom2.Element element : students) {
-
             mobileNum = element.getChildText("Mobile");
             publishTextSMS(snsClient, mobileNum);
         }
@@ -790,45 +787,40 @@ public class SendNotifications {
         return mobileNum;
     }
 
-    public String handleVoiceMessage(String myDom) throws JDOMException, IOException{
-
-        String mobileNum = "";
+    public void handleVoiceMessage(String myDom) throws JDOMException, IOException{
+        String mobileNum;
         List<String> listVal = new ArrayList<>();
         listVal.add("application/json");
 
         Map<String, List<String>> values = new HashMap<>();
         values.put("Content-Type", listVal);
-
         ClientOverrideConfiguration config2 = ClientOverrideConfiguration.builder()
                 .headers(values)
                 .build();
 
         PinpointSmsVoiceClient client = PinpointSmsVoiceClient.builder()
                 .overrideConfiguration(config2)
-                .region(Region.US_EAST_1)
+                .region(Region.US_WEST_2)
                 .build();
 
         SAXBuilder builder = new SAXBuilder();
+        builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         Document jdomDocument = builder.build(new InputSource(new StringReader(myDom)));
         org.jdom2.Element root = jdomDocument.getRootElement();
 
         // Get a list of children elements.
         List<org.jdom2.Element> students = root.getChildren("Student");
         for (org.jdom2.Element element : students) {
-
             mobileNum = element.getChildText("Phone");
-            sendVoiceMsg( client, mobileNum);
+            sendVoiceMsg(client, mobileNum);
         }
         client.close();
-        return mobileNum;
-      }
+    }
 
     private void sendVoiceMsg(PinpointSmsVoiceClient client, String mobileNumber) {
-
         String languageCode = "en-US";
         String voiceName = "Matthew";
-
-        String originationNumber = "<Enter valid number>";
+        String originationNumber = "<Enter a number used by your AWS acccount>"; 
         String ssmlMessage = "<speak>Please be advised that your student was marked absent from school today.</speak>";
 
         // Send a voice message from a Lambda function.
@@ -858,9 +850,7 @@ public class SendNotifications {
     }
 
     private void publishTextSMS(SnsClient snsClient, String phoneNumber) {
-
         String message = "Please be advised that your student was marked absent from school today.";
-
         try {
             PublishRequest request = PublishRequest.builder()
                     .message(message)
@@ -876,12 +866,11 @@ public class SendNotifications {
     }
 
     public void sendEmail(SesClient client, String recipient) {
-
              // The HTML body of the email.
             String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
                     + "<p>Please be advised that your student was marked absent from school today.</p>" + "</body>" + "</html>";
 
-            String sender = "<Enter valid email address>";
+            String sender = "<Enter a valid email address>";
             String subject = "School Attendance";
 
             Destination destination = Destination.builder()
