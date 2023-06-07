@@ -19,4 +19,4 @@ export const COGNITO_USER_POOL_BASE_URL = `${PAM_STACK_NAME}-CognitoUserPoolBase
 export const API_GATEWAY_URL_NAME = `${PAM_STACK_NAME}-ApiGatewayUrl`;
 export const CLOUDFRONT_DISTRIBUTION_NAME = `${PAM_NAME}-FE-Distribution`;
 
-export const ELROS_PATH = resolve("../../elros-pam");
+export const ELROS_PATH = resolve("../elros-pam");
