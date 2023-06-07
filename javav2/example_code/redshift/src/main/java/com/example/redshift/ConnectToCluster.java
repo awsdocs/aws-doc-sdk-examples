@@ -52,13 +52,13 @@ public class ConnectToCluster {
             "Where:\n" +
             "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials" ;
 
-       // if (args.length != 1) {
-       //     System.out.println(usage);
-       //     System.exit(1);
-       // }
+        if (args.length != 1) {
+            System.out.println(usage);
+            System.exit(1);
+       }
 
         // Get the Amazon RDS credentials from AWS Secrets Manager.
-        String secretName = "redshift/work" ; // args[0];
+        String secretName = args[0];
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);
         connectCluster(user) ;
