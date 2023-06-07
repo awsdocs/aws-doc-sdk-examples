@@ -5,6 +5,7 @@
 This example shows you how to use the AWS SDK for .NET (v3) to create a photo management application using AWS services and a serverless architecture.
 
 The Photo Asset Management (PAM) example app uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images that are analyzed with label detection. Those labels are then stored in an Amazon DynamoDB table. Users can later request a bundle of images associated with a list of labels. When images are requested, they are retrieved from Amazon S3, zipped, and the user is sent a link to download the resulting zip file.
+For more details on the complete application, see the [PAM application directory](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/applications/photo-asset-manager) in this repository.
 
 ![pam_overview.png](pam_overview.png)
 
@@ -42,7 +43,7 @@ To run the code in this example, you need the following:
 ## Create the resources
 
 Follow the instructions in the
-[README for the Photo Asset Manager application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/resources/cdk/photo_asset_manager/README.md).
+[README for the Photo Asset Manager application CDK](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/applications/photo-asset-manager/cdk/README.md).
 to use the AWS Cloud Development Kit (AWS CDK) or AWS Command Line Interface
 (AWS CLI) to create and manage the resources used in this example. You must be running Docker in order to complete the steps for this CDK.
 
@@ -84,7 +85,7 @@ To run the tool for debugging, select the tool from the `Debug` menu in Visual S
 ## Delete the resources
 
 To avoid charges, delete all the resources that you created for this tutorial.
-Follow the instructions in the [README for the Photo Asset Manager application](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/resources/cdk/photo_asset_manager/README.md)
+Follow the instructions in the [README for the Photo Asset Manager application cdk](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/applications/photo-asset-manager/cdk/README.md)
 to clean up the resources for the CDK stacks.
 
 ## Next steps
