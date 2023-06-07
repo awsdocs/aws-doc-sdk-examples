@@ -12,7 +12,6 @@ namespace ECSActions;
 
 public class ECSWrapper
 {
-
     private readonly AmazonECSClient _ecsClient;
     private readonly ILogger<ECSWrapper> _logger;
 
