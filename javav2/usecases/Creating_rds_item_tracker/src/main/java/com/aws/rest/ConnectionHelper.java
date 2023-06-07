@@ -11,22 +11,13 @@ import java.sql.SQLException;
 
 public class ConnectionHelper {
 
-    private static ConnectionHelper instance;
-    private String url;
-
-    private ConnectionHelper() {
-        url = "jdbc:mysql://<Enter URL>:3306/mydb?useSSL=false";
-    }
-
-    public static Connection getConnection() throws SQLException {
-        if (instance == null) {
-            instance = new ConnectionHelper();
-        }
+    public static Connection getConnection(String host, String user, String password) throws SQLException {
         try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(instance.url, "root","root1234");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url2 = "jdbc:mysql://"+host+":3306/mydb?useSSL=false";
+            return DriverManager.getConnection(url2, user, password);
 
-        } catch (SQLException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.getStackTrace();
         }
         return null;
