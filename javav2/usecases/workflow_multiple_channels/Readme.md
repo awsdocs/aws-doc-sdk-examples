@@ -557,7 +557,7 @@ public class HandlerVoiceNot implements RequestHandler<String, String> {
 The **GetStudents** class uses the Amazon Java v2 API to query data from the **Students** table. 
 
 ```java
-       package com.example;
+package com.example;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -568,7 +568,7 @@ import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-import software.amazon.awssdk.services.dynamodb.model.*;
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -588,10 +588,9 @@ public class GetStudents {
 
     private DynamoDbClient getDynamoDBClient() {
         Region region = Region.US_WEST_2;
-        DynamoDbClient ddb = DynamoDbClient.builder()
+        return DynamoDbClient.builder()
             .region(region)
             .build();
-        return ddb;
     }
 
     public String getStudentsData(String date) {
@@ -698,13 +697,13 @@ public class GetStudents {
             }
 
          return doc;
-        
         } catch(ParserConfigurationException e) {
             e.printStackTrace();
         }
         return null;
     }
 }
+
 ```
 
 ### SendNotifications class
