@@ -13,7 +13,7 @@
     <repositories>
         <repository>
             <id>redshift</id>
-            <url>http://redshift-maven-repository.s3-website-us-east-1.amazonaws.com/release</url>
+            <url>https://repo1.maven.org/maven2</url>
         </repository>
     </repositories>
     <build>
@@ -73,7 +73,7 @@
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>redshift</artifactId>
         </dependency>
-        <dependency>
+         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
@@ -86,5 +86,20 @@
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>translate</artifactId>
         </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>secretsmanager</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.amazon.redshift</groupId>
+            <artifactId>redshift-jdbc42</artifactId>
+            <version>1.2.1.1001</version>
+        </dependency>
+
     </dependencies>
 </project>
