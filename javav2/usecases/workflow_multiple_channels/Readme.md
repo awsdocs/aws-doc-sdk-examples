@@ -993,15 +993,13 @@ The JAR file is located in the **target** folder (which is a child folder of the
 
 9. Choose **Upload**, and then browse to the JAR file that you created.  
 
-10. For **Handler**, enter the fully qualified name of the function, for example, **com.example.messages.ListMissingStudentsHandler::handleRequest** (**com.example.messages.Handler** specifies the package and class followed by :: and method name).
-
-![AWS Tracking Application](images/Settings2.png)
+10. For **Handler**, enter the fully qualified name of the function, for example, **com.example.ListMissingStudentsHandler::handleRequest** (**com.example.messages.Handler** specifies the package and class followed by :: and method name).
 
 11. Choose **Save.**
 
-12. Test your Lambda function. Pass in the JSON data that contains the date to query ("date": "2021-02-01"). When successful, you see XML that contains the data queried from the database.  
+12. Test your Lambda function. Pass in the JSON data that contains the date to query ("date": "2023-06-06T00:00:00Z"). When successful, you see XML that contains the data queried from the database.  
 
-![AWS Tracking Application](images/testfunction3.png)
+![AWS Tracking Application](images/testXML.png)
 
 **Note** Repeat this procedure for the **HandlerVoiceNot** class. Name the corresponding Lambda functions **HandlerVoice**. When you finish, you will have two Lambda functions that you can reference in the Amazon States Language document.  
 
