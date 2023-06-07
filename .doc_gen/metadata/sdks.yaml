@@ -130,9 +130,6 @@ Kotlin:
       api_ref:
         uid: "DotNetSDKV3"
         name: "&guide-net-api;"
-      title_override:
-        title: "Additional code examples for the &NET;"
-        title_abbrev: "Additional code examples"
   guide: "&guide-net-dev;"
 PHP:
   property: php
