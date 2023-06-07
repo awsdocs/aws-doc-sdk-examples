@@ -3,11 +3,13 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-package com.example.messages;
+package com.example;
 
 public class Student {
 
     private String firstName;
+
+    private String lastName;
     private String email;
     private String mobileNumber ;
     private String phoneNunber;
@@ -43,4 +45,14 @@ public class Student {
     public String getFirstName() {
         return this.firstName;
     }
+
+
+    public void setLastName(String firstName) {
+        this.lastName = lastName;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
 }
+

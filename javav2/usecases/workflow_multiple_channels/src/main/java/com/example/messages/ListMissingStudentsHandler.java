@@ -3,12 +3,11 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-package com.example.messages;
+package com.example;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import java.sql.SQLException;
 import java.util.Map;
 
 public class ListMissingStudentsHandler implements RequestHandler<Map<String,String>, String> {
@@ -19,13 +18,8 @@ public class ListMissingStudentsHandler implements RequestHandler<Map<String,Str
         String date = event.get("date");
         logger.log("DATE: " + date);
 
-        RDSGetStudents students = new RDSGetStudents();
-        String xml = null;
-        try {
-            xml = students.getStudentsRDS(date);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        GetStudents students = new GetStudents();
+        String xml = students.getStudentsData(date);
         logger.log("XML: " + xml);
         return xml;
     }
