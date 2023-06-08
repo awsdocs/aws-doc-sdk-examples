@@ -15,6 +15,20 @@ using the AWS SDK for .NET.
 
 ## Cross-service examples
 
+### [Serverless photo asset management application](PhotoAssetManager/Readme.md)
+
+Create a Photo Asset Management (PAM) example app that uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images. Those images are analyzed with label detection and the labels are stored in an Amazon DynamoDB table. Users can later request a bundle of images matching those labels. When images are requested, they are retrieved from Amazon S3, zipped, and the user is sent a link to the zip.
+
+The application uses the following services:
+
+- Amazon Rekognition
+- Amazon DynamoDB
+- Amazon S3
+- Amazon SNS
+- AWS Lambda
+- Amazon Cognito
+- Amazon API Gateway
+
 ### [Amazon Aurora work item tracker web application](AuroraItemTracker/Readme.md)
 
 Shows how to create a web application that tracks work items in an Amazon Aurora database

@@ -69,9 +69,77 @@ export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
 };
 
+export const DOTNET_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  timeout: Duration.seconds(90),
+  memorySize: 1024,
+  codeAsset() {
+    // Relative to cdk.json.
+    const dotnetSources = resolve("../../../dotnetv3/cross-service/PhotoAssetManager");
+
+    return Code.fromAsset(dotnetSources, {
+      bundling: {
+        command: [
+          "/bin/sh",
+          "-c",
+          " dotnet tool install -g Amazon.Lambda.Tools"+
+          " && dotnet build"+
+          " && cd PamApi"+
+          " && dotnet lambda package --output-package /asset-output/function.zip",
+        ],
+        image: Runtime.DOTNET_6.bundlingImage,
+        user: "root",
+        outputType: BundlingOutput.ARCHIVED,
+      },
+    });
+  },
+  runtime: Runtime.DOTNET_6,
+  handlers: {
+    ...EMPTY_LAMBDAS_STRATEGY.handlers,
+    detectLabels: "PamApi::PamApi.DetectLabelsFunction::FunctionHandler",
+    download: "PamApi::PamApi.DownloadFunction::FunctionHandler",
+    labels: "PamApi::PamApi.LambdaEntryPoint::FunctionHandlerAsync",
+    upload: "PamApi::PamApi.LambdaEntryPoint::FunctionHandlerAsync",
+  },
+};
+
+export const DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY: PamLambdasStrategy = {
+  timeout: Duration.seconds(90),
+  memorySize: 1024,
+  codeAsset() {
+    // Relative to cdk.json.
+    const dotnetSources = resolve("../../../dotnetv3/cross-service/PhotoAssetManager");
+
+    return Code.fromAsset(dotnetSources, {
+      bundling: {
+        command: [
+          "/bin/sh",
+          "-c",
+          " dotnet tool install -g Amazon.Lambda.Tools"+
+          " && dotnet build"+
+          " && cd PamApiAnnotations"+
+          " && dotnet lambda package --output-package /asset-output/function.zip",
+        ],
+        image: Runtime.DOTNET_6.bundlingImage,
+        user: "root",
+        outputType: BundlingOutput.ARCHIVED,
+      },
+    });
+  },
+  runtime: Runtime.DOTNET_6,
+  handlers: {
+    ...EMPTY_LAMBDAS_STRATEGY.handlers,
+    detectLabels: "PamApiAnnotations::PamApiAnnotations.DetectLabelsFunction::FunctionHandler",
+    download: "PamApiAnnotations::PamApiAnnotations.DownloadFunction::FunctionHandler",
+    labels: "PamApiAnnotations::PamApiAnnotations.Functions_GetLabels_Generated::GetLabels",
+    upload: "PamApiAnnotations::PamApiAnnotations.Functions_Upload_Generated::Upload",
+  },
+};
+
 export const STRATEGIES: Record<string, PamLambdasStrategy> = {
   java: JAVA_LAMBDAS_STRATEGY,
   python: PYTHON_LAMBDAS_STRATEGY,
+  dotnet: DOTNET_LAMBDAS_STRATEGY,
+  dotnetla: DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY,
   empty: EMPTY_LAMBDAS_STRATEGY,
 };
 

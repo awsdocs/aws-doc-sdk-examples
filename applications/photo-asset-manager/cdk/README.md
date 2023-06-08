@@ -42,7 +42,7 @@ Export these variables:
 | PAM_EMAIL | Email address for the pre-verified default user account. |
 | PAM_LANG  | Programming language for the Lambdas in this deployment. |
 
-Current languages: Java, Python
+Current languages: Java, Python, Dotnet
 
 _bash/zsh_
 

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.103.5" />
+    <PackageReference Include="AWSSDK.Rekognition" Version="3.7.107.1" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.104.16" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.101.66" />
+  </ItemGroup>
+
+</Project>
