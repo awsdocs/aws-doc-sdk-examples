@@ -52,7 +52,8 @@
 #include <fstream>
 #include "lambda_samples.h"
 
-#define USE_CPP_LAMBDA_FUNCTION 0
+#define USE_CPP_LAMBDA_FUNCTION 0  // See cpp_lambda/README.md for building instructions.
+
 namespace AwsDoc {
     namespace Lambda {
         static Aws::String ROLE_NAME("doc_example_lambda_calculator_cpp_role");
@@ -271,7 +272,8 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                     std::cout << INCREMENT_RESUlT_PREFIX
                               << iter->second.AsInteger() << std::endl;
                 }
-            } else {
+            }
+            else {
                 std::cout << "There was an error in execution. Here is the log."
                           << std::endl;
                 Aws::Utils::ByteBuffer buffer = Aws::Utils::HashingUtils::Base64Decode(
@@ -318,7 +320,8 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
 
         if (outcome.IsSuccess()) {
             std::cout << "The lambda code was successfully updated." << std::endl;
-        } else {
+        }
+        else {
             std::cerr << "Error with Lambda::UpdateFunctionCode. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
@@ -375,7 +378,8 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
 
     if (0 > seconds) {
         std::cerr << "Function failed to become active." << std::endl;
-    } else {
+    }
+    else {
         std::cout << "Updated function active after " << seconds << " seconds."
                   << std::endl;
     }
@@ -411,11 +415,13 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                 std::cout << ARITHMETIC_RESUlT_PREFIX << x << " "
                           << operators[operatorIndex - 1] << " "
                           << y << " is " << iter->second.AsInteger() << std::endl;
-            } else if (iter != values.end() && iter->second.IsFloatingPointType()) {
+            }
+            else if (iter != values.end() && iter->second.IsFloatingPointType()) {
                 std::cout << ARITHMETIC_RESUlT_PREFIX << x << " "
                           << operators[operatorIndex - 1] << " "
                           << y << " is " << iter->second.AsDouble() << std::endl;
-            } else {
+            }
+            else {
                 std::cout << "There was an error in execution. Here is the log."
                           << std::endl;
                 Aws::Utils::ByteBuffer buffer = Aws::Utils::HashingUtils::Base64Decode(
@@ -462,7 +468,8 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                           << std::endl;
             }
             marker = result.GetNextMarker();
-        } else {
+        }
+        else {
             std::cerr << "Error with Lambda::ListFunctions. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
@@ -490,7 +497,8 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
             std::cout << "Function retrieve.\n" <<
                       outcome.GetResult().GetConfiguration().Jsonize().View().WriteReadable()
                       << std::endl;
-        } else {
+        }
+        else {
             std::cerr << "Error with Lambda::GetFunction. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
@@ -644,13 +652,13 @@ Aws::String AwsDoc::Lambda::askQuestion(const Aws::String &string,
 int AwsDoc::Lambda::askQuestionForInt(const Aws::String &string) {
     Aws::String resultString = askQuestion(string,
                                            [](const Aws::String &string1) -> bool {
-                                               try {
-                                                   (void) std::stoi(string1);
-                                                   return true;
-                                               }
-                                               catch (const std::invalid_argument &) {
-                                                   return false;
-                                               }
+                                                   try {
+                                                       (void) std::stoi(string1);
+                                                       return true;
+                                                   }
+                                                   catch (const std::invalid_argument &) {
+                                                       return false;
+                                                   }
                                            });
 
     int result = 0;
@@ -677,13 +685,13 @@ int AwsDoc::Lambda::askQuestionForIntRange(const Aws::String &string, int low,
                                            int high) {
     Aws::String resultString = askQuestion(string, [low, high](
             const Aws::String &string1) -> bool {
-        try {
-            int number = std::stoi(string1);
-            return number >= low && number <= high;
-        }
-        catch (const std::invalid_argument &) {
-            return false;
-        }
+            try {
+                int number = std::stoi(string1);
+                return number >= low && number <= high;
+            }
+            catch (const std::invalid_argument &) {
+                return false;
+            }
     });
 
     int result = 0;
@@ -733,8 +741,9 @@ bool AwsDoc::Lambda::getIamRoleArn(Aws::String &roleARN,
         if (createRoleOutcome.IsSuccess()) {
             std::cout << "IAM::CreateRole was successful." << std::endl;
             roleARN = createRoleOutcome.GetResult().GetRole().GetArn();
-        } else if (createRoleOutcome.GetError().GetErrorType() ==
-                   Aws::IAM::IAMErrors::ENTITY_ALREADY_EXISTS) {
+        }
+        else if (createRoleOutcome.GetError().GetErrorType() ==
+                 Aws::IAM::IAMErrors::ENTITY_ALREADY_EXISTS) {
             Aws::IAM::Model::GetRoleRequest request;
             request.SetRoleName(ROLE_NAME);
 
@@ -744,13 +753,15 @@ bool AwsDoc::Lambda::getIamRoleArn(Aws::String &roleARN,
                 std::cout << "IAM::GetRole was successful." << std::endl;
                 roleARN = outcome.GetResult().GetRole().GetArn();
                 return true;
-            } else {
+            }
+            else {
                 std::cerr << "Error with IAM::GetRole. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
                 return false;
             }
-        } else {
+        }
+        else {
             std::cerr << "Error with IAM::CreateRole. "
                       << createRoleOutcome.GetError().GetMessage()
                       << std::endl;
@@ -767,7 +778,8 @@ bool AwsDoc::Lambda::getIamRoleArn(Aws::String &roleARN,
                 attachRolePolicyRequest);
         if (attachRolePolicyOutcome.IsSuccess()) {
             std::cout << "Successfully attached the role policy" << std::endl;
-        } else {
+        }
+        else {
             std::cerr << "Error creating policy. " <<
                       attachRolePolicyOutcome.GetError().GetMessage() << std::endl;
             return false;
@@ -798,7 +810,8 @@ AwsDoc::Lambda::deleteIamRole(const Aws::Client::ClientConfiguration &clientConf
                 request);
         if (outcome.IsSuccess()) {
             std::cout << "Successfully detached the IAM role policy." << std::endl;
-        } else {
+        }
+        else {
             std::cerr << "Error Detaching policy from roles. " <<
                       outcome.GetError().GetMessage() << std::endl;
             result = false;
@@ -814,7 +827,8 @@ AwsDoc::Lambda::deleteIamRole(const Aws::Client::ClientConfiguration &clientConf
         std::cerr << "Error deleting role. " <<
                   outcome.GetError().GetMessage() << std::endl;
         result = false;
-    } else {
+    }
+    else {
         std::cout << "Successfully deleted the IAM role." << std::endl;
     }
 
@@ -837,7 +851,8 @@ bool AwsDoc::Lambda::deleteLambdaFunction(const Aws::Lambda::LambdaClient &clien
 
     if (outcome.IsSuccess()) {
         std::cout << "The lambda function was successfully deleted." << std::endl;
-    } else {
+    }
+    else {
         std::cerr << "Error with Lambda::DeleteFunction. "
                   << outcome.GetError().GetMessage()
                   << std::endl;
