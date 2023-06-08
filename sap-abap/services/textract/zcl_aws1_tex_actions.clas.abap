@@ -108,7 +108,7 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
       CATCH /aws1/cx_texinvalidparameterex .
         MESSAGE 'Request has non-valid parameters.' TYPE 'E'.
       CATCH /aws1/cx_texinvalids3objectex .
-        MESSAGE 'Amazon S3 object isn't valid.' TYPE 'E'.
+        MESSAGE 'Amazon S3 object is not valid.' TYPE 'E'.
       CATCH /aws1/cx_texprovthruputexcdex .
         MESSAGE 'Provisioned throughput exceeded limit.' TYPE 'E'.
       CATCH /aws1/cx_texthrottlingex .
@@ -160,7 +160,7 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
       CATCH /aws1/cx_texinvalidparameterex .
         MESSAGE 'Request has non-valid parameters.' TYPE 'E'.
       CATCH /aws1/cx_texinvalids3objectex .
-        MESSAGE 'Amazon S3 object isn't valid.' TYPE 'E'.
+        MESSAGE 'Amazon S3 object is not valid.' TYPE 'E'.
       CATCH /aws1/cx_texprovthruputexcdex .
         MESSAGE 'Provisioned throughput exceeded limit.' TYPE 'E'.
       CATCH /aws1/cx_texthrottlingex .
@@ -191,13 +191,13 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
       CATCH /aws1/cx_texinternalservererr .
         MESSAGE 'Internal server error.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidjobidex .
-        MESSAGE 'Job ID isn't valid.' TYPE 'E'.
+        MESSAGE 'Job ID is not valid.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidkmskeyex .
-        MESSAGE 'AWS KMS key isn't valid.' TYPE 'E'.
+        MESSAGE 'AWS KMS key is not valid.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidparameterex .
         MESSAGE 'Request has non-valid parameters.' TYPE 'E'.
       CATCH /aws1/cx_texinvalids3objectex .
-        MESSAGE 'Amazon S3 object isn't valid.' TYPE 'E'.
+        MESSAGE 'Amazon S3 object is not valid.' TYPE 'E'.
       CATCH /aws1/cx_texprovthruputexcdex .
         MESSAGE 'Provisioned throughput exceeded limit.' TYPE 'E'.
       CATCH /aws1/cx_texthrottlingex .
@@ -264,11 +264,11 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
       CATCH /aws1/cx_texinternalservererr .
         MESSAGE 'Internal server error.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidkmskeyex .
-        MESSAGE 'AWS KMS key isn't valid.' TYPE 'E'.
+        MESSAGE 'AWS KMS key is not valid.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidparameterex .
         MESSAGE 'Request has non-valid parameters.' TYPE 'E'.
       CATCH /aws1/cx_texinvalids3objectex .
-        MESSAGE 'Amazon S3 object isn't valid.' TYPE 'E'.
+        MESSAGE 'Amazon S3 object is not valid.' TYPE 'E'.
       CATCH /aws1/cx_texlimitexceededex .
         MESSAGE 'An Amazon Textract service limit was exceeded.' TYPE 'E'.
       CATCH /aws1/cx_texprovthruputexcdex .
@@ -323,11 +323,11 @@ CLASS ZCL_AWS1_TEX_ACTIONS IMPLEMENTATION.
       CATCH /aws1/cx_texinternalservererr .
         MESSAGE 'Internal server error.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidkmskeyex .
-        MESSAGE 'AWS KMS key isn't valid.' TYPE 'E'.
+        MESSAGE 'AWS KMS key is not valid.' TYPE 'E'.
       CATCH /aws1/cx_texinvalidparameterex .
         MESSAGE 'Request has non-valid parameters.' TYPE 'E'.
       CATCH /aws1/cx_texinvalids3objectex .
-        MESSAGE 'Amazon S3 object isn't valid.' TYPE 'E'.
+        MESSAGE 'Amazon S3 object is not valid.' TYPE 'E'.
       CATCH /aws1/cx_texlimitexceededex .
         MESSAGE 'An Amazon Textract service limit was exceeded.' TYPE 'E'.
       CATCH /aws1/cx_texprovthruputexcdex .
