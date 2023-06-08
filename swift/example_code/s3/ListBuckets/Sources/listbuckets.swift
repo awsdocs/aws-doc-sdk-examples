@@ -41,31 +41,41 @@ struct ExampleCommand: ParsableCommand {
 
     /// Called by ``main()`` to asynchronously run the AWS example.
     func runAsync() async throws {
-        let session = try S3Session(region: awsRegion)
-        let s3 = S3Manager(session: session)
+        let s3 = S3Manager(session: try S3Session(region: awsRegion))
         SDKLoggingSystem.initialize(logLevel: .error)
 
         let bucketList = try await s3.getAllBuckets()
 
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.timeStyle = .long
-
         if bucketList.count != 0 {
             print("Found \(bucketList.count) buckets:")
             for bucket in bucketList {
-                var dateString: String
-
-                if bucket.creationDate != nil {
-                    dateString = dateFormatter.string(from: bucket.creationDate!)
-                } else {
-                    dateString = "<unknown>"
-                }
-                print("  \(bucket.name ?? "<unknown>") (created \(dateString))")
+                print("  \(bucketString(bucket))")
             }
         } else {
             print("No buckets found.")
         }
+    }
+
+    /// Convert a date into the string format we want to display.
+    ///
+    /// - Parameter date: A `Date` to convert into a string.
+    /// - Returns: A string containing the date in the format `mm/dd/yy,
+    ///   h:mm:ss pp UTC`, or `<unknown>` if the date is `nil`.
+    func dateToString(_ date:Date?) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .long
+
+        if date != nil {
+            return dateFormatter.string(from: date!)
+        } else {
+            return "<unknown>"
+        }
+    }
+
+    func bucketString(_ bucket: S3ClientTypes.Bucket) -> String {
+        let dateString = dateToString(bucket.creationDate)
+        return"\(bucket.name ?? "<unknown>") (created \(dateString))"
     }
 }
 

@@ -43,6 +43,7 @@ let package = Package(
         .testTarget(
             name: "listbuckets-tests",
             dependencies: [
+                .product(name: "AWSS3", package: "aws-sdk-swift"),
                 "listbuckets",
                 "SwiftUtilities"
             ],
