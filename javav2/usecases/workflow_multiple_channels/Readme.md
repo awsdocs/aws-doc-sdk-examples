@@ -370,7 +370,7 @@ At this point, you have a new project named **LambdaNotifications**. Add the fol
 
 Use the Lambda runtime API to create the Java classes that define the Lambda functions. In this example, there are two workflow steps that each correspond to a Java class. There are also extra classes that invoke the AWS services. All Java classes are located in a package named **com.example**.
 
-To create a Lambda function by using the Lambda runtime API, implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
+To create a Lambda function by using the Lambda runtime API, implement [com.amazonaws.services.lambda.runtime.RequestHandler](https://javadoc.io/static/com.amazonaws/aws-lambda-java-core/1.2.1/com/amazonaws/services/lambda/runtime/RequestHandler.html). The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
 
 Create these Java classes, which are described in the following sections:
 + **StudentData** - Used for the Amazon DynamoDB Enhanced client.  
