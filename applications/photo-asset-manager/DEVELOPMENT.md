@@ -9,10 +9,11 @@ per-language AWS Lambda implementations.
 ## Add a new language
 
 To add a new supported implementation language:
+
 1. Create a new project in the appropriate language folder.
 1. Implement the Lambda functions.
 1. Edit [`./lib/backend/strategies.ts`](./cdk/lib/backend/strategies.ts) and add a new `PamLambdaStrategy` for the language.
-(Copy or refer to an existing instance.)
+   (Copy or refer to an existing instance.)
    1. Register this language in the `STRATEGIES` constant.
    1. Update the current languages in the README.
 
@@ -64,11 +65,11 @@ The Python handler specifies the entire module and function to execute.
 
 When implementing Lambda functions, application AWS resources are available in the following environment variables.
 
-| Variable              | Usage                                                         |
-| --------------------- | ------------------------------------------------------------- |
-| `LABELS_TABLE_NAME`   | Name for the Labels Table                                     |
-| `STORAGE_BUCKET_NAME` | Name for the Storage Bucket                                   |
-| `WORKING_BUCKET_NAME` | Name for the Working Bucket                                   |
+| Variable              | Usage                                                                                                                            |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `LABELS_TABLE_NAME`   | Name for the Labels Table                                                                                                        |
+| `STORAGE_BUCKET_NAME` | Name for the Storage Bucket                                                                                                      |
+| `WORKING_BUCKET_NAME` | Name for the Working Bucket                                                                                                      |
 | `NOTIFICATION_TOPIC`  | Amazon Resource Name (ARN) of the Amazon Simple Notification Service (Amazon SNS) topic to send download ready notifications to. |
 
 #### Upload
@@ -102,6 +103,7 @@ When implementing Lambda functions, application AWS resources are available in t
 1. Load all Images from the Labels Table that match the selected labels into a set (no duplicates).
 1. Read those images from the Storage Bucket, and write them to a single zip archive in the Working Bucket.
 1. Send a message to the SNS topic with a link to a presigned GET URL for that zip archive.
+   - WARNING: Presigned URLs are often longer than email client limits, and email clients may insert newlines or spaces for formatting that breaks the URL. This is a known limitation of using SNS, and the Code Examples team are looking for alternatives. However, SNS does not send rich html, and the design goals do not allow for PAM to handle PII directly.
 
 ## Deploy and test
 
