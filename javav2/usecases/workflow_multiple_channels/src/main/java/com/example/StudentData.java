@@ -15,10 +15,8 @@ public class StudentData {
 
     private String firstName;
 
-    private String lastName;
     private String email;
     private String mobileNumber ;
-    private String phoneNumber;
 
     private Instant date;
 
@@ -36,14 +34,6 @@ public class StudentData {
 
     public void setId(String id) {
       this.id = id;
-    }
-
-    public void setPhoneNunber(String phoneNunber) {
-        this.phoneNumber = phoneNunber;
-    }
-
-    public String getPhoneNunber() {
-        return this.phoneNumber;
     }
 
     public void setMobileNumber(String mobileNumber) {
@@ -64,14 +54,6 @@ public class StudentData {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getFirstName() {

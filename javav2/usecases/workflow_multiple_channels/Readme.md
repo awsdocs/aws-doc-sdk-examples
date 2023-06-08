@@ -398,10 +398,8 @@ public class StudentData {
 
     private String firstName;
 
-    private String lastName;
     private String email;
     private String mobileNumber ;
-    private String phoneNumber;
 
     private Instant date;
 
@@ -419,14 +417,6 @@ public class StudentData {
 
     public void setId(String id) {
       this.id = id;
-    }
-
-    public void setPhoneNunber(String phoneNunber) {
-        this.phoneNumber = phoneNunber;
-    }
-
-    public String getPhoneNunber() {
-        return this.phoneNumber;
     }
 
     public void setMobileNumber(String mobileNumber) {
@@ -447,14 +437,6 @@ public class StudentData {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getFirstName() {
@@ -707,6 +689,7 @@ import java.io.StringReader;
 public class SendNotifications {
     public int handleEmailMessage(String myDom) throws JDOMException, IOException, MessagingException {
         String myEmail;
+        String name ;
         SesClient client = SesClient.builder()
                 .region(Region.US_WEST_2)
                 .build();
@@ -721,7 +704,8 @@ public class SendNotifications {
         List<org.jdom2.Element> students = root.getChildren("Student");
         for (org.jdom2.Element element : students) {
             myEmail = element.getChildText("Email");
-            sendEmail(client, myEmail);
+            name = element.getChildText("Name");
+            sendEmail(client, myEmail, name);
             countStudents++;
         }
         client.close();
@@ -729,7 +713,8 @@ public class SendNotifications {
     }
 
     public void handleTextMessage(String myDom) throws JDOMException, IOException{
-        String mobileNum = "";
+        String mobileNum;
+        String name ;
         SnsClient snsClient = SnsClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
@@ -743,13 +728,14 @@ public class SendNotifications {
         List<org.jdom2.Element> students = root.getChildren("Student");
         for (org.jdom2.Element element : students) {
             mobileNum = element.getChildText("Mobile");
-            publishTextSMS(snsClient, mobileNum);
+            name = element.getChildText("Name");
+            publishTextSMS(snsClient, mobileNum, name);
         }
         snsClient.close();
     }
 
-    private void publishTextSMS(SnsClient snsClient, String phoneNumber) {
-        String message = "Please be advised that your student was marked absent from school today.";
+    private void publishTextSMS(SnsClient snsClient, String phoneNumber, String name) {
+        String message = "Please be advised that "+name + " was marked absent from school today.";
         try {
             PublishRequest request = PublishRequest.builder()
                     .message(message)
@@ -764,12 +750,12 @@ public class SendNotifications {
         }
     }
 
-    public void sendEmail(SesClient client, String recipient) {
+    public void sendEmail(SesClient client, String recipient, String name) {
              // The HTML body of the email.
             String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-                    + "<p>Please be advised that your student was marked absent from school today.</p>" + "</body>" + "</html>";
+                    + "<p>Please be advised that "+name +" was marked absent from school today.</p>" + "</body>" + "</html>";
 
-            String sender = "scmacdon@amazon.com";
+            String sender = "<Enter your email address>";
             String subject = "School Attendance";
 
             Destination destination = Destination.builder()

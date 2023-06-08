@@ -73,7 +73,6 @@ public class GetStudents {
             Student student = new Student();
             student.setFirstName(singleStudent.getFirstName());
             student.setMobileNumber(singleStudent.getMobileNumber());
-            student.setPhoneNunber(singleStudent.getPhoneNunber());
             student.setEmail(singleStudent.getEmail());
 
             // Push the Student object to the list.
@@ -129,11 +128,6 @@ public class GetStudents {
                 Element mobile = doc.createElement( "Mobile" );
                 mobile.appendChild( doc.createTextNode(myStudent.getMobileNumber()) );
                 item.appendChild( mobile );
-
-                // Set Phone.
-                Element phone = doc.createElement( "Phone" );
-                phone.appendChild( doc.createTextNode(myStudent.getPhoneNunber() ) );
-                item.appendChild( phone );
 
                 // Set Email.
                 Element email = doc.createElement( "Email" );

@@ -8,19 +8,8 @@ package com.example;
 public class Student {
 
     private String firstName;
-
-    private String lastName;
     private String email;
     private String mobileNumber ;
-    private String phoneNunber;
-
-    public void setPhoneNunber(String phoneNunber) {
-        this.phoneNunber = phoneNunber;
-    }
-
-    public String getPhoneNunber() {
-        return this.phoneNunber;
-    }
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
@@ -44,15 +33,6 @@ public class Student {
 
     public String getFirstName() {
         return this.firstName;
-    }
-
-
-    public void setLastName(String firstName) {
-        this.lastName = lastName;
-    }
-
-    public String getLastName() {
-        return this.lastName;
     }
 }
 
