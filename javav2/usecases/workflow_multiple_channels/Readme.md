@@ -28,8 +28,8 @@ To send notifications over multiple channels, you can use the following AWS serv
 
 + Prerequisites
 + Understand the workflow
-+ Create an AWS Identity and Access Management (IAM) role that is used to run Lambda functions
-+ Create a workflow by using Step Functions
++ Create an AWS Identity and Access Management (IAM) role 
++ Create a workflow by using AWS Step Functions
 + Create an IntelliJ project 
 + Add the POM dependencies to your project
 + Create Lambda functions by using the Lambda Java API
@@ -53,12 +53,12 @@ Create an Amazon DynamoDB table named Students. Make sure that this table has th
 + **id** - The partition key that identifies the student.
 + **date** - A date value that specifies the date when the student was absent.
 + **firstName** - Specifies the student's first name.
-+ **lastName** - Specifies the student's last name.
 + **mobileNumber** - Specifies the mobile number.
-+ **phoneNumber** - Specifies the home phone number.
 + **email** - Specifies the email address.
 
 Add a couple of records to ensure that the Workflow works. 
+
+![AWS Tracking Application](images/dynamoTable.png)
 
 For information on how to create an Amazon DynamoDB table, see [Create a table](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/getting-started-step-1.html).
 
@@ -107,7 +107,7 @@ The second workflow step parses the XML, and for each student, it invokes multip
 
 Create the following two IAM roles:
 
-+ **lambda-support** - Used to invoke Lamdba functions.
++ **lambda-support** - Used to invoke Lambda functions.
 + **workflow-support** - Used to enable Step Functions to invoke the workflow.
 
 This tutorial uses Amazon SNS, Amazon SES, and Amazon Pinpoint to send messages. The **lambda-support** role has to have policies that enable it to invoke these AWS services from a Lambda function.
@@ -369,7 +369,7 @@ At this point, you have a new project named **LambdaNotifications**. Add the fol
 
 ## Create Lambda functions by using the AWS SDK for Java
 
-Use the Lambda runtime API to create the Java classes that define the Lamdba functions. In this example, there are two workflow steps that each correspond to a Java class. There are also extra classes that invoke the AWS services. All Java classes are located in a package named **com.example**.
+Use the Lambda runtime API to create the Java classes that define the Lambda functions. In this example, there are two workflow steps that each correspond to a Java class. There are also extra classes that invoke the AWS services. All Java classes are located in a package named **com.example**.
 
 To create a Lambda function by using the Lambda runtime API, implement **com.amazonaws.services.lambda.runtime.RequestHandler**. The application logic that's executed when the workflow step is invoked is located in the **handleRequest** method. The return value of this method is passed to the next step in a workflow.
 
@@ -377,7 +377,7 @@ Create these Java classes, which are described in the following sections:
 + **StudentData** - Used for the Amazon DynamoDB Enhanced client.  
 + **ListMissingStudentsHandler** - Used as the first step in the workflow. This class queries data from the Amazon DynamoDB table. 
 + **ChannelHandler** - Used as the second step in the workflow. Sends out messages over multiple channels.
-+ **GetStudents** - Queries data from the student table using the Java Database Connectivity (JDBC) API. 
++ **GetStudents** - Queries data from the **Students** table using the Amazon DynamoDB Java API (v2). 
 + **SendNotifications** - Uses the AWS SDK for Java (v2) to invoke the Amazon SNS and Amazon SES services.
 + **Student** - A Java class that defines data members to store student data. 
 
@@ -466,7 +466,7 @@ public class StudentData {
 
 ### ListMissingStudentsHandler class
 
-This Java code represents the **ListMissingStudentsHandler** class. The class creates a Lamdba function that reads the passed in date value and queries the **student** table using this value.  The **handleRequest** method returns XML that specifies all of the absent students. The XML is passed to the second step in the workflow.
+This Java code represents the **ListMissingStudentsHandler** class. The class creates a Lambda function that reads the passed in date value and queries the **Students** table using this value.  The **handleRequest** method returns XML that specifies all of the absent students. The XML is passed to the second step in the workflow.
 
 ```java
  package com.example;
