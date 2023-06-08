@@ -51,27 +51,30 @@
 #include <aws/core/utils/HashingUtils.h>
 #include <fstream>
 #include "lambda_samples.h"
+
 #define USE_CPP_LAMBDA_FUNCTION 0
 namespace AwsDoc {
     namespace Lambda {
         static Aws::String ROLE_NAME("doc_example_lambda_calculator_cpp_role");
         static Aws::String LAMBDA_NAME("doc_example_lambda_calculator_cpp");
         static Aws::String LAMBDA_DESCRIPTION("AWS C++ Get started with functions.");
+
 #if USE_CPP_LAMBDA_FUNCTION
         static Aws::String LAMBDA_HANDLER_NAME(
                 "cpp_lambda_calculator");
         static Aws::String INCREMENT_LAMBDA_CODE(
-                SOURCE_DIR "/cpp_lambda_increment.zip");
+                SOURCE_DIR "/cpp_lambda/increment/build/cpp_lambda_increment.zip");
         static Aws::String CALCULATOR_LAMBDA_CODE(
-                SOURCE_DIR "/cpp_lambda_calculator.zip");
-#else
+                SOURCE_DIR "/cpp_lambda/calculator/build/cpp_lambda_calculator.zip");
+#else // !USE_CPP_LAMBDA_FUNCTION
         static Aws::String LAMBDA_HANDLER_NAME(
                 "doc_example_lambda_calculator.lambda_handler");
         static Aws::String INCREMENT_LAMBDA_CODE(
                 SOURCE_DIR "/doc_example_lambda_increment.zip");
         static Aws::String CALCULATOR_LAMBDA_CODE(
                 SOURCE_DIR "/doc_example_lambda_calculator.zip");
-#endif
+#endif // USE_CPP_LAMBDA_FUNCTION
+
         static Aws::String ROLE_POLICY_ARN(
                 "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole");
         Aws::String INCREMENT_RESUlT_PREFIX("The result of the increment is ");
@@ -79,7 +82,6 @@ namespace AwsDoc {
 
         //! Routine which invokes a Lambda function and returns the result.
         /*!
-         \\sa invokeLambdaFunction()
          \param jsonPayload: Payload for invoke function.
          \param logType: Log type setting for invoke function.
          \param invokeResult: InvokeResult object to receive the result.
@@ -94,7 +96,6 @@ namespace AwsDoc {
         //! Routine which creates an IAM role, attaches an IAM policy and returns the
         //! role Amazon Resource Name (ARN).
         /*!
-         \\sa getIamRoleArn()
          \param roleARN: String to receive the IAM role ARN.
          \param clientConfig: AWS client configuration.
          \return bool: Successful completion.
@@ -104,15 +105,20 @@ namespace AwsDoc {
 
         //! Routine which deletes the IAM role.
         /*!
-         \\sa deleteIamRole()
          \param clientConfig: AWS client configuration.
          \return bool: Successful completion.
          */
         static bool deleteIamRole(const Aws::Client::ClientConfiguration &clientConfig);
 
+        //! Routine which deletes the Lambda function.
+        /*!
+         \param client: A LambdaClient instance.
+         \return bool: Successful completion.
+         */
+        static bool deleteLambdaFunction(const Aws::Lambda::LambdaClient &client);
+
         //! Command line prompt/response utility function.
         /*!
-         \\sa askQuestion()
          \param string: A question prompt.
          \param test: Test function for response.
          \return Aws::String: User's response.
@@ -124,7 +130,6 @@ namespace AwsDoc {
 
         //! Command line prompt/response utility function for an integer result.
         /*!
-         \sa askQuestionForInt()
          \param string: A question prompt.
          \return int: User's response.
          */
@@ -133,7 +138,6 @@ namespace AwsDoc {
         //! Command line prompt/response utility function for an int result confined to
         //! a range.
         /*!
-         \sa askQuestionForIntRange()
          \param string: A question prompt.
          \param low: Low inclusive.
          \param high: High inclusive.
@@ -147,7 +151,6 @@ namespace AwsDoc {
 // snippet-start:[cpp.example_code.lambda.get_started_with_functions]
 //! Get started with functions scenario.
 /*!
- \\sa getStartedWithFunctionsScenario()
  \param clientConfig: AWS client configuration.
  \return bool: Successful completion.
  */
@@ -181,7 +184,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
 #if  defined(__x86_64__)
         request.SetArchitectures({Aws::Lambda::Model::Architecture::x86_64});
 #elif defined(__aarch64__)
-         request.SetArchitectures({Aws::Lambda::Model::Architecture::arm64});
+        request.SetArchitectures({Aws::Lambda::Model::Architecture::arm64});
 #else
 #error "Unimplemented architecture"
 #endif // defined(architecture)
@@ -194,6 +197,18 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         Aws::Lambda::Model::FunctionCode code;
         std::ifstream ifstream(INCREMENT_LAMBDA_CODE.c_str(),
                                std::ios_base::in | std::ios_base::binary);
+        if (!ifstream.is_open()) {
+            std::cerr << "Error opening file " << INCREMENT_LAMBDA_CODE << std::endl;
+
+#if USE_CPP_LAMBDA_FUNCTION
+            std::cerr
+                    << "The cpp Lambda function must be built following the instructions in the cpp_lambda/README.md file. "
+                    << std::endl;
+#endif
+            deleteIamRole(clientConfig);
+            return false;
+        }
+
         Aws::StringStream buffer;
         buffer << ifstream.rdbuf();
 
@@ -256,8 +271,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                     std::cout << INCREMENT_RESUlT_PREFIX
                               << iter->second.AsInteger() << std::endl;
                 }
-            }
-            else {
+            } else {
                 std::cout << "There was an error in execution. Here is the log."
                           << std::endl;
                 Aws::Utils::ByteBuffer buffer = Aws::Utils::HashingUtils::Base64Decode(
@@ -279,6 +293,19 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         request.SetFunctionName(LAMBDA_NAME);
         std::ifstream ifstream(CALCULATOR_LAMBDA_CODE.c_str(),
                                std::ios_base::in | std::ios_base::binary);
+        if (!ifstream.is_open()) {
+            std::cerr << "Error opening file " << INCREMENT_LAMBDA_CODE << std::endl;
+
+#if USE_CPP_LAMBDA_FUNCTION
+            std::cerr
+                    << "The cpp Lambda function must be built following the instructions in the cpp_lambda/README.md file. "
+                    << std::endl;
+#endif
+            deleteLambdaFunction(client);
+            deleteIamRole(clientConfig);
+            return false;
+        }
+
         Aws::StringStream buffer;
         buffer << ifstream.rdbuf();
         request.SetZipFile(
@@ -291,8 +318,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
 
         if (outcome.IsSuccess()) {
             std::cout << "The lambda code was successfully updated." << std::endl;
-        }
-        else {
+        } else {
             std::cerr << "Error with Lambda::UpdateFunctionCode. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
@@ -349,8 +375,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
 
     if (0 > seconds) {
         std::cerr << "Function failed to become active." << std::endl;
-    }
-    else {
+    } else {
         std::cout << "Updated function active after " << seconds << " seconds."
                   << std::endl;
     }
@@ -386,13 +411,11 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                 std::cout << ARITHMETIC_RESUlT_PREFIX << x << " "
                           << operators[operatorIndex - 1] << " "
                           << y << " is " << iter->second.AsInteger() << std::endl;
-            }
-            else if (iter != values.end() && iter->second.IsFloatingPointType()) {
+            } else if (iter != values.end() && iter->second.IsFloatingPointType()) {
                 std::cout << ARITHMETIC_RESUlT_PREFIX << x << " "
                           << operators[operatorIndex - 1] << " "
                           << y << " is " << iter->second.AsDouble() << std::endl;
-            }
-            else {
+            } else {
                 std::cout << "There was an error in execution. Here is the log."
                           << std::endl;
                 Aws::Utils::ByteBuffer buffer = Aws::Utils::HashingUtils::Base64Decode(
@@ -439,8 +462,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
                           << std::endl;
             }
             marker = result.GetNextMarker();
-        }
-        else {
+        } else {
             std::cerr << "Error with Lambda::ListFunctions. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
@@ -468,8 +490,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
             std::cout << "Function retrieve.\n" <<
                       outcome.GetResult().GetConfiguration().Jsonize().View().WriteReadable()
                       << std::endl;
-        }
-        else {
+        } else {
             std::cerr << "Error with Lambda::GetFunction. "
                       << outcome.GetError().GetMessage()
                       << std::endl;
@@ -481,32 +502,14 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
     std::getline(std::cin, answer);
 
     // 9.  Delete the Lambda function.
-    {
-        // snippet-start:[cpp.example_code.lambda.delete_function]
-        Aws::Lambda::Model::DeleteFunctionRequest request;
-        request.SetFunctionName(LAMBDA_NAME);
-
-        Aws::Lambda::Model::DeleteFunctionOutcome outcome = client.DeleteFunction(
-                request);
-
-        if (outcome.IsSuccess()) {
-            std::cout << "The lambda function was successfully deleted." << std::endl;
-        }
-        else {
-            std::cerr << "Error with Lambda::DeleteFunction. "
-                      << outcome.GetError().GetMessage()
-                      << std::endl;
-        }
-        // snippet-end:[cpp.example_code.lambda.delete_function]
-    }
+    bool result = deleteLambdaFunction(client);
 
     // 10. Delete the IAM role.
-    return deleteIamRole(clientConfig);
+    return result && deleteIamRole(clientConfig);
 }
 
 //! Routine which invokes a Lambda function and returns the result.
 /*!
- \\sa invokeLambdaFunction()
  \param jsonPayload: Payload for invoke function.
  \param logType: Log type setting for invoke function.
  \param invokeResult: InvokeResult object to receive the result.
@@ -610,7 +613,6 @@ int main(int argc, const char *argv[]) {
 
 //! Command line prompt/response utility function.
 /*!
- \\sa askQuestion()
  \param string: A question prompt.
  \param test: Test function for response.
  \return Aws::String: User's response.
@@ -642,13 +644,13 @@ Aws::String AwsDoc::Lambda::askQuestion(const Aws::String &string,
 int AwsDoc::Lambda::askQuestionForInt(const Aws::String &string) {
     Aws::String resultString = askQuestion(string,
                                            [](const Aws::String &string1) -> bool {
-                                                   try {
-                                                       (void) std::stoi(string1);
-                                                       return true;
-                                                   }
-                                                   catch (const std::invalid_argument &) {
-                                                       return false;
-                                                   }
+                                               try {
+                                                   (void) std::stoi(string1);
+                                                   return true;
+                                               }
+                                               catch (const std::invalid_argument &) {
+                                                   return false;
+                                               }
                                            });
 
     int result = 0;
@@ -675,13 +677,13 @@ int AwsDoc::Lambda::askQuestionForIntRange(const Aws::String &string, int low,
                                            int high) {
     Aws::String resultString = askQuestion(string, [low, high](
             const Aws::String &string1) -> bool {
-            try {
-                int number = std::stoi(string1);
-                return number >= low && number <= high;
-            }
-            catch (const std::invalid_argument &) {
-                return false;
-            }
+        try {
+            int number = std::stoi(string1);
+            return number >= low && number <= high;
+        }
+        catch (const std::invalid_argument &) {
+            return false;
+        }
     });
 
     int result = 0;
@@ -699,7 +701,6 @@ int AwsDoc::Lambda::askQuestionForIntRange(const Aws::String &string, int low,
 //! Routine which creates an IAM role, attaches an IAM policy and returns the
 //! role Amazon Resource Name (ARN).
 /*!
- \\sa getIamRoleArn()
  \param roleARN: String to receive the IAM role ARN.
  \param clientConfig: AWS client configuration.
  \return bool: Successful completion.
@@ -732,9 +733,8 @@ bool AwsDoc::Lambda::getIamRoleArn(Aws::String &roleARN,
         if (createRoleOutcome.IsSuccess()) {
             std::cout << "IAM::CreateRole was successful." << std::endl;
             roleARN = createRoleOutcome.GetResult().GetRole().GetArn();
-        }
-        else if (createRoleOutcome.GetError().GetErrorType() ==
-                 Aws::IAM::IAMErrors::ENTITY_ALREADY_EXISTS) {
+        } else if (createRoleOutcome.GetError().GetErrorType() ==
+                   Aws::IAM::IAMErrors::ENTITY_ALREADY_EXISTS) {
             Aws::IAM::Model::GetRoleRequest request;
             request.SetRoleName(ROLE_NAME);
 
@@ -744,15 +744,13 @@ bool AwsDoc::Lambda::getIamRoleArn(Aws::String &roleARN,
                 std::cout << "IAM::GetRole was successful." << std::endl;
                 roleARN = outcome.GetResult().GetRole().GetArn();
                 return true;
-            }
-            else {
+            } else {
                 std::cerr << "Error with IAM::GetRole. "
                           << outcome.GetError().GetMessage()
                           << std::endl;
                 return false;
             }
-        }
-        else {
+        } else {
             std::cerr << "Error with IAM::CreateRole. "
                       << createRoleOutcome.GetError().GetMessage()
                       << std::endl;
@@ -769,8 +767,7 @@ bool AwsDoc::Lambda::getIamRoleArn(Aws::String &roleARN,
                 attachRolePolicyRequest);
         if (attachRolePolicyOutcome.IsSuccess()) {
             std::cout << "Successfully attached the role policy" << std::endl;
-        }
-        else {
+        } else {
             std::cerr << "Error creating policy. " <<
                       attachRolePolicyOutcome.GetError().GetMessage() << std::endl;
             return false;
@@ -783,7 +780,6 @@ bool AwsDoc::Lambda::getIamRoleArn(Aws::String &roleARN,
 
 //! Routine which deletes the IAM role.
 /*!
- \\sa deleteIamRole()
  \param roleARN: String to receive the IAM role ARN.
  \param clientConfig: AWS client configuration.
  \return bool: Successful completion.
@@ -802,8 +798,7 @@ AwsDoc::Lambda::deleteIamRole(const Aws::Client::ClientConfiguration &clientConf
                 request);
         if (outcome.IsSuccess()) {
             std::cout << "Successfully detached the IAM role policy." << std::endl;
-        }
-        else {
+        } else {
             std::cerr << "Error Detaching policy from roles. " <<
                       outcome.GetError().GetMessage() << std::endl;
             result = false;
@@ -819,12 +814,37 @@ AwsDoc::Lambda::deleteIamRole(const Aws::Client::ClientConfiguration &clientConf
         std::cerr << "Error deleting role. " <<
                   outcome.GetError().GetMessage() << std::endl;
         result = false;
-    }
-    else {
+    } else {
         std::cout << "Successfully deleted the IAM role." << std::endl;
     }
 
     return result;
+}
+
+//! Routine which deletes the Lambda function.
+/*!
+ \param client: A LambdaClient instance.
+ \param clientConfig: AWS client configuration.
+ \return bool: Successful completion.
+ */
+bool AwsDoc::Lambda::deleteLambdaFunction(const Aws::Lambda::LambdaClient &client) {
+    // snippet-start:[cpp.example_code.lambda.delete_function]
+    Aws::Lambda::Model::DeleteFunctionRequest request;
+    request.SetFunctionName(LAMBDA_NAME);
+
+    Aws::Lambda::Model::DeleteFunctionOutcome outcome = client.DeleteFunction(
+            request);
+
+    if (outcome.IsSuccess()) {
+        std::cout << "The lambda function was successfully deleted." << std::endl;
+    } else {
+        std::cerr << "Error with Lambda::DeleteFunction. "
+                  << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+    // snippet-end:[cpp.example_code.lambda.delete_function]
+
+    return outcome.IsSuccess();
 }
 
 

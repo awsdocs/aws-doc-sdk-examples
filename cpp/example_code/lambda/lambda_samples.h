@@ -13,7 +13,6 @@ namespace AwsDoc {
 
         //! Get started with functions scenario.
         /*!
-         \\sa getStartedWithFunctionsScenario()
          \param clientConfig: AWS client configuration.
          \return bool: Successful completion.
          */
