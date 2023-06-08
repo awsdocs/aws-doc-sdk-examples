@@ -107,7 +107,7 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 ## Additional resources
 
 <!--custom.resources.start-->
-* [More Ruby Amazon EC2 code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ruby_ec2_code_examples.html)
+* [More Ruby Amazon EC2 code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/ec2-examples.html)
 * [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
 * [SDK for Ruby Amazon EC2 Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/EC2.html)
 * [Amazon EC2 Developer Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)

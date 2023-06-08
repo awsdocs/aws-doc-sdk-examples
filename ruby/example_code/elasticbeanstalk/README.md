@@ -54,8 +54,8 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 * [More ElasticBeanstalk code examples](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/eb-examples.html)
 * [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
 * [SDK for Ruby Amazon ElasticBeanstalk Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/ElasticBeanstalk.html)
-* [ElasticBeanstalk Developer Guide](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/welcome.html)
-* [ElasticBeanstalk API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/)
+* [ElasticBeanstalk Developer Guide](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html)
+* [ElasticBeanstalk API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/ElasticBeanstalk.html)
 <!--custom.resources.end-->
 
 
