@@ -8,7 +8,7 @@ RUN git clone https://github.com/awslabs/aws-lambda-cpp-runtime.git && \
     cd aws-lambda-cpp-runtime && \
     mkdir build  && \
     cd build  && \
-    cmake3 .. -DCMAKE_BUILD_TYPE=Release \
+    cmake3 .. -DCMAKE_BUILD_TYPE=Debug \
       -DBUILD_SHARED_LIBS=OFF \
       -DCMAKE_INSTALL_PREFIX=~/install  && \
     make  && \
