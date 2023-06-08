@@ -1,8 +1,8 @@
 # Deploy a photo asset management application for an AWS SDK with AWS CDK
 
-The Photo Asset Management (PAM) example app uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images. Those images are analyzed with label detection and the labels are stored in an Amazon DynamoDB table. Users can later request a bundle of images matching those labels. When images are requested, they will be retrieved from Amazon S3, zipped, and the user is sent a link to the zip.
+The Photo Asset Management (PAM) example app is a React website that supports the upload of photographic images to Amazon S3, automatic categorization of those images using Amazon Rekognition, and retrieval of zipped batches of images matching a provided category.
 
-This CDK project deploys PAM using a customer-chosen language implementation. The AWS SDK Example Docs team provides a number of example implementations, and customers are encouraged to additionally learn and create their own.
+You will deploy this CDK project using any of the [supported language implementations](../../README.md#list-of-examples).
 
 ## PAM CDK Project
 
