@@ -14,7 +14,7 @@ You can use Amazon Web Services to create a workflow that sends notifications ov
 
 The use case for this AWS tutorial assumes that you work at a school and you need to alert parents when a student skips school. Do you send an email message, do you phone the parents, or do you send a text message to a mobile device? The AWS workflow created in this tutorial sends messages over multiple channels, including email, as shown in the following illustration. 
 
-![AWS Tracking Application](images/message.png)
+![AWS Tracking Application](images/email.png)
 
 In this AWS tutorial, you create a serverless workflow by using the AWS SDK for Java (v2) and AWS Step Functions. Each workflow step is implemented by using an AWS Lambda function. Lambda is a compute service that you can use to run code without provisioning or managing servers. For more information about Lambda, see
 [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html).
@@ -605,9 +605,7 @@ public class GetStudents {
         for (StudentData singleStudent : table.scan(enhancedRequest).items()) {
             Student student = new Student();
             student.setFirstName(singleStudent.getFirstName());
-            student.setLastName(singleStudent.getLastName());
             student.setMobileNumber(singleStudent.getMobileNumber());
-            student.setPhoneNunber(singleStudent.getPhoneNunber());
             student.setEmail(singleStudent.getEmail());
 
             // Push the Student object to the list.
@@ -627,7 +625,7 @@ public class GetStudents {
             // which can then be used to construct a string.
             StringWriter writer = new StringWriter();
 
-            // Transform document to string
+            // Transform document to string.
             transformer.transform(new DOMSource(xmlDocument), new StreamResult(writer));
             return writer.getBuffer().toString();
 
@@ -664,11 +662,6 @@ public class GetStudents {
                 mobile.appendChild( doc.createTextNode(myStudent.getMobileNumber()) );
                 item.appendChild( mobile );
 
-                // Set Phone.
-                Element phone = doc.createElement( "Phone" );
-                phone.appendChild( doc.createTextNode(myStudent.getPhoneNunber() ) );
-                item.appendChild( phone );
-
                 // Set Email.
                 Element email = doc.createElement( "Email" );
                 email.appendChild( doc.createTextNode(myStudent.getEmail() ) );
@@ -682,6 +675,7 @@ public class GetStudents {
         return null;
     }
 }
+
 ```
 
 ### SendNotifications class
@@ -828,45 +822,37 @@ The following Java class represents the **Student** class.
 ```java
      package com.example;
 
-     public class Student {
+public class Student {
 
-      private String firstName;
-      private String email;
-      private String mobileNumber ;
-      private String phoneNunber;
+    private String firstName;
+    private String email;
+    private String mobileNumber ;
 
-      public void setPhoneNunber(String phoneNunber) {
-        this.phoneNunber = phoneNunber;
-      }
-
-      public String getPhoneNunber() {
-        return this.phoneNunber;
-      }
-
-      public void setMobileNumber(String mobileNumber) {
+    public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
-      }
+    }
 
-      public String getMobileNumber() {
+    public String getMobileNumber() {
         return this.mobileNumber;
-      }
+    }
 
-      public void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-      }
+    }
 
-      public String getEmail() {
+    public String getEmail() {
         return this.email;
-      }
+    }
 
-      public void setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
-      }
+    }
 
-      public String getFirstName() {
+    public String getFirstName() {
         return this.firstName;
-      }
-     }
+    }
+}
+
 ```
 ## Package the project that contains the Lambda functions
 
