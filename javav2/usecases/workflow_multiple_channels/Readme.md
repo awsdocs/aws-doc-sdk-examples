@@ -45,10 +45,11 @@ To use this tutorial, you need the following:
 + A Java IDE. (The IntelliJ IDE is used for this tutorial.)
 + Java 1.8 JDK.
 + Maven 3.6 or later.
++ Set up your development environment. For more information, see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup-basics.html).
 
 ### Create an Amazon DynamoDB table
 
-Create an Amazon DynamoDB table named Students. Make sure that this table has these columns: 
+Create an Amazon DynamoDB table named **Students**. Make sure that this table has these columns: 
 
 + **id** - The partition key that identifies the student.
 + **date** - A date value that specifies the date when the student was absent.
@@ -89,19 +90,17 @@ The workflow queries the **students** table to get all absent students, and dyna
          <Student>
           <Name>Sam</Name>
           <Mobile>15558397418</Mobile>
-          <Phone>155538397418</Phone>
           <Email>scmacdon@noserver.com</Email>
          </Student>
          <Student>
           <Name>Laurie</Name>
           <Mobile>15554621058</Mobile>
-          <Phone>155558397418</Phone>
           <Email>lmccue@cnoserver.com</Email>
          </Student>
        </Students>
 ```
 
-The second workflow step parses the XML, and for each student, it invokes multiple AWS services to send messages over different channels.   
+The second workflow step parses the XML, and for each student, it invokes multiple AWS services to send messages.   
 
 ## Create an IAM role that's used to run Lambda functions
 
