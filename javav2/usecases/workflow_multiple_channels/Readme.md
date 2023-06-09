@@ -529,11 +529,12 @@ import software.amazon.awssdk.enhanced.dynamodb.model.ScanEnhancedRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -595,27 +596,6 @@ public class GetStudents {
         return convertToString(toXml(studentList));
     }
 
-    private String convertToString(Document xmlDocument) {
-        try {
-            TransformerFactory tf = TransformerFactory.newInstance();
-            Transformer transformer;
-            transformer = tf.newTransformer();
-            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-
-            // A character stream that collects its output in a string buffer,
-            // which can then be used to construct a string.
-            StringWriter writer = new StringWriter();
-
-            // Transform document to string.
-            transformer.transform(new DOMSource(xmlDocument), new StreamResult(writer));
-            return writer.getBuffer().toString();
-
-        } catch (TransformerException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
     // Convert the list to XML.
     private Document toXml(List<Student> itemList) {
         try {
@@ -655,7 +635,33 @@ public class GetStudents {
         }
         return null;
     }
+
+    private String convertToString(Document xmlDocument) {
+        try {
+            TransformerFactory transformerFactory = getSecureTransformerFactory();
+            Transformer transformer = transformerFactory.newTransformer();
+            StreamResult result = new StreamResult(new StringWriter());
+            DOMSource source = new DOMSource(xmlDocument);
+            transformer.transform(source, result);
+            return result.getWriter().toString();
+
+        } catch(TransformerException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    private TransformerFactory getSecureTransformerFactory() {
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        try {
+            transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        } catch (TransformerConfigurationException e) {
+            e.printStackTrace();
+        }
+        return transformerFactory;
+    }
 }
+
 
 ```
 
