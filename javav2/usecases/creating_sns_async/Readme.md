@@ -26,8 +26,7 @@ You can create a web application that has subscription and publish functionality
 + Add the POM dependencies to your project
 + Create the Java classes
 + Create the HTML files
-+ Package the application into a JAR file
-+ Deploy the application to Elastic Beanstalk
++ Run the application. 
 
 ## Prerequisites
 
