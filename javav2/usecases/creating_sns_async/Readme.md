@@ -304,7 +304,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 public class SnsService {
-    String topicArn = "arn:aws:sns:us-west-2:814548047983:MyMailTopic";
+    String topicArn = "<Enter your Amazon SNS Topic ARN>";
 
     private SnsAsyncClient getSnsClient() {
         return SnsAsyncClient.builder()
