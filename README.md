@@ -10,8 +10,6 @@ Many examples are injected into the [AWS Documentation](https://docs.aws.amazon.
 
 ## How this repository is organized
 
-### Isolated code examples
-
 Code examples for each language's SDK can be found within the following subdirectories. The examples here demonstrate the most common uses of the SDK for each language.
 
 | SDK        | folder                                | SDK version | SDK status                                                         |
@@ -34,11 +32,13 @@ Code examples for each language's SDK can be found within the following subdirec
 
 Within each directory, you will find SDK-specific instructions for understanding and invoking example code.
 
-### Example applications
+### Additional directories
 
-The [applications](./applications/) directory contains the language-agnostic components of example applications, which show how the SDKs can be used in the context of a production-like application. 
+| directory     | purpose                                                                                                                                                      | usage                                                                                                                                                                                   |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| /applications | Contains the language-agnostic   components of example applications, which show how the SDKs can be used in   the context of a production-like application.  | To view the language-specific   components for each example application, see the `cross-service` folder in   the sub-directory for your desired language (e.g. `python/cross-service`). |
+| /test         | Contains all components   supporting the custom test automation framework used to automatically test   the code in this repository.                          | Can be deployed by anyone in   need of a polyglot container-based integration testing solution. WARNING:   Still under active construction as of 2023.                                  |
 
-To view the language-specific components for each example application, see the `cross-service` folder in the sub-directory for your desired language (e.g. `python/cross-service`).
 
 ## Invoke example code
 
