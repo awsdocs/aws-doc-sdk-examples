@@ -1,5 +1,14 @@
 # Creating an ETL workflow by using AWS Step Functions and the AWS SDK for Java
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Discusses how to develop a workflow using AWS Step Functions that performs an Extract, Transform, and Load (ETL) operation by using the AWS SDK for Java (v2).    |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 6/9/2023        |
+| Required skills   | Java, Maven  |
+
 ## Purpose
 An Extract, Transform, and Load (ETL) workflow extracts data from a given source, transforms the data, and loads the data into a target source. You can create an ETL workflow by using AWS Step Functions and the AWS SDK for Java V2. In this AWS tutorial, population data located in a Microsoft Excel spreadsheet and stored in an Amazon Simple Storage Service (Amazon S3) bucket is retrieved, transformed to another format, and stored in an Amazon DyanmoDB table named **Country**. 
 
