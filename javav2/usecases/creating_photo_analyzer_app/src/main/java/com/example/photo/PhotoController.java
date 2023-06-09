@@ -26,7 +26,7 @@ import java.util.List;
 @Controller
 public class PhotoController {
     // Change to your Bucket Name
-    private final String bucketName = "scottphoto";
+    private final String bucketName = "<Enter your S3 bucket name>";
 
     private final S3Service s3Service;
     private final AnalyzePhotos photos;

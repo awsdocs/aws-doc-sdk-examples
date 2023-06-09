@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a dynamic web application that analyzes nature images located in an Amazon Simple Storage Service (Amazon S3) bucket by using the AWS SDK for Java V2. This tutorial uses AWS SDK asynchronous clients.  |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 1/17/2022        |
+| Updated   | 6/6/2023        |
 | Required Skills   | Java, Maven  |
 
 ## Purpose

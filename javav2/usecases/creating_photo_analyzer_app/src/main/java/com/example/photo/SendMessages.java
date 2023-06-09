@@ -48,7 +48,7 @@ public class SendMessages {
         message = new MimeMessage(session);
         String subject = "Analyzed photos report";
         message.setSubject(subject, "UTF-8");
-        String sender = "scmacdon@amazon.com";
+        String sender = "<Enter your validated email address>";
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
