@@ -13,24 +13,44 @@ import ClientRuntime
 
 @testable import listbuckets
 
-struct TestItem {
+/// Contains the information needed to describe a single bucket.
+struct BucketInfo {
+    /// The name of the bucket.
     var name: String
+    /// The bucket's creation date, in the form `M/d/yy, h:mm:ss a z`.
     var date: String
 }
 
+/// The `MockS3Session` type implements `S3SessionProtocol` but instead of
+/// calling through to the AWS SDK for Swift, its implementations of the SDK
+/// functions return mocked results.
 public struct MockS3Session: S3SessionProtocol {
-    var testData: [TestItem]
+    /// An array of `BucketInfo` objects describing the mock buckets to return
+    /// when `listBuckets()` is called.
+    var testData: [BucketInfo]
 
-    init(data: [TestItem]) {
+    /// Initialize the mock Amazon S3 session to use the specified mock bucket
+    /// information.
+    init(data: [BucketInfo]) {
         self.testData = data
     }
 
+    /// An implementation of the Amazon S3 function `listBuckets()` that
+    /// returns bucket objects using data from the mock bucket descriptions
+    /// provided when the session was created.
+    ///
+    /// - Parameter input: The input to the `listBuckets()` function.
+    ///
+    /// - Returns: A `ListBucketsOutputResponse` object containing the list of
+    ///   buckets.
     public func listBuckets(input: ListBucketsInput) async throws
             -> ListBucketsOutputResponse {
         var bucketList: [S3ClientTypes.Bucket] = []
         let df = DateFormatter()
         df.dateFormat = "M/d/yy, h:mm:ss a z"
 
+        // Build the array of Amazon S3 bucket objects from the test data.
+        
         for item in self.testData {
             let bucket = S3ClientTypes.Bucket(
                 creationDate: df.date(from: item.date),
@@ -39,6 +59,9 @@ public struct MockS3Session: S3SessionProtocol {
             bucketList.append(bucket)
         }
         
+        // Create and return the `ListBucketsOutputResponse` object containing
+        // the results.
+
         let response = ListBucketsOutputResponse(
             buckets: bucketList,
             owner: nil
@@ -47,8 +70,12 @@ public struct MockS3Session: S3SessionProtocol {
     }
 }
 
+/// The tests for the ListBuckets example.
 final class ListBucketsTests: XCTestCase {
+    /// The session to use for Amazon S3 calls. In this case, it's a mock
+    /// implementation. 
     var session: MockS3Session? = nil
+    /// The `S3Manager` that uses the session to perform our S3 operations.
     var s3: S3Manager? = nil
 
     /// Perform one-time initialization that is done before starting to
@@ -56,7 +83,6 @@ final class ListBucketsTests: XCTestCase {
     override class func setUp() {
         super.setUp()
         SDKLoggingSystem.initialize(logLevel: .error)
-
     }
 
     /// Set up things that need to be done just before each
@@ -67,15 +93,16 @@ final class ListBucketsTests: XCTestCase {
         // Note that the character between the seconds and AM/PM is a narrow
         // non-breaking space Unicode character. This is what the
         // `DateFormatter` class uses.
-        var testData: [TestItem] = []
-        testData.append(TestItem(name: "Testfile-1", date: "2/4/65, 1:23:45 AM UTC"))
-        testData.append(TestItem(name: "Another-file", date: "1/13/72, 4:43:21 PM UTC"))
-        testData.append(TestItem(name: "Very-foo-file", date: "8/17/47, 12:34:00 PM UTC"))
+        var testData: [BucketInfo] = []
+        testData.append(BucketInfo(name: "Testfile-1", date: "2/4/65, 1:23:45 AM UTC"))
+        testData.append(BucketInfo(name: "Another-file", date: "1/13/72, 4:43:21 PM UTC"))
+        testData.append(BucketInfo(name: "Very-foo-file", date: "8/17/47, 12:34:00 PM UTC"))
 
         self.session = MockS3Session(data: testData)
         self.s3 = S3Manager(session: self.session!)
     }
 
+    /// Test the command's ``getAllBuckets()`` function.
     func testGetAllBuckets() async throws {
         var itemList = self.session!.testData
         let bucketList = try await s3!.getAllBuckets()
@@ -83,6 +110,7 @@ final class ListBucketsTests: XCTestCase {
         df.dateStyle = .short
         df.timeStyle = .long
 
+        // Go through the results and ensure they match what we expect.
         for bucket in bucketList {
             var dateStr: String? = nil
 
@@ -107,6 +135,7 @@ final class ListBucketsTests: XCTestCase {
         let df = DateFormatter()
         df.dateFormat = "M/d/yy, h:mm:ss a z"
         
+        // Create a bucket object to use for the test.
         let bucket = S3ClientTypes.Bucket(
             creationDate: df.date(from: testDate),
             name: testName
@@ -133,5 +162,17 @@ final class ListBucketsTests: XCTestCase {
         let ds = command.dateToString(testDate)
         
         XCTAssertEqual(ds, testString, "Converted date doesn't match expected string")
+    }
+
+    /// Test that calling ``dateToString()`` with a `nil` input returns the
+    /// expected result.
+    func testDateToStringUnknown() async throws {
+        // Create an ExampleCommand on which to call `dateToString()`. Then
+        // call `dateToString()` and check the result.
+
+        let command = try ExampleCommand.parse([])
+        let ds = command.dateToString(nil)
+
+        XCTAssertEqual(ds, "<unknown>", "Result of dateToString(nil) should be 'unknown' but was '\(ds)'")
     }
 }

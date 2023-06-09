@@ -75,7 +75,7 @@ struct ExampleCommand: ParsableCommand {
 
     func bucketString(_ bucket: S3ClientTypes.Bucket) -> String {
         let dateString = dateToString(bucket.creationDate)
-        return"\(bucket.name ?? "<unknown>") (created \(dateString))"
+        return "\(bucket.name ?? "<unknown>") (created \(dateString))"
     }
 }
 
