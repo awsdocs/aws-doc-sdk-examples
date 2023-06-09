@@ -15,12 +15,10 @@ public class HandlerStoreData  implements RequestHandler<String, String>{
 
     @Override
     public String handleRequest(String event, Context context) {
-
         LambdaLogger logger = context.getLogger();
         String xml = event ;
         DynamoDBService storeData = new DynamoDBService();
         try {
-
             storeData.injectETLData(xml);
             logger.log("data stored:");
         } catch (JDOMException | IOException e) {

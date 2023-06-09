@@ -23,7 +23,6 @@ public class DocumentHandler {
 
         // Get the XML that contains the Pop data.
         ExcelService excel = new ExcelService();
-        String xml = excel.getData(bucketName, object);
-        return xml;
+        return excel.getData(bucketName, object);
     }
 }
