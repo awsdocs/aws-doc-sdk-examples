@@ -301,7 +301,7 @@ import java.util.List;
 
 @Component
 public class SnsService {
-    String topicArn = "arn:aws:sns:us-west-2:814548047983:MyMailTopic";
+    String topicArn = "<Enter your SNS Topic ARN>";
 
     private SnsClient getSnsClient() {
         return SnsClient.builder()
