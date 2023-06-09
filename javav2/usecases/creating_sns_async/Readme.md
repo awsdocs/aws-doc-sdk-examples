@@ -413,10 +413,7 @@ public class SnsService {
         return convertToString(toXml(reference.get()));
     }
 
-
-
       public String pubTopic(String message, String lang) {
-
         final AtomicReference<Integer> reference = new AtomicReference<>();
         String body;
 
@@ -448,8 +445,7 @@ public class SnsService {
         return "Error - msg not sent";
     }
 
-    private String translateBody(String message, String lan)
-    {
+    private String translateBody(String message, String lan) {
         final AtomicReference<String> reference = new AtomicReference<>();
         Region region = Region.US_WEST_2;
         TranslateAsyncClient translateClient = TranslateAsyncClient.builder()
