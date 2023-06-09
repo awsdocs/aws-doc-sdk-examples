@@ -201,7 +201,7 @@ The following Java code represents the **SubApplication** class.
 The following Java code represents the **SubController** class.
 
 ```java
-     package com.spring.sns;
+package com.spring.sns;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
