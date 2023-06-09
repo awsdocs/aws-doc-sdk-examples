@@ -1,5 +1,14 @@
 # Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Discusses how to develop a dynamic web MVC application that has subscription and publish functionality by using the AWS SDK for Java (v2). This example uses the asynchronous client.  |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 6/9/2023        |
+| Required skills   | Java, Maven  |
+
 ## Purpose
 
 You can create a web application that has subscription and publish functionality by using the Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter many emails and all of them are subscribed to the given SNS topic (once the email recipients confirm the subscription). The user can publish a message that results in all subscribed emails receiving the message. 
