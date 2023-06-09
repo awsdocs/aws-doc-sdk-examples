@@ -266,7 +266,7 @@ public class SubController {
 
 ### SnsService class
 
-The following Java code represents the **SnsService** class. This class uses the Java V2 **SnsAsyncClient** object to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message.
+The following Java code represents the **SnsService** class. This class uses the Java V2 [SnsAsyncClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/sns/SnsAsyncClient.html) object to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message.
 
 When working with the **SnsAsyncClient**, you use a **CompletableFuture** object that allows you to access the response when it’s ready. You can access the **resp** object by calling the **futureGet.whenComplete** method. Then you can get service data by invoking the applicable method that belongs to the **resp** object. For example, you can get the subscription Arn value by invoking the **resp.subscriptionArn()** method. 
 
