@@ -1,21 +1,34 @@
-import { CfnOutput, RemovalPolicy } from "aws-cdk-lib";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import {
+  BundlingOutput,
+  CfnOutput,
+  DockerImage,
+  RemovalPolicy,
+} from "aws-cdk-lib";
 import {
   CfnDistribution,
   CfnOriginAccessControl,
   Distribution,
+  ResponseHeadersPolicy,
 } from "aws-cdk-lib/aws-cloudfront";
-import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
+import { HttpOrigin, S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import {
   AccountRootPrincipal,
   Effect,
   PolicyStatement,
   ServicePrincipal,
 } from "aws-cdk-lib/aws-iam";
+import { Code, Function, FunctionUrl, Runtime } from "aws-cdk-lib/aws-lambda";
 import { Bucket } from "aws-cdk-lib/aws-s3";
+import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
 import { Construct } from "constructs";
 
 export interface CloudFrontWebsiteProps {
-  domainNameExportKey: string;
+  assetPath: string;
+  apiGatewayBaseUrl: string;
+  cognitoUserPoolBaseUrl: string;
+  cognitoAppClientId: string;
 }
 
 export class CloudFrontWebsite extends Construct {
@@ -30,6 +43,9 @@ export class CloudFrontWebsite extends Construct {
       autoDeleteObjects: true,
     });
 
+    /**
+     * BEGIN: Possible construct for S3 distribution.
+     */
     this.distribution = new Distribution(this, "website-distribution", {
       defaultBehavior: {
         origin: new S3Origin(this.bucket),
@@ -57,6 +73,49 @@ export class CloudFrontWebsite extends Construct {
       "DistributionConfig.Origins.0.OriginAccessControlId",
       oac.getAtt("Id")
     );
+    /**
+     * END: Possible construct.
+     */
+
+    const envLambda = new Function(this, "env-lambda", {
+      runtime: Runtime.NODEJS_18_X,
+      environment: {
+        API_GATEWAY_BASE_URL: props.apiGatewayBaseUrl,
+        COGNITO_USER_POOL_BASE_URL: props.cognitoUserPoolBaseUrl,
+        COGNITO_APP_CLIENT_ID: props.cognitoAppClientId,
+        CLOUDFRONT_DISTRIBUTION_URL: this.distribution.domainName,
+      },
+      code: Code.fromInline(
+        readFileSync(join(__dirname, "website-env-fn.js")).toString()
+      ),
+      handler: "index.handler",
+    });
+
+    const envLambdaUrl = new FunctionUrl(this, "env-lambda-url", {
+      function: envLambda,
+    });
+
+    const responseHeadersPolicy = new ResponseHeadersPolicy(
+      this,
+      "env-headers-policy",
+      {
+        customHeadersBehavior: {
+          customHeaders: [
+            {
+              header: "Content-Type",
+              value: "application/javascript",
+              override: true,
+            },
+          ],
+        },
+      }
+    );
+
+    this.distribution.addBehavior("env.js", new HttpOrigin(envLambdaUrl.url), {
+      responseHeadersPolicy: {
+        responseHeadersPolicyId: responseHeadersPolicy.responseHeadersPolicyId,
+      },
+    });
 
     const bucketPolicyAllowCloudFront = new PolicyStatement({
       principals: [new ServicePrincipal("cloudfront.amazonaws.com")],
@@ -74,8 +133,26 @@ export class CloudFrontWebsite extends Construct {
 
     this.bucket.addToResourcePolicy(bucketPolicyAllowCloudFront);
 
-    new CfnOutput(this, "s3-access", {
-      exportName: props.domainNameExportKey,
+    new BucketDeployment(this, "website-assets-deployment", {
+      destinationBucket: this.bucket,
+      sources: [
+        Source.asset(props.assetPath, {
+          bundling: {
+            image: new DockerImage("node:18"),
+            command: [
+              "/bin/sh",
+              "-c",
+              "npm i && npm run build && cp -r /asset-input/dist/* /asset-output/",
+            ],
+            user: "root",
+            outputType: BundlingOutput.NOT_ARCHIVED,
+          },
+        }),
+      ],
+    });
+
+    new CfnOutput(this, "output", {
+      exportName: `${id}_domain`,
       value: this.distribution.domainName,
     });
   }

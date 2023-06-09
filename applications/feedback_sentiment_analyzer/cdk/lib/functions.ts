@@ -56,5 +56,5 @@ const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
 };
 
 export function getFunctions(language: string = ""): AppFunctionConfig[] {
-  return FUNCTIONS[language] ?? FUNCTIONS.test;
+  return FUNCTIONS[language] ?? FUNCTIONS.examplelang;
 }
