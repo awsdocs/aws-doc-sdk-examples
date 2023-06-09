@@ -58,7 +58,6 @@ To complete the tutorial, you need the following:
 ### Creating the resources
 
 The AWS Services used in this AWS tutorial are:
-
  - Amazon S3 Service
  - Amazon DynamoDB
  - AWS Step Functions
@@ -205,7 +204,7 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
 
 ```xml
      <?xml version="1.0" encoding="UTF-8"?>
-     <project xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -221,7 +220,7 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.11.11</version>
+                <version>2.20.25</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -254,12 +253,10 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb</artifactId>
-            <version>2.5.10</version>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb-enhanced</artifactId>
-            <version>2.11.4-PREVIEW</version>
         </dependency>
         <dependency>
             <groupId>org.jdom</groupId>
@@ -291,18 +288,18 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
             <version>4.5</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
+       <dependency>
             <groupId>net.sourceforge.jexcelapi</groupId>
             <artifactId>jxl</artifactId>
-            <version>2.6.10</version>
+            <version>2.6.12</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
-        </dependencies>
-     <build>
+    </dependencies>
+    <build>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -334,8 +331,8 @@ At this point, you have a new project named **ETL_Lambda**. Ensure that the pom.
                 </configuration>
             </plugin>
         </plugins>
-       </build>
-     </project>
+    </build>
+</project>
 ```
 
  ## Create the Java classes
