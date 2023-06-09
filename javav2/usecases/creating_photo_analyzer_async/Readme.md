@@ -364,7 +364,7 @@ The following Java code represents the **PhotoController** class that handles HT
 **Note**: Be sure that you change the **bucketName** variable to your Amazon S3 bucket name. 
 
 ```java
-    package com.example.photo;
+package com.example.photo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -496,7 +496,7 @@ public class PhotoController {
 The following class uses the Amazon S3 Java API to perform Amazon S3 operations. For example, the **getObjectBytes** method returns a byte array that represents the image. Notice the use of the **S3AsyncClient** object. For more information, see [Interface S3AsyncClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3AsyncClient.html). 
 
 ```java
-     package com.example.photo;
+package com.example.photo;
 
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
@@ -975,7 +975,7 @@ The following Java code represents the **SendMessage** class. This class uses th
 The following Java code represents the **WriteExcel** class.
 
 ```java
-    package com.example.photo;
+package com.example.photo;
 
 import jxl.CellView;
 import jxl.Workbook;
