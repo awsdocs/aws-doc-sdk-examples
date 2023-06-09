@@ -12,7 +12,14 @@ import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsPro
 import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicRequest;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsAsyncClient;
-import software.amazon.awssdk.services.sns.model.*;
+import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicResponse;
+import software.amazon.awssdk.services.sns.model.PublishRequest;
+import software.amazon.awssdk.services.sns.model.PublishResponse;
+import software.amazon.awssdk.services.sns.model.SnsException;
+import software.amazon.awssdk.services.sns.model.SubscribeRequest;
+import software.amazon.awssdk.services.sns.model.SubscribeResponse;
+import software.amazon.awssdk.services.sns.model.Subscription;
+import software.amazon.awssdk.services.sns.model.UnsubscribeRequest;
 import software.amazon.awssdk.services.translate.TranslateAsyncClient;
 import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
 import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
@@ -34,7 +41,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Component
 public class SnsService {
-    String topicArn = "<Enter your SNS Topic ARN>";
+    String topicArn = "arn:aws:sns:us-west-2:814548047983:MyMailTopic";
 
     private SnsAsyncClient getSnsClient() {
         return SnsAsyncClient.builder()
@@ -214,7 +221,6 @@ public class SnsService {
             doc.appendChild(root);
             // Iterate through the collection.
             for (String sub : subsList) {
-
                 Element item = doc.createElement("Sub");
                 root.appendChild(item);
 
@@ -223,7 +229,6 @@ public class SnsService {
                 email.appendChild(doc.createTextNode(sub));
                 item.appendChild(email);
             }
-
             return doc;
 
         }catch(ParserConfigurationException e){
