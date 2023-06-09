@@ -390,46 +390,38 @@ The following Java code represents the **DynamoDBService** class. This class use
 ```java
     package com.etl.example;
 
-    import org.jdom2.Document;
-    import org.jdom2.JDOMException;
-    import org.jdom2.input.SAXBuilder;
-    import org.xml.sax.InputSource;
-    import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
-    import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
-    import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
-    import software.amazon.awssdk.regions.Region;
-    import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
-    import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
-    import java.util.List;
-    import java.io.IOException;
-    import java.io.StringReader;
+import org.jdom2.Document;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.xml.sax.InputSource;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
+import java.util.List;
+import java.io.IOException;
+import java.io.StringReader;
 
-    public class DynamoDBService {
+public class DynamoDBService {
+    int recNum = 1;
 
-     int recNum = 1;
+    private DynamoDbClient getClient() {
+        return DynamoDbClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
+    }
 
-     private DynamoDbClient getClient() {
-
-        // Create a DynamoDbClient object.
-        Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder()
-                .region(region)
-                .build();
-
-        return ddb;
-     }
-
-     public void injectETLData(String myDom)  throws JDOMException, IOException {
-
+    public void injectETLData(String myDom)  throws JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();
+        builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         Document jdomDocument = builder.build(new InputSource(new StringReader(myDom)));
-        org.jdom2.Element root = ((org.jdom2.Document) jdomDocument).getRootElement();
+        org.jdom2.Element root = jdomDocument.getRootElement();
         PopData pop = new PopData();
         List<org.jdom2.Element> items = root.getChildren("Item");
-
         for (org.jdom2.Element element : items) {
-
-            pop.setName( element.getChildText("Name"));
+            pop.setName(element.getChildText("Name"));
             pop.setCode(element.getChildText("Code"));
             pop.set2010(element.getChildText("Date2010"));
             pop.set2011(element.getChildText("Date2011"));
@@ -446,16 +438,12 @@ The following Java code represents the **DynamoDBService** class. This class use
     }
 
     public void setItem(PopData pop) {
-
         // Create a DynamoDbEnhancedClient.
         DynamoDbClient ddb = getClient();
-
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(ddb)
                 .build();
-
         try {
-
             // Create a DynamoDbTable object.
             DynamoDbTable<Population> workTable = enhancedClient.table("Country", TableSchema.fromBean(Population.class));
 
@@ -477,7 +465,7 @@ The following Java code represents the **DynamoDBService** class. This class use
             record.set2018(pop.get2018());
             record.set2019(pop.get2019());
 
-            // Put the customer data into a DynamoDB table.
+            // Put the data into the Amazon DynamoDB table.
             workTable.putItem(record);
             System.out.println("Added record "+recNum);
             recNum ++;
@@ -486,8 +474,9 @@ The following Java code represents the **DynamoDBService** class. This class use
             System.err.println(e.getMessage());
             System.exit(1);
         }
-      }
-     }
+    }
+}
+
 ```
 **Note** Make sure that you created a **Customer** table as described at the start of this AWS tutorial. Otherwise, your code does not work.
 
@@ -498,242 +487,236 @@ The following Java code represents the **ExcelService** class that uses the **jx
 ```java
     package com.etl.example;
 
-    import jxl.Cell;
-    import jxl.Sheet;
-    import jxl.Workbook;
-    import java.io.ByteArrayInputStream;
-    import java.io.InputStream;
-    import java.util.ArrayList;
-    import java.util.Comparator;
-    import java.util.List;
-    import jxl.read.biff.BiffException;
-    import org.w3c.dom.Document;
-    import org.w3c.dom.Element;
-    import javax.xml.parsers.DocumentBuilder;
-    import javax.xml.parsers.DocumentBuilderFactory;
-    import javax.xml.parsers.ParserConfigurationException;
-    import javax.xml.transform.Transformer;
-    import javax.xml.transform.TransformerException;
-    import javax.xml.transform.TransformerFactory;
-    import javax.xml.transform.dom.DOMSource;
-    import javax.xml.transform.stream.StreamResult;
-    import java.io.*;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import jxl.read.biff.BiffException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.*;
 
-    public class ExcelService {
+public class ExcelService {
 
     public String getData(String bucketName, String object) throws IOException, BiffException {
+        // Get the Excel speadsheet from the Amazon S3 bucket.
+        S3Service s3Service = new S3Service();
+        byte[] data = s3Service.getObjectBytes(bucketName, object);
+        InputStream inputStrean = new ByteArrayInputStream(data);
 
-    // Get the Excel speadsheet from the Amazon S3 bucket.
-    S3Service s3Service = new S3Service();
-    byte[] data = s3Service.getObjectBytes(bucketName, object);
-    InputStream inputStrean = new ByteArrayInputStream(data);
+        List<PopData> myList = new ArrayList<>() ;
+        System.out.println("Retrieving data from the Excel Spreadsheet");
+        Workbook wb = Workbook.getWorkbook(inputStrean);
+        Sheet sheet = wb.getSheet(0);
+        try{
+            // Read the data from the excel spreadsheet.
+            Sheet s=wb.getSheet(0);
+            int b = s.getColumns();
+            System.out.println("The No. of Columns in the Sheet are = " + b);
+            int a = s.getRows();
+            System.out.println("The No. of Rows in the sheet are = " +a);
+            PopData popData = null;
+            // Loop through the rows in the spreadsheet.
+            for (int zz = 0 ; zz <a; zz++) {
+                // Get the first cell.
+                System.out.println(zz);
+                Cell[] row = sheet.getRow(zz);
+                if (zz ==0)
+                    System.out.println("Not 1st row");
+                else {
+                    popData = new PopData();
+                   for (Cell cell : row) {
+                       int colIndex =  cell.getColumn();
+                       String val = cell.getContents();
+                       switch(colIndex) {
+                           case 0:
+                               popData.setName(val);
+                               break;
 
-    List<PopData> myList = new ArrayList() ;
-    System.out.println("Retrieving data from the Excel Spreadsheet");
-    Workbook wb = Workbook.getWorkbook(inputStrean);
-    Sheet sheet = wb.getSheet(0);
+                           case 1:
+                               popData.setCode(val);
+                               break;
 
-    try{
+                           case 2:
+                               popData.set2010(val);
+                               break;
 
-        // Read the data from the excel spreadsheet.
-        Sheet s=wb.getSheet(0);
-        int b = s.getColumns();
-        System.out.println("The No. of Columns in the Sheet are = " + b);
-        int a = s.getRows();
-        System.out.println("The No. of Rows in the sheet are = " +a);
+                           case 3:
+                               popData.set2011(val);
+                               break;
 
-        PopData popData = null;
+                           case 4:
+                               popData.set2012(val);
+                               break;
 
-        // Loop through the rows in the spreadsheet.
-        for (int zz = 0 ; zz <a; zz++) {
-        
-        // Get the first cell.
-        System.out.println(zz);
+                           case 5:
+                               popData.set2013(val);
+                               break;
 
-        Cell[] row = sheet.getRow(zz);
-        
-        if (zz ==0)
-            System.out.println("Not 1st row");
-        else {
-            popData = new PopData();
+                           case 6:
+                               popData.set2014(val);
+                               break;
 
-            for (Cell cell : row) {
-                // Column header names.
-                //System.out.println(cell.toString());
+                           case 7:
+                               popData.set2015(val);
+                               break;
 
-                int colIndex =  cell.getColumn();
-                String val = cell.getContents();
+                           case 8:
+                               popData.set2016(val);
+                               break;
 
-                switch(colIndex) {
-                    case 0:
-                        popData.setName(val);
-                        break;
+                           case 9:
+                               popData.set2017(val);
+                               break;
 
-                    case 1:
-                        popData.setCode(val);
-                        break;
+                           case 10:
+                               popData.set2018(val);
+                               break;
 
-                    case 2:
-                        popData.set2010(val);
-                        break;
-
-                    case 3:
-                        popData.set2011(val);
-                        break;
-
-                    case 4:
-                        popData.set2012(val);
-                        break;
-
-                    case 5:
-                        popData.set2013(val);
-                        break;
-
-                    case 6:
-                        popData.set2014(val);
-                        break;
-
-                    case 7:
-                        popData.set2015(val);
-                        break;
-
-                    case 8:
-                        popData.set2016(val);
-                        break;
-
-                    case 9:
-                        popData.set2017(val);
-                        break;
-
-                    case 10:
-                        popData.set2018(val);
-                        break;
-
-                    default: {
-                        popData.set2019(val);
-                        myList.add(popData);
-                    }
+                           default: {
+                               popData.set2019(val);
+                               myList.add(popData);
+                           }
+                       }
+                   }
                 }
             }
-          }
+            myList.sort(Comparator.comparing(PopData::getName));
+            return convertToString(toXml(myList));
+
+        }catch (Exception e) {
+            e.printStackTrace();
         }
-
-        myList.sort(Comparator.comparing(PopData::getName));
-        String transformXML  = convertToString(toXml(myList));
-        return transformXML;
-
-      }catch (Exception e) {
-        e.printStackTrace();
-      }
-
-     return "";
-     }
+        return "";
+    }
 
     // Convert population data into XML.
     private static Document toXml(List<PopData> itemList) {
-
-    try {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.newDocument();
-
-        // Start building the XML.
-        Element root = doc.createElement( "Items" );
-        doc.appendChild( root );
-
-        // Get the elements from the collection.
-        int custCount = itemList.size();
-
-        // Iterate through the collection.
-        for ( int index=0; index < custCount; index++) {
-
-          PopData myItem = itemList.get(index);
-          Element item = doc.createElement( "Item" );
-          root.appendChild( item );
-
-          // Set Name.
-          Element id = doc.createElement( "Name" );
-          id.appendChild( doc.createTextNode(myItem.getName() ) );
-          item.appendChild( id );
-
-          // Set Code.
-          Element name = doc.createElement( "Code" );
-          name.appendChild( doc.createTextNode(myItem.getCode()) );
-          item.appendChild( name );
-
-          // Set 2010.
-          Element ob2010 = doc.createElement( "Date2010" );
-          ob2010.appendChild( doc.createTextNode(myItem.get2010() ) );
-          item.appendChild( ob2010 );
-
-          // Set 2011.
-          Element ob2011 = doc.createElement( "Date2011" );
-          ob2011.appendChild( doc.createTextNode(myItem.get2011()) );
-          item.appendChild( ob2011 );
-
-          // Set 2012.
-          Element ob2012 = doc.createElement( "Date2012" );
-          ob2012.appendChild( doc.createTextNode(myItem.get2012() ) );
-          item.appendChild( ob2012 );
-
-          // Set 2013.
-          Element ob2013 = doc.createElement( "Date2013" );
-          ob2013.appendChild( doc.createTextNode(myItem.get2013()) );
-          item.appendChild( ob2013 );
-
-          // Set 2014.
-          Element ob2014 = doc.createElement( "Date2014" );
-          ob2014.appendChild( doc.createTextNode(myItem.get2014()) );
-          item.appendChild( ob2014 );
-
-          // Set 2015.
-          Element ob2015 = doc.createElement( "Date2015" );
-          ob2015.appendChild( doc.createTextNode(myItem.get2015()) );
-          item.appendChild( ob2015 );
-
-          // Set 2016.
-          Element ob2016 = doc.createElement( "Date2016" );
-          ob2016.appendChild( doc.createTextNode(myItem.get2016()) );
-          item.appendChild( ob2016 );
-
-          // Set 2017.
-          Element ob2017 = doc.createElement( "Date2017" );
-          ob2017.appendChild( doc.createTextNode(myItem.get2017()) );
-          item.appendChild( ob2017 );
-
-          // Set 2018.
-          Element ob2018 = doc.createElement( "Date2018" );
-          ob2018.appendChild( doc.createTextNode(myItem.get2018()) );
-          item.appendChild( ob2018 );
-
-          // Set 2019
-          Element ob2019 = doc.createElement( "Date2019" );
-          ob2019.appendChild( doc.createTextNode(myItem.get2019()) );
-          item.appendChild( ob2019 );
-        }
-
-        return doc;
-    } catch(ParserConfigurationException e) {
-        e.printStackTrace();
-    }
-    return null;
-    }
-
-      private static String convertToString(Document xml) {
         try {
-        Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        StreamResult result = new StreamResult(new StringWriter());
-        DOMSource source = new DOMSource(xml);
-        transformer.transform(source, result);
-        return result.getWriter().toString();
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
 
-        } catch(TransformerException ex) {
-        ex.printStackTrace();
+            // Start building the XML.
+            Element root = doc.createElement( "Items" );
+            doc.appendChild( root );
+
+            // Iterate through the collection.
+            for (PopData myItem : itemList) {
+                // Get the WorkItem object from the collection.
+                Element item = doc.createElement("Item");
+                root.appendChild(item);
+
+                // Set Name.
+                Element id = doc.createElement("Name");
+                id.appendChild(doc.createTextNode(myItem.getName()));
+                item.appendChild(id);
+
+                // Set Name.
+                Element name = doc.createElement("Code");
+                name.appendChild(doc.createTextNode(myItem.getCode()));
+                item.appendChild(name);
+
+                // Set 2010.
+                Element ob2010 = doc.createElement("Date2010");
+                ob2010.appendChild(doc.createTextNode(myItem.get2010()));
+                item.appendChild(ob2010);
+
+                // Set 2011.
+                Element ob2011 = doc.createElement("Date2011");
+                ob2011.appendChild(doc.createTextNode(myItem.get2011()));
+                item.appendChild(ob2011);
+
+                // Set 2012.
+                Element ob2012 = doc.createElement("Date2012");
+                ob2012.appendChild(doc.createTextNode(myItem.get2012()));
+                item.appendChild(ob2012);
+
+                // Set 2013.
+                Element ob2013 = doc.createElement("Date2013");
+                ob2013.appendChild(doc.createTextNode(myItem.get2013()));
+                item.appendChild(ob2013);
+
+                // Set 2014.
+                Element ob2014 = doc.createElement("Date2014");
+                ob2014.appendChild(doc.createTextNode(myItem.get2014()));
+                item.appendChild(ob2014);
+
+                // Set 2015.
+                Element ob2015 = doc.createElement("Date2015");
+                ob2015.appendChild(doc.createTextNode(myItem.get2015()));
+                item.appendChild(ob2015);
+
+                // Set 2016.
+                Element ob2016 = doc.createElement("Date2016");
+                ob2016.appendChild(doc.createTextNode(myItem.get2016()));
+                item.appendChild(ob2016);
+
+                // Set 2017.
+                Element ob2017 = doc.createElement("Date2017");
+                ob2017.appendChild(doc.createTextNode(myItem.get2017()));
+                item.appendChild(ob2017);
+
+                // Set 2018.
+                Element ob2018 = doc.createElement("Date2018");
+                ob2018.appendChild(doc.createTextNode(myItem.get2018()));
+                item.appendChild(ob2018);
+
+                // Set 2019.
+                Element ob2019 = doc.createElement("Date2019");
+                ob2019.appendChild(doc.createTextNode(myItem.get2019()));
+                item.appendChild(ob2019);
+            }
+
+            return doc;
+
+        } catch(ParserConfigurationException e) {
+            e.printStackTrace();
         }
         return null;
+    }
+
+    private static String convertToString(Document xml) {
+        try {
+            TransformerFactory transformerFactory = getSecureTransformerFactory();
+            Transformer transformer = transformerFactory.newTransformer();
+            StreamResult result = new StreamResult(new StringWriter());
+            DOMSource source = new DOMSource(xml);
+            transformer.transform(source, result);
+            return result.getWriter().toString();
+
+        } catch(TransformerException ex) {
+            ex.printStackTrace();
         }
+        return null;
+    }
+
+    private static TransformerFactory getSecureTransformerFactory() {
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        try {
+            transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        } catch (TransformerConfigurationException e) {
+            e.printStackTrace();
+        }
+        return transformerFactory;
+    }
   }
+
 ```
 
 ### HandlerStoreData class
@@ -1037,46 +1020,40 @@ The following Java code represents the **S3Service** class. This class contains 
 ```java
     package com.etl.example;
 
-    import software.amazon.awssdk.core.ResponseBytes;
-    import software.amazon.awssdk.regions.Region;
-    import software.amazon.awssdk.services.s3.S3Client;
-    import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-    import software.amazon.awssdk.services.s3.model.GetObjectResponse;
-    import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.core.ResponseBytes;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 
-    public class S3Service {
-
+public class S3Service {
     private S3Client getClient() {
+        return S3Client.builder()
+            .region(Region.US_EAST_1)
+            .build();
+    }
 
-        Region region = Region.US_EAST_1;
-        S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
-
-        return s3;
-      }
-
-     public byte[] getObjectBytes (String bucketName, String keyName) {
-
+    public byte[] getObjectBytes (String bucketName, String keyName) {
         try {
             S3Client s3 = getClient();
-            GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+            GetObjectRequest objectRequest = GetObjectRequest.builder()
+                .key(keyName)
+                .bucket(bucketName)
+                .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             byte[] data = objectBytes.asByteArray();
             return data;
 
-         } catch (S3Exception e) {
+        } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
         return null;
-      }
     }
+}
+
 ```
 
 ## Package the project that contains the Lambda functions
