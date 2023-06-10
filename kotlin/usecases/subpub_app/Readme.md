@@ -372,10 +372,12 @@ class SnsService {
     private fun convertToString(xml: Document?): String? {
         try {
             val transformerFactory = getSecureTransformerFactory()
-            val transformer = TransformerFactory.newInstance().newTransformer()
+            val transformer = transformerFactory?.newTransformer()
             val result = StreamResult(StringWriter())
             val source = DOMSource(xml)
-            transformer.transform(source, result)
+            if (transformer != null) {
+                transformer.transform(source, result)
+            }
             return result.writer.toString()
         } catch (ex: TransformerException) {
             ex.printStackTrace()
