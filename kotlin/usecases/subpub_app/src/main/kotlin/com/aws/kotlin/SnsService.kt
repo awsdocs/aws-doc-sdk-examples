@@ -17,6 +17,7 @@ import org.w3c.dom.Document
 import java.io.StringWriter
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.parsers.ParserConfigurationException
+import javax.xml.transform.TransformerConfigurationException
 import javax.xml.transform.TransformerException
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
@@ -24,7 +25,7 @@ import javax.xml.transform.stream.StreamResult
 
 @Component
 class SnsService {
-    var topicArnVal = "arn:aws:sns:us-west-2:814548047983:MyMailTopic"
+    var topicArnVal = "<Enter your Topic ARN>"
 
     // Create a Subscription.
     suspend fun subEmail(email: String?): String? {
@@ -127,6 +128,7 @@ class SnsService {
     private fun toXml(subsList: List<String>): Document? {
         try {
             val factory = DocumentBuilderFactory.newInstance()
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
             val builder = factory.newDocumentBuilder()
             val doc = builder.newDocument()
 
@@ -153,6 +155,7 @@ class SnsService {
 
     private fun convertToString(xml: Document?): String? {
         try {
+            val transformerFactory = getSecureTransformerFactory()
             val transformer = TransformerFactory.newInstance().newTransformer()
             val result = StreamResult(StringWriter())
             val source = DOMSource(xml)
@@ -162,5 +165,15 @@ class SnsService {
             ex.printStackTrace()
         }
         return null
+    }
+
+    private fun getSecureTransformerFactory(): TransformerFactory? {
+        val transformerFactory: TransformerFactory = TransformerFactory.newInstance()
+        try {
+            transformerFactory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true)
+        } catch (e: TransformerConfigurationException) {
+            e.printStackTrace()
+        }
+        return transformerFactory
     }
 }
