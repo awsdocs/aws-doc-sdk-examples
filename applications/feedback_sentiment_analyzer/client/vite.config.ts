@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   build: {
     rollupOptions: {
-      external: ["env.js"],
+      external: ["/env.js"],
     },
   },
   plugins: [react()],
