@@ -219,27 +219,31 @@ class MessageResource {
 The following Kotlin code represents the **SnsService** class. This class uses the Kotlin SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. 
 
 ```kotlin
-     package com.aws.kotlin
+package com.aws.kotlin
 
-     import org.springframework.stereotype.Component
-     import aws.sdk.kotlin.services.sns.SnsClient
-     import aws.sdk.kotlin.services.sns.model.*
-     import org.w3c.dom.Document
-     import java.io.StringWriter
-     import javax.xml.parsers.DocumentBuilderFactory
-     import javax.xml.parsers.ParserConfigurationException
-     import javax.xml.transform.TransformerException
-     import javax.xml.transform.TransformerFactory
-     import javax.xml.transform.dom.DOMSource
-     import javax.xml.transform.stream.StreamResult
-     import kotlin.system.exitProcess
+import aws.sdk.kotlin.services.sns.SnsClient
+import aws.sdk.kotlin.services.sns.model.ListSubscriptionsByTopicRequest
+import aws.sdk.kotlin.services.sns.model.PublishRequest
+import aws.sdk.kotlin.services.sns.model.SubscribeRequest
+import aws.sdk.kotlin.services.sns.model.UnsubscribeRequest
+import aws.sdk.kotlin.services.translate.TranslateClient
+import aws.sdk.kotlin.services.translate.model.TranslateTextRequest
+import org.springframework.stereotype.Component
+import org.w3c.dom.Document
+import java.io.StringWriter
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.parsers.ParserConfigurationException
+import javax.xml.transform.TransformerConfigurationException
+import javax.xml.transform.TransformerException
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
-     @Component
-     class SnsService {
+@Component
+class SnsService {
+    var topicArnVal = "<Enter your topic ARN>"
 
-     var topicArnVal = "<ENTER A TOPIC ARN>"
-
-     // Create a Subscription.
+    // Create a Subscription.
     suspend fun subEmail(email: String?): String? {
         val request = SubscribeRequest {
             protocol = "email"
@@ -389,6 +393,7 @@ The following Kotlin code represents the **SnsService** class. This class uses t
         return transformerFactory
     }
 }
+
 
 ```
 
