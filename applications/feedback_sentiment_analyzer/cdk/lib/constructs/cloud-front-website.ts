@@ -4,6 +4,7 @@ import {
   BundlingOutput,
   CfnOutput,
   DockerImage,
+  Fn,
   RemovalPolicy,
 } from "aws-cdk-lib";
 import {
@@ -17,9 +18,16 @@ import {
   AccountRootPrincipal,
   Effect,
   PolicyStatement,
+  Role,
   ServicePrincipal,
 } from "aws-cdk-lib/aws-iam";
-import { Code, Function, FunctionUrl, Runtime } from "aws-cdk-lib/aws-lambda";
+import {
+  Code,
+  Function,
+  FunctionUrl,
+  FunctionUrlAuthType,
+  Runtime,
+} from "aws-cdk-lib/aws-lambda";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
 import { Construct } from "constructs";
@@ -41,6 +49,24 @@ export class CloudFrontWebsite extends Construct {
     this.bucket = new Bucket(this, "website-bucket", {
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
+    });
+
+    const envLambda = new Function(this, "env-lambda", {
+      runtime: Runtime.NODEJS_18_X,
+      environment: {
+        API_GATEWAY_BASE_URL: props.apiGatewayBaseUrl,
+        COGNITO_USER_POOL_BASE_URL: props.cognitoUserPoolBaseUrl,
+        COGNITO_APP_CLIENT_ID: props.cognitoAppClientId,
+      },
+      code: Code.fromInline(
+        readFileSync(join(__dirname, "website-env-fn.js")).toString()
+      ),
+      handler: "index.handler",
+    });
+
+    const envLambdaUrl = new FunctionUrl(this, "env-lambda-url", {
+      function: envLambda,
+      authType: FunctionUrlAuthType.NONE,
     });
 
     /**
@@ -73,27 +99,6 @@ export class CloudFrontWebsite extends Construct {
       "DistributionConfig.Origins.0.OriginAccessControlId",
       oac.getAtt("Id")
     );
-    /**
-     * END: Possible construct.
-     */
-
-    const envLambda = new Function(this, "env-lambda", {
-      runtime: Runtime.NODEJS_18_X,
-      environment: {
-        API_GATEWAY_BASE_URL: props.apiGatewayBaseUrl,
-        COGNITO_USER_POOL_BASE_URL: props.cognitoUserPoolBaseUrl,
-        COGNITO_APP_CLIENT_ID: props.cognitoAppClientId,
-        CLOUDFRONT_DISTRIBUTION_URL: this.distribution.domainName,
-      },
-      code: Code.fromInline(
-        readFileSync(join(__dirname, "website-env-fn.js")).toString()
-      ),
-      handler: "index.handler",
-    });
-
-    const envLambdaUrl = new FunctionUrl(this, "env-lambda-url", {
-      function: envLambda,
-    });
 
     const responseHeadersPolicy = new ResponseHeadersPolicy(
       this,
@@ -111,11 +116,25 @@ export class CloudFrontWebsite extends Construct {
       }
     );
 
-    this.distribution.addBehavior("env.js", new HttpOrigin(envLambdaUrl.url), {
-      responseHeadersPolicy: {
-        responseHeadersPolicyId: responseHeadersPolicy.responseHeadersPolicyId,
-      },
-    });
+    const envLambdaOrigin = new HttpOrigin(
+      Fn.select(2, Fn.split("/", envLambdaUrl.url))
+    );
+
+    this.distribution.addBehavior(
+      "env.js",
+      // https://github.com/aws/aws-cdk/issues/20254#issuecomment-1292253502
+      envLambdaOrigin,
+      {
+        responseHeadersPolicy: {
+          responseHeadersPolicyId:
+            responseHeadersPolicy.responseHeadersPolicyId,
+        },
+      }
+    );
+
+    /**
+     * END: Possible construct.
+     */
 
     const bucketPolicyAllowCloudFront = new PolicyStatement({
       principals: [new ServicePrincipal("cloudfront.amazonaws.com")],
@@ -152,7 +171,7 @@ export class CloudFrontWebsite extends Construct {
     });
 
     new CfnOutput(this, "output", {
-      exportName: `${id}_domain`,
+      exportName: `${id}-domain`,
       value: this.distribution.domainName,
     });
   }

@@ -21,9 +21,9 @@ export class AppStack extends cdk.Stack {
 
     new CloudFrontWebsite(this, "client", {
       assetPath: "../client",
-      apiGatewayBaseUrl: "",
-      cognitoAppClientId: "",
-      cognitoUserPoolBaseUrl: "",
+      apiGatewayBaseUrl: "a",
+      cognitoAppClientId: "a",
+      cognitoUserPoolBaseUrl: "a",
     });
   }
 }

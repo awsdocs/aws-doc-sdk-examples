@@ -27,7 +27,7 @@ function LoginNavigation({ title }: LoginNavigationProps) {
   const signedOutUtilities: TopNavigationProps.Utility = {
     type: "button",
     text: "Sign in",
-    href: COGNITO_SIGN_IN_URL,
+    href: `${COGNITO_SIGN_IN_URL}&redirect_uri=${location}`,
   };
 
   return (
