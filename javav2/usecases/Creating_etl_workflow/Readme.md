@@ -388,7 +388,7 @@ The following Java code represents the **DocumentHandler** class.
 The following Java code represents the **DynamoDBService** class. This class uses the Amazon DynamoDB Java API (V2) to populate the **Country** table. 
 
 ```java
-    package com.etl.example;
+package com.etl.example;
 
 import org.jdom2.Document;
 import org.jdom2.JDOMException;
@@ -478,14 +478,14 @@ public class DynamoDBService {
 }
 
 ```
-**Note** Make sure that you created a **Customer** table as described at the start of this AWS tutorial. Otherwise, your code does not work.
+**Note** Make sure that you created a **Country** table as described at the start of this AWS tutorial. Otherwise, your code does not work.
 
 ### ExcelService class
 
 The following Java code represents the **ExcelService** class that uses the **jxl.Workbook** Java API.
 
 ```java
-    package com.etl.example;
+package com.etl.example;
 
 import jxl.Cell;
 import jxl.Sheet;
