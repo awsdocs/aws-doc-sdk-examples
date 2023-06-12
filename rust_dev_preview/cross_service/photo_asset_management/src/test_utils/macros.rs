@@ -61,8 +61,9 @@ macro_rules! client_config {
     (
         $sdk_crate:ident
     ) => {
-        /// TODO: remove after https://github.com/awslabs/smithy-rs/pull/2145
         $sdk_crate::Config::builder()
+            // TODO: replace after https://github.com/awslabs/smithy-rs/pull/2145
+            // .credentials_provider($sdk_crate::config::Credentials::for_test())
             .credentials_provider($sdk_crate::config::Credentials::new(
                 "ATESTCLIENT",
                 "atestsecretkey",

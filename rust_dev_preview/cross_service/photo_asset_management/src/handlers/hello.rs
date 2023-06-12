@@ -1,7 +1,6 @@
 use aws_lambda_events::apigw::{ApiGatewayProxyRequest, ApiGatewayProxyResponse};
 use lambda_runtime::LambdaEvent;
 
-
 use crate::{apig_response, common::Common};
 
 #[tracing::instrument(skip(_common))]
