@@ -14,8 +14,7 @@
         </abstract>
     </info>
     <para>The following code examples show you how to use &AWS-services; with an &AWS; software
-        development kit (SDK). This section is organized by SDK language to help you find the examples
-        you need if you already have a preferred language.
+        development kit (SDK). This section is organized by SDK language.
     </para>
     {{- template "note_example_types" makeSlice 1 1 1}}
     <itemizedlist>
@@ -27,7 +26,7 @@
                         &AWS; Developer Center
                     </ulink>
                 </phrase>
-                &endash; Code examples you can filter by category or full-text search.
+                &endash; Code examples that you can filter by category or full-text search.
             </para>
         </listitem>
         <listitem>
@@ -35,8 +34,7 @@
                 <phrase role="topcom">
                     <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">&AWS; SDK Examples</ulink>
                 </phrase>
-                &endash; GitHub repo with complete code in your preferred language and instructions on how to set up and
-                run.
+                &endash; GitHub repo with complete code in preferred languages. Includes instructions for setting up and running the code.
             </para>
         </listitem>
     </itemizedlist>
@@ -80,7 +78,7 @@
                         &AWS; Developer Center
                     </ulink>
                 </phrase>
-                &endash; Code examples you can filter by category or full-text search.
+                &endash; Code examples that you can filter by category or full-text search.
             </para>
         </listitem>
         <listitem>
@@ -88,8 +86,7 @@
                 <phrase role="topcom">
                     <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">&AWS; SDK Examples</ulink>
                 </phrase>
-                &endash; GitHub repo with complete code in your preferred language and instructions on how to set up and
-                run.
+                &endash; GitHub repo with complete code in preferred languages. Includes instructions for setting up and running the code.
             </para>
         </listitem>
     </itemizedlist>
