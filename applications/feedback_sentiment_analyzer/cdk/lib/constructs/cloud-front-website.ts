@@ -66,9 +66,10 @@ export class CloudFrontWebsite extends Construct {
 
     const envLambdaUrl = new FunctionUrl(this, "env-lambda-url", {
       function: envLambda,
-      authType: FunctionUrlAuthType.NONE,
+      authType: FunctionUrlAuthType.AWS_IAM,
     });
 
+    envLambdaUrl.grantInvokeUrl(new AccountRootPrincipal());
     /**
      * BEGIN: Possible construct for S3 distribution.
      */
@@ -76,6 +77,7 @@ export class CloudFrontWebsite extends Construct {
       defaultBehavior: {
         origin: new S3Origin(this.bucket),
       },
+      enableLogging: true,
       defaultRootObject: "index.html",
     });
 
