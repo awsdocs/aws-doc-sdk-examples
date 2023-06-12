@@ -12,7 +12,30 @@
             <para>Code examples that show how to use &AWS-services; with &AWS; SDKs.</para>
         </abstract>
     </info>
-    <para>The following code examples show how to use &AWS-services; with an &AWS; software development kit (SDK).</para>
+    <para>The following code examples show you how to use &AWS-services; with an &AWS; software development kit (SDK).
+        This section is organized by &AWS-service;.</para>
+    {{- template "note_example_types" makeSlice 1 1 1}}
+    <itemizedlist>
+        <title>More resources</title>
+        <listitem>
+            <para>
+                <phrase role="topcom">
+                    <ulink url="https://aws.amazon.com/developer/code-examples/">
+                        &AWS; Developer Center
+                    </ulink>
+                </phrase>
+                &endash; Code examples that you can filter by category or full-text search.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                <phrase role="topcom">
+                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">&AWS; SDK Examples</ulink>
+                </phrase>
+                &endash; GitHub repo with complete code in preferred languages. Includes instructions for setting up and running the code.
+            </para>
+        </listitem>
+    </itemizedlist>
     <para role="topiclist-abbrev">Code examples</para>
     {{- range $svc_sort, $service := .}}
         {{- $section_id := printf "%s_code_examples" $service.Model}}
@@ -24,7 +47,24 @@
                     <para>Code examples that show how to use {{$service.ServiceEntity.Short}} with an &AWS; SDK.</para>
                 </abstract>
             </info>
-            <para>The following code examples show how to use {{$service.ServiceEntity.Long}} with an &AWS; software development kit (SDK).</para>
+            <para>The following code examples show you how to use {{$service.ServiceEntity.Long}} with an &AWS; software development kit (SDK).</para>
+            {{- $cross_service := index $service.CategorizedExampleSets "Cross-service examples"}}
+            {{- $scenarios :=  index $service.CategorizedExampleSets "Scenarios"}}
+            {{- $actions := index $service.CategorizedExampleSets "Actions"}}
+            {{- template "note_example_types" makeSlice $actions.Examples $scenarios.Examples $cross_service.Examples}}
+            <itemizedlist>
+                <title>More resources</title>
+                <listitem><para>
+                    <phrase role="topcom"><ulink {{$service.ServiceGuide.DocType}} url="{{$service.ServiceGuide.Url}}">
+                        {{$service.ServiceEntity.Short}} {{$service.ServiceGuide.Text}}</ulink></phrase>
+                    &endash; More information about {{$service.ServiceEntity.Short}}.</para></listitem>
+                <listitem><para><phrase role="topcom"><ulink type="documentation" url="{{$service.ApiRef}}">{{$service.ServiceEntity.Short}} API Reference</ulink></phrase>
+                    &endash; Details about all available {{$service.ServiceEntity.Short}} actions.</para></listitem>
+                <listitem><para><phrase role="topcom"><ulink url="https://aws.amazon.com/developer/code-examples/?awsf.sdk-code-examples-product=product%23{{$service.DirectoryProductTag}}">&AWS; Developer Center</ulink></phrase>
+                    &endash; Code examples that you can filter by category or full-text search.</para></listitem>
+                <listitem><para><phrase role="topcom"><ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">&AWS; SDK Examples</ulink></phrase>
+                    &endash; GitHub repo with complete code in preferred languages. Includes instructions for setting up and running the code.</para></listitem>
+            </itemizedlist>
             {{- template "hello" makeSlice $service.CategorizedExampleSets ""}}
             <para role="contents-abbrev">Code examples</para>
             {{- range $category := $service.CategoryNamesSorted}}
@@ -42,11 +82,23 @@
                 {{- if eq $cat_examples.CategoryName "Cross-service examples"}}
                     {{- $category_desc = " Each example contains a sample application that works across multiple &AWS-services;."}}
                 {{- else if eq $cat_examples.CategoryName "Scenarios"}}
-                    {{- $category_desc = " Each example shows you how to accomplish a specific task by calling multiple functions within the same service."}}
+                {{- $category_desc = " Each example shows you how to accomplish a specific task by calling multiple functions within the same service."}}
                 {{- else if eq $cat_examples.CategoryName "Actions"}}
                     {{- $category_desc = " Each example calls an individual service function."}}
                 {{- end}}
                 <para>The following code examples show how to use {{$service.ServiceEntity.Long}} with &AWS; SDKs.{{$category_desc}}</para>
+                {{- if eq $cat_examples.CategoryName "Actions"}}
+                    {{- $cat_scenarios := index $service.CategorizedExampleSets "Scenarios"}}
+                    {{- $cat_id_suffix := $cat_scenarios.CategoryIdSuffix}}
+                    {{- if $cat_id_suffix}}
+                    <para>Action examples are code excerpts from larger programs and must be run in context. You can see actions in context in
+                        <xref linkend="{{$section_id}}_{{$cat_id_suffix}}" endterm="{{$section_id}}_{{$cat_id_suffix}}.title"/>.</para>
+                    {{- end}}
+                {{- else if eq $cat_examples.CategoryName "Scenarios"}}
+                <para>Scenarios target an intermediate level of experience to help you understand service actions in context.</para>
+                {{- else if eq $cat_examples.CategoryName "Cross-service examples"}}
+                <para>Cross-service examples target an advanced level of experience to help you start building applications.</para>
+                {{- end}}
                 {{- template "service_examples" makeSlice $cat_examples $service 1}}
             </section>
             {{- end}}
