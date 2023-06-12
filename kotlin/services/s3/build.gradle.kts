@@ -21,13 +21,24 @@ repositories {
     mavenCentral()
     jcenter()
 }
+
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
 dependencies {
-    implementation("aws.sdk.kotlin:s3-jvm:0.21.3-beta")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("aws.sdk.kotlin:s3-jvm:0.26.0-beta")
+    implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.20.0")
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation("aws.smithy.kotlin:aws-signing-crt:0.21.0")
+    testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
 }
+
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.test {
+    useJUnitPlatform()
 }

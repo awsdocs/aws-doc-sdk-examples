@@ -2339,6 +2339,21 @@ s3_Scenario_PresignedUrl:
             - description:
               snippet_tags:
                 - s3.ruby.upload_object_presigned_url.rb
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide: sdk-for-kotlin/latest/developer-guide/presign-requests.html
+          excerpts:
+            - description: Create a GetObject presigned request and use the URL to download an object.
+              snippet_tags:
+                - s3.kotlin.presign_getObject.main
+            - description: Create a GetObject presigned request with advanced options and use the URL to download an object.
+              snippet_tags:
+                - s3.kotlin.presign_putObject.main
+            - description: Create a PutObject presigned request and use it to upload an object.
+              snippet_tags:
+                - s3.kotlin.presign_getObjectMoreOptions.main
   services:
     s3: {}
 s3_Scenario_ObjectVersioningUsage:
