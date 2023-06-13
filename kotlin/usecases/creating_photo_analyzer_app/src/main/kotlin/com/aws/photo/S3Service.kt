@@ -14,6 +14,7 @@ import org.w3c.dom.Document
 import java.io.StringWriter
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.parsers.ParserConfigurationException
+import javax.xml.transform.TransformerConfigurationException
 import javax.xml.transform.TransformerException
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
@@ -22,12 +23,10 @@ import kotlin.system.exitProcess
 
 @Component
 class S3Service {
-
     var myBytes: ByteArray? = null
 
     // Returns the names of all images in the given bucket.
     suspend fun listBucketObjects(bucketName: String?): List<*>? {
-
         var keyName: String
         val keys  = mutableListOf<String>()
 
@@ -38,8 +37,8 @@ class S3Service {
         S3Client { region = "us-west-2" }.use { s3Client ->
             val response = s3Client.listObjects(listObjects)
             response.contents?.forEach { myObject ->
-                   keyName = myObject.key.toString()
-                   keys.add(keyName)
+                keyName = myObject.key.toString()
+                keys.add(keyName)
             }
             return keys
         }
@@ -47,7 +46,6 @@ class S3Service {
 
     // Returns the names of all images and data within an XML document.
     suspend fun ListAllObjects(bucketName: String?): String? {
-
         var sizeLg: Long
         var dateIn: aws.smithy.kotlin.runtime.time.Instant?
         val bucketItems = mutableListOf<BucketItem>()
@@ -77,10 +75,10 @@ class S3Service {
     // Places an image into an Amazon S3 bucket.
     suspend fun putObject(data: ByteArray, bucketName: String?, objectKey: String?): String? {
         val request =  PutObjectRequest{
-                bucket = bucketName
-                key = objectKey
-                body = ByteStream.fromBytes(data)
-         }
+            bucket = bucketName
+            key = objectKey
+            body = ByteStream.fromBytes(data)
+        }
 
         S3Client { region = "us-west-2" }.use { s3Client ->
             val response = s3Client.putObject(request)
@@ -90,17 +88,17 @@ class S3Service {
 
     // Get the byte[] from this Amazon S3 object.
     suspend fun getObjectBytes(bucketName: String?, keyName: String?): ByteArray? {
-           val objectRequest = GetObjectRequest {
-                key = keyName
-                bucket = bucketName
-            }
+        val objectRequest = GetObjectRequest {
+            key = keyName
+            bucket = bucketName
+        }
 
-           S3Client { region = "us-west-2" }.use { s3Client ->
-             s3Client.getObject(objectRequest) { resp ->
+        S3Client { region = "us-west-2" }.use { s3Client ->
+            s3Client.getObject(objectRequest) { resp ->
                 myBytes = resp.body?.toByteArray()
-             }
+            }
             return myBytes
-           }
+        }
     }
 
     // Convert items into XML to pass back to the view.
@@ -147,6 +145,7 @@ class S3Service {
                 item.appendChild(desc)
             }
             return doc
+
         } catch (e: ParserConfigurationException) {
             e.printStackTrace()
             exitProcess(0)
@@ -163,6 +162,7 @@ class S3Service {
                 transformer.transform(source, result)
             }
             return result.writer.toString()
+
         } catch (ex: TransformerException) {
             ex.printStackTrace()
         }
