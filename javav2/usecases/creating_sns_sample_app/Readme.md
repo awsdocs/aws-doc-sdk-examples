@@ -6,7 +6,7 @@
 | ----------- | ----------- |
 | Description | Discusses how to develop a dynamic web MVC application that has subscription and publish functionality by using the AWS SDK for Java (v2).    |
 | Audience   |  Developer (beginner / intermediate)        |
-| Updated   | 5/10/2022        |
+| Updated   | 6/9/2023        |
 | Required skills   | Java, Maven  |
 
 ## Purpose
@@ -31,7 +31,7 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java JDK 1.8
++ Java JDK 17
 + Maven 3.6 or later
 
 ## Important
@@ -96,35 +96,35 @@ At this point, you have a new project named **SpringSubscribeApp**. Make sure th
 
 ```xml
      <?xml version="1.0" encoding="UTF-8"?>
-     <project xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-     <modelVersion>4.0.0</modelVersion>
-     <groupId>org.example</groupId>
-     <artifactId>SpringSubscribeApp</artifactId>
-     <version>1.0-SNAPSHOT</version>
-     <description>Demo project for Spring Boot that shows Pub/Sub functionality</description>
-     <parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.example</groupId>
+    <artifactId>SpringSubscribeApp</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <description>Demo project for Spring Boot that shows Pub/Sub functionality</description>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.1</version>
-        <relativePath/>
-     </parent>
-     <properties>
-        <java.version>1.8</java.version>
-     </properties>
-     <dependencyManagement>
+        <version>2.7.12</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+    <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
-                <version>2.17.136</version>
+                <version>2.20.45</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
-     </dependencyManagement>
-     <dependencies>
+    </dependencyManagement>
+    <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -152,8 +152,8 @@ At this point, you have a new project named **SpringSubscribeApp**. Make sure th
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>translate</artifactId>
         </dependency>
-      </dependencies>
-     <build>
+    </dependencies>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -161,8 +161,8 @@ At this point, you have a new project named **SpringSubscribeApp**. Make sure th
                 <version>${project.parent.version}</version>
             </plugin>
         </plugins>
-      </build>
-   </project>
+    </build>
+</project>
 ```  
 
  ## Create the Java classes
@@ -201,65 +201,70 @@ The following Java code represents the **SubApplication** class.
 The following Java code represents the **SubController** class.
 
 ```java
-     package com.spring.sns;
+package com.spring.sns;
 
-     import org.springframework.beans.factory.annotation.Autowired;
-     import org.springframework.stereotype.Controller;
-     import org.springframework.web.bind.annotation.*;
-     import javax.servlet.http.HttpServletRequest;
-     import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-     @Controller
-     public class SubController {
+@Controller
+public class SubController {
 
-     @Autowired
-     SnsService sns;
+    private final SnsService sns;
 
-     @GetMapping("/")
-     public String root() {
+    @Autowired
+    SubController(
+        SnsService sns
+    ) {
+        this.sns = sns;
+    }
+
+    @GetMapping("/")
+    public String root() {
         return "index";
-     }
+    }
 
-
-     @GetMapping("/subscribe")
-     public String add() {
+    @GetMapping("/subscribe")
+    public String add() {
         return "sub";
-     }
+    }
 
-     @RequestMapping(value = "/addEmail", method = RequestMethod.POST)
-     @ResponseBody
-     String addItems(HttpServletRequest request, HttpServletResponse response) {
-
+    // Adds a new item to the database.
+    @RequestMapping(value = "/addEmail", method = RequestMethod.POST)
+    @ResponseBody
+    String addItems(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getParameter("email");
         return sns.subEmail(email);
-     }
+    }
 
-     @RequestMapping(value = "/delSub", method = RequestMethod.POST)
-     @ResponseBody
-     String delSub(HttpServletRequest request, HttpServletResponse response) {
-
+    @RequestMapping(value = "/delSub", method = RequestMethod.POST)
+    @ResponseBody
+    String delSub(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getParameter("email");
         sns.unSubEmail(email);
         return email +" was successfully deleted!";
-     }
+    }
 
-     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
-     @ResponseBody
-     String addMessage(HttpServletRequest request, HttpServletResponse response) {
-
+    @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
+    @ResponseBody
+    String addMessage(HttpServletRequest request, HttpServletResponse response) {
         String body = request.getParameter("body");
         String lang = request.getParameter("lang");
         return sns.pubTopic(body,lang);
-     }
-
-     @RequestMapping(value = "/getSubs", method = RequestMethod.GET)
-     @ResponseBody
-     String getSubs(HttpServletRequest request, HttpServletResponse response) {
-
-        String mySub = sns.getAllSubscriptions();
-        return mySub;
-     }
     }
+
+    @RequestMapping(value = "/getSubs", method = RequestMethod.GET)
+    @ResponseBody
+    String getSubs(HttpServletRequest request, HttpServletResponse response) {
+        return sns.getAllSubscriptions();
+    }
+}
+
 ```
 
 ### SnsService class
@@ -280,10 +285,12 @@ import software.amazon.awssdk.services.sns.model.*;
 import software.amazon.awssdk.services.translate.TranslateClient;
 import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
 import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -294,50 +301,42 @@ import java.util.List;
 
 @Component
 public class SnsService {
-
-    String topicArn = "<Enter Value>";
+    String topicArn = "<Enter your SNS Topic ARN>";
 
     private SnsClient getSnsClient() {
-
-        Region region = Region.US_WEST_2;
         return SnsClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(region)
-                .build();
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .region(Region.US_WEST_2)
+            .build();
     }
 
     public String pubTopic(String message, String lang) {
-
         try {
             String body;
-            Region region = Region.US_WEST_2;
             TranslateClient translateClient = TranslateClient.builder()
-                    .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                    .region(region)
-                    .build();
-
+                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+                .region(Region.US_WEST_2)
+                .build();
 
             if (lang.compareTo("English")==0) {
-                    body = message;
+                body = message;
 
             } else if(lang.compareTo("French")==0) {
+                TranslateTextRequest textRequest = TranslateTextRequest.builder()
+                    .sourceLanguageCode("en")
+                    .targetLanguageCode("fr")
+                    .text(message)
+                    .build();
 
-                    TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                            .sourceLanguageCode("en")
-                            .targetLanguageCode("fr")
-                            .text(message)
-                            .build();
-
-                    TranslateTextResponse textResponse = translateClient.translateText(textRequest);
-                    body = textResponse.translatedText();
+                TranslateTextResponse textResponse = translateClient.translateText(textRequest);
+                body = textResponse.translatedText();
 
             } else  {
-
                 TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                        .sourceLanguageCode("en")
-                        .targetLanguageCode("es")
-                        .text(message)
-                        .build();
+                    .sourceLanguageCode("en")
+                    .targetLanguageCode("es")
+                    .text(message)
+                    .build();
 
                 TranslateTextResponse textResponse = translateClient.translateText(textRequest);
                 body = textResponse.translatedText();
@@ -345,9 +344,9 @@ public class SnsService {
 
             SnsClient snsClient = getSnsClient();
             PublishRequest request = PublishRequest.builder()
-                    .message(body)
-                    .topicArn(topicArn)
-                    .build();
+                .message(body)
+                .topicArn(topicArn)
+                .build();
 
             PublishResponse result = snsClient.publish(request);
             return " Message sent in " +lang +". Status was " + result.sdkHttpResponse().statusCode();
@@ -360,62 +359,57 @@ public class SnsService {
     }
 
     public void unSubEmail(String emailEndpoint) {
-
-     try {
-
-         String subscriptionArn = getTopicArnValue(emailEndpoint);
-         SnsClient snsClient =  getSnsClient();
-
-         UnsubscribeRequest request = UnsubscribeRequest.builder()
-                 .subscriptionArn(subscriptionArn)
-                 .build();
-
-         snsClient.unsubscribe(request);
-
-     } catch (SnsException e) {
-        System.err.println(e.awsErrorDetails().errorMessage());
-        System.exit(1);
-      }
-    }
-
-  // Return the subscription Amazon Resource Name (ARN) based on the given endpoint.
-  private String getTopicArnValue(String endpoint){
-
-        SnsClient snsClient =  getSnsClient();
         try {
-            String subArn;
-            ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
-                    .topicArn(topicArn)
-                    .build();
+            String subscriptionArn = getTopicArnValue(emailEndpoint);
+            SnsClient snsClient =  getSnsClient();
 
-            ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
-            List<Subscription> allSubs  = result.subscriptions();
+            UnsubscribeRequest request = UnsubscribeRequest.builder()
+                .subscriptionArn(subscriptionArn)
+                .build();
 
-            for (Subscription sub: allSubs) {
-             if (sub.endpoint().compareTo(endpoint)==0) {
-                subArn = sub.subscriptionArn();
-                return subArn;
-            }
-         }
-       
+           snsClient.unsubscribe(request);
+
         } catch (SnsException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+    }
+
+  // Returns the Sub ARN based on the given endpoint.
+  private String getTopicArnValue(String endpoint){
+      SnsClient snsClient =  getSnsClient();
+      try {
+          String subArn;
+          ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
+              .topicArn(topicArn)
+              .build();
+
+          ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
+          List<Subscription> allSubs  = result.subscriptions();
+          for (Subscription sub: allSubs) {
+              if (sub.endpoint().compareTo(endpoint)==0) {
+                  subArn = sub.subscriptionArn();
+                  return subArn;
+              }
+         }
+
+      } catch (SnsException e) {
+          System.err.println(e.awsErrorDetails().errorMessage());
+          System.exit(1);
+      }
       return "";
   }
 
-    // Create a subscription.
+    // Create a Subscription.
     public String subEmail(String email) {
-
-       try {
-            SnsClient snsClient = getSnsClient();
+        try {
+            SnsClient snsClient =  getSnsClient();
             SubscribeRequest request = SubscribeRequest.builder()
-                    .protocol("email")
-                    .endpoint(email)
-                    .returnSubscriptionArn(true)
-                    .topicArn(topicArn)
-                    .build();
+                .protocol("email")
+                .endpoint(email)
+                .returnSubscriptionArn(true)
+                .topicArn(topicArn)
+                .build();
 
             SubscribeResponse result = snsClient.subscribe(request);
             return result.subscriptionArn() ;
@@ -428,18 +422,15 @@ public class SnsService {
     }
 
     public String getAllSubscriptions() {
-
         List<String> subList = new ArrayList<>() ;
-
         try {
             SnsClient snsClient =  getSnsClient();
             ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
-                    .topicArn(topicArn)
-                    .build();
+                .topicArn(topicArn)
+                .build();
 
             ListSubscriptionsByTopicResponse result = snsClient.listSubscriptionsByTopic(request);
-            List<Subscription> allSubs = result.subscriptions();
-
+            List<Subscription> allSubs  = result.subscriptions();
             for (Subscription sub: allSubs) {
                 subList.add(sub.endpoint());
             }
@@ -448,13 +439,12 @@ public class SnsService {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
-        
+
         return convertToString(toXml(subList));
     }
 
    // Convert the list to XML to pass back to the view.
     private Document toXml(List<String> subsList) {
-
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
@@ -464,10 +454,7 @@ public class SnsService {
             // Start building the XML.
             Element root = doc.createElement("Subs");
             doc.appendChild(root);
-
-            // Iterate through the collection.
             for (String sub : subsList) {
-
                 Element item = doc.createElement("Sub");
                 root.appendChild(item);
 
@@ -482,14 +469,13 @@ public class SnsService {
         }catch(ParserConfigurationException e){
             e.printStackTrace();
         }
-        
         return null;
     }
 
-
     private String convertToString(Document xml) {
         try {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            TransformerFactory transformerFactory = getSecureTransformerFactory();
+            Transformer transformer = transformerFactory.newTransformer();
             StreamResult result = new StreamResult(new StringWriter());
             DOMSource source = new DOMSource(xml);
             transformer.transform(source, result);
@@ -498,10 +484,20 @@ public class SnsService {
         } catch(TransformerException ex) {
             ex.printStackTrace();
         }
-        
         return null;
     }
+
+    private static TransformerFactory getSecureTransformerFactory() {
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        try {
+            transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        } catch (TransformerConfigurationException e) {
+            e.printStackTrace();
+        }
+        return transformerFactory;
+    }
 }
+
 
 ```
 
