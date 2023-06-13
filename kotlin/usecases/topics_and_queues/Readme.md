@@ -1,4 +1,4 @@
-# ***Publish and subscribe to topics using filters and queues using the AWS SDK for Java V2***
+# ***Publish and subscribe to topics using filters and queues using the AWS SDK for Kotlin***
 
 ## Overview
 
@@ -15,7 +15,7 @@ Amazon SNS is a push service. It pushes to endpoints such as email addresses, mo
 
 With Amazon SQS, messages are received from a queue by polling. With polling, the subscriber receives messages by calling a receive message API. Any code can poll the queue. Also, the messages stay in the queue until you delete them. This gives you more flexibility in how the messages are processed.
 
-The AWS SDK for Java v2 sample code builds a command line application that asks you for input. The following shows the interface for the Java implementation.
+The AWS SDK for Kotlin sample code builds a command line application that asks you for input. The following shows the interface for the Kotlin implementation.
 
 ### Create an SNS topic
 
