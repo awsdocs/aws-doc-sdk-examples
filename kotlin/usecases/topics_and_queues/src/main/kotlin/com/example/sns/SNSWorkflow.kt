@@ -191,7 +191,7 @@ For this example, you can filter messages by a "tone" attribute."""
         val filterAns: String = input.nextLine()
         if (filterAns.compareTo("y") == 0) {
             var moreAns = false
-            println("You can filter messages by one or more of the following \"tone\" attributes.")
+            println("You can filter messages by using one or more of the following \"tone\" attributes.")
             println("1. cheerful")
             println("2. funny")
             println("3. serious")
