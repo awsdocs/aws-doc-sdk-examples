@@ -32,7 +32,6 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import java.util.Scanner
-import kotlin.system.exitProcess
 
 /**
 Before running this Kotlin code example, set up your development environment,
