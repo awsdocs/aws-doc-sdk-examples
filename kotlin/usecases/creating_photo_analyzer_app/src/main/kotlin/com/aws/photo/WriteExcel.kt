@@ -51,7 +51,6 @@ class WriteExcel {
         val workbook = Workbook.createWorkbook(os, wbSettings)
         val size = list.size
         for (i in 0 until size) {
-
             // Get the WorkItem from each list.
             val innerList = list[i]
             val wi = innerList[i] as WorkItem
@@ -87,8 +86,6 @@ class WriteExcel {
             UnderlineStyle.SINGLE
         )
         timesBoldUnderline = WritableCellFormat(times10ptBoldUnderline)
-
-        // Lets automatically wrap the cells.
         timesBoldUnderline!!.wrap = true
         val cv = CellView()
         cv.format = times
@@ -107,8 +104,6 @@ class WriteExcel {
         val size = list.size
         for (i in 0 until size) {
             val wi = list[i] as WorkItem
-
-            // Get tne work item values.
             val key = wi.key
             val label = wi.name
             val confidence = wi.confidence
@@ -157,8 +152,6 @@ class WriteExcel {
 
     private fun countString(ss: String): Int {
         var count = 0
-
-        // Counts each character except space.
         for (i in 0 until ss.length) {
             if (ss[i] != ' ') count++
         }
