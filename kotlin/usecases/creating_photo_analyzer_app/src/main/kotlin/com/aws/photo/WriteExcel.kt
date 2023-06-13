@@ -9,11 +9,19 @@ import jxl.CellView
 import jxl.Workbook
 import jxl.WorkbookSettings
 import jxl.format.UnderlineStyle
-import jxl.write.*
+import jxl.write.Label
 import jxl.write.Number
+import jxl.write.WritableCellFormat
+import jxl.write.WritableFont
+import jxl.write.WritableSheet
+import jxl.write.WriteException
 import org.springframework.stereotype.Component
-import java.io.*
-import java.util.*
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
+import java.util.Locale
 
 @Component
 class WriteExcel {
@@ -58,8 +66,7 @@ class WriteExcel {
         workbook.close()
 
         // Get an inputStram that represents the Report.
-        var stream = ByteArrayOutputStream()
-        stream = os as ByteArrayOutputStream
+        val stream: ByteArrayOutputStream = os as ByteArrayOutputStream
         val myBytes = stream.toByteArray()
         return ByteArrayInputStream(myBytes)
     }
@@ -104,7 +111,7 @@ class WriteExcel {
             // Get tne work item values.
             val key = wi.key
             val label = wi.name
-            val confidence= wi.confidence
+            val confidence = wi.confidence
 
             // First column.
             addLabel(sheet, 0, i + 2, key.toString())
@@ -129,7 +136,9 @@ class WriteExcel {
 
     @Throws(WriteException::class)
     private fun addNumber(
-        sheet: WritableSheet, column: Int, row: Int,
+        sheet: WritableSheet,
+        column: Int,
+        row: Int,
         integer: Int
     ) {
         val number: Number
@@ -149,7 +158,7 @@ class WriteExcel {
     private fun countString(ss: String): Int {
         var count = 0
 
-        //Counts each character except space.
+        // Counts each character except space.
         for (i in 0 until ss.length) {
             if (ss[i] != ' ') count++
         }

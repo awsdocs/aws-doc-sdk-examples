@@ -30,8 +30,7 @@ class S3Service {
     // Returns the names of all images in the given bucket.
     suspend fun listBucketObjects(bucketName: String?): List<*>? {
         var keyName: String
-        val keys  = mutableListOf<String>()
-
+        val keys = mutableListOf<String>()
         val listObjects = ListObjectsRequest {
             bucket = bucketName
         }
@@ -54,7 +53,7 @@ class S3Service {
 
         val listObjects = ListObjectsRequest {
             bucket = bucketName
-         }
+        }
 
         S3Client { region = "us-west-2" }.use { s3Client ->
             val res = s3Client.listObjects(listObjects)
@@ -76,7 +75,7 @@ class S3Service {
 
     // Places an image into an Amazon S3 bucket.
     suspend fun putObject(data: ByteArray, bucketName: String?, objectKey: String?): String? {
-        val request =  PutObjectRequest{
+        val request = PutObjectRequest {
             bucket = bucketName
             key = objectKey
             body = ByteStream.fromBytes(data)
@@ -147,12 +146,11 @@ class S3Service {
                 item.appendChild(desc)
             }
             return doc
-
         } catch (e: ParserConfigurationException) {
             e.printStackTrace()
             exitProcess(0)
         }
-   }
+    }
 
     private fun convertToString(xml: Document?): String? {
         try {
@@ -164,7 +162,6 @@ class S3Service {
                 transformer.transform(source, result)
             }
             return result.writer.toString()
-
         } catch (ex: TransformerException) {
             ex.printStackTrace()
         }
