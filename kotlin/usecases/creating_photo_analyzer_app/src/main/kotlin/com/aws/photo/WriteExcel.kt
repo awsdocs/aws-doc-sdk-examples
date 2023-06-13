@@ -79,10 +79,11 @@ class WriteExcel {
         times = WritableCellFormat(times10pt)
         // Lets automatically wrap the cells.
         times!!.wrap = true
-
-        // Create create a bold font with unterlines.
         val times10ptBoldUnderline = WritableFont(
-            WritableFont.TIMES, 10, WritableFont.BOLD, false,
+            WritableFont.TIMES,
+            10,
+            WritableFont.BOLD,
+            false,
             UnderlineStyle.SINGLE
         )
         timesBoldUnderline = WritableCellFormat(times10ptBoldUnderline)
