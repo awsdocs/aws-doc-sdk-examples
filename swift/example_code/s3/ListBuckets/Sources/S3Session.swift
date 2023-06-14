@@ -63,7 +63,7 @@ public class S3Manager {
     init(session: S3SessionProtocol) {
         self.client = session
     }
-    // snippet-end1:[s3.swift.listbuckets.s3manager.init]
+    // snippet-end:[s3.swift.listbuckets.s3manager.init]
 
     // snippet-start:[s3.swift.listbuckets.getallbuckets]
     /// Return an array containing information about every available bucket.
