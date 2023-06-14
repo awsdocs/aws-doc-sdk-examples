@@ -34,7 +34,7 @@ public class VideoStreamController {
         this.vid = vid;
     }
 
-    private final String bucket = "bucketscottnov2";
+    private final String bucket = "<Enter your S3 bucket>";
 
     @RequestMapping(value = "/")
     public String root() {
