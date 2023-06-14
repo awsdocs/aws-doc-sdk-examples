@@ -31,6 +31,9 @@ public struct MockS3Session: S3SessionProtocol {
 
     /// Initialize the mock Amazon S3 session to use the specified mock bucket
     /// information.
+    /// 
+    /// - Parameter data: An array of objects with the data to use to
+    ///   construct fake bucket records.
     init(data: [BucketInfo]) {
         self.testData = data
     }
