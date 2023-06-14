@@ -25,10 +25,16 @@ import java.io.IOException;
 @Controller
 public class VideoStreamController {
 
-    @Autowired
-    VideoStreamService vid;
+    private final VideoStreamService vid;
 
-    private String bucket = "<Enter your bucket name>";
+    @Autowired
+    VideoStreamController(
+        VideoStreamService vid
+    ) {
+        this.vid = vid;
+    }
+
+    private final String bucket = "<Enter your S3 bucket>";
 
     @RequestMapping(value = "/")
     public String root() {
@@ -49,14 +55,12 @@ public class VideoStreamController {
     @RequestMapping(value = "/fileupload", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam String description) {
-
         try {
             byte[] bytes = file.getBytes();
             String name = file.getOriginalFilename() ;
-            String desc2 = description ;
 
             // Put the MP4 file into an Amazon S3 bucket.
-            vid.putVideo(bytes, bucket, name, desc2);
+            vid.putVideo(bytes, bucket, name, description);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -68,7 +72,6 @@ public class VideoStreamController {
     @RequestMapping(value = "/items", method = RequestMethod.GET)
     @ResponseBody
     public String getItems(HttpServletRequest request, HttpServletResponse response) {
-
         String xml = vid.getTags(bucket);
         return xml;
     }
@@ -76,7 +79,6 @@ public class VideoStreamController {
     // Returns the video in the bucket specified by the ID value.
     @RequestMapping(value = "/{id}/stream", method = RequestMethod.GET)
     public Mono<ResponseEntity<byte[]>> streamVideo(@PathVariable String id) {
-
         String fileName = id;
         return Mono.just(vid.getObjectBytes(bucket, fileName));
     }
