@@ -6,6 +6,7 @@ import {Bucket, HttpMethods} from '@aws-cdk/aws-s3';
 import * as iam from "@aws-cdk/aws-iam";
 import {Role, ServicePrincipal, Effect, PolicyStatement} from '@aws-cdk/aws-iam';
 import {Topic} from '@aws-cdk/aws-sns';
+import {Alias} from '@aws-cdk/aws-kms';
 
 export class SetupStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -24,7 +25,9 @@ export class SetupStack extends cdk.Stack {
     });
     bucket.grantReadWrite(rekognition);
 
-    let topic = new Topic(this, 'rekognition-demo-topic', {});
+    let topic = new Topic(this, 'rekognition-demo-topic', {
+      masterKey: Alias.fromAliasName(this, 'defaultKey', 'alias/aws/sns')
+    });
 
     let role = new Role(this, 'rekognition-video-analyzer-role', {
       assumedBy: rekognition

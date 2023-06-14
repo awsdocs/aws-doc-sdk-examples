@@ -27,6 +27,7 @@ import {CfnOutput} from '@aws-cdk/core';
 import {Bucket} from '@aws-cdk/aws-s3';
 import {Role, ServicePrincipal} from '@aws-cdk/aws-iam';
 import {Topic} from '@aws-cdk/aws-sns';
+import {Alias} from '@aws-cdk/aws-kms';
 import {SqsSubscription} from "@aws-cdk/aws-sns-subscriptions";
 import {Queue} from '@aws-cdk/aws-sqs';
 
@@ -43,7 +44,9 @@ export class SetupStack extends cdk.Stack {
 
     let queue = new Queue(this, 'textract-demo-queue', {});
 
-    let topic = new Topic(this, 'textract-demo-topic', {});
+    let topic = new Topic(this, 'textract-demo-topic', {
+      masterKey: Alias.fromAliasName(this, 'defaultKey', 'alias/aws/sns')
+    });
     topic.addSubscription(new SqsSubscription(queue));
 
     let role = new Role(this, 'textract-demo-role', {
