@@ -37,7 +37,7 @@ Code excerpts that show you how to call individual service functions.
 * [Create a table](src/main/java/com/example/dynamodb/CreateTable.java#L69) (`CreateTable`)
 * [Delete a table](src/main/java/com/example/dynamodb/DeleteTable.java#L56) (`DeleteTable`)
 * [Delete an item from a table](src/main/java/com/example/dynamodb/DeleteItem.java#L61) (`DeleteItem`)
-* [Get an item from a table](src/main/java/com/example/dynamodb/Query.java#L73) (`GetItem`)
+* [Get an item from a table](src/main/java/com/example/dynamodb/GetItem.java#L73) (`GetItem`)
 * [Get information about a table](src/main/java/com/example/dynamodb/DescribeTable.java#L58) (`DescribeTable`)
 * [List tables](src/main/java/com/example/dynamodb/ListTables.java#L44) (`ListTables`)
 * [Put an item in a table](src/main/java/com/example/dynamodb/PutItem.java#L80) (`PutItem`)
