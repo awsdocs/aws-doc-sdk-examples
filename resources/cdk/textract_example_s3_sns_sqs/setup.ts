@@ -38,6 +38,7 @@ export class SetupStack extends cdk.Stack {
     let textract = new ServicePrincipal('textract.amazonaws.com');
 
     let bucket = new Bucket(this, 'textract-demo-bucket', {
+      enforceSSL: true,
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
     bucket.grantReadWrite(textract);

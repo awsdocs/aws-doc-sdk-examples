@@ -12,6 +12,23 @@ Resources:
         Ref: textractdemobucket1D185E28
       PolicyDocument:
         Statement:
+          - Action: s3:*
+            Condition:
+              Bool:
+                aws:SecureTransport: "false"
+            Effect: Deny
+            Principal:
+              AWS: "*"
+            Resource:
+              - Fn::GetAtt:
+                  - textractdemobucket1D185E28
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - textractdemobucket1D185E28
+                        - Arn
+                    - /*
           - Action:
               - s3:GetObject*
               - s3:GetBucket*
