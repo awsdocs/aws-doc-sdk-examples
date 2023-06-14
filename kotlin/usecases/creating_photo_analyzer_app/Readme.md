@@ -471,6 +471,7 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
      private fun toXml(itemList: List<BucketItem>): Document {
         try {
             val factory = DocumentBuilderFactory.newInstance()
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
             val builder = factory.newDocumentBuilder()
             val doc = builder.newDocument()
 
@@ -516,18 +517,30 @@ The following class uses the Amazon S3 Kotlin API to perform S3 operations. For 
         }
      }
 
-    private fun convertToString(xml: Document): String {
+    private fun convertToString(xml: Document?): String? {
         try {
-            val transformer = TransformerFactory.newInstance().newTransformer()
+            val transformerFactory = getSecureTransformerFactory()
+            val transformer = transformerFactory?.newTransformer()
             val result = StreamResult(StringWriter())
             val source = DOMSource(xml)
-            transformer.transform(source, result)
+            if (transformer != null) {
+                transformer.transform(source, result)
+            }
             return result.writer.toString()
-
         } catch (ex: TransformerException) {
             ex.printStackTrace()
-            exitProcess(0)
         }
+        return null
+    }
+
+    private fun getSecureTransformerFactory(): TransformerFactory? {
+        val transformerFactory: TransformerFactory = TransformerFactory.newInstance()
+        try {
+            transformerFactory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true)
+        } catch (e: TransformerConfigurationException) {
+            e.printStackTrace()
+        }
+        return transformerFactory
      }
     }
 ```
