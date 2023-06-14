@@ -6,6 +6,7 @@ import { AppLambdas } from "./constructs/app-lambdas";
 import { getFunctions as getFunctionConfigs } from "./functions";
 import { AppStateMachine } from "./constructs/app-state-machine";
 import { CloudFrontWebsite } from "./constructs/cloud-front-website";
+import { EnvFunction } from "./constructs/env-lambda";
 
 export class AppStack extends cdk.Stack {
   constructor(scope: Construct) {
@@ -19,9 +20,22 @@ export class AppStack extends cdk.Stack {
     // Create state machine.
     new AppStateMachine(this, prefix, appLambdas.functions);
 
+    // Create function to get environment variables as a script.
+    new EnvFunction(this, {
+      variables: {
+        COGNITO_USER_POOL_BASE_URL: "x",
+        COGNITO_APP_CLIENT_ID: "x",
+      }
+    })
+
+    // Create API
+
+    // Create CloudFront distribution with API Gateway as the default behavior.
+
+    // Create static S3 website behind a CloudFront distribution.
     new CloudFrontWebsite(this, "client", {
+      distribution,
       assetPath: "../client",
-      apiGatewayBaseUrl: "a",
       cognitoAppClientId: "a",
       cognitoUserPoolBaseUrl: "a",
     });
