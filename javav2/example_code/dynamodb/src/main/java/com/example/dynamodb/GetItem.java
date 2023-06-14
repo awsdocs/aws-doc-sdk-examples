@@ -35,7 +35,6 @@ import java.util.Set;
 public class GetItem {
 
     public static void main(String[] args) {
-
         final String usage = "\n" +
             "Usage:\n" +
             "    <tableName> <key> <keyVal>\n\n" +
@@ -67,7 +66,6 @@ public class GetItem {
 
     // snippet-start:[dynamodb.java2.get_item.main]
     public static void getDynamoDBItem(DynamoDbClient ddb,String tableName,String key,String keyVal ) {
-
         HashMap<String,AttributeValue> keyToGet = new HashMap<>();
         keyToGet.put(key, AttributeValue.builder()
             .s(keyVal)
@@ -79,16 +77,16 @@ public class GetItem {
             .build();
 
         try {
+            // If there is no matching item, GetItem does not return any data.
             Map<String,AttributeValue> returnedItem = ddb.getItem(request).item();
-            if (returnedItem != null) {
+            if (returnedItem.isEmpty())
+                System.out.format("No item found with the key %s!\n", key);
+            else {
                 Set<String> keys = returnedItem.keySet();
                 System.out.println("Amazon DynamoDB table attributes: \n");
-
                 for (String key1 : keys) {
                     System.out.format("%s: %s\n", key1, returnedItem.get(key1).toString());
                 }
-            } else {
-                System.out.format("No item found with the key %s!\n", key);
             }
 
         } catch (DynamoDbException e) {
