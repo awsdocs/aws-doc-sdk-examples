@@ -13,31 +13,25 @@ import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
 public class S3Service {
-
     private S3Client getClient() {
-
-        Region region = Region.US_EAST_1;
-        S3Client s3 = S3Client.builder()
-                .region(region)
-                .build();
-
-        return s3;
+        return S3Client.builder()
+            .region(Region.US_EAST_1)
+            .build();
     }
-    public byte[] getObjectBytes (String bucketName, String keyName) {
 
+    public byte[] getObjectBytes (String bucketName, String keyName) {
         try {
             S3Client s3 = getClient();
-            GetObjectRequest objectRequest = GetObjectRequest
-                    .builder()
-                    .key(keyName)
-                    .bucket(bucketName)
-                    .build();
+            GetObjectRequest objectRequest = GetObjectRequest.builder()
+                .key(keyName)
+                .bucket(bucketName)
+                .build();
 
             ResponseBytes<GetObjectResponse> objectBytes = s3.getObjectAsBytes(objectRequest);
             byte[] data = objectBytes.asByteArray();
             return data;
 
-         } catch (S3Exception e) {
+        } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }

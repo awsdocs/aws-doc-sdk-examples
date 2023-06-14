@@ -19,28 +19,22 @@ import java.util.List;
 import java.io.IOException;
 import java.io.StringReader;
 
-
 public class DynamoDBService {
-
     int recNum = 1;
 
     private DynamoDbClient getClient() {
-
-        // Create a DynamoDbClient object.
-        Region region = Region.US_EAST_1;
-        DynamoDbClient ddb = DynamoDbClient.builder()
-                .region(region)
-                .build();
-
-        return ddb;
+        return DynamoDbClient.builder()
+            .region(Region.US_EAST_1)
+            .build();
     }
+
     public void injectETLData(String myDom)  throws JDOMException, IOException {
         SAXBuilder builder = new SAXBuilder();
+        builder.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
         Document jdomDocument = builder.build(new InputSource(new StringReader(myDom)));
-        org.jdom2.Element root = ((org.jdom2.Document) jdomDocument).getRootElement();
+        org.jdom2.Element root = jdomDocument.getRootElement();
         PopData pop = new PopData();
         List<org.jdom2.Element> items = root.getChildren("Item");
-
         for (org.jdom2.Element element : items) {
             pop.setName(element.getChildText("Name"));
             pop.setCode(element.getChildText("Code"));
@@ -59,14 +53,11 @@ public class DynamoDBService {
     }
 
     public void setItem(PopData pop) {
-
         // Create a DynamoDbEnhancedClient.
         DynamoDbClient ddb = getClient();
-
         DynamoDbEnhancedClient enhancedClient = DynamoDbEnhancedClient.builder()
                 .dynamoDbClient(ddb)
                 .build();
-
         try {
             // Create a DynamoDbTable object.
             DynamoDbTable<Population> workTable = enhancedClient.table("Country", TableSchema.fromBean(Population.class));
@@ -89,7 +80,7 @@ public class DynamoDBService {
             record.set2018(pop.get2018());
             record.set2019(pop.get2019());
 
-            // Put the customer data into a DynamoDB table.
+            // Put the data into the Amazon DynamoDB table.
             workTable.putItem(record);
             System.out.println("Added record "+recNum);
             recNum ++;
