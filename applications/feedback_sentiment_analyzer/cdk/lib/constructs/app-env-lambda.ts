@@ -3,14 +3,14 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import { Function, Runtime, Code } from "aws-cdk-lib/aws-lambda";
 
-interface EnvFunctionProps {
+interface AppEnvLambdaProps {
   variables: Record<string, string>;
 }
 
-export class EnvFunction extends Construct {
+export class AppEnvLambda extends Construct {
   readonly fn: Function;
 
-  constructor(scope: Construct, props: EnvFunctionProps) {
+  constructor(scope: Construct, props: AppEnvLambdaProps) {
     super(scope, "env-function");
 
     this.fn = new Function(this, "env-lambda", {

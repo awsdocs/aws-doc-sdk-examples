@@ -1,12 +1,9 @@
-import {
-  BundlingOutput,
-  DockerImage,
-  RemovalPolicy,
-} from "aws-cdk-lib";
+import { BundlingOutput, DockerImage, RemovalPolicy } from "aws-cdk-lib";
 import {
   CfnDistribution,
   CfnOriginAccessControl,
   Distribution,
+  ViewerProtocolPolicy,
 } from "aws-cdk-lib/aws-cloudfront";
 import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import {
@@ -19,17 +16,23 @@ import { Bucket } from "aws-cdk-lib/aws-s3";
 import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
 import { Construct } from "constructs";
 
-export interface CloudFrontWebsiteProps {
+export interface AppCloudFrontWebsiteProps {
+  /**
+   * The local path to the assets to be deployed to the S3 bucket.
+   */
   assetPath: string;
+  /**
+   * The path to this website relative to the base URL of the CloudFront
+   * distribution.
+   */
+  sitePath: string;
   distribution: Distribution;
-  cognitoUserPoolBaseUrl: string;
-  cognitoAppClientId: string;
 }
 
-export class CloudFrontWebsite extends Construct {
+export class AppCloudFrontWebsite extends Construct {
   readonly bucket: Bucket;
 
-  constructor(scope: Construct, id: string, props: CloudFrontWebsiteProps) {
+  constructor(scope: Construct, id: string, props: AppCloudFrontWebsiteProps) {
     super(scope, id);
 
     this.bucket = new Bucket(this, "website-bucket", {
@@ -39,7 +42,9 @@ export class CloudFrontWebsite extends Construct {
 
     const s3Origin = new S3Origin(this.bucket);
 
-    props.distribution.addBehavior("home", s3Origin);
+    props.distribution.addBehavior(props.sitePath, s3Origin, {
+      viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+    });
 
     const oac = new CfnOriginAccessControl(this, "website-bucket-oac", {
       originAccessControlConfig: {
@@ -54,11 +59,12 @@ export class CloudFrontWebsite extends Construct {
       .defaultChild as CfnDistribution;
 
     cfnDistribution.addPropertyOverride(
-      "DistributionConfig.Origins.0.S3OriginConfig.OriginAccessIdentity",
+      "DistributionConfig.Origins.1.S3OriginConfig.OriginAccessIdentity",
       ""
     );
+
     cfnDistribution.addPropertyOverride(
-      "DistributionConfig.Origins.0.OriginAccessControlId",
+      "DistributionConfig.Origins.1.OriginAccessControlId",
       oac.getAtt("Id")
     );
 
