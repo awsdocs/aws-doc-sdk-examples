@@ -13,7 +13,7 @@ import { RESPONSE_HEADERS, withLogging } from "../common.js";
  */
 
 /**
- * Unmarshall the DynamoDB items into a response object.
+ * Unmarshall the Amazon DynamoDB items into a response object.
  * @param {Labels} labels
  * @param {{ Label: string, Count: number }} item
  * @returns {Labels}
@@ -32,8 +32,8 @@ const getLabels = async () => {
   const ddbDocClient = DynamoDBDocumentClient.from(client);
 
   /**
-   * A DynamoDb "Scan" will return all of the items in a table. If there are many items,
-   * the results may be paginated. The paginateScan command is a convenience function
+   * A DynamoDB "Scan" returns all of the items in a table. If there are many items,
+   * the results might be paginated. The paginateScan command is a convenience function
    * that wraps the ScanCommand in a generator function.
    */
   const paginator = paginateScan(

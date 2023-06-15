@@ -22,8 +22,8 @@ import { withLogging } from "../common.js";
 const detect = async (bucket, key) => {
   const client = new RekognitionClient({});
   const command = new DetectLabelsCommand({
-    // The "Image" property can be either a base64-encoded image string or a reference to an S3 object.
-    // This Lambda function is invoked by the S3 trigger on the bucket when an object is uploaded.
+    // The "Image" property can be either a base64-encoded image string or a reference to an Amazon S3 object.
+    // This AWS Lambda function is invoked by the Amazon S3 trigger on the bucket when an object is uploaded.
     // The bucket and key from the event are used here.
     Image: {
       S3Object: {

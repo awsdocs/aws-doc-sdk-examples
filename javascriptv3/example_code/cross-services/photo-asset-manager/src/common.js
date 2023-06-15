@@ -16,12 +16,12 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import flow from "lodash/flow.js";
 
 /**
- * Create's a presigned URL for uploading an object to S3.
+ * Creates a presigned URL for uploading an object to Amazon Simple Storage Service (Amazon S3).
  * @param {{ bucket: string, key: string, contentType }} object - The object to create a presigned URL for.
  */
 export const createPresignedPutURL = ({ bucket, key, contentType }) => {
   const client = new S3Client({});
-  // Expires in 15 minutes;
+  // Expires in 15 minutes.
   const expiresIn = 15 * 60;
   const command = new PutObjectCommand({
     Bucket: bucket,
@@ -32,12 +32,12 @@ export const createPresignedPutURL = ({ bucket, key, contentType }) => {
 };
 
 /**
- * Create a presigned URL for downloading an object from S3.
+ * Create a presigned URL for downloading an object from Amazon S3.
  * @param {{ bucket: string, key: string }} object - The object to create a presigned URL for.
  */
 export const createPresignedGetURL = ({ bucket, key }) => {
   const client = new S3Client({});
-  // Expire in 24 hours
+  // Expires in 24 hours.
   const expiresIn = 24 * 60 * 60;
   const command = new GetObjectCommand({
     Bucket: bucket,

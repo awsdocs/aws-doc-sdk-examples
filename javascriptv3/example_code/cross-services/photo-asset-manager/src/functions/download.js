@@ -31,7 +31,7 @@ export const getImageKeysForLabels = async (labels) => {
 
   /**
    * Using BatchGetCommand instead of multiple GetCommand calls reduces
-   * the number of calls made to DynamoDB.
+   * the number of calls made to Amazon DynamoDB.
    */
   const command = new BatchGetCommand({
     RequestItems: {
@@ -58,7 +58,7 @@ export const getImageKeysForLabels = async (labels) => {
 };
 
 /**
- * Fetch an object from S3 and return a Readable stream.
+ * Fetch an object from Amazon Simple Storage Service (Amazon S3) and return a Readable stream.
  * @param {string} imageKey
  */
 const s3Readable = async (imageKey) => {
@@ -72,8 +72,8 @@ const s3Readable = async (imageKey) => {
   return Body;
 };
 
-// Upload the archive to S3. Images will be compressed and streamed
-// to the destination bucket. The Upload accepts stream and handles
+// Upload the archive to Amazon S3. Images will be compressed and streamed
+// to the destination bucket. The Upload accepts the stream and handles
 // the rest.
 const zipAndUpload = async (imageKeys) => {
   const archive = archiver("zip");
@@ -115,14 +115,14 @@ const zipAndUpload = async (imageKeys) => {
 };
 
 /**
- * Publish a message to SNS with a URL to download the zip.
+ * Publish a message to Amazon Simple Notification Service (Amazon SNS) with a URL to download the zip.
  * @param {string} url
  */
 const publishMessage = async (url) => {
   const client = new SNSClient({});
   const message =
     "Your images are ready for download at the following URL.\n" +
-    "SNS breaks up the long URL. Strip out the whitespace characters to get the correct link.\n" +
+    "Amazon SNS breaks up the long URL. Strip out the whitespace characters to get the correct link.\n" +
     url;
   const command = new PublishCommand({
     Message: message,

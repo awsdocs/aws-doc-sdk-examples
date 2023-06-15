@@ -71,7 +71,7 @@ Congratulations! You have created and deployed a photo asset management applicat
 
 Vitest is being used as the test runner, but Vite is made for browser development. It uses Rollup under the hood for bundling libraries, but configuration is simpler when Rollup is used independently.
 
-When bundling with Vite, it bundles for the browser, so any NodeJS natives without polyfills will cause an error to be thrown. Turning on Vite's server-side rendering feature gets around this, but it makes it less clear what we're trying to do. The configuration got to a point where it seemed more opaque than helpful. Falling back to pure Rollup made things more clear.
+When bundling with Vite, it bundles for the browser, so any NodeJS natives without polyfills will cause an error to be thrown. Turning on Vite's server-side rendering feature gets around this, but it makes it less clear what we're trying to do. The configuration got to a point where it seemed more opaque than helpful. Falling back to pure Rollup clarified things.
 
 ---
 

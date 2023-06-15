@@ -17,8 +17,8 @@ import { STORAGE_BUCKET_NAME } from "../lambda-env.js";
  */
 export const getHandler = ({ createPresignedPutURL }) => {
   /**
-   * Create a presigned URL that will allow a user to upload an object
-   * to Amazon S3.
+   * Create a presigned URL that allows a user to upload an object
+   * to Amazon Simple Storage Service (Amazon S3).
    * @type {import("@types/aws-lambda").APIGatewayProxyHandler}
    * @param {import("@types/aws-lambda").APIGatewayProxyEvent} event
    */
