@@ -100,7 +100,9 @@ $ cdk deploy {STACK_NAME} # Deploy each of the three preceding stacks in order.
 After deploying the PamFrontEndInfraStack, your terminal should have a Cloudfront distribution URL.
 Navigate to that URL to see the deployed app.
 
-To clean up, run this command:
+## Clean up
+
+To clean up, delete the CDK stacks in reverse creation order. Run the following command for each stack:
 
 ```
 $ cdk destroy {STACK_NAME}
