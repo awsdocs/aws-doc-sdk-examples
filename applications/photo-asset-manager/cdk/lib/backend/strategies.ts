@@ -69,22 +69,55 @@ export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
 };
 
+export const JAVASCRIPT_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  ...EMPTY_LAMBDAS_STRATEGY,
+  memorySize: 256,
+  timeout: Duration.minutes(5),
+  codeAsset() {
+    const js = resolve(
+      "../../../javascriptv3/example_code/cross-services/photo-asset-manager"
+    );
+    return Code.fromAsset(js, {
+      bundling: {
+        command: [
+          "/bin/sh",
+          "-c",
+          "npm i && \
+          npm run build && \
+          cp /asset-input/dist/index.mjs /asset-output/",
+        ],
+        outputType: BundlingOutput.NOT_ARCHIVED,
+        user: "root",
+        image: this.runtime.bundlingImage,
+      },
+    });
+  },
+  handlers: {
+    detectLabels: "index.handlers.detectLabels",
+    download: "index.handlers.download",
+    labels: "index.handlers.labels",
+    upload: "index.handlers.upload",
+  },
+};
+
 export const DOTNET_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(90),
   memorySize: 1024,
   codeAsset() {
     // Relative to cdk.json.
-    const dotnetSources = resolve("../../../dotnetv3/cross-service/PhotoAssetManager");
+    const dotnetSources = resolve(
+      "../../../dotnetv3/cross-service/PhotoAssetManager"
+    );
 
     return Code.fromAsset(dotnetSources, {
       bundling: {
         command: [
           "/bin/sh",
           "-c",
-          " dotnet tool install -g Amazon.Lambda.Tools"+
-          " && dotnet build"+
-          " && cd PamApi"+
-          " && dotnet lambda package --output-package /asset-output/function.zip",
+          " dotnet tool install -g Amazon.Lambda.Tools" +
+            " && dotnet build" +
+            " && cd PamApi" +
+            " && dotnet lambda package --output-package /asset-output/function.zip",
         ],
         image: Runtime.DOTNET_6.bundlingImage,
         user: "root",
@@ -107,17 +140,19 @@ export const DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY: PamLambdasStrategy = {
   memorySize: 1024,
   codeAsset() {
     // Relative to cdk.json.
-    const dotnetSources = resolve("../../../dotnetv3/cross-service/PhotoAssetManager");
+    const dotnetSources = resolve(
+      "../../../dotnetv3/cross-service/PhotoAssetManager"
+    );
 
     return Code.fromAsset(dotnetSources, {
       bundling: {
         command: [
           "/bin/sh",
           "-c",
-          " dotnet tool install -g Amazon.Lambda.Tools"+
-          " && dotnet build"+
-          " && cd PamApiAnnotations"+
-          " && dotnet lambda package --output-package /asset-output/function.zip",
+          " dotnet tool install -g Amazon.Lambda.Tools" +
+            " && dotnet build" +
+            " && cd PamApiAnnotations" +
+            " && dotnet lambda package --output-package /asset-output/function.zip",
         ],
         image: Runtime.DOTNET_6.bundlingImage,
         user: "root",
@@ -128,15 +163,20 @@ export const DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY: PamLambdasStrategy = {
   runtime: Runtime.DOTNET_6,
   handlers: {
     ...EMPTY_LAMBDAS_STRATEGY.handlers,
-    detectLabels: "PamApiAnnotations::PamApiAnnotations.DetectLabelsFunction::FunctionHandler",
-    download: "PamApiAnnotations::PamApiAnnotations.DownloadFunction::FunctionHandler",
-    labels: "PamApiAnnotations::PamApiAnnotations.Functions_GetLabels_Generated::GetLabels",
-    upload: "PamApiAnnotations::PamApiAnnotations.Functions_Upload_Generated::Upload",
+    detectLabels:
+      "PamApiAnnotations::PamApiAnnotations.DetectLabelsFunction::FunctionHandler",
+    download:
+      "PamApiAnnotations::PamApiAnnotations.DownloadFunction::FunctionHandler",
+    labels:
+      "PamApiAnnotations::PamApiAnnotations.Functions_GetLabels_Generated::GetLabels",
+    upload:
+      "PamApiAnnotations::PamApiAnnotations.Functions_Upload_Generated::Upload",
   },
 };
 
 export const STRATEGIES: Record<string, PamLambdasStrategy> = {
   java: JAVA_LAMBDAS_STRATEGY,
+  javascript: JAVASCRIPT_LAMBDAS_STRATEGY,
   python: PYTHON_LAMBDAS_STRATEGY,
   dotnet: DOTNET_LAMBDAS_STRATEGY,
   dotnetla: DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY,
