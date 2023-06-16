@@ -15,7 +15,7 @@ use crate::common::Common;
 // Pipe will read up to 10MB at a time. Each multipart upload will therefore also
 // be in the 10MB range. Multipart uploads have a maximum part count of 10,000,
 // so this imposes an effective limit on the size of the upload. Increasing this
-// limit will use more memory but allow larger files. JPEGs typically 8MB, so this
+// limit uses more memory but allows larger files. JPEGs are typically 8MB, so this
 // could be tuned but generally should allow ~10,000 images.
 //
 // (Multipart uploads also have a minimum size of 5MB.)
