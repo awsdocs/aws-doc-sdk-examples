@@ -23,7 +23,7 @@ fn prepare_update_expression(
                 label.name().expect("found label name").to_string(),
             ),
         )
-        // Using an update expression ensures the count and list are updated atomically.
+        // Using an update expression ensures that the count and list are updated atomically.
         // This does require passing `:one` as a value.
         .update_expression("SET #Count = if_not_exists(#Count, :zero) + :one, Images = list_append(if_not_exists(Images, :empty), :image)")
         .expression_attribute_names("#Count", "Count")

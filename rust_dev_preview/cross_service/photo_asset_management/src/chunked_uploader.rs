@@ -22,7 +22,7 @@ use crate::common::Common;
 const READ_SIZE: usize = 1_048_578;
 
 // ZipUploader is a struct to manage streaming a number of files into a single zip,
-// that is itself streamed to an s3 object. It reads from a source bucket, to a
+// that is itself streamed to an Amazon S3 object. It reads from a source bucket, to a
 // bucket and key for the zip.
 pub struct ZipUpload<'a> {
     part: i32,

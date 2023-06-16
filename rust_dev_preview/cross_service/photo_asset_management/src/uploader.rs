@@ -68,7 +68,7 @@ impl<'a> ZipUpload<'a> {
 
     pub async fn finish(mut self) -> Result<(String, String), anyhow::Error> {
         let mut zip = self.zip.finish()?;
-        // Since this file is immediately read, seek it back to the start.
+        // Because this file is read immediately, seek it back to the start.
         zip.seek(std::io::SeekFrom::Start(0))?;
 
         let bucket = self.bucket;

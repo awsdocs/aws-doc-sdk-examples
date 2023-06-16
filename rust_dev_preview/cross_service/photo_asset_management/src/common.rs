@@ -21,7 +21,7 @@ pub fn init_tracing_subscriber() {
 
 // Common fields are loaded during the Lambda init phase. These include reading
 // several environment variables to know which buckets and tables to work from,
-// as well as preparing the SDK Config (expensive) and several clients from that
+// and also preparing the SDK Config (expensive) and several clients from that
 // config (cheap).
 pub struct Common {
     sdk_config: SdkConfig,
