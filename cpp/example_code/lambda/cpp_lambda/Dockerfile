@@ -1,4 +1,4 @@
-FROM amazonlinux
+FROM amazonlinux:2
 
 # Dependencies to build aws-lambda-cpp-runtime:
 RUN yum -y install gcc-c++ libcurl-devel cmake3 jsoncpp-devel git make zip

@@ -68,7 +68,7 @@ make aws-lambda-package-cpp_lambda_increment
 2. Build the "Calculator" Lambda function code.
 
 ```bash
-cd ../../calculator && \
+cd /cpp_lambda/calculator && \
 mkdir build && \
 cd build && \
 cmake3 .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=~/install && \
