@@ -4,6 +4,7 @@ import {
   LambdaIntegration,
   Model,
   PassthroughBehavior,
+  Resource,
   RestApi,
 } from "aws-cdk-lib/aws-apigateway";
 import { Function } from "aws-cdk-lib/aws-lambda";
@@ -27,16 +28,18 @@ export interface RouteProps {
 }
 
 export class AppRoutes extends Construct {
+  apiRoot: Resource;
   constructor(
     scope: Construct,
     id: string,
     private readonly props: AppRoutesProps
   ) {
     super(scope, id);
+    this.apiRoot = this.props.api.root.addResource("api");
   }
 
   addLambdaRoute({ path, fn, method, authorizer, model }: RouteProps) {
-    const resource = this.props.api.root.addResource(path);
+    const resource = this.apiRoot.addResource(path);
     const emptyResponse = new Empty(this, { restApi: this.props.api });
     resource.addMethod(
       method,
@@ -45,9 +48,9 @@ export class AppRoutes extends Construct {
       }),
       {
         requestModels: {
-          "application/json": model.request || emptyResponse,
+          "application/json": model.request ?? emptyResponse,
         },
-        methodResponses: [statusOkResponse(model.response || emptyResponse)],
+        methodResponses: [statusOkResponse(model.response ?? emptyResponse)],
         ...(authorizer ? { authorizer } : {}),
       }
     );

@@ -21,12 +21,6 @@ export interface AppCloudFrontWebsiteProps {
    * The local path to the assets to be deployed to the S3 bucket.
    */
   assetPath: string;
-  /**
-   * The path to this website relative to the base URL of the CloudFront
-   * distribution.
-   */
-  sitePath: string;
-  distribution: Distribution;
 }
 
 export class AppCloudFrontWebsite extends Construct {
@@ -40,49 +34,33 @@ export class AppCloudFrontWebsite extends Construct {
       autoDeleteObjects: true,
     });
 
-    const s3Origin = new S3Origin(this.bucket);
+    // const s3Origin = new S3Origin(this.bucket);
 
-    props.distribution.addBehavior(props.sitePath, s3Origin, {
-      viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-    });
+    // props.distribution.addBehavior(props.sitePath, s3Origin, {
+    //   viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+    // });
 
-    const oac = new CfnOriginAccessControl(this, "website-bucket-oac", {
-      originAccessControlConfig: {
-        name: `${id}-website-bucket-oac`,
-        originAccessControlOriginType: "s3",
-        signingBehavior: "always",
-        signingProtocol: "sigv4",
-      },
-    });
+    // const oac = new CfnOriginAccessControl(this, "website-bucket-oac", {
+    //   originAccessControlConfig: {
+    //     name: `${id}-website-bucket-oac`,
+    //     originAccessControlOriginType: "s3",
+    //     signingBehavior: "always",
+    //     signingProtocol: "sigv4",
+    //   },
+    // });
 
-    const cfnDistribution = props.distribution.node
-      .defaultChild as CfnDistribution;
+    // const cfnDistribution = props.distribution.node
+    //   .defaultChild as CfnDistribution;
 
-    cfnDistribution.addPropertyOverride(
-      "DistributionConfig.Origins.1.S3OriginConfig.OriginAccessIdentity",
-      ""
-    );
+    // cfnDistribution.addPropertyOverride(
+    //   "DistributionConfig.Origins.1.S3OriginConfig.OriginAccessIdentity",
+    //   ""
+    // );
 
-    cfnDistribution.addPropertyOverride(
-      "DistributionConfig.Origins.1.OriginAccessControlId",
-      oac.getAtt("Id")
-    );
-
-    const bucketPolicyAllowCloudFront = new PolicyStatement({
-      principals: [new ServicePrincipal("cloudfront.amazonaws.com")],
-      actions: ["s3:GetObject"],
-      effect: Effect.ALLOW,
-      conditions: {
-        StringEquals: {
-          "AWS:SourceArn": `arn:aws:cloudfront::${
-            new AccountRootPrincipal().accountId
-          }:distribution/${props.distribution.distributionId}`,
-        },
-      },
-      resources: [this.bucket.arnForObjects("*")],
-    });
-
-    this.bucket.addToResourcePolicy(bucketPolicyAllowCloudFront);
+    // cfnDistribution.addPropertyOverride(
+    //   "DistributionConfig.Origins.1.OriginAccessControlId",
+    //   oac.getAtt("Id")
+    // );
 
     new BucketDeployment(this, "website-assets-deployment", {
       destinationBucket: this.bucket,
@@ -101,5 +79,24 @@ export class AppCloudFrontWebsite extends Construct {
         }),
       ],
     });
+  }
+
+  attachPolicy(distribution: Distribution) {
+    const { accountId } = new AccountRootPrincipal();
+    const { distributionId } = distribution;
+    const distributionArn = `arn:aws:cloudfront::${accountId}:distribution/${distributionId}`;
+    const bucketPolicyAllowCloudFront = new PolicyStatement({
+      principals: [new ServicePrincipal("cloudfront.amazonaws.com")],
+      actions: ["s3:GetObject"],
+      effect: Effect.ALLOW,
+      conditions: {
+        StringEquals: {
+          "AWS:SourceArn": distributionArn,
+        },
+      },
+      resources: [this.bucket.arnForObjects("*")],
+    });
+
+    this.bucket.addToResourcePolicy(bucketPolicyAllowCloudFront);
   }
 }
