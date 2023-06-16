@@ -12,6 +12,23 @@ Resources:
         Ref: textractdemobucket1D185E28
       PolicyDocument:
         Statement:
+          - Action: s3:*
+            Condition:
+              Bool:
+                aws:SecureTransport: "false"
+            Effect: Deny
+            Principal:
+              AWS: "*"
+            Resource:
+              - Fn::GetAtt:
+                  - textractdemobucket1D185E28
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - textractdemobucket1D185E28
+                        - Arn
+                    - /*
           - Action:
               - s3:GetObject*
               - s3:GetBucket*
@@ -77,6 +94,17 @@ Resources:
       aws:cdk:path: textract-example-s3-sns-sqs/textract-demo-queue/textractexamples3snssqstextractdemotopic223AEA52/Resource
   textractdemotopicC34F570A:
     Type: AWS::SNS::Topic
+    Properties:
+      KmsMasterKeyId:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":kms:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - :alias/aws/sns
     Metadata:
       aws:cdk:path: textract-example-s3-sns-sqs/textract-demo-topic/Resource
   textractdemorole5485C22B:

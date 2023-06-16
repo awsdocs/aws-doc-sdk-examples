@@ -36,6 +36,7 @@ import {Bucket, HttpMethods} from '@aws-cdk/aws-s3';
 import {Role, ServicePrincipal, FederatedPrincipal, PolicyStatement, ManagedPolicy, Effect, Policy}
   from '@aws-cdk/aws-iam';
 import {Topic} from '@aws-cdk/aws-sns';
+import {Alias} from '@aws-cdk/aws-kms';
 import {SqsSubscription} from "@aws-cdk/aws-sns-subscriptions";
 import {Queue} from '@aws-cdk/aws-sqs';
 import {UserPool, UserPoolClient, CfnIdentityPool, CfnIdentityPoolRoleAttachment}
@@ -60,7 +61,9 @@ export class SetupStack extends cdk.Stack {
 
     let queue = new Queue(this, 'textract-cognito-demo-queue', {});
 
-    let topic = new Topic(this, 'textract-cognito-demo-topic', {});
+    let topic = new Topic(this, 'textract-cognito-demo-topic', {
+      masterKey: Alias.fromAliasName(this, 'defaultKey', 'alias/aws/sns')
+    });
     topic.addSubscription(new SqsSubscription(queue));
 
     let textractRole = new Role(this, 'textract-cognito-demo-textract-role', {

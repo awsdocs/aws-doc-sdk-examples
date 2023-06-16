@@ -7,3 +7,4 @@ npm run lint
 
 # Test
 npm test
+echo $?;

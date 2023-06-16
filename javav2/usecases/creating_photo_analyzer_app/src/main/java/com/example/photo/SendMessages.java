@@ -2,6 +2,7 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+
 package com.example.photo;
 
 import org.apache.commons.io.IOUtils;
@@ -32,24 +33,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class SendMessages {
 
-    private String sender = "scmacdon@amazon.com";
-
-    // The subject line for the email.
-    private String subject = "Analyzed photos report";
-
-
-    // The email body for recipients with non-HTML email clients.
-    private String bodyText = "Hello,\r\n" + "Please see the attached file for the analyzed photos report.";
-
-    // The HTML body of the email.
-    private String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-            + "<p>Please see the attached file for the report that analyzed photos in the S3 bucket.</p>" + "</body>" + "</html>";
-
     public void sendReport(InputStream is, String emailAddress ) throws IOException {
-
-        //Convert the InputStream to a byte[]
         byte[] fileContent = IOUtils.toByteArray(is);
-
         try {
             send(fileContent,emailAddress);
         } catch (MessagingException e) {
@@ -58,15 +43,12 @@ public class SendMessages {
     }
 
     public void send(byte[] attachment, String emailAddress) throws MessagingException, IOException {
-
         MimeMessage message = null;
         Session session = Session.getDefaultInstance(new Properties());
-
-        // Create a new MimeMessage object.
         message = new MimeMessage(session);
-
-        // Add subject, from and to lines.
+        String subject = "Analyzed photos report";
         message.setSubject(subject, "UTF-8");
+        String sender = "<Enter your validated email address>";
         message.setFrom(new InternetAddress(sender));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailAddress));
 
@@ -78,10 +60,15 @@ public class SendMessages {
 
         // Define the text part.
         MimeBodyPart textPart = new MimeBodyPart();
+        // The email body for recipients with non-HTML email clients.
+        String bodyText = "Hello,\r\n" + "Please see the attached file for the analyzed photos report.";
         textPart.setContent(bodyText, "text/plain; charset=UTF-8");
 
         // Define the HTML part.
         MimeBodyPart htmlPart = new MimeBodyPart();
+        // The HTML body of the email.
+        String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
+            + "<p>Please see the attached file for the report that analyzed photos in the S3 bucket.</p>" + "</body>" + "</html>";
         htmlPart.setContent(bodyHTML, "text/html; charset=UTF-8");
 
         // Add the text and HTML parts to the child container.
@@ -104,7 +91,6 @@ public class SendMessages {
         MimeBodyPart att = new MimeBodyPart();
         DataSource fds = new ByteArrayDataSource(attachment, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         att.setDataHandler(new DataHandler(fds));
-
         String reportName = "PhotoReport.xls";
         att.setFileName(reportName);
 
@@ -114,11 +100,9 @@ public class SendMessages {
         // Try to send the email.
         try {
             System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
-
-            Region region = Region.US_WEST_2;
             SesClient client = SesClient.builder()
                     .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                    .region(region)
+                    .region(Region.US_WEST_2)
                     .build();
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

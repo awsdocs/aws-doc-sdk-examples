@@ -36,6 +36,9 @@ Resources:
           - Action: polly:SynthesizeSpeech
             Effect: Allow
             Resource: "*"
+          - Action: polly:StartSpeechSynthesisTask
+            Effect: Allow
+            Resource: "*"
         Version: "2012-10-17"
       PolicyName: CognitoDefaultUnauthenticatedRoleDefaultPolicy2B700C08
       Roles:
@@ -126,4 +129,3 @@ Conditions:
           - Fn::Equals:
               - Ref: AWS::Region
               - us-west-2
-

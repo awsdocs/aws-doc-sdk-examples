@@ -2,11 +2,9 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-
 package com.example.photo;
 
 public class BucketItem {
-
     private String key;
     private String owner;
     private String date ;
@@ -36,7 +34,6 @@ public class BucketItem {
     public String getOwner() {
         return this.owner ;
     }
-
 
     public void setKey(String key) {
         this.key = key ;

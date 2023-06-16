@@ -66,10 +66,10 @@ def run_demo
     'Id': "DemoBucketPolicy",
     'Statement': [
       {
-        'Effect': "Allow",
+        'Effect': "Deny",
         'Principal': { 'AWS': policy_user },
         'Action': %w[s3:GetObject s3:ListBucket],
-        'Resource': %W[arn:aws:s3:::#{bucket_name}/* arn:aws:s3:::#{bucket_name}]
+        'NotResource': %W[arn:aws:s3:::#{bucket_name}/* arn:aws:s3:::#{bucket_name}]
       }
     ]
   }.to_json

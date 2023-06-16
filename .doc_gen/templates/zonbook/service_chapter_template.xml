@@ -57,9 +57,9 @@
             on how to set up and run the code.</para>
         {{- else if eq $cat_examples.CategoryName "Actions"}}
         <para>The following code examples demonstrate how to perform individual {{$.ServiceEntity.Short}}
-            actions with &AWS; SDKs. These excerpts call the {{$.ServiceEntity.Short}} API and are not
-            intended to be run in isolation. Each example includes a link to GitHub, where you can find
-            instructions on how to set up and run the code in context.</para>
+            actions with &AWS; SDKs. These excerpts call the {{$.ServiceEntity.Short}} API and
+            are code excerpts from larger programs that must be run in context. Each example includes
+            a link to GitHub, where you can find instructions for setting up and running the code.</para>
         <para>
             The following examples include only the most commonly used actions.
             For a complete list, see the

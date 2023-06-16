@@ -6,7 +6,6 @@
 package com.aws.photo
 
 class WorkItem {
-
     var key: String? = null
     var name: String? = null
     var confidence: String? = null

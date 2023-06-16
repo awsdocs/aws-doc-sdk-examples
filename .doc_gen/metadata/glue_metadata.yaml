@@ -14,6 +14,14 @@ glue_Hello:
             - description:
               snippet_tags:
                 - Glue.dotnetv3.HelloGlue
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/glue
+          excerpts:
+            - description:
+              snippet_tags:
+                - rust.glue.list_jobs
   services:
     glue: {ListJobs}
 glue_GetCrawler:
@@ -68,6 +76,16 @@ glue_GetCrawler:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.GetCrawler
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.GetCrawler
     JavaScript:
       versions:
         - sdk_version: 3
@@ -150,6 +168,16 @@ glue_CreateCrawler:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.CreateCrawler
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.CreateCrawler
     JavaScript:
       versions:
         - sdk_version: 3
@@ -232,6 +260,16 @@ glue_StartCrawler:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.StartCrawler
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.StartCrawler
     JavaScript:
       versions:
         - sdk_version: 3
@@ -313,6 +351,16 @@ glue_GetDatabase:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.GetDatabase
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.GetDatabase
     JavaScript:
       versions:
         - sdk_version: 3
@@ -385,6 +433,16 @@ glue_GetTables:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.GetTables
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.GetTables
     JavaScript:
       versions:
         - sdk_version: 3
@@ -449,6 +507,16 @@ glue_CreateJob:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.CreateJob
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.CreateJob
     JavaScript:
       versions:
         - sdk_version: 3
@@ -514,6 +582,16 @@ glue_StartJobRun:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.StartJobRun
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.StartJobRun
     JavaScript:
       versions:
         - sdk_version: 3
@@ -575,6 +653,16 @@ glue_ListJobs:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.ListJobs
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.ListJobs  
     JavaScript:
       versions:
         - sdk_version: 3
@@ -638,6 +726,16 @@ glue_GetJobRuns:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.GetJobRuns
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.GetJobRuns
     JavaScript:
       versions:
         - sdk_version: 3
@@ -693,6 +791,16 @@ glue_GetJobRun:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.GetJobRun
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.GetJobRun
     JavaScript:
       versions:
         - sdk_version: 3
@@ -755,6 +863,16 @@ glue_DeleteJob:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.DeleteJob
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.DeleteJob
     JavaScript:
       versions:
         - sdk_version: 3
@@ -816,6 +934,16 @@ glue_DeleteTable:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.DeleteTable
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.DeleteTable
     JavaScript:
       versions:
         - sdk_version: 3
@@ -868,6 +996,16 @@ glue_DeleteDatabase:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.DeleteDatabase
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.DeleteDatabase
     JavaScript:
       versions:
         - sdk_version: 3
@@ -930,6 +1068,16 @@ glue_DeleteCrawler:
               snippet_tags:
                 - python.example_code.glue.GlueWrapper.decl
                 - python.example_code.glue.DeleteCrawler
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.decl
+                - ruby.example_code.glue.DeleteCrawler
     JavaScript:
       versions:
         - sdk_version: 3
@@ -997,7 +1145,7 @@ glue_Scenario_GetStartedCrawlersJobs:
     - Create a crawler that crawls a public &S3; bucket and generates
       a database of CSV-formatted metadata.
     - List information about databases and tables in your &GLUDCLong;.
-    - Create a job to extract CSV data from the S3 bucket, transform the data, and 
+    - Create a job to extract CSV data from the S3 bucket, transform the data, and
       load JSON-formatted output into another S3 bucket.
     - List information about job runs, view transformed data, and clean up resources.
   category: Scenarios
@@ -1065,6 +1213,24 @@ glue_Scenario_GetStartedCrawlersJobs:
                 transform, and load data during job runs.
               snippet_tags:
                 - python.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/glue
+          sdkguide:
+          excerpts:
+            - description: Create a class that wraps &GLU; functions used in
+                the scenario.
+              snippet_tags:
+                - ruby.example_code.glue.GlueWrapper.full
+            - description: Create a class that runs the scenario.
+              snippet_tags:
+                - ruby.example_code.glue.Scenario_GetStartedCrawlersJobs
+            - description:
+                Create an ETL script that is used by &GLU; to extract,
+                transform, and load data during job runs.
+              snippet_tags:
+                - ruby.example_code.glue.Scenario_GetStartedCrawlersJobs.job_script
     JavaScript:
       versions:
         - sdk_version: 3

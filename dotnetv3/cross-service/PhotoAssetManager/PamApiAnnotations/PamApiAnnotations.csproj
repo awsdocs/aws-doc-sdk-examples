@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <AWSProjectType>Lambda</AWSProjectType>
+    <!-- This property makes the build directory similar to a publish directory and helps the AWS .NET Lambda Mock Test Tool find project dependencies. -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <!-- Generate ready to run images during publishing to improvement cold starts. -->
+    <PublishReadyToRun>true</PublishReadyToRun>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="Properties\launchSettings.Development.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <_WebToolingArtifacts Remove="Properties\launchSettings.Development.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\launchSettings.Development.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Amazon.Extensions.Configuration.SystemsManager" Version="5.0.3" />
+    <PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
+    <PackageReference Include="Amazon.Lambda.APIGatewayEvents" Version="2.5.0" />
+    <PackageReference Include="Amazon.Lambda.S3Events" Version="3.0.1" />
+    <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.3.0" />
+    <PackageReference Include="Amazon.Lambda.Annotations" Version="0.6.0-preview" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PamServices\PamServices.csproj" />
+  </ItemGroup>
+</Project>

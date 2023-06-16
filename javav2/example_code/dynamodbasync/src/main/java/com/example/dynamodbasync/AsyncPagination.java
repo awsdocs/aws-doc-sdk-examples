@@ -23,20 +23,19 @@ package com.example.dynamodbasync;
 
 // snippet-start:[dynamodb.java2.async_pagination.complete]
 // snippet-start:[dynamodb.java2.async_pagination.import]
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-
+import io.reactivex.rxjava3.core.Flowable;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
-
+import reactor.core.publisher.Flux;
 import software.amazon.awssdk.core.async.SdkPublisher;
 import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesRequest;
 import software.amazon.awssdk.services.dynamodb.model.ListTablesResponse;
 import software.amazon.awssdk.services.dynamodb.paginators.ListTablesPublisher;
-import io.reactivex.Flowable;
-import reactor.core.publisher.Flux;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 // snippet-end:[dynamodb.java2.async_pagination.import]
 
 // snippet-start:[dynamodb.java2.async_pagination.main]
@@ -60,20 +59,20 @@ public class AsyncPagination {
         String method = args[0];
 
         switch (method.toLowerCase()) {
-        case "manual":
-            ManualPagination();
-            break;
-        case "auto":
-            AutoPagination();
-            AutoPaginationOnCollection();
-            useThirdPartySubscriber();
-            useThirdPartySubscriber_Reactor();
-            break;
-        default:
-            ManualPagination();
-            AutoPagination();
-            AutoPaginationOnCollection();
-            useThirdPartySubscriber_Reactor();
+            case "manual":
+                ManualPagination();
+                break;
+            case "auto":
+                AutoPagination();
+                AutoPaginationOnCollection();
+                useThirdPartySubscriber();
+                useThirdPartySubscriber_Reactor();
+                break;
+            default:
+                ManualPagination();
+                AutoPagination();
+                AutoPaginationOnCollection();
+                useThirdPartySubscriber_Reactor();
         }
     }
 
@@ -83,7 +82,7 @@ public class AsyncPagination {
         // Creates a default async client with credentials and regions loaded from the environment
         DynamoDbAsyncClient client = DynamoDbAsyncClient.create();
         CompletableFuture<ListTablesResponse> response = client.listTables(ListTablesRequest.builder()
-                                                                                            .build());
+                .build());
         // Map the response to another CompletableFuture containing just the table names
         CompletableFuture<List<String>> tableNames = response.thenApply(ListTablesResponse::tableNames);
         // When future is complete (either successfully or in error) handle the response
@@ -103,81 +102,77 @@ public class AsyncPagination {
         System.out.println("running AutoPagination...\n");
 
         // snippet-start:[dynamodb.java2.async_pagination.pagesclient]
-        // Creates a default client with credentials and regions loaded from the environment
+        // Creates a default client with credentials and region loaded from the environment.
         final DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
 
         ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
+        ListTablesPublisher publisher = asyncClient.listTablesPaginator(listTablesRequest);
         // snippet-end:[dynamodb.java2.async_pagination.pagesclient]
         // snippet-start:[dynamodb.java2.async_pagination.pagesforeach]
-        ListTablesPublisher publisher = asyncClient.listTablesPaginator(listTablesRequest);
-
-        // Use a for-loop for simple use cases
-        CompletableFuture<Void> future = publisher.subscribe(response -> response.tableNames()
-                                                                               .forEach(System.out::println));
+        // Use a Consumer for simple use cases.
+        CompletableFuture<Void> future = publisher.subscribe(
+                response -> response.tableNames()
+                        .forEach(System.out::println));
         // snippet-end:[dynamodb.java2.async_pagination.pagesforeach]
 
         future.get();
 
         // snippet-start:[dynamodb.java2.async_pagination.pagessubscribe]
-        // Or subscribe method should be called to create a new Subscription.
         // A Subscription represents a one-to-one life-cycle of a Subscriber subscribing to a Publisher.
         publisher.subscribe(new Subscriber<ListTablesResponse>() {
-            // Maintain a reference to the subscription object, which is required to request data from the publisher
+            // Maintain a reference to the subscription object, which is required to request data from the publisher.
             private Subscription subscription;
 
             @Override
             public void onSubscribe(Subscription s) {
                 subscription = s;
-                // Request method should be called to demand data. Here we request a single page
+                // Request method should be called to demand data. Here we request a single page.
                 subscription.request(1);
             }
 
             @Override
             public void onNext(ListTablesResponse response) {
                 response.tableNames().forEach(System.out::println);
-                // Once you process the current page, call the request method to signal that you are ready for next page
+                // After you process the current page, call the request method to signal that you are ready for next page.
                 subscription.request(1);
             }
 
             @Override
             public void onError(Throwable t) {
-                // Called when an error has occurred while processing the requests
+                // Called when an error has occurred while processing the requests.
             }
 
             @Override
             public void onComplete() {
-                // This indicates all the results are delivered and there are no more pages left
+                // This indicates all the results are delivered and there are no more pages left.
             }
-            // snippet-end:[dynamodb.java2.async_pagination.pagessubscribe]
         });
+        // snippet-end:[dynamodb.java2.async_pagination.pagessubscribe]
 
-        // As the above code is non-blocking, make sure your application doesn't end immediately
-        // For this example, I am using Thread.sleep to wait for all pages to get delivered
+        // Since the code above  is non-blocking, make sure your application doesn't end immediately.
+        // For this example, I am using Thread.sleep to wait for all pages to get delivered.
         Thread.sleep(3_000);
     }
 
     private static void AutoPaginationOnCollection() throws InterruptedException, ExecutionException {
-        // snippet-start:[dynamodb.java2.async_pagination.asyncclient]
         System.out.println("running AutoPagination - iterating on item collection...\n");
-
-        // Creates a default client with credentials and regions loaded from the environment
+        // snippet-start:[dynamodb.java2.async_pagination.asyncclient]
+        // Create a default client with credentials and region loaded from the environment.
         final DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
 
-        ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();        
-        // snippet-end:[dynamodb.java2.async_pagination.asyncclient]
-        
+        ListTablesRequest listTablesRequest = ListTablesRequest.builder().limit(3).build();
         ListTablesPublisher listTablesPublisher = asyncClient.listTablesPaginator(listTablesRequest);
         SdkPublisher<String> publisher = listTablesPublisher.tableNames();
+        // snippet-end:[dynamodb.java2.async_pagination.asyncclient]
 
         // snippet-start:[dynamodb.java2.async_pagination.foreach]
-        // Use forEach
+        // Use a Consumer.
         CompletableFuture<Void> future = publisher.subscribe(System.out::println);
         future.get();
         // snippet-end:[dynamodb.java2.async_pagination.foreach]
 
-        
         // snippet-start:[dynamodb.java2.async_pagination.subscriber]
-        // Use subscriber
+        // Use a Subscriber.
         publisher.subscribe(new Subscriber<String>() {
             private Subscription subscription;
 
@@ -194,33 +189,34 @@ public class AsyncPagination {
             }
 
             @Override
-            public void onError(Throwable t) { }
+            public void onError(Throwable t) {
+            }
 
             @Override
-            public void onComplete() { }
-            // snippet-end:[dynamodb.java2.async_pagination.subscriber]
+            public void onComplete() {
+            }
         });
+        // snippet-end:[dynamodb.java2.async_pagination.subscriber]
 
-        // As the above code is non-blocking, make sure your application doesn't end immediately
-        // For this example, I am using Thread.sleep to wait for all pages to get delivered
+        // Since the code above is non-blocking, make sure your application doesn't end immediately.
+        // For this example, I use Thread.sleep to wait for all pages to get delivered.
         Thread.sleep(3_000);
     }
 
     private static void useThirdPartySubscriber() {
-        // snippet-start:[dynamodb.java2.async_pagination.async]
         System.out.println("running AutoPagination - using third party subscriber...\n");
-
+        // snippet-start:[dynamodb.java2.async_pagination.async]
         DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
         ListTablesPublisher publisher = asyncClient.listTablesPaginator(ListTablesRequest.builder()
-                                                                                         .build());
+                .build());
 
-        // The Flowable class has many helper methods that work with any reactive streams compatible publisher implementation
+        // The Flowable class has many helper methods that work with
+        // an implementation of an org.reactivestreams.Publisher.
         List<String> tables = Flowable.fromPublisher(publisher)
-                                      .flatMapIterable(ListTablesResponse::tableNames)
-                                      .toList()
-                                      .blockingGet();
+                .flatMapIterable(ListTablesResponse::tableNames)
+                .toList()
+                .blockingGet();
         System.out.println(tables);
-        
         // snippet-end:[dynamodb.java2.async_pagination.async]
     }
 
@@ -229,13 +225,13 @@ public class AsyncPagination {
 
         DynamoDbAsyncClient asyncClient = DynamoDbAsyncClient.create();
         ListTablesPublisher publisher = asyncClient.listTablesPaginator(ListTablesRequest.builder()
-                                                                                         .build());
+                .build());
 
         // The Flux class has many helper methods that work with any reactive streams compatible publisher implementation
         List<String> tables = Flux.from(publisher)
-                                  .flatMapIterable(ListTablesResponse::tableNames)
-                                  .collectList()
-                                  .block();
+                .flatMapIterable(ListTablesResponse::tableNames)
+                .collectList()
+                .block();
         System.out.println(tables);
     }
 }

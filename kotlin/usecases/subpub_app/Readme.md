@@ -219,29 +219,32 @@ class MessageResource {
 The following Kotlin code represents the **SnsService** class. This class uses the Kotlin SNS API to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message. 
 
 ```kotlin
-     package com.aws.kotlin
+package com.aws.kotlin
 
-     import org.springframework.stereotype.Component
-     import aws.sdk.kotlin.services.sns.SnsClient
-     import aws.sdk.kotlin.services.sns.model.*
-     import org.w3c.dom.Document
-     import java.io.StringWriter
-     import javax.xml.parsers.DocumentBuilderFactory
-     import javax.xml.parsers.ParserConfigurationException
-     import javax.xml.transform.TransformerException
-     import javax.xml.transform.TransformerFactory
-     import javax.xml.transform.dom.DOMSource
-     import javax.xml.transform.stream.StreamResult
-     import kotlin.system.exitProcess
+import aws.sdk.kotlin.services.sns.SnsClient
+import aws.sdk.kotlin.services.sns.model.ListSubscriptionsByTopicRequest
+import aws.sdk.kotlin.services.sns.model.PublishRequest
+import aws.sdk.kotlin.services.sns.model.SubscribeRequest
+import aws.sdk.kotlin.services.sns.model.UnsubscribeRequest
+import aws.sdk.kotlin.services.translate.TranslateClient
+import aws.sdk.kotlin.services.translate.model.TranslateTextRequest
+import org.springframework.stereotype.Component
+import org.w3c.dom.Document
+import java.io.StringWriter
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.parsers.ParserConfigurationException
+import javax.xml.transform.TransformerConfigurationException
+import javax.xml.transform.TransformerException
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
-     @Component
-     class SnsService {
+@Component
+class SnsService {
+    var topicArnVal = "<Enter your topic ARN>"
 
-     var topicArnVal = "<ENTER A TOPIC ARN>"
-
-     // Create a Subscription.
+    // Create a Subscription.
     suspend fun subEmail(email: String?): String? {
-
         val request = SubscribeRequest {
             protocol = "email"
             endpoint = email
@@ -255,23 +258,21 @@ The following Kotlin code represents the **SnsService** class. This class uses t
         }
     }
 
-    suspend fun pubTopic(messageVal: String, lang:String):String {
-
-       val translateClient =  TranslateClient { region = "us-east-1" }
+    suspend fun pubTopic(messageVal: String, lang: String): String {
+        val translateClient = TranslateClient { region = "us-east-1" }
         val body: String
 
         if (lang.compareTo("English") == 0) {
-             body = messageVal
+            body = messageVal
         } else if (lang.compareTo("French") == 0) {
-             val textRequest = TranslateTextRequest {
-                 sourceLanguageCode = "en"
-                  targetLanguageCode = "fr"
-                  text = messageVal
-             }
+            val textRequest = TranslateTextRequest {
+                sourceLanguageCode = "en"
+                targetLanguageCode = "fr"
+                text = messageVal
+            }
 
-             val textResponse = translateClient.translateText(textRequest)
-             body = textResponse.translatedText.toString()
-
+            val textResponse = translateClient.translateText(textRequest)
+            body = textResponse.translatedText.toString()
         } else {
             val textRequest = TranslateTextRequest {
                 sourceLanguageCode = "en"
@@ -284,8 +285,8 @@ The following Kotlin code represents the **SnsService** class. This class uses t
         }
 
         val request = PublishRequest {
-             message = body
-             topicArn = topicArnVal
+            message = body
+            topicArn = topicArnVal
         }
 
         SnsClient { region = "us-west-2" }.use { snsClient ->
@@ -295,32 +296,29 @@ The following Kotlin code represents the **SnsService** class. This class uses t
     }
 
     suspend fun unSubEmail(emailEndpoint: String) {
-
-       val subscriptionArnVal = getTopicArnValue(emailEndpoint)
-       val request = UnsubscribeRequest {
-           subscriptionArn = subscriptionArnVal
-       }
+        val subscriptionArnVal = getTopicArnValue(emailEndpoint)
+        val request = UnsubscribeRequest {
+            subscriptionArn = subscriptionArnVal
+        }
 
         SnsClient { region = "us-west-2" }.use { snsClient ->
             snsClient.unsubscribe(request)
         }
     }
 
-
     // Returns the Sub Amazon Resource Name (ARN) based on the given endpoint used for unSub.
     suspend fun getTopicArnValue(endpoint: String): String? {
-
-       var subArn: String
-       val request = ListSubscriptionsByTopicRequest {
-           topicArn = topicArnVal
-       }
+        var subArn: String
+        val request = ListSubscriptionsByTopicRequest {
+            topicArn = topicArnVal
+        }
 
         SnsClient { region = "us-west-2" }.use { snsClient ->
             val response = snsClient.listSubscriptionsByTopic(request)
             response.subscriptions?.forEach { sub ->
-                 if (sub.endpoint?.compareTo(endpoint) ==0 ) {
-                     subArn = sub.subscriptionArn.toString()
-                     return subArn
+                if (sub.endpoint?.compareTo(endpoint) == 0) {
+                    subArn = sub.subscriptionArn.toString()
+                    return subArn
                 }
             }
             return ""
@@ -330,13 +328,13 @@ The following Kotlin code represents the **SnsService** class. This class uses t
     suspend fun getAllSubscriptions(): String? {
         val subList = mutableListOf<String>()
         val request = ListSubscriptionsByTopicRequest {
-             topicArn = topicArnVal
-         }
+            topicArn = topicArnVal
+        }
 
         SnsClient { region = "us-west-2" }.use { snsClient ->
             val response = snsClient.listSubscriptionsByTopic(request)
             response.subscriptions?.forEach { sub ->
-                              subList.add(sub.endpoint.toString())
+                subList.add(sub.endpoint.toString())
             }
             return convertToString(toXml(subList))
         }
@@ -346,6 +344,7 @@ The following Kotlin code represents the **SnsService** class. This class uses t
     private fun toXml(subsList: List<String>): Document? {
         try {
             val factory = DocumentBuilderFactory.newInstance()
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
             val builder = factory.newDocumentBuilder()
             val doc = builder.newDocument()
 
@@ -372,17 +371,32 @@ The following Kotlin code represents the **SnsService** class. This class uses t
 
     private fun convertToString(xml: Document?): String? {
         try {
-            val transformer = TransformerFactory.newInstance().newTransformer()
+            val transformerFactory = getSecureTransformerFactory()
+            val transformer = transformerFactory?.newTransformer()
             val result = StreamResult(StringWriter())
             val source = DOMSource(xml)
-            transformer.transform(source, result)
+            if (transformer != null) {
+                transformer.transform(source, result)
+            }
             return result.writer.toString()
         } catch (ex: TransformerException) {
             ex.printStackTrace()
         }
         return null
     }
+
+    private fun getSecureTransformerFactory(): TransformerFactory? {
+        val transformerFactory: TransformerFactory = TransformerFactory.newInstance()
+        try {
+            transformerFactory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true)
+        } catch (e: TransformerConfigurationException) {
+            e.printStackTrace()
+        }
+        return transformerFactory
+    }
 }
+
+
 ```
 
 **Note:** Make sure that you assign the SNS topic ARN to the **topicArn** data member. Otherwise, your code does not work. 
