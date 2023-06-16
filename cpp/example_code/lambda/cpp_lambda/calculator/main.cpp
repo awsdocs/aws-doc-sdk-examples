@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 {
     if (argc > 1)
     {
-        aws::logging::log_info (TAG, "Lambda executable %s called with handler %s", argv[0], argv[1]);
+        aws::logging::log_info (TAG, "Lambda executable %s called with handler %s.", argv[0], argv[1]);
     }
 
     const char* log_level = std::getenv("LOG_LEVEL");

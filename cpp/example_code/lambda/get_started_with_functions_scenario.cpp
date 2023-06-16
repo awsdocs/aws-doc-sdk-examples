@@ -199,7 +199,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         std::ifstream ifstream(INCREMENT_LAMBDA_CODE.c_str(),
                                std::ios_base::in | std::ios_base::binary);
         if (!ifstream.is_open()) {
-            std::cerr << "Error opening file " << INCREMENT_LAMBDA_CODE << std::endl;
+            std::cerr << "Error opening file " << INCREMENT_LAMBDA_CODE << "." << std::endl;
 
 #if USE_CPP_LAMBDA_FUNCTION
             std::cerr
@@ -255,7 +255,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
 
     // 3.  Invoke the Lambda function.
     {
-        int increment = askQuestionForInt("Enter an increment integer ");
+        int increment = askQuestionForInt("Enter an increment integer: ");
 
         Aws::Lambda::Model::InvokeResult invokeResult;
         Aws::Utils::Json::JsonValue jsonPayload;
@@ -296,7 +296,7 @@ bool AwsDoc::Lambda::getStartedWithFunctionsScenario(
         std::ifstream ifstream(CALCULATOR_LAMBDA_CODE.c_str(),
                                std::ios_base::in | std::ios_base::binary);
         if (!ifstream.is_open()) {
-            std::cerr << "Error opening file " << INCREMENT_LAMBDA_CODE << std::endl;
+            std::cerr << "Error opening file " << INCREMENT_LAMBDA_CODE << "." << std::endl;
 
 #if USE_CPP_LAMBDA_FUNCTION
             std::cerr
