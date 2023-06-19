@@ -2004,6 +2004,14 @@ s3_ListBuckets:
             - description:
               snippet_tags:
                 - ruby.example_code.s3.ListBuckets
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.listbuckets.getallbuckets
   services:
     s3: {ListBuckets}
 s3_PutObjectAcl:
