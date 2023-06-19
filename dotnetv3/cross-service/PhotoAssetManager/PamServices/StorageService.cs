@@ -20,11 +20,11 @@ public class StorageService
     }
 
     /// <summary>
-    /// Generate a unique filename and presigned url for uploading an image.
+    /// Generate a unique file name and presigned URL for uploading an image.
     /// </summary>
-    /// <param name="fileName">The filename of the image.</param>
+    /// <param name="fileName">The file name of the image.</param>
     /// <param name="storageBucket">The name of the storage bucket.</param>
-    /// <returns>The presigned url.</returns>
+    /// <returns>The presigned URL.</returns>
     public string GetPresignedUrlForImage(string fileName, string storageBucket)
     {
         var uuid = Guid.NewGuid().ToString();
@@ -44,12 +44,12 @@ public class StorageService
     }
 
     /// <summary>
-    /// Generate a zip file for download for a set of images in a bucket.
+    /// Generate a zip file for downloading a set of images from a bucket.
     /// </summary>
     /// <param name="imageKeys">The list of image keys.</param>
     /// <param name="storageBucket">The storage bucket for the images.</param>
     /// <param name="workingBucket">The bucket for the zip file.</param>
-    /// <returns>A presigned url to download the zip file.</returns>
+    /// <returns>A presigned URL to download the zip file.</returns>
     public async Task<string> GenerateZipFromImages(List<string> imageKeys,
         string storageBucket, string workingBucket)
     {
@@ -61,7 +61,7 @@ public class StorageService
         using MemoryStream zipMS = new MemoryStream();
         var archive = new ZipArchive(zipMS, ZipArchiveMode.Create, true);
 
-        // Add each image to the archive stream as they are fetched.
+        // Add each image to the archive stream as it is fetched.
         foreach (var s3Key in imageKeys)
         {
             var entry = archive.CreateEntry(Path.GetFileName(s3Key),
@@ -89,7 +89,7 @@ public class StorageService
     /// Initiate the multipart upload of the zip archive.
     /// </summary>
     /// <param name="archiveName">The name of the archive.</param>
-    /// <param name="archiveBucket">The S3 bucket for the archive.</param>
+    /// <param name="archiveBucket">The Amazon Simple Storage Service (Amazon S3) bucket for the archive.</param>
     /// <returns>The ID for the upload.</returns>
     private async Task<string> InitiateUploadZip(string archiveName,
         string archiveBucket)
@@ -179,7 +179,7 @@ public class StorageService
     /// </summary>
     /// <param name="archiveKey">The key of the archive object.</param>
     /// <param name="storageBucket">The name of the storage bucket.</param>
-    /// <returns>The presigned url.</returns>
+    /// <returns>The presigned URL.</returns>
     public string GetPresignedUrlForArchive(string archiveKey, string storageBucket)
     {
         var preSignedUrlResponse = _amazonS3.GetPreSignedURL(
