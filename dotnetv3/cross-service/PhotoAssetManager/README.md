@@ -1,16 +1,16 @@
-#  Create a photo asset management application with the AWS SDK for .NET (v3)
+#  Create a photo asset management application with the SDK for .NET (v3)
 
 ## Overview
 
 This example shows you how to use the AWS SDK for .NET (v3) to create a photo management application using AWS services and a serverless architecture.
 
-The Photo Asset Management (PAM) example app uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images that are analyzed with label detection. Those labels are then stored in an Amazon DynamoDB table. Users can later request a bundle of images associated with a list of labels. When images are requested, they are retrieved from Amazon S3, zipped, and the user is sent a link to download the resulting zip file.
+The Photo Asset Management (PAM) example app uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images that are analyzed with label detection. Those labels are then stored in an Amazon DynamoDB table. Users can later request a bundle of images associated with a list of labels. When images are requested, they are retrieved from Amazon Simple Storage Service (Amazon S3), zipped, and the user is sent a link to download the resulting zip file.
 For more details on the complete application, see the [PAM application directory](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/applications/photo-asset-manager) in this repository.
 
 ![pam_overview.png](pam_overview.png)
 
 ### Frontend
-The frontend is a single React app that uses the Cloudscape Design System. With the React app, users can authenticate with an Amazon Cognito flow. The app is deployed to an Amazon S3 bucket using the provided AWS CDK stacks and publicly exposed using an Amazon CloudFront distribution. The name is dynamically created during the AWS CDK deployment.
+The frontend is a single React app that uses the Cloudscape Design System. With the React app, users can authenticate with an Amazon Cognito flow. The app is deployed to an Amazon Simple Storage Service (Amazon S3) bucket using the provided AWS Cloud Development Kit (AWS CDK) stacks. It is publicly exposed by using an Amazon CloudFront distribution. The name is dynamically created during the AWS CDK deployment.
 
 ![pam_ui.png](pam_ui.png)
 
@@ -18,10 +18,10 @@ The frontend is a single React app that uses the Cloudscape Design System. With 
 
 The backend of the PAM application is implemented with these AWS Lambda functions:
 
-- **Labels** - Serverless Api endpoint that returns the labels and label count of images in the S3 storage bucket.
-- **Upload** - Serverless Api endpoint that returns a presigned URL for uploading an image.
-- **DetectLabelsFunction** - S3 event function that is invoked when an image object is created in an S3 storage bucket. The new image is analyzed using AWS Rekognition, and label information is stored in a DynamoDB table.
-- **DownloadFunction** - API Gateway function that combines images into a zip file in an S3 storage bucket with a presigned URL for download, and sends a notification message using Amazon SNS.
+- **Labels** - Serverless API endpoint that returns the labels and label count of images in the S3 storage bucket.
+- **Upload** - Serverless API endpoint that returns a presigned URL for uploading an image.
+- **DetectLabelsFunction** - Amazon S3 event function that is invoked when an image object is created in an S3 storage bucket. The new image is analyzed using AWS Rekognition, and label information is stored in a DynamoDB table.
+- **DownloadFunction** - Amazon API Gateway function that combines images into a zip file in an S3 storage bucket with a presigned URL for download, and sends a notification message using Amazon Simple Notification Service (Amazon SNS).
 
 ## ⚠️ Important
 * Running this code might result in charges to your AWS account.
@@ -34,9 +34,9 @@ The backend of the PAM application is implemented with these AWS Lambda function
 To run the code in this example, you need the following:
 
 + An AWS account.
-+ .NET 6
-+ Docker Desktop
-+ NodeJS 18+
++ .NET 6.
++ Docker Desktop.
++ NodeJS 18+.
 + To set up your development environment,
   see [Setting up your AWS SDK for .NET environment](https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/net-dg-setup.html).
 
@@ -45,18 +45,18 @@ To run the code in this example, you need the following:
 Follow the instructions in the
 [README for the Photo Asset Manager application CDK](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/applications/photo-asset-manager/cdk/README.md).
 to use the AWS Cloud Development Kit (AWS CDK) or AWS Command Line Interface
-(AWS CLI) to create and manage the resources used in this example. You must be running Docker in order to complete the steps for this CDK.
+(AWS CLI) to create and manage the resources used in this example. You must be running Docker in order to complete the steps for the AWS CDK.
 
 ## Build the code
 
 The Visual Studio solution **PhotoAssetManager.sln** includes several projects with different purposes for this example.
 
-- **PamApi** - A Lambda Serverless Api project that includes an ApiController for the serverless endpoints, a Swagger UI for development environments, and the separate Download and DetectLabels functions. 
+- **PamApi** - A Lambda Serverless API project that includes an ApiController for the serverless endpoints, a Swagger UI for development environments, and separate Download and DetectLabels functions. 
   - This is the project that will be packaged and deployed when using the `dotnet` language option when setting up the CDK stack.
 - **PamApiAnnotations** - A [Lambda Annotations](https://github.com/aws/aws-lambda-dotnet/blob/master/Libraries/src/Amazon.Lambda.Annotations/README.md) project that includes a version of the serverless endpoints that use Lambda Annotations for .NET.
   - This is the project that will be packaged and deployed when using the `dotnetla` language option when setting up the CDK stack.
 - **PamServices** - A C# library project that includes shared classes and custom services and business logic.
-  - The services in this project are injected into the Api projects' dependency injection setup in the Startup.cs files.
+  - The services in this project are injected into the API projects' dependency injection setup in the Startup.cs files.
 - **PamServices.Test** - An XUnit test project with unit tests for the PamServices project classes.
 
 ### Local development
@@ -65,7 +65,7 @@ You can access this UI by running the `PamApi` project from Visual Studio in deb
 
 ![pam_api_swagger.png](pam_api_swagger.png)
 
-For local development, you will also need to set the following environment variables that are automatically set for you during CDK deployment.
+For local development, you will also need to set the following environment variables that are automatically set for you during the AWS CDK deployment.
 
 * LABELS_TABLE_NAME
 * STORAGE_BUCKET_NAME
@@ -80,7 +80,7 @@ To run the tool for debugging, select the tool from the `Debug` menu in Visual S
 
 ### Application notes
 * The maximum pixel size for analysis is 10000x10000. Larger images will not be analyzed.
-* Some email clients do not support the long length download urls. You may need to remove any spaces from the url before downloading.
+* Some email clients do not support the long length download URLs. You might need to remove spaces from the URL before downloading.
 
 ## Delete the resources
 

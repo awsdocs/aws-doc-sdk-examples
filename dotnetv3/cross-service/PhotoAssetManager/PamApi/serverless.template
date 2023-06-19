@@ -1,7 +1,7 @@
 {
   "AWSTemplateFormatVersion": "2010-09-09",
   "Transform": "AWS::Serverless-2016-10-31",
-  "Description": "An AWS Serverless Application that uses the ASP.NET Core framework running in Amazon Lambda.",
+  "Description": "An AWS Serverless Application that uses the ASP.NET Core framework running in AWS Lambda.",
   "Parameters": {},
   "Conditions": {},
   "Resources": {

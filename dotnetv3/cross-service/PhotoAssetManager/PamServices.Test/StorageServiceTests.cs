@@ -14,7 +14,7 @@ namespace PamServices.Test;
 public class StorageServiceTests
 {
     /// <summary>
-    /// Verify getting a presigned url for upload.
+    /// Verify getting a presigned URL for upload.
     /// </summary>
     [Fact]
     [Trait("Category", "Unit")]
@@ -42,7 +42,7 @@ public class StorageServiceTests
     }
 
     /// <summary>
-    /// Verify getting a presigned url for an archive download.
+    /// Verify getting a presigned URL for an archive download.
     /// </summary>
     [Fact]
     [Trait("Category", "Unit")]
@@ -150,7 +150,7 @@ public class StorageServiceTests
     }
 
     /// <summary>
-    /// Verify generating a zip file from images can use multiple parts.
+    /// Verify generating a zip file from images that can use multiple parts.
     /// </summary>
     [Fact]
     [Trait("Category", "Unit")]

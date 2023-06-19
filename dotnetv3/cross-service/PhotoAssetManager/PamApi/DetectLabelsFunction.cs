@@ -11,7 +11,7 @@ using Amazon.S3;
 using Amazon.Util;
 using PamServices;
 
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
+// Assembly attribute to enable the AWS Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
 namespace PamApi;
@@ -26,9 +26,9 @@ public class DetectLabelsFunction
     private readonly LabelService _labelService;
 
     /// <summary>
-    /// Default constructor. This constructor is used by Lambda to construct the instance. When invoked in a Lambda environment
-    /// the AWS credentials will come from the IAM role associated with the function and the AWS region will be set to the
-    /// region the Lambda function is executed in.
+    /// Default constructor. This constructor is used by AWS Lambda to construct the instance. When invoked in a Lambda environment,
+    /// the AWS credentials will come from the AWS Identity and Access Management (IAM) role associated with the function. The AWS Region will be set to the
+    /// Region the Lambda function is executed in.
     /// </summary>
     public DetectLabelsFunction()
     {
@@ -45,7 +45,7 @@ public class DetectLabelsFunction
     }
 
     /// <summary>
-    /// Constructs an instance with a preconfigured S3 client. This can be used for testing the outside of the Lambda environment.
+    /// Constructs an instance with a preconfigured S3 client. This can be used for testing outside of the Lambda environment.
     /// </summary>
     /// <param name="s3Client"></param>
     public DetectLabelsFunction(IAmazonS3 s3Client)

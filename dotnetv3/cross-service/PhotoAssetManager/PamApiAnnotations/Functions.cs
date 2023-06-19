@@ -11,7 +11,7 @@ using Amazon.Lambda.APIGatewayEvents;
 namespace PamApiAnnotations
 {
     /// <summary>
-    /// A collection of sample Lambda functions that provide a REST api using Lambda annotations for the Photo Analyzer example. 
+    /// A collection of sample AWS Lambda functions that provide a REST API using Lambda annotations for the Photo Analyzer example. 
     /// </summary>
     public class Functions
     {
@@ -51,10 +51,10 @@ namespace PamApiAnnotations
 
         // PUT /upload
         /// <summary>
-        /// Prepare a presigned url for uploading an image.
+        /// Prepare a presigned URL for uploading an image.
         /// </summary>
-        /// <param name="uploadRequest">Request including the filename of the image.</param>
-        /// <returns>The presigned upload url, valid for 5 minutes.</returns>
+        /// <param name="uploadRequest">Request including the file name of the image.</param>
+        /// <returns>The presigned upload URL, valid for 5 minutes.</returns>
         [LambdaFunction()]
         [HttpApi(LambdaHttpMethod.Put, "/upload")]
         public APIGatewayHttpApiV2ProxyResponse Upload([FromBody] UploadRequest uploadRequest)
