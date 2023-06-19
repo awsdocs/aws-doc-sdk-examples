@@ -335,26 +335,6 @@ ec2_RunInstances:
                 - cpp.example_code.ec2.RunInstances
   services:
     ec2: {RunInstances}
-ec2_CreateVpc:
-  title: Create an &EC2; VPC using an &AWS; SDK
-  title_abbrev: Create a VPC
-  synopsis: create an &EC2; VPC.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/EC2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - EC2.dotnetv3.CreateVPC
-            - description: Create a VPC endpoint to use with an Amazon Simple Storage Service (Amazon S3) client.
-              snippet_tags:
-                - EC2.dotnetv3.CreateVPCforS3
-  services:
-    ec2: {CreateVpc}
 ec2_StartInstances:
   title: Start an &EC2; instance using an &AWS; SDK
   title_abbrev: Start an instance
@@ -1398,23 +1378,6 @@ ec2_RebootInstances:
                 - ec2.cpp.reboot_instance.code
   services:
     ec2: {RebootInstances}
-ec2_DeleteVPC:
-  title: Delete an &EC2; VPC using an &AWS; SDK
-  title_abbrev: Delete a VPC
-  synopsis: delete an &EC2; VPC.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/EC2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - EC2.dotnetv3.DeleteVPC
-  services:
-    ec2: {DeleteVpc}
 ec2_DescribeImages:
   title: Get data about Amazon Machine Images using an &AWS; SDK
   title_abbrev: Get data about Amazon Machine Images
