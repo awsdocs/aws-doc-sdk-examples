@@ -1,6 +1,6 @@
 //
-// Tests for the `ListBuckets` example for Amazon Simple Storage Service (S3)
-// using the AWS SDK for Swift.
+// Tests for the `ListBuckets` example for Amazon Simple Storage Service
+// (Amazon S3) using the AWS SDK for Swift.
 //
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
@@ -8,8 +8,8 @@
 
 import XCTest
 import Foundation
-import AWSS3
 import ClientRuntime
+import AWSS3
 
 @testable import listbuckets
 
@@ -78,11 +78,10 @@ final class ListBucketsTests: XCTestCase {
     /// The session to use for Amazon S3 calls. In this case, it's a mock
     /// implementation. 
     var session: MockS3Session? = nil
-    /// The `S3Manager` that uses the session to perform our S3 operations.
+    /// The `S3Manager` that uses the session to perform Amazon S3 operations.
     var s3: S3Manager? = nil
 
-    /// Perform one-time initialization that is done before starting to
-    /// execute the tests.
+    /// Perform one-time initialization before executing any tests.
     override class func setUp() {
         super.setUp()
         SDKLoggingSystem.initialize(logLevel: .error)
@@ -113,7 +112,7 @@ final class ListBucketsTests: XCTestCase {
         df.dateStyle = .short
         df.timeStyle = .long
 
-        // Go through the results and ensure they match what we expect.
+        // Go through the results and make sure they match what we expect.
         for bucket in bucketList {
             var dateStr: String? = nil
 
@@ -127,9 +126,9 @@ final class ListBucketsTests: XCTestCase {
         XCTAssertTrue(itemList.count == 0, "Retrieved list doesn't match")
     }
 
-    /// Test the command's ``bucketString()`` function by calling it with a
-    /// known bucket name and a date for which the string is known. Then
-    /// compare the result to the expected value.
+    /// Test the ``bucketString()`` function by calling it with a known bucket
+    /// name and a date for which the string is known. Then compare the result
+    /// to the expected value.
     func testBucketString() async throws {
         let testDate = "1/23/45, 6:07:08 PM UTC"
         let testName = "test-bucket-name"
@@ -144,37 +143,26 @@ final class ListBucketsTests: XCTestCase {
             name: testName
         )
 
-        // Create an ExampleCommand to on which to call `bucketString()`.
-
-        let command = try ExampleCommand.parse([])
-        let bs = command.bucketString(bucket)
-
+        let bs = bucketString(bucket)
+        
         XCTAssertEqual(bs, testString, "Converted date doesn't match original")
     }
 
-    /// Test the ``ExampleCommand`` function ``dateToString()`` by calling it
-    /// with a `Date` object for which we know the expected string result.
+    /// Test the function ``dateToString()`` by calling it with a `Date`
+    /// object for which we know the expected string result.
     func testDateToString() async throws {
         let testDate = Date(timeIntervalSinceReferenceDate: -123456789.0)
         let testString = "2/2/97, 2:26:51 AM UTC"
 
-        // Create an ExampleCommand on which to call `dateToString()`. Then
-        // call `dateToString()` and check the result.
+        let ds = dateToString(testDate)
 
-        let command = try ExampleCommand.parse([])
-        let ds = command.dateToString(testDate)
-        
         XCTAssertEqual(ds, testString, "Converted date doesn't match expected string")
     }
 
     /// Test that calling ``dateToString()`` with a `nil` input returns the
     /// expected result.
     func testDateToStringUnknown() async throws {
-        // Create an ExampleCommand on which to call `dateToString()`. Then
-        // call `dateToString()` and check the result.
-
-        let command = try ExampleCommand.parse([])
-        let ds = command.dateToString(nil)
+        let ds = dateToString(nil)
 
         XCTAssertEqual(ds, "<unknown>", "Result of dateToString(nil) should be 'unknown' but was '\(ds)'")
     }

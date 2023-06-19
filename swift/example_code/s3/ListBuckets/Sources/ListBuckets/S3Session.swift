@@ -1,10 +1,10 @@
-/// A class containing functions to access Amazon Simple Storage Service (S3).
-/// The functions are defined by the protocol ``S3SessionProtocol``, which is
-/// then implemented by S3Session, which simply forwards requests to the AWS
-/// SDK for Swift.
+/// The `S3Manager` class provides functions to access Amazon Simple Storage
+/// Service (Amazon S3). `S3Manager` hands off the actual Amazon S3 operations
+/// to a worker object that implements the protocol ``S3SessionProtocol``.
 ///
-/// For testing purposes (see the file `S3SessionTests.swift`), the protocol
-/// is implemented by ``S3SessionMock``.
+/// When creating an ``S3Manager`` object that actually calls Amazon S3 using
+/// the AWS SDK for Swift, specify an `S3Session` instance. Use a
+/// `MockS3Session` instance to use mock data for testing.
 ///
 /// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 /// SPDX-License-Identifier: Apache-2.0
@@ -22,8 +22,8 @@ public protocol S3SessionProtocol {
 // snippet-end:[s3.swift.listbuckets.s3sessionprotocol]
 
 // snippet-start:[s3.swift.listbuckets.s3session]
-/// An implementation of ``S3SessionProtocol`` that calls right through to
-/// equivalent functions in the AWS SDK for Swift.
+/// An implementation of ``S3SessionProtocol`` that calls the equivalent
+/// functions in the AWS SDK for Swift.
 public struct S3Session: S3SessionProtocol {
     let client: S3Client
     let awsRegion: String
