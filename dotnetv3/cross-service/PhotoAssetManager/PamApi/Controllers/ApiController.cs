@@ -17,8 +17,8 @@ public class ApiController : ControllerBase
     /// Constructor for the controller, uses dependency injection to get the services needed.
     /// </summary>
     /// <param name="storageService">The injected image service.</param>
-    /// <param name="labelService">the injected label service.</param>
-    /// <param name="imageService">the injected image service.</param>
+    /// <param name="labelService">The injected label service.</param>
+    /// <param name="imageService">The injected image service.</param>
     public ApiController(StorageService storageService, LabelService labelService, ImageService imageService)
     {
         _storageService = storageService;
@@ -28,10 +28,10 @@ public class ApiController : ControllerBase
 
     // PUT /upload
     /// <summary>
-    /// Prepare a presigned url for uploading an image.
+    /// Prepare a presigned URL for uploading an image.
     /// </summary>
-    /// <param name="uploadRequest">Request including the filename of the image.</param>
-    /// <returns>The presigned upload url, valid for 5 minutes.</returns>
+    /// <param name="uploadRequest">Request including the file name of the image.</param>
+    /// <returns>The presigned upload URL, valid for 5 minutes.</returns>
     [HttpPut("upload")]
     public IActionResult Upload([FromBody] UploadRequest uploadRequest)
     {
@@ -74,7 +74,7 @@ public class ApiController : ControllerBase
 
     // GET /test-detect
     /// <summary>
-    /// Test a detect operation with an S3 bucket and image key.
+    /// Test a detect operation with an Amazon Simple Storage Service (Amazon S3) bucket and image key.
     /// </summary>
     /// <param name="bucket">The S3 bucket of the image.</param>
     /// <param name="key">The image key.</param>

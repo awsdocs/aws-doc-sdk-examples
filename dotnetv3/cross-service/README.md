@@ -23,8 +23,8 @@ The application uses the following services:
 
 - Amazon Rekognition
 - Amazon DynamoDB
-- Amazon S3
-- Amazon SNS
+- Amazon Simple Storage Service (Amazon S3)
+- Amazon Simple Notification Service (Amazon SNS)
 - AWS Lambda
 - Amazon Cognito
 - Amazon API Gateway
@@ -38,7 +38,7 @@ The application uses the following services:
 
 - Amazon Aurora
 - Amazon Relational Database Service (Amazon RDS)
-- Amazon SES
+- Amazon Simple Email Service (Amazon SES)
 
 ### [Subscribe, publish, and translate example](SubscribePublishTranslate/Readme.md).
 

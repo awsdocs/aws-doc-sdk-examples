@@ -26,9 +26,9 @@ public class DownloadFunction
     private readonly LabelService _labelService;
 
     /// <summary>
-    /// Default constructor. This constructor is used by Lambda to construct the instance. When invoked in a Lambda environment
-    /// the AWS credentials will come from the IAM role associated with the function and the AWS region will be set to the
-    /// region the Lambda function is executed in.
+    /// Default constructor. This constructor is used by AWS Lambda to construct the instance. When invoked in a Lambda environment,
+    /// the AWS credentials will come from the AWS Identity and Access Management (IAM) role associated with the function. The AWS Region will be set to the
+    /// Region the Lambda function is executed in.
     /// </summary>
     public DownloadFunction()
     {
