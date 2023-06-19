@@ -101,7 +101,7 @@ public class ECSWrapper
 
     // snippet-start:[ECS.dotnetv3.ECSActions.ListTasks]
     /// <summary>
-    /// List tasks ARNs available.
+    /// List task ARNs available.
     /// </summary>
     /// <param name="clusterARN">The arn of the ECS cluster.</param>
     /// <returns>The ARN list of tasks in given cluster.</returns>

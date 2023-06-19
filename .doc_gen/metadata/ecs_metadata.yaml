@@ -214,7 +214,7 @@ ecs_UpdateService:
   services:
     ecs: {UpdateService}
 ecs_Scenario_GetClustersServicesAndTasks:
-  title: Get ARN information for with &ECS; clusters, services, and tasks using an &AWS; SDK
+  title: Get ARN information for &ECS; clusters, services, and tasks using an &AWS; SDK
   title_abbrev: Get ARN information for clusters, services, and tasks
   synopsis_list:
     - Get a list of all clusters.
