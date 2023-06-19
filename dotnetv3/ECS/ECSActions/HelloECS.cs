@@ -1,12 +1,9 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+// snippet-start:[ECS.dotnetv3.ECSActions.HelloECS]
 using Amazon.ECS;
 using Amazon.ECS.Model;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace ECSActions;
@@ -35,3 +32,4 @@ public class HelloECS
         }
     }
 }
+// snippet-end:[ECS.dotnetv3.ECSActions.HelloECS]
