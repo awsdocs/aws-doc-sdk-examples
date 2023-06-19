@@ -42,6 +42,7 @@ let package = Package(
             ],
             path: "./Sources/ListBuckets"
         ),
+        // snippet-end:[s3.swift.listbuckets.targets-executable]
         // snippet-start:[s3.swift.listbuckets.targets-test]
         .testTarget(
             name: "listbuckets-tests",
