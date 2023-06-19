@@ -29,6 +29,7 @@ import { LogGroup } from "aws-cdk-lib/aws-logs";
 import { AppAuth } from "./constructs/app-auth";
 import { AppRoutes } from "./constructs/app-routes";
 import { Empty, EnvModel } from "./constructs/app-api-models";
+import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 
 export class AppStack extends Stack {
   constructor(scope: Construct) {
@@ -113,18 +114,22 @@ export class AppStack extends Stack {
     //   { cognitoUserPools: [auth.userPool] }
     // );
 
+    // Create env lambda.
     const variables = {
       COGNITO_USER_POOL_BASE_URL: auth.userPoolDomain.baseUrl(),
-      // COGNITO_APP_CLIENT_ID: auth.appClient.userPoolClientId,
+      COGNITO_USER_POOL_ID: auth.userPool.userPoolId,
     };
 
     console.log("Environment", variables);
+
+    const envLambda = new AppEnvLambda(this, { variables });
+    auth.userPool.grant(envLambda.fn, "cognito-idp:ListUserPoolClients");
 
     // Add env route.
     routes.addLambdaRoute({
       path: "env",
       method: "GET",
-      fn: new AppEnvLambda(this, { variables }).fn,
+      fn: envLambda.fn,
       model: {
         request: new Empty(this, { restApi: api }),
         response: new EnvModel(this, { restApi: api }),

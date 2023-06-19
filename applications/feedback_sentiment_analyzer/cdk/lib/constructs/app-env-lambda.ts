@@ -16,6 +16,7 @@ export class AppEnvLambda extends Construct {
     this.fn = new Function(this, "env-lambda", {
       runtime: Runtime.NODEJS_18_X,
       environment: props.variables,
+
       code: Code.fromInline(
         readFileSync(join(__dirname, "website-env-fn.js")).toString()
       ),
