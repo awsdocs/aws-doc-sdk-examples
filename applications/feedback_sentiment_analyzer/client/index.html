@@ -8,16 +8,6 @@
   </head>
   <body>
     <div id="root">Loading...</div>
-    <script type="module">
-      (async () => {
-        // Load the environment JSON.
-        window.APP_ENV = await (await fetch("/api/env")).json();
-        root.innerText = "";
-        const main = document.createElement("script");
-        main.type = "module";
-        main.src = "/src/main.tsx";
-        document.body.appendChild(main);
-      })();
-    </script>
+    <script type="module" src="./src/main.tsx"></script>
   </body>
 </html>

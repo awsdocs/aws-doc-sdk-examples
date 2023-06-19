@@ -21,6 +21,7 @@ import {
   CachePolicy,
   Distribution,
   OriginRequestPolicy,
+  ResponseHeadersPolicy,
   ViewerProtocolPolicy,
 } from "aws-cdk-lib/aws-cloudfront";
 import { RestApiOrigin, S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
@@ -61,21 +62,35 @@ export class AppStack extends Stack {
 
     // Create static S3 website behind a CloudFront distribution.
     const website = new AppCloudFrontWebsite(this, "client", {
-      // distribution,
-      // sitePath: "*",
       assetPath: "../client",
     });
 
     // Create CloudFront distribution
+    const s3Origin = new S3Origin(website.bucket);
+    const s3OriginConfig = {
+      origin: s3Origin,
+      viewerProtocolPolicy: ViewerProtocolPolicy.ALLOW_ALL,
+      cachePolicy: CachePolicy.CACHING_OPTIMIZED,
+      originRequestPolicy: OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+    };
     const distribution = new Distribution(this, "website-distribution", {
       defaultRootObject: "index.html",
-      defaultBehavior: {
-        origin: new S3Origin(website.bucket),
-        viewerProtocolPolicy: ViewerProtocolPolicy.ALLOW_ALL,
-        cachePolicy: CachePolicy.CACHING_OPTIMIZED,
-        originRequestPolicy: OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
-      },
+      defaultBehavior: s3OriginConfig,
       additionalBehaviors: {
+        "/*.js": {
+          ...s3OriginConfig,
+          responseHeadersPolicy: new ResponseHeadersPolicy(this, "js-content", {
+            customHeadersBehavior: {
+              customHeaders: [
+                {
+                  header: "Content-Type",
+                  value: "text/javascript",
+                  override: true,
+                },
+              ],
+            },
+          }),
+        },
         "/api/*": {
           origin: new RestApiOrigin(api),
           viewerProtocolPolicy: ViewerProtocolPolicy.ALLOW_ALL,

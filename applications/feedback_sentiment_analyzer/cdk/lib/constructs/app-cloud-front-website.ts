@@ -1,11 +1,5 @@
 import { BundlingOutput, DockerImage, RemovalPolicy } from "aws-cdk-lib";
-import {
-  CfnDistribution,
-  CfnOriginAccessControl,
-  Distribution,
-  ViewerProtocolPolicy,
-} from "aws-cdk-lib/aws-cloudfront";
-import { S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
+import { Distribution } from "aws-cdk-lib/aws-cloudfront";
 import {
   AccountRootPrincipal,
   Effect,
@@ -33,34 +27,6 @@ export class AppCloudFrontWebsite extends Construct {
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
     });
-
-    // const s3Origin = new S3Origin(this.bucket);
-
-    // props.distribution.addBehavior(props.sitePath, s3Origin, {
-    //   viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-    // });
-
-    // const oac = new CfnOriginAccessControl(this, "website-bucket-oac", {
-    //   originAccessControlConfig: {
-    //     name: `${id}-website-bucket-oac`,
-    //     originAccessControlOriginType: "s3",
-    //     signingBehavior: "always",
-    //     signingProtocol: "sigv4",
-    //   },
-    // });
-
-    // const cfnDistribution = props.distribution.node
-    //   .defaultChild as CfnDistribution;
-
-    // cfnDistribution.addPropertyOverride(
-    //   "DistributionConfig.Origins.1.S3OriginConfig.OriginAccessIdentity",
-    //   ""
-    // );
-
-    // cfnDistribution.addPropertyOverride(
-    //   "DistributionConfig.Origins.1.OriginAccessControlId",
-    //   oac.getAtt("Id")
-    // );
 
     new BucketDeployment(this, "website-assets-deployment", {
       destinationBucket: this.bucket,
@@ -94,7 +60,10 @@ export class AppCloudFrontWebsite extends Construct {
           "AWS:SourceArn": distributionArn,
         },
       },
-      resources: [this.bucket.arnForObjects("*")],
+      resources: [
+        this.bucket.arnForObjects("*"),
+        this.bucket.arnForObjects("assets/*"),
+      ],
     });
 
     this.bucket.addToResourcePolicy(bucketPolicyAllowCloudFront);

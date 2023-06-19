@@ -1,6 +1,10 @@
-exports.handler = async function () {
+/**
+ * @type {import("@types/aws-lambda").APIGatewayProxyHandler}
+ * @param {import("@types/aws-lambda").APIGatewayProxyEvent} event
+ */
+async function handler() {
   return {
-    status: 200,
+    statusCode: 200,
     headers: {
       "Content-Type": "application/json",
     },
@@ -9,4 +13,6 @@ exports.handler = async function () {
       COGNITO_SIGN_OUT_URL: `${process.env.COGNITO_USER_POOL_BASE_URL}/logout?client_id=${process.env.COGNITO_APP_CLIENT_ID}`,
     }),
   };
-};
+}
+
+exports.handler = handler;

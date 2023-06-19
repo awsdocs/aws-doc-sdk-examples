@@ -1,5 +1,4 @@
 import {
-  AuthorizationType,
   IAuthorizer,
   LambdaIntegration,
   Model,
