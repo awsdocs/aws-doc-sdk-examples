@@ -1,6 +1,6 @@
 // snippet-sourcedescription:[SNSScenario.kt demonstrates how to perform various Amazon Simple Notification Service (Amazon SNS) operations.]
-// snippet-keyword:[AWS SDK for Java v2]
-// snippet-keyword:[Amazon Simple Notification Service]
+// snippet-keyword:[AWS SDK for Kotlin]
+// snippet-keyword:[Amazon SNS]
 
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
@@ -40,7 +40,7 @@ including your AWS credentials.
 For more information, see the following documentation topic:
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
-This Kotlin example performs these tasks:
+This Kotlin example performs the following tasks:
 
  1. Gives the user three options to choose from.
  2. Creates an Amazon Simple Notification Service (Amazon SNS) topic.
@@ -63,14 +63,12 @@ suspend fun main() {
     var topicName: String
     var deduplicationID: String? = null
     var groupId: String? = null
-
     val topicArn: String?
     var sqsQueueName: String
     val sqsQueueUrl: String?
     val sqsQueueArn: String
     val subscriptionArn: String?
     var selectFIFO = false
-
     val message: String
     val messageList: List<Message?>?
     val filterList = ArrayList<String>()
@@ -110,12 +108,12 @@ suspend fun main() {
         println("Would you like to use content-based deduplication instead of entering a deduplication ID? (y/n)")
         duplication = input.nextLine()
         if (duplication.compareTo("y") == 0) {
-            println("Please enter a group id value")
+            println("Enter a group id value")
             groupId = input.nextLine()
         } else {
-            println("Please enter deduplication Id value")
+            println("Enter deduplication Id value")
             deduplicationID = input.nextLine()
-            println("Please enter a group id value")
+            println("Enter a group id value")
             groupId = input.nextLine()
         }
     }
@@ -512,7 +510,6 @@ suspend fun setQueueAttr(queueUrlVal: String?, policy: String) {
 }
 
 suspend fun getSQSQueueAttrs(queueUrlVal: String?): String {
-    // Specify the attributes to retrieve.
     val atts: MutableList<QueueAttributeName> = ArrayList()
     atts.add(QueueAttributeName.QueueArn)
 
@@ -574,7 +571,6 @@ suspend fun createQueue(queueNameVal: String?, selectFIFO: Boolean): String? {
     }
 }
 
-// Create a topic by using the SNS service client.
 suspend fun createSNSTopic(topicName: String?): String? {
     val request = CreateTopicRequest {
         name = topicName
@@ -586,7 +582,6 @@ suspend fun createSNSTopic(topicName: String?): String? {
     }
 }
 
-// Create a FIFO topic by using the SNS service client.
 suspend fun createFIFO(topicName: String?, duplication: String): String? {
     val topicAttributes: MutableMap<String, String> = HashMap()
     if (duplication.compareTo("n") == 0) {

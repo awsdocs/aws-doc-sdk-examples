@@ -1,4 +1,4 @@
-# ***Publish and subscribe to topics using filters and queues using the AWS SDK for Kotlin***
+# ***Publish and subscribe to topics using filters and queues with the SDK for Kotlin***
 
 ## Overview
 
@@ -7,7 +7,7 @@ Publish and subscribe is a mechanism for passing information. It’s used in soc
 
 Use the sample code in this folder to explore publishing and subscribing to a topic by using filters and queues. This tutorial does not create a complete end-to-end application. Instead, you can use it to play around with a publish and subscribe architecture.
 
-You can create an Amazon SNS topic and subscribe an Amazon SQS queue to the topic. You can enable FIFO (First-In-First-Out) queueing, and you can add filtered subscriptions. Then, you can publish messages to the topic and see the results in the queues.
+You can create an Amazon Simple Notification Service (Amazon SNS) topic and subscribe an Amazon Simple Queue Service (Amazon SQS) queue to the topic. You can enable FIFO (First-In-First-Out) queueing, and you can add filtered subscriptions. Then, you can publish messages to the topic and see the results in the queues.
 
 You can publish and subscribe using Amazon SNS alone. But combining Amazon SNS with Amazon SQS gives you more flexibility in how the messages are consumed.
 
@@ -23,7 +23,7 @@ The AWS SDK for Kotlin sample code builds a command line application that asks y
 Would you like to work with FIFO topics? (y/n) 
 ```
 
-You configure FIFO (First-In-First-Out) topics when you create them. Choosing a FIFO topic enables other options, too. To learn more, see [FIFO topics example use case](https://docs.aws.amazon.com/sns/latest/dg/fifo-example-use-case.html).
+You configure FIFO topics when you create them. Choosing a FIFO topic enables other options, too. To learn more, see [FIFO topics example use case](https://docs.aws.amazon.com/sns/latest/dg/fifo-example-use-case.html).
 
 
 ```
@@ -66,7 +66,7 @@ You can filter messages by one or more of the following "tone" attributes.
 2. funny
 3. serious
 4. sincere
-Enter a number (or enter zero to stop adding more)
+Enter a number (or enter zero to stop adding more).
 ```
 
 If you add a filter, you can select one or more “tone” attributes to filter by. When you’re done, enter “0’” to continue.
@@ -137,15 +137,15 @@ When you are done posting messages, the application polls the queues and display
 
 ### Prerequisites
 
-Before using the code examples, make sure to properly set up your development environment. For information, see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
+Before using the code examples, make sure to properly set up your development environment. For more information, see [Get started with the SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/get-started.html).
 
 
 ###  Instructions
 
-This example uses Gradle to set up the AWS SDK for Kotlin. The Gradle build file is located in this folder. For information, see [Create a project file](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup-create-project-file.html).
+This example uses Gradle to set up the SDK for Kotlin. The Gradle build file is located in this folder. For more information, see [Create a project file](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup-create-project-file.html).
 
 
-Running this example requires AWS Identity and Access Management (IAM) permissions for both SNS and SQS.
+Running this example requires AWS Identity and Access Management (IAM) permissions for both Amazon SNS and Amazon SQS.
 
 ## Additional resources
 
