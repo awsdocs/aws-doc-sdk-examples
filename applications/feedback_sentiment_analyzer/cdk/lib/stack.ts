@@ -5,7 +5,7 @@ import { APP_LANG, APP_EMAIL, PREFIX } from "./env";
 import { AppLambdas } from "./constructs/app-lambdas";
 import { getFunctions as getFunctionConfigs } from "./functions";
 import { AppStateMachine } from "./constructs/app-state-machine";
-import { AppCloudFrontWebsite } from "./constructs/app-cloud-front-website";
+import { AppS3Website } from "./constructs/app-s3-website";
 import { AppEnvLambda } from "./constructs/app-env-lambda";
 import { Cors, RestApi } from "aws-cdk-lib/aws-apigateway";
 import {
@@ -55,7 +55,7 @@ export class AppStack extends Stack {
     });
 
     // Create static S3 website behind a CloudFront distribution.
-    const website = new AppCloudFrontWebsite(this, "client", {
+    const website = new AppS3Website(this, "client", {
       assetPath: "../client",
     });
 
@@ -93,7 +93,7 @@ export class AppStack extends Stack {
         },
       },
     });
-    website.attachPolicy(distribution);
+    website.grantDistributionRead(distribution);
 
     // Create Cognito user pool and client.
     const auth = new AppAuth(this, `${prefix}-auth`, {
