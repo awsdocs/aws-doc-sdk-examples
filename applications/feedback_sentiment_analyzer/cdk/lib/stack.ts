@@ -7,16 +7,7 @@ import { getFunctions as getFunctionConfigs } from "./functions";
 import { AppStateMachine } from "./constructs/app-state-machine";
 import { AppCloudFrontWebsite } from "./constructs/app-cloud-front-website";
 import { AppEnvLambda } from "./constructs/app-env-lambda";
-import {
-  AccessLogFormat,
-  CognitoUserPoolsAuthorizer,
-  Cors,
-  JsonSchemaType,
-  JsonSchemaVersion,
-  LogGroupLogDestination,
-  Model,
-  RestApi,
-} from "aws-cdk-lib/aws-apigateway";
+import { Cors, RestApi } from "aws-cdk-lib/aws-apigateway";
 import {
   CachePolicy,
   Distribution,
@@ -25,11 +16,9 @@ import {
   ViewerProtocolPolicy,
 } from "aws-cdk-lib/aws-cloudfront";
 import { RestApiOrigin, S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
-import { LogGroup } from "aws-cdk-lib/aws-logs";
 import { AppAuth } from "./constructs/app-auth";
 import { AppRoutes } from "./constructs/app-routes";
 import { Empty, EnvModel } from "./constructs/app-api-models";
-import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 
 export class AppStack extends Stack {
   constructor(scope: Construct) {
@@ -41,7 +30,11 @@ export class AppStack extends Stack {
     const appLambdas = new AppLambdas(this, "fn", fnConfigs);
 
     // Create state machine.
-    new AppStateMachine(this, prefix, appLambdas.functions);
+    const appStateMachine = new AppStateMachine(
+      this,
+      prefix,
+      appLambdas.functions
+    );
 
     // Create API
     // const logGroup = new LogGroup(this, `api-log-group`);

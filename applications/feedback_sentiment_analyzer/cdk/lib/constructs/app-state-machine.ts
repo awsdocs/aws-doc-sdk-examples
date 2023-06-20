@@ -4,9 +4,11 @@ import { LambdaInvoke } from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Chain, StateMachine } from "aws-cdk-lib/aws-stepfunctions";
 
 export class AppStateMachine extends Construct {
+  readonly stateMachine: StateMachine;
+
   constructor(scope: Construct, id: string, functions: AppFunction[]) {
     super(scope, id);
-    this.createStateMachine(functions);
+    this.stateMachine = this.createStateMachine(functions);
   }
 
   private createStateMachine([first, ...rest]: AppFunction[]) {
