@@ -44,6 +44,7 @@ export class AppStack extends Stack {
         allowCredentials: true,
       },
       deployOptions: {
+        // These settings require extra permissions. See https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html
         // accessLogDestination: new LogGroupLogDestination(logGroup),
         // accessLogFormat: AccessLogFormat.jsonWithStandardFields(),
       },
@@ -78,7 +79,7 @@ export class AppStack extends Stack {
               customHeaders: [
                 {
                   header: "Content-Type",
-                  value: "text/javascript",
+                  value: "application/javascript",
                   override: true,
                 },
               ],
@@ -112,8 +113,6 @@ export class AppStack extends Stack {
       COGNITO_USER_POOL_BASE_URL: auth.userPoolDomain.baseUrl(),
       COGNITO_USER_POOL_ID: auth.userPool.userPoolId,
     };
-
-    console.log("Environment", variables);
 
     const envLambda = new AppEnvLambda(this, { variables });
     auth.userPool.grant(envLambda.fn, "cognito-idp:ListUserPoolClients");
