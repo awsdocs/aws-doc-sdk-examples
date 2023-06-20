@@ -113,7 +113,7 @@ func (scenTest *GetStartedClustersTest) SetupDataAndStubs() []testtools.Stub {
 		scenTest.dbEngine, instanceClasses[instanceChoice], nil))
 	stubList = append(stubList, stubs.StubGetInstance(scenTest.clusterName, "available", nil))
 
-	// DisplayConnection - no stubs needed
+	// DisplayConnection - No stubs needed.
 
 	// CreateSnapshot
 	stubList = append(stubList, stubs.StubCreateClusterSnapshot(scenTest.clusterName, snapshotId, nil))
