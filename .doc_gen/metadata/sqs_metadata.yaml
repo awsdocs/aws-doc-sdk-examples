@@ -12,7 +12,7 @@ sqs_Hello:
           sdkguide:
           excerpts:
             - snippet_tags:
-                - sqs.kotlin.hello.main
+                - sqs.kotlin.hellosqs.main
     Java:
       versions:
         - sdk_version: 2
