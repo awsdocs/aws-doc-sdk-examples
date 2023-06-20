@@ -24,6 +24,7 @@ export class AppCloudFrontWebsite extends Construct {
     super(scope, id);
 
     this.bucket = new Bucket(this, "website-bucket", {
+      enforceSSL: true,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
     });
