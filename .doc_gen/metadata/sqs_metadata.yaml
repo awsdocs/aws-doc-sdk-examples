@@ -5,7 +5,7 @@ sqs_Hello:
   synopsis: get started using &SQS;.
   category: Hello
   languages:
-      Kotlin:
+    Kotlin:
       versions:
         - sdk_version: 1
           github: kotlin/services/sqs
