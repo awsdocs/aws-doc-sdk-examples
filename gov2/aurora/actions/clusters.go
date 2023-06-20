@@ -30,7 +30,7 @@ func (clusters *DbClusters) GetParameterGroup(parameterGroupName string) (
 	if err != nil {
 		var notFoundError *types.DBParameterGroupNotFoundFault
 		if errors.As(err, &notFoundError) {
-			log.Printf("Paramter group %v does not exist.\n", parameterGroupName)
+			log.Printf("Parameter group %v does not exist.\n", parameterGroupName)
 			err = nil
 		} else {
 			log.Printf("Error getting parameter group %v: %v\n", parameterGroupName, err)

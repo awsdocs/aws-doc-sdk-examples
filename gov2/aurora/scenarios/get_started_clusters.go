@@ -200,7 +200,6 @@ func (scenario GetStartedClusters) CreateCluster(clusterName string, dbEngine st
 	if cluster == nil {
 		adminUsername := scenario.questioner.Ask(
 			"Enter an administrator user name for the database: ", demotools.NotEmpty{})
-		// TODO: Make this a password questioner.
 		adminPassword := scenario.questioner.Ask(
 			"Enter a password for the administrator (at least 8 characters): ", demotools.NotEmpty{})
 		engineVersions, err := scenario.dbClusters.GetEngineVersions(dbEngine, *parameterGroup.DBParameterGroupFamily)
