@@ -5,6 +5,14 @@ sns_Hello:
   synopsis: get started using &SNS;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sns
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - sns.kotlin.hello.main
     Java:
       versions:
         - sdk_version: 2
