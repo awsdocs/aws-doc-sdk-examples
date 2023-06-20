@@ -20,9 +20,8 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(
-            name: "AWSSwiftSDK",
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.10.0"
+            from: "0.18.0"
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
@@ -53,7 +52,7 @@ let package = Package(
         .target(
             name: "ServiceHandler",
             dependencies: [
-                .product(name: "AWSS3", package: "AWSSwiftSDK"),
+                .product(name: "AWSS3", package: "aws-sdk-swift"),
             ],
             path: "./Sources/ServiceHandler"
         ),
