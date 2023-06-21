@@ -14,6 +14,14 @@ aurora_Hello:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.HelloAurora
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.Hello
   services:
     aurora: {DescribeDBClusters}
 aurora_DescribeDBClusterParameterGroups:
@@ -31,6 +39,15 @@ aurora_DescribeDBClusterParameterGroups:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.DescribeDBClusterParameterGroups
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.DescribeDBClusterParameterGroups
     Kotlin:
       versions:
         - sdk_version: 1
@@ -88,6 +105,15 @@ aurora_CreateDBClusterParameterGroup:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.CreateDBClusterParameterGroup
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.CreateDBClusterParameterGroup
     Kotlin:
       versions:
         - sdk_version: 1
@@ -144,6 +170,15 @@ aurora_DeleteDBClusterParameterGroup:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.DeleteDBClusterParameterGroup
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.DeleteDBClusterParameterGroup
     Kotlin:
       versions:
         - sdk_version: 1
@@ -200,6 +235,15 @@ aurora_DescribeDBClusterParameters:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.DescribeDBClusterParameters
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.DescribeDBClusterParameters
     Kotlin:
       versions:
         - sdk_version: 1
@@ -256,6 +300,15 @@ aurora_ModifyDBClusterParameterGroup:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.ModifyDBClusterParameterGroup
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.ModifyDBClusterParameterGroup
     Kotlin:
       versions:
         - sdk_version: 1
@@ -312,6 +365,15 @@ aurora_DescribeDBClusters:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.DescribeDBClusters
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.DescribeDBClusters
     Kotlin:
       versions:
         - sdk_version: 1
@@ -368,6 +430,15 @@ aurora_CreateDBCluster:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.CreateDBCluster
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.CreateDBCluster
     Kotlin:
       versions:
         - sdk_version: 1
@@ -424,6 +495,15 @@ aurora_DeleteDBCluster:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.DeleteDBCluster
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.DeleteDBCluster
     Kotlin:
       versions:
         - sdk_version: 1
@@ -480,6 +560,15 @@ aurora_CreateDBClusterSnapshot:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.CreateSnapshot
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.CreateDBClusterSnapshot
     Kotlin:
       versions:
         - sdk_version: 1
@@ -536,6 +625,15 @@ aurora_DescribeDBClusterSnapshots:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.DescribeDBSnapshots
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.DescribeDBClusterSnapshots
     Kotlin:
       versions:
         - sdk_version: 1
@@ -592,6 +690,15 @@ aurora_CreateDBInstance:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.CreateDBInstance
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.CreateDBInstance
     Kotlin:
       versions:
         - sdk_version: 1
@@ -648,6 +755,15 @@ aurora_DescribeDBEngineVersions:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.DescribeEngineVersionsAsync
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.DescribeDBEngineVersions
     Kotlin:
       versions:
         - sdk_version: 1
@@ -704,6 +820,15 @@ aurora_DescribeOrderableDBInstanceOptions:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.DescribeOrderableDBInstanceOptions
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.DescribeOrderableDBInstanceOptions
     Java:
       versions:
         - sdk_version: 2
@@ -751,6 +876,15 @@ aurora_DescribeDBInstances:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.DescribeDBInstances
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.DescribeDBInstances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -807,6 +941,15 @@ aurora_DeleteDBInstance:
             - description:
               snippet_tags:
                 - Aurora.dotnetv3.DeleteDBInstance
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.aurora.DbClusters.struct
+                - gov2.aurora.DeleteDBInstance
     Kotlin:
       versions:
         - sdk_version: 1
@@ -871,6 +1014,18 @@ aurora_Scenario_GetStartedClusters:
                 manage &AUR; actions.
               snippet_tags:
                 - Aurora.dotnetv3.AuroraWrapper
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/aurora
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - gov2.aurora.Scenario_GetStartedClusters
+            - description: Define functions that are called by the scenario to
+                manage &AUR; actions.
+              snippet_tags:
+                - gov2.aurora.DbClusters.complete
     Kotlin:
       versions:
         - sdk_version: 1
