@@ -99,17 +99,17 @@ public class RDSScenario {
             "    dbSnapshotIdentifier - The snapshot identifier. \n" +
             "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials\"\n" ;
 
-      //  if (args.length != 6) {
-      //      System.out.println(usage);
-      //      System.exit(1);
-      //  }
+        if (args.length != 6) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String dbGroupName = "tes99tgroup555236w022" ;  //args[0];
-        String dbParameterGroupFamily = "mysql8.0" ; //args[1];
-        String dbInstanceIdentifier = "formit1993ww55" ; //args[2];
-        String dbName = "formit88023" ; //args[3];
-        String dbSnapshotIdentifier =  "formiSnapshot5" ; // args[4];
-        String secretName = "redshift/work" ; //args[5];
+        String dbGroupName = args[0];
+        String dbParameterGroupFamily = args[1];
+        String dbInstanceIdentifier = args[2];
+        String dbName = args[3];
+        String dbSnapshotIdentifier = args[4];
+        String secretName = args[5];
 
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);

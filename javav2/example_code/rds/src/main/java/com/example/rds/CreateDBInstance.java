@@ -54,14 +54,14 @@ public class CreateDBInstance {
             "    dbName - The database name. \n" +
             "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials\"\n" ;
 
-     //   if (args.length != 4) {
-     //       System.out.println(usage);
-     //       System.exit(1);
-     //   }
+        if (args.length != 4) {
+            System.out.println(usage);
+            System.exit(1);
+        }
 
-        String dbInstanceIdentifier = "formit9939433e";  //args[0];
-        String dbName = "formit4883844e";  //args[1];
-        String secretName = "redshift/work" ; //args[0];
+        String dbInstanceIdentifier = args[0];
+        String dbName = args[1];
+        String secretName = args[2];
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);
         Region region = Region.US_WEST_2;

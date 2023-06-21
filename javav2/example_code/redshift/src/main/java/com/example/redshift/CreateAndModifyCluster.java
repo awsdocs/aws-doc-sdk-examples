@@ -60,8 +60,8 @@ public class CreateAndModifyCluster {
             System.exit(1);
         }
 
-        String clusterId = "redshift-cluster-1070" ; //args[0];
-        String secretName = "redshift/work" ; //args[0];
+        String clusterId = args[0];
+        String secretName = args[1];
         Gson gson = new Gson();
         User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);
         Region region = Region.US_WEST_2;
