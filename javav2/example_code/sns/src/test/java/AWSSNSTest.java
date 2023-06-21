@@ -15,7 +15,7 @@ import java.util.Random;
 
 
 /**
- * To run these Amazon Simple Queue Service integration tests, you need to either set the required values
+ * To run these Amazon Simple Notification Service integration tests, you need to either set the required values
  * (for example, topicName) in the config.properties file or AWS Secret Manager.
  */
 
