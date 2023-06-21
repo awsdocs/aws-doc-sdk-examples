@@ -10,6 +10,8 @@
 package com.example.rds;
 
 // snippet-start:[rds.java2.scenario.import]
+import com.google.gson.Gson;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
@@ -43,6 +45,9 @@ import software.amazon.awssdk.services.rds.model.DescribeDbParametersRequest;
 import software.amazon.awssdk.services.rds.model.ModifyDbParameterGroupRequest;
 import software.amazon.awssdk.services.rds.model.DescribeOrderableDbInstanceOptionsRequest;
 import software.amazon.awssdk.services.rds.model.DeleteDbParameterGroupRequest;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import java.util.ArrayList;
 import java.util.List;
 // snippet-end:[rds.java2.scenario.import]
@@ -55,6 +60,11 @@ import java.util.List;
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ * This example requires an AWS Secrets Manager secret that contains the database credentials. If you do not create a
+ * secret, this example will not work. For details, see:
+ *
+ * https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
  *
  * This Java example performs the following tasks:
  *
@@ -78,31 +88,33 @@ public class RDSScenario {
     public static long sleepTime = 20;
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
-
         final String usage = "\n" +
             "Usage:\n" +
-            "    <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword> <dbSnapshotIdentifier>\n\n" +
+            "    <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <dbSnapshotIdentifier> <secretName>\n\n" +
             "Where:\n" +
             "    dbGroupName - The database group name. \n"+
             "    dbParameterGroupFamily - The database parameter group name (for example, mysql8.0).\n"+
             "    dbInstanceIdentifier - The database instance identifier \n"+
             "    dbName - The database name. \n"+
-            "    masterUsername - The master user name. \n"+
-            "    masterUserPassword - The password that corresponds to the master user name. \n"+
-            "    dbSnapshotIdentifier - The snapshot identifier. \n" ;
+            "    dbSnapshotIdentifier - The snapshot identifier. \n" +
+            "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials\"\n" ;
 
-        if (args.length != 7) {
-            System.out.println(usage);
-            System.exit(1);
-        }
+      //  if (args.length != 6) {
+      //      System.out.println(usage);
+      //      System.exit(1);
+      //  }
 
-        String dbGroupName = args[0];
-        String dbParameterGroupFamily = args[1];
-        String dbInstanceIdentifier = args[2];
-        String dbName = args[3];
-        String masterUsername = args[4];
-        String masterUserPassword = args[5];
-        String dbSnapshotIdentifier = args[6];
+        String dbGroupName = "tes99tgroup555236w022" ;  //args[0];
+        String dbParameterGroupFamily = "mysql8.0" ; //args[1];
+        String dbInstanceIdentifier = "formit1993ww55" ; //args[2];
+        String dbName = "formit88023" ; //args[3];
+        String dbSnapshotIdentifier =  "formiSnapshot5" ; // args[4];
+        String secretName = "redshift/work" ; //args[5];
+
+        Gson gson = new Gson();
+        User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);
+        String masterUsername = user.getUsername();
+        String masterUserPassword = user.getPassword();
 
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
@@ -191,6 +203,24 @@ public class RDSScenario {
         rdsClient.close();
     }
 
+    private static SecretsManagerClient getSecretClient() {
+        Region region = Region.US_WEST_2;
+        return SecretsManagerClient.builder()
+            .region(region)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+    }
+
+    public static String getSecretValues(String secretName) {
+        SecretsManagerClient secretClient = getSecretClient();
+        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
+            .secretId(secretName)
+            .build();
+
+        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
+        return valueResponse.secretString();
+    }
+
     // snippet-start:[rds.java2.scenario.del_paragroup.main]
     // Delete the parameter group after database has been deleted.
     // An exception is thrown if you attempt to delete the para group while database exists.
@@ -205,7 +235,6 @@ public class RDSScenario {
                 DescribeDbInstancesResponse response = rdsClient.describeDBInstances();
                 List<DBInstance> instanceList = response.dbInstances();
                 int listSize = instanceList.size();
-                isDataDel = false ;
                 didFind = false;
                 int index = 1;
                 for (DBInstance instance: instanceList) {
@@ -318,7 +347,6 @@ public class RDSScenario {
         boolean instanceReady = false;
         String instanceReadyStr;
         System.out.println("Waiting for instance to become available.");
-
         try {
             DescribeDbInstancesRequest instanceRequest = DescribeDbInstancesRequest.builder()
                 .dbInstanceIdentifier(dbInstanceIdentifier)

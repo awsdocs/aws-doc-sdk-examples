@@ -9,6 +9,7 @@
 
 package com.example.redshiftdata;
 
+// snippet-start:[redshift.java2.get_data.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshiftdata.model.DescribeStatementResponse;
@@ -21,6 +22,7 @@ import software.amazon.awssdk.services.redshiftdata.model.RedshiftDataException;
 import software.amazon.awssdk.services.redshiftdata.RedshiftDataClient;
 import software.amazon.awssdk.services.redshiftdata.model.DescribeStatementRequest;
 import java.util.List;
+// snippet-end:[redshift.java2.get_data.import]
 
 
 /**
@@ -30,6 +32,7 @@ import java.util.List;
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
+// snippet-start:[redshift.java2.get_data.main]
 public class RetrieveData {
 
     public static void main(String[] args) {
@@ -145,3 +148,4 @@ public class RetrieveData {
         }
     }
 }
+// snippet-end:[redshift.java2.get_data.main]
