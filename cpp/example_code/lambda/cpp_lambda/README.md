@@ -51,8 +51,7 @@ Dockerfile         README.md          calculator         increment
 Now build the two Lambda functions used by the sample code. Because the Docker container is bound to the directory containing
 this README, the source code can be accessed within the container at `/cpp_lambda`.
 
-Note: The [AWS Lambda C++ Runtime](https://github.com/awslabs/aws-lambda-cpp) is required for the next steps, and it was installed when the docker image was built.
-
+Note: The [AWS Lambda C++ Runtime](https://github.com/awslabs/aws-lambda-cpp) is required for the next steps. It was installed when the Docker image was built.
 
 1. Build the "Increment" Lambda function code.
 

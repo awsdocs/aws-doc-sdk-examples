@@ -52,7 +52,7 @@
 #include <fstream>
 #include "lambda_samples.h"
 
-#define USE_CPP_LAMBDA_FUNCTION 0  // See cpp_lambda/README.md for building instructions.
+#define USE_CPP_LAMBDA_FUNCTION 0  // For building instructions, see cpp_lambda/README.md.
 
 namespace AwsDoc {
     namespace Lambda {
