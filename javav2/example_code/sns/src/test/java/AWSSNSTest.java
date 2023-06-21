@@ -11,17 +11,15 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueReques
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import software.amazon.awssdk.services.sns.SnsClient;
 import com.google.gson.Gson;
+
 import java.util.Random;
 
-/**
- * To run these Amazon Simple Notification Service integration tests, you need to either set the required values
- * (for example, topicName) in the config.properties file or AWS Secret Manager.
- */
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AWSSNSTest {
-
     private static  SnsClient snsClient;
     private static String topicName = "";
     private static String topicArn = ""; //This value is dynamically set
@@ -73,6 +71,7 @@ public class AWSSNSTest {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
         */
     }
 
@@ -81,6 +80,7 @@ public class AWSSNSTest {
     @Order(1)
     public void createTopicTest() {
         topicArn = CreateTopic.createSNSTopic(snsClient, topicName);
+        assertFalse(topicArn.isEmpty());
         System.out.println("Test 1 passed");
     }
 
@@ -88,7 +88,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void listTopicsTest() {
-       ListTopics.listSNSTopics(snsClient);
+        assertDoesNotThrow(() ->ListTopics.listSNSTopics(snsClient));
        System.out.println("Test 2 passed");
     }
 
@@ -96,7 +96,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void setTopicAttributesTest() {
-      SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue );
+      assertDoesNotThrow(() ->SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue));
       System.out.println("Test 3 passed");
     }
 
@@ -104,7 +104,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void getTopicAttributesTest() {
-       GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn);
+       assertDoesNotThrow(() ->GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn));
        System.out.println("Test 4 passed");
     }
 
@@ -112,7 +112,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void subscribeEmailTest() {
-     SubscribeEmail.subEmail(snsClient, topicArn, email);
+     assertDoesNotThrow(() ->SubscribeEmail.subEmail(snsClient, topicArn, email));
      System.out.println("Test 5 passed");
     }
 
@@ -121,6 +121,7 @@ public class AWSSNSTest {
     @Order(6)
     public void subscribeLambdaTest() {
      subArn = SubscribeLambda.subLambda(snsClient, topicArn, lambdaarn);
+     assertFalse(subArn.isEmpty());
      System.out.println("Test 6 passed");
     }
 
@@ -128,7 +129,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(7)
     public void useMessageFilterPolicyTest() {
-        UseMessageFilterPolicy.usePolicy(snsClient, subArn);
+        assertDoesNotThrow(() ->UseMessageFilterPolicy.usePolicy(snsClient, subArn));
         System.out.println("Test 7 passed");
     }
 
@@ -136,7 +137,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(8)
     public void addTagsTest() {
-        AddTags.addTopicTags(snsClient,topicArn );
+        assertDoesNotThrow(() ->AddTags.addTopicTags(snsClient,topicArn ));
         System.out.println("Test 8 passed");
     }
 
@@ -144,7 +145,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(9)
     public void listTagsTest() {
-        ListTags.listTopicTags(snsClient,topicArn);
+        assertDoesNotThrow(() ->ListTags.listTopicTags(snsClient,topicArn));
         System.out.println("Test 9 passed");
     }
 
@@ -152,7 +153,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(10)
     public void deleteTagTest() {
-        DeleteTag.removeTag(snsClient,topicArn, "Environment");
+        assertDoesNotThrow(() ->DeleteTag.removeTag(snsClient,topicArn, "Environment"));
         System.out.println("Test 10 passed");
     }
 
@@ -160,7 +161,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(11)
     public void unsubscribeTest() {
-        Unsubscribe.unSub(snsClient, subArn);
+        assertDoesNotThrow(() -> Unsubscribe.unSub(snsClient, subArn));
         System.out.println("Test 11 passed");
     }
 
@@ -168,7 +169,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(12)
     public void publishTopicTest() {
-        PublishTopic.pubTopic(snsClient, message, topicArn);
+        assertDoesNotThrow(() ->PublishTopic.pubTopic(snsClient, message, topicArn));
         System.out.println("Test 12 passed");
     }
 
@@ -176,7 +177,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(13)
     public void subscribeTextSMSTest() {
-       SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone);
+       assertDoesNotThrow(() ->SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone));
        System.out.println("Test 13 passed");
     }
 
@@ -184,7 +185,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(14)
     public void publishTextSMSTest() {
-        PublishTextSMS.pubTextSMS(snsClient, message, phone);
+        assertDoesNotThrow(() ->PublishTextSMS.pubTextSMS(snsClient, message, phone));
         System.out.println("Test 14 passed");
     }
 
@@ -192,7 +193,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(15)
     public void listSubscriptionsTest() {
-        ListSubscriptions.listSNSSubscriptions(snsClient);
+        assertDoesNotThrow(() ->ListSubscriptions.listSNSSubscriptions(snsClient));
         System.out.println("Test 15 passed");
     }
 
@@ -200,7 +201,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(16)
     public void DeleteTopic() {
-        DeleteTopic.deleteSNSTopic(snsClient, topicArn);
+        assertDoesNotThrow(() ->DeleteTopic.deleteSNSTopic(snsClient, topicArn));
         System.out.println("Test 16 passed");
     }
 

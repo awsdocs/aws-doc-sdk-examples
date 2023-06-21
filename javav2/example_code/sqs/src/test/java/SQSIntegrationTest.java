@@ -7,9 +7,12 @@ import com.example.sqs.DeadLetterQueues;
 import com.example.sqs.LongPolling;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
@@ -19,11 +22,6 @@ import software.amazon.awssdk.services.sqs.model.*;
 import java.io.*;
 import java.util.*;
 import com.example.sqs.*;
-
-/**
- * To run these Amazon Simple Queue Service integration tests, you need to either set the required values
- * (for example, queueName) in the config.properties file or AWS Secret Manager.
- */
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -45,6 +43,7 @@ public class SQSIntegrationTest {
             .region(Region.US_WEST_2)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
+
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -90,7 +89,7 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void SendMessage() {
-        SendMessages.sendMessage(sqsClient,queueName, message);
+        assertDoesNotThrow(() -> SendMessages.sendMessage(sqsClient,queueName, message));
         System.out.println("Test 2 passed");
     }
 
@@ -107,7 +106,7 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void GetQueueAttributes() {
-        GetQueueAttributes.getAttributes(sqsClient, queueName);
+        assertDoesNotThrow(() ->GetQueueAttributes.getAttributes(sqsClient, queueName));
         System.out.println("Test 4 passed");
     }
 
@@ -115,7 +114,7 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void DeleteMessages() {
-        SQSExample.deleteMessages(sqsClient, queueUrl,messages );
+        assertDoesNotThrow(() -> SQSExample.deleteMessages(sqsClient, queueUrl,messages));
         System.out.println("Test 5 passed");
     }
 
@@ -123,7 +122,7 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(6)
     public void LongPolling() {
-       LongPolling.setLongPoll(sqsClient);
+       assertDoesNotThrow(() -> LongPolling.setLongPoll(sqsClient));
        System.out.println("Test 6 passed");
     }
 
@@ -131,7 +130,7 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(7)
     public void DeadLetterQueues() {
-        DeadLetterQueues.setDeadLetterQueue(sqsClient);
+        assertDoesNotThrow(() ->DeadLetterQueues.setDeadLetterQueue(sqsClient));
         System.out.println("Test 7 passed");
    }
 
@@ -139,7 +138,7 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(8)
     public void DeleteQueue() {
-        DeleteQueue.deleteSQSQueue(sqsClient, queueName);
+        assertDoesNotThrow(() ->DeleteQueue.deleteSQSQueue(sqsClient, queueName));
         System.out.println("Test 8 passed");
     }
 
