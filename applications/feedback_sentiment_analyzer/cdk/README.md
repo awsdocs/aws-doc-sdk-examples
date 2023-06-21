@@ -47,7 +47,7 @@ $Env:FSA_LANG =
 ## Deploy
 
 1. `npm install`
-2. Deploy the backend: `cdk deploy "fsa-${FSA_NAME}-${FSA_LANG}-be"`
+2. Deploy the backend: `cdk deploy "fsa-${FSA_NAME}-${FSA_LANG}"`
 
 ## Useful commands
 

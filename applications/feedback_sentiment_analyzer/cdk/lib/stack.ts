@@ -1,4 +1,4 @@
-import { Stack, CfnOutput } from "aws-cdk-lib";
+import { Stack, CfnOutput, RemovalPolicy } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
 import { APP_LANG, APP_EMAIL, PREFIX } from "./env";
@@ -7,7 +7,11 @@ import { getFunctions as getFunctionConfigs } from "./functions";
 import { AppStateMachine } from "./constructs/app-state-machine";
 import { AppS3Website } from "./constructs/app-s3-website";
 import { AppEnvLambda } from "./constructs/app-env-lambda";
-import { Cors, RestApi } from "aws-cdk-lib/aws-apigateway";
+import {
+  CognitoUserPoolsAuthorizer,
+  Cors,
+  RestApi,
+} from "aws-cdk-lib/aws-apigateway";
 import {
   CachePolicy,
   Distribution,
@@ -18,7 +22,8 @@ import {
 import { RestApiOrigin, S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { AppAuth } from "./constructs/app-auth";
 import { AppRoutes } from "./constructs/app-routes";
-import { Empty, EnvModel } from "./constructs/app-api-models";
+import { Empty, EnvModel, UploadModel } from "./constructs/app-api-models";
+import { Bucket } from "aws-cdk-lib/aws-s3";
 
 export class AppStack extends Stack {
   constructor(scope: Construct) {
@@ -49,10 +54,7 @@ export class AppStack extends Stack {
       },
     });
 
-    // Create API routes.
-    const routes = new AppRoutes(this, `${prefix}-routes`, {
-      api,
-    });
+    const emptyModel = new Empty(this, { restApi: api });
 
     // Create static S3 website behind a CloudFront distribution.
     const website = new AppS3Website(this, "client", {
@@ -101,12 +103,6 @@ export class AppStack extends Stack {
       callbackDomain: distribution.domainName,
     });
 
-    // const userPoolAuthorizer = new CognitoUserPoolsAuthorizer(
-    //   this,
-    //   "pool-authorizer",
-    //   { cognitoUserPools: [auth.userPool] }
-    // );
-
     // Create env lambda.
     const variables = {
       COGNITO_USER_POOL_BASE_URL: auth.userPoolDomain.baseUrl(),
@@ -118,17 +114,46 @@ export class AppStack extends Stack {
     const envLambda = new AppEnvLambda(this, { variables });
     auth.userPool.grant(envLambda.fn, "cognito-idp:ListUserPoolClients");
 
+    // Create API routes.
+    const routes = new AppRoutes(this, `${prefix}-routes`, {
+      api,
+    });
+
+    // Create authorizer.
+    // const userPoolAuthorizer = new CognitoUserPoolsAuthorizer(
+    //   this,
+    //   "pool-authorizer",
+    //   { cognitoUserPools: [auth.userPool] }
+    // );
+
     // Add env route.
     routes.addLambdaRoute({
       path: "env",
       method: "GET",
       fn: envLambda.fn,
       model: {
-        request: new Empty(this, { restApi: api }),
         response: new EnvModel(this, { restApi: api }),
       },
     });
 
+    // Add direct S3 upload route.
+    const uploadBucket = new Bucket(this, "upload-bucket", {
+      enforceSSL: true,
+      removalPolicy: RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
+    });
+
+    routes.addDirectS3Route({
+      path: "upload",
+      method: "PUT",
+      bucket: uploadBucket,
+      allowActions: ["s3:PutObject"],
+      model: {
+        request: new UploadModel(this, { restApi: api }),
+      },
+    });
+
+    // Output useful values.
     new CfnOutput(this, `${prefix}-website-url`, {
       value: `https://${distribution.domainName}/`,
     });
