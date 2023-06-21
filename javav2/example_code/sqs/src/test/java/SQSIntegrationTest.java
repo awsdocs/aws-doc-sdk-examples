@@ -5,16 +5,25 @@
 
 import com.example.sqs.DeadLetterQueues;
 import com.example.sqs.LongPolling;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.*;
 import java.io.*;
 import java.util.*;
 import com.example.sqs.*;
+
+/**
+ * To run these Amazon Simple Queue Service integration tests, you need to either set the required values
+ * (for example, queueName) in the config.properties file or AWS Secret Manager.
+ */
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -30,11 +39,25 @@ public class SQSIntegrationTest {
 
     @BeforeAll
     public static void setUp() throws IOException {
+        Random random = new Random();
+        int randomNum = random.nextInt((10000 - 1) + 1) + 1;
         sqsClient = SqsClient.builder()
             .region(Region.US_WEST_2)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
+        // Get the values to run these tests from AWS Secrets Manager.
+        Gson gson = new Gson();
+        String json = getSecretValues();
+        QueueMessage queueMessage = gson.fromJson(json, QueueMessage.class);
+
+        // Access the parsed values
+        queueName = queueMessage.getQueueName()+randomNum;
+        dlqueueName =  queueMessage.getDLQueueName();
+        message =  queueMessage.getMessage();
+
+        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+       /*
         try (InputStream input = SQSIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
             Properties prop = new Properties();
             if (input == null) {
@@ -51,6 +74,7 @@ public class SQSIntegrationTest {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        */
     }
 
     @Test
@@ -118,4 +142,43 @@ public class SQSIntegrationTest {
         DeleteQueue.deleteSQSQueue(sqsClient, queueName);
         System.out.println("Test 8 passed");
     }
+
+    public static String getSecretValues() {
+        // Get the Amazon RDS creds from Secrets Manager.
+        SecretsManagerClient secretClient = SecretsManagerClient.builder()
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+        String secretName = "test/sqs";
+
+        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
+            .secretId(secretName)
+            .build();
+
+        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
+        return valueResponse.secretString();
+    }
+
+    @Nested
+    @DisplayName("A class used to get test values from test/sns, a AWS Secrets Manager secret")
+    class QueueMessage {
+        private String QueueName;
+        private String DLQueueName;
+        private String Message;
+
+        public String getQueueName() {
+            return QueueName;
+        }
+
+        public String getDLQueueName() {
+            return DLQueueName;
+        }
+
+        public String getMessage() {
+            return Message;
+        }
+    }
+
+
+
 }
