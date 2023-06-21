@@ -112,6 +112,7 @@ export class AppRoutes extends Construct {
           "image/jpeg": model.request ?? this.emptyModel,
           "image/png": model.request ?? this.emptyModel,
         },
+        // TODO: API is returning 200, but there's no content-type. How do we handle this?
         methodResponses: [statusOkResponse(model.response ?? this.emptyModel)],
       }
     );
@@ -121,9 +122,6 @@ export class AppRoutes extends Construct {
 function statusOkResponse(response: Model) {
   return {
     statusCode: "200",
-    responseParameters: {
-      "method.response.header.Access-Control-Allow-Origin": true,
-    },
     responseModels: { "application/json": response },
   };
 }

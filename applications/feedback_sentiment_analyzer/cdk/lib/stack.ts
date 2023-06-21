@@ -13,6 +13,7 @@ import {
   RestApi,
 } from "aws-cdk-lib/aws-apigateway";
 import {
+  AllowedMethods,
   CachePolicy,
   Distribution,
   OriginRequestPolicy,
@@ -93,6 +94,7 @@ export class AppStack extends Stack {
           viewerProtocolPolicy: ViewerProtocolPolicy.ALLOW_ALL,
           cachePolicy: CachePolicy.CACHING_DISABLED,
           originRequestPolicy: OriginRequestPolicy.CORS_S3_ORIGIN,
+          allowedMethods: AllowedMethods.ALLOW_ALL,
         },
       },
     });
