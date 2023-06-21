@@ -18,6 +18,7 @@ members = [
     "config",
     "cross_service/detect_faces",
     "cross_service/detect_labels",
+    "cross_service/photo_asset_management",
     "cross_service/rest_ses",
     "cross_service/telephone",
     "custom-root-certificates",
@@ -65,3 +66,7 @@ members = [
     "tls",
     "transcribestreaming"
 ]
+
+[profile.release.package.photo_asset_management]
+opt-level = 3
+strip = "debuginfo"

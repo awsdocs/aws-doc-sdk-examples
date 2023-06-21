@@ -1,5 +1,5 @@
-import { Duration, RemovalPolicy } from "aws-cdk-lib";
-import { Code, Function, Runtime } from "aws-cdk-lib/aws-lambda";
+import { Duration } from "aws-cdk-lib";
+import { Architecture, Code, Function, Runtime } from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
 import { PamBuckets, PamTables } from "./resources";
 import { Topic } from "aws-cdk-lib/aws-sns";
@@ -17,6 +17,7 @@ export interface PamLambdasStrategy {
   runtime: Runtime;
   codeAsset: () => Code;
   handlers: PamLambdasStrategyHandlers;
+  architecture: Architecture;
 }
 
 export interface PamLambdasProps {
@@ -39,7 +40,8 @@ export class PamLambda extends Construct {
     };
 
     const code = props.strategy.codeAsset();
-    const { runtime, handlers, timeout, memorySize } = props.strategy;
+    const { runtime, handlers, timeout, memorySize, architecture } =
+      props.strategy;
     const makeLambda = (name: string, handler: string): Function =>
       new Function(this, name, {
         runtime,
@@ -48,6 +50,7 @@ export class PamLambda extends Construct {
         environment,
         timeout,
         memorySize,
+        architecture,
       });
 
     const detectLabels = makeLambda("DetectLabelsFn", handlers.detectLabels);
