@@ -3,7 +3,7 @@
 function runCommand() {
   echo Linting Go files...
   # When all Go examples have been updated, change this allow list to ./*/.
-  for d in demotools dynamodb iam lambda s3 testtools
+  for d in aurora demotools dynamodb iam lambda s3 testtools
   do
     cd $d
     golangci-lint run

@@ -86,6 +86,7 @@ aurora:
     url: AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html
   tags:
     product_categories: {'Databases'}
+  api_client: rds
   version: rds-2014-10-31
   api_ref: AmazonRDS/latest/APIReference/Welcome.html
 auto-scaling:
