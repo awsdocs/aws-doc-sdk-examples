@@ -7,12 +7,10 @@ import com.example.sqs.DeadLetterQueues;
 import com.example.sqs.LongPolling;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
@@ -23,6 +21,10 @@ import java.io.*;
 import java.util.*;
 import com.example.sqs.*;
 
+/**
+ * To run these Amazon Simple Notification Service integration tests, you need to either set the required values
+ * (for example, topicName) in the config.properties file or AWS Secret Manager.
+ */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SQSIntegrationTest {

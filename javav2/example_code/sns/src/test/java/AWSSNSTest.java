@@ -11,12 +11,14 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueReques
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import software.amazon.awssdk.services.sns.SnsClient;
 import com.google.gson.Gson;
-
 import java.util.Random;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+/**
+ * To run these Amazon Simple Notification Service integration tests, you need to either set the required values
+ * (for example, topicName) in the config.properties file or AWS Secret Manager.
+ */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AWSSNSTest {
