@@ -2,11 +2,11 @@
 import "source-map-support/register";
 import * as cdk from "aws-cdk-lib";
 
-import { BackendStack } from "../lib/backend-stack";
+import { AppStack } from "../lib/stack";
 
 const app = new cdk.App();
 
 /**
- * Create the backend stack.
+ * Create the stack.
  */
-const backendStack = new BackendStack(app);
+const appStack = new AppStack(app);
