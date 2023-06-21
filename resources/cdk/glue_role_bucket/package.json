@@ -11,11 +11,11 @@
     "cdk": "cdk"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.15.0",
+    "aws-cdk-lib": "^2.80.0",
     "constructs": "^10.0.84"
   },
   "devDependencies": {
-    "aws-cdk-lib": "^2.15.0",
+    "aws-cdk-lib": "^2.80.0",
     "constructs": "^10.0.84",
     "@types/jest": "^27.4.1",
     "@types/node": "^17.0.21",
@@ -25,7 +25,7 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.15.0",
+    "aws-cdk-lib": "^2.80.0",
     "constructs": "^10.0.84",
     "source-map-support": "^0.5.21"
   }
