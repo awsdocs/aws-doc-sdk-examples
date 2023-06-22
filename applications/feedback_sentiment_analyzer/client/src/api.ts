@@ -1,12 +1,10 @@
-import { API_GATEWAY_BASE_URL } from "./env";
-
 export interface ApiConfig {
   token: string | null;
 }
 
 const request: typeof fetch = async (input, init) => {
   try {
-    const response = await fetch(input, init);
+    const response = await fetch(`/api${input}`, init);
     if (response.status === 401) {
       throw new Error("Unauthorized");
     }
@@ -26,28 +24,17 @@ const getHeaders = (config: ApiConfig): { Authorization: string } | {} =>
     : {};
 
 export const uploadFile = async (file: File, config: ApiConfig) => {
-  const response = await request(
-    `${API_GATEWAY_BASE_URL}upload`,
-    {
-      method: "PUT",
-      body: JSON.stringify({
-        file_name: file.name,
-      }),
-      headers: getHeaders(config),
-    }
-  );
+  const response = await request(`/upload/${file.name}`, {
+    method: "PUT",
+    body: file,
+    headers: {
+      ...getHeaders(config),
+      "Content-Type": "image/jpeg",
+      "Content-Length": `${file.size}`,
+    },
+  });
 
-  if (response.ok) {
-    const { url } = await response.json();
-    return request(url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "image/jpeg",
-        "Content-Length": `${file.size}`,
-      },
-      body: await file.arrayBuffer(),
-    });
-  } else {
+  if (!response.ok) {
     console.error("API Upload failed.", response);
     throw new Error("API Upload failed.", { cause: response });
   }
