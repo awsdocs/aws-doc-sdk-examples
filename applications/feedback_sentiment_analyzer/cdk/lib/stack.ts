@@ -122,11 +122,11 @@ export class AppStack extends Stack {
     });
 
     // Create authorizer.
-    // const userPoolAuthorizer = new CognitoUserPoolsAuthorizer(
-    //   this,
-    //   "pool-authorizer",
-    //   { cognitoUserPools: [auth.userPool] }
-    // );
+    const userPoolAuthorizer = new CognitoUserPoolsAuthorizer(
+      this,
+      "pool-authorizer",
+      { cognitoUserPools: [auth.userPool] }
+    );
 
     // Add env route.
     routes.addLambdaRoute({
@@ -150,6 +150,7 @@ export class AppStack extends Stack {
       method: "PUT",
       bucket: uploadBucket,
       allowActions: ["s3:PutObject"],
+      authorizer: userPoolAuthorizer,
       model: {
         request: new UploadModel(this, { restApi: api }),
       },

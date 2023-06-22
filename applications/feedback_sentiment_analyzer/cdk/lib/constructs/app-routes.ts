@@ -106,6 +106,7 @@ export class AppRoutes extends Construct {
         },
       }),
       {
+        authorizer,
         requestParameters: {
           "method.request.path.item": true,
         },
