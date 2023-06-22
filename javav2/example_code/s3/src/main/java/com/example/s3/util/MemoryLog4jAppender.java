@@ -37,7 +37,7 @@ public class MemoryLog4jAppender extends AbstractAppender {
     public void append(LogEvent event) {
         MutableLogEvent eventWithParameters = (MutableLogEvent) event;
         if (eventWithParameters.getParameterCount() == 2) {
-            eventMap.put((String) eventWithParameters.getParameters()[0], (String) eventWithParameters.getParameters()[1]);
+            eventMap.put(eventWithParameters.getParameters()[0].toString(), eventWithParameters.getParameters()[1].toString());
         } else {
             eventMap.put (eventWithParameters.getFormattedMessage(), null);
         }
