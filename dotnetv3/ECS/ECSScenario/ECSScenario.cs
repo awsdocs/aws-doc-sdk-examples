@@ -1,13 +1,9 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System.Diagnostics;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+// snippet-start:[ECS.dotnetv3.ECSScenario.ECSScenario]
 using Amazon.ECS;
 using ECSActions;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
@@ -143,3 +139,4 @@ public class ECSScenario
         Console.WriteLine(new string('-', 80));
     }
 }
+// snippet-end:[ECS.dotnetv3.ECSScenario.ECSScenario]

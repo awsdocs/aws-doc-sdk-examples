@@ -1,7 +1,8 @@
 import { BundlingOutput, Duration } from "aws-cdk-lib";
-import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
+import { Architecture, Code, Runtime } from "aws-cdk-lib/aws-lambda";
 import { resolve } from "path";
 import { PamLambdasStrategy } from "./lambdas";
+import { execSync } from "child_process";
 
 export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   timeout: Duration.seconds(10),
@@ -16,9 +17,11 @@ export const EMPTY_LAMBDAS_STRATEGY: PamLambdasStrategy = {
     labels: "",
     upload: "",
   },
+  architecture: Architecture.X86_64,
 };
 
 export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  ...EMPTY_LAMBDAS_STRATEGY,
   timeout: Duration.seconds(90),
   memorySize: 1024,
   codeAsset() {
@@ -30,8 +33,7 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
         command: [
           "/bin/sh",
           "-c",
-          "mvn install && \
-                      cp /asset-input/target/PhotoAssetRestSDK-1.0-SNAPSHOT.jar /asset-output/",
+          "mvn install && cp /asset-input/target/PhotoAssetRestSDK-1.0-SNAPSHOT.jar /asset-output/",
         ],
         image: this.runtime.bundlingImage,
         user: "root",
@@ -56,6 +58,7 @@ export const JAVA_LAMBDAS_STRATEGY: PamLambdasStrategy = {
 };
 
 export const PYTHON_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  ...EMPTY_LAMBDAS_STRATEGY,
   timeout: Duration.seconds(60),
   memorySize: 512,
   codeAsset() {
@@ -174,12 +177,58 @@ export const DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY: PamLambdasStrategy = {
   },
 };
 
+export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  ...EMPTY_LAMBDAS_STRATEGY,
+  codeAsset() {
+    const rustSources = resolve(
+      "../../../rust_dev_preview/cross_service/photo_asset_management"
+    );
+
+    console.log(
+      "RUST: Cross compiling zip from local sources using `cargo lambda`"
+    );
+    execSync("cargo lambda build --release --arm64 --output-format Zip", {
+      cwd: rustSources,
+    });
+    const rustZip = resolve(
+      "../../../rust_dev_preview/target/lambda/pam/bootstrap.zip"
+    );
+    return Code.fromAsset(rustZip);
+
+    // At this time, the `cargo-lambda` downloads the entire crates registry on
+    // every build (and sometimes fails). Until it's stable, it's not appropriate
+    // to use for the bundler.
+    // return Code.fromAsset(rustSources, {
+    //   bundling: {
+    //     command: [
+    //       "/bin/sh",
+    //       "-c",
+    //       "cargo lambda build --release --arm64 --output-format Zip && " +
+    //         "cp /asset-input/target/lambda/pam/bootstrap.zip /asset-output/",
+    //     ],
+    //     image: DockerImage.fromRegistry("ghcr.io/cargo-lambda/cargo-lambda"),
+    //     user: "root",
+    //     outputType: BundlingOutput.ARCHIVED,
+    //   },
+    // });
+  },
+  runtime: Runtime.PROVIDED_AL2,
+  architecture: Architecture.ARM_64,
+  handlers: {
+    detectLabels: "detect_labels",
+    download: "download",
+    labels: "labels",
+    upload: "upload",
+  },
+};
+
 export const STRATEGIES: Record<string, PamLambdasStrategy> = {
   java: JAVA_LAMBDAS_STRATEGY,
   javascript: JAVASCRIPT_LAMBDAS_STRATEGY,
   python: PYTHON_LAMBDAS_STRATEGY,
   dotnet: DOTNET_LAMBDAS_STRATEGY,
   dotnetla: DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY,
+  rust: RUST_LAMBDAS_STRATEGY,
   empty: EMPTY_LAMBDAS_STRATEGY,
 };
 
