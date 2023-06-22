@@ -1,4 +1,21 @@
 # zexi 0.4.0
+ecs_Hello:
+  title: Hello &ECS;
+  title_abbrev: Hello &ECS;
+  synopsis: get started using &ECS;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/ECS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ECS.dotnetv3.ECSActions.HelloECS
+  services:
+    ecs: {ListClusters}
 ecs_CreateCluster:
   title: Create an &ECS; cluster using an &AWS; SDK
   title_abbrev: Create a cluster
@@ -108,6 +125,15 @@ ecs_ListClusters:
   synopsis: list your &ECS; clusters.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/ECS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ECS.dotnetv3.ECSActions.ListClusters
     Java:
       versions:
         - sdk_version: 2
@@ -136,6 +162,40 @@ ecs_DescribeTasks:
                 - ecs.java2.list_tasks.main
   services:
     ecs: {DescribeTasks}
+ecs_ListServices:
+  title: List your &ECS; services in a cluster using an &AWS; SDK
+  title_abbrev: List services in a cluster
+  synopsis: list your &ECS; services in a cluster.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/ECS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ECS.dotnetv3.ECSActions.ListServices
+  services:
+    ecs: {ListServices}
+ecs_ListTasks:
+  title: List your &ECS; tasks in a cluster using an &AWS; SDK
+  title_abbrev: List tasks in a cluster
+  synopsis: list your &ECS; tasks in a cluster.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/ECS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ECS.dotnetv3.ECSActions.ListTasks
+  services:
+    ecs: {ListTasks}
 ecs_UpdateService:
   title: Update an &ECS; service using an &AWS; SDK
   title_abbrev: Update a service
@@ -153,3 +213,27 @@ ecs_UpdateService:
                 - ecs.java2.update_service.main
   services:
     ecs: {UpdateService}
+ecs_Scenario_GetClustersServicesAndTasks:
+  title: Get ARN information for &ECS; clusters, services, and tasks using an &AWS; SDK
+  title_abbrev: Get ARN information for clusters, services, and tasks
+  synopsis_list:
+    - Get a list of all clusters.
+    - Get services for a cluster.
+    - Get tasks for a cluster.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/ECS
+          sdkguide:
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - ECS.dotnetv3.ECSScenario.ECSScenario
+            - description: Wrapper methods that are called by the scenario to
+                manage &ECS; actions.
+              snippet_tags:
+                - ECS.dotnetv3.ECSActions.ECSWrapper
+  services:
+    ecs: {ListClusters, ListServices, ListTasks}
