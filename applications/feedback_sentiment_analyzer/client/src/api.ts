@@ -26,7 +26,7 @@ const getHeaders = (config: ApiConfig): { Authorization: string } | {} =>
 export const uploadFile = async (file: File, config: ApiConfig) => {
   const response = await request(`/upload/${file.name}`, {
     method: "PUT",
-    body: await file.arrayBuffer(),
+    body: file,
     headers: {
       ...getHeaders(config),
       "Content-Type": "image/jpeg",

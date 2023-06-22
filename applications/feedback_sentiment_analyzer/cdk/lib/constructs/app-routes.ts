@@ -68,7 +68,7 @@ export class AppRoutes extends Construct {
         requestModels: {
           "application/json": model.request ?? this.emptyModel,
         },
-        methodResponses: [statusOkResponse(model.response ?? this.emptyModel)],
+        methodResponses: [getResponse(model.response)],
         ...(authorizer ? { authorizer } : {}),
       }
     );
@@ -102,6 +102,7 @@ export class AppRoutes extends Construct {
           requestParameters: {
             "integration.request.path.item": "method.request.path.item",
           },
+          integrationResponses: [{ statusCode: "200" }],
         },
       }),
       {
@@ -112,18 +113,19 @@ export class AppRoutes extends Construct {
           "image/jpeg": model.request ?? this.emptyModel,
           "image/png": model.request ?? this.emptyModel,
         },
-        // TODO: API is returning 200, but there's no content-type. How do we handle this?
-        methodResponses: [statusOkResponse(model.response ?? this.emptyModel)],
+        methodResponses: [getResponse(model.response)],
       }
     );
   }
 }
 
-function statusOkResponse(response: Model) {
-  return {
-    statusCode: "200",
-    responseModels: { "application/json": response },
-  };
+function getResponse(responseModel?: Model) {
+  return responseModel
+    ? {
+        statusCode: "200",
+        responseModels: { "application/json": responseModel },
+      }
+    : { statusCode: "200" };
 }
 
 const EVENT_INTEGRATION_OPTIONS = {
