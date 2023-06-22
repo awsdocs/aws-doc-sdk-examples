@@ -1,9 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+// snippet-start:[ECS.dotnetv3.ECSActions.ECSWrapper]
 using Amazon.ECS;
 using Amazon.ECS.Model;
 using Microsoft.Extensions.Logging;
@@ -27,6 +25,7 @@ public class ECSWrapper
         _ecsClient = ecsClient;
     }
 
+    // snippet-start:[ECS.dotnetv3.ECSActions.ListClusters]
     /// <summary>
     /// List cluster ARNs available.
     /// </summary>
@@ -63,9 +62,10 @@ public class ECSWrapper
             _logger.LogError($"An error occurred while getting a list of all the clusters in your AWS account. {e.InnerException}");
             throw new Exception($"An error occurred while getting a list of all the clusters in your AWS account. {e.InnerException}");
         }
-
     }
+    // snippet-end:[ECS.dotnetv3.ECSActions.ListClusters]
 
+    // snippet-start:[ECS.dotnetv3.ECSActions.ListServices]
     /// <summary>
     /// List service ARNs available.
     /// </summary>
@@ -97,9 +97,11 @@ public class ECSWrapper
 
         return serviceArns;
     }
+    // snippet-end:[ECS.dotnetv3.ECSActions.ListServices]
 
+    // snippet-start:[ECS.dotnetv3.ECSActions.ListTasks]
     /// <summary>
-    /// List tasks ARNs available.
+    /// List task ARNs available.
     /// </summary>
     /// <param name="clusterARN">The arn of the ECS cluster.</param>
     /// <returns>The ARN list of tasks in given cluster.</returns>
@@ -131,4 +133,6 @@ public class ECSWrapper
 
         return taskArns;
     }
+    // snippet-end:[ECS.dotnetv3.ECSActions.ListTasks]
 }
+// snippet-end:[ECS.dotnetv3.ECSActions.ECSWrapper]
