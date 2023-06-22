@@ -40,3 +40,12 @@ export class Empty extends Model {
     });
   }
 }
+
+export class UploadModel extends Model {
+  constructor(scope: Construct, props: PartialModelProps) {
+    super(scope, "UploadModel", {
+      ...props,
+      schema: {},
+    });
+  }
+}

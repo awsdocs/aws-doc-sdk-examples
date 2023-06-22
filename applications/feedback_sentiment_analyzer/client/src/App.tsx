@@ -5,9 +5,14 @@ import { useEffect } from "react";
 import "./App.css";
 import LoginNavigation from "./LoginNavigation";
 import { useStore } from "./store";
+import FileUpload from "./FileUpload";
 
 function App() {
-  const { authStatus, checkAuth } = useStore();
+  const { authStatus, checkAuth, uploadFile } = useStore();
+
+  const handleUpload = async (file: File) => {
+    await uploadFile(file);
+  };
 
   useEffect(() => {
     checkAuth();
@@ -20,7 +25,9 @@ function App() {
         toolsHide={true}
         navigationHide={true}
         contentType="cards"
-        content={<div>{}</div>}
+        content={
+          <FileUpload disabled={false} onSubmit={handleUpload}></FileUpload>
+        }
         notifications={
           authStatus !== "signed_in" && (
             <Alert type="warning">

@@ -34,7 +34,7 @@ export interface Store {
   autoLogout: <T>(fn: () => Promise<T>) => Promise<T>;
   checkAuth: () => void;
   signOut: () => void;
-  uploadFile: (file: File) => Promise<Response>;
+  uploadFile: (file: File) => Promise<void>;
 }
 
 export const useStore = create<Store>((set, get) => ({

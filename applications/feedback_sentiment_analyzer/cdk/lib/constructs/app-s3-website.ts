@@ -10,17 +10,17 @@ import { Bucket } from "aws-cdk-lib/aws-s3";
 import { BucketDeployment, Source } from "aws-cdk-lib/aws-s3-deployment";
 import { Construct } from "constructs";
 
-export interface AppCloudFrontWebsiteProps {
+export interface AppS3WebsiteProps {
   /**
    * The local path to the assets to be deployed to the S3 bucket.
    */
   assetPath: string;
 }
 
-export class AppCloudFrontWebsite extends Construct {
+export class AppS3Website extends Construct {
   readonly bucket: Bucket;
 
-  constructor(scope: Construct, id: string, props: AppCloudFrontWebsiteProps) {
+  constructor(scope: Construct, id: string, props: AppS3WebsiteProps) {
     super(scope, id);
 
     this.bucket = new Bucket(this, "website-bucket", {
@@ -48,7 +48,7 @@ export class AppCloudFrontWebsite extends Construct {
     });
   }
 
-  attachPolicy(distribution: Distribution) {
+  grantDistributionRead(distribution: Distribution) {
     const { accountId } = new AccountRootPrincipal();
     const { distributionId } = distribution;
     const distributionArn = `arn:aws:cloudfront::${accountId}:distribution/${distributionId}`;
