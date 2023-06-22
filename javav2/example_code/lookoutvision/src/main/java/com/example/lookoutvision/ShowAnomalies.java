@@ -242,7 +242,7 @@ public class ShowAnomalies extends JPanel {
     private String getImageType(byte[] image) throws IOException
     /**
      * Gets the file type of a supplied image. Raises an exception if the image
-     * isn't compatible with with Amazon Lookout for Vision.
+     * isn't compatible with Amazon Lookout for Vision.
      * 
      * @param image The image that you want to check.
      * 
