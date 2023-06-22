@@ -25,6 +25,8 @@ import { AppAuth } from "./constructs/app-auth";
 import { AppRoutes } from "./constructs/app-routes";
 import { Empty, EnvModel, UploadModel } from "./constructs/app-api-models";
 import { Bucket } from "aws-cdk-lib/aws-s3";
+import { Rule } from "aws-cdk-lib/aws-events";
+import { SfnStateMachine } from "aws-cdk-lib/aws-events-targets";
 
 export class AppStack extends Stack {
   constructor(scope: Construct) {
@@ -56,8 +58,6 @@ export class AppStack extends Stack {
         // accessLogFormat: AccessLogFormat.jsonWithStandardFields(),
       },
     });
-
-    const emptyModel = new Empty(this, { restApi: api });
 
     // Create static S3 website behind a CloudFront distribution.
     const website = new AppS3Website(this, "client", {
@@ -122,11 +122,11 @@ export class AppStack extends Stack {
     });
 
     // Create authorizer.
-    // const userPoolAuthorizer = new CognitoUserPoolsAuthorizer(
-    //   this,
-    //   "pool-authorizer",
-    //   { cognitoUserPools: [auth.userPool] }
-    // );
+    const userPoolAuthorizer = new CognitoUserPoolsAuthorizer(
+      this,
+      "pool-authorizer",
+      { cognitoUserPools: [auth.userPool] }
+    );
 
     // Add env route.
     routes.addLambdaRoute({
@@ -143,6 +143,7 @@ export class AppStack extends Stack {
       enforceSSL: true,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
+      eventBridgeEnabled: true,
     });
 
     routes.addDirectS3Route({
@@ -150,9 +151,24 @@ export class AppStack extends Stack {
       method: "PUT",
       bucket: uploadBucket,
       allowActions: ["s3:PutObject"],
+      authorizer: userPoolAuthorizer,
       model: {
         request: new UploadModel(this, { restApi: api }),
       },
+    });
+
+    // Register Amazon EventBridge rule to trigger state machine.
+    new Rule(this, "s3-put-start-step-function", {
+      eventPattern: {
+        source: ["aws.s3"],
+        detailType: ["Object Created"],
+        detail: {
+          bucket: {
+            name: [uploadBucket.bucketName],
+          },
+        },
+      },
+      targets: [new SfnStateMachine(appStateMachine.stateMachine)],
     });
 
     // Output useful values.
