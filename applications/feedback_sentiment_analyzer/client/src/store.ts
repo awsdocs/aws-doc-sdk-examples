@@ -70,7 +70,7 @@ export const useStore = create<Store>((set, get) => ({
     }
   },
   signOut() {
-    location.assign(`${COGNITO_SIGN_OUT_URL}&logout_uri=${location}`); // append ?redirect_uri=...
+    location.assign(`${COGNITO_SIGN_OUT_URL}&logout_uri=${location.origin}`);
   },
   async uploadFile(file: File) {
     return get().autoLogout(() => API.uploadFile(file, { token: get().token }));
