@@ -61,16 +61,16 @@
 - name: tool/integration-testing
   description: "Relates to integration testing"
   color: "663399"
-- name: incomplete/on-call-review
+ name: status/on-call-review-needed
   color: "AD1C21"
   description: "This work needs an on-call review"
-- name: complete/on-call-review
+- name: status/on-call-review-complete
   color: "1FC058"
   description: "Code review complete"
-- name: incomplete/text-review
+- name: status/text-review-needed
   color: "AD1C21"
   description: "This work needs editorial (text) review"
-- name: complete/text-review
+- name: status/text-review-complete
   color: "1FC058"
   description: "Text review complete"
 - name: type/bug
