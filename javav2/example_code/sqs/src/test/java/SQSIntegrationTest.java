@@ -21,10 +21,6 @@ import java.io.*;
 import java.util.*;
 import com.example.sqs.*;
 
-/**
- * To run these Amazon Simple Notification Service integration tests, you need to either set the required values
- * (for example, topicName) in the config.properties file or AWS Secret Manager.
- */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SQSIntegrationTest {
@@ -144,8 +140,7 @@ public class SQSIntegrationTest {
         System.out.println("Test 8 passed");
     }
 
-    public static String getSecretValues() {
-        // Get the Amazon RDS creds from Secrets Manager.
+    private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())

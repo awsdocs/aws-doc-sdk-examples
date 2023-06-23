@@ -15,10 +15,6 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-/**
- * To run these Amazon Simple Notification Service integration tests, you need to either set the required values
- * (for example, topicName) in the config.properties file or AWS Secret Manager.
- */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AWSSNSTest {
@@ -73,7 +69,6 @@ public class AWSSNSTest {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
         */
     }
 
@@ -91,40 +86,40 @@ public class AWSSNSTest {
     @Order(2)
     public void listTopicsTest() {
         assertDoesNotThrow(() ->ListTopics.listSNSTopics(snsClient));
-       System.out.println("Test 2 passed");
+        System.out.println("Test 2 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(3)
     public void setTopicAttributesTest() {
-      assertDoesNotThrow(() ->SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue));
-      System.out.println("Test 3 passed");
+        assertDoesNotThrow(() ->SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue));
+        System.out.println("Test 3 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(4)
     public void getTopicAttributesTest() {
-       assertDoesNotThrow(() ->GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn));
-       System.out.println("Test 4 passed");
+        assertDoesNotThrow(() ->GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn));
+        System.out.println("Test 4 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(5)
     public void subscribeEmailTest() {
-     assertDoesNotThrow(() ->SubscribeEmail.subEmail(snsClient, topicArn, email));
-     System.out.println("Test 5 passed");
+        assertDoesNotThrow(() ->SubscribeEmail.subEmail(snsClient, topicArn, email));
+        System.out.println("Test 5 passed");
     }
 
     @Test
     @Tag("IntegrationTest")
     @Order(6)
     public void subscribeLambdaTest() {
-     subArn = SubscribeLambda.subLambda(snsClient, topicArn, lambdaarn);
-     assertFalse(subArn.isEmpty());
-     System.out.println("Test 6 passed");
+        subArn = SubscribeLambda.subLambda(snsClient, topicArn, lambdaarn);
+        assertFalse(subArn.isEmpty());
+        System.out.println("Test 6 passed");
     }
 
     @Test
@@ -179,8 +174,8 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(13)
     public void subscribeTextSMSTest() {
-       assertDoesNotThrow(() ->SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone));
-       System.out.println("Test 13 passed");
+        assertDoesNotThrow(() ->SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone));
+        System.out.println("Test 13 passed");
     }
 
     @Test
@@ -208,7 +203,6 @@ public class AWSSNSTest {
     }
 
     private static String getSecretValues() {
-        // Get the Amazon RDS creds from Secrets Manager.
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
