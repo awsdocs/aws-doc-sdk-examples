@@ -3,3 +3,24 @@
   display: flex;
   align-items: center;
 }
+
+.media-button {
+  border: 0;
+  background: transparent;
+  box-sizing: border-box;
+  width: 0;
+  height: 24px;
+  border-color: transparent transparent transparent #202020;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 12px 0 12px 20px;
+}
+
+.media-button.pause {
+  border-style: double;
+  border-width: 0px 0 0px 20px;
+}
+
+.media-button:hover {
+  border-color: transparent transparent transparent #404040;
+}

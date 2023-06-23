@@ -70,11 +70,11 @@ function FileUpload({ disabled, onSubmit, accept = [] }: FileUploadProps) {
   return (
     <>
       <Button disabled={disabled} onClick={() => setModalVisible(true)}>
-        Upload
+        Téléverser
       </Button>
       <Modal
         visible={modalVisible}
-        header={<Header variant="h2">Upload file</Header>}
+        header={<Header variant="h2">Télécharger un fichier</Header>}
         onDismiss={handleDismiss}
       >
         <SpaceBetween size="s">
@@ -84,7 +84,7 @@ function FileUpload({ disabled, onSubmit, accept = [] }: FileUploadProps) {
               <img
                 width={125}
                 src={URL.createObjectURL(selectedFile)}
-                alt="Image to upload for archival and label detection"
+                alt="Fichier à télécharger"
               />
             )}
             <SpaceBetween size="s" direction="horizontal">
@@ -98,7 +98,7 @@ function FileUpload({ disabled, onSubmit, accept = [] }: FileUploadProps) {
               <Button
                 disabled={isLoading || fileInput.current?.value.length === 0}
               >
-                {isLoading ? <Spinner /> : "Upload"}
+                {isLoading ? <Spinner /> : "Téléverser"}
               </Button>
             </SpaceBetween>
             <input
