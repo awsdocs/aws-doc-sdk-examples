@@ -178,7 +178,4 @@ public class SQSIntegrationTest {
             return Message;
         }
     }
-
-
-
 }
