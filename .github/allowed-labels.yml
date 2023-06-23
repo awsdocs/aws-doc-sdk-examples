@@ -61,45 +61,18 @@
 - name: tool/integration-testing
   description: "Relates to integration testing"
   color: "663399"
-- name: status/on-call-review-needed
+- name: incomplete/on-call-review
   color: "AD1C21"
   description: "This work needs an on-call review"
-- name: status/on-call-review-complete
+- name: complete/on-call-review
   color: "1FC058"
   description: "Code review complete"
-- name: status/text-review-needed
+- name: incomplete/text-review
   color: "AD1C21"
   description: "This work needs editorial (text) review"
-- name: status/text-review-complete
+- name: complete/text-review
   color: "1FC058"
   description: "Text review complete"
-- name: status/no-text-review-needed
-  color: "5E2824"
-  description: "No text which needs review"
-- name: status/ready-to-merge
-  color: "7FFF00"
-  description: "This work is READY TO MERGE"
-- name: status/in-progress
-  color: "008080"
-  description: "This work is currently in progress"
-- name: status/back-to-author
-  color: "00FFFF"
-  description: "This work needs further work (other)"
-- name: status/needs-input
-  color: "00FFFF"
-  description: "This work needs input from the reporter"
-- name: research-spike
-  color: "00FFFF"
-  description: "This work needs research by the resolver"
-- name: status/on-hold
-  color: "000000"
-  description: "On Hold. Do not merge until released by author."
-- name: status/future-release
-  color: "000000"
-  description: "Hold for merge until after release"
-- name: status/stale
-  color: "00FFFF"
-  description: "This is stale"
 - name: type/bug
   color: "d8bfd8"
   description: "A bug in an existing code sample"
