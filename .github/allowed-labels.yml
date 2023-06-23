@@ -103,3 +103,6 @@
 - name: type/tracking
   color: "5aa9f9"
   description: "Similar to an Epic, but used to track a single individual's multi-part issues."
+- name: type/spike
+  color: "00FFFF"
+  description: "This work needs research by the resolver"
