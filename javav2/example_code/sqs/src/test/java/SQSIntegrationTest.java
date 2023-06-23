@@ -51,8 +51,6 @@ public class SQSIntegrationTest {
         Gson gson = new Gson();
         String json = getSecretValues();
         QueueMessage queueMessage = gson.fromJson(json, QueueMessage.class);
-
-        // Access the parsed values
         queueName = queueMessage.getQueueName()+randomNum;
         dlqueueName =  queueMessage.getDLQueueName();
         message =  queueMessage.getMessage();
