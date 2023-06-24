@@ -54,7 +54,7 @@ public class CreateDBInstance {
             "    dbName - The database name. \n" +
             "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials\"\n" ;
 
-        if (args.length != 4) {
+        if (args.length != 3) {
             System.out.println(usage);
             System.exit(1);
         }

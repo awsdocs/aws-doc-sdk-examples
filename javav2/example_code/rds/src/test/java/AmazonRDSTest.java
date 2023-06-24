@@ -17,10 +17,9 @@ import java.io.*;
 import java.util.*;
 
 /**
- * To run these Amazon Simple Notification Service integration tests, you need to either set the required values
- * (for example, topicName) in the config.properties file or AWS Secret Manager.
+ * To run these integration tests, you need to either set the required values
+ * in the config.properties file or AWS Secret Manager.
  */
-
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AmazonRDSTest {
@@ -231,8 +230,7 @@ public class AmazonRDSTest {
         System.out.println("TestAuroraScenario test passed");
     }
 
-    public static String getSecretValues() {
-        // Get the Amazon RDS creds from Secrets Manager.
+    private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
