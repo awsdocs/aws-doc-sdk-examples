@@ -85,7 +85,7 @@ async fn main() -> Result<(), Error> {
     println!();
 
     if verbose {
-        println!("SQS client version:   {}", PKG_VERSION);
+        println!("SSM client version:   {}", PKG_VERSION);
         println!(
             "Region:               {}",
             region_provider.region().await.unwrap().as_ref()
