@@ -78,17 +78,17 @@ suspend fun main(args: Array<String>) {
             secretName - The name of the AWS Secrets Manager secret that contains the database credentials.
     """
 
-    // if (args.size != 6) {
-    //     println(usage)
-    //     exitProcess(1)
-    // }
+     if (args.size != 6) {
+         println(usage)
+         exitProcess(1)
+    }
 
-    val dbGroupName = "testgroup5999329" //args[0]
-    val dbParameterGroupFamily = "mysql8.0" // args[1]
-    val dbInstanceIdentifier = "form0855399" //args[2]
-    val dbName =  "formit396959" //args[3]
-    val dbSnapshotIdentifier = "fo6Snapshot593999" // args[6]
-    val secretName = "itemtracker/mysql" // args[5]
+    val dbGroupName = args[0]
+    val dbParameterGroupFamily = args[1]
+    val dbInstanceIdentifier = args[2]
+    val dbName = args[3]
+    val dbSnapshotIdentifier = args[4]
+    val secretName = args[5]
 
     val gson = Gson()
     val user = gson.fromJson(getSecretValues(secretName).toString(), User::class.java)

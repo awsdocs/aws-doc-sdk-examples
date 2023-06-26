@@ -42,14 +42,14 @@ suspend fun main(args: Array<String>) {
     "       secretName - The name of the AWS Secrets Manager secret that contains the database credentials.
         """
 
-    //if (args.size != 4) {
-    //    println(usage)
-    //    exitProcess(0)
-   // }
+    if (args.size != 3) {
+        println(usage)
+        exitProcess(0)
+    }
 
-    val dbInstanceIdentifier = "ScottDBId5232376"//args[0]
-    val dbName = "ScottDB5223376"//  args[1]
-    val secretName = "itemtracker/mysql" // args[2]
+    val dbInstanceIdentifier = args[0]
+    val dbName = args[1]
+    val secretName = args[2]
     val gson = Gson()
     val user = gson.fromJson(getSecretValues(secretName).toString(), User::class.java)
     val username = user.username
