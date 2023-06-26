@@ -1,40 +1,40 @@
-lang/cpp:
+C++:
   - cpp/**/*
-lang/dotnet-v3:
+DotNet-v3:
   - dotnetv3/**/*
-lang/go-v1:
+Go-v1:
   - go/**/*
-lang/go-v2:
+Go-v2:
   - gov2/**/*
-lang/java-v1:
+Java-v1:
   - java/**/*
-lang/java-v2:
+Java-v2:
   - javav2/**/*
-lang/javascript-v2:
+Javascript-v2:
   - javascript/**/*
-lang/javascript-v3:
+Javascript-v3:
   - javascriptv3/**/*
-lang/kotlin:
+Kotlin:
   - kotlin/**/*
-lang/php:
+PHP:
   - php/**/*
-lang/python:
+Python:
   - python/**/*
-lang/ruby:
+Ruby:
   - ruby/**/*
-lang/rust:
+Rust:
   - rust_dev_preview/**/*
-lang/swift:
+Swift:
   - swift/**/*
-lang/typescript:
+Typescript:
   - typescript/**/*
-tool/cli:
+CLI:
   - aws-cli/**/*
-tool/cdk:
+CDK:
   - resources/cdk/**/*
-tool/cloudformation:
+CloudFormation:
   - cloudformation/**/*
-tool/integration-testing:
+Testing:
   - test/**/*
-type/github-settings:
+GitHub settings:
   - .github/**/*
