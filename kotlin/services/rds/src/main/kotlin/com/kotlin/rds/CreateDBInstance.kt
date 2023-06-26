@@ -99,7 +99,6 @@ suspend fun waitForInstanceReady(dbInstanceIdentifierVal: String?) {
             val response = rdsClient.describeDbInstances(instanceRequest)
             val instanceList = response.dbInstances
             if (instanceList != null) {
-
                 for (instance in instanceList) {
                     instanceReadyStr = instance.dbInstanceStatus.toString()
                     if (instanceReadyStr.contains("available"))

@@ -70,7 +70,6 @@ suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
             <dbClusterGroupName> <dbParameterGroupFamily> <dbInstanceClusterIdentifier> <dbName> <dbSnapshotIdentifier> <secretName>
-
         Where:
             dbClusterGroupName - The database group name. 
             dbParameterGroupFamily - The database parameter group name.
@@ -97,7 +96,6 @@ suspend fun main(args: Array<String>) {
     val user = gson.fromJson(getSecretValues(secretName).toString(), User::class.java)
     val username = user.username
     val userPassword = user.password
-
 
     println("1. Return a list of the available DB engines")
     describeAuroraDBEngines()
