@@ -27,6 +27,9 @@ import aws.sdk.kotlin.services.rds.model.DescribeDbInstancesRequest
 import aws.sdk.kotlin.services.rds.model.DescribeOrderableDbInstanceOptionsRequest
 import aws.sdk.kotlin.services.rds.model.ModifyDbClusterParameterGroupRequest
 import aws.sdk.kotlin.services.rds.model.Parameter
+import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
+import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
+import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 
@@ -37,6 +40,11 @@ Before running this Kotlin code example, set up your development environment, in
 For more information, see the following documentation topic:
 
 https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
+
+This example requires an AWS Secrets Manager secret that contains the database credentials. If you do not create a
+secret, this example will not work. For more details, see:
+
+https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
 
 This Kotlin example performs the following tasks:
 
@@ -57,13 +65,13 @@ This Kotlin example performs the following tasks:
 15. Deletes the DB instance.
 16. Deletes the DB cluster.
 17. Deletes the DB cluster group.
-*/
+ */
 
 var slTime: Long = 20
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <dbClusterGroupName> <dbParameterGroupFamily> <dbInstanceClusterIdentifier> <dbName> <dbSnapshotIdentifier> <username> <userPassword> 
+            <dbClusterGroupName> <dbParameterGroupFamily> <dbInstanceClusterIdentifier> <dbName> <dbSnapshotIdentifier> <secretName>
 
         Where:
             dbClusterGroupName - The database group name. 
@@ -71,23 +79,27 @@ suspend fun main(args: Array<String>) {
             dbInstanceClusterIdentifier - The database instance identifier. 
             dbName -  The database name. 
             dbSnapshotIdentifier - The snapshot identifier.
-            username - The user name. 
-            userPassword - The password that corresponds to the user name. 
+            secretName - The name of the AWS Secrets Manager secret that contains the database credentials.
     """
 
-    if (args.size != 7) {
-        println(usage)
-        exitProcess(1)
-    }
+    // if (args.size != 7) {
+    //     println(usage)
+    //     exitProcess(1)
+    // }
 
-    val dbClusterGroupName = args[0]
-    val dbParameterGroupFamily = args[1]
-    val dbInstanceClusterIdentifier = args[2]
-    val dbInstanceIdentifier = args[3]
-    val dbName = args[4]
-    val dbSnapshotIdentifier = args[5]
-    val username = args[6]
-    val userPassword = args[7]
+    val dbClusterGroupName = "clusterGroup572336" //args[0]
+    val dbParameterGroupFamily = "aurora-mysql5.7"// args[1]
+    val dbInstanceClusterIdentifier = "MyCluster73236" // args[2]
+    val dbInstanceIdentifier = "ScottDBId532376"//args[3]
+    val dbName = "ScottDB523376"// args[4]
+    val dbSnapshotIdentifier = "ScottDBSnapshot533276" //args[5]
+    val secretName = "itemtracker/mysql" // args[6]
+
+    val gson = Gson()
+    val user = gson.fromJson(getSecretValues(secretName).toString(), User::class.java)
+    val username = user.username
+    val userPassword = user.password
+
 
     println("1. Return a list of the available DB engines")
     describeAuroraDBEngines()
@@ -498,5 +510,6 @@ suspend fun describeAuroraDBEngines() {
         }
     }
 }
+
 // snippet-end:[rds.kotlin.scenario.describe.db.engines.main]
 // snippet-end:[rds.kotlin.scenario.aurora.main]
