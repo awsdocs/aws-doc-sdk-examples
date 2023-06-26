@@ -17,7 +17,7 @@ polly_DescribeVoices:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/polly
+          github: rust_dev_preview/examples/polly
           excerpts:
             - description:
               snippet_tags:
@@ -87,7 +87,7 @@ polly_ListLexicons:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/polly
+          github: rust_dev_preview/examples/polly
           excerpts:
             - description:
               snippet_tags:
@@ -122,7 +122,7 @@ polly_PutLexicon:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/polly
+          github: rust_dev_preview/examples/polly
           excerpts:
             - description:
               snippet_tags:
@@ -159,7 +159,7 @@ polly_SynthesizeSpeech:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/polly
+          github: rust_dev_preview/examples/polly
           excerpts:
             - description:
               snippet_tags:
