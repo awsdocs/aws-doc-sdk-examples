@@ -65,7 +65,6 @@ suspend fun createDatabaseInstance(
     masterUsernameVal: String?,
     masterUserPasswordVal: String?
 ) {
-
     val instanceRequest = CreateDbInstanceRequest {
         dbInstanceIdentifier = dbInstanceIdentifierVal
         allocatedStorage = 100
