@@ -27,8 +27,6 @@ import aws.sdk.kotlin.services.rds.model.DescribeDbInstancesRequest
 import aws.sdk.kotlin.services.rds.model.DescribeOrderableDbInstanceOptionsRequest
 import aws.sdk.kotlin.services.rds.model.ModifyDbClusterParameterGroupRequest
 import aws.sdk.kotlin.services.rds.model.Parameter
-import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
-import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
 import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
@@ -82,10 +80,10 @@ suspend fun main(args: Array<String>) {
             secretName - The name of the AWS Secrets Manager secret that contains the database credentials.
     """
 
-     if (args.size != 7) {
-         println(usage)
-         exitProcess(1)
-     }
+    if (args.size != 7) {
+        println(usage)
+        exitProcess(1)
+    }
 
     val dbClusterGroupName = args[0]
     val dbParameterGroupFamily = args[1]
