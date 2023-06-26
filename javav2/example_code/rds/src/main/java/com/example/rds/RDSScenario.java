@@ -62,11 +62,11 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
  * This example requires an AWS Secrets Manager secret that contains the database credentials. If you do not create a
- * secret, this example will not work. For more details, see:
+ * secret, this example will not work. For details, see:
  *
  * https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
  *
- * This Java example performs the following tasks:
+ * This Java example performs these tasks:
  *
  * 1. Returns a list of the available DB engines.
  * 2. Selects an engine family and create a custom DB parameter group.

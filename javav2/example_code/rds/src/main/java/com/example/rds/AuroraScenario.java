@@ -64,7 +64,7 @@ import java.util.List;
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  *
  * This example requires an AWS Secrets Manager secret that contains the database credentials. If you do not create a
- * secret, this example will not work. For more details, see:
+ * secret, this example will not work. For details, see:
  *
  * https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
  *
@@ -100,7 +100,7 @@ public class AuroraScenario {
             "    dbParameterGroupFamily - The DB cluster parameter group family name (for example, aurora-mysql5.7). \n"+
             "    dbInstanceClusterIdentifier - The instance cluster identifier value.\n"+
             "    dbInstanceIdentifier - The database instance identifier.\n"+
-            "    dbName  The database name.\n"+
+            "    dbName - The database name.\n"+
             "    dbSnapshotIdentifier - The snapshot identifier.\n"+
             "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials\"\n" ;;
 
@@ -119,7 +119,7 @@ public class AuroraScenario {
 
         // Retrieve the database credentials using AWS Secrets Manager.
         Gson gson = new Gson();
-        com.example.rds.User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), com.example.rds.User.class);
+        User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);
         String username = user.getUsername();
         String userPassword = user.getPassword();
 
