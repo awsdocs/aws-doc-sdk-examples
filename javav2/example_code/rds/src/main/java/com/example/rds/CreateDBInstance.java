@@ -52,7 +52,7 @@ public class CreateDBInstance {
             "Where:\n" +
             "    dbInstanceIdentifier - The database instance identifier. \n" +
             "    dbName - The database name. \n" +
-            "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials\"\n" ;
+            "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials.\"\n" ;
 
         if (args.length != 3) {
             System.out.println(usage);
