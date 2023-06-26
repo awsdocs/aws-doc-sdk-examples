@@ -5,14 +5,10 @@ import { useEffect } from "react";
 import "./App.css";
 import LoginNavigation from "./LoginNavigation";
 import { useStore } from "./store";
-import FileUpload from "./FileUpload";
+import FeedbackLayout from "./FeedbackLayout";
 
 function App() {
-  const { authStatus, checkAuth, uploadFile } = useStore();
-
-  const handleUpload = async (file: File) => {
-    await uploadFile(file);
-  };
+  const { checkAuth } = useStore();
 
   useEffect(() => {
     checkAuth();
@@ -20,21 +16,12 @@ function App() {
 
   return (
     <>
-      <LoginNavigation title="Photo Asset Management" />
+      <LoginNavigation title="Analyseur de sentiments de feedback" />
       <AppLayout
         toolsHide={true}
         navigationHide={true}
         contentType="cards"
-        content={
-          <FileUpload disabled={false} onSubmit={handleUpload}></FileUpload>
-        }
-        notifications={
-          authStatus !== "signed_in" && (
-            <Alert type="warning">
-              Log in to view, upload, and download images.
-            </Alert>
-          )
-        }
+        content={<FeedbackLayout />}
       />
     </>
   );

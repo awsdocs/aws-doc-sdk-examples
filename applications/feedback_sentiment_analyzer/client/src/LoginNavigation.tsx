@@ -15,8 +15,8 @@ function LoginNavigation({ title }: LoginNavigationProps) {
 
   const signedInUtilities: TopNavigationProps.Utility = {
     type: "menu-dropdown",
-    text: currentUser?.username ?? "Unknown",
-    items: [{ id: "signout", text: "Sign out" }],
+    text: currentUser?.username ?? "Inconnu",
+    items: [{ id: "signout", text: "Déconnectez-vous" }],
     onItemClick: async (clickEvent) => {
       if (clickEvent.detail.id === "signout") {
         signOut();
@@ -26,7 +26,7 @@ function LoginNavigation({ title }: LoginNavigationProps) {
 
   const signedOutUtilities: TopNavigationProps.Utility = {
     type: "button",
-    text: "Sign in",
+    text: "Connectez-vous",
     href: `${COGNITO_SIGN_IN_URL}&redirect_uri=${location}`,
   };
 
@@ -34,8 +34,8 @@ function LoginNavigation({ title }: LoginNavigationProps) {
     <TopNavigation
       identity={{ title, href: "#" }}
       i18nStrings={{
-        overflowMenuTitleText: "All",
-        overflowMenuTriggerText: "More",
+        overflowMenuTitleText: "Tous",
+        overflowMenuTriggerText: "Plus",
       }}
       utilities={[
         authStatus === "signed_in" ? signedInUtilities : signedOutUtilities,

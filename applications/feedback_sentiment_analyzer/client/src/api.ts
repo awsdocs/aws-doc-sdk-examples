@@ -2,6 +2,8 @@ export interface ApiConfig {
   token: string | null;
 }
 
+export type FeedbackResponse = { text: string; audioUrl: string }[];
+
 const request: typeof fetch = async (input, init) => {
   try {
     const response = await fetch(`/api${input}`, init);
@@ -37,5 +39,21 @@ export const uploadFile = async (file: File, config: ApiConfig) => {
   if (!response.ok) {
     console.error("API Upload failed.", response);
     throw new Error("API Upload failed.", { cause: response });
+  }
+};
+
+export const getFeedback = async (): Promise<FeedbackResponse> => {
+  const response = await request(`/feedback`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    console.error("API Feedback failed.", response);
+    throw new Error("API Feedback failed.", { cause: response });
+  } else {
+    return response.json();
   }
 };

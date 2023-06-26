@@ -44,7 +44,7 @@ const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
   { ...BASE_APP_FUNCTION, memorySize: 256, name: "AnalyzeSentiment" },
   { ...BASE_APP_FUNCTION, name: "TranslateText" },
   { ...BASE_APP_FUNCTION, name: "SynthesizeAudio" },
-  { ...BASE_APP_FUNCTION, name: "GetRecordings" },
+  { ...BASE_APP_FUNCTION, name: "GetFeedback" },
 ];
 
 const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
