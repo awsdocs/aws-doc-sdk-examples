@@ -101,9 +101,9 @@ suspend fun waitForInstanceReady(dbInstanceIdentifierVal: String?) {
             if (instanceList != null) {
                 for (instance in instanceList) {
                     instanceReadyStr = instance.dbInstanceStatus.toString()
-                    if (instanceReadyStr.contains("available"))
+                    if (instanceReadyStr.contains("available")) {
                         instanceReady = true
-                    else {
+                    } else {
                         println("...$instanceReadyStr")
                         delay(sleepTime * 1000)
                     }
@@ -113,4 +113,5 @@ suspend fun waitForInstanceReady(dbInstanceIdentifierVal: String?) {
         println("Database instance is available!")
     }
 }
+
 // snippet-end:[rds.kotlin.create_instance.main]
