@@ -16,27 +16,28 @@ jobs:
     name: Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: pre-setup
+      - name: setup
         run: sudo apt-get update && sudo apt-get install -y libclang-dev
       - uses: dtolnay/rust-toolchain@stable
         with:
+          toolchain: 1.70
           components: clippy, rustfmt
-      - uses: Swatinem/rust-cache@v2
+      - uses: actions/checkout@v3
       - name: Rust format
         run: >
-          cargo fmt --manifest-path rust_dev_preview/applications/Cargo.toml --all --check && \
-          cargo fmt --manifest-path rust_dev_preview/examples/Cargo.toml --all --check && \
-          cargo fmt --manifest-path rust_dev_preview/webassembly/Cargo.toml --all --check
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/cross_service/Cargo.toml --all --check &&
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/examples/Cargo.toml --all --check &&
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/webassembly/Cargo.toml --all --check
       - name: Rust lint
+        if: success() || failure()
         run: >
-          cargo clippy --manifest-path rust_dev_preview/applications/Cargo.toml -- -D warnings && \
-          cargo clippy --manifest-path rust_dev_preview/examples/Cargo.toml -- -D warnings && \
-          cargo clippy --manifest-path rust_dev_preview/webassembly/Cargo.toml -- -D warnings
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/cross_service/Cargo.toml -- -D warnings &&
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/examples/Cargo.toml -- -D warnings &&
+          "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/webassembly/Cargo.toml -- -D warnings
       - name: Rust test
         run: >
-          cargo test --manifest-path rust_dev_preview/applications/Cargo.toml --all --check && \
-          cargo test --manifest-path rust_dev_preview/examples/Cargo.toml --all --check && \
-          cargo test --manifest-path rust_dev_preview/webassembly/Cargo.toml --all --check
+          "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/cross_service/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/examples/Cargo.toml --all &&
+          "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/webassembly/Cargo.toml --all
         env:
           APP_ENVIRONMENT: test

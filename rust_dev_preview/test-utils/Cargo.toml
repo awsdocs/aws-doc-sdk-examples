@@ -6,6 +6,8 @@ authors = [
 ]
 edition = "2021"
 
+[workspace]
+
 [dependencies]
 aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = [
