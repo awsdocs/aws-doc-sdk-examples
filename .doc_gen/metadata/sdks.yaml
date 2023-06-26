@@ -205,19 +205,30 @@ Swift:
         link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x"
   guide: "&guide-swift-dev;"
 CLI:
-  property: cli
+  property: sh
   sdk:
-    1:
+    2:
       long: "&CLIlong;"
       short: "&CLI;"
       expanded:
         long: "AWS Command Line Interface"
         short: "Command Line Interface"
-      guide: "cli"
+      guide: "cli/latest/userguide/cli-chap-welcome.html"
       api_ref:
         uid: "aws-cli"
         name: "&guide-cli-ref;"
-      title_override:
-        title: "Additional code examples for the &CLIlong;"
-        title_abbrev: "Additional code examples"
+  guide: "&guide-cli-ug;"
+Bash:
+  property: bash
+  sdk:
+    2:
+      long: "&Bashlong;"
+      short: "&Bash;"
+      expanded:
+        long: "AWS Command Line Interface with Bash script"
+        short: "Command Line Interface with Bash script"
+      guide: "cli/latest/userguide/cli-chap-welcome.html"
+      api_ref:
+        uid: "aws-cli"
+        name: "&guide-cli-ref;"
   guide: "&guide-cli-ug;"
