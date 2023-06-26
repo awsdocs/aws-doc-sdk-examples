@@ -1,7 +1,6 @@
 require 'json'
 require 'aws-sdk-translate'
 require 'logger'
-# require 'pry'
 
 def lambda_handler(event:, context:)
 
@@ -14,12 +13,8 @@ def lambda_handler(event:, context:)
   client = Aws::Translate::Client.new(region: "us-east-1")
 
   client.translate_text({
-     text: event['Payload'], # required
-     source_language_code: "fr", # required
-     target_language_code: "en", # required
-   })
-
+                          text: event['Payload'], # required
+                          source_language_code: "fr", # required
+                          target_language_code: "en", # required
+                        })
 end
-
-test = lambda_handler(event: nil, context: nil)
-puts test
