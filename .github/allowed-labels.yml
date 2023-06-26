@@ -64,81 +64,81 @@
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Java V1"
 - name: Java-v2
-  from: lang/java-v2
+  from_name: lang/java-v2
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Java V2"
 - name: Javascript-v2
-  from: lang/javascript-v2
+  from_name: lang/javascript-v2
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Javascript V2"
 - name: Javascript-v3
-  from: lang/javascript-v3
+  from_name: lang/javascript-v3
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Javascript V3"
 - name: Kotlin
-  from: lang/kotlin
+  from_name: lang/kotlin
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Kotlin"
 - name: PHP
-  from: lang/php
+  from_name: lang/php
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for PHP"
 - name: Python
-  from: lang/python
+  from_name: lang/python
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Python (boto3)"
 - name: Ruby
-  from: lang/ruby
+  from_name: lang/ruby
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Ruby"
 - name: Rust
-  from: lang/rust
+  from_name: lang/rust
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Rust (Preview)"
 - name: Swift
-  from: lang/swift
+  from_name: lang/swift
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Swift"
 - name: Typescript
-  from: lang/typescript
+  from_name: lang/typescript
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Typescript"
 - name: Shell
-  from: lang/shell
+  from_name: lang/shell
   color: "f5f7f9"
   description: "Tools written in bash/sh"
 
 - name: CLI
-  from: tool/cli
+  from_name: tool/cli
   description: "Relates to the AWS CLI"
   color: "f5f7f9"
 - name: CDK
-  from: tool/cdk
+  from_name: tool/cdk
   color: "f5f7f9"
   description: "Relates to the AWS Cloud Development Kit (CDK)"
 - name: CloudFormation
-  from: tool/cloudformation
+  from_name: tool/cloudformation
   description: "Relates to CloudFormation templates"
   color: "f5f7f9"
 - name: Testing
-  from: tool/integration-testing
+  from_name: tool/integration-testing
   description: "Relates to integration testing"
   color: "f5f7f9"
 - name: GitHub settings
-  from: type/github-settings
+  from_name: type/github-settings
   color: "f5f7f9"
   description: "This affects GitHub settings"
 
 # Labels to visually distinguish special types of issues
 - name: Urgent
-  from: urgent
+  from_name: urgent
   color: "00FFFF"
   description: "Very important and needs attention"
 - name: Epic
-  from: size/epic
+  from_name: size/epic
   color: "d8bfd8"
   description: "Contains many smaller pieces to work on separately"
 - name: Tracker
-  from: type/tracking
+  from_name: type/tracking
   color: "a0d0fa"
   description: "Similar to an Epic, but used to track a single individual's multi-part issues."
