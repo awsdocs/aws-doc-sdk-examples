@@ -13,7 +13,7 @@ const BASE_APP_FUNCTION: AppFunctionConfig = {
     return Code.fromInline(`
       exports.handler = async (event) => {
         console.log(event);
-        return { calledLambdas: [...(event.calledLambdas) || [], "${this.name}"] }
+        return "Blah"
       }
   `);
   },
@@ -39,10 +39,22 @@ const BASE_APP_FUNCTION: AppFunctionConfig = {
 };
 
 const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
+  // The 'name' property must match the examples below in new examples.
   { ...BASE_APP_FUNCTION, name: "ExtractText" },
   // Override properties by including them after expanding the function object.
   { ...BASE_APP_FUNCTION, memorySize: 256, name: "AnalyzeSentiment" },
-  { ...BASE_APP_FUNCTION, name: "TranslateText" },
+  {
+    ...BASE_APP_FUNCTION,
+    codeAsset() {
+      return Code.fromInline(`
+        exports.handler = async (event) => {
+          console.log(event);
+          return { translated_text: "Bonjour", source_language: "en" }
+        }
+    `);
+    },
+    name: "TranslateText",
+  },
   { ...BASE_APP_FUNCTION, name: "SynthesizeAudio" },
   { ...BASE_APP_FUNCTION, name: "GetFeedback" },
 ];

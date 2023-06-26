@@ -23,7 +23,7 @@ import {
 import { RestApiOrigin, S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { AppAuth } from "./constructs/app-auth";
 import { AppRoutes } from "./constructs/app-routes";
-import { Empty, EnvModel, UploadModel } from "./constructs/app-api-models";
+import { EnvModel, UploadModel } from "./constructs/app-api-models";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { Rule } from "aws-cdk-lib/aws-events";
 import { SfnStateMachine } from "aws-cdk-lib/aws-events-targets";
@@ -36,13 +36,16 @@ export class AppStack extends Stack {
     // Create AWS Lambda functions.
     const fnConfigs = getFunctionConfigs(APP_LANG);
     const appLambdas = new AppLambdas(this, "fn", fnConfigs);
-
+    
     // Create state machine.
     const appStateMachine = new AppStateMachine(
       this,
       prefix,
       appLambdas.functions
     );
+
+    appLambdas.grantInvokeAll(appStateMachine.stateMachine);
+
 
     // Create API
     // const logGroup = new LogGroup(this, `api-log-group`);

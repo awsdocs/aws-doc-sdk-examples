@@ -11,17 +11,31 @@ export interface AppFunction extends AppFunctionConfig {
 }
 
 export class AppLambdas extends Construct {
-  readonly functions: AppFunction[];
+  readonly functions: Record<string, AppFunction> = {};
 
   constructor(scope: Construct, id: string, appFunctions: AppFunctionConfig[]) {
     super(scope, id);
 
-    this.functions = appFunctions.map((appFn) => ({
-      ...appFn,
-      fn: new Function(this, appFn.name, {
-        ...appFn,
-        code: appFn.codeAsset(),
-      }),
-    }));
+    this.functions = appFunctions.reduce((fns, nextFn) => {
+      fns[nextFn.name] = {
+        ...nextFn,
+        fn: new Function(this, nextFn.name, {
+          ...nextFn,
+          code: nextFn.codeAsset(),
+        }),
+      };
+      return fns;
+    }, this.functions);
+  }
+
+  addPermission(
+    fnName: string,
+    ...permissions: Parameters<Function["addPermission"]>
+  ) {
+    this.functions[fnName].fn.addPermission(...permissions);
+  }
+
+  grantInvokeAll(...grantee: Parameters<Function["grantInvoke"]>) {
+    Object.values(this.functions).forEach((appFn) => appFn.fn.grantInvoke(...grantee));
   }
 }
