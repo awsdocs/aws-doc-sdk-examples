@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * To run these Amazon Simple Notification Service integration tests, you need to either set the required values
- * (for example, topicName) in the config.properties file or AWS Secret Manager.
+ * (for example, topicName) in the config.properties file or AWS Secrets Manager.
  */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -42,7 +42,7 @@ public class AmazonRedshiftTest {
         secretName = values.getSecretName();
         eventSourceType = values.getEventSourceType();
 
-        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+        // Uncomment this code block if you prefer to use a config.properties file to retrieve the AWS values required for these tests.
        /*
         try (InputStream input = AmazonRedshiftTest.class.getClassLoader().getResourceAsStream("config.properties")) {
             Properties prop = new Properties();
@@ -125,7 +125,6 @@ public class AmazonRedshiftTest {
         System.out.println("Test 7 passed");
     }
     public static String getSecretValues() {
-        // Get the Amazon RDS creds from Secrets Manager.
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())

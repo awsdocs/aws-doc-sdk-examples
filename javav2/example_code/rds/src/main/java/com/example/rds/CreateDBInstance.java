@@ -40,7 +40,6 @@ import java.util.List;
  *
  *  https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
  *
- *
  */
 // snippet-start:[rds.java2.create_instance.main]
 public class CreateDBInstance {
