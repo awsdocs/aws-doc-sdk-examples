@@ -57,7 +57,6 @@ class RDSTest {
 
     @BeforeAll
     fun setup() = runBlocking {
-
         val rand = Random()
         val randomNum = rand.nextInt(10000 - 1 + 1) + 1
 

@@ -78,9 +78,9 @@ suspend fun main(args: Array<String>) {
             secretName - The name of the AWS Secrets Manager secret that contains the database credentials.
     """
 
-     if (args.size != 6) {
-         println(usage)
-         exitProcess(1)
+    if (args.size != 6) {
+        println(usage)
+        exitProcess(1)
     }
 
     val dbGroupName = args[0]
