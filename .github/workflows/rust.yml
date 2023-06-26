@@ -24,10 +24,19 @@ jobs:
           components: clippy, rustfmt
       - uses: Swatinem/rust-cache@v2
       - name: Rust format
-        run: cargo fmt --manifest-path rust_dev_preview/Cargo.toml --all --check
+        run: >
+          cargo fmt --manifest-path rust_dev_preview/applications/Cargo.toml --all --check && \
+          cargo fmt --manifest-path rust_dev_preview/examples/Cargo.toml --all --check && \
+          cargo fmt --manifest-path rust_dev_preview/webassembly/Cargo.toml --all --check
       - name: Rust lint
-        run: cargo clippy --manifest-path rust_dev_preview/Cargo.toml -- -D warnings
+        run: >
+          cargo clippy --manifest-path rust_dev_preview/applications/Cargo.toml -- -D warnings && \
+          cargo clippy --manifest-path rust_dev_preview/examples/Cargo.toml -- -D warnings && \
+          cargo clippy --manifest-path rust_dev_preview/webassembly/Cargo.toml -- -D warnings
       - name: Rust test
-        run: cargo test --manifest-path rust_dev_preview/Cargo.toml --all
+        run: >
+          cargo test --manifest-path rust_dev_preview/applications/Cargo.toml --all --check && \
+          cargo test --manifest-path rust_dev_preview/examples/Cargo.toml --all --check && \
+          cargo test --manifest-path rust_dev_preview/webassembly/Cargo.toml --all --check
         env:
           APP_ENVIRONMENT: test

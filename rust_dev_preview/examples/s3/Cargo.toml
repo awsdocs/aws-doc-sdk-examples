@@ -31,7 +31,7 @@ aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = 
 ] }
 aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = ["rt-tokio"] }
 aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-sdk-examples-test-utils = { path = "../test-utils" }
+sdk-examples-test-utils = { path = "../../test-utils" }
 bytes = "1.4.0"
 futures-util = { version = "0.3.21", features = ["alloc"] }
 http = "0.2.8"

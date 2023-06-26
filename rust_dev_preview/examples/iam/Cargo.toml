@@ -26,7 +26,7 @@ aws-sdk-sts = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main"
 aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = ["test-util"] }
 aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
-sdk-examples-test-utils = { path = "../test-utils" }
+sdk-examples-test-utils = { path = "../../test-utils" }
 tokio = { version = "1.20.1", features = ["full"] }
 clap = { version = "4.2.1", features = ["derive"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }

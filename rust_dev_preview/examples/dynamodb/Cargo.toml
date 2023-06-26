@@ -28,7 +28,7 @@ http = "0.2.5"
 futures = "0.3"
 log = "0.4.17"
 rand = "0.8.3"
-sdk-examples-test-utils = { path = "../test-utils" }
+sdk-examples-test-utils = { path = "../../test-utils" }
 serde = {version = "1.0", features = ["derive"]}
 serde_json = "1"
 serde_dynamo = { version = "4", features = ["aws-sdk-dynamodb+0_22"] }
