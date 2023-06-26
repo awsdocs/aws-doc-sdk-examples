@@ -106,16 +106,6 @@
           "BackoffRate": 2
         }
       ],
-      "Next": "StoreAudio"
-    },
-    "StoreAudio": {
-      "Type": "Task",
-      "Parameters": {
-        "Body": {},
-        "Bucket": "fordslittletest",
-        "Key": "33.mp3"
-      },
-      "Resource": "arn:aws:states:::aws-sdk:s3:putObject",
       "Next": "CreateComment"
     },
     "CreateComment": {
@@ -125,21 +115,16 @@
       "Parameters": {
         "TableName": "comments",
         "Item": {
-          "id.$": "$.['ETag']",
-          "object_key": {
-            "S": "5655665556.mpeg"
-          }
+          "id.$": "$.id",
+          "object_key.$": "$.detail.object.key",
+          "raw_text.$": "$.extracted_text.Payload",
+          "sentiment.$": "$.sentiment_analysis.Payload",
+          "translated_text.$": "$.translated_text.Payload.translated_text",
+          "raw_language.$": "$.translated_text.Payload.source_language_code",
+          "raw_recording": ""
         }
       },
-      "End": true,
-      "Catch": [
-        {
-          "ErrorEquals": [
-            "States.ALL"
-          ],
-          "Next": "CreateComment"
-        }
-      ]
+      "End": true
     }
   }
 }

@@ -7,8 +7,8 @@ def lambda_handler(event:, context:)
 
   logger = Logger.new($stdout)
 
-  logger.info("event:\n #{event}")
-  logger.info("context:\n #{context}")
+  logger.info("event:\n #{event.to_s}\n")
+  logger.info("context:\n #{context.to_s}\n")
 
   # Define existing AWS resources required
   iam_role = 'arn:aws:iam::260778392212:role/service-role/StepFunctions-MyStateMachine-role-907d5af6'
@@ -30,9 +30,9 @@ def lambda_handler(event:, context:)
       sns_topic_arn: sns_topic
     }
   }
-  logger.info("textract params: \n#{params}")
+  logger.info("textract params: \n#{params.to_s}\n")
   response = client.start_document_text_detection(params)
-  logger.info(response)
+  logger.info("#{response.to_s}\n")
   execution_arn = response[:job_id]
 
   extracted_words = []
@@ -42,9 +42,9 @@ def lambda_handler(event:, context:)
     # Get the status of a state machine execution
     response = client.get_document_text_detection({job_id: execution_arn})
     status = response[:job_status]
-    logger.info(status)
+    logger.info("status check: #{status}\n")
     break if status == 'SUCCEEDED' || status == 'FAILED'
-    sleep(5) # Wait for 5 seconds before checking again
+    sleep(1) # Wait for 5 seconds before checking again
   end
 
   logger.info("function either successful or failed")
@@ -64,6 +64,3 @@ def lambda_handler(event:, context:)
 
   extracted_words.join(" ")
 end
-
-test = lambda_handler(event: nil, context: nil)
-puts test
