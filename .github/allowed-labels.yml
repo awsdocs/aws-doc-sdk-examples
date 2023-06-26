@@ -131,7 +131,6 @@
 
 # Labels to visually distinguish special types of issues
 - name: Urgent
-  from_name: urgent
   color: "00FFFF"
   description: "Very important and needs attention"
 - name: Epic
