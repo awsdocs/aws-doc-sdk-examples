@@ -17,11 +17,13 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.services.autoscaling.AutoScalingClient;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.Random;
+
 import software.amazon.awssdk.regions.Region;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -34,19 +36,19 @@ public class AutoScaleTest {
     private static String instanceId="";
     private static String instanceId2="";
     private static String launchTemplateName="";
-    private static String serviceLinkedRoleARN="";
     private static String vpcZoneId="";
 
     @BeforeAll
     public static void setUp() throws IOException {
+        Random random = new Random();
+        int randomNum = random.nextInt((10000 - 1) + 1) + 1;
 
         autoScalingClient = AutoScalingClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(ProfileCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
         try (InputStream input = AutoScaleTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-
             Properties prop = new Properties();
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
@@ -54,32 +56,19 @@ public class AutoScaleTest {
             }
 
             prop.load(input);
-            groupName = prop.getProperty("groupName");
+            groupName = prop.getProperty("groupName")+randomNum;
             launchTemplateName = prop.getProperty("launchTemplateName");
-            serviceLinkedRoleARN = prop.getProperty("serviceLinkedRoleARN");
             vpcZoneId = prop.getProperty("vpcZoneId");
-            groupNameSc = prop.getProperty("groupNameSc");
+            groupNameSc = prop.getProperty("groupNameSc")+randomNum;
 
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
     @Test
-    @Order(1)
-    public void checkValues() {
-        assertNotNull(autoScalingClient);
-        assertNotNull(groupName);
-        assertNotNull(instanceId);
-        assertNotNull(launchTemplateName);
-        assertNotNull(serviceLinkedRoleARN);
-        assertNotNull(vpcZoneId);
-        System.out.println("Test 1 passed");
-    }
-
-    @Test
     @Order(2)
     public void createAutoScalingGroup() {
-        assertDoesNotThrow(() -> CreateAutoScalingGroup.createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, serviceLinkedRoleARN, vpcZoneId));
+        assertDoesNotThrow(() -> CreateAutoScalingGroup.createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, vpcZoneId));
         System.out.println("Test 2 passed");
     }
 
@@ -114,7 +103,7 @@ public class AutoScaleTest {
     @Order(6)
     public void autoScalingScenario() throws InterruptedException {
         System.out.println("**** Create an Auto Scaling group named "+groupName);
-        AutoScalingScenario.createAutoScalingGroup(autoScalingClient, groupNameSc, launchTemplateName, serviceLinkedRoleARN, vpcZoneId);
+        AutoScalingScenario.createAutoScalingGroup(autoScalingClient, groupNameSc, launchTemplateName, vpcZoneId);
 
         System.out.println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
         Thread.sleep(60000);
@@ -130,7 +119,7 @@ public class AutoScaleTest {
         AutoScalingScenario.enableMetricsCollection(autoScalingClient, groupNameSc);
 
         System.out.println("**** Update an Auto Scaling group to update max size to 3");
-        AutoScalingScenario.updateAutoScalingGroup(autoScalingClient, groupNameSc, launchTemplateName, serviceLinkedRoleARN);
+        AutoScalingScenario.updateAutoScalingGroup(autoScalingClient, groupNameSc, launchTemplateName);
 
         System.out.println("**** Describe all Auto Scaling groups to show the current state of the groups");
         AutoScalingScenario.describeAutoScalingGroups(autoScalingClient, groupNameSc);
