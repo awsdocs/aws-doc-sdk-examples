@@ -17,10 +17,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: setup
-        run: sudo apt-get update && sudo apt-get install -y libclang-dev
+        run: >
+          sudo apt-get update && sudo apt-get install -y libclang-dev  &&
+          (
+          echo "Removing unwanted software... " ;
+          echo "Before:" ; df -h ;
+          sudo apt-get clean ; 
+          sudo rm -rf /usr/share/dotnet ;
+          sudo rm -rf /usr/local/lib/android ;
+          sudo rm -rf /opt/ghc ;
+          sudo rm -rf /opt/hostedtoolcache/CodeQL ;
+          sudo docker image prune --all --force ;
+          echo "After:" ; df -h ;
+          )
       - uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: "1.70"
+          toolchain: stable
           components: clippy, rustfmt
       - uses: actions/checkout@v3
       - name: Rust format
