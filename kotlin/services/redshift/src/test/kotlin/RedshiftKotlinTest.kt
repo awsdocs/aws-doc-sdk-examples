@@ -26,7 +26,7 @@ import java.util.Random
 
 /**
  * To run these integration tests, you need to either set the required values
- * in the config.properties file or AWS Secret Manager.
+ * in the config.properties file or in AWS Secrets Manager.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)

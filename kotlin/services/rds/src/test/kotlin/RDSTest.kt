@@ -38,7 +38,7 @@ import java.util.UUID
 
 /**
  * To run these integration tests, you need to either set the required values
- * in the config.properties file or AWS Secret Manager.
+ * in the config.properties file or in AWS Secrets Manager.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
@@ -76,14 +76,8 @@ class RDSTest {
         dbSnapshotIdentifierSc = values.dbSnapshotIdentifierSc + UUID.randomUUID()
         dbNameSc = values.dbNameSc + randomNum
 
-        // dbClusterGroupName = values.getDbClusterGroupName() + randomNum
-        // dbParameterGroupFamily = values.getDbParameterGroupFamily()
-        // dbInstanceClusterIdentifier = values.getDbInstanceClusterIdentifier()
-        //  secretDBName = values.getSecretName()
-
 // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
         /*
-
                 val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
                 val prop = Properties()
 
@@ -102,7 +96,6 @@ class RDSTest {
                 masterUserPasswordSc = prop.getProperty("masterUserPasswordSc")
                 dbSnapshotIdentifierSc = prop.getProperty("dbSnapshotIdentifierSc")
                 dbNameSc = prop.getProperty("dbNameSc")
-
          */
     }
 

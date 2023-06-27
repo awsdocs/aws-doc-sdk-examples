@@ -34,11 +34,11 @@ import kotlin.system.exitProcess
 
 // snippet-start:[rds.kotlin.scenario.main]
 /**
-Before running this Java V2 code example, set up your development environment, including your credentials.
+Before running this code example, set up your development environment, including your credentials.
 
 For more information, see the following documentation topic:
 
-https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
 This example requires an AWS Secrets Manager secret that contains the database credentials. If you do not create a
 secret, this example will not work. For more details, see:
@@ -55,11 +55,11 @@ This example performs the following tasks:
 6. Gets and displays the updated parameters.
 7. Gets a list of allowed engine versions by invoking the describeDbEngineVersions method.
 8. Gets a list of micro instance classes available for the selected engine.
-9. Creates an RDS database instance that contains a MySql database and uses the parameter group
-10. Waits for DB instance to be ready and print out the connection endpoint value.
+9. Creates an Amazon Relational Database Service (Amazon RDS) database instance that contains a MySQL database and uses the parameter group.
+10. Waits for DB instance to be ready and prints out the connection endpoint value.
 11. Creates a snapshot of the DB instance.
-12. Waits for DB snapshot to be ready.
-13. Deletes the DB instance. rds.DeleteDbInstance.
+12. Waits for the DB snapshot to be ready.
+13. Deletes the DB instance.
 14. Deletes the parameter group.
  */
 
