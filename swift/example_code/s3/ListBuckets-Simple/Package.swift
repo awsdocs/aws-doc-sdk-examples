@@ -25,7 +25,8 @@ let package = Package(
         .executableTarget(
             name: "ListBuckets-Simple",
             dependencies: [
-                .product(name: "AWSS3", package: "aws-sdk-swift")            ],
+                .product(name: "AWSS3", package: "aws-sdk-swift")
+            ],
             path: "Sources")
     ]
     // snippet-end:[s3.swift.intro.package-targets]
