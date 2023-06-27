@@ -29,8 +29,7 @@ import kotlin.system.exitProcess
 
  This example requires an AWS Secrets Manager secret that contains the database credentials. If you do not create a
  secret, this example will not work. For details, see:
-
-  https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
+ https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
 */
 
 suspend fun main(args: Array<String>) {
