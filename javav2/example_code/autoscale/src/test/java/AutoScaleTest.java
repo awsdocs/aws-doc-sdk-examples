@@ -80,7 +80,6 @@ public class AutoScaleTest {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
         */
     }
 
@@ -192,12 +191,9 @@ public class AutoScaleTest {
 
         private String vpcZoneId;
 
-
         TestValues() {
         }
 
-
-        //getter
         String getGroupName(){
             return this.groupName;
         }
@@ -210,11 +206,9 @@ public class AutoScaleTest {
             return this.launchTemplateName;
         }
 
-
         String getVpcZoneId(){
             return this.vpcZoneId;
         }
-
     }
 }
 
