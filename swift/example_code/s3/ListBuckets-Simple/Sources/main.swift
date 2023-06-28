@@ -18,7 +18,6 @@ func getBucketNames() async throws -> [String] {
     // Get an S3Client with which to access Amazon S3.
     // snippet-start:[s3.swift.intro.client-init]
     let client = try S3Client(region: "us-east-1")
-    try S3Client(config: S3Client.S3ClientConfiguration)
     // snippet-end:[s3.swift.intro.client-init]
 
     // snippet-start:[s3.swift.intro.listbuckets]
