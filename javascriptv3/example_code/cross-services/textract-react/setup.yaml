@@ -24,6 +24,23 @@ Resources:
         Ref: textractcognitodemobucket90CF6A3D
       PolicyDocument:
         Statement:
+          - Action: s3:*
+            Condition:
+              Bool:
+                aws:SecureTransport: "false"
+            Effect: Deny
+            Principal:
+              AWS: "*"
+            Resource:
+              - Fn::GetAtt:
+                  - textractcognitodemobucket90CF6A3D
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - textractcognitodemobucket90CF6A3D
+                        - Arn
+                    - /*
           - Action:
               - s3:GetObject*
               - s3:GetBucket*
@@ -275,7 +292,7 @@ Resources:
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Analytics: v2:deflate64:H4sIAAAAAAAAClVQQVLDMAx8S++uSijMwA0Il54oKTwgOAbUJFawbJiOx3/HdhoSLtbuarXSuIDbG7hY3dU/vJZNu/GSjAJ/sLVsRUmarXHSivJdPzk7uIwqxeSMVAlHS4MWSQeRIjxvwT842arsPKOx7KlDeZrlkQfBXwz+2SmXA0eQ33lgQaNfR//BvbE0OKTVyfGPv9CAMqkZBIF1D76iLi/IdY6eUiV9aLQE/pWV2RN1qfmHJ1B2qLRdts7KRB+pr1EvDbOya6IT7WlKX/J01b2Nv/7ZRzGEIDQ1Co68+S6uoLiGy9WREdfGxZFeQTXWX6defii/AQAA
+      Analytics: v2:deflate64:H4sIAAAAAAAA/1VQzVLDIBB+lt7ptmk9eFTjxZM11QeIBHWbhE1Z0OkwvLtAGhMv7Pe3HwwF7LY3sF3d1T+8lk278ZKMAn+0tWxFpZickUqUH/rZ2cFZUZJma5y0SVv60WjQIukgUpfnPfgHJ1uVk1c0jgN1KC+zPPIg+MzgX5xyuXAE+ZwXFjTmdcwf3TtLg0O6OiX+8VcaUCY1gyCw7sFX1OUL8pyrp1ZJnxotgX9jZQ5EXTL/8ATKDpW2S+uqTPSR+hr1MjArT01Mor1M7UueXnVv4/d/9VEMIQhNjYITb76LWyh2UKxOjLg2Lq70Cqpx/gIaj5kQyQEAAA==
     Metadata:
       aws:cdk:path: textract-example-s3-sns-sqs-cognito/CDKMetadata/Default
     Condition: CDKMetadataAvailable

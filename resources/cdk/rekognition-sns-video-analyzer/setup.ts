@@ -15,6 +15,7 @@ export class SetupStack extends cdk.Stack {
     let rekognition = new ServicePrincipal('rekognition.amazonaws.com');
 
     let bucket = new Bucket(this, 'rekognition-demo-bucket', {
+      enforceSSL: true,
       cors: [{
         allowedHeaders: ["*"],
         allowedMethods: [HttpMethods.GET, HttpMethods.PUT, HttpMethods.DELETE],
