@@ -23,7 +23,7 @@ import com.example.sqs.*;
 
 /**
  * To run these integration tests, you need to either set the required values
- * in the config.properties file or AWS Secret Manager.
+ * in the config.properties file or AWS Secrets Manager.
  */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -32,10 +32,10 @@ public class SQSIntegrationTest {
     private static SqsClient sqsClient;
 
     private static String queueName ="";
-    private static String queueUrl ="" ; // set dynamically in the test
+    private static String queueUrl ="" ;
     private static String message ="";
     private static String dlqueueName ="";
-    private static List<Message> messages = null; // set dynamically in the test
+    private static List<Message> messages = null;
 
     @BeforeAll
     public static void setUp() throws IOException {
@@ -45,7 +45,6 @@ public class SQSIntegrationTest {
             .region(Region.US_WEST_2)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
-
 
         // Get the values to run these tests from AWS Secrets Manager.
         Gson gson = new Gson();
@@ -158,7 +157,7 @@ public class SQSIntegrationTest {
     }
 
     @Nested
-    @DisplayName("A class used to get test values from test/sns, a AWS Secrets Manager secret")
+    @DisplayName("A class used to get test values from test/sns, an AWS Secrets Manager secret")
     class QueueMessage {
         private String QueueName;
         private String DLQueueName;

@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 /**
  * To run these integration tests, you need to either set the required values
- * in the config.properties file or AWS Secret Manager.
+ * in the config.properties file or AWS Secrets Manager.
  */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -222,7 +222,7 @@ public class AWSSNSTest {
     }
 
     @Nested
-    @DisplayName("A class used to get test values from test/sns, a AWS Secrets Manager secret")
+    @DisplayName("A class used to get test values from test/sns, an AWS Secrets Manager secret")
     class TestValues {
         private String topicName;
         private String attributeName;
