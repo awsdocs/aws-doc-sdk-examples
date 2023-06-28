@@ -49,3 +49,7 @@ func (mock *MockQuestioner) AskChoice(question string, choices []string) int {
 	answerInt, _ := strconv.Atoi(mock.Next(question))
 	return answerInt
 }
+
+func (mock *MockQuestioner) AskPassword(question string, minLength int) string {
+	return mock.Next(question)
+}
