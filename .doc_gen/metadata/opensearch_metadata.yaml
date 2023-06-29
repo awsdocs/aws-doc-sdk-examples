@@ -1,0 +1,18 @@
+# zexi 0.4.0
+opensearch_CreateDomain:
+  title: Create an &ES; domain by using an &AWS; SDK
+  title_abbrev: Create a domain
+  synopsis: create an &ES; domain.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.create_domain.main
+  services:
+    opensearch: {CreateDomain}

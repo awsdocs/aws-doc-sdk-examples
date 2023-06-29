@@ -654,6 +654,15 @@ mediapackage:
   tags:
     product_categories: {'Media Services'}
   version: mediapackage-2017-10-12
+opensearch: 
+  long: '&ESlong;'
+  short: '&ES;'
+  sort: "ES"
+  expanded:
+    long: Amazon OpenSearch Service
+    short: OpenSearch
+  blurb: is a distributed, community-driven, Apache 2.0-licensed, 100% open-source search and analytics suite used for a broad set of use cases like real-time application monitoring, log analytics, and website search.
+  version: es-2021-01-01
 organizations:
   long: '&AOlong;'
   short: '&AO;'
