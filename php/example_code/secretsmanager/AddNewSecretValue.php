@@ -20,7 +20,6 @@
 
 // snippet-start:[secretsmanager.php.add_new_secret_value.complete]
 // snippet-start:[secretsmanager.php.add_new_secret_value.import]
-
 require 'vendor/autoload.php';
 use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
@@ -51,11 +50,10 @@ try {
     ]);
     var_dump($result);
 } catch (AwsException $e) {
-// output error message if fails
+    // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
-
 // snippet-end:[secretsmanager.php.add_new_secret_value.main]
 // snippet-end:[secretsmanager.php.add_new_secret_value.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]

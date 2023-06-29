@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,16 +17,18 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+
 // snippet-start:[secretsmanager.php.delete_secret.complete]
 // snippet-start:[secretsmanager.php.delete_secret.import]
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient; 
+use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[secretsmanager.php.delete_secret.import]
 
 /**
- * Delete a secret from AWS Secrets Manager. 
+ * Delete a secret from AWS Secrets Manager.
  *
  * Secret will remain for 30 days before deletion unless specified with 'RecoveryWindowInDays'.
  *
@@ -33,7 +36,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client 
+//Create a Secrets Manager Client
 // snippet-start:[secretsmanager.php.delete_secret.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',

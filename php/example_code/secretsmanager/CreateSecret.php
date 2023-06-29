@@ -20,7 +20,6 @@
 
 // snippet-start:[secretsmanager.php.create_secret.complete]
 // snippet-start:[secretsmanager.php.create_secret.import]
-
 require 'vendor/autoload.php';
 use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
@@ -53,7 +52,7 @@ try {
     ]);
     var_dump($result);
 } catch (AwsException $e) {
-// output error message if fails
+    // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }

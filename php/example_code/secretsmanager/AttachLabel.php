@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,17 +17,17 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+
 // snippet-start:[secretsmanager.php.attach_label.complete]
 // snippet-start:[secretsmanager.php.attach_label.import]
-
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient; 
+use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
 // snippet-end:[secretsmanager.php.attach_label.import]
 
 /**
- * Add a staging label to a version of an AWS Secret Manager Secret.  
+ * Add a staging label to a version of an AWS Secret Manager Secret
  *
  * Use ListSecretVersions.php to identify the VersionID for a Secret.
  *
@@ -34,7 +35,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client 
+//Create a Secrets Manager Client
 // snippet-start:[secretsmanager.php.attach_label.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
@@ -58,11 +59,10 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
 // snippet-end:[secretsmanager.php.attach_label.main]
 // snippet-end:[secretsmanager.php.attach_label.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[AttachLabel.php demonstrates how to add a label to a version of a secret in AWS Secrets Manager.]
+// snippet-sourcedescription:[AttachLabel.php shows how to add a label to a version of a secret in AWS Secrets Manager.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

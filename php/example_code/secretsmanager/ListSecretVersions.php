@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,22 +17,23 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+
 // snippet-start:[secretsmanager.php.list_secret_versions.complete]
 // snippet-start:[secretsmanager.php.list_secret_versions.import]
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient; 
+use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
 // snippet-end:[secretsmanager.php.list_secret_versions.import]
 
 /**
- * List versions of secrets available in the AWS Secrets Manager. 
+ * List versions of secrets available in the AWS Secrets Manager
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client 
+//Create a Secrets Manager Client
 // snippet-start:[secretsmanager.php.list_secret_versions.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
@@ -45,7 +47,7 @@ try {
         'SecretId' => $secretName,
     ]);
     var_dump($result);
-}  catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";
@@ -53,7 +55,7 @@ try {
 // snippet-end:[secretsmanager.php.list_secret_versions.main]
 // snippet-end:[secretsmanager.php.list_secret_versions.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListSecrets.php demonstrates how to list the versions of the secrets in the AWS Secrets Manager. ]
+// snippet-sourcedescription:[ListSecrets.php shows how to list the secrets versions in the AWS Secrets Manager.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

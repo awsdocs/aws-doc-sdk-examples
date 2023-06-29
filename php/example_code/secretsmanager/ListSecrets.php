@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,12 +17,14 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+
 // snippet-start:[secretsmanager.php.listsecrets.complete]
 // snippet-start:[secretsmanager.php.listsecrets.import]
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient; 
+use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[secretsmanager.php.listsecrets.import]
 
 /**
@@ -31,7 +34,7 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client 
+//Create a Secrets Manager Client
 // snippet-start:[secretsmanager.php.listsecrets.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
@@ -43,7 +46,7 @@ try {
     $result = $client->listSecrets([
     ]);
     var_dump($result);
-}  catch (AwsException $e) {
+} catch (AwsException $e) {
     // output error message if fails
     echo $e->getMessage();
     echo "\n";

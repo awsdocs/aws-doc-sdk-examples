@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,22 +17,24 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+
 // snippet-start:[secretsmanager.php.restore_secret.complete]
 // snippet-start:[secretsmanager.php.restore_secret.import]
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient; 
+use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[secretsmanager.php.restore_secret.import]
 
 /**
- * Reactivate a deleted secret from AWS Secret Manager. 
+ * Reactivate a deleted secret from AWS Secret Manager.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client 
+//Create a Secrets Manager Client
 // snippet-start:[secretsmanager.php.restore_secret.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
@@ -54,7 +57,7 @@ try {
 // snippet-end:[secretsmanager.php.restore_secret.main]
 // snippet-end:[secretsmanager.php.restore_secret.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[RestoreSecret.php demonstrates how to restore a deleted secret from AWS Secrets Manager within the 30 day window. ]
+// snippet-sourcedescription:[RestoreSecret.php shows how to restore a deleted secret within the 30 day window.]
 // snippet-keyword:[PHP]
 // snippet-sourcesyntax:[php]
 // snippet-keyword:[AWS SDK for PHP v3]

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,25 +17,28 @@
  *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
  *
  */
+
 // snippet-start:[secretsmanager.php.create_secret_rotation.complete]
 // snippet-start:[secretsmanager.php.create_secret_rotation.import]
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient; 
+use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[secretsmanager.php.create_secret_rotation.import]
 
 /**
- * Create a secret rotation in AWS Secret Manager Secret that automatically 
- * rotates the secret every 30 days. 
+ * Create a secret rotation in AWS Secret Manager Secret that automatically
+ * rotates the secret every 30 days.
  *
- * Rotation Lambda Templates are available at https://docs.aws.amazon.com/code-samples/latest/catalog/code-catalog-lambda_functions-secretsmanager.html 
+ * Rotation Lambda Templates are available at
+ * https://docs.aws.amazon.com/code-samples/latest/catalog/code-catalog-lambda_functions-secretsmanager.html
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-//Create a Secrets Manager Client 
+//Create a Secrets Manager Client
 // snippet-start:[secretsmanager.php.create_secret_rotation.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
