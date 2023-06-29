@@ -2,6 +2,7 @@
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-service:[Amazon EC2 Auto Scaling]
 
+
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -66,28 +67,25 @@ import java.util.List;
  * 13. Deletes the Auto Scaling group.
  */
 
-
 public class AutoScalingScenario {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
         final String usage = "\n" +
             "Usage:\n" +
-            "    <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>\n\n" +
+            "    <groupName> <launchTemplateName> <vpcZoneId>\n\n" +
             "Where:\n" +
             "    groupName - The name of the Auto Scaling group.\n" +
             "    launchTemplateName - The name of the launch template. \n" +
-            "    serviceLinkedRoleARN - The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses.\n" +
             "    vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.\n" ;
 
-        if (args.length != 4) {
+        if (args.length != 3) {
             System.out.println(usage);
             System.exit(1);
         }
 
         String groupName = args[0];
         String launchTemplateName = args[1];
-        String serviceLinkedRoleARN = args[2];
-        String vpcZoneId = args[3];
+        String vpcZoneId = args[2];
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(ProfileCredentialsProvider.create())
@@ -99,7 +97,7 @@ public class AutoScalingScenario {
 
         System.out.println(DASHES);
         System.out.println("1. Create an Auto Scaling group named "+groupName);
-        createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, serviceLinkedRoleARN, vpcZoneId);
+        createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, vpcZoneId);
         System.out.println("Wait 1 min for the resources, including the instance. Otherwise, an empty instance Id is returned");
         Thread.sleep(60000);
         System.out.println(DASHES);
@@ -127,7 +125,7 @@ public class AutoScalingScenario {
 
         System.out.println(DASHES);
         System.out.println("5. Update an Auto Scaling group to update max size to 3");
-        updateAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, serviceLinkedRoleARN);
+        updateAutoScalingGroup(autoScalingClient, groupName, launchTemplateName);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -175,7 +173,7 @@ public class AutoScalingScenario {
         System.out.println(DASHES);
         System.out.println("The Scenario has successfully completed." );
         System.out.println(DASHES);
-        
+
         autoScalingClient.close();
     }
 
@@ -223,7 +221,6 @@ public class AutoScalingScenario {
     public static void createAutoScalingGroup(AutoScalingClient autoScalingClient,
                                               String groupName,
                                               String launchTemplateName,
-                                              String serviceLinkedRoleARN,
                                               String vpcZoneId) {
         try {
             AutoScalingWaiter waiter = autoScalingClient.waiter();
@@ -238,7 +235,6 @@ public class AutoScalingScenario {
                 .maxSize(1)
                 .minSize(1)
                 .vpcZoneIdentifier(vpcZoneId)
-                .serviceLinkedRoleARN(serviceLinkedRoleARN)
                 .build();
 
             autoScalingClient.createAutoScalingGroup(request);
@@ -332,7 +328,6 @@ public class AutoScalingScenario {
     // snippet-start:[autoscale.java2.enable_collection.main]
     public static void enableMetricsCollection(AutoScalingClient autoScalingClient, String groupName) {
         try {
-
             EnableMetricsCollectionRequest collectionRequest = EnableMetricsCollectionRequest.builder()
                 .autoScalingGroupName(groupName)
                 .metrics("GroupMaxSize")
@@ -382,7 +377,7 @@ public class AutoScalingScenario {
     // snippet-end:[autoscale.java2.describe_account.main]
 
     // snippet-start:[autoscale.java2.update_autoscalinggroup.main]
-    public static void updateAutoScalingGroup(AutoScalingClient autoScalingClient, String groupName, String launchTemplateName, String serviceLinkedRoleARN) {
+    public static void updateAutoScalingGroup(AutoScalingClient autoScalingClient, String groupName, String launchTemplateName) {
         try {
             AutoScalingWaiter waiter = autoScalingClient.waiter();
             LaunchTemplateSpecification templateSpecification = LaunchTemplateSpecification.builder()
@@ -391,7 +386,6 @@ public class AutoScalingScenario {
 
             UpdateAutoScalingGroupRequest groupRequest = UpdateAutoScalingGroupRequest.builder()
                 .maxSize(3)
-                .serviceLinkedRoleARN(serviceLinkedRoleARN)
                 .autoScalingGroupName(groupName)
                 .launchTemplate(templateSpecification)
                 .build();
