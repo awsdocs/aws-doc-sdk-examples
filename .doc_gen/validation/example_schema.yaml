@@ -31,7 +31,8 @@ version:
 
 excerpt:
   description: str(required=False, upper_start=True, end_punc=True)
-  snippet_tags: list(str())
+  snippet_tags: list(str(), required=False)
+  snippet_files: list(str(), required=False)
 
 service_slug_regex: regex('^[\da-z-]+$', name='service slug')
 doc_url: regex('^(?!https://docs.aws.amazon.com/).+', name="relative documentation URL")
