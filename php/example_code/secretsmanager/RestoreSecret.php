@@ -18,7 +18,6 @@
  */
 // snippet-start:[secretsmanager.php.restore_secret.complete]
 // snippet-start:[secretsmanager.php.restore_secret.import]
-
 require 'vendor/autoload.php';
 
 use Aws\SecretsManager\SecretsManagerClient; 
@@ -40,10 +39,9 @@ $client = new SecretsManagerClient([
     'region' => 'us-west-2'
 ]);
 
-$secretName = '<<{{MySecretName}}>>';
+$secretName = 'MySecretName';
 
 try {
-
     $result = $client->restoreSecret([
         'SecretId' => $secretName,
     ]);
@@ -53,7 +51,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
 // snippet-end:[secretsmanager.php.restore_secret.main]
 // snippet-end:[secretsmanager.php.restore_secret.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]

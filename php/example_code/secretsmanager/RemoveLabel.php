@@ -18,7 +18,6 @@
  */
 // snippet-start:[secretsmanager.php.remove_label.complete]
 // snippet-start:[secretsmanager.php.remove_label.import]
-
 require 'vendor/autoload.php';
 
 use Aws\SecretsManager\SecretsManagerClient; 
@@ -42,7 +41,7 @@ $client = new SecretsManagerClient([
     'region' => 'us-west-2'
 ]);
 
-$secretName = '<<{{MySecretName}}>>';
+$secretName = 'MySecretName';
 $version_tag = 'AWSCURRENT';
 $version_id = 'EXAMPLE1-90ab-cdef-fedc-ba987SECRET1';
 
@@ -58,7 +57,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
 // snippet-end:[secretsmanager.php.remove_label.main]
 // snippet-end:[secretsmanager.php.remove_label.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]

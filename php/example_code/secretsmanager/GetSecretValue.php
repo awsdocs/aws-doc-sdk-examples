@@ -39,7 +39,7 @@ use Aws\Exception\AwsException;
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
-    'region' => '<<{{MyRegionName}}>>',
+    'region' => 'us-west-2',
 ]);
 
 $secretName = '<<{{MySecretName}}>>';
@@ -84,6 +84,10 @@ if (isset($result['SecretString'])) {
 } else {
     $secret = base64_decode($result['SecretBinary']);
 }
+print $secret;
+$secretArray = json_decode($secret, true);
+$username = $secretArray['username'];
+$password = $secretArray['password'];
 
 // Your code goes here; 
  

@@ -40,7 +40,9 @@ $client = new SecretsManagerClient([
     'version' => '2017-10-17',
     'region' => 'us-west-2'
 ]);
-$secretName = '<<{{MySecretName}}>>';
+$secretName = 'MySecretName';
+// The environment variable values in the following statement require quotation marks for valid JSON.
+// For example, SMDEMO_PASSWORD = "<<PASSWORD2>>".
 $secret = '{"username":' . getenv("SMDEMO_USERNAME") . ',"password":' . getenv("SMDEMO_PASSWORD") . '}';
 try {
     $result = $client->putSecretValue([

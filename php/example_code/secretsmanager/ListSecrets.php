@@ -18,7 +18,6 @@
  */
 // snippet-start:[secretsmanager.php.listsecrets.complete]
 // snippet-start:[secretsmanager.php.listsecrets.import]
-
 require 'vendor/autoload.php';
 
 use Aws\SecretsManager\SecretsManagerClient; 
@@ -49,7 +48,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
 // snippet-end:[secretsmanager.php.listsecrets.main]
 // snippet-end:[secretsmanager.php.listsecrets.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]

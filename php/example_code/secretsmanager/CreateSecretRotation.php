@@ -18,7 +18,6 @@
  */
 // snippet-start:[secretsmanager.php.create_secret_rotation.complete]
 // snippet-start:[secretsmanager.php.create_secret_rotation.import]
-
 require 'vendor/autoload.php';
 
 use Aws\SecretsManager\SecretsManagerClient; 
@@ -43,7 +42,7 @@ $client = new SecretsManagerClient([
     'region' => 'us-west-2'
 ]);
 
-$secretName = '<<{{MySecretName}}>>';
+$secretName = 'MySecretName';
 $lambda_ARN = 'arn:aws:lambda:us-west-2:123456789012:function:MyTestDatabaseRotationLambda';
 $rules = ['AutomaticallyAfterDays' => 30];
 
@@ -59,7 +58,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
 // snippet-end:[secretsmanager.php.create_secret_rotation.main]
 // snippet-end:[secretsmanager.php.create_secret_rotation.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]

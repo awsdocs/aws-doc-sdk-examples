@@ -42,7 +42,7 @@ $client = new SecretsManagerClient([
     'region' => 'us-west-2'
 ]);
 
-$secretName = '<<{{MySecretName}}>>';
+$secretName = 'MySecretName';
 $version_tag = 'AWSCURRENT';
 $version_id = 'EXAMPLE1-90ab-cdef-fedc-ba987SECRET1';
 

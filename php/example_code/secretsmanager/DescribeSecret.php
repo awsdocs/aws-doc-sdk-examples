@@ -40,7 +40,7 @@ $client = new SecretsManagerClient([
     'region' => 'us-west-2'
 ]);
 
-$secretName = '<<{{MySecretName}}>>';
+$secretName = 'MySecretName';
 
 try {
     $result = $client->describeSecret([

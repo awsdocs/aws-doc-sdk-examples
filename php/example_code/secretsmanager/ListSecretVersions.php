@@ -18,7 +18,6 @@
  */
 // snippet-start:[secretsmanager.php.list_secret_versions.complete]
 // snippet-start:[secretsmanager.php.list_secret_versions.import]
-
 require 'vendor/autoload.php';
 
 use Aws\SecretsManager\SecretsManagerClient; 
@@ -39,7 +38,7 @@ $client = new SecretsManagerClient([
     'version' => '2017-10-17',
     'region' => 'us-west-2'
 ]);
-$secretName = '<<{{MySecretName}}>>';
+$secretName = 'MySecretName';
 
 try {
     $result = $client->listSecretVersionIds([
@@ -51,7 +50,6 @@ try {
     echo $e->getMessage();
     echo "\n";
 }
- 
 // snippet-end:[secretsmanager.php.list_secret_versions.main]
 // snippet-end:[secretsmanager.php.list_secret_versions.complete]
 // snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
