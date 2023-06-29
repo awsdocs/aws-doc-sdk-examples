@@ -5,7 +5,6 @@ SAP ABAP:
     1:
       long: "&ABAPlong;"
       short: "&ABAP;"
-      caveat: "This documentation is for an SDK in developer preview release. The SDK is subject to change and is not recommended for use in production."
       expanded:
         long: "AWS SDK for SAP ABAP"
         short: "SDK for SAP ABAP"
