@@ -1,4 +1,4 @@
-# Creating a photo asset management application using the AWS SDK for LANGUAGE
+# Creating a photo asset management application using the SDK for LANGUAGE
 
 ## Overview
 
@@ -49,7 +49,7 @@ To complete the tutorial, you need the following:
 - Be sure to delete all of the resources you create while going through this tutorial so that you won't be charged.
 - Also make sure to properly set up your development environment. For information, see [LINK TO SETTING UP THE LANGUAGE SDK].
 
-### Creating the resources
+### Resource creation
 
 The required AWS resources are created by using an AWS Cloud Development Kit (AWS CDK) script. This is discussed later in the document. There is no need to create any resources by using the AWS Management Console.
 
@@ -99,7 +99,7 @@ The backend of the PAM application is implemented by using these AWS Lambda func
 - **Upload** - Uploads an image to an S3 bucket by using a presigned URL.
 - **DetectLabelsFn** - An Amazon S3 trigger function that is invoked when an image is uploaded or copied to the S3 storage bucket.
 - **LabelsFn** - Returns the labels and label count of images in the S3 storage bucket.
-- **PrepareDowload** - Retrieves the keys of all images that corresponds to the labels in the JSON data. Places all images in a zip file, presigns the zip file, and sends a notification message using Amazon SNS. The message contains a link to the zip file.
+- **PrepareDownload** - Retrieves the keys of all images that correspond to the labels in the JSON data. Places all images in a zip file, presigns the zip file, and sends a notification message using Amazon SNS. The message contains a link to the zip file.
 
 **Note**: These AWS Lambda names are short names. The full names that appear in the AWS Management Console depend on how you configure the provided AWS CDK script. Full names appear as {PAM_NAME}{Function Name}. For example, **MyApp-LambdasDetectLabelsFn**.
 
@@ -108,7 +108,7 @@ The following table describes the AWS Lambda functions used by this application.
 | ------------- | ---------------------- | ---------------------------------| --------------------------------------------| ------------------------------------|
 | Upload | APIG PUT /upload | See following example | See following example | Storage bucket |  
 | DetectLabels | S3 PutObject jpeg | See following example | N/A | Label table |
-| PrepareDowload | APIG POST /download | {"labels": ["Mountain", "Lake"]} | N/A | Labels table / Working bucket |
+| PrepareDownload | APIG POST /download | {"labels": ["Mountain", "Lake"]} | N/A | Labels table / Working bucket |
 | LabelsFn | APIG GET /labels | N/A | {"labels": {"maintain": {"count": 5}} | Storage bucket, Label table |  
 | | | | | |
 
@@ -161,25 +161,25 @@ The following JSON represents the input for the **LabelsFn** Lambda function.
 
 #### API Gateway
 
-API Gateway provides HTTP API routes for the **UploadFn**, **LabelsFn**, **Labels**, and **DowloadFn** AWS Lambda functions. Parameters for all routes are provided in the body of the request in a JSON object. The following table describes the API Gateway routes.
+API Gateway provides HTTP API routes for the **UploadFn**, **LabelsFn**, **Labels**, and **DownloadFn** AWS Lambda functions. Parameters for all routes are provided in the body of the request in a JSON object. The following table describes the API Gateway routes.
 | Method | Route | Parameters | Example response | Lambda |
 | ------------- | -----------------| --------------------------| --------------------------------------------------------------- | ----------------------------|
 | PUT | /upload | filename: string | {"url": "presigned URL"} | UploadFn |
 | GET | /labels | N/A | {"labels": {"maintain": {"count": 5}, "lake": {"count": 3}}} | LabelsFn |
-| POST | /download | labels: string[] | {} (event) | DowloadFn |
+| POST | /download | labels: string[] | {} (event) | DownloadFn |
 
-#### S3 Buckets
+#### S3 buckets
 
 The PAM application uses two S3 buckets:
 
 - **{NAME}-sdk-code-examples-pam-storage-bucket** - Used as the storage bucket.
 - **{NAME}-sdk-code-examples-pam-working-bucket** - Used as the working bucket and provides zip download storage.
 
-**Note**: The name value is defined when you run the AWS CDK script to setup the resources. This is discussed later in this document.
+**Note**: The name value is defined when you run the AWS CDK script to set up the resources. This is discussed later in this document.
 
 #### Amazon DynamoDB
 
-The PAM application uses a DynamoDB table to track data. The Labels table naned **{NAME}-SDKCodeExamplesPAM-Labels** table contains the labels found by Amazon Rekognition. It has a simple primary key named **Label** with an attribute Label of type S.
+The PAM application uses a DynamoDB table to track data. The Labels table named **{NAME}-SDKCodeExamplesPAM-Labels** contains the labels found by Amazon Rekognition. It has a simple primary key named **Label** with an attribute Label of type S.
 **Note**: This Amazon DynamoDB table is created when you run the AWS CDK script to set up the resources. This is discussed later in this document.
 
 ## LANGUAGE SPECIFIC DETAILS
@@ -195,7 +195,7 @@ For complete instuctions on how to run the supplied AWS CDK script, see [PAM CDK
 
 ### Run the application
 
-When you run the AWS CDK script, you can run the client application by using the Amazon Cloudfront distribution URL as specified in the supplied AWS CDK instructions.
+When you run the AWS CDK script, you can run the client application by using the Amazon CloudFront distribution URL as specified in the supplied AWS CDK instructions.
 
 ### Next steps
 
