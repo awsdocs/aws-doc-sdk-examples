@@ -440,9 +440,9 @@ firehose:
   tags:
     product_categories: {'Analytics'}
 forecast: 
-  long: '&FORECASTlong;'
-  short: '&FORECAST;'
-  sort: "FORECAST"
+  long: '&FORlong;'
+  short: '&FOR'
+  sort: "FOR"
   expanded:
     long: Amazon Forecast Service
     short: Forecast
