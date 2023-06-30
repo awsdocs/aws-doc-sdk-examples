@@ -41,10 +41,10 @@ use Aws\Exception\AwsException;
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
-    'region' => 'us-west-2',
+    'region' => 'us-east-1',
 ]);
 
-$secretName = '<<{{MySecretName}}>>';
+$secretName = 'MySecretName';
 
 try {
     $result = $client->getSecretValue([
@@ -93,14 +93,3 @@ $password = $secretArray['password'];
 // Your code goes here;
 // snippet-end:[secretsmanager.php.get_secret_value.main]
 // snippet-end:[secretsmanager.php.get_secret_value.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[AWS Secrets Manager]
-// snippet-service:[secretsmanager]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-09-25]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]

@@ -40,9 +40,10 @@ $client = new SecretsManagerClient([
     'region' => 'us-west-2'
 ]);
 $secretName = 'MySecretName';
-// The environment variable values in the following statement require quotation marks for valid JSON.
-// For example, SMDEMO_USERNAME = "<<USERNAME>>".
-$secret = '{"username":' . getenv("SMDEMO_USERNAME") . ',"password":' . getenv("SMDEMO_PASSWORD") . '}';
+$secret = json_encode([
+    "username" => getenv("SMDEMO_USERNAME"),
+    "password" => getenv("SMDEMO_PASSWORD"),
+]);
 $description = '<<Description>>';
 try {
     $result = $client->createSecret([
@@ -59,14 +60,3 @@ try {
 
 // snippet-end:[secretsmanager.php.create_secret.main]
 // snippet-end:[secretsmanager.php.create_secret.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[CreateSecret.php demonstrates how to create a new secret in AWS Secrets Manager.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[AWS Secrets Manager]
-// snippet-service:[secretsmanager]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-11-08]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
