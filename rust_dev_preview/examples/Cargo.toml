@@ -31,7 +31,6 @@ members = [
     "kinesis",
     "kms",
     "lambda",
-    "lambda/calculator",
     "localstack",
     "logging/logger",
     "logging/tracing",
