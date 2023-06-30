@@ -25,7 +25,7 @@ auto-scaling_Hello:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust/example_code/autoscaling
+          github: rust_dev_preview/examples/autoscaling
           excerpts:
             - description:
               snippet_tags:
