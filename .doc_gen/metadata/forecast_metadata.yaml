@@ -1,8 +1,8 @@
 # zexi 0.4.0
 forecast_CreateDataset:
-  title: Create a data set for the &FORECASTlong; by using an &AWS; SDK
+  title: Create a data set for the &FORlong; by using an &AWS; SDK
   title_abbrev: Create a data set
-  synopsis: create a &FORECAST; data set.
+  synopsis: create a &FOR; data set.
   category:
   languages:
     Java:
@@ -15,4 +15,4 @@ forecast_CreateDataset:
               snippet_tags:
                 - forecast.java2.create_forecast_dataset.main
   services:
-    opensearch: {CreateDataset}
+    forecast: {CreateDataset}
