@@ -16,6 +16,24 @@ These examples demonstrate how to perform several operations using the developer
   [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
 
+## Examples Layout
+
+### `examples`
+
+Examples show how to use the AWS SDK for Rust using single actions and services. These are actions with individual binaries, as well as `scenario` binaries which run several actions using a single AWS SDK service.
+
+### `application`
+
+Applications show how to use multiple AWS services in a single holistic application. These are built to meet the needs of a user persona. Each application is a standalone program or set of programs.
+
+### `lambda`
+
+The Lambda example shows how to use the AWS SDK for Rust within the Lambda Rust Runtime.
+
+### `webassembly`
+
+The WebAssembly example shows how to use the AWS SDK for Rust within a WASM runtime.
+
 ## Running the code examples
 
 ### Environment Variables

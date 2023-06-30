@@ -192,6 +192,7 @@ ALLOW_LIST = {
     'src/main/java/com/example/sns/ListTopics',
     'src/main/java/com/example/sqs/SQSExample',
     'DescribeOrderableDBInstanceOptionsOutput',
+    'preview/examples/cognitoidentityprovider',
 }
 
 def check_files(root, quiet):

@@ -33,7 +33,7 @@ iam_Hello:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description: From src/bin/hello.rs.
               snippet_tags:
@@ -353,7 +353,7 @@ iam_GetAccountPasswordPolicy:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -422,7 +422,7 @@ iam_ListSAMLProviders:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -540,7 +540,7 @@ iam_CreateAccessKey:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -641,7 +641,7 @@ iam_DeleteAccessKey:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -975,7 +975,7 @@ iam_CreatePolicy:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1069,7 +1069,7 @@ iam_DeletePolicy:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1171,7 +1171,7 @@ iam_ListPolicies:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1391,7 +1391,7 @@ iam_AttachRolePolicy:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1501,7 +1501,7 @@ iam_ListAttachedRolePolicies:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1581,7 +1581,7 @@ iam_DetachRolePolicy:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1707,7 +1707,7 @@ iam_CreateRole:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1808,7 +1808,7 @@ iam_ListRoles:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1885,7 +1885,7 @@ iam_GetRole:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1952,7 +1952,7 @@ iam_DeleteRole:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2054,7 +2054,7 @@ iam_ListRolePolicies:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2160,7 +2160,7 @@ iam_CreateUser:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2262,7 +2262,7 @@ iam_DeleteUser:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2398,7 +2398,7 @@ iam_ListUsers:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2523,7 +2523,7 @@ iam_AttachUserPolicy:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2548,7 +2548,7 @@ iam_DetachUserPolicy:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2657,7 +2657,7 @@ iam_DeleteUserPolicy:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -3042,7 +3042,7 @@ iam_ListGroups:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -3136,7 +3136,7 @@ iam_CreateServiceLinkedRole:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -3178,7 +3178,7 @@ iam_DeleteServiceLinkedRole:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:
@@ -3343,7 +3343,7 @@ iam_Scenario_CreateUserAssumeRole:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/iam
+          github: rust_dev_preview/examples/iam
           excerpts:
             - description:
               snippet_tags:

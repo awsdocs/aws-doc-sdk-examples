@@ -16,12 +16,6 @@ members = [
     "cognitosync",
     "concurrency",
     "config",
-    "cross_service/detect_faces",
-    "cross_service/detect_labels",
-    "cross_service/photo_asset_management",
-    "cross_service/rest_ses",
-    "cross_service/telephone",
-    "custom-root-certificates",
     "dynamodb",
     "ebs",
     "ec2",
@@ -60,13 +54,8 @@ members = [
     "ssm",
     "stepfunction",
     "sts",
-    "test-utils",
     "testing",
     "textract",
     "tls",
     "transcribestreaming"
 ]
-
-[profile.release.package.photo_asset_management]
-opt-level = 3
-strip = "debuginfo"
