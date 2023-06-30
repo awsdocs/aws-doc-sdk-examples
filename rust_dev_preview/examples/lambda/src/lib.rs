@@ -7,6 +7,8 @@ use aws_config::{meta::region::RegionProviderChain, SdkConfig};
 use aws_sdk_lambda::{config::Region, meta::PKG_VERSION, Client};
 use clap::Parser;
 
+pub mod actions;
+
 #[derive(Debug, Parser)]
 pub struct Opt {
     /// The AWS Region.
