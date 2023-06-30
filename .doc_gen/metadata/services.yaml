@@ -439,6 +439,15 @@ firehose:
   version: "firehose-2015-08-04"
   tags:
     product_categories: {'Analytics'}
+forecast: 
+  long: '&FORECASTlong;'
+  short: '&FORECAST;'
+  sort: "FORECAST"
+  expanded:
+    long: Amazon Forecast Service
+    short: Forecast
+  blurb:  a fully managed service that uses statistical and machine learning algorithms to deliver highly accurate time-series forecasts. 
+  version: forecast-2018-06-26
 glacier:
   long: '&GLlong;'
   short: '&GLshort;'
