@@ -123,6 +123,14 @@ lambda_CreateFunction:
                 - cpp.example_code.lambda.lambda_client
                 - cpp.example_code.lambda.create_function1
                 - cpp.example_code.lambda.create_function2
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/lambda
+          excerpts:
+            - snippet_tags:
+                - lambda.rust.scenario.create_function
+                - lambda.rust.scenario.prepare_function
   services:
     lambda: {CreateFunction}
 lambda_DeleteFunction:
@@ -223,6 +231,13 @@ lambda_DeleteFunction:
                 - cpp.example_code.lambda.lambda_configuration
                 - cpp.example_code.lambda.lambda_client
                 - cpp.example_code.lambda.delete_function
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/lambda
+          excerpts:
+            - snippet_tags:
+                - lambda.rust.scenario.delete_function
   services:
     lambda: {DeleteFunction}
 lambda_Invoke:
@@ -324,6 +339,14 @@ lambda_Invoke:
                 - cpp.example_code.lambda.lambda_client
                 - cpp.example_code.lambda.invoke_function1
                 - cpp.example_code.lambda.invoke_function2
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/lambda
+          excerpts:
+            - snippet_tags:
+                - lambda.rust.scenario.invoke
+                - lambda.rust.scenario.log_invoke_output
   services:
     lambda: {Invoke}
 lambda_GetFunction:
@@ -377,7 +400,7 @@ lambda_GetFunction:
             - description:
               snippet_tags:
                 - ruby.example_code.ruby.LambdaWrapper.decl
-                - ruby.example_code.lambda.GetFunction             
+                - ruby.example_code.lambda.GetFunction
     JavaScript:
       versions:
         - sdk_version: 3
@@ -406,6 +429,13 @@ lambda_GetFunction:
                 - cpp.example_code.lambda.lambda_configuration
                 - cpp.example_code.lambda.lambda_client
                 - cpp.example_code.lambda.get_function
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/lambda
+          excerpts:
+            - snippet_tags:
+                - lambda.rust.scenario.get_function
   services:
     lambda: {GetFunction}
 lambda_UpdateFunctionCode:
@@ -488,6 +518,14 @@ lambda_UpdateFunctionCode:
                 - cpp.example_code.lambda.lambda_configuration
                 - cpp.example_code.lambda.lambda_client
                 - cpp.example_code.lambda.update_function_code
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/lambda
+          excerpts:
+            - snippet_tags:
+                - lambda.rust.scenario.update_function_code
+                - lambda.rust.scenario.prepare_function
   services:
     lambda: {UpdateFunctionCode}
 lambda_UpdateFunctionConfiguration:
@@ -570,6 +608,13 @@ lambda_UpdateFunctionConfiguration:
                 - cpp.example_code.lambda.lambda_client
                 - cpp.example_code.lambda.update_function_configuration1
                 - cpp.example_code.lambda.update_function_configuration2
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/lambda
+          excerpts:
+            - snippet_tags:
+                - lambda.rust.scenario.update_function_configuration
   services:
     lambda: {UpdateFunctionConfiguration}
 lambda_ListFunctions:
@@ -652,6 +697,13 @@ lambda_ListFunctions:
                 - cpp.example_code.lambda.lambda_configuration
                 - cpp.example_code.lambda.lambda_client
                 - cpp.example_code.lambda.list_functions
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/lambda
+          excerpts:
+            - snippet_tags:
+                - lambda.rust.scenario.list_functions
   services:
     lambda: {ListFunctions}
 lambda_Scenario_GettingStartedFunctions:
@@ -697,7 +749,8 @@ lambda_Scenario_GettingStartedFunctions:
         - sdk_version: 2
           github: gov2/lambda
           excerpts:
-            - description: Create an interactive scenario that shows you how to get
+            - description:
+                Create an interactive scenario that shows you how to get
                 started with &LAM; functions.
               snippet_tags:
                 - gov2.lambda.Scenario_GetStartedFunctions
@@ -710,8 +763,7 @@ lambda_Scenario_GettingStartedFunctions:
             - description: Define a &LAM; handler that increments a number.
               snippet_tags:
                 - gov2.lambda.handlers.increment
-            - description:
-                Define a second &LAM; handler that performs arithmetic operations.
+            - description: Define a second &LAM; handler that performs arithmetic operations.
               snippet_tags:
                 - gov2.lambda.handlers.arithmetic
     Kotlin:
@@ -837,6 +889,20 @@ lambda_Scenario_GettingStartedFunctions:
             - description:
               snippet_tags:
                 - cpp.example_code.lambda.get_started_with_functions
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/lambda
+          excerpts:
+            - description: The Cargo.toml with dependencies used in this scenario.
+              snippet_files:
+                - rust_dev_preview/examples/lambda/Cargo.toml
+            - description: A collection of utilities that streamline calling Lambda for this scenario. This file is src/ations.rs in the crate.
+              snippet_files:
+                - rust_dev_preview/examples/lambda/src/actions.rs
+            - description: A binary to run the scenario from front to end, using command line flags to control some behavior. This file is src/bin/scenario.rs in the crate.
+              snippet_files:
+                - rust_dev_preview/examples/lambda/src/bin/scenario.rs
   services:
     lambda:
       {
