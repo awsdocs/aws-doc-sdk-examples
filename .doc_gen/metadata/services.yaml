@@ -442,7 +442,7 @@ firehose:
 forecast: 
   long: '&FORlong;'
   short: '&FOR;'
-  sort: "Forecast"
+  sort: Forecast
   expanded:
     long: Amazon Forecast Service
     short: Forecast
