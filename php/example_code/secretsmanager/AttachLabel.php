@@ -27,7 +27,7 @@ use Aws\Exception\AwsException;
 // snippet-end:[secretsmanager.php.attach_label.import]
 
 /**
- * Add a staging label to a version of an AWS Secret Manager Secret
+ * Add a staging label to a version of an AWS Secrets Manager Secret
  *
  * Use ListSecretVersions.php to identify the VersionID for a Secret.
  *
