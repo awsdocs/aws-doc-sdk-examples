@@ -22,7 +22,7 @@ Code examples for each language's SDK can be found within the following subdirec
 | Java       | [javav2/](javav2)                     | 2           | ![[]](https://img.shields.io/badge/-supported-blue) |
 | Java       | [java/](java)                         | 1           | ![[]](https://img.shields.io/badge/-unsupported-red)     |
 | JavaScript | [javascriptv3/](javascriptv3)         | 3           | ![[]](https://img.shields.io/badge/-supported-blue)                  |
-| JavaScript | [javascript/](javascript)             | 2           | ![[]](https://img.shields.io/badge/-supported-blue)      |
+| JavaScript | [javascript/](javascript)             | 2           | ![[]](https://img.shields.io/badge/-unsupported-red)      |
 | Kotlin     | [kotlin/](kotlin)                     |             | ![[]](https://img.shields.io/badge/-preview-brightgreen)           |
 | PHP        | [php/](php)                           | 3           | ![[]](https://img.shields.io/badge/-supported-blue)                       |
 | Python     | [python/](python)                     | 3           | ![[]](https://img.shields.io/badge/-supported-blue)                       |
