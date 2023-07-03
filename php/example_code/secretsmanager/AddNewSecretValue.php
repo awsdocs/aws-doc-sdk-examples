@@ -12,15 +12,10 @@
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the KMS Developer Guide topic at
- *  https://docs.aws.amazon.com/kms/latest/developerguide/programming-key-policies.html
- *
  */
 
 // snippet-start:[secretsmanager.php.add_new_secret_value.complete]
 // snippet-start:[secretsmanager.php.add_new_secret_value.import]
-
 require 'vendor/autoload.php';
 use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
@@ -40,8 +35,11 @@ $client = new SecretsManagerClient([
     'version' => '2017-10-17',
     'region' => 'us-west-2'
 ]);
-$secretName = '<<{{MySecretName}}>>';
-$secret = '{"username":' . getenv("SMDEMO_USERNAME") . ',"password":' . getenv("SMDEMO_PASSWORD") . '}';
+$secretName = 'MySecretName';
+$secret = json_encode([
+    "username" => getenv("SMDEMO_USERNAME"),
+    "password" => getenv("SMDEMO_PASSWORD"),
+]);
 try {
     $result = $client->putSecretValue([
         'SecretId' => $secretName,
@@ -49,21 +47,9 @@ try {
     ]);
     var_dump($result);
 } catch (AwsException $e) {
-// output error message if fails
+    // output error message if fails
     echo $e->getMessage();
     echo "\n";
 }
-
 // snippet-end:[secretsmanager.php.add_new_secret_value.main]
 // snippet-end:[secretsmanager.php.add_new_secret_value.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[demonstrates how to create a new version with a new secret value in AWS Secrets Manager.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[AWS Secrets Manager]
-// snippet-service:[secretsmanager]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-11-08]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
