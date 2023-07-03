@@ -28,7 +28,7 @@ use Aws\Exception\AwsException;
 // snippet-end:[secretsmanager.php.describe_secret.import]
 
 /**
- * Retrieve details about a secret from AWS Secret Manager
+ * Retrieve details about a secret from AWS Secrets Manager
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
