@@ -1,7 +1,7 @@
 package com.example.s3.transfermanager;
 
-// snippet-start:[s3.java2.async_stream.complete]
-// snippet-start:[s3.java2.async_stream.import]
+// snippet-start:[s3.tm.java2.upload_stream.complete]
+// snippet-start:[s3.tm.java2.upload_stream.import]
 import com.example.s3.util.AsyncExampleUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import software.amazon.awssdk.transfer.s3.model.Upload;
 
 import java.io.ByteArrayInputStream;
 import java.util.UUID;
-// snippet-end:[s3.java2.async_stream.import]
+// snippet-end:[s3.tm.java2.upload_stream.import]
 
 public class UploadStream {
     private static final Logger logger = LoggerFactory.getLogger(UploadStream.class);
@@ -37,7 +37,7 @@ public class UploadStream {
         }
     }
 
-// snippet-start:[s3.java2.async_stream.main]
+// snippet-start:[s3.tm.java2.upload_stream.main]
     /**
      * @param transferManager - To upload content from a stream of unknown size,
      *                        use <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/transfer-manager.html#transfer-manager-prerequisites">an S3TransferManager based on the AWS CRT-based S3 client.</a>
@@ -65,5 +65,5 @@ public class UploadStream {
         return upload.completionFuture().join();
     }
 }
-// snippet-end:[s3.java2.async_stream.main]
-// snippet-end:[s3.java2.async_stream.complete]
+// snippet-end:[s3.tm.java2.upload_stream.main]
+// snippet-end:[s3.tm.java2.upload_stream.complete]
