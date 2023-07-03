@@ -24,7 +24,7 @@ use Aws\Exception\AwsException;
 // snippet-end:[secretsmanager.php.restore_secret.import]
 
 /**
- * Reactivate a deleted secret from AWS Secret Manager.
+ * Reactivate a deleted secret from AWS Secrets Manager.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
