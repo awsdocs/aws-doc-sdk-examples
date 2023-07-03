@@ -2700,3 +2700,25 @@ s3_Scenario_URIParsing:
                 - s3.java2.scenario_uriparsing.main
   services:
     s3: {}
+s3_Scenario_UploadStream:
+  title: Upload a stream of unknown size to an &S3; object using an &AWS; SDK
+  title_abbrev: Upload stream of unknown size
+  synopsis: upload a stream of unknown size to an &S3; object.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Use the <ulink url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation">&AWS; CRT-based S3 Client</ulink>.
+              snippet_tags:
+                - s3.java2.async_stream.import
+                - s3.java2.async_stream.main
+            - description: Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html" type="documentation">&S3; Transfer Manager</ulink>.
+              snippet_tags:
+                - s3.tm.java2.upload_stream.import
+                - s3.tm.java2.upload_stream.main
+  services:
+    s3: {}
