@@ -24,7 +24,7 @@ use Aws\Exception\AwsException;
 // snippet-end:[secretsmanager.php.rotate_secret.import]
 
 /**
- * Immediately rotate a secret in an AWS Secret Manager Secret.
+ * Immediately rotate a secret in an AWS Secrets Manager Secret.
  *
  * This code expects that you have AWS credentials set up per:
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
