@@ -12,10 +12,6 @@
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
- * If you need more information about configurations or implementing the sample code, visit the AWS docs:
- * https://aws.amazon.com/developers/getting-started/php/
- *
  */
 
 // snippet-start:[secretsmanager.php.get_secret_value.complete]
