@@ -10,10 +10,13 @@ use clap::Parser;
 use dynamodb_code_examples::{make_config, scenario::list::list_items, Opt as BaseOpt};
 
 #[derive(Debug, Parser)]
-struct Opt {
+struct ListItemsOpt {
     /// The name of the table.
     #[structopt(short, long)]
     table: String,
+
+    #[structopt(default_value = "10", long)]
+    page_size: Option<i32>,
 
     #[structopt(flatten)]
     base: BaseOpt,
@@ -31,10 +34,14 @@ struct Opt {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt::init();
 
-    let Opt { table, base } = Opt::parse();
+    let ListItemsOpt {
+        table,
+        base,
+        page_size,
+    } = ListItemsOpt::parse();
 
     let shared_config = make_config(base).await?;
     let client = Client::new(&shared_config);
 
-    list_items(&client, &table).await
+    list_items(&client, &table, page_size).await
 }
