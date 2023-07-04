@@ -40,7 +40,8 @@ public class PutObjectFromStreamAsync {
 
 // snippet-start:[s3.java2.async_stream.main]
     /**
-     * @param s33CrtAsyncClient - To upload content from a stream of unknown size, <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/crt-based-s3-client.htmluse">the AWS CRT-based S3 client</a>.
+     * @param s33CrtAsyncClient - To upload content from a stream of unknown size, use the AWS CRT-based S3 client. For more information, see
+     *                          https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/crt-based-s3-client.html.
      * @param bucketName - The name of the bucket.
      * @param key - The name of the object.
      * @return software.amazon.awssdk.services.s3.model.PutObjectResponse - Returns metadata pertaining to the put object operation.
@@ -51,7 +52,7 @@ public class PutObjectFromStreamAsync {
                 AsyncRequestBody.forBlockingInputStream(null); // 'null' indicates a stream will be provided later.
 
         CompletableFuture<PutObjectResponse> responseFuture =
-                s33CrtAsyncClient.putObject(r -> r.bucket(bucketName).key(key), body); //
+                s33CrtAsyncClient.putObject(r -> r.bucket(bucketName).key(key), body);
 
         // AsyncExampleUtils.randomString() returns a random string up to 100 characters.
         String randomString = AsyncExampleUtils.randomString();

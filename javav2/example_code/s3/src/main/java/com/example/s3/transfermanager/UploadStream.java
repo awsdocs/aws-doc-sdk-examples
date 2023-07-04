@@ -39,8 +39,8 @@ public class UploadStream {
 
 // snippet-start:[s3.tm.java2.upload_stream.main]
     /**
-     * @param transferManager - To upload content from a stream of unknown size,
-     *                        use <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/transfer-manager.html#transfer-manager-prerequisites">an S3TransferManager based on the AWS CRT-based S3 client.</a>
+     * @param transferManager - To upload content from a stream of unknown size, use the S3TransferManager based on the AWS CRT-based S3 client.
+     *                       For more information, see https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/transfer-manager.html.
      * @param bucketName - The name of the bucket.
      * @param key - The name of the object.
      * @return - software.amazon.awssdk.transfer.s3.model.CompletedUpload - The result of the completed upload.
