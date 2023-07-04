@@ -2,12 +2,12 @@
 
 ## Overview
 
-| Heading         | Description                                                                                                                                                                 |
-| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Heading         | Description                                                                                                                                                                |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Description     | Discusses how to develop a photo asset management application that lets users manage photos using labels. This application is developed by using the AWS SDK for LANGUAGE. |
-| Audience        | Developer (intermediate)                                                                                                                                         |
-| Updated         | DATE                                                                                                                                                               |
-| Required skills | LANGUAGE, TOOLS                                                                                                                                                                 |
+| Audience        | Developer (intermediate)                                                                                                                                                   |
+| Updated         | DATE                                                                                                                                                                       |
+| Required skills | LANGUAGE, TOOLS                                                                                                                                                            |
 
 ## Purpose
 
@@ -15,7 +15,7 @@ You can create a Photo Asset Management (PAM) application that lets users upload
 
 The following illustration shows the AWS services used in the PAM application.
 
-![AWS Photo Analyzer](images/pamOverview.png)
+![AWS Photo Analyzer](images/pam_architecture.png)
 
 As displayed in this illustration, the PAM application uses the following AWS services:
 
@@ -59,7 +59,7 @@ The front end of the PAM application is a React application that uses the [Cloud
 
 After a user authenticates by using Amazon Cognito, the application displays all labels and the corresponding label count.
 
-![AWS Photo Analyzer](images/pam2.png)
+![AWS Photo Analyzer Main Page With Tags](images/pam_page.png)
 
 ### What happens after an image is uploaded to an S3 bucket
 
@@ -70,23 +70,23 @@ After an image is uploaded into the storage bucket, an AWS Lambda function is au
 
 The following illustration shows the Amazon DynamoDB table storing label data. A label is the partition key which means it can only be added once. Each time an existing tag is detected, the count column is incremented.
 
-![AWS Photo Analyzer](images/pic3.png)
+![AWS Photo Analyzer DynamoDB Table Sample](images/ddb_sample.png)
 
 The PAM application uses a lifecycle rule that places all images into an **Intelligent-Tiering** storage class at midnight. An Amazon S3 lifecycle configuration is a set of rules that define actions that Amazon S3 applies to a group of objects. For more information about an Amazon S3 lifecycle, see [Managing your storage lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html).
 
 The following illustration shows Amazon S3 objects that are stored in the storage class.
 
-![AWS Photo Analyzer](images/storageMessage2.png)
+![AWS Photo Analyzer S3 Upload Bucket](images/s3_uploads.png)
 
 **Note**: For more information about Amazon S3 storage classes, see [Amazon S3 Storage Classes](https://aws.amazon.com/s3/storage-classes/).
 
 To retrieve images, select the given labels and choose **Download**.
 
-![AWS Photo Analyzer](images/pamDownload.png)
+![AWS Photo Analyzer Tags & Download Button](images/pam_download.png)
 
 The application dynamically creates a .zip file, stores the file in the Amazon S3 working bucket, presigns the file, and sends a notification message by using Amazon SNS. The message contains the presigned URL that's used to download the file.
 
-![AWS Photo Analyzer](images/email.png)
+![AWS Photo Analyzer Sample Email](images/email.png)
 
 ### Understand the AWS resources used by the PAM application
 
@@ -107,9 +107,9 @@ The following table describes the AWS Lambda functions used by this application.
 | Function |Trigger | Input | Output | Uses |
 | ------------- | ---------------------- | ---------------------------------| --------------------------------------------| ------------------------------------|
 | Upload | APIG PUT /upload | See following example | See following example | Storage bucket |  
-| DetectLabels | S3 PutObject jpeg | See following example | N/A | Label table |
+| DetectLabels | S3 PutObject jpeg | See following example | N/A | Labels table |
 | PrepareDownload | APIG POST /download | {"labels": ["Mountain", "Lake"]} | N/A | Labels table / Working bucket |
-| LabelsFn | APIG GET /labels | N/A | {"labels": {"maintain": {"count": 5}} | Storage bucket, Label table |  
+| LabelsFn | APIG GET /labels | N/A | {"labels": {"maintain": {"count": 5}}} | Storage bucket, Labels table |  
 | | | | | |
 
 **Note**: The application logic required to build these AWS Lambda functions is discussed later in this document.
@@ -130,7 +130,7 @@ The following JSON represents the input for the **UploadFn** Lambda function.
 
 You need to use this JSON if you want to test your AWS Lambda function by using the AWS Management Console. You specify the JSON in the **Event JSON** section, as shown in the following illustration.
 
-![AWS Photo Analyzer](images/EventJSON.png)
+![AWS Photo Analyzer](images/upload_event_JSON.png)
 
 This Lambda function returns JSON that contains the presigned URL that can be used to upload the .jpg file specified in the URL (in this example, mountain.jpg).
 
