@@ -29,8 +29,6 @@
 
 <!ENTITY Bashlong '&CLIlong; with Bash script'>
 <!ENTITY Bash '&CLI; with Bash script'>
-<!ENTITY guide-rust-dev '&guide-cli-ug;'>
-<!ENTITY guide-rust-api '&guide-cli-ref;'>
 
 <!-- API Gateway Management API -->
 
