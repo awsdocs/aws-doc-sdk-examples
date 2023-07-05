@@ -6,13 +6,12 @@
 # The following command will run the docker image, copying your AWS credentials.
 # 'docker run -it --volume ~/.aws/credentials:/home/tests/.aws/credentials <a_docker_file_name>'
 
-FROM amazonlinux:2022
+FROM public.ecr.aws/amazonlinux/amazonlinux:2023
 
 # Set up the dependencies.
 RUN \
-  yum update -y && \
-  yum install -y gcc gcc-c++ make cmake libcurl-devel openssl-devel libuuid-devel pulseaudio-libs-devel git && \
-  yum clean all
+  dnf --setopt=install_weak_deps=False -y install gcc gcc-c++ make cmake libcurl-devel openssl-devel libuuid-devel pulseaudio-libs-devel git && \
+  dnf clean all
 
 # Build only the services needed for example code.
 ENV SERVICES="acm;autoscaling;cloudtrail;codebuild;codecommit;cognito-idp;dynamodb;ec2;elasticache;elasticbeanstalk"
@@ -28,7 +27,7 @@ RUN \
   mkdir -p build && \
   cd build && \
   cmake -DCMAKE_BUILD_TYPE=Debug -DBUILD_ONLY=${SERVICES} -DENABLE_TESTING=ON .. && \
-  make --jobs=3 install &&  \
+  make --jobs=$(nproc) install &&  \
   cd /usr/local
 
 # Install googletest.
@@ -38,7 +37,7 @@ RUN \
     mkdir build  && \
     cd build && \
     cmake ..  -DBUILD_GMOCK=OFF && \
-    make && \
+    make -j$(nproc) && \
     make install
 
 
