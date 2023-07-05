@@ -71,7 +71,7 @@ public static class PipelineWorkflow
             .AddJsonFile("settings.json") // Load settings from .json file.
             .AddJsonFile("settings.local.json",
                 true) // Optionally, load local settings.
-            .Build(); 
+            .Build();
 
         ServicesSetup(host);
         string queueUrl = "";
