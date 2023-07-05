@@ -120,10 +120,10 @@ public class ServiceHandler {
         let output = try await client.getObject(input: input)
 
         // Get the data stream object. Return immediately if there isn't one.
-        guard let body = output.body else {
+        guard let body = output.body,
+              let data = try await body.readData() else {
             return
         }
-        let data = body.toBytes().getData()
         try data.write(to: fileUrl)
     }
     // snippet-end:[s3.swift.basics.handler.downloadfile]
@@ -146,10 +146,11 @@ public class ServiceHandler {
 
         // Get the stream and return its contents in a `Data` object. If
         // there is no stream, return an empty `Data` object instead.
-        guard let body = output.body else {
+        guard let body = output.body,
+              let data = try await body.readData() else {
             return "".data(using: .utf8)!
         }
-        let data = body.toBytes().getData()
+        
         return data
     }
     // snippet-end:[s3.swift.basics.handler.readfile]

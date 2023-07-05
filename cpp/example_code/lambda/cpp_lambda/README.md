@@ -47,56 +47,35 @@ Dockerfile         README.md          calculator         increment
 
 ### Build and package the Lambda function
 
-Build and install the [AWS Lambda C++ Runtime](https://github.com/awslabs/aws-lambda-cpp) from within the Docker container.
-
-```bash
-git clone https://github.com/awslabs/aws-lambda-cpp-runtime.git
-cd aws-lambda-cpp-runtime
-mkdir build
-cd build
-cmake3 .. -DCMAKE_BUILD_TYPE=Release \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DCMAKE_INSTALL_PREFIX=~/install 
-make
-make install
-```
-
 
 Now build the two Lambda functions used by the sample code. Because the Docker container is bound to the directory containing
 this README, the source code can be accessed within the container at `/cpp_lambda`.
 
+Note: The [AWS Lambda C++ Runtime](https://github.com/awslabs/aws-lambda-cpp) is required for the next steps. It was installed when the Docker image was built.
+
 1. Build the "Increment" Lambda function code.
 
 ```bash
-cd /cpp_lambda/increment
-mkdir build
-cd build
-cmake3 .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=~/install
-make
-make aws-lambda-package-cpp_lambda_calculator
+cd /cpp_lambda/increment && \
+mkdir build && \
+cd build && \
+cmake3 .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=~/install && \
+make && \
+make aws-lambda-package-cpp_lambda_increment
 ```
 
 2. Build the "Calculator" Lambda function code.
 
 ```bash
-cd ../../calculator
-mkdir build
-cd build
-cmake3 .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=~/install
-make
+cd /cpp_lambda/calculator && \
+mkdir build && \
+cd build && \
+cmake3 .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=~/install && \
+make && \
 make aws-lambda-package-cpp_lambda_calculator
 ```
 These build steps have generated two zip files which will be used by the sample 
 code in [Get started with functions](../get_started_with_functions_scenario.cpp). 
-The generated zip files have the same name because the executables must have the same name for `UpdateFunction`.
-The zip files can be renamed without changing their contents' names.
-
-Copy the file `cpp_lambda/increment/build/cpp_lambda_calculator.zip` to the 
-directory containing `get_started_with_functions_scenario.cpp` and rename it
-`cpp_lambda_increment.zip`.
-
-Copy the file `cpp_lambda/calculator/build/cpp_lambda_calculator.zip` to the
-directory containing `get_started_with_functions_scenario.cpp`.
 
 These files are referenced in the following section of code:
 
@@ -105,13 +84,13 @@ These files are referenced in the following section of code:
         static Aws::String LAMBDA_HANDLER_NAME(
                 "cpp_lambda_calculator");
         static Aws::String INCREMENT_LAMBDA_CODE(
-                SOURCE_DIR "/cpp_lambda_increment.zip");
+                SOURCE_DIR "cpp_lambda/increment/build/cpp_lambda_increment.zip");
         static Aws::String CALCULATOR_LAMBDA_CODE(
-                SOURCE_DIR "/cpp_lambda_calculator.zip");
+                SOURCE_DIR "cpp_lambda/calculator/build/cpp_lambda_calculator.zip");
 #else
 ```
 
-Finally, set preprocessor constant `USE_CPP_LAMBDA_FUNCTION` to 1.
+Finally, in the source file `get_started_with_functions_scenario.cpp`, set the preprocessor constant `USE_CPP_LAMBDA_FUNCTION` to 1.
 
 ```cpp
 #define USE_CPP_LAMBDA_FUNCTION 1

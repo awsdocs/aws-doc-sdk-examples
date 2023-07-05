@@ -17,7 +17,7 @@ glue_Hello:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -107,7 +107,7 @@ glue_GetCrawler:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -199,7 +199,7 @@ glue_CreateCrawler:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -291,7 +291,7 @@ glue_StartCrawler:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -382,7 +382,7 @@ glue_GetDatabase:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -464,7 +464,7 @@ glue_GetTables:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -538,7 +538,7 @@ glue_CreateJob:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -613,7 +613,7 @@ glue_StartJobRun:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -684,7 +684,7 @@ glue_ListJobs:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -822,7 +822,7 @@ glue_GetJobRun:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -894,7 +894,7 @@ glue_DeleteJob:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -955,7 +955,7 @@ glue_DeleteTable:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -1027,7 +1027,7 @@ glue_DeleteDatabase:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -1099,7 +1099,7 @@ glue_DeleteCrawler:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           excerpts:
             - description:
               snippet_tags:
@@ -1288,7 +1288,7 @@ glue_Scenario_GetStartedCrawlersJobs:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/glue
+          github: rust_dev_preview/examples/glue
           sdkguide:
           excerpts:
             - description:

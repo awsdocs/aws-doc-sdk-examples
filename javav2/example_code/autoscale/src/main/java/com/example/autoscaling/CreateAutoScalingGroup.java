@@ -31,32 +31,29 @@ import software.amazon.awssdk.services.autoscaling.waiters.AutoScalingWaiter;
 public class CreateAutoScalingGroup {
 
     public static void main(String[] args) {
-
         final String usage = "\n" +
             "Usage:\n" +
             "    <groupName> <launchTemplateName> <serviceLinkedRoleARN> <vpcZoneId>\n\n" +
             "Where:\n" +
             "    groupName - The name of the Auto Scaling group.\n" +
             "    launchTemplateName - The name of the launch template. \n" +
-            "    serviceLinkedRoleARN - The Amazon Resource Name (ARN) of the service-linked role that the Auto Scaling group uses.\n" +
             "    vpcZoneId - A subnet Id for a virtual private cloud (VPC) where instances in the Auto Scaling group can be created.\n" ;
 
-        if (args.length != 4) {
+        if (args.length != 3) {
             System.out.println(usage);
             System.exit(1);
         }
 
         String groupName = args[0];
         String launchTemplateName = args[1];
-        String serviceLinkedRoleARN = args[2];
-        String vpcZoneId = args[3];
+        String vpcZoneId = args[2];
 
         AutoScalingClient autoScalingClient = AutoScalingClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, serviceLinkedRoleARN, vpcZoneId);
+        createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, vpcZoneId);
         autoScalingClient.close();
     }
 
@@ -64,7 +61,6 @@ public class CreateAutoScalingGroup {
     public static void createAutoScalingGroup(AutoScalingClient autoScalingClient,
                                               String groupName,
                                               String launchTemplateName,
-                                              String serviceLinkedRoleARN,
                                               String vpcZoneId) {
 
         try {
@@ -80,7 +76,6 @@ public class CreateAutoScalingGroup {
                 .maxSize(1)
                 .minSize(1)
                 .vpcZoneIdentifier(vpcZoneId)
-                .serviceLinkedRoleARN(serviceLinkedRoleARN)
                 .build();
 
             autoScalingClient.createAutoScalingGroup(request);

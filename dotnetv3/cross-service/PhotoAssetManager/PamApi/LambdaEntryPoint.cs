@@ -5,13 +5,13 @@ namespace PamApi;
 
 /// <summary>
 /// This class extends from APIGatewayProxyFunction which contains the method FunctionHandlerAsync which is the 
-/// actual Lambda function entry point. The Lambda handler field should be set to
+/// actual AWS Lambda function entry point. The Lambda handler field should be set to
 /// 
 /// PamApi::PamApi.LambdaEntryPoint::FunctionHandlerAsync
 /// </summary>
 public class LambdaEntryPoint :
 
-    // The base class must be set to match the AWS service invoking the Lambda function. If not Amazon.Lambda.AspNetCoreServer
+    // The base class must be set to match the AWS service invoking the Lambda function. If not, Amazon.Lambda.AspNetCoreServer
     // will fail to convert the incoming request correctly into a valid ASP.NET Core request.
     //
     // API Gateway REST API                         -> Amazon.Lambda.AspNetCoreServer.APIGatewayProxyFunction
@@ -25,7 +25,7 @@ public class LambdaEntryPoint :
     Amazon.Lambda.AspNetCoreServer.APIGatewayProxyFunction
 {
     /// <summary>
-    /// The builder has configuration, logging and Amazon API Gateway already configured. The startup class
+    /// The builder has configuration, logging, and Amazon API Gateway already configured. The startup class
     /// needs to be configured in this method using the UseStartup<>() method.
     /// </summary>
     /// <param name="builder"></param>

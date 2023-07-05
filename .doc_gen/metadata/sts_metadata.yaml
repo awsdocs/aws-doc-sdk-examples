@@ -79,7 +79,7 @@ sts_AssumeRole:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/sts/
+          github: rust_dev_preview/examples/sts/
           excerpts:
             - description:
               snippet_tags:

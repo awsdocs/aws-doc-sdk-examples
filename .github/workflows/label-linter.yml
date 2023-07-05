@@ -3,6 +3,9 @@ name: "Lint Labels"
 on:
   pull_request_target:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 jobs:
   label-linter:
     permissions:

@@ -26,6 +26,23 @@ Resources:
         Ref: rekognitiondemobucketCF294C9A
       PolicyDocument:
         Statement:
+          - Action: s3:*
+            Condition:
+              Bool:
+                aws:SecureTransport: "false"
+            Effect: Deny
+            Principal:
+              AWS: "*"
+            Resource:
+              - Fn::GetAtt:
+                  - rekognitiondemobucketCF294C9A
+                  - Arn
+              - Fn::Join:
+                  - ""
+                  - - Fn::GetAtt:
+                        - rekognitiondemobucketCF294C9A
+                        - Arn
+                    - /*
           - Action:
               - s3:GetObject*
               - s3:GetBucket*
@@ -161,7 +178,7 @@ Resources:
   CDKMetadata:
     Type: AWS::CDK::Metadata
     Properties:
-      Analytics: v2:deflate64:H4sIAAAAAAAACl1POw7CMAw9C3swFBhgAzoxgQoXqNwApm2MGgeEotydNAUhMb2P37PlDFZLmI7W5dOOsaonHrnT4I9SYq1yNlY6h6Lys9k7ubvECm3Zdah7HiMVCbEJql/h7Rz81mGtU/LDBjhwQ/j62YMOyhoL/sR3wn6WSFBUtuALbtKRhL/6t4h8MSQMPnq7ShsheR2YG/Wn+/pG4kfXNpohBGW40nCzk0c2g2wB2ehmicadi5VWQzHgG9v+r2YbAQAA
+      Analytics: v2:deflate64:H4sIAAAAAAAA/11PzQ6CMAx+Fu+zCHrw6M/JkwZ9AVKmVmA1rNOQZe/uAI3G0/fXr01TyGYLmE1WxdNOsawSj9xq8EcpsFK5tuxa1Gp7Nnsndydqy8ZK61B67zePQUlCbILqd3k7B79xWOlh8s1GOHBN2H3tUQdljQV/4jthnw0kKCoa8DnXw5EBv/VPEfliSBh89HalNkLSHZhr9af7+lria9cmmiEEZbjUcLPJI11CmkE6uVmiaetipdGQj/gC4G8VdyUBAAA=
     Metadata:
       aws:cdk:path: video-analyzer/CDKMetadata/Default
     Condition: CDKMetadataAvailable

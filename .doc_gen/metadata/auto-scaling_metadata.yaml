@@ -25,7 +25,7 @@ auto-scaling_Hello:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust/example_code/autoscaling
+          github: rust_dev_preview/examples/autoscaling
           excerpts:
             - description:
               snippet_tags:
@@ -82,7 +82,7 @@ auto-scaling_CreateAutoScalingGroup:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/autoscaling
+          github: rust_dev_preview/examples/autoscaling
           excerpts:
             - description:
               snippet_tags:
@@ -150,7 +150,7 @@ auto-scaling_DeleteAutoScalingGroup:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/autoscaling
+          github: rust_dev_preview/examples/autoscaling
           excerpts:
             - description:
               snippet_tags:
@@ -217,7 +217,7 @@ auto-scaling_DescribeAutoScalingGroups:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/autoscaling
+          github: rust_dev_preview/examples/autoscaling
           excerpts:
             - description:
               snippet_tags:
@@ -284,7 +284,7 @@ auto-scaling_UpdateAutoScalingGroup:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/autoscaling
+          github: rust_dev_preview/examples/autoscaling
           excerpts:
             - description:
               snippet_tags:

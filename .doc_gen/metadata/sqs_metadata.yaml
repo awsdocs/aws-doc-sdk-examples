@@ -5,6 +5,14 @@ sqs_Hello:
   synopsis: get started using &SQS;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/sqs
+          sdkguide:
+          excerpts:
+            - snippet_tags:
+                - sqs.kotlin.hellosqs.main
     Java:
       versions:
         - sdk_version: 2
@@ -256,7 +264,7 @@ sqs_ListQueues:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/sqs
+          github: rust_dev_preview/examples/sqs
           excerpts:
             - description: Retrieve the first &SQS; queue listed in the Region.
               snippet_tags:
@@ -460,7 +468,7 @@ sqs_SendMessage:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/sqs
+          github: rust_dev_preview/examples/sqs
           excerpts:
             - description:
               snippet_tags:
@@ -602,7 +610,7 @@ sqs_ReceiveMessage:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/sqs
+          github: rust_dev_preview/examples/sqs
           excerpts:
             - description:
               snippet_tags:

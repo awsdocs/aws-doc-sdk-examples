@@ -8,7 +8,7 @@ apigatewaymanagementapi_PostToConnection:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/apigatewaymanagement
+          github: rust_dev_preview/examples/apigatewaymanagement
           sdkguide:
           excerpts:
             - description:

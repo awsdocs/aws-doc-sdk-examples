@@ -19,13 +19,13 @@ You no longer need to set up, manage, and scale your own monitoring systems and 
 
 ### Single Actions
 
-- [Create an alarm that watches a metric](actions/putMetricAlarm.js)
-- [Delete alarms](actions/deleteAlarms.js)
-- [Describe alarms for a metric](actions/describeAlarms.js)
-- [Disable alarm actions](actions/disableAlarmActions.js)
-- [Enable alarm actions](actions/enableAlarmActions.js)
-- [List metrics](actions/listMetrics.js)
-- [Put data into a metric](actions/putMetricData.js)
+- [Create an alarm that watches a metric](actions/put-metric-alarm.js)
+- [Delete alarms](actions/delete-alarms.js)
+- [Describe alarms for a metric](actions/describe-alarms.js)
+- [Disable alarm actions](actions/disable-alarm-actions.js)
+- [Enable alarm actions](actions/enable-alarm-actions.js)
+- [List metrics](actions/list-metrics.js)
+- [Put data into a metric](actions/put-metric-data.js)
 
 **Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-examples-javascript-syntax.html).

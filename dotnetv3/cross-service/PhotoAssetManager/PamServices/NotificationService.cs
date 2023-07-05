@@ -7,7 +7,7 @@ using Amazon.SimpleNotificationService.Model;
 namespace PamServices;
 
 /// <summary>
-/// Service for working with notifications for the photo analyzer
+/// Service for working with notifications for the photo analyzer.
 /// </summary>
 public class NotificationService
 {
@@ -21,7 +21,7 @@ public class NotificationService
     /// <summary>
     /// Send a notification to subscribers.
     /// </summary>
-    /// <param name="topicArn">The Arn of the topic.</param>
+    /// <param name="topicArn">The Amazon Resource Name (ARN) of the topic.</param>
     /// <param name="subject">The message subject.</param>
     /// <param name="message">The message text.</param>
     /// <returns>Async task.</returns>

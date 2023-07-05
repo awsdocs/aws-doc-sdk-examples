@@ -569,6 +569,10 @@ cross_MessagesTopicsAndQueues:
     - Publish messages to the topic.
     - Poll the queues for messages received.
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: workflow_MessagesTopicsAndQueues_kotlin_block.xml
     Java:
       versions:
         - sdk_version: 2

@@ -4,7 +4,7 @@
 namespace PamApi;
 
 /// <summary>
-/// The Main function can be used to run the ASP.NET Core application locally using the Kestrel webserver.
+/// The Main function can be used to run the ASP.NET Core application locally using the Kestrel web server.
 /// </summary>
 public static class LocalEntryPoint
 {
