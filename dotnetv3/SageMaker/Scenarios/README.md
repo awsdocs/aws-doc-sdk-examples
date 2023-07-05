@@ -15,10 +15,10 @@ and a [callback step](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-
 which are processed by the same example Lambda function. The Lambda handles starting a SageMaker job, or an export function, or the processing of the Amazon SQS queue message that 
 is used for SageMaker callback steps. This Lambda code is included as part of this example. 
 
-![](C:\Work\Repos\Forks\aws-doc-sdk-examples\dotnetv3\SageMaker\Pipeline.PNG)
+![Pipeline image](../Images/Pipeline.PNG)
 
 ### Pipeline Parameters
-The example pipeline also includes parameters that can be referenced in throughout the steps, and can be used to change
+The example pipeline uses [parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-parameters.html) that can be referenced in throughout the steps, and can be used to change
 values between executions. In this example, the parameters are used to set the Amazon Simple Storage Service (Amazon S3)
 locations for the input and output files, along with the identifiers for the role and queue to use in the pipeline. 
 The example demonstrates how to set and access these parameters.
