@@ -39,7 +39,3 @@ tokio = { version = "1.20.1", features = ["full"] }
 tokio-stream = "0.1.8"
 tower-http = { version = "0.3.0", features = ["cors"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
-
-[features]
-serde-serialize = ["aws-smithy-types/serde-serialize"]
-serde-deserialize = ["aws-smithy-types/serde-deserialize"]
