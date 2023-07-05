@@ -106,15 +106,21 @@ class Scanner:
             if ex_ver['sdk_version'] == sdk_ver:
                 github = ex_ver.get('github')
                 if github is not None:
+                    excerpt = ex_ver['excerpts'][0]
+                    tags = excerpt.get('snippet_tags', [])
                     if 'excerpts' in ex_ver:
-                        for t in ex_ver['excerpts'][0]['snippet_tags']:
+                        for t in tags:
                             if api_name in t:
                                 tag = t
                         if tag is None:
-                            tag = ex_ver['excerpts'][0]['snippet_tags'][0]
+                            tag = next(iter(tags), None)
                     elif 'block_content' in ex_ver:
                         tag_path = github
         if github is not None and tag_path is None:
+            snippet_files = excerpt.get("snippet_files", None)
+            if snippet_files is not None:
+                # TODO: Find the best (or all?) snippet files, not the first.
+                tag_path = snippet_files[0]
             for root, dirs, files in os.walk(github):
                 for f in files:
                     try:
