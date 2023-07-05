@@ -11,9 +11,9 @@ import AWSS3
 // snippet-end:[s3.swift.intro.imports]
 
 // snippet-start:[s3.swift.intro.getbucketnames]
-// Return an array containing the names of every available bucket.
+// Return an array containing the names of all available buckets.
 //
-// - Returns: An array of strings listing the available buckets.
+// - Returns: An array of strings listing the buckets.
 func getBucketNames() async throws -> [String] {
     // Get an S3Client with which to access Amazon S3.
     // snippet-start:[s3.swift.intro.client-init]
@@ -52,8 +52,10 @@ struct Main {
             for name in names {
                 print("  \(name)")
             }
+        } catch let error as ServiceError {
+            print("An unexpected Amazon S3 service error occurred: \(error.message ?? "No details available")")
         } catch {
-            dump(error, name: "Error getting the bucket list.")
+            print("An unknown error occurred: \(dump(error))")
         }
     }
 }
