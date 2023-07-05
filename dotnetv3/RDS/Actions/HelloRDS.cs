@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-// snippet-start:[RDS.dotnetv3.RdsInstanceScenario]
+// snippet-start:[RDS.dotnetv3.HelloRds]
 using System;
 using System.Threading.Tasks;
 using Amazon.RDS;
@@ -35,4 +35,4 @@ public static class HelloRds
         }
     }
 }
-// snippet-end:[RDS.dotnetv3.RdsInstanceScenario]
+// snippet-end:[RDS.dotnetv3.HelloRds]
