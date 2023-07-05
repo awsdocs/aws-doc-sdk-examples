@@ -54,19 +54,38 @@ export class AppStack extends Stack {
       callbackDomain: distribution.domainName,
     });
 
+    // Create the API Gateway authorizer.
+    const userPoolAuthorizer = new CognitoUserPoolsAuthorizer(
+      this,
+      "pool-authorizer",
+      { cognitoUserPools: [auth.userPool] }
+    );
+
     // Create API routes.
     const routes = new AppRoutes(this, `${prefix}-routes`, {
       api,
     });
 
     // Add env lambda and route.
-    this.addApiLambda(auth, routes, api, database);
+    this.addApiLambda(auth, userPoolAuthorizer, routes, api, database);
 
-    // Add direct S3 upload route.
-    const uploadBucket = this.createUpload(auth, routes, api);
+    // Create audio bucket.
+    const audioBucket = new Bucket(this, "audio-bucket", {
+      enforceSSL: true,
+      removalPolicy: RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
+      eventBridgeEnabled: true,
+    });
+
+    // Add routes that allow putting and getting objects directly from Amazon S3.
+    routes.addDirectS3Route({
+      path: "audio",
+      bucket: audioBucket,
+      authorizer: userPoolAuthorizer,
+    });
 
     // Create AWS Lambda functions.
-    this.addStepFunctions(prefix, uploadBucket, database);
+    this.addStepFunctions(prefix, audioBucket, database);
 
     // Output useful values.
     new CfnOutput(this, `${prefix}-website-url`, {
@@ -207,35 +226,9 @@ export class AppStack extends Stack {
     });
   }
 
-  private createUpload(auth: AppAuth, routes: AppRoutes, api: RestApi) {
-    const uploadBucket = new Bucket(this, "upload-bucket", {
-      enforceSSL: true,
-      removalPolicy: RemovalPolicy.DESTROY,
-      autoDeleteObjects: true,
-      eventBridgeEnabled: true,
-    });
-
-    const userPoolAuthorizer = new CognitoUserPoolsAuthorizer(
-      this,
-      "pool-authorizer",
-      { cognitoUserPools: [auth.userPool] }
-    );
-
-    routes.addDirectS3Route({
-      path: "upload",
-      method: "PUT",
-      bucket: uploadBucket,
-      allowActions: ["s3:PutObject"],
-      authorizer: userPoolAuthorizer,
-      model: {
-        request: new UploadModel(this, { restApi: api }),
-      },
-    });
-    return uploadBucket;
-  }
-
   private addApiLambda(
     auth: AppAuth,
+    authorizer: CognitoUserPoolsAuthorizer,
     routes: AppRoutes,
     api: RestApi,
     database: AppDatabase
@@ -297,6 +290,7 @@ export class AppStack extends Stack {
       path: "feedback",
       method: "GET",
       fn: getFeedbackLambda,
+      authorizer,
       model: {
         response: new GetFeedbackModel(this, { restApi: api }),
       },

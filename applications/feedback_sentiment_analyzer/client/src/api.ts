@@ -25,20 +25,19 @@ const request: typeof fetch = async (input, init) => {
   }
 };
 
-const getHeaders = (config: ApiConfig): { Authorization: string } | {} =>
+const getAuthHeaders = (config: ApiConfig): { Authorization: string } | {} =>
   config.token
     ? {
         Authorization: `Bearer ${config.token}`,
-        "Content-Type": "application/json",
       }
     : {};
 
 export const uploadFile = async (file: File, config: ApiConfig) => {
-  const response = await request(`/upload/${file.name}`, {
+  const response = await request(`/audio/${file.name}`, {
     method: "PUT",
     body: file,
     headers: {
-      ...getHeaders(config),
+      ...getAuthHeaders(config),
       "Content-Type": "image/jpeg",
       "Content-Length": `${file.size}`,
     },
@@ -50,10 +49,27 @@ export const uploadFile = async (file: File, config: ApiConfig) => {
   }
 };
 
-export const getFeedback = async (): Promise<FeedbackResponse> => {
+export const downloadFile = async (fileName: string, config: ApiConfig) => {
+  const response = await request(`/audio/${fileName}`, {
+    method: "GET",
+    headers: { ...getAuthHeaders(config) },
+  });
+
+  if (!response.ok) {
+    console.error("API Download failed.", response);
+    throw new Error("API Download failed.", { cause: response });
+  }
+
+  return response.blob();
+};
+
+export const getFeedback = async (
+  config: ApiConfig
+): Promise<FeedbackResponse> => {
   const response = await request(`/feedback`, {
     method: "GET",
     headers: {
+      ...getAuthHeaders(config),
       Accept: "application/json",
     },
   });

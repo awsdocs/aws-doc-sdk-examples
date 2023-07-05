@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import { useStore } from "./store";
 
 interface AudioProps {
   src: string;
 }
 
 function Audio(props: AudioProps) {
+  const [objectUrl, setObjectUrl] = useState("");
   const ref = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
+  const { downloadFile } = useStore();
 
   const handleClick = () => {
     if (playing) {
@@ -19,6 +22,17 @@ function Audio(props: AudioProps) {
   };
 
   useEffect(() => {
+    const getAudio = async () => {
+      const audio = await downloadFile(props.src);
+      const audioUrl = URL.createObjectURL(audio);
+      setObjectUrl(audioUrl);
+    };
+    if (props.src) {
+      getAudio();
+    }
+  }, [props.src, downloadFile]);
+
+  useEffect(() => {
     ref.current?.addEventListener("ended", () => {
       setPlaying(false);
     });
@@ -28,14 +42,16 @@ function Audio(props: AudioProps) {
   }, [ref]);
 
   return (
-    <>
-      <audio ref={ref} src={props.src} />
-      <button
-        className={`media-button ${playing ? "pause" : ""}`}
-        aria-label="Toggle audio"
-        onClick={handleClick}
-      ></button>
-    </>
+    objectUrl ?? (
+      <>
+        <audio ref={ref} src={objectUrl} />
+        <button
+          className={`media-button ${playing ? "pause" : ""}`}
+          aria-label="Toggle audio"
+          onClick={handleClick}
+        ></button>
+      </>
+    )
   );
 }
 
