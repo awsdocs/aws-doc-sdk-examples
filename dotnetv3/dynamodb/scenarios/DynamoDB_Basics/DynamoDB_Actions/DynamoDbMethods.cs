@@ -217,7 +217,7 @@ namespace DynamoDB_Actions
             using var sr = new StreamReader(movieFileName);
             string json = sr.ReadToEnd();
             var allMovies = JsonSerializer.Deserialize<List<Movie>>(
-                json, 
+                json,
                 new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
