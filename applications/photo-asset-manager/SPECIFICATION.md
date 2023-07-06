@@ -1,6 +1,6 @@
 # PAM tech spec
 
-This is the tech spec for the Photo Asset Management cross-service example. This doc details the specifics of the deliverable app.
+This is the technical specifications for the Photo Asset Management cross-service example, which was designed by the maintainers of this repository to showcase AWS services and SDKs.
 
 ## Suggested Overview
 
@@ -112,7 +112,7 @@ will only be used for the Amazon Cognito user pool and SNS topic.
 
 ### ⚙️ API Gateway
 
-API Gateway provides HTTP API routes for the Lambda integrations `LabelsFn`, `UploadFn`, and `PrepareDownloadFn`. Each endpoint is configured with a an Amazon Cognito authorizer. Parameters for all routes are provided in the body of the request in a JSON object. Each parameter is a top-level item in the request body JSON object.
+API Gateway provides HTTP API routes for the Lambda integrations `LabelsFn`, `UploadFn`, and `PrepareDownloadFn`. Each endpoint is configured with an Amazon Cognito authorizer. Parameters for all routes are provided in the body of the request in a JSON object. Each parameter is a top-level item in the request body JSON object.
 
 | Method | Route     | Parameters        | Example response                                             | Lambda            |
 | ------ | --------- | ----------------- | ------------------------------------------------------------ | ----------------- |
@@ -122,14 +122,14 @@ API Gateway provides HTTP API routes for the Lambda integrations `LabelsFn`, `Up
 
 ### ⚙️ Amazon Cognito
 
-A Amazon Cognito user pool is created via the AWS CDK, using the email address provided during deployment. A temporary password will be sent to that email address.
+An Amazon Cognito user pool is created via the AWS CDK, using the email address provided during deployment. A temporary password will be sent to that email address.
 
 ### ⚙️ S3 buckets
 
 PAM uses two buckets. `{NAME}-pam-pambucketsstorage-bucket{RANDOM}` (the Storage Bucket) and `{NAME}-pam-pambucketsworking-bucket{RANDOM}` (the Working Bucket) provide the long-term Amazon S3 Intelligent-Tiering storage and ephemeral manifest and zip download storage, respectively. The AWS CDK lowercases both `{NAME}` and `{RANDOM}` to create
 a valid bucket name.
 
-The Storage Bucket has a notification configuration when objects are PUT to call the DetectLabels Lambda. The Working Bucket has a lifecycle configuration to delete objects after 24 hours.
+The Storage Bucket has a notification configuration when objects are PUT to call the `DetectLabels` Lambda. The Working Bucket has a lifecycle configuration to delete objects after 24 hours.
 
 | Bucket                                        | Policies                    | Use                                                                                |
 | --------------------------------------------- | --------------------------- | ---------------------------------------------------------------------------------- |
@@ -138,8 +138,10 @@ The Storage Bucket has a notification configuration when objects are PUT to call
 
 ### ⚙️ DynamoDB
 
-PAM uses one DynamoDB table to track data. The LabelsTable, `{NAME}-PAM-PamTablesLabelsTable{RANDOM}`, contains the labels found by Amazon Rekognition. It has a simple primary key with an attribute `Label` of type `S`.
-
+This stack consists of a single DynamoDB table containing the labels detected by Amazon Rekognition. This table has a simple primary key with an attribute `Label` of type `S`.
+	
+This table is technically named `{NAME}-PAM-PamTablesLabelsTable{RANDOM}` but will be referred to in this document as `LabelsTable`.
+ 
 | Table                                     | Key      | Use                                                                    |
 | ----------------------------------------- | -------- | ---------------------------------------------------------------------- |
 | `{NAME}-PAM-PamTablesLabelsTable{RANDOM}` | Label: S | Track the detected labels and each label's image count and image list. |
@@ -169,7 +171,7 @@ Each language will implement these Lambda functions. These functions handle the 
 
 ### ⭐ Upload
 
-1. Create a presigned Amazon S3 URL in the Storage Bucket. The object key shall be the provided file name, prefixed with a UUIDv4 and a /. The presigned URL will allow a `PUT` method operation with `Content-Type` `image/jpeg`. The expiration will live for 5 minutes (5 \* 60 \* 1000 ms = 300,000 ms).
+1. Create a presigned Amazon S3 URL in the Storage Bucket. The object key shall be the provided file name, prefixed with a UUIDv4 and a `/`. The presigned URL will allow a `PUT` method operation with `Content-Type` `image/jpeg`. The expiration will live for 5 minutes (5 \* 60 \* 1000 ms = 300,000 ms).
 2. Return a serialized JSON object with a single key, “url”, containing the value of the presigned URL.
 
 ### ⭐ DetectLabels
@@ -177,15 +179,15 @@ Each language will implement these Lambda functions. These functions handle the 
 This Lambda will be triggered by uploads to the Storage Bucket.
 
 1. Run Amazon Rekognition’s `detectLabels` on each incoming object.
-2. If Amazon Rekognition’s `detectLabels` succeeds, update the Labels Table. For each Label key, add the image object key to the list in the Images column and increment the Count column. These must be atomic operations. If the enhanced DynamoDB client supports atomic counter fields, use them. Otherwise, the request can use update expressions to atomically update Count and Images.
-
+2. If Amazon Rekognition’s `detectLabels` succeeds, update `LabelsTable`. For each Label key, add the image object key to the list in the Images column and increment the Count column. These must be atomic operations. If the enhanced DynamoDB client supports atomic counter fields, use them. Otherwise, the request can use update expressions to atomically update Count and Images.
+   
 > UpdateExpression: ` ADD Count :one, Images :im``g
  `ExpressionAttributeValues: `":one": AttributeValue::N(1), ":img": AttributeValue::S({object_key})`
 
 ### ⭐ LabelsFn
 
-1. Load the `Label` and Count columns from the LabelsTable.
-2. Return a JSON document with a single object. The top level object has one property key for each label. Each key has a value of an object with a single property, “count”, whose value is the numeric count of images matching that label.
+1. Load the `Label` and `Count` columns from `LabelsTable`.
+2. Return a JSON document with a single object. The top level object has one property key for each label. Each key has a value of an object with a single property `count` whose value is the numeric count of images matching that label.
 
 ### ⭐ PrepareDownloadFn
 
@@ -235,13 +237,13 @@ Each implementation will include a README describing the language-specific detai
 
 **Lambda Function (DetectLabels):**
 
-- `dyanmodb:PutItem` and `dynamodb:UpdateItem` on LabelsTable.
+- `dyanmodb:PutItem` and `dynamodb:UpdateItem` on `LabelsTable`.
 - `rekognition:DetectLabels` on `*`.
 - `s3:ReadObject` on Storage bucket.
 
 **Lambda Function (LabelsFn):**
 
-- `dynamodb:ReadItem` on LabelsTable.
+- `dynamodb:ReadItem` on `LabelsTable`.
 
 **Lambda Function (PrepareDownload):**
 
@@ -253,4 +255,4 @@ Each implementation will include a README describing the language-specific detai
 
 ## Appendix B - Lambda triggers
 
-- Storage bucket [OBJECT_CREATED] - When the user uploads a _.jpg/_.jpeg to the presigned URL in the storage bucket, the DetectLabelsFn function is invoked.
+- Storage bucket [OBJECT_CREATED] - When the user uploads a _.jpg_ or _.jpeg_ to the presigned URL in the storage bucket, the `DetectLabelsFn` function is invoked.
