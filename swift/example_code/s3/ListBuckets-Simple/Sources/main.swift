@@ -53,7 +53,7 @@ struct Main {
                 print("  \(name)")
             }
         } catch let error as ServiceError {
-            print("An unexpected Amazon S3 service error occurred: \(error.message ?? "No details available")")
+            print("An Amazon S3 service error occurred: \(error.message ?? "No details available")")
         } catch {
             print("An unknown error occurred: \(dump(error))")
         }
