@@ -15,7 +15,7 @@ Code examples for each language's SDK can be found within the following subdirec
 |     SDK    |       folder      | SDK version |
 |:----------:|:-----------------:|:-----------:|
 | .NET       | [dotnetv3/](dotnetv3)         | 3.5+        |
-| .NET       | [dotnet/](dotnet)           | <3.5        |
+| .NET       | [dotnet/](.dotnet)           | <3.5        |
 | C++        | [cpp/](cpp)              | 1           |
 | Go         | [gov2/](gov2)            | 2           |
 | Go         | [go/](go)               | 1           |
