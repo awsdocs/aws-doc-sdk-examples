@@ -1,6 +1,6 @@
 # PAM tech specs
 
-This is the technical specifications for the Photo Asset Management cross-service example, which was designed by the maintainers of this repository to showcase AWS services and SDKs.
+These are the technical specifications for the Photo Asset Management cross-service example, which was designed by the maintainers of this repository to showcase AWS services and SDKs.
 
 The Photo Asset Management (PAM) example app uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images. Those images are analyzed with label detection and the labels are stored in an Amazon DynamoDB table. Users can later request a bundle of images matching those labels. When images are requested, they will be retrieved from Amazon S3, zipped, and sent to the user in the form of a link to the zipped file.
 
