@@ -1,4 +1,4 @@
-# PAM technical specifications
+# PAM tech specs
 
 This is the technical specifications for the Photo Asset Management cross-service example, which was designed by the maintainers of this repository to showcase AWS services and SDKs.
 
