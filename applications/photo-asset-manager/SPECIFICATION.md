@@ -20,7 +20,7 @@ The Photo Asset Management (PAM) example app uses Amazon Rekognition to categori
   * [1. Common](#1-common)
     + [⚙️ API Gateway](#-api-gateway)
     + [⚙️ Amazon Cognito](#-amazon-cognito)
-    + [⚙️ S3 buckets](#-s3-buckets)
+    + [⚙️ S3 buckets](#%EF%B8%8F-s3-buckets)
     + [⚙️ DynamoDB](#-dynamodb)
     + [⚙️ Amazon Rekognition](#-amazon-rekognition)
     + [⚙️ IAM](#-iam)
