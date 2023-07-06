@@ -10,20 +10,42 @@ The Photo Asset Management (PAM) example app uses Amazon Rekognition to categori
 
 ## Table of contents
 
-- Development / Deployment - Information on where to find AWS Cloud Development Kit (AWS CDK) deployment and development instructions.
-- Frontend - Describes the resources used to create the frontend, and how the frontend interacts with the backend.
-- Backend - Describes the resources used to create the backend.
+- [PAM tech spec](#pam-tech-spec)
+  * [Suggested Overview](#suggested-overview)
+  * [Table of contents](#table-of-contents)
+- [High-level architecture](#high-level-architecture)
+  * [Audience](#audience)
+- [Development / deployment](#development--deployment)
+- [Frontend](#frontend)
+    + [Login and API](#login-and-api)
+    + [Upload](#upload)
+    + [View and download](#view-and-download)
+- [Backend](#backend)
+  * [1. Common](#1-common)
+    + [⭐ API Gateway](#-api-gateway)
+    + [⭐ Amazon Cognito](#-amazon-cognito)
+    + [⭐ S3 buckets](#-s3-buckets)
+    + [⭐ DynamoDB](#-dynamodb)
+    + [⭐ Amazon Rekognition](#-amazon-rekognition)
+    + [⭐ IAM](#-iam)
+  * [Language-specific Lambdas](#2-language-specific-lambdas)
+    + [⭐ Upload](#-upload)
+    + [⭐ DetectLabels](#-detectlabels)
+    + [⭐ LabelsFn](#-labelsfn)
+    + [⭐ PrepareDownloadFn](#-preparedownloadfn)
+- [README](#readme)
+  * [Suggested Title](#suggested-title)
+    + [Suggested Overview](#suggested-overview-1)
+- [Resources](#resources)
+- [Glossary](#glossary)
+- [Appendices](#appendices)
+  * [Appendix A - Policy details](#appendix-a---policy-details)
+  * [Appendix B - Lambda triggers](#appendix-b---lambda-triggers)
 
-  - Common - Explains the concepts of common resources and language-specific resources. Also describes the common resources.
-  - Language-specific - Explains the programming language specific resources.
+---
+# High-level architecture
 
-- READMES - Defines the information needed for each language-specific readme.
-- Glossary - Lists common terms.
-- Appendices
-  - Appendix A - Policy details
-  - Appendix B - Lambda triggers
-
-<img width="4400" alt="PAM Diagram" src="https://user-images.githubusercontent.com/2723491/226400489-8ce85f78-fd53-4bcb-adda-42a230964a4c.png">
+This application consists of three main components:
 
 | Area     | Purpose                                                                                                       | Tools                                   | Per-language? |
 | -------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ------------- |
@@ -31,15 +53,7 @@ The Photo Asset Management (PAM) example app uses Amazon Rekognition to categori
 | Backend  | Underlying pieces that are used for any instance of the application, regardless of AWS Lambda implementation. | DynamoDB; S3; APIGateway                | No            |
 | Lambdas  | Business logic for each application specific function.                                                        | Lambda; SDKs: S3, DDB, SNS, Rekognition | Yes           |
 
-The common stack is used by all deployments of the PAM app. These include the S3 buckets, Amazon S3 lifecycles, DynamoDB tables, frontend and user resources, Lambda function skeletons, policies for AWS Identity and Access Management (IAM), and Amazon Simple Notification Service (Amazon SNS) topics. When following the BuildOn README, these resources will be created for the customer by running the AWS Cloud Development Kit (AWS CDK) script. The number of resources in this example makes it untenable to perform the actions in the console.
-
-The resources in Common are deployed for all instances of the app, and use the same AWS CDK definitions. An implementer for the spec in a particular language should be familiar with the resources described, as they will be the resources that the Lambda function implementations interact with. Per-language implementers will create several Lambda function implementations, and will also create “best practice” AWS CDK layers for their language’s Lambda deployment.
-
-All resources share a `{NAME}` marker (a concatenation of `{PAM_NAME}-{PAM_LANG}`), chosen at AWS CDK runtime.
-Every resource is appended with a `{RANDOM}` unique ID. While the AWS CDK will truncate any generated IDs to avoid
-name lengths (such as exceeding the DNS length of 64 characters), it should be kept short and concise for easy
-legibility in the generated resource IDs. Customer must provide an `{EMAIL}` to use for account creation. This PII
-will only be used for the Amazon Cognito user pool and SNS topic.
+<img width="4400" alt="PAM Diagram" src="https://user-images.githubusercontent.com/2723491/226400489-8ce85f78-fd53-4bcb-adda-42a230964a4c.png">
 
 ## Audience
 
@@ -80,7 +94,21 @@ A GET request is made to `/labels`. The labels are displayed to the user who can
 
 # Backend
 
-## Common
+The backend supporting this application consists of two types of infrastructure components:
+1. A common backend stack that is used by all deployments of the PAM app.
+2. Lambda functions that will be implemented in your AWS SDK of choice (e.g. the SDK for Python).
+
+## 1. Common
+
+Common components include the S3 buckets, Amazon S3 lifecycles, DynamoDB tables, frontend and user resources, Lambda function skeletons, policies for AWS Identity and Access Management (IAM), and Amazon Simple Notification Service (Amazon SNS) topics. When following the BuildOn README, these resources will be created for the customer by running the AWS Cloud Development Kit (AWS CDK) script. The number of resources in this example makes it untenable to perform the actions in the console.
+
+The resources in Common are deployed for all instances of the app, and use the same AWS CDK definitions. An implementer for the spec in a particular language should be familiar with the resources described, as they will be the resources that the Lambda function implementations interact with. Per-language implementers will create several Lambda function implementations, and will also create “best practice” AWS CDK layers for their language’s Lambda deployment.
+
+All resources share a `{NAME}` marker (a concatenation of `{PAM_NAME}-{PAM_LANG}`), chosen at AWS CDK runtime.
+Every resource is appended with a `{RANDOM}` unique ID. While the AWS CDK will truncate any generated IDs to avoid
+name lengths (such as exceeding the DNS length of 64 characters), it should be kept short and concise for easy
+legibility in the generated resource IDs. Customer must provide an `{EMAIL}` to use for account creation. This PII
+will only be used for the Amazon Cognito user pool and SNS topic.
 
 ### ⭐ API Gateway
 
@@ -124,7 +152,7 @@ There is no specific configuration necessary for the Amazon Rekognition uses in 
 
 AWS Identity and Access Management (IAM) roles are created for each function by using the AWS CDK script. Permissions are also assigned, providing each function’s role minimum access to the underlying resources. See each function for specific role permission needs.
 
-## Language-specific Lambdas
+## 2. Language-specific Lambdas
 
 Each language will implement these Lambda functions. These functions handle the logic of the application, and execute in response to a user’s action or lifecycle event. Input parameters for user actions will be passed from API Gateway in the request body as a JSON document string. The shape of these documents is described with each function’s specification in the following section. Lifecycle events have unique formats for the functions they call. User actions have response bodies. The final response returned will be a JSON object, with keys described in each function’s specification. Lifecycle event functions do not return data.
 
