@@ -1,10 +1,10 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-namespace DynamoDB_Basics_Scenario
-{
-    using Amazon.DynamoDBv2.DataModel;
+using Amazon.DynamoDBv2.DataModel;
 
+namespace DynamoDB_Actions
+{
     [DynamoDBTable("movie_table")]
     public class Movie
     {

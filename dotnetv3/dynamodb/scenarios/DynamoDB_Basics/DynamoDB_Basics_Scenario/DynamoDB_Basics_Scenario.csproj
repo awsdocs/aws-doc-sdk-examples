@@ -7,12 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.Core" Version="3.7.9" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.3.13" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="AWSSDK.Core" Version="3.7.107.11" />
+    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.105.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DynamoDB_Actions\DynamoDB_Actions.csproj" />
   </ItemGroup>
 </Project>
