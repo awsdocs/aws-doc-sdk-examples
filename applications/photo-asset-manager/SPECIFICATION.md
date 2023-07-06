@@ -28,7 +28,7 @@ The Photo Asset Management (PAM) example app uses Amazon Rekognition to categori
     + [⚙️ DynamoDB](#-dynamodb)
     + [⚙️ Amazon Rekognition](#-amazon-rekognition)
     + [⚙️ IAM](#-iam)
-  * [Language-specific Lambdas](#2-language-specific-lambdas)
+  * [2. Language-specific Lambdas](#2-language-specific-lambdas)
     + [⭐ Upload](#-upload)
     + [⭐ DetectLabels](#-detectlabels)
     + [⭐ LabelsFn](#-labelsfn)
