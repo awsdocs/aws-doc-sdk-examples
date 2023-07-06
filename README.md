@@ -23,12 +23,12 @@ Code examples for each language's SDK can be found within the following subdirec
 | Java       | [java/](java)             | 1           |
 | JavaScript | [javascriptv3/](javascriptv3)     | 3           |
 | JavaScript | [javascript/](javascriptv)       | 2           |
-| Kotlin     | [kotlin/](kotlin)           |             |
+| Kotlin     | [kotlin/](kotlin)           | preview             |
 | PHP        | [php/](php)              | 3           |
 | Python     | [python/](python)           | 3           |
 | Ruby       | [ruby/](ruby)             | 3           |
-| Rust       | [rust_dev_preview/](rust_dev_preview) |             |
-| Swift      | [swift/](swift)            |             |
+| Rust       | [rust_dev_preview/](rust_dev_preview) | preview             |
+| Swift      | [swift/](swift)            | preview           |
 
 Within each directory, you will find SDK-specific instructions for understanding and invoking example code.
 
