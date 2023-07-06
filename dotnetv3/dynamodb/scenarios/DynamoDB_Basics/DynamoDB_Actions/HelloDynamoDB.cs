@@ -18,7 +18,7 @@ public static class HelloDynamoDB
         Console.WriteLine();
 
         // You can use await and any of the async methods to get a response.
-        // Let's get the first five event tables.
+        // Let's get the first five tables.
         var response = await dynamoDbClient.ListTablesAsync(
             new ListTablesRequest()
             {
