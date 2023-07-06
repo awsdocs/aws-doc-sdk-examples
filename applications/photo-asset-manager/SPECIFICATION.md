@@ -187,21 +187,15 @@ Each implementation will include a README describing the language-specific detai
 
 # Glossary
 
-**AWS Code Examples Cloud Sherpas** created this design and spec, and provided the underlying AWS CDK resources and React frontend that customers deploy.
-
-**AWS Code Examples MVPeeps** created and documented reference implementations of the Lambda functions for each supported language.
-**Customer** is the AWS customer following the example readme and deploying the application.
-
-**Labels Table** is the DynamoDB table that stores the Amazon Rekognition-identified label, the count of items for that label, and the list of image keys matching that label.
-
-**Photo Asset Management (PAM)** is a complete serverless best practices cross-service example application.
+* **AWS Code Examples Cloud Sherpas** created this design and spec, and provided the underlying AWS CDK resources and React frontend that customers deploy.
+* **AWS Code Examples MVPeeps** created and documented reference implementations of the Lambda functions for each supported language.
+* **Customer** is the AWS customer following the example readme and deploying the application.
+* **Labels Table** is the DynamoDB table that stores the Amazon Rekognition-identified label, the count of items for that label, and the list of image keys matching that label.
+* **Photo Asset Management (PAM)** is a complete serverless best practices cross-service example application.
 `{NAME}-sdk-code-examples-pam` and `{NAME}-SDKCodeExamplesPAM` are common prefix identifiers for created resources. `{NAME}` is provided by the customer at application creation time. `{NAME}` must be 24 characters or shorter.
-
-**Storage Bucket** is the bucket with Amazon S3 Intelligent-Tiering storage policies applied. It has the uploaded images only.
-
-**User** is the user who is using the deployed PAM application. Typically this will be the customer.
-
-**Working Bucket** is the bucket that keeps ephemeral working data that is deleted after 24 hours.
+* **Storage Bucket** is the bucket with Amazon S3 Intelligent-Tiering storage policies applied. It has the uploaded images only.
+* **User** is the user who is using the deployed PAM application. Typically this will be the customer.
+* **Working Bucket** is the bucket that keeps ephemeral working data that is deleted after 24 hours.
 
 # Appendices
 
