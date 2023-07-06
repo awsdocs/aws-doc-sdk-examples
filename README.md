@@ -12,23 +12,23 @@ Many examples are injected into the [AWS Documentation](https://docs.aws.amazon.
 
 Code examples for each language's SDK can be found within the following subdirectories. The examples here demonstrate the most common uses of the SDK for each language.
 
-| SDK        | folder                                | SDK version | SDK status                                                         |
-| ---------- | ------------------------------------- | ----------- | ------------------------------------------------------------------ |
-| .NET       | [dotnetv3/](dotnetv3)                 | 3.5+        | ![[]](https://img.shields.io/badge/-GA-blue)                       |
-| .NET       | [dotnet/](dotnet)                     | <3.5        | ![[]](https://img.shields.io/badge/-deprecated-red)                |
-| C++        | [cpp/](cpp)                           | 1           | ![[]](https://img.shields.io/badge/-GA-blue)                       |
-| Go         | [gov2/](gov2)                         | 2           | ![[]](https://img.shields.io/badge/-GA-blue)                       |
-| Go         | [go/](go)                             | 1           | ![[]](https://img.shields.io/badge/-deprecated-red)                |
-| Java       | [javav2/](javav2)                     | 2           | ![[]](https://img.shields.io/badge/-GA-blue) (Recommended version) |
-| Java       | [java/](java)                         | 1           | ![[]](https://img.shields.io/badge/-GA-blue) (Not Recommended)     |
-| JavaScript | [javascriptv3/](javascriptv3)         | 3           | ![[]](https://img.shields.io/badge/-GA-blue)                       |
-| JavaScript | [javascript/](javascript)             | 2           | ![[]](https://img.shields.io/badge/-GA-blue) (Not Recommended)     |
-| Kotlin     | [kotlin/](kotlin)                     |             | ![[]](https://img.shields.io/badge/-preview-brightgreen)           |
-| PHP        | [php/](php)                           | 3           | ![[]](https://img.shields.io/badge/-GA-blue)                       |
-| Python     | [python/](python)                     | 3           | ![[]](https://img.shields.io/badge/-GA-blue)                       |
-| Ruby       | [ruby/](ruby)                         | 3           | ![[]](https://img.shields.io/badge/-GA-blue)                       |
-| Rust       | [rust_dev_preview/](rust_dev_preview) |             | ![[]](https://img.shields.io/badge/-preview-brightgreen)           |
-| Swift      | [swift/](swift)                       |             | ![[]](https://img.shields.io/badge/-preview-brightgreen)           |
+|     SDK    |       folder      | SDK version |
+|:----------:|:-----------------:|:-----------:|
+| .NET       | [dotnetv3/](dotnetv3)         | 3.5+        |
+| .NET       | [dotnet/](.dotnet)           | <3.5        |
+| C++        | [cpp/](cpp)              | 1           |
+| Go         | [gov2/](gov2)            | 2           |
+| Go         | [go/](go)               | 1           |
+| Java       | [javav2/](javav2)           | 2           |
+| Java       | [java/](java)             | 1           |
+| JavaScript | [javascriptv3/](javascriptv3)     | 3           |
+| JavaScript | [javascript/](javascriptv)       | 2           |
+| Kotlin     | [kotlin/](kotlin)           | preview             |
+| PHP        | [php/](php)              | 3           |
+| Python     | [python/](python)           | 3           |
+| Ruby       | [ruby/](ruby)             | 3           |
+| Rust       | [rust_dev_preview/](rust_dev_preview) | preview             |
+| Swift      | [swift/](swift)            | preview           |
 
 Within each directory, you will find SDK-specific instructions for understanding and invoking example code.
 
