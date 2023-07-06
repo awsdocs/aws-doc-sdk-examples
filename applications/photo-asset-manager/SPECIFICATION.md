@@ -22,12 +22,12 @@ The Photo Asset Management (PAM) example app uses Amazon Rekognition to categori
     + [View and download](#view-and-download)
 - [Backend](#backend)
   * [1. Common](#1-common)
-    + [⭐ API Gateway](#-api-gateway)
-    + [⭐ Amazon Cognito](#-amazon-cognito)
-    + [⭐ S3 buckets](#-s3-buckets)
-    + [⭐ DynamoDB](#-dynamodb)
-    + [⭐ Amazon Rekognition](#-amazon-rekognition)
-    + [⭐ IAM](#-iam)
+    + [⚙️ API Gateway](#-api-gateway)
+    + [⚙️ Amazon Cognito](#-amazon-cognito)
+    + [⚙️ S3 buckets](#-s3-buckets)
+    + [⚙️ DynamoDB](#-dynamodb)
+    + [⚙️ Amazon Rekognition](#-amazon-rekognition)
+    + [⚙️ IAM](#-iam)
   * [Language-specific Lambdas](#2-language-specific-lambdas)
     + [⭐ Upload](#-upload)
     + [⭐ DetectLabels](#-detectlabels)
@@ -110,7 +110,7 @@ name lengths (such as exceeding the DNS length of 64 characters), it should be k
 legibility in the generated resource IDs. Customer must provide an `{EMAIL}` to use for account creation. This PII
 will only be used for the Amazon Cognito user pool and SNS topic.
 
-### ⭐ API Gateway
+### ⚙️ API Gateway
 
 API Gateway provides HTTP API routes for the Lambda integrations `LabelsFn`, `UploadFn`, and `PrepareDownloadFn`. Each endpoint is configured with a an Amazon Cognito authorizer. Parameters for all routes are provided in the body of the request in a JSON object. Each parameter is a top-level item in the request body JSON object.
 
@@ -120,11 +120,11 @@ API Gateway provides HTTP API routes for the Lambda integrations `LabelsFn`, `Up
 | GET    | /labels   |                   | {"labels": {"maintain": {"count": 5}, "lake": {"count": 3}}} | LabelsFn          |
 | POST   | /download | labels: string[]  | {} (event)                                                   | PrepareDownloadFn |
 
-### ⭐ Amazon Cognito
+### ⚙️ Amazon Cognito
 
 A Amazon Cognito user pool is created via the AWS CDK, using the email address provided during deployment. A temporary password will be sent to that email address.
 
-### ⭐ S3 buckets
+### ⚙️ S3 buckets
 
 PAM uses two buckets. `{NAME}-pam-pambucketsstorage-bucket{RANDOM}` (the Storage Bucket) and `{NAME}-pam-pambucketsworking-bucket{RANDOM}` (the Working Bucket) provide the long-term Amazon S3 Intelligent-Tiering storage and ephemeral manifest and zip download storage, respectively. The AWS CDK lowercases both `{NAME}` and `{RANDOM}` to create
 a valid bucket name.
@@ -136,7 +136,7 @@ The Storage Bucket has a notification configuration when objects are PUT to call
 | `{NAME}-pam-pambucketsstorage-bucket{RANDOM}` | DetectLabels on jpeg images | All the images that are being stored in the application.                           |
 | `{NAME}-pam-pambucketsworking-bucket{RANDOM}` | Delete after 1 day          | Working files with a short lifetime, that are not intended to be stored long-term. |
 
-### ⭐ DynamoDB
+### ⚙️ DynamoDB
 
 PAM uses one DynamoDB table to track data. The LabelsTable, `{NAME}-PAM-PamTablesLabelsTable{RANDOM}`, contains the labels found by Amazon Rekognition. It has a simple primary key with an attribute `Label` of type `S`.
 
@@ -144,11 +144,11 @@ PAM uses one DynamoDB table to track data. The LabelsTable, `{NAME}-PAM-PamTable
 | ----------------------------------------- | -------- | ---------------------------------------------------------------------- |
 | `{NAME}-PAM-PamTablesLabelsTable{RANDOM}` | Label: S | Track the detected labels and each label's image count and image list. |
 
-### ⭐ Amazon Rekognition
+### ⚙️ Amazon Rekognition
 
 There is no specific configuration necessary for the Amazon Rekognition uses in this example.
 
-### ⭐ IAM
+### ⚙️ IAM
 
 AWS Identity and Access Management (IAM) roles are created for each function by using the AWS CDK script. Permissions are also assigned, providing each function’s role minimum access to the underlying resources. See each function for specific role permission needs.
 
