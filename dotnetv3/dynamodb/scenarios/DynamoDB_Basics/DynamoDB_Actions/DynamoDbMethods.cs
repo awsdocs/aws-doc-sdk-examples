@@ -1,7 +1,13 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-namespace DynamoDB_Basics_Scenario
+using System.Text.Json;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
+using Amazon.DynamoDBv2.DocumentModel;
+using Amazon.DynamoDBv2.Model;
+
+namespace DynamoDB_Actions
 {
     public class DynamoDbMethods
     {
@@ -210,7 +216,12 @@ namespace DynamoDB_Basics_Scenario
 
             using var sr = new StreamReader(movieFileName);
             string json = sr.ReadToEnd();
-            var allMovies = JsonConvert.DeserializeObject<List<Movie>>(json);
+            var allMovies = JsonSerializer.Deserialize<List<Movie>>(
+                json,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
 
             // Now return the first 250 entries.
             return allMovies.GetRange(0, 250);
@@ -237,11 +248,11 @@ namespace DynamoDB_Basics_Scenario
 
             var context = new DynamoDBContext(client);
 
-            var bookBatch = context.CreateBatchWrite<Movie>();
-            bookBatch.AddPutItems(movies);
+            var movieBatch = context.CreateBatchWrite<Movie>();
+            movieBatch.AddPutItems(movies);
 
             Console.WriteLine("Adding imported movies to the table.");
-            await bookBatch.ExecuteAsync();
+            await movieBatch.ExecuteAsync();
 
             return movies.Count;
         }

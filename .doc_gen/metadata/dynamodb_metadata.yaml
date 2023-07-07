@@ -5,6 +5,14 @@ dynamodb_Hello:
   synopsis: get started using &DDB;.
   category: Hello
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - DynamoDB.dotnetv3.HelloDynamoDB
     JavaScript:
       versions:
         - sdk_version: 3
