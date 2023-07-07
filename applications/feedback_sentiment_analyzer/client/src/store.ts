@@ -31,6 +31,7 @@ export interface Store {
   checkAuth: () => void;
   signOut: () => void;
   uploadFile: (file: File) => Promise<void>;
+  downloadFile: (fileName: string) => Promise<string>;
   getFeedback: () => Promise<void>;
 }
 
@@ -74,7 +75,14 @@ export const useStore = create<Store>((set, get) => ({
     return get().autoLogout(() => API.uploadFile(file, { token: get().token }));
   },
   async getFeedback() {
-    const { feedback } = await get().autoLogout(() => API.getFeedback());
+    const { feedback } = await get().autoLogout(() =>
+      API.getFeedback({ token: get().token })
+    );
     set({ feedback });
+  },
+  async downloadFile(fileName: string) {
+    return get().autoLogout(() =>
+      API.downloadFile(fileName, { token: get().token })
+    );
   },
 }));

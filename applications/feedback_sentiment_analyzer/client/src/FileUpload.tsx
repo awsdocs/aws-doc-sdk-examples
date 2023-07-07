@@ -93,7 +93,7 @@ function FileUpload({ disabled, onSubmit, accept = [] }: FileUploadProps) {
                 formAction="none"
                 onClick={handleSelectFiles}
               >
-                Select file
+                Choisir le dossier
               </Button>
               <Button
                 disabled={isLoading || fileInput.current?.value.length === 0}

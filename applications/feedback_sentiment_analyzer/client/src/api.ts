@@ -25,20 +25,21 @@ const request: typeof fetch = async (input, init) => {
   }
 };
 
-const getHeaders = (config: ApiConfig): { Authorization: string } | {} =>
+export const getAuthHeaders = (
+  config: ApiConfig
+): { Authorization: string } | {} =>
   config.token
     ? {
         Authorization: `Bearer ${config.token}`,
-        "Content-Type": "application/json",
       }
     : {};
 
 export const uploadFile = async (file: File, config: ApiConfig) => {
-  const response = await request(`/upload/${file.name}`, {
+  const response = await request(`/media/${file.name}`, {
     method: "PUT",
     body: file,
     headers: {
-      ...getHeaders(config),
+      ...getAuthHeaders(config),
       "Content-Type": "image/jpeg",
       "Content-Length": `${file.size}`,
     },
@@ -50,10 +51,36 @@ export const uploadFile = async (file: File, config: ApiConfig) => {
   }
 };
 
-export const getFeedback = async (): Promise<FeedbackResponse> => {
+export const downloadFile = async (fileName: string, config: ApiConfig) => {
+  const response = await request(`/media/${fileName}`, {
+    method: "GET",
+    headers: { ...getAuthHeaders(config) },
+  });
+
+  if (!response.ok) {
+    console.error("API Download failed.", response);
+    throw new Error("API Download failed.", { cause: response });
+  }
+
+  const blob = await response.blob();
+  const reader = new FileReader();
+
+  return new Promise<string>((resolve, reject) => {
+    reader.onloadend = () => {
+      resolve(reader.result as string);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+};
+
+export const getFeedback = async (
+  config: ApiConfig
+): Promise<FeedbackResponse> => {
   const response = await request(`/feedback`, {
     method: "GET",
     headers: {
+      ...getAuthHeaders(config),
       Accept: "application/json",
     },
   });
