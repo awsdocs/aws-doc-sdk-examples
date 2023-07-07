@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
+
 package actions
 
 import (
@@ -102,7 +105,7 @@ func (instances *DbInstances) GetParameters(parameterGroupName string, source st
 	for parameterPaginator.HasMorePages() {
 		output, err = parameterPaginator.NextPage(context.TODO())
 		if err != nil {
-			log.Printf("Couldn't get paramaeters for %v: %v\n", parameterGroupName, err)
+			log.Printf("Couldn't get parameters for %v: %v\n", parameterGroupName, err)
 			break
 		} else {
 			params = append(params, output.Parameters...)

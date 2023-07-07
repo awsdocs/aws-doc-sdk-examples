@@ -56,7 +56,7 @@ type GetStartedInstances struct {
 }
 
 // NewGetStartedInstances constructs a GetStartedInstances instance from a configuration.
-// It uses the specified config to get an Amazon Relational Database Service (Amazon RDS)
+// It uses the specified config to get an Amazon RDS
 // client and create wrappers for the actions used in the scenario.
 func NewGetStartedInstances(sdkConfig aws.Config, questioner demotools.IQuestioner,
 	helper IScenarioHelper) GetStartedInstances {
@@ -171,12 +171,12 @@ func (scenario GetStartedInstances) SetUserParameters(parameterGroupName string)
 	if err != nil {
 		panic(err)
 	}
-	log.Println("You can get a list of parameters you've set by specifying a source of 'user'.")
+	log.Println("To get a list of parameters that you set previously, specify a source of 'user'.")
 	userParameters, err := scenario.instances.GetParameters(parameterGroupName, "user")
 	if err != nil {
 		panic(err)
 	}
-	log.Println("Here are the parameters you've set:")
+	log.Println("Here are the parameters you set:")
 	for _, param := range userParameters {
 		log.Printf("\t%v: %v\n", *param.ParameterName, *param.ParameterValue)
 	}
@@ -195,7 +195,7 @@ func (scenario GetStartedInstances) CreateInstance(instanceName string, dbEngine
 	}
 	if instance == nil {
 		adminUsername := scenario.questioner.Ask(
-			"Enter an administrator user name for the database: ", demotools.NotEmpty{})
+			"Enter an administrator username for the database: ", demotools.NotEmpty{})
 		adminPassword := scenario.questioner.AskPassword(
 			"Enter a password for the administrator (at least 8 characters): ", 7)
 		engineVersions, err := scenario.instances.GetEngineVersions(dbEngine,
@@ -268,10 +268,10 @@ func (scenario GetStartedInstances) CreateInstance(instanceName string, dbEngine
 // on how to connect to it.
 func (scenario GetStartedInstances) DisplayConnection(instance *types.DBInstance) {
 	log.Println(
-		"You can now connect to your database using your favorite MySql client.\n" +
+		"You can now connect to your database by using your favorite MySQL client.\n" +
 			"One way to connect is by using the 'mysql' shell on an Amazon EC2 instance\n" +
 			"that is running in the same VPC as your DB instance. Pass the endpoint,\n" +
-			"port, and administrator user name to 'mysql' and enter your password\n" +
+			"port, and administrator username to 'mysql'. Then, enter your password\n" +
 			"when prompted:")
 	log.Printf("\n\tmysql -h %v -P %v -u %v -p\n",
 		*instance.Endpoint.Address, instance.Endpoint.Port, *instance.MasterUsername)
@@ -315,7 +315,7 @@ func (scenario GetStartedInstances) Cleanup(
 	instance *types.DBInstance, parameterGroup *types.DBParameterGroup) {
 
 	if scenario.questioner.AskBool(
-		"\nDo you want to delete the database instance, and parameter group (y/n)? ", "y") {
+		"\nDo you want to delete the database instance and parameter group (y/n)? ", "y") {
 		log.Printf("Deleting database instance %v.\n", *instance.DBInstanceIdentifier)
 		err := scenario.instances.DeleteInstance(*instance.DBInstanceIdentifier)
 		if err != nil {
