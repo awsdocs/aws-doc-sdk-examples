@@ -45,15 +45,6 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Scenarios\SageMakerScenario.csproj" />
-	</ItemGroup>	
-
-	<ItemGroup>
-	  <None Update="GeoSpatialPipeline.json">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
-	  <None Update="latlongtest.csv">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 
 </Project>
