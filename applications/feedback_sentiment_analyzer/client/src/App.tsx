@@ -1,4 +1,3 @@
-import { Alert } from "@cloudscape-design/components";
 import AppLayout from "@cloudscape-design/components/app-layout";
 import { useEffect } from "react";
 
@@ -8,11 +7,11 @@ import { useStore } from "./store";
 import FeedbackLayout from "./FeedbackLayout";
 
 function App() {
-  const { checkAuth } = useStore();
+  const { checkAuth, token } = useStore();
 
   useEffect(() => {
     checkAuth();
-  }, [checkAuth]);
+  }, [checkAuth, token]);
 
   return (
     <>
