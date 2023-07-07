@@ -86,7 +86,7 @@ public class SageMakerTests
     }
 
     /// <summary>
-    /// Execute the pipeline. The returned ARN should not be empty.
+    /// Run the pipeline. The returned ARN should not be empty.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]

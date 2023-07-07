@@ -1,4 +1,4 @@
-# Create and execute a SageMaker geospatial pipeline using an AWS SDK
+# Create and run a SageMaker geospatial pipeline using an AWS SDK
 
 ## Overview
 
@@ -6,20 +6,24 @@ This scenario demonstrates how to work with Amazon SageMaker (SageMaker) pipelin
 
 A [SageMaker pipeline](https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html) is a series of 
 interconnected steps that can be used to automate machine learning workflows. Pipelines can be created 
-and executed from SageMaker Studio using Python, but you can also work with them using AWS SDKs in other
-languages. Creating, executing, and monitoring operations for SageMaker pipelines are all available using the SDKs.
+and ran from SageMaker Studio using Python, but you can also work with them using AWS SDKs in other
+languages. Creating, running, and monitoring operations for SageMaker pipelines are all available using the SDKs.
 
 ### Pipeline Steps
 This example pipeline includes an [AWS Lambda step](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html#step-type-lambda) 
 and a [callback step](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html#step-type-callback), 
-which are processed by the same example Lambda function. The Lambda handles starting a SageMaker job, or an export function, or the processing of the Amazon SQS queue message that 
-is used for SageMaker callback steps. This Lambda code is included as part of this example. 
+which are processed by the same example Lambda function. 
+
+This Lambda code is included as part of this example, with the following functionality:
+- Starting the SageMaker Vector Enrichment Job with the provided job configuration.
+- Starting the export function with the provided export configuration.
+- Processing the Amazon SQS queue messages from the SageMaker pipeline. 
 
 ![Pipeline image](../Images/Pipeline.PNG)
 
 ### Pipeline Parameters
 The example pipeline uses [parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-parameters.html) that can be referenced in throughout the steps, and can be used to change
-values between executions. In this example, the parameters are used to set the Amazon Simple Storage Service (Amazon S3)
+values between runs. In this example, the parameters are used to set the Amazon Simple Storage Service (Amazon S3)
 locations for the input and output files, along with the identifiers for the role and queue to use in the pipeline. 
 The example demonstrates how to set and access these parameters.
 
@@ -65,9 +69,9 @@ Alternatively, you can run the example from within your IDE.
 This example shows you how to do the following:
 
 * Set up resources for a pipeline.
-* Set up a pipeline that executes a geospatial job.
-* Start a pipeline execution.
-* Monitor the status of the execution.
+* Set up a pipeline that runs a geospatial job.
+* Start a pipeline run.
+* Monitor the status of the run.
 * View the output of the pipeline.
 * Clean up resources.
 

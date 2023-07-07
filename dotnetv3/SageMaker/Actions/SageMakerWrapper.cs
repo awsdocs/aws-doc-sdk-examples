@@ -61,14 +61,14 @@ public class SageMakerWrapper
 
     // snippet-start:[SageMaker.dotnetv3.ExecutePipeline]
     /// <summary>
-    /// Execute a pipeline with input and output file locations.
+    /// Run a pipeline with input and output file locations.
     /// </summary>
     /// <param name="queueUrl">The URL for the queue to use for pipeline callbacks.</param>
     /// <param name="inputLocationUrl">The input location in Amazon S3.</param>
     /// <param name="outputLocationUrl">The output location in Amazon S3.</param>
     /// <param name="pipelineName">The name of the pipeline.</param>
-    /// <param name="executionRoleArn">The ARN of the execution role.</param>
-    /// <returns>The ARN of the pipeline execution.</returns>
+    /// <param name="executionRoleArn">The ARN of the role.</param>
+    /// <returns>The ARN of the pipeline run.</returns>
     public async Task<string> ExecutePipeline(
         string queueUrl,
         string inputLocationUrl,
@@ -125,10 +125,10 @@ public class SageMakerWrapper
 
     // snippet-start:[SageMaker.dotnetv3.DescribePipelineExecution]
     /// <summary>
-    /// Check the status of an execution.
+    /// Check the status of a run.
     /// </summary>
-    /// <param name="pipelineExecutionArn">The execution ARN.</param>
-    /// <returns>The status of the pipeline execution.</returns>
+    /// <param name="pipelineExecutionArn">The ARN.</param>
+    /// <returns>The status of the pipeline.</returns>
     public async Task<PipelineExecutionStatus> CheckPipelineExecutionStatus(string pipelineExecutionArn)
     {
         var describeResponse = await _amazonSageMaker.DescribePipelineExecutionAsync(

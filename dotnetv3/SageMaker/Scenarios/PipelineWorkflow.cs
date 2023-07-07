@@ -85,7 +85,7 @@ public static class PipelineWorkflow
             Console.WriteLine(
                 "Welcome to the Amazon SageMaker pipeline example scenario.");
             Console.WriteLine(
-                "\nThis example workflow will guide you through setting up and executing a" +
+                "\nThis example workflow will guide you through setting up and running an" +
                 "\nAWS SageMaker pipeline. The pipeline uses an AWS Lambda function and an" +
                 "\nAWS SQS Queue, and runs a vector enrichment reverse geocode job to" +
                 "\nreverse geocode addresses in an input file and store the results in an export file.");
@@ -103,7 +103,7 @@ public static class PipelineWorkflow
             await SetupBucket(bucketName);
 
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("Now we can create and execute our pipeline.");
+            Console.WriteLine("Now we can create and run our pipeline.");
             Console.WriteLine(new string('-', 80));
 
             await SetupPipeline(sageMakerRoleArn, functionArn, pipelineName);
@@ -113,7 +113,7 @@ public static class PipelineWorkflow
             await GetOutputResults(bucketName);
 
             Console.WriteLine(new string('-', 80));
-            Console.WriteLine("The pipeline has completed. To view the pipeline and executions" +
+            Console.WriteLine("The pipeline has completed. To view the pipeline and runs " +
                               "in SageMaker Studio, follow these instructions:" +
                               "\nhttps://docs.aws.amazon.com/sagemaker/latest/dg/pipelines-studio.html");
             Console.WriteLine(new string('-', 80));
@@ -151,7 +151,7 @@ public static class PipelineWorkflow
     }
 
     /// <summary>
-    /// Set up the AWS Lambda, either by updating an existing function or creating a new function.
+    /// Set up AWS Lambda, either by updating an existing function or creating a new function.
     /// </summary>
     /// <param name="roleArn">The role ARN to use for the Lambda function.</param>
     /// <param name="askUser">True to ask the user before updating.</param>
@@ -246,18 +246,18 @@ public static class PipelineWorkflow
         var assumeRolePolicy = "{" +
                                "\"Version\": \"2012-10-17\"," +
                                "\"Statement\": [{" +
-                               "\"Effect\": \"Allow\"," +
-                               "\"Principal\": {" +
-                               $"\"Service\": [" +
-                               "\"sagemaker.amazonaws.com\"," +
-                               "\"sagemaker-geospatial.amazonaws.com\"," +
-                               "\"lambda.amazonaws.com\"," +
-                               "\"s3.amazonaws.com\"" +
-                               "]" +
-                               "}," +
-                               "\"Action\": \"sts:AssumeRole\"" +
-                               "}]" +
-                               "}";
+                                    "\"Effect\": \"Allow\"," +
+                                    "\"Principal\": {" +
+                                        $"\"Service\": [" +
+                                            "\"sagemaker.amazonaws.com\"," +
+                                            "\"sagemaker-geospatial.amazonaws.com\"," +
+                                            "\"lambda.amazonaws.com\"," +
+                                            "\"s3.amazonaws.com\"" +
+                                        "]" +
+                                    "}," +
+                                    "\"Action\": \"sts:AssumeRole\"" +
+                               "}]" + 
+                            "}";
 
         var roleResult = await _iamClient!.CreateRoleAsync(
             new CreateRoleRequest()
@@ -397,14 +397,14 @@ public static class PipelineWorkflow
     }
 
     /// <summary>
-    /// Connect the queue to the lambda as an event source.
+    /// Connect the queue to the Lambda function as an event source.
     /// </summary>
     /// <param name="queueUrl">The URL for the queue.</param>
     /// <returns>Async task.</returns>
     public static async Task ConnectLambda(string queueUrl)
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"Connecting lambda and queue for the pipeline.");
+        Console.WriteLine($"Connecting the Lambda function and queue for the pipeline.");
 
         var queueAttributes = await _sqsClient.GetQueueAttributesAsync(
             new GetQueueAttributesRequest() { QueueUrl = queueUrl, AttributeNames = new List<string>() { "All" } });
@@ -512,7 +512,8 @@ public static class PipelineWorkflow
     }
 
     /// <summary>
-    /// Create a pipeline from some json.
+    /// Create a pipeline from the example pipeline JSON
+    /// that includes the Lambda, callback, processing, and export jobs.
     /// </summary>
     /// <param name="roleArn">The ARN of the role for the pipeline.</param>
     /// <param name="functionArn">The ARN of the Lambda function for the pipeline.</param>
@@ -538,13 +539,13 @@ public static class PipelineWorkflow
     }
 
     /// <summary>
-    /// Start a pipeline execution with job configurations.
+    /// Start a pipeline run with job configurations.
     /// </summary>
     /// <param name="queueUrl">The URL for the queue used in the pipeline.</param>
-    /// <param name="roleArn">The ARN of the execution role.</param>
+    /// <param name="roleArn">The ARN of the role.</param>
     /// <param name="pipelineName">The name of the pipeline.</param>
     /// <param name="bucketName">The name of the bucket.</param>
-    /// <returns>The pipeline execution ARN.</returns>
+    /// <returns>The pipeline run ARN.</returns>
     public static async Task<string> ExecutePipeline(
         string queueUrl,
         string roleArn,
@@ -561,38 +562,38 @@ public static class PipelineWorkflow
             await _sageMakerWrapper.ExecutePipeline(queueUrl, input, output,
                 pipelineName, roleArn);
 
-        Console.WriteLine($"\tExecution started with ARN {executionARN}.");
+        Console.WriteLine($"\tRun started with ARN {executionARN}.");
         Console.WriteLine(new string('-', 80));
 
         return executionARN;
     }
 
     /// <summary>
-    /// Wait for a pipeline execution to complete.
+    /// Wait for a pipeline run to complete.
     /// </summary>
-    /// <param name="executionArn">The pipeline execution ARN.</param>
+    /// <param name="executionArn">The pipeline run ARN.</param>
     /// <returns>Async task.</returns>
     public static async Task WaitForPipelineExecution(string executionArn)
     {
         Console.WriteLine(new string('-', 80));
-        Console.WriteLine($"Waiting for pipeline execution to finish.");
+        Console.WriteLine($"Waiting for pipeline to finish.");
 
         PipelineExecutionStatus status;
         do
         {
             status = await _sageMakerWrapper.CheckPipelineExecutionStatus(executionArn);
             Thread.Sleep(30000);
-            Console.WriteLine($"\tExecution status is {status}.");
+            Console.WriteLine($"\tStatus is {status}.");
         } while (status == PipelineExecutionStatus.Executing);
 
-        Console.WriteLine($"\tExecution finished with status {status}.");
+        Console.WriteLine($"\tPipeline finished with status {status}.");
         Console.WriteLine(new string('-', 80));
     }
 
     /// <summary>
     /// Clean up the resources from the scenario.
     /// </summary>
-    /// <param name="askUser">True to ask the user for cleanup..</param>
+    /// <param name="askUser">True to ask the user for cleanup.</param>
     /// <param name="queueUrl">The URL of the queue to clean up.</param>
     /// <param name="pipelineName">The name of the pipeline.</param>
     /// <param name="bucketName">The name of the bucket.</param>

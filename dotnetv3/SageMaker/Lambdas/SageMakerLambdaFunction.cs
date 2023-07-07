@@ -24,7 +24,7 @@ public class SageMakerLambdaFunction
     /// <summary>
     /// Default constructor. This constructor is used by AWS Lambda to construct the instance. When invoked in a Lambda environment
     /// the AWS credentials will come from the IAM role associated with the function and the AWS region will be set to the
-    /// region the Lambda function is executed in.
+    /// region the Lambda function is running in.
     /// </summary>
     public SageMakerLambdaFunction()
     {
@@ -52,7 +52,7 @@ public class SageMakerLambdaFunction
         }
         else if (!string.IsNullOrEmpty(request.vej_export_config))
         {
-            context.Logger.LogInformation("Export configuration found, this is an export. Start the VEJ export job.");
+            context.Logger.LogInformation("Export configuration found, this is an export. Start the Vector Enrichment Job (VEJ) export.");
 
             var outputConfig =
                 JsonSerializer.Deserialize<ExportVectorEnrichmentJobOutputConfig>(
