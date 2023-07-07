@@ -48,7 +48,7 @@ public static class PipelineWorkflow
     static async Task Main(string[] args)
     {
         var options = new AWSOptions() { Region = RegionEndpoint.USWest2 };
-        // Set up dependency injection for the Amazon service.
+        // Set up dependency injection for the AWS service.
         using var host = Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging =>
                 logging.AddFilter("System", LogLevel.Debug)
@@ -86,8 +86,8 @@ public static class PipelineWorkflow
                 "Welcome to the Amazon SageMaker pipeline example scenario.");
             Console.WriteLine(
                 "\nThis example workflow will guide you through setting up and running an" +
-                "\nAWS SageMaker pipeline. The pipeline uses an AWS Lambda function and an" +
-                "\nAWS SQS Queue, and runs a vector enrichment reverse geocode job to" +
+                "\nAmazon SageMaker pipeline. The pipeline uses an AWS Lambda function and an" +
+                "\nAmazon SQS Queue. It runs a vector enrichment reverse geocode job to" +
                 "\nreverse geocode addresses in an input file and store the results in an export file.");
             Console.WriteLine(new string('-', 80));
 
@@ -153,7 +153,7 @@ public static class PipelineWorkflow
     /// <summary>
     /// Set up AWS Lambda, either by updating an existing function or creating a new function.
     /// </summary>
-    /// <param name="roleArn">The role ARN to use for the Lambda function.</param>
+    /// <param name="roleArn">The role Amazon Resource Name (ARN) to use for the Lambda function.</param>
     /// <param name="askUser">True to ask the user before updating.</param>
     /// <returns>The ARN of the function.</returns>
     public static async Task<string> SetupLambda(string roleArn, bool askUser)
@@ -222,7 +222,7 @@ public static class PipelineWorkflow
     /// <summary>
     /// Create a role to be used by AWS Lambda. Does not create the role if it already exists.
     /// </summary>
-    /// <returns>The role Amazon Resource Name (ARN).</returns>
+    /// <returns>The role ARN.</returns>
     public static async Task<string> CreateLambdaRole()
     {
         Console.WriteLine(new string('-', 80));

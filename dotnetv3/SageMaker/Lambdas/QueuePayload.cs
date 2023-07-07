@@ -14,7 +14,7 @@ public class QueuePayload
     public string token { get; set; } = null!;
 
     /// <summary>
-    /// The ARN of the pipeline run.
+    /// The Amazon Resource Name (ARN) of the pipeline run.
     /// </summary>
     public string pipelineExecutionArn { get; set; } = null!;
 

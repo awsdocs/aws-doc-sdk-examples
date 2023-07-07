@@ -5,29 +5,28 @@
 This scenario demonstrates how to work with Amazon SageMaker pipelines and geospatial jobs.
 
 A [SageMaker pipeline](https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html) is a series of 
-interconnected steps that can be used to automate machine learning workflows. Pipelines can be created 
-and ran from SageMaker Studio using Python, but you can also work with them using AWS SDKs in other
-languages. Creating, running, and monitoring operations for SageMaker pipelines are all available using the SDKs.
+interconnected steps that can be used to automate machine learning workflows. You can create and run pipelines from SageMaker Studio by using Python, but you can also do this by using AWS SDKs in other
+languages. Using the SDKs, you can create and run SageMaker pipelines and also monitor operations for them.
 
-### Pipeline Steps
+### Pipeline steps
 This example pipeline includes an [AWS Lambda step](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html#step-type-lambda) 
-and a [callback step](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html#step-type-callback), 
-which are processed by the same example Lambda function. 
+and a [callback step](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html#step-type-callback). 
+Both steps are processed by the same example Lambda function. 
 
 This Lambda code is included as part of this example, with the following functionality:
-- Starting the SageMaker Vector Enrichment Job with the provided job configuration.
-- Starting the export function with the provided export configuration.
-- Processing the Amazon SQS queue messages from the SageMaker pipeline. 
+- Starts the SageMaker Vector Enrichment Job with the provided job configuration.
+- Starts the export function with the provided export configuration.
+- Processes Amazon SQS queue messages from the SageMaker pipeline. 
 
 ![Pipeline image](../Images/Pipeline.PNG)
 
-### Pipeline Parameters
-The example pipeline uses [parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-parameters.html) that can be referenced throughout the steps, and can be used to change
-values between executions. In this example, the parameters are used to set the Amazon Simple Storage Service (Amazon S3)
+### Pipeline parameters
+The example pipeline uses [parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-parameters.html) that you can reference throughout the steps. You can also use the parameters to change
+values between runs. In this example, the parameters are used to set the Amazon Simple Storage Service (Amazon S3)
 locations for the input and output files, along with the identifiers for the role and queue to use in the pipeline. 
 The example demonstrates how to set and access these parameters.
 
-### Geospatial Jobs
+### Geospatial jobs
 A SageMaker pipeline can be used for model training, setup, testing, or validation. This example uses a simple job
 for demonstration purposes: a [Vector Enrichment Job (VEJ)](https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial-vej.html) that processes a set of coordinates to produce human-readable 
 addresses powered by Amazon Location Service. Other types of jobs could be substituted in the pipeline instead.
@@ -43,9 +42,9 @@ addresses powered by Amazon Location Service. Other types of jobs could be subst
 
 ### Prerequisites
 
-To view pipelines in SageMaker Studio, you will need to [set up an Amazon SageMaker Domain](https://docs.aws.amazon.com/sagemaker/latest/dg/gs-studio-onboard.html).
-To use geospatial capabilities, [you will need to use a supported region](https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial.html).
-You may use the provided input file, or provide your own. The AWS Lambda function is provided as a zip archive, but can also be
+To view pipelines in SageMaker Studio, you need to [set up an Amazon SageMaker Domain](https://docs.aws.amazon.com/sagemaker/latest/dg/gs-studio-onboard.html).
+To use geospatial capabilities, [you need to use a supported Region](https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial.html).
+You can use the provided input file, or provide your own. The AWS Lambda function is provided as a zip archive, but can also be
 packaged using the [Lambda plugin for .NET](https://docs.aws.amazon.com/lambda/latest/dg/csharp-package-toolkit.html).
 
 For general prerequisites, see the [README](../README.md#Prerequisites) in the `dotnetv3` folder.

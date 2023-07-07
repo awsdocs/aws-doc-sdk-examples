@@ -11,7 +11,7 @@ using Amazon.SageMaker.Model;
 using Amazon.SageMakerGeospatial;
 using Amazon.SageMakerGeospatial.Model;
 
-// Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
+// Assembly attribute to enable the AWS Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
 namespace SageMakerLambda;
@@ -23,8 +23,8 @@ public class SageMakerLambdaFunction
 {
     /// <summary>
     /// Default constructor. This constructor is used by AWS Lambda to construct the instance. When invoked in a Lambda environment
-    /// the AWS credentials will come from the IAM role associated with the function and the AWS region will be set to the
-    /// region the Lambda function is running in.
+    /// the AWS credentials will come from the AWS Identity and Access Management (IAM) role associated with the function. The AWS Region will be set to the
+    /// Region that the Lambda function is running in.
     /// </summary>
     public SageMakerLambdaFunction()
     {

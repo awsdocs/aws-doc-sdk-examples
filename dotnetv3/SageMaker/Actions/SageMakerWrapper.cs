@@ -12,7 +12,7 @@ using Amazon.SageMakerGeospatial;
 namespace SageMakerActions;
 
 /// <summary>
-/// Wrapper class for SageMaker actions and logic.
+/// Wrapper class for Amazon SageMaker actions and logic.
 /// </summary>
 public class SageMakerWrapper
 {
@@ -26,7 +26,7 @@ public class SageMakerWrapper
     /// <summary>
     /// Create a pipeline from a JSON definition, or update it if the pipeline already exists.
     /// </summary>
-    /// <returns>The ARN of the pipeline.</returns>
+    /// <returns>The Amazon Resource Name (ARN) of the pipeline.</returns>
     public async Task<string> SetupPipeline(string pipelineJson, string roleArn, string name, string description, string displayName)
     {
         try
@@ -64,7 +64,7 @@ public class SageMakerWrapper
     /// Run a pipeline with input and output file locations.
     /// </summary>
     /// <param name="queueUrl">The URL for the queue to use for pipeline callbacks.</param>
-    /// <param name="inputLocationUrl">The input location in Amazon S3.</param>
+    /// <param name="inputLocationUrl">The input location in Amazon Simple Storage Service (Amazon S3).</param>
     /// <param name="outputLocationUrl">The output location in Amazon S3.</param>
     /// <param name="pipelineName">The name of the pipeline.</param>
     /// <param name="executionRoleArn">The ARN of the role.</param>

@@ -37,7 +37,7 @@ public class SageMakerTests
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("testsettings.json") // Load test settings from .json file.
             .AddJsonFile("testsettings.local.json",
-                true) // Optionally load local settings.
+                true) // Optionally, load local settings.
             .Build();
 
         queueName = _configuration["queueName"];
@@ -63,7 +63,7 @@ public class SageMakerTests
     }
 
     /// <summary>
-    /// Set up a new pipeline. The returned ARN should not be empty.
+    /// Set up a new pipeline. The returned Amazon Resource Name (ARN) should not be empty.
     /// </summary>
     /// <returns>Async task.</returns>
     [Fact]

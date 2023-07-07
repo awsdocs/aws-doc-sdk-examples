@@ -6,17 +6,17 @@ using Amazon.Lambda.SQSEvents;
 namespace SageMakerLambda;
 
 /// <summary>
-/// The custom pipeline request object for SageMaker pipeline.
+/// The custom pipeline request object for an Amazon SageMaker pipeline.
 /// </summary>
 public class PipelineRequest : SQSEvent
 {
     /// <summary>
-    /// The Role ARN parameter.
+    /// The Role Amazon Resource Name (ARN) parameter.
     /// </summary>
     public string Role { get; set; } = null!;
 
     /// <summary>
-    /// A custom region, optional parameter.
+    /// A custom Region, optional parameter.
     /// </summary>
     public string Region { get; set; } = null!;
 
@@ -46,7 +46,7 @@ public class PipelineRequest : SQSEvent
     public string vej_export_config { get; set; } = null!;
 
     /// <summary>
-    /// The queue url, optional parameter.
+    /// The queue URL, optional parameter.
     /// </summary>
     public string queue_url { get; set; } = null!;
 
