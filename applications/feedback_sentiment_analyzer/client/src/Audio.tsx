@@ -6,26 +6,33 @@ interface AudioProps {
 }
 
 function Audio(props: AudioProps) {
-  const [objectUrl, setObjectUrl] = useState("");
+  const [audio, setAudio] = useState("");
   const ref = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
   const { downloadFile } = useStore();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (playing) {
       ref.current?.pause();
       setPlaying(false);
     } else {
-      ref.current?.play();
-      setPlaying(true);
+      try {
+        await ref.current?.play();
+        setPlaying(true);
+      } catch (e) {
+        console.error(e);
+      }
     }
   };
 
   useEffect(() => {
     const getAudio = async () => {
-      const audio = await downloadFile(props.src);
-      const audioUrl = URL.createObjectURL(audio);
-      setObjectUrl(audioUrl);
+      try {
+        const dataUrl = await downloadFile(props.src);
+        setAudio(dataUrl);
+      } catch (e) {
+        console.error(e);
+      }
     };
     if (props.src) {
       getAudio();
@@ -39,20 +46,18 @@ function Audio(props: AudioProps) {
     return () => {
       ref.current?.removeEventListener("ended", () => {});
     };
-  }, [ref]);
+  }, [ref.current]);
 
-  return (
-    objectUrl ?? (
-      <>
-        <audio ref={ref} src={objectUrl} />
-        <button
-          className={`media-button ${playing ? "pause" : ""}`}
-          aria-label="Toggle audio"
-          onClick={handleClick}
-        ></button>
-      </>
-    )
-  );
+  return audio ? (
+    <>
+      <audio ref={ref} src={audio} />
+      <button
+        className={`media-button ${playing ? "pause" : ""}`}
+        aria-label="Toggle audio"
+        onClick={handleClick}
+      ></button>
+    </>
+  ) : null;
 }
 
 export default Audio;

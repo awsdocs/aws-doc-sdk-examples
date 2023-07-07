@@ -1,4 +1,4 @@
-import { Stack, CfnOutput, RemovalPolicy } from "aws-cdk-lib";
+import { Stack, CfnOutput, RemovalPolicy, Duration } from "aws-cdk-lib";
 import { Construct } from "constructs";
 
 import { APP_LANG, APP_EMAIL, PREFIX } from "./env";
@@ -14,6 +14,7 @@ import {
 } from "aws-cdk-lib/aws-apigateway";
 import {
   AllowedMethods,
+  CacheHeaderBehavior,
   CachePolicy,
   Distribution,
   OriginRequestPolicy,
@@ -23,12 +24,8 @@ import {
 import { RestApiOrigin, S3Origin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { AppAuth } from "./constructs/app-auth";
 import { AppRoutes } from "./constructs/app-routes";
-import {
-  EnvModel,
-  GetFeedbackModel,
-  UploadModel,
-} from "./constructs/app-api-models";
-import { Bucket } from "aws-cdk-lib/aws-s3";
+import { EnvModel, GetFeedbackModel } from "./constructs/app-api-models";
+import { Bucket, ObjectOwnership } from "aws-cdk-lib/aws-s3";
 import { Rule } from "aws-cdk-lib/aws-events";
 import { SfnStateMachine } from "aws-cdk-lib/aws-events-targets";
 import { AppDatabase } from "./constructs/app-database";
@@ -70,7 +67,7 @@ export class AppStack extends Stack {
     this.addApiLambda(auth, userPoolAuthorizer, routes, api, database);
 
     // Create audio bucket.
-    const audioBucket = new Bucket(this, "audio-bucket", {
+    const mediaBucket = new Bucket(this, "media-bucket", {
       enforceSSL: true,
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
@@ -79,13 +76,13 @@ export class AppStack extends Stack {
 
     // Add routes that allow putting and getting objects directly from Amazon S3.
     routes.addDirectS3Route({
-      path: "audio",
-      bucket: audioBucket,
+      path: "media",
+      bucket: mediaBucket,
       authorizer: userPoolAuthorizer,
     });
 
     // Create AWS Lambda functions.
-    this.addStepFunctions(prefix, audioBucket, database);
+    this.addStepFunctions(prefix, mediaBucket, database);
 
     // Output useful values.
     new CfnOutput(this, `${prefix}-website-url`, {
@@ -102,6 +99,7 @@ export class AppStack extends Stack {
         allowCredentials: true,
       },
       binaryMediaTypes: ["image/jpeg", "image/png"],
+      cloudWatchRole: true,
       deployOptions: {
         // These settings require extra permissions. See https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html
         // accessLogDestination: new LogGroupLogDestination(logGroup),
@@ -122,9 +120,13 @@ export class AppStack extends Stack {
       cachePolicy: CachePolicy.CACHING_OPTIMIZED,
       originRequestPolicy: OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
     };
+    const logBucket = new Bucket(this, "cf-log-bucket", {
+      objectOwnership: ObjectOwnership.OBJECT_WRITER,
+    });
     const distribution = new Distribution(this, "website-distribution", {
       defaultRootObject: "index.html",
       defaultBehavior: s3OriginConfig,
+      logBucket: logBucket,
       additionalBehaviors: {
         "/*.js": {
           ...s3OriginConfig,
@@ -143,7 +145,10 @@ export class AppStack extends Stack {
         "/api/*": {
           origin: new RestApiOrigin(api),
           viewerProtocolPolicy: ViewerProtocolPolicy.ALLOW_ALL,
-          cachePolicy: CachePolicy.CACHING_DISABLED,
+          cachePolicy: new CachePolicy(this, "api-cache", {
+            defaultTtl: Duration.seconds(60),
+            headerBehavior: CacheHeaderBehavior.allowList("Authorization"),
+          }),
           originRequestPolicy: OriginRequestPolicy.CORS_S3_ORIGIN,
           allowedMethods: AllowedMethods.ALLOW_ALL,
         },
@@ -219,6 +224,9 @@ export class AppStack extends Stack {
         detail: {
           bucket: {
             name: [uploadBucket.bucketName],
+          },
+          object: {
+            key: [{ suffix: ".png" }, { suffix: ".jpeg" }, { suffix: ".jpg" }],
           },
         },
       },

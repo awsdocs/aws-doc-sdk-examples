@@ -31,7 +31,7 @@ export interface Store {
   checkAuth: () => void;
   signOut: () => void;
   uploadFile: (file: File) => Promise<void>;
-  downloadFile: (fileName: string) => Promise<Blob>;
+  downloadFile: (fileName: string) => Promise<string>;
   getFeedback: () => Promise<void>;
 }
 
@@ -57,7 +57,6 @@ export const useStore = create<Store>((set, get) => ({
     const params = new URLSearchParams(location.href.split("#")[1]);
     const idToken = params.get("id_token");
     const accessToken = params.get("access_token");
-    console.log(idToken, accessToken);
     if (idToken && accessToken) {
       const idTokenClaims = decodeJwt(idToken);
       set({

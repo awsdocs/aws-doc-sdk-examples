@@ -1,6 +1,6 @@
 import {
-  AuthorizationType,
   AwsIntegration,
+  ContentHandling,
   IAuthorizer,
   LambdaIntegration,
   Model,
@@ -121,7 +121,12 @@ export class AppRoutes extends Construct {
           requestParameters: {
             "integration.request.path.item": "method.request.path.item",
           },
-          integrationResponses: [{ statusCode: "200" }],
+          integrationResponses: [
+            {
+              statusCode: "200",
+              contentHandling: ContentHandling.CONVERT_TO_BINARY,
+            },
+          ],
         },
       }),
       {
@@ -129,7 +134,12 @@ export class AppRoutes extends Construct {
         requestParameters: {
           "method.request.path.item": true,
         },
-        methodResponses: [getResponse(downloadModel)],
+        methodResponses: [
+          {
+            statusCode: "200",
+            responseModels: { "audio/mp3": downloadModel },
+          },
+        ],
       }
     );
   }
