@@ -17,7 +17,7 @@ using Amazon.SageMakerGeospatial.Model;
 namespace SageMakerLambda;
 
 /// <summary>
-/// The AWS Lambda with a function handler for the Amazon SageMaker pipeline.
+/// The AWS Lambda function handler for the Amazon SageMaker pipeline.
 /// </summary>
 public class SageMakerLambdaFunction
 {

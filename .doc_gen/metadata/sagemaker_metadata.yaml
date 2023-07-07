@@ -18,7 +18,7 @@ sagemaker_Hello:
     sagemaker: {ListNotebookInstances}
 sagemaker_CreatePipeline:
   title: Create or update a pipeline in &SM; using an &AWS; SDK
-  title_abbrev: Create pipeline
+  title_abbrev: Create a pipeline
   synopsis: create or update a pipeline in &SM;.
   category:
   languages:
@@ -35,7 +35,7 @@ sagemaker_CreatePipeline:
     sagemaker: {CreatePipeline, UpdatePipeline}
 sagemaker_ExecutePipeline:
   title: Execute a pipeline in &SM; using an &AWS; SDK
-  title_abbrev: Execute pipeline
+  title_abbrev: Execute a pipeline
   synopsis: start a pipeline execution in &SM;.
   category:
   languages:
@@ -52,7 +52,7 @@ sagemaker_ExecutePipeline:
     sagemaker: {StartPipelineExecution}
 sagemaker_DeletePipeline:
   title: Delete a pipeline in &SM; using an &AWS; SDK
-  title_abbrev: Delete pipeline
+  title_abbrev: Delete a pipeline
   synopsis: delete a pipeline in &SM;.
   category:
   languages:
@@ -69,7 +69,7 @@ sagemaker_DeletePipeline:
     sagemaker: {DeletePipeline}
 sagemaker_DescribePipelineExecution:
   title: Describe a pipeline execution in &SM; using an &AWS; SDK
-  title_abbrev: Describe pipeline execution
+  title_abbrev: Describe a pipeline execution
   synopsis: describe a pipeline execution in &SM;.
   category:
   languages:

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This scenario demonstrates how to work with Amazon SageMaker (SageMaker) pipelines and geospatial jobs.
+This scenario demonstrates how to work with Amazon SageMaker pipelines and geospatial jobs.
 
 A [SageMaker pipeline](https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html) is a series of 
 interconnected steps that can be used to automate machine learning workflows. Pipelines can be created 
@@ -22,15 +22,15 @@ This Lambda code is included as part of this example, with the following functio
 ![Pipeline image](../Images/Pipeline.PNG)
 
 ### Pipeline Parameters
-The example pipeline uses [parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-parameters.html) that can be referenced in throughout the steps, and can be used to change
-values between runs. In this example, the parameters are used to set the Amazon Simple Storage Service (Amazon S3)
+The example pipeline uses [parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-parameters.html) that can be referenced throughout the steps, and can be used to change
+values between executions. In this example, the parameters are used to set the Amazon Simple Storage Service (Amazon S3)
 locations for the input and output files, along with the identifiers for the role and queue to use in the pipeline. 
 The example demonstrates how to set and access these parameters.
 
 ### Geospatial Jobs
 A SageMaker pipeline can be used for model training, setup, testing, or validation. This example uses a simple job
-for demonstration purposes - a [Vector Enrichment Job (VEJ)](https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial-vej.html) that processes a set of coordinates to produce human-readable 
-addresses powered by Amazon Location Service. Other types of job or jobs could be substituted in the pipeline instead.
+for demonstration purposes: a [Vector Enrichment Job (VEJ)](https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial-vej.html) that processes a set of coordinates to produce human-readable 
+addresses powered by Amazon Location Service. Other types of jobs could be substituted in the pipeline instead.
 
 ## ⚠ Important
 
