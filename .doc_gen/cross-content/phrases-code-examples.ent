@@ -63,6 +63,8 @@
 <!ENTITY PERSRlong '&PERSlong; Runtime'>
 <!ENTITY PERSR '&PERS; Runtime'>
 
+<!-- Serverless Snippets -->
+<!ENTITY Serverless 'Serverless Snippets'>
 <!-- Transcribe Medical -->
 <!ENTITY TSCMlong '&TSClong; Medical'>
 <!ENTITY TSCM '&TSC; Medical'>
