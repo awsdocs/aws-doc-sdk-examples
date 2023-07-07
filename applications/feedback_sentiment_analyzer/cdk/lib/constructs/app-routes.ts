@@ -1,5 +1,6 @@
 import {
   AwsIntegration,
+  ContentHandling,
   IAuthorizer,
   LambdaIntegration,
   Model,
@@ -9,7 +10,7 @@ import {
 } from "aws-cdk-lib/aws-apigateway";
 import { Function } from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
-import { Empty } from "./app-api-models";
+import { DownloadModel, Empty, UploadModel } from "./app-api-models";
 import { Bucket } from "aws-cdk-lib/aws-s3";
 import { PolicyStatement, Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 
@@ -32,10 +33,9 @@ export interface LambdaRouteProps extends RouteProps {
   fn: Function;
 }
 
-export interface DirectS3RouteProps extends RouteProps {
+export interface DirectS3RouteProps
+  extends Omit<RouteProps, "method" | "model"> {
   bucket: Bucket;
-  // For example, ["s3:PutObject", "s3:GetObject"]
-  allowActions: string[];
 }
 
 export class AppRoutes extends Construct {
@@ -74,25 +74,17 @@ export class AppRoutes extends Construct {
     );
   }
 
-  addDirectS3Route({
-    path,
-    method,
-    authorizer,
-    allowActions,
-    model,
-    bucket,
-  }: DirectS3RouteProps) {
+  addDirectS3Route({ path, authorizer, bucket }: DirectS3RouteProps) {
     const resource = this.apiRoot.addResource(path);
     const objectKeyResource = resource.addResource("{item}");
-    this.role.addToPolicy(
-      new PolicyStatement({
-        actions: allowActions,
-        resources: [`${bucket.bucketArn}/*`],
-      })
-    );
+    bucket.grantRead(this.role);
+    bucket.grantWrite(this.role);
+
+    const uploadModel = new UploadModel(this, { restApi: this.props.api });
+    const downloadModel = new DownloadModel(this, { restApi: this.props.api });
 
     objectKeyResource.addMethod(
-      method,
+      "PUT",
       new AwsIntegration({
         service: "s3",
         integrationHttpMethod: "PUT",
@@ -106,15 +98,48 @@ export class AppRoutes extends Construct {
         },
       }),
       {
-        authorizer,
+        ...(authorizer ? { authorizer } : {}),
         requestParameters: {
           "method.request.path.item": true,
         },
         requestModels: {
-          "image/jpeg": model.request ?? this.emptyModel,
-          "image/png": model.request ?? this.emptyModel,
+          "image/jpeg": uploadModel,
+          "image/png": uploadModel,
         },
-        methodResponses: [getResponse(model.response)],
+        methodResponses: [getResponse(uploadModel)],
+      }
+    );
+
+    objectKeyResource.addMethod(
+      "GET",
+      new AwsIntegration({
+        service: "s3",
+        integrationHttpMethod: "GET",
+        path: `${bucket.bucketName}/{item}`,
+        options: {
+          credentialsRole: this.role,
+          requestParameters: {
+            "integration.request.path.item": "method.request.path.item",
+          },
+          integrationResponses: [
+            {
+              statusCode: "200",
+              contentHandling: ContentHandling.CONVERT_TO_BINARY,
+            },
+          ],
+        },
+      }),
+      {
+        ...(authorizer ? { authorizer } : {}),
+        requestParameters: {
+          "method.request.path.item": true,
+        },
+        methodResponses: [
+          {
+            statusCode: "200",
+            responseModels: { "audio/mp3": downloadModel },
+          },
+        ],
       }
     );
   }

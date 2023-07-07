@@ -74,3 +74,12 @@ export class UploadModel extends Model {
     });
   }
 }
+
+export class DownloadModel extends Model {
+  constructor(scope: Construct, props: PartialModelProps) {
+    super(scope, "DownloadModel", {
+      ...props,
+      schema: JSON_SCHEMA_STRING,
+    });
+  }
+}
