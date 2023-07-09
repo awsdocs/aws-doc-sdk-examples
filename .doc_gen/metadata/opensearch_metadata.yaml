@@ -66,4 +66,5 @@ opensearch_UpdateDomainConfig:
               snippet_tags:
                 - opensearch.java2.update_domain.main
   services:
-    opensearch: {UpdateDomainConfig}                
+    opensearch: {UpdateDomainConfig}
+                    
