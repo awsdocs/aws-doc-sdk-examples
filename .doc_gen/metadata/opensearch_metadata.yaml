@@ -67,4 +67,3 @@ opensearch_UpdateDomainConfig:
                 - opensearch.java2.update_domain.main
   services:
     opensearch: {UpdateDomainConfig}
-                    
