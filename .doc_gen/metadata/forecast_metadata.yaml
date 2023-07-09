@@ -118,4 +118,3 @@ forecast_ListForecasts:
                 - forecast.java2.list_forecasts.main
   services:
     forecast: {ListForecasts}
-                              
