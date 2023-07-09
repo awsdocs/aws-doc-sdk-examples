@@ -117,4 +117,5 @@ forecast_ListForecasts:
               snippet_tags:
                 - forecast.java2.list_forecasts.main
   services:
-    forecast: {ListForecasts}                          
+    forecast: {ListForecasts}
+                              
