@@ -194,6 +194,10 @@ public class AutoScaleTest {
         TestValues() {
         }
 
+        String getVpcZoneId(){
+            return this.vpcZoneId;
+        }
+
         String getGroupName(){
             return this.groupName;
         }
@@ -204,10 +208,6 @@ public class AutoScaleTest {
 
         String getLaunchTemplateName(){
             return this.launchTemplateName;
-        }
-
-        String getVpcZoneId(){
-            return this.vpcZoneId;
         }
     }
 }
