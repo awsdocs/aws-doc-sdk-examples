@@ -24,3 +24,7 @@
 .media-button:hover {
   border-color: transparent transparent transparent #404040;
 }
+
+img {
+  max-width: 100%;
+}

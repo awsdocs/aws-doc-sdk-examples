@@ -3,9 +3,10 @@ export interface ApiConfig {
 }
 
 export interface Feedback {
-  id: string;
+  sentiment: "POSITIVE" | "NEGATIVE" | "NEUTRAL";
   text: string;
   audioUrl: string;
+  imageUrl: string;
 }
 
 export type FeedbackResponse = {
@@ -13,16 +14,11 @@ export type FeedbackResponse = {
 };
 
 const request: typeof fetch = async (input, init) => {
-  try {
-    const response = await fetch(`/api${input}`, init);
-    if (response.status === 401) {
-      throw new Error("Unauthorized");
-    }
-    return response;
-  } catch (err) {
-    console.error("Fetch request failed.", err);
-    throw new Error("Fetch request failed.", { cause: err });
+  const response = await fetch(`/api${input}`, init);
+  if (response.status === 401) {
+    throw new Error("Unauthorized");
   }
+  return response;
 };
 
 export const getAuthHeaders = (
@@ -46,7 +42,6 @@ export const uploadFile = async (file: File, config: ApiConfig) => {
   });
 
   if (!response.ok) {
-    console.error("API Upload failed.", response);
     throw new Error("API Upload failed.", { cause: response });
   }
 };
@@ -58,7 +53,6 @@ export const downloadFile = async (fileName: string, config: ApiConfig) => {
   });
 
   if (!response.ok) {
-    console.error("API Download failed.", response);
     throw new Error("API Download failed.", { cause: response });
   }
 
@@ -86,7 +80,6 @@ export const getFeedback = async (
   });
 
   if (!response.ok) {
-    console.error("API Feedback failed.", response);
     throw new Error("API Feedback failed.", { cause: response });
   } else {
     return response.json();
