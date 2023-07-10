@@ -5,6 +5,15 @@ opensearch_CreateDomain:
   synopsis: create an &ES; domain.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.kotlin.create_domain.main
     Java:
       versions:
         - sdk_version: 2
@@ -22,6 +31,15 @@ opensearch_DeleteDomain:
   synopsis: delete an &ES; domain.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.kotlin.delete_domain.main
     Java:
       versions:
         - sdk_version: 2
@@ -39,6 +57,15 @@ opensearch_ListDomainNames:
   synopsis: list &ES; domains.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.kotlin.list_domains.main
     Java:
       versions:
         - sdk_version: 2
@@ -56,6 +83,15 @@ opensearch_UpdateDomainConfig:
   synopsis: modify a cluster configuration of an &ES; domain.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.kotlin.update_domain.main
     Java:
       versions:
         - sdk_version: 2
