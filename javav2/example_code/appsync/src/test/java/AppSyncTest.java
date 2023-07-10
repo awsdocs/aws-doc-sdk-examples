@@ -17,7 +17,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueReques
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 
 /**
- * To run these integration tests, you need to either set the required values
+ * To run these integration tests, you must set the required values
  * in the config.properties file or AWS Secrets Manager.
  */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)

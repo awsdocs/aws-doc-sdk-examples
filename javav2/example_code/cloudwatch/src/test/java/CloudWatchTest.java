@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
- * To run these integration tests, you need to either set the required values
+ * To run these integration tests, you must set the required values
  * in the config.properties file or AWS Secrets Manager.
  */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
