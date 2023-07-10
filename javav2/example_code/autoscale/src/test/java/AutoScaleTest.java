@@ -35,7 +35,6 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRespon
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AutoScaleTest {
-
     private static AutoScalingClient autoScalingClient;
     private static String groupName="";
     private static String groupNameSc="";
@@ -62,7 +61,7 @@ public class AutoScaleTest {
         vpcZoneId = myValues.getVpcZoneId();
         groupNameSc = myValues.getGroupNameSc()+randomNum;
 
-       // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+       // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for the tests.
        /*
         try (InputStream input = AutoScaleTest.class.getClassLoader().getResourceAsStream("config.properties")) {
             Properties prop = new Properties();
