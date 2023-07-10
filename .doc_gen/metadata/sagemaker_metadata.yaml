@@ -1,4 +1,89 @@
 # zexi 0.4.0
+sagemaker_Hello:
+  title: Hello &SM;
+  title_abbrev: Hello &SM;
+  synopsis: get started using &SM;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SageMaker
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SageMaker.dotnetv3.HelloSageMaker
+  services:
+    sagemaker: {ListNotebookInstances}
+sagemaker_CreatePipeline:
+  title: Create or update a pipeline in &SM; using an &AWS; SDK
+  title_abbrev: Create a pipeline
+  synopsis: create or update a pipeline in &SM;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SageMaker
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SageMaker.dotnetv3.CreatePipeline
+  services:
+    sagemaker: {CreatePipeline, UpdatePipeline}
+sagemaker_ExecutePipeline:
+  title: Execute a pipeline in &SM; using an &AWS; SDK
+  title_abbrev: Execute a pipeline
+  synopsis: start a pipeline execution in &SM;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SageMaker
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SageMaker.dotnetv3.ExecutePipeline
+  services:
+    sagemaker: {StartPipelineExecution}
+sagemaker_DeletePipeline:
+  title: Delete a pipeline in &SM; using an &AWS; SDK
+  title_abbrev: Delete a pipeline
+  synopsis: delete a pipeline in &SM;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SageMaker
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SageMaker.dotnetv3.DeletePipeline
+  services:
+    sagemaker: {DeletePipeline}
+sagemaker_DescribePipelineExecution:
+  title: Describe a pipeline execution in &SM; using an &AWS; SDK
+  title_abbrev: Describe a pipeline execution
+  synopsis: describe a pipeline execution in &SM;.
+  category:
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SageMaker
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - SageMaker.dotnetv3.DescribePipelineExecution
+  services:
+    sagemaker: {DescribePipelineExecution}
 sagemaker_ListNotebookInstances:
   title: List the &SM; notebook instances using an &AWS; SDK
   title_abbrev: List notebook instances
@@ -210,3 +295,31 @@ sagemaker_Scenario_GettingStarted:
                 - sgm.abapv1.getting_started_with_sgm
   services:
     sagemaker: {CreateTrainingJob, DescribeTrainingJob, CreateModel, CreateEndpointConfig, CreateEndpoint, DescribeEndpoint, DeleteEndpoint, DeleteEndpointConfig, DeleteModel}
+sagemaker_Scenario_Pipelines:
+  title: Get started with &SM; geospatial jobs in a pipeline using an &AWS; SDK
+  title_abbrev: Get started with geospatial jobs and pipelines
+  synopsis_list:
+    - Set up resources for a pipeline.
+    - Set up a pipeline that executes a geospatial job.
+    - Start a pipeline execution.
+    - Monitor the status of the execution.
+    - View the output of the pipeline.
+    - Clean up resources.
+  category: Scenarios
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SageMaker
+          excerpts:
+            - description: Create a class that wraps &SM; operations.
+              snippet_tags:
+                - SageMaker.dotnetv3.SagemakerWrapper
+            - description: Create a function that handles callbacks from the &SM; pipeline.
+              snippet_tags:
+                - SageMaker.dotnetv3.SagemakerLambda
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - SageMaker.dotnetv3.SagemakerPipelineScenario
+  services:
+    sagemaker: {CreatePipeline, UpdatePipeline, StartPipelineExecution, DescribePipelineExecution, DeletePipeline}
