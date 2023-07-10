@@ -29,7 +29,7 @@ import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueReques
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 
 /**
- * To run these integration tests, you need to either set the required values
+ * To run these integration tests, you must set the required values
  * in the config.properties file or AWS Secrets Manager.
  */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -87,7 +87,7 @@ public class AutoScaleTest {
     @Order(1)
     public void createAutoScalingGroup() {
         assertDoesNotThrow(() -> CreateAutoScalingGroup.createAutoScalingGroup(autoScalingClient, groupName, launchTemplateName, vpcZoneId));
-        System.out.println("Test 2 passed");
+        System.out.println("Test 1 passed");
     }
 
     @Test
@@ -98,7 +98,7 @@ public class AutoScaleTest {
         instanceId2 = DescribeAutoScalingInstances.getAutoScaling(autoScalingClient, groupName);
         assertFalse(instanceId2.isEmpty());
         System.out.println(instanceId2);
-        System.out.println("Test 3 passed");
+        System.out.println("Test 2 passed");
     }
 
     @Test
@@ -107,14 +107,14 @@ public class AutoScaleTest {
         System.out.println("Wait 1 min for the resources, including the instance");
         Thread.sleep(60000);
         assertDoesNotThrow(() -> DetachInstances.detachInstance(autoScalingClient, groupName, instanceId2));
-        System.out.println("Test 4 passed");
+        System.out.println("Test 3 passed");
     }
 
     @Test
     @Order(4)
     public void deleteAutoScalingGroup() {
         assertDoesNotThrow(() -> DeleteAutoScalingGroup.deleteAutoScalingGroup(autoScalingClient, groupName));
-        System.out.println("Test 5 passed");
+        System.out.println("Test 4 passed");
     }
 
     @Test
