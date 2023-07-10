@@ -1,4 +1,21 @@
 # zexi 0.4.0
+rds_Hello:
+  title: Hello &RDS;
+  title_abbrev: Hello &RDS;
+  synopsis: get started using &RDS;.
+  category: Hello
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/RDS
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - RDS.dotnetv3.HelloRds
+  services:
+    rds: {DescribeDBInstances}
 rds_CreateDBInstance:
   title: Create an &RDS; DB instance using an &AWS; SDK
   title_abbrev: Create a DB instance
