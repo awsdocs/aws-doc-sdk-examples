@@ -256,7 +256,7 @@ public static class PipelineWorkflow
                                         "]" +
                                     "}," +
                                     "\"Action\": \"sts:AssumeRole\"" +
-                               "}]" + 
+                               "}]" +
                             "}";
 
         var roleResult = await _iamClient!.CreateRoleAsync(
