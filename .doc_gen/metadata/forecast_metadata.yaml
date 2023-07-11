@@ -5,6 +5,15 @@ forecast_CreateDataset:
   synopsis: create a &FOR; data set.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/forecast
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - forecast.kotlin.create_forecast_dataset.main
     Java:
       versions:
         - sdk_version: 2
@@ -22,6 +31,15 @@ forecast_CreateForecast:
   synopsis: create a &FOR; forecast.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/forecast
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - forecast.kotlin.create_forecast.main
     Java:
       versions:
         - sdk_version: 2
@@ -39,6 +57,15 @@ forecast_DeleteForecast:
   synopsis: delete a &FOR; forecast.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/forecast
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - forecast.kotlin.delete_forecast.main
     Java:
       versions:
         - sdk_version: 2
@@ -56,6 +83,15 @@ forecast_DeleteDataset:
   synopsis: delete a &FOR; data set.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/forecast
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - forecast.kotlin.delete_forecast_dataset.main
     Java:
       versions:
         - sdk_version: 2
@@ -73,6 +109,15 @@ forecast_DescribeForecast:
   synopsis: describe a &FOR; forecast.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/forecast
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - forecast.kotlin.describe_forecast.main
     Java:
       versions:
         - sdk_version: 2
@@ -90,6 +135,15 @@ forecast_ListDatasetGroups:
   synopsis: list &FOR; data set groups.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/forecast
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - forecast.kotlin.list_forecast_datasetgroups.main
     Java:
       versions:
         - sdk_version: 2
@@ -107,6 +161,15 @@ forecast_ListForecasts:
   synopsis: list &FOR; forecasts.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/forecast
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - forecast.kotlin.list_forecasts.main
     Java:
       versions:
         - sdk_version: 2
