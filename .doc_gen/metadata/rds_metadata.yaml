@@ -14,6 +14,14 @@ rds_Hello:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.HelloRds
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.Hello
   services:
     rds: {DescribeDBInstances}
 rds_CreateDBInstance:
@@ -31,6 +39,15 @@ rds_CreateDBInstance:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.CreateDBInstance
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.CreateDBInstance
     Kotlin:
       versions:
         - sdk_version: 1
@@ -86,6 +103,15 @@ rds_DeleteDBInstance:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DeleteDBInstance
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.DeleteDBInstance
     Kotlin:
       versions:
         - sdk_version: 1
@@ -167,6 +193,15 @@ rds_DescribeDBInstances:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DescribeDbInstances
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.DescribeDBInstances
     Kotlin:
       versions:
         - sdk_version: 1
@@ -282,6 +317,15 @@ rds_DescribeDBParameterGroups:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBParameterGroups
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.DescribeDBParameterGroups
     Python:
       versions:
         - sdk_version: 3
@@ -339,6 +383,15 @@ rds_CreateDBParameterGroup:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.CreateDBParameterGroup
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.CreateDBParameterGroup
     Python:
       versions:
         - sdk_version: 3
@@ -386,6 +439,15 @@ rds_DeleteDBParameterGroup:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DeleteDBParameterGroup
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.DeleteDBParameterGroup
     Python:
       versions:
         - sdk_version: 3
@@ -433,6 +495,15 @@ rds_DescribeDBParameters:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBParameters
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.DescribeDBParameters
     Python:
       versions:
         - sdk_version: 3
@@ -489,6 +560,15 @@ rds_ModifyDBParameterGroup:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.ModifyDBParameterGroup
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.ModifyDBParameterGroup
     Python:
       versions:
         - sdk_version: 3
@@ -536,6 +616,15 @@ rds_CreateDBSnapshot:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.CreateDBSnapshot
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.CreateDBSnapshot
     Python:
       versions:
         - sdk_version: 3
@@ -583,6 +672,15 @@ rds_DescribeDBSnapshots:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBSnapshots
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.DescribeDBSnapshots
     Python:
       versions:
         - sdk_version: 3
@@ -639,6 +737,15 @@ rds_DescribeDBEngineVersions:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DescribeDBEngineVersions
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.DescribeDBEngineVersions
     Python:
       versions:
         - sdk_version: 3
@@ -686,6 +793,15 @@ rds_DescribeOrderableDBInstanceOptions:
             - description:
               snippet_tags:
                 - RDS.dotnetv3.DescribeOrderableDBInstanceOptions
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - gov2.rds.DbInstances.struct
+                - gov2.rds.DescribeOrderableDBInstanceOptions
     Python:
       versions:
         - sdk_version: 3
@@ -773,6 +889,18 @@ rds_Scenario_GetStartedInstances:
             - description: Wrapper methods used by the scenario for DB snapshot actions.
               snippet_tags:
                 - RDS.dotnetv3.RdsInstanceWrapperSnapshots
+    Go:
+      versions:
+        - sdk_version: 2
+          github: gov2/rds
+          excerpts:
+            - description: Run an interactive scenario at a command prompt.
+              snippet_tags:
+                - gov2.rds.Scenario_GetStartedInstances
+            - description: Define functions that are called by the scenario to
+                manage &RDS; actions.
+              snippet_tags:
+                - gov2.rds.DbInstances.complete
     Python:
       versions:
         - sdk_version: 3
