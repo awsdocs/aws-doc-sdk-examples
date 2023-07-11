@@ -11,16 +11,11 @@ export interface LabelsResponse {
 }
 
 const request: typeof fetch = async (input, init) => {
-  try {
-    const response = await fetch(input, init);
-    if (response.status === 401) {
-      throw new Error("Unauthorized");
-    }
-    return response;
-  } catch (err) {
-    console.error("Fetch request failed.", err);
-    throw new Error("Fetch request failed.", { cause: err });
+  const response = await fetch(input, init);
+  if (response.status === 401) {
+    throw new Error("Unauthorized");
   }
+  return response;
 };
 
 const getHeaders = (config: PamApiConfig): { Authorization: string } | {} =>
