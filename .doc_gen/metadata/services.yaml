@@ -449,7 +449,7 @@ forecast:
     short: Forecast
   blurb: a fully managed service that uses statistical and machine learning algorithms to deliver highly accurate time-series forecasts. 
   guide:
-    subtitle: Dev Guide
+    subtitle: User Guide
     url: forecast/latest/dg/getting-started.html
   api_ref: forecast/latest/dg/api-reference.html
   tags:
