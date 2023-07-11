@@ -73,7 +73,7 @@ export const initializeDownload = async (
   const response = await request(
     `${import.meta.env.VITE_API_GATEWAY_BASE_URL}download`,
     {
-      method: "PUT",
+      method: "POST",
       body: JSON.stringify({
         labels,
       }),

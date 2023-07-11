@@ -85,7 +85,7 @@ export class PamApi extends Construct {
       response: new models.UploadResponseModel(this, { restApi }),
     });
 
-    this.route("download", lambdas.download, "PUT", {
+    this.route("download", lambdas.download, "POST", {
       event: true,
       request: new models.DownloadRequestModel(this, { restApi }),
     });
