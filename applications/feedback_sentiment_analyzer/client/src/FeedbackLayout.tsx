@@ -10,13 +10,16 @@ import FileUpload from "./FileUpload";
 import { useStore } from "./store";
 import type { Feedback } from "./api";
 import Audio from "./Audio";
+import Image from "./Image";
 
 function FeedbackLayout() {
   const { feedback, authStatus, getFeedback, uploadFile } = useStore();
 
   useEffect(() => {
-    getFeedback();
-  }, []);
+    if (authStatus !== "signed_out") {
+      getFeedback();
+    }
+  }, [authStatus, getFeedback]);
 
   const handleUpload = async (file: File) => {
     await uploadFile(file);
@@ -59,13 +62,11 @@ function FeedbackLayout() {
         sections: [
           {
             content: (feedbackItem: Feedback) => (
-              <p>
-                <img
-                  src={`/upload/${feedbackItem.id}`}
-                  alt={feedbackItem.text}
-                />
-              </p>
+              <Image src={feedbackItem.imageUrl} alt={feedbackItem.text} />
             ),
+          },
+          {
+            content: (feedbackItem: Feedback) => <p>{feedbackItem.text}</p>,
           },
           {
             content: (feedbackItem: Feedback) => (
