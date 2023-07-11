@@ -45,9 +45,10 @@ export const useStore = create<Store>((set, get) => ({
     try {
       return await fn();
     } catch (err) {
-      console.error(err);
+      console.error("Request failure.", err);
 
       if ((err as Error)?.message === "Unauthorized") {
+        console.warn("Call was unauthorized. Logging out.");
         get().signOut();
       }
       throw err;

@@ -269,10 +269,10 @@ export class AppStack extends Stack {
           ExpressionAttributeValues: {
             ":positive": {"S": "POSITIVE"}
           },
-          ProjectionExpression: "${AppDatabase.INDEX}, translated_text, audio_key",
+          ProjectionExpression: "${AppDatabase.INDEX}, ${AppDatabase.KEY}, translated_text, audio_key",
           TableName: process.env["COMMENTS_TABLE_NAME"],
         }));
-        const feedback = scan.Items.map(({${AppDatabase.INDEX}: id, translated_text: text, audio_key: audioUrl}) => ({id: id.S, text: text.S, audioUrl: audioUrl.S}));
+        const feedback = scan.Items.map(({${AppDatabase.INDEX}: sentiment, translated_text: text, audio_key: audioUrl, ${AppDatabase.KEY}: imageUrl }) => ({sentiment: sentiment.S, text: text.S, audioUrl: audioUrl.S, imageUrl: imageUrl.S}));
         return {
           statusCode: 200,
           headers: {
