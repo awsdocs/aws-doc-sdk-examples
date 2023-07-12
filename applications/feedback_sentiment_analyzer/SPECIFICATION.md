@@ -44,12 +44,21 @@ This application produces two outputs from the backend:
 
 ---
 
-## Input routing
+## API specification
 The application inputs diagrammed above are routed through API Gateway.
 
 | action       | route                    | method | request target                                              | response model                                           |
 |--------------|--------------------------|--------|-------------------------------------------------------------|----------------------------------------------------------|
-| Load page    | `/feedback`                | GET    | [GetFeedback Lambda function](#GetFeedback-lambda-function) | `[   {     "text": String,     "audioUrl": String   } ]` |
+| Load page    | `/feedback`                | GET    | [GetFeedback Lambda function](#GetFeedback-lambda-function) | ```{
+  "feedback": [
+    {
+      "sentiment": "POSITIVE",
+      "text": "J'adore cet hôtel/",
+      "audioUrl": "PXL_20230710_182358532.jpg.mp3",
+      "imageUrl": "PXL_20230710_182358532.jpg"
+    }
+  ]
+}``` |
 | Upload image | `/audio/{bucket}/{object}` | PUT    | [State Machine via s3:PutObject API]()                      | void                                                     |
 
 ---
@@ -64,7 +73,7 @@ This state machine orchestrates a series of AWS Lambda functions.
 
 | trigger                      |        function       | action                                   |
 |------------------------------|-----------------------|------------------------------------------|
-| S3:CreateObject event.       | [ExtractText](#ExtractText)      | Extracts text from   S3 object.          |
+| S3:CreateObject event.       | [ExtractText](#ExtractText)      | Extracts text from S3 object.          |
 | `ExtractText` complete.      | [AnalyzeSentiment](#AnalyzeSentiment) | Detect positive or   negative sentiment. |
 | `AnalyzeSentiment` complete. | [TranslateText](#TranslateText)    | Translate text to   French.              |
 | `TranslateText` complete.    | [SynthesizeAudio](#SynthesizeAudio)  | Synthesize   human-like audio from text. |
@@ -177,12 +186,16 @@ Function will return a JSON object `feedback` containing items. Each item will c
 
 For example:
 ```json
-{"feedback": [
-  {
-    "text": String,
-    "audioUrl": String
-  }
-]}
+{
+  "feedback": [
+    {
+      "sentiment": "POSITIVE",
+      "text": "J'adore cet hôtel/",
+      "audioUrl": "PXL_20230710_182358532.jpg.mp3",
+      "imageUrl": "PXL_20230710_182358532.jpg"
+    }
+  ]
+}
 ```
 ---
 ## Processing S3 events with EventBridge
