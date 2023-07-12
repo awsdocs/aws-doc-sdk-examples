@@ -188,17 +188,20 @@ For example:
 ## Processing S3 events with EventBridge
 This application relies on an [EventBridge rule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rules.html), which triggers the [Step Functions state machine](#step-function-configuration) when new images are uploaded to S3 by the frontend.
 
-Specifically, the trigger is scoped to `ObjectCreated` events emitted by `my-s3-bucket`:
+Specifically, the trigger is scoped to `ObjectCreated` events emitted by the `media-bucket` created during the CDK deployment:
 ```json
-{
-  "detail-type": ["Object Created"],
-  "source": ["aws.s3"],
-  "detail": {
-    "bucket": {
-      "name": ["my-s3-bucket"]
-    }
-  }
-}
+eventPattern: {
+        source: ["aws.s3"],
+        detailType: ["Object Created"],
+        detail: {
+          bucket: {
+            name: [<dynamic media bucket name>],
+          },
+          object: {
+            key: [{ suffix: ".png" }, { suffix: ".jpeg" }, { suffix: ".jpg" }],
+          },
+        },
+      }
 ```
 
 ---
