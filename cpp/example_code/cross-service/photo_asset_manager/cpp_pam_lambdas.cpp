@@ -2,6 +2,17 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
 
 #include <memory>
 #include <aws/lambda-runtime/runtime.h>
@@ -84,7 +95,9 @@ uploadHandler(aws::lambda_runtime::invocation_request const &request) {
     }
 
     Aws::String bucketName(env_var);
-    std::string presignedURL = AwsDoc::PAM::getPreSignedS3UploadURL(bucketName, key);
+    Aws::Client::ClientConfiguration clientConfiguration;
+    std::string presignedURL = AwsDoc::PAM::getPreSignedS3UploadURL(bucketName, key,
+                                                                    clientConfiguration);
     if (presignedURL.empty()) {
         return aws::lambda_runtime::invocation_response::success(R"({
 	"statusCode": 400,
@@ -137,13 +150,14 @@ detectLabelsHandler(aws::lambda_runtime::invocation_request const &request) {
 
     std::vector<std::string> imageLabels;
     std::stringstream errStream;
-    if (!AwsDoc::PAM::analyzeAndGetLabels(bucket, object, imageLabels, errStream)) {
+    Aws::Client::ClientConfiguration clientConfiguration;
+    if (!AwsDoc::PAM::analyzeAndGetLabels(bucket, object, imageLabels, errStream, clientConfiguration)) {
         return aws::lambda_runtime::invocation_response::failure(
                 "Error detecting image labels" + errStream.str(), "420");
     }
 
     if (!AwsDoc::PAM::updateLabelsInDatabase(databaseName, imageLabels, object,
-                                             errStream)) {
+                                             errStream, clientConfiguration)) {
         return aws::lambda_runtime::invocation_response::failure(
                 "Error updating database" + errStream.str(), "420");
     }
@@ -166,7 +180,8 @@ getLabelsHandler(aws::lambda_runtime::invocation_request const &request) {
     std::string databaseName(env_var);
     std::vector<AwsDoc::PAM::LabelAndCounts> labelAndCounts;
     std::stringstream errStream;
-    if (!AwsDoc::PAM::getLabelsAndCounts(databaseName, labelAndCounts, errStream)) {
+    Aws::Client::ClientConfiguration clientConfiguration;
+    if (!AwsDoc::PAM::getLabelsAndCounts(databaseName, labelAndCounts, errStream, clientConfiguration)) {
         aws::logging::log_error(TAG, "getLabelsAndCounts error %s",
                                 errStream.str().c_str());
         return aws::lambda_runtime::invocation_response::success(R"({
@@ -246,15 +261,15 @@ downloadHandler(aws::lambda_runtime::invocation_request const &request) {
     std::string preSignedURL;
 
     std::stringstream errStream;
-
+    Aws::Client::ClientConfiguration clientConfiguration;
     if (!AwsDoc::PAM::zipAndUploadImages(database, storageBucket, workingBucket,
                                          destinationKey, labels, preSignedURL,
-                                         errStream)) {
+                                         errStream, clientConfiguration)) {
         return aws::lambda_runtime::invocation_response::failure(
                 "zipAndUploadImages failure" + errStream.str(), "420");
     }
 
-    if (!AwsDoc::PAM::publishPreSignedURL(snsTopicARRN, preSignedURL, errStream)) {
+    if (!AwsDoc::PAM::publishPreSignedURL(snsTopicARRN, preSignedURL, errStream, clientConfiguration)) {
         return aws::lambda_runtime::invocation_response::failure(
                 "publishPreSignedURL failure" + errStream.str(), "420");
     }

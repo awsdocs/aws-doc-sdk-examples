@@ -38,7 +38,7 @@ namespace AwsDocTest {
         // Test the code for the upload lambda.
         Aws::String key = uuidName("file_name");
         auto preSignedUrlPut = AwsDoc::PAM::getPreSignedS3UploadURL(storageBucketName,
-                                                                    key);
+                                                                    key, *s_clientConfig);
         ASSERT_TRUE(!preSignedUrlPut.empty());
 
 
@@ -69,7 +69,7 @@ namespace AwsDocTest {
 
         // Test the code for the detect labels lambda.
         std::vector<std::string> labels;
-        bool successBool = AwsDoc::PAM::analyzeAndGetLabels(storageBucketName, key, labels, std::cerr);
+        bool successBool = AwsDoc::PAM::analyzeAndGetLabels(storageBucketName, key, labels, std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         env_var = std::getenv(TABLE_NAME);
@@ -79,14 +79,14 @@ namespace AwsDocTest {
         setDatabaseName(tableName);
 
         successBool = AwsDoc::PAM::updateLabelsInDatabase(tableName, labels,
-                                                          key, std::cerr);
+                                                          key, std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         addLabelsToDelete(labels);
 
         //  Test the code for the get labels lambda.
         std::vector<AwsDoc::PAM::LabelAndCounts> labelsAndCounts;
-        successBool = AwsDoc::PAM::getLabelsAndCounts(tableName, labelsAndCounts, std::cerr);
+        successBool = AwsDoc::PAM::getLabelsAndCounts(tableName, labelsAndCounts, std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         env_var = std::getenv(WORKING_BUCKET_NAME);
@@ -98,7 +98,7 @@ namespace AwsDocTest {
         std::string preSignedURLGet;
         successBool = AwsDoc::PAM::zipAndUploadImages(tableName, storageBucketName,
                                                       workingBucketName, destinationKey,
-                                                      labels, preSignedURLGet, std::cerr);
+                                                      labels, preSignedURLGet, std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
         addObjectToDelete(workingBucketName, destinationKey);
 
@@ -115,7 +115,7 @@ namespace AwsDocTest {
         ASSERT_NE(env_var, nullptr) << preconditionError() << TOPIC_ARN;
         const std::string topicARN(env_var);
 
-        successBool = AwsDoc::PAM::publishPreSignedURL(topicARN, preSignedURLGet, std::cerr);
+        successBool = AwsDoc::PAM::publishPreSignedURL(topicARN, preSignedURLGet, std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
     }
 
@@ -127,7 +127,7 @@ namespace AwsDocTest {
         // Test the code for the upload lambda.
         Aws::String key = uuidName("file_name");
         auto preSignedUrlPut = AwsDoc::PAM::getPreSignedS3UploadURL(storageBucketName,
-                                                                    key);
+                                                                    key, *s_clientConfig);
         ASSERT_TRUE(!preSignedUrlPut.empty());
 
 
@@ -158,7 +158,7 @@ namespace AwsDocTest {
 
         // Test the code for the detect labels lambda.
         std::vector<std::string> labels;
-        bool successBool = AwsDoc::PAM::analyzeAndGetLabels(storageBucketName, key, labels, std::cerr);
+        bool successBool = AwsDoc::PAM::analyzeAndGetLabels(storageBucketName, key, labels, std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         const std::string tableName = getCachedTableName();
@@ -167,14 +167,14 @@ namespace AwsDocTest {
         setDatabaseName(tableName);
 
         successBool = AwsDoc::PAM::updateLabelsInDatabase(tableName, labels,
-                                                          key, std::cerr);
+                                                          key, std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         addLabelsToDelete(labels);
 
         //  Test the code for the get labels lambda.
         std::vector<AwsDoc::PAM::LabelAndCounts> labelsAndCounts;
-        successBool = AwsDoc::PAM::getLabelsAndCounts(tableName, labelsAndCounts, std::cerr);
+        successBool = AwsDoc::PAM::getLabelsAndCounts(tableName, labelsAndCounts, std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         const std::string workingBucketName = getCachedBucketName();
@@ -184,7 +184,7 @@ namespace AwsDocTest {
         std::string preSignedURLGet;
         successBool = AwsDoc::PAM::zipAndUploadImages(tableName, storageBucketName,
                                                       workingBucketName, destinationKey,
-                                                      labels, preSignedURLGet, std::cerr);
+                                                      labels, preSignedURLGet, std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
         addObjectToDelete(workingBucketName, destinationKey);
 

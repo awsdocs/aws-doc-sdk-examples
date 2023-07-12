@@ -12,6 +12,7 @@
 #include <vector>
 #include <iostream>
 #include <aws/dynamodb/model/AttributeValue.h>
+#include <aws/core/client/ClientConfiguration.h>
 
 namespace AwsDoc {
     namespace PAM {
@@ -28,26 +29,37 @@ namespace AwsDoc {
 
         typedef std::map<std::string, std::vector<std::shared_ptr<Aws::DynamoDB::Model::AttributeValue>>> AttributeValueMap;
 
+        //! Scenario to modify and query an Amazon DynamoDB table using single PartiQL statements.
+        /*!
+          \sa getPreSignedS3UploadURL()
+          \param clientConfiguration: AWS client configuration.
+          \return bool: Function succeeded.
+         */
         std::string
-        getPreSignedS3UploadURL(const std::string &bucket, const std::string &key);
+        getPreSignedS3UploadURL(const std::string &bucket, const std::string &key,
+                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
         bool analyzeAndGetLabels(const std::string &bucket, const std::string &key,
                                  std::vector<std::string> &imageLabels,
-                                 std::ostream &errStream);
+                                 std::ostream &errStream,
+                                 const Aws::Client::ClientConfiguration &clientConfiguration);
 
         bool getKeysForLabelsFromDatabase(const std::string &databaseName,
                                           const std::vector<std::string> &labels,
                                           AttributeValueMap &mapOfImageKeys,
-                                          std::ostream &errStream);
+                                          std::ostream &errStream,
+                                          const Aws::Client::ClientConfiguration &clientConfiguration);
 
         bool updateLabelsInDatabase(const std::string &databaseName,
                                     const std::vector<std::string> &labels,
                                     const std::string &bucketKey,
-                                    std::ostream &errStream);
+                                    std::ostream &errStream,
+                                    const Aws::Client::ClientConfiguration &clientConfiguration);
 
         bool getLabelsAndCounts(const std::string &databaseName,
                                 std::vector<LabelAndCounts> &labelAndCounts,
-                                std::ostream &errStream);
+                                std::ostream &errStream,
+                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
         bool zipAndUploadImages(const std::string &databaseName,
                                 const std::string &sourceBucket,
@@ -55,11 +67,13 @@ namespace AwsDoc {
                                 const std::string &destinationKey,
                                 const std::vector<std::string> &labels,
                                 std::string &preSignedURL,
-                                std::ostream &errStream);
+                                std::ostream &errStream,
+                                const Aws::Client::ClientConfiguration &clientConfiguration);
 
         bool publishPreSignedURL(const std::string &topicARN,
                                  const std::string &preSignedURL,
-                                 std::ostream &errStream);
+                                 std::ostream &errStream,
+                                 const Aws::Client::ClientConfiguration &clientConfiguration);
     } // namespace PAM
 } // namespace AwsDoc
 #endif //PAM_EXAMPLES_GTESTS_CPP_LAMBDA_FUNCTIONS_H

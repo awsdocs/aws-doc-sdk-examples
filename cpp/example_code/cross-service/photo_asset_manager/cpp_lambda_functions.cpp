@@ -2,6 +2,17 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+/**
+ * Before running this C++ code example, set up your development environment, including your credentials.
+ *
+ * For more information, see the following documentation topic:
+ *
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started.html
+ *
+ * For information on the structure of the code examples and how to build and run the examples, see
+ * https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html.
+ *
+ **/
 
 #include "cpp_lambda_functions.h"
 #include <aws/core/Aws.h>
@@ -40,9 +51,9 @@ namespace AwsDoc {
     } // PAM
 } // AwsDoc
 std::string
-AwsDoc::PAM::getPreSignedS3UploadURL(const std::string &bucket,
-                                     const std::string &key) {
-    Aws::S3::S3Client s3Client;
+AwsDoc::PAM::getPreSignedS3UploadURL(const std::string &bucket, const std::string &key,
+                                     const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::S3::S3Client s3Client(clientConfiguration);
     Aws::Http::HeaderValueCollection headers;
     return s3Client.GeneratePresignedUrl(bucket, key, Aws::Http::HttpMethod::HTTP_PUT,
                                          300 // expirationInSeconds
@@ -52,8 +63,9 @@ AwsDoc::PAM::getPreSignedS3UploadURL(const std::string &bucket,
 bool
 AwsDoc::PAM::analyzeAndGetLabels(const std::string &bucket, const std::string &key,
                                  std::vector<std::string> &imageLabels,
-                                 std::ostream &errStream) {
-    Aws::Rekognition::RekognitionClient rekognitionClient;
+                                 std::ostream &errStream,
+                                 const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::Rekognition::RekognitionClient rekognitionClient(clientConfiguration);
     Aws::Rekognition::Model::S3Object s3Object;
     s3Object.SetBucket(bucket);
     s3Object.SetName(key);
@@ -86,13 +98,14 @@ AwsDoc::PAM::analyzeAndGetLabels(const std::string &bucket, const std::string &k
 bool AwsDoc::PAM::updateLabelsInDatabase(const std::string &databaseName,
                                          const std::vector<std::string> &labels,
                                          const std::string &bucketKey,
-                                         std::ostream &errStream) {
+                                         std::ostream &errStream,
+                                         const Aws::Client::ClientConfiguration &clientConfiguration) {
     // Retrieve the existing entries
-    Aws::DynamoDB::DynamoDBClient dbClient;
+    Aws::DynamoDB::DynamoDBClient dbClient(clientConfiguration);
 
     AttributeValueMap mapOfImageKeys;
     if (!getKeysForLabelsFromDatabase(databaseName, labels, mapOfImageKeys,
-                                      errStream)) {
+                                      errStream, clientConfiguration)) {
         return false;
     }
 
@@ -146,9 +159,10 @@ bool AwsDoc::PAM::updateLabelsInDatabase(const std::string &databaseName,
 
 bool AwsDoc::PAM::getLabelsAndCounts(const std::string &databaseName,
                                      std::vector<LabelAndCounts> &labelAndCounts,
-                                     std::ostream &errStream) {
+                                     std::ostream &errStream,
+                                     const Aws::Client::ClientConfiguration &clientConfiguration) {
 
-    Aws::DynamoDB::DynamoDBClient dbClient;
+    Aws::DynamoDB::DynamoDBClient dbClient(clientConfiguration);
 
     Aws::DynamoDB::Model::ScanRequest request;
     request.SetTableName(databaseName);
@@ -209,8 +223,9 @@ bool AwsDoc::PAM::getLabelsAndCounts(const std::string &databaseName,
 bool AwsDoc::PAM::getKeysForLabelsFromDatabase(const std::string &databaseName,
                                                const std::vector<std::string> &labels,
                                                AttributeValueMap &mapOfImageKeys,
-                                               std::ostream &errStream) {
-    Aws::DynamoDB::DynamoDBClient dbClient;
+                                               std::ostream &errStream,
+                                               const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::DynamoDB::DynamoDBClient dbClient(clientConfiguration);
 
     Aws::DynamoDB::Model::KeysAndAttributes tableKeysAndAttributes;
     tableKeysAndAttributes.SetProjectionExpression("#l, #c,  #i");
@@ -329,13 +344,14 @@ bool AwsDoc::PAM::zipAndUploadImages(const std::string &databaseName,
                                      const std::string &destinationKey,
                                      const std::vector<std::string> &labels,
                                      std::string &preSignedURL,
-                                     std::ostream &errStream) {
+                                     std::ostream &errStream,
+                                     const Aws::Client::ClientConfiguration &clientConfiguration) {
 
     std::set<std::string> imageKeys;
     AttributeValueMap mapOfImageKeys;
 
     if (!getKeysForLabelsFromDatabase(databaseName, labels, mapOfImageKeys,
-                                      errStream)) {
+                                      errStream, clientConfiguration)) {
         return false;
     }
 
@@ -347,7 +363,7 @@ bool AwsDoc::PAM::zipAndUploadImages(const std::string &databaseName,
     }
 
 
-    Aws::S3::S3Client s3Client;
+    Aws::S3::S3Client s3Client(clientConfiguration);
     std::string tempZipFileName("/tmp/temp.zip");
     bool firstTime = true;
     for (const auto &imageKey: imageKeys) {
@@ -433,8 +449,9 @@ bool AwsDoc::PAM::zipAndUploadImages(const std::string &databaseName,
 
 bool AwsDoc::PAM::publishPreSignedURL(const std::string &topicARN,
                                       const std::string &preSignedURL,
-                                      std::ostream &errStream) {
-    Aws::SNS::SNSClient snsClient;
+                                      std::ostream &errStream,
+                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::SNS::SNSClient snsClient(clientConfiguration);
 
     Aws::SNS::Model::PublishRequest publishRequest;
     publishRequest.SetMessage(
