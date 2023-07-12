@@ -18,6 +18,11 @@
 #
 #   'python3 run_automated_tests.py -23 -s s3'
 #
+# To enable parallel builds, the environment variable PARALLEL_BUILD can be set to a number.
+#
+#   'export PARALLEL_BUILD=$(nproc)'
+#
+
 
 
 import os
