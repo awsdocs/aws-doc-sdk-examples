@@ -48,6 +48,8 @@ def build_tests(service="*"):
 
     cmake_args = os.getenv("EXTRA_CMAKE_ARGS")
 
+    parallel_build = os.getenv("PARALLEL_BUILD")
+
     for cmake_file in cmake_files :
         source_dir = os.path.dirname(cmake_file)
         module_build_dir = os.path.join(build_dir, source_dir)
@@ -65,7 +67,16 @@ def build_tests(service="*"):
             has_error = True
             continue
 
+<<<<<<< HEAD
         result_code = subprocess.call(['cmake', '--build', '.'], shell=False)
+=======
+        if parallel_build is not None:
+            print("building parallel")
+            result_code = subprocess.call(['cmake', '--build', '.',  '--parallel', '$(nproc)'], shell=False)
+        else:
+            result_code = subprocess.call(['cmake', '--build', '.'], shell=False)
+
+>>>>>>> cbb400c97 (adding parallel build)
         if result_code != 0 :
             has_error = True
             continue
