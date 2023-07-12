@@ -46,20 +46,46 @@ char const LABELS_KEY[] = "labels";
 
 char const TAG[] = "LAMBDA_LOG";
 
+//! Routine which parses a json string for the bucket and object names.
+/*!
+  \param jsonString: A JSON string as input.
+  \param bucket: A string to receive the bucket name.
+  \param object: A string to receive the object name.
+  \param errorString: A string to receive an error message.
+  \return bool: Function succeeded.
+ */
 static bool
 getBucketAndObjectFromDetectLabelsJSONString(const std::string &jsonString,
                                              std::string &bucket, std::string &object,
                                              std::string &errorString);
 
+//! Routine which parses a json string for a file name.
+/*!
+  \param jsonString: A JSON string as input.
+  \param fileName: A string to receive the file name.
+  \param errorString: A string to receive an error message.
+  \return bool: Function succeeded.
+ */
 static bool
 getFileNameFromUploadJSONString(const std::string &jsonString, std::string &fileName,
                                 std::string &errorString);
 
+//! Routine which parses a json string for a list of labels.
+/*!
+  \param jsonString: A JSON string as input.
+  \param fileName: A vector to receive the labels.
+  \param errorString: A string to receive an error message.
+  \return bool: Function succeeded.
+ */
 static bool labelsFromDownloadJSONString(const std::string &jsonString,
                                          std::vector<std::string> &labels,
                                          std::string &errorString);
 
-
+//! A handler for the AWS Lambda upload function.
+/*!
+  \param request: A lambda runtime invocation request.
+  \return invocation_response: A lambda runtime invocation response.
+ */
 static aws::lambda_runtime::invocation_response
 uploadHandler(aws::lambda_runtime::invocation_request const &request) {
     std::string payload = request.payload;
@@ -126,6 +152,11 @@ uploadHandler(aws::lambda_runtime::invocation_request const &request) {
                                                              "application/json");
 }
 
+//! A handler for the AWS Lambda detect labels function.
+/*!
+  \param request: A lambda runtime invocation request.
+  \return invocation_response: A lambda runtime invocation response.
+ */
 static aws::lambda_runtime::invocation_response
 detectLabelsHandler(aws::lambda_runtime::invocation_request const &request) {
     std::string storageBucketName;
@@ -165,6 +196,11 @@ detectLabelsHandler(aws::lambda_runtime::invocation_request const &request) {
     return aws::lambda_runtime::invocation_response::success("OK", "text/plain");
 }
 
+//! A handler for the AWS Lambda get labels function.
+/*!
+  \param request: A lambda runtime invocation request.
+  \return invocation_response: A lambda runtime invocation response.
+ */
 static aws::lambda_runtime::invocation_response
 getLabelsHandler(aws::lambda_runtime::invocation_request const &request) {
     const char *env_var = std::getenv(DATABASE_ENV_NAME);
@@ -212,6 +248,11 @@ getLabelsHandler(aws::lambda_runtime::invocation_request const &request) {
                                                              "application/json");
 }
 
+//! A handler for the AWS Lambda download function.
+/*!
+  \param request: A lambda runtime invocation request.
+  \return invocation_response: A lambda runtime invocation response.
+ */
 static aws::lambda_runtime::invocation_response
 downloadHandler(aws::lambda_runtime::invocation_request const &request) {
     const char *env_var = std::getenv(WORKING_BUCKET_ENV_NAME);
@@ -277,6 +318,12 @@ downloadHandler(aws::lambda_runtime::invocation_request const &request) {
     return aws::lambda_runtime::invocation_response::success("OK", "text/plain");
 }
 
+//! The main function.
+/*!
+  \param argc: The number of arguments.
+  \param argv: The argument strings.
+  \return int: A result code.
+ */
 int main(int argc, char **argv) {
     if (argc < 2) {
         return 1;
@@ -310,7 +357,14 @@ int main(int argc, char **argv) {
     return result;
 }
 
-
+//! Routine which parses a json string for the bucket and object names.
+/*!
+  \param jsonString: A JSON string as input.
+  \param bucket: A string to receive the bucket name.
+  \param object: A string to receive the object name.
+  \param errorString: A string to receive an error message.
+  \return bool: Function succeeded.
+ */
 bool
 getBucketAndObjectFromDetectLabelsJSONString(const std::string &jsonString,
                                              std::string &bucket, std::string &object,
@@ -395,7 +449,13 @@ getBucketAndObjectFromDetectLabelsJSONString(const std::string &jsonString,
     return true;
 }
 
-
+//! Routine which parses a json string for a file name.
+/*!
+  \param jsonString: A JSON string as input.
+  \param fileName: A string to receive the file name.
+  \param errorString: A string to receive an error message.
+  \return bool: Function succeeded.
+ */
 bool
 getFileNameFromUploadJSONString(const std::string &jsonString, std::string &fileName,
                                 std::string &errorString) {
@@ -434,6 +494,13 @@ getFileNameFromUploadJSONString(const std::string &jsonString, std::string &file
     return true;
 }
 
+//! Routine which parses a json string for a list of labels.
+/*!
+  \param jsonString: A JSON string as input.
+  \param fileName: A vector to receive the labels.
+  \param errorString: A string to receive an error message.
+  \return bool: Function succeeded.
+ */
 bool labelsFromDownloadJSONString(const std::string &jsonString,
                                   std::vector<std::string> &labels,
                                   std::string &errorString) {
