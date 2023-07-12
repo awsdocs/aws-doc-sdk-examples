@@ -72,7 +72,7 @@ def build_tests(service="*"):
 =======
         if parallel_build is not None:
             print("building parallel")
-            result_code = subprocess.call(['cmake', '--build', '.',  '--parallel', '$(nproc)'], shell=False)
+            result_code = subprocess.call(['cmake', '--build', '.',  '--parallel', f'{parallel_build}'], shell=False)
         else:
             result_code = subprocess.call(['cmake', '--build', '.'], shell=False)
 
