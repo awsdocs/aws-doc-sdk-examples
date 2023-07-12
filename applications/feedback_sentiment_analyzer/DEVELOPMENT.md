@@ -1,6 +1,6 @@
-# Feedback Sentiment Analyzer (FSA) development
+# FSA development
 
-This document describes the process for adding a new set of AWS Lambda functions for use with FSA. The requirements for each individual Lambda function are in [the specification](./SPECIFICATION.md).
+This document describes the process for adding a new set of AWS Lambda functions for use with the Feedback Sentiment Analyzer (FSA). The requirements for each individual Lambda function are in [the specification](./SPECIFICATION.md).
 
 ## Add new Lambda function configurations
 
