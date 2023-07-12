@@ -1,6 +1,6 @@
 # zexi 0.4.0
 opensearch_CreateDomain:
-  title: Create an &ES; domain using an &AWS; SDK
+  title: Create an &ES; domain by using an &AWS; SDK
   title_abbrev: Create a domain
   synopsis: create an &ES; domain.
   category:
@@ -26,7 +26,7 @@ opensearch_CreateDomain:
   services:
     opensearch: {CreateDomain}
 opensearch_DeleteDomain:
-  title: Delete an &ES; domain using an &AWS; SDK
+  title: Delete an &ES; domain by using an &AWS; SDK
   title_abbrev: Delete a domain
   synopsis: delete an &ES; domain.
   category:
@@ -52,7 +52,7 @@ opensearch_DeleteDomain:
   services:
     opensearch: {DeleteDomain}    
 opensearch_ListDomainNames:
-  title: List &ES; domains using an &AWS; SDK
+  title: List &ES; domains by using an &AWS; SDK
   title_abbrev: List domains
   synopsis: list &ES; domains.
   category:
@@ -78,7 +78,7 @@ opensearch_ListDomainNames:
   services:
     opensearch: {ListDomainNames}
 opensearch_UpdateDomainConfig:
-  title: Modify a cluster configuration of the specified &ES; domain using an &AWS; SDK
+  title: Modify a cluster configuration of the specified &ES; domain by using an &AWS; SDK
   title_abbrev: Modify a cluster configuration
   synopsis: modify a cluster configuration of an &ES; domain.
   category:
