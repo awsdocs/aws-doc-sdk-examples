@@ -5,6 +5,15 @@ polly_DescribeVoices:
   synopsis: get &POL; voices available for synthesis.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - polly.java2.describe_voice.main
     .NET:
       versions:
         - sdk_version: 3
@@ -66,6 +75,15 @@ polly_ListLexicons:
   synopsis: list &POL; pronunciation lexicons.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - polly.java2.list_icons.main
     .NET:
       versions:
         - sdk_version: 3
@@ -135,6 +153,15 @@ polly_SynthesizeSpeech:
   synopsis: synthesize speech from text with &POL;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/polly
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - polly.java2.demo.main
     .NET:
       versions:
         - sdk_version: 3
