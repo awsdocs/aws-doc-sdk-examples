@@ -9,14 +9,12 @@
         emails reports by using &SESlong; (&SES;).
         This example uses a front end built with React.js to interact with a RESTful .NET backend.
     </para>
-    <para>
-        <itemizedlist>
-            <listitem><para>Integrate a React web application with &AWS; services.</para></listitem>
-            <listitem><para>List, add, update, and delete items in an &AUR; table.</para></listitem>
-            <listitem><para>Send an email report of filtered work items using &SES;.</para></listitem>
-            <listitem><para>Deploy and manage example resources with the included &CFNlong; script.</para></listitem>
-        </itemizedlist>
-    </para>
+    <itemizedlist>
+        <listitem><para>Integrate a React web application with &AWS; services.</para></listitem>
+        <listitem><para>List, add, update, and delete items in an &AUR; table.</para></listitem>
+        <listitem><para>Send an email report of filtered work items using &SES;.</para></listitem>
+        <listitem><para>Deploy and manage example resources with the included &CFNlong; script.</para></listitem>
+    </itemizedlist>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on
         <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/cross-service/AuroraItemTracker">GitHub</ulink>.
