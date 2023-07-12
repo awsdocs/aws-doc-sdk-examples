@@ -11,23 +11,25 @@ The `FUNCTIONS` map in [functions.ts](./cdk/lib/functions.ts) maps an arbitrary 
 ```typescript
 const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
   examplelang: EXAMPLE_LANG_FUNCTIONS,
-  ruby: JAVASCRIPT_FUNCTIONS
+  ruby: JAVASCRIPT_FUNCTIONS,
 };
 ```
 
 2. `JAVASCRIPT_FUNCTIONS` is undefined. Define a constant named `JAVASCRIPT_FUNCTIONS` and set it equal to an empty AppFunctionConfig array.
 
 ```typescript
-const JAVASCRIPT_FUNCTIONS: AppFunctionConfig[] = []
+const JAVASCRIPT_FUNCTIONS: AppFunctionConfig[] = [];
 ```
 
 3. Define the objects inside the `JAVASCRIPT_FUNCTIONS` array. Each object is an [AppFunctionConfig](./cdk/lib/constructs/app-lambdas.ts#4) which extends [FunctionProps](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.FunctionProps.html) from the AWS Cloud Development Kit (AWS CDK) library. FSA requires four named Lambda functions:
+
 - ExtractText
 - AnalyzeSentiment
 - TranslateText
 - SynthesizeAudio
 
 A definition for the `ExtractText` function might look like the following:
+
 ```typescript
   {
     ...BASE_APP_FUNCTION,
@@ -42,23 +44,33 @@ A definition for the `ExtractText` function might look like the following:
   },
 ```
 
-The `codeAsset` function must return a [Code](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Code.html) object. You can include inline code or create a bundled asset. 
+The `codeAsset` function must return a [Code](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Code.html) object. You can include inline code or [create a bundled asset](#bundling).
 
-### Bundling
+## Implement Lambda functions
+
+The following sections provide a general overview of the required Lambda functions. The accompanying CDK script orchestrates these functions as [AWS Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html). For a detailed specification of these functions see [SPECIFICATION.md](./SPECIFICATION.md).
+
+### ExtractText
+
+Extract the text from an image using Amazon Textract.
+
+### AnalyzeSentiment
+
+Pass the extracted text from ExtractText to Amazon Comprehend to determine the sentiment and the source language.
+
+### TranslateText
+
+Translate the text to the language of your choice using Amazon Translate. The provided functions translate to French by default.
+
+### SynthesizeAudio
+
+Synthesize an audio file from the translated text using Amazon Polly.
+
+## Bundling
+
 The AWS CDK can compile resources during the deployment using docker. To configure this, use the [`bundling`](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-s3-assets.AssetOptions.html#bundling) option of `Code.fromAsset`. Languages with a well-known Runtime usually have a `Runtime.image` property that has an appropriate docker base image. Otherwise, any public docker image is suitable.
 
 Docker will execute the `command` for the bundling step.
 The assets, specified as the first argument to `Code.fromAsset`, are mounted in the container at `/asset-input/` (which is also the working directory).
 The command should perform any compilation steps necessary, and move any necessary artifacts to `/asset-output/`.
 The contents of `/asset-output/` are archived in the Lambda's Amazon Simple Storage Service (Amazon S3) bucket. These contents are the executable that the Runtime uses.
-
-## Implement the Lambda functions
-
-When implementing Lambda functions, application AWS resources are available in the following environment variables.
-
-| Variable              | Usage                                                                                                                            |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `LABELS_TABLE_NAME`   | Name for the Labels Table                                                                                                        |
-| `STORAGE_BUCKET_NAME` | Name for the Storage Bucket                                                                                                      |
-| `WORKING_BUCKET_NAME` | Name for the Working Bucket                                                                                                      |
-| `NOTIFICATION_TOPIC`  | Amazon Resource Name (ARN) of the Amazon Simple Notification Service (Amazon SNS) topic to send download ready notifications to. |
