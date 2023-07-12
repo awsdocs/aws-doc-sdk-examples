@@ -1,4 +1,4 @@
-# FSA Tech spec
+# FSA technical specification
 
 This document contains the technical specifications for Feedback Sentiment Analyzer (FSA), a sample application that showcases AWS services and SDKs.
 
