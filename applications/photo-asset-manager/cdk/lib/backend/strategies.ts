@@ -104,6 +104,7 @@ export const JAVASCRIPT_LAMBDAS_STRATEGY: PamLambdasStrategy = {
 };
 
 export const DOTNET_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  ...EMPTY_LAMBDAS_STRATEGY,
   timeout: Duration.seconds(90),
   memorySize: 1024,
   codeAsset() {
@@ -139,6 +140,7 @@ export const DOTNET_LAMBDAS_STRATEGY: PamLambdasStrategy = {
 };
 
 export const DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY: PamLambdasStrategy = {
+  ...EMPTY_LAMBDAS_STRATEGY,
   timeout: Duration.seconds(90),
   memorySize: 1024,
   codeAsset() {

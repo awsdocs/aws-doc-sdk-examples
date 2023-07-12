@@ -6,7 +6,7 @@ import {
   SpaceBetween,
   Spinner,
 } from "@cloudscape-design/components";
-import { ChangeEvent, useCallback, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 
 export interface FileUploadProps {
   accept?: string[];
@@ -19,12 +19,28 @@ function FileUpload({ disabled, onSubmit, accept = [] }: FileUploadProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isTooLarge, setIsTooLarge] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (imgRef.current) {
+      const img = imgRef.current;
+      img.onload = () => {
+        if (img.naturalWidth > 10000 || img.naturalHeight > 10000) {
+          setIsTooLarge(true);
+        } else {
+          setIsTooLarge(false);
+        }
+      };
+    }
+  }, [selectedFile, imgRef]);
 
   const handleChange = useCallback(
     ({ target }: ChangeEvent<HTMLInputElement>) => {
       if (target.files?.length) {
-        setSelectedFile(target.files[0]);
+        const file = target.files[0];
+        setSelectedFile(file);
       }
     },
     [setSelectedFile]
@@ -82,6 +98,7 @@ function FileUpload({ disabled, onSubmit, accept = [] }: FileUploadProps) {
           <form encType="multipart/form-data" onSubmit={handleSubmit}>
             {selectedFile && (
               <img
+                ref={imgRef}
                 width={125}
                 src={URL.createObjectURL(selectedFile)}
                 alt="Image to upload for archival and label detection"
@@ -96,7 +113,11 @@ function FileUpload({ disabled, onSubmit, accept = [] }: FileUploadProps) {
                 Select file
               </Button>
               <Button
-                disabled={isLoading || fileInput.current?.value.length === 0}
+                disabled={
+                  isTooLarge ||
+                  isLoading ||
+                  fileInput.current?.value.length === 0
+                }
               >
                 {isLoading ? <Spinner /> : "Upload"}
               </Button>
