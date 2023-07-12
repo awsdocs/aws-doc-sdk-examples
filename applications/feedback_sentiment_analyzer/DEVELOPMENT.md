@@ -11,7 +11,7 @@ The `FUNCTIONS` map in [functions.ts](./cdk/lib/functions.ts) maps an arbitrary 
 ```typescript
 const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
   examplelang: EXAMPLE_LANG_FUNCTIONS,
-  ruby: JAVASCRIPT_FUNCTIONS,
+  javascript: JAVASCRIPT_FUNCTIONS,
 };
 ```
 
