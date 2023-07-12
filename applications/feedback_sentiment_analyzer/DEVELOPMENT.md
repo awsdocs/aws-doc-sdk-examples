@@ -15,7 +15,7 @@ const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
 };
 ```
 
-2. `JAVASCRIPT_FUNCTIONS` is undefined. Define a constant named `JAVASCRIPT_FUNCTIONS` and set it equal to an empty AppFunctionConfig array.
+2. `JAVASCRIPT_FUNCTIONS` is undefined. Define a constant named `JAVASCRIPT_FUNCTIONS` and set it equal to an empty `AppFunctionConfig` array.
 
 ```typescript
 const JAVASCRIPT_FUNCTIONS: AppFunctionConfig[] = [];
