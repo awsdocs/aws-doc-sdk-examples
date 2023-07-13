@@ -58,60 +58,63 @@ All of the APIs are created by the CDK script. The endpoints are common to every
 
 <details>
 <summary><strong>PUT /api/media/{item}</strong></summary>
+<br/>
 
-Create or update an object in Amazon S3. Creating or updating an image file will trigger the Step Function.
+> Create or update an object in Amazon S3. Creating or updating an image file will trigger the Step Function.
 
-**Parameters**
-
-item - the object key of the item to add or update
-
-**Request body**
-
-JavaScript [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object
-
-**Response body**
-
-Empty
-
+<table>
+<tr>
+<th>parameters</th>
+<th>request body</th>
+<th>response body</th>
+</tr>
+<tr>
+<td>item - the object key of the item to get</td>
+<td>JavaScript [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object</td>
+<td>Empty</td>
+</tr>
+</table>
 </details>
 
 <details>
 <summary><strong>GET /api/media/{item}</strong></summary>
+<br/>
 
-Get an object from Amazon S3.
+> Get an object from Amazon S3.
 
-**Parameters**
-
-item - the object key of the item to get
-
-**Request body**
-
-Empty
-
-**Response body**
-
-Empty
-
+<table>
+<tr>
+<th>parameters</th>
+<th>request body</th>
+<th>response body</th>
+</tr>
+<tr>
+<td>item - the object key of the item to get</td>
+<td>Empty</td>
+<td>Empty</td>
+</tr>
+</table>
 </details>
 
 ### feedback
 
 <details>
 <summary><strong>GET /api/feedback</strong></summary>
+<br/>
 
-Get the translated text, sentiment, and audio/image keys for an uploaded image. This data comes from Amazon DynamoDB. The database table is filled as a result of running the step function.
+> Get the translated text, sentiment, and audio/image keys for an uploaded image. This data comes from Amazon DynamoDB. The database table is filled as a result of running the step function.
 
-**Parameters**
-
-Empty
-
-**Request body**
-
-Empty
-
-**Response body**
-
-```
+<table>
+<tr>
+<th>parameters</th>
+<th>request body</th>
+<th>response body</th>
+</tr>
+<tr>
+<td>Empty</td>
+<td>Empty</td>
+<td>
+<pre>
 {
   "feedback": [
     {
@@ -122,34 +125,39 @@ Empty
     }
   ]
 }
-```
-
+</pre>
+</td>  
+</tr>
+</table>
 </details>
 
 ### env
 
 <details>
 <summary><strong>GET /api/env</strong></summary>
+<br/>
 
-Get the environment variables required to connect to a Cognito hosted UI. The frontend calls this automatically to facilitate sign in.
+> Get the environment variables required to connect to a Cognito hosted UI. The frontend calls this automatically to facilitate sign in.
 
-**Parameters**
-
-Empty
-
-**Request body**
-
-Empty
-
-**Response body**
-
-```
+<table>
+<tr>
+<th>parameters</th>
+<th>request body</th>
+<th>response body</th>
+</tr>
+<tr>
+<td>Empty</td>
+<td>Empty</td>
+<td>
+<pre>
 {
-  "COGNITO_SIGN_IN_URL": "https://...",
-  "COGNITO_SIGN_OUT_URL": "https://..."
+"COGNITO_SIGN_IN_URL": "https://...",
+"COGNITO_SIGN_OUT_URL": "https://..."
 }
-```
-
+</pre>
+</td>
+</tr>
+</table>
 </details>
 
 ## Step Function configuration
