@@ -57,7 +57,7 @@ All of the APIs are created by the CDK script. The endpoints are common to every
 ### media
 
 <details>
-<summary>PUT /api/media/{item}</summary>
+<summary><strong>PUT /api/media/{item}</strong></summary>
 
 Create or update an object in Amazon S3. Creating or updating an image file will trigger the Step Function.
 
@@ -76,9 +76,10 @@ Empty
 </details>
 
 <details>
-<summary>GET /api/media/{item}</summary>
+<summary><strong>GET /api/media/{item}</strong></summary>
 
 Get an object from Amazon S3.
+
 **Parameters**
 
 item - the object key of the item to get
@@ -96,7 +97,7 @@ Empty
 ### feedback
 
 <details>
-<summary>GET /api/feedback</summary>
+<summary><strong>GET /api/feedback</strong></summary>
 
 Get the translated text, sentiment, and audio/image keys for an uploaded image. This data comes from Amazon DynamoDB. The database table is filled as a result of running the step function.
 
@@ -128,7 +129,7 @@ Empty
 ### env
 
 <details>
-<summary>GET /api/env</summary>
+<summary><strong>GET /api/env</strong></summary>
 
 Get the environment variables required to connect to a Cognito hosted UI. The frontend calls this automatically to facilitate sign in.
 
@@ -160,16 +161,16 @@ This state machine orchestrates a series of AWS Lambda functions.
 
 ### State machine Lambda functions
 
-| trigger                      |        function       | action                                   |
-|------------------------------|-----------------------|------------------------------------------|
-| S3:CreateObject event.       | [ExtractText](#ExtractText)      | Extracts text from S3 object.          |
-| `ExtractText` complete.      | [AnalyzeSentiment](#AnalyzeSentiment) | Detect positive or   negative sentiment. |
-| `AnalyzeSentiment` complete. | [TranslateText](#TranslateText)    | Translate text to   French.              |
-| `TranslateText` complete.    | [SynthesizeAudio](#SynthesizeAudio)  | Synthesize   human-like audio from text. |
+| trigger                      | function                              | action                                 |
+| ---------------------------- | ------------------------------------- | -------------------------------------- |
+| S3:CreateObject event.       | [ExtractText](#ExtractText)           | Extracts text from S3 object.          |
+| `ExtractText` complete.      | [AnalyzeSentiment](#AnalyzeSentiment) | Detect positive or negative sentiment. |
+| `AnalyzeSentiment` complete. | [TranslateText](#TranslateText)       | Translate text to French.              |
+| `TranslateText` complete.    | [SynthesizeAudio](#SynthesizeAudio)   | Synthesize human-like audio from text. |
 
 #### Diagram
 
-These functions appear by name in the multi-state ]workflow depicted below.
+These functions appear by name in the multi-state workflow depicted below.
 
 Also depicted is where the workflow forks at `ContinueIfPositive` based whether sentiment analyzed is `POSITIVE` or `NEGATIVE`.
 
