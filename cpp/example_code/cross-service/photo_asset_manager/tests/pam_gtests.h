@@ -31,13 +31,13 @@ namespace AwsDocTest {
 
         static Aws::String preconditionError();
 
-        void AddCommandLineResponses(const std::vector<std::string> &responses);
+        void AddCommandLineResponses(const std::vector <std::string> &responses);
 
-        static Aws::String uuidName(const Aws::String& prefix);
+        static Aws::String uuidName(const Aws::String &prefix);
 
         void setDatabaseName(const std::string &databaseName);
 
-        void addLabelsToDelete(const std::vector<std::string> &labelsToDelete);
+        void addLabelsToDelete(const std::vector <std::string> &labelsToDelete);
 
         void addObjectToDelete(const std::string &bucket, const std::string &key);
 
@@ -47,13 +47,15 @@ namespace AwsDocTest {
 
         // s_clientConfig must be a pointer because the client config must be initialized
         // after InitAPI.
-        static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
+        static std::unique_ptr <Aws::Client::ClientConfiguration> s_clientConfig;
 
     private:
 
-        static bool deleteLabelsInTable(const std::string& databaseName, const std::vector<std::string>& labels);
+        static bool deleteLabelsInTable(const std::string &databaseName,
+                                        const std::vector <std::string> &labels);
 
-        static bool deleteObjectInBucket(const std::string& bucketName, const std::string& objectName);
+        static bool deleteObjectInBucket(const std::string &bucketName,
+                                         const std::string &objectName);
 
         static bool DeleteBucket(const Aws::String &bucketName);
 
@@ -80,8 +82,8 @@ namespace AwsDocTest {
 
         std::string m_databaseName;
 
-        std::vector<std::string> m_labelsToDelete;
-        std::vector<std::pair<std::string, std::string>> m_ObjectsToDelete;
+        std::vector <std::string> m_labelsToDelete;
+        std::vector <std::pair<std::string, std::string>> m_ObjectsToDelete;
         static std::string s_cachedS3Bucket;
 
         static std::string s_cachedDynamoDBTable;

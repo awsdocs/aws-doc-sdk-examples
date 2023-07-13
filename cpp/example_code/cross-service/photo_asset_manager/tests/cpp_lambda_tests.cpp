@@ -28,7 +28,7 @@ const char TOPIC_ARN[] = "PAM_TOPIC_ARN";
 
 
 namespace AwsDocTest {
-     // NOLINTNEXTLINE(readability-named-parameter)
+    // NOLINTNEXTLINE(readability-named-parameter)
     TEST_F(PAM_GTests, pam_integration_test_1_) {
         const char *env_var = std::getenv(STORAGE_BUCKET_NAME);
         ASSERT_NE(env_var, nullptr) << preconditionError() << STORAGE_BUCKET_NAME;
@@ -38,7 +38,8 @@ namespace AwsDocTest {
         // Test the code for the upload lambda.
         Aws::String key = uuidName("file_name");
         auto preSignedUrlPut = AwsDoc::PAM::getPreSignedS3UploadURL(storageBucketName,
-                                                                    key, *s_clientConfig);
+                                                                    key,
+                                                                    *s_clientConfig);
         ASSERT_TRUE(!preSignedUrlPut.empty());
 
 
@@ -50,7 +51,9 @@ namespace AwsDocTest {
         const std::shared_ptr<Aws::IOStream> input_data =
                 Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
                                               IMAGE_FILE_NAME,
-                                              std::ios_base::in | std::ios_base::binary | std::ios_base::ate);
+                                              std::ios_base::in |
+                                              std::ios_base::binary |
+                                              std::ios_base::ate);
 
         Aws::StringStream intConverter;
         intConverter << input_data->tellp();
@@ -59,17 +62,25 @@ namespace AwsDocTest {
         putRequest->SetContentType("image/jpeg");
         putRequest->AddContentBody(input_data);
 
-        const std::shared_ptr<Aws::Http::HttpClient> httpClient = Aws::Http::CreateHttpClient(Aws::Client::ClientConfiguration());
-        std::shared_ptr<Aws::Http:: HttpResponse> putResponse = httpClient->MakeRequest(putRequest);
+        const std::shared_ptr<Aws::Http::HttpClient> httpClient = Aws::Http::CreateHttpClient(
+                Aws::Client::ClientConfiguration());
+        std::shared_ptr<Aws::Http::HttpResponse> putResponse = httpClient->MakeRequest(
+                putRequest);
 
-        ASSERT_FALSE(putResponse->HasClientError()) << putResponse->GetClientErrorMessage() << std::endl;
-        ASSERT_EQ(Aws::Http::HttpResponseCode::OK, putResponse->GetResponseCode()) << putResponse->GetResponseBody().rdbuf() << std::endl;
+        ASSERT_FALSE(putResponse->HasClientError())
+                                    << putResponse->GetClientErrorMessage()
+                                    << std::endl;
+        ASSERT_EQ(Aws::Http::HttpResponseCode::OK, putResponse->GetResponseCode())
+                                    << putResponse->GetResponseBody().rdbuf()
+                                    << std::endl;
 
         addObjectToDelete(storageBucketName, key);
 
         // Test the code for the detect labels lambda.
         std::vector<std::string> labels;
-        bool successBool = AwsDoc::PAM::analyzeAndGetLabels(storageBucketName, key, labels, std::cerr, *s_clientConfig);
+        bool successBool = AwsDoc::PAM::analyzeAndGetLabels(storageBucketName, key,
+                                                            labels, std::cerr,
+                                                            *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         env_var = std::getenv(TABLE_NAME);
@@ -79,14 +90,16 @@ namespace AwsDocTest {
         setDatabaseName(tableName);
 
         successBool = AwsDoc::PAM::updateLabelsInDatabase(tableName, labels,
-                                                          key, std::cerr, *s_clientConfig);
+                                                          key, std::cerr,
+                                                          *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         addLabelsToDelete(labels);
 
         //  Test the code for the get labels lambda.
         std::vector<AwsDoc::PAM::LabelAndCounts> labelsAndCounts;
-        successBool = AwsDoc::PAM::getLabelsAndCounts(tableName, labelsAndCounts, std::cerr, *s_clientConfig);
+        successBool = AwsDoc::PAM::getLabelsAndCounts(tableName, labelsAndCounts,
+                                                      std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         env_var = std::getenv(WORKING_BUCKET_NAME);
@@ -98,7 +111,8 @@ namespace AwsDocTest {
         std::string preSignedURLGet;
         successBool = AwsDoc::PAM::zipAndUploadImages(tableName, storageBucketName,
                                                       workingBucketName, destinationKey,
-                                                      labels, preSignedURLGet, std::cerr, *s_clientConfig);
+                                                      labels, preSignedURLGet,
+                                                      std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
         addObjectToDelete(workingBucketName, destinationKey);
 
@@ -106,16 +120,22 @@ namespace AwsDocTest {
                 CreateHttpRequest(preSignedURLGet, Aws::Http::HttpMethod::HTTP_GET,
                                   Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
 
-        std::shared_ptr<Aws::Http:: HttpResponse> getResponse = httpClient->MakeRequest(getRequest);
+        std::shared_ptr<Aws::Http::HttpResponse> getResponse = httpClient->MakeRequest(
+                getRequest);
 
-        ASSERT_FALSE(getResponse->HasClientError()) << getResponse->GetClientErrorMessage() << std::endl;
-        ASSERT_EQ(Aws::Http::HttpResponseCode::OK, getResponse->GetResponseCode()) << getResponse->GetResponseBody().rdbuf() << std::endl;
+        ASSERT_FALSE(getResponse->HasClientError())
+                                    << getResponse->GetClientErrorMessage()
+                                    << std::endl;
+        ASSERT_EQ(Aws::Http::HttpResponseCode::OK, getResponse->GetResponseCode())
+                                    << getResponse->GetResponseBody().rdbuf()
+                                    << std::endl;
 
         env_var = std::getenv(TOPIC_ARN);
         ASSERT_NE(env_var, nullptr) << preconditionError() << TOPIC_ARN;
         const std::string topicARN(env_var);
 
-        successBool = AwsDoc::PAM::publishPreSignedURL(topicARN, preSignedURLGet, std::cerr, *s_clientConfig);
+        successBool = AwsDoc::PAM::publishPreSignedURL(topicARN, preSignedURLGet,
+                                                       std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
     }
 
@@ -127,7 +147,8 @@ namespace AwsDocTest {
         // Test the code for the upload lambda.
         Aws::String key = uuidName("file_name");
         auto preSignedUrlPut = AwsDoc::PAM::getPreSignedS3UploadURL(storageBucketName,
-                                                                    key, *s_clientConfig);
+                                                                    key,
+                                                                    *s_clientConfig);
         ASSERT_TRUE(!preSignedUrlPut.empty());
 
 
@@ -139,7 +160,9 @@ namespace AwsDocTest {
         const std::shared_ptr<Aws::IOStream> input_data =
                 Aws::MakeShared<Aws::FStream>("SampleAllocationTag",
                                               IMAGE_FILE_NAME,
-                                              std::ios_base::in | std::ios_base::binary | std::ios_base::ate);
+                                              std::ios_base::in |
+                                              std::ios_base::binary |
+                                              std::ios_base::ate);
 
         Aws::StringStream intConverter;
         intConverter << input_data->tellp();
@@ -148,17 +171,25 @@ namespace AwsDocTest {
         putRequest->SetContentType("image/jpeg");
         putRequest->AddContentBody(input_data);
 
-        const std::shared_ptr<Aws::Http::HttpClient> httpClient = Aws::Http::CreateHttpClient(Aws::Client::ClientConfiguration());
-        std::shared_ptr<Aws::Http:: HttpResponse> putResponse = httpClient->MakeRequest(putRequest);
+        const std::shared_ptr<Aws::Http::HttpClient> httpClient = Aws::Http::CreateHttpClient(
+                Aws::Client::ClientConfiguration());
+        std::shared_ptr<Aws::Http::HttpResponse> putResponse = httpClient->MakeRequest(
+                putRequest);
 
-        ASSERT_FALSE(putResponse->HasClientError()) << putResponse->GetClientErrorMessage() << std::endl;
-        ASSERT_EQ(Aws::Http::HttpResponseCode::OK, putResponse->GetResponseCode()) << putResponse->GetResponseBody().rdbuf() << std::endl;
+        ASSERT_FALSE(putResponse->HasClientError())
+                                    << putResponse->GetClientErrorMessage()
+                                    << std::endl;
+        ASSERT_EQ(Aws::Http::HttpResponseCode::OK, putResponse->GetResponseCode())
+                                    << putResponse->GetResponseBody().rdbuf()
+                                    << std::endl;
 
         addObjectToDelete(storageBucketName, key);
 
         // Test the code for the detect labels lambda.
         std::vector<std::string> labels;
-        bool successBool = AwsDoc::PAM::analyzeAndGetLabels(storageBucketName, key, labels, std::cerr, *s_clientConfig);
+        bool successBool = AwsDoc::PAM::analyzeAndGetLabels(storageBucketName, key,
+                                                            labels, std::cerr,
+                                                            *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         const std::string tableName = getCachedTableName();
@@ -167,14 +198,16 @@ namespace AwsDocTest {
         setDatabaseName(tableName);
 
         successBool = AwsDoc::PAM::updateLabelsInDatabase(tableName, labels,
-                                                          key, std::cerr, *s_clientConfig);
+                                                          key, std::cerr,
+                                                          *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         addLabelsToDelete(labels);
 
         //  Test the code for the get labels lambda.
         std::vector<AwsDoc::PAM::LabelAndCounts> labelsAndCounts;
-        successBool = AwsDoc::PAM::getLabelsAndCounts(tableName, labelsAndCounts, std::cerr, *s_clientConfig);
+        successBool = AwsDoc::PAM::getLabelsAndCounts(tableName, labelsAndCounts,
+                                                      std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
 
         const std::string workingBucketName = getCachedBucketName();
@@ -184,7 +217,8 @@ namespace AwsDocTest {
         std::string preSignedURLGet;
         successBool = AwsDoc::PAM::zipAndUploadImages(tableName, storageBucketName,
                                                       workingBucketName, destinationKey,
-                                                      labels, preSignedURLGet, std::cerr, *s_clientConfig);
+                                                      labels, preSignedURLGet,
+                                                      std::cerr, *s_clientConfig);
         ASSERT_TRUE(successBool);
         addObjectToDelete(workingBucketName, destinationKey);
 
@@ -192,10 +226,15 @@ namespace AwsDocTest {
                 CreateHttpRequest(preSignedURLGet, Aws::Http::HttpMethod::HTTP_GET,
                                   Aws::Utils::Stream::DefaultResponseStreamFactoryMethod);
 
-        std::shared_ptr<Aws::Http:: HttpResponse> getResponse = httpClient->MakeRequest(getRequest);
+        std::shared_ptr<Aws::Http::HttpResponse> getResponse = httpClient->MakeRequest(
+                getRequest);
 
-        ASSERT_FALSE(getResponse->HasClientError()) << getResponse->GetClientErrorMessage() << std::endl;
-        ASSERT_EQ(Aws::Http::HttpResponseCode::OK, getResponse->GetResponseCode()) << getResponse->GetResponseBody().rdbuf() << std::endl;
+        ASSERT_FALSE(getResponse->HasClientError())
+                                    << getResponse->GetClientErrorMessage()
+                                    << std::endl;
+        ASSERT_EQ(Aws::Http::HttpResponseCode::OK, getResponse->GetResponseCode())
+                                    << getResponse->GetResponseBody().rdbuf()
+                                    << std::endl;
     }
 
 } // namespace AwsDocTest

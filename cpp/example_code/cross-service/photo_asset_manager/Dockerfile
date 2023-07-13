@@ -27,7 +27,7 @@ RUN \
   make --jobs=$(nproc)  install
 
 
-# Build and package the local source code.
+# Build and package the AWS Lambda source code.
 RUN mkdir -p /pam_lambda
 
 COPY . /pam_lambda
@@ -40,7 +40,7 @@ RUN \
     make && \
     make aws-lambda-package-cpp_pam_lambdas
 
-# Because this code is used with the AWS CDK "lambda.Code.fromDockerBuild", unzip to /asset.
+# Because this Dockerfile is used by the AWS CDK "lambda.Code.fromDockerBuild" api, unzip to /asset.
 # The CDK will then zip the code.
 
 RUN \

@@ -46,10 +46,10 @@ namespace AwsDoc {
             Aws::IOStream *mIOStream;
         };
 
-        //! A libzip callback routine for a stream as a data source.
+        //! A libzip callback routine for an Aws::IOStream as a data source.
         /*!
          \param userdata: The image_zip_data user data.
-         \param data: A pointer to receive data.
+         \param data: A pointer for returning data.
          \param len: The length of data to return.
          \param cmd: A zip source command.
          \return zip_int64_t: A zip_source result.
@@ -66,17 +66,14 @@ namespace AwsDoc {
   \param clientConfiguration: AWS client configuration.
   \return std::string: The URL as a string.
  */
-
 std::string
 AwsDoc::PAM::getPreSignedS3UploadURL(const std::string &bucket, const std::string &key,
                                      const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::S3::S3Client s3Client(clientConfiguration);
-    Aws::Http::HeaderValueCollection headers;
     return s3Client.GeneratePresignedUrl(bucket, key, Aws::Http::HttpMethod::HTTP_PUT,
                                          300 // expirationInSeconds
     );
 }
-
 
 //! Routine that analyzes an image and returns labels using Amazon Rekognition.
 /*!
@@ -193,7 +190,7 @@ bool AwsDoc::PAM::updateLabelsInDatabase(const std::string &databaseName,
 }
 
 
-//! Routine which returns the labels and their associated counts in a DynamoDB table.
+//! Routine which returns the labels and their associated counts from a DynamoDB table.
 /*!
   \param databaseName: A DynamoDB table name.
   \param labelAndCounts: A vector to receive the labels and counts.
@@ -208,60 +205,72 @@ bool AwsDoc::PAM::getLabelsAndCounts(const std::string &databaseName,
 
     Aws::DynamoDB::DynamoDBClient dbClient(clientConfiguration);
 
-    Aws::DynamoDB::Model::ScanRequest request;
-    request.SetTableName(databaseName);
+    Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue> lastEvaluatedKey;  // This is used for pagination of results.
+    do {
+        Aws::DynamoDB::Model::ScanRequest request;
+        request.SetTableName(databaseName);
 
-    request.SetProjectionExpression("#l, #c");
+        if (!lastEvaluatedKey.empty())
+        {
+            request.SetExclusiveStartKey(lastEvaluatedKey);
+        }
 
-    Aws::Http::HeaderValueCollection headerValueCollection;
-    headerValueCollection.emplace("#l", LABEL_KEY);
-    headerValueCollection.emplace("#c", COUNT_KEY);
-    request.SetExpressionAttributeNames(headerValueCollection);
+        request.SetProjectionExpression("#l, #c");
 
-    // Perform scan on table.
-    const Aws::DynamoDB::Model::ScanOutcome &outcome = dbClient.Scan(request);
-    if (outcome.IsSuccess()) {
-        const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
-        for (const auto &item: items) {
-            LabelAndCounts labelAndCount;
-            for (const auto &entry: item) {
-                if (entry.first == LABEL_KEY) {
-                    labelAndCount.mLabel = entry.second.GetS();
+        Aws::Http::HeaderValueCollection headerValueCollection;
+        headerValueCollection.emplace("#l", LABEL_KEY);
+        headerValueCollection.emplace("#c", COUNT_KEY);
+        request.SetExpressionAttributeNames(headerValueCollection);
+
+        // Perform scan on table.
+        const Aws::DynamoDB::Model::ScanOutcome &outcome = dbClient.Scan(request);
+        if (outcome.IsSuccess()) {
+
+            lastEvaluatedKey = outcome.GetResult().GetLastEvaluatedKey();
+
+            const Aws::Vector<Aws::Map<Aws::String, Aws::DynamoDB::Model::AttributeValue>> &items = outcome.GetResult().GetItems();
+            for (const auto &item: items) {
+                LabelAndCounts labelAndCount;
+                for (const auto &entry: item) {
+                    if (entry.first == LABEL_KEY) {
+                        labelAndCount.mLabel = entry.second.GetS();
+                    }
+                    else if (entry.first == COUNT_KEY) {
+                        try {
+                            labelAndCount.mCount = std::stoi(entry.second.GetN());
+                        }
+                        catch (std::invalid_argument const &ex) {
+                            errStream << "std::invalid_argument::what(): " << ex.what()
+                                      << std::endl;
+                            return false;
+                        }
+                        catch (std::out_of_range const &ex) {
+                            errStream << "std::out_of_range::what(): " << ex.what()
+                                      << std::endl;
+                            return false;
+                        }
+                    }
                 }
-                else if (entry.first == COUNT_KEY) {
-                    try {
-                        labelAndCount.mCount = std::stoi(entry.second.GetN());
-                    }
-                    catch (std::invalid_argument const &ex) {
-                        errStream << "std::invalid_argument::what(): " << ex.what()
-                                  << std::endl;
-                        return false;
-                    }
-                    catch (std::out_of_range const &ex) {
-                        errStream << "std::out_of_range::what(): " << ex.what()
-                                  << std::endl;
-                        return false;
-                    }
-                }
-            }
 
-            if (!labelAndCount.mLabel.empty() && labelAndCount.mCount > 0) {
-                labelAndCounts.push_back(labelAndCount);
-            }
-            else {
-                errStream << "Table entry incorrect label '" << labelAndCount.mLabel
-                          << "' count " <<
-                          labelAndCount.mCount << std::endl;
-                return false;
+                if (!labelAndCount.mLabel.empty() && labelAndCount.mCount > 0) {
+                    labelAndCounts.push_back(labelAndCount);
+                }
+                else {
+                    errStream << "Table entry incorrect label '" << labelAndCount.mLabel
+                              << "' count " <<
+                              labelAndCount.mCount << std::endl;
+                    return false;
+                }
             }
         }
-    }
-    else {
-        errStream << "Failed to Scan items: " << outcome.GetError().GetMessage()
-                  << std::endl;
-    }
+        else {
+            errStream << "Failed to Scan items: " << outcome.GetError().GetMessage()
+                      << std::endl;
+            return false;
+        }
+    } while (!lastEvaluatedKey.empty());
 
-    return outcome.IsSuccess();
+    return true;
 }
 
 //! Routine that retrieves the S3 bucket keys for images associated with labels by querying
@@ -345,10 +354,10 @@ bool AwsDoc::PAM::getKeysForLabelsFromDatabase(const std::string &databaseName,
     return batchGetOutcome.IsSuccess();
 }
 
-//! A libzip callback routine for a stream as a data source.
+//! A libzip callback routine for an Aws::IOStream as a data source.
 /*!
  \param userdata: The image_zip_data user data.
- \param data: A pointer to receive data.
+ \param data: A pointer for returning data.
  \param len: The length of data to return.
  \param cmd: A zip source command.
  \return zip_int64_t: A zip_source result.

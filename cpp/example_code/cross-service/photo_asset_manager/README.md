@@ -60,10 +60,6 @@ docker run --name pam_lambda cpp_pam_image
 docker cp pam_lambda:/pam_lambda/build/cpp_pam_lambdas.zip .
 ```
 
-
-
-
-
 ### Application notes
 * The maximum pixel size for analysis is 10000x10000. Larger images will not be analyzed.
 * Some email clients do not support the long length download URLs. You might need to remove spaces from the URL before downloading.

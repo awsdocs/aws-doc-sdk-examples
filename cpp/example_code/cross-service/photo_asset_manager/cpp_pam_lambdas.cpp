@@ -182,7 +182,8 @@ detectLabelsHandler(aws::lambda_runtime::invocation_request const &request) {
     std::vector<std::string> imageLabels;
     std::stringstream errStream;
     Aws::Client::ClientConfiguration clientConfiguration;
-    if (!AwsDoc::PAM::analyzeAndGetLabels(bucket, object, imageLabels, errStream, clientConfiguration)) {
+    if (!AwsDoc::PAM::analyzeAndGetLabels(bucket, object, imageLabels, errStream,
+                                          clientConfiguration)) {
         return aws::lambda_runtime::invocation_response::failure(
                 "Error detecting image labels" + errStream.str(), "420");
     }
@@ -217,11 +218,12 @@ getLabelsHandler(aws::lambda_runtime::invocation_request const &request) {
     std::vector<AwsDoc::PAM::LabelAndCounts> labelAndCounts;
     std::stringstream errStream;
     Aws::Client::ClientConfiguration clientConfiguration;
-    if (!AwsDoc::PAM::getLabelsAndCounts(databaseName, labelAndCounts, errStream, clientConfiguration)) {
+    if (!AwsDoc::PAM::getLabelsAndCounts(databaseName, labelAndCounts, errStream,
+                                         clientConfiguration)) {
         aws::logging::log_error(TAG, "getLabelsAndCounts error %s",
                                 errStream.str().c_str());
         return aws::lambda_runtime::invocation_response::success(R"({
-	"statusCode": 200,
+	"statusCode": 400,
 	"headers": {
 		"Access-Control-Allow-Origin": "*"
 	},
@@ -310,7 +312,8 @@ downloadHandler(aws::lambda_runtime::invocation_request const &request) {
                 "zipAndUploadImages failure" + errStream.str(), "420");
     }
 
-    if (!AwsDoc::PAM::publishPreSignedURL(snsTopicARRN, preSignedURL, errStream, clientConfiguration)) {
+    if (!AwsDoc::PAM::publishPreSignedURL(snsTopicARRN, preSignedURL, errStream,
+                                          clientConfiguration)) {
         return aws::lambda_runtime::invocation_response::failure(
                 "publishPreSignedURL failure" + errStream.str(), "420");
     }

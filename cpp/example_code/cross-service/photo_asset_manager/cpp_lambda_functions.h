@@ -85,7 +85,7 @@ namespace AwsDoc {
                                     std::ostream &errStream,
                                     const Aws::Client::ClientConfiguration &clientConfiguration);
 
-        //! Routine which returns the labels and their associated counts in a DynamoDB table.
+        //! Routine which returns the labels and their associated counts from a DynamoDB table.
         /*!
           \param databaseName: A DynamoDB table name.
           \param labelAndCounts: A vector to receive the labels and counts.
