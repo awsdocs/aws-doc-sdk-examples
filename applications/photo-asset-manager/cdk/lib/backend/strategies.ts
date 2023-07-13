@@ -238,7 +238,7 @@ export const CPP_LAMBDAS_STRATEGY: PamLambdasStrategy = {
   },
 
   runtime: Runtime.PROVIDED_AL2,
-  architecture: Architecture.ARM_64,
+  architecture: Architecture.ARM_64, // The same architecture as the machine building the code.
   handlers: {
     ...EMPTY_LAMBDAS_STRATEGY.handlers,
     detectLabels: "detectLabels",
