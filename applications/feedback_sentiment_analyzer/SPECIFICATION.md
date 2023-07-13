@@ -13,22 +13,20 @@ See the [README.md](README.md) for an introduction to FSA.
 ---
 ### Table of Contents
 
-- [User actions](#user-actions)
-- [Application behavior](#application-behavior)
-- [Diagram](#diagram)
-- [Input routing](#input-routing)
-- [Step Function configuration](#step-function-configuration)
-  - [State machine Lambda functions](#state-machine-lambda-functions)
-    - [Diagram](#diagram-1)
-    * [Function inputs and outputs](#function-inputs-and-outputs)
-      - [ExtractText](#extracttext)
-      - [AnalyzeSentiment](#analyzesentiment)
-      - [TranslateText](#translatetext)
-      - [SynthesizeAudio](#synthesizeaudio)
-- [GetFeedback Lambda function](#getfeedback-lambda-function-1)
-- [Processing S3 events with EventBridge](#processing-s3-events-with-eventbridge)
-- [Managing items in DynamoDB](#managing-items-in-dynamodb)
-- [Other FSA material](#other-fsa-material)
+  * [Diagram](#diagram)
+  * [User actions](#user-actions)
+  * [Application behavior](#application-behavior)
+  * [HTTP API specification](#http-api-specification)
+  * [Step Function configuration](#step-function-configuration)
+    + [State machine Lambda functions](#state-machine-lambda-functions)
+      + [ExtractText](#extracttext)
+      + [AnalyzeSentiment](#analyzesentiment)
+      + [TranslateText](#translatetext)
+      + [SynthesizeAudio](#synthesizeaudio)
+  * [GetFeedback Lambda function](#getfeedback-lambda-function)
+  * [Processing S3 events with EventBridge](#processing-s3-events-with-eventbridge)
+  * [Managing items in DynamoDB](#managing-items-in-dynamodb)
+  * [Other FSA material](#other-fsa-material)
 
 ---
 
@@ -178,7 +176,7 @@ This multi-state workflow is listed below in sequence:
 The below diagram depicts this sequence.
 ![state-machine.png](state-machine.png)
 
-### State machine Lambda functions
+## State machine Lambda functions
 
 See below for the required inputs and outputs of each Lambda function.
 
@@ -209,7 +207,7 @@ For example:
 ```json
 THIS HOTEL WAS GREAT
 ```
-
+---
 ### AnalyzeSentiment
 Uses Amazon Comprehend's [DetectSentiment](https://docs.aws.amazon.com/comprehend/latest/APIReference/API_DetectSentiment.html)
 method to detect sentiment (`POSITIVE`, `NEUTRAL`, `MIXED`, or `NEGATIVE`).
@@ -239,7 +237,7 @@ For example:
   "language_code": "en"
 }
 ```
-
+---
 ### TranslateText
 Uses Amazon Translate's [TranslateText](https://docs.aws.amazon.com/translate/latest/APIReference/API_TranslateText.html)
 method to translate text to French and return in String format.
@@ -267,7 +265,7 @@ For example:
 ```json
 CET HOTEL ÉTAIT RAVISSANT
 ```
-
+---
 ### SynthesizeAudio
 Uses Amazon Polly's [SynthesizeAudio](https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html)
 method to converts input text into life-like speech
