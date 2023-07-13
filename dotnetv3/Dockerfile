@@ -11,7 +11,8 @@ COPY --from=mcr.microsoft.com/dotnet/sdk:5.0 /usr/share/dotnet/shared /usr/share
 # Or navigate to a service folder or a scenario folder,
 # such as dotnetv3/CloudWatch/Scenarios to build and run an interactive scenario with `dotnet run`
 COPY . /dotnetv3
-WORKDIR /dotnetv3
 
-CMD ["dotnet", "test", "--filter", "Category=Unit"]
+RUN cd /dotnetv3 && dotnet build
+
+CMD ["dotnet", "test", "dotnetv3", "--filter", "Category=Unit"]
 
