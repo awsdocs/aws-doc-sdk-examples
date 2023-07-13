@@ -2,16 +2,19 @@
 
 This document contains the technical specifications for Feedback Sentiment Analyzer (FSA), a sample application that showcases AWS services and SDKs.
 
-It explains:
+This document explains:
 
 - Application inputs and outputs
 - Underlying AWS components and their configurations
 - Key cross-service integration details
 
+See the [README.md](README.md) for an introduction to FSA.
+
+---
 ### Table of Contents
 
-- [Inputs](#inputs)
-- [Outputs](#outputs)
+- [User actions](#user-actions)
+- [Application behavior](#application-behavior)
 - [Diagram](#diagram)
 - [Input routing](#input-routing)
 - [Step Function configuration](#step-function-configuration)
@@ -29,7 +32,14 @@ It explains:
 
 ---
 
-## Inputs
+## Diagram
+This diagram represents the relationships between key FSA components. 
+![architecture.png](architecture.png)
+![architecture2.png](architecture2.png)
+
+---
+
+## User actions
 
 This application receives three inputs from the frontend.
 
@@ -37,24 +47,18 @@ This application receives three inputs from the frontend.
 - load page (uses `DynamoDB:GetItems`)
 - upload image to S3 (`S3:PutObject`)
 
-## Outputs
+## Application behavior
 
 This application produces two outputs from the backend:
 
 - put new item in the database (uses `DynamoDB:PutItem`)
 - put new synthesized audio to S3 (uses `S3:PutObject`)
 
-## Diagram
-
-![img_1.png](img_1.png)
-
 ---
 
 ## HTTP API specification
 
-All of the APIs are created by the CDK script. The endpoints are common to every language variation and do not need any additional implementation.
-
-### media
+All the APIs are created by the CDK script. The endpoints are common to every language variation and do not need any additional implementation.
 
 <details>
 <summary><strong>PUT /api/media/{item}</strong></summary>
@@ -96,8 +100,6 @@ All of the APIs are created by the CDK script. The endpoints are common to every
 </table>
 </details>
 
-### feedback
-
 <details>
 <summary><strong>GET /api/feedback</strong></summary>
 <br/>
@@ -131,8 +133,6 @@ All of the APIs are created by the CDK script. The endpoints are common to every
 </table>
 </details>
 
-### env
-
 <details>
 <summary><strong>GET /api/env</strong></summary>
 <br/>
@@ -164,35 +164,27 @@ All of the APIs are created by the CDK script. The endpoints are common to every
 
 When an image is uploaded through `Upload image` input route, a Step Function state machine is triggered.
 
-See [Event processing](#event-processing)
-This state machine orchestrates a series of AWS Lambda functions.
+This multi-state workflow is listed below in sequence:
+
+1. Start
+2. [ExtractText](#ExtractText) - extracts text from an image
+2. [AnalyzeSentiment](#AnalyzeSentiment) - detects text sentiment
+3. `ContinueIfPositive` (skip to 5 if sentiment `NEGATIVE`)
+3. [TranslateText](#TranslateText) - translates text to French
+4. [SynthesizeAudio](#SynthesizeAudio) - synthesizes human-like audio from text
+5. `DynamoDB:PutItem` (see [table config](#managing-items-in-dynamodb))
+6. Stop
+
+The below diagram depicts this sequence.
+![state-machine.png](state-machine.png)
 
 ### State machine Lambda functions
-
-| trigger                      | function                              | action                                 |
-| ---------------------------- | ------------------------------------- | -------------------------------------- |
-| S3:CreateObject event.       | [ExtractText](#ExtractText)           | Extracts text from S3 object.          |
-| `ExtractText` complete.      | [AnalyzeSentiment](#AnalyzeSentiment) | Detect positive or negative sentiment. |
-| `AnalyzeSentiment` complete. | [TranslateText](#TranslateText)       | Translate text to French.              |
-| `TranslateText` complete.    | [SynthesizeAudio](#SynthesizeAudio)   | Synthesize human-like audio from text. |
-
-#### Diagram
-
-These functions appear by name in the multi-state workflow depicted below.
-
-Also depicted is where the workflow forks at `ContinueIfPositive` based whether sentiment analyzed is `POSITIVE` or `NEGATIVE`.
-
-When ran successfully, the state machine adds a new item to a DynamDB table containing data gathered during the workflow.
-
-![FSA - l'hotellerie.png](..%2F..%2F..%2F..%2F..%2FDownloads%2FFSA%20-%20l%27hotellerie.png)
-
-Logging appears in the AWS Console under Step Functions and (for Lambda functions only) CloudWatch.
-
-## Function inputs and outputs
 
 See below for the required inputs and outputs of each Lambda function.
 
 ### ExtractText
+Uses Amazon Textract's [DetectDocumentText](https://docs.aws.amazon.com/textract/latest/dg/API_DetectDocumentText.html)
+method to extract text from an image and return a unified text representation.
 
 #### **Input**
 
@@ -219,6 +211,8 @@ THIS HOTEL WAS GREAT
 ```
 
 ### AnalyzeSentiment
+Uses Amazon Comprehend's [DetectSentiment](https://docs.aws.amazon.com/comprehend/latest/APIReference/API_DetectSentiment.html)
+method to detect sentiment (`POSITIVE`, `NEUTRAL`, `MIXED`, or `NEGATIVE`).
 
 #### **Input**
 
@@ -247,6 +241,8 @@ For example:
 ```
 
 ### TranslateText
+Uses Amazon Translate's [TranslateText](https://docs.aws.amazon.com/translate/latest/APIReference/API_TranslateText.html)
+method to translate text to French and return in String format.
 
 #### **Input**
 
@@ -273,6 +269,8 @@ CET HOTEL ÉTAIT RAVISSANT
 ```
 
 ### SynthesizeAudio
+Uses Amazon Polly's [SynthesizeAudio](https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html)
+method to converts input text into life-like speech
 
 #### **Input**
 
@@ -302,8 +300,8 @@ my-s3-bucket/audio.mp3
 ---
 
 ## GetFeedback Lambda function
-
-To display data on previously-uploaded images, the frontend invokes a Lambda function which fetches items from a [DynamoDB table](#DynamoDB).
+Uses DynamoDB's [GetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)
+method to get all records from [the table](#managing-items-in-dynamodb). Invoked by the frontend interace.
 
 There is no input.
 
