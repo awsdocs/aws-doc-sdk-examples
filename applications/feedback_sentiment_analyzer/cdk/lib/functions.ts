@@ -95,8 +95,6 @@ const RUBY_FUNCTIONS: AppFunctionConfig[] = [
 ];
 
 const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
-  // These functions are used in a simple pipeline. Each function is called
-  // with the previous function's outputs.
   examplelang: EXAMPLE_LANG_FUNCTIONS,
   // Add more languages here. For example
   // javascript: JAVASCRIPT_FUNCTIONS,
