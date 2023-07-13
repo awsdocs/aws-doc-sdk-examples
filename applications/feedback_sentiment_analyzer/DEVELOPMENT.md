@@ -48,27 +48,16 @@ The `codeAsset` function must return a [Code](https://docs.aws.amazon.com/cdk/ap
 
 ## Implement Lambda functions
 
-The following sections provide a general overview of the required Lambda functions. The accompanying CDK script orchestrates these functions as [AWS Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html). For a detailed specification of these functions see [SPECIFICATION.md](./SPECIFICATION.md).
+FSA requires a specific set of Lambda functions The accompanying CDK script orchestrates these functions as [AWS Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html). For a detailed specification of these functions visit the following links in [SPECIFICATION.md](./SPECIFICATION.md)
 
-### ExtractText
+- [ExtractText](./SPECIFICATION.md#extracttext)
+- [AnalyzeSentiment](./SPECIFICATION.md#analyzesentiment)
+- [TranslateText](./SPECIFICATION.md#translatetext)
+- [SynthesizeAudio](./SPECIFICATION.md#synthesizeaudio)
 
-Extract the text from an image using Amazon Textract.
+## Bundling (language dependent)
 
-### AnalyzeSentiment
-
-Pass the extracted text from ExtractText to Amazon Comprehend to determine the sentiment and the source language.
-
-### TranslateText
-
-Translate the text to the language of your choice using Amazon Translate. The provided functions translate to French by default.
-
-### SynthesizeAudio
-
-Synthesize an audio file from the translated text using Amazon Polly.
-
-## Bundling
-
-The AWS CDK can compile resources during the deployment using docker. To configure this, use the [`bundling`](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-s3-assets.AssetOptions.html#bundling) option of `Code.fromAsset`. Languages with a well-known Runtime usually have a `Runtime.image` property that has an appropriate docker base image. Otherwise, any public docker image is suitable.
+The AWS CDK can compile resources during the deployment using Docker. To configure this, use the [`bundling`](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-s3-assets.AssetOptions.html#bundling) option of `Code.fromAsset`. Languages with a well-known Runtime usually have a `Runtime.image` property that has an appropriate Docker base image. Otherwise, any public Docker image is suitable.
 
 Docker will execute the `command` for the bundling step.
 The assets, specified as the first argument to `Code.fromAsset`, are mounted in the container at `/asset-input/` (which is also the working directory).
