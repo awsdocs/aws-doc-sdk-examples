@@ -72,16 +72,12 @@ def build_tests(service="*"):
             has_error = True
             continue
 
-<<<<<<< HEAD
-        result_code = subprocess.call(['cmake', '--build', '.'], shell=False)
-=======
         if parallel_build is not None:
             print("building parallel")
             result_code = subprocess.call(['cmake', '--build', '.',  '--parallel', f'{parallel_build}'], shell=False)
         else:
             result_code = subprocess.call(['cmake', '--build', '.'], shell=False)
 
->>>>>>> cbb400c97 (adding parallel build)
         if result_code != 0 :
             has_error = True
             continue
