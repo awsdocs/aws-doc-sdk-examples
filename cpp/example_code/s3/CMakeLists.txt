@@ -4,8 +4,11 @@
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.8)
 
+set(SERVICE_NAME)
+set(SERVICE_COMPONENTS s3 sts iam)
+
 # Set this project's name.
-project("s3-examples")
+project("${SERVICE_NAME}-examples")
 
 # Build shared libraries by default.
 set(BUILD_SHARED_LIBS ON)
@@ -23,7 +26,7 @@ if(WINDOWS_BUILD)
 endif()
 
 # Find the AWS SDK for C++ package.
-find_package(AWSSDK REQUIRED COMPONENTS s3 sts iam)
+find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
 
 
