@@ -204,7 +204,7 @@ Function will return a string representing the text extracted.
 
 For example:
 
-```json
+```
 THIS HOTEL WAS GREAT
 ```
 ---
@@ -262,7 +262,7 @@ Function will return a string representing the text translated.
 
 For example:
 
-```json
+```
 CET HOTEL ÉTAIT RAVISSANT
 ```
 ---
@@ -291,7 +291,7 @@ Function will return a string representing the key of the newly-synthesized audi
 
 For example:
 
-```json
+```
 my-s3-bucket/audio.mp3
 ```
 
@@ -331,18 +331,18 @@ This application relies on an [EventBridge rule](https://docs.aws.amazon.com/eve
 Specifically, the trigger is scoped to `ObjectCreated` events emitted by `my-s3-bucket`:
 
 ```json
-eventPattern: {
-        source: ["aws.s3"],
-        detailType: ["Object Created"],
-        detail: {
-          bucket: {
-            name: [<dynamic media bucket name>],
-          },
-          object: {
-            key: [{ suffix: ".png" }, { suffix: ".jpeg" }, { suffix: ".jpg" }],
-          },
-        },
-      }
+{
+  "source": ["aws.s3"],
+  "detailType": ["Object Created"],
+  "detail": {
+    "bucket": {
+      "name": ["<dynamic media bucket name>"]
+    },
+    "object": {
+      "key": [{ "suffix": ".png" }, { "suffix": ".jpeg" }, { "suffix": ".jpg" }]
+    }
+  }
+}
 ```
 
 ---
