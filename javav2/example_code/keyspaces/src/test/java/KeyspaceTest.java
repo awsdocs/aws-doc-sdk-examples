@@ -6,7 +6,11 @@
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.config.DriverConfigLoader;
 import com.example.keyspace.ScenarioKeyspaces;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import com.google.gson.Gson;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Tag;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer;
@@ -15,17 +19,21 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.keyspaces.KeyspacesClient;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import java.io.IOException;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.Random;
 
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class KeyspaceTest {
     public static final String DASHES = new String(new char[80]).replace("\0", "-") ;
-    private static String fileName = "<Replace with the JSON file that contains movie data>" ;
-    private static String keyspaceName = "<Replace with the name of the keyspace to create>";
+    private static String fileName = "" ;
+    private static String keyspaceName = "";
     private static String titleUpdate = "The Family";
     private static int yearUpdate = 2013 ;
     private static String tableName = "Movie" ;
@@ -35,19 +43,30 @@ public class KeyspaceTest {
 
     @BeforeAll
     public static void setUp() {
+        Random rand = new Random();
+        int randomNum = rand.nextInt((10000 - 1) + 1) + 1;
+        keyspaceName = "key"+randomNum;
         Region region = Region.US_EAST_1;
         keyClient = KeyspacesClient.builder()
             .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
         DriverConfigLoader loader = DriverConfigLoader.fromClasspath("application.conf");
         session = CqlSession.builder()
             .withConfigLoader(loader)
             .build();
+
+        // Get the values to run these tests from AWS Secrets Manager.
+        Gson gson = new Gson();
+        String json = getSecretValues();
+        SecretValues values = gson.fromJson(json, SecretValues.class);
+        fileName = values.getFileName();
+        keyspaceName =  values.getKeyspaceName()+randomNum;
    }
 
     @Test
+    @Tag("IntegrationTest")
     @Order(1)
     public void scenarioTest() throws InterruptedException, IOException {
         System.out.println(DASHES);
@@ -62,7 +81,7 @@ public class KeyspaceTest {
         System.out.println(DASHES);
 
         System.out.println(DASHES);
-        System.out.println("3. List up to 10 keyspaces using a paginator.");
+        System.out.println("3. List keyspaces using a paginator.");
         ScenarioKeyspaces.listKeyspacesPaginator(keyClient);
         System.out.println(DASHES);
 
@@ -144,7 +163,38 @@ public class KeyspaceTest {
         ScenarioKeyspaces.deleteKeyspace(keyClient, keyspaceName);
         System.out.println(DASHES);
     }
+    public static String getSecretValues() {
+        // Get the Amazon RDS creds from Secrets Manager.
+        SecretsManagerClient secretClient = SecretsManagerClient.builder()
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+        String secretName = "test/keyspace";
+
+        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
+            .secretId(secretName)
+            .build();
+
+        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
+        return valueResponse.secretString();
+    }
+
+    @Nested
+    @DisplayName("A class used to get test values from test/keyspace (an AWS Secrets Manager secret)")
+    class SecretValues {
+        private String fileName;
+        private String keyspaceName;
+
+        public String getFileName() {
+            return fileName;
+        }
+
+        public String getKeyspaceName() {
+            return keyspaceName;
+        }
+    }
 }
+
 
 
 

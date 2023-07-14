@@ -179,17 +179,19 @@ pub async fn list_tables_are_more(client: &Client) -> Result<(), Error> {
 
 // Lists the items in a table.
 // snippet-start:[dynamodb.rust.list-items]
-pub async fn list_items(client: &Client, table: &str) -> Result<(), Error> {
+pub async fn list_items(client: &Client, table: &str, page_size: Option<i32>) -> Result<(), Error> {
+    let page_size = page_size.unwrap_or(10);
     let items: Result<Vec<_>, _> = client
         .scan()
         .table_name(table)
+        .limit(page_size)
         .into_paginator()
         .items()
         .send()
         .collect()
         .await;
 
-    println!("Items in table:");
+    println!("Items in table (up to {page_size}):");
     for item in items? {
         println!("   {:?}", item);
     }

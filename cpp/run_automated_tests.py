@@ -32,6 +32,8 @@ import datetime
 def build_tests(service="*"):
     cmake_files = glob.glob( f"example_code/{service}/tests/CMakeLists.txt")
     cmake_files.extend(glob.glob( f"example_code/{service}/gtests/CMakeLists.txt"))
+    cmake_files.extend(glob.glob(f"example_code/cross-service/{service}/tests/CMakeLists.txt"))
+
 
     run_files = []
 

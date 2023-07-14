@@ -440,6 +440,21 @@ firehose:
   version: "firehose-2015-08-04"
   tags:
     product_categories: {'Analytics'}
+forecast: 
+  long: '&FORlong;'
+  short: '&FOR;'
+  sort: Forecast
+  expanded:
+    long: Amazon Forecast Service
+    short: Forecast
+  blurb: a fully managed service that uses statistical and machine learning algorithms to deliver highly accurate time-series forecasts. 
+  guide:
+    subtitle: User Guide
+    url: forecast/latest/dg/getting-started.html
+  api_ref: forecast/latest/dg/api-reference.html
+  tags:
+    product_categories: {'Machine Learning &amp; AI'}
+  version: forecast-2018-06-26
 glacier:
   long: '&GLlong;'
   short: '&GLshort;'
@@ -655,6 +670,21 @@ mediapackage:
   tags:
     product_categories: {'Media Services'}
   version: mediapackage-2017-10-12
+opensearch: 
+  long: '&ESlong;'
+  short: '&ES;'
+  sort: "ES"
+  expanded:
+    long: Amazon OpenSearch Service
+    short: OpenSearch
+  blurb: is a distributed, community-driven, Apache 2.0-licensed, 100% open-source search and analytics suite used for a broad set of use cases like real-time application monitoring, log analytics, and website search.
+  guide:
+    subtitle: User Guide
+    url: opensearch-service/latest/developerguide/gsg.html
+  api_ref: opensearch.org/docs/latest/api-reference/index/
+  tags:
+    product_categories: {'Analytics'}
+  version: es-2021-01-01
 organizations:
   long: '&AOlong;'
   short: '&AO;'

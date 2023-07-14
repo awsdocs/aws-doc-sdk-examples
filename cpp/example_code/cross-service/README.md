@@ -14,7 +14,7 @@ A cross-service example is an application that works across multiple AWS service
 
 ## Cross-service examples
 * [Amazon Aurora Severless item tracker](serverless-aurora/README.md) Create an item tracker web app using Amazon Aurora Serverless, and Amazon Simple Email Service (Amazon SES).
- 
+* [Photo Asset Manager](photo_asset_manager/README.md) Create a photo asset management application.
 
 
 

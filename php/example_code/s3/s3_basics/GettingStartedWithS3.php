@@ -135,7 +135,6 @@ try {
     }
     $s3client->deleteObjects([
         'Bucket' => $bucket_name,
-        'Key' => $file_name,
         'Delete' => [
             'Objects' => $objects,
         ],
