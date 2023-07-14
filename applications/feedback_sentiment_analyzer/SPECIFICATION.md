@@ -235,7 +235,7 @@ For example:
 
 #### **Output**
 
-Returns a string representing the text extracted.
+Returns the guessed sentiment and language code.
 
 For example:
 
@@ -295,7 +295,7 @@ For example:
 
 #### **Output**
 
-Returns a string representing the key of the newly-synthesized audio file.
+Returns a string representing the key of the synthesized audio file.
 
 For example:
 
@@ -313,7 +313,11 @@ There is no input.
 
 ### **Output**
 
-Returns a JSON object `feedback` containing items. Each item will contain translated text and a link to its corresponding synthesized audio file.
+Returns a JSON object with one property: `feedback`. `feedback` is an array of objects that contain 4 properties:
+- sentiment - "POSITIVE" | "NEGATIVE" | "NEUTRAL"
+- text - The original text translated to the destination language. (French by default)
+- audioUrl - The S3 object key for the synthesized audio file.
+- imageUrl - The original uploaded image.
 
 For example:
 
