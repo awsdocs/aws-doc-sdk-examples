@@ -25,6 +25,10 @@ cross_PAM:
       versions:
         - sdk_version: 1
           block_content: cross_PAM_rust_block.xml
+    C++:
+      versions:
+        - sdk_version: 1
+          block_content: cross_PAM_cpp_block.xml
   service_main: rekognition
   services:
     sns:

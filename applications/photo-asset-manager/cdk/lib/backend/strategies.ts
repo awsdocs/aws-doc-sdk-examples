@@ -223,6 +223,30 @@ export const RUST_LAMBDAS_STRATEGY: PamLambdasStrategy = {
     upload: "upload",
   },
 };
+export const CPP_LAMBDAS_STRATEGY: PamLambdasStrategy = {
+  timeout: Duration.seconds(90),
+  memorySize: 1024,
+  codeAsset() {
+    // Relative to cdk.json.
+    const dockerBuildPath = resolve("../../../cpp/example_code/cross-service/photo_asset_manager/");
+
+    return Code.fromDockerBuild(dockerBuildPath, {
+      buildArgs: {
+        buildArgsKey: '.',
+      },
+  });
+  },
+
+  runtime: Runtime.PROVIDED_AL2,
+  architecture: Architecture.ARM_64, // The same architecture as the machine building the code.
+  handlers: {
+    ...EMPTY_LAMBDAS_STRATEGY.handlers,
+    detectLabels: "detectLabels",
+    download: "download",
+    labels: "getLabels",
+    upload: "upload",
+  },
+};
 
 export const STRATEGIES: Record<string, PamLambdasStrategy> = {
   java: JAVA_LAMBDAS_STRATEGY,
@@ -231,6 +255,7 @@ export const STRATEGIES: Record<string, PamLambdasStrategy> = {
   dotnet: DOTNET_LAMBDAS_STRATEGY,
   dotnetla: DOTNET_LAMBDAS_ANNOTATIONS_STRATEGY,
   rust: RUST_LAMBDAS_STRATEGY,
+  cpp: CPP_LAMBDAS_STRATEGY,
   empty: EMPTY_LAMBDAS_STRATEGY,
 };
 
