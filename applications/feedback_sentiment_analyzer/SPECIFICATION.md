@@ -168,18 +168,18 @@ All the APIs are created by the CDK script. The endpoints are common to every la
 
 ## Step Function configuration
 
-When an image is uploaded through `Upload image` input route, a Step Function state machine is triggered.
+When an image is created or updated in S3 media bucket, a Step Function state machine is triggered.
 
 This multi-state workflow is listed below in sequence:
 
 1. Start
 2. [ExtractText](#ExtractText) - extracts text from an image
-2. [AnalyzeSentiment](#AnalyzeSentiment) - detects text sentiment
-3. `ContinueIfPositive` (skip to 5 if sentiment `NEGATIVE`)
-3. [TranslateText](#TranslateText) - translates text to French
-4. [SynthesizeAudio](#SynthesizeAudio) - synthesizes human-like audio from text
-5. `DynamoDB:PutItem` (see [table config](#managing-items-in-dynamodb))
-6. Stop
+3. [AnalyzeSentiment](#AnalyzeSentiment) - detects text sentiment
+4. `ContinueIfPositive` (skip to 7 if sentiment `NEGATIVE`)
+5. [TranslateText](#TranslateText) - translates text to French
+6. [SynthesizeAudio](#SynthesizeAudio) - synthesizes human-like audio from text
+7. `DynamoDB:PutItem` (see [table config](#managing-items-in-dynamodb))
+8. Stop
 
 The below diagram depicts this sequence.
 ![state-machine.png](state-machine.png)
@@ -194,7 +194,7 @@ method to extract text from an image and return a unified text representation.
 
 #### **Input**
 
-Function will use data available on the [S3 event object](https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html).
+Uses the data available on the [S3 event object](https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html).
 
 For example:
 
@@ -208,7 +208,7 @@ For example:
 
 #### **Output**
 
-Function will return a string representing the text extracted.
+Returns a string representing the text extracted.
 
 For example:
 
@@ -222,7 +222,7 @@ method to detect sentiment (`POSITIVE`, `NEUTRAL`, `MIXED`, or `NEGATIVE`).
 
 #### **Input**
 
-Function will use data available on the [Lambda event object](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-event).
+Uses the data available on the [Lambda event object](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-event).
 
 For example:
 
@@ -235,7 +235,7 @@ For example:
 
 #### **Output**
 
-Function will return a string representing the text extracted.
+Returns a string representing the text extracted.
 
 For example:
 
@@ -248,11 +248,11 @@ For example:
 ---
 ### TranslateText
 Uses Amazon Translate's [TranslateText](https://docs.aws.amazon.com/translate/latest/APIReference/API_TranslateText.html)
-method to translate text to French and return in String format.
+method to translate text to French and return a string.
 
 #### **Input**
 
-Function will use data available on the [Lambda event object](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-event).
+Uses the data available on the [Lambda event object](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-event).
 
 For example:
 
@@ -266,7 +266,7 @@ For example:
 
 #### **Output**
 
-Function will return a string representing the text translated.
+Returns a string representing the translated text.
 
 For example:
 
@@ -280,7 +280,7 @@ method to converts input text into life-like speech
 
 #### **Input**
 
-Function will use data available on the [Lambda event object](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-event).
+Uses the data available on the [Lambda event object](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-event).
 
 For example:
 
@@ -295,7 +295,7 @@ For example:
 
 #### **Output**
 
-Function will return a string representing the key of the newly-synthesized audio file.
+Returns a string representing the key of the newly-synthesized audio file.
 
 For example:
 
@@ -313,7 +313,7 @@ There is no input.
 
 ### **Output**
 
-Function will return a JSON object `feedback` containing items. Each item will contain translated text and a link to its corresponding synthesized audio file.
+Returns a JSON object `feedback` containing items. Each item will contain translated text and a link to its corresponding synthesized audio file.
 
 For example:
 
