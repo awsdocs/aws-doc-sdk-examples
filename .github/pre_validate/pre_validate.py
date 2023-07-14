@@ -194,6 +194,7 @@ ALLOW_LIST = {
     'DescribeOrderableDBInstanceOptionsOutput',
     'preview/examples/cognitoidentityprovider',
     'preview/examples/lambda/src/bin/scenario',
+    'aws/dynamodb/model/BatchWriteItemRequest',
 }
 
 def check_files(root, quiet):
