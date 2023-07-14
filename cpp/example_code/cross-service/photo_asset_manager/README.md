@@ -20,7 +20,7 @@ The backend of the PAM application is implemented with these AWS Lambda function
 
 - **Labels** - Serverless API endpoint that returns the labels and label count of images in the S3 storage bucket.
 - **Upload** - Serverless API endpoint that returns a presigned URL for uploading an image.
-- **DetectLabelsFunction** - Amazon S3 event function that is invoked when an image object is created in an S3 storage bucket. The new image is analyzed using AWS Rekognition, and label information is stored in a DynamoDB table.
+- **DetectLabelsFunction** - Amazon S3 event function that is invoked when an image object is created in an S3 storage bucket. The new image is analyzed using Amazon Rekognition, and label information is stored in a DynamoDB table.
 - **DownloadFunction** - Amazon API Gateway function that combines images into a zip file in an S3 storage bucket with a presigned URL for download, and sends a notification message using Amazon Simple Notification Service (Amazon SNS).
 
 ## ⚠️ Important
@@ -52,7 +52,7 @@ The code is automatically built and uploaded when the resources are created.
 The code is built using Docker and the provided [Dockerfile](Dockerfile).
 The built code is located within the Docker container at `/pam_lambda/build/cpp_pam_lambdas.zip`.
 
-The code can be built and copied to the local file system with the following commands.
+To build and copy the code to the local file system, use the following commands.
 
 ```bash
 docker build . -f Dockerfile -t cpp_pam_image
@@ -67,7 +67,7 @@ docker cp pam_lambda:/pam_lambda/build/cpp_pam_lambdas.zip .
 ## Delete the resources
 
 To avoid charges, delete all the resources that you created for this tutorial.
-Follow the instructions in the [README for the Photo Asset Manager application cdk](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/applications/photo-asset-manager/cdk/README.md)
+Follow the instructions in the [README for the Photo Asset Manager application CDK](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/applications/photo-asset-manager/cdk/README.md)
 to clean up the resources for the CDK stacks.
 
 ## Next steps
