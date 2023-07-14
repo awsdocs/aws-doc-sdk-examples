@@ -32,7 +32,6 @@ See the [README.md](README.md) for an introduction to FSA.
 
 ## Diagram
 This diagram represents the relationships between key FSA components. 
-![architecture.png](architecture.png)
 ![architecture2.png](architecture2.png)
 
 ---
@@ -51,6 +50,15 @@ This application produces two outputs from the backend:
 
 - put new item in the database (uses `DynamoDB:PutItem`)
 - put new synthesized audio to S3 (uses `S3:PutObject`)
+
+## User flow
+The following list describes the happy path of a frontend user.
+
+1. Authenticate via Amazon Cognito hosted UI.
+2. Upload an image with text in a non-French language.
+3. Press the refresh button after a minute.
+4. See the original image along side a French translation and a play button.
+5. Tap the play button and listen to the synthesized audio of the French translation.
 
 ---
 
