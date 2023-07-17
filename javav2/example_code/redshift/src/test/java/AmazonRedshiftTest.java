@@ -18,8 +18,8 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * To run these integration tests, you need to either set the required values
- * in the config.properties file or AWS Secret Manager.
+ * To run these integration tests, you must set the required values
+ * in the config.properties file or AWS Secrets Manager.
  */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -129,8 +129,7 @@ public class AmazonRedshiftTest {
         assertDoesNotThrow(() ->DeleteCluster.deleteRedshiftCluster(redshiftClient, clusterId));
         System.out.println("Test 7 passed");
     }
-    public static String getSecretValues() {
-        // Get the Amazon RDS creds from Secrets Manager.
+    private static String getSecretValues() {
         SecretsManagerClient secretClient = SecretsManagerClient.builder()
             .region(Region.US_EAST_1)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
