@@ -45,9 +45,10 @@ public class ServiceHandlerIAM {
                 guard   let keyId = accessKeyId,
                         let secretKey = secretAccessKey else {
                             throw ServiceHandlerError.authError
-                        }
-                let credentialsProvider = try AWSCredentialsProvider.fromStatic(
-                    AWSCredentialsProviderStaticConfig(
+                }
+
+                let credentialsProvider = try AWSClientRuntime.StaticCredentialsProvider(
+                    AWSClientRuntime.Credentials(
                         accessKey: keyId,
                         secret: secretKey,
                         sessionToken: sessionToken
@@ -58,7 +59,7 @@ public class ServiceHandlerIAM {
                 // provider. Then create a new `IAMClient` using those
                 // permissions.
 
-                let iamConfig = try IAMClient.IAMClientConfiguration(
+                let iamConfig = try await IAMClient.IAMClientConfiguration(
                     credentialsProvider: credentialsProvider,
                     region: self.region
                 )
@@ -86,8 +87,8 @@ public class ServiceHandlerIAM {
             // token to generate a static credentials provider suitable for
             // use when initializing an IAM client.
 
-            let credentialsProvider = try AWSCredentialsProvider.fromStatic(
-                AWSCredentialsProviderStaticConfig(
+            let credentialsProvider = try AWSClientRuntime.StaticCredentialsProvider(
+                AWSClientRuntime.Credentials(
                     accessKey: accessKeyId,
                     secret: secretAccessKey,
                     sessionToken: sessionToken
@@ -96,7 +97,7 @@ public class ServiceHandlerIAM {
 
             // Create a new IAM client with the specified access credentials.
 
-            let iamConfig = try IAMClient.IAMClientConfiguration(
+            let iamConfig = try await IAMClient.IAMClientConfiguration(
                 credentialsProvider: credentialsProvider,
                 region: self.region
             )
