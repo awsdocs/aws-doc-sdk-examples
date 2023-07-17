@@ -5,17 +5,26 @@
 
 import com.example.sqs.DeadLetterQueues;
 import com.example.sqs.LongPolling;
+import com.google.gson.Gson;
 import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.*;
 import java.io.*;
 import java.util.*;
 import com.example.sqs.*;
 
+/**
+ * To run these integration tests, you must set the required values
+ * in the config.properties file or AWS Secrets Manager.
+ */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class SQSIntegrationTest {
@@ -23,18 +32,30 @@ public class SQSIntegrationTest {
     private static SqsClient sqsClient;
 
     private static String queueName ="";
-    private static String queueUrl ="" ; // set dynamically in the test
+    private static String queueUrl ="" ;
     private static String message ="";
     private static String dlqueueName ="";
-    private static List<Message> messages = null; // set dynamically in the test
+    private static List<Message> messages = null;
 
     @BeforeAll
     public static void setUp() throws IOException {
+        Random random = new Random();
+        int randomNum = random.nextInt((10000 - 1) + 1) + 1;
         sqsClient = SqsClient.builder()
             .region(Region.US_WEST_2)
             .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
             .build();
 
+        // Get the values to run these tests from AWS Secrets Manager.
+        Gson gson = new Gson();
+        String json = getSecretValues();
+        QueueMessage queueMessage = gson.fromJson(json, QueueMessage.class);
+        queueName = queueMessage.getQueueName()+randomNum;
+        dlqueueName =  queueMessage.getDLQueueName();
+        message =  queueMessage.getMessage();
+
+        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+       /*
         try (InputStream input = SQSIntegrationTest.class.getClassLoader().getResourceAsStream("config.properties")) {
             Properties prop = new Properties();
             if (input == null) {
@@ -51,6 +72,7 @@ public class SQSIntegrationTest {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        */
     }
 
     @Test
@@ -66,7 +88,7 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void SendMessage() {
-        SendMessages.sendMessage(sqsClient,queueName, message);
+        assertDoesNotThrow(() -> SendMessages.sendMessage(sqsClient,queueName, message));
         System.out.println("Test 2 passed");
     }
 
@@ -83,7 +105,7 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void GetQueueAttributes() {
-        GetQueueAttributes.getAttributes(sqsClient, queueName);
+        assertDoesNotThrow(() ->GetQueueAttributes.getAttributes(sqsClient, queueName));
         System.out.println("Test 4 passed");
     }
 
@@ -91,7 +113,7 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void DeleteMessages() {
-        SQSExample.deleteMessages(sqsClient, queueUrl,messages );
+        assertDoesNotThrow(() -> SQSExample.deleteMessages(sqsClient, queueUrl,messages));
         System.out.println("Test 5 passed");
     }
 
@@ -99,7 +121,7 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(6)
     public void LongPolling() {
-       LongPolling.setLongPoll(sqsClient);
+       assertDoesNotThrow(() -> LongPolling.setLongPoll(sqsClient));
        System.out.println("Test 6 passed");
     }
 
@@ -107,7 +129,7 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(7)
     public void DeadLetterQueues() {
-        DeadLetterQueues.setDeadLetterQueue(sqsClient);
+        assertDoesNotThrow(() ->DeadLetterQueues.setDeadLetterQueue(sqsClient));
         System.out.println("Test 7 passed");
    }
 
@@ -115,7 +137,42 @@ public class SQSIntegrationTest {
     @Tag("IntegrationTest")
     @Order(8)
     public void DeleteQueue() {
-        DeleteQueue.deleteSQSQueue(sqsClient, queueName);
+        assertDoesNotThrow(() ->DeleteQueue.deleteSQSQueue(sqsClient, queueName));
         System.out.println("Test 8 passed");
+    }
+
+    private static String getSecretValues() {
+        SecretsManagerClient secretClient = SecretsManagerClient.builder()
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+        String secretName = "test/sqs";
+
+        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
+            .secretId(secretName)
+            .build();
+
+        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
+        return valueResponse.secretString();
+    }
+
+    @Nested
+    @DisplayName("A class used to get test values from test/sns, an AWS Secrets Manager secret")
+    class QueueMessage {
+        private String QueueName;
+        private String DLQueueName;
+        private String Message;
+
+        public String getQueueName() {
+            return QueueName;
+        }
+
+        public String getDLQueueName() {
+            return DLQueueName;
+        }
+
+        public String getMessage() {
+            return Message;
+        }
     }
 }
