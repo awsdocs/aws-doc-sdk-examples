@@ -17,7 +17,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * To run these integration tests, you need to either set the required values
+ * To run these integration tests, you must set the required values
  * in the config.properties file or AWS Secrets Manager.
  */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
@@ -74,8 +74,8 @@ public class AmazonRDSTest {
         dbInstanceClusterIdentifier = values.getDbInstanceClusterIdentifier();
         secretDBName = values.getSecretName();
 
-        // Uncomment this code block if you prefer to use a config.properties file to retrieve the AWS values required for these tests.
-        /*
+        // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+       /*
         try (InputStream input = AmazonRDSTest.class.getClassLoader().getResourceAsStream("config.properties")) {
             Properties prop = new Properties();
             if (input == null) {
@@ -347,9 +347,6 @@ public class AmazonRDSTest {
         public String getDbSnapshotIdentifierSc() {
             return dbSnapshotIdentifierSc;
         }
-
-
-
     }
 }
 
