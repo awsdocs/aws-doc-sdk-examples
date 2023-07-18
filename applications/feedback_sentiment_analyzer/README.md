@@ -27,7 +27,7 @@ Additionally, the application showcases:
 This application is deployed using the [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/).
 
 1. Navigate to [/cdk](/client)
-1. Run `npm install -i`
+1. Run `npm i`
 1. Export the following variables:
     ```bash
     FSA_NAME=foo
