@@ -21,7 +21,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.3.0"
+            from: "0.20.0"
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
@@ -45,10 +45,7 @@ let package = Package(
                 "ServiceHandler",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
-            path: "./Sources/GetRole",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Sources/GetRole"
         ),
 // snippet-end:[iam.swift.getrole.package.target.executable]
 // snippet-start:[iam.swift.getrole.package.target.handler]
@@ -67,10 +64,7 @@ let package = Package(
                 "getrole",
                 "SwiftUtilities"
             ],
-            path: "./Tests/GetRoleTests",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Tests/GetRoleTests"
         )
 // snippet-end:[iam.swift.getrole.package.target.tests]
     ]

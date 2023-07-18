@@ -21,7 +21,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.10.0"
+            from: "0.20.0"
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
@@ -47,10 +47,7 @@ let package = Package(
                 "SwiftUtilities",
                 "MovieList",
             ],
-            path: "./Sources",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Sources"
         ),
 // snippet-end:[ddb.swift.basics.package.target.executable]
 // snippet-start:[ddb.swift.basics.package.target.handler]
@@ -59,10 +56,7 @@ let package = Package(
             dependencies: [
                 .product(name: "AWSDynamoDB", package: "aws-sdk-swift"),
             ],
-            path: "./MovieList",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./MovieList"
         ),
 // snippet-end:[ddb.swift.basics.package.target.handler]
 // snippet-start:[ddb.swift.basics.package.target.tests]
@@ -74,10 +68,7 @@ let package = Package(
                 "MovieList",
                 "SwiftUtilities"
             ],
-            path: "./Tests",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Tests"
         )
 // snippet-end:[ddb.swift.basics.package.target.tests]
     ]
