@@ -1,6 +1,6 @@
 # Create a web app that invokes a Lambda function
 
-This tutorial shows you how to use the AWS SDK for JavaScript (V3) and the AWS Management Console to create and run an web application that inserts records into Amazon DynamoDB.
+This tutorial shows you how to use the AWS SDK for JavaScript (V3) and the AWS Management Console to create and run a web application that inserts records into Amazon DynamoDB.
 
 **Services used**
 
@@ -17,7 +17,7 @@ This tutorial shows you how to use the AWS SDK for JavaScript (V3) and the AWS M
 
 To build this cross-service example, you need the following:
 
-- An AWS account. For more information see [AWS SDKs and Tools Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/overview.html).
+- An AWS account. For more information, see the [AWS SDKs and Tools Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/overview.html).
 - A NodeJS environment.
 
 ## ⚠ Important
@@ -28,31 +28,31 @@ To build this cross-service example, you need the following:
 
 ## Create the resources
 
-**Note:** The links to the console in the following sections will take a best guess at your intended region. Make sure to create the resources in the same region.
+**Note:** In the following sections, the links to the console take a best guess at your intended Region. Make sure to create the resources in the same Region.
 
 ### Create an identity pool and guest role
 
-1. Open [AWS Cognito in the AWS Management Console](https://console.aws.amazon.com/cognito/).
+1. Open [Amazon Cognito in the AWS Management Console](https://console.aws.amazon.com/cognito/).
 1. Select `Identity pools` in the sidebar.
-1. Click `Create identity pool`.
-1. Check the `Guest access` box.
-1. Click `Next`.
+1. Choose `Create identity pool`.
+1. Select the `Guest access` check box.
+1. Choose `Next`.
 1. Select `Create a new IAM role`.
 1. Enter a role name in the `IAM role` field.
-1. Click `Next`.
+1. Choose `Next`.
 1. Enter a name for the identity pool.
-1. Click `Next`.
-1. Review the information and click `Create identity pool`.
+1. Choose `Next`.
+1. Review the information and choose `Create identity pool`.
 
-### Adding permissions to the guest role
+### Add permissions to the guest role
 
-1. Open [IAM in the AWS Management Console](https://console.aws.amazon.com/iam)
+1. Open [IAM in the AWS Management Console](https://console.aws.amazon.com/iam).
 2. Select `Roles` in the sidebar.
 3. Search for the guest role created in the preceding section.
-4. Click on the role link.
+4. Choose the role link.
 5. Expand the default permissions policy on the `Permissions` tab.
-6. Click the `Edit` button.
-7. Replace the existing policy JSON with the following JSON. This will allow a user with the guest role to invoke the lambda.
+6. Choose the `Edit` button.
+7. Replace the existing policy JSON with the following JSON. This allows a user with the guest role to invoke the Lambda.
 
 ```json
 {
@@ -67,22 +67,22 @@ To build this cross-service example, you need the following:
 }
 ```
 
-8. Click `Next`.
-9. Click `Save Changes`.
+8. Choose `Next`.
+9. Choose `Save Changes`.
 
-### Create an Amazon DynamoDB table
+### Create a DynamoDB table
 
 1. Open [DynamoDB in the AWS Management Console](https://console.aws.amazon.com/dynamodbv2).
-2. Click on `Create table`.
+2. Choose `Create table`.
 3. Enter `lambda-for-browser` in the `Table name` field. The name of the table must match with `TableName` in `./frontend/src/index.js`.
-4. For the `Partition key`, enter they key name `Id` and the type of `Number`.
-5. Leave the `Sort key` blank. There's no queries in this example so it's irrelevant.
-6. Leave `Default settings` selected.
-7. Click `Create table`.
+4. For the `Partition key`, enter the key name `Id` and the type of `Number`.
+5. Keep the `Sort key` blank. There are no queries in this example, so it's irrelevant.
+6. Keep `Default settings` selected.
+7. Choose `Create table`.
 
 ### Bundle the Lambda function
 
-The backend is will have access to the SDK via its runtime. Bundling is not necessary for the backend code, but it's done here so we can keep the code smaller and more organized.
+The backend will have access to the SDK through its runtime. Bundling is not necessary for the backend code, but it's done here to keep the code smaller and more organized.
 
 **Note:** The AWS SDK packages are excluded from the bundle. This is configured in `./lambda/webpack.config.js`.
 
@@ -95,17 +95,17 @@ The backend is will have access to the SDK via its runtime. Bundling is not nece
 ### Deploy the Lambda function
 
 1. Open [Lambda in the AWS Management Console](https://console.aws.amazon.com/lambda/home).
-2. Click `Create function`.
+2. Choose `Create function`.
 3. Enter the name `examplePutItem` in the `Function name` field. This name must match `FunctionName` in `frontend/src/index.js`.
 4. Expand the `Change default execution role` section.
 5. Select `Create a new role from AWS policy templates`.
 6. Enter a name in the `Role name` field.
 7. Select the `Simple microservice permissions` option to grant the Lambda function access to DynamoDB.
-8. Click `Create function`.
-9. In the `Code` tab of the function page, click on `Upload from` and select `.zip file`.
-10. Click on `Upload` and select the `.zip` file created in step 4 of [Bundle the Lambda function](#bundle-the-lambda-function).
-11. Click `Save`.
-12. You can optionally test the function in the console by clicking `Test` and providing the following `Event JSON`. If the test is successful, you will see the created record in the DynamoDB table.
+8. Choose `Create function`.
+9. In the `Code` tab of the function page, choose `Upload from` and select `.zip file`.
+10. Choose `Upload` and select the `.zip` file created in step 4 of [Bundle the Lambda function](#bundle-the-lambda-function).
+11. Choose `Save`.
+12. (Optional) Test the function in the console by choosing `Test` and providing the following `Event JSON`. If the test is successful, you will see the created record in the DynamoDB table.
 
 ```json
 {
@@ -120,10 +120,10 @@ The backend is will have access to the SDK via its runtime. Bundling is not nece
 
 ## Bundle and run the frontend
 
-The frontend code must be bundled in order to include the browser compatible SDK for JavaScript.
+The frontend code must be bundled in order to include the browser-compatible AWS SDK for JavaScript.
 
 1. Replace `IDENTITY_POOL_ID` in `frontend/src/lambdaClient.js` with the ID of the identity pool created in [Create an Identity pool and guest role](#create-an-identity-pool-and-guest-role).
-2. Replace `REGION` in `frontend/src/lambdaClient.js` with the region that is hosting the resources for this example.
+2. Replace `REGION` in `frontend/src/lambdaClient.js` with the Region that is hosting the resources for this example.
 3. `cd frontend`
 4. `npm i`
 5. `npm run build`
@@ -133,7 +133,7 @@ The frontend code must be bundled in order to include the browser compatible SDK
 
 ![application form](./app01.png)
 
-9. Click `Submit`.
+9. Choose `Submit`.
 10. If the insertion was successful, you should see a success message.
 
 ![insertion success](./app02.png)
