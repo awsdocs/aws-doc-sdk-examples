@@ -34,7 +34,7 @@ const myFunction = async () => {
     alert("Success. Data added to table.");
     console.log("Success, payload", data);
   } catch (err) {
-    alert("Oops and error occurred.");
+    alert("Oops an error occurred.");
     console.log("Error", err);
   }
 };
