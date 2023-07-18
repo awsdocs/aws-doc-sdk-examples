@@ -26,13 +26,17 @@ Additionally, the application showcases:
 ## Deployment instructions
 This application is deployed using the [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/).
 
+1. Navigate to [/cdk](/client)
+1. Run `npm install -i`
+1. Export the following variables:
+    ```bash
+    FSA_NAME=foo
+    FSA_EMAIL=your@email.com
+    FSA_LANG=bar
+    ```
+1. Run `cdk deploy`
 
-
-3. [Backend](#infrastructure)
-1. [Frontend](#client)
-
-### Infrastructure
-To
-
-### Client
-To deploy Navigate to [/client](/client) and run `cdk deploy`
+## Application usage
+Once deployed, observe the `Output` in your terminal session.
+Copy the CloudFront distribution URL, which will have `websiteurl` in the name.
+Paste this URL into a browser session and begin uploading images representing comments.
