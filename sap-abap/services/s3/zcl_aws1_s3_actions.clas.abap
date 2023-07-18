@@ -3,51 +3,51 @@
 " "  Reserved.
 " "  SPDX-License-Identifier: MIT-0
 " """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-class ZCL_AWS1_S3_ACTIONS definition
-  public
-  final
-  create public .
+CLASS zcl_aws1_s3_actions DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  methods CREATE_BUCKET
-    importing
-      !IV_BUCKET_NAME type /AWS1/S3_BUCKETNAME .
-  methods PUT_OBJECT
-    importing
-      !IV_BUCKET_NAME type /AWS1/S3_BUCKETNAME
-      !IV_FILE_NAME type /AWS1/S3_OBJECTKEY .
-  methods GET_OBJECT
-    importing
-      !IV_BUCKET_NAME type /AWS1/S3_BUCKETNAME
-      !IV_OBJECT_KEY type /AWS1/S3_OBJECTKEY
-    exporting
-      !OO_RESULT type ref to /AWS1/CL_S3_GETOBJECTOUTPUT .
-  methods COPY_OBJECT
-    importing
-      !IV_DEST_BUCKET type /AWS1/S3_BUCKETNAME
-      !IV_DEST_OBJECT type /AWS1/S3_OBJECTKEY
-      !IV_SRC_BUCKET type /AWS1/S3_BUCKETNAME
-      !IV_SRC_OBJECT type /AWS1/S3_OBJECTKEY .
-  methods LIST_OBJECTS
-    importing
-      !IV_BUCKET_NAME type /AWS1/S3_BUCKETNAME
-    exporting
-      !OO_RESULT type ref to /AWS1/CL_S3_LISTOBJECTSOUTPUT .
-  methods DELETE_OBJECT
-    importing
-      !IV_BUCKET_NAME type /AWS1/S3_BUCKETNAME
-      !IV_OBJECT_KEY type /AWS1/S3_OBJECTKEY .
-  methods DELETE_BUCKET
-    importing
-      !IV_BUCKET_NAME type /AWS1/S3_BUCKETNAME .
-  methods LIST_OBJECTS_V2
-    importing
-      !IV_BUCKET_NAME type /AWS1/S3_BUCKETNAME
-    exporting
-      !OO_RESULT type ref to /AWS1/CL_S3_LISTOBJSV2OUTPUT .
-protected section.
-private section.
+    METHODS create_bucket
+      IMPORTING
+        !iv_bucket_name TYPE /aws1/s3_bucketname .
+    METHODS put_object
+      IMPORTING
+        !iv_bucket_name TYPE /aws1/s3_bucketname
+        !iv_file_name   TYPE /aws1/s3_objectkey .
+    METHODS get_object
+      IMPORTING
+        !iv_bucket_name TYPE /aws1/s3_bucketname
+        !iv_object_key  TYPE /aws1/s3_objectkey
+      EXPORTING
+        !oo_result      TYPE REF TO /aws1/cl_s3_getobjectoutput .
+    METHODS copy_object
+      IMPORTING
+        !iv_dest_bucket TYPE /aws1/s3_bucketname
+        !iv_dest_object TYPE /aws1/s3_objectkey
+        !iv_src_bucket  TYPE /aws1/s3_bucketname
+        !iv_src_object  TYPE /aws1/s3_objectkey .
+    METHODS list_objects
+      IMPORTING
+        !iv_bucket_name TYPE /aws1/s3_bucketname
+      EXPORTING
+        !oo_result      TYPE REF TO /aws1/cl_s3_listobjectsoutput .
+    METHODS delete_object
+      IMPORTING
+        !iv_bucket_name TYPE /aws1/s3_bucketname
+        !iv_object_key  TYPE /aws1/s3_objectkey .
+    METHODS delete_bucket
+      IMPORTING
+        !iv_bucket_name TYPE /aws1/s3_bucketname .
+    METHODS list_objects_v2
+      IMPORTING
+        !iv_bucket_name TYPE /aws1/s3_bucketname
+      EXPORTING
+        !oo_result      TYPE REF TO /aws1/cl_s3_listobjsv2output .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
 ENDCLASS.
 
 
@@ -185,7 +185,7 @@ CLASS ZCL_AWS1_S3_ACTIONS IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD LIST_OBJECTS_V2.
+  METHOD list_objects_v2.
     CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
