@@ -26,7 +26,7 @@ Additionally, the application showcases:
 ## Deployment instructions
 This application is deployed using the [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/).
 
-1. Navigate to [/cdk](/client)
+1. `cd cdk`
 1. Run `npm i`
 1. Export the following variables:
     ```bash
