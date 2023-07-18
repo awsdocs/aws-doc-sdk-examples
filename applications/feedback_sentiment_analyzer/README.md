@@ -11,7 +11,7 @@ The underlying business logic has been implemented in the following AWS SDKs:
 
 ## AWS services used
 
-This application uses a suite of [machine learning on AWS](https://aws.amazon.com/machine-learning/) to:
+This application uses a suite of [machine learning services on AWS](https://aws.amazon.com/machine-learning/) to:
 * extract text using [Amazon Textract](https://aws.amazon.com/textract/).
 * detect sentiment using [Amazon Comprehend](https://aws.amazon.com/comprehend/).
 * translate to French using [Amazon Translate](https://aws.amazon.com/translate/).
