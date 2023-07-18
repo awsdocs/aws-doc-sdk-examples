@@ -12,7 +12,7 @@ import { Function } from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
 import { DownloadModel, Empty, UploadModel } from "./app-api-models";
 import { Bucket } from "aws-cdk-lib/aws-s3";
-import { PolicyStatement, Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
+import { Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 
 export interface AppRoutesProps {
   api: RestApi;
