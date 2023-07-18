@@ -98,7 +98,12 @@ export class AppStack extends Stack {
         allowOrigins: Cors.ALL_ORIGINS,
         allowCredentials: true,
       },
-      binaryMediaTypes: ["image/jpeg", "image/png"],
+      binaryMediaTypes: [
+        "image/jpeg",
+        "image/png",
+        "binary/octet-stream",
+        "audio/mp3",
+      ],
       cloudWatchRole: true,
       deployOptions: {
         // These settings require extra permissions. See https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-logging.html
