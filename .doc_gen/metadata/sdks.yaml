@@ -98,7 +98,7 @@ JavaScript:
       api_ref:
         uid: "AWSJavaScriptSDKV3"
         name: "&guide-jsb-api;"
-        link_template: "AWSJavaScriptSDK/v3/latest/clients/client-{{.Service}}/classes/{{.ActionLower}}command.html"
+        link_template: "AWSJavaScriptSDK/v3/latest/client/{{.Service}}/command/{{.Action}}Command"
   guide: "&guide-jsb-dev;"
 Kotlin:
   property: kotlin
