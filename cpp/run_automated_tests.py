@@ -32,6 +32,7 @@ import getopt
 import glob
 import re
 import datetime
+import sys
 
 
 def build_tests(service="*"):
@@ -65,6 +66,9 @@ def build_tests(service="*"):
         if cmake_args is not None:
             cmake_command.append(cmake_args)
         cmake_command.append(os.path.join(base_dir, source_dir))
+
+        if sys.platform == "win32":
+            cmake_command.append('-DBIN_SUB_DIR=/Debug') 
 
         result_code = subprocess.call(cmake_command, shell=False)
         if result_code != 0 :
