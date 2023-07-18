@@ -1,0 +1,37 @@
+# Feedback Sentiment Analyzer (FSA)
+
+Feedback Sentiment Analyzer (FSA) is an example application that showcases AWS services and SDKs.
+
+Specifically, it solves a ficticious use case of a hotel in Paris, France, which receives feedback from guests in a variety of foreign languages.
+
+## AWS services used
+
+This application uses a suite of [machine learning on AWS](https://aws.amazon.com/machine-learning/) to:
+* extract text using [Amazon Textract](https://aws.amazon.com/textract/).
+* detect sentiment using [Amazon Comprehend](https://aws.amazon.com/comprehend/).
+* translate to French using [Amazon Translate](https://aws.amazon.com/translate/).
+* synthesize to human-like speech using [Amazon Polly](https://aws.amazon.com/polly/).
+
+Additionally, the application showcases:
+* [Amazon S3]() to store images of comment cards
+* [AWS Lambda]() to execute business logic
+* [Step Functions]() to orchestrate multiple Lambda functions 
+* [Amazon DynamoDB]() to store details about each comment
+
+## SDKs used
+The underlying business logic has been implemented in the following AWS SDKs:
+* [Ruby](https://aws.amazon.com/sdk-for-ruby/)
+
+## Deployment instructions
+This application is deployed using the [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/).
+
+
+
+3. [Backend](#infrastructure)
+1. [Frontend](#client)
+
+### Infrastructure
+To
+
+### Client
+To deploy Navigate to [/client](/client) and run `cdk deploy`
