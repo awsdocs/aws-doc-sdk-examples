@@ -9,7 +9,7 @@ cross_FSA:
     Ruby:
       versions:
         - sdk_version: 3
-          block_content: cross_FSA_Ruby_Block.xml
+          block_content: cross_FSA_Ruby_block.xml
   service_main: textract
   services:
     lambda:
