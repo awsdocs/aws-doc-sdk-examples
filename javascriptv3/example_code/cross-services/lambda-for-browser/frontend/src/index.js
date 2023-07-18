@@ -12,29 +12,30 @@ main.js is the JavaScript for an example demonstrating how to trigger an AWS Lam
 
 // Import required AWS SDK clients and commands for Node.js.
 import { InvokeCommand } from "@aws-sdk/client-lambda";
-import { lambdaClient } from "../libs/lambdaClient";
+import { lambdaClient } from "./lambdaClient.js";
 
 const myFunction = async () => {
-  const color = document.getElementById("c1").value
-  const pattern = document.getElementById("p1").value
+  const color = document.getElementById("c1").value;
+  const pattern = document.getElementById("p1").value;
   const id = Math.floor(Math.random() * (10000 - 1 + 1)) + 1;
   const params = {
-    FunctionName: 'forPathryusha_v3', /* required */
-    Payload: JSON.stringify( { Item: {
+    FunctionName: "examplePutItem",
+    Payload: JSON.stringify({
+      Item: {
         Id: id,
         Color: color,
-        Pattern: pattern
+        Pattern: pattern,
       },
-      TableName: "DesignRequests",
-    })
+      TableName: "lambda-for-browser",
+    }),
   };
-  try{
-  const data = await lambdaClient.send(new InvokeCommand(params));
-  alert("Success. Data added to table.");
-    console.log('Success, payload', data);
-} catch (err) {
-    alert("Oops and error occurred.");
-  console.log("Error", err);
+  try {
+    const data = await lambdaClient.send(new InvokeCommand(params));
+    alert("Success. Data added to table.");
+    console.log("Success, payload", data);
+  } catch (err) {
+    alert("Oops an error occurred.");
+    console.log("Error", err);
   }
 };
 

@@ -1,12 +1,13 @@
-#  Creating a browser-based application that passes user selections to an AWS Lambda function
+# Create a web app that invokes a Lambda function
 
-You can create a browser-based application that passes user selections to an AWS Lambda function, and triggers the Lambda function.
+This tutorial shows you how to use the AWS SDK for JavaScript (V3) and the AWS Management Console to create and run a web application that inserts records into Amazon DynamoDB.
 
+**Services used**
 
-This tutorial shows you how to use the AWS SDK for JavaScript V3 API to invoke these AWS services:
-
+- Amazon Cognito
 - AWS Lambda
 - Amazon DynamoDB
+- AWS Identity and Access Management (IAM)
 
 **Cost to complete**: The AWS services included in this document are included in the [AWS Free Tier](https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc).
 
@@ -16,318 +17,123 @@ This tutorial shows you how to use the AWS SDK for JavaScript V3 API to invoke t
 
 To build this cross-service example, you need the following:
 
-* An AWS account. For more information see [AWS SDKs and Tools Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/overview.html).
-* A project environment to run this Node JavaScript example, and install the required AWS SDK for JavaScript and third-party modules.  For instructions, see [Create a Node.js project environment](#create-a-nodejs-project-environment) on this page.
-* At least one email address verified on Amazon SES. For instructions, see [Verifying an email address on Amazon SES](#verifying-an-email-address-on-amazon-ses).
-* The following AWS resources:
-    - An unauthenticated AWS Identity and Access Management (IAM) user role with required permissions (described below).
-    - An Amazon DynamoDB table named **PPE** with a key named **id**.
-      **Note**: An unauthenticated role enables you to provide permissions to unauthenticated users to use the AWS Services. To create an authenticated role, see [Amazon Cognito Identity Pools (Federated Identities)](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).
-
+- An AWS account. For more information, see the [AWS SDKs and Tools Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/overview.html).
+- A NodeJS environment.
 
 ## ⚠ Important
-* We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the *AWS Identity and Access Management User Guide*.
-* This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-* Running this code might result in charges to your AWS account. We recommend you destroy the resources when you are finished. For instructions, see [Destroying the resources](#destroying-the-resources).
-* This tutorial is written to work with the specific versions defined in the *package.json*. If you change these versions, the tutorial may not work correctly.
+
+- We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the _AWS Identity and Access Management User Guide_.
+- This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account. We recommend you destroy the resources when you are finished.
 
 ## Create the resources
-You can create the AWS resources required for this cross-service example the [AWS Management Console](#create-the-resources-using-the-aws-management-console)
 
-#### Create an unauthenticated user role
-1. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
-2. Choose **Manage Identity Pools**.
-3. Choose **Create new identity pool**.
-4. In the **Identity pool name** field, give your identity pool a name.
-5. Select the **Enable access to unauthenticated identities** checkbox.
-6. Choose **Create Pool**.
-7. Choose **Allow**.
-8. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section, and choose **Edit identity pool**. 
-9. Take note of the name of the role in the **Unauthenticated role** field.
+**Note:** In the following sections, the links to the console take a best guess at your intended Region. Make sure to create the resources in the same Region.
 
-#### Adding permissions to an unauthenticated user role
-1. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the *Roles* page.
-2. Search for the unauthenticated role you just created.
-3. Open the role.
-4. Click the down arrow beside the policy name.
-5. Choose **Edit Policy**.
-6. Choose the **JSON** tab.
-7. Delete the existing content, and paste the code below into it.
+### Create an identity pool and guest role
+
+1. Open [Amazon Cognito in the AWS Management Console](https://console.aws.amazon.com/cognito/).
+1. Select `Identity pools` in the sidebar.
+1. Choose `Create identity pool`.
+1. Select the `Guest access` check box.
+1. Choose `Next`.
+1. Select `Create a new IAM role`.
+1. Enter a role name in the `IAM role` field.
+1. Choose `Next`.
+1. Enter a name for the identity pool.
+1. Choose `Next`.
+1. Review the information and choose `Create identity pool`.
+
+### Add permissions to the guest role
+
+1. Open [IAM in the AWS Management Console](https://console.aws.amazon.com/iam).
+2. Select `Roles` in the sidebar.
+3. Search for the guest role created in the preceding section.
+4. Choose the role link.
+5. Expand the default permissions policy on the `Permissions` tab.
+6. Choose the `Edit` button.
+7. Replace the existing policy JSON with the following JSON. This allows a user with the guest role to invoke the Lambda.
+
 ```json
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Action": "dynamodb:PutItem",
-      "Resource": "*",
-      "Effect": "Allow"
-    },
     {
       "Action": "lambda:InvokeFunction",
       "Resource": "*",
       "Effect": "Allow"
-    },
-    {
-      "Effect": "Allow",
-      "Action": "iam:PassRole",
-      "Resource": "*",
-      "Condition": {
-        "StringEquals": {
-          "iam:PassedToService": "lambda.amazonaws.com"
-        }
-      }
     }
   ]
 }
 ```
-8. Choose **Review Policy**.
-9. Choose **Save Changes**.
 
-#### Update trust policy
-You should update your IAM role's trust policy.
+8. Choose `Next`.
+9. Choose `Save Changes`.
 
-1. Open the IAM Management Console.
-2. Choose **Roles**.
-3. Choose the IAM role you created above.
-4. Choose the **Trust relationships** tab.
-5. Choose **Edit test relationships**.
-6. Modify the trust relationships as below. Replace **IDENTITY_POOL_ID** with the identity pool id you created above, 
-and **USER_ARN** with the Amazon Resource Name (ARN) of your Amazon user.
+### Create a DynamoDB table
+
+1. Open [DynamoDB in the AWS Management Console](https://console.aws.amazon.com/dynamodbv2).
+2. Choose `Create table`.
+3. Enter `lambda-for-browser` in the `Table name` field. The name of the table must match with `TableName` in `./frontend/src/index.js`.
+4. For the `Partition key`, enter the key name `Id` and the type of `Number`.
+5. Keep the `Sort key` blank. There are no queries in this example, so it's irrelevant.
+6. Keep `Default settings` selected.
+7. Choose `Create table`.
+
+### Bundle the Lambda function
+
+The backend will have access to the SDK through its runtime. Bundling is not necessary for the backend code, but it's done here to keep the code smaller and more organized.
+
+**Note:** The AWS SDK packages are excluded from the bundle. This is configured in `./lambda/webpack.config.js`.
+
+1. Replace `IDENTITY_POOL_ID` in `lambda/src/ddbClient.js` with the ID of the identity pool created in [Create an Identity pool and guest role](#create-an-identity-pool-and-guest-role).
+2. `cd lambda`
+3. `npm i`
+4. `npm run build`
+5. Create a compressed `.zip` file from `lambda/dist/index.mjs`.
+
+### Deploy the Lambda function
+
+1. Open [Lambda in the AWS Management Console](https://console.aws.amazon.com/lambda/home).
+2. Choose `Create function`.
+3. Enter the name `examplePutItem` in the `Function name` field. This name must match `FunctionName` in `frontend/src/index.js`.
+4. Expand the `Change default execution role` section.
+5. Select `Create a new role from AWS policy templates`.
+6. Enter a name in the `Role name` field.
+7. Select the `Simple microservice permissions` option to grant the Lambda function access to DynamoDB.
+8. Choose `Create function`.
+9. In the `Code` tab of the function page, choose `Upload from` and select `.zip file`.
+10. Choose `Upload` and select the `.zip` file created in step 4 of [Bundle the Lambda function](#bundle-the-lambda-function).
+11. Choose `Save`.
+12. (Optional) Test the function in the console by choosing `Test` and providing the following `Event JSON`. If the test is successful, you will see the created record in the DynamoDB table.
+
 ```json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Federated": "cognito-identity.amazonaws.com"
-      },
-      "Action": "sts:AssumeRoleWithWebIdentity",
-      "Condition": {
-        "StringEquals": {
-          "cognito-identity.amazonaws.com:aud": "IDENTITY_POOL_ID"
-        },
-        "ForAnyValue:StringLike": {
-          "cognito-identity.amazonaws.com:amr": "unauthenticated"
-        }
-      }
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "USER_ARN"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
+  "Item": {
+    "Id": 1001,
+    "Color": "tangerine",
+    "Pattern": "solid"
+  },
+  "TableName": "lambda-for-browser"
 }
 ```
-#### Create an Amazon DynamoDB table
-Create an Amazon DynamoDB table called 'DesignRequests', with the following attributes:
-- Id (Number)
-- Color (String)
-- Pattern (String)
 
-For more information, see [Creating a table](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/dynamodb/src/ddb_createtable.js) 
-and [Load sample data](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/javascriptv3/example_code/dynamodb/src/ddb_putitem.js).
+## Bundle and run the frontend
 
+The frontend code must be bundled in order to include the browser-compatible AWS SDK for JavaScript.
 
-## Create a Node.js project environment
+1. Replace `IDENTITY_POOL_ID` in `frontend/src/lambdaClient.js` with the ID of the identity pool created in [Create an Identity pool and guest role](#create-an-identity-pool-and-guest-role).
+2. Replace `REGION` in `frontend/src/lambdaClient.js` with the Region that is hosting the resources for this example.
+3. `cd frontend`
+4. `npm i`
+5. `npm run build`
+6. Launch an HTTP server at `dist`. For example, `npx http-server ./dist`.
+7. Navigate to the address of the server in your browser.
+8. Choose a color and pattern.
 
-1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment.
-   See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for
-   instructions.
+![application form](./app01.png)
 
-2. Run the following commands in sequence in the AWS CLI command line to install the AWS service client modules and third-party modules listed in the *package.json*:
+9. Choose `Submit`.
+10. If the insertion was successful, you should see a success message.
 
-```
-npm install node -g
-cd javascriptv3/example_code/cross-services/lambda-for-browser
-npm install
-```
-## Building the code
-This app runs from the browser, so we create the interface using HTML and CSS.
-The app uses JavaScript to provide basic interactive features, and Node.js to invoke the AWS Services.
-
-### Creating the HTML
-In **index.html**, the **head** section loads the **main.js**, which contains the following JavaScript and Node.js functions used in the app.
-
-**Note**: **main.js** is a bundled file containing all the required JavaScript. You'll create this later in the tutorial.
-
-The remaining code defines the interface features, including a table and buttons.
-
-```html
-<!DOCTYPE html>
-<head>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1044.0.min.js"></script>
-    <script type = "text/javascript" src="./frontend-js/main.js"></script>
-</head>
-<body>
-<br>    <!--<form action="/myform" method="GET"> -->
-<form action="#">
-    <div align = "Center">
-        <br>      <label for="skill"><b>Choose a colour and pattern</b></label>      <br>
-        <select name="colours" id="c1">
-            <option value="red">Red</option>
-            <option value="orange">Orange</option>
-            <option value="yellow">Yellow</option>
-            <option value="green">Green</option>
-            <option value="blue">Blue</option>
-            <option value="indigo">Indigo</option>
-            <option value="violet">Violet</option>
-        </select>
-        <select name="pattern" id="p1">
-            <option value="floral">Floral</option>
-            <option value="floral">Floral</option>
-            <option value="modern">Modern</option>
-            <option value="paisley">Paisley</option>
-            <option value="plain">Plain</option>
-            <option value="plush">Plush</option>
-            <option value="squares">Squares</option>
-            <option value="stripes">Stripes</option>
-        </select>
-        <br>
-</form>
-<button type="button" onclick= "myFunction();">Submit</button>
-</body>
-</html>
-```
-### Creating the JavaScript
-
-There are three JavaScript folders:
-- **libs**
-- **backend-js**
-- **frontend-js**
-
-#### libs
-The **libs** folders contains a file for each of the AWS Service clients required. You must
-replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the Amazon Cognito identity pool id
-you created in [Create the resources](#create-the-resources) on this page. Here's an example of one of these client configuration files:
-
- ```javascript
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
-import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-
-// Set the AWS Region.
-const REGION = "REGION"; // e.g., 'us-east-2'
-const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool ID.
-
-// Create an Amazon DynamoDB client service object that initializes the Amazon Cognito credentials provider.
-const ddbClient = new DynamoDBClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID,
-    }),
-});
-export { ddbClient };
-export { REGION };
-```
-#### backend-js
-**index.js** is the AWS Lambda function. It uses the Amazon DynamoDB Document client to pass the user's browser selections to a
-DynamoDB table. 
-```javascript
-'use strict'
-
-console.log('Loading function');
-
-// Import required AWS SDK clients and commands for Node.js.
-import { PutCommand } from "@aws-sdk/lib-dynamodb";
-import { ddbDocClient } from "../libs/ddbDocClient";
-
-exports.handler = async(event, context) => {
-
-    const params = {
-        Item: {
-            Id: event.Item.Id,
-            Color: event.Item.Color,
-            Pattern: event.Item.Pattern
-        },
-        TableName: event.TableName
-    };
-
-    try {
-        const data = await ddbDocClient.send(new PutCommand(params));
-        console.log("Adding data to dynamodb...");
-        console.log("Added item:", JSON.stringify(data, null, 2));
-    } catch (err) {
-        console.error(
-            "Unable to add item. Error JSON:",
-            JSON.stringify(err, null, 2)
-        );
-    }
-};
-```
-Use Webpack to bundle the required AWS SDK modules and this file into a single file.
-```
-cd javascriptv3/example_code/cross-services/lambda-for-browser
-npm run build:backend
-```
-This outputs **main.js**, which you compress into a ZIP file. Then create a Lambda function using this ZIP file as follows:
-1. Open the AWS Lambda Management Console.
-2. Choose **Create function**.
-3. Enter a function name.
-4. Choose **Create function**.
-5. In the **Code Source** panel, select **Upload from** - **.zip file**.
-6. Navigate to and select the ZIP file you compressed.
-
-Your Lambda function is displayed.
-
-
-#### frontend-js
-**main.js** contains the JavaScript function that invokes the Lambda function. It is triggered when the user clicks the button on 
-the UI of the app. 
-```javascript
-// Import required AWS SDK clients and commands for Node.js.
-import { InvokeCommand } from "@aws-sdk/client-lambda";
-import { lambdaClient } from "../libs/lambdaClient";
-
-const myFunction = async () => {
-  const color = document.getElementById("c1").value
-  const pattern = document.getElementById("p1").value
-  const id = Math.floor(Math.random() * (10000 - 1 + 1)) + 1;
-  const params = {
-    FunctionName: 'forPathryusha_v3', /* required */
-    Payload: JSON.stringify( { Item: {
-        Id: id,
-        Color: color,
-        Pattern: pattern
-      },
-      TableName: "DesignRequests",
-    })
-  };
-  try{
-  const data = await lambdaClient.send(new InvokeCommand(params));
-  alert("Success. Data added to table.");
-    console.log('Success, payload', data);
-} catch (err) {
-    alert("Oops and error occurred.");
-  console.log("Error", err);
-  }
-};
-
-// Make the function available to the browser window.
-window.myFunction = myFunction;
-```
-Use Webpack to bundle the required AWS SDK modules and this file into a single file.
-```
-cd javascriptv3/example_code/cross-services/lambda-for-browser
-npm run build:frontend
-```
-This outputs **main.js**, which is referenced in the HTML file.
-
-## Run the app
-Open the index.html in your favorite browser, and follow the onscreen instructions.
-
-### Next steps
-Congratulations! You have created and deployed the AWS Lambda Browser application.
-For more AWS multiservice examples, see
-[cross-services](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services).
+![insertion success](./app02.png)
