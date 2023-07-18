@@ -4,6 +4,11 @@ Feedback Sentiment Analyzer (FSA) is an example application that showcases AWS s
 
 Specifically, it solves a ficticious use case of a hotel in Paris, France, which receives feedback from guests in a variety of foreign languages.
 
+## SDKs this application is implemented in
+The underlying business logic has been implemented in the following AWS SDKs:
+* [Ruby](../../ruby/cross-services/feedback-sentiment-analyzer/README.md)
+
+
 ## AWS services used
 
 This application uses a suite of [machine learning on AWS](https://aws.amazon.com/machine-learning/) to:
@@ -17,10 +22,6 @@ Additionally, the application showcases:
 * [AWS Lambda]() to execute business logic
 * [Step Functions]() to orchestrate multiple Lambda functions 
 * [Amazon DynamoDB]() to store details about each comment
-
-## SDKs used
-The underlying business logic has been implemented in the following AWS SDKs:
-* [Ruby](https://aws.amazon.com/sdk-for-ruby/)
 
 ## Deployment instructions
 This application is deployed using the [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/).
