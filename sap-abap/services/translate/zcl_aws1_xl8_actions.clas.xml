@@ -35,13 +35,13 @@
      <CLSNAME>ZCL_AWS1_XL8_ACTIONS</CLSNAME>
      <CMPNAME>STOP_TEXT_TRANSLATION_JOB</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Stops an asynchronous batch translation job that is in progress.</DESCRIPT>
+     <DESCRIPT>Stops an asynchronous batch translation job that is in progr</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_XL8_ACTIONS</CLSNAME>
      <CMPNAME>TRANSLATE_TEXT</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Translates input text from the source language to the target.</DESCRIPT>
+     <DESCRIPT>Translates input text from the source language to the target</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>
