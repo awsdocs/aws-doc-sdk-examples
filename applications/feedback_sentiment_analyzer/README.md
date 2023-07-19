@@ -11,10 +11,8 @@ These comment cards are:
 * and rendered through the same web client
 
 ## SDK implementations
-The underlying business logic has been implemented in the following AWS SDKs:
+This application has been implemented in the following AWS SDKs. Choose your language to explore, download, deploy, and run:
 * [Ruby](../../ruby/cross-services/feedback-sentiment-analyzer/README.md)
-
-See [DEVELOPMENT.md](DEVELOPMENT.md) for instructions to implement this logic in an additional [supported SDK](https://aws.amazon.com/developer/tools/).
 
 ## AWS services used
 
@@ -37,8 +35,8 @@ Additionally, the application showcases:
 ## Deployment instructions
 This application is deployed using the [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/).
 
-1. `cd cdk`
-1. Run `npm i`
+1. Run `cd cdk`
+1. Run `npm install`
 1. Export the following variables:
     ```bash
     FSA_NAME=foo
@@ -51,3 +49,4 @@ This application is deployed using the [AWS Cloud Development Kit (CDK)](https:/
 Once deployed, observe the `Output` in your terminal session.
 Copy the CloudFront distribution URL, which will have `websiteurl` in the name.
 Paste this URL into a browser session and begin uploading images representing comments.
+
