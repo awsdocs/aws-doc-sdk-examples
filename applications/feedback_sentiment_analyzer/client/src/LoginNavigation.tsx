@@ -34,7 +34,7 @@ function LoginNavigation({ title }: LoginNavigationProps) {
     <TopNavigation
       identity={{ title, href: "#" }}
       i18nStrings={{
-        overflowMenuTitleText: "All",
+        overflowMenuTitleText: "Menu",
         overflowMenuTriggerText: "More",
       }}
       utilities={[
