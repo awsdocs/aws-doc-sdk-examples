@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
@@ -48,6 +48,12 @@
      <CMPNAME>LIST_OBJECTS</CMPNAME>
      <LANGU>E</LANGU>
      <DESCRIPT>List objects in the bucket.</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_S3_ACTIONS</CLSNAME>
+     <CMPNAME>LIST_OBJECTS_V2</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>List objects in the bucket with V2 method.</DESCRIPT>
     </SEOCOMPOTX>
     <SEOCOMPOTX>
      <CLSNAME>ZCL_AWS1_S3_ACTIONS</CLSNAME>
