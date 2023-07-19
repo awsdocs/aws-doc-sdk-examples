@@ -1,6 +1,6 @@
 # Feedback Sentiment Analyzer (FSA)
 
-Feedback Sentiment Analyzer (FSA) is an example application that showcases AWS services and SDKs. Built with ❤️ for you to explore, download, and deploy on your own!
+Feedback Sentiment Analyzer (FSA) is an example application that showcases AWS services and SDKs. Built with ❤️ for you to explore, download, and deploy for business or pleasure.
 
 ## What it does
 Specifically, this application solves a ficticious use case of a hotel in Paris, France, which receives feedback from guests via comment cards in a variety of foreign languages.
@@ -82,6 +82,8 @@ To begin uploading images:
 3. Reset your password as prompted.
 
 ### Upload images
+Log in directs you to a landing page that says `No data found`.
+![](no-data-found.png)
 
 
 
