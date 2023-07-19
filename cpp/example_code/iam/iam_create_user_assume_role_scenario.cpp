@@ -70,7 +70,7 @@ namespace AwsDoc {
                                           const Aws::IAM::Model::Policy &policy);
     }
 
-    static const int LIST_BUCKETS_WAIT_SEC = 60;
+    static const int LIST_BUCKETS_WAIT_SEC = 20;
 
     static const char ALLOCATION_TAG[] = "example_code";
 }
