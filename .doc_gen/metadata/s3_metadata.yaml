@@ -1169,7 +1169,7 @@ s3_ListObjects:
           excerpts:
             - description:
               snippet_tags:
-                - s3.abapv1.list_objects
+                - s3.abapv1.list_objects_v2
     Swift:
       versions:
         - sdk_version: 1

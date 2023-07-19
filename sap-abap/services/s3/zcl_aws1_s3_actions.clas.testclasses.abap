@@ -21,6 +21,7 @@ CLASS ltc_zcl_aws1_s3_actions DEFINITION FOR TESTING  DURATION SHORT RISK LEVEL 
       get_object FOR TESTING RAISING /aws1/cx_rt_generic,
       copy_object FOR TESTING RAISING /aws1/cx_rt_generic,
       list_objects FOR TESTING RAISING /aws1/cx_rt_generic,
+      list_objects_v2 FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_object FOR TESTING RAISING /aws1/cx_rt_generic,
       delete_bucket FOR TESTING RAISING /aws1/cx_rt_generic.
 
@@ -199,6 +200,41 @@ CLASS ltc_zcl_aws1_s3_actions IMPLEMENTATION.
 
     DATA lo_list TYPE REF TO /aws1/cl_s3_listobjectsoutput.
     ao_s3_actions->list_objects(
+      EXPORTING
+        iv_bucket_name = cv_bucket
+      IMPORTING
+        oo_result = lo_list
+    ).
+
+    DATA lv_found TYPE abap_bool VALUE abap_false.
+    LOOP AT lo_list->get_contents( ) INTO DATA(lo_object).
+      IF lo_object->get_key( ) = cv_file.
+        lv_found = abap_true.
+      ENDIF.
+    ENDLOOP.
+
+    cl_abap_unit_assert=>assert_true(
+      act = lv_found
+      msg = |Could not find object { cv_file } in the list|
+    ).
+
+    ao_s3->deleteobject( iv_bucket = cv_bucket iv_key = cv_file ).
+    ao_s3->deletebucket( iv_bucket = cv_bucket ).
+    delete_file( iv_file = cv_file ).
+
+  ENDMETHOD.
+
+  METHOD list_objects_v2.
+    CONSTANTS cv_bucket TYPE /aws1/s3_bucketname VALUE 'code-example-list-objects'.
+    ao_s3->createbucket( iv_bucket = cv_bucket ).
+
+    CONSTANTS cv_file TYPE /aws1/s3_objectkey VALUE 'list_objects_ex_file1'.
+    create_file( iv_file = cv_file ).
+
+    put_file_in_bucket( iv_bucket = cv_bucket iv_file = cv_file ).
+
+    DATA lo_list TYPE REF TO /AWS1/CL_S3_LISTOBJSV2OUTPUT.
+    ao_s3_actions->list_objects_v2(
       EXPORTING
         iv_bucket_name = cv_bucket
       IMPORTING
