@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      <LoginNavigation title="Analyseur de sentiments de feedback" />
+      <LoginNavigation title="Feedback sentiment analyzer" />
       <AppLayout
         toolsHide={true}
         navigationHide={true}
