@@ -49,7 +49,8 @@ The [hello_s3.cpp](hello_s3.cpp) file contains the C++ source code, including a 
 
 * [Amazon S3 Developer Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide//Welcome.html)
 * [Amazon S3 API Reference](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
-* [SDK for C++ Amazon S3 reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-s3/html/annotated.html)
+* [Amazon S3 C++ API Reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-s3/html/annotated.html)
+* [AWS SDK for C++ Developer Guide](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/welcome.html)
 
 ---
 

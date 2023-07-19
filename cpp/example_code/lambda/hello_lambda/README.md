@@ -1,8 +1,8 @@
-# Hello IAM for the SDK for C++
+# Hello Lambda for the SDK for C++
 
 ## Overview
 
-This folder provides a CMake "Hello IAM" project that uses the AWS SDK for C++ to call AWS Identity and Access Management (IAM).
+This folder provides a CMake "Hello Lambda" project that uses the AWS SDK for C++ to call AWS Lambda (Lambda).
 
 ## ⚠ Important
 
@@ -11,7 +11,7 @@ This folder provides a CMake "Hello IAM" project that uses the AWS SDK for C++ t
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-## Run the Hello IAM app
+## Run the Hello Lambda app
 
 ### Prerequisites
 
@@ -33,24 +33,24 @@ cd build
 cmake --build ..
 ```
 
-The built executable is named `hello_iam`.
+The built executable is named `hello_lambda`.
 
-You can run this example with the AWS managed policy "arn:aws:iam::aws:policy/IAMReadOnlyAccess".
+You can run this example with the AWS managed policy "arn:aws:iam::aws:policy/AWSLambda_ReadOnlyAccess".
 
 You can also use CMake to generate the input files for your native build system.
 For more information, see https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html.
 
 The [CMakeLists.txt](CMakeLists.txt) file contains the build settings. If your build is failing (particularly on Windows), you might need to modify this file.
 
-The [hello_iam.cpp](hello_iam.cpp) file contains the C++ source code, including a "main" function.
+The [hello_lambda.cpp](hello_lambda.cpp) file contains the C++ source code, including a "main" function.
 
 
 
 ## Additional resources
 
-* [IAM Developer Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
-* [IAM API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
-* [IAM C++ API Reference](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-iam/html/annotated.html)
+* [Lambda Developer Guide](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html)
+* [Lambda API Reference](https://docs.aws.amazon.com/lambda/latest/dg/API_Reference.html)
+* [Lambda C++ APIs](https://sdk.amazonaws.com/cpp/api/LATEST/aws-cpp-sdk-lambda/html/annotated.html)
 * [AWS SDK for C++ Developer Guide](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/welcome.html)
 
 ---
