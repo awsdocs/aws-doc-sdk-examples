@@ -72,8 +72,7 @@ int main(int argc, char **argv) {
 
             if (outcome.GetResult().GetIsTruncated()) {
                 request.SetMarker(outcome.GetResult().GetMarker());
-            }
-            else {
+            } else {
                 done = true;
             }
         }

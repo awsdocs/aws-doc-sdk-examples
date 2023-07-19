@@ -64,8 +64,7 @@ int main(int argc, char **argv) {
                               << std::endl;
                 }
                 marker = listFunctionsResult.GetNextMarker();
-            }
-            else {
+            } else {
                 std::cerr << "Error with Lambda::ListFunctions. "
                           << outcome.GetError().GetMessage()
                           << std::endl;

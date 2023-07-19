@@ -41,8 +41,7 @@ int main(int argc, char **argv) {
         if (!outcome.IsSuccess()) {
             std::cerr << "Failed with error: " << outcome.GetError() << std::endl;
             result = 1;
-        }
-        else {
+        } else {
             std::cout << "Found " << outcome.GetResult().GetBuckets().size()
                       << " buckets\n";
             for (auto &bucket: outcome.GetResult().GetBuckets()) {

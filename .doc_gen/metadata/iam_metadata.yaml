@@ -41,7 +41,15 @@ iam_Hello:
             - description: From src/iam-service-lib.rs.
               snippet_tags:
                 - rust.example_code.iam.hello_lib
-
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam/hello_iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.iam.hello_iam.cmake
+                - cpp.example_code.iam.hello_iam
   services:
     iam: {ListPolicies}
 iam_CreateAccountAlias:

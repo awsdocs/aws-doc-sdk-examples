@@ -22,6 +22,15 @@ rds_Hello:
             - description:
               snippet_tags:
                 - gov2.rds.Hello
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/rds/hello_rds
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.rds.hello_rds.cmake
+                - cpp.example_code.rds.hello_rds
   services:
     rds: {DescribeDBInstances}
 rds_CreateDBInstance:

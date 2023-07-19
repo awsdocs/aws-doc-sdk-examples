@@ -22,6 +22,16 @@ aurora_Hello:
             - description:
               snippet_tags:
                 - gov2.aurora.Hello
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/aurora/hello_aurora
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                 - cpp.example_code.aurora.hello_aurora.cmake
+                 - cpp.example_code.aurora.hello_aurora
   services:
     aurora: {DescribeDBClusters}
 aurora_DescribeDBClusterParameterGroups:

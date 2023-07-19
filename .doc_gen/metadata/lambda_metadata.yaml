@@ -22,6 +22,15 @@ lambda_Hello:
             - description:
               snippet_tags:
                 - gov2.lambda.Hello
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/lambda/hello_lambda
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.lambda.hello_lambda.cmake
+                - cpp.example_code.lambda.hello_lambda
   services:
     lambda: {ListFunctions}
 lambda_CreateFunction:

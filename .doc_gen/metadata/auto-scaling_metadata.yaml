@@ -30,6 +30,15 @@ auto-scaling_Hello:
             - description:
               snippet_tags:
                 - autoscaling.rust.list-autoscaling-groups
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling/hello_autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.autoscaling.hello_autoscaling.cmake
+                - cpp.example_code.autoscaling.hello_autoscaling
   services:
     auto-scaling: {DescribeAutoScalingGroups}
 auto-scaling_CreateAutoScalingGroup:

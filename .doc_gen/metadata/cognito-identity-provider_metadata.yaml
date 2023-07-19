@@ -1,4 +1,21 @@
 # zexi 0.4.0
+auto-cognito-identity-provider_Hello:
+  title: Hello &COG;
+  title_abbrev: Hello &COG;
+  synopsis: get started using &COG;.
+  category: Hello
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito/hello_cognito
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cognito.hello_cognito.cmake
+                - cpp.example_code.cognito.hello_cognito
+  services:
+    cognito-identity-provider: {ListUserPools}
 cognito-identity-provider_ListUserPools:
   title: List the &COG; user pools using an &AWS; SDK
   title_abbrev: List the user pools
