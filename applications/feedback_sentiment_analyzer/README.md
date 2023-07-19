@@ -10,10 +10,11 @@ These comment cards are:
 * transformed using a suite of machine learning services,
 * and rendered through the same web client
 
+---
 ## SDK implementations
 This application has been implemented in the AWS SDKs below. Choose your language to explore, download, deploy, and run:
 * [Ruby](../../ruby/cross-services/feedback-sentiment-analyzer/README.md)
-
+---
 ## AWS services used
 
 This application uses a suite of [machine learning services on AWS](https://aws.amazon.com/machine-learning/) to:
@@ -31,7 +32,7 @@ Additionally, the application showcases:
 * [API Gateway](https://aws.amazon.com/apigw/) to route requests from frontend to backend
 * [CloudFront](https://aws.amazon.com/cloudfront/) to distribute this application globally
 * [Cognito](https://aws.amazon.com/cognito) to authenticate users
-
+---
 ## Deployment instructions
 This application is deployed using the [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/).
 
@@ -46,20 +47,20 @@ This application is deployed using the [AWS Cloud Development Kit (CDK)](https:/
    _Bash_
    ```
    export FSA_NAME=foo
-   export FSA_EMAIL=your@email.com
-   export FSA_LANG=bar
+   export FSA_EMAIL=foo@bar.com
+   export FSA_LANG=ruby
    ```
    _Windows cmd_
    ```
    set FSA_NAME=foo
-   set FSA_EMAIL=your@email.com
-   set FSA_LANG=bar
+   set FSA_EMAIL=foo@bar.com
+   set FSA_LANG=ruby
    ```
    _Windows Powershell_
    ```
    $Env:FSA_NAME = foo
-   $Env:FSA_EMAIL = your@email.com
-   $Env:FSA_LANG = bar
+   $Env:FSA_EMAIL = foo@bar.com
+   $Env:FSA_LANG = ruby
    ```
 2. Run the commands below:
    ```
@@ -67,9 +68,21 @@ This application is deployed using the [AWS Cloud Development Kit (CDK)](https:/
    npm install
    cdk deploy
    ```
-
-## Application usage
 Once deployed, observe the `Output` in your terminal session.
 Copy the CloudFront distribution URL, which will have `websiteurl` in the name.
+![](output.png)
 Paste this URL into a browser session and begin uploading images representing comments.
+---
+## Application instructions
+### Log in
+To begin uploading images:
+1. Check `FSA_EMAIL` for an email containing a temporary password.
+2. Copy that password into the login modal.
+![](login.png)
+3. Reset your password as prompted.
+
+### Upload images
+
+
+
 
