@@ -1,4 +1,22 @@
 # zexi 0.4.0
+cross_FSA:
+  title: Create an application that analyzes customer feedback and synthesizes audio
+  title_abbrev: Create an application to analyze customer feedback
+  synopsis: create an application that analyzes customer comment cards, translates them from
+            their original language, determines their sentiment, and generates an audio file
+            from the translated text.
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          block_content: cross_FSA_Ruby_block.xml
+  service_main: textract
+  services:
+    lambda:
+    textract:
+    comprehend:
+    translate:
+    polly:
 cross_PAM:
   title: Create a photo asset management application that lets users manage photos using labels
   title_abbrev: Create a serverless application to manage photos
