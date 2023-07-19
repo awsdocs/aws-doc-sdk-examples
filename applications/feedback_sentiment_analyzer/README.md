@@ -11,7 +11,7 @@ These comment cards are:
 * and rendered through the same web client
 
 ## SDK implementations
-This application has been implemented in the following AWS SDKs. Choose your language to explore, download, deploy, and run:
+This application has been implemented in the AWS SDKs below. Choose your language to explore, download, deploy, and run:
 * [Ruby](../../ruby/cross-services/feedback-sentiment-analyzer/README.md)
 
 ## AWS services used
