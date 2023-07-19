@@ -1,6 +1,6 @@
 # Feedback Sentiment Analyzer (FSA)
 
-Feedback Sentiment Analyzer (FSA) is an example application that showcases AWS services and SDKs.
+Feedback Sentiment Analyzer (FSA) is an example application that showcases AWS services and SDKs. Built with ❤️ for you to explore, download, and deploy on your own!
 
 ## What it does
 Specifically, this application solves a ficticious use case of a hotel in Paris, France, which receives feedback from guests via comment cards in a variety of foreign languages.
@@ -35,15 +35,38 @@ Additionally, the application showcases:
 ## Deployment instructions
 This application is deployed using the [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/).
 
-1. Run `cd cdk`
-1. Run `npm install`
-1. Export the following variables:
-    ```bash
-    FSA_NAME=foo
-    FSA_EMAIL=your@email.com
-    FSA_LANG=bar
-    ```
-1. Run `cdk deploy`
+1. Get [AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+1. Set the environment variables below:
+   * `FSA_NAME` - any text less than 10 characters.
+   * `FSA_EMAIL` - a valid email address you own
+   * `FSA_LANG` - any of the [implemented languages](#sdk-implementations) (lowercase)
+
+   For example:
+
+   _Bash_
+   ```
+   export FSA_NAME=foo
+   export FSA_EMAIL=your@email.com
+   export FSA_LANG=bar
+   ```
+   _Windows cmd_
+   ```
+   set FSA_NAME=foo
+   set FSA_EMAIL=your@email.com
+   set FSA_LANG=bar
+   ```
+   _Windows Powershell_
+   ```
+   $Env:FSA_NAME = foo
+   $Env:FSA_EMAIL = your@email.com
+   $Env:FSA_LANG = bar
+   ```
+2. Run the commands below:
+   ```
+   cd cdk
+   npm install
+   cdk deploy
+   ```
 
 ## Application usage
 Once deployed, observe the `Output` in your terminal session.
