@@ -32,7 +32,7 @@ function FeedbackLayout() {
         { cards: 1, minWidth: 0 },
       ]}
       trackBy={(feedbackItem) => feedbackItem.audioUrl}
-      empty={<TextContent>Il n'y a aucun commentaire</TextContent>}
+      empty={<TextContent>No data found</TextContent>}
       items={feedback}
       stickyHeader={true}
       variant="full-page"
@@ -47,14 +47,14 @@ function FeedbackLayout() {
                 {authStatus === "signed_in" && (
                   <FileUpload
                     disabled={false}
-                    accept={[".jpg", ".jpeg"]}
+                    accept={[".jpg", ".jpeg", ".png"]}
                     onSubmit={handleUpload}
                   />
                 )}
               </SpaceBetween>
             }
           >
-            Commentaires des clients
+            Customer Feedback
           </Header>
         </>
       }
@@ -77,7 +77,7 @@ function FeedbackLayout() {
       }}
     />
   ) : (
-    <TextContent>Veuillez vous connecter</TextContent>
+    <TextContent>Login to view customer feedback</TextContent>
   );
 }
 
