@@ -4,9 +4,9 @@ This document contains the technical specifications for Feedback Sentiment Analy
 
 This document explains:
 
-- Application inputs and outputs
-- Underlying AWS components and their configurations
-- Key cross-service integration details
+- Application inputs and outputs.
+- Underlying AWS components and their configurations.
+- Key cross-service integration details.
 
 See the [README.md](README.md) for an introduction to FSA.
 
@@ -127,7 +127,7 @@ All the APIs are created by the CDK script. The endpoints are common to every la
   "feedback": [
     {
       "sentiment": "POSITIVE",
-      "text": "J'adore cet hôtel!",
+      "text": "I love this hotel!",
       "audioUrl": "PXL_20230710_182358532.jpg.mp3",
       "imageUrl": "PXL_20230710_182358532.jpg"
     }
@@ -213,7 +213,7 @@ Returns a string representing the text extracted.
 For example:
 
 ```
-THIS HOTEL WAS GREAT
+CET HÔTEL ÉTAIT SUPER
 ```
 ---
 ### AnalyzeSentiment
@@ -228,7 +228,7 @@ For example:
 
 ```json
 {
-  "source_text": "THIS HOTEL WAS GREAT",
+  "source_text": "CET HÔTEL ÉTAIT SUPER",
   "region": "us-east-1"
 }
 ```
@@ -242,7 +242,7 @@ For example:
 ```json
 {
   "sentiment": "POSITIVE",
-  "language_code": "en"
+  "language_code": "fr-FR"
 }
 ```
 ---
@@ -258,9 +258,9 @@ For example:
 
 ```json
 {
-    "source_language_code": "en"
+    "source_language_code": "fr-FR",
     "region": "us-east-1",
-    "extracted_text": "THIS HOTEL WAS GREAT"
+    "extracted_text": "CET HÔTEL ÉTAIT SUPER"
 }
 ```
 
@@ -271,7 +271,7 @@ Returns a string representing the translated text.
 For example:
 
 ```
-CET HOTEL ÉTAIT RAVISSANT
+THIS HOTEL WAS GREAT
 ```
 ---
 ### SynthesizeAudio
@@ -287,7 +287,7 @@ For example:
 ```json
 {
   "bucket": "my-s3-bucket",
-  "translated_text": "CET HOTEL ÉTAIT RAVISSANT",
+  "translated_text": "THIS HOTEL WAS GREAT",
   "region": "us-east-1",
   "object": "comment.png"
 }
@@ -326,7 +326,7 @@ For example:
   "feedback": [
     {
       "sentiment": "POSITIVE",
-      "text": "J'adore cet hôtel/",
+      "text": "THIS HOTEL WAS GREAT",
       "audioUrl": "PXL_20230710_182358532.jpg.mp3",
       "imageUrl": "PXL_20230710_182358532.jpg"
     }
