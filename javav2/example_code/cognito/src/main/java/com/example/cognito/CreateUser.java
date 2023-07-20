@@ -59,7 +59,7 @@ public class CreateUser {
         cognitoClient.close();
     }
 
-    //snippet-start:[cognito.java2.add_login_provider.main]
+    //snippet-start:[cognito.java2.new_admin_user.main]
     public static void createNewUser(CognitoIdentityProviderClient cognitoClient,
                                    String userPoolId,
                                    String name,
@@ -89,5 +89,5 @@ public class CreateUser {
             System.exit(1);
         }
     }
-    //snippet-end:[cognito.java2.add_login_provider.main]
+    //snippet-end:[cognito.java2.new_admin_user.main]
 }

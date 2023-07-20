@@ -49,9 +49,7 @@ public class DeleteStateMachine {
         sfnClient.close();
     }
 
-    // snippet-start:[stepfunctions.java2.delete_machine.main]
     public static void deleteMachine(SfnClient sfnClient, String stateMachineArn) {
-
         try {
             DeleteStateMachineRequest deleteStateMachineRequest = DeleteStateMachineRequest.builder()
                 .stateMachineArn(stateMachineArn)
@@ -65,6 +63,5 @@ public class DeleteStateMachine {
             System.exit(1);
         }
     }
-    // snippet-end:[stepfunctions.java2.delete_machine.main]
 }
 
