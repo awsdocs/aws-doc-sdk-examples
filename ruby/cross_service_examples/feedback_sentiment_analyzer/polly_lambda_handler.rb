@@ -16,9 +16,10 @@ def lambda_handler(event:, context:)
 
 
   resp = polly_client.synthesize_speech({
+                                          engine: "neural",
                                           output_format: "mp3",
                                           text: event['translated_text'],
-                                          voice_id: "Celine",
+                                          voice_id: "Ruth",
                                         })
 
   logger.info(resp.to_s)
