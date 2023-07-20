@@ -1189,7 +1189,7 @@ s3_ListObjects:
                 - aws-cli.bash-linux.s3.errecho
                 - aws-cli.bash-linux.s3.ListObjects
   services:
-    s3: {ListObjects}
+    s3: {ListObjectsV2}
 s3_ListObjectVersions:
   title: List the version of objects in an &S3; bucket using an &AWS; SDK
   title_abbrev: List object versions in a bucket
@@ -2594,7 +2594,7 @@ s3_Scenario_GettingStarted:
                 - aws-cli.bash-linux.s3.DeleteObjects
                 - aws-cli.bash-linux.s3.DeleteBucket
   services:
-    s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}
+    s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjectsV2, DeleteObjects, DeleteBucket}
 s3_Scenario_ManageACLs:
   title: Manage access control lists (ACLs) for &S3; buckets using an &AWS; SDK
   title_abbrev: Manage access control lists (ACLs)
