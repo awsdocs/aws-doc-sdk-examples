@@ -57,15 +57,7 @@ export const downloadFile = async (fileName: string, config: ApiConfig) => {
   }
 
   const blob = await response.blob();
-  const reader = new FileReader();
-
-  return new Promise<string>((resolve, reject) => {
-    reader.onloadend = () => {
-      resolve(reader.result as string);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(blob);
-  });
+  return URL.createObjectURL(blob);
 };
 
 export const getFeedback = async (

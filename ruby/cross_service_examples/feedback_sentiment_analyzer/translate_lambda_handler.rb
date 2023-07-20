@@ -15,6 +15,6 @@ def lambda_handler(event:, context:)
   client.translate_text({
                           text: event['extracted_text'], # required
                           source_language_code: event['source_language_code'], # required
-                          target_language_code: 'fr-FR'
+                          target_language_code: 'en'
                         })
 end
