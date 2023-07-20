@@ -7,14 +7,12 @@
 */
 package com.example.iam;
 
-// snippet-start:[iam.java2.get_policy.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.services.iam.model.GetRoleRequest;
 import software.amazon.awssdk.services.iam.model.GetRoleResponse;
 import software.amazon.awssdk.services.iam.model.IamException;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.iam.IamClient;
-// snippet-end:[iam.java2.get_policy.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -26,7 +24,6 @@ import software.amazon.awssdk.services.iam.IamClient;
 public class GetRole {
 
     public static void main(String[] args) {
-
         final String usage = "\n" +
             "Usage:\n" +
             "    <policyArn> \n\n" +
@@ -51,7 +48,6 @@ public class GetRole {
     }
 
     public static void getRoleInformation(IamClient iam, String roleName) {
-
         try {
             GetRoleRequest roleRequest = GetRoleRequest.builder()
                 .roleName(roleName)
