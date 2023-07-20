@@ -3,7 +3,7 @@
 Feedback Sentiment Analyzer (FSA) is an example application that showcases AWS services and SDKs. Built with ❤️ for you to explore, download, and deploy for business or pleasure.
 
 ## What it does
-Specifically, this application solves a ficticious use case of a hotel in Paris, France, which receives feedback from guests via comment cards in a variety of foreign languages.
+Specifically, this application solves a fictitious use case of a hotel in New York City, which receives feedback from guests via comment cards in a variety of foreign languages.
 
 These comment cards are:
 * uploaded through a web client
@@ -20,7 +20,7 @@ This application has been implemented in the AWS SDKs below. Choose your languag
 This application uses a suite of [machine learning services on AWS](https://aws.amazon.com/machine-learning/) to:
 * extract text using [Amazon Textract](https://aws.amazon.com/textract/).
 * detect sentiment using [Amazon Comprehend](https://aws.amazon.com/comprehend/).
-* translate to French using [Amazon Translate](https://aws.amazon.com/translate/).
+* translate to English using [Amazon Translate](https://aws.amazon.com/translate/).
 * synthesize to human-like speech using [Amazon Polly](https://aws.amazon.com/polly/).
 
 Additionally, the application showcases:
