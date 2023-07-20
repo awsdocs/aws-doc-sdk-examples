@@ -1,7 +1,7 @@
 name: "Lint Labels"
 
 on:
-  pull_request_target:
+  # pull_request_target: # Do NOT re-enable this. It can cause unwanted effects.
   workflow_dispatch:
   push:
     branches:
