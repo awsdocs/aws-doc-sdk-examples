@@ -49,4 +49,21 @@ migration-hub_ListCreatedArtifacts:
               snippet_tags:
                 - migration.java2.list_artifacts.main
   services:
-    migration-hub: {hub_ListCreatedArtifacts}          
+    migration-hub: {hub_ListCreatedArtifacts}
+migration-hub_ImportMigrationTask:
+  title: Register a new migration task using the &MHBlong; SDK
+  title_abbrev: Register a new migration task
+  synopsis: register a new migration task.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.import_migration.main
+  services:
+    migration-hub: {hub_ImportMigrationTask}                   
