@@ -1,5 +1,5 @@
 # zexi 0.4.0
-migration-hubListApplications:
+migration-hub_ListApplications:
   title: List applications using the &MHBlong; &AWS; SDK
   title_abbrev: List applications
   synopsis: list applications.
