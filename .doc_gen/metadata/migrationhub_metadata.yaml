@@ -1,5 +1,5 @@
 # zexi 0.4.0
-migrationhub_ListApplications:
+migration-hubListApplications:
   title: List applications using the &MHBlong; &AWS; SDK
   title_abbrev: List applications
   synopsis: list applications.
@@ -15,4 +15,4 @@ migrationhub_ListApplications:
               snippet_tags:
                 - migration.java2.list_apps.main
   services:
-    forecast: {ListApplications}
+    migration-hub: {ListApplications}
