@@ -5,7 +5,14 @@
 ]>
 <block>
     <para>
-        Shows how to develop a photo asset management application that lets users manage photos using labels.
+        Shows how to develop a photo asset management application that detects labels in images
+        using &REKlong; and stores them for later retrieval.
     </para>
-    <para> For complete source code and instructions on how to set up and run, see the full example on <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/cross_service/photo_asset_manager">GitHub</ulink>.</para>
+    <para>For complete source code and instructions on how to set up and run, see the full example
+        on <ulink
+            url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/rust_dev_preview/cross_service/photo_asset_management">
+        GitHub</ulink>.</para>
+    <para>For a deep dive into the origin of this example see the post on <ulink
+            url="https://community.aws/posts/cloud-journeys/01-serverless-image-recognition-app">
+            &AWS; Community</ulink>.</para>
 </block>
