@@ -66,7 +66,6 @@ def build_cmake_tests(cmake_files, executable_pattern) :
         for executable in executable_pattern :
             run_files.extend(glob.glob(f"{module_build_dir}{executable}"))
 
-    os.chdir(base_dir)
     if has_error:
         return [1, []]
     else:
@@ -100,6 +99,9 @@ def run_tests(run_files = [], type1=False, type2=False, type3=False):
 
     passed_tests = 0
     failed_tests = 0
+    old_dir = os.getcwd()
+    os.makedirs(name="tests_run", exist_ok=True)
+    os.chdir("tests_run")
     for run_file in run_files :
         print(f"Calling '{run_file} {filter_arg}'.")
         proc = subprocess.Popen([run_file, filter_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -125,8 +127,9 @@ def run_tests(run_files = [], type1=False, type2=False, type3=False):
     print(f"{passed_tests} tests passed.")
     print(f"{failed_tests} tests failed.")
 
+    os.chdir(old_dir)
     if has_error:
-        return [1, passed_tests, passed_tests]
+        return [1, passed_tests, failed_tests]
     else :
         return [0, passed_tests, failed_tests]
 
@@ -142,6 +145,10 @@ def test_hello_service(service="*"):
     if err_code != 0 :
         print("Build hello tests failed.")
         return [err_code, 0, 0]
+
+    old_dir = os.getcwd()
+    os.makedirs(name="tests_run", exist_ok=True)
+    os.chdir("tests_run")
 
     passed_count = 0
     failed_count = 0
@@ -162,6 +169,8 @@ def test_hello_service(service="*"):
     print(f"{passed_count} tests passed.")
     print(f"{failed_count} tests failed.")
     print(f"Total cmake files - {len(cmake_files)}")
+
+    os.chdir(old_dir)
 
     if has_error:
         return [1,  passed_count, failed_count]
@@ -195,11 +204,14 @@ def main(argv):
 
     start_time = datetime.datetime.now()
 
+    base_dir = os.getcwd()
+
     [err_code, run_files] = build_tests(service=service)
 
     if err_code == 0 :
         [err_code, passed_count, failed_count]= run_tests(run_files = run_files, type1=type1, type2=type2, type3=type3)
 
+    os.chdir(base_dir)
     if err_code == 0:
         [err_code, hello_passed_count, hello_failed_count] = test_hello_service(service=service)
         passed_count = passed_count + hello_passed_count

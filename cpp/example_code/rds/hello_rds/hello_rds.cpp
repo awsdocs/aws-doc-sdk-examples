@@ -13,7 +13,7 @@
 
 // snippet-start:[cpp.example_code.rds.hello_rds]
 #include <aws/core/Aws.h>
-#include <aws/rds/RdsClient.h>
+#include <aws/rds/RDSClient.h>
 #include <aws/rds/model/DescribeDBInstancesRequest.h>
 #include <iostream>
 

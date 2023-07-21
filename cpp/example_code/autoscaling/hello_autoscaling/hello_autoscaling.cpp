@@ -13,7 +13,7 @@
 
 // snippet-start:[cpp.example_code.autoscaling.hello_autoscaling]
 #include <aws/core/Aws.h>
-#include <aws/autoscaling/AutoscalingClient.h>
+#include <aws/autoscaling/AutoScalingClient.h>
 #include <aws/autoscaling/model/DescribeAutoScalingGroupsRequest.h>
 #include <iostream>
 
