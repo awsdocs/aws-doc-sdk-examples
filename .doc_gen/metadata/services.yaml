@@ -670,7 +670,7 @@ mediapackage:
   tags:
     product_categories: {'Media Services'}
   version: mediapackage-2017-10-12
-migrationhub:
+migration-hub:
   long: '&MHBlong;'
   short: '&MHB;'
   sort: MigrationHub
@@ -684,8 +684,7 @@ migrationhub:
   api_ref: migrationhub/latest/ug/api-reference.html
   tags:
     product_categories: {'Migration Hub Services'}
-  version: migrationhub-2017-05-31
-
+  version: migration-hub-2017-05-31
 opensearch: 
   long: '&ESlong;'
   short: '&ES;'
