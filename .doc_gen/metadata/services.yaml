@@ -671,7 +671,7 @@ mediapackage:
     product_categories: {'Media Services'}
   version: mediapackage-2017-10-12
 migrationhub:
-  long: '&MHBlong'
+  long: '&MHBlong;'
   short: '&MHB;'
   sort: MigrationHub
   expanded:
