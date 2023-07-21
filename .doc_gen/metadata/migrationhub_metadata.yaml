@@ -1,6 +1,6 @@
 # zexi 0.4.0
 migration-hub_ListApplications:
-  title: List applications using the &MHBlong; &AWS; SDK
+  title: List applications using the &MHBlong; SDK
   title_abbrev: List applications
   synopsis: list applications.
   category:
@@ -16,3 +16,37 @@ migration-hub_ListApplications:
                 - migration.java2.list_apps.main
   services:
     migration-hub: {ListApplications}
+migration-hub_ListMigrationTasks:
+  title: List migration tasks using the &MHBlong; SDK
+  title_abbrev: List migration tasks
+  synopsis: list migration tasks.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.list_migration_tasks.main
+  services:
+    migration-hub: {hub_ListMigrationTasks} 
+migration-hub_ListCreatedArtifacts:
+  title: List created artifacts using the &MHBlong; SDK
+  title_abbrev: List created artifacts
+  synopsis: list created artifacts.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.list_artifacts.main
+  services:
+    migration-hub: {hub_ListCreatedArtifacts}          
