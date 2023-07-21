@@ -28,7 +28,10 @@ import glob
 import re
 import datetime
 
+build_sub_dir = "build_tests"
+
 def build_cmake_tests(cmake_files, executable_pattern) :
+    global build_sub_dir
     run_files = []
 
     if len (cmake_files) == 0:
@@ -36,7 +39,7 @@ def build_cmake_tests(cmake_files, executable_pattern) :
 
     has_error = False
     base_dir = os.getcwd()
-    build_dir = os.path.join(base_dir, "build_tests")
+    build_dir = os.path.join(base_dir, build_sub_dir)
 
     os.makedirs(name=build_dir, exist_ok=True)
 
@@ -82,6 +85,7 @@ def build_tests(service="*"):
 
 
 def run_tests(run_files = [], type1=False, type2=False, type3=False):
+    global build_sub_dir
     has_error = False
     filters = []
     if type1 :
@@ -100,8 +104,9 @@ def run_tests(run_files = [], type1=False, type2=False, type3=False):
     passed_tests = 0
     failed_tests = 0
     old_dir = os.getcwd()
-    os.makedirs(name="tests_run", exist_ok=True)
-    os.chdir("tests_run")
+    run_dir = os.path.join(build_sub_dir, "integration_tests_run")
+    os.makedirs(name=run_dir, exist_ok=True)
+    os.chdir(run_dir)
     for run_file in run_files :
         print(f"Calling '{run_file} {filter_arg}'.")
         proc = subprocess.Popen([run_file, filter_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -147,8 +152,9 @@ def test_hello_service(service="*"):
         return [err_code, 0, 0]
 
     old_dir = os.getcwd()
-    os.makedirs(name="tests_run", exist_ok=True)
-    os.chdir("tests_run")
+    run_dir = os.path.join(build_sub_dir, "hello_tests_run")
+    os.makedirs(name=run_dir, exist_ok=True)
+    os.chdir(run_dir)
 
     passed_count = 0
     failed_count = 0
