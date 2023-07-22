@@ -66,4 +66,21 @@ migration-hub_ImportMigrationTask:
               snippet_tags:
                 - migration.java2.import_migration.main
   services:
-    migration-hub: {hub_ImportMigrationTask}                   
+    migration-hub: {hub_ImportMigrationTask}
+migration-hub_DeleteProgressUpdateStream:
+  title: Delete a progress stream using the &MHBlong; SDK
+  title_abbrev: Delete a progress stream
+  synopsis: delete a progress stream.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.delete_progress_stream.main
+  services:
+    migration-hub: {hub_DeleteProgressUpdateStream}                        
