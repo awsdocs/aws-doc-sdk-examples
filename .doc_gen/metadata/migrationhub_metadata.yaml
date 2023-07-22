@@ -32,7 +32,7 @@ migration-hub_ListMigrationTasks:
               snippet_tags:
                 - migration.java2.list_migration_tasks.main
   services:
-    migration-hub: {hub_ListMigrationTasks} 
+    migration-hub: {ListMigrationTasks} 
 migration-hub_ListCreatedArtifacts:
   title: List created artifacts using the &MHBlong; SDK
   title_abbrev: List created artifacts
@@ -49,7 +49,7 @@ migration-hub_ListCreatedArtifacts:
               snippet_tags:
                 - migration.java2.list_artifacts.main
   services:
-    migration-hub: {hub_ListCreatedArtifacts}
+    migration-hub: {ListCreatedArtifacts}
 migration-hub_ImportMigrationTask:
   title: Register a new migration task using the &MHBlong; SDK
   title_abbrev: Register a new migration task
@@ -66,7 +66,7 @@ migration-hub_ImportMigrationTask:
               snippet_tags:
                 - migration.java2.import_migration.main
   services:
-    migration-hub: {hub_ImportMigrationTask}
+    migration-hub: {ImportMigrationTask}
 migration-hub_DeleteProgressUpdateStream:
   title: Delete a progress stream using the &MHBlong; SDK
   title_abbrev: Delete a progress stream
@@ -83,4 +83,38 @@ migration-hub_DeleteProgressUpdateStream:
               snippet_tags:
                 - migration.java2.delete_progress_stream.main
   services:
-    migration-hub: {hub_DeleteProgressUpdateStream}                        
+    migration-hub: {DeleteProgressUpdateStream}
+migration-hub_DescribeApplicationState:
+  title: Get the migration status of an application using the &MHBlong; SDK
+  title_abbrev: Get the migration status
+  synopsis: get the migration status.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.describe_app_state.main
+  services:
+    migration-hub: {DescribeApplicationState}
+migration-hub_DescribeMigrationTask:
+  title: Get a list of attributes associated with a migration using the &MHBlong; SDK
+  title_abbrev: Get a list of attributes associated with a migration
+  synopsis: get a list of attributes associated with a migration.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.describe_migration.main
+  services:
+    migration-hub: {DescribeMigrationTask}                                     
