@@ -70,7 +70,7 @@ All the APIs are created by the CDK script. The endpoints are common to every la
 <summary><strong>PUT /api/media/{item}</strong></summary>
 <br/>
 
-> Create or update an object in Amazon S3. Creating or updating an image file will trigger the Step Function.
+> Create or update an object in Amazon S3. Creating or updating an image file will trigger the Step Functions workflow.
 
 <table>
 <tr>
@@ -201,7 +201,7 @@ For example:
 
 ```json
 {
-  "bucket": "my-s3-bucket",
+  "bucket": "DOC-EXAMPLE-BUCKET",
   "region": "us-east-1",
   "object": "obj/ect.png"
 }
@@ -296,7 +296,7 @@ For example:
 
 ```json
 {
-  "bucket": "my-s3-bucket",
+  "bucket": "DOC-EXAMPLE-BUCKET",
   "translated_text": "THIS HOTEL WAS GREAT",
   "region": "us-east-1",
   "object": "comment.png"
@@ -324,11 +324,11 @@ There is no input.
 
 ### **Output**
 
-Returns a JSON object with one property: `feedback`. `feedback` is an array of objects that contain 4 properties:
+Returns a JSON object with one property: `feedback`. `feedback` is an array of objects that contain four properties:
 
 - sentiment - "POSITIVE" | "NEGATIVE" | "NEUTRAL"
 - text - The original text translated to the destination language. (English by default)
-- audioUrl - The S3 object key for the synthesized audio file.
+- audioUrl - The Amazon S3 object key for the synthesized audio file.
 - imageUrl - The original uploaded image.
 
 For example:
