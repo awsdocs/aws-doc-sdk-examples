@@ -85,7 +85,7 @@ This application is deployed using the [AWS Cloud Development Kit (AWS CDK)](htt
    ```
    After deploying, observe the `Output` in your terminal session.
    Copy the CloudFront distribution URL, which has `websiteurl` in the name.
-   ![console output](output.png)
+   ![console output](docs/output.png)
    Paste this URL into a browser to launch the application.
 
 ---
@@ -97,24 +97,25 @@ This application is deployed using the [AWS Cloud Development Kit (AWS CDK)](htt
 1. Choose `Sign in`.
 2. Enter the the email from `FSA_EMAIL` into the `Username` field.
 3. Enter the temporary password that was sent to you into the `Password` field.
-   ![login form](login.png)
+   ![login form](docs/login.png)
 4. Reset your password as prompted.
 
 ### Upload images
 
 1. Signing in directs you to a landing page that says `No data found`.
-   ![empty](no-data-found.png)
+   ![empty](docs/no-data-found.png)
 2. Choose `Upload`.
 3. Choose `Select a file`.
+   > Note: Feel free to choose a [sample comment](/comments) instead of writing your own.
 4. Select a PNG or JPEG image that contains a positive comment about the hotel. Negative comments are saved, but not returned to the frontend.
-   ![upload](upload.png)
+   ![upload](docs/upload.png)
 5. Choose `Upload`.
 
 ### Play the result
 
 1. Wait. The image upload takes a minute or two to process.
 2. Choose the `Refresh` button.
-   ![refresh](refresh.png)
+   ![refresh](docs/refresh.png)
 3. You should see a card with the original image, translated text, and a play button.
-   ![translated text](card.png)
+   ![translated text](docs/card.png)
 4. Choose the play button to listen to the translated audio.

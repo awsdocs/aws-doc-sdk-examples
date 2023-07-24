@@ -34,7 +34,7 @@ For an introduction to FSA, see the [README.md](README.md).
 ## Relational diagram
 
 This diagram represents the relationships between key FSA components.
-![relational diagram](architecture2.png)
+![relational diagram](docs/architecture2.png)
 
 1. The static website assets are hosted in an Amazon S3 bucket and served using Amazon CloudFront.
 2. Amazon Cognito allows authenticated access to Amazon API Gateway.
@@ -182,7 +182,7 @@ The sequence of this multi-state workflow follows:
 8. Stop
 
 The following diagram depicts this sequence.
-![state-machine.png](state-machine.png)
+![state-machine.png](docs/state-machine.png)
 
 ## State machine Lambda functions
 
