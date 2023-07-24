@@ -47,7 +47,7 @@ public class ListSecrets {
             List<SecretListEntry> secrets = secretsResponse.secretList();
             for (SecretListEntry secret: secrets) {
                 System.out.println("The secret name is "+secret.name());
-                System.out.println("The secret descreiption is "+secret.description());
+                System.out.println("The secret description is "+secret.description());
             }
 
         } catch (SecretsManagerException e) {
