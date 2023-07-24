@@ -975,6 +975,7 @@ sqs_Scenario_TopicsAndQueues:
     - Subscribe several queues to the topic with an option to apply a filter.
     - Publish messages to the topic.
     - Poll the queues for messages received.
+  category: Scenarios
   languages:
     C++:
       versions:
@@ -986,5 +987,5 @@ sqs_Scenario_TopicsAndQueues:
                 - cpp.example_code.cross-service.topics_and_queues.config
                 - cpp.example_code.cross-service.topics_and_queues.messaging_with_topics_and_queues
   services:
-    sns:
-    sqs:
+    sns: {}
+    sqs: {}
