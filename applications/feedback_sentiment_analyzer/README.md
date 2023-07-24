@@ -6,7 +6,7 @@ Feedback Sentiment Analyzer (FSA) is an example application that showcases AWS s
 
 Specifically, this application solves a fictitious use case of a hotel in New York City that receives guest feedback on comment cards in a variety of languages.
 
-These comment cards are uploaded through a web client, transformed using a suite of machine learning services, and rendered through the same web client.
+These comment cards are uploaded through a web client, transformed using a suite of machine learning services, and rendered through the same web client. The end result contains the original image, an English translation of the text, and an audio element.
 
 ---
 
