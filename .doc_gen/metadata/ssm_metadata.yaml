@@ -65,4 +65,38 @@ ssm_CreateOpsItem:
               snippet_tags:
                 - ssm.java2.create_ops.main
   services:
-    ssm: {CreateOpsItem}    
+    ssm: {CreateOpsItem} 
+ssm_DescribeOpsItems:
+  title: Describe an OpsItem using an &AWS; SDK
+  title_abbrev: Describe an OpsItem
+  synopsis: describe an OpsItem.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.describe_ops.main
+  services:
+    ssm: {DescribeOpsItems}
+ssm_UpdateOpsItem:
+  title: Describe an OpsItem using an &AWS; SDK
+  title_abbrev: Describe an OpsItem
+  synopsis: describe an OpsItem.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.Java2.resolve_ops.main
+  services:
+    ssm: {UpdateOpsItem}                 
