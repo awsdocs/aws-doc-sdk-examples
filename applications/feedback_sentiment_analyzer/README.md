@@ -22,27 +22,27 @@ This application has been implemented with the following AWS SDKs. To deploy one
 
 This application uses a suite of [AWS machine learning services](https://aws.amazon.com/machine-learning/) to do the following:
 
-- Extract text using [Amazon Textract](https://aws.amazon.com/textract/)
-- Detect sentiment using [Amazon Comprehend](https://aws.amazon.com/comprehend/)
-- Translate to English using [Amazon Translate](https://aws.amazon.com/translate/)
-- Synthesize to human-like speech using [Amazon Polly](https://aws.amazon.com/polly/)
+- Extract text using [Amazon Textract](https://docs.aws.amazon.com/textract/latest/dg/what-is.html)
+- Detect sentiment using [Amazon Comprehend](https://docs.aws.amazon.com/comprehend/latest/dg/what-is.html)
+- Translate to English using [Amazon Translate](https://docs.aws.amazon.com/translate/latest/dg/what-is.html)
+- Synthesize to human-like speech using [Amazon Polly](https://docs.aws.amazon.com/polly/latest/dg/what-is.html)
 
 Additionally, the application showcases the following AWS services:
 
-- [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) - Stores images of comment cards
-- [Amazon EventBridge](https://aws.amazon.com/eventbridge/) - Relays events from Amazon S3
-- [AWS Lambda](https://aws.amazon.com/lambda/) - Executes business logic
-- [AWS Step Functions](https://aws.amazon.com/stepfunctions/) - Orchestrates multiple Lambda functions
-- [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) - Stores details about each comment
-- [Amazon API Gateway](https://aws.amazon.com/apigw/) - Routes requests from frontend to backend
-- [Amazon CloudFront](https://aws.amazon.com/cloudfront/) - Distributes this application globally
-- [Amazon Cognito](https://aws.amazon.com/cognito) - Authenticates users
+- [Amazon Simple Storage Service (Amazon S3)](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html) - Stores images of comment cards
+- [Amazon EventBridge](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html) - Relays events from Amazon S3
+- [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) - Executes business logic
+- [AWS Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html) - Orchestrates multiple Lambda functions
+- [Amazon DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html) - Stores details about each comment
+- [Amazon API Gateway](https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html) - Routes requests from frontend to backend
+- [Amazon CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html) - Distributes this application globally
+- [Amazon Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html) - Authenticates users
 
 ---
 
 ## Deployment instructions
 
-This application is deployed using the [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/).
+This application is deployed using the [AWS Cloud Development Kit (AWS CDK)](https://docs.aws.amazon.com/cdk/v2/guide/home.html).
 
 1. Get [AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
 1. Set the following environment variables:
