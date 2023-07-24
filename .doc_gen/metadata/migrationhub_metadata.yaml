@@ -117,4 +117,5 @@ migration-hub_DescribeMigrationTask:
               snippet_tags:
                 - migration.java2.describe_migration.main
   services:
-    migration-hub: {DescribeMigrationTask}                                     
+    migration-hub: {DescribeMigrationTask}
+                                         
