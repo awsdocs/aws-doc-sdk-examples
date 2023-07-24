@@ -980,7 +980,7 @@ sqs_Scenario_TopicsAndQueues:
       versions:
         - sdk_version: 1
           github: cpp/example_code/cross-service/topics_and_queues
-         excerpts:
+          excerpts:
             - description:
               snippet_tags:
                 - cpp.example_code.cross-service.topics_and_queues.config
