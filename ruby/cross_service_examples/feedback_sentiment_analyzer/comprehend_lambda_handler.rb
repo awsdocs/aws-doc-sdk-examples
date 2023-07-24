@@ -1,17 +1,18 @@
-require 'json'
-require 'aws-sdk-comprehend'
-require 'logger'
+# frozen_string_literal: true
+
+require "json"
+require "aws-sdk-comprehend"
+require "logger"
 
 def lambda_handler(event:, context:)
-
   logger = Logger.new($stdout)
 
-  logger.info("event:\n #{event.to_s}\n")
-  logger.info("context:\n #{context.to_s}\n")
+  logger.info("event:\n #{event}\n")
+  logger.info("context:\n #{context}\n")
 
-  rekognition_client = Aws::Comprehend::Client.new(region: event['region'])
+  rekognition_client = Aws::Comprehend::Client.new(region: event["region"])
 
-  source_text = event['source_text']
+  source_text = event["source_text"]
 
   logger.info("paylaod:\n #{source_text}")
 
@@ -23,7 +24,7 @@ def lambda_handler(event:, context:)
 
   response = rekognition_client.detect_sentiment({
                                                    text: source_text,
-                                                   language_code: language_code
+                                                   language_code:
                                                  })
 
   logger.info("Sentiment: #{response.sentiment}")
