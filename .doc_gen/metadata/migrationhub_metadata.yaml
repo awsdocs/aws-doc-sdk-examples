@@ -85,9 +85,9 @@ migration-hub_DeleteProgressUpdateStream:
   services:
     migration-hub: {DeleteProgressUpdateStream}
 migration-hub_DescribeApplicationState:
-  title: Get the migration status of an application using the &MHBlong; SDK
-  title_abbrev: Get the migration status
-  synopsis: get the migration status.
+  title: Describe the migration status of an application using the &MHBlong; SDK
+  title_abbrev: Describe the migration status
+  synopsis: describe the migration status.
   category:
   languages:
     Java:

@@ -5,6 +5,15 @@ translate_StartTranslationJob:
   synopsis: start an &TSL; translation job.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - translate.java2._batch.main
     .NET:
       versions:
         - sdk_version: 3
@@ -30,6 +39,15 @@ translate_DescribeTranslationJob:
   synopsis: describe an &TSL; translation job.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - translate.java2._describe_jobs.main
     .NET:
       versions:
         - sdk_version: 3
@@ -55,6 +73,15 @@ translate_ListTranslationJobs:
   synopsis: list the &TSL; translation jobs.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - translate.java2._list_jobs.main
     .NET:
       versions:
         - sdk_version: 3
@@ -105,6 +132,15 @@ translate_TranslateText:
   synopsis: translate text with &TSL;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - translate.java2._text.main
     .NET:
       versions:
         - sdk_version: 3
