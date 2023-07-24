@@ -118,4 +118,3 @@ migration-hub_DescribeMigrationTask:
                 - migration.java2.describe_migration.main
   services:
     migration-hub: {DescribeMigrationTask}
-                                         
