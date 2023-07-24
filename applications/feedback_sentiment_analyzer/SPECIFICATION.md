@@ -190,7 +190,7 @@ Following are the required inputs and outputs of each Lambda function.
 
 ### ExtractText
 
-Uses Amazon Textract's [DetectDocumentText](https://docs.aws.amazon.com/textract/latest/dg/API_DetectDocumentText.html)
+Uses the Amazon Textract [DetectDocumentText](https://docs.aws.amazon.com/textract/latest/dg/API_DetectDocumentText.html)
 method to extract text from an image and return a unified text representation.
 
 #### **Input**
@@ -254,7 +254,7 @@ For example:
 
 ### TranslateText
 
-Uses Amazon Translate's [TranslateText](https://docs.aws.amazon.com/translate/latest/APIReference/API_TranslateText.html)
+Uses the Amazon Translate [TranslateText](https://docs.aws.amazon.com/translate/latest/APIReference/API_TranslateText.html)
 method to translate text to English and return a string.
 
 #### **Input**
@@ -285,7 +285,7 @@ THIS HOTEL WAS GREAT
 
 ### SynthesizeAudio
 
-Uses Amazon Polly's [SynthesizeAudio](https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html)
+Uses the Amazon Polly [SynthesizeAudio](https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html)
 method to convert input text into life-like speech.
 
 #### **Input**
@@ -317,8 +317,8 @@ DOC-EXAMPLE-BUCKET/audio.mp3
 
 ## GetFeedback Lambda function
 
-Uses DynamoDB's [GetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)
-method to get all records from [the table](#managing-items-in-dynamodb). Invoked by the frontend interace.
+Uses the DynamoDB [GetItem](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_GetItem.html)
+method to get all records from [the table](#managing-items-in-dynamodb). Invoked by the frontend interface.
 
 There is no input.
 
