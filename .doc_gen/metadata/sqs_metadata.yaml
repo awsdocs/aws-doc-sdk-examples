@@ -987,5 +987,5 @@ sqs_Scenario_TopicsAndQueues:
                 - cpp.example_code.cross-service.topics_and_queues.config
                 - cpp.example_code.cross-service.topics_and_queues.messaging_with_topics_and_queues
   services:
-    sns: {}
-    sqs: {}
+    sns: {CreateTopic, Subscribe, Publish, Unsubscribe, DeleteTopic}
+    sqs: {CreateQueue, GetQueueAttributes, SetQueueAttributes, ReceiveMessage, DeleteMessageBatch, DeleteQueue}
