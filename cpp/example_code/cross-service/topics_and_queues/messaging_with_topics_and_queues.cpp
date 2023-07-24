@@ -151,6 +151,7 @@ namespace AwsDoc {
     } // namespace TopicsAndQueues
 } // namespace AwsDoc
 
+// snippet-start:[cpp.example_code.cross-service.topics_and_queues.messaging_with_topics_and_queues]
 //! Scenario for messaging with topics and queues using Amazon SNS and Amazon SQS.
 /*!
  \param clientConfig Aws client configuration.
@@ -679,6 +680,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                    sqsClient,
                    true); // askUser
 }
+// snippet-end:[cpp.example_code.cross-service.topics_and_queues.messaging_with_topics_and_queues]
 
 
 bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
@@ -788,6 +790,7 @@ Aws::String AwsDoc::TopicsAndQueues::createPolicyForQueue(const Aws::String &que
 
     return policyStream.str();
 }
+// snippet-end:[cpp.example_code.cross-service.topics_and_queues.messaging_with_topics_and_queues]
 
 /*
  *
