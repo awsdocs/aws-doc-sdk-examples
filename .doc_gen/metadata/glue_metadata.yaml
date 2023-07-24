@@ -27,9 +27,11 @@ glue_Hello:
         - sdk_version: 1
           github: cpp/example_code/glue/hello_glue
           excerpts:
-            - description:
+            - description: Code for the CMakeLists.txt CMake file.
               snippet_tags:
                 - cpp.example_code.glue.hello_glue.cmake
+            - description: Code for the hello_glue.cpp source file.
+              snippet_tags:
                 - cpp.example_code.glue.hello_glue
   services:
     glue: {ListJobs}
