@@ -1,8 +1,8 @@
-# Creating Feedback Sentiment Analyzer (FSA) using the SDK for LANGUAGE
+# Create Feedback Sentiment Analyzer (FSA) using the SDK for LANGUAGE
 
 ## Overview
 
-This document discusses the language specific nuances of deploying the Feedback Sentiment Analyzer application. For a more thorough explanation of this example see the application [README.md](/applications/feedback_sentiment_analyzer/README.md).
+This document discusses the language-specific nuances of deploying the Feedback Sentiment Analyzer (FSA) application. For more details, see the application [README.md](/applications/feedback_sentiment_analyzer/README.md).
 
 ## Prerequisites
 
@@ -23,6 +23,6 @@ To complete the tutorial, you need the following:
 
 The required AWS resources are created by using an AWS Cloud Development Kit (AWS CDK) script. This is discussed later in the document. There is no need to create any resources by using the AWS Management Console.
 
-## LANGUAGE SPECIFIC DETAILS
+## LANGUAGE-SPECIFIC DETAILS
 
 <!-- Fill in any details specific to your language. -->

@@ -1,14 +1,14 @@
 # AWS CDK for FSA
 
-Deploy the Feedback Sentiment analyzer with the AWS Cloud Development Kit (CDK).
+Deploy the Feedback Sentiment Analyzer (FSA) with the AWS Cloud Development Kit (AWS CDK).
 
 ## Prerequisites
 
 - Install NodeJS 18+
-- Install AWS CDK
+- Install the AWS CDK
   - https://docs.aws.amazon.com/cdk/v2/guide/cli.html
-- AWS access key & secret access key for IAM user with permissions to create resources listed above
-  - https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config
+- AWS access key and secret access key for an AWS Identity and Access Management (IAM) user with permissions to create the preceding resources
+  - Configure the AWS Command Line Interface (AWS CLI) https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config
 
 ## Set variables
 
@@ -51,9 +51,9 @@ $Env:FSA_LANG =
 
 ## Useful commands
 
-- `npm run build` compile typescript to js
-- `npm run watch` watch for changes and compile
-- `npm run test` perform the jest unit tests
-- `cdk deploy` deploy this stack to your default AWS account/region
-- `cdk diff` compare deployed stack with current state
-- `cdk synth` emits the synthesized CloudFormation template
+- `npm run build` - Compile typescript to js
+- `npm run watch` - Watch for changes and compile
+- `npm run test` - Perform the jest unit tests
+- `cdk deploy` - Deploy this stack to your default AWS account/Region
+- `cdk diff` - Compare deployed stack with current state
+- `cdk synth` - Emits the synthesized AWS CloudFormation template

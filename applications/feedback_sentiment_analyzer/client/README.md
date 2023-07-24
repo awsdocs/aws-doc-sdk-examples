@@ -1,6 +1,6 @@
 # Developer guide
 
-This is the front-end of the Feedback Sentiment Analyzer (FSA) application. You can
+This is the frontend of the Feedback Sentiment Analyzer (FSA) application. You can
 run this in isolation, but it is meant to be deployed using the companion [AWS CDK script](../cdk/README.md).
 
 ## Prerequisites

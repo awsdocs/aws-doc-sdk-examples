@@ -6,11 +6,11 @@
 <block>
   <para>
     This example application analyzes and stores customer feedback cards. Specifically,
-    it fulfils the need of a fictitious hotel in Paris, France. The hotel recieves feedback
+    it fulfills the need of a fictitious hotel in Paris, France. The hotel recieves feedback
     from guests in various languages in the form of physical comment cards. That feedback
     is uploaded into the app through a web client.
 
-    Once an image of comment a card is uploaded, the following steps occur:
+    After an image of a comment card is uploaded, the following steps occur:
   </para>
   <itemizedlist>
     <listitem>
@@ -23,10 +23,10 @@
       <para>The extracted text is translated to French using &TSL;.</para>
     </listitem>
     <listitem>
-      <para>&POL; synthesized an audio file from the extracted text.</para>
+      <para>&POL; synthesizes an audio file from the extracted text.</para>
     </listitem>
   </itemizedlist>
-  <para> The full app can be deployed with the &AWS; &CDK;. For source code and deployment
+  <para> The full app can be deployed with the &CDK;. For source code and deployment
     instructions, see the project in <ulink
       url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/cross_services_examples/feedback_sentiment_analyzer">
     GitHub</ulink>. </para>
