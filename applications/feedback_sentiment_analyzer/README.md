@@ -4,7 +4,7 @@ Feedback Sentiment Analyzer (FSA) is an example application that showcases AWS s
 
 ## What it does
 
-Specifically, this application solves a fictitious use case of a hotel in New York City, which receives feedback from guests through comment cards in a variety of foreign languages.
+Specifically, this application solves a fictitious use case of a hotel in New York City that receives guest feedback on comment cards in a variety of languages.
 
 These comment cards are uploaded through a web client, transformed using a suite of machine learning services, and rendered through the same web client.
 
@@ -12,7 +12,7 @@ These comment cards are uploaded through a web client, transformed using a suite
 
 ## SDK implementations
 
-This application has been implemented with the AWS SDKs below. You can use deploy one of these implementations by following the [Deployment instructions](#deployment-instructions).
+This application has been implemented with the following AWS SDKs. To deploy one of these implementations, follow the [Deployment instructions](#deployment-instructions).
 
 - [Ruby](../../ruby/cross-services/feedback-sentiment-analyzer/README.md)
 
@@ -20,71 +20,71 @@ This application has been implemented with the AWS SDKs below. You can use deplo
 
 ## AWS services used
 
-This application uses a suite of [machine learning services on AWS](https://aws.amazon.com/machine-learning/) to:
+This application uses a suite of [AWS machine learning services](https://aws.amazon.com/machine-learning/) to do the following:
 
-- extract text using [Amazon Textract](https://aws.amazon.com/textract/).
-- detect sentiment using [Amazon Comprehend](https://aws.amazon.com/comprehend/).
-- translate to English using [Amazon Translate](https://aws.amazon.com/translate/).
-- synthesize to human-like speech using [Amazon Polly](https://aws.amazon.com/polly/).
+- Extract text using [Amazon Textract](https://aws.amazon.com/textract/)
+- Detect sentiment using [Amazon Comprehend](https://aws.amazon.com/comprehend/)
+- Translate to English using [Amazon Translate](https://aws.amazon.com/translate/)
+- Synthesize to human-like speech using [Amazon Polly](https://aws.amazon.com/polly/)
 
-Additionally, the application showcases:
+Additionally, the application showcases the following AWS services:
 
-- [Amazon S3](https://aws.amazon.com/s3/) to store images of comment cards.
-- [EventBridge](https://aws.amazon.com/eventbridge/) to relay events from Amazon S3.
-- [AWS Lambda](https://aws.amazon.com/lambda/) to execute business logic.
-- [Step Functions](https://aws.amazon.com/stepfunctions/) to orchestrate multiple Lambda functions.
-- [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) to store details about each comment.
-- [API Gateway](https://aws.amazon.com/apigw/) to route requests from frontend to backend.
-- [CloudFront](https://aws.amazon.com/cloudfront/) to distribute this application globally.
-- [Cognito](https://aws.amazon.com/cognito) to authenticate users.
+- [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) - Stores images of comment cards
+- [Amazon EventBridge](https://aws.amazon.com/eventbridge/) - Relays events from Amazon S3
+- [AWS Lambda](https://aws.amazon.com/lambda/) - Executes business logic
+- [AWS Step Functions](https://aws.amazon.com/stepfunctions/) - Orchestrates multiple Lambda functions
+- [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) - Stores details about each comment
+- [Amazon API Gateway](https://aws.amazon.com/apigw/) - Routes requests from frontend to backend
+- [Amazon CloudFront](https://aws.amazon.com/cloudfront/) - Distributes this application globally
+- [Amazon Cognito](https://aws.amazon.com/cognito) - Authenticates users
 
 ---
 
 ## Deployment instructions
 
-This application is deployed using the [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/).
+This application is deployed using the [AWS Cloud Development Kit (AWS CDK)](https://aws.amazon.com/cdk/).
 
 1. Get [AWS credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
-1. Set the environment variables below:
+1. Set the following environment variables:
 
-   - `FSA_NAME` - Any text less than 10 characters.
-   - `FSA_EMAIL` - A valid email address you own.
-   - `FSA_LANG` - Any of the [implemented languages](#sdk-implementations).
+   - `FSA_NAME` - Any text less than 10 characters
+   - `FSA_EMAIL` - A valid email address that you own
+   - `FSA_LANG` - Any of the [implemented languages](#sdk-implementations)
 
    For example:
 
    _Bash_
 
    ```
-   export FSA_NAME=foo
-   export FSA_EMAIL=foo@bar.com
+   export FSA_NAME=ana
+   export FSA_EMAIL=ana@example.com
    export FSA_LANG=ruby
    ```
 
    _Windows cmd_
 
    ```
-   set FSA_NAME=foo
-   set FSA_EMAIL=foo@bar.com
+   set FSA_NAME=ana
+   set FSA_EMAIL=ana@example.com
    set FSA_LANG=ruby
    ```
 
    _Windows Powershell_
 
    ```
-   $Env:FSA_NAME = foo
-   $Env:FSA_EMAIL = foo@bar.com
+   $Env:FSA_NAME = ana
+   $Env:FSA_EMAIL = ana@example.com
    $Env:FSA_LANG = ruby
    ```
 
-1. Run the commands below:
+1. Run the following commands:
    ```
    cd cdk
    npm install
    cdk deploy
    ```
-   Once deployed, observe the `Output` in your terminal session.
-   Copy the CloudFront distribution URL, which will have `websiteurl` in the name.
+   After deploying, observe the `Output` in your terminal session.
+   Copy the CloudFront distribution URL, which has `websiteurl` in the name.
    ![console output](output.png)
    Paste this URL into a browser to launch the application.
 
@@ -92,7 +92,7 @@ This application is deployed using the [AWS Cloud Development Kit (CDK)](https:/
 
 ## Application instructions
 
-### Log in
+### Sign in
 
 1. Choose `Sign in`.
 2. Enter the the email from `FSA_EMAIL` into the `Username` field.
@@ -102,7 +102,7 @@ This application is deployed using the [AWS Cloud Development Kit (CDK)](https:/
 
 ### Upload images
 
-1. Log in directs you to a landing page that says `No data found`.
+1. Signing in directs you to a landing page that says `No data found`.
    ![empty](no-data-found.png)
 2. Choose `Upload`.
 3. Choose `Select a file`.

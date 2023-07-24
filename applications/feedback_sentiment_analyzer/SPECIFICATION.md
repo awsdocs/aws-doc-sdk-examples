@@ -2,16 +2,16 @@
 
 This document contains the technical specifications for Feedback Sentiment Analyzer (FSA), a sample application that showcases AWS services and SDKs.
 
-This document explains:
+This document explains the following:
 
-- Application inputs and outputs.
-- Underlying AWS components and their configurations.
-- Key cross-service integration details.
+- Application inputs and outputs
+- Underlying AWS components and their configurations
+- Key cross-service integration details
 
-See the [README.md](README.md) for an introduction to FSA.
+For an introduction to FSA, see the [README.md](README.md).
 
 ---
-### Table of Contents
+### Table of contents
 
   * [Diagram](#diagram)
   * [User actions](#user-actions)
@@ -24,13 +24,13 @@ See the [README.md](README.md) for an introduction to FSA.
       + [TranslateText](#translatetext)
       + [SynthesizeAudio](#synthesizeaudio)
   * [GetFeedback Lambda function](#getfeedback-lambda-function)
-  * [Processing S3 events with EventBridge](#processing-s3-events-with-eventbridge)
+  * [Processing Amazon S3 events with EventBridge](#processing-s3-events-with-eventbridge)
   * [Managing items in DynamoDB](#managing-items-in-dynamodb)
   * [Other FSA material](#other-fsa-material)
 
 ---
 
-## Diagram
+## Relational diagram
 This diagram represents the relationships between key FSA components. 
 ![architecture2.png](architecture2.png)
 
@@ -40,21 +40,21 @@ This diagram represents the relationships between key FSA components.
 
 This application receives three inputs from the frontend.
 
-- authenticate user (uses `Cognito`)
-- load page (uses `DynamoDB:GetItems`)
-- upload image to S3 (`S3:PutObject`)
+- Authenticate user (uses `Cognito`)
+- Load page (uses `DynamoDB:GetItems`)
+- Upload image to Amazon S3 (`S3:PutObject`)
 
 ## Application behavior
 
 This application produces two outputs from the backend:
 
-- put new item in the database (uses `DynamoDB:PutItem`)
-- put new synthesized audio to S3 (uses `S3:PutObject`)
+- Put new item in the database (uses `DynamoDB:PutItem`)
+- Put new synthesized audio to Amazon S3 (uses `S3:PutObject`)
 
 ## User flow
 The following list describes the happy path of a frontend user.
 
-1. Authenticate via Amazon Cognito hosted UI.
+1. Authenticate by using the Amazon Cognito hosted UI.
 2. Upload an image with text in a non-English language.
 3. Press the refresh button after a minute.
 4. See the original image alongside a English translation and a play button.
@@ -143,7 +143,7 @@ All the APIs are created by the CDK script. The endpoints are common to every la
 <summary><strong>GET /api/env</strong></summary>
 <br/>
 
-> Get the environment variables required to connect to a Cognito hosted UI. The frontend calls this automatically to facilitate sign in.
+> Get the environment variables required to connect to an Amazon Cognito hosted UI. The frontend calls this automatically to facilitate sign in.
 
 <table>
 <tr>
@@ -166,27 +166,27 @@ All the APIs are created by the CDK script. The endpoints are common to every la
 </table>
 </details>
 
-## Step Function configuration
+## Step Functions configuration
 
-When an image is created or updated in S3 media bucket, a Step Function state machine is triggered.
+When an image is created or updated in an S3 media bucket, a Step Functions state machine is triggered.
 
-This multi-state workflow is listed below in sequence:
+The sequence of this multi-state workflow follows:
 
 1. Start
-2. [ExtractText](#ExtractText) - extracts text from an image
-3. [AnalyzeSentiment](#AnalyzeSentiment) - detects text sentiment
-4. `ContinueIfPositive` (skip to 7 if sentiment `NEGATIVE`)
-5. [TranslateText](#TranslateText) - translates text to English
-6. [SynthesizeAudio](#SynthesizeAudio) - synthesizes human-like audio from text
-7. `DynamoDB:PutItem` (see [table config](#managing-items-in-dynamodb))
+2. [ExtractText](#ExtractText) - Extracts text from an image
+3. [AnalyzeSentiment](#AnalyzeSentiment) - Detects text sentiment
+4. `ContinueIfPositive` (Skip to 7 if sentiment is `NEGATIVE`)
+5. [TranslateText](#TranslateText) - Translates text to English
+6. [SynthesizeAudio](#SynthesizeAudio) - Synthesizes human-like audio from text
+7. `DynamoDB:PutItem` (See [table config](#managing-items-in-dynamodb))
 8. Stop
 
-The below diagram depicts this sequence.
+The following diagram depicts this sequence.
 ![state-machine.png](state-machine.png)
 
 ## State machine Lambda functions
 
-See below for the required inputs and outputs of each Lambda function.
+Following are the required inputs and outputs of each Lambda function.
 
 ### ExtractText
 Uses Amazon Textract's [DetectDocumentText](https://docs.aws.amazon.com/textract/latest/dg/API_DetectDocumentText.html)
@@ -194,7 +194,7 @@ method to extract text from an image and return a unified text representation.
 
 #### **Input**
 
-Uses the data available on the [S3 event object](https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html).
+Uses the data available on the [Amazon S3 event object](https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html).
 
 For example:
 
@@ -202,13 +202,13 @@ For example:
 {
   "bucket": "my-s3-bucket",
   "region": "us-east-1",
-  "object": "foo/bar.png"
+  "object": "obj/ect.png"
 }
 ```
 
 #### **Output**
 
-Returns a string representing the text extracted.
+Returns a string representing the extracted text.
 
 For example:
 
@@ -217,7 +217,7 @@ CET HÔTEL ÉTAIT SUPER
 ```
 ---
 ### AnalyzeSentiment
-Uses Amazon Comprehend's [DetectSentiment](https://docs.aws.amazon.com/comprehend/latest/APIReference/API_DetectSentiment.html)
+Uses the Amazon Comprehend [DetectSentiment](https://docs.aws.amazon.com/comprehend/latest/APIReference/API_DetectSentiment.html)
 method to detect sentiment (`POSITIVE`, `NEUTRAL`, `MIXED`, or `NEGATIVE`).
 
 #### **Input**
@@ -276,7 +276,7 @@ THIS HOTEL WAS GREAT
 ---
 ### SynthesizeAudio
 Uses Amazon Polly's [SynthesizeAudio](https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html)
-method to converts input text into life-like speech
+method to convert input text into life-like speech.
 
 #### **Input**
 
@@ -300,7 +300,7 @@ Returns a string representing the key of the synthesized audio file.
 For example:
 
 ```
-my-s3-bucket/audio.mp3
+DOC-EXAMPLE-BUCKET/audio.mp3
 ```
 
 ---
@@ -336,9 +336,9 @@ For example:
 
 ---
 
-## Processing S3 events with EventBridge
+## Processing Amazon S3 events with EventBridge
 
-This application relies on an [EventBridge rule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rules.html), which triggers the [Step Functions state machine](#step-function-configuration) when new images are uploaded to S3 by the frontend.
+This application relies on an [EventBridge rule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rules.html) to trigger the [Step Functions state machine](#step-function-configuration) when new images are uploaded to Amazon S3 by the frontend.
 
 Specifically, the trigger is scoped to `ObjectCreated` events emitted by `my-s3-bucket`:
 
@@ -361,16 +361,16 @@ Specifically, the trigger is scoped to `ObjectCreated` events emitted by `my-s3-
 
 ## Managing items in DynamoDB
 
-This application relies on an Amazon DynamoDB table using the schema detailed below.
+This application relies on an Amazon DynamoDB table using the following schema.
 
 | key               | purpose                                   | attribute | value                  |
 | ----------------- | ----------------------------------------- | --------- | ---------------------- |
 | `comment_key`     | Key of the scanned image.                 | `S`       | S3 object key          |
 | `source_text`     | Extracted text from image.                | `S`       | Extracted text         |
-| `sentiment`       | Comprehend sentiment score.               | `S`       | Comprehend JSON object |
-| `source_language` | The language detected from the Text.      | `S`       | Language code          |
+| `sentiment`       | Amazon Comprehend sentiment score.               | `S`       | Amazon Comprehend JSON object |
+| `source_language` | The language detected from the text.      | `S`       | Language code          |
 | `translated_text` | English version of 'text'.                | `S`       | Translated text        |
-| `audio_key`       | Key of the audio file generated by Polly. | `S`       | S3 object key          |
+| `audio_key`       | Key of the audio file generated by Amazon Polly. | `S`       | Amazon S3 object key          |
 
 ---
 
