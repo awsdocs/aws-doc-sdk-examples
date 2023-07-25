@@ -44,7 +44,7 @@ A definition for the `ExtractText` function might look like the following:
   },
 ```
 
-The `codeAsset` function must return a [Code](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Code.html) object. You can include inline code or [create a bundled asset](#bundling).
+The `codeAsset` function must return a [Code](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Code.html) object. You can include inline code or [create a bundled asset](#bundling-language-dependent).
 
 ## Implement Lambda functions
 
@@ -62,4 +62,4 @@ The AWS CDK can compile resources during the deployment using Docker. To configu
 Docker will execute the `command` for the bundling step.
 The assets, specified as the first argument to `Code.fromAsset`, are mounted in the container at `/asset-input/` (which is also the working directory).
 The command should perform any compilation steps necessary, and move any necessary artifacts to `/asset-output/`.
-The contents of `/asset-output/` are archived in the Lambda's Amazon Simple Storage Service (Amazon S3) bucket. These contents are the executable that the Runtime uses.
+The contents of `/asset-output/` are archived in the Lambda's S3 bucket. These contents are the executable that the Runtime uses.

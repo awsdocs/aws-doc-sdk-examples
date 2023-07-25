@@ -6,7 +6,7 @@
 <block>
   <para>
     This example application analyzes and stores customer feedback cards. Specifically,
-    it fulfills the need of a fictitious hotel in Paris, France. The hotel recieves feedback
+    it fulfills the need of a fictitious hotel in Paris, France. The hotel receives feedback
     from guests in various languages in the form of physical comment cards. That feedback
     is uploaded into the app through a web client.
 
@@ -17,7 +17,7 @@
       <para>Text is extracted from the image using &TEXTRACT;.</para>
     </listitem>
     <listitem>
-      <para>&CMP; guesses the sentiment of the extracted text and its language.</para>
+      <para>&CMP; determines the sentiment of the extracted text and its language.</para>
     </listitem>
     <listitem>
       <para>The extracted text is translated to French using &TSL;.</para>

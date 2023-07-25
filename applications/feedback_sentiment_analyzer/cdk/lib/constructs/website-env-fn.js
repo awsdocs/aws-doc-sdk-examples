@@ -24,7 +24,6 @@ async function handler() {
     clients.push(...client.UserPoolClients);
   }
 
-  // This should be refactored into something more robust than just grabbing the first client.
   const client = clients[0];
   const cognitoAppClientId = client.ClientId;
 

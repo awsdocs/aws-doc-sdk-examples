@@ -4,7 +4,6 @@ require "json"
 require "aws-sdk-polly"
 require "aws-sdk-s3"
 require "logger"
-# require 'pry'
 
 def lambda_handler(event, context)
   logger = Logger.new($stdout)
@@ -12,7 +11,7 @@ def lambda_handler(event, context)
   logger.info("event:\n #{event}")
   logger.info("context:\n #{context}")
 
-  # Create an instance of the Textract client
+  # Create an instance of the Polly client
   polly_client = Aws::Polly::Client.new(region: event["region"])
 
   resp = polly_client.synthesize_speech({

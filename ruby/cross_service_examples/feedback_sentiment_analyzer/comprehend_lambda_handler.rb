@@ -14,7 +14,7 @@ def lambda_handler(event:, context:)
 
   source_text = event["source_text"]
 
-  logger.info("paylaod:\n #{source_text}")
+  logger.info("payload:\n #{source_text}")
 
   response = rekognition_client.detect_dominant_language({ text: source_text })
 

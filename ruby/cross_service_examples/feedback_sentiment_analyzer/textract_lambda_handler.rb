@@ -3,7 +3,6 @@
 require "json"
 require "aws-sdk-textract"
 require "logger"
-# require 'pry'
 
 def lambda_handler(event:, context:)
   logger = Logger.new($stdout)

@@ -10,7 +10,7 @@ def lambda_handler(event:, context:)
   logger.info("event:\n #{event}")
   logger.info("context:\n #{context}")
 
-  # Create an instance of the Textract client
+  # Create an instance of the Translate client
   client = Aws::Translate::Client.new(region: event["region"])
 
   client.translate_text({

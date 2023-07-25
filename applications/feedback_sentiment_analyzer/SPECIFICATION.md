@@ -14,18 +14,18 @@ For an introduction to FSA, see the [README.md](README.md).
 
 ### Table of contents
 
-- [Diagram](#diagram)
+- [Relational diagram](#relational-diagram)
 - [User actions](#user-actions)
 - [Application behavior](#application-behavior)
 - [HTTP API specification](#http-api-specification)
-- [Step Function configuration](#step-function-configuration)
+- [Step Functions configuration](#step-functions-configuration)
   - [State machine Lambda functions](#state-machine-lambda-functions)
     - [ExtractText](#extracttext)
     - [AnalyzeSentiment](#analyzesentiment)
     - [TranslateText](#translatetext)
     - [SynthesizeAudio](#synthesizeaudio)
 - [GetFeedback Lambda function](#getfeedback-lambda-function)
-- [Processing Amazon S3 events with EventBridge](#processing-s3-events-with-eventbridge)
+- [Processing Amazon S3 events with EventBridge](#processing-amazon-s3-events-with-eventbridge)
 - [Managing items in DynamoDB](#managing-items-in-dynamodb)
 - [Other FSA material](#other-fsa-material)
 
@@ -80,7 +80,7 @@ All the APIs are created by the CDK script. The endpoints are common to every la
 </tr>
 <tr>
 <td>item - the object key of the item to get</td>
-<td>JavaScript [File](https://developer.mozilla.org/en-US/docs/Web/API/File) object</td>
+<td>JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/API/File">File</a> object</td>
 <td>Empty</td>
 </tr>
 </table>
@@ -239,7 +239,7 @@ For example:
 
 #### **Output**
 
-Returns the guessed sentiment and language code.
+Returns the determined sentiment and language code.
 
 For example:
 
@@ -350,7 +350,7 @@ For example:
 
 ## Processing Amazon S3 events with EventBridge
 
-This application relies on an [EventBridge rule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rules.html) to trigger the [Step Functions state machine](#step-function-configuration) when new images are uploaded to Amazon S3 by the frontend.
+This application relies on an [EventBridge rule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-rules.html) to trigger the [Step Functions state machine](#step-functions-configuration) when new images are uploaded to Amazon S3 by the frontend.
 
 Specifically, the trigger is scoped to `ObjectCreated` events emitted by `my-s3-bucket`:
 
@@ -392,4 +392,3 @@ If technical details are not what you seek, try these instead:
 
 - [High-level summary](README.md)
 - [Deployment and development instructions](DEVELOPMENT.md)
-- [Opinionated architecture overview](DESIGN.md)
