@@ -10,30 +10,28 @@ import (
 	"fmt"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/aws/aws-sdk-go-v2/aws/middleware"
 	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/cloudfront"
 	cloudfrontTypes "github.com/aws/aws-sdk-go-v2/service/cloudfront/types"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
-	awshttp "github.com/aws/smithy-go/transport/http"
 )
 
 // main uses the AWS SDK for Go V2 to create an Amazon CloudFront distribution.
 // This example uses the default settings specified in your shared credentials
 // and config files.
 func CreateDistribution(s3Client *s3.Client, cloudfrontClient *cloudfront.Client, bucketName, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error) {
-	bucket, err := s3Client.HeadBucket(context.TODO(), &s3.HeadBucketInput{
-		Bucket: &bucketName,
-	})
+	locationOutput, err := s3Client.GetBucketLocation(context.Background(), &s3.GetBucketLocationInput{Bucket: aws.String(bucketName)})
+	// bucket, err := s3Client.HeadBucket(context.TODO(), &s3.HeadBucketInput{
+	// 	Bucket: &bucketName,
+	// })
 
 	if err != nil {
 		return nil, err
 	}
 
-	bucketResponseMetadata := middleware.GetRawResponse(bucket.ResultMetadata).(*awshttp.Response)
-
-	region := bucketResponseMetadata.Header.Get("x-amz-bucket-region")
-	originDomain := bucketName + ".s3." + region + ".amazonaws.com"
+	// bucketResponseMetadata := middleware.GetRawResponse(locationOutput.ResultMetadata).(*awshttp.Response)
+	// region := bucketResponseMetadata.Header.Get("x-amz-bucket-region")
+	originDomain := bucketName + ".s3." + string(locationOutput.LocationConstraint) + ".amazonaws.com"
 
 	if err != nil {
 		return nil, err
