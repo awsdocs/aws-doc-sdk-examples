@@ -16,7 +16,7 @@ run_mvn_tests() {
 # Root directory
 root_dir="example_code"
 
-# Error if the root directory exists
+# Error if the root directory does not exist
 if [[ ! -d "$root_dir" ]]; then
   echo "Root directory $root_dir does not exist!"
   exit 1
