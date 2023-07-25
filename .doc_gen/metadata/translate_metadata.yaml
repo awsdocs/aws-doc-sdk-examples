@@ -5,6 +5,15 @@ translate_StartTranslationJob:
   synopsis: start an &TSL; translation job.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 2
+          github: kotlin/services/translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - translate.kotlin._batch.main
     Java:
       versions:
         - sdk_version: 2
@@ -39,6 +48,15 @@ translate_DescribeTranslationJob:
   synopsis: describe an &TSL; translation job.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 2
+          github: kotlin/services/translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - translate.kotlin._describe_jobs.main
     Java:
       versions:
         - sdk_version: 2
@@ -73,7 +91,16 @@ translate_ListTranslationJobs:
   synopsis: list the &TSL; translation jobs.
   category:
   languages:
-    Java:
+   Kotlin:
+      versions:
+        - sdk_version: 2
+          github: kotlin/services/translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - translate.kotlin._list_jobs.main
+   Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/translate
@@ -132,6 +159,15 @@ translate_TranslateText:
   synopsis: translate text with &TSL;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 2
+          github: kotlin/services/translate
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - translate.kotlin._text.main
     Java:
       versions:
         - sdk_version: 2
