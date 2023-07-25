@@ -7,7 +7,7 @@ translate_StartTranslationJob:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 2
+        - sdk_version: 1
           github: kotlin/services/translate
           sdkguide:
           excerpts:
@@ -50,7 +50,7 @@ translate_DescribeTranslationJob:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 2
+        - sdk_version: 1
           github: kotlin/services/translate
           sdkguide:
           excerpts:
@@ -93,7 +93,7 @@ translate_ListTranslationJobs:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 2
+        - sdk_version: 1
           github: kotlin/services/translate
           sdkguide:
           excerpts:
@@ -161,7 +161,7 @@ translate_TranslateText:
   languages:
     Kotlin:
       versions:
-        - sdk_version: 2
+        - sdk_version: 1
           github: kotlin/services/translate
           sdkguide:
           excerpts:
