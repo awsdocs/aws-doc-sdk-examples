@@ -12,9 +12,11 @@ These comment cards are uploaded through a web client, transformed using a suite
 
 ## SDK implementations
 
-This application has been implemented with the following AWS SDKs. To deploy one of these implementations, follow the [Deployment instructions](#deployment-instructions).
+This application has been implemented with the following AWS SDKs.
 
 - [Ruby](../../ruby/cross_service_examples/feedback_sentiment_analyzer/README.md)
+
+To deploy one of these implementations, follow the [Deployment instructions](#deployment-instructions).
 
 ---
 
