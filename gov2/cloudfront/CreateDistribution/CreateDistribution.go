@@ -21,7 +21,7 @@ import (
 // main uses the AWS SDK for Go V2 to create an Amazon CloudFront distribution.
 // This example uses the default settings specified in your shared credentials
 // and config files.
-func CreateDistribution(s3Client *s3.Client, cloudfrontClient *cloudfront.Client, bucketName, originAccessIdentityID, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error) {
+func CreateDistribution(s3Client *s3.Client, cloudfrontClient *cloudfront.Client, bucketName, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error) {
 	bucket, err := s3Client.HeadBucket(context.TODO(), &s3.HeadBucketInput{
 		Bucket: &bucketName,
 	})
@@ -35,6 +35,11 @@ func CreateDistribution(s3Client *s3.Client, cloudfrontClient *cloudfront.Client
 	region := bucketResponseMetadata.Header.Get("x-amz-bucket-region")
 	originDomain := bucketName + ".s3." + region + ".amazonaws.com"
 
+	if err != nil {
+		return nil, err
+	}
+
+	originAccessIdentityID, err := createoriginAccessIdentity(cloudfrontClient, domain)
 	if err != nil {
 		return nil, err
 	}
@@ -102,6 +107,20 @@ func CreateDistribution(s3Client *s3.Client, cloudfrontClient *cloudfront.Client
 	return cloudfrontResponse, nil
 }
 
+func createoriginAccessIdentity(cloudfrontClient *cloudfront.Client, domainName string) (string, error) {
+	ctx := context.Background()
+	oai, err := cloudfrontClient.CreateCloudFrontOriginAccessIdentity(ctx, &cloudfront.CreateCloudFrontOriginAccessIdentityInput{
+		CloudFrontOriginAccessIdentityConfig: &cloudfrontTypes.CloudFrontOriginAccessIdentityConfig{
+			CallerReference: aws.String(domainName),
+			Comment:         aws.String(domainName),
+		},
+	})
+	if err != nil {
+		return "", err
+	}
+	return *oai.CloudFrontOriginAccessIdentity.Id, nil
+}
+
 func main() {
 	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
 
@@ -113,11 +132,10 @@ func main() {
 
 	s3Client := s3.NewFromConfig(sdkConfig)
 	cloudfrontClient := cloudfront.NewFromConfig(sdkConfig)
-	bucketName := "example-bucket-name"
-	originAccessIdentityID := "E12345678" // example id
+	bucketName := "<EXAMPLE-BUCKET-NAME>"
 	certificateSSLArn := "arn:aws:us-east-1:1234567890:certificate/7a4c4086-706d-4f6f-a8a2-2c7cebad7264"
 	domain := "aws.example.com"
-	result, err := CreateDistribution(s3Client, cloudfrontClient, bucketName, originAccessIdentityID, certificateSSLArn, domain)
+	result, err := CreateDistribution(s3Client, cloudfrontClient, bucketName, certificateSSLArn, domain)
 	if err != nil {
 		fmt.Println("Couldn't Create Distribution. Please Check error message and try again.")
 		fmt.Println(err)
