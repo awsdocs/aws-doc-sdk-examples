@@ -133,11 +133,17 @@ func main() {
 	s3Client := s3.NewFromConfig(sdkConfig)
 	cloudfrontClient := cloudfront.NewFromConfig(sdkConfig)
 	bucketName := "<EXAMPLE-BUCKET-NAME>"
-	certificateSSLArn := "arn:aws:us-east-1:1234567890:certificate/7a4c4086-706d-4f6f-a8a2-2c7cebad7264"
-	domain := "aws.example.com"
+
+	// certificateSSLArn is the ARN value of the certificate issued by the aws certificate manager.
+	// When testing, please check and copy and paste the ARN of the pre-issued certificate.
+	certificateSSLArn := "<AWS CERTIFICATE MANGER ARN>"
+
+	// domain refers to the domain that will be used in conjunction with cloudfront and route53.
+	// For testing, please enter a domain that is registered in AWS route53 and will be used in conjunction with cloudfront.
+	domain := "<YOUR DOMAIN>"
 	result, err := CreateDistribution(s3Client, cloudfrontClient, bucketName, certificateSSLArn, domain)
 	if err != nil {
-		fmt.Println("Couldn't Create Distribution. Please Check error message and try again.")
+		fmt.Println("Couldn't create distribution. Please check error message and try again.")
 		fmt.Println(err)
 		return
 	}
