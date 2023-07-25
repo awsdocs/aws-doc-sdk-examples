@@ -91,7 +91,7 @@ translate_ListTranslationJobs:
   synopsis: list the &TSL; translation jobs.
   category:
   languages:
-   Kotlin:
+    Kotlin:
       versions:
         - sdk_version: 2
           github: kotlin/services/translate
@@ -100,7 +100,7 @@ translate_ListTranslationJobs:
             - description:
               snippet_tags:
                 - translate.kotlin._list_jobs.main
-   Java:
+    Java:
       versions:
         - sdk_version: 2
           github: javav2/example_code/translate
