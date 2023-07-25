@@ -14,8 +14,8 @@ import (
 
 func TestCreateDistribution(t *testing.T) {
 	thisTime := time.Now()
-	nowString := thisTime.Format("2023-02-05 15:04:05 Sunday")
-	t.Log("Starting unit test at " + nowString)
+	nowString := thisTime.Format("2006-01-02 15:04:05 Monday")
+	t.Log("Starting integration test at " + nowString)
 
 	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
 
@@ -27,9 +27,9 @@ func TestCreateDistribution(t *testing.T) {
 
 	s3Client := s3.NewFromConfig(sdkConfig)
 	cloudfrontClient := cloudfront.NewFromConfig(sdkConfig)
-	bucketName := "example-bucket-name"                                                                  // example id
-	certificateSSLArn := "arn:aws:us-east-1:1234567890:certificate/7a4c4086-706d-4f6f-a8a2-2c7cebad7264" //example certificateManagerSSLARN
-	domain := "aws.example.com"
+	bucketName := "<EXAMPLE-BUCKET-NAME>"
+	certificateSSLArn := "<AWS CERTIFICATE MANGER ARN>"
+	domain := "<YOUR DOMAIN>"
 	result, err := CreateDistribution(s3Client, cloudfrontClient, bucketName, certificateSSLArn, domain)
 
 	if err != nil {
