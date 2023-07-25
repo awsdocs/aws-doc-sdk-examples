@@ -75,7 +75,7 @@ namespace AwsDoc {
          */
         static Aws::String getFilterPolicyFromUser();
 
-        //! Routine that deletes AWS resources created by this Workflow.
+        //! Routine that deletes AWS resources created by this workflow.
         /*!
          \sa cleanUp()
          \param topicARN: The ARN of an SNS topic.
