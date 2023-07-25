@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-// snippet-start:[gov2.cloudfront.CreateDistribution]
+// snippet-start:[cloudfront.go-v2.CreateDistribution]
 
 package main
 
@@ -132,3 +132,5 @@ func main() {
 	}
 	fmt.Println(result.Distribution.ARN)
 }
+
+// snippet-end:[cloudfront.go-v2.CreateDistribution]
