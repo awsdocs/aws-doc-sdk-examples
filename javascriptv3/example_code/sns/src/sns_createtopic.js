@@ -17,7 +17,7 @@ node sns_createtopic.js
 // snippet-start:[sns.JavaScript.topics.createTopicV3]
 // Import required AWS SDK clients and commands for Node.js
 import {CreateTopicCommand } from "@aws-sdk/client-sns";
-import {snsClient } from "./libs/snsClient.js";
+import {snsClient } from "../libs/snsClient.js";
 
 // Set the parameters
 const params = { Name: "TOPIC_NAME" }; //TOPIC_NAME

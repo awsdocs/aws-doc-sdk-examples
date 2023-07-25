@@ -17,7 +17,7 @@ node sns_subscribeapp.js
 // snippet-start:[sns.JavaScript.subscriptions.unsubscribeV3]
 // Import required AWS SDK clients and commands for Node.js
 import {UnsubscribeCommand } from "@aws-sdk/client-sns";
-import {snsClient } from "./libs/snsClient.js";
+import {snsClient } from "../libs/snsClient.js";
 
 // Set the parameters
 const params = { SubscriptionArn: "TOPIC_SUBSCRIPTION_ARN" }; //TOPIC_SUBSCRIPTION_ARN

@@ -17,7 +17,7 @@ node sns_setsmstype.js
 // snippet-start:[sns.JavaScript.SMS.setSMSAttributesV3]
 // Import required AWS SDK clients and commands for Node.js
 import {SetSMSAttributesCommand } from "@aws-sdk/client-sns";
-import {snsClient } from "./libs/snsClient.js";
+import {snsClient } from "../libs/snsClient.js";
 
 // Set the parameters
 const params = {

@@ -16,7 +16,7 @@ node sns_listtopics.js
 // snippet-start:[sns.JavaScript.topics.listTopicsV3]
 // Import required AWS SDK clients and commands for Node.js
 import {ListTopicsCommand } from "@aws-sdk/client-sns";
-import {snsClient } from "./libs/snsClient.js";
+import {snsClient } from "../libs/snsClient.js";
 
 const run = async () => {
   try {

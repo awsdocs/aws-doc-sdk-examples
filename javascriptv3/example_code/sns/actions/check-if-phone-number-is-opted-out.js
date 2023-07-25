@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 // snippet-start:[sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3]
 import { CheckIfPhoneNumberIsOptedOutCommand } from "@aws-sdk/client-sns";
 
-import { snsClient } from "../src/libs/snsClient.js";
+import { snsClient } from "../libs/snsClient.js";
 
 export const main = async () => {
   try {

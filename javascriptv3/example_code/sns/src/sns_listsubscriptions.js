@@ -17,7 +17,7 @@ node sns_listsubscriptions.js
 // snippet-start:[sns.JavaScript.subscriptions.listSubscriptionsByTopicV3]
 // Import required AWS SDK clients and commands for Node.js
 import {ListSubscriptionsByTopicCommand } from "@aws-sdk/client-sns";
-import {snsClient } from "./libs/snsClient.js";
+import {snsClient } from "../libs/snsClient.js";
 
 // Set the parameters
 const params = { TopicArn: "TOPIC_ARN" }; //TOPIC_ARN
