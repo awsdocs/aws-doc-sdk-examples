@@ -19,10 +19,6 @@ To complete the tutorial, you need the following:
 - Be sure to delete all of the resources you create while going through this tutorial so that you won't be charged.
 - Also make sure to properly set up your development environment. For information, see [LINK TO SETTING UP THE LANGUAGE SDK].
 
-### Resource creation
-
-The required AWS resources are created by using an AWS Cloud Development Kit (AWS CDK) script. This is discussed later in the document. There is no need to create any resources by using the AWS Management Console.
-
 ## LANGUAGE-SPECIFIC DETAILS
 
 <!-- Fill in any details specific to your language. -->
