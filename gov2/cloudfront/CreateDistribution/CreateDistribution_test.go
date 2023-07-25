@@ -1,8 +1,5 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
-
-// snippet-start:[gov2.cloudfront.CreateDistribution]
-
 package main
 
 import (
@@ -30,11 +27,10 @@ func TestCreateDistribution(t *testing.T) {
 
 	s3Client := s3.NewFromConfig(sdkConfig)
 	cloudfrontClient := cloudfront.NewFromConfig(sdkConfig)
-	bucketName := "example-bucket-name"
-	originAccessIdentityID := "E12345678"                                                                // example id
+	bucketName := "example-bucket-name"                                                                  // example id
 	certificateSSLArn := "arn:aws:us-east-1:1234567890:certificate/7a4c4086-706d-4f6f-a8a2-2c7cebad7264" //example certificateManagerSSLARN
 	domain := "aws.example.com"
-	result, err := CreateDistribution(s3Client, cloudfrontClient, bucketName, originAccessIdentityID, certificateSSLArn, domain)
+	result, err := CreateDistribution(s3Client, cloudfrontClient, bucketName, certificateSSLArn, domain)
 
 	if err != nil {
 		t.Log("Got an error ...:")
