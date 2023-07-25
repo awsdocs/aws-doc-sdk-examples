@@ -83,14 +83,7 @@ func CreateDistribution(s3Client *s3.Client, cloudfrontClient *cloudfront.Client
 			DefaultCacheBehavior: &cloudfrontTypes.DefaultCacheBehavior{
 				TargetOriginId:       aws.String(originDomain),
 				Compress:             aws.Bool(true),
-				MinTTL:               aws.Int64(200),
 				ViewerProtocolPolicy: cloudfrontTypes.ViewerProtocolPolicyRedirectToHttps,
-				ForwardedValues: &cloudfrontTypes.ForwardedValues{
-					Cookies: &cloudfrontTypes.CookiePreference{
-						Forward: cloudfrontTypes.ItemSelectionNone,
-					},
-					QueryString: aws.Bool(true),
-				},
 				AllowedMethods: &cloudfrontTypes.AllowedMethods{
 					Quantity: aws.Int32(2),
 					Items: []cloudfrontTypes.Method{
