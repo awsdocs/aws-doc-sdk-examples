@@ -22,12 +22,12 @@ class ProducerStack(Stack):
         client = boto3.client('ssm')
 
         onboarded_languages = [
-            'ruby'
-            # 'javav2'
+            'ruby',
+            'javav2',
             # 'javascriptv3'
             # 'gov2'
             # 'python'
-            # 'dotnetv3'
+            'dotnetv3',
             # 'kotlin'
             # 'rust_dev_preview'
             # 'swift'
@@ -38,7 +38,7 @@ class ProducerStack(Stack):
 
         account_ids = []
         for language_name in onboarded_languages:
-            response = client.get_parameter(Name=language_name, WithDecryption=True)
+            response = client.get_parameter(Name=f'/account-mappings/{language_name}', WithDecryption=True)
             account_ids.append(response['Parameter']['Value'])
 
         # Create a new Amazon Simple Notification Service (Amazon SNS) topic.
