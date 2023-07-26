@@ -114,5 +114,5 @@
   color: "a0d0fa"
   description: "Similar to an Epic, but used to track a single individual's multi-part issues."
 - name: Internal
-  color: "#f2bb22"
+  color: "f2bb22"
   description: "To help track internal tickets in a single location."
