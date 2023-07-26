@@ -8,7 +8,7 @@ from consumer_stack.consumer_stack import ConsumerStack
 import os
 
 app = App()
-ConsumerStack(app, "ConsumerStack2",
+ConsumerStack(app, "ConsumerStack4",
               env=cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION')),
               )
 

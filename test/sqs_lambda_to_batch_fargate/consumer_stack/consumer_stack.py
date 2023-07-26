@@ -18,7 +18,8 @@ from aws_cdk import (
     aws_batch_alpha as batch_alpha,
     aws_kinesis as kinesis,
     Aws,
-    Stack
+    Stack,
+    Size
 )
 from constructs import Construct
 import json
@@ -108,34 +109,31 @@ class ConsumerStack(Stack):
         # Batch resources commented out due to bug: https://github.com/aws/aws-cdk/issues/24783.
         # Using Alpha as workaround.
 
-        fargate_environment = batch_alpha.ComputeEnvironment(self, f"FargateEnv-{language_name}",
-            compute_resources=batch_alpha.ComputeResources(
-                type=batch_alpha.ComputeResourceType.FARGATE,
+        fargate_environment = batch_alpha.FargateComputeEnvironment(self, f"FargateEnv-{language_name}",
                 vpc=ec2.Vpc.from_lookup(self, "Vpc", is_default=True)
-            )
         )
 
         # Configure AWS Batch to use the log group in the producer account.
-        log_config = batch_alpha.LogConfiguration(
-            log_driver=batch_alpha.LogDriver.AWSLOGS
-        )
+        # log_config = batch_alpha.LogConfiguration(
+        #     log_driver=batch_alpha.LogDriver.AWSLOGS
+        # )
 
-        job_definition = batch_alpha.JobDefinition(self, f"JobDefinition-{language_name}",
-            container=batch_alpha.JobDefinitionContainer(
+        job_definition = batch_alpha.EcsJobDefinition(self, f"JobDefinition-{language_name}",
+            container=batch_alpha.EcsFargateContainerDefinition(self, "Test",
                 image=container_image,
                 execution_role=batch_execution_role,
-                log_configuration=log_config,
+                # log_configuration=log_config,
                 assign_public_ip=True,
-            ),
-            platform_capabilities=[ batch_alpha.PlatformCapabilities.FARGATE ]
+                memory=Size.gibibytes(2),
+                cpu=1
+            )
         )
 
         job_queue = batch_alpha.JobQueue(self, f"JobQueue-{language_name}",
-            compute_environments=[batch_alpha.JobQueueComputeEnvironment(
-               compute_environment=fargate_environment,
-               order=1
-            )]
+            priority=1
         )
+
+        job_queue.add_compute_environment(fargate_environment, 1)
 
         # Define the Lambda function.
         function = _lambda.Function(self, f'SubmitBatchJob-{language_name}',
