@@ -680,7 +680,6 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                    sqsClient,
                    true); // askUser
 }
-// snippet-end:[cpp.example_code.cross-service.topics_and_queues.messaging_with_topics_and_queues]
 
 
 bool AwsDoc::TopicsAndQueues::cleanUp(const Aws::String &topicARN,
