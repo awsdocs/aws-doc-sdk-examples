@@ -6,7 +6,7 @@ def generate_parameter_store_values(account_id_mappings):
 
     for key, value in account_id_mappings:
         try:
-            response = ssm.get_parameter(Name=key, WithDecryption=True)
+            ssm.get_parameter(Name=key, WithDecryption=True)
             print(f"Parameter '{key}' already exists. Updating the value...")
             ssm.put_parameter(Name=key, Value=value, Type='SecureString', Overwrite=True)
         except ssm.exceptions.ParameterNotFound:
