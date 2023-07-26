@@ -75,7 +75,7 @@ namespace AwsDoc {
          */
         static Aws::String getFilterPolicyFromUser();
 
-        //! Routine that deletes AWS resources created by this scenario.
+        //! Routine that deletes AWS resources created by this workflow.
         /*!
          \sa cleanUp()
          \param topicARN: The ARN of an SNS topic.
@@ -151,7 +151,8 @@ namespace AwsDoc {
     } // namespace TopicsAndQueues
 } // namespace AwsDoc
 
-//! Scenario for messaging with topics and queues using Amazon SNS and Amazon SQS.
+// snippet-start:[cpp.example_code.cross-service.topics_and_queues.messaging_with_topics_and_queues]
+//! Workflow for messaging with topics and queues using Amazon SNS and Amazon SQS.
 /*!
  \param clientConfig Aws client configuration.
  \return bool: Successful completion.
@@ -788,6 +789,7 @@ Aws::String AwsDoc::TopicsAndQueues::createPolicyForQueue(const Aws::String &que
 
     return policyStream.str();
 }
+// snippet-end:[cpp.example_code.cross-service.topics_and_queues.messaging_with_topics_and_queues]
 
 /*
  *

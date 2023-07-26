@@ -585,11 +585,6 @@ cross_MessagesTopicsAndQueues:
       versions:
         - sdk_version: 2
           block_content: workflow_MessagesTopicsAndQueues_java_block.xml
-    C++:
-      versions:
-        - sdk_version: 1
-          github: cpp/example_code/cross-service/topics_and_queues
-          block_content: workflow_MessagesTopicsAndQueues_cpp_block.xml
   services:
     sns:
     sqs:
