@@ -31,6 +31,7 @@
 # 7. List objects in the bucket (this should succeed).
 # 8. Delete all the created resources.
 
+
 get_input_result=""
 
 ###############################################################################
@@ -45,6 +46,30 @@ get_input_result=""
 #       0
 ###############################################################################
 function get_input() {
+  if [ -z "${mock_input+x}" ]; then
+    read -r get_input_result
+  else
+    if [ -n "${mock_input_array[*]}" ]; then
+      get_input_result="${mock_input_array[0]}"
+      mock_input_array=("${mock_input_array[@]:1}")
+      echo -n "$get_input_result"
+    else
+      get_input_result="y"
+      echo "MOCK_INPUT_ARRAY is empty" 1>&2
+    fi
+  fi
+}
+
+###############################################################################
+# function clean_up
+#
+# This function cleans up the created resources.
+#
+#
+# Returns:
+#       0
+###############################################################################
+function clean_up() {
   if [ -z "${mock_input+x}" ]; then
     read -r get_input_result
   else
@@ -155,19 +180,29 @@ function iam_create_user_assume_role() {
   get_input
   user_name=$get_input_result
 
-  if iam_user_exists "$user_name"; then
-    echo "Created demo IAM user named $user_name"
-  else
-    errecho "The user failed to create. This demo will exit."
-    return 1
-  fi
+ if (iam_create_user -u "$user_name"); then
+     echo "Created demo IAM user named $user_name"
+   else
+     errecho "The user failed to create. This demo will exit."
+     return 1
+   fi
 
-#   if create_iam_user -u "$user_name"; then
-#     echo "Created demo IAM user named $user_name"
-#   else
-#     errecho "The user failed to create. This demo will exit."
-#     return 1
-#   fi
+   access_key_file_name="test.pem"
+   if (iam_create_user_access_key -u "$user_name" -f "$access_key_file_name"); then
+     echo "Created access key file $access_key_file_name"
+   else
+     errecho "The access key file failed to create. This demo will exit."
+     return 1
+   fi
+
+   key_name=$(cut -f 1 "$access_key_file_name")
+
+   if (iam_delete_user -u "$user_name"); then
+     echo "Deleted IAM user named $user_name"
+   else
+     errecho "The user failed to delete."
+     return 1
+   fi
 
   result=0
   return $result
