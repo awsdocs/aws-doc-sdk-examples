@@ -29,9 +29,21 @@ applicable to utilizing the code examples in this repository.
 Building and running the code examples
 =============
  
-Additional information geared specifically to understanding the example applications is at
-`AWS SDK for C++ Code Examples <https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/programming-services.html>`_.
+The example code is organized in sub-folders by AWS service.
+For example "example_code/s3" contains the Amazon Simple Storage Service (Amazon S3) code examples.
 
+Examples that use multiple services are located in the [example_code/cross-service](example_code/cross-service) folder.
+
+The examples use the CMake build system. Every service sub-folder contains a CMakeLists.txt file which will build all the examples for that service. 
+
+Additional information geared specifically to understanding the example applications is at
+[Get started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
+
+Hello Service
+-----------
+
+Many of the services have a "Hello Service" folder with a starter project and README documentation. 
+For example, the AmazonS S3 Hello project is located at [example_code/s3/hello_s3](example_code/s3/hello_s3).
 
 Docker image (Beta)
 ===================
