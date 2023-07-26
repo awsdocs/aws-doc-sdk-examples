@@ -967,3 +967,25 @@ sqs_DeadLetterQueue:
                 - cpp.example_code.sqs.SetDeadLetterQueue
   services:
     sqs: {SetQueueAttributes}
+sqs_Scenario_TopicsAndQueues:
+  title: Publish &SNS; messages to &SQS; queues using an &AWS; SDK
+  title_abbrev: Publish messages to queues
+  synopsis_list:
+    - Create topic (FIFO or non-FIFO).
+    - Subscribe several queues to the topic with an option to apply a filter.
+    - Publish messages to the topic.
+    - Poll the queues for messages received.
+  category: Scenarios
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cross-service/topics_and_queues
+          excerpts:
+            - description:
+              snippet_tags:
+                - cpp.example_code.cross-service.topics_and_queues.config
+                - cpp.example_code.cross-service.topics_and_queues.messaging_with_topics_and_queues
+  services:
+    sns: {CreateTopic, Subscribe, Publish, Unsubscribe, DeleteTopic}
+    sqs: {CreateQueue, GetQueueAttributes, SetQueueAttributes, ReceiveMessage, DeleteMessageBatch, DeleteQueue}
