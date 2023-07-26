@@ -113,16 +113,16 @@ class ConsumerStack(Stack):
                 vpc=ec2.Vpc.from_lookup(self, "Vpc", is_default=True)
         )
 
-        # Configure AWS Batch to use the log group in the producer account.
+        # # Configure AWS Batch to use the log group in the producer account.
         # log_config = batch_alpha.LogConfiguration(
         #     log_driver=batch_alpha.LogDriver.AWSLOGS
         # )
 
         job_definition = batch_alpha.EcsJobDefinition(self, f"JobDefinition-{language_name}",
-            container=batch_alpha.EcsFargateContainerDefinition(self, "Test",
+            container=batch_alpha.EcsFargateContainerDefinition(self, f"ContainerDefinition-{language_name}",
                 image=container_image,
                 execution_role=batch_execution_role,
-                # log_configuration=log_config,
+                logging=ecs.AwsLogDriver(stream_prefix=f"weathertop/{language_name}", mode=ecs.AwsLogDriverMode.NON_BLOCKING),
                 assign_public_ip=True,
                 memory=Size.gibibytes(2),
                 cpu=1
