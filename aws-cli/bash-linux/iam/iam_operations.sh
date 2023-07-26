@@ -250,12 +250,13 @@ if [[ -z "$access_key" ]]; then
   iecho "    Access key:   $access_key"
   iecho ""
 
-  response=$(aws iam delete-user \
-    --user-name "$user_name")
+  response=$(aws iam delete-access-key \
+    --user-name "$user_name" \
+    --access-key-id "$access_key")
 
   # shellcheck disable=SC2181
   if [[ ${?} -ne 0 ]]; then
-    errecho "ERROR: AWS reports delete-user operation failed.\n$response"
+    errecho "ERROR: AWS reports delete-access-key operation failed.\n$response"
     return 1
   fi
 }

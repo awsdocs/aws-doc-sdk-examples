@@ -31,7 +31,6 @@
 # 7. List objects in the bucket (this should succeed).
 # 8. Delete all the created resources.
 
-
 get_input_result=""
 
 ###############################################################################
@@ -165,11 +164,12 @@ function echo_repeat() {
 function iam_create_user_assume_role() {
   {
     if [ "$IAM_OPERATIONS_SOURCED" != "True" ]; then
-       # shellcheck disable=SC1091
+      # shellcheck disable=SC1091
       source ./iam_operations.sh
     fi
   }
 
+VERBOSE=true
   echo_repeat "*" 88
   echo "Welcome to the IAM create user and assume role demo."
   echo
@@ -180,31 +180,43 @@ function iam_create_user_assume_role() {
   get_input
   user_name=$get_input_result
 
- if (iam_create_user -u "$user_name"); then
-     echo "Created demo IAM user named $user_name"
-   else
-     errecho "The user failed to create. This demo will exit."
-     return 1
-   fi
+  if (iam_create_user -u "$user_name"); then
+    echo "Created demo IAM user named $user_name"
+  else
+    errecho "The user failed to create. This demo will exit."
+    return 1
+  fi
 
-   access_key_file_name="test.pem"
-   if (iam_create_user_access_key -u "$user_name" -f "$access_key_file_name"); then
-     echo "Created access key file $access_key_file_name"
-   else
-     errecho "The access key file failed to create. This demo will exit."
-     return 1
-   fi
+  access_key_file_name="test.pem"
+  if (iam_create_user_access_key -u "$user_name" -f "$access_key_file_name"); then
+    echo "Created access key file $access_key_file_name"
+  else
+    errecho "The access key file failed to create. This demo will exit."
+    return 1
+  fi
 
-   key_name=$(cut -f 1 "$access_key_file_name")
+  local key_name
+  key_name=$(cut -f 2 "$access_key_file_name")
 
-   if (iam_delete_user -u "$user_name"); then
-     echo "Deleted IAM user named $user_name"
-   else
-     errecho "The user failed to delete."
-     return 1
-   fi
-
+  local result
   result=0
+
+  if (iam_delete_access_key -u "$user_name" -k "$key_name"); then
+    echo "Deleted access key $key_name"
+  else
+    errecho "The access key failed to delete."
+    result=1
+  fi
+
+  rm  "$access_key_file_name"
+
+  if (iam_delete_user -u "$user_name"); then
+    echo "Deleted IAM user named $user_name"
+  else
+    errecho "The user failed to delete."
+    result=1
+  fi
+
   return $result
 }
 # snippet-end:[aws-cli.bash-linux.iam.iam_create_user_assume_role]
@@ -221,4 +233,3 @@ function main() {
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   main
 fi
-
