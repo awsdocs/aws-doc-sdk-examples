@@ -84,9 +84,9 @@ ssm_DescribeOpsItems:
   services:
     ssm: {DescribeOpsItems}
 ssm_UpdateOpsItem:
-  title: Describe an OpsItem using an &AWS; SDK
-  title_abbrev: Describe an OpsItem
-  synopsis: describe an OpsItem.
+  title: Updates an OpsItem using an &AWS; SDK
+  title_abbrev: Updates an OpsItem
+  synopsis: updates an OpsItem.
   category:
   languages:
     Java:
