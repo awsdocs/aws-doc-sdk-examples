@@ -9,7 +9,7 @@ This document discusses the language-specific nuances of deploying the Feedback 
 To complete the tutorial, you need the following:
 
 - An AWS account
-- All Ruby dependencies outlined in the (Ruby Example Code README.md](README.md#get-started)
+- All Ruby dependencies outlined in the [Ruby Example Code README.md](../../README.md#get-started)
 
 ### Important
 
@@ -17,7 +17,7 @@ To complete the tutorial, you need the following:
 - This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
 - Be sure to delete all of the resources you create while going through this tutorial so that you won't be charged.
-- Also make sure to properly set up your development environment. For information, see [LINK TO SETTING UP THE LANGUAGE SDK].
+- Also make sure to properly set up your development environment. For information, see [Get started with the AWS SDK for Ruby](https://docs.aws.amazon.com/sdk-for-ruby/v3/developer-guide/getting-started.html).
 
 ### Resource creation
 
