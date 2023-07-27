@@ -5,7 +5,7 @@ run_mvn_tests() {
   for dir in "$1"/*/; do
     if [[ -f "$dir/pom.xml" ]]; then
       echo "Running mvn test in $dir"
-      (cd "$dir" && mvn test)
+      (cd "$dir" && mvn test -Dgroups=weathertop -DexcludedGroups=quarantine)
     fi
     if [[ -d "$dir" ]]; then
       run_mvn_tests "$dir"  # Recursively call function for sub-directories
