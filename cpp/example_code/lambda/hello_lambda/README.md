@@ -23,7 +23,7 @@ C++ Developer Guide.
 
 This example uses the CMake build system. For information about the CMake build system, see https://cmake.org/.
 
-Many Integrated Development Environments (IDEs) support CMake. If your preferred IDE supports CMake, follow the IDE's instructions to open this CMake project.
+Many Integrated Development Environments (IDEs) support CMake. If your preferred IDE supports CMake, follow the IDE instructions to open this CMake project.
 
 You can also build this project from a command line interface using the following commands.
 

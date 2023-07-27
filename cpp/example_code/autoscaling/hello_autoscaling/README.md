@@ -11,7 +11,7 @@ This folder provides a CMake "Hello Autoscaling" project that uses the AWS SDK f
 * We recommend that you grant your code least privilege. At most, grant only the minimum permissions required to perform the task. For more information, see [Grant least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 * This code is not tested in every AWS Region. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 
-## Run the Hello Autoscaling app
+## Run the Hello Amazon EC2 Auto Scaling app
 
 ### Prerequisites
 
@@ -23,7 +23,7 @@ C++ Developer Guide.
 
 This example uses the CMake build system. For information about the CMake build system, see https://cmake.org/.
 
-Many Integrated Development Environments (IDEs) support CMake. If your preferred IDE supports CMake, follow the IDE's instructions to open this CMake project.
+Many Integrated Development Environments (IDEs) support CMake. If your preferred IDE supports CMake, follow the IDE instructions to open this CMake project.
 
 You can also build this project from a command line interface using the following commands.
 
