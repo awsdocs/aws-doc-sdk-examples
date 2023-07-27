@@ -1,5 +1,5 @@
 # zexi 0.4.0
-auto-cognito-identity-provider_Hello:
+cognito-identity-provider_Hello:
   title: Hello &COG;
   title_abbrev: Hello &COG;
   synopsis: get started using &COG;.
