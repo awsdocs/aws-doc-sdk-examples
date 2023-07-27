@@ -16,6 +16,8 @@ run_mvn_tests() {
 # Root directory
 root_dir="example_code"
 
+cd javav2
+
 # Error if the root directory does not exist
 if [[ ! -d "$root_dir" ]]; then
   echo "Root directory $root_dir does not exist!"
@@ -23,6 +25,5 @@ if [[ ! -d "$root_dir" ]]; then
 fi
 
 echo "Starting mvn tests..."
-cd javav2
 run_mvn_tests "$root_dir"
 echo "mvn tests completed."
