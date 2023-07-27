@@ -1,4 +1,4 @@
-# Hello Autoscaling for the SDK for C++
+# Hello Amazon EC2 Auto Scaling for the SDK for C++
 
 ## Overview
 
