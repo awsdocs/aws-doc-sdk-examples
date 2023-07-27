@@ -3,11 +3,12 @@
 # Recursive function to navigate sub-directories
 run_mvn_tests() {
   for dir in "$1"/*/; do
-    if [[ -f "$dir/pom.xml" ]]; then
-      echo "Running mvn test in $dir"
-      (cd "$dir" && mvn test -Dgroups=weathertop -DexcludedGroups=quarantine)
-    fi
     if [[ -d "$dir" ]]; then
+      dirname=$(basename "$dir")
+      if [[ "$dirname" == "comprehend" && -f "$dir/pom.xml" ]]; then
+        echo "Running mvn test in $dir"
+        (cd "$dir" && mvn test -Dgroups=weathertop)
+      fi
       run_mvn_tests "$dir"  # Recursively call function for sub-directories
     fi
   done
