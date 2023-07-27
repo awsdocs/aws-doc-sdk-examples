@@ -670,6 +670,21 @@ mediapackage:
   tags:
     product_categories: {'Media Services'}
   version: mediapackage-2017-10-12
+migration-hub:
+  long: '&MHBlong;'
+  short: '&MHB;'
+  sort: MigrationHub
+  expanded:
+    long: AWS Migration Hub
+    short: Migration Hub
+  blurb: is a single place to discover your existing servers, plan migrations, and track the status of each application migration. 
+  guide:
+    subtitle: User Guide
+    url: migrationhub/latest/ug/getting-started.html
+  api_ref: migrationhub/latest/ug/api-reference.html
+  tags:
+    product_categories: {'Migration Hub Services'}
+  version: migration-hub-2017-05-31
 opensearch: 
   long: '&ESlong;'
   short: '&ES;'
