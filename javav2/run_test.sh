@@ -7,7 +7,7 @@ run_mvn_tests() {
       dirname=$(basename "$dir")
       if [[ "$dirname" == "comprehend" && -f "$dir/pom.xml" ]]; then
         echo "Running mvn test in $dir"
-        (cd "$dir" && mvn test -Dgroups=weathertop)
+        (cd "$dir" && mvn test)
       fi
       run_mvn_tests "$dir"  # Recursively call function for sub-directories
     fi
