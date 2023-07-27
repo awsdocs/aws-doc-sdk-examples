@@ -3,4 +3,4 @@
 # GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4128
 FROM maven:latest
 COPY . /javav2/
-CMD ["cd javav2", "&&", "./run_tests.sh"]
+CMD ["./javav2/run_tests.sh"]
