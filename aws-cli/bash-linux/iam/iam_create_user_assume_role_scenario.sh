@@ -31,8 +31,6 @@
 # 7. List objects in the bucket (this should succeed).
 # 8. Delete all the created resources.
 
-get_input_result=""
-
 ###############################################################################
 # function get_input
 #
@@ -63,24 +61,57 @@ function get_input() {
 # function clean_up
 #
 # This function cleans up the created resources.
-#
+#     $1 - The name of the IAM user to delete.
+#     $2 - The name of the IAM access key to delete.
+#     $3 - The name of the IAM role to delete.
 #
 # Returns:
-#       0
+#       0 - If successful.
+#       1 - If an error occurred.
 ###############################################################################
 function clean_up() {
-  if [ -z "${mock_input+x}" ]; then
-    read -r get_input_result
-  else
-    if [ -n "${mock_input_array[*]}" ]; then
-      get_input_result="${mock_input_array[0]}"
-      mock_input_array=("${mock_input_array[@]:1}")
-      echo -n "$get_input_result"
+  local user_name=$1
+  local access_key_name=$2
+  local role_name=$3
+  local policy_arn=$4
+  local result=0
+
+  if [ -n "$policy_arn" ]; then
+    if (iam_delete_policy -n "$policy_arn"); then
+      echo "Deleted IAM policy named $policy_arn"
     else
-      get_input_result="y"
-      echo "MOCK_INPUT_ARRAY is empty" 1>&2
+      errecho "The policy failed to delete."
+      result=1
     fi
   fi
+
+  if [ -n "$role_name" ]; then
+    if (iam_delete_role -n "$iam_role_name"); then
+      echo "Deleted IAM role named $iam_role_name"
+    else
+      errecho "The role failed to delete."
+      result=1
+    fi
+  fi
+
+  if [ -n "$access_key_name" ]; then
+    if (iam_delete_access_key -u "$user_name" -k "$key_name"); then
+      echo "Deleted access key $key_name"
+    else
+      errecho "The access key failed to delete."
+      result=1
+    fi
+  fi
+
+  if [ -n "$user_name" ]; then
+    if (iam_delete_user -u "$user_name"); then
+      echo "Deleted IAM user named $user_name"
+    else
+      errecho "The user failed to delete."
+      result=1
+    fi
+  fi
+  return $result
 }
 
 ###############################################################################
@@ -169,7 +200,7 @@ function iam_create_user_assume_role() {
     fi
   }
 
-VERBOSE=true
+  #  VERBOSE=true
   echo_repeat "*" 88
   echo "Welcome to the IAM create user and assume role demo."
   echo
@@ -180,40 +211,80 @@ VERBOSE=true
   get_input
   user_name=$get_input_result
 
-  if (iam_create_user -u "$user_name"); then
+  local user_arn=$(iam_create_user -u "$user_name")
+
+  # shellcheck disable=SC2181
+  if [[ ${?} == 0 ]]; then
     echo "Created demo IAM user named $user_name"
   else
     errecho "The user failed to create. This demo will exit."
     return 1
   fi
 
+  echo "user_arn=$user_arn"
+
+  local access_key_file_name
   access_key_file_name="test.pem"
   if (iam_create_user_access_key -u "$user_name" -f "$access_key_file_name"); then
     echo "Created access key file $access_key_file_name"
   else
     errecho "The access key file failed to create. This demo will exit."
+    clean_up "$user_name"
     return 1
   fi
 
-  local key_name
-  key_name=$(cut -f 2 "$access_key_file_name")
+  local key_name=$(cut -f 2 "$access_key_file_name")
+  local key_secret=$(cut -f 4 "$access_key_file_name")
 
-  local result
-  result=0
+  rm "$access_key_file_name"
+  echo "Wait 10 seconds for the user to be ready."
+  sleep 10
 
-  if (iam_delete_access_key -u "$user_name" -k "$key_name"); then
-    echo "Deleted access key $key_name"
+  local iam_role_name=$(generate_random_name "test-role")
+  echo "Creating a role named $iam_role_name with user $user_name as the principal."
+
+  local assume_role_policy_document="{
+    \"Version\": \"2012-10-17\",
+    \"Statement\": [{
+        \"Effect\": \"Allow\",
+        \"Principal\": {\"AWS\": \"$user_arn\"},
+        \"Action\": \"sts:AssumeRole\"
+        }]
+    }"
+
+  if (iam_create_role -n "$iam_role_name" -p "$assume_role_policy_document"); then
+    echo "Created IAM role named $iam_role_name"
   else
-    errecho "The access key failed to delete."
-    result=1
+    errecho "The role failed to create. This demo will exit."
+    clean_up "$user_name" "$key_name"
+    return 1
   fi
 
-  rm  "$access_key_file_name"
+  local policy_name=$(generate_random_name "test-policy")
+  local policy_document="{
+                \"Version\": \"2012-10-17\",
+                \"Statement\": [{
+                    \"Effect\": \"Allow\",
+                    \"Action\": \"s3:ListAllMyBuckets\",
+                    \"Resource\": \"arn:aws:s3:::*\"}]}"
 
-  if (iam_delete_user -u "$user_name"); then
-    echo "Deleted IAM user named $user_name"
+  local policy_arn=$(iam_create_policy -n "$policy_name" -p "$policy_document")
+
+  # shellcheck disable=SC2181
+  if [[ ${?} == 0 ]]; then
+    echo "Created  IAM policy named $policy_name"
   else
-    errecho "The user failed to delete."
+    errecho "The policy failed to create."
+    clean_up "$user_name" "$key_name" "$iam_role_name"
+    return 1
+  fi
+
+  local result=0
+
+  clean_up "$user_name" "$key_name" "$iam_role_name" "$policy_arn"
+
+  # shellcheck disable=SC2181
+  if [[ ${?} -ne 0 ]]; then
     result=1
   fi
 
@@ -226,6 +297,8 @@ VERBOSE=true
 #
 ###############################################################################
 function main() {
+  get_input_result=""
+
   iam_create_user_assume_role
 }
 
