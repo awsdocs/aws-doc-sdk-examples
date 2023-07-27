@@ -23,5 +23,6 @@ if [[ ! -d "$root_dir" ]]; then
 fi
 
 echo "Starting mvn tests..."
+cd javav2
 run_mvn_tests "$root_dir"
 echo "mvn tests completed."
