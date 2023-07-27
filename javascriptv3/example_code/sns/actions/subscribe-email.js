@@ -25,9 +25,7 @@ export const subscribeToEmail = async (
       Endpoint: emailAddress,
     })
   );
-  console.log("Subscription ARN/status: ", response.SubscriptionArn);
   console.log(response);
-  // Subscription ARN/status:  pending confirmation
   // {
   //   '$metadata': {
   //     httpStatusCode: 200,

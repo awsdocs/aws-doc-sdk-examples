@@ -28,9 +28,7 @@ export const confirmSubscription = async (
       AuthenticateOnUnsubscribe: "false",
     })
   );
-  console.log("Subscription ARN: ", response.SubscriptionArn);
   console.log(response);
-  // Subscription ARN:  arn:aws:sns:us-east-1:xxxxxxxxxxxx:TOPIC_NAME:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
   // {
   //   '$metadata': {
   //     httpStatusCode: 200,

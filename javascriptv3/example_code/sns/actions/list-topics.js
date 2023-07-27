@@ -5,36 +5,29 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start:[sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3]
-import { CheckIfPhoneNumberIsOptedOutCommand } from "@aws-sdk/client-sns";
-
+// snippet-start:[sns.JavaScript.topics.listTopicsV3]
+import { ListTopicsCommand } from "@aws-sdk/client-sns";
 import { snsClient } from "../libs/snsClient.js";
 
-export const checkIfPhoneNumberIsOptedOut = async (
-  phoneNumber = "5555555555"
-) => {
-  const command = new CheckIfPhoneNumberIsOptedOutCommand({
-    phoneNumber,
-  });
-
-  const response = await snsClient.send(command);
+export const listTopics = async () => {
+  const response = await snsClient.send(new ListTopicsCommand({}));
   console.log(response);
   // {
   //   '$metadata': {
   //     httpStatusCode: 200,
-  //     requestId: '3341c28a-cdc8-5b39-a3ee-9fb0ee125732',
+  //     requestId: '936bc5ad-83ca-53c2-b0b7-9891167b909e',
   //     extendedRequestId: undefined,
   //     cfId: undefined,
   //     attempts: 1,
   //     totalRetryDelay: 0
   //   },
-  //   isOptedOut: false
+  //   Topics: [ { TopicArn: 'arn:aws:sns:us-east-1:xxxxxxxxxxxx:mytopic' } ]
   // }
   return response;
 };
-// snippet-end:[sns.JavaScript.SMS.checkIfPhoneNumberIsOptedOutV3]
+// snippet-end:[sns.JavaScript.topics.listTopicsV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  checkIfPhoneNumberIsOptedOut();
+  listTopics();
 }

@@ -5,34 +5,38 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start:[sns.JavaScript.topics.createTopicV3]
-import { CreateTopicCommand } from "@aws-sdk/client-sns";
+// snippet-start:[sns.JavaScript.topics.setTopicAttributesV3]
+import { SetTopicAttributesCommand } from "@aws-sdk/client-sns";
 import { snsClient } from "../libs/snsClient.js";
 
-/**
- * @param {string} topicName - The name of the topic to create.
- */
-export const createTopic = async (topicName = "TOPIC_NAME") => {
+export const setTopicAttributes = async (
+  topicArn = "TOPIC_ARN",
+  attributeName = "DisplayName",
+  attributeValue = "Test Topic"
+) => {
   const response = await snsClient.send(
-    new CreateTopicCommand({ Name: topicName })
+    new SetTopicAttributesCommand({
+      AttributeName: attributeName,
+      AttributeValue: attributeValue,
+      TopicArn: topicArn,
+    })
   );
   console.log(response);
   // {
   //   '$metadata': {
   //     httpStatusCode: 200,
-  //     requestId: '087b8ad2-4593-50c4-a496-d7e90b82cf3e',
+  //     requestId: 'd1b08d0e-e9a4-54c3-b8b1-d03238d2b935',
   //     extendedRequestId: undefined,
   //     cfId: undefined,
   //     attempts: 1,
   //     totalRetryDelay: 0
-  //   },
-  //   TopicArn: 'arn:aws:sns:us-east-1:xxxxxxxxxxxx:TOPIC_NAME'
+  //   }
   // }
   return response;
 };
-// snippet-end:[sns.JavaScript.topics.createTopicV3]
+// snippet-end:[sns.JavaScript.topics.setTopicAttributesV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  createTopic();
+  setTopicAttributes();
 }

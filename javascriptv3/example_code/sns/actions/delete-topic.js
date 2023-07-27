@@ -15,9 +15,7 @@ export const deleteTopic = async (topicArn = "TOPIC_ARN") => {
   const response = await snsClient.send(
     new DeleteTopicCommand({ TopicArn: topicArn })
   );
-  console.log("Topic deleted.");
   console.log(response);
-  // Topic deleted.
   // {
   //   '$metadata': {
   //     httpStatusCode: 200,

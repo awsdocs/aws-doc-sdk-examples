@@ -17,9 +17,7 @@ export const getSmsAttributes = async () => {
     new GetSMSAttributesCommand({ attributes: ["DefaultSMSType"] })
   );
 
-  console.log("DefaultSMSType", response.attributes.DefaultSMSType);
   console.log(response);
-  // DefaultSMSType Transactional
   // {
   //   '$metadata': {
   //     httpStatusCode: 200,

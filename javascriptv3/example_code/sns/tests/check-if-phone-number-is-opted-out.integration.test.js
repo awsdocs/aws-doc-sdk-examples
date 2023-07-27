@@ -4,7 +4,7 @@ import { checkIfPhoneNumberIsOptedOut } from "../actions/check-if-phone-number-i
 
 describe("check-if-phone-number-is-opted-out", () => {
   it("should return false when the phone number doesn't exist", async () => {
-    const result = await checkIfPhoneNumberIsOptedOut();
-    expect(result.isOptedOut).toBe(false);
+    const response = await checkIfPhoneNumberIsOptedOut();
+    expect(response.isOptedOut).toBe(false);
   });
 });
