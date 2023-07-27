@@ -1,0 +1,120 @@
+# zexi 0.4.0
+migration-hub_ListApplications:
+  title: List applications using the &MHB; SDK
+  title_abbrev: List applications
+  synopsis: list applications.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.list_apps.main
+  services:
+    migration-hub: {ListApplications}
+migration-hub_ListMigrationTasks:
+  title: List migration tasks using the &MHB; SDK
+  title_abbrev: List migration tasks
+  synopsis: list migration tasks.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.list_migration_tasks.main
+  services:
+    migration-hub: {ListMigrationTasks} 
+migration-hub_ListCreatedArtifacts:
+  title: List created artifacts using the &MHB; SDK
+  title_abbrev: List created artifacts
+  synopsis: list created artifacts.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.list_artifacts.main
+  services:
+    migration-hub: {ListCreatedArtifacts}
+migration-hub_ImportMigrationTask:
+  title: Register a migration task using the &MHB; SDK
+  title_abbrev: Register a migration task
+  synopsis: register a migration task.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.import_migration.main
+  services:
+    migration-hub: {ImportMigrationTask}
+migration-hub_DeleteProgressUpdateStream:
+  title: Delete progress stream using the &MHB; SDK
+  title_abbrev: Delete progress stream
+  synopsis: delete progress stream.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.delete_progress_stream.main
+  services:
+    migration-hub: {DeleteProgressUpdateStream}
+migration-hub_DescribeApplicationState:
+  title: Describe migration status of an application using the &MHB; SDK
+  title_abbrev: Describe migration status
+  synopsis: describe migration status.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.describe_app_state.main
+  services:
+    migration-hub: {DescribeApplicationState}
+migration-hub_DescribeMigrationTask:
+  title: Get list of attributes associated with a migration using the &MHB; SDK
+  title_abbrev: Get list of attributes associated with a migration
+  synopsis: get list of attributes that are associated with a migration.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/migrationhub
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - migration.java2.describe_migration.main
+  services:
+    migration-hub: {DescribeMigrationTask}
