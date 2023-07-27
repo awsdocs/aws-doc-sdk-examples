@@ -71,6 +71,7 @@ public class AmazonComprehendTest {
     }
 
     @Test
+    @Tag("weathertop")
     @Tag("IntegrationTest")
     @Order(1)
     public void DetectEntities() {
@@ -79,6 +80,7 @@ public class AmazonComprehendTest {
     }
 
     @Test
+    @Tag("weathertop")
     @Tag("IntegrationTest")
     @Order(2)
     public void DetectKeyPhrases() {
@@ -87,6 +89,7 @@ public class AmazonComprehendTest {
     }
 
     @Test
+    @Tag("weathertop")
     @Tag("IntegrationTest")
     @Order(3)
     public void DetectLanguage() {
@@ -95,6 +98,7 @@ public class AmazonComprehendTest {
     }
 
     @Test
+    @Tag("weathertop")
     @Tag("IntegrationTest")
     @Order(4)
     public void DetectSentiment() {
@@ -103,6 +107,7 @@ public class AmazonComprehendTest {
     }
 
     @Test
+    @Tag("weathertop")
     @Tag("IntegrationTest")
     @Order(5)
     public void DetectSyntax() {
