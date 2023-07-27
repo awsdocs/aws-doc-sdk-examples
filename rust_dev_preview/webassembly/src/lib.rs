@@ -3,14 +3,17 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
+use std::time::SystemTime;
 use async_trait::async_trait;
-use aws_credential_types::{cache::CredentialsCache, provider::ProvideCredentials, Credentials};
-use aws_sdk_lambda::config::{AsyncSleep, Region, SharedAsyncSleep, Sleep};
+use aws_credential_types::{provider::ProvideCredentials, Credentials};
+use aws_sdk_lambda::config::{AsyncSleep, Region, Sleep};
+use aws_smithy_async::time::TimeSource;
 use aws_sdk_lambda::primitives::SdkBody;
 use aws_sdk_lambda::{meta::PKG_VERSION, Client};
 use aws_smithy_http::result::ConnectorError;
 use serde::Deserialize;
 use wasm_bindgen::{prelude::*, JsCast};
+use wasm_timer::UNIX_EPOCH;
 
 macro_rules! log {
     ( $( $t:tt )* ) => {
@@ -36,7 +39,8 @@ extern "C" {
 
 #[wasm_bindgen(start)]
 pub fn start() {
-    std::panic::set_hook(Box::new(console_error_panic_hook::hook));
+    console_error_panic_hook::set_once();
+    tracing_wasm::set_as_global_default();
     log!("initializing module...");
 }
 
@@ -57,15 +61,13 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
     let shared_config = aws_config::from_env()
         .sleep_impl(BrowserSleep)
         .region(Region::new(region))
-        .credentials_cache(browser_credentials_cache())
+        .time_source(BrowserNow)
         .credentials_provider(credentials_provider)
         .http_connector(Adapter::new(verbose, access_key == "access_key"))
         .load()
         .await;
+    tracing::info!("sdk config: {:#?}", shared_config);
     let client = Client::new(&shared_config);
-
-    let now = std::time::Duration::new(now() as u64, 0);
-    log!("current date in unix timestamp: {}", now.as_secs());
 
     let resp = client
         .list_functions()
@@ -83,6 +85,15 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
     let output = functions.len().to_string();
 
     Ok(output)
+}
+
+#[derive(Debug)]
+struct BrowserNow;
+impl TimeSource for BrowserNow {
+    fn now(&self) -> SystemTime {
+        let offset = wasm_timer::SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
+        std::time::UNIX_EPOCH + offset
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -103,12 +114,6 @@ fn static_credential_provider() -> impl ProvideCredentials {
         credentials.secret_access_key,
         credentials.session_token,
     )
-}
-
-fn browser_credentials_cache() -> CredentialsCache {
-    CredentialsCache::lazy_builder()
-        .sleep(SharedAsyncSleep::new(BrowserSleep))
-        .into_credentials_cache()
 }
 
 /// At this moment, there is no standard mechanism to make an outbound
