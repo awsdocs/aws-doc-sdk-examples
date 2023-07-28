@@ -197,7 +197,7 @@ function iam_create_user_access_key() {
 
   local error_code=${?}
 
-   if [[ $error_code -ne 0 ]]; then
+  if [[ $error_code -ne 0 ]]; then
     aws_cli_error_log $error_code
     errecho "ERROR: AWS reports create-access-key operation failed.$response"
     return 1
@@ -219,6 +219,8 @@ function iam_create_user_access_key() {
 #       -p policy_json -- The assume role policy document.
 #
 # Returns:
+#       The ARN of the role.
+#     And:
 #       0 - If successful.
 #       1 - If it fails.
 ###############################################################################
@@ -264,14 +266,11 @@ function iam_create_role() {
     return 1
   fi
 
-  iecho "Parameters:\n"
-  iecho "    role name:  $role_name"
-  iecho "    policy document:  $policy_document"
-  iecho ""
-
   response=$(aws iam create-role \
     --role-name "$role_name" \
-    --assume-role-policy-document "$policy_document")
+    --assume-role-policy-document "$policy_document" \
+    --output text \
+    --query Role.Arn)
 
   local error_code=${?}
 
@@ -281,8 +280,7 @@ function iam_create_role() {
     return 1
   fi
 
-  iecho "create-role response:$response"
-  iecho
+  echo "$response"
 
   return 0
 }
@@ -418,7 +416,7 @@ function iam_attach_role_policy() {
     --role-name "$role_name" \
     --policy-arn "$policy_arn")
 
-   local error_code=${?}
+  local error_code=${?}
 
   if [[ $error_code -ne 0 ]]; then
     aws_cli_error_log $error_code
@@ -430,7 +428,6 @@ function iam_attach_role_policy() {
 
   return 0
 }
-
 
 ###############################################################################
 # function iam_detach_role_policy
@@ -491,7 +488,7 @@ function iam_detach_role_policy() {
     --role-name "$role_name" \
     --policy-arn "$policy_arn")
 
-   local error_code=${?}
+  local error_code=${?}
 
   if [[ $error_code -ne 0 ]]; then
     aws_cli_error_log $error_code
