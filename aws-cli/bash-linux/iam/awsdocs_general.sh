@@ -161,3 +161,39 @@ function generate_random_name() {
   done
   echo "$filename"
 }
+
+##############################################################################
+# function aws_cli_error_log()
+#
+# This function is used to log the error messages from the AWS CLI.
+#
+# The function expects the following argument:
+#         $1 - The error code returned by the AWS CLI.
+#
+#  Returns:
+#          0: - Success.
+#
+##############################################################################
+
+function aws_cli_error_log() {
+  local err_code=$1
+  errecho "Error code : $err_code"
+  if [ "$err_code" == 1 ]; then
+    errecho "  One or more S3 transfers failed."
+  elif [ "$err_code" == 2 ]; then
+    errecho "  Command line failed to parse."
+  elif [ "$err_code" == 130 ]; then
+    errecho "  Process received SIGINT."
+  elif [ "$err_code" == 252 ]; then
+    errecho "  Command syntax invalid."
+  elif [ "$err_code" == 253 ]; then
+    errecho "  The system environment or configuration was invalid."
+  elif [ "$err_code" == 254 ]; then
+    errecho "  The service returned an error."
+  elif [ "$err_code" == 255 ]; then
+    errecho "  255 is a catch-all error."
+  fi
+
+  return 0
+
+}

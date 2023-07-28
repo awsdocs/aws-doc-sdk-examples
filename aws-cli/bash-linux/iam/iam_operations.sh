@@ -41,10 +41,13 @@ function iam_user_exists() {
   errors=$(aws iam get-user \
     --user-name "$user_name" 2>&1 >/dev/null)
 
-  if [[ ${?} -eq 0 ]]; then
+  local error_code=${?}
+
+  if [[ $error_code -eq 0 ]]; then
     return 0 # 0 in Bash script means true.
   else
     if [[ $errors != *"error"*"(NoSuchEntity)"* ]]; then
+      aws_cli_error_log $error_code
       errecho "Error calling iam get-user $errors"
     fi
 
@@ -115,8 +118,10 @@ function iam_create_user() {
     --output text \
     --query 'User.Arn')
 
-  # shellcheck disable=SC2181
-  if [[ ${?} -ne 0 ]]; then
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
     errecho "ERROR: AWS reports create-user operation failed.$response"
     return 1
   fi
@@ -190,8 +195,10 @@ function iam_create_user_access_key() {
     --user-name "$user_name" \
     --output text >"$file_name")
 
-  # shellcheck disable=SC2181
-  if [[ ${?} -ne 0 ]]; then
+  local error_code=${?}
+
+   if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
     errecho "ERROR: AWS reports create-access-key operation failed.$response"
     return 1
   fi
@@ -266,8 +273,10 @@ function iam_create_role() {
     --role-name "$role_name" \
     --assume-role-policy-document "$policy_document")
 
-  # shellcheck disable=SC2181
-  if [[ ${?} -ne 0 ]]; then
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
     errecho "ERROR: AWS reports create-role operation failed.\n$response"
     return 1
   fi
@@ -297,7 +306,7 @@ function iam_create_policy() {
 
   # bashsupport disable=BP5008
   function usage() {
-    echo "function iam_create_user_access_key"
+    echo "function iam_create_policy"
     echo "Creates an AWS Identity and Access Management (IAM) policy."
     echo "  -n policy_name   The name of the IAM policy."
     echo "  -p policy_json -- The policy document."
@@ -339,9 +348,154 @@ function iam_create_policy() {
     --output text \
     --query Policy.Arn)
 
-  # shellcheck disable=SC2181
-  if [[ ${?} -ne 0 ]]; then
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
     errecho "ERROR: AWS reports create-policy operation failed.\n$response"
+    return 1
+  fi
+
+  echo "$response"
+}
+
+###############################################################################
+# function iam_attach_role_policy
+#
+# This function attaches an IAM policy to a tole.
+#
+# Parameters:
+#       -n role_name -- The name of the IAM role.
+#       -p policy_ARN -- The IAM policy document ARN..
+#
+# Returns:
+#       0 - If successful.
+#       1 - If it fails.
+###############################################################################
+function iam_attach_role_policy() {
+  local role_name policy_arn response
+  local option OPTARG # Required to use getopts command in a function.
+
+  # bashsupport disable=BP5008
+  function usage() {
+    echo "function iam_attach_role_policy"
+    echo "Attaches an AWS Identity and Access Management (IAM) policy to an IAM role."
+    echo "  -n role_name   The name of the IAM role."
+    echo "  -p policy_ARN -- The IAM policy document ARN."
+    echo ""
+  }
+
+  # Retrieve the calling parameters.
+  while getopts "n:p:h" option; do
+    case "${option}" in
+      n) role_name="${OPTARG}" ;;
+      p) policy_arn="${OPTARG}" ;;
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo o"Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+
+  if [[ -z "$role_name" ]]; then
+    errecho "ERROR: You must provide a role name with the -n parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$policy_arn" ]]; then
+    errecho "ERROR: You must provide a policy ARN with the -p parameter."
+    usage
+    return 1
+  fi
+
+  response=$(aws iam attach-role-policy \
+    --role-name "$role_name" \
+    --policy-arn "$policy_arn")
+
+   local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports attach-role-policy operation failed.\n$response"
+    return 1
+  fi
+
+  echo "$response"
+
+  return 0
+}
+
+
+###############################################################################
+# function iam_detach_role_policy
+#
+# This function detaches an IAM policy to a tole.
+#
+# Parameters:
+#       -n role_name -- The name of the IAM role.
+#       -p policy_ARN -- The IAM policy document ARN..
+#
+# Returns:
+#       0 - If successful.
+#       1 - If it fails.
+###############################################################################
+function iam_detach_role_policy() {
+  local role_name policy_arn response
+  local option OPTARG # Required to use getopts command in a function.
+
+  # bashsupport disable=BP5008
+  function usage() {
+    echo "function iam_detach_role_policy"
+    echo "detaches an AWS Identity and Access Management (IAM) policy to an IAM role."
+    echo "  -n role_name   The name of the IAM role."
+    echo "  -p policy_ARN -- The IAM policy document ARN."
+    echo ""
+  }
+
+  # Retrieve the calling parameters.
+  while getopts "n:p:h" option; do
+    case "${option}" in
+      n) role_name="${OPTARG}" ;;
+      p) policy_arn="${OPTARG}" ;;
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo o"Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+
+  if [[ -z "$role_name" ]]; then
+    errecho "ERROR: You must provide a role name with the -n parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$policy_arn" ]]; then
+    errecho "ERROR: You must provide a policy ARN with the -p parameter."
+    usage
+    return 1
+  fi
+
+  response=$(aws iam detach-role-policy \
+    --role-name "$role_name" \
+    --policy-arn "$policy_arn")
+
+   local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports detach-role-policy operation failed.\n$response"
     return 1
   fi
 
@@ -403,8 +557,10 @@ function iam_delete_policy() {
   response=$(aws iam delete-policy \
     --policy-arn "$policy_arn")
 
-  # shellcheck disable=SC2181
-  if [[ ${?} -ne 0 ]]; then
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
     errecho "ERROR: AWS reports delete-role operation failed.\n$response"
     return 1
   fi
@@ -468,8 +624,10 @@ function iam_delete_role() {
   response=$(aws iam delete-role \
     --role-name "$role_name")
 
-  # shellcheck disable=SC2181
-  if [[ ${?} -ne 0 ]]; then
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
     errecho "ERROR: AWS reports delete-role operation failed.\n$response"
     return 1
   fi
@@ -544,8 +702,10 @@ function iam_delete_access_key() {
     --user-name "$user_name" \
     --access-key-id "$access_key")
 
-  # shellcheck disable=SC2181
-  if [[ ${?} -ne 0 ]]; then
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
     errecho "ERROR: AWS reports delete-access-key operation failed.\n$response"
     return 1
   fi
@@ -616,8 +776,10 @@ function iam_delete_user() {
   response=$(aws iam delete-user \
     --user-name "$user_name")
 
-  # shellcheck disable=SC2181
-  if [[ ${?} -ne 0 ]]; then
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
     errecho "ERROR: AWS reports delete-user operation failed.$response"
     return 1
   fi

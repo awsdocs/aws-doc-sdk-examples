@@ -64,6 +64,8 @@ function get_input() {
 #     $1 - The name of the IAM user to delete.
 #     $2 - The name of the IAM access key to delete.
 #     $3 - The name of the IAM role to delete.
+#     $4 - The ARN of the IAM policy to delete.
+#     $3 - The ARN of the IAM policy to detach.
 #
 # Returns:
 #       0 - If successful.
@@ -74,7 +76,18 @@ function clean_up() {
   local access_key_name=$2
   local role_name=$3
   local policy_arn=$4
+  local detach_policy_arn=$5
   local result=0
+
+   if [ -n "$detach_policy_arn" ]; then
+    if (iam_detach_role_policy -n "$role_name" -p "$detach_policy_arn"); then
+      echo "Detached IAM policy named $detach_policy_arn"
+    else
+      errecho "The policy failed to detach."
+      result=1
+    fi
+  fi
+
 
   if [ -n "$policy_arn" ]; then
     if (iam_delete_policy -n "$policy_arn"); then
@@ -211,7 +224,8 @@ function iam_create_user_assume_role() {
   get_input
   user_name=$get_input_result
 
-  local user_arn=$(iam_create_user -u "$user_name")
+  local user_arn
+  user_arn=$(iam_create_user -u "$user_name")
 
   # shellcheck disable=SC2181
   if [[ ${?} == 0 ]]; then
@@ -268,8 +282,8 @@ function iam_create_user_assume_role() {
                     \"Action\": \"s3:ListAllMyBuckets\",
                     \"Resource\": \"arn:aws:s3:::*\"}]}"
 
-  local policy_arn=$(iam_create_policy -n "$policy_name" -p "$policy_document")
-
+  local policy_arn
+  policy_arn=$(iam_create_policy -n "$policy_name" -p "$policy_document")
   # shellcheck disable=SC2181
   if [[ ${?} == 0 ]]; then
     echo "Created  IAM policy named $policy_name"
@@ -279,9 +293,17 @@ function iam_create_user_assume_role() {
     return 1
   fi
 
+  if (iam_attach_role_policy -n "$iam_role_name" -p "$policy_arn"); then
+    echo "Attached policy $policy_arn to role $iam_role_name"
+  else
+    errecho "The policy failed to attach."
+    clean_up "$user_name" "$key_name" "$iam_role_name" "$policy_arn"
+    return 1
+  fi
+
   local result=0
 
-  clean_up "$user_name" "$key_name" "$iam_role_name" "$policy_arn"
+  clean_up "$user_name" "$key_name" "$iam_role_name" "$policy_arn" "$policy_arn"
 
   # shellcheck disable=SC2181
   if [[ ${?} -ne 0 ]]; then
