@@ -12,7 +12,7 @@ import { snsClient } from "../libs/snsClient.js";
 /**
  * @param {string} topicArn - The ARN of the topic for which you wish to list subscriptions.
  */
-const listSubscriptionsByTopic = async (topicArn = "TOPIC_ARN") => {
+export const listSubscriptionsByTopic = async (topicArn = "TOPIC_ARN") => {
   const response = await snsClient.send(
     new ListSubscriptionsByTopicCommand({ TopicArn: topicArn })
   );

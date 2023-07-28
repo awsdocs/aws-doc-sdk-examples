@@ -14,7 +14,7 @@ import { snsClient } from "../libs/snsClient.js";
  * @param {string} topicArn - The ARN of the topic for which you wish to confirm a subscription.
  * @param {string} emailAddress - The email address that is subscribed to the topic.
  */
-export const subscribeToEmail = async (
+export const subscribeEmail = async (
   topicArn = "TOPIC_ARN",
   emailAddress = "usern@me.com"
 ) => {
@@ -42,5 +42,5 @@ export const subscribeToEmail = async (
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  subscribeToEmail();
+  subscribeEmail();
 }

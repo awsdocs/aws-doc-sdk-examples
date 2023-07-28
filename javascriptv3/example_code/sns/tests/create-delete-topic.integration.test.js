@@ -6,7 +6,7 @@ import { deleteTopic } from "../actions/delete-topic.js";
 import { snsClient } from "../libs/snsClient.js";
 import { getTopicAttributes } from "../actions/get-topic-attributes.js";
 
-describe("create-topic/delete-topic", () => {
+describe("createTopic/deleteTopic", () => {
   let topicArn = "";
   const topicName = "createDeleteSnsTopicTest";
 

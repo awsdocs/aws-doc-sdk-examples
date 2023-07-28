@@ -3,7 +3,7 @@ import { snsClient } from "../libs/snsClient.js";
 import { setSmsType } from "../actions/set-sms-attribute-type.js";
 import { GetSMSAttributesCommand } from "@aws-sdk/client-sns";
 
-describe("get-sms-attributes", () => {
+describe("getSmsType", () => {
   it("should return a DefaultSMSType of Transactional", async () => {
     await setSmsType();
 

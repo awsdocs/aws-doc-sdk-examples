@@ -5,19 +5,21 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start:[sns.JavaScript.subscriptions.subscribeAppV3]
+// snippet-start:[sns.JavaScript.subscriptions.subscribeLambdaV3]
 import { SubscribeCommand } from "@aws-sdk/client-sns";
 import { snsClient } from "../libs/snsClient.js";
 
 /**
  * @param {string} topicArn - The ARN of the topic the subscriber is subscribing to.
- * @param {string} endpoint - The Endpoint ARN of an application. This endpoint is created
- *                            when an application registers for notifications.
+ * @param {string} endpoint - The Endpoint ARN of and AWS Lambda function.
  */
-export const subscribeApp = async (topicArn = "TOPIC_ARN", endpoint = "ENDPOINT") => {
+export const subscribeLambda = async (
+  topicArn = "TOPIC_ARN",
+  endpoint = "ENDPOINT"
+) => {
   const response = await snsClient.send(
     new SubscribeCommand({
-      Protocol: "application",
+      Protocol: "lambda",
       TopicArn: topicArn,
       Endpoint: endpoint,
     })
@@ -36,9 +38,9 @@ export const subscribeApp = async (topicArn = "TOPIC_ARN", endpoint = "ENDPOINT"
   // }
   return response;
 };
-// snippet-end:[sns.JavaScript.subscriptions.subscribeAppV3]
+// snippet-end:[sns.JavaScript.subscriptions.subscribeLambdaV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  subscribeApp();
+  subscribeLambda();
 }
