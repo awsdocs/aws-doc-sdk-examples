@@ -52,7 +52,7 @@ language = {
         3: {
             'base_folder': 'javascriptv3',
             'service_folder': 'javascriptv3/example_code/{{service["name"]}}',
-            'sdk_api_ref': 'https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-{{service["name"]}}/index.html',
+            'sdk_api_ref': 'https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/{{service["name"]}}',
         }
     },
     'Kotlin': {
