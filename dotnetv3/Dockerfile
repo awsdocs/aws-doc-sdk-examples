@@ -7,6 +7,7 @@ COPY --from=mcr.microsoft.com/dotnet/sdk:5.0 /usr/share/dotnet/shared /usr/share
 
 COPY . /dotnetv3
 
+# Build dependencies
 RUN cd /dotnetv3 && dotnet build -v:q
 
 CMD ["dotnet", "test", "dotnetv3", "--filter", "Category=Unit"]
