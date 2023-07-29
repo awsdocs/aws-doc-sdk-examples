@@ -18,7 +18,7 @@ This Lambda code is included as part of this example, with the following functio
 - Starts the export function with the provided export configuration.
 - Processes Amazon SQS queue messages from the SageMaker pipeline. 
 
-![Pipeline image](/images/pipes.png)
+![AWS Tracking Application](images/pipes.png)
 
 ### Pipeline parameters
 The example pipeline uses [parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-parameters.html) that you can reference throughout the steps. You can also use the parameters to change
