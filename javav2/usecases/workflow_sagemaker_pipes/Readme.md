@@ -52,12 +52,18 @@ To use this tutorial, you need the following:
 
 To view pipelines in SageMaker Studio, you need to [set up an Amazon SageMaker Domain](https://docs.aws.amazon.com/sagemaker/latest/dg/gs-studio-onboard.html).
 To use geospatial capabilities, [you need to use a supported Region](https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial.html).
-You can use the provided input file, or provide your own. The AWS Lambda function is provided as a zip archive, but can also be
-packaged using the [Lambda plugin for .NET](https://docs.aws.amazon.com/lambda/latest/dg/csharp-package-toolkit.html).
+
+You must download and use these files to successfully run this code example:
+
++ GeoSpatialPipeline.json
++ SageMakerLambda.zip
++ latlongtest.csv
+
+The Github location is under the [AWS SDK for .NET](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SageMaker/Scenarios).
 
 ### Instructions
 
-Alternatively, you can run this example from within your Java IDE.
+You can run this Java code example from within your Java IDE.
 
 #### Get started with geospatial jobs and pipelines
 
