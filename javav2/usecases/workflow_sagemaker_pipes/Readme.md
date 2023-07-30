@@ -59,7 +59,7 @@ You must download and use these files to successfully run this code example:
 + SageMakerLambda.zip
 + latlongtest.csv
 
-The Github location is under the [AWS SDK for .NET](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SageMaker/Scenarios).
+The Github location where you can locate these files is [AWS SDK for .NET](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SageMaker/Scenarios).
 
 ### Instructions
 
