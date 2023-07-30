@@ -45,8 +45,8 @@ addresses powered by Amazon Location Service. Other types of jobs could be subst
 To use this tutorial, you need the following:
 
 + An AWS account.
-+ A Java IDE. (The IntelliJ IDE is used for this tutorial.)
-+ Java 1.8 JDK.
++ A Java IDE. 
++ Java 1.8 JDK or later.
 + Maven 3.6 or later.
 + Set up your development environment. For more information, see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup-basics.html).
 
