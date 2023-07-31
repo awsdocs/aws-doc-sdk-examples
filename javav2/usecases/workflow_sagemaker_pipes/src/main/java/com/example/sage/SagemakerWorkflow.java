@@ -61,7 +61,6 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 import software.amazon.awssdk.services.s3.waiters.S3Waiter;
 import software.amazon.awssdk.services.sagemaker.SageMakerClient;
 import software.amazon.awssdk.services.sagemaker.model.CreatePipelineRequest;
-import software.amazon.awssdk.services.sagemaker.model.CreatePipelineResponse;
 import software.amazon.awssdk.services.sagemaker.model.DeletePipelineRequest;
 import software.amazon.awssdk.services.sagemaker.model.DescribePipelineExecutionRequest;
 import software.amazon.awssdk.services.sagemaker.model.DescribePipelineExecutionResponse;
@@ -105,7 +104,17 @@ import software.amazon.awssdk.services.sagemaker.model.Parameter;
  *
  * <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html">...</a>
  *
- * Before running this code example, make sure that you read the corresponding Readme.
+ * Before running this code example, read the corresponding Readme for instructions on
+ * where to get the required input files. You need the three specified files to successfully run this example.
+ *
+ * This example shows you how to do the following:
+ *
+ * 1. Set up resources for a pipeline.
+ * 2. Set up a pipeline that runs a geospatial job.
+ * 3. Start a pipeline run.
+ * 4. Monitor the status of the run.
+ * 5. View the output of the pipeline.
+ * 6 Clean up resources.
  */
 
 //snippet-start:[sagemaker.java2.scenario.main]
@@ -118,7 +127,7 @@ public class SagemakerWorkflow {
 
     private static String eventSourceMapping = "";
 
-    public static void main(String[] agrs) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         final String usage = "\n" +
             "Usage:\n" +
             "    <sageMakerRoleName> <lambdaRoleName> <functionFileLocation> <functionName> <queueName> <bucketName> <lnglatData> <spatialPipelinePath> <pipelineName>\n\n" +
@@ -133,19 +142,20 @@ public class SagemakerWorkflow {
             "    spatialPipelinePath - The file location of the GeoSpatialPipeline.json file required for this use case.\n\n"+
             "    pipelineName - The name of the pipeline to create (for example, sagemaker-sdk-example-pipeline).\n\n" ;
 
-      //  if (args.length !=  9) {
-      //      System.out.println(usage);
-      //      System.exit(1);
-      //  }
-        String sageMakerRoleName = "SageMakerExampleRole";
-        String lambdaRoleName = "SageMakerExampleLambdaRole";
-        String functionFileLocation = "C:\\AWS\\sage\\SageMakerLambda.zip";
-        String functionName = "SageMakerExampleFunction";
-        String queueName = "sagemaker-sdk-example-queue" ;
-        String bucketName = "sagemaker-sdk-example-bucket";
-        String lnglatData = "C:\\AWS\\latlongtest.csv" ;
-        String spatialPipelinePath = "C:\\AWS\\GeoSpatialPipeline.json";
-        String pipelineName = "sagemaker-sdk-example-pipeline227";
+        if (args.length != 9) {
+              System.out.println(usage);
+              System.exit(1);
+        }
+
+        String sageMakerRoleName = args[0];
+        String lambdaRoleName = args[1];
+        String functionFileLocation = args[2];
+        String functionName = args[3];
+        String queueName = args[4];
+        String bucketName = args[5];
+        String lnglatData = args[6];
+        String spatialPipelinePath = args[7];
+        String pipelineName = args[8];
         String handlerName = "SageMakerLambda::SageMakerLambda.SageMakerLambdaFunction::FunctionHandler";
 
         Region region = Region.US_WEST_2;
@@ -169,15 +179,13 @@ public class SagemakerWorkflow {
             .region(region)
             .build();
 
-        //eventSourceMapping = "376a0e38-ef38-4239-95a1-1fd0caa55cea" ;
-        //deleteEventSourceMapping(lambdaClient);
         System.out.println(DASHES);
         System.out.println("Welcome to the Amazon SageMaker pipeline example scenario.");
         System.out.println(
             "\nThis example workflow will guide you through setting up and running an" +
-                "\nAmazon SageMaker pipeline. The pipeline uses an AWS Lambda function and an" +
-                "\nAmazon SQS Queue. It runs a vector enrichment reverse geocode job to" +
-                "\nreverse geocode addresses in an input file and store the results in an export file.");
+            "\nAmazon SageMaker pipeline. The pipeline uses an AWS Lambda function and an" +
+            "\nAmazon SQS Queue. It runs a vector enrichment reverse geocode job to" +
+            "\nreverse geocode addresses in an input file and store the results in an export file.");
         System.out.println(DASHES);
 
         System.out.println(DASHES);
@@ -193,9 +201,9 @@ public class SagemakerWorkflow {
         System.out.println(DASHES);
         System.out.println("Setting up bucket "+bucketName);
         if (!checkBucket(s3Client, bucketName)) {
-             setupBucket(s3Client, bucketName);
-             System.out.println("Put "+lnglatData +" into "+bucketName);
-             putS3Object(s3Client, bucketName, "latlongtest.csv", lnglatData);
+            setupBucket(s3Client, bucketName);
+            System.out.println("Put "+lnglatData +" into "+bucketName);
+            putS3Object(s3Client, bucketName, "latlongtest.csv", lnglatData);
         }
         System.out.println(DASHES);
 
@@ -220,15 +228,8 @@ public class SagemakerWorkflow {
         Scanner in = new Scanner(System.in);
         String delResources = in.nextLine();
         if (delResources.compareTo("y") == 0) {
-            System.out.println("Lets clean up the AWS resources.");
-           // TimeUnit.MINUTES.sleep(1);
-         //   deleteSQSQueue(sqsClient, queueName);
-         //   deleteEventSourceMapping(lambdaClient);
-         //   deleteBucketObjects(s3Client, bucketName, "latlongtest.csv");
-         //   deleteBucket(s3Client, bucketName);
-         //   deleteLambdaFunction(lambdaClient, functionName);
-         //   deleteLambdaRole(iam, lambdaRoleName);
-         //   deleteSagemakerRole(iam, sageMakerRoleName);
+            System.out.println("Lets clean up the AWS resources. Wait 30 seconds");
+            TimeUnit.SECONDS.sleep(30);
             deletePipeline(sageMakerClient, pipelineName);
         } else {
             System.out.println("The AWS Resources were not deleted!");
@@ -240,25 +241,22 @@ public class SagemakerWorkflow {
         System.out.println(DASHES);
     }
 
-   private static void readObject(S3Client s3Client, String bucketName, String key) {
-       System.out.println("Output file contents: \n");
-       GetObjectRequest objectRequest = GetObjectRequest.builder()
-           .bucket(bucketName)
-           .key(key)
-           .build();
+    private static void readObject(S3Client s3Client, String bucketName, String key) {
+        System.out.println("Output file contents: \n");
+        GetObjectRequest objectRequest = GetObjectRequest.builder()
+            .bucket(bucketName)
+            .key(key)
+            .build();
 
-       ResponseBytes<GetObjectResponse> objectBytes = s3Client.getObjectAsBytes(objectRequest);
-       byte[] byteArray = objectBytes.asByteArray();
-       String text = new String(byteArray, StandardCharsets.UTF_8);
-       System.out.println("Text output: " + text);
-   }
-
+        ResponseBytes<GetObjectResponse> objectBytes = s3Client.getObjectAsBytes(objectRequest);
+        byte[] byteArray = objectBytes.asByteArray();
+        String text = new String(byteArray, StandardCharsets.UTF_8);
+        System.out.println("Text output: " + text);
+    }
 
     // Display some results from the output directory.
     public static void getOutputResults(S3Client s3Client, String bucketName) {
         System.out.println("Getting output results {bucketName}.");
-        String outputKey = "";
-
         ListObjectsRequest listObjectsRequest = ListObjectsRequest.builder()
             .bucket(bucketName)
             .prefix("outputfiles/")
@@ -271,8 +269,10 @@ public class SagemakerWorkflow {
         }
     }
 
+    //snippet-start:[sagemaker.java2.describe_pipeline_execution.main]
+    // Check the status of a pipeline execution.
     public static void waitForPipelineExecution(SageMakerClient sageMakerClient, String executionArn) throws InterruptedException {
-        String status ="";
+        String status;
         int index = 0;
         do {
             DescribePipelineExecutionRequest pipelineExecutionRequest = DescribePipelineExecutionRequest.builder()
@@ -287,7 +287,10 @@ public class SagemakerWorkflow {
         } while ("Executing".equals(status));
         System.out.println("Pipeline finished with status "+ status);
     }
+    //snippet-end:[sagemaker.java2.describe_pipeline_execution.main]
 
+    //snippet-start:[sagemaker.java2.delete_pipeline.main]
+    // Delete a SageMaker pipeline by name.
     public static void deletePipeline(SageMakerClient sageMakerClient, String pipelineName) {
         DeletePipelineRequest pipelineRequest = DeletePipelineRequest.builder()
             .pipelineName(pipelineName)
@@ -296,14 +299,15 @@ public class SagemakerWorkflow {
         sageMakerClient.deletePipeline(pipelineRequest);
         System.out.println("*** Successfully deleted "+pipelineName);
     }
+    //snippet-end:[sagemaker.java2.delete_pipeline.main]
 
+    //snippet-start:[sagemaker.java2.create_pipeline.main]
     // Create a pipeline from the example pipeline JSON.
     public static void setupPipeline(SageMakerClient sageMakerClient, String filePath, String roleArn, String functionArn, String pipelineName) {
-        // Read the JSON file.
         System.out.println("Setting up the pipeline.");
         JSONParser parser = new JSONParser();
 
-        // Update JSON to specify the function ARN value.
+        // Read JSON and get pipeline definition.
         try (FileReader reader = new FileReader(filePath)) {
             Object obj = parser.parse(reader);
             JSONObject jsonObject = (JSONObject) obj;
@@ -324,7 +328,7 @@ public class SagemakerWorkflow {
                 .pipelineDefinition(jsonObject.toString())
                 .build();
 
-            CreatePipelineResponse response = sageMakerClient.createPipeline(pipelineRequest);
+            sageMakerClient.createPipeline(pipelineRequest);
 
         } catch (IamException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -333,7 +337,9 @@ public class SagemakerWorkflow {
             throw new RuntimeException(e);
         }
     }
+    //snippet-end:[sagemaker.java2.create_pipeline.main]
 
+    //snippet-start:[sagemaker.java2.execute_pipeline.main]
     // Start a pipeline run with job configurations.
     public static String executePipeline(SageMakerClient sageMakerClient, String bucketName,String queueUrl, String roleArn, String pipelineName) {
         System.out.println("Starting pipeline execution.");
@@ -355,12 +361,9 @@ public class SagemakerWorkflow {
             .value(queueUrl)
             .build();
 
-
         VectorEnrichmentJobS3Data enrichmentJobS3Data = VectorEnrichmentJobS3Data.builder()
             .s3Uri(inputBucketLocation)
             .build();
-
-
 
         VectorEnrichmentJobInputConfig inputConfig = VectorEnrichmentJobInputConfig.builder()
             .documentType(VectorEnrichmentJobDocumentType.CSV)
@@ -389,7 +392,6 @@ public class SagemakerWorkflow {
             .name("parameter_vej_export_config")
             .value(gson4)
             .build();
-
         System.out.println("parameter_vej_export_config:"+gson.toJson(outputConfig));
 
         // Create a VectorEnrichmentJobConfig object.
@@ -425,6 +427,7 @@ public class SagemakerWorkflow {
         StartPipelineExecutionResponse response = sageMakerClient.startPipelineExecution(pipelineExecutionRequest);
         return response.pipelineExecutionArn();
     }
+    //snippet-end:[sagemaker.java2.execute_pipeline.main]
 
     private static String modifyJSON(String inputBucketLocation) {
         // Create the JSON using JSONObject.
@@ -452,7 +455,7 @@ public class SagemakerWorkflow {
     }
 
     public static void deleteEventSourceMapping(LambdaClient lambdaClient){
-            DeleteEventSourceMappingRequest eventSourceMappingRequest = DeleteEventSourceMappingRequest.builder()
+        DeleteEventSourceMappingRequest eventSourceMappingRequest = DeleteEventSourceMappingRequest.builder()
             .uuid(eventSourceMapping)
             .build();
 
@@ -831,7 +834,7 @@ public class SagemakerWorkflow {
         return "";
     }
 
-    private static String checkFunction(LambdaClient lambdaClient, String functionName, String filePath, String role, String handler) {
+    public static String checkFunction(LambdaClient lambdaClient, String functionName, String filePath, String role, String handler) {
         System.out.println("Create an AWS Lambda function used in this workflow.");
         String functionArn;
 
@@ -852,7 +855,7 @@ public class SagemakerWorkflow {
     }
 
     // Check to see if the specific S3 bucket exists. If the S3 bucket exists, this method returns true.
-    private static boolean checkBucket(S3Client s3, String bucketName) {
+    public static boolean checkBucket(S3Client s3, String bucketName) {
         try {
             HeadBucketRequest headBucketRequest = HeadBucketRequest.builder()
                 .bucket(bucketName)
@@ -870,9 +873,9 @@ public class SagemakerWorkflow {
 
     // Checks to see if the Amazon SQS queue exists. If not, this method creates a new queue
     // and returns the ARN value.
-    private static String checkQueue(SqsClient sqsClient, LambdaClient lambdaClient, String queueName, String lambdaName) {
+    public static String checkQueue(SqsClient sqsClient, LambdaClient lambdaClient, String queueName, String lambdaName) {
         System.out.println("Creating a queue for this use case.");
-        String queueUrl = "";
+        String queueUrl;
         try {
             GetQueueUrlRequest request = GetQueueUrlRequest.builder()
                 .queueName(queueName)
@@ -890,7 +893,7 @@ public class SagemakerWorkflow {
     }
 
     // Checks to see if the Lambda role exists. If not, this method creates it.
-    private static String checkLambdaRole(IamClient iam, String roleName) {
+    public static String checkLambdaRole(IamClient iam, String roleName) {
         System.out.println("Creating a role to for AWS Lambda to use.");
         String roleArn;
         try {
@@ -910,7 +913,7 @@ public class SagemakerWorkflow {
     }
 
     // Checks to see if the SageMaker role exists. If not, this method creates it.
-    private static String checkSageMakerRole(IamClient iam, String roleName) {
+    public static String checkSageMakerRole(IamClient iam, String roleName) {
         System.out.println("Creating a role to for AWS SageMaker to use.");
         String roleArn;
         try {
