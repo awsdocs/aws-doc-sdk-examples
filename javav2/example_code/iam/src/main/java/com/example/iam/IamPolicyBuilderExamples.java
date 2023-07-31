@@ -93,15 +93,15 @@ public class IamPolicyBuilderExamples {
         String decodedPolicy = URLDecoder.decode(getPolicyVersionResponse.policyVersion().document(), StandardCharsets.UTF_8);
         IamPolicy policy = IamPolicy.fromJson(decodedPolicy);
 
-            /*
-             All IamPolicy components are immutable, so use the copy method that creates a new instance that
-             can be altered in the same method call.
+        /*
+         All IamPolicy components are immutable, so use the copy method that creates a new instance that
+         can be altered in the same method call.
 
-             Add the ability to get an item from DynamoDB as an additional action.
-            */
+         Add the ability to get an item from DynamoDB as an additional action.
+        */
         IamStatement newStatement = policy.statements().get(0).copy(s -> s.addAction("dynamodb:GetItem"));
 
-        // Create a new the new statement that replaces the original statement.
+        // Create a new statement that replaces the original statement.
         IamPolicy newPolicy = policy.copy(p -> p.statements(Arrays.asList(newStatement)));
 
         // Upload the new policy. IAM now has both policies.
