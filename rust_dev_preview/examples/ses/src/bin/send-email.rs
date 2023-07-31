@@ -57,7 +57,7 @@ async fn send_message(
 
     let cs: String = contacts
         .iter()
-        .map(|i| i.email_address().unwrap_or_default())
+        .map(|i| format!("{},",i.email_address().unwrap_or_default()))
         .collect();
 
     let dest = Destination::builder().to_addresses(cs).build();
