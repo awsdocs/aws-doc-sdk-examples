@@ -72,12 +72,6 @@ foreach(file ${AWSDOC_SOURCE})
     target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES}
             ${AWSSDK_PLATFORM_DEPS})
 
-    target_include_directories(${EXAMPLE_EXE}
-            SYSTEM
-            PUBLIC
-            ${AWSSDK_INCLUDE_DIR}/aws # This is added to shorten an include path which does not pass checks.
-            )
-
 endforeach()
 
 
