@@ -324,7 +324,7 @@ There is no input.
 
 ### **Output**
 
-Returns a JSON object with one property: `feedback`. `feedback` is an array of objects that contain four properties:
+Returns a JSON object with one property: `feedback`. `feedback` is an array of objects that contains four properties:
 
 - sentiment - "POSITIVE" | "NEGATIVE" | "NEUTRAL"
 - text - The original text translated to the destination language. (English by default)

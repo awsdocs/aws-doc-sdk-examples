@@ -6,7 +6,7 @@
 <block>
   <para>
     This example application analyzes and stores customer feedback cards. Specifically,
-    it fulfills the need of a fictitious hotel in Paris, France. The hotel receives feedback
+    it fulfills the need of a fictitious hotel in New York City. The hotel receives feedback
     from guests in various languages in the form of physical comment cards. That feedback
     is uploaded into the app through a web client.
 
