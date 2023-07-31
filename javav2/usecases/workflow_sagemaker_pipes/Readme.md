@@ -1,4 +1,4 @@
-# Create and run a SageMaker geospatial pipeline using AWS SDK for Java V2
+# Create and run a SageMaker geospatial pipeline using the SDK for Java V2
 
 ## Overview
 
@@ -16,7 +16,7 @@ Both steps are processed by the same example Lambda function.
 This Lambda code is included as part of this example, with the following functionality:
 - Starts the SageMaker Vector Enrichment Job with the provided job configuration.
 - Starts the export function with the provided export configuration.
-- Processes Amazon SQS queue messages from the SageMaker pipeline. 
+- Processes Amazon Simple Queue Service (Amazon SQS) messages from the SageMaker pipeline.  
 
 ![AWS Tracking Application](images/pipes.png)
 
@@ -59,7 +59,7 @@ You must download and use these files to successfully run this code example:
 + SageMakerLambda.zip
 + latlongtest.csv
 
-The Github location where you can locate these files is [AWS SDK for .NET](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SageMaker/Scenarios).
+These files are located on GitHub in [AWS SDK for .NET](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SageMaker/Scenarios).
 
 ### Instructions
 
