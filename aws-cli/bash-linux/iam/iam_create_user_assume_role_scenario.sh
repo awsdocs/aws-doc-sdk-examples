@@ -43,9 +43,11 @@
 #       0
 ###############################################################################
 function get_input() {
+  
   if [ -z "${mock_input+x}" ]; then
     read -r get_input_result
   else
+    
     if [ -n "${mock_input_array[*]}" ]; then
       get_input_result="${mock_input_array[0]}"
       mock_input_array=("${mock_input_array[@]:1}")
@@ -82,6 +84,7 @@ function clean_up() {
   local result=0
 
   if [ -n "$assume_role_policy_arn" ]; then
+    # bashsupport disable=BP2002
     if (iam_delete_policy -n "$assume_role_policy_arn"); then
       echo "Deleted IAM policy named $assume_role_policy_arn"
     else
@@ -109,8 +112,8 @@ function clean_up() {
   fi
 
   if [ -n "$role_name" ]; then
-    if (iam_delete_role -n "$iam_role_name"); then
-      echo "Deleted IAM role named $iam_role_name"
+    if (iam_delete_role -n "$role_name"); then
+      echo "Deleted IAM role named $role_name"
     else
       errecho "The role failed to delete."
       result=1
@@ -118,8 +121,8 @@ function clean_up() {
   fi
 
   if [ -n "$access_key_name" ]; then
-    if (iam_delete_access_key -u "$user_name" -k "$key_name"); then
-      echo "Deleted access key $key_name"
+    if (iam_delete_access_key -u "$user_name" -k "$access_key_name"); then
+      echo "Deleted access key $access_key_name"
     else
       errecho "The access key failed to delete."
       result=1
@@ -324,6 +327,7 @@ function iam_create_user_assume_role() {
   echo
   echo "This demo will create an IAM user, create an IAM role, and apply the role to the user."
   echo_repeat "*" 88
+  echo
 
   echo -n "Enter a name for a new IAM user: "
   get_input
@@ -353,14 +357,19 @@ function iam_create_user_assume_role() {
     return 1
   fi
 
-  local key_name=$(cut -f 2 "$access_key_file_name")
-  local key_secret=$(cut -f 4 "$access_key_file_name")
+  local key_name
+  key_name=$(cut -f 2 "$access_key_file_name")
+  local key_secret
+  key_secret=$(cut -f 4 "$access_key_file_name")
 
   rm "$access_key_file_name"
   echo "Wait 10 seconds for the user to be ready."
   sleep 10
+  echo_repeat "*" 88
+  echo
 
-  local iam_role_name=$(generate_random_name "test-role")
+  local iam_role_name
+  iam_role_name=$(generate_random_name "test-role")
   echo "Creating a role named $iam_role_name with user $user_name as the principal."
 
   local assume_role_policy_document="{
@@ -374,6 +383,8 @@ function iam_create_user_assume_role() {
 
   local role_arn
   role_arn=$(iam_create_role -n "$iam_role_name" -p "$assume_role_policy_document")
+  
+  # shellcheck disable=SC2181
   if [ ${?} == 0 ]; then
     echo "Created IAM role named $iam_role_name"
   else
@@ -382,7 +393,8 @@ function iam_create_user_assume_role() {
     return 1
   fi
 
-  local policy_name=$(generate_random_name "test-policy")
+  local policy_name
+  policy_name=$(generate_random_name "test-policy")
   local policy_document="{
                 \"Version\": \"2012-10-17\",
                 \"Statement\": [{
@@ -416,7 +428,8 @@ function iam_create_user_assume_role() {
                     \"Action\": \"sts:AssumeRole\",
                     \"Resource\": \"$role_arn\"}]}"
 
-  local assume_role_policy_name=$(generate_random_name "test-assume-role-")
+  local assume_role_policy_name
+  assume_role_policy_name=$(generate_random_name "test-assume-role-")
 
   # shellcheck disable=SC2181
   local assume_role_policy_arn
@@ -432,11 +445,17 @@ function iam_create_user_assume_role() {
 
   echo "Wait 10 seconds to give AWS time to propagate these new resources and connections."
   sleep 10
+  echo_repeat "*" 88
+  echo
 
   echo "Try to list buckets without the new user assuming the role."
+  echo_repeat "*" 88
+  echo
 
   # Set the environment variables for the created user.
+  # bashsupport disable=BP2001
   export AWS_ACCESS_KEY_ID=$key_name
+ # bashsupport disable=BP2001
   export AWS_SECRET_ACCESS_KEY=$key_secret
 
   local buckets
@@ -444,12 +463,18 @@ function iam_create_user_assume_role() {
 
   # shellcheck disable=SC2181
   if [ ${?} == 0 ]; then
-    echo "There are ${#buckets[@]} buckets in the account"
+    local bucket_count
+    bucket_count=$(echo "$buckets" | wc -w | xargs)
+    echo "There are $bucket_count buckets in the account. This should not have happened."
   else
-    errecho "Before assuming the role, listing buckets failed."
+    errecho "Because the role with permissions has not been assumed, listing buckets failed."
   fi
 
+  echo
+  echo_repeat "*" 88
   echo "Now assume the role $iam_role_name and list the buckets."
+  echo_repeat "*" 88
+  echo
 
   local credentials
 
@@ -465,18 +490,23 @@ function iam_create_user_assume_role() {
     return 1
   fi
 
-  credentials=(${credentials})
+  # shellcheck disable=SC2206
+  credentials=(${credentials}) # Convert to array.
 
   export AWS_ACCESS_KEY_ID=${credentials[0]}
   export AWS_SECRET_ACCESS_KEY=${credentials[1]}
+ # bashsupport disable=BP2001
   export AWS_SESSION_TOKEN=${credentials[2]}
 
   buckets=$(s3_list_buckets)
 
   # shellcheck disable=SC2181
   if [ ${?} == 0 ]; then
-    echo "There are ${#buckets[@]} buckets in the account"
-  else
+    local bucket_count
+    bucket_count=$(echo "$buckets" | wc -w | xargs)
+    echo "There are $bucket_count buckets in the account. Listing buckets succeeded because of "
+    echo "the assumed role."
+   else
     errecho "Failed to list buckets. This should not happen."
     export AWS_ACCESS_KEY_ID=""
     export AWS_SECRET_ACCESS_KEY=""
@@ -488,6 +518,12 @@ function iam_create_user_assume_role() {
   local result=0
   export AWS_ACCESS_KEY_ID=""
   export AWS_SECRET_ACCESS_KEY=""
+
+  echo
+  echo_repeat "*" 88
+  echo "The created resources will now be deleted."
+  echo_repeat "*" 88
+  echo
 
   clean_up "$user_name" "$key_name" "$iam_role_name" "$policy_arn" "$policy_arn" "$assume_role_policy_arn"
 

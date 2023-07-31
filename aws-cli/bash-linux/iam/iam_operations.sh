@@ -38,6 +38,7 @@ function iam_user_exists() {
   # Check whether the IAM user already exists.
   # We suppress all output - we're interested only in the return code.
 
+  local errors
   errors=$(aws iam get-user \
     --user-name "$user_name" 2>&1 >/dev/null)
 
@@ -77,7 +78,7 @@ function iam_create_user() {
   # bashsupport disable=BP5008
   function usage() {
     echo "function iam_create_user"
-    echo "Creates an WS Identity and Access Management (IAM) user. You must supply a user name:"
+    echo "Creates an WS Identity and Access Management (IAM) user. You must supply a username:"
     echo "  -u user_name    The name of the user. It must be unique within the account."
     echo ""
   }
@@ -99,7 +100,7 @@ function iam_create_user() {
   done
 
   if [[ -z "$user_name" ]]; then
-    errecho "ERROR: You must provide a user name with the -u parameter."
+    errecho "ERROR: You must provide a username with the -u parameter."
     usage
     return 1
   fi
@@ -685,7 +686,7 @@ function iam_delete_access_key() {
   fi
 
   if [[ -z "$access_key" ]]; then
-    errecho "ERROR: You must provide a access key with the -k parameter."
+    errecho "ERROR: You must provide an access key with the -k parameter."
     usage
     return 1
   fi
@@ -733,7 +734,7 @@ function iam_delete_user() {
   # bashsupport disable=BP5008
   function usage() {
     echo "function iam_delete_user"
-    echo "Deletes an WS Identity and Access Management (IAM) user. You must supply a user name:"
+    echo "Deletes an WS Identity and Access Management (IAM) user. You must supply a username:"
     echo "  -u user_name    The name of the user."
     echo ""
   }
@@ -755,7 +756,7 @@ function iam_delete_user() {
   done
 
   if [[ -z "$user_name" ]]; then
-    errecho "ERROR: You must provide a user name with the -u parameter."
+    errecho "ERROR: You must provide a username with the -u parameter."
     usage
     return 1
   fi

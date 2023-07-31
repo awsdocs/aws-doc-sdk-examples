@@ -22,6 +22,22 @@ s3_Hello:
             - description:
               snippet_tags:
                 - gov2.s3.Hello
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.getting_started_scenario
+                - aws-cli.bash-linux.s3.CreateBucket
+                - aws-cli.bash-linux.s3.PutObject
+                - aws-cli.bash-linux.s3.GetObject
+                - aws-cli.bash-linux.s3.CopyObject
+                - aws-cli.bash-linux.s3.ListObjects
+                - aws-cli.bash-linux.s3.DeleteObjects
+                - aws-cli.bash-linux.s3.DeleteBucket
   services:
     s3: {ListBuckets}
 s3_CreateBucket:
