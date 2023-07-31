@@ -94,7 +94,7 @@ function test_failed() {
   exit 1
 }
 
-# snippet-start:[aws-cli.bash-linux.s3.errecho]
+# snippet-start:[aws-cli.bash-linux.iam.errecho]
 ###############################################################################
 # function errecho
 #
@@ -103,9 +103,9 @@ function test_failed() {
 function errecho() {
   printf "%s\n" "$*" 2>&1
 }
-# snippet-end:[aws-cli.bash-linux.s3.errecho]
+# snippet-end:[aws-cli.bash-linux.iam.errecho]
 
-# snippet-start:[aws-cli.bash-linux.s3.iecho]
+# snippet-start:[aws-cli.bash-linux.iam.iecho]
 ###############################################################################
 # function iecho
 #
@@ -117,7 +117,7 @@ function iecho() {
     echo "$@"
   fi
 }
-# snippet-end:[aws-cli.bash-linux.s3.iecho]
+# snippet-end:[aws-cli.bash-linux.iam.iecho]
 
 ###############################################################################
 # function ipause

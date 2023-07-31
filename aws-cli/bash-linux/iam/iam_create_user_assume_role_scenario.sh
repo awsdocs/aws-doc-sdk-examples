@@ -383,7 +383,7 @@ function iam_create_user_assume_role() {
 
   local role_arn
   role_arn=$(iam_create_role -n "$iam_role_name" -p "$assume_role_policy_document")
-  
+
   # shellcheck disable=SC2181
   if [ ${?} == 0 ]; then
     echo "Created IAM role named $iam_role_name"
@@ -455,7 +455,7 @@ function iam_create_user_assume_role() {
   # Set the environment variables for the created user.
   # bashsupport disable=BP2001
   export AWS_ACCESS_KEY_ID=$key_name
- # bashsupport disable=BP2001
+  # bashsupport disable=BP2001
   export AWS_SECRET_ACCESS_KEY=$key_secret
 
   local buckets
@@ -495,7 +495,7 @@ function iam_create_user_assume_role() {
 
   export AWS_ACCESS_KEY_ID=${credentials[0]}
   export AWS_SECRET_ACCESS_KEY=${credentials[1]}
- # bashsupport disable=BP2001
+  # bashsupport disable=BP2001
   export AWS_SESSION_TOKEN=${credentials[2]}
 
   buckets=$(s3_list_buckets)
@@ -506,7 +506,7 @@ function iam_create_user_assume_role() {
     bucket_count=$(echo "$buckets" | wc -w | xargs)
     echo "There are $bucket_count buckets in the account. Listing buckets succeeded because of "
     echo "the assumed role."
-   else
+  else
     errecho "Failed to list buckets. This should not happen."
     export AWS_ACCESS_KEY_ID=""
     export AWS_SECRET_ACCESS_KEY=""

@@ -19,6 +19,7 @@
 
 source ./awsdocs_general.sh
 
+# snippet-start:[aws-cli.bash-linux.iam.GetUser]
 ###############################################################################
 # function iam_user_exists
 #
@@ -55,7 +56,9 @@ function iam_user_exists() {
     return 1 # 1 in Bash script means false.
   fi
 }
+# snippet-end:[aws-cli.bash-linux.iam.GetUser]
 
+# snippet-start:[aws-cli.bash-linux.iam.CreateUser]
 ###############################################################################
 # function iam_create_user
 #
@@ -131,7 +134,9 @@ function iam_create_user() {
 
   return 0
 }
+# snippet-end:[aws-cli.bash-linux.iam.CreateUser]
 
+# snippet-start:[aws-cli.bash-linux.iam.CreateAccessKey]
 ###############################################################################
 # function iam_create_user_access_key
 #
@@ -209,7 +214,9 @@ function iam_create_user_access_key() {
 
   return 0
 }
+# snippet-end:[aws-cli.bash-linux.iam.CreateAccessKey]
 
+# snippet-start:[aws-cli.bash-linux.iam.CreateRole]
 ###############################################################################
 # function iam_create_role
 #
@@ -285,7 +292,9 @@ function iam_create_role() {
 
   return 0
 }
+# snippet-end:[aws-cli.bash-linux.iam.CreateRole]
 
+# snippet-start:[aws-cli.bash-linux.iam.CreatePolicy]
 ###############################################################################
 # function iam_create_policy
 #
@@ -357,7 +366,9 @@ function iam_create_policy() {
 
   echo "$response"
 }
+# snippet-end:[aws-cli.bash-linux.iam.CreatePolicy]
 
+# snippet-start:[aws-cli.bash-linux.iam.AttachRolePolicy]
 ###############################################################################
 # function iam_attach_role_policy
 #
@@ -429,7 +440,9 @@ function iam_attach_role_policy() {
 
   return 0
 }
+# snippet-end:[aws-cli.bash-linux.iam.AttachRolePolicy]
 
+# snippet-start:[aws-cli.bash-linux.iam.DetachRolePolicy]
 ###############################################################################
 # function iam_detach_role_policy
 #
@@ -501,7 +514,9 @@ function iam_detach_role_policy() {
 
   return 0
 }
+# snippet-end:[aws-cli.bash-linux.iam.DetachRolePolicy]
 
+# snippet-start:[aws-cli.bash-linux.iam.DeletePolicy]
 ###############################################################################
 # function iam_delete_policy
 #
@@ -568,7 +583,9 @@ function iam_delete_policy() {
 
   return 0
 }
+# snippet-end:[aws-cli.bash-linux.iam.DeletePolicy]
 
+# snippet-start:[aws-cli.bash-linux.iam.DeleteRole]
 ###############################################################################
 # function iam_delete_role
 #
@@ -635,7 +652,9 @@ function iam_delete_role() {
 
   return 0
 }
+# snippet-end:[aws-cli.bash-linux.iam.DeleteRole]
 
+# snippet-start:[aws-cli.bash-linux.iam.DeleteAccessKey]
 ###############################################################################
 # function iam_delete_access_key
 #
@@ -713,7 +732,9 @@ function iam_delete_access_key() {
 
   return 0
 }
+# snippet-end:[aws-cli.bash-linux.iam.DeleteAccessKey]
 
+# snippet-start:[aws-cli.bash-linux.iam.DeleteUser]
 ###############################################################################
 # function iam_delete_user
 #
@@ -787,3 +808,4 @@ function iam_delete_user() {
 
   return 0
 }
+#  snippet-end:[aws-cli.bash-linux.iam.DeleteUser]
