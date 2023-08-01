@@ -6,7 +6,7 @@ on:
     branches:
       - main
     types:
-      - opened, reopened, labeled, edited
+      [opened, reopened, labeled, edited]
 jobs:
   label-linter:
     permissions:
