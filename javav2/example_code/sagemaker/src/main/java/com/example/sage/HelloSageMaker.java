@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[ListNotebooks.java demonstrates how to list notebooks.]
+//snippet-sourcedescription:[HelloSageMaker.java demonstrates how to list notebooks.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[Amazon SageMaker]
 
