@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { SNSWorkflow } from "../SNSWorkflow.js";
-import { SNSClient } from "@aws-sdk/client-sns";
+import { CreateTopicCommand, SNSClient } from "@aws-sdk/client-sns";
 import { SQSClient } from "@aws-sdk/client-sqs";
 
 describe("SNSWorkflow", () => {
@@ -62,6 +62,41 @@ describe("SNSWorkflow", () => {
       await snsWkflw.confirmFifo();
 
       expect(snsWkflw.isFifo).toBe(false);
+    });
+  });
+
+  describe("createTopic", () => {
+    it("should create a FIFO topic with content deduplication if those were selected", async () => {
+      const send = vi.fn(() => {
+        return Promise.resolve({
+          TopicArn: "topic-arn",
+        });
+      });
+      const mockSnsClient = { send };
+      const snsWkflw = new SNSWorkflow(
+        mockSnsClient,
+        new SQSClient({}),
+        {
+          confirm: () => Promise.resolve(true),
+          input: () => Promise.resolve("user-input"),
+        },
+        {
+          log: () => {
+            /*noop*/
+          },
+        }
+      );
+
+      await snsWkflw.createTopic();
+      // Verify the mocked 'send' function was called with an instance of CreateTopicCommand
+      expect(send.mock.calls[0][0]).toBeInstanceOf(CreateTopicCommand);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(send.mock.calls[0][0].input.Attributes.FifoTopic).toBe("true");
+
+      expect(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        send.mock.calls[0][0].input.Attributes.ContentBasedDeduplication
+      ).toBe("true");
     });
   });
 });
