@@ -197,7 +197,6 @@ ALLOW_LIST = {
     'aws/dynamodb/model/BatchWriteItemRequest',
     'VectorEnrichmentJobDataSourceConfigInput',
     'role/AmazonSageMakerGeospatialFullAccess',
-    'role/AmazonSageMakerGeospatialFullAccess',
 }
 
 def check_files(root, quiet):
