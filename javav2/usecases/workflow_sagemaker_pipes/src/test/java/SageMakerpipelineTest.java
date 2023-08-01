@@ -17,6 +17,7 @@ import com.example.sage.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -46,6 +47,8 @@ public class SageMakerpipelineTest {
 
     @BeforeAll
     public static void setUp() throws IOException {
+        Random random = new Random();
+        int randomNum = random.nextInt((10000 - 1) + 1) + 1;
         Region region = Region.US_WEST_2;
         sageMakerClient = SageMakerClient.builder()
             .region(region)
@@ -89,7 +92,7 @@ public class SageMakerpipelineTest {
             bucketName = prop.getProperty("bucketName");
             lnglatData = prop.getProperty("lnglatData");
             spatialPipelinePath = prop.getProperty("spatialPipelinePath");
-            pipelineName = prop.getProperty("pipelineName");
+            pipelineName = prop.getProperty("pipelineName")+randomNum;
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -152,9 +155,9 @@ public class SageMakerpipelineTest {
         if (delResources.compareTo("y") == 0) {
             System.out.println("Lets clean up the AWS resources. Wait 30 seconds");
             TimeUnit.SECONDS.sleep(30);
-            SagemakerWorkflow.deleteSQSQueue(sqsClient, queueName);
             SagemakerWorkflow.deleteEventSourceMapping(lambdaClient);
-            SagemakerWorkflow.deleteBucketObjects(s3Client, bucketName, "latlongtest.csv");
+            SagemakerWorkflow.deleteSQSQueue(sqsClient, queueName);
+            SagemakerWorkflow.listBucketObjects(s3Client, bucketName);
             SagemakerWorkflow.deleteBucket(s3Client, bucketName);
             SagemakerWorkflow.deleteLambdaFunction(lambdaClient, functionName);
             SagemakerWorkflow.deleteLambdaRole(iam, lambdaRoleName);

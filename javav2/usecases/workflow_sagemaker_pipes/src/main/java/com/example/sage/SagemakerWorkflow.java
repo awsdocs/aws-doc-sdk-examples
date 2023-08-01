@@ -41,6 +41,8 @@ import software.amazon.awssdk.services.lambda.model.FunctionCode;
 import software.amazon.awssdk.services.lambda.model.GetFunctionRequest;
 import software.amazon.awssdk.services.lambda.model.GetFunctionResponse;
 import software.amazon.awssdk.services.lambda.model.LambdaException;
+import software.amazon.awssdk.services.lambda.model.ListEventSourceMappingsRequest;
+import software.amazon.awssdk.services.lambda.model.ListEventSourceMappingsResponse;
 import software.amazon.awssdk.services.lambda.model.Runtime;
 import software.amazon.awssdk.services.lambda.waiters.LambdaWaiter;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -119,12 +121,7 @@ import software.amazon.awssdk.services.sagemaker.model.Parameter;
 
 //snippet-start:[sagemaker.java2.scenario.main]
 public class SagemakerWorkflow {
-
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
-
-    private static String[] lambdaRolePolicies = null;
-    private static String[] sageMakerRolePolicies = null;
-
     private static String eventSourceMapping = "";
 
     public static void main(String[] args) throws InterruptedException {
@@ -150,7 +147,7 @@ public class SagemakerWorkflow {
         String sageMakerRoleName = args[0];
         String lambdaRoleName = args[1];
         String functionFileLocation = args[2];
-        String functionName = args[3];
+        String functionName =  args[3];
         String queueName = args[4];
         String bucketName = args[5];
         String lnglatData = args[6];
@@ -183,15 +180,15 @@ public class SagemakerWorkflow {
         System.out.println("Welcome to the Amazon SageMaker pipeline example scenario.");
         System.out.println(
             "\nThis example workflow will guide you through setting up and running an" +
-            "\nAmazon SageMaker pipeline. The pipeline uses an AWS Lambda function and an" +
-            "\nAmazon SQS Queue. It runs a vector enrichment reverse geocode job to" +
-            "\nreverse geocode addresses in an input file and store the results in an export file.");
+                "\nAmazon SageMaker pipeline. The pipeline uses an AWS Lambda function and an" +
+                "\nAmazon SQS Queue. It runs a vector enrichment reverse geocode job to" +
+                "\nreverse geocode addresses in an input file and store the results in an export file.");
         System.out.println(DASHES);
 
         System.out.println(DASHES);
         System.out.println("First, we will set up the roles, functions, and queue needed by the SageMaker pipeline.");
-        String lambdaRoleArn = checkSageMakerRole(iam, sageMakerRoleName);
-        String sageMakerRoleArn = checkLambdaRole(iam, lambdaRoleName);
+        String lambdaRoleArn = checkLambdaRole(iam, lambdaRoleName);
+        String sageMakerRoleArn = checkSageMakerRole(iam, sageMakerRoleName);
 
         String functionArn = checkFunction(lambdaClient, functionName, functionFileLocation, lambdaRoleArn, handlerName);
         String queueUrl = checkQueue(sqsClient, lambdaClient, queueName, functionName);
@@ -463,6 +460,7 @@ public class SagemakerWorkflow {
     }
 
     public static void deleteSagemakerRole(IamClient iam, String roleName) {
+        String[] sageMakerRolePolicies = getSageMakerRolePolicies();
         try {
             for (String policy : sageMakerRolePolicies) {
                 // First the policy needs to be detached.
@@ -489,6 +487,7 @@ public class SagemakerWorkflow {
     }
 
     public static void deleteLambdaRole(IamClient iam, String roleName) {
+        String[] lambdaRolePolicies = getLambdaRolePolicies();
         try {
             for (String policy : lambdaRolePolicies) {
                 // First the policy needs to be detached.
@@ -539,12 +538,31 @@ public class SagemakerWorkflow {
         System.out.println("*** "+bucketName +" was deleted.");
     }
 
+    public static void listBucketObjects(S3Client s3, String bucketName ) {
+        try {
+            ListObjectsRequest listObjects = ListObjectsRequest
+                .builder()
+                .bucket(bucketName)
+                .build();
+
+            ListObjectsResponse res = s3.listObjects(listObjects);
+            List<S3Object> objects = res.contents();
+            for (S3Object myValue : objects) {
+                System.out.print("\n The name of the key is " + myValue.key());
+                deleteBucketObjects(s3, bucketName, myValue.key());
+            }
+
+        } catch (S3Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            System.exit(1);
+        }
+    }
+
     public static void deleteBucketObjects(S3Client s3, String bucketName, String objectName) {
         ArrayList<ObjectIdentifier> toDelete = new ArrayList<>();
         toDelete.add(ObjectIdentifier.builder()
             .key(objectName)
             .build());
-
         try {
             DeleteObjectsRequest dor = DeleteObjectsRequest.builder()
                 .bucket(bucketName)
@@ -723,10 +741,7 @@ public class SagemakerWorkflow {
     }
 
     public static String createSageMakerRole(IamClient iam, String roleName) {
-        sageMakerRolePolicies = new String[2];
-        sageMakerRolePolicies[0] = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess";
-        sageMakerRolePolicies[1] = "arn:aws:iam::aws:policy/service-role/AmazonSageMakerGeospatialFullAccess";
-
+        String[] sageMakerRolePolicies = getSageMakerRolePolicies();
         System.out.println("Creating a role to use with SageMaker.");
         String assumeRolePolicy = "{" +
             "\"Version\": \"2012-10-17\"," +
@@ -778,13 +793,7 @@ public class SagemakerWorkflow {
     }
 
     private static String createLambdaRole(IamClient iam, String roleName) {
-        lambdaRolePolicies = new String[5];
-        lambdaRolePolicies[0] = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess";
-        lambdaRolePolicies[1] = "arn:aws:iam::aws:policy/AmazonSQSFullAccess";
-        lambdaRolePolicies[2] = "arn:aws:iam::aws:policy/service-role/AmazonSageMakerGeospatialFullAccess";
-        lambdaRolePolicies[3] = "arn:aws:iam::aws:policy/service-role/AmazonSageMakerServiceCatalogProductsLambdaServiceRolePolicy";
-        lambdaRolePolicies[4] = "arn:aws:iam::aws:policy/service-role/AWSLambdaSQSQueueExecutionRole";
-
+        String [] lambdaRolePolicies = getLambdaRolePolicies();
         String assumeRolePolicy = "{" +
             "\"Version\": \"2012-10-17\"," +
             "\"Statement\": [{" +
@@ -931,5 +940,24 @@ public class SagemakerWorkflow {
         }
         return roleArn;
     }
+
+    private static String[] getSageMakerRolePolicies() {
+        String[] sageMakerRolePolicies = new String[3];
+        sageMakerRolePolicies[0] = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess";
+        sageMakerRolePolicies[1] = "arn:aws:iam::aws:policy/service-role/AmazonSageMakerGeospatialFullAccess";
+        sageMakerRolePolicies[2] = "arn:aws:iam::aws:policy/AmazonSQSFullAccess";
+        return sageMakerRolePolicies;
+    }
+
+    private static String[] getLambdaRolePolicies() {
+        String[] lambdaRolePolicies = new String[5];
+        lambdaRolePolicies[0] = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess";
+        lambdaRolePolicies[1] = "arn:aws:iam::aws:policy/AmazonSQSFullAccess";
+        lambdaRolePolicies[2] = "arn:aws:iam::aws:policy/service-role/AmazonSageMakerGeospatialFullAccess";
+        lambdaRolePolicies[3] = "arn:aws:iam::aws:policy/service-role/AmazonSageMakerServiceCatalogProductsLambdaServiceRolePolicy";
+        lambdaRolePolicies[4] = "arn:aws:iam::aws:policy/service-role/AWSLambdaSQSQueueExecutionRole";
+        return lambdaRolePolicies;
+    }
+
 }
 //snippet-end:[sagemaker.java2.scenario.main]
