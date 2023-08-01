@@ -3482,8 +3482,6 @@ iam_Scenario_CreateUserAssumeRole:
         - sdk_version: 2
           github: aws-cli/bash-linux/iam
           excerpts:
-            - snippet_files:
-              - aws-cli/bash-linux/iam/iam_create_user_assume_role_scenario.sh
             - description:
               snippet_tags:
                 - aws-cli.bash-linux.iam.iam_create_user_assume_role
