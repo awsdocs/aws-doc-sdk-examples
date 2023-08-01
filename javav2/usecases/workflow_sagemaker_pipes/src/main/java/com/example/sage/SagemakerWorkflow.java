@@ -227,6 +227,13 @@ public class SagemakerWorkflow {
         if (delResources.compareTo("y") == 0) {
             System.out.println("Lets clean up the AWS resources. Wait 30 seconds");
             TimeUnit.SECONDS.sleep(30);
+            deleteEventSourceMapping(lambdaClient);
+            deleteSQSQueue(sqsClient, queueName);
+            listBucketObjects(s3Client, bucketName);
+            deleteBucket(s3Client, bucketName);
+            deleteLambdaFunction(lambdaClient, functionName);
+            deleteLambdaRole(iam, lambdaRoleName);
+            deleteSagemakerRole(iam, sageMakerRoleName);
             deletePipeline(sageMakerClient, pipelineName);
         } else {
             System.out.println("The AWS Resources were not deleted!");
