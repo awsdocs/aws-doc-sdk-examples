@@ -11,13 +11,15 @@ import { SQSClient } from "@aws-sdk/client-sqs";
 
 import { SNSWorkflow } from "./SNSWorkflow.js";
 import { Prompter } from "./Prompter.js";
+import { SlowLogger } from "./SlowLogger.js";
 
 export const startSnsWorkflow = () => {
   const snsClient = new SNSClient({});
   const sqsClient = new SQSClient({});
   const prompter = new Prompter();
+  const logger = new SlowLogger(25);
 
-  const wkflw = new SNSWorkflow(snsClient, sqsClient, prompter);
+  const wkflw = new SNSWorkflow(snsClient, sqsClient, prompter, logger);
 
   wkflw.start();
 };

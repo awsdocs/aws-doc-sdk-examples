@@ -24,4 +24,44 @@ describe("SNSWorkflow", () => {
     const snsWkflw = new SNSWorkflow(new SNSClient({}), new SQSClient({}));
     expect(snsWkflw.autoDedup).toBe(true);
   });
+
+  describe("confirmFifo", () => {
+    it("should set isFifo to true if the the user confirms", async () => {
+      const snsWkflw = new SNSWorkflow(
+        new SNSClient({}),
+        new SQSClient({}),
+        {
+          confirm: () => Promise.resolve(true),
+        },
+        {
+          log: () => {
+            /*noop*/
+          },
+        }
+      );
+
+      await snsWkflw.confirmFifo();
+
+      expect(snsWkflw.isFifo).toBe(true);
+    });
+
+    it("should set isFifo to false if the user denies", async () => {
+      const snsWkflw = new SNSWorkflow(
+        new SNSClient({}),
+        new SQSClient({}),
+        {
+          confirm: () => Promise.resolve(false),
+        },
+        {
+          log: () => {
+            /*noop*/
+          },
+        }
+      );
+
+      await snsWkflw.confirmFifo();
+
+      expect(snsWkflw.isFifo).toBe(false);
+    });
+  });
 });
