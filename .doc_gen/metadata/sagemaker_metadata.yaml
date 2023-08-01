@@ -31,7 +31,7 @@ sagemaker_CreatePipeline:
   synopsis: create or update a pipeline in &SM;.
   category:
   languages:
-     Java:
+    Java:
       versions:
         - sdk_version: 2
           github: javav2/usecases/workflow_sagemaker_pipes
