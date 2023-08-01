@@ -116,7 +116,7 @@ import software.amazon.awssdk.services.sagemaker.model.Parameter;
  * 3. Start a pipeline run.
  * 4. Monitor the status of the run.
  * 5. View the output of the pipeline.
- * 6 Clean up resources.
+ * 6. Clean up resources.
  */
 
 //snippet-start:[sagemaker.java2.scenario.main]
