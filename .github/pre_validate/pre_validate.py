@@ -195,6 +195,9 @@ ALLOW_LIST = {
     'preview/examples/cognitoidentityprovider',
     'preview/examples/lambda/src/bin/scenario',
     'aws/dynamodb/model/BatchWriteItemRequest',
+    'VectorEnrichmentJobDataSourceConfigInput',
+    'role/AmazonSageMakerGeospatialFullAccess',
+    'role/AmazonSageMakerGeospatialFullAccess',
 }
 
 def check_files(root, quiet):
