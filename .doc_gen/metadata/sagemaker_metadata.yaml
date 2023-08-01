@@ -5,6 +5,15 @@ sagemaker_Hello:
   synopsis: get started using &SM;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sagemaker
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.java2.list_books.main
     .NET:
       versions:
         - sdk_version: 3
