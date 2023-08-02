@@ -24,17 +24,24 @@ export const MESSAGES = {
     "more information about deduplication, see https://docs.aws.amazon.com/sns/latest/dg/fifo-message-dedup.html.",
   deduplicationPrompt:
     "Would you like to use content-based deduplication instead of entering a deduplication ID?",
-  topicNamePrompt: "Enter a name for your SNS topic.",
+  topicNamePrompt:
+    "Enter a name for your SNS topic. For example, 'breaking-news'.",
   appendFifoNotice:
     "Because you have selected a FIFO topic/queue, '.fifo' must be appended to the name.",
   topicCreatedNotice:
     "Your new topic with the name '${TOPIC_NAME}' and the topic " +
     "Amazon Resource Name (ARN) '${TOPIC_ARN}' has been created.",
-  createQueuesNotice: "Now you will create 2 SQS.",
-  queueNamePrompt: "Enter a name for an SQS queue.",
+  createQueuesNotice: "Now you will create 2 SQS queues.",
+  queueNamePrompt: "Enter a name for an SQS queue. For example, 'good-news'.)",
   queueCreatedNotice:
     "Your new SQS queue with the name '${QUEUE_NAME}' and the queue URL " +
     "'${QUEUE_URL}' and the ARN '${QUEUE_ARN}' has been created. ",
   queueCount: "Let's create queue ${COUNT}.",
+  attachPolicyNotice:
+    "To allow an SQS queue to receive messages from an SNS topic, you must attach a policy.",
+  addPolicyConfirmation:
+    "Do you want to attach this policy to the ${QUEUE_NAME}?",
+  policyNotAttachedNotice:
+    "No policy was attached to ${QUEUE_NAME}. It will not be able to receive messages from the topic.",
 };
 // snippet-end:[javascript.v3.wkflw.sns.messages]

@@ -11,6 +11,7 @@ import {
   GetQueueAttributesCommand,
 } from "@aws-sdk/client-sqs";
 import { DeleteTopicCommand } from "@aws-sdk/client-sns";
+import { SetQueueAttributesCommand } from "@aws-sdk/client-sqs";
 
 // snippet-start:[javascript.v3.wkflw.sns.wrapper]
 export class SNSWorkflow {
@@ -25,7 +26,7 @@ export class SNSWorkflow {
   topicName;
   topicArn;
   /**
-   * @type {{ queueName: string, queueArn: string, queueUrl: string }[]}
+   * @type {{ queueName: string, queueArn: string, queueUrl: string, policy?: string }[]}
    */
   queues = [];
   prompter;
@@ -48,6 +49,7 @@ export class SNSWorkflow {
   }
 
   async welcome() {
+    console.clear();
     await this.logger.log(MESSAGES.welcome);
     this.logSeparator();
     await this.logger.log(MESSAGES.description);
@@ -104,6 +106,7 @@ export class SNSWorkflow {
 
   async createQueues() {
     await this.logger.log(MESSAGES.createQueuesNotice);
+    // Increase this number to add more queues.
     let maxQueues = 2;
 
     for (let i = 0; i < maxQueues; i++) {
@@ -144,6 +147,60 @@ export class SNSWorkflow {
           .replace("${QUEUE_ARN}", Attributes.QueueArn)
       );
     }
+    this.logSeparator();
+  }
+
+  async attachQueueIamPolicies() {
+    for (const queue of this.queues) {
+      const policy = JSON.stringify(
+        {
+          Statement: [
+            {
+              Effect: "Allow",
+              Principal: {
+                Service: "sns.amazonaws.com",
+              },
+              Action: "sqs:SendMessage",
+              Resource: queue.queueArn,
+              Condition: {
+                ArnEquals: {
+                  "aws:SourceArn": this.topicArn,
+                },
+              },
+            },
+          ],
+        },
+        null,
+        2
+      );
+      await this.logger.log(MESSAGES.attachPolicyNotice);
+      console.log(policy);
+      const addPolicy = await this.prompter.confirm({
+        message: MESSAGES.addPolicyConfirmation.replace(
+          "${QUEUE_NAME}",
+          queue.queueName
+        ),
+      });
+
+      if (addPolicy) {
+        await this.sqsClient.send(
+          new SetQueueAttributesCommand({
+            QueueUrl: queue.queueUrl,
+            Attributes: {
+              Policy: policy,
+            },
+          })
+        );
+        queue.policy = policy;
+      } else {
+        this.logger.log(
+          MESSAGES.policyNotAttachedNotice.replace(
+            "${QUEUE_NAME}",
+            queue.queueName
+          )
+        );
+      }
+    }
   }
 
   async destroyResources() {
@@ -167,6 +224,7 @@ export class SNSWorkflow {
     await this.confirmFifo();
     await this.createTopic();
     await this.createQueues();
+    await this.attachQueueIamPolicies();
     await this.destroyResources();
   }
 }
