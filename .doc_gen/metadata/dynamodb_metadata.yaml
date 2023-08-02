@@ -126,6 +126,14 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.createTable
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/dyn
+          excerpts:
+            - description:
+              snippet_tags:
+                - dyn.abapv1.create_table
     Swift:
       versions:
         - sdk_version: 1
@@ -252,6 +260,14 @@ dynamodb_DescribeTable:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.describeTable
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/dyn
+          excerpts:
+            - description:
+              snippet_tags:
+                - dyn.abapv1.describe_table
     Python:
       versions:
         - sdk_version: 3
@@ -465,6 +481,14 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.deleteTable
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/dyn
+          excerpts:
+            - description:
+              snippet_tags:
+                - dyn.abapv1.delete_table
     Swift:
       versions:
         - sdk_version: 1
@@ -579,6 +603,14 @@ dynamodb_PutItem:
             - description: Put an item in a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.put
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/dyn
+          excerpts:
+            - description:
+              snippet_tags:
+                - dyn.abapv1.put_item
     Swift:
       versions:
         - sdk_version: 1
@@ -686,6 +718,14 @@ dynamodb_GetItem:
             - description: Get an item from a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.get
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/dyn
+          excerpts:
+            - description:
+              snippet_tags:
+                - dyn.abapv1.get_item
     Swift:
       versions:
         - sdk_version: 1
@@ -792,6 +832,14 @@ dynamodb_UpdateItem:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.updateV3
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/dyn
+          excerpts:
+            - description:
+              snippet_tags:
+                - dyn.abapv1.update_item
     Swift:
       versions:
         - sdk_version: 1
@@ -905,6 +953,14 @@ dynamodb_DeleteItem:
             - description: Delete an item from a table using the &DDB; document client.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.delete
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/dyn
+          excerpts:
+            - description:
+              snippet_tags:
+                - dyn.abapv1.delete_item
     C++:
       versions:
         - sdk_version: 1
@@ -1029,6 +1085,14 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.listTables
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/dyn
+          excerpts:
+            - description:
+              snippet_tags:
+                - dyn.abapv1.list_tables
     Swift:
       versions:
         - sdk_version: 1
@@ -1148,6 +1212,14 @@ dynamodb_Query:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.docClient.query
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/dyn
+          excerpts:
+            - description:
+              snippet_tags:
+                - dyn.abapv1.query_items
     Swift:
       versions:
         - sdk_version: 1
@@ -1259,6 +1331,14 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - dynamodb.JavaScript.table.scan
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/dyn
+          excerpts:
+            - description:
+              snippet_tags:
+                - dyn.abapv1.scan_items
     Swift:
       versions:
         - sdk_version: 1
@@ -1699,6 +1779,14 @@ dynamodb_Scenario_GettingStartedMovies:
             - description:
               snippet_tags:
                 - javascript.dynamodb_scenarios.dynamodb_basics
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/dyn
+          excerpts:
+            - description:
+              snippet_tags:
+                - dyn.abapv1.getting_started_movies
     C++:
       versions:
         - sdk_version: 1
