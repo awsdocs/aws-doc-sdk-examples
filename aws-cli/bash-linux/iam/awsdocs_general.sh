@@ -24,75 +24,9 @@
 # the AWS Command Line Interface (AWS CLI) code samples that are maintained
 # in the repo at https://github.com/awsdocs/aws-doc-sdk-examples
 #
-# They are intended to abstract functionality that is required for the tests
-# to work without cluttering up the code. The intent is to ensure the purpose
-# of the code is clear.
-
 # Set global defaults:
 # bashsupport disable=BP5006
 VERBOSE=false
-
-###############################################################################
-# function run_test
-#
-# This function is used to perform a command and compare its output to both
-# the expected error code and the expected output string. If there isn't a
-# match, then the function invokes the test_failed function.
-###############################################################################
-function run_test() {
-  local description command expected_err_code expected_output response
-
-  description="$1"
-  command="$2"
-  expected_err_code="$3"
-  if [[ -z "$4" ]]; then expected_output="$4"; else expected_output=""; fi
-
-  iecho -n "Running test: $description..."
-  response="$($command)"
-  local err="${?}"
-
-  # Check to see if we got the expected error code.
-  if [[ "$expected_err_code" -ne "$err" ]]; then
-    test_failed "The test \"$description\" returned an unexpected error code: $err"
-  fi
-
-  # Check the error message, if we provided other than "".
-  if [[ -n "$expected_output" ]]; then
-    local match
-    match=$(echo "$response" | grep "$expected_output")
-    # If there was no match (it's an empty string), then fail.
-    if [[ -z "$match" ]]; then
-      test_failed "The test \"$description\" returned an unexpected output: $response"
-    fi
-  fi
-
-  iecho "OK"
-  ipause
-}
-
-###############################################################################
-# function test_failed
-#
-# This function is used to terminate a failed test and to warn the customer
-# about possible undeleted resources that could incur costs to their account.
-###############################################################################
-function test_failed() {
-
-  errecho ""
-  errecho "===TEST FAILED==="
-  errecho "$@"
-  errecho ""
-  errecho "    One or more of the tests failed to complete successfully. If there were any"
-  errecho "    tests after the one that failed, they didn't run. As a result, you might have"
-  errecho "    resources still active in your account."
-  errecho ""
-  errecho "IMPORTANT:"
-  errecho "    Resources created by this script can incur charges to your AWS account. If the"
-  errecho "    script did not complete successfully, then you must review and manually delete"
-  errecho "    any resources created by this script that were not automatically removed."
-  errecho ""
-  exit 1
-}
 
 # snippet-start:[aws-cli.bash-linux.iam.errecho]
 ###############################################################################

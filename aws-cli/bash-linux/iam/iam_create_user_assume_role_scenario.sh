@@ -321,6 +321,15 @@ function iam_create_user_assume_role() {
     fi
   }
 
+ local assume_role_policy_document="{
+    \"Version\": \"2012-10-17\",
+    \"Statement\": [{
+        \"Effect\": \"Allow\",
+        \"Principal\": {\"AWS\": \"$user_arn\"},
+        \"Action\": \"sts:AssumeRole\"
+        }]
+    }"
+
   #  VERBOSE=true
   echo_repeat "*" 88
   echo "Welcome to the IAM create user and assume role demo."

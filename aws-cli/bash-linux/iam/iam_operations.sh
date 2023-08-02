@@ -95,7 +95,7 @@ function iam_create_user() {
         return 0
         ;;
       \?)
-        ech o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;
@@ -144,9 +144,11 @@ function iam_create_user() {
 #
 # Parameters:
 #       -u user_name -- The name of the IAM user.
-#       -f file_name -- The file name for the access key output.
+#       [-f file_name] -- The file name for the access key output.
 #
 # Returns:
+#       [access_key_id access_key_secret]
+#     And:
 #       0 - If successful.
 #       1 - If it fails.
 ###############################################################################
@@ -159,7 +161,7 @@ function iam_create_user_access_key() {
     echo "function iam_create_user_access_key"
     echo "Creates an AWS Identity and Access Management (IAM) key pair."
     echo "  -u user_name   The name of the IAM user."
-    echo "  -f file_name   The file name for the access key output."
+    echo "  [-f file_name]   Optional file name for the access key output."
     echo ""
   }
 
@@ -173,7 +175,7 @@ function iam_create_user_access_key() {
         return 0
         ;;
       \?)
-        ech o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;
@@ -186,20 +188,10 @@ function iam_create_user_access_key() {
     return 1
   fi
 
-  if [[ -z "$file_name" ]]; then
-    errecho "ERROR: You must provide a file name with the -f parameter."
-    usage
-    return 1
-  fi
-
-  iecho "Parameters:\n"
-  iecho "    user name:  $user_name"
-  iecho "    file name:  $file_name"
-  iecho ""
 
   response=$(aws iam create-access-key \
     --user-name "$user_name" \
-    --output text >"$file_name")
+    --output text)
 
   local error_code=${?}
 
@@ -209,8 +201,15 @@ function iam_create_user_access_key() {
     return 1
   fi
 
-  iecho "create-access-key response:$response"
-  iecho
+  if [[ -n "$file_name" ]]; then
+    echo "$response" > "$file_name"
+  fi
+
+  local key_id key_secret
+  key_id=$(echo $response | cut -f 2 -d ' ')
+  key_secret=$(echo $response | cut -f 4 -d ' ')
+
+  echo "$key_id $key_secret"
 
   return 0
 }
@@ -255,7 +254,7 @@ function iam_create_role() {
         return 0
         ;;
       \?)
-        echo o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;
@@ -273,6 +272,8 @@ function iam_create_role() {
     usage
     return 1
   fi
+
+  echo "$policy_document" > policy.json
 
   response=$(aws iam create-role \
     --role-name "$role_name" \
@@ -331,7 +332,7 @@ function iam_create_policy() {
         return 0
         ;;
       \?)
-        echo o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;
@@ -405,7 +406,7 @@ function iam_attach_role_policy() {
         return 0
         ;;
       \?)
-        echo o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;
@@ -479,7 +480,7 @@ function iam_detach_role_policy() {
         return 0
         ;;
       \?)
-        echo o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;
@@ -550,7 +551,7 @@ function iam_delete_policy() {
         return 0
         ;;
       \?)
-        ech o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;
@@ -619,13 +620,14 @@ function iam_delete_role() {
         return 0
         ;;
       \?)
-        ech o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;
     esac
   done
 
+  echo "role_name:$role_name"
   if [[ -z "$role_name" ]]; then
     errecho "ERROR: You must provide a role name with the -n parameter."
     usage
@@ -691,7 +693,7 @@ function iam_delete_access_key() {
         return 0
         ;;
       \?)
-        ech o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;
@@ -769,7 +771,7 @@ function iam_delete_user() {
         return 0
         ;;
       \?)
-        ech o"Invalid parameter"
+        echo "Invalid parameter"
         usage
         return 1
         ;;
