@@ -58,6 +58,43 @@ function iam_user_exists() {
 }
 # snippet-end:[aws-cli.bash-linux.iam.GetUser]
 
+# snippet-start:[aws-cli.bash-linux.iam.ListUsers]
+###############################################################################
+# function iam_list_users
+#
+# List the IAM users in the account.
+#
+#
+# Returns:
+#       The list of users names
+#    And:
+#       0 - If the user already exists.
+#       1 - If the user doesn't exist.
+###############################################################################
+function iam_list_users() {
+  local response
+  do {
+  response=$( aws iam list-users \
+  --output text \
+  --query "Users[].UserName")
+
+  local error_code=${?}
+
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports list-users operation failed.$response"
+    return 1
+  fi
+  }
+  while [ -n "$response" ];
+
+  echo "$response"
+
+  return 0
+}
+# snippet-end:[aws-cli.bash-linux.iam.ListUsers]
+
 # snippet-start:[aws-cli.bash-linux.iam.CreateUser]
 ###############################################################################
 # function iam_create_user
@@ -214,6 +251,75 @@ function iam_create_user_access_key() {
   return 0
 }
 # snippet-end:[aws-cli.bash-linux.iam.CreateAccessKey]
+
+# snippet-start:[aws-cli.bash-linux.iam.ListAccessKeys]
+###############################################################################
+# function iam_list_access_keys
+#
+# This function lists the access keys for the specified user.
+#
+# Parameters:
+#       -u user_name -- The name of the IAM user.
+#
+# Returns:
+#       access_key_ids
+#     And:
+#       0 - If successful.
+#       1 - If it fails.
+###############################################################################
+function iam_list_access_keys() {
+  local user_name response
+  local option OPTARG # Required to use getopts command in a function.
+
+  # bashsupport disable=BP5008
+  function usage() {
+    echo "function iam_list_access_keys"
+    echo "Lists the AWS Identity and Access Management (IAM) access key IDs for the specified user."
+    echo "  -u user_name   The name of the IAM user."
+    echo ""
+  }
+
+  # Retrieve the calling parameters.
+  while getopts "u:f:h" option; do
+    case "${option}" in
+      u) user_name="${OPTARG}" ;;
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo "Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+
+  if [[ -z "$user_name" ]]; then
+    errecho "ERROR: You must provide a username with the -u parameter."
+    usage
+    return 1
+  fi
+
+
+  response=$(aws iam list-access-keys \
+    --user-name "$user_name" \
+    --output text \
+    --query 'AccessKeyMetadata[].AccessKeyId')
+
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports list-access-keys operation failed.$response"
+    return 1
+  fi
+
+  echo "$response"
+
+  return 0
+}
+# snippet-end:[aws-cli.bash-linux.iam.ListAccessKeys]
 
 # snippet-start:[aws-cli.bash-linux.iam.CreateRole]
 ###############################################################################
