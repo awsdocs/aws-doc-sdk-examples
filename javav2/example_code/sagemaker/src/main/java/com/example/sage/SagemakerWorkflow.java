@@ -117,7 +117,7 @@ import software.amazon.awssdk.services.sagemaker.model.Parameter;
  * 6. Clean up resources.
  */
 
-//snippet-start:[sagemaker.java2.scenario.main]
+//snippet-start:[sagemaker.java2.sc.main]
 public class SagemakerWorkflow {
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     private static String eventSourceMapping = "";
@@ -610,7 +610,7 @@ public class SagemakerWorkflow {
             metadata.put("x-amz-meta-myVal", "test");
             PutObjectRequest putOb = PutObjectRequest.builder()
                 .bucket(bucketName)
-                .key(objectKey)
+                .key("samplefiles/"+objectKey)
                 .metadata(metadata)
                 .build();
 
@@ -965,4 +965,4 @@ public class SagemakerWorkflow {
     }
 
 }
-//snippet-end:[sagemaker.java2.scenario.main]
+//snippet-end:[sagemaker.java2.sc.main]
