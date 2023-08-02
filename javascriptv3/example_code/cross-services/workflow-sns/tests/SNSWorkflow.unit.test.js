@@ -5,7 +5,11 @@
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { SNSWorkflow } from "../SNSWorkflow.js";
-import { CreateTopicCommand, SNSClient } from "@aws-sdk/client-sns";
+import {
+  CreateTopicCommand,
+  SNSClient,
+  SubscribeCommand,
+} from "@aws-sdk/client-sns";
 import {
   CreateQueueCommand,
   GetQueueAttributesCommand,
@@ -27,6 +31,14 @@ const SQSClientMock = {
           QueueArn: "queue-arn",
         },
       });
+    }
+  }),
+};
+
+const SNSClientMock = {
+  send: vi.fn((command) => {
+    if (command instanceof SubscribeCommand) {
+      return Promise.resolve();
     }
   }),
 };
@@ -193,6 +205,69 @@ describe("SNSWorkflow", () => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         SQSClientMock.send.mock.calls[1][0].input.Attributes.Policy
       ).toBeTruthy();
+    });
+  });
+
+  describe("subscribeQueuesToTopic", () => {
+    it("should exist", () => {
+      const snsWkflw = new SNSWorkflow(
+        new SNSClient({}),
+        new SQSClient({}),
+        {},
+        LoggerMock
+      );
+      expect(snsWkflw.subscribeQueuesToTopic).toBeTruthy();
+    });
+
+    it("should subscribe each queue to the topic", async () => {
+      const PrompterMock = {
+        checkbox: vi.fn(() => Promise.resolve(["cheerful", "serious"])),
+      };
+
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      snsWkflw.topicArn = "topic-arn";
+      snsWkflw.topicName = "topic-name";
+      snsWkflw.queues = [
+        {
+          queueArn: "queue-one-arn",
+          queueUrl: "queue-one-url",
+          queueName: "queue-one",
+        },
+        {
+          queueArn: "queue-two-arn",
+          queueUrl: "queue-two-url",
+          queueName: "queue-two",
+        },
+      ];
+
+      await snsWkflw.subscribeQueuesToTopic();
+
+      snsWkflw.queues.forEach((queue, index) => {
+        expect(
+          SNSClientMock.send.mock.calls[index][0] instanceof SubscribeCommand
+        ).toBe(true);
+
+        expect(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          SNSClientMock.send.mock.calls[index][0].input.TopicArn
+        ).toBe(snsWkflw.topicArn);
+
+        expect(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          SNSClientMock.send.mock.calls[index][0].input.Protocol
+        ).toBe("sqs");
+
+        expect(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          SNSClientMock.send.mock.calls[index][0].input.Endpoint
+        ).toBe(queue.queueArn);
+      });
     });
   });
 });

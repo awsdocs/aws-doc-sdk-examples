@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { CreateTopicCommand } from "@aws-sdk/client-sns";
+import { CreateTopicCommand, SubscribeCommand } from "@aws-sdk/client-sns";
 import { MESSAGES } from "./messages.js";
 import {
   CreateQueueCommand,
@@ -44,16 +44,31 @@ export class SNSWorkflow {
     this.logger = logger;
   }
 
-  logSeparator() {
-    console.log("\n", "*".repeat(80), "\n");
+  /**
+   * Log a horizontal rule to the console. If a message is provided,
+   * log a section header.
+   * @param {string?} message
+   */
+  logSeparator(message) {
+    if (!message) {
+      console.log("\n", "*".repeat(80), "\n");
+    } else {
+      console.log(
+        "\n",
+        "*".repeat(80),
+        "\n",
+        "** ",
+        message,
+        " ".repeat(80 - message.length - 8),
+        "**\n",
+        "*".repeat(80),
+        "\n"
+      );
+    }
   }
 
   async welcome() {
-    console.clear();
-    await this.logger.log(MESSAGES.welcome);
-    this.logSeparator();
     await this.logger.log(MESSAGES.description);
-    this.logSeparator();
   }
 
   async confirmFifo() {
@@ -63,23 +78,23 @@ export class SNSWorkflow {
     });
 
     if (this.isFifo) {
-      this.logSeparator();
+      this.logSeparator(MESSAGES.headerDedup);
       await this.logger.log(MESSAGES.deduplicationNotice);
       await this.logger.log(MESSAGES.deduplicationDescription);
       this.autoDedup = await this.prompter.confirm({
         message: MESSAGES.deduplicationPrompt,
       });
     }
-
-    this.logSeparator();
   }
 
   async createTopic() {
+    await this.logger.log(MESSAGES.creatingTopics);
     this.topicName = await this.prompter.input({
       message: MESSAGES.topicNamePrompt,
     });
     if (this.isFifo) {
       this.topicName += ".fifo";
+      this.logSeparator(MESSAGES.headerFifoNaming);
       await this.logger.log(MESSAGES.appendFifoNotice);
     }
 
@@ -100,8 +115,6 @@ export class SNSWorkflow {
         .replace("${TOPIC_NAME}", this.topicName)
         .replace("${TOPIC_ARN}", this.topicArn)
     );
-
-    this.logSeparator();
   }
 
   async createQueues() {
@@ -112,7 +125,10 @@ export class SNSWorkflow {
     for (let i = 0; i < maxQueues; i++) {
       await this.logger.log(MESSAGES.queueCount.replace("${COUNT}", i + 1));
       let queueName = await this.prompter.input({
-        message: MESSAGES.queueNamePrompt,
+        message: MESSAGES.queueNamePrompt.replace(
+          "${EXAMPLE_NAME}",
+          i === 0 ? "good-news" : "bad-news"
+        ),
       });
 
       if (this.isFifo) {
@@ -147,11 +163,10 @@ export class SNSWorkflow {
           .replace("${QUEUE_ARN}", Attributes.QueueArn)
       );
     }
-    this.logSeparator();
   }
 
   async attachQueueIamPolicies() {
-    for (const queue of this.queues) {
+    for (const [index, queue] of this.queues.entries()) {
       const policy = JSON.stringify(
         {
           Statement: [
@@ -173,6 +188,11 @@ export class SNSWorkflow {
         null,
         2
       );
+
+      if (index !== 0) {
+        this.logSeparator();
+      }
+
       await this.logger.log(MESSAGES.attachPolicyNotice);
       console.log(policy);
       const addPolicy = await this.prompter.confirm({
@@ -203,6 +223,55 @@ export class SNSWorkflow {
     }
   }
 
+  async subscribeQueuesToTopic() {
+    for (const [index, queue] of this.queues.entries()) {
+      /**
+       * @type {import('@aws-sdk/client-sns').SubscribeCommandInput}
+       */
+      const subscribeParams = {
+        TopicArn: this.topicArn,
+        Protocol: "sqs",
+        Endpoint: queue.queueArn,
+      };
+      let tones = [];
+
+      if (this.isFifo) {
+        if (index === 0) {
+          await this.logger.log(MESSAGES.fifoFilterNotice);
+        }
+        tones = await this.prompter.checkbox({
+          message: MESSAGES.fifoFilterSelect.replace(
+            "${QUEUE_NAME}",
+            queue.queueName
+          ),
+          choices: [
+            { name: "cheerful", value: "cheerful" },
+            { name: "funny", value: "funny" },
+            { name: "serious", value: "serious" },
+            { name: "sincere", value: "sincere" },
+          ],
+        });
+
+        if (tones.length) {
+          subscribeParams.Attributes = {
+            FilterPolicyScope: "MessageAttributes",
+            FilterPolicy: JSON.stringify({
+              tone: tones,
+            }),
+          };
+        }
+      }
+
+      await this.snsClient.send(new SubscribeCommand(subscribeParams));
+      await this.logger.log(
+        MESSAGES.queueSubscribedNotice
+          .replace("${QUEUE_NAME}", queue.queueName)
+          .replace("${TOPIC_NAME}", this.topicName)
+          .replace("${TONES}", tones.length ? tones.join(", ") : "none")
+      );
+    }
+  }
+
   async destroyResources() {
     if (this.queues.length) {
       for (const queue of this.queues) {
@@ -220,11 +289,19 @@ export class SNSWorkflow {
   }
 
   async start() {
+    console.clear();
+    this.logSeparator(MESSAGES.headerWelcome);
     await this.welcome();
+    this.logSeparator(MESSAGES.headerFifo);
     await this.confirmFifo();
+    this.logSeparator(MESSAGES.headerCreateTopic);
     await this.createTopic();
+    this.logSeparator(MESSAGES.headerCreateQueues);
     await this.createQueues();
+    this.logSeparator(MESSAGES.headerAttachPolicy);
     await this.attachQueueIamPolicies();
+    this.logSeparator(MESSAGES.headerSubscribeQueues);
+    await this.subscribeQueuesToTopic();
     await this.destroyResources();
   }
 }

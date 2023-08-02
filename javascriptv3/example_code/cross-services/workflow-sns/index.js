@@ -14,10 +14,11 @@ import { Prompter } from "./Prompter.js";
 import { SlowLogger } from "./SlowLogger.js";
 
 export const startSnsWorkflow = () => {
+  const noLoggerDelay = process.argv.find((arg) => arg === "--no-logger-delay");
   const snsClient = new SNSClient({});
   const sqsClient = new SQSClient({});
   const prompter = new Prompter();
-  const logger = new SlowLogger(25);
+  const logger = noLoggerDelay ? console : new SlowLogger(25);
 
   const wkflw = new SNSWorkflow(snsClient, sqsClient, prompter, logger);
 
