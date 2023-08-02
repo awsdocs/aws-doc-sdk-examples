@@ -325,15 +325,6 @@ sagemaker_Scenario_Pipelines:
     - Clean up resources.
   category: Scenarios
   languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/usecases/workflow_sagemaker_pipes
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - sagemaker.java2.scenario.main
     .NET:
       versions:
         - sdk_version: 3
