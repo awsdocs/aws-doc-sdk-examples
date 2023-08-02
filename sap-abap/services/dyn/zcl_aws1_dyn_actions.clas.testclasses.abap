@@ -52,8 +52,12 @@ CLASS ltc_zcl_aws1_dyn_actions IMPLEMENTATION.
     ).
     ao_dyn_actions->describe_table( iv_table_name = av_table_name ).
     ao_dyn_actions->list_tables( ).
-    ao_dyn_actions->insert_into_table( av_table_name ).
-    ao_dyn_actions->query_table( av_table_name ).
+    ao_dyn_actions->put_item( av_table_name ).
+    ao_dyn_actions->get_item( av_table_name ).
+    ao_dyn_actions->query_items( av_table_name ).
+    ao_dyn_actions->scan_items( av_table_name ).
+    ao_dyn_actions->update_item( av_table_name ).
+    ao_dyn_actions->delete_item( av_table_name ).
     ao_dyn_actions->delete_table( iv_table_name = av_table_name ).
     assert_table_notexists( ).
   ENDMETHOD.

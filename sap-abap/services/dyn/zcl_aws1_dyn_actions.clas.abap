@@ -21,14 +21,26 @@ private section.
   methods LIST_TABLES
     returning
       value(OO_RESULT) type ref to /AWS1/CL_DYNLISTTABLESOUTPUT .
-  methods INSERT_INTO_TABLE
+  methods PUT_ITEM
     importing
       value(IV_TABLE_NAME) type /AWS1/DYNTABLENAME .
-  methods QUERY_TABLE
+  methods GET_ITEM
     importing
       value(IV_TABLE_NAME) type /AWS1/DYNTABLENAME
     returning
       value(OT_ATTR) type /AWS1/CL_DYNATTRIBUTEVALUE=>TT_ATTRIBUTEMAP .
+  methods UPDATE_ITEM
+    importing
+      value(IV_TABLE_NAME) type /AWS1/DYNTABLENAME .
+  methods DELETE_ITEM
+    importing
+      value(IV_TABLE_NAME) type /AWS1/DYNTABLENAME .
+  methods QUERY_ITEMS
+    importing
+      value(IV_TABLE_NAME) type /AWS1/DYNTABLENAME .
+  methods SCAN_ITEMS
+    importing
+      value(IV_TABLE_NAME) type /AWS1/DYNTABLENAME .
 ENDCLASS.
 
 
@@ -46,12 +58,12 @@ CLASS ZCL_AWS1_DYN_ACTIONS IMPLEMENTATION.
     TRY.
       DATA(lv_tablename) = |example-table|.
       DATA(ls_keyschema) = VALUE /aws1/cl_dynkeyschemaelement=>tt_keyschema(
-          ( NEW /aws1/cl_dynkeyschemaelement( iv_attributename = 'year' iv_keytype = 'HASH' ) )
-          ( NEW /aws1/cl_dynkeyschemaelement( iv_attributename = 'title' iv_keytype = 'RANGE' ) )
+          "( NEW /aws1/cl_dynkeyschemaelement( iv_attributename = 'year' iv_keytype = 'HASH' ) )
+          ( NEW /aws1/cl_dynkeyschemaelement( iv_attributename = 'title' iv_keytype = 'HASH' ) )
       ).
       DATA(lt_attributedefinitions) = VALUE /aws1/cl_dynattributedefn=>tt_attributedefinitions(
           ( NEW /aws1/cl_dynattributedefn( iv_attributename = 'title' iv_attributetype = 'S' ) )
-          ( NEW /aws1/cl_dynattributedefn( iv_attributename = 'year' iv_attributetype = 'N' ) )
+          "( NEW /aws1/cl_dynattributedefn( iv_attributename = 'year' iv_attributetype = 'N' ) )
         ).
       DATA(lo_dynprovthroughput)  = NEW /aws1/cl_dynprovthroughput(
         iv_readcapacityunits = 5
@@ -74,6 +86,30 @@ CLASS ZCL_AWS1_DYN_ACTIONS IMPLEMENTATION.
     ENDTRY.
     " snippet-end:[dyn.abapv1.create_table]
   ENDMETHOD.
+
+
+METHOD DELETE_ITEM.
+  CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+  DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+  DATA(lo_dyn) = /aws1/cl_dyn_factory=>create( lo_session ).
+
+  " snippet-start:[dyn.abapv1.delete_item]
+  TRY.
+    DATA(lo_resp) = lo_dyn->deleteitem(
+         iv_tablename                = iv_table_name
+         it_key                      = VALUE /aws1/cl_dynattributevalue=>tt_key(
+          ( VALUE /aws1/cl_dynattributevalue=>ts_key_maprow(
+            key = 'title' value = NEW /aws1/cl_dynattributevalue( iv_s = 'Jaws' ) ) )
+          ) ).
+    MESSAGE '1 row deleted from DynamoDB Table' && iv_table_name TYPE 'I'.
+  CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+    DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+    MESSAGE lv_error TYPE 'E'.
+  ENDTRY.
+  " snippet-end:[dyn.abapv1.delete_item]
+
+ENDMETHOD.
 
 
 METHOD delete_table.
@@ -112,10 +148,6 @@ METHOD describe_table.
     CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
       DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
       MESSAGE lv_error TYPE 'E'.
-    CATCH /aws1/cx_rt_technical_generic.
-      " ignore
-    CATCH /aws1/cx_rt_no_auth_generic.
-      "ignore
     CATCH /aws1/cx_rt_value_missing.
       lv_error = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
       MESSAGE lv_error TYPE 'E'.
@@ -125,37 +157,30 @@ METHOD describe_table.
 ENDMETHOD.
 
 
-METHOD insert_into_table.
+METHOD get_item.
   CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
   DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
   DATA(lo_dyn) = /aws1/cl_dyn_factory=>create( lo_session ).
 
-  " snippet-start:[dyn.abapv1.insert_into_table]
+  " snippet-start:[dyn.abapv1.get_item]
   TRY.
-    DATA(lo_resp) = lo_dyn->putitem(
-       iv_tablename = iv_table_name
-       it_item      = VALUE /aws1/cl_dynattributevalue=>tt_putiteminputattributemap(
-          ( VALUE /aws1/cl_dynattributevalue=>ts_putiteminputattrmap_maprow(
-            key = 'title' value = NEW /aws1/cl_dynattributevalue( iv_s = 'Jaws' ) ) )
-          ( VALUE /aws1/cl_dynattributevalue=>ts_putiteminputattrmap_maprow(
-            key = 'year' value = NEW /aws1/cl_dynattributevalue( iv_n = |{ '1975' }| ) ) )
-       ) ).
-     lo_resp = lo_dyn->putitem(
-       iv_tablename = iv_table_name
-       it_item      = VALUE /aws1/cl_dynattributevalue=>tt_putiteminputattributemap(
-          ( VALUE /aws1/cl_dynattributevalue=>ts_putiteminputattrmap_maprow(
-            key = 'title' value = NEW /aws1/cl_dynattributevalue( iv_s = 'Star Wars' ) ) )
-          ( VALUE /aws1/cl_dynattributevalue=>ts_putiteminputattrmap_maprow(
-            key = 'year' value = NEW /aws1/cl_dynattributevalue( iv_n = |{ '1978' }| ) ) )
-       ) ).
-    " TYPE REF TO ZCL_AWS1_dyn_PUT_ITEM_OUTPUT
-    MESSAGE '2 rows inserted into DynamoDB Table' && iv_table_name TYPE 'I'.
-  CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
-    DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
-    MESSAGE lv_error TYPE 'E'.
+      DATA(lo_resp) = lo_dyn->getitem(
+         iv_tablename                = iv_table_name
+         it_key                      = VALUE /aws1/cl_dynattributevalue=>tt_key(
+           ( VALUE /aws1/cl_dynattributevalue=>ts_key_maprow(
+             key = 'title' value = NEW /aws1/cl_dynattributevalue( iv_s = 'Jaws' ) ) )
+         ) ). " TYPE REF TO ZCL_AWS1_dyn_GET_ITEM_OUTPUT
+      DATA(lo_attr) = lo_resp->get_item( ).
+      DATA(lo_title) = lo_attr[ key = 'title' ]-value.
+      DATA(lo_year) = lo_attr[ key = 'year' ]-value.
+      MESSAGE 'Movie name is: ' && lo_title->get_s( ) TYPE 'I'.
+      MESSAGE 'Movie year is: ' && lo_year->get_n( ) TYPE 'I'.
+    CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+      DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+      MESSAGE lv_error TYPE 'E'.
   ENDTRY.
-  " snippet-end:[dyn.abapv1.insert_into_table]
+  " snippet-end:[dyn.abapv1.get_item]
 
 ENDMETHOD.
 
@@ -182,30 +207,122 @@ METHOD list_tables.
 ENDMETHOD.
 
 
-METHOD query_table.
+METHOD PUT_ITEM.
   CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
   DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
   DATA(lo_dyn) = /aws1/cl_dyn_factory=>create( lo_session ).
 
-  " snippet-start:[dyn.abapv1.query_table]
-
+  " snippet-start:[dyn.abapv1.put_item]
   TRY.
-    DATA(lo_resp) = lo_dyn->getitem(
-         iv_tablename                = iv_table_name
-         it_key                      = VALUE /aws1/cl_dynattributevalue=>tt_key(
-          ( VALUE /aws1/cl_dynattributevalue=>ts_key_maprow(
+    DATA(lo_resp) = lo_dyn->putitem(
+       iv_tablename = iv_table_name
+       it_item      = VALUE /aws1/cl_dynattributevalue=>tt_putiteminputattributemap(
+          ( VALUE /aws1/cl_dynattributevalue=>ts_putiteminputattrmap_maprow(
             key = 'title' value = NEW /aws1/cl_dynattributevalue( iv_s = 'Jaws' ) ) )
-          ( VALUE /aws1/cl_dynattributevalue=>ts_key_maprow(
+          ( VALUE /aws1/cl_dynattributevalue=>ts_putiteminputattrmap_maprow(
             key = 'year' value = NEW /aws1/cl_dynattributevalue( iv_n = |{ '1975' }| ) ) )
-         ) ). " TYPE REF TO ZCL_AWS1_dyn_GET_ITEM_OUTPUT
-    ot_attr = lo_resp->get_item( ).
-    MESSAGE '1 row selected from DynamoDB Table' && iv_table_name TYPE 'I'.
+       ) ).
+    " TYPE REF TO ZCL_AWS1_dyn_PUT_ITEM_OUTPUT
+    MESSAGE '1 row inserted into DynamoDB Table' && iv_table_name TYPE 'I'.
   CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
     DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
     MESSAGE lv_error TYPE 'E'.
   ENDTRY.
-  " snippet-end:[dyn.abapv1.query_table]
+  " snippet-end:[dyn.abapv1.put_item]
+
+ENDMETHOD.
+
+
+METHOD query_items.
+  CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+  DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+  DATA(lo_dyn) = /aws1/cl_dyn_factory=>create( lo_session ).
+
+  " snippet-start:[dyn.abapv1.query_items]
+
+  TRY.
+    DATA(lo_attributelist) = VALUE /AWS1/CL_DYNATTRIBUTEVALUE=>TT_ATTRIBUTEVALUELIST(
+              ( NEW /aws1/cl_dynattributevalue( iv_s = 'Jaws' ) ) ).
+    DATA(lo_keyconditions) = VALUE /AWS1/CL_DYNCONDITION=>TT_KEYCONDITIONS(
+        ( VALUE /AWS1/CL_DYNCONDITION=>TS_KEYCONDITIONS_MAPROW(
+          key = 'title'
+          value = NEW /AWS1/CL_DYNCONDITION(
+            IT_ATTRIBUTEVALUELIST = lo_attributelist
+            IV_COMPARISONOPERATOR = |EQ|
+          ) ) ) ).
+    DATA(lo_query_result) = lo_dyn->query(
+      iv_tablename = iv_table_name
+      it_keyconditions = lo_keyconditions ).
+    DATA(lo_items) = lo_query_result->get_items( ).
+    LOOP AT lo_items INTO DATA(lo_item).
+      DATA(lo_title) = lo_item[ key = 'title' ]-value.
+      DATA(lo_year) = lo_item[ key = 'year' ]-value.
+      MESSAGE 'Movie name is: ' && lo_title->get_s( ) TYPE 'I'.
+    ENDLOOP.
+  CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+    DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+    MESSAGE lv_error TYPE 'E'.
+  ENDTRY.
+  " snippet-end:[dyn.abapv1.query_items]
+
+ENDMETHOD.
+
+
+METHOD scan_items.
+  CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+  DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+  DATA(lo_dyn) = /aws1/cl_dyn_factory=>create( lo_session ).
+
+  " snippet-start:[dyn.abapv1.scan_items]
+
+  TRY.
+    DATA(lo_scan_result) = lo_dyn->scan( iv_tablename = iv_table_name ).
+    DATA(lo_items) = lo_scan_result->get_items( ).
+    LOOP AT lo_items INTO DATA(lo_item).
+      DATA(lo_title) = lo_item[ key = 'title' ]-value.
+      DATA(lo_year) = lo_item[ key = 'year' ]-value.
+      MESSAGE 'Movie name is: ' && lo_title->get_s( ) TYPE 'I'.
+    ENDLOOP.
+  CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+    DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+    MESSAGE lv_error TYPE 'E'.
+  ENDTRY.
+  " snippet-end:[dyn.abapv1.scan_items]
+
+ENDMETHOD.
+
+
+METHOD UPDATE_ITEM.
+  CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+
+  DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
+  DATA(lo_dyn) = /aws1/cl_dyn_factory=>create( lo_session ).
+
+  " snippet-start:[dyn.abapv1.update_item]
+  TRY.
+    DATA(lt_attributeupdates) = VALUE /AWS1/CL_DYNATTRVALUEUPDATE=>TT_ATTRIBUTEUPDATES(
+      ( VALUE /AWS1/CL_DYNATTRVALUEUPDATE=>TS_ATTRIBUTEUPDATES_MAPROW(
+          key = 'year' value = NEW /AWS1/CL_DYNATTRVALUEUPDATE(
+            io_value  = NEW /aws1/cl_dynattributevalue( iv_n = '1980' )
+            iv_action =  |PUT| ) ) ) ).
+    DATA(lt_key) = VALUE /aws1/cl_dynattributevalue=>tt_key(
+         ( VALUE /aws1/cl_dynattributevalue=>ts_key_maprow(
+           key = 'title' value = NEW /aws1/cl_dynattributevalue( iv_s = 'Jaws' ) ) )
+       ).
+    DATA(lo_resp) = lo_dyn->updateitem(
+         iv_tablename        = iv_table_name
+         it_key              = lt_key
+         IT_ATTRIBUTEUPDATES = lt_attributeupdates
+       ).
+    MESSAGE '1 item updated in DynamoDB Table' && iv_table_name TYPE 'I'.
+  CATCH /aws1/cx_rt_service_generic INTO DATA(lo_exception).
+    DATA(lv_error) = |"{ lo_exception->av_err_code }" - { lo_exception->av_err_msg }|.
+    MESSAGE lv_error TYPE 'E'.
+  ENDTRY.
+  " snippet-end:[dyn.abapv1.update_item]
 
 ENDMETHOD.
 ENDCLASS.
