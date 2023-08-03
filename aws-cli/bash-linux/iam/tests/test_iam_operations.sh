@@ -95,6 +95,8 @@ function main() {
   run_test "$test_count. Creating user with valid parameters" \
     "iam_create_user -u $user_name " \
     0
+
+  local user_arn="$test_command_response"
   test_count=$((test_count + 1))
 
   local user_arn="$test_command_response"
@@ -152,11 +154,48 @@ function main() {
     "iam_list_access_keys -u $user_name " \
     0
   test_count=$((test_count + 1))
-
   local access_key_values=($test_command_response)
   if [[ "${#access_key_values[@]}" -ne "2" ]]; then
     test_failed "Listing access keys returned incorrect number of keys."
   fi
+
+  local assume_role_policy_document="{
+    \"Version\": \"2012-10-17\",
+    \"Statement\": [{
+        \"Effect\": \"Deny\",
+        \"Principal\": {\"AWS\": \"$user_arn\"},
+        \"Action\": \"sts:AssumeRole\"
+        }]
+    }"
+
+  run_test "$test_count. Creating role with missing name" \
+    "iam_create_role -p $assume_role_policy_document " \
+    1
+  test_count=$((test_count + 1))
+
+  local test_role_name=$(generate_random_name iamtestcli)
+  run_test "$test_count. Creating role with missing policy document" \
+    "iam_create_role -n $test_role_name " \
+    1
+  test_count=$((test_count + 1))
+
+  # Wait for user to be created.
+  sleep 10
+
+  iam_create_role -n $test_role_name -p "$assume_role_policy_document" 1>/dev/null
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    test_failed "Creating role with correct parameters failed with error code"
+  fi
+  test_count=$((test_count + 1))
+
+  local role_arn="$test_command_response"
+
+  run_test "$test_count. Deleting role" \
+    "iam_delete_role -n $test_role_name " \
+    0
+  test_count=$((test_count + 1))
 
   run_test "$test_count. deleting access key" \
     "iam_delete_access_key -u $user_name -k $key_name1" \
