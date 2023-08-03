@@ -99,11 +99,14 @@ function iam_list_users() {
 
     marker=""
 
+    local line
     while IFS= read -r line; do
       if [[ "$line" == "NAME"* ]]; then
+        # shellcheck disable=SC2206
         local line_array=($line)
         all_users="$all_users ${line_array[1]}"
       elif [[ "$line" == "MARKER"* ]]; then
+        # shellcheck disable=SC2206
         local line_array=($line)
         marker="${line_array[1]}"
       fi
@@ -265,7 +268,9 @@ function iam_create_user_access_key() {
   fi
 
   local key_id key_secret
+  # shellcheck disable=SC2086
   key_id=$(echo $response | cut -f 2 -d ' ')
+  # shellcheck disable=SC2086
   key_secret=$(echo $response | cut -f 4 -d ' ')
 
   echo "$key_id $key_secret"
@@ -300,12 +305,12 @@ function iam_list_access_keys() {
   }
 
   local user_name response
-  local option  OPTARG # Required to use getopts command in a function.
+  local option OPTARG # Required to use getopts command in a function.
   # Retrieve the calling parameters.
   while getopts "u:h" option; do
     case "${option}" in
       u) user_name="${OPTARG}" ;;
-       h)
+      h)
         usage
         return 0
         ;;
@@ -316,7 +321,7 @@ function iam_list_access_keys() {
         ;;
     esac
   done
-   export OPTIND=1
+  export OPTIND=1
 
   if [[ -z "$user_name" ]]; then
     errecho "ERROR: You must provide a username with the -u parameter."
@@ -910,7 +915,7 @@ function iam_delete_user() {
         ;;
     esac
   done
- export OPTIND=1
+  export OPTIND=1
 
   if [[ -z "$user_name" ]]; then
     errecho "ERROR: You must provide a username with the -u parameter."

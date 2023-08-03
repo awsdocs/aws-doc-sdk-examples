@@ -17,6 +17,16 @@
 #
 ###############################################################################
 
+# Set default values.
+# bashsupport disable=BP5001
+INTERACTIVE=false
+VERBOSE=false
+
+###############################################################################
+# function main
+#
+# This function runs the IAM examples' tests.
+###############################################################################
 function main() {
   source ./test_general.sh
   {
@@ -24,13 +34,20 @@ function main() {
     current_directory=$(pwd)
     cd ..
     source ./iam_operations.sh
+    source ./iam_create_user_assume_role_scenario.sh
+    # shellcheck disable=SC2164
     cd "$current_directory"
   }
 
+  ###############################################################################
+  # function usage
+  #
+  # This function prints usage information for the script.
+  ###############################################################################
   function usage() {
     echo "This script tests Amazon IAM operations in the AWS CLI."
     echo ""
-    echo "To pause the script between steps so you can see the results in the"
+    echo "To pause the script between steps, so you can see the results in the"
     echo "AWS Management Console, include the parameter -i."
     echo ""
     echo "IMPORTANT: Running this script creates resources in your Amazon"
@@ -40,13 +57,11 @@ function main() {
     echo "   then resources can remain that you might need to delete manually."
   }
 
-  # Set default values.
-  INTERACTIVE=false
-  VERBOSE=false
+  local option OPTARG # Required to use getopts command in a function.
 
   # Retrieve the calling parameters
-  while getopts "ivh" OPTION; do
-    case "${OPTION}" in
+  while getopts "ivh" option; do
+    case "${option}" in
       i)
         INTERACTIVE=true
         VERBOSE=true
@@ -71,18 +86,11 @@ function main() {
   iecho "***************SETUP STEPS******************"
   local user_name
   user_name=$(generate_random_name iamtestcli)
-  REGION="us-east-1"
-  #  FILENAME1=$(generate_random_name s3clitestfile)
-  #  FILENAME2=$(generate_random_name s3clitestfile)
-  #
   iecho "user_name=$user_name"
-  #  iecho "REGION=$REGION"
-  #  iecho "FILENAME1=$FILENAME1"
-  #  iecho "FILENAME2=$FILENAME2"
-  #
   iecho "**************END OF STEPS******************"
 
   local test_count=1
+
   run_test "$test_count Test if non-existing user is exists" \
     "iam_user_exists $user_name " \
     1
@@ -117,6 +125,7 @@ function main() {
     0
   test_count=$((test_count + 1))
 
+  # shellcheck disable=SC2206
   local user_values=($test_command_response)
   if [[ "${#user_values[@]}" -lt "2" ]]; then
     test_failed "Listing users returned less than 2 users."
@@ -124,7 +133,7 @@ function main() {
 
   local access_key_file_name="test.pem"
 
-  run_test "$test_count. Creating access key without a user name" \
+  run_test "$test_count. Creating access key without a username" \
     "iam_create_user_access_key -f $access_key_file_name " \
     1
   test_count=$((test_count + 1))
@@ -134,6 +143,7 @@ function main() {
     0
   test_count=$((test_count + 1))
 
+  local key_name1
   key_name1=$(cut -f 2 "$access_key_file_name")
 
   rm $access_key_file_name
@@ -143,6 +153,7 @@ function main() {
     0
   test_count=$((test_count + 1))
 
+  # shellcheck disable=SC2206
   local access_key_values=($test_command_response)
   local key_name2=${access_key_values[0]}
 
@@ -155,6 +166,7 @@ function main() {
     "iam_list_access_keys -u $user_name " \
     0
   test_count=$((test_count + 1))
+  # shellcheck disable=SC2206
   local access_key_values=($test_command_response)
   if [[ "${#access_key_values[@]}" -ne "2" ]]; then
     test_failed "Listing access keys returned incorrect number of keys."
@@ -173,8 +185,8 @@ function main() {
     "iam_create_role -p $assume_role_policy_document " \
     1
   test_count=$((test_count + 1))
-
-  local test_role_name=$(generate_random_name iamtestcli)
+  local test_role_name
+  test_role_name=$(generate_random_name iamtestcli)
   run_test "$test_count. Creating role with missing policy document" \
     "iam_create_role -n $test_role_name " \
     1
@@ -184,7 +196,7 @@ function main() {
   sleep 10
 
   # run_test seems to have issues with the policy document being passed in as a string.
-  iam_create_role -n $test_role_name -p "$assume_role_policy_document" 1>/dev/null
+  iam_create_role -n "$test_role_name" -p "$assume_role_policy_document" 1>/dev/null
   local error_code=${?}
 
   if [[ $error_code -ne 0 ]]; then
@@ -244,6 +256,18 @@ function main() {
     "iam_delete_user -u $user_name " \
     0
   test_count=$((test_count + 1))
+
+  # bashsupport disable=BP2001
+  mock_input="True"
+
+  # bashsupport disable=BP2001
+  export mock_input_array=("iamtestcli_scenario")
+
+  run_test "$test_count. iam assume role scenario" \
+    iam_create_user_assume_role \
+    0
+
+  unset mock_input
 
   echo "$test_count tests completed successfully."
 }

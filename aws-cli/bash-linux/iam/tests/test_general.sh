@@ -57,7 +57,7 @@ function run_test() {
     match=$(echo "$test_command_response" | grep "$expected_output")
     # If there was no match (it's an empty string), then fail.
     if [[ -z "$match" ]]; then
-      test_failed "The test \"$description\" returned an unexpected output: $response"
+      test_failed "The test \"$description\" returned an unexpected output: $test_command_response"
     fi
   fi
 
@@ -88,4 +88,3 @@ function test_failed() {
   errecho ""
   exit 1
 }
-

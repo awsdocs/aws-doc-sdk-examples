@@ -86,6 +86,7 @@ function generate_random_name() {
   local diff
   diff=$((9999 - 1000 + 1))
 
+  # bashsupport disable=BP2001
   for _ in {1..4}; do
     local rnd
     rnd=$(($((RANDOM % diff)) + X))
@@ -108,7 +109,6 @@ function generate_random_name() {
 #          0: - Success.
 #
 ##############################################################################
-
 function aws_cli_error_log() {
   local err_code=$1
   errecho "Error code : $err_code"

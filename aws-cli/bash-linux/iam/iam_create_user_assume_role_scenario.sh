@@ -1,4 +1,5 @@
 #!/bin/bash
+# bashsupport disable=BP2002
 
 ###############################################################################
 #
@@ -43,14 +44,16 @@
 #       0
 ###############################################################################
 function get_input() {
-  
+
   if [ -z "${mock_input+x}" ]; then
     read -r get_input_result
   else
-    
+
     if [ -n "${mock_input_array[*]}" ]; then
       get_input_result="${mock_input_array[0]}"
-      mock_input_array=("${mock_input_array[@]:1}")
+      # bashsupport disable=BP2001
+      # shellcheck disable=SC2206
+      export mock_input_array=(${mock_input_array[@]:1})
       echo -n "$get_input_result"
     else
       get_input_result="y"
@@ -94,6 +97,7 @@ function clean_up() {
   fi
 
   if [ -n "$detach_policy_arn" ]; then
+    # bashsupport disable=BP2002
     if (iam_detach_role_policy -n "$role_name" -p "$detach_policy_arn"); then
       echo "Detached IAM policy named $detach_policy_arn"
     else
@@ -197,7 +201,7 @@ function yes_no_input() {
 #       0
 ###############################################################################
 function echo_repeat() {
-  local end=$2
+  local end=$2 i
   for ((i = 0; i < end; i++)); do
     echo -n "$1"
   done
@@ -321,15 +325,6 @@ function iam_create_user_assume_role() {
     fi
   }
 
- local assume_role_policy_document="{
-    \"Version\": \"2012-10-17\",
-    \"Statement\": [{
-        \"Effect\": \"Allow\",
-        \"Principal\": {\"AWS\": \"$user_arn\"},
-        \"Action\": \"sts:AssumeRole\"
-        }]
-    }"
-
   #  VERBOSE=true
   echo_repeat "*" 88
   echo "Welcome to the IAM create user and assume role demo."
@@ -354,24 +349,22 @@ function iam_create_user_assume_role() {
     return 1
   fi
 
-  echo "user_arn=$user_arn"
-
-  local access_key_file_name
-  access_key_file_name="test.pem"
-  if (iam_create_user_access_key -u "$user_name" -f "$access_key_file_name"); then
-    echo "Created access key file $access_key_file_name"
-  else
-    errecho "The access key file failed to create. This demo will exit."
+  local access_key_response
+  access_key_response=$(iam_create_user_access_key -u "$user_name")
+  # shellcheck disable=SC2181
+  if [[ ${?} != 0 ]]; then
+    errecho "The access key failed to create. This demo will exit."
     clean_up "$user_name"
     return 1
   fi
 
-  local key_name
-  key_name=$(cut -f 2 "$access_key_file_name")
-  local key_secret
-  key_secret=$(cut -f 4 "$access_key_file_name")
+  # shellcheck disable=SC2206
+  local access_key_values=($access_key_response)
+  local key_name=${access_key_values[0]}
+  local key_secret=${access_key_values[1]}
 
-  rm "$access_key_file_name"
+  echo "Created access key named $key_name"
+
   echo "Wait 10 seconds for the user to be ready."
   sleep 10
   echo_repeat "*" 88
