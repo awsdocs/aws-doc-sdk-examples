@@ -12,6 +12,7 @@ export const MESSAGES = {
   headerCreateQueues: "Create SQS queues",
   headerAttachPolicy: "Attach IAM policies to SQS queues",
   headerSubscribeQueues: "Subscribe SQS queues to an SNS topic",
+  headerPublishMessage: "Publish messages to an SNS topic",
   description:
     "In this workflow, you will create an SNS topic and subscribe 2 SQS queues to the topic. " +
     "You can select from several options for configuring the topic and the subscriptions " +
@@ -41,7 +42,8 @@ export const MESSAGES = {
     "Your new topic with the name '${TOPIC_NAME}' and the topic " +
     "Amazon Resource Name (ARN) '${TOPIC_ARN}' has been created.",
   createQueuesNotice: "Now you will create 2 SQS queues.",
-  queueNamePrompt: "Enter a name for an SQS queue. For example, '${EXAMPLE_NAME}'.",
+  queueNamePrompt:
+    "Enter a name for an SQS queue. For example, '${EXAMPLE_NAME}'.",
   queueCreatedNotice:
     "Your new SQS queue with the name '${QUEUE_NAME}' and the queue URL " +
     "'${QUEUE_URL}' and the ARN '${QUEUE_ARN}' has been created. ",
@@ -63,5 +65,16 @@ export const MESSAGES = {
     "The queue '${QUEUE_NAME}' has been subscribed to the topic '${TOPIC_NAME}'. " +
     "Only messages that match the filter policy will be sent to the queue. " +
     "The filter policy for this queue matches the following tones: ${TONES}",
+  publishMessagePrompt: "Enter a message to publish to the topic",
+  publishAnother: "Would you like to publish another message?",
+  groupIdNotice:
+    "Because you are using a FIFO topic, you must provide a group ID. All messages " +
+    "with the same group ID will be received in the order they were published.",
+  groupIdPrompt: "Enter a group ID for this message",
+  deduplicationIdNotice:
+    "Because you are not using content-based deduplication, you must enter a deduplication ID.",
+  deduplicationIdPrompt: "Enter a deduplication ID for this message",
+  messageAttributesPrompt:
+    "Select any number of attributes to add to the message",
 };
 // snippet-end:[javascript.v3.wkflw.sns.messages]

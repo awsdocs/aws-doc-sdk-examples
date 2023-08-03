@@ -16,6 +16,7 @@ import {
   SQSClient,
   SetQueueAttributesCommand,
 } from "@aws-sdk/client-sqs";
+import { MESSAGES } from "../messages.js";
 
 const SQSClientMock = {
   send: vi.fn((command) => {
@@ -267,6 +268,218 @@ describe("SNSWorkflow", () => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           SNSClientMock.send.mock.calls[index][0].input.Endpoint
         ).toBe(queue.queueArn);
+      });
+    });
+  });
+
+  describe("publishMessages", () => {
+    it("should exist", () => {
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        {},
+        LoggerMock
+      );
+
+      expect(snsWkflw.publishMessages).toBeTruthy();
+    });
+
+    it("should publish messages until the user says no", async () => {
+      const PrompterMock = {
+        input: vi.fn().mockImplementationOnce(() => Promise.resolve("message")),
+        confirm: vi
+          .fn()
+          .mockImplementationOnce(() => Promise.resolve(true))
+          .mockImplementationOnce(() => Promise.resolve(true))
+          .mockImplementationOnce(() => Promise.resolve(false)),
+        checkbox: vi
+          .fn()
+          .mockImplementationOnce(() =>
+            Promise.resolve(["cheerful", "serious"])
+          ),
+      };
+
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      await snsWkflw.publishMessages();
+
+      expect(SNSClientMock.send.mock.calls.length).toBe(3);
+    });
+
+    it("should prompt the user for a group id if FIFO is enabled", async () => {
+      const PrompterMock = {
+        input: vi
+          .fn()
+          .mockImplementationOnce(() => Promise.resolve("message"))
+          .mockImplementationOnce(() => Promise.resolve("group-id")),
+        confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
+        checkbox: vi
+          .fn()
+          .mockImplementationOnce(() =>
+            Promise.resolve(["cheerful", "serious"])
+          ),
+      };
+
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      await snsWkflw.publishMessages();
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(PrompterMock.input.mock.calls[1][0]).toEqual({
+        message: MESSAGES.groupIdPrompt,
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(SNSClientMock.send.mock.calls[0][0].input.MessageGroupId).toBe(
+        "group-id"
+      );
+    });
+
+    it("should not prompt the user for a group id if FIFO is not enabled", async () => {
+      const PrompterMock = {
+        input: vi.fn().mockImplementationOnce(() => Promise.resolve("message")),
+        confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
+      };
+
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      snsWkflw.isFifo = false;
+
+      await snsWkflw.publishMessages();
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(PrompterMock.input.mock.calls[1]).toBeUndefined();
+    });
+
+    it("should prompt for a deduplication ID if content deduplication is not enabled", async () => {
+      const PrompterMock = {
+        input: vi
+          .fn()
+          .mockImplementationOnce(() => Promise.resolve("message"))
+          .mockImplementationOnce(() => Promise.resolve("group-id"))
+          .mockImplementationOnce(() => Promise.resolve("dedup-id")),
+        confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
+        checkbox: vi
+          .fn()
+          .mockImplementationOnce(() =>
+            Promise.resolve(["cheerful", "serious"])
+          ),
+      };
+
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      snsWkflw.autoDedup = false;
+
+      await snsWkflw.publishMessages();
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(PrompterMock.input.mock.calls[2][0]).toEqual({
+        message: MESSAGES.deduplicationIdPrompt,
+      });
+
+      expect(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        SNSClientMock.send.mock.calls[0][0].input.MessageDeduplicationId
+      ).toBe("dedup-id");
+    });
+
+    it("should not prompt for a deduplication ID if content deduplication is enabled", async () => {
+      const PrompterMock = {
+        input: vi
+          .fn()
+          .mockImplementationOnce(() => Promise.resolve("message"))
+          .mockImplementationOnce(() => Promise.resolve("group-id")),
+        confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
+        checkbox: vi
+          .fn()
+          .mockImplementationOnce(() =>
+            Promise.resolve(["cheerful", "serious"])
+          ),
+      };
+
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      snsWkflw.autoDedup = true;
+
+      await snsWkflw.publishMessages();
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(PrompterMock.input.mock.calls[2]).toBeUndefined();
+
+      expect(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        SNSClientMock.send.mock.calls[0][0].input.MessageDeduplicationId
+      ).toBeUndefined();
+    });
+
+    it("should prompt for message attributes", async () => {
+      const PrompterMock = {
+        input: vi
+          .fn()
+          .mockImplementationOnce(() => Promise.resolve("message"))
+          .mockImplementationOnce(() => Promise.resolve("group-id")),
+
+        confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
+        checkbox: vi
+          .fn()
+          .mockImplementationOnce(() =>
+            Promise.resolve(["cheerful", "serious"])
+          ),
+      };
+
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      await snsWkflw.publishMessages();
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(PrompterMock.checkbox.mock.calls[0][0]).toEqual({
+        message: MESSAGES.messageAttributesPrompt,
+        choices: [
+          { name: "cheerful", value: "cheerful" },
+          { name: "funny", value: "funny" },
+          { name: "serious", value: "serious" },
+          { name: "sincere", value: "sincere" },
+        ],
+      });
+
+      expect(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        SNSClientMock.send.mock.calls[0][0].input.MessageAttributes
+      ).toEqual({
+        tone: {
+          DataType: "String.Array",
+          StringValue: "cheerful,serious",
+        },
       });
     });
   });

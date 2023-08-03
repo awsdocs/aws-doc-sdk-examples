@@ -3,7 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { CreateTopicCommand, SubscribeCommand } from "@aws-sdk/client-sns";
+import {
+  CreateTopicCommand,
+  PublishCommand,
+  SubscribeCommand,
+} from "@aws-sdk/client-sns";
 import { MESSAGES } from "./messages.js";
 import {
   CreateQueueCommand,
@@ -14,6 +18,14 @@ import { DeleteTopicCommand } from "@aws-sdk/client-sns";
 import { SetQueueAttributesCommand } from "@aws-sdk/client-sqs";
 
 // snippet-start:[javascript.v3.wkflw.sns.wrapper]
+
+const toneChoices = [
+  { name: "cheerful", value: "cheerful" },
+  { name: "funny", value: "funny" },
+  { name: "serious", value: "serious" },
+  { name: "sincere", value: "sincere" },
+];
+
 export class SNSWorkflow {
   // SNS topic is configured as First-In-First-Out
   isFifo = true;
@@ -26,7 +38,7 @@ export class SNSWorkflow {
   topicName;
   topicArn;
   /**
-   * @type {{ queueName: string, queueArn: string, queueUrl: string, policy?: string }[]}
+   * @type {{ queueName: string, queueArn: string, queueUrl: string, policy?: string, hasFilters: boolean }[]}
    */
   queues = [];
   prompter;
@@ -244,12 +256,7 @@ export class SNSWorkflow {
             "${QUEUE_NAME}",
             queue.queueName
           ),
-          choices: [
-            { name: "cheerful", value: "cheerful" },
-            { name: "funny", value: "funny" },
-            { name: "serious", value: "serious" },
-            { name: "sincere", value: "sincere" },
-          ],
+          choices: toneChoices,
         });
 
         if (tones.length) {
@@ -259,6 +266,7 @@ export class SNSWorkflow {
               tone: tones,
             }),
           };
+          queue.hasFilters = true;
         }
       }
 
@@ -269,6 +277,68 @@ export class SNSWorkflow {
           .replace("${TOPIC_NAME}", this.topicName)
           .replace("${TONES}", tones.length ? tones.join(", ") : "none")
       );
+    }
+  }
+
+  async publishMessages() {
+    const message = await this.prompter.input({
+      message: MESSAGES.publishMessagePrompt,
+    });
+
+    let groupId, deduplicationId, choices;
+
+    if (this.isFifo) {
+      await this.logger.log(MESSAGES.groupIdNotice);
+      groupId = await this.prompter.input({
+        message: MESSAGES.groupIdPrompt,
+      });
+
+      if (this.autoDedup === false) {
+        await this.logger.log(MESSAGES.deduplicationIdNotice);
+        deduplicationId = await this.prompter.input({
+          message: MESSAGES.deduplicationIdPrompt,
+        });
+      }
+
+      choices = await this.prompter.checkbox({
+        message: MESSAGES.messageAttributesPrompt,
+        choices: toneChoices,
+      });
+    }
+
+    await this.snsClient.send(
+      new PublishCommand({
+        TopicArn: this.topicArn,
+        Message: message,
+        ...(groupId
+          ? {
+              MessageGroupId: groupId,
+            }
+          : {}),
+        ...(deduplicationId
+          ? {
+              MessageDeduplicationId: deduplicationId,
+            }
+          : {}),
+        ...(choices
+          ? {
+              MessageAttributes: {
+                tone: {
+                  DataType: "String.Array",
+                  StringValue: choices.toString(),
+                },
+              },
+            }
+          : {}),
+      })
+    );
+
+    const publishAnother = await this.prompter.confirm({
+      message: MESSAGES.publishAnother,
+    });
+
+    if (publishAnother) {
+      await this.publishMessages();
     }
   }
 
@@ -302,6 +372,8 @@ export class SNSWorkflow {
     await this.attachQueueIamPolicies();
     this.logSeparator(MESSAGES.headerSubscribeQueues);
     await this.subscribeQueuesToTopic();
+    this.logSeparator(MESSAGES.headerPublishMessage);
+    await this.publishMessages();
     await this.destroyResources();
   }
 }
