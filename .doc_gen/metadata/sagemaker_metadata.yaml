@@ -34,7 +34,7 @@ sagemaker_CreatePipeline:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/sagemaker
+          github: javav2/usecases/workflow_sagemaker_pipes
           sdkguide:
           excerpts:
             - description: create a pipeline.
@@ -328,7 +328,7 @@ sagemaker_Scenario_Pipelines:
     Java:
       versions:
         - sdk_version: 2
-          github: javav2/example_code/sagemaker
+          github: javav2/usecases/workflow_sagemaker_pipes
           sdkguide:
           excerpts:
             - description:
