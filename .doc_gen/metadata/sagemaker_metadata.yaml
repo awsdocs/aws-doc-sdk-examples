@@ -37,7 +37,7 @@ sagemaker_CreatePipeline:
           github: javav2/example_code/sagemaker
           sdkguide:
           excerpts:
-            - description:
+            - description: create a pipeline.
               snippet_tags:
                 - sagemaker.java2.create_pipeline.main
     .NET:
