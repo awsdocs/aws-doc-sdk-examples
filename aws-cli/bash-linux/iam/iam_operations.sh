@@ -63,6 +63,7 @@ function iam_user_exists() {
 # function iam_list_users
 #
 # List the IAM users in the account.
+# This routine handles paginated results.
 #
 #
 # Returns:
@@ -72,24 +73,44 @@ function iam_user_exists() {
 #       1 - If the user doesn't exist.
 ###############################################################################
 function iam_list_users() {
-  local response
-  do {
-  response=$( aws iam list-users \
-  --output text \
-  --query "Users[].UserName")
+  local all_users error_code
+  local marker=First
 
-  local error_code=${?}
+  while [[ -n "$marker" ]]; do
+    local response
+    if [[ "$marker" == "First" ]]; then
+      response=$(aws iam list-users \
+        --output text \
+        --query "{name: Users[].UserName, marker: NextToken}")
+      error_code=${?}
+    else
+      response=$(aws iam list-users \
+        --output text \
+        --query "{name: Users[].UserName, marker: NextToken}" \
+        --starting-token "$marker")
+      error_code=${?}
+    fi
 
+    if [[ $error_code -ne 0 ]]; then
+      aws_cli_error_log $error_code
+      errecho "ERROR: AWS reports list-users operation failed.$response"
+      return 1
+    fi
 
-  if [[ $error_code -ne 0 ]]; then
-    aws_cli_error_log $error_code
-    errecho "ERROR: AWS reports list-users operation failed.$response"
-    return 1
-  fi
-  }
-  while [ -n "$response" ];
+    marker=""
 
-  echo "$response"
+    while IFS= read -r line; do
+      if [[ "$line" == "NAME"* ]]; then
+        local line_array=($line)
+        all_users="$all_users ${line_array[1]}"
+      elif [[ "$line" == "MARKER"* ]]; then
+        local line_array=($line)
+        marker="${line_array[1]}"
+      fi
+    done <<<"$response"
+  done
+
+  echo "$all_users"
 
   return 0
 }
@@ -138,6 +159,7 @@ function iam_create_user() {
         ;;
     esac
   done
+  export OPTIND=1
 
   if [[ -z "$user_name" ]]; then
     errecho "ERROR: You must provide a username with the -u parameter."
@@ -218,13 +240,13 @@ function iam_create_user_access_key() {
         ;;
     esac
   done
+  export OPTIND=1
 
   if [[ -z "$user_name" ]]; then
     errecho "ERROR: You must provide a username with the -u parameter."
     usage
     return 1
   fi
-
 
   response=$(aws iam create-access-key \
     --user-name "$user_name" \
@@ -239,7 +261,7 @@ function iam_create_user_access_key() {
   fi
 
   if [[ -n "$file_name" ]]; then
-    echo "$response" > "$file_name"
+    echo "$response" >"$file_name"
   fi
 
   local key_id key_secret
@@ -268,8 +290,6 @@ function iam_create_user_access_key() {
 #       1 - If it fails.
 ###############################################################################
 function iam_list_access_keys() {
-  local user_name response
-  local option OPTARG # Required to use getopts command in a function.
 
   # bashsupport disable=BP5008
   function usage() {
@@ -279,11 +299,13 @@ function iam_list_access_keys() {
     echo ""
   }
 
+  local user_name response
+  local option  OPTARG # Required to use getopts command in a function.
   # Retrieve the calling parameters.
-  while getopts "u:f:h" option; do
+  while getopts "u:h" option; do
     case "${option}" in
       u) user_name="${OPTARG}" ;;
-      h)
+       h)
         usage
         return 0
         ;;
@@ -294,13 +316,13 @@ function iam_list_access_keys() {
         ;;
     esac
   done
+   export OPTIND=1
 
   if [[ -z "$user_name" ]]; then
     errecho "ERROR: You must provide a username with the -u parameter."
     usage
     return 1
   fi
-
 
   response=$(aws iam list-access-keys \
     --user-name "$user_name" \
@@ -366,6 +388,7 @@ function iam_create_role() {
         ;;
     esac
   done
+  export OPTIND=1
 
   if [[ -z "$role_name" ]]; then
     errecho "ERROR: You must provide a role name with the -n parameter."
@@ -379,7 +402,7 @@ function iam_create_role() {
     return 1
   fi
 
-  echo "$policy_document" > policy.json
+  echo "$policy_document" >policy.json
 
   response=$(aws iam create-role \
     --role-name "$role_name" \
@@ -444,6 +467,7 @@ function iam_create_policy() {
         ;;
     esac
   done
+  export OPTIND=1
 
   if [[ -z "$policy_name" ]]; then
     errecho "ERROR: You must provide a policy name with the -n parameter."
@@ -518,6 +542,7 @@ function iam_attach_role_policy() {
         ;;
     esac
   done
+  export OPTIND=1
 
   if [[ -z "$role_name" ]]; then
     errecho "ERROR: You must provide a role name with the -n parameter."
@@ -592,6 +617,7 @@ function iam_detach_role_policy() {
         ;;
     esac
   done
+  export OPTIND=1
 
   if [[ -z "$role_name" ]]; then
     errecho "ERROR: You must provide a role name with the -n parameter."
@@ -663,6 +689,7 @@ function iam_delete_policy() {
         ;;
     esac
   done
+  export OPTIND=1
 
   if [[ -z "$policy_arn" ]]; then
     errecho "ERROR: You must provide a policy arn with the -n parameter."
@@ -732,6 +759,7 @@ function iam_delete_role() {
         ;;
     esac
   done
+  export OPTIND=1
 
   echo "role_name:$role_name"
   if [[ -z "$role_name" ]]; then
@@ -782,7 +810,7 @@ function iam_delete_access_key() {
 
   # bashsupport disable=BP5008
   function usage() {
-    echo "function iam_delete_user"
+    echo "function iam_delete_access_key"
     echo "Deletes an WS Identity and Access Management (IAM) access key for the specified IAM user"
     echo "  -u user_name    The name of the user."
     echo "  -k access_key   The access key to delete."
@@ -805,6 +833,7 @@ function iam_delete_access_key() {
         ;;
     esac
   done
+  export OPTIND=1
 
   if [[ -z "$user_name" ]]; then
     errecho "ERROR: You must provide a username with the -u parameter."
@@ -883,6 +912,7 @@ function iam_delete_user() {
         ;;
     esac
   done
+ export OPTIND=1
 
   if [[ -z "$user_name" ]]; then
     errecho "ERROR: You must provide a username with the -u parameter."
