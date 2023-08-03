@@ -42,7 +42,7 @@ CLASS ltc_zcl_aws1_dyn_scenario IMPLEMENTATION.
 
   METHOD test_dyn.
     DATA(av_table_name) = |example-table|.
-    ao_dyn_scenario->getting_started_with_dyn( av_table_name ).
+    ao_dyn_scenario->getting_started_movies( av_table_name ).
   ENDMETHOD.
 
   METHOD delete_table.

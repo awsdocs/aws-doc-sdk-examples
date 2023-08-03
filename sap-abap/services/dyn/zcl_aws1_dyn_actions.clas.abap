@@ -64,13 +64,11 @@ CLASS ZCL_AWS1_DYN_ACTIONS IMPLEMENTATION.
     TRY.
         DATA(lv_tablename) = |example-table|.
         DATA(ls_keyschema) = VALUE /aws1/cl_dynkeyschemaelement=>tt_keyschema(
-          "( NEW /aws1/cl_dynkeyschemaelement( iv_attributename = 'year' iv_keytype = 'HASH' ) )
           ( NEW /aws1/cl_dynkeyschemaelement( iv_attributename = 'title'
                                               iv_keytype = 'HASH' ) ) ).
         DATA(lt_attributedefinitions) = VALUE /aws1/cl_dynattributedefn=>tt_attributedefinitions(
           ( NEW /aws1/cl_dynattributedefn( iv_attributename = 'title'
-                                           iv_attributetype = 'S' ) )
-          "( NEW /aws1/cl_dynattributedefn( iv_attributename = 'year' iv_attributetype = 'N' ) ) ).
+                                           iv_attributetype = 'S' ) ) ).
         DATA(lo_dynprovthroughput)  = NEW /aws1/cl_dynprovthroughput(
           iv_readcapacityunits = 5
           iv_writecapacityunits = 5 ).

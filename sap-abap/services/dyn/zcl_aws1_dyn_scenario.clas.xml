@@ -17,13 +17,7 @@
      <CLSNAME>ZCL_AWS1_DYN_SCENARIO</CLSNAME>
      <CMPNAME>GETTING_STARTED_MOVIES</CMPNAME>
      <LANGU>E</LANGU>
-     <DESCRIPT>Getting Started with Dynamo DB</DESCRIPT>
-    </SEOCOMPOTX>
-    <SEOCOMPOTX>
-     <CLSNAME>ZCL_AWS1_DYN_SCENARIO</CLSNAME>
-     <CMPNAME>GETTING_STARTED_WITH_DYN</CMPNAME>
-     <LANGU>E</LANGU>
-     <DESCRIPT>Getting Started with Dynamo DB</DESCRIPT>
+     <DESCRIPT>Amazon Dynamo DB Scenario. Getting started movies.</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>
