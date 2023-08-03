@@ -20,10 +20,11 @@
 function main() {
   source ./test_general.sh
   {
+    local current_directory
     current_directory=$(pwd)
     cd ..
     source ./iam_operations.sh
-    cd $current_directory
+    cd "$current_directory"
   }
 
   function usage() {
@@ -182,6 +183,7 @@ function main() {
   # Wait for user to be created.
   sleep 10
 
+  # run_test seems to have issues with the policy document being passed in as a string.
   iam_create_role -n $test_role_name -p "$assume_role_policy_document" 1>/dev/null
   local error_code=${?}
 
@@ -190,7 +192,38 @@ function main() {
   fi
   test_count=$((test_count + 1))
 
-  local role_arn="$test_command_response"
+  local policy_name
+  policy_name=$(generate_random_name "iamtestcli")
+  local policy_document="{
+                \"Version\": \"2012-10-17\",
+                \"Statement\": [{
+                    \"Effect\": \"Deny\",
+                    \"Action\": \"s3:ListAllMyBuckets\",
+                    \"Resource\": \"arn:aws:s3:::*\"}]}"
+
+  local policy_arn
+  policy_arn=$(iam_create_policy -n "$policy_name" -p "$policy_document")
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    test_failed "Creating role with policy failed."
+  fi
+  test_count=$((test_count + 1))
+
+  run_test "$test_count. Attaching policy to role" \
+    "iam_attach_role_policy -n $test_role_name -p $policy_arn " \
+    0
+  test_count=$((test_count + 1))
+
+  run_test "$test_count. Detaching policy from role" \
+    "iam_detach_role_policy -n $test_role_name -p $policy_arn " \
+    0
+  test_count=$((test_count + 1))
+
+  run_test "$test_count. Deleting policy" \
+    "iam_delete_policy -n $policy_arn " \
+    0
+  test_count=$((test_count + 1))
 
   run_test "$test_count. Deleting role" \
     "iam_delete_role -n $test_role_name " \

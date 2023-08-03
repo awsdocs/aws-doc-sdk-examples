@@ -402,8 +402,6 @@ function iam_create_role() {
     return 1
   fi
 
-  echo "$policy_document" >policy.json
-
   response=$(aws iam create-role \
     --role-name "$role_name" \
     --assume-role-policy-document "$policy_document" \
