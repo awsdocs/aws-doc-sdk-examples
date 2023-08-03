@@ -1,15 +1,21 @@
-class ZCL_AWS1_DYN_SCENARIO definition
-  public
-  final
-  create public .
+" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" "  Copyright 2022 Amazon.com, Inc. or its affiliates. All Rights
+" "  Reserved.
+" "  SPDX-License-Identifier: MIT-0
+" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-public section.
-protected section.
-private section.
+CLASS zcl_aws1_dyn_scenario DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-  methods GETTING_STARTED_WITH_DYN
-    importing
-      value(IV_TABLE_NAME) type /AWS1/DYNTABLENAME .
+  PUBLIC SECTION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+
+    METHODS getting_started_with_dyn
+      IMPORTING
+      VALUE(iv_table_name) TYPE /aws1/dyntablename .
 ENDCLASS.
 
 

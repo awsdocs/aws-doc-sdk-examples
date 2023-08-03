@@ -12,10 +12,10 @@ CLASS ltc_zcl_aws1_dyn_actions DEFINITION FOR TESTING
   RISK LEVEL HARMLESS.
 
   PROTECTED SECTION.
-    METHODS: test_dyn FOR TESTING RAISING /aws1/cx_rt_generic.
+    METHODS test_dyn FOR TESTING RAISING /aws1/cx_rt_generic.
 
   PRIVATE SECTION.
-    CONSTANTS: cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
+    CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     DATA ao_dyn TYPE REF TO /aws1/if_dyn.
     DATA ao_session TYPE REF TO /aws1/cl_rt_session_base.
@@ -48,9 +48,8 @@ CLASS ltc_zcl_aws1_dyn_actions IMPLEMENTATION.
     av_table_name = lv_table->get_tabledescription( )->ask_tablename( ).
     assert_table_exists( ).
     DATA(lv_table_description) = ao_dyn_actions->describe_table(
-      iv_table_name = av_table_name
-    ).
-    ao_dyn_actions->describe_table( iv_table_name = av_table_name ).
+      av_table_name ).
+    ao_dyn_actions->describe_table( av_table_name ).
     ao_dyn_actions->list_tables( ).
     ao_dyn_actions->put_item( av_table_name ).
     ao_dyn_actions->get_item( av_table_name ).
@@ -58,7 +57,7 @@ CLASS ltc_zcl_aws1_dyn_actions IMPLEMENTATION.
     ao_dyn_actions->scan_items( av_table_name ).
     ao_dyn_actions->update_item( av_table_name ).
     ao_dyn_actions->delete_item( av_table_name ).
-    ao_dyn_actions->delete_table( iv_table_name = av_table_name ).
+    ao_dyn_actions->delete_table( av_table_name ).
     assert_table_notexists( ).
   ENDMETHOD.
 
@@ -68,34 +67,33 @@ CLASS ltc_zcl_aws1_dyn_actions IMPLEMENTATION.
     cl_abap_unit_assert=>assert_equals(
             exp = lv_status
             act = 'ACTIVE'
-            msg = |Expected the table to be in 'ACTIVE' status but received { lv_status }|
-    ).
+            msg = |Expected the table to be in 'ACTIVE' status but received { lv_status }| ).
   ENDMETHOD.
 
   METHOD assert_table_notexists.
     TRY.
-      DATA(lv_status) = ao_dyn->describetable( iv_tablename = av_table_name )->get_table( )->get_tablestatus( ).
-      /aws1/cl_rt_assert_abap=>assert_missed_exception( iv_exception = |/AWS1/CX_RT_SERVICE_GENERIC| ).
-    CATCH /aws1/cx_rt_service_generic.
+        DATA(lv_status) = ao_dyn->describetable( iv_tablename = av_table_name )->get_table( )->get_tablestatus( ).
+        /aws1/cl_rt_assert_abap=>assert_missed_exception( iv_exception = |/AWS1/CX_RT_SERVICE_GENERIC| ).
+      CATCH /aws1/cx_rt_service_generic.
       "ignore. expected since the table does not exist
     ENDTRY.
   ENDMETHOD.
 
   METHOD delete_table.
     TRY.
-      DATA(lo_resp) = ao_dyn->deletetable( av_table_name ).
-      DATA(lv_status) = ao_dyn->describetable( iv_tablename = av_table_name )->get_table( )->get_tablestatus( ).
-      cl_abap_unit_assert=>assert_equals(
+        DATA(lo_resp) = ao_dyn->deletetable( av_table_name ).
+        DATA(lv_status) = ao_dyn->describetable( iv_tablename = av_table_name )->get_table( )->get_tablestatus( ).
+        cl_abap_unit_assert=>assert_equals(
                       exp = lv_status
                       act = 'DELETING'
                       msg = |Expected the table to be in 'DELETING' status but received { lv_status }| ).
-      ao_dyn->get_waiter( )->tablenotexists(
-        iv_max_wait_time = 200
+        ao_dyn->get_waiter( )->tablenotexists(
+          iv_max_wait_time = 200
           iv_tablename     = av_table_name ).
-      lv_status = ao_dyn->describetable( iv_tablename = av_table_name )->get_table( )->get_tablestatus( ).
+        lv_status = ao_dyn->describetable( iv_tablename = av_table_name )->get_table( )->get_tablestatus( ).
       " expecting an exception
-      /aws1/cl_rt_assert_abap=>assert_missed_exception( iv_exception = |/AWS1/CX_DYNRESOURCENOTFOUNDEX| ).
-    CATCH /aws1/cx_dynresourcenotfoundex.
+        /aws1/cl_rt_assert_abap=>assert_missed_exception( iv_exception = |/AWS1/CX_DYNRESOURCENOTFOUNDEX| ).
+      CATCH /aws1/cx_dynresourcenotfoundex.
         " good, it is deleted
     ENDTRY.
   ENDMETHOD.
