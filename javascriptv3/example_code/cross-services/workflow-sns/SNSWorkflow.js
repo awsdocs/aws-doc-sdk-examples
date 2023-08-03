@@ -7,12 +7,15 @@ import {
   CreateTopicCommand,
   PublishCommand,
   SubscribeCommand,
+  UnsubscribeCommand,
 } from "@aws-sdk/client-sns";
 import { MESSAGES } from "./messages.js";
 import {
   CreateQueueCommand,
+  DeleteMessageBatchCommand,
   DeleteQueueCommand,
   GetQueueAttributesCommand,
+  ReceiveMessageCommand,
 } from "@aws-sdk/client-sqs";
 import { DeleteTopicCommand } from "@aws-sdk/client-sns";
 import { SetQueueAttributesCommand } from "@aws-sdk/client-sqs";
@@ -37,8 +40,9 @@ export class SNSWorkflow {
   sqsClient;
   topicName;
   topicArn;
+  subscriptionArns = [];
   /**
-   * @type {{ queueName: string, queueArn: string, queueUrl: string, policy?: string, hasFilters: boolean }[]}
+   * @type {{ queueName: string, queueArn: string, queueUrl: string, policy?: string }[]}
    */
   queues = [];
   prompter;
@@ -266,11 +270,15 @@ export class SNSWorkflow {
               tone: tones,
             }),
           };
-          queue.hasFilters = true;
         }
       }
 
-      await this.snsClient.send(new SubscribeCommand(subscribeParams));
+      const { SubscriptionArn } = await this.snsClient.send(
+        new SubscribeCommand(subscribeParams)
+      );
+
+      this.subscriptionArns.push(SubscriptionArn);
+
       await this.logger.log(
         MESSAGES.queueSubscribedNotice
           .replace("${QUEUE_NAME}", queue.queueName)
@@ -325,7 +333,7 @@ export class SNSWorkflow {
               MessageAttributes: {
                 tone: {
                   DataType: "String.Array",
-                  StringValue: choices.toString(),
+                  StringValue: JSON.stringify(choices),
                 },
               },
             }
@@ -342,13 +350,62 @@ export class SNSWorkflow {
     }
   }
 
-  async destroyResources() {
-    if (this.queues.length) {
-      for (const queue of this.queues) {
+  async receiveAndDeleteMessages() {
+    for (const queue of this.queues) {
+      const { Messages } = await this.sqsClient.send(
+        new ReceiveMessageCommand({
+          QueueUrl: queue.queueUrl,
+        })
+      );
+
+      if (Messages) {
+        await this.logger.log(
+          MESSAGES.messagesReceivedNotice.replace(
+            "${QUEUE_NAME}",
+            queue.queueName
+          )
+        );
+        console.log(Messages);
+
         await this.sqsClient.send(
-          new DeleteQueueCommand({ QueueUrl: queue.queueUrl })
+          new DeleteMessageBatchCommand({
+            QueueUrl: queue.queueUrl,
+            Entries: Messages.map((message) => ({
+              Id: message.MessageId,
+              ReceiptHandle: message.ReceiptHandle,
+            })),
+          })
+        );
+      } else {
+        await this.logger.log(
+          MESSAGES.noMessagesReceivedNotice.replace(
+            "${QUEUE_NAME}",
+            queue.queueName
+          )
         );
       }
+    }
+
+    const deleteAndPoll = await this.prompter.confirm({
+      message: MESSAGES.deleteAndPollConfirmation,
+    });
+
+    if (deleteAndPoll) {
+      await this.receiveAndDeleteMessages();
+    }
+  }
+
+  async destroyResources() {
+    for (const subscriptionArn of this.subscriptionArns) {
+      await this.snsClient.send(
+        new UnsubscribeCommand({ SubscriptionArn: subscriptionArn })
+      );
+    }
+
+    for (const queue of this.queues) {
+      await this.sqsClient.send(
+        new DeleteQueueCommand({ QueueUrl: queue.queueUrl })
+      );
     }
 
     if (this.topicArn) {
@@ -360,21 +417,28 @@ export class SNSWorkflow {
 
   async start() {
     console.clear();
-    this.logSeparator(MESSAGES.headerWelcome);
-    await this.welcome();
-    this.logSeparator(MESSAGES.headerFifo);
-    await this.confirmFifo();
-    this.logSeparator(MESSAGES.headerCreateTopic);
-    await this.createTopic();
-    this.logSeparator(MESSAGES.headerCreateQueues);
-    await this.createQueues();
-    this.logSeparator(MESSAGES.headerAttachPolicy);
-    await this.attachQueueIamPolicies();
-    this.logSeparator(MESSAGES.headerSubscribeQueues);
-    await this.subscribeQueuesToTopic();
-    this.logSeparator(MESSAGES.headerPublishMessage);
-    await this.publishMessages();
-    await this.destroyResources();
+
+    try {
+      this.logSeparator(MESSAGES.headerWelcome);
+      await this.welcome();
+      this.logSeparator(MESSAGES.headerFifo);
+      await this.confirmFifo();
+      this.logSeparator(MESSAGES.headerCreateTopic);
+      await this.createTopic();
+      this.logSeparator(MESSAGES.headerCreateQueues);
+      await this.createQueues();
+      this.logSeparator(MESSAGES.headerAttachPolicy);
+      await this.attachQueueIamPolicies();
+      this.logSeparator(MESSAGES.headerSubscribeQueues);
+      await this.subscribeQueuesToTopic();
+      this.logSeparator(MESSAGES.headerPublishMessage);
+      await this.publishMessages();
+      this.logSeparator(MESSAGES.headerReceiveMessages);
+      await this.receiveAndDeleteMessages();
+    } catch (err) {
+      console.error(err);
+      await this.destroyResources();
+    }
   }
 }
 // snippet-end:[javascript.v3.wkflw.sns.wrapper]

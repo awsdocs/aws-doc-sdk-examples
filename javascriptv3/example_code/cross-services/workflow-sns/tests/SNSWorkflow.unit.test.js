@@ -39,7 +39,7 @@ const SQSClientMock = {
 const SNSClientMock = {
   send: vi.fn((command) => {
     if (command instanceof SubscribeCommand) {
-      return Promise.resolve();
+      return Promise.resolve({ SubscriptionArn: "subscription-arn" });
     }
   }),
 };
@@ -478,7 +478,7 @@ describe("SNSWorkflow", () => {
       ).toEqual({
         tone: {
           DataType: "String.Array",
-          StringValue: "cheerful,serious",
+          StringValue: '["cheerful","serious"]',
         },
       });
     });

@@ -13,6 +13,7 @@ export const MESSAGES = {
   headerAttachPolicy: "Attach IAM policies to SQS queues",
   headerSubscribeQueues: "Subscribe SQS queues to an SNS topic",
   headerPublishMessage: "Publish messages to an SNS topic",
+  headerReceiveMessages: "Receive and delete messages",
   description:
     "In this workflow, you will create an SNS topic and subscribe 2 SQS queues to the topic. " +
     "You can select from several options for configuring the topic and the subscriptions " +
@@ -76,5 +77,11 @@ export const MESSAGES = {
   deduplicationIdPrompt: "Enter a deduplication ID for this message",
   messageAttributesPrompt:
     "Select any number of attributes to add to the message",
+  deleteAndPollConfirmation:
+    "Any above messages have been deleted. Would you like to poll for messages again?",
+  messagesReceivedNotice:
+    "The following messages were received by the SQS queue '${QUEUE_NAME}'.",
+  noMessagesReceivedNotice:
+    "No messages were received by the SQS queue '${QUEUE_NAME}'.",
 };
 // snippet-end:[javascript.v3.wkflw.sns.messages]
