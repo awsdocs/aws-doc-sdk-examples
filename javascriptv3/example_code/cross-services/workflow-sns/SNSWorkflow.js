@@ -437,6 +437,7 @@ export class SNSWorkflow {
       await this.receiveAndDeleteMessages();
     } catch (err) {
       console.error(err);
+    } finally {
       await this.destroyResources();
     }
   }
