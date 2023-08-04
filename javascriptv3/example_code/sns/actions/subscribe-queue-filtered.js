@@ -10,7 +10,7 @@ import { SubscribeCommand, SNSClient } from "@aws-sdk/client-sns";
 
 const client = new SNSClient({});
 
-export const subscribeQueue = async (
+export const subscribeQueueFiltered = async (
   topicArn = "TOPIC_ARN",
   queueArn = "QUEUE_ARN"
 ) => {
@@ -18,6 +18,13 @@ export const subscribeQueue = async (
     TopicArn: topicArn,
     Protocol: "sqs",
     Endpoint: queueArn,
+    Attributes: {
+      // This subscription will only receive messages with the 'event' attribute set to 'order_placed'.
+      FilterPolicyScope: "MessageAttributes",
+      FilterPolicy: JSON.stringify({
+        event: ["order_placed"],
+      }),
+    },
   });
 
   const response = await client.send(command);
@@ -39,5 +46,5 @@ export const subscribeQueue = async (
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  subscribeQueue();
+  subscribeQueueFiltered();
 }
