@@ -827,6 +827,17 @@ iam_ListAccessKeys:
             - description:
               snippet_tags:
                 - iam.cpp.list_access_keys.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.iecho
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.ListAccessKeys
   services:
     iam: {ListAccessKeys}
 iam_UpdateAccessKey:
@@ -2565,6 +2576,17 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - iam.cpp.list_users.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.iecho
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.ListUsers
   services:
     iam: {ListUsers}
 iam_UpdateUser:
