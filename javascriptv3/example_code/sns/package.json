@@ -9,5 +9,8 @@
   "scripts": {
     "integration-test": "vitest run **/*.integration.test.js --coverage"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@aws-sdk/client-sqs": "^3.382.0"
+  }
 }

@@ -1290,6 +1290,15 @@ sns_Subscribe_Queue:
                 - cpp.example_code.cross-service.topics_and_queues.sns_client
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue1
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue2
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sns
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.sns.actions.subscribe-queue
   services:
     sns: { Subscribe }
 sns_Subscribe_Filtered:
