@@ -137,21 +137,21 @@ public class SagemakerWorkflow {
             "    spatialPipelinePath - The file location of the GeoSpatialPipeline.json file required for this use case.\n\n"+
             "    pipelineName - The name of the pipeline to create (for example, sagemaker-sdk-example-pipeline).\n\n" ;
 
-     //   if (args.length != 9) {
-     //         System.out.println(usage);
-     //         System.exit(1);
-    //    }
+        if (args.length != 9) {
+              System.out.println(usage);
+              System.exit(1);
+        }
 
-        String sageMakerRoleName = "SageMakerExampleRole"  ; //args[0];
-        String lambdaRoleName = "SageMakerExampleLambdaRole" ; //args[1];
-        String functionFileLocation = "C:\\Users\\scmacdon\\AWS_Code\\Example\\SageMakerLambda\\target\\SageMakerLambda-1.0-SNAPSHOT.jar" ; //args[2];
-        String functionName =  "SageMakerExampleFunction" ; //args[3];
-        String queueName = "sagemaker-sdk-example-queue" ; //args[4];
-        String bucketName = "sagemaker-sdk-example-bucket" ; //args[5];
-        String lnglatData =  "C:\\AWS\\latlongtest.csv" ; // args[6];
-        String spatialPipelinePath = "C:\\AWS\\GeoSpatialPipeline.json" ; //args[7];
-        String pipelineName = "sagemaker-sdk-example-pipeline013" ; //args[8];
-        String handlerName = "org.example.SageMakerLambdaFunction::handleRequest";
+        String sageMakerRoleName = args[0];
+        String lambdaRoleName = args[1];
+        String functionFileLocation = args[2];
+        String functionName = args[3];
+        String queueName = args[4];
+        String bucketName = args[5];
+        String lnglatData = args[6];
+        String spatialPipelinePath = args[7];
+        String pipelineName = args[8];
+        String handlerName = "SageMakerLambda::SageMakerLambda.SageMakerLambdaFunction::FunctionHandler";
 
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
@@ -349,7 +349,8 @@ public class SagemakerWorkflow {
         String output = "s3://"+bucketName+"/outputfiles/";
         Gson gson = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-            .setPrettyPrinting().create();
+            .setPrettyPrinting()
+            .create();
 
         // Set up all parameters required to start the pipeline.
         List<Parameter> parameters = new ArrayList<>();
@@ -722,7 +723,7 @@ public class SagemakerWorkflow {
                 .description("SageMaker example function.")
                 .code(code)
                 .handler(handler)
-                .runtime(Runtime.JAVA11)
+                .runtime(Runtime.DOTNET6)
                 .timeout(200)
                 .memorySize(1024)
                 .role(role)
@@ -851,7 +852,6 @@ public class SagemakerWorkflow {
     public static String checkFunction(LambdaClient lambdaClient, String functionName, String filePath, String role, String handler) {
         System.out.println("Create an AWS Lambda function used in this workflow.");
         String functionArn;
-
         try {
             // Does this function already exist.
             GetFunctionRequest functionRequest = GetFunctionRequest.builder()
@@ -963,6 +963,5 @@ public class SagemakerWorkflow {
         lambdaRolePolicies[4] = "arn:aws:iam::aws:policy/service-role/AWSLambdaSQSQueueExecutionRole";
         return lambdaRolePolicies;
     }
-
 }
 //snippet-end:[sagemaker.java2.sc.main]
