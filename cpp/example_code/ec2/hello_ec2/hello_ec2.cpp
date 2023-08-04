@@ -30,7 +30,9 @@
 
 int main(int argc, char **argv) {
     Aws::SDKOptions options;
-    Aws::InitAPI(options);
+    // Optionally change the log level for debugging.
+//   options.loggingOptions.logLevel = Utils::Logging::LogLevel::Debug;
+    Aws::InitAPI(options); // Should only be called once.
     int result = 0;
     {
         Aws::Client::ClientConfiguration clientConfig;
@@ -108,7 +110,7 @@ int main(int argc, char **argv) {
     }
 
 
-    Aws::ShutdownAPI(options);
+    Aws::ShutdownAPI(options); // Should only be called once.
     return result;
 }
 // snippet-end:[cpp.example_code.ec2.hello_ec2]
