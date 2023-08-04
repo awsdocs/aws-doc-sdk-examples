@@ -5,7 +5,7 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start:[javascript.v3.sns.actions.subscribe-queue]
+// snippet-start:[javascript.v3.sns.actions.subscribe-queue-filtered]
 import { SubscribeCommand, SNSClient } from "@aws-sdk/client-sns";
 
 const client = new SNSClient({});
@@ -42,7 +42,7 @@ export const subscribeQueueFiltered = async (
   // }
   return response;
 };
-// snippet-end:[javascript.v3.sns.actions.subscribe-queue]
+// snippet-end:[javascript.v3.sns.actions.subscribe-queue-filtered]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

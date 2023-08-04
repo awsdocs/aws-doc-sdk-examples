@@ -34,7 +34,7 @@ export class SNSWorkflow {
   isFifo = true;
 
   // Automatic content-based deduplication is enabled.
-  autoDedup = true;
+  autoDedup = false;
 
   snsClient;
   sqsClient;
@@ -119,7 +119,7 @@ export class SNSWorkflow {
         Name: this.topicName,
         Attributes: {
           FifoTopic: this.isFifo ? "true" : "false",
-          ContentBasedDeduplication: this.autoDedup ? "true" : "false",
+          ...(this.autoDedup ? { ContentBasedDeduplication: "true" } : {}),
         },
       })
     );
@@ -155,7 +155,7 @@ export class SNSWorkflow {
       const response = await this.sqsClient.send(
         new CreateQueueCommand({
           QueueName: queueName,
-          Attributes: { FifoQueue: this.isFifo ? "true" : "false" },
+          Attributes: { ...(this.isFifo ? { FifoQueue: "true" } : {}) },
         })
       );
 

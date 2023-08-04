@@ -90,9 +90,9 @@ describe("SNSWorkflow", () => {
     expect(snsWkflw.isFifo).toBe(true);
   });
 
-  it("should default to auto-dedup", () => {
+  it("should default to no auto-dedup", () => {
     const snsWkflw = new SNSWorkflow(new SNSClient({}), new SQSClient({}));
-    expect(snsWkflw.autoDedup).toBe(true);
+    expect(snsWkflw.autoDedup).toBe(false);
   });
 
   describe("confirmFifo", () => {
@@ -150,11 +150,6 @@ describe("SNSWorkflow", () => {
       expect(send.mock.calls[0][0]).toBeInstanceOf(CreateTopicCommand);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(send.mock.calls[0][0].input.Attributes.FifoTopic).toBe("true");
-
-      expect(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        send.mock.calls[0][0].input.Attributes.ContentBasedDeduplication
-      ).toBe("true");
     });
   });
 

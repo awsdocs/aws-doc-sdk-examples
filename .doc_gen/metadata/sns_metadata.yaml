@@ -1318,6 +1318,15 @@ sns_Subscribe_Filtered:
                 - cpp.example_code.cross-service.topics_and_queues.sns_client
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter2
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sns
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.sns.actions.subscribe-queue-filtered
   services:
     sns: { Subscribe }
 sns_CreatePlatformEndpoint:
