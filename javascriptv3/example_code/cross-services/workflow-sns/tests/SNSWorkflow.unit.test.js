@@ -13,6 +13,7 @@ import {
 import {
   CreateQueueCommand,
   GetQueueAttributesCommand,
+  ReceiveMessageCommand,
   SQSClient,
   SetQueueAttributesCommand,
 } from "@aws-sdk/client-sqs";
@@ -31,6 +32,31 @@ const SQSClientMock = {
         Attributes: {
           QueueArn: "queue-arn",
         },
+      });
+    }
+
+    if (command instanceof ReceiveMessageCommand) {
+      return Promise.resolve({
+        Messages: [
+          {
+            MessageId: "cfcb7340-89b5-420f-8021-fcf38fa78a38",
+            ReceiptHandle: "123",
+            MD5OfBody: "2ed986e2481e216cb2328d1478df527b",
+            Body:
+              "{\n" +
+              '  "Type" : "Notification",\n' +
+              '  "MessageId" : "xxxxxxxx-a13d-584a-98fa-b95db12bee66",\n' +
+              '  "SequenceNumber" : "10000000000000007000",\n' +
+              '  "TopicArn" : "arn:aws:sns:us-east-1:xxxxxxxxxxxx:breaking-news.fifo",\n' +
+              '  "Message" : "good and bad news ",\n' +
+              '  "Timestamp" : "2023-08-03T20:28:06.822Z",\n' +
+              '  "UnsubscribeURL" : "https://sns.us-east-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-east-1:xxxxxxxxxxxx:breaking-news.fifo:24b40a3b-4ef7-4689-8951-a9e606b7859f",\n' +
+              '  "MessageAttributes" : {\n' +
+              '    "tone" : {"Type":"String.Array","Value":"[\\"cheerful\\",\\"serious\\"]"}\n' +
+              "  }\n" +
+              "}",
+          },
+        ],
       });
     }
   }),
@@ -481,6 +507,129 @@ describe("SNSWorkflow", () => {
           StringValue: '["cheerful","serious"]',
         },
       });
+    });
+  });
+
+  describe("receiveAndDeleteMessages", () => {
+    it("should exist", () => {
+      const PrompterMock = {};
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      expect(snsWkflw.receiveAndDeleteMessages).toBeTruthy();
+    });
+
+    it("should not log anything if there are no queues", async () => {
+      const PrompterMock = {
+        confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
+      };
+
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      await snsWkflw.receiveAndDeleteMessages();
+
+      expect(LoggerMock.log.mock.calls.length).toBe(0);
+    });
+
+    it("should log a message for each queue", async () => {
+      const PrompterMock = {
+        confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
+      };
+
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      snsWkflw.queues = [
+        {
+          queueName: "queue-1",
+          queueUrl: "queue-1-url",
+          queueArn: "queue-1-arn",
+        },
+        {
+          queueName: "queue-2",
+          queueUrl: "queue-2-url",
+          queueArn: "queue-2-arn",
+        },
+      ];
+
+      await snsWkflw.receiveAndDeleteMessages();
+
+      expect(LoggerMock.log.mock.calls.length).toBe(2);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(LoggerMock.log.mock.calls[0][0]).toBe(
+        "The following messages were received by the SQS queue 'queue-1'."
+      );
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      expect(LoggerMock.log.mock.calls[1][0]).toBe(
+        "The following messages were received by the SQS queue 'queue-2'."
+      );
+    });
+
+    it("should delete any received messages", async () => {
+      const PrompterMock = {
+        confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
+      };
+
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      snsWkflw.queues = [
+        {
+          queueName: "queue-1",
+          queueUrl: "queue-1-url",
+          queueArn: "queue-1-arn",
+        },
+      ];
+
+      await snsWkflw.receiveAndDeleteMessages();
+      expect(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        SQSClientMock.send.mock.calls[1][0].input.Entries[0].ReceiptHandle
+      ).toBe("123");
+    });
+
+    it("should prompt the user to poll again until they say no", async () => {
+      const PrompterMock = {
+        confirm: vi
+          .fn()
+          .mockImplementationOnce(() => Promise.resolve(true))
+          .mockImplementationOnce(() => Promise.resolve(false)),
+      };
+
+      const snsWkflw = new SNSWorkflow(
+        SNSClientMock,
+        SQSClientMock,
+        PrompterMock,
+        LoggerMock
+      );
+
+      snsWkflw.queues = [
+        {
+          queueName: "queue-1",
+          queueUrl: "queue-1-url",
+          queueArn: "queue-1-arn",
+        },
+      ];
+
+      await snsWkflw.receiveAndDeleteMessages();
+      expect(PrompterMock.confirm.mock.calls.length).toBe(2);
     });
   });
 });
