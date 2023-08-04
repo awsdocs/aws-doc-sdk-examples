@@ -333,7 +333,7 @@ sagemaker_Scenario_Pipelines:
           excerpts:
             - description: create a pipeline.
               snippet_tags:
-                - sagemaker.java2.sc.main
+                - sagemaker.java2.list_books.main
     .NET:
       versions:
         - sdk_version: 3
