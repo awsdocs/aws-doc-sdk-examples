@@ -89,7 +89,7 @@ function main() {
   iecho "user_name=$user_name"
   iecho "**************END OF STEPS******************"
 
-  local test_count=1
+  local test_count=0
 
   run_test "$test_count Test if non-existing user is exists" \
     "iam_user_exists $user_name " \
