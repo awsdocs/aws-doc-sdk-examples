@@ -322,7 +322,7 @@ sagemaker_Scenario_Pipelines:
           github: javav2/usecases/workflow_sagemaker_pipes
           sdkguide:
           excerpts:
-            - description: create a pipeline.
+            - description:
               snippet_tags:
                 - sagemaker.java2.list_books.main
     .NET:
