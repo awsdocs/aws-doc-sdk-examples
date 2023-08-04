@@ -65,7 +65,6 @@ function iam_user_exists() {
 # List the IAM users in the account.
 # This routine handles paginated results.
 #
-#
 # Returns:
 #       The list of users names
 #    And:
@@ -73,7 +72,31 @@ function iam_user_exists() {
 #       1 - If the user doesn't exist.
 ###############################################################################
 function iam_list_users() {
+  local option OPTARG # Required to use getopts command in a function.
   local all_users error_code
+  # bashsupport disable=BP5008
+  function usage() {
+    echo "function iam_list_users"
+    echo "Lists the AWS Identity and Access Management (IAM) user in the account."
+    echo ""
+  }
+
+  # Retrieve the calling parameters.
+  while getopts "h" option; do
+    case "${option}" in
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo "Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+  export OPTIND=1
+
   local marker=First
 
   while [[ -n "$marker" ]]; do
@@ -99,6 +122,7 @@ function iam_list_users() {
 
     marker=""
 
+    # Parse the response for users and the marker.
     local line
     while IFS= read -r line; do
       if [[ "$line" == "NAME"* ]]; then
@@ -206,7 +230,7 @@ function iam_create_user() {
 #
 # Parameters:
 #       -u user_name -- The name of the IAM user.
-#       [-f file_name] -- The file name for the access key output.
+#       [-f file_name] -- The optional file name for the access key output.
 #
 # Returns:
 #       [access_key_id access_key_secret]
@@ -598,7 +622,7 @@ function iam_detach_role_policy() {
   # bashsupport disable=BP5008
   function usage() {
     echo "function iam_detach_role_policy"
-    echo "detaches an AWS Identity and Access Management (IAM) policy to an IAM role."
+    echo "Detaches an AWS Identity and Access Management (IAM) policy to an IAM role."
     echo "  -n role_name   The name of the IAM role."
     echo "  -p policy_ARN -- The IAM policy document ARN."
     echo ""
@@ -711,7 +735,7 @@ function iam_delete_policy() {
 
   if [[ $error_code -ne 0 ]]; then
     aws_cli_error_log $error_code
-    errecho "ERROR: AWS reports delete-role operation failed.\n$response"
+    errecho "ERROR: AWS reports delete-policy operation failed.\n$response"
     return 1
   fi
 
@@ -882,7 +906,6 @@ function iam_delete_access_key() {
 #
 # Parameters:
 #       -u user_name  -- The name of the user to create.
-#
 #
 # Returns:
 #       0 - If successful.

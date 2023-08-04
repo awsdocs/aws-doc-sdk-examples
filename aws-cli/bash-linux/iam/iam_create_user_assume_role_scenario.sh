@@ -25,12 +25,12 @@
 #
 # 1. Create a user.
 # 2. Create a role.
-# 3. Create an IAM policy.
-# 4. Assume the new role using the AWS Security Token Service (STS).
-# 5. List objects in the bucket (this should fail).
-# 6. Attach the policy to the role.
-# 7. List objects in the bucket (this should succeed).
-# 8. Delete all the created resources.
+# 3. Create an IAM policy allowing the user to list Amazon S3 buckets.
+# 4. Attach the IAM policy to the role.
+# 6. Attempt to list the buckets using the new user's credentials. This should fail.
+# 7. Let the new user assume the created role.
+# 8. List objects in the bucket using the assumed role's credentials. This should succeed.
+# 9. Delete all the created resources.
 
 ###############################################################################
 # function get_input
@@ -70,8 +70,8 @@ function get_input() {
 #     $2 - The name of the IAM access key to delete.
 #     $3 - The name of the IAM role to delete.
 #     $4 - The ARN of the IAM policy to delete.
-#     $5 - The ARN of the IAM policy to detach.
-#     $6 - The ARN of the assume role policy to delete.
+#     $5 - The ARN of the assume role IAM policy to detach.
+#     $6 - The ARN of the assume role IAM policy to delete.
 #
 # Returns:
 #       0 - If successful.
@@ -238,6 +238,7 @@ function s3_list_buckets() {
   return 0
 }
 
+# snippet-start:[aws-cli.bash-linux.sts.assume-role]
 ###############################################################################
 # function sts_assume_role
 #
@@ -268,7 +269,6 @@ function sts_assume_role() {
   }
 
   while getopts n:r:h option; do
-
     case "${option}" in
       n) role_session_name=${OPTARG} ;;
       r) role_arn=${OPTARG} ;;
@@ -302,6 +302,7 @@ function sts_assume_role() {
 
   return 0
 }
+# snippet-end:[aws-cli.bash-linux.sts.assume-role]
 
 # snippet-start:[aws-cli.bash-linux.iam.iam_create_user_assume_role]
 ###############################################################################
@@ -325,7 +326,6 @@ function iam_create_user_assume_role() {
     fi
   }
 
-  #  VERBOSE=true
   echo_repeat "*" 88
   echo "Welcome to the IAM create user and assume role demo."
   echo
@@ -359,7 +359,7 @@ function iam_create_user_assume_role() {
   fi
 
   # shellcheck disable=SC2206
-  local access_key_values=($access_key_response)
+  local access_key_values=($access_key_response) # Convert to array.
   local key_name=${access_key_values[0]}
   local key_secret=${access_key_values[1]}
 
