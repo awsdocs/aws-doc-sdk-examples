@@ -21,7 +21,6 @@
 # snippet-sourcetype:[full-example]
 # snippet-sourceauthor:[AWS]
 # snippet-sourcedate:[2016-03-07]
-# snippet-start:[codepipeline.python.MyCodePipelineFunction.complete]
 
 from __future__ import print_function
 from boto3.session import Session
@@ -397,6 +396,3 @@ def lambda_handler(event, context):
       
     print('Function complete.')   
     return "Complete."
-
-
-# snippet-end:[codepipeline.python.MyCodePipelineFunction.complete]

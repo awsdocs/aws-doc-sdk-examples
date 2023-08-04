@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "file://zonbook/docbookx.dtd" [
+  <!ENTITY % phrases-shared SYSTEM "file://AWSShared/common/phrases-shared.ent">
+  %phrases-shared;
+]>
+<block>
+  <para>
+    This example application analyzes and stores customer feedback cards. Specifically,
+    it fulfills the need of a fictitious hotel in New York City. The hotel receives feedback
+    from guests in various languages in the form of physical comment cards. That feedback
+    is uploaded into the app through a web client.
+
+    After an image of a comment card is uploaded, the following steps occur:
+  </para>
+  <itemizedlist>
+    <listitem>
+      <para>Text is extracted from the image using &TEXTRACT;.</para>
+    </listitem>
+    <listitem>
+      <para>&CMP; determines the sentiment of the extracted text and its language.</para>
+    </listitem>
+    <listitem>
+      <para>The extracted text is translated to French using &TSL;.</para>
+    </listitem>
+    <listitem>
+      <para>&POL; synthesizes an audio file from the extracted text.</para>
+    </listitem>
+  </itemizedlist>
+  <para> The full app can be deployed with the &CDK;. For source code and deployment
+    instructions, see the project in <ulink
+      url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/cross_services_examples/feedback_sentiment_analyzer">
+    GitHub</ulink>. </para>
+</block>

@@ -39,7 +39,6 @@ import java.io.IOException;
 public class CreateStateMachine {
 
     public static void main(String[] args) {
-
         final String usage = "\n" +
             "Usage:\n" +
             "    <jsonFile> <roleARN> <stateMachineName>\n\n" +
@@ -68,9 +67,7 @@ public class CreateStateMachine {
         sfnClient.close();
     }
 
-    // snippet-start:[stepfunctions.java2.create_machine.main]
     public static String createMachine( SfnClient sfnClient, String roleARN, String stateMachineName, String jsonFile) {
-
         String json = getJSONString(jsonFile);
         try {
            CreateStateMachineRequest machineRequest = CreateStateMachineRequest.builder()
@@ -101,7 +98,6 @@ public class CreateStateMachine {
         }
         return "";
     }
-    // snippet-end:[stepfunctions.java2.create_machine.main]
 }
 
 

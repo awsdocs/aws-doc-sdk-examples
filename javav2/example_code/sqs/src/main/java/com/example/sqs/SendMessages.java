@@ -8,7 +8,7 @@
 */
 
 package com.example.sqs;
-
+// snippet-start:[sqs.java2.send_recieve_messages.complete]
 // snippet-start:[sqs.java2.send_recieve_messages.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -81,4 +81,4 @@ public class SendMessages {
     }
     // snippet-end:[sqs.java2.send_recieve_messages.main]
 }
-
+// snippet-end:[sqs.java2.send_recieve_messages.complete]

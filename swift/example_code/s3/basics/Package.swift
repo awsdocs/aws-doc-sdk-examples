@@ -25,7 +25,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
-            .branch("main")
+            branch: "main"
         ),
         .package(
             name: "SwiftUtilities",

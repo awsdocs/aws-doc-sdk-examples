@@ -10,7 +10,7 @@ on:
     types:
       - closed
     branches:
-      - 'main'
+      - 'weathertop'
 
 jobs:
   push_to_registry:
