@@ -972,4 +972,4 @@ function iam_delete_user() {
 
   return 0
 }
-#  snippet-end:[aws-cli.bash-linux.iam.DeleteUser]
+# snippet-end:[aws-cli.bash-linux.iam.DeleteUser]
