@@ -410,6 +410,21 @@ eks:
   tags:
     product_categories: {'Containers'}
   version: eks-2017-11-01
+elastic-load-balancing-v2:
+  long: '&ELBlong; (ELB)'
+  short: '&ELB;'
+  sort: Elastic Load Balancing
+  expanded:
+    long: Elastic Load Balancing (ELB)
+    short: ELB
+  blurb: automatically distributes your incoming traffic across multiple targets, such as EC2 instances, containers, and IP addresses, in one or more Availability Zones.
+  guide:
+    subtitle: User Guide
+    url: elasticloadbalancing/latest/userguide/what-is-load-balancing.html
+  api_ref: elasticloadbalancing/latest/APIReference/Welcome.html
+  tags:
+    product_categories: {'Networking &amp; Content Delivery'}
+  version: elasticloadbalancingv2-2015-12-01
 emr:
   long: '&EMRlong;'
   short: '&EMR;'
