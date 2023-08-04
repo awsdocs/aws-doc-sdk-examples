@@ -5,27 +5,25 @@
 
 import { fileURLToPath } from "url";
 
-// snippet-start:[sqs.JavaScript.messages.setQueueAttributesV3]
-import { SetQueueAttributesCommand, SQSClient } from "@aws-sdk/client-sqs";
+// snippet-start:[javascript.v3.sqs.actions.GetQueueAttributes]
+import { GetQueueAttributesCommand, SQSClient } from "@aws-sdk/client-sqs";
 
 const client = new SQSClient({});
 const SQS_QUEUE_URL = "queue-url";
 
-export const main = async (queueUrl = SQS_QUEUE_URL) => {
-  const command = new SetQueueAttributesCommand({
+export const getQueueAttributes = async (queueUrl = SQS_QUEUE_URL) => {
+  const command = new GetQueueAttributesCommand({
     QueueUrl: queueUrl,
-    Attributes: {
-      DelaySeconds: "1",
-    },
+    AttributeNames: ["DelaySeconds"],
   });
 
   const response = await client.send(command);
   console.log(response);
   return response;
 };
-// snippet-end:[sqs.JavaScript.messages.setQueueAttributesV3]
+// snippet-end:[javascript.v3.sqs.actions.GetQueueAttributes]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  main();
+  getQueueAttributes();
 }

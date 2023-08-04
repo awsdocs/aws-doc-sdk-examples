@@ -10,6 +10,7 @@ import { main as getQueueUrl } from "../actions/get-queue-url.js";
 import { main as setQueueAttributes } from "../actions/set-queue-attributes.js";
 import { main as sendMessage } from "../actions/send-message.js";
 import { main as receiveDeleteMessage } from "../actions/receive-delete-message.js";
+import { getQueueAttributes } from "../actions/get-queue-attributes.js";
 
 describe("queue actions", () => {
   const queueName = getUniqueName("test-queue");
@@ -23,7 +24,7 @@ describe("queue actions", () => {
     }
   });
 
-  it("should create, describe, list, set attributes for, send a message to, and delete a queue", async () => {
+  it("should create, describe, list, set attributes for, get attributes for, send a message to, and delete a queue", async () => {
     const { QueueUrl } = await createQueue(queueName);
     queueUrl = QueueUrl;
 
@@ -37,6 +38,10 @@ describe("queue actions", () => {
     });
 
     await setQueueAttributes(queueUrl);
+
+    const { Attributes } = await getQueueAttributes(queueUrl);
+
+    expect(Attributes.DelaySeconds).toEqual("1");
 
     await sendMessage(queueUrl);
 
