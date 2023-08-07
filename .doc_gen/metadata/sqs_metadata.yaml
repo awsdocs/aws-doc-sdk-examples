@@ -40,7 +40,7 @@ sqs_Hello:
           github: javascriptv3/example_code/sqs
           sdkguide:
           excerpts:
-            - description: Initialize an &SQS; client and list queues
+            - description: Initialize an &SQS; client and list queues.
               snippet_tags:
                 - javascript.v3.sqs.hello
   services:
