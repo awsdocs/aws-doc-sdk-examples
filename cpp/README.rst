@@ -29,27 +29,27 @@ applicable to utilizing the code examples in this repository.
 Building and running the code examples
 =============
  
-The example code is organized in sub-folders by AWS service.
+The example code is organized in subfolders by AWS service.
 For example "example_code/s3" contains the Amazon Simple Storage Service (Amazon S3) code examples.
 
 Examples that use multiple services are located in the [example_code/cross-service](example_code/cross-service) folder.
 
-The examples use the CMake build system. Every service sub-folder contains a CMakeLists.txt file which will build all the examples for that service. 
+The examples use the CMake build system. Every service subfolder contains a CMakeLists.txt file that builds all the examples for that service. 
 
-Additional information geared specifically to understanding the example applications is at
+To understand more about the example applications, see
 [Get started with the AWS SDK for C++ code examples](https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/getting-started-code-examples.html).
 
 Hello Service
 -----------
 
 Many of the services have a "Hello Service" folder with a starter project and README documentation. 
-For example, the AmazonS S3 Hello project is located at [example_code/s3/hello_s3](example_code/s3/hello_s3).
+For example, the Amazon S3 Hello project is located at [example_code/s3/hello_s3](example_code/s3/hello_s3).
 
 Docker image (Beta)
 ===================
 
 This example code will soon be available in a container image
-hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be pre-loaded
+hosted on [Amazon Elastic Container Registry (ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). This image will be preloaded
 with all C++ examples with dependencies pre-resolved, allowing you to explore
 these examples in an isolated environment.
 
