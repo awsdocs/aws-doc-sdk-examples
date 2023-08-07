@@ -875,6 +875,15 @@ sqs_GetQueueAttributes:
                 - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes1
                 - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes2
                 - cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes3
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.sqs.actions.GetQueueAttributes
   services:
     sqs: {GetQueueAttributes}
 sqs_ChangeMessageVisibility:
