@@ -20,7 +20,7 @@ import {
 import { DeleteTopicCommand } from "@aws-sdk/client-sns";
 import { SetQueueAttributesCommand } from "@aws-sdk/client-sqs";
 
-// snippet-start:[javascript.v3.wkflw.sns.wrapper]
+// snippet-start:[javascript.v3.wkflw.topicsandqueues.wrapper]
 
 const toneChoices = [
   { name: "cheerful", value: "cheerful" },
@@ -29,7 +29,7 @@ const toneChoices = [
   { name: "sincere", value: "sincere" },
 ];
 
-export class SNSWorkflow {
+export class TopicsQueuesWkflw {
   // SNS topic is configured as First-In-First-Out
   isFifo = true;
 
@@ -442,4 +442,4 @@ export class SNSWorkflow {
     }
   }
 }
-// snippet-end:[javascript.v3.wkflw.sns.wrapper]
+// snippet-end:[javascript.v3.wkflw.topicsandqueues.wrapper]

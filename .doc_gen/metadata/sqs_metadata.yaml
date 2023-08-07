@@ -1030,11 +1030,11 @@ sqs_Scenario_TopicsAndQueues:
           excerpts:
             - description: This is the entry point for this workflow.
               snippet_tags:
-                - javascript.v3.wkflw.sns.index
+                - javascript.v3.wkflw.topicsandqueues.index
             - description: The preceding code provides the necessary dependencies and starts the workflow.
                 The next section contains the bulk of the example.
               snippet_tags: 
-                - javascript.v3.wkflw.sns.wrapper
+                - javascript.v3.wkflw.topicsandqueues.wrapper
   services:
     sns: {CreateTopic, Subscribe, Publish, Unsubscribe, DeleteTopic}
     sqs:

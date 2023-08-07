@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// snippet-start:[javascript.v3.wkflw.sns.prompter]
+// snippet-start:[javascript.v3.wkflw.topicsandqueues.prompter]
 import { select, input, confirm, checkbox } from "@inquirer/prompts";
 
 export class Prompter {
@@ -43,4 +43,4 @@ export class Prompter {
     return checkbox(options);
   }
 }
-// snippet-end:[javascript.v3.wkflw.sns.prompter]
+// snippet-end:[javascript.v3.wkflw.topicsandqueues.prompter]

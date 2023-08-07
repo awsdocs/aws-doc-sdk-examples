@@ -28,7 +28,7 @@
     "example_code/sqs",
     "example_code/cross-services/photo-asset-manager",
     "example_code/sns",
-    "example_code/cross-services/workflow-sns"
+    "example_code/cross-services/wkflw-topics-queues"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.1",

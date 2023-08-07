@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// snippet-start:[javascript.v3.wkflw.sns.messages]
+// snippet-start:[javascript.v3.wkflw.topicsandqueues.messages]
 export const MESSAGES = {
   headerWelcome: "Welcome to messaging with topics and queues",
   headerFifo: "FIFO",
@@ -84,4 +84,4 @@ export const MESSAGES = {
   noMessagesReceivedNotice:
     "No messages were received by the SQS queue '${QUEUE_NAME}'.",
 };
-// snippet-end:[javascript.v3.wkflw.sns.messages]
+// snippet-end:[javascript.v3.wkflw.topicsandqueues.messages]

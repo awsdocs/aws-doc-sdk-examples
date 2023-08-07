@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// snippet-start:[javascript.v3.wkflw.sns.logger]
+// snippet-start:[javascript.v3.wkflw.topicsandqueues.logger]
 export class Logger {
   /**
    * @param {string} message
@@ -57,4 +57,4 @@ export class SlowLogger extends Logger {
     await this.logSlow(line);
   }
 }
-// snippet-end:[javascript.v3.wkflw.sns.logger]
+// snippet-end:[javascript.v3.wkflw.topicsandqueues.logger]

@@ -4,7 +4,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { SNSWorkflow } from "../SNSWorkflow.js";
+import { TopicsQueuesWkflw } from "../TopicsQueuesWkflw.js";
 import {
   CreateTopicCommand,
   SNSClient,
@@ -74,30 +74,39 @@ const LoggerMock = {
   log: vi.fn(),
 };
 
-describe("SNSWorkflow", () => {
+describe("TopicsQueuesWkflw", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
   it("should have properties for SNS and SQS clients", () => {
-    const snsWkflw = new SNSWorkflow(new SNSClient({}), new SQSClient({}));
-    expect(snsWkflw.snsClient).toBeTruthy();
-    expect(snsWkflw.sqsClient).toBeTruthy();
+    const topicsQueuesWkflw = new TopicsQueuesWkflw(
+      new SNSClient({}),
+      new SQSClient({})
+    );
+    expect(topicsQueuesWkflw.snsClient).toBeTruthy();
+    expect(topicsQueuesWkflw.sqsClient).toBeTruthy();
   });
 
   it("should default to a FIFO topic", () => {
-    const snsWkflw = new SNSWorkflow(new SNSClient({}), new SQSClient({}));
-    expect(snsWkflw.isFifo).toBe(true);
+    const topicsQueuesWkflw = new TopicsQueuesWkflw(
+      new SNSClient({}),
+      new SQSClient({})
+    );
+    expect(topicsQueuesWkflw.isFifo).toBe(true);
   });
 
   it("should default to no auto-dedup", () => {
-    const snsWkflw = new SNSWorkflow(new SNSClient({}), new SQSClient({}));
-    expect(snsWkflw.autoDedup).toBe(false);
+    const topicsQueuesWkflw = new TopicsQueuesWkflw(
+      new SNSClient({}),
+      new SQSClient({})
+    );
+    expect(topicsQueuesWkflw.autoDedup).toBe(false);
   });
 
   describe("confirmFifo", () => {
     it("should set isFifo to true if the the user confirms", async () => {
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         new SNSClient({}),
         new SQSClient({}),
         {
@@ -106,13 +115,13 @@ describe("SNSWorkflow", () => {
         LoggerMock
       );
 
-      await snsWkflw.confirmFifo();
+      await topicsQueuesWkflw.confirmFifo();
 
-      expect(snsWkflw.isFifo).toBe(true);
+      expect(topicsQueuesWkflw.isFifo).toBe(true);
     });
 
     it("should set isFifo to false if the user denies", async () => {
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         new SNSClient({}),
         new SQSClient({}),
         {
@@ -121,9 +130,9 @@ describe("SNSWorkflow", () => {
         LoggerMock
       );
 
-      await snsWkflw.confirmFifo();
+      await topicsQueuesWkflw.confirmFifo();
 
-      expect(snsWkflw.isFifo).toBe(false);
+      expect(topicsQueuesWkflw.isFifo).toBe(false);
     });
   });
 
@@ -135,7 +144,7 @@ describe("SNSWorkflow", () => {
         });
       });
       const mockSnsClient = { send };
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         mockSnsClient,
         new SQSClient({}),
         {
@@ -145,7 +154,7 @@ describe("SNSWorkflow", () => {
         LoggerMock
       );
 
-      await snsWkflw.createTopic();
+      await topicsQueuesWkflw.createTopic();
       // Verify the mocked 'send' function was called with an instance of CreateTopicCommand
       expect(send.mock.calls[0][0]).toBeInstanceOf(CreateTopicCommand);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -162,14 +171,14 @@ describe("SNSWorkflow", () => {
           .mockImplementationOnce(() => Promise.resolve("queue-two")),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         new SNSClient({}),
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      await snsWkflw.createQueues();
+      await topicsQueuesWkflw.createQueues();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(SQSClientMock.send.mock.calls[0][0].input.QueueName).toBe(
         "queue-one.fifo"
@@ -188,14 +197,14 @@ describe("SNSWorkflow", () => {
         confirm: vi.fn(() => Promise.resolve(true)),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         new SNSClient({}),
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      snsWkflw.queues = [
+      topicsQueuesWkflw.queues = [
         {
           queueArn: "queue-one-arn",
           queueUrl: "queue-one-url",
@@ -208,7 +217,7 @@ describe("SNSWorkflow", () => {
         },
       ];
 
-      await snsWkflw.attachQueueIamPolicies();
+      await topicsQueuesWkflw.attachQueueIamPolicies();
 
       expect(
         SQSClientMock.send.mock.calls[0][0] instanceof SetQueueAttributesCommand
@@ -232,13 +241,13 @@ describe("SNSWorkflow", () => {
 
   describe("subscribeQueuesToTopic", () => {
     it("should exist", () => {
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         new SNSClient({}),
         new SQSClient({}),
         {},
         LoggerMock
       );
-      expect(snsWkflw.subscribeQueuesToTopic).toBeTruthy();
+      expect(topicsQueuesWkflw.subscribeQueuesToTopic).toBeTruthy();
     });
 
     it("should subscribe each queue to the topic", async () => {
@@ -246,16 +255,16 @@ describe("SNSWorkflow", () => {
         checkbox: vi.fn(() => Promise.resolve(["cheerful", "serious"])),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      snsWkflw.topicArn = "topic-arn";
-      snsWkflw.topicName = "topic-name";
-      snsWkflw.queues = [
+      topicsQueuesWkflw.topicArn = "topic-arn";
+      topicsQueuesWkflw.topicName = "topic-name";
+      topicsQueuesWkflw.queues = [
         {
           queueArn: "queue-one-arn",
           queueUrl: "queue-one-url",
@@ -268,9 +277,9 @@ describe("SNSWorkflow", () => {
         },
       ];
 
-      await snsWkflw.subscribeQueuesToTopic();
+      await topicsQueuesWkflw.subscribeQueuesToTopic();
 
-      snsWkflw.queues.forEach((queue, index) => {
+      topicsQueuesWkflw.queues.forEach((queue, index) => {
         expect(
           SNSClientMock.send.mock.calls[index][0] instanceof SubscribeCommand
         ).toBe(true);
@@ -278,7 +287,7 @@ describe("SNSWorkflow", () => {
         expect(
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           SNSClientMock.send.mock.calls[index][0].input.TopicArn
-        ).toBe(snsWkflw.topicArn);
+        ).toBe(topicsQueuesWkflw.topicArn);
 
         expect(
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -295,14 +304,14 @@ describe("SNSWorkflow", () => {
 
   describe("publishMessages", () => {
     it("should exist", () => {
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         {},
         LoggerMock
       );
 
-      expect(snsWkflw.publishMessages).toBeTruthy();
+      expect(topicsQueuesWkflw.publishMessages).toBeTruthy();
     });
 
     it("should publish messages until the user says no", async () => {
@@ -320,14 +329,14 @@ describe("SNSWorkflow", () => {
           ),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      await snsWkflw.publishMessages();
+      await topicsQueuesWkflw.publishMessages();
 
       expect(SNSClientMock.send.mock.calls.length).toBe(3);
     });
@@ -346,14 +355,14 @@ describe("SNSWorkflow", () => {
           ),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      await snsWkflw.publishMessages();
+      await topicsQueuesWkflw.publishMessages();
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(PrompterMock.input.mock.calls[1][0]).toEqual({
@@ -372,16 +381,16 @@ describe("SNSWorkflow", () => {
         confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      snsWkflw.isFifo = false;
+      topicsQueuesWkflw.isFifo = false;
 
-      await snsWkflw.publishMessages();
+      await topicsQueuesWkflw.publishMessages();
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(PrompterMock.input.mock.calls[1]).toBeUndefined();
@@ -402,16 +411,16 @@ describe("SNSWorkflow", () => {
           ),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      snsWkflw.autoDedup = false;
+      topicsQueuesWkflw.autoDedup = false;
 
-      await snsWkflw.publishMessages();
+      await topicsQueuesWkflw.publishMessages();
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(PrompterMock.input.mock.calls[2][0]).toEqual({
@@ -438,16 +447,16 @@ describe("SNSWorkflow", () => {
           ),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      snsWkflw.autoDedup = true;
+      topicsQueuesWkflw.autoDedup = true;
 
-      await snsWkflw.publishMessages();
+      await topicsQueuesWkflw.publishMessages();
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(PrompterMock.input.mock.calls[2]).toBeUndefined();
@@ -473,14 +482,14 @@ describe("SNSWorkflow", () => {
           ),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      await snsWkflw.publishMessages();
+      await topicsQueuesWkflw.publishMessages();
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       expect(PrompterMock.checkbox.mock.calls[0][0]).toEqual({
@@ -508,14 +517,14 @@ describe("SNSWorkflow", () => {
   describe("receiveAndDeleteMessages", () => {
     it("should exist", () => {
       const PrompterMock = {};
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      expect(snsWkflw.receiveAndDeleteMessages).toBeTruthy();
+      expect(topicsQueuesWkflw.receiveAndDeleteMessages).toBeTruthy();
     });
 
     it("should not log anything if there are no queues", async () => {
@@ -523,14 +532,14 @@ describe("SNSWorkflow", () => {
         confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      await snsWkflw.receiveAndDeleteMessages();
+      await topicsQueuesWkflw.receiveAndDeleteMessages();
 
       expect(LoggerMock.log.mock.calls.length).toBe(0);
     });
@@ -540,14 +549,14 @@ describe("SNSWorkflow", () => {
         confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      snsWkflw.queues = [
+      topicsQueuesWkflw.queues = [
         {
           queueName: "queue-1",
           queueUrl: "queue-1-url",
@@ -560,7 +569,7 @@ describe("SNSWorkflow", () => {
         },
       ];
 
-      await snsWkflw.receiveAndDeleteMessages();
+      await topicsQueuesWkflw.receiveAndDeleteMessages();
 
       expect(LoggerMock.log.mock.calls.length).toBe(2);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -578,14 +587,14 @@ describe("SNSWorkflow", () => {
         confirm: vi.fn().mockImplementationOnce(() => Promise.resolve(false)),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      snsWkflw.queues = [
+      topicsQueuesWkflw.queues = [
         {
           queueName: "queue-1",
           queueUrl: "queue-1-url",
@@ -593,7 +602,7 @@ describe("SNSWorkflow", () => {
         },
       ];
 
-      await snsWkflw.receiveAndDeleteMessages();
+      await topicsQueuesWkflw.receiveAndDeleteMessages();
       expect(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         SQSClientMock.send.mock.calls[1][0].input.Entries[0].ReceiptHandle
@@ -608,14 +617,14 @@ describe("SNSWorkflow", () => {
           .mockImplementationOnce(() => Promise.resolve(false)),
       };
 
-      const snsWkflw = new SNSWorkflow(
+      const topicsQueuesWkflw = new TopicsQueuesWkflw(
         SNSClientMock,
         SQSClientMock,
         PrompterMock,
         LoggerMock
       );
 
-      snsWkflw.queues = [
+      topicsQueuesWkflw.queues = [
         {
           queueName: "queue-1",
           queueUrl: "queue-1-url",
@@ -623,7 +632,7 @@ describe("SNSWorkflow", () => {
         },
       ];
 
-      await snsWkflw.receiveAndDeleteMessages();
+      await topicsQueuesWkflw.receiveAndDeleteMessages();
       expect(PrompterMock.confirm.mock.calls.length).toBe(2);
     });
   });
