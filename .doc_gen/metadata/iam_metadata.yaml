@@ -579,7 +579,6 @@ iam_CreateAccessKey:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.iam.iecho
                 - aws-cli.bash-linux.iam.errecho
                 - aws-cli.bash-linux.iam.CreateAccessKey
   services:
@@ -691,7 +690,6 @@ iam_DeleteAccessKey:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.iam.iecho
                 - aws-cli.bash-linux.iam.errecho
                 - aws-cli.bash-linux.iam.DeleteAccessKey
   services:
@@ -845,7 +843,6 @@ iam_ListAccessKeys:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.iam.iecho
                 - aws-cli.bash-linux.iam.errecho
                 - aws-cli.bash-linux.iam.ListAccessKeys
   services:
@@ -1048,7 +1045,6 @@ iam_CreatePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.iam.iecho
                 - aws-cli.bash-linux.iam.errecho
                 - aws-cli.bash-linux.iam.CreatePolicy
   services:
@@ -1510,7 +1506,6 @@ iam_AttachRolePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.iam.iecho
                 - aws-cli.bash-linux.iam.errecho
                 - aws-cli.bash-linux.iam.AttachRolePolicy
   services:
@@ -1703,7 +1698,6 @@ iam_DetachRolePolicy:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.iam.iecho
                 - aws-cli.bash-linux.iam.errecho
                 - aws-cli.bash-linux.iam.DetachRolePolicy
   services:
@@ -1840,7 +1834,6 @@ iam_CreateRole:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.iam.iecho
                 - aws-cli.bash-linux.iam.errecho
                 - aws-cli.bash-linux.iam.CreateRole
   services:
@@ -2473,7 +2466,6 @@ iam_GetUser:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.iam.iecho
                 - aws-cli.bash-linux.iam.errecho
                 - aws-cli.bash-linux.iam.GetUser
   services:
@@ -2594,7 +2586,6 @@ iam_ListUsers:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.iam.iecho
                 - aws-cli.bash-linux.iam.errecho
                 - aws-cli.bash-linux.iam.ListUsers
   services:
