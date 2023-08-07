@@ -1028,11 +1028,12 @@ sqs_Scenario_TopicsAndQueues:
           github: javascriptv3/example_code/cross-services/workflow-sns
           sdkguide:
           excerpts:
-            - description: The following code is the entry point for this workflow.
+            - description: This is the entry point for this workflow.
               snippet_tags:
                 - javascript.v3.wkflw.sns.index
             - description: The preceding code provides the necessary dependencies and starts the workflow.
-                           The next section contains the bulk of the example.
+                The next section contains the bulk of the example.
+              snippet_tags: 
                 - javascript.v3.wkflw.sns.wrapper
   services:
     sns: {CreateTopic, Subscribe, Publish, Unsubscribe, DeleteTopic}
