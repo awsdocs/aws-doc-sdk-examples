@@ -69,6 +69,9 @@ import software.amazon.awssdk.services.sagemaker.model.StartPipelineExecutionRes
 import software.amazon.awssdk.services.sagemakergeospatial.model.ExportVectorEnrichmentJobOutputConfig;
 import software.amazon.awssdk.services.sagemakergeospatial.model.ReverseGeocodingConfig;
 import software.amazon.awssdk.services.sagemakergeospatial.model.VectorEnrichmentJobConfig;
+import software.amazon.awssdk.services.sagemakergeospatial.model.VectorEnrichmentJobDataSourceConfigInput;
+import software.amazon.awssdk.services.sagemakergeospatial.model.VectorEnrichmentJobDocumentType;
+import software.amazon.awssdk.services.sagemakergeospatial.model.VectorEnrichmentJobInputConfig;
 import software.amazon.awssdk.services.sagemakergeospatial.model.VectorEnrichmentJobS3Data;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
@@ -102,7 +105,8 @@ import software.amazon.awssdk.services.sagemaker.model.Parameter;
  * <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html">...</a>
  *
  * Before running this code example, read the corresponding Readme for instructions on
- * where to get the required input files. You need the three specified files to successfully run this example.
+ * where to get the required input files. You need the two files (latlongtest.csv and GeoSpatialPipeline.json) and
+ * the Lambda JAR file to successfully run this example.
  *
  * This example shows you how to do the following:
  *
@@ -126,7 +130,7 @@ public class SagemakerWorkflow {
             "Where:\n" +
             "    sageMakerRoleName - The name of the Amazon SageMaker role.\n\n"+
             "    lambdaRoleName - The name of the AWS Lambda role.\n\n"+
-            "    functionFileLocation - The file location where the .NET ZIP file that represents the AWS Lambda function .\n\n"+
+            "    functionFileLocation - The file location where the JAR file that represents the AWS Lambda function is located.\n\n"+
             "    functionName - The name of the AWS Lambda function (for example,SageMakerExampleFunction).\n\n"+
             "    queueName - The name of the Amazon Simple Queue Service (Amazon SQS) queue.\n\n"+
             "    bucketName - The name of the Amazon Simple Storage Service (Amazon S3) bucket.\n\n"+
@@ -148,7 +152,7 @@ public class SagemakerWorkflow {
         String lnglatData = args[6];
         String spatialPipelinePath = args[7];
         String pipelineName = args[8];
-        String handlerName = "SageMakerLambda::SageMakerLambda.SageMakerLambdaFunction::FunctionHandler";
+        String handlerName = "org.example.SageMakerLambdaFunction::handleRequest";
 
         Region region = Region.US_WEST_2;
         SageMakerClient sageMakerClient = SageMakerClient.builder()
@@ -342,11 +346,11 @@ public class SagemakerWorkflow {
     // Start a pipeline run with job configurations.
     public static String executePipeline(SageMakerClient sageMakerClient, String bucketName,String queueUrl, String roleArn, String pipelineName) {
         System.out.println("Starting pipeline execution.");
+        String inputBucketLocation = "s3://"+bucketName+"/samplefiles/latlongtest.csv";
         String output = "s3://"+bucketName+"/outputfiles/";
         Gson gson = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-            .setPrettyPrinting()
-            .create();
+            .setPrettyPrinting().create();
 
         // Set up all parameters required to start the pipeline.
         List<Parameter> parameters = new ArrayList<>();
@@ -360,19 +364,21 @@ public class SagemakerWorkflow {
             .value(queueUrl)
             .build();
 
-        // Set the JSON required for input_config.
-        String inputJSON = "{\n" +
-            "  \"DataSourceConfig\": {\n" +
-            "    \"S3Data\": {\n" +
-            "      \"S3Uri\": \"s3://"+bucketName+"/samplefiles/latlongtest.csv\"\n" +
-            "    }\n" +
-            "  },\n" +
-            "  \"DocumentType\": \"CSV\"\n" +
-            "}";
+        VectorEnrichmentJobS3Data enrichmentJobS3Data = VectorEnrichmentJobS3Data.builder()
+            .s3Uri(inputBucketLocation)
+            .build();
 
-    Parameter para3 = Parameter.builder()
+        VectorEnrichmentJobInputConfig inputConfig = VectorEnrichmentJobInputConfig.builder()
+            .documentType(VectorEnrichmentJobDocumentType.CSV)
+            .dataSourceConfig(VectorEnrichmentJobDataSourceConfigInput.fromS3Data(enrichmentJobS3Data))
+            .build();
+
+        String gson3 = gson.toJson(inputConfig);
+        System.out.println(gson3);
+
+        Parameter para3 = Parameter.builder()
             .name("parameter_vej_input_config")
-            .value(inputJSON)
+            .value(modifyJSON(inputBucketLocation))
             .build();
 
         // Create an ExportVectorEnrichmentJobOutputConfig object.
@@ -401,7 +407,7 @@ public class SagemakerWorkflow {
             .reverseGeocodingConfig(reverseGeocodingConfig)
             .build();
 
-        String para5JSON = "{\"ReverseGeocodingConfig\":{\"XAttributeName\":\"Longitude\",\"YAttributeName\":\"Latitude\"}}";
+        String para5JSON = "{\"MapMatchingConfig\":null,\"ReverseGeocodingConfig\":{\"XAttributeName\":\"Longitude\",\"YAttributeName\":\"Latitude\"}}";
         Parameter para5 = Parameter.builder()
             .name("parameter_step_1_vej_config")
             .value(para5JSON)
@@ -424,7 +430,32 @@ public class SagemakerWorkflow {
         StartPipelineExecutionResponse response = sageMakerClient.startPipelineExecution(pipelineExecutionRequest);
         return response.pipelineExecutionArn();
     }
-     //snippet-end:[sagemaker.java2.execute_pipeline.main]
+    //snippet-end:[sagemaker.java2.execute_pipeline.main]
+
+    private static String modifyJSON(String inputBucketLocation) {
+        // Create the JSON using JSONObject.
+        JSONObject json = new JSONObject();
+
+        // Create the inner JSON objects.
+        JSONObject s3Data = new JSONObject();
+        s3Data.put("KmsKeyId", ""); // To represent null in JSON.
+        s3Data.put("S3Uri", inputBucketLocation);
+
+        JSONObject dataSourceConfig = new JSONObject();
+        dataSourceConfig.put("S3Data", s3Data);
+        dataSourceConfig.put("Type", "S3_DATA");
+
+        JSONObject documentType = new JSONObject();
+        documentType.put("Value", "CSV");
+
+        // Add the inner JSON objects to the main JSON.
+        json.put("DataSourceConfig", dataSourceConfig);
+        json.put("DocumentType", documentType);
+
+        // Print the resulting JSON.
+        System.out.println(json.toString());
+        return json.toString();
+    }
 
     public static void deleteEventSourceMapping(LambdaClient lambdaClient){
         DeleteEventSourceMappingRequest eventSourceMappingRequest = DeleteEventSourceMappingRequest.builder()
@@ -692,7 +723,7 @@ public class SagemakerWorkflow {
                 .description("SageMaker example function.")
                 .code(code)
                 .handler(handler)
-                .runtime(Runtime.PYTHON3_8)
+                .runtime(Runtime.JAVA11)
                 .timeout(200)
                 .memorySize(1024)
                 .role(role)
