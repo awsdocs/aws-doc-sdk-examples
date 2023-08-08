@@ -904,7 +904,7 @@ dynamodb_DeleteItem:
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
           excerpts:
             - description: This example uses the document client to simplify working with items
-                in &DDB;. For API details see <ulink url="https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/DeleteCommand/">DeleteCommand</ulink>.
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/DeleteCommand/">DeleteCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.deleteV3
         - sdk_version: 2
