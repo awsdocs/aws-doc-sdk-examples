@@ -946,6 +946,7 @@ public class SagemakerWorkflow {
     private static String[] getSageMakerRolePolicies() {
         String[] sageMakerRolePolicies = new String[3];
         sageMakerRolePolicies[0] = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess";
+        sageMakerRolePolicies[1] = "arn:aws:iam::aws:policy/service-role/AmazonSageMakerGeospatialFullAccess";
         sageMakerRolePolicies[2] = "arn:aws:iam::aws:policy/AmazonSQSFullAccess";
         return sageMakerRolePolicies;
     }
