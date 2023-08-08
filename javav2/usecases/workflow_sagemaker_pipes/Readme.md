@@ -64,6 +64,8 @@ These files are located on GitHub in [AWS SDK for .NET](https://github.com/awsdo
 
 To successfully run this example, you need to create the Java Sagemaker Lambda function. This Lambda function is required. You can find this project under the **workflow_sagemaker_lambda** folder in this Github repository. This project creates a JAR file that is input to this code example.  
 
+Once you create the Java Lambda project, you can build the required JAR file using the **mvn package** command. This will create the JAR file in the target folder. You can use this JAR file as input to this code example. 
+
 ### Instructions
 
 You can run this Java code example from within your Java IDE.
