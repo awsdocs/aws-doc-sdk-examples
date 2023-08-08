@@ -31,6 +31,15 @@ sagemaker_CreatePipeline:
   synopsis: create or update a pipeline in &SM;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.java2.create_pipeline.main
     .NET:
       versions:
         - sdk_version: 3
@@ -48,6 +57,15 @@ sagemaker_ExecutePipeline:
   synopsis: start a pipeline execution in &SM;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.java2.execute_pipeline.main
     .NET:
       versions:
         - sdk_version: 3
@@ -65,6 +83,15 @@ sagemaker_DeletePipeline:
   synopsis: delete a pipeline in &SM;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.java2.delete_pipeline.main
     .NET:
       versions:
         - sdk_version: 3
@@ -82,6 +109,15 @@ sagemaker_DescribePipelineExecution:
   synopsis: describe a pipeline execution in &SM;.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.java2.describe_pipeline_execution.main
     .NET:
       versions:
         - sdk_version: 3

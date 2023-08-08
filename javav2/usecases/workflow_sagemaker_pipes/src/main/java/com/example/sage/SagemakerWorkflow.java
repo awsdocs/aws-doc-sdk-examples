@@ -429,31 +429,6 @@ public class SagemakerWorkflow {
     }
     //snippet-end:[sagemaker.java2.execute_pipeline.main]
 
-    private static String modifyJSON(String inputBucketLocation) {
-        // Create the JSON using JSONObject.
-        JSONObject json = new JSONObject();
-
-        // Create the inner JSON objects.
-        JSONObject s3Data = new JSONObject();
-        s3Data.put("KmsKeyId", ""); // To represent null in JSON.
-        s3Data.put("S3Uri", inputBucketLocation);
-
-        JSONObject dataSourceConfig = new JSONObject();
-        dataSourceConfig.put("S3Data", s3Data);
-        dataSourceConfig.put("Type", "S3_DATA");
-
-        JSONObject documentType = new JSONObject();
-        documentType.put("Value", "CSV");
-
-        // Add the inner JSON objects to the main JSON.
-        json.put("DataSourceConfig", dataSourceConfig);
-        json.put("DocumentType", documentType);
-
-        // Print the resulting JSON.
-        System.out.println(json.toString());
-        return json.toString();
-    }
-
     public static void deleteEventSourceMapping(LambdaClient lambdaClient){
         DeleteEventSourceMappingRequest eventSourceMappingRequest = DeleteEventSourceMappingRequest.builder()
             .uuid(eventSourceMapping)
@@ -955,9 +930,9 @@ public class SagemakerWorkflow {
         String[] lambdaRolePolicies = new String[5];
         lambdaRolePolicies[0] = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess";
         lambdaRolePolicies[1] = "arn:aws:iam::aws:policy/AmazonSQSFullAccess" ;
-        lambdaRolePolicies[2] = "arn:aws:iam::aws:policy/service-role/" + "AmazonSageMakerGeospatialFullAccess";
-        lambdaRolePolicies[3] = "arn:aws:iam::aws:policy/service-role/" + "AmazonSageMakerServiceCatalogProductsLambdaServiceRolePolicy";
-        lambdaRolePolicies[4] = "arn:aws:iam::aws:policy/service-role/" + "AWSLambdaSQSQueueExecutionRole";
+        lambdaRolePolicies[2] = "arn:aws:iam::aws:policy/service-role/"+"AmazonSageMakerGeospatialFullAccess";
+        lambdaRolePolicies[3] = "arn:aws:iam::aws:policy/service-role/"+"AmazonSageMakerServiceCatalogProductsLambdaServiceRolePolicy";
+        lambdaRolePolicies[4] = "arn:aws:iam::aws:policy/service-role/"+"AWSLambdaSQSQueueExecutionRole";
         return lambdaRolePolicies;
     }
 }
