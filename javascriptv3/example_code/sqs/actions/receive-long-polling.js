@@ -3,15 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/**
- * This example supplements the following guide. For more context, see
- * https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html
- */
-
-import { fileURLToPath } from "url";
+import {fileURLToPath} from "url";
 
 // snippet-start:[sqs.JavaScript.longPoll.receiveMessageV3]
-import { ReceiveMessageCommand, SQSClient } from "@aws-sdk/client-sqs";
+import {ReceiveMessageCommand, SQSClient} from "@aws-sdk/client-sqs";
 
 const client = new SQSClient({});
 const SQS_QUEUE_URL = "queue-url";
@@ -22,6 +17,12 @@ export const main = async (queueUrl = SQS_QUEUE_URL) => {
     MaxNumberOfMessages: 1,
     MessageAttributeNames: ["All"],
     QueueUrl: queueUrl,
+    // The duration (in seconds) for which the call waits for a message
+    // to arrive in the queue before returning. If a message is available,
+    // the call returns sooner than WaitTimeSeconds. If no messages are
+    // available and the wait time expires, the call returns successfully
+    // with an empty list of messages.
+    // https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ReceiveMessage.html#API_ReceiveMessage_RequestSyntax
     WaitTimeSeconds: 20,
   });
 
