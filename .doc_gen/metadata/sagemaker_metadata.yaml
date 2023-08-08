@@ -324,7 +324,7 @@ sagemaker_Scenario_Pipelines:
           excerpts:
             - description:
               snippet_tags:
-                - sagemaker.java2.list_books.main
+                - sagemaker.java2.sc.main
     .NET:
       versions:
         - sdk_version: 3
