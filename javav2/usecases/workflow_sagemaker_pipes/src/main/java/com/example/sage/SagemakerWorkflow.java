@@ -69,9 +69,6 @@ import software.amazon.awssdk.services.sagemaker.model.StartPipelineExecutionRes
 import software.amazon.awssdk.services.sagemakergeospatial.model.ExportVectorEnrichmentJobOutputConfig;
 import software.amazon.awssdk.services.sagemakergeospatial.model.ReverseGeocodingConfig;
 import software.amazon.awssdk.services.sagemakergeospatial.model.VectorEnrichmentJobConfig;
-import software.amazon.awssdk.services.sagemakergeospatial.model.VectorEnrichmentJobDataSourceConfigInput;
-import software.amazon.awssdk.services.sagemakergeospatial.model.VectorEnrichmentJobDocumentType;
-import software.amazon.awssdk.services.sagemakergeospatial.model.VectorEnrichmentJobInputConfig;
 import software.amazon.awssdk.services.sagemakergeospatial.model.VectorEnrichmentJobS3Data;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
@@ -364,21 +361,21 @@ public class SagemakerWorkflow {
             .value(queueUrl)
             .build();
 
-        VectorEnrichmentJobS3Data enrichmentJobS3Data = VectorEnrichmentJobS3Data.builder()
-            .s3Uri(inputBucketLocation)
-            .build();
+        String inputJSON = "{\n" +
+            "  \"DataSourceConfig\": {\n" +
+            "    \"S3Data\": {\n" +
+            "      \"S3Uri\": \"s3://"+bucketName+"/samplefiles/latlongtest.csv\"\n" +
+            "    },\n" +
+            "    \"Type\": \"S3_DATA\"\n" +
+            "  },\n" +
+            "  \"DocumentType\": \"CSV\"\n" +
+            "}";
 
-        VectorEnrichmentJobInputConfig inputConfig = VectorEnrichmentJobInputConfig.builder()
-            .documentType(VectorEnrichmentJobDocumentType.CSV)
-            .dataSourceConfig(VectorEnrichmentJobDataSourceConfigInput.fromS3Data(enrichmentJobS3Data))
-            .build();
-
-        String gson3 = gson.toJson(inputConfig);
-        System.out.println(gson3);
+        System.out.println(inputJSON);
 
         Parameter para3 = Parameter.builder()
             .name("parameter_vej_input_config")
-            .value(modifyJSON(inputBucketLocation))
+            .value(inputJSON)
             .build();
 
         // Create an ExportVectorEnrichmentJobOutputConfig object.
