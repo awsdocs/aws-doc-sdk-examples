@@ -3,30 +3,18 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/**
- * This example supplements the following guide. For more context, see
- * https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-dead-letter-queues.html
- */
-
 import { fileURLToPath } from "url";
 
-// snippet-start:[sqs.JavaScript.deadLetter.setQueueAttributesV3]
+// snippet-start:[sqs.JavaScript.longPoll.setQueueAttributesV3]
 import { SetQueueAttributesCommand, SQSClient } from "@aws-sdk/client-sqs";
 
 const client = new SQSClient({});
 const SQS_QUEUE_URL = "queue_url";
-const DEAD_LETTER_QUEUE_ARN = "dead_letter_queue_arn";
 
-export const main = async (
-  queueUrl = SQS_QUEUE_URL,
-  deadLetterQueueArn = DEAD_LETTER_QUEUE_ARN
-) => {
+export const main = async (queueUrl = SQS_QUEUE_URL) => {
   const command = new SetQueueAttributesCommand({
     Attributes: {
-      RedrivePolicy: JSON.stringify({
-        deadLetterTargetArn: deadLetterQueueArn,
-        maxReceiveCount: "10",
-      }),
+      ReceiveMessageWaitTimeSeconds: "20",
     },
     QueueUrl: queueUrl,
   });
@@ -35,7 +23,7 @@ export const main = async (
   console.log(response);
   return response;
 };
-// snippet-end:[sqs.JavaScript.deadLetter.setQueueAttributesV3]
+// snippet-end:[sqs.JavaScript.longPoll.setQueueAttributesV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

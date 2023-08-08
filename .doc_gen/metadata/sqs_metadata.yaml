@@ -111,6 +111,9 @@ sqs_CreateQueue:
             - description: Create an &SQS; standard queue.
               snippet_tags:
                 - sqs.JavaScript.queues.createQueueV3
+            - description: Create an &SQS; queue with long polling.
+              snippet_tags:
+                - sqs.JavaScript.longPoll.createQueueV3
         - sdk_version: 2
           github: javascript/example_code/sqs
           sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-using-queues.html#sqs-examples-using-queues-create-queue
@@ -633,9 +636,12 @@ sqs_ReceiveMessage:
           github: javascriptv3/example_code/sqs
           sdkguide:
           excerpts:
-            - description: Receive a message from an  &SQS; queue using long-poll support.
+            - description: Receive a message from an &SQS; queue.
               snippet_tags:
                 - sqs.JavaScript.messages.receiveMessageV3
+            - description: Receive a message from an &SQS; queue using long-poll support.
+              snippet_tags:
+                - sqs.JavaScript.longPoll.receiveMessageV3
         - sdk_version: 2
           github: javascript/example_code/sqs
           sdkguide: sdk-for-javascript/v2/developer-guide/sqs-examples-enable-long-polling.html#sqs-examples-enable-long-polling-on-receive-message
@@ -947,6 +953,9 @@ sqs_SetQueueAttributes:
             - description:
               snippet_tags:
                 - sqs.JavaScript.messages.setQueueAttributesV3
+            - description: Configure an &SQS; queue to use long polling.
+              snippet_tags:
+                - sqs.JavaScript.longPoll.setQueueAttributesV3
   services:
     sqs: {SetQueueAttributes}
 sqs_DeadLetterQueue:
@@ -965,6 +974,15 @@ sqs_DeadLetterQueue:
               snippet_tags:
                 - cpp.example_code.sqs.SetDeadLetterQueue.config
                 - cpp.example_code.sqs.SetDeadLetterQueue
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sqs
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sqs.JavaScript.deadLetter.setQueueAttributesV3
   services:
     sqs: {SetQueueAttributes}
 sqs_Scenario_TopicsAndQueues:
@@ -988,4 +1006,12 @@ sqs_Scenario_TopicsAndQueues:
                 - cpp.example_code.cross-service.topics_and_queues.messaging_with_topics_and_queues
   services:
     sns: {CreateTopic, Subscribe, Publish, Unsubscribe, DeleteTopic}
-    sqs: {CreateQueue, GetQueueAttributes, SetQueueAttributes, ReceiveMessage, DeleteMessageBatch, DeleteQueue}
+    sqs:
+      {
+        CreateQueue,
+        GetQueueAttributes,
+        SetQueueAttributes,
+        ReceiveMessage,
+        DeleteMessageBatch,
+        DeleteQueue,
+      }

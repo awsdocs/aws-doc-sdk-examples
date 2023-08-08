@@ -23,7 +23,6 @@ const receiveMessage = (queueUrl) =>
       MessageAttributeNames: ["All"],
       QueueUrl: queueUrl,
       VisibilityTimeout: 20,
-      WaitTimeSeconds: 5,
     })
   );
 

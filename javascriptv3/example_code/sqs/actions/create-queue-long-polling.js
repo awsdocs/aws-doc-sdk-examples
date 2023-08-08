@@ -3,11 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-/**
- * This example supplements the following guide. For more context, see
- * https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sqs-examples-enable-long-polling.html
- */
-
 import { fileURLToPath } from "url";
 
 // snippet-start:[sqs.JavaScript.longPoll.createQueueV3]
@@ -21,6 +16,11 @@ export const main = async (queueName = SQS_QUEUE_NAME) => {
     new CreateQueueCommand({
       QueueName: queueName,
       Attributes: {
+        // When the wait time for the ReceiveMessage API action is greater than 0, 
+        // long polling is in effect. The maximum long polling wait time is 20
+        // seconds. Long polling helps reduce the cost of using Amazon SQS by,
+        // eliminating the number of empty responses and false empty responses.
+        // https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html
         ReceiveMessageWaitTimeSeconds: "20",
       },
     })
