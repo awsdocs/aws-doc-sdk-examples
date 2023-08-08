@@ -56,10 +56,13 @@ To use geospatial capabilities, [you need to use a supported Region](https://doc
 You must download and use these files to successfully run this code example:
 
 + GeoSpatialPipeline.json
-+ SageMakerLambda.zip
 + latlongtest.csv
 
 These files are located on GitHub in [AWS SDK for .NET](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SageMaker/Scenarios).
+
+### Java Lambda Function
+
+To successfully run this example, you need to create the Java Sagemaker Lambda function. This Lambda function is required. You can find this project under the **workflow_sagemaker_lambda** folder in this Github repository. This project creates a JAR file that is input to this code example.  
 
 ### Instructions
 
