@@ -6,7 +6,7 @@ Publish and subscribe is a mechanism for passing information. It’s used in soc
 
 Use the sample code in this folder to explore publishing and subscribing to a topic by using filters and queues. This tutorial does not create a complete end-to-end application. Instead, you can use it to play around with a publish and subscribe architecture.
 
-You can create an Amazon SNS topic and subscribe two Amazon SQS queues to the topic. You can enable FIFO (First-In-First-Out) queueing, and you can add filtered subscriptions. Then, you can publish messages to the topic and see the results in the queues.
+You can create an Amazon Simple Notification Service (Amazon SNS) topic and subscribe two Amazon Simple Queue Service (Amazon SQS) queues to the topic. You can enable FIFO (First-In-First-Out) queueing, and you can add filtered subscriptions. Then, you can publish messages to the topic and see the results in the queues.
 
 You can publish and subscribe using Amazon SNS alone. But combining Amazon SNS with Amazon SQS gives you more flexibility in how the messages are consumed.
 
@@ -34,7 +34,7 @@ The sample code builds a command line application that asks you for input. This 
 1. Install dependencies. `npm i`
 2. Run the example. `node index.js`
 
-**Note**: By default the prompts in the example will print slowly for readability. This can be disabled by passing the `--no-logger-delay` option.
+**Note**: By default the prompts in the example will print slowly for readability. To disable this, pass the `--no-logger-delay` option.
 
 ## Tests
 
