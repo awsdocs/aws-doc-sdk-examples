@@ -63,7 +63,7 @@ These files are located on GitHub in [AWS SDK for .NET](https://github.com/awsdo
 
 ### Kotlin Lambda Function
 
-To successfully run this example, you need to create the Kotlin Sagemaker Lambda function. This Lambda function is required. You can find this project here: [Create the SageMaker geospatial Lambda function using the Lambda Java rumtime API](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_sagemaker_lambda). This project creates a JAR file that is input to this code example.  
+To successfully run this example, you need to create the Kotlin Sagemaker Lambda function, create a .jar file, and then place the .jar file into an Amazon S3 bucket. You can find this project here: [Create the SageMaker geospatial Lambda function using the Lambda Java rumtime API](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_sagemaker_lambda). This project creates a JAR file that is input to this code example.  
 
 Once you create the Kotlin Lambda project, you can build the required JAR file. To perform this task, you can use the shadowJar plugin .
 
