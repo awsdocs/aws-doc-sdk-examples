@@ -33,6 +33,15 @@ sns_Hello:
             - description: Code for the hello_sns.cpp source file.
               snippet_tags:
                 - cpp.example_code.sns.hello_sns
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sns
+          sdkguide:
+          excerpts:
+            - description: Initialize an SNS client and and list topics in your account.
+              snippet_tags:
+                - javascript.v3.sns.hello
   services:
     sns: {ListTopics}
 sns_GetTopicAttributes:
@@ -69,7 +78,7 @@ sns_GetTopicAttributes:
           github: kotlin/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.GetTopicAttributes.main
     Java:
@@ -105,7 +114,7 @@ sns_GetTopicAttributes:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.abapv1.get_topic_attributes
   services:
@@ -151,7 +160,7 @@ sns_ListSubscriptions:
           github: kotlin/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.ListSubscriptions.main
     Java:
@@ -196,7 +205,7 @@ sns_ListSubscriptions:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.abapv1.list_subscriptions
   services:
@@ -242,7 +251,7 @@ sns_ListTopics:
           github: kotlin/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.ListTopics.main
     Java:
@@ -294,7 +303,7 @@ sns_ListTopics:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.abapv1.list_topics
   services:
@@ -369,7 +378,7 @@ sns_Subscribe_Lambda:
           github: kotlin/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.SubscribeLambda.main
     Java:
@@ -464,7 +473,7 @@ sns_PublishTextSMS:
           github: kotlin/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.PublishTextSMS.main
     Java:
@@ -585,7 +594,7 @@ sns_TagResource:
           github: kotlin/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.add_tags.main
     Java:
@@ -630,7 +639,7 @@ sns_CreateTopic:
           github: kotlin/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.CreateTopic.main
     Java:
@@ -690,7 +699,7 @@ sns_CreateTopic:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.abapv1.create_topic
   services:
@@ -721,7 +730,7 @@ sns_DeleteTopic:
           github: kotlin/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.DeleteTopic.main
     Java:
@@ -766,7 +775,7 @@ sns_DeleteTopic:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.abapv1.delete_topic
   services:
@@ -821,7 +830,7 @@ sns_Publish:
           github: kotlin/services/secretsmanager
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.PublishTopic.main
     Java:
@@ -893,7 +902,7 @@ sns_Publish:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.abapv1.publish_to_topic
   services:
@@ -978,7 +987,7 @@ sns_SetTopicAttributes:
           github: kotlin/services/secretsmanager
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.SetTopicAttributes.main
     Java:
@@ -1023,7 +1032,7 @@ sns_SetTopicAttributes:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.abapv1.set_topic_attributes
   services:
@@ -1061,7 +1070,7 @@ sns_Subscribe:
           github: kotlin/services/secretsmanager
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.SubscribeEmail.main
     Java:
@@ -1121,7 +1130,7 @@ sns_Subscribe:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.abapv1.subscribe_email
   services:
@@ -1152,7 +1161,7 @@ sns_Unsubscribe:
           github: kotlin/services/secretsmanager
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.kotlin.Unsubscribe.main
     Java:
@@ -1197,7 +1206,7 @@ sns_Unsubscribe:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description: 
+            - description:
               snippet_tags:
                 - sns.abapv1.unsubscribe
   services:
@@ -1223,7 +1232,8 @@ sns_PublishFifoTopic:
           github: sap-abap/services/sns
           sdkguide:
           excerpts:
-            - description: Create a FIFO topic, subscribe an &SQS; FIFO queue to the topic,
+            - description:
+                Create a FIFO topic, subscribe an &SQS; FIFO queue to the topic,
                 and publish a message to an &SNS; topic.
               snippet_tags:
                 - sns.abapv1.publish_message_to_fifo_queue
@@ -1280,6 +1290,15 @@ sns_Subscribe_Queue:
                 - cpp.example_code.cross-service.topics_and_queues.sns_client
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue1
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue2
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sns
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.sns.actions.subscribe-queue
   services:
     sns: {Subscribe}
 sns_Subscribe_Filtered:
@@ -1299,6 +1318,15 @@ sns_Subscribe_Filtered:
                 - cpp.example_code.cross-service.topics_and_queues.sns_client
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter
                 - cpp.example_code.cross-service.topics_and_queues.subscribe_queue_with_filter2
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sns
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.sns.actions.subscribe-queue-filtered
   services:
     sns: {Subscribe}
 sns_CreatePlatformEndpoint:
