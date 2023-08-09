@@ -165,7 +165,7 @@ public class SagemakerWorkflow {
             .build();
 
         SqsClient sqsClient = SqsClient.builder()
-            .region(Region.US_WEST_2)
+            .region(region)
             .build();
 
         S3Client s3Client = S3Client.builder()
