@@ -56,6 +56,6 @@ Code excerpts that show you how to call individual service functions.
 
 - [Amazon CloudWatch Events User Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/WhatIsCloudWatchEvents.html)
 - [Amazon CloudWatch Logs API Reference](https://docs.aws.amazon.com/eventbridge/latest/APIReference/Welcome.html)
-- [CloudWatch Events Client - AWS SDK for JavaScript (v3)](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-cloudwatch-events/index.html)
+- [CloudWatch Events Client - AWS SDK for JavaScript (v3)](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/cloudwatch-events/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
