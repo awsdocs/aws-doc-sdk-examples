@@ -10,7 +10,7 @@ You need to build this Lambda function in order to successfully complete the Jav
 
 ### Create a .jar file
 
-You can package up the project into a .jar file that you can use an input to [Create and run a SageMaker geospatial pipeline using the SDK for Java V2](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_sagemaker_pipes) by using the following Maven command.
+You can package up the project into a .jar file that you can use as input to [Create and run a SageMaker geospatial pipeline using the SDK for Java V2](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/workflow_sagemaker_pipes) by using the following Maven command.
 
     mvn package
 
