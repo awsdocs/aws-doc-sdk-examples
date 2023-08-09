@@ -1,4 +1,4 @@
-# Create and run a SageMaker geospatial pipeline using the SDK for Java V2
+# Create and run a SageMaker geospatial pipeline using the SDK for Kotlin
 
 ## Overview
 
@@ -44,13 +44,14 @@ addresses powered by Amazon Location Service. Other types of jobs could be subst
 
 To use this tutorial, you need the following:
 
-+ An AWS account.
-+ A Java IDE. 
-+ Java 1.8 JDK or later.
-+ Maven 3.6 or later.
-+ Set up your development environment. For more information, see [Get started with the SDK for Java](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup-basics.html).
++ An AWS account
++ A Java IDE (this tutorial uses the IntelliJ IDE)
++ Java JDK 1.8
++ Gradle 6.8 or higher
++ Setup your development environment. For more information, see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 
 To view pipelines in SageMaker Studio, you need to [set up an Amazon SageMaker Domain](https://docs.aws.amazon.com/sagemaker/latest/dg/gs-studio-onboard.html).
+
 To use geospatial capabilities, [you need to use a supported Region](https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial.html).
 
 You must download and use these files to successfully run this code example:
