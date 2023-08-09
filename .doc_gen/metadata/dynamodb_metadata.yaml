@@ -177,7 +177,8 @@ dynamodb_BatchGetItem:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-reading
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/BatchGetCommand/">BatchGet</ulink>.
               snippet_tags:
                 - javascript.v3.dynamodb.doc-client.BatchGet
         - sdk_version: 2
@@ -577,7 +578,8 @@ dynamodb_PutItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description: 
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/PutCommand/">PutCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.putV3
         - sdk_version: 2
@@ -684,7 +686,8 @@ dynamodb_GetItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/GetCommand/">GetCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.getV3
         - sdk_version: 2
@@ -800,7 +803,8 @@ dynamodb_UpdateItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/UpdateCommand/">UpdateCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.updateV3
     Swift:
@@ -1150,7 +1154,8 @@ dynamodb_Query:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/QueryCommand/">QueryCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.queryV3
         - sdk_version: 2
@@ -1261,7 +1266,8 @@ dynamodb_Scan:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/ScanCommand/">ScanCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.movies.scanV3
         - sdk_version: 2
