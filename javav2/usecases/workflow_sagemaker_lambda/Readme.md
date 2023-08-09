@@ -25,3 +25,13 @@ You can compile the project into a .jar file, which will serve as input for [Cre
     mvn package
 
 The .jar file is located in the target folder. 
+
+## Additional resources
+
+* [SageMaker Developer Guide](https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html)
+* [SageMaker API Reference](https://docs.aws.amazon.com/sagemaker/latest/APIReference/Welcome.html)
+* [Java Developer Guide](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/home.html)
+
+---
+
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
