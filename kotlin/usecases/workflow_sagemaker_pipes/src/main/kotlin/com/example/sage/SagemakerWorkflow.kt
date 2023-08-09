@@ -430,14 +430,6 @@ suspend fun executePipeline(bucketName: String, queueUrl: String?, roleArn: Stri
         name = "parameter_queue_url"
         value = queueUrl
     }
-    val enrichmentJobS3Data = VectorEnrichmentJobS3Data {
-        s3Uri = inputBucketLocation
-    }
-
-    val inputConfig = VectorEnrichmentJobInputConfig {
-        documentType = VectorEnrichmentJobDocumentType.Csv
-        dataSourceConfig = VectorEnrichmentJobDataSourceConfigInput.S3Data(enrichmentJobS3Data)
-    }
 
     val inputJSON = """{
         "DataSourceConfig": {
@@ -449,7 +441,7 @@ suspend fun executePipeline(bucketName: String, queueUrl: String?, roleArn: Stri
         "DocumentType": "CSV"
     }"""
     println(inputJSON)
-    val para3: Parameter = Parameter {
+    val para3 = Parameter {
         name = "parameter_vej_input_config"
         value = inputJSON
     }
