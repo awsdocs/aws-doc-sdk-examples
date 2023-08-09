@@ -502,6 +502,25 @@ sns_PublishTextSMS:
                 - python.example_code.sns.Publish_TextMessage
   services:
     sns: {Publish}
+sns_Publish_WithAttribute:
+  title: Publish an &SNS; text message with an attribute using an &AWS; SDK
+  title_abbrev: Publish a message with an attribute
+  synopsis: publish a message with an attribute using &SNS;.
+  category:
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/sns
+          excerpts:
+            - snippet_tags:
+                - cpp.example_code.cross-service.topics_and_queues.attribute_declare
+                - cpp.example_code.cross-service.topics_and_queues.config
+                - cpp.example_code.cross-service.topics_and_queues.sns_client
+                - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes
+                - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes2
+  services:
+    sns: {Publish}
 sns_ConfirmSubscription:
   title: Confirm an endpoint owner wants to receive &SNS; messages using an &AWS; SDK
   title_abbrev: Confirm an endpoint owner wants to receive messages
