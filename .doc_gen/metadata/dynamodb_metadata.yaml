@@ -339,7 +339,8 @@ dynamodb_BatchWriteItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/BatchWriteCommand/">BatchWrite</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.movies.batchwriteV3
         - sdk_version: 2
