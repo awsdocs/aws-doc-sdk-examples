@@ -65,10 +65,10 @@ import org.json.simple.parser.JSONParser
 import java.io.File
 import java.io.FileReader
 import java.nio.charset.StandardCharsets
-import java.util.*
+import java.util.Scanner
 import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
-// snippet-start:[sagemaker.java2.sc.main]
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
@@ -90,7 +90,7 @@ import java.util.concurrent.TimeUnit
  * 5. View the output of the pipeline.
  * 6. Clean up resources.
  */
-
+// snippet-start:[sagemaker.kotlin.sc.main]
 val DASHES = String(CharArray(80)).replace("\u0000", "-")
 private var eventSourceMapping = ""
 
@@ -112,23 +112,21 @@ suspend fun main(args: Array<String>) {
         pipelineName - The name of the pipeline to create (for example, sagemaker-sdk-example-pipeline).
     """
 
-    // if (args.size != 9) {
-    //    println(usage)
-    //     exitProcess(1)
-    // }
+    if (args.size != 10) {
+        println(usage)
+         exitProcess(1)
+    }
 
-    val sageMakerRoleName = "SageMakerExampleRole"
-    val lambdaRoleName = "SageMakerExampleLambdaRole" // args[1]
-    val functionKey = "KotlinPipesLamda-1.0-SNAPSHOT-all.jar" // args[2]
-
-    // val functionKey = "SageMakerLambda-1.0-SNAPSHOT.jar" // args[2]
-    val functionName = "SageMakerExampleFunction" // args[3]
-    val queueName = "sagemaker-sdk-example-queue" // args[4]
-    val bucketName = "sagemaker-sdk-example-bucket-kotlin" // args[5]
-    val bucketFunction = "sagemakerfunction" // args[5]
-    val lnglatData = "C:\\AWS\\latlongtest.csv" // args[6]
-    val spatialPipelinePath = "C:\\AWS\\GeoSpatialPipeline.json" // args[7]
-    val pipelineName = "sagemaker-sdk-example-pipeline0138" // args[8]
+    val sageMakerRoleName = args[0]
+    val lambdaRoleName = args[1]
+    val functionKey = args[2]
+    val functionName = args[3]
+    val queueName = args[4]
+    val bucketName = args[5]
+    val bucketFunction = args[6]
+    val lnglatData = args[7]
+    val spatialPipelinePath = args[8]
+    val pipelineName = args[9]
     val handlerName = "org.example.SageMakerLambdaFunction::handleRequest"
 
     println(DASHES)
@@ -843,4 +841,4 @@ fun getSageMakerRolePolicies(): Array<String?> {
     sageMakerRolePolicies[2] = "arn:aws:iam::aws:policy/AmazonSQSFullAccess"
     return sageMakerRolePolicies
 }
-// snippet-end:[sagemaker.java2.sc.main]
+// snippet-end:[sagemaker.kotlin.sc.main]

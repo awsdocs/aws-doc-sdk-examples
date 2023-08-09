@@ -360,7 +360,7 @@ sagemaker_Scenario_Pipelines:
           excerpts:
             - description:
               snippet_tags:
-                - sagemaker.java2.sc.main
+                - sagemaker.kotlin.sc.main
     Java:
       versions:
         - sdk_version: 2
