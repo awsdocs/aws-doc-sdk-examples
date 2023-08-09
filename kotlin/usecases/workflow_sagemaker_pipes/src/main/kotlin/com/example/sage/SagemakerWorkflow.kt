@@ -47,9 +47,6 @@ import aws.sdk.kotlin.services.sagemaker.model.Parameter
 import aws.sdk.kotlin.services.sagemaker.model.StartPipelineExecutionRequest
 import aws.sdk.kotlin.services.sagemakergeospatial.model.ExportVectorEnrichmentJobOutputConfig
 import aws.sdk.kotlin.services.sagemakergeospatial.model.ReverseGeocodingConfig
-import aws.sdk.kotlin.services.sagemakergeospatial.model.VectorEnrichmentJobDataSourceConfigInput
-import aws.sdk.kotlin.services.sagemakergeospatial.model.VectorEnrichmentJobDocumentType
-import aws.sdk.kotlin.services.sagemakergeospatial.model.VectorEnrichmentJobInputConfig
 import aws.sdk.kotlin.services.sagemakergeospatial.model.VectorEnrichmentJobS3Data
 import aws.sdk.kotlin.services.sqs.SqsClient
 import aws.sdk.kotlin.services.sqs.model.CreateQueueRequest
@@ -71,7 +68,7 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-//snippet-start:[sagemaker.java2.sc.main]
+// snippet-start:[sagemaker.java2.sc.main]
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
@@ -124,7 +121,7 @@ suspend fun main(args: Array<String>) {
     val lambdaRoleName = "SageMakerExampleLambdaRole" // args[1]
     val functionKey = "KotlinPipesLamda-1.0-SNAPSHOT-all.jar" // args[2]
 
-    //val functionKey = "SageMakerLambda-1.0-SNAPSHOT.jar" // args[2]
+    // val functionKey = "SageMakerLambda-1.0-SNAPSHOT.jar" // args[2]
     val functionName = "SageMakerExampleFunction" // args[3]
     val queueName = "sagemaker-sdk-example-queue" // args[4]
     val bucketName = "sagemaker-sdk-example-bucket-kotlin" // args[5]
@@ -554,10 +551,7 @@ suspend fun setupBucket(bucketName: String) {
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.createBucket(request)
-        // s3.waitUntilBucketExists { // suspend call
-        //     bucket = bucketName
-        // }
-        println("$bucketName is ready")
+         println("$bucketName is ready")
     }
 }
 
@@ -836,17 +830,17 @@ fun getLambdaRolePolicies(): Array<String?> {
     val lambdaRolePolicies = arrayOfNulls<String>(5)
     lambdaRolePolicies[0] = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess"
     lambdaRolePolicies[1] = "arn:aws:iam::aws:policy/AmazonSQSFullAccess"
-    lambdaRolePolicies[2] = "arn:aws:iam::aws:policy/service-role/AmazonSageMakerGeospatialFullAccess"
-    lambdaRolePolicies[3] = "arn:aws:iam::aws:policy/service-role/AmazonSageMakerServiceCatalogProductsLambdaServiceRolePolicy"
-    lambdaRolePolicies[4] = "arn:aws:iam::aws:policy/service-role/AWSLambdaSQSQueueExecutionRole"
+    lambdaRolePolicies[2] = "arn:aws:iam::aws:policy/service-role/" +"AmazonSageMakerGeospatialFullAccess"
+    lambdaRolePolicies[3] = "arn:aws:iam::aws:policy/service-role/" +"AmazonSageMakerServiceCatalogProductsLambdaServiceRolePolicy"
+    lambdaRolePolicies[4] = "arn:aws:iam::aws:policy/service-role/" +"AWSLambdaSQSQueueExecutionRole"
     return lambdaRolePolicies
 }
 
 fun getSageMakerRolePolicies(): Array<String?> {
     val sageMakerRolePolicies = arrayOfNulls<String>(3)
     sageMakerRolePolicies[0] = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess"
-    sageMakerRolePolicies[1] = "arn:aws:iam::aws:policy/service-role/AmazonSageMakerGeospatialFullAccess"
+    sageMakerRolePolicies[1] = "arn:aws:iam::aws:policy/service-role/" +"AmazonSageMakerGeospatialFullAccess"
     sageMakerRolePolicies[2] = "arn:aws:iam::aws:policy/AmazonSQSFullAccess"
     return sageMakerRolePolicies
 }
-//snippet-end:[sagemaker.java2.sc.main]
+// snippet-end:[sagemaker.java2.sc.main]
