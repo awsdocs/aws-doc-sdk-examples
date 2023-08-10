@@ -85,6 +85,8 @@ EXPECTED_SAMPLE_FILES = {
     'sample_cert.pem',
     'sample_private_key.pem',
     'sample_saml_metadata.xml',
+    'GeoSpatialPipeline.json',
+    'latlongtest.csv',
 }
 
 # Media file types.
