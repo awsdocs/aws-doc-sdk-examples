@@ -21,7 +21,17 @@ To use this tutorial, you need the following:
 
 ### Create a .jar file
 
-You can compile the project into a .jar file, which will serve as input for [Create and run a SageMaker geospatial pipeline using the SDK for Kotlin](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/workflow_sagemaker_pipes). Instructions on how to create the .jar file can be found in the Readme in the previous link.
+You can compile the project into a .jar file, which will serve as input for [Create and run a SageMaker geospatial pipeline using the SDK for Kotlin](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/workflow_sagemaker_pipes). 
+
+Once you create the Kotlin Lambda project, you can build the required .jar file by using the shadowJar plugin .
+
+![AWS Tracking Application](images/shawdow.png)
+
+Perform the following tasks:
+
+1. Create a new Kotlin project using an IDE and import the project from Github. 
+2. Create the FAT JAR by running shadowJar.
+3. Use the AWS Management Console to place the FAT JAR into the Amazon S3 bucket. This S3 bucket name is input to the [Create and run a SageMaker geospatial pipeline using the SDK for Kotlin](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/workflow_sagemaker_pipes).  
 
 ## Additional resources
 

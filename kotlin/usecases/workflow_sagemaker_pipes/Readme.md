@@ -65,17 +65,6 @@ These files are located on GitHub in [AWS SDK for .NET](https://github.com/awsdo
 
 To successfully run this example, you need to create the Kotlin Sagemaker Lambda function by creating a .jar file and then placing the .jar file into an Amazon S3 bucket. You can find this project here: [Create the SageMaker geospatial Lambda function using the AWS SDK for Kotlin](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/workflow_sagemaker_lambda).  
 
-Once you create the Kotlin Lambda project, you can build the required .jar file by using the shadowJar plugin .
-
-![AWS Tracking Application](images/shawdow.png)
-
-Perform the following tasks:
-
-1. Create a new Kotlin project using an IDE and import the project from Github. 
-2. Create the FAT JAR by running shadowJar.
-3. Use the AWS Management Console to place the FAT JAR into the Amazon S3 bucket. This S3 bucket name is input to this Kotlin program. 
- 
-
 ### Instructions
 
 You can run this Java code example from within your Java IDE.
