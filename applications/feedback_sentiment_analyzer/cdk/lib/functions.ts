@@ -1,7 +1,8 @@
-import { Duration } from "aws-cdk-lib";
-import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
+import {resolve} from "path";
+import {BundlingOutput, Duration} from "aws-cdk-lib";
+import {Code, Runtime} from "aws-cdk-lib/aws-lambda";
 
-import { AppFunctionConfig } from "./constructs/app-lambdas";
+import {AppFunctionConfig} from "./constructs/app-lambdas";
 
 const BASE_APP_FUNCTION: AppFunctionConfig = {
   name: "TestLambda",
@@ -40,9 +41,9 @@ const BASE_APP_FUNCTION: AppFunctionConfig = {
 
 const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
   // The 'name' property must match the examples below in new examples.
-  { ...BASE_APP_FUNCTION, name: "ExtractText" },
+  {...BASE_APP_FUNCTION, name: "ExtractText"},
   // Override properties by including them after expanding the function object.
-  { ...BASE_APP_FUNCTION, memorySize: 256, name: "AnalyzeSentiment" },
+  {...BASE_APP_FUNCTION, memorySize: 256, name: "AnalyzeSentiment"},
   {
     ...BASE_APP_FUNCTION,
     codeAsset() {
@@ -55,7 +56,7 @@ const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
     },
     name: "TranslateText",
   },
-  { ...BASE_APP_FUNCTION, name: "SynthesizeAudio" },
+  {...BASE_APP_FUNCTION, name: "SynthesizeAudio"},
 ];
 
 const RUBY_ROOT =
@@ -94,11 +95,50 @@ const RUBY_FUNCTIONS: AppFunctionConfig[] = [
   },
 ];
 
+const JAVASCRIPT_FUNCTIONS = [
+  {
+    ...BASE_APP_FUNCTION,
+    name: "ExtractText",
+    codeAsset() {
+      const source = resolve(
+        "../../../javascriptv3/example_code/cross-services/feedback-sentiment-analyzer/ExtractText"
+      );
+      return Code.fromAsset(source, {
+        bundling: {
+          command: [
+            "/bin/sh",
+            "-c",
+            "npm i && \
+           npm run build && \
+           cp /asset-input/dist/index.mjs /asset-output/",
+          ],
+          outputType: BundlingOutput.NOT_ARCHIVED,
+          user: "root",
+          image: this.runtime.bundlingImage,
+        },
+      });
+    },
+  },
+  {
+    ...BASE_APP_FUNCTION,
+    name: "AnalyzeSentiment",
+  },
+  {
+    ...BASE_APP_FUNCTION,
+    name: "TranslateText",
+  },
+  {
+    ...BASE_APP_FUNCTION,
+    name: "SynthesizeAudio",
+  },
+];
+
 const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
   examplelang: EXAMPLE_LANG_FUNCTIONS,
   // Add more languages here. For example
   // javascript: JAVASCRIPT_FUNCTIONS,
   ruby: RUBY_FUNCTIONS,
+  javascript: JAVASCRIPT_FUNCTIONS,
 };
 
 export function getFunctions(language: string = ""): AppFunctionConfig[] {
