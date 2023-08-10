@@ -46,7 +46,6 @@ import aws.sdk.kotlin.services.sagemaker.model.DescribePipelineExecutionRequest
 import aws.sdk.kotlin.services.sagemaker.model.Parameter
 import aws.sdk.kotlin.services.sagemaker.model.StartPipelineExecutionRequest
 import aws.sdk.kotlin.services.sagemakergeospatial.model.ExportVectorEnrichmentJobOutputConfig
-import aws.sdk.kotlin.services.sagemakergeospatial.model.ReverseGeocodingConfig
 import aws.sdk.kotlin.services.sagemakergeospatial.model.VectorEnrichmentJobS3Data
 import aws.sdk.kotlin.services.sqs.SqsClient
 import aws.sdk.kotlin.services.sqs.model.CreateQueueRequest
@@ -65,7 +64,7 @@ import org.json.simple.parser.JSONParser
 import java.io.File
 import java.io.FileReader
 import java.nio.charset.StandardCharsets
-import java.util.*
+import java.util.Scanner
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
@@ -174,7 +173,7 @@ suspend fun main(args: Array<String>) {
         """
              The pipeline has completed. To view the pipeline and runs in SageMaker Studio, follow these instructions:
              https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines-studio.html
-             """.trimIndent()
+        """.trimIndent()
     )
     println(DASHES)
 
@@ -203,7 +202,7 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 }
 
-//snippet-start:[sagemaker.kotlin.delete_pipeline.main]
+// snippet-start:[sagemaker.kotlin.delete_pipeline.main]
 // Delete a SageMaker pipeline by name.
 suspend fun deletePipeline(pipelineNameVal: String) {
     val pipelineRequest = DeletePipelineRequest {
@@ -215,7 +214,7 @@ suspend fun deletePipeline(pipelineNameVal: String) {
         println("*** Successfully deleted $pipelineNameVal")
     }
 }
-//snippet-end:[sagemaker.kotlin.delete_pipeline.main]
+// snippet-end:[sagemaker.kotlin.delete_pipeline.main]
 
 suspend fun deleteSagemakerRole(roleNameVal: String) {
     val sageMakerRolePolicies = getSageMakerRolePolicies()
@@ -393,7 +392,7 @@ suspend fun getOutputResults(bucketName: String?) {
         }
     }
 }
-//snippet-start:[sagemaker.kotlin.describe_pipeline_execution.main]
+// snippet-start:[sagemaker.kotlin.describe_pipeline_execution.main]
 // Check the status of a pipeline execution.
 suspend fun waitForPipelineExecution(executionArn: String?) {
     var status: String
@@ -413,7 +412,7 @@ suspend fun waitForPipelineExecution(executionArn: String?) {
     } while ("Executing" == status)
     println("Pipeline finished with status $status")
 }
-//snippet-end:[sagemaker.kotlin.describe_pipeline_execution.main]
+// snippet-end:[sagemaker.kotlin.describe_pipeline_execution.main]
 
 // snippet-start:[sagemaker.kotlin.execute_pipeline.main]
 // Start a pipeline run with job configurations.
