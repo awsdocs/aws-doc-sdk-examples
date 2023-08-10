@@ -28,6 +28,6 @@
   </itemizedlist>
   <para> The full app can be deployed with the &CDK;. For source code and deployment
     instructions, see the project in <ulink
-      url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/cross_services_examples/feedback_sentiment_analyzer">
+      url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/ruby/cross_service_examples/feedback_sentiment_analyzer">
     GitHub</ulink>. </para>
 </block>
