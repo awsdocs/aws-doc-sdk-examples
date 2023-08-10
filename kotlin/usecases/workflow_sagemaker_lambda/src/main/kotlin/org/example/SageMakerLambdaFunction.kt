@@ -31,7 +31,7 @@ import org.json.simple.parser.ParseException
 
 class SageMakerLambdaFunction : RequestHandler<HashMap<String, Any>, Map<String, String>> {
 
-    override fun handleRequest(requestObject: HashMap<String, Any>, context: Context): Map<String, String> = runBlocking{
+    override fun handleRequest(requestObject: HashMap<String, Any>, context: Context): Map<String, String> = runBlocking {
         val logger = context.logger
 
         val sageMakerClient = SageMakerClient {
@@ -78,8 +78,7 @@ class SageMakerLambdaFunction : RequestHandler<HashMap<String, Any>, Map<String,
             val s3UriOb = s3DataOb["S3Uri"] as String
             println("**** NEW S3URI: $s3UriOb")
 
-
-            val jobS3Data  = VectorEnrichmentJobS3Data {
+            val jobS3Data = VectorEnrichmentJobS3Data {
                 s3Uri = s3UriOb
             }
 
@@ -99,7 +98,7 @@ class SageMakerLambdaFunction : RequestHandler<HashMap<String, Any>, Map<String,
 
             responseDictionary["export_eoj_status"] = exportVectorResponse.exportStatus.toString()
             responseDictionary["vej_arn"] = exportVectorResponse.arn.toString()
-        } else if (requestObject.get("vej_name") != null ) {
+        } else if (requestObject.get("vej_name") != null) {
             logger.log("*** NEW Vector Enrichment Job name found, starting the job.")
 
             var jsonObject: JSONObject? = null
@@ -177,7 +176,7 @@ class SageMakerLambdaFunction : RequestHandler<HashMap<String, Any>, Map<String,
             if (vectorResponse.status?.equals(VectorEnrichmentJobStatus.Completed) == true) {
                 logger.log("Status completed, resuming pipeline...")
 
-                val out  = OutputParameter {
+                val out = OutputParameter {
                     name = "export_status"
                     value = java.lang.String.valueOf(vectorResponse.status)
                 }
@@ -187,16 +186,14 @@ class SageMakerLambdaFunction : RequestHandler<HashMap<String, Any>, Map<String,
                     outputParameters = listOf(out)
                 }
                 sageMakerClient.sendPipelineExecutionStepSuccess(successRequest)
-
-            }else if (vectorResponse.status?.equals(VectorEnrichmentJobStatus.Failed) == true) {
+            } else if (vectorResponse.status?.equals(VectorEnrichmentJobStatus.Failed) == true) {
                 logger.log("Status failed, stopping pipeline...")
 
-                val failureRequest = SendPipelineExecutionStepFailureRequest{
-                        callbackToken = token
-                        failureReason = vectorResponse.errorDetails?.errorMessage
-                        }
+                val failureRequest = SendPipelineExecutionStepFailureRequest {
+                    callbackToken = token
+                    failureReason = vectorResponse.errorDetails?.errorMessage
+                }
                 sageMakerClient.sendPipelineExecutionStepFailure(failureRequest)
-
             } else if (vectorResponse.status?.equals(VectorEnrichmentJobStatus.InProgress) == true) {
                 // Put this message back in the queue to reprocess later.
                 logger.log("Status still in progress, check back later.")
