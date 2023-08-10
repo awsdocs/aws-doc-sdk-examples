@@ -18,7 +18,7 @@ This Lambda code is included as part of this example, with the following functio
 - Starts the export function with the provided export configuration.
 - Processes Amazon Simple Queue Service (Amazon SQS) messages from the SageMaker pipeline.  
 
-![AWS Tracking Application](images/pipes.png)
+![AWS App](images/pipes.png)
 
 ### Pipeline parameters
 The example pipeline uses [parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-parameters.html) that you can reference throughout the steps. You can also use the parameters to change
@@ -67,7 +67,7 @@ To successfully run this example, you need to create the Kotlin Sagemaker Lambda
 
 ### Instructions
 
-You can run this Java code example from within your Java IDE.
+You can run this Kotlin code example from within your IDE.
 
 #### Get started with geospatial jobs and pipelines
 

@@ -94,9 +94,6 @@ class SageMakerLambdaFunction : RequestHandler<HashMap<String, Any>, Map<String,
             }
 
             val exportVectorResponse = geospatialClient.exportVectorEnrichmentJob(exportRequest)
-            // Process the response here
-
-            // Process the response here
             val logger2 = context.logger
             logger2.log("Export response: " + exportVectorResponse.toString())
 
