@@ -47,7 +47,7 @@ public class SNSWrapper
             {
                 createTopicRequest.Name = topicName + ".fifo";
             }
-            
+
             // Add the attributes from the method parameters.
             createTopicRequest.Attributes = new Dictionary<string, string>
             {
@@ -62,7 +62,7 @@ public class SNSWrapper
         var createResponse = await _amazonSNSClient.CreateTopicAsync(createTopicRequest);
         return createResponse.TopicArn;
     }
-    // snippet-start:[TopicsAndQueues.dotnetv3.CreateTopic]
+    // snippet-end:[TopicsAndQueues.dotnetv3.CreateTopic]
 
     // snippet-start:[TopicsAndQueues.dotnetv3.Subscribe]
     /// <summary>
@@ -89,7 +89,7 @@ public class SNSWrapper
         var subscribeResponse = await _amazonSNSClient.SubscribeAsync(subscribeRequest);
         return subscribeResponse.SubscriptionArn;
     }
-    // snippet-start:[TopicsAndQueues.dotnetv3.Subscribe]
+    // snippet-end:[TopicsAndQueues.dotnetv3.Subscribe]
 
     // snippet-start:[TopicsAndQueues.dotnetv3.Publish]
     /// <summary>
@@ -107,7 +107,7 @@ public class SNSWrapper
         string message,
         string? attributeName = null,
         string? attributeValue = null,
-        string? deduplicationId = null, 
+        string? deduplicationId = null,
         string? groupId = null)
     {
         var publishRequest = new PublishRequest()
@@ -131,7 +131,7 @@ public class SNSWrapper
         var publishResponse = await _amazonSNSClient.PublishAsync(publishRequest);
         return publishResponse.MessageId;
     }
-    // snippet-start:[TopicsAndQueues.dotnetv3.Publish]
+    // snippet-end:[TopicsAndQueues.dotnetv3.Publish]
 
 
     // snippet-start:[TopicsAndQueues.dotnetv3.Unsubscribe]
@@ -149,7 +149,7 @@ public class SNSWrapper
             });
         return unsubscribeResponse.HttpStatusCode == HttpStatusCode.OK;
     }
-    // snippet-start:[TopicsAndQueues.dotnetv3.Unsubscribe]
+    // snippet-end:[TopicsAndQueues.dotnetv3.Unsubscribe]
 
     // snippet-start:[TopicsAndQueues.dotnetv3.DeleteTopic]
     /// <summary>
@@ -166,6 +166,6 @@ public class SNSWrapper
             });
         return deleteResponse.HttpStatusCode == HttpStatusCode.OK;
     }
-    // snippet-start:[TopicsAndQueues.dotnetv3.DeleteTopic]
+    // snippet-end:[TopicsAndQueues.dotnetv3.DeleteTopic]
 }
 // snippet-end:[TopicsAndQueues.dotnetv3.SNSWrapper]

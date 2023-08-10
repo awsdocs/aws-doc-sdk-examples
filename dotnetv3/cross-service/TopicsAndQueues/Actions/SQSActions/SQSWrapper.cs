@@ -82,7 +82,7 @@ public class SQSWrapper
         var getAttributesRequest = new GetQueueAttributesRequest()
         {
             QueueUrl = queueUrl,
-            AttributeNames = new List<string>() {QueueAttributeName.QueueArn}
+            AttributeNames = new List<string>() { QueueAttributeName.QueueArn }
         };
 
         var getAttributesResponse = await _amazonSQSClient.GetQueueAttributesAsync(
@@ -116,14 +116,14 @@ public class SQSWrapper
                                            "\"ArnEquals\": {" +
                                                 $"\"aws:SourceArn\": \"{topicArn}\"" +
                                             "}" +
-                                        "}"+
+                                        "}" +
                                 "}]" +
                              "}";
         var attributesResponse = await _amazonSQSClient.SetQueueAttributesAsync(
             new SetQueueAttributesRequest()
             {
                 QueueUrl = queueUrl,
-                Attributes = new Dictionary<string, string>(){{"Policy", queuePolicy } }
+                Attributes = new Dictionary<string, string>() { { "Policy", queuePolicy } }
             });
         return attributesResponse.HttpStatusCode == HttpStatusCode.OK;
     }
@@ -172,7 +172,7 @@ public class SQSWrapper
                 Id = message.MessageId
             });
         }
-        
+
         var deleteResponse = await _amazonSQSClient.DeleteMessageBatchAsync(deleteRequest);
 
         return deleteResponse.Failed.Any();

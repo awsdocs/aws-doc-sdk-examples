@@ -54,7 +54,7 @@ public static class TopicsAndQueues
     private static readonly int _queueCount = 2;
     private static readonly string[] _queueUrls = new string[_queueCount];
     private static readonly string[] _subscriptionArns = new string[_queueCount];
-    private static readonly string[] _tones = {"cheerful", "funny", "serious", "sincere"};
+    private static readonly string[] _tones = { "cheerful", "funny", "serious", "sincere" };
     public static SNSWrapper SnsWrapper { get; set; } = null!;
     public static SQSWrapper SqsWrapper { get; set; } = null!;
     public static bool UseConsole { get; set; } = true;
@@ -213,32 +213,32 @@ public static class TopicsAndQueues
 
                 var queueUrl = await SqsWrapper.CreateQueueWithName(queueName, _useFifoTopic);
 
-               _queueUrls[i] = queueUrl;
+                _queueUrls[i] = queueUrl;
 
-               Console.WriteLine($"Your new queue with the name {queueName}" +
-                                 $"\r\nand queue URL {queueUrl}" +
-                                 $"\r\nhas been created.\r\n");
+                Console.WriteLine($"Your new queue with the name {queueName}" +
+                                  $"\r\nand queue URL {queueUrl}" +
+                                  $"\r\nhas been created.\r\n");
 
-               if (i == 0)
-               {
-                   Console.WriteLine(
-                       $"The queue URL is used to retrieve the queue ARN,\r\n" +
-                       $"which is used to create a subscription.");
-                   Console.WriteLine(new string('-', 80));
+                if (i == 0)
+                {
+                    Console.WriteLine(
+                        $"The queue URL is used to retrieve the queue ARN,\r\n" +
+                        $"which is used to create a subscription.");
+                    Console.WriteLine(new string('-', 80));
                 }
 
-               var queueArn = await SqsWrapper.GetQueueArnByUrl(queueUrl);
+                var queueArn = await SqsWrapper.GetQueueArnByUrl(queueUrl);
 
-               if (i == 0)
-               {
-                   Console.WriteLine(
-                       $"An AWS Identity and Access Management (IAM) policy must be attached to an SQS queue, enabling it to receive\r\n" +
-                       $"messages from an SNS topic");
-               }
+                if (i == 0)
+                {
+                    Console.WriteLine(
+                        $"An AWS Identity and Access Management (IAM) policy must be attached to an SQS queue, enabling it to receive\r\n" +
+                        $"messages from an SNS topic");
+                }
 
-               await SqsWrapper.SetQueuePolicyForTopic(queueArn, _topicArn, queueUrl);
+                await SqsWrapper.SetQueuePolicyForTopic(queueArn, _topicArn, queueUrl);
 
-               await SetupFilters(i, queueArn, queueName);
+                await SetupFilters(i, queueArn, queueName);
             }
         }
 
@@ -315,7 +315,7 @@ public static class TopicsAndQueues
                 Console.WriteLine($"\t{i + 1}. {_tones[i]}");
             }
 
-            var selection = GetUserResponse("", filterSelections.Any() ? "0":"1");
+            var selection = GetUserResponse("", filterSelections.Any() ? "0" : "1");
             int.TryParse(selection, out selectionNumber);
             if (selectionNumber > 0 && !filterSelections.Contains(_tones[selectionNumber - 1]))
             {
@@ -375,7 +375,7 @@ public static class TopicsAndQueues
 
                     var selection = GetUserResponse("", "1");
                     int.TryParse(selection, out var selectionNumber);
-                    
+
                     if (selectionNumber > 0 && selectionNumber < _tones.Length)
                     {
                         toneAttribute = _tones[selectionNumber - 1];
