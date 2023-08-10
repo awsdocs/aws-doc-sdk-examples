@@ -100,7 +100,7 @@ in the `javascriptv3` folder.
 
 * [Amazon SQS Developer Guide](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html)
 * [Amazon SQS API Reference](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/Welcome.html)
-* [SDK for JavaScript (v3) Amazon SQS reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-sqs/index.html)
+* [SDK for JavaScript (v3) Amazon SQS reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/sqs/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

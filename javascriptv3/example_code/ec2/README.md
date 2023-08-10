@@ -128,7 +128,7 @@ in the `javascriptv3` folder.
 
 * [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
 * [Amazon EC2 API Reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Welcome.html)
-* [SDK for JavaScript V3 Amazon EC2 reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ec2/index.html)
+* [SDK for JavaScript V3 Amazon EC2 reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/ec2/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

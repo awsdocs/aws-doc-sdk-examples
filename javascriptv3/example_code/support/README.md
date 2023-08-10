@@ -74,6 +74,6 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 - [AWS Support User Guide](https://docs.aws.amazon.com/awssupport/latest/user/getting-started.html)
 - [AWS Support API Reference](https://docs.aws.amazon.com/awssupport/latest/APIReference/Welcome.html)
-- [Support Client - AWS SDK for JavaScript (v3)](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-support/index.html)
+- [Support Client - AWS SDK for JavaScript (v3)](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/support/index.html)
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

@@ -26,4 +26,4 @@ npm install
 ## Resources
 - [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) 
 - [Amazon Kinesis Example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples.html) 
-- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-kinesis/index.html) 
+- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/kinesis/index.html) 
