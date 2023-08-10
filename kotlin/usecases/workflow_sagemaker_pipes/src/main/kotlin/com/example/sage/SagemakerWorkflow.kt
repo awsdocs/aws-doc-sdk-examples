@@ -392,8 +392,8 @@ suspend fun getOutputResults(bucketName: String?) {
         }
     }
 }
+
 // snippet-start:[sagemaker.kotlin.describe_pipeline_execution.main]
-// Check the status of a pipeline execution.
 suspend fun waitForPipelineExecution(executionArn: String?) {
     var status: String
     var index = 0
