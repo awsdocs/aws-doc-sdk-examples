@@ -25,7 +25,7 @@ You can compile the project into a .jar file, which will serve as input for [Cre
 
 Once you create the Kotlin Lambda project, you can build the required .jar file by using the shadowJar plugin .
 
-![AWS Tracking Application](images/shawdow.png)
+![AWS App](images/shawdow.png)
 
 Perform the following tasks:
 

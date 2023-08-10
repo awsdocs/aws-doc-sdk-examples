@@ -59,7 +59,7 @@ You must download and use these files to successfully run this code example:
 + GeoSpatialPipeline.json
 + latlongtest.csv
 
-These files are located on GitHub in [AWS SDK for .NET](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SageMaker/Scenarios).
+These files are located on GitHub in this folder [sample_files](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files).
 
 ### Kotlin Lambda Function
 
