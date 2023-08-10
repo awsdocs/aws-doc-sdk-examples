@@ -44,26 +44,26 @@ addresses powered by Amazon Location Service. Other types of jobs could be subst
 
 To use this tutorial, you need the following:
 
-+ An AWS account
-+ A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java JDK 1.8
-+ Gradle 6.8 or higher
-+ Setup your development environment. For more information, see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
++ An AWS account.
++ A Java IDE (this tutorial uses the IntelliJ IDE).
++ Java JDK 1.8.
++ Gradle 6.8 or higher.
++ You must set up your development environment. For more information, see [Setting up the AWS SDK for Kotlin](https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html).
 
 To view pipelines in SageMaker Studio, you need to [set up an Amazon SageMaker Domain](https://docs.aws.amazon.com/sagemaker/latest/dg/gs-studio-onboard.html).
 
 To use geospatial capabilities, [you need to use a supported Region](https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial.html).
 
-You must download and use these files to successfully run this code example:
+To successfully run this code example, you must download and use the following files:
 
 + GeoSpatialPipeline.json
 + latlongtest.csv
 
-These files are located on GitHub in this folder [sample_files](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files).
+These files are located on GitHub in [sample_files](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files).
 
-### Kotlin Lambda Function
+### Kotlin Lambda function
 
-To successfully run this example, you need to create the Kotlin Sagemaker Lambda function by creating a .jar file and then placing the .jar file into an Amazon S3 bucket. You can find this project here: [Create the SageMaker geospatial Lambda function using the AWS SDK for Kotlin](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/workflow_sagemaker_lambda).  
+To successfully run this example, you need to create the Kotlin Sagemaker Lambda function by creating a .jar file and then placing the .jar file into an S3 bucket. You can find this project here: [Create the SageMaker geospatial Lambda function using the AWS SDK for Kotlin](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/kotlin/usecases/workflow_sagemaker_lambda).  
 
 ### Instructions
 
