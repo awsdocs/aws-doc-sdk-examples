@@ -65,10 +65,9 @@ import org.json.simple.parser.JSONParser
 import java.io.File
 import java.io.FileReader
 import java.nio.charset.StandardCharsets
-import java.util.Scanner
+import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
-
 
 /**
  * Before running this Kotlin code example, set up your development environment, including your credentials.
@@ -100,7 +99,7 @@ suspend fun main(args: Array<String>) {
           <sageMakerRoleName> <lambdaRoleName> <functionName> <functionKey> <queueName> <bucketName> <bucketFunction> <lnglatData> <spatialPipelinePath> <pipelineName>
 
     Where:
-        sageMakerRoleName - The name of the Amazon SageMaker role
+        sageMakerRoleName - The name of the Amazon SageMaker role.
         lambdaRoleName - The name of the AWS Lambda role.
         functionName - The name of the AWS Lambda function (for example,SageMakerExampleFunction).
         functionKey - The name of the Amazon S3 key name that represents the Lambda function (for example, SageMakerLambda.zip).
@@ -114,7 +113,7 @@ suspend fun main(args: Array<String>) {
 
     if (args.size != 10) {
         println(usage)
-         exitProcess(1)
+        exitProcess(1)
     }
 
     val sageMakerRoleName = args[0]
@@ -171,6 +170,15 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 
     println(DASHES)
+    println(
+        """
+             The pipeline has completed. To view the pipeline and runs in SageMaker Studio, follow these instructions:
+             https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines-studio.html
+             """.trimIndent()
+    )
+    println(DASHES)
+
+    println(DASHES)
     println("Do you want to delete the AWS resources used in this Workflow? (y/n)")
     val `in` = Scanner(System.`in`)
     val delResources = `in`.nextLine()
@@ -195,6 +203,8 @@ suspend fun main(args: Array<String>) {
     println(DASHES)
 }
 
+//snippet-start:[sagemaker.kotlin.delete_pipeline.main]
+// Delete a SageMaker pipeline by name.
 suspend fun deletePipeline(pipelineNameVal: String) {
     val pipelineRequest = DeletePipelineRequest {
         pipelineName = pipelineNameVal
@@ -205,6 +215,7 @@ suspend fun deletePipeline(pipelineNameVal: String) {
         println("*** Successfully deleted $pipelineNameVal")
     }
 }
+//snippet-end:[sagemaker.kotlin.delete_pipeline.main]
 
 suspend fun deleteSagemakerRole(roleNameVal: String) {
     val sageMakerRolePolicies = getSageMakerRolePolicies()
@@ -382,7 +393,8 @@ suspend fun getOutputResults(bucketName: String?) {
         }
     }
 }
-
+//snippet-start:[sagemaker.kotlin.describe_pipeline_execution.main]
+// Check the status of a pipeline execution.
 suspend fun waitForPipelineExecution(executionArn: String?) {
     var status: String
     var index = 0
@@ -394,13 +406,14 @@ suspend fun waitForPipelineExecution(executionArn: String?) {
         SageMakerClient { region = "us-west-2" }.use { sageMakerClient ->
             val response = sageMakerClient.describePipelineExecution(pipelineExecutionRequest)
             status = response.pipelineExecutionStatus.toString()
-            println("$index. The Status of the pipeline is $status")
+            println("$index. The status of the pipeline is $status")
             TimeUnit.SECONDS.sleep(4)
             index++
         }
     } while ("Executing" == status)
     println("Pipeline finished with status $status")
 }
+//snippet-end:[sagemaker.kotlin.describe_pipeline_execution.main]
 
 // snippet-start:[sagemaker.kotlin.execute_pipeline.main]
 // Start a pipeline run with job configurations.
@@ -456,16 +469,6 @@ suspend fun executePipeline(bucketName: String, queueUrl: String?, roleArn: Stri
         value = gson4
     }
     println("parameter_vej_export_config:" + gson.toJson(outputConfig))
-
-    // Create a VectorEnrichmentJobConfig object.
-    val reverseGeocodingConfig = ReverseGeocodingConfig {
-        xAttributeName = "Longitude"
-        yAttributeName = "Latitude"
-    }
-
-    // val jobConfig = aws.sdk.kotlin.services.sagemakergeospatial.model.VectorEnrichmentJobConfig {
-    // reverseGeocodingConfig = reverseGeocodingConfig
-    // }
 
     val para5JSON =
         "{\"MapMatchingConfig\":null,\"ReverseGeocodingConfig\":{\"XAttributeName\":\"Longitude\",\"YAttributeName\":\"Latitude\"}}"
@@ -549,7 +552,7 @@ suspend fun setupBucket(bucketName: String) {
 
     S3Client { region = "us-east-1" }.use { s3 ->
         s3.createBucket(request)
-         println("$bucketName is ready")
+        println("$bucketName is ready")
     }
 }
 
@@ -828,16 +831,16 @@ fun getLambdaRolePolicies(): Array<String?> {
     val lambdaRolePolicies = arrayOfNulls<String>(5)
     lambdaRolePolicies[0] = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess"
     lambdaRolePolicies[1] = "arn:aws:iam::aws:policy/AmazonSQSFullAccess"
-    lambdaRolePolicies[2] = "arn:aws:iam::aws:policy/service-role/" +"AmazonSageMakerGeospatialFullAccess"
-    lambdaRolePolicies[3] = "arn:aws:iam::aws:policy/service-role/" +"AmazonSageMakerServiceCatalogProductsLambdaServiceRolePolicy"
-    lambdaRolePolicies[4] = "arn:aws:iam::aws:policy/service-role/" +"AWSLambdaSQSQueueExecutionRole"
+    lambdaRolePolicies[2] = "arn:aws:iam::aws:policy/service-role/" + "AmazonSageMakerGeospatialFullAccess"
+    lambdaRolePolicies[3] = "arn:aws:iam::aws:policy/service-role/" + "AmazonSageMakerServiceCatalogProductsLambdaServiceRolePolicy"
+    lambdaRolePolicies[4] = "arn:aws:iam::aws:policy/service-role/" + "AWSLambdaSQSQueueExecutionRole"
     return lambdaRolePolicies
 }
 
 fun getSageMakerRolePolicies(): Array<String?> {
     val sageMakerRolePolicies = arrayOfNulls<String>(3)
     sageMakerRolePolicies[0] = "arn:aws:iam::aws:policy/AmazonSageMakerFullAccess"
-    sageMakerRolePolicies[1] = "arn:aws:iam::aws:policy/service-role/" +"AmazonSageMakerGeospatialFullAccess"
+    sageMakerRolePolicies[1] = "arn:aws:iam::aws:policy/service-role/" + "AmazonSageMakerGeospatialFullAccess"
     sageMakerRolePolicies[2] = "arn:aws:iam::aws:policy/AmazonSQSFullAccess"
     return sageMakerRolePolicies
 }
