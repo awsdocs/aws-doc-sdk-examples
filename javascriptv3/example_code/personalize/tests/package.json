@@ -11,8 +11,7 @@
     "@aws-sdk/client-personalize-events": "^3.51.0",
     "@aws-sdk/client-personalize-runtime": "^3.51.0",
     "dotenv": "^16.0.0",
-    "fs": "^0.0.1-security",
-    "@aws-sdk/node-http-handler": "^3.32.0"
+    "fs": "^0.0.1-security"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.4",

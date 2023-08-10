@@ -12,11 +12,11 @@
     "@aws-crypto/sha256-browser": "^4.0.0",
     "@aws-sdk/client-s3": "^3.272.0",
     "@aws-sdk/credential-providers": "^3.276.0",
-    "@aws-sdk/hash-node": "^3.272.0",
-    "@aws-sdk/protocol-http": "^3.272.0",
     "@aws-sdk/s3-request-presigner": "^3.276.0",
-    "@aws-sdk/url-parser": "^3.272.0",
     "@aws-sdk/util-format-url": "^3.272.0",
+    "@smithy/hash-node": "^2.0.2",
+    "@smithy/protocol-http": "^2.0.2",
+    "@smithy/url-parser": "^2.0.2",
     "libs": "*"
   },
   "devDependencies": {

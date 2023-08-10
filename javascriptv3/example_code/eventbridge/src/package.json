@@ -5,8 +5,8 @@
   "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/eventbridge.git",
   "author": "Brian Murray <brmur@amazon.com>",
   "license": "Apache 2.0",
+  "type": "module",
   "dependencies": {
-    "@aws-sdk/eventbridge": "^3.32.0"
-  },
-  "type": "module"
+    "@aws-sdk/client-eventbridge": "^3.387.0"
+  }
 }
