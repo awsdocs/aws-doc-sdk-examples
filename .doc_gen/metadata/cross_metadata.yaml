@@ -46,6 +46,7 @@ cross_PAM:
     C++:
       versions:
         - sdk_version: 1
+          github: cpp/example_code/cross-service/photo_asset_manager
           block_content: cross_PAM_cpp_block.xml
   service_main: rekognition
   services:
@@ -124,6 +125,7 @@ cross_RDSDataTracker:
     C++:
       versions:
         - sdk_version: 1
+          github: cpp/example_code/cross-service/serverless-aurora
           block_content: cross_RDSDataTracker_cpp_block.xml
   service_main: aurora
   services:
