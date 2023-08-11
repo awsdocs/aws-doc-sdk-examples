@@ -304,14 +304,9 @@ For example:
 
 #### **Output**
 
-Returns a string representing the key of the synthesized audio file. This key will be sent to the
-frontend. The frontend will use the key to directly get the audio file from S3.
+Return a string representing the key of the synthesized audio file. The key is the provided object name appended with ".mp3". This key will be sent to the frontend. The frontend will use the key to directly get the audio file from S3.
 
-For example:
-
-```
- audio.mp3
-```
+For example, if the object name was "image.jpg", the output would be "image.jpg.mp3".
 
 ---
 
