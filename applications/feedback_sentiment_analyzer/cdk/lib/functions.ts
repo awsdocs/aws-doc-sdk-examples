@@ -122,6 +122,25 @@ const JAVASCRIPT_FUNCTIONS = [
   {
     ...BASE_APP_FUNCTION,
     name: "AnalyzeSentiment",
+    codeAsset() {
+      const source = resolve(
+        "../../../javascriptv3/example_code/cross-services/feedback-sentiment-analyzer/AnalyzeSentiment"
+      );
+      return Code.fromAsset(source, {
+        bundling: {
+          command: [
+            "/bin/sh",
+            "-c",
+            "npm i && \
+           npm run build && \
+           cp /asset-input/dist/index.mjs /asset-output/",
+          ],
+          outputType: BundlingOutput.NOT_ARCHIVED,
+          user: "root",
+          image: this.runtime.bundlingImage,
+        },
+      });
+    },
   },
   {
     ...BASE_APP_FUNCTION,
