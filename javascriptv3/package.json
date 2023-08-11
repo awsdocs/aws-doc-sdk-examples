@@ -29,7 +29,8 @@
     "example_code/cross-services/photo-asset-manager",
     "example_code/sns",
     "example_code/cross-services/wkflw-topics-queues",
-    "example_code/secrets-manager"
+    "example_code/secrets-manager",
+    "example_code/cross-services/feedback-sentiment-analyzer/ExtractText"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.1",
