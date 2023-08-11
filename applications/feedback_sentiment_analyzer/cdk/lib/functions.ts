@@ -148,6 +148,14 @@ const JAVASCRIPT_FUNCTIONS = [
   {
     ...BASE_APP_FUNCTION,
     name: "SynthesizeAudio",
+    codeAsset() {
+      const source = resolve(
+        "../../../javascriptv3/example_code/cross-services/feedback-sentiment-analyzer/SynthesizeAudio"
+      );
+      return Code.fromAsset(source, {
+        bundling: JAVASCRIPT_BUNDLING_CONFIG,
+      });
+    },
   },
 ];
 
