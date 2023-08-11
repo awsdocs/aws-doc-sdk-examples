@@ -56,7 +56,8 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-* [Create a user and assume a role](src/main/java/com/example/iam/IAMScenario.java) 
+* [Create a user and assume a role](src/main/java/com/example/iam/IAMScenario.java)
+* [Work with the IAM Policy Builder API](src/main/java/com/example/iam/IamPolicyBuilderExamples.java)
 
 ## Run the examples
 
