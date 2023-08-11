@@ -31,7 +31,8 @@
     "example_code/cross-services/wkflw-topics-queues",
     "example_code/secrets-manager",
     "example_code/cross-services/feedback-sentiment-analyzer/ExtractText",
-    "example_code/cross-services/feedback-sentiment-analyzer/AnalyzeSentiment"
+    "example_code/cross-services/feedback-sentiment-analyzer/AnalyzeSentiment",
+    "example_code/cross-services/feedback-sentiment-analyzer/TranslateText"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.1",

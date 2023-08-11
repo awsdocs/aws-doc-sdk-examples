@@ -273,12 +273,12 @@ For example:
 
 #### **Output**
 
-Returns a string representing the translated text.
+Returns an object containing the translated text.
 
 For example:
 
 ```
-THIS HOTEL WAS GREAT
+{ translated_text: "THIS HOTEL WAS GREAT" }
 ```
 
 ---
@@ -363,7 +363,7 @@ Specifically, the trigger is scoped to `ObjectCreated` events emitted by `my-s3-
       "name": ["<dynamic media bucket name>"]
     },
     "object": {
-      "key": [{ "suffix": ".png" }, { "suffix": ".jpeg" }, { "suffix": ".jpg" }]
+      "key": [{"suffix": ".png"}, {"suffix": ".jpeg"}, {"suffix": ".jpg"}]
     }
   }
 }

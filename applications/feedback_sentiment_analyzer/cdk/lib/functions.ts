@@ -95,6 +95,19 @@ const RUBY_FUNCTIONS: AppFunctionConfig[] = [
   },
 ];
 
+const JAVASCRIPT_BUNDLING_CONFIG = {
+  command: [
+    "/bin/sh",
+    "-c",
+    "npm i && \
+   npm run build && \
+   cp /asset-input/dist/index.mjs /asset-output/",
+  ],
+  outputType: BundlingOutput.NOT_ARCHIVED,
+  user: "root",
+  image: Runtime.NODEJS_18_X.bundlingImage,
+};
+
 const JAVASCRIPT_FUNCTIONS = [
   {
     ...BASE_APP_FUNCTION,
@@ -104,18 +117,7 @@ const JAVASCRIPT_FUNCTIONS = [
         "../../../javascriptv3/example_code/cross-services/feedback-sentiment-analyzer/ExtractText"
       );
       return Code.fromAsset(source, {
-        bundling: {
-          command: [
-            "/bin/sh",
-            "-c",
-            "npm i && \
-           npm run build && \
-           cp /asset-input/dist/index.mjs /asset-output/",
-          ],
-          outputType: BundlingOutput.NOT_ARCHIVED,
-          user: "root",
-          image: this.runtime.bundlingImage,
-        },
+        bundling: JAVASCRIPT_BUNDLING_CONFIG,
       });
     },
   },
@@ -127,24 +129,21 @@ const JAVASCRIPT_FUNCTIONS = [
         "../../../javascriptv3/example_code/cross-services/feedback-sentiment-analyzer/AnalyzeSentiment"
       );
       return Code.fromAsset(source, {
-        bundling: {
-          command: [
-            "/bin/sh",
-            "-c",
-            "npm i && \
-           npm run build && \
-           cp /asset-input/dist/index.mjs /asset-output/",
-          ],
-          outputType: BundlingOutput.NOT_ARCHIVED,
-          user: "root",
-          image: this.runtime.bundlingImage,
-        },
+        bundling: JAVASCRIPT_BUNDLING_CONFIG,
       });
     },
   },
   {
     ...BASE_APP_FUNCTION,
     name: "TranslateText",
+    codeAsset() {
+      const source = resolve(
+        "../../../javascriptv3/example_code/cross-services/feedback-sentiment-analyzer/TranslateText"
+      );
+      return Code.fromAsset(source, {
+        bundling: JAVASCRIPT_BUNDLING_CONFIG,
+      });
+    },
   },
   {
     ...BASE_APP_FUNCTION,
