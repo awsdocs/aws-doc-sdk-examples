@@ -345,7 +345,8 @@ sqs_DeleteQueue:
           github: dotnetv3/cross-service/TopicsAndQueues
           sdkguide:
           excerpts:
-            - description: Delete a queue by its URL.
+            - description: Delete a queue by using its URL.
+
               snippet_tags:
                 - TopicsAndQueues.dotnetv3.DeleteQueue
     Kotlin:
@@ -581,7 +582,8 @@ sqs_ReceiveMessage:
           github: dotnetv3/cross-service/TopicsAndQueues
           sdkguide:
           excerpts:
-            - description: Receive messages from a queue by its URL.
+            - description: Receive messages from a queue by using its URL.
+
               snippet_tags:
                 - TopicsAndQueues.dotnetv3.ReceiveMessage
             - description: Receive a message from an &SQS; queue, and then delete the message.

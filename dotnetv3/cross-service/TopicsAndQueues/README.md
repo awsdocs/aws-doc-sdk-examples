@@ -76,7 +76,7 @@ The application now prompts you to add the second queue. Repeat the previous ste
 The following diagram shows the topic and queue options.
 ![Diagram of the options](Images/fifo_topics_diagram.png)
 
-After you create the topic and subscribe both queues, the application lets you publish messages to the topic.
+After you create both the topic and subscribe queues, the application lets you publish messages to the topic.
 
 
 ```
@@ -158,7 +158,7 @@ dotnet run
 
 Alternatively, you can run the example from within your IDE.
 
-Running this example requires AWS Identity and Access Management (IAM) permissions for both SNS and SQS.
+Running this example requires AWS Identity and Access Management (IAM) permissions for both Amazon SNS and Amazon SQS.
 
 ## Additional resources
 
