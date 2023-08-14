@@ -2,7 +2,7 @@ import {describe, it, expect, vi} from "vitest";
 
 const send = vi.fn(() => Promise.resolve());
 
-vi.doMock("@aws-sdk/client-textract", async () => {
+vi.doMock("@aws-sdk/client-comprehend", async () => {
   const actual = await vi.importActual("@aws-sdk/client-comprehend");
   return {
     ...actual,
