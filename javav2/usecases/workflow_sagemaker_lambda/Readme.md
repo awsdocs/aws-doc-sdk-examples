@@ -1,4 +1,4 @@
-# Create the SageMaker geospatial Lambda function using the Lambda Java rumtime API
+# Create the SageMaker geospatial Lambda function using the Lambda Java API
 
 This example demonstrates how to create a Lambda function for the Amazon SageMaker pipeline and geospatial job example. 
 

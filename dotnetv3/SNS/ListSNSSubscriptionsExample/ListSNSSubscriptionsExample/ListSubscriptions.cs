@@ -12,8 +12,7 @@ namespace ListSNSSubscriptionsExample
 
     /// <summary>
     /// This example will retrieve a list of the existing Amazon Simple
-    /// Notification Service (Amazon SNS) subscriptions. The example was
-    /// created using the AWS SDK for .NET 3.7 and .NET Core 5.0.
+    /// Notification Service (Amazon SNS) subscriptions.
     /// </summary>
     public class ListSubscriptions
     {

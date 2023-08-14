@@ -3523,3 +3523,40 @@ iam_Scenario_CreateUserAssumeRole:
     iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy,
           PutUserPolicy, DeleteUserPolicy, DetachRolePolicy, DeletePolicy, DeleteRole,
           DeleteAccessKey, DeleteUser}
+iam_Scenario_IamPolicyBuilder:
+  title: Work with the &IAM; Policy Builder API using an &AWS; SDK
+  title_abbrev: Work with the &IAM; Policy Builder API
+  synopsis_list:
+    - Create &IAM; policies by using the object-oriented API.
+    - Use the &IAM; Policy Builder API with the &IAM; service.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide: sdk-for-java/latest/developer-guide/feature-iam-policy-builder.html
+          excerpts:
+            - description: The examples use the following imports.
+              snippet_tags:
+                - iam.java2.policy_builder.policy_builder_examples.imports
+            - description: Create a time-based policy.
+              snippet_tags:
+                - iam.java2.policy_builder.time_based
+            - description: Create a policy with multiple conditions.
+              snippet_tags:
+                - iam.java2.policy_builder.multiple_conditions
+            - description: Use principals in a policy.
+              snippet_tags:
+                - iam.java2.policy_builder.specify_principals
+            - description: Allow cross-account access.
+              snippet_tags:
+                - iam.java2.policy_builder.allow_cross_account_access
+            - description: Build and upload an <code>IamPolicy</code>.
+              snippet_tags:
+                - iam.java2.policy_builder.create_and_upload_policy
+            - description: Download and work with an <code>IamPolicy</code>.
+              snippet_tags:
+                - iam.java2.policy_builder.create_new_based_on_existing_policy
+  services:
+    iam: {CreatePolicy, GetPolicy, GetPolicyVersion}

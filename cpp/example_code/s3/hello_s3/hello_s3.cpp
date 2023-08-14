@@ -15,6 +15,9 @@
 #include <aws/core/Aws.h>
 #include <aws/s3/S3Client.h>
 #include <iostream>
+#include <aws/core/auth/AWSCredentialsProviderChain.h>
+using namespace Aws;
+using namespace Aws::Auth;
 
 /*
  *  A "Hello S3" starter application which initializes an Amazon Simple Storage Service (Amazon S3) client
@@ -36,6 +39,13 @@ int main(int argc, char **argv) {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region (overrides config file).
         // clientConfig.region = "us-east-1";
+               
+        // You don't normally have to test that you are authenticated. But the S3 service permits anonymous requests, thus the s3Client will return "success" and 0 buckets even if you are unauthenticated, which can be confusing to a new user. 
+        auto provider = Aws::MakeShared<DefaultAWSCredentialsProviderChain>("alloc-tag");
+        auto creds = provider->GetAWSCredentials();
+        if (creds.IsEmpty()) {
+            std::cerr << "Failed authentication" << std::endl;
+        }
 
         Aws::S3::S3Client s3Client(clientConfig);
         auto outcome = s3Client.ListBuckets();
