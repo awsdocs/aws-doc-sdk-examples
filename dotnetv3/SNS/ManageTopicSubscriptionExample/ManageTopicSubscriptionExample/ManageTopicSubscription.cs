@@ -11,8 +11,7 @@ namespace ManageTopicSubscriptionExample
     /// <summary>
     /// This example shows how to manage subscriptions for a Simple Notification
     /// Service (Amazon SNS) topic. The code first subscribes and then
-    /// unsubscribes from an Amazon SNS topic. The example was created using the AWS
-    /// SDK for .NET versionn 3.7 and .NET Core 5.0.
+    /// unsubscribes from an Amazon SNS topic.
     /// </summary>
     public class ManageTopicSubscription
     {

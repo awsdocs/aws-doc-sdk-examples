@@ -12,8 +12,7 @@ namespace ListSNSTopicsExample
 
     /// <summary>
     /// Lists the Amazon Simple Notification Service (Amazon SNS)
-    /// topics for the current account. The code was written using the
-    /// AWS SDK for .NET 3.7 and .NET Core 5.0.
+    /// topics for the current account.
     /// </summary>
     public class ListSNSTopics
     {

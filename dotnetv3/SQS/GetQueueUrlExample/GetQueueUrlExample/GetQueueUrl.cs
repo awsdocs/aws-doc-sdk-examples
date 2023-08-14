@@ -3,8 +3,7 @@
 
 /// <summary>
 /// Shows how to retrieve the Amazon Simple Queue Service (Amazon SQS)
-/// to retrieve the URL for an Amazon SQS queue. The example was created
-/// using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+/// to retrieve the URL for an Amazon SQS queue.
 /// </summary>
 namespace GetQueueUrlExample
 {
@@ -28,7 +27,7 @@ namespace GetQueueUrlExample
             // client constructor.
             var client = new AmazonSQSClient();
 
-            string queueName = "New-Exampe-Queue";
+            string queueName = "New-Example-Queue";
 
             try
             {
