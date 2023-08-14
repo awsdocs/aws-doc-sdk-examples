@@ -9,7 +9,7 @@ import {
 } from "@aws-sdk/client-textract";
 
 /**
- * Fetch the S3 object from the event and analyze it using Textract.
+ * Fetch the S3 object from the event and analyze it using Amazon Textract.
  *
  * @param {import("@types/aws-lambda").EventBridgeEvent<"Object Created">} eventBridgeS3Event
  */

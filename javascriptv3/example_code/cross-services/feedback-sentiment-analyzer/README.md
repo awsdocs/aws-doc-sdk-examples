@@ -6,7 +6,7 @@ This document discusses the language-specific nuances of deploying the Feedback 
 
 ## Prerequisites
 
-- Follow the main [README](../../../README.md#Prerequisites) in the `javascriptv3` folder.
+- Follow the main [README](../../../README.md#Prerequisites) in the `javascriptv3` folder
 - Install the [AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html)
 
 ### Important

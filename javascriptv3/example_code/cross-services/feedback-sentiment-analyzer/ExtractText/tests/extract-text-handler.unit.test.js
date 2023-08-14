@@ -15,7 +15,7 @@ vi.doMock("@aws-sdk/client-textract", async () => {
 const {handler} = await import("../src/index.js");
 
 describe("extract-text-handler", () => {
-  it("should create a single string from the word Blocks returned by textract", async () => {
+  it("should create a single string from the word Blocks returned by Amazon Textract", async () => {
     send.mockResolvedValueOnce({
       Blocks: [
         {

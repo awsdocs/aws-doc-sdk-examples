@@ -1,7 +1,7 @@
 {
   "name": "example-javascriptv3-fsa-extract-text",
   "version": "1.0.0",
-  "description": "Companion AWS Lambda functions for the Feedback Sentiment Analyze Example.",
+  "description": "Companion AWS Lambda functions for the Feedback Sentiment Analyzer Example.",
   "main": "index.js",
   "type": "module",
   "scripts": {
