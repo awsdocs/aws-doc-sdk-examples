@@ -63,7 +63,6 @@ function iam_user_exists() {
 # function iam_list_users
 #
 # List the IAM users in the account.
-# This routine handles paginated results.
 #
 # Returns:
 #       The list of users names
@@ -97,47 +96,20 @@ function iam_list_users() {
   done
   export OPTIND=1
 
-  local marker=First
+  local response
 
-  while [[ -n "$marker" ]]; do
-    local response
-    if [[ "$marker" == "First" ]]; then
-      response=$(aws iam list-users \
-        --output text \
-        --query "{name: Users[].UserName, marker: NextToken}")
-      error_code=${?}
-    else
-      response=$(aws iam list-users \
-        --output text \
-        --query "{name: Users[].UserName, marker: NextToken}" \
-        --starting-token "$marker")
-      error_code=${?}
-    fi
+  response=$(aws iam list-users \
+    --output text \
+    --query "Users[].UserName")
+  error_code=${?}
 
-    if [[ $error_code -ne 0 ]]; then
-      aws_cli_error_log $error_code
-      errecho "ERROR: AWS reports list-users operation failed.$response"
-      return 1
-    fi
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports list-users operation failed.$response"
+    return 1
+  fi
 
-    marker=""
-
-    # Parse the response for users and the marker.
-    local line
-    while IFS= read -r line; do
-      if [[ "$line" == "NAME"* ]]; then
-        # shellcheck disable=SC2206
-        local line_array=($line)
-        all_users="$all_users ${line_array[1]}"
-      elif [[ "$line" == "MARKER"* ]]; then
-        # shellcheck disable=SC2206
-        local line_array=($line)
-        marker="${line_array[1]}"
-      fi
-    done <<<"$response"
-  done
-
-  echo "$all_users"
+  echo "$response"
 
   return 0
 }
