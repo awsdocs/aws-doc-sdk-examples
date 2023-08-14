@@ -5,6 +5,13 @@ sns_Hello:
   synopsis: get started using &SNS;.
   category: Hello
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/TopicsAndQueues
+          excerpts:
+            - snippet_tags:
+                - TopicsAndQueues.dotnetv3.HelloSNS
     Kotlin:
       versions:
         - sdk_version: 1
@@ -636,8 +643,12 @@ sns_CreateTopic:
         - sdk_version: 3
           github: dotnetv3/SNS
           excerpts:
-            - snippet_tags:
+            - description: Create a topic with a specific name.
+              snippet_tags:
                 - SNS.dotnetv3.CreateSNSTopic
+            - description: Create a new topic with a name and specific FIFO and de-duplication attributes.
+              snippet_tags:
+                - TopicsAndQueues.dotnetv3.CreateTopic
     C++:
       versions:
         - sdk_version: 1
@@ -732,10 +743,11 @@ sns_DeleteTopic:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SNS
+          github: dotnetv3/cross-service/TopicsAndQueues
           excerpts:
-            - snippet_tags:
-                - SNS.dotnetv3.DeleteSNSTopicExample
+            - description: Delete a topic by its topic ARN.
+              snippet_tags:
+                - TopicsAndQueues.dotnetv3.DeleteTopic
     C++:
       versions:
         - sdk_version: 1
@@ -829,6 +841,17 @@ sns_Publish:
   synopsis: publish messages to an &SNS; topic.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/SNS
+          excerpts:
+            - description: Publish a message to a topic.
+              snippet_tags:
+                - SNS.dotnetv3.PublishToSNSTopicExample
+            - description: Publish a message to a topic with an attribute and optional deduplication and group IDs.
+              snippet_tags:
+                - TopicsAndQueues.dotnetv3.Publish
     C++:
       versions:
         - sdk_version: 1
@@ -872,13 +895,6 @@ sns_Publish:
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - sns.JavaScript.topics.publishMessagesV3
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/SNS
-          excerpts:
-            - snippet_tags:
-                - SNS.dotnetv3.PublishToSNSTopicExample
     PHP:
       versions:
         - sdk_version: 3
@@ -1163,10 +1179,11 @@ sns_Unsubscribe:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3/SNS
+          github: dotnetv3/cross-service/TopicsAndQueues
           excerpts:
-            - snippet_tags:
-                - SNS.dotnetv3.UnsubscribeTopic
+            - description: Unsubscribe from a topic by a subscription ARN.
+              snippet_tags:
+                - TopicsAndQueues.dotnetv3.Unsubscribe
     C++:
       versions:
         - sdk_version: 1
@@ -1299,6 +1316,14 @@ sns_Subscribe_Queue:
   synopsis: subscribe an &SQS; queue so it receives notifications from an &SNS; topic.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/TopicsAndQueues
+          excerpts:
+            - description: Subscribe a queue to a topic with optional filters.
+              snippet_tags:
+                - TopicsAndQueues.dotnetv3.Subscribe
     C++:
       versions:
         - sdk_version: 1
@@ -1326,6 +1351,14 @@ sns_Subscribe_Filtered:
   synopsis: subscribe with a filter to an &SNS; topic.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/TopicsAndQueues
+          excerpts:
+            - description: Subscribe a queue to a topic with optional filters.
+              snippet_tags:
+                - TopicsAndQueues.dotnetv3.Subscribe
     C++:
       versions:
         - sdk_version: 1

@@ -15,6 +15,7 @@ namespace ReceiveDeleteExampleTests
         private readonly string _queueUrl = "https://sqs.us-east-2.amazonaws.com/704812345678/Example_Queue";
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task GetQueueURLTest()
         {
             var mockClient = new Mock<IAmazonSQS>();
@@ -46,6 +47,7 @@ namespace ReceiveDeleteExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task GetMessageTest()
         {
             var msgs = new List<Message>();
@@ -86,6 +88,7 @@ namespace ReceiveDeleteExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task DeleteMessageTest()
         {
             var mockClient = new Mock<IAmazonSQS>();
