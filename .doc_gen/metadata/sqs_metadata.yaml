@@ -1069,7 +1069,7 @@ sqs_Scenario_TopicsAndQueues:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cross-services/workflow-sns
+          github: javascriptv3/example_code/cross-services/wkflw-topics-queues
           sdkguide:
           excerpts:
             - description: This is the entry point for this workflow.
