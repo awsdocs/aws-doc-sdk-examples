@@ -18,9 +18,6 @@
 ###############################################################################
 
 # Set default values.
-# bashsupport disable=BP5001
-INTERACTIVE=false
-VERBOSE=false
 
 ###############################################################################
 # function main
@@ -28,6 +25,11 @@ VERBOSE=false
 # This function runs the IAM examples' tests.
 ###############################################################################
 function main() {
+  # bashsupport disable=BP2001
+  export INTERACTIVE=false
+  # bashsupport disable=BP2001
+  export VERBOSE=false
+
   source ./test_general.sh
   {
     local current_directory
@@ -125,8 +127,8 @@ function main() {
     0
   test_count=$((test_count + 1))
 
-  # shellcheck disable=SC2206
-  local user_values=($test_command_response)
+  local user_values
+  IFS=$'\t ' read -r -a user_values <<<"$test_command_response"
   if [[ "${#user_values[@]}" -lt "2" ]]; then
     test_failed "Listing users returned less than 2 users."
   fi
@@ -152,9 +154,8 @@ function main() {
     "iam_create_user_access_key -u $user_name " \
     0
   test_count=$((test_count + 1))
-
-  # shellcheck disable=SC2206
-  local access_key_values=($test_command_response)
+  local access_key_values
+  IFS=$'\t ' read -r -a access_key_values <<<"$test_command_response"
   local key_name2=${access_key_values[0]}
 
   run_test "$test_count. Listing access keys without user" \
@@ -166,8 +167,8 @@ function main() {
     "iam_list_access_keys -u $user_name " \
     0
   test_count=$((test_count + 1))
-  # shellcheck disable=SC2206
-  local access_key_values=($test_command_response)
+
+  IFS=$'\t ' read -r -a access_key_values <<<"$test_command_response"
   if [[ "${#access_key_values[@]}" -ne "2" ]]; then
     test_failed "Listing access keys returned incorrect number of keys."
   fi
@@ -258,7 +259,7 @@ function main() {
   test_count=$((test_count + 1))
 
   # bashsupport disable=BP2001
-  mock_input="True"
+  export mock_input="True"
 
   # bashsupport disable=BP2001
   export mock_input_array=("iamtestcli_scenario")
