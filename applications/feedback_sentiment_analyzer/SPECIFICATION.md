@@ -190,12 +190,12 @@ Following are the required inputs and outputs of each Lambda function.
 
 ### ExtractText
 
-Uses the Amazon Textract [DetectDocumentText](https://docs.aws.amazon.com/textract/latest/dg/API_DetectDocumentText.html)
+Use the Amazon Textract [DetectDocumentText](https://docs.aws.amazon.com/textract/latest/dg/API_DetectDocumentText.html)
 method to extract text from an image and return a unified text representation.
 
 #### **Input**
 
-Uses the data available on the [Amazon S3 event object](https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html).
+Use the data available on the [Amazon S3 event object](https://docs.aws.amazon.com/AmazonS3/latest/userguide/EventBridge.html).
 
 For example:
 
@@ -221,12 +221,12 @@ CET HÔTEL ÉTAIT SUPER
 
 ### AnalyzeSentiment
 
-Uses the Amazon Comprehend [DetectSentiment](https://docs.aws.amazon.com/comprehend/latest/APIReference/API_DetectSentiment.html)
+Use the Amazon Comprehend [DetectSentiment](https://docs.aws.amazon.com/comprehend/latest/APIReference/API_DetectSentiment.html)
 method to detect sentiment (`POSITIVE`, `NEUTRAL`, `MIXED`, or `NEGATIVE`).
 
 #### **Input**
 
-Uses the data available on the [Lambda event object](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-event).
+Use the data available on the [Lambda event object](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-concepts.html#gettingstarted-concepts-event).
 
 For example:
 
@@ -254,7 +254,7 @@ For example:
 
 ### TranslateText
 
-Uses the Amazon Translate [TranslateText](https://docs.aws.amazon.com/translate/latest/APIReference/API_TranslateText.html)
+Use the Amazon Translate [TranslateText](https://docs.aws.amazon.com/translate/latest/APIReference/API_TranslateText.html)
 method to translate text to English and return a string.
 
 #### **Input**
@@ -273,20 +273,19 @@ For example:
 
 #### **Output**
 
-Returns a string representing the translated text.
+Returns an object containing the translated text.
 
 For example:
 
 ```
-THIS HOTEL WAS GREAT
+{ translated_text: "THIS HOTEL WAS GREAT" }
 ```
 
 ---
 
 ### SynthesizeAudio
 
-Uses the Amazon Polly [SynthesizeAudio](https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html)
-method to convert input text into life-like speech.
+Uses the Amazon Polly [SynthesizeSpeech](https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html) method to convert input text into life-like speech. Store the synthesized audio in the provided Amazon S3 bucket with a content type of "audio/mp3".
 
 #### **Input**
 
@@ -305,13 +304,9 @@ For example:
 
 #### **Output**
 
-Returns a string representing the key of the synthesized audio file.
+Return a string representing the key of the synthesized audio file. The key is the provided object name appended with ".mp3". This key will be sent to the frontend. The frontend will use the key to directly get the audio file from Amazon S3.
 
-For example:
-
-```
-DOC-EXAMPLE-BUCKET/audio.mp3
-```
+For example, if the object name was "image.jpg", the output would be "image.jpg.mp3".
 
 ---
 
@@ -363,7 +358,7 @@ Specifically, the trigger is scoped to `ObjectCreated` events emitted by `my-s3-
       "name": ["<dynamic media bucket name>"]
     },
     "object": {
-      "key": [{ "suffix": ".png" }, { "suffix": ".jpeg" }, { "suffix": ".jpg" }]
+      "key": [{"suffix": ".png"}, {"suffix": ".jpeg"}, {"suffix": ".jpg"}]
     }
   }
 }
