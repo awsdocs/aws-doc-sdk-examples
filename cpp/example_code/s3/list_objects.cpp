@@ -78,7 +78,7 @@ int main()
         //TODO(user): Name of a bucket in your account.
         //The bucket must have at least one object in it.  One way to achieve
         //this is to configure and run put_object.cpp's executable first.
-        const Aws::String bucket_name = "my-bucket-2f2730dd-0f5d-4dfa-b55d-8d36a3bfea39";
+        const Aws::String bucket_name = "<enter_bucket_name>";
 
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).

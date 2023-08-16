@@ -767,14 +767,17 @@ bool AwsDoc::Aurora::describeDBCluster(const Aws::String &dbClusterIdentifier,
     if (outcome.IsSuccess()) {
         clusterResult = outcome.GetResult().GetDBClusters()[0];
     }
-        // This example does not log an error if the DB cluster does not exist.
-        // Instead, it returns false.
     else if (outcome.GetError().GetErrorType() !=
              Aws::RDS::RDSErrors::D_B_CLUSTER_NOT_FOUND_FAULT) {
         result = false;
         std::cerr << "Error with Aurora::GDescribeDBClusters. "
                   << outcome.GetError().GetMessage()
                   << std::endl;
+    }
+        // This example does not log an error if the DB cluster does not exist.
+        // Instead, clusterResult is set to empty.
+    else {
+        clusterResult = Aws::RDS::Model::DBCluster();
     }
 
     return result;
@@ -902,14 +905,17 @@ bool AwsDoc::Aurora::describeDBInstance(const Aws::String &dbInstanceIdentifier,
     if (outcome.IsSuccess()) {
         instanceResult = outcome.GetResult().GetDBInstances()[0];
     }
-        // This example does not log an error if the DB instance does not exist.
-        // Instead, it returns false.
     else if (outcome.GetError().GetErrorType() !=
              Aws::RDS::RDSErrors::D_B_INSTANCE_NOT_FOUND_FAULT) {
         result = false;
         std::cerr << "Error with Aurora::DescribeDBInstances. "
                   << outcome.GetError().GetMessage()
                   << std::endl;
+    }
+        // This example does not log an error if the DB instance does not exist.
+        // Instead, instanceResult is set to empty.
+    else {
+        instanceResult = Aws::RDS::Model::DBInstance();
     }
 
     return result;

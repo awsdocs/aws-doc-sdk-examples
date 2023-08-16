@@ -4,42 +4,39 @@
 # Set the minimum required version of CMake for this project.
 cmake_minimum_required(VERSION 3.8)
 
-# Set this project's name.
-project("s3-examples")
+set(SERVICE_NAME)
+set(SERVICE_COMPONENTS s3 sts iam)
 
-# Set the location of where Windows can find the installed libraries of the SDK.
-if(MSVC)
-    string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
-    list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
-endif()
+# Set this project's name.
+project("${SERVICE_NAME}-examples")
+
+# Build shared libraries by default.
+set(BUILD_SHARED_LIBS ON)
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 11)
 
-# Enable CTest for testing these code examples.
-if(BUILD_TESTS)
-    include(CTest)
-endif()
+# Use the MSVC variable to determine if this is a Windows build.
+set(WINDOWS_BUILD ${MSVC})
 
-# Build shared libraries by default.
-if(NOT BUILD_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS ON)
+# Set the location of where Windows can find the installed libraries of the SDK.
+if(WINDOWS_BUILD)
+    string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
+    list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
 endif()
 
 # Find the AWS SDK for C++ package.
-find_package(AWSSDK REQUIRED COMPONENTS s3 sts iam)
+find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
-# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
-# and building as shared libraries, then dynamically link to those shared libraries.
-if(MSVC AND BUILD_SHARED_LIBS)
-    add_definitions(-DUSE_IMPORT_EXPORT)
-    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
 
-    set(CMAKE_BUILD_TYPE Debug) # Explicitly setting CMAKE_BUILD_TYPE is necessary in windows to copy dlls.
 
-    list(APPEND SERVICE_LIST s3 sts iam)
+if(WINDOWS_BUILD)
+     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
 
-     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+     # set(BIN_SUB_DIR "/Debug") # if you are building from the command line you may need to uncomment this 
+                                    # and set the proper subdirectory to the executables' location.
+
+     AWSSDK_CPY_DYN_LIBS(SERVICE_COMPONENTS "" ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR})
 endif()
 
 # Add the code example-specific header files.
