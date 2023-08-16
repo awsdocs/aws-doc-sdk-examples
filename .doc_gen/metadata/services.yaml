@@ -696,7 +696,7 @@ opensearch:
   guide:
     subtitle: User Guide
     url: opensearch-service/latest/developerguide/gsg.html
-  api_ref: opensearch.org/docs/latest/api-reference/index/
+  api_ref: opensearch-service/latest/APIReference/index/
   tags:
     product_categories: {'Analytics'}
   version: es-2021-01-01
@@ -1127,7 +1127,7 @@ support:
   guide:
     subtitle: User Guide
     url: awssupport/latest/user/getting-started.html
-  api_ref: support/latest/APIReference/welcome.html
+  api_ref: awssupport/latest/APIReference/welcome.html
   tags:
     product_categories: {'Contact Center'}
   version: support-2013-04-15

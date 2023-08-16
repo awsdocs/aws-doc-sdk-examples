@@ -11,8 +11,6 @@ a category that contain a keyword in their product titles.
 This script is intended to be run as an Amazon EMR job step and uses PySpark to manage
 running the query on the cluster instances.
 
-To learn more about the Amazon Customer Reviews Dataset, see the README:
-    https://s3.amazonaws.com/amazon-reviews-pds/readme.html
 """
 
 # snippet-start:[emr.python.spark.top_category_reviews]

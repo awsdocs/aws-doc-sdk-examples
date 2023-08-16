@@ -51,7 +51,6 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
-* [Create a long-lived Amazon EMR cluster and run steps](emr_usage_demo.py) 
 * [Create a short-lived Amazon EMR cluster and run a step](emr_usage_demo.py) 
 * [Run a shell script to install libraries](install_libraries.py) 
 
@@ -63,29 +62,6 @@ functions within the same service.
 <!--custom.instructions.start-->
 <!--custom.instructions.end-->
 
-
-
-#### Create a long-lived Amazon EMR cluster and run steps
-
-This example shows you how to create a long-lived Amazon EMR cluster and run several steps.
-
-
-<!--custom.scenario_prereqs.emr_Scenario_LongLivedEmrCluster.start-->
-<!--custom.scenario_prereqs.emr_Scenario_LongLivedEmrCluster.end-->
-
-Start the example by running the following at a command prompt:
-
-```
-python emr_usage_demo.py
-```
-
-<!--custom.scenarios.emr_Scenario_LongLivedEmrCluster.start-->
-Shows how to write a job step that uses Apache Spark to read data from the
-[Amazon Customer Reviews Dataset](https://s3.amazonaws.com/amazon-reviews-pds/readme.html)
-and query the data for top-rated products in specific categories that contain 
-keywords in their product titles. Results are written to an Amazon Simple Storage 
-Service (Amazon S3) bucket.
-<!--custom.scenarios.emr_Scenario_LongLivedEmrCluster.end-->
 
 #### Create a short-lived Amazon EMR cluster and run a step
 
