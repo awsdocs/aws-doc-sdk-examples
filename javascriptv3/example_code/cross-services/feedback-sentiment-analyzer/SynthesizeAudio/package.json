@@ -1,0 +1,21 @@
+{
+  "name": "example-javascriptv3-fsa-synthesize-audio",
+  "version": "1.0.0",
+  "description": "Companion AWS Lambda functions for the Feedback Sentiment Analyzer Example.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js",
+    "build": "rollup -c"
+  },
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@aws-sdk/client-polly": "^3.388.0",
+    "@aws-sdk/client-s3": "^3.388.0",
+    "@aws-sdk/lib-storage": "^3.388.0",
+    "@rollup/plugin-commonjs": "^25.0.3",
+    "@rollup/plugin-node-resolve": "^15.1.0",
+    "rollup": "^3.28.0"
+  }
+}

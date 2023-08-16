@@ -26,7 +26,14 @@
     "example_code/ec2",
     "example_code/s3",
     "example_code/sqs",
-    "example_code/cross-services/photo-asset-manager"
+    "example_code/cross-services/photo-asset-manager",
+    "example_code/sns",
+    "example_code/cross-services/wkflw-topics-queues",
+    "example_code/secrets-manager",
+    "example_code/cross-services/feedback-sentiment-analyzer/ExtractText",
+    "example_code/cross-services/feedback-sentiment-analyzer/AnalyzeSentiment",
+    "example_code/cross-services/feedback-sentiment-analyzer/TranslateText",
+    "example_code/cross-services/feedback-sentiment-analyzer/SynthesizeAudio"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.1",

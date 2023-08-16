@@ -52,7 +52,7 @@ language = {
         3: {
             'base_folder': 'javascriptv3',
             'service_folder': 'javascriptv3/example_code/{{service["name"]}}',
-            'sdk_api_ref': 'https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-{{service["name"]}}/index.html',
+            'sdk_api_ref': 'https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/{{service["name"]}}',
         }
     },
     'Kotlin': {
@@ -111,8 +111,8 @@ language = {
             'sdk_api_ref': 'https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWS{{service["name"] | capitalize}}/Home',
         }
     },
-    'CLI': {
-        1: {
+    'Bash': {
+        2: {
             'base_folder': 'aws-cli',
             'service_folder': 'aws-cli/bash-linux/{{service["name"]}}',
             'sdk_api_ref': 'https://awscli.amazonaws.com/v2/documentation/api/latest/reference/{{service["name"]}}/index.html',

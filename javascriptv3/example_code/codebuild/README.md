@@ -32,5 +32,5 @@ For more information see, the [README](../README.rst).
 
 ## Resources
 - [AWS SDK for JavaScript v3 repo](https://github.com/aws/aws-sdk-js-v3)
-- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-CodeBuild/index.html) 
+- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/codebuild/index.html) 
 - [AWS CodeBuild user guide](https://docs.aws.amazon.com/CodeBuild/latest/userguide/welcome.html)

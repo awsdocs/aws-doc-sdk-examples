@@ -5,6 +5,24 @@ sagemaker_Hello:
   synopsis: get started using &SM;.
   category: Hello
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin\services\sagemaker
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.kotlin.list_books.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/sagemaker
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.java2.list_books.main
     .NET:
       versions:
         - sdk_version: 3
@@ -22,6 +40,24 @@ sagemaker_CreatePipeline:
   synopsis: create or update a pipeline in &SM;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin\usecases\workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.kotlin.create_pipeline.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.java2.create_pipeline.main
     .NET:
       versions:
         - sdk_version: 3
@@ -39,6 +75,24 @@ sagemaker_ExecutePipeline:
   synopsis: start a pipeline execution in &SM;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin\usecases\workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.kotlin.execute_pipeline.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.java2.execute_pipeline.main
     .NET:
       versions:
         - sdk_version: 3
@@ -56,6 +110,24 @@ sagemaker_DeletePipeline:
   synopsis: delete a pipeline in &SM;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin\usecases\workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.kotlin.delete_pipeline.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.java2.delete_pipeline.main
     .NET:
       versions:
         - sdk_version: 3
@@ -73,6 +145,24 @@ sagemaker_DescribePipelineExecution:
   synopsis: describe a pipeline execution in &SM;.
   category:
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin\usecases\workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.kotlin.describe_pipeline_execution.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.java2.describe_pipeline_execution.main
     .NET:
       versions:
         - sdk_version: 3
@@ -307,6 +397,24 @@ sagemaker_Scenario_Pipelines:
     - Clean up resources.
   category: Scenarios
   languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin\usecases\workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.kotlin.sc.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/workflow_sagemaker_pipes
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - sagemaker.java2.sc.main
     .NET:
       versions:
         - sdk_version: 3

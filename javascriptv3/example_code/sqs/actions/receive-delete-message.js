@@ -10,6 +10,7 @@ import {
   ReceiveMessageCommand,
   DeleteMessageCommand,
   SQSClient,
+  DeleteMessageBatchCommand,
 } from "@aws-sdk/client-sqs";
 
 const client = new SQSClient({});
@@ -23,23 +24,34 @@ const receiveMessage = (queueUrl) =>
       MessageAttributeNames: ["All"],
       QueueUrl: queueUrl,
       VisibilityTimeout: 20,
-      WaitTimeSeconds: 5,
     })
   );
 
 export const main = async (queueUrl = SQS_QUEUE_URL) => {
   const { Messages } = await receiveMessage(queueUrl);
 
-  if (Messages) {
-    Messages.forEach(async (m) => {
-      console.log(m.Body);
-      await client.send(
-        new DeleteMessageCommand({
-          QueueUrl: queueUrl,
-          ReceiptHandle: m.ReceiptHandle,
-        })
-      );
-    });
+  if (!Messages) {
+    return;
+  }
+
+  if (Messages.length === 1) {
+    console.log(Messages[0].Body);
+    await client.send(
+      new DeleteMessageCommand({
+        QueueUrl: queueUrl,
+        ReceiptHandle: Messages[0].ReceiptHandle,
+      })
+    );
+  } else {
+    await client.send(
+      new DeleteMessageBatchCommand({
+        QueueUrl: queueUrl,
+        Entries: Messages.map((message) => ({
+          Id: message.MessageId,
+          ReceiptHandle: message.ReceiptHandle,
+        })),
+      })
+    );
   }
 };
 // snippet-end:[sqs.JavaScript.messages.receiveMessageV3]
