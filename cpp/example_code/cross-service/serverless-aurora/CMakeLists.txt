@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Set the minimum required version of CMake for this project.
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.13)
 
 set(SERVICE_COMPONENTS sesv2 rds-data)
 

@@ -3,7 +3,7 @@
 
 # snippet-start:[cpp.example_code.aurora.hello_aurora.cmake]
 # Set the minimum required version of CMake for this project.
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.13)
 
 # Set the AWS service components used by this project.
 set(SERVICE_COMPONENTS rds)
