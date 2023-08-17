@@ -136,7 +136,7 @@ in the `javascriptv3` folder.
 
 * [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
 * [IAM API Reference](https://docs.aws.amazon.com/IAM/latest/APIReference/welcome.html)
-* [SDK for JavaScript (v3) IAM reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-iam/index.html)
+* [SDK for JavaScript (v3) IAM reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/iam/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

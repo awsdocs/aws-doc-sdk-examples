@@ -11,8 +11,7 @@ namespace PublishToSNSTopicExample
 
     /// <summary>
     /// This example publishes a message to an Amazon Simple Notification
-    /// Service (Amazon SNS) topic. The code uses the AWS SDK for .NET and
-    /// .NET Core 5.0.
+    /// Service (Amazon SNS) topic.
     /// </summary>
     public class PublishToSNSTopic
     {

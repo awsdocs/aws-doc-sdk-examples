@@ -41,7 +41,17 @@ iam_Hello:
             - description: From src/iam-service-lib.rs.
               snippet_tags:
                 - rust.example_code.iam.hello_lib
-
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/iam/hello_iam
+          excerpts:
+            - description: Code for the CMakeLists.txt CMake file.
+              snippet_tags:
+                - cpp.example_code.iam.hello_iam.cmake
+            - description: Code for the iam.cpp source file.
+              snippet_tags:
+                - cpp.example_code.iam.hello_iam
   services:
     iam: {ListPolicies}
 iam_CreateAccountAlias:
@@ -561,6 +571,16 @@ iam_CreateAccessKey:
             - description:
               snippet_tags:
                 - iam.swift.basics.iam.createaccesskey
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.CreateAccessKey
   services:
     iam: {CreateAccessKey}
 iam_DeleteAccessKey:
@@ -662,6 +682,16 @@ iam_DeleteAccessKey:
             - description:
               snippet_tags:
                 - iam.swift.basics.iam.deleteaccesskey
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.DeleteAccessKey
   services:
     iam: {DeleteAccessKey}
 iam_DeleteRolePolicy:
@@ -805,6 +835,16 @@ iam_ListAccessKeys:
             - description:
               snippet_tags:
                 - iam.cpp.list_access_keys.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.ListAccessKeys
   services:
     iam: {ListAccessKeys}
 iam_UpdateAccessKey:
@@ -997,6 +1037,16 @@ iam_CreatePolicy:
             - description:
               snippet_tags:
                 - iam.swift.basics.iam.createpolicy
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.CreatePolicy
   services:
     iam: {CreatePolicy}
 iam_DeletePolicy:
@@ -1090,6 +1140,17 @@ iam_DeletePolicy:
             - description:
               snippet_tags:
                 - iam.swift.basics.iam.deletepolicy
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.iecho
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.DeletePolicy
   services:
     iam: {DeletePolicy}
 iam_CreatePolicyVersion:
@@ -1437,6 +1498,16 @@ iam_AttachRolePolicy:
             - description:
               snippet_tags:
                 - iam.cpp.attach_role_policy.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.AttachRolePolicy
   services:
     iam: {AttachRolePolicy}
 iam_ListAttachedRolePolicies:
@@ -1619,6 +1690,16 @@ iam_DetachRolePolicy:
             - description:
               snippet_tags:
                 - iam.swift.basics.iam.detachrolepolicy
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.DetachRolePolicy
   services:
     iam: {DetachRolePolicy}
 iam_Scenario_PolicyManagement:
@@ -1745,6 +1826,16 @@ iam_CreateRole:
             - description:
               snippet_tags:
                 - iam.cpp.create_iam_role.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.CreateRole
   services:
     iam: {CreateRole}
 iam_ListRoles:
@@ -1965,6 +2056,17 @@ iam_DeleteRole:
             - description:
               snippet_tags:
                 - iam.swift.basics.iam.deleterole
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.iecho
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.DeleteRole
   services:
     iam: {DeleteRole}
 iam_PutRolePolicy:
@@ -2207,6 +2309,17 @@ iam_CreateUser:
               snippet_tags:
                 - iam.cpp.create_user01.code
                 - iam.cpp.create_user02.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.iecho
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.CreateUser
   services:
     iam: {CreateUser}
 iam_DeleteUser:
@@ -2309,6 +2422,17 @@ iam_DeleteUser:
             - description:
               snippet_tags:
                 - iam.swift.basics.iam.deleteuser
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.iecho
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.DeleteUser
   services:
     iam: {DeleteUser}
 iam_GetUser:
@@ -2334,6 +2458,16 @@ iam_GetUser:
               snippet_tags:
                 - gov2.iam.UserWrapper.struct
                 - gov2.iam.GetUser
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.GetUser
   services:
     iam: {GetUser}
 iam_ListUsers:
@@ -2444,6 +2578,16 @@ iam_ListUsers:
             - description:
               snippet_tags:
                 - iam.cpp.list_users.code
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.iam.ListUsers
   services:
     iam: {ListUsers}
 iam_UpdateUser:
@@ -3356,7 +3500,63 @@ iam_Scenario_CreateUserAssumeRole:
             - description:
               snippet_tags:
                 - cpp.example_code.iam.Scenario_CreateUserAssumeRole
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.iam_create_user_assume_role
+                - aws-cli.bash-linux.iam.GetUser
+                - aws-cli.bash-linux.iam.CreateUser
+                - aws-cli.bash-linux.iam.CreateAccessKey
+                - aws-cli.bash-linux.iam.CreateRole
+                - aws-cli.bash-linux.iam.CreatePolicy
+                - aws-cli.bash-linux.iam.AttachRolePolicy
+                - aws-cli.bash-linux.iam.DetachRolePolicy
+                - aws-cli.bash-linux.iam.DeletePolicy
+                - aws-cli.bash-linux.iam.DeleteRole
+                - aws-cli.bash-linux.iam.DeleteAccessKey
+                - aws-cli.bash-linux.iam.DeleteUser
   services:
     iam: {CreateUser, CreateAccessKey, CreateRole, CreatePolicy, AttachRolePolicy,
           PutUserPolicy, DeleteUserPolicy, DetachRolePolicy, DeletePolicy, DeleteRole,
           DeleteAccessKey, DeleteUser}
+iam_Scenario_IamPolicyBuilder:
+  title: Work with the &IAM; Policy Builder API using an &AWS; SDK
+  title_abbrev: Work with the &IAM; Policy Builder API
+  synopsis_list:
+    - Create &IAM; policies by using the object-oriented API.
+    - Use the &IAM; Policy Builder API with the &IAM; service.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/iam
+          sdkguide: sdk-for-java/latest/developer-guide/feature-iam-policy-builder.html
+          excerpts:
+            - description: The examples use the following imports.
+              snippet_tags:
+                - iam.java2.policy_builder.policy_builder_examples.imports
+            - description: Create a time-based policy.
+              snippet_tags:
+                - iam.java2.policy_builder.time_based
+            - description: Create a policy with multiple conditions.
+              snippet_tags:
+                - iam.java2.policy_builder.multiple_conditions
+            - description: Use principals in a policy.
+              snippet_tags:
+                - iam.java2.policy_builder.specify_principals
+            - description: Allow cross-account access.
+              snippet_tags:
+                - iam.java2.policy_builder.allow_cross_account_access
+            - description: Build and upload an <code>IamPolicy</code>.
+              snippet_tags:
+                - iam.java2.policy_builder.create_and_upload_policy
+            - description: Download and work with an <code>IamPolicy</code>.
+              snippet_tags:
+                - iam.java2.policy_builder.create_new_based_on_existing_policy
+  services:
+    iam: {CreatePolicy, GetPolicy, GetPolicyVersion}

@@ -1,0 +1,13 @@
+{
+  "name": "example-javascriptv3-secrets-manager",
+  "version": "1.0.0",
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.386.0"
+  },
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
+  "type": "module"
+}

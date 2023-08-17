@@ -11,8 +11,7 @@ namespace CreateSNSTopicExample
 
     /// <summary>
     /// This example shows how to use Amazon Simple Notification Service
-    /// (Amazon SNS) to add a new Amazon SNS topic. The example was created
-    /// using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+    /// (Amazon SNS) to add a new Amazon SNS topic.
     /// </summary>
     public class CreateSNSTopic
     {

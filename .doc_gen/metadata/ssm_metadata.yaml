@@ -5,6 +5,15 @@ ssm_DescribeParameters:
   synopsis: get &SYS; parameters information.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.Java2.get_para_value.main
     Rust:
       versions:
         - sdk_version: 1
@@ -21,6 +30,15 @@ ssm_PutParameter:
   synopsis: add a &SYS; parameter.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.Java2.put_para_value.main
     Rust:
       versions:
         - sdk_version: 1
@@ -31,3 +49,54 @@ ssm_PutParameter:
                 - ssm.rust.create-parameter
   services:
     ssm: {PutParameter}
+ssm_CreateOpsItem:
+  title: Create a new OpsItem using an &AWS; SDK
+  title_abbrev: Create a new OpsItem
+  synopsis: create a new OpsItem.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.create_ops.main
+  services:
+    ssm: {CreateOpsItem} 
+ssm_DescribeOpsItems:
+  title: Describe an OpsItem using an &AWS; SDK
+  title_abbrev: Describe an OpsItem
+  synopsis: describe an OpsItem.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.java2.describe_ops.main
+  services:
+    ssm: {DescribeOpsItems}
+ssm_UpdateOpsItem:
+  title: Updates an OpsItem using an &AWS; SDK
+  title_abbrev: Updates an OpsItem
+  synopsis: updates an OpsItem.
+  category:
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/ssm
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ssm.Java2.resolve_ops.main
+  services:
+    ssm: {UpdateOpsItem}                 

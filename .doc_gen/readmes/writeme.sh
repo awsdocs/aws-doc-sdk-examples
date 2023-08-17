@@ -81,3 +81,4 @@ for SVC in ${SVCS[@]} ; do
       --svc_folder $F Rust 1 $SVC
   fi
 done
+

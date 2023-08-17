@@ -146,7 +146,7 @@ in the `javascriptv3` folder.
 
 * [DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 * [DynamoDB API Reference](https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/Welcome.html)
-* [SDK for JavaScript (v3) DynamoDB reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/index.html)
+* [SDK for JavaScript (v3) DynamoDB reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/dynamodb/index.html)
 
 <!--custom.resources.start-->
 <!--custom.resources.end-->

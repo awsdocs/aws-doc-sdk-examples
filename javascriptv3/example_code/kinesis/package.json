@@ -11,16 +11,15 @@
   "license": "Apache 2.0",
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "^3.32.0",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.32.0",
     "@aws-sdk/client-kinesis": "^3.32.0",
-    "@aws-sdk/node-http-handler": "^3.32.0",
+    "@aws-sdk/credential-provider-cognito-identity": "^3.32.0",
     "@aws-sdk/types": "^3.32.0"
   },
   "devDependencies": {
-    "webpack": "^4.42.0",
-    "webpack-cli": "^3.3.11",
     "@aws-sdk/types": "^3.32.0",
-    "@types/node": "^14.0.23"
+    "@types/node": "^14.0.23",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
   },
   "module": "type"
 }
