@@ -18,6 +18,11 @@
 #
 #   'python3 run_automated_tests.py -23 -s s3'
 #
+# To enable parallel builds, the environment variable PARALLEL_BUILD can be set to a number.
+#
+#   'export PARALLEL_BUILD=$(nproc)'
+#
+
 
 
 import os
@@ -27,6 +32,7 @@ import getopt
 import glob
 import re
 import datetime
+import sys
 
 build_sub_dir = "build_tests"
 
@@ -45,6 +51,8 @@ def build_cmake_tests(cmake_files, executable_pattern) :
 
     cmake_args = os.getenv("EXTRA_CMAKE_ARGS")
 
+    parallel_build = os.getenv("PARALLEL_BUILD")
+
     for cmake_file in cmake_files :
         source_dir = os.path.dirname(cmake_file)
         module_build_dir = os.path.join(build_dir, source_dir)
@@ -56,13 +64,21 @@ def build_cmake_tests(cmake_files, executable_pattern) :
             cmake_command.append(cmake_args)
         cmake_command.append(os.path.join(base_dir, source_dir))
 
+        if sys.platform == "win32":
+            cmake_command.append('-DBIN_SUB_DIR=/Debug') 
+
         result_code = subprocess.call(cmake_command, shell=False)
         if result_code != 0 :
             print(f"Error with cmake for {source_dir}")
             has_error = True
             continue
 
-        result_code = subprocess.call(['cmake', '--build', '.'], shell=False)
+        if parallel_build is not None:
+            print("building parallel")
+            result_code = subprocess.call(['cmake', '--build', '.',  '--parallel', f'{parallel_build}'], shell=False)
+        else:
+            result_code = subprocess.call(['cmake', '--build', '.'], shell=False)
+
         if result_code != 0 :
             has_error = True
             continue

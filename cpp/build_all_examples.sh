@@ -3,8 +3,11 @@
 
 
 CMAKE_FILES=$(ls example_code/*/CMakeLists.txt)
+HELLO_CMAKE_FILES=$(ls example_code/*/hello_*/CMakeLists.txt)
+CMAKE_FILES="$CMAKE_FILES $HELLO_CMAKE_FILES"
+
 CMAKE_FILES=($CMAKE_FILES)
-echo "CMAKE_FILES ${CMAKE_FILES}"
+echo "CMAKE_FILES ${CMAKE_FILES[@]}"
 
 len=${#CMAKE_FILES[@]}
 echo "len ${len}"
