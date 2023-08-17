@@ -504,8 +504,8 @@ glacier_DownloadArchive:
           github: dotnetv3/Glacier
           sdkguide:
           excerpts:
-            - description:
+            - description: This example uses the ArchiveTransferManager class. For API details see <ulink type="documentation" url="sdkfornet/latest/apidocs/items/TGlacierTransferArchiveTransferManagerNET45">ArchiveTransferManager</ulink>.
               snippet_tags:
                 - Glacier.dotnetv3.GlacierActions.ArchiveTransferManager.Download
   services:
-    glacier: {DownloadArchive}
+    glacier: {}

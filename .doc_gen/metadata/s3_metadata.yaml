@@ -2673,7 +2673,7 @@ s3_MultipartCopy:
               snippet_tags:
                 - S3.dotnetv3.MPUapiCopyObjectExample
   services:
-    s3: {UploadCopyPart, InitiateMultipartUpload, GetObjectMetadata, CompleteMultipartUpload}
+    s3: {UploadPartCopy, CreateMultipartUpload, GetObjectMetadata, CompleteMultipartUpload}
 s3_Scenario_ListObjectsWeb:
   title: A web page that lists &S3; objects using an &AWS; SDK
   title_abbrev: Create a web page that lists &S3; objects
