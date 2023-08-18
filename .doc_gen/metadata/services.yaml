@@ -670,6 +670,21 @@ mediapackage:
   tags:
     product_categories: {'Media Services'}
   version: mediapackage-2017-10-12
+medical-imaging:
+  long: '&AHIlong;'
+  short: '&AHI;'
+  sort: HealthImaging
+  expanded:
+    long: AWS HealthImaging
+    short: HealthImaging
+  blurb: is a HIPAA-eligible service that helps health care providers and their medical imaging ISV partners store, transform, and apply machine learning to medical images.
+  guide:
+    subtitle: User Guide
+    url: healthimaging/latest/devguide/what-is.html
+  api_ref: healthimaging/latest/APIReference/Welcome.html
+  tags:
+    product_categories: {'Machine Learning'}
+  version: medical-imaging-2023-07-19
 migration-hub:
   long: '&MHBlong;'
   short: '&MHB;'

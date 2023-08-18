@@ -25,18 +25,23 @@ To run these examples, you'll need:
 ## Running the examples
 
 Examples are typically written as functions in shell script files that can be
-sourced from other files. Most are accompanied by a unit or integration test
-script that you can run to validate that each example works. The test scripts
-include setup and teardown to create and destroy any prerequisite resources. 
-We take care that all AWS resources that the example creates are also destroyed
-to avoid incurring any unwanted costs. When you're done with an example, we do
-recommend that you check the resources in your account to ensure that the 
+sourced from other files.  When you're done with an example, we do
+recommend that you check the resources in your account to ensure that the
 teardown worked as expected and didn't accidentally leave any resources behind.
 
-To run the examples, you need to create a shared credentials file. For more 
-information about how to set up a shared credentials file, see [Configuration 
+To run the examples, you need to create a shared credentials file. For more
+information about how to set up a shared credentials file, see [Configuration
 and Credential File Settings](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
 in the _AWS CLI User Guide_.
+
+### Tests
+
+Most examples are accompanied by a unit or integration test
+script that you can run to validate that each example works. The test scripts
+include setup and teardown to create and destroy any prerequisite resources.
+We take care that all AWS resources that the example creates are also destroyed
+to avoid incurring any unwanted costs.
+
 
 ## AWS CLI downloads
 

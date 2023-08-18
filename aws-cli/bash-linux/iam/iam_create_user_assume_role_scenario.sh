@@ -288,7 +288,7 @@ function sts_assume_role() {
     --role-session-name "$role_session_name" \
     --role-arn "$role_arn" \
     --output text \
-    --query "Credentials.{AccessKeyId: AccessKeyId ,SecretAccessKey: SecretAccessKey ,SessionToken: SessionToken}")
+    --query "Credentials.[AccessKeyId, SecretAccessKey, SessionToken]")
 
   local error_code=${?}
 
@@ -358,8 +358,7 @@ function iam_create_user_assume_role() {
     return 1
   fi
 
-  # shellcheck disable=SC2206
-  local access_key_values=($access_key_response) # Convert to array.
+  IFS=$'\t ' read -r -a access_key_values <<<"$access_key_response"
   local key_name=${access_key_values[0]}
   local key_secret=${access_key_values[1]}
 
@@ -492,8 +491,7 @@ function iam_create_user_assume_role() {
     return 1
   fi
 
-  # shellcheck disable=SC2206
-  credentials=(${credentials}) # Convert to array.
+  IFS=$'\t ' read -r -a credentials <<<"$credentials"
 
   export AWS_ACCESS_KEY_ID=${credentials[0]}
   export AWS_SECRET_ACCESS_KEY=${credentials[1]}
