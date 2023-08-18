@@ -17,8 +17,6 @@ set(CMAKE_CXX_STANDARD 14)
 # Build shared libraries by default.
 set(BUILD_SHARED_LIBS ON)
 
-enable_testing()
-
 find_package(GTest)
 
 if(NOT GTest_FOUND)
@@ -33,7 +31,6 @@ if(NOT GTest_FOUND)
     set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
     FetchContent_MakeAvailable(googletest)
 endif()
-
 
 # Use the MSVC variable to determine if this is a Windows build.
 set(WINDOWS_BUILD ${MSVC})
@@ -52,7 +49,7 @@ add_executable(
 )
 
 if(WINDOWS_BUILD)
-      # set(BIN_SUB_DIR "/Debug") # if you are building from the command line you may need to uncomment this 
+      # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this 
                                     # and set the proper subdirectory to the executables' location.
 
     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
@@ -82,17 +79,18 @@ if (NOT DEFINED GTEST_SOURCE_FILES)
     )
 endif()
 
-# Check whether the target system is Windows, including Win64.
-if(WIN32)
-    list(FILTER GTEST_SOURCE_FILES EXCLUDE REGEX "/gtest_list_buckets_disabling_dns_cache.cpp$") # Not supported in windows, see file for details
 
-    # Check whether the compiler is some version of Microsoft Visual C++, or another compiler simulating C++.
-    if(MSVC)
-        source_group("Header Files\\awsdoc\\s3" FILES ${AWSDOC_S3_HEADERS})
-        source_group("Source Files" FILES ${AWSDOC_S3_SOURCE})
-    endif(MSVC)
+# Handle special case of list_buckets_disabling_dns_cache.cpp on Windows.
+if(WINDOWS_BUILD)
+    list(FIND AWSSDK_CLIENT_LIBS "curl" CONTAINS_CURL)
+    if (CONTAINS_CURL EQUAL -1)
+            # remove list_buckets_disabling_dns_cache.cpp libs not using curl
+        list(FILTER AWSDOC_S3_SOURCE EXCLUDE REGEX "/list_buckets_disabling_dns_cache.cpp$") # Not supported in windows without curl, see file for details
+    else()
+        set(CURL_INCLUDE "c:/curl/include") # Update this with correct curl install location.
+        set(CURL_LIB "c:/curl/lib") # Update this with correct  curl install location.
+    endif()
 endif()
-
 enable_testing()
 
 
@@ -118,6 +116,7 @@ target_include_directories(
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
         $<INSTALL_INTERFACE:../include>
+        ${CURL_INCLUDE}
 )
 
 target_compile_definitions(
@@ -132,6 +131,10 @@ target_link_libraries(
         ${AWSSDK_LINK_LIBRARIES}
         ${AWSSDK_PLATFORM_DEPS}
 )
+
+target_link_directories(${CURRENT_TARGET} 
+    PUBLIC 
+    ${CURL_LIB})
 
 include(GoogleTest)
 gtest_add_tests(
