@@ -13,7 +13,6 @@ crate-type = ["cdylib"]
 aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false }
 aws-credential-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = ["hardcoded-credentials"] }
 aws-sdk-lambda = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false }
-aws-smithy-async = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false }
 aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = ["event-stream"] }
 aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }

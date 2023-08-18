@@ -7,10 +7,9 @@
 use aws_sdk_s3::{
     error::SdkError,
     operation::head_object::HeadObjectError,
-    primitives::{ByteStream, DateTime},
+    primitives::{ByteStream, DateTime, DateTimeFormat},
     Client, Error,
 };
-use aws_smithy_types::date_time::Format;
 use http::StatusCode;
 use tracing::{error, warn};
 
@@ -85,7 +84,7 @@ async fn main() -> Result<(), Error> {
         Ok(output) => (Ok(output.last_modified().cloned()), output.e_tag),
         Err(err) => match err {
             SdkError::ServiceError(err) => {
-                let http = err.raw().http();
+                let http = err.raw();
                 match http.status() {
                     StatusCode::NOT_MODIFIED => (
                         Ok(Some(
@@ -94,7 +93,7 @@ async fn main() -> Result<(), Error> {
                                     .get("last-modified")
                                     .map(|t| t.to_str().unwrap())
                                     .unwrap(),
-                                Format::HttpDate,
+                                DateTimeFormat::HttpDate,
                             )
                             .unwrap(),
                         )),

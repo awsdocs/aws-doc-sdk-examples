@@ -14,7 +14,6 @@ This example assumes you have set up environment variables for authentication.
 
 */
 
-use aws_config::provider_config::ProviderConfig;
 use aws_sdk_kms::Error;
 use aws_smithy_client::hyper_ext;
 use rustls::RootCertStore;
@@ -50,9 +49,7 @@ pub async fn connect_via_tls_13() -> Result<(), Error> {
         .enable_http2()
         .build();
 
-    let provider_config = ProviderConfig::default().with_tcp_connector(rustls_connector.clone());
     let shared_conf = aws_config::from_env()
-        .configure(provider_config)
         .http_connector(hyper_ext::Adapter::builder().build(rustls_connector))
         .load()
         .await;
