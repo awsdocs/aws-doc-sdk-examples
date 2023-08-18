@@ -10,8 +10,7 @@ use aws_sdk_firehose::error::SdkError;
 use aws_sdk_firehose::operation::put_record_batch::{PutRecordBatchError, PutRecordBatchOutput};
 use aws_sdk_firehose::primitives::Blob;
 use aws_sdk_firehose::types::Record;
-use aws_sdk_firehose::{meta::PKG_VERSION, Client, Error};
-use aws_types::region::Region;
+use aws_sdk_firehose::{config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
 
 #[derive(Debug, Parser)]

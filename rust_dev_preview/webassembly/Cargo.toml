@@ -10,12 +10,12 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false }
-aws-credential-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = ["hardcoded-credentials"] }
-aws-sdk-lambda = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false }
-aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", default-features = false }
-aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main", features = ["event-stream"] }
-aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false }
+aws-credential-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["hardcoded-credentials"] }
+aws-sdk-lambda = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false }
+aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false }
+aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["event-stream"] }
+aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 async-trait = "0.1.63"
 console_error_panic_hook = "0.1.7"
 http = "0.2.8"
