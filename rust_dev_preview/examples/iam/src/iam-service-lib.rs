@@ -5,7 +5,6 @@
 
 // snippet-start:[rust.example_code.iam.scenario_getting_started.lib]
 
-use aws_sdk_iam::error::SdkError;
 use aws_sdk_iam::operation::{
     attach_role_policy::*, create_access_key::*, create_role::*, create_service_linked_role::*,
     delete_user::*, delete_user_policy::*, get_account_password_policy::*, get_role::*,
@@ -17,6 +16,9 @@ use aws_sdk_iam::Client as iamClient;
 use aws_sdk_iam::{Client, Error as iamError};
 use futures::StreamExt;
 use tokio::time::{sleep, Duration};
+
+use aws_smithy_http::body::SdkBody;
+type SdkError<E> = aws_sdk_iam::error::SdkError<E, http::Response<SdkBody>>;
 
 // snippet-start:[rust.example_code.iam.service.create_policy]
 pub async fn create_policy(
@@ -497,9 +499,9 @@ pub async fn list_role_policies(
 pub async fn list_saml_providers(
     client: &Client,
 ) -> Result<ListSamlProvidersOutput, SdkError<ListSAMLProvidersError>> {
-    let response = client.list_saml_providers().send().await?;
+    return client.list_saml_providers().send().await;
 
-    Ok(response)
+    //Ok(response)
 }
 // snippet-end:[rust.example_code.iam.service.list_saml_providers]
 

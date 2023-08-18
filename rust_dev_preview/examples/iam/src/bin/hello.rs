@@ -1,10 +1,13 @@
 // snippet-start:[rust.example_code.iam.hello_bin]
 
-use aws_sdk_iam::error::SdkError;
 use aws_sdk_iam::operation::list_policies::ListPoliciesError;
 use clap::Parser;
 
 const PATH_PREFIX_HELP: &str = "The path prefix for filtering the results.";
+
+
+use aws_smithy_http::body::SdkBody;
+type SdkError<E> = aws_sdk_iam::error::SdkError<E, http::Response<SdkBody>>;
 
 #[derive(Debug, clap::Parser)]
 #[command(about)]
