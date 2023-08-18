@@ -79,13 +79,12 @@ if (NOT DEFINED GTEST_SOURCE_FILES)
     )
 endif()
 
-
 # Handle special case of list_buckets_disabling_dns_cache.cpp on Windows.
 if(WINDOWS_BUILD)
     list(FIND AWSSDK_CLIENT_LIBS "curl" CONTAINS_CURL)
     if (CONTAINS_CURL EQUAL -1)
             # remove list_buckets_disabling_dns_cache.cpp libs not using curl
-        list(FILTER AWSDOC_S3_SOURCE EXCLUDE REGEX "/list_buckets_disabling_dns_cache.cpp$") # Not supported in windows without curl, see file for details
+        list(FILTER GTEST_SOURCE_FILES EXCLUDE REGEX "/gtest_list_buckets_disabling_dns_cache.cpp$") # Not supported in windows without curl, see file for details
     else()
         set(CURL_INCLUDE "c:/curl/include") # Update this with correct curl install location.
         set(CURL_LIB "c:/curl/lib") # Update this with correct  curl install location.
