@@ -104,7 +104,7 @@ func (basics BucketBasics) UploadFile(bucketName string, objectKey string, fileN
 	file, err := os.Open(fileName)
 	if err != nil {
 		log.Printf("Couldn't open file %v to upload. Here's why: %v\n", fileName, err)
-	} 
+	} else {
 		defer file.Close()
 		_, err = basics.S3Client.PutObject(context.TODO(), &s3.PutObjectInput{
 			Bucket: aws.String(bucketName),
@@ -115,7 +115,7 @@ func (basics BucketBasics) UploadFile(bucketName string, objectKey string, fileN
 			log.Printf("Couldn't upload file %v to %v:%v. Here's why: %v\n",
 				fileName, bucketName, objectKey, err)
 		}
-	
+	}
 	return err
 }
 
