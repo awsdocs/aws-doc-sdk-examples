@@ -985,7 +985,7 @@ sns_SetSmsAttributes:
             - snippet_tags:
                 - sns.php.set_sms_attributes.main
   services:
-    sns: {SetSmsAttributes}
+    sns: {SetSMSAttributes}
 sns_SetSubscriptionAttributes:
   title: Set an &SNS; filter policy using an &AWS; SDK
   title_abbrev: Set a filter policy
