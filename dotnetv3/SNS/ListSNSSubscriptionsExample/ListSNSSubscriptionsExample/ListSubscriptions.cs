@@ -46,7 +46,7 @@ namespace ListSNSSubscriptionsExample
                 var paginateByTopic = client.Paginators.ListSubscriptionsByTopic(
                     new ListSubscriptionsByTopicRequest()
                     {
-                       TopicArn = topicArn,
+                        TopicArn = topicArn,
                     });
 
                 // Get the entire list using the paginator.
