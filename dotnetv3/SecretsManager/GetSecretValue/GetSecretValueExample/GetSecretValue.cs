@@ -59,7 +59,7 @@ namespace GetSecretValueExample
             IAmazonSecretsManager client,
             string secretName)
         {
-            GetSecretValueRequest request = new ();
+            GetSecretValueRequest request = new();
             request.SecretId = secretName;
             request.VersionStage = "AWSCURRENT"; // VersionStage defaults to AWSCURRENT if unspecified.
 
@@ -91,7 +91,7 @@ namespace GetSecretValueExample
             // Decrypts secret using the associated AWS Key Management Service
             // Customer Master Key (CMK.) Depending on whether the secret is a
             // string or binary value, one of these fields will be populated.
-            MemoryStream memoryStream = new ();
+            MemoryStream memoryStream = new();
 
             if (response.SecretString is not null)
             {
