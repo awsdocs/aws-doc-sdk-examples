@@ -4,7 +4,6 @@
 namespace DeleteLogGroupExample
 {
     // snippet-start:[CloudWatchLogs.dotnetv3.DeleteLogGroupExample]
-
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;

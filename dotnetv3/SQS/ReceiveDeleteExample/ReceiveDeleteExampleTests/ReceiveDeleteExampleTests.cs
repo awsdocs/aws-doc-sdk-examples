@@ -1,12 +1,12 @@
-using Amazon.SQS;
-using Amazon.SQS.Model;
-using Moq;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Amazon.SQS;
+using Amazon.SQS.Model;
+using Moq;
 using Xunit;
-using System.Collections.Generic;
 
 namespace ReceiveDeleteExampleTests
 {

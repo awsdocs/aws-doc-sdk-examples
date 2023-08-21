@@ -40,5 +40,6 @@ namespace CelebrityInfoExample
             });
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.CelebrityInfoExample]
 }

@@ -56,5 +56,6 @@ namespace IsPhoneNumOptedOutExample
             }
         }
     }
+
     // snippet-end:[SNS.dotnetv3.CheckIfOptedOut]
 }

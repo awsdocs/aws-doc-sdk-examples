@@ -182,5 +182,6 @@ namespace FaceRekognitionExample
             }
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.FaceRekognitionExample]
 }

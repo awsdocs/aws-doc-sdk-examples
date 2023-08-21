@@ -28,5 +28,6 @@ namespace SNSMessageExample
             await snsMessage.SendTextMessageAsync(phoneNumber, message);
         }
     }
+
     // snippet-end:[SNS.dotnetv3.SendTextMessage]
 }

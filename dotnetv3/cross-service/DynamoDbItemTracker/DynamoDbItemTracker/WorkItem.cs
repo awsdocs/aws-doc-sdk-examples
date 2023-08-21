@@ -1,9 +1,9 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using System.Text.Json.Serialization;
 using Amazon.DynamoDBv2.DataModel;
 using CsvHelper.Configuration.Attributes;
-using System.Text.Json.Serialization;
 
 namespace DynamoDbItemTracker;
 

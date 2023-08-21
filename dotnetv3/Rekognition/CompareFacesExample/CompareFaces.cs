@@ -77,5 +77,6 @@ namespace CompareFacesExample
             Console.WriteLine($"Found {compareFacesResponse.UnmatchedFaces.Count} face(s) that did not match.");
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.CompareFacesExample]
 }

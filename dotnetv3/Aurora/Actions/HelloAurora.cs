@@ -5,8 +5,8 @@
 
 using Amazon.RDS;
 using Amazon.RDS.Model;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace AuroraActions;
 

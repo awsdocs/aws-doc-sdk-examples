@@ -2,11 +2,11 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[ACM.dotnetv3.DescribeCertificate]
+using System;
+using System.Threading.Tasks;
 using Amazon;
 using Amazon.CertificateManager;
 using Amazon.CertificateManager.Model;
-using System;
-using System.Threading.Tasks;
 
 namespace DescribeCertificate
 {

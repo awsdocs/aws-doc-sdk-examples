@@ -3,11 +3,11 @@
 
 // snippet-start:[ACM.dotnetv3.ListCertificates]
 
+using System;
+using System.Threading.Tasks;
 using Amazon;
 using Amazon.CertificateManager;
 using Amazon.CertificateManager.Model;
-using System;
-using System.Threading.Tasks;
 
 namespace ListCertificates
 {

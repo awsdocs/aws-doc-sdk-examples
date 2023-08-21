@@ -4,7 +4,6 @@
 namespace CreateLogGroupExample
 {
     // snippet-start:[CloudWatchLogs.dotnetv3.CreateLogGroupExample]
-
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -43,5 +42,6 @@ namespace CreateLogGroupExample
             }
         }
     }
+
     // snippet-end:[CloudWatchLogs.dotnetv3.CreateLogGroupExample]
 }

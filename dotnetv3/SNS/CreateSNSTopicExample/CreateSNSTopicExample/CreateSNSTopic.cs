@@ -43,7 +43,7 @@ namespace CreateSNSTopicExample
 
             return response.TopicArn;
         }
-
     }
+
     // snippet-end:[SNS.dotnetv3.CreateSNSTopic]
 }

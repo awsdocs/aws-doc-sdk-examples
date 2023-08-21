@@ -32,7 +32,7 @@
                     },
                 },
 
-                // Attributes can be "ALL" or "DEFAULT". 
+                // Attributes can be "ALL" or "DEFAULT".
                 // "DEFAULT": BoundingBox, Confidence, Landmarks, Pose, and Quality.
                 // "ALL": See https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Rekognition/TFaceDetail.html
                 Attributes = new List<string>() { "ALL" },
@@ -62,5 +62,6 @@
             }
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.DetectFacesExample]
 }

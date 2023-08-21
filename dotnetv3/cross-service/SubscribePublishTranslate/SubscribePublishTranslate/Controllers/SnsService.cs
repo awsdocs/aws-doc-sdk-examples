@@ -16,6 +16,15 @@ namespace SNSExample.Controllers
     {
         private static readonly string TopicArn = "<PUT TOPIC ARN HERE>";
 
+        public static async Task<string> RemoveSub(IAmazonSimpleNotificationService client, string subArn)
+        {
+            var request = new UnsubscribeRequest();
+            request.SubscriptionArn = subArn;
+            await client.UnsubscribeAsync(request);
+
+            return string.Empty;
+        }
+
         public async Task<string> UnSubEmail(string email)
         {
             var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
@@ -32,10 +41,10 @@ namespace SNSExample.Controllers
             switch (lang.ToLower())
             {
                 case "french":
-                    message = TranslateBody(body, "fr");
+                    message = this.TranslateBody(body, "fr");
                     break;
                 case "spanish":
-                    message = TranslateBody(body, "es");
+                    message = this.TranslateBody(body, "es");
                     break;
                 default:
                     message = body;
@@ -57,17 +66,8 @@ namespace SNSExample.Controllers
         {
             var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
             var subscriptions = await GetSubscriptionsListAsync(client);
-            var val = DisplaySubscriptionList(subscriptions);
+            var val = this.DisplaySubscriptionList(subscriptions);
             return val;
-        }
-
-        public static async Task<string> RemoveSub(IAmazonSimpleNotificationService client, string subArn)
-        {
-            var request = new UnsubscribeRequest();
-            request.SubscriptionArn = subArn;
-            await client.UnsubscribeAsync(request);
-
-            return string.Empty;
         }
 
         public static async Task<string> GetSubArn(IAmazonSimpleNotificationService client, string email)
@@ -136,7 +136,7 @@ namespace SNSExample.Controllers
                 email = subscription.Endpoint;
             }
 
-            var xml = GenerateXML(emailList);
+            var xml = this.GenerateXML(emailList);
             return xml;
         }
 
