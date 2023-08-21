@@ -62,3 +62,5 @@ dotnet_diagnostic.SA1615.severity = none
 dotnet_diagnostic.SA1633.severity = none
 # SA1101: do not require keyword this
 dotnet_diagnostic.SA1101.severity = none
+# IDE2000: Disallow multiple blank lines
+dotnet_diagnostic.IDE2000.severity = error
