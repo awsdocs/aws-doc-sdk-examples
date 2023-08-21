@@ -31,7 +31,7 @@ namespace ListSNSSubscriptionsExample
         }
 
         /// <summary>
-        /// Gets a list of the existing Amazon SNS subscriptions, optionally by specifying a specific topic ARN.
+        /// Gets a list of the existing Amazon SNS subscriptions, optionally by specifying a topic ARN.
         /// </summary>
         /// <param name="client">The initialized Amazon SNS client object used
         /// to obtain the list of subscriptions.</param>
