@@ -19,6 +19,7 @@ namespace ListCertificates
     {
         // Specify your AWS Region (an example Region is shown).
 
+
         private static readonly RegionEndpoint ACMRegion = RegionEndpoint.USEast1;
         private static AmazonCertificateManagerClient _client;
 
@@ -34,6 +35,9 @@ namespace ListCertificates
                 Console.WriteLine($"Certificate Domain: {certificate.DomainName}");
                 Console.WriteLine($"Certificate ARN: {certificate.CertificateArn}\n");
             }
+
+
+
 
         }
 
