@@ -331,6 +331,7 @@ public static class TopicsAndQueues
         return filterPolicy;
     }
 
+    // snippet-start:[TopicsAndQueues.dotnetv3.PublishWithOptions]
     /// <summary>
     /// Publish messages using user settings.
     /// </summary>
@@ -391,6 +392,7 @@ public static class TopicsAndQueues
             keepSendingMessages = GetYesNoResponse("Send another message?", false);
         }
     }
+    // snippet-end:[TopicsAndQueues.dotnetv3.PublishWithOptions]
 
     /// <summary>
     /// Poll for the published messages to see the results of the user's choices.

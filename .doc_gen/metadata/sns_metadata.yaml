@@ -515,6 +515,17 @@ sns_Publish_WithAttribute:
   synopsis: publish a message with an attribute using &SNS;.
   category:
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/cross-service/TopicsAndQueues
+          excerpts:
+            - description: Publish a message to a topic with group, duplication, and attribute options.
+              snippet_tags:
+                - TopicsAndQueues.dotnetv3.PublishWithOptions
+            - description: Apply the user's selections to the publish action.
+              snippet_tags:
+                - TopicsAndQueues.dotnetv3.Publish
     C++:
       versions:
         - sdk_version: 1
