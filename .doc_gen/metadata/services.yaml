@@ -204,8 +204,8 @@ codebuild:
     short: CodeBuild
   blurb: build and test code with elastic scaling.
   guide:
-   subtitle: User Guide
-   url: codebuild/latest/userguide/welcome.html
+    subtitle: User Guide
+    url: codebuild/latest/userguide/welcome.html
   api_ref: codebuild/latest/APIReference/Welcome.html
   tags:
     product_categories: {'Developer Tools'}
