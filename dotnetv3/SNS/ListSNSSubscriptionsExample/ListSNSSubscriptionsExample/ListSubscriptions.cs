@@ -20,22 +20,53 @@ namespace ListSNSSubscriptionsExample
         {
             IAmazonSimpleNotificationService client = new AmazonSimpleNotificationServiceClient();
 
-            var subscriptions = await GetSubscriptionsListAsync(client);
+            Console.WriteLine("Enter a topic ARN to list subscriptions for a specific topic, " +
+                              "or press Enter to list subscriptions for all topics.");
+            var topicArn = Console.ReadLine();
+            Console.WriteLine();
+
+            var subscriptions = await GetSubscriptionsListAsync(client, topicArn);
 
             DisplaySubscriptionList(subscriptions);
         }
 
         /// <summary>
-        /// Gets a list of the existing Amazon SNS subscriptions.
+        /// Gets a list of the existing Amazon SNS subscriptions, optionally by specifying a topic ARN.
         /// </summary>
         /// <param name="client">The initialized Amazon SNS client object used
         /// to obtain the list of subscriptions.</param>
-        /// <returns>A List containing information about each subscription.</returns>
-        public static async Task<List<Subscription>> GetSubscriptionsListAsync(IAmazonSimpleNotificationService client)
+        /// <param name="topicArn">The optional ARN of a specific topic. Defaults to null.</param>
+        /// <returns>A list containing information about each subscription.</returns>
+        public static async Task<List<Subscription>> GetSubscriptionsListAsync(IAmazonSimpleNotificationService client, string topicArn = null)
         {
-            var response = await client.ListSubscriptionsAsync();
+            var results = new List<Subscription>();
 
-            return response.Subscriptions;
+            if (!string.IsNullOrEmpty(topicArn))
+            {
+                var paginateByTopic = client.Paginators.ListSubscriptionsByTopic(
+                    new ListSubscriptionsByTopicRequest()
+                    {
+                        TopicArn = topicArn,
+                    });
+
+                // Get the entire list using the paginator.
+                await foreach (var subscription in paginateByTopic.Subscriptions)
+                {
+                    results.Add(subscription);
+                }
+            }
+            else
+            {
+                var paginateAllSubscriptions = client.Paginators.ListSubscriptions(new ListSubscriptionsRequest());
+
+                // Get the entire list using the paginator.
+                await foreach (var subscription in paginateAllSubscriptions.Subscriptions)
+                {
+                    results.Add(subscription);
+                }
+            }
+
+            return results;
         }
 
         /// <summary>
@@ -56,5 +87,6 @@ namespace ListSNSSubscriptionsExample
             }
         }
     }
+
     // snippet-end:[SNS.dotnetv3.ListSNSSubscriptionsExample]
 }
