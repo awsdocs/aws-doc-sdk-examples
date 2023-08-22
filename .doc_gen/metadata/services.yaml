@@ -202,7 +202,7 @@ codebuild:
   expanded:
     long: AWS CodeBuild
     short: CodeBuild
-  blurb: build and test code with elastic scaling.
+  blurb: compiles your source code, runs unit tests, and produces artifacts that are ready to deploy.
   guide:
     subtitle: User Guide
     url: codebuild/latest/userguide/welcome.html
