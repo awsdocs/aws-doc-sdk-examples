@@ -16,6 +16,15 @@ cognito-identity-provider_Hello:
             - description: Code for the hello_cognito.cpp source file.
               snippet_tags:
                 - cpp.example_code.cognito.hello_cognito
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito.hello
   services:
     cognito-identity-provider: {ListUserPools}
 cognito-identity-provider_ListUserPools:
