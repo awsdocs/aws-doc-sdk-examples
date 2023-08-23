@@ -1635,9 +1635,9 @@ ec2_CreateTags:
   services:
     ec2: {CreateTags}
 ec2_createRouteTable:
-  title: Create a route table in Amazon Virtual Private Cloud (Amazon VPC) and associate it with a subnet.
+  title: Create a route table in Amazon Virtual Private Cloud (Amazon VPC) and associate it with a subnet
   title_abbrev: Create a route table
-  synopsis: create route table and associate with &EC2; subnet
+  synopsis: create route table and associate with &EC2; subnet.
   category:
   languages:
     Ruby:
@@ -1649,10 +1649,13 @@ ec2_createRouteTable:
             - description:
               snippet_tags:
                 - ec2.Ruby.createRouteTable
+  services:
+    ec2:
+      {CreateRouteTable}
 ec2_createSubnet:
-  title: Create and tag a subnet in Amazon Virtual Private Cloud (Amazon VPC).
+  title: Create and tag a subnet in Amazon Virtual Private Cloud (Amazon VPC)
   title_abbrev: Create a subnet
-  synopsis: create an &EC2; subnet
+  synopsis: create an &EC2; subnet.
   category:
   languages:
     Ruby:
@@ -1664,10 +1667,13 @@ ec2_createSubnet:
             - description:
               snippet_tags:
                 - ec2.Ruby.createSubnet
+  services:
+    ec2:
+      {CreateSubnet}
 ec2_createVpc:
-  title: Create a Amazon Virtual Private Cloud (Amazon VPC).
+  title: Create a Amazon Virtual Private Cloud (Amazon VPC)
   title_abbrev: Create a Amazon Virtual Private Cloud (Amazon VPC)
-  synopsis: create a Amazon Virtual Private Cloud (Amazon VPC)
+  synopsis: create a Amazon Virtual Private Cloud (Amazon VPC).
   category:
   languages:
     Ruby:
@@ -1679,6 +1685,9 @@ ec2_createVpc:
             - description:
               snippet_tags:
                 - ec2.Ruby.createVpc
+  services:
+    ec2:
+      {CreateVpc}
 ec2_Scenario_GetStartedInstances:
   title: Get started with &EC2; instances using an &AWS; SDK
   title_abbrev: Get started with instances
