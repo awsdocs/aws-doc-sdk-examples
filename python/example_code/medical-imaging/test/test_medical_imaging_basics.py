@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Unit tests for lambda_basics.py functions.
+Unit tests for medical_imaging_basics functions.
 """
 
 import boto3

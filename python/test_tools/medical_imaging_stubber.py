@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """
-Stub functions that are used by the AWS Secrets Manager unit tests.
+Stub functions that are used by the AWS HealthImaging unit tests.
 """
 
 from test_tools.example_stubber import ExampleStubber
