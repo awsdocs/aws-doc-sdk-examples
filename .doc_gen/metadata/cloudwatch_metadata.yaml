@@ -420,6 +420,15 @@ cloudwatch_DisableAlarmActions:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.disableAnAlarm
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -756,6 +765,15 @@ cloudwatch_ListMetrics:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.ListMetrics
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.listMetrics
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -868,6 +886,21 @@ cloudwatch_PutDashboard:
                 - CloudWatch.dotnetv3.PutDashboard
   services:
     cloudwatch: {PutDashboard}
+cloudwatch_DescribeMetricAlarms:
+  title: Describe existing &CW; metric alarms using an &AWS; SDK
+  title_abbrev: Describe metric alarms
+  synopsis: describe existing &CWlong; alarms.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.getAlarmList
 cloudwatch_PutMetricAlarm:
   title: Create a &CW; metric alarm using an &AWS; SDK
   title_abbrev: Create a metric alarm
@@ -911,6 +944,15 @@ cloudwatch_PutMetricAlarm:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.PutMetricAlarm
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.createAlarm
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -996,6 +1038,15 @@ cloudwatch_PutMetricData:
               snippet_tags:
                 - python.example_code.cloudwatch.CloudWatchWrapper
                 - python.example_code.cloudwatch.PutMetricData
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/cloudwatch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - cloudwatch.Ruby.addDataPoint
     C++:
       versions:
         - sdk_version: 1
