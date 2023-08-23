@@ -115,7 +115,7 @@ kms_Decrypt:
           excerpts:
             - description:
               snippet_tags:
-                - kms.rust.decryptBlob
+                - kms.rust.decrypt
     Go:
       versions:
         - sdk_version: 2
