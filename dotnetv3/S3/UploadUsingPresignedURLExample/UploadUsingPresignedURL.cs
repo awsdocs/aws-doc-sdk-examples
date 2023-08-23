@@ -5,8 +5,7 @@
 /// This example shows how to upload an object to an Amazon Simple Storage
 /// Service (Amazon S3) bucket using a presigned URL. The code first
 /// creates a presigned URL and then uses it to upload an object to an
-/// Amazon S3 bucket using that URL. The example was created using the
-/// AWS SDK for .NET version 3.7 and .NET Core 5.0.
+/// Amazon S3 bucket using that URL.
 /// </summary>
 namespace UploadUsingPresignedURLExample
 {
@@ -15,6 +14,7 @@ namespace UploadUsingPresignedURLExample
     using System.IO;
     using System.Net;
     using System.Threading.Tasks;
+    using Amazon;
     using Amazon.S3;
     using Amazon.S3.Model;
 
@@ -29,11 +29,17 @@ namespace UploadUsingPresignedURLExample
             // Specify how long the signed URL will be valid in hours.
             double timeoutDuration = 12;
 
-            // If the AWS Region defined for your default user is different
-            // from the Region where your Amazon S3 bucket is located,
-            // pass the Region name to the Amazon S3 client object's constructor.
-            // For example: RegionEndpoint.USWest2.
-            IAmazonS3 client = new AmazonS3Client();
+            // Specify the AWS Region of your Amazon S3 bucket. If it is
+            // different from the Region defined for the default user,
+            // pass the Region to the constructor for the client. For
+            // example: new AmazonS3Client(RegionEndpoint.USEast1);
+
+            // If using the Region us-east-1, and server-side encryption with AWS KMS, you must specify Signature Version 4.
+            // Region us-east-1 defaults to Signature Version 2 unless explicitly set to Version 4 as shown below.
+            // For more details, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingAWSSDK.html#specify-signature-version
+            // and https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Amazon/TAWSConfigsS3.html
+            AWSConfigsS3.UseSignatureVersion4 = true;
+            IAmazonS3 client = new AmazonS3Client(RegionEndpoint.USEast1);
 
             var url = GeneratePreSignedURL(client, bucketName, keyName, timeoutDuration);
             var success = UploadObject(filePath, url);
