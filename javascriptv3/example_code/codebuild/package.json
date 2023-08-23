@@ -1,0 +1,17 @@
+{
+  "name": "example-javascriptv3-codebuild",
+  "version": "1.0.0",
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@aws-sdk/client-codebuild": "^3.391.0"
+  },
+  "type": "module",
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-iam": "^3.391.0",
+    "@aws-sdk/client-s3": "^3.391.0"
+  }
+}

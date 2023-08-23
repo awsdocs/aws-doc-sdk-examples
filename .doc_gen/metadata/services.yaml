@@ -195,6 +195,21 @@ cloudwatch-logs:
   tags:
     product_categories: {'Management &amp; Governance'}
   version: logs-2014-03-28
+codebuild:
+  long: '&ACBlong;'
+  short: '&ACB;'
+  sort: CodeBuild
+  expanded:
+    long: AWS CodeBuild
+    short: CodeBuild
+  blurb: compiles your source code, runs unit tests, and produces artifacts that are ready to deploy.
+  guide:
+    subtitle: User Guide
+    url: codebuild/latest/userguide/welcome.html
+  api_ref: codebuild/latest/APIReference/Welcome.html
+  tags:
+    product_categories: {'Developer Tools'}
+  version: codebuild-2016-10-06
 cognito:
   long: '&COGlong;'
   short: '&COG;'
