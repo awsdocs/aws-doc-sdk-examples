@@ -901,6 +901,9 @@ cloudwatch_DescribeMetricAlarms:
             - description:
               snippet_tags:
                 - cloudwatch.Ruby.getAlarmList
+  services:
+    ec2:
+      {DescribeMetricAlarms}
 cloudwatch_PutMetricAlarm:
   title: Create a &CW; metric alarm using an &AWS; SDK
   title_abbrev: Create a metric alarm
