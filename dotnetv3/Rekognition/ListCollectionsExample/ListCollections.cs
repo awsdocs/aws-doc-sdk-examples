@@ -47,5 +47,6 @@ namespace ListCollectionsExample
             while (listCollectionsResponse.NextToken is not null);
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.ListCollectionsExample]
 }

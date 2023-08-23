@@ -52,5 +52,6 @@ namespace DetectLabelsExample
             }
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.DetectLabelsExample]
 }

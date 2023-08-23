@@ -2,19 +2,20 @@
 // SPDX - License - Identifier: Apache - 2.0
 
 // snippet-start:[SNS.dotnetv3.SNSMessageExample]
-using Amazon;
-using Amazon.SimpleNotificationService;
-using Amazon.SimpleNotificationService.Model;
-using System;
-using System.Threading.Tasks;
-
 namespace SNSMessageExample
 {
+    using System;
+    using System.Threading.Tasks;
+    using Amazon;
+    using Amazon.SimpleNotificationService;
+    using Amazon.SimpleNotificationService.Model;
+
     class SNSMessage
     {
         private AmazonSimpleNotificationServiceClient snsClient;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="SNSMessage"/> class.
         /// Constructs a new SNSMessage object initializing the Amazon Simple
         /// Notification Service (Amazon SNS) client using the supplied
         /// Region endpoint.
@@ -33,7 +34,7 @@ namespace SNSMessageExample
         /// <param name="phoneNum">The ten-digit phone number to which the text
         /// message will be sent.</param>
         /// <param name="text">The text of the message to send.</param>
-        /// <returns></returns>
+        /// <returns>Async task.</returns>
         public async Task SendTextMessageAsync(string phoneNum, string text)
         {
             if (string.IsNullOrEmpty(phoneNum) || string.IsNullOrEmpty(text))
@@ -45,7 +46,7 @@ namespace SNSMessageExample
             var request = new PublishRequest
             {
                 Message = text,
-                PhoneNumber = phoneNum
+                PhoneNumber = phoneNum,
             };
 
             try
@@ -57,7 +58,6 @@ namespace SNSMessageExample
                 Console.WriteLine($"Error sending message: {ex}");
             }
         }
-
     }
 }
 // snippet-end:[SNS.dotnetv3.SNSMessageExample]

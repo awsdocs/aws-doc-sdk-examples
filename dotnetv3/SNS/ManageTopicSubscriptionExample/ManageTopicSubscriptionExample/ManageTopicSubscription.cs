@@ -80,5 +80,6 @@ namespace ManageTopicSubscriptionExample
             var response = await client.UnsubscribeAsync(subscriptionArn);
         }
     }
+
     // snippet-end:[SNS.dotnetv3.UnsubscribeTopic]
 }

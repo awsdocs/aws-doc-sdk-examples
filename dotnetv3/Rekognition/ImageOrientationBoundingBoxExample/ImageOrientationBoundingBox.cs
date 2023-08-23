@@ -132,5 +132,6 @@ namespace ImageOrientationBoundingBoxExample
             Console.WriteLine($"Face Height: {imageHeight * box.Height}");
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.ImageOrientationBoundingBox]
 }

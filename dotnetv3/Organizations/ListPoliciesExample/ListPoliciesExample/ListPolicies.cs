@@ -48,7 +48,8 @@ namespace ListPoliciesExample
                     {
                         request.NextToken = response.NextToken;
                     }
-                } while (response.NextToken is not null);
+                }
+                while (response.NextToken is not null);
             }
             catch (AWSOrganizationsNotInUseException ex)
             {
@@ -69,5 +70,6 @@ namespace ListPoliciesExample
             Console.WriteLine(policyInfo);
         }
     }
+
     // snippet-end:[Organizations.dotnetv3.ListPoliciesExample]
 }

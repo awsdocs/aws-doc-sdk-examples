@@ -1,13 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier:  Apache-2.0
 
-using Amazon.SQS;
-using Amazon.SQS.Model;
-using Moq;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Amazon.SQS;
+using Amazon.SQS.Model;
+using Moq;
 using Xunit;
 
 namespace CreateSendExampleTests

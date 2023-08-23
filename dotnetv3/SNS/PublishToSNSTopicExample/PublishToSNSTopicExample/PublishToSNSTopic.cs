@@ -48,5 +48,6 @@ namespace PublishToSNSTopicExample
             Console.WriteLine($"Successfully published message ID: {response.MessageId}");
         }
     }
+
     // snippet-end:[SNS.dotnetv3.PublishToSNSTopicExample]
 }

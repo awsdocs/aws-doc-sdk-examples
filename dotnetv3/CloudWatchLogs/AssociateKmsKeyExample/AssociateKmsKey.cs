@@ -4,7 +4,6 @@
 namespace AssociateKmsKeyExample
 {
     // snippet-start:[CloudWatchLogs.dotnetv3.AssociateKmsKeyExample]
-
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -45,7 +44,7 @@ namespace AssociateKmsKeyExample
                 Console.WriteLine("Could not make the association between: {kmsKeyId} and {groupName}.");
             }
         }
-
     }
+
     // snippet-end:[CloudWatchLogs.dotnetv3.AssociateKmsKeyExample]
 }

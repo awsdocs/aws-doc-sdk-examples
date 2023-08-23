@@ -22,8 +22,7 @@ namespace FaceRekognitionExampleTests
 
             mockClient.Setup(client => client.DetectFacesAsync(
                 It.IsAny<DetectFacesRequest>(),
-                It.IsAny<CancellationToken>()
-            )).Returns((DetectFacesRequest r, CancellationToken token) =>
+                It.IsAny<CancellationToken>())).Returns((DetectFacesRequest r, CancellationToken token) =>
             {
                 return Task.FromResult(new DetectFacesResponse()
                 {
@@ -58,8 +57,7 @@ namespace FaceRekognitionExampleTests
 
             mockClient.Setup(client => client.RecognizeCelebritiesAsync(
                 It.IsAny<RecognizeCelebritiesRequest>(),
-                It.IsAny<CancellationToken>()
-            )).Returns((RecognizeCelebritiesRequest r, CancellationToken token) =>
+                It.IsAny<CancellationToken>())).Returns((RecognizeCelebritiesRequest r, CancellationToken token) =>
             {
                 return Task.FromResult(new RecognizeCelebritiesResponse()
                 {

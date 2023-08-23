@@ -6,8 +6,8 @@
 using System.Text.Json;
 using Amazon.SageMaker;
 using Amazon.SageMaker.Model;
-using Amazon.SageMakerGeospatial.Model;
 using Amazon.SageMakerGeospatial;
+using Amazon.SageMakerGeospatial.Model;
 
 namespace SageMakerActions;
 

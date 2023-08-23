@@ -54,5 +54,6 @@ namespace DetectTextExample
             }
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.DetectTextExample]
 }
