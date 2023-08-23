@@ -1,0 +1,13 @@
+{
+  "name": "example-javascriptv3-medical-imaging",
+  "version": "1.0.0",
+  "author": "Corey Pyle <corepyle@amazon.com",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@aws-sdk/client-medical-imaging": "^3.391.0"
+  },
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js --coverage"
+  },
+  "type": "module"
+ }
