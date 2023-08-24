@@ -105,15 +105,6 @@ ec2_CreateKeyPair:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.CreateKeyPair
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.exampleKeyPairs
     JavaScript:
       versions:
         - sdk_version: 3
@@ -255,15 +246,6 @@ ec2_CreateSecurityGroup:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.CreateSecurityGroup
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.createSecurityGroup ec2.Ruby.exampleSecurityGroup
     JavaScript:
       versions:
         - sdk_version: 3
@@ -407,15 +389,6 @@ ec2_StartInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StartInstances
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.startInstance
     JavaScript:
       versions:
         - sdk_version: 3
@@ -494,15 +467,6 @@ ec2_StopInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StopInstances
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.stopInstances
     JavaScript:
       versions:
         - sdk_version: 3
@@ -581,15 +545,6 @@ ec2_AllocateAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AllocateAddress
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.allocateElasticIPs
     JavaScript:
       versions:
         - sdk_version: 3
@@ -661,15 +616,6 @@ ec2_AssociateAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AssociateAddress
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.associateElasticIPs
     JavaScript:
       versions:
         - sdk_version: 3
@@ -795,15 +741,6 @@ ec2_ReleaseAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.ReleaseAddress
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.releaseElasticIPs
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1183,15 +1120,6 @@ ec2_TerminateInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.TerminateInstances
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.terminateInstances
     C++:
       versions:
         - sdk_version: 1
@@ -1253,14 +1181,6 @@ ec2_DescribeInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeInstances
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.getAllInstances
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1326,14 +1246,6 @@ ec2_DescribeRegions:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_regions
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.regionsAvailabilityZones
     C++:
       versions:
         - sdk_version: 1
@@ -1634,60 +1546,6 @@ ec2_CreateTags:
                 - cpp.example_code.ec2.CreateTags
   services:
     ec2: {CreateTags}
-ec2_createRouteTable:
-  title: Create a route table in Amazon Virtual Private Cloud (Amazon VPC) and associate it with a subnet
-  title_abbrev: Create a route table
-  synopsis: create route table and associate with &EC2; subnet.
-  category:
-  languages:
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.createRouteTable
-  services:
-    ec2:
-      {CreateRouteTable}
-ec2_createSubnet:
-  title: Create and tag a subnet in Amazon Virtual Private Cloud (Amazon VPC)
-  title_abbrev: Create a subnet
-  synopsis: create an &EC2; subnet.
-  category:
-  languages:
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.createSubnet
-  services:
-    ec2:
-      {CreateSubnet}
-ec2_createVpc:
-  title: Create a Amazon Virtual Private Cloud (Amazon VPC)
-  title_abbrev: Create a Amazon Virtual Private Cloud (Amazon VPC)
-  synopsis: create a Amazon Virtual Private Cloud (Amazon VPC).
-  category:
-  languages:
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/ec2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - ec2.Ruby.createVpc
-  services:
-    ec2:
-      {CreateVpc}
 ec2_Scenario_GetStartedInstances:
   title: Get started with &EC2; instances using an &AWS; SDK
   title_abbrev: Get started with instances
