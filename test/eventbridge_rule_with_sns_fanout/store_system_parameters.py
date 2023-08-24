@@ -25,7 +25,9 @@ if __name__ == "__main__":
     mappings = [
         ('/account-mappings/ruby', '260778392212'),
         ('/account-mappings/dotnetv3', '565846806325'),
-        ('/account-mappings/javav2', '814548047983')
+        ('/account-mappings/javav2', '814548047983'),
+        ('/account-mappings/python', '489398071715'),
+        ('/account-mappings/gov2', '489398071715')
     ]
 
     # Call the function to generate or update the parameter values in Parameter Store
