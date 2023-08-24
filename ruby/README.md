@@ -37,7 +37,7 @@ To resolve Ruby-specific dependencies, you must start a command line session and
 
 This code is tested using [version 3.1.2](https://www.ruby-lang.org/en/news/2022/04/12/ruby-3-1-2-released/).
 
-You can check your Ruby version using the following command:
+You can check your Ruby version by using the following command:
 ```bash
 ruby -v
 ```
