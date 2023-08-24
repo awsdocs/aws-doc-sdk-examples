@@ -263,7 +263,8 @@ ec2_CreateSecurityGroup:
           excerpts:
             - description:
               snippet_tags:
-                - ec2.Ruby.createSecurityGroup ec2.Ruby.exampleSecurityGroup
+                - ec2.Ruby.exampleSecurityGroup
+
     JavaScript:
       versions:
         - sdk_version: 3
