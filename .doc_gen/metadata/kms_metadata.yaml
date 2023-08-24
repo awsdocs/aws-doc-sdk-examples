@@ -32,14 +32,6 @@ kms_CreateKey:
               snippet_tags:
                 - python.example_code.kms.KeyManager
                 - python.example_code.kms.CreateKey
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.ruby.createKey
     .NET:
       versions:
         - sdk_version: 3
@@ -100,14 +92,6 @@ kms_Decrypt:
               snippet_tags:
                 - python.example_code.kms.KeyEncrypt
                 - python.example_code.kms.Decrypt
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.ruby.decryptBlob
     Rust:
       versions:
         - sdk_version: 1
@@ -160,14 +144,6 @@ kms_Encrypt:
               snippet_tags:
                 - python.example_code.kms.KeyEncrypt
                 - python.example_code.kms.Encrypt
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.ruby.encryptBlob
     Rust:
       versions:
         - sdk_version: 1
@@ -320,14 +296,6 @@ kms_ReEncrypt:
             - description:
               snippet_tags:
                 - kms.rust.reencrypt-data
-    Ruby:
-      versions:
-        - sdk_version: 3
-          github: ruby/example_code/kms
-          excerpts:
-            - description:
-              snippet_tags:
-                - kms.ruby.reEncryptData
     Go:
       versions:
         - sdk_version: 2

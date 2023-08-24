@@ -44,7 +44,6 @@ rescue StandardError
   return false
 end
 
-# snippet-start:[ec2.Ruby.allocateElasticIPs]
 # Creates an Elastic IP address in Amazon Virtual Private Cloud (Amazon VPC).
 #
 # @param ec2_client [Aws::EC2::Client] An initialized EC2 client.
@@ -58,9 +57,7 @@ rescue StandardError => e
   puts "Error allocating Elastic IP address: #{e.message}"
   return "Error"
 end
-# snippet-end:[ec2.Ruby.allocateElasticIPs]
 
-# snippet-start:[ec2.Ruby.associateElasticIPs]
 # Associates an Elastic IP address with an Amazon Elastic Compute Cloud
 # (Amazon EC2) instance.
 #
@@ -94,8 +91,7 @@ rescue StandardError => e
   puts "Error associating Elastic IP address with instance: #{e.message}"
   return "Error"
 end
-# snippet-end:[ec2.Ruby.associateElasticIPs]
-#
+
 # Gets information about addresses associated with an
 # Amazon Elastic Compute Cloud (Amazon EC2) instance.
 #
@@ -133,7 +129,6 @@ rescue StandardError => e
   puts "Error getting address information for instance: #{e.message}"
 end
 
-# snippet-start:[ec2.Ruby.releaseElasticIPs]
 # Releases an Elastic IP address from an
 # Amazon Elastic Compute Cloud (Amazon EC2) instance.
 #
@@ -158,7 +153,6 @@ rescue StandardError => e
   puts("Error releasing Elastic IP address: #{e.message}")
   return false
 end
-# snippet-end:[ec2.Ruby.releaseElasticIPs]
 
 # Full example call:
 def run_me
