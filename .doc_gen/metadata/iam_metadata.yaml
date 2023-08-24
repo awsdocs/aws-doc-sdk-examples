@@ -336,7 +336,7 @@ iam_GetAccountPasswordPolicy:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -406,7 +406,7 @@ iam_ListSAMLProviders:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -972,7 +972,7 @@ iam_CreatePolicy:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1206,7 +1206,7 @@ iam_ListPolicies:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1297,7 +1297,7 @@ iam_GetPolicy:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1420,7 +1420,7 @@ iam_AttachRolePolicy:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1546,7 +1546,7 @@ iam_ListAttachedRolePolicies:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1761,7 +1761,7 @@ iam_CreateRole:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1882,7 +1882,7 @@ iam_ListRoles:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -1950,7 +1950,7 @@ iam_GetRole:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2138,7 +2138,7 @@ iam_ListRolePolicies:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2235,7 +2235,7 @@ iam_CreateUser:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -2506,7 +2506,7 @@ iam_ListUsers:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -3160,7 +3160,7 @@ iam_ListGroups:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -3254,7 +3254,7 @@ iam_CreateServiceLinkedRole:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           excerpts:
             - description:
               snippet_tags:
@@ -3438,7 +3438,7 @@ iam_Scenario_CreateUserAssumeRole:
     PHP:
       versions:
         - sdk_version: 3
-          github: php/example_code/iam/iam_basics
+          github: php/example_code/iam
           sdkguide:
           excerpts:
             - description:
