@@ -35,7 +35,8 @@
     "example_code/cross-services/feedback-sentiment-analyzer/TranslateText",
     "example_code/cross-services/feedback-sentiment-analyzer/SynthesizeAudio",
     "example_code/codebuild",
-    "example_code/ses"
+    "example_code/ses",
+    "example_code/glue"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.1",
