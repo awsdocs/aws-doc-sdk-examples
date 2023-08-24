@@ -52,7 +52,7 @@ gem install bundler
 bundle install
 ```
 
-If you would like to utilize a different Ruby version, modify or remove `ruby "3.1.2"` from the [Gemfile](Gemfile).
+To use a different Ruby version, modify or remove `ruby "3.1.2"` from the [Gemfile](Gemfile).
 
 ## Tests
 **Note**: Running the tests might result in charges to your AWS account.
