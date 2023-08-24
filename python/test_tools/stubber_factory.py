@@ -55,6 +55,7 @@ from test_tools.sts_stubber import StsStubber
 from test_tools.support_stubber import SupportStubber
 from test_tools.textract_stubber import TextractStubber
 from test_tools.transcribe_stubber import TranscribeStubber
+from test_tools.medical_imaging_stubber import MedicalImagingStubber
 
 
 class StubberFactoryNotImplemented(Exception):
@@ -156,6 +157,8 @@ def stubber_factory(service_name):
         return TextractStubber
     elif service_name == 'transcribe':
         return TranscribeStubber
+    elif service_name == 'medical-imaging':
+        return MedicalImagingStubber
     else:
         raise StubberFactoryNotImplemented(
             "If you see this exception, it probably means that you forgot to add "

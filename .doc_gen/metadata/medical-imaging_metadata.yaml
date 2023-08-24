@@ -15,6 +15,15 @@ medical-imaging_CreateDatastore:
               snippet_tags:
                 - aws-cli.bash-linux.medical-imaging.errecho
                 - aws-cli.bash-linux.medical-imaging.CreateDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.CreateDatastore
   services:
     medical-imaging: {CreateDatastore}
 medical-imaging_DeleteDatastore:
@@ -33,6 +42,15 @@ medical-imaging_DeleteDatastore:
               snippet_tags:
                 - aws-cli.bash-linux.medical-imaging.errecho
                 - aws-cli.bash-linux.medical-imaging.DeleteDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.DeleteDatastore
   services:
     medical-imaging: {DeleteDatastore}
 medical-imaging_ListDatastores:
@@ -51,6 +69,15 @@ medical-imaging_ListDatastores:
               snippet_tags:
                 - aws-cli.bash-linux.medical-imaging.errecho
                 - aws-cli.bash-linux.medical-imaging.ListDatastores
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.ListDatastores
   services:
     medical-imaging: {ListDatastores}
 medical-imaging_GetDatastore:
@@ -69,5 +96,14 @@ medical-imaging_GetDatastore:
               snippet_tags:
                 - aws-cli.bash-linux.medical-imaging.errecho
                 - aws-cli.bash-linux.medical-imaging.GetDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.GetDatastore
   services:
     medical-imaging: {GetDatastore}
