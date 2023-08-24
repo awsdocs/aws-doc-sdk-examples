@@ -46,7 +46,7 @@ See the [Ruby install docs](https://www.ruby-lang.org/en/documentation/installat
 
 ### Resolving dependencies
 
-To resolve the dependencies declared in the [Gemfile](Gemfile), run the below commands from this `/ruby` directory:
+To resolve the dependencies declared in the [Gemfile](Gemfile), run the following commands from this `/ruby` directory:
 ```bash
 gem install bundler
 bundle install
