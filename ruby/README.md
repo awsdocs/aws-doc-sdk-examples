@@ -42,7 +42,7 @@ You can check your Ruby version by using the following command:
 ruby -v
 ```
 
-See the [Ruby install docs](https://www.ruby-lang.org/en/documentation/installation/) for more information on managing multiple Ruby versions in your local environment.
+For more information about managing multiple Ruby versions in your local environment, see the [Ruby install docs](https://www.ruby-lang.org/en/documentation/installation/).
 
 ### Resolving dependencies
 
