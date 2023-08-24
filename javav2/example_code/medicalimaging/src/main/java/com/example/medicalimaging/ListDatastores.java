@@ -16,9 +16,10 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.medicalimaging.MedicalImagingClient;
 import software.amazon.awssdk.services.medicalimaging.model.DatastoreSummary;
 import software.amazon.awssdk.services.medicalimaging.model.ListDatastoresRequest;
-import software.amazon.awssdk.services.medicalimaging.model.ListDatastoresResponse;
 import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingException;
+import software.amazon.awssdk.services.medicalimaging.paginators.ListDatastoresIterable;
 
+import java.util.ArrayList;
 import java.util.List;
 //snippet-end:[medicalimaging.java2.list_datastores.import]
 
@@ -51,8 +52,12 @@ public class ListDatastores {
         try {
             ListDatastoresRequest datastoreRequest = ListDatastoresRequest.builder()
                     .build();
-            ListDatastoresResponse response = medicalImagingClient.listDatastores(datastoreRequest);
-            return response.datastoreSummaries();
+            ListDatastoresIterable responses = medicalImagingClient.listDatastoresPaginator(datastoreRequest);
+            List<DatastoreSummary> datastoreSummaries = new ArrayList<>();
+
+            responses.stream().forEach(response -> datastoreSummaries.addAll(response.datastoreSummaries()));
+
+            return datastoreSummaries;
         } catch (MedicalImagingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
