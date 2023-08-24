@@ -10,6 +10,7 @@ package com.example.medicalimaging;
 */
 
 //snippet-start:[medicalimaging.java2.delete_datastore.import]
+
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.medicalimaging.MedicalImagingClient;
@@ -19,9 +20,9 @@ import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingExcept
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class DeleteDatastore {
@@ -53,7 +54,7 @@ public class DeleteDatastore {
 
     //snippet-start:[medicalimaging.java2.delete_datastore.main]
     public static void deleteMedicalImagingDatastore(MedicalImagingClient medicalImagingClient,
-                                                       String datastoreID) {
+                                                     String datastoreID) {
         try {
             DeleteDatastoreRequest datastoreRequest = DeleteDatastoreRequest.builder()
                     .datastoreId(datastoreID)

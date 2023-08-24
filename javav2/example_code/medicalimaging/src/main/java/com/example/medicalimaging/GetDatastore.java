@@ -10,6 +10,7 @@ package com.example.medicalimaging;
 */
 
 //snippet-start:[medicalimaging.java2.get_datastore.import]
+
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.medicalimaging.MedicalImagingClient;
@@ -21,9 +22,9 @@ import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingExcept
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class GetDatastore {
@@ -53,7 +54,7 @@ public class GetDatastore {
         if (properties != null) {
             System.out.println("The medical imaging datastore properties are " + properties);
         }
-         medicalImagingClient.close();
+        medicalImagingClient.close();
     }
 
     //snippet-start:[medicalimaging.java2.get_datastore.main]
@@ -64,7 +65,7 @@ public class GetDatastore {
                     .datastoreId(datastoreID)
                     .build();
             GetDatastoreResponse response = medicalImagingClient.getDatastore(datastoreRequest);
-            return  response.datastoreProperties();
+            return response.datastoreProperties();
         } catch (MedicalImagingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

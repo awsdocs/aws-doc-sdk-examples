@@ -10,6 +10,7 @@ package com.example.medicalimaging;
 */
 
 //snippet-start:[medicalimaging.java2.create_datastore.import]
+
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.medicalimaging.MedicalImagingClient;
@@ -20,9 +21,9 @@ import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingExcept
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class CreateDatastore {
@@ -30,10 +31,10 @@ public class CreateDatastore {
     public static void main(String[] args) {
 
         final String usage = "\n" +
-            "Usage:\n" +
-            "    <dataStoreName>\n\n" +
-            "Where:\n" +
-            "    dataStoreName - The name for the AWS HealthImaging datastore.\n\n";
+                "Usage:\n" +
+                "    <dataStoreName>\n\n" +
+                "Where:\n" +
+                "    dataStoreName - The name for the AWS HealthImaging datastore.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -44,9 +45,9 @@ public class CreateDatastore {
 
         Region region = Region.US_WEST_2;
         MedicalImagingClient medicalImagingClient = MedicalImagingClient.builder()
-            .region(region)
-            .credentialsProvider(ProfileCredentialsProvider.create())
-            .build();
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
 
         String dataStoreId = createMedicalImageDatastore(medicalImagingClient, dataStoreName);
         System.out.println("The medical imaging datastore id is " + dataStoreId);
@@ -55,13 +56,13 @@ public class CreateDatastore {
 
     //snippet-start:[medicalimaging.java2.create_datastore.main]
     public static String createMedicalImageDatastore(MedicalImagingClient medicalImagingClient,
-                                            String datastoreName) {
-         try {
+                                                     String datastoreName) {
+        try {
             CreateDatastoreRequest datastoreRequest = CreateDatastoreRequest.builder()
                     .datastoreName(datastoreName)
                     .build();
             CreateDatastoreResponse response = medicalImagingClient.createDatastore(datastoreRequest);
-            return  response.datastoreId();
+            return response.datastoreId();
         } catch (MedicalImagingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);

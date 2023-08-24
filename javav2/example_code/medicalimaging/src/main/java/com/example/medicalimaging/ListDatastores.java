@@ -10,19 +10,23 @@ package com.example.medicalimaging;
 */
 
 //snippet-start:[medicalimaging.java2.list_datastores.import]
+
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.medicalimaging.MedicalImagingClient;
-import software.amazon.awssdk.services.medicalimaging.model.*;
+import software.amazon.awssdk.services.medicalimaging.model.DatastoreSummary;
+import software.amazon.awssdk.services.medicalimaging.model.ListDatastoresRequest;
+import software.amazon.awssdk.services.medicalimaging.model.ListDatastoresResponse;
+import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingException;
 
 import java.util.List;
 //snippet-end:[medicalimaging.java2.list_datastores.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 public class ListDatastores {
@@ -46,9 +50,9 @@ public class ListDatastores {
     public static List<DatastoreSummary> listMedicalImagingDatastores(MedicalImagingClient medicalImagingClient) {
         try {
             ListDatastoresRequest datastoreRequest = ListDatastoresRequest.builder()
-                     .build();
+                    .build();
             ListDatastoresResponse response = medicalImagingClient.listDatastores(datastoreRequest);
-            return  response.datastoreSummaries();
+            return response.datastoreSummaries();
         } catch (MedicalImagingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
