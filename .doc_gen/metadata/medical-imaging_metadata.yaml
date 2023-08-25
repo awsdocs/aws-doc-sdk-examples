@@ -15,6 +15,15 @@ medical-imaging_CreateDatastore:
               snippet_tags:
                 - aws-cli.bash-linux.medical-imaging.errecho
                 - aws-cli.bash-linux.medical-imaging.CreateDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.CreateDatastore
     Java:
       versions:
         - sdk_version: 2
@@ -41,6 +50,15 @@ medical-imaging_DeleteDatastore:
               snippet_tags:
                 - aws-cli.bash-linux.medical-imaging.errecho
                 - aws-cli.bash-linux.medical-imaging.DeleteDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.DeleteDatastore
     Java:
       versions:
         - sdk_version: 2
@@ -67,6 +85,15 @@ medical-imaging_ListDatastores:
               snippet_tags:
                 - aws-cli.bash-linux.medical-imaging.errecho
                 - aws-cli.bash-linux.medical-imaging.ListDatastores
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.ListDatastores
     Java:
       versions:
         - sdk_version: 2
@@ -93,6 +120,15 @@ medical-imaging_GetDatastore:
               snippet_tags:
                 - aws-cli.bash-linux.medical-imaging.errecho
                 - aws-cli.bash-linux.medical-imaging.GetDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.GetDatastore
     Java:
       versions:
         - sdk_version: 2
