@@ -5,7 +5,7 @@
 
 import {fileURLToPath} from "url";
 
-// snippet-start:[medical-imaging.JavaScript.datastore.deleteDatastoreV]
+// snippet-start:[medical-imaging.JavaScript.datastore.deleteDatastoreV3]
 import {DeleteDatastoreCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
