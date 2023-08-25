@@ -19,5 +19,5 @@ Every example is different, but each will have the following:
 
 | Name                | Path                                         | Supported languages |
 | ------------------- | -------------------------------------------- | ------------------- |
-| Photo Asset Manager | [photo-asset-manager](./photo-asset-manager) | Java                |
+| Photo Asset Manager | [photo-asset-manager](./photo-asset-manager) | Java, C++           |
 | Feedback Sentiment Analyzer | [feedback_sentiment_analyzer](./feedback_sentiment_analyzer/)| Ruby, JavaScript |
