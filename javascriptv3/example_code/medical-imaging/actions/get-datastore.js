@@ -3,37 +3,43 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { fileURLToPath } from "url";
+import {fileURLToPath} from "url";
 
-// snippet-start:[medical-imaging.JavaScript.datastore.createDatastoreV3]
-import { CreateDatastoreCommand } from "@aws-sdk/client-medical-imaging";
-import { medicalImagingClient } from "../libs/medicalImagingClient.js";
+// snippet-start:[medical-imaging.JavaScript.datastore.getDatastoreV3]
+import {GetDatastoreCommand} from "@aws-sdk/client-medical-imaging";
+import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} datastoreName - The name of the datastore to create.
+ * @param {string} datastoreID - The ID of the datastore to retrieve properties for.
  */
-export const createDatastore = async (datastoreName = "DATASTORE_NAME") => {
-  const response = await medicalImagingClient.send(
-    new CreateDatastoreCommand({ datastoreName : datastoreName} )
-  );
-  console.log(response);
-  // {
-  //   '$metadata': {
-  //       httpStatusCode: 200,
-  //       requestId: 'a71cd65f-2382-49bf-b682-f9209d8d399b',
-  //       extendedRequestId: undefined,
-  //       cfId: undefined,
-  //       attempts: 1,
-  //       totalRetryDelay: 0
-  //    },
-  //    datastoreId: 'be9be47670814684920d371b816433b8',
-  //    datastoreStatus: 'CREATING'
-  // }
-  return response;
+export const getDatastore = async (datastoreID = "DATASTORE_ID") => {
+    const response = await medicalImagingClient.send(
+        new GetDatastoreCommand({datastoreId: datastoreID})
+    );
+    console.log(response);
+    // {
+    //   '$metadata': {
+    //       httpStatusCode: 200,
+    //       requestId: '55ea7d2e-222c-4a6a-871e-4f591f40cadb',
+    //       extendedRequestId: undefined,
+    //       cfId: undefined,
+    //       attempts: 1,
+    //       totalRetryDelay: 0
+    //    },
+    //   datastoreProperties: {
+    //        createdAt: 2023-08-04T18:50:36.239Z,
+    //         datastoreArn: 'arn:aws:medical-imaging:us-east-1:123456789:datastore/1234567890abcdef01234567890abcde',
+    //         datastoreId: '1234567890abcdef01234567890abcde',
+    //         datastoreName: 'my_datastore',
+    //         datastoreStatus: 'ACTIVE',
+    //         updatedAt: 2023-08-04T18:50:36.239Z
+    //   }
+    // }
+    return response.datastoreProperties;
 };
-// snippet-end:[medical-imaging.JavaScript.datastore.createDatastoreV3]
+// snippet-end:[medical-imaging.JavaScript.datastore.getDatastoreV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  createDatastore();
+    getDatastore();
 }
