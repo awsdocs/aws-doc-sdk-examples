@@ -25,8 +25,8 @@ class ProducerStack(Stack):
             'ruby',
             'javav2',
             # 'javascriptv3'
-            # 'gov2'
-            # 'python'
+            'gov2',
+            'python',
             'dotnetv3',
             # 'kotlin'
             # 'rust_dev_preview'
