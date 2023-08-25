@@ -35,8 +35,7 @@ function main() {
     local current_directory
     current_directory=$(pwd)
     cd ..
-    source ./iam_operations.sh
-    source ./iam_create_user_assume_role_scenario.sh
+    source ./dynamodb_operations.sh
     # shellcheck disable=SC2164
     cd "$current_directory"
   }
@@ -86,189 +85,49 @@ function main() {
   if [ "$VERBOSE" == "true" ]; then iecho "Tests running in verbose mode."; fi
 
   iecho "***************SETUP STEPS******************"
-  local user_name
-  user_name=$(generate_random_name iamtestcli)
-  iecho "user_name=$user_name"
+  local table_name
+  table_name=$(generate_random_name testcli)
+  iecho "user_name=$table_name"
+  local attr_definitions="AttributeName=year,AttributeType=N"
+  local key_schema="AttributeName=year,KeyType=HASH"
+  local provisioned_throughput="ReadCapacityUnits=5,WriteCapacityUnits=5"
+  local item_json_file="test_dynamodb_item.json"
   iecho "**************END OF STEPS******************"
 
   local test_count=0
 
-  run_test "$test_count Test if non-existing user is exists" \
-    "iam_user_exists $user_name " \
-    1
-  test_count=$((test_count + 1))
-
   run_test "$test_count. Creating user with missing username" \
-    "iam_create_user " \
+    "dynamodb_create_table " \
     1
   test_count=$((test_count + 1))
 
   run_test "$test_count. Creating user with valid parameters" \
-    "iam_create_user -u $user_name " \
+    "dynamodb_create_table -n $table_name -a $attr_definitions -k $key_schema -p $provisioned_throughput " \
     0
 
-  local user_arn="$test_command_response"
-  test_count=$((test_count + 1))
 
-  local user_arn="$test_command_response"
-
-  run_test "$test_count. Test if existing user is exists" \
-    "iam_user_exists $user_name " \
+  run_test "$test_count. Waiting for table to become active" \
+    "dynamodb_wait_table_active -n $table_name "  \
     0
   test_count=$((test_count + 1))
 
-  run_test "$test_count. Creating user with duplicate name" \
-    "iam_create_user -u $user_name " \
-    1
-  test_count=$((test_count + 1))
+  echo '{
+  "year": {"N" :"1979"},
+  "title": {"S" :  "Great movie"},
+  "info": {"M" : {"plot": {"S" : "some stuff"}, "rating": {"N" :"10"} } }
+}' > "$item_json_file"
 
-  run_test "$test_count. Listing users" \
-    "iam_list_users " \
+  run_test "$test_count. Putting item into table" \
+    "dynamodb_put_item -n $table_name -i $item_json_file " \
+    0
+    test_count=$((test_count + 1))
+
+  run_test "$test_count. deleting table" \
+    "dynamodb_delete_table -n $table_name " \
     0
   test_count=$((test_count + 1))
 
-  local user_values
-  IFS=$'\t ' read -r -a user_values <<<"$test_command_response"
-  if [[ "${#user_values[@]}" -lt "2" ]]; then
-    test_failed "Listing users returned less than 2 users."
-  fi
-
-  local access_key_file_name="test.pem"
-
-  run_test "$test_count. Creating access key without a username" \
-    "iam_create_user_access_key -f $access_key_file_name " \
-    1
-  test_count=$((test_count + 1))
-
-  run_test "$test_count. Creating access key with file" \
-    "iam_create_user_access_key -u $user_name -f $access_key_file_name " \
-    0
-  test_count=$((test_count + 1))
-
-  local key_name1
-  key_name1=$(cut -f 2 "$access_key_file_name")
-
-  rm $access_key_file_name
-
-  run_test "$test_count. Creating access key without file" \
-    "iam_create_user_access_key -u $user_name " \
-    0
-  test_count=$((test_count + 1))
-  local access_key_values
-  IFS=$'\t ' read -r -a access_key_values <<<"$test_command_response"
-  local key_name2=${access_key_values[0]}
-
-  run_test "$test_count. Listing access keys without user" \
-    "iam_list_access_keys" \
-    1
-  test_count=$((test_count + 1))
-
-  run_test "$test_count. Listing access keys" \
-    "iam_list_access_keys -u $user_name " \
-    0
-  test_count=$((test_count + 1))
-
-  IFS=$'\t ' read -r -a access_key_values <<<"$test_command_response"
-  if [[ "${#access_key_values[@]}" -ne "2" ]]; then
-    test_failed "Listing access keys returned incorrect number of keys."
-  fi
-
-  local assume_role_policy_document="{
-    \"Version\": \"2012-10-17\",
-    \"Statement\": [{
-        \"Effect\": \"Deny\",
-        \"Principal\": {\"AWS\": \"$user_arn\"},
-        \"Action\": \"sts:AssumeRole\"
-        }]
-    }"
-
-  run_test "$test_count. Creating role with missing name" \
-    "iam_create_role -p $assume_role_policy_document " \
-    1
-  test_count=$((test_count + 1))
-  local test_role_name
-  test_role_name=$(generate_random_name iamtestcli)
-  run_test "$test_count. Creating role with missing policy document" \
-    "iam_create_role -n $test_role_name " \
-    1
-  test_count=$((test_count + 1))
-
-  # Wait for user to be created.
-  sleep 10
-
-  # run_test seems to have issues with the policy document being passed in as a string.
-  iam_create_role -n "$test_role_name" -p "$assume_role_policy_document" 1>/dev/null
-  local error_code=${?}
-
-  if [[ $error_code -ne 0 ]]; then
-    test_failed "Creating role with correct parameters failed with error code"
-  fi
-  test_count=$((test_count + 1))
-
-  local policy_name
-  policy_name=$(generate_random_name "iamtestcli")
-  local policy_document="{
-                \"Version\": \"2012-10-17\",
-                \"Statement\": [{
-                    \"Effect\": \"Deny\",
-                    \"Action\": \"s3:ListAllMyBuckets\",
-                    \"Resource\": \"arn:aws:s3:::*\"}]}"
-
-  local policy_arn
-  policy_arn=$(iam_create_policy -n "$policy_name" -p "$policy_document")
-  local error_code=${?}
-
-  if [[ $error_code -ne 0 ]]; then
-    test_failed "Creating role with policy failed."
-  fi
-  test_count=$((test_count + 1))
-
-  run_test "$test_count. Attaching policy to role" \
-    "iam_attach_role_policy -n $test_role_name -p $policy_arn " \
-    0
-  test_count=$((test_count + 1))
-
-  run_test "$test_count. Detaching policy from role" \
-    "iam_detach_role_policy -n $test_role_name -p $policy_arn " \
-    0
-  test_count=$((test_count + 1))
-
-  run_test "$test_count. Deleting policy" \
-    "iam_delete_policy -n $policy_arn " \
-    0
-  test_count=$((test_count + 1))
-
-  run_test "$test_count. Deleting role" \
-    "iam_delete_role -n $test_role_name " \
-    0
-  test_count=$((test_count + 1))
-
-  run_test "$test_count. deleting access key" \
-    "iam_delete_access_key -u $user_name -k $key_name1" \
-    0
-  test_count=$((test_count + 1))
-
-  run_test "$test_count. deleting access key" \
-    "iam_delete_access_key -u $user_name -k $key_name2" \
-    0
-  test_count=$((test_count + 1))
-
-  run_test "$test_count. deleting user" \
-    "iam_delete_user -u $user_name " \
-    0
-  test_count=$((test_count + 1))
-
-  # bashsupport disable=BP2001
-  export mock_input="True"
-
-  # bashsupport disable=BP2001
-  export mock_input_array=("iamtestcli_scenario")
-
-  run_test "$test_count. iam assume role scenario" \
-    iam_create_user_assume_role \
-    0
-
-  unset mock_input
+  rm "$item_json_file"
 
   echo "$test_count tests completed successfully."
 }
