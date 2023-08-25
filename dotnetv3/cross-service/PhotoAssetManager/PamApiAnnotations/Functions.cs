@@ -1,10 +1,10 @@
 using System.Net;
 using System.Text.Json;
-using Amazon.Lambda.Core;
 using Amazon.Lambda.Annotations;
 using Amazon.Lambda.Annotations.APIGateway;
-using PamServices;
 using Amazon.Lambda.APIGatewayEvents;
+using Amazon.Lambda.Core;
+using PamServices;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 

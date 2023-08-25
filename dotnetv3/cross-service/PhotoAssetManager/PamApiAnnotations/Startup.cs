@@ -1,13 +1,13 @@
-using Amazon.Util;
 using Amazon;
-using Microsoft.Extensions.DependencyInjection;
-using PamServices;
-using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using Amazon.Rekognition;
 using Amazon.S3;
 using Amazon.SimpleNotificationService;
+using Amazon.Util;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using PamServices;
 
 namespace PamApiAnnotations;
 

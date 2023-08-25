@@ -39,6 +39,6 @@ node [example name].js // For example, node redshift-create-cluster.js
 ## Resources
 - [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)  
 - [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/redshift-examples.html) 
-- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-redshift/index.html)
+- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/redshift/index.html)
 
  

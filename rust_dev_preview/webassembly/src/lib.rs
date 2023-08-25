@@ -5,10 +5,10 @@
 
 use async_trait::async_trait;
 use aws_credential_types::{cache::CredentialsCache, provider::ProvideCredentials, Credentials};
-use aws_sdk_lambda::{config::Region, meta::PKG_VERSION, Client};
-use aws_smithy_async::rt::sleep::{AsyncSleep, Sleep};
-use aws_smithy_client::erase::DynConnector;
-use aws_smithy_http::{body::SdkBody, result::ConnectorError};
+use aws_sdk_lambda::config::{AsyncSleep, Region, SharedAsyncSleep, Sleep};
+use aws_sdk_lambda::primitives::SdkBody;
+use aws_sdk_lambda::{meta::PKG_VERSION, Client};
+use aws_smithy_http::result::ConnectorError;
 use serde::Deserialize;
 use wasm_bindgen::{prelude::*, JsCast};
 
@@ -59,10 +59,7 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
         .region(Region::new(region))
         .credentials_cache(browser_credentials_cache())
         .credentials_provider(credentials_provider)
-        .http_connector(DynConnector::new(Adapter::new(
-            verbose,
-            access_key == "access_key",
-        )))
+        .http_connector(Adapter::new(verbose, access_key == "access_key"))
         .load()
         .await;
     let client = Client::new(&shared_config);
@@ -110,7 +107,7 @@ fn static_credential_provider() -> impl ProvideCredentials {
 
 fn browser_credentials_cache() -> CredentialsCache {
     CredentialsCache::lazy_builder()
-        .sleep(std::sync::Arc::new(BrowserSleep))
+        .sleep(SharedAsyncSleep::new(BrowserSleep))
         .into_credentials_cache()
 }
 

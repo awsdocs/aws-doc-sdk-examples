@@ -25,9 +25,9 @@ personalize-events_putEvents:
   services:
     personalize-events: {PutEvents}
 personalize-events_putItems:
-  title: Incrementally import an item into &PERSE; using an &AWS; SDK
-  title_abbrev: Import real-time interaction event data
-  synopsis: import real-time interaction event data into &PERSE;.
+  title: Incrementally import items into &PERSE; using an &AWS; SDK
+  title_abbrev: Import items into a dataset
+  synopsis: incrementally import items into an &PERSE; dataset.
   category:
   languages:
     JavaScript:

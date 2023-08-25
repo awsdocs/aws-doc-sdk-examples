@@ -5,13 +5,14 @@
   "license": "Apache 2.0",
   "type": "module",
   "scripts": {
-    "test": "vitest run **/*.unit.test.js",
     "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.215.0"
+    "@aws-sdk/client-ses": "^3.215.0",
+    "nodemailer": "^6.9.4"
   },
   "devDependencies": {
+    "@types/nodemailer": "^6.4.9",
     "vitest": "^0.25.2"
   }
 }

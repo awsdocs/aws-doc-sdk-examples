@@ -19,11 +19,10 @@
 // Before you run this example, download 'movies.json' from
 // https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files,
 // and put it in the same folder as the example.
-
-using DynamoDB_Actions;
-
 namespace DynamoDB_Basics_Scenario
 {
+    using DynamoDB_Actions;
+
     public class DynamoDB_Basics
     {
         // Separator for the console display.

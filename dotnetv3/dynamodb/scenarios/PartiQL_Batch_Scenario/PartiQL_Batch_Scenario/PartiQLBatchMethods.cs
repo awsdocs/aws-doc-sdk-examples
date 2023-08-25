@@ -280,4 +280,3 @@ namespace PartiQL_Batch_Scenario
         // snippet-end:[PartiQL.dotnetv3.PartiQLBatchScenario-DeleteBatch]
     }
 }
-

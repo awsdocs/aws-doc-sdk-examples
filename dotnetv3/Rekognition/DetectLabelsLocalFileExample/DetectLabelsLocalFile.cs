@@ -60,5 +60,6 @@ namespace DetectLabelsLocalFileExample
             }
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.DetectLabelsLocalFile]
 }

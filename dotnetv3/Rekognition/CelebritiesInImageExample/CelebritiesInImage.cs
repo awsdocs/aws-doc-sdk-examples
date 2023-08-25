@@ -63,5 +63,6 @@ namespace CelebritiesInImageExample
             Console.WriteLine($"{recognizeCelebritiesResponse.UnrecognizedFaces.Count} face(s) were unrecognized.");
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.CelebritiesInImageExample]
 }

@@ -1,9 +1,8 @@
-use std::collections::HashMap;
-
+use aws_sdk_dynamodb::error::SdkError;
 use aws_sdk_dynamodb::types::{AttributeValue, PutRequest};
-use aws_smithy_client::SdkError;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use std::collections::HashMap;
 use thiserror::Error;
 
 pub const TABLE_NAME: &str = "movies";
@@ -39,11 +38,12 @@ impl From<serde_dynamo::Error> for MovieError {
     }
 }
 
-impl<E> From<SdkError<E>> for MovieError
+impl<E, R> From<SdkError<E, R>> for MovieError
 where
     E: std::fmt::Debug,
+    R: std::fmt::Debug,
 {
-    fn from(err: SdkError<E>) -> Self {
+    fn from(err: SdkError<E, R>) -> Self {
         MovieError::Unknown(format!("{err:?}"))
     }
 }

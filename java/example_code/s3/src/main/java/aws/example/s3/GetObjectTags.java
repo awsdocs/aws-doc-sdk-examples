@@ -23,11 +23,8 @@
 // snippet-sourcedate:[2020-01-09]
 // snippet-sourceauthor:[AWS-scmacdon]
 
-// snippet-start:[s3.java.getobjecttags.complete]
-
 package aws.example.s3;
 
-// snippet-start:[s3.java.getobjecttags.import]
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
@@ -37,7 +34,7 @@ import com.amazonaws.services.s3.model.*;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
-// snippet-end:[s3.java.getobjecttags.import]
+
 public class GetObjectTags {
 
 
@@ -48,7 +45,6 @@ public class GetObjectTags {
             System.exit(1);
         }
 
-        // snippet-start:[s3.java.getobjecttags.main]
         String bucketName = args[0];
         String keyName = args[1];
 
@@ -79,8 +75,5 @@ public class GetObjectTags {
             System.err.println(e.getErrorMessage());
             System.exit(1);
         }
-        // snippet-end:[s3.java.getobjecttags.main]
     }
 }
-
-// snippet-end:[s3.java.getobjecttags.complete]

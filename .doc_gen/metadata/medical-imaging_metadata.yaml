@@ -1,0 +1,109 @@
+# zexi 0.4.0
+medical-imaging_CreateDatastore:
+  title: Create a data store using the &AHI; SDK
+  title_abbrev: Create a data store
+  synopsis: create a data store.
+  category:
+  languages:
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.medical-imaging.errecho
+                - aws-cli.bash-linux.medical-imaging.CreateDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.CreateDatastore
+  services:
+    medical-imaging: {CreateDatastore}
+medical-imaging_DeleteDatastore:
+  title: Delete a data store using the &AHI; SDK
+  title_abbrev: Delete a data store
+  synopsis: delete a data store.
+  category:
+  languages:
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.medical-imaging.errecho
+                - aws-cli.bash-linux.medical-imaging.DeleteDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.DeleteDatastore
+  services:
+    medical-imaging: {DeleteDatastore}
+medical-imaging_ListDatastores:
+  title: List a data stores using the &AHI; SDK
+  title_abbrev: List data stores
+  synopsis: list a data stores.
+  category:
+  languages:
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.medical-imaging.errecho
+                - aws-cli.bash-linux.medical-imaging.ListDatastores
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.ListDatastores
+  services:
+    medical-imaging: {ListDatastores}
+medical-imaging_GetDatastore:
+  title: Get data store properties using the &AHI; SDK
+  title_abbrev: Get data store properties
+  synopsis: get data store properties.
+  category:
+  languages:
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.medical-imaging.errecho
+                - aws-cli.bash-linux.medical-imaging.GetDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.GetDatastore
+  services:
+    medical-imaging: {GetDatastore}

@@ -2,45 +2,45 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Set the minimum required version of CMake for this project.
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.13)
+
+set(SERVICE_NAME s3)
+set(SERVICE_COMPONENTS iam s3 sts)
 
 # Set this project's name.
-project("s3-examples")
+project("${SERVICE_NAME}-examples")
 
-# Set the location of where Windows can find the installed libraries of the SDK.
-if(MSVC)
-    string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
-    list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
-endif()
+# Build shared libraries by default.
+set(BUILD_SHARED_LIBS ON)
 
 # Set the C++ standard to use to build this target.
 set(CMAKE_CXX_STANDARD 11)
 
-# Enable CTest for testing these code examples.
-if(BUILD_TESTS)
-    include(CTest)
-endif()
 
 # Build shared libraries by default.
-if(NOT BUILD_SHARED_LIBS)
-    set(BUILD_SHARED_LIBS ON)
+set(BUILD_SHARED_LIBS ON)
+
+# Use the MSVC variable to determine if this is a Windows build.
+set(WINDOWS_BUILD ${MSVC})
+
+# Set the location of where Windows can find the installed libraries of the SDK.
+if(WINDOWS_BUILD)
+    string(REPLACE ";" "/aws-cpp-sdk-all;" SYSTEM_MODULE_PATH "${CMAKE_SYSTEM_PREFIX_PATH}/aws-cpp-sdk-all")
+    list(APPEND CMAKE_PREFIX_PATH ${SYSTEM_MODULE_PATH})
 endif()
 
 # Find the AWS SDK for C++ package.
-find_package(AWSSDK REQUIRED COMPONENTS s3 sts iam)
+find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
 
-# If the compiler is some version of Microsoft Visual C++, or another compiler simulating C++,
-# and building as shared libraries, then dynamically link to those shared libraries.
-if(MSVC AND BUILD_SHARED_LIBS)
-    add_definitions(-DUSE_IMPORT_EXPORT)
-    # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
 
-    set(CMAKE_BUILD_TYPE Debug) # Explicitly setting CMAKE_BUILD_TYPE is necessary in windows to copy dlls.
+if(WINDOWS_BUILD)
+     # Copy relevant AWS SDK for C++ libraries into the current binary directory for running and debugging.
 
-    list(APPEND SERVICE_LIST s3 sts iam)
+     # set(BIN_SUB_DIR "/Debug") # If you are building from the command line, you may need to uncomment this 
+                                    # and set the proper subdirectory to the executables' location.
 
-     AWSSDK_CPY_DYN_LIBS(SERVICE_LIST "" ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
-endif()
+     AWSSDK_CPY_DYN_LIBS(SERVICE_COMPONENTS "" ${CMAKE_CURRENT_BINARY_DIR}${BIN_SUB_DIR})
+ endif()
 
 # Add the code example-specific header files.
 file(GLOB AWSDOC_S3_HEADERS
@@ -55,15 +55,16 @@ if(NOT DEFINED AWSDOC_S3_SOURCE)
     )
 endif()
 
-# Check whether the target system is Windows, including Win64.
-if(WIN32)
-    list(FILTER AWSDOC_S3_SOURCE EXCLUDE REGEX "/list_buckets_disabling_dns_cache.cpp$") # Not supported in windows, see file for details
-
-    # Check whether the compiler is some version of Microsoft Visual C++, or another compiler simulating C++.
-    if(MSVC)
-        source_group("Header Files\\awsdoc\\s3" FILES ${AWSDOC_S3_HEADERS})
-        source_group("Source Files" FILES ${AWSDOC_S3_SOURCE})
-    endif(MSVC)
+# Handle special case of list_buckets_disabling_dns_cache.cpp on Windows.
+if(WINDOWS_BUILD)
+    list(FIND AWSSDK_CLIENT_LIBS "curl" CONTAINS_CURL)
+    if (CONTAINS_CURL EQUAL -1)
+            # Remove list_buckets_disabling_dns_cache.cpp when not using curl library for http.
+        list(FILTER AWSDOC_S3_SOURCE EXCLUDE REGEX "/list_buckets_disabling_dns_cache.cpp$") # Not supported in windows without curl, see file for details
+    else()
+        set(CURL_INCLUDE "c:/curl/include") # Update this with correct curl install location.
+        set(CURL_LIB "c:/curl/lib") # Update this with correct  curl install location.
+    endif()
 endif()
 
 foreach(file ${AWSDOC_S3_SOURCE})
@@ -76,9 +77,16 @@ foreach(file ${AWSDOC_S3_SOURCE})
 
     target_include_directories(${EXAMPLE_EXE} PUBLIC 
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>)
-    target_link_libraries(${EXAMPLE_EXE} ${AWSSDK_LINK_LIBRARIES} 
+        $<INSTALL_INTERFACE:include>
+        ${CURL_INCLUDE})
+    
+    target_link_libraries(${EXAMPLE_EXE} 
+        ${AWSSDK_LINK_LIBRARIES} 
         ${AWSSDK_PLATFORM_DEPS})
+
+    target_link_directories(${EXAMPLE_EXE} 
+        PUBLIC 
+        ${CURL_LIB})
 
  endforeach()
 

@@ -131,6 +131,15 @@ int main(int argc, char *argv[]) {
         Aws::Client::ClientConfiguration clientConfig;
         // Optional: Set to the AWS Region in which the bucket was created (overrides config file).
         // clientConfig.region = "us-east-1";
+#ifdef _WIN32
+        // ATTENTION: On Windows with the AWS C++ SDK, this example only runs if the SDK is built
+        // with the curl library. 
+        // For more information, see the accompanying ReadMe.
+        // For more information, see "Building the SDK for Windows with curl".
+        // https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/setup-windows.html
+        //TODO(User): Update to the location of your .crt file.
+        clientConfig.caFile = "C:/curl/bin/cacert.pem";
+#endif
 
         AwsDoc::S3::ListBucketDisablingDnsCache(clientConfig);
     }

@@ -18,15 +18,6 @@ namespace HighLevelBatchWriteItemExample
     /// </summary>
     public class HighLevelBatchWriteItem
     {
-        static async Task Main()
-        {
-            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
-            DynamoDBContext context = new DynamoDBContext(client);
-
-            await SingleTableBatchWrite(context);
-            await MultiTableBatchWrite(context);
-        }
-
         public static async Task SingleTableBatchWrite(IDynamoDBContext context)
         {
             Book book1 = new Book
@@ -56,6 +47,15 @@ namespace HighLevelBatchWriteItemExample
 
             Console.WriteLine("Adding two books to ProductCatalog table.");
             await bookBatch.ExecuteAsync();
+        }
+
+        private static async Task Main()
+        {
+            AmazonDynamoDBClient client = new AmazonDynamoDBClient();
+            DynamoDBContext context = new DynamoDBContext(client);
+
+            await SingleTableBatchWrite(context);
+            await MultiTableBatchWrite(context);
         }
 
         public static async Task MultiTableBatchWrite(IDynamoDBContext context)

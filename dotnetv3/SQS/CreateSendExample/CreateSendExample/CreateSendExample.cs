@@ -2,8 +2,7 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // The following example creates a queue using the Amazon Simple Queue
-// Service (Amazon SQS) and then sends a message to the queue. It was
-// created using AWS SDK for .NET 3.5 and .NET 5.0.
+// Service (Amazon SQS) and then sends a message to the queue.
 namespace CreateSendExample
 {
     // snippet-start:[SQS.dotnetv3.CreateSendExample]

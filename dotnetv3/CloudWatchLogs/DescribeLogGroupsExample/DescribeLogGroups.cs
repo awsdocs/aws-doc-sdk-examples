@@ -4,7 +4,6 @@
 namespace DescribeLogGroupsExample
 {
     // snippet-start:[CloudWatchLogs.dotnetv3.DescribeLogGroupsExample]
-
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;

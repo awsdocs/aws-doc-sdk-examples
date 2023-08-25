@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Microsoft.Extensions.Configuration;
 using Amazon.RDS;
 using Amazon.RDS.Model;
 using AuroraActions;
+using Microsoft.Extensions.Configuration;
 
 namespace AuroraTests;
 

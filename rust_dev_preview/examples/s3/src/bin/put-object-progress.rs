@@ -1,4 +1,5 @@
 use std::{
+    convert::Infallible,
     mem,
     path::PathBuf,
     pin::Pin,
@@ -60,7 +61,7 @@ impl ProgressBody<SdkBody> {
     // this "change the wheels on the fly" utility.
     pub fn replace(
         mut value: http::Request<SdkBody>,
-    ) -> Result<http::Request<SdkBody>, anyhow::Error> {
+    ) -> Result<http::Request<SdkBody>, Infallible> {
         let body = mem::replace(value.body_mut(), SdkBody::taken()).map(|body| {
             let len = body.content_length().expect("upload body sized"); // TODO - panics
             let body = ProgressBody::new(body, len);
@@ -160,7 +161,7 @@ async fn put_object(client: &Client, opts: &Opt) -> Result<(), anyhow::Error> {
     let customized = request
         .customize()
         .await?
-        .map_request(ProgressBody::<SdkBody>::replace)?;
+        .map_request(ProgressBody::<SdkBody>::replace);
 
     let out = customized.send().await?;
 

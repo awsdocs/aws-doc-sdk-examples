@@ -6,15 +6,14 @@
 #![allow(clippy::result_large_err)]
 
 use aws_config::meta::region::RegionProviderChain;
+use aws_sdk_dynamodb::error::SdkError;
+use aws_sdk_dynamodb::operation::create_table::CreateTableError;
+use aws_sdk_dynamodb::operation::put_item::PutItemError;
 use aws_sdk_dynamodb::types::{
     AttributeDefinition, AttributeValue, KeySchemaElement, KeyType, ProvisionedThroughput,
     ScalarAttributeType, Select, TableStatus,
 };
 use aws_sdk_dynamodb::{config::Region, meta::PKG_VERSION, Client, Error};
-use aws_smithy_http::result::SdkError;
-
-use aws_sdk_dynamodb::operation::create_table::CreateTableError;
-use aws_sdk_dynamodb::operation::put_item::PutItemError;
 use clap::Parser;
 use rand::distributions::Alphanumeric;
 use rand::{thread_rng, Rng};

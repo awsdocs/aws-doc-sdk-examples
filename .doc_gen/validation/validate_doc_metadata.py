@@ -110,7 +110,7 @@ class StringExtension(String):
         valid = True
         if self.check_aws:
             # All occurrences of AWS must be entities or within a word.
-            valid = len(re.findall('(?<![&\\da-zA-Z])AWS|AWS(?![;\\da-zA-Z])', value)) == 0
+            valid = len(re.findall('(?<![&\da-zA-Z])AWS(?![;\da-zA-Z])', value)) == 0
             if not valid:
                 self.last_err = 'valid string: it contains a non-entity usage of "AWS"'
         if valid and self.upper_start:

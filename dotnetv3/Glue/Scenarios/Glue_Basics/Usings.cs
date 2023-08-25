@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache - 2.0
 
 // snippet-start:[Glue.dotnetv3.GlueBasics.GlobalUsings]
-global using GlueActions;
 global using Amazon.Glue;
+global using GlueActions;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
