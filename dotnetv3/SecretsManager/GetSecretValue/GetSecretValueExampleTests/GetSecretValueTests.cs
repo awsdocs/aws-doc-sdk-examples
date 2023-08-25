@@ -1,16 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier:  Apache-2.0
 
-using Amazon.SecretsManager;
-using Amazon.SecretsManager.Model;
-using GetSecretValueExample;
-using Moq;
 using System;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Amazon.SecretsManager;
+using Amazon.SecretsManager.Model;
+using GetSecretValueExample;
+using Moq;
 using Xunit;
 
 namespace GetSecretValueExampleTests
@@ -36,7 +36,7 @@ namespace GetSecretValueExampleTests
 
             var client = mockClient.Object;
 
-            GetSecretValueRequest request = new ();
+            GetSecretValueRequest request = new();
             request.SecretId = "SecretTest";
             request.VersionStage = "AWSCURRENT"; // VersionStage defaults to AWSCURRENT if unspecified.
 
@@ -71,7 +71,7 @@ namespace GetSecretValueExampleTests
         public void TestDecodeStringBinaryValue()
         {
             var base64 = Convert.ToBase64String(Encoding.UTF8.GetBytes("SecretExample"));
-            var secretBinary =  new MemoryStream(Encoding.UTF8.GetBytes(base64));
+            var secretBinary = new MemoryStream(Encoding.UTF8.GetBytes(base64));
 
             var secretValue = new GetSecretValueResponse
             {

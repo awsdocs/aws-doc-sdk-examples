@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // snippet-start:[STS.dotnetv3.AssumeRoleMessage]
+using System;
+using System.Threading.Tasks;
 using Amazon;
 using Amazon.SecurityToken;
 using Amazon.SecurityToken.Model;
-using System;
-using System.Threading.Tasks;
 
 namespace AssumeRoleExample
 {

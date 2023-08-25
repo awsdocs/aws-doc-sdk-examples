@@ -52,5 +52,6 @@ namespace AddFacesExample
             }
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.AddFacesExample]
 }

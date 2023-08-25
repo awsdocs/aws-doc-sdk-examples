@@ -1,14 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-using Amazon;
-using Amazon.SimpleNotificationService;
-using Amazon.SimpleNotificationService.Model;
-using Moq;
 using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Amazon;
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
+using Moq;
 using Xunit;
 
 namespace SNSMessageExampleTest
@@ -32,7 +32,7 @@ namespace SNSMessageExampleTest
                     Assert.Equal(request.PhoneNumber, PhoneNum);
                 }
 
-                if(!String.IsNullOrEmpty(request.Message))
+                if (!String.IsNullOrEmpty(request.Message))
                 {
                     Assert.Equal(request.Message, Text);
                 }
@@ -62,7 +62,7 @@ namespace SNSMessageExampleTest
 
             bool gotResult = result != null;
             Assert.True(gotResult, "Copy operation failed.");
-            
+
             bool ok = result.HttpStatusCode == HttpStatusCode.OK;
             Assert.True(ok, $"Could NOT send test message to {PhoneNum}.");
 

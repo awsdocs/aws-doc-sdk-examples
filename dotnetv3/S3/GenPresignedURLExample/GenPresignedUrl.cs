@@ -4,8 +4,7 @@
 /// <summary>
 /// This example generates a presigned URL for an object in an Amazon
 /// Simple Storage Service (Amazon S3) bucket. The generated URL
-/// remains valid for the specified number of hours. This example was
-/// created using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
+/// remains valid for the specified number of hours.
 /// </summary>
 namespace GenPresignedUrlExample
 {
@@ -25,12 +24,17 @@ namespace GenPresignedUrlExample
             // Specify how long the presigned URL lasts, in hours
             const double timeoutDuration = 12;
 
-            // Specify the AWS Region of your Amazon S3 bucket if it is
+            // Specify the AWS Region of your Amazon S3 bucket. If it is
             // different from the Region defined for the default user,
             // pass the Region to the constructor for the client. For
-            // example:
-            //      RegionEndpoint bucketRegion = RegionEndpoint.USWest2;
-            IAmazonS3 s3Client = new AmazonS3Client();
+            // example: new AmazonS3Client(RegionEndpoint.USEast1);
+
+            // If using the Region us-east-1, and server-side encryption with AWS KMS, you must specify Signature Version 4.
+            // Region us-east-1 defaults to Signature Version 2 unless explicitly set to Version 4 as shown below.
+            // For more details, see https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingAWSSDK.html#specify-signature-version
+            // and https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/Amazon/TAWSConfigsS3.html
+            AWSConfigsS3.UseSignatureVersion4 = true;
+            IAmazonS3 s3Client = new AmazonS3Client(RegionEndpoint.USEast1);
 
             string urlString = GeneratePresignedURL(s3Client, bucketName, objectKey, timeoutDuration);
             Console.WriteLine($"The generated URL is: {urlString}.");

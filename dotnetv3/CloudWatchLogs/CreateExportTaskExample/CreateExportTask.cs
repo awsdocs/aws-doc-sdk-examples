@@ -47,7 +47,7 @@ namespace CreateExportTaskExample
                                   $"{response.TaskId} has been created successfully.");
             }
         }
-
     }
+
     // snippet-end:[CloudWatchLogs.dotnetv3.CreateExportTaskExample]
 }

@@ -23,7 +23,6 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2015-02-19]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[redshift.java.ConnectToCluster.complete]
 package connection;
 
 import java.sql.*;
@@ -95,4 +94,3 @@ public class Docs {
         System.out.println("Finished connectivity test.");
      }
 }
-// snippet-end:[redshift.java.ConnectToCluster.complete]

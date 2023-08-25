@@ -37,8 +37,8 @@ int main() {
         //Load a profile that has been granted AmazonTranscribeFullAccess AWS managed permission policy.
         Aws::Client::ClientConfiguration config;
 #ifdef _WIN32
-        // ATTENTION: On Windows with AWS SDK version 1.9, this example only runs if the SDK is built
-        // with the curl library.  (9/15/2022)
+        // ATTENTION: On Windows with the AWS C++ SDK, this example only runs if the SDK is built
+        // with the curl library. 
         // For more information, see the accompanying ReadMe.
         // For more information, see "Building the SDK for Windows with curl".
         // https://docs.aws.amazon.com/sdk-for-cpp/v1/developer-guide/setup-windows.html

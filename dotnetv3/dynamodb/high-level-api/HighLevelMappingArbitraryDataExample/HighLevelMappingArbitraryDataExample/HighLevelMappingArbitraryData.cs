@@ -16,13 +16,6 @@ namespace HighLevelMappingArbitraryDataExample
     /// </summary>
     public class HighLevelMappingArbitraryData
     {
-        static async Task Main()
-        {
-            var client = new AmazonDynamoDBClient();
-            DynamoDBContext context = new DynamoDBContext(client);
-            await AddRetrieveUpdateBook(context);
-        }
-
         /// <summary>
         /// Creates a book, adds it to the DynamoDB ProductCatalog table, retrieves
         /// the new book from the table, updates the dimensions and writes the
@@ -32,7 +25,6 @@ namespace HighLevelMappingArbitraryDataExample
         /// read data from the table.</param>
         public static async Task AddRetrieveUpdateBook(IDynamoDBContext context)
         {
-
             // Create a book.
             DimensionType myBookDimensions = new DimensionType()
             {
@@ -63,6 +55,13 @@ namespace HighLevelMappingArbitraryDataExample
 
             // Write the changed item to the table.
             await context.SaveAsync(bookRetrieved);
+        }
+
+        private static async Task Main()
+        {
+            var client = new AmazonDynamoDBClient();
+            DynamoDBContext context = new DynamoDBContext(client);
+            await AddRetrieveUpdateBook(context);
         }
     }
 

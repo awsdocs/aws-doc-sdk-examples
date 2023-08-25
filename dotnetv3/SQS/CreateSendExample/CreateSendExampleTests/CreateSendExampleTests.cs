@@ -1,13 +1,13 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier:  Apache-2.0
 
-using Amazon.SQS;
-using Amazon.SQS.Model;
-using Moq;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Amazon.SQS;
+using Amazon.SQS.Model;
+using Moq;
 using Xunit;
 
 namespace CreateSendExampleTests
@@ -17,6 +17,7 @@ namespace CreateSendExampleTests
         private string _queueUrl = "https://mockQueueURL";
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task CreateQueueTest()
         {
             var mockClient = new Mock<IAmazonSQS>();
@@ -42,6 +43,7 @@ namespace CreateSendExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task SendMessageTest()
         {
             var mockClient = new Mock<IAmazonSQS>();

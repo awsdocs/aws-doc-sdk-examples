@@ -68,8 +68,8 @@ node [example name].js
 ## Resources
 - [AWS SDK for JavaScript (v3) repo](https://github.com/aws/aws-sdk-js-v3)
 - [Amazon Personalize Developer Guide ](https://docs.aws.amazon.com/personalize/latest/dg/what-is-personalize.html)
-- [AWS SDK for JavaScript v3 API Reference Guide - Personalize Client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-personalize/index.html)
-- [AWS SDK for JavaScript v3 API Reference Guide - Personalize Events Client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-personalize-events/index.html)
-- [AWS SDK for JavaScript v3 API Reference Guide - Personalize Runtime Client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-personalize-events/index.html) 
+- [AWS SDK for JavaScript v3 API Reference Guide - Personalize Client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/personalize/index.html)
+- [AWS SDK for JavaScript v3 API Reference Guide - Personalize Events Client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/personalize-events/index.html)
+- [AWS SDK for JavaScript v3 API Reference Guide - Personalize Runtime Client](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/personalize-events/index.html) 
 
  

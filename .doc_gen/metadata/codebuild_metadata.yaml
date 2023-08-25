@@ -1,0 +1,18 @@
+# zexi 0.4.0
+codebuild_CreateProject:
+  title: Create an &ACB; project
+  title_abbrev: Create a project
+  synopsis: create an &ACB; project.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/codebuild
+          sdkguide: AWSJavaScriptSDK/v3/latest/client/codebuild/
+          excerpts:
+            - description: Create a project.
+              snippet_tags:
+                - javascript.v3.codebuild.actions.CreateProject
+  services:
+    codebuild: {CreateProject}

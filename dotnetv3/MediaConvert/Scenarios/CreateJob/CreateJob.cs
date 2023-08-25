@@ -1,10 +1,10 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Microsoft.Extensions.Configuration;
 using Amazon.MediaConvert;
 using Amazon.MediaConvert.Model;
 using MediaConvertActions;
+using Microsoft.Extensions.Configuration;
 
 namespace CreateJob;
 

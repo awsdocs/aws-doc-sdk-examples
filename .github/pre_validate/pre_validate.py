@@ -85,6 +85,8 @@ EXPECTED_SAMPLE_FILES = {
     'sample_cert.pem',
     'sample_private_key.pem',
     'sample_saml_metadata.xml',
+    'GeoSpatialPipeline.json',
+    'latlongtest.csv',
 }
 
 # Media file types.
@@ -195,6 +197,10 @@ ALLOW_LIST = {
     'preview/examples/cognitoidentityprovider',
     'preview/examples/lambda/src/bin/scenario',
     'aws/dynamodb/model/BatchWriteItemRequest',
+    'aws/rds/model/DescribeDBInstancesRequest',
+    'aws/rds/model/DescribeDBSnapshotsRequest',
+    'role/AmazonSageMakerGeospatialFullAccess',
+    'VectorEnrichmentJobDataSourceConfigInput',
 }
 
 def check_files(root, quiet):

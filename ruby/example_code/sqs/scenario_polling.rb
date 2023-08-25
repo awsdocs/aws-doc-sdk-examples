@@ -51,8 +51,7 @@ begin
   puts "Begin receipt of any messages using receive_message..."
   receive_message_result = sqs.receive_message({
     queue_url: receive_queue_url,
-    attribute_names: ["All"], # Receive all available built-in message attributes.
-    message_attribute_names: ["All"], # Receive any custom message attributes.
+    wait_time_seconds: 10, # Poll messages for 10 seconds at a time. Default: 0.
     max_number_of_messages: 10 # Receive up to 10 messages, if there are that many.
   })
 
@@ -61,15 +60,18 @@ rescue Aws::SQS::Errors::NonExistentQueue
   puts "Cannot receive messages using receive_message for a queue named '#{receive_queue_name}', as it does not exist."
 end
 
-# 2. Using Aws::SQS::QueuePoller.
+# 2. Using Aws::SQS::QueuePoller
+# NOTE: Using this class, messages are received using a "long poll" of 20 seconds.
+# If you prefer to use settings configured in the queue, then pass a nil value for :wait_time_seconds.
 begin
   puts "Begin receipt of any messages using Aws::SQS::QueuePoller..."
   puts "(Will keep polling until no more messages available for at least 60 seconds.)"
   poller = Aws::SQS::QueuePoller.new(receive_queue_url)
 
   poller_stats = poller.poll({
-    max_number_of_messages: 10,
-    idle_timeout: 60 # Stop polling after 60 seconds of no more messages available (polls indefinitely by default).
+    wait_time_seconds: 30, # Poll messages for 30 seconds at a time. Default: 20.
+    max_number_of_messages: 10, # Return up to 10 messages at a time.
+    idle_timeout: 60 # Terminate polling loop after 60 seconds.
   }) do |messages|
     messages.each do |message|
       puts "Message body: #{message.body}"

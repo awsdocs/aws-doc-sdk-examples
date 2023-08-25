@@ -5,8 +5,8 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using Amazon.S3.Util;
 using Amazon.SecurityToken;
-using Xunit;
 using IamScenariosCommon;
+using Xunit;
 
 namespace IAMTests
 {

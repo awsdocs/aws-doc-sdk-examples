@@ -33,5 +33,6 @@ namespace CreateCollectionExample
             Console.WriteLine($"Status code : {createCollectionResponse.StatusCode}");
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.CreateCollectionExample]
 }

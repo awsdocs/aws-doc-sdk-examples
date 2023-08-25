@@ -346,10 +346,11 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
                         Aws::SQS::Model::QueueAttributeName::QueueArn);
                 if (iter != attributes.end()) {
                     queueARN = iter->second;
-                    std::cout << "The queue ARN '" << queueARN << "' has been retrieved."
+                    std::cout << "The queue ARN '" << queueARN
+                              << "' has been retrieved."
                               << std::endl;
                 }
-               // snippet-end:[cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes1]
+                    // snippet-end:[cpp.example_code.cross-service.topics_and_queues.GetQueueAttributes1]
                 else {
                     std::cerr
                             << "Error ARN attribute not returned by GetQueueAttribute."
@@ -505,10 +506,12 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
         printAsterisksLine();
 
         // 6.  Publish a message to the SNS topic.
+        // snippet-start:[cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes]
         Aws::SNS::Model::PublishRequest request;
         request.SetTopicArn(topicARN);
         Aws::String message = askQuestion("Enter a message text to publish.  ");
         request.SetMessage(message);
+        // snippet-end:[cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes]
         if (isFifoTopic) {
             if (first) {
                 std::cout
@@ -533,6 +536,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
             }
         }
 
+        // snippet-start:[cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes2]
         if (filteringMessages && askYesNoQuestion(
                 "Add an attribute to this message? (y/n) ")) {
             for (size_t i = 0; i < TONES.size(); ++i) {
@@ -565,6 +569,7 @@ bool AwsDoc::TopicsAndQueues::messagingWithTopicsAndQueues(
 
             return false;
         }
+        // snippet-end:[cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes2]
 
         first = false;
     } while (askYesNoQuestion("Post another message? (y/n) "));

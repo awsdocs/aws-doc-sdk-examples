@@ -22,10 +22,3 @@
 // snippet-sourcetype:[full-example]
 // snippet-sourcedate:[2019-01-31]
 // snippet-sourceauthor:[AWS]
-// snippet-start:[comprehend.java.DetectDominantLanguage.complete]
-
-
-
-
-
-// snippet-end:[comprehend.java.DetectDominantLanguage.complete]
