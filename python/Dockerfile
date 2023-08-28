@@ -4,8 +4,6 @@
 # 'docker build -f python/Dockerfile -t <a_docker_file_name> .'
 
 # syntax=docker/dockerfile:1
-# Status: Beta
-# GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4125
 FROM python:3
 
 RUN mkdir -p /src/python
@@ -21,7 +19,7 @@ RUN curl https://certs.secureserver.net/repository/sf-class2-root.crt --output s
 
 WORKDIR /src/
 
-CMD ["bash"]
+CMD ["python", "/python/test_tools/run_all_tests.py"]
 
 # Run image with credentials:
 #   Windows:
