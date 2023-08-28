@@ -93,10 +93,10 @@ public class CognitoBasics
 
         UiMethods.DisplayTitle("Get confirmation code");
         Console.WriteLine($"Conformation code sent to {userName}.");
-        Console.Write("Would you like to send a new code? (Yes/No) ");
+        Console.Write("Would you like to send a new code? (Y/N) ");
         var answer = Console.ReadLine();
 
-        if (answer.ToLower() == "YES")
+        if (answer.ToLower() == "y")
         {
             await cognitoWrapper.ResendConfirmationCodeAsync(clientId, userName);
             Console.WriteLine("Sending a new confirmation code");
