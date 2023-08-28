@@ -697,15 +697,6 @@ cognito-identity-provider_RespondToAuthChallenge:
   synopsis: respond to &COG; SRP authentication challenges.
   category:
   languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Cognito
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - Cognito.dotnetv3.RespondToAuthChallenge
     Python:
       versions:
         - sdk_version: 3
@@ -764,10 +755,8 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
           excerpts:
             - description:
               snippet_tags:
-                - Cognito.dotnetv3.Usings
                 - Cognito.dotnetv3.Main
                 - Cognito.dotnetv3.CognitoWrapper
-                - Cognito.dotnetv3.UIMethods
     Kotlin:
       versions:
         - sdk_version: 1
