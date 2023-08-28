@@ -80,17 +80,17 @@ function main() {
         ;;
     esac
   done
-
+  export VERBOSE=true
   if [ "$INTERACTIVE" == "true" ]; then iecho "Tests running in interactive mode."; fi
   if [ "$VERBOSE" == "true" ]; then iecho "Tests running in verbose mode."; fi
 
   iecho "***************SETUP STEPS******************"
   local table_name
   table_name=$(generate_random_name testcli)
-  iecho "user_name=$table_name"
-  local attr_definitions="AttributeName=year,AttributeType=N"
-  local key_schema="AttributeName=year,KeyType=HASH"
+  local attr_definitions="AttributeName=year,AttributeType=N AttributeName=title,AttributeType=S"
+  local key_schema="AttributeName=year,KeyType=HASH AttributeName=title,KeyType=RANGE"
   local provisioned_throughput="ReadCapacityUnits=5,WriteCapacityUnits=5"
+  local key_json_file="test_dynamodb_key.json"
   local item_json_file="test_dynamodb_item.json"
   iecho "**************END OF STEPS******************"
 
@@ -122,12 +122,30 @@ function main() {
     0
     test_count=$((test_count + 1))
 
+  echo '{
+  "year": {"N" :"1979"},
+  "title": {"S" :  "Great movie"}
+  }' > "$key_json_file"
+
+  echo '{
+  ":r": {"N" :"8"},
+  ":p": {"S" : "some totally different stuff"}
+ }' > "$item_json_file"
+
+  local update_expression="SET info.rating = :r, info.plot = :p"
+
+  run_test "$test_count. Updating item in table" \
+  " dynamodb_update_item -n $table_name -k $key_json_file  -e  $update_expression -v $item_json_file " \
+    0
+    test_count=$((test_count + 1))
+
   run_test "$test_count. deleting table" \
     "dynamodb_delete_table -n $table_name " \
     0
   test_count=$((test_count + 1))
 
   rm "$item_json_file"
+  rm "$key_json_file"
 
   echo "$test_count tests completed successfully."
 }

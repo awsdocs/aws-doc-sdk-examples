@@ -193,7 +193,7 @@ function dynamodb_wait_table_active() {
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.wait_table_active]
 
-# snippet-start:[aws-cli.bash-linux.dynamodb.PutItem]
+# snippet-start:[aws-cli.bash-linux.dynamodb.]
 ##############################################################################
 # function dynamodb_put_item
 #
@@ -201,7 +201,9 @@ function dynamodb_wait_table_active() {
 #
 # Parameters:
 #       -n table_name  -- The name of the table.
-#       -i item  -- Path to json file containing the item.
+#       -k keys  -- Path to json file containing the keys that identify the item to update.
+#       -e update expression  -- An expression that defines one or more attributes to be updated.
+#       -v values  -- Path to json file containing the update values.
 #
 #     And:
 #       0 - If successful.
@@ -215,7 +217,7 @@ function dynamodb_put_item() {
     echo "function dynamodb_put_item"
     echo "Put an item into a DynamoDB table."
     echo " -n table_name  -- The name of the table."
-    echo " -i item  -- Path to json file containing the item."
+    echo " -i item  -- Path to json file containing the item update values."
     echo ""
   }
 
@@ -252,6 +254,7 @@ function dynamodb_put_item() {
   iecho "    table_name:   $table_name"
   iecho "    item:   $item"
   iecho ""
+  iecho ""
 
   aws dynamodb put-item \
     --table-name "$table_name" \
@@ -270,6 +273,104 @@ function dynamodb_put_item() {
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.PutItem]
 
+# snippet-start:[aws-cli.bash-linux.dynamodb.UpdateItem]
+##############################################################################
+# function dynamodb_update_item
+#
+# This function updates an item in a DynamoDB table.
+#
+#
+# Parameters:
+#       -n table_name  -- The name of the table.
+#       -i item  -- Path to json file containing the item update values.
+#
+#     And:
+#       0 - If successful.
+#       1 - If it fails.
+#############################################################################
+function dynamodb_update_item() {
+  local table_name keys update_expression values item response
+  local option OPTARG # Required to use getopts command in a function.
+
+  # bashsupport disable=BP5008
+  function usage() {
+    echo "function dynamodb_update_item"
+    echo "Update an item in a DynamoDB table."
+    echo " -n table_name  -- The name of the table."
+     echo " -k keys  -- Path to json file containing the keys that identify the item to update."
+    echo " -e update expression  -- An expression that defines one or more attributes to be updated."
+    echo " -v values  -- Path to json file containing the update values."
+    echo ""
+  }
+
+  while getopts "n:k:e:v:h" option; do
+    case "${option}" in
+      n) table_name="${OPTARG}" ;;
+      k) keys="${OPTARG}" ;;
+      e) update_expression="${OPTARG}" ;;
+      v) values="${OPTARG}" ;;
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo "Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+  export OPTIND=1
+
+  if [[ -z "$table_name" ]]; then
+    errecho "ERROR: You must provide a table name with the -t parameter."
+    usage
+    return 1
+  fi
+
+
+  if [[ -z "$keys" ]]; then
+    errecho "ERROR: You must provide a keys json file path the -k parameter."
+    usage
+    return 1
+  fi
+  if [[ -z "$update_expression" ]]; then
+    errecho "ERROR: You must provide an update expression with the -e parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$values" ]]; then
+    errecho "ERROR: You must provide a values json file path the -v parameter."
+    usage
+    return 1
+  fi
+
+  iecho "Parameters:\n"
+  iecho "    table_name:   $table_name"
+  iecho "    keys:   $keys"
+  iecho "    update_expression:   $update_expression"
+  iecho "    values:   $values"
+
+  aws dynamodb update-item \
+   --table-name "$table_name" \
+    --key file://"$keys" \
+    --update-expression "$update_expression" \
+    --expression-attribute-values file://"$values"
+
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports update-item operation failed.$response"
+    return 1
+  fi
+
+  return 0
+
+}
+
+# snippet-end:[aws-cli.bash-linux.dynamodb.UpdateItem]
 # snippet-start:[aws-cli.bash-linux.dynamodb.DeleteTable]
 ###############################################################################
 # function dynamodb_delete_table
