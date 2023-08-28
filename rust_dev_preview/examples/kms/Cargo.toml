@@ -18,5 +18,5 @@ aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = 
 ] }
 tokio = { version = "1.20.1", features = ["full"] }
 base64 = "0.13.0"
-clap = { version = "4.2.1", features = ["derive"] }
+clap = { version = "~4.2", features = ["derive"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
