@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,6 +17,7 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started/basic-usage.html
  *
  */
+
 // snippet-start:[s3.php.list_bucket_results.complete]
 // snippet-start:[s3.php.list_bucket_results.import]
 require 'vendor/autoload.php';
@@ -35,7 +37,6 @@ use Aws\Exception\AwsException;
 $sharedConfig = [
     'profile' => 'default',
     'region' => 'us-east-2',
-    'version' => 'latest'
 ];
 
 // Create an SDK class used to share configuration across clients.
@@ -57,18 +58,5 @@ $array = $result->toArray();
 // snippet-start:[s3.php.list_bucket_results.result]
 $names = $result->search('Buckets[].Name');
 // snippet-end:[s3.php.list_bucket_results.result]
-
 // snippet-end:[s3.php.list_bucket_results.main]
 // snippet-end:[s3.php.list_bucket_results.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListBucketsResultObject.php demonstrates how to work with a result object by transforming it into an array.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon S3]
-// snippet-service:[s3]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-09-20]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
-

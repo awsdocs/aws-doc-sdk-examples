@@ -21,17 +21,15 @@ use Aws\Exception\AwsException;
 // snippet-start:[s3.php.create_client.client]
 //Create an S3Client
 $s3 = new Aws\S3\S3Client([
-    'version' => 'latest',
-    'region' => 'us-east-2'
-]);
+    'version' => 'latest'  // Since version 3.277.10 of the SDK,
+]);                        // the 'version' parameter defaults to 'latest'.
 // snippet-end:[s3.php.create_client.client]
 
 // snippet-start:[s3.php.create_client.sdk]
 // The same options that can be provided to a specific client constructor can also be supplied to the Aws\Sdk class.
 // Use the us-west-2 region and latest version of each client.
 $sharedConfig = [
-    'region' => 'us-west-2',
-    'version' => 'latest'
+    'region' => 'us-west-2'
 ];
 // Create an SDK class used to share configuration across clients.
 $sdk = new Aws\Sdk($sharedConfig);
