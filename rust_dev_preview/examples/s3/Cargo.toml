@@ -38,7 +38,7 @@ http = "0.2.8"
 http-body = "0.4.5"
 md-5 = "0.10.1"
 rand = "0.8.5"
-clap = { version = "4.2.1", features = ["derive"] }
+clap = { version = "~4.2", features = ["derive"] }
 thiserror = "1.0"
 tokio = { version = "1.20.1", features = ["full"] }
 tokio-stream = "0.1.8"

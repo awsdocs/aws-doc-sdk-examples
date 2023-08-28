@@ -32,7 +32,7 @@ sdk-examples-test-utils = { path = "../../test-utils" }
 serde = {version = "1.0", features = ["derive"]}
 serde_json = "1"
 serde_dynamo = { version = "4", features = ["aws-sdk-dynamodb+0_22"] }
-clap = { version = "4.2.1", features = ["derive"] }
+clap = { version = "~4.2", features = ["derive"] }
 tracing = "0.1"
 thiserror = "1.0"
 tokio = { version = "1.20.1", features = ["full"] }
