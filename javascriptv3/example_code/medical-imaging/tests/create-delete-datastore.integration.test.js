@@ -6,7 +6,7 @@ import {getDatastore} from "../actions/get-datastore.js";
 import {listDatastores} from "../actions/list-datastores.js";
 import { wait } from "../../libs/utils/util-timers.js";
 
-const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
 describe("createDatastore/deleteDatastore", () => {
         let datastoreID = "";
         const datastoreName = "createDeleteDatastoreJSTest";
@@ -27,7 +27,7 @@ describe("createDatastore/deleteDatastore", () => {
 
             let found = false;
             for (const datastore of listDatastoresCommandOutput) {
-                if (datastore.datastoreId === datastoreID) { // eslint-disable-line no-unsafe-member-access
+                if (datastore.datastoreId === datastoreID) { // eslint-disable-line 
                     found = true;
                     break;
                 }
