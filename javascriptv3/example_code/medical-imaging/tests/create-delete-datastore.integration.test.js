@@ -4,7 +4,7 @@ import {createDatastore} from "../actions/create-datastore.js";
 import {deleteDatastore} from "../actions/delete-datastore.js";
 import {getDatastore} from "../actions/get-datastore.js";
 import {listDatastores} from "../actions/list-datastores.js";
-import { wait } from "../../libs/utils/util-timers.js";
+import {wait} from "../../libs/utils/util-timers.js";
 
 
 describe("createDatastore/deleteDatastore", () => {
@@ -19,13 +19,15 @@ describe("createDatastore/deleteDatastore", () => {
             expect(datastoreID).toBeDefined();
 
             let status = "NONE";
-            while (status !== "ACTIVE") {
+            let counter = 1;
+            while ((counter < 20) && (status !== "ACTIVE")) {  // Redundant check with test timeout.
                 await wait(1);
                 const getDatastoreCommandOutput = await getDatastore(datastoreID);
                 status = getDatastoreCommandOutput.datastoreStatus; // eslint-disable-line
+                counter++;
             }
 
-            const listDatastoresCommandOutput  = await listDatastores();
+            const listDatastoresCommandOutput = await listDatastores();
 
             let found = false;
             for (const datastore of listDatastoresCommandOutput) {
@@ -41,4 +43,4 @@ describe("createDatastore/deleteDatastore", () => {
             await deleteDatastore(datastoreID);
         });
     },
-    20000);
+    20000);  // 20 seconds test timeout.
