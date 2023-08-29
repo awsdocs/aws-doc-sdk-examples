@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use std::time::SystemTime;
 use async_trait::async_trait;
 use aws_credential_types::{provider::ProvideCredentials, Credentials};
 use aws_sdk_lambda::config::{AsyncSleep, Region, Sleep};
-use aws_smithy_async::time::TimeSource;
 use aws_sdk_lambda::primitives::SdkBody;
 use aws_sdk_lambda::{meta::PKG_VERSION, Client};
+use aws_smithy_async::time::TimeSource;
 use aws_smithy_http::result::ConnectorError;
 use serde::Deserialize;
+use std::time::SystemTime;
 use wasm_bindgen::{prelude::*, JsCast};
 use wasm_timer::UNIX_EPOCH;
 
@@ -91,7 +91,9 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
 struct BrowserNow;
 impl TimeSource for BrowserNow {
     fn now(&self) -> SystemTime {
-        let offset = wasm_timer::SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
+        let offset = wasm_timer::SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap();
         std::time::UNIX_EPOCH + offset
     }
 }
