@@ -32,6 +32,15 @@ medical-imaging_CreateDatastore:
           excerpts:
             - snippet_tags:
                 - medicalimaging.java2.create_datastore.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.createDatastoreV3
   services:
     medical-imaging: {CreateDatastore}
 medical-imaging_DeleteDatastore:
@@ -67,6 +76,15 @@ medical-imaging_DeleteDatastore:
           excerpts:
             - snippet_tags:
                 - medicalimaging.java2.delete_datastore.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.deleteDatastoreV3
   services:
     medical-imaging: {DeleteDatastore}
 medical-imaging_ListDatastores:
@@ -102,6 +120,15 @@ medical-imaging_ListDatastores:
           excerpts:
             - snippet_tags:
                 - medicalimaging.java2.list_datastores.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.listDatastoresV3
   services:
     medical-imaging: {ListDatastores}
 medical-imaging_GetDatastore:
@@ -137,5 +164,14 @@ medical-imaging_GetDatastore:
           excerpts:
             - snippet_tags:
                 - medicalimaging.java2.get_datastore.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.getDatastoreV3
   services:
     medical-imaging: {GetDatastore}
