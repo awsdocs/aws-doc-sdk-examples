@@ -1,7 +1,7 @@
 {
   "name": "example-javascriptv3-medical-imaging",
   "version": "1.0.0",
-  "author": "Corey Pyle <corepyle@amazon.com",
+  "author": "Steven Meyer <meyertst@amazon.com",
   "license": "Apache-2.0",
   "dependencies": {
     "@aws-sdk/client-medical-imaging": "^3.391.0"

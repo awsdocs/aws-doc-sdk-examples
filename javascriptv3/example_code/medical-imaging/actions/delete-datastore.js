@@ -26,7 +26,7 @@ export const deleteDatastore = async (datastoreID = "DATASTORE_ID") => {
     //           attempts: 1,
     //           totalRetryDelay: 0
     //        },
-    //     datastoreId: '1234567890abcdef01234567890abcde',
+    //     datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     //     datastoreStatus: 'DELETING'
     // }
 

@@ -36,8 +36,8 @@ export const listDatastores = async () => {
     //   datastoreSummaries: [
     //     {
     //       createdAt: 2023-08-04T18:49:54.429Z,
-    //       datastoreArn: 'arn:aws:medical-imaging:us-east-1:123456789:datastore/1234567890abcdef01234567890abcde',
-    //       datastoreId: '1234567890abcdef01234567890abcde',
+    //       datastoreArn: 'arn:aws:medical-imaging:us-east-1:xxxxxxxxx:datastore/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    //       datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     //       datastoreName: 'my_datastore',
     //       datastoreStatus: 'ACTIVE',
     //       updatedAt: 2023-08-04T18:49:54.429Z
