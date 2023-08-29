@@ -18,16 +18,18 @@ describe("createDatastore/deleteDatastore", () => {
 
             expect(datastoreID).toBeDefined();
 
-            await wait(15); // Wait for the datastore to be created.
-
-            const getDatastoreCommandOutput = await getDatastore(datastoreID);
-            expect(getDatastoreCommandOutput.datastoreId).toEqual(datastoreID);
+            let status = "NONE";
+            while (status !== "ACTIVE") {
+                await wait(1);
+                const getDatastoreCommandOutput = await getDatastore(datastoreID);
+                status = getDatastoreCommandOutput.datastoreStatus; // eslint-disable-line
+            }
 
             const listDatastoresCommandOutput  = await listDatastores();
 
             let found = false;
             for (const datastore of listDatastoresCommandOutput) {
-                if (datastore.datastoreId === datastoreID) { // eslint-disable-line 
+                if (datastore.datastoreId === datastoreID) { // eslint-disable-line
                     found = true;
                     break;
                 }
