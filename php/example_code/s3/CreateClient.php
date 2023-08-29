@@ -21,8 +21,8 @@ use Aws\Exception\AwsException;
 // snippet-start:[s3.php.create_client.client]
 //Create an S3Client
 $s3 = new Aws\S3\S3Client([
-    'version' => 'latest'  // Since version 3.277.10 of the SDK,
-]);                        // the 'version' parameter defaults to 'latest'.
+    'region' => 'us-east-2'  // Since version 3.277.10 of the SDK,
+]);                          // the 'version' parameter defaults to 'latest'.
 // snippet-end:[s3.php.create_client.client]
 
 // snippet-start:[s3.php.create_client.sdk]
