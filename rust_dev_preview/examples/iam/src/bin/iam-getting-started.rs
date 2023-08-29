@@ -224,6 +224,7 @@ async fn run_iam_operations(
             .as_ref()
             .unwrap()
             .session_token
+            .borrow()
             .clone(),
     );
 
