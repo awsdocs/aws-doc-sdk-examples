@@ -18,7 +18,7 @@ require_relative("../scaffold")
 # Runs the Amazon DynamoDB demo.
 # @return [Nil]
 def run_scenario
-  banner
+  banner('../../../helpers/banner.txt')
   puts "######################################################################################################".yellow
   puts "#                                                                                                    #".yellow
   puts "#                                          EXAMPLE CODE DEMO:                                        #".yellow
@@ -81,7 +81,7 @@ def run_scenario
   new_step(5, "Write a batch of items into the DynamoDB table.")
   download_file = "moviedata.json"
   puts("Downloading movie database to #{download_file}...")
-  movie_data = fetch_movie_data(download_file)
+  movie_data = scaffold.fetch_movie_data(download_file)
   puts("Writing movie data from #{download_file} into your table...")
   scaffold.write_batch(movie_data)
   puts("Records added: #{movie_data.length}.")
@@ -94,7 +94,7 @@ def run_scenario
     if results.any?
       puts("There were #{results.length} movies released in #{release_year}:")
       results.each do |movie|
-        puts("\t #{movie["title"]}").green
+        print "\t #{movie["title"]}".green
       end
       break
     else
@@ -134,7 +134,7 @@ def run_scenario
   new_step(8, "Delete the DynamoDB table.")
   answer = CLI::UI::Prompt.ask("Delete the table? (y/n)")
   if answer.eql?("y")
-    dynamodb_wrapper.delete_table
+    scaffold.delete_table
     puts("Deleted #{table_name}.")
   else
     puts("Don't forget to delete the table when you're done!")
