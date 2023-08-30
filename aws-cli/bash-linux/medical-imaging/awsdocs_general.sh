@@ -35,7 +35,7 @@ VERBOSE=false
 # This function outputs everything sent to it to STDERR (standard error output).
 ###############################################################################
 function errecho() {
-  printf "%s\n" "$*" 2>&1
+  printf "%s\n" "$*" 1>&2
 }
 # snippet-end:[aws-cli.bash-linux.medical-imaging.errecho]
 
