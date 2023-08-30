@@ -27,9 +27,10 @@
 - name: Application
   color: f5f7f9
   description: "An example with multiple AWS Services and SDKs to show how to build a complete, working application."
-- name: Bug
+- name: Task
   color: f5f7f9
   description: "A general update to the code base for bug fixes, language clarification, typos, etc."
+  from_name: Bug
 
 - name: Scout
   color: f5f7f9
