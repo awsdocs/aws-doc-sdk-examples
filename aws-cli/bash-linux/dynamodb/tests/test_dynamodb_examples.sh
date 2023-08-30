@@ -80,74 +80,121 @@ function main() {
         ;;
     esac
   done
-  export VERBOSE=true
+
   if [ "$INTERACTIVE" == "true" ]; then iecho "Tests running in interactive mode."; fi
   if [ "$VERBOSE" == "true" ]; then iecho "Tests running in verbose mode."; fi
 
   iecho "***************SETUP STEPS******************"
   local table_name
   table_name=$(generate_random_name testcli)
-  local attr_definitions="AttributeName=year,AttributeType=N AttributeName=title,AttributeType=S"
-  local key_schema="AttributeName=year,KeyType=HASH AttributeName=title,KeyType=RANGE"
   local provisioned_throughput="ReadCapacityUnits=5,WriteCapacityUnits=5"
+  local key_schema_json_file="test_dynamodb_key_schema.json"
+  local attr_definitions_json_file="test_dynamodb_attr_def.json"
   local key_json_file="test_dynamodb_key.json"
   local item_json_file="test_dynamodb_item.json"
+  local batch_json_file="test_dynamodb_batch.json"
   iecho "**************END OF STEPS******************"
 
-  local test_count=0
-
-  run_test "$test_count. Creating user with missing username" \
+  run_test "Creating table with missing parameters" \
     "dynamodb_create_table " \
     1
-  test_count=$((test_count + 1))
 
-  run_test "$test_count. Creating user with valid parameters" \
-    "dynamodb_create_table -n $table_name -a $attr_definitions -k $key_schema -p $provisioned_throughput " \
+  echo '[
+  {"AttributeName": "year", "KeyType": "HASH"},
+   {"AttributeName": "title", "KeyType": "RANGE"}
+  ]' >"$key_schema_json_file"
+
+  echo '[
+  {"AttributeName": "year", "AttributeType": "N"},
+   {"AttributeName": "title", "AttributeType": "S"}
+  ]' >"$attr_definitions_json_file"
+
+  run_test "Creating table" \
+    "dynamodb_create_table -n $table_name -a $attr_definitions_json_file -k $key_schema_json_file -p $provisioned_throughput " \
     0
 
+  exit_on_failure=false
 
-  run_test "$test_count. Waiting for table to become active" \
-    "dynamodb_wait_table_active -n $table_name "  \
+  run_test "Waiting for table to become active" \
+    "dynamodb_wait_table_active -n $table_name " \
     0
-  test_count=$((test_count + 1))
+
+  run_test "Listing tables" \
+    "dynamodb_list_tables " \
+    0
+
+  local table_names
+  IFS=$'\n' read -r -d '' -a table_names <<<"$test_command_response"
+
+  local found=false
+  local listed_table_name
+  for listed_table_name in "${table_names[@]}"; do
+    if [[ "$listed_table_name" == "$table_name" ]]; then
+      found=true
+      break
+    fi
+  done
+
+  if [[ "$found" == "false" ]]; then
+    test_failed "Table was not found in the list of tables."
+  else
+    echo "Table found in the list of tables."
+  fi
 
   echo '{
   "year": {"N" :"1979"},
   "title": {"S" :  "Great movie"},
   "info": {"M" : {"plot": {"S" : "some stuff"}, "rating": {"N" :"10"} } }
-}' > "$item_json_file"
+}' >"$item_json_file"
 
-  run_test "$test_count. Putting item into table" \
+  run_test "Putting item into table" \
     "dynamodb_put_item -n $table_name -i $item_json_file " \
     0
-    test_count=$((test_count + 1))
 
   echo '{
   "year": {"N" :"1979"},
   "title": {"S" :  "Great movie"}
-  }' > "$key_json_file"
+  }' >"$key_json_file"
 
   echo '{
   ":r": {"N" :"8"},
   ":p": {"S" : "some totally different stuff"}
- }' > "$item_json_file"
+ }' >"$item_json_file"
 
   local update_expression="SET info.rating = :r, info.plot = :p"
 
-  run_test "$test_count. Updating item in table" \
-  " dynamodb_update_item -n $table_name -k $key_json_file  -e  $update_expression -v $item_json_file " \
-    0
-    test_count=$((test_count + 1))
+  test_count=$((test_count + 1))
+  echo -n "Running test $test_count: Updating item..."
+  dynamodb_update_item -n "$table_name" -k "$key_json_file" -e "$update_expression" -v "$item_json_file" 1>/dev/null
+  local error_code=${?}
 
-  run_test "$test_count. deleting table" \
+  if [[ $error_code -ne 0 ]]; then
+    test_failed "Updating item failed with error code.  $error_code"
+  else
+
+    echo "OK"
+    test_succeeded_count=$((test_succeeded_count + 1))
+  fi
+
+  echo "{ \"$table_name\" : $(<../movie_files/movies_0.json) }" >"$batch_json_file"
+
+  run_test "Batch write items into table" \
+    "dynamodb_batch_write_item -i $batch_json_file " \
+    0
+
+  skip_tests=false
+  run_test " deleting table" \
     "dynamodb_delete_table -n $table_name " \
     0
-  test_count=$((test_count + 1))
 
   rm "$item_json_file"
   rm "$key_json_file"
+  rm "$key_schema_json_file"
+  rm "$attr_definitions_json_file"
+  rm "$batch_json_file"
 
-  echo "$test_count tests completed successfully."
+  echo "$test_succeeded_count tests completed successfully."
+  echo "$test_failed_count tests failed."
 }
 
 main

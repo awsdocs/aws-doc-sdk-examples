@@ -158,13 +158,13 @@ function echo_repeat() {
 function dynamodb_getting_started_movies() {
   source ./dynamodb_operations.sh
 
+
+
   local table_name
   echo -n "Enter a name for a new DynamoDB table: "
   get_input
   table_name=$get_input_result
 
-  local attr_definitions="AttributeName=year,AttributeType=N AttributeName=title,AttributeType=S"
-  local key_schema="AttributeName=year,KeyType=HASH AttributeName=title,KeyType=RANGE"
   local provisioned_throughput="ReadCapacityUnits=5,WriteCapacityUnits=5"
 
   dynamodb_create_table -n "$table_name" -a "$attr_definitions" -s "$key_schema" -p "$provisioned_throughput"

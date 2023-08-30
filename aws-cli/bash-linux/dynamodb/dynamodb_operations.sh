@@ -31,7 +31,7 @@ source ./awsdocs_general.sh
 #       -k key_schema -- List of attributes and their key types.
 #       -p provisioned_throughput -- Provisioned throughput settings for the table.
 #
-#     And:
+#  Returns:
 #       0 - If successful.
 #       1 - If it fails.
 ###############################################################################
@@ -44,8 +44,8 @@ function dynamodb_create_table() {
     echo "function dynamodb_create_table"
     echo "Creates an Amazon DynamoDB table."
     echo " -n table_name  -- The name of the table to create."
-    echo " -a attribute_definitions -- List of attributes and their types."
-    echo " -k key_schema -- List of attributes and their key types."
+    echo " -a attribute_definitions -- JSON file path of a list of attributes and their types."
+    echo " -k key_schema -- JSON file path of a list of attributes and their key types."
     echo " -p provisioned_throughput -- Provisioned throughput settings for the table."
     echo ""
   }
@@ -101,11 +101,11 @@ function dynamodb_create_table() {
   iecho "    provisioned_throughput:   $provisioned_throughput"
   iecho ""
 
-  aws dynamodb create-table \
+  response=$(aws dynamodb create-table \
     --table-name "$table_name" \
-    --attribute-definitions "$attribute_definitions" \
-    --key-schema "$key_schema" \
-    --provisioned-throughput "$provisioned_throughput"
+    --attribute-definitions file://"$attribute_definitions" \
+    --key-schema file://"$key_schema" \
+    --provisioned-throughput "$provisioned_throughput")
 
   local error_code=${?}
 
@@ -183,7 +183,7 @@ function dynamodb_wait_table_active() {
 
     if [[ $error_code -ne 0 ]]; then
       aws_cli_error_log $error_code
-      errecho "ERROR: AWS reports describe-table operation failed.$response"
+      errecho "ERROR: AWS reports describe-table operation failed.$table_status"
       return 1
     fi
 
@@ -205,7 +205,7 @@ function dynamodb_wait_table_active() {
 #       -e update expression  -- An expression that defines one or more attributes to be updated.
 #       -v values  -- Path to json file containing the update values.
 #
-#     And:
+#  Returns:
 #       0 - If successful.
 #       1 - If it fails.
 ##############################################################################
@@ -256,9 +256,9 @@ function dynamodb_put_item() {
   iecho ""
   iecho ""
 
-  aws dynamodb put-item \
+  response=$(aws dynamodb put-item \
     --table-name "$table_name" \
-    --item file://"$item"
+    --item file://"$item")
 
   local error_code=${?}
 
@@ -284,7 +284,7 @@ function dynamodb_put_item() {
 #       -n table_name  -- The name of the table.
 #       -i item  -- Path to json file containing the item update values.
 #
-#     And:
+#  Returns:
 #       0 - If successful.
 #       1 - If it fails.
 #############################################################################
@@ -297,7 +297,7 @@ function dynamodb_update_item() {
     echo "function dynamodb_update_item"
     echo "Update an item in a DynamoDB table."
     echo " -n table_name  -- The name of the table."
-     echo " -k keys  -- Path to json file containing the keys that identify the item to update."
+    echo " -k keys  -- Path to json file containing the keys that identify the item to update."
     echo " -e update expression  -- An expression that defines one or more attributes to be updated."
     echo " -v values  -- Path to json file containing the update values."
     echo ""
@@ -328,7 +328,6 @@ function dynamodb_update_item() {
     return 1
   fi
 
-
   if [[ -z "$keys" ]]; then
     errecho "ERROR: You must provide a keys json file path the -k parameter."
     usage
@@ -352,11 +351,11 @@ function dynamodb_update_item() {
   iecho "    update_expression:   $update_expression"
   iecho "    values:   $values"
 
-  aws dynamodb update-item \
-   --table-name "$table_name" \
+  response=$(aws dynamodb update-item \
+    --table-name "$table_name" \
     --key file://"$keys" \
     --update-expression "$update_expression" \
-    --expression-attribute-values file://"$values"
+    --expression-attribute-values file://"$values")
 
   local error_code=${?}
 
@@ -369,8 +368,102 @@ function dynamodb_update_item() {
   return 0
 
 }
-
 # snippet-end:[aws-cli.bash-linux.dynamodb.UpdateItem]
+
+# snippet-start:[aws-cli.bash-linux.dynamodb.BatchWriteItem]
+##############################################################################
+# function dynamodb_batch_write_item
+#
+# This function writes a batch of items into a DynamoDB table.
+#
+# Parameters:
+#       -i item  -- Path to json file containing the items to write.
+#
+#  Returns:
+#       0 - If successful.
+#       1 - If it fails.
+############################################################################
+function dynamodb_batch_write_item() {
+  local item response
+  local option OPTARG # Required to use getopts command in a function.
+  # bashsupport disable=BP5008
+  function usage() {
+    echo "function dynamodb_batch_write_item"
+    echo "Write a batch of items into a DynamoDB table."
+    echo " -i item  -- Path to json file containing the items to write."
+    echo ""
+  }
+  while getopts "n:i:h" option; do
+    case "${option}" in
+      i) item="${OPTARG}" ;;
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo "Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+  export OPTIND=1
+
+  if [[ -z "$item" ]]; then
+    errecho "ERROR: You must provide an item with the -i parameter."
+    usage
+    return 1
+  fi
+
+  iecho "Parameters:\n"
+    iecho "    table_name:   $table_name"
+    iecho "    item:   $item"
+    iecho ""
+
+    response=$(aws dynamodb batch-write-item \
+      --request-items file://"$item" )
+
+    local error_code=${?}
+
+    if [[ $error_code -ne 0 ]]; then
+      aws_cli_error_log $error_code
+      errecho "ERROR: AWS reports batch-write-item operation failed.$response"
+      return 1
+    fi
+
+    return 0
+}
+# snippet-end:[aws-cli.bash-linux.dynamodb.BatchWriteItem]
+
+# snippet-start:[aws-cli.bash-linux.dynamodb.ListTables]
+##############################################################################
+# function dynamodb_list_tables
+#
+# This function lists all the tables in a DynamoDB.
+#
+# Returns:
+#       0 - If successful.
+#       1 - If it fails.
+###########################################################################
+function dynamodb_list_tables() {
+  response=$(aws dynamodb list-tables  \
+    --output text \
+    --query "TableNames")
+
+    local error_code=${?}
+
+    if [[ $error_code -ne 0 ]]; then
+      aws_cli_error_log $error_code
+      errecho "ERROR: AWS reports batch-write-item operation failed.$response"
+      return 1
+    fi
+
+    echo "$response" | tr -s "[:space:]" "\n"
+
+ return 0
+}  
+# snippet-end:[aws-cli.bash-linux.dynamodb.ListTables]
+
 # snippet-start:[aws-cli.bash-linux.dynamodb.DeleteTable]
 ###############################################################################
 # function dynamodb_delete_table
@@ -380,7 +473,7 @@ function dynamodb_update_item() {
 # Parameters:
 #       -n table_name  -- The name of the table to delete.
 #
-#     And:
+#  Returns:
 #       0 - If successful.
 #       1 - If it fails.
 ###############################################################################
@@ -423,9 +516,9 @@ function dynamodb_delete_table() {
   iecho "    table_name:   $table_name"
   iecho ""
 
-  aws dynamodb delete-table \
+  response=$(aws dynamodb delete-table \
     --table-name "$table_name" \
-    --output text
+    --output text)
 
   local error_code=${?}
 
