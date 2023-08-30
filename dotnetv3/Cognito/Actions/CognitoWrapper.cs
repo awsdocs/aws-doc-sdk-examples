@@ -47,7 +47,7 @@ public class CognitoWrapper
     /// <summary>
     /// Get a list of users for the Amazon Cognito user pool.
     /// </summary>
-    /// <param name="userPoolId">The user pool Id.</param>
+    /// <param name="userPoolId">The user pool ID.</param>
     /// <returns>A list of users.</returns>
     public async Task<List<UserType>> ListUsersAsync(string userPoolId)
     {
@@ -70,36 +70,21 @@ public class CognitoWrapper
     // snippet-end:[Cognito.dotnetv3.ListUsers]
 
     // snippet-start:[Cognito.dotnetv3.AdminRespondToAuthChallenge]
-    public async Task<AuthenticationResultType> AdminRespondToAuthChallengeAsync(string userPoolId, string userName, string clientId, string mfaCode, string session)
-    {
-        var challengeResponses = new Dictionary<string, string>();
-        challengeResponses.Add("USERNAME", userName);
-        challengeResponses.Add("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
-
-        var request = new AdminRespondToAuthChallengeRequest
-        {
-            ClientId = clientId,
-            UserPoolId = userPoolId,
-            ChallengeResponses = challengeResponses,
-            Session = session
-        };
-
-        var response = await _cognitoService.AdminRespondToAuthChallengeAsync(request);
-        return response.AuthenticationResult;
-    }
-
-    // snippet-end:[Cognito.dotnetv3.AdminRespondToAuthChallenge]
-
-    // snippet-start:[Cognito.dotnetv3.RespondToAuthChallenge]
     /// <summary>
-    /// Respond to an authentication challenge.
+    /// Respond to an admin authentication challenge.
     /// </summary>
     /// <param name="userName">The name of the user.</param>
-    /// <param name="clientId">The client Id.</param>
+    /// <param name="clientId">The client ID.</param>
     /// <param name="mfaCode">The multi-factor authentication code.</param>
     /// <param name="session">The current application session.</param>
-    /// <returns>An async Task.</returns>
-    public async Task<AuthenticationResultType> RespondToAuthChallengeAsync(string userName, string clientId, string mfaCode, string session)
+    /// <param name="clientId">The user pool ID.</param>
+    /// <returns>The result of the authentication response.</returns>
+    public async Task<AuthenticationResultType> AdminRespondToAuthChallengeAsync(
+        string userName,
+        string clientId,
+        string mfaCode,
+        string session,
+        string userPoolId)
     {
         Console.WriteLine("SOFTWARE_TOKEN_MFA challenge is generated");
 
@@ -107,20 +92,21 @@ public class CognitoWrapper
         challengeResponses.Add("USERNAME", userName);
         challengeResponses.Add("SOFTWARE_TOKEN_MFA_CODE", mfaCode);
 
-        var respondToAuthChallengeRequest = new RespondToAuthChallengeRequest
+        var respondToAuthChallengeRequest = new AdminRespondToAuthChallengeRequest
         {
             ChallengeName = ChallengeNameType.SOFTWARE_TOKEN_MFA,
             ClientId = clientId,
             ChallengeResponses = challengeResponses,
-            Session = session
+            Session = session,
+            UserPoolId = userPoolId,
         };
 
-        var response = await _cognitoService.RespondToAuthChallengeAsync(respondToAuthChallengeRequest);
-        Console.WriteLine($"Response to Authentication {response.AuthenticationResult}");
+        var response = await _cognitoService.AdminRespondToAuthChallengeAsync(respondToAuthChallengeRequest);
+        Console.WriteLine($"Response to Authentication {response.AuthenticationResult.TokenType}");
         return response.AuthenticationResult;
     }
 
-    // snippet-end:[Cognito.dotnetv3.RespondToAuthChallenge]
+    // snippet-end:[Cognito.dotnetv3.AdminRespondToAuthChallenge]
 
     // snippet-start:[Cognito.dotnetv3.VerifySoftwareToken]
     /// <summary>
@@ -149,7 +135,7 @@ public class CognitoWrapper
     /// Get an MFA token to authenticate the user with the authenticator.
     /// </summary>
     /// <param name="session">The session name.</param>
-    /// <returns>Returns the session name.</returns>
+    /// <returns>The session name.</returns>
     public async Task<string> AssociateSoftwareTokenAsync(string session)
     {
         var softwareTokenRequest = new AssociateSoftwareTokenRequest
@@ -160,7 +146,7 @@ public class CognitoWrapper
         var tokenResponse = await _cognitoService.AssociateSoftwareTokenAsync(softwareTokenRequest);
         var secretCode = tokenResponse.SecretCode;
 
-        Console.Write("Enter the following token into the authenticator: {secretCode}");
+        Console.WriteLine($"Use the following secret code to set up the authenticator: {secretCode}");
 
         return tokenResponse.Session;
     }
@@ -168,6 +154,14 @@ public class CognitoWrapper
     // snippet-end:[Cognito.dotnetv3.AssociateSoftwareToken]
 
     // snippet-start:[Cognito.dotnetv3.AdminInitiateAuth]
+    /// <summary>
+    /// Initiate an admin auth request.
+    /// </summary>
+    /// <param name="clientId">The client ID to use.</param>
+    /// <param name="userPoolId">The ID of the user pool.</param>
+    /// <param name="userName">The username to authenticate.</param>
+    /// <param name="password">The user's password.</param>
+    /// <returns>The session to use in challenge-response.</returns>
     public async Task<string> AdminInitiateAuthAsync(string clientId, string userPoolId, string userName, string password)
     {
         var authParameters = new Dictionary<string, string>();
@@ -179,7 +173,7 @@ public class CognitoWrapper
             ClientId = clientId,
             UserPoolId = userPoolId,
             AuthParameters = authParameters,
-            AuthFlow = AuthFlowType.USER_PASSWORD_AUTH,
+            AuthFlow = AuthFlowType.ADMIN_USER_PASSWORD_AUTH,
         };
 
         var response = await _cognitoService.AdminInitiateAuthAsync(request);
@@ -194,7 +188,7 @@ public class CognitoWrapper
     /// <param name="clientId">The client Id of the application.</param>
     /// <param name="userName">The name of the user who is authenticating.</param>
     /// <param name="password">The password for the user who is authenticating.</param>
-    /// <returns>The response from the call to InitiateAuthAsync.</returns>
+    /// <returns>The response from the initiate auth request.</returns>
     public async Task<InitiateAuthResponse> InitiateAuthAsync(string clientId, string userName, string password)
     {
         var authParameters = new Dictionary<string, string>();
@@ -214,7 +208,6 @@ public class CognitoWrapper
 
         return response;
     }
-
     // snippet-end:[Cognito.dotnetv3.InitiateAuth]
 
     // snippet-start:[Cognito.dotnetv3.ConfirmSignUp]
@@ -224,7 +217,7 @@ public class CognitoWrapper
     /// <param name="clientId">The Id of this application.</param>
     /// <param name="code">The confirmation code sent to the user.</param>
     /// <param name="userName">The username.</param>
-    /// <returns></returns>
+    /// <returns>True if successful.</returns>
     public async Task<bool> ConfirmSignupAsync(string clientId, string code, string userName)
     {
         var signUpRequest = new ConfirmSignUpRequest
@@ -274,7 +267,7 @@ public class CognitoWrapper
     /// </summary>
     /// <param name="clientId">The Id of the client application.</param>
     /// <param name="userName">The username of user who will receive the code.</param>
-    /// <returns></returns>
+    /// <returns>The delivery details.</returns>
     public async Task<CodeDeliveryDetailsType> ResendConfirmationCodeAsync(string clientId, string userName)
     {
         var codeRequest = new ResendConfirmationCodeRequest
@@ -298,7 +291,7 @@ public class CognitoWrapper
     /// </summary>
     /// <param name="userName">The name of the user.</param>
     /// <param name="poolId">The Id of the Amazon Cognito user pool.</param>
-    /// <returns></returns>
+    /// <returns>Async task.</returns>
     public async Task<UserStatusType> GetAdminUserAsync(string userName, string poolId)
     {
         AdminGetUserRequest userRequest = new AdminGetUserRequest
@@ -324,7 +317,7 @@ public class CognitoWrapper
     /// <param name="password">The user's password.</param>
     /// <param name="email">The email address of the user.</param>
     /// <returns>A Boolean value indicating whether the user was confirmed.</returns>
-    public async Task<bool> SignUpAsync(string clientId, string userName, string password, String email)
+    public async Task<bool> SignUpAsync(string clientId, string userName, string password, string email)
     {
         var userAttrs = new AttributeType
         {

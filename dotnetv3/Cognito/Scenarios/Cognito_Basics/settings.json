@@ -1,12 +1,9 @@
 {
-  "parameterGroupName": "test-parameter-group",
-  "parameterGroupFamily": "mysql8.0",
-  "modifyParameterName": "auto_increment_offset",
-  "modifyParameterValue": "3",
-  "engineName": "mysql",
-  "engineVersion": "8.0.28",
-  "instanceIdentifier": "test-instance-1",
-  "instanceClass": "db.t3.micro",
+  "ClientId": "client_id_from_cdk",
+  "PoolId": "client_id_from_cdk",
+  "UserName": "username",
+  "Password": "EXAMPLEPASSWORD",
+  "Email": "useremail",
   "adminUserName": "admin",
   "adminPassword": "EXAMPLEPASSWORD"
 }
