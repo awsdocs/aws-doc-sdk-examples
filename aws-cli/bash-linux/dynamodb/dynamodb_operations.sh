@@ -370,6 +370,101 @@ function dynamodb_update_item() {
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.UpdateItem]
 
+# snippet-start:[aws-cli.bash-linux.dynamodb.GetItem]
+#############################################################################
+# function dynamodb_get_item
+#
+# This function gets an item from a DynamoDB table.
+#
+# Parameters:
+#       -n table_name  -- The name of the table.
+#       -k keys  -- Path to json file containing the keys that identify the item to get.
+#       [-q query]  -- Optional JMESPath query expression.
+#
+#  Returns:
+#       The item as text output.
+#  And:
+#       0 - If successful.
+#       1 - If it fails.
+############################################################################
+function dynamodb_get_item() {
+  local table_name keys query response
+  local option OPTARG # Required to use getopts command in a function.
+  # bashsupport disable=BP5008
+  function usage() {
+    echo "function dynamodb_get_item"
+    echo "Get an item from a DynamoDB table."
+    echo " -n table_name  -- The name of the table."
+    echo " -k keys  -- Path to json file containing the keys that identify the item to get."
+    echo " [-q query]  -- Optional JMESPath query expression."
+    echo ""
+  }
+  query=""
+  while getopts "n:k:q:h" option; do
+    case "${option}" in
+      n) table_name="${OPTARG}" ;;
+      k) keys="${OPTARG}" ;;
+      q) query="${OPTARG}" ;;
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo "Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+  export OPTIND=1
+
+  if [[ -z "$table_name" ]]; then
+    errecho "ERROR: You must provide a table name with the -t parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$keys" ]]; then
+    errecho "ERROR: You must provide a keys json file path the -k parameter."
+    usage
+    return 1
+  fi
+  local query_option=""
+
+  iecho "Parameters:\n"
+  iecho "    table_name:   $table_name"
+  iecho "    keys:   $keys"
+  iecho "    query:   $query"
+  iecho ""
+
+  if [[ -n "$query" ]]; then
+    response=$(aws dynamodb get-item \
+      --table-name "$table_name" \
+      --key file://"$keys" \
+      --output text \
+      --query "$query")
+  else
+    response=$(
+      aws dynamodb get-item \
+        --table-name "$table_name" \
+        --key file://"$keys" \
+      --output text)
+  fi
+
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports get-item operation failed.$response"
+    return 1
+  fi
+
+  echo "$response"
+
+  return 0
+}
+# snippet-end:[aws-cli.bash-linux.dynamodb.GetItem]
+
 # snippet-start:[aws-cli.bash-linux.dynamodb.BatchWriteItem]
 ##############################################################################
 # function dynamodb_batch_write_item
@@ -387,6 +482,11 @@ function dynamodb_batch_write_item() {
   local item response
   local option OPTARG # Required to use getopts command in a function.
   # bashsupport disable=BP5008
+  #######################################
+  # description
+  # Arguments:
+  #  None
+  #######################################
   function usage() {
     echo "function dynamodb_batch_write_item"
     echo "Write a batch of items into a DynamoDB table."
@@ -416,22 +516,22 @@ function dynamodb_batch_write_item() {
   fi
 
   iecho "Parameters:\n"
-    iecho "    table_name:   $table_name"
-    iecho "    item:   $item"
-    iecho ""
+  iecho "    table_name:   $table_name"
+  iecho "    item:   $item"
+  iecho ""
 
-    response=$(aws dynamodb batch-write-item \
-      --request-items file://"$item" )
+  response=$(aws dynamodb batch-write-item \
+    --request-items file://"$item")
 
-    local error_code=${?}
+  local error_code=${?}
 
-    if [[ $error_code -ne 0 ]]; then
-      aws_cli_error_log $error_code
-      errecho "ERROR: AWS reports batch-write-item operation failed.$response"
-      return 1
-    fi
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports batch-write-item operation failed.$response"
+    return 1
+  fi
 
-    return 0
+  return 0
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.BatchWriteItem]
 
@@ -446,22 +546,22 @@ function dynamodb_batch_write_item() {
 #       1 - If it fails.
 ###########################################################################
 function dynamodb_list_tables() {
-  response=$(aws dynamodb list-tables  \
+  response=$(aws dynamodb list-tables \
     --output text \
     --query "TableNames")
 
-    local error_code=${?}
+  local error_code=${?}
 
-    if [[ $error_code -ne 0 ]]; then
-      aws_cli_error_log $error_code
-      errecho "ERROR: AWS reports batch-write-item operation failed.$response"
-      return 1
-    fi
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports batch-write-item operation failed.$response"
+    return 1
+  fi
 
-    echo "$response" | tr -s "[:space:]" "\n"
+  echo "$response" | tr -s "[:space:]" "\n"
 
- return 0
-}  
+  return 0
+}
 # snippet-end:[aws-cli.bash-linux.dynamodb.ListTables]
 
 # snippet-start:[aws-cli.bash-linux.dynamodb.DeleteTable]

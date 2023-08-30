@@ -30,7 +30,7 @@ function main() {
   # bashsupport disable=BP2001
   export VERBOSE=false
 
-  source ./test_general.sh
+  source ./include_tests.sh
   {
     local current_directory
     current_directory=$(pwd)
@@ -171,10 +171,22 @@ function main() {
   if [[ $error_code -ne 0 ]]; then
     test_failed "Updating item failed with error code.  $error_code"
   else
-
     echo "OK"
     test_succeeded_count=$((test_succeeded_count + 1))
   fi
+
+  run_test "getting item without query" \
+   "dynamodb_get_item -n $table_name -k $key_json_file  " \
+   0
+  echo "$test_command_response"
+
+  run_test "getting item with query" \
+   "dynamodb_get_item -n $table_name -k $key_json_file -q [Item.title,Item.year,Item.info.M.rating,Item.info.M.plot] " \
+   0
+   echo "$test_command_response"
+
+  dynamodb_get_item -n "$table_name" -k $key_json_file -q "[Item.title,Item.year,Item.info.M.rating,Item.info.M.plot]"
+
 
   echo "{ \"$table_name\" : $(<../movie_files/movies_0.json) }" >"$batch_json_file"
 
