@@ -5,7 +5,7 @@
 | Heading      | Description |
 | -----------  | ----------- |
 | Description  | Discusses how to develop a Feedback Sentiment Analyzer application that lets users manage comment cards. This application is developed by using the AWS SDK for Java (v2).     |
-| Audience     |  Developer (beginner / intermediate)        |
+| Audience     |  Developer (intermediate / advanced)        |
 | Updated      | 9/01/2023        |
 | Required skills   | Java, Maven  |
 
@@ -878,7 +878,6 @@ public class ModifyLambda {
         }
     }
 }
-
 
 ```
 
