@@ -4,7 +4,7 @@
 
 | Heading      | Description |
 | -----------  | ----------- |
-| Description  | Discusses how to develop a Feedback Sentiment Analyzer application that lets users manage comment cards. That is, the application solves a fictitious use case of a hotel in New York City that receives guest feedback on comment cards in a variety of languages. This application is developed by using the AWS SDK for Java (v2).     |
+| Description  | Discusses how to develop a Feedback Sentiment Analyzer application using [Machine Learning Services](https://aws.amazon.com/machine-learning/) that lets users manage comment cards. That is, the application solves a fictitious use case of a hotel in New York City that receives guest feedback on comment cards in a variety of languages. This application is developed by using the AWS SDK for Java (v2).     |
 | Audience     |  Developer (intermediate / advanced)        |
 | Updated      | 9/01/2023        |
 | Required skills   | Java, Maven  |
