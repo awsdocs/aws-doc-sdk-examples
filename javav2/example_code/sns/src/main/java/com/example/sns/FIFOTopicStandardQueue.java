@@ -11,7 +11,6 @@ import software.amazon.awssdk.policybuilder.iam.IamPolicy;
 import software.amazon.awssdk.policybuilder.iam.IamPolicyWriter;
 import software.amazon.awssdk.policybuilder.iam.IamPrincipalType;
 import software.amazon.awssdk.policybuilder.iam.IamStatement;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.CreateTopicRequest;
 import software.amazon.awssdk.services.sns.model.CreateTopicResponse;
@@ -26,73 +25,67 @@ import software.amazon.awssdk.services.sqs.model.CreateQueueResponse;
 import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
 import software.amazon.awssdk.services.sts.StsClient;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 public class FIFOTopicStandardQueue {
+    public final static SnsClient snsClient = SnsClient.create();
+    public final static SqsClient sqsClient = SqsClient.create();
 
     public static void main(String[] args) {
 
         final String usage = "\n" +
                 "Usage: " +
-                "    <topicName> <wholesaleQueueARN> <retailQueueARN> <analyticsQueueARN>\n\n" +
+                "    <topicName> <wholesaleQueueFifoName> <retailQueueFifoName> <analyticsQueueName>\n\n" +
                 "Where:\n" +
                 "   fifoTopicName - The name of the FIFO topic that you want to create. \n\n" +
-                "   wholesaleQueueARN - The ARN value of a SQS FIFO queue that you have created for the wholesale consumer. You can get this value from the AWS Management Console. \n\n" +
-                "   retailQueueARN - The ARN value of a SQS FIFO queue that you have created for the retail consumer. You can get this value from the AWS Management Console. \n\n" +
-                "   analyticsQueueARN - The ARN value of a SQS standard queue that you have created for the analytics consumer. You can get this value from the AWS Management Console. \n\n";
+                "   wholesaleQueueARN - The name of a SQS FIFO queue that will be created for the wholesale consumer. \n\n" +
+                "   retailQueueARN - The name of a SQS FIFO queue that will created for the retail consumer. \n\n" +
+                "   analyticsQueueARN - The name of a SQS standard queue that will be created for the analytics consumer. \n\n";
         if (args.length != 4) {
             System.out.println(usage);
             System.exit(1);
         }
 
         final String fifoTopicName = args[0];
-        final String wholesaleQueueARN = args[1];
-        final String retailQueueARN = args[2];
-        final String analyticsQueueARN = args[3];
-        String wholeSaleQueueName = "wholesaleQueue.fifo";
-        String retailQueueName = "retailQueue.fifo";
-        String analyticsQueueName = "analyticsQueue";
+        final String wholeSaleQueueName = args[1];
+        final String retailQueueName = args[2];
+        final String analyticsQueueName = args[3];
+
+        //  Group items for iterating.
         List<String> queueNames = List.of(analyticsQueueName, retailQueueName, wholeSaleQueueName);
 
+        //  Create queues.
         String wholesSaleQueueFifoARN = createQueue(wholeSaleQueueName, QueueType.FIFO);
         String retailQueueFifoARN = createQueue(retailQueueName, QueueType.FIFO);
-        String analyticsStandardQueue = createQueue(analyticsQueueName, QueueType.Standard);
+        String analyticsStandardQueueARN = createQueue(analyticsQueueName, QueueType.Standard);
 
-        final SnsClient snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+        //  Group queue URLs and ARNs for iterating.
+        List<String> queueURLs = getQueueURLs(queueNames);
+        List<String> queueARNs = List.of(wholesSaleQueueFifoARN, retailQueueFifoARN, analyticsStandardQueueARN);
 
+        // Create a topic.
+        String topicARN = createFIFOTopic(fifoTopicName);
 
-        // create a topic to publish to
-        String topicARN = createFIFOTopic(snsClient, fifoTopicName);
+        // Subscribe each queue to the topic.
+        List<String> subscriptionARNs = subscribeQueues(topicARN, queueARNs);
 
-        // Add the subscriptions
-        String wholesaleQueueSubscriptionARN = subscribeQueue(snsClient, topicARN, wholesSaleQueueFifoARN);
-        String retailQueueSubscriptionARN = subscribeQueue(snsClient, topicARN, retailQueueFifoARN);
-        String analyticsQueueSubscriptionARN = subscribeQueue(snsClient, topicARN, analyticsStandardQueue);
-        // allow the newly created topic to send messages to the queue
-        allowTopicToSendToQueues(queueNames, topicARN);
+        // Allow the newly created topic to send messages to the queues.
+        allowTopicToSendToQueues(queueURLs, topicARN);
 
-        // publish a sample price update message with payload
-        publishPriceUpdate(snsClient, topicARN, "{\"product\": 214, \"price\": 79.99}", "Consumables");
-/*
-        try {
-            long millisToWait = 10000L;
-            System.out.println("Waiting for " + millisToWait + " milliseconds before unsubscribing the queues and deleting the topic");
-            Thread.sleep(millisToWait);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-*/
-        deleteSubscriptions(snsClient, List.of(wholesaleQueueSubscriptionARN, retailQueueSubscriptionARN, analyticsQueueSubscriptionARN));
-        deleteQueues(queueNames);
-        deleteTopic(snsClient, topicARN);
+        // Publish a sample price update message with payload.
+        publishPriceUpdate(topicARN, "{\"product\": 214, \"price\": 79.99}", "Consumables");
+
+        // Clean up resources.
+        deleteSubscriptions(subscriptionARNs);
+        deleteQueues(queueURLs);
+        deleteTopic(topicARN);
     }
 
-    public static String createFIFOTopic(SnsClient snsClient, String topicName) {
+    public static String createFIFOTopic(String topicName) {
 
         try {
             // Create a FIFO topic by using the SNS service client.
@@ -118,9 +111,9 @@ public class FIFOTopicStandardQueue {
         return "";
     }
 
-    public static String subscribeQueue(SnsClient snsClient, String topicARN, String queueARN) {
-
-        try {
+    public static List<String> subscribeQueues(String topicARN, List<String> queueARNs) {
+        List<String> subscriptionARNs = new ArrayList<>();
+        queueARNs.forEach(queueARN -> {
             // Subscribe to the endpoint by using the SNS service client.
             // Only Amazon SQS queues can receive notifications from an Amazon SNS FIFO topic.
             SubscribeRequest subscribeRequest = SubscribeRequest.builder()
@@ -131,16 +124,12 @@ public class FIFOTopicStandardQueue {
 
             SubscribeResponse subscribeResponse = snsClient.subscribe(subscribeRequest);
             System.out.println("The queue [" + queueARN + "] subscribed to the topic [" + topicARN + "]");
-            return subscribeResponse.subscriptionArn();
-
-        } catch (SnsException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
-        return topicARN;
+            subscriptionARNs.add(subscribeResponse.subscriptionArn());
+        });
+        return subscriptionARNs;
     }
 
-    public static void publishPriceUpdate(SnsClient snsClient, String topicArn, String payload, String groupId) {
+    public static void publishPriceUpdate(String topicArn, String payload, String groupId) {
 
         try {
             // Compose and publish a message that updates the wholesale price.
@@ -176,11 +165,11 @@ public class FIFOTopicStandardQueue {
         }
     }
 
-    public static void deleteSubscriptions(SnsClient snsClient, List<String> arns) {
+    public static void deleteSubscriptions(List<String> arns) {
         arns.forEach(a -> snsClient.unsubscribe(r -> r.subscriptionArn(a)));
     }
 
-    public static void deleteTopic(SnsClient snsClient, String topicArn) {
+    public static void deleteTopic(String topicArn) {
         snsClient.deleteTopic(b -> b.topicArn(topicArn).build());
     }
 
@@ -205,50 +194,45 @@ public class FIFOTopicStandardQueue {
                 .prettyPrint(true).build());
     }
 
-    public static void allowTopicToSendToQueues(List<String> queueNames, String topicARN) {
-        try (SqsClient sqsClient = SqsClient.create()) {
-            queueNames.forEach(q -> {
-                String queueUrl = sqsClient.getQueueUrl(b -> b.queueName(q)).queueUrl();
-                Map<QueueAttributeName, String> attributes = sqsClient.getQueueAttributes(b -> b
-                                .queueUrl(queueUrl)
-                                .attributeNames(
-                                        QueueAttributeName.POLICY,
-                                        QueueAttributeName.QUEUE_ARN))
-                        .attributes();
-                String queueARN = attributes.get(QueueAttributeName.QUEUE_ARN);
-                String policy = attributes.get(QueueAttributeName.POLICY);
-                String queuePolicy = addQueueAccessPolicy(topicARN, queueARN, policy);
-                sqsClient.setQueueAttributes(b -> b.queueUrl(queueUrl).attributes(Map.of(QueueAttributeName.POLICY, queuePolicy)));
-                System.out.println(policy);
-                System.out.println(queuePolicy);
-            });
-        }
+    public static void allowTopicToSendToQueues(List<String> queueURLs, String topicARN) {
+        queueURLs.forEach(queueURL -> {
+            Map<QueueAttributeName, String> attributes = sqsClient.getQueueAttributes(b -> b
+                            .queueUrl(queueURL)
+                            .attributeNames(
+                                    QueueAttributeName.POLICY,
+                                    QueueAttributeName.QUEUE_ARN))
+                    .attributes();
+            String queueARN = attributes.get(QueueAttributeName.QUEUE_ARN);
+            String policy = attributes.get(QueueAttributeName.POLICY);
+            String queuePolicy = addQueueAccessPolicy(topicARN, queueARN, policy);
+            sqsClient.setQueueAttributes(b -> b.queueUrl(queueURL).attributes(Map.of(QueueAttributeName.POLICY, queuePolicy)));
+            System.out.println(policy);
+            System.out.println(queuePolicy);
+        });
     }
 
     public static String createQueue(String queueName, QueueType queueType) {
         Boolean isFifoQueue = queueType.equals(QueueType.FIFO) ? Boolean.TRUE : Boolean.FALSE;
 
-        try (SqsClient sqsClient = SqsClient.create()) {
-            CreateQueueResponse response;
-            if (isFifoQueue) {
-                response = sqsClient.createQueue(r -> r
-                        .queueName(queueName)
-                        .attributes(Map.of(
-                                QueueAttributeName.FIFO_QUEUE, "true")));
-            } else {
-                response = sqsClient.createQueue(r -> r
-                        .queueName(queueName));
-            }
-            String queueUrl = response.queueUrl();
-            String queueArn = sqsClient.getQueueAttributes(b -> b
-                    .queueUrl(queueUrl)
-                    .attributeNames(QueueAttributeName.QUEUE_ARN)).attributes().get(QueueAttributeName.QUEUE_ARN);
-            String userPolicy = getUserQueuePolicy(queueArn);
-            sqsClient.setQueueAttributes(b -> b
-                    .queueUrl(queueUrl)
-                    .attributes(Map.of(QueueAttributeName.POLICY, userPolicy)));
-            return queueArn;
+        CreateQueueResponse response;
+        if (isFifoQueue) {
+            response = sqsClient.createQueue(r -> r
+                    .queueName(queueName)
+                    .attributes(Map.of(
+                            QueueAttributeName.FIFO_QUEUE, "true")));
+        } else {
+            response = sqsClient.createQueue(r -> r
+                    .queueName(queueName));
         }
+        String queueUrl = response.queueUrl();
+        String queueArn = sqsClient.getQueueAttributes(b -> b
+                .queueUrl(queueUrl)
+                .attributeNames(QueueAttributeName.QUEUE_ARN)).attributes().get(QueueAttributeName.QUEUE_ARN);
+        String userPolicy = getUserQueuePolicy(queueArn);
+        sqsClient.setQueueAttributes(b -> b
+                .queueUrl(queueUrl)
+                .attributes(Map.of(QueueAttributeName.POLICY, userPolicy)));
+        return queueArn;
     }
 
     private static String getUserQueuePolicy(String queueARN) {
@@ -269,16 +253,21 @@ public class FIFOTopicStandardQueue {
                 .prettyPrint(true).build());
     }
 
-    private static void deleteQueues(List<String> queueNames){
-        try (SqsClient sqsClient = SqsClient.create()) {
-            queueNames.forEach(queueName -> {
-                String url = sqsClient.getQueueUrl(b -> b.queueName(queueName)).queueUrl();
-                sqsClient.deleteQueue(b -> b.queueUrl(url));
-            });
-        }
+    private static void deleteQueues(List<String> queueURLs) {
+        queueURLs.forEach(queueURL ->
+                sqsClient.deleteQueue(b -> b.queueUrl(queueURL))
+        );
     }
 
-    public static enum QueueType {
+    private static List<String> getQueueURLs(List<String> queueNames) {
+        List<String> urls = new ArrayList<>();
+        queueNames.forEach(queueName ->
+                urls.add(sqsClient.getQueueUrl(b -> b.queueName(queueName)).queueUrl())
+        );
+        return urls;
+    }
+
+    public enum QueueType {
         Standard, FIFO
     }
 }
