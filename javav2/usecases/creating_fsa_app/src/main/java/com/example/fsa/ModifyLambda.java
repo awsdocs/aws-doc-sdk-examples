@@ -18,12 +18,12 @@ import software.amazon.awssdk.services.lambda.waiters.LambdaWaiter;
 public class ModifyLambda {
 
     public static void main(String[]args) {
-        String analyzeSentimentLambda = "fsa-scmacdon-javascript-fnAnalyzeSentimentCEDFFDBD-wd0RnOdSxMsv" ;
-        String synthesizeAudioLambda = "fsa-scmacdon-javascript-fnSynthesizeAudio134971D4-x8Q5178Y4ZBH" ;
-        String extractTextLambda = "fsa-scmacdon-javascript-fnExtractText98FC28B4-NRiFEZmyPPlo" ;
-        String translateTextLambda = "fsa-scmacdon-javascript-fnAnalyzeSentimentCEDFFDBD-wd0RnOdSxMsv" ;
+        String analyzeSentimentLambda = "<Enter value>" ;
+        String synthesizeAudioLambda = "<Enter value>" ;
+        String extractTextLambda = "<Enter value>" ;
+        String translateTextLambda = "<Enter value>" ;
         String bucketName = FSAApplicationResources.STORAGE_BUCKET;
-        String key = "creating_fsa_app-1.0-SNAPSHOT.jar";
+        String key = "<Enter value>";
 
         Region region = Region.US_EAST_1;
         LambdaClient awsLambda = LambdaClient.builder()
