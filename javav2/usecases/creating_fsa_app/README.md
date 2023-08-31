@@ -33,7 +33,7 @@ As displayed in this illustration, the FSA application uses the following AWS se
 #### Topics
 
 + Prerequisites
-+ Understand the photo asset management application
++ Understand the feedback sentiment analyzer application
 + Create an IntelliJ project
 + Add the POM dependencies to your project
 + Create the Java classes
@@ -60,7 +60,7 @@ To complete the tutorial, you need the following:
 
 The required AWS resources are created by using an AWS Cloud Development Kit (AWS CDK) script. This is discussed later in the document. There is no need to create any resources by using the AWS Management Console. 
 
-## Understand the Feedback Sentiment Analyzer application
+## Understand the feedback sentiment analyzer application
 
 The front end of the FSA application is a React application that uses the [Cloudscape Design System](https://cloudscape.design/). The application supports uploading images that contains text to an S3 bucket. The text represents comments made by a customer in various languages such as French.
 
