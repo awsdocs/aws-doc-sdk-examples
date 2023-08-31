@@ -13,7 +13,7 @@ on:
 
 jobs:
 
-  check_labels:
+  check_oncall_labels:
     name: Check On Call Review labels
     runs-on: ubuntu-latest
     steps:
@@ -30,4 +30,12 @@ jobs:
         with:
           one_of: Text Review complete,Text Review not needed
           none_of: Text Review needed
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+  check_stats_labels:
+    name: Check Stats labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          one_of: Application,MVP,Workflow,Task
           repo_token: ${{ secrets.GITHUB_TOKEN }}
