@@ -11,14 +11,14 @@
 
 ## Purpose
 
-You can create a Feedback Sentiment Analyzer (FSA) sample application that performs these tasks:
+You can develop a sample application for a Feedback Sentiment Analyzer (FSA) that accomplishes the following tasks:
 
-1. The static website assets are hosted in an Amazon S3 bucket and served using Amazon CloudFront.
-2. Amazon Cognito allows authenticated access to Amazon API Gateway.
-3. Amazon API Gateway puts objects in an Amazon S3 bucket. This triggers an EventBridge rule that starts a Step Functions workflow.
-4. The Step Functions workflow uses AWS Lambda, Amazon Textract, Amazon Comprehend, Amazon Translate, and Amazon Polly to perform the business logic.
-5. Metadata is stored in Amazon DynamoDB. Audio files are stored in the same Amazon S3 bucket used in step 3.
-6. Amazon API Gateway fetches the metadata from Amazon DynamoDB.
+1. Host the static website assets within an Amazon S3 bucket, and utilize Amazon CloudFront for their distribution.
+2. Implement authenticated access to Amazon API Gateway through Amazon Cognito.
+3. Configure Amazon API Gateway to deposit items into an Amazon S3 bucket, subsequently triggering an EventBridge rule that initiates a Step Functions workflow.
+4. The Step Functions workflow leverages AWS Lambda, Amazon Textract, Amazon Comprehend, Amazon Translate, and Amazon Polly to execute the core business logic.
+5. Metadata gets stored within Amazon DynamoDB, while audio files are stored within the same Amazon S3 bucket referenced in step 3.
+Amazon API Gateway retrieves the metadata from Amazon DynamoDB
 
 
 ![AWS Photo Analyzer](images/overview.png)
