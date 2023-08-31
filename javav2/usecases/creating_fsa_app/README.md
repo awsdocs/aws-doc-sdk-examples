@@ -1,4 +1,4 @@
-#  Creating a  Feedback Sentiment Analyzer application using the AWS SDK for Java
+#  Creating a Feedback Sentiment Analyzer application using the AWS SDK for Java
 
 ## Overview
 
@@ -896,7 +896,7 @@ After you execute the AWS CDK script, the Lambda functions are created. However,
 
 3. Use the AWS Management Console to place the FAT JAR into the Amazon S3 bucket named **STORAGE_BUCKET**. (This was created by the AWS CDK script.)  
 
-4. Run the ModifyLambda Java class.  Make sure to specify the exact names, which are provided in the AWS Lambda console. Otherwise, the code does not work. When done, you see a message that the AWS Lambda functions have been updated with the Kotlin FAT JAR. 
+4. Run the **ModifyLambda** Java class.  Make sure to specify the exact AWS Lambda names, which are provided in the AWS Lambda console. Otherwise, the code does not work. When done, you see a message that the AWS Lambda functions have been updated with the FAT JAR. 
 
 
 ### Update the permission that the Lambda roles use
@@ -905,10 +905,9 @@ Each Lambda function has a role used to invoke the Lambda function. For example,
 
 ![AWS Photo Analyzer](images/role.png)
 
-You need to ensure each role has the correct service permission in order to invoke the corresponding AWS Service. If you do not modify role's permission that each Lambda function uses, then you will encounter a permission error. 
+You need to ensure each role has the correct service permission in order to invoke the corresponding AWS Service. If you do not modify the role's permission that each Lambda function uses, then you will encounter a permission error. 
 
 **Note**: For information about how to modify the a role's permission, see [Using service-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html).
-
 
 
 
