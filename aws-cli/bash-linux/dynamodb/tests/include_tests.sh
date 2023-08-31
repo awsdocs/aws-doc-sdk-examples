@@ -40,8 +40,8 @@ test_count=0
 # match, then the function invokes the test_failed function.
 ###############################################################################
 function run_test() {
-  if [[ "$skip_tests" = true ]];
-    then return;
+  if [[ "$skip_tests" = true ]]; then
+    return
   fi
 
   local description command expected_err_code expected_output
@@ -51,7 +51,7 @@ function run_test() {
   expected_err_code="$3"
   if [[ -n "$4" ]]; then expected_output="$4"; else expected_output=""; fi
 
-  test_count=$((test_count+1))
+  test_count=$((test_count + 1))
   echo -n "Running test $test_count: $description..."
   test_command_response="$($command)"
   local err="${?}"
@@ -59,6 +59,8 @@ function run_test() {
   # Check to see if we got the expected error code.
   if [[ "$expected_err_code" -ne "$err" ]]; then
     test_failed "The test \"$description\" returned an unexpected error code: $err. $test_command_response"
+  else
+    test_succeeded_count=$((test_succeeded_count + 1))
   fi
 
   # Check the error message, if we provided other than "".
@@ -68,12 +70,13 @@ function run_test() {
     # If there was no match (it's an empty string), then fail.
     if [[ -z "$match" ]]; then
       test_failed "The test \"$description\" returned an unexpected output: $test_command_response"
+    else
+      test_succeeded_count=$((test_succeeded_count + 1))
     fi
   fi
 
   echo "OK"
   ipause
-  test_succeeded_count=$((test_succeeded_count+1))
 }
 
 ###############################################################################
@@ -83,7 +86,7 @@ function run_test() {
 # about possible undeleted resources that could incur costs to their account.
 ###############################################################################
 function test_failed() {
-  test_failed_count=$((test_failed_count+1))
+  test_failed_count=$((test_failed_count + 1))
   errecho ""
   errecho "===TEST FAILED==="
   errecho "$@"

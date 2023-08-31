@@ -39,7 +39,9 @@ function dynamodb_create_table() {
   local table_name attribute_definitions key_schema provisioned_throughput response
   local option OPTARG # Required to use getopts command in a function.
 
-  # bashsupport disable=BP5008
+  #######################################
+  # Function usage explanation
+  #######################################
   function usage() {
     echo "function dynamodb_create_table"
     echo "Creates an Amazon DynamoDB table."
@@ -135,10 +137,12 @@ function dynamodb_create_table() {
 #       1 - If it fails.
 ###############################################################################
 function dynamodb_wait_table_active() {
-  local table_name response
+  local table_name
   local option OPTARG # Required to use getopts command in a function.
 
-  # bashsupport disable=BP5008
+  #######################################
+  # Function usage explanation
+  #######################################
   function usage() {
     echo "function dynamodb_wait_table_active"
     echo "Waits for a DynamoDB table to become active."
@@ -169,7 +173,7 @@ function dynamodb_wait_table_active() {
     return 1
   fi
 
-  table_status="NONE"
+  local table_status="NONE"
   while [[ "$table_status" != "ACTIVE" ]]; do
     sleep 1
     table_status=$(
@@ -182,7 +186,7 @@ function dynamodb_wait_table_active() {
     echo "Table status: $table_status"
 
     if [[ $error_code -ne 0 ]]; then
-      aws_cli_error_log $error_code
+      aws_cli_error_log "$error_code"
       errecho "ERROR: AWS reports describe-table operation failed.$table_status"
       return 1
     fi
@@ -212,7 +216,10 @@ function dynamodb_wait_table_active() {
 function dynamodb_put_item() {
   local table_name item response
   local option OPTARG # Required to use getopts command in a function.
-  # bashsupport disable=BP5008
+
+  #######################################
+  # Function usage explanation
+  #######################################
   function usage() {
     echo "function dynamodb_put_item"
     echo "Put an item into a DynamoDB table."
@@ -289,10 +296,12 @@ function dynamodb_put_item() {
 #       1 - If it fails.
 #############################################################################
 function dynamodb_update_item() {
-  local table_name keys update_expression values item response
+  local table_name keys update_expression values response
   local option OPTARG # Required to use getopts command in a function.
 
-  # bashsupport disable=BP5008
+  #######################################
+  # Function usage explanation
+  #######################################
   function usage() {
     echo "function dynamodb_update_item"
     echo "Update an item in a DynamoDB table."
@@ -390,7 +399,10 @@ function dynamodb_update_item() {
 function dynamodb_get_item() {
   local table_name keys query response
   local option OPTARG # Required to use getopts command in a function.
-  # bashsupport disable=BP5008
+
+  # ######################################
+  # Function usage explanation
+  #######################################
   function usage() {
     echo "function dynamodb_get_item"
     echo "Get an item from a DynamoDB table."
@@ -429,13 +441,6 @@ function dynamodb_get_item() {
     usage
     return 1
   fi
-  local query_option=""
-
-  iecho "Parameters:\n"
-  iecho "    table_name:   $table_name"
-  iecho "    keys:   $keys"
-  iecho "    query:   $query"
-  iecho ""
 
   if [[ -n "$query" ]]; then
     response=$(aws dynamodb get-item \
@@ -448,7 +453,8 @@ function dynamodb_get_item() {
       aws dynamodb get-item \
         --table-name "$table_name" \
         --key file://"$keys" \
-      --output text)
+        --output text
+    )
   fi
 
   local error_code=${?}
@@ -459,11 +465,205 @@ function dynamodb_get_item() {
     return 1
   fi
 
-  echo "$response"
+  if [[ -n "$query" ]]; then
+    echo "$response" | sed "/^\t/s/\t//1" # Remove initial tab that the JMSEpath query inserts on some strings.
+  else
+    echo "$response"
+  fi
 
   return 0
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.GetItem]
+
+# snippet-start:[aws-cli.bash-linux.dynamodb.DeleteItem]
+##############################################################################
+# function dynamodb_delete_item
+#
+# This function deletes an item from a DynamoDB table.
+#
+# Parameters:
+#       -n table_name  -- The name of the table.
+#       -k keys  -- Path to json file containing the keys that identify the item to delete.
+#
+#  Returns:
+#       0 - If successful.
+#       1 - If it fails.
+###########################################################################
+function dynamodb_delete_item() {
+  local table_name keys response
+  local option OPTARG # Required to use getopts command in a function.
+
+  # ######################################
+  # Function usage explanation
+  #######################################
+  function usage() {
+    echo "function dynamodb_delete_item"
+    echo "Delete an item from a DynamoDB table."
+    echo " -n table_name  -- The name of the table."
+    echo " -k keys  -- Path to json file containing the keys that identify the item to delete."
+    echo ""
+  }
+  while getopts "n:k:h" option; do
+    case "${option}" in
+      n) table_name="${OPTARG}" ;;
+      k) keys="${OPTARG}" ;;
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo "Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+  export OPTIND=1
+
+  if [[ -z "$table_name" ]]; then
+    errecho "ERROR: You must provide a table name with the -t parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$keys" ]]; then
+    errecho "ERROR: You must provide a keys json file path the -k parameter."
+    usage
+    return 1
+  fi
+
+  iecho "Parameters:\n"
+  iecho "    table_name:   $table_name"
+  iecho "    keys:   $keys"
+  iecho ""
+
+  response=$(aws dynamodb delete-item \
+    --table-name "$table_name" \
+    --key file://"$keys")
+
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports delete-item operation failed.$response"
+    return 1
+  fi
+
+  return 0
+
+}
+# snippet-end:[aws-cli.bash-linux.dynamodb.DeleteItem]
+
+# snippet-start:[aws-cli.bash-linux.dynamodb.Query]
+#############################################################################
+# function dynamodb_query
+#
+# This function queries a DynamoDB table.
+#
+# Parameters:
+#       -t table_name  -- The name of the table.
+#       -f filter_expression  -- The filter expression.
+#       -a attribute_names -- Path to JSON file containing the attribute names.
+#       -v attribute_values -- Path to JSON file containing the attribute values.
+#       [-p projection_expression]  -- Optional projection expression.
+#
+#  Returns:
+#       The items as text output.
+#  And:
+#       0 - If successful.
+#       1 - If it fails.
+###########################################################################
+function dynamodb_query() {
+  local table_name key_condition_expression attribute_names attribute_values projection_expression response
+  local option OPTARG # Required to use getopts command in a function.
+
+  # ######################################
+  # Function usage explanation
+  #######################################
+  function usage() {
+    echo "function dynamodb_query"
+    echo "Query a DynamoDB table."
+    echo " -n table_name  -- The name of the table."
+    echo " -k key_condition_expression -- The key condition expression."
+    echo " -a attribute_names -- Path to JSON file containing the attribute names."
+    echo " -v attribute_values -- Path to JSON file containing the attribute values."
+    echo " [-p projection_expression]  -- Optional projection expression."
+    echo ""
+  }
+
+  while getopts "n:k:a:v:p:h" option; do
+    case "${option}" in
+      n) table_name="${OPTARG}" ;;
+      k) key_condition_expression="${OPTARG}" ;;
+      a) attribute_names="${OPTARG}" ;;
+      v) attribute_values="${OPTARG}" ;;
+      p) projection_expression="${OPTARG}" ;;
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo "Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+  export OPTIND=1
+
+  if [[ -z "$table_name" ]]; then
+    errecho "ERROR: You must provide a table name with the -n parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$key_condition_expression" ]]; then
+    errecho "ERROR: You must provide a key condition expression with the -k parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$attribute_names" ]]; then
+    errecho "ERROR: You must provide a attribute names with the -a parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$attribute_values" ]]; then
+    errecho "ERROR: You must provide a attribute values with the -v parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$projection_expression" ]]; then
+    response=$(aws dynamodb query \
+      --table-name "$table_name" \
+      --key-condition-expression "$key_condition_expression" \
+      --expression-attribute-names file://"$attribute_names" \
+      --expression-attribute-values file://"$attribute_values" \
+      --return-consumed-capacity NONE \
+      --output yaml)
+  else
+    response=$(aws dynamodb query \
+      --table-name "$table_name" \
+      --key-condition-expression "$key_condition_expression" \
+      --expression-attribute-names file://"$attribute_names" \
+      --expression-attribute-values file://"$attribute_values" \
+      --projection-expression "$projection_expression" \
+      --return-consumed-capacity NONE \
+      --output yaml)
+  fi
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports query operation failed.$response"
+    return 1
+  fi
+
+  echo $response
+}
+# snippet-end:[aws-cli.bash-linux.dynamodb.Query]
 
 # snippet-start:[aws-cli.bash-linux.dynamodb.BatchWriteItem]
 ##############################################################################
@@ -481,11 +681,9 @@ function dynamodb_get_item() {
 function dynamodb_batch_write_item() {
   local item response
   local option OPTARG # Required to use getopts command in a function.
-  # bashsupport disable=BP5008
+
   #######################################
-  # description
-  # Arguments:
-  #  None
+  # Function usage explanation
   #######################################
   function usage() {
     echo "function dynamodb_batch_write_item"
@@ -493,7 +691,7 @@ function dynamodb_batch_write_item() {
     echo " -i item  -- Path to json file containing the items to write."
     echo ""
   }
-  while getopts "n:i:h" option; do
+  while getopts "i:h" option; do
     case "${option}" in
       i) item="${OPTARG}" ;;
       h)
@@ -520,6 +718,7 @@ function dynamodb_batch_write_item() {
   iecho "    item:   $item"
   iecho ""
 
+
   response=$(aws dynamodb batch-write-item \
     --request-items file://"$item")
 
@@ -530,6 +729,8 @@ function dynamodb_batch_write_item() {
     errecho "ERROR: AWS reports batch-write-item operation failed.$response"
     return 1
   fi
+
+  echo "$response"
 
   return 0
 }
@@ -583,7 +784,7 @@ function dynamodb_delete_table() {
 
   # bashsupport disable=BP5008
   function usage() {
-    echo "function dynamodb_create_table"
+    echo "function dynamodb_delete_table"
     echo "Deletes an Amazon DynamoDB table."
     echo " -n table_name  -- The name of the table to delete."
     echo ""
