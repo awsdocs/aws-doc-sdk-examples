@@ -815,7 +815,7 @@ public class FSAApplicationResources {
 
 ### ModifyLambda class
 
-Add the following Java code to the **com.example.fsa** package. This represents the **ModifyLambda** class that is used to update all four Lambda functions created using the CDK script with the Lambda functions created using the AWS SDK for Java V2. Besure to specify the correct Lambda function names and the name of the FAT JAR that is placed in the S3 bucket (see the instructions later in this document). 
+Add the following Java code to the **com.example.fsa** package. This represents the **ModifyLambda** class that is used to update all four Lambda functions created using the CDK script with the Lambda functions created using the AWS SDK for Java V2. Specify the correct Lambda function names and the name of the FAT JAR that is placed in the S3 bucket (see the instructions later in this document). 
 
 ```java
 package com.example.fsa;
