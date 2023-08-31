@@ -797,8 +797,6 @@ public class TranslateService {
 
 ```
 
-
-
 ### FSAApplicationResources class
 
 Add the The following Java code to the **com.example.fsa** package. This represents the **FSAApplicationResources** class.
@@ -878,17 +876,15 @@ public class ModifyLambda {
         }
     }
 }
-
 ```
-
 
 ## Deploy the AWS resources
 
-At this point, you have completed all of the application Java business logic required for the PAM application to work. Now you need to deploy the AWS resources, including the AWS Lambda functions and API Gateway endpoints in order for the application to work. Instead of deploying all of the resources manually by using the AWS Management Console, you can use a provided AWS CDK script. Using the CDK script makes it more efficient to deploy the resources. 
+At this point, you have completed all of the application Java business logic required for the FSA application to work. Now you need to deploy the AWS resources, including the AWS Lambda functions and API Gateway endpoints in order for the application to work. Instead of deploying all of the resources manually by using the AWS Management Console, you can use a provided AWS CDK script. Using the CDK script makes it more efficient to deploy the resources. 
 
 **Note**: For information about the AWS CDK, see [What is the AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html).
 		
-For complete instuctions on how to run the supplied AWS CDK script, see [PAFeedback Sentiment Analyzer (FSA)](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/applications/feedback_sentiment_analyzer/README.md).
+For complete instuctions on how to run the supplied AWS CDK script, see [Feedback Sentiment Analyzer (FSA)](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/applications/feedback_sentiment_analyzer/README.md).
 
 ### Update the Lambda functions
 
@@ -902,64 +898,15 @@ After you execute the AWS CDK script, the Lambda functions are created. However,
 
 ![AWS Photo Analyzer](images/kotlinJarS3.png)
 
-4. Run the ModifyLambda Java class. 
- 
-5. Add the following Java code to the project and update the Java variable names with the resources created by the AWS CDK script. Make sure to specify the exact names, which are provided in the AWS Lambda console. Otherwise, the code does not work. Run the following code.  
-
-```java
-package com.pam
-
-import aws.sdk.kotlin.services.lambda.LambdaClient
-import aws.sdk.kotlin.services.lambda.model.UpdateFunctionCodeRequest
-import aws.sdk.kotlin.services.lambda.waiters.waitUntilFunctionUpdated
-
-suspend fun main() {
-    val key = "PhotoAssetRestKotlin-1.0-SNAPSHOT-all.jar"
-    val bucketName = "<Update value>"
-    val functionNamesLabels = "<Update value>"
-    val uploadFunction = "<Update value>"
-    val downloadFunction = "<Update value>"
-    val s3Handle = "<Update value>"
-
-    // Replace all four AWS Lambda functions.
-    updateFunctionCode(functionNamesLabels, bucketName, key)
-    updateFunctionCode( uploadFunction, bucketName, key)
-    updateFunctionCode(downloadFunction, bucketName, key)
-    updateFunctionCode(s3Handle, bucketName, key)
-    println("You have replaced all PAM Application Lambda functions!")
-}
-
-suspend fun updateFunctionCode(functionNameVal: String?, bucketName: String?, key: String?) {
-    val functionCodeRequest = UpdateFunctionCodeRequest {
-        functionName = functionNameVal
-        publish = true
-        s3Bucket = bucketName
-        s3Key = key
-    }
-
-    LambdaClient { region = "us-east-1" }.use { awsLambda ->
-        val response = awsLambda.updateFunctionCode(functionCodeRequest)
-        awsLambda.waitUntilFunctionUpdated {
-            functionName = functionNameVal
-        }
-        println("The last modified value is " + response.lastModified)
-    }
-}
-
-```
-
-When done, you see a message that the AWS Lambda functions have been updated with the Kotlin FAT JAR. 
-
-![AWS Photo Analyzer](images/kotlinProgram.png)
-
+4. Run the ModifyLambda Java class.  Make sure to specify the exact names, which are provided in the AWS Lambda console. Otherwise, the code does not work. When done, you see a message that the AWS Lambda functions have been updated with the Kotlin FAT JAR. 
 
 
 ### Run the application
 
-When you run the AWS CDK script, you can run the client application by using the Amazon Cloudfront distribution URL as specified in the supplied AWS CDK instructions. 
+After you run the AWS CDK script, you can run the client application by using the Amazon Cloudfront distribution URL as specified in the supplied AWS CDK instructions. 
 
 ### Next steps
-Congratulations! You have created and deployed the Photo Asset Management application. As stated at the beginning of this tutorial, be sure to delete all of the resources by following the AWS CDK instructions so that you won't continue to be charged for them.
+Congratulations! You have created and deployed the FSA application. As stated at the beginning of this tutorial, be sure to delete all of the resources by following the AWS CDK instructions so that you won't continue to be charged for them.
 
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).
