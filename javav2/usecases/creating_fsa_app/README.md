@@ -901,7 +901,7 @@ After you execute the AWS CDK script, the Lambda functions are created. However,
 
 ### Update the permission that the Lambda roles use
 
-Each Lambda function has a role used to inoke the Lambda function. For example, the **fnAnalyzeSentiment** function has this role.
+Each Lambda function has a role used to invoke the Lambda function. For example, the **fnAnalyzeSentiment** function has this role.
 
 ![AWS Photo Analyzer](images/role.png)
 
