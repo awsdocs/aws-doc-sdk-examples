@@ -25,13 +25,10 @@ Amazon API Gateway retrieves the metadata from Amazon DynamoDB
 
 As displayed in this illustration, the FSA application uses the following AWS services:
 
-* Amazon Rekognition
-* Amazon DynamoDB 
-* Amazon S3
-* Amazon SNS
-* AWS Lambda 
-* Amazon Cognito
-* Amazon API Gateway
+* Extract text using Amazon Textract
+* Detect sentiment using Amazon Comprehend
+* Translate to English using Amazon Translate
+* Synthesize to human-like speech using Amazon Polly
 
 #### Topics
 
