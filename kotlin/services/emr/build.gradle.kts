@@ -23,9 +23,12 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:emr-jvm:0.21.3-beta")
+    implementation("aws.sdk.kotlin:emr-jvm:0.29.1-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    implementation("aws.sdk.kotlin:secretsmanager-jvm:0.29.1-beta")
+    implementation("com.google.code.gson:gson:2.10")
+
 }
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
