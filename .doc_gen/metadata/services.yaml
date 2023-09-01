@@ -411,7 +411,7 @@ eks:
     product_categories: {'Containers'}
   version: eks-2017-11-01
 elastic-load-balancing-v2:
-  long: '&ELBlong; (ELB)'
+  long: '&ELBlong; (&ELBacro;)'
   short: '&ELB;'
   sort: Elastic Load Balancing
   expanded:
