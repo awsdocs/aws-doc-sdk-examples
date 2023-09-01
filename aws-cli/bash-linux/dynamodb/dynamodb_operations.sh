@@ -197,7 +197,7 @@ function dynamodb_wait_table_active() {
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.DescribeTable]
 
-# snippet-end:[aws-cli.bash-linux.dynamodb.PutItem]
+# snippet-start:[aws-cli.bash-linux.dynamodb.PutItem]
 ##############################################################################
 # function dynamodb_put_item
 #
