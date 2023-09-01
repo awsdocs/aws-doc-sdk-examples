@@ -17,7 +17,7 @@ Every example is different, but each will have the following:
 
 ## List of examples
 
-| Name                | Path                                         | Supported languages |
-| ------------------- | -------------------------------------------- | ------------------- |
-| Photo Asset Manager | [photo-asset-manager](./photo-asset-manager) | Java, C++           |
-| Feedback Sentiment Analyzer | [feedback_sentiment_analyzer](./feedback_sentiment_analyzer/)| Ruby, JavaScript |
+| Name                | Path                                         | Supported languages | Highlighted Services |
+| ------------------- | -------------------------------------------- | ------------------- | -------------------- |
+| Photo Asset Manager | [photo-asset-manager](./photo-asset-manager) | Java, C++           | [Amazon Rekognition](https://aws.amazon.com/rekognition/), [Amazon API Gateway](https://aws.amazon.com/api-gateway/), [Amazon CloudFront](https://aws.amazon.com/cloudfront/), [Amazon Cognito](https://aws.amazon.com/cognito/), [Amazon S3](https://aws.amazon.com/s3/) |
+| Feedback Sentiment Analyzer | [feedback_sentiment_analyzer](./feedback_sentiment_analyzer/)| Ruby, JavaScript | [Amazon Textract](https://docs.aws.amazon.com/textract/latest/dg/what-is.html), [Amazon Comprehend](https://docs.aws.amazon.com/comprehend/latest/dg/what-is.html), [Amazon Translate](https://docs.aws.amazon.com/translate/latest/dg/what-is.html), [Amazon Polly](https://docs.aws.amazon.com/polly/latest/dg/what-is.html), [AWS Step Functions](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html) |
