@@ -534,7 +534,7 @@ The **index.html** file is the application's home view that displays the Amazon 
                 data: 'text=' + text,
                 success: function (data, status, xhr) {
 
-                   showRequest();
+                   showRequest(text);
                    showResponse(data);
 
                     // re-enable input
