@@ -197,7 +197,7 @@ function dynamodb_wait_table_active() {
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.DescribeTable]
 
-# snippet-start:[aws-cli.bash-linux.dynamodb.]
+# snippet-end:[aws-cli.bash-linux.dynamodb.PutItem]
 ##############################################################################
 # function dynamodb_put_item
 #
@@ -840,7 +840,7 @@ function dynamodb_batch_write_item() {
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.BatchWriteItem]
 
-# snippet-end:[aws-cli.bash-linux.dynamodb.BatchGetItem]
+# snippet-start:[aws-cli.bash-linux.dynamodb.BatchGetItem]
 #############################################################################
 # function dynamodb_batch_get_item
 #
@@ -905,7 +905,7 @@ function dynamodb_batch_get_item() {
 
   return 0
 }
-# snippet-start:[aws-cli.bash-linux.dynamodb.BatchGetItem]
+# snippet-end:[aws-cli.bash-linux.dynamodb.BatchGetItem]
 
 # snippet-start:[aws-cli.bash-linux.dynamodb.ListTables]
 ##############################################################################

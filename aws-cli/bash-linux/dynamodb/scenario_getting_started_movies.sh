@@ -73,6 +73,16 @@ function get_input() {
 ###############################################################################
 function clean_up() {
   local result=0
+  local table_name=$1
+
+  if [ -n "$table_name" ]; then
+    if (dynamodb_delete_table -n "$table_name"); then
+      echo "Deleted DynamoDB table named $table_name"
+    else
+      errecho "The table failed to delete."
+      result=1
+    fi
+  fi
 
   return $result
 }
@@ -166,9 +176,24 @@ function dynamodb_getting_started_movies() {
   table_name=$get_input_result
 
   local provisioned_throughput="ReadCapacityUnits=5,WriteCapacityUnits=5"
+  local key_schema_json_file="dynamodb_key_schema.json"
+  local attribute_definitions_json_file="dynamodb_attr_def.json"
 
-  dynamodb_create_table -n "$table_name" -a "$attr_definitions" -s "$key_schema" -p "$provisioned_throughput"
+ echo '[
+  {"AttributeName": "year", "KeyType": "HASH"},
+   {"AttributeName": "title", "KeyType": "RANGE"}
+  ]' >"$key_schema_json_file"
 
+  echo '[
+  {"AttributeName": "year", "AttributeType": "N"},
+   {"AttributeName": "title", "AttributeType": "S"}
+  ]' >"$attr_definitions_json_file"
+
+  dynamodb_create_table -n "$table_name" -a "$attribute_definitions_json_file" -s "$key_schema_json_file" -p "$provisioned_throughput"
+
+  rm -f "$key_schema_json_file"
+  rm -f "$attr_definitions_json_file"
+  
   # shellcheck disable=SC2181
   if [[ ${?} == 0 ]]; then
     echo "Created a DynamoDB table named $table_name"
@@ -176,6 +201,8 @@ function dynamodb_getting_started_movies() {
     errecho "The table failed to create. This demo will exit."
     return 1
   fi
+
+
 
   clean_up "$table_name"
 
