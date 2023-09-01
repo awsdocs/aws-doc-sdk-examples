@@ -23,8 +23,8 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:redshift-jvm:0.27.1-beta")
-    implementation("aws.sdk.kotlin:secretsmanager-jvm:0.27.1-beta")
+    implementation("aws.sdk.kotlin:redshift:0.30.1-beta")
+    implementation("aws.sdk.kotlin:secretsmanager:0.30.1-beta")
     implementation("com.google.code.gson:gson:2.10.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")

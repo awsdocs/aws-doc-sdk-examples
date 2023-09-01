@@ -23,8 +23,10 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:sfn-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:iam-jvm:0.21.3-beta")
+    implementation("aws.sdk.kotlin:sfn:0.30.1-beta")
+    implementation("aws.sdk.kotlin:iam:0.30.1-beta")
+    implementation("aws.sdk.kotlin:secretsmanager:0.30.1-beta")
+    implementation("com.google.code.gson:gson:2.10")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
