@@ -164,6 +164,9 @@ class LoadBalancer:
                     f"Couldn't delete load balancer {self.load_balancer_name}: {err}")
 
     def verify_load_balancer_endpoint(self):
+        """
+        Verify this computer can successfully send a GET request to the load balancer endpoint.
+        """
         success = False
         retries = 3
         while not success and retries > 0:

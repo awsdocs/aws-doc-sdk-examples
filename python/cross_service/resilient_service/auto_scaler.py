@@ -436,6 +436,20 @@ class AutoScaler:
             return response['Vpcs'][0]
 
     def verify_inbound_port(self, vpc, port, ip_address):
+        """
+        Verify the default security group of the specified VPC allows ingress from this
+        computer. This can be done by allowing ingress from this computer's IP
+        address. In some situations, such as connecting from a corporate network, you
+        must instead specify a prefix list ID. You can also temporarily open the port to
+        any IP address while running this example. If you do, be sure to remove public
+        access when you're done.
+
+        :param vpc: The VPC used by this example.
+        :param port: The port to verify.
+        :param ip_address: This computer's IP address.
+        :return: The default security group of the specific VPC, and a value that indicates
+                 whether the specified port is open.
+        """
         try:
             response = self.ec2_client.describe_security_groups(
                 Filters=[
@@ -466,6 +480,14 @@ class AutoScaler:
             return sec_group, port_is_open
 
     def open_inbound_port(self, sec_group_id, port, ip_address):
+        """
+        Add an ingress rule to the specified security group that allows access on the
+        specified port from the specified IP address.
+
+        :param sec_group_id: The ID of the security group to modify.
+        :param port: The port to open.
+        :param ip_address: The IP address that is granted access.
+        """
         try:
             self.ec2_client.authorize_security_group_ingress(
                 GroupId=sec_group_id, CidrIp=f'{ip_address}/32', FromPort=port, ToPort=port, IpProtocol='tcp')
