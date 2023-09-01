@@ -8,7 +8,7 @@ cross_FSA:
   languages:
     Java:
       versions:
-        - sdk_version: 3
+        - sdk_version: 2
           block_content: cross_FSA_Java_block.xml
     Ruby:
       versions:
