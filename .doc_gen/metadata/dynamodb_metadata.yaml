@@ -145,6 +145,16 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - ddb.swift.basics.createtable
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.CreateTable
   services:
     dynamodb: {CreateTable}
 dynamodb_BatchGetItem:
@@ -205,6 +215,15 @@ dynamodb_BatchGetItem:
             - description:
               snippet_tags:
                 - ddb.swift.batchgetitem.batchget
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.BatchGetItem
   services:
     dynamodb: {BatchGetItem}
 dynamodb_DescribeTable:
@@ -282,6 +301,15 @@ dynamodb_DescribeTable:
               snippet_tags:
                 - ruby.example_code.dynamodb.Scaffold
                 - ruby.example_code.dynamodb.DescribeTable
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.DescribeTable
   services:
     dynamodb: {DescribeTable}
 dynamodb_BatchWriteItem:
@@ -376,6 +404,16 @@ dynamodb_BatchWriteItem:
             - description:
               snippet_tags:
                 - ddb.swift.basics.populate
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.BatchWriteItem
   services:
     dynamodb: {BatchWriteItem}
 dynamodb_DeleteTable:
@@ -486,6 +524,16 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - ddb.swift.basics.deletetable
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.DeleteTable
   services:
     dynamodb: {DeleteTable}
 dynamodb_PutItem:
@@ -602,6 +650,16 @@ dynamodb_PutItem:
               snippet_tags:
                 - ddb.swift.basics.add-movie
                 - ddb.swift.basics.movie.getasitem
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.PutItem
   services:
     dynamodb: {PutItem}
 dynamodb_GetItem:
@@ -709,6 +767,15 @@ dynamodb_GetItem:
             - description:
               snippet_tags:
                 - ddb.swift.basics.get
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.GetItem
   services:
     dynamodb: {GetItem}
 dynamodb_UpdateItem:
@@ -816,6 +883,16 @@ dynamodb_UpdateItem:
             - description:
               snippet_tags:
                 - ddb.swift.basics.update
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.UpdateItem
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
@@ -939,6 +1016,16 @@ dynamodb_DeleteItem:
             - description:
               snippet_tags:
                 - ddb.swift.basics.delete
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.DeleteItem
   services:
     dynamodb: {DeleteItem}
 dynamodb_ListTables:
@@ -1054,6 +1141,15 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - ddb.swift.databasemanager.gettablelist
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.ListTables
   services:
     dynamodb: {ListTables}
 dynamodb_Query:
@@ -1174,6 +1270,15 @@ dynamodb_Query:
             - description:
               snippet_tags:
                 - ddb.swift.basics.getMovies-year
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.Query
   services:
     dynamodb: {Query}
 dynamodb_Scan:
@@ -1286,6 +1391,15 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - ddb.swift.basics.getmovies-range
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.Scan
   services:
     dynamodb: {Scan}
 dynamodb_ExecuteStatement:

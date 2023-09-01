@@ -28,7 +28,7 @@
 # bashsupport disable=BP5006
 VERBOSE=false
 
-# snippet-start:[aws-cli.bash-linux.iam.errecho]
+# snippet-start:[aws-cli.bash-linux.dynamodb.errecho]
 ###############################################################################
 # function errecho
 #
@@ -37,9 +37,9 @@ VERBOSE=false
 function errecho() {
   printf "%s\n" "$*" 1>&2
 }
-# snippet-end:[aws-cli.bash-linux.iam.errecho]
+# snippet-end:[aws-cli.bash-linux.dynamodb.errecho]
 
-# snippet-start:[aws-cli.bash-linux.iam.iecho]
+# snippet-start:[aws-cli.bash-linux.dynamodb.iecho]
 ###############################################################################
 # function iecho
 #
@@ -51,7 +51,7 @@ function iecho() {
     echo "$@"
   fi
 }
-# snippet-end:[aws-cli.bash-linux.iam.iecho]
+# snippet-end:[aws-cli.bash-linux.dynamodb.iecho]
 
 ###############################################################################
 # function ipause

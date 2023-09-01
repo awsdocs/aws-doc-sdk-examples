@@ -95,6 +95,7 @@ function main() {
   local batch_json_file="test_dynamodb_batch.json"
   local attribute_names_json_file="test_dynamodb_attribute_names.json"
   local attributes_values_json_file="test_dynamodb_attribute_values.json"
+  local requested_values_json_file="test_dynamodb_requested_values.json"
   iecho "**************END OF STEPS******************"
 
   run_test "Creating table with missing parameters" \
@@ -178,17 +179,16 @@ function main() {
   fi
 
   run_test "getting item without query" \
-   "dynamodb_get_item -n $table_name -k $key_json_file  " \
-   0
+    "dynamodb_get_item -n $table_name -k $key_json_file  " \
+    0
 
   run_test "getting item with query" \
-   "dynamodb_get_item -n $table_name -k $key_json_file -q [Item.title,Item.year,Item.info.M.rating,Item.info.M.plot] " \
-   0
+    "dynamodb_get_item -n $table_name -k $key_json_file -q [Item.title,Item.year,Item.info.M.rating,Item.info.M.plot] " \
+    0
 
-#  run_test "Deleting item from table" \
-#    "dynamodb_delete_item -n $table_name -k $key_json_file " \
-#    0
-
+  #  run_test "Deleting item from table" \
+  #    "dynamodb_delete_item -n $table_name -k $key_json_file " \
+  #    0
 
   echo "{ \"$table_name\" : $(<../movie_files/movies_0.json) }" >"$batch_json_file"
 
@@ -196,18 +196,15 @@ function main() {
     "dynamodb_batch_write_item -i $batch_json_file " \
     0
 
-    echo "$test_command_response" > batch_write_response.txt
-
-    echo '{
+  echo '{
     "#n": "year"
     }' >"$attribute_names_json_file"
 
-    echo '{
+  echo '{
     ":v": {"N" :"2013"}
     }' >"$attributes_values_json_file"
 
-
-   test_count=$((test_count + 1))
+  test_count=$((test_count + 1))
   echo -n "Running test $test_count: Querying table without projection expression..."
   local response
   response=$(dynamodb_query -n "$table_name" -k "#n=:v" -a "$attribute_names_json_file" -v "$attributes_values_json_file")
@@ -220,14 +217,11 @@ function main() {
     test_succeeded_count=$((test_succeeded_count + 1))
   fi
 
-  echo "$response" > query_response.txt
-
-
-   test_count=$((test_count + 1))
+  test_count=$((test_count + 1))
   echo -n "Running test $test_count: Querying table with projection expression..."
   local response
   response=$(dynamodb_query -n "$table_name" -k "#n=:v" -a "$attribute_names_json_file" \
-  -v "$attributes_values_json_file" -p "title,info.plot")
+    -v "$attributes_values_json_file" -p "title,info.plot")
   local error_code=${?}
 
   if [[ $error_code -ne 0 ]]; then
@@ -237,7 +231,66 @@ function main() {
     test_succeeded_count=$((test_succeeded_count + 1))
   fi
 
-  echo "$response" > query_response2.txt
+  echo '{
+    "#n": "title"
+    }' >"$attribute_names_json_file"
+
+  echo '{
+    ":v1": {"S" : "Age"}
+    }' >"$attributes_values_json_file"
+
+  test_count=$((test_count + 1))
+  echo -n "Running test $test_count: Scanning table without projection expression..."
+  local response
+  response=$(dynamodb_scan -n "$table_name" -f "contains(#n,:v1)" -a "$attribute_names_json_file" -v "$attributes_values_json_file")
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    test_failed "Scanning table failed with error code.  $error_code"
+  else
+    echo "OK"
+    test_succeeded_count=$((test_succeeded_count + 1))
+  fi
+
+  test_count=$((test_count + 1))
+  echo -n "Running test $test_count: Scanning table with projection expression..."
+  local response
+  response=$(dynamodb_scan -n "$table_name" -f "contains(#n,:v1)" -a "$attribute_names_json_file" \
+    -v "$attributes_values_json_file" -p "title,info.plot")
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    test_failed "Scanning table failed with error code.  $error_code"
+  else
+    echo "OK"
+    test_succeeded_count=$((test_succeeded_count + 1))
+  fi
+
+
+  # bashsupport disable=GrazieInspection
+  echo "{
+    \"$table_name\" : {
+        \"Keys\": [
+          {
+            \"year\": { \"N\": \"2013\" },
+             \"title\": {\"S\": \"Prisoners\"}
+          },
+           {
+            \"year\": { \"N\": \"2013\" },
+             \"title\": {\"S\": \"Rush\"}
+          },
+           {
+            \"year\": { \"N\": \"2012\" },
+             \"title\": {\"S\": \"Pitch Perfect\"}
+          }
+      ]
+     }
+  }" > $requested_values_json_file
+
+  run_test "Batch get items into table" \
+    "dynamodb_batch_get_item -i $requested_values_json_file " \
+    0
+
   skip_tests=false
   run_test " deleting table" \
     "dynamodb_delete_table -n $table_name " \
@@ -247,9 +300,10 @@ function main() {
   rm "$key_json_file"
   rm "$key_schema_json_file"
   rm "$attr_definitions_json_file"
- # rm "$batch_json_file"
+  rm "$batch_json_file"
   rm "$attribute_names_json_file"
   rm "$attributes_values_json_file"
+  rm "$requested_values_json_file"
 
   echo "$test_succeeded_count tests completed successfully."
   echo "$test_failed_count tests failed."

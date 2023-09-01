@@ -123,7 +123,7 @@ function dynamodb_create_table() {
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.CreateTable]
 
-# snippet-start:[aws-cli.bash-linux.dynamodb.wait_table_active]
+# snippet-start:[aws-cli.bash-linux.dynamodb.DescribeTable]
 ###############################################################################
 # function dynamodb_wait_table_active
 #
@@ -195,7 +195,7 @@ function dynamodb_wait_table_active() {
 
   return 0
 }
-# snippet-end:[aws-cli.bash-linux.dynamodb.wait_table_active]
+# snippet-end:[aws-cli.bash-linux.dynamodb.DescribeTable]
 
 # snippet-start:[aws-cli.bash-linux.dynamodb.]
 ##############################################################################
@@ -562,13 +562,13 @@ function dynamodb_delete_item() {
 #
 # Parameters:
 #       -t table_name  -- The name of the table.
-#       -f filter_expression  -- The filter expression.
+#       -k key_condition_expression -- The key condition expression.
 #       -a attribute_names -- Path to JSON file containing the attribute names.
 #       -v attribute_values -- Path to JSON file containing the attribute values.
 #       [-p projection_expression]  -- Optional projection expression.
 #
 #  Returns:
-#       The items as text output.
+#       The items as json output.
 #  And:
 #       0 - If successful.
 #       1 - If it fails.
@@ -640,19 +640,16 @@ function dynamodb_query() {
       --table-name "$table_name" \
       --key-condition-expression "$key_condition_expression" \
       --expression-attribute-names file://"$attribute_names" \
-      --expression-attribute-values file://"$attribute_values" \
-      --return-consumed-capacity NONE \
-      --output yaml)
+      --expression-attribute-values file://"$attribute_values")
   else
     response=$(aws dynamodb query \
       --table-name "$table_name" \
       --key-condition-expression "$key_condition_expression" \
       --expression-attribute-names file://"$attribute_names" \
       --expression-attribute-values file://"$attribute_values" \
-      --projection-expression "$projection_expression" \
-      --return-consumed-capacity NONE \
-      --output yaml)
+      --projection-expression "$projection_expression")
   fi
+
   local error_code=${?}
 
   if [[ $error_code -ne 0 ]]; then
@@ -664,6 +661,114 @@ function dynamodb_query() {
   echo $response
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.Query]
+
+# snippet-start:[aws-cli.bash-linux.dynamodb.Scan]
+#############################################################################
+# function dynamodb_scan
+#
+# This function scans a DynamoDB table.
+#
+# Parameters:
+#       -t table_name  -- The name of the table.
+#       -f filter_expression  -- The filter expression.
+#       -a expression_attribute_names -- Path to JSON file containing the expression attribute names.
+#       -v expression_attribute_values -- Path to JSON file containing the expression attribute values.
+#       [-p projection_expression]  -- Optional projection expression.
+#
+#  Returns:
+#       The items as json output.
+#  And:
+#       0 - If successful.
+#       1 - If it fails.
+###########################################################################
+function dynamodb_scan() {
+  local table_name filter_expression expression_attribute_names expression_attribute_values projection_expression response
+  local option OPTARG # Required to use getopts command in a function.
+
+  # ######################################
+  # Function usage explanation
+  #######################################
+  function usage() {
+    echo "function dynamodb_scan"
+    echo "Scan a DynamoDB table."
+    echo " -n table_name  -- The name of the table."
+    echo " -f filter_expression  -- The filter expression."
+    echo " -a expression_attribute_names -- Path to JSON file containing the expression attribute names.."
+    echo " -v expression_attribute_values -- Path to JSON file containing the expression attribute values."
+    echo " [-p projection_expression]  -- Optional projection expression."
+    echo ""
+  }
+
+  while getopts "n:f:a:v:p:h" option; do
+    case "${option}" in
+      n) table_name="${OPTARG}" ;;
+      f) filter_expression="${OPTARG}" ;;
+      a) expression_attribute_names="${OPTARG}" ;;
+      v) expression_attribute_values="${OPTARG}" ;;
+      p) projection_expression="${OPTARG}" ;;
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo "Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+  export OPTIND=1
+
+  if [[ -z "$table_name" ]]; then
+    errecho "ERROR: You must provide a table name with the -n parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$filter_expression" ]]; then
+    errecho "ERROR: You must provide a filter expression with the -f parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$expression_attribute_names" ]]; then
+    errecho "ERROR: You must provide expression attribute names with the -a parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$expression_attribute_values" ]]; then
+    errecho "ERROR: You must provide expression attribute values with the -v parameter."
+    usage
+    return 1
+  fi
+
+  if [[ -z "$projection_expression" ]]; then
+    response=$(aws dynamodb scan \
+      --table-name "$table_name" \
+      --filter-expression "$filter_expression" \
+      --expression-attribute-names file://"$expression_attribute_names" \
+      --expression-attribute-values file://"$expression_attribute_values")
+  else
+    response=$(aws dynamodb scan \
+      --table-name "$table_name" \
+      --filter-expression "$filter_expression" \
+      --expression-attribute-names file://"$expression_attribute_names" \
+      --expression-attribute-values file://"$expression_attribute_values" \
+      --projection-expression "$projection_expression")
+  fi
+
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports scan operation failed.$response"
+    return 1
+  fi
+
+  echo $response
+}
+# snippet-end:[aws-cli.bash-linux.dynamodb.Scan]
 
 # snippet-start:[aws-cli.bash-linux.dynamodb.BatchWriteItem]
 ##############################################################################
@@ -718,7 +823,6 @@ function dynamodb_batch_write_item() {
   iecho "    item:   $item"
   iecho ""
 
-
   response=$(aws dynamodb batch-write-item \
     --request-items file://"$item")
 
@@ -735,6 +839,73 @@ function dynamodb_batch_write_item() {
   return 0
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.BatchWriteItem]
+
+# snippet-end:[aws-cli.bash-linux.dynamodb.BatchGetItem]
+#############################################################################
+# function dynamodb_batch_get_item
+#
+# This function gets a batch of items from a DynamoDB table.
+#
+# Parameters:
+#       -i item  -- Path to json file containing the keys of the items to get.
+#
+#  Returns:
+#       The items as json output.
+#  And:
+#       0 - If successful.
+#       1 - If it fails.
+##########################################################################
+function dynamodb_batch_get_item() {
+  local item response
+  local option OPTARG # Required to use getopts command in a function.
+
+  #######################################
+  # Function usage explanation
+  #######################################
+  function usage() {
+    echo "function dynamodb_batch_get_item"
+    echo "Get a batch of items from a DynamoDB table."
+    echo " -i item  -- Path to json file containing the keys of the items to get."
+    echo ""
+  }
+
+  while getopts "i:h" option; do
+    case "${option}" in
+      i) item="${OPTARG}" ;;
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo "Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+  export OPTIND=1
+
+  if [[ -z "$item" ]]; then
+    errecho "ERROR: You must provide an item with the -i parameter."
+    usage
+    return 1
+  fi
+
+  response=$(aws dynamodb batch-get-item \
+    --request-items file://"$item")
+  local error_code=${?}
+
+  if [[ $error_code -ne 0 ]]; then
+    aws_cli_error_log $error_code
+    errecho "ERROR: AWS reports batch-write-item operation failed.$response"
+    return 1
+  fi
+
+  echo "$response"
+
+  return 0
+}
+# snippet-start:[aws-cli.bash-linux.dynamodb.BatchGetItem]
 
 # snippet-start:[aws-cli.bash-linux.dynamodb.ListTables]
 ##############################################################################
