@@ -24,18 +24,20 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.secrets-manager.SecretsManagerSecret]
 class SecretsManagerSecret:
     """Encapsulates Secrets Manager functions."""
+
     def __init__(self, secretsmanager_client):
         """
         :param secretsmanager_client: A Boto3 Secrets Manager client.
         """
         self.secretsmanager_client = secretsmanager_client
         self.name = None
-# snippet-end:[python.example_code.secrets-manager.SecretsManagerSecret]
+
+    # snippet-end:[python.example_code.secrets-manager.SecretsManagerSecret]
 
     def _clear(self):
         self.name = None
 
-# snippet-start:[python.example_code.secrets-manager.CreateSecret]
+    # snippet-start:[python.example_code.secrets-manager.CreateSecret]
     def create(self, name, secret_value):
         """
         Creates a new secret. The secret value can be a string or bytes.
@@ -46,11 +48,11 @@ class SecretsManagerSecret:
         """
         self._clear()
         try:
-            kwargs = {'Name': name}
+            kwargs = {"Name": name}
             if isinstance(secret_value, str):
-                kwargs['SecretString'] = secret_value
+                kwargs["SecretString"] = secret_value
             elif isinstance(secret_value, bytes):
-                kwargs['SecretBinary'] = secret_value
+                kwargs["SecretBinary"] = secret_value
             response = self.secretsmanager_client.create_secret(**kwargs)
             self.name = name
             logger.info("Created secret %s.", name)
@@ -59,9 +61,10 @@ class SecretsManagerSecret:
             raise
         else:
             return response
-# snippet-end:[python.example_code.secrets-manager.CreateSecret]
 
-# snippet-start:[python.example_code.secrets-manager.DescribeSecret]
+    # snippet-end:[python.example_code.secrets-manager.CreateSecret]
+
+    # snippet-start:[python.example_code.secrets-manager.DescribeSecret]
     def describe(self, name=None):
         """
         Gets metadata about a secret.
@@ -84,9 +87,10 @@ class SecretsManagerSecret:
             raise
         else:
             return response
-# snippet-end:[python.example_code.secrets-manager.DescribeSecret]
 
-# snippet-start:[python.example_code.secrets-manager.GetSecretValue]
+    # snippet-end:[python.example_code.secrets-manager.DescribeSecret]
+
+    # snippet-start:[python.example_code.secrets-manager.GetSecretValue]
     def get_value(self, stage=None):
         """
         Gets the value of a secret.
@@ -101,9 +105,9 @@ class SecretsManagerSecret:
             raise ValueError
 
         try:
-            kwargs = {'SecretId': self.name}
+            kwargs = {"SecretId": self.name}
             if stage is not None:
-                kwargs['VersionStage'] = stage
+                kwargs["VersionStage"] = stage
             response = self.secretsmanager_client.get_secret_value(**kwargs)
             logger.info("Got value for secret %s.", self.name)
         except ClientError:
@@ -111,9 +115,10 @@ class SecretsManagerSecret:
             raise
         else:
             return response
-# snippet-end:[python.example_code.secrets-manager.GetSecretValue]
 
-# snippet-start:[python.example_code.secrets-manager.GetRandomPassword]
+    # snippet-end:[python.example_code.secrets-manager.GetSecretValue]
+
+    # snippet-start:[python.example_code.secrets-manager.GetRandomPassword]
     def get_random_password(self, pw_length):
         """
         Gets a randomly generated password.
@@ -123,17 +128,19 @@ class SecretsManagerSecret:
         """
         try:
             response = self.secretsmanager_client.get_random_password(
-                PasswordLength=pw_length)
-            password = response['RandomPassword']
+                PasswordLength=pw_length
+            )
+            password = response["RandomPassword"]
             logger.info("Got random password.")
         except ClientError:
             logger.exception("Couldn't get random password.")
             raise
         else:
             return password
-# snippet-end:[python.example_code.secrets-manager.GetRandomPassword]
 
-# snippet-start:[python.example_code.secrets-manager.PutSecretValue]
+    # snippet-end:[python.example_code.secrets-manager.GetRandomPassword]
+
+    # snippet-start:[python.example_code.secrets-manager.PutSecretValue]
     def put_value(self, secret_value, stages=None):
         """
         Puts a value into an existing secret. When no stages are specified, the
@@ -150,13 +157,13 @@ class SecretsManagerSecret:
             raise ValueError
 
         try:
-            kwargs = {'SecretId': self.name}
+            kwargs = {"SecretId": self.name}
             if isinstance(secret_value, str):
-                kwargs['SecretString'] = secret_value
+                kwargs["SecretString"] = secret_value
             elif isinstance(secret_value, bytes):
-                kwargs['SecretBinary'] = secret_value
+                kwargs["SecretBinary"] = secret_value
             if stages is not None:
-                kwargs['VersionStages'] = stages
+                kwargs["VersionStages"] = stages
             response = self.secretsmanager_client.put_secret_value(**kwargs)
             logger.info("Value put in secret %s.", self.name)
         except ClientError:
@@ -164,9 +171,10 @@ class SecretsManagerSecret:
             raise
         else:
             return response
-# snippet-end:[python.example_code.secrets-manager.PutSecretValue]
 
-# snippet-start:[python.example_code.secrets-manager.UpdateSecretVersionStage]
+    # snippet-end:[python.example_code.secrets-manager.PutSecretValue]
+
+    # snippet-start:[python.example_code.secrets-manager.UpdateSecretVersionStage]
     def update_version_stage(self, stage, remove_from, move_to):
         """
         Updates the stage associated with a version of the secret.
@@ -181,18 +189,23 @@ class SecretsManagerSecret:
 
         try:
             response = self.secretsmanager_client.update_secret_version_stage(
-                SecretId=self.name, VersionStage=stage, RemoveFromVersionId=remove_from,
-                MoveToVersionId=move_to)
+                SecretId=self.name,
+                VersionStage=stage,
+                RemoveFromVersionId=remove_from,
+                MoveToVersionId=move_to,
+            )
             logger.info("Updated version stage %s for secret %s.", stage, self.name)
         except ClientError:
             logger.exception(
-                "Couldn't update version stage %s for secret %s.", stage, self.name)
+                "Couldn't update version stage %s for secret %s.", stage, self.name
+            )
             raise
         else:
             return response
-# snippet-end:[python.example_code.secrets-manager.UpdateSecretVersionStage]
 
-# snippet-start:[python.example_code.secrets-manager.DeleteSecret]
+    # snippet-end:[python.example_code.secrets-manager.UpdateSecretVersionStage]
+
+    # snippet-start:[python.example_code.secrets-manager.DeleteSecret]
     def delete(self, without_recovery):
         """
         Deletes the secret.
@@ -207,15 +220,17 @@ class SecretsManagerSecret:
 
         try:
             self.secretsmanager_client.delete_secret(
-                SecretId=self.name, ForceDeleteWithoutRecovery=without_recovery)
+                SecretId=self.name, ForceDeleteWithoutRecovery=without_recovery
+            )
             logger.info("Deleted secret %s.", self.name)
             self._clear()
         except ClientError:
             logger.exception("Deleted secret %s.", self.name)
             raise
-# snippet-end:[python.example_code.secrets-manager.DeleteSecret]
 
-# snippet-start:[python.example_code.secrets-manager.ListSecrets]
+    # snippet-end:[python.example_code.secrets-manager.DeleteSecret]
+
+    # snippet-start:[python.example_code.secrets-manager.ListSecrets]
     def list(self, max_results):
         """
         Lists secrets for the current account.
@@ -224,14 +239,15 @@ class SecretsManagerSecret:
         :return: Yields secrets one at a time.
         """
         try:
-            paginator = self.secretsmanager_client.get_paginator('list_secrets')
-            for page in paginator.paginate(
-                    PaginationConfig={'MaxItems': max_results}):
-                for secret in page['SecretList']:
+            paginator = self.secretsmanager_client.get_paginator("list_secrets")
+            for page in paginator.paginate(PaginationConfig={"MaxItems": max_results}):
+                for secret in page["SecretList"]:
                     yield secret
         except ClientError:
             logger.exception("Couldn't list secrets.")
             raise
+
+
 # snippet-end:[python.example_code.secrets-manager.ListSecrets]
 
 
@@ -244,15 +260,16 @@ def deploy(stack_name, cf_resource):
     :param stack_name: The name of the CloudFormation stack.
     :param cf_resource: A Boto3 CloudFormation resource.
     """
-    with open('setup.yaml') as setup_file:
+    with open("setup.yaml") as setup_file:
         setup_template = setup_file.read()
     print(f"Creating {stack_name}.")
     stack = cf_resource.create_stack(
         StackName=stack_name,
         TemplateBody=setup_template,
-        Capabilities=['CAPABILITY_NAMED_IAM'])
+        Capabilities=["CAPABILITY_NAMED_IAM"],
+    )
     print("Waiting for stack to deploy. This typically takes several minutes.")
-    waiter = cf_resource.meta.client.get_waiter('stack_create_complete')
+    waiter = cf_resource.meta.client.get_waiter("stack_create_complete")
     waiter.wait(StackName=stack.name)
     stack.load()
     print(f"Stack status: {stack.stack_status}")
@@ -278,6 +295,7 @@ def sql_runner(rdsdata, resource_arn, secret_arn):
     :return: A function that can be called to run SQL statements in the Amazon Aurora
              cluster.
     """
+
     def _run(statement, database=None):
         """
         Runs SQL statements in the specified Amazon Aurora cluster.
@@ -287,10 +305,13 @@ def sql_runner(rdsdata, resource_arn, secret_arn):
                          Otherwise, the statement is run without a database context.
         :return: The response from Amazon RDS Data Service.
         """
-        kwargs = {'resourceArn': resource_arn, 'secretArn': secret_arn,
-                  'sql': statement}
+        kwargs = {
+            "resourceArn": resource_arn,
+            "secretArn": secret_arn,
+            "sql": statement,
+        }
         if database is not None:
-            kwargs['database'] = database
+            kwargs["database"] = database
         response = None
         tries = 5
         while tries > 0:
@@ -298,11 +319,14 @@ def sql_runner(rdsdata, resource_arn, secret_arn):
                 response = rdsdata.execute_statement(**kwargs)
                 break
             except rdsdata.exceptions.BadRequestException:
-                print("Got BadRequestException. This occurs when the Aurora "
-                      "database is not ready. Waiting and trying again...")
+                print(
+                    "Got BadRequestException. This occurs when the Aurora "
+                    "database is not ready. Waiting and trying again..."
+                )
                 time.sleep(10)
                 tries -= 1
         return response
+
     return _run
 
 
@@ -312,7 +336,7 @@ def create_and_manage_secret_demo():
     Shows how to use AWS Secrets Manager to create a secret, update its value and
     stage, and delete it.
     """
-    secret = SecretsManagerSecret(boto3.client('secretsmanager'))
+    secret = SecretsManagerSecret(boto3.client("secretsmanager"))
 
     print("Create a secret.")
     secret.create("doc-example-secretsmanager-secret", "Shh, don't tell.")
@@ -326,11 +350,11 @@ def create_and_manage_secret_demo():
     secret.put_value(password)
     print("Get current and previous values.")
     current = secret.get_value()
-    previous = secret.get_value('AWSPREVIOUS')
+    previous = secret.get_value("AWSPREVIOUS")
     print(f"Current: {current['SecretString']}")
     print(f"Previous: {previous['SecretString']}")
-    byteval = base64.b64encode("I'm a Base64 string!".encode('utf-8'))
-    stage = 'CUSTOM_STAGE'
+    byteval = base64.b64encode("I'm a Base64 string!".encode("utf-8"))
+    stage = "CUSTOM_STAGE"
     print(f"Put byte value with a custom stage '{stage}'.")
     secret.put_value(byteval, [stage])
     time.sleep(1)
@@ -344,6 +368,8 @@ def create_and_manage_secret_demo():
         print(f"Name: {sec['Name']}")
     print("Delete the secret.")
     secret.delete(True)
+
+
 # snippet-end:[python.example_code.secrets-manager.Scenario_CreateManageSecret]
 
 
@@ -356,30 +382,34 @@ def aurora_demo(resources):
     :param resources: Resource identifiers that were output from the CloudFormation
                       stack that created prerequisite resources for the demo.
     """
-    print('-'*88)
-    print("Using a secret along with Amazon RDS Data Service to access an Amazon "
-          "Aurora cluster.\n"
-          "The secret and cluster were created by the CloudFormation stack included "
-          "with this demo.")
-    print('-'*88)
-    secret = SecretsManagerSecret(boto3.client('secretsmanager'))
-    cf_secret_arn = secret.describe(resources['SecretId'])['ARN']
+    print("-" * 88)
+    print(
+        "Using a secret along with Amazon RDS Data Service to access an Amazon "
+        "Aurora cluster.\n"
+        "The secret and cluster were created by the CloudFormation stack included "
+        "with this demo."
+    )
+    print("-" * 88)
+    secret = SecretsManagerSecret(boto3.client("secretsmanager"))
+    cf_secret_arn = secret.describe(resources["SecretId"])["ARN"]
     print(f"Secret ID: {resources['SecretId']}")
     print(f"Secret ARN: {cf_secret_arn}")
-    secret_value = json.loads(secret.get_value()['SecretString'])
+    secret_value = json.loads(secret.get_value()["SecretString"])
     print("Secret value:")
     pprint(secret_value)
-    cluster_arn = resources['ClusterArn']
-    rdsdata = boto3.client('rds-data')
+    cluster_arn = resources["ClusterArn"]
+    rdsdata = boto3.client("rds-data")
     runner = sql_runner(rdsdata, cluster_arn, cf_secret_arn)
     print("Test connectivity by getting the current time from the Aurora cluster.")
-    response = runner('SELECT NOW();')
-    print(response['records'])
+    response = runner("SELECT NOW();")
+    print(response["records"])
 
-    db = 'DemoDatabase'
-    table = 'People'
-    print(f"Create a database '{db}' in the Aurora cluster, create a '{table}' table, "
-          f"and insert some values.")
+    db = "DemoDatabase"
+    table = "People"
+    print(
+        f"Create a database '{db}' in the Aurora cluster, create a '{table}' table, "
+        f"and insert some values."
+    )
     runner(f"CREATE DATABASE {db};")
     runner(f"CREATE TABLE {table} (FirstName varchar(100), LastName varchar(100));", db)
     runner("INSERT INTO People VALUES ('Ted', 'Testerson');", db)
@@ -388,9 +418,11 @@ def aurora_demo(resources):
     print("Database created and populated.")
 
     print(f"Query the '{table}' table.")
-    response = runner(f'SELECT * FROM {table};', db)
+    response = runner(f"SELECT * FROM {table};", db)
     print(f"Got {len(response['records'])} records:")
-    pprint(response['records'])
+    pprint(response["records"])
+
+
 # snippet-end:[python.example_code.secrets-manager.Scenario_AuroraSecret]
 
 
@@ -405,7 +437,7 @@ def destroy(stack, cf_resource):
     print(f"Deleting stack {stack.name}.")
     stack.delete()
     print("Waiting for stack removal.")
-    waiter = cf_resource.meta.client.get_waiter('stack_delete_complete')
+    waiter = cf_resource.meta.client.get_waiter("stack_delete_complete")
     waiter.wait(StackName=stack.name)
     print("Stack delete complete.")
 
@@ -413,48 +445,57 @@ def destroy(stack, cf_resource):
 def main():
     parser = argparse.ArgumentParser(
         description="Runs the AWS Secrets Manager demo. "
-                    "Run with the 'deploy' action to deploy prerequisite resources. "
-                    "Run with the 'demo-secret' action to see the secret management demo. "
-                    "Run with the 'demo-aurora' action to see the Amazon Aurora demo. "
-                    "Run with the 'destroy' action to clean up all resources.")
+        "Run with the 'deploy' action to deploy prerequisite resources. "
+        "Run with the 'demo-secret' action to see the secret management demo. "
+        "Run with the 'demo-aurora' action to see the Amazon Aurora demo. "
+        "Run with the 'destroy' action to clean up all resources."
+    )
     parser.add_argument(
-        'action', choices=['deploy', 'demo-secret', 'demo-aurora', 'destroy'],
-        help="Indicates the action the script performs.")
+        "action",
+        choices=["deploy", "demo-secret", "demo-aurora", "destroy"],
+        help="Indicates the action the script performs.",
+    )
     args = parser.parse_args()
 
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the AWS Secrets Manager demo!")
-    print('-'*88)
+    print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    cf_resource = boto3.resource('cloudformation')
-    stack = cf_resource.Stack('python-example-code-secretsmanager-demo')
+    cf_resource = boto3.resource("cloudformation")
+    stack = cf_resource.Stack("python-example-code-secretsmanager-demo")
 
-    if args.action == 'deploy':
+    if args.action == "deploy":
         print("Deploying prerequisite resources for the demo.")
         deploy(stack.name, cf_resource)
-        print('-'*88)
-        print("To see example usage, run the script again with the 'demo-secret' or "
-              "'demo-aurora' action.")
-    elif args.action in ['demo-secret', 'demo-aurora']:
-        print('-'*88)
-        print("Demonstrating how to use AWS Secrets Manager to create and manage "
-              "secrets.")
-        print('-'*88)
-        if args.action == 'demo-secret':
+        print("-" * 88)
+        print(
+            "To see example usage, run the script again with the 'demo-secret' or "
+            "'demo-aurora' action."
+        )
+    elif args.action in ["demo-secret", "demo-aurora"]:
+        print("-" * 88)
+        print(
+            "Demonstrating how to use AWS Secrets Manager to create and manage "
+            "secrets."
+        )
+        print("-" * 88)
+        if args.action == "demo-secret":
             create_and_manage_secret_demo()
-        elif args.action == 'demo-aurora':
-            aurora_demo({o['OutputKey']: o['OutputValue'] for o in stack.outputs})
-        print('-'*88)
-        print("To clean up all AWS resources created for the demo, run this script "
-              "again with the 'destroy' action.")
-    elif args.action == 'destroy':
+        elif args.action == "demo-aurora":
+            aurora_demo({o["OutputKey"]: o["OutputValue"] for o in stack.outputs})
+        print("-" * 88)
+        print(
+            "To clean up all AWS resources created for the demo, run this script "
+            "again with the 'destroy' action."
+        )
+    elif args.action == "destroy":
         print("Destroying AWS resources created for the demo.")
         destroy(stack, cf_resource)
 
-    print('-'*88)
+    print("-" * 88)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
