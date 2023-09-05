@@ -53,7 +53,7 @@ function run_test() {
 
   # Check to see if we got the expected error code.
   if [[ "$expected_err_code" -ne "$err" ]]; then
-    test_failed "The test \"$description\" returned an unexpected error code: $err"
+    test_failed "The test \"$description\" returned an unexpected error code: $err. $test_command_response"
   fi
 
   # Check the error message, if we provided other than "".
@@ -101,7 +101,7 @@ function test_failed() {
 # This function outputs everything sent to it to STDERR (standard error output).
 ###############################################################################
 function errecho() {
-  printf "%s\n" "$*" 2>&1
+  printf "%s\n" "$*" 1>&2
 }
 # snippet-end:[aws-cli.bash-linux.s3.errecho]
 

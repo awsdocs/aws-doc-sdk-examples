@@ -90,7 +90,7 @@ function test_failed {
 # This function outputs everything sent to it to STDERR (standard error output).
 ###############################################################################
 function errecho {
-    printf "%b\n" "$*" 2>&1
+    printf "%b\n" "$*" 1>&2
 }
 
 ###############################################################################
