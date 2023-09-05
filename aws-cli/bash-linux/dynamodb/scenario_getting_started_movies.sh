@@ -84,11 +84,19 @@ function clean_up() {
     fi
   fi
 
+  if [ -e "$key_schema_json_file" ]; then
+    rm "$key_schema_json_file"
+  fi
+
+  if [ -e "$attribute_definitions_json_file" ]; then
+    rm ""$attribute_definitions_json_file""
+  fi
+
   return $result
 }
 
 ###############################################################################
-# function yes_no_input
+# function get_yes_no_input
 #
 # This function requests a yes/no answer from the user, following to a prompt.
 #
@@ -99,9 +107,9 @@ function clean_up() {
 #       0 - If yes.
 #       1 - If no.
 ###############################################################################
-function yes_no_input() {
+function get_yes_no_input() {
   if [ -z "$1" ]; then
-    echo "Internal error yes_no_input"
+    echo "Internal error get_yes_no_input"
     return 1
   fi
 
@@ -111,6 +119,7 @@ function yes_no_input() {
     index=$((index + 1))
     echo -n "$1"
     get_input
+
     response=$(echo "$get_input_result" | tr '[:upper:]' '[:lower:]')
     if [ "$response" = "y" ] || [ "$response" = "n" ]; then
       break
@@ -126,6 +135,149 @@ function yes_no_input() {
   else
     return 1
   fi
+}
+
+###############################################################################
+# function get_int_input
+#
+# This function requests a non-negative integer answer from the user.
+#
+# Parameters:
+#       $1 - The prompt.
+#       $2 - Optional inclusive low.
+#       #3 - Optional inclusive high.
+#
+# Returns:
+#       The input,
+#    And
+#       0 - If successful.
+#       1 - If an error occurred.
+###############################################################################
+function get_int_input() {
+  if [ -z "$1" ]; then
+    echo "Internal error get_int_input"
+    return 1
+  fi
+
+  local low=$2
+  local high=$3
+
+  local index=0
+  local response=""
+  local input_valid=false
+  while [[ $input_valid == false ]]; do
+    index=$((index + 1))
+    if [[ index -gt 10 ]]; then
+      return 1
+    fi
+
+    echo -n "$1"
+    get_input
+    # Remove integers.
+    response=$(echo "$get_input_result" | sed "s/[[:digit:]]*//")
+
+    if [[ -n "$response" ]]; then
+
+      echo -e "Please enter an integer."
+      continue
+    fi
+
+    response="$get_input_result"
+
+    if [[ -z $low ]] || [[ -z $high ]]; then
+      break
+    fi
+
+    if [[ $response -lt low ]]; then
+      echo -e "\Response must be greater than or equal to $low.\nPlease enter an integer."
+      continue
+    fi
+
+    if [[ $response -gt high ]]; then
+      echo -e "\Response must be less than or equal to $high.\nPlease enter an integer."
+      continue
+    fi
+
+    input_valid=true
+
+  done
+
+  get_input_result="$response"
+
+  return 0
+}
+
+###############################################################################
+# function get_float_input
+#
+# This function requests a non-negative float answer from the user.
+#
+# Parameters:
+#       $1 - The prompt.
+#       $2 - Optional inclusive low.
+#       #3 - Optional inclusive high.
+#
+# Returns:
+#       The input,
+#    And
+#       0 - If successful.
+#       1 - If an error occurred.
+###############################################################################
+function get_float_input() {
+  if [ -z "$1" ]; then
+    echo "Internal error get_float_input"
+    return 1
+  fi
+
+  local low=$2
+  local high=$3
+
+  local index=0
+  local response=""
+  local input_valid=false
+  while [[ $input_valid == false ]]; do
+    index=$((index + 1))
+    if [[ index -gt 10 ]]; then
+      return 1
+    fi
+
+    echo -n "$1"
+    get_input
+
+    # Remove leading integers.
+    response=$(echo "$get_input_result" | sed "s/[[:digit:]]*//")
+
+    if [[ -n "$response" ]]; then  # Remove decimal if present.
+       response=$(echo "$response" | sed "s/^\.[[:digit:]]*//")
+    fi
+
+    if [[ -n "$response" ]]; then
+      echo -e "Please enter a floating point number."
+      continue
+    fi
+
+    response="$get_input_result"
+
+    if [[ -z $low ]] || [[ -z $high ]]; then
+      break
+    fi
+
+    if [[ $response -lt low ]]; then
+      echo -e "\Response must be greater than or equal to $low.\nPlease enter a floating point number."
+      continue
+    fi
+
+    if [[ $response -gt high ]]; then
+      echo -e "\Response must be less than or equal to $high.\nPlease enter a floating point number."
+      continue
+    fi
+
+    input_valid=true
+
+  done
+
+  get_input_result="$response"
+  return 0
 }
 
 ###############################################################################
@@ -168,18 +320,14 @@ function echo_repeat() {
 function dynamodb_getting_started_movies() {
   source ./dynamodb_operations.sh
 
-
-
-  local table_name
+   local table_name
   echo -n "Enter a name for a new DynamoDB table: "
   get_input
   table_name=$get_input_result
 
   local provisioned_throughput="ReadCapacityUnits=5,WriteCapacityUnits=5"
-  local key_schema_json_file="dynamodb_key_schema.json"
-  local attribute_definitions_json_file="dynamodb_attr_def.json"
 
- echo '[
+  echo '[
   {"AttributeName": "year", "KeyType": "HASH"},
    {"AttributeName": "title", "KeyType": "RANGE"}
   ]' >"$key_schema_json_file"
@@ -187,13 +335,11 @@ function dynamodb_getting_started_movies() {
   echo '[
   {"AttributeName": "year", "AttributeType": "N"},
    {"AttributeName": "title", "AttributeType": "S"}
-  ]' >"$attr_definitions_json_file"
+  ]' >"$attribute_definitions_json_file"
 
-  dynamodb_create_table -n "$table_name" -a "$attribute_definitions_json_file" -s "$key_schema_json_file" -p "$provisioned_throughput"
+  dynamodb_create_table -n "$table_name" -a "$attribute_definitions_json_file" \
+     -k "$key_schema_json_file" -p "$provisioned_throughput" 1> /dev/null
 
-  rm -f "$key_schema_json_file"
-  rm -f "$attr_definitions_json_file"
-  
   # shellcheck disable=SC2181
   if [[ ${?} == 0 ]]; then
     echo "Created a DynamoDB table named $table_name"
@@ -202,8 +348,41 @@ function dynamodb_getting_started_movies() {
     return 1
   fi
 
+  echo "Waiting for the table to become active...."
 
+  if (dynamodb_wait_table_active -n "$table_name"); then
+    echo "The table is now active."
+ else
+    errecho "The table failed to become active. This demo will exit."
+    cleanup "$table_name"
+    return 1
+  fi
 
+  echo -n "Enter the title of a movie you want to add to the table: "
+  get_input
+  local title
+  title=$get_input_result
+
+  local year
+  get_int_input "What year was it released? "
+  year=$get_input_result
+
+  local rating
+  get_float_input "On a scale of 1 - 10, how do you rate it? " "1" "10"
+  rating=$get_input_result
+
+  local plot
+  echo -n "Summarize the plot for me: "
+  get_input
+  plot=$get_input_result
+
+   echo '{
+  "year": {"N" :"'"$year"'"},
+  "title": {"S" :  "'"$title"'"},
+  "info": {"M" : {"plot": {"S" : "'"$plot"'"}, "rating": {"N" :"'"$rating"'"} } }
+ }' > "$item_json_file"
+
+  local result=0
   clean_up "$table_name"
 
   # shellcheck disable=SC2181
@@ -221,6 +400,9 @@ function dynamodb_getting_started_movies() {
 ###############################################################################
 function main() {
   get_input_result=""
+  key_schema_json_file="dynamodb_key_schema.json"
+  attribute_definitions_json_file="dynamodb_attr_def.json"
+  item_json_file="movie_item.json"
 
   dynamodb_getting_started_movies
 }
