@@ -2382,6 +2382,15 @@ s3_Scenario_PresignedUrl:
             - description: Create a PutObject presigned request and use it to upload an object.
               snippet_tags:
                 - s3.kotlin.presign_getObjectMoreOptions.main
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/s3
+          excerpts:
+            - description: Create presigning requests to GET and PUT S3 objects.
+              snippet_tags:
+                - s3.rust.get-object-presigned
+                - s3.rust.put-object-presigned
   services:
     s3: {}
 s3_Scenario_ObjectVersioningUsage:
