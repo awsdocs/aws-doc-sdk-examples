@@ -8,4 +8,4 @@ RUN go env -w GOPROXY=direct
 ## Output to a file by appending > test-run-unit-$(date +"%Y-%m-%d").out
 #RUN cd /gov2 && \
 #  ./run_all_tests.sh
-CMD ["/gov2/run_all_tests.sh", "integration"]
+CMD ["cd", "/gov2", "&&", "./run_all_tests.sh", "integration"]
