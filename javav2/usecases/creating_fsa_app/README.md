@@ -1,10 +1,10 @@
-#  Creating a Feedback Sentiment Analyzer application using the AWS SDK for Java
+#  Creating a Feedback Sentiment Analyzer application using the SDK for Java
 
 ## Overview
 
 | Heading      | Description |
 | -----------  | ----------- |
-| Description  | Discusses how to develop a Feedback Sentiment Analyzer application using [Machine Learning Services](https://aws.amazon.com/machine-learning/) that lets users manage comment cards. That is, the application solves a fictitious use case of a hotel in New York City that receives guest feedback on comment cards in a variety of languages. This application is developed by using the AWS SDK for Java (v2).     |
+| Description  | Discusses how to develop a Feedback Sentiment Analyzer application using [Machine Learning AWS services](https://aws.amazon.com/machine-learning/). The application solves a fictitious use case of a hotel that receives guest feedback on comment cards in a variety of languages. The application is developed by using the AWS SDK for Java (v2).     |
 | Audience     |  Developer (intermediate / advanced)        |
 | Updated      | 9/01/2023        |
 | Required skills   | Java, Maven  |
@@ -13,27 +13,27 @@
 
 You can develop a sample application for a Feedback Sentiment Analyzer (FSA) that accomplishes the following tasks:
 
-1. Host the static website assets within an Amazon S3 bucket, and utilize Amazon CloudFront for their distribution.
-2. Implement authenticated access to Amazon API Gateway through Amazon Cognito.
-3. Configure Amazon API Gateway to deposit items into an Amazon S3 bucket, subsequently triggering an EventBridge rule that initiates a Step Functions workflow.
+1. Hosts static website assets in an Amazon Simple Storage Service (Amazon S3) bucket, and uses an Amazon CloudFront distribution to serve the website.
+2. Implements authenticated access to Amazon API Gateway through Amazon Cognito.
+3. Configures Amazon API Gateway to deposit items into an S3 bucket, subsequently triggering an Amazon EventBridge rule that initiates an AWS Step Functions workflow.
 4. The Step Functions workflow leverages AWS Lambda, Amazon Textract, Amazon Comprehend, Amazon Translate, and Amazon Polly to execute the core business logic.
-5. Metadata gets stored within Amazon DynamoDB, while audio files are stored within the same Amazon S3 bucket referenced in step 3.
-Amazon API Gateway retrieves the metadata from Amazon DynamoDB
+5. Metadata gets stored within Amazon DynamoDB, while audio files are stored in the same S3 bucket referenced in step 3.
+6. Amazon API Gateway retrieves the metadata from Amazon DynamoDB.
 
 
 ![AWS Photo Analyzer](images/overview.png)
 
-As displayed in this illustration, the FSA application uses the following AWS services:
+As displayed in the preceding illustration, the FSA application uses the following AWS services:
 
-* Extract text using Amazon Textract
-* Detect sentiment using Amazon Comprehend
-* Translate to English using Amazon Translate
-* Synthesize to human-like speech using Amazon Polly
+* Amazon Textract - Extracts text
+* Amazon Comprehend - Detects sentiment
+* Amazon Translate - Translates to English
+* Amazon Polly - Synthesizes to human-like speech
 
 #### Topics
 
 + Prerequisites
-+ Understand the feedback sentiment analyzer application
++ Understand the Feedback Sentiment Analyzer application
 + Create an IntelliJ project
 + Add the POM dependencies to your project
 + Create the Java classes
@@ -56,13 +56,13 @@ To complete the tutorial, you need the following:
 + Be sure to delete all of the resources you create while going through this tutorial so that you won't be charged.
 + Also make sure to properly set up your development environment. For information, see [Setting up the AWS SDK for Java 2.x](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/setup.html).
 
-### Creating the resources
+### Resource creation
 
 The required AWS resources are created by using an AWS Cloud Development Kit (AWS CDK) script. This is discussed later in the document. There is no need to create any resources by using the AWS Management Console. 
 
-## Understand the feedback sentiment analyzer application
+## Understand the Feedback Sentiment Analyzer application
 
-The front end of the FSA application is a React application that uses the [Cloudscape Design System](https://cloudscape.design/). The application supports uploading images that contains text to an S3 bucket. The text represents comments made by a customer in various languages such as French.
+The front end of the FSA application is a React application that uses the [Cloudscape Design System](https://cloudscape.design/). The application supports uploading images that contain text to an S3 bucket. The text represents comments made by a customer in various languages, such as French.
 
 After a user authenticates by using Amazon Cognito, the application displays all uploaded images, the translated text, and a button that lets the user hear the audio (which was created by using Amazon Polly). 
 
@@ -83,13 +83,13 @@ The following descibes each step in the workflow.
 - **SynthesizeAudio** - Converts the English text into an MP3 audio file and places the audio file into an S3 bucket.
 - **PutPositiveComment** - Places the data into an Amazon DynamoDB table.
 
-**Note**: The client React application does not display any data until the workflow successfully completes and data is stored in the S3 bucket and Amazon DynamoDB table. 
+**Note**: The client React application does not display any data until the workflow successfully completes and data is stored in the S3 bucket and DynamoDB table. 
 
 The following illustration shows the Amazon DynamoDB table storing the values. 
 
 ![AWS Photo Analyzer](images/dbtable.png)
 
-**Note**: This Amazon DynamoDB table is created when you run the AWS CDK script to set up the resources. This is discussed later in this document. 	
+**Note**: This DynamoDB table is created when you run the AWS CDK script to set up the resources. This is discussed later in this document. 	
 
 ### Understand the AWS resources used by the FSA application 	
 
@@ -97,14 +97,14 @@ This section describes the AWS resources that the FSA application uses. You do n
 
 #### AWS Lambda functions
 
-The backend of the FSA application is implemented by using these AWS Lambda functions created by using the AWS SDK for Java v2:
+The backend of the FSA application is implemented by using these AWS Lambda functions created by using the AWS SDK for Java (v2):
 
-- **ExtractText** - The Lambda function used in the **ExtractText** step.
-- **AnalyzeSentiment** - The Lambda function used in the **AnalyzeSentiment** step. 
-- **TranslateText** - The Lambda function used in the **TranslateText** step. 
-- **fnSynthesizeAudio** - The Lambda function used in the **SynthesizeAudio** step. 
+- **ExtractText** 
+- **AnalyzeSentiment** 
+- **TranslateText**
+- **fnSynthesizeAudio** 
 
-**Note**: These AWS Lambda names are short names. The full names that appear in the AWS Management Console depend on how you configure the provided AWS CDK script. Full names appear as NAME}{Function Name}. For example, **fsa-scmacdon-javascript-fnSynthesizeAudio134971D4-x8Q5178Y4ZBH**.
+**Note**: These AWS Lambda names are short names. The full names that appear in the AWS Management Console depend on how you configure the provided AWS CDK script. Full names appear as {NAME}{Function Name}. For example, **fsa-scmacdon-javascript-fnSynthesizeAudio134971D4-x8Q5178Y4ZBH**.
 
 ## Create an IntelliJ project
 
@@ -503,7 +503,7 @@ public class TranslateHandler  implements RequestHandler<Map<String, Object>, JS
         String sourceText = getTranslatedText(preValStr);
         context.getLogger().log("NEW Value: " + sourceText);
 
-        // We have the source text - need to figure out what language its in.
+        // We have the source text - need to figure out what language it's in.
         DetectSentimentService sentimentService = new DetectSentimentService();
         String lanCode = sentimentService.detectTheDominantLanguage(sourceText);
         String translatedText;
@@ -533,9 +533,9 @@ Create these Java classes in the **com.example.fsa.services** package. These Jav
 
 + **DetectSentimentService** - Uses the **ComprehendClient** to detect the sentimant of text.   
 + **ExtractTextService** - Uses the **TextractClient** to extract text from an image located in an S3 bucket.  
-+ **PollyService** -  Uses the **PollyClient** to convert text into an mp3 audio file.
++ **PollyService** -  Uses the **PollyClient** to convert text into an MP3 audio file.
 + **S3Service** - Uses the **S3Client** to place an audio file into an S3 bucket.
-+ **TranslateService** - Uses the **TranslateClient** to translate text into english. 
++ **TranslateService** - Uses the **TranslateClient** to translate text into English. 
 
  ### DetectSentimentService class
 
@@ -877,7 +877,9 @@ public class ModifyLambda {
 
 ## Deploy the AWS resources
 
-At this point, you have completed all of the application Java business logic required for the FSA application to work. Now you need to deploy the AWS resources, including the AWS Lambda functions and API Gateway endpoints in order for the application to work. Instead of deploying all of the resources manually by using the AWS Management Console, you can use a provided AWS CDK script. Using the CDK script makes it more efficient to deploy the resources. 
+At this point, you have completed all of the application Java business logic required for the FSA application to work. Now you need to deploy the AWS resources, including the AWS Lambda functions and API Gateway endpoints. 
+
+Instead of deploying all of the resources manually by using the AWS Management Console, you can use a provided AWS CDK script. The script makes it more efficient to deploy the resources. 
 
 **Note**: For information about the AWS CDK, see [What is the AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html).
 		
@@ -891,18 +893,20 @@ After you execute the AWS CDK script, the Lambda functions are created. However,
 
 2. Create the FAT JAR by running **mvn package**. The JAR file can be located in the target folder.
 
-3. Use the AWS Management Console to place the FAT JAR into the Amazon S3 bucket named **STORAGE_BUCKET**. (This was created by the AWS CDK script.)  
+3. Sign in to the AWS Management Console for Amazon S3 and put the FAT JAR in the S3 bucket named **STORAGE_BUCKET**. (This bucket was created by the AWS CDK script.)   
 
-4. Run the **ModifyLambda** Java class.  Make sure to specify the exact AWS Lambda names, which are provided in the AWS Lambda console. Otherwise, the code does not work. When done, you see a message that the AWS Lambda functions have been updated with the FAT JAR. 
+4. Run the **ModifyLambda** Java class.  Make sure to specify the exact AWS Lambda names, which you can view in the Lambda console. Otherwise, the code does not work. When done, you see a message that the Lambda functions have been updated with the FAT JAR. 
 
 
-### Update the permission that the Lambda roles use
+### Update permissions for the Lambda roles
 
-Each Lambda function has a role used to invoke the Lambda function. For example, the **fnAnalyzeSentiment** function has this role.
+Each Lambda function has a role used to invoke the Lambda function. For example, the **fnAnalyzeSentiment** function has the following role.
 
-![AWS Photo Analyzer](images/role.png)
+**fsa-scmacdon-javascript-fnAnalyzeSentimentServiceR-14R5C2CE32WCM **
 
-You need to ensure each role has the correct service permission in order to invoke the corresponding AWS Service. If you do not modify the role's permission that each Lambda function uses, then you will encounter a permission error. 
+**Note**: The exact name of the role depends on how you configured the AWS CDK script.
+
+Make sure each role has the correct service permission to invoke the corresponding AWS service. If you do not modify the role's permission for each Lambda function, you will encounter a permission error. 
 
 **Note**: For information about how to modify the a role's permission, see [Using service-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html).
 
