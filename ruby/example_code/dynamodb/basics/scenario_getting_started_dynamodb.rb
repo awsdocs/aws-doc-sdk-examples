@@ -18,7 +18,7 @@ require_relative("../scaffold")
 # Runs the Amazon DynamoDB demo.
 # @return [Nil]
 def run_scenario
-  banner('../../../helpers/banner.txt')
+  banner("../../../helpers/banner.txt")
   puts "######################################################################################################".yellow
   puts "#                                                                                                    #".yellow
   puts "#                                          EXAMPLE CODE DEMO:                                        #".yellow
