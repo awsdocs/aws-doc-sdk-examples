@@ -68,3 +68,6 @@
 <!-- Transcribe Medical -->
 <!ENTITY TSCMlong '&TSClong; Medical'>
 <!ENTITY TSCM '&TSC; Medical'>
+
+<!--Elastic Load Balancing-->
+<!ENTITY ELBacro 'ELB'>
