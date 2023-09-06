@@ -1,12 +1,12 @@
-use aws_config::meta::region::RegionProviderChain;
-use aws_types::region::Region;
+use anyhow::anyhow;
 use ec2_code_examples::autoscaling::AutoScalingScenario;
 use tracing::info;
 
 async fn show_scenario_description(scenario: &AutoScalingScenario, event: &str) {
-    match scenario.describe_scenario().await {
-        Ok(description) => info!(description, "DescribeAutoScalingInstances: {event}"),
-        Err(err) => info!(err, "Error in DescribeAutoScalingInstances: {event}"),
+    let auto_scaling_scenario_description = scenario.describe_scenario().await;
+    match auto_scaling_scenario_description {
+        Ok(description) => info!("DescribeAutoScalingInstances: {event}\n{description}"),
+        Err(err) => info!("Error in DescribeAutoScalingInstances: {event}\n{err:?}"),
     }
 }
 
@@ -14,53 +14,62 @@ async fn show_scenario_description(scenario: &AutoScalingScenario, event: &str) 
 async fn main() -> Result<(), anyhow::Error> {
     tracing_subscriber::fmt::init();
 
-    let region_provider = RegionProviderChain::first_try(region.map(Region::new))
-        .or_default_provider()
-        .or_else(Region::new("us-west-2"));
-    let shared_config = aws_config::from_env().region(region_provider).load().await;
+    let shared_config = aws_config::from_env().load().await;
 
     // 1. Create an EC2 launch template that you'll use to create an auto scaling group. Bonus: use SDK with EC2.CreateLaunchTemplate to create the launch template.
     // 2. CreateAutoScalingGroup: pass it the launch template you created in step 0. Give it min/max of 1 instance.
     // 4. EnableMetricsCollection: enable all metrics or a subset.
-    let scenario = AutoScalingScenario::prepare_scenario(shared_config).await?;
+    let scenario = match AutoScalingScenario::prepare_scenario(&shared_config).await {
+        Ok(scenario) => scenario,
+        Err(err) => return Err(anyhow!("Failed to initialize scenario: {err:?}")),
+    };
+
+    info!("Prepared autoscaling scenario:\n{scenario}");
 
     // 3. DescribeAutoScalingInstances: show that one instance has launched.
-    show_scenario_description(&scenario, &"show that one instance has launched").await;
+    show_scenario_description(
+        &scenario,
+        "show that the group was created and one instance has launched",
+    )
+    .await;
 
     // 5. UpdateAutoScalingGroup: update max size to 3.
-    if let Err(err) = scenario.scale_max_size(3).await {
-        info!(err, "there was a problem scaling max size");
+    let scale_max_size = scenario.scale_max_size(3).await;
+    if let Err(err) = scale_max_size {
+        info!("There was a problem scaling max size\n{err:?}");
     }
 
     // 6. DescribeAutoScalingGroups: the current state of the group
-    show_scenario_description(&scenario, &"show the current state of the group").await;
+    show_scenario_description(
+        &scenario,
+        "show the current state of the group after setting max size",
+    )
+    .await;
 
     // 7. SetDesiredCapacity: set desired capacity to 2.
-    if let Err(err) = scenario.scale_desired_capacity(2).await {
-        info!(err, "there was a problem setting desired capacity");
+    let scale_desired_capacity = scenario.scale_desired_capacity(2).await;
+    if let Err(err) = scale_desired_capacity {
+        info!("There was a problem setting desired capacity\n{err:?}");
     }
     //   Wait for a second instance to launch.
 
     // 8. DescribeAutoScalingInstances: show that two instances are launched.
-    show_scenario_description(&scenario, &"show that two instances are launched").await;
+    show_scenario_description(
+        &scenario,
+        "show that two instances are launched after setting desired capacity",
+    )
+    .await;
 
     // 9. TerminateInstanceInAutoScalingGroup: terminate one of the instances in the group.
-    match scenario.list_instance_arns().await {
-        Ok(instances) => {
-            if let Some(instance) = instances.iter().next() {
-                scenario.terminate_instance(instance, false).await;
-            }
-            // Wait for the old instance to stop and a new instance to launch to bring the capacity back to 2.
-        }
-        Err(err) => {
-            info!(err, "error getting Autoscaling Group Instances");
-        }
+    let terminate_and_wait = scenario.terminate_instance_and_wait().await;
+    if let Err(err) = terminate_and_wait {
+        info!("There was a problem replacing an instance\n{err:?}");
     }
 
     // 10. DescribeScalingActivities: list the scaling activities that have occurred for the group so far.
     show_scenario_description(
         &scenario,
-        &"list the scaling activities that have occurred for the group so far",
+        "list the scaling activities that have occurred for the group so far",
     )
     .await;
 
@@ -69,6 +78,8 @@ async fn main() -> Result<(), anyhow::Error> {
     // 13. TerminateInstanceInAutoScalingGroup for each instance, specify ShouldDecrementDesiredCapacity=True. Wait for instances to stop.
     // 14. Delete LaunchTemplate.
     scenario.clean_scenario().await?;
+
+    info!("The scenario has been cleaned up!");
 
     Ok(())
 }
