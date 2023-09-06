@@ -2749,5 +2749,83 @@ s3_Scenario_UploadStream:
               snippet_tags:
                 - s3.tm.java2.upload_stream.import
                 - s3.tm.java2.upload_stream.main
+
   services:
     s3: {}
+s3_Scenario_MultipartUpload:
+  title: Perform a multipart upload to an &S3; object using an &AWS; SDK
+  title_abbrev: Perform a multipart upload
+  synopsis: perform a multipart upload to an &S3; object.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: The code examples use the following imports.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.import
+            - description: >-
+                Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html"
+                    type="documentation">S3 Transfer Manager</ulink> on top of the  <ulink
+                    url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation">&AWS;
+                    CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the
+                   content exceeds a threshold. The default threshold size is 8 MB.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.transferManager
+            - description: >-
+                Use the <ulink
+                    url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink> 
+                or (S3AsyncClient API) to perform a multipart upload.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.s3Client
+  services:
+    s3: {CreateMultipartUpload, UploadPart, CompleteMultipartUpload}
+s3_Scenario_UseChecksums:
+  title: Use checksums to work with an &S3; object using an &AWS; SDK
+  title_abbrev: Use checksums
+  synopsis: use checksums to work with an &S3; object.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: The code examples use a subset of the following imports.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.import
+            - description: >-
+                Specify a checksum algorithm for the <code>putObject</code> method when you <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html">build the 
+                <code>PutObjectRequest</code></ulink>.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.putObject
+            - description: >-
+                Verify the checksum for the <code>getObject</code> method when you <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/GetObjectRequest.Builder.html">build the GetObjectRequest</ulink>.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.getObject
+            - description: >-
+                Pre-calculate a checksum for the <code>putObject</code> method when you <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html">build the <code>PutObjectRequest</code></ulink>.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.putObjectPreCalc
+            - description: >-
+                Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html" type="documentation">S3 Transfer Manager</ulink>
+                on top of the <ulink url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation" >&AWS; CRT-based S3 client</ulink>
+                to transparently perform a multipart upload when the size of the content exceeds a threshold. The default threshold size is 8 MB.</para>
+                <para>You can specify a checksum algorithm for the SDK to use. By default, the SDK uses the CRC32 algorithm.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.multiPartTm
+            - description: >-
+                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink> 
+                      or (S3AsyncClient API) to perform a multipart upload. If you specify
+                      an additional checksum, you must specify the algorithm to use on the initiation of the upload.
+                      You must also specify the algorithm for each part request and provide the checksum calculated
+                      for each part after it is
+                      uploaded.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.multiPartS3Client
+  services:
+    s3: {CreateMultipartUpload, UploadPart, CompleteMultipartUpload}
