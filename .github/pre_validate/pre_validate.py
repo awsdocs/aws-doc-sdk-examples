@@ -103,7 +103,7 @@ ALLOW_LIST = {
     'AKIAIOSFODNN7EXAMPLE',
     'APKAEIBAERJR2EXAMPLE',
     'AppStreamUsageReportsCFNGlueAthenaAccess',
-    'examples/blob/main/applications/feedback'
+    'examples/blob/main/applications/feedback',
     'aws/acm/model/DescribeCertificateRequest',
     'aws/cloudtrail/model/LookupEventsRequest',
     'aws/codebuild/model/BatchGetBuildsResult',
