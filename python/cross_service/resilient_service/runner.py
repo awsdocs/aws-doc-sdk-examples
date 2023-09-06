@@ -195,11 +195,14 @@ class Runner:
         self.demo_choices()
 
         print("\nLet's implement a deep health check. For this demo, a deep health check tests whether\n"
-              "the web service can access the DynamoDB table that it depends on for recommendations.\n")
-        print("By implementing deep health checks, the load balancer can detect when one of the instances is failing and take\n"
-              "that instance out of rotation.\n")
+              "the web service can access the DynamoDB table that it depends on for recommendations. Note that\n"
+              "the deep health check is only for ELB routing and not for Auto Scaling instance health.\n"
+              "This kind of deep health check is not recommended for Auto Scaling instance health, because it\n"
+              "risks accidental termination of all instances in the Auto Scaling group when a dependent service fails.\n")
+        print("By implementing deep health checks, the load balancer can detect when one of the instances is failing\n"
+              "and take that instance out of rotation.\n")
         self.param_helper.put(self.param_helper.health_check, 'deep')
-        print(f"\nNow, checking target health indicates that the instance with bad credentials ({bad_instance_id}) "
+        print(f"\nNow, checking target health indicates that the instance with bad credentials ({bad_instance_id})\n"
               f"is unhealthy. Note that it might take a minute or two for the load balancer to detect the unhealthy \n"
               f"instance. Sending a GET request to the load balancer endpoint always returns a recommendation, because\n"
               "the load balancer takes unhealthy instances out of its rotation.\n")
