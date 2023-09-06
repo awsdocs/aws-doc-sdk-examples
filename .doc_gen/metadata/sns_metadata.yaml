@@ -1270,9 +1270,24 @@ sns_PublishFifoTopic:
           github: javav2/example_code/sns
           sdkguide:
           excerpts:
-            - description: Create a FIFO topic and FIFO queues. Subscribe the queues to the topic.
+            - description: >-
+                This example</para>
+                <itemizedlist>
+                 <listitem>
+                   <para>creates an &SNS; FIFO topic, two &SQS; FIFO queues, and one Standard queue.</para>
+                  </listitem>
+                  <listitem>
+                   <para>subscribes the queues to the topic and publishes a message to the topic.</para>
+                  </listitem>
+                </itemizedlist>
+                 <para>The <ulink
+                   url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/test/java/com/example/sns/PriceUpdateExampleTest.java"
+                   >test</ulink> verifies the receipt of the message to each queue. The <ulink
+                   url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/example_code/sns/src/main/java/com/example/sns/PriceUpdateExample.java"
+                   >complete example</ulink> also shows the addition of access policies and deletes the resources at
+                  the end.
               snippet_tags:
-                - sns.java2.CreateTopicFIFO.main
+                - sns.java2.PriceUpdateExample.display
     SAP ABAP:
       versions:
         - sdk_version: 1
