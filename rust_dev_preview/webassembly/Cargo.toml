@@ -16,6 +16,7 @@ aws-sdk-lambda = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "ne
 aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false }
 aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["event-stream"] }
 aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-async = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 async-trait = "0.1.63"
 console_error_panic_hook = "0.1.7"
 http = "0.2.8"
@@ -27,6 +28,8 @@ tower = "0.4.13"
 wasm-bindgen = "0.2.83"
 wasm-bindgen-futures = "0.4.33"
 wasm-timer = "0.2.5"
+tracing-wasm = "0.2.1"
+tracing = "0.1.37"
 
 [dependencies.web-sys]
 version = "0.3.60"
