@@ -186,9 +186,9 @@ function main() {
     "dynamodb_get_item -n $table_name -k $key_json_file -q [Item.title,Item.year,Item.info.M.rating,Item.info.M.plot] " \
     0
 
-  #  run_test "Deleting item from table" \
-  #    "dynamodb_delete_item -n $table_name -k $key_json_file " \
-  #    0
+    run_test "Deleting item from table" \
+      "dynamodb_delete_item -n $table_name -k $key_json_file " \
+      0
 
   echo "{ \"$table_name\" : $(<../movie_files/movies_0.json) }" >"$batch_json_file"
 

@@ -92,6 +92,26 @@ function clean_up() {
     rm ""$attribute_definitions_json_file""
   fi
 
+  if [ -e "$item_json_file" ]; then
+    rm ""$item_json_file""
+  fi
+
+  if [ -e "$key_json_file" ]; then
+    rm ""$key_json_file""
+  fi
+
+  if [ -e "$batch_json_file" ]; then
+    rm ""$batch_json_file""
+  fi
+
+  if [ -e "$attribute_names_json_file" ]; then
+    rm ""$attribute_names_json_file""
+  fi
+
+  if [ -e "$attributes_values_json_file" ]; then
+    rm ""$attributes_values_json_file""
+  fi
+
   return $result
 }
 
@@ -356,74 +376,74 @@ function dynamodb_getting_started_movies() {
     return 1
   fi
 
-    echo
-    echo_repeat "*" 88
-    echo
+  echo
+  echo_repeat "*" 88
+  echo
 
-    echo -n "Enter the title of a movie you want to add to the table: "
-    get_input
-    local title
-    title=$get_input_result
+  echo -n "Enter the title of a movie you want to add to the table: "
+  get_input
+  local added_title
+  added_title=$get_input_result
 
-    local year
-    get_int_input "What year was it released? "
-    year=$get_input_result
+  local added_year
+  get_int_input "What year was it released? "
+  added_year=$get_input_result
 
-    local rating
-    get_float_input "On a scale of 1 - 10, how do you rate it? " "1" "10"
-    rating=$get_input_result
+  local rating
+  get_float_input "On a scale of 1 - 10, how do you rate it? " "1" "10"
+  rating=$get_input_result
 
-    local plot
-    echo -n "Summarize the plot for me: "
-    get_input
-    plot=$get_input_result
+  local plot
+  echo -n "Summarize the plot for me: "
+  get_input
+  plot=$get_input_result
 
-    echo '{
-    "year": {"N" :"'"$year"'"},
-    "title": {"S" :  "'"$title"'"},
+  echo '{
+    "year": {"N" :"'"$added_year"'"},
+    "title": {"S" :  "'"$added_title"'"},
     "info": {"M" : {"plot": {"S" : "'"$plot"'"}, "rating": {"N" :"'"$rating"'"} } }
    }' >"$item_json_file"
 
-    if dynamodb_put_item -n "$table_name" -i "$item_json_file"; then
-      echo "The movie '$title' was successfully added to the table '$table_name'."
-    else
-      errecho "Put item failed. This demo will exit."
-      clean_up "$table_name"
-      return 1
-    fi
+  if dynamodb_put_item -n "$table_name" -i "$item_json_file"; then
+    echo "The movie '$title' was successfully added to the table '$table_name'."
+  else
+    errecho "Put item failed. This demo will exit."
+    clean_up "$table_name"
+    return 1
+  fi
 
-    echo
-    echo_repeat "*" 88
-    echo
+  echo
+  echo_repeat "*" 88
+  echo
 
-    echo "Let's update your movie."
-    get_float_input "You rated it $rating, what new rating would you give it? " "1" "10"
-    rating=$get_input_result
+  echo "Let's update your movie."
+  get_float_input "You rated it $rating, what new rating would you give it? " "1" "10"
+  rating=$get_input_result
 
-    echo -n "You summarized the plot as '$plot'."
-    echo "What would you say now? "
-    get_input
-    plot=$get_input_result
+  echo -n "You summarized the plot as '$plot'."
+  echo "What would you say now? "
+  get_input
+  plot=$get_input_result
 
-    echo '{
+  echo '{
     "year": {"N" :"'"$year"'"},
     "title": {"S" :  "'"$title"'"}
     }' >"$key_json_file"
 
-    echo '{
+  echo '{
     ":r": {"N" :"'"$rating"'"},
     ":p": {"S" : "'"$plot"'"}
    }' >"$item_json_file"
 
-    local update_expression="SET info.rating = :r, info.plot = :p"
+  local update_expression="SET info.rating = :r, info.plot = :p"
 
-    if dynamodb_update_item -n "$table_name" -k "$key_json_file" -e "$update_expression" -v "$item_json_file"; then
-      echo "Updated '$title' with new attributes."
-    else
-      errecho "Update item failed. This demo will exit."
-      clean_up "$table_name"
-      return 1
-    fi
+  if dynamodb_update_item -n "$table_name" -k "$key_json_file" -e "$update_expression" -v "$item_json_file"; then
+    echo "Updated '$title' with new attributes."
+  else
+    errecho "Update item failed. This demo will exit."
+    clean_up "$table_name"
+    return 1
+  fi
 
   echo
   echo_repeat "*" 88
@@ -441,8 +461,8 @@ function dynamodb_getting_started_movies() {
       return 1
     fi
   done
-  title="The Lord of the Rings: The Fellowship of the Ring"
-  year="2001"
+  local title="The Lord of the Rings: The Fellowship of the Ring"
+  local year="2001"
 
   if get_yes_no_input "Let's move on...do you want to get info about '$title'? (y/n) "; then
     echo '{
@@ -467,11 +487,11 @@ function dynamodb_getting_started_movies() {
     echo "Let's get a list of movies released in a given year."
     get_int_input "Enter a year between 1972 and 2018: " "1972" "2018"
     year=$get_input_result
-     echo '{
+    echo '{
     "#n": "year"
     }' >"$attribute_names_json_file"
 
-  echo '{
+    echo '{
     ":v": {"N" :"'"$year"'"}
     }' >"$attributes_values_json_file"
 
@@ -491,15 +511,59 @@ function dynamodb_getting_started_movies() {
     fi
   done
 
-  local result=0
-  clean_up "$table_name"
+  echo "Now let's scan for movies released in a range of years. Enter a year: "
+  get_int_input "Enter a year between 1972 and 2018: " "1972" "2018"
+  local start=$get_input_result
 
-  # shellcheck disable=SC2181
+  get_int_input "Enter another year: " "1972" "2018"
+  local end=$get_input_result
+
+  echo '{
+    "#n": "title"
+    }' >"$attribute_names_json_file"
+
+  echo '{
+    ":v1": {"N" : "'"$start"'},
+    ":v2": {"N" : "'"$end"'},
+    }' >"$attributes_values_json_file"
+
+  response=$(dynamodb_scan -n "$table_name" -f "#n BETWEEN :v1 AND :v2" -a "$attribute_names_json_file" -v "$attributes_values_json_file")
+
   if [[ ${?} -ne 0 ]]; then
-    result=1
+    errecho "Scan table failed. This demo will exit."
+    clean_up "$table_name"
+    return 1
   fi
 
-  return $result
+  echo "Here is what I found:"
+  echo "$response"
+
+  echo
+  echo_repeat "*" 88
+  echo
+
+  echo "Let's remove your movie from the table."
+
+  if get_yes_no_input "Do you want to remove '$title'? (y/n) "; then
+   echo '{
+  "year": {"N" :"'"$added_year"'"},
+  "title": {"S" :  "'"$added_title"'"}
+  }' >"$key_json_file"
+
+    if ! dynamodb_delete_item -n "$table_name" -k "$key_json_file"; then
+      errecho "Delete item failed. This demo will exit."
+      clean_up "$table_name"
+      return 1
+   fi
+  fi
+
+  echo "Now I will delete the table."
+
+  if ! clean_up "$table_name"; then
+    return 1
+  fi
+
+  return 0
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.scenario_getting_started_movies]
 
