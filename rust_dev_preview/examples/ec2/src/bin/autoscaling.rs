@@ -1,6 +1,6 @@
 use anyhow::anyhow;
 use ec2_code_examples::autoscaling::AutoScalingScenario;
-use tracing::info;
+use tracing::{info, warn};
 
 async fn show_scenario_description(scenario: &AutoScalingScenario, event: &str) {
     let auto_scaling_scenario_description = scenario.describe_scenario().await;
@@ -26,6 +26,11 @@ async fn main() -> Result<(), anyhow::Error> {
 
     info!("Prepared autoscaling scenario:\n{scenario}");
 
+    let stable = scenario.wait_for_stable(1).await;
+    if let Err(err) = stable {
+        warn!("Error while waiting for group to be stable: {err:?}");
+    }
+
     // 3. DescribeAutoScalingInstances: show that one instance has launched.
     show_scenario_description(
         &scenario,
@@ -49,9 +54,14 @@ async fn main() -> Result<(), anyhow::Error> {
     // 7. SetDesiredCapacity: set desired capacity to 2.
     let scale_desired_capacity = scenario.scale_desired_capacity(2).await;
     if let Err(err) = scale_desired_capacity {
-        info!("There was a problem setting desired capacity\n{err:?}");
+        warn!("There was a problem setting desired capacity\n{err:?}");
     }
+
     //   Wait for a second instance to launch.
+    let stable = scenario.wait_for_stable(2).await;
+    if let Err(err) = stable {
+        warn!("Error while waiting for group to be stable: {err:?}");
+    }
 
     // 8. DescribeAutoScalingInstances: show that two instances are launched.
     show_scenario_description(
@@ -63,7 +73,7 @@ async fn main() -> Result<(), anyhow::Error> {
     // 9. TerminateInstanceInAutoScalingGroup: terminate one of the instances in the group.
     let terminate_and_wait = scenario.terminate_instance_and_wait().await;
     if let Err(err) = terminate_and_wait {
-        info!("There was a problem replacing an instance\n{err:?}");
+        warn!("There was a problem replacing an instance\n{err:?}");
     }
 
     // 10. DescribeScalingActivities: list the scaling activities that have occurred for the group so far.
@@ -74,8 +84,13 @@ async fn main() -> Result<(), anyhow::Error> {
     .await;
 
     // 11. DisableMetricsCollection
+    let scale_group = scenario.scale_group().await;
+    if let Err(err) = scale_group {
+        warn!("Error scaling group to 0: {err:?}");
+    }
+    show_scenario_description(&scenario, "Scenario scaled to 0").await;
+
     // 12. DeleteAutoScalingGroup (to delete the group you must stop all instances):
-    // 13. TerminateInstanceInAutoScalingGroup for each instance, specify ShouldDecrementDesiredCapacity=True. Wait for instances to stop.
     // 14. Delete LaunchTemplate.
     scenario.clean_scenario().await?;
 
