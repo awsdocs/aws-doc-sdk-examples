@@ -111,7 +111,7 @@ class DynamoDBBasics
     until done
       scan_hash[:exclusive_start_key] = start_key unless start_key.nil?
       response = @table.scan(scan_hash)
-      movies.concat(response.items) unless response.items.nil?
+      movies.concat(response.items) unless response.items.empty?
       start_key = response.last_evaluated_key
       done = start_key.nil?
     end
