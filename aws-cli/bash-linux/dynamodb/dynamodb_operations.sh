@@ -452,8 +452,7 @@ function dynamodb_get_item() {
     response=$(
       aws dynamodb get-item \
         --table-name "$table_name" \
-        --key file://"$keys" \
-        --output text
+        --key file://"$keys"
     )
   fi
 
@@ -833,8 +832,6 @@ function dynamodb_batch_write_item() {
     errecho "ERROR: AWS reports batch-write-item operation failed.$response"
     return 1
   fi
-
-  echo "$response"
 
   return 0
 }
