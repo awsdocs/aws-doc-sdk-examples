@@ -30,7 +30,7 @@ function main() {
   # bashsupport disable=BP2001
   export VERBOSE=false
 
-  source ./test_general.sh
+  source ./include_tests.sh
   {
     local current_directory
     current_directory=$(pwd)
