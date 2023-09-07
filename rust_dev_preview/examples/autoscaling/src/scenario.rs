@@ -1,11 +1,9 @@
 use std::fmt::Display;
 
 use anyhow::anyhow;
-use aws_sdk_autoscaling::types::{
-    AutoScalingGroup, AutoScalingInstanceDetails, LaunchTemplateSpecification,
-};
+use aws_sdk_autoscaling::types::{AutoScalingGroup, Instance, LaunchTemplateSpecification};
 use aws_sdk_ec2::types::RequestLaunchTemplateData;
-use tokio_stream::StreamExt;
+use tracing::info;
 
 const LAUNCH_TEMPLATE_NAME: &str = "SDK_Code_Examples_EC2_Autoscaling_template_from_Rust_SDK";
 const AUTOSCALING_GROUP_NAME: &str = "SDK_Code_Examples_EC2_Autoscaling_Group_from_Rust_SDK";
@@ -20,11 +18,11 @@ pub struct AutoScalingScenario {
 impl Display for AutoScalingScenario {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_fmt(format_args!(
-            "\t  Launch Template: {}\n",
+            "\tLaunch Template ID: {}\n",
             self.launch_template_arn
         ))?;
         f.write_fmt(format_args!(
-            "\tScaling Group Arn: {}\n",
+            "\tScaling Group Name: {}\n",
             self.auto_scaling_group_name
         ))?;
 
@@ -33,24 +31,17 @@ impl Display for AutoScalingScenario {
 }
 
 pub struct AutoScalingScenarioDescription {
-    instances: Result<Vec<AutoScalingInstanceDetails>, anyhow::Error>,
+    instances: Vec<Instance>,
 }
 
 impl Display for AutoScalingScenarioDescription {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.write_str("\t        Instances:\n")?;
-        match &self.instances {
-            Ok(instances) => {
-                for instance in instances {
-                    f.write_fmt(format_args!(
-                        "\t\t- {}\n",
-                        instance.instance_id().unwrap_or_default()
-                    ))?;
-                }
-            }
-            Err(err) => {
-                f.write_fmt(format_args!("\t\t{err:?}\n"))?;
-            }
+        for instance in &self.instances {
+            f.write_fmt(format_args!(
+                "\t\t- {}\n",
+                instance.instance_id().unwrap_or_default()
+            ))?;
         }
 
         Ok(())
@@ -146,7 +137,7 @@ impl AutoScalingScenario {
     }
 
     pub async fn clean_scenario(self) -> Result<(), anyhow::Error> {
-        let scale_group = self
+        let delete_group = self
             .autoscaling
             .delete_auto_scaling_group()
             .auto_scaling_group_name(self.auto_scaling_group_name.clone())
@@ -161,10 +152,10 @@ impl AutoScalingScenario {
             .send()
             .await;
 
-        if scale_group.is_ok() && delete_launch_template.is_ok() {
+        if delete_group.is_ok() && delete_launch_template.is_ok() {
             Ok(())
         } else {
-            Err(anyhow!("There was an error cleaning the scenario\nScale Group: {scale_group:?}\nDelete Launch Template: {delete_launch_template:?}"))
+            Err(anyhow!("There was an error cleaning the scenario\nScale Group: {delete_group:?}\nDelete Launch Template: {delete_launch_template:?}"))
         }
     }
 
@@ -172,20 +163,7 @@ impl AutoScalingScenario {
         // 3. DescribeAutoScalingInstances: show that one instance has launched.
         // 8. DescribeAutoScalingInstances: show that two instances are launched.
 
-        let instances = self
-            .autoscaling
-            .describe_auto_scaling_instances()
-            .into_paginator()
-            .items()
-            .send()
-            .filter(|i| {
-                i.as_ref().is_ok_and(|i| {
-                    i.auto_scaling_group_name == Some(String::from(AUTOSCALING_GROUP_NAME))
-                })
-            })
-            .collect::<Result<Vec<_>, _>>()
-            .await
-            .map_err(|err| anyhow!("Could not find autoscaling instances: {err:?}"));
+        let instances = self.list_instances().await?;
 
         // 6. DescribeAutoScalingGroups: show the current state of the group.
         // 10. DescribeScalingActivities: list the scaling activities that have occurred for the group so far.
@@ -246,8 +224,8 @@ impl AutoScalingScenario {
         Ok(())
     }
 
-    pub async fn list_instance_arns(&self) -> Result<Vec<String>, anyhow::Error> {
-        Ok(vec![])
+    pub async fn list_instances(&self) -> Result<Vec<Instance>, anyhow::Error> {
+        Ok(self.get_group().await?.instances.unwrap_or_default())
     }
 
     pub async fn scale_min_size(&self, size: i32) -> Result<(), anyhow::Error> {
@@ -328,26 +306,22 @@ impl AutoScalingScenario {
         Ok(())
     }
 
-    pub async fn terminate_instance_and_wait(&self) -> Result<(), anyhow::Error> {
+    pub async fn terminate_some_instance(&self) -> Result<(), anyhow::Error> {
         // 9. TerminateInstanceInAutoScalingGroup: terminate one of the instances in the group.
         //   Wait for the old instance to stop and a new instance to launch to bring the capacity back to 2.
-        let instances = self.list_instance_arns().await;
+        let instances = self.list_instances().await;
         match instances {
             Ok(instances) => {
                 let instance = instances.first();
                 if let Some(instance) = instance {
-                    let termination = self
-                        .ec2
-                        .terminate_instances()
-                        .instance_ids(instance)
-                        .send()
-                        .await;
+                    let id = instance.instance_id().unwrap();
+                    info!("Terminating {id}");
+                    let termination = self.ec2.terminate_instances().instance_ids(id).send().await;
                     if let Err(err) = termination {
                         Err(anyhow!(
                             "There was a problem terminating an instance\n{err:?}"
                         ))
                     } else {
-                        // Wait for the old instance to stop and a new instance to launch to bring the capacity back to 2.
                         Ok(())
                     }
                 } else {

@@ -1,5 +1,7 @@
+use std::collections::BTreeSet;
+
 use anyhow::anyhow;
-use ec2_code_examples::autoscaling::AutoScalingScenario;
+use autoscaling_code_examples::scenario::AutoScalingScenario;
 use tracing::{info, warn};
 
 async fn show_scenario_description(scenario: &AutoScalingScenario, event: &str) {
@@ -10,11 +12,28 @@ async fn show_scenario_description(scenario: &AutoScalingScenario, event: &str) 
     }
 }
 
+#[derive(Default, Debug)]
+struct Warnings(Vec<String>);
+
+impl Warnings {
+    pub fn push(&mut self, warning: &str, error: anyhow::Error) {
+        let formatted = format!("{warning}: {error:?}");
+        warn!("{formatted}");
+        self.0.push(formatted);
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
+    }
+}
+
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
     tracing_subscriber::fmt::init();
 
     let shared_config = aws_config::from_env().load().await;
+
+    let mut warnings = Warnings::default();
 
     // 1. Create an EC2 launch template that you'll use to create an auto scaling group. Bonus: use SDK with EC2.CreateLaunchTemplate to create the launch template.
     // 2. CreateAutoScalingGroup: pass it the launch template you created in step 0. Give it min/max of 1 instance.
@@ -28,7 +47,10 @@ async fn main() -> Result<(), anyhow::Error> {
 
     let stable = scenario.wait_for_stable(1).await;
     if let Err(err) = stable {
-        warn!("Error while waiting for group to be stable: {err:?}");
+        warnings.push(
+            "There was a problem while waiting for group to be stable",
+            err,
+        );
     }
 
     // 3. DescribeAutoScalingInstances: show that one instance has launched.
@@ -41,7 +63,7 @@ async fn main() -> Result<(), anyhow::Error> {
     // 5. UpdateAutoScalingGroup: update max size to 3.
     let scale_max_size = scenario.scale_max_size(3).await;
     if let Err(err) = scale_max_size {
-        info!("There was a problem scaling max size\n{err:?}");
+        warnings.push("There was a problem scaling max size", err);
     }
 
     // 6. DescribeAutoScalingGroups: the current state of the group
@@ -54,13 +76,16 @@ async fn main() -> Result<(), anyhow::Error> {
     // 7. SetDesiredCapacity: set desired capacity to 2.
     let scale_desired_capacity = scenario.scale_desired_capacity(2).await;
     if let Err(err) = scale_desired_capacity {
-        warn!("There was a problem setting desired capacity\n{err:?}");
+        warnings.push("There was a problem setting desired capacity", err);
     }
 
     //   Wait for a second instance to launch.
     let stable = scenario.wait_for_stable(2).await;
     if let Err(err) = stable {
-        warn!("Error while waiting for group to be stable: {err:?}");
+        warnings.push(
+            "There was a problem while waiting for group to be stable",
+            err,
+        );
     }
 
     // 8. DescribeAutoScalingInstances: show that two instances are launched.
@@ -70,10 +95,54 @@ async fn main() -> Result<(), anyhow::Error> {
     )
     .await;
 
+    let ids_before = scenario
+        .list_instances()
+        .await
+        .map(|v| {
+            v.iter()
+                .map(|i| i.instance_id.clone().unwrap_or_default())
+                .collect::<BTreeSet<_>>()
+        })
+        .unwrap_or_default();
+
     // 9. TerminateInstanceInAutoScalingGroup: terminate one of the instances in the group.
-    let terminate_and_wait = scenario.terminate_instance_and_wait().await;
-    if let Err(err) = terminate_and_wait {
-        warn!("There was a problem replacing an instance\n{err:?}");
+    let terminate_some_instance = scenario.terminate_some_instance().await;
+    if let Err(err) = terminate_some_instance {
+        warnings.push("There was a problem replacing an instance", err);
+    }
+
+    let wait_after_terminate = scenario.wait_for_stable(1).await;
+    if let Err(err) = wait_after_terminate {
+        warnings.push(
+            "There was a problem waiting after terminating an instance",
+            err,
+        );
+    }
+
+    let wait_scale_up_after_terminate = scenario.wait_for_stable(2).await;
+    if let Err(err) = wait_scale_up_after_terminate {
+        warnings.push(
+            "There was a problem waiting for scale up after terminating an instance",
+            err,
+        );
+    }
+
+    let ids_after = scenario
+        .list_instances()
+        .await
+        .map(|v| {
+            v.iter()
+                .map(|i| i.instance_id.clone().unwrap_or_default())
+                .collect::<BTreeSet<_>>()
+        })
+        .unwrap_or_default();
+
+    let difference = ids_after.intersection(&ids_before).count();
+    if !(difference == 1 && ids_before.len() == 2 && ids_after.len() == 2) {
+        warnings.push(
+            "Before and after set not different",
+            anyhow!("{difference}"),
+        );
     }
 
     // 10. DescribeScalingActivities: list the scaling activities that have occurred for the group so far.
@@ -86,15 +155,24 @@ async fn main() -> Result<(), anyhow::Error> {
     // 11. DisableMetricsCollection
     let scale_group = scenario.scale_group().await;
     if let Err(err) = scale_group {
-        warn!("Error scaling group to 0: {err:?}");
+        warnings.push("There was a problem scaling the group to 0", err);
     }
     show_scenario_description(&scenario, "Scenario scaled to 0").await;
 
     // 12. DeleteAutoScalingGroup (to delete the group you must stop all instances):
     // 14. Delete LaunchTemplate.
-    scenario.clean_scenario().await?;
+    let clean_scenario = scenario.clean_scenario().await;
+    if let Err(err) = clean_scenario {
+        warnings.push("There was a problem cleaning the scenario", err);
+    } else {
+        info!("The scenario has been cleaned up!");
+    }
 
-    info!("The scenario has been cleaned up!");
-
-    Ok(())
+    if warnings.is_empty() {
+        Ok(())
+    } else {
+        Err(anyhow!(
+            "There were warnings during scenario execution:\n{warnings:?}"
+        ))
+    }
 }
