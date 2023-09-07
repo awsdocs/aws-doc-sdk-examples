@@ -380,15 +380,15 @@
                     "N": "1977"
                 },
                 "title": {
-                    "S": "Star Wars"
+                    "S": "Annie Hall"
                 },
                 "info": {
                     "M": {
                         "rating": {
-                            "N": "8.7"
+                            "N": "8.2"
                         },
                         "plot": {
-                            "S": "Luke Skywalker joins forces with a Knight, a cocky pilot, a wookiee and two droids to save the universe from the Empire's world-destroying battle-station, while also attempting to rescue Princess Leia from the evil Darth Vader."
+                            "S": "Neurotic New York comedian Alvy Singer falls in love with the ditsy Annie Hall."
                         }
                     }
                 }

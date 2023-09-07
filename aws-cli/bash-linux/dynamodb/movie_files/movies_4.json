@@ -6,15 +6,15 @@
                     "N": "1981"
                 },
                 "title": {
-                    "S": "Raiders of the Lost Ark"
+                    "S": "For Your Eyes Only"
                 },
                 "info": {
                     "M": {
                         "rating": {
-                            "N": "8.6"
+                            "N": "6.8"
                         },
                         "plot": {
-                            "S": "Archeologist and adventurer Indiana Jones is hired by the US government to find the Ark of the Covenant before the Nazis."
+                            "S": "Agent 007 is assigned to hunt for a lost British encryption device and prevent it from falling into enemy hands."
                         }
                     }
                 }
@@ -465,15 +465,15 @@
                     "N": "1960"
                 },
                 "title": {
-                    "S": "Spartacus"
+                    "S": "The Magnificent Seven"
                 },
                 "info": {
                     "M": {
                         "rating": {
-                            "N": "8"
+                            "N": "7.8"
                         },
                         "plot": {
-                            "S": "The slave Spartacus leads a violent revolt against the decadent Roman Republic."
+                            "S": "An oppressed Mexican peasant village assembles seven gunfighters to help defend their homes."
                         }
                     }
                 }
