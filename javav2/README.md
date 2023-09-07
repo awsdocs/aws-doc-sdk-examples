@@ -61,7 +61,9 @@ The following tutorials use the synchronous Java client to build sample applicat
 
 The following tutorials are AWS Lambda use cases: 
 
-+ [Creating a photo asset management application using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/pam_source_files) - Discusses how to develop a photo asset management application that lets users manage photos using labels. This serverless application uses many AWS services.
++ [Creating a photo asset management application using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_fsa_app) - Discusses how to develop a Feedback Sentiment Analyzer application using Machine Learning AWS services. The application solves a fictitious use case of a hotel that receives guest feedback on comment cards in a variety of languages. The application is developed by using the AWS SDK for Java (v2).
+
++ [Creating a Feedback Sentiment Analyzer application using the SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/pam_source_files) - Discusses how to develop a photo asset management application that lets users manage photos using labels. This serverless application uses many AWS services.
 
 + [Creating AWS serverless workflows using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_workflows_stepfunctions) - Discusses using the AWS SDK for Java and AWS Step Functions to create a workflow that invokes AWS services. Each workflow step is implemented by using an AWS Lambda function.
 
