@@ -1862,6 +1862,24 @@ dynamodb_Scenario_GettingStartedMovies:
                 a &DDB; database.
               snippet_tags:
                 - ddb.swift.basics
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.scenario_getting_started_movies
+                - aws-cli.bash-linux.dynamodb.CreateTable
+                - aws-cli.bash-linux.dynamodb.DescribeTable
+                - aws-cli.bash-linux.dynamodb.PutItem
+                - aws-cli.bash-linux.dynamodb.UpdateItem
+                - aws-cli.bash-linux.dynamodb.BatchWriteItem
+                - aws-cli.bash-linux.dynamodb.GetItem
+                - aws-cli.bash-linux.dynamodb.Query
+                - aws-cli.bash-linux.dynamodb.Scan
+                - aws-cli.bash-linux.dynamodb.DeleteItem
+                - aws-cli.bash-linux.dynamodb.DeleteTable
   services:
     dynamodb:
       {
