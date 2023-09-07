@@ -17,7 +17,6 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 sqs = boto3.resource('sqs')
-sns = boto3.resource('sns')
 # snippet-end:[python.example_code.sqs.queue_wrapper_imports]
 
 
@@ -118,23 +117,6 @@ def create_fifo_topic(name):
     """
     try:
         sns.delete()
-        logger.info("Deleted queue with URL=%s.", name)
-    except ClientError as error:
-        logger.exception("Couldn't create topic with name=%s!", name)
-        raise error
-# snippet-end:[python.example_code.sqs.CreateFifoTopic]
-
-
-# snippet-start:[python.example_code.sqs.CreateFifoTopic]
-def subscribe_queue(topic_arn, queue_arn):
-    """
-    Subscribe a queue to a topic.
-
-    :param name: The name for the topic.
-    :return: topic ARN.
-    """
-    try:
-        name.delete()
         logger.info("Deleted queue with URL=%s.", name)
     except ClientError as error:
         logger.exception("Couldn't create topic with name=%s!", name)
