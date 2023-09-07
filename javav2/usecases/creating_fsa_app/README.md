@@ -322,7 +322,7 @@ Create these Java classes in the **com.example.fsa.handlers** package. These Jav
 
 #### PollyHandler class
 
-The following Java code represents the **PollyHanlder** class. 
+The following Java code represents the **PollyHandler** class. 
 
 ```java
 package com.example.fsa.handlers;
