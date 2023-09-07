@@ -902,7 +902,7 @@ After you execute the AWS CDK script, the Lambda functions are created. However,
 
 Each Lambda function has a role used to invoke the Lambda function. For example, the **fnAnalyzeSentiment** function has the following role.
 
-**fsa-scmacdon-javascript-fnAnalyzeSentimentServiceR-14R5C2CE32WCM **
+**javascript-fnAnalyzeSentimentServiceR-14R5C2CE32WCM **
 
 **Note**: The exact name of the role depends on how you configured the AWS CDK script.
 
