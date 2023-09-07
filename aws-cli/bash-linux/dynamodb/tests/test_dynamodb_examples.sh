@@ -22,7 +22,7 @@
 ###############################################################################
 # function main
 #
-# This function runs the IAM examples' tests.
+# This function runs the Amazon DynamoDB examples' tests.
 ###############################################################################
 function main() {
   # bashsupport disable=BP2001
@@ -47,7 +47,7 @@ function main() {
   # This function prints usage information for the script.
   ###############################################################################
   function usage() {
-    echo "This script tests Amazon IAM operations in the AWS CLI."
+    echo "This script tests Amazon DynamoDB operations in the AWS CLI."
     echo ""
     echo "To pause the script between steps, so you can see the results in the"
     echo "AWS Management Console, include the parameter -i."

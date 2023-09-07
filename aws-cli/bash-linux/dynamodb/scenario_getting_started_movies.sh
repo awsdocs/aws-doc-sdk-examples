@@ -21,16 +21,20 @@
 #
 # Purpose
 #
-# Demonstrates using the AWS SDK for C++ to create an IAM user, create an IAM role, and apply the role to the user.
+# Demonstrates using the AWS Command Line Interface with Bash to create an Amazon DynamoDB table and
+#    perform a series of operations on the table.
 #
-# 1. Create a user.
-# 2. Create a role.
-# 3. Create an IAM policy allowing the user to list Amazon S3 buckets.
-# 4. Attach the IAM policy to the role.
-# 6. Attempt to list the buckets using the new user's credentials. This should fail.
-# 7. Let the new user assume the created role.
-# 8. List objects in the bucket using the assumed role's credentials. This should succeed.
-# 9. Delete all the created resources.
+# 1. Create a table with partition: year and sort: title. (CreateTable)
+# 2. Add a new movie. (PutItem)
+# 3. Update the rating and plot of the movie by using an update expression. (UpdateItem)
+# 4. Put movies in the table from the JSON files in the "movie_files" directory. (BatchWriteItem)
+# 5. Get a movie by Key. (partition + sort) (GetItem)
+# 6. Use Query with a key condition expression to return all movies released in a given
+#    year. (Query)
+# 7. Use Scan to return movies released within a range of years. (Scan)
+# 8. Delete a movie. (DeleteItem)
+# 9. Delete the table. (DeleteTable)
+#
 
 ###############################################################################
 # function get_input
@@ -120,7 +124,7 @@ function clean_up() {
 ###############################################################################
 # function get_yes_no_input
 #
-# This function requests a yes/no answer from the user, following to a prompt.
+# This function requests a yes/no answer from the user.
 #
 # Parameters:
 #       $1 - The prompt.
@@ -195,10 +199,12 @@ function get_int_input() {
 
     echo -n "$1"
     get_input
-    # Remove integers.
+
+    # Remove leading integers.
     # shellcheck disable=SC2001
     response=$(echo "$get_input_result" | sed "s/[[:digit:]]*//")
 
+    # Non-empty string indicates invalid input.
     if [[ -n "$response" ]]; then
 
       echo -e "Please enter an integer."
@@ -275,6 +281,7 @@ function get_float_input() {
       response=$(echo "$response" | sed "s/^\.[[:digit:]]*//")
     fi
 
+    # Non-empty string indicates invalid input.
     if [[ -n "$response" ]]; then
       echo -e "Please enter a floating point number."
       continue
@@ -330,11 +337,7 @@ function echo_repeat() {
 ###############################################################################
 # function dynamodb_getting_started_movies
 #
-# Scenario to create an IAM user, create an IAM role, and apply the role to the user.
-#
-#     "IAM access" permissions are needed to run this code.
-#     "STS assume role" permissions are needed to run this code. (Note: It might be necessary to
-#           create a custom policy).
+# Scenario to create an Amazon DynamoDB table and perform a series of operations on the table.
 #
 # Returns:
 #       0 - If successful.
@@ -480,6 +483,7 @@ function dynamodb_getting_started_movies() {
       return 1
     fi
   done
+
   local title="The Lord of the Rings: The Fellowship of the Ring"
   local year="2001"
 

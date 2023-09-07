@@ -23,12 +23,12 @@ source ./awsdocs_general.sh
 ###############################################################################
 # function dynamodb_create_table
 #
-# This function creates a Amazon DynamoDB table.
+# This function creates an Amazon DynamoDB table.
 #
 # Parameters:
 #       -n table_name  -- The name of the table to create.
-#       -a attribute_definitions -- List of attributes and their types
-#       -k key_schema -- List of attributes and their key types.
+#       -a attribute_definitions -- JSON file path of a list of attributes and their types..
+#       -k key_schema -- JSON file path of a list of attributes and their key types..
 #       -p provisioned_throughput -- Provisioned throughput settings for the table.
 #
 #  Returns:
@@ -117,8 +117,6 @@ function dynamodb_create_table() {
     return 1
   fi
 
-  echo "$response"
-
   return 0
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.CreateTable]
@@ -205,9 +203,7 @@ function dynamodb_wait_table_active() {
 #
 # Parameters:
 #       -n table_name  -- The name of the table.
-#       -k keys  -- Path to json file containing the keys that identify the item to update.
-#       -e update expression  -- An expression that defines one or more attributes to be updated.
-#       -v values  -- Path to json file containing the update values.
+#       -i item  -- Path to json file containing the item update values..
 #
 #  Returns:
 #       0 - If successful.
@@ -246,7 +242,7 @@ function dynamodb_put_item() {
   export OPTIND=1
 
   if [[ -z "$table_name" ]]; then
-    errecho "ERROR: You must provide a table name with the -t parameter."
+    errecho "ERROR: You must provide a table name with the -n parameter."
     usage
     return 1
   fi
@@ -289,7 +285,9 @@ function dynamodb_put_item() {
 #
 # Parameters:
 #       -n table_name  -- The name of the table.
-#       -i item  -- Path to json file containing the item update values.
+#       -k keys  -- Path to json file containing the keys that identify the item to update.
+#       -e update expression  -- An expression that defines one or more attributes to be updated.
+#       -v values  -- Path to json file containing the update values.
 #
 #  Returns:
 #       0 - If successful.
@@ -332,7 +330,7 @@ function dynamodb_update_item() {
   export OPTIND=1
 
   if [[ -z "$table_name" ]]; then
-    errecho "ERROR: You must provide a table name with the -t parameter."
+    errecho "ERROR: You must provide a table name with the -n parameter."
     usage
     return 1
   fi
@@ -431,7 +429,7 @@ function dynamodb_get_item() {
   export OPTIND=1
 
   if [[ -z "$table_name" ]]; then
-    errecho "ERROR: You must provide a table name with the -t parameter."
+    errecho "ERROR: You must provide a table name with the -n parameter."
     usage
     return 1
   fi
@@ -465,7 +463,7 @@ function dynamodb_get_item() {
   fi
 
   if [[ -n "$query" ]]; then
-    echo "$response" | sed "/^\t/s/\t//1" # Remove initial tab that the JMSEpath query inserts on some strings.
+    echo "$response" | sed "/^\t/s/\t//1" # Remove initial tab that the JMSEPath query inserts on some strings.
   else
     echo "$response"
   fi
@@ -520,7 +518,7 @@ function dynamodb_delete_item() {
   export OPTIND=1
 
   if [[ -z "$table_name" ]]; then
-    errecho "ERROR: You must provide a table name with the -t parameter."
+    errecho "ERROR: You must provide a table name with the -n parameter."
     usage
     return 1
   fi
@@ -560,7 +558,7 @@ function dynamodb_delete_item() {
 # This function queries a DynamoDB table.
 #
 # Parameters:
-#       -t table_name  -- The name of the table.
+#       -n table_name  -- The name of the table.
 #       -k key_condition_expression -- The key condition expression.
 #       -a attribute_names -- Path to JSON file containing the attribute names.
 #       -v attribute_values -- Path to JSON file containing the attribute values.
@@ -658,6 +656,8 @@ function dynamodb_query() {
   fi
 
   echo "$response"
+
+  return 0
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.Query]
 
@@ -668,7 +668,7 @@ function dynamodb_query() {
 # This function scans a DynamoDB table.
 #
 # Parameters:
-#       -t table_name  -- The name of the table.
+#       -n table_name  -- The name of the table.
 #       -f filter_expression  -- The filter expression.
 #       -a expression_attribute_names -- Path to JSON file containing the expression attribute names.
 #       -v expression_attribute_values -- Path to JSON file containing the expression attribute values.
@@ -692,7 +692,7 @@ function dynamodb_scan() {
     echo "Scan a DynamoDB table."
     echo " -n table_name  -- The name of the table."
     echo " -f filter_expression  -- The filter expression."
-    echo " -a expression_attribute_names -- Path to JSON file containing the expression attribute names.."
+    echo " -a expression_attribute_names -- Path to JSON file containing the expression attribute names."
     echo " -v expression_attribute_values -- Path to JSON file containing the expression attribute values."
     echo " [-p projection_expression]  -- Optional projection expression."
     echo ""
@@ -766,6 +766,8 @@ function dynamodb_scan() {
   fi
 
   echo "$response"
+
+  return 0
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.Scan]
 
