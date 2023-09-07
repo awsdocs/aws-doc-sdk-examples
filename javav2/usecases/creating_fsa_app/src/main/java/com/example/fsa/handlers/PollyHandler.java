@@ -1,6 +1,6 @@
 /*
-  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  SPDX-License-Identifier: Apache-2.0
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.fsa.handlers;
@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Map;
 
-public class PollyHanlder implements RequestHandler<Map<String, Object>, String> {
+public class PollyHandler implements RequestHandler<Map<String, Object>, String> {
     @Override
     public String handleRequest(Map<String, Object> requestObject, Context context) {
         S3Service s3Service = new S3Service();
