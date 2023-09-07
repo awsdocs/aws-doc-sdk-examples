@@ -1288,6 +1288,17 @@ sns_PublishFifoTopic:
                   the end.
               snippet_tags:
                 - sns.java2.PriceUpdateExample.display
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/sns
+          excerpts:
+            - description:
+                Create an &SNS; FIFO topic, subscribe &SQS; FIFO and standard queues to the topic,
+                and publish a message to the topic.
+              snippet_tags:
+                - python.example_code.sns.Scenario_SubscribeFifoTopic
+                - python.example_code.sns.FifoTopicWrapper
     SAP ABAP:
       versions:
         - sdk_version: 1
@@ -1300,7 +1311,7 @@ sns_PublishFifoTopic:
               snippet_tags:
                 - sns.abapv1.publish_message_to_fifo_queue
   services:
-    sns: {}
+    sns: {CreateTopic, Publish, Subscribe}
 sns_PublishLargeMessage:
   title: Publish a large message to &SNS; with &S3; using an &AWS; SDK
   title_abbrev: Publish a large message
