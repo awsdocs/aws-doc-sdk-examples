@@ -380,15 +380,15 @@
                     "N": "1946"
                 },
                 "title": {
-                    "S": "Notorious"
+                    "S": "The Big Sleep"
                 },
                 "info": {
                     "M": {
                         "rating": {
-                            "N": "8.2"
+                            "N": "8.1"
                         },
                         "plot": {
-                            "S": "A woman is asked to spy on a group of Nazi friends in South America. How far will she have to go to ingratiate herself with them?"
+                            "S": "Private detective Philip Marlowe is hired by a rich family. Before the complex case is over, he's seen murder, blackmail, and what might be love."
                         }
                     }
                 }
