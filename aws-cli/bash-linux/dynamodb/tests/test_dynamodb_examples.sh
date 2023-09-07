@@ -36,6 +36,7 @@ function main() {
     current_directory=$(pwd)
     cd ..
     source ./dynamodb_operations.sh
+    source ./scenario_getting_started_movies.sh
     # shellcheck disable=SC2164
     cd "$current_directory"
   }
@@ -295,6 +296,57 @@ function main() {
   run_test " deleting table" \
     "dynamodb_delete_table -n $table_name " \
     0
+
+  # bashsupport disable=BP2001
+  export mock_input="True"
+
+     # bashsupport disable=BP2001
+  export mock_input_array=( \
+  "testcli_scenario" \
+  "Frogs" \
+  "1979" \
+  "1" \
+  "Croak" \
+  "2" \
+  "Hop" \
+  "y" \
+  "1979" \
+  "n" \
+  "1974" \
+  "1979" \
+  "y" \
+  "y")
+  # Enter a name for a new DynamoDB table:
+  # Enter the title of a movie you want to add to the table:
+  # What year was it released?
+  # On a scale of 1 - 10, how do you rate it?
+  # Summarize the plot for me:
+  # what new rating would you give it?
+  # You summarized the plot as 'Croak'.What would you say now?
+  # Let's move on...do you want to get info about 'The Lord of the Rings: The Fellowship of the Ring'? (y/n)
+  # Enter a year between 1972 and 2018:
+  # Try another year? (y/n)
+  # Enter a year between 1972 and 2018:
+  # Enter another year:
+   # Do you want to remove 'Frogs'? (y/n)
+   # Do you want to delete the table 'testcli_scenario'? (y/n)
+
+ {
+    local current_directory
+    current_directory=$(pwd)
+    cd ..
+
+    dynamodb_getting_started_movies
+#  run_test "$test_count. dynamodb getting started with movies." \
+#    dynamodb_getting_started_movies \
+#    0
+   # shellcheck disable=SC2164
+    cd "$current_directory"
+  }
+
+
+  unset mock_input
+
 
   rm "$item_json_file"
   rm "$key_json_file"

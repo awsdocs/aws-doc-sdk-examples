@@ -657,7 +657,7 @@ function dynamodb_query() {
     return 1
   fi
 
-  echo $response
+  echo "$response"
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.Query]
 
@@ -765,7 +765,7 @@ function dynamodb_scan() {
     return 1
   fi
 
-  echo $response
+  echo "$response"
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.Scan]
 
