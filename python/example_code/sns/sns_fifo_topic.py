@@ -28,8 +28,6 @@ class FifoTopicWrapper:
         """
         self.sns_resource = sns_resource
 
-    # snippet-end:[python.example_code.sns.FifoTopicWrapper]
-
     # snippet-start:[python.example_code.sns.CreateFifoTopic]
     def create_fifo_topic(self, topic_name):
         """
@@ -163,6 +161,8 @@ class FifoTopicWrapper:
 
 
 # snippet-end:[python.example_code.sns.DeleteQueue]
+
+# snippet-end:[python.example_code.sns.FifoTopicWrapper]
 
 
 # snippet-start:[python.example_code.sns.Scenario_SubscribeFifoTopic]
