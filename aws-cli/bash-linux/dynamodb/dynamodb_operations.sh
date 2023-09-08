@@ -27,8 +27,8 @@ source ./awsdocs_general.sh
 #
 # Parameters:
 #       -n table_name  -- The name of the table to create.
-#       -a attribute_definitions -- JSON file path of a list of attributes and their types..
-#       -k key_schema -- JSON file path of a list of attributes and their key types..
+#       -a attribute_definitions -- JSON file path of a list of attributes and their types.
+#       -k key_schema -- JSON file path of a list of attributes and their key types.
 #       -p provisioned_throughput -- Provisioned throughput settings for the table.
 #
 #  Returns:
@@ -203,7 +203,7 @@ function dynamodb_wait_table_active() {
 #
 # Parameters:
 #       -n table_name  -- The name of the table.
-#       -i item  -- Path to json file containing the item update values..
+#       -i item  -- Path to json file containing the item values.
 #
 #  Returns:
 #       0 - If successful.
@@ -220,7 +220,7 @@ function dynamodb_put_item() {
     echo "function dynamodb_put_item"
     echo "Put an item into a DynamoDB table."
     echo " -n table_name  -- The name of the table."
-    echo " -i item  -- Path to json file containing the item update values."
+    echo " -i item  -- Path to json file containing the item values."
     echo ""
   }
 
