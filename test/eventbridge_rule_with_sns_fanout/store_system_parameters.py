@@ -24,10 +24,17 @@ if __name__ == "__main__":
     # List of key-value pairs representing parameter names and their corresponding values
     mappings = [
         ('/account-mappings/ruby', '260778392212'),
-        ('/account-mappings/dotnetv3', '565846806325'),
-        ('/account-mappings/javav2', '814548047983'),
-        ('/account-mappings/python', '489398071715'),
-        ('/account-mappings/gov2', '489398071715')
+        ('/account-mappings/php', '733931915187'),
+        ('/account-mappings/dotnetv3', '441997275833'),
+        ('/account-mappings/javascriptv3', '875008041426'),
+        ('/account-mappings/swift', '637397754108'),
+        ('/account-mappings/rust_dev_preview', '050288538048'),
+        ('/account-mappings/cpp', '770244195820'),
+        ('/account-mappings/python', '664857444588'),
+        ('/account-mappings/gov2', '234521034040'),
+        ('/account-mappings/sap-abap', '099736152523'),
+        ('/account-mappings/javav2', '814548047983'), # back-up 667348412466
+        ('/account-mappings/kotlin', '814548047983') # back-up 667348412466
     ]
 
     # Call the function to generate or update the parameter values in Parameter Store
