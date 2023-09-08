@@ -803,7 +803,7 @@ public class TranslateService {
 
 ### FSAApplicationResources class
 
-Add the following Java code to the **com.example.fsa** package. This represents the **FSAApplicationResources** class.
+Add the following Java code to the **com.example.fsa** package. This represents the **FSAApplicationResources** class. This class is used only if you want to update the Lambda functions using **ModifyLambda** (this is discussed later in this document).
 
 ```java
 package com.example.fsa;
