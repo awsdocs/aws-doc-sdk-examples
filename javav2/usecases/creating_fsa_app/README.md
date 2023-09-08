@@ -912,7 +912,9 @@ Each Lambda function has a role used to invoke the Lambda function. For example,
 
 **Note**: The exact name of the role depends on how you configured the AWS CDK script.
 
-Make sure each role has the correct service permission to invoke the corresponding AWS service. 
+Make sure each role has the correct service permission to invoke the corresponding AWS service. Otherwise, you may encounter an error message such as:
+
+      user: arn:aws:sts::xxxx:assumed-role/fsa-user-java-fnTranslateTextServiceRole41F86E1F-7K31GKO5HOUF is not authorized to perform: comprehend:DetectDominantLanguage because no identity-based policy allows the comprehend:DetectDominantLanguage action
 
 **Note**: For information about how to modify the a role's permission, see [Using service-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html).
 

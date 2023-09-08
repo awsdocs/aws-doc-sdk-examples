@@ -164,44 +164,6 @@ const JAVASCRIPT_FUNCTIONS = [
   },
 ];
 
-
-/*
-const JAVA_BUNDLING_CONFIG = {
-  timeout: Duration.seconds(90),
-  memorySize: 1024,
-  codeAsset: () => {
-    // Relative to cdk.json.
-    const javaSources = resolve("../../../javav2/usecases/creating_fsa_app/");
-
-    return Code.fromAsset(javaSources, {
-      bundling: {
-        command: [
-          "/bin/sh",
-          "-c",
-          "mvn install && cp /asset-input/target/creating_fsa_app-1.0-SNAPSHOT.jar /asset-output/",
-        ],
-        image: Runtime.JAVA_11.bundlingImage,
-        user: "root",
-        outputType: BundlingOutput.ARCHIVED,
-        volumes: [
-          {
-            hostPath: `${process.env["HOME"]}/.m2/`,
-            containerPath: "/root/.m2",
-          },
-        ],
-      },
-    });
-  },
-  runtime: Runtime.JAVA_11,
-  handlers: {
-    ExtractText: "com.example.fsa.handlers.S3Handler",
-    AnalyzeSentiment: "com.example.fsa.handlers.SentimentHandler",
-    TranslateText: "com.example.fsa.handlers.TranslateHandler",
-    fnSynthesizeAudio: "com.example.fsa.handlers.PollyHandler",
-  },
-};
-*/
-
 const JAVA_BUNDLING_CONFIG = {
   command: [
     "/bin/sh",
