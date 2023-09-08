@@ -7,5 +7,5 @@ package com.example.fsa;
 
 public class FSAApplicationResources {
 
-    public static final String STORAGE_BUCKET = "<Enter Bucket Name>";
+    public static final String STORAGE_BUCKET = System.getenv("STORAGE_BUCKET_NAME");
 }

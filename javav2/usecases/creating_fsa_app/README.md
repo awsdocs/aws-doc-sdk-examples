@@ -45,7 +45,7 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java JDK 17
++ Java JDK 11
 + Maven 3.6 or later
 
 ### Important
@@ -102,9 +102,9 @@ The backend of the FSA application is implemented by using these AWS Lambda func
 - **ExtractText** 
 - **AnalyzeSentiment** 
 - **TranslateText**
-- **fnSynthesizeAudio** 
+- **SynthesizeAudio** 
 
-**Note**: These AWS Lambda names are short names. The full names that appear in the AWS Management Console depend on how you configure the provided AWS CDK script. Full names appear as {NAME}{Function Name}. For example, **fsa-scmacdon-javascript-fnSynthesizeAudio134971D4-x8Q5178Y4ZBH**.
+**Note**: These AWS Lambda names are short names. The full names that appear in the AWS Management Console depend on how you configure the provided AWS CDK script. Full names appear as {NAME}{Function Name}. For example, **fsa-user-java-SynthesizeAudio134971D4-x8Q5178Y4ZBH**.
 
 ## Create an IntelliJ project
 
@@ -119,7 +119,7 @@ The backend of the FSA application is implemented by using these AWS Lambda func
 
 At this point, you have a new project named **fsa_app**.
 
-**Note:** Be sure to use Java 17 (as shown in the following **pom.xml** file).
+**Note:** Be sure to use Java 11 (as shown in the following **pom.xml** file).
 
 Make sure that the **pom.xml** file looks like the following.
 
@@ -133,8 +133,8 @@ Make sure that the **pom.xml** file looks like the following.
     <artifactId>fsa_app</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencyManagement>
@@ -796,21 +796,23 @@ public class TranslateService {
 
 ### FSAApplicationResources class
 
-Add the The following Java code to the **com.example.fsa** package. This represents the **FSAApplicationResources** class.
+Add the following Java code to the **com.example.fsa** package. This represents the **FSAApplicationResources** class.
 
 ```java
 package com.example.fsa;
 
 public class FSAApplicationResources {
 
-    public static final String STORAGE_BUCKET = "<Update the bucket name>";
+    public static final String STORAGE_BUCKET = System.getenv("STORAGE_BUCKET_NAME");
 }
 
 ```
 
 ### ModifyLambda class
 
-Add the following Java code to the **com.example.fsa** package. This represents the **ModifyLambda** class that is used to update all four Lambda functions created using the CDK script with the Lambda functions created using the AWS SDK for Java V2. Specify the correct Lambda function names and the name of the FAT JAR that is placed in the S3 bucket (see the instructions later in this document). 
+Add the following Java code to the **com.example.fsa** package. This represents the **ModifyLambda** class that is used to update all four Lambda functions created using the CDK script with the Lambda functions created using the AWS SDK for Java V2. 
+
+Specify the correct Lambda function names and the name of the FAT JAR that is placed in the S3 bucket (see the instructions later in this document). 
 
 ```java
 package com.example.fsa;
@@ -887,7 +889,11 @@ For complete instuctions on how to run the supplied AWS CDK script, see [Feedbac
 
 ### Update the Lambda functions
 
-After you execute the AWS CDK script, the Lambda functions are created. However, you need to replace the ones installed using the AWS CDK with the ones you created by using the AWS SDK for Java. To perform this task, you can run Java code that automatically updates the Lambda functions using a FAT JAR. Perform the following tasks:
+After you execute the AWS CDK script, the Lambda functions are created. However, you can replace the ones installed by using the AWS CDK with newer versions if you desire. For example, if you want to add more logging functionality, you can modify the Java Handler classes and run this class without having to run the CDK script again. 
+
+**Note**: This is an optional step.
+
+To update the Java Lambda functions, perform the following tasks:
 
 1. Update the FSAApplicationResources with the AWS resource names that the AWS CDK script created. Make sure to update the **STORAGE_BUCKET** value. 
 
@@ -898,15 +904,15 @@ After you execute the AWS CDK script, the Lambda functions are created. However,
 4. Run the **ModifyLambda** Java class.  Make sure to specify the exact AWS Lambda names, which you can view in the Lambda console. Otherwise, the code does not work. When done, you see a message that the Lambda functions have been updated with the FAT JAR. 
 
 
-### Update permissions for the Lambda roles
+### Check permissions for the Lambda roles
 
-Each Lambda function has a role used to invoke the Lambda function. For example, the **fnAnalyzeSentiment** function has the following role.
+Each Lambda function has a role used to invoke the Lambda function. For example, the **AnalyzeSentiment** function has the following role.
 
-**javascript-fnAnalyzeSentimentServiceR-14R5C2CE32WCM **
+**java-AnalyzeSentimentServiceR-14R5C2CE32WCM **
 
 **Note**: The exact name of the role depends on how you configured the AWS CDK script.
 
-Make sure each role has the correct service permission to invoke the corresponding AWS service. If you do not modify the role's permission for each Lambda function, you will encounter a permission error. 
+Make sure each role has the correct service permission to invoke the corresponding AWS service. 
 
 **Note**: For information about how to modify the a role's permission, see [Using service-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html).
 
