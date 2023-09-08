@@ -889,7 +889,7 @@ For complete instuctions on how to run the supplied AWS CDK script, see [Feedbac
 
 ### Update the Lambda functions
 
-After you execute the AWS CDK script, the Lambda functions are created. However, you can replace the ones installed by using the AWS CDK with newer versions if you desire. For example, if you want to add more logging functionality, you can modify the Java Handler classes and run this class without having to run the CDK script again. 
+After you execute the AWS CDK script, the Lambda functions are created. However, you can replace the ones installed by using the AWS CDK with newer versions if you desire. For example, if you want to add more logging functionality, you can modify the Java Handler classes and run **ModifyLambda**** without having to run the CDK script again. 
 
 **Note**: This is an optional step.
 
@@ -901,7 +901,7 @@ To update the Java Lambda functions, perform the following tasks:
 
 3. Sign in to the AWS Management Console for Amazon S3 and put the FAT JAR in the S3 bucket named **STORAGE_BUCKET**. (This bucket was created by the AWS CDK script.)   
 
-4. Run the **ModifyLambda** Java class.  Make sure to specify the exact AWS Lambda names, which you can view in the Lambda console. Otherwise, the code does not work. When done, you see a message that the Lambda functions have been updated with the FAT JAR. 
+4. Run the **ModifyLambda** Java class. Make sure to specify the exact AWS Lambda names, which you can view in the Lambda console. Otherwise, the code does not work. When done, you see a message that the Lambda functions have been updated. 
 
 
 ### Check permissions for the Lambda roles
