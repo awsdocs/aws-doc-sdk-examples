@@ -931,7 +931,7 @@ Check the Lambda configuration options and if desired you can modify values such
 
 ### Run the application
 
-After you run the AWS CDK script, you can run the client application by using the Amazon Cloudfront distribution URL as specified in the supplied AWS CDK instructions. 
+After you run the AWS CDK script, you can run the client application by using the Amazon Cloudfront distribution URL as specified in the supplied AWS CDK instructions. After you upload an image using the React client, a workflow is invoked and you can view its progress using AWS Step Functions. When it done, each step is green, you will see a .mp3 file in the S3 bucket, and you will see a new record in the Amazon DynamoDB table. 
 
 ### Next steps
 Congratulations! You have created and deployed the FSA application. As stated at the beginning of this tutorial, delete all of the resources by following the AWS CDK instructions so that you won't continue to be charged for them.
