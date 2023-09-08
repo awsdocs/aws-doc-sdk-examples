@@ -40,6 +40,7 @@ class Movies:
         :param dyn_resource: A Boto3 DynamoDB resource.
         """
         self.dyn_resource = dyn_resource
+        # The table will be set during the scenario by calling 'exists' with the table name.
         self.table = None
 # snippet-end:[python.example_code.dynamodb.helper.Movies.class_decl]
 
