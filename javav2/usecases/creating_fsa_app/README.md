@@ -896,7 +896,7 @@ For complete instuctions on how to run the supplied AWS CDK script, see [Feedbac
 
 ### Update the Lambda functions
 
-After you execute the AWS CDK script, the Lambda functions are created. However, you can replace the ones installed by using the AWS CDK with newer versions if you desire. For example, if you want to add more logging functionality, you can modify the Java Handler classes and run **ModifyLambda**** without having to run the CDK script again. 
+After you execute the AWS CDK script, the Lambda functions are created. However, you can replace the ones installed by using the AWS CDK with newer versions if you desire. For example, if you want to add more logging functionality, you can modify the Java Handler classes and run **ModifyLambda** without having to run the CDK script again. 
 
 **Note**: This is an optional step.
 
@@ -923,11 +923,11 @@ Make sure each role has the correct service permission to invoke the correspondi
 
       user: arn:aws:sts::xxxx:assumed-role/fsa-user-java-fnTranslateTextServiceRole41F86E1F-7K31GKO5HOUF is not authorized to perform: comprehend:DetectDominantLanguage because no identity-based policy allows the comprehend:DetectDominantLanguage action
 
-**Note**: For information about how to modify the a role's permission, see [Using service-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html).
+**Note**: For information about how to modify a role's permission, see [Using service-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html).
 
 ### Check the Lambda configuration options
 
-Check the Lambda configuration options. You can modify the timeout value and adjust the memory allocated each Lambda function. For more information, see [Configuring Lambda function options](https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html).
+Check the Lambda configuration options and if desired you can modify values such as the timeout value and adjust the memory allocated to each function. For more information, see [Configuring Lambda function options](https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html).
 
 ### Run the application
 
