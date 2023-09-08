@@ -343,14 +343,17 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
         S3Service s3Service = new S3Service();
         PollyService pollyService = new PollyService();
         String myValues = requestObject.toString();
-        context.getLogger().log("*** ALL values: " +myValues  );
+        context.getLogger().log("*** ALL values: " +myValues);
         String translatedText = getTranslatedText(myValues);
         String key = getKeyName(myValues);
+        context.getLogger().log("*** About to get bucket");
+        String bucket = getBucketName(myValues);
+        context.getLogger().log("*** My Bucket: " +bucket);
         String newFileName = convertFileEx(key);
         context.getLogger().log("*** Translated Text: " +translatedText +" and new key is "+newFileName);
         try {
             InputStream is = pollyService.synthesize(translatedText);
-            String audioFile = s3Service.putAudio(is, newFileName);
+            String audioFile = s3Service.putAudio(is, bucket, newFileName);
             context.getLogger().log("You have successfully added the " +audioFile +"  in the S3 bucket");
             return audioFile ;
         } catch (IOException e) {
@@ -360,20 +363,13 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
 
     // This method extracts the value following translated_text using Reg Exps.
     private String getTranslatedText(String myString) {
-        // Define the regular expression pattern to match key-value pair.
-        Pattern pattern = Pattern.compile("translated_text\\s*=\\s*([^,}]*)");
-        Matcher matcher = pattern.matcher(myString);
+        // Define the regular expression pattern to match the "translated_text" key-value pair.
+        String pattern = "translated_text=([^,}]+)";
+        Pattern r = Pattern.compile(pattern);
+        Matcher matcher = r.matcher(myString);
 
-        String extractedValue = null;
         if (matcher.find()) {
-            // Find the second occurrence.
-            if (matcher.find()) {
-                extractedValue = matcher.group(1);
-            }
-        }
-
-        if (extractedValue != null) {
-            return extractedValue;
+            return matcher.group(1);
         }
         return "";
     }
@@ -382,6 +378,19 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
     private static String getKeyName(String input) {
         String pattern = "object=([^,}]+)";
         Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(input);
+
+        if (m.find()) {
+            System.out.println("Found value: " + m.group(1));
+            return m.group(1);
+        }
+        return "";
+    }
+
+    // This method extracts the bucket using Reg Exps.
+    private static String getBucketName(String input) {
+        String pattern = "bucket=([^,]+)";
+         Pattern r = Pattern.compile(pattern);
         Matcher m = r.matcher(input);
 
         if (m.find()) {
@@ -406,6 +415,7 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
     }
 }
 
+
 ```
 
 #### S3Handler class
@@ -416,11 +426,10 @@ package com.example.fsa.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.example.fsa.FSAApplicationResources;
 import com.example.fsa.services.ExtractTextService;
 import java.util.Map;
 
-public class S3Handler implements  RequestHandler<Map<String, Object>, String>{
+public class S3Handler implements RequestHandler<Map<String, Object>, String>{
 
     @Override
     public String handleRequest(Map<String, Object> requestObject, Context context) {
@@ -429,7 +438,7 @@ public class S3Handler implements  RequestHandler<Map<String, Object>, String>{
         String bucket = (String) requestObject.getOrDefault("bucket", "");
         String fileName = (String) requestObject.getOrDefault("object", "");
         context.getLogger().log("*** Bucket: " + bucket + ", fileName: " + fileName);
-        String myText =  textService.getCardText(FSAApplicationResources.STORAGE_BUCKET, fileName);
+        String myText = textService.getCardText(bucket, fileName);
         context.getLogger().log("*** Text: " + myText);
         return myText;
     }
@@ -718,7 +727,6 @@ The following Java code represents the **S3Service** class.
 ```java
  package com.example.fsa.services;
 
-import com.example.fsa.FSAApplicationResources;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -730,13 +738,13 @@ import java.io.InputStream;
 public class S3Service {
 
     // Put the audio file into the Amazon S3 bucket.
-    public String putAudio(InputStream is, String key) throws IOException {
+    public String putAudio(InputStream is, String bucket, String key) throws IOException {
         S3Client s3 = S3Client.builder()
             .region(Region.US_EAST_1)
             .build();
 
         PutObjectRequest putOb = PutObjectRequest.builder()
-            .bucket(FSAApplicationResources.STORAGE_BUCKET)
+            .bucket(bucket)
             .contentType("audio/mp3")
             .key(key)
             .build();
@@ -758,7 +766,6 @@ public class S3Service {
         return buffer.toByteArray();
     }
 }
-
 
 ```
 
@@ -803,7 +810,7 @@ package com.example.fsa;
 
 public class FSAApplicationResources {
 
-    public static final String STORAGE_BUCKET = System.getenv("STORAGE_BUCKET_NAME");
+    public static final String STORAGE_BUCKET = "<Enter Bucket Name>";
 }
 
 ```
@@ -918,7 +925,9 @@ Make sure each role has the correct service permission to invoke the correspondi
 
 **Note**: For information about how to modify the a role's permission, see [Using service-linked roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html).
 
+### Check the Lambda configuration options
 
+Check the Lambda configuration options. You can modify the timeout value and adjust the memory allocated each Lambda function. For more information, see [Configuring Lambda function options](https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html).
 
 ### Run the application
 

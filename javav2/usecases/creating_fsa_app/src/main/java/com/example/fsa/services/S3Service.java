@@ -5,7 +5,6 @@
 
 package com.example.fsa.services;
 
-import com.example.fsa.FSAApplicationResources;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -17,13 +16,13 @@ import java.io.InputStream;
 public class S3Service {
 
     // Put the audio file into the Amazon S3 bucket.
-    public String putAudio(InputStream is, String key) throws IOException {
+    public String putAudio(InputStream is, String bucket, String key) throws IOException {
         S3Client s3 = S3Client.builder()
             .region(Region.US_EAST_1)
             .build();
 
         PutObjectRequest putOb = PutObjectRequest.builder()
-            .bucket(FSAApplicationResources.STORAGE_BUCKET)
+            .bucket(bucket)
             .contentType("audio/mp3")
             .key(key)
             .build();

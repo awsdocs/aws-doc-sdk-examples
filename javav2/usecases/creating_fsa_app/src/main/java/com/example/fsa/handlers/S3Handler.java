@@ -1,13 +1,12 @@
 /*
-  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-  SPDX-License-Identifier: Apache-2.0
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
 */
 
 package com.example.fsa.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.example.fsa.FSAApplicationResources;
 import com.example.fsa.services.ExtractTextService;
 import java.util.Map;
 
@@ -20,7 +19,7 @@ public class S3Handler implements RequestHandler<Map<String, Object>, String>{
         String bucket = (String) requestObject.getOrDefault("bucket", "");
         String fileName = (String) requestObject.getOrDefault("object", "");
         context.getLogger().log("*** Bucket: " + bucket + ", fileName: " + fileName);
-        String myText = textService.getCardText(FSAApplicationResources.STORAGE_BUCKET, fileName);
+        String myText = textService.getCardText(bucket, fileName);
         context.getLogger().log("*** Text: " + myText);
         return myText;
     }
