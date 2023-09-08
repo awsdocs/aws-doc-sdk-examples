@@ -98,11 +98,7 @@ async fn main() -> Result<(), anyhow::Error> {
     let ids_before = scenario
         .list_instances()
         .await
-        .map(|v| {
-            v.iter()
-                .map(|i| i.instance_id.clone().unwrap_or_default())
-                .collect::<BTreeSet<_>>()
-        })
+        .map(|v| v.into_iter().collect::<BTreeSet<_>>())
         .unwrap_or_default();
 
     // 9. TerminateInstanceInAutoScalingGroup: terminate one of the instances in the group.
@@ -130,11 +126,7 @@ async fn main() -> Result<(), anyhow::Error> {
     let ids_after = scenario
         .list_instances()
         .await
-        .map(|v| {
-            v.iter()
-                .map(|i| i.instance_id.clone().unwrap_or_default())
-                .collect::<BTreeSet<_>>()
-        })
+        .map(|v| v.into_iter().collect::<BTreeSet<_>>())
         .unwrap_or_default();
 
     let difference = ids_after.intersection(&ids_before).count();
@@ -153,7 +145,7 @@ async fn main() -> Result<(), anyhow::Error> {
     .await;
 
     // 11. DisableMetricsCollection
-    let scale_group = scenario.scale_group().await;
+    let scale_group = scenario.scale_group_to_zero().await;
     if let Err(err) = scale_group {
         warnings.push("There was a problem scaling the group to 0", err);
     }
