@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {resolve} from "path";
-import {BundlingOutput, Duration} from "aws-cdk-lib";
-import {Code, Runtime} from "aws-cdk-lib/aws-lambda";
+import { resolve } from "path";
+import { BundlingOutput, Duration } from "aws-cdk-lib";
+import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
 
-import {AppFunctionConfig} from "./constructs/app-lambdas";
+import { AppFunctionConfig } from "./constructs/app-lambdas";
 
 const BASE_APP_FUNCTION: AppFunctionConfig = {
   name: "TestLambda",
@@ -46,9 +46,9 @@ const BASE_APP_FUNCTION: AppFunctionConfig = {
 
 const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
   // The 'name' property must match the examples below in new examples.
-  {...BASE_APP_FUNCTION, name: "ExtractText"},
+  { ...BASE_APP_FUNCTION, name: "ExtractText" },
   // Override properties by including them after expanding the function object.
-  {...BASE_APP_FUNCTION, memorySize: 256, name: "AnalyzeSentiment"},
+  { ...BASE_APP_FUNCTION, memorySize: 256, name: "AnalyzeSentiment" },
   {
     ...BASE_APP_FUNCTION,
     codeAsset() {
@@ -61,7 +61,7 @@ const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
     },
     name: "TranslateText",
   },
-  {...BASE_APP_FUNCTION, name: "SynthesizeAudio"},
+  { ...BASE_APP_FUNCTION, name: "SynthesizeAudio" },
 ];
 
 const RUBY_ROOT =
@@ -164,11 +164,123 @@ const JAVASCRIPT_FUNCTIONS = [
   },
 ];
 
+
+/*
+const JAVA_BUNDLING_CONFIG = {
+  timeout: Duration.seconds(90),
+  memorySize: 1024,
+  codeAsset: () => {
+    // Relative to cdk.json.
+    const javaSources = resolve("../../../javav2/usecases/creating_fsa_app/");
+
+    return Code.fromAsset(javaSources, {
+      bundling: {
+        command: [
+          "/bin/sh",
+          "-c",
+          "mvn install && cp /asset-input/target/creating_fsa_app-1.0-SNAPSHOT.jar /asset-output/",
+        ],
+        image: Runtime.JAVA_11.bundlingImage,
+        user: "root",
+        outputType: BundlingOutput.ARCHIVED,
+        volumes: [
+          {
+            hostPath: `${process.env["HOME"]}/.m2/`,
+            containerPath: "/root/.m2",
+          },
+        ],
+      },
+    });
+  },
+  runtime: Runtime.JAVA_11,
+  handlers: {
+    ExtractText: "com.example.fsa.handlers.S3Handler",
+    AnalyzeSentiment: "com.example.fsa.handlers.SentimentHandler",
+    TranslateText: "com.example.fsa.handlers.TranslateHandler",
+    fnSynthesizeAudio: "com.example.fsa.handlers.PollyHandler",
+  },
+};
+*/
+
+const JAVA_BUNDLING_CONFIG = {
+  command: [
+    "/bin/sh",
+    "-c",
+    "mvn install && cp /asset-input/target/creating_fsa_app-1.0-SNAPSHOT.jar /asset-output/",
+  ],
+  outputType: BundlingOutput.ARCHIVED,
+  user: "root",
+  image: Runtime.JAVA_11.bundlingImage,
+  volumes: [
+    {
+      hostPath: `${process.env["HOME"]}/.m2/`,
+      containerPath: "/root/.m2",
+    },
+  ],
+ 
+};
+
+const JAVA_FUNCTIONS: AppFunctionConfig[] = [
+  {
+    ...BASE_APP_FUNCTION,
+    name: "ExtractText",
+    codeAsset: () => {
+      const source = resolve(
+        "../../../javav2/usecases/creating_fsa_app"
+      );
+      return Code.fromAsset(source, {
+        bundling: JAVA_BUNDLING_CONFIG,
+      });
+    },
+    handler: "com.example.fsa.handlers.S3Handler"
+  },
+  {
+    ...BASE_APP_FUNCTION,
+    name: "AnalyzeSentiment",
+    codeAsset: () => {
+      const source = resolve(
+        "../../../javav2/usecases/creating_fsa_app"
+      );
+      return Code.fromAsset(source, {
+        bundling: JAVA_BUNDLING_CONFIG,
+      });
+    },
+    handler: "com.example.fsa.handlers.SentimentHandler"
+  },
+  {
+    ...BASE_APP_FUNCTION,
+    name: "TranslateText",
+    codeAsset: () => {
+      const source = resolve(
+        "../../../javav2/usecases/creating_fsa_app"
+      );
+      return Code.fromAsset(source, {
+        bundling: JAVA_BUNDLING_CONFIG,
+      });
+    },
+    handler: "com.example.fsa.handlers.TranslateHandler"
+  },
+  {
+    ...BASE_APP_FUNCTION,
+    name: "SynthesizeAudio",
+    codeAsset: () => {
+      const source = resolve(
+        "../../../javav2/usecases/creating_fsa_app"
+      );
+      return Code.fromAsset(source, {
+        bundling: JAVA_BUNDLING_CONFIG,
+      });
+    },
+    handler: "com.example.fsa.handlers.PollyHandler"
+  },
+];
+
 const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
   examplelang: EXAMPLE_LANG_FUNCTIONS,
   // Add more languages here. For example
   // javascript: JAVASCRIPT_FUNCTIONS,
   ruby: RUBY_FUNCTIONS,
+  java: JAVA_FUNCTIONS,
   javascript: JAVASCRIPT_FUNCTIONS,
 };
 
