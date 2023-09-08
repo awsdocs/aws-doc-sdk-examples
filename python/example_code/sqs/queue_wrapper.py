@@ -107,23 +107,6 @@ def remove_queue(queue):
 # snippet-end:[python.example_code.sqs.DeleteQueue]
 
 
-# snippet-start:[python.example_code.sqs.CreateFifoTopic]
-def create_fifo_topic(name):
-    """
-    Create a FIFO (First In First Out) topic to use with queues.
-
-    :param name: The name for the topic.
-    :return: topic ARN.
-    """
-    try:
-        sns.delete()
-        logger.info("Deleted queue with URL=%s.", name)
-    except ClientError as error:
-        logger.exception("Couldn't create topic with name=%s!", name)
-        raise error
-# snippet-end:[python.example_code.sqs.CreateFifoTopic]
-
-
 # snippet-start:[python.example_code.sqs.Scenario_ManageQueues]
 def usage_demo():
     """Shows how to create, list, and delete queues."""
