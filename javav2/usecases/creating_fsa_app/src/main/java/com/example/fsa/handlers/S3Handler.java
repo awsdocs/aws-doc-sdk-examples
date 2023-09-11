@@ -16,8 +16,8 @@ public class S3Handler implements RequestHandler<Map<String, Object>, String>{
     public String handleRequest(Map<String, Object> requestObject, Context context) {
         // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon S3 event.
         ExtractTextService textService = new ExtractTextService();
-        String bucket = (String) requestObject.getOrDefault("bucket", "");
-        String fileName = (String) requestObject.getOrDefault("object", "");
+        String bucket = (String) requestObject.get("bucket");
+        String fileName = (String) requestObject.get("object");
         context.getLogger().log("*** Bucket: " + bucket + ", fileName: " + fileName);
         String myText = textService.getCardText(bucket, fileName);
         context.getLogger().log("*** Text: " + myText);

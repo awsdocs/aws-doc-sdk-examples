@@ -11,8 +11,6 @@ import com.example.fsa.services.PollyService;
 import com.example.fsa.services.S3Service;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Map;
 
 public class PollyHandler implements RequestHandler<Map<String, Object>, String> {
@@ -20,14 +18,10 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
     public String handleRequest(Map<String, Object> requestObject, Context context) {
         S3Service s3Service = new S3Service();
         PollyService pollyService = new PollyService();
-        String myValues = requestObject.toString();
-        context.getLogger().log("*** ALL values: " +myValues);
-        String translatedText = getTranslatedText(myValues);
-        String key = getKeyName(myValues);
-        context.getLogger().log("*** About to get bucket");
-        String bucket = getBucketName(myValues);
-        context.getLogger().log("*** My Bucket: " +bucket);
-        String newFileName = convertFileEx(key);
+        String translatedText = (String) requestObject.get("translated_text");
+        String bucket = (String) requestObject.get("bucket");
+        String key = (String) requestObject.get("object");
+        String newFileName = key+".mp3";
         context.getLogger().log("*** Translated Text: " +translatedText +" and new key is "+newFileName);
         try {
             InputStream is = pollyService.synthesize(translatedText);
@@ -37,58 +31,5 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    // This method extracts the value following translated_text using Reg Exps.
-    private String getTranslatedText(String myString) {
-        // Define the regular expression pattern to match the "translated_text" key-value pair.
-        String pattern = "translated_text=([^,}]+)";
-        Pattern r = Pattern.compile(pattern);
-        Matcher matcher = r.matcher(myString);
-
-        if (matcher.find()) {
-            return matcher.group(1);
-        }
-        return "";
-    }
-
-    // This method extracts the key using Reg Exps.
-    private static String getKeyName(String input) {
-        String pattern = "object=([^,}]+)";
-        Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(input);
-
-        if (m.find()) {
-            System.out.println("Found value: " + m.group(1));
-            return m.group(1);
-        }
-        return "";
-    }
-
-    // This method extracts the bucket using Reg Exps.
-    private static String getBucketName(String input) {
-        String pattern = "bucket=([^,]+)";
-         Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(input);
-
-        if (m.find()) {
-            System.out.println("Found value: " + m.group(1));
-            return m.group(1);
-        }
-        return "";
-    }
-
-    // Replaces the file extension to mp3.
-    public static String convertFileEx(String originalFileName) {
-        String newExtension = "mp3";
-
-        // Get the index of the last dot (.) in the filename.
-        int lastIndex = originalFileName.lastIndexOf(".");
-        if (lastIndex > 0) {
-            // Extract the file name without extension.
-            String fileNameWithoutExtension = originalFileName.substring(0, lastIndex);
-            return fileNameWithoutExtension + "." + newExtension;
-        }
-        return "";
     }
 }

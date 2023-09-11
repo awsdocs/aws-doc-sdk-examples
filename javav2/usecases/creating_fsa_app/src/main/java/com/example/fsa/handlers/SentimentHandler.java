@@ -10,30 +10,17 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.example.fsa.services.DetectSentimentService;
 import org.json.simple.JSONObject;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SentimentHandler implements RequestHandler<Map<String, Object>, JSONObject> {
 
     @Override
     public JSONObject handleRequest(Map<String, Object> requestObject, Context context) {
-        // Log the entire JSON input.
-        String inputString = requestObject.toString();
-        context.getLogger().log("Received JSON: " + inputString);
-        String value = extractValueFromRequestObject(inputString);
-        context.getLogger().log("Extracted text: " + value);
+        String sourceText = (String) requestObject.get("source_text");
+        context.getLogger().log("Extracted text: " +sourceText);
         DetectSentimentService detectSentimentService = new DetectSentimentService();
-        JSONObject jsonOb = detectSentimentService.detectSentiments(value);
-        context.getLogger().log("NEW JSON: " + jsonOb.toJSONString());
+        JSONObject jsonOb = detectSentimentService.detectSentiments(sourceText);
+        context.getLogger().log("JSON: " + jsonOb.toJSONString());
         return jsonOb;
-    }
-
-    private static String extractValueFromRequestObject(String inputString) {
-        Matcher matcher = Pattern.compile("source_text=([^,}]+)").matcher(inputString);
-        if (matcher.find()) {
-            return matcher.group(1);
-        }
-        return "";
     }
 }
 
