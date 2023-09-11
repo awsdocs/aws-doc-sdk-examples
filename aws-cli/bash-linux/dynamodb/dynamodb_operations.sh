@@ -121,7 +121,6 @@ function dynamodb_create_table() {
 }
 # snippet-end:[aws-cli.bash-linux.dynamodb.CreateTable]
 
-# snippet-start:[aws-cli.bash-linux.dynamodb.DescribeTable]
 ###############################################################################
 # function dynamodb_wait_table_active
 #
@@ -130,7 +129,7 @@ function dynamodb_create_table() {
 # Parameters:
 #       -n table_name  -- The name of the table.
 #
-#     And:
+#  Returns:
 #       0 - Table is active.
 #       1 - If it fails.
 ###############################################################################
@@ -171,9 +170,74 @@ function dynamodb_wait_table_active() {
     return 1
   fi
 
-  local table_status="NONE"
-  while [[ "$table_status" != "ACTIVE" ]]; do
-    sleep 1
+
+  aws dynamodb wait table-exists \
+    --table-name "$table_name"
+
+   local error_code=${?}
+
+    if [[ $error_code -ne 0 ]]; then
+      aws_cli_error_log "$error_code"
+      errecho "ERROR: AWS reports wait table-exists operation failed."
+      return 1
+    fi
+
+  return 0
+}
+
+# snippet-start:[aws-cli.bash-linux.dynamodb.DescribeTable]
+###############################################################################
+# function dynamodb_describe_table
+#
+# This function return the status of a DynamoDB table.
+#
+# Parameters:
+#       -n table_name  -- The name of the table.
+#
+#  Response:
+#       - TableStatus:
+#     And:
+#       0 - Table is active.
+#       1 - If it fails.
+###############################################################################
+function dynamodb_describe_table {
+  local table_name
+  local option OPTARG # Required to use getopts command in a function.
+
+  #######################################
+  # Function usage explanation
+  #######################################
+  function usage() {
+    echo "function dynamodb_describe_table"
+    echo "Describe the status of a DynamoDB table."
+    echo "  -n table_name  -- The name of the table."
+    echo ""
+  }
+
+  # Retrieve the calling parameters.
+  while getopts "n:h" option; do
+    case "${option}" in
+      n) table_name="${OPTARG}" ;;
+      h)
+        usage
+        return 0
+        ;;
+      \?)
+        echo "Invalid parameter"
+        usage
+        return 1
+        ;;
+    esac
+  done
+  export OPTIND=1
+
+  if [[ -z "$table_name" ]]; then
+    errecho "ERROR: You must provide a table name with the -n parameter."
+    usage
+    return 1
+  fi
+
+  local table_status
     table_status=$(
       aws dynamodb describe-table \
         --table-name "$table_name" \
@@ -181,7 +245,7 @@ function dynamodb_wait_table_active() {
         --query 'Table.TableStatus'
     )
 
-    echo "Table status: $table_status"
+   local error_code=${?}
 
     if [[ $error_code -ne 0 ]]; then
       aws_cli_error_log "$error_code"
@@ -189,7 +253,7 @@ function dynamodb_wait_table_active() {
       return 1
     fi
 
-  done
+  echo "$table_status"
 
   return 0
 }
@@ -896,7 +960,7 @@ function dynamodb_batch_get_item() {
 
   if [[ $error_code -ne 0 ]]; then
     aws_cli_error_log $error_code
-    errecho "ERROR: AWS reports batch-write-item operation failed.$response"
+    errecho "ERROR: AWS reports batch-get-item operation failed.$response"
     return 1
   fi
 

@@ -123,6 +123,15 @@ function main() {
     "dynamodb_wait_table_active -n $test_table_name " \
     0
 
+  run_test "Describing table" \
+    "dynamodb_describe_table -n $test_table_name " \
+    0
+
+  if [[ "$test_command_response" != "ACTIVE" ]];  then
+    test_failed "Table is not active."
+    return 1
+  fi
+
   run_test "Listing tables" \
     "dynamodb_list_tables " \
     0
