@@ -333,8 +333,6 @@ import com.example.fsa.services.PollyService;
 import com.example.fsa.services.S3Service;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.Map;
 
 public class PollyHandler implements RequestHandler<Map<String, Object>, String> {
@@ -342,14 +340,10 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
     public String handleRequest(Map<String, Object> requestObject, Context context) {
         S3Service s3Service = new S3Service();
         PollyService pollyService = new PollyService();
-        String myValues = requestObject.toString();
-        context.getLogger().log("*** ALL values: " +myValues);
-        String translatedText = getTranslatedText(myValues);
-        String key = getKeyName(myValues);
-        context.getLogger().log("*** About to get bucket");
-        String bucket = getBucketName(myValues);
-        context.getLogger().log("*** My Bucket: " +bucket);
-        String newFileName = convertFileEx(key);
+        String translatedText = (String) requestObject.get("translated_text");
+        String bucket = (String) requestObject.get("bucket");
+        String key = (String) requestObject.get("object");
+        String newFileName = key+".mp3";
         context.getLogger().log("*** Translated Text: " +translatedText +" and new key is "+newFileName);
         try {
             InputStream is = pollyService.synthesize(translatedText);
@@ -360,61 +354,7 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
             throw new RuntimeException(e);
         }
     }
-
-    // This method extracts the value following translated_text using Reg Exps.
-    private String getTranslatedText(String myString) {
-        // Define the regular expression pattern to match the "translated_text" key-value pair.
-        String pattern = "translated_text=([^,}]+)";
-        Pattern r = Pattern.compile(pattern);
-        Matcher matcher = r.matcher(myString);
-
-        if (matcher.find()) {
-            return matcher.group(1);
-        }
-        return "";
-    }
-
-    // This method extracts the key using Reg Exps.
-    private static String getKeyName(String input) {
-        String pattern = "object=([^,}]+)";
-        Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(input);
-
-        if (m.find()) {
-            System.out.println("Found value: " + m.group(1));
-            return m.group(1);
-        }
-        return "";
-    }
-
-    // This method extracts the bucket using Reg Exps.
-    private static String getBucketName(String input) {
-        String pattern = "bucket=([^,]+)";
-         Pattern r = Pattern.compile(pattern);
-        Matcher m = r.matcher(input);
-
-        if (m.find()) {
-            System.out.println("Found value: " + m.group(1));
-            return m.group(1);
-        }
-        return "";
-    }
-
-    // Replaces the file extension to mp3.
-    public static String convertFileEx(String originalFileName) {
-        String newExtension = "mp3";
-
-        // Get the index of the last dot (.) in the filename.
-        int lastIndex = originalFileName.lastIndexOf(".");
-        if (lastIndex > 0) {
-            // Extract the file name without extension.
-            String fileNameWithoutExtension = originalFileName.substring(0, lastIndex);
-            return fileNameWithoutExtension + "." + newExtension;
-        }
-        return "";
-    }
 }
-
 
 ```
 
@@ -433,10 +373,10 @@ public class S3Handler implements RequestHandler<Map<String, Object>, String>{
 
     @Override
     public String handleRequest(Map<String, Object> requestObject, Context context) {
-        // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon S3 event.
+        // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key.
         ExtractTextService textService = new ExtractTextService();
-        String bucket = (String) requestObject.getOrDefault("bucket", "");
-        String fileName = (String) requestObject.getOrDefault("object", "");
+        String bucket = (String) requestObject.get("bucket");
+        String fileName = (String) requestObject.get("object");
         context.getLogger().log("*** Bucket: " + bucket + ", fileName: " + fileName);
         String myText = textService.getCardText(bucket, fileName);
         context.getLogger().log("*** Text: " + myText);
@@ -457,32 +397,20 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.example.fsa.services.DetectSentimentService;
 import org.json.simple.JSONObject;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class SentimentHandler implements RequestHandler<Map<String, Object>, JSONObject> {
 
     @Override
     public JSONObject handleRequest(Map<String, Object> requestObject, Context context) {
-        // Log the entire JSON input.
-        String inputString = requestObject.toString();
-        context.getLogger().log("Received JSON: " + inputString);
-        String value = extractValueFromRequestObject(inputString);
-        context.getLogger().log("Extracted text: " + value);
+        String sourceText = (String) requestObject.get("source_text");
+        context.getLogger().log("Extracted text: " +sourceText);
         DetectSentimentService detectSentimentService = new DetectSentimentService();
-        JSONObject jsonOb = detectSentimentService.detectSentiments(value);
-        context.getLogger().log("NEW JSON: " + jsonOb.toJSONString());
+        JSONObject jsonOb = detectSentimentService.detectSentiments(sourceText);
+        context.getLogger().log("JSON: " + jsonOb.toJSONString());
         return jsonOb;
     }
-
-    private static String extractValueFromRequestObject(String inputString) {
-        Matcher matcher = Pattern.compile("source_text=([^,}]+)").matcher(inputString);
-        if (matcher.find()) {
-            return matcher.group(1);
-        }
-        return "";
-    }
 }
+
 
 ```
 
@@ -499,39 +427,23 @@ import com.example.fsa.services.DetectSentimentService;
 import com.example.fsa.services.TranslateService;
 import org.json.simple.JSONObject;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class TranslateHandler  implements RequestHandler<Map<String, Object>, JSONObject> {
+public class TranslateHandler implements RequestHandler<Map<String, Object>, JSONObject> {
 
     @Override
     public JSONObject handleRequest(Map<String, Object> requestObject, Context context) {
         TranslateService translateService = new TranslateService();
-        String preValStr = requestObject.toString();
-        context.getLogger().log("Pre Value: " + preValStr);
-        String sourceText = getTranslatedText(preValStr);
+        String sourceText = (String) requestObject.get("extracted_text");
         context.getLogger().log("NEW Value: " + sourceText);
 
         // We have the source text - need to figure out what language it's in.
         DetectSentimentService sentimentService = new DetectSentimentService();
         String lanCode = sentimentService.detectTheDominantLanguage(sourceText);
-        String translatedText;
-        translatedText = translateService.translateText(lanCode, sourceText);
+        String translatedText = translateService.translateText(lanCode, sourceText);
         context.getLogger().log("Translated text : " + translatedText);
         JSONObject jsonResponse = new JSONObject();
         jsonResponse.put("translated_text", translatedText);
         return jsonResponse;
-        }
-
-    private String getTranslatedText(String myString) {
-        String extractedValue;
-        Pattern pattern = Pattern.compile("extracted_text\\s*=\\s*([^,}]*)");
-        Matcher matcher = pattern.matcher(myString);
-        if (matcher.find()) {
-            extractedValue = matcher.group(1);
-            return extractedValue;
-        }
-        return "";
     }
 }
 ```
