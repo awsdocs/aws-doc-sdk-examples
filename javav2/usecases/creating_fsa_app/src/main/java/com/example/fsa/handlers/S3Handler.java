@@ -14,7 +14,7 @@ public class S3Handler implements RequestHandler<Map<String, Object>, String>{
 
     @Override
     public String handleRequest(Map<String, Object> requestObject, Context context) {
-        // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon S3 event.
+        // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon EventBridge event.
         ExtractTextService textService = new ExtractTextService();
         String bucket = (String) requestObject.get("bucket");
         String fileName = (String) requestObject.get("object");
