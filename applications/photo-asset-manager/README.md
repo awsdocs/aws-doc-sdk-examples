@@ -44,7 +44,7 @@ End user authentication is handled using Amazon Cognito. A user pool is provisio
 - [AWS Cloud Development Kit (CDK)](https://docs.aws.amazon.com/cdk/)
 - [AWS CloudFormation (CFN)](https://docs.aws.amazon.com/cloudformation/)
 - [Amazon Rekognition](https://docs.aws.amazon.com/rekognition/)
-- [Amazon API Gateway](https://docs.aws.amazon.com/api-gateway/)
+- [Amazon API Gateway](https://docs.aws.amazon.com/apigateway/)
 - [Amazon CloudFront](https://docs.aws.amazon.com/cloudfront/)
 - [Amazon Cognito](https://docs.aws.amazon.com/cognito/)
 - [Amazon S3](https://docs.aws.amazon.com/s3/)
