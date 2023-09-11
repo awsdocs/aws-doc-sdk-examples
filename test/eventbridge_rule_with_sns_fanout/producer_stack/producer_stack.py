@@ -49,10 +49,9 @@ class ProducerStack(Stack):
             self,
             "trigger-rule",
             schedule=events.Schedule.cron(
-                # Uncomment after testing.
-                # minute="0",
-                # hour="22",
-                # week_day="FRI",
+                minute="0",
+                hour="22",
+                week_day="FRI",
             ),
         )
 
