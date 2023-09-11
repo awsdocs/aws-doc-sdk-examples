@@ -19,8 +19,8 @@ public class S3Handler implements RequestHandler<Map<String, Object>, String>{
         String bucket = (String) requestObject.get("bucket");
         String fileName = (String) requestObject.get("object");
         context.getLogger().log("*** Bucket: " + bucket + ", fileName: " + fileName);
-        String myText = textService.getCardText(bucket, fileName);
-        context.getLogger().log("*** Text: " + myText);
-        return myText;
+        String extractedText = textService.getCardText(bucket, fileName);
+        context.getLogger().log("*** Text: " + extractedText);
+        return extractedText;
     }
 }
