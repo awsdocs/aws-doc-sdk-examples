@@ -456,11 +456,11 @@ public class TranslateTextHandler implements RequestHandler<Map<String, Object>,
 
 Create these Java classes in the **com.example.fsa.services** package. These Java classes use the AWS SDK for Java (v2) service clients to perform various AWS operations. For example, the **TranslateService** class translates the given text into english.  
 
-+ **DetectSentimentService** - Uses the **ComprehendClient** to detect the sentimant of text.   
-+ **ExtractTextService** - Uses the **TextractClient** to extract text from an image located in an S3 bucket.  
-+ **PollyService** -  Uses the **PollyClient** to convert text into an MP3 audio file.
-+ **S3Service** - Uses the **S3Client** to place an audio file into an S3 bucket.
-+ **TranslateService** - Uses the **TranslateClient** to translate text into English. 
++ **DetectSentimentService** - Uses the **ComprehendAsyncClient** to detect the sentimant of text.   
++ **ExtractTextService** - Uses the **TextractAsyncClient** to extract text from an image located in an S3 bucket.  
++ **PollyService** -  Uses the **PollyAsyncClient** to convert text into an MP3 audio file.
++ **S3Service** - Uses the **S3TransferManager** to place an audio file into an S3 bucket.
++ **TranslateService** - Uses the **TranslateAsyncClient** to translate text into English. 
 
  ### DetectSentimentService class
 
