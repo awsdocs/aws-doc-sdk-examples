@@ -166,26 +166,30 @@ const JAVASCRIPT_FUNCTIONS = [
 
 const JAVA_BUNDLING_CONFIG = {
   command: [
-    "/bin/sh",
-    "-c",
-    "mvn install && cp /asset-input/target/creating_fsa_app-1.0-SNAPSHOT.jar /asset-output/",
+    'bash',
+    '-c',
+    'mvn install && cp target/creating_fsa_app-1.0-SNAPSHOT.jar /asset-output/',
   ],
-  outputType: BundlingOutput.ARCHIVED,
-  user: "root",
+  output: BundlingOutput.ARCHIVED,
+  user: 'root',
   image: Runtime.JAVA_11.bundlingImage,
   volumes: [
     {
-      hostPath: `${process.env["HOME"]}/.m2/`,
-      containerPath: "/root/.m2",
+      hostPath: `${process.env.HOME}/.m2/`,
+      containerPath: '/root/.m2',
     },
   ],
- 
+};
+
+const COMMON_JAVA_FUNCTION_CONFIG = {
+  ...BASE_APP_FUNCTION,
+  runtime: Runtime.JAVA_11,
 };
 
 const JAVA_FUNCTIONS: AppFunctionConfig[] = [
   {
-    ...BASE_APP_FUNCTION,
-    name: "ExtractText",
+    ...COMMON_JAVA_FUNCTION_CONFIG,
+    name: 'ExtractText',
     codeAsset: () => {
       const source = resolve(
         "../../../javav2/usecases/creating_fsa_app"
@@ -194,11 +198,11 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
         bundling: JAVA_BUNDLING_CONFIG,
       });
     },
-    handler: "com.example.fsa.handlers.S3Handler"
+    handler: 'com.example.fsa.handlers.S3Handler::handleRequest',
   },
   {
-    ...BASE_APP_FUNCTION,
-    name: "AnalyzeSentiment",
+    ...COMMON_JAVA_FUNCTION_CONFIG,
+    name: 'AnalyzeSentiment',
     codeAsset: () => {
       const source = resolve(
         "../../../javav2/usecases/creating_fsa_app"
@@ -207,11 +211,11 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
         bundling: JAVA_BUNDLING_CONFIG,
       });
     },
-    handler: "com.example.fsa.handlers.SentimentHandler"
+    handler: 'com.example.fsa.handlers.SentimentHandler::handleRequest',
   },
   {
-    ...BASE_APP_FUNCTION,
-    name: "TranslateText",
+    ...COMMON_JAVA_FUNCTION_CONFIG,
+    name: 'TranslateText',
     codeAsset: () => {
       const source = resolve(
         "../../../javav2/usecases/creating_fsa_app"
@@ -220,11 +224,11 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
         bundling: JAVA_BUNDLING_CONFIG,
       });
     },
-    handler: "com.example.fsa.handlers.TranslateHandler"
+    handler: 'com.example.fsa.handlers.TranslateHandler::handleRequest',
   },
   {
-    ...BASE_APP_FUNCTION,
-    name: "SynthesizeAudio",
+    ...COMMON_JAVA_FUNCTION_CONFIG,
+    name: 'SynthesizeAudio',
     codeAsset: () => {
       const source = resolve(
         "../../../javav2/usecases/creating_fsa_app"
@@ -233,19 +237,15 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
         bundling: JAVA_BUNDLING_CONFIG,
       });
     },
-    handler: "com.example.fsa.handlers.PollyHandler"
+    handler: 'com.example.fsa.handlers.PollyHandler::handleRequest',
   },
 ];
 
 const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
   examplelang: EXAMPLE_LANG_FUNCTIONS,
-  // Add more languages here. For example
-  // javascript: JAVASCRIPT_FUNCTIONS,
   ruby: RUBY_FUNCTIONS,
   java: JAVA_FUNCTIONS,
-  javascript: JAVASCRIPT_FUNCTIONS,
 };
-
 export function getFunctions(language: string = ""): AppFunctionConfig[] {
   return FUNCTIONS[language] ?? FUNCTIONS.examplelang;
 }
