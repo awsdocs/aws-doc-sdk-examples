@@ -3,11 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { resolve } from "path";
-import { BundlingOutput, Duration } from "aws-cdk-lib";
-import { Code, Runtime } from "aws-cdk-lib/aws-lambda";
-
-import { AppFunctionConfig } from "./constructs/app-lambdas";
+import {resolve} from "path";
+import {BundlingOutput, Duration} from "aws-cdk-lib";
+import {Code, Runtime} from "aws-cdk-lib/aws-lambda";
+import {AppFunctionConfig} from "./constructs/app-lambdas";
 
 const BASE_APP_FUNCTION: AppFunctionConfig = {
   name: "TestLambda",
