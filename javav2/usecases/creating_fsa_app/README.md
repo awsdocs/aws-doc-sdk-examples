@@ -732,7 +732,7 @@ public class S3Service {
             byte[] bytes = inputStreamToBytes(is);
             long contentLength = bytes.length;
             UploadRequest uploadRequest = UploadRequest.builder()
-                .requestBody(AsyncRequestBody.fromByteBuffer(ByteBuffer.wrap(bytes)))
+                .requestBody(AsyncRequestBody.fromBytes(bytes))
                 .putObjectRequest(PutObjectRequest.builder()
                     .bucket(bucket)
                     .key(key)
