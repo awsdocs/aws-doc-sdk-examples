@@ -35,7 +35,9 @@ class Renderer:
         if svc_folder is not None:
             self.lang_config['service_folder'] = svc_folder
         else:
-            if 'service_folder' in self.lang_config:
+            if "service_folder_overrides" in self.lang_config and scanner.svc_name in self.lang_config["service_folder_overrides"]:
+                self.lang_config["service_folder"] = self.lang_config["service_folder_overrides"][scanner.svc_name]
+            elif 'service_folder' in self.lang_config:
                 svc_folder_tmpl = env.from_string(self.lang_config['service_folder'])
                 self.lang_config['service_folder'] = svc_folder_tmpl.render(service=service_info)
             else:
