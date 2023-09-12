@@ -622,7 +622,25 @@ public class ExtractTextService {
 
  ### PollyService class
 
- The following Java code represents the **PollyService** class.
+ The following Java code represents the **PollyService** class. This code performs the following tasks:
+
++ It starts by creating a **DescribeVoicesRequest** object, which is used to request information about available voices for speech synthesis. 
+
++ It then initiates an asynchronous request to the Polly service to describe available voices using the **PollyAsyncClient** object's **describeVoices** method. This returns a **CompletableFuture<?>** called future.
+
++ The code uses **future.join()** to block and wait for the completion of the asynchronous request. This ensures that the voice description information is available before proceeding.
+
++ After the request is complete, it casts the result to a **DescribeVoicesResponse** object called describeVoicesResult.
+
++ The code then filters the list of available voices to find a voice named **Joanna** using Java streams. 
+
++ Once it has found the desired voice (in this case, "Joanna"), it constructs a **SynthesizeSpeechRequest** object. This request is used to synthesize speech from the input text. It specifies the input text, output format (MP3), and the voice to be used (based on the previously found "Joanna").
+
++ Another asynchronous request is initiated using **PollyAsyncClient** object's **synthesizeSpeech** method. This request is used to synthesize the speech, and it returns a CompletableFuture<ResponseInputStream<SynthesizeSpeechResponse>> called **audioFuture**.
+
++ The code then blocks and waits for the completion of the audio synthesis request using audioFuture.join().
+
++ Finally, it returns the resulting **InputStream** containing the synthesized audio.
 
 ```java
 package com.example.fsa.services;
