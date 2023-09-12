@@ -1,6 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
 
+import os
 from aws_cdk import (
     aws_iam as iam,
     aws_events as events,
@@ -19,11 +20,10 @@ from aws_cdk import (
     aws_kinesis as kinesis,
     Aws,
     Stack,
-    Size
+    Size,
+    core
 )
 from constructs import Construct
-import json
-import os
 
 # Raises KeyError if environment variable doesn't exist.
 language_name = os.environ["LANGUAGE_NAME"]
@@ -106,16 +106,13 @@ class ConsumerStack(Stack):
             ]
         )
 
-        # Allow the Batch job to put logs to the CloudWatch log group in the "parent" account
-        parent_log_group_arn = "arn:aws:logs:us-east-1:808326389482:log-group/weathertop-central:*"
-        log_policy_statement = iam.PolicyStatement(
-            actions=["logs:CreateLogStream", "logs:PutLogEvents"],
-            resources=[parent_log_group_arn]
-        )
-        batch_execution_role.add_to_policy(log_policy_statement)
-
-        # Create log group for AWS Batch to log to, with Subscription Filter
-        log_group = logs.LogGroup(self, f"weathertop-{language_name}")
+        # # Allow the Batch job to put logs to the CloudWatch log group in the "parent" account
+        # parent_log_group_arn = "arn:aws:logs:us-east-1:808326389482:log-group/weathertop-central:*"
+        # log_policy_statement = iam.PolicyStatement(
+        #     actions=["logs:CreateLogStream", "logs:PutLogEvents"],
+        #     resources=[parent_log_group_arn]
+        # )
+        # batch_execution_role.add_to_policy(log_policy_statement)
 
         # log_group.add_subscription_filter(
         #     id='test',
@@ -134,28 +131,11 @@ class ConsumerStack(Stack):
             container=batch_alpha.EcsFargateContainerDefinition(self, f"ContainerDefinition-{language_name}",
                 image=container_image,
                 execution_role=batch_execution_role,
-                logging=ecs.LogDrivers.aws_logs(
-                    stream_prefix=f"weathertop/{language_name}",
-                    mode=ecs.AwsLogDriverMode.NON_BLOCKING,
-                    log_group=log_group
-                ),
                 assign_public_ip=True,
                 memory=Size.gibibytes(2),
                 cpu=1
             )
         )
-
-        # log_subscription_destination_config = logs.LogSubscriptionDestinationConfig(
-        #     arn="arn:aws:logs:us-east-1:260778392212:log-group:/aws/lambda/PythonStack-SubmitBatchJobpythonED06A87C-89SFTImGbaBh:*",
-        #     role=role
-        # )
-        #
-        # logs.SubscriptionFilter(self, "Subscription",
-        #                         log_group=log_group,
-        #                         destination="arn:aws:logs:us-east-1:808326389482:log-group:weathertop-central:*",
-        #                         filter_pattern=logs.FilterPattern().all_events(),
-        #                         filter_name="LogForwarder"
-        #                         )
 
         job_queue = batch_alpha.JobQueue(self, f"JobQueue-{language_name}",
             priority=1

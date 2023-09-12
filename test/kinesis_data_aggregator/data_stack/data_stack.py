@@ -10,6 +10,7 @@ from aws_cdk import (
     aws_logs as logs,
     Aws,
     Stack,
+    CfnOutput
 )
 from constructs import Construct
 
@@ -39,43 +40,38 @@ class DataStack(Stack):
             response = client.get_parameter(Name=f'/account-mappings/{language_name}', WithDecryption=True)
             account_ids.append(response['Parameter']['Value'])
 
-        # Create an S3 bucket with the specified name
+        #####################################
+        ##                                 ##
+        ##           S3 BUCKET             ##
+        ##    (Where all the logs go)      ##
+        ##                                 ##
+        #####################################
+
         bucket = s3.Bucket(
             self,
-            'MyS3Bucket2',
-            bucket_name='firehose22-test-bucket1534645634564',
+            'BigLogBucket',
             versioned=False,  # If you want versioning, set this to True
             block_public_access=s3.BlockPublicAccess.BLOCK_ALL,  # Block public access
             # For us-east-1, there's no need to specify LocationConstraint
         )
 
-        # Create an IAM role
-        # Inline policy results in ValidationError (A PolicyStatement used in an identity-based policy must specify at least one resource.)
-        # Instructions: Step 2c https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CreateFirehoseStream.html
+        #####################################################################################################
+        ##                                                                                                 ##
+        ##                                   IAM ROLE FOR FIREHOSE                                         ##
+        ##           (Grants Kinesis Data Firehose permission to put data into the bucket)                 ##
+        ##                                                                                                 ##
+        #####################################################################################################
+
+        principal_with_conditions = iam.ServicePrincipal(
+            service="firehose.amazonaws.com",
+            conditions={"StringEquals": {"sts:ExternalId": f"808326389482"}}
+        )
         firehose_to_s3_role = iam.Role(
             self,
             "FirehosetoS3Role",
-            assumed_by=iam.ServicePrincipal("firehose.amazonaws.com"),
-            # inline_policies={
-            #     "MyCustomPolicy": iam.PolicyDocument(
-            #         statements=[
-            #             iam.PolicyStatement(
-            #                 effect=iam.Effect.ALLOW,
-            #                 actions=[
-            #                     "sts:AssumeRole"
-            #                 ],
-            #                 conditions={
-            #                     "StringEquals": {
-            #                         "sts:ExternalId": "808326389482"
-            #                     }
-            #                 }
-            #             )
-            #         ]
-            #     )
-            # }
+            assumed_by=principal_with_conditions
         )
-
-        policy = iam.PolicyStatement(
+        permissions_policy = iam.PolicyStatement(
             effect=iam.Effect.ALLOW,
             actions=[
                 "s3:PutObject",
@@ -87,8 +83,13 @@ class DataStack(Stack):
                 f"{bucket.bucket_arn}/*"
             ]
         )
+        firehose_to_s3_role.add_to_policy(permissions_policy)
 
-        firehose_to_s3_role.add_to_policy(policy)
+        #####################################
+        ##                                 ##
+        ##     KINESIS DELIVERY STREAM     ##
+        ##                                 ##
+        #####################################
 
         delivery_stream = firehose.CfnDeliveryStream(
             self,
@@ -99,36 +100,45 @@ class DataStack(Stack):
             }
         )
 
-        # Set up cross-account Log permissions
-        logging_permissions = iam.PolicyStatement()
-        logging_permissions.add_actions("firehose:*")
-        logging_permissions.add_resources(f"arn:aws:firehose:us-east-1:808326389482:*")
+        #####################################################################################################
+        ##                                                                                                 ##
+        ##                                   IAM ROLE FOR CLOUDWATCH                                       ##
+        ##       (Grants Batch logs the permission to put data into your Kinesis Data Firehose stream)     ##
+        ##                                                                                                 ##
+        #####################################################################################################
 
+        log_origins = [f"arn:aws:logs:us-east-1:{Aws.ACCOUNT_ID}:*"]
+        for id in account_ids:
+            log_origins.append(f"arn:aws:logs:us-east-1:{id}:*")
+
+        # Create Principal required for IAM role creation
+        principal_with_conditions = iam.ServicePrincipal(
+            service="logs.amazonaws.com",
+            conditions={"StringLike": {"aws:SourceArn": log_origins}}
+        )
         # Create IAM Role
-        role = iam.Role(
+        cloudwatch_role = iam.Role(
             self, "CWLtoFirehoseRole",
             role_name="CWLtoFirehoseRole",
-            assumed_by=iam.ServicePrincipal("logs.amazonaws.com"),
-            inline_policies={"PermissionsPolicyForCWL": iam.PolicyDocument(statements=[logging_permissions])}
+            assumed_by=principal_with_conditions,
         )
 
-        # I think the below line is redundant
-        # role.add_to_policy(logging_permissions)
+        # Set up cross-account Log permissions
+        cloudwatch_permissions = iam.PolicyStatement()
+        cloudwatch_permissions.add_actions("firehose:*")
+        cloudwatch_permissions.add_resources(f"arn:aws:firehose:us-east-1:{Aws.ACCOUNT_ID}:*")
+        cloudwatch_role.add_to_policy(cloudwatch_permissions)
 
-        # Set up cross-account Log trust relationships for every onboarded language.
-        logging_trust = iam.PolicyStatement()
-        logging_trust.add_service_principal('logs.amazonaws.com')
-        logging_trust.add_actions("sts:AssumeRole")
-        logging_trust.add_source_arn_condition('arn:aws:logs:us-east-1:808326389482:*')
-        for id in account_ids:
-            logging_trust.add_condition("StringLike", {"aws:SourceArn": f"arn:aws:logs:us-east-1:{id}:*"})
+        ###################################################
+        ##                                               ##
+        ##                  DESTINATION                  ##
+        ##  (The endpoint where Firehose delivers logs)  ##
+        ##                                               ##
+        ###################################################
 
-        # role.add_to_policy(logging_trust)
-        # Uncommenting above line results in the following ValidationErrors:
-            # [DataStack / CWLtoKinesisRole / DefaultPolicy] A PolicyStatement used in an identity-based policy cannot specify any IAM principals
-            # [DataStack / CWLtoKinesisRole / DefaultPolicy] A PolicyStatement used in an identity-based policy must specify at least one resource.
+        destination_name = 'FirehoseDestination'
 
-        policy = {
+        destination_policy = {
             "Version": "2012-10-17",
             "Statement": [
                 {
@@ -138,16 +148,18 @@ class DataStack(Stack):
                         "AWS": account_ids
                     },
                     "Action": "logs:PutSubscriptionFilter",
-                    "Resource": "arn:aws:logs:us-east-1:808326389482:destination:FirehoseLogDestination"
+                    "Resource": f"arn:aws:logs:us-east-1:{Aws.ACCOUNT_ID}:destination:{destination_name}"
                 }
             ]
         }
 
         # Create CloudWatch Logs Destination
         destination = logs.CfnDestination(
-            self, "CWLtoKinesisDestination",
-            destination_name="LogDestination",
+            self, destination_name,
+            destination_name=destination_name,
             target_arn=delivery_stream.attr_arn,
-            role_arn=role.role_arn,
-            destination_policy=json.dumps(policy)
+            role_arn=cloudwatch_role.role_arn,
+            destination_policy=json.dumps(destination_policy)
         )
+
+        CfnOutput(self, "Destination", value=destination.attr_arn)
