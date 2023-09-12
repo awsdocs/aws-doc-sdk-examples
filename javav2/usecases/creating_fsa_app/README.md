@@ -523,7 +523,7 @@ public class DetectSentimentService {
                 .text(text)
                 .build();
 
-            CompletableFuture<?> future  = getComprehendAsyncClient().detectDominantLanguage(request);
+            CompletableFuture<?> future = getComprehendAsyncClient().detectDominantLanguage(request);
             future.join();
 
             DetectDominantLanguageResponse resp = (DetectDominantLanguageResponse) future.join();
