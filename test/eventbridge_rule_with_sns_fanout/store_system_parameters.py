@@ -23,7 +23,7 @@ def generate_parameter_store_values(account_id_mappings):
 if __name__ == "__main__":
     # List of key-value pairs representing parameter names and their corresponding values
     mappings = [
-        ('/account-mappings/ruby', '260778392212'),
+        ('/account-mappings/ruby', '616362385685'),
         ('/account-mappings/php', '733931915187'),
         ('/account-mappings/dotnetv3', '441997275833'),
         ('/account-mappings/javascriptv3', '875008041426'),

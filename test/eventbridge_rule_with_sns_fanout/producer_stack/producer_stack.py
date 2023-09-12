@@ -93,3 +93,41 @@ class ProducerStack(Stack):
         publish_permissions.add_service_principal("events.amazonaws.com")
         publish_permissions.add_resources(topic.topic_arn)
         topic.add_to_resource_policy(publish_permissions)
+
+        # # Create Kinesis Stream
+        # kinesis_stream = kinesis.Stream(
+        #     self, "AdminStream",
+        #     stream_name="AdminStream",
+        #     shard_count=1
+        # )
+        #
+        # # Set up cross-account Log trust relationships for every onboarded language.
+        # logging_trust = iam.PolicyStatement()
+        # logging_trust.add_service_principal('logs.amazonaws.com')
+        # logging_trust.add_actions("sts:AssumeRole")
+        # logging_trust.add_source_arn_condition('arn:aws:logs:us-east-1:808326389482:*')
+        # for id in account_ids:
+        #     logging_trust.add_condition("StringLike", {"aws:SourceArn": f"arn:aws:logs:us-east-1:{id}:*"})
+        # # Set up cross-account Log permissions
+        # logging_permissions = iam.PolicyStatement()
+        # logging_permissions.add_actions("kinesis:PutRecord")
+        # logging_permissions.add_resources(f"arn:aws:kinesis:us-east-1:808326389482:stream/AdminStream")
+        #
+        # # Create IAM Role
+        # role = iam.Role(
+        #     self, "CWLtoKinesisRole",
+        #     role_name="CWLtoKinesisRole",
+        #     assumed_by=iam.ServicePrincipal("logs.amazonaws.com"),
+        #     inline_policies={"PermissionsPolicyForCWL": iam.PolicyDocument(statements=[logging_permissions])}
+        # )
+        # role.add_to_policy(logging_trust)
+        # role.add_to_policy(logging_permissions)
+        #
+        # # Create CloudWatch Logs Destination
+        # logs.CfnDestination(
+        #     self, "CWLtoKinesisDestination",
+        #     destination_name="LogDestination",
+        #     target_arn=kinesis_stream.stream_arn,
+        #     role_arn=role.role_arn
+        # )
+
