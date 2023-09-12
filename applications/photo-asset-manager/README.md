@@ -41,11 +41,12 @@ End user authentication is handled using Amazon Cognito. A user pool is provisio
 
 ## List of Tools & Services
 
-- [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/)
-- [AWS CloudFormation (CFN)](https://aws.amazon.com/cloudformation/)
-- [Amazon API Gateway](https://aws.amazon.com/api-gateway/)
-- [Amazon CloudFront](https://aws.amazon.com/cloudfront/)
-- [Amazon Cognito](https://aws.amazon.com/cognito/)
-- [Amazon S3](https://aws.amazon.com/s3/)
+- [AWS Cloud Development Kit (CDK)](https://docs.aws.amazon.com/cdk/)
+- [AWS CloudFormation (CFN)](https://docs.aws.amazon.com/cloudformation/)
+- [Amazon Rekognition](https://docs.aws.amazon.com/rekognition/)
+- [Amazon API Gateway](https://docs.aws.amazon.com/apigateway/)
+- [Amazon CloudFront](https://docs.aws.amazon.com/cloudfront/)
+- [Amazon Cognito](https://docs.aws.amazon.com/cognito/)
+- [Amazon S3](https://docs.aws.amazon.com/s3/)
 - [Cloudscape](https://cloudscape.design/)
 - [Vite](https://vitejs.dev/)
