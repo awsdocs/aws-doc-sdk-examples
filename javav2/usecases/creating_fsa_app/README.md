@@ -682,7 +682,7 @@ public class PollyService {
 
 The following Java code represents the **S3Service** class. This example uses the [Amazon S3 Transfer Manager API](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#upload(software.amazon.awssdk.transfer.s3.model.UploadRequest)) to upload a .mp3 file to an S3 bucket. This code performs the following tasks: 
 
-+ It takes an InputStream (is), an S3TransferManager (transferManager), a destination bucket name (bucket), and a destination object key (key) as parameters.
++ It takes an InputStream (is), a destination bucket name, and a destination object key (key) as parameters.
 
 + It reads the content of the InputStream (is) into a byte array using the **inputStreamToBytes** method. This is done to prepare the data for upload.
 
