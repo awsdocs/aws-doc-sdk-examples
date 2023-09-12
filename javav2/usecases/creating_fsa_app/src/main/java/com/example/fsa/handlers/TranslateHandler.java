@@ -16,9 +16,6 @@ public class TranslateHandler implements RequestHandler<Map<String, Object>, JSO
     @Override
     public JSONObject handleRequest(Map<String, Object> requestObject, Context context) {
         TranslateService translateService = new TranslateService();
-
-        String allVals = requestObject.toString();
-        context.getLogger().log("ALL VALS: " + allVals );
         String sourceText = (String) requestObject.get("extracted_text");
         String lanCode = (String) requestObject.get("source_language_code");
         context.getLogger().log("sourceText: " + sourceText + "lang code: "+lanCode);
