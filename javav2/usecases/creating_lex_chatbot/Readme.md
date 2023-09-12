@@ -503,7 +503,7 @@ The **index.html** file is the application's home view that displays the Amazon 
         }
       }
 
-     function showRequest(daText) {
+     function showRequest() {
             var conversationDiv = document.getElementById('conversation');
             var requestPara = document.createElement("P");
             requestPara.className = 'userRequest';
