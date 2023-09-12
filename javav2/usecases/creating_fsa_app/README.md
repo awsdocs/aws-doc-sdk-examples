@@ -454,7 +454,7 @@ public class TranslateTextHandler implements RequestHandler<Map<String, Object>,
 
 ### Services package
 
-Create these Java classes in the **com.example.fsa.services** package. These Java classes use the AWS SDK for Java (v2) service clients to perform various AWS operations. For example, the **TranslateService** class translates the given text into english.  
+Create these Java classes in the **com.example.fsa.services** package. These Java classes use the AWS SDK for Java (v2) asynchronous service clients to perform various AWS operations. For example, the **TextractAsyncClient** class translates the given text into English.  
 
 + **DetectSentimentService** - Uses the **ComprehendAsyncClient** to detect the sentimant of text.   
 + **ExtractTextService** - Uses the **TextractAsyncClient** to extract text from an image located in an S3 bucket.  
