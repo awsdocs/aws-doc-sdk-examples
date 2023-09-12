@@ -16,12 +16,19 @@ import software.amazon.awssdk.services.textract.model.S3Object;
 
 public class ExtractTextService {
 
-    public String getCardText(String bucketName, String obName) {
-        Region region = Region.US_EAST_1;
-        TextractClient textractClient = TextractClient.builder()
-            .region(region)
-            .build();
+    private static TextractClient textractClient;
 
+    // Lazy initialization of the Singleton TextractClient.
+    private static synchronized TextractClient getTextractClient() {
+        if (textractClient == null) {
+            textractClient = TextractClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+        }
+        return textractClient;
+    }
+
+    public String getCardText(String bucketName, String obName) {
         S3Object s3Object = S3Object.builder()
             .bucket(bucketName)
             .name(obName)
@@ -38,7 +45,7 @@ public class ExtractTextService {
 
         // Use StringBuilder to build the complete text.
         StringBuilder completeText = new StringBuilder();
-        DetectDocumentTextResponse textResponse = textractClient.detectDocumentText(detectDocumentTextRequest);
+        DetectDocumentTextResponse textResponse = getTextractClient().detectDocumentText(detectDocumentTextRequest);
         for (Block block : textResponse.blocks()) {
             if (block.blockType() == BlockType.WORD) {
                 if (completeText.length() == 0) {

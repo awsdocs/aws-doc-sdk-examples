@@ -12,18 +12,26 @@ import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
 
 public class TranslateService {
 
-    public String translateText(String lanCode, String text) {
-        TranslateClient translateClient = TranslateClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+    private static TranslateClient translateClient;
 
+    // Lazy initialization of the Singleton TranslateClient.
+    private static synchronized TranslateClient getTranslateClient() {
+        if (translateClient == null) {
+            translateClient = TranslateClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+        }
+        return translateClient;
+    }
+
+    public String translateText(String lanCode, String text) {
         TranslateTextRequest textRequest = TranslateTextRequest.builder()
             .sourceLanguageCode(lanCode)
             .targetLanguageCode("en")
             .text(text)
             .build();
 
-        TranslateTextResponse textResponse = translateClient.translateText(textRequest);
+        TranslateTextResponse textResponse = getTranslateClient().translateText(textRequest);
         return textResponse.translatedText();
     }
 }

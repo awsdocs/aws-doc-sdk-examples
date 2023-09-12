@@ -17,10 +17,14 @@ import java.util.List;
 
 public class DetectSentimentService {
 
-    private ComprehendClient getClient() {
-        return ComprehendClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+    private static ComprehendClient comprehendClient;
+    private static synchronized ComprehendClient getComprehendClient() {
+        if (comprehendClient == null) {
+            comprehendClient = ComprehendClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+        }
+        return comprehendClient;
     }
 
     public JSONObject detectSentiments(String text){
@@ -31,7 +35,7 @@ public class DetectSentimentService {
                 .languageCode(languageCode)
                 .build();
 
-            DetectSentimentResponse detectSentimentResult = getClient().detectSentiment(detectSentimentRequest);
+            DetectSentimentResponse detectSentimentResult = getComprehendClient().detectSentiment(detectSentimentRequest);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("sentiment", detectSentimentResult.sentimentAsString());
             jsonObject.put("language_code", languageCode);
@@ -39,7 +43,6 @@ public class DetectSentimentService {
 
         } catch (ComprehendException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
         }
         return null;
     }
@@ -50,18 +53,18 @@ public class DetectSentimentService {
                 .text(text)
                 .build();
 
-            String lanCode ="";
-            DetectDominantLanguageResponse resp = getClient().detectDominantLanguage(request);
+            DetectDominantLanguageResponse resp = getComprehendClient().detectDominantLanguage(request);
             List<DominantLanguage> allLanList = resp.languages();
-            for (DominantLanguage lang : allLanList) {
-                System.out.println("Language is " + lang.languageCode());
-                lanCode = lang.languageCode();
+            if (!allLanList.isEmpty()) {
+                DominantLanguage firstLanguage = allLanList.get(0);
+                return firstLanguage.languageCode();
+            } else {
+                // Handle the case where the list is empty.
+                return "No languages found";
             }
-            return lanCode;
 
         } catch (ComprehendException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
         }
         return "";
     }

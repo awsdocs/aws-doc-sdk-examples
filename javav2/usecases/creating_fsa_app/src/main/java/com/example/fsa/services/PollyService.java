@@ -15,19 +15,26 @@ import software.amazon.awssdk.services.polly.model.OutputFormat;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 public class PollyService {
+    private static PollyClient pollyClientInstance;
+
+    // Lazy initialization of the Singleton PollyClient.
+    private static synchronized PollyClient getPollyClient() {
+        if (pollyClientInstance == null) {
+            Region region = Region.US_EAST_1;
+            pollyClientInstance = PollyClient.builder()
+                .region(region)
+                .build();
+        }
+        return pollyClientInstance;
+    }
 
     public InputStream synthesize(String text) throws IOException {
-        PollyClient polly = PollyClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
-
-        DescribeVoicesRequest describeVoiceRequest = DescribeVoicesRequest.builder()
+        DescribeVoicesRequest describeVoicesRequest = DescribeVoicesRequest.builder()
             .engine("neural")
             .build();
 
-        DescribeVoicesResponse describeVoicesResult = polly.describeVoices(describeVoiceRequest);
+        DescribeVoicesResponse describeVoicesResult = getPollyClient().describeVoices(describeVoicesRequest);
         Voice voice = describeVoicesResult.voices().stream()
             .filter(v -> v.name().equals("Joanna"))
             .findFirst()
@@ -39,6 +46,6 @@ public class PollyService {
             .voiceId(voice.id())
             .build();
 
-        return polly.synthesizeSpeech(synthReq);
+        return getPollyClient().synthesizeSpeech(synthReq);
     }
 }
