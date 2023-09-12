@@ -57,7 +57,7 @@ async fn send_message(
 
     let cs: Vec<String> = contacts
         .iter()
-        .map(|i| i.email_address().unwrap_or_default().to_string() )
+        .map(|i| i.email_address().unwrap_or_default().to_string())
         .collect();
 
     let mut dest: Destination = Destination::builder().build();
