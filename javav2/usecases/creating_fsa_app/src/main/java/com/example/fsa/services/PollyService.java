@@ -51,7 +51,7 @@ public class PollyService {
 
         } catch (PollyException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
+            throw e;
         }
-        return null;
     }
 }

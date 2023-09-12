@@ -487,6 +487,7 @@ import software.amazon.awssdk.services.comprehend.model.DetectDominantLanguageRe
 import software.amazon.awssdk.services.comprehend.model.DetectSentimentRequest;
 import software.amazon.awssdk.services.comprehend.model.DetectSentimentResponse;
 import software.amazon.awssdk.services.comprehend.model.DominantLanguage;
+
 import java.util.List;
 
 public class DetectSentimentService {
@@ -517,8 +518,8 @@ public class DetectSentimentService {
 
         } catch (ComprehendException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
+            throw e; // Re-throw the exception.
         }
-        return null;
     }
 
     public String detectTheDominantLanguage(String text){
@@ -533,17 +534,15 @@ public class DetectSentimentService {
                 DominantLanguage firstLanguage = allLanList.get(0);
                 return firstLanguage.languageCode();
             } else {
-                // Handle the case where the list is empty.
                 return "No languages found";
             }
 
         } catch (ComprehendException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+            System.out.println(e.getMessage());
+            throw e;
         }
-        return "";
     }
 }
-
 
 ```
 
@@ -585,7 +584,6 @@ public class ExtractTextService {
                 .name(obName)
                 .build();
 
-            // Create a Document object and reference the s3Object instance.
             Document myDoc = Document.builder()
                 .s3Object(s3Object)
                 .build();
@@ -608,16 +606,14 @@ public class ExtractTextService {
             return completeText.toString();
 
         } catch (TextractException e) {
-            // Handle service-specific exceptions
             System.err.println(e.awsErrorDetails().errorMessage());
+            throw e; // Re-throw the exception.
         } catch (SdkClientException e) {
-            // Handle client-related exceptions
             System.err.println(e.getMessage());
+            throw e; // Re-throw the exception.
         }
-        return "";
     }
 }
-
 
 ```
 
@@ -674,10 +670,11 @@ public class PollyService {
 
         } catch (PollyException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
+            throw e;
         }
-        return null;
     }
 }
+
 
 ```
 
@@ -711,10 +708,12 @@ public class S3Service {
     }
 
     // Put the audio file into the Amazon S3 bucket.
-    public String putAudio(InputStream is, String bucket, String key) throws IOException {
+    public String putAudio(InputStream is, String bucket, String key) throws S3Exception, IOException {
         try {
             byte[] bytes = inputStreamToBytes(is);
             long contentLength = bytes.length;
+
+            // Create a PutObjectRequest with content length.
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucket)
                 .contentType("audio/mp3")
@@ -722,12 +721,13 @@ public class S3Service {
                 .key(key)
                 .build();
 
-            getS3Client().putObject(putObjectRequest, RequestBody.fromBytes(bytes));
+            getS3Client().putObject(putObjectRequest, RequestBody.fromInputStream(is,contentLength));
             return key;
+
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
+            throw e;
         }
-        return "";
     }
 
     public static byte[] inputStreamToBytes(InputStream inputStream) throws IOException {
@@ -742,8 +742,6 @@ public class S3Service {
         return buffer.toByteArray();
     }
 }
-
-
 
 ```
 
@@ -786,8 +784,8 @@ public class TranslateService {
 
         } catch (TranslateException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
+            throw e;
         }
-        return "";
     }
 }
 

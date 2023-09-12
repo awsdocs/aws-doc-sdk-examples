@@ -28,7 +28,7 @@ public class S3Service {
     }
 
     // Put the audio file into the Amazon S3 bucket.
-    public String putAudio(InputStream is, String bucket, String key) throws IOException {
+    public String putAudio(InputStream is, String bucket, String key) throws S3Exception, IOException {
         try {
             byte[] bytes = inputStreamToBytes(is);
             long contentLength = bytes.length;
@@ -41,12 +41,13 @@ public class S3Service {
                 .key(key)
                 .build();
 
-            getS3Client().putObject(putObjectRequest, RequestBody.fromBytes(bytes));
+            getS3Client().putObject(putObjectRequest, RequestBody.fromInputStream(is,contentLength));
             return key;
+
         } catch (S3Exception e) {
             System.err.println(e.awsErrorDetails().errorMessage());
+            throw e;
         }
-        return "";
     }
 
     public static byte[] inputStreamToBytes(InputStream inputStream) throws IOException {

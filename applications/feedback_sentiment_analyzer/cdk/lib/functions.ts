@@ -47,14 +47,14 @@ const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
   // The 'name' property must match the examples below in new examples.
   { ...BASE_APP_FUNCTION, name: "ExtractText" },
   // Override properties by including them after expanding the function object.
-  { ...BASE_APP_FUNCTION, memorySize: 256, name: "AnalyzeSentiment" },
+  { ...BASE_APP_FUNCTION, memorySize: 256, name: "AnalyzeSentiment"},
   {
     ...BASE_APP_FUNCTION,
     codeAsset() {
       return Code.fromInline(`
         exports.handler = async (event) => {
           console.log("AnalyzeSentiment", event);
-          return { translated_text: "Bonjour", source_language: "en" }
+          return { translated_text: "Bonjour", source_language: "en"}
         }
     `);
     },
@@ -183,59 +183,35 @@ const JAVA_BUNDLING_CONFIG = {
 const COMMON_JAVA_FUNCTION_CONFIG = {
   ...BASE_APP_FUNCTION,
   runtime: Runtime.JAVA_11,
+  codeAsset: () => {
+    const source = resolve(
+      "../../../javav2/usecases/creating_fsa_app"
+    );
+    return Code.fromAsset(source, {
+      bundling: JAVA_BUNDLING_CONFIG,
+    });
+  },
 };
 
 const JAVA_FUNCTIONS: AppFunctionConfig[] = [
   {
     ...COMMON_JAVA_FUNCTION_CONFIG,
     name: 'ExtractText',
-    codeAsset: () => {
-      const source = resolve(
-        "../../../javav2/usecases/creating_fsa_app"
-      );
-      return Code.fromAsset(source, {
-        bundling: JAVA_BUNDLING_CONFIG,
-      });
-    },
     handler: 'com.example.fsa.handlers.ExtractTextHandler::handleRequest',
   },
   {
     ...COMMON_JAVA_FUNCTION_CONFIG,
     name: 'AnalyzeSentiment',
-    codeAsset: () => {
-      const source = resolve(
-        "../../../javav2/usecases/creating_fsa_app"
-      );
-      return Code.fromAsset(source, {
-        bundling: JAVA_BUNDLING_CONFIG,
-      });
-    },
     handler: 'com.example.fsa.handlers.AnalyzeSentimentHandler::handleRequest',
   },
   {
     ...COMMON_JAVA_FUNCTION_CONFIG,
     name: 'TranslateText',
-    codeAsset: () => {
-      const source = resolve(
-        "../../../javav2/usecases/creating_fsa_app"
-      );
-      return Code.fromAsset(source, {
-        bundling: JAVA_BUNDLING_CONFIG,
-      });
-    },
     handler: 'com.example.fsa.handlers.TranslateTextHandler::handleRequest',
   },
   {
     ...COMMON_JAVA_FUNCTION_CONFIG,
     name: 'SynthesizeAudio',
-    codeAsset: () => {
-      const source = resolve(
-        "../../../javav2/usecases/creating_fsa_app"
-      );
-      return Code.fromAsset(source, {
-        bundling: JAVA_BUNDLING_CONFIG,
-      });
-    },
     handler: 'com.example.fsa.handlers.SynthesizeAudioHandler::handleRequest',
   },
 ];

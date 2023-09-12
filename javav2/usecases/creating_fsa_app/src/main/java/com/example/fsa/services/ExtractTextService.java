@@ -36,7 +36,6 @@ public class ExtractTextService {
                 .name(obName)
                 .build();
 
-            // Create a Document object and reference the s3Object instance.
             Document myDoc = Document.builder()
                 .s3Object(s3Object)
                 .build();
@@ -59,12 +58,11 @@ public class ExtractTextService {
             return completeText.toString();
 
         } catch (TextractException e) {
-            // Handle service-specific exceptions
             System.err.println(e.awsErrorDetails().errorMessage());
+            throw e; // Re-throw the exception.
         } catch (SdkClientException e) {
-            // Handle client-related exceptions
             System.err.println(e.getMessage());
+            throw e; // Re-throw the exception.
         }
-        return "";
     }
 }
