@@ -4,9 +4,9 @@
 
 | Heading      | Description |
 | -----------  | ----------- |
-| Description  | Discusses how to develop a Feedback Sentiment Analyzer application using [Machine Learning AWS services](https://aws.amazon.com/machine-learning/). The application solves a fictitious use case of a hotel that receives guest feedback on comment cards in a variety of languages. The application is developed by using the AWS SDK for Java (v2).     |
+| Description  | Discusses how to develop a Feedback Sentiment Analyzer application using [Machine Learning AWS services](https://aws.amazon.com/machine-learning/). The application solves a fictitious use case of a hotel that receives guest feedback on comment cards in a variety of languages. The application is developed by using the AWS SDK for Java (v2) and asynchronous service clients.     |
 | Audience     |  Developer (intermediate / advanced)        |
-| Updated      | 9/01/2023        |
+| Updated      | 9/12/2023        |
 | Required skills   | Java, Maven  |
 
 ## Purpose
