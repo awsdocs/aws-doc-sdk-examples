@@ -343,18 +343,31 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
         String translatedText = (String) requestObject.get("translated_text");
         String bucket = (String) requestObject.get("bucket");
         String key = (String) requestObject.get("object");
-        String newFileName = key+".mp3";
+        String newFileName = convertFileEx(key);
         context.getLogger().log("*** Translated Text: " +translatedText +" and new key is "+newFileName);
         try {
             InputStream is = pollyService.synthesize(translatedText);
             String audioFile = s3Service.putAudio(is, bucket, newFileName);
-            context.getLogger().log("You have successfully added the " +audioFile +"  in the S3 bucket");
+            context.getLogger().log("You have successfully added the " +audioFile +"  in "+bucket);
             return audioFile ;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public static String convertFileEx(String originalFileName) {
+        // Find the last occurrence of the dot (.) in the file name
+        int lastDotIndex = originalFileName.lastIndexOf(".");
+        if (lastDotIndex >= 0) {
+            // Remove the existing extension and append "mp3".
+            return originalFileName.substring(0, lastDotIndex) + ".mp3";
+        } else {
+            // If there's no existing extension, simply append ".mp3"
+            return originalFileName + ".mp3";
+        }
+    }
 }
+
 
 ```
 
@@ -372,7 +385,7 @@ import java.util.Map;
 public class S3Handler implements RequestHandler<Map<String, Object>, String>{
 
     @Override
-     public String handleRequest(Map<String, Object> requestObject, Context context) {
+    public String handleRequest(Map<String, Object> requestObject, Context context) {
         // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon EventBridge event.
         ExtractTextService textService = new ExtractTextService();
         String bucket = (String) requestObject.get("bucket");
@@ -383,6 +396,7 @@ public class S3Handler implements RequestHandler<Map<String, Object>, String>{
         return extractedText;
     }
 }
+
 ```
 
 ### SentimentHandler class
@@ -411,7 +425,6 @@ public class SentimentHandler implements RequestHandler<Map<String, Object>, JSO
     }
 }
 
-
 ```
 
 ### TranslateHandler class
@@ -423,7 +436,6 @@ package com.example.fsa.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.example.fsa.services.DetectSentimentService;
 import com.example.fsa.services.TranslateService;
 import org.json.simple.JSONObject;
 import java.util.Map;
@@ -433,12 +445,12 @@ public class TranslateHandler implements RequestHandler<Map<String, Object>, JSO
     @Override
     public JSONObject handleRequest(Map<String, Object> requestObject, Context context) {
         TranslateService translateService = new TranslateService();
-        String sourceText = (String) requestObject.get("extracted_text");
-        context.getLogger().log("NEW Value: " + sourceText);
 
-        // We have the source text - need to figure out what language it's in.
-        DetectSentimentService sentimentService = new DetectSentimentService();
-        String lanCode = sentimentService.detectTheDominantLanguage(sourceText);
+        String allVals = requestObject.toString();
+        context.getLogger().log("ALL VALS: " + allVals );
+        String sourceText = (String) requestObject.get("extracted_text");
+        String lanCode = (String) requestObject.get("source_language_code");
+        context.getLogger().log("sourceText: " + sourceText + "lang code: "+lanCode);
         String translatedText = translateService.translateText(lanCode, sourceText);
         context.getLogger().log("Translated text : " + translatedText);
         JSONObject jsonResponse = new JSONObject();
@@ -477,10 +489,14 @@ import java.util.List;
 
 public class DetectSentimentService {
 
-    private ComprehendClient getClient() {
-        return ComprehendClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+    private static ComprehendClient comprehendClient;
+    private static synchronized ComprehendClient getComprehendClient() {
+        if (comprehendClient == null) {
+            comprehendClient = ComprehendClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+        }
+        return comprehendClient;
     }
 
     public JSONObject detectSentiments(String text){
@@ -491,7 +507,7 @@ public class DetectSentimentService {
                 .languageCode(languageCode)
                 .build();
 
-            DetectSentimentResponse detectSentimentResult = getClient().detectSentiment(detectSentimentRequest);
+            DetectSentimentResponse detectSentimentResult = getComprehendClient().detectSentiment(detectSentimentRequest);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("sentiment", detectSentimentResult.sentimentAsString());
             jsonObject.put("language_code", languageCode);
@@ -499,7 +515,6 @@ public class DetectSentimentService {
 
         } catch (ComprehendException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
         }
         return null;
     }
@@ -510,22 +525,23 @@ public class DetectSentimentService {
                 .text(text)
                 .build();
 
-            String lanCode ="";
-            DetectDominantLanguageResponse resp = getClient().detectDominantLanguage(request);
+            DetectDominantLanguageResponse resp = getComprehendClient().detectDominantLanguage(request);
             List<DominantLanguage> allLanList = resp.languages();
-            for (DominantLanguage lang : allLanList) {
-                System.out.println("Language is " + lang.languageCode());
-                lanCode = lang.languageCode();
+            if (!allLanList.isEmpty()) {
+                DominantLanguage firstLanguage = allLanList.get(0);
+                return firstLanguage.languageCode();
+            } else {
+                // Handle the case where the list is empty.
+                return "No languages found";
             }
-            return lanCode;
 
         } catch (ComprehendException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
         }
         return "";
     }
 }
+
 
 ```
 
@@ -547,12 +563,19 @@ import software.amazon.awssdk.services.textract.model.S3Object;
 
 public class ExtractTextService {
 
-    public String getCardText(String bucketName, String obName) {
-        Region region = Region.US_EAST_1;
-        TextractClient textractClient = TextractClient.builder()
-            .region(region)
-            .build();
+    private static TextractClient textractClient;
 
+    // Lazy initialization of the Singleton TextractClient.
+    private static synchronized TextractClient getTextractClient() {
+        if (textractClient == null) {
+            textractClient = TextractClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+        }
+        return textractClient;
+    }
+
+    public String getCardText(String bucketName, String obName) {
         S3Object s3Object = S3Object.builder()
             .bucket(bucketName)
             .name(obName)
@@ -569,7 +592,7 @@ public class ExtractTextService {
 
         // Use StringBuilder to build the complete text.
         StringBuilder completeText = new StringBuilder();
-        DetectDocumentTextResponse textResponse = textractClient.detectDocumentText(detectDocumentTextRequest);
+        DetectDocumentTextResponse textResponse = getTextractClient().detectDocumentText(detectDocumentTextRequest);
         for (Block block : textResponse.blocks()) {
             if (block.blockType() == BlockType.WORD) {
                 if (completeText.length() == 0) {
@@ -582,6 +605,7 @@ public class ExtractTextService {
        return completeText.toString();
     }
 }
+
 
 ```
 
@@ -602,19 +626,25 @@ import software.amazon.awssdk.services.polly.model.OutputFormat;
 import java.io.IOException;
 import java.io.InputStream;
 
-
 public class PollyService {
+    private static PollyClient pollyClientInstance;
+
+    // Lazy initialization of the Singleton PollyClient.
+    private static synchronized PollyClient getPollyClient() {
+        if (pollyClientInstance == null) {
+            pollyClientInstance = PollyClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+        }
+        return pollyClientInstance;
+    }
 
     public InputStream synthesize(String text) throws IOException {
-        PollyClient polly = PollyClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
-
-        DescribeVoicesRequest describeVoiceRequest = DescribeVoicesRequest.builder()
+        DescribeVoicesRequest describeVoicesRequest = DescribeVoicesRequest.builder()
             .engine("neural")
             .build();
 
-        DescribeVoicesResponse describeVoicesResult = polly.describeVoices(describeVoiceRequest);
+        DescribeVoicesResponse describeVoicesResult = getPollyClient().describeVoices(describeVoicesRequest);
         Voice voice = describeVoicesResult.voices().stream()
             .filter(v -> v.name().equals("Joanna"))
             .findFirst()
@@ -626,9 +656,10 @@ public class PollyService {
             .voiceId(voice.id())
             .build();
 
-        return polly.synthesizeSpeech(synthReq);
+        return getPollyClient().synthesizeSpeech(synthReq);
     }
 }
+
 
 ```
 
@@ -649,19 +680,32 @@ import java.io.InputStream;
 
 public class S3Service {
 
+    private static S3Client s3Client;
+
+    // Lazy initialization of the Singleton S3Client.
+    private static synchronized S3Client getS3Client() {
+        if (s3Client == null) {
+            s3Client = S3Client.builder()
+                .region(Region.US_EAST_1)
+                .build();
+        }
+        return s3Client;
+    }
+
     // Put the audio file into the Amazon S3 bucket.
     public String putAudio(InputStream is, String bucket, String key) throws IOException {
-        S3Client s3 = S3Client.builder()
-            .region(Region.US_EAST_1)
-            .build();
+        byte[] bytes = inputStreamToBytes(is);
+        long contentLength = bytes.length;
 
-        PutObjectRequest putOb = PutObjectRequest.builder()
+        // Create a PutObjectRequest with content length
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
             .bucket(bucket)
             .contentType("audio/mp3")
+            .contentLength(contentLength)
             .key(key)
             .build();
 
-        s3.putObject(putOb, RequestBody.fromBytes(inputStreamToBytes(is)));
+        getS3Client().putObject(putObjectRequest, RequestBody.fromBytes(bytes));
         return key;
     }
 
@@ -679,6 +723,7 @@ public class S3Service {
     }
 }
 
+
 ```
 
 ### TranslateService class
@@ -695,21 +740,30 @@ import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
 
 public class TranslateService {
 
-    public String translateText(String lanCode, String text)  {
-        TranslateClient translateClient = TranslateClient.builder()
-            .region(Region.US_EAST_1)
-            .build();
+    private static TranslateClient translateClient;
 
+    // Lazy initialization of the Singleton TranslateClient.
+    private static synchronized TranslateClient getTranslateClient() {
+        if (translateClient == null) {
+            translateClient = TranslateClient.builder()
+                .region(Region.US_EAST_1)
+                .build();
+        }
+        return translateClient;
+    }
+
+    public String translateText(String lanCode, String text) {
         TranslateTextRequest textRequest = TranslateTextRequest.builder()
             .sourceLanguageCode(lanCode)
             .targetLanguageCode("en")
             .text(text)
             .build();
 
-        TranslateTextResponse textResponse = translateClient.translateText(textRequest);
+        TranslateTextResponse textResponse = getTranslateClient().translateText(textRequest);
         return textResponse.translatedText();
     }
 }
+
 
 ```
 
