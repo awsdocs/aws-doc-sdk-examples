@@ -13,6 +13,8 @@ import software.amazon.awssdk.services.comprehend.model.DetectDominantLanguageRe
 import software.amazon.awssdk.services.comprehend.model.DetectSentimentRequest;
 import software.amazon.awssdk.services.comprehend.model.DetectSentimentResponse;
 import software.amazon.awssdk.services.comprehend.model.DominantLanguage;
+import software.amazon.awssdk.services.comprehend.model.ResourceNotFoundException;
+
 import java.util.List;
 
 public class DetectSentimentService {
@@ -59,12 +61,14 @@ public class DetectSentimentService {
                 DominantLanguage firstLanguage = allLanList.get(0);
                 return firstLanguage.languageCode();
             } else {
-                // Handle the case where the list is empty.
                 return "No languages found";
             }
 
+        } catch (ResourceNotFoundException e) {
+            System.out.println(e.getMessage());
+            return "Comprehend resource not found";
         } catch (ComprehendException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+            System.out.println(e.getMessage());
         }
         return "";
     }

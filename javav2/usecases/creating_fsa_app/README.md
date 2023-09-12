@@ -549,6 +549,7 @@ The following Java code represents the **ExtractTextService** class.
 ```java
  package com.example.fsa.services;
 
+import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.textract.model.BlockType;
 import software.amazon.awssdk.services.textract.model.Document;
@@ -557,12 +558,12 @@ import software.amazon.awssdk.services.textract.model.DetectDocumentTextResponse
 import software.amazon.awssdk.services.textract.model.Block;
 import software.amazon.awssdk.services.textract.TextractClient;
 import software.amazon.awssdk.services.textract.model.S3Object;
+import software.amazon.awssdk.services.textract.model.TextractException;
 
 public class ExtractTextService {
 
     private static TextractClient textractClient;
 
-    // Lazy initialization of the Singleton TextractClient.
     private static synchronized TextractClient getTextractClient() {
         if (textractClient == null) {
             textractClient = TextractClient.builder()
@@ -573,33 +574,42 @@ public class ExtractTextService {
     }
 
     public String getCardText(String bucketName, String obName) {
-        S3Object s3Object = S3Object.builder()
-            .bucket(bucketName)
-            .name(obName)
-            .build();
+        try {
+            S3Object s3Object = S3Object.builder()
+                .bucket(bucketName)
+                .name(obName)
+                .build();
 
-        // Create a Document object and reference the s3Object instance.
-        Document myDoc = Document.builder()
-            .s3Object(s3Object)
-            .build();
+            // Create a Document object and reference the s3Object instance.
+            Document myDoc = Document.builder()
+                .s3Object(s3Object)
+                .build();
 
-        DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
-            .document(myDoc)
-            .build();
+            DetectDocumentTextRequest detectDocumentTextRequest = DetectDocumentTextRequest.builder()
+                .document(myDoc)
+                .build();
 
-        // Use StringBuilder to build the complete text.
-        StringBuilder completeText = new StringBuilder();
-        DetectDocumentTextResponse textResponse = getTextractClient().detectDocumentText(detectDocumentTextRequest);
-        for (Block block : textResponse.blocks()) {
-            if (block.blockType() == BlockType.WORD) {
-                if (completeText.length() == 0) {
-                    completeText.append(block.text());
-                } else {
-                    completeText.append(" ").append(block.text());
+            StringBuilder completeText = new StringBuilder();
+            DetectDocumentTextResponse textResponse = getTextractClient().detectDocumentText(detectDocumentTextRequest);
+            for (Block block : textResponse.blocks()) {
+                if (block.blockType() == BlockType.WORD) {
+                    if (completeText.length() == 0) {
+                        completeText.append(block.text());
+                    } else {
+                        completeText.append(" ").append(block.text());
+                    }
                 }
             }
+            return completeText.toString();
+
+        } catch (TextractException e) {
+            // Handle service-specific exceptions
+            System.err.println(e.awsErrorDetails().errorMessage());
+        } catch (SdkClientException e) {
+            // Handle client-related exceptions
+            System.err.println(e.getMessage());
         }
-       return completeText.toString();
+        return "";
     }
 }
 
@@ -616,6 +626,7 @@ package com.example.fsa.services;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.polly.PollyClient;
 import software.amazon.awssdk.services.polly.model.DescribeVoicesRequest;
+import software.amazon.awssdk.services.polly.model.PollyException;
 import software.amazon.awssdk.services.polly.model.SynthesizeSpeechRequest;
 import software.amazon.awssdk.services.polly.model.Voice;
 import software.amazon.awssdk.services.polly.model.DescribeVoicesResponse;
@@ -626,37 +637,42 @@ import java.io.InputStream;
 public class PollyService {
     private static PollyClient pollyClientInstance;
 
-    // Lazy initialization of the Singleton PollyClient.
     private static synchronized PollyClient getPollyClient() {
         if (pollyClientInstance == null) {
+            Region region = Region.US_EAST_1;
             pollyClientInstance = PollyClient.builder()
-                .region(Region.US_EAST_1)
+                .region(region)
                 .build();
         }
         return pollyClientInstance;
     }
 
     public InputStream synthesize(String text) throws IOException {
-        DescribeVoicesRequest describeVoicesRequest = DescribeVoicesRequest.builder()
-            .engine("neural")
-            .build();
+        try {
+            DescribeVoicesRequest describeVoicesRequest = DescribeVoicesRequest.builder()
+                .engine("neural")
+                .build();
 
-        DescribeVoicesResponse describeVoicesResult = getPollyClient().describeVoices(describeVoicesRequest);
-        Voice voice = describeVoicesResult.voices().stream()
-            .filter(v -> v.name().equals("Joanna"))
-            .findFirst()
-            .orElseThrow(() -> new RuntimeException("Voice not found"));
+            DescribeVoicesResponse describeVoicesResult = getPollyClient().describeVoices(describeVoicesRequest);
+            Voice voice = describeVoicesResult.voices().stream()
+                .filter(v -> v.name().equals("Joanna"))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Voice not found"));
 
-        SynthesizeSpeechRequest synthReq = SynthesizeSpeechRequest.builder()
-            .text(text)
-            .outputFormat(OutputFormat.MP3)
-            .voiceId(voice.id())
-            .build();
+            SynthesizeSpeechRequest synthReq = SynthesizeSpeechRequest.builder()
+                .text(text)
+                .outputFormat(OutputFormat.MP3)
+                .voiceId(voice.id())
+                .build();
 
-        return getPollyClient().synthesizeSpeech(synthReq);
+            return getPollyClient().synthesizeSpeech(synthReq);
+
+        } catch (PollyException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+        }
+        return null;
     }
 }
-
 
 ```
 
@@ -665,12 +681,13 @@ public class PollyService {
 The following Java code represents the **S3Service** class.
 
 ```java
- package com.example.fsa.services;
+package com.example.fsa.services;
 
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -679,7 +696,6 @@ public class S3Service {
 
     private static S3Client s3Client;
 
-    // Lazy initialization of the Singleton S3Client.
     private static synchronized S3Client getS3Client() {
         if (s3Client == null) {
             s3Client = S3Client.builder()
@@ -691,19 +707,22 @@ public class S3Service {
 
     // Put the audio file into the Amazon S3 bucket.
     public String putAudio(InputStream is, String bucket, String key) throws IOException {
-        byte[] bytes = inputStreamToBytes(is);
-        long contentLength = bytes.length;
+        try {
+            byte[] bytes = inputStreamToBytes(is);
+            long contentLength = bytes.length;
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket(bucket)
+                .contentType("audio/mp3")
+                .contentLength(contentLength)
+                .key(key)
+                .build();
 
-        // Create a PutObjectRequest with content length
-        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-            .bucket(bucket)
-            .contentType("audio/mp3")
-            .contentLength(contentLength)
-            .key(key)
-            .build();
-
-        getS3Client().putObject(putObjectRequest, RequestBody.fromBytes(bytes));
-        return key;
+            getS3Client().putObject(putObjectRequest, RequestBody.fromBytes(bytes));
+            return key;
+        } catch (S3Exception e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+        }
+        return "";
     }
 
     public static byte[] inputStreamToBytes(InputStream inputStream) throws IOException {
@@ -714,11 +733,11 @@ public class S3Service {
         while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
             buffer.write(data, 0, nRead);
         }
-
         buffer.flush();
         return buffer.toByteArray();
     }
 }
+
 
 
 ```
@@ -732,6 +751,7 @@ The following Java code represents the **TranslateService** class.
 
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.translate.TranslateClient;
+import software.amazon.awssdk.services.translate.model.TranslateException;
 import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
 import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
 
@@ -739,7 +759,6 @@ public class TranslateService {
 
     private static TranslateClient translateClient;
 
-    // Lazy initialization of the Singleton TranslateClient.
     private static synchronized TranslateClient getTranslateClient() {
         if (translateClient == null) {
             translateClient = TranslateClient.builder()
@@ -750,17 +769,22 @@ public class TranslateService {
     }
 
     public String translateText(String lanCode, String text) {
-        TranslateTextRequest textRequest = TranslateTextRequest.builder()
-            .sourceLanguageCode(lanCode)
-            .targetLanguageCode("en")
-            .text(text)
-            .build();
+        try {
+            TranslateTextRequest textRequest = TranslateTextRequest.builder()
+                .sourceLanguageCode(lanCode)
+                .targetLanguageCode("en")
+                .text(text)
+                .build();
 
-        TranslateTextResponse textResponse = getTranslateClient().translateText(textRequest);
-        return textResponse.translatedText();
+            TranslateTextResponse textResponse = getTranslateClient().translateText(textRequest);
+            return textResponse.translatedText();
+
+        } catch (TranslateException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+        }
+        return "";
     }
 }
-
 
 ```
 
