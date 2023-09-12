@@ -950,11 +950,11 @@ After you execute the AWS CDK script, the Lambda functions are created. However,
 
 To update the Java Lambda functions, perform the following tasks:
 
-1. Update the FSAApplicationResources with the AWS resource names that the AWS CDK script created. Make sure to update the **STORAGE_BUCKET** value. 
+1. Update the FSAApplicationResources with the AWS resource names that the AWS CDK script created. Make sure to update the **STORAGE_BUCKET** variable. 
 
 2. Create the FAT JAR by running **mvn package**. The JAR file can be located in the target folder.
 
-3. Sign in to the AWS Management Console for Amazon S3 and put the FAT JAR in the S3 bucket named **STORAGE_BUCKET**. (This bucket was created by the AWS CDK script.)   
+3. Sign in to the AWS Management Console for Amazon S3 and put the FAT JAR in the S3 bucket named **java-mediabucket**. (This bucket was created by the AWS CDK script.)   
 
 4. Run the **ModifyLambda** Java class. Make sure to specify the exact AWS Lambda names, which you can view in the Lambda console. Otherwise, the code does not work. When done, you see a message that the Lambda functions have been updated. 
 
