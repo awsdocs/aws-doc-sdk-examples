@@ -732,11 +732,13 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.transfer.s3.S3TransferManager;
 import software.amazon.awssdk.transfer.s3.model.Upload;
 import software.amazon.awssdk.transfer.s3.model.UploadRequest;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.ByteBuffer;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class S3Service {
 
@@ -760,8 +762,10 @@ public class S3Service {
 
             byte[] bytes = inputStreamToBytes(is);
             long contentLength = bytes.length;
+            // Create an ExecutorService with a fixed thread pool size.
+            ExecutorService executorService = Executors.newFixedThreadPool(1); // Adjust the pool size as needed.
             UploadRequest uploadRequest = UploadRequest.builder()
-                .requestBody(AsyncRequestBody.fromBytes(bytes))
+                .requestBody(AsyncRequestBody.fromInputStream(new ByteArrayInputStream(bytes), contentLength, executorService))
                 .putObjectRequest(PutObjectRequest.builder()
                     .bucket(bucket)
                     .key(key)
@@ -775,6 +779,9 @@ public class S3Service {
             // Wait for the transfer to complete
             CompletableFuture<?> future = upload.completionFuture();
             future.join();
+
+            // Shutdown the ExecutorService
+            executorService.shutdown();
             return key;
 
         } catch (IOException | S3Exception e) {
