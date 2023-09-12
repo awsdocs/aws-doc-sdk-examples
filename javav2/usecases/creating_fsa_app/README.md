@@ -308,7 +308,7 @@ Create a Java package in the **main/java** folder named **com.example.fsa**. The
 
 Create these Java classes in the **com.example.fsa.handlers** package. These Java classes use the AWS Lambda Java runtime API to build the AWS Lambda functions described earlier in this document. Each class represents a handler for a separate AWS Lambda function. For more information about the AWS Lambda Java runtime API, see [AWS Lambda function handler in Java](https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html).
 
-+ **AnalyzeSentimentHandler** - The handler for the ****AnalyzeSentiment** Lambda function. 
++ **AnalyzeSentimentHandler** - The handler for the **AnalyzeSentiment** Lambda function. 
 + **ExtractTextHandler** - The handler for the **ExtractText** Lambda function.
 + **SynthesizeAudioHandler** - The handler for the **fnSynthesizeAudio** Lambda function. 
 + **TranslateTextHandler** - The handler for the **TranslateText** Lambda function. 
@@ -451,9 +451,6 @@ public class TranslateTextHandler implements RequestHandler<Map<String, Object>,
     }
 }
 ```
-
-
-
 
 ### Services package
 
@@ -689,7 +686,6 @@ public class PollyService {
         }
     }
 }
-
 
 ```
 
