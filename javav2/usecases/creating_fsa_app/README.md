@@ -607,10 +607,10 @@ public class ExtractTextService {
 
         } catch (TextractException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            throw e; // Re-throw the exception.
+            throw e; 
         } catch (SdkClientException e) {
             System.err.println(e.getMessage());
-            throw e; // Re-throw the exception.
+            throw e; 
         }
     }
 }
