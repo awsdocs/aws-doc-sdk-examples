@@ -218,6 +218,7 @@ const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
   examplelang: EXAMPLE_LANG_FUNCTIONS,
   ruby: RUBY_FUNCTIONS,
   java: JAVA_FUNCTIONS,
+  javascript: JAVASCRIPT_FUNCTIONS,
 };
 export function getFunctions(language: string = ""): AppFunctionConfig[] {
   return FUNCTIONS[language] ?? FUNCTIONS.examplelang;
