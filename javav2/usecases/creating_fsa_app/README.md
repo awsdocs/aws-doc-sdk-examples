@@ -680,68 +680,94 @@ public class PollyService {
 
 ### S3Service class
 
-The following Java code represents the **S3Service** class.
+The following Java code represents the **S3Service** class. This example uses the [Amazon S3 Transfer Manager API](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#upload(software.amazon.awssdk.transfer.s3.model.UploadRequest)) to upload a .mp3 file to an S3 bucket. 
+
+Here's a breakdown of what the code does:
+
++ It takes an InputStream (is), an S3TransferManager (transferManager), a destination bucket name (bucket), and a destination object key (key) as parameters.
+
++ It reads the content of the InputStream (is) into a byte array using the inputStreamToBytes method. This is done to prepare the data for upload.
+
++ It creates an **UploadRequest** object. 
+
++ It waits for the upload to complete by calling upload.completionFuture().join(). This ensures that the upload is finished before proceeding.
+
++ Finally, it returns the object key (key) as a confirmation of the successful upload
 
 ```java
 package com.example.fsa.services;
 
-import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.core.async.AsyncRequestBody;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.transfer.s3.S3TransferManager;
+import software.amazon.awssdk.transfer.s3.model.Upload;
+import software.amazon.awssdk.transfer.s3.model.UploadRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.util.concurrent.CompletableFuture;
 
 public class S3Service {
 
-    private static S3Client s3Client;
+    private static S3AsyncClient s3AsyncClient;
 
-    private static synchronized S3Client getS3Client() {
-        if (s3Client == null) {
-            s3Client = S3Client.builder()
+    private static synchronized S3AsyncClient getS3AsyncClient() {
+        if (s3AsyncClient == null) {
+            s3AsyncClient = S3AsyncClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
         }
-        return s3Client;
+        return s3AsyncClient;
     }
 
     // Put the audio file into the Amazon S3 bucket.
     public String putAudio(InputStream is, String bucket, String key) throws S3Exception, IOException {
         try {
-            byte[] bytes = inputStreamToBytes(is);
-            long contentLength = bytes.length;
-
-            // Create a PutObjectRequest with content length.
-            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                .bucket(bucket)
-                .contentType("audio/mp3")
-                .contentLength(contentLength)
-                .key(key)
+            S3TransferManager transferManager = S3TransferManager.builder()
+                .s3Client(getS3AsyncClient())
                 .build();
 
-            getS3Client().putObject(putObjectRequest, RequestBody.fromInputStream(is,contentLength));
+            byte[] bytes = inputStreamToBytes(is);
+            long contentLength = bytes.length;
+            UploadRequest uploadRequest = UploadRequest.builder()
+                .requestBody(AsyncRequestBody.fromByteBuffer(ByteBuffer.wrap(bytes)))
+                .putObjectRequest(PutObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(key)
+                    .contentType("audio/mp3")
+                    .contentLength(contentLength)
+                    .build())
+                .build();
+
+            Upload upload = transferManager.upload(uploadRequest);
+
+            // Wait for the transfer to complete
+            CompletableFuture<?> future = upload.completionFuture();
+            future.join();
             return key;
 
-        } catch (S3Exception e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+        } catch (IOException | S3Exception e) {
+            System.err.println(e.getMessage());
             throw e;
         }
     }
 
-    public static byte[] inputStreamToBytes(InputStream inputStream) throws IOException {
+    private static byte[] inputStreamToBytes(InputStream is) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        byte[] data = new byte[1024];
         int nRead;
-
-        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+        byte[] data = new byte[1024];
+        while ((nRead = is.read(data, 0, data.length)) != -1) {
             buffer.write(data, 0, nRead);
         }
-        buffer.flush();
+
         return buffer.toByteArray();
     }
 }
+
 
 ```
 
