@@ -1312,6 +1312,7 @@ sns_PublishFifoTopic:
                 - sns.abapv1.publish_message_to_fifo_queue
   services:
     sns: {CreateTopic, Publish, Subscribe}
+    sqs: {}
 sns_PublishLargeMessage:
   title: Publish a large message to &SNS; with &S3; using an &AWS; SDK
   title_abbrev: Publish a large message

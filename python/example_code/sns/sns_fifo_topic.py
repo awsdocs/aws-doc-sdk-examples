@@ -5,7 +5,7 @@
 Purpose
 
 Demonstrates subscribing Amazon Simple Queue Service (Amazon SQS)
-queues to a FIFO (First In First Out) Amazon Simple Notification Service (Amazon SNS) topic.
+queues to a FIFO (First-In-First-Out) Amazon Simple Notification Service (Amazon SNS) topic.
 """
 
 import logging
@@ -31,10 +31,10 @@ class FifoTopicWrapper:
     # snippet-start:[python.example_code.sns.CreateFifoTopic]
     def create_fifo_topic(self, topic_name):
         """
-        Create a FIFO (First In First Out) topic.
+        Create a FIFO topic.
         Topic names must be made up of only uppercase and lowercase ASCII letters,
         numbers, underscores, and hyphens, and must be between 1 and 256 characters long.
-        For a FIFO (first-in-first-out) topic, the name must end with the .fifo suffix.
+        For a FIFO topic, the name must end with the .fifo suffix.
 
         :param topic_name: The name for the topic.
         :return: The new topic.
@@ -55,8 +55,8 @@ class FifoTopicWrapper:
 
     # snippet-end:[python.example_code.sns.CreateFifoTopic]
 
-    @staticmethod
     # snippet-start:[python.example_code.sns.AddTopicPolicy]
+    @staticmethod
     def add_access_policy(queue, topic_arn):
         """
         Add the necessary access policy to a queue, so
@@ -89,8 +89,8 @@ class FifoTopicWrapper:
 
     # snippet-end:[python.example_code.sns.AddTopicPolicy]
 
-    @staticmethod
     # snippet-start:[python.example_code.sns.SubscribeQueueToTopic]
+    @staticmethod
     def subscribe_queue_to_topic(topic, queue_arn):
         """
         Subscribe a queue to a topic.
@@ -112,8 +112,8 @@ class FifoTopicWrapper:
 
     # snippet-end:[python.example_code.sns.SubscribeQueueToTopic]
 
-    @staticmethod
     # snippet-start:[python.example_code.sns.PublishToTopic]
+    @staticmethod
     def publish_price_update(topic, payload, group_id):
         """
         Compose and publish a message that updates the wholesale price.
@@ -142,8 +142,8 @@ class FifoTopicWrapper:
 
     # snippet-end:[python.example_code.sns.PublishToTopic]
 
-    @staticmethod
     # snippet-start:[python.example_code.sns.DeleteQueue]
+    @staticmethod
     def delete_queue(queue):
         """
         Removes an SQS queue. When run against an AWS account, it can take up to
@@ -159,7 +159,6 @@ class FifoTopicWrapper:
             logger.exception("Couldn't delete queue with URL=%s!", queue.url)
             raise error
 
-
 # snippet-end:[python.example_code.sns.DeleteQueue]
 
 # snippet-end:[python.example_code.sns.FifoTopicWrapper]
@@ -167,9 +166,9 @@ class FifoTopicWrapper:
 
 # snippet-start:[python.example_code.sns.Scenario_SubscribeFifoTopic]
 def usage_demo():
-    """Shows how subscribe queues to a FIFO topic."""
+    """Shows how to subscribe queues to a FIFO topic."""
     print('-' * 88)
-    print("Welcome to the Amazon Simple Queue Service (Amazon SQS) subscribe demo!")
+    print("Welcome to the `Subscribe queues to a FIFO topic` demo!")
     print('-' * 88)
 
     sns = boto3.resource('sns')
@@ -230,7 +229,7 @@ def usage_demo():
 
     input("Press Enter to publish a message to the topic.")
 
-    message_id = fifo_topic_wrapper.publish_price_update(topic, '{\"product\": 214, \"price\": 79.99}', "Consumables")
+    message_id = fifo_topic_wrapper.publish_price_update(topic, '{"product": 214, "price": 79.99}', "Consumables")
 
     print(f"Published price update with message ID: {message_id}.")
 
