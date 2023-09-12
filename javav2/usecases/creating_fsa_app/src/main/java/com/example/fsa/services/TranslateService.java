@@ -6,22 +6,24 @@
 package com.example.fsa.services;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.translate.TranslateClient;
+import software.amazon.awssdk.services.translate.TranslateAsyncClient;
 import software.amazon.awssdk.services.translate.model.TranslateException;
 import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
 import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
 
+import java.util.concurrent.CompletableFuture;
+
 public class TranslateService {
 
-    private static TranslateClient translateClient;
+    private static TranslateAsyncClient translateAsyncClient;
 
-    private static synchronized TranslateClient getTranslateClient() {
-        if (translateClient == null) {
-            translateClient = TranslateClient.builder()
+    private static synchronized TranslateAsyncClient getTranslateAsyncClient() {
+        if (translateAsyncClient == null) {
+            translateAsyncClient = TranslateAsyncClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
         }
-        return translateClient;
+        return translateAsyncClient;
     }
 
     public String translateText(String lanCode, String text) {
@@ -32,7 +34,10 @@ public class TranslateService {
                 .text(text)
                 .build();
 
-            TranslateTextResponse textResponse = getTranslateClient().translateText(textRequest);
+            CompletableFuture<?> future = getTranslateAsyncClient().translateText(textRequest);
+            future.join();
+
+            TranslateTextResponse textResponse = (TranslateTextResponse) future.join();
             return textResponse.translatedText();
 
         } catch (TranslateException e) {

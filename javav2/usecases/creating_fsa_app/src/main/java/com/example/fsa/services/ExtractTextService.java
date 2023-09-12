@@ -12,21 +12,23 @@ import software.amazon.awssdk.services.textract.model.Document;
 import software.amazon.awssdk.services.textract.model.DetectDocumentTextRequest;
 import software.amazon.awssdk.services.textract.model.DetectDocumentTextResponse;
 import software.amazon.awssdk.services.textract.model.Block;
-import software.amazon.awssdk.services.textract.TextractClient;
+import software.amazon.awssdk.services.textract.TextractAsyncClient;
 import software.amazon.awssdk.services.textract.model.S3Object;
 import software.amazon.awssdk.services.textract.model.TextractException;
 
+import java.util.concurrent.CompletableFuture;
+
 public class ExtractTextService {
 
-    private static TextractClient textractClient;
+    private static TextractAsyncClient textractAsyncClient;
 
-    private static synchronized TextractClient getTextractClient() {
-        if (textractClient == null) {
-            textractClient = TextractClient.builder()
+    private static synchronized TextractAsyncClient getTextractAsyncClient() {
+        if (textractAsyncClient == null) {
+            textractAsyncClient = TextractAsyncClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
         }
-        return textractClient;
+        return textractAsyncClient;
     }
 
     public String getCardText(String bucketName, String obName) {
@@ -45,7 +47,10 @@ public class ExtractTextService {
                 .build();
 
             StringBuilder completeText = new StringBuilder();
-            DetectDocumentTextResponse textResponse = getTextractClient().detectDocumentText(detectDocumentTextRequest);
+            CompletableFuture<?> future = getTextractAsyncClient().detectDocumentText(detectDocumentTextRequest);
+            future.join();
+
+            DetectDocumentTextResponse textResponse = (DetectDocumentTextResponse) future.join();
             for (Block block : textResponse.blocks()) {
                 if (block.blockType() == BlockType.WORD) {
                     if (completeText.length() == 0) {

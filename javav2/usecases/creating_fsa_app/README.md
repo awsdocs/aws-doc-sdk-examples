@@ -219,6 +219,11 @@ Make sure that the **pom.xml** file looks like the following.
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
+            <artifactId>s3-transfer-manager</artifactId>
+            <version>2.20.26</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
             <artifactId>textract</artifactId>
         </dependency>
          <dependency>
@@ -246,18 +251,6 @@ Make sure that the **pom.xml** file looks like the following.
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>polly</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>dynamodb-enhanced</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>sns</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.surefire</groupId>
@@ -474,32 +467,33 @@ Create these Java classes in the **com.example.fsa.services** package. These Jav
 
  ### DetectSentimentService class
 
- The following Java code represents the **DetectSentimentService** class.
+ The following Java code represents the **DetectSentimentService** class. 
 
 ```java
 package com.example.fsa.services;
+
 import org.json.simple.JSONObject;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.comprehend.ComprehendClient;
+import software.amazon.awssdk.services.comprehend.ComprehendAsyncClient;
 import software.amazon.awssdk.services.comprehend.model.ComprehendException;
 import software.amazon.awssdk.services.comprehend.model.DetectDominantLanguageRequest;
 import software.amazon.awssdk.services.comprehend.model.DetectDominantLanguageResponse;
 import software.amazon.awssdk.services.comprehend.model.DetectSentimentRequest;
 import software.amazon.awssdk.services.comprehend.model.DetectSentimentResponse;
 import software.amazon.awssdk.services.comprehend.model.DominantLanguage;
-
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class DetectSentimentService {
 
-    private static ComprehendClient comprehendClient;
-    private static synchronized ComprehendClient getComprehendClient() {
-        if (comprehendClient == null) {
-            comprehendClient = ComprehendClient.builder()
+    private static ComprehendAsyncClient comprehendAsyncClient;
+    private static synchronized ComprehendAsyncClient getComprehendAsyncClient() {
+        if (comprehendAsyncClient == null) {
+            comprehendAsyncClient = ComprehendAsyncClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
         }
-        return comprehendClient;
+        return comprehendAsyncClient;
     }
 
     public JSONObject detectSentiments(String text){
@@ -510,7 +504,11 @@ public class DetectSentimentService {
                 .languageCode(languageCode)
                 .build();
 
-            DetectSentimentResponse detectSentimentResult = getComprehendClient().detectSentiment(detectSentimentRequest);
+            CompletableFuture<?> future  = getComprehendAsyncClient().detectSentiment(detectSentimentRequest);
+            future.join();
+
+            // Wait for the operation to complete and get the result
+            DetectSentimentResponse detectSentimentResult = (DetectSentimentResponse) future.join();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("sentiment", detectSentimentResult.sentimentAsString());
             jsonObject.put("language_code", languageCode);
@@ -518,7 +516,7 @@ public class DetectSentimentService {
 
         } catch (ComprehendException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            throw e; // Re-throw the exception.
+            throw e;
         }
     }
 
@@ -528,7 +526,10 @@ public class DetectSentimentService {
                 .text(text)
                 .build();
 
-            DetectDominantLanguageResponse resp = getComprehendClient().detectDominantLanguage(request);
+            CompletableFuture<?> future  = getComprehendAsyncClient().detectDominantLanguage(request);
+            future.join();
+
+            DetectDominantLanguageResponse resp = (DetectDominantLanguageResponse) future.join();
             List<DominantLanguage> allLanList = resp.languages();
             if (!allLanList.isEmpty()) {
                 DominantLanguage firstLanguage = allLanList.get(0);
@@ -560,21 +561,23 @@ import software.amazon.awssdk.services.textract.model.Document;
 import software.amazon.awssdk.services.textract.model.DetectDocumentTextRequest;
 import software.amazon.awssdk.services.textract.model.DetectDocumentTextResponse;
 import software.amazon.awssdk.services.textract.model.Block;
-import software.amazon.awssdk.services.textract.TextractClient;
+import software.amazon.awssdk.services.textract.TextractAsyncClient;
 import software.amazon.awssdk.services.textract.model.S3Object;
 import software.amazon.awssdk.services.textract.model.TextractException;
 
+import java.util.concurrent.CompletableFuture;
+
 public class ExtractTextService {
 
-    private static TextractClient textractClient;
+    private static TextractAsyncClient textractAsyncClient;
 
-    private static synchronized TextractClient getTextractClient() {
-        if (textractClient == null) {
-            textractClient = TextractClient.builder()
+    private static synchronized TextractAsyncClient getTextractAsyncClient() {
+        if (textractAsyncClient == null) {
+            textractAsyncClient = TextractAsyncClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
         }
-        return textractClient;
+        return textractAsyncClient;
     }
 
     public String getCardText(String bucketName, String obName) {
@@ -593,7 +596,10 @@ public class ExtractTextService {
                 .build();
 
             StringBuilder completeText = new StringBuilder();
-            DetectDocumentTextResponse textResponse = getTextractClient().detectDocumentText(detectDocumentTextRequest);
+            CompletableFuture<?> future = getTextractAsyncClient().detectDocumentText(detectDocumentTextRequest);
+            future.join();
+
+            DetectDocumentTextResponse textResponse = (DetectDocumentTextResponse) future.join();
             for (Block block : textResponse.blocks()) {
                 if (block.blockType() == BlockType.WORD) {
                     if (completeText.length() == 0) {
@@ -607,10 +613,10 @@ public class ExtractTextService {
 
         } catch (TextractException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
-            throw e; 
+            throw e; // Re-throw the exception.
         } catch (SdkClientException e) {
             System.err.println(e.getMessage());
-            throw e; 
+            throw e; // Re-throw the exception.
         }
     }
 }
@@ -624,28 +630,32 @@ public class ExtractTextService {
 ```java
 package com.example.fsa.services;
 
+import software.amazon.awssdk.core.ResponseInputStream;
+import software.amazon.awssdk.core.async.AsyncResponseTransformer;
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.polly.PollyClient;
+import software.amazon.awssdk.services.polly.PollyAsyncClient;
 import software.amazon.awssdk.services.polly.model.DescribeVoicesRequest;
 import software.amazon.awssdk.services.polly.model.PollyException;
 import software.amazon.awssdk.services.polly.model.SynthesizeSpeechRequest;
+import software.amazon.awssdk.services.polly.model.SynthesizeSpeechResponse;
 import software.amazon.awssdk.services.polly.model.Voice;
 import software.amazon.awssdk.services.polly.model.DescribeVoicesResponse;
 import software.amazon.awssdk.services.polly.model.OutputFormat;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.CompletableFuture;
 
 public class PollyService {
-    private static PollyClient pollyClientInstance;
+    private static PollyAsyncClient pollyAsyncClient;
 
-    private static synchronized PollyClient getPollyClient() {
-        if (pollyClientInstance == null) {
+    private static synchronized PollyAsyncClient getPollyAsyncClient() {
+        if (pollyAsyncClient == null) {
             Region region = Region.US_EAST_1;
-            pollyClientInstance = PollyClient.builder()
+            pollyAsyncClient = PollyAsyncClient.builder()
                 .region(region)
                 .build();
         }
-        return pollyClientInstance;
+        return pollyAsyncClient;
     }
 
     public InputStream synthesize(String text) throws IOException {
@@ -654,19 +664,24 @@ public class PollyService {
                 .engine("neural")
                 .build();
 
-            DescribeVoicesResponse describeVoicesResult = getPollyClient().describeVoices(describeVoicesRequest);
+            CompletableFuture<?> future  = getPollyAsyncClient().describeVoices(describeVoicesRequest);
+            future.join();
+
+            DescribeVoicesResponse describeVoicesResult = (DescribeVoicesResponse) future.join();
             Voice voice = describeVoicesResult.voices().stream()
                 .filter(v -> v.name().equals("Joanna"))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Voice not found"));
 
-            SynthesizeSpeechRequest synthReq = SynthesizeSpeechRequest.builder()
+            SynthesizeSpeechRequest request = SynthesizeSpeechRequest.builder()
                 .text(text)
                 .outputFormat(OutputFormat.MP3)
                 .voiceId(voice.id())
                 .build();
 
-            return getPollyClient().synthesizeSpeech(synthReq);
+            CompletableFuture<ResponseInputStream<SynthesizeSpeechResponse>> audioFuture = getPollyAsyncClient().synthesizeSpeech(request, AsyncResponseTransformer.toBlockingInputStream());
+            InputStream audioInputStream = audioFuture.join();
+            return audioInputStream;
 
         } catch (PollyException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
@@ -777,22 +792,24 @@ The following Java code represents the **TranslateService** class.
  package com.example.fsa.services;
 
 import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.translate.TranslateClient;
+import software.amazon.awssdk.services.translate.TranslateAsyncClient;
 import software.amazon.awssdk.services.translate.model.TranslateException;
 import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
 import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
 
+import java.util.concurrent.CompletableFuture;
+
 public class TranslateService {
 
-    private static TranslateClient translateClient;
+    private static TranslateAsyncClient translateAsyncClient;
 
-    private static synchronized TranslateClient getTranslateClient() {
-        if (translateClient == null) {
-            translateClient = TranslateClient.builder()
+    private static synchronized TranslateAsyncClient getTranslateAsyncClient() {
+        if (translateAsyncClient == null) {
+            translateAsyncClient = TranslateAsyncClient.builder()
                 .region(Region.US_EAST_1)
                 .build();
         }
-        return translateClient;
+        return translateAsyncClient;
     }
 
     public String translateText(String lanCode, String text) {
@@ -803,7 +820,10 @@ public class TranslateService {
                 .text(text)
                 .build();
 
-            TranslateTextResponse textResponse = getTranslateClient().translateText(textRequest);
+            CompletableFuture<?> future = getTranslateAsyncClient().translateText(textRequest);
+            future.join();
+
+            TranslateTextResponse textResponse = (TranslateTextResponse) future.join();
             return textResponse.translatedText();
 
         } catch (TranslateException e) {
