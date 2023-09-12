@@ -11,7 +11,7 @@ import com.example.fsa.services.DetectSentimentService;
 import org.json.simple.JSONObject;
 import java.util.Map;
 
-public class SentimentHandler implements RequestHandler<Map<String, Object>, JSONObject> {
+public class AnalyzeSentimentHandler implements RequestHandler<Map<String, Object>, JSONObject> {
 
     @Override
     public JSONObject handleRequest(Map<String, Object> requestObject, Context context) {

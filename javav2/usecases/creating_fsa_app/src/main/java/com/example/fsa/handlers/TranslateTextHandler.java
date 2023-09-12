@@ -11,7 +11,7 @@ import com.example.fsa.services.TranslateService;
 import org.json.simple.JSONObject;
 import java.util.Map;
 
-public class TranslateHandler implements RequestHandler<Map<String, Object>, JSONObject> {
+public class TranslateTextHandler implements RequestHandler<Map<String, Object>, JSONObject> {
 
     @Override
     public JSONObject handleRequest(Map<String, Object> requestObject, Context context) {

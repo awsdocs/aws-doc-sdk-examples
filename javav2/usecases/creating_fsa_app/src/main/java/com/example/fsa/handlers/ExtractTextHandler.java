@@ -10,7 +10,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.example.fsa.services.ExtractTextService;
 import java.util.Map;
 
-public class S3Handler implements RequestHandler<Map<String, Object>, String>{
+public class ExtractTextHandler implements RequestHandler<Map<String, Object>, String>{
 
     @Override
     public String handleRequest(Map<String, Object> requestObject, Context context) {

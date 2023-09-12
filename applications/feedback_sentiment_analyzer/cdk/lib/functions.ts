@@ -197,7 +197,7 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
         bundling: JAVA_BUNDLING_CONFIG,
       });
     },
-    handler: 'com.example.fsa.handlers.S3Handler::handleRequest',
+    handler: 'com.example.fsa.handlers.ExtractTextHandler::handleRequest',
   },
   {
     ...COMMON_JAVA_FUNCTION_CONFIG,
@@ -210,7 +210,7 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
         bundling: JAVA_BUNDLING_CONFIG,
       });
     },
-    handler: 'com.example.fsa.handlers.SentimentHandler::handleRequest',
+    handler: 'com.example.fsa.handlers.AnalyzeSentimentHandler::handleRequest',
   },
   {
     ...COMMON_JAVA_FUNCTION_CONFIG,
@@ -223,7 +223,7 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
         bundling: JAVA_BUNDLING_CONFIG,
       });
     },
-    handler: 'com.example.fsa.handlers.TranslateHandler::handleRequest',
+    handler: 'com.example.fsa.handlers.TranslateTextHandler::handleRequest',
   },
   {
     ...COMMON_JAVA_FUNCTION_CONFIG,
@@ -236,7 +236,7 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
         bundling: JAVA_BUNDLING_CONFIG,
       });
     },
-    handler: 'com.example.fsa.handlers.PollyHandler::handleRequest',
+    handler: 'com.example.fsa.handlers.SynthesizeAudioHandler::handleRequest',
   },
 ];
 

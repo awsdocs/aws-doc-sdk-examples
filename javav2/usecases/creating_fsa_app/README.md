@@ -110,7 +110,7 @@ The backend of the FSA application is implemented by using these AWS Lambda func
 
 1. In the IntelliJ IDE, choose **File**, **New**, **Project**.
 2. In the **New Project** dialog box, choose **Maven**, and then choose **Next**.
-3. For **GroupId**, enter **aws-spring**.
+3. For **GroupId**, enter **aws-fsa**.
 4. For **ArtifactId**, enter **fsa_app**.
 6. Choose **Next**.
 7. Choose **Finish**.
@@ -129,7 +129,7 @@ Make sure that the **pom.xml** file looks like the following.
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.example</groupId>
+    <groupId>aws-fsa</groupId>
     <artifactId>fsa_app</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
@@ -315,14 +315,72 @@ Create a Java package in the **main/java** folder named **com.example.fsa**. The
 
 Create these Java classes in the **com.example.fsa.handlers** package. These Java classes use the AWS Lambda Java runtime API to build the AWS Lambda functions described earlier in this document. Each class represents a handler for a separate AWS Lambda function. For more information about the AWS Lambda Java runtime API, see [AWS Lambda function handler in Java](https://docs.aws.amazon.com/lambda/latest/dg/java-handler.html).
 
-+ **PollyHandler** - The handler for the **fnSynthesizeAudio** Lambda function. 
-+ **S3Handler** - The handler for the **ExtractText** Lambda function.
-+ **SentimentHandler** - The handler for the ****AnalyzeSentiment** Lambda function. 
-+ **TranslateHandler** -The handler for the **TranslateText** Lambda function. 
++ **AnalyzeSentimentHandler** - The handler for the ****AnalyzeSentiment** Lambda function. 
++ **ExtractTextHandler** - The handler for the **ExtractText** Lambda function.
++ **SynthesizeAudioHandler** - The handler for the **fnSynthesizeAudio** Lambda function. 
++ **TranslateTextHandler** - The handler for the **TranslateText** Lambda function. 
 
-#### PollyHandler class
+#### AnalyzeSentimentHandler class
 
-The following Java code represents the **PollyHandler** class. 
+The following is the **AnalyzeSentimentHandler** class. 
+
+```java
+package com.example.fsa.handlers;
+
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.example.fsa.services.DetectSentimentService;
+import org.json.simple.JSONObject;
+import java.util.Map;
+
+public class AnalyzeSentimentHandler implements RequestHandler<Map<String, Object>, JSONObject> {
+
+    @Override
+    public JSONObject handleRequest(Map<String, Object> requestObject, Context context) {
+        String sourceText = (String) requestObject.get("source_text");
+        context.getLogger().log("Extracted text: " +sourceText);
+        DetectSentimentService detectSentimentService = new DetectSentimentService();
+        JSONObject jsonOb = detectSentimentService.detectSentiments(sourceText);
+        context.getLogger().log("JSON: " + jsonOb.toJSONString());
+        return jsonOb;
+    }
+}
+
+```
+
+#### ExtractTextHandler class
+
+The following Java code represents the **S3Handler** class. 
+
+```java
+package com.example.fsa.handlers;
+
+import com.amazonaws.services.lambda.runtime.Context;
+import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.example.fsa.services.ExtractTextService;
+import java.util.Map;
+
+public class ExtractTextHandler implements RequestHandler<Map<String, Object>, String>{
+
+    @Override
+    public String handleRequest(Map<String, Object> requestObject, Context context) {
+        // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon EventBridge event.
+        ExtractTextService textService = new ExtractTextService();
+        String bucket = (String) requestObject.get("bucket");
+        String fileName = (String) requestObject.get("object");
+        context.getLogger().log("*** Bucket: " + bucket + ", fileName: " + fileName);
+        String extractedText = textService.getCardText(bucket, fileName);
+        context.getLogger().log("*** Text: " + extractedText);
+        return extractedText;
+    }
+}
+
+
+```
+
+### SynthesizeAudioHandler class
+
+The following Java code represents the **SynthesizeAudioHandler** class. 
 
 ```java
 package com.example.fsa.handlers;
@@ -335,7 +393,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-public class PollyHandler implements RequestHandler<Map<String, Object>, String> {
+public class SynthesizeAudioHandler implements RequestHandler<Map<String, Object>, String> {
     @Override
     public String handleRequest(Map<String, Object> requestObject, Context context) {
         S3Service s3Service = new S3Service();
@@ -356,13 +414,13 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
     }
 
     public static String convertFileEx(String originalFileName) {
-        // Find the last occurrence of the dot (.) in the file name
+        // Find the last occurrence of the dot (.) in the file name.
         int lastDotIndex = originalFileName.lastIndexOf(".");
         if (lastDotIndex >= 0) {
             // Remove the existing extension and append "mp3".
             return originalFileName.substring(0, lastDotIndex) + ".mp3";
         } else {
-            // If there's no existing extension, simply append ".mp3"
+            // If there's no existing extension, simply append ".mp3".
             return originalFileName + ".mp3";
         }
     }
@@ -371,65 +429,9 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
 
 ```
 
-#### S3Handler class
+#### TranslateTextHandler class
 
-The following Java code represents the **S3Handler** class. 
-```java
-package com.example.fsa.handlers;
-
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.example.fsa.services.ExtractTextService;
-import java.util.Map;
-
-public class S3Handler implements RequestHandler<Map<String, Object>, String>{
-
-    @Override
-    public String handleRequest(Map<String, Object> requestObject, Context context) {
-        // Get the Amazon Simple Storage Service (Amazon S3) bucket and object key from the Amazon EventBridge event.
-        ExtractTextService textService = new ExtractTextService();
-        String bucket = (String) requestObject.get("bucket");
-        String fileName = (String) requestObject.get("object");
-        context.getLogger().log("*** Bucket: " + bucket + ", fileName: " + fileName);
-        String extractedText = textService.getCardText(bucket, fileName);
-        context.getLogger().log("*** Text: " + extractedText);
-        return extractedText;
-    }
-}
-
-```
-
-### SentimentHandler class
-
-The following is the **SentimentHandler** class. 
-
-```java
-package com.example.fsa.handlers;
-
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.example.fsa.services.DetectSentimentService;
-import org.json.simple.JSONObject;
-import java.util.Map;
-
-public class SentimentHandler implements RequestHandler<Map<String, Object>, JSONObject> {
-
-    @Override
-    public JSONObject handleRequest(Map<String, Object> requestObject, Context context) {
-        String sourceText = (String) requestObject.get("source_text");
-        context.getLogger().log("Extracted text: " +sourceText);
-        DetectSentimentService detectSentimentService = new DetectSentimentService();
-        JSONObject jsonOb = detectSentimentService.detectSentiments(sourceText);
-        context.getLogger().log("JSON: " + jsonOb.toJSONString());
-        return jsonOb;
-    }
-}
-
-```
-
-### TranslateHandler class
-
-The following Java code represents the **TranslateHandler** class. 
+The following Java code represents the **TranslateTextHandler** class. 
 
 ```java
 package com.example.fsa.handlers;
@@ -440,7 +442,7 @@ import com.example.fsa.services.TranslateService;
 import org.json.simple.JSONObject;
 import java.util.Map;
 
-public class TranslateHandler implements RequestHandler<Map<String, Object>, JSONObject> {
+public class TranslateTextHandler implements RequestHandler<Map<String, Object>, JSONObject> {
 
     @Override
     public JSONObject handleRequest(Map<String, Object> requestObject, Context context) {
@@ -456,6 +458,9 @@ public class TranslateHandler implements RequestHandler<Map<String, Object>, JSO
     }
 }
 ```
+
+
+
 
 ### Services package
 

@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
-public class PollyHandler implements RequestHandler<Map<String, Object>, String> {
+public class SynthesizeAudioHandler implements RequestHandler<Map<String, Object>, String> {
     @Override
     public String handleRequest(Map<String, Object> requestObject, Context context) {
         S3Service s3Service = new S3Service();
@@ -34,13 +34,13 @@ public class PollyHandler implements RequestHandler<Map<String, Object>, String>
     }
 
     public static String convertFileEx(String originalFileName) {
-        // Find the last occurrence of the dot (.) in the file name
+        // Find the last occurrence of the dot (.) in the file name.
         int lastDotIndex = originalFileName.lastIndexOf(".");
         if (lastDotIndex >= 0) {
             // Remove the existing extension and append "mp3".
             return originalFileName.substring(0, lastDotIndex) + ".mp3";
         } else {
-            // If there's no existing extension, simply append ".mp3"
+            // If there's no existing extension, simply append ".mp3".
             return originalFileName + ".mp3";
         }
     }
