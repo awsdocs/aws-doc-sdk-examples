@@ -702,7 +702,7 @@ The following Java code represents the **S3Service** class. This example uses th
 
 + It reads the content of the InputStream (is) into a byte array using the **inputStreamToBytes** method. This is done to prepare the data for upload.
 
-+ It creates an **UploadRequest** object. 
++ It creates an **UploadRequest** object using **AsyncRequestBody.fromInputStream()**. 
 
 + It waits for the upload to complete by calling **upload.completionFuture().join()**. This ensures that the upload is finished before proceeding.
 
