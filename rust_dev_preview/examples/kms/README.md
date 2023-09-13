@@ -38,7 +38,7 @@ Code excerpts that show you how to call individual service functions.
 * [Create a random byte string](src/bin/generate-random.rs#L29) (`GenerateRandom`)
 * [Decrypt ciphertext](src/bin/decrypt.rs#L34) (`Decrypt`)
 * [Encrypt text using a key](src/bin/encrypt.rs#L39) (`Encrypt`)
-* [Generate a plaintext data key for client-side encryption](src/bin/generate-data-key-without-plaintext.rs#L29) (`GenerateDataKey`)
+* [Generate a plaintext data key for client-side encryption](src/bin/generate-data-key.rs#L29) (`GenerateDataKey`)
 * [Generate an encrypted data key](src/bin/generate-data-key-without-plaintext.rs#L29) (`GenerateDataKeyWithoutPlaintext`)
 * [List keys](src/bin/list-keys.rs#L24) (`ListKeys`)
 * [Recencrypt ciphertext from one key to another](src/bin/reencrypt-data.rs#L44) (`ReEncrypt`)
