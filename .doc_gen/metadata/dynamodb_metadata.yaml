@@ -1873,11 +1873,11 @@ dynamodb_Scenario_GettingStartedMovies:
         - sdk_version: 2
           github: aws-cli/bash-linux/dynamodb
           excerpts:
-            - description: &DDB; getting started scenario.
+            - description: The &DDB; getting started scenario.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.scenario_getting_started_movies
             - description:
-              snippet_tags: &DDB; functions.
+              snippet_tags: The &DDB; functions.
                 - aws-cli.bash-linux.dynamodb.CreateTable
                 - aws-cli.bash-linux.dynamodb.DescribeTable
                 - aws-cli.bash-linux.dynamodb.PutItem
