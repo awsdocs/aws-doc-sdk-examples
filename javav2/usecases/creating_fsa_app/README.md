@@ -394,31 +394,18 @@ public class SynthesizeAudioHandler implements RequestHandler<Map<String, Object
         String translatedText = (String) requestObject.get("translated_text");
         String bucket = (String) requestObject.get("bucket");
         String key = (String) requestObject.get("object");
-        String newFileName = convertFileEx(key);
-        context.getLogger().log("*** Translated Text: " +translatedText +" and new key is "+newFileName);
+        key = key + ".mp3"; // Appends ".mp3" to the existing value of key
+        context.getLogger().log("*** Translated Text: " +translatedText +" and new key is "+key);
         try {
             InputStream is = pollyService.synthesize(translatedText);
-            String audioFile = s3Service.putAudio(is, bucket, newFileName);
+            String audioFile = s3Service.putAudio(is, bucket, key);
             context.getLogger().log("You have successfully added the " +audioFile +"  in "+bucket);
             return audioFile ;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
-    public static String convertFileEx(String originalFileName) {
-        // Find the last occurrence of the dot (.) in the file name.
-        int lastDotIndex = originalFileName.lastIndexOf(".");
-        if (lastDotIndex >= 0) {
-            // Remove the existing extension and append "mp3".
-            return originalFileName.substring(0, lastDotIndex) + ".mp3";
-        } else {
-            // If there's no existing extension, simply append ".mp3".
-            return originalFileName + ".mp3";
-        }
-    }
 }
-
 
 ```
 
