@@ -40,6 +40,11 @@ class Scanner:
     def _load_examples(self):
         self.example_meta = self._load_meta(f'{self.svc_name}_metadata.yaml', self.example_meta)
 
+    def set_example(self, language, service):
+        self.lang_name = language
+        self.svc_name = service
+        self.example_meta = None
+
     def sdk(self):
         self._load_sdks()
         return self.sdk_meta[self.lang_name]
