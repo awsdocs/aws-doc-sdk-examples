@@ -752,7 +752,7 @@ public class S3Service {
             // Create an ExecutorService with a fixed thread pool size.
             ExecutorService executorService = Executors.newFixedThreadPool(1); // Adjust the pool size as needed.
             UploadRequest uploadRequest = UploadRequest.builder()
-                .requestBody(AsyncRequestBody.fromInputStream(new ByteArrayInputStream(bytes), contentLength, executorService))
+                .requestBody(AsyncRequestBody.fromInputStream(new ByteArrayInputStream(bytes), null, executorService))
                 .putObjectRequest(PutObjectRequest.builder()
                     .bucket(bucket)
                     .key(key)
