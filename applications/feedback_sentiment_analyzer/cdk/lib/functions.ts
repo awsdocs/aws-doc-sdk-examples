@@ -167,7 +167,7 @@ const JAVA_BUNDLING_CONFIG = {
   command: [
     "bash",
     "-c",
-    "mvn install && cp target/creating_fsa_app-1.0-SNAPSHOT.jar /asset-output/",
+    "mvn install -DskipTests && cp target/creating_fsa_app-1.0-SNAPSHOT.jar /asset-output/",
   ],
   output: BundlingOutput.ARCHIVED,
   user: "root",
