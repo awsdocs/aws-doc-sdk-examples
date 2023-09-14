@@ -6,13 +6,17 @@ import json
 from aws_cdk import (
     aws_iam as iam,
     aws_s3 as s3,
-    aws_kinesisfirehose as firehose,
+    aws_lambda as _lambda,
     aws_logs as logs,
     Aws,
     Stack,
-    CfnOutput
+    CfnOutput,
+    Duration,
+    Size
 )
 from constructs import Construct
+import aws_cdk.aws_kinesisfirehose_destinations_alpha as destinations
+import aws_cdk.aws_kinesisfirehose_alpha as firehose_alpha
 
 class DataStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
@@ -55,6 +59,32 @@ class DataStack(Stack):
             # For us-east-1, there's no need to specify LocationConstraint
         )
 
+        #############################################
+        ##                                         ##
+        ##           PROCESSING LAMBDA             ##
+        ##    (Unzipping and decoding the data)    ##
+        ##                                         ##
+        #############################################
+
+        # Create a Lambda function to unzip and decode records
+        unzip_decode_lambda = _lambda.Function(
+            self,
+            "UnzipDecodeLambda",
+            runtime=_lambda.Runtime.PYTHON_3_8,
+            handler="unzip_decode.handler",
+            # Assuming you have a Python file named 'unzip_decode.py' with a 'handler' function
+            code=_lambda.Code.from_asset("data_stack"),  # Directory containing your Lambda code
+            timeout=Duration.seconds(60),  # Adjust as needed
+        )
+
+        # Grant necessary permissions to Lambda
+        unzip_decode_lambda.add_to_role_policy(
+            iam.PolicyStatement(
+                actions=["s3:GetObject"],
+                resources=[bucket.bucket_arn + "/*"],
+            )
+        )
+
         #####################################################################################################
         ##                                                                                                 ##
         ##                                   IAM ROLE FOR FIREHOSE                                         ##
@@ -91,14 +121,19 @@ class DataStack(Stack):
         ##                                 ##
         #####################################
 
-        delivery_stream = firehose.CfnDeliveryStream(
-            self,
-            "CloudWatchKinesisDeliveryStream",
-            s3_destination_configuration={
-                "bucketArn": bucket.bucket_arn,
-                "roleArn": firehose_to_s3_role.role_arn,
-            }
-        )
+        # Create a Kinesis Firehose delivery stream
+        lambda_processor = firehose_alpha.LambdaFunctionProcessor(unzip_decode_lambda,
+                                                            buffer_interval=Duration.minutes(5),
+                                                            buffer_size=Size.mebibytes(1),
+                                                            retries=5
+                                                            )
+        s3_destination = destinations.S3Bucket(bucket,
+                                               processor=lambda_processor,
+                                               # dataOutputPrefix=
+                                               )
+        delivery_stream = firehose_alpha.DeliveryStream(self, "Delivery Stream",
+                                destinations=[s3_destination]
+                                )
 
         #####################################################################################################
         ##                                                                                                 ##
@@ -157,7 +192,7 @@ class DataStack(Stack):
         destination = logs.CfnDestination(
             self, destination_name,
             destination_name=destination_name,
-            target_arn=delivery_stream.attr_arn,
+            target_arn=delivery_stream.delivery_stream_arn,
             role_arn=cloudwatch_role.role_arn,
             destination_policy=json.dumps(destination_policy)
         )

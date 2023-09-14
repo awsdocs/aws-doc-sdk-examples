@@ -1,0 +1,17 @@
+/usr/local/bin/ruby -I/usr/local/bundle/gems/rspec-support-3.12.0/lib:/usr/local/bundle/gems/rspec-core-3.12.2/lib /usr/local/bundle/gems/rspec-core-3.12.2/exe/rspec --pattern \*/\*\*/\*_spec.rb --tag integ --tag ~@quarantine
+An error occurred while loading ./example_code/glue/spec/getting_started_scenario_spec.rb.
+Failure/Error:
+  File.open(filename, 'r:bom|utf-8') { |f|
+    self.load f, filename: filename, **kwargs
+  }
+Errno::ENOENT:
+  No such file or directory @ rb_sysopen - ../resource_names.yaml
+# ./example_code/glue/spec/getting_started_scenario_spec.rb:27:in `block (2 levels) in <top (required)>'
+# ./example_code/glue/spec/getting_started_scenario_spec.rb:26:in `block in <top (required)>'
+# ./example_code/glue/spec/getting_started_scenario_spec.rb:25:in `<top (required)>'
+Run options:
+  include {:integ=>true}
+  exclude {:quarantine=>true}
+Finished in 0.02547 seconds (files took 2.17 seconds to load)
+0 examples, 0 failures, 1 error occurred outside of examples
+/usr/local/bin/ruby -I/usr/local/bundle/gems/rspec-support-3.12.0/lib:/usr/local/bundle/gems/rspec-core-3.12.2/lib /usr/local/bundle/gems/rspec-core-3.12.2/exe/rspec --pattern \*/\*\*/\*_spec.rb --tag integ --tag ~@quarantine failed

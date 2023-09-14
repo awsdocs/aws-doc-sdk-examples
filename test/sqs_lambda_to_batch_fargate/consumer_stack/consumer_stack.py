@@ -20,8 +20,7 @@ from aws_cdk import (
     aws_kinesis as kinesis,
     Aws,
     Stack,
-    Size,
-    core
+    Size
 )
 from constructs import Construct
 
@@ -34,17 +33,16 @@ class ConsumerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
 
-        #############################################
-        ##                                         ##
-        ##                 RESOURCES               ##
-        ##                                         ##
-        #############################################
+        #####################################################
+        ##                                                 ##
+        ##                 FANOUT COMPONENTS               ##
+        ##           (SQS, SNS, and Subscriptions)         ##
+        ##                                                 ##
+        #####################################################
 
         # Locate Amazon Simple Notification Service (Amazon SNS) topic in the producer account.
         fanout_topic_arn = f'arn:aws:sns:us-east-1:{producer_account_id}:{fanout_topic_name}'
         sns_topic = sns.Topic.from_topic_arn(self, fanout_topic_name, topic_arn=fanout_topic_arn)
-
-        container_image = ecs.EcrImage.from_registry(f"public.ecr.aws/b4v4v1s0/{language_name}:latest")
 
         # Define the Amazon Simple Queue Service (Amazon SQS) queue in this account.
         sqs_queue = sqs.Queue(self, f'BatchJobQueue-{language_name}')
@@ -69,13 +67,27 @@ class ConsumerStack(Stack):
             }
         )
 
-        # Execution role for AWS Lambda function to use.
-        execution_role = iam.Role(
-            self, f"LambdaExecutionRole-{language_name}",
-            assumed_by=iam.ServicePrincipal('lambda.amazonaws.com'),
-            description='Allows Lambda function to submit jobs to Batch',
-            role_name=f'LambdaExecutionRole-{language_name}'
-        )
+        # Create an SNS subscription for the SQS queue.
+        subs.SqsSubscription(sqs_queue, raw_message_delivery=True).bind(sns_topic)
+        sns_topic.add_subscription(subs.SqsSubscription(sqs_queue))
+
+        # Add the Amazon SNS and Amazon SQS policy to the IAM role.
+        sns_topic_role.add_to_policy(sns_topic_policy)
+
+        # Define policy that allows cross-account Amazon SNS and Amazon SQS access.
+        statement = iam.PolicyStatement()
+        statement.add_resources(sqs_queue.queue_arn)
+        statement.add_actions("sqs:*")
+        statement.add_arn_principal(f'arn:aws:iam::{producer_account_id}:root')
+        statement.add_arn_principal(f'arn:aws:iam::{Aws.ACCOUNT_ID}:root')
+        statement.add_condition("ArnLike", {"aws:SourceArn": fanout_topic_arn})
+        sqs_queue.add_to_resource_policy(statement)
+
+        ################################################
+        ##                                            ##
+        ##            BATCH FARGATE JOBS              ##
+        ##                                            ##
+        ################################################
 
         batch_execution_role = iam.Role(
             self, f"BatchExecutionRole-{language_name}",
@@ -106,26 +118,11 @@ class ConsumerStack(Stack):
             ]
         )
 
-        # # Allow the Batch job to put logs to the CloudWatch log group in the "parent" account
-        # parent_log_group_arn = "arn:aws:logs:us-east-1:808326389482:log-group/weathertop-central:*"
-        # log_policy_statement = iam.PolicyStatement(
-        #     actions=["logs:CreateLogStream", "logs:PutLogEvents"],
-        #     resources=[parent_log_group_arn]
-        # )
-        # batch_execution_role.add_to_policy(log_policy_statement)
-
-        # log_group.add_subscription_filter(
-        #     id='test',
-        #     destination=parent_log_group_arn,
-        #     filter_pattern=logs.FilterPattern().all_events()
-        # )
-
-        # Batch resources commented out due to bug: https://github.com/aws/aws-cdk/issues/24783.
-        # Using Alpha as workaround.
-
         fargate_environment = batch_alpha.FargateComputeEnvironment(self, f"FargateEnv-{language_name}",
                 vpc=ec2.Vpc.from_lookup(self, "Vpc", is_default=True)
         )
+
+        container_image = ecs.EcrImage.from_registry(f"public.ecr.aws/b4v4v1s0/{language_name}:latest")
 
         job_definition = batch_alpha.EcsJobDefinition(self, f"JobDefinition-{language_name}",
             container=batch_alpha.EcsFargateContainerDefinition(self, f"ContainerDefinition-{language_name}",
@@ -143,6 +140,28 @@ class ConsumerStack(Stack):
 
         job_queue.add_compute_environment(fargate_environment, 1)
 
+        #################################################
+        ##                                             ##
+        ##              LAMBDA FUNCTION                ##
+        ##     (Triggers Batch job from SQS queue)     ##
+        ##                                             ##
+        #################################################
+
+        # Execution role for AWS Lambda function to use.
+        execution_role = iam.Role(
+            self, f"LambdaExecutionRole-{language_name}",
+            assumed_by=iam.ServicePrincipal('lambda.amazonaws.com'),
+            description='Allows Lambda function to submit jobs to Batch',
+            role_name=f'LambdaExecutionRole-{language_name}'
+        )
+
+        execution_role.add_to_policy(
+            statement=iam.PolicyStatement(
+                actions=['batch:*'],
+                resources=["*"]
+            )
+        )
+
         # Define the Lambda function.
         function = _lambda.Function(self, f'SubmitBatchJob-{language_name}',
                                     runtime=_lambda.Runtime.PYTHON_3_8,
@@ -157,32 +176,11 @@ class ConsumerStack(Stack):
                                     }
                                     )
 
-        #################################################
-        ##                                             ##
-        ##                 CONFIGURATION               ##
-        ##                                             ##
-        #################################################
-
         # Add the SQS queue as an event source for the Lambda function.
         function.add_event_source(_event_sources.SqsEventSource(sqs_queue))
 
-        # Create an SNS subscription for the SQS queue.
-        subs.SqsSubscription(sqs_queue, raw_message_delivery=True).bind(sns_topic)
-        sns_topic.add_subscription(subs.SqsSubscription(sqs_queue))
-
-        ##########################################
-        ##                                      ##
-        ##                 ACCESS               ##
-        ##                                      ##
-        ##########################################
-
-        # Add the Amazon SNS and Amazon SQS policy to the IAM role.
-        sns_topic_role.add_to_policy(sns_topic_policy)
-
         # Grant permissions to allow the function to receive messages from the queue.
         sqs_queue.grant_consume_messages(function)
-
-        # Grant permissions to allow the function to read messages from the queue and to write logs to Amazon CloudWatch.
         function.add_to_role_policy(
             statement=iam.PolicyStatement(
                 actions=['sqs:ReceiveMessage'],
@@ -196,18 +194,18 @@ class ConsumerStack(Stack):
             )
         )
 
-        execution_role.add_to_policy(
-            statement=iam.PolicyStatement(
-                actions=['batch:*'],
-                resources=["*"]
-            )
-        )
+        #################################################
+        ##                                             ##
+        ##              SUBSCRIPTION FILTER            ##
+        ##                                             ##
+        #################################################
 
-        # Define policy that allows cross-account Amazon SNS and Amazon SQS access.
-        statement = iam.PolicyStatement()
-        statement.add_resources(sqs_queue.queue_arn)
-        statement.add_actions("sqs:*")
-        statement.add_arn_principal(f'arn:aws:iam::{producer_account_id}:root')
-        statement.add_arn_principal(f'arn:aws:iam::{Aws.ACCOUNT_ID}:root')
-        statement.add_condition("ArnLike", {"aws:SourceArn": fanout_topic_arn})
-        sqs_queue.add_to_resource_policy(statement)
+        # Define the subscription filter
+        logs.CfnSubscriptionFilter(
+            self,
+            "MySubscriptionFilter",
+            log_group_name="/aws/batch/job",
+            filter_name="to_firehose",
+            filter_pattern="[]",
+            destination_arn='arn:aws:logs:us-east-1:808326389482:destination:FirehoseDestination',
+        )

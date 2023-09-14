@@ -1,5 +1,7 @@
-aws-cdk-lib>=2.0.0
-constructs>=10.0.0
+aws-cdk-lib
+constructs
 types-boto3
 types-setuptools
 boto3
+aws-cdk.aws-kinesisfirehose-alpha
+aws-cdk.aws-kinesisfirehose-destinations-alpha
