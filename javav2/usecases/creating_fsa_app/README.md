@@ -703,7 +703,7 @@ The following Java code represents the **S3Service** class. This example uses th
 
 + It creates an **Upload** instance by using the **transferManager.upload()** method. The **Upload** object is responsible for managing the upload operation.
 
-+ Finally, it waits for the completion of the upload operation using **upload.completionFuture().join()(()), ensuring that the upload is finished before returning.
++ Finally, it waits for the completion of the upload operation using **upload.completionFuture().join()**, ensuring that the upload is finished before returning.
 
 ```java
 package com.example.fsa.services;
