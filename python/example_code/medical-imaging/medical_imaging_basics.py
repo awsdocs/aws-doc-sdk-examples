@@ -12,6 +12,8 @@ import logging
 import time
 
 import boto3
+import datetime
+import openjphpy as ojph
 
 from botocore.exceptions import ClientError
 
@@ -70,14 +72,18 @@ class MedicalImagingWrapper:
         :return: The list of data stores.
         """
         try:
-            data_stores = self.health_imaging_client.list_datastores()
+            paginator = client.get_paginator('list_datastores')
+            page_iterator = paginator.paginate()
+            datastore_summaries = []
+            for page in page_iterator:
+                datastore_summaries.extend(page['datastoreSummaries'])
         except ClientError as err:
             logger.error(
                 "Couldn't list data stores. Here's why: %s: %s", err.response['Error']['Code'],
                 err.response['Error']['Message'])
             raise
         else:
-            return data_stores['datastoreSummaries']
+            return datastore_summaries
 
     # snippet-end:[python.example_code.medical-imaging.ListDatastores]
 
@@ -158,14 +164,18 @@ class MedicalImagingWrapper:
         :return: The list of jobs.
         """
         try:
-            jobs = self.health_imaging_client.list_dicom_import_jobs(datastoreId=datastore_id)
+            paginator = client.get_paginator('list_dicom_import_jobs')
+            page_iterator = paginator.paginate(datastoreId=datastore_id)
+            job_summaries = []
+            for page in page_iterator:
+                job_summaries.extend(page['jobSummaries'])
         except ClientError as err:
             logger.error(
                 "Couldn't list DICOM import jobs. Here's why: %s: %s", err.response['Error']['Code'],
                 err.response['Error']['Message'])
             raise
         else:
-            return jobs['jobSummaries']
+            return job_summaries
 
     # snippet-end:[python.example_code.medical-imaging.ListDICOMImportJobs]
 
@@ -176,34 +186,38 @@ class MedicalImagingWrapper:
 
         :param datastore_id: The ID of the data store the image sets are stored in.
         :param search_filter: The search filter.
+            For example: {"filters" : [{ "operator": "EQUAL", "values": [{"DICOMPatientId": "3524578"}]}]}.
         :return: The list of image sets.
         """
         try:
-            image_sets = self.health_imaging_client.search_image_sets(datastoreId=datastore_id, filter=search_filter)
+            paginator = client.get_paginator('search_image_sets')
+            page_iterator = paginator.paginate(datastoreId=datastore_id, searchCriteria=search_filter)
+            metadata_summaries = []
+            for page in page_iterator:
+                metadata_summaries.extend(page['imageSetsMetadataSummaries'])
         except ClientError as err:
             logger.error(
                 "Couldn't search image sets. Here's why: %s: %s", err.response['Error']['Code'],
                 err.response['Error']['Message'])
             raise
         else:
-            return image_sets['imageSetSummaries']
+            return metadata_summaries
 
     # snippet-end:[python.example_code.medical-imaging.SearchImageSets]
 
     # snippet-start:[python.example_code.medical-imaging.GetImageSet]
-    def get_image_set(self, image_set_id, datastore_id, version):
+    def get_image_set(self, datastore_id, image_set_id, version_id):
         """
         Get the properties of an image set.
 
-        :param image_set_id: The ID of the image set.
         :param datastore_id: The ID of the data store the image set is stored in.
-        :param version: The version of the image set.
+        :param image_set_id: The ID of the image set.
+        :param version_id: The version of the image set.
         :return: The image set properties.
         """
         try:
             image_set = self.health_imaging_client.get_image_set(imageSetId=image_set_id, datastoreId=datastore_id,
-
-                                                                 version=version)
+                                                                 versionId=version_id)
         except ClientError as err:
             logger.error(
                 "Couldn't get image set. Here's why: %s: %s", err.response['Error']['Code'],
@@ -215,52 +229,59 @@ class MedicalImagingWrapper:
     # snippet-end:[python.example_code.medical-imaging.GetImageSet]
 
     # snippet-start:[python.example_code.medical-imaging.GetImageSetMetadata]
-    def get_image_set_metadata(self, image_set_id, datastore_id, version=None):
+    def get_image_set_metadata(self, metadata_file, datastore_id, image_set_id, version_id=None):
         """
         Get the metadata of an image set.
 
-        :param image_set_id: The ID of the image set.
+        :param metadata_file: The file to store the JSON gzipped metadata.
         :param datastore_id: The ID of the data store the image set is stored in.
-        :param version: Optional image set version.
-
-        :return: The image set metadata.
+        :param image_set_id: The ID of the image set.
+        :param version_id: The version of the image set.
         """
         try:
-            image_set = self.health_imaging_client.get_image_set_metadata(imageSetId=image_set_id,
-                                                                          datastoreId=datastore_id,
-                                                                          version=version)
+            if version_id:
+                image_set_metadata = self.health_imaging_client.get_image_set_metadata(imageSetId=image_set_id,
+                                                                                       datastoreId=datastore_id,
+                                                                                       versionId=version_id)
+            else:
+                image_set_metadata = self.health_imaging_client.get_image_set_metadata(imageSetId=image_set_id,
+                                                                                       datastoreId=datastore_id)
+            with open(metadata_file, 'wb') as f:
+                for chunk in image_set_metadata['imageSetMetadataBlob'].iter_chunks():
+                    if chunk:
+                        f.write(chunk)
+
         except ClientError as err:
             logger.error(
-                "Couldn't get image set. Here's why: %s: %s", err.response['Error']['Code'],
+                "Couldn't get image metadata. Here's why: %s: %s", err.response['Error']['Code'],
                 err.response['Error']['Message'])
             raise
-        else:
-            return image_set
 
     # snippet-end:[python.example_code.medical-imaging.GetImageSetMetadata]
 
     # snippet-start:[python.example_code.medical-imaging.GetImageFrame]
-    def get_pixel_data(self, image_set_id, image_frame_id, datastore_id):
+    def get_pixel_data(self, file_path_to_write, datastore_id, image_set_id, image_frame_id):
         """
         Get an image frame's pixel data.
 
+        :param file_path_to_write: The path to write the image frame's HTJ2K encoded pixel data.
+        :param datastore_id: The ID of the data store the image set is stored in.
         :param image_set_id: The ID of the image set.
         :param image_frame_id: The ID of the image frame.
-        :param datastore_id: The ID of the data store the image set is stored in.
-        :return: The pixel data encoded as HTJ2K.
         """
         try:
-            image_frame = self.health_imaging_client.get_image_frame(imageSetId=image_set_id,
-                                                                     datastoreId=datastore_id,
-                                                                     imageFrameInformation={
-                                                                         "imageFrameId": image_frame_id})
+            image_frame = self.health_imaging_client.get_image_frame(datastoreId=datastore_id,
+                                                                     imageSetId=image_set_id,
+                                                                     imageFrameInformation={ "imageFrameId" : image_frame_id})
+            with open(file_path_to_write, 'wb') as f:
+                for chunk in image_frame['imageFrameBlob'].iter_chunks():
+                    if chunk:
+                        f.write(chunk)
         except ClientError as err:
             logger.error(
                 "Couldn't get image frame. Here's why: %s: %s", err.response['Error']['Code'],
                 err.response['Error']['Message'])
             raise
-        else:
-            return image_frame
 
     # snippet-end:[python.example_code.medical-imaging.GetImageFrame]
 
@@ -435,17 +456,48 @@ if __name__ == '__main__':
     client = boto3.client('medical-imaging')
     medical_imaging_wrapper = MedicalImagingWrapper(client)
 
-    job_id = medical_imaging_wrapper.start_dicom_import_job(job_name, data_store_id,
-                                                                 data_access_role_arn,
-                                                                 source_s3_uri, dest_s3_uri)
+    if False:
+        job_id = medical_imaging_wrapper.start_dicom_import_job(job_name, data_store_id,
+                                                                data_access_role_arn,
+                                                                source_s3_uri, dest_s3_uri)
 
+        while True:
+            job = medical_imaging_wrapper.get_dicom_import_job(job_id, data_store_id)
+            job_status = job['jobStatus']
+            print(f"job : {job}")
+            if job_status == "COMPLETED":
+                break
+            elif job_status == "FAILED":
+                raise Exception("DICOM import job failed")
+            time.sleep(1)
 
-    while True:
-        job = medical_imaging_wrapper.get_dicom_import_job(job_id, data_store_id)
-        job_status = job['jobStatus']
-        print(f"job : {job}")
-        if job_status == "COMPLETED":
-            break
-        elif job_status == "FAILED":
-            raise Exception("DICOM import job failed")
-        time.sleep(1)
+        data_stores = medical_imaging_wrapper.list_datastores()
+        for store in data_stores:
+            print(store)
+
+        import_jobs = medical_imaging_wrapper.list_dicom_import_jobs(data_store_id)
+        for job in import_jobs:
+            print(job)
+
+        filter = {
+            "filters": [{
+                "values": [{"createdAt": datetime.datetime(2021, 8, 4, 14, 49, 54, 429000)},
+                           {"createdAt": datetime.datetime(2023, 9, 13, 14, 49, 54, 429000)}],
+                "operator": "BETWEEN"
+            }]
+        }
+        image_sets = medical_imaging_wrapper.search_image_sets(data_store_id, filter)
+        for image_set in image_sets:
+            print(image_set)
+
+        returned_image_set = medical_imaging_wrapper.get_image_set(data_store_id, "6ec347bff13a36fe32939e41a1e5e158", "1")
+        print(returned_image_set)
+
+        medical_imaging_wrapper.get_image_set_metadata("metadata.json.gzip", data_store_id,
+                                                                        "6ec347bff13a36fe32939e41a1e5e158", "1")
+
+    file_name="image_frame.jph"
+    returned_image_frame = medical_imaging_wrapper.get_pixel_data(file_name, data_store_id, "6ec347bff13a36fe32939e41a1e5e158", "4e54a7c5d5b8370e1484389f6d9fdbab")
+
+    decoded_bytes = returned_image_frame.decode('utf-8')
+
