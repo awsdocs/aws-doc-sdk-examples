@@ -152,9 +152,11 @@ dynamodb_CreateTable:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.dynamodb.iecho
-                - aws-cli.bash-linux.dynamodb.errecho
                 - aws-cli.bash-linux.dynamodb.CreateTable
+            - description: The utility function used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.errecho
   services:
     dynamodb: {CreateTable}
 dynamodb_BatchGetItem:
@@ -222,8 +224,10 @@ dynamodb_BatchGetItem:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.dynamodb.errecho
                 - aws-cli.bash-linux.dynamodb.BatchGetItem
+            - description: The utility function used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
   services:
     dynamodb: {BatchGetItem}
 dynamodb_DescribeTable:
@@ -308,8 +312,10 @@ dynamodb_DescribeTable:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.dynamodb.errecho
                 - aws-cli.bash-linux.dynamodb.DescribeTable
+            - description: The utility function used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
   services:
     dynamodb: {DescribeTable}
 dynamodb_BatchWriteItem:
@@ -411,9 +417,11 @@ dynamodb_BatchWriteItem:
           excerpts:
             - description:
               snippet_tags:
+                - aws-cli.bash-linux.dynamodb.BatchWriteItem
+            - description: The utility functions used in this example.
+              snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
-                - aws-cli.bash-linux.dynamodb.BatchWriteItem
   services:
     dynamodb: {BatchWriteItem}
 dynamodb_DeleteTable:
@@ -531,9 +539,11 @@ dynamodb_DeleteTable:
           excerpts:
             - description:
               snippet_tags:
+                - aws-cli.bash-linux.dynamodb.DeleteTable
+            - description: The utility functions used in this example.
+              snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
-                - aws-cli.bash-linux.dynamodb.DeleteTable
   services:
     dynamodb: {DeleteTable}
 dynamodb_PutItem:
@@ -657,9 +667,11 @@ dynamodb_PutItem:
           excerpts:
             - description:
               snippet_tags:
+                - aws-cli.bash-linux.dynamodb.PutItem
+            - description: The utility functions used in this example.
+              snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
-                - aws-cli.bash-linux.dynamodb.PutItem
   services:
     dynamodb: {PutItem}
 dynamodb_GetItem:
@@ -774,8 +786,10 @@ dynamodb_GetItem:
           excerpts:
             - description:
               snippet_tags:
-                - aws-cli.bash-linux.dynamodb.errecho
                 - aws-cli.bash-linux.dynamodb.GetItem
+            - description: The utility function used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
   services:
     dynamodb: {GetItem}
 dynamodb_UpdateItem:
@@ -890,9 +904,11 @@ dynamodb_UpdateItem:
           excerpts:
             - description:
               snippet_tags:
+                - aws-cli.bash-linux.dynamodb.UpdateItem
+            - description: The utility functions used in this example.
+              snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
-                - aws-cli.bash-linux.dynamodb.UpdateItem
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
@@ -1023,9 +1039,11 @@ dynamodb_DeleteItem:
           excerpts:
             - description:
               snippet_tags:
+                - aws-cli.bash-linux.dynamodb.DeleteItem
+            - description: The utility functions used in this example.
+              snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
-                - aws-cli.bash-linux.dynamodb.DeleteItem
   services:
     dynamodb: {DeleteItem}
 dynamodb_ListTables:
@@ -1146,12 +1164,12 @@ dynamodb_ListTables:
         - sdk_version: 2
           github: aws-cli/bash-linux/dynamodb
           excerpts:
-            - description: Utility function used in example.
-              snippet_tags:
-                - aws-cli.bash-linux.dynamodb.errecho
-            - description: List tables example.
+            - description:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.ListTables
+            - description: The utility function used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
   services:
     dynamodb: {ListTables}
 dynamodb_Query:
@@ -1277,12 +1295,12 @@ dynamodb_Query:
         - sdk_version: 2
           github: aws-cli/bash-linux/dynamodb
           excerpts:
-            - description: Utility function used in example.
-              snippet_tags:
-                - aws-cli.bash-linux.dynamodb.errecho
-            - description: Query example.
+            - description:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.Query
+            - description: The utility function used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
   services:
     dynamodb: {Query}
 dynamodb_Scan:
@@ -1400,12 +1418,12 @@ dynamodb_Scan:
         - sdk_version: 2
           github: aws-cli/bash-linux/dynamodb
           excerpts:
-            - description: Utility function used in example.
-              snippet_tags:
-                - aws-cli.bash-linux.dynamodb.errecho
-            - description: Scan example.
+            - description:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.Scan
+            - description: The utility function used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
   services:
     dynamodb: {Scan}
 dynamodb_ExecuteStatement:
@@ -1876,7 +1894,7 @@ dynamodb_Scenario_GettingStartedMovies:
             - description: The &DDB; getting started scenario.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.scenario_getting_started_movies
-            - description: The &DDB; functions.
+            - description: The &DDB; functions use in this scenario.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.CreateTable
                 - aws-cli.bash-linux.dynamodb.DescribeTable
@@ -1888,6 +1906,10 @@ dynamodb_Scenario_GettingStartedMovies:
                 - aws-cli.bash-linux.dynamodb.Scan
                 - aws-cli.bash-linux.dynamodb.DeleteItem
                 - aws-cli.bash-linux.dynamodb.DeleteTable
+            - description: The utility functions used in this scenario.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
   services:
     dynamodb:
       {
