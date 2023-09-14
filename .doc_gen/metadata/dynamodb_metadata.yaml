@@ -1906,7 +1906,7 @@ dynamodb_Scenario_GettingStartedMovies:
             - description: The &DDB; getting started scenario.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.scenario_getting_started_movies
-            - description: The &DDB; functions use in this scenario.
+            - description: The &DDB; functions used in this scenario.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.CreateTable
                 - aws-cli.bash-linux.dynamodb.DescribeTable

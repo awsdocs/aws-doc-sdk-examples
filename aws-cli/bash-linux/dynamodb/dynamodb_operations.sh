@@ -189,7 +189,7 @@ function dynamodb_wait_table_active() {
 ###############################################################################
 # function dynamodb_describe_table
 #
-# This function return the status of a DynamoDB table.
+# This function returns the status of a DynamoDB table.
 #
 # Parameters:
 #       -n table_name  -- The name of the table.
