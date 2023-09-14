@@ -370,7 +370,7 @@ public class ExtractTextHandler implements RequestHandler<Map<String, Object>, S
 
 ```
 
-### SynthesizeAudioHandler class
+#### SynthesizeAudioHandler class
 
 The following Java code represents the **SynthesizeAudioHandler** class. 
 
@@ -448,7 +448,7 @@ Create these Java classes in the **com.example.fsa.services** package. These Jav
 + **S3Service** - Uses the **S3TransferManager** to place an audio file into an S3 bucket.
 + **TranslateService** - Uses the **TranslateAsyncClient** to translate text into English. 
 
- ### DetectSentimentService class
+ #### DetectSentimentService class
 
  The following Java code represents the **DetectSentimentService** class. 
 
@@ -530,7 +530,7 @@ public class DetectSentimentService {
 
 ```
 
-### ExtractTextService class
+#### ExtractTextService class
 
 The following Java code represents the **ExtractTextService** class. 
 
@@ -606,7 +606,7 @@ public class ExtractTextService {
 
 ```
 
- ### PollyService class
+ #### PollyService class
 
  The following Java code represents the **PollyService** class. This code performs the following tasks:
 
@@ -693,7 +693,7 @@ public class PollyService {
 
 ```
 
-### S3Service class
+#### S3Service class
 
 The following Java code represents the **S3Service** class. This example uses the [Amazon S3 Transfer Manager API](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/transfer/s3/S3TransferManager.html#upload(software.amazon.awssdk.transfer.s3.model.UploadRequest)) to upload a .mp3 file to an S3 bucket. This code performs the following tasks: 
 
@@ -759,7 +759,7 @@ public class S3Service {
 
 ```
 
-### TranslateService class
+#### TranslateService class
 
 The following Java code represents the **TranslateService** class.
 
@@ -810,7 +810,7 @@ public class TranslateService {
 
 ```
 
-### FSAApplicationResources class
+#### FSAApplicationResources class
 
 Add the following Java code to the **com.example.fsa** package. This represents the **FSAApplicationResources** class. This class is used only if you want to update the Lambda functions using **ModifyLambda** (this is discussed later in this document).
 
@@ -824,7 +824,7 @@ public class FSAApplicationResources {
 
 ```
 
-### ModifyLambda class
+#### ModifyLambda class
 
 Add the following Java code to the **com.example.fsa** package. This represents the **ModifyLambda** class that is used to update all four Lambda functions created using the CDK script. You can optionally use this class to update the Lambda functions without having to run the CDK script again. For example, if you want to add more logging functionality to the Lambda functions, modify them and run this class.  
 
