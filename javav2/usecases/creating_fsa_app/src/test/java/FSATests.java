@@ -2,80 +2,96 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
-import com.example.fsa.FSAApplicationResources;
 import com.example.fsa.services.DetectSentimentService;
 import com.example.fsa.services.ExtractTextService;
 import com.example.fsa.services.PollyService;
 import com.example.fsa.services.S3Service;
 import com.example.fsa.services.TranslateService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestMethodOrder;
 import java.io.IOException;
 import java.io.InputStream;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
-@ExtendWith(MockitoExtension.class)
+@TestInstance(TestInstance.Lifecycle.PER_METHOD)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class FSATests {
 
-    @Mock
+    // Specify the key to use. 
+    private static final String objectName = "Enter the object name here";
+    
+    // Specify the bucket name.
+    private static final String bucketName = "Enter the bucket name here";
+
     private ExtractTextService textService;
-
-    @Mock
     private TranslateService translateService;
-
-    @Mock
     private PollyService pollyService;
-
-    @Mock
     private S3Service s3Service;
-
-    @Mock
     private DetectSentimentService sentimentService;
 
     @BeforeEach
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        textService = new ExtractTextService();
+        translateService = new TranslateService();
+        pollyService = new PollyService();
+        s3Service = new S3Service();
+        sentimentService = new DetectSentimentService();
     }
 
     @Test
-    public void testFSA() throws IOException {
-        // Mock behavior for textService.
-        lenient().when(textService.getCardText(anyString(), anyString())).thenReturn("Your mock text");
+    @Tag("IntegrationTest")
+    @Order(1)
+    public void testTextExtraction() {
+        String text = textService.getCardText(bucketName, objectName);
+        Assertions.assertNotNull(text);
+    }
 
-        // Mock behavior for sentimentService.
-        lenient().when(sentimentService.detectTheDominantLanguage(anyString())).thenReturn("en");
+    @Test
+    @Tag("IntegrationTest")
+    @Order(2)
+    public void testSentimentAnalysis() {
+        String text = textService.getCardText(bucketName, objectName);
+        String sentiment = String.valueOf(sentimentService.detectSentiments(text));
+        Assertions.assertNotNull(sentiment);
+    }
 
-        // Mock behavior for translateService.
-        lenient().when(translateService.translateText(anyString(), anyString())).thenReturn("Translated text");
-
-        InputStream mockInputStream = mock(InputStream.class);
-        lenient().when(pollyService.synthesize(anyString())).thenReturn(mockInputStream);
-
-        // Mock behavior for s3Service.
-        lenient().when(s3Service.putAudio(any(InputStream.class), anyString(), anyString())).thenReturn("MockedAudioFile");
-        DetectSentimentService detectSentimentService = new DetectSentimentService();
-        String text = textService.getCardText(FSAApplicationResources.STORAGE_BUCKET, "french.png");
-        detectSentimentService.detectSentiments(text);
+    @Test
+    @Tag("IntegrationTest")
+    @Order(3)
+    public void testTranslation() {
+        String text = textService.getCardText(bucketName, objectName);
         String lanCode = sentimentService.detectTheDominantLanguage(text);
         String translatedText = translateService.translateText(lanCode, text);
-        System.out.println(translatedText);
-        InputStream is = pollyService.synthesize(translatedText);
-        s3Service.putAudio(is, "bucket", "french.png");
-        System.out.println("You have successfully added the FSA audio file in the S3 bucket");
+        Assertions.assertNotNull(lanCode);
+        Assertions.assertNotNull(translatedText);
+    }
 
-        // Verify that the mocked methods were called as expected.
-        verify(textService).getCardText(FSAApplicationResources.STORAGE_BUCKET, "french.png");
-        verify(sentimentService).detectTheDominantLanguage(text);
-        verify(translateService).translateText(lanCode, text);
-        verify(pollyService).synthesize(translatedText);
-        verify(s3Service).putAudio(is, "bucket", "french.png");
+    @Test
+    @Tag("IntegrationTest")
+    @Order(4)
+    public void testAudioSynthesis() throws IOException {
+        String text = textService.getCardText(bucketName, objectName);
+        String lanCode = sentimentService.detectTheDominantLanguage(text);
+        String translatedText = translateService.translateText(lanCode, text);
+        InputStream is = pollyService.synthesize(translatedText);
+        Assertions.assertNotNull(is);
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    @Order(5)
+    public void testS3Upload() throws IOException {
+        String text = textService.getCardText(bucketName, objectName);
+        String lanCode = sentimentService.detectTheDominantLanguage(text);
+        String translatedText = translateService.translateText(lanCode, text);
+        InputStream is = pollyService.synthesize(translatedText);
+        String mp3File = objectName + ".mp3";
+        String uploadResult = s3Service.putAudio(is, bucketName, mp3File);
+        Assertions.assertNotNull(uploadResult);
     }
 }
