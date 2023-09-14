@@ -6,20 +6,14 @@
 package com.example.fsa.services;
 
 import software.amazon.awssdk.core.async.AsyncRequestBody;
+import software.amazon.awssdk.core.async.BlockingInputStreamAsyncRequestBody;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3AsyncClient;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.transfer.s3.S3TransferManager;
 import software.amazon.awssdk.transfer.s3.model.Upload;
-import software.amazon.awssdk.transfer.s3.model.UploadRequest;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class S3Service {
 
@@ -27,7 +21,7 @@ public class S3Service {
 
     private static synchronized S3AsyncClient getS3AsyncClient() {
         if (s3AsyncClient == null) {
-            s3AsyncClient = S3AsyncClient.builder()
+            s3AsyncClient = S3AsyncClient.crtBuilder()
                 .region(Region.US_EAST_1)
                 .build();
         }
@@ -35,50 +29,25 @@ public class S3Service {
     }
 
     // Put the audio file into the Amazon S3 bucket.
-    public String putAudio(InputStream is, String bucket, String key) throws S3Exception, IOException {
+    public String putAudio(InputStream is, String bucketName, String key) throws S3Exception, IOException {
         try {
             S3TransferManager transferManager = S3TransferManager.builder()
                 .s3Client(getS3AsyncClient())
                 .build();
 
-            byte[] bytes = inputStreamToBytes(is);
-            long contentLength = bytes.length;
-            // Create an ExecutorService with a fixed thread pool size.
-            ExecutorService executorService = Executors.newFixedThreadPool(1); // Adjust the pool size as needed.
-            UploadRequest uploadRequest = UploadRequest.builder()
-                .requestBody(AsyncRequestBody.fromInputStream(new ByteArrayInputStream(bytes), null, executorService))
-                .putObjectRequest(PutObjectRequest.builder()
-                    .bucket(bucket)
-                    .key(key)
-                    .contentType("audio/mp3")
-                    .contentLength(contentLength)
-                    .build())
-                .build();
+            BlockingInputStreamAsyncRequestBody body = AsyncRequestBody.forBlockingInputStream(null); // 'null' indicates a stream will be provided later.
+            Upload upload = transferManager.upload(builder -> builder
+                .requestBody(body)
+                .putObjectRequest(req -> req.bucket(bucketName).key(key))
+                .build());
 
-            Upload upload = transferManager.upload(uploadRequest);
-
-            // Wait for the transfer to complete
-            CompletableFuture<?> future = upload.completionFuture();
-            future.join();
-
-            // Shutdown the ExecutorService
-            executorService.shutdown();
+            body.writeInputStream(is);
+            upload.completionFuture().join();
             return key;
 
-        } catch (IOException | S3Exception e) {
+        } catch (S3Exception e) {
             System.err.println(e.getMessage());
             throw e;
         }
-    }
-
-    private static byte[] inputStreamToBytes(InputStream is) throws IOException {
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        int nRead;
-        byte[] data = new byte[1024];
-        while ((nRead = is.read(data, 0, data.length)) != -1) {
-            buffer.write(data, 0, nRead);
-        }
-
-        return buffer.toByteArray();
     }
 }
