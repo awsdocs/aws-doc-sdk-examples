@@ -153,7 +153,7 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.CreateTable
-            - description: The utility function used in this example.
+            - description: The utility functions used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
@@ -226,7 +226,7 @@ dynamodb_BatchGetItem:
             - description:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.BatchGetItem
-            - description: The utility function used in this example.
+            - description: The utility functions used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
                 - aws-cli.bash-linux.dynamodb.aws_cli_error_log
@@ -315,7 +315,7 @@ dynamodb_DescribeTable:
             - description:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.DescribeTable
-            - description: The utility function used in this example.
+            - description: The utility functions used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
                 - aws-cli.bash-linux.dynamodb.aws_cli_error_log
@@ -793,7 +793,7 @@ dynamodb_GetItem:
             - description:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.GetItem
-            - description: The utility function used in this example.
+            - description: The utility functions used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
                 - aws-cli.bash-linux.dynamodb.aws_cli_error_log
@@ -1176,7 +1176,7 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.ListTables
-            - description: The utility function used in this example.
+            - description: The utility functions used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
                 - aws-cli.bash-linux.dynamodb.aws_cli_error_log
@@ -1308,7 +1308,7 @@ dynamodb_Query:
             - description:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.Query
-            - description: The utility function used in this example.
+            - description: The utility functions used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
                 - aws-cli.bash-linux.dynamodb.aws_cli_error_log
@@ -1432,7 +1432,7 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.Scan
-            - description: The utility function used in this example.
+            - description: The utility functions used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
                 - aws-cli.bash-linux.dynamodb.aws_cli_error_log
