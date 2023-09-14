@@ -97,10 +97,13 @@ function generate_random_name() {
   echo "$filename"
 }
 
+# snippet-start:[aws-cli.bash-linux.dynamodb.aws_cli_error_log]
 ##############################################################################
 # function aws_cli_error_log()
 #
 # This function is used to log the error messages from the AWS CLI.
+#
+# See https://docs.aws.amazon.com/cli/latest/topic/return-codes.html#cli-aws-help-return-codes.
 #
 # The function expects the following argument:
 #         $1 - The error code returned by the AWS CLI.
@@ -129,5 +132,5 @@ function aws_cli_error_log() {
   fi
 
   return 0
-
 }
+# snippet-end:[aws-cli.bash-linux.dynamodb.aws_cli_error_log]

@@ -155,8 +155,9 @@ dynamodb_CreateTable:
                 - aws-cli.bash-linux.dynamodb.CreateTable
             - description: The utility function used in this example.
               snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
-                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {CreateTable}
 dynamodb_BatchGetItem:
@@ -228,6 +229,7 @@ dynamodb_BatchGetItem:
             - description: The utility function used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {BatchGetItem}
 dynamodb_DescribeTable:
@@ -316,6 +318,7 @@ dynamodb_DescribeTable:
             - description: The utility function used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {DescribeTable}
 dynamodb_BatchWriteItem:
@@ -422,6 +425,7 @@ dynamodb_BatchWriteItem:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {BatchWriteItem}
 dynamodb_DeleteTable:
@@ -544,6 +548,7 @@ dynamodb_DeleteTable:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {DeleteTable}
 dynamodb_PutItem:
@@ -672,6 +677,7 @@ dynamodb_PutItem:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {PutItem}
 dynamodb_GetItem:
@@ -790,6 +796,7 @@ dynamodb_GetItem:
             - description: The utility function used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {GetItem}
 dynamodb_UpdateItem:
@@ -909,6 +916,7 @@ dynamodb_UpdateItem:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
@@ -1044,6 +1052,7 @@ dynamodb_DeleteItem:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {DeleteItem}
 dynamodb_ListTables:
@@ -1170,6 +1179,7 @@ dynamodb_ListTables:
             - description: The utility function used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {ListTables}
 dynamodb_Query:
@@ -1301,6 +1311,7 @@ dynamodb_Query:
             - description: The utility function used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {Query}
 dynamodb_Scan:
@@ -1424,6 +1435,7 @@ dynamodb_Scan:
             - description: The utility function used in this example.
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {Scan}
 dynamodb_ExecuteStatement:
@@ -1910,6 +1922,7 @@ dynamodb_Scenario_GettingStartedMovies:
               snippet_tags:
                 - aws-cli.bash-linux.dynamodb.iecho
                 - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb:
       {
