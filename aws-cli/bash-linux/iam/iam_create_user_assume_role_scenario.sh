@@ -21,7 +21,7 @@
 #
 # Purpose
 #
-# Demonstrates using the AWS SDK for C++ to create an IAM user, create an IAM role, and apply the role to the user.
+# Demonstrates using the AWS Command Line Interface with Bash to create an IAM user, create an IAM role, and apply the role to the user.
 #
 # 1. Create a user.
 # 2. Create a role.
