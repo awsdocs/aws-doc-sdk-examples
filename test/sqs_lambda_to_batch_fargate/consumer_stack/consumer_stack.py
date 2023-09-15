@@ -9,6 +9,7 @@ from aws_cdk import (
     aws_lambda as _lambda,
     aws_lambda_event_sources as _event_sources,
     aws_sqs as sqs,
+    aws_s3 as s3,
     aws_sns as sns,
     aws_sns_subscriptions as subs,
     aws_logs as logs,
@@ -20,7 +21,8 @@ from aws_cdk import (
     aws_kinesis as kinesis,
     Aws,
     Stack,
-    Size
+    Size,
+    Duration
 )
 from constructs import Construct
 
@@ -83,6 +85,16 @@ class ConsumerStack(Stack):
         statement.add_condition("ArnLike", {"aws:SourceArn": fanout_topic_arn})
         sqs_queue.add_to_resource_policy(statement)
 
+        ####
+
+        bucket = s3.Bucket(
+            self,
+            'LogBucket',
+            versioned=False,  # If you want versioning, set this to True
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,  # Block public access
+            # For us-east-1, there's no need to specify LocationConstraint
+        )
+
         ################################################
         ##                                            ##
         ##            BATCH FARGATE JOBS              ##
@@ -93,7 +105,7 @@ class ConsumerStack(Stack):
             self, f"BatchExecutionRole-{language_name}",
             assumed_by=iam.ServicePrincipal("ecs-tasks.amazonaws.com"),
             inline_policies={
-                "MyCustomPolicy": iam.PolicyDocument(
+                "BatchLoggingPolicy": iam.PolicyDocument(
                     statements=[
                         iam.PolicyStatement(
                             effect=iam.Effect.ALLOW,
@@ -131,7 +143,8 @@ class ConsumerStack(Stack):
                 assign_public_ip=True,
                 memory=Size.gibibytes(2),
                 cpu=1
-            )
+            ),
+            timeout=Duration.minutes(500)
         )
 
         job_queue = batch_alpha.JobQueue(self, f"JobQueue-{language_name}",
@@ -149,16 +162,23 @@ class ConsumerStack(Stack):
 
         # Execution role for AWS Lambda function to use.
         execution_role = iam.Role(
-            self, f"LambdaExecutionRole-{language_name}",
+            self, f"BatchLambdaExecutionRole-{language_name}",
             assumed_by=iam.ServicePrincipal('lambda.amazonaws.com'),
             description='Allows Lambda function to submit jobs to Batch',
-            role_name=f'LambdaExecutionRole-{language_name}'
+            role_name=f'BatchLambdaExecutionRole-{language_name}'
         )
 
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
                 actions=['batch:*'],
                 resources=["*"]
+            )
+        )
+
+        # Attach AWSLambdaBasicExecutionRole to the Lambda function's role
+        execution_role.add_managed_policy(
+            policy=iam.ManagedPolicy.from_aws_managed_policy_name(
+                "service-role/AWSLambdaBasicExecutionRole"
             )
         )
 
@@ -193,6 +213,83 @@ class ConsumerStack(Stack):
                 resources=["*"]
             )
         )
+
+        #################################################
+        ##                                             ##
+        ##              LAMBDA FUNCTION                ##
+        ##     (Triggers Batch job from SQS queue)     ##
+        ##                                             ##
+        #################################################
+
+        # Execution role for AWS Lambda function to use.
+        execution_role = iam.Role(
+            self, f"LogsLambdaExecutionRole-{language_name}",
+            assumed_by=iam.ServicePrincipal('lambda.amazonaws.com'),
+            description='Allows Lambda function to get logs from CloudWatch',
+            role_name=f'LogsLambdaExecutionRole-{language_name}'
+        )
+
+        # Attach AWSLambdaBasicExecutionRole to the Lambda function's role
+        execution_role.add_managed_policy(
+            policy=iam.ManagedPolicy.from_aws_managed_policy_name(
+                "service-role/AWSLambdaBasicExecutionRole"
+            )
+        )
+
+        execution_role.add_to_policy(
+            statement=iam.PolicyStatement(
+                actions=['logs:GetLogEvents', 'logs:DescribeLogStreams'],
+                resources=[f"arn:aws:logs:us-east-1:{Aws.ACCOUNT_ID}:*"]
+            )
+        )
+
+        execution_role.add_to_policy(
+            statement=iam.PolicyStatement(
+                actions=['s3:PutObject'],
+                resources=[
+                    f'{bucket.bucket_arn}/*']
+            )
+        )
+
+        # Define the Lambda function
+        lambda_function = _lambda.Function(
+            self,
+            "BatchJobCompleteLambda",
+            runtime=_lambda.Runtime.PYTHON_3_8,
+            handler="log_shipper.handler",
+            role=execution_role,
+            code=_lambda.Code.from_asset("lambda"),  # Replace with your Lambda function code path
+            environment={
+                'LANGUAGE_NAME': language_name,
+                'JOB_QUEUE': job_queue.job_queue_arn,
+                'JOB_DEFINITION': job_definition.job_definition_arn,
+                'JOB_NAME': f'job-{language_name}',
+                'BUCKET_NAME': bucket.bucket_name
+            }
+        )
+
+        rule = events.Rule(self, "rule",
+                           event_pattern=events.EventPattern(
+                               source=["aws.batch"]
+                           )
+                           )
+
+        # # Define the CloudWatch Event Rule
+        # rule = events.Rule(
+        #     self,
+        #     "BatchJobCompleteEventRule",
+        #     event_pattern={
+        #         "source": ["aws.batch"],
+        #         "detail": {
+        #             "status": ["SUCCEEDED"],  # You can change this to other job statuses as needed
+        #             "jobDefinition": [f'job-{language_name}'],  # Replace with your job definition name
+        #         },
+        #     },
+        # )
+
+        # Add the Lambda function as a target for the CloudWatch Event Rule
+        rule.add_target(targets.LambdaFunction(lambda_function))
+
 
         #################################################
         ##                                             ##
