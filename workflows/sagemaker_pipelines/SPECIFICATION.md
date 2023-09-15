@@ -77,8 +77,8 @@ _Reminder:_ A scenario runs at a command prompt and prints output to the user on
 
 1. Set up any missing resources needed for the example if they don’t already exist.
    1. Create a Lambda role with the following: `iamClient CreateRole, AttachRolePolicy`
-      2. AssumeRolePolicy:
-   ```
+      1. AssumeRolePolicy:
+      ```
       {
          Version: "2012-10-17",
          Statement: [
@@ -89,49 +89,49 @@ _Reminder:_ A scenario runs at a command prompt and prints output to the user on
             },
          ],
       }
-   ```   
-    c. ExecutionPolicy:
+      ```
+        b. ExecutionPolicy:
    ```
-   {
-       Version: "2012-10-17",
-       Statement: [
-         {
-           Effect: "Allow",
-           Action: [
-             "sqs:ReceiveMessage",
-             "sqs:DeleteMessage",
-             "sqs:GetQueueAttributes",
-             "logs:CreateLogGroup",
-             "logs:CreateLogStream",
-             "logs:PutLogEvents",
-             "sagemaker-geospatial:StartVectorEnrichmentJob",
-             "sagemaker-geospatial:GetVectorEnrichmentJob",
-             "sagemaker:SendPipelineExecutionStepFailure",
-             "sagemaker:SendPipelineExecutionStepSuccess",
-             "sagemaker-geospatial:ExportVectorEnrichmentJob"
-           ],
-           Resource: "*",
-         },
-         {
-           Effect: "Allow",
-           Action: ["iam:PassRole"],
-           Resource: `${pipelineExecutionRoleArn}`,
-           Condition: {
-             StringEquals: {
-               "iam:PassedToService": [
-                 "sagemaker.amazonaws.com",
-                 "sagemaker-geospatial.amazonaws.com",
-               ],
-             },
-           },
-         },
-       ],
-     }
-   ```
+      {
+          Version: "2012-10-17",
+          Statement: [
+            {
+              Effect: "Allow",
+              Action: [
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes",
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+                "sagemaker-geospatial:StartVectorEnrichmentJob",
+                "sagemaker-geospatial:GetVectorEnrichmentJob",
+                "sagemaker:SendPipelineExecutionStepFailure",
+                "sagemaker:SendPipelineExecutionStepSuccess",
+                "sagemaker-geospatial:ExportVectorEnrichmentJob"
+              ],
+              Resource: "*",
+            },
+            {
+              Effect: "Allow",
+              Action: ["iam:PassRole"],
+              Resource: `${pipelineExecutionRoleArn}`,
+              Condition: {
+                StringEquals: {
+                  "iam:PassedToService": [
+                    "sagemaker.amazonaws.com",
+                    "sagemaker-geospatial.amazonaws.com",
+                  ],
+                },
+              },
+            },
+          ],
+        }
+      ```
 
    1. Create a SageMaker role with the following: `iamClient CreateRole, AttachRolePolicy`
-      2. AssumeRolePolicy:
-   ```
+      1. AssumeRolePolicy:
+      ```
       {
          Version: "2012-10-17",
          Statement: [
@@ -147,33 +147,33 @@ _Reminder:_ A scenario runs at a command prompt and prints output to the user on
             },
          ],
       }
-   ```   
-   c. ExecutionPolicy:
-   ```
-   {
-    Version: "2012-10-17",
-    Statement: [
-      {
-        Effect: "Allow",
-        Action: ["lambda:InvokeFunction"],
-        Resource: lambdaArn,
-      },
-      {
-        Effect: "Allow",
-        Action: ["s3:*"],
-        Resource: [
-          `arn:aws:s3:::${s3BucketName}`,
-          `arn:aws:s3:::${s3BucketName}/*`,
-        ],
-      },
-      {
-        Effect: "Allow",
-        Action: ["sqs:SendMessage"],
-        Resource: sqsQueueArn,
-      },
-    ],
-   }
-   ```
+      ```   
+       b. ExecutionPolicy:
+       ```
+        {
+           Version: "2012-10-17",
+           Statement: [
+           {
+               Effect: "Allow",
+               Action: ["lambda:InvokeFunction"],
+               Resource: lambdaArn,
+           },
+           {
+               Effect: "Allow",
+               Action: ["s3:*"],
+                Resource: [
+                    `arn:aws:s3:::${s3BucketName}`,
+                    `arn:aws:s3:::${s3BucketName}/*`,
+                ],
+           },
+           {
+               Effect: "Allow",
+               Action: ["sqs:SendMessage"],
+               Resource: sqsQueueArn,
+           },
+          ],
+        }
+       ```
    1. Create an SQS queue for the pipeline. SqsClient CreateQueue, GetQueueUrl
        You will need the queue URL for the pipeline execution.
    1. Create a bucket and upload a .csv file that includes Latitude and Longitude columns (see [the resources section](#common-resources)) for reverse geocoding. `s3 client PutBucket and PutObject`
@@ -323,6 +323,7 @@ This will provide better debugging for the pipeline execution steps. You can use
 - Pipelines can only be deleted through the SDK.
 - See the [.NET implementation](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SageMaker) for an example. You may find it useful to begin with the .NET Lambda and get the rest of the workflow working, then work on the language-specific Lambda function handler.
 - Geospatial jobs are supported in `region us-west-2`. All operations should use this region unless otherwise specified.
+- Pipeline callbacks won't resolve until SendPipelineExecutionStepSuccess or SendPipelineExecutionStepFailure are called. There's a risk of having to reach out to support if these aren't called.
 
 ### SageMaker documentation references:
 
