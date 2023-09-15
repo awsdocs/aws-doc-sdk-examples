@@ -32,7 +32,11 @@ an interactive demo that runs at a command prompt.
 
 This example is implemented in the following languages:
 
-* [Python](../python/cross_service/resilient_service/README.md)
+* [Python](../../python/cross_service/resilient_service/README.md)
+
+## Additional reading
+
+* [Community.aws: How to build and manage a resilient service using AWS SDKs](https://community.aws/posts/build-and-manage-a-resilient-service-using-aws-sdks)
 
 ---
 

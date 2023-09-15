@@ -22,13 +22,19 @@ class ParameterHelper:
     failure_response = 'doc-example-resilient-architecture-failure-response'
     health_check = 'doc-example-resilient-architecture-health-check'
 
-    def __init__(self, table_name):
+    def __init__(self, table_name, ssm_client):
         """
         :param table_name: The name of the DynamoDB table that is used as a recommendation
                            service.
+        :param ssm_client: A Boto3 Systems Manager client.
         """
-        self.ssm_client = boto3.client('ssm')
+        self.ssm_client = ssm_client
         self.table_name = table_name
+
+    @classmethod
+    def from_client(cls, table_name):
+        ssm_client = boto3.client('ssm')
+        return cls(table_name, ssm_client)
 
     def reset(self):
         """

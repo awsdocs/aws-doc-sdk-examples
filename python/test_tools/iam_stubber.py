@@ -437,18 +437,34 @@ class IamStubber(ExampleStubber):
         self._stub_bifurcator(
             'deactivate_mfa_device', expected_params, error_code=error_code)
 
-    def stub_create_instance_profile(self, profile_name, error_code=None):
+    def stub_create_instance_profile(self, profile_name, profile_arn=None, error_code=None):
         expected_params = {'InstanceProfileName': profile_name}
+        if profile_arn is None:
+            profile_arn = f'arn:aws:iam::123456EXAMPLE:instance-profile/{profile_name}'
         response = {'InstanceProfile': {
             'Path': '/',
             'InstanceProfileName': profile_name,
             'InstanceProfileId': 'EXAMPLEEXAMPLEEXAMPLE',
-            'Arn': f'arn:aws:iam::123456EXAMPLE:instance-profile/{profile_name}',
+            'Arn': profile_arn,
             'CreateDate': datetime.datetime.now(),
             'Roles': []
         }}
         self._stub_bifurcator(
             'create_instance_profile', expected_params, response, error_code=error_code)
+
+    def stub_get_instance_profile(self, profile_name, profile_arn, error_code=None):
+        expected_params = {'InstanceProfileName': profile_name}
+        response = {
+            'InstanceProfile': {
+                'Path': '/',
+                'InstanceProfileName': profile_name,
+                'InstanceProfileId': 'EXAMPLEEXAMPLEEXAMPLE',
+                'Arn': profile_arn,
+                'CreateDate': datetime.datetime.now(),
+                'Roles': []},
+            'ResponseMetadata': {'HTTPStatusCode': 200}}
+        self._stub_bifurcator(
+            'get_instance_profile', expected_params, response, error_code=error_code)
 
     def stub_add_role_to_instance_profile(
             self, profile_name, role_name, error_code=None):

@@ -59,7 +59,9 @@ class AutoScalingStubber(ExampleStubber):
 
     def stub_terminate_instance_in_auto_scaling_group(self, instance_id, decrement, activity, error_code=None):
         expected_params = {'InstanceId': instance_id, 'ShouldDecrementDesiredCapacity': decrement}
-        response = {'Activity': activity}
+        response = {}
+        if activity is not None:
+            response['Activity'] = activity
         self._stub_bifurcator(
             'terminate_instance_in_auto_scaling_group', expected_params, response, error_code=error_code)
 
@@ -95,3 +97,9 @@ class AutoScalingStubber(ExampleStubber):
         response = {}
         self._stub_bifurcator(
             'disable_metrics_collection', expected_params, response, error_code=error_code)
+
+    def stub_attach_load_balancer_target_groups(self, asg_name, tg_arns, error_code=None):
+        expected_params = {'AutoScalingGroupName': asg_name, 'TargetGroupARNs': tg_arns}
+        response = {}
+        self._stub_bifurcator(
+            'attach_load_balancer_target_groups', expected_params, response, error_code=error_code)
