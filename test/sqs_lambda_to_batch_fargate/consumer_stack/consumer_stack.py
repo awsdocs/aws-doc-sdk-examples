@@ -15,10 +15,7 @@ from aws_cdk import (
     aws_logs as logs,
     aws_ec2 as ec2,
     aws_ecs as ecs,
-    aws_ecr as ecr,
-    aws_batch as batch,
     aws_batch_alpha as batch_alpha,
-    aws_kinesis as kinesis,
     Aws,
     Stack,
     Size,
@@ -274,22 +271,8 @@ class ConsumerStack(Stack):
                            )
                            )
 
-        # # Define the CloudWatch Event Rule
-        # rule = events.Rule(
-        #     self,
-        #     "BatchJobCompleteEventRule",
-        #     event_pattern={
-        #         "source": ["aws.batch"],
-        #         "detail": {
-        #             "status": ["SUCCEEDED"],  # You can change this to other job statuses as needed
-        #             "jobDefinition": [f'job-{language_name}'],  # Replace with your job definition name
-        #         },
-        #     },
-        # )
-
         # Add the Lambda function as a target for the CloudWatch Event Rule
         rule.add_target(targets.LambdaFunction(lambda_function))
-
 
         #################################################
         ##                                             ##
