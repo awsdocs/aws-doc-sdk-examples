@@ -12,7 +12,7 @@ languages. Using the SDKs, you can create and run SageMaker pipelines and also m
 ### Explore the scenario
 This example scenario demonstrates using AWS Lambda and Amazon Simple Queue Service (Amazon SQS) as part of an Amazon SageMaker pipeline. The pipeline itself executes a geospatial job to reverse geocode a sample set of coordinates into human-readable addresses. Input and output files are located in an Amazon Simple Storage Service (Amazon S3) bucket.
 
-![Pipeline image](images/javawf.png)
+![Workflow image](../../../workflows/sagemaker_pipelines/resources/workflow.png)
 
 When you run the example console application, you can execute the following steps:
 
@@ -35,7 +35,7 @@ The Lambda function handler is included as part of the example, with the followi
 - Starts the export function with the provided export configuration.
 - Completes the pipeline when the export is complete.
 
-![Pipeline image](images/pipes.png)
+![Pipeline image](../../../workflows/sagemaker_pipelines/resources/pipeline.png)
 
 #### Pipeline parameters
 The example pipeline uses [parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-parameters.html) that you can reference throughout the steps. You can also use the parameters to change
@@ -74,7 +74,7 @@ You must download and use these files to successfully run this code example:
 + GeoSpatialPipeline.json
 + latlongtest.csv
 
-These files are located on GitHub in this folder [sample_files](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files).
+These files are located on GitHub in this [folder](../../../workflows/sagemaker_pipelines/resources).
 
 ### Java Lambda Function
 
