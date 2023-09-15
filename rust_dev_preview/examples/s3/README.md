@@ -24,7 +24,7 @@ Shows how to use the AWS SDK for Rust to work with Amazon Simple Storage Service
 
 ### Prerequisites
 
-For prerequisites, see the [README](../README.md#Prerequisites) in the `rust_dev_preview` folder.
+For prerequisites, see the [README](../../README.md#Prerequisites) in the `rust_dev_preview` folder.
 
 
 <!--custom.prerequisites.start-->
