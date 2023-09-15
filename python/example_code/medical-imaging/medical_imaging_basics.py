@@ -13,7 +13,8 @@ import time
 
 import boto3
 import datetime
-import openjphpy as ojph
+import botocore
+
 
 from botocore.exceptions import ClientError
 
@@ -72,7 +73,7 @@ class MedicalImagingWrapper:
         :return: The list of data stores.
         """
         try:
-            paginator = client.get_paginator('list_datastores')
+            paginator = self.health_imaging_client.get_paginator('list_datastores')
             page_iterator = paginator.paginate()
             datastore_summaries = []
             for page in page_iterator:
@@ -135,12 +136,12 @@ class MedicalImagingWrapper:
     # snippet-end:[python.example_code.medical-imaging.StartDICOMImportJob]
 
     # snippet-start:[python.example_code.medical-imaging.GetDICOMImportJob]
-    def get_dicom_import_job(self, job_id, datastore_id):
+    def get_dicom_import_job(self, datastore_id, job_id):
         """
         Get the properties of a DICOM import job.
 
-        :param job_id: The ID of the job.
         :param datastore_id: The ID of the data store the job is importing into.
+        :param job_id: The ID of the job.
         :return: The job properties.
         """
         try:
@@ -164,7 +165,7 @@ class MedicalImagingWrapper:
         :return: The list of jobs.
         """
         try:
-            paginator = client.get_paginator('list_dicom_import_jobs')
+            paginator = self.health_imaging_client.get_paginator('list_dicom_import_jobs')
             page_iterator = paginator.paginate(datastoreId=datastore_id)
             job_summaries = []
             for page in page_iterator:
@@ -190,7 +191,7 @@ class MedicalImagingWrapper:
         :return: The list of image sets.
         """
         try:
-            paginator = client.get_paginator('search_image_sets')
+            paginator = self.health_imaging_client.get_paginator('search_image_sets')
             page_iterator = paginator.paginate(datastoreId=datastore_id, searchCriteria=search_filter)
             metadata_summaries = []
             for page in page_iterator:
@@ -246,6 +247,7 @@ class MedicalImagingWrapper:
             else:
                 image_set_metadata = self.health_imaging_client.get_image_set_metadata(imageSetId=image_set_id,
                                                                                        datastoreId=datastore_id)
+            print(image_set_metadata)
             with open(metadata_file, 'wb') as f:
                 for chunk in image_set_metadata['imageSetMetadataBlob'].iter_chunks():
                     if chunk:
@@ -272,7 +274,8 @@ class MedicalImagingWrapper:
         try:
             image_frame = self.health_imaging_client.get_image_frame(datastoreId=datastore_id,
                                                                      imageSetId=image_set_id,
-                                                                     imageFrameInformation={ "imageFrameId" : image_frame_id})
+                                                                     imageFrameInformation={
+                                                                         "imageFrameId": image_frame_id})
             with open(file_path_to_write, 'wb') as f:
                 for chunk in image_frame['imageFrameBlob'].iter_chunks():
                     if chunk:
@@ -286,12 +289,12 @@ class MedicalImagingWrapper:
     # snippet-end:[python.example_code.medical-imaging.GetImageFrame]
 
     # snippet-start:[python.example_code.medical-imaging.ListImageSetVersions]
-    def list_image_set_versions(self, image_set_id, datastore_id):
+    def list_image_set_versions(self, datastore_id, image_set_id):
         """
         List the image set versions.
 
-        :param image_set_id: The ID of the image set.
         :param datastore_id: The ID of the data store the image set is stored in.
+        :param image_set_id: The ID of the image set.
         :return: The list of image set versions.
         """
         try:
@@ -308,14 +311,16 @@ class MedicalImagingWrapper:
     # snippet-end:[python.example_code.medical-imaging.ListImageSetVersions]
 
     # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata]
-    def update_image_set_metadata(self, image_set_id, datastore_id, version_id, metadata):
+    def update_image_set_metadata(self, datastore_id, image_set_id, version_id, metadata):
         """
         Update the metadata of an image set.
 
-        :param image_set_id: The ID of the image set.
         :param datastore_id: The ID of the data store the image set is stored in.
+        :param image_set_id: The ID of the image set.
         :param version_id: The ID of the image set version.
-        :param metadata: The image set metadata.
+        :param metadata: The image set metadata as a dictionary.
+            For example {"DICOMUpdates": {"updatableAttributes":
+            "{\"SchemaVersion\":1.1,\"Patient\":{\"DICOM\":{\"PatientName\":\"Garcia^Gloria\"}}}"}}
         :return: The updated image set metadata.
         """
         try:
@@ -333,17 +338,17 @@ class MedicalImagingWrapper:
     # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata]
 
     # snippet-start:[python.example_code.medical-imaging.CopyImageSet]
-    def copy_image_set(self, image_set_id, datastore_id, version_id, destination_image_set_id,
-                       destination_version_id):
+    def copy_image_set(self, datastore_id, image_set_id, version_id, destination_image_set_id=None,
+                       destination_version_id=None):
         """
         Copy an image set.
 
-        :param image_set_id: The ID of the image set.
         :param datastore_id: The ID of the data store the image set is stored in.
+        :param image_set_id: The ID of the image set.
         :param version_id: The ID of the image set version.
-        :param destination_image_set_id: The ID of the destination image set.
-        :param destination_version_id: The ID of the destination image set version.
-        :return: The copy results.
+        :param destination_image_set_id: The ID of the optional destination image set.
+        :param destination_version_id: The ID of the optional destination image set version.
+        :return: The copied image set ID.
         """
         try:
             copy_image_set_information = {"sourceImageSet": {"latestVersionId": version_id}}
@@ -351,9 +356,8 @@ class MedicalImagingWrapper:
                 copy_image_set_information["destinationImageSet"] = {"imageSetId": destination_image_set_id,
                                                                      "latestVersionId": destination_version_id}
             copy_results = self.health_imaging_client.copy_image_set(
-                imageSetId=image_set_id,
                 datastoreId=datastore_id,
-                latestVersionId=version_id,
+                sourceImageSetId=image_set_id,
                 copyImageSetInformation=copy_image_set_information)
         except ClientError as err:
             logger.error(
@@ -361,17 +365,17 @@ class MedicalImagingWrapper:
                 err.response['Error']['Message'])
             raise
         else:
-            return copy_results
+            return copy_results['destinationImageSetProperties']['imageSetId']
 
     # snippet-end:[python.example_code.medical-imaging.CopyImageSet]
 
     # snippet-start:[python.example_code.medical-imaging.DeleteImageSet]
-    def delete_image_set(self, image_set_id, datastore_id):
+    def delete_image_set(self, datastore_id, image_set_id):
         """
         Delete an image set.
 
-        :param image_set_id: The ID of the image set.
         :param datastore_id: The ID of the data store the image set is stored in.
+        :param image_set_id: The ID of the image set.
         :return: The delete results.
         """
         try:
@@ -394,17 +398,15 @@ class MedicalImagingWrapper:
 
         :param resource_arn: The ARN of the resource.
         :param tags: The tags to apply.
-        :return: The tag results.
         """
         try:
-            tag_results = self.health_imaging_client.tag_resource(resourceArn=resource_arn, tags=tags)
+            self.health_imaging_client.tag_resource(resourceArn=resource_arn, tags=tags)
         except ClientError as err:
             logger.error(
                 "Couldn't tag resource. Here's why: %s: %s", err.response['Error']['Code'],
                 err.response['Error']['Message'])
             raise
-        else:
-            return tag_results
+
 
     # snippet-end:[python.example_code.medical-imaging.TagResource]
 
@@ -442,7 +444,7 @@ class MedicalImagingWrapper:
                 err.response['Error']['Message'])
             raise
         else:
-            return tags
+            return tags['tags']
     # snippet-end:[python.example_code.medical-imaging.ListTagsForResource]
 
 
@@ -460,29 +462,29 @@ if __name__ == '__main__':
         job_id = medical_imaging_wrapper.start_dicom_import_job(job_name, data_store_id,
                                                                 data_access_role_arn,
                                                                 source_s3_uri, dest_s3_uri)
+        print(job_id)
 
         while True:
-            job = medical_imaging_wrapper.get_dicom_import_job(job_id, data_store_id)
+            time.sleep(1)
+            job = medical_imaging_wrapper.get_dicom_import_job(data_store_id, job_id)
             job_status = job['jobStatus']
-            print(f"job : {job}")
+            print(f'job : "{job}"')
             if job_status == "COMPLETED":
                 break
             elif job_status == "FAILED":
                 raise Exception("DICOM import job failed")
-            time.sleep(1)
 
-        data_stores = medical_imaging_wrapper.list_datastores()
-        for store in data_stores:
-            print(store)
 
         import_jobs = medical_imaging_wrapper.list_dicom_import_jobs(data_store_id)
+        print(import_jobs)
         for job in import_jobs:
             print(job)
+
 
         filter = {
             "filters": [{
                 "values": [{"createdAt": datetime.datetime(2021, 8, 4, 14, 49, 54, 429000)},
-                           {"createdAt": datetime.datetime(2023, 9, 13, 14, 49, 54, 429000)}],
+                           {"createdAt": datetime.datetime(2023, 9, 16, 14, 49, 54, 429000)}],
                 "operator": "BETWEEN"
             }]
         }
@@ -490,14 +492,73 @@ if __name__ == '__main__':
         for image_set in image_sets:
             print(image_set)
 
-        returned_image_set = medical_imaging_wrapper.get_image_set(data_store_id, "6ec347bff13a36fe32939e41a1e5e158", "1")
+        returned_image_set = medical_imaging_wrapper.get_image_set(data_store_id, "6ec347bff13a36fe32939e41a1e5e158",
+                                                                   "1")
         print(returned_image_set)
 
-        medical_imaging_wrapper.get_image_set_metadata("metadata.json.gzip", data_store_id,
-                                                                        "6ec347bff13a36fe32939e41a1e5e158", "1")
+    data_string = b'123345656'
+    stream = botocore.response.StreamingBody(data_string, len(data_string))
 
-    file_name="image_frame.jph"
-    returned_image_frame = medical_imaging_wrapper.get_pixel_data(file_name, data_store_id, "6ec347bff13a36fe32939e41a1e5e158", "4e54a7c5d5b8370e1484389f6d9fdbab")
+    medical_imaging_wrapper.get_image_set_metadata("metadata.json.gzip", data_store_id,
+                                                   "6ec347bff13a36fe32939e41a1e5e158", "1")
 
-    decoded_bytes = returned_image_frame.decode('utf-8')
 
+    if False:
+        file_name = "image_frame.jph"
+        returned_image_frame = medical_imaging_wrapper.get_pixel_data(file_name, data_store_id,
+                                                                      "6ec347bff13a36fe32939e41a1e5e158",
+                                                                      "4e54a7c5d5b8370e1484389f6d9fdbab")
+
+        returned_versions = medical_imaging_wrapper.list_image_set_versions(data_store_id,
+                                                                            "6ec347bff13a36fe32939e41a1e5e158")
+        for version in returned_versions:
+            print(version)
+
+        result = medical_imaging_wrapper.copy_image_set(data_store_id, "6ec347bff13a36fe32939e41a1e5e158", "3")
+        print(result)
+
+        result = medical_imaging_wrapper.delete_image_set(data_store_id, "230e7c272021733c4c2768fc527ffd33")
+        print(result)
+
+        result = medical_imaging_wrapper.copy_image_set(data_store_id, "6ec347bff13a36fe32939e41a1e5e158", "3")
+        print(result)
+
+        filter = {
+            "filters": [{
+                "values": [{"createdAt": datetime.datetime(2021, 8, 4, 14, 49, 54, 429000)},
+                           {"createdAt": datetime.datetime(2023, 9, 16, 14, 49, 54, 429000)}],
+                "operator": "BETWEEN"
+            }]
+        }
+        image_sets = medical_imaging_wrapper.search_image_sets(data_store_id, filter)
+        for image_set in image_sets:
+            print(image_set)
+
+        resource_arn = "arn:aws:medical-imaging:us-east-1:123502194722:datastore/728f13a131f748bf8d87a55d5ef6c5af"
+        medical_imaging_wrapper.tag_resource(resource_arn,
+                                                      {"TagType": "datastore"})
+        result = medical_imaging_wrapper.list_tags_for_resource(resource_arn)
+        print(result)
+
+        medical_imaging_wrapper.untag_resource(resource_arn,
+                                               ["TagType"])
+
+
+        result = medical_imaging_wrapper.list_tags_for_resource(resource_arn)
+        print(result)
+
+        resource_arn = "arn:aws:medical-imaging:us-east-1:123502194722:datastore/728f13a131f748bf8d87a55d5ef6c5af/imageset/6ec347bff13a36fe32939e41a1e5e158"
+        medical_imaging_wrapper.tag_resource(
+            resource_arn,
+            {"TagType": "datastore"})
+        result = medical_imaging_wrapper.list_tags_for_resource(
+            resource_arn)
+        print(result)
+
+        medical_imaging_wrapper.untag_resource(
+            resource_arn,
+            ["TagType"])
+
+        result = medical_imaging_wrapper.list_tags_for_resource(
+            resource_arn)
+        print(result)
