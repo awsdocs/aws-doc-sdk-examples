@@ -411,7 +411,7 @@ sagemaker_Scenario_Pipelines:
     </itemizedlist>
     <para>Additional information about this example is available in the related post on <ulink
     url="https://community.aws/posts/create-and-run-sagemaker-pipelines-using-aws-sdks">
-    Community.&AWS;</ulink>.
+    Community.aws</ulink>.
   category: Scenarios
   languages:
     Kotlin:
