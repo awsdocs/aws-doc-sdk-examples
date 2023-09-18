@@ -24,6 +24,8 @@ Ruby:
   - ruby/**/*
 Rust:
   - rust_dev_preview/**/*
+SAP ABAP:
+  - sap-abap/**/*
 Swift:
   - swift/**/*
 Typescript:
