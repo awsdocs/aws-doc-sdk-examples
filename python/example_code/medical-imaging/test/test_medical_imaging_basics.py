@@ -296,3 +296,121 @@ def test_update_image_set_metadata(make_stubber, error_code):
             wrapper.update_image_set_metadata(datastore_id, image_set_id, version_id, metadata)
         assert exc_info.value.response['Error']['Code'] == error_code
 
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_copy_image_set_without_destination(make_stubber, error_code):
+    medical_imaging_client = boto3.client('medical-imaging')
+    medical_imaging_stubber = make_stubber(medical_imaging_client)
+    wrapper = MedicalImagingWrapper(medical_imaging_client)
+    datastore_id = 'abcdedf1234567890abcdef123456789'
+    image_set_id = 'cccccc1234567890abcdef123456789'
+    version_id = '1'
+    new_image_set_id = 'cccccc1234567890abcdef123456789'
+
+    medical_imaging_stubber.stub_copy_image_set_without_destination(
+        datastore_id, image_set_id, version_id, new_image_set_id, error_code=error_code)
+
+    if error_code is None:
+        wrapper.copy_image_set(datastore_id, image_set_id, version_id)
+
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.copy_image_set(datastore_id, image_set_id, version_id)
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_copy_image_set_with_destination(make_stubber, error_code):
+    medical_imaging_client = boto3.client('medical-imaging')
+    medical_imaging_stubber = make_stubber(medical_imaging_client)
+    wrapper = MedicalImagingWrapper(medical_imaging_client)
+    datastore_id = 'abcdedf1234567890abcdef123456789'
+    image_set_id = 'cccccc1234567890abcdef123456789'
+    version_id = '1'
+    destination_image_set_id = 'cccccc1234567890abcdef123456789'
+    destination_version_id = '1'
+
+    medical_imaging_stubber.stub_copy_image_set_with_destination(
+        datastore_id, image_set_id, version_id, destination_image_set_id, destination_version_id, error_code=error_code)
+
+    if error_code is None:
+        wrapper.copy_image_set(datastore_id, image_set_id, version_id, destination_image_set_id, destination_version_id)
+
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.copy_image_set(datastore_id, image_set_id, version_id, destination_image_set_id, destination_version_id)
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_delete_image_set(make_stubber, error_code):
+    medical_imaging_client = boto3.client('medical-imaging')
+    medical_imaging_stubber = make_stubber(medical_imaging_client)
+    wrapper = MedicalImagingWrapper(medical_imaging_client)
+    datastore_id = 'abcdedf1234567890abcdef123456789'
+    image_set_id = 'cccccc1234567890abcdef123456789'
+
+    medical_imaging_stubber.stub_delete_image_set(
+        datastore_id, image_set_id, error_code=error_code)
+
+    if error_code is None:
+        wrapper.delete_image_set(datastore_id, image_set_id)
+
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.delete_image_set(datastore_id, image_set_id)
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_tag_resource(make_stubber, error_code):
+    medical_imaging_client = boto3.client('medical-imaging')
+    medical_imaging_stubber = make_stubber(medical_imaging_client)
+    wrapper = MedicalImagingWrapper(medical_imaging_client)
+    resource_arn = 'arn:aws:medical-imaging:us-east-1:123456789012:datastore/abcdedf1234567890abcdef123456789/image-set/cccccc1234567890abcdef123456789'
+    tags = {'test-key': 'test-value'}
+
+    medical_imaging_stubber.stub_tag_resource(
+        resource_arn, tags, error_code=error_code)
+
+    if error_code is None:
+        wrapper.tag_resource(resource_arn, tags)
+
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.tag_resource(resource_arn, tags)
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_untag_resource(make_stubber, error_code):
+    medical_imaging_client = boto3.client('medical-imaging')
+    medical_imaging_stubber = make_stubber(medical_imaging_client)
+    wrapper = MedicalImagingWrapper(medical_imaging_client)
+    resource_arn = 'arn:aws:medical-imaging:us-east-1:123456789012:datastore/abcdedf1234567890abcdef123456789/image-set/cccccc1234567890abcdef123456789'
+    tag_keys = ['test-key']
+
+    medical_imaging_stubber.stub_untag_resource(
+        resource_arn, tag_keys, error_code=error_code)
+
+    if error_code is None:
+        wrapper.untag_resource(resource_arn, tag_keys)
+
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.untag_resource(resource_arn, tag_keys)
+        assert exc_info.value.response['Error']['Code'] == error_code
+
+@pytest.mark.parametrize('error_code', [None, 'TestException'])
+def test_list_tags_for_resource(make_stubber, error_code):
+    medical_imaging_client = boto3.client('medical-imaging')
+    medical_imaging_stubber = make_stubber(medical_imaging_client)
+    wrapper = MedicalImagingWrapper(medical_imaging_client)
+    resource_arn = 'arn:aws:medical-imaging:us-east-1:123456789012:datastore/abcdedf1234567890abcdef123456789/image-set/cccccc1234567890abcdef123456789'
+
+    medical_imaging_stubber.stub_list_tags_for_resource(
+        resource_arn, error_code=error_code)
+
+    if error_code is None:
+        wrapper.list_tags_for_resource(resource_arn)
+
+    else:
+        with pytest.raises(ClientError) as exc_info:
+            wrapper.list_tags_for_resource(resource_arn)
+        assert exc_info.value.response['Error']['Code'] == error_code

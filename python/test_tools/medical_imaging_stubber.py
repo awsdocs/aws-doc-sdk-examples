@@ -202,8 +202,82 @@ class MedicalImagingStubber(ExampleStubber):
         response = {
             'imageSetId': 'cccccc1234567890abcdef123456789',
             'latestVersionId': '1',
-            'datastoreId' : '12345678901234567890123456789012',
-            'imageSetState': 'ACTIVE' }
+            'datastoreId': '12345678901234567890123456789012',
+            'imageSetState': 'ACTIVE'}
 
         self._stub_bifurcator(
             'update_image_set_metadata', expected_params, response, error_code=error_code)
+
+    def stub_copy_image_set_without_destination(self, datastore_id, image_set_id, version_id, copied_image_set_id,
+                                                error_code=None):
+        expected_params = {'datastoreId': datastore_id,
+                           'sourceImageSetId': image_set_id,
+                           'copyImageSetInformation': {"sourceImageSet": {"latestVersionId": version_id}}}
+
+        response = {
+            'datastoreId': datastore_id,
+            'sourceImageSetProperties': {'imageSetId': image_set_id,
+                                         'latestVersionId': version_id},
+            'destinationImageSetProperties': {'imageSetId': copied_image_set_id,
+                                              'latestVersionId': '1'}}
+
+        self._stub_bifurcator(
+            'copy_image_set', expected_params, response, error_code=error_code)
+
+    def stub_copy_image_set_with_destination(self, datastore_id, image_set_id, version_id,
+                                             destination_image_set_id, destination_version_id, error_code=None):
+        expected_params = {'datastoreId': datastore_id,
+                           'sourceImageSetId': image_set_id,
+                           'copyImageSetInformation':
+                               {'destinationImageSet': {'imageSetId': destination_image_set_id,
+                                                        'latestVersionId': destination_version_id},
+                                'sourceImageSet': {'latestVersionId': version_id}}}
+
+        response = {
+            'datastoreId': datastore_id,
+            'sourceImageSetProperties': {'imageSetId': image_set_id,
+                                         'latestVersionId': version_id},
+            'destinationImageSetProperties': {'imageSetId': destination_image_set_id,
+                                              'latestVersionId': destination_version_id}}
+
+        self._stub_bifurcator(
+            'copy_image_set', expected_params, response, error_code=error_code)
+
+    def stub_delete_image_set(self, datastore_id, image_set_id, error_code=None):
+        expected_params = {'datastoreId': datastore_id,
+                           'imageSetId': image_set_id}
+
+        response = {
+            'datastoreId': datastore_id,
+            'imageSetId': image_set_id,
+            'imageSetWorkflowStatus': 'DELETED',
+            'imageSetState': 'DELETED'}
+
+        self._stub_bifurcator(
+            'delete_image_set', expected_params, response, error_code=error_code)
+
+    def stub_tag_resource(self, resource_arn, tags, error_code=None):
+        expected_params = {'resourceArn': resource_arn,
+                           'tags': tags}
+
+        response = {}
+
+        self._stub_bifurcator(
+            'tag_resource', expected_params, response, error_code=error_code)
+
+    def stub_untag_resource(self, resource_arn, tag_keys, error_code=None):
+        expected_params = {'resourceArn': resource_arn,
+                           'tagKeys': tag_keys}
+
+        response = {}
+
+        self._stub_bifurcator(
+            'untag_resource', expected_params, response, error_code=error_code)
+
+    def stub_list_tags_for_resource(self, resource_arn, error_code=None):
+        expected_params = {'resourceArn': resource_arn}
+
+        response = {'tags': {'test-key': 'test-value'}}
+
+        self._stub_bifurcator(
+            'list_tags_for_resource', expected_params, response, error_code=error_code)

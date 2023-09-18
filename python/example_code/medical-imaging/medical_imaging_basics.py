@@ -449,11 +449,11 @@ class MedicalImagingWrapper:
 
 
 if __name__ == '__main__':
-    source_s3_uri = "s3://healthimaging-source-37eyet88/CRStudy/"
-    dest_s3_uri = "s3://health-imaging-dest-ier9e86w/ouput_cr/"
-    data_store_id = "728f13a131f748bf8d87a55d5ef6c5af"
-    data_access_role_arn = "arn:aws:iam::123502194722:role/dicom_import"
-    job_name = "job_1"
+    source_s3_uri = 's3://healthimaging-source-37eyet88/CRStudy/'
+    dest_s3_uri = 's3://health-imaging-dest-ier9e86w/ouput_cr/'
+    data_store_id = '728f13a131f748bf8d87a55d5ef6c5af'
+    data_access_role_arn = 'arn:aws:iam::123502194722:role/dicom_import'
+    job_name = 'job_1'
 
     client = boto3.client('medical-imaging')
     medical_imaging_wrapper = MedicalImagingWrapper(client)
@@ -482,7 +482,7 @@ if __name__ == '__main__':
 
 
         filter = {
-            "filters": [{
+            'filters': [{
                 "values": [{"createdAt": datetime.datetime(2021, 8, 4, 14, 49, 54, 429000)},
                            {"createdAt": datetime.datetime(2023, 9, 16, 14, 49, 54, 429000)}],
                 "operator": "BETWEEN"
@@ -496,14 +496,14 @@ if __name__ == '__main__':
                                                                    "1")
         print(returned_image_set)
 
-    data_string = b'123345656'
-    stream = botocore.response.StreamingBody(data_string, len(data_string))
+        data_string = b'123345656'
+        stream = botocore.response.StreamingBody(data_string, len(data_string))
 
-    medical_imaging_wrapper.get_image_set_metadata("metadata.json.gzip", data_store_id,
-                                                   "6ec347bff13a36fe32939e41a1e5e158", "1")
+        medical_imaging_wrapper.get_image_set_metadata('metadata.json.gzip', data_store_id,
+                                                       '6ec347bff13a36fe32939e41a1e5e158', '1')
 
 
-    if False:
+
         file_name = "image_frame.jph"
         returned_image_frame = medical_imaging_wrapper.get_pixel_data(file_name, data_store_id,
                                                                       "6ec347bff13a36fe32939e41a1e5e158",
@@ -547,18 +547,18 @@ if __name__ == '__main__':
         result = medical_imaging_wrapper.list_tags_for_resource(resource_arn)
         print(result)
 
-        resource_arn = "arn:aws:medical-imaging:us-east-1:123502194722:datastore/728f13a131f748bf8d87a55d5ef6c5af/imageset/6ec347bff13a36fe32939e41a1e5e158"
-        medical_imaging_wrapper.tag_resource(
-            resource_arn,
-            {"TagType": "datastore"})
-        result = medical_imaging_wrapper.list_tags_for_resource(
-            resource_arn)
-        print(result)
+    resource_arn = "arn:aws:medical-imaging:us-east-1:123502194722:datastore/728f13a131f748bf8d87a55d5ef6c5af/imageset/6ec347bff13a36fe32939e41a1e5e158"
+    medical_imaging_wrapper.tag_resource(
+        resource_arn,
+        {"TagType": "datastore"})
+    result = medical_imaging_wrapper.list_tags_for_resource(
+        resource_arn)
+ #   print(result)
 
-        medical_imaging_wrapper.untag_resource(
-            resource_arn,
-            ["TagType"])
+    # medical_imaging_wrapper.untag_resource(
+    #     resource_arn,
+    #     ["TagType"])
 
-        result = medical_imaging_wrapper.list_tags_for_resource(
-            resource_arn)
-        print(result)
+    result = medical_imaging_wrapper.list_tags_for_resource(
+        resource_arn)
+    print(result)
