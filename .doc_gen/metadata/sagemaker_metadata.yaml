@@ -388,7 +388,7 @@ sagemaker_Scenario_GettingStarted:
 sagemaker_Scenario_Pipelines:
   title: Get started with &SM; geospatial jobs in a pipeline using an &AWS; SDK
   title_abbrev: Get started with geospatial jobs and pipelines
-  synopsis: >
+  synopsis: |-
     work with &SMlong; pipelines and geospatial jobs to do the following steps:
     <itemizedlist>
       <listitem>
