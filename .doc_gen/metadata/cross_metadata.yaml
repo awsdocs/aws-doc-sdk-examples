@@ -634,6 +634,9 @@ cross_ResilientService:
         - sdk_version: 3
           github: python/cross_service/resilient_service
           excerpts:
+            - description: Run the interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.workflow.ResilientService_Runner
             - description: Create a class that wraps &AS; and &EC2; actions.
               snippet_tags:
                 - python.example_code.workflow.ResilientService_AutoScaler
@@ -646,9 +649,6 @@ cross_ResilientService:
             - description: Create a class that wraps &SYS; actions.
               snippet_tags:
                 - python.example_code.workflow.ResilientService_ParameterHelper
-            - description: Run the interactive scenario at a command prompt.
-              snippet_tags:
-                - python.example_code.workflow.ResilientService_Runner
   services:
     auto-scaling: {
       CreateAutoScalingGroup, DescribeAutoScalingGroups, TerminateInstanceInAutoScalingGroup,
@@ -661,3 +661,4 @@ cross_ResilientService:
     elastic-load-balancing-v2: {
       DescribeLoadBalancers, CreateTargetGroup, DescribeTargetGroups, DeleteTargetGroup,
       CreateLoadBalancer, CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
+    iam: {CreateInstanceProfile, DeleteInstanceProfile}

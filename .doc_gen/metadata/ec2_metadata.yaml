@@ -1476,6 +1476,15 @@ ec2_RebootInstances:
             - description:
               snippet_tags:
                 - ec2.cpp.reboot_instance.code
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation
   services:
     ec2: {RebootInstances}
 ec2_DescribeImages:
@@ -1615,6 +1624,15 @@ ec2_DescribeAvailabilityZones:
               snippet_tags:
                 - cpp.example_code.ec2.describe_regions.client
                 - ec2.cpp.describe_zones.code
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.DescribeAvailabilityZones
   services:
     ec2: {DescribeAvailabilityZones}
 ec2_CreateTags:
@@ -1689,6 +1707,116 @@ ec2_createVpc:
   services:
     ec2:
       {CreateVpc}
+ec2_DescribeIamInstanceProfileAssociations:
+  title: Get data about the instance profile associated with an &EC2; instance using an &AWS; SDK
+  title_abbrev: Get data about the instance profile associated with an instance
+  synopsis: get data about the instance profile associated with an &EC2; instance.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.DescribeIamInstanceProfileAssociations
+  services:
+    ec2: {DescribeIamInstanceProfileAssociations}
+ec2_ReplaceIamInstanceProfileAssociation:
+  title: Replace the instance profile associated with an &EC2; instance using an &AWS; SDK
+  title_abbrev: Replace the instance profile associated with an instance
+  synopsis: replace the instance profile associated with an &EC2; instance.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description: This example replaces the instance profile of a running instance,
+                reboots the instance, and sends a command to the instance after it starts.
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation
+  services:
+    ec2: {ReplaceIamInstanceProfileAssociation}
+ec2_CreateLaunchTemplate:
+  title: Create an &EC2; launch template using an &AWS; SDK
+  title_abbrev: Create a launch template
+  synopsis: create an &EC2; launch template.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description: This example creates a launch template that includes an instance profile
+                that grants specific permissions to the instance, and a user data Bash script that runs on the instance after it starts.
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.CreateLaunchTemplate
+  services:
+    ec2: {CreateLaunchTemplate}
+ec2_DeleteLaunchTemplate:
+  title: Delete an &EC2; launch template using an &AWS; SDK
+  title_abbrev: Delete a launch template
+  synopsis: delete an &EC2; launch template.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.DeleteLaunchTemplate
+  services:
+    ec2: {DeleteLaunchTemplate}
+ec2_DescribeVpcs:
+  title: Get the default VPC using an &AWS; SDK
+  title_abbrev: Get the default VPC
+  synopsis: get the default VPC of the current account.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.DescribeVpcs
+  services:
+    ec2: {DescribeVpcs}
+ec2_DescribeSubnets:
+  title: Get the default subnets for a VPC using an &AWS; SDK
+  title_abbrev: Get the default subnets for a VPC
+  synopsis: get the default subnets for a VPC.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.DescribeSubnets
+  services:
+    ec2: {DescribeSubnets}
 ec2_Scenario_GetStartedInstances:
   title: Get started with &EC2; instances using an &AWS; SDK
   title_abbrev: Get started with instances
