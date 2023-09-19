@@ -78,6 +78,9 @@
 - name: Rust
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Rust (Preview)"
+- name: "SAP ABAP"
+  color: "f5f7f9"
+  description: "This issue relates to the AWS SDK for SAP ABAP"
 - name: Swift
   color: "f5f7f9"
   description: "This issue relates to the AWS SDK for Swift"
