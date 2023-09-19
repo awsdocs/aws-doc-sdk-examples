@@ -21,7 +21,6 @@ from constructs import Construct
 # Raises KeyError if environment variable doesn't exist.
 language_name = os.environ["LANGUAGE_NAME"]
 producer_account_id = os.environ["PRODUCER_ACCOUNT_ID"]
-fanout_topic_name = os.environ["FANOUT_TOPIC_NAME"]
 
 
 class ConsumerStack(Stack):
@@ -36,9 +35,8 @@ class ConsumerStack(Stack):
         #####################################################
 
         # Locate Amazon Simple Notification Service (Amazon SNS) topic in the producer account.
-        fanout_topic_arn = (
-            f"arn:aws:sns:us-east-1:{producer_account_id}:{fanout_topic_name}"
-        )
+        fanout_topic_name = "aws-weathertop-central-sns-fanout-topic"
+        fanout_topic_arn = f"arn:aws:sns:us-east-1:{producer_account_id}:{fanout_topic_name}"
         sns_topic = sns.Topic.from_topic_arn(
             self, fanout_topic_name, topic_arn=fanout_topic_arn
         )
