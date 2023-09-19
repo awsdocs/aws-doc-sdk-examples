@@ -410,7 +410,9 @@ sagemaker_Scenario_Pipelines:
         <para>Clean up resources.</para>
       </listitem>
     </itemizedlist>
-    Additional information about this example is available in the related post on <ulink url="https://community.aws/posts/create-and-run-sagemaker-pipelines-using-aws-sdks">Community.aws</ulink>.
+    <para>Additional information about this example is available in the related post on <ulink
+    url="https://community.aws/posts/create-and-run-sagemaker-pipelines-using-aws-sdks">
+    Community.aws</ulink><para>.
   category: Scenarios
   languages:
     Kotlin:
