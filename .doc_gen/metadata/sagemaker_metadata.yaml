@@ -388,7 +388,7 @@ sagemaker_Scenario_GettingStarted:
 sagemaker_Scenario_Pipelines:
   title: Get started with &SM; geospatial jobs in a pipeline using an &AWS; SDK
   title_abbrev: Get started with geospatial jobs and pipelines
-  synopsis: work with &SM; pipelines and geospatial jobs to do the following steps.
+  synopsis: work with &SMlong; pipelines and geospatial jobs to do the following steps:
     <itemizedlist>
       <listitem>
         <para>Set up resources for a pipeline.</para>
@@ -411,7 +411,7 @@ sagemaker_Scenario_Pipelines:
     </itemizedlist>
     <para>Additional information about this example is available in the related post on <ulink
     url="https://community.aws/posts/create-and-run-sagemaker-pipelines-using-aws-sdks">
-    Community.aws</ulink></para>.
+    Community.aws</ulink>.</para>
   category: Scenarios
   languages:
     Kotlin:

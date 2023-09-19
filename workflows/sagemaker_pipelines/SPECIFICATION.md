@@ -31,17 +31,17 @@ The Lambda function handler should be written as part of the example, with the f
 This diagram represents the relationships between key components.
 ![relational diagram](resources/workflow.png)
 
-AWS SageMaker is a managed machine learning service. Developers can build and train machine learning models and deploy them into a production-ready hosted environment. This example focuses on the pipeline capabilities rather than the model training and building capabilities, since those are more likely to be useful to an SDK developer.
+Amazon SageMaker is a managed machine learning service. Developers can build and train machine learning models and deploy them into a production-ready hosted environment. This example focuses on the pipeline capabilities rather than the model training and building capabilities, since those are more likely to be useful to an SDK developer.
 
-The example uses a Geospatial job because it allows for a fast processing time, and is simple to verify that the pipeline did execute correctly. It is expected that the user would replace this job with processing steps of their own, but be able to use the SDK pipeline operations for creating or updating a pipeline, handling callback and execution steps in an AWS Lambda function, and using pipeline parameters to set up input and output.
+The example uses a geospatial job because it allows for a fast processing time, and it's simple to verify that the pipeline executed correctly. We expect that the user would replace this job with processing steps of their own, but be able to use the SDK pipeline operations for creating or updating a pipeline, handling callback and execution steps in an AWS Lambda function, and using pipeline parameters to set up input and output.
 
-The Geospatial job itself is a Vector Enrichment Job (VEJ) that reverse geocodes a set of coordinates. Other job types are much slower to complete, and this job type has an easy-to-read output. Note that you should use **us-west-2 region** to use this job type. This particular job type is powered by Amazon Location Service, although you will not need to call that service directly. You can read more [about geospatial capabilities here].(https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial.html).
+The geospatial job itself is a Vector Enrichment Job (VEJ) that reverse geocodes a set of coordinates. Other job types are much slower to complete, and this job type has an easy-to-read output. Note that you should use **us-west-2 region** to use this job type. This particular job type is powered by Amazon Location Service, although you will not need to call that service directly. You can read more [about geospatial capabilities here].(https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial.html).
 
-The AWS Lambda function handles the callback and the parameter-based queue messages from the pipeline. This example includes writing this Lambda function and deploying it as part of the pipeline, as well as connecting it to the SQS queue that is used by the pipeline.
+The AWS Lambda function handles the callback and the parameter-based queue messages from the pipeline. This example includes writing this Lambda function and deploying it as part of the pipeline, and also connecting it to the SQS queue that is used by the pipeline.
 
 There are multiple ways to handle pipeline operations, but in the interest of consistency, the C# implementation is based on [this pipeline example reference](https://github.com/aws/amazon-sagemaker-examples/blob/main/sagemaker-geospatial/geospatial-pipeline/assets/eoj_pipeline_lambda.py). This logic checks for the existence of parameters in the message to determine which type of processing to start. Other languages do not need to mimic the exact logic shown here, that functionality is left up to the language developer.
 
-The pipeline in this example is defined through a [JSON file](resources/GeoSpatialPipeline.json). Each language may wish to name the steps and parameters in a way that makes sense for their implementation, but you can use the file here as a guide.
+The pipeline in this example is defined through a [JSON file](resources/GeoSpatialPipeline.json). Each language might want to name the steps and parameters in a way that makes sense for their implementation, but you can use the file here as a guide.
 
 ## Common resources
 This example has a set of common resources that are stored in the [resources](resources) folder.
@@ -53,7 +53,7 @@ This example has a set of common resources that are stored in the [resources](re
 ## Metadata
 Service actions can either be pulled out as individual functions or can be incorporated into the scenario, but each service action must be included as an excerpt.
 
-### SageMaker Actions
+### SageMaker actions
 - CreatePipeline
 - UpdatePipeline
 - StartPipelineExecution
@@ -197,9 +197,9 @@ _Reminder:_ A scenario runs at a command prompt and prints output to the user on
 1. When the execution is complete, fetch the latest output file and display some of the output data to the user. `s3client ListObjects, GetObject`
 1. Provide instructions for optionally viewing the pipeline and executions in SageMaker Studio.
 1. Clean up the pipeline and resources – the user gets to decide if they want to clean these up or not.
-   1. Clean up pipeline DeletePipeline
-   1. Clean up the queue DeleteQueue
-   1. Clean up the bucket DeleteObjects, DeleteBucket
+   1. Clean up pipeline. DeletePipeline
+   1. Clean up the queue. DeleteQueue
+   1. Clean up the bucket. DeleteObjects, DeleteBucket
    1. Clean up the Lambda. DeleteFunction
    1. Clean up the pipeline. DeletePipeline
 
@@ -210,8 +210,8 @@ _Reminder:_ A scenario runs at a command prompt and prints output to the user on
 Welcome to the Amazon SageMaker pipeline example scenario.
 
 This example workflow will guide you through setting up and executing a
-AWS SageMaker pipeline. The pipeline uses an AWS Lambda function and an
-AWS SQS Queue, and runs a vector enrichment reverse geocode job to
+Amazon SageMaker pipeline. The pipeline uses an AWS Lambda function and an
+Amazon SQS queue, and runs a vector enrichment reverse geocode job to
 reverse geocode addresses in an input file and store the results in an export file.
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -281,7 +281,7 @@ Clean up resources.
 y
         Delete queue https://sqs.us-west-2.amazonaws.com/565846806325/sagemaker-sdk-example-queue-rlhagerm? (y/n)
 y
-        Delete Amazon S3 bucket sagemaker-sdk-test-bucket-rlhagerm2? (y/n)
+        Delete S3 bucket sagemaker-sdk-test-bucket-rlhagerm2? (y/n)
 y
         Delete role SageMakerExampleLambdaRole? (y/n)
 y
@@ -315,14 +315,14 @@ This is a workflow scenario. As such, the READMEs should be standardized.
 This is the [.NET reference README](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SageMaker/Scenarios/README.md). When a language implementation is completed, update the [parent README](README.md) to include the new language SDK.
 
 ## Troubleshooting
-- You may want to view your pipeline in SageMaker studio, which will require a Domain
-This will provide better debugging for the pipeline execution steps. You can use a default Domain or create a custom Domain.
-- Cloudwatch logs will be your friend. SageMaker studio should link each step to relevant logs.
-- When testing your Lambda function, you may find it useful to log out the function input. Serialization differences between languages (capitalization, nulls) can cause the function to fail.
+- You might want to view your pipeline in SageMaker studio, which will require a domain.
+This will provide better debugging for the pipeline execution steps. You can use a default domain or create a custom domain.
+- Amazon CloudWatch Logs will help you with this task. SageMaker studio should link each step to relevant logs.
+- When testing your Lambda function, you might find it useful to log out the function input. Serialization differences between languages (capitalization, nulls) can cause the function to fail.
 - When pipelines are failing, don't delete the queue until the pipeline execution has stopped.
 - Pipelines can only be deleted through the SDK.
-- See the [.NET implementation](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SageMaker) for an example. You may find it useful to begin with the .NET Lambda and get the rest of the workflow working, then work on the language-specific Lambda function handler.
-- Geospatial jobs are supported in `region us-west-2`. All operations should use this region unless otherwise specified.
+- For an example, see the [.NET implementation](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/dotnetv3/SageMaker). You might find it useful to begin with the .NET Lambda and get the rest of the workflow working, then work on the language-specific Lambda function handler.
+- Geospatial jobs are supported in `region us-west-2`. All operations should use this Region unless otherwise specified.
 - Pipeline callbacks won't resolve until SendPipelineExecutionStepSuccess or SendPipelineExecutionStepFailure are called. There's a risk of having to reach out to support if these aren't called.
 
 ### SageMaker documentation references:
