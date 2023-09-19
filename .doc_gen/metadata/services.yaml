@@ -713,7 +713,7 @@ medical-imaging:
     url: healthimaging/latest/devguide/what-is.html
   api_ref: healthimaging/latest/APIReference/Welcome.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: medical-imaging-2023-07-19
 migration-hub:
   long: '&MHBlong;'
@@ -728,7 +728,7 @@ migration-hub:
     url: migrationhub/latest/ug/getting-started.html
   api_ref: migrationhub/latest/ug/api-reference.html
   tags:
-    product_categories: {'Migration Hub Services'}
+    product_categories: {'Migration'}
   version: migration-hub-2017-05-31
 opensearch: 
   long: '&ESlong;'
