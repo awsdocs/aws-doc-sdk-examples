@@ -19,7 +19,7 @@ When you run the example console application, you can execute the following step
 - Create the AWS resources and roles needed for the pipeline.
 - Create the AWS Lambda function.
 - Create the SageMaker pipeline.
-- Upload an input file into an Amazon S3 bucket.
+- Upload an input file into an S3 bucket.
 - Execute the pipeline and monitor its status.
 - Display some output from the output file.
 - Clean up the pipeline resources.
