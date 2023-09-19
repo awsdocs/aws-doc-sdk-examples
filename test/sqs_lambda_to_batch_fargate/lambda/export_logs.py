@@ -45,7 +45,7 @@ def handler(event, context):
 
                 s3_client.upload_file(f"/tmp/{file_name}", os.environ['BUCKET_NAME'], file_name)
 
-                s3_client.put_object(Body=f"/tmp/{file_name}", Bucket='datastack-biglogbucketad8dbf9d-1gnhomq809ht8', Key=file_name)
+                s3_client.put_object(Body=f"/tmp/{file_name}", Bucket='datastack-biglogbucketad8dbf9d-1gnhomq809ht8', Key=f"{os.environ['LANGUAGE_NAME']}/{file_name})
 
                 logger.info(f'Log data saved successfully: {file_name}')
 
