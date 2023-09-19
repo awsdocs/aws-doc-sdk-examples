@@ -1,28 +1,21 @@
 import boto3
 import json
-import gzip
-import base64
 import os
 import logging
 import time
 
 s3_client = boto3.client('s3')
+s3_resource = boto3.resource('s3')
 logs_client = boto3.client('logs')
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
-# Configuration
-s3_prefix = 'batch-logs/'
 
 
 def handler(event, context):
     logger.info(f'INCOMING EVENT: {event}')
     if 'Batch Job State Change' in event['detail-type']:
         if 'FAILED' in event['detail']['status'] or 'SUCCEEDED' in event['detail']['status']:
-            logger.info(f"JOB_NAME: {os.environ['JOB_NAME']}")
-            logger.info(f"JOB_QUEUE: {os.environ['JOB_QUEUE']}")
-            logger.info(f"JOB_DEFINITION: {os.environ['JOB_DEFINITION']}")
             logger.info(f"BUCKET_NAME: {os.environ['BUCKET_NAME']}")
             try:
                 log_group_name = '/aws/batch/job'
@@ -51,6 +44,8 @@ def handler(event, context):
                         output_file.write(log_entry)
 
                 s3_client.upload_file(f"/tmp/{file_name}", os.environ['BUCKET_NAME'], file_name)
+
+                s3_client.put_object(Body=f"/tmp/{file_name}", Bucket='datastack-biglogbucketad8dbf9d-1gnhomq809ht8', Key=file_name)
 
                 logger.info(f'Log data saved successfully: {file_name}')
 

@@ -12,7 +12,6 @@ from aws_cdk import (
     aws_s3 as s3,
     aws_sns as sns,
     aws_sns_subscriptions as subs,
-    aws_logs as logs,
     aws_ec2 as ec2,
     aws_ecs as ecs,
     aws_batch_alpha as batch_alpha,
@@ -82,14 +81,17 @@ class ConsumerStack(Stack):
         statement.add_condition("ArnLike", {"aws:SourceArn": fanout_topic_arn})
         sqs_queue.add_to_resource_policy(statement)
 
-        ####
+        ################################################
+        ##                                            ##
+        ##            S3 BUCKET FOR LOGS              ##
+        ##                                            ##
+        ################################################
 
         bucket = s3.Bucket(
             self,
             'LogBucket',
-            versioned=False,  # If you want versioning, set this to True
-            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,  # Block public access
-            # For us-east-1, there's no need to specify LocationConstraint
+            versioned=False,
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
         )
 
         ################################################
@@ -152,7 +154,7 @@ class ConsumerStack(Stack):
 
         #################################################
         ##                                             ##
-        ##              LAMBDA FUNCTION                ##
+        ##           BATCH LAMBDA FUNCTION             ##
         ##     (Triggers Batch job from SQS queue)     ##
         ##                                             ##
         #################################################
@@ -213,17 +215,17 @@ class ConsumerStack(Stack):
 
         #################################################
         ##                                             ##
-        ##              LAMBDA FUNCTION                ##
-        ##     (Triggers Batch job from SQS queue)     ##
+        ##            LOG LAMBDA FUNCTION              ##
+        ##    (Processes logs and puts them to S3)     ##
         ##                                             ##
         #################################################
 
         # Execution role for AWS Lambda function to use.
         execution_role = iam.Role(
-            self, f"LogsLambdaExecutionRole-{language_name}",
+            self, f"LogsLambdaExecutionRole",
             assumed_by=iam.ServicePrincipal('lambda.amazonaws.com'),
             description='Allows Lambda function to get logs from CloudWatch',
-            role_name=f'LogsLambdaExecutionRole-{language_name}'
+            role_name=f'LogsLambdaExecutionRole'
         )
 
         # Attach AWSLambdaBasicExecutionRole to the Lambda function's role
@@ -233,6 +235,7 @@ class ConsumerStack(Stack):
             )
         )
 
+        # Grants ability to get logs from CloudWatch
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
                 actions=['logs:GetLogEvents', 'logs:DescribeLogStreams'],
@@ -240,11 +243,19 @@ class ConsumerStack(Stack):
             )
         )
 
+        # Grants ability to get and put to local logs bucket
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
-                actions=['s3:PutObject'],
-                resources=[
-                    f'{bucket.bucket_arn}/*']
+                actions=['s3:PutObject', 's3:GetObject'],
+                resources=[f'{bucket.bucket_arn}/*']
+            )
+        )
+
+        # Grants ability to write to cross-account log bucket
+        execution_role.add_to_policy(
+            statement=iam.PolicyStatement(
+                actions=['s3:PutObject', 's3:PutObjectAcl'],
+                resources=['arn:aws:s3:::datastack-biglogbucket*/*']
             )
         )
 
@@ -265,27 +276,11 @@ class ConsumerStack(Stack):
             }
         )
 
-        rule = events.Rule(self, "rule",
-                           event_pattern=events.EventPattern(
-                               source=["aws.batch"]
-                           )
+        batch_rule = events.Rule(self, "BatchAllEventsRule",
+                               event_pattern=events.EventPattern(
+                                   source=["aws.batch"]
+                               )
                            )
 
         # Add the Lambda function as a target for the CloudWatch Event Rule
-        rule.add_target(targets.LambdaFunction(lambda_function))
-
-        #################################################
-        ##                                             ##
-        ##              SUBSCRIPTION FILTER            ##
-        ##                                             ##
-        #################################################
-
-        # Define the subscription filter
-        logs.CfnSubscriptionFilter(
-            self,
-            "MySubscriptionFilter",
-            log_group_name="/aws/batch/job",
-            filter_name="to_firehose",
-            filter_pattern="[]",
-            destination_arn='arn:aws:logs:us-east-1:808326389482:destination:FirehoseDestination',
-        )
+        batch_rule.add_target(targets.LambdaFunction(lambda_function))

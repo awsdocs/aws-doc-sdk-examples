@@ -7,9 +7,6 @@ from aws_cdk import (
     aws_events as events,
     aws_events_targets as targets,
     aws_sns as sns,
-    aws_kinesis as kinesis,
-    aws_sns_subscriptions as subscriptions,
-    aws_logs as logs,
     Aws,
     Stack
 )
