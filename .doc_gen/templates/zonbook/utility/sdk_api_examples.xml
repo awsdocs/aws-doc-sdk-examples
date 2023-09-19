@@ -34,7 +34,7 @@
         {{- template "note_example_types" makeSlice 1 1 0}}
         <para>Each example includes a link to GitHub, where you can find
             instructions on how to set up and run the code in context.</para>
-        {{- template "hello" makeSlice $svc_examples.CategorizedExampleSets $examples.Language}}
+        {{- template "hello" makeSlice $svc_examples.CategorizedExampleSets $examples.Language $examples.LanguageSlug}}
         <para role="topiclist-abbrev"/>
         {{- range $category := $svc_examples.CategoryNamesSorted}}
         {{- if ne $category "Hello"}}

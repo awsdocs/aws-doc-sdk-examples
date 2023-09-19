@@ -18,8 +18,8 @@
 {{- end}}
 <section id="{{$svc_prefix}}example_{{.ExampleId}}_section" role="topic">
     <info>
-        <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
-        <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+        <title id="{{$svc_prefix}}example_{{.ExampleId}}_section.title">{{.Title}}</title>
+        <titleabbrev id="{{$svc_prefix}}example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
         <abstract>
             <para>{{.Title}}</para>
         </abstract>
@@ -57,7 +57,7 @@
                 <listitem>
                     <para>
                         <xref linkend="{{$svc_prefix}}example_{{$rel_example}}_section"
-                              endterm="example_{{$rel_example}}_section.titleabbrev"/>
+                              endterm="{{$svc_prefix}}example_{{$rel_example}}_section.titleabbrev"/>
                     </para>
                 </listitem>
             {{- end}}

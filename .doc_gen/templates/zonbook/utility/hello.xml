@@ -5,6 +5,11 @@
 {{- if not $example_suffix}}
     {{- $example_suffix = "tablist"}}
 {{- end}}
+{{- $prefix := index . 2}}
+{{- $example_prefix := ""}}
+{{- if $prefix}}
+    {{- $example_prefix = printf "%s_" $prefix}}
+{{- end}}
 {{- $include_docs := "file://AWSShared/code-samples/docs/"}}
 {{- if isSnapshot}}
     {{- $include_docs := ""}}
@@ -14,10 +19,10 @@
 <block>
     <collapsible expand-section="_collapse_all_">
         {{- range $hello.Examples}}
-        <section id="example_{{.ExampleId}}_section">
+        <section id="{{$example_prefix}}example_{{.ExampleId}}_section">
             <info>
-                <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
-                <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+                <title id="{{$example_prefix}}example_{{.ExampleId}}_section.title">{{.Title}}</title>
+                <titleabbrev id="{{$example_prefix}}example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
                 <abstract>
                     <para>{{.Title}}</para>
                 </abstract>
