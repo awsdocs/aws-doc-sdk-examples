@@ -262,7 +262,7 @@ class ConsumerStack(Stack):
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
                 actions=["s3:PutObject", "s3:PutObjectAcl"],
-                resources=["arn:aws:s3:::datastack-biglogbucket*/*"],
+                resources=["arn:aws:s3:::aws-weathertop-central-log-bucket/*"],
             )
         )
 
@@ -277,6 +277,7 @@ class ConsumerStack(Stack):
             environment={
                 "LANGUAGE_NAME": language_name,
                 "BUCKET_NAME": bucket.bucket_name,
+                "PRODUCER_BUCKET_NAME": "aws-weathertop-central-log-bucket"
             },
         )
 

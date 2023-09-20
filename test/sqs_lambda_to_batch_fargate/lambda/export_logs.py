@@ -53,7 +53,7 @@ def handler(event, context):
 
                 s3_client.put_object(
                     Body=f"/tmp/{file_name}",
-                    Bucket="datastack-biglogbucketad8dbf9d-1gnhomq809ht8",
+                    Bucket=os.environ["PRODUCER_BUCKET_NAME"],
                     Key=f"{os.environ['LANGUAGE_NAME']}/{file_name}",
                 )
 
