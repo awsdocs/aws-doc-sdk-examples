@@ -285,7 +285,7 @@ impl AutoScalingScenario {
             launch_template_arn,
         };
 
-        // snippet-start:[rust.autoscaling.scenario.enable_metrics_collection]
+        // snippet-start:[rust.auto-scaling.scenario.enable_metrics_collection]
         let enable_metrics_collection = autoscaling
             .enable_metrics_collection()
             .auto_scaling_group_name(auto_scaling_group_name.as_str())
@@ -299,7 +299,7 @@ impl AutoScalingScenario {
             ]))
             .send()
             .await;
-        // snippet-end:[rust.autoscaling.scenario.enable_metrics_collection]
+        // snippet-end:[rust.auto-scaling.scenario.enable_metrics_collection]
 
         match enable_metrics_collection {
             Ok(_) => Ok(scenario),
@@ -390,7 +390,7 @@ impl AutoScalingScenario {
         }
     }
 
-    // snippet-start:[rust.autoscaling.scenario.describe_scenario]
+    // snippet-start:[rust.auto-scaling.scenario.describe_scenario]
     pub async fn describe_scenario(&self) -> AutoScalingScenarioDescription {
         let group = self
             .autoscaling
@@ -446,9 +446,9 @@ impl AutoScalingScenario {
             activities,
         }
     }
-    // snippet-end:[rust.autoscaling.scenario.describe_scenario]
+    // snippet-end:[rust.auto-scaling.scenario.describe_scenario]
 
-    // snippet-start:[rust.autoscaling.scenario.get_group]
+    // snippet-start:[rust.auto-scaling.scenario.get_group]
     async fn get_group(&self) -> Result<AutoScalingGroup, ScenarioError> {
         let describe_auto_scaling_groups = self
             .autoscaling
@@ -483,7 +483,7 @@ impl AutoScalingScenario {
 
         Ok(auto_scaling_group.unwrap().clone())
     }
-    // snippet-end:[rust.autoscaling.scenario.get_group]
+    // snippet-end:[rust.auto-scaling.scenario.get_group]
 
     pub async fn wait_for_no_scaling(&self) -> Result<(), ScenarioError> {
         let waiter = Waiter::new();
@@ -526,7 +526,7 @@ impl AutoScalingScenario {
         Ok(())
     }
 
-    // snippet-start:[rust.autoscaling.scenario.list_instances]
+    // snippet-start:[rust.auto-scaling.scenario.list_instances]
     pub async fn list_instances(&self) -> Result<Vec<String>, ScenarioError> {
         // The direct way to list instances is by using DescribeAutoScalingGroup's instances property. However, this returns a Vec<Instance>, as opposed to a Vec<AutoScalingInstanceDetails>.
         // Ok(self.get_group().await?.instances.unwrap_or_default().map(|i| i.instance_id.clone().unwrap_or_default()).filter(|id| !id.is_empty()).collect())
@@ -546,7 +546,7 @@ impl AutoScalingScenario {
             .collect::<Vec<String>>()
             .await)
     }
-    // snippet-end:[rust.autoscaling.scenario.list_instances]
+    // snippet-end:[rust.auto-scaling.scenario.list_instances]
 
     pub async fn scale_min_size(&self, size: i32) -> Result<(), ScenarioError> {
         let update_group = self
@@ -583,7 +583,7 @@ impl AutoScalingScenario {
         Ok(())
     }
 
-    // snippet-start:[rust.autoscaling.scenario.scale_desired_capacity]
+    // snippet-start:[rust.auto-scaling.scenario.scale_desired_capacity]
     pub async fn scale_desired_capacity(&self, capacity: i32) -> Result<(), ScenarioError> {
         // 7. SetDesiredCapacity: set desired capacity to 2.
         //   Wait for a second instance to launch.
@@ -602,10 +602,10 @@ impl AutoScalingScenario {
         }
         Ok(())
     }
-    // snippet-end:[rust.autoscaling.scenario.scale_desired_capacity]
+    // snippet-end:[rust.auto-scaling.scenario.scale_desired_capacity]
 
     pub async fn scale_group_to_zero(&self) -> Result<(), ScenarioError> {
-        // snippet-start:[rust.autoscaling.scenario.disable_metrics_collection]
+        // snippet-start:[rust.auto-scaling.scenario.disable_metrics_collection]
         // If this fails it's fine, just means there are extra cloudwatch metrics events for the scale-down.
         let _ = self
             .autoscaling
@@ -613,7 +613,7 @@ impl AutoScalingScenario {
             .auto_scaling_group_name(self.auto_scaling_group_name.clone())
             .send()
             .await;
-        // snippet-end:[rust.autoscaling.scenario.disable_metrics_collection]
+        // snippet-end:[rust.auto-scaling.scenario.disable_metrics_collection]
 
         // 12. DeleteAutoScalingGroup (to delete the group you must stop all instances):
         //   UpdateAutoScalingGroup with MinSize=0
@@ -642,7 +642,7 @@ impl AutoScalingScenario {
         Ok(())
     }
 
-    // snippet-start:[rust.autoscaling.scenario.terminate_some_instance]
+    // snippet-start:[rust.auto-scaling.scenario.terminate_some_instance]
     pub async fn terminate_some_instance(&self) -> Result<(), ScenarioError> {
         // Retrieve a list of instances in the auto scaling group.
         let instances = self.get_group().await?.instances.unwrap_or_default();
@@ -667,7 +667,7 @@ impl AutoScalingScenario {
             Err(ScenarioError::with("There was no instance to terminate"))
         }
     }
-    // snippet-end:[rust.autoscaling.scenario.terminate_some_instance]
+    // snippet-end:[rust.auto-scaling.scenario.terminate_some_instance]
 }
 
 fn count_group_instances(group: &AutoScalingGroup) -> usize {
