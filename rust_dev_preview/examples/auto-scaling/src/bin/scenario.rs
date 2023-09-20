@@ -1,29 +1,36 @@
-use std::collections::BTreeSet;
+use std::{collections::BTreeSet, fmt::Display};
 
 use anyhow::anyhow;
-use autoscaling_code_examples::scenario::AutoScalingScenario;
+use autoscaling_code_examples::scenario::{AutoScalingScenario, ScenarioError};
 use tracing::{info, warn};
 
 async fn show_scenario_description(scenario: &AutoScalingScenario, event: &str) {
-    let auto_scaling_scenario_description = scenario.describe_scenario().await;
-    match auto_scaling_scenario_description {
-        Ok(description) => info!("DescribeAutoScalingInstances: {event}\n{description}"),
-        Err(err) => info!("Error in DescribeAutoScalingInstances: {event}\n{err:?}"),
-    }
+    let description = scenario.describe_scenario().await;
+    info!("DescribeAutoScalingInstances: {event}\n{description}");
 }
 
 #[derive(Default, Debug)]
 struct Warnings(Vec<String>);
 
 impl Warnings {
-    pub fn push(&mut self, warning: &str, error: anyhow::Error) {
-        let formatted = format!("{warning}: {error:?}");
+    pub fn push(&mut self, warning: &str, error: ScenarioError) {
+        let formatted = format!("{warning}: {error}");
         warn!("{formatted}");
         self.0.push(formatted);
     }
 
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
+    }
+}
+
+impl Display for Warnings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        writeln!(f, "Warnings:")?;
+        for warning in &self.0 {
+            writeln!(f, "{: >4}- {warning}", "")?;
+        }
+        Ok(())
     }
 }
 
@@ -40,7 +47,14 @@ async fn main() -> Result<(), anyhow::Error> {
     // 4. EnableMetricsCollection: enable all metrics or a subset.
     let scenario = match AutoScalingScenario::prepare_scenario(&shared_config).await {
         Ok(scenario) => scenario,
-        Err(err) => return Err(anyhow!("Failed to initialize scenario: {err:?}")),
+        Err(errs) => {
+            let err_str = errs
+                .into_iter()
+                .map(|e| e.to_string())
+                .collect::<Vec<String>>()
+                .join(", ");
+            return Err(anyhow!("Failed to initialize scenario: {err_str}"));
+        }
     };
 
     info!("Prepared autoscaling scenario:\n{scenario}");
@@ -133,7 +147,7 @@ async fn main() -> Result<(), anyhow::Error> {
     if !(difference == 1 && ids_before.len() == 2 && ids_after.len() == 2) {
         warnings.push(
             "Before and after set not different",
-            anyhow!("{difference}"),
+            ScenarioError::with(format!("{difference}")),
         );
     }
 
@@ -154,8 +168,10 @@ async fn main() -> Result<(), anyhow::Error> {
     // 12. DeleteAutoScalingGroup (to delete the group you must stop all instances):
     // 14. Delete LaunchTemplate.
     let clean_scenario = scenario.clean_scenario().await;
-    if let Err(err) = clean_scenario {
-        warnings.push("There was a problem cleaning the scenario", err);
+    if let Err(errs) = clean_scenario {
+        for err in errs {
+            warnings.push("There was a problem cleaning the scenario", err);
+        }
     } else {
         info!("The scenario has been cleaned up!");
     }
@@ -164,7 +180,7 @@ async fn main() -> Result<(), anyhow::Error> {
         Ok(())
     } else {
         Err(anyhow!(
-            "There were warnings during scenario execution:\n{warnings:?}"
+            "There were warnings during scenario execution:\n{warnings}"
         ))
     }
 }
