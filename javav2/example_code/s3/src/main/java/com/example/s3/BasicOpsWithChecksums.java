@@ -5,6 +5,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.basicOpsWithChecksums.import]
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.exception.SdkException;
@@ -88,14 +89,12 @@ public class BasicOpsWithChecksums {
             throw new RuntimeException(e);
         }
 
-        try {
-            try (DigestInputStream dis = new DigestInputStream(new FileInputStream(filePath), md)) {
-                byte[] buffer = new byte[8192];
-                int numBytesRead = 0;
-                while (numBytesRead != -1)
-                    numBytesRead = dis.read(buffer);
-                return Base64.getEncoder().encodeToString(md.digest());
-            }
+        try (DigestInputStream dis = new DigestInputStream(new FileInputStream(filePath), md)) {
+            byte[] buffer = new byte[8192];
+            int numBytesRead = 0;
+            while (numBytesRead != -1)
+                numBytesRead = dis.read(buffer);
+            return Base64.getEncoder().encodeToString(md.digest());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
