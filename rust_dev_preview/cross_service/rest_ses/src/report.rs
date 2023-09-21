@@ -127,7 +127,7 @@ fn make_report(items: Vec<WorkItem>) -> Result<Vec<u8>, ReportError> {
         .map_err(ReportError::XslxError)?;
 
     let wrote_workbook: Result<(), ReportError> = {
-        for (col, text) in vec!["Writer", "Date", "Guide", "Description", "Status"]
+        for (col, text) in ["Writer", "Date", "Guide", "Description", "Status"]
             .iter()
             .enumerate()
         {

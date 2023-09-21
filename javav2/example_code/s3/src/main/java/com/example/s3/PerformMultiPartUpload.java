@@ -5,7 +5,6 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.performMultiPartUpload.import]
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.exception.SdkException;
