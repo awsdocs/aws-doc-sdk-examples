@@ -419,7 +419,7 @@ class MedicalImagingWrapper:
                 err.response['Error']['Message'])
             raise
 
-    # snippet end:[python.example_code.medical-imaging.UntagResource]
+    # snippet-end:[python.example_code.medical-imaging.UntagResource]
 
     # snippet-start:[python.example_code.medical-imaging.ListTagsForResource]
     def list_tags_for_resource(self, resource_arn):
