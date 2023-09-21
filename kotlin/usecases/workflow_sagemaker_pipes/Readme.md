@@ -4,32 +4,49 @@
 
 This scenario demonstrates how to work with Amazon SageMaker pipelines and geospatial jobs.
 
-A [SageMaker pipeline](https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html) is a series of 
-interconnected steps that can be used to automate machine learning workflows. You can create and run pipelines from SageMaker Studio by using Python, but you can also do this by using AWS SDKs in other
+### Amazon SageMaker Pipelines
+A [SageMaker pipeline](https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html) is a series of
+interconnected steps that can be used to automate machine learning workflows. Pipelines use interconnected steps and shared parameters to support repeatable workflows that can be customized for your specific use case. You can create and run pipelines from SageMaker Studio using Python, but you can also do this by using AWS SDKs in other
 languages. Using the SDKs, you can create and run SageMaker pipelines and also monitor operations for them.
 
-### Pipeline steps
-This example pipeline includes an [AWS Lambda step](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html#step-type-lambda) 
-and a [callback step](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html#step-type-callback). 
-Both steps are processed by the same example Lambda function. 
+### Explore the scenario
+This example scenario demonstrates using AWS Lambda and Amazon Simple Queue Service (Amazon SQS) as part of an Amazon SageMaker pipeline. The pipeline itself executes a geospatial job to reverse geocode a sample set of coordinates into human-readable addresses. Input and output files are located in an Amazon Simple Storage Service (Amazon S3) bucket.
 
-This Lambda code is included as part of this example, with the following functionality:
-- Starts the SageMaker Vector Enrichment Job with the provided job configuration.
+![Workflow image](../../../workflows/sagemaker_pipelines/resources/workflow.png)
+
+When you run the example console application, you can execute the following steps:
+
+- Create the AWS resources and roles needed for the pipeline.
+- Create the AWS Lambda function.
+- Create the SageMaker pipeline.
+- Upload an input file into an S3 bucket.
+- Execute the pipeline and monitor its status.
+- Display some output from the output file.
+- Clean up the pipeline resources.
+
+#### Pipeline steps
+[Pipeline steps](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html) define the actions and relationships of the pipeline operations. The pipeline in this example includes an [AWS Lambda step](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html#step-type-lambda)
+and a [callback step](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-steps.html#step-type-callback).
+Both steps are processed by the same example Lambda function.
+
+The Lambda function handler is included as part of the example, with the following functionality:
+- Starts a [SageMaker Vector Enrichment Job](https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial-vej.html) with the provided job configuration.
+- Processes Amazon SQS queue messages from the SageMaker pipeline.
 - Starts the export function with the provided export configuration.
-- Processes Amazon Simple Queue Service (Amazon SQS) messages from the SageMaker pipeline.  
+- Completes the pipeline when the export is complete.
 
-![AWS App](images/pipes.png)
+![Pipeline image](../../../workflows/sagemaker_pipelines/resources/pipeline.png)
 
-### Pipeline parameters
+#### Pipeline parameters
 The example pipeline uses [parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/build-and-manage-parameters.html) that you can reference throughout the steps. You can also use the parameters to change
-values between runs. In this example, the parameters are used to set the Amazon Simple Storage Service (Amazon S3)
-locations for the input and output files, along with the identifiers for the role and queue to use in the pipeline. 
-The example demonstrates how to set and access these parameters.
+values between runs and control the input and output setting. In this example, the parameters are used to set the Amazon Simple Storage Service (Amazon S3)
+locations for the input and output files, along with the identifiers for the role and queue to use in the pipeline.
+The example demonstrates how to set and access these parameters before executing the pipeline using an SDK.
 
-### Geospatial jobs
+#### Geospatial jobs
 A SageMaker pipeline can be used for model training, setup, testing, or validation. This example uses a simple job
-for demonstration purposes: a [Vector Enrichment Job (VEJ)](https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial-vej.html) that processes a set of coordinates to produce human-readable 
-addresses powered by Amazon Location Service. Other types of jobs could be substituted in the pipeline instead.
+for demonstration purposes: a [Vector Enrichment Job (VEJ)](https://docs.aws.amazon.com/sagemaker/latest/dg/geospatial-vej.html) that processes a set of coordinates to produce human-readable
+addresses powered by Amazon Location Service. Other types of jobs can be substituted in the pipeline instead.
 
 ## ⚠ Important
 
@@ -59,7 +76,7 @@ To successfully run this code example, you must download and use the following f
 + GeoSpatialPipeline.json
 + latlongtest.csv
 
-These files are located on GitHub in [sample_files](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/resources/sample_files).
+These files are located on GitHub in this [folder](../../../workflows/sagemaker_pipelines/resources).
 
 ### Kotlin Lambda function
 
