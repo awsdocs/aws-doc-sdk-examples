@@ -6,13 +6,14 @@ on:
     branches:
       - main
     types:
-      [opened, reopened, labeled, edited]
+      - closed
 jobs:
   label-linter:
     permissions:
       contents: read
       pull-requests: write
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     steps:
       -
         name: Checkout

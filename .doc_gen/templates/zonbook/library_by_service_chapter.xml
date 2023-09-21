@@ -65,7 +65,7 @@
                 <listitem><para><phrase role="topcom"><ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">&AWS; SDK Examples</ulink></phrase>
                     &endash; GitHub repo with complete code in preferred languages. Includes instructions for setting up and running the code.</para></listitem>
             </itemizedlist>
-            {{- template "hello" makeSlice $service.CategorizedExampleSets ""}}
+            {{- template "hello" makeSlice $service.CategorizedExampleSets "" $service.Model}}
             <para role="contents-abbrev">Code examples</para>
             {{- range $category := $service.CategoryNamesSorted}}
             {{- if ne $category "Hello"}}

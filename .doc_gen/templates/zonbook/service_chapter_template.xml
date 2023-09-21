@@ -33,7 +33,7 @@
         {{.ServiceEntity.Caveat}}</para>
     {{- template "note_example_types" makeSlice $actions.Examples $scenarios.Examples $cross_service.Examples}}
     {{- template "note_complete_list"}}
-    {{- template "hello" makeSlice .CategorizedExampleSets ""}}
+    {{- template "hello" makeSlice .CategorizedExampleSets "" 0}}
     <para role="contents-abbrev">Code examples</para>
     {{- range $category := .CategoryNamesSorted}}
     {{- if ne $category "Hello"}}

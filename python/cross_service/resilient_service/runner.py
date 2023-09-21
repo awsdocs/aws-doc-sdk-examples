@@ -12,7 +12,6 @@ more resilient when failures occur.
 
 import argparse
 import logging
-import time
 from pprint import pp
 import sys
 
@@ -184,7 +183,7 @@ class Runner:
             ssm_only_policy, self.autoscaler.bad_creds_policy_name, self.autoscaler.bad_creds_role_name,
             self.autoscaler.bad_creds_profile_name, ['AmazonSSMManagedInstanceCore'])
         instances = self.autoscaler.get_instances()
-        bad_instance_id = instances[0]['InstanceId']
+        bad_instance_id = instances[0]
         instance_profile = self.autoscaler.get_instance_profile(bad_instance_id)
         print(f"\nReplacing the profile for instance {bad_instance_id} with a profile that contains\n"
               f"bad credentials...\n")
@@ -225,6 +224,7 @@ class Runner:
               "unhealthy instances, allowing them to fail open and return a static response rather than fail\n"
               "closed and report failure to the customer.")
         self.demo_choices()
+        self.param_helper.reset()
 
     def destroy(self):
         print("This concludes the demo of how to build and manage a resilient service.\n"
@@ -246,7 +246,7 @@ class Runner:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--action', choices=['all', 'deploy', 'demo', 'destroy'],
+        '--action', required=True, choices=['all', 'deploy', 'demo', 'destroy'],
         help="The action to take for the demo. When 'all' is specified, resources are\n"
              "deployed, the demo is run, and resources are destroyed.")
     parser.add_argument(
@@ -263,7 +263,7 @@ def main():
     recommendation = RecommendationService.from_client('doc-example-recommendation-service')
     autoscaler = AutoScaler.from_client(prefix)
     loadbalancer = LoadBalancer.from_client(prefix)
-    param_helper = ParameterHelper(recommendation.table_name)
+    param_helper = ParameterHelper.from_client(recommendation.table_name)
     runner = Runner(args.resource_path, recommendation, autoscaler, loadbalancer, param_helper)
     actions = [args.action] if args.action != 'all' else ['deploy', 'demo', 'destroy']
     for action in actions:

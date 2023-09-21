@@ -15,6 +15,7 @@ class LoadBalancerError(Exception):
     pass
 
 # snippet-start:[python.example_code.workflow.ResilientService_LoadBalancer]
+# snippet-start:[python.cross_service.resilient_service.LoadBalancer.decl]
 class LoadBalancer:
     """Encapsulates Elastic Load Balancing (ELB) actions."""
     def __init__(
@@ -28,6 +29,7 @@ class LoadBalancer:
         self.load_balancer_name = load_balancer_name
         self.elb_client = elb_client
         self._endpoint = None
+# snippet-end:[python.cross_service.resilient_service.LoadBalancer.decl]
 
     @classmethod
     def from_client(cls, resource_prefix):
@@ -42,6 +44,7 @@ class LoadBalancer:
             f"{resource_prefix}-lb",
             elb_client)
 
+    # snippet-start:[python.cross_service.resilient_service.elbv2.DescribeLoadBalancers]
     def endpoint(self):
         """
         Gets the HTTP endpoint of the load balancer.
@@ -56,7 +59,9 @@ class LoadBalancer:
                 raise LoadBalancerError(
                     f"Couldn't get the endpoint for load balancer {self.load_balancer_name}: {err}")
         return self._endpoint
+    # snippet-end:[python.cross_service.resilient_service.elbv2.DescribeLoadBalancers]
 
+    # snippet-start:[python.cross_service.resilient_service.elbv2.CreateTargetGroup]
     def create_target_group(self, protocol, port, vpc_id):
         """
         Creates an Elastic Load Balancing target group. The target group specifies how
@@ -85,7 +90,9 @@ class LoadBalancer:
                 f"Couldn't create load balancing target group {self.target_group_name}: {err}")
         else:
             return target_group
+    # snippet-end:[python.cross_service.resilient_service.elbv2.CreateTargetGroup]
 
+    # snippet-start:[python.cross_service.resilient_service.elbv2.DeleteTargetGroup]
     def delete_target_group(self):
         """
         Deletes the target group.
@@ -108,7 +115,10 @@ class LoadBalancer:
                 else:
                     raise LoadBalancerError(
                         f"Couldn't delete load balancing target group {self.target_group_name}: {err}")
+    # snippet-end:[python.cross_service.resilient_service.elbv2.DeleteTargetGroup]
 
+    # snippet-start:[python.cross_service.resilient_service.elbv2.CreateLoadBalancer]
+    # snippet-start:[python.cross_service.resilient_service.elbv2.CreateListener]
     def create_load_balancer(self, subnet_ids, target_group):
         """
         Creates an Elastic Load Balancing load balancer that uses the specified subnets
@@ -143,7 +153,10 @@ class LoadBalancer:
         else:
             self._endpoint = load_balancer['DNSName']
             return load_balancer
+    # snippet-end:[python.cross_service.resilient_service.elbv2.CreateListener]
+    # snippet-end:[python.cross_service.resilient_service.elbv2.CreateLoadBalancer]
 
+    # snippet-start:[python.cross_service.resilient_service.elbv2.DeleteLoadBalancer]
     def delete_load_balancer(self):
         """
         Deletes a load balancer.
@@ -162,6 +175,7 @@ class LoadBalancer:
             else:
                 raise LoadBalancerError(
                     f"Couldn't delete load balancer {self.load_balancer_name}: {err}")
+    # snippet-end:[python.cross_service.resilient_service.elbv2.DeleteLoadBalancer]
 
     def verify_load_balancer_endpoint(self):
         """
@@ -183,6 +197,7 @@ class LoadBalancer:
                 time.sleep(10)
         return success
 
+    # snippet-start:[python.cross_service.resilient_service.elbv2.DescribeTargetHealth]
     def check_target_health(self):
         """
         Checks the health of the instances in the target group.
@@ -198,4 +213,5 @@ class LoadBalancer:
                 f"Couldn't check health of {self.target_group_name} targets: {err}")
         else:
             return health_response['TargetHealthDescriptions']
+    # snippet-end:[python.cross_service.resilient_service.elbv2.DescribeTargetHealth]
 # snippet-end:[python.example_code.workflow.ResilientService_LoadBalancer]

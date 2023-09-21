@@ -100,6 +100,8 @@ class Renderer:
 
     def _transform_scenarios(self):
         pre_scenarios = self.scanner.scenarios()
+        _, cross_scenarios = self.scanner.crosses()
+        pre_scenarios.update(cross_scenarios)
         post_scenarios = []
         for pre_id, pre in pre_scenarios.items():
             scenario = {
@@ -116,7 +118,7 @@ class Renderer:
         return sorted(post_scenarios, key=itemgetter('title_abbrev'))
 
     def _transform_crosses(self):
-        pre_crosses = self.scanner.crosses()
+        pre_crosses, _ = self.scanner.crosses()
         post_crosses = []
         for _, pre in pre_crosses.items():
             github = None

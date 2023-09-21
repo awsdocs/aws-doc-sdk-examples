@@ -13,6 +13,8 @@ entities = {
     '&aws_sec_sdk_use-federation-warning;': '',
     '&ASH;': 'Security Hub',
     '&DAX;': 'DynamoDB Accelerator',
+    '&EC2long;': 'Amazon Elastic Compute Cloud',
+    '&ELBlong;': 'Elastic Load Balancing',
     '&GLUDCLong;': 'AWS Glue Data Catalog',
     '&GLUDC;': 'Data Catalog',
     '&IAM-user;': 'IAM user',

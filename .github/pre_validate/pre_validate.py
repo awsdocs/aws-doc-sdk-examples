@@ -68,7 +68,8 @@ IGNORE_FOLDERS = {
     'venv',
     '.venv', 
     'bin',
-    'obj'
+    'obj',
+    '.doc_gen',
 }
 
 # Files to skip.

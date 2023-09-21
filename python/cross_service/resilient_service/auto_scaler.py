@@ -16,6 +16,7 @@ class AutoScalerError(Exception):
     pass
 
 # snippet-start:[python.example_code.workflow.ResilientService_AutoScaler]
+# snippet-start:[python.cross_service.resilient_service.AutoScaler.decl]
 class AutoScaler:
     """
     Encapsulates Amazon EC2 Auto Scaling and EC2 management actions.
@@ -33,6 +34,12 @@ class AutoScaler:
         :param ssm_client: A Boto3 Systems Manager client.
         :param iam_client: A Boto3 IAM client.
         """
+        self.inst_type = inst_type
+        self.ami_param = ami_param
+        self.autoscaling_client = autoscaling_client
+        self.ec2_client = ec2_client
+        self.ssm_client = ssm_client
+        self.iam_client = iam_client
         self.launch_template_name = f"{resource_prefix}-template"
         self.group_name = f"{resource_prefix}-group"
         self.instance_policy_name = f"{resource_prefix}-pol"
@@ -41,12 +48,7 @@ class AutoScaler:
         self.bad_creds_policy_name = f"{resource_prefix}-bc-pol"
         self.bad_creds_role_name = f"{resource_prefix}-bc-role"
         self.bad_creds_profile_name = f"{resource_prefix}-bc-prof"
-        self.inst_type = inst_type
-        self.ami_param = ami_param
-        self.autoscaling_client = autoscaling_client
-        self.ec2_client = ec2_client
-        self.ssm_client = ssm_client
-        self.iam_client = iam_client
+# snippet-end:[python.cross_service.resilient_service.AutoScaler.decl]
 
     @classmethod
     def from_client(cls, resource_prefix):
@@ -63,6 +65,7 @@ class AutoScaler:
             resource_prefix, 't3.micro', '/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2',
             as_client, ec2_client, ssm_client, iam_client)
 
+    # snippet-start:[python.cross_service.resilient_service.iam.CreateInstanceProfile]
     def create_instance_profile(
             self, policy_file, policy_name, role_name, profile_name, aws_managed_policies=()):
         """
@@ -142,7 +145,9 @@ class AutoScaler:
                     f"Couldn't create profile {profile_name} and attach it to role\n"
                     f"{role_name}: {err}")
         return profile_arn
+    # snippet-end:[python.cross_service.resilient_service.iam.CreateInstanceProfile]
 
+    # snippet-start:[python.cross_service.resilient_service.ec2.DescribeIamInstanceProfileAssociations]
     def get_instance_profile(self, instance_id):
         """
         Gets data about the profile associated with an instance.
@@ -158,7 +163,9 @@ class AutoScaler:
                 f"Couldn't get instance profile association for instance {instance_id}: {err}")
         else:
             return response['IamInstanceProfileAssociations'][0]
+    # snippet-end:[python.cross_service.resilient_service.ec2.DescribeIamInstanceProfileAssociations]
 
+    # snippet-start:[python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation]
     def replace_instance_profile(
             self, instance_id, new_instance_profile_name, profile_association_id):
         """
@@ -198,7 +205,9 @@ class AutoScaler:
         except ClientError as err:
             raise AutoScalerError(
                 f"Couldn't replace instance profile for association {profile_association_id}: {err}")
+    # snippet-end:[python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation]
 
+    # snippet-start:[python.cross_service.resilient_service.iam.DeleteInstanceProfile]
     def delete_instance_profile(self, profile_name, role_name):
         """
         Detaches a role from an instance profile, detaches policies from the role,
@@ -229,7 +238,9 @@ class AutoScaler:
                 raise AutoScalerError(
                     f"Couldn't delete instance profile {profile_name} or detach "
                     f"policies and delete role {role_name}: {err}")
+    # snippet-end:[python.cross_service.resilient_service.iam.DeleteInstanceProfile]
 
+    # snippet-start:[python.cross_service.resilient_service.ec2.CreateLaunchTemplate]
     def create_template(self, server_startup_script_file, instance_policy_file):
         """
         Creates an Amazon EC2 launch template to use with Amazon EC2 Auto Scaling. The
@@ -270,7 +281,9 @@ class AutoScaler:
                 raise AutoScalerError(
                     f"Couldn't create launch template {self.launch_template_name}: {err}.")
         return template
+    # snippet-end:[python.cross_service.resilient_service.ec2.CreateLaunchTemplate]
 
+    # snippet-start:[python.cross_service.resilient_service.ec2.DeleteLaunchTemplate]
     def delete_template(self):
         """
         Deletes a launch template.
@@ -285,7 +298,9 @@ class AutoScaler:
             else:
                 raise AutoScalerError(
                     f"Couldn't delete launch template {self.launch_template_name}: {err}.")
+    # snippet-end:[python.cross_service.resilient_service.ec2.DeleteLaunchTemplate]
 
+    # snippet-start:[python.cross_service.resilient_service.ec2.DescribeAvailabilityZones]
     def get_availability_zones(self):
         """
         Gets a list of Availability Zones in the AWS Region of the Amazon EC2 client.
@@ -299,7 +314,9 @@ class AutoScaler:
             raise AutoScalerError(f"Couldn't get availability zones: {err}.")
         else:
             return zones
+    # snippet-end:[python.cross_service.resilient_service.ec2.DescribeAvailabilityZones]
 
+    # snippet-start:[python.cross_service.resilient_service.auto-scaling.CreateAutoScalingGroup]
     def create_group(self, group_size):
         """
         Creates an EC2 Auto Scaling group with the specified size.
@@ -327,7 +344,9 @@ class AutoScaler:
                 raise AutoScalerError(
                     f"Couldn't create EC2 Auto Scaling group {self.group_name}: {err}")
         return zones
+    # snippet-end:[python.cross_service.resilient_service.auto-scaling.CreateAutoScalingGroup]
 
+    # snippet-start:[python.cross_service.resilient_service.auto-scaling.DescribeAutoScalingGroups]
     def get_instances(self):
         """
         Gets data about the instances in the EC2 Auto Scaling group.
@@ -338,12 +357,12 @@ class AutoScaler:
             as_response = self.autoscaling_client.describe_auto_scaling_groups(
                 AutoScalingGroupNames=[self.group_name])
             instance_ids = [i['InstanceId'] for i in as_response['AutoScalingGroups'][0]['Instances']]
-            ec2_response = self.ec2_client.describe_instances(InstanceIds=instance_ids)
         except ClientError as err:
             raise AutoScalerError(
                 f"Couldn't get instances for Auto Scaling group {self.group_name}: {err}")
         else:
-            return ec2_response['Reservations'][0]['Instances']
+            return instance_ids
+    # snippet-end:[python.cross_service.resilient_service.auto-scaling.DescribeAutoScalingGroups]
 
     def terminate_instance(self, instance_id):
         """
@@ -360,6 +379,7 @@ class AutoScaler:
             raise AutoScalerError(
                 f"Couldn't terminate instance {instance_id}: {err}")
 
+    # snippet-start:[python.cross_service.resilient_service.auto-scaling.AttachLoadBalancerTargetGroups]
     def attach_load_balancer_target_group(self, lb_target_group):
         """
         Attaches an Elastic Load Balancing (ELB) target group to this EC2 Auto Scaling group.
@@ -378,6 +398,23 @@ class AutoScaler:
             raise AutoScalerError(
                 f"Couldn't attach load balancer target group {lb_target_group['TargetGroupName']}\n"
                 f"to auto scaling group {self.group_name}")
+    # snippet-end:[python.cross_service.resilient_service.auto-scaling.AttachLoadBalancerTargetGroups]
+
+    # snippet-start:[python.cross_service.resilient_service.auto-scaling.DeleteAutoScalingGroup]
+    def _try_terminate_instance(self, inst_id):
+        stopping = False
+        log.info(f"Stopping {inst_id}.")
+        while not stopping:
+            try:
+                self.autoscaling_client.terminate_instance_in_auto_scaling_group(
+                    InstanceId=inst_id, ShouldDecrementDesiredCapacity=True)
+                stopping = True
+            except ClientError as err:
+                if err.response['Error']['Code'] == 'ScalingActivityInProgress':
+                    log.info("Scaling activity in progress for %s. Waiting...", inst_id)
+                    time.sleep(10)
+                else:
+                    raise AutoScalerError(f"Couldn't stop instance {inst_id}: {err}.")
 
     def _try_delete_group(self):
         """
@@ -412,16 +449,16 @@ class AutoScaler:
                     AutoScalingGroupName=self.group_name, MinSize=0)
                 instance_ids = [inst['InstanceId'] for inst in groups[0]['Instances']]
                 for inst_id in instance_ids:
-                    log.info(f"Stopping {inst_id}.")
-                    self.autoscaling_client.terminate_instance_in_auto_scaling_group(
-                        InstanceId=inst_id, ShouldDecrementDesiredCapacity=True)
+                    self._try_terminate_instance(inst_id)
                 self._try_delete_group()
             else:
                 log.info("No groups found named %s, nothing to do.", self.group_name)
         except ClientError as err:
             raise AutoScalerError(
                 f"Couldn't delete group {self.group_name}: {err}.")
+    # snippet-end:[python.cross_service.resilient_service.auto-scaling.DeleteAutoScalingGroup]
 
+    # snippet-start:[python.cross_service.resilient_service.ec2.DescribeVpcs]
     def get_default_vpc(self):
         """
         Gets the default VPC for the account.
@@ -434,7 +471,9 @@ class AutoScaler:
             raise AutoScalerError(f"Couldn't get default VPC: {err}")
         else:
             return response['Vpcs'][0]
+    # snippet-end:[python.cross_service.resilient_service.ec2.DescribeVpcs]
 
+    # snippet-start:[python.cross_service.resilient_service.ec2.DescribeSecurityGroups]
     def verify_inbound_port(self, vpc, port, ip_address):
         """
         Verify the default security group of the specified VPC allows ingress from this
@@ -470,7 +509,7 @@ class AutoScaler:
                     if not port_is_open:
                         log.info(
                             "The inbound rule does not appear to be open to either this computer's IP\n"
-                            "address of %s, to all IP addresses (0.0.0.0/0), or to a prefix list ID.")
+                            "address of %s, to all IP addresses (0.0.0.0/0), or to a prefix list ID.", ip_address)
                     else:
                         break
         except ClientError as err:
@@ -478,7 +517,9 @@ class AutoScaler:
                 f"Couldn't verify inbound rule for port {port} for VPC {vpc['VpcId']}: {err}")
         else:
             return sec_group, port_is_open
+    # snippet-end:[python.cross_service.resilient_service.ec2.DescribeSecurityGroups]
 
+    # snippet-start:[python.cross_service.resilient_service.ec2.AuthorizeSecurityGroupIngress]
     def open_inbound_port(self, sec_group_id, port, ip_address):
         """
         Add an ingress rule to the specified security group that allows access on the
@@ -495,7 +536,9 @@ class AutoScaler:
         except ClientError as err:
             raise AutoScalerError(
                 f"Couldn't authorize ingress to {sec_group_id} on port {port} from {ip_address}: {err}")
+    # snippet-end:[python.cross_service.resilient_service.ec2.AuthorizeSecurityGroupIngress]
 
+    # snippet-start:[python.cross_service.resilient_service.ec2.DescribeSubnets]
     def get_subnets(self, vpc_id, zones):
         """
         Gets the default subnets in a VPC for a specified list of Availability Zones.
@@ -516,4 +559,5 @@ class AutoScaler:
             raise AutoScalerError(f"Couldn't get subnets: {err}")
         else:
             return subnets
+    # snippet-end:[python.cross_service.resilient_service.ec2.DescribeSubnets]
 # snippet-end:[python.example_code.workflow.ResilientService_AutoScaler]

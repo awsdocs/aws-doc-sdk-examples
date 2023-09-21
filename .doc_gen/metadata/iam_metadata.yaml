@@ -3355,6 +3355,44 @@ iam_UploadServerCertificate:
                 - javascript.v3.iam.actions.UploadServerCertificate
   services:
     iam: {UploadServerCertificate}
+iam_CreateInstanceProfile:
+  title: Create an &IAM; instance profile using an &AWS; SDK
+  title_abbrev: Create an instance profile
+  synopsis: create an &IAM; instance profile.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: This example creates a policy, role, and instance profile and
+                links them all together.
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.iam.CreateInstanceProfile
+  services:
+    iam: {CreateInstanceProfile}
+iam_DeleteInstanceProfile:
+  title: Delete an &IAM; instance profile using an &AWS; SDK
+  title_abbrev: Delete an instance profile
+  synopsis: delete an &IAM; instance profile.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/iam
+          sdkguide:
+          excerpts:
+            - description: This example removes the role from the instance profile, detaches
+                all policies attached to the role, and deletes all the resources.
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.iam.DeleteInstanceProfile
+  services:
+    iam: {DeleteInstanceProfile}
 iam_Scenario_GroupBasics:
   title: Create an &IAM; group and add a user to the group using an &AWS; SDK
   title_abbrev: Create a group and add a user
