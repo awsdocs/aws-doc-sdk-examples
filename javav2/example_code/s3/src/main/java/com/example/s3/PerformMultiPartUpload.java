@@ -5,6 +5,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.performMultiPartUpload.import]
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.exception.SdkException;
@@ -98,36 +99,34 @@ public class PerformMultiPartUpload {
         List<CompletedPart> completedParts = new ArrayList<>();
         ByteBuffer bb = ByteBuffer.allocate(1024 * 1024 * 5); // 5 MB byte buffer
 
-        try { // Catch IOExceptions.
-            try (RandomAccessFile file = new RandomAccessFile(filePath, "r")) {
-                long fileSize = file.length();
-                int position = 0;
-                while (position < fileSize) {
-                    file.seek(position);
-                    int read = file.getChannel().read(bb);
+        try (RandomAccessFile file = new RandomAccessFile(filePath, "r")) {
+            long fileSize = file.length();
+            int position = 0;
+            while (position < fileSize) {
+                file.seek(position);
+                int read = file.getChannel().read(bb);
 
-                    bb.flip(); // Swap position and limit before reading from the buffer.
-                    UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
-                            .bucket(bucketName)
-                            .key(key)
-                            .uploadId(uploadId)
-                            .partNumber(partNumber)
-                            .build();
+                bb.flip(); // Swap position and limit before reading from the buffer.
+                UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
+                        .bucket(bucketName)
+                        .key(key)
+                        .uploadId(uploadId)
+                        .partNumber(partNumber)
+                        .build();
 
-                    UploadPartResponse partResponse = s3Client.uploadPart(
-                            uploadPartRequest,
-                            RequestBody.fromByteBuffer(bb));
+                UploadPartResponse partResponse = s3Client.uploadPart(
+                        uploadPartRequest,
+                        RequestBody.fromByteBuffer(bb));
 
-                    CompletedPart part = CompletedPart.builder()
-                            .partNumber(partNumber)
-                            .eTag(partResponse.eTag())
-                            .build();
-                    completedParts.add(part);
+                CompletedPart part = CompletedPart.builder()
+                        .partNumber(partNumber)
+                        .eTag(partResponse.eTag())
+                        .build();
+                completedParts.add(part);
 
-                    bb.clear();
-                    position += read;
-                    partNumber++;
-                }
+                bb.clear();
+                position += read;
+                partNumber++;
             }
         } catch (IOException e) {
             logger.error(e.getMessage());

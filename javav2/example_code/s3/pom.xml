@@ -26,7 +26,7 @@
                 <configuration>
                     <release>11</release>
                 </configuration>
-                <!-- The following execution section process the plugin annotations for apache logging for the custom memory appender, MemoryLog4jAppender, used in the test for ParseUri.java -->
+                <!-- The following execution section processes the plugin annotations for apache logging for the custom memory appender, MemoryLog4jAppender, used in the test for ParseUri.java -->
                 <executions>
                     <execution>
                         <id>log4j-plugin-processor</id>

@@ -5,6 +5,7 @@
 package com.example.s3;
 
 // snippet-start:[s3.java2.basicOpsWithChecksums.import]
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.core.exception.SdkException;
@@ -93,8 +94,7 @@ public class BasicOpsWithChecksums {
                 byte[] buffer = new byte[8192];
                 int numBytesRead = 0;
                 while (numBytesRead != -1)
-                    numBytesRead = dis.read(buffer)
-                            ;
+                    numBytesRead = dis.read(buffer);
                 return Base64.getEncoder().encodeToString(md.digest());
             }
         } catch (IOException e) {
@@ -169,38 +169,36 @@ public class BasicOpsWithChecksums {
         List<CompletedPart> completedParts = new ArrayList<>();
         ByteBuffer bb = ByteBuffer.allocate(1024 * 1024 * 5); // 5 MB byte buffer
 
-        try { // Catch IOExceptions.
-            try (RandomAccessFile file = new RandomAccessFile(filePath, "r")) {
-                long fileSize = file.length();
-                int position = 0;
-                while (position < fileSize) {
-                    file.seek(position);
-                    int read = file.getChannel().read(bb);
+        try (RandomAccessFile file = new RandomAccessFile(filePath, "r")) {
+            long fileSize = file.length();
+            int position = 0;
+            while (position < fileSize) {
+                file.seek(position);
+                int read = file.getChannel().read(bb);
 
-                    bb.flip(); // Swap position and limit before reading from the buffer.
-                    UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
-                            .bucket(bucketName)
-                            .key(key)
-                            .uploadId(uploadId)
-                            .checksumAlgorithm(algorithm)  //Checksum specified on each part.
-                            .partNumber(partNumber)
-                            .build();
+                bb.flip(); // Swap position and limit before reading from the buffer.
+                UploadPartRequest uploadPartRequest = UploadPartRequest.builder()
+                        .bucket(bucketName)
+                        .key(key)
+                        .uploadId(uploadId)
+                        .checksumAlgorithm(algorithm)  //Checksum specified on each part.
+                        .partNumber(partNumber)
+                        .build();
 
-                    UploadPartResponse partResponse = s3Client.uploadPart(
-                            uploadPartRequest,
-                            RequestBody.fromByteBuffer(bb));
+                UploadPartResponse partResponse = s3Client.uploadPart(
+                        uploadPartRequest,
+                        RequestBody.fromByteBuffer(bb));
 
-                    CompletedPart part = CompletedPart.builder()
-                            .partNumber(partNumber)
-                            .checksumCRC32(partResponse.checksumCRC32()) // Provide the calculated checksum.
-                            .eTag(partResponse.eTag())
-                            .build();
-                    completedParts.add(part);
+                CompletedPart part = CompletedPart.builder()
+                        .partNumber(partNumber)
+                        .checksumCRC32(partResponse.checksumCRC32()) // Provide the calculated checksum.
+                        .eTag(partResponse.eTag())
+                        .build();
+                completedParts.add(part);
 
-                    bb.clear();
-                    position += read;
-                    partNumber++;
-                }
+                bb.clear();
+                position += read;
+                partNumber++;
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
