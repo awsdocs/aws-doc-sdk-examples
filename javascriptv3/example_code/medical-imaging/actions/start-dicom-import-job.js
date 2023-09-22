@@ -47,13 +47,9 @@ export const startDicomImportJob = async (jobName = "test-1",
     // }
     return response;
 };
-// snippet-end:[medical-imaging.JavaScript.datastore.createDatastoreV3]
+// snippet-end:[medical-imaging.JavaScript.datastore.startDicomImportJobV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    await startDicomImportJob("test-1",
-        "728f13a131f748bf8d87a55d5ef6c5af",
-        "arn:aws:iam::123502194722:role/dicom_import",
-        "s3://healthimaging-source-37eyet88/CRStudy/",
-        "s3://health-imaging-dest-ier9e86w/ouput_cr/");
+    await startDicomImportJob();
 }

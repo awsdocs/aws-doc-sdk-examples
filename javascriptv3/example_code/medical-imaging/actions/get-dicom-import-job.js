@@ -10,32 +10,42 @@ import {GetDICOMImportJobCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} datastoreName - The name of the datastore to create.
+ * @param {string} datastoreId - The ID of the datastore.
+ * @param {string} jobId - The ID of the job.
  */
-export const getDICOMImportJob = async (datastoreId  = "DATASTORE_NAME", jobId = "JOB_ID") => {= async (datastoreName = "DATASTORE_NAME") => {
+export const getDICOMImportJob = async (datastoreId  = "xxxxxxxxxxxxxxxxxxxx",
+                                        jobId = "xxxxxxxxxxxxxxxxxxxx") => {
     const response = await medicalImagingClient.send(
-        new CreateDatastoreCommand({datastoreName: datastoreName})
+        new GetDICOMImportJobCommand({datastoreId : datastoreId, jobId : jobId})
     );
     console.log(response);
     // {
     //     '$metadata': {
     //     httpStatusCode: 200,
-    //         requestId: '6e81d191-d46b-4e48-a08a-cdcc7e11eb79',
+    //         requestId: 'a2637936-78ea-44e7-98b8-7a87d95dfaee',
     //         extendedRequestId: undefined,
     //         cfId: undefined,
     //         attempts: 1,
     //         totalRetryDelay: 0
     // },
-    //     datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    //     jobId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    //     jobStatus: 'SUBMITTED',
-    //     submittedAt: 2023-09-22T14:48:45.767Z
+    //     jobProperties: {
+    //         dataAccessRoleArn: 'arn:aws:iam::xxxxxxxxxxxx:role/dicom_import',
+    //             datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxx',
+    //             endedAt: 2023-09-19T17:29:21.753Z,
+    //             inputS3Uri: 's3://healthimaging-source/CTStudy/',
+    //             jobId: ''xxxxxxxxxxxxxxxxxxxxxxxxx'',
+    //             jobName: 'job_1',
+    //             jobStatus: 'COMPLETED',
+    //             outputS3Uri: 's3://health-imaging-dest/ouput_ct/'xxxxxxxxxxxxxxxxxxxxxxxxx'-DicomImport-'xxxxxxxxxxxxxxxxxxxxxxxxx'/',
+    //             submittedAt: 2023-09-19T17:27:25.143Z
+    //     }
     // }
+
     return response;
 };
-// snippet-end:[medical-imaging.JavaScript.datastore.createDatastoreV3]
+// snippet-end:[medical-imaging.JavaScript.datastore.getDICONImportJobV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    await createDatastore("test-result");
+    await getDICOMImportJob();
  }
