@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { fileURLToPath } from "url";
+import {fileURLToPath} from "url";
 
 // snippet-start:[javascript.v3.wkflw.topicsandqueues.index]
-import { SNSClient } from "@aws-sdk/client-sns";
-import { SQSClient } from "@aws-sdk/client-sqs";
+import {SNSClient} from "@aws-sdk/client-sns";
+import {SQSClient} from "@aws-sdk/client-sqs";
 
-import { TopicsQueuesWkflw } from "./TopicsQueuesWkflw.js";
-import { Prompter } from "./Prompter.js";
-import { SlowLogger } from "./SlowLogger.js";
+import {TopicsQueuesWkflw} from "./TopicsQueuesWkflw.js";
+import {Prompter} from "libs/prompter.js";
+import {SlowLogger} from "libs/slow-logger.js";
 
 export const startSnsWorkflow = () => {
   const noLoggerDelay = process.argv.find((arg) => arg === "--no-logger-delay");

@@ -32,6 +32,15 @@ sagemaker_Hello:
             - description:
               snippet_tags:
                 - SageMaker.dotnetv3.HelloSageMaker
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sagemaker
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.sagemaker.hello
   services:
     sagemaker: {ListNotebookInstances}
 sagemaker_CreatePipeline:
@@ -67,6 +76,17 @@ sagemaker_CreatePipeline:
             - description:
               snippet_tags:
                 - SageMaker.dotnetv3.CreatePipeline
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sagemaker
+          sdkguide:
+          excerpts:
+            - description:
+                A function that creates a &SM; pipeline using a locally provided
+                JSON definition.
+              snippet_tags:
+                - javascript.v3.sagemaker.wkflw.pipeline.create
   services:
     sagemaker: {CreatePipeline, UpdatePipeline}
 sagemaker_ExecutePipeline:
@@ -102,6 +122,15 @@ sagemaker_ExecutePipeline:
             - description:
               snippet_tags:
                 - SageMaker.dotnetv3.ExecutePipeline
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sagemaker
+          sdkguide:
+          excerpts:
+            - description: Start a &SM; pipeline execution.
+              snippet_tags:
+                - javascript.v3.sagemaker.wkflw.pipeline.start
   services:
     sagemaker: {StartPipelineExecution}
 sagemaker_DeletePipeline:
@@ -137,6 +166,18 @@ sagemaker_DeletePipeline:
             - description:
               snippet_tags:
                 - SageMaker.dotnetv3.DeletePipeline
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sagemaker
+          sdkguide:
+          excerpts:
+            - description:
+                The syntax for deleting a &SM; pipeline. This code is part
+                of a larger function. Refer to 'Create a pipeline' or the GitHub repository
+                for more context.
+              snippet_tags:
+                - javascript.v3.sagemaker.wkflw.pipeline.delete
   services:
     sagemaker: {DeletePipeline}
 sagemaker_DescribePipelineExecution:
@@ -172,6 +213,15 @@ sagemaker_DescribePipelineExecution:
             - description:
               snippet_tags:
                 - SageMaker.dotnetv3.DescribePipelineExecution
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sagemaker
+          sdkguide:
+          excerpts:
+            - description: Wait for a &SM; pipeline execution to succeed, fail, or stop.
+              snippet_tags:
+                - javascript.v3.sagemaker.wkflw.pipeline.wait
   services:
     sagemaker: {DescribePipelineExecution}
 sagemaker_ListNotebookInstances:
@@ -384,7 +434,18 @@ sagemaker_Scenario_GettingStarted:
               snippet_tags:
                 - sgm.abapv1.getting_started_with_sgm
   services:
-    sagemaker: {CreateTrainingJob, DescribeTrainingJob, CreateModel, CreateEndpointConfig, CreateEndpoint, DescribeEndpoint, DeleteEndpoint, DeleteEndpointConfig, DeleteModel}
+    sagemaker:
+      {
+        CreateTrainingJob,
+        DescribeTrainingJob,
+        CreateModel,
+        CreateEndpointConfig,
+        CreateEndpoint,
+        DescribeEndpoint,
+        DeleteEndpoint,
+        DeleteEndpointConfig,
+        DeleteModel,
+      }
 sagemaker_Scenario_Pipelines:
   title: Get started with &SM; geospatial jobs in a pipeline using an &AWS; SDK
   title_abbrev: Get started with geospatial jobs and pipelines
@@ -432,5 +493,28 @@ sagemaker_Scenario_Pipelines:
             - description: Run an interactive scenario at a command prompt.
               snippet_tags:
                 - SageMaker.dotnetv3.SagemakerPipelineScenario
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/sagemaker
+          sdkguide:
+          excerpts:
+            - description:
+                The following file excerpt contains functions that use
+                the &SM; client to manage a pipeline.
+              snippet_tags:
+                - javascript.v3.sagemaker.wkflw.pipeline.library
+            - description: This function is an excerpt from a file that uses the
+                preceding library functions to set up the a &SM; pipeline,
+                execute it, and delete all created resources.
+              snippet_tags:
+                - javascript.v3.sagemaker.wkflw.pipeline
   services:
-    sagemaker: {CreatePipeline, UpdatePipeline, StartPipelineExecution, DescribePipelineExecution, DeletePipeline}
+    sagemaker:
+      {
+        CreatePipeline,
+        UpdatePipeline,
+        StartPipelineExecution,
+        DescribePipelineExecution,
+        DeletePipeline,
+      }

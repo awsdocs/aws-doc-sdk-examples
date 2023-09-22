@@ -1,0 +1,22 @@
+{
+  "name": "example-javascriptv3-sagemaker",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-iam": "^3.398.0",
+    "@aws-sdk/client-lambda": "^3.398.0",
+    "@aws-sdk/client-s3": "^3.400.0",
+    "@aws-sdk/client-sagemaker": "^3.398.0",
+    "@aws-sdk/client-sagemaker-geospatial": "^3.398.0",
+    "@aws-sdk/client-sqs": "^3.398.0"
+  },
+  "devDependencies": {
+    "vitest": "^0.34.5"
+  }
+}
