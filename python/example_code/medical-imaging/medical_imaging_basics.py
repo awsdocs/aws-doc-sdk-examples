@@ -9,7 +9,6 @@ functions.
 """
 
 import logging
-
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
@@ -44,7 +43,7 @@ class MedicalImagingWrapper:
         """
         Get the properties of a data store.
 
-        :param datastore_id: The ID of the data store to get.
+        :param datastore_id: The ID of the data store.
         :return: The data store properties.
         """
         try:
@@ -87,7 +86,7 @@ class MedicalImagingWrapper:
         """
         Delete a data store.
 
-        :param datastore_id: The ID of the data store to delete.
+        :param datastore_id: The ID of the data store.
         """
         try:
             self.health_imaging_client.delete_datastore(datastoreId=datastore_id)
@@ -105,7 +104,7 @@ class MedicalImagingWrapper:
         Start a DICOM import job.
 
         :param job_name: The name of the job.
-        :param datastore_id: The ID of the data store to import into.
+        :param datastore_id: The ID of the data store.
         :param role_arn: The Amazon Resource Name (ARN) of the role to use for the job.
         :param input_s3_uri: The S3 bucket input prefix path containing the DICOM files.
         :param output_s3_uri: The S3 bucket output prefix path for the result.
@@ -134,7 +133,7 @@ class MedicalImagingWrapper:
         """
         Get the properties of a DICOM import job.
 
-        :param datastore_id: The ID of the data store the job is importing into.
+        :param datastore_id: The ID of the data store.
         :param job_id: The ID of the job.
         :return: The job properties.
         """
@@ -155,7 +154,7 @@ class MedicalImagingWrapper:
         """
         List the DICOM import jobs.
 
-        :param datastore_id: The ID of the data store the jobs are importing into.
+        :param datastore_id: The ID of the data store.
         :return: The list of jobs.
         """
         try:
@@ -179,7 +178,7 @@ class MedicalImagingWrapper:
         """
         Search for image sets.
 
-        :param datastore_id: The ID of the data store the image sets are stored in.
+        :param datastore_id: The ID of the data store.
         :param search_filter: The search filter.
             For example: {"filters" : [{ "operator": "EQUAL", "values": [{"DICOMPatientId": "3524578"}]}]}.
         :return: The list of image sets.
@@ -205,7 +204,7 @@ class MedicalImagingWrapper:
         """
         Get the properties of an image set.
 
-        :param datastore_id: The ID of the data store the image set is stored in.
+        :param datastore_id: The ID of the data store.
         :param image_set_id: The ID of the image set.
         :param version_id: The version of the image set.
         :return: The image set properties.
@@ -229,7 +228,7 @@ class MedicalImagingWrapper:
         Get the metadata of an image set.
 
         :param metadata_file: The file to store the JSON gzipped metadata.
-        :param datastore_id: The ID of the data store the image set is stored in.
+        :param datastore_id: The ID of the data store.
         :param image_set_id: The ID of the image set.
         :param version_id: The version of the image set.
         """
@@ -261,7 +260,7 @@ class MedicalImagingWrapper:
         Get an image frame's pixel data.
 
         :param file_path_to_write: The path to write the image frame's HTJ2K encoded pixel data.
-        :param datastore_id: The ID of the data store the image set is stored in.
+        :param datastore_id: The ID of the data store.
         :param image_set_id: The ID of the image set.
         :param image_frame_id: The ID of the image frame.
         """
@@ -287,20 +286,24 @@ class MedicalImagingWrapper:
         """
         List the image set versions.
 
-        :param datastore_id: The ID of the data store the image set is stored in.
+        :param datastore_id: The ID of the data store.
         :param image_set_id: The ID of the image set.
         :return: The list of image set versions.
         """
         try:
-            versions = self.health_imaging_client.list_image_set_versions(imageSetId=image_set_id,
-                                                                          datastoreId=datastore_id)
+            paginator = self.health_imaging_client.get_paginator('list_image_set_versions')
+            page_iterator = paginator.paginate(imageSetId=image_set_id,
+                                               datastoreId=datastore_id)
+            image_set_properties_list = []
+            for page in page_iterator:
+                image_set_properties_list.extend(page['imageSetPropertiesList'])
         except ClientError as err:
             logger.error(
                 "Couldn't list image set versions. Here's why: %s: %s", err.response['Error']['Code'],
                 err.response['Error']['Message'])
             raise
         else:
-            return versions['imageSetPropertiesList']
+            return image_set_properties_list
 
     # snippet-end:[python.example_code.medical-imaging.ListImageSetVersions]
 
@@ -309,7 +312,7 @@ class MedicalImagingWrapper:
         """
         Update the metadata of an image set.
 
-        :param datastore_id: The ID of the data store the image set is stored in.
+        :param datastore_id: The ID of the data store.
         :param image_set_id: The ID of the image set.
         :param version_id: The ID of the image set version.
         :param metadata: The image set metadata as a dictionary.
@@ -337,7 +340,7 @@ class MedicalImagingWrapper:
         """
         Copy an image set.
 
-        :param datastore_id: The ID of the data store the image set is stored in.
+        :param datastore_id: The ID of the data store.
         :param image_set_id: The ID of the image set.
         :param version_id: The ID of the image set version.
         :param destination_image_set_id: The ID of the optional destination image set.
@@ -345,7 +348,7 @@ class MedicalImagingWrapper:
         :return: The copied image set ID.
         """
         try:
-            copy_image_set_information = {"sourceImageSet": {"latestVersionId": version_id}}
+            copy_image_set_information = {'sourceImageSet': {'latestVersionId': version_id}}
             if destination_image_set_id and destination_version_id:
                 copy_image_set_information["destinationImageSet"] = {"imageSetId": destination_image_set_id,
                                                                      "latestVersionId": destination_version_id}
@@ -368,7 +371,7 @@ class MedicalImagingWrapper:
         """
         Delete an image set.
 
-        :param datastore_id: The ID of the data store the image set is stored in.
+        :param datastore_id: The ID of the data store.
         :param image_set_id: The ID of the image set.
         :return: The delete results.
         """
