@@ -21,16 +21,10 @@ import (
 // and config files.
 func CreateDistribution(s3Client *s3.Client, cloudfrontClient *cloudfront.Client, bucketName, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error) {
 	locationOutput, err := s3Client.GetBucketLocation(context.Background(), &s3.GetBucketLocationInput{Bucket: aws.String(bucketName)})
-	// bucket, err := s3Client.HeadBucket(context.TODO(), &s3.HeadBucketInput{
-	// 	Bucket: &bucketName,
-	// })
 
 	if err != nil {
 		return nil, err
 	}
-
-	// bucketResponseMetadata := middleware.GetRawResponse(locationOutput.ResultMetadata).(*awshttp.Response)
-	// region := bucketResponseMetadata.Header.Get("x-amz-bucket-region")
 	originDomain := bucketName + ".s3." + string(locationOutput.LocationConstraint) + ".amazonaws.com"
 
 	if err != nil {
