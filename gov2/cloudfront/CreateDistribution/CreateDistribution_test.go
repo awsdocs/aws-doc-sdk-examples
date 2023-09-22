@@ -33,8 +33,7 @@ func TestCreateDistribution(t *testing.T) {
 	result, err := CreateDistribution(s3Client, cloudfrontClient, bucketName, certificateSSLArn, domain)
 
 	if err != nil {
-		t.Log("Got an error ...:")
-		t.Log(err)
+		t.Error(err)
 		return
 	}
 	t.Log("Created Distribution with ARN: " + *result.Distribution.ARN + " for name: " + *result.Distribution.DomainName)
