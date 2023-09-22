@@ -38,7 +38,7 @@ medical-imaging_CreateDatastore:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.createDatastoreV3
   services:
-    medical-imaging: { CreateDatastore }
+    medical-imaging: {CreateDatastore}
 medical-imaging_DeleteDatastore:
   title: Delete a &AHI; data store using an &AWS; SDK
   title_abbrev: Delete a data store
@@ -78,7 +78,7 @@ medical-imaging_DeleteDatastore:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.deleteDatastoreV3
   services:
-    medical-imaging: { DeleteDatastore }
+    medical-imaging: {DeleteDatastore}
 medical-imaging_ListDatastores:
   title: List &AHI; data stores using an &AWS; SDK
   title_abbrev: List data stores
@@ -118,7 +118,7 @@ medical-imaging_ListDatastores:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.listDatastoresV3
   services:
-    medical-imaging: { ListDatastores }
+    medical-imaging: {ListDatastores}
 medical-imaging_GetDatastore:
   title: Get &AHI; data store properties using an &AWS; SDK
   title_abbrev: Get data store properties
@@ -158,7 +158,7 @@ medical-imaging_GetDatastore:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.getDatastoreV3
   services:
-    medical-imaging: { GetDatastore }
+    medical-imaging: {GetDatastore}
 medical-imaging_StartDICOMImportJob:
   title: Start importing bulk data into a &AHI; data store using an &AWS; SDK
   title_abbrev: Start importing bulk data into a data store
@@ -174,7 +174,7 @@ medical-imaging_StartDICOMImportJob:
               snippet_tags:
                 - python.example_code.medical-imaging.StartDICOMImportJob
   services:
-    medical-imaging: { StartDICOMImportJob }
+    medical-imaging: {StartDICOMImportJob}
 medical-imaging_GetDICOMImportJob:
   title: Get the import job properties using an &AWS; SDK
   title_abbrev: Get the import job properties
@@ -190,7 +190,7 @@ medical-imaging_GetDICOMImportJob:
               snippet_tags:
                 - python.example_code.medical-imaging.GetDICOMImportJob
   services:
-    medical-imaging: { GetDICOMImportJob }
+    medical-imaging: {GetDICOMImportJob}
 medical-imaging_ListDICOMImportJobs:
   title: List import jobs for a &AHI; data store using an &AWS; SDK
   title_abbrev: List import jobs for a data store
@@ -206,7 +206,7 @@ medical-imaging_ListDICOMImportJobs:
               snippet_tags:
                 - python.example_code.medical-imaging.ListDICOMImportJobs
   services:
-    medical-imaging: { ListDICOMImportJobs }
+    medical-imaging: {ListDICOMImportJobs}
 medical-imaging_SearchImageSets:
   title: Search &AHI; image sets using an &AWS; SDK
   title_abbrev: Search image sets
@@ -222,7 +222,7 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - python.example_code.medical-imaging.SearchImageSets
   services:
-    medical-imaging: { SearchImageSets }
+    medical-imaging: {SearchImageSets}
 medical-imaging_GetImageSet:
   title: Get &AHI; image set properties using an &AWS; SDK
   title_abbrev: Get image set properties
@@ -238,7 +238,7 @@ medical-imaging_GetImageSet:
               snippet_tags:
                 - python.example_code.medical-imaging.GetImageSet
   services:
-    medical-imaging: { GetImageSet }
+    medical-imaging: {GetImageSet}
 medical-imaging_GetImageSetMetadata:
   title: Get metadata for a &AHI; image set using an &AWS; SDK
   title_abbrev: Get metadata for an image set
@@ -254,7 +254,7 @@ medical-imaging_GetImageSetMetadata:
               snippet_tags:
                 - python.example_code.medical-imaging.GetImageSetMetadata
   services:
-    medical-imaging: { GetImageSetMetadata }
+    medical-imaging: {GetImageSetMetadata}
 medical-imaging_GetImageFrame:
   title: Get an image frame using an &AWS; SDK
   title_abbrev: Get an image frame
@@ -270,7 +270,7 @@ medical-imaging_GetImageFrame:
               snippet_tags:
                 - python.example_code.medical-imaging.GetImageFrame
   services:
-    medical-imaging: { GetImageFrame }
+    medical-imaging: {GetImageFrame}
 medical-imaging_ListImageSetVersions:
   title: List &AHI; image set versions using an &AWS; SDK
   title_abbrev: List image set versions
@@ -286,7 +286,7 @@ medical-imaging_ListImageSetVersions:
               snippet_tags:
                 - python.example_code.medical-imaging.ListImageSetVersions
   services:
-    medical-imaging: { ListImageSetVersions }
+    medical-imaging: {ListImageSetVersions}
 medical-imaging_UpdateImageSetMetadata:
   title: Update &AHI; image set metadata using an &AWS; SDK
   title_abbrev: Update image set metadata
@@ -302,7 +302,7 @@ medical-imaging_UpdateImageSetMetadata:
               snippet_tags:
                 - python.example_code.medical-imaging.UpdateImageSetMetadata
   services:
-    medical-imaging: { UpdateImageSetMetadata }
+    medical-imaging: {UpdateImageSetMetadata}
 medical-imaging_CopyImageSet:
   title: Copy a &AHI; image set using an &AWS; SDK
   title_abbrev: Copy an image set
@@ -318,7 +318,7 @@ medical-imaging_CopyImageSet:
               snippet_tags:
                 - python.example_code.medical-imaging.CopyImageSet
   services:
-    medical-imaging: { CopyImageSet }
+    medical-imaging: {CopyImageSet}
 medical-imaging_DeleteImageSet:
   title: Delete a &AHI; image set using an &AWS; SDK
   title_abbrev: Delete an image set
@@ -334,7 +334,7 @@ medical-imaging_DeleteImageSet:
               snippet_tags:
                 - python.example_code.medical-imaging.DeleteImageSet
   services:
-    medical-imaging: { DeleteImageSet }
+    medical-imaging: {DeleteImageSet}
 medical-imaging_TagResource:
   title: Add a tag to a &AHI; resource using an &AWS; SDK
   title_abbrev: Add a tag to a resource
@@ -350,7 +350,7 @@ medical-imaging_TagResource:
               snippet_tags:
                 - python.example_code.medical-imaging.TagResource
   services:
-    medical-imaging: { TagResource }
+    medical-imaging: {TagResource}
 medical-imaging_UntagResource:
   title: Remove a tag from a &AHI; resource using an &AWS; SDK
   title_abbrev: Remove a tag from a resource
@@ -366,7 +366,7 @@ medical-imaging_UntagResource:
               snippet_tags:
                 - python.example_code.medical-imaging.UntagResource
   services:
-    medical-imaging: { UntagResource }
+    medical-imaging: {UntagResource}
 medical-imaging_ListTagsForResource:
   title: Lists all tags for a &AHI; resource using an &AWS; SDK
   title_abbrev: Lists all tags for a resource
@@ -382,4 +382,4 @@ medical-imaging_ListTagsForResource:
               snippet_tags:
                 - python.example_code.medical-imaging.ListTagsForResource
   services:
-    medical-imaging: { ListTagsForResource }
+    medical-imaging: {ListTagsForResource}
