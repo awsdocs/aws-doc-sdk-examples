@@ -7,7 +7,10 @@ package main
 
 import (
 	"context"
+	"errors"
+	"flag"
 	"fmt"
+	"log"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -124,8 +127,12 @@ func main() {
 
 	s3Client := s3.NewFromConfig(sdkConfig)
 	cloudfrontClient := cloudfront.NewFromConfig(sdkConfig)
-	bucketName := "<EXAMPLE-BUCKET-NAME>"
 
+	bucketName := flag.String("bucket", "", "<EXAMPLE-BUCKET-NAME>")
+	if bucketName == nil || *bucketName == "" {
+		log.Fatal(errors.New("please setup bucket name"))
+		return
+	}
 	// certificateSSLArn is the ARN value of the certificate issued by the aws certificate manager.
 	// When testing, please check and copy and paste the ARN of the pre-issued certificate.
 	// If you don't know how to create a TLS/SSL certificate using certificate manager, check through the link below.
@@ -135,7 +142,7 @@ func main() {
 	// domain refers to the domain that will be used in conjunction with cloudfront and route53.
 	// For testing, please enter a domain that is registered in AWS route53 and will be used in conjunction with cloudfront.
 	domain := "<YOUR DOMAIN>"
-	result, err := CreateDistribution(s3Client, cloudfrontClient, bucketName, certificateSSLArn, domain)
+	result, err := CreateDistribution(s3Client, cloudfrontClient, *bucketName, certificateSSLArn, domain)
 	if err != nil {
 		fmt.Println("Couldn't create distribution. Please check error message and try again.")
 		fmt.Println(err)
