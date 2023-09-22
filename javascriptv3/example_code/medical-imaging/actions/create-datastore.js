@@ -35,5 +35,5 @@ export const createDatastore = async (datastoreName = "DATASTORE_NAME") => {
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    await createDatastore("test-result");
+    await createDatastore();
  }
