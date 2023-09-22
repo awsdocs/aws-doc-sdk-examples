@@ -128,6 +128,8 @@ func main() {
 
 	// certificateSSLArn is the ARN value of the certificate issued by the aws certificate manager.
 	// When testing, please check and copy and paste the ARN of the pre-issued certificate.
+	// If you don't know how to create a TLS/SSL certificate using certificate manager, check through the link below.
+	// https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html
 	certificateSSLArn := "<AWS CERTIFICATE MANGER ARN>"
 
 	// domain refers to the domain that will be used in conjunction with cloudfront and route53.
