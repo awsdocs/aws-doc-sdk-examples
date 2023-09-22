@@ -160,9 +160,9 @@ medical-imaging_GetDatastore:
   services:
     medical-imaging: {GetDatastore}
 medical-imaging_StartDICOMImportJob:
-  title: Start importing bulk data into a &AHI; data store using an &AWS; SDK
-  title_abbrev: Start importing bulk data into a data store
-  synopsis: start importing bulk data into a &AHI; data store.
+  title: Import bulk data into a &AHI; data store using an &AWS; SDK
+  title_abbrev: Import bulk data into a data store
+  synopsis: import bulk data into a &AHI; data store.
   category:
   languages:
     Python:
@@ -176,8 +176,8 @@ medical-imaging_StartDICOMImportJob:
   services:
     medical-imaging: {StartDICOMImportJob}
 medical-imaging_GetDICOMImportJob:
-  title: Get the import job properties using an &AWS; SDK
-  title_abbrev: Get the import job properties
+  title: Get import job properties using an &AWS; SDK
+  title_abbrev: Get import job properties
   synopsis: get the import job properties.
   category:
   languages:
@@ -256,7 +256,7 @@ medical-imaging_GetImageSetMetadata:
   services:
     medical-imaging: {GetImageSetMetadata}
 medical-imaging_GetImageFrame:
-  title: Get an image frame using an &AWS; SDK
+  title: Get a &AHI; image frame using an &AWS; SDK
   title_abbrev: Get an image frame
   synopsis: get an image frame.
   category:
@@ -368,9 +368,9 @@ medical-imaging_UntagResource:
   services:
     medical-imaging: {UntagResource}
 medical-imaging_ListTagsForResource:
-  title: Lists all tags for a &AHI; resource using an &AWS; SDK
-  title_abbrev: Lists all tags for a resource
-  synopsis: lists all tags for a &AHI; resource.
+  title: List tags for a &AHI; resource using an &AWS; SDK
+  title_abbrev: List tags for a resource
+  synopsis: list tags for a &AHI; resource.
   category:
   languages:
     Python:
