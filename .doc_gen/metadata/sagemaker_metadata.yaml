@@ -505,7 +505,7 @@ sagemaker_Scenario_Pipelines:
               snippet_tags:
                 - javascript.v3.sagemaker.wkflw.pipeline.library
             - description: This function is an excerpt from a file that uses the
-                preceding library functions to set up the a &SM; pipeline,
+                preceding library functions to set up a &SM; pipeline,
                 execute it, and delete all created resources.
               snippet_tags:
                 - javascript.v3.sagemaker.wkflw.pipeline
