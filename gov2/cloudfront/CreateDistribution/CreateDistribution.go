@@ -16,9 +16,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-// main uses the AWS SDK for Go V2 to create an Amazon CloudFront distribution.
-// This example uses the default settings specified in your shared credentials
-// and config files.
 func CreateDistribution(s3Client *s3.Client, cloudfrontClient *cloudfront.Client, bucketName, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error) {
 	locationOutput, err := s3Client.GetBucketLocation(context.Background(), &s3.GetBucketLocationInput{Bucket: aws.String(bucketName)})
 
@@ -113,6 +110,9 @@ func createoriginAccessIdentity(cloudfrontClient *cloudfront.Client, domainName 
 	return *oai.CloudFrontOriginAccessIdentity.Id, nil
 }
 
+// main uses the AWS SDK for Go V2 to create an Amazon CloudFront distribution.
+// This example uses the default settings specified in your shared credentials
+// and config files.
 func main() {
 	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
 
