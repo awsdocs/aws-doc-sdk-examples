@@ -40,8 +40,6 @@ public class PollyService {
                 .build();
 
             CompletableFuture<?> future  = getPollyAsyncClient().describeVoices(describeVoicesRequest);
-            future.join();
-
             DescribeVoicesResponse describeVoicesResult = (DescribeVoicesResponse) future.join();
             Voice voice = describeVoicesResult.voices().stream()
                 .filter(v -> v.name().equals("Joanna"))

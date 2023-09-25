@@ -35,8 +35,6 @@ public class TranslateService {
                 .build();
 
             CompletableFuture<?> future = getTranslateAsyncClient().translateText(textRequest);
-            future.join();
-
             TranslateTextResponse textResponse = (TranslateTextResponse) future.join();
             return textResponse.translatedText();
 

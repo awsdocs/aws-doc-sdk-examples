@@ -666,8 +666,6 @@ public class PollyService {
                 .build();
 
             CompletableFuture<?> future  = getPollyAsyncClient().describeVoices(describeVoicesRequest);
-            future.join();
-
             DescribeVoicesResponse describeVoicesResult = (DescribeVoicesResponse) future.join();
             Voice voice = describeVoicesResult.voices().stream()
                 .filter(v -> v.name().equals("Joanna"))
@@ -796,8 +794,6 @@ public class TranslateService {
                 .build();
 
             CompletableFuture<?> future = getTranslateAsyncClient().translateText(textRequest);
-            future.join();
-
             TranslateTextResponse textResponse = (TranslateTextResponse) future.join();
             return textResponse.translatedText();
 
@@ -823,76 +819,6 @@ public class FSAApplicationResources {
 }
 
 ```
-
-#### ModifyLambda class
-
-Add the following Java code to the **com.example.fsa** package. This represents the **ModifyLambda** class that is used to update all four Lambda functions created using the CDK script. You can optionally use this class to update the Lambda functions without having to run the CDK script again. For example, if you want to add more logging functionality to the Lambda functions, modify them and run this class.  
-
-Specify the correct Lambda function names and the name of the FAT JAR that is placed in the S3 bucket (see the instructions later in this document). 
-
-```java
-package com.example.fsa;
-
-import software.amazon.awssdk.core.waiters.WaiterResponse;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.lambda.LambdaClient;
-import software.amazon.awssdk.services.lambda.model.GetFunctionConfigurationRequest;
-import software.amazon.awssdk.services.lambda.model.GetFunctionConfigurationResponse;
-import software.amazon.awssdk.services.lambda.model.LambdaException;
-import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeRequest;
-import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeResponse;
-import software.amazon.awssdk.services.lambda.waiters.LambdaWaiter;
-
-public class ModifyLambda {
-
-    public static void main(String[]args) {
-        String analyzeSentimentLambda = "<Enter value>" ;
-        String synthesizeAudioLambda = "<Enter value>"" ;
-        String extractTextLambda = "<Enter value>" ;
-        String translateTextLambda = "<Enter value>"" ;
-        String bucketName = FSAApplicationResources.STORAGE_BUCKET;
-        String key = "<Enter value>";
-
-        Region region = Region.US_EAST_1;
-        LambdaClient awsLambda = LambdaClient.builder()
-            .region(region)
-            .build();
-
-        // Update all four Lambda functions.
-        updateFunctionCode(awsLambda, analyzeSentimentLambda, bucketName, key);
-        updateFunctionCode(awsLambda, synthesizeAudioLambda, bucketName, key);
-        updateFunctionCode(awsLambda, extractTextLambda, bucketName, key);
-        updateFunctionCode(awsLambda, translateTextLambda, bucketName, key);
-        System.out.println("You have successfully updated the AWS Lambda functions");
-    }
-
-    public static void updateFunctionCode(LambdaClient awsLambda, String functionName, String bucketName, String key) {
-        try {
-            LambdaWaiter waiter = awsLambda.waiter();
-            UpdateFunctionCodeRequest functionCodeRequest = UpdateFunctionCodeRequest.builder()
-                .functionName(functionName)
-                .publish(true)
-                .s3Bucket(bucketName)
-                .s3Key(key)
-                .build();
-
-            UpdateFunctionCodeResponse response = awsLambda.updateFunctionCode(functionCodeRequest) ;
-            GetFunctionConfigurationRequest getFunctionConfigRequest = GetFunctionConfigurationRequest.builder()
-                .functionName(functionName)
-                .build();
-
-            WaiterResponse<GetFunctionConfigurationResponse> waiterResponse = waiter.waitUntilFunctionUpdated(getFunctionConfigRequest);
-            waiterResponse.matched().response().ifPresent(System.out::println);
-            System.out.println("The last modified value is " +response.lastModified());
-
-        } catch(LambdaException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
-    }
-}
-```
-
 ## Deploy the AWS resources
 
 At this point, you have completed all of the application Java business logic required for the FSA application to work. Now you need to deploy the AWS resources, including the AWS Lambda functions and API Gateway endpoints. 
@@ -902,23 +828,6 @@ Instead of deploying all of the resources manually by using the AWS Management C
 **Note**: For information about the AWS CDK, see [What is the AWS CDK](https://docs.aws.amazon.com/cdk/v2/guide/home.html).
 		
 For complete instuctions on how to run the supplied AWS CDK script, see [Feedback Sentiment Analyzer (FSA)](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/applications/feedback_sentiment_analyzer/README.md).
-
-### Update the Lambda functions
-
-After you execute the AWS CDK script, the Lambda functions are created. However, you can replace the ones installed by using the AWS CDK with newer versions if you desire. For example, if you want to add more logging functionality, you can modify the Java Handler classes and run **ModifyLambda** without having to run the CDK script again. 
-
-**Note**: This is an optional step.
-
-To update the Java Lambda functions, perform the following tasks:
-
-1. Update the FSAApplicationResources with the AWS resource names that the AWS CDK script created. Make sure to update the **STORAGE_BUCKET** variable. 
-
-2. Create the FAT JAR by running **mvn package**. The JAR file can be located in the target folder.
-
-3. Sign in to the AWS Management Console for Amazon S3 and put the FAT JAR in the S3 bucket named **java-mediabucket**. (This bucket was created by the AWS CDK script.)   
-
-4. Run the **ModifyLambda** Java class. Make sure to specify the exact AWS Lambda names, which you can view in the Lambda console. Otherwise, the code does not work. When done, you see a message that the Lambda functions have been updated. 
-
 
 ### Check permissions for the Lambda roles
 
