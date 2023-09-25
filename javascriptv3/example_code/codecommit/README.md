@@ -40,7 +40,7 @@ node [example name].js
 ```
 
 ## Unit tests
-For more information see, the [README](../README.rst).
+For more information see, the [README](../../README.md#tests).
 
 ## Resources
 - [AWS SDK for JavaScript v3 repo](https://github.com/aws/aws-sdk-js-v3)

@@ -29,12 +29,12 @@ transcribe_StartTranscriptionJob:
           github: javascriptv3/example_code/transcribe
           sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-start-transcription
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - transcribe.JavaScript.createclientv3
             - description: Start a transcription job.
               snippet_tags:
                 - transcribe.JavaScript.jobs.createJobV3
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
   services:
     transcribe: {StartTranscriptionJob}
 transcribe_ListTranscriptionJobs:
@@ -67,12 +67,12 @@ transcribe_ListTranscriptionJobs:
           github: javascriptv3/example_code/transcribe
           sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-list-jobs
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - transcribe.JavaScript.createclientv3
             - description: List transcription jobs.
               snippet_tags:
                 - transcribe.JavaScript.jobs.listJobsV3
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
   services:
     transcribe: {ListTranscriptionJobs}
 transcribe_GetTranscriptionJob:
@@ -131,12 +131,12 @@ transcribe_DeleteTranscriptionJob:
           github: javascriptv3/example_code/transcribe
           sdkguide: sdk-for-javascript/v3/developer-guide/transcribe-examples-section.html#transcribe-delete-job
           excerpts:
-            - description: Create the client.
-              snippet_tags:
-                - transcribe.JavaScript.createclientv3
             - description: Delete a transcription job.
               snippet_tags:
                 - transcribe.JavaScript.jobs.deleteJobV3
+            - description: Create the client.
+              snippet_tags:
+                - transcribe.JavaScript.createclientv3
   services:
     transcribe: {DeleteTranscriptionJob}
 transcribe_CreateVocabulary:

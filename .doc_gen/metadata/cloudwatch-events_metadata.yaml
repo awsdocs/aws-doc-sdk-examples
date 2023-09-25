@@ -20,12 +20,12 @@ cloudwatch-events_PutRule:
           github: javascriptv3/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
           excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - javascript.v3.cloudwatchevents.client
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - javascript.v3.cloudwatchlogs.actions.PutRule
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - javascript.v3.cloudwatchevents.client
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-rules
@@ -56,12 +56,12 @@ cloudwatch-events_PutEvents:
           github: javascriptv3/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
           excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - javascript.v3.cloudwatchevents.client
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - javascript.v3.cloudwatchlogs.actions.PutEvents
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - javascript.v3.cloudwatchevents.client
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-putevents
@@ -92,12 +92,12 @@ cloudwatch-events_PutTargets:
           github: javascriptv3/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v3/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-targets
           excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - javascript.v3.cloudwatchevents.client
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - javascript.v3.cloudwatchlogs.actions.PutTargets
+            - description: Create the client in a separate module and export it.
+              snippet_tags:
+                - javascript.v3.cloudwatchevents.client
         - sdk_version: 2
           github: javascript/example_code/cloudwatch-events
           sdkguide: sdk-for-javascript/v2/developer-guide/cloudwatch-examples-sending-events.html#cloudwatch-examples-sending-events-targets
