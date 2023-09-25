@@ -19,7 +19,7 @@ cognito-identity-provider_Hello:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito
+          github: javascriptv3/example_code/cognito-identity-provider
           sdkguide:
           excerpts:
             - description:
@@ -97,7 +97,7 @@ cognito-identity-provider_SignUp:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito
+          github: javascriptv3/example_code/cognito-identity-provider
           sdkguide:
           excerpts:
             - description:
@@ -161,7 +161,7 @@ cognito-identity-provider_AdminGetUser:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/
+          github: javascriptv3/example_code/cognito-identity-provider/
           sdkguide:
           excerpts:
             - description:
@@ -225,7 +225,7 @@ cognito-identity-provider_ResendConfirmationCode:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito
+          github: javascriptv3/example_code/cognito-identity-provider
           sdkguide:
           excerpts:
             - description:
@@ -289,7 +289,7 @@ cognito-identity-provider_ConfirmSignUp:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito
+          github: javascriptv3/example_code/cognito-identity-provider
           sdkguide:
           excerpts:
             - description:
@@ -353,7 +353,7 @@ cognito-identity-provider_ListUsers:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito
+          github: javascriptv3/example_code/cognito-identity-provider
           sdkguide:
           excerpts:
             - description:
@@ -407,7 +407,7 @@ cognito-identity-provider_AdminInitiateAuth:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/
+          github: javascriptv3/example_code/cognito-identity-provider/
           sdkguide:
           excerpts:
             - description:
@@ -471,7 +471,7 @@ cognito-identity-provider_AssociateSoftwareToken:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito
+          github: javascriptv3/example_code/cognito-identity-provider
           sdkguide:
           excerpts:
             - description:
@@ -535,7 +535,7 @@ cognito-identity-provider_VerifySoftwareToken:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito
+          github: javascriptv3/example_code/cognito-identity-provider
           sdkguide:
           excerpts:
             - description:
@@ -600,7 +600,7 @@ cognito-identity-provider_AdminRespondToAuthChallenge:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito
+          github: javascriptv3/example_code/cognito-identity-provider
           sdkguide:
           excerpts:
             - description:
@@ -645,7 +645,7 @@ cognito-identity-provider_ConfirmDevice:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito
+          github: javascriptv3/example_code/cognito-identity-provider
           sdkguide:
           excerpts:
             - description:
@@ -683,7 +683,7 @@ cognito-identity-provider_InitiateAuth:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito
+          github: javascriptv3/example_code/cognito-identity-provider
           sdkguide:
           excerpts:
             - description:
@@ -712,7 +712,7 @@ cognito-identity-provider_RespondToAuthChallenge:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito
+          github: javascriptv3/example_code/cognito-identity-provider
           sdkguide:
           excerpts:
             - description:
@@ -790,7 +790,7 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/cognito/scenarios/basic
+          github: javascriptv3/example_code/cognito-identity-provider/scenarios/basic
           sdkguide:
           excerpts:
             - description: For the best experience, clone the GitHub repository and run this 
