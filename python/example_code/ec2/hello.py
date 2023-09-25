@@ -4,6 +4,7 @@
 # snippet-start:[python.example_code.ec2.Hello]
 import boto3
 
+
 def hello_ec2(ec2_resource):
     """
     Use the AWS SDK for Python (Boto3) to create an Amazon Elastic Compute Cloud
@@ -18,6 +19,7 @@ def hello_ec2(ec2_resource):
     for sg in ec2_resource.security_groups.limit(10):
         print(f"\t{sg.id}: {sg.group_name}")
 
-if __name__ == '__main__':
-    hello_ec2(boto3.resource('ec2'))
+
+if __name__ == "__main__":
+    hello_ec2(boto3.resource("ec2"))
 # snippet-end:[python.example_code.ec2.Hello]

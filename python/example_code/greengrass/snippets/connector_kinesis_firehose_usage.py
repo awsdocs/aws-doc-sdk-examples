@@ -10,17 +10,18 @@ AWS IoT Greengrass connector.
 
 # snippet-start:[greengrass.python.connector-kinesis-firehose-usage.complete]
 import json
+
 import greengrasssdk
 
-iot_client = greengrasssdk.client('iot-data')
-send_topic = 'kinesisfirehose/message'
+iot_client = greengrasssdk.client("iot-data")
+send_topic = "kinesisfirehose/message"
 
 
 def create_request():
     return {
-        "request": {
-            "data": "Message from Firehose Connector Test"},
-        "id": "req_123"}
+        "request": {"data": "Message from Firehose Connector Test"},
+        "id": "req_123",
+    }
 
 
 def publish_basic_message():
@@ -35,4 +36,6 @@ publish_basic_message()
 # In this example, the required AWS Lambda handler is never called.
 def function_handler(event, context):
     return
+
+
 # snippet-end:[greengrass.python.connector-kinesis-firehose-usage.complete]

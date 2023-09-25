@@ -10,17 +10,15 @@ AWS IoT Greengrass connector.
 
 # snippet-start:[greengrass.python.connector-sns-usage.complete]
 import json
+
 import greengrasssdk
 
-iot_client = greengrasssdk.client('iot-data')
-send_topic = 'sns/message'
+iot_client = greengrasssdk.client("iot-data")
+send_topic = "sns/message"
 
 
 def create_request():
-    return {
-        "request": {
-            "message": "Message from SNS Connector Test"},
-        "id": "req_123"}
+    return {"request": {"message": "Message from SNS Connector Test"}, "id": "req_123"}
 
 
 def publish_basic_message():
@@ -35,4 +33,6 @@ publish_basic_message()
 # In this example, the required AWS Lambda handler is never called.
 def function_handler(event, context):
     pass
+
+
 # snippet-end:[greengrass.python.connector-sns-usage.complete]

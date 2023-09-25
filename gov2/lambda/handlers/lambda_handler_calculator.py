@@ -12,15 +12,15 @@ invocation.
 import logging
 import os
 
-
 logger = logging.getLogger()
 
 # Define a list of Python lambda functions that are called by this AWS Lambda function.
 ACTIONS = {
-    'plus': lambda x, y: x + y,
-    'minus': lambda x, y: x - y,
-    'times': lambda x, y: x * y,
-    'divided-by': lambda x, y: x / y}
+    "plus": lambda x, y: x + y,
+    "minus": lambda x, y: x - y,
+    "times": lambda x, y: x * y,
+    "divided-by": lambda x, y: x / y,
+}
 
 
 def lambda_handler(event, context):
@@ -34,13 +34,13 @@ def lambda_handler(event, context):
     :return: The result of the specified action.
     """
     # Set the log level based on a variable configured in the Lambda environment.
-    logger.setLevel(os.environ.get('LOG_LEVEL', logging.INFO))
-    logger.debug('Event: %s', event)
+    logger.setLevel(os.environ.get("LOG_LEVEL", logging.INFO))
+    logger.debug("Event: %s", event)
 
-    action = event.get('action')
+    action = event.get("action")
     func = ACTIONS.get(action)
-    x = event.get('x')
-    y = event.get('y')
+    x = event.get("x")
+    y = event.get("y")
     result = None
     try:
         if func is not None and x is not None and y is not None:
@@ -51,6 +51,8 @@ def lambda_handler(event, context):
     except ZeroDivisionError:
         logger.warning("I can't divide %s by 0!", x)
 
-    response = {'result': result}
+    response = {"result": result}
     return response
+
+
 # snippet-end:[gov2.lambda.handlers.arithmetic]

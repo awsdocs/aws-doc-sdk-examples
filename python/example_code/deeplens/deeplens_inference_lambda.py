@@ -24,13 +24,14 @@
 # language governing permissions and limitations under the License.
 # snippet-start:[deeplens.python.deeplens_inference_lambda.import]
 
-from threading import Thread, Event
-import os
 import json
-import numpy as np
+import os
+from threading import Event, Thread
+
 import awscam
 import cv2
 import greengrasssdk
+import numpy as np
 
 # snippet-end:[deeplens.python.deeplens_inference_lambda.import]
 #snippet-start:[deeplens.python.deeplens_inference_lambda.lambda_handler]
@@ -185,13 +186,15 @@ def infinite_infer_run():
 #                                                    *
 #*****************************************************
 """ A sample lambda for cat-dog detection"""
-from threading import Thread, Event
-import os
 import json
-import numpy as np
+import os
+from threading import Event, Thread
+
 import awscam
 import cv2
 import greengrasssdk
+import numpy as np
+
 
 def lambda_handler(event, context):
     """Empty entry point to the Lambda function invoked from the edge."""

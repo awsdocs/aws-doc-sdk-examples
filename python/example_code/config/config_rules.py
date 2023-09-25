@@ -22,14 +22,16 @@ class ConfigWrapper:
     """
     Encapsulates AWS Config functions.
     """
+
     def __init__(self, config_client):
         """
         :param config_client: A Boto3 AWS Config client.
         """
         self.config_client = config_client
-# snippet-end:[python.example_code.config-service.ConfigWrapper]
 
-# snippet-start:[python.example_code.config-service.PutConfigRule]
+    # snippet-end:[python.example_code.config-service.ConfigWrapper]
+
+    # snippet-start:[python.example_code.config-service.PutConfigRule]
     def put_config_rule(self, rule_name):
         """
         Sets a configuration rule that prohibits making Amazon S3 buckets publicly
@@ -40,28 +42,29 @@ class ConfigWrapper:
         try:
             self.config_client.put_config_rule(
                 ConfigRule={
-                    'ConfigRuleName': rule_name,
-                    'Description': 'S3 Public Read Prohibited Bucket Rule',
-                    'Scope': {
-                        'ComplianceResourceTypes': [
-                            'AWS::S3::Bucket',
+                    "ConfigRuleName": rule_name,
+                    "Description": "S3 Public Read Prohibited Bucket Rule",
+                    "Scope": {
+                        "ComplianceResourceTypes": [
+                            "AWS::S3::Bucket",
                         ],
                     },
-                    'Source': {
-                        'Owner': 'AWS',
-                        'SourceIdentifier': 'S3_BUCKET_PUBLIC_READ_PROHIBITED',
+                    "Source": {
+                        "Owner": "AWS",
+                        "SourceIdentifier": "S3_BUCKET_PUBLIC_READ_PROHIBITED",
                     },
-                    'InputParameters': '{}',
-                    'ConfigRuleState': 'ACTIVE'
+                    "InputParameters": "{}",
+                    "ConfigRuleState": "ACTIVE",
                 }
             )
             logger.info("Created configuration rule %s.", rule_name)
         except ClientError:
             logger.exception("Couldn't create configuration rule %s.", rule_name)
             raise
-# snippet-end:[python.example_code.config-service.PutConfigRule]
 
-# snippet-start:[python.example_code.config-service.DescribeConfigRules]
+    # snippet-end:[python.example_code.config-service.PutConfigRule]
+
+    # snippet-start:[python.example_code.config-service.DescribeConfigRules]
     def describe_config_rule(self, rule_name):
         """
         Gets data for the specified rule.
@@ -71,17 +74,19 @@ class ConfigWrapper:
         """
         try:
             response = self.config_client.describe_config_rules(
-                ConfigRuleNames=[rule_name])
-            rule = response['ConfigRules']
+                ConfigRuleNames=[rule_name]
+            )
+            rule = response["ConfigRules"]
             logger.info("Got data for rule %s.", rule_name)
         except ClientError:
             logger.exception("Couldn't get data for rule %s.", rule_name)
             raise
         else:
             return rule
-# snippet-end:[python.example_code.config-service.DescribeConfigRules]
 
-# snippet-start:[python.example_code.config-service.DeleteConfigRule]
+    # snippet-end:[python.example_code.config-service.DescribeConfigRules]
+
+    # snippet-start:[python.example_code.config-service.DeleteConfigRule]
     def delete_config_rule(self, rule_name):
         """
         Delete the specified rule.
@@ -94,18 +99,20 @@ class ConfigWrapper:
         except ClientError:
             logger.exception("Couldn't delete rule %s.", rule_name)
             raise
+
+
 # snippet-end:[python.example_code.config-service.DeleteConfigRule]
 
 
 def usage_demo():
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the AWS Config demo!")
-    print('-'*88)
+    print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    config = ConfigWrapper(boto3.client('config'))
-    rule_name = 'DemoS3BucketRule'
+    config = ConfigWrapper(boto3.client("config"))
+    rule_name = "DemoS3BucketRule"
     print(f"Creating AWS Config rule '{rule_name}'...")
     config.put_config_rule(rule_name)
     print(f"Describing AWS Config rule '{rule_name}'...")
@@ -115,8 +122,8 @@ def usage_demo():
     config.delete_config_rule(rule_name)
 
     print("Thanks for watching!")
-    print('-'*88)
+    print("-" * 88)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

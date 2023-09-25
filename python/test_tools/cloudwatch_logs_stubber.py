@@ -20,6 +20,7 @@ class CloudWatchLogsStubber(ExampleStubber):
     part of the tests, and will raise errors when the actual parameters differ from
     the expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -30,4 +31,3 @@ class CloudWatchLogsStubber(ExampleStubber):
                           pass requests through to AWS.
         """
         super().__init__(client, use_stubs)
-

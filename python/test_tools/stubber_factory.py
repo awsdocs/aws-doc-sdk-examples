@@ -10,14 +10,15 @@ This factory is used by the make_stubber fixture found in the set of common fixt
 
 from test_tools.acm_stubber import AcmStubber
 from test_tools.apigateway_stubber import ApiGatewayStubber
-from test_tools.apigatewaymanagementapi_stubber import ApiGatewayManagementApiStubber
 from test_tools.apigateway_v2_stubber import ApiGatewayV2Stubber
+from test_tools.apigatewaymanagementapi_stubber import \
+    ApiGatewayManagementApiStubber
 from test_tools.auditmanager_stubber import AuditManagerStubber
 from test_tools.autoscaling_stubber import AutoScalingStubber
 from test_tools.cloudformation_stubber import CloudFormationStubber
 from test_tools.cloudfront_stubber import CloudFrontStubber
-from test_tools.cloudwatch_stubber import CloudWatchStubber
 from test_tools.cloudwatch_logs_stubber import CloudWatchLogsStubber
+from test_tools.cloudwatch_stubber import CloudWatchStubber
 from test_tools.cognito_idp_stubber import CognitoIdpStubber
 from test_tools.comprehend_stubber import ComprehendStubber
 from test_tools.config_stubber import ConfigStubber
@@ -30,18 +31,19 @@ from test_tools.glacier_stubber import GlacierStubber
 from test_tools.glue_stubber import GlueStubber
 from test_tools.iam_stubber import IamStubber
 from test_tools.keyspaces_stubber import KeyspacesStubber
-from test_tools.kinesis_stubber import KinesisStubber
 from test_tools.kinesis_analytics_v2_stubber import KinesisAnalyticsV2Stubber
+from test_tools.kinesis_stubber import KinesisStubber
 from test_tools.kms_stubber import KmsStubber
 from test_tools.lambda_stubber import LambdaStubber
 from test_tools.lookoutvision_stubber import LookoutVisionStubber
+from test_tools.medical_imaging_stubber import MedicalImagingStubber
 from test_tools.organizations_stubber import OrganizationsStubber
-from test_tools.pinpoint_stubber import PinpointStubber
 from test_tools.pinpoint_email_stubber import PinpointEmailStubber
 from test_tools.pinpoint_sms_voice_stubber import PinpointSmsVoiceStubber
+from test_tools.pinpoint_stubber import PinpointStubber
 from test_tools.polly_stubber import PollyStubber
-from test_tools.rdsdata_stubber import RdsDataStubber
 from test_tools.rds_stubber import RdsStubber
+from test_tools.rdsdata_stubber import RdsDataStubber
 from test_tools.rekognition_stubber import RekognitionStubber
 from test_tools.route53_stubber import Route53Stubber
 from test_tools.s3_stubber import S3Stubber
@@ -56,7 +58,6 @@ from test_tools.sts_stubber import StsStubber
 from test_tools.support_stubber import SupportStubber
 from test_tools.textract_stubber import TextractStubber
 from test_tools.transcribe_stubber import TranscribeStubber
-from test_tools.medical_imaging_stubber import MedicalImagingStubber
 
 
 class StubberFactoryNotImplemented(Exception):
@@ -64,105 +65,106 @@ class StubberFactoryNotImplemented(Exception):
 
 
 def stubber_factory(service_name):
-    if service_name == 'acm':
+    if service_name == "acm":
         return AcmStubber
-    elif service_name == 'apigateway':
+    elif service_name == "apigateway":
         return ApiGatewayStubber
-    elif service_name == 'apigatewaymanagementapi':
+    elif service_name == "apigatewaymanagementapi":
         return ApiGatewayManagementApiStubber
-    elif service_name == 'apigatewayv2':
+    elif service_name == "apigatewayv2":
         return ApiGatewayV2Stubber
-    elif service_name == 'auditmanager':
+    elif service_name == "auditmanager":
         return AuditManagerStubber
-    elif service_name == 'autoscaling':
+    elif service_name == "autoscaling":
         return AutoScalingStubber
-    elif service_name == 'cloudformation':
+    elif service_name == "cloudformation":
         return CloudFormationStubber
-    elif service_name == 'cloudfront':
+    elif service_name == "cloudfront":
         return CloudFrontStubber
-    elif service_name == 'cloudwatch':
+    elif service_name == "cloudwatch":
         return CloudWatchStubber
-    elif service_name == 'logs':
+    elif service_name == "logs":
         return CloudWatchLogsStubber
-    elif service_name == 'cognito-idp':
+    elif service_name == "cognito-idp":
         return CognitoIdpStubber
-    elif service_name == 'comprehend':
+    elif service_name == "comprehend":
         return ComprehendStubber
-    elif service_name == 'config':
+    elif service_name == "config":
         return ConfigStubber
-    elif service_name == 'dynamodb':
+    elif service_name == "dynamodb":
         return DynamoStubber
-    elif service_name == 'ec2':
+    elif service_name == "ec2":
         return Ec2Stubber
-    elif service_name == 'elbv2':
+    elif service_name == "elbv2":
         return ELBv2Stubber
-    elif service_name == 'emr':
+    elif service_name == "emr":
         return EmrStubber
-    elif service_name == 'events':
+    elif service_name == "events":
         return EventBridgeStubber
-    elif service_name == 'glacier':
+    elif service_name == "glacier":
         return GlacierStubber
-    elif service_name == 'glue':
+    elif service_name == "glue":
         return GlueStubber
-    elif service_name == 'iam':
+    elif service_name == "iam":
         return IamStubber
-    elif service_name == 'keyspaces':
+    elif service_name == "keyspaces":
         return KeyspacesStubber
-    elif service_name == 'kinesis':
+    elif service_name == "kinesis":
         return KinesisStubber
-    elif service_name == 'kinesisanalyticsv2':
+    elif service_name == "kinesisanalyticsv2":
         return KinesisAnalyticsV2Stubber
-    elif service_name == 'kms':
+    elif service_name == "kms":
         return KmsStubber
-    elif service_name == 'lambda':
+    elif service_name == "lambda":
         return LambdaStubber
-    elif service_name == 'lookoutvision':
+    elif service_name == "lookoutvision":
         return LookoutVisionStubber
-    elif service_name == 'organizations':
+    elif service_name == "organizations":
         return OrganizationsStubber
-    elif service_name == 'pinpoint':
+    elif service_name == "pinpoint":
         return PinpointStubber
-    elif service_name == 'pinpoint-email':
+    elif service_name == "pinpoint-email":
         return PinpointEmailStubber
-    elif service_name == 'pinpoint-sms-voice':
+    elif service_name == "pinpoint-sms-voice":
         return PinpointSmsVoiceStubber
-    elif service_name == 'polly':
+    elif service_name == "polly":
         return PollyStubber
-    elif service_name == 'rds':
+    elif service_name == "rds":
         return RdsStubber
-    elif service_name == 'rds-data':
+    elif service_name == "rds-data":
         return RdsDataStubber
-    elif service_name == 'rekognition':
+    elif service_name == "rekognition":
         return RekognitionStubber
-    elif service_name == 'route53':
+    elif service_name == "route53":
         return Route53Stubber
-    elif service_name == 's3':
+    elif service_name == "s3":
         return S3Stubber
-    elif service_name == 's3control':
+    elif service_name == "s3control":
         return S3ControlStubber
-    elif service_name == 'secretsmanager':
+    elif service_name == "secretsmanager":
         return SecretsManagerStubber
-    elif service_name == 'ses':
+    elif service_name == "ses":
         return SesStubber
-    elif service_name == 'sns':
+    elif service_name == "sns":
         return SnsStubber
-    elif service_name == 'sqs':
+    elif service_name == "sqs":
         return SqsStubber
-    elif service_name == 'ssm':
+    elif service_name == "ssm":
         return SsmStubber
-    elif service_name == 'stepfunctions':
+    elif service_name == "stepfunctions":
         return StepFunctionsStubber
-    elif service_name == 'sts':
+    elif service_name == "sts":
         return StsStubber
-    elif service_name == 'support':
+    elif service_name == "support":
         return SupportStubber
-    elif service_name == 'textract':
+    elif service_name == "textract":
         return TextractStubber
-    elif service_name == 'transcribe':
+    elif service_name == "transcribe":
         return TranscribeStubber
-    elif service_name == 'medical-imaging':
+    elif service_name == "medical-imaging":
         return MedicalImagingStubber
     else:
         raise StubberFactoryNotImplemented(
             "If you see this exception, it probably means that you forgot to add "
-            "a new stubber to stubber_factory.py.")
+            "a new stubber to stubber_factory.py."
+        )

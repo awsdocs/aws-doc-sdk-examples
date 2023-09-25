@@ -9,36 +9,38 @@ import datetime
 import glob
 import os
 import re
-import yaml
+
 import yamale
+import yaml
 from yamale import YamaleError
-from yamale.validators import DefaultValidators, Validator, String
+from yamale.validators import DefaultValidators, String, Validator
 
 
 class ServiceName(Validator):
-    """ Validate that service names appear in services.yaml. """
-    tag = 'service_name'
+    """Validate that service names appear in services.yaml."""
+
+    tag = "service_name"
     services = {}
 
     def get_name(self):
-        return 'service name found in services.yaml'
+        return "service name found in services.yaml"
 
     def _is_valid(self, value):
         return value in self.services
 
 
 class ServiceVersion(Validator):
-    tag = 'service_version'
+    tag = "service_version"
 
     def get_name(self):
-        return 'valid service version'
+        return "valid service version"
 
     def _is_valid(self, value):
         try:
             hyphen_index = len(value)
             for _ in range(3):
-                hyphen_index = value.rfind('-', 0, hyphen_index)
-            time = datetime.datetime.strptime(value[hyphen_index + 1:], '%Y-%m-%d')
+                hyphen_index = value.rfind("-", 0, hyphen_index)
+            time = datetime.datetime.strptime(value[hyphen_index + 1 :], "%Y-%m-%d")
             isdate = isinstance(time, datetime.date)
         except ValueError:
             isdate = False
@@ -46,12 +48,13 @@ class ServiceVersion(Validator):
 
 
 class SourceKey(Validator):
-    """ Validate that curated source keys appear in curated/sources.yaml. """
-    tag = 'source_key'
+    """Validate that curated source keys appear in curated/sources.yaml."""
+
+    tag = "source_key"
     curated_sources = {}
 
     def get_name(self):
-        return 'source key found in curated/sources.yaml'
+        return "source key found in curated/sources.yaml"
 
     def _is_valid(self, value):
         return value in self.curated_sources
@@ -62,23 +65,25 @@ class ExampleId(Validator):
     Validate an example ID starts with a service ID and has underscore-separated
     operation and specializations (like sns_Subscribe_Email).
     """
-    tag = 'example_id'
+
+    tag = "example_id"
     services = {}
 
     def get_name(self):
         return "valid example ID"
 
     def _is_valid(self, value):
-        if not re.fullmatch('^[\\da-z-]+(_[\\da-zA-Z]+)+$', value):
+        if not re.fullmatch("^[\\da-z-]+(_[\\da-zA-Z]+)+$", value):
             return False
         else:
-            svc = value.split('_')[0]
-            return svc == 'cross' or svc in self.services
+            svc = value.split("_")[0]
+            return svc == "cross" or svc in self.services
 
 
 class BlockContent(Validator):
-    """ Validate that block content refers to an existing file. """
-    tag = 'block_content'
+    """Validate that block content refers to an existing file."""
+
+    tag = "block_content"
     block_names = []
 
     def get_name(self):
@@ -89,61 +94,64 @@ class BlockContent(Validator):
 
 
 class StringExtension(String):
-    """ Validate that strings don't contain non-entity AWS usage. """
+    """Validate that strings don't contain non-entity AWS usage."""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.check_aws = bool(kwargs.pop('check_aws', True))
-        self.upper_start = bool(kwargs.pop('upper_start', False))
-        self.lower_start = bool(kwargs.pop('lower_start', False))
-        self.end_punc = bool(kwargs.pop('end_punc', False))
-        self.no_end_punc = bool(kwargs.pop('no_end_punc', False))
-        self.end_punc_or_colon = bool(kwargs.pop('end_punc_or_colon', False))
-        self.end_punc_or_semicolon = bool(kwargs.pop('end_punc_or_semicolon', False))
-        self.last_err = 'valid string'
+        self.check_aws = bool(kwargs.pop("check_aws", True))
+        self.upper_start = bool(kwargs.pop("upper_start", False))
+        self.lower_start = bool(kwargs.pop("lower_start", False))
+        self.end_punc = bool(kwargs.pop("end_punc", False))
+        self.no_end_punc = bool(kwargs.pop("no_end_punc", False))
+        self.end_punc_or_colon = bool(kwargs.pop("end_punc_or_colon", False))
+        self.end_punc_or_semicolon = bool(kwargs.pop("end_punc_or_semicolon", False))
+        self.last_err = "valid string"
 
     def get_name(self):
         return self.last_err
 
     def _is_valid(self, value):
-        if value == '':
+        if value == "":
             return True
         valid = True
         if self.check_aws:
             # All occurrences of AWS must be entities or within a word.
-            valid = len(re.findall('(?<![&\da-zA-Z])AWS(?![;\da-zA-Z])', value)) == 0
+            valid = len(re.findall("(?<![&\da-zA-Z])AWS(?![;\da-zA-Z])", value)) == 0
             if not valid:
                 self.last_err = 'valid string: it contains a non-entity usage of "AWS"'
         if valid and self.upper_start:
             valid = str.isupper(value[0])
             if not valid:
-                self.last_err = 'valid string: it must start with an uppercase letter'
+                self.last_err = "valid string: it must start with an uppercase letter"
         if valid and self.lower_start:
             valid = str.islower(value[0])
             if not valid:
-                self.last_err = 'valid string: it must start with a lowercase letter'
+                self.last_err = "valid string: it must start with a lowercase letter"
         if valid and self.end_punc:
-            valid = value[-1] in '!.?'
+            valid = value[-1] in "!.?"
             if not valid:
-                self.last_err = 'valid sentence or phrase: it must end with punctuation'
+                self.last_err = "valid sentence or phrase: it must end with punctuation"
         if valid and self.no_end_punc:
-            valid = value[-1] not in '!.?'
+            valid = value[-1] not in "!.?"
             if not valid:
-                self.last_err = 'valid string: it must not end with punctuation'
+                self.last_err = "valid string: it must not end with punctuation"
         if valid and self.end_punc_or_colon:
-            valid = value[-1] in '!.?:'
+            valid = value[-1] in "!.?:"
             if not valid:
-                self.last_err = 'valid sentence or phrase: it must end with punctuation or a colon'
+                self.last_err = (
+                    "valid sentence or phrase: it must end with punctuation or a colon"
+                )
         if valid and self.end_punc_or_semicolon:
-            valid = value[-1] in '!.?;'
+            valid = value[-1] in "!.?;"
             if not valid:
-                self.last_err = 'valid sentence or phrase: it must end with punctuation or a semicolon'
+                self.last_err = "valid sentence or phrase: it must end with punctuation or a semicolon"
         if valid:
             valid = super()._is_valid(value)
         return valid
 
 
 def validate_files(schema_name, meta_names, validators):
-    """ Iterate a list of files and validate each one against a schema. """
+    """Iterate a list of files and validate each one against a schema."""
     success = True
 
     schema = yamale.make_schema(schema_name, validators=validators)
@@ -151,7 +159,7 @@ def validate_files(schema_name, meta_names, validators):
         try:
             data = yamale.make_data(meta_name)
             yamale.validate(schema, data)
-            print(f'{meta_name} validation success! 👍')
+            print(f"{meta_name} validation success! 👍")
         except YamaleError as e:
             print(e.message)
             success = False
@@ -161,23 +169,26 @@ def validate_files(schema_name, meta_names, validators):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "doc_gen", help="The folder that contains schema and metadata files.")
+        "doc_gen", help="The folder that contains schema and metadata files."
+    )
     args = parser.parse_args()
 
-    with open(os.path.join(args.doc_gen, 'metadata/sdks.yaml')) as sdks_file:
+    with open(os.path.join(args.doc_gen, "metadata/sdks.yaml")) as sdks_file:
         sdks_yaml = yaml.safe_load(sdks_file)
 
-    with open(os.path.join(args.doc_gen, 'metadata/services.yaml')) as services_file:
+    with open(os.path.join(args.doc_gen, "metadata/services.yaml")) as services_file:
         services_yaml = yaml.safe_load(services_file)
 
-    with open(os.path.join(args.doc_gen, 'metadata/curated/sources.yaml')) as curated_sources_file:
+    with open(
+        os.path.join(args.doc_gen, "metadata/curated/sources.yaml")
+    ) as curated_sources_file:
         curated_sources_yaml = yaml.safe_load(curated_sources_file)
 
     validators = DefaultValidators.copy()
     ServiceName.services = services_yaml
     SourceKey.curated_sources = curated_sources_yaml
     ExampleId.services = services_yaml
-    BlockContent.block_names = os.listdir(os.path.join(args.doc_gen, 'cross-content'))
+    BlockContent.block_names = os.listdir(os.path.join(args.doc_gen, "cross-content"))
     validators[ServiceName.tag] = ServiceName
     validators[ServiceVersion.tag] = ServiceVersion
     validators[SourceKey.tag] = SourceKey
@@ -186,28 +197,30 @@ def main():
     validators[String.tag] = StringExtension
 
     # Validate sdks.yaml file.
-    schema_name = os.path.join(args.doc_gen, 'validation/sdks_schema.yaml')
-    meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/sdks.yaml'))
+    schema_name = os.path.join(args.doc_gen, "validation/sdks_schema.yaml")
+    meta_names = glob.glob(os.path.join(args.doc_gen, "metadata/sdks.yaml"))
     success = validate_files(schema_name, meta_names, validators)
 
     # Validate services.yaml file.
-    schema_name = os.path.join(args.doc_gen, 'validation/services_schema.yaml')
-    meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/services.yaml'))
+    schema_name = os.path.join(args.doc_gen, "validation/services_schema.yaml")
+    meta_names = glob.glob(os.path.join(args.doc_gen, "metadata/services.yaml"))
     success &= validate_files(schema_name, meta_names, validators)
 
     # Validate example (*_metadata.yaml in metadata folder) files.
-    schema_name = os.path.join(args.doc_gen, 'validation/example_schema.yaml')
-    meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/*_metadata.yaml'))
+    schema_name = os.path.join(args.doc_gen, "validation/example_schema.yaml")
+    meta_names = glob.glob(os.path.join(args.doc_gen, "metadata/*_metadata.yaml"))
     success &= validate_files(schema_name, meta_names, validators)
 
     # Validate curated/sources.yaml file.
-    schema_name = os.path.join(args.doc_gen, 'validation/curated_sources_schema.yaml')
-    meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/curated/sources.yaml'))
+    schema_name = os.path.join(args.doc_gen, "validation/curated_sources_schema.yaml")
+    meta_names = glob.glob(os.path.join(args.doc_gen, "metadata/curated/sources.yaml"))
     success &= validate_files(schema_name, meta_names, validators)
 
     # Validate curated example (*_metadata.yaml in metadata/curated folder) files.
-    schema_name = os.path.join(args.doc_gen, 'validation/curated_example_schema.yaml')
-    meta_names = glob.glob(os.path.join(args.doc_gen, 'metadata/curated/*_metadata.yaml'))
+    schema_name = os.path.join(args.doc_gen, "validation/curated_example_schema.yaml")
+    meta_names = glob.glob(
+        os.path.join(args.doc_gen, "metadata/curated/*_metadata.yaml")
+    )
     success &= validate_files(schema_name, meta_names, validators)
 
     if success:
@@ -219,5 +232,5 @@ def main():
         exit(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

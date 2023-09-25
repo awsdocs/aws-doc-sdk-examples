@@ -14,6 +14,7 @@
 
 import mxnet as mx
 from mxnet.gluon.model_zoo import vision
+
 squeezenet = vision.squeezenet_v1(pretrained=True, ctx=mx.cpu())
 
 # To export, you need to hybridize your gluon model,

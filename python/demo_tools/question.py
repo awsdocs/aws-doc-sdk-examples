@@ -40,7 +40,7 @@ def non_empty(answer):
     Validates that the answer is not empty.
     :return: The non-empty answer, or None.
     """
-    return answer if answer != '' else None, "I need an answer. Please?"
+    return answer if answer != "" else None, "I need an answer. Please?"
 
 
 def is_yesno(answer):
@@ -48,7 +48,7 @@ def is_yesno(answer):
     Validates a yes/no answer.
     :return: True when the answer is 'y'; otherwise, False.
     """
-    return answer.lower() == 'y', ""
+    return answer.lower() == "y", ""
 
 
 def is_int(answer):
@@ -68,7 +68,10 @@ def is_letter(answer):
     Validates that the answer is a letter.
     :return The letter answer, converted to uppercase; otherwise, None.
     """
-    return answer.upper() if answer.isalpha() else None, f"{answer} must be a single letter."
+    return (
+        answer.upper() if answer.isalpha() else None,
+        f"{answer} must be a single letter.",
+    )
 
 
 def is_float(answer):
@@ -89,9 +92,14 @@ def in_range(lower, upper):
     be compared to the lower and upper bounds.
     :return: The answer, if it is within the range; otherwise, None.
     """
+
     def _validate(answer):
         return (
             answer if lower <= answer <= upper else None,
-            f"{answer} must be between {lower} and {upper}.")
+            f"{answer} must be between {lower} and {upper}.",
+        )
+
     return _validate
+
+
 # snippet-end:[python.demo_tools.Question]

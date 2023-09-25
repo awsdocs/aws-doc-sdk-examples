@@ -20,16 +20,16 @@ def delete_dax_table(dyn_resource=None):
     :param dyn_resource: Either a Boto3 or DAX resource.
     """
     if dyn_resource is None:
-        dyn_resource = boto3.resource('dynamodb')
+        dyn_resource = boto3.resource("dynamodb")
 
-    table = dyn_resource.Table('TryDaxTable')
+    table = dyn_resource.Table("TryDaxTable")
     table.delete()
 
     print(f"Deleting {table.name}...")
     table.wait_until_not_exists()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     delete_dax_table()
     print("Table deleted!")
 # snippet-end:[dynamodb.Python.TryDax.06-delete-table]

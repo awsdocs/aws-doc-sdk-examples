@@ -2,10 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import argparse
-import config
 import logging
-from scanner import Scanner
+
+import config
 from render import Renderer
+from scanner import Scanner
 
 
 def main():

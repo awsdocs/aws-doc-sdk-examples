@@ -11,17 +11,18 @@ on a Stream_ example in the Amazon Kinesis Data Analytics SQL Developer Guide.
 
 # snippet-start:[kinesisanalytics.python.datagenerator.anomaly]
 
-from enum import Enum
 import json
 import random
+from enum import Enum
+
 import boto3
 
-STREAM_NAME = 'ExampleInputStream'
+STREAM_NAME = "ExampleInputStream"
 
 
 class RateType(Enum):
-    normal = 'NORMAL'
-    high = 'HIGH'
+    normal = "NORMAL"
+    high = "HIGH"
 
 
 def get_heart_rate(rate_type):
@@ -31,7 +32,7 @@ def get_heart_rate(rate_type):
         rate = random.randint(150, 200)
     else:
         raise TypeError
-    return {'heartRate': rate, 'rateType': rate_type.value}
+    return {"heartRate": rate, "rateType": rate_type.value}
 
 
 def generate(stream_name, kinesis_client, output=True):
@@ -44,9 +45,10 @@ def generate(stream_name, kinesis_client, output=True):
         kinesis_client.put_record(
             StreamName=stream_name,
             Data=json.dumps(heart_rate),
-            PartitionKey="partitionkey")
+            PartitionKey="partitionkey",
+        )
 
 
-if __name__ == '__main__':
-    generate(STREAM_NAME, boto3.client('kinesis'))
+if __name__ == "__main__":
+    generate(STREAM_NAME, boto3.client("kinesis"))
 # snippet-end:[kinesisanalytics.python.datagenerator.anomaly]
