@@ -23,10 +23,10 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:eventbridge-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:iam-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:sns-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:s3-jvm:0.21.3-beta")
+    implementation("aws.sdk.kotlin:eventbridge-jvm:0.29.1-beta")
+    implementation("aws.sdk.kotlin:iam-jvm:0.29.1-beta")
+    implementation("aws.sdk.kotlin:sns-jvm:0.29.1-beta")
+    implementation("aws.sdk.kotlin:s3-jvm:0.29.1-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }

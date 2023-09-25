@@ -3,8 +3,8 @@
 
 using Amazon.IdentityManagement;
 using Amazon.IdentityManagement.Model;
-using Xunit;
 using IAMActions;
+using Xunit;
 using Xunit.Sdk;
 
 namespace IAMActions.Tests
@@ -569,4 +569,3 @@ namespace IAMActions.Tests
         }
     }
 }
-

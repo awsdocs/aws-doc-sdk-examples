@@ -4,7 +4,6 @@ plugins {
     kotlin("jvm") version "1.7.10"
     application
 }
-
 group = "me.scmacdon"
 version = "1.0-SNAPSHOT"
 
@@ -23,7 +22,7 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:mediastore-jvm:0.21.3-beta")
+    implementation("aws.sdk.kotlin:mediastore:0.30.1-beta")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
 }

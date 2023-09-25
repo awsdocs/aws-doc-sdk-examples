@@ -25,7 +25,19 @@
     "example_code/support",
     "example_code/ec2",
     "example_code/s3",
-    "example_code/sqs"
+    "example_code/sqs",
+    "example_code/cross-services/photo-asset-manager",
+    "example_code/sns",
+    "example_code/cross-services/wkflw-topics-queues",
+    "example_code/secrets-manager",
+    "example_code/cross-services/feedback-sentiment-analyzer/ExtractText",
+    "example_code/cross-services/feedback-sentiment-analyzer/AnalyzeSentiment",
+    "example_code/cross-services/feedback-sentiment-analyzer/TranslateText",
+    "example_code/cross-services/feedback-sentiment-analyzer/SynthesizeAudio",
+    "example_code/codebuild",
+    "example_code/ses",
+    "example_code/glue",
+    "example_code/medical-imaging"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.1",
@@ -37,6 +49,6 @@
     "lerna": "^6.3.0",
     "lint-staged": "^13.2.2",
     "typescript": "^4.9.5",
-    "vitest": "^0.29.8"
+    "vitest": "^0.31.2"
   }
 }

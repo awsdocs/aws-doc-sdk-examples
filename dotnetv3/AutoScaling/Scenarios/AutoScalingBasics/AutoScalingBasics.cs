@@ -6,12 +6,12 @@
 using Amazon.EC2;
 using Amazon.EC2.Model;
 using Microsoft.Extensions.Configuration;
+using Host = Microsoft.Extensions.Hosting.Host;
 
 namespace AutoScalingBasics;
 
 public class AutoScalingBasics
 {
-    private static ILogger logger = null!;
 
     static async Task Main(string[] args)
     {
@@ -33,8 +33,6 @@ public class AutoScalingBasics
             )
             .Build();
 
-        logger = LoggerFactory.Create(builder => { builder.AddConsole(); })
-            .CreateLogger<AutoScalingBasics>();
 
         var autoScalingWrapper = host.Services.GetRequiredService<AutoScalingWrapper>();
         var cloudWatchWrapper = host.Services.GetRequiredService<CloudWatchWrapper>();
@@ -51,32 +49,31 @@ public class AutoScalingBasics
         var imageId = configuration["ImageId"];
         var instanceType = configuration["InstanceType"];
         var launchTemplateName = configuration["LaunchTemplateName"];
-        var availabilityZone = configuration["AvailabilityZone"];
+
+        launchTemplateName += Guid.NewGuid().ToString();
 
         // The name of the Auto Scaling group.
         var groupName = configuration["GroupName"];
-
-        // The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) service-linked role.
-        var serviceLinkedRoleARN = configuration["ServiceLinkedRoleArn"];
 
         uiWrapper.DisplayTitle("Auto Scaling Basics");
         uiWrapper.DisplayAutoScalingBasicsDescription();
 
         // Create the launch template and save the template Id to use when deleting the
         // launch template at the end of the application.
-        var launchTemplateId = await ec2Wrapper.CreateLaunchTemplateAsync(imageId, instanceType, launchTemplateName);
+        var launchTemplateId = await ec2Wrapper.CreateLaunchTemplateAsync(imageId!, instanceType!, launchTemplateName);
 
         // Confirm that the template was created by asking for a description of it.
         await ec2Wrapper.DescribeLaunchTemplateAsync(launchTemplateName);
 
         uiWrapper.PressEnter();
 
+        var availabilityZones = await ec2Wrapper.ListAvailabilityZonesAsync();
+
         Console.WriteLine($"Creating an Auto Scaling group named {groupName}.");
-        var success = await autoScalingWrapper.CreateAutoScalingGroupAsync(
-            groupName,
+        await autoScalingWrapper.CreateAutoScalingGroupAsync(
+            groupName!,
             launchTemplateName,
-            availabilityZone,
-            serviceLinkedRoleARN);
+            availabilityZones.First().ZoneName);
 
         // Keep checking the details of the new group until its lifecycle state
         // is "InService".
@@ -86,7 +83,7 @@ public class AutoScalingBasics
 
         do
         {
-            instanceDetails = await autoScalingWrapper.DescribeAutoScalingInstancesAsync(groupName);
+            instanceDetails = await autoScalingWrapper.DescribeAutoScalingInstancesAsync(groupName!);
         }
         while (instanceDetails.Count <= 0);
 
@@ -103,19 +100,19 @@ public class AutoScalingBasics
 
         uiWrapper.DisplayTitle("Metrics collection");
         Console.WriteLine($"Enable metrics collection for {groupName}");
-        await autoScalingWrapper.EnableMetricsCollectionAsync(groupName);
+        await autoScalingWrapper.EnableMetricsCollectionAsync(groupName!);
 
         // Show the metrics that are collected for the group.
 
         // Update the maximum size of the group to three instances.
         Console.WriteLine("--- Update the Auto Scaling group to increase max size to 3 ---");
         int maxSize = 3;
-        await autoScalingWrapper.UpdateAutoScalingGroupAsync(groupName, launchTemplateName, serviceLinkedRoleARN, maxSize);
+        await autoScalingWrapper.UpdateAutoScalingGroupAsync(groupName!, launchTemplateName, maxSize);
 
         Console.WriteLine("--- Describe all Auto Scaling groups to show the current state of the group ---");
-        var groups = await autoScalingWrapper.DescribeAutoScalingGroupsAsync(groupName);
+        var groups = await autoScalingWrapper.DescribeAutoScalingGroupsAsync(groupName!);
 
-        uiWrapper.DisplayGroupDetails(groups);
+        uiWrapper.DisplayGroupDetails(groups!);
 
         uiWrapper.PressEnter();
 
@@ -126,13 +123,13 @@ public class AutoScalingBasics
 
         uiWrapper.DisplayTitle("Set desired capacity");
         int desiredCapacity = 2;
-        await autoScalingWrapper.SetDesiredCapacityAsync(groupName, desiredCapacity);
+        await autoScalingWrapper.SetDesiredCapacityAsync(groupName!, desiredCapacity);
 
         Console.WriteLine("Get the two instance Id values");
 
         // Empty the group before getting the details again.
-        groups.Clear();
-        groups = await autoScalingWrapper.DescribeAutoScalingGroupsAsync(groupName);
+        groups!.Clear();
+        groups = await autoScalingWrapper.DescribeAutoScalingGroupsAsync(groupName!);
         if (groups is not null)
         {
             foreach (AutoScalingGroup group in groups)
@@ -140,7 +137,7 @@ public class AutoScalingBasics
                 Console.WriteLine($"The group name is {group.AutoScalingGroupName}");
                 Console.WriteLine($"The group ARN is {group.AutoScalingGroupARN}");
                 var instances = group.Instances;
-                foreach (Instance instance in instances)
+                foreach (Amazon.AutoScaling.Model.Instance instance in instances)
                 {
                     Console.WriteLine($"The instance id is {instance.InstanceId}");
                     Console.WriteLine($"The lifecycle state is {instance.LifecycleState}");
@@ -150,7 +147,7 @@ public class AutoScalingBasics
 
         uiWrapper.DisplayTitle("Scaling Activities");
         Console.WriteLine("Let's list the scaling activities that have occurred for the group.");
-        var activities = await autoScalingWrapper.DescribeScalingActivitiesAsync(groupName);
+        var activities = await autoScalingWrapper.DescribeScalingActivitiesAsync(groupName!);
         if (activities is not null)
         {
             activities.ForEach(activity =>
@@ -161,7 +158,7 @@ public class AutoScalingBasics
         }
 
         // Display the Amazon CloudWatch metrics that have been collected.
-        var metrics = await cloudWatchWrapper.GetCloudWatchMetricsAsync(groupName);
+        var metrics = await cloudWatchWrapper.GetCloudWatchMetricsAsync(groupName!);
         Console.WriteLine($"Metrics collected for {groupName}:");
         metrics.ForEach(metric =>
         {
@@ -169,7 +166,7 @@ public class AutoScalingBasics
             Console.WriteLine($"Namespace: {metric.Namespace}");
         });
 
-        var dataPoints = await cloudWatchWrapper.GetMetricStatisticsAsync(groupName);
+        var dataPoints = await cloudWatchWrapper.GetMetricStatisticsAsync(groupName!);
         Console.WriteLine("Details for the metrics collected:");
         dataPoints.ForEach(detail =>
         {
@@ -178,7 +175,7 @@ public class AutoScalingBasics
 
         // Disable metrics collection.
         Console.WriteLine("Disabling the collection of metrics for {groupName}.");
-        success = await autoScalingWrapper.DisableMetricsCollectionAsync(groupName);
+        var success = await autoScalingWrapper.DisableMetricsCollectionAsync(groupName!);
 
         if (success)
         {
@@ -211,7 +208,7 @@ public class AutoScalingBasics
         // After all instances are terminated, delete the group.
         uiWrapper.DisplayTitle("Clean up resources");
         Console.WriteLine("Deleting the Auto Scaling group.");
-        await autoScalingWrapper.DeleteAutoScalingGroupAsync(groupName);
+        await autoScalingWrapper.DeleteAutoScalingGroupAsync(groupName!);
 
         // Delete the launch template.
         var deletedLaunchTemplateName = await ec2Wrapper.DeleteLaunchTemplateAsync(launchTemplateId);

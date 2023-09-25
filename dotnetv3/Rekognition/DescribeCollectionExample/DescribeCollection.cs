@@ -35,5 +35,6 @@ namespace DescribeCollectionExample
             Console.WriteLine($"Created: {describeCollectionResponse.CreationTimestamp}");
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.DescribeCollectionExample]
 }

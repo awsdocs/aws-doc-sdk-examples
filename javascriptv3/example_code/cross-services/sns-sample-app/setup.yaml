@@ -1,6 +1,17 @@
 Resources:
   MyTopic86869434:
     Type: AWS::SNS::Topic
+    Properties:
+      KmsMasterKeyId:
+        Fn::Join:
+          - ""
+          - - "arn:"
+            - Ref: AWS::Partition
+            - ":kms:"
+            - Ref: AWS::Region
+            - ":"
+            - Ref: AWS::AccountId
+            - :alias/aws/sns
     Metadata:
       aws:cdk:path: SetupStack1/MyTopic/Resource
   ExampleIdentityPool:

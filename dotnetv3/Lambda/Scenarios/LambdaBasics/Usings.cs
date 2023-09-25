@@ -2,11 +2,11 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[Lambda.dotnetv3.LambdaBasics.Usings]
+global using System.Threading.Tasks;
+global using Amazon.IdentityManagement;
+global using Amazon.Lambda;
 global using LambdaActions;
 global using LambdaScenarioCommon;
-global using Amazon.Lambda;
-global using Amazon.IdentityManagement;
-global using System.Threading.Tasks;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;
 global using Microsoft.Extensions.Logging;

@@ -8,7 +8,6 @@
 
 import Foundation
 import AWSIAM
-import AWSClientRuntime
 import ClientRuntime
 import SwiftUtilities
 

@@ -7,7 +7,6 @@ package com.etl.example;
 
 // Stores the data model for this use case.
 public class PopData {
-
     private String countryName;
     private String countryCode;
     private String pop2010;
@@ -123,7 +122,6 @@ public class PopData {
     public String getName() {
         return this.countryName ;
     }
-
 }
 
 

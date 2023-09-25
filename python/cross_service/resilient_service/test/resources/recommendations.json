@@ -1,0 +1,11 @@
+[
+  {"MediaType": {"S": "Book"}, "ItemId":{"N": "1"}, "Title": {"S": "Pride and Prejudice"}, "Creator": {"S": "Jane Austen"}},
+  {"MediaType": {"S": "Book"}, "ItemId": {"N": "2"}, "Title": {"S": "The Lord of the Rings"}, "Creator": {"S": "J. R. R. Tolkien"}},
+  {"MediaType": {"S": "Book"}, "ItemId": {"N": "3"}, "Title": {"S": "The Three Musketeers"}, "Creator": {"S": "Alexandre Dumas"}},
+  {"MediaType": {"S": "Movie"}, "ItemId": {"N": "1"}, "Title": {"S": "Delicatessen"}, "Creator": {"S": "Jeunet et Caro"}},
+  {"MediaType": {"S": "Movie"}, "ItemId": {"N": "2"}, "Title": {"S": "The Princess Bride"}, "Creator": {"S": "Rob Reiner"}},
+  {"MediaType": {"S": "Movie"}, "ItemId": {"N": "3"}, "Title": {"S": "12 Angry Men"}, "Creator": {"S": "Sidney Lumet"}},
+  {"MediaType": {"S": "Song"}, "ItemId": {"N": "1"}, "Title": {"S": "And Dream of Sheep"}, "Creator": {"S": "Kate Bush"}},
+  {"MediaType": {"S": "Song"}, "ItemId": {"N": "2"}, "Title": {"S": "Mirrorball"}, "Creator": {"S": "Elbow"}},
+  {"MediaType": {"S": "Song"}, "ItemId": {"N": "3"}, "Title": {"S": "Guardians of Asgaard"}, "Creator": {"S": "Amon Amarth"}}
+]

@@ -1,0 +1,385 @@
+# zexi 0.4.0
+medical-imaging_CreateDatastore:
+  title: Create a &AHI; data store using an &AWS; SDK
+  title_abbrev: Create a data store
+  synopsis: create a &AHI; data store.
+  category:
+  languages:
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.medical-imaging.errecho
+                - aws-cli.bash-linux.medical-imaging.CreateDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.CreateDatastore
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/medicalimaging
+          excerpts:
+            - snippet_tags:
+                - medicalimaging.java2.create_datastore.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.createDatastoreV3
+  services:
+    medical-imaging: {CreateDatastore}
+medical-imaging_DeleteDatastore:
+  title: Delete a &AHI; data store using an &AWS; SDK
+  title_abbrev: Delete a data store
+  synopsis: delete a &AHI; data store.
+  category:
+  languages:
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.medical-imaging.errecho
+                - aws-cli.bash-linux.medical-imaging.DeleteDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.DeleteDatastore
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/medicalimaging
+          excerpts:
+            - snippet_tags:
+                - medicalimaging.java2.delete_datastore.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.deleteDatastoreV3
+  services:
+    medical-imaging: {DeleteDatastore}
+medical-imaging_ListDatastores:
+  title: List &AHI; data stores using an &AWS; SDK
+  title_abbrev: List data stores
+  synopsis: list &AHI; data stores.
+  category:
+  languages:
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.medical-imaging.errecho
+                - aws-cli.bash-linux.medical-imaging.ListDatastores
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.ListDatastores
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/medicalimaging
+          excerpts:
+            - snippet_tags:
+                - medicalimaging.java2.list_datastores.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.listDatastoresV3
+  services:
+    medical-imaging: {ListDatastores}
+medical-imaging_GetDatastore:
+  title: Get &AHI; data store properties using an &AWS; SDK
+  title_abbrev: Get data store properties
+  synopsis: get &AHI; data store properties.
+  category:
+  languages:
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.medical-imaging.errecho
+                - aws-cli.bash-linux.medical-imaging.GetDatastore
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.GetDatastore
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/medicalimaging
+          excerpts:
+            - snippet_tags:
+                - medicalimaging.java2.get_datastore.main
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.getDatastoreV3
+  services:
+    medical-imaging: {GetDatastore}
+medical-imaging_StartDICOMImportJob:
+  title: Import bulk data into a &AHI; data store using an &AWS; SDK
+  title_abbrev: Import bulk data into a data store
+  synopsis: import bulk data into a &AHI; data store.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.StartDICOMImportJob
+  services:
+    medical-imaging: {StartDICOMImportJob}
+medical-imaging_GetDICOMImportJob:
+  title: Get import job properties using an &AWS; SDK
+  title_abbrev: Get import job properties
+  synopsis: get the import job properties.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.GetDICOMImportJob
+  services:
+    medical-imaging: {GetDICOMImportJob}
+medical-imaging_ListDICOMImportJobs:
+  title: List import jobs for a &AHI; data store using an &AWS; SDK
+  title_abbrev: List import jobs for a data store
+  synopsis: list import jobs for a &AHI; data store.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.ListDICOMImportJobs
+  services:
+    medical-imaging: {ListDICOMImportJobs}
+medical-imaging_SearchImageSets:
+  title: Search &AHI; image sets using an &AWS; SDK
+  title_abbrev: Search image sets
+  synopsis: search &AHI; image sets.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.SearchImageSets
+  services:
+    medical-imaging: {SearchImageSets}
+medical-imaging_GetImageSet:
+  title: Get &AHI; image set properties using an &AWS; SDK
+  title_abbrev: Get image set properties
+  synopsis: get &AHI; image set properties.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.GetImageSet
+  services:
+    medical-imaging: {GetImageSet}
+medical-imaging_GetImageSetMetadata:
+  title: Get metadata for a &AHI; image set using an &AWS; SDK
+  title_abbrev: Get metadata for an image set
+  synopsis: get metadata for a &AHI; image set.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.GetImageSetMetadata
+  services:
+    medical-imaging: {GetImageSetMetadata}
+medical-imaging_GetImageFrame:
+  title: Get a &AHI; image frame using an &AWS; SDK
+  title_abbrev: Get an image frame
+  synopsis: get an image frame.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.GetImageFrame
+  services:
+    medical-imaging: {GetImageFrame}
+medical-imaging_ListImageSetVersions:
+  title: List &AHI; image set versions using an &AWS; SDK
+  title_abbrev: List image set versions
+  synopsis: list &AHI; image set versions.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.ListImageSetVersions
+  services:
+    medical-imaging: {ListImageSetVersions}
+medical-imaging_UpdateImageSetMetadata:
+  title: Update &AHI; image set metadata using an &AWS; SDK
+  title_abbrev: Update image set metadata
+  synopsis: update &AHI; image set metadata.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.UpdateImageSetMetadata
+  services:
+    medical-imaging: {UpdateImageSetMetadata}
+medical-imaging_CopyImageSet:
+  title: Copy a &AHI; image set using an &AWS; SDK
+  title_abbrev: Copy an image set
+  synopsis: copy a &AHI; image set.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.CopyImageSet
+  services:
+    medical-imaging: {CopyImageSet}
+medical-imaging_DeleteImageSet:
+  title: Delete a &AHI; image set using an &AWS; SDK
+  title_abbrev: Delete an image set
+  synopsis: delete a &AHI; image set.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.DeleteImageSet
+  services:
+    medical-imaging: {DeleteImageSet}
+medical-imaging_TagResource:
+  title: Add a tag to a &AHI; resource using an &AWS; SDK
+  title_abbrev: Add a tag to a resource
+  synopsis: add a tag to a &AHI; resource.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.TagResource
+  services:
+    medical-imaging: {TagResource}
+medical-imaging_UntagResource:
+  title: Remove a tag from a &AHI; resource using an &AWS; SDK
+  title_abbrev: Remove a tag from a resource
+  synopsis: remove a tag from a &AHI; resource.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.UntagResource
+  services:
+    medical-imaging: {UntagResource}
+medical-imaging_ListTagsForResource:
+  title: List tags for a &AHI; resource using an &AWS; SDK
+  title_abbrev: List tags for a resource
+  synopsis: list tags for a &AHI; resource.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.medical-imaging.ListTagsForResource
+  services:
+    medical-imaging: {ListTagsForResource}

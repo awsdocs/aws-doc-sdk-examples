@@ -11,7 +11,6 @@ public class WorkItem {
     private String name;
     private String confidence ;
 
-
     public void setKey (String key) {
         this.key = key;
     }

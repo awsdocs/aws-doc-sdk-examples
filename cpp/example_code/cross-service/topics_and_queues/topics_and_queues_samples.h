@@ -11,7 +11,7 @@
 
 namespace AwsDoc {
     namespace TopicsAndQueues {
-        //! Scenario for messaging with topics and queues using Amazon Simple Notification
+        //! Workflow for messaging with topics and queues using Amazon Simple Notification
         //! Service (Amazon SNS) and Amazon Simple Queue Service (Amazon SQS).
         /*!
          \param clientConfig Aws client configuration.

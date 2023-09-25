@@ -4,7 +4,6 @@
 namespace DescribeExportTasksExample
 {
     // snippet-start:[CloudWatchLogs.dotnetv3.DescribeExportTasksExammple]
-
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -43,5 +42,6 @@ namespace DescribeExportTasksExample
             while (response.NextToken is not null);
         }
     }
+
     // snippet-end:[CloudWatchLogs.dotnetv3.DescribeExportTasksExammple]
 }

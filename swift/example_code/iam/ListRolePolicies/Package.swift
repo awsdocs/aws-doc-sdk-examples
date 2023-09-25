@@ -21,7 +21,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.3.0"
+            from: "0.20.0"
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
@@ -50,10 +50,7 @@ let package = Package(
                 "SwiftyTextTable",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
-            path: "./Sources/ListRolePolicies",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Sources/ListRolePolicies"
         ),
 // snippet-end:[iam.swift.listrolepolicies.package.target.executable]
 // snippet-start:[iam.swift.listrolepolicies.package.target.handler]
@@ -73,10 +70,7 @@ let package = Package(
                 "SwiftUtilities",
                 "SwiftyTextTable",
             ],
-            path: "./Tests/ListRolePoliciesTests",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Tests/ListRolePoliciesTests"
         )
 // snippet-end:[iam.swift.listrolepolicies.package.target.tests]
     ]

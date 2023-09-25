@@ -113,7 +113,7 @@ namespace HighLevelQueryAndScanExample
 
             var cfg = new DynamoDBOperationConfig
             {
-                QueryFilter = scs
+                QueryFilter = scs,
             };
 
             AsyncSearch<Reply> response = context.QueryAsync<Reply>(forumId, cfg);

@@ -6,7 +6,6 @@
 package com.example.photo;
 
 public class WorkItem {
-
     private String key;
     private String name;
     private String confidence ;

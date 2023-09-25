@@ -75,5 +75,5 @@ npm test
 - [AWS SDK for JavaScript v3 repo](https://github.com/aws/aws-sdk-js-v3) . 
 - [AWS SDK for JavaScript v3 Developer Guide](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/)
 - [Amazon EventBridge Documentation](https://docs.aws.amazon.com/eventbridge)
-- [AWS SDK for JavaScript v3 API Reference Guide - Amazon EventBridge client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-eventbridge/index.html)
+- [AWS SDK for JavaScript v3 API Reference Guide - Amazon EventBridge client module](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/eventbridge/index.html)
 

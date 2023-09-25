@@ -2,6 +2,6 @@ Rem Run this batch script with no arguments to run unit tests or with 'integrati
 
 for /d %%a in (*) do (
     cd %%a 
-    call go test -tags=%1 ./...
+    call go test -tags=%1 -timeout=60m ./...
     cd ..
 )

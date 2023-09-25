@@ -23,6 +23,7 @@ from test_tools.comprehend_stubber import ComprehendStubber
 from test_tools.config_stubber import ConfigStubber
 from test_tools.dynamodb_stubber import DynamoStubber
 from test_tools.ec2_stubber import Ec2Stubber
+from test_tools.elbv2_stubber import ELBv2Stubber
 from test_tools.emr_stubber import EmrStubber
 from test_tools.eventbridge_stubber import EventBridgeStubber
 from test_tools.glacier_stubber import GlacierStubber
@@ -55,6 +56,7 @@ from test_tools.sts_stubber import StsStubber
 from test_tools.support_stubber import SupportStubber
 from test_tools.textract_stubber import TextractStubber
 from test_tools.transcribe_stubber import TranscribeStubber
+from test_tools.medical_imaging_stubber import MedicalImagingStubber
 
 
 class StubberFactoryNotImplemented(Exception):
@@ -92,6 +94,8 @@ def stubber_factory(service_name):
         return DynamoStubber
     elif service_name == 'ec2':
         return Ec2Stubber
+    elif service_name == 'elbv2':
+        return ELBv2Stubber
     elif service_name == 'emr':
         return EmrStubber
     elif service_name == 'events':
@@ -156,6 +160,8 @@ def stubber_factory(service_name):
         return TextractStubber
     elif service_name == 'transcribe':
         return TranscribeStubber
+    elif service_name == 'medical-imaging':
+        return MedicalImagingStubber
     else:
         raise StubberFactoryNotImplemented(
             "If you see this exception, it probably means that you forgot to add "

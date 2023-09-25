@@ -1,14 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Amazon.CloudWatch;
 using Amazon.CloudWatch.Model;
 using CloudWatchActions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using System.Text;
 
 namespace CloudWatchTests;
 

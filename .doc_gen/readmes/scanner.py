@@ -7,6 +7,8 @@ import os
 import re
 import yaml
 
+from snippets import Snippet, scan_for_snippets
+
 logger = logging.getLogger(__name__)
 
 
@@ -19,6 +21,7 @@ class Scanner:
         self.svc_meta = None
         self.example_meta = None
         self.cross_meta = None
+        self.snippets = None
 
     def _load_meta(self, file_name, field):
         if field is not None:
@@ -39,6 +42,11 @@ class Scanner:
 
     def _load_examples(self):
         self.example_meta = self._load_meta(f'{self.svc_name}_metadata.yaml', self.example_meta)
+
+    def set_example(self, language, service):
+        self.lang_name = language
+        self.svc_name = service
+        self.example_meta = None
 
     def sdk(self):
         self._load_sdks()
@@ -93,12 +101,19 @@ class Scanner:
     def crosses(self):
         self._load_cross()
         crosses = {}
+        scenarios = {}
         for example_name, example in self.cross_meta.items():
             if self.lang_name in example['languages'] and self.svc_name in example['services']:
-                crosses[example_name] = example
-        return crosses
+                if example.get('category', '') == config.categories['scenarios']:
+                    scenarios[example_name] = example
+                else:
+                    crosses[example_name] = example
+        return crosses, scenarios
 
     def snippet(self, example, sdk_ver, readme_folder, api_name):
+        if self.snippets is None:
+            self.snippets = scan_for_snippets('.')
+
         github = None
         tag = None
         tag_path = None
@@ -107,26 +122,24 @@ class Scanner:
                 github = ex_ver.get('github')
                 if github is not None:
                     if 'excerpts' in ex_ver:
-                        for t in ex_ver['excerpts'][0]['snippet_tags']:
-                            if api_name in t:
-                                tag = t
-                        if tag is None:
-                            tag = ex_ver['excerpts'][0]['snippet_tags'][0]
+                        excerpt = ex_ver['excerpts'][0]
+                        if 'snippet_tags' in excerpt:
+                            tags = excerpt.get('snippet_tags', [])
+                            for t in tags:
+                                if api_name in t:
+                                    tag = t
+                            if tag is None:
+                                tag = next(iter(tags), None)
+                        elif 'snippet_files' in excerpt:
+                            snippet_files = excerpt['snippet_files']
+                            # TODO: Find the best (or all?) snippet files, not the first.
+                            tag_path = snippet_files[0]
                     elif 'block_content' in ex_ver:
                         tag_path = github
         if github is not None and tag_path is None:
-            for root, dirs, files in os.walk(github):
-                for f in files:
-                    try:
-                        with open(os.path.join(root, f), 'r') as search_file:
-                            for index, line in enumerate(search_file.readlines()):
-                                if re.findall(rf'\b{tag}\b', line):
-                                    tag_path = os.path.relpath(search_file.name, readme_folder).replace('\\', '/')
-                                    if api_name != '':
-                                        tag_path += f'#L{index+1}'
-                                    break
-                    except UnicodeDecodeError:
-                        logger.debug("Skipping %s due to unicode decode error.", f)
-                if tag_path is not None:
-                    break
+            snippet = self.snippets.get(tag, None)
+            if snippet is not None:
+                tag_path = os.path.relpath(snippet.path, readme_folder).replace('\\', '/')
+                if api_name != '':
+                    tag_path += f'#L{snippet.line}'
         return tag_path

@@ -13,9 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class SubController {
+    private final SnsService sns;
 
     @Autowired
-    SnsService sns;
+    SubController(
+        SnsService sns
+    ) {
+        this.sns = sns;
+    }
 
     @GetMapping("/")
     public String root() {
@@ -27,11 +32,9 @@ public class SubController {
         return "sub";
     }
 
-    // Adds a new item to the database.
     @RequestMapping(value = "/addEmail", method = RequestMethod.POST)
     @ResponseBody
     String addItems(HttpServletRequest request, HttpServletResponse response) {
-
         String email = request.getParameter("email");
         return sns.subEmail(email);
     }
@@ -39,7 +42,6 @@ public class SubController {
     @RequestMapping(value = "/delSub", method = RequestMethod.POST)
     @ResponseBody
     String delSub(HttpServletRequest request, HttpServletResponse response) {
-
         String email = request.getParameter("email");
         sns.unSubEmail(email);
         return email +" was successfully deleted!";
@@ -57,8 +59,6 @@ public class SubController {
     @RequestMapping(value = "/getSubs", method = RequestMethod.GET)
     @ResponseBody
     String getSubs(HttpServletRequest request, HttpServletResponse response) {
-
-        String mySub = sns.getAllSubscriptions();
-        return mySub;
+        return sns.getAllSubscriptions();
     }
 }

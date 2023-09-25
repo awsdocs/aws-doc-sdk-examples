@@ -33,16 +33,26 @@ To begin, you must [set up an AWS account](../README.md#prerequisites-for-all-aw
 
 To resolve Ruby-specific dependencies, you must start a command line session and navigate to this directory.
 
-First, verify your version of Ruby is at 3.1 using the following command:
+### Ruby version
+
+This code is tested using [version 3.1.2](https://www.ruby-lang.org/en/news/2022/04/12/ruby-3-1-2-released/).
+
+You can check your Ruby version by using the following command:
 ```bash
 ruby -v
 ```
 
-Next, execute the following commands to resolve [Gemfile](Gemfile) dependencies:
+For more information about managing multiple Ruby versions in your local environment, see the [Ruby install docs](https://www.ruby-lang.org/en/documentation/installation/).
+
+### Resolving dependencies
+
+To resolve the dependencies declared in the [Gemfile](Gemfile), run the following commands from this `/ruby` directory:
 ```bash
 gem install bundler
 bundle install
 ```
+
+To use a different Ruby version, modify or remove `ruby "3.1.2"` from the [Gemfile](Gemfile).
 
 ## Tests
 **Note**: Running the tests might result in charges to your AWS account.

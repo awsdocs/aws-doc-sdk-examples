@@ -105,13 +105,6 @@ target_include_directories(
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
         $<INSTALL_INTERFACE:..>
 )
-
-target_include_directories(${CURRENT_TARGET}
-        SYSTEM
-        PUBLIC
-        ${AWSSDK_INCLUDE_DIR}/aws # This is added to shorten an include path which does not pass checks.
-        )
-
 target_compile_definitions(
         ${CURRENT_TARGET}
         PUBLIC

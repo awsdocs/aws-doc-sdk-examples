@@ -9,6 +9,8 @@
 
 package com.example.rds;
 
+import com.google.gson.Gson;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.rds.RdsClient;
@@ -47,6 +49,9 @@ import software.amazon.awssdk.services.rds.model.RdsException;
 import software.amazon.awssdk.services.rds.model.DescribeDbEngineVersionsRequest;
 import software.amazon.awssdk.services.rds.model.CreateDbClusterRequest;
 import software.amazon.awssdk.services.rds.model.DescribeOrderableDbInstanceOptionsRequest;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +62,11 @@ import java.util.List;
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ * This example requires an AWS Secrets Manager secret that contains the database credentials. If you do not create a
+ * secret, this example will not work. For details, see:
+ *
+ * https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
  *
  * This Java example performs the following tasks:
  *
@@ -82,21 +92,19 @@ public class AuroraScenario {
     public static long sleepTime = 20;
     public static final String DASHES = new String(new char[80]).replace("\0", "-");
     public static void main(String[] args) throws InterruptedException {
-
         final String usage = "\n" +
             "Usage:\n" +
-            "    <dbClusterGroupName> <dbParameterGroupFamily> <dbInstanceClusterIdentifier> <dbInstanceIdentifier> <dbName> <dbSnapshotIdentifier> <username> <userPassword>" +
+            "    <dbClusterGroupName> <dbParameterGroupFamily> <dbInstanceClusterIdentifier> <dbInstanceIdentifier> <dbName> <dbSnapshotIdentifier><secretName>" +
             "Where:\n" +
             "    dbClusterGroupName - The name of the DB cluster parameter group. \n"+
             "    dbParameterGroupFamily - The DB cluster parameter group family name (for example, aurora-mysql5.7). \n"+
             "    dbInstanceClusterIdentifier - The instance cluster identifier value.\n"+
             "    dbInstanceIdentifier - The database instance identifier.\n"+
-            "    dbName  The database name.\n"+
+            "    dbName - The database name.\n"+
             "    dbSnapshotIdentifier - The snapshot identifier.\n"+
-            "    username - The database user name.\n" +
-            "    userPassword - The database user name password.\n" ;
+            "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials\"\n" ;;
 
-        if (args.length != 8) {
+       if (args.length != 7) {
             System.out.println(usage);
             System.exit(1);
         }
@@ -107,8 +115,13 @@ public class AuroraScenario {
         String dbInstanceIdentifier = args[3];
         String dbName = args[4];
         String dbSnapshotIdentifier = args[5];
-        String username = args[6];
-        String userPassword = args[7];
+        String secretName = args[6];
+
+        // Retrieve the database credentials using AWS Secrets Manager.
+        Gson gson = new Gson();
+        User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);
+        String username = user.getUsername();
+        String userPassword = user.getPassword();
 
         Region region = Region.US_WEST_2;
         RdsClient rdsClient = RdsClient.builder()
@@ -213,6 +226,24 @@ public class AuroraScenario {
         rdsClient.close();
     }
 
+    private static SecretsManagerClient getSecretClient() {
+        Region region = Region.US_WEST_2;
+        return SecretsManagerClient.builder()
+            .region(region)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+    }
+
+    private static String getSecretValues(String secretName) {
+        SecretsManagerClient secretClient = getSecretClient();
+        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
+            .secretId(secretName)
+            .build();
+
+        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
+        return valueResponse.secretString();
+    }
+
     // snippet-start:[rds.java2.scenario.cluster.del_paragroup.main]
     public static void deleteDBClusterGroup( RdsClient rdsClient, String dbClusterGroupName, String clusterDBARN) throws InterruptedException {
         try {
@@ -225,7 +256,6 @@ public class AuroraScenario {
                 DescribeDbInstancesResponse response = rdsClient.describeDBInstances();
                 List<DBInstance> instanceList = response.dbInstances();
                 int listSize = instanceList.size();
-                isDataDel = false ;
                 didFind = false;
                 int index = 1;
                 for (DBInstance instance: instanceList) {
@@ -294,7 +324,6 @@ public class AuroraScenario {
     }
     // snippet-end:[rds.java2.scenario.cluster.del.instance.main]
 
-
     // snippet-start:[rds.java2.scenario.cluster.wait.snapshot.main]
     public static void waitForSnapshotReady(RdsClient rdsClient, String dbSnapshotIdentifier, String dbInstanceClusterIdentifier) {
         try {
@@ -353,7 +382,6 @@ public class AuroraScenario {
         boolean instanceReady = false;
         String instanceReadyStr;
         System.out.println("Waiting for instance to become available.");
-
         try {
             DescribeDbInstancesRequest instanceRequest = DescribeDbInstancesRequest.builder()
                 .dbInstanceIdentifier(dbInstanceIdentifier)
@@ -383,13 +411,11 @@ public class AuroraScenario {
     }
     // snippet-end:[rds.java2.scenario.cluster.wait.db.main]
 
-
     // snippet-start:[rds.java2.scenario.cluster.create.instance.main]
     public static String createDBInstanceCluster(RdsClient rdsClient,
                                                  String dbInstanceIdentifier,
                                                  String dbInstanceClusterIdentifier,
                                                  String instanceClass){
-
         try {
             CreateDbInstanceRequest instanceRequest = CreateDbInstanceRequest.builder()
                 .dbInstanceIdentifier(dbInstanceIdentifier)
@@ -442,7 +468,6 @@ public class AuroraScenario {
         boolean instanceReady = false;
         String instanceReadyStr;
         System.out.println("Waiting for instance to become available.");
-
         try {
             DescribeDbClustersRequest instanceRequest = DescribeDbClustersRequest.builder()
                 .dbClusterIdentifier(dbClusterIdentifier)
@@ -469,7 +494,6 @@ public class AuroraScenario {
         }
     }
     // snippet-end:[rds.java2.scenario.cluster.wait.instances.main]
-
 
     // snippet-start:[rds.java2.scenario.cluster.create.main]
     public static String createDBCluster(RdsClient rdsClient, String dbParameterGroupFamily, String dbName, String dbClusterIdentifier, String userName, String password) {

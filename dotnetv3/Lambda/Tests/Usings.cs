@@ -1,6 +1,6 @@
+global using LambdaActions;
 global using Xunit;
 global using Xunit.Extensions.Ordering;
-global using LambdaActions;
 
 // Optional.
 [assembly: CollectionBehavior(DisableTestParallelization = true)]

@@ -23,7 +23,7 @@
   "dependencies": {
     "@aws-cdk/aws-ecr": "^1.185.0",
     "@aws-cdk/core": "^1.185.0",
-    "aws-cdk-lib": "2.44.0",
+    "aws-cdk-lib": "2.80.0",
     "cdk": "^2.45.0",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.21"

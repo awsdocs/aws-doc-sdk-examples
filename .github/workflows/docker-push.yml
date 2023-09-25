@@ -47,7 +47,7 @@ jobs:
       ######      RUBY        #######
       ###############################
       - name: Build, tag, and push docker image to Amazon ECR Public - Ruby
-        if: contains(github.event.pull_request.labels.*.name, 'lang/ruby')
+        if: contains(github.event.pull_request.labels.*.name, 'Ruby')
         env:
           REPOSITORY: ruby
         run: |
@@ -62,7 +62,7 @@ jobs:
       ######      PYTHON        #######
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - Python
-        if: contains(github.event.pull_request.labels.*.name, 'lang/python')
+        if: contains(github.event.pull_request.labels.*.name, 'Python')
         env:
           REPOSITORY: python
         run: |
@@ -77,7 +77,7 @@ jobs:
       #######  JAVASCRIPT v3   ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - JavaScript
-        if: contains(github.event.pull_request.labels.*.name, 'lang/javascript-v3')
+        if: contains(github.event.pull_request.labels.*.name, 'Javascript-v3')
         env:
           REPOSITORY: javascriptv3
         run: |
@@ -92,7 +92,7 @@ jobs:
       #######      RUST        ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - Rust
-        if: contains(github.event.pull_request.labels.*.name, 'lang/rust')
+        if: contains(github.event.pull_request.labels.*.name, 'Rust')
         env:
           REPOSITORY: rust_dev_preview
         run: |
@@ -107,7 +107,7 @@ jobs:
       #######      GO v2       ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - GoLang
-        if: contains(github.event.pull_request.labels.*.name, 'lang/gov-2')
+        if: contains(github.event.pull_request.labels.*.name, 'Go-v2')
         env:
           REPOSITORY: gov2
         run: |
@@ -122,7 +122,7 @@ jobs:
       #######      C++      ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - C++
-        if: contains(github.event.pull_request.labels.*.name, 'lang/cpp')
+        if: contains(github.event.pull_request.labels.*.name, 'C++')
         env:
           REPOSITORY: cpp
         run: |
@@ -137,7 +137,7 @@ jobs:
       #######     .NET v3      ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - .NET v3
-        if: contains(github.event.pull_request.labels.*.name, 'lang/dotnet-v3')
+        if: contains(github.event.pull_request.labels.*.name, 'DotNet-v3')
         env:
           REPOSITORY: dotnetv3
         run: |
@@ -152,7 +152,7 @@ jobs:
       #######     JAVA v2      ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - JavaV2
-        if: contains(github.event.pull_request.labels.*.name, 'lang/java-v2')
+        if: contains(github.event.pull_request.labels.*.name, 'Java-v2')
         env:
           REPOSITORY: javav2
         run: |
@@ -167,7 +167,7 @@ jobs:
       #######      KOTLIN      ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - Kotlin
-        if: contains(github.event.pull_request.labels.*.name, 'lang/kotlin')
+        if: contains(github.event.pull_request.labels.*.name, 'Kotlin')
         env:
           REPOSITORY: kotlin
         run: |
@@ -182,7 +182,7 @@ jobs:
       #######      PHP         ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - PHP
-        if: contains(github.event.pull_request.labels.*.name, 'lang/php')
+        if: contains(github.event.pull_request.labels.*.name, 'PHP')
         env:
           REPOSITORY: php
         run: |
@@ -197,7 +197,7 @@ jobs:
       #######      SWIFT       ########
       #################################
       - name: Build, tag, and push docker image to Amazon ECR Public - Swift
-        if: contains(github.event.pull_request.labels.*.name, 'lang/swift')
+        if: contains(github.event.pull_request.labels.*.name, 'Swift')
         env:
           REPOSITORY: swift
         run: |

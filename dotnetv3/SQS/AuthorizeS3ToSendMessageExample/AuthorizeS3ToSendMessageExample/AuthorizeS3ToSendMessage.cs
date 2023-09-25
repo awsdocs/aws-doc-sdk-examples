@@ -4,8 +4,7 @@
 /// <summary>
 /// Shows how to authorize an Amazon Simple Storage Service (Amazon S3)
 /// bucket to send messages to an Amazon Simple Queue Service (Amazon SQS)
-/// queue. The example was created using the AWS SDK for .NET version 3.7
-/// and .NET Core 5.0.
+/// queue.
 /// </summary>
 namespace AuthorizeS3ToSendMessageExample
 {

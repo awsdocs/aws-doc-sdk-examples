@@ -15,7 +15,7 @@ export const main = async (queueUrl = SQS_QUEUE_URL) => {
   const command = new SetQueueAttributesCommand({
     QueueUrl: queueUrl,
     Attributes: {
-      MessageRetentionPeriod: "60",
+      DelaySeconds: "1",
     },
   });
 

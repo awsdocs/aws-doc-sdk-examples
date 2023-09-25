@@ -1,0 +1,18 @@
+<Configuration status="ERROR">
+    <Appenders>
+        <Console name="Out">
+            <PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} %-5p %tn %c:%L - %encode{%m}{CRLF}%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="Out"/>
+        </Root>
+        <logger name="httpTraceMiddleware" level="INFO" additivity="false">
+            <AppenderRef ref="Out"/>
+        </logger>
+        <logger name="com.kotlin.s3.PresignTests" level="INFO" additivity="false">
+            <AppenderRef ref="Out"/>
+        </logger>
+    </Loggers>
+</Configuration>

@@ -3,8 +3,8 @@
 
 using System.Globalization;
 using Amazon.SimpleEmailV2;
-using DynamoDbItemTracker;
 using CsvHelper;
+using DynamoDbItemTracker;
 using Microsoft.Extensions.Configuration;
 namespace ItemTrackerTests;
 

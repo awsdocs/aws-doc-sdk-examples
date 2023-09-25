@@ -1,8 +1,8 @@
-global using Xunit;
-global using Xunit.Extensions.Ordering;
-global using Microsoft.Extensions.Configuration;
 global using IAMActions;
 global using IamScenariosCommon;
+global using Microsoft.Extensions.Configuration;
+global using Xunit;
+global using Xunit.Extensions.Ordering;
 
 // Optional.
 [assembly: CollectionBehavior(DisableTestParallelization = true)]

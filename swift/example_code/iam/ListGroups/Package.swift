@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to
 // build this package.
 //
@@ -21,7 +21,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.9.0"
+            from: "0.20.0"
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
@@ -46,10 +46,7 @@ let package = Package(
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 .product(name: "AWSIAM", package: "aws-sdk-swift"),
             ],
-            path: "./Sources/ListGroups",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Sources/ListGroups"
         ),
 // snippet-end:[iam.swift.listgroups.package.target.executable]
 // snippet-start:[iam.swift.listgroups.package.target.handler]
@@ -68,10 +65,7 @@ let package = Package(
                 "listgroups",
                 "SwiftUtilities"
             ],
-            path: "./Tests/ListGroupsTests",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Tests/ListGroupsTests"
         )
 // snippet-end:[iam.swift.listgroups.package.target.tests]
     ]

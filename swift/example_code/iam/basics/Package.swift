@@ -21,7 +21,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.10.0"
+            from: "0.20.0"
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
@@ -49,10 +49,7 @@ let package = Package(
                 "SwiftUtilities",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
-            path: "./Sources/Basics",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Sources/Basics"
         ),
 // snippet-end:[iam.swift.basics.package.target.executable]
 // snippet-start:[iam.swift.basics.package.target.handler]
@@ -62,7 +59,7 @@ let package = Package(
                 .product(name: "AWSIAM", package: "aws-sdk-swift"),
                 .product(name: "AWSS3", package: "aws-sdk-swift"),
                 .product(name: "AWSSTS", package: "aws-sdk-swift"),
-                "SwiftUtilities",
+                "SwiftUtilities"
             ],
             path: "./Sources/ServiceHandler"
         ),
@@ -78,10 +75,7 @@ let package = Package(
                 "basics",
                 "SwiftUtilities"
             ],
-            path: "./Tests/BasicsTests",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Tests/BasicsTests"
         )
 // snippet-end:[iam.swift.basics.package.target.tests]
     ]

@@ -18,19 +18,17 @@ namespace AutoScalingTests
         private readonly AmazonCloudWatchClient _cloudWatchClient;
         private readonly CloudWatchWrapper _cloudWatchWrapper;
 
-        private readonly string? _groupName;
-        private readonly string? _imageId;
-        private readonly string? _instanceType;
-        private readonly string? _launchTemplateName;
-        private readonly string? _availabilityZone;
+        private static string? _groupName;
+        private static string? _imageId;
+        private static string? _instanceType;
+        private static string? _launchTemplateName;
 
-        // the Amazon Resource Name (ARN) of the IAM service linked role.
-        private readonly string? _serviceLinkedRoleArn;
-        private readonly string? _nameGuid;
+        private static string? _nameGuid;
 
         private static string? _launchTemplateId;
         private static List<AutoScalingGroup>? _groups;
         public static string? InstanceId;
+        public static bool setup = false;
 
         /// <summary>
         /// Constructor for the test class.
@@ -52,17 +50,18 @@ namespace AutoScalingTests
             _cloudWatchClient = new AmazonCloudWatchClient();
             _cloudWatchWrapper = new CloudWatchWrapper(_cloudWatchClient);
 
-            _nameGuid = new Guid().ToString();
-            _imageId = _configuration["ImageId"];
-            _instanceType = _configuration["InstanceType"];
-            _launchTemplateName = $"{_configuration["LaunchTemplateName"]}-{_nameGuid}";
-            _availabilityZone = _configuration["AvailabilityZone"];
+            if (!setup)
+            {
+                _nameGuid = Guid.NewGuid().ToString();
+                _imageId = _configuration["ImageId"];
+                _instanceType = _configuration["InstanceType"];
+                _launchTemplateName =
+                    $"{_configuration["LaunchTemplateName"]}-{_nameGuid}";
 
-            // The name of the Auto Scaling group.
-            _groupName = $"{_configuration["GroupName"]}-{_nameGuid}";
-
-            // The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) service-linked role.
-            _serviceLinkedRoleArn = _configuration["ServiceLinkedRoleArn"];
+                // The name of the Auto Scaling group.
+                _groupName = $"{_configuration["GroupName"]}-{_nameGuid}";
+                setup = true;
+            }
         }
 
         /// <summary>
@@ -75,7 +74,7 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task CreateLaunchTemplateAsyncTest()
         {
-            _launchTemplateId = await _ec2Wrapper.CreateLaunchTemplateAsync(_imageId, _instanceType, _launchTemplateName);
+            _launchTemplateId = await _ec2Wrapper.CreateLaunchTemplateAsync(_imageId!, _instanceType!, _launchTemplateName!);
             Assert.NotNull(_launchTemplateId);
         }
 
@@ -88,7 +87,7 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task DescribeLaunchTemplateAsyncTest()
         {
-            var success = await _ec2Wrapper.DescribeLaunchTemplateAsync(_launchTemplateName);
+            var success = await _ec2Wrapper.DescribeLaunchTemplateAsync(_launchTemplateName!);
             Assert.True(success);
         }
 
@@ -102,7 +101,9 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task CreateAutoScalingGroupTest()
         {
-            var success = await _autoScalingWrapper.CreateAutoScalingGroupAsync(_groupName, _launchTemplateName, _serviceLinkedRoleArn);
+            var availabilityZone =
+                (await _ec2Wrapper.ListAvailabilityZonesAsync()).First().ZoneName;
+            var success = await _autoScalingWrapper.CreateAutoScalingGroupAsync(_groupName!, _launchTemplateName!, availabilityZone);
             Assert.True(success, $"Couldn't create the Auto Scaling group {_groupName}.");
         }
 
@@ -117,7 +118,7 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task DescribeAutoScalingInstancesAsyncTest()
         {
-            var instanceDetails = await _autoScalingWrapper.DescribeAutoScalingInstancesAsync(_groupName);
+            var instanceDetails = await _autoScalingWrapper.DescribeAutoScalingInstancesAsync(_groupName!);
             Assert.NotNull(instanceDetails);
         }
 
@@ -130,7 +131,7 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task EnableMetricsCollectionAsyncTest()
         {
-            var success = await _autoScalingWrapper.EnableMetricsCollectionAsync(_groupName);
+            var success = await _autoScalingWrapper.EnableMetricsCollectionAsync(_groupName!);
             Assert.True(success, $"Couldn't enable metrics collection for {_groupName}.");
         }
 
@@ -147,10 +148,10 @@ namespace AutoScalingTests
         public async Task SetDesiredCapacityAsyncTest()
         {
             var newMax = 3;
-            var success = await _autoScalingWrapper.SetDesiredCapacityAsync(_groupName, newMax);
+            var success = await _autoScalingWrapper.SetDesiredCapacityAsync(_groupName!, newMax);
             Assert.True(success, "Couldn't set the desired capacity.");
-            _groups = await _autoScalingWrapper.DescribeAutoScalingGroupsAsync(_groupName);
-            _groups.ForEach(group =>
+            _groups = await _autoScalingWrapper.DescribeAutoScalingGroupsAsync(_groupName!);
+            _groups!.ForEach(group =>
             {
                 if (group.AutoScalingGroupName == _groupName)
                 {
@@ -171,10 +172,10 @@ namespace AutoScalingTests
         public async Task UpdateAutoScalingGroupTest()
         {
             var newMax = 3;
-            var success = await _autoScalingWrapper.UpdateAutoScalingGroupAsync(_groupName, _launchTemplateName, _serviceLinkedRoleArn, newMax);
+            var success = await _autoScalingWrapper.UpdateAutoScalingGroupAsync(_groupName!, _launchTemplateName!, newMax);
             Assert.True(success, $"Couldn't update the Auto Scaling group: {_groupName}.");
-            _groups = await _autoScalingWrapper.DescribeAutoScalingGroupsAsync(_groupName);
-            _groups.ForEach(group =>
+            _groups = await _autoScalingWrapper.DescribeAutoScalingGroupsAsync(_groupName!);
+            _groups!.ForEach(group =>
             {
                 if (group.AutoScalingGroupName == _groupName)
                 {
@@ -192,8 +193,8 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task DescribeAutoScalingGroupsAsyncTest()
         {
-            var details = await _autoScalingWrapper.DescribeAutoScalingGroupsAsync(_groupName);
-            Assert.True(details.Count > 0, $"Couldn't find that Auto Scaling group {_groupName}.");
+            var details = await _autoScalingWrapper.DescribeAutoScalingGroupsAsync(_groupName!);
+            Assert.True(details!.Count > 0, $"Couldn't find that Auto Scaling group {_groupName}.");
         }
 
         /// <summary>
@@ -206,7 +207,7 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task DescribeScalingActivitiesAsyncTest()
         {
-            var activities = await _autoScalingWrapper.DescribeScalingActivitiesAsync(_groupName);
+            var activities = await _autoScalingWrapper.DescribeScalingActivitiesAsync(_groupName!);
             Assert.NotNull(activities);
         }
 
@@ -220,7 +221,7 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task GetCloudWatchMetricsAsyncTest()
         {
-            var metrics = await _cloudWatchWrapper.GetCloudWatchMetricsAsync(_groupName);
+            var metrics = await _cloudWatchWrapper.GetCloudWatchMetricsAsync(_groupName!);
             Assert.NotNull(metrics);
         }
 
@@ -234,7 +235,7 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task GetMetricStatisticsAsyncTest()
         {
-            var dataPoints = await _cloudWatchWrapper.GetMetricStatisticsAsync(_groupName);
+            var dataPoints = await _cloudWatchWrapper.GetMetricStatisticsAsync(_groupName!);
             Assert.NotNull(dataPoints);
         }
 
@@ -248,7 +249,7 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task DisableMetricsCollectionAsyncTest()
         {
-            var success = await _autoScalingWrapper.DisableMetricsCollectionAsync(_groupName);
+            var success = await _autoScalingWrapper.DisableMetricsCollectionAsync(_groupName!);
             Assert.True(success);
         }
 
@@ -263,7 +264,7 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task TerminateInstanceInAutoScalingGroupAsyncTest()
         {
-            foreach (var group in _groups)
+            foreach (var group in _groups!)
             {
                 if (group.AutoScalingGroupName == _groupName)
                 {
@@ -271,9 +272,9 @@ namespace AutoScalingTests
                     {
                         var success = await _autoScalingWrapper.TerminateInstanceInAutoScalingGroupAsync(instance.InstanceId);
                         Assert.True(success, "Could not terminate the instance.");
-                    };
+                    }
                 }
-            };
+            }
         }
 
         /// <summary>
@@ -286,7 +287,7 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task DeleteAutoScalingGroupTest()
         {
-            var success = await _autoScalingWrapper.DeleteAutoScalingGroupAsync(_groupName);
+            var success = await _autoScalingWrapper.DeleteAutoScalingGroupAsync(_groupName!);
             Assert.True(success, "Could not delete the group.");
         }
 
@@ -302,7 +303,7 @@ namespace AutoScalingTests
         [Trait("Category", "Integration")]
         public async Task DeleteLaunchTemplateAsyncTest()
         {
-            var templateName = await _ec2Wrapper.DeleteLaunchTemplateAsync(_launchTemplateId);
+            var templateName = await _ec2Wrapper.DeleteLaunchTemplateAsync(_launchTemplateId!);
             Assert.Equal(_launchTemplateName, templateName);
         }
 

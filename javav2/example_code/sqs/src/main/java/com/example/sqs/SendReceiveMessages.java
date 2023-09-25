@@ -1,26 +1,13 @@
 //snippet-sourcedescription:[SendReceiveMessages.java demonstrates how to send multiple messages to a queue, check for those messages, and delete the messages once received.]
-//snippet-keyword:[SDK for Java 2.0]
-//snippet-keyword:[Code Sample]
-//snippet-service:[sqs]
-//snippet-sourcetype:[full-example]
-//snippet-sourcedate:[2/24/2020]
-//snippet-sourceauthor:[scmacdon-aws]
-// snippet-start:[sqs.java2.send_recieve_messages.complete]
+//snippet-keyword:[AWS SDK for Java v2]
+//snippet-service:[Amazon Simple Queue Service]
+
+
 /*
- * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at:
- *
- *    http://aws.amazon.com/apache2.0
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
- * OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and
- * limitations under the License.
- */
-// snippet-start:[sqs.java2.send_recieve_messages.import]
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/
+
 package com.example.sqs;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -36,9 +23,6 @@ import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import java.util.Date;
 import java.util.List;
 
-// snippet-end:[sqs.java2.send_recieve_messages.import]
-
-// snippet-start:[sqs.java2.send_recieve_messages.main]
 public class SendReceiveMessages {
     private static final String QUEUE_NAME = "testQueue" + new Date().getTime();
 
@@ -99,5 +83,4 @@ public class SendReceiveMessages {
         }
     }
 }
-// snippet-end:[sqs.java2.send_recieve_messages.main]
-// snippet-end:[sqs.java2.send_recieve_messages.complete]
+

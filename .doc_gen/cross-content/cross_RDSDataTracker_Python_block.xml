@@ -10,15 +10,13 @@
         This example uses the Flask web framework to handle HTTP routing and integrates
         with a React webpage to present a fully functional web application.
     </para>
-    <para>
-        <itemizedlist>
-            <listitem><para>Build a Flask REST service that integrates with &AWS-services;.</para></listitem>
-            <listitem><para>Read, write, and update work items that are stored in an &AUR; Serverless database.</para></listitem>
-            <listitem><para>Create an &ASMlong; secret that contains database credentials and use it
-                to authenticate calls to the database.</para></listitem>
-            <listitem><para>Use &SES; to send email reports of work items.</para></listitem>
-        </itemizedlist>
-    </para>
+    <itemizedlist>
+        <listitem><para>Build a Flask REST service that integrates with &AWS-services;.</para></listitem>
+        <listitem><para>Read, write, and update work items that are stored in an &AUR; Serverless database.</para></listitem>
+        <listitem><para>Create an &ASMlong; secret that contains database credentials and use it
+            to authenticate calls to the database.</para></listitem>
+        <listitem><para>Use &SES; to send email reports of work items.</para></listitem>
+    </itemizedlist>
     <para>
         For complete source code and instructions on how to set up and run, see the full example on
         <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/python/cross_service/aurora_item_tracker">GitHub</ulink>.

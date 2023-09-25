@@ -13,7 +13,31 @@
             <para>Code examples that show how to use &AWS-services; with &AWS; SDKs.</para>
         </abstract>
     </info>
-    <para>The following code examples show how to use &AWS-services; with an &AWS; software development kit (SDK).</para>
+    <para>The following code examples show you how to use &AWS-services; with an &AWS; software
+        development kit (SDK). This section is organized by SDK language.
+    </para>
+    {{- template "note_example_types" makeSlice 1 1 1}}
+    <itemizedlist>
+        <title>More resources</title>
+        <listitem>
+            <para>
+                <phrase role="topcom">
+                    <ulink url="https://aws.amazon.com/developer/code-examples/">
+                        &AWS; Developer Center
+                    </ulink>
+                </phrase>
+                &endash; Code examples that you can filter by category or full-text search.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                <phrase role="topcom">
+                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">&AWS; SDK Examples</ulink>
+                </phrase>
+                &endash; GitHub repo with complete code in preferred languages. Includes instructions for setting up and running the code.
+            </para>
+        </listitem>
+    </itemizedlist>
     <para role="topiclist-abbrev">Code examples</para>
     {{- range $sdk_examples := .}}
     {{- $sdk_ver := printf "%s_%s" $sdk_examples.LanguageSlug $sdk_examples.Version}}
@@ -32,8 +56,41 @@
                 <para>Code examples that show how to use {{$sdk_examples.SdkEntity.Long}} with &AWS;.</para>
             </abstract>
         </info>
-        <para>The code examples in this topic show you how to use the {{$sdk_examples.SdkEntity.Long}} with &AWS;.</para>
-        <para role="topiclist-abbrev">Examples</para>
+        <para>The following code examples show you how to use the {{$sdk_examples.SdkEntity.Long}} with &AWS;.</para>
+        {{- template "note_example_types" makeSlice 1 1 1}}
+        <itemizedlist>
+            <title>More resources</title>
+            <listitem>
+                <para>
+                    <phrase role="topcom">
+                        <ulink
+                        {{$sdk_examples.SdkGuide.DocType}} url="{{$sdk_examples.SdkGuide.Url}}">
+                        {{$sdk_examples.SdkEntity.Short}} Developer Guide
+                    </ulink>
+                </phrase>
+                &endash; More about using {{$sdk_examples.Language}} with &AWS;.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                <phrase role="topcom">
+                    <ulink url="https://aws.amazon.com/developer/code-examples/?awsf.sdk-code-examples-programming-language=programming-language%23{{$sdk_examples.DirectoryLanguageTag}}">
+                        &AWS; Developer Center
+                    </ulink>
+                </phrase>
+                &endash; Code examples that you can filter by category or full-text search.
+            </para>
+        </listitem>
+        <listitem>
+            <para>
+                <phrase role="topcom">
+                    <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples">&AWS; SDK Examples</ulink>
+                </phrase>
+                &endash; GitHub repo with complete code in preferred languages. Includes instructions for setting up and running the code.
+            </para>
+        </listitem>
+    </itemizedlist>
+    <para role="topiclist-abbrev">Examples</para>
         {{- template "sdk_api_examples" makeSlice $sdk_examples $sdk_ver}}
         {{- template "sdk_cross_examples" makeSlice $sdk_examples $sdk_ver}}
     </section>

@@ -6,6 +6,7 @@ Stub functions that are used by the Amazon SNS unit tests.
 """
 
 import json
+from botocore.stub import ANY
 from test_tools.example_stubber import ExampleStubber
 
 
@@ -29,9 +30,11 @@ class SnsStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_create_topic(self, topic_name, topic_arn, error_code=None):
+    def stub_create_topic(self, topic_name, topic_arn, topic_attributes=None, error_code=None):
         expected_params = {'Name': topic_name}
         response = {f'TopicArn': topic_arn}
+        if topic_attributes is not None:
+            expected_params['Attributes'] = topic_attributes
         self._stub_bifurcator(
             'create_topic', expected_params, response, error_code=error_code)
 
@@ -89,7 +92,7 @@ class SnsStubber(ExampleStubber):
 
     def stub_publish(
             self, message, message_id, topic_arn=None, phone_number=None, subject=None,
-            message_structure=None, message_attributes=None, error_code=None):
+            group_id=None, dedup_id=None, message_structure=None, message_attributes=None, error_code=None):
         expected_params = {'Message': message}
         if topic_arn is not None:
             expected_params['TopicArn'] = topic_arn
@@ -97,6 +100,10 @@ class SnsStubber(ExampleStubber):
             expected_params['PhoneNumber'] = phone_number
         if subject is not None:
             expected_params['Subject'] = subject
+        if group_id is not None:
+            expected_params['MessageGroupId'] = group_id
+        if dedup_id is not None:
+            expected_params['MessageDeduplicationId'] = ANY
         if message_structure is not None:
             expected_params['MessageStructure'] = message_structure
         if message_attributes is not None:
@@ -110,3 +117,4 @@ class SnsStubber(ExampleStubber):
         response = {'MessageId': message_id}
         self._stub_bifurcator(
             'publish', expected_params, response, error_code=error_code)
+

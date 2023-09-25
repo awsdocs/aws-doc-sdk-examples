@@ -43,5 +43,6 @@ namespace SearchFacesMatchingIdExample
             });
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.SearchFacesMatchingIdExample]
 }

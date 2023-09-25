@@ -17,6 +17,8 @@
     </info>
     <para>The following sample applications use the {{$examples.SdkEntity.Long}}
         to work across multiple &AWS-services;.</para>
+    <para>Cross-service examples target an advanced level of experience to help you start building applications.
+    </para>
     <para role="topiclist-abbrev">Examples</para>
     {{- end}}
     {{- range $examples.CrossServiceExamples}}

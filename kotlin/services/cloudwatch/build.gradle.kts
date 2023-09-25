@@ -23,9 +23,11 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:cloudwatch-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:cloudwatchevents-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:cloudwatchlogs-jvm:0.21.3-beta")
+    implementation("aws.sdk.kotlin:cloudwatch-jvm:0.30.1-beta")
+    implementation("aws.sdk.kotlin:cloudwatchevents-jvm:0.30.1-beta")
+    implementation("aws.sdk.kotlin:cloudwatchlogs-jvm:0.30.1-beta")
+    implementation("aws.sdk.kotlin:secretsmanager:0.30.1-beta")
+    implementation("com.google.code.gson:gson:2.10")
     implementation("com.fasterxml.jackson.core:jackson-core:2.14.2")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
