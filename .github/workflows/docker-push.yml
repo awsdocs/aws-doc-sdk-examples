@@ -206,3 +206,12 @@ jobs:
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
+      - name: Scan for vulnerabilities
+        if: contains(github.event.pull_request.labels.*.name, 'lang/swift')
+        env:
+          REPOSITORY: swift
+        id: scan
+        uses: crazy-max/ghaction-container-scan@v3
+        with:
+          image: $REPOSITORY:$IMAGE_TAG
+          dockerfile: ./Dockerfile
