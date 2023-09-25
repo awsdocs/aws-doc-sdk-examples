@@ -806,7 +806,6 @@ public class TranslateService {
 
 ```
 
-```
 ## Deploy the AWS resources
 
 At this point, you have completed all of the application Java business logic required for the FSA application to work. Now you need to deploy the AWS resources, including the AWS Lambda functions and API Gateway endpoints. 
