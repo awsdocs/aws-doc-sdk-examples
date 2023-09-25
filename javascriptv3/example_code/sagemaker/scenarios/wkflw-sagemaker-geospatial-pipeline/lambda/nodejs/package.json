@@ -1,0 +1,11 @@
+{
+  "name": "sdk-layer",
+  "version": "1.0.0",
+  "description": "Sagemaker client packages.",
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@aws-sdk/client-sagemaker": "^3.405.0",
+    "@aws-sdk/client-sagemaker-geospatial": "^3.405.0"
+  }
+}

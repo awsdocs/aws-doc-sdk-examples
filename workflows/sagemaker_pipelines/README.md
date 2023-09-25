@@ -20,9 +20,10 @@ These steps are completed using AWS SDKs as part of an interactive demo that run
 
 This example is implemented in the following languages:
 
-* [.NET](../../dotnetv3/SageMaker/Scenarios/README.md)
-* [Java](../../javav2/usecases/workflow_sagemaker_pipes/Readme.md)
-* [Kotlin](../../kotlin/usecases/workflow_sagemaker_pipes/Readme.md)
+- [.NET](../../dotnetv3/SageMaker/Scenarios/README.md)
+- [Java](../../javav2/usecases/workflow_sagemaker_pipes/Readme.md)
+- [Kotlin](../../kotlin/usecases/workflow_sagemaker_pipes/Readme.md)
+- [JavaScript](../../javascriptv3/example_code/sagemaker/scenarios/wkflw-sagemaker-geospatial-pipeline/README.md)
 
 ---
 
