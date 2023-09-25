@@ -1,11 +1,23 @@
 # syntax=docker/dockerfile:1
-# Status: Beta
-# GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4131
 FROM php:8.2-apache
 FROM composer/composer:latest
+
+# Update image
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy source code
 COPY . /php/
 WORKDIR /php
+
+# Set non-root user
+RUN useradd -m automation && \
+    chown -R automation:automation /php/
+USER automation:automation
+
+# Perform build steps
 RUN find . -name "composer.json" -not -path "*vendor*" -exec bash -c "dirname {} | xargs -I % composer install --working-dir=%" \;
-# Uncomment the following line to run all integration tests
-# RUN ./testing --integ
-CMD ["bash"]
+
+CMD ["./testing", "--integ"]

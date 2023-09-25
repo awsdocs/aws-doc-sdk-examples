@@ -1,18 +1,13 @@
 # syntax=docker/dockerfile:1
-# Status: Beta
-# GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4126 
 FROM mcr.microsoft.com/dotnet/sdk:6.0
 
-# Enable the .NET 5.0 SDK if running 5.0 examples:
+# Copy source code
+COPY . /dotnetv3/
+WORKDIR /dotnetv3
+
+# Perform build steps
 COPY --from=mcr.microsoft.com/dotnet/sdk:5.0 /usr/share/dotnet/sdk /usr/share/dotnet/sdk
 COPY --from=mcr.microsoft.com/dotnet/sdk:5.0 /usr/share/dotnet/shared /usr/share/dotnet/shared
+RUN dotnet build
 
-# Copy the dotnetv3 folder and run unit tests from the top level solution.
-# Or navigate to a service folder or a scenario folder,
-# such as dotnetv3/CloudWatch/Scenarios to build and run an interactive scenario with `dotnet run`
-COPY . /dotnetv3
-
-RUN cd /dotnetv3 && dotnet build
-
-CMD ["dotnet", "test", "dotnetv3", "--filter", "Category=Unit"]
-
+CMD ["dotnet", "test", "--filter", "Category=Unit"]

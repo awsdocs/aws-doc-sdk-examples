@@ -57,13 +57,6 @@ jobs:
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
 
-      - name: Scan for vulnerabilities
-        id: scan
-        uses: crazy-max/ghaction-container-scan@v3
-        with:
-          image: $REPOSITORY:latest
-          dockerfile: ./Dockerfile
-
       #################################
       ######   Docker Image:    #######
       ######      PYTHON        #######
@@ -213,10 +206,3 @@ jobs:
           docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
           docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
         continue-on-error: true
-
-      - name: Scan for vulnerabilities
-        id: scan
-        uses: crazy-max/ghaction-container-scan@v3
-        with:
-          image: $REPOSITORY:latest
-          dockerfile: ./Dockerfile
