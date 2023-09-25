@@ -207,7 +207,7 @@ export class SageMakerPipelinesWkflw {
       MESSAGES.creatingSQSQueue.replace("${QUEUE_NAME}", this.names.SQS_QUEUE)
     );
 
-    // Create SQS queue for the SageMaker pipeline.
+    // Create an SQS queue for the SageMaker pipeline.
     const {
       queueUrl,
       queueArn,
