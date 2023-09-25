@@ -215,7 +215,7 @@ CLI:
         short: "AWS CLI"
       guide: "cli/latest/userguide/cli-chap-welcome.html"
       title_override:
-        title: "AWS CLI command examples"
+        title: "&CLI; command examples"
         title_abbrev: "Command examples"
       api_ref:
         uid: "aws-cli"
@@ -232,7 +232,7 @@ Bash:
         short: "AWS CLI with Bash script"
       guide: "cli/latest/userguide/cli-chap-welcome.html"
       title_override:
-        title: "AWS CLI with Bash script code examples"
+        title: "&Bash; code examples"
         title_abbrev: "Bash script examples"
       api_ref:
         uid: "aws-cli"
