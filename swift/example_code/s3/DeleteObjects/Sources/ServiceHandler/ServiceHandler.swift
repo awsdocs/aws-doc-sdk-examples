@@ -10,7 +10,6 @@
 import Foundation
 import AWSS3
 import ClientRuntime
-import AWSClientRuntime
 // snippet-end:[s3.swift.deleteobjects.handler.imports]
 
 /// Errors returned by `ServiceHandler` functions.

@@ -4,7 +4,6 @@
 namespace CancelExportTaskExample
 {
     // snippet-start:[CloudWatchLogs.dotnetv3.CancelExportTaskExample]
-
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -42,5 +41,6 @@ namespace CancelExportTaskExample
             }
         }
     }
+
     // snippet-end:[CloudWatchLogs.dotnetv3.CancelExportTaskExample]
 }

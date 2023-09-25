@@ -45,13 +45,13 @@ namespace ListOrganizationalUnitsForParentExample
                     {
                         request.NextToken = response.NextToken;
                     }
-                } while (response.NextToken is not null);
+                }
+                while (response.NextToken is not null);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-
         }
 
         /// <summary>
@@ -66,5 +66,6 @@ namespace ListOrganizationalUnitsForParentExample
             Console.WriteLine(accountInfo);
         }
     }
+
     // snippet-end:[Organizations.dotnetv3.ListOrganizationalUnitsForParentExample]
 }

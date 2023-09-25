@@ -3,8 +3,8 @@
 
 // snippet-start:[Aurora.dotnetv3.AuroraClusterScenario]
 
-using Amazon.RDS.Model;
 using Amazon.RDS;
+using Amazon.RDS.Model;
 using AuroraActions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

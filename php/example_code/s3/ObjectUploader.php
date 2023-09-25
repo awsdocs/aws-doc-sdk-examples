@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -14,21 +15,20 @@
  *
  * ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
  * https://docs.aws.amazon.com/aws-sdk-php/v3/guide/service/s3-multipart-upload.html
- *
  */
+
 // snippet-start:[s3.php.objectuploader.complete]
 // snippet-start:[s3.php.objectuploader.import]
-
 require 'vendor/autoload.php';
 
-use Aws\S3\S3Client;
-use Aws\Exception\AwsException;
+use Aws\Exception\MultipartUploadException;
+use Aws\S3\MultipartUploader;
 use Aws\S3\ObjectUploader;
-
+use Aws\S3\S3Client;
 // snippet-end:[s3.php.objectuploader.import]
 
-// Create a S3Client
 // snippet-start:[s3.php.objectuploader.main]
+// Create an S3Client.
 $s3Client = new S3Client([
     'profile' => 'default',
     'region' => 'us-east-2',
@@ -38,7 +38,7 @@ $s3Client = new S3Client([
 $bucket = 'your-bucket';
 $key = 'my-file.zip';
 
-// Using stream instead of file path
+// Use a stream instead of a file path.
 $source = fopen('/path/to/large/file.zip', 'rb');
 
 $uploader = new ObjectUploader(
@@ -55,6 +55,8 @@ do {
             print('<p>File successfully uploaded to ' . $result["ObjectURL"] . '.</p>');
         }
         print($result);
+        // If the SDK chooses a multipart upload, try again if there is an exception.
+        // Unlike PutObject calls, multipart upload calls are not automatically retried.
     } catch (MultipartUploadException $e) {
         rewind($source);
         $uploader = new MultipartUploader($s3Client, $source, [
@@ -64,17 +66,5 @@ do {
 } while (!isset($result));
 
 fclose($source);
-
 // snippet-end:[s3.php.objectuploader.main]
 // snippet-end:[s3.php.objectuploader.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ObjectUploader.php demonstrates how to upload a large file to Amazon S3. Either PutObject or MultipartUploader will be used, depending on what is best based on the payload size.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon S3]
-// snippet-service:[s3]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2019-01-02]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]

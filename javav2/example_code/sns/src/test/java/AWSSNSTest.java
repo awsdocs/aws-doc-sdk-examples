@@ -4,22 +4,28 @@
 */
 import com.example.sns.*;
 import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 import software.amazon.awssdk.services.sns.SnsClient;
-import java.io.*;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import com.google.gson.Gson;
+import java.util.Random;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
+/**
+ * To run these integration tests, you must set the required values
+ * in the config.properties file or AWS Secrets Manager.
+ */
 @TestInstance(TestInstance.Lifecycle.PER_METHOD)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class AWSSNSTest {
-    public static final String DASHES = new String(new char[80]).replace("\0", "-");
     private static  SnsClient snsClient;
     private static String topicName = "";
-    private static String topicArn = ""; // This value is dynamically set.
-    private static String subArn = ""; // This value is dynamically set.
+    private static String topicArn = "";
+    private static String subArn = "";
     private static String attributeName= "";
     private static String attributeValue = "";
     private static String  email="";
@@ -28,21 +34,35 @@ public class AWSSNSTest {
     private static String message="";
 
     @BeforeAll
-    public static void setUp() throws IOException {
+    public static void setUp() {
+
         snsClient = SnsClient.builder()
-                .region(Region.US_EAST_1)
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .build();
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
 
+        Random random = new Random();
+        int randomNum = random.nextInt((10000 - 1) + 1) + 1;
+
+        // Get the values to run these tests from AWS Secrets Manager.
+        Gson gson = new Gson();
+        TestValues myValues = gson.fromJson(String.valueOf(getSecretValues()), TestValues.class);
+        topicName = myValues.getTopicName()+randomNum;
+        attributeName= myValues.getAttributeName();
+        attributeValue = myValues.getAttributeValue();
+        email= myValues.getEmail();
+        lambdaarn = myValues.getLambdaarn();
+        phone = myValues.getPhone();
+        message = myValues.getMessage();
+
+       // Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+       /*
         try (InputStream input = AWSSNSTest.class.getClassLoader().getResourceAsStream("config.properties")) {
-
             Properties prop = new Properties();
-
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
                 return;
             }
-            //load a properties file from class path, inside static method
             prop.load(input);
             topicName = prop.getProperty("topicName");
             attributeName= prop.getProperty("attributeName");
@@ -55,6 +75,7 @@ public class AWSSNSTest {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+        */
     }
 
     @Test
@@ -62,6 +83,7 @@ public class AWSSNSTest {
     @Order(1)
     public void createTopicTest() {
         topicArn = CreateTopic.createSNSTopic(snsClient, topicName);
+        assertFalse(topicArn.isEmpty());
         System.out.println("Test 1 passed");
     }
 
@@ -69,7 +91,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(2)
     public void listTopicsTest() {
-        ListTopics.listSNSTopics(snsClient);
+        assertDoesNotThrow(() ->ListTopics.listSNSTopics(snsClient));
         System.out.println("Test 2 passed");
     }
 
@@ -77,7 +99,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(3)
     public void setTopicAttributesTest() {
-        SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue );
+        assertDoesNotThrow(() ->SetTopicAttributes.setTopAttr(snsClient, attributeName, topicArn, attributeValue));
         System.out.println("Test 3 passed");
     }
 
@@ -85,7 +107,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(4)
     public void getTopicAttributesTest() {
-        GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn);
+        assertDoesNotThrow(() ->GetTopicAttributes.getSNSTopicAttributes(snsClient, topicArn));
         System.out.println("Test 4 passed");
     }
 
@@ -93,7 +115,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(5)
     public void subscribeEmailTest() {
-        SubscribeEmail.subEmail(snsClient, topicArn, email);
+        assertDoesNotThrow(() ->SubscribeEmail.subEmail(snsClient, topicArn, email));
         System.out.println("Test 5 passed");
     }
 
@@ -110,7 +132,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(7)
     public void useMessageFilterPolicyTest() {
-        UseMessageFilterPolicy.usePolicy(snsClient, subArn);
+        assertDoesNotThrow(() ->UseMessageFilterPolicy.usePolicy(snsClient, subArn));
         System.out.println("Test 7 passed");
     }
 
@@ -118,7 +140,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(8)
     public void addTagsTest() {
-        AddTags.addTopicTags(snsClient,topicArn );
+        assertDoesNotThrow(() ->AddTags.addTopicTags(snsClient,topicArn ));
         System.out.println("Test 8 passed");
     }
 
@@ -126,7 +148,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(9)
     public void listTagsTest() {
-        ListTags.listTopicTags(snsClient,topicArn);
+        assertDoesNotThrow(() ->ListTags.listTopicTags(snsClient,topicArn));
         System.out.println("Test 9 passed");
     }
 
@@ -134,7 +156,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(10)
     public void deleteTagTest() {
-        DeleteTag.removeTag(snsClient,topicArn, "Environment");
+        assertDoesNotThrow(() ->DeleteTag.removeTag(snsClient,topicArn, "Environment"));
         System.out.println("Test 10 passed");
     }
 
@@ -142,7 +164,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(11)
     public void unsubscribeTest() {
-        Unsubscribe.unSub(snsClient, subArn);
+        assertDoesNotThrow(() -> Unsubscribe.unSub(snsClient, subArn));
         System.out.println("Test 11 passed");
     }
 
@@ -150,7 +172,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(12)
     public void publishTopicTest() {
-        PublishTopic.pubTopic(snsClient, message, topicArn);
+        assertDoesNotThrow(() ->PublishTopic.pubTopic(snsClient, message, topicArn));
         System.out.println("Test 12 passed");
     }
 
@@ -158,7 +180,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(13)
     public void subscribeTextSMSTest() {
-        SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone);
+        assertDoesNotThrow(() ->SubscribeTextSMS.subTextSNS(snsClient, topicArn, phone));
         System.out.println("Test 13 passed");
     }
 
@@ -166,7 +188,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(14)
     public void publishTextSMSTest() {
-        PublishTextSMS.pubTextSMS(snsClient, message, phone);
+        assertDoesNotThrow(() ->PublishTextSMS.pubTextSMS(snsClient, message, phone));
         System.out.println("Test 14 passed");
     }
 
@@ -174,7 +196,7 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(15)
     public void listSubscriptionsTest() {
-        ListSubscriptions.listSNSSubscriptions(snsClient);
+        assertDoesNotThrow(() ->ListSubscriptions.listSNSSubscriptions(snsClient));
         System.out.println("Test 15 passed");
     }
 
@@ -182,8 +204,73 @@ public class AWSSNSTest {
     @Tag("IntegrationTest")
     @Order(16)
     public void DeleteTopic() {
-        DeleteTopic.deleteSNSTopic(snsClient, topicArn);
+        assertDoesNotThrow(() ->DeleteTopic.deleteSNSTopic(snsClient, topicArn));
         System.out.println("Test 16 passed");
     }
 
+    private static String getSecretValues() {
+        SecretsManagerClient secretClient = SecretsManagerClient.builder()
+            .region(Region.US_EAST_1)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+        String secretName = "test/sns";
+
+        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
+            .secretId(secretName)
+            .build();
+
+        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
+        return valueResponse.secretString();
+    }
+
+    @Nested
+    @DisplayName("A class used to get test values from test/sns, an AWS Secrets Manager secret")
+    class TestValues {
+        private String topicName;
+        private String attributeName;
+
+        private String attributeValue;
+
+        private String lambdaarn;
+
+        private String phone;
+
+        private String message;
+
+       private String email;
+
+        TestValues() {
+        }
+
+
+        //getter
+        String getTopicName(){
+            return this.topicName;
+        }
+
+        String getAttributeName(){
+            return this.attributeName;
+        }
+
+        String getAttributeValue(){
+            return this.attributeValue;
+        }
+
+
+        String getLambdaarn(){
+            return this.lambdaarn;
+        }
+
+        String getPhone(){
+            return this.phone;
+        }
+
+        String getMessage(){
+            return this.message;
+        }
+
+        String getEmail(){
+            return this.email;
+        }
+    }
 }

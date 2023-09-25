@@ -1,10 +1,10 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using DynamoDB_Actions;
+
 namespace DynamoDB_Basics_Scenario.Tests
 {
-
-    [TestCaseOrderer("OrchestrationService.Project.Orderers.PriorityOrderer", "OrchestrationService.Project")]
     public class DynamoDbMethodsTests
     {
         readonly AmazonDynamoDBClient client = new();

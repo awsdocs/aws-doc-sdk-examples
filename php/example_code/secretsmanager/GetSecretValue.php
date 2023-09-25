@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -11,18 +12,15 @@
  * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
- * If you need more information about configurations or implementing the sample code, visit the AWS docs:
- * https://aws.amazon.com/developers/getting-started/php/
- *
  */
+
 // snippet-start:[secretsmanager.php.get_secret_value.complete]
 // snippet-start:[secretsmanager.php.get_secret_value.import]
-
 require 'vendor/autoload.php';
 
-use Aws\SecretsManager\SecretsManagerClient; 
+use Aws\SecretsManager\SecretsManagerClient;
 use Aws\Exception\AwsException;
+
 // snippet-end:[secretsmanager.php.get_secret_value.import]
 
 /**
@@ -34,21 +32,20 @@ use Aws\Exception\AwsException;
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials.html
  */
 
-// Create a Secrets Manager Client 
+// Create a Secrets Manager Client
 // snippet-start:[secretsmanager.php.get_secret_value.main]
 $client = new SecretsManagerClient([
     'profile' => 'default',
     'version' => '2017-10-17',
-    'region' => '<<{{MyRegionName}}>>',
+    'region' => 'us-east-1',
 ]);
 
-$secretName = '<<{{MySecretName}}>>';
+$secretName = 'MySecretName';
 
 try {
     $result = $client->getSecretValue([
         'SecretId' => $secretName,
     ]);
-
 } catch (AwsException $e) {
     $error = $e->getAwsErrorCode();
     if ($error == 'DecryptionFailureException') {
@@ -84,20 +81,11 @@ if (isset($result['SecretString'])) {
 } else {
     $secret = base64_decode($result['SecretBinary']);
 }
+print $secret;
+$secretArray = json_decode($secret, true);
+$username = $secretArray['username'];
+$password = $secretArray['password'];
 
-// Your code goes here; 
- 
+// Your code goes here;
 // snippet-end:[secretsmanager.php.get_secret_value.main]
 // snippet-end:[secretsmanager.php.get_secret_value.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GetSecretValue demonstrates how to retrieve a secret from AWS Secrets Manager]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[AWS Secrets Manager]
-// snippet-service:[secretsmanager]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-09-25]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
-

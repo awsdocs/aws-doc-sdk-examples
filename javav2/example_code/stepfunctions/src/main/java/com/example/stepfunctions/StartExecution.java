@@ -33,7 +33,6 @@ import java.util.UUID;
 public class StartExecution {
 
     public static void main(String[] args) {
-
         final String usage = "\n" +
             "Usage:\n" +
             "    <stateMachineArn> <jsonFile>\n\n" +
@@ -59,14 +58,11 @@ public class StartExecution {
            sfnClient.close();
         }
 
-        // snippet-start:[stepfunctions.java2.start_execute.main]
     public static String startWorkflow(SfnClient sfnClient, String stateMachineArn, String jsonFile) {
-
         String json = getJSONString(jsonFile);
         UUID uuid = UUID.randomUUID();
         String uuidValue = uuid.toString();
         try {
-
             StartExecutionRequest executionRequest = StartExecutionRequest.builder()
                 .input(json)
                 .stateMachineArn(stateMachineArn)
@@ -84,7 +80,6 @@ public class StartExecution {
     }
 
     private static String getJSONString(String path) {
-
         try {
             JSONParser parser = new JSONParser();
             JSONObject data = (JSONObject) parser.parse(new FileReader(path));//path to the JSON file.
@@ -96,6 +91,5 @@ public class StartExecution {
         }
         return "";
     }
-    // snippet-end:[stepfunctions.java2.start_execute.main]
  }
 

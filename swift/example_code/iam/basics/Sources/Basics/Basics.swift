@@ -30,7 +30,6 @@ import AWSIAM
 import AWSSTS
 import AWSS3
 import ClientRuntime
-import AWSClientRuntime
 // snippet-end:[iam.swift.basics.main.imports]
 
 @testable import ServiceHandler

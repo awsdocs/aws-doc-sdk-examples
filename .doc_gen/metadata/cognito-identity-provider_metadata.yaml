@@ -1,4 +1,32 @@
 # zexi 0.4.0
+cognito-identity-provider_Hello:
+  title: Hello &COG;
+  title_abbrev: Hello &COG;
+  synopsis: get started using &COG;.
+  category: Hello
+  languages:
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cognito/hello_cognito
+          excerpts:
+            - description: Code for the CMakeLists.txt CMake file.
+              snippet_tags:
+                - cpp.example_code.cognito.hello_cognito.cmake
+            - description: Code for the hello_cognito.cpp source file.
+              snippet_tags:
+                - cpp.example_code.cognito.hello_cognito
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cognito
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.cognito.hello
+  services:
+    cognito-identity-provider: {ListUserPools}
 cognito-identity-provider_ListUserPools:
   title: List the &COG; user pools using an &AWS; SDK
   title_abbrev: List the user pools
@@ -16,7 +44,7 @@ cognito-identity-provider_ListUserPools:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/cognitoidentityprovider
+          github: rust_dev_preview/examples/cognitoidentityprovider
           excerpts:
             - description:
               snippet_tags:
@@ -669,15 +697,6 @@ cognito-identity-provider_RespondToAuthChallenge:
   synopsis: respond to &COG; SRP authentication challenges.
   category:
   languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/Cognito
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - Cognito.dotnetv3.RespondToAuthChallenge
     Python:
       versions:
         - sdk_version: 3
@@ -736,10 +755,8 @@ cognito-identity-provider_Scenario_SignUpUserWithMfa:
           excerpts:
             - description:
               snippet_tags:
-                - Cognito.dotnetv3.Usings
                 - Cognito.dotnetv3.Main
                 - Cognito.dotnetv3.CognitoWrapper
-                - Cognito.dotnetv3.UIMethods
     Kotlin:
       versions:
         - sdk_version: 1

@@ -1,0 +1,105 @@
+# zexi 0.4.0
+opensearch_CreateDomain:
+  title: Create an &ES; domain by using an &AWS; SDK
+  title_abbrev: Create a domain
+  synopsis: create an &ES; domain.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.kotlin.create_domain.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.create_domain.main
+  services:
+    opensearch: {CreateDomain}
+opensearch_DeleteDomain:
+  title: Delete an &ES; domain by using an &AWS; SDK
+  title_abbrev: Delete a domain
+  synopsis: delete an &ES; domain.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.kotlin.delete_domain.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.delete_domain.main
+  services:
+    opensearch: {DeleteDomain}    
+opensearch_ListDomainNames:
+  title: List &ES; domains by using an &AWS; SDK
+  title_abbrev: List domains
+  synopsis: list &ES; domains.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.kotlin.list_domains.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.list_domains.main
+  services:
+    opensearch: {ListDomainNames}
+opensearch_UpdateDomainConfig:
+  title: Modify a cluster configuration of the specified &ES; domain by using an &AWS; SDK
+  title_abbrev: Modify a cluster configuration
+  synopsis: modify a cluster configuration of an &ES; domain.
+  category:
+  languages:
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.kotlin.update_domain.main
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/opensearch
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - opensearch.java2.update_domain.main
+  services:
+    opensearch: {UpdateDomainConfig}

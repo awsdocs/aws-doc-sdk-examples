@@ -13,5 +13,3 @@ var request = new PutRuleRequest
 };
 
 var response = await client.PutRuleAsync(request);
-
-

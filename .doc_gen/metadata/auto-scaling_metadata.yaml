@@ -22,6 +22,33 @@ auto-scaling_Hello:
             - description:
               snippet_tags:
                 - php.example_code.auto-scaling.basics.helloService
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.example_code.auto-scaling.Hello
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/autoscaling
+          excerpts:
+            - description:
+              snippet_tags:
+                - autoscaling.rust.list-autoscaling-groups
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/autoscaling/hello_autoscaling
+          excerpts:
+            - description: Code for the CMakeLists.txt CMake file.
+              snippet_tags:
+                - cpp.example_code.autoscaling.hello_autoscaling.cmake
+            - description: Code for the hello_autoscaling.cpp source file.
+              snippet_tags:
+                - cpp.example_code.autoscaling.hello_autoscaling
   services:
     auto-scaling: {DescribeAutoScalingGroups}
 auto-scaling_CreateAutoScalingGroup:
@@ -74,7 +101,7 @@ auto-scaling_CreateAutoScalingGroup:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/autoscaling
+          github: rust_dev_preview/examples/autoscaling
           excerpts:
             - description:
               snippet_tags:
@@ -135,14 +162,15 @@ auto-scaling_DeleteAutoScalingGroup:
         - sdk_version: 3
           github: python/example_code/auto-scaling
           excerpts:
-            - description:
+            - description: Update the minimum size of an Auto Scaling group to zero, terminate all
+                instances in the group, and delete the group.
               snippet_tags:
-                - python.example_code.auto-scaling.AutoScalingWrapper.decl
-                - python.example_code.auto-scaling.DeleteAutoScalingGroup
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.auto-scaling.DeleteAutoScalingGroup
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/autoscaling
+          github: rust_dev_preview/examples/autoscaling
           excerpts:
             - description:
               snippet_tags:
@@ -209,7 +237,7 @@ auto-scaling_DescribeAutoScalingGroups:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/autoscaling
+          github: rust_dev_preview/examples/autoscaling
           excerpts:
             - description:
               snippet_tags:
@@ -276,7 +304,7 @@ auto-scaling_UpdateAutoScalingGroup:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/autoscaling
+          github: rust_dev_preview/examples/autoscaling
           excerpts:
             - description:
               snippet_tags:
@@ -554,7 +582,7 @@ auto-scaling_EnableMetricsCollection:
           github: kotlin/services/autoscale
           excerpts:
             - description:
-              snippet_tags: 
+              snippet_tags:
                 - autoscale.kotlin.enable_collection.main
     Java:
       versions:
@@ -616,7 +644,7 @@ auto-scaling_DisableMetricsCollection:
           github: kotlin/services/autoscale
           excerpts:
             - description:
-              snippet_tags: 
+              snippet_tags:
                 - autoscale.kotlin.disable_collection.main
     Java:
       versions:
@@ -666,6 +694,24 @@ auto-scaling_DisableMetricsCollection:
                 - cpp.example_code.autoscaling.disable_metrics_collection2
   services:
     auto-scaling: {DisableMetricsCollection}
+auto-scaling_AttachLoadBalancerTargetGroups:
+  title: Attach an ELB target group to an &AS; group using an &AWS; SDK
+  title_abbrev: Attach an ELB target group to an Auto Scaling group
+  synopsis: attach an ELB target group to an &AS; group.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/auto-scaling
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.auto-scaling.AttachLoadBalancerTargetGroups
+  services:
+    auto-scaling: {AttachLoadBalancerTargetGroups}
 auto-scaling_Scenario_GroupsAndInstances:
   title: Manage &AS; groups and instances using an &AWS; SDK
   title_abbrev: Manage groups and instances
@@ -706,7 +752,7 @@ auto-scaling_Scenario_GroupsAndInstances:
           excerpts:
             - description:
               snippet_tags:
-                - autoscale.kotlin.create_scaling_scenario.main 
+                - autoscale.kotlin.create_scaling_scenario.main
     Java:
       versions:
         - sdk_version: 2
@@ -715,7 +761,7 @@ auto-scaling_Scenario_GroupsAndInstances:
           excerpts:
             - description:
               snippet_tags:
-                - autoscale.java2.create_scaling_scenario.main  
+                - autoscale.java2.create_scaling_scenario.main
     PHP:
       versions:
         - sdk_version: 3
@@ -747,7 +793,16 @@ auto-scaling_Scenario_GroupsAndInstances:
               snippet_tags:
                 - cpp.example_code.autoscaling.groups_and_instances_scenario
   services:
-    auto-scaling: {CreateAutoScalingGroup, DeleteAutoScalingGroup, DisableMetricsCollection,
-                   EnableMetricsCollection, DescribeAutoScalingGroups, DescribeAutoScalingInstances,
-                   DescribeScalingActivities, SetDesiredCapacity, TerminateInstanceInAutoScalingGroup,
-                   UpdateAutoScalingGroup}
+    auto-scaling:
+      {
+        CreateAutoScalingGroup,
+        DeleteAutoScalingGroup,
+        DisableMetricsCollection,
+        EnableMetricsCollection,
+        DescribeAutoScalingGroups,
+        DescribeAutoScalingInstances,
+        DescribeScalingActivities,
+        SetDesiredCapacity,
+        TerminateInstanceInAutoScalingGroup,
+        UpdateAutoScalingGroup,
+      }

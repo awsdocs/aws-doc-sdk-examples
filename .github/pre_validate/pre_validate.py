@@ -68,7 +68,8 @@ IGNORE_FOLDERS = {
     'venv',
     '.venv', 
     'bin',
-    'obj'
+    'obj',
+    '.doc_gen',
 }
 
 # Files to skip.
@@ -190,7 +191,15 @@ ALLOW_LIST = {
     'com/redshift/latest/APIReference/Welcome',
     'src/main/java/com/example/sns/ListOptOut',
     'src/main/java/com/example/sns/ListTopics',
-    'src/main/java/com/example/sqs/SQSExample'
+    'src/main/java/com/example/sqs/SQSExample',
+    'DescribeOrderableDBInstanceOptionsOutput',
+    'preview/examples/cognitoidentityprovider',
+    'preview/examples/lambda/src/bin/scenario',
+    'aws/dynamodb/model/BatchWriteItemRequest',
+    'aws/rds/model/DescribeDBInstancesRequest',
+    'aws/rds/model/DescribeDBSnapshotsRequest',
+    'role/AmazonSageMakerGeospatialFullAccess',
+    'VectorEnrichmentJobDataSourceConfigInput',
 }
 
 def check_files(root, quiet):

@@ -9,7 +9,6 @@
 
 package com.example.ec2;
 
-// snippet-start:[ec2.java2.create_instance.import]
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ec2.Ec2Client;
@@ -17,7 +16,6 @@ import software.amazon.awssdk.services.ec2.model.CreateVolumeRequest;
 import software.amazon.awssdk.services.ec2.model.CreateVolumeResponse;
 import software.amazon.awssdk.services.ec2.model.VolumeType;
 import software.amazon.awssdk.services.ec2.model.Ec2Exception;
-// snippet-end:[ec2.java2.create_instance.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -32,7 +30,6 @@ import software.amazon.awssdk.services.ec2.model.Ec2Exception;
  */
 public class CreateVolume {
     public static void main(String[] args) {
-
         ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
         Region region = Region.US_EAST_1;
         Ec2Client ec2 = Ec2Client.builder()

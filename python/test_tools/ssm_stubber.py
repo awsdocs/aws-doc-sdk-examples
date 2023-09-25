@@ -32,13 +32,16 @@ class SsmStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_send_command(self, instance_ids, commands, command_id, error_code=None):
+    def stub_send_command(self, instance_ids, commands, command_id=None, timeout=3600, error_code=None):
         expected_parameters = {
             'InstanceIds': instance_ids,
             'DocumentName': 'AWS-RunShellScript',
-            'Parameters': {'commands': commands},
-            'TimeoutSeconds': 3600}
-        response = {'Command': {'CommandId': command_id}}
+            'Parameters': {'commands': commands}}
+        if timeout is not None:
+            expected_parameters['TimeoutSeconds'] = timeout
+        response = {}
+        if command_id is not None:
+            response['Command'] = {'CommandId': command_id}
         self._stub_bifurcator(
             'send_command', expected_parameters, response, error_code=error_code)
 
@@ -54,3 +57,21 @@ class SsmStubber(ExampleStubber):
         response = {'Parameters': [{'Name': name, 'Value': value} for name, value in zip(names, values)]}
         self._stub_bifurcator(
             'get_parameters_by_path', expected_params, response, error_code=error_code)
+
+    def stub_get_parameter(self, name, value, error_code=None):
+        expected_params = {'Name': name}
+        response = {'Parameter': {'Value': value}}
+        self._stub_bifurcator(
+            'get_parameter', expected_params, response, error_code=error_code)
+
+    def stub_put_parameter(self, name, value, error_code=None):
+        expected_params = {'Name': name, 'Value': value, 'Overwrite': True}
+        response = {}
+        self._stub_bifurcator(
+            'put_parameter', expected_params, response, error_code=error_code)
+
+    def stub_describe_instance_information(self, instance_ids, error_code=None):
+        expected_params = {}
+        response = {'InstanceInformationList': [{'InstanceId': instance_id} for instance_id in instance_ids]}
+        self._stub_bifurcator(
+            'describe_instance_information', expected_params, response, error_code=error_code)

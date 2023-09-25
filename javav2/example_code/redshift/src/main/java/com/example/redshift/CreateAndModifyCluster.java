@@ -9,6 +9,8 @@
 package com.example.redshift;
 
 // snippet-start:[redshift.java2.create_cluster.import]
+import com.google.gson.Gson;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.redshift.RedshiftClient;
@@ -20,6 +22,10 @@ import software.amazon.awssdk.services.redshift.model.DescribeClustersResponse;
 import software.amazon.awssdk.services.redshift.model.Cluster;
 import software.amazon.awssdk.services.redshift.model.ModifyClusterResponse;
 import software.amazon.awssdk.services.redshift.model.ModifyClusterRequest;
+import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
+import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
+
 import java.util.List;
 // snippet-end:[redshift.java2.create_cluster.import]
 
@@ -29,6 +35,11 @@ import java.util.List;
  * For more information, see the following documentation topic:
  *
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+ *
+ * This example requires an AWS Secrets Manager secret that contains the database credentials. If you do not create a
+ * secret, this example will not work. For details, see:
+ *
+ * https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
  */
 
 public class CreateAndModifyCluster {
@@ -42,8 +53,7 @@ public class CreateAndModifyCluster {
             "    <clusterId> <masterUsername> <masterUserPassword> \n\n" +
             "Where:\n" +
             "    clusterId - The id of the cluster to create. \n" +
-            "    masterUsername - The master user name. \n" +
-            "    masterUserPassword - The password that corresponds to the master user name. \n" ;
+            "    secretName - The name of the AWS Secrets Manager secret that contains the database credentials" ;
 
         if (args.length != 3) {
             System.out.println(usage);
@@ -51,30 +61,46 @@ public class CreateAndModifyCluster {
         }
 
         String clusterId = args[0];
-        String masterUsername = args[1];
-        String masterUserPassword = args[2];
-
+        String secretName = args[0];
+        Gson gson = new Gson();
+        User user = gson.fromJson(String.valueOf(getSecretValues(secretName)), User.class);
         Region region = Region.US_WEST_2;
         RedshiftClient redshiftClient = RedshiftClient.builder()
             .region(region)
             .credentialsProvider(ProfileCredentialsProvider.create())
             .build();
 
-        createCluster(redshiftClient,clusterId, masterUsername, masterUserPassword );
+        createCluster(redshiftClient,clusterId, user.getMasterUsername(), user.getMasterUserPassword() );
         waitForClusterReady(redshiftClient, clusterId);
         modifyCluster(redshiftClient, clusterId);
         redshiftClient.close();
     }
 
+    public static String getSecretValues(String secretName) {
+        SecretsManagerClient secretClient = getSecretClient();
+        GetSecretValueRequest valueRequest = GetSecretValueRequest.builder()
+            .secretId(secretName)
+            .build();
+
+        GetSecretValueResponse valueResponse = secretClient.getSecretValue(valueRequest);
+        return valueResponse.secretString();
+    }
+    private static SecretsManagerClient getSecretClient() {
+        Region region = Region.US_WEST_2;
+        return SecretsManagerClient.builder()
+            .region(region)
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .build();
+    }
+
     // snippet-start:[redshift.java2.create_cluster.main]
     public static void createCluster(RedshiftClient redshiftClient, String clusterId, String masterUsername, String masterUserPassword ) {
-
         try {
             CreateClusterRequest clusterRequest = CreateClusterRequest.builder()
                 .clusterIdentifier(clusterId)
                 .masterUsername(masterUsername) // set the user name here
                 .masterUserPassword(masterUserPassword) // set the user password here
-                .nodeType("ds2.xlarge")
+                .nodeType("dc2.large")
                 .publiclyAccessible(true)
                 .numberOfNodes(2)
                 .build();

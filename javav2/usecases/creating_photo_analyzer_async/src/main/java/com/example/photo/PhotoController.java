@@ -22,20 +22,27 @@ import java.util.*;
 public class PhotoController {
 
     // Change to your Bucket Name
-    private String bucketName = "<YOUR BUCKET>";
+    private final String bucketName = "<Enter your S3 bucket name>";
+
+    private final S3Service s3Service;
+    private final AnalyzePhotos photos;
+
+    private final  WriteExcel excel;
+
+    private final SendMessages sendMessage;
 
     @Autowired
-    S3Service s3Client;
-
-    @Autowired
-    AnalyzePhotos photos;
-
-    @Autowired
-    WriteExcel excel ;
-
-   @Autowired
-   SendMessages sendMessage;
-
+    PhotoController(
+        S3Service s3Service,
+        AnalyzePhotos photos,
+        WriteExcel excel,
+        SendMessages sendMessage
+    ) {
+        this.s3Service = s3Service;
+        this.photos = photos;
+        this.excel = excel;
+        this.sendMessage = sendMessage;
+    }
 
     @GetMapping("/")
     public String root() {
@@ -55,49 +62,39 @@ public class PhotoController {
     // Generates a report that analyzes photos in a given bucket.
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     @ResponseBody
-    String test (HttpServletRequest request, HttpServletResponse response) {
-
-        String email = request.getParameter("email");
-        List<List> myList = new ArrayList<List>();
-
+    String report (HttpServletRequest request, HttpServletResponse response) {
         // Get a list of key names in the given bucket.
-        List myKeys =  s3Client.ListBucketObjects(bucketName);
-        for (Object myKey : myKeys) {
-
-            String key = (String) myKey;
-            byte[] data = s3Client.getObjectBytes(bucketName, key);
-
-            //Analyze the photo.
-            ArrayList item = photos.DetectLabels(data, key);
+        String email = request.getParameter("email");
+        ArrayList<String> myKeys = (ArrayList<String>) s3Service.ListBucketObjects(bucketName);
+        ArrayList<List<WorkItem>> myList = new ArrayList<>();
+        for (String myKey : myKeys) {
+            byte[] keyData = s3Service.getObjectBytes(bucketName, myKey);
+            ArrayList<WorkItem> item = photos.DetectLabels(keyData, myKey);
             myList.add(item);
         }
 
-        // Now we have a list of WorkItems that have all of the analytical data describing the photos in the S3 bucket.
+        // Now we have a list of WorkItems describing the photos in the S3 bucket.
         InputStream excelData = excel.exportExcel(myList);
-
         try {
             // Email the report.
             sendMessage.sendReport(excelData, email);
 
         } catch (Exception e) {
-
             e.printStackTrace();
         }
-        return "The photos have been analyzed and the report is sent to "+email;
+        return "The photos have been analyzed and the report is sent";
     }
 
     // Upload an image to an Amazon S3 bucket.
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public ModelAndView singleFileUpload(@RequestParam("file") MultipartFile file) {
-
         try {
-
             byte[] bytes = file.getBytes();
             String name =  file.getOriginalFilename() ;
 
             // Put the file into the bucket.
-            s3Client.putObject(bytes, bucketName, name);
+            s3Service.putObject(bytes, bucketName, name);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,19 +105,15 @@ public class PhotoController {
     @RequestMapping(value = "/getimages", method = RequestMethod.GET)
     @ResponseBody
     String getImages(HttpServletRequest request, HttpServletResponse response) {
-
-        return s3Client.ListAllObjects(bucketName);
-
+        return s3Service.ListAllObjects(bucketName);
     }
 
-
-    // This controller method downloads the given image from the Amazon S3 bucket.
+    // Downloads the given image from the Amazon S3 bucket.
     @RequestMapping(value = "/downloadphoto", method = RequestMethod.GET)
     void buildDynamicReportDownload(HttpServletRequest request, HttpServletResponse response) {
         try {
-
             String photoKey = request.getParameter("photoKey");
-            byte[] photoBytes = s3Client.getObjectBytes(bucketName, photoKey) ;
+            byte[] photoBytes = s3Service.getObjectBytes(bucketName, photoKey) ;
             InputStream is = new ByteArrayInputStream(photoBytes);
 
             // Define the required information here.

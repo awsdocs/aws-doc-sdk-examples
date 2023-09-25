@@ -1,0 +1,38 @@
+name: "Audit Labels"
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+jobs:
+  label-linter:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+      
+      # The Audit Labels workflow creates, renames, updates
+      # or deletes labels based on a list of allowed labels.
+      #
+      # To use this workflow, you must set up and configure 
+      # labels in a .github/allowed-labels.yml file
+      #
+      # For more information, see:
+      # https://github.com/crazy-max/ghaction-github-labeler
+      -
+        name: Audit Labels
+        if: success()
+        uses: crazy-max/ghaction-github-labeler@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          yaml-file: .github/allowed-labels.yml
+          skip-delete: false
+          dry-run: false

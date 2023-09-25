@@ -63,8 +63,8 @@ class SnsWrapper:
             return topics_iter
 # snippet-end:[python.example_code.sns.ListTopics]
 
-    @staticmethod
 # snippet-start:[python.example_code.sns.DeleteTopic]
+    @staticmethod
     def delete_topic(topic):
         """
         Deletes a topic. All subscriptions to the topic are also deleted.
@@ -77,8 +77,8 @@ class SnsWrapper:
             raise
 # snippet-end:[python.example_code.sns.DeleteTopic]
 
-    @staticmethod
 # snippet-start:[python.example_code.sns.Subscribe]
+    @staticmethod
     def subscribe(topic, protocol, endpoint):
         """
         Subscribes an endpoint to the topic. Some endpoint types, such as email,
@@ -127,8 +127,8 @@ class SnsWrapper:
             return subs_iter
 # snippet-end:[python.example_code.sns.ListSubscriptions]
 
-    @staticmethod
 # snippet-start:[python.example_code.sns.SetSubscriptionAttributes]
+    @staticmethod
     def add_subscription_filter(subscription, attributes):
         """
         Adds a filter policy to a subscription. A filter policy is a key and a
@@ -149,8 +149,8 @@ class SnsWrapper:
             raise
 # snippet-end:[python.example_code.sns.SetSubscriptionAttributes]
 
-    @staticmethod
 # snippet-start:[python.example_code.sns.Unsubscribe]
+    @staticmethod
     def delete_subscription(subscription):
         """
         Unsubscribes and deletes a subscription.
@@ -187,8 +187,8 @@ class SnsWrapper:
             return message_id
 # snippet-end:[python.example_code.sns.Publish_TextMessage]
 
-    @staticmethod
 # snippet-start:[python.example_code.sns.Publish_MessageAttributes]
+    @staticmethod
     def publish_message(topic, message, attributes):
         """
         Publishes a message, with attributes, to a topic. Subscriptions can be filtered
@@ -220,8 +220,8 @@ class SnsWrapper:
             return message_id
 # snippet-end:[python.example_code.sns.Publish_MessageAttributes]
 
-    @staticmethod
 # snippet-start:[python.example_code.sns.Publish_MessageStructure]
+    @staticmethod
     def publish_multi_message(
             topic, subject, default_message, sms_message, email_message):
         """

@@ -63,4 +63,3 @@ public partial class RDSWrapper
     // snippet-end:[RDS.dotnetv3.DescribeDBSnapshots]
     // snippet-end:[RDS.dotnetv3.RdsInstanceWrapperSnapshots]
 }
-

@@ -8,7 +8,7 @@
 /// Region, supply it as a parameter to the Amazon Polly constructor.
 ///
 /// This example was created using the AWS SDK for .NET version 3.7 and
-/// .NET Core 5.0. 
+/// .NET Core 5.0.
 /// </summary>
 namespace ListLexiconsExample
 {

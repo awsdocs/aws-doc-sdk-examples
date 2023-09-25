@@ -1,0 +1,2 @@
+glue_service_role: 'AWSGlueServiceRole-DocExample'
+glue_bucket: 'doc-example-glue-scenario-docexampleglue6e2f12e5-uemaws71zuxr'

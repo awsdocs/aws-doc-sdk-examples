@@ -5,6 +5,14 @@ dynamodb_Hello:
   synopsis: get started using &DDB;.
   category: Hello
   languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - DynamoDB.dotnetv3.HelloDynamoDB
     JavaScript:
       versions:
         - sdk_version: 3
@@ -14,6 +22,17 @@ dynamodb_Hello:
             - description:
               snippet_tags:
                 - javascript.v3.dynamodb.hello 
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/dynamodb/hello_dynamodb
+          excerpts:
+            - description: Code for the CMakeLists.txt CMake file.
+              snippet_tags:
+                - cpp.example_code.dynamodb.hello_dynamodb.cmake
+            - description: Code for the hello_dynamodb.cpp source file.
+              snippet_tags:
+                - cpp.example_code.dynamodb.hello_dynamodb
   services:
     dynamodb: {ListTables}
 dynamodb_CreateTable:
@@ -97,7 +116,7 @@ dynamodb_CreateTable:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/dynamodb
+          github: rust_dev_preview/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -126,6 +145,19 @@ dynamodb_CreateTable:
             - description:
               snippet_tags:
                 - ddb.swift.basics.createtable
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.CreateTable
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {CreateTable}
 dynamodb_BatchGetItem:
@@ -158,7 +190,8 @@ dynamodb_BatchGetItem:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write-batch.html#dynamodb-example-table-read-write-batch-reading
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/BatchGetCommand/">BatchGet</ulink>.
               snippet_tags:
                 - javascript.v3.dynamodb.doc-client.BatchGet
         - sdk_version: 2
@@ -185,6 +218,18 @@ dynamodb_BatchGetItem:
             - description:
               snippet_tags:
                 - ddb.swift.batchgetitem.batchget
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.BatchGetItem
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {BatchGetItem}
 dynamodb_DescribeTable:
@@ -262,6 +307,18 @@ dynamodb_DescribeTable:
               snippet_tags:
                 - ruby.example_code.dynamodb.Scaffold
                 - ruby.example_code.dynamodb.DescribeTable
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.DescribeTable
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {DescribeTable}
 dynamodb_BatchWriteItem:
@@ -319,7 +376,8 @@ dynamodb_BatchWriteItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/BatchWriteCommand/">BatchWrite</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.movies.batchwriteV3
         - sdk_version: 2
@@ -355,6 +413,19 @@ dynamodb_BatchWriteItem:
             - description:
               snippet_tags:
                 - ddb.swift.basics.populate
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.BatchWriteItem
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {BatchWriteItem}
 dynamodb_DeleteTable:
@@ -437,7 +508,7 @@ dynamodb_DeleteTable:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/dynamodb
+          github: rust_dev_preview/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -465,6 +536,19 @@ dynamodb_DeleteTable:
             - description:
               snippet_tags:
                 - ddb.swift.basics.deletetable
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.DeleteTable
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {DeleteTable}
 dynamodb_PutItem:
@@ -548,7 +632,7 @@ dynamodb_PutItem:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/dynamodb
+          github: rust_dev_preview/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -558,7 +642,8 @@ dynamodb_PutItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description: 
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/PutCommand/">PutCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.putV3
         - sdk_version: 2
@@ -580,6 +665,19 @@ dynamodb_PutItem:
               snippet_tags:
                 - ddb.swift.basics.add-movie
                 - ddb.swift.basics.movie.getasitem
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.PutItem
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {PutItem}
 dynamodb_GetItem:
@@ -665,7 +763,8 @@ dynamodb_GetItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/GetCommand/">GetCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.getV3
         - sdk_version: 2
@@ -686,6 +785,18 @@ dynamodb_GetItem:
             - description:
               snippet_tags:
                 - ddb.swift.basics.get
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.GetItem
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {GetItem}
 dynamodb_UpdateItem:
@@ -781,7 +892,8 @@ dynamodb_UpdateItem:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/UpdateCommand/">UpdateCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.updateV3
     Swift:
@@ -792,6 +904,19 @@ dynamodb_UpdateItem:
             - description:
               snippet_tags:
                 - ddb.swift.basics.update
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.UpdateItem
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {UpdateItem}
 dynamodb_DeleteItem:
@@ -864,7 +989,7 @@ dynamodb_DeleteItem:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/dynamodb
+          github: rust_dev_preview/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -884,7 +1009,8 @@ dynamodb_DeleteItem:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-table-read-write.html#dynamodb-example-table-read-write-deleting-an-item
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/DeleteCommand/">DeleteCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.deleteV3
         - sdk_version: 2
@@ -914,6 +1040,19 @@ dynamodb_DeleteItem:
             - description:
               snippet_tags:
                 - ddb.swift.basics.delete
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.DeleteItem
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {DeleteItem}
 dynamodb_ListTables:
@@ -997,7 +1136,7 @@ dynamodb_ListTables:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/dynamodb
+          github: rust_dev_preview/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1029,6 +1168,18 @@ dynamodb_ListTables:
             - description:
               snippet_tags:
                 - ddb.swift.databasemanager.gettablelist
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.ListTables
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {ListTables}
 dynamodb_Query:
@@ -1119,7 +1270,7 @@ dynamodb_Query:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/dynamodb
+          github: rust_dev_preview/examples/dynamodb
           excerpts:
             - description: Find the movies made in the specified year.
               snippet_tags:
@@ -1130,7 +1281,8 @@ dynamodb_Query:
           github: javascriptv3/example_code/dynamodb
           sdkguide: sdk-for-javascript/v3/developer-guide/dynamodb-example-query-scan.html#dynamodb-example-table-query-scan-querying
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/QueryCommand/">QueryCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.docClient.queryV3
         - sdk_version: 2
@@ -1148,6 +1300,18 @@ dynamodb_Query:
             - description:
               snippet_tags:
                 - ddb.swift.basics.getMovies-year
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.Query
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {Query}
 dynamodb_Scan:
@@ -1231,7 +1395,7 @@ dynamodb_Scan:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/dynamodb
+          github: rust_dev_preview/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:
@@ -1241,7 +1405,8 @@ dynamodb_Scan:
         - sdk_version: 3
           github: javascriptv3/example_code/dynamodb
           excerpts:
-            - description:
+            - description: This example uses the document client to simplify working with items
+                in &DDB;. For API details see <ulink type="documentation" url="AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-lib-dynamodb/Class/ScanCommand/">ScanCommand</ulink>.
               snippet_tags:
                 - dynamodb.JavaScript.movies.scanV3
         - sdk_version: 2
@@ -1259,6 +1424,18 @@ dynamodb_Scan:
             - description:
               snippet_tags:
                 - ddb.swift.basics.getmovies-range
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.Scan
+            - description: The utility functions used in this example.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb: {Scan}
 dynamodb_ExecuteStatement:
@@ -1721,6 +1898,31 @@ dynamodb_Scenario_GettingStartedMovies:
                 a &DDB; database.
               snippet_tags:
                 - ddb.swift.basics
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/dynamodb
+          excerpts:
+            - description: The &DDB; getting started scenario.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.scenario_getting_started_movies
+            - description: The &DDB; functions used in this scenario.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.CreateTable
+                - aws-cli.bash-linux.dynamodb.DescribeTable
+                - aws-cli.bash-linux.dynamodb.PutItem
+                - aws-cli.bash-linux.dynamodb.UpdateItem
+                - aws-cli.bash-linux.dynamodb.BatchWriteItem
+                - aws-cli.bash-linux.dynamodb.GetItem
+                - aws-cli.bash-linux.dynamodb.Query
+                - aws-cli.bash-linux.dynamodb.Scan
+                - aws-cli.bash-linux.dynamodb.DeleteItem
+                - aws-cli.bash-linux.dynamodb.DeleteTable
+            - description: The utility functions used in this scenario.
+              snippet_tags:
+                - aws-cli.bash-linux.dynamodb.iecho
+                - aws-cli.bash-linux.dynamodb.errecho
+                - aws-cli.bash-linux.dynamodb.aws_cli_error_log
   services:
     dynamodb:
       {
@@ -1849,7 +2051,7 @@ dynamodb_Scenario_PartiQLSingle:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/dynamodb
+          github: rust_dev_preview/examples/dynamodb
           excerpts:
             - description:
               snippet_tags:

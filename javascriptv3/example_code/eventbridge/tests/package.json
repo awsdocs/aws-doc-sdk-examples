@@ -6,8 +6,7 @@
   "author": "Brian Murray <brmur@amazon.com>, Alex Forsyth <alex-git@amazon.com>",
   "license": "Apache 2.0",
   "dependencies": {
-    "@aws-sdk/eventbridge": "^3.32.0",
-    "@aws-sdk/node-http-handler": "^3.32.0"
+    "@aws-sdk/client-eventbridge": "^3.387.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.4",

@@ -10,7 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestMethod
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.ModelAndView
 import org.springframework.web.servlet.view.RedirectView
@@ -21,15 +25,13 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @SpringBootApplication
-class PhotoApp
-
+open class PhotoApp
 fun main(args: Array<String>) {
     runApplication<PhotoApp>(*args)
 }
 
 @Controller
 class MessageResource {
-
     // Change to your Bucket Name.
     private val bucketName = "scottphoto"
 
@@ -43,23 +45,23 @@ class MessageResource {
     var excel: WriteExcel? = null
 
     @GetMapping("/process")
-    fun process(): String? {
+    fun process(): String {
         return "process"
     }
 
     @GetMapping("/photo")
-    fun photo(): String? {
+    fun photo(): String {
         return "upload"
     }
 
     @GetMapping("/")
-    fun root(): String? {
+    fun root(): String {
         return "index"
     }
 
     @RequestMapping(value = ["/getimages"], method = [RequestMethod.GET])
     @ResponseBody
-    fun getImages(request: HttpServletRequest?, response: HttpServletResponse?): String? = runBlocking{
+    fun getImages(request: HttpServletRequest?, response: HttpServletResponse?): String? = runBlocking {
         return@runBlocking s3Service?.ListAllObjects(bucketName)
     }
 
@@ -67,7 +69,6 @@ class MessageResource {
     @RequestMapping(value = ["/report"], method = [RequestMethod.GET])
     @ResponseBody
     fun report(request: HttpServletRequest, response: HttpServletResponse) = runBlocking {
-
         // Get a list of key names in the given bucket.
         val myKeys = s3Service?.listBucketObjects(bucketName)
 
@@ -78,7 +79,7 @@ class MessageResource {
             val key = myKeys?.get(z) as String
             val keyData = s3Service?.getObjectBytes(bucketName, key)
 
-            //Analyze the photo.
+            // Analyze the photo.
             val item = recService?.DetectLabels(keyData, key)
             if (item != null) {
                 myList.add(item)
@@ -88,14 +89,12 @@ class MessageResource {
         // Now we have a list of WorkItems describing the photos in the S3 bucket.
         val excelData = excel?.exportExcel(myList)
         try {
-
             // Download the report.
-            val reportName  = "ExcelReport.xls"
-            response.contentType  = "application/vnd.ms-excel"
+            val reportName = "ExcelReport.xls"
+            response.contentType = "application/vnd.ms-excel"
             response.setHeader("Content-disposition", "attachment; filename=$reportName")
-            org.apache.commons.io.IOUtils.copy(excelData, response?.outputStream)
+            org.apache.commons.io.IOUtils.copy(excelData, response.outputStream)
             response.flushBuffer()
-
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -103,7 +102,7 @@ class MessageResource {
 
     // Downloads the given image from the Amazon S3 bucket.
     @RequestMapping(value = ["/downloadphoto"], method = [RequestMethod.GET])
-    fun fileDownload(request: HttpServletRequest, response: HttpServletResponse)  = runBlocking {
+    fun fileDownload(request: HttpServletRequest, response: HttpServletResponse) = runBlocking {
         try {
             val photoKey = request.getParameter("photoKey")
             val photoBytes: ByteArray? = s3Service?.getObjectBytes(bucketName, photoKey)

@@ -26,7 +26,11 @@
             <note>
                 <para>
                     There's more on GitHub. Find the complete example and learn how to set up and run in the
+                    {{- if hasPrefix $version.GitHubUrl "https:"}}
+                    <ulink url="{{$version.GitHubUrl}}">{{$version.Category}}</ulink> repository.
+                    {{- else}}
                     <ulink url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/{{$version.GitHubUrl}}">&AWS; Code Examples Repository</ulink>.
+                    {{- end}}
                 </para>
             </note>
             {{- end}}

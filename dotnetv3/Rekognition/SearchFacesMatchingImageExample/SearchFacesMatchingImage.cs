@@ -51,5 +51,6 @@ namespace SearchFacesMatchingImageExample
             });
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.SearchFacesMatchingImageExample]
 }

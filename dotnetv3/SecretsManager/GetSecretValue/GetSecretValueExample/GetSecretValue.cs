@@ -111,5 +111,6 @@ namespace GetSecretValueExample
             }
         }
     }
+
     // snippet-end:[SecretsManager.dotnetv3.GetSecretValueExample]
 }

@@ -21,9 +21,9 @@
     "typescript": "~3.9.7"
   },
   "dependencies": {
-    "@aws-cdk/aws-cognito": "1.79.0",
-    "@aws-cdk/aws-iam": "1.79.0",
-    "@aws-cdk/core": "1.79.0",
+    "@aws-cdk/aws-cognito": "^1.204.0",
+    "@aws-cdk/aws-iam": "^1.204.0",
+    "@aws-cdk/core": "^1.204.0",
     "source-map-support": "^0.5.16"
   }
 }

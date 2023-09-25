@@ -64,6 +64,17 @@ class Ec2Stubber(ExampleStubber):
         self._stub_bifurcator(
             'describe_vpcs', expected_params, response, error_code=error_code)
 
+    def stub_describe_subnets(self, vpc_id, zones, subnet_ids, error_code=None):
+        expected_params = {
+            'Filters': [
+                {'Name': 'vpc-id', 'Values': [vpc_id]},
+                {'Name': 'availability-zone', 'Values': zones},
+                {'Name': 'default-for-az', 'Values': ['true']}]}
+        response = {'Subnets': [{'SubnetId': sub_id} for sub_id in subnet_ids]}
+        self._stub_bifurcator(
+            'describe_subnets', expected_params, response, error_code=error_code)
+
+
     def stub_create_security_group(
             self, group_name, group_id, group_description=ANY, vpc_id=None, error_code=None):
         expected_params = {
@@ -82,13 +93,20 @@ class Ec2Stubber(ExampleStubber):
             'delete_security_group', expected_params, error_code=error_code)
 
     def stub_authorize_security_group_ingress(
-            self, group_id, ip_permissions=None, source_group_name=None,
-            error_code=None):
+            self, group_id, ip_permissions=None, source_group_name=None, cidr_ip=None,port=None,
+            ip_protocol=None, error_code=None):
         expected_params = {'GroupId': group_id}
         if ip_permissions is not None:
             expected_params['IpPermissions'] = ip_permissions
         if source_group_name is not None:
             expected_params['SourceSecurityGroupName'] = source_group_name
+        if cidr_ip is not None:
+            expected_params['CidrIp'] = cidr_ip
+        if port is not None:
+            expected_params['FromPort'] = port
+            expected_params['ToPort'] = port
+        if ip_protocol is not None:
+            expected_params['IpProtocol'] = ip_protocol
         response = {'Return': True}
         self._stub_bifurcator(
             'authorize_security_group_ingress', expected_params, response, error_code=error_code)
@@ -218,8 +236,12 @@ class Ec2Stubber(ExampleStubber):
             'modify_network_interface_attribute', expected_params,
             error_code=error_code)
 
-    def stub_describe_security_groups(self, groups, error_code=None):
+    def stub_describe_security_groups(self, groups, vpc_id=None, error_code=None):
         expected_params = {'GroupIds': [group['id'] for group in groups]}
+        if vpc_id is not None:
+            expected_params = {'Filters': [
+                {'Name': 'group-name', 'Values': ['default']},
+                {'Name': 'vpc-id', 'Values': [vpc_id]}]}
         response = {'SecurityGroups': [{
             'GroupId': group['id'],
             'GroupName': group['group_name'],
@@ -244,11 +266,17 @@ class Ec2Stubber(ExampleStubber):
         self._stub_bifurcator(
             'describe_launch_templates', expected_params, response, error_code=error_code)
 
-    def stub_create_launch_template(self, template_name, inst_type, ami_id, error_code=None):
+    def stub_create_launch_template(
+            self, template_name, inst_type, ami_id, inst_profile=None, user_data=None,
+            error_code=None):
         expected_params = {
             'LaunchTemplateName': template_name,
             'LaunchTemplateData': {
                 'InstanceType': inst_type, 'ImageId': ami_id}}
+        if inst_profile is not None:
+            expected_params['LaunchTemplateData']['IamInstanceProfile'] = {'Name': inst_profile}
+        if user_data is not None:
+            expected_params['LaunchTemplateData']['UserData'] = user_data
         response = {'LaunchTemplate': {'LaunchTemplateName': template_name}}
         self._stub_bifurcator(
             'create_launch_template', expected_params, response, error_code=error_code)
@@ -280,3 +308,15 @@ class Ec2Stubber(ExampleStubber):
         response = {'InstanceTypes': [{'InstanceType': inst_type} for inst_type in inst_types]}
         self._stub_bifurcator(
             'describe_instance_types', expected_params, response, error_code=error_code)
+
+    def stub_describe_iam_instance_profile_associations(self, instance_id, association_id, error_code=None):
+        expected_params = {'Filters': [{'Name': 'instance-id', 'Values': [instance_id]}]}
+        response = {'IamInstanceProfileAssociations': [{'AssociationId': association_id}]}
+        self._stub_bifurcator(
+            'describe_iam_instance_profile_associations', expected_params, response, error_code=error_code)
+
+    def stub_replace_iam_instance_profile_association(self, new_profile_name, association_id, error_code=None):
+        expected_params = {'IamInstanceProfile': {'Name': new_profile_name}, 'AssociationId': association_id}
+        response = {}
+        self._stub_bifurcator(
+            'replace_iam_instance_profile_association', expected_params, response, error_code=error_code)

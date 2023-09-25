@@ -5,7 +5,6 @@ SAP ABAP:
     1:
       long: "&ABAPlong;"
       short: "&ABAP;"
-      caveat: "This documentation is for an SDK in developer preview release. The SDK is subject to change and is not recommended for use in production."
       expanded:
         long: "AWS SDK for SAP ABAP"
         short: "SDK for SAP ABAP"
@@ -28,9 +27,6 @@ C++:
       api_ref:
         uid: "SdkForCpp"
         name: "&guide-cpp-api;"
-      title_override:
-        title: "Additional code examples for the &CPPlong;"
-        title_abbrev: "Additional code examples"
   guide: "&guide-cpp-dev;"
 Go:
   property: go
@@ -102,7 +98,7 @@ JavaScript:
       api_ref:
         uid: "AWSJavaScriptSDKV3"
         name: "&guide-jsb-api;"
-        link_template: "AWSJavaScriptSDK/v3/latest/clients/client-{{.Service}}/classes/{{.ActionLower}}command.html"
+        link_template: "AWSJavaScriptSDK/v3/latest/client/{{.Service}}/command/{{.Action}}Command"
   guide: "&guide-jsb-dev;"
 Kotlin:
   property: kotlin
@@ -133,9 +129,6 @@ Kotlin:
       api_ref:
         uid: "DotNetSDKV3"
         name: "&guide-net-api;"
-      title_override:
-        title: "Additional code examples for the &NET;"
-        title_abbrev: "Additional code examples"
   guide: "&guide-net-dev;"
 PHP:
   property: php
@@ -150,9 +143,6 @@ PHP:
       api_ref:
         uid: "SdkForPHPV3"
         name: "&guide-php-api;"
-      title_override:
-        title: "Additional code examples for the &PHPlong;"
-        title_abbrev: "Additional code examples"
   guide: "&guide-php-dev;"
 Python:
   property: python
@@ -215,19 +205,30 @@ Swift:
         link_template: "https://awslabs.github.io/aws-sdk-swift/reference/0.x"
   guide: "&guide-swift-dev;"
 CLI:
-  property: cli
+  property: sh
   sdk:
-    1:
+    2:
       long: "&CLIlong;"
       short: "&CLI;"
       expanded:
         long: "AWS Command Line Interface"
         short: "Command Line Interface"
-      guide: "cli"
+      guide: "cli/latest/userguide/cli-chap-welcome.html"
       api_ref:
         uid: "aws-cli"
         name: "&guide-cli-ref;"
-      title_override:
-        title: "Additional code examples for the &CLIlong;"
-        title_abbrev: "Additional code examples"
+  guide: "&guide-cli-ug;"
+Bash:
+  property: bash
+  sdk:
+    2:
+      long: "&Bashlong;"
+      short: "&Bash;"
+      expanded:
+        long: "AWS Command Line Interface with Bash script"
+        short: "Command Line Interface with Bash script"
+      guide: "cli/latest/userguide/cli-chap-welcome.html"
+      api_ref:
+        uid: "aws-cli"
+        name: "&guide-cli-ref;"
   guide: "&guide-cli-ug;"

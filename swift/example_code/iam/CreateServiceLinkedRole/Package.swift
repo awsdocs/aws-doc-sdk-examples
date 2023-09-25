@@ -1,4 +1,4 @@
-// swift-tools-version:5.6
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to
 // build this package.
 //
@@ -21,7 +21,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(
             url: "https://github.com/awslabs/aws-sdk-swift",
-            from: "0.3.0"
+            from: "0.20.0"
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser.git",
@@ -45,10 +45,7 @@ let package = Package(
                 "ServiceHandler",
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
             ],
-            path: "./Sources/CreateServiceLinkedRole",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Sources/CreateServiceLinkedRole"
         ),
 // snippet-end:[iam.swift.createservicelinkedrole.package.target.executable]
 // snippet-start:[iam.swift.createservicelinkedrole.package.target.handler]
@@ -67,10 +64,7 @@ let package = Package(
                 "createservicelinkedrole",
                 "SwiftUtilities"
             ],
-            path: "./Tests/CreateServiceLinkedRoleTests",
-            linkerSettings: [
-                .linkedLibrary("rt")    // Include librt for Dispatch to work.
-            ]
+            path: "./Tests/CreateServiceLinkedRoleTests"
         )
 // snippet-end:[iam.swift.createservicelinkedrole.package.target.tests]
     ]

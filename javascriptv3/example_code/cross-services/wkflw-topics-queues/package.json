@@ -1,0 +1,17 @@
+{
+  "name": "example-javascriptv3-wkflw-topicsandqueues",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest run **/*.unit.test.js"
+  },
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-sns": "^3.379.1",
+    "@aws-sdk/client-sqs": "^3.379.1",
+    "@inquirer/prompts": "^3.0.1"
+  }
+}

@@ -13,6 +13,8 @@ entities = {
     '&aws_sec_sdk_use-federation-warning;': '',
     '&ASH;': 'Security Hub',
     '&DAX;': 'DynamoDB Accelerator',
+    '&EC2long;': 'Amazon Elastic Compute Cloud',
+    '&ELBlong;': 'Elastic Load Balancing',
     '&GLUDCLong;': 'AWS Glue Data Catalog',
     '&GLUDC;': 'Data Catalog',
     '&IAM-user;': 'IAM user',
@@ -52,7 +54,7 @@ language = {
         3: {
             'base_folder': 'javascriptv3',
             'service_folder': 'javascriptv3/example_code/{{service["name"]}}',
-            'sdk_api_ref': 'https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-{{service["name"]}}/index.html',
+            'sdk_api_ref': 'https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/{{service["name"]}}',
         }
     },
     'Kotlin': {
@@ -67,6 +69,43 @@ language = {
             'base_folder': 'dotnetv3',
             'service_folder': 'dotnetv3/{{service["name"] | capitalize}}',
             'sdk_api_ref': 'https://docs.aws.amazon.com/sdkfornet/v3/apidocs/items/{{service["name"] | capitalize}}/N{{service["name"] | capitalize}}.html',
+            'service_folder_overrides': {
+                'acm': 'dotnetv3/ACM',
+                'aurora': 'dotnetv3/Aurora',
+                'auto-scaling': 'dotnetv3/AutoScaling',
+                'cloudwatch': 'dotnetv3/CloudWatch',
+                'cloudwatch-logs': 'dotnetv3/CloudWatchLogs',
+                'cognito': 'dotnetv3/Cognito',
+                'comprehend': 'dotnetv3/Comprehend',
+                'dynamodb': 'dotnetv3/dynamodb',
+                'ec2': 'dotnetv3/EC2',
+                'ecs': 'dotnetv3/ECS',
+                'eventbridge': 'dotnetv3/EventBridge',
+                'glacier': 'dotnetv3/Glacier',
+                'glue': 'dotnetv3/Glue',
+                'iam': 'dotnetv3/IAM',
+                'keyspaces': 'dotnetv3/Keyspaces',
+                'kinesis': 'dotnetv3/Kinesis',
+                'kms': 'dotnetv3/KMS',
+                'lambda': 'dotnetv3/Lambda',
+                'mediaconvert': 'dotnetv3/MediaConvert',
+                'organizations': 'dotnetv3/Organizations',
+                'polly': 'dotnetv3/Polly',
+                'rds': 'dotnetv3/RDS',
+                'rekognition': 'dotnetv3/Rekognition',
+                'route-53': 'dotnetv3/Route53',
+                's3': 'dotnetv3/S3',
+                'sagemaker': 'dotnetv3/SageMaker',
+                'secrets-manager': 'dotnetv3/SecretsManager',
+                'ses': 'dotnetv3/SES',
+                'sns': 'dotnetv3/SNS',
+                'sqs': 'dotnetv3/SQS',
+                'step-functions': 'dotnetv3/StepFunctions',
+                'sts': 'dotnetv3/STS',
+                'support': 'dotnetv3/Support',
+                'transcribe': 'dotnetv3/Transcribe',
+                'translate': 'dotnetv3/Translate',
+            }
         }
     },
     'PHP': {
@@ -93,7 +132,7 @@ language = {
     'Rust': {
         1: {
             'base_folder': 'rust_dev_preview',
-            'service_folder': 'rust_dev_preview/{{service["name"]}}',
+            'service_folder': 'rust_dev_preview/examples/{{service["name"]}}',
             'sdk_api_ref': 'https://docs.rs/aws-sdk-{{service["name"]}}/latest/aws_sdk_{{service["name"]}}/',
         }
     },
@@ -111,8 +150,8 @@ language = {
             'sdk_api_ref': 'https://awslabs.github.io/aws-sdk-swift/reference/0.x/AWS{{service["name"] | capitalize}}/Home',
         }
     },
-    'CLI': {
-        1: {
+    'Bash': {
+        2: {
             'base_folder': 'aws-cli',
             'service_folder': 'aws-cli/bash-linux/{{service["name"]}}',
             'sdk_api_ref': 'https://awscli.amazonaws.com/v2/documentation/api/latest/reference/{{service["name"]}}/index.html',
