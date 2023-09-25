@@ -20,4 +20,4 @@ USER automation:automation
 # Perform build steps
 RUN find . -name "composer.json" -not -path "*vendor*" -exec bash -c "dirname {} | xargs -I % composer install --working-dir=%" \;
 
-CMD ["./testing", "--integ"]
+CMD ["./php/testing", "--integ"]

@@ -7,7 +7,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy source code
-COPY . /swift/
+COPY . /swift
 WORKDIR /swift
 
 # Set non-root user
@@ -16,8 +16,7 @@ RUN useradd -m automation && \
 USER automation:automation
 
 # Perform build steps
-RUN cd /swift/example_code/ && \
-    python3.10 ../tools/swiftbuild.py */*
+RUN python3.10 /swift/example_code/tools/swiftbuild.py */*
 
-CMD ["python3.10", "/swift/tools/swiftbuild.py"]
+CMD ["python3.10", "/swift/tools/swiftbuild.py", "-t", "*/*"]
 
