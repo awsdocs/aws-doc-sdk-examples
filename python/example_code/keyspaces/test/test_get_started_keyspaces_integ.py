@@ -14,6 +14,7 @@ def mock_wait(monkeypatch):
     return
 
 
+@pytest.mark.skip(reason="Skip until shared resources are part of the Docker environment.")
 @pytest.mark.integ
 def test_run_keyspace_scenario_integ(input_mocker, capsys):
     scenario = KeyspaceScenario(KeyspaceWrapper.from_client())

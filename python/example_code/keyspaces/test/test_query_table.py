@@ -25,6 +25,7 @@ def test_query_table(scenario_data, monkeypatch, capsys, input_mocker):
 
     input_mocker.mock_answers([1])
     scenario_data.scenario.ks_wrapper.table_name = 'test-table'
+    test_movie_file = 'test/resources/test_movies.json'
     monkeypatch.setattr(query, 'SSLContext', lambda x: MagicMock())
     monkeypatch.setattr(query, 'SigV4AuthProvider', lambda x: MagicMock())
     monkeypatch.setattr(query, 'ExecutionProfile', lambda **kw: MagicMock())
@@ -34,8 +35,8 @@ def test_query_table(scenario_data, monkeypatch, capsys, input_mocker):
 
     with query.QueryManager('test-cert-path', MagicMock(), 'test-ks') as qm:
         with patch('builtins.open', mock_open(read_data=json.dumps([movie]))) as mock_file:
-            scenario_data.scenario.query_table(qm)
-            mock_file.assert_called_with('../../../resources/sample_files/movies.json', 'r')
+            scenario_data.scenario.query_table(qm, test_movie_file)
+            mock_file.assert_called_with(test_movie_file, 'r')
             capt = capsys.readouterr()
             assert movie['title'] in capt.out
             assert f"Released: {movie['info']['release_date'].partition('T')[0]}" in capt.out
