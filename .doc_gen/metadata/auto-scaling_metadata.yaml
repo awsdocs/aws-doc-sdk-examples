@@ -162,9 +162,7 @@ auto-scaling_DeleteAutoScalingGroup:
         - sdk_version: 3
           github: python/example_code/auto-scaling
           excerpts:
-            - description:
-                Update the minimum size of an Auto Scaling group to zero, terminate all
-                instances in the group, and delete the group.
+            - description: Update the minimum size of an Auto Scaling group to zero, terminate all instances in the group, and delete the group.
               snippet_tags:
                 - python.cross_service.resilient_service.AutoScaler.decl
                 - python.cross_service.resilient_service.auto-scaling.DeleteAutoScalingGroup

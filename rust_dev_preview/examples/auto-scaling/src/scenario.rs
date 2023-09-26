@@ -167,7 +167,12 @@ impl ScenarioError {
     }
 }
 
-impl Error for ScenarioError {}
+impl Error for ScenarioError {
+    // While `Error` can capture `source` information about the underlying error, for this example
+    // the ScenarioError captures the underlying information in MetadataError and treats it as a
+    // single Error from this Crate. In other contexts, it may be appropriate to model the error
+    // as including the SdkError as its source.
+}
 impl Display for ScenarioError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match &self.context {
