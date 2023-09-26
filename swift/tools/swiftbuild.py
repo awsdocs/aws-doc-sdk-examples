@@ -100,10 +100,10 @@ def build_package(test, run, package, swiftc_options):
         command_gerund = "building"
     
     # If testing, look to see if there's a `test.sh` file. If so,
-    # the build command is "sh path/to/test.sh"
+    # the build command is "bash path/to/test.sh"
     test_script = package / "test.sh"
     if test and test_script.exists() and test_script.is_file():
-        command_parts = ["sh", test_script]
+        command_parts = ["bash", test_script]
     else:
         # Construct the command to build the project.
         command_parts = ["swift", build_command]
@@ -129,15 +129,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # If no package list provided, use all directories in the
-    # current working directory.
-
-    if len(args.packages) == 0:
-        cwd_path = pathlib.Path().absolute()
-        package_list = [item for item in cwd_path.iterdir() if item.is_dir()]
-    else:
-        package_list = args.packages
-
     # Build swiftc command line option list
 
     swiftc_options = []
@@ -146,5 +137,18 @@ if __name__ == "__main__":
         swiftc_options.append("-suppress-warnings")
     if args.parseable:
         swiftc_options.append("-parseable-output")
+
+    # If no package list provided, use all directories in the
+    # current working directory.
+
+    if len(args.packages) == 0:
+        cwd_path = pathlib.Path().absolute()
+        if is_package_dir(cwd_path) == True:
+            package_list = [cwd_path]
+        else:
+            package_list = [item for item in cwd_path.iterdir() if item.is_dir()]
+    else:
+        package_list = args.packages
+
 
     swiftbuild(args.test, args.run, package_list, swiftc_options)
