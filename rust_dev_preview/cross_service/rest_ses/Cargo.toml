@@ -14,10 +14,10 @@ name = "rest_ses"
 [dependencies]
 actix-web = "4"
 actix-web-prom = "0.6.0"
-aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-cloudwatchlogs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-rdsdata = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-sdk-ses = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-cloudwatchlogs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-rdsdata = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
+aws-sdk-ses = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "main" }
 chrono = { version = "0.4.22", default-features = false, features = [
     "clock",
     "serde",
