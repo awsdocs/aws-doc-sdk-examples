@@ -3,7 +3,8 @@ import yaml
 import os
 
 env = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__))
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    autoescape=True
 )
 
 with open('../metadata/sdks.yaml', 'r') as file:
