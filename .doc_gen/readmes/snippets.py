@@ -12,6 +12,7 @@ IGNORE_FOLDERS = {
     '__pycache__',
     'cdk.out',
     'node_modules',
+    'Pods',
     'dist',
     'target',
     'venv',
