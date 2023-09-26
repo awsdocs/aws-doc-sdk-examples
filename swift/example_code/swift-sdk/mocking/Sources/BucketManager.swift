@@ -19,7 +19,7 @@ public class BucketManager {
     /// ``MockS3Session``.
     var session: S3SessionProtocol
 
-    /// Initialize the ``S3Manager`` to call Amazon S3 functions using the
+    /// Initialize the ``BucketManager`` to call Amazon S3 functions using the
     /// specified object that implements ``S3SessionProtocol``.
     ///
     /// - Parameter session: The session object to use when calling Amazon S3.
