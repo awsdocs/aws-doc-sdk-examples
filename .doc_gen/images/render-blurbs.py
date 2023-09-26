@@ -4,7 +4,7 @@ import os
 
 env = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    autoescape=True
+    autoescape=select_autoescape(enabled_extensions=('html', 'xml'), default_for_string=True)
 )
 
 with open('../metadata/sdks.yaml', 'r') as file:
