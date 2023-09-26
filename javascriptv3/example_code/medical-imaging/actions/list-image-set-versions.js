@@ -5,35 +5,42 @@
 
 import {fileURLToPath} from "url";
 
-// snippet-start:[medical-imaging.JavaScript.datastore.createDatastoreV3]
-import {CreateDatastoreCommand} from "@aws-sdk/client-medical-imaging";
+// snippet-start:[medical-imaging.JavaScript.datastore.listImageSetVersionsV3]
+import {ListImageSetVersionsCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} datastoreName - The name of the datastore to create.
+ * @param {string} datastoreId - The ID of the datastore.
+ * @param {string} imageSetId - The ID of the image set.
  */
-export const createDatastore = async (datastoreName = "DATASTORE_NAME") => {
+export const listImageSetVersions = async (datastoreId = "xxxxxxxxxxxx", imageSetId = "xxxxxxxxxxxx") => {
     const response = await medicalImagingClient.send(
-        new CreateDatastoreCommand({datastoreName: datastoreName})
+        new ListImageSetVersionsCommand({datastoreId : datastoreId, imageSetId : imageSetId})
     );
     console.log(response);
     // {
-    //   '$metadata': {
-    //       httpStatusCode: 200,
-    //       requestId: 'a71cd65f-2382-49bf-b682-f9209d8d399b',
-    //       extendedRequestId: undefined,
-    //       cfId: undefined,
-    //       attempts: 1,
-    //       totalRetryDelay: 0
-    //    },
-    //    datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    //    datastoreStatus: 'CREATING'
+    //     '$metadata': {
+    //         httpStatusCode: 200,
+    //         requestId: '74590b37-a002-4827-83f2-3c590279c742',
+    //         extendedRequestId: undefined,
+    //         cfId: undefined,
+    //         attempts: 1,
+    //         totalRetryDelay: 0
+    //     },
+    //     imageSetPropertiesList: [
+    //         {
+    //             ImageSetWorkflowStatus: 'CREATED',
+    //             createdAt: 2023-09-22T14:49:26.427Z,
+    //             imageSetId: 'xxxxxxxxxxxxxxxxxxxxxxx',
+    //             imageSetState: 'ACTIVE',
+    //             versionId: '1'
+    //         }]
     // }
     return response;
 };
-// snippet-end:[medical-imaging.JavaScript.datastore.createDatastoreV3]
+// snippet-end:[medical-imaging.JavaScript.datastore.listImageSetVersionsV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    await createDatastore("test-result");
+    await listImageSetVersions("728f13a131f748bf8d87a55d5ef6c5af", "22b8ce38456a11bfb8e16ff6bf037dd0");
  }
