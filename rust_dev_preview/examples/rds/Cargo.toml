@@ -3,6 +3,7 @@ name = "rds-code-examples"
 authors = [
   "LMJW <heysuperming@gmail.com>",
   "Doug Schwartz <dougsch@amazon.com>",
+  "David Souther <dpsouth@amazon.com>", 
 ]
 edition = "2021"
 version = "0.1.0"
@@ -15,3 +16,6 @@ aws-sdk-rds = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next"
 tokio = { version = "1.20.1", features = ["full"] }
 clap = { version = "~4.2", features = ["derive"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
+tracing = "0.1.37"
+inquire = "0.6.2"
+anyhow = "1.0.75"
