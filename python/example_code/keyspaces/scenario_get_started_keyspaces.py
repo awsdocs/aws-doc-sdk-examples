@@ -124,13 +124,13 @@ class KeyspaceScenario:
         return cert_path
 
     @demo_func
-    def query_table(self, qm):
+    def query_table(self, qm, movie_file):
         """
         1. Adds movies to the table from a sample movie data file.
         2. Gets a list of movies from the table and lets you select one.
         3. Displays more information about the selected movie.
         """
-        qm.add_movies(self.ks_wrapper.table_name, '../../../resources/sample_files/movies.json')
+        qm.add_movies(self.ks_wrapper.table_name, movie_file)
         movies = qm.get_movies(self.ks_wrapper.table_name)
         print(f"Added {len(movies)} movies to the table:")
         sel = q.choose("Pick one to learn more about it: ", [m.title for m in movies])
@@ -224,7 +224,7 @@ class KeyspaceScenario:
         # Use a context manager to ensure the connection to the keyspace is closed.
         with QueryManager(
                 cert_file_path, boto3.DEFAULT_SESSION, self.ks_wrapper.ks_name) as qm:
-            self.query_table(qm)
+            self.query_table(qm, '../../../resources/sample_files/movies.json')
             self.update_and_restore_table(qm)
         self.cleanup(cert_file_path)
 
