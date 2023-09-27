@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[CreateDataStore.java demonstrates how to create a datastore in AWS HealthImaging.]
+//snippet-sourcedescription:[CreateDataStore.java demonstrates how to create a data store in AWS HealthImaging.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[AWS HealthImaging]
 
@@ -34,7 +34,7 @@ public class CreateDatastore {
                 "Usage:\n" +
                 "    <dataStoreName>\n\n" +
                 "Where:\n" +
-                "    dataStoreName - The name for the AWS HealthImaging datastore.\n\n";
+                "    dataStoreName - The name for the AWS HealthImaging data store.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -50,7 +50,7 @@ public class CreateDatastore {
                 .build();
 
         String dataStoreId = createMedicalImageDatastore(medicalImagingClient, dataStoreName);
-        System.out.println("The medical imaging datastore id is " + dataStoreId);
+        System.out.println("The medical imaging data store id is " + dataStoreId);
         medicalImagingClient.close();
     }
 
