@@ -6,6 +6,10 @@ cross_FSA:
             their original language, determines their sentiment, and generates an audio file
             from the translated text.
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_FSA_Java_block.xml
     Ruby:
       versions:
         - sdk_version: 3

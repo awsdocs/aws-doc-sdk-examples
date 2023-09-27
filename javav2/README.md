@@ -25,7 +25,9 @@ The **javav2** folder in this repository contains examples of complete use cases
 
 In the **use_cases** folder, find step-by-step development tutorials that use multiple AWS services. By following these tutorials, you will gain a deeper understanding of how to create Java-based applications that use the AWS SDK for Java. Most of these AWS SDK for Java tutorials use the Synchronous Java client.
 
-If you are interested in using the Asynchronous Java client, see one of these tutorials:
+If you are interested in using Asynchronous Java service clients, see one of these tutorials:
+
++ [Creating a Feedback Sentiment Analyzer application using the SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_fsa_app) - Discusses how to develop a Feedback Sentiment Analyzer application using Machine Learning AWS services. The application solves a fictitious use case of a hotel that receives guest feedback on comment cards in a variety of languages. The application is developed by using the AWS SDK for Java (v2) and asynchronous Java clients.
 
 + [Creating a dynamic web application that asynchronously analyzes photos using the AWS SDK for Java](https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javav2/usecases/creating_photo_analyzer_async) - Discusses using the AWS SDK for Java (asynchronous client) and various AWS services, such as the Amazon Rekognition service, to analyze images. This web MVC application can analyze many images and generate a report that breaks down each image into a series of labels.
 

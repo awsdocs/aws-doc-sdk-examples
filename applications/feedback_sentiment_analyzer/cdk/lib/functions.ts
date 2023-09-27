@@ -6,7 +6,6 @@
 import {resolve} from "path";
 import {BundlingOutput, Duration} from "aws-cdk-lib";
 import {Code, Runtime} from "aws-cdk-lib/aws-lambda";
-
 import {AppFunctionConfig} from "./constructs/app-lambdas";
 
 const BASE_APP_FUNCTION: AppFunctionConfig = {
@@ -55,7 +54,7 @@ const EXAMPLE_LANG_FUNCTIONS: AppFunctionConfig[] = [
       return Code.fromInline(`
         exports.handler = async (event) => {
           console.log("AnalyzeSentiment", event);
-          return { translated_text: "Bonjour", source_language: "en" }
+          return { translated_text: "Bonjour", source_language: "en"}
         }
     `);
     },
@@ -164,14 +163,63 @@ const JAVASCRIPT_FUNCTIONS = [
   },
 ];
 
-const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
-  examplelang: EXAMPLE_LANG_FUNCTIONS,
-  // Add more languages here. For example
-  // javascript: JAVASCRIPT_FUNCTIONS,
-  ruby: RUBY_FUNCTIONS,
-  javascript: JAVASCRIPT_FUNCTIONS,
+const JAVA_BUNDLING_CONFIG = {
+  command: [
+    "bash",
+    "-c",
+    "mvn install -DskipTests && cp target/creating_fsa_app-1.0-SNAPSHOT.jar /asset-output/",
+  ],
+  output: BundlingOutput.ARCHIVED,
+  user: "root",
+  image: Runtime.JAVA_11.bundlingImage,
+  volumes: [
+    {
+      hostPath: `${process.env.HOME}/.m2/`,
+      containerPath: "/root/.m2",
+    },
+  ],
 };
 
+const COMMON_JAVA_FUNCTION_CONFIG = {
+  ...BASE_APP_FUNCTION,
+  runtime: Runtime.JAVA_11,
+  codeAsset: () => {
+    const source = resolve("../../../javav2/usecases/creating_fsa_app");
+    return Code.fromAsset(source, {
+      bundling: JAVA_BUNDLING_CONFIG,
+    });
+  },
+};
+
+const JAVA_FUNCTIONS: AppFunctionConfig[] = [
+  {
+    ...COMMON_JAVA_FUNCTION_CONFIG,
+    name: "ExtractText",
+    handler: "com.example.fsa.handlers.ExtractTextHandler::handleRequest",
+  },
+  {
+    ...COMMON_JAVA_FUNCTION_CONFIG,
+    name: "AnalyzeSentiment",
+    handler: "com.example.fsa.handlers.AnalyzeSentimentHandler::handleRequest",
+  },
+  {
+    ...COMMON_JAVA_FUNCTION_CONFIG,
+    name: "TranslateText",
+    handler: "com.example.fsa.handlers.TranslateTextHandler::handleRequest",
+  },
+  {
+    ...COMMON_JAVA_FUNCTION_CONFIG,
+    name: "SynthesizeAudio",
+    handler: "com.example.fsa.handlers.SynthesizeAudioHandler::handleRequest",
+  },
+];
+
+const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
+  examplelang: EXAMPLE_LANG_FUNCTIONS,
+  ruby: RUBY_FUNCTIONS,
+  java: JAVA_FUNCTIONS,
+  javascript: JAVASCRIPT_FUNCTIONS,
+};
 export function getFunctions(language: string = ""): AppFunctionConfig[] {
   return FUNCTIONS[language] ?? FUNCTIONS.examplelang;
 }
