@@ -168,7 +168,7 @@ bool AwsDoc::S3::S3_GettingStartedScenario(const Aws::String &uploadFilePath, co
 
             Aws::IOStream &ioStream = outcome.GetResultWithOwnership().
                     GetBody();
-            Aws::OFStream outStream(saveFilePath);
+            Aws::OFStream outStream(saveFilePath, std::ios_base::out | std::ios_base::binary);
             if (!outStream.is_open()) {
                 std::cout << "Error: unable to open file, '" << saveFilePath << "'." << std::endl;
             }
