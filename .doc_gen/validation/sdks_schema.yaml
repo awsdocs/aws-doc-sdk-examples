@@ -12,7 +12,7 @@ version:
   short: include('entity_with_version_regex')
   expanded:
     long: str(upper_start=True, end_punc=False, check_aws=False)
-    short: str(upper_start=True, end_punc=False)
+    short: str(upper_start=True, end_punc=False, check_aws=False)
   guide: str()
   caveat: str(required=False, upper_start=True, end_punc=True)
   bookmark: str(required=False)
