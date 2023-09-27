@@ -8,15 +8,14 @@ RUN apt-get update && \
 
 # Copy source code
 COPY . /swift
-WORKDIR /swift
+
+# Perform build steps
+RUN python3.10 /swift/tools/swiftbuild.py */*
 
 # Set non-root user
 RUN useradd -m automation && \
     chown -R automation:automation /swift
 USER automation:automation
-
-# Perform build steps
-RUN python3.10 /swift/example_code/tools/swiftbuild.py */*
 
 CMD ["python3.10", "/swift/tools/swiftbuild.py", "-t", "*/*"]
 

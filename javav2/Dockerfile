@@ -9,7 +9,6 @@ RUN apt-get update && \
 
 # Copy source code
 COPY . /javav2
-WORKDIR /javav2
 
 # Set non-root user
 RUN useradd -m automation && \
