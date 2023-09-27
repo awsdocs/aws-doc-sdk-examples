@@ -4,7 +4,11 @@ use std::{
 };
 
 use aws_config::SdkConfig;
-use aws_sdk_rds::{error::ProvideErrorMetadata, Client};
+use aws_sdk_rds::{
+    error::ProvideErrorMetadata,
+    types::{DbClusterSnapshot, DbInstance},
+    Client,
+};
 
 const MAX_WAIT: Duration = Duration::from_secs(5 * 60); // Wait at most 25 seconds.
 const WAIT_TIME: Duration = Duration::from_millis(500); // Wait half a second at a time.
@@ -135,7 +139,7 @@ impl AuroraScenario {
     }
 
     // Select an engine family and create a custom DB cluster parameter group. rds.CreateDbClusterParameterGroup(DBParameterGroupFamily='aurora-mysql8.0')
-    pub async fn set_engine(&mut self) -> Result<(), ScenarioError> {
+    pub async fn set_engine(&mut self, engine: &str) -> Result<(), ScenarioError> {
         todo!()
     }
 
@@ -149,8 +153,8 @@ impl AuroraScenario {
     // Modify both the auto_increment_offset and auto_increment_increment parameters in one call in the custom parameter group. Set their ParameterValue fields to a new allowable value. rds.ModifyDbClusterParameterGroup.
     pub async fn update_auto_increment(
         &self,
-        offset: u32,
-        increment: u32,
+        offset: u8,
+        increment: u8,
     ) -> Result<(), ScenarioError> {
         todo!()
     }
@@ -162,12 +166,19 @@ impl AuroraScenario {
 
     // Create a database instance in the cluster.
     // Wait for DB instance to be ready. Call rds.DescribeDbInstances and check for DBInstanceStatus == 'available'.
+    pub async fn start_cluster_and_instance(&self) -> Result<DbInstance, ScenarioError> {
+        todo!()
+    }
+
     // Display the connection string that can be used to connect a 'mysql' shell to the cluster. In Python:
 
     // Create a snapshot of the DB cluster. rds.CreateDbClusterSnapshot.
     // Wait for the snapshot to create. rds.DescribeDbClusterSnapshots until Status == 'available'.
+    pub async fn snapshot(self) -> Result<DbClusterSnapshot, ScenarioError> {
+        todo!()
+    }
 
-    async fn clean_up(self) -> Result<(), ScenarioError> {
+    pub async fn clean_up(self) -> Result<(), ScenarioError> {
         // Delete the instance. rds.DeleteDbInstance.
         // Delete the DB cluster. rds.DeleteDbCluster.
         // Wait for the instance and cluster to fully delete. rds.DescribeDbInstances and rds.DescribeDbClusters until both are not found.
