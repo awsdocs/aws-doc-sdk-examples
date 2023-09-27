@@ -212,8 +212,11 @@ CLI:
       short: "&CLI;"
       expanded:
         long: "AWS Command Line Interface"
-        short: "Command Line Interface"
+        short: "AWS CLI"
       guide: "cli/latest/userguide/cli-chap-welcome.html"
+      title_override:
+        title: "&CLI; command examples"
+        title_abbrev: "Command examples"
       api_ref:
         uid: "aws-cli"
         name: "&guide-cli-ref;"
@@ -226,8 +229,11 @@ Bash:
       short: "&Bash;"
       expanded:
         long: "AWS Command Line Interface with Bash script"
-        short: "Command Line Interface with Bash script"
+        short: "AWS CLI with Bash script"
       guide: "cli/latest/userguide/cli-chap-welcome.html"
+      title_override:
+        title: "&Bash; code examples"
+        title_abbrev: "Bash script examples"
       api_ref:
         uid: "aws-cli"
         name: "&guide-cli-ref;"
