@@ -9,34 +9,10 @@ RUN apt-get update && \
 
 # Copy source code
 COPY . /kotlin
-WORKDIR /kotlin
 
 # Set non-root user
 RUN useradd -m automation && \
     chown -R automation:automation /kotlin/
 USER automation:automation
 
-# Perform build steps
-RUN gradle build
-
-CMD ["bash"]
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Status: Beta
-# GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4130
-FROM gradle:latest
-COPY . /kotlin/
-RUN cd /kotlin/services/cloudwatch && \
-    gradle build
-CMD ["bash"]
+CMD ["./run_tests.sh"]
