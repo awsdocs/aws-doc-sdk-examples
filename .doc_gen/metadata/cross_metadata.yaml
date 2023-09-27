@@ -1,4 +1,30 @@
 # zexi 0.4.0
+cross_FSA:
+  title: Create an application that analyzes customer feedback and synthesizes audio
+  title_abbrev: Create an application to analyze customer feedback
+  synopsis: create an application that analyzes customer comment cards, translates them from
+            their original language, determines their sentiment, and generates an audio file
+            from the translated text.
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: cross_FSA_Java_block.xml
+    Ruby:
+      versions:
+        - sdk_version: 3
+          block_content: cross_FSA_Ruby_block.xml
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_FSA_JavaScript_block.xml
+  service_main: textract
+  services:
+    lambda:
+    textract:
+    comprehend:
+    translate:
+    polly:
 cross_PAM:
   title: Create a photo asset management application that lets users manage photos using labels
   title_abbrev: Create a serverless application to manage photos
@@ -8,6 +34,28 @@ cross_PAM:
       versions:
         - sdk_version: 2
           block_content: cross_PAM_Java_block.xml
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          block_content: cross_PAM_Kotlin_block.xml    
+    .NET:
+      versions:
+        - sdk_version: 3
+          github: dotnetv3\cross-service\PhotoAssetManager
+          block_content: cross_PAM_dotnet_block.xml
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          block_content: cross_PAM_JavaScript_block.xml
+    Rust:
+      versions:
+        - sdk_version: 1
+          block_content: cross_PAM_rust_block.xml
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/cross-service/photo_asset_manager
+          block_content: cross_PAM_cpp_block.xml
   service_main: rekognition
   services:
     sns:
@@ -52,7 +100,8 @@ cross_SQSMessageApp:
 cross_RDSDataTracker:
   title: Create an &AUR; Serverless work item tracker
   title_abbrev: Create an &AUR; Serverless work item tracker
-  synopsis: create a web application that tracks work items in an &AURlong; Serverless
+  synopsis:
+    create a web application that tracks work items in an &AURlong; Serverless
     database and uses &SESlong; (&SES;) to send reports.
   languages:
     .NET:
@@ -84,6 +133,7 @@ cross_RDSDataTracker:
     C++:
       versions:
         - sdk_version: 1
+          github: cpp/example_code/cross-service/serverless-aurora
           block_content: cross_RDSDataTracker_cpp_block.xml
   service_main: aurora
   services:
@@ -93,7 +143,7 @@ cross_RDSDataTracker:
     ses:
 cross_SnsPublishSubscription:
   title: Build a publish and subscription application that translates messages
-  title_abbrev: Building an &SNS; application 
+  title_abbrev: Building an &SNS; application
   synopsis: create an application that has subscription and publish functionality and translates messages.
   languages:
     Kotlin:
@@ -115,7 +165,7 @@ cross_SnsPublishSubscription:
     translate:
 cross_LexChatbotLanguages:
   title: Create an &LEX2; chatbot to engage your website visitors
-  title_abbrev: Building an &LEX2; chatbot 
+  title_abbrev: Building an &LEX2; chatbot
   synopsis: create a chatbot to engage your website visitors.
   languages:
     Java:
@@ -134,7 +184,8 @@ cross_LexChatbotLanguages:
 cross_DynamoDBDataTracker:
   title: Create a web application to track &DDB; data
   title_abbrev: Create a web application to track &DDB; data
-  synopsis: create a web application that tracks work items in an &DDBlong; table and
+  synopsis:
+    create a web application that tracks work items in an &DDBlong; table and
     uses &SESlong; (&SES;) to send reports.
   languages:
     Java:
@@ -198,7 +249,8 @@ cross_ApiGatewayWebsocketChat:
 cross_AuroraRestLendingLibrary:
   title: Create a lending library REST API
   title_abbrev: Create a lending library REST API
-  synopsis: create a lending library where patrons can borrow and return books by using a
+  synopsis:
+    create a lending library where patrons can borrow and return books by using a
     REST API backed by an &AURlong; database.
   languages:
     Python:
@@ -270,7 +322,8 @@ cross_TextractComprehendDetectEntities:
 cross_SubmitDataApp:
   title: Build an application to submit data to a &DDB; table
   title_abbrev: Build an app to submit data to a &DDB; table
-  synopsis: build an application that submits data to an &DDBlong; table and notifies
+  synopsis:
+    build an application that submits data to an &DDBlong; table and notifies
     you when a user updates the table.
   languages:
     Kotlin:
@@ -381,7 +434,8 @@ cross_TranscriptionApp:
 cross_TranscriptionStreamingApp:
   title: Build an &TSC; streaming app
   title_abbrev: Build an &TSC; streaming app
-  synopsis: build an app that records, transcribes, and translates live audio in real-time, and emails
+  synopsis:
+    build an app that records, transcribes, and translates live audio in real-time, and emails
     the results.
   languages:
     JavaScript:
@@ -551,11 +605,64 @@ cross_MessagesTopicsAndQueues:
     - Publish messages to the topic.
     - Poll the queues for messages received.
   languages:
-    C++:
+    Kotlin:
       versions:
         - sdk_version: 1
-          github: cpp/example_code/cross-service/topics_and_queues
-          block_content: workflow_MessagesTopicsAndQueues_cpp_block.xml
+          block_content: workflow_MessagesTopicsAndQueues_kotlin_block.xml
+    Java:
+      versions:
+        - sdk_version: 2
+          block_content: workflow_MessagesTopicsAndQueues_java_block.xml
   services:
     sns:
     sqs:
+cross_ResilientService:
+  title: Build and manage a resilient service using an &AWS; SDK
+  title_abbrev: Build and manage a resilient service
+  synopsis: create a load-balanced web service that returns book, movie, and song recommendations. 
+    The example shows how the service responds to failures, and how to restructure the service for
+    more resilience when failures occur.
+  synopsis_list:
+    - Use an &ASlong; group to create &EC2long; (&EC2;) instances based on a launch template and
+      to keep the number of instances in a specified range.
+    - Handle and distribute HTTP requests with &ELBlong;.
+    - Monitor the health of instances in an Auto Scaling group and forward requests only to healthy instances.
+    - Run a Python web server on each EC2 instance to handle HTTP requests. The web server responds
+      with recommendations and health checks.
+    - Simulate a recommendation service with an &DDBlong; table.
+    - Control web server response to requests and health checks by updating &SYSlong; parameters.
+  category: Scenarios
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/cross_service/resilient_service
+          excerpts:
+            - description: Run the interactive scenario at a command prompt.
+              snippet_tags:
+                - python.example_code.workflow.ResilientService_Runner
+            - description: Create a class that wraps &AS; and &EC2; actions.
+              snippet_tags:
+                - python.example_code.workflow.ResilientService_AutoScaler
+            - description: Create a class that wraps &ELB; actions.
+              snippet_tags:
+                - python.example_code.workflow.ResilientService_LoadBalancer
+            - description: Create a class that uses &DDB; to simulate a recommendation service.
+              snippet_tags:
+                - python.example_code.workflow.ResilientService_RecommendationService
+            - description: Create a class that wraps &SYS; actions.
+              snippet_tags:
+                - python.example_code.workflow.ResilientService_ParameterHelper
+  services:
+    auto-scaling: {
+      CreateAutoScalingGroup, DescribeAutoScalingGroups, TerminateInstanceInAutoScalingGroup,
+      AttachLoadBalancerTargetGroups, DeleteAutoScalingGroup, DescribeAutoScalingGroups,
+      UpdateAutoScalingGroup}
+    ec2: {
+      DescribeIamInstanceProfileAssociations, ReplaceIamInstanceProfileAssociation, RebootInstances,
+      CreateLaunchTemplate, DeleteLaunchTemplate, DescribeAvailabilityZones, DescribeInstances,
+      DescribeVpcs, DescribeSubnets}
+    elastic-load-balancing-v2: {
+      DescribeLoadBalancers, CreateTargetGroup, DescribeTargetGroups, DeleteTargetGroup,
+      CreateLoadBalancer, CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
+    iam: {CreateInstanceProfile, DeleteInstanceProfile}

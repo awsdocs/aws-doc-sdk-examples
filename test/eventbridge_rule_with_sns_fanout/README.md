@@ -23,7 +23,7 @@ Specifically, it deploys a scheduled Amazon EventBridge rule that publishes a me
 Before you get started, execute [store_system_parameters.py](store_system_params.py) as described in the code comments:
 
 ```
-python3 store_system_params.py
+python3 store_system_parameters.py
 ```
 ---
 ## AWS CDK setup and deployment

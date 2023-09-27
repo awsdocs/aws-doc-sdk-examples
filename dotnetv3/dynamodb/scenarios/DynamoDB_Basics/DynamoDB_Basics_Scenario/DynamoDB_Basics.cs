@@ -1,6 +1,5 @@
-﻿// <copyright file="DynamoDB_Basics.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[DynamoDB.dotnetv3.DynamoDB_Basics_Scenario]
 // This example application performs the following basic Amazon DynamoDB
@@ -22,6 +21,8 @@
 // and put it in the same folder as the example.
 namespace DynamoDB_Basics_Scenario
 {
+    using DynamoDB_Actions;
+
     public class DynamoDB_Basics
     {
         // Separator for the console display.
@@ -33,7 +34,7 @@ namespace DynamoDB_Basics_Scenario
 
             var tableName = "movie_table";
 
-            // relative path to moviedata.json in the local repository.
+            // Relative path to moviedata.json in the local repository.
             var movieFileName = @"..\..\..\..\..\..\..\..\resources\sample_files\movies.json";
 
             DisplayInstructions();

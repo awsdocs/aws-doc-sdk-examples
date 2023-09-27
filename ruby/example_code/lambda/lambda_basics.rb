@@ -11,8 +11,8 @@ require "logger"
 require "json"
 require "zip"
 
-$cloudwatch_client = Aws::CloudWatchLogs::Client.new(region: 'us-east-1')
-$iam_client = Aws::IAM::Client.new(region: 'us-east-1')
+$cloudwatch_client = Aws::CloudWatchLogs::Client.new(region: "us-east-1")
+$iam_client = Aws::IAM::Client.new(region: "us-east-1")
 
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.full]
 # snippet-start:[ruby.example_code.ruby.LambdaWrapper.decl]
@@ -115,7 +115,7 @@ class LambdaWrapper
   def get_function(function_name)
     @lambda_client.get_function(
       {
-        function_name:
+        function_name: function_name
       }
     )
   rescue Aws::Lambda::Errors::ResourceNotFoundException => e
@@ -137,7 +137,7 @@ class LambdaWrapper
   def create_function(function_name, handler_name, role_arn, deployment_package)
     response = @lambda_client.create_function({
                                                 role: role_arn.to_s,
-                                                function_name:,
+                                                function_name: function_name,
                                                 handler: handler_name,
                                                 runtime: "ruby2.7",
                                                 code: {
@@ -149,7 +149,7 @@ class LambdaWrapper
                                                   }
                                                 }
                                               })
-    @lambda_client.wait_until(:function_active_v2, { function_name: }) do |w|
+    @lambda_client.wait_until(:function_active_v2, { function_name: function_name}) do |w|
       w.max_attempts = 5
       w.delay = 5
     end
@@ -167,7 +167,7 @@ class LambdaWrapper
   # @param payload [nil] Payload containing runtime parameters.
   # @return [Object] The response from the function invocation.
   def invoke_function(function_name, payload = nil)
-    params = { function_name: }
+    params = { function_name: function_name}
     params[:payload] = payload unless payload.nil?
     @lambda_client.invoke(params)
   rescue Aws::Lambda::Errors::ServiceException => e
@@ -216,14 +216,14 @@ class LambdaWrapper
   # @return: Data about the update, including the status.
   def update_function_configuration(function_name, log_level)
     @lambda_client.update_function_configuration({
-                                                   function_name:,
+                                                   function_name: function_name,
                                                    environment: {
                                                      variables: {
                                                        "LOG_LEVEL" => log_level
                                                      }
                                                    }
                                                  })
-    @lambda_client.wait_until(:function_updated_v2, { function_name: }) do |w|
+    @lambda_client.wait_until(:function_updated_v2, { function_name: function_name}) do |w|
       w.max_attempts = 5
       w.delay = 5
     end
@@ -244,10 +244,10 @@ class LambdaWrapper
   # @return: Data about the update, including the status.
   def update_function_code(function_name, deployment_package)
     @lambda_client.update_function_code(
-      function_name:,
+      function_name: function_name,
       zip_file: deployment_package
     )
-    @lambda_client.wait_until(:function_updated_v2, { function_name: }) do |w|
+    @lambda_client.wait_until(:function_updated_v2, { function_name: function_name}) do |w|
       w.max_attempts = 5
       w.delay = 5
     end
@@ -280,7 +280,7 @@ class LambdaWrapper
   def delete_function(function_name)
     print "Deleting function: #{function_name}..."
     @lambda_client.delete_function(
-      function_name:
+      function_name: function_name
     )
     print "Done!".green
   rescue Aws::Lambda::Errors::ServiceException => e

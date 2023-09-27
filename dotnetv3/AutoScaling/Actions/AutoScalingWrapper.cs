@@ -35,15 +35,11 @@ public class AutoScalingWrapper
     /// group.</param>
     /// <param name="launchTemplateName">The name of the Amazon EC2 Auto Scaling
     /// launch template to use to create instances in the group.</param>
-    /// <param name="serviceLinkedRoleARN">The AWS Identity and Access
-    /// Management (IAM) service-linked role that provides the permissions
-    /// for the Amazon EC2 Auto Scaling group.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> CreateAutoScalingGroupAsync(
         string groupName,
         string launchTemplateName,
-        string availabilityZone,
-        string serviceLinkedRoleARN)
+        string availabilityZone)
     {
         var templateSpecification = new LaunchTemplateSpecification
         {
@@ -61,8 +57,7 @@ public class AutoScalingWrapper
             AvailabilityZones = zoneList,
             LaunchTemplate = templateSpecification,
             MaxSize = 6,
-            MinSize = 1,
-            ServiceLinkedRoleARN = serviceLinkedRoleARN,
+            MinSize = 1
         };
 
         var response = await _amazonAutoScaling.CreateAutoScalingGroupAsync(request);
@@ -124,7 +119,7 @@ public class AutoScalingWrapper
     {
         var groups = await DescribeAutoScalingGroupsAsync(groupName);
         var instanceIds = new List<string>();
-        groups.ForEach(group =>
+        groups!.ForEach(group =>
         {
             if (group.AutoScalingGroupName == groupName)
             {
@@ -315,15 +310,12 @@ public class AutoScalingWrapper
     /// </summary>
     /// <param name="groupName">The name of the Auto Scaling group.</param>
     /// <param name="launchTemplateName">The name of the EC2 launch template.</param>
-    /// <param name="serviceLinkedRoleARN">The Amazon Resource Name (ARN)
-    /// of the AWS Identity and Access Management (IAM) service-linked role.</param>
     /// <param name="maxSize">The maximum number of instances that can be
     /// created for the Auto Scaling group.</param>
     /// <returns>A Boolean value indicating the success of the action.</returns>
     public async Task<bool> UpdateAutoScalingGroupAsync(
         string groupName,
         string launchTemplateName,
-        string serviceLinkedRoleARN,
         int maxSize)
     {
         var templateSpecification = new LaunchTemplateSpecification
@@ -334,7 +326,6 @@ public class AutoScalingWrapper
         var groupRequest = new UpdateAutoScalingGroupRequest
         {
             MaxSize = maxSize,
-            ServiceLinkedRoleARN = serviceLinkedRoleARN,
             AutoScalingGroupName = groupName,
             LaunchTemplate = templateSpecification,
         };

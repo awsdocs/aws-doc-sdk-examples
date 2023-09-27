@@ -7,14 +7,14 @@ namespace CognitoBasics;
 /// <summary>
 /// Some useful methods to make screen display easier.
 /// </summary>
-public class UiMethods
+public static class UiMethods
 {
-    public readonly string SepBar = new string('-', Console.WindowWidth);
+    public static readonly string SepBar = new string('-', Console.WindowWidth);
 
     /// <summary>
     /// Show information about the scenario.
     /// </summary>
-    public void DisplayOverview()
+    public static void DisplayOverview()
     {
         Console.Clear();
         DisplayTitle("Welcome to the Amazon Cognito Demo");
@@ -34,7 +34,7 @@ public class UiMethods
     /// <summary>
     /// Display a message and wait until the user presses enter.
     /// </summary>
-    public void PressEnter()
+    public static void PressEnter()
     {
         Console.Write("\nPress <Enter> to continue.");
         _ = Console.ReadLine();
@@ -45,7 +45,7 @@ public class UiMethods
     /// </summary>
     /// <param name="strToCenter">The string to pad with spaces.</param>
     /// <returns>The padded string.</returns>
-    public string CenterString(string strToCenter)
+    public static string CenterString(string strToCenter)
     {
         var padAmount = (Console.WindowWidth - strToCenter.Length) / 2;
         var leftPad = new string(' ', padAmount);
@@ -57,7 +57,7 @@ public class UiMethods
     /// line of hyphens.
     /// </summary>
     /// <param name="strTitle">The string to be displayed.</param>
-    public void DisplayTitle(string strTitle)
+    public static void DisplayTitle(string strTitle)
     {
         Console.WriteLine(SepBar);
         Console.WriteLine(CenterString(strTitle));

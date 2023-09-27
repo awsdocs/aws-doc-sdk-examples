@@ -6,7 +6,9 @@
 package com.aws.photo
 
 import aws.sdk.kotlin.services.s3.S3Client
-import aws.sdk.kotlin.services.s3.model.*
+import aws.sdk.kotlin.services.s3.model.GetObjectRequest
+import aws.sdk.kotlin.services.s3.model.ListObjectsRequest
+import aws.sdk.kotlin.services.s3.model.PutObjectRequest
 import aws.smithy.kotlin.runtime.content.ByteStream
 import aws.smithy.kotlin.runtime.content.toByteArray
 import org.springframework.stereotype.Component
@@ -14,6 +16,7 @@ import org.w3c.dom.Document
 import java.io.StringWriter
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.parsers.ParserConfigurationException
+import javax.xml.transform.TransformerConfigurationException
 import javax.xml.transform.TransformerException
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
@@ -22,15 +25,12 @@ import kotlin.system.exitProcess
 
 @Component
 class S3Service {
-
     var myBytes: ByteArray? = null
 
     // Returns the names of all images in the given bucket.
     suspend fun listBucketObjects(bucketName: String?): List<*>? {
-
         var keyName: String
-        val keys  = mutableListOf<String>()
-
+        val keys = mutableListOf<String>()
         val listObjects = ListObjectsRequest {
             bucket = bucketName
         }
@@ -38,8 +38,8 @@ class S3Service {
         S3Client { region = "us-west-2" }.use { s3Client ->
             val response = s3Client.listObjects(listObjects)
             response.contents?.forEach { myObject ->
-                   keyName = myObject.key.toString()
-                   keys.add(keyName)
+                keyName = myObject.key.toString()
+                keys.add(keyName)
             }
             return keys
         }
@@ -47,14 +47,13 @@ class S3Service {
 
     // Returns the names of all images and data within an XML document.
     suspend fun ListAllObjects(bucketName: String?): String? {
-
         var sizeLg: Long
         var dateIn: aws.smithy.kotlin.runtime.time.Instant?
         val bucketItems = mutableListOf<BucketItem>()
 
         val listObjects = ListObjectsRequest {
             bucket = bucketName
-         }
+        }
 
         S3Client { region = "us-west-2" }.use { s3Client ->
             val res = s3Client.listObjects(listObjects)
@@ -76,11 +75,11 @@ class S3Service {
 
     // Places an image into an Amazon S3 bucket.
     suspend fun putObject(data: ByteArray, bucketName: String?, objectKey: String?): String? {
-        val request =  PutObjectRequest{
-                bucket = bucketName
-                key = objectKey
-                body = ByteStream.fromBytes(data)
-         }
+        val request = PutObjectRequest {
+            bucket = bucketName
+            key = objectKey
+            body = ByteStream.fromBytes(data)
+        }
 
         S3Client { region = "us-west-2" }.use { s3Client ->
             val response = s3Client.putObject(request)
@@ -90,23 +89,24 @@ class S3Service {
 
     // Get the byte[] from this Amazon S3 object.
     suspend fun getObjectBytes(bucketName: String?, keyName: String?): ByteArray? {
-           val objectRequest = GetObjectRequest {
-                key = keyName
-                bucket = bucketName
-            }
+        val objectRequest = GetObjectRequest {
+            key = keyName
+            bucket = bucketName
+        }
 
-           S3Client { region = "us-west-2" }.use { s3Client ->
-             s3Client.getObject(objectRequest) { resp ->
+        S3Client { region = "us-west-2" }.use { s3Client ->
+            s3Client.getObject(objectRequest) { resp ->
                 myBytes = resp.body?.toByteArray()
-             }
+            }
             return myBytes
-           }
+        }
     }
 
     // Convert items into XML to pass back to the view.
     private fun toXml(itemList: List<BucketItem>): Document {
         try {
             val factory = DocumentBuilderFactory.newInstance()
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true)
             val builder = factory.newDocumentBuilder()
             val doc = builder.newDocument()
 
@@ -119,7 +119,6 @@ class S3Service {
 
             // Iterate through the collection.
             for (index in 0 until custCount) {
-
                 // Get the WorkItem object from the collection.
                 val myItem = itemList[index]
                 val item = doc.createElement("Item")
@@ -150,19 +149,31 @@ class S3Service {
             e.printStackTrace()
             exitProcess(0)
         }
-   }
+    }
 
-    private fun convertToString(xml: Document): String {
+    private fun convertToString(xml: Document?): String? {
         try {
-            val transformer = TransformerFactory.newInstance().newTransformer()
+            val transformerFactory = getSecureTransformerFactory()
+            val transformer = transformerFactory?.newTransformer()
             val result = StreamResult(StringWriter())
             val source = DOMSource(xml)
-            transformer.transform(source, result)
+            if (transformer != null) {
+                transformer.transform(source, result)
+            }
             return result.writer.toString()
-
         } catch (ex: TransformerException) {
             ex.printStackTrace()
-            exitProcess(0)
         }
+        return null
+    }
+
+    private fun getSecureTransformerFactory(): TransformerFactory? {
+        val transformerFactory: TransformerFactory = TransformerFactory.newInstance()
+        try {
+            transformerFactory.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true)
+        } catch (e: TransformerConfigurationException) {
+            e.printStackTrace()
+        }
+        return transformerFactory
     }
 }

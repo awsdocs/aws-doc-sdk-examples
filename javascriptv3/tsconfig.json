@@ -6,7 +6,6 @@
     "lib": ["es2022", "DOM"],
     "module": "commonjs",
     "target": "es2022",
-
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,

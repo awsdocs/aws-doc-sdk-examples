@@ -204,7 +204,7 @@ npm test
 
 ## Additional information
 
-- [SDK for JavaScript Amazon Textract reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-textract/index.html)
+- [SDK for JavaScript Amazon Textract reference](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/textract/index.html)
 - [Amazon Textract Documentation](https://docs.aws.amazon.com/textract/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

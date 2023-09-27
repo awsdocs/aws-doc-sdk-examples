@@ -1,0 +1,17 @@
+{
+  "name": "wkflw-sagemaker-geospatial-lambda",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "devDependencies": {
+    "@aws-sdk/client-sagemaker": "^3.398.0",
+    "@aws-sdk/client-sagemaker-geospatial": "^3.398.0",
+    "@rollup/plugin-commonjs": "^25.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.1",
+    "@types/aws-lambda": "^8.10.119"
+  }
+}

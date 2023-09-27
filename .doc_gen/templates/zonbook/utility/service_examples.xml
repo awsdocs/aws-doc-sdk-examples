@@ -18,8 +18,8 @@
 {{- end}}
 <section id="{{$svc_prefix}}example_{{.ExampleId}}_section" role="topic">
     <info>
-        <title id="example_{{.ExampleId}}_section.title">{{.Title}}</title>
-        <titleabbrev id="example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
+        <title id="{{$svc_prefix}}example_{{.ExampleId}}_section.title">{{.Title}}</title>
+        <titleabbrev id="{{$svc_prefix}}example_{{.ExampleId}}_section.titleabbrev">{{.TitleAbbrev}}</titleabbrev>
         <abstract>
             <para>{{.Title}}</para>
         </abstract>
@@ -42,6 +42,27 @@
     {{- end}}
     {{- if .GuideTopic.Url}}
     <para>For more information, see <ulink {{.GuideTopic.DocType}} url="{{.GuideTopic.Url}}">{{.GuideTopic.Text}}</ulink>.</para>
+    {{- end}}
+    {{- if eq $examples.CategoryName "Actions"}}
+        {{- if .RelatedExamples}}
+            {{- $codex_text := "code examples"}}
+            {{- if eq 1 (len .RelatedExamples)}}
+                {{- $codex_text = "code example"}}
+            {{- end}}
+            <para>Action examples are code excerpts from larger programs and must be run in context. You can see this action in
+            context in the following {{$codex_text}}:
+            </para>
+            <itemizedlist>
+            {{- range $rel_example := .RelatedExamples}}
+                <listitem>
+                    <para>
+                        <xref linkend="{{$svc_prefix}}example_{{$rel_example}}_section"
+                              endterm="{{$svc_prefix}}example_{{$rel_example}}_section.titleabbrev"/>
+                    </para>
+                </listitem>
+            {{- end}}
+            </itemizedlist>
+        {{- end}}
     {{- end}}
     <xi:include href="{{$include_docs}}{{.ExampleId}}{{$addSvc}}_tablist.xml"></xi:include>
     {{- if not $is_library}}

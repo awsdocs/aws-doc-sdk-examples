@@ -49,6 +49,17 @@ ec2_Hello:
             - description:
               snippet_tags:
                 - javascript.v3.ec2.scenarios.Hello
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/ec2/hello_ec2
+          excerpts:
+            - description: Code for the CMakeLists.txt CMake file.
+              snippet_tags:
+                - cpp.example_code.ec2.hello_ec2.cmake
+            - description: Code for the hello_ec2.cpp source file.
+              snippet_tags:
+                - cpp.example_code.ec2.hello_ec2
   services:
     ec2: {DescribeSecurityGroups}
 ec2_CreateKeyPair:
@@ -94,6 +105,15 @@ ec2_CreateKeyPair:
               snippet_tags:
                 - python.example_code.ec2.KeyPairWrapper.decl
                 - python.example_code.ec2.CreateKeyPair
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.exampleKeyPairs
     JavaScript:
       versions:
         - sdk_version: 3
@@ -235,6 +255,16 @@ ec2_CreateSecurityGroup:
               snippet_tags:
                 - python.example_code.ec2.SecurityGroupWrapper.decl
                 - python.example_code.ec2.CreateSecurityGroup
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.exampleSecurityGroup
+
     JavaScript:
       versions:
         - sdk_version: 3
@@ -335,26 +365,6 @@ ec2_RunInstances:
                 - cpp.example_code.ec2.RunInstances
   services:
     ec2: {RunInstances}
-ec2_CreateVpc:
-  title: Create an &EC2; VPC using an &AWS; SDK
-  title_abbrev: Create a VPC
-  synopsis: create an &EC2; VPC.
-  category:
-  languages:
-    .NET:
-      versions:
-        - sdk_version: 3
-          github: dotnetv3/EC2
-          sdkguide:
-          excerpts:
-            - description:
-              snippet_tags:
-                - EC2.dotnetv3.CreateVPC
-            - description: Create a VPC endpoint to use with an Amazon Simple Storage Service (Amazon S3) client.
-              snippet_tags:
-                - EC2.dotnetv3.CreateVPCforS3
-  services:
-    ec2: {CreateVpc}
 ec2_StartInstances:
   title: Start an &EC2; instance using an &AWS; SDK
   title_abbrev: Start an instance
@@ -398,6 +408,15 @@ ec2_StartInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StartInstances
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.startInstance
     JavaScript:
       versions:
         - sdk_version: 3
@@ -410,7 +429,7 @@ ec2_StartInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/ec2
+          github: rust_dev_preview/examples/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -476,6 +495,15 @@ ec2_StopInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.StopInstances
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.stopInstances
     JavaScript:
       versions:
         - sdk_version: 3
@@ -488,7 +516,7 @@ ec2_StopInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/ec2
+          github: rust_dev_preview/examples/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -554,6 +582,15 @@ ec2_AllocateAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AllocateAddress
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.allocateElasticIPs
     JavaScript:
       versions:
         - sdk_version: 3
@@ -625,6 +662,15 @@ ec2_AssociateAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.AssociateAddress
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.associateElasticIPs
     JavaScript:
       versions:
         - sdk_version: 3
@@ -750,6 +796,15 @@ ec2_ReleaseAddress:
               snippet_tags:
                 - python.example_code.ec2.ElasticIpWrapper.decl
                 - python.example_code.ec2.ReleaseAddress
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.releaseElasticIPs
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1060,7 +1115,7 @@ ec2_DeleteSnapshot:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/ebs
+          github: rust_dev_preview/examples/ebs
           excerpts:
             - description:
               snippet_tags:
@@ -1076,7 +1131,7 @@ ec2_DescribeSnapshots:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/ebs
+          github: rust_dev_preview/examples/ebs
           excerpts:
             - description: Shows the state of a snapshot.
               snippet_tags:
@@ -1129,6 +1184,15 @@ ec2_TerminateInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.TerminateInstances
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.terminateInstances
     C++:
       versions:
         - sdk_version: 1
@@ -1190,6 +1254,14 @@ ec2_DescribeInstances:
               snippet_tags:
                 - python.example_code.ec2.InstanceWrapper.decl
                 - python.example_code.ec2.DescribeInstances
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.getAllInstances
     JavaScript:
       versions:
         - sdk_version: 3
@@ -1201,7 +1273,7 @@ ec2_DescribeInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/ec2
+          github: rust_dev_preview/examples/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -1233,7 +1305,7 @@ ec2_DescribeRegions:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/ec2
+          github: rust_dev_preview/examples/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -1255,6 +1327,14 @@ ec2_DescribeRegions:
             - description:
               snippet_tags:
                 - ec2.abapv1.describe_regions
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.regionsAvailabilityZones
     C++:
       versions:
         - sdk_version: 1
@@ -1275,7 +1355,7 @@ ec2_DescribeInstanceStatus:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/ec2
+          github: rust_dev_preview/examples/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -1291,7 +1371,7 @@ ec2_MonitorInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/ec2
+          github: rust_dev_preview/examples/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -1366,7 +1446,7 @@ ec2_RebootInstances:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/ec2
+          github: rust_dev_preview/examples/ec2
           excerpts:
             - description:
               snippet_tags:
@@ -1396,25 +1476,17 @@ ec2_RebootInstances:
             - description:
               snippet_tags:
                 - ec2.cpp.reboot_instance.code
-  services:
-    ec2: {RebootInstances}
-ec2_DeleteVPC:
-  title: Delete an &EC2; VPC using an &AWS; SDK
-  title_abbrev: Delete a VPC
-  synopsis: delete an &EC2; VPC.
-  category:
-  languages:
-    .NET:
+    Python:
       versions:
         - sdk_version: 3
-          github: dotnetv3/EC2
-          sdkguide:
+          github: python/example_code/ec2
           excerpts:
             - description:
               snippet_tags:
-                - EC2.dotnetv3.DeleteVPC
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation
   services:
-    ec2: {DeleteVpc}
+    ec2: {RebootInstances}
 ec2_DescribeImages:
   title: Get data about Amazon Machine Images using an &AWS; SDK
   title_abbrev: Get data about Amazon Machine Images
@@ -1552,6 +1624,15 @@ ec2_DescribeAvailabilityZones:
               snippet_tags:
                 - cpp.example_code.ec2.describe_regions.client
                 - ec2.cpp.describe_zones.code
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.DescribeAvailabilityZones
   services:
     ec2: {DescribeAvailabilityZones}
 ec2_CreateTags:
@@ -1572,6 +1653,170 @@ ec2_CreateTags:
                 - cpp.example_code.ec2.CreateTags
   services:
     ec2: {CreateTags}
+ec2_createRouteTable:
+  title: Create a route table in Amazon Virtual Private Cloud (Amazon VPC) and associate it with a subnet
+  title_abbrev: Create a route table
+  synopsis: create route table and associate with &EC2; subnet.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.createRouteTable
+  services:
+    ec2:
+      {CreateRouteTable}
+ec2_createSubnet:
+  title: Create and tag a subnet in Amazon Virtual Private Cloud (Amazon VPC)
+  title_abbrev: Create a subnet
+  synopsis: create an &EC2; subnet.
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.createSubnet
+  services:
+    ec2:
+      {CreateSubnet}
+ec2_createVpc:
+  title: Create a Amazon Virtual Private Cloud (Amazon VPC)
+  title_abbrev: Create a Amazon Virtual Private Cloud (Amazon VPC)
+  synopsis: create a Amazon Virtual Private Cloud (Amazon VPC).
+  category:
+  languages:
+    Ruby:
+      versions:
+        - sdk_version: 3
+          github: ruby/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - ec2.Ruby.createVpc
+  services:
+    ec2:
+      {CreateVpc}
+ec2_DescribeIamInstanceProfileAssociations:
+  title: Get data about the instance profile associated with an &EC2; instance using an &AWS; SDK
+  title_abbrev: Get data about the instance profile associated with an instance
+  synopsis: get data about the instance profile associated with an &EC2; instance.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.DescribeIamInstanceProfileAssociations
+  services:
+    ec2: {DescribeIamInstanceProfileAssociations}
+ec2_ReplaceIamInstanceProfileAssociation:
+  title: Replace the instance profile associated with an &EC2; instance using an &AWS; SDK
+  title_abbrev: Replace the instance profile associated with an instance
+  synopsis: replace the instance profile associated with an &EC2; instance.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description: This example replaces the instance profile of a running instance,
+                reboots the instance, and sends a command to the instance after it starts.
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.ReplaceIamInstanceProfileAssociation
+  services:
+    ec2: {ReplaceIamInstanceProfileAssociation}
+ec2_CreateLaunchTemplate:
+  title: Create an &EC2; launch template using an &AWS; SDK
+  title_abbrev: Create a launch template
+  synopsis: create an &EC2; launch template.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description: This example creates a launch template that includes an instance profile
+                that grants specific permissions to the instance, and a user data Bash script that runs on the instance after it starts.
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.CreateLaunchTemplate
+  services:
+    ec2: {CreateLaunchTemplate}
+ec2_DeleteLaunchTemplate:
+  title: Delete an &EC2; launch template using an &AWS; SDK
+  title_abbrev: Delete a launch template
+  synopsis: delete an &EC2; launch template.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.DeleteLaunchTemplate
+  services:
+    ec2: {DeleteLaunchTemplate}
+ec2_DescribeVpcs:
+  title: Get the default VPC using an &AWS; SDK
+  title_abbrev: Get the default VPC
+  synopsis: get the default VPC of the current account.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.DescribeVpcs
+  services:
+    ec2: {DescribeVpcs}
+ec2_DescribeSubnets:
+  title: Get the default subnets for a VPC using an &AWS; SDK
+  title_abbrev: Get the default subnets for a VPC
+  synopsis: get the default subnets for a VPC.
+  category:
+  languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: python/example_code/ec2
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - python.cross_service.resilient_service.AutoScaler.decl
+                - python.cross_service.resilient_service.ec2.DescribeSubnets
+  services:
+    ec2: {DescribeSubnets}
 ec2_Scenario_GetStartedInstances:
   title: Get started with &EC2; instances using an &AWS; SDK
   title_abbrev: Get started with instances

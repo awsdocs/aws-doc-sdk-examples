@@ -93,6 +93,18 @@ public class EC2Wrapper
 
         return false;
     }
+
+    /// <summary>
+    /// Retrieve the availability zones for the current region.
+    /// </summary>
+    /// <returns>A collection of availability zones.</returns>
+    public async Task<List<AvailabilityZone>> ListAvailabilityZonesAsync()
+    {
+        var response = await _amazonEc2.DescribeAvailabilityZonesAsync(
+            new DescribeAvailabilityZonesRequest());
+
+        return response.AvailabilityZones;
+    }
 }
 
 // snippet-end:[AutoScaling.dotnetv3.AutoScalingActions.EC2Wrapper]

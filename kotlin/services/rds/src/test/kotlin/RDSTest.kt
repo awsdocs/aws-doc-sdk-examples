@@ -2,6 +2,9 @@
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
 */
+import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
+import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
+import com.google.gson.Gson
 import com.kotlin.rds.createDBParameterGroup
 import com.kotlin.rds.createDatabaseInstance
 import com.kotlin.rds.createDbSnapshot
@@ -22,16 +25,21 @@ import com.kotlin.rds.waitForDbInstanceReady
 import com.kotlin.rds.waitForInstanceReady
 import com.kotlin.rds.waitForSnapshotReady
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.TestMethodOrder
-import java.io.InputStream
-import java.util.Properties
+import java.util.Random
+import java.util.UUID
 
+/**
+ * To run these integration tests, you need to either set the required values
+ * in the config.properties file or in AWS Secrets Manager.
+ */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(OrderAnnotation::class)
 class RDSTest {
@@ -41,47 +49,54 @@ class RDSTest {
     private var masterUsername = ""
     private var masterUserPassword = ""
     private var newMasterUserPassword = ""
-
     private var dbGroupNameSc = ""
     private var dbParameterGroupFamilySc = ""
     private var dbInstanceIdentifierSc = ""
-    private var masterUsernameSc = ""
-    private var masterUserPasswordSc = ""
     private var dbSnapshotIdentifierSc = ""
     private var dbNameSc = ""
 
     @BeforeAll
-    fun setup() {
-        val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
-        val prop = Properties()
+    fun setup() = runBlocking {
+        val rand = Random()
+        val randomNum = rand.nextInt(10000 - 1 + 1) + 1
 
-        // Load the properties file.
-        prop.load(input)
-        dbInstanceIdentifier = prop.getProperty("dbInstanceIdentifier")
-        dbSnapshotIdentifier = prop.getProperty("dbSnapshotIdentifier")
-        dbName = prop.getProperty("dbName")
-        masterUsername = prop.getProperty("masterUsername")
-        masterUserPassword = prop.getProperty("masterUserPassword")
-        newMasterUserPassword = prop.getProperty("newMasterUserPassword")
-        dbGroupNameSc = prop.getProperty("dbGroupNameSc")
-        dbParameterGroupFamilySc = prop.getProperty("dbParameterGroupFamilySc")
-        dbInstanceIdentifierSc = prop.getProperty("dbInstanceIdentifierSc")
-        masterUsernameSc = prop.getProperty("masterUsernameSc")
-        masterUserPasswordSc = prop.getProperty("masterUserPasswordSc")
-        dbSnapshotIdentifierSc = prop.getProperty("dbSnapshotIdentifierSc")
-        dbNameSc = prop.getProperty("dbNameSc")
-    }
+        // Get the values to run these tests from AWS Secrets Manager.
+        val gson = Gson()
+        val json = getSecretValues()
+        val values = gson.fromJson(json, SecretValues::class.java)
+        dbInstanceIdentifier = values.dbInstanceIdentifier + UUID.randomUUID()
+        dbSnapshotIdentifier = values.dbSnapshotIdentifier + UUID.randomUUID()
+        dbName = values.dbName + randomNum
+        masterUsername = values.masterUsername.toString()
+        masterUserPassword = values.masterUserPasswordSc.toString()
+        newMasterUserPassword = values.newMasterUserPassword.toString()
+        dbGroupNameSc = values.dbGroupNameSc + UUID.randomUUID()
+        dbParameterGroupFamilySc = values.dbParameterGroupFamilySc.toString()
+        dbInstanceIdentifierSc = values.dbInstanceIdentifierSc + UUID.randomUUID()
+        dbSnapshotIdentifierSc = values.dbSnapshotIdentifierSc + UUID.randomUUID()
+        dbNameSc = values.dbNameSc + randomNum
 
-    @Test
-    @Order(1)
-    fun whenInitializingAWSService_thenNotNull() {
-        Assertions.assertTrue(!dbInstanceIdentifier.isEmpty())
-        Assertions.assertTrue(!dbSnapshotIdentifier.isEmpty())
-        Assertions.assertTrue(!dbName.isEmpty())
-        Assertions.assertTrue(!masterUsername.isEmpty())
-        Assertions.assertTrue(!masterUserPassword.isEmpty())
-        Assertions.assertTrue(!newMasterUserPassword.isEmpty())
-        println("Test 1 passed")
+// Uncomment this code block if you prefer using a config.properties file to retrieve AWS values required for these tests.
+        /*
+                val input: InputStream = this.javaClass.getClassLoader().getResourceAsStream("config.properties")
+                val prop = Properties()
+
+                // Load the properties file.
+                prop.load(input)
+                dbInstanceIdentifier = prop.getProperty("dbInstanceIdentifier")
+                dbSnapshotIdentifier = prop.getProperty("dbSnapshotIdentifier")
+                dbName = prop.getProperty("dbName")
+                masterUsername = prop.getProperty("masterUsername")
+                masterUserPassword = prop.getProperty("masterUserPassword")
+                newMasterUserPassword = prop.getProperty("newMasterUserPassword")
+                dbGroupNameSc = prop.getProperty("dbGroupNameSc")
+                dbParameterGroupFamilySc = prop.getProperty("dbParameterGroupFamilySc")
+                dbInstanceIdentifierSc = prop.getProperty("dbInstanceIdentifierSc")
+                masterUsernameSc = prop.getProperty("masterUsernameSc")
+                masterUserPasswordSc = prop.getProperty("masterUserPasswordSc")
+                dbSnapshotIdentifierSc = prop.getProperty("dbSnapshotIdentifierSc")
+                dbNameSc = prop.getProperty("dbNameSc")
+         */
     }
 
     @Test
@@ -161,7 +176,13 @@ class RDSTest {
         getMicroInstances()
 
         println("9. Create an RDS database instance that contains a MySql database and uses the parameter group")
-        val dbARN = createDatabaseInstance(dbGroupNameSc, dbInstanceIdentifierSc, dbNameSc, masterUsernameSc, masterUserPasswordSc)
+        val dbARN = createDatabaseInstance(
+            dbGroupNameSc,
+            dbInstanceIdentifierSc,
+            dbNameSc,
+            masterUsername,
+            masterUserPassword
+        )
         println("The ARN of the new database is $dbARN")
 
         println("10. Wait for DB instance to be ready")
@@ -181,5 +202,39 @@ class RDSTest {
             deleteParaGroup(dbGroupNameSc, dbARN)
         }
         println("The Scenario has successfully completed.")
+    }
+
+    suspend fun getSecretValues(): String? {
+        val secretName = "test/rds"
+        val valueRequest = GetSecretValueRequest {
+            secretId = secretName
+        }
+
+        SecretsManagerClient { region = "us-east-1" }.use { secretsClient ->
+            val valueResponse = secretsClient.getSecretValue(valueRequest)
+            return valueResponse.secretString
+        }
+    }
+
+    @Nested
+    @DisplayName("A class used to get test values from test/rds (an AWS Secrets Manager secret)")
+    internal class SecretValues {
+        val dbInstanceIdentifier: String? = null
+        val dbSnapshotIdentifier: String? = null
+        val dbName: String? = null
+        val masterUsername: String? = null
+        val masterUserPassword: String? = null
+        val newMasterUserPassword: String? = null
+        val dbGroupNameSc: String? = null
+        val dbParameterGroupFamilySc: String? = null
+        val dbInstanceIdentifierSc: String? = null
+        val dbNameSc: String? = null
+        val masterUsernameSc: String? = null
+        val masterUserPasswordSc: String? = null
+        val dbSnapshotIdentifierSc: String? = null
+        val dbClusterGroupName: String? = null
+        val dbParameterGroupFamily: String? = null
+        val dbInstanceClusterIdentifier: String? = null
+        val secretName: String? = null
     }
 }

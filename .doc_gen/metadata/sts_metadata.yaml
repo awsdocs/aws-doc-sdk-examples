@@ -79,12 +79,23 @@ sts_AssumeRole:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/sts/
+          github: rust_dev_preview/examples/sts/
           excerpts:
             - description:
               snippet_tags:
                 - sts.rust.assume_role
 
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/iam
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.iam.iecho
+                - aws-cli.bash-linux.iam.errecho
+                - aws-cli.bash-linux.sts.assume-role
   services:
     sts: {AssumeRole}
 sts_GetSessionToken:

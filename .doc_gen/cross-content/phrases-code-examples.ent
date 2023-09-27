@@ -25,6 +25,11 @@
 <!ENTITY guide-rust-dev '&Rustlong; developer guide'>
 <!ENTITY guide-rust-api '&Rustlong; API reference'>
 
+<!-- SDK for Bash (a virtual SDK that uses the CLI) -->
+
+<!ENTITY Bashlong '&CLIlong; with Bash script'>
+<!ENTITY Bash '&CLI; with Bash script'>
+
 <!-- API Gateway Management API -->
 
 <!ENTITY ABPMA '&ABP; Management API'>
@@ -58,6 +63,11 @@
 <!ENTITY PERSRlong '&PERSlong; Runtime'>
 <!ENTITY PERSR '&PERS; Runtime'>
 
+<!-- Serverless examples -->
+<!ENTITY Serverless 'Serverless examples'>
 <!-- Transcribe Medical -->
 <!ENTITY TSCMlong '&TSClong; Medical'>
 <!ENTITY TSCM '&TSC; Medical'>
+
+<!--Elastic Load Balancing-->
+<!ENTITY ELBacro 'ELB'>

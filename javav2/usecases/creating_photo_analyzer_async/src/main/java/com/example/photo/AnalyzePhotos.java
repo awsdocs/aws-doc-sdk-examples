@@ -14,23 +14,21 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 import org.springframework.stereotype.Component;
-import software.amazon.awssdk.services.rekognition.model.*;
+import software.amazon.awssdk.services.rekognition.model.DetectLabelsRequest;
+import software.amazon.awssdk.services.rekognition.model.DetectLabelsResponse;
+import software.amazon.awssdk.services.rekognition.model.Image;
+import software.amazon.awssdk.services.rekognition.model.Label;
+import software.amazon.awssdk.services.rekognition.model.RekognitionException;
 
 @Component
 public class AnalyzePhotos {
-
-    public ArrayList DetectLabels(byte[] bytes, String key) {
-
-        Region region = Region.US_EAST_2;
+    public ArrayList<WorkItem> DetectLabels(byte[] bytes, String key) {
         RekognitionAsyncClient rekAsyncClient = RekognitionAsyncClient.builder()
                 .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(region)
+                .region(Region.US_EAST_2)
                 .build();
-
         try {
-
             final AtomicReference<ArrayList<WorkItem>> reference = new AtomicReference<>();
-
             SdkBytes sourceBytes = SdkBytes.fromByteArray(bytes);
 
             // Create an Image object for the source image.
@@ -45,17 +43,15 @@ public class AnalyzePhotos {
 
             CompletableFuture<DetectLabelsResponse> futureGet = rekAsyncClient.detectLabels(detectLabelsRequest);
             futureGet.whenComplete((resp, err) -> {
-
              try {
                 if (resp != null) {
-
                     List<Label> labels =  resp.labels();
                     System.out.println("Detected labels for the given photo");
-                    ArrayList list = new ArrayList<WorkItem>();
+                    ArrayList<WorkItem> list = new ArrayList<>();
                     WorkItem item ;
                     for (Label label: labels) {
                         item = new WorkItem();
-                        item.setKey(key); // identifies the photo
+                        item.setKey(key); // identifies the photo.
                         item.setConfidence(label.confidence().toString());
                         item.setName(label.name());
                         list.add(item);
@@ -67,16 +63,14 @@ public class AnalyzePhotos {
                 }
 
             } finally {
-
-                // Only close the client when you are completely done with it
+                // Only close the client when you are completely done with it.
                 rekAsyncClient.close();
             }
-
           });
-            futureGet.join();
+          futureGet.join();
 
-            // Use the AtomicReference object to return the ArrayList<WorkItem> collection.
-            return reference.get();
+          // Use the AtomicReference object to return the ArrayList<WorkItem> collection.
+          return reference.get();
 
         } catch (RekognitionException e) {
             System.out.println(e.getMessage());

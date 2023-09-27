@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 #
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
 # swiftbuild
 #
 # A simple tool to build (or test) one or more Swift projects using a single
 # command.
 #
-# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
 
 import argparse
 import pathlib
@@ -14,7 +15,8 @@ import os
 import subprocess
 
 def swiftbuild(test, run, packages, swiftc_options):
-    # Process the package directories.
+    # Process the package directories. Each directory in `packages` that has a
+    # `Package.swift` file is built using the `swiftc` command.
 
     results = ()
     num_packages_found = 0
@@ -25,8 +27,6 @@ def swiftbuild(test, run, packages, swiftc_options):
             if is_package:
                 num_packages_found = num_packages_found + 1
                 results = results + ((path, output),)
-#            else:
-#                print(f"Directory {path} is not a Swift project. Skipping.")
     
     # Display a table of build results.
 
@@ -60,8 +60,7 @@ def swiftbuild(test, run, packages, swiftc_options):
     print_configuration(test, swiftc_options)
 
 def print_configuration(test, swiftc_options):
-    # print(f"Built project(s) {with_tests}")
-    print("Build configuration:")
+    print("Build options:")
     count = len(swiftc_options)
 
     if test:
@@ -73,19 +72,23 @@ def print_configuration(test, swiftc_options):
     elif not test:
         print("    None")
 
+# Determine if the specified path contains a Swift package.
+def is_package_dir(dir):
+    packagefile_path = dir / "Package.swift"
+    return packagefile_path.is_file()
+
 # Build one package, given a specific directory. Build and test
 # if the `test` argument is True.
 #
 # Returns the returncode from the `swift` command.
 def build_package(test, run, package, swiftc_options):
-    packagefile_path = package / "Package.swift"
-    is_package = False
+    is_package = is_package_dir(package)
 
-    if not packagefile_path.is_file():
+    # If it's not a package directory, return at once.
+    if not is_package:
         return 1, is_package
     
-    is_package = True
-
+    # Set up verb forms we need for pretty output.
     if test == True:
         build_command = "test"
         command_gerund = "testing"
@@ -96,14 +99,21 @@ def build_package(test, run, package, swiftc_options):
         build_command = "build"
         command_gerund = "building"
     
-    command_parts = ["swift", build_command]
+    # If testing, look to see if there's a `test.sh` file. If so,
+    # the build command is "sh path/to/test.sh"
+    test_script = package / "test.sh"
+    if test and test_script.exists() and test_script.is_file():
+        command_parts = ["sh", test_script]
+    else:
+        # Construct the command to build the project.
+        command_parts = ["swift", build_command]
 
-    for opt in swiftc_options:
-        command_parts = command_parts + ["-Xswiftc", opt]
+        for opt in swiftc_options:
+            command_parts = command_parts + ["-Xswiftc", opt]
     
     print(f"Now {command_gerund} project in {package}...")
-    # print(command_parts)
 
+    # Build the project.
     results = subprocess.run(command_parts, cwd=package)
     print("="*72, "\n")
     return results.returncode, is_package
@@ -115,9 +125,18 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--test", action="store_true", help="run tests on projects after building them")
     parser.add_argument("-p", "--parseable", action="store_true", help="enable parseable output", dest="parseable")
     parser.add_argument("-w", "--hide-warnings", action="store_true", help="hide build warnings", dest="hide_warnings")
-    parser.add_argument("packages", metavar="PACKAGE_DIR", type=pathlib.Path, nargs="*", default="*", help="Directory of a project to build.")
+    parser.add_argument("packages", metavar="PACKAGE_DIR", type=pathlib.Path, nargs="*", help="Directory of a project to build.")
 
     args = parser.parse_args()
+
+    # If no package list provided, use all directories in the
+    # current working directory.
+
+    if len(args.packages) == 0:
+        cwd_path = pathlib.Path().absolute()
+        package_list = [item for item in cwd_path.iterdir() if item.is_dir()]
+    else:
+        package_list = args.packages
 
     # Build swiftc command line option list
 
@@ -128,4 +147,4 @@ if __name__ == "__main__":
     if args.parseable:
         swiftc_options.append("-parseable-output")
 
-    swiftbuild(args.test, args.run, args.packages, swiftc_options)
+    swiftbuild(args.test, args.run, package_list, swiftc_options)

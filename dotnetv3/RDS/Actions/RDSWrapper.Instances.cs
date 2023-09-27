@@ -160,4 +160,3 @@ public partial class RDSWrapper
     // snippet-end:[RDS.dotnetv3.RdsInstanceWrapper]
 
 }
-

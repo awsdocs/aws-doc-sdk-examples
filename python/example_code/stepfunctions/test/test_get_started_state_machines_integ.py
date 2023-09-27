@@ -14,6 +14,7 @@ def mock_wait(monkeypatch):
     return
 
 
+@pytest.mark.skip(reason="Skip until shared resources are part of the Docker environment.")
 @pytest.mark.integ
 def test_run_get_started_state_machines_integ(input_mocker, capsys):
     stepfunctions_client = boto3.client('stepfunctions')

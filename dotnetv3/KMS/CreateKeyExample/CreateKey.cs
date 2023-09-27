@@ -41,7 +41,6 @@ namespace CreateKeyExample
                 Console.WriteLine("Could not create KMS Key.");
             }
         }
-
     }
 
     // snippet-end:[KMS.dotnetv3.CreateKeyExample]

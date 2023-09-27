@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,6 +17,7 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started/basic-usage.html
  *
  */
+
 // snippet-start:[s3.php.error_handling.complete]
 // snippet-start:[s3.php.error_handling.import]
 require 'vendor/autoload.php';
@@ -35,8 +37,7 @@ use Aws\S3\Exception\S3Exception;
 // snippet-start:[s3.php.error_handling.client]
 // Create an SDK class used to share configuration across clients.
 $sdk = new Aws\Sdk([
-    'region'   => 'us-west-2',
-    'version'  => 'latest'
+    'region'   => 'us-west-2'
 ]);
 
 // Use an Aws\Sdk class to create the S3Client object.
@@ -83,19 +84,6 @@ try {
 } catch (S3Exception $e) {
     echo $e->getMessage();
 }
-
-// snippet-end:[s3.php.error_handling.trycatch] 
+// snippet-end:[s3.php.error_handling.trycatch]
 // snippet-end:[s3.php.error_handling.main]
 // snippet-end:[s3.php.error_handling.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ErrorHandling.php demonstrates how to create a Amazon S3 Bucket Asynchronously with Errors Handled if something goes wrong.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon S3]
-// snippet-service:[s3]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-09-20]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
-

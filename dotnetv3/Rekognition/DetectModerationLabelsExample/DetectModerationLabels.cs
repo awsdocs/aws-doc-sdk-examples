@@ -53,5 +53,6 @@ namespace DetectModerationLabelsExample
             }
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.DetectModerationLabelsExample]
 }

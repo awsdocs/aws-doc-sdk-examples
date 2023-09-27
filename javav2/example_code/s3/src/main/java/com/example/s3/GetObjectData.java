@@ -64,7 +64,8 @@ public class GetObjectData {
     }
 
     // snippet-start:[s3.java2.getobjectdata.main]
-    public static void getObjectBytes (S3Client s3, String bucketName, String keyName, String path) {
+    public static void
+    getObjectBytes (S3Client s3, String bucketName, String keyName, String path) {
 
         try {
             GetObjectRequest objectRequest = GetObjectRequest

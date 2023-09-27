@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
@@ -16,6 +17,7 @@
  * https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/getting-started/basic-usage.html
  *
  */
+
 // snippet-start:[s3.php.list_buckets_async.complete]
 // snippet-start:[s3.php.list_buckets_async.import]
 require 'vendor/autoload.php';
@@ -33,8 +35,7 @@ use Aws\Exception\AwsException;
 // snippet-start:[s3.php.list_buckets_async.async]
 // Create an SDK class used to share configuration across clients.
 $sdk = new Aws\Sdk([
-    'region'   => 'us-west-2',
-    'version'  => 'latest'
+    'region'   => 'us-west-2'
 ]);
 // Use an Aws\Sdk class to create the S3Client object.
 $s3Client = $sdk->createS3();
@@ -53,19 +54,6 @@ $promise
     ->otherwise(function ($reason) {
         echo 'Encountered an error: ' . $reason->getMessage();
     });
-}
 // snippet-end:[s3.php.list_buckets_async.promise]
 // snippet-end:[s3.php.list_buckets_async.main]
 // snippet-end:[s3.php.list_buckets_async.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[ListBucketsAsync.php demonstrates how to asynchronously list your Amazon S3 buckets.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon S3]
-// snippet-service:[s3]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-09-20]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
-

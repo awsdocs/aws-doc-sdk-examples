@@ -3,11 +3,11 @@
 
 // snippet-start:[ACM.dotnetv3.ListCertificates]
 
+using System;
+using System.Threading.Tasks;
 using Amazon;
 using Amazon.CertificateManager;
 using Amazon.CertificateManager.Model;
-using System;
-using System.Threading.Tasks;
 
 namespace ListCertificates
 {
@@ -34,7 +34,6 @@ namespace ListCertificates
                 Console.WriteLine($"Certificate Domain: {certificate.DomainName}");
                 Console.WriteLine($"Certificate ARN: {certificate.CertificateArn}\n");
             }
-
         }
 
         /// <summary>
@@ -53,7 +52,6 @@ namespace ListCertificates
             return response;
         }
     }
-
 }
 
 // snippet-end:[ACM.dotnetv3.ListCertificates]

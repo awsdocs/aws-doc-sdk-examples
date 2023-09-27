@@ -60,6 +60,7 @@ Code excerpts that show you how to call individual service functions.
 Code examples that show you how to accomplish a specific task by calling multiple
 functions within the same service.
 
+* [Demonstrates how to perform various Amazon Simple Notification Service (Amazon SNS) operations.](src/main/java/com/example/sns/SNSWorkflow.java)
 * [Create a platform endpoint for push notifications](src/main/java/com/example/sns/RegistrationExample.java) 
 * [Create and publish to a FIFO topic](src/main/java/com/example/sns/CreateFIFOTopic.java) 
 * [Publish SMS messages to a topic](src/main/java/com/example/sns/CreateTopic.java) 

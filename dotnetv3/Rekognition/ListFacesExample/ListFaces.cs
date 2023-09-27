@@ -44,5 +44,6 @@ namespace ListFacesExample
             while (!string.IsNullOrEmpty(listFacesResponse.NextToken));
         }
     }
+
     // snippet-end:[Rekognition.dotnetv3.ListFacesExample]
 }

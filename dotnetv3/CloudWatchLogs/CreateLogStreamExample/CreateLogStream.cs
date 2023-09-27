@@ -4,7 +4,6 @@
 namespace CreateLogStreamExample
 {
     // snippet-start:[CloudWatchLogs.dotnetv3.CreateLogStreamExample]
-
     using System;
     using System.Threading.Tasks;
     using Amazon.CloudWatchLogs;
@@ -45,5 +44,6 @@ namespace CreateLogStreamExample
             }
         }
     }
+
     // snippet-end:[CloudWatchLogs.dotnetv3.CreateLogStreamExample]
 }

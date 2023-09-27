@@ -3,8 +3,6 @@
    SPDX-License-Identifier: Apache-2.0
 */
 
-// snippet-start:[lookoutvision.java2.delete_dataset.complete]
-
 package com.example.lookoutvision;
 
 import software.amazon.awssdk.services.lookoutvision.LookoutVisionClient;
@@ -73,8 +71,6 @@ public class DeleteModel {
             System.out.println(String.format("Could not delete dataset: %s", lfvError.getMessage()));
             System.exit(1);
         }
-
     }
-
 }
-// snippet-end:[lookoutvision.java2.delete_dataset.complete]
+

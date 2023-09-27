@@ -62,6 +62,24 @@ ses_SendBulkTemplatedEmail:
                 - ses.JavaScript.email.sendBulkTemplatedEmailV3
   services:
     ses: {SendBulkTemplatedEmail}
+ses_SendRawEmail:
+  title: Send a raw email with &SES; using an &AWS; SDK
+  title_abbrev: Send raw email
+  synopsis: send a raw email with &SES;.
+  category:
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/ses
+          sdkguide:
+          excerpts:
+            - description: Use <ulink url="https://nodemailer.com/transports/ses/">nodemailer</ulink> to send an email
+                with an attachment.
+              snippet_tags:
+                - javascript.v3.ses.attachment
+  services:
+    ses: {SendRawEmail}
 ses_SendTemplatedEmail:
   title: Send templated email with &SES; using an &AWS; SDK
   title_abbrev: Send templated email

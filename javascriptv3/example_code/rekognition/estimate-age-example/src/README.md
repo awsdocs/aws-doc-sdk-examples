@@ -42,5 +42,5 @@ webpack estimate-age.js --mode development --target web --devtool false -o main.
 
 ## Resources
 - [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) 
-- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rekognition/index.html)
+- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/rekognition/index.html)
 - [Amazon Rekognition Developer Guide - AWS SDK for JavaScript (v2) version of this example](https://docs.aws.amazon.com/rekognition/latest/dg/image-bytes-javascript.html)

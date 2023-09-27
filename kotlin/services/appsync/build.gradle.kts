@@ -23,9 +23,11 @@ repositories {
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
 dependencies {
-    implementation("aws.sdk.kotlin:appsync-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:sts-jvm:0.21.3-beta")
-    implementation("aws.sdk.kotlin:s3-jvm:0.21.3-beta")
+    implementation("aws.sdk.kotlin:appsync:0.30.1-beta")
+    implementation("aws.sdk.kotlin:sts:0.30.1-beta")
+    implementation("aws.sdk.kotlin:s3:0.30.1-beta")
+    implementation("aws.sdk.kotlin:secretsmanager:0.30.1-beta")
+    implementation("com.google.code.gson:gson:2.10")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")

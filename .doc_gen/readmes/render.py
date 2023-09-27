@@ -3,7 +3,7 @@
 
 import config
 import datetime
-import jinja2
+from jinja2 import BaseLoader,Environment, FileSystemLoader, select_autoescape
 import logging
 import os
 from operator import itemgetter
@@ -18,9 +18,10 @@ class MissingMetadataError(Exception):
 
 class Renderer:
     def __init__(self, scanner, sdk_ver, safe, svc_folder=None):
-        env = jinja2.Environment(
-            loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-            trim_blocks=True, lstrip_blocks=True
+        env = Environment(
+            autoescape=select_autoescape(disabled_extensions=('jinja2',), default_for_string=True),
+            loader=FileSystemLoader(os.path.dirname(__file__)),
+            trim_blocks=True, lstrip_blocks=True,
         )
         self.template = env.get_template("service_readme.jinja2")
         self.template.globals['now'] = datetime.datetime.utcnow
@@ -34,15 +35,16 @@ class Renderer:
         if svc_folder is not None:
             self.lang_config['service_folder'] = svc_folder
         else:
-            if 'service_folder' in self.lang_config:
-                svc_folder_tmpl = jinja2.Environment(
-                    loader=jinja2.BaseLoader()).from_string(self.lang_config['service_folder'])
+            if "service_folder_overrides" in self.lang_config and scanner.svc_name in self.lang_config["service_folder_overrides"]:
+                self.lang_config["service_folder"] = self.lang_config["service_folder_overrides"][scanner.svc_name]
+            elif 'service_folder' in self.lang_config:
+                svc_folder_tmpl = env.from_string(self.lang_config['service_folder'])
                 self.lang_config['service_folder'] = svc_folder_tmpl.render(service=service_info)
             else:
                 raise MissingMetadataError(
                     "Service folder not found. You must either specify a service_folder template in config.py or\n"
                     "as a command line --svc_folder argument.")
-        sdk_api_ref_tmpl = jinja2.Environment(loader=jinja2.BaseLoader()).from_string(self.lang_config['sdk_api_ref'])
+        sdk_api_ref_tmpl = env.from_string(self.lang_config['sdk_api_ref'])
         self.lang_config['sdk_api_ref'] = sdk_api_ref_tmpl.render(service=service_info)
         self.safe = safe
 
@@ -98,6 +100,8 @@ class Renderer:
 
     def _transform_scenarios(self):
         pre_scenarios = self.scanner.scenarios()
+        _, cross_scenarios = self.scanner.crosses()
+        pre_scenarios.update(cross_scenarios)
         post_scenarios = []
         for pre_id, pre in pre_scenarios.items():
             scenario = {
@@ -114,7 +118,7 @@ class Renderer:
         return sorted(post_scenarios, key=itemgetter('title_abbrev'))
 
     def _transform_crosses(self):
-        pre_crosses = self.scanner.crosses()
+        pre_crosses, _ = self.scanner.crosses()
         post_crosses = []
         for _, pre in pre_crosses.items():
             github = None

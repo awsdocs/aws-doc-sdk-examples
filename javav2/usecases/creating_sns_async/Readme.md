@@ -1,5 +1,14 @@
 # Creating an asynchronous publish/subscription web application that translates messages using the AWS SDK for Java
 
+## Overview
+
+| Heading      | Description |
+| ----------- | ----------- |
+| Description | Discusses how to develop a dynamic web MVC application that has subscription and publish functionality by using the AWS SDK for Java (v2). This example uses the asynchronous client.  |
+| Audience   |  Developer (beginner / intermediate)        |
+| Updated   | 6/9/2023        |
+| Required skills   | Java, Maven  |
+
 ## Purpose
 
 You can create a web application that has subscription and publish functionality by using the Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial is a Spring Boot web application that lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter many emails and all of them are subscribed to the given SNS topic (once the email recipients confirm the subscription). The user can publish a message that results in all subscribed emails receiving the message. 
@@ -17,8 +26,7 @@ You can create a web application that has subscription and publish functionality
 + Add the POM dependencies to your project
 + Create the Java classes
 + Create the HTML files
-+ Package the application into a JAR file
-+ Deploy the application to Elastic Beanstalk
++ Run the application. 
 
 ## Prerequisites
 
@@ -26,7 +34,7 @@ To complete the tutorial, you need the following:
 
 + An AWS account
 + A Java IDE (this tutorial uses the IntelliJ IDE)
-+ Java JDK 1.8
++ Java JDK 17
 + Maven 3.6 or later
 
 ## Important
@@ -88,74 +96,74 @@ Create an IntelliJ project that is used to create the web application.
 At this point, you have a new project named **SpringSubscribeApp**. Ensure that the pom.xml file resembles the following code.
 
 ```xml
-     <?xml version="1.0" encoding="UTF-8"?>
-     <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.example</groupId>
-    <artifactId>SpringSubscribeApp</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <description>Demo project for Spring Boot that shows Pub/Sub functionality</description>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.5.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>software.amazon.awssdk</groupId>
-                <artifactId>bom</artifactId>
-                <version>2.16.29</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.example</groupId>
+  <artifactId>SubPubAsync</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Archetype - SubPubAsync</name>
+  <url>http://maven.apache.org</url>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.7.12</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  <properties>
+    <java.version>17</java.version>
+  </properties>
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>sns</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>software.amazon.awssdk</groupId>
-            <artifactId>translate</artifactId>
-        </dependency>
-     </dependencies>
-     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${project.parent.version}</version>
-            </plugin>
-        </plugins>
-      </build>
-    </project>
+      <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>bom</artifactId>
+        <version>2.20.45</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>sns</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>translate</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${project.parent.version}</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
 ```  
 
  ## Create the Java classes
@@ -194,129 +202,130 @@ The following Java code represents the **SubApplication** class.
 The following Java code represents the **SubController** class.
 
 ```java
-     package com.spring.sns;
+package com.spring.sns;
 
-     import org.springframework.beans.factory.annotation.Autowired;
-     import org.springframework.stereotype.Controller;
-     import org.springframework.web.bind.annotation.*;
-     import javax.servlet.http.HttpServletRequest;
-     import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-     @Controller
-     public class SubController {
+@Controller
+public class SubController {
+    private final SnsService sns;
 
-     @Autowired
-     SnsService sns;
+    @Autowired
+    SubController(
+        SnsService sns
+    ) {
+        this.sns = sns;
+    }
 
-     @GetMapping("/")
-     public String root() {
+    @GetMapping("/")
+    public String root() {
         return "index";
-     }
+    }
 
-
-     @GetMapping("/subscribe")
-     public String add() {
+    @GetMapping("/subscribe")
+    public String add() {
         return "sub";
-     }
+    }
 
-     @RequestMapping(value = "/addEmail", method = RequestMethod.POST)
-     @ResponseBody
-     String addItems(HttpServletRequest request, HttpServletResponse response) {
-
+    @RequestMapping(value = "/addEmail", method = RequestMethod.POST)
+    @ResponseBody
+    String addItems(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getParameter("email");
         return sns.subEmail(email);
-     }
+    }
 
-     @RequestMapping(value = "/delSub", method = RequestMethod.POST)
-     @ResponseBody
-     String delSub(HttpServletRequest request, HttpServletResponse response) {
-
+    @RequestMapping(value = "/delSub", method = RequestMethod.POST)
+    @ResponseBody
+    String delSub(HttpServletRequest request, HttpServletResponse response) {
         String email = request.getParameter("email");
         sns.unSubEmail(email);
         return email +" was successfully deleted!";
-     }
+    }
 
-     @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
-     @ResponseBody
-     String addMessage(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/addMessage", method = RequestMethod.POST)
+    @ResponseBody
+    String addMessage(HttpServletRequest request, HttpServletResponse response) {
 
         String body = request.getParameter("body");
         String lang = request.getParameter("lang");
         return sns.pubTopic(body,lang);
-     }
-
-     @RequestMapping(value = "/getSubs", method = RequestMethod.GET)
-     @ResponseBody
-     String getSubs(HttpServletRequest request, HttpServletResponse response) {
-
-        String mySub = sns.getAllSubscriptions();
-        return mySub;
-     }
     }
+
+    @RequestMapping(value = "/getSubs", method = RequestMethod.GET)
+    @ResponseBody
+    String getSubs(HttpServletRequest request, HttpServletResponse response) {
+        return sns.getAllSubscriptions();
+    }
+}
 ```
 
 ### SnsService class
 
-The following Java code represents the **SnsService** class. This class uses the Java V2 **SnsAsyncClient** object to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message.
+The following Java code represents the **SnsService** class. This class uses the Java V2 [SnsAsyncClient](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/sns/SnsAsyncClient.html) object to interact with Amazon SNS. For example, the **subEmail** method uses the email address to subscribe to the Amazon SNS topic. Likewise, the **unSubEmail** method unsubscibes from the Amazon SNS topic. The **pubTopic** publishes a message.
 
 When working with the **SnsAsyncClient**, you use a **CompletableFuture** object that allows you to access the response when it’s ready. You can access the **resp** object by calling the **futureGet.whenComplete** method. Then you can get service data by invoking the applicable method that belongs to the **resp** object. For example, you can get the subscription Arn value by invoking the **resp.subscriptionArn()** method. 
 
 To return data that you read from the **resp** object (for example, a subscription Arn value), you must use an AtomicReference object. You cannot return data from within the **futureGet.whenComplete** method. If you attempt to perform this task, you get a compile error. You can set the data by using the **AtomicReference** object's **set** method. You can then access the **AtomicReference** object from outside the **futureGet.whenComplete** method to get the data by using the **AtomicReference** object's **get** method. Then you can return the data from a Java method, as shown in the following Java code example.
 
 ```java
-     package com.spring.sns;
+package com.spring.sns;
 
-     import org.springframework.stereotype.Component;
-     import org.w3c.dom.Document;
-     import org.w3c.dom.Element;
-     import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
-     import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicRequest;
-     import software.amazon.awssdk.regions.Region;
-     import software.amazon.awssdk.services.sns.SnsAsyncClient;
-     import software.amazon.awssdk.services.sns.model.*;
-     import software.amazon.awssdk.services.translate.TranslateAsyncClient;
-     import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
-     import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
-     import javax.xml.parsers.DocumentBuilder;
-     import javax.xml.parsers.DocumentBuilderFactory;
-     import javax.xml.parsers.ParserConfigurationException;
-     import javax.xml.transform.Transformer;
-     import javax.xml.transform.TransformerException;
-     import javax.xml.transform.TransformerFactory;
-     import javax.xml.transform.dom.DOMSource;
-     import javax.xml.transform.stream.StreamResult;
-     import java.io.StringWriter;
-     import java.util.ArrayList;
-     import java.util.List;
-     import java.util.concurrent.CompletableFuture;
-     import java.util.concurrent.atomic.AtomicReference;
+import org.springframework.stereotype.Component;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
+import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicRequest;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.sns.SnsAsyncClient;
+import software.amazon.awssdk.services.sns.model.ListSubscriptionsByTopicResponse;
+import software.amazon.awssdk.services.sns.model.PublishRequest;
+import software.amazon.awssdk.services.sns.model.PublishResponse;
+import software.amazon.awssdk.services.sns.model.SnsException;
+import software.amazon.awssdk.services.sns.model.SubscribeRequest;
+import software.amazon.awssdk.services.sns.model.SubscribeResponse;
+import software.amazon.awssdk.services.sns.model.Subscription;
+import software.amazon.awssdk.services.sns.model.UnsubscribeRequest;
+import software.amazon.awssdk.services.translate.TranslateAsyncClient;
+import software.amazon.awssdk.services.translate.model.TranslateTextRequest;
+import software.amazon.awssdk.services.translate.model.TranslateTextResponse;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
-    @Component
-    public class SnsService {
-
-    String topicArn = "<ENTER YOUR TOPIC ARN VALUE>";
+@Component
+public class SnsService {
+    String topicArn = "<Enter your Amazon SNS Topic ARN>";
 
     private SnsAsyncClient getSnsClient() {
-
-        Region region = Region.US_WEST_2;
-        SnsAsyncClient snsAsyncClient = SnsAsyncClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(region)
-                .build();
-
-        return snsAsyncClient;
+        return SnsAsyncClient.builder()
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .region(Region.US_WEST_2)
+            .build();
     }
 
     public void unSubEmail(String emailEndpoint) {
-
         try {
-
             String subscriptionArn = getTopicArnValue(emailEndpoint);
             SnsAsyncClient snsAsyncClient = getSnsClient();
-
             UnsubscribeRequest request = UnsubscribeRequest.builder()
-                    .subscriptionArn(subscriptionArn)
-                    .build();
+                .subscriptionArn(subscriptionArn)
+                .build();
 
             snsAsyncClient.unsubscribe(request);
 
@@ -326,25 +335,22 @@ To return data that you read from the **resp** object (for example, a subscripti
         }
     }
 
-    // Returns the Sub ARN based on the given endpoint
+    // Returns the Sub ARN based on the given endpoint.
     private String getTopicArnValue(String endpoint){
-
         final AtomicReference<String> reference = new AtomicReference<>();
         SnsAsyncClient snsAsyncClient = getSnsClient();
         try {
-            String subArn = "";
             ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
-                    .topicArn(topicArn)
-                    .build();
+                .topicArn(topicArn)
+                .build();
 
             CompletableFuture<ListSubscriptionsByTopicResponse> futureGet  = snsAsyncClient.listSubscriptionsByTopic(request);
             futureGet.whenComplete((resp, err) -> {
-
                 List<Subscription> allSubs  = resp.subscriptions();
                 for (Subscription sub: allSubs) {
 
                     if (sub.endpoint().compareTo(endpoint)==0)
-                             reference.set(sub.subscriptionArn());
+                        reference.set(sub.subscriptionArn());
                 }
             });
             futureGet.join();
@@ -359,20 +365,18 @@ To return data that you read from the **resp** object (for example, a subscripti
 
     // Create a Subscription.
     public String subEmail(String email) {
-
         final AtomicReference<String> reference = new AtomicReference<>();
         try {
             SnsAsyncClient snsAsyncClient = getSnsClient();
             SubscribeRequest request = SubscribeRequest.builder()
-                    .protocol("email")
-                    .endpoint(email)
-                    .returnSubscriptionArn(true)
-                    .topicArn(topicArn)
-                    .build();
+                .protocol("email")
+                .endpoint(email)
+                .returnSubscriptionArn(true)
+                .topicArn(topicArn)
+                .build();
 
             CompletableFuture<SubscribeResponse> futureGet  = snsAsyncClient.subscribe(request);
             futureGet.whenComplete((resp, err) -> {
-
                 String subscriptionArn = resp.subscriptionArn();
                 reference.set(subscriptionArn);
             });
@@ -388,15 +392,13 @@ To return data that you read from the **resp** object (for example, a subscripti
     }
 
     public String getAllSubscriptions() {
-
         final AtomicReference<List<String>> reference = new AtomicReference<>();
-        List subList = new ArrayList<String>() ;
-
+        List<String> subList = new ArrayList<>() ;
         try {
             SnsAsyncClient snsAsyncClient = getSnsClient();
             ListSubscriptionsByTopicRequest request = ListSubscriptionsByTopicRequest.builder()
-                    .topicArn(topicArn)
-                    .build();
+                .topicArn(topicArn)
+                .build();
 
             CompletableFuture<ListSubscriptionsByTopicResponse> futureGet  = snsAsyncClient.listSubscriptionsByTopic(request);
             futureGet.whenComplete((resp, err) -> {
@@ -417,74 +419,27 @@ To return data that you read from the **resp** object (for example, a subscripti
         return convertToString(toXml(reference.get()));
     }
 
-    // Convert the list to XML to pass back to the view.
-    private Document toXml(List<String> subsList) {
-
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.newDocument();
-
-            // Start building the XML.
-            Element root = doc.createElement("Subs");
-            doc.appendChild(root);
-
-            // Iterate through the collection.
-            for (String sub : subsList) {
-
-                Element item = doc.createElement("Sub");
-                root.appendChild(item);
-
-                // Set email
-                Element email = doc.createElement("email");
-                email.appendChild(doc.createTextNode(sub));
-                item.appendChild(email);
-            }
-
-            return doc;
-
-        }catch(ParserConfigurationException e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private String convertToString(Document xml) {
-        try {
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            StreamResult result = new StreamResult(new StringWriter());
-            DOMSource source = new DOMSource(xml);
-            transformer.transform(source, result);
-            return result.getWriter().toString();
-
-        } catch(TransformerException ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    public String pubTopic(String message, String lang) {
-
+      public String pubTopic(String message, String lang) {
         final AtomicReference<Integer> reference = new AtomicReference<>();
-            String body;
+        String body;
 
-            if (lang.compareTo("English")==0)
-                body = message;
-            else if(lang.compareTo("French")==0)
-                body = translateBody(message, "fr");
-            else
-                body = translateBody(message, "es");
+        if (lang.compareTo("English")==0)
+            body = message;
+        else if(lang.compareTo("French")==0)
+            body = translateBody(message, "fr");
+        else
+            body = translateBody(message, "es");
 
         try {
             SnsAsyncClient snsAsyncClient = getSnsClient();
             PublishRequest request = PublishRequest.builder()
-                    .message(body)
-                    .topicArn(topicArn)
-                    .build();
+                .message(body)
+                .topicArn(topicArn)
+                .build();
 
             CompletableFuture<PublishResponse> futureGet  = snsAsyncClient.publish(request);
             futureGet.whenComplete((resp, err) -> {
-               reference.set(resp.sdkHttpResponse().statusCode());
+                reference.set(resp.sdkHttpResponse().statusCode());
             });
             futureGet.join();
             return " Message sent in " +lang +". Status was " + reference.get();
@@ -496,20 +451,19 @@ To return data that you read from the **resp** object (for example, a subscripti
         return "Error - msg not sent";
     }
 
-    private String translateBody(String message, String lan)
-    {
+    private String translateBody(String message, String lan) {
         final AtomicReference<String> reference = new AtomicReference<>();
         Region region = Region.US_WEST_2;
         TranslateAsyncClient translateClient = TranslateAsyncClient.builder()
-                .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
-                .region(region)
-                .build();
+            .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
+            .region(region)
+            .build();
 
         TranslateTextRequest textRequest = TranslateTextRequest.builder()
-                .sourceLanguageCode("en")
-                .targetLanguageCode(lan)
-                .text(message)
-                .build();
+            .sourceLanguageCode("en")
+            .targetLanguageCode(lan)
+            .text(message)
+            .build();
 
         CompletableFuture<TranslateTextResponse> futureGet = translateClient.translateText(textRequest);;
         futureGet.whenComplete((resp, err) -> {
@@ -517,8 +471,61 @@ To return data that you read from the **resp** object (for example, a subscripti
         });
         futureGet.join();
         return reference.get();
-       }
-     }
+    }
+
+    // Convert the list to XML to pass back to the view.
+    private Document toXml(List<String> subsList) {
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
+
+            // Start building the XML.
+            Element root = doc.createElement("Subs");
+            doc.appendChild(root);
+            // Iterate through the collection.
+            for (String sub : subsList) {
+                Element item = doc.createElement("Sub");
+                root.appendChild(item);
+
+                // Set email
+                Element email = doc.createElement("email");
+                email.appendChild(doc.createTextNode(sub));
+                item.appendChild(email);
+            }
+            return doc;
+
+        }catch(ParserConfigurationException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private String convertToString(Document xml) {
+        try {
+            TransformerFactory transformerFactory = getSecureTransformerFactory();
+            Transformer transformer = transformerFactory.newTransformer();
+            StreamResult result = new StreamResult(new StringWriter());
+            DOMSource source = new DOMSource(xml);
+            transformer.transform(source, result);
+            return result.getWriter().toString();
+
+        } catch(TransformerException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    private static TransformerFactory getSecureTransformerFactory() {
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        try {
+            transformerFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        } catch (TransformerConfigurationException e) {
+            e.printStackTrace();
+        }
+        return transformerFactory;
+    }
+}
 
 ```
 

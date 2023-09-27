@@ -26,52 +26,59 @@ import aws.sdk.kotlin.services.rds.model.DescribeDbSnapshotsRequest
 import aws.sdk.kotlin.services.rds.model.DescribeOrderableDbInstanceOptionsRequest
 import aws.sdk.kotlin.services.rds.model.ModifyDbParameterGroupRequest
 import aws.sdk.kotlin.services.rds.model.Parameter
+import aws.sdk.kotlin.services.secretsmanager.SecretsManagerClient
+import aws.sdk.kotlin.services.secretsmanager.model.GetSecretValueRequest
+import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlin.system.exitProcess
 
 // snippet-start:[rds.kotlin.scenario.main]
 /**
- Before running this Java V2 code example, set up your development environment, including your credentials.
+Before running this code example, set up your development environment, including your credentials.
 
- For more information, see the following documentation topic:
+For more information, see the following documentation topic:
 
- https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
+https://docs.aws.amazon.com/sdk-for-kotlin/latest/developer-guide/setup.html
 
- This example performs the following tasks:
+This example requires an AWS Secrets Manager secret that contains the database credentials. If you do not create a
+secret, this example will not work. For more details, see:
 
- 1. Returns a list of the available DB engines by invoking the DescribeDbEngineVersions method.
- 2. Selects an engine family and create a custom DB parameter group by invoking the createDBParameterGroup method.
- 3. Gets the parameter groups by invoking the DescribeDbParameterGroups method.
- 4. Gets parameters in the group by invoking the DescribeDbParameters method.
- 5. Modifies both the auto_increment_offset and auto_increment_increment parameters by invoking the modifyDbParameterGroup method.
- 6. Gets and displays the updated parameters.
- 7. Gets a list of allowed engine versions by invoking the describeDbEngineVersions method.
- 8. Gets a list of micro instance classes available for the selected engine.
- 9. Creates an RDS database instance that contains a MySql database and uses the parameter group
- 10. Waits for DB instance to be ready and print out the connection endpoint value.
- 11. Creates a snapshot of the DB instance.
- 12. Waits for DB snapshot to be ready.
- 13. Deletes the DB instance. rds.DeleteDbInstance.
- 14. Deletes the parameter group.
+https://docs.aws.amazon.com/secretsmanager/latest/userguide/integrating_how-services-use-secrets_RS.html
+
+This example performs the following tasks:
+
+1. Returns a list of the available DB engines by invoking the DescribeDbEngineVersions method.
+2. Selects an engine family and create a custom DB parameter group by invoking the createDBParameterGroup method.
+3. Gets the parameter groups by invoking the DescribeDbParameterGroups method.
+4. Gets parameters in the group by invoking the DescribeDbParameters method.
+5. Modifies both the auto_increment_offset and auto_increment_increment parameters by invoking the modifyDbParameterGroup method.
+6. Gets and displays the updated parameters.
+7. Gets a list of allowed engine versions by invoking the describeDbEngineVersions method.
+8. Gets a list of micro instance classes available for the selected engine.
+9. Creates an Amazon Relational Database Service (Amazon RDS) database instance that contains a MySQL database and uses the parameter group.
+10. Waits for DB instance to be ready and prints out the connection endpoint value.
+11. Creates a snapshot of the DB instance.
+12. Waits for the DB snapshot to be ready.
+13. Deletes the DB instance.
+14. Deletes the parameter group.
  */
 
 var sleepTime: Long = 20
 suspend fun main(args: Array<String>) {
     val usage = """
         Usage:
-            <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <masterUsername> <masterUserPassword> <dbSnapshotIdentifier>
+            <dbGroupName> <dbParameterGroupFamily> <dbInstanceIdentifier> <dbName> <dbSnapshotIdentifier><secretName>
 
         Where:
             dbGroupName - The database group name. 
             dbParameterGroupFamily - The database parameter group name.
             dbInstanceIdentifier - The database instance identifier. 
             dbName -  The database name. 
-            username - The user name. 
-            userPassword - The password that corresponds to the user name. 
             dbSnapshotIdentifier - The snapshot identifier. 
+            secretName - The name of the AWS Secrets Manager secret that contains the database credentials.
     """
 
-    if (args.size != 7) {
+    if (args.size != 6) {
         println(usage)
         exitProcess(1)
     }
@@ -80,9 +87,13 @@ suspend fun main(args: Array<String>) {
     val dbParameterGroupFamily = args[1]
     val dbInstanceIdentifier = args[2]
     val dbName = args[3]
-    val username = args[4]
-    val userPassword = args[5]
-    val dbSnapshotIdentifier = args[6]
+    val dbSnapshotIdentifier = args[4]
+    val secretName = args[5]
+
+    val gson = Gson()
+    val user = gson.fromJson(getSecretValues(secretName).toString(), User::class.java)
+    val username = user.username
+    val userPassword = user.password
 
     println("1. Return a list of the available DB engines")
     describeDBEngines()
@@ -446,6 +457,17 @@ suspend fun describeDBEngines() {
                 println("The version number of the database engine ${engineOb.engineVersion}")
             }
         }
+    }
+}
+
+suspend fun getSecretValues(secretName: String?): String? {
+    val valueRequest = GetSecretValueRequest {
+        secretId = secretName
+    }
+
+    SecretsManagerClient { region = "us-west-2" }.use { secretsClient ->
+        val valueResponse = secretsClient.getSecretValue(valueRequest)
+        return valueResponse.secretString
     }
 }
 // snippet-end:[rds.kotlin.scenario_desc_engine.main]

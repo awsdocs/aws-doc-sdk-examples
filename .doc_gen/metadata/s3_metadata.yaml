@@ -22,6 +22,26 @@ s3_Hello:
             - description:
               snippet_tags:
                 - gov2.s3.Hello
+    C++:
+      versions:
+        - sdk_version: 1
+          github: cpp/example_code/s3/hello_s3
+          excerpts:
+            - description: Code for the CMakeLists.txt CMake file.
+              snippet_tags:
+                - cpp.example_code.s3.hello_s3.cmake
+            - description: Code for the hello_s3.cpp source file.
+              snippet_tags:
+                - cpp.example_code.s3.hello_s3
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javascript.v3.s3.hello
   services:
     s3: {ListBuckets}
 s3_CreateBucket:
@@ -116,7 +136,7 @@ s3_CreateBucket:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -137,6 +157,17 @@ s3_CreateBucket:
             - description:
               snippet_tags:
                 - s3.swift.basics.handler.createbucket
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.iecho
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.CreateBucket
   services:
     s3: {CreateBucket}
 s3_CopyObject:
@@ -237,7 +268,7 @@ s3_CopyObject:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -258,6 +289,16 @@ s3_CopyObject:
             - description:
               snippet_tags:
                 - s3.swift.basics.handler.copyfile
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.CopyObject
   services:
     s3: {CopyObject}
 s3_DeleteBucketPolicy:
@@ -376,7 +417,7 @@ s3_DeleteObject:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -405,6 +446,16 @@ s3_DeleteObject:
             - description:
               snippet_tags:
                 - s3.swift.basics.handler.deletefile
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.DeleteObject
   services:
     s3: {DeleteObject}
 s3_DeleteObjects:
@@ -499,7 +550,7 @@ s3_DeleteObjects:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -521,6 +572,16 @@ s3_DeleteObjects:
             - description:
               snippet_tags:
                 - cpp.example_code.s3.delete_objects
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.DeleteObjects
   services:
     s3: {DeleteObjects}
 s3_DeleteBucketWebsite:
@@ -796,7 +857,7 @@ s3_GetObject:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -820,6 +881,16 @@ s3_GetObject:
             - description: Read an object into a Swift Data object.
               snippet_tags:
                 - s3.swift.basics.handler.readfile
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.GetObject
   services:
     s3: {GetObject}
 s3_GetObject_IfModifiedSince:
@@ -831,7 +902,7 @@ s3_GetObject_IfModifiedSince:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -865,23 +936,6 @@ s3_GetBucketLifecycleConfiguration:
                 - python.example_code.s3.GetBucketLifecycleConfiguration
   services:
     s3: {GetBucketLifecycleConfiguration}
-s3_SetBucketNotification:
-  title: Enable notifications of specified events on an &S3; bucket using an &AWS; SDK
-  title_abbrev: Enable notifications
-  synopsis: enable notifications on an S3 bucket.
-  category:
-  languages:
-    Java:
-      versions:
-        - sdk_version: 2
-          github: javav2/example_code/s3
-          sdkguide:
-          excerpts:
-            - description: 
-              snippet_tags:
-                - s3.java2.s3_enable_notifications.main    
-  services:
-    s3: {PutBucketLogging}
 s3_ServiceAccessLogging:
   title: Enable logging on an &S3; bucket using an &AWS; SDK
   title_abbrev: Enable logging
@@ -987,7 +1041,7 @@ s3_CompleteMultipartUpload:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1003,7 +1057,7 @@ s3_CreateMultipartUpload:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1105,7 +1159,7 @@ s3_ListObjects:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1135,7 +1189,7 @@ s3_ListObjects:
           excerpts:
             - description:
               snippet_tags:
-                - s3.abapv1.list_objects
+                - s3.abapv1.list_objects_v2
     Swift:
       versions:
         - sdk_version: 1
@@ -1144,8 +1198,18 @@ s3_ListObjects:
             - description:
               snippet_tags:
                 - s3.swift.basics.handler.listbucketfiles
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.ListObjects
   services:
-    s3: {ListObjects}
+    s3: {ListObjectsV2}
 s3_ListObjectVersions:
   title: List the version of objects in an &S3; bucket using an &AWS; SDK
   title_abbrev: List object versions in a bucket
@@ -1164,7 +1228,7 @@ s3_ListObjectVersions:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1263,7 +1327,7 @@ s3_PutObject:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1310,6 +1374,16 @@ s3_PutObject:
             - description: Upload the contents of a Swift Data object to a bucket.
               snippet_tags:
                 - s3.swift.basics.handler.createfile
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.PutObject
   services:
     s3: {PutObject}
 s3_RestoreObject:
@@ -1418,7 +1492,7 @@ s3_DeleteBucket:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1439,6 +1513,16 @@ s3_DeleteBucket:
             - description:
               snippet_tags:
                 - s3.swift.basics.handler.deletebucket
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.errecho
+                - aws-cli.bash-linux.s3.DeleteBucket
   services:
     s3: {DeleteBucket}
 s3_GetBucketCors:
@@ -1861,6 +1945,15 @@ s3_HeadBucket:
               snippet_tags:
                 - python.example_code.s3.helper.BucketWrapper
                 - python.example_code.s3.HeadBucket
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.HeadBucket
   services:
     s3: {HeadBucket}
 s3_ListBuckets:
@@ -1909,7 +2002,7 @@ s3_ListBuckets:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1931,6 +2024,14 @@ s3_ListBuckets:
             - description:
               snippet_tags:
                 - ruby.example_code.s3.ListBuckets
+    Swift:
+      versions:
+        - sdk_version: 1
+          github: swift/example_code/s3
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.swift.listbuckets.getallbuckets
   services:
     s3: {ListBuckets}
 s3_PutObjectAcl:
@@ -1969,7 +2070,7 @@ s3_UploadPart:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -1992,6 +2093,15 @@ s3_PutBucketNotification:
             - description:
               snippet_tags:
                 - S3.dotnetv3.EnableNotificationsExample
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - s3.java2.s3_enable_notifications.main
   services:
     s3: {PutBucketNotificationConfiguration}
 s3_TransferAcceleration:
@@ -2143,7 +2253,7 @@ s3_Scenario_UsingLargeFiles:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -2257,6 +2367,30 @@ s3_Scenario_PresignedUrl:
             - description:
               snippet_tags:
                 - s3.ruby.upload_object_presigned_url.rb
+    Kotlin:
+      versions:
+        - sdk_version: 1
+          github: kotlin/services/s3
+          sdkguide: sdk-for-kotlin/latest/developer-guide/presign-requests.html
+          excerpts:
+            - description: Create a GetObject presigned request and use the URL to download an object.
+              snippet_tags:
+                - s3.kotlin.presign_getObject.main
+            - description: Create a GetObject presigned request with advanced options and use the URL to download an object.
+              snippet_tags:
+                - s3.kotlin.presign_putObject.main
+            - description: Create a PutObject presigned request and use it to upload an object.
+              snippet_tags:
+                - s3.kotlin.presign_getObjectMoreOptions.main
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/s3
+          excerpts:
+            - description: Create presigning requests to GET and PUT S3 objects.
+              snippet_tags:
+                - s3.rust.get-object-presigned
+                - s3.rust.put-object-presigned
   services:
     s3: {}
 s3_Scenario_ObjectVersioningUsage:
@@ -2298,7 +2432,7 @@ s3_GetBucketLocation:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description:
               snippet_tags:
@@ -2436,7 +2570,7 @@ s3_Scenario_GettingStarted:
     Rust:
       versions:
         - sdk_version: 1
-          github: rust_dev_preview/s3
+          github: rust_dev_preview/examples/s3
           excerpts:
             - description: Code for the binary crate which runs the scenario.
               snippet_tags:
@@ -2472,9 +2606,24 @@ s3_Scenario_GettingStarted:
             - description: A Swift command-line program to manage the SDK calls.
               snippet_tags:
                 - s3.swift.basics.example
-
+    Bash:
+      versions:
+        - sdk_version: 2
+          github: aws-cli/bash-linux/s3
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - aws-cli.bash-linux.s3.getting_started_scenario
+                - aws-cli.bash-linux.s3.CreateBucket
+                - aws-cli.bash-linux.s3.PutObject
+                - aws-cli.bash-linux.s3.GetObject
+                - aws-cli.bash-linux.s3.CopyObject
+                - aws-cli.bash-linux.s3.ListObjects
+                - aws-cli.bash-linux.s3.DeleteObjects
+                - aws-cli.bash-linux.s3.DeleteBucket
   services:
-    s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjects, DeleteObjects, DeleteBucket}
+    s3: {CreateBucket, PutObject, GetObject, CopyObject, ListObjectsV2, DeleteObjects, DeleteBucket}
 s3_Scenario_ManageACLs:
   title: Manage access control lists (ACLs) for &S3; buckets using an &AWS; SDK
   title_abbrev: Manage access control lists (ACLs)
@@ -2542,7 +2691,7 @@ s3_MultipartCopy:
               snippet_tags:
                 - S3.dotnetv3.MPUapiCopyObjectExample
   services:
-    s3: {UploadCopyPart, InitiateMultipartUpload, GetObjectMetadata, CompleteMultipartUpload}
+    s3: {UploadPartCopy, CreateMultipartUpload, GetObjectMetadata, CompleteMultipartUpload}
 s3_Scenario_ListObjectsWeb:
   title: A web page that lists &S3; objects using an &AWS; SDK
   title_abbrev: Create a web page that lists &S3; objects
@@ -2580,3 +2729,103 @@ s3_Scenario_URIParsing:
                 - s3.java2.scenario_uriparsing.main
   services:
     s3: {}
+s3_Scenario_UploadStream:
+  title: Upload a stream of unknown size to an &S3; object using an &AWS; SDK
+  title_abbrev: Upload stream of unknown size
+  synopsis: upload a stream of unknown size to an &S3; object.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: Use the <ulink url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation">&AWS; CRT-based S3 Client</ulink>.
+              snippet_tags:
+                - s3.java2.async_stream.import
+                - s3.java2.async_stream.main
+            - description: Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html" type="documentation">&S3; Transfer Manager</ulink>.
+              snippet_tags:
+                - s3.tm.java2.upload_stream.import
+                - s3.tm.java2.upload_stream.main
+
+  services:
+    s3: {}
+s3_Scenario_MultipartUpload:
+  title: Perform a multipart upload to an &S3; object using an &AWS; SDK
+  title_abbrev: Perform a multipart upload
+  synopsis: perform a multipart upload to an &S3; object.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: The code examples use the following imports.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.import
+            - description: >-
+                Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html"
+                    type="documentation">S3 Transfer Manager</ulink> on top of the  <ulink
+                    url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation">&AWS;
+                    CRT-based S3 client</ulink> to transparently perform a multipart upload when the size of the
+                   content exceeds a threshold. The default threshold size is 8 MB.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.transferManager
+            - description: >-
+                Use the <ulink
+                    url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink> 
+                or (S3AsyncClient API) to perform a multipart upload.
+              snippet_tags:
+                - s3.java2.performMultiPartUpload.s3Client
+  services:
+    s3: {CreateMultipartUpload, UploadPart, CompleteMultipartUpload}
+s3_Scenario_UseChecksums:
+  title: Use checksums to work with an &S3; object using an &AWS; SDK
+  title_abbrev: Use checksums
+  synopsis: use checksums to work with an &S3; object.
+  category: Scenarios
+  languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: java/example_code/s3
+          sdkguide:
+          excerpts:
+            - description: The code examples use a subset of the following imports.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.import
+            - description: >-
+                Specify a checksum algorithm for the <code>putObject</code> method when you <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html">build the 
+                <code>PutObjectRequest</code></ulink>.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.putObject
+            - description: >-
+                Verify the checksum for the <code>getObject</code> method when you <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/GetObjectRequest.Builder.html">build the GetObjectRequest</ulink>.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.getObject
+            - description: >-
+                Pre-calculate a checksum for the <code>putObject</code> method when you <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/model/PutObjectRequest.Builder.html">build the <code>PutObjectRequest</code></ulink>.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.putObjectPreCalc
+            - description: >-
+                Use the <ulink url="sdk-for-java/latest/developer-guide/transfer-manager.html" type="documentation">S3 Transfer Manager</ulink>
+                on top of the <ulink url="sdk-for-java/latest/developer-guide/crt-based-s3-client.html" type="documentation" >&AWS; CRT-based S3 client</ulink>
+                to transparently perform a multipart upload when the size of the content exceeds a threshold. The default threshold size is 8 MB.</para>
+                <para>You can specify a checksum algorithm for the SDK to use. By default, the SDK uses the CRC32 algorithm.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.multiPartTm
+            - description: >-
+                Use the <ulink url="https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Client.html">S3Client API</ulink> 
+                      or (S3AsyncClient API) to perform a multipart upload. If you specify
+                      an additional checksum, you must specify the algorithm to use on the initiation of the upload.
+                      You must also specify the algorithm for each part request and provide the checksum calculated
+                      for each part after it is
+                      uploaded.
+              snippet_tags:
+                - s3.java2.basicOpsWithChecksums.multiPartS3Client
+  services:
+    s3: {CreateMultipartUpload, UploadPart, CompleteMultipartUpload}

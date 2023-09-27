@@ -26,7 +26,6 @@ import static software.amazon.awssdk.transfer.s3.SizeConstant.MB;
 
 public class S3ClientFactory {
     public static final S3TransferManager transferManager = createCustonTm();
-    public static final S3TransferManager transferManagerWithDefaults = createDefaultTm();
     public static final S3Client s3Client;
 
     private static S3TransferManager createCustonTm(){

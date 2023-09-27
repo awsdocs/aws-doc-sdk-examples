@@ -36,7 +36,7 @@ namespace DeleteFacesExample
                 Console.WriteLine($"FaceID: {face}");
             });
         }
-
     }
+
     // snippet-end:[Rekognition.dotnetv3.DeleteFacesExample]
 }

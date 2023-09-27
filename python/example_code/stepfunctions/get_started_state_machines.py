@@ -106,7 +106,7 @@ class StateMachineScenario:
             print(f"Activity {activity_name} already exists.")
         return activity_arn
 
-    def find_or_create_state_machine(self, state_machine_name, activity_arn):
+    def find_or_create_state_machine(self, state_machine_name, activity_arn, state_machine_file):
         """
         Finds or creates a Step Functions state machine.
 
@@ -114,11 +114,13 @@ class StateMachineScenario:
         :param activity_arn: The ARN of an activity that is used as a step in the state
                              machine. This ARN is injected into the state machine
                              definition that's used to create the state machine.
+        :param state_machine_file: The path to a file containing the state machine
+                                   definition.
         :return: The ARN of the state machine.
         """
         state_machine_arn = self.state_machine.find(state_machine_name)
         if state_machine_arn is None:
-            with open('../../../resources/sample_files/chat_sfn_state_machine.json') as state_machine_file:
+            with open(state_machine_file) as state_machine_file:
                 state_machine_def = state_machine_file.read().replace(
                     '{{DOC_EXAMPLE_ACTIVITY_ARN}}', activity_arn)
                 state_machine_arn = self.state_machine.create(
@@ -208,7 +210,9 @@ class StateMachineScenario:
         print('-'*88)
 
         activity_arn = self.find_or_create_activity(activity_name)
-        state_machine_arn = self.find_or_create_state_machine(state_machine_name, activity_arn)
+        state_machine_arn = self.find_or_create_state_machine(
+            state_machine_name, activity_arn,
+            '../../../resources/sample_files/chat_sfn_state_machine.json')
         print('-'*88)
         run_arn = self.run_state_machine(state_machine_arn, activity_arn)
         print('-'*88)

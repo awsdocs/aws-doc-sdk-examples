@@ -4,7 +4,6 @@
 namespace CreateTablesLoadDataExample
 {
     // snippet-start:[dynamodb.dotnetv3.CreateTablesLoadDataExample]
-
     using System;
     using System.Collections.Generic;
     using System.Net;

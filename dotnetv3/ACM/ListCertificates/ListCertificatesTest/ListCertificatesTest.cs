@@ -1,14 +1,14 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX - License - Identifier: Apache - 2.0
 
-using Amazon;
-using Amazon.CertificateManager;
-using Amazon.CertificateManager.Model;
-using Moq;
 using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Amazon;
+using Amazon.CertificateManager;
+using Amazon.CertificateManager.Model;
+using Moq;
 using Xunit;
 
 namespace ListCertificatesTest

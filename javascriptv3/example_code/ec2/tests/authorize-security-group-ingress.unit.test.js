@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-ec2", async () => {
   };
 });
 
-import { main } from "../actions/authorize-security-group-ingress.js";
+const { main } = await import("../actions/authorize-security-group-ingress.js");
 
 describe("authorize-security-group-ingress", () => {
   it("should log the formatted security group rules", async () => {

@@ -14,6 +14,7 @@ service:
   guide:
     subtitle: str(upper_start=True, end_punc=False)
     url: include('doc_url')
+  api_client: service_name(required=False)
   api_ref: include('doc_url')
   version: service_version()
   caveat: str(required=False, upper_start=True, end_punc=True)

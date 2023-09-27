@@ -40,6 +40,8 @@ class Movies:
         :param dyn_resource: A Boto3 DynamoDB resource.
         """
         self.dyn_resource = dyn_resource
+        # The table variable is set during the scenario in the call to
+        # 'exists' if the table exists. Otherwise, it is set by 'create_table'.
         self.table = None
 # snippet-end:[python.example_code.dynamodb.helper.Movies.class_decl]
 

@@ -37,5 +37,6 @@ namespace CreateAccountExample
             Console.WriteLine($"The staus of {status.AccountName} is {status.State}.");
         }
     }
+
     // snippet-end:[Organizations.dotnetv3.CreateAccountExample]
 }
