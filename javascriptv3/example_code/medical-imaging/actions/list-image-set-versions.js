@@ -10,7 +10,7 @@ import {ListImageSetVersionsCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} datastoreId - The ID of the datastore.
+ * @param {string} datastoreId - The ID of the data store.
  * @param {string} imageSetId - The ID of the image set.
  */
 export const listImageSetVersions = async (datastoreId = "xxxxxxxxxxxx", imageSetId = "xxxxxxxxxxxx") => {

@@ -10,7 +10,7 @@ import {GetDICOMImportJobCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} datastoreId - The ID of the datastore.
+ * @param {string} datastoreId - The ID of the data store.
  * @param {string} jobId - The ID of the job.
  */
 export const getDICOMImportJob = async (datastoreId  = "xxxxxxxxxxxxxxxxxxxx",

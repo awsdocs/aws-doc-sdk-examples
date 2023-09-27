@@ -11,8 +11,8 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 import {writeFileSync} from "fs";
 
 /**
- * @param {string} datastoreId - The ID of the datastore to create.
- * @param {string} imagesetId - The ID of the imageset to create.
+ * @param {string} datastoreId - The ID of the data store.
+ * @param {string} imagesetId - The ID of the image set.
  * @param {string} metadataFileName - The name of the file for gzipped metadata.
  */
 export const getImageSetMetadata = async (datastoreId = "xxxxxxxxxxxxxx",

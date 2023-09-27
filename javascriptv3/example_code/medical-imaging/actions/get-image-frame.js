@@ -20,7 +20,7 @@ Module.onRuntimeInitialized = () => {
 };
 
 /**
- * @param {string} datastoreID - The ID of the datastore to retrieve properties for.
+ * @param {string} datastoreID - The ID of the data store to retrieve properties for.
  */
 export const getImageFrame = async (datastoreID = "DATASTORE_ID",
                                     imageSetID = "IMAGE_SET_ID",

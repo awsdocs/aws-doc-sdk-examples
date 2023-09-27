@@ -7,58 +7,71 @@ import {fileURLToPath} from "url";
 
 // snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3]
 import {UpdateImageSetMetadataCommand} from "@aws-sdk/client-medical-imaging";
-import {MedicalImagingClient} from "../libs/medicalImagingClient.js";
+import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} datastoreID - The ID of the medical imaging data store.
- * @param {string} imageSetID - The ID of the medical imaging image set.
- * @param {string} latestVersionID - The ID of the medical imaging image set version.
+ * @param {string} datastoreId - The ID of the HealthImaging data store.
+ * @param {string} imageSetId - The ID of the HealthImaging image set.
+ * @param {string} latestVersionId - The ID of the HealthImaging image set version.
  * @param {{}} updateMetadata - The metadata to update.
- *                            - Example metadata:
- *                                {
- *                                     DICOMUpdates: {
- *                                         updatableAttributes: "{
- *                                             \"SchemaVersion\": 1.1,
- *                                            \"Patient\": {
- *                                                \"DICOM\": {
- *                                                    \"PatientName\": \"Garcia^Gloria\"
- *                                                }
- *                                            }
- *                                        }"
- *                                    }
- *                                }
  */
-export const updateImageSetMetadata = async (datastoreID = "xxxxxxxxxx",
-                                             imageSetID = "xxxxxxxxxx",
-                                             latestVersionID = "1",
-                                             updateMetadata = {}) => {
+export const updateImageSetMetadata = async (datastoreId = "xxxxxxxxxx",
+                                             imageSetId = "xxxxxxxxxx",
+                                             latestVersionId = "1",
+                                             updateMetadata = '{}') => {
     const response = await medicalImagingClient.send(
-        new UpdateImageSetMetadataCommand({ datastoreID : datastoreID,
-            imageSetID : imageSetID,
-            latestVersionID : latestVersionID,
-            updateMetadata : updateMetadata})
+        new UpdateImageSetMetadataCommand({
+            datastoreId: datastoreId,
+            imageSetId: imageSetId,
+            latestVersionId: latestVersionId,
+            updateImageSetMetadataUpdates: updateMetadata
+        })
     );
     console.log(response);
     // {
     //     '$metadata': {
     //     httpStatusCode: 200,
-    //         requestId: '6e81d191-d46b-4e48-a08a-cdcc7e11eb79',
+    //         requestId: '7966e869-e311-4bff-92ec-56a61d3003ea',
     //         extendedRequestId: undefined,
     //         cfId: undefined,
     //         attempts: 1,
     //         totalRetryDelay: 0
     // },
-    //     datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    //     jobId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-    //     jobStatus: 'SUBMITTED',
-    //     submittedAt: 2023-09-22T14:48:45.767Z
+    //     createdAt: 2023-09-22T14:49:26.427Z,
+    //     datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    //     imageSetId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    //     imageSetState: 'LOCKED',
+    //     imageSetWorkflowStatus: 'UPDATING',
+    //     latestVersionId: '4',
+    //     updatedAt: 2023-09-27T19:41:43.494Z
     // }
     return response;
 };
 // snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3]
 
 // Invoke main function if this file was run directly.
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    await updateImageSetMetadata();
+// snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.main]
+    const updatableAttributes =
+        '{' +
+        '   "SchemaVersion": 1.1,' +
+        '   "Patient": {' +
+        '       "DICOM": {' +
+        '           "PatientName": "Garcia^Gloria"' +
+        '        }' +
+        '    }' +
+        '}';
+
+    const updateMetadata = {
+        "DICOMUpdates": {
+            "updatableAttributes":
+                new TextEncoder().encode(updatableAttributes)
+        }
+    };
+
+    await updateImageSetMetadata("728f13a131f748bf8d87a55d5ef6c5af", "22b8ce38456a11bfb8e16ff6bf037dd0",
+        "3", updateMetadata);
+// snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.main]
 }
 
