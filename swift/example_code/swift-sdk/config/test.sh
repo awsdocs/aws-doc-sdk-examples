@@ -56,7 +56,7 @@ cmd_output=$(aws s3 rb s3://$stack_name)
 cmd_exit_code=$?
 
 if [[ "$cmd_exit_code" -ne 0 ]]; then
-    echo "Error deleting test bucket."
+    echo "Error deleting the test bucket '$stack_name'."
     # exit $cmd_exit_code
 fi
 
@@ -66,7 +66,7 @@ cmd_output=$(aws cloudformation delete-stack --stack-name "$stack_name")
 cmd_exit_code=$?
 
 if [[ "$cmd_exit_code" -ne 0 ]]; then
-    echo "Error removing the test stack."
+    echo "Error removing the test stack '$stack_name'."
     # exit $cmd_exit_code
 fi
 

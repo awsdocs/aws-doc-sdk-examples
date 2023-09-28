@@ -11,6 +11,7 @@ import AWSS3
 @main
 struct ConfigExample {
     static func main() async {
+        // snippet-start:[config.swift.use-custom-configuration]
         let config: S3Client.S3ClientConfiguration
 
         // Create an Amazon S3 client configuration object that specifies the
@@ -18,11 +19,13 @@ struct ConfigExample {
         // number of retries as 5.
 
         do {
+            // snippet-start:[config.swift.create-configuration]
             config = try await S3Client.S3ClientConfiguration(
                 region: "us-east-1", 
                 retryMode: .adaptive,
                 maxAttempts: 5
             )
+            // snippet-end:[config.swift.create-configuration]
         } catch {
             print("Error: Unable to create configuration")
             dump(error)
@@ -31,7 +34,10 @@ struct ConfigExample {
 
         // Create an Amazon S3 client using the configuration created above.
 
+        // snippet-start:[config.swift.create-client]
         let client = S3Client(config: config)
+        // snippet-end:[config.swift.create-client]
+        // snippet-end:[config.swift.use-custom-configuration]
 
         // Ensure debug output is enabled so the HTTP header data is included
         // in the output. The test can use this information to ensure the

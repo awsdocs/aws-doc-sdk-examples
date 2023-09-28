@@ -17,7 +17,6 @@ import subprocess
 def swiftbuild(test, run, packages, swiftc_options):
     # Process the package directories. Each directory in `packages` that has a
     # `Package.swift` file is built using the `swiftc` command.
-
     results = ()
     num_packages_found = 0
     for dir in packages:
@@ -29,7 +28,6 @@ def swiftbuild(test, run, packages, swiftc_options):
                 results = results + ((path, output),)
     
     # Display a table of build results.
-
     if num_packages_found != 0:
         print("{0: <65} {1}".format("Example", "Status"))
         print("-"*65, "-"*6)
@@ -130,7 +128,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Build swiftc command line option list
-
     swiftc_options = []
 
     if args.hide_warnings:
@@ -140,10 +137,9 @@ if __name__ == "__main__":
 
     # If no package list provided, use all directories in the
     # current working directory.
-
     if len(args.packages) == 0:
         cwd_path = pathlib.Path().absolute()
-        if is_package_dir(cwd_path) == True:
+        if is_package_dir(cwd_path):
             package_list = [cwd_path]
         else:
             package_list = [item for item in cwd_path.iterdir() if item.is_dir()]
