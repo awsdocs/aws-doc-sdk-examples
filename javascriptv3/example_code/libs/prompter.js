@@ -64,7 +64,7 @@ export class Prompter {
         " ".repeat(80 - message.length - 8),
         "**\n",
         "*".repeat(80),
-        "\n"
+        "\n",
       );
     }
   }

@@ -20,7 +20,7 @@ describe("validateEnv", () => {
     "should throw an error if any of the the env vars are missing",
     () => {
       return expect(validateEnv({})).rejects.toBeTruthy();
-    }
+    },
   );
 
   it("should return a copy of the context if all env vars are present", async () => {

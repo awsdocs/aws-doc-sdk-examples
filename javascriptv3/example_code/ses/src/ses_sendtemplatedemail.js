@@ -52,7 +52,7 @@ const createReminderEmailCommand = (user, templateName) => {
 const run = async () => {
   const sendReminderEmailCommand = createReminderEmailCommand(
     USER,
-    TEMPLATE_NAME
+    TEMPLATE_NAME,
   );
   try {
     return await sesClient.send(sendReminderEmailCommand);

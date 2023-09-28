@@ -25,7 +25,7 @@ export const main = async () => {
         `\nAllowedMethods: ${cr.AllowedMethods.join(" ")}`,
         `\nAllowedOrigins: ${cr.AllowedOrigins.join(" ")}`,
         `\nExposeHeaders: ${cr.ExposeHeaders.join(" ")}`,
-        `\nMaxAgeSeconds: ${cr.MaxAgeSeconds}`
+        `\nMaxAgeSeconds: ${cr.MaxAgeSeconds}`,
       );
     });
   } catch (err) {

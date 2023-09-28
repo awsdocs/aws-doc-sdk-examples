@@ -18,7 +18,7 @@ export const main = async () => {
         // Set value to an existing attachment id.
         // Use DescribeCommunications or DescribeCases to find an attachment id.
         attachmentId: "ATTACHMENT_ID",
-      })
+      }),
     );
     console.log(response.attachment?.fileName);
     return response;

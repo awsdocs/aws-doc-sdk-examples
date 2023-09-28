@@ -13,23 +13,27 @@ Inputs :
 
 -->
 <!-- snippet-start:[rekognition.HTML.detect_faces_v3] -->
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Rekognition</title>
-</head>
+  </head>
 
-<body>
-<H1>Age Estimator</H1>
-<input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
-<p id="opResult"></p>
-<script>
-document.getElementById("fileToUpload").addEventListener("change", function (event) {
-ProcessImage();
-}, false);
-</script>
-<script src="main.js"></script>
-</body>
-    </html>
+  <body>
+    <h1>Age Estimator</h1>
+    <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*" />
+    <p id="opResult"></p>
+    <script>
+      document.getElementById("fileToUpload").addEventListener(
+        "change",
+        function (event) {
+          ProcessImage();
+        },
+        false,
+      );
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>
 <!-- snippet-end:[rekognition.HTML.detect_faces_v3] -->

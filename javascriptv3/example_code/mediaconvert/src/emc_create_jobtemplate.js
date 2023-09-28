@@ -20,7 +20,7 @@ node emc_create_jobtemplate.js ACCOUNT_END_POINT JOB_QUEUE_ARN BUCKET_NAME
 // snippet-start:[mediaconvert.JavaScript.templates.createJobTemplateV3]
 // Import required AWS-SDK clients and commands for Node.js
 import { CreateJobTemplateCommand } from "@aws-sdk/client-mediaconvert";
-import { emcClient }  from "./libs/emcClient.js";
+import { emcClient } from "./libs/emcClient.js";
 
 const params = {
   Category: "YouTube Jobs",

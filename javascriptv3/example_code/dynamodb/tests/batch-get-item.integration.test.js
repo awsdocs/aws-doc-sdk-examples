@@ -12,7 +12,7 @@ describe("batch-get-item", () => {
     [
       { PageName: { S: "Home" }, PageViews: { N: "10" } },
       { PageName: { S: "About" }, PageViews: { N: "2" } },
-    ]
+    ],
   );
 
   it("should return a list of items", async () => {
@@ -22,7 +22,7 @@ describe("batch-get-item", () => {
       expect.arrayContaining([
         { PageViews: { N: "10" }, PageName: { S: "Home" } },
         { PageViews: { N: "2" }, PageName: { S: "About" } },
-      ])
+      ]),
     );
   });
 });

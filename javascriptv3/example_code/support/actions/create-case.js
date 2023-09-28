@@ -24,9 +24,9 @@ export const main = async () => {
         severityCode: "low",
         // Use DescribeServices to find available category codes for each service.
         categoryCode: "end-user-support",
-        // The main description of the support case. 
-        communicationBody: "This is a test. Please ignore."
-      })
+        // The main description of the support case.
+        communicationBody: "This is a test. Please ignore.",
+      }),
     );
     console.log(response.caseId);
     return response;

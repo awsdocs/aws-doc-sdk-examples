@@ -35,7 +35,7 @@ describe("describe-security-groups", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      JSON.stringify(securityGroups, null, 2)
+      JSON.stringify(securityGroups, null, 2),
     );
   });
 
@@ -46,7 +46,7 @@ describe("describe-security-groups", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to describe security group")
+      new Error("Failed to describe security group"),
     );
   });
 });

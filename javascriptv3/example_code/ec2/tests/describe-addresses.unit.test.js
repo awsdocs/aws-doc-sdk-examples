@@ -44,7 +44,7 @@ describe("describe-addresses", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to describe addresses")
+      new Error("Failed to describe addresses"),
     );
   });
 });

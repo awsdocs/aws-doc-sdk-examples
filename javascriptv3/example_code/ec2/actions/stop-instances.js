@@ -19,7 +19,7 @@ export const main = async () => {
   try {
     const { StoppingInstances } = await client.send(command);
     const instanceIdList = StoppingInstances.map(
-      (instance) => ` • ${instance.InstanceId}`
+      (instance) => ` • ${instance.InstanceId}`,
     );
     console.log("Stopping instances:");
     console.log(instanceIdList.join("\n"));

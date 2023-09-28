@@ -1,6 +1,6 @@
 /**
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0
- * 
+ *
  * Purpose: Provide a set of helper functions for simplifying code examples and tests.
  */
 
@@ -114,7 +114,7 @@ export async function findIdentity(identityName) {
 export async function findReceiptFilter(receiptFilterName) {
   const listReceiptFiltersCommand = new ListReceiptFiltersCommand({});
   const result = await sesClient.send(listReceiptFiltersCommand);
-  return result.Filters.find(f => f.Name === receiptFilterName);
+  return result.Filters.find((f) => f.Name === receiptFilterName);
 }
 
 export async function findReceiptRuleSet(name) {

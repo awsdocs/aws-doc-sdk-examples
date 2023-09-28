@@ -35,7 +35,7 @@ export async function* listAttachedRolePolicies(roleName) {
         new ListAttachedRolePoliciesCommand({
           RoleName: roleName,
           Marker: response.Marker,
-        })
+        }),
       );
     } else {
       break;

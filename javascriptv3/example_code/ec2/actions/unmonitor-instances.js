@@ -19,7 +19,7 @@ export const main = async () => {
     const { InstanceMonitorings } = await client.send(command);
     const instanceMonitoringsList = InstanceMonitorings.map(
       (im) =>
-        ` • Detailed monitoring state for ${im.InstanceId} is ${im.Monitoring.State}.`
+        ` • Detailed monitoring state for ${im.InstanceId} is ${im.Monitoring.State}.`,
     );
     console.log("Monitoring status:");
     console.log(instanceMonitoringsList.join("\n"));

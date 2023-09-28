@@ -52,11 +52,11 @@ export const deleteFunction = async (functionName) => {
 
 export const addPermissionLogsInvokeFunction = async (
   functionName,
-  logGroupName
+  logGroupName,
 ) => {
   const logGroupPaginator = paginateDescribeLogGroups(
     { client: cloudWatchLogsClient },
-    {}
+    {},
   );
 
   let logGroup;

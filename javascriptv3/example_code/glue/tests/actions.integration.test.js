@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {readFile} from "fs/promises";
-import {describe, it, expect, beforeAll, afterAll} from "vitest";
-import {config} from "dotenv";
+import { readFile } from "fs/promises";
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { config } from "dotenv";
 import {
   CloudFormationClient,
   CreateStackCommand,
@@ -20,26 +20,26 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 
-import {dirnameFromMetaUrl} from "../../libs/utils/util-fs.js";
-import {DEFAULT_REGION} from "../../libs/utils/util-aws-sdk.js";
-import {createCrawler} from "../actions/create-crawler.js";
-import {getCrawler} from "../actions/get-crawler.js";
-import {deleteCrawler} from "../actions/delete-crawler.js";
-import {createJob} from "../actions/create-job.js";
-import {getJob} from "../actions/get-job.js";
-import {deleteJob} from "../actions/delete-job.js";
-import {startCrawler} from "../actions/start-crawler.js";
-import {waitForCrawler} from "../scenarios/basic/steps/start-crawler.js";
-import {startJobRun} from "../actions/start-job-run.js";
-import {waitForJobRun} from "../scenarios/basic/steps/start-job-run.js";
-import {getJobRun} from "../actions/get-job-run.js";
-import {deleteTable} from "../actions/delete-table.js";
-import {deleteDatabase} from "../actions/delete-database.js";
-import {getDatabases} from "../actions/get-databases.js";
-import {getDatabase} from "../actions/get-database.js";
-import {getJobRuns} from "../actions/get-job-runs.js";
-import {listJobs} from "../actions/list-jobs.js";
-import {getTables} from "../actions/get-tables.js";
+import { dirnameFromMetaUrl } from "../../libs/utils/util-fs.js";
+import { DEFAULT_REGION } from "../../libs/utils/util-aws-sdk.js";
+import { createCrawler } from "../actions/create-crawler.js";
+import { getCrawler } from "../actions/get-crawler.js";
+import { deleteCrawler } from "../actions/delete-crawler.js";
+import { createJob } from "../actions/create-job.js";
+import { getJob } from "../actions/get-job.js";
+import { deleteJob } from "../actions/delete-job.js";
+import { startCrawler } from "../actions/start-crawler.js";
+import { waitForCrawler } from "../scenarios/basic/steps/start-crawler.js";
+import { startJobRun } from "../actions/start-job-run.js";
+import { waitForJobRun } from "../scenarios/basic/steps/start-job-run.js";
+import { getJobRun } from "../actions/get-job-run.js";
+import { deleteTable } from "../actions/delete-table.js";
+import { deleteDatabase } from "../actions/delete-database.js";
+import { getDatabases } from "../actions/get-databases.js";
+import { getDatabase } from "../actions/get-database.js";
+import { getJobRuns } from "../actions/get-job-runs.js";
+import { listJobs } from "../actions/list-jobs.js";
+import { getTables } from "../actions/get-tables.js";
 
 config();
 
@@ -50,11 +50,11 @@ const fiveMinutesInMs = 5 * 60 * 1000; // 5 Minutes
 const fiveMinutesInSeconds = fiveMinutesInMs / 1000;
 
 /**
- * 
- * @param {{ Outputs: import("@aws-sdk/client-cloudformation").Output[] }")}} param0 
- * @returns 
+ *
+ * @param {{ Outputs: import("@aws-sdk/client-cloudformation").Output[] }")}} param0
+ * @returns
  */
-const getResourceNames = ({Outputs}) =>
+const getResourceNames = ({ Outputs }) =>
   Outputs.reduce((resourceNameMap, nextOutput) => {
     return {
       ...resourceNameMap,
@@ -63,7 +63,7 @@ const getResourceNames = ({Outputs}) =>
   }, {});
 
 const createStack = async () => {
-  const client = new CloudFormationClient({region: DEFAULT_REGION});
+  const client = new CloudFormationClient({ region: DEFAULT_REGION });
   const templateBody = (await readFile(cdkAppPath)).toString("utf-8");
   const command = new CreateStackCommand({
     StackName: stackName,
@@ -72,8 +72,8 @@ const createStack = async () => {
   });
   await client.send(command);
   const response = await waitUntilStackCreateComplete(
-    {client, maxWaitTime: fiveMinutesInSeconds},
-    {StackName: stackName}
+    { client, maxWaitTime: fiveMinutesInSeconds },
+    { StackName: stackName },
   );
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -81,24 +81,24 @@ const createStack = async () => {
 };
 
 const emptyS3Bucket = async (bucketName) => {
-  const client = new S3Client({region: DEFAULT_REGION});
-  const listCommand = new ListObjectsCommand({Bucket: bucketName});
-  const {Contents} = await client.send(listCommand);
+  const client = new S3Client({ region: DEFAULT_REGION });
+  const listCommand = new ListObjectsCommand({ Bucket: bucketName });
+  const { Contents } = await client.send(listCommand);
 
   await Promise.all(
-    Contents.map(({Key}) =>
-      client.send(new DeleteObjectCommand({Bucket: bucketName, Key}))
-    )
+    Contents.map(({ Key }) =>
+      client.send(new DeleteObjectCommand({ Bucket: bucketName, Key })),
+    ),
   );
 };
 
 const deleteStack = async () => {
-  const client = new CloudFormationClient({region: DEFAULT_REGION});
-  const command = new DeleteStackCommand({StackName: stackName});
+  const client = new CloudFormationClient({ region: DEFAULT_REGION });
+  const command = new DeleteStackCommand({ StackName: stackName });
   await client.send(command);
   await waitUntilStackDeleteComplete(
-    {client, maxWaitTime: fiveMinutesInSeconds},
-    {StackName: stackName}
+    { client, maxWaitTime: fiveMinutesInSeconds },
+    { StackName: stackName },
   );
 };
 
@@ -107,7 +107,7 @@ describe("actions", () => {
 
   beforeAll(async () => {
     try {
-      const {BucketName, RoleName} = await createStack();
+      const { BucketName, RoleName } = await createStack();
       roleName = RoleName;
       bucketName = BucketName;
     } catch (err) {
@@ -119,7 +119,7 @@ describe("actions", () => {
     try {
       await emptyS3Bucket(bucketName).catch(console.error);
       await deleteTable("doc-example-database", "doc-example-csv").catch(
-        console.error
+        console.error,
       );
       await deleteDatabase("doc-example-database");
       await deleteCrawler("s3-flight-data-crawler").catch(console.error);
@@ -131,7 +131,7 @@ describe("actions", () => {
   }, fiveMinutesInMs);
 
   const addPythonScriptToBucket = async () => {
-    const client = new S3Client({region: DEFAULT_REGION});
+    const client = new S3Client({ region: DEFAULT_REGION });
     const pyScriptPath = `${dirname}../../../../python/example_code/glue/flight_etl_job_script.py`;
     const pyScript = (await readFile(pyScriptPath)).toString("utf-8");
     const command = new PutObjectCommand({
@@ -149,7 +149,7 @@ describe("actions", () => {
       roleName,
       "doc-example-database",
       "doc-example-",
-      "s3://crawler-public-us-east-1/flight/2016/csv"
+      "s3://crawler-public-us-east-1/flight/2016/csv",
     );
 
     const crawler = await getCrawler("s3-flight-data-crawler");
@@ -161,7 +161,7 @@ describe("actions", () => {
       "flight_etl_job",
       roleName,
       bucketName,
-      "flight_etl_job_script.py"
+      "flight_etl_job_script.py",
     );
 
     const job = await getJob("flight_etl_job");
@@ -169,7 +169,7 @@ describe("actions", () => {
   };
 
   const testListJobs = async () => {
-    const {JobNames} = await listJobs();
+    const { JobNames } = await listJobs();
     expect(JobNames).toContain("flight_etl_job");
   };
 
@@ -179,34 +179,34 @@ describe("actions", () => {
   };
 
   const testGetDatabases = async () => {
-    const {DatabaseList} = await getDatabases();
+    const { DatabaseList } = await getDatabases();
     expect(DatabaseList[0].Name).toBe("doc-example-database");
   };
 
   const testGetDatabase = async () => {
     const {
-      Database: {Name},
+      Database: { Name },
     } = await getDatabase("doc-example-database");
     expect(Name).toBe("doc-example-database");
   };
 
   const testGetTables = async () => {
-    const {TableList} = await getTables("doc-example-database");
+    const { TableList } = await getTables("doc-example-database");
     expect(TableList[0].Name).toBe("doc-example-csv");
   };
 
   const testStartJobRun = async (bucketName) => {
-    const {JobRunId} = await startJobRun(
+    const { JobRunId } = await startJobRun(
       "flight_etl_job",
       "doc-example-database",
       "doc-example-csv",
-      bucketName
+      bucketName,
     );
     await waitForJobRun(getJobRun, "flight_etl_job", JobRunId);
   };
 
   const testGetJobRuns = async () => {
-    const {JobRuns} = await getJobRuns("flight_etl_job");
+    const { JobRuns } = await getJobRuns("flight_etl_job");
     expect(JobRuns[0].JobName).toBe("flight_etl_job");
   };
 
@@ -224,6 +224,6 @@ describe("actions", () => {
       await testStartJobRun(bucketName);
       await testGetJobRuns();
     },
-    {timeout: fiveMinutesInMs * 5}
+    { timeout: fiveMinutesInMs * 5 },
   );
 });

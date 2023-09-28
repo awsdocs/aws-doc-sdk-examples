@@ -35,7 +35,7 @@ export async function* listRolePolicies(roleName) {
           RoleName: roleName,
           MaxItems: 10,
           Marker: response.Marker,
-        })
+        }),
       );
     } else {
       break;

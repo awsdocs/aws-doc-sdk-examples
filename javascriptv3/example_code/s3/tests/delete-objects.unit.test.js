@@ -29,7 +29,7 @@ describe("delete-objects", () => {
 
     expect(spy).toHaveBeenNthCalledWith(
       1,
-      "Successfully deleted 2 objects from S3 bucket. Deleted objects:"
+      "Successfully deleted 2 objects from S3 bucket. Deleted objects:",
     );
     expect(spy).toHaveBeenNthCalledWith(2, ` • foo\n • bar`);
   });

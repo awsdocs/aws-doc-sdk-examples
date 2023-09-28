@@ -12,14 +12,14 @@ import { snsClient } from "../libs/snsClient.js";
 export const setTopicAttributes = async (
   topicArn = "TOPIC_ARN",
   attributeName = "DisplayName",
-  attributeValue = "Test Topic"
+  attributeValue = "Test Topic",
 ) => {
   const response = await snsClient.send(
     new SetTopicAttributesCommand({
       AttributeName: attributeName,
       AttributeValue: attributeValue,
       TopicArn: topicArn,
-    })
+    }),
   );
   console.log(response);
   // {

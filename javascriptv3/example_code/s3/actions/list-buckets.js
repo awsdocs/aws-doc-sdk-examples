@@ -18,7 +18,7 @@ export const main = async () => {
     console.log(
       `${Owner.DisplayName} owns ${Buckets.length} bucket${
         Buckets.length === 1 ? "" : "s"
-      }:`
+      }:`,
     );
     console.log(`${Buckets.map((b) => ` • ${b.Name}`).join("\n")}`);
   } catch (err) {

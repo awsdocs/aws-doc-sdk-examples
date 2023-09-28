@@ -46,7 +46,7 @@ describe("describe-instance-types", () => {
       // eslint-disable-next-line require-yield
       (async function* () {
         throw new Error("Retrieval failed");
-      })()
+      })(),
     );
 
     await main();

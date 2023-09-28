@@ -44,7 +44,7 @@ describe("get-bucket-cors", () => {
       `\nAllowedMethods: bar`,
       `\nAllowedOrigins: baz`,
       `\nExposeHeaders: qux`,
-      `\nMaxAgeSeconds: 123`
+      `\nMaxAgeSeconds: 123`,
     );
   });
 

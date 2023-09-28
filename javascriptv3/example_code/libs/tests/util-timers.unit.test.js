@@ -11,7 +11,9 @@ describe("util-timers", () => {
 
     it("should call a function multiple times if that function fails", async () => {
       const fn = vi.fn(() => Promise.reject(new Error("Fail")));
-      await retry({ intervalInMs: 1, maxRetries: 3 }, fn).catch(() => Promise.resolve());
+      await retry({ intervalInMs: 1, maxRetries: 3 }, fn).catch(() =>
+        Promise.resolve(),
+      );
       expect(fn).toHaveBeenCalledTimes(4);
     });
 

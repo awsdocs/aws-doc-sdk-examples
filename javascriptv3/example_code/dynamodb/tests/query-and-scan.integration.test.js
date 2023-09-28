@@ -27,7 +27,7 @@ describe("query and scan", () => {
         CrustType: { S: "Pastry" },
         Description: { S: "An inferior variant." },
       },
-    ]
+    ],
   );
 
   it("should return a list of pies matching the query/scan", async () => {

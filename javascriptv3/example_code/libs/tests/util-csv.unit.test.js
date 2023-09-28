@@ -1,7 +1,11 @@
 import { describe, it, expect, afterAll } from "vitest";
 import { testEqual } from "../utils/util-test.js";
 import { getUniqueName } from "../utils/util-string.js";
-import { getFirstEntry, getFirstValuesFromEntries, getSecondValuesFromEntries } from "../utils/util-csv.js";
+import {
+  getFirstEntry,
+  getFirstValuesFromEntries,
+  getSecondValuesFromEntries,
+} from "../utils/util-csv.js";
 import { deleteFiles, setTmp } from "../utils/util-fs.js";
 
 describe("util-csv", () => {
@@ -20,13 +24,13 @@ describe("util-csv", () => {
       setTmp(filename, `a,b,c\nd,e,f\ng,h,i\n`);
 
       expect(getFirstEntry(filename)).toEqual(
-        expect.arrayContaining(["a", "b", "c"])
+        expect.arrayContaining(["a", "b", "c"]),
       );
     });
 
     it(
       "should return an array with a single empty string if the file is missing",
-      testEqual(expect.arrayContaining([""]), getFirstEntry("fake-filename"))
+      testEqual(expect.arrayContaining([""]), getFirstEntry("fake-filename")),
     );
   });
 
@@ -37,7 +41,7 @@ describe("util-csv", () => {
       setTmp(filename, `a,b,c\nd,e,f\ng,h,i`);
 
       expect(getFirstValuesFromEntries(filename)).toEqual(
-        expect.arrayContaining(["a", "d", "g"])
+        expect.arrayContaining(["a", "d", "g"]),
       );
     });
   });
@@ -49,7 +53,7 @@ describe("util-csv", () => {
       setTmp(filename, `a,b,c\nd,e,f\ng,h,i`);
 
       expect(getSecondValuesFromEntries(filename)).toEqual(
-        expect.arrayContaining(["b", "e", "h"])
+        expect.arrayContaining(["b", "e", "h"]),
       );
     });
   });

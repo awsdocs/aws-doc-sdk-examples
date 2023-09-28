@@ -15,6 +15,6 @@ import { MediaConvertClient } from "@aws-sdk/client-mediaconvert";
 // Set the AWS Region.
 const REGION = "REGION";
 //Set the MediaConvert Service Object
-const emcClientGet = new MediaConvertClient({region: REGION});
+const emcClientGet = new MediaConvertClient({ region: REGION });
 export { emcClientGet };
 // snippet-end:[emc.JavaScript.createclientGetv3]

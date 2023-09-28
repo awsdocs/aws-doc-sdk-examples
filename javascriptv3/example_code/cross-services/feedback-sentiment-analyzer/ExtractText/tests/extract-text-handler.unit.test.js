@@ -1,4 +1,4 @@
-import {describe, it, expect, vi} from "vitest";
+import { describe, it, expect, vi } from "vitest";
 
 const send = vi.fn(() => Promise.resolve());
 
@@ -12,7 +12,7 @@ vi.doMock("@aws-sdk/client-textract", async () => {
   };
 });
 
-const {handler} = await import("../src/index.js");
+const { handler } = await import("../src/index.js");
 
 describe("extract-text-handler", () => {
   it("should create a single string from the word Blocks returned by Amazon Textract", async () => {
@@ -33,7 +33,7 @@ describe("extract-text-handler", () => {
       ],
     });
 
-    const response = await handler({bucket: "bucket", object: "object"});
+    const response = await handler({ bucket: "bucket", object: "object" });
     expect(response).toEqual("I know.");
   });
 });

@@ -3,7 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {TranslateClient, TranslateTextCommand} from "@aws-sdk/client-translate";
+import {
+  TranslateClient,
+  TranslateTextCommand,
+} from "@aws-sdk/client-translate";
 
 /**
  * Translate the extracted text to English.
@@ -19,7 +22,7 @@ export const handler = async (textAndSourceLanguage) => {
     Text: textAndSourceLanguage.extracted_text,
   });
 
-  const {TranslatedText} = await translateClient.send(translateCommand);
+  const { TranslatedText } = await translateClient.send(translateCommand);
 
-  return {translated_text: TranslatedText};
+  return { translated_text: TranslatedText };
 };

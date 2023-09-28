@@ -28,7 +28,7 @@ export const helloSqs = async () => {
   const suffix = queues.length === 1 ? "" : "s";
 
   console.log(
-    `Hello, Amazon SQS! You have ${queues.length} queue${suffix} in your account.`
+    `Hello, Amazon SQS! You have ${queues.length} queue${suffix} in your account.`,
   );
   console.log(queues.map((t) => `  * ${t}`).join("\n"));
 };

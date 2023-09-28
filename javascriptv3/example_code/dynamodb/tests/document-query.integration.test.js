@@ -21,7 +21,7 @@ describe("document-query", () => {
         OriginCountry: { S: "Ethiopia" },
         RoastDate: { S: "2023-05-02" },
       },
-    ]
+    ],
   );
 
   it("should only return coffees roasted after 2023-05-01", async () => {

@@ -29,7 +29,7 @@ describe("partiql-put", () => {
     const after = await client.send(command);
     expect(after.Items.length).toBe(1);
     expect(after.Items).toEqual(
-      expect.arrayContaining([{ Name: { S: "Rose" } }])
+      expect.arrayContaining([{ Name: { S: "Rose" } }]),
     );
   });
 });

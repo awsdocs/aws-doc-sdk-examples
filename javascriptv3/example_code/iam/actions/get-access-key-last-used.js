@@ -20,7 +20,7 @@ export const getAccessKeyLastUsed = async (accessKeyId) => {
   });
 
   const response = await client.send(command);
-  
+
   if (response.AccessKeyLastUsed?.LastUsedDate) {
     console.log(`
     ${accessKeyId} was last used by ${response.UserName} via 

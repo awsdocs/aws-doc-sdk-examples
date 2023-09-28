@@ -27,15 +27,15 @@ const client = new IAMClient({});
 const certBody = readFileSync(
   path.join(
     dirnameFromMetaUrl(import.meta.url),
-    "../../../../resources/sample_files/sample_cert.pem"
-  )
+    "../../../../resources/sample_files/sample_cert.pem",
+  ),
 );
 
 const privateKey = readFileSync(
   path.join(
     dirnameFromMetaUrl(import.meta.url),
-    "../../../../resources/sample_files/sample_private_key.pem"
-  )
+    "../../../../resources/sample_files/sample_private_key.pem",
+  ),
 );
 
 /**

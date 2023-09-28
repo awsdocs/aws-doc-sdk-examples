@@ -7,24 +7,30 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-starte
 
 -->
 <!-- snippet-start:[Polly.HTML.BrowserExample.completeV3] -->
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>AWS SDK for JavaScript - Browser Getting Started Application</title>
     <!--Add script tag to import bundled JavaScript file-->
     <script type="text/javascript" src="./dist/main.js"></script>
-</head>
+  </head>
 
-<body>
-<div id="textToSynth">
-    <input autofocus size="23" type="text" id="textEntry" value="Hello world!"/>
-    <button class="btn default" onClick="speakText()">Synthesize</button>
-    <p id="result">Enter text above then click <b>Synthesize</b></p>
-</div>
-<audio id="audioPlayback" controls>
-    <source id="audioSource" type="audio/mp3" src="">
-</audio>
-</body>
+  <body>
+    <div id="textToSynth">
+      <input
+        autofocus
+        size="23"
+        type="text"
+        id="textEntry"
+        value="Hello world!"
+      />
+      <button class="btn default" onClick="speakText()">Synthesize</button>
+      <p id="result">Enter text above then click <b>Synthesize</b></p>
+    </div>
+    <audio id="audioPlayback" controls>
+      <source id="audioSource" type="audio/mp3" src="" />
+    </audio>
+  </body>
 </html>
 <!-- snippet-end:[Polly.HTML.BrowserExample.completeV3] -->

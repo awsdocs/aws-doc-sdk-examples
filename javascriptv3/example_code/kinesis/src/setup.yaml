@@ -163,4 +163,3 @@ Outputs:
       Fn::GetAtt:
         - MyFirstStream63B28502
         - Arn
-

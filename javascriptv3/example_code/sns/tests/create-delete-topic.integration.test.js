@@ -28,7 +28,7 @@ describe("createTopic/deleteTopic", () => {
       {
         client: snsClient,
       },
-      {}
+      {},
     );
 
     for await (const page of paginator) {

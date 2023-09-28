@@ -26,12 +26,12 @@ const getTmpFiles = getFilesByExt(".tmp");
 
 const cleanUpFunctions = compose(
   promiseAll,
-  map(compose(otherwise(log), deleteFunction))
+  map(compose(otherwise(log), deleteFunction)),
 );
 
 const cleanUpZipFiles = compose(
   deleteFiles,
-  concatMap(`${dirname}../../../functions/`)
+  concatMap(`${dirname}../../../functions/`),
 );
 const cleanUpTmpFiles = compose(deleteFiles, concatMap("./"));
 
@@ -56,7 +56,7 @@ const cleanUpHandler = async () => {
     log("Removing policy from role created during initialization.");
     await cleanUpRolePolicy(
       NAME_ROLE_LAMBDA,
-      ARN_POLICY_LAMBDA_BASIC_EXECUTION
+      ARN_POLICY_LAMBDA_BASIC_EXECUTION,
     );
 
     log("Deleting role created during initialization.");

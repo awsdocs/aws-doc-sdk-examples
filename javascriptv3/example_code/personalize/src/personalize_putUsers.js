@@ -19,25 +19,26 @@ node putUsers.js
 
 // snippet-start:[personalize.JavaScript.putUsersV3]
 // Get service clients module and commands using ES6 syntax.
-import { PutUsersCommand } from
-  "@aws-sdk/client-personalize-events";
+import { PutUsersCommand } from "@aws-sdk/client-personalize-events";
 import { personalizeEventsClient } from "./libs/personalizeClients.js";
 // Or, create the client here.
 // const personalizeEventsClient = new PersonalizeEventsClient({ region: "REGION"});
 
 // Set the put users parameters. For string properties and values, use the \ character to escape quotes.
 var putUsersParam = {
-    datasetArn: "DATASET_ARN",
-    users: [ 
-      {
-        'userId': 'USER_ID',
-        'properties': "{\"PROPERTY1_NAME\": \"PROPERTY1_VALUE\"}"   
-      }
-    ]
+  datasetArn: "DATASET_ARN",
+  users: [
+    {
+      userId: "USER_ID",
+      properties: '{"PROPERTY1_NAME": "PROPERTY1_VALUE"}',
+    },
+  ],
 };
 export const run = async () => {
   try {
-    const response = await personalizeEventsClient.send(new PutUsersCommand(putUsersParam));
+    const response = await personalizeEventsClient.send(
+      new PutUsersCommand(putUsersParam),
+    );
     console.log("Success!", response);
     return response; // For unit tests.
   } catch (err) {

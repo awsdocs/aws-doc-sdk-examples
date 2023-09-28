@@ -26,18 +26,18 @@ export const main = async () => {
   try {
     let isTruncated = true;
 
-    console.log("Your bucket contains the following objects:\n")
+    console.log("Your bucket contains the following objects:\n");
     let contents = "";
 
     while (isTruncated) {
-      const { Contents, IsTruncated, NextContinuationToken } = await client.send(command);
+      const { Contents, IsTruncated, NextContinuationToken } =
+        await client.send(command);
       const contentsList = Contents.map((c) => ` • ${c.Key}`).join("\n");
       contents += contentsList + "\n";
       isTruncated = IsTruncated;
       command.input.ContinuationToken = NextContinuationToken;
     }
     console.log(contents);
-
   } catch (err) {
     console.error(err);
   }

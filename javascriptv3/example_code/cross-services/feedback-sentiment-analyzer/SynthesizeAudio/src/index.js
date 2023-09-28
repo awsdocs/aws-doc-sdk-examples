@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {PollyClient, SynthesizeSpeechCommand} from "@aws-sdk/client-polly";
-import {S3Client} from "@aws-sdk/client-s3";
-import {Upload} from "@aws-sdk/lib-storage";
+import { PollyClient, SynthesizeSpeechCommand } from "@aws-sdk/client-polly";
+import { S3Client } from "@aws-sdk/client-s3";
+import { Upload } from "@aws-sdk/lib-storage";
 
 /**
  * Synthesize an audio file from text.
@@ -22,7 +22,7 @@ export const handler = async (sourceDestinationConfig) => {
     OutputFormat: "mp3",
   });
 
-  const {AudioStream} = await pollyClient.send(synthesizeSpeechCommand);
+  const { AudioStream } = await pollyClient.send(synthesizeSpeechCommand);
 
   const audioKey = `${sourceDestinationConfig.object}.mp3`;
 

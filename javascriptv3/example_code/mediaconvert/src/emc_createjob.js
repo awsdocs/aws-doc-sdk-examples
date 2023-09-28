@@ -21,7 +21,7 @@ node emc_createjob.js
 // snippet-start:[mediaconvert.JavaScript.jobs.createJob_configV3]
 // Import required AWS-SDK clients and commands for Node.js
 import { CreateJobCommand } from "@aws-sdk/client-mediaconvert";
-import { emcClient }  from  "./libs/emcClient.js";
+import { emcClient } from "./libs/emcClient.js";
 
 // snippet-end:[mediaconvert.JavaScript.jobs.createJob_configV3]
 // snippet-start:[mediaconvert.JavaScript.jobs.createJob_defineV3]

@@ -22,7 +22,7 @@ export const main = async () => {
         caseId: "CASE_ID",
         // Optional. Set value to an existing attachment set id to add attachments to the case.
         attachmentSetId,
-      })
+      }),
     );
     console.log(response);
     return response;

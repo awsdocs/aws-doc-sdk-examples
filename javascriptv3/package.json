@@ -8,7 +8,11 @@
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx}": [
-      "eslint --fix"
+      "eslint",
+      "prettier -w"
+    ],
+    "*.{md}": [
+      "prettier -w"
     ]
   },
   "workspaces": [
@@ -38,7 +42,12 @@
     "example_code/glue",
     "example_code/medical-imaging",
     "example_code/sagemaker",
-    "example_code/nodegetstarted"
+    "example_code/nodegetstarted",
+    "example_code/mediaconvert",
+    "example_code/s3/scenarios/web/list-objects",
+    "example_code/eventbridge/src",
+    "example_code/polly",
+    "example_code/redshift"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.7.2",
@@ -48,6 +57,7 @@
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-import": "^2.28.1",
     "lint-staged": "^14.0.1",
+    "prettier": "^3.0.3",
     "typescript": "^5.2.2",
     "vitest": "^0.34.4"
   }

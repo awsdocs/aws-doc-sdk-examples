@@ -17,7 +17,7 @@ describe("update-item", () => {
         Flavor: { S: "Chocolate Chip Cookie Dough" },
         HasChunks: { BOOL: "true" },
       },
-    ]
+    ],
   );
 
   it("should change vanilla to not be chunky", async () => {

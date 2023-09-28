@@ -14,7 +14,7 @@ import { snsClient } from "../libs/snsClient.js";
  */
 export const listSubscriptionsByTopic = async (topicArn = "TOPIC_ARN") => {
   const response = await snsClient.send(
-    new ListSubscriptionsByTopicCommand({ TopicArn: topicArn })
+    new ListSubscriptionsByTopicCommand({ TopicArn: topicArn }),
   );
 
   console.log(response);

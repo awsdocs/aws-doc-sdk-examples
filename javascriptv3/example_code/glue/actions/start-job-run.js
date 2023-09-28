@@ -15,8 +15,8 @@ const startJobRun = (jobName, dbName, tableName, bucketName) => {
     Arguments: {
       "--input_database": dbName,
       "--input_table": tableName,
-      "--output_bucket_url": `s3://${bucketName}/`
-    }
+      "--output_bucket_url": `s3://${bucketName}/`,
+    },
   });
 
   return client.send(command);

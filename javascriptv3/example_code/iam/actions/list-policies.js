@@ -37,7 +37,7 @@ export async function* listPolicies() {
           MaxItems: 10,
           OnlyAttached: false,
           Scope: "Local",
-        })
+        }),
       );
     } else {
       break;

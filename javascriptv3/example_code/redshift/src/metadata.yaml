@@ -16,4 +16,3 @@ files:
   - path: redshift-modify-cluster.js
     services:
       - Redshift
-...

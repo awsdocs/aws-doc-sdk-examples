@@ -27,7 +27,7 @@ describe("put-metric-alarm", () => {
     await mod.default;
 
     const { AlarmName } = await describeAlarm(
-      process.env.CLOUDWATCH_ALARM_NAME
+      process.env.CLOUDWATCH_ALARM_NAME,
     );
 
     expect(AlarmName).toBe(process.env.CLOUDWATCH_ALARM_NAME);

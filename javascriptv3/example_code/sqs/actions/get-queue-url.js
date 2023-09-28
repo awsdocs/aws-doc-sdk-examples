@@ -9,7 +9,7 @@ import { fileURLToPath } from "url";
 import { GetQueueUrlCommand, SQSClient } from "@aws-sdk/client-sqs";
 
 const client = new SQSClient({});
-const SQS_QUEUE_NAME = 'test-queue';
+const SQS_QUEUE_NAME = "test-queue";
 
 export const main = async (queueName = SQS_QUEUE_NAME) => {
   const command = new GetQueueUrlCommand({ QueueName: queueName });

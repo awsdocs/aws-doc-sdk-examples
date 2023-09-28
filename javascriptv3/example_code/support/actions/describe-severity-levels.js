@@ -15,7 +15,7 @@ export const main = async () => {
     // Get the list of severity levels.
     // The available values depend on the support plan for the account.
     const response = await client.send(new DescribeSeverityLevelsCommand({}));
-    console.log(response.severityLevels)
+    console.log(response.severityLevels);
     return response;
   } catch (err) {
     console.error(err);

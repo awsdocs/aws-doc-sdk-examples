@@ -9,6 +9,6 @@ export default defineConfig({
   test: {
     testTimeout: 50000,
     hookTimeout: 50000,
-    threads: false
-  }
-})
+    threads: false,
+  },
+});

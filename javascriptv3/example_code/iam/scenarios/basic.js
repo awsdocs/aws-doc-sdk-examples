@@ -32,7 +32,7 @@ const roleName = "test_role";
 export const main = async () => {
   // Create a user. The user has no permissions by default.
   const { User } = await iamClient.send(
-    new CreateUserCommand({ UserName: userName })
+    new CreateUserCommand({ UserName: userName }),
   );
 
   if (!User) {
@@ -43,7 +43,7 @@ export const main = async () => {
   // Amazon Simple Storage Service (Amazon S3) and AWS Security Token Service (AWS STS).
   // It's not best practice to use access keys. For more information, see https://aws.amazon.com/iam/resources/best-practices/.
   const createAccessKeyResponse = await iamClient.send(
-    new CreateAccessKeyCommand({ UserName: userName })
+    new CreateAccessKeyCommand({ UserName: userName }),
   );
 
   if (
@@ -100,8 +100,8 @@ export const main = async () => {
             ],
           }),
           RoleName: roleName,
-        })
-      )
+        }),
+      ),
   );
 
   if (!Role) {
@@ -122,7 +122,7 @@ export const main = async () => {
         ],
       }),
       PolicyName: policyName,
-    })
+    }),
   );
 
   if (!listBucketPolicy) {
@@ -134,7 +134,7 @@ export const main = async () => {
     new AttachRolePolicyCommand({
       PolicyArn: listBucketPolicy.Arn,
       RoleName: Role.RoleName,
-    })
+    }),
   );
 
   // Assume the role.
@@ -153,11 +153,11 @@ export const main = async () => {
         new AssumeRoleCommand({
           RoleArn: Role.Arn,
           RoleSessionName: `iamBasicScenarioSession-${Math.floor(
-            Math.random() * 1000000
+            Math.random() * 1000000,
           )}`,
           DurationSeconds: 900,
-        })
-      )
+        }),
+      ),
   );
 
   if (!Credentials?.AccessKeyId || !Credentials?.SecretAccessKey) {
@@ -176,7 +176,7 @@ export const main = async () => {
   // Retry the list buckets operation until it succeeds. AccessDenied might
   // be thrown while the role policy is still stabilizing.
   await retry({ intervalInMs: 2000, maxRetries: 60 }, () =>
-    listBuckets(s3Client)
+    listBuckets(s3Client),
   );
 
   // Clean up.
@@ -184,32 +184,32 @@ export const main = async () => {
     new DetachRolePolicyCommand({
       PolicyArn: listBucketPolicy.Arn,
       RoleName: Role.RoleName,
-    })
+    }),
   );
 
   await iamClient.send(
     new DeletePolicyCommand({
       PolicyArn: listBucketPolicy.Arn,
-    })
+    }),
   );
 
   await iamClient.send(
     new DeleteRoleCommand({
       RoleName: Role.RoleName,
-    })
+    }),
   );
 
   await iamClient.send(
     new DeleteAccessKeyCommand({
       UserName: userName,
       AccessKeyId,
-    })
+    }),
   );
 
   await iamClient.send(
     new DeleteUserCommand({
       UserName: userName,
-    })
+    }),
   );
 };
 

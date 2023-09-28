@@ -17,5 +17,3 @@ const REGION = "REGION"; //e.g. "us-east-1"
 // Create an Amazon EventBridge service client object.
 export const ebClient = new EventBridgeClient({ region: REGION });
 // snippet-end:[eventbridge.JavaScript.events.createclientv3]
-
-

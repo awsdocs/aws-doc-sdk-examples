@@ -16,8 +16,8 @@ node emc_getendpoint.js
 
 // snippet-start:[mediaconvert.JavaScript.endoint.describeEndpointsV3]
 // Import required AWS-SDK clients and commands for Node.js
-import { DescribeEndpointsCommand } from  "@aws-sdk/client-mediaconvert";
-import { emcClientGet } from  "./libs/emcClientGet.js";
+import { DescribeEndpointsCommand } from "@aws-sdk/client-mediaconvert";
+import { emcClientGet } from "./libs/emcClientGet.js";
 
 //set the parameters.
 const params = { MaxResults: 0 };

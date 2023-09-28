@@ -63,7 +63,7 @@ const createBulkReminderEmailCommand = (users, templateName) => {
 const run = async () => {
   const sendBulkTemplateEmailCommand = createBulkReminderEmailCommand(
     USERS,
-    TEMPLATE_NAME
+    TEMPLATE_NAME,
   );
   try {
     return await sesClient.send(sendBulkTemplateEmailCommand);

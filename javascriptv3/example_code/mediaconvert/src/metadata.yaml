@@ -9,7 +9,7 @@ files:
       - mediaconvert
   - path: emc_createjob.js
     services:
-    - mediaconvert
+      - mediaconvert
   - path: emc_create_jobtemplate.js
     services:
       - mediaconvert
@@ -24,8 +24,7 @@ files:
       - mediaconvert
   - path: emc_listtemplates.js
     services:
-        - mediaconvert
+      - mediaconvert
   - path: emc_template_createjob.js
     services:
       - mediaconvert
-...

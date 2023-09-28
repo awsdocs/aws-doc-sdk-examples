@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import { promptToSelect } from '../utils/util-io.js'
+import { promptToSelect } from "../utils/util-io.js";
 
 describe("promptToSelect", () => {
   it("should resolve with autoSelected option if it's valid", async () => {

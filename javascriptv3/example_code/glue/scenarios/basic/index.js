@@ -56,7 +56,7 @@ const run = pipe(
   andThen(makeCleanUpTablesStep({ getTables, deleteTable })),
   andThen(makeCleanUpDatabasesStep({ getDatabases, deleteDatabase })),
   andThen(cleanUpCrawlerStep),
-  andThen(deleteStackReminder)
+  andThen(deleteStackReminder),
 );
 
 try {

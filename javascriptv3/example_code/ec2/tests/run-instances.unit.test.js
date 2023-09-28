@@ -48,7 +48,7 @@ describe("run-instances", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to launch instances")
+      new Error("Failed to launch instances"),
     );
   });
 });

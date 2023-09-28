@@ -7,7 +7,7 @@ import { log } from "../log.js";
 
 const deleteStackReminder = () => {
   log(
-    "All done. Remember to delete your stack. See the readme for more information."
+    "All done. Remember to delete your stack. See the readme for more information.",
   );
 };
 

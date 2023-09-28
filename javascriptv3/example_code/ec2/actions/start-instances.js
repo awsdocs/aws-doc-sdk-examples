@@ -19,7 +19,7 @@ export const main = async () => {
   try {
     const { StartingInstances } = await client.send(command);
     const instanceIdList = StartingInstances.map(
-      (instance) => ` • ${instance.InstanceId}`
+      (instance) => ` • ${instance.InstanceId}`,
     );
     console.log("Starting instances:");
     console.log(instanceIdList.join("\n"));

@@ -42,7 +42,7 @@ const getLabels = async () => {
     },
     {
       TableName: LABELS_TABLE_NAME,
-    }
+    },
   );
 
   const items = [];

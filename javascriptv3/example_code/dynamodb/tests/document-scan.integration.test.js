@@ -17,7 +17,7 @@ describe("document-scan", () => {
         Color: { S: "Green" },
         AvgLifeSpan: { N: "1250" },
       },
-    ]
+    ],
   );
 
   it("should log all items in the table", async () => {

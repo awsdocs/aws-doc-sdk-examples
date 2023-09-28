@@ -11,7 +11,7 @@ import { DeleteUserCommand, IAMClient } from "@aws-sdk/client-iam";
 const client = new IAMClient({});
 
 /**
- * 
+ *
  * @param {string} name
  */
 export const deleteUser = (name) => {

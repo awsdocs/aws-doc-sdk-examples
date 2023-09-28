@@ -14,7 +14,7 @@ describe("get-item", () => {
         AttributeType: "N",
       },
     ],
-    [{ TreatId: { N: "101" } }]
+    [{ TreatId: { N: "101" } }],
   );
 
   it("should return the requested item", async () => {

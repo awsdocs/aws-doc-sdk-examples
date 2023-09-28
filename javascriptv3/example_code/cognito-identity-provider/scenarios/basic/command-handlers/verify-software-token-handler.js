@@ -10,7 +10,7 @@ import { verifySoftwareToken } from "../../../actions/verify-software-token.js";
 const validateTotp = (totp) => {
   if (!totp) {
     throw new Error(
-      `Time-based one-time password (TOTP) must be provided to the 'validate-software-token' command.`
+      `Time-based one-time password (TOTP) must be provided to the 'validate-software-token' command.`,
     );
   }
 };

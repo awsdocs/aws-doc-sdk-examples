@@ -36,6 +36,6 @@ const findSAMLProvider = async (providerArn) => {
   }
 
   return SAMLProviderList.find(
-    (samlProvider) => samlProvider.Arn === providerArn
+    (samlProvider) => samlProvider.Arn === providerArn,
   );
 };

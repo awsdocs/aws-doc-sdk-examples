@@ -22,7 +22,7 @@ export const runEC2Instance = async () => {
     InstanceType: "t2.micro",
   });
   const { Instances } = await retry({ intervalInMs: 3000, maxRetries: 5 }, () =>
-    client.send(command)
+    client.send(command),
   );
   return Instances[0].InstanceId;
 };

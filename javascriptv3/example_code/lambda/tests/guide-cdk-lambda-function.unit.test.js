@@ -20,7 +20,7 @@ describe("guide-cdk-lambda-function", () => {
     mockSendFn.mockImplementationOnce(() =>
       Promise.resolve({
         Contents: [{ Key: "test-key" }],
-      })
+      }),
     );
 
     const response = await handler({ httpMethod: "GET", path: "/" });
@@ -41,7 +41,7 @@ describe("guide-cdk-lambda-function", () => {
   it("should return a 400 if there is no bucket name", async () => {
     process.env.BUCKET = undefined;
     mockSendFn.mockImplementationOnce(() =>
-      Promise.resolve({ Contents: [{ Key: "test-key" }] })
+      Promise.resolve({ Contents: [{ Key: "test-key" }] }),
     );
 
     const response = await handler({ httpMethod: "GET", path: "/" });

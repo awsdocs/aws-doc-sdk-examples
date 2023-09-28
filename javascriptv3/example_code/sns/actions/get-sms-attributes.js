@@ -14,7 +14,7 @@ export const getSmsAttributes = async () => {
     // If you have not modified the account-level mobile settings of SNS,
     // the DefaultSMSType is undefined. For this example, it was set to
     // Transactional.
-    new GetSMSAttributesCommand({ attributes: ["DefaultSMSType"] })
+    new GetSMSAttributesCommand({ attributes: ["DefaultSMSType"] }),
   );
 
   console.log(response);

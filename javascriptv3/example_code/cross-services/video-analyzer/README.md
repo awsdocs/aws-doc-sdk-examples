@@ -1,10 +1,10 @@
-#  Creating an Amazon Rekogition to detect objects in videos
+# Creating an Amazon Rekogition to detect objects in videos
 
-You can create an application that uses Amazon Rekognition to objects in videos located in an Amazon Simple Storage Service (Amazon S3) bucket. 
+You can create an application that uses Amazon Rekognition to objects in videos located in an Amazon Simple Storage Service (Amazon S3) bucket.
 
 In addition, the app sens the user results by email using the Amazon Simple Email (Amazon SES) service.
 
-This tutorial shows you how to use the AWS SDK for JavaScript V3 API to invoke these AWS services: 
+This tutorial shows you how to use the AWS SDK for JavaScript V3 API to invoke these AWS services:
 
 - Amazon S3 service
 - Amazon Rekognition service
@@ -18,36 +18,40 @@ This tutorial shows you how to use the AWS SDK for JavaScript V3 API to invoke t
 
 To build this cross-service example, you need the following:
 
-* An AWS account. For more information see [AWS SDKs and Tools Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/overview.html).
-* A project environment to run this Node JavaScript example, and install the required AWS SDK for JavaScript and third-party modules.  For instructions, see [Create a Node.js project environment](#create-a-nodejs-project-environment) on this page.
-* At least one email address verified on Amazon SES. For instructions, see [Verifying an email address on Amazon SES](#verifying-an-email-address-on-amazon-ses).
-* The following AWS resources:
-    - An unauthenticated AWS Identity and Access Management (IAM) user role with required permissions (described below).
-**Note**: An unauthenticated role enables you to provide permissions to unauthenticated users to use the AWS Services. To create an authenticated role, see [Amazon Cognito Identity Pools (Federated Identities)](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).   
-
+- An AWS account. For more information see [AWS SDKs and Tools Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/overview.html).
+- A project environment to run this Node JavaScript example, and install the required AWS SDK for JavaScript and third-party modules. For instructions, see [Create a Node.js project environment](#create-a-nodejs-project-environment) on this page.
+- At least one email address verified on Amazon SES. For instructions, see [Verifying an email address on Amazon SES](#verifying-an-email-address-on-amazon-ses).
+- The following AWS resources: - An unauthenticated AWS Identity and Access Management (IAM) user role with required permissions (described below).
+  **Note**: An unauthenticated role enables you to provide permissions to unauthenticated users to use the AWS Services. To create an authenticated role, see [Amazon Cognito Identity Pools (Federated Identities)](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).
 
 ## ⚠ Important
-* We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the *AWS Identity and Access Management User Guide*. 
-* This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-* Running this code might result in charges to your AWS account. We recommend you destroy the resources when you are finished. For instructions, see [Destroying the resources](#destroying-the-resources).
-* This tutorial is written to work with the specific versions defined in the *package.json*. If you change these versions, the tutorial may not work correctly.
+
+- We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the _AWS Identity and Access Management User Guide_.
+- This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account. We recommend you destroy the resources when you are finished. For instructions, see [Destroying the resources](#destroying-the-resources).
+- This tutorial is written to work with the specific versions defined in the _package.json_. If you change these versions, the tutorial may not work correctly.
 
 ## Create the resources
+
 You can create the AWS resources required for this cross-service example using either of the following:
+
 - [The Amazon CloudFormation](#create-the-resources-using-amazon-cloudformation)
 - [The AWS Management Console](#create-the-resources-using-the-aws-management-console)
 
 ### Create the resources using Amazon CloudFormation
+
 To run the stack using the AWS CLI:
 
 1. Install and configure the AWS CLI following the instructions in the AWS CLI User Guide.
 
-2. Open the AWS Command Console from the *./video-analyzer* folder.
+2. Open the AWS Command Console from the _./video-analyzer_ folder.
 
-3. Run the following command, replacing *STACK_NAME* with a unique name for the stack.
+3. Run the following command, replacing _STACK_NAME_ with a unique name for the stack.
+
 ```
 aws cloudformation create-stack --stack-name STACK_NAME --template-body file://setup.yaml --capabilities CAPABILITY_IAM
 ```
+
 **Important**: The stack name must be unique within an AWS Region and AWS account. You can specify up to 128 characters, and numbers and hyphens are allowed.
 
 4. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the **Stacks** page.
@@ -63,7 +67,8 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 ### Create the resources using the AWS Management Console
 
 #### Create an unauthenticated user role
-1. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
+
+1. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the _Stacks_ page.
 2. Choose **Manage Identity Pools**.
 3. Choose **Create new identity pool**.
 4. In the **Identity pool name** field, give your identity pool a name.
@@ -74,57 +79,60 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 
 ![ ](images/readme_images/identity_pool_ids.png)
 
-9.Choose **Edit identity pool**.
-10. Take note of the name of the role in the **Unauthenticated role** field.
+9.Choose **Edit identity pool**. 10. Take note of the name of the role in the **Unauthenticated role** field.
 
 #### Adding permissions to an unauthenticated user role
-1. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the *Roles* page.
+
+1. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the _Roles_ page.
 2. Search for the unauthenticated role you just created.
-3. Open the role. 
+3. Open the role.
 4. Click the down arrow beside the policy name.
 5. Choose **Edit Policy**.
 6. Choose the **JSON** tab.
 7. Delete the existing content, and paste the code below into it.
+
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": [
-                "lambda:InvokeFunction",
-                "mobileanalytics:PutEvents",
-                "cognito-sync:*"
-            ],
-            "Resource": "*",
-            "Effect": "Allow"
-        },
-        {
-            "Action": "ses:*",
-            "Resource": "*",
-            "Effect": "Allow"
-        },
-        {
-            "Action": "iam:*",
-            "Resource": "*",
-            "Effect": "Allow"
-        },
-        {
-            "Action": "s3:*",
-            "Resource": "*",
-            "Effect": "Allow"
-        },
-        {
-            "Action": "rekognition:*",
-            "Resource": "*",
-            "Effect": "Allow"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "lambda:InvokeFunction",
+        "mobileanalytics:PutEvents",
+        "cognito-sync:*"
+      ],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": "ses:*",
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": "iam:*",
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": "s3:*",
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": "rekognition:*",
+      "Resource": "*",
+      "Effect": "Allow"
+    }
+  ]
 }
 ```
-8. Choose **Review Policy**.
-9. Choose **Save Changes**.   
 
-### Verifying an email address on Amazon SES 
+8. Choose **Review Policy**.
+9. Choose **Save Changes**.
+
+### Verifying an email address on Amazon SES
+
 1. Open [AWS SES in the AWS Management Console](https://aws.amazon.com/SES/), and open the **Email Addresses** page.
 2. Choose **Verify a New Email Address**.
 3. Enter a working email address, and choose **Verify This Email Address**.
@@ -132,22 +140,25 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 
 ## Create a Node.js project environment
 
-1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
-See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
-instructions.
+1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment.
+   See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for
+   instructions.
 
-2. Run the following commands in sequence in the AWS CLI command line to install the AWS service client modules and third-party modules listed in the *package.json*:
+2. Run the following commands in sequence in the AWS CLI command line to install the AWS service client modules and third-party modules listed in the _package.json_:
 
 ```
 npm install node -g
 cd javascriptv3/example_code/cross-services/video-analyzer
 npm install
 ```
+
 ## Building the code
-This app runs from the browser, so we create the interface using HTML and CSS. 
+
+This app runs from the browser, so we create the interface using HTML and CSS.
 The app uses JavaScript to provide basic interactive features, and Node.js to invoke the AWS Services.
 
 ### Creating the HTML and CSS
+
 In **index.html**, the **head** section loads the **main.js**, which contains the following JavaScript and Node.js functions used in the app.
 
 **Note**: **main.js** is a bundled file containing all the required JavaScript. You'll create this later in the tutorial.
@@ -227,12 +238,13 @@ The remaining code defines the interface features, including a table and buttons
 </body>
 </html>
 ```
+
 ### Creating the JavaScript
 
 The **./src/libs/** folders contains a file for each of the AWS Service clients required. You must
 replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the Amazon Cognito identity pool id
 you created in [Create the resources](#create-the-resources) on this page. Here's an example of one of these client configuration files:
- 
+
 ```javascript
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
@@ -243,23 +255,28 @@ const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool 
 
 // Create an AWS Rekognition service client object.
 const rekognitionClient = new RekognitionClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID,
-    }),
+  region: REGION,
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region: REGION }),
+    identityPoolId: IDENTITY_POOL_ID,
+  }),
 });
 
 export { rekognitionClient };
 ```
+
 In **.src/js/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
+
 ```javascript
 import { rekognitionClient } from "../libs/rekognitionClient.js";
 import { s3Client } from "../libs/s3Client.js";
 import { sesClient } from "../libs/sesClient.js";
 import { SendEmailCommand } from "@aws-sdk/client-ses";
 import { ListObjectsCommand } from "@aws-sdk/client-s3";
-import { StartFaceDetectionCommand, GetFaceDetectionCommand } from "@aws-sdk/client-rekognition";
+import {
+  StartFaceDetectionCommand,
+  GetFaceDetectionCommand,
+} from "@aws-sdk/client-rekognition";
 
 const BUCKET = "BUCKET_NAME";
 const SNS_TOPIC_ARN = "SNS_TOPIC_ARN";
@@ -267,6 +284,7 @@ const IAM_ROLE_ARN = "IAM_ROLE_ARN";
 ```
 
 Next, you define functions for uploading the video.
+
 ```javascript
 $(function () {
   $("#myTable").DataTable({
@@ -280,25 +298,24 @@ $(function () {
 });
 // Upload the video.
 
-
 const uploadVideo = async () => {
   try {
     // Retrieve a list of objects in the bucket.
     const listObjects = await s3Client.send(
-      new ListObjectsCommand({ Bucket: BUCKET })
+      new ListObjectsCommand({ Bucket: BUCKET }),
     );
     console.log("Object in bucket: ", listObjects);
-    console.log("listObjects.Contents ", listObjects.Contents );
+    console.log("listObjects.Contents ", listObjects.Contents);
 
     const noOfObjects = listObjects.Contents;
     // If the Amazon S3 bucket is not empty, delete the existing content.
-    if(noOfObjects != null) {
+    if (noOfObjects != null) {
       for (let i = 0; i < noOfObjects.length; i++) {
         const data = await s3Client.send(
-            new DeleteObjectCommand({
-              Bucket: BUCKET,
-              Key: listObjects.Contents[i].Key
-            })
+          new DeleteObjectCommand({
+            Bucket: BUCKET,
+            Key: listObjects.Contents[i].Key,
+          }),
         );
       }
     }
@@ -321,12 +338,14 @@ const uploadVideo = async () => {
 };
 window.uploadVideo = uploadVideo;
 ```
+
 Next, you define functions for retrieving the video.
+
 ```javascript
 const getVideo = async () => {
   try {
     const listVideoParams = {
-      Bucket: BUCKET
+      Bucket: BUCKET,
     };
     const data = await s3Client.send(new ListObjectsCommand(listVideoParams));
     console.log("Success - video deleted", data);
@@ -344,7 +363,9 @@ const getVideo = async () => {
 };
 window.getVideo = getVideo;
 ```
+
 Define functions for analyzing the video, and sending the email.
+
 ```javascript
 const ProcessImages = async () => {
   try {
@@ -354,17 +375,17 @@ const ProcessImages = async () => {
       Video: {
         S3Object: {
           Bucket: BUCKET,
-          Name: videoName
+          Name: videoName,
         },
       },
       notificationChannel: {
         roleARN: IAM_ROLE_ARN,
-        SNSTopicArn: SNSTOPIC
+        SNSTopicArn: SNSTOPIC,
       },
     };
     // Start the Amazon Rekognition face detection process.
     const data = await rekognitionClient.send(
-      new StartFaceDetectionCommand(startDetectParams)
+      new StartFaceDetectionCommand(startDetectParams),
     );
     console.log("Success, face detection started. ", data);
     const faceDetectParams = {
@@ -376,7 +397,7 @@ const ProcessImages = async () => {
       // Detect the faces.
       while (!finished) {
         var results = await rekognitionClient.send(
-          new GetFaceDetectionCommand(faceDetectParams)
+          new GetFaceDetectionCommand(faceDetectParams),
         );
         // Wait until the job succeeds.
         if (results.JobStatus == "SUCCEEDED") {
@@ -435,7 +456,7 @@ const uploadFile = async (csv) => {
   const uploadParams = {
     Bucket: BUCKET,
     Body: csv,
-    Key: "Face.csv"
+    Key: "Face.csv",
   };
   try {
     const data = await s3Client.send(new PutObjectCommand(uploadParams));
@@ -457,7 +478,7 @@ const uploadFile = async (csv) => {
 // Helper function to send an email to user.
 const sendEmail = async (bucket, key) => {
   const toEmail = document.getElementById("email").value;
-  const fromEmail = "SENDER_ADDRESS";// 
+  const fromEmail = "SENDER_ADDRESS"; //
   try {
     const linkToCSV =
       "https://s3.console.aws.amazon.com/s3/object/" +
@@ -468,7 +489,8 @@ const sendEmail = async (bucket, key) => {
       key;
     // Set the parameters
     const params = {
-      Destination: {   /* required */
+      Destination: {
+        /* required */
         CcAddresses: [
           /* more items */
         ],
@@ -477,8 +499,10 @@ const sendEmail = async (bucket, key) => {
           /* more To-email addresses */
         ],
       },
-      Message: {   /* required */
-        Body: {   /* required */
+      Message: {
+        /* required */
+        Body: {
+          /* required */
           Html: {
             Charset: "UTF-8",
             Data:
@@ -514,26 +538,30 @@ const sendEmail = async (bucket, key) => {
   }
 };
 ```
-**Important**: You must bundle all the JavaScript and Node.js code required for the app into a single
- file (**main.js**) to run the app. For instructions, see [Bundling the scripts](#bundling-the-scripts).
 
+**Important**: You must bundle all the JavaScript and Node.js code required for the app into a single
+file (**main.js**) to run the app. For instructions, see [Bundling the scripts](#bundling-the-scripts).
 
 ### Bundling the scripts
-This is a static site consisting only of HTML, CSS, and client-side JavaScript. 
+
+This is a static site consisting only of HTML, CSS, and client-side JavaScript.
 However, a build step is required to enable the modules to work natively in the browser.
 
-To bundle the JavaScript and Node.js for this example in a single file named main.js, 
+To bundle the JavaScript and Node.js for this example in a single file named main.js,
 enter the following commands in sequence in the AWS CLI command line:
 
 ```
 cd javascriptv3/example_code/cross-services/video-analyzer
 webpack ./js/index.js --mode development --target web --devtool false -o ./js/main.js
 ```
+
 ## Run the app
+
 Open the index.html in your favorite browser, and follow the onscreen instructions.
 
 ## Destroying the resources
-4. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
+
+4. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the _Stacks_ page.
 
 ![ ](images/cloud_formation_stacks.png)
 
@@ -544,6 +572,7 @@ Open the index.html in your favorite browser, and follow the onscreen instructio
 **Note**: If any of the resources have been altered, you must manually delete them via the AWS Console.
 
 ### Next steps
-Congratulations! You have created and deployed the AWS Photo Analyzer application. 
+
+Congratulations! You have created and deployed the AWS Photo Analyzer application.
 For more AWS multiservice examples, see
 [cross-services](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/cross-services).

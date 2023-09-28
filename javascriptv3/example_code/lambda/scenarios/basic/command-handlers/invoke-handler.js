@@ -11,7 +11,7 @@ const invokeHandler = async (commands) => {
 
   if (!funcName) {
     log(
-      `Function name is missing. It must be provided as an argument to the 'invoke' command.`
+      `Function name is missing. It must be provided as an argument to the 'invoke' command.`,
     );
     return;
   }
@@ -19,8 +19,8 @@ const invokeHandler = async (commands) => {
   try {
     log(
       `Invoking ${funcName} with ${type(funcArgs)}(${JSON.stringify(
-        funcArgs
-      )})...`
+        funcArgs,
+      )})...`,
     );
     const { logs, result } = await invoke(funcName, funcArgs);
     log(`${funcName} invoked successfully. Result was: ${result}`);
