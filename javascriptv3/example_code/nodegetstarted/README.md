@@ -1,4 +1,4 @@
-# Getting started in Node.js
+# Get started with Node.js
 
 This guide shows you how to initialize an NPM package, add a service client to your package, and use the JavaScript SDK to call a service action.
 
@@ -10,26 +10,26 @@ This guide shows you how to initialize an NPM package, add a service client to y
 
 Create a new NPM package with one main file that does the following:
 
-- Creates an Amazon S3 bucket.
-- Puts an object in that bucket.
-- Reads that object.
+- Creates an Amazon Simple Storage Service (Amazon S3) bucket.
+- Puts an object in the bucket.
+- Reads the object.
 - Confirms if the user wants to delete resources.
 
 ### Prerequisites
 
-Before you can run the example, you must complete the following:
+Before you can run the example, you must do the following:
 
-- Configure your [SDK authentication](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-your-credentials.html).
-- [Install Node.js](https://nodejs.org/en/download).
+- Configure your [SDK authentication](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/getting-your-credentials.html)
+- [Install Node.js](https://nodejs.org/en/download)
 
 ### Step 1: Set up the package structure
 
 1. Create a new folder to contain the package.
 2. From the command line, navigate to the new folder.
-3. Run `npm init -y`. This will create a default `package.json`.
+3. Run `npm init -y`. This creates a default `package.json` file.
 4. Add `"type": "module"` to the `package.json`. This tells Node we're using modern ESM syntax.
 
-The final package.json will look something like this:
+The final package.json should look similar to this:
 
 ```json
 {
