@@ -35,11 +35,17 @@ async fn remove_objects(client: &Client, bucket: &str, objects: Vec<String>) -> 
     let mut delete_objects: Vec<ObjectIdentifier> = vec![];
 
     for obj in objects {
-        let obj_id = ObjectIdentifier::builder().set_key(Some(obj)).build();
+        let obj_id = ObjectIdentifier::builder()
+            .set_key(Some(obj))
+            .build()
+            .expect("building ObjectIdentifier");
         delete_objects.push(obj_id);
     }
 
-    let delete = Delete::builder().set_objects(Some(delete_objects)).build();
+    let delete = Delete::builder()
+        .set_objects(Some(delete_objects))
+        .build()
+        .expect("building Delete");
 
     client
         .delete_objects()

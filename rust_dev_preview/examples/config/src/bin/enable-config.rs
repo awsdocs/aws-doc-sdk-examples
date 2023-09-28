@@ -67,7 +67,7 @@ async fn enable_config(
     // If we already have a configuration recorder in the Region, we cannot create another.
     let resp = client.describe_configuration_recorders().send().await?;
 
-    let recorders = resp.configuration_recorders().unwrap_or_default();
+    let recorders = resp.configuration_recorders();
 
     if !recorders.is_empty() {
         println!("You already have a configuration recorder in this region");
@@ -83,7 +83,7 @@ async fn enable_config(
     // If we already have a delivery channel in the Region, we cannot create another.
     let resp = client.describe_delivery_channels().send().await?;
 
-    let channels = resp.delivery_channels().unwrap_or_default();
+    let channels = resp.delivery_channels();
 
     let num_channels = channels.len();
 

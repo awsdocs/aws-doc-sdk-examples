@@ -33,28 +33,27 @@ async fn show_pools(client: &Client) -> Result<(), Error> {
         .send()
         .await?;
 
-    if let Some(pools) = response.identity_pool_usages() {
-        println!("Identity pools:");
+    let pools = response.identity_pool_usages();
+    println!("Identity pools:");
 
-        for pool in pools {
-            println!(
-                "  Identity pool ID:    {}",
-                pool.identity_pool_id().unwrap_or_default()
-            );
-            println!(
-                "  Data storage:        {}",
-                pool.data_storage().unwrap_or_default()
-            );
-            println!(
-                "  Sync sessions count: {}",
-                pool.sync_sessions_count().unwrap_or_default()
-            );
-            println!(
-                "  Last modified:       {}",
-                pool.last_modified_date().unwrap().to_chrono_utc()?
-            );
-            println!();
-        }
+    for pool in pools {
+        println!(
+            "  Identity pool ID:    {}",
+            pool.identity_pool_id().unwrap_or_default()
+        );
+        println!(
+            "  Data storage:        {}",
+            pool.data_storage().unwrap_or_default()
+        );
+        println!(
+            "  Sync sessions count: {}",
+            pool.sync_sessions_count().unwrap_or_default()
+        );
+        println!(
+            "  Last modified:       {}",
+            pool.last_modified_date().unwrap().to_chrono_utc()?
+        );
+        println!();
     }
 
     println!("Next token: {}", response.next_token().unwrap_or_default());

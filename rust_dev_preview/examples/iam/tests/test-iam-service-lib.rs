@@ -17,7 +17,9 @@ async fn test_create_role() {
     let shared_config = aws_config::from_env().region(region_provider).load().await;
     let client = iamClient::new(&shared_config);
 
-    let user = iam_service::create_user(&client, &format!("{}{}", "iam_test_user_", uuid)).await;
+    let user = iam_service::create_user(&client, &format!("{}{}", "iam_test_user_", uuid))
+        .await
+        .expect("creating user");
     let role_policy_document = "{\"Version\": \"2012-10-17\",
         \"Statement\": [{
             \"Effect\": \"Allow\",
@@ -25,19 +27,18 @@ async fn test_create_role() {
             \"Action\": \"sts:AssumeRole\"
         }]}"
     .to_string();
-    let role_policy_document =
-        role_policy_document.replace("{}", user.unwrap().arn.as_ref().unwrap());
+    let role_policy_document = role_policy_document.replace("{}", user.arn.as_str());
     let role_name = &format!("{}{}", "iam_test_role_", uuid);
     let role = iam_service::create_role(&client, role_name, &role_policy_document)
         .await
         .unwrap();
 
-    println!("Role: {}", role.role_name.unwrap());
+    println!("Role: {}", role.role_name);
 
     //test_list_role_policies
     let list = iam_service::list_role_policies(&client, role_name, None, None).await;
     println!("Role Policies: ");
-    for item in list.unwrap().policy_names.unwrap() {
+    for item in list.unwrap().policy_names {
         println!("RP: {}", item);
     }
 }
@@ -59,10 +60,7 @@ async fn test_create_service_linked_role() {
     )
     .await
     .unwrap();
-    println!(
-        "{}",
-        role.role.as_ref().unwrap().role_name.as_ref().unwrap()
-    );
+    println!("{}", role.role.as_ref().unwrap().role_name);
 }
 
 #[ignore]
@@ -91,25 +89,25 @@ async fn test_list_and_get_roles() {
         .await
         .unwrap();
     println!("All roles:");
-    for role in &roles.roles.unwrap() {
+    for role in &roles.roles {
         assert_eq!(&role.role_name, &role.role_name);
-        println!("{}", role.role_name.as_ref().unwrap());
+        println!("{}", role.role_name);
     }
     println!("\nPathed roles:");
     let roles = iam_service::list_roles(&client, Some("/iam".parse().unwrap()), None, None)
         .await
         .unwrap();
-    for role in &roles.roles.unwrap() {
+    for role in &roles.roles {
         assert_eq!(&role.role_name, &role.role_name);
-        println!("{}", role.role_name.as_ref().unwrap());
+        println!("{}", role.role_name);
     }
     println!("\nLimited roles:");
     let roles = iam_service::list_roles(&client, None, None, Some(5))
         .await
         .unwrap();
-    for role in &roles.roles.unwrap() {
+    for role in &roles.roles {
         assert_eq!(&role.role_name, &role.role_name);
-        println!("{}", role.role_name.as_ref().unwrap());
+        println!("{}", role.role_name);
     }
     let marker = roles.marker.unwrap();
     println!("\nPaginated roles:");
@@ -117,16 +115,16 @@ async fn test_list_and_get_roles() {
     let roles = iam_service::list_roles(&client, None, Some(marker), Some(5))
         .await
         .unwrap();
-    for role in &roles.roles.unwrap() {
+    for role in &roles.roles {
         assert_eq!(&role.role_name, &role.role_name);
-        println!("{}", role.role_name.as_ref().unwrap());
-        get_role_name = role.role_name.clone().unwrap();
+        println!("{}", role.role_name);
+        get_role_name = role.role_name.clone();
     }
 
     let get_role = iam_service::get_role(&client, get_role_name.parse().unwrap())
         .await
         .unwrap();
-    assert_eq!(get_role_name, get_role.role.unwrap().role_name.unwrap());
+    assert_eq!(get_role_name, get_role.role.unwrap().role_name);
     println!("{}", get_role_name);
 }
 
@@ -161,8 +159,8 @@ async fn test_list_groups() {
     let groups = iam_service::list_groups(&client, None, None, None)
         .await
         .unwrap();
-    for group in groups.groups.unwrap() {
-        println!("{}", group.group_name.unwrap());
+    for group in groups.groups {
+        println!("{}", group.group_name);
     }
 }
 
@@ -188,8 +186,8 @@ async fn test_list_roles() {
     let client = iamClient::new(&shared_config);
 
     let roles = iam_service::list_roles(&client, None, None, None).await;
-    for role in roles.unwrap().roles.unwrap() {
-        println!("Role: {}", role.role_name.unwrap());
+    for role in roles.unwrap().roles {
+        println!("Role: {}", role.role_name);
     }
 }
 
@@ -216,7 +214,7 @@ async fn test_list_users() {
     let users = iam_service::list_users(&client, None, None, None)
         .await
         .unwrap();
-    for user in users.users.unwrap() {
-        println!("{}", user.user_name.unwrap());
+    for user in users.users {
+        println!("{}", user.user_name);
     }
 }

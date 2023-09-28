@@ -31,10 +31,10 @@ async fn list_portals(client: &Client) -> Result<(), Error> {
 
     println!("Portals:");
 
-    for asset in resp.portal_summaries.unwrap() {
-        println!("  ID:  {}", asset.id().unwrap_or_default());
-        println!("  Role ARN:  {}", asset.role_arn().unwrap_or_default());
-        println!("  Name:   {}", asset.name().unwrap_or_default());
+    for asset in resp.portal_summaries() {
+        println!("  ID:  {}", asset.id());
+        println!("  Role ARN:  {}", asset.role_arn().unwrap_or("missing arn"));
+        println!("  Name:   {}", asset.name());
         println!(
             "  Description:   {}",
             asset.description().unwrap_or_default()
@@ -47,10 +47,10 @@ async fn list_portals(client: &Client) -> Result<(), Error> {
             "  Last Update Date:   {}",
             asset.last_update_date().unwrap().to_chrono_utc()?
         );
-        println!("  Start Url:   {}", asset.start_url().unwrap_or_default());
+        println!("  Start Url:   {}", asset.start_url());
         println!(
             "  Current Status:   {}",
-            asset.status().unwrap().state().unwrap().as_str()
+            asset.status().unwrap().state().as_str()
         );
 
         println!();

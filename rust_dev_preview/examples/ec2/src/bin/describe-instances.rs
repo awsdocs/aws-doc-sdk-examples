@@ -33,8 +33,8 @@ async fn show_state(client: &Client, ids: Option<Vec<String>>) -> Result<(), Err
         .send()
         .await?;
 
-    for reservation in resp.reservations().unwrap_or_default() {
-        for instance in reservation.instances().unwrap_or_default() {
+    for reservation in resp.reservations() {
+        for instance in reservation.instances() {
             println!("Instance ID: {}", instance.instance_id().unwrap());
             println!(
                 "State:       {:?}",

@@ -1,6 +1,7 @@
 # Note: this workspace exists solely for the convenience of 
 # compiling/auto-formatting/testing all the AWS Rust SDK examples together.
 [workspace]
+resolver = "2"
 members = [
     "detect_faces",
     "detect_labels",

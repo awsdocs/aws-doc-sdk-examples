@@ -28,7 +28,6 @@ use aws_sdk_iam::Error as iamError;
 use aws_sdk_iam::{config::Credentials as iamCredentials, config::Region, Client as iamClient};
 use aws_sdk_s3::Client as s3Client;
 use aws_sdk_sts::Client as stsClient;
-use std::borrow::Borrow;
 use tokio::time::{sleep, Duration};
 use uuid::Uuid;
 
@@ -99,12 +98,9 @@ async fn run_iam_operations(
 ) -> Result<(), iamError> {
     // snippet-start:[rust.example_code.iam.iam_basics.create_user]
     let user = iam_service::create_user(&client, &format!("{}{}", "iam_demo_user_", uuid)).await?;
-    println!(
-        "Created the user with the name: {}",
-        user.user_name.as_ref().unwrap()
-    );
+    println!("Created the user with the name: {}", user.user_name());
     // snippet-end:[rust.example_code.iam.iam_basics.create_user]
-    let key = iam_service::create_access_key(&client, user.user_name.as_ref().unwrap()).await?;
+    let key = iam_service::create_access_key(&client, user.user_name()).await?;
 
     // snippet-start:[rust.example_code.iam.iam_basics.setup_role_policy_document]
     let assume_role_policy_document = "{
@@ -116,7 +112,7 @@ async fn run_iam_operations(
                 }]
             }"
     .to_string()
-    .replace("{}", user.arn.as_ref().unwrap());
+    .replace("{}", user.arn());
     // snippet-end:[rust.example_code.iam.iam_basics.setup_role_policy_document]
 
     // snippet-start:[rust.example_code.iam.iam_basics.create_role]
@@ -126,10 +122,7 @@ async fn run_iam_operations(
         &assume_role_policy_document,
     )
     .await?;
-    println!(
-        "Created the role with the ARN: {}",
-        assume_role_role.arn.as_ref().unwrap()
-    );
+    println!("Created the role with the ARN: {}", assume_role_role.arn());
     // snippet-end:[rust.example_code.iam.iam_basics.create_role]
 
     // snippet-start:[rust.example_code.iam.iam_basics.create_policy]
@@ -156,18 +149,13 @@ async fn run_iam_operations(
     // snippet-end:[rust.example_code.iam.iam_basics.attach_role_policy]
 
     let inline_policy_name = format!("{}{}", "iam_demo_inline_policy_", uuid);
-    let inline_policy_document =
-        inline_policy_document.replace("{}", assume_role_role.arn.as_ref().unwrap());
+    let inline_policy_document = inline_policy_document.replace("{}", assume_role_role.arn());
     iam_service::create_user_policy(&client, &user, &inline_policy_name, &inline_policy_document)
         .await?;
     println!("Created inline policy.");
 
     //First, fail to list the buckets with the user.
-    let creds = iamCredentials::from_keys(
-        key.access_key_id.as_ref().unwrap(),
-        key.secret_access_key.as_ref().unwrap(),
-        None,
-    );
+    let creds = iamCredentials::from_keys(key.access_key_id(), key.secret_access_key(), None);
     let fail_config = aws_config::from_env()
         .credentials_provider(creds.clone())
         .load()
@@ -191,7 +179,7 @@ async fn run_iam_operations(
     sleep(Duration::from_secs(10)).await;
     let assumed_role = sts_client
         .assume_role()
-        .role_arn(assume_role_role.arn.as_ref().unwrap())
+        .role_arn(assume_role_role.arn())
         .role_session_name(&format!("{}{}", "iam_demo_assumerole_session_", uuid))
         .send()
         .await;
@@ -205,27 +193,24 @@ async fn run_iam_operations(
             .credentials
             .as_ref()
             .unwrap()
-            .access_key_id
-            .as_ref()
-            .unwrap(),
+            .access_key_id(),
         assumed_role
             .as_ref()
             .unwrap()
             .credentials
             .as_ref()
             .unwrap()
-            .secret_access_key
-            .as_ref()
-            .unwrap(),
-        assumed_role
-            .as_ref()
-            .unwrap()
-            .credentials
-            .as_ref()
-            .unwrap()
-            .session_token
-            .borrow()
-            .clone(),
+            .secret_access_key(),
+        Some(
+            assumed_role
+                .as_ref()
+                .unwrap()
+                .credentials
+                .as_ref()
+                .unwrap()
+                .session_token
+                .clone(),
+        ),
     );
 
     let succeed_config = aws_config::from_env()
@@ -248,22 +233,19 @@ async fn run_iam_operations(
     //Clean up.
     iam_service::detach_role_policy(
         &client,
-        assume_role_role.role_name.as_ref().unwrap(),
-        list_all_buckets_policy.arn.as_ref().unwrap(),
+        assume_role_role.role_name(),
+        list_all_buckets_policy.arn().unwrap_or_default(),
     )
     .await?;
     iam_service::delete_policy(&client, list_all_buckets_policy).await?;
     iam_service::delete_role(&client, &assume_role_role).await?;
-    println!(
-        "Deleted role {}",
-        assume_role_role.role_name.as_ref().unwrap()
-    );
+    println!("Deleted role {}", assume_role_role.role_name());
     iam_service::delete_access_key(&client, &user, &key).await?;
-    println!("Deleted key for {}", key.user_name.as_ref().unwrap());
+    println!("Deleted key for {}", key.user_name());
     iam_service::delete_user_policy(&client, &user, &inline_policy_name).await?;
     println!("Deleted inline user policy: {}", inline_policy_name);
     iam_service::delete_user(&client, &user).await?;
-    println!("Deleted user {}", user.user_name.as_ref().unwrap());
+    println!("Deleted user {}", user.user_name());
 
     Ok(())
 }

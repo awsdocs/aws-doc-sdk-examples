@@ -33,12 +33,12 @@ struct Opt {
 async fn put_record_batch(
     client: &Client,
     stream: &str,
-    data: Option<Vec<Record>>,
+    data: Vec<Record>,
 ) -> Result<PutRecordBatchOutput, SdkError<PutRecordBatchError>> {
     client
         .put_record_batch()
         .delivery_stream_name(stream)
-        .set_records(data)
+        .set_records(Some(data))
         .send()
         .await
 }
@@ -83,9 +83,14 @@ async fn main() -> Result<(), Error> {
     let mut data = Vec::with_capacity(500);
     let payload = String::from("Some random payload");
     let tmp = Some(Blob::new(payload.to_string()));
-    data.push(Record::builder().set_data(tmp).build());
+    data.push(
+        Record::builder()
+            .set_data(tmp)
+            .build()
+            .expect("Failed to create a new record"),
+    );
 
-    let resp = put_record_batch(&client, &firehose_stream, Some(data)).await;
+    let resp = put_record_batch(&client, &firehose_stream, data).await;
     match resp {
         Ok(_) => Ok(()),
         Err(e) => Err(Error::from(e)),

@@ -41,7 +41,7 @@ async fn show_log_events(
         .log_stream_name(stream)
         .send()
         .await?;
-    let events = log_events.events().unwrap_or_default();
+    let events = log_events.events();
     println!("Found {} events:", events.len());
     for event in events {
         println!("message: {}", event.message().unwrap_or_default());

@@ -41,10 +41,7 @@ async fn make_role(client: &Client, policy: &str, name: &str) -> String {
 
     match resp {
         Ok(output) => {
-            format!(
-                "Created role with ARN {}",
-                output.role().unwrap().arn().unwrap()
-            )
+            format!("Created role with ARN {}", output.role().unwrap().arn())
         }
         Err(err) => format!("Error creating role: {:?}", err),
     }

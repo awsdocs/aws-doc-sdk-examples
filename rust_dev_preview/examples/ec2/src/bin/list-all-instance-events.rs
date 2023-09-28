@@ -36,12 +36,12 @@ async fn show_all_events(client: &Client) -> Result<(), Error> {
         println!("Instances in region {}:", reg);
         println!();
 
-        for status in resp.unwrap().instance_statuses().unwrap_or_default() {
+        for status in resp.unwrap().instance_statuses() {
             println!(
                 "  Events scheduled for instance ID: {}",
                 status.instance_id().unwrap_or_default()
             );
-            for event in status.events().unwrap_or_default() {
+            for event in status.events() {
                 println!("    Event ID:     {}", event.instance_event_id().unwrap());
                 println!("    Description:  {}", event.description().unwrap());
                 println!("    Event code:   {}", event.code().unwrap().as_ref());

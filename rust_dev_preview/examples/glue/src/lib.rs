@@ -7,6 +7,7 @@ pub mod prepare;
 pub mod run;
 
 use aws_sdk_glue::types::Table;
+use aws_smithy_http::operation::error::BuildError;
 use clap::Parser;
 use secrecy::Secret;
 use std::time::Duration;
@@ -161,6 +162,9 @@ pub enum GlueMvpError {
 
     #[error("Failed to clean up: {0}")]
     Cleanup(String),
+
+    #[error("Failed to build intermediate: {0}")]
+    BuildError(BuildError),
 
     #[error("Unknown Glue MVP Error: {0}")]
     Unknown(String),

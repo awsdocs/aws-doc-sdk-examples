@@ -23,17 +23,20 @@ pub async fn create_table(
     let ad = AttributeDefinition::builder()
         .attribute_name(&a_name)
         .attribute_type(ScalarAttributeType::S)
-        .build();
+        .build()
+        .map_err(Error::BuildError)?;
 
     let ks = KeySchemaElement::builder()
         .attribute_name(&a_name)
         .key_type(KeyType::Hash)
-        .build();
+        .build()
+        .map_err(Error::BuildError)?;
 
     let pt = ProvisionedThroughput::builder()
         .read_capacity_units(10)
         .write_capacity_units(5)
-        .build();
+        .build()
+        .map_err(Error::BuildError)?;
 
     let create_table_response = client
         .create_table()

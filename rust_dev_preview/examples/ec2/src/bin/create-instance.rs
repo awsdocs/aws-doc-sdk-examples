@@ -38,13 +38,13 @@ async fn create_instance(client: &Client, ami_id: &str) -> Result<(), Error> {
         .send()
         .await?;
 
-    if run_instances.instances().is_none() {
+    if run_instances.instances().is_empty() {
         panic!("No instances created.");
     }
 
     println!("Created instance.");
 
-    let instance_id = run_instances.instances().unwrap()[0].instance_id().unwrap();
+    let instance_id = run_instances.instances()[0].instance_id().unwrap();
     client
         .create_tags()
         .resources(instance_id)

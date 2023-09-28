@@ -5,6 +5,8 @@
 
 use std::error::Error as StdError;
 
+use aws_smithy_http::operation::error::BuildError;
+
 #[derive(thiserror::Error, Debug)]
 #[error("unhandled error")]
 pub struct Error {
@@ -22,6 +24,12 @@ impl Error {
 
 impl From<aws_sdk_s3::Error> for Error {
     fn from(source: aws_sdk_s3::Error) -> Self {
+        Self::unhandled(source)
+    }
+}
+
+impl From<BuildError> for Error {
+    fn from(source: BuildError) -> Self {
         Self::unhandled(source)
     }
 }

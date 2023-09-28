@@ -25,7 +25,7 @@ struct Opt {
 async fn show_instances(client: &Client) -> Result<(), Error> {
     let result = client.describe_db_instances().send().await?;
 
-    for db_instance in result.db_instances().unwrap_or_default() {
+    for db_instance in result.db_instances() {
         println!(
             "DB instance identifier: {:?}",
             db_instance

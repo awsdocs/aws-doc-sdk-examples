@@ -1,5 +1,6 @@
 use aws_sdk_dynamodb::error::SdkError;
 use aws_sdk_dynamodb::types::{AttributeValue, PutRequest};
+use aws_smithy_http::operation::error::BuildError;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
@@ -140,8 +141,9 @@ impl From<&HashMap<String, AttributeValue>> for Movie {
     }
 }
 
-impl From<&Movie> for PutRequest {
-    fn from(movie: &Movie) -> Self {
+impl TryFrom<&Movie> for PutRequest {
+    type Error = BuildError;
+    fn try_from(movie: &Movie) -> Result<Self, Self::Error> {
         PutRequest::builder()
             .item("year", AttributeValue::N(movie.year.to_string()))
             .item("title", AttributeValue::S(movie.title.clone()))
@@ -189,9 +191,11 @@ mod test {
             .genres_mut()
             .append(&mut vec!["Mystery".into(), "Comedy".into()]);
 
-        let request: PutRequest = (&movie).into();
+        let request: PutRequest = (&movie)
+            .try_into()
+            .expect("converting known movie to PutRequest");
 
-        let item = request.item().unwrap();
+        let item = request.item();
         assert_eq!(item.len(), 4);
 
         let movie_back: Movie = item.into();

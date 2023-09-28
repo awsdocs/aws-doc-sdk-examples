@@ -32,14 +32,9 @@ async fn describe_stack(client: &Client, name: &str) -> Result<(), Error> {
 
     // Otherwise we get an array of stacks that match the stack_name.
     // The array should only have one item, so just access it via first().
-    let status = resp
-        .stacks()
-        .unwrap_or_default()
-        .first()
-        .unwrap()
-        .stack_status();
+    let status = resp.stacks().first().unwrap().stack_status();
 
-    println!("Stack status: {}", status.unwrap().as_ref());
+    println!("Stack status: {}", status.as_str());
 
     println!();
 

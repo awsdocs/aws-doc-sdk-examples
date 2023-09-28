@@ -15,7 +15,6 @@ use aws_sdk_iam::operation::{
 use aws_sdk_iam::types::{AccessKey, Policy, PolicyScopeType, Role, User};
 use aws_sdk_iam::Client as iamClient;
 use aws_sdk_iam::{Client, Error as iamError};
-use futures::StreamExt;
 use tokio::time::{sleep, Duration};
 
 // snippet-start:[rust.example_code.iam.service.create_policy]
@@ -150,7 +149,7 @@ pub async fn create_user_policy(
 ) -> Result<(), iamError> {
     client
         .put_user_policy()
-        .user_name(user.user_name.as_ref().unwrap())
+        .user_name(user.user_name())
         .policy_name(policy_name)
         .policy_document(policy_document)
         .send()
@@ -165,7 +164,7 @@ pub async fn delete_role(client: &iamClient, role: &Role) -> Result<(), iamError
     let role = role.clone();
     while client
         .delete_role()
-        .role_name(role.role_name.as_ref().unwrap())
+        .role_name(role.role_name())
         .send()
         .await
         .is_err()
@@ -200,7 +199,7 @@ pub async fn delete_user(client: &iamClient, user: &User) -> Result<(), SdkError
     let response: Result<(), SdkError<DeleteUserError>> = loop {
         match client
             .delete_user()
-            .user_name(user.user_name.as_ref().unwrap())
+            .user_name(user.user_name())
             .send()
             .await
         {
@@ -229,8 +228,8 @@ pub async fn attach_role_policy(
 ) -> Result<AttachRolePolicyOutput, SdkError<AttachRolePolicyError>> {
     client
         .attach_role_policy()
-        .role_name(role.role_name.as_ref().unwrap())
-        .policy_arn(policy.arn.as_ref().unwrap())
+        .role_name(role.role_name())
+        .policy_arn(policy.arn().unwrap_or_default())
         .send()
         .await
 }
@@ -303,8 +302,8 @@ pub async fn delete_access_key(
     loop {
         match client
             .delete_access_key()
-            .user_name(user.user_name.as_ref().unwrap())
-            .access_key_id(key.access_key_id.as_ref().unwrap())
+            .user_name(user.user_name())
+            .access_key_id(key.access_key_id())
             .send()
             .await
         {
@@ -357,7 +356,7 @@ pub async fn delete_user_policy(
 ) -> Result<(), SdkError<DeleteUserPolicyError>> {
     client
         .delete_user_policy()
-        .user_name(user.user_name.as_ref().unwrap())
+        .user_name(user.user_name())
         .policy_name(policy_name)
         .send()
         .await?;
@@ -384,15 +383,13 @@ pub async fn list_policies(
     while let Some(list_policies_output) = list_policies.next().await {
         match list_policies_output {
             Ok(list_policies) => {
-                if let Some(policies) = list_policies.policies() {
-                    for policy in policies {
-                        let policy_name = policy
-                            .policy_name()
-                            .unwrap_or("Missing policy name.")
-                            .to_string();
-                        println!("{}", policy_name);
-                        v.push(policy_name);
-                    }
+                for policy in list_policies.policies() {
+                    let policy_name = policy
+                        .policy_name()
+                        .unwrap_or("Missing policy name.")
+                        .to_string();
+                    println!("{}", policy_name);
+                    v.push(policy_name);
                 }
             }
 

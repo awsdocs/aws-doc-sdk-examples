@@ -37,7 +37,7 @@ async fn show_voices(client: &Client) -> Result<(), Error> {
 
         let resp = req.send().await?;
 
-        for voice in resp.voices().unwrap_or_default() {
+        for voice in resp.voices() {
             println!(
                 "I can speak as: {} in {:?}",
                 voice.name().as_ref().unwrap(),
@@ -57,8 +57,9 @@ async fn show_voices(client: &Client) -> Result<(), Error> {
         .filter(|voice| {
             voice
                 .supported_engines()
-                .unwrap_or_default()
-                .contains(&Engine::Neural)
+                .iter()
+                .collect::<Vec<&Engine>>()
+                .contains(&&Engine::Neural)
         })
         .map(|voice| voice.id().unwrap())
         .collect::<Vec<_>>();

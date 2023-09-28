@@ -29,7 +29,7 @@ struct Opt {
 async fn show_versions(client: &Client, bucket: &str) -> Result<(), Error> {
     let resp = client.list_object_versions().bucket(bucket).send().await?;
 
-    for version in resp.versions().unwrap_or_default() {
+    for version in resp.versions() {
         println!("{}", version.key().unwrap_or_default());
         println!("  version ID: {}", version.version_id().unwrap_or_default());
         println!();

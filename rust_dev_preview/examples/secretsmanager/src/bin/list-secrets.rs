@@ -27,7 +27,7 @@ async fn show_secrets(client: &Client) -> Result<(), Error> {
 
     println!("Secret names:");
 
-    let secrets = resp.secret_list().unwrap_or_default();
+    let secrets = resp.secret_list();
     for secret in secrets {
         println!("  {}", secret.name().unwrap_or("No name!"));
     }

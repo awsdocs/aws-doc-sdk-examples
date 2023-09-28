@@ -24,7 +24,7 @@ struct Opt {
 // snippet-start:[snowball.rust.describe-addresses]
 async fn show_addresses(client: &Client) -> Result<(), Error> {
     let addresses = client.describe_addresses().send().await?;
-    for address in addresses.addresses().unwrap() {
+    for address in addresses.addresses() {
         println!("Address: {:?}", address);
     }
 

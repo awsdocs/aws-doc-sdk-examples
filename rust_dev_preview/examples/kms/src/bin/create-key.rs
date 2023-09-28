@@ -25,11 +25,7 @@ struct Opt {
 async fn make_key(client: &Client) -> Result<(), Error> {
     let resp = client.create_key().send().await?;
 
-    let id = resp
-        .key_metadata
-        .unwrap()
-        .key_id
-        .unwrap_or_else(|| String::from("No ID!"));
+    let id = resp.key_metadata.as_ref().unwrap().key_id();
 
     println!("Key: {}", id);
 
