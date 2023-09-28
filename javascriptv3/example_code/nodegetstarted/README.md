@@ -60,5 +60,5 @@ The final package.json should look similar to this:
 ### Step 4: Run the example
 
 1. `node index.js`
-2. Choose whether or not to empty and delete the bucket.
-3. If you choose not to delete the bucket, be sure to empty it and delete it manually.
+2. Choose whether to empty and delete the bucket.
+3. If you don't delete the bucket, be sure to manually empty and delete it later.
