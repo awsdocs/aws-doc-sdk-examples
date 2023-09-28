@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[GetDataStore.java demonstrates how to get a datastore's pproperties in AWS HealthImaging.]
+//snippet-sourcedescription:[GetDataStore.java demonstrates how to get a data store's pproperties in AWS HealthImaging.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[AWS HealthImaging]
 
@@ -35,7 +35,7 @@ public class GetDatastore {
                 "Usage:\n" +
                 "    <datastoreID>\n\n" +
                 "Where:\n" +
-                "    datastoreID - The ID for the AWS HealthImaging datastore.\n\n";
+                "    datastoreID - The ID for the AWS HealthImaging data store.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);
@@ -52,7 +52,7 @@ public class GetDatastore {
 
         DatastoreProperties properties = getMedicalImageDatastore(medicalImagingClient, datastoreID);
         if (properties != null) {
-            System.out.println("The medical imaging datastore properties are " + properties);
+            System.out.println("The medical imaging data store properties are " + properties);
         }
         medicalImagingClient.close();
     }

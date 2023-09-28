@@ -2,7 +2,7 @@ import {describe, it, expect} from "vitest";
 import {getDatastore} from "../actions/get-datastore.js";
 
 describe("getDatastore", () => {
-    it("should throw an error with the default fake datastore ID", async () => {
+    it("should throw an error with the default fake data store ID", async () => {
         try {
             await getDatastore();
         } catch (err) {

@@ -91,7 +91,7 @@ export VERBOSE=false
 
   local test_count=0
 
-  run_test "$test_count Create a datastore" \
+  run_test "$test_count Create a data store" \
     "imaging_create_datastore -n $datastore_name " \
     0
   test_count=$((test_count + 1))
@@ -116,30 +116,30 @@ export VERBOSE=false
   done <<<"$datastore_list"
 
   if [ "$data_store_found" == "false" ]; then
-    test_failed "Datastore id $datastore_id not found in list datastores response. $datastore_list"
+    test_failed "Datastore id $datastore_id not found in list-datastores response. $datastore_list"
   fi
 
   test_count=$((test_count + 1))
 
-  run_test "$test_count. Get a datastore" \
+  run_test "$test_count. Get a data store" \
     "imaging_get_datastore -i $datastore_id " \
     0
 
   IFS=$'\t' read -ra datastore_get_result <<<"$test_command_response"
   if [ "${#datastore_get_result[@]}" -ne 6 ]; then
-    test_failed "Incorrect number of entries in get datastore response. ${#datastore_get_result[@]}}"
+    test_failed "Incorrect number of entries in get-datastore response. ${#datastore_get_result[@]}}"
   fi
 
   local retrieved_datastore_id="${datastore_get_result[1]}"
   if [ "$retrieved_datastore_id" != "$datastore_id" ]; then
-    test_failed "Incorrect datastore id in get datastore response. ${#datastore_get_result[@]}"
+    test_failed "Incorrect data store id in get-datastore response. ${#datastore_get_result[@]}"
   fi
 
   test_count=$((test_count + 1))
 
   sleep 10
 
-  run_test "$test_count. Delete a datastore" \
+  run_test "$test_count. Delete a data store" \
     "imaging_delete_datastore -i $datastore_id " \
     0
   test_count=$((test_count + 1))

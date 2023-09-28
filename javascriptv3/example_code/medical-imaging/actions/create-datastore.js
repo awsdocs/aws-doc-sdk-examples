@@ -10,7 +10,7 @@ import {CreateDatastoreCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} datastoreName - The name of the datastore to create.
+ * @param {string} datastoreName - The name of the data store to create.
  */
 export const createDatastore = async (datastoreName = "DATASTORE_NAME") => {
     const response = await medicalImagingClient.send(

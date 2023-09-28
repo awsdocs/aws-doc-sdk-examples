@@ -10,7 +10,7 @@ import {GetDatastoreCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} datastoreID - The ID of the datastore to retrieve properties for.
+ * @param {string} datastoreID - The ID of the data store to retrieve properties for.
  */
 export const getDatastore = async (datastoreID = "DATASTORE_ID") => {
     const response = await medicalImagingClient.send(
