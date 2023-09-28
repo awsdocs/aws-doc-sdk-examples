@@ -537,6 +537,15 @@ sns_Publish_WithAttribute:
                 - cpp.example_code.cross-service.topics_and_queues.sns_client
                 - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes
                 - cpp.example_code.cross-service.topics_and_queues.publish_message_with_attributes2
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/cross-services/wkflw-topics-queues
+          sdkguide:
+          excerpts:
+            - description: Publish a message to a topic with group, duplication, and attribute options.
+              snippet_tags:
+                - javascript.v3.wkflw.topicsandqueues.publish-messages
   services:
     sns: {Publish}
 sns_ConfirmSubscription:
