@@ -27,16 +27,16 @@ async fn show_host_info(client: &aws_sdk_route53::Client) -> Result<(), aws_sdk_
 
     println!(
         "Number of hosted zones in region : {}",
-        hosted_zone_count.hosted_zone_count().unwrap_or_default(),
+        hosted_zone_count.hosted_zone_count(),
     );
 
     let hosted_zones = client.list_hosted_zones().send().await?;
 
     println!("Zones:");
 
-    for hz in hosted_zones.hosted_zones().unwrap_or_default() {
-        let zone_name = hz.name().unwrap_or_default();
-        let zone_id = hz.id().unwrap_or_default();
+    for hz in hosted_zones.hosted_zones() {
+        let zone_name = hz.name();
+        let zone_id = hz.id();
 
         println!("  ID :   {}", zone_id);
         println!("  Name : {}", zone_name);

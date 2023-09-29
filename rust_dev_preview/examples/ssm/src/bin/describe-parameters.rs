@@ -25,7 +25,7 @@ struct Opt {
 async fn show_parameters(client: &Client) -> Result<(), Error> {
     let resp = client.describe_parameters().send().await?;
 
-    for param in resp.parameters().unwrap().iter() {
+    for param in resp.parameters() {
         println!("  {}", param.name().unwrap_or_default());
     }
 

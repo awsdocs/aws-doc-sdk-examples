@@ -37,27 +37,30 @@ async fn list_tables(client: &Client) -> Result<(), Error> {
 // Creates the test-table table.
 // snippet-start:[dynamodb.rust.dynamodb-helloworld-create_table]
 async fn create_table(client: &Client) -> Result<(), Error> {
+    let ks = KeySchemaElement::builder()
+        .attribute_name("k")
+        .key_type(KeyType::Hash)
+        .build()
+        .expect("creating KeySchemaElement");
+
+    let ad = AttributeDefinition::builder()
+        .attribute_name("k")
+        .attribute_type(ScalarAttributeType::S)
+        .build()
+        .expect("creating AttributeDefinition");
+
+    let pt = ProvisionedThroughput::builder()
+        .write_capacity_units(10)
+        .read_capacity_units(10)
+        .build()
+        .expect("creating ProvisionedThroughput");
+
     let new_table = client
         .create_table()
         .table_name("test-table")
-        .key_schema(
-            KeySchemaElement::builder()
-                .attribute_name("k")
-                .key_type(KeyType::Hash)
-                .build(),
-        )
-        .attribute_definitions(
-            AttributeDefinition::builder()
-                .attribute_name("k")
-                .attribute_type(ScalarAttributeType::S)
-                .build(),
-        )
-        .provisioned_throughput(
-            ProvisionedThroughput::builder()
-                .write_capacity_units(10)
-                .read_capacity_units(10)
-                .build(),
-        )
+        .key_schema(ks)
+        .attribute_definitions(ad)
+        .provisioned_throughput(pt)
         .send()
         .await?;
     println!(

@@ -14,3 +14,5 @@ aws-sdk-textract = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "
 tokio = { version = "1.27", features = ["full"] }
 structopt = { version = "0.3", default-features = false }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
+thiserror = "1.0.49"
+aws-types = "0.56.1"

@@ -20,7 +20,7 @@ async fn main() -> Result<(), aws_sdk_s3::Error> {
     // snippet-end:[s3.rust.client-client]
 
     let resp = client.list_buckets().send().await?;
-    let buckets = resp.buckets().unwrap_or_default();
+    let buckets = resp.buckets();
     let num_buckets = buckets.len();
 
     for bucket in buckets {

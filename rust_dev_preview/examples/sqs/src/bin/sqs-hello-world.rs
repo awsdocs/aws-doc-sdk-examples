@@ -33,7 +33,7 @@ struct SQSMessage {
 // snippet-start:[sqs.rust.sqs-list-first]
 async fn find_first_queue(client: &Client) -> Result<String, Error> {
     let queues = client.list_queues().send().await?;
-    let queue_urls = queues.queue_urls().unwrap_or_default();
+    let queue_urls = queues.queue_urls();
     Ok(queue_urls
         .first()
         .expect("No queues in this account and Region. Create a queue to proceed.")

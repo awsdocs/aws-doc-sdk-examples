@@ -24,7 +24,7 @@ struct Opt {
 // snippet-start:[snowball.rust.list-jobs]
 async fn show_jobs(client: &Client) -> Result<(), Error> {
     let jobs = client.list_jobs().send().await?;
-    for job in jobs.job_list_entries().unwrap() {
+    for job in jobs.job_list_entries() {
         println!("  JobId: {:?}", job.job_id());
     }
 

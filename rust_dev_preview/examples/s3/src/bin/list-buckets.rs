@@ -28,7 +28,7 @@ struct Opt {
 // snippet-start:[s3.rust.list-buckets]
 async fn show_buckets(strict: bool, client: &Client, region: &str) -> Result<(), Error> {
     let resp = client.list_buckets().send().await?;
-    let buckets = resp.buckets().unwrap_or_default();
+    let buckets = resp.buckets();
     let num_buckets = buckets.len();
 
     let mut in_region = 0;

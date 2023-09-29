@@ -64,7 +64,6 @@ async fn detect_record<'a>(
         .send()
         .await?
         .labels()
-        .ok_or_else(|| anyhow!("missing labels"))?
         .iter()
         .map(|l| l.to_owned())
         .collect();

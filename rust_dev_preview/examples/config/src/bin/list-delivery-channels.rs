@@ -25,7 +25,7 @@ struct Opt {
 async fn show_channels(client: &Client) -> Result<(), Error> {
     let resp = client.describe_delivery_channels().send().await?;
 
-    let channels = resp.delivery_channels().unwrap_or_default();
+    let channels = resp.delivery_channels();
 
     let num_channels = channels.len();
 

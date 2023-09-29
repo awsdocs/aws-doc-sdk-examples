@@ -30,7 +30,12 @@ struct Opt {
 async fn start(client: &Client, ledger: &str) -> Result<(), Error> {
     let result = client
         .send_command()
-        .start_session(StartSessionRequest::builder().ledger_name(ledger).build())
+        .start_session(
+            StartSessionRequest::builder()
+                .ledger_name(ledger)
+                .build()
+                .expect("building StartSessionRequest"),
+        )
         .send()
         .await?;
 

@@ -53,7 +53,7 @@ async fn send_message(
         .send()
         .await?;
 
-    let contacts = resp.contacts().unwrap_or_default();
+    let contacts = resp.contacts();
 
     let cs: Vec<String> = contacts
         .iter()
@@ -62,8 +62,16 @@ async fn send_message(
 
     let mut dest: Destination = Destination::builder().build();
     dest.to_addresses = Some(cs);
-    let subject_content = Content::builder().data(subject).charset("UTF-8").build();
-    let body_content = Content::builder().data(message).charset("UTF-8").build();
+    let subject_content = Content::builder()
+        .data(subject)
+        .charset("UTF-8")
+        .build()
+        .expect("building Content");
+    let body_content = Content::builder()
+        .data(message)
+        .charset("UTF-8")
+        .build()
+        .expect("building Content");
     let body = Body::builder().text(body_content).build();
 
     let msg = Message::builder()

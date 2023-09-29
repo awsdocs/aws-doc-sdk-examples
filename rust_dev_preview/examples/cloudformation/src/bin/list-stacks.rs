@@ -25,9 +25,9 @@ struct Opt {
 async fn list_stacks(client: &Client) -> Result<(), Error> {
     let stacks = client.list_stacks().send().await?;
 
-    for stack in stacks.stack_summaries().unwrap_or_default() {
-        println!("{}", stack.stack_name().unwrap_or_default());
-        println!("  Status: {:?}", stack.stack_status().unwrap());
+    for stack in stacks.stack_summaries() {
+        println!("{}", stack.stack_name());
+        println!("  Status: {:?}", stack.stack_status());
         println!();
     }
 

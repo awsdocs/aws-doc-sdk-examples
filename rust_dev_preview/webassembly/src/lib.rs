@@ -74,14 +74,15 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
         .send()
         .await
         .map_err(|e| format!("{:?}", e))?;
-    let functions = resp.functions().unwrap_or_default();
 
+    let functions = resp.functions();
     for function in functions {
         log!(
             "Function Name: {}",
             function.function_name().unwrap_or_default()
         );
     }
+
     let output = functions.len().to_string();
 
     Ok(output)

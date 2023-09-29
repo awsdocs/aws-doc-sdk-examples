@@ -31,25 +31,22 @@ async fn list_asset_models(client: &Client) -> Result<(), Error> {
 
     println!("Asset Models:");
 
-    for asset in resp.asset_model_summaries.unwrap() {
-        println!("  ID:  {}", asset.id().unwrap_or_default());
-        println!("  ARN:  {}", asset.arn().unwrap_or_default());
-        println!("  Name:   {}", asset.name().unwrap_or_default());
-        println!(
-            "  Description:   {}",
-            asset.description().unwrap_or_default()
-        );
+    for asset in resp.asset_model_summaries {
+        println!("  ID:  {}", asset.id());
+        println!("  ARN:  {}", asset.arn());
+        println!("  Name:   {}", asset.name());
+        println!("  Description:   {}", asset.description());
         println!(
             "  Creation Date:   {}",
-            asset.creation_date().unwrap().to_chrono_utc()?
+            asset.creation_date().to_chrono_utc()?
         );
         println!(
             "  Last Update Date:   {}",
-            asset.last_update_date().unwrap().to_chrono_utc()?
+            asset.last_update_date().to_chrono_utc()?
         );
         println!(
             "  Current Status:   {}",
-            asset.status().unwrap().state().unwrap().as_str()
+            asset.status().unwrap().state().as_str()
         );
 
         println!();

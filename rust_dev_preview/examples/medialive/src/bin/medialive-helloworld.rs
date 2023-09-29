@@ -25,7 +25,7 @@ struct Opt {
 async fn show_inputs(client: &Client) -> Result<(), Error> {
     let input_list = client.list_inputs().send().await?;
 
-    for i in input_list.inputs().unwrap_or_default() {
+    for i in input_list.inputs() {
         let input_arn = i.arn().unwrap_or_default();
         let input_name = i.name().unwrap_or_default();
 

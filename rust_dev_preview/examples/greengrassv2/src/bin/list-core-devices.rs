@@ -27,7 +27,7 @@ async fn show_cores(client: &Client) -> Result<(), Error> {
 
     println!("cores:");
 
-    for core in resp.core_devices().unwrap() {
+    for core in resp.core_devices() {
         println!(
             "  Name:  {}",
             core.core_device_thing_name().unwrap_or_default()

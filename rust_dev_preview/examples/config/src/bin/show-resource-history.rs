@@ -39,7 +39,7 @@ async fn show_history(client: &Client, id: &str, res: ResourceType) -> Result<()
         .send()
         .await?;
     println!("configuration history for {}:", id);
-    for item in rsp.configuration_items().unwrap_or_default() {
+    for item in rsp.configuration_items() {
         println!("item: {:?}", item);
     }
 

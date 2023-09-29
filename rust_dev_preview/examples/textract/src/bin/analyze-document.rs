@@ -32,7 +32,7 @@ struct Opt {
 
 #[tokio::main]
 #[allow(clippy::result_large_err)]
-async fn main() -> Result<(), aws_sdk_textract::Error> {
+async fn main() {
     tracing_subscriber::fmt::init();
     let Opt {
         region,
@@ -53,18 +53,22 @@ async fn main() -> Result<(), aws_sdk_textract::Error> {
         .feature_types(FeatureType::Queries)
         .queries_config(
             QueriesConfig::builder()
-                .queries(Query::builder().text(&query).build())
-                .build(),
+                .queries(
+                    Query::builder()
+                        .text(&query)
+                        .build()
+                        .expect("Failed to build query"),
+                )
+                .build()
+                .expect("Failed to build query config"),
         )
         .send()
-        .await
-        .map_err(Box::new);
+        .await;
 
     match res {
         Ok(analyze_output) => {
             let pizza_topping = analyze_output
                 .blocks()
-                .unwrap_or_default()
                 .iter()
                 .filter_map(|block| match block.block_type()? {
                     BlockType::QueryResult => Some(block),
@@ -82,7 +86,5 @@ async fn main() -> Result<(), aws_sdk_textract::Error> {
                 DisplayErrorContext(&err)
             );
         }
-    }
-
-    Ok(())
+    };
 }

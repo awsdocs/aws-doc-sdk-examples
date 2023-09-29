@@ -27,21 +27,15 @@ async fn list_groups(client: &Client) -> Result<(), Error> {
 
     println!("Groups:");
 
-    let groups = resp.auto_scaling_groups().unwrap_or_default();
+    let groups = resp.auto_scaling_groups();
 
     for group in groups {
-        println!(
-            "Name:  {}",
-            group.auto_scaling_group_name().unwrap_or("Unknown"),
-        );
+        println!("Name:  {}", group.auto_scaling_group_name(),);
         println!(
             "Arn:   {}",
             group.auto_scaling_group_arn().unwrap_or("unknown"),
         );
-        println!(
-            "Zones: {:?}",
-            group.availability_zones().unwrap_or_default(),
-        );
+        println!("Zones: {:?}", group.availability_zones(),);
         println!();
     }
 

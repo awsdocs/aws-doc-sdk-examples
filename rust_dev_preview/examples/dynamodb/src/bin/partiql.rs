@@ -56,17 +56,20 @@ async fn make_table(
     let ad = AttributeDefinition::builder()
         .attribute_name(key)
         .attribute_type(ScalarAttributeType::S)
-        .build();
+        .build()
+        .expect("creating AttributeDefinition");
 
     let ks = KeySchemaElement::builder()
         .attribute_name(key)
         .key_type(KeyType::Hash)
-        .build();
+        .build()
+        .expect("creating KeySchemaElement");
 
     let pt = ProvisionedThroughput::builder()
         .read_capacity_units(10)
         .write_capacity_units(5)
-        .build();
+        .build()
+        .expect("creating ProvisionedThroughput");
 
     match client
         .create_table()
@@ -140,7 +143,7 @@ async fn query_item(client: &Client, item: Item) -> bool {
         .await
     {
         Ok(resp) => {
-            if !resp.items().unwrap_or_default().is_empty() {
+            if !resp.items().is_empty() {
                 println!("Found a matching entry in the table:");
                 println!("{:?}", resp.items.unwrap_or_default().pop());
                 true

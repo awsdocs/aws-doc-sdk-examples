@@ -84,10 +84,8 @@ async fn get_labels(
         .send()
         .await?;
 
-    let items = scan.items().ok_or_else(|| anyhow!("no scanned items"))?;
-
     let mut labels = Labels::new();
-    for item in items {
+    for item in scan.items() {
         labels.insert(item.try_into()?);
     }
 

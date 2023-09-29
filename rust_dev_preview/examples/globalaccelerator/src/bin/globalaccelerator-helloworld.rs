@@ -8,7 +8,6 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_globalaccelerator::{config::Region, meta::PKG_VERSION, Client, Error};
 use clap::Parser;
-use tokio_stream::StreamExt;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -25,7 +24,7 @@ async fn show_accelerators(client: &Client) -> Result<(), Error> {
     let mut paginator = client.list_accelerators().into_paginator().send();
 
     while let Some(page) = paginator.try_next().await? {
-        for accelerator in page.accelerators().unwrap_or_default().iter() {
+        for accelerator in page.accelerators().iter() {
             let accelerator_arn = accelerator.name().unwrap_or_default();
             let accelerator_name = accelerator.accelerator_arn().unwrap_or_default();
 

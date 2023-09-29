@@ -4,7 +4,6 @@
  */
 
 use aws_sdk_dynamodb::{Client, Error};
-use tokio_stream::StreamExt;
 
 // List your tables.
 // snippet-start:[dynamodb.rust.list-tables]
@@ -51,7 +50,7 @@ pub async fn list_tables_limit_10(
 
     println!("Tables:");
 
-    let names = resp.table_names().unwrap_or_default();
+    let names = resp.table_names();
 
     for name in names {
         println!("  {}", name);
@@ -158,7 +157,7 @@ pub async fn list_tables_are_more(client: &Client) -> Result<(), Error> {
 
     println!("Tables:");
 
-    let names = resp.table_names().unwrap_or_default();
+    let names = resp.table_names();
 
     for name in names {
         println!("  {}", name);

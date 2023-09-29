@@ -29,12 +29,12 @@ async fn show_jobs(client: &Client) -> Result<(), Error> {
 
     println!("Jobs:");
 
-    for j in job_details.training_job_summaries().unwrap_or_default() {
-        let name = j.training_job_name().unwrap_or_default();
-        let creation_time = j.creation_time().unwrap().to_chrono_utc()?;
+    for j in job_details.training_job_summaries() {
+        let name = j.training_job_name();
+        let creation_time = j.creation_time().to_chrono_utc()?;
         let training_end_time = j.training_end_time().unwrap().to_chrono_utc()?;
 
-        let status = j.training_job_status().unwrap();
+        let status = j.training_job_status();
         let duration = training_end_time - creation_time;
 
         println!("  Name:               {}", name);

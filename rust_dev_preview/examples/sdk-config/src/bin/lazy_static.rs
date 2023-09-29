@@ -38,11 +38,7 @@ async fn request(name: &str) {
     // Use our clone to make a request.
     match client.list_buckets().send().await {
         Ok(response) => {
-            info!(
-                name,
-                len = response.buckets().unwrap_or_default().len(),
-                "Got buckets"
-            )
+            info!(name, len = response.buckets().len(), "Got buckets")
         }
         Err(err) => {
             error!(name, %err, "Had an error");

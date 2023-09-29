@@ -27,7 +27,7 @@ async fn show_snapshots(client: &Client) -> Result<(), Error> {
     // You can list the snapshots for any account by replacing
     // "self" with that account ID.
     let resp = client.describe_snapshots().owner_ids("self").send().await?;
-    let snapshots = resp.snapshots().unwrap();
+    let snapshots = resp.snapshots();
     let length = snapshots.len();
 
     for snapshot in snapshots {

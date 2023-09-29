@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0.
 
 use aws_sdk_glue::types::{JobRun, JobRunState};
-use futures::StreamExt;
 use tracing::{info, instrument, warn};
 
 use crate::{clients::GLUE_CLIENT, GlueMvpError, GlueScenario};
@@ -18,9 +17,8 @@ impl GlueScenario {
         while let Some(list_jobs_output) = list_jobs.next().await {
             match list_jobs_output {
                 Ok(list_jobs) => {
-                    if let Some(jobs) = list_jobs.job_names() {
-                        info!(?jobs, "Found these jobs")
-                    }
+                    let names = list_jobs.job_names();
+                    info!(?names, "Found these jobs")
                 }
                 Err(err) => return Err(GlueMvpError::from_glue_sdk(err)),
             }
@@ -48,8 +46,7 @@ impl GlueScenario {
                 self.tables
                     .get(0)
                     .ok_or_else(|| GlueMvpError::Unknown("Missing crawler table".into()))?
-                    .name()
-                    .ok_or_else(|| GlueMvpError::Unknown("Crawler table without a name".into()))?,
+                    .name(),
             )
             .arguments("--output_bucket_url", self.bucket())
             .send()

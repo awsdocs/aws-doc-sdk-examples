@@ -32,13 +32,10 @@ async fn show_stream(client: &Client, stream: &str) -> Result<(), Error> {
     let desc = resp.stream_description.unwrap();
 
     println!("Stream description:");
-    println!("  Name:              {}:", desc.stream_name.unwrap());
-    println!("  Status:            {:?}", desc.stream_status.unwrap());
-    println!("  Open shards:       {:?}", desc.shards.unwrap().len());
-    println!(
-        "  Retention (hours): {}",
-        desc.retention_period_hours.unwrap()
-    );
+    println!("  Name:              {}:", desc.stream_name());
+    println!("  Status:            {:?}", desc.stream_status());
+    println!("  Open shards:       {:?}", desc.shards.len());
+    println!("  Retention (hours): {}", desc.retention_period_hours());
     println!("  Encryption:        {:?}", desc.encryption_type.unwrap());
 
     Ok(())

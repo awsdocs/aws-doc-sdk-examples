@@ -28,7 +28,7 @@ struct Opt {
 // Shows your buckets.
 async fn show_num_buckets(client: &Client) -> Result<(), Error> {
     let resp = client.list_buckets().send().await?;
-    let buckets = resp.buckets().unwrap_or_default();
+    let buckets = resp.buckets();
 
     println!("Found {} buckets in all regions.", buckets.len());
 

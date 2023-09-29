@@ -53,10 +53,9 @@ async fn determine_prefix_file_size(
             .await?;
 
         // Add up the file sizes we got back
-        if let Some(contents) = response.contents() {
-            for object in contents {
-                total_size_bytes += object.size() as usize;
-            }
+        let contents = response.contents();
+        for object in contents {
+            total_size_bytes += object.size() as usize;
         }
 
         // Handle pagination, and break the loop if there are no more pages
