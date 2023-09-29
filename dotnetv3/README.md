@@ -89,8 +89,7 @@ for more information.
 
 1. Install and run Docker on your machine.
 2. Navigate to the same directory as this README.
-3. Optionally, un-comment the .NET 5 setup in the Docker file. .NET 6 will be installed by default.
-4. Run `docker build -t <image_name> .` where `image_name` is a name you provide for the image.
+3. Run `docker build -t <image_name> .` where `image_name` is a name you provide for the image.
 
 ### Launch the Docker container
 
