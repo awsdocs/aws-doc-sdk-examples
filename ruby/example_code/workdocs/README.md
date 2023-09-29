@@ -48,7 +48,7 @@ To learn more about the contributing process, see [CONTRIBUTING.md](../../../CON
 * [SDK for Ruby Developer Guide](https://aws.amazon.com/developer/language/ruby/)
 * [SDK for Ruby Amazon WorkDocs Module](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/WorkDocs.html)
 * [WorkDocs Developer Guide](https://docs.aws.amazon.com/workdocs/latest/developerguide/what_is.html)
-* [WorkDocs API Reference](https://docs.aws.amazon.com/sdk-for-ruby/v3/api/)
+* [WorkDocs API Reference](https://docs.aws.amazon.com/workdocs/latest/APIReference/Welcome.html)
 <!--custom.resources.end-->
 
 Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. SPDX-License-Identifier: Apache-2.0

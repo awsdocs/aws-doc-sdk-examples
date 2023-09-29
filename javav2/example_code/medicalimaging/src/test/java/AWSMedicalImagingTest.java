@@ -51,7 +51,7 @@ public class AWSMedicalImagingTest {
         assertDoesNotThrow(() -> datastoreID = CreateDatastore.createMedicalImageDatastore(medicalImagingClient, datastoreName));
         assertFalse(datastoreID.isEmpty());
 
-        // Sleep for 10 seconds to give time for the datastore to be created
+        // Sleep for 10 seconds to give time for the data store to be created
         try {
             Thread.sleep(10000);
         } catch (java.lang.InterruptedException e) {

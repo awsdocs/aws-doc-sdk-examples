@@ -10,7 +10,7 @@ import {DeleteDatastoreCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} datastoreID - The ID of the datastore to create.
+ * @param {string} datastoreID - The ID of the data store to delete.
  */
 export const deleteDatastore = async (datastoreID = "DATASTORE_ID") => {
     const response = await medicalImagingClient.send(

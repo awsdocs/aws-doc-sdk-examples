@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[DeleteDatastore.java demonstrates how to delete a datastore in AWS HealthImaging.]
+//snippet-sourcedescription:[DeleteDatastore.java demonstrates how to delete a data store in AWS HealthImaging.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[AWS HealthImaging]
 
@@ -33,7 +33,7 @@ public class DeleteDatastore {
                 "Usage:\n" +
                 "    <dataStoreID>\n\n" +
                 "Where:\n" +
-                "    dataStoreID - The ID for the AWS HealthImaging datastore to delete.\n\n";
+                "    dataStoreID - The ID for the AWS HealthImaging data store to delete.\n\n";
 
         if (args.length != 1) {
             System.out.println(usage);

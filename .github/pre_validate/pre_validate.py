@@ -201,6 +201,7 @@ ALLOW_LIST = {
     'aws/rds/model/DescribeDBSnapshotsRequest',
     'role/AmazonSageMakerGeospatialFullAccess',
     'VectorEnrichmentJobDataSourceConfigInput',
+    'com/workdocs/latest/APIReference/Welcome',
 }
 
 def check_files(root, quiet):
