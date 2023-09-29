@@ -1,12 +1,9 @@
 {
-  "name": "aws-sdk-v3-eventbridge-examples",
+  "name": "example-javascriptv3-eventbridge",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com/awsdocs/aws-doc-sdk-examples/tree/master/javascriptv3/example_code/eventbridge.git",
-  "author": "Brian Murray <brmur@amazon.com>",
-  "license": "Apache 2.0",
+  "author": "Corey Pyle <corepyle@amazon.com>",
   "type": "module",
   "dependencies": {
-    "@aws-sdk/client-eventbridge": "^3.387.0"
+    "@aws-sdk/client-eventbridge": "^3.421.0"
   }
 }

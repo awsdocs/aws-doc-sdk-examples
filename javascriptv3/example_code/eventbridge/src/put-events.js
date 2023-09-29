@@ -17,7 +17,7 @@ node putEvents.js
 
 // Import required AWS SDK clients and commands for Node.js.
 import { PutEventsCommand } from "@aws-sdk/client-eventbridge";
-import { ebClient } from "./libs/eventBridgeClient.js";
+import { ebClient } from "./libs/client.js";
 
 // Set the parameters.
 export const params = {
