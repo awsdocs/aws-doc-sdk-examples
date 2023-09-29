@@ -46,7 +46,6 @@
     "eslint": "^8.49.0",
     "eslint-import-resolver-typescript": "^3.6.0",
     "eslint-plugin-import": "^2.28.1",
-    "lerna": "^7.3.0",
     "lint-staged": "^14.0.1",
     "typescript": "^5.2.2",
     "vitest": "^0.34.4"

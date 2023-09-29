@@ -266,6 +266,7 @@ export class TopicsQueuesWkflw {
     }
   }
 
+  // snippet-start:[javascript.v3.wkflw.topicsandqueues.publish-messages]
   async publishMessages() {
     const message = await this.prompter.input({
       message: MESSAGES.publishMessagePrompt,
@@ -327,6 +328,7 @@ export class TopicsQueuesWkflw {
       await this.publishMessages();
     }
   }
+  // snippet-end:[javascript.v3.wkflw.topicsandqueues.publish-messages]
 
   async receiveAndDeleteMessages() {
     for (const queue of this.queues) {

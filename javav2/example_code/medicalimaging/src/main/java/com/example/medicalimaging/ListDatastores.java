@@ -42,7 +42,7 @@ public class ListDatastores {
 
         List<DatastoreSummary> datastoreSummaries = listMedicalImagingDatastores(medicalImagingClient);
         if (datastoreSummaries != null) {
-            System.out.println("The medical imaging datastore properties are " + datastoreSummaries);
+            System.out.println("The medical imaging data store properties are " + datastoreSummaries);
         }
         medicalImagingClient.close();
     }

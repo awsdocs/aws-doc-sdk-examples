@@ -11,7 +11,7 @@ describe("createDatastore/deleteDatastore", () => {
         let datastoreID = "";
         const datastoreName = "createDeleteDatastoreJSTest";
 
-        it("should create and delete a datastore", async () => {
+        it("should create and delete a data store", async () => {
             // Create topic.
             const createDatastoreCommandOutput = await createDatastore(datastoreName);
             datastoreID = createDatastoreCommandOutput.datastoreId;

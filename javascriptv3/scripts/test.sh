@@ -1,13 +1,13 @@
 #!/bin/bash
 
 function run_unit_tests() {
-  if ! lerna run test; then
+  if ! npm run test --workspaces --if-present; then
     exit 1
   fi
 }
 
 function run_integration_tests() {
-  if ! lerna run integration-test; then
+  if ! npm run integration-test --workspaces --if-present; then
     exit 1
   fi
 }

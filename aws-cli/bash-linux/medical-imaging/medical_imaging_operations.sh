@@ -64,7 +64,7 @@ function imaging_create_datastore() {
   export OPTIND=1
 
   if [[ -z "$datastore_name" ]]; then
-    errecho "ERROR: You must provide a datastore name with the -n parameter."
+    errecho "ERROR: You must provide a data store name with the -n parameter."
     usage
     return 1
   fi
@@ -148,7 +148,7 @@ function imaging_list_datastores() {
 ###############################################################################
 # function imaging_get_datastore
 #
-# Get a datastore properties.
+# Get a data store's properties.
 #
 # Parameters:
 #       -i data_store_id - The ID of the data store.
@@ -165,7 +165,7 @@ function imaging_get_datastore() {
   # bashsupport disable=BP5008
   function usage() {
     echo "function imaging_get_datastore"
-    echo "Gets a datastore properties."
+    echo "Gets a data store's properties."
     echo "  -i datastore_id - The ID of the data store."
     echo ""
   }
@@ -188,7 +188,7 @@ function imaging_get_datastore() {
   export OPTIND=1
 
   if [[ -z "$datastore_id" ]]; then
-    errecho "ERROR: You must provide a datastore ID with the -i parameter."
+    errecho "ERROR: You must provide a data store ID with the -i parameter."
     usage
     return 1
   fi
@@ -258,7 +258,7 @@ function imaging_delete_datastore() {
   export OPTIND=1
 
   if [[ -z "$datastore_id" ]]; then
-    errecho "ERROR: You must provide a datastore ID with the -i parameter."
+    errecho "ERROR: You must provide a data store ID with the -i parameter."
     usage
     return 1
   fi
