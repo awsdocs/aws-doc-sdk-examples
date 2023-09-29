@@ -7,7 +7,7 @@ import {fileURLToPath} from "url";
 self.importScripts(".js/openjphjs.js")
 import { writeFileSync } from "fs";
 
-// snippet-start:[medical-imaging.JavaScript.datastore.getDatastoreV3]
+// snippet-start:[medical-imaging.JavaScript.imageset.getImageFrameV3]
 import {GetImageFrameCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
@@ -54,7 +54,7 @@ export const getImageFrame = async (datastoreID = "DATASTORE_ID",
     // }
     return response
 };
-// snippet-end:[medical-imaging.JavaScript.datastore.getDatastoreV3]
+// snippet-end:[medical-imaging.JavaScript.imageset.getImageFrameV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

@@ -5,7 +5,7 @@
 
 import {fileURLToPath} from "url";
 
-// snippet-start:[medical-imaging.JavaScript.datastore.createDatastoreV3]
+// snippet-start:[medical-imaging.JavaScript.imageset.getImageSetMetadataV3]
 import {GetImageSetMetadataCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 import {writeFileSync} from "fs";
@@ -42,7 +42,7 @@ export const getImageSetMetadata = async (datastoreId = "xxxxxxxxxxxxxx",
     return response;
 }
 
-// snippet-end:[medical-imaging.JavaScript.datastore.createDatastoreV3]
+// snippet-end:[medical-imaging.JavaScript.imageset.getImageSetMetadataV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

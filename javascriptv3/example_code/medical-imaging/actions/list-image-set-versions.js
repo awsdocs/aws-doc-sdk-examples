@@ -5,7 +5,7 @@
 
 import {fileURLToPath} from "url";
 
-// snippet-start:[medical-imaging.JavaScript.datastore.listImageSetVersionsV3]
+// snippet-start:[medical-imaging.JavaScript.imageset.listImageSetVersionsV3]
 import {ListImageSetVersionsCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
@@ -38,7 +38,7 @@ export const listImageSetVersions = async (datastoreId = "xxxxxxxxxxxx", imageSe
     // }
     return response;
 };
-// snippet-end:[medical-imaging.JavaScript.datastore.listImageSetVersionsV3]
+// snippet-end:[medical-imaging.JavaScript.imageset.listImageSetVersionsV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

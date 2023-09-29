@@ -5,7 +5,7 @@
 
 import {fileURLToPath} from "url";
 
-// snippet-start:[medical-imaging.JavaScript.datastore.startDicomImportJobV3]
+// snippet-start:[medical-imaging.JavaScript.dicom.startDicomImportJobV3]
 import {StartDICOMImportJobCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
@@ -47,7 +47,7 @@ export const startDicomImportJob = async (jobName = "test-1",
     // }
     return response;
 };
-// snippet-end:[medical-imaging.JavaScript.datastore.startDicomImportJobV3]
+// snippet-end:[medical-imaging.JavaScript.dicom.startDicomImportJobV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

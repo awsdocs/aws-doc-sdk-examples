@@ -5,7 +5,7 @@
 
 import {fileURLToPath} from "url";
 
-// snippet-start:[medical-imaging.JavaScript.datastore.listDICOMImportJobsV3]
+// snippet-start:[medical-imaging.JavaScript.dicom.listDICOMImportJobsV3]
 import {ListDICOMImportJobsCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
@@ -40,7 +40,7 @@ export const listDICOMImportJobs = async (datastoreId = "xxxxxxxxxxxxxxxxxx") =>
 
         return response;
 };
-// snippet-end:[medical-imaging.JavaScript.datastore.listDICOMImportJobsV3]
+// snippet-end:[medical-imaging.JavaScript.dicom.listDICOMImportJobsV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
