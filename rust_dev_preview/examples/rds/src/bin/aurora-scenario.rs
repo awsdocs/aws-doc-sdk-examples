@@ -1,6 +1,7 @@
 use std::fmt::Display;
 
 use anyhow::anyhow;
+use inquire::{validator::StringValidator, CustomUserError};
 use rds_code_examples::aurora::{AuroraScenario, ScenarioError};
 use tracing::warn;
 
@@ -42,27 +43,25 @@ async fn main() -> Result<(), anyhow::Error> {
 
     // Get available engine families for Aurora MySql. rds.DescribeDbEngineVersions(Engine='aurora-mysql') and build a set of the 'DBParameterGroupFamily' field values. I get {aurora-mysql8.0, aurora-mysql5.7}.
     let available_engines = scenario.engines().await;
-    if available_engines.is_err() {
-        return Err(anyhow!(
-            "Failed to get available engines: {}",
-            available_engines.err()
-        ));
+    if let Err(error) = available_engines {
+        return Err(anyhow!("Failed to get available engines: {}", error));
     }
+    let available_engines = available_engines.unwrap();
 
     // Select an engine family and create a custom DB cluster parameter group. rds.CreateDbClusterParameterGroup(DBParameterGroupFamily='aurora-mysql8.0')
     let engine = inquire::Select::new(
         "Select an Aurora engine family",
-        available_engines.map(|s| s.to_str()),
+        available_engines.iter().map(|s| s.as_str()).collect(),
     )
     .prompt();
 
-    if engine.is_err() {
-        return Err(anyhow!("Invalid engine selection: {}", engine.err()));
+    if let Err(error) = engine {
+        return Err(anyhow!("Invalid engine selection: {}", error));
     }
 
     let set_engine = scenario.set_engine(engine.unwrap()).await;
-    if set_engine.is_err() {
-        return Err(anyhow!("Could not set engine: {}", set_engine.err()));
+    if let Err(error) = set_engine {
+        return Err(anyhow!("Could not set engine: {}", error));
     }
 
     // At this point, the scenario has things in AWS and needs to get cleaned up.
@@ -70,40 +69,14 @@ async fn main() -> Result<(), anyhow::Error> {
 
     show_parameters(&scenario, &mut warnings).await;
 
-    let mut updated_auto_increment_offset = inquire::Text::new("Updated auto_increment_offset:")
-        .with_validator(make_u8_validator())
-        .prompt();
-    let updated_auto_increment_increment = inquire::Text::new("Updated auto_increment_increment:")
-        .with_validator(make_u8_validator())
-        .prompt();
-
-    if updated_auto_increment_offset.is_err() {
-        warnings.push(
-            "Invalid updated auto_increment_offset (using 5 instead)",
-            updated_auto_increment_offset.err(),
-        );
-        updated_auto_increment_increment = Ok(5)
-    }
-    if updated_auto_increment_increment.is_err() {
-        warnings.push(
-            "Invalid updated auto_increment_increment (using 3 instead)",
-            updated_auto_increment_increment.err(),
-        );
-        updated_auto_increment_increment = Ok(3)
-    }
+    let offset = prompt_number_or_default(&mut warnings, "auto_increment_offset", 5);
+    let increment = prompt_number_or_default(&mut warnings, "auto_increment_increment", 3);
 
     // Modify both the auto_increment_offset and auto_increment_increment parameters in one call in the custom parameter group. Set their ParameterValue fields to a new allowable value. rds.ModifyDbClusterParameterGroup.
-    let update_auto_increment = scenario
-        .update_auto_increment(
-            updated_auto_increment_offset.unwrap(),
-            updated_auto_increment_increment.unwrap(),
-        )
-        .await;
-    if update_auto_increment.is_err() {
-        warnings.push(
-            "Failed to update auto increment",
-            update_auto_increment.err(),
-        );
+    let update_auto_increment = scenario.update_auto_increment(offset, increment).await;
+
+    if let Err(error) = update_auto_increment {
+        warnings.push("Failed to update auto increment", error);
     }
 
     // Get and display the updated parameters. Specify Source of 'user' to get just the modified parameters. rds.DescribeDbClusterParameters(Source='user')
@@ -114,20 +87,32 @@ async fn main() -> Result<(), anyhow::Error> {
     // Wait for DB instance to be ready. Call rds.DescribeDbInstances and check for DBInstanceStatus == 'available'.
     let start_instance = scenario.start_cluster_and_instance().await;
     match start_instance {
-        Ok(instance) => todo!(),
+        Ok(instance) => {
+            println!(
+                "Instance ready at: {}",
+                instance.db_instance_arn().unwrap_or("Missing ARN")
+            );
+        }
         Err(err) => warnings.push(
             "Failed to create and instantiate a cluster and instance",
-            instance.err(),
+            err,
         ),
     }
 
-    let _ = inquire::Confirm::new("Use the database with the connection string. When you're finished, press enter key to continue.").prompt();
+    println!("Database ready: {}", scenario.connection_string());
+
+    let _ = inquire::Text::new("Use the database with the connection string. When you're finished, press enter key to continue.").prompt();
 
     // Create a snapshot of the DB cluster. rds.CreateDbClusterSnapshot.
     // Wait for the snapshot to create. rds.DescribeDbClusterSnapshots until Status == 'available'.
     let snapshot = scenario.snapshot().await;
     match snapshot {
-        Ok(snapshot) => todo!(),
+        Ok(snapshot) => {
+            println!(
+                "Snapshot is available: {}",
+                snapshot.db_cluster_snapshot_arn().unwrap_or("Missing ARN")
+            )
+        }
         Err(err) => warnings.push("Failed to create a snapshot", err),
     }
 
@@ -136,16 +121,26 @@ async fn main() -> Result<(), anyhow::Error> {
     // Wait for the instance and cluster to fully delete. rds.DescribeDbInstances and rds.DescribeDbClusters until both are not found.
     // Delete the DB cluster parameter group. rds.DeleteDbClusterParameterGroup.
     let clean_up = scenario.clean_up().await;
-    if clean_up.is_err() {
-        return anyhow!("Failed to clean up scenario", clean_up.err());
+    if let Err(errors) = clean_up {
+        for error in errors {
+            warnings.push("Failed to clean up scenario", error);
+        }
     }
 
-    Ok(())
+    if warnings.is_empty() {
+        Ok(())
+    } else {
+        println!("There were problems running the scenario:");
+        println!("{warnings}");
+        Err(anyhow!("There were problems running the scenario"))
+    }
 }
 
-fn make_u8_validator() {
-    |input: &str| {
-        if u8::try_from(input).is_err() {
+#[derive(Clone)]
+struct U8Validator {}
+impl StringValidator for U8Validator {
+    fn validate(&self, input: &str) -> Result<inquire::validator::Validation, CustomUserError> {
+        if input.parse::<u8>().is_err() {
             Ok(inquire::validator::Validation::Invalid(
                 "Can't parse input as number".into(),
             ))
@@ -157,13 +152,40 @@ fn make_u8_validator() {
 
 async fn show_parameters(scenario: &AuroraScenario, warnings: &mut Warnings) {
     let parameters = scenario.cluster_parameters().await;
-    if parameters.is_err() {
-        warnings.push("Could not find cluster parameters", parameters.err());
-    }
 
-    // Get parameters in the group. This is a long list so you will have to paginate. Find the auto_increment_offset and auto_increment_increment parameters (by ParameterName). rds.DescribeDbClusterParameters
-    println!("Current parameters");
-    for parameter in parameters.unwrap() {
-        println!("\t{parameter}");
+    match parameters {
+        Ok(parameters) => {
+            println!("Current parameters");
+            for parameter in parameters {
+                println!("\t{parameter}");
+            }
+        }
+        Err(error) => warnings.push("Could not find cluster parameters", error),
+    }
+}
+
+fn prompt_number_or_default(warnings: &mut Warnings, name: &str, default: u8) -> u8 {
+    let input = inquire::Text::new(format!("Updated {name}:").as_str())
+        .with_validator(U8Validator {})
+        .prompt();
+
+    match input {
+        Ok(increment) => match increment.parse::<u8>() {
+            Ok(increment) => increment,
+            Err(error) => {
+                warnings.push(
+                    format!("Invalid updated {name} (using {default} instead)").as_str(),
+                    ScenarioError::with(format!("{error}")),
+                );
+                default
+            }
+        },
+        Err(error) => {
+            warnings.push(
+                format!("Invalid updated {name} (using {default} instead)").as_str(),
+                ScenarioError::with(format!("{error}")),
+            );
+            default
+        }
     }
 }
