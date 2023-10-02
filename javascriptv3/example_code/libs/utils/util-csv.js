@@ -10,17 +10,17 @@ import { getNewLineDelimitedEntries } from "./util-fs.js";
 const getFirstEntry = pipe(
   getNewLineDelimitedEntries,
   map(pipe(splitMapTrim(","))),
-  nth(0)
+  nth(0),
 );
 
 const getSecondValuesFromEntries = pipe(
   getNewLineDelimitedEntries,
-  map(pipe(splitMapTrim(","), nth(1)))
+  map(pipe(splitMapTrim(","), nth(1))),
 );
 
 const getFirstValuesFromEntries = pipe(
   getNewLineDelimitedEntries,
-  map(pipe(splitMapTrim(","), nth(0)))
+  map(pipe(splitMapTrim(","), nth(0))),
 );
 
 export { getFirstEntry, getFirstValuesFromEntries, getSecondValuesFromEntries };

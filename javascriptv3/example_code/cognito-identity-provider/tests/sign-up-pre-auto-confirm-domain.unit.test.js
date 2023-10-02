@@ -17,7 +17,7 @@ describe("sign-up-pre-auto-confirm-domain", () => {
       response: { autoConfirmUser: true },
     });
   });
-  
+
   it("should not auto confirm if the domain does not matches the target", async () => {
     const result = await handler({
       request: { userAttributes: { email: "test@example.ca" } },
@@ -28,5 +28,4 @@ describe("sign-up-pre-auto-confirm-domain", () => {
       response: { autoConfirmUser: false },
     });
   });
-  
 });

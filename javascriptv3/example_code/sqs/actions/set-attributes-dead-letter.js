@@ -14,7 +14,7 @@ const DEAD_LETTER_QUEUE_ARN = "dead_letter_queue_arn";
 
 export const main = async (
   queueUrl = SQS_QUEUE_URL,
-  deadLetterQueueArn = DEAD_LETTER_QUEUE_ARN
+  deadLetterQueueArn = DEAD_LETTER_QUEUE_ARN,
 ) => {
   const command = new SetQueueAttributesCommand({
     Attributes: {

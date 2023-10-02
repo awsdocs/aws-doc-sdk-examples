@@ -73,7 +73,7 @@ export async function createLambdaExecutionRole({ name, iamClient }) {
           },
         ],
       }),
-    })
+    }),
   );
 
   return {
@@ -168,7 +168,7 @@ export async function attachPolicy({ roleName, policyArn, iamClient }) {
         new DetachRolePolicyCommand({
           RoleName: roleName,
           PolicyArn: policyArn,
-        })
+        }),
       );
     },
   };
@@ -190,7 +190,7 @@ export async function createLambdaLayer({ name, lambdaClient }) {
       Content: {
         ZipFile: Uint8Array.from(readFileSync(layerPath)),
       },
-    })
+    }),
   );
 
   return {
@@ -201,7 +201,7 @@ export async function createLambdaLayer({ name, lambdaClient }) {
         new DeleteLayerVersionCommand({
           LayerName: name,
           VersionNumber: Version,
-        })
+        }),
       );
     },
   };
@@ -221,7 +221,7 @@ export async function createLambdaFunction({
   layerVersionArn,
 }) {
   const lambdaPath = `${dirnameFromMetaUrl(
-    import.meta.url
+    import.meta.url,
   )}lambda/dist/index.mjs.zip`;
 
   const command = new CreateFunctionCommand({
@@ -239,14 +239,14 @@ export async function createLambdaFunction({
   // function creation until it succeeds or it times out.
   const { FunctionArn } = await retry(
     { intervalInMs: 1000, maxRetries: 60 },
-    () => lambdaClient.send(command)
+    () => lambdaClient.send(command),
   );
 
   return {
     arn: FunctionArn,
     cleanUp: async () => {
       await lambdaClient.send(
-        new DeleteFunctionCommand({ FunctionName: name })
+        new DeleteFunctionCommand({ FunctionName: name }),
       );
     },
   };
@@ -262,7 +262,7 @@ export async function createLambdaFunction({
  */
 export async function uploadCSVDataToS3({ bucketName, s3Client }) {
   const s3Path = `${dirnameFromMetaUrl(
-    import.meta.url
+    import.meta.url,
   )}../../../../../workflows/sagemaker_pipelines/resources/latlongtest.csv`;
 
   await s3Client.send(
@@ -270,7 +270,7 @@ export async function uploadCSVDataToS3({ bucketName, s3Client }) {
       Bucket: bucketName,
       Key: "input/sample_data.csv",
       Body: readFileSync(s3Path),
-    })
+    }),
   );
 }
 // snippet-end:[javascript.v3.sagemaker.wkflw.pipeline.s3_upload]
@@ -383,8 +383,8 @@ export async function createSagemakerPipeline({
     // dirnameFromMetaUrl is a local utility function. You can find its implementation
     // on GitHub.
     `${dirnameFromMetaUrl(
-      import.meta.url
-    )}../../../../../workflows/sagemaker_pipelines/resources/GeoSpatialPipeline.json`
+      import.meta.url,
+    )}../../../../../workflows/sagemaker_pipelines/resources/GeoSpatialPipeline.json`,
   )
     .toString()
     .replace(/\*FUNCTION_ARN\*/g, functionArn);
@@ -394,7 +394,7 @@ export async function createSagemakerPipeline({
       PipelineName: name,
       PipelineDefinition: pipelineDefinition,
       RoleArn: roleArn,
-    })
+    }),
   );
 
   return {
@@ -402,7 +402,7 @@ export async function createSagemakerPipeline({
     cleanUp: async () => {
       // snippet-start:[javascript.v3.sagemaker.wkflw.pipeline.delete]
       await sagemakerClient.send(
-        new DeletePipelineCommand({ PipelineName: name })
+        new DeletePipelineCommand({ PipelineName: name }),
       );
       // snippet-end:[javascript.v3.sagemaker.wkflw.pipeline.delete]
     },
@@ -425,14 +425,14 @@ export async function createSQSQueue({ name, sqsClient }) {
         ReceiveMessageWaitTimeSeconds: "5",
         VisibilityTimeout: "300",
       },
-    })
+    }),
   );
 
   const { Attributes } = await sqsClient.send(
     new GetQueueAttributesCommand({
       QueueUrl,
       AttributeNames: ["QueueArn"],
-    })
+    }),
   );
 
   return {
@@ -460,7 +460,7 @@ export async function configureLambdaSQSEventSource({
     new CreateEventSourceMappingCommand({
       EventSourceArn: queueArn,
       FunctionName: lambdaName,
-    })
+    }),
   );
 
   return {
@@ -468,7 +468,7 @@ export async function configureLambdaSQSEventSource({
       await lambdaClient.send(
         new DeleteEventSourceMappingCommand({
           UUID,
-        })
+        }),
       );
     },
   };
@@ -488,14 +488,14 @@ export async function createS3Bucket({ name, s3Client }) {
     cleanUp: async () => {
       const paginator = paginateListObjectsV2(
         { client: s3Client },
-        { Bucket: name }
+        { Bucket: name },
       );
       for await (const page of paginator) {
         const objects = page.Contents;
         if (objects) {
           for (const object of objects) {
             await s3Client.send(
-              new DeleteObjectCommand({ Bucket: name, Key: object.Key })
+              new DeleteObjectCommand({ Bucket: name, Key: object.Key }),
             );
           }
         }
@@ -582,7 +582,7 @@ export async function startPipelineExecution({
           Value: JSON.stringify(jobConfig),
         },
       ],
-    })
+    }),
   );
 
   return {
@@ -617,7 +617,7 @@ export async function waitForPipelineComplete({ arn, sagemakerClient }) {
 
     if (!complete) {
       console.log(
-        `Pipeline is ${status}. Waiting ${intervalInSeconds} seconds before checking again.`
+        `Pipeline is ${status}. Waiting ${intervalInSeconds} seconds before checking again.`,
       );
       await wait(intervalInSeconds);
     } else if (status === PipelineExecutionStatus.FAILED) {
@@ -639,7 +639,7 @@ export async function waitForPipelineComplete({ arn, sagemakerClient }) {
 export async function getObject({ bucket, s3Client }) {
   const prefix = "output/";
   const { Contents } = await s3Client.send(
-    new ListObjectsV2Command({ MaxKeys: 1, Bucket: bucket, Prefix: prefix })
+    new ListObjectsV2Command({ MaxKeys: 1, Bucket: bucket, Prefix: prefix }),
   );
 
   if (!Contents.length) {
@@ -657,7 +657,7 @@ export async function getObject({ bucket, s3Client }) {
     new GetObjectCommand({
       Bucket: bucket,
       Key: outputObject.Key,
-    })
+    }),
   );
 
   return Body.transformToString();

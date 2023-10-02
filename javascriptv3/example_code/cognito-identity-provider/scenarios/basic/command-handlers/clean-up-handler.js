@@ -13,12 +13,12 @@ import { getFirstValuesFromEntries } from "libs/utils/util-csv.js";
 
 const cleanUpUserPools = pipe(
   map(pipe(deleteUserPool, otherwise(log))),
-  promiseAll
+  promiseAll,
 );
 
 const createUserPoolList = pipe(
   map((x) => `• ${x}`),
-  join("\n")
+  join("\n"),
 );
 
 const cleanUpHandler = async () => {

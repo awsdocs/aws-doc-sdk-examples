@@ -16,7 +16,7 @@ node emc_listtemplates.js
 // snippet-start:[mediaconvert.JavaScript.templates.listJobTemplatesV3]
 
 // Import required AWS-SDK clients and commands for Node.js
-import { ListJobTemplatesCommand } from  "@aws-sdk/client-mediaconvert";
+import { ListJobTemplatesCommand } from "@aws-sdk/client-mediaconvert";
 import { emcClient } from "./libs/emcClient.js";
 
 const params = {

@@ -18,7 +18,7 @@ export const main = async () => {
   try {
     const { TerminatingInstances } = await client.send(command);
     const instanceList = TerminatingInstances.map(
-      (instance) => ` • ${instance.InstanceId}`
+      (instance) => ` • ${instance.InstanceId}`,
     );
     console.log("Terminating instances:");
     console.log(instanceList.join("\n"));

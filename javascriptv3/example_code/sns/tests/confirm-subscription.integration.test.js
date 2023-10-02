@@ -7,7 +7,7 @@ describe("confirmSubscription", () => {
       await confirmSubscription();
     } catch (err) {
       expect(err.message).toEqual(
-        "Invalid parameter: TopicArn Reason: An ARN must have at least 6 elements, not 1"
+        "Invalid parameter: TopicArn Reason: An ARN must have at least 6 elements, not 1",
       );
     }
   });

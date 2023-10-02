@@ -12,7 +12,7 @@ import { getSecondValuesFromEntries } from "libs/utils/util-csv.js";
 const validateClient = (clientId) => {
   if (!clientId) {
     throw new Error(
-      `App client id is missing. Did you run 'create-user-pool'?`
+      `App client id is missing. Did you run 'create-user-pool'?`,
     );
   }
 };
@@ -20,7 +20,7 @@ const validateClient = (clientId) => {
 const validateUser = (username) => {
   if (!username) {
     throw new Error(
-      `Username name is missing. It must be provided as an argument to the 'confirm-sign-up' command.`
+      `Username name is missing. It must be provided as an argument to the 'confirm-sign-up' command.`,
     );
   }
 };
@@ -28,7 +28,7 @@ const validateUser = (username) => {
 const validateCode = (code) => {
   if (!code) {
     throw new Error(
-      `Verification code is missing. It must be provided as an argument to the 'confirm-sign-up' command.`
+      `Verification code is missing. It must be provided as an argument to the 'confirm-sign-up' command.`,
     );
   }
 };
@@ -48,7 +48,7 @@ const confirmSignUpHandler = async (commands) => {
     log(`Confirming user.`);
     await confirmSignUp({ clientId, username, code });
     log(
-      `User confirmed. Run 'admin-initiate-auth ${username} <password>' to sign in.`
+      `User confirmed. Run 'admin-initiate-auth ${username} <password>' to sign in.`,
     );
   } catch (err) {
     log(err);

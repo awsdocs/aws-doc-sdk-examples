@@ -16,13 +16,13 @@ import { snsClient } from "../libs/snsClient.js";
  */
 export const publish = async (
   message = "Hello from SNS!",
-  topicArn = "TOPIC_ARN"
+  topicArn = "TOPIC_ARN",
 ) => {
   const response = await snsClient.send(
     new PublishCommand({
       Message: message,
       TopicArn: topicArn,
-    })
+    }),
   );
   console.log(response);
   // {

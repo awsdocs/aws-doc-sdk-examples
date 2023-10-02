@@ -42,7 +42,7 @@ const routeRequest = (lambdaEvent) => {
   }
 
   const error = new Error(
-    `Unimplemented HTTP method: ${lambdaEvent.httpMethod}`
+    `Unimplemented HTTP method: ${lambdaEvent.httpMethod}`,
   );
   error.name = "UnimplementedHTTPMethodError";
   throw error;

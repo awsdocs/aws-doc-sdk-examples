@@ -10,4 +10,3 @@ files:
   - path: uploadArchive.js
     services:
       - Glacier
-...

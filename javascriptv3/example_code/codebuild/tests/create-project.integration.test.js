@@ -1,6 +1,6 @@
-import {describe, it, expect, beforeAll, afterAll} from "vitest";
-import {S3Client, CreateBucketCommand} from "@aws-sdk/client-s3";
-import {DeleteBucketCommand} from "@aws-sdk/client-s3";
+import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { S3Client, CreateBucketCommand } from "@aws-sdk/client-s3";
+import { DeleteBucketCommand } from "@aws-sdk/client-s3";
 import {
   AttachRolePolicyCommand,
   CreateRoleCommand,
@@ -8,13 +8,13 @@ import {
   DeleteRoleCommand,
   DetachRolePolicyCommand,
 } from "@aws-sdk/client-iam";
-import {createProject} from "../actions/create-project.js";
+import { createProject } from "../actions/create-project.js";
 import {
   CodeBuildClient,
   DeleteProjectCommand,
   paginateListProjects,
 } from "@aws-sdk/client-codebuild";
-import {retry} from "../../libs/utils/util-timers.js";
+import { retry } from "../../libs/utils/util-timers.js";
 
 describe(
   "create-project",
@@ -38,42 +38,42 @@ describe(
         new DetachRolePolicyCommand({
           RoleName: roleName,
           PolicyArn: "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess",
-        })
+        }),
       );
 
       await iamClient.send(
         new DetachRolePolicyCommand({
           RoleName: roleName,
           PolicyArn: "arn:aws:iam::aws:policy/AWSCodeBuildAdminAccess",
-        })
+        }),
       );
 
       await iamClient.send(
         new DeleteRoleCommand({
           RoleName: roleName,
-        })
+        }),
       );
 
       await s3Client.send(
         new DeleteBucketCommand({
           Bucket: bucketName,
-        })
+        }),
       );
 
       await codebuildClient.send(
         new DeleteProjectCommand({
           name: projectName,
-        })
+        }),
       );
     });
 
     it("should create a CodeBuild project", async () => {
-      await retry({intervalInMs: 1000, maxRetries: 20}, async () => {
+      await retry({ intervalInMs: 1000, maxRetries: 20 }, async () => {
         await createProject(
           projectName,
           roleArn,
           bucketName,
-          "https://github.com/awsdocs/aws-doc-sdk-examples.git"
+          "https://github.com/awsdocs/aws-doc-sdk-examples.git",
         );
       });
 
@@ -81,7 +81,7 @@ describe(
         {
           client: codebuildClient,
         },
-        {}
+        {},
       );
 
       const projectNames = [];
@@ -93,13 +93,13 @@ describe(
       expect(projectNames).toContain(projectName);
     });
   },
-  {timeout: 30000}
+  { timeout: 30000 },
 );
 
 async function createIamRole(name) {
   const iamClient = new IAMClient({});
 
-  const {Role} = await iamClient.send(
+  const { Role } = await iamClient.send(
     new CreateRoleCommand({
       RoleName: name,
       AssumeRolePolicyDocument: JSON.stringify({
@@ -114,21 +114,21 @@ async function createIamRole(name) {
           },
         ],
       }),
-    })
+    }),
   );
 
   await iamClient.send(
     new AttachRolePolicyCommand({
       RoleName: name,
       PolicyArn: "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess",
-    })
+    }),
   );
 
   await iamClient.send(
     new AttachRolePolicyCommand({
       RoleName: name,
       PolicyArn: "arn:aws:iam::aws:policy/AWSCodeBuildAdminAccess",
-    })
+    }),
   );
 
   return Role.Arn;
@@ -140,6 +140,6 @@ async function createS3Bucket(name) {
   await client.send(
     new CreateBucketCommand({
       Bucket: name,
-    })
+    }),
   );
 }

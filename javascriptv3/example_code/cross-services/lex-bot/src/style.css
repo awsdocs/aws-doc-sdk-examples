@@ -12,64 +12,65 @@ https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lex-bot-exampl
 
 <!--snippet-start:[cross-service.JavaScript.lex-app.styleV3]-->
 */
-#title{
-    "text-align:  left"
+#title {
+  text-align: left;
 }
-#intro{
-    width: 400px
+#intro {
+  width: 400px;
 }
 
-#conversation{
-    width: 400px;
-    height: 400px;
-    border: 1px solid #ccc;
-    background-color: #eee;
-    padding: 4px;
-    overflow: scroll
+#conversation {
+  width: 400px;
+  height: 400px;
+  border: 1px solid #ccc;
+  background-color: #eee;
+  padding: 4px;
+  overflow: scroll;
 }
 
 input#wisdom {
-    padding: 4px;
-    font-size: 1em;
-    width: 400px
+  padding: 4px;
+  font-size: 1em;
+  width: 400px;
 }
 
 input::placeholder {
-    color: #ccc;
-    font-style: italic;
+  color: #ccc;
+  font-style: italic;
 }
 
 p.userRequest {
-    margin: 4px;
-    padding: 4px 10px 4px 10px;
-    border-radius: 4px;
-    min-width: 50%;
-    max-width: 85%;
-    float: left;
-    background-color: #7d7;
+  margin: 4px;
+  padding: 4px 10px 4px 10px;
+  border-radius: 4px;
+  min-width: 50%;
+  max-width: 85%;
+  float: left;
+  background-color: #7d7;
 }
 
 p.lexResponse {
-    margin: 4px;
-    padding: 4px 10px 4px 10px;
-    border-radius: 4px;
-    text-align: right;
-    min-width: 50%;
-    max-width: 85%;
-    float: right;
-    background-color: #bbf;
-    font-style: italic;
+  margin: 4px;
+  padding: 4px 10px 4px 10px;
+  border-radius: 4px;
+  text-align: right;
+  min-width: 50%;
+  max-width: 85%;
+  float: right;
+  background-color: #bbf;
+  font-style: italic;
 }
 
 p.lexError {
-    margin: 4px;
-    padding: 4px 10px 4px 10px;
-    border-radius: 4px;
-    text-align: right;
-    min-width: 50%;
-    max-width: 85%;
-    float: right;
-    background-color: #f77;
+  margin: 4px;
+  padding: 4px 10px 4px 10px;
+  border-radius: 4px;
+  text-align: right;
+  min-width: 50%;
+  max-width: 85%;
+  float: right;
+  background-color: #f77;
+}
 /*
 <!--snippet-end:[cross-service.JavaScript.lex-app.styleV3]-->
 */

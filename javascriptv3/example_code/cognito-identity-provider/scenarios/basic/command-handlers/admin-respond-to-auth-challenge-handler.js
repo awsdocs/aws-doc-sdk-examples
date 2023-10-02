@@ -12,7 +12,7 @@ import { FILE_USER_POOLS } from "./constants.js";
 const verifyUsername = (username) => {
   if (!username) {
     throw new Error(
-      `Username is missing. It must be provided as an argument to the 'admin-respond-to-auth-challenge' command.`
+      `Username is missing. It must be provided as an argument to the 'admin-respond-to-auth-challenge' command.`,
     );
   }
 };
@@ -20,7 +20,7 @@ const verifyUsername = (username) => {
 const verifyTotp = (totp) => {
   if (!totp) {
     throw new Error(
-      `Time-based one-time password (TOTP) is missing. It must be provided as an argument to the 'admin-respond-to-auth-challenge' command.`
+      `Time-based one-time password (TOTP) is missing. It must be provided as an argument to the 'admin-respond-to-auth-challenge' command.`,
     );
   }
 };

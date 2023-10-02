@@ -14,7 +14,7 @@ import { client } from "./libs/client.js";
 export const main = async () => {
   try {
     const { SecurityGroups } = await client.send(
-      new DescribeSecurityGroupsCommand({})
+      new DescribeSecurityGroupsCommand({}),
     );
 
     const securityGroupList = SecurityGroups.slice(0, 9)
@@ -22,7 +22,7 @@ export const main = async () => {
       .join("\n");
 
     console.log(
-      "Hello, Amazon EC2! Let's list up to 10 of your security groups:"
+      "Hello, Amazon EC2! Let's list up to 10 of your security groups:",
     );
     console.log(securityGroupList);
   } catch (err) {

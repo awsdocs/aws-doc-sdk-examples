@@ -18,7 +18,7 @@ describe("ext-ramda", () => {
   describe("concatMap", () => {
     it(
       "should concatenate the provided value to each element in a list",
-      testEqual(["a1", "a2", "a3"], concatMap("a")(["1", "2", "3"]))
+      testEqual(["a1", "a2", "a3"], concatMap("a")(["1", "2", "3"])),
     );
   });
 
@@ -27,27 +27,27 @@ describe("ext-ramda", () => {
       "should apply a function to a list of args, but take the args first",
       testEqual(
         2,
-        flipApply([1, 1], (a, b) => a + b)
-      )
+        flipApply([1, 1], (a, b) => a + b),
+      ),
     );
   });
 
   describe("flipMap", () => {
     it(
       "should apply a function to each element in a list, but it should take the list first",
-      testEqual([2, 2], flipMap([1, 1], inc))
+      testEqual([2, 2], flipMap([1, 1], inc)),
     );
   });
 
   describe("parseString", () => {
     it(
       "should not modify a string passed to it",
-      testEqual("Hello, World!", parseString("Hello, World!"))
+      testEqual("Hello, World!", parseString("Hello, World!")),
     );
 
     it(
       "should return the 'message' property of an error",
-      testEqual("error message", parseString(new Error("error message")))
+      testEqual("error message", parseString(new Error("error message"))),
     );
 
     it("should stringify non-string values", testEqual("{}", parseString({})));
@@ -62,15 +62,15 @@ describe("ext-ramda", () => {
           Promise.resolve("a"),
           Promise.resolve("b"),
           Promise.resolve("c"),
-        ])
-      )
+        ]),
+      ),
     );
   });
 
   describe("splitMapTrim", () => {
     it(
       "should take a string, split by a delimiter, and map to a trimmed version of each element",
-      testEqual(["a,b", "c,d"], splitMapTrim("\n", "   a,b \n  c,d "))
+      testEqual(["a,b", "c,d"], splitMapTrim("\n", "   a,b \n  c,d ")),
     );
   });
 });

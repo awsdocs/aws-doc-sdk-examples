@@ -41,17 +41,17 @@ const initializeHandler = async () => {
     /** snippet-end:[javascript.v3.lambda.scenarios.basic.CreateRole] */
 
     log(
-      `${NAME_ROLE_LAMBDA} created successfully. Saving Role ARN for later use.`
+      `${NAME_ROLE_LAMBDA} created successfully. Saving Role ARN for later use.`,
     );
     setTmp("roleArn", path(["Role", "Arn"])(response));
     log(
-      `Attaching policy ${ARN_POLICY_LAMBDA_BASIC_EXECUTION} to ${NAME_ROLE_LAMBDA}...`
+      `Attaching policy ${ARN_POLICY_LAMBDA_BASIC_EXECUTION} to ${NAME_ROLE_LAMBDA}...`,
     );
 
     await attachRolePolicy(NAME_ROLE_LAMBDA, ARN_POLICY_LAMBDA_BASIC_EXECUTION);
 
     log(
-      `${ARN_POLICY_LAMBDA_BASIC_EXECUTION} successfully attached to ${NAME_ROLE_LAMBDA}`
+      `${ARN_POLICY_LAMBDA_BASIC_EXECUTION} successfully attached to ${NAME_ROLE_LAMBDA}`,
     );
   } catch (err) {
     log(err);

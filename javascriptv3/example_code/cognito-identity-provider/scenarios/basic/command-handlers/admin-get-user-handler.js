@@ -11,7 +11,7 @@ import { FILE_USER_POOLS } from "./constants.js";
 const validateUsername = (username) => {
   if (!username) {
     throw new Error(
-      `Username is missing. It must be provided as an argument to the 'admin-get-user' command.`
+      `Username is missing. It must be provided as an argument to the 'admin-get-user' command.`,
     );
   }
 };

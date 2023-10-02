@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {fileURLToPath} from "url";
+import { fileURLToPath } from "url";
 
 // snippet-start:[javascript.v3.cognito.hello]
 import {
@@ -14,7 +14,7 @@ import {
 const client = new CognitoIdentityProviderClient({});
 
 export const helloCognito = async () => {
-  const paginator = paginateListUserPools({client}, {});
+  const paginator = paginateListUserPools({ client }, {});
 
   const userPoolNames = [];
 

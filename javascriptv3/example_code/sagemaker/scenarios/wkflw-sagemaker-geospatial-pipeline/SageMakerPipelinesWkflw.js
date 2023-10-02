@@ -69,7 +69,7 @@ export class SageMakerPipelinesWkflw {
         for (let i = this.cleanUpFunctions.length - 1; i >= 0; i--) {
           await retry(
             { intervalInMs: 1000, maxRetries: 60, swallowError: true },
-            this.cleanUpFunctions[i]
+            this.cleanUpFunctions[i],
           );
         }
       }
@@ -84,8 +84,8 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.creatingRole.replace(
         "${ROLE_NAME}",
-        this.names.LAMBDA_EXECUTION_ROLE
-      )
+        this.names.LAMBDA_EXECUTION_ROLE,
+      ),
     );
 
     // Create an IAM role that will be assumed by the AWS Lambda function. This function
@@ -101,8 +101,8 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.roleCreated.replace(
         "${ROLE_NAME}",
-        this.names.LAMBDA_EXECUTION_ROLE
-      )
+        this.names.LAMBDA_EXECUTION_ROLE,
+      ),
     );
 
     this.prompter.logSeparator();
@@ -110,8 +110,8 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.creatingRole.replace(
         "${ROLE_NAME}",
-        this.names.SAGE_MAKER_EXECUTION_ROLE
-      )
+        this.names.SAGE_MAKER_EXECUTION_ROLE,
+      ),
     );
 
     // Create an IAM role that will be assumed by the SageMaker pipeline. The pipeline
@@ -128,8 +128,8 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.roleCreated.replace(
         "${ROLE_NAME}",
-        this.names.SAGE_MAKER_EXECUTION_ROLE
-      )
+        this.names.SAGE_MAKER_EXECUTION_ROLE,
+      ),
     );
 
     this.prompter.logSeparator();
@@ -152,7 +152,7 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.attachPolicy
         .replace("${POLICY_NAME}", this.names.LAMBDA_EXECUTION_ROLE_POLICY)
-        .replace("${ROLE_NAME}", this.names.LAMBDA_EXECUTION_ROLE)
+        .replace("${ROLE_NAME}", this.names.LAMBDA_EXECUTION_ROLE),
     );
 
     await this.prompter.checkContinue();
@@ -180,8 +180,8 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.creatingFunction.replace(
         "${FUNCTION_NAME}",
-        this.names.LAMBDA_FUNCTION
-      )
+        this.names.LAMBDA_FUNCTION,
+      ),
     );
 
     // Create the Lambda function with the execution role.
@@ -197,14 +197,14 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.functionCreated.replace(
         "${FUNCTION_NAME}",
-        this.names.LAMBDA_FUNCTION
-      )
+        this.names.LAMBDA_FUNCTION,
+      ),
     );
 
     this.prompter.logSeparator();
 
     await this.logger.log(
-      MESSAGES.creatingSQSQueue.replace("${QUEUE_NAME}", this.names.SQS_QUEUE)
+      MESSAGES.creatingSQSQueue.replace("${QUEUE_NAME}", this.names.SQS_QUEUE),
     );
 
     // Create an SQS queue for the SageMaker pipeline.
@@ -219,7 +219,7 @@ export class SageMakerPipelinesWkflw {
     this.cleanUpFunctions.push(queueCleanUp);
 
     await this.logger.log(
-      MESSAGES.sqsQueueCreated.replace("${QUEUE_NAME}", this.names.SQS_QUEUE)
+      MESSAGES.sqsQueueCreated.replace("${QUEUE_NAME}", this.names.SQS_QUEUE),
     );
 
     this.prompter.logSeparator();
@@ -227,7 +227,7 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.configuringLambdaSQSEventSource
         .replace("${LAMBDA_NAME}", this.names.LAMBDA_FUNCTION)
-        .replace("${QUEUE_NAME}", this.names.SQS_QUEUE)
+        .replace("${QUEUE_NAME}", this.names.SQS_QUEUE),
     );
 
     // Configure the SQS queue as an event source for the Lambda.
@@ -244,7 +244,7 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.lambdaSQSEventSourceConfigured
         .replace("${LAMBDA_NAME}", this.names.LAMBDA_FUNCTION)
-        .replace("${QUEUE_NAME}", this.names.SQS_QUEUE)
+        .replace("${QUEUE_NAME}", this.names.SQS_QUEUE),
     );
 
     this.prompter.logSeparator();
@@ -269,7 +269,7 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.attachPolicy
         .replace("${POLICY_NAME}", this.names.SAGE_MAKER_EXECUTION_ROLE_POLICY)
-        .replace("${ROLE_NAME}", this.names.SAGE_MAKER_EXECUTION_ROLE)
+        .replace("${ROLE_NAME}", this.names.SAGE_MAKER_EXECUTION_ROLE),
     );
 
     await this.prompter.checkContinue();
@@ -292,8 +292,8 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.creatingPipeline.replace(
         "${PIPELINE_NAME}",
-        this.names.SAGE_MAKER_PIPELINE
-      )
+        this.names.SAGE_MAKER_PIPELINE,
+      ),
     );
 
     // Create the SageMaker pipeline.
@@ -308,14 +308,14 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.pipelineCreated.replace(
         "${PIPELINE_NAME}",
-        this.names.SAGE_MAKER_PIPELINE
-      )
+        this.names.SAGE_MAKER_PIPELINE,
+      ),
     );
 
     this.prompter.logSeparator();
 
     await this.logger.log(
-      MESSAGES.creatingS3Bucket.replace("${BUCKET_NAME}", this.names.S3_BUCKET)
+      MESSAGES.creatingS3Bucket.replace("${BUCKET_NAME}", this.names.S3_BUCKET),
     );
 
     // Create an S3 bucket for storing inputs and outputs.
@@ -326,7 +326,7 @@ export class SageMakerPipelinesWkflw {
     this.cleanUpFunctions.push(s3BucketCleanUp);
 
     await this.logger.log(
-      MESSAGES.s3BucketCreated.replace("${BUCKET_NAME}", this.names.S3_BUCKET)
+      MESSAGES.s3BucketCreated.replace("${BUCKET_NAME}", this.names.S3_BUCKET),
     );
 
     this.prompter.logSeparator();
@@ -334,8 +334,8 @@ export class SageMakerPipelinesWkflw {
     await this.logger.log(
       MESSAGES.uploadingInputData.replace(
         "${BUCKET_NAME}",
-        this.names.S3_BUCKET
-      )
+        this.names.S3_BUCKET,
+      ),
     );
 
     // Upload CSV Lat/Long data to S3.
@@ -376,7 +376,7 @@ export class SageMakerPipelinesWkflw {
       getObject({
         bucket: this.names.S3_BUCKET,
         s3Client: this.clients.S3,
-      })
+      }),
     );
 
     this.prompter.logSeparator();

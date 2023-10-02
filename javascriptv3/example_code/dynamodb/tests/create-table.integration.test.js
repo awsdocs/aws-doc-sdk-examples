@@ -10,7 +10,7 @@ import { main } from "../actions/create-table.js";
 
 describe("create-table", () => {
   const client = new DynamoDBClient({});
-  const tableName = "EspressoDrinks"
+  const tableName = "EspressoDrinks";
 
   afterAll(async () => {
     const command = new DeleteTableCommand({

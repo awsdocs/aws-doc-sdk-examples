@@ -15,7 +15,7 @@ describe("auth-challenge-verify", () => {
       response: {},
     });
     expect(result).toEqual(
-      expect.objectContaining({ response: { answerCorrect: true } })
+      expect.objectContaining({ response: { answerCorrect: true } }),
     );
   });
 
@@ -28,7 +28,7 @@ describe("auth-challenge-verify", () => {
       response: {},
     });
     expect(result).toEqual(
-      expect.objectContaining({ response: { answerCorrect: false } })
+      expect.objectContaining({ response: { answerCorrect: false } }),
     );
   });
 });

@@ -12,7 +12,7 @@ const client = new SNSClient({});
 
 export const subscribeQueue = async (
   topicArn = "TOPIC_ARN",
-  queueArn = "QUEUE_ARN"
+  queueArn = "QUEUE_ARN",
 ) => {
   const command = new SubscribeCommand({
     TopicArn: topicArn,

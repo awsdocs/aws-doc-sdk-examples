@@ -41,14 +41,14 @@ export const dirnameFromMetaUrl = (metaUrl) => {
 // snippet-end:[javascript.v3.utils.dirnameFromMetaUrl]
 
 export const getDelimitedEntries = curry((delimiter, str) =>
-  pipe(getTmp, defaultTo(""), splitMapTrim(delimiter))(str)
+  pipe(getTmp, defaultTo(""), splitMapTrim(delimiter))(str),
 );
 
 export const getNewLineDelimitedEntries = getDelimitedEntries("\n");
 
 export const getTmp = tryCatch(
   (name) => readFileSync(`./${name}.tmp`, { encoding: "utf-8" }),
-  always(null)
+  always(null),
 );
 
 export const setTmp = (name, data) =>
@@ -70,13 +70,13 @@ export const makeDir = ifElse(existsSync, identity, tap(mkdirSync));
 export const readLines = pipe(
   readFileSync,
   invoker(0, "toString"),
-  split("\n")
+  split("\n"),
 );
 
 export const readSubdirSync = pipe(
   readdirSync,
   filter(invoker(0, "isDirectory")),
-  map(prop("name"))
+  map(prop("name")),
 );
 
 /**
@@ -90,7 +90,9 @@ export const zip = (inputPath) =>
       readdirSync(inputPath);
     } catch (err) {
       reject(
-        new Error(`Cannot zip directory ${inputPath}. Directory doesn't exist.`)
+        new Error(
+          `Cannot zip directory ${inputPath}. Directory doesn't exist.`,
+        ),
       );
       return;
     }

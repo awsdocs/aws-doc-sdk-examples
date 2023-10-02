@@ -10,7 +10,7 @@ describe("auth-challenge-create function", () => {
   it('should return the same request/response objects if the challenge name is not "CUSTOM_CHALLENGE"', async () => {
     const result = await handler({ request: {}, response: {} });
     expect(result).toEqual(
-      expect.objectContaining({ request: {}, response: {} })
+      expect.objectContaining({ request: {}, response: {} }),
     );
   });
 
@@ -36,7 +36,7 @@ describe("auth-challenge-create function", () => {
           publicChallengeParameters: { captchaUrl: "url/123.jpg" },
           privateChallengeParameters: { answer: "5" },
         },
-      })
+      }),
     );
   });
 
@@ -53,7 +53,7 @@ describe("auth-challenge-create function", () => {
           },
           privateChallengeParameters: { answer: "Peccy" },
         },
-      })
+      }),
     );
   });
 });

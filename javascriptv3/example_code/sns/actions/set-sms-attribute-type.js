@@ -21,7 +21,7 @@ export const setSmsType = async (defaultSmsType = "Transactional") => {
         // such as one-time passcodes for multi-factor authentication.
         DefaultSMSType: defaultSmsType,
       },
-    })
+    }),
   );
   console.log(response);
   // {

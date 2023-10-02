@@ -39,7 +39,7 @@ describe("authorize-security-group-ingress", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to authorize security group")
+      new Error("Failed to authorize security group"),
     );
   });
 });

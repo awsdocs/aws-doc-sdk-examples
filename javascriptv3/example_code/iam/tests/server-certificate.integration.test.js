@@ -20,7 +20,7 @@ describe("Server certificates", () => {
 
     const { ServerCertificate } = await getServerCertificate(certName);
     expect(
-      ServerCertificate?.ServerCertificateMetadata?.ServerCertificateName
+      ServerCertificate?.ServerCertificateMetadata?.ServerCertificateName,
     ).toEqual(certName);
 
     // Update the server certificate.

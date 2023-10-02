@@ -44,7 +44,7 @@ const run = async () => {
   try {
     const data = await redshiftClient.send(new CreateClusterCommand(params));
     console.log(
-      "Cluster " + data.Cluster.ClusterIdentifier + " successfully created"
+      "Cluster " + data.Cluster.ClusterIdentifier + " successfully created",
     );
     return data; // For unit tests.
   } catch (err) {

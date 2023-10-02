@@ -18,7 +18,7 @@ export const main = async () => {
     console.log("A new IP address has been allocated to your account:");
     console.log(`ID: ${AllocationId} Public IP: ${PublicIp}`);
     console.log(
-      "You can view your IP addresses in the AWS Management Console for Amazon EC2. Look under Network & Security > Elastic IPs"
+      "You can view your IP addresses in the AWS Management Console for Amazon EC2. Look under Network & Security > Elastic IPs",
     );
   } catch (err) {
     console.error(err);

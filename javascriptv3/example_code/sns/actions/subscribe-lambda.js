@@ -15,14 +15,14 @@ import { snsClient } from "../libs/snsClient.js";
  */
 export const subscribeLambda = async (
   topicArn = "TOPIC_ARN",
-  endpoint = "ENDPOINT"
+  endpoint = "ENDPOINT",
 ) => {
   const response = await snsClient.send(
     new SubscribeCommand({
       Protocol: "lambda",
       TopicArn: topicArn,
       Endpoint: endpoint,
-    })
+    }),
   );
   console.log(response);
   // {

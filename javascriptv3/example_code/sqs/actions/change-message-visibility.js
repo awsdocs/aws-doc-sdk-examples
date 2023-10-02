@@ -22,7 +22,7 @@ const receiveMessage = (queueUrl) =>
       MessageAttributeNames: ["All"],
       QueueUrl: queueUrl,
       WaitTimeSeconds: 1,
-    })
+    }),
   );
 
 export const main = async (queueUrl = SQS_QUEUE_URL) => {
@@ -33,7 +33,7 @@ export const main = async (queueUrl = SQS_QUEUE_URL) => {
       QueueUrl: queueUrl,
       ReceiptHandle: Messages[0].ReceiptHandle,
       VisibilityTimeout: 20,
-    })
+    }),
   );
   console.log(response);
   return response;

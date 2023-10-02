@@ -18,7 +18,7 @@ export const listLocalPolicies = async () => {
   const paginator = paginateListPolicies(
     { client, pageSize: 10 },
     // List only customer managed policies.
-    { Scope: "Local" }
+    { Scope: "Local" },
   );
 
   console.log("IAM policies defined in your account:");

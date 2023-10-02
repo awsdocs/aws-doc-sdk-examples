@@ -26,7 +26,7 @@ export const main = async () => {
     const { AssociationId } = await client.send(command);
     console.log(
       `Address with allocation ID ${allocationId} is now associated with instance ${instanceId}.`,
-      `The association ID is ${AssociationId}.`
+      `The association ID is ${AssociationId}.`,
     );
   } catch (err) {
     console.error(err);

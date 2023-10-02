@@ -38,7 +38,7 @@ describe("describe-alarms", () => {
     const { MetricAlarms } = await mod.default;
 
     const matchingAlarm = MetricAlarms.find(
-      ({ AlarmName }) => AlarmName === process.env.CLOUDWATCH_ALARM_NAME
+      ({ AlarmName }) => AlarmName === process.env.CLOUDWATCH_ALARM_NAME,
     );
 
     return expect(matchingAlarm).toBeTruthy();

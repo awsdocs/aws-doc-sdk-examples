@@ -20,7 +20,7 @@ describe("partiql-batch-update", () => {
         AttributeType: "S",
       },
     ],
-    starterValues
+    starterValues,
   );
 
   it("should change the egg style", async () => {
@@ -39,7 +39,7 @@ describe("partiql-batch-update", () => {
       expect.arrayContaining([
         { Variety: { S: "chicken" }, Style: { S: "omelette" } },
         { Variety: { S: "duck" }, Style: { S: "fried" } },
-      ])
+      ]),
     );
   });
 });

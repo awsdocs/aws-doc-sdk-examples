@@ -40,8 +40,9 @@ You no longer need to set up, manage, and scale your own monitoring systems and 
 ### Instructions
 
 **Run a single action**
+
 1. Run `node ./actions/<fileName>`.
-OR
+   OR
 1. Import `./actions/fileName` into another module.
 
 ## Tests

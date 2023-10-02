@@ -13,13 +13,18 @@ import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-id
 import { SendEmailCommand } from "@aws-sdk/client-ses";
 import * as awsID from "./awsID.js";
 
-export const sendEmail = async(sender, receiver, originalText, translatedText) => {
+export const sendEmail = async (
+  sender,
+  receiver,
+  originalText,
+  translatedText,
+) => {
   const sesClient = createSESClient();
   const htmlBody = createHTMLBody(originalText, translatedText);
   const textBody = createTextBody(originalText, translatedText);
   const command = createEmailCommand(sender, receiver, htmlBody, textBody);
   await sesClient.send(new SendEmailCommand(command));
-}
+};
 
 const createSESClient = () => {
   return new SESClient({
@@ -29,7 +34,7 @@ const createSESClient = () => {
       identityPoolId: awsID.IDENTITY_POOL_ID,
     }),
   });
-}
+};
 
 const createHTMLBody = (originalText, translatedText) => {
   return {
@@ -44,8 +49,8 @@ const createHTMLBody = (originalText, translatedText) => {
       "<p>" +
       translatedText +
       "</p>",
-  }
-}
+  };
+};
 
 const createTextBody = (originalText, translatedText) => {
   return {
@@ -55,29 +60,25 @@ const createTextBody = (originalText, translatedText) => {
       "Here is your Amazon Transcribe transcription:" +
       "\n" +
       translatedText,
-  }
-}
+  };
+};
 
 const createEmailCommand = (sender, receiver, htmlBody, textBody) => {
   return {
     Destination: {
-        CcAddresses: [
-        ],
-        ToAddresses: [
-          receiver,
-        ],
+      CcAddresses: [],
+      ToAddresses: [receiver],
     },
     Message: {
-        Body: {
-          Html: htmlBody,
-          Text: textBody,
-        },
-        Subject: {
-          Charset: "UTF-8",
-          Data: "Your Amazon Transcribe transcription.",
-        },
+      Body: {
+        Html: htmlBody,
+        Text: textBody,
       },
-      Source: sender,
+      Subject: {
+        Charset: "UTF-8",
+        Data: "Your Amazon Transcribe transcription.",
+      },
+    },
+    Source: sender,
   };
-}
-
+};

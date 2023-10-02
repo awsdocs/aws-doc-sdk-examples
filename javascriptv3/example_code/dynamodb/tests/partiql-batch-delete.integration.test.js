@@ -16,7 +16,7 @@ describe("partiql-batch-delete", () => {
         AttributeType: "S",
       },
     ],
-    [{ Name: { S: "Grape" } }, { Name: { S: "Strawberry" } }]
+    [{ Name: { S: "Grape" } }, { Name: { S: "Strawberry" } }],
   );
 
   it("should delete all the contents of the database", async () => {

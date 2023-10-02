@@ -11,22 +11,34 @@ within a web application to engage your web site visitors. To run the full tutor
 https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/lex-bot-example.html.
 -->
 <!--snippet-start:[cross-service.JavaScript.lex-app.frontendV3]-->
-<!DOCTYPE html>
+<!doctype html>
 <head>
-    <title>Amazon Lex - Sample Application (BookTrip)</title>
-    <link type="text/css" rel="stylesheet" href="style.css">
+  <title>Amazon Lex - Sample Application (BookTrip)</title>
+  <link type="text/css" rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-<h1 id="title">Amazon Lex - BookTrip</h1>
-<p id="intro">
+  <h1 id="title">Amazon Lex - BookTrip</h1>
+  <p id="intro">
     This multiple language chatbot shows you how easy it is to incorporate
-    <a href="https://aws.amazon.com/lex/" title="Amazon Lex (product)" target="_new">Amazon Lex</a> into your web apps.  Try it out.
-</p>
-<div id="conversation"></div>
-<input type="text" id="wisdom" size="80" value="" placeholder="J'ai besoin d'une chambre d'hôtel">
-<br>
-<button onclick="createResponse()">Send Text</button>
-<script type="text/javascript" src="./main.js"></script>
+    <a
+      href="https://aws.amazon.com/lex/"
+      title="Amazon Lex (product)"
+      target="_new"
+      >Amazon Lex</a
+    >
+    into your web apps. Try it out.
+  </p>
+  <div id="conversation"></div>
+  <input
+    type="text"
+    id="wisdom"
+    size="80"
+    value=""
+    placeholder="J'ai besoin d'une chambre d'hôtel"
+  />
+  <br />
+  <button onclick="createResponse()">Send Text</button>
+  <script type="text/javascript" src="./main.js"></script>
 </body>
 <!--snippet-end:[cross-service.JavaScript.lex-app.frontendV3]-->

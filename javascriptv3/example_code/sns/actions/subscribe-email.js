@@ -16,14 +16,14 @@ import { snsClient } from "../libs/snsClient.js";
  */
 export const subscribeEmail = async (
   topicArn = "TOPIC_ARN",
-  emailAddress = "usern@me.com"
+  emailAddress = "usern@me.com",
 ) => {
   const response = await snsClient.send(
     new SubscribeCommand({
       Protocol: "email",
       TopicArn: topicArn,
       Endpoint: emailAddress,
-    })
+    }),
   );
   console.log(response);
   // {

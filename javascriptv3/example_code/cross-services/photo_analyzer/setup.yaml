@@ -92,7 +92,7 @@ Resources:
                   - - Fn::GetAtt:
                         - bucketforreports8DC7D870
                         - Arn
-                    - /*        
+                    - /*
           - Action:
               - s3:GetObject*
               - s3:GetBucket*
@@ -275,4 +275,3 @@ Conditions:
           - Fn::Equals:
               - Ref: AWS::Region
               - us-west-2
-

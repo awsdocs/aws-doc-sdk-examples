@@ -16,8 +16,8 @@ export const main = async () => {
   const command = new GetCommand({
     TableName: "AngryAnimals",
     Key: {
-      CommonName: "Shoebill"
-    }
+      CommonName: "Shoebill",
+    },
   });
 
   const response = await docClient.send(command);

@@ -56,7 +56,7 @@ const createSendEmailCommand = (toAddress, fromAddress) => {
 const run = async () => {
   const sendEmailCommand = createSendEmailCommand(
     "recipient@example.com",
-    "sender@example.com"
+    "sender@example.com",
   );
 
   try {

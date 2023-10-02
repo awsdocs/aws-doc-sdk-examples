@@ -179,5 +179,5 @@ export const handler = withLogging(
     getImageKeysForLabels,
     createPresignedGetURL,
     publishMessage,
-  })
+  }),
 );

@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 // snippet-start:[s3.JavaScript.v3.cors.putBucketCors]
 import { PutBucketCorsCommand, S3Client } from "@aws-sdk/client-s3";
 
-const client = new S3Client({})
+const client = new S3Client({});
 
 // By default, Amazon S3 doesn't allow cross-origin requests. Use this command
 // to explicitly allow cross-origin requests.

@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 // snippet-start:[s3.JavaScript.website.deleteBucketWebsiteV3]
 import { DeleteBucketWebsiteCommand, S3Client } from "@aws-sdk/client-s3";
 
-const client = new S3Client({})
+const client = new S3Client({});
 
 // Disable static website hosting on the bucket.
 export const main = async () => {

@@ -19,25 +19,27 @@ Inputs:
 import { PutRecordsCommand } from "@aws-sdk/client-kinesis";
 import { kinesisClient } from "./libs/kinesisClient.js";
 // Get the ID of the web page element.
-var blogContent = document.getElementById('BlogContent');
+var blogContent = document.getElementById("BlogContent");
 
 // Get scrollable height.
 var scrollableHeight = blogContent.clientHeight;
 
 var recordData = [];
 var TID = null;
-blogContent.addEventListener('scroll', function(event) {
-  console.log('scrolled');
+blogContent.addEventListener("scroll", function (event) {
+  console.log("scrolled");
   clearTimeout(TID);
   // Prevent creating a record while a user is actively scrolling.
-  TID = setTimeout(function() {
+  TID = setTimeout(function () {
     // Calculate the percentage.
     var scrollableElement = event.target;
     var scrollHeight = scrollableElement.scrollHeight;
     var scrollTop = scrollableElement.scrollTop;
 
     var scrollTopPercentage = Math.round((scrollTop / scrollHeight) * 100);
-    var scrollBottomPercentage = Math.round(((scrollTop + scrollableHeight) / scrollHeight) * 100);
+    var scrollBottomPercentage = Math.round(
+      ((scrollTop + scrollableHeight) / scrollHeight) * 100,
+    );
 
     // Create the Amazon Kinesis record.
     var record = {
@@ -45,9 +47,9 @@ blogContent.addEventListener('scroll', function(event) {
         blog: window.location.href,
         scrollTopPercentage: scrollTopPercentage,
         scrollBottomPercentage: scrollBottomPercentage,
-        time: new Date()
+        time: new Date(),
       }),
-      PartitionKey: 'PARTITION_KEY' // Must be a string.
+      PartitionKey: "PARTITION_KEY", // Must be a string.
     };
     recordData.push(record);
   }, 100);
@@ -59,18 +61,20 @@ blogContent.addEventListener('scroll', function(event) {
 // Helper function to upload data to Amazon Kinesis.
 const uploadData = async () => {
   try {
-    const data = await kinesisClient.send(new PutRecordsCommand({
-      Records: recordData,
-      StreamName: 'STREAM_NAME' // For example, 'my-stream-kinesis'.
-    }));
-    console.log('data', data);
+    const data = await kinesisClient.send(
+      new PutRecordsCommand({
+        Records: recordData,
+        StreamName: "STREAM_NAME", // For example, 'my-stream-kinesis'.
+      }),
+    );
+    console.log("data", data);
     console.log("Kinesis updated", data);
   } catch (err) {
     console.log("Error", err);
   }
 };
 // Run uploadData every second if data exists.
-setInterval(function() {
+setInterval(function () {
   if (!recordData.length) {
     return;
   }

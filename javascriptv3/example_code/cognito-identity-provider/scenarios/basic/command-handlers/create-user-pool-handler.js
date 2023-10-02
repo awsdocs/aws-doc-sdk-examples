@@ -20,7 +20,7 @@ const storeUserPoolMeta = (...args) => {
 const validateUserPool = (poolName) => {
   if (!poolName) {
     throw new Error(
-      `User pool name is missing. It must be provided as an argument to the 'initialize' command.`
+      `User pool name is missing. It must be provided as an argument to the 'initialize' command.`,
     );
   }
 
@@ -28,7 +28,7 @@ const validateUserPool = (poolName) => {
 
   if (tmp) {
     throw new Error(
-      `A user pool already exists. Run 'clean-up' to delete any existing user pools created with this tool.`
+      `A user pool already exists. Run 'clean-up' to delete any existing user pools created with this tool.`,
     );
   }
 };

@@ -29,7 +29,7 @@ describe("list-objects", () => {
 
     expect(spy).toHaveBeenNthCalledWith(
       1,
-      "Your bucket contains the following objects:\n"
+      "Your bucket contains the following objects:\n",
     );
     expect(spy).toHaveBeenNthCalledWith(2, " • foo\n");
   });

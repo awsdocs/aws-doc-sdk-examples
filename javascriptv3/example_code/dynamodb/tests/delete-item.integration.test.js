@@ -12,7 +12,7 @@ describe("delete-item", () => {
   tableSetupTeardown(
     tableName,
     [{ AttributeName: "Name", AttributeType: "S" }],
-    [{ Name: { S: "Pumpkin Spice Latte" } }]
+    [{ Name: { S: "Pumpkin Spice Latte" } }],
   );
 
   it("should remove an item from a database", async () => {

@@ -36,7 +36,7 @@ export async function* listAccessKeys(userName) {
       response = await client.send(
         new ListAccessKeysCommand({
           Marker: response.Marker,
-        })
+        }),
       );
     } else {
       break;

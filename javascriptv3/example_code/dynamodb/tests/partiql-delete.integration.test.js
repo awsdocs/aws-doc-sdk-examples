@@ -16,7 +16,7 @@ describe("partiql-delete", () => {
         AttributeType: "S",
       },
     ],
-    [{ Name: { S: "Purple" } }]
+    [{ Name: { S: "Purple" } }],
   );
 
   it("should delete all the contents of the database", async () => {

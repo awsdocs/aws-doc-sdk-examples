@@ -29,7 +29,7 @@ export async function* listAccountAliases() {
         new ListAccountAliasesCommand({
           Marker: response.Marker,
           MaxItems: 5,
-        })
+        }),
       );
     } else {
       break;

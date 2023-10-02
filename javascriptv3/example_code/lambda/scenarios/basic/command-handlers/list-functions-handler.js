@@ -10,13 +10,13 @@ const makeListItem = (s) => `• ${s}`;
 
 const makeListItemFromFunctionName = compose(
   makeListItem,
-  prop("FunctionName")
+  prop("FunctionName"),
 );
 
 const getFunctionNames = compose(
   join("\n"),
   map(makeListItemFromFunctionName),
-  prop("Functions")
+  prop("Functions"),
 );
 
 const listFunctionsHandler = async () => {

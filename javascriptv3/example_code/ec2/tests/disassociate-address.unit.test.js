@@ -42,7 +42,7 @@ describe("disassociate-address", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to disassociate address")
+      new Error("Failed to disassociate address"),
     );
   });
 });

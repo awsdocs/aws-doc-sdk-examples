@@ -8,12 +8,12 @@ import { fileURLToPath } from "url";
 // snippet-start:[s3.JavaScript.buckets.getobjectV3]
 import { GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
-const client = new S3Client({})
+const client = new S3Client({});
 
 export const main = async () => {
   const command = new GetObjectCommand({
     Bucket: "test-bucket",
-    Key: "hello-s3.txt"
+    Key: "hello-s3.txt",
   });
 
   try {

@@ -25,7 +25,7 @@ describe("custom-message-sign-up", () => {
         response: expect.objectContaining({
           emailMessage: `Thank you for signing up. Your confirmation code is 123.`,
         }),
-      })
+      }),
     );
   });
 });

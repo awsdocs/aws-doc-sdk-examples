@@ -28,7 +28,7 @@ export const helloSns = async () => {
   const suffix = topics.length === 1 ? "" : "s";
 
   console.log(
-    `Hello, Amazon SNS! You have ${topics.length} topic${suffix} in your account.`
+    `Hello, Amazon SNS! You have ${topics.length} topic${suffix} in your account.`,
   );
   console.log(topics.map((t) => `  * ${t.TopicArn}`).join("\n"));
 };

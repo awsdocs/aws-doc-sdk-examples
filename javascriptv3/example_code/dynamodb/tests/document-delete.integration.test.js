@@ -17,7 +17,7 @@ describe("document-delete", () => {
       {
         Flavor: { S: "Cola" },
       },
-    ]
+    ],
   );
 
   it("should remove an item from a database", async () => {

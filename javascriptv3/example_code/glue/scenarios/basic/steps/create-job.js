@@ -14,7 +14,7 @@ const makeCreateJobStep =
       process.env.JOB_NAME,
       process.env.ROLE_NAME,
       process.env.BUCKET_NAME,
-      process.env.PYTHON_SCRIPT_KEY
+      process.env.PYTHON_SCRIPT_KEY,
     );
     log("Job created.", { type: "success" });
 

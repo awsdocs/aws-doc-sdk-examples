@@ -32,7 +32,7 @@ describe("get-bucket-website", () => {
 
     expect(spy).toHaveBeenCalledWith(
       "Your bucket is set up to host a website. It has an error document:",
-      "bar, and an index document: foo."
+      "bar, and an index document: foo.",
     );
   });
 

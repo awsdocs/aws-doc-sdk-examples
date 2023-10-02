@@ -13,7 +13,7 @@ import { snsClient } from "../libs/snsClient.js";
  */
 export const deleteTopic = async (topicArn = "TOPIC_ARN") => {
   const response = await snsClient.send(
-    new DeleteTopicCommand({ TopicArn: topicArn })
+    new DeleteTopicCommand({ TopicArn: topicArn }),
   );
   console.log(response);
   // {

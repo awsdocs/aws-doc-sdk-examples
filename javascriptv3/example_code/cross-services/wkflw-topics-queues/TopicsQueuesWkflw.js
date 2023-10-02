@@ -99,7 +99,7 @@ export class TopicsQueuesWkflw {
           FifoTopic: this.isFifo ? "true" : "false",
           ...(this.autoDedup ? { ContentBasedDeduplication: "true" } : {}),
         },
-      })
+      }),
     );
 
     this.topicArn = response.TopicArn;
@@ -107,7 +107,7 @@ export class TopicsQueuesWkflw {
     await this.logger.log(
       MESSAGES.topicCreatedNotice
         .replace("${TOPIC_NAME}", this.topicName)
-        .replace("${TOPIC_ARN}", this.topicArn)
+        .replace("${TOPIC_ARN}", this.topicArn),
     );
   }
 
@@ -121,7 +121,7 @@ export class TopicsQueuesWkflw {
       let queueName = await this.prompter.input({
         message: MESSAGES.queueNamePrompt.replace(
           "${EXAMPLE_NAME}",
-          i === 0 ? "good-news" : "bad-news"
+          i === 0 ? "good-news" : "bad-news",
         ),
       });
 
@@ -134,14 +134,14 @@ export class TopicsQueuesWkflw {
         new CreateQueueCommand({
           QueueName: queueName,
           Attributes: { ...(this.isFifo ? { FifoQueue: "true" } : {}) },
-        })
+        }),
       );
 
       const { Attributes } = await this.sqsClient.send(
         new GetQueueAttributesCommand({
           QueueUrl: response.QueueUrl,
           AttributeNames: ["QueueArn"],
-        })
+        }),
       );
 
       this.queues.push({
@@ -154,7 +154,7 @@ export class TopicsQueuesWkflw {
         MESSAGES.queueCreatedNotice
           .replace("${QUEUE_NAME}", queueName)
           .replace("${QUEUE_URL}", response.QueueUrl)
-          .replace("${QUEUE_ARN}", Attributes.QueueArn)
+          .replace("${QUEUE_ARN}", Attributes.QueueArn),
       );
     }
   }
@@ -180,7 +180,7 @@ export class TopicsQueuesWkflw {
           ],
         },
         null,
-        2
+        2,
       );
 
       if (index !== 0) {
@@ -192,7 +192,7 @@ export class TopicsQueuesWkflw {
       const addPolicy = await this.prompter.confirm({
         message: MESSAGES.addPolicyConfirmation.replace(
           "${QUEUE_NAME}",
-          queue.queueName
+          queue.queueName,
         ),
       });
 
@@ -203,15 +203,15 @@ export class TopicsQueuesWkflw {
             Attributes: {
               Policy: policy,
             },
-          })
+          }),
         );
         queue.policy = policy;
       } else {
         await this.logger.log(
           MESSAGES.policyNotAttachedNotice.replace(
             "${QUEUE_NAME}",
-            queue.queueName
-          )
+            queue.queueName,
+          ),
         );
       }
     }
@@ -236,7 +236,7 @@ export class TopicsQueuesWkflw {
         tones = await this.prompter.checkbox({
           message: MESSAGES.fifoFilterSelect.replace(
             "${QUEUE_NAME}",
-            queue.queueName
+            queue.queueName,
           ),
           choices: toneChoices,
         });
@@ -252,7 +252,7 @@ export class TopicsQueuesWkflw {
       }
 
       const { SubscriptionArn } = await this.snsClient.send(
-        new SubscribeCommand(subscribeParams)
+        new SubscribeCommand(subscribeParams),
       );
 
       this.subscriptionArns.push(SubscriptionArn);
@@ -261,7 +261,7 @@ export class TopicsQueuesWkflw {
         MESSAGES.queueSubscribedNotice
           .replace("${QUEUE_NAME}", queue.queueName)
           .replace("${TOPIC_NAME}", this.topicName)
-          .replace("${TONES}", tones.length ? tones.join(", ") : "none")
+          .replace("${TONES}", tones.length ? tones.join(", ") : "none"),
       );
     }
   }
@@ -317,7 +317,7 @@ export class TopicsQueuesWkflw {
               },
             }
           : {}),
-      })
+      }),
     );
 
     const publishAnother = await this.prompter.confirm({
@@ -335,15 +335,15 @@ export class TopicsQueuesWkflw {
       const { Messages } = await this.sqsClient.send(
         new ReceiveMessageCommand({
           QueueUrl: queue.queueUrl,
-        })
+        }),
       );
 
       if (Messages) {
         await this.logger.log(
           MESSAGES.messagesReceivedNotice.replace(
             "${QUEUE_NAME}",
-            queue.queueName
-          )
+            queue.queueName,
+          ),
         );
         console.log(Messages);
 
@@ -354,14 +354,14 @@ export class TopicsQueuesWkflw {
               Id: message.MessageId,
               ReceiptHandle: message.ReceiptHandle,
             })),
-          })
+          }),
         );
       } else {
         await this.logger.log(
           MESSAGES.noMessagesReceivedNotice.replace(
             "${QUEUE_NAME}",
-            queue.queueName
-          )
+            queue.queueName,
+          ),
         );
       }
     }
@@ -378,19 +378,19 @@ export class TopicsQueuesWkflw {
   async destroyResources() {
     for (const subscriptionArn of this.subscriptionArns) {
       await this.snsClient.send(
-        new UnsubscribeCommand({ SubscriptionArn: subscriptionArn })
+        new UnsubscribeCommand({ SubscriptionArn: subscriptionArn }),
       );
     }
 
     for (const queue of this.queues) {
       await this.sqsClient.send(
-        new DeleteQueueCommand({ QueueUrl: queue.queueUrl })
+        new DeleteQueueCommand({ QueueUrl: queue.queueUrl }),
       );
     }
 
     if (this.topicArn) {
       await this.snsClient.send(
-        new DeleteTopicCommand({ TopicArn: this.topicArn })
+        new DeleteTopicCommand({ TopicArn: this.topicArn }),
       );
     }
   }

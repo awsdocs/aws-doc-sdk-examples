@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {fileURLToPath} from "url";
+import { fileURLToPath } from "url";
 
 // snippet-start:[javascript.v3.codebuild.actions.CreateProject]
 import {
@@ -20,7 +20,7 @@ export const createProject = async (
   projectName = "MyCodeBuilder",
   roleArn = "arn:aws:iam::xxxxxxxxxxxx:role/CodeBuildAdmin",
   buildOutputBucket = "xxxx",
-  githubUrl = "https://..."
+  githubUrl = "https://...",
 ) => {
   const codeBuildClient = new CodeBuildClient({});
 
@@ -52,7 +52,7 @@ export const createProject = async (
         // The location of the repository that contains the source code to be built.
         location: githubUrl,
       },
-    })
+    }),
   );
   console.log(response);
   //   {

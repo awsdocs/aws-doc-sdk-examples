@@ -7,7 +7,7 @@ const wait = (seconds) =>
   new Promise((resolve) =>
     setTimeout(() => {
       resolve();
-    }, seconds * 1000)
+    }, seconds * 1000),
   );
 
 /**
@@ -18,25 +18,25 @@ const wait = (seconds) =>
  */
 const retry = (config, fn) =>
   new Promise((resolve, reject) => {
-    const {intervalInMs = 500, maxRetries = 10} = config;
+    const { intervalInMs = 500, maxRetries = 10 } = config;
     fn()
       .then(resolve)
       .catch((err) => {
         console.warn(
-          `Callback in retry function failed. Retrying... ${maxRetries}`
+          `Callback in retry function failed. Retrying... ${maxRetries}`,
         );
         console.warn(err instanceof Error ? err.message : err);
         if (maxRetries === 0) {
           config.swallowError ? resolve() : reject(err);
         } else {
           setTimeout(() => {
-            retry({intervalInMs, maxRetries: maxRetries - 1}, fn).then(
+            retry({ intervalInMs, maxRetries: maxRetries - 1 }, fn).then(
               resolve,
-              reject
+              reject,
             );
           }, intervalInMs);
         }
       });
   });
 
-export {retry, wait};
+export { retry, wait };

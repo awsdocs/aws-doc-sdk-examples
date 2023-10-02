@@ -32,7 +32,7 @@ const initializeLambdaFunction = async ({ funcName, roleName }) => {
 
   const { FunctionArn } = await retry(
     { intervalInMs: 2000, maxRetries: 20 },
-    () => createFunction(funcName, roleArn)
+    () => createFunction(funcName, roleArn),
   );
   setEnv("CLOUDWATCH_LOGS_DESTINATION_ARN", FunctionArn);
   return { functionArn: FunctionArn };
@@ -102,7 +102,7 @@ describe("put-subscription-filter", () => {
       await addPermissionLogsInvokeFunction(lambdaFuncName, logGroupName);
       await waitUntilFunctionUpdated(
         { client: new LambdaClient({ region: DEFAULT_REGION }) },
-        { FunctionName: lambdaFuncName }
+        { FunctionName: lambdaFuncName },
       );
     } catch (err) {
       console.error(err);
@@ -126,6 +126,6 @@ describe("put-subscription-filter", () => {
       await testCreateFilter(subscriptionFilterName, subscriptionFilterPattern);
       await testDeleteFilter();
     },
-    testTimeout
+    testTimeout,
   );
 });

@@ -15,7 +15,7 @@ export const getTopicAttributes = async (topicArn = "TOPIC_ARN") => {
   const response = await snsClient.send(
     new GetTopicAttributesCommand({
       TopicArn: topicArn,
-    })
+    }),
   );
   console.log(response);
   // {

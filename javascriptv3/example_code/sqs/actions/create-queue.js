@@ -12,10 +12,10 @@ const SQS_QUEUE_NAME = "test-queue";
 
 export const main = async (sqsQueueName = SQS_QUEUE_NAME) => {
   const command = new CreateQueueCommand({
-    QueueName: sqsQueueName, 
+    QueueName: sqsQueueName,
     Attributes: {
-      DelaySeconds: "60", 
-      MessageRetentionPeriod: "86400", 
+      DelaySeconds: "60",
+      MessageRetentionPeriod: "86400",
     },
   });
 

@@ -23,25 +23,28 @@ node putItems.js
 
 // snippet-start:[personalize.JavaScript.putItemsV3]
 // Get service clients module and commands using ES6 syntax.
-import { PutItemsCommand } from
-  "@aws-sdk/client-personalize-events";
+import { PutItemsCommand } from "@aws-sdk/client-personalize-events";
 import { personalizeEventsClient } from "./libs/personalizeClients.js";
 // Or, create the client here.
 // const personalizeEventsClient = new PersonalizeEventsClient({ region: "REGION"});
 
 // Set the put items parameters. For string properties and values, use the \ character to escape quotes.
 var putItemsParam = {
-    datasetArn: 'DATASET_ARN', /* required */
-    items: [    /* required */
-      {
-        'itemId': 'ITEM_ID',  /*  required */
-        'properties': "{\"PROPERTY1_NAME\": \"PROPERTY1_VALUE\", \"PROPERTY2_NAME\": \"PROPERTY2_VALUE\", \"PROPERTY3_NAME\": \"PROPERTY3_VALUE\"}"   /* optional */
-      }
-    ]
+  datasetArn: "DATASET_ARN" /* required */,
+  items: [
+    /* required */
+    {
+      itemId: "ITEM_ID" /*  required */,
+      properties:
+        '{"PROPERTY1_NAME": "PROPERTY1_VALUE", "PROPERTY2_NAME": "PROPERTY2_VALUE", "PROPERTY3_NAME": "PROPERTY3_VALUE"}' /* optional */,
+    },
+  ],
 };
 export const run = async () => {
   try {
-    const response = await personalizeEventsClient.send(new PutItemsCommand(putItemsParam));
+    const response = await personalizeEventsClient.send(
+      new PutItemsCommand(putItemsParam),
+    );
     console.log("Success!", response);
     return response; // For unit tests.
   } catch (err) {

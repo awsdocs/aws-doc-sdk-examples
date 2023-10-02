@@ -6,7 +6,10 @@
 import { fileURLToPath } from "url";
 
 // snippet-start:[javascript.v3.iam.actions.GetServiceLinkedRoleDeletionStatus]
-import { GetServiceLinkedRoleDeletionStatusCommand, IAMClient } from "@aws-sdk/client-iam";
+import {
+  GetServiceLinkedRoleDeletionStatusCommand,
+  IAMClient,
+} from "@aws-sdk/client-iam";
 
 const client = new IAMClient({});
 

@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {fileURLToPath} from "url";
+import { fileURLToPath } from "url";
 
 // snippet-start:[sqs.JavaScript.longPoll.receiveMessageV3]
-import {ReceiveMessageCommand, SQSClient} from "@aws-sdk/client-sqs";
+import { ReceiveMessageCommand, SQSClient } from "@aws-sdk/client-sqs";
 
 const client = new SQSClient({});
 const SQS_QUEUE_URL = "queue-url";

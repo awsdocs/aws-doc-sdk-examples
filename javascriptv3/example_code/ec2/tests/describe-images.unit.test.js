@@ -48,7 +48,7 @@ describe("describe-images", () => {
       // eslint-disable-next-line require-yield
       (async function* () {
         throw new Error("Retrieval failed");
-      })()
+      })(),
     );
 
     await main();

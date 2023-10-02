@@ -5,10 +5,10 @@
   "author": "Brian Murray <brmur@amazon.com>",
   "license": "Apache 2.0",
   "scripts": {
-  "build": "webpack ./js/index.js --mode development --target web --devtool false -o ./js/main.js",
-  "build-cdk": "aws cloudformation create-stack --stack-name STACK_NAME --template-body file://setup.yaml --capabilities CAPABILITY_IAM",
-  "test": "exit 0"
-},
+    "build": "webpack ./js/index.js --mode development --target web --devtool false -o ./js/main.js",
+    "build-cdk": "aws cloudformation create-stack --stack-name STACK_NAME --template-body file://setup.yaml --capabilities CAPABILITY_IAM",
+    "test": "exit 0"
+  },
   "transform": {},
   "dependencies": {
     "@aws-sdk/client-cognito-identity": "^3.32.0",

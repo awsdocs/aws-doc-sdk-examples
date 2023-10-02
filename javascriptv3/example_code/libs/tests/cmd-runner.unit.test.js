@@ -2,7 +2,7 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { it, describe, expect, vi } from 'vitest';
+import { it, describe, expect, vi } from "vitest";
 import { startsWith } from "ramda";
 import {
   close,
@@ -19,7 +19,7 @@ import { testEqual } from "../utils/util-test";
 describe("cmd-runner", () => {
   const getContext = (
     handlers = [],
-    reader = { on: vi.fn(), close: vi.fn() }
+    reader = { on: vi.fn(), close: vi.fn() },
   ) => ({
     reader,
     handlers,
@@ -28,14 +28,14 @@ describe("cmd-runner", () => {
   describe("readerProp", () => {
     it(
       "should return the 'reader' property of an object",
-      testEqual("MyReader", readerProp({ reader: "MyReader" }))
+      testEqual("MyReader", readerProp({ reader: "MyReader" })),
     );
   });
 
   describe("handlersProp", () => {
     it(
       "should return the 'handlers' property of an object",
-      testEqual("MyHandlers", handlersProp({ handlers: "MyHandlers" }))
+      testEqual("MyHandlers", handlersProp({ handlers: "MyHandlers" })),
     );
   });
 
@@ -62,28 +62,28 @@ describe("cmd-runner", () => {
       "should return an error message if the command is not recognized",
       testEqual(
         "Command not recognized.",
-        processCommands(getContext())(["hello"])
-      )
+        processCommands(getContext())(["hello"]),
+      ),
     );
 
     it(
       "should return the handler result for a given command",
       testEqual(
         "success",
-        processCommands(getContext([[(x) => x === 1, () => "success"]]))(1)
-      )
+        processCommands(getContext([[(x) => x === 1, () => "success"]]))(1),
+      ),
     );
   });
 
   describe("getCommands", () => {
     it(
       "should split commands by spaces",
-      testEqual(["do", "thing"], getCommands("do thing"))
+      testEqual(["do", "thing"], getCommands("do thing")),
     );
 
     it(
       "should trim spaces off the ends of commands",
-      testEqual(["do", "thing"], getCommands("   do thing   "))
+      testEqual(["do", "thing"], getCommands("   do thing   ")),
     );
   });
 
@@ -93,9 +93,9 @@ describe("cmd-runner", () => {
       testEqual(
         "Woof!",
         handleInput(getContext([[startsWith(["speak"]), () => "Woof!"]]))(
-          "speak"
-        )
-      )
+          "speak",
+        ),
+      ),
     );
   });
 

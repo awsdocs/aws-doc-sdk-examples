@@ -43,7 +43,7 @@ describe("terminate-instances", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to terminate instances")
+      new Error("Failed to terminate instances"),
     );
   });
 });

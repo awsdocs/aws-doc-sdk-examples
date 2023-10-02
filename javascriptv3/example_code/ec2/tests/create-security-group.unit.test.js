@@ -38,7 +38,7 @@ describe("create-security-group", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to create security group")
+      new Error("Failed to create security group"),
     );
   });
 });

@@ -34,7 +34,7 @@ export async function* listRoles() {
       response = await client.send(
         new ListRolesCommand({
           Marker: response.Marker,
-        })
+        }),
       );
     } else {
       break;
