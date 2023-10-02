@@ -8,6 +8,6 @@ COPY . /dotnetv3
 COPY --from=mcr.microsoft.com/dotnet/sdk:5.0 /usr/share/dotnet/sdk /usr/share/dotnet/sdk
 COPY --from=mcr.microsoft.com/dotnet/sdk:5.0 /usr/share/dotnet/shared /usr/share/dotnet/shared
 
-# RUN cd /dotnetv3 && dotnet build
+RUN cd /dotnetv3 && dotnet build
 
 CMD ["dotnet", "test", "--filter", "Category=Unit"]
