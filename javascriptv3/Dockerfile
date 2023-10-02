@@ -11,8 +11,7 @@ RUN apt-get update && \
 COPY . /javascriptv3
 
 # Perform build steps
-RUN npm install
-RUN export TEST_SCOPE=integration npm test
+RUN npm install -C /javascriptv3
 
 # Set non-root user
 RUN useradd -m automation && \
@@ -20,4 +19,4 @@ RUN useradd -m automation && \
 USER automation:automation
 
 # Set default command
-CMD ["npm", "test"]
+CMD ["./scripts/run_tests.sh", "integration"]

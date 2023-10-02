@@ -8,16 +8,15 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy source code
-COPY . /gov2/
-WORKDIR /gov2
+COPY . /gov2
+
+# Perform build steps
+RUN go env -w GOPROXY=direct
 
 # Set non-root user
 RUN useradd -m automation && \
     chown -R automation:automation /gov2/
 USER automation:automation
-
-# Perform build steps
-RUN go env -w GOPROXY=direct
 
 # Set default command
 CMD ["./run_all_tests.sh", "integration"]

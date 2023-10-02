@@ -2,7 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "test": "./scripts/test.sh",
+    "test": "scripts/run_tests.sh",
     "lint": "lint-staged",
     "ci-lint": "eslint"
   },

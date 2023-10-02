@@ -12,10 +12,14 @@ function run_integration_tests() {
   fi
 }
 
-if [ "$TEST_SCOPE" == "unit" ]; then
+if [ -z "$1" ]; then
+  echo "Usage: $0 [unit|integration]"
+  exit 1
+elif [ "$1" == "unit" ]; then
   run_unit_tests
-elif [ "$TEST_SCOPE" == "integration" ]; then
+elif [ "$1" == "integration" ]; then
   run_integration_tests
 else
-  run_unit_tests
+  echo "Usage: $0 [unit|integration]"
+  exit 1
 fi
