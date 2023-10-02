@@ -28,31 +28,31 @@ class StreamMock {
     }
 }
 
-const { getImageSetMetadata } = await import("../actions/get-image-set-metadata.js");
+const { getImageFrame } = await import("../actions/get-image-frame.js");
 
 describe("get-image-set-metadata", () => {
     it("should log the response", async () => {
         const logSpy = vi.spyOn(console, "log");
         const datastoreId = "12345678901234567890123456789012";
         const imageSetId = "12345678901234567890123456789012";
-        const metadataFileName = "med_image_test.gzip";
+        const imageFrameID = "12345678901234567890123456789012";
+        const metadataFileName = "med_image_frame_test.jph";
 
         const response = { metadata: {
-                    httpStatusCode: 200,
-                        requestId: '5219b274-30ff-4986-8cab-48753de3a599',
-                        extendedRequestId: "undefined",
-                        cfId: "undefined",
-                        attempts: 1,
-                        totalRetryDelay: 0
-                },
-                    contentType: 'application/json',
-                    contentEncoding: 'gzip',
-                    imageSetMetadataBlob: new StreamMock(new Uint8Array(256))
-                };
+                httpStatusCode: 200,
+                requestId: '5219b274-30ff-4986-8cab-48753de3a599',
+                extendedRequestId: "undefined",
+                cfId: "undefined",
+                attempts: 1,
+                totalRetryDelay: 0
+            },
+            contentType: 'text/plain',
+            imageFrameBlob: new StreamMock(new Uint8Array(256))
+        };
 
         send.mockResolvedValueOnce(response);
 
-        await getImageSetMetadata(datastoreId, imageSetId, metadataFileName);
+        await getImageFrame(datastoreId, imageSetId, imageFrameID, metadataFileName);
 
         expect(logSpy).toHaveBeenCalledWith(response);
         expect(fs.existsSync(metadataFileName)).toBeTruthy();
