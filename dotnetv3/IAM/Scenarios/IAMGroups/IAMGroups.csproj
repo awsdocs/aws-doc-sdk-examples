@@ -31,10 +31,4 @@
 		</Content>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Update="settings.local.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	</ItemGroup>
-
 </Project>
