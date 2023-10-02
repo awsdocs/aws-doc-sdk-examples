@@ -2,11 +2,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0
 
 # Copy source code
-COPY . /dotnetv3/
+COPY . /dotnetv3
 
 # Perform build steps
 COPY --from=mcr.microsoft.com/dotnet/sdk:5.0 /usr/share/dotnet/sdk /usr/share/dotnet/sdk
 COPY --from=mcr.microsoft.com/dotnet/sdk:5.0 /usr/share/dotnet/shared /usr/share/dotnet/shared
-RUN dotnet build
+# RUN dotnet build /dotnetv3
 
 CMD ["dotnet", "test", "--filter", "Category=Unit"]

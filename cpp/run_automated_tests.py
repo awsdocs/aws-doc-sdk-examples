@@ -24,23 +24,22 @@
 #
 
 
-
-import os
-import subprocess
-import sys
+import datetime
 import getopt
 import glob
+import os
 import re
-import datetime
+import subprocess
 import sys
 
 build_sub_dir = "build_tests"
 
-def build_cmake_tests(cmake_files, executable_pattern) :
+
+def build_cmake_tests(cmake_files, executable_pattern):
     global build_sub_dir
     run_files = []
 
-    if len (cmake_files) == 0:
+    if len(cmake_files) == 0:
         return [1, []]
 
     has_error = False
@@ -53,36 +52,39 @@ def build_cmake_tests(cmake_files, executable_pattern) :
 
     parallel_build = os.getenv("PARALLEL_BUILD")
 
-    for cmake_file in cmake_files :
+    for cmake_file in cmake_files:
         source_dir = os.path.dirname(cmake_file)
         module_build_dir = os.path.join(build_dir, source_dir)
         os.makedirs(name=module_build_dir, exist_ok=True)
         os.chdir(module_build_dir)
 
-        cmake_command = ['cmake']
+        cmake_command = ["cmake"]
         if cmake_args is not None:
             cmake_command.append(cmake_args)
         cmake_command.append(os.path.join(base_dir, source_dir))
 
         if sys.platform == "win32":
-            cmake_command.append('-DBIN_SUB_DIR=/Debug') 
+            cmake_command.append("-DBIN_SUB_DIR=/Debug")
 
         result_code = subprocess.call(cmake_command, shell=False)
-        if result_code != 0 :
+        if result_code != 0:
             print(f"Error with cmake for {source_dir}")
             has_error = True
             continue
 
         if parallel_build is not None:
             print("building parallel")
-            result_code = subprocess.call(['cmake', '--build', '.',  '--parallel', f'{parallel_build}'], shell=False)
+            result_code = subprocess.call(
+                ["cmake", "--build", ".", "--parallel", f"{parallel_build}"],
+                shell=False,
+            )
         else:
-            result_code = subprocess.call(['cmake', '--build', '.'], shell=False)
+            result_code = subprocess.call(["cmake", "--build", "."], shell=False)
 
-        if result_code != 0 :
+        if result_code != 0:
             has_error = True
             continue
-        for executable in executable_pattern :
+        for executable in executable_pattern:
             run_files.extend(glob.glob(f"{module_build_dir}{executable}"))
 
     if has_error:
@@ -92,25 +94,25 @@ def build_cmake_tests(cmake_files, executable_pattern) :
 
 
 def build_tests(service="*"):
-    cmake_files = glob.glob( f"example_code/{service}/tests/CMakeLists.txt")
-    cmake_files.extend(glob.glob( f"example_code/{service}/gtests/CMakeLists.txt"))
+    cmake_files = glob.glob(f"example_code/{service}/tests/CMakeLists.txt")
+    cmake_files.extend(glob.glob(f"example_code/{service}/gtests/CMakeLists.txt"))
 
     executable_pattern = ["/*_gtest", "/Debug/*_gtest.exe"]
 
     return build_cmake_tests(cmake_files, executable_pattern)
 
 
-def run_tests(run_files = [], type1=False, type2=False, type3=False):
+def run_tests(run_files=[], type1=False, type2=False, type3=False):
     global build_sub_dir
     has_error = False
     filters = []
-    if type1 :
+    if type1:
         filters.append("*_1_")
 
-    if type2 :
+    if type2:
         filters.append("*_2_")
 
-    if type3 :
+    if type3:
         filters.append("*_3_")
 
     filter_arg = ""
@@ -123,9 +125,11 @@ def run_tests(run_files = [], type1=False, type2=False, type3=False):
     run_dir = os.path.join(build_sub_dir, "integration_tests_run")
     os.makedirs(name=run_dir, exist_ok=True)
     os.chdir(run_dir)
-    for run_file in run_files :
+    for run_file in run_files:
         print(f"Calling '{run_file} {filter_arg}'.")
-        proc = subprocess.Popen([run_file, filter_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        proc = subprocess.Popen(
+            [run_file, filter_arg], stdout=subprocess.PIPE, stderr=subprocess.STDOUT
+        )
         for line in proc.stdout:
             line = line.decode("utf-8")
             sys.stdout.write(line)
@@ -141,29 +145,32 @@ def run_tests(run_files = [], type1=False, type2=False, type3=False):
 
         proc.wait()
 
-        if proc.returncode != 0 :
+        if proc.returncode != 0:
             has_error = True
 
-    print('-' * 88)
+    print("-" * 88)
     print(f"{passed_tests} tests passed.")
     print(f"{failed_tests} tests failed.")
 
     os.chdir(old_dir)
     if has_error:
         return [1, passed_tests, failed_tests]
-    else :
+    else:
         return [0, passed_tests, failed_tests]
 
+
 def test_hello_service(service="*"):
-    print('-'*88)
+    print("-" * 88)
     print(f"Running hello tests for {service}.")
 
     print(os.getcwd())
     cmake_files = glob.glob(f"example_code/{service}/hello_{service}/CMakeLists.txt")
 
-    (err_code, run_files) = build_cmake_tests(cmake_files, ['/hello_*', '/Debug/hello_*.exe'])
+    (err_code, run_files) = build_cmake_tests(
+        cmake_files, ["/hello_*", "/Debug/hello_*.exe"]
+    )
 
-    if err_code != 0 :
+    if err_code != 0:
         print("Build hello tests failed.")
         return [err_code, 0, 0]
 
@@ -175,19 +182,19 @@ def test_hello_service(service="*"):
     passed_count = 0
     failed_count = 0
     has_error = False
-    for run_file in run_files :
+    for run_file in run_files:
         path_split = os.path.splitext(run_file)
-        if (path_split[1] == '.exe') or (path_split[1] == ''):
+        if (path_split[1] == ".exe") or (path_split[1] == ""):
             print(f"Calling '{run_file}'.")
             completedProcess = subprocess.run([run_file], stdout=subprocess.DEVNULL)
-            if completedProcess.returncode != 0 :
+            if completedProcess.returncode != 0:
                 print(f"Error with {run_file}")
                 has_error = True
                 failed_count = failed_count + 1
             else:
                 passed_count = passed_count + 1
 
-    print('-'*88)
+    print("-" * 88)
     print(f"{passed_count} tests passed.")
     print(f"{failed_count} tests failed.")
     print(f"Total cmake files - {len(cmake_files)}")
@@ -195,25 +202,29 @@ def test_hello_service(service="*"):
     os.chdir(old_dir)
 
     if has_error:
-        return [1,  passed_count, failed_count]
-    else :
-        return [0,  passed_count, failed_count]
+        return [1, passed_count, failed_count]
+    else:
+        return [0, passed_count, failed_count]
+
 
 def main(argv):
     type1 = False
     type2 = False
     type3 = False
     service = "*"
+    run_dir = os.path.dirname(os.path.realpath(__file__))
+    print(f"Running script from directory {run_dir}")
+    os.chdir(run_dir)
 
     opts, args = getopt.getopt(argv, "h123s:")
     for opt, arg in opts:
-        if opt == '-h':
-            print('run_automated_tests.py -1 -2 -3 -s <service>')
-            print('Where:')
-            print(' 1. Requires credentials and pre-configured resources.')
-            print(' 2. Requires credentials.')
-            print(' 3. Does not require credentials.')
-            print(' s. Test this service (regular expression).')
+        if opt == "-h":
+            print("run_automated_tests.py -1 -2 -3 -s <service>")
+            print("Where:")
+            print(" 1. Requires credentials and pre-configured resources.")
+            print(" 2. Requires credentials.")
+            print(" 3. Does not require credentials.")
+            print(" s. Test this service (regular expression).")
             sys.exit()
         elif opt in ("-1"):
             type1 = True
@@ -230,16 +241,20 @@ def main(argv):
 
     [err_code, run_files] = build_tests(service=service)
 
-    if err_code == 0 :
-        [err_code, passed_count, failed_count]= run_tests(run_files = run_files, type1=type1, type2=type2, type3=type3)
+    if err_code == 0:
+        [err_code, passed_count, failed_count] = run_tests(
+            run_files=run_files, type1=type1, type2=type2, type3=type3
+        )
 
     os.chdir(base_dir)
     if err_code == 0:
-        [err_code, hello_passed_count, hello_failed_count] = test_hello_service(service=service)
+        [err_code, hello_passed_count, hello_failed_count] = test_hello_service(
+            service=service
+        )
         passed_count = passed_count + hello_passed_count
         failed_count = failed_count + hello_failed_count
 
-    print('-'*88)
+    print("-" * 88)
     print(f"{passed_count} tests passed.")
     print(f"{failed_count} tests failed.")
 
@@ -249,8 +264,6 @@ def main(argv):
 
 
 if __name__ == "__main__":
-     result = main(sys.argv[1:])
+    result = main(sys.argv[1:])
 
-     exit(result)
-
-
+    exit(result)

@@ -9,15 +9,14 @@ RUN apt-get update && \
 
 # Copy source code
 COPY . /python
-WORKDIR /python
+
+# Perform build steps
+RUN python -m pip install -r /python/test_tools/requirements.txt
+RUN curl https://certs.secureserver.net/repository/sf-class2-root.crt --output sf-class2-root.crt
 
 # Set non-root user
 RUN useradd -m automation && \
     chown -R automation:automation /python
 USER automation:automation
-
-# Perform build steps
-RUN python -m pip install -r /python/test_tools/requirements.txt
-RUN curl https://certs.secureserver.net/repository/sf-class2-root.crt --output sf-class2-root.crt
 
 CMD ["python", "-m", "python.test_tools.run_all_tests", "--integ"]
