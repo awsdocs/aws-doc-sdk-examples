@@ -339,9 +339,6 @@ eventbridge_PutRule:
           github: javascriptv3/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - eventbridge.JavaScript.events.createclientv3
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - eventBridge.JavaScript.eb.putRuleV3
@@ -405,9 +402,6 @@ eventbridge_PutEvents:
           github: javascriptv3/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - eventbridge.JavaScript.events.createclientv3
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - eventBridge.JavaScript.eb.putEventsV3
@@ -480,9 +474,6 @@ eventbridge_PutTargets:
           github: javascriptv3/example_code/eventbridge
           sdkguide:
           excerpts:
-            - description: Create the client in a separate module and export it.
-              snippet_tags:
-                - eventbridge.JavaScript.events.createclientv3
             - description: Import the SDK and client modules and call the API.
               snippet_tags:
                 - eventBridge.JavaScript.eb.putTargetsV3

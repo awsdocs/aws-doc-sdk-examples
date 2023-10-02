@@ -1,9 +1,0 @@
-{
-  "name": "example-javascriptv3-eventbridge",
-  "version": "1.0.0",
-  "author": "Corey Pyle <corepyle@amazon.com>",
-  "type": "module",
-  "dependencies": {
-    "@aws-sdk/client-eventbridge": "^3.421.0"
-  }
-}
