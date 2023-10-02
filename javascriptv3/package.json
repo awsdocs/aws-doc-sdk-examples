@@ -37,7 +37,8 @@
     "example_code/ses",
     "example_code/glue",
     "example_code/medical-imaging",
-    "example_code/sagemaker"
+    "example_code/sagemaker",
+    "example_code/nodegetstarted"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.7.2",
