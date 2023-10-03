@@ -61,12 +61,12 @@ for more information.
 Build steps
 -----------
 To build the docker image, run the following command from the shell. This command must be run in
-# the "aws-doc-sdk-examples" directory, the parent directory of "cpp", in order to access the resources folder.
-#
-# 'docker build -f cpp/Dockerfile -t <container_tag> .'
-#
-# The following command will run the docker image, copying your AWS credentials.
-# 'docker run -it --volume ~/.aws/credentials:/home/tests/.aws/credentials <container_tag>'
+the "aws-doc-sdk-examples" directory, the parent directory of "cpp", in order to access the resources folder.
+
+'docker build -f cpp/Dockerfile -t <container_tag> .'
+
+The following command will run the docker image, copying your AWS credentials.
+'docker run -it --volume ~/.aws/credentials:/home/tests/.aws/credentials <container_tag>'
 
 Automated tests
 ===================
