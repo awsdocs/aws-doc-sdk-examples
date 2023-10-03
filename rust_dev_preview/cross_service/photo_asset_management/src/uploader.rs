@@ -4,7 +4,6 @@ use aws_smithy_types_convert::date_time::DateTimeExt;
 use std::io::prelude::*;
 use std::io::Write;
 use tempfile::tempfile;
-use tokio_stream::StreamExt;
 use zip_next::{write::FileOptions, ZipWriter};
 
 use crate::common::Common;
