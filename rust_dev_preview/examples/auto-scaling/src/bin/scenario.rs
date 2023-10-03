@@ -1,3 +1,8 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
 use std::{collections::BTreeSet, fmt::Display};
 
 use anyhow::anyhow;
@@ -166,7 +171,7 @@ async fn main() -> Result<(), anyhow::Error> {
     show_scenario_description(&scenario, "Scenario scaled to 0").await;
 
     // 12. DeleteAutoScalingGroup (to delete the group you must stop all instances):
-    // 14. Delete LaunchTemplate.
+    // 13. Delete LaunchTemplate.
     let clean_scenario = scenario.clean_scenario().await;
     if let Err(errs) = clean_scenario {
         for err in errs {
