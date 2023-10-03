@@ -158,7 +158,5 @@ mod test {
         assert!(update_inner_debug.contains("\":image\": L([S(\"object\")])"));
         assert!(update_inner_debug.contains("\":one\": N(\"1\")"));
         assert!(update_inner_debug.contains("\":zero\": N(\"0\")"));
-
-        ()
     }
 }
