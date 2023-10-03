@@ -42,7 +42,7 @@ export const listDICOMImportJobs = async (datastoreId = "xxxxxxxxxxxxxxxxxx") =>
 };
 // snippet-end:[medical-imaging.JavaScript.dicom.listDICOMImportJobsV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await listDICOMImportJobs();
 }

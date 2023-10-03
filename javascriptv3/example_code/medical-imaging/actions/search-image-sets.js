@@ -46,7 +46,7 @@ export const searchImageSets = async (datastoreId = "xxxxxxxx", filters = []) =>
 };
 // snippet-end:[medical-imaging.JavaScript.resource.searchImageSetV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     // snippet-start:[medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID]
     const datastoreId = "12345678901234567890123456789012";

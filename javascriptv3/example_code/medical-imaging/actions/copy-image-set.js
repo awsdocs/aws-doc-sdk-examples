@@ -70,7 +70,7 @@ export const copyImageSet = async (datastoreId = "xxxxxxxxxxx", imageSetId = "xx
 };
 // snippet-end:[medical-imaging.JavaScript.imageset.copyImageSetV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await copyImageSet();
 }

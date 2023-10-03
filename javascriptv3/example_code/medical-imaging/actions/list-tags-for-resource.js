@@ -33,7 +33,7 @@ export const listTagsForResource = async (resourceArn = "arn:aws:medical-imaging
 };
 // snippet-end:[medical-imaging.JavaScript.resource.listTagsForResourceV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await listTagsForResource("arn:aws:medical-imaging:us-east-1:123502194722:datastore/728f13a131f748bf8d87a55d5ef6c5af");
 }

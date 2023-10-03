@@ -47,7 +47,7 @@ export const getImageFrame = async (datastoreID = "DATASTORE_ID",
 };
 // snippet-end:[medical-imaging.JavaScript.imageset.getImageFrameV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await getImageFrame("728f13a131f748bf8d87a55d5ef6c5af", "22b8ce38456a11bfb8e16ff6bf037dd0", "110c71bce27b5bee669d1141a2fdb022",
         "test.jph");

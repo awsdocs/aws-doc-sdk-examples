@@ -34,7 +34,7 @@ export const deleteDatastore = async (datastoreID = "DATASTORE_ID") => {
 };
 // snippet-end:[medical-imaging.JavaScript.datastore.deleteDatastoreV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await deleteDatastore();
 }

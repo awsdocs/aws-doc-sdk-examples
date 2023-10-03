@@ -34,7 +34,7 @@ export const untagResource = async (resourceArn = "arn:aws:medical-imaging:us-ea
 };
 // snippet-end:[medical-imaging.JavaScript.resource.unTagResourceV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await untagResource("arn:aws:medical-imaging:us-east-1:123502194722:datastore/728f13a131f748bf8d87a55d5ef6c5af",
         ["Deployment"]);

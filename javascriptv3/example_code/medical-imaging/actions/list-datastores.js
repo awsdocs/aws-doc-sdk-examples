@@ -50,7 +50,7 @@ export const listDatastores = async () => {
 };
 // snippet-end:[medical-imaging.JavaScript.datastore.listDatastoresV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await listDatastores();
 }

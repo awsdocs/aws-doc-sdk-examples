@@ -49,7 +49,7 @@ export const getImageSet = async (datastoreId = "xxxxxxxxxxxxxxx",
 
 // snippet-end:[medical-imaging.JavaScript.imageset.getImageSetV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await getImageSet();
 }

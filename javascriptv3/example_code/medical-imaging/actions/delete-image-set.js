@@ -36,7 +36,7 @@ export const deleteImageSet = async (datastoreId = "xxxxxxxxxxxxxxxx", imageSetI
 };
 // snippet-end:[medical-imaging.JavaScript.imageset.deleteImageSetV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await deleteImageSet("728f13a131f748bf8d87a55d5ef6c5af", "906e1c0ff5e9c69a14a9e4d36e0cea1e");
 }
