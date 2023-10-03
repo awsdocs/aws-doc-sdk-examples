@@ -53,7 +53,7 @@ afterAll(async () => {
     await retry({ intervalInMs: 1000, maxRetries: 20 }, cleanUpActions[i]);
   }
 
-  // Delete the target
+  // Delete the target.
   await Clients.EventBridge.send(
     new RemoveTargetsCommand({
       Rule: ruleName,
@@ -61,7 +61,7 @@ afterAll(async () => {
     }),
   );
 
-  // Delete the rule
+  // Delete the rule.
   await Clients.EventBridge.send(
     new DeleteRuleCommand({
       Name: ruleName,
@@ -70,7 +70,7 @@ afterAll(async () => {
 });
 
 test("target should receive message", async () => {
-  // Put the rule
+  // Put the rule.
   const { RuleArn } = await retry({ intervalInMs: 1000, maxRetries: 20 }, () =>
     putRule(ruleName, "eventbridge.integration.test"),
   );
@@ -78,13 +78,13 @@ test("target should receive message", async () => {
   // Ensure the queue allows the rule to send messages.
   await addQueuePolicy(Clients.SQSClient, queueArn, RuleArn, queueUrl);
 
-  // Put the target
+  // Put the target.
   await putTarget(ruleName, queueArn, targetId);
 
-  // Put the event
+  // Put the event.
   await putEvents("eventbridge.integration.test", "greeting", []);
 
-  // Get message from the SQS queue
+  // Get message from the SQS queue.
   const messages = await getMessagesFromQueue(Clients.SQSClient, queueUrl);
 
   expect(messages[0].Body).toContain("Hello there.");
