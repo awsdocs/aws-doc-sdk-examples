@@ -214,11 +214,58 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
   },
 ];
 
+const DOTNET_FUNCTION_CONFIG = {
+  ...BASE_APP_FUNCTION,
+  runtime: Runtime.DOTNET_6,
+  codeAsset: () => {
+    const source = resolve("../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer");
+    return Code.fromAsset(source, {
+      bundling: {
+        command: [
+          "/bin/sh",
+          "-c",
+          " dotnet tool install -g Amazon.Lambda.Tools" +
+          " && dotnet build" +
+          " && cd PamApi" +
+          " && dotnet lambda package --output-package /asset-output/function.zip",
+        ],
+        image: Runtime.DOTNET_6.bundlingImage,
+        user: "root",
+        outputType: BundlingOutput.ARCHIVED,
+      },
+    });
+  },
+};
+
+const DOTNET_FUNCTIONS: AppFunctionConfig[] = [
+  {
+    ...DOTNET_FUNCTION_CONFIG,
+    name: "ExtractText",
+    handler: "com.example.fsa.handlers.ExtractTextHandler::handleRequest",
+  },
+  {
+    ...COMMON_JAVA_FUNCTION_CONFIG,
+    name: "AnalyzeSentiment",
+    handler: "com.example.fsa.handlers.AnalyzeSentimentHandler::handleRequest",
+  },
+  {
+    ...COMMON_JAVA_FUNCTION_CONFIG,
+    name: "TranslateText",
+    handler: "com.example.fsa.handlers.TranslateTextHandler::handleRequest",
+  },
+  {
+    ...COMMON_JAVA_FUNCTION_CONFIG,
+    name: "SynthesizeAudio",
+    handler: "com.example.fsa.handlers.SynthesizeAudioHandler::handleRequest",
+  },
+];
+
 const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
   examplelang: EXAMPLE_LANG_FUNCTIONS,
   ruby: RUBY_FUNCTIONS,
   java: JAVA_FUNCTIONS,
   javascript: JAVASCRIPT_FUNCTIONS,
+  dotnet: DOTNET_FUNCTIONS,
 };
 export function getFunctions(language: string = ""): AppFunctionConfig[] {
   return FUNCTIONS[language] ?? FUNCTIONS.examplelang;
