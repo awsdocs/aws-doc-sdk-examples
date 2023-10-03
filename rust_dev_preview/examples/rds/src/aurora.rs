@@ -1,6 +1,7 @@
 use phf::{phf_set, Set};
+use secrecy::{ExposeSecret, SecretString};
 use std::{
-    collections::HashSet,
+    collections::HashMap,
     fmt::Display,
     time::{Duration, SystemTime},
 };
@@ -8,7 +9,7 @@ use std::{
 use aws_config::SdkConfig;
 use aws_sdk_rds::{
     error::ProvideErrorMetadata,
-    types::{DbClusterParameterGroup, DbClusterSnapshot, DbInstance, Parameter},
+    types::{self, DbCluster, DbClusterParameterGroup, DbClusterSnapshot, DbInstance, Parameter},
     Client,
 };
 use tracing::{info, trace, warn};
@@ -17,6 +18,7 @@ const DB_CLUSTER_PARAMETER_GROUP_NAME: &str = "RustSDKCodeExamplesDBParameterGro
 const DB_CLUSTER_PARAMETER_GROUP_DESCRIPTION: &str =
     "Parameter Group created by Rust SDK Code Example";
 const DB_CLUSTER_IDENTIFIER: &str = "RustSDKCodeExamplesDBCluster";
+const DB_INSTANCE_IDENTIFIER: &str = "RustSDKCodeExamplesDBInstance";
 
 const MAX_WAIT: Duration = Duration::from_secs(5 * 60); // Wait at most 25 seconds.
 const WAIT_TIME: Duration = Duration::from_millis(500); // Wait half a second at a time.
@@ -159,9 +161,13 @@ impl Display for AuroraScenarioDescription {
 pub struct AuroraScenario {
     client: aws_sdk_rds::Client,
     engine_family: Option<String>,
+    engine_version: Option<String>,
+    instance_class: Option<String>,
     db_cluster_parameter_group: Option<DbClusterParameterGroup>,
     db_cluster_identifier: Option<String>,
     db_instance_identifier: Option<String>,
+    username: Option<String>,
+    password: Option<SecretString>,
 }
 
 impl AuroraScenario {
@@ -169,14 +175,18 @@ impl AuroraScenario {
         AuroraScenario {
             client: Client::new(sdk_config),
             engine_family: None,
+            engine_version: None,
+            instance_class: None,
             db_cluster_parameter_group: None,
             db_cluster_identifier: None,
             db_instance_identifier: None,
+            username: None,
+            password: None,
         }
     }
 
     // Get available engine families for Aurora MySql. rds.DescribeDbEngineVersions(Engine='aurora-mysql') and build a set of the 'DBParameterGroupFamily' field values. I get {aurora-mysql8.0, aurora-mysql5.7}.
-    pub async fn engines(&self) -> Result<Vec<String>, ScenarioError> {
+    pub async fn get_engines(&self) -> Result<HashMap<String, Vec<String>>, ScenarioError> {
         let describe_db_engine_versions = self
             .client
             .describe_db_engine_versions()
@@ -197,23 +207,49 @@ impl AuroraScenario {
             ));
         };
 
-        let versions: Vec<String> = describe_db_engine_versions
+        // Create a map of engine families to their available versions.
+        let mut versions = HashMap::<String, Vec<String>>::new();
+        describe_db_engine_versions
             .unwrap()
             .db_engine_versions()
             .iter()
-            .map(|v| v.db_parameter_group_family.clone())
-            .filter(|o| o.is_some())
-            .flatten()
-            .collect::<HashSet<String>>()
-            .into_iter()
-            .collect();
+            .filter_map(
+                |v| match (&v.db_parameter_group_family, &v.engine_version) {
+                    (Some(family), Some(version)) => Some((family.clone(), version.clone())),
+                    _ => None,
+                },
+            )
+            .for_each(|(family, version)| versions.entry(family).or_default().push(version));
 
         Ok(versions)
     }
 
+    pub async fn get_instance_classes(&self) -> Result<Vec<String>, ScenarioError> {
+        let describe_orderable_db_instance_options_items = self
+            .client
+            .describe_orderable_db_instance_options()
+            .set_engine(self.engine_family.clone())
+            .set_engine_version(self.engine_version.clone())
+            .into_paginator()
+            .items()
+            .send()
+            .try_collect()
+            .await;
+
+        describe_orderable_db_instance_options_items
+            .map(|options| {
+                options
+                    .iter()
+                    .map(|o| o.db_instance_class().unwrap_or_default().to_string())
+                    .collect::<Vec<String>>()
+            })
+            .map_err(|err| ScenarioError::new("Could not get available instance classes", &err))
+    }
+
     // Select an engine family and create a custom DB cluster parameter group. rds.CreateDbClusterParameterGroup(DBParameterGroupFamily='aurora-mysql8.0')
-    pub async fn set_engine(&mut self, engine: &str) -> Result<(), ScenarioError> {
+    pub async fn set_engine(&mut self, engine: &str, version: &str) -> Result<(), ScenarioError> {
         self.engine_family = Some(engine.to_string());
+        self.engine_version = Some(version.to_string());
         let create_db_cluster_parameter_group = self
             .client
             .create_db_cluster_parameter_group()
@@ -240,6 +276,43 @@ impl AuroraScenario {
         };
 
         Ok(())
+    }
+
+    pub fn set_instance_class(&mut self, instance_class: Option<String>) {
+        self.instance_class = instance_class;
+    }
+
+    pub fn set_login(&mut self, username: Option<String>, password: Option<SecretString>) {
+        self.username = username;
+        self.password = password;
+    }
+
+    pub async fn connection_string(&self) -> Result<String, ScenarioError> {
+        warn!("TODO! connection_string");
+        let cluster = self.get_cluster().await?;
+        let endpoint = cluster.endpoint().unwrap_or_default();
+        let port = cluster.port().unwrap_or_default();
+        let username = cluster.master_username().unwrap_or_default();
+        Ok(format!("mysql -h {endpoint} -P {port} -u {username} -p"))
+    }
+
+    pub async fn get_cluster(&self) -> Result<DbCluster, ScenarioError> {
+        let describe_db_clusters_output = self
+            .client
+            .describe_db_clusters()
+            .set_db_cluster_identifier(self.db_cluster_identifier.clone())
+            .send()
+            .await;
+        if let Err(err) = describe_db_clusters_output {
+            return Err(ScenarioError::new("Failed to get cluster", &err));
+        }
+
+        let db_cluster = describe_db_clusters_output
+            .unwrap()
+            .db_clusters
+            .and_then(|output| output.first().cloned());
+
+        db_cluster.ok_or_else(|| ScenarioError::with("Did not find the cluster"))
     }
 
     // Get the parameter group. rds.DescribeDbClusterParameterGroups
@@ -329,12 +402,20 @@ impl AuroraScenario {
     // Create a database instance in the cluster.
     // Wait for DB instance to be ready. Call rds.DescribeDbInstances and check for DBInstanceStatus == 'available'.
     pub async fn start_cluster_and_instance(&mut self) -> Result<DbInstance, ScenarioError> {
+        if self.password.is_none() {
+            return Err(ScenarioError::with(
+                "Must set Secret Password before starting a cluster",
+            ));
+        }
         let create_db_cluster = self
             .client
             .create_db_cluster()
             .db_cluster_identifier(DB_CLUSTER_IDENTIFIER)
-            .set_engine(self.engine_family.clone())
             .db_cluster_parameter_group_name(DB_CLUSTER_PARAMETER_GROUP_NAME)
+            .set_engine(self.engine_family.clone())
+            .set_engine_version(self.engine_version.clone())
+            .set_master_username(self.username.clone())
+            .master_user_password(self.password.as_ref().unwrap().expose_secret())
             .send()
             .await;
         if let Err(err) = create_db_cluster {
@@ -364,6 +445,9 @@ impl AuroraScenario {
             .client
             .create_db_instance()
             .set_db_cluster_identifier(self.db_cluster_identifier.clone())
+            .db_instance_identifier(DB_INSTANCE_IDENTIFIER)
+            .set_engine(self.engine_family.clone())
+            .set_db_instance_class(self.instance_class.clone())
             .send()
             .await;
         if let Err(err) = create_db_instance {
@@ -388,11 +472,6 @@ impl AuroraScenario {
     pub async fn snapshot(&self) -> Result<DbClusterSnapshot, ScenarioError> {
         warn!("TODO! snapshot");
         Ok(DbClusterSnapshot::builder().build())
-    }
-
-    pub fn connection_string(&self) -> String {
-        warn!("TODO! connection_string");
-        "".to_string()
     }
 
     pub async fn clean_up(self) -> Result<(), Vec<ScenarioError>> {
@@ -434,6 +513,7 @@ impl AuroraScenario {
             let db_instances = describe_db_instances.db_instances();
             if db_instances.is_empty() {
                 info!("Delete Instance waited and no instances were found");
+                continue;
             }
             match db_instances.first().unwrap().db_instance_status() {
                 Some("Deleting") => continue,
@@ -520,4 +600,12 @@ impl AuroraScenario {
             Err(clean_up_errors)
         }
     }
+}
+
+pub fn connection_string(cluster: &types::DbCluster) -> String {
+    warn!("TODO! connection_string");
+    let endpoint = cluster.endpoint().unwrap_or_default();
+    let port = cluster.port().unwrap_or_default();
+    let username = cluster.master_username().unwrap_or_default();
+    format!("mysql -h {endpoint} -P {port} -u {username} -p")
 }
