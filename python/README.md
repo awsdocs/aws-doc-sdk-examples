@@ -126,14 +126,12 @@ python -m pytest -m "integ"
 
 ## Docker image
 
-This example code will soon be available in a container image
+This example code is available in a container image
 hosted on [Amazon Elastic Container Registry (Amazon ECR)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html). 
-The image will be preloaded with all Python examples, with dependencies pre-resolved. 
+The image is preloaded with all Python examples, with dependencies pre-resolved. 
 That way, you can explore the examples in an isolated environment.
 
-⚠️ As of January 2023, the [SDK for Python image](https://gallery.ecr.aws/b4v4v1s0/python) is available on ECR Public 
-but is still undergoing active development. Refer to [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4125)
-for more information.
+See [SDK for Python image](https://gallery.ecr.aws/b4v4v1s0/python) for more information.
 
 ### Build the Docker image
 

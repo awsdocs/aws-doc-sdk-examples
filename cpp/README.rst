@@ -58,6 +58,21 @@ undergoing active development. Refer to
 [this GitHub issue](https://github.com/awsdocs/aws-doc-sdk-examples/issues/4133)
 for more information.
 
+Build steps
+-----------
+To build the docker image, run the following command from the shell. This command must be run in
+the "aws-doc-sdk-examples" directory, the parent directory of "cpp", in order to access the resources folder.
+
+.. code-block:: bash
+
+docker build -f cpp/Dockerfile -t <container_tag> .
+
+The following command will run the docker image, copying your AWS credentials.
+
+.. code-block:: bash
+
+docker run -it --volume ~/.aws/credentials:/home/tests/.aws/credentials <container_tag>
+
 Automated tests
 ===================
 

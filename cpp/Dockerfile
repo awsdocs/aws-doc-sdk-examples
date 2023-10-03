@@ -44,11 +44,12 @@ RUN \
 # Copy the C++ example code.
 RUN mkdir -p /src/cpp
 
-COPY cpp /src/cpp/
+COPY . /src/cpp/
 
-# The sample files are needed for some of the automated tests.
-RUN mkdir -p /src/resources/sample_files
-COPY resources/sample_files /src/resources/sample_files
+# Commented until https://github.com/awsdocs/aws-doc-sdk-examples/issues/5454 resolved.
+## The sample files are needed for some of the automated tests.
+#RUN mkdir -p /src/resources/sample_files
+#COPY resources/sample_files /src/resources/sample_files
 
 WORKDIR /src/cpp/
 
@@ -57,5 +58,4 @@ RUN useradd -ms /bin/bash tests && \
 
 USER tests
 
-CMD ["bash"]
-
+CMD ["python3", "/src/cpp/run_automated_tests.py "]
