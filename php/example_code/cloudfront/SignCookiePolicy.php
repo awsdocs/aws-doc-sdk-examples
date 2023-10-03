@@ -73,7 +73,7 @@ POLICY;
 
     $cloudFrontClient = new CloudFrontClient([
         'profile' => 'default',
-        'version' => '2014-11-06',
+        'version' => '2018-06-18',
         'region' => 'us-east-1'
     ]);
 
