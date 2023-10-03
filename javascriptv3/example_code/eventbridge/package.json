@@ -1,0 +1,17 @@
+{
+  "name": "example-javascriptv3-eventbridge",
+  "version": "1.0.0",
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "type": "module",
+  "scripts": {
+    "integration-test": "vitest run **/*.integration.test.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-eventbridge": "^3.421.0"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-iam": "^3.421.0",
+    "@aws-sdk/client-sqs": "^3.421.0",
+    "vitest": "^0.34.6"
+  }
+}
