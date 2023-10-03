@@ -15,7 +15,6 @@ use aws_sdk_autoscaling::{
     types::{Activity, AutoScalingGroup, LaunchTemplateSpecification},
 };
 use aws_sdk_ec2::types::RequestLaunchTemplateData;
-use tokio_stream::StreamExt;
 use tracing::trace;
 
 const LAUNCH_TEMPLATE_NAME: &str = "SDK_Code_Examples_EC2_Autoscaling_template_from_Rust_SDK";
@@ -108,7 +107,7 @@ impl Display for AutoScalingScenarioDescription {
                     writeln!(
                         f,
                         "\t\t- {} Progress: {}% Status: {:?} End: {:?}",
-                        activity.cause().unwrap_or("(Cause unknown)"),
+                        activity.cause(),
                         activity.progress(),
                         activity.status_code(),
                         // activity.status_message().unwrap_or_default()
@@ -374,7 +373,7 @@ impl AutoScalingScenario {
                     .send()
                     .await;
                 match describe_group {
-                    Ok(group) => match group.auto_scaling_groups.unwrap_or_default().first() {
+                    Ok(group) => match group.auto_scaling_groups().first() {
                         Some(group) => {
                             if group.status() != Some("Delete in progress") {
                                 errors.push(ScenarioError::with(format!(
@@ -410,13 +409,12 @@ impl AutoScalingScenario {
             .await
             .map(|s| {
                 s.auto_scaling_groups()
-                    .unwrap_or_default()
                     .iter()
                     .map(|s| {
                         format!(
                             "{}: {}",
-                            s.auto_scaling_group_name().unwrap_or_default().clone(),
-                            s.status().unwrap_or_default().clone()
+                            s.auto_scaling_group_name(),
+                            s.status().unwrap_or_default()
                         )
                     })
                     .collect::<Vec<String>>()
@@ -478,10 +476,8 @@ impl AutoScalingScenario {
             ));
         }
 
-        let auto_scaling_groups = describe_auto_scaling_groups
-            .unwrap()
-            .auto_scaling_groups
-            .unwrap_or_default();
+        let describe_auto_scaling_groups_output = describe_auto_scaling_groups.unwrap();
+        let auto_scaling_groups = describe_auto_scaling_groups_output.auto_scaling_groups();
         let auto_scaling_group = auto_scaling_groups.first();
 
         if auto_scaling_group.is_none() {
@@ -509,7 +505,7 @@ impl AutoScalingScenario {
                 .map_err(|e| {
                     ScenarioError::new("Failed to get autoscaling activities for group", &e)
                 })?;
-            let activities = describe_activities.activities.unwrap_or_default();
+            let activities = describe_activities.activities();
             trace!(
                 "Waiting for no scaling found {} activities",
                 activities.len()
@@ -542,19 +538,22 @@ impl AutoScalingScenario {
         // Ok(self.get_group().await?.instances.unwrap_or_default().map(|i| i.instance_id.clone().unwrap_or_default()).filter(|id| !id.is_empty()).collect())
 
         // Alternatively, and for the sake of example, DescribeAutoScalingInstances returns a list that can be filtered by the client.
-        Ok(self
-            .autoscaling
+        self.autoscaling
             .describe_auto_scaling_instances()
             .into_paginator()
             .items()
             .send()
-            .filter(|i| i.is_ok())
-            .map(|i| i.unwrap())
-            .filter(|i| i.auto_scaling_group_name() == Some(self.auto_scaling_group_name.as_str()))
-            .map(|i| i.instance_id.clone().unwrap_or_default())
-            .filter(|id| !id.is_empty())
-            .collect::<Vec<String>>()
-            .await)
+            .try_collect()
+            .await
+            .map(|items| {
+                items
+                    .into_iter()
+                    .filter(|i| i.auto_scaling_group_name == self.auto_scaling_group_name)
+                    .map(|i| i.instance_id)
+                    .filter(|id| !id.is_empty())
+                    .collect::<Vec<String>>()
+            })
+            .map_err(|err| ScenarioError::new("Failed to get list of auto scaling instances", &err))
     }
     // snippet-end:[rust.auto-scaling.scenario.list_instances]
 
@@ -655,14 +654,15 @@ impl AutoScalingScenario {
     // snippet-start:[rust.auto-scaling.scenario.terminate_some_instance]
     pub async fn terminate_some_instance(&self) -> Result<(), ScenarioError> {
         // Retrieve a list of instances in the auto scaling group.
-        let instances = self.get_group().await?.instances.unwrap_or_default();
+        let auto_scaling_group = self.get_group().await?;
+        let instances = auto_scaling_group.instances();
         // Or use other logic to find an instance to terminate.
         let instance = instances.first();
         if let Some(instance) = instance {
             let termination = self
                 .ec2
                 .terminate_instances()
-                .instance_ids(instance.instance_id().unwrap_or_default())
+                .instance_ids(instance.instance_id())
                 .send()
                 .await;
             if let Err(err) = termination {
