@@ -132,10 +132,43 @@ func (c *CFDistributionAPIImpl) createoriginAccessIdentity(domainName string) (s
 	return *oai.CloudFrontOriginAccessIdentity.Id, nil
 }
 
+var (
+	// bucketName is the name of the S3 bucket to create a CloudFront distribution for.
+	bucketName = ""
+	// certificateSSLArn is the ARN value of the certificate issued by the aws certificate manager.
+	// When testing, please check and copy and paste the ARN of the pre-issued certificate.
+	// If you don't know how to create a TLS/SSL certificate using certificate manager, check through the link below.
+	// https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html
+	certificateSSLArn = ""
+	// domain refers to the domain that will be used in conjunction with cloudfront and route53.
+	// For testing, please enter a domain that is registered in AWS route53 and will be used in conjunction with cloudfront.
+	domain = ""
+)
+
 // main uses the AWS SDK for Go V2 to create an Amazon CloudFront distribution.
 // This example uses the default settings specified in your shared credentials
 // and config files.
 func main() {
+
+	flag.StringVar(&bucketName, "bucket", "", "<EXAMPLE-BUCKET-NAME>")
+	flag.StringVar(&certificateSSLArn, "cert", "", "<AWS CERTIFICATE MANGER ARN>")
+	flag.StringVar(&domain, "domain", "", "<YOUR DOMAIN>")
+	flag.Parse()
+	if bucketName == "" {
+		log.Println(errors.New("please setup bucket name"))
+		return
+	}
+
+	if certificateSSLArn == "" {
+		log.Println(errors.New("please setup aws certificate arn"))
+		return
+	}
+
+	if domain == "" {
+		log.Println(errors.New("please setup your domain"))
+		return
+	}
+
 	sdkConfig, err := config.LoadDefaultConfig(context.TODO())
 
 	if err != nil {
@@ -148,29 +181,8 @@ func main() {
 	cloudfrontClient := cloudfront.NewFromConfig(sdkConfig)
 
 	cfDistribution := createCFDistribution(s3Client, cloudfrontClient)
-	bucketName := flag.String("bucket", "", "<EXAMPLE-BUCKET-NAME>")
-	if bucketName == nil || *bucketName == "" {
-		log.Fatal(errors.New("please setup bucket name"))
-		return
-	}
-	// certificateSSLArn is the ARN value of the certificate issued by the aws certificate manager.
-	// When testing, please check and copy and paste the ARN of the pre-issued certificate.
-	// If you don't know how to create a TLS/SSL certificate using certificate manager, check through the link below.
-	// https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html
-	certificateSSLArn := flag.String("cert", "", "<AWS CERTIFICATE MANGER ARN>")
-	if certificateSSLArn == nil || *certificateSSLArn == "" {
-		log.Fatal(errors.New("please setup aws certificate arn"))
-		return
-	}
-	// domain refers to the domain that will be used in conjunction with cloudfront and route53.
-	// For testing, please enter a domain that is registered in AWS route53 and will be used in conjunction with cloudfront.
-	domain := flag.String("domain", "", "<YOUR DOMAIN>")
-	if domain == nil || *domain == "" {
-		log.Fatal(errors.New("please setup your domain"))
-		return
-	}
 
-	result, err := cfDistribution.CreateDistribution(*bucketName, *certificateSSLArn, *domain)
+	result, err := cfDistribution.CreateDistribution(bucketName, certificateSSLArn, domain)
 	if err != nil {
 		fmt.Println("Couldn't create distribution. Please check error message and try again.")
 		fmt.Println(err)
