@@ -15,7 +15,7 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
  */
 export const listImageSetVersions = async (datastoreId = "xxxxxxxxxxxx", imageSetId = "xxxxxxxxxxxx") => {
     const response = await medicalImagingClient.send(
-        new ListImageSetVersionsCommand({datastoreId : datastoreId, imageSetId : imageSetId})
+        new ListImageSetVersionsCommand({datastoreId: datastoreId, imageSetId: imageSetId})
     );
     console.log(response);
     // {
@@ -42,5 +42,5 @@ export const listImageSetVersions = async (datastoreId = "xxxxxxxxxxxx", imageSe
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    await listImageSetVersions("728f13a131f748bf8d87a55d5ef6c5af", "22b8ce38456a11bfb8e16ff6bf037dd0");
- }
+    await listImageSetVersions();
+}

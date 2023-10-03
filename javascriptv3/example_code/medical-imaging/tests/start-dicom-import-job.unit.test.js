@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { describe, it, expect, vi } from "vitest";
+import {describe, it, expect, vi} from "vitest";
 
 const send = vi.fn();
 
@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-medical-imaging", async () => {
     };
 });
 
-const { startDicomImportJob } = await import("../actions/start-dicom-import-job.js");
+const {startDicomImportJob} = await import("../actions/start-dicom-import-job.js");
 
 describe("start-dicom-import-job", () => {
     it("should log the response", async () => {
@@ -36,7 +36,7 @@ describe("start-dicom-import-job", () => {
         await startDicomImportJob("test-1",
             datastoreId,
             "arn:aws:iam::xxxxxxxxxxxx:role/ImportJobDataAccessRole",
-             "s3://medical-imaging-dicom-input/dicom_input/",
+            "s3://medical-imaging-dicom-input/dicom_input/",
             "s3://medical-imaging-output/job_output/");
 
         expect(logSpy).toHaveBeenCalledWith(response);

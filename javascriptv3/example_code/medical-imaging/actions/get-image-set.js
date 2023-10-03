@@ -15,16 +15,16 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
  * @param {string} imageSetVersion - The optional version of the image set.
  *
  */
-export const getImageSet = async (datastoreId= "xxxxxxxxxxxxxxx",
-                                      imageSetId = "xxxxxxxxxxxxxxx",
-                                      imageSetVersion = "") => {
-    let params = {datastoreId: datastoreId, imageSetId: imageSetId };
-    if (imageSetVersion != "") {
+export const getImageSet = async (datastoreId = "xxxxxxxxxxxxxxx",
+                                  imageSetId = "xxxxxxxxxxxxxxx",
+                                  imageSetVersion = "") => {
+    let params = {datastoreId: datastoreId, imageSetId: imageSetId};
+    if (imageSetVersion !== "") {
         params.imageSetVersion = imageSetVersion;
     }
     const response = await medicalImagingClient.send(
         new GetImageSetCommand(params));
-    console.log( response);
+    console.log(response);
     // {
     //     '$metadata': {
     //     httpStatusCode: 200,
@@ -52,4 +52,4 @@ export const getImageSet = async (datastoreId= "xxxxxxxxxxxxxxx",
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await getImageSet();
- }
+}

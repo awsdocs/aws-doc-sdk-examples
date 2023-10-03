@@ -35,11 +35,11 @@ export const getDatastore = async (datastoreID = "DATASTORE_ID") => {
     //         updatedAt: 2023-08-04T18:50:36.239Z
     //   }
     // }
-    return response.datastoreProperties;
+    return response["datastoreProperties"];
 };
 // snippet-end:[medical-imaging.JavaScript.datastore.getDatastoreV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    getDatastore();
+    await getDatastore();
 }

@@ -18,10 +18,10 @@ export const listDatastores = async () => {
     const commandParams = {};
     const paginator = paginateListDatastores(paginatorConfig, commandParams);
 
-    const datastoreSummaries = [];
+    let datastoreSummaries = [];
     for await (const page of paginator) {
         // page contains a single paginated output.
-        datastoreSummaries.push(...page.datastoreSummaries);
+        datastoreSummaries.push(...page["datastoreSummaries"]);
         console.log(page);
     }
     // {
@@ -52,5 +52,5 @@ export const listDatastores = async () => {
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    listDatastores();
+    await listDatastores();
 }

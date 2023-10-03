@@ -15,23 +15,32 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
  */
 export const searchImageSets = async (datastoreId = "xxxxxxxx", filters = []) => {
     const response = await medicalImagingClient.send(
-        new SearchImageSetsCommand({datastoreId : datastoreId,
+        new SearchImageSetsCommand({
+            datastoreId: datastoreId,
             searchCriteria: {
                 filters: filters
-            }})
+            }
+        })
     );
     console.log(response);
-    // {
-    //     '$metadata': {
-    //         httpStatusCode: 200,
-    //         requestId: '008fc6d3-abec-4870-a155-20fa3631e645',
-    //         extendedRequestId: undefined,
-    //         cfId: undefined,
-    //         attempts: 1,
-    //         totalRetryDelay: 0
-    //     },
-    //     tags: { Deployment: 'Development' }
-    // }
+        // {
+        //     '$metadata': {
+        //         httpStatusCode: 200,
+        //         requestId: 'f009ea9c-84ca-4749-b5b6-7164f00a5ada',
+        //         extendedRequestId: undefined,
+        //         cfId: undefined,
+        //         attempts: 1,
+        //         totalRetryDelay: 0
+        //     },
+        //     imageSetsMetadataSummaries: [
+        //         {
+        //             DICOMTags: [Object],
+        //             createdAt: "2023-09-19T16:59:40.551Z",
+        //             imageSetId: '7f75e1b5c0f40eac2b24cf712f485f50',
+        //             updatedAt: "2023-09-19T16:59:40.551Z",
+        //             version: 1
+        //         }]
+        // }
 
     return response["imageSetsMetadataSummaries"];
 };
@@ -51,8 +60,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         }];
 
         await searchImageSets(datastoreId, filters);
-    }
-    catch (err) {
+    } catch (err) {
         console.error(err);
     }
     // snippet-end:[medical-imaging.JavaScript.resource.searchImageSetV3.equalFilter]
@@ -61,20 +69,23 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     // snippet-start:[medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter1]
     try {
         const filters = [{
-            values: [{DICOMStudyDateAndTime: {
+            values: [{
+                DICOMStudyDateAndTime: {
                     DICOMStudyDate: '19900101',
                     DICOMStudyTime: '000000'
-                }},
-                {DICOMStudyDateAndTime: {
+                }
+            },
+                {
+                    DICOMStudyDateAndTime: {
                         DICOMStudyDate: '20230901',
                         DICOMStudyTime: '000000'
-                    }}],
+                    }
+                }],
             operator: "BETWEEN"
         }];
 
         await searchImageSets(datastoreId, filters);
-    }
-    catch (err) {
+    } catch (err) {
         console.error(err);
     }
     // snippet-end:[medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter1]
@@ -91,8 +102,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         }];
 
         await searchImageSets(datastoreId, filters);
-    }
-    catch (err) {
+    } catch (err) {
         console.error(err);
     }
     // snippet-end:[medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter2]

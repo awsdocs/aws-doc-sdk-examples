@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { describe, it, expect, vi } from "vitest";
+import {describe, it, expect, vi} from "vitest";
 
 const send = vi.fn();
 
@@ -17,7 +17,7 @@ vi.doMock("@aws-sdk/client-medical-imaging", async () => {
     };
 });
 
-const { getImageSet } = await import("../actions/get-image-set.js");
+const {getImageSet} = await import("../actions/get-image-set.js");
 
 describe("get-image-set", () => {
     it("should log the response running without version ID", async () => {
@@ -26,15 +26,15 @@ describe("get-image-set", () => {
         const imageSetId = "12345678901234567890123456789012";
 
         const response = {
-                createdAt: "2023-09-22T14:49:26.427Z",
-                datastoreId: datastoreId,
-                imageSetArn: 'arn:aws:medical-imaging:us-east-1:xxxxxxxxxx:datastore/xxxxxxxxxxxxxxxxxxxx/imageset/xxxxxxxxxxxxxxxxxxxx',
-                imageSetId: imageSetId,
-                imageSetState: 'ACTIVE',
-                imageSetWorkflowStatus: 'CREATED',
-                updatedAt: "2023-09-22T14:49:26.427Z",
-                versionId: '1'
-          };
+            createdAt: "2023-09-22T14:49:26.427Z",
+            datastoreId: datastoreId,
+            imageSetArn: 'arn:aws:medical-imaging:us-east-1:xxxxxxxxxx:datastore/xxxxxxxxxxxxxxxxxxxx/imageset/xxxxxxxxxxxxxxxxxxxx',
+            imageSetId: imageSetId,
+            imageSetState: 'ACTIVE',
+            imageSetWorkflowStatus: 'CREATED',
+            updatedAt: "2023-09-22T14:49:26.427Z",
+            versionId: '1'
+        };
 
         send.mockResolvedValueOnce(response);
 

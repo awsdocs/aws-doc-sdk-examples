@@ -14,7 +14,7 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
  */
 export const listTagsForResource = async (resourceArn = "arn:aws:medical-imaging:us-east-1:xxx:datastore/xxx/imageset/xxx") => {
     const response = await medicalImagingClient.send(
-        new ListTagsForResourceCommand({resourceArn : resourceArn})
+        new ListTagsForResourceCommand({resourceArn: resourceArn})
     );
     console.log(response);
     // {

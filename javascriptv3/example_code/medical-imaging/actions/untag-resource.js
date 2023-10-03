@@ -14,9 +14,9 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
  * @param {{}} tagKeys - The keys of the tags to remove.
  */
 export const untagResource = async (resourceArn = "arn:aws:medical-imaging:us-east-1:xxxxxx:datastore/xxxxx/imageset/xxx",
-                                  tagKeys= []) => {
+                                    tagKeys = []) => {
     const response = await medicalImagingClient.send(
-        new UntagResourceCommand({resourceArn : resourceArn, tagKeys : tagKeys})
+        new UntagResourceCommand({resourceArn: resourceArn, tagKeys: tagKeys})
     );
     console.log(response);
     // {

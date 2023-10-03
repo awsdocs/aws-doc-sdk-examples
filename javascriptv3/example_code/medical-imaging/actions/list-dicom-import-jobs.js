@@ -14,7 +14,7 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
  */
 export const listDICOMImportJobs = async (datastoreId = "xxxxxxxxxxxxxxxxxx") => {
     const response = await medicalImagingClient.send(
-        new ListDICOMImportJobsCommand({datastoreId : datastoreId})
+        new ListDICOMImportJobsCommand({datastoreId: datastoreId})
     );
     console.log(response);
     // {
@@ -38,11 +38,11 @@ export const listDICOMImportJobs = async (datastoreId = "xxxxxxxxxxxxxxxxxx") =>
     // }
     // ]}
 
-        return response;
+    return response;
 };
 // snippet-end:[medical-imaging.JavaScript.dicom.listDICOMImportJobsV3]
 
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await listDICOMImportJobs();
- }
+}

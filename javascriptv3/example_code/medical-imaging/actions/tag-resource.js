@@ -17,7 +17,7 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 export const tagResource = async (resourceArn = "arn:aws:medical-imaging:us-east-1:xxxxxx:datastore/xxxxx/imageset/xxx",
                                   tags = {}) => {
     const response = await medicalImagingClient.send(
-        new TagResourceCommand({resourceArn : resourceArn, tags : tags})
+        new TagResourceCommand({resourceArn: resourceArn, tags: tags})
     );
     console.log(response);
     // {
@@ -38,5 +38,5 @@ export const tagResource = async (resourceArn = "arn:aws:medical-imaging:us-east
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await tagResource("arn:aws:medical-imaging:us-east-1:123502194722:datastore/728f13a131f748bf8d87a55d5ef6c5af",
-        {"Deployment" : "Development"});
- }
+        {"Deployment": "Development"});
+}

@@ -13,10 +13,10 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
  * @param {string} datastoreId - The ID of the data store.
  * @param {string} jobId - The ID of the job.
  */
-export const getDICOMImportJob = async (datastoreId  = "xxxxxxxxxxxxxxxxxxxx",
+export const getDICOMImportJob = async (datastoreId = "xxxxxxxxxxxxxxxxxxxx",
                                         jobId = "xxxxxxxxxxxxxxxxxxxx") => {
     const response = await medicalImagingClient.send(
-        new GetDICOMImportJobCommand({datastoreId : datastoreId, jobId : jobId})
+        new GetDICOMImportJobCommand({datastoreId: datastoreId, jobId: jobId})
     );
     console.log(response);
     // {
@@ -48,4 +48,4 @@ export const getDICOMImportJob = async (datastoreId  = "xxxxxxxxxxxxxxxxxxxx",
 // Invoke main function if this file was run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
     await getDICOMImportJob();
- }
+}

@@ -23,7 +23,7 @@ describe("createDatastore/deleteDatastore", () => {
             while ((counter < 20) && (status !== "ACTIVE")) {  // Redundant check with test timeout.
                 await wait(1);
                 const getDatastoreCommandOutput = await getDatastore(datastoreID);
-                status = getDatastoreCommandOutput.datastoreStatus; // eslint-disable-line
+                status = getDatastoreCommandOutput["datastoreStatus"]; // eslint-disable-line
                 counter++;
             }
 
