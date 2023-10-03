@@ -214,110 +214,49 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
   },
 ];
 
-const DOTNET_FUNCTIONS = [
+const DOTNET_FUNCTION_CONFIG = {
+  ...BASE_APP_FUNCTION,
+  runtime: Runtime.DOTNET_6,
+  codeAsset: () => {
+    const source = resolve("../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer");
+    return Code.fromAsset(source, {
+      bundling: {
+        command: [
+          "/bin/sh",
+          "-c",
+          " dotnet tool install -g Amazon.Lambda.Tools" +
+          " && dotnet build" +
+          " && cd PamApi" +
+          " && dotnet lambda package --output-package /asset-output/function.zip",
+        ],
+        image: Runtime.DOTNET_6.bundlingImage,
+        user: "root",
+        outputType: BundlingOutput.ARCHIVED,
+      },
+    });
+  },
+};
+
+const DOTNET_FUNCTIONS: AppFunctionConfig[] = [
   {
-    ...BASE_APP_FUNCTION,
+    ...DOTNET_FUNCTION_CONFIG,
     name: "ExtractText",
-    handler: "FsaExtractText::FsaExtractText.ExtractTextFunction::FunctionHandler",
-    runtime: Runtime.DOTNET_6,
-    codeAsset() {
-      const source = resolve(
-          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
-      );
-      return Code.fromAsset(source, {
-        bundling: {
-          command: [
-            "/bin/sh",
-            "-c",
-            " dotnet tool install -g Amazon.Lambda.Tools" +
-            " && dotnet build" +
-            " && cd FsaExtractText" +
-            " && dotnet lambda package --output-package /asset-output/function.zip",
-          ],
-          image: Runtime.DOTNET_6.bundlingImage,
-          user: "root",
-          outputType: BundlingOutput.ARCHIVED,
-        },
-      });
-    },
+    handler: "com.example.fsa.handlers.ExtractTextHandler::handleRequest",
   },
   {
-    ...BASE_APP_FUNCTION,
+    ...COMMON_JAVA_FUNCTION_CONFIG,
     name: "AnalyzeSentiment",
-    handler: "FsaAnalyzeSentiment::FsaAnalyzeSentiment.AnalyzeSentimentFunction::FunctionHandler",
-    runtime: Runtime.DOTNET_6,
-    codeAsset() {
-      const source = resolve(
-          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
-      );
-      return Code.fromAsset(source, {
-        bundling: {
-          command: [
-            "/bin/sh",
-            "-c",
-            " dotnet tool install -g Amazon.Lambda.Tools" +
-            " && dotnet build" +
-            " && cd FsaAnalyzeSentiment" +
-            " && dotnet lambda package --output-package /asset-output/function.zip",
-          ],
-          image: Runtime.DOTNET_6.bundlingImage,
-          user: "root",
-          outputType: BundlingOutput.ARCHIVED,
-        },
-      });
-    },
+    handler: "com.example.fsa.handlers.AnalyzeSentimentHandler::handleRequest",
   },
   {
-    ...BASE_APP_FUNCTION,
+    ...COMMON_JAVA_FUNCTION_CONFIG,
     name: "TranslateText",
-    handler: "FsaTranslateText::FsaTranslateText.TranslateTextFunction::FunctionHandler",
-    runtime: Runtime.DOTNET_6,
-    codeAsset() {
-      const source = resolve(
-          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
-      );
-      return Code.fromAsset(source, {
-        bundling: {
-          command: [
-            "/bin/sh",
-            "-c",
-            " dotnet tool install -g Amazon.Lambda.Tools" +
-            " && dotnet build" +
-            " && cd FsaTranslateText" +
-            " && dotnet lambda package --output-package /asset-output/function.zip",
-          ],
-          image: Runtime.DOTNET_6.bundlingImage,
-          user: "root",
-          outputType: BundlingOutput.ARCHIVED,
-        },
-      });
-    },
+    handler: "com.example.fsa.handlers.TranslateTextHandler::handleRequest",
   },
   {
-    ...BASE_APP_FUNCTION,
+    ...COMMON_JAVA_FUNCTION_CONFIG,
     name: "SynthesizeAudio",
-    handler: "FsaSynthesizeAudio::FsaSynthesizeAudio.SynthesizeAudioFunction::FunctionHandler",
-    runtime: Runtime.DOTNET_6,
-    codeAsset() {
-      const source = resolve(
-          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
-      );
-      return Code.fromAsset(source, {
-        bundling: {
-          command: [
-            "/bin/sh",
-            "-c",
-            " dotnet tool install -g Amazon.Lambda.Tools" +
-            " && dotnet build" +
-            " && cd FsaSynthesizeAudio" +
-            " && dotnet lambda package --output-package /asset-output/function.zip",
-          ],
-          image: Runtime.DOTNET_6.bundlingImage,
-          user: "root",
-          outputType: BundlingOutput.ARCHIVED,
-        },
-      });
-    },
+    handler: "com.example.fsa.handlers.SynthesizeAudioHandler::handleRequest",
   },
 ];
 
