@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.Comprehend" Version="3.7.200.48" />
+    <PackageReference Include="AWSSDK.Polly" Version="3.7.203.24" />
+    <PackageReference Include="AWSSDK.Textract" Version="3.7.201.2" />
+    <PackageReference Include="AWSSDK.Translate" Version="3.7.200.48" />
+  </ItemGroup>
+
+</Project>
