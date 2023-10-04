@@ -498,27 +498,31 @@ medical-imaging_ListTagsForResource:
 medical-imaging_tagging_datastores:
   title: Tagging a &AHI; data store using an &AWS; SDK
   title_abbrev: Tagging a data store
-  synopsis: tagging a &AHI; data store.
-  category:
+  synopsis: tag a &AHI; data store.
+  category: Scenarios
   languages:
      JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
           excerpts:
-            - description: The following code examples use the &JSBlong; (v2) to tag, list tags, and untag a data store
             - description: To tag a data store
               snippet_tags:
-                - medical-imaging.JavaScript.medical-imaging_tagging_datastores.V3
-                - medical-imaging.JavaScript.resource.tagResourceV3
                 - medical-imaging.JavaScript.datastore.tagging.V3
+            - description:  The utility function for tagging a resource
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.tagResourceV3
             - description: To list tags for a data store
               snippet_tags:
-                 - medical-imaging.JavaScript.resource.listTagsForResourceV3
-                 - medical-imaging.JavaScript.datastore.list_tags.V3
+                - medical-imaging.JavaScript.datastore.list_tags.V3
+            - description:  The utility function for listing a resource's tags
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.listTagsForResourceV3
             - description: To untag a data store
               snippet_tags:
-                - medical-imaging.JavaScript.resource.unTagResourceV3
                 - medical-imaging.JavaScript.datastore.untag.V3
+            - description:  The utility function for untagging a resource
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.unTagResourceV3
   services:
     medical-imaging: {TagResource, UntagResource, ListTagsForResource}
