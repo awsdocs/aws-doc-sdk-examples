@@ -5,14 +5,14 @@ medical-imaging_Hello:
   synopsis: get started using &S3;.
   category: Hello
   languages:
-  JavaScript:
-    versions:
-      - sdk_version: 3
-        github: javascriptv3/example_code/medical-imaging
-        excerpts:
-          - description:
-            snippet_tags:
-              - medical-imaging.JavaScript.datastore.createDatastoreV3
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.createDatastoreV3
 medical-imaging_CreateDatastore:
   title: Create a &AHI; data store using an &AWS; SDK
   title_abbrev: Create a data store
@@ -279,7 +279,7 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter2
-      services:
+  services:
     medical-imaging: {SearchImageSets}
 medical-imaging_GetImageSet:
   title: Get &AHI; image set properties using an &AWS; SDK
