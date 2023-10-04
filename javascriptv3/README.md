@@ -43,15 +43,19 @@ You can run tests for a specific service, or for every service in this repositor
 
   `npm test`
 
-- To run only unit tests, set the `TEST_SCOPE` variable to `unit`:
+- To run only unit tests, use the "unit" argument:
 
-  `TEST_SCOPE=unit npm test`
+  `npm test unit`
 
-- To run only integration tests, set the `TEST_SCOPE` variable to `integration`:
+- To run only integration tests, use the "integration" argument:
 
-  `TEST_SCOPE=integration npm test`
+  `npm test integration`
 
 - To run tests for a specific service, follow the instructions in the service's README.
+
+### Output
+
+If you run tests using the preceding commands, output will be stored in `unit_test.log` or `integration_test.log`. Errors are still logged to the console.
 
 ## Docker image (Beta)
 

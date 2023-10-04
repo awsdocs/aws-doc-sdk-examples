@@ -1,24 +1,29 @@
 #!/bin/bash
 
-function run_unit_tests() {
-  if ! npm run test --workspaces --if-present; then
-    exit 1
-  fi
+run_unit_tests() {
+  # Write stdout to a file and stderr to stdout
+  npm run test --workspaces --if-present -- --silent 2>&1 > unit_test.log 
 }
 
-function run_integration_tests() {
-  if ! npm run integration-test --workspaces --if-present; then
-    exit 1
-  fi
+run_integration_tests() {
+  # Write stdout to a file and stderr to stdout
+  npm run integration-test --workspaces --if-present --silent 2>&1 > integration_test.log
 }
 
-if [ -z "$1" ]; then
-  echo "Usage: $0 [unit|integration]"
+run_all() {
+  if ! run_unit_tests || ! run_integration_tests; then
   exit 1
-elif [ "$1" == "unit" ]; then
+  fi
+}
+
+if [[ $# -eq 0 ]]; then
   run_unit_tests
-elif [ "$1" == "integration" ]; then
-  run_integration_tests
+elif [[ "$1" == "unit" && "$2" == "integration" ]] || [[ "$1" == "integration" && "$2" == "unit" ]]; then
+  run_all
+elif [[ "$1" == "unit" || "$2" == "unit" ]]; then
+  run_unit_tests
+elif [[ "$1" == "integration" || "$2" == "integration" ]]; then
+  run_unit_tests
 else
   echo "Usage: $0 [unit|integration]"
   exit 1
