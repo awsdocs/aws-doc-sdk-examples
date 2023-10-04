@@ -11,15 +11,23 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 import {writeFileSync} from "fs";
 
 /**
+ * @param {string} metadataFileName - The name of the file for gzipped metadata.
  * @param {string} datastoreId - The ID of the data store.
  * @param {string} imagesetId - The ID of the image set.
- * @param {string} metadataFileName - The name of the file for gzipped metadata.
+ * @param {string} versionID - The optional version ID of the image set.
  */
-export const getImageSetMetadata = async (datastoreId = "xxxxxxxxxxxxxx",
+export const getImageSetMetadata = async (metadataFileName = "metadata.json.gzip",
+                                          datastoreId = "xxxxxxxxxxxxxx",
                                           imagesetId = "xxxxxxxxxxxxxx",
-                                          metadataFileName = "metadata.json.gzip") => {
+                                          versionID = "") => {
+    const commandArgs = {datastoreId: datastoreId, imageSetId: imagesetId};
+
+    if (versionID !== "") {
+        commandArgs.versionID = versionID;
+    }
+
     const response = await medicalImagingClient.send(
-        new GetImageSetMetadataCommand({datastoreId: datastoreId, imageSetId: imagesetId})
+        new GetImageSetMetadataCommand(commandArgs)
     );
     const buffer = await response.imageSetMetadataBlob.transformToByteArray();
     writeFileSync(metadataFileName, buffer);
@@ -46,6 +54,22 @@ export const getImageSetMetadata = async (datastoreId = "xxxxxxxxxxxxxx",
 
 // Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    await getImageSetMetadata("728f13a131f748bf8d87a55d5ef6c5af", "22b8ce38456a11bfb8e16ff6bf037dd0");
+    // snippet-start:[medical-imaging.JavaScript.imageset.getImageSetMetadataV3.withoutversion]
+    try {
+        await getImageSetMetadata("metadata.json.gzip", "12345678901234567890123456789012",
+            "12345678901234567890123456789012");
+    } catch (err) {
+        console.log("Error", err);
+    }
+    // snippet-end:[medical-imaging.JavaScript.imageset.getImageSetMetadataV3.withoutversion]
+
+    // snippet-start:[medical-imaging.JavaScript.imageset.getImageSetMetadataV3.withversion]
+    try {
+        await getImageSetMetadata("metadata2.json.gzip", "12345678901234567890123456789012",
+            "12345678901234567890123456789012", "1");
+    } catch (err) {
+        console.log("Error", err);
+    }
+    // snippet-end:[medical-imaging.JavaScript.imageset.getImageSetMetadataV3.withversion]
 }
 

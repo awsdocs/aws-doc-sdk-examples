@@ -1,4 +1,18 @@
 # zexi 0.4.0
+medical-imaging_Hello:
+  title: Hello &S3;
+  title_abbrev: Hello &S3;
+  synopsis: get started using &S3;.
+  category: Hello
+  languages:
+  JavaScript:
+    versions:
+      - sdk_version: 3
+        github: javascriptv3/example_code/medical-imaging
+        excerpts:
+          - description:
+            snippet_tags:
+              - medical-imaging.JavaScript.datastore.createDatastoreV3
 medical-imaging_CreateDatastore:
   title: Create a &AHI; data store using an &AWS; SDK
   title_abbrev: Create a data store
@@ -250,10 +264,22 @@ medical-imaging_SearchImageSets:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
           excerpts:
-            - description:
+            - description: The utility function for searching image sets
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3
-  services:
+            - description: "Use case #1: EQUAL operator"
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
+                - medical-imaging.JavaScript.resource.searchImageSetV3.equalFilter
+            - description: "Use case #2: BETWEEN operator using DICOMStudyDate and DICOMStudyTime"
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
+                - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter1
+            - description: "Use case #3: BETWEEN operator using createdAt (time studies were previously persisted)"
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
+                - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter2
+      services:
     medical-imaging: {SearchImageSets}
 medical-imaging_GetImageSet:
   title: Get &AHI; image set properties using an &AWS; SDK
@@ -298,9 +324,15 @@ medical-imaging_GetImageSetMetadata:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
           excerpts:
-            - description:
+            - description: Utility function to get image set metadata
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.getImageSetMetadataV3
+            - description: Without version
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.getImageSetMetadataV3.withoutversion
+            - description: With version
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.getImageSetMetadataV3.withversion
   services:
     medical-imaging: {GetImageSetMetadata}
 medical-imaging_GetImageFrame:
@@ -521,6 +553,37 @@ medical-imaging_tagging_datastores:
             - description: To untag a data store
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.untag.V3
+            - description:  The utility function for untagging a resource
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.unTagResourceV3
+  services:
+    medical-imaging: {TagResource, UntagResource, ListTagsForResource}
+medical-imaging_tagging_imagesets:
+  title: Tagging a &AHI; image set using an &AWS; SDK
+  title_abbrev: Tagging an image set
+  synopsis: tag a &AHI; image set.
+  category: Scenarios
+  languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description: To tag an image set
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.tagging.V3
+            - description:  The utility function for tagging a resource
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.tagResourceV3
+            - description: To list tags for an image set
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.list_tags.V3
+            - description:  The utility function for listing a resource's tags
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.listTagsForResourceV3
+            - description: To untag an image set
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.untag.V3
             - description:  The utility function for untagging a resource
               snippet_tags:
                 - medical-imaging.JavaScript.resource.unTagResourceV3
