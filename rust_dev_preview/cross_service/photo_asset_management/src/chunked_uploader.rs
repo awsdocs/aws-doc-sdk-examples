@@ -5,7 +5,6 @@ use aws_sdk_dynamodb::primitives::DateTime;
 use aws_sdk_s3::{operation::get_object::GetObjectOutput, types::CompletedPart};
 use aws_smithy_types_convert::date_time::DateTimeExt;
 use chrono::NaiveDateTime;
-use futures::TryStreamExt;
 use pipe::{pipe, PipeReader, PipeWriter};
 use streaming_zip::{Archive, CompressionMode};
 use uuid::Uuid;
