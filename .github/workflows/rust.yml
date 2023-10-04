@@ -43,7 +43,7 @@ jobs:
         run: >
           "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/cross_service/Cargo.toml --all --check &&
           "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/examples/Cargo.toml --all --check &&
-          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/lambda/Cargo.toml --all --check
+          "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/lambda/Cargo.toml --all --check &&
           "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/webassembly/Cargo.toml --all --check
       - name: Rust lint
         if: success() || failure()
