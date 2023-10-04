@@ -1,24 +1,14 @@
-import { pipe, zipWith, fromPairs } from "ramda";
-import { Item } from "src/types/item.js";
+import { Item } from "../types/item.js";
 
-const makePairs = (key: string, value: DBRecordValue) => {
-  if (key === "archived") {
-    return [key, Boolean(value.longValue)];
-  } else {
-    return [key, value.stringValue];
-  }
+const parseItem = (record: DBRecord): Item => {
+  return {
+    id: `${record[0].stringValue}`,
+    description: `${record[1].stringValue}`,
+    guide: `${record[2].stringValue}`,
+    status: `${record[3].stringValue}`,
+    name: `${record[4].stringValue}`,
+    archived: Boolean(record[5].longValue),
+  };
 };
-
-const parseItem: (record: DBRecord) => Item = pipe(
-  zipWith(makePairs, [
-    "id",
-    "description",
-    "guide",
-    "status",
-    "name",
-    "archived",
-  ]),
-  fromPairs
-);
 
 export { parseItem };
