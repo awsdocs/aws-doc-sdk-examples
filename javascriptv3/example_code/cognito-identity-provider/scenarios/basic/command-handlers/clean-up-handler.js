@@ -3,23 +3,28 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { pipe, otherwise, map, join } from "ramda";
-import { promiseAll } from "libs/ext-ramda.js";
 import { deleteFiles } from "libs/utils/util-fs.js";
 import { log } from "libs/utils/util-log.js";
 import { deleteUserPool } from "../../../actions/delete-user-pool.js";
 import { FILE_USER_POOLS } from "./constants.js";
 import { getFirstValuesFromEntries } from "libs/utils/util-csv.js";
 
-const cleanUpUserPools = pipe(
-  map(pipe(deleteUserPool, otherwise(log))),
-  promiseAll,
-);
+/**
+ * @param {string[]} userPoolIds
+ */
+function cleanUpUserPools(userPoolIds) {
+  const deletePromises = userPoolIds.map((id) =>
+    deleteUserPool(id).catch((err) => log(err)),
+  );
+  return Promise.all(deletePromises);
+}
 
-const createUserPoolList = pipe(
-  map((x) => `• ${x}`),
-  join("\n"),
-);
+/**
+ * @param {string[]} userPoolIds
+ */
+function createUserPoolList(userPoolIds) {
+  return userPoolIds.map((id) => `• ${id}`).join("\n");
+}
 
 const cleanUpHandler = async () => {
   try {

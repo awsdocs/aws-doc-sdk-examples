@@ -9,11 +9,10 @@ import { createUserPool } from "../../../actions/create-user-pool.js";
 import { FILE_USER_POOLS, NAME_CLIENT } from "./constants.js";
 import { setUserPoolMfaConfig } from "../../../actions/set-user-pool-mfa-config.js";
 import { createUserPoolClient } from "../../../actions/create-user-pool-client.js";
-import { join } from "ramda";
 
 const storeUserPoolMeta = (...args) => {
   const tmp = getTmp(FILE_USER_POOLS);
-  const entry = join(",", args);
+  const entry = args.join(",");
   setTmp(FILE_USER_POOLS, tmp ? `${tmp}\n${entry}` : entry);
 };
 

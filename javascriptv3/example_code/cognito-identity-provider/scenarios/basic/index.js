@@ -4,7 +4,6 @@
  */
 import { createInterface } from "readline";
 import { stdin as input, stdout as output } from "process";
-import { startsWith } from "ramda";
 
 import { readCommands } from "libs/cmd-runner.js";
 import { log } from "libs/utils/util-log.js";
@@ -77,6 +76,21 @@ const handlers = [
   ],
   [startsWith(["clean-up"]), cleanUpHandler],
 ];
+
+/**
+ * @param {string[]} positionalArgs
+ */
+export function startsWith(positionalArgs) {
+  /**
+   * @param {string[]} list
+   */
+  return (list) => {
+    for (const [i, v] of positionalArgs.entries()) {
+      if (list[i] !== v) return false;
+    }
+    return true;
+  };
+}
 
 cmdInterface.write('Welcome to Amazon Cognito. Type "help" for more info.\n');
 readCommands({ reader: cmdInterface, handlers });

@@ -11,14 +11,13 @@
     "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.183.0",
-    "@aws-sdk/client-ses": "^3.183.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.423.0",
+    "@aws-sdk/client-ses": "^3.423.0",
     "@types/qrcode-terminal": "^0.12.0",
-    "amazon-cognito-identity-js": "^5.2.10",
-    "aws-amplify": "^4.3.37",
+    "amazon-cognito-identity-js": "^6.3.6",
+    "aws-amplify": "^5.3.11",
     "crypto-js": "^4.1.1",
-    "qrcode-terminal": "^0.12.0",
-    "ramda": "^0.28.0"
+    "qrcode-terminal": "^0.12.0"
   },
   "devDependencies": {
     "vitest": "^0.26.2"
