@@ -173,6 +173,14 @@ medical-imaging_StartDICOMImportJob:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.StartDICOMImportJob
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.dicom.startDicomImportJobV3
   services:
     medical-imaging: {StartDICOMImportJob}
 medical-imaging_GetDICOMImportJob:
@@ -189,6 +197,14 @@ medical-imaging_GetDICOMImportJob:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.GetDICOMImportJob
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.dicom.getDICOMImportJobV3
   services:
     medical-imaging: {GetDICOMImportJob}
 medical-imaging_ListDICOMImportJobs:
@@ -205,6 +221,14 @@ medical-imaging_ListDICOMImportJobs:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.ListDICOMImportJobs
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.dicom.listDICOMImportJobsV3
   services:
     medical-imaging: {ListDICOMImportJobs}
 medical-imaging_SearchImageSets:
@@ -221,6 +245,14 @@ medical-imaging_SearchImageSets:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.SearchImageSets
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.searchImageSetV3
   services:
     medical-imaging: {SearchImageSets}
 medical-imaging_GetImageSet:
@@ -237,6 +269,14 @@ medical-imaging_GetImageSet:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.GetImageSet
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.getImageSetV3
   services:
     medical-imaging: {GetImageSet}
 medical-imaging_GetImageSetMetadata:
@@ -253,6 +293,14 @@ medical-imaging_GetImageSetMetadata:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.GetImageSetMetadata
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.getImageSetMetadataV3
   services:
     medical-imaging: {GetImageSetMetadata}
 medical-imaging_GetImageFrame:
@@ -269,6 +317,14 @@ medical-imaging_GetImageFrame:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.GetImageFrame
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.getImageFrameV3
   services:
     medical-imaging: {GetImageFrame}
 medical-imaging_ListImageSetVersions:
@@ -285,6 +341,14 @@ medical-imaging_ListImageSetVersions:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.ListImageSetVersions
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.listImageSetVersionsV3
   services:
     medical-imaging: {ListImageSetVersions}
 medical-imaging_UpdateImageSetMetadata:
@@ -301,6 +365,14 @@ medical-imaging_UpdateImageSetMetadata:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.UpdateImageSetMetadata
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3
   services:
     medical-imaging: {UpdateImageSetMetadata}
 medical-imaging_CopyImageSet:
@@ -317,6 +389,14 @@ medical-imaging_CopyImageSet:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.CopyImageSet
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.copyImageSetV3
   services:
     medical-imaging: {CopyImageSet}
 medical-imaging_DeleteImageSet:
@@ -333,6 +413,14 @@ medical-imaging_DeleteImageSet:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.DeleteImageSet
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.deleteImageSetV3
   services:
     medical-imaging: {DeleteImageSet}
 medical-imaging_TagResource:
@@ -349,6 +437,14 @@ medical-imaging_TagResource:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.TagResource
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.tagResourceV3
   services:
     medical-imaging: {TagResource}
 medical-imaging_UntagResource:
@@ -365,6 +461,14 @@ medical-imaging_UntagResource:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.UntagResource
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.unTagResourceV3
   services:
     medical-imaging: {UntagResource}
 medical-imaging_ListTagsForResource:
@@ -381,5 +485,40 @@ medical-imaging_ListTagsForResource:
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.ListTagsForResource
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.listTagsForResourceV3
   services:
     medical-imaging: {ListTagsForResource}
+medical-imaging_tagging_datastores:
+  title: Tagging a &AHI; data store using an &AWS; SDK
+  title_abbrev: Tagging a data store
+  synopsis: tagging a &AHI; data store.
+  category:
+  languages:
+     JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description: The following code examples use the &JSBlong; (v2) to tag, list tags, and untag a data store
+            - description: To tag a data store
+              snippet_tags:
+                - medical-imaging.JavaScript.medical-imaging_tagging_datastores.V3
+                - medical-imaging.JavaScript.resource.tagResourceV3
+                - medical-imaging.JavaScript.datastore.tagging.V3
+            - description: To list tags for a data store
+              snippet_tags:
+                 - medical-imaging.JavaScript.resource.listTagsForResourceV3
+                 - medical-imaging.JavaScript.datastore.list-tags.V3
+            - description: To untag a data store
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.unTagResourceV3
+                - medical-imaging.JavaScript.datastore.untag.V3
+  services:
+    medical-imaging: {TagResource, UntagResource, ListTagsForResource}
