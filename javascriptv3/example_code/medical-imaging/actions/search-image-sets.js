@@ -23,24 +23,24 @@ export const searchImageSets = async (datastoreId = "xxxxxxxx", filters = []) =>
         })
     );
     console.log(response);
-        // {
-        //     '$metadata': {
-        //         httpStatusCode: 200,
-        //         requestId: 'f009ea9c-84ca-4749-b5b6-7164f00a5ada',
-        //         extendedRequestId: undefined,
-        //         cfId: undefined,
-        //         attempts: 1,
-        //         totalRetryDelay: 0
-        //     },
-        //     imageSetsMetadataSummaries: [
-        //         {
-        //             DICOMTags: [Object],
-        //             createdAt: "2023-09-19T16:59:40.551Z",
-        //             imageSetId: '7f75e1b5c0f40eac2b24cf712f485f50',
-        //             updatedAt: "2023-09-19T16:59:40.551Z",
-        //             version: 1
-        //         }]
-        // }
+    // {
+    //     '$metadata': {
+    //         httpStatusCode: 200,
+    //         requestId: 'f009ea9c-84ca-4749-b5b6-7164f00a5ada',
+    //         extendedRequestId: undefined,
+    //         cfId: undefined,
+    //         attempts: 1,
+    //         totalRetryDelay: 0
+    //     },
+    //     imageSetsMetadataSummaries: [
+    //         {
+    //             DICOMTags: [Object],
+    //             createdAt: "2023-09-19T16:59:40.551Z",
+    //             imageSetId: '7f75e1b5c0f40eac2b24cf712f485f50',
+    //             updatedAt: "2023-09-19T16:59:40.551Z",
+    //             version: 1
+    //         }]
+    // }
 
     return response["imageSetsMetadataSummaries"];
 };

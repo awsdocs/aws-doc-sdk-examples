@@ -9,7 +9,7 @@ import {wait} from "../../libs/utils/util-timers.js";
 
 describe("createDatastore/deleteDatastore", () => {
         let datastoreID = "";
-        const datastoreName = "createDeleteDatastoreJSTest";
+        const datastoreName = "jstest-" + Math.floor(Math.random() * 200000000);
 
         it("should create and delete a data store", async () => {
             // Create topic.

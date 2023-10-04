@@ -11,15 +11,15 @@ import {GetImageFrameCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
+ * @param {string} imageFrameFileName - File path to write the image frame.
  * @param {string} datastoreID - The data store's ID.
  * @param {string} imageSetID - The image set's ID.
  * @param {string} imageFrameID - The image frame's ID.
- * @param {string} imageFrameFileName - File path to write the image frame.
  */
-export const getImageFrame = async (datastoreID = "DATASTORE_ID",
+export const getImageFrame = async (imageFrameFileName = "image.jph",
+                                    datastoreID = "DATASTORE_ID",
                                     imageSetID = "IMAGE_SET_ID",
-                                    imageFrameID = "IMAGE_FRAME_ID",
-                                    imageFrameFileName = "image.jph") => {
+                                    imageFrameID = "IMAGE_FRAME_ID") => {
     const response = await medicalImagingClient.send(
         new GetImageFrameCommand({
             datastoreId: datastoreID,
@@ -49,6 +49,6 @@ export const getImageFrame = async (datastoreID = "DATASTORE_ID",
 
 // Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    await getImageFrame("728f13a131f748bf8d87a55d5ef6c5af", "22b8ce38456a11bfb8e16ff6bf037dd0", "110c71bce27b5bee669d1141a2fdb022",
-        "test.jph");
+    await getImageFrame("test.jph", "12345678901234567890123456789012", "12345678901234567890123456789012",
+        "12345678901234567890123456789012");
 }

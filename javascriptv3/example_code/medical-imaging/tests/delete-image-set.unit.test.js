@@ -28,7 +28,7 @@ describe("delete-image-set", () => {
 
         const response =
             {
-               '$metadata': {
+                '$metadata': {
                     httpStatusCode: 200,
                     requestId: '6267bbd2-eaa5-4a50-8ee8-8fddf535cf73',
                     extendedRequestId: undefined,
@@ -42,7 +42,7 @@ describe("delete-image-set", () => {
                 imageSetWorkflowStatus: 'DELETING'
             };
 
-            send.mockResolvedValueOnce(response);
+        send.mockResolvedValueOnce(response);
 
         await deleteImageSet(datastoreId, imageSetID);
 

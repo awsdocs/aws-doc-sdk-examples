@@ -426,9 +426,15 @@ medical-imaging_CopyImageSet:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
           excerpts:
-            - description:
+            - description: Utility function to copy an image seet
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.copyImageSetV3
+            - description: Without destination
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.copyImageSetV3.without_destination
+            - description: With destination
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.copyImageSetV3.with_destination
   services:
     medical-imaging: {CopyImageSet}
 medical-imaging_DeleteImageSet:

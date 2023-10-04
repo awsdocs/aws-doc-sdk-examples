@@ -72,5 +72,20 @@ export const copyImageSet = async (datastoreId = "xxxxxxxxxxx", imageSetId = "xx
 
 // Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    await copyImageSet();
+    // snippet-start:[medical-imaging.JavaScript.imageset.copyImageSetV3.without_destination]
+    try {
+        await copyImageSet("12345678901234567890123456789012", "12345678901234567890123456789012", "1");
+    } catch (err) {
+        console.log(err);
+    }
+    // snippet-end:[medical-imaging.JavaScript.imageset.copyImageSetV3.without_destination]
+
+    // snippet-start:[medical-imaging.JavaScript.imageset.copyImageSetV3.with_destination]
+    try {
+        await copyImageSet("12345678901234567890123456789012", "12345678901234567890123456789012", "4",
+            "12345678901234567890123456789012", "1");
+    } catch (err) {
+        console.log(err);
+    }
+    // snippet-end:[medical-imaging.JavaScript.imageset.copyImageSetV3.with_destination]
 }

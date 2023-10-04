@@ -25,22 +25,22 @@ describe("resource", () => {
         const logSpy = vi.spyOn(console, "log");
         const resourceArn = "arn:aws:medical-imaging:us-east-1:123456789012:datastore/xxxxxxxxxxxxxxxx/imageset/xxxxxxxxxxxxxxx";
         const tags = {
-            "Deployment" : "Development"
+            "Deployment": "Development"
         }
 
         const response =
             {
                 '$metadata': {
-                   httpStatusCode: 204,
+                    httpStatusCode: 204,
                     requestId: '8a6de9a3-ec8e-47ef-8643-473518b19d45',
                     extendedRequestId: undefined,
                     cfId: undefined,
                     attempts: 1,
                     totalRetryDelay: 0
-               }
+                }
             };
 
-            send.mockResolvedValueOnce(response);
+        send.mockResolvedValueOnce(response);
 
         await tagResource(resourceArn, tags);
 

@@ -29,13 +29,13 @@ describe("untag-resource", () => {
         const response =
             {
                 '$metadata': {
-                   httpStatusCode: 204,
+                    httpStatusCode: 204,
                     requestId: '8a6de9a3-ec8e-47ef-8643-473518b19d45',
                     extendedRequestId: undefined,
                     cfId: undefined,
                     attempts: 1,
                     totalRetryDelay: 0
-               }
+                }
             };
 
         send.mockResolvedValueOnce(response);

@@ -35,10 +35,10 @@ describe("list-tags-for-resource", () => {
                     attempts: 1,
                     totalRetryDelay: 0
                 },
-                tags: { Deployment: 'Development' }
+                tags: {Deployment: 'Development'}
             };
 
-            send.mockResolvedValueOnce(response);
+        send.mockResolvedValueOnce(response);
 
         await listTagsForResource(resourceArn);
 

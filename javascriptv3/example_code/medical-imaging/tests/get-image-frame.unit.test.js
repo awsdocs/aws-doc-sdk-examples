@@ -53,7 +53,7 @@ describe("get-image-set-metadata", () => {
 
         send.mockResolvedValueOnce(response);
 
-        await getImageFrame(datastoreId, imageSetId, imageFrameID, metadataFileName);
+        await getImageFrame(metadataFileName, datastoreId, imageSetId, imageFrameID);
 
         expect(logSpy).toHaveBeenCalledWith(response);
         expect(fs.existsSync(metadataFileName)).toBeTruthy();
