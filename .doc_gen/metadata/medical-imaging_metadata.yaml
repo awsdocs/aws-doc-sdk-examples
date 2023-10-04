@@ -515,7 +515,7 @@ medical-imaging_tagging_datastores:
             - description: To list tags for a data store
               snippet_tags:
                  - medical-imaging.JavaScript.resource.listTagsForResourceV3
-                 - medical-imaging.JavaScript.datastore.list-tags.V3
+                 - medical-imaging.JavaScript.datastore.list_tags.V3
             - description: To untag a data store
               snippet_tags:
                 - medical-imaging.JavaScript.resource.unTagResourceV3
