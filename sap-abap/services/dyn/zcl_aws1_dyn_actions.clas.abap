@@ -102,7 +102,7 @@ CLASS ZCL_AWS1_DYN_ACTIONS IMPLEMENTATION.
           iv_max_wait_time = 200
           iv_tablename     = iv_table_name ).
         MESSAGE 'DynamoDB Table' && iv_table_name && 'created.' TYPE 'I'.
-      " This exception can happen if the table already exists
+      " This exception can happen if the table already exists.
       CATCH /aws1/cx_dynresourceinuseex INTO DATA(lo_resourceinuseex).
         DATA(lv_error) = |"{ lo_resourceinuseex->av_err_code }" - { lo_resourceinuseex->av_err_msg }|.
         MESSAGE lv_error TYPE 'E'.
@@ -218,7 +218,7 @@ CLASS ZCL_AWS1_DYN_ACTIONS IMPLEMENTATION.
   " snippet-start:[dyn.abapv1.list_tables]
     TRY.
         oo_result = lo_dyn->listtables( ).
-        " You can loop over the oo_result to get table properties like this
+        " You can loop over the oo_result to get table properties like this.
         LOOP AT oo_result->get_tablenames( ) INTO DATA(lo_table_name).
           DATA(lv_tablename) = lo_table_name->get_value( ).
         ENDLOOP.
@@ -280,7 +280,7 @@ CLASS ZCL_AWS1_DYN_ACTIONS IMPLEMENTATION.
           iv_tablename = iv_table_name
           it_keyconditions = lt_key_conditions ).
         DATA(lt_items) = oo_result->get_items( ).
-        "You can loop over the results to get item attributes
+        "You can loop over the results to get item attributes.
         LOOP AT lt_items INTO DATA(lt_item).
           DATA(lo_title) = lt_item[ key = 'title' ]-value.
           DATA(lo_year) = lt_item[ key = 'year' ]-value.

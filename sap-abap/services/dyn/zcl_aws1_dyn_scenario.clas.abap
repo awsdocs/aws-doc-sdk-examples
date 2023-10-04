@@ -27,7 +27,7 @@ CLASS ZCL_AWS1_DYN_SCENARIO IMPLEMENTATION.
     CONSTANTS cv_pfl TYPE /aws1/rt_profile_id VALUE 'ZCODE_DEMO'.
 
     " snippet-start:[dyn.abapv1.getting_started_with_tables]
-    " Create an Amazon Dynamo DB table
+    " Create an Amazon Dynamo DB table.
 
     TRY.
         DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
@@ -72,7 +72,7 @@ CLASS ZCL_AWS1_DYN_SCENARIO IMPLEMENTATION.
         MESSAGE 'The table does not exist' TYPE 'E'.
     ENDTRY.
 
-    " Put items into the table
+    " Put items into the table.
     TRY.
         DATA(lo_resp_putitem) = lo_dyn->putitem(
           iv_tablename = iv_table_name
@@ -114,7 +114,7 @@ CLASS ZCL_AWS1_DYN_SCENARIO IMPLEMENTATION.
         MESSAGE 'Another transaction is using the item' TYPE 'E'.
     ENDTRY.
 
-    " Get item from table
+    " Get item from table.
     TRY.
         DATA(lo_resp_getitem) = lo_dyn->getitem(
           iv_tablename                = iv_table_name
@@ -135,7 +135,7 @@ CLASS ZCL_AWS1_DYN_SCENARIO IMPLEMENTATION.
         MESSAGE 'The table or index does not exist' TYPE 'E'.
     ENDTRY.
 
-    " Query item from table
+    " Query item from table.
     TRY.
         DATA(lt_attributelist) = VALUE /aws1/cl_dynattributevalue=>tt_attributevaluelist(
               ( NEW /aws1/cl_dynattributevalue( iv_n = '1975' ) ) ).
@@ -161,7 +161,7 @@ CLASS ZCL_AWS1_DYN_SCENARIO IMPLEMENTATION.
         MESSAGE 'The table or index does not exist' TYPE 'E'.
     ENDTRY.
 
-    " Scan items from table
+    " Scan items from table.
     TRY.
         DATA(lo_scan_result) = lo_dyn->scan( iv_tablename = iv_table_name ).
         lt_items = lo_scan_result->get_items( ).
@@ -177,7 +177,7 @@ CLASS ZCL_AWS1_DYN_SCENARIO IMPLEMENTATION.
         MESSAGE 'The table or index does not exist' TYPE 'E'.
     ENDTRY.
 
-    " Update items from table
+    " Update items from table.
     TRY.
         DATA(lt_attributeupdates) = VALUE /aws1/cl_dynattrvalueupdate=>tt_attributeupdates(
           ( VALUE /aws1/cl_dynattrvalueupdate=>ts_attributeupdates_maprow(
@@ -202,7 +202,7 @@ CLASS ZCL_AWS1_DYN_SCENARIO IMPLEMENTATION.
         MESSAGE 'Another transaction is using the item' TYPE 'E'.
     ENDTRY.
 
-    " Delete table
+    " Delete table.
     TRY.
         lo_dyn->deletetable( iv_tablename = iv_table_name ).
         lo_dyn->get_waiter( )->tablenotexists(
