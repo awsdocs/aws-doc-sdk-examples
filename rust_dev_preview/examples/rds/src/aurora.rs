@@ -9,11 +9,12 @@ use std::{
 use aws_config::SdkConfig;
 use aws_sdk_rds::{
     error::ProvideErrorMetadata,
-    types::{self, DbCluster, DbClusterParameterGroup, DbClusterSnapshot, DbInstance, Parameter},
+    types::{DbCluster, DbClusterParameterGroup, DbClusterSnapshot, DbInstance, Parameter},
     Client,
 };
 use tracing::{info, trace, warn};
 
+const DB_ENGINE: &str = "aurora-mysql";
 const DB_CLUSTER_PARAMETER_GROUP_NAME: &str = "RustSDKCodeExamplesDBParameterGroup";
 const DB_CLUSTER_PARAMETER_GROUP_DESCRIPTION: &str =
     "Parameter Group created by Rust SDK Code Example";
@@ -33,10 +34,10 @@ struct Waiter {
 }
 
 impl Waiter {
-    fn new() -> Self {
+    fn new(max: Duration) -> Self {
         Waiter {
             start: SystemTime::now(),
-            max: MAX_WAIT,
+            max,
         }
     }
 
@@ -53,6 +54,12 @@ impl Waiter {
             tokio::time::sleep(WAIT_TIME).await;
             Ok(())
         }
+    }
+}
+
+impl Default for Waiter {
+    fn default() -> Self {
+        Self::new(MAX_WAIT)
     }
 }
 
@@ -190,7 +197,7 @@ impl AuroraScenario {
         let describe_db_engine_versions = self
             .client
             .describe_db_engine_versions()
-            .engine("aurora-mysql")
+            .engine(DB_ENGINE)
             .send()
             .await;
         let version_count = describe_db_engine_versions
@@ -228,7 +235,7 @@ impl AuroraScenario {
         let describe_orderable_db_instance_options_items = self
             .client
             .describe_orderable_db_instance_options()
-            .set_engine(self.engine_family.clone())
+            .engine(DB_ENGINE)
             .set_engine_version(self.engine_version.clone())
             .into_paginator()
             .items()
@@ -288,7 +295,6 @@ impl AuroraScenario {
     }
 
     pub async fn connection_string(&self) -> Result<String, ScenarioError> {
-        warn!("TODO! connection_string");
         let cluster = self.get_cluster().await?;
         let endpoint = cluster.endpoint().unwrap_or_default();
         let port = cluster.port().unwrap_or_default();
@@ -401,7 +407,7 @@ impl AuroraScenario {
 
     // Create a database instance in the cluster.
     // Wait for DB instance to be ready. Call rds.DescribeDbInstances and check for DBInstanceStatus == 'available'.
-    pub async fn start_cluster_and_instance(&mut self) -> Result<DbInstance, ScenarioError> {
+    pub async fn start_cluster_and_instance(&mut self) -> Result<(), ScenarioError> {
         if self.password.is_none() {
             return Err(ScenarioError::with(
                 "Must set Secret Password before starting a cluster",
@@ -412,7 +418,7 @@ impl AuroraScenario {
             .create_db_cluster()
             .db_cluster_identifier(DB_CLUSTER_IDENTIFIER)
             .db_cluster_parameter_group_name(DB_CLUSTER_PARAMETER_GROUP_NAME)
-            .set_engine(self.engine_family.clone())
+            .engine(DB_ENGINE)
             .set_engine_version(self.engine_version.clone())
             .set_master_username(self.username.clone())
             .master_user_password(self.password.as_ref().unwrap().expose_secret())
@@ -445,9 +451,9 @@ impl AuroraScenario {
             .client
             .create_db_instance()
             .set_db_cluster_identifier(self.db_cluster_identifier.clone())
-            .db_instance_identifier(DB_INSTANCE_IDENTIFIER)
-            .set_engine(self.engine_family.clone())
+            .set_db_instance_identifier(self.db_cluster_identifier.clone())
             .set_db_instance_class(self.instance_class.clone())
+            .engine(DB_ENGINE)
             .send()
             .await;
         if let Err(err) = create_db_instance {
@@ -462,7 +468,65 @@ impl AuroraScenario {
             .db_instance
             .and_then(|i| i.db_instance_identifier);
 
-        Ok(DbInstance::builder().build())
+        let waiter = Waiter::new(Duration::from_secs(20 * 60)); // Cluster creation can take up to 20 minutes to become available
+        while waiter.sleep().await.is_ok() {
+            let cluster = self
+                .client
+                .describe_db_clusters()
+                .set_db_cluster_identifier(self.db_cluster_identifier.clone())
+                .send()
+                .await;
+
+            if let Err(err) = cluster {
+                warn!(?err, "Failed to describe cluster while waiting for ready");
+                continue;
+            }
+
+            let instance = self
+                .client
+                .describe_db_instances()
+                .set_db_instance_identifier(self.db_instance_identifier.clone())
+                .send()
+                .await;
+            if let Err(err) = instance {
+                return Err(ScenarioError::new(
+                    "Failed to find instance for cluster",
+                    &err,
+                ));
+            }
+
+            let instances_available = instance
+                .unwrap()
+                .db_instances()
+                .iter()
+                .all(|instance| instance.db_instance_status() == Some("Available"));
+
+            let endpoints = self
+                .client
+                .describe_db_cluster_endpoints()
+                .set_db_cluster_identifier(self.db_cluster_identifier.clone())
+                .send()
+                .await;
+
+            if let Err(err) = endpoints {
+                return Err(ScenarioError::new(
+                    "Failed to find endpoint for cluster",
+                    &err,
+                ));
+            }
+
+            let endpoints_available = endpoints
+                .unwrap()
+                .db_cluster_endpoints()
+                .iter()
+                .all(|endpoint| endpoint.status() == Some("available"));
+
+            if instances_available && endpoints_available {
+                return Ok(());
+            }
+        }
+
+        Err(ScenarioError::with("timed out waiting for cluster"))
     }
 
     // Display the connection string that can be used to connect a 'mysql' shell to the cluster. In Python:
@@ -481,7 +545,8 @@ impl AuroraScenario {
         let delete_db_instance = self
             .client
             .delete_db_instance()
-            .set_db_instance_identifier(self.db_cluster_identifier.clone())
+            .db_instance_identifier(DB_INSTANCE_IDENTIFIER)
+            .skip_final_snapshot(true)
             .send()
             .await;
         if let Err(err) = delete_db_instance {
@@ -491,38 +556,39 @@ impl AuroraScenario {
                 .unwrap_or("Missing Instance Identifier".to_string());
             let message = format!("failed to delete db instance {identifier}");
             clean_up_errors.push(ScenarioError::new(message, &err));
-        }
-
-        // Wait for the instance to delete
-        let waiter = Waiter::new();
-        while waiter.sleep().await.is_ok() {
-            let describe_db_instances = self
-                .client
-                .describe_db_instances()
-                .set_db_instance_identifier(self.db_instance_identifier.clone())
-                .send()
-                .await;
-            if let Err(err) = describe_db_instances {
-                clean_up_errors.push(ScenarioError::new(
-                    "Failed to check instance state during deletion",
-                    &err,
-                ));
-                continue;
-            }
-            let describe_db_instances = describe_db_instances.unwrap();
-            let db_instances = describe_db_instances.db_instances();
-            if db_instances.is_empty() {
-                info!("Delete Instance waited and no instances were found");
-                continue;
-            }
-            match db_instances.first().unwrap().db_instance_status() {
-                Some("Deleting") => continue,
-                Some(status) => {
-                    info!("Attempting to delete but instances is in {status}");
+        } else {
+            // Wait for the instance to delete
+            let waiter = Waiter::default();
+            while waiter.sleep().await.is_ok() {
+                let describe_db_instances = self.client.describe_db_instances().send().await;
+                if let Err(err) = describe_db_instances {
+                    clean_up_errors.push(ScenarioError::new(
+                        "Failed to check instance state during deletion",
+                        &err,
+                    ));
                     continue;
                 }
-                None => {
-                    warn!("No status for DB instance");
+                let db_instances = describe_db_instances
+                    .unwrap()
+                    .db_instances()
+                    .iter()
+                    .filter(|instance| instance.db_cluster_identifier == self.db_cluster_identifier)
+                    .cloned()
+                    .collect::<Vec<DbInstance>>();
+
+                if db_instances.is_empty() {
+                    trace!("Delete Instance waited and no instances were found");
+                    continue;
+                }
+                match db_instances.first().unwrap().db_instance_status() {
+                    Some("Deleting") => continue,
+                    Some(status) => {
+                        info!("Attempting to delete but instances is in {status}");
+                        continue;
+                    }
+                    None => {
+                        warn!("No status for DB instance");
+                    }
                 }
             }
         }
@@ -532,6 +598,7 @@ impl AuroraScenario {
             .client
             .delete_db_cluster()
             .set_db_cluster_identifier(self.db_cluster_identifier.clone())
+            .skip_final_snapshot(true)
             .send()
             .await;
 
@@ -542,37 +609,38 @@ impl AuroraScenario {
                 .unwrap_or("Missing DB Cluster Identifier".to_string());
             let message = format!("failed to delete db cluster {identifier}");
             clean_up_errors.push(ScenarioError::new(message, &err));
-        }
-
-        // Wait for the instance and cluster to fully delete. rds.DescribeDbInstances and rds.DescribeDbClusters until both are not found.
-        let waiter = Waiter::new();
-        while waiter.sleep().await.is_ok() {
-            let describe_db_clusters = self
-                .client
-                .describe_db_clusters()
-                .set_db_cluster_identifier(self.db_cluster_identifier.clone())
-                .send()
-                .await;
-            if let Err(err) = describe_db_clusters {
-                clean_up_errors.push(ScenarioError::new(
-                    "Failed to check cluster state during deletion",
-                    &err,
-                ));
-                continue;
-            }
-            let describe_db_clusters = describe_db_clusters.unwrap();
-            let db_clusters = describe_db_clusters.db_clusters();
-            if db_clusters.is_empty() {
-                info!("Delete cluster waited and no clusters were found");
-            }
-            match db_clusters.first().unwrap().status() {
-                Some("Deleting") => continue,
-                Some(status) => {
-                    info!("Attempting to delete but clusters is in {status}");
+        } else {
+            // Wait for the instance and cluster to fully delete. rds.DescribeDbInstances and rds.DescribeDbClusters until both are not found.
+            let waiter = Waiter::default();
+            while waiter.sleep().await.is_ok() {
+                let describe_db_clusters = self
+                    .client
+                    .describe_db_clusters()
+                    .set_db_cluster_identifier(self.db_cluster_identifier.clone())
+                    .send()
+                    .await;
+                if let Err(err) = describe_db_clusters {
+                    clean_up_errors.push(ScenarioError::new(
+                        "Failed to check cluster state during deletion",
+                        &err,
+                    ));
                     continue;
                 }
-                None => {
-                    warn!("No status for DB cluster");
+                let describe_db_clusters = describe_db_clusters.unwrap();
+                let db_clusters = describe_db_clusters.db_clusters();
+                if db_clusters.is_empty() {
+                    trace!("Delete cluster waited and no clusters were found");
+                    break;
+                }
+                match db_clusters.first().unwrap().status() {
+                    Some("Deleting") => continue,
+                    Some(status) => {
+                        info!("Attempting to delete but clusters is in {status}");
+                        continue;
+                    }
+                    None => {
+                        warn!("No status for DB cluster");
+                    }
                 }
             }
         }
@@ -600,12 +668,4 @@ impl AuroraScenario {
             Err(clean_up_errors)
         }
     }
-}
-
-pub fn connection_string(cluster: &types::DbCluster) -> String {
-    warn!("TODO! connection_string");
-    let endpoint = cluster.endpoint().unwrap_or_default();
-    let port = cluster.port().unwrap_or_default();
-    let username = cluster.master_username().unwrap_or_default();
-    format!("mysql -h {endpoint} -P {port} -u {username} -p")
 }

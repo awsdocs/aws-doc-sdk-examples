@@ -49,7 +49,7 @@ fn select(
 // Prepare the Aurora Scenario. Prompt for several settings that are optional to the Scenario, but that the user should choose for the demo.
 // This includes the engine, engine version, and instance class.
 async fn prepare_scenario(sdk_config: &SdkConfig) -> Result<AuroraScenario, anyhow::Error> {
-    let mut scenario = AuroraScenario::prepare_scenario(&sdk_config).await;
+    let mut scenario = AuroraScenario::prepare_scenario(sdk_config).await;
 
     // Get available engine families for Aurora MySql. rds.DescribeDbEngineVersions(Engine='aurora-mysql') and build a set of the 'DBParameterGroupFamily' field values. I get {aurora-mysql8.0, aurora-mysql5.7}.
     let available_engines = scenario.get_engines().await;
@@ -153,30 +153,13 @@ async fn prepare_cluster(scenario: &mut AuroraScenario, warnings: &mut Warnings)
 }
 
 // Start a single instance in the cluster,
-async fn run_instance(scenario: &mut AuroraScenario, warnings: &mut Warnings) {
+async fn run_instance(scenario: &mut AuroraScenario) -> Result<(), ScenarioError> {
     // Create an Aurora DB cluster database cluster that contains a MySql database and uses the parameter group you created.
     // Create a database instance in the cluster.
     // Wait for DB instance to be ready. Call rds.DescribeDbInstances and check for DBInstanceStatus == 'available'.
-    let start_instance = scenario.start_cluster_and_instance().await;
-    match start_instance {
-        Ok(instance) => {
-            println!(
-                "Instance ready at: {}",
-                instance.db_instance_arn().unwrap_or("Missing ARN")
-            );
-        }
-        Err(err) => warnings.push(
-            "Failed to create and instantiate a cluster and instance",
-            err,
-        ),
-    }
+    scenario.start_cluster_and_instance().await?;
 
-    let connection_string = scenario.connection_string().await;
-    if let Err(error) = connection_string {
-        warnings.push("Missing connection string", error);
-        return;
-    }
-    let connection_string = connection_string.unwrap();
+    let connection_string = scenario.connection_string().await?;
 
     println!("Database ready: {connection_string}",);
 
@@ -184,16 +167,13 @@ async fn run_instance(scenario: &mut AuroraScenario, warnings: &mut Warnings) {
 
     // Create a snapshot of the DB cluster. rds.CreateDbClusterSnapshot.
     // Wait for the snapshot to create. rds.DescribeDbClusterSnapshots until Status == 'available'.
-    let snapshot = scenario.snapshot().await;
-    match snapshot {
-        Ok(snapshot) => {
-            println!(
-                "Snapshot is available: {}",
-                snapshot.db_cluster_snapshot_arn().unwrap_or("Missing ARN")
-            );
-        }
-        Err(err) => warnings.push("Failed to create a snapshot", err),
-    };
+    let snapshot = scenario.snapshot().await?;
+    println!(
+        "Snapshot is available: {}",
+        snapshot.db_cluster_snapshot_arn().unwrap_or("Missing ARN")
+    );
+
+    Ok(())
 }
 
 #[tokio::main]
@@ -206,14 +186,17 @@ async fn main() -> Result<(), anyhow::Error> {
     let mut warnings = Warnings::new();
 
     if prepare_cluster(&mut scenario, &mut warnings).await.is_ok() {
-        run_instance(&mut scenario, &mut warnings).await;
+        println!("Configured database cluster, starting an instance.");
+        if let Err(err) = run_instance(&mut scenario).await {
+            warnings.push("Problem running instance", err);
+        }
     }
 
     // Clean up the instance, cluster, and parameter group, waiting for the instance and cluster to delete before moving on.
     let clean_up = scenario.clean_up().await;
     if let Err(errors) = clean_up {
         for error in errors {
-            warnings.push("Failed to clean up scenario", error);
+            warnings.push("Problem cleaning up scenario", error);
         }
     }
 
