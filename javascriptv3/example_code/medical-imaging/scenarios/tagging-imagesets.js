@@ -14,11 +14,11 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
 
     // snippet-start:[medical-imaging.JavaScript.imageset.tagging.V3]
     try {
-        const datastoreArn = 'arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/imageset/12345678901234567890123456789012';
+        const imagesetArn = 'arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/imageset/12345678901234567890123456789012';
         const tags = {
             "Deployment": "Development"
         };
-        await tagResource(datastoreArn, tags);
+        await tagResource(imagesetArn, tags);
     } catch (e) {
         console.log(e);
     }
@@ -26,8 +26,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
 
     // snippet-start:[medical-imaging.JavaScript.imageset.list_tags.V3]
     try {
-        const datastoreArn = 'arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/imageset/12345678901234567890123456789012';
-        const {tags} = await listTagsForResource(datastoreArn);
+        const imagesetArn = 'arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/imageset/12345678901234567890123456789012';
+        const {tags} = await listTagsForResource(imagesetArn);
         console.log(tags);
     } catch (e) {
         console.log(e);
@@ -35,9 +35,9 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     // snippet-end:[medical-imaging.JavaScript.imageset.list_tags.V3]
     // snippet-start:[medical-imaging.JavaScript.imageset.untag.V3]
     try {
-        const datastoreArn = 'arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/imageset/12345678901234567890123456789012';
+        const imagesetArn = 'arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/imageset/12345678901234567890123456789012';
         const keys = ["Deployment"];
-        await untagResource(datastoreArn, keys);
+        await untagResource(imagesetArn, keys);
     } catch (e) {
         console.log(e);
     }

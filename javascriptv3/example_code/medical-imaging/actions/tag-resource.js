@@ -11,7 +11,7 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
  * @param {string} resourceArn - The Amazon Resource Name (ARN) for the data store or image set.
- * @param {{}} tags - The tag to add to the resource as JSON.
+ * @param {{}} tags - The tags to add to the resource as JSON.
  *                     - For example: {"Deployment" : "Development"}
  */
 export const tagResource = async (resourceArn = "arn:aws:medical-imaging:us-east-1:xxxxxx:datastore/xxxxx/imageset/xxx",

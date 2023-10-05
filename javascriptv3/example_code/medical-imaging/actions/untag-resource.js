@@ -11,7 +11,7 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
  * @param {string} resourceArn - The Amazon Resource Name (ARN) for the data store or image set.
- * @param {{}} tagKeys - The keys of the tags to remove.
+ * @param {[]} tagKeys - The keys of the tags to remove.
  */
 export const untagResource = async (resourceArn = "arn:aws:medical-imaging:us-east-1:xxxxxx:datastore/xxxxx/imageset/xxx",
                                     tagKeys = []) => {
