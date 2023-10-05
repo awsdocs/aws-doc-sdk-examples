@@ -9,17 +9,15 @@ package com.example.medicalimaging;
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[medicalimaging.java2.list_datastores.import]
+//snippet-start:[medicalimaging.java2.start_dicom_import_job.import]
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.medicalimaging.MedicalImagingClient;
-import software.amazon.awssdk.services.medicalimaging.model.DatastoreSummary;
 import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingException;
 import software.amazon.awssdk.services.medicalimaging.model.StartDicomImportJobRequest;
-
-import java.util.List;
-//snippet-end:[medicalimaging.java2.list_datastores.import]
+import software.amazon.awssdk.services.medicalimaging.model.StartDicomImportJobResponse;
+//snippet-end:[medicalimaging.java2.start_dicom_import_job.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -31,11 +29,15 @@ import java.util.List;
 public class StartDicomImportJob {
 
     public static void main(String[] args) {
-        final String usage = "\n" + ADD code
+        final String usage = "\n" +
                 "Usage:\n" +
-                "    <dataStoreName>\n\n" +
+                "    <jobName> <datastoreId> <dataAccessRoleArn> <inputS3Uri> <outputS3Uri>\n\n" +
                 "Where:\n" +
-                "    dataStoreName - The name for the AWS HealthImaging data store.\n\n";
+                "    jobName - The import job name.\n" +
+                "    datastoreId - The ID of the data store.\n" +
+                "    dataAccessRoleArn - The Amazon Resource Name (ARN) of the IAM role that grants permission to access medical imaging resource.\n" +
+                "    inputS3Uri - The input prefix path for the S3 bucket that contains the DICOM files to be imported.\n" +
+                "    outputS3Uri - The output prefix of the S3 bucket to upload the results of the DICOM import job.\n";
 
         if (args.length != 5) {
             System.out.println(usage);
@@ -54,19 +56,22 @@ public class StartDicomImportJob {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        startDICOMImportJob(medicalImagingClient, jobName, datastoreId,
+        String jobID = startDicomImportJob(medicalImagingClient, jobName, datastoreId, dataAccessRoleArn, inputS3Uri, outputS3Uri);
+        startDicomImportJob(medicalImagingClient, jobName, datastoreId,
                 dataAccessRoleArn, inputS3Uri, outputS3Uri);
+
+        System.out.println("The job ID is " + jobID);
 
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.list_datastores.main]
-    public static void startDICOMImportJob(MedicalImagingClient medicalImagingClient,
-                                           String jobName,
-                                           String datastoreId,
-                                           String dataAccessRoleArn,
-                                           String inputS3Uri,
-                                           String outputS3Uri) {
+    //snippet-start:[medicalimaging.java2.start_dicom_import_job.main]
+    public static String startDicomImportJob(MedicalImagingClient medicalImagingClient,
+                                             String jobName,
+                                             String datastoreId,
+                                             String dataAccessRoleArn,
+                                             String inputS3Uri,
+                                             String outputS3Uri) {
 
         try {
             StartDicomImportJobRequest startDicomImportJobRequest = StartDicomImportJobRequest.builder()
@@ -76,11 +81,14 @@ public class StartDicomImportJob {
                     .inputS3Uri(inputS3Uri)
                     .outputS3Uri(outputS3Uri)
                     .build();
-            medicalImagingClient.startDICOMImportJob(startDicomImportJobRequest);
+            StartDicomImportJobResponse response = medicalImagingClient.startDICOMImportJob(startDicomImportJobRequest);
+            return response.jobId();
         } catch (MedicalImagingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+
+        return "";
     }
-//snippet-end:[medicalimaging.java2.list_datastores.main]
+//snippet-end:[medicalimaging.java2.start_dicom_import_job.main]
 }
