@@ -10,7 +10,7 @@ import {StartDICOMImportJobCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} jobName - The name of the job.
+ * @param {string} jobName - The name of the import job.
  * @param {string} datastoreId - The ID of the data store.
  * @param {string} dataAccessRoleArn - The Amazon Resource Name (ARN) of the role that grants permission.
  * @param {string} inputS3Uri - The URI of the S3 bucket containing the input files.

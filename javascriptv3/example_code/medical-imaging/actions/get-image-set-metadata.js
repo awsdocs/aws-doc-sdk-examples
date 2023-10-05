@@ -11,7 +11,7 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 import {writeFileSync} from "fs";
 
 /**
- * @param {string} metadataFileName - The name of the file for gzipped metadata.
+ * @param {string} metadataFileName - The name of the file for the gzipped metadata.
  * @param {string} datastoreId - The ID of the data store.
  * @param {string} imagesetId - The ID of the image set.
  * @param {string} versionID - The optional version ID of the image set.
@@ -20,14 +20,14 @@ export const getImageSetMetadata = async (metadataFileName = "metadata.json.gzip
                                           datastoreId = "xxxxxxxxxxxxxx",
                                           imagesetId = "xxxxxxxxxxxxxx",
                                           versionID = "") => {
-    const commandArgs = {datastoreId: datastoreId, imageSetId: imagesetId};
+    const params = {datastoreId: datastoreId, imageSetId: imagesetId};
 
     if (versionID !== "") {
-        commandArgs.versionID = versionID;
+        params.versionID = versionID;
     }
 
     const response = await medicalImagingClient.send(
-        new GetImageSetMetadataCommand(commandArgs)
+        new GetImageSetMetadataCommand(params)
     );
     const buffer = await response.imageSetMetadataBlob.transformToByteArray();
     writeFileSync(metadataFileName, buffer);

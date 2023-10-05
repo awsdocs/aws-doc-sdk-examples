@@ -5,16 +5,15 @@
 
 import {describe, it, expect, vi} from "vitest";
 
-const send = vi.fn();
+const paginateListDICOMImportJobs = vi.fn();
 
 vi.doMock("@aws-sdk/client-medical-imaging", async () => {
     const actual = await vi.importActual("@aws-sdk/client-medical-imaging");
+
     return {
         ...actual,
-        MedicalImagingClient: class {
-            send = send;
-        },
-    };
+        paginateListDICOMImportJobs,
+        }
 });
 
 const {listDICOMImportJobs} = await import("../actions/list-dicom-import-jobs.js");
@@ -24,7 +23,7 @@ describe("list-dicom-import-job", () => {
         const logSpy = vi.spyOn(console, "log");
         const datastoreId = "12345678901234567890123456789012";
 
-        const response = {
+         const response = {
             jobSummaries: [
                 {
                     dataAccessRoleArn: 'arn:aws:iam::xxxxxxxxxxxx:role/dicom_import',
@@ -35,10 +34,12 @@ describe("list-dicom-import-job", () => {
                     jobStatus: 'COMPLETED',
                     submittedAt: '2023-09-22T14:48:45.767Z'
                 }
-            ]
+             ]
         };
 
-        send.mockResolvedValueOnce(response);
+        paginateListDICOMImportJobs.mockImplementationOnce(async function* () {
+            yield response;
+        });
 
         await listDICOMImportJobs(datastoreId);
 

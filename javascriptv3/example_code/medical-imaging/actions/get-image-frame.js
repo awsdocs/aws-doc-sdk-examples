@@ -11,7 +11,7 @@ import {GetImageFrameCommand} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} imageFrameFileName - File path to write the image frame.
+ * @param {string} imageFrameFileName - The name of the file for the HTJ2K-encoded image frame.
  * @param {string} datastoreID - The data store's ID.
  * @param {string} imageSetID - The image set's ID.
  * @param {string} imageFrameID - The image frame's ID.

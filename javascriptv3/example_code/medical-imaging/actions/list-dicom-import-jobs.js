@@ -6,17 +6,27 @@
 import {fileURLToPath} from "url";
 
 // snippet-start:[medical-imaging.JavaScript.dicom.listDICOMImportJobsV3]
-import {ListDICOMImportJobsCommand} from "@aws-sdk/client-medical-imaging";
+import {paginateListDICOMImportJobs} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
  * @param {string} datastoreId - The ID of the data store.
  */
 export const listDICOMImportJobs = async (datastoreId = "xxxxxxxxxxxxxxxxxx") => {
-    const response = await medicalImagingClient.send(
-        new ListDICOMImportJobsCommand({datastoreId: datastoreId})
-    );
-    console.log(response);
+    const paginatorConfig = {
+        client: medicalImagingClient,
+        pageSize: 50
+    };
+
+    const commandParams = {datastoreId: datastoreId};
+    const paginator = paginateListDICOMImportJobs(paginatorConfig, commandParams);
+
+    let jobSummaries = [];
+    for await (const page of paginator) {
+        // page contains a single paginated output.
+        jobSummaries.push(...page["jobSummaries"]);
+        console.log(page);
+    }
     // {
     //     '$metadata': {
     //     httpStatusCode: 200,
@@ -38,7 +48,7 @@ export const listDICOMImportJobs = async (datastoreId = "xxxxxxxxxxxxxxxxxx") =>
     // }
     // ]}
 
-    return response;
+    return jobSummaries;
 };
 // snippet-end:[medical-imaging.JavaScript.dicom.listDICOMImportJobsV3]
 

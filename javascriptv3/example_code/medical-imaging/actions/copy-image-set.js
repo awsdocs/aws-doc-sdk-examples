@@ -19,7 +19,7 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 export const copyImageSet = async (datastoreId = "xxxxxxxxxxx", imageSetId = "xxxxxxxxxxxx",
                                    sourceVersionID = "1", destinationImageSetId = "",
                                    destinationVersionId = "") => {
-    let params = {
+    const params = {
         datastoreId: datastoreId,
         sourceImageSetId: imageSetId,
         copyImageSetInformation: {

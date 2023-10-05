@@ -5,16 +5,15 @@
 
 import {describe, it, expect, vi} from "vitest";
 
-const send = vi.fn();
+const paginateListImageSetVersions = vi.fn();
 
 vi.doMock("@aws-sdk/client-medical-imaging", async () => {
     const actual = await vi.importActual("@aws-sdk/client-medical-imaging");
+
     return {
         ...actual,
-        MedicalImagingClient: class {
-            send = send;
-        },
-    };
+        paginateListImageSetVersions,
+    }
 });
 
 const {listImageSetVersions} = await import("../actions/list-image-set-versions.js");
@@ -45,7 +44,9 @@ describe("list-image-set-versions", () => {
                     }]
             };
 
-        send.mockResolvedValueOnce(response);
+        paginateListImageSetVersions.mockImplementationOnce(async function* () {
+            yield response;
+        });
 
         await listImageSetVersions(datastoreId, imageSetID);
 

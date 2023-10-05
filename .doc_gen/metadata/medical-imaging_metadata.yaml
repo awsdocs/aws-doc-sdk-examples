@@ -327,10 +327,10 @@ medical-imaging_GetImageSetMetadata:
             - description: Utility function to get image set metadata
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.getImageSetMetadataV3
-            - description: Without version
+            - description: Get image set metadata without version
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.getImageSetMetadataV3.withoutversion
-            - description: With version
+            - description: Get image set metadata with version
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.getImageSetMetadataV3.withversion
   services:
@@ -405,6 +405,7 @@ medical-imaging_UpdateImageSetMetadata:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3
+                - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.main
   services:
     medical-imaging: {UpdateImageSetMetadata}
 medical-imaging_CopyImageSet:
@@ -426,13 +427,13 @@ medical-imaging_CopyImageSet:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
           excerpts:
-            - description: Utility function to copy an image seet
+            - description: Utility function to copy an image set
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.copyImageSetV3
-            - description: Without destination
+            - description: Copy an image set without a destination
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.copyImageSetV3.without_destination
-            - description: With destination
+            - description: Copy an image set with a destination
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.copyImageSetV3.with_destination
   services:

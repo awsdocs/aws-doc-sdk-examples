@@ -6,7 +6,7 @@
 import {fileURLToPath} from "url";
 
 // snippet-start:[medical-imaging.JavaScript.imageset.listImageSetVersionsV3]
-import {ListImageSetVersionsCommand} from "@aws-sdk/client-medical-imaging";
+import {paginateListImageSetVersions} from "@aws-sdk/client-medical-imaging";
 import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
@@ -14,10 +14,21 @@ import {medicalImagingClient} from "../libs/medicalImagingClient.js";
  * @param {string} imageSetId - The ID of the image set.
  */
 export const listImageSetVersions = async (datastoreId = "xxxxxxxxxxxx", imageSetId = "xxxxxxxxxxxx") => {
-    const response = await medicalImagingClient.send(
-        new ListImageSetVersionsCommand({datastoreId: datastoreId, imageSetId: imageSetId})
-    );
-    console.log(response);
+    const paginatorConfig = {
+        client: medicalImagingClient,
+        pageSize: 50
+    };
+
+    const commandParams = {datastoreId: datastoreId, imageSetId: imageSetId};
+    console.log(paginatorConfig.client.constructor.name)
+    const paginator = paginateListImageSetVersions(paginatorConfig, commandParams);
+
+    let imageSetPropertiesList = [];
+    for await (const page of paginator) {
+        // page contains a single paginated output.
+        imageSetPropertiesList.push(...page["imageSetPropertiesList"]);
+        console.log(page);
+    }
     // {
     //     '$metadata': {
     //         httpStatusCode: 200,
@@ -36,11 +47,11 @@ export const listImageSetVersions = async (datastoreId = "xxxxxxxxxxxx", imageSe
     //             versionId: '1'
     //         }]
     // }
-    return response;
+    return imageSetPropertiesList;
 };
 // snippet-end:[medical-imaging.JavaScript.imageset.listImageSetVersionsV3]
 
 // Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    await listImageSetVersions();
+     await listImageSetVersions();
 }

@@ -70,8 +70,8 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         }
     };
 
-    await updateImageSetMetadata("728f13a131f748bf8d87a55d5ef6c5af", "22b8ce38456a11bfb8e16ff6bf037dd0",
-        "3", updateMetadata);
+    await updateImageSetMetadata("12345678901234567890123456789012", "12345678901234567890123456789012",
+        "1", updateMetadata);
 // snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.main]
 }
 
