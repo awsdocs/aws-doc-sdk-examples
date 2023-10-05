@@ -13,7 +13,7 @@ vi.doMock("@aws-sdk/client-medical-imaging", async () => {
     return {
         ...actual,
         paginateListDICOMImportJobs,
-        }
+    }
 });
 
 const {listDICOMImportJobs} = await import("../actions/list-dicom-import-jobs.js");
@@ -23,7 +23,7 @@ describe("list-dicom-import-job", () => {
         const logSpy = vi.spyOn(console, "log");
         const datastoreId = "12345678901234567890123456789012";
 
-         const response = {
+        const response = {
             jobSummaries: [
                 {
                     dataAccessRoleArn: 'arn:aws:iam::xxxxxxxxxxxx:role/dicom_import',
@@ -34,7 +34,7 @@ describe("list-dicom-import-job", () => {
                     jobStatus: 'COMPLETED',
                     submittedAt: '2023-09-22T14:48:45.767Z'
                 }
-             ]
+            ]
         };
 
         paginateListDICOMImportJobs.mockImplementationOnce(async function* () {
