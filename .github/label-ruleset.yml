@@ -38,5 +38,7 @@ CloudFormation:
   - cloudformation/**/*
 Testing:
   - test/**/*
+Tools:
+  - .tools/**/*
 GitHub settings:
   - .github/**/*
