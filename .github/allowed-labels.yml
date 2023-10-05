@@ -90,6 +90,9 @@
 - name: Shell
   color: "f5f7f9"
   description: "Tools written in bash/sh"
+- name: Tools
+  color: "f5f7f9"
+  description: "This issue relates to a custom tooling to streamline development tasks"
 
 - name: CLI
   description: "Relates to the AWS CLI"
