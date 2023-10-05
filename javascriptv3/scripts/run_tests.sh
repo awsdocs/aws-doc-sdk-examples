@@ -23,7 +23,7 @@ elif [[ "$1" == "unit" && "$2" == "integration" ]] || [[ "$1" == "integration" &
 elif [[ "$1" == "unit" || "$2" == "unit" ]]; then
   run_unit_tests
 elif [[ "$1" == "integration" || "$2" == "integration" ]]; then
-  run_unit_tests
+  run_integration_tests
 else
   echo "Usage: $0 [unit|integration]"
   exit 1
