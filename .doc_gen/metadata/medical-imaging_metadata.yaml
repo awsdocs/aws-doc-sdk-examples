@@ -273,11 +273,11 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.equalFilter
-            - description: "Use case #2: BETWEEN operator using DICOMStudyDate and DICOMStudyTime."
+            - description: "Use case #2: BETWEEN operator using DICOMStudyDate and DICOMStudyTime".
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter1
-            - description: "Use case #3: BETWEEN operator using createdAt (time studies were previously persisted)."
+            - description: "Use case #3: BETWEEN operator using createdAt (time studies were previously persisted)".
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter2
