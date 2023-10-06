@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { fileURLToPath } from "url";
+import {fileURLToPath} from "url";
 
 // snippet-start:[medical-imaging.JavaScript.datastore.getDatastoreV3]
-import { GetDatastoreCommand } from "@aws-sdk/client-medical-imaging";
-import { medicalImagingClient } from "../libs/medicalImagingClient.js";
+import {GetDatastoreCommand} from "@aws-sdk/client-medical-imaging";
+import {medicalImagingClient} from "../libs/medicalImagingClient.js";
 
 /**
  * @param {string} datastoreID - The ID of the data store.
