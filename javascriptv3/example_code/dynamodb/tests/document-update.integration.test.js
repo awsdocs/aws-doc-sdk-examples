@@ -12,7 +12,7 @@ describe("document-update", () => {
   tableSetupTeardown(
     tableName,
     [{ AttributeName: "Breed", AttributeType: "S" }],
-    [{ Breed: { S: "Labrador" }, Color: { S: "chocolate" } }]
+    [{ Breed: { S: "Labrador" }, Color: { S: "chocolate" } }],
   );
 
   it("should change 'chocolate' to 'black'", async () => {

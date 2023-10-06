@@ -27,7 +27,12 @@ impl GlueScenario {
 
         let create_database = glue
             .create_database()
-            .database_input(DatabaseInput::builder().name(self.database()).build())
+            .database_input(
+                DatabaseInput::builder()
+                    .name(self.database())
+                    .build()
+                    .map_err(GlueMvpError::BuildError)?,
+            )
             .send()
             .await;
 
@@ -163,9 +168,7 @@ impl GlueScenario {
             .await
             .map_err(GlueMvpError::from_glue_sdk)?;
 
-        let tables = tables
-            .table_list()
-            .ok_or_else(|| GlueMvpError::Unknown("No tables in database".into()))?;
+        let tables = tables.table_list();
         // snippet-end:[rust.glue.get_tables]
 
         Ok(Vec::from(tables))

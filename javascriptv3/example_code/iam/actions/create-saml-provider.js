@@ -20,8 +20,8 @@ const client = new IAMClient({});
 const sampleMetadataDocument = readFileSync(
   path.join(
     dirnameFromMetaUrl(import.meta.url),
-    "../../../../resources/sample_files/sample_saml_metadata.xml"
-  )
+    "../../../../resources/sample_files/sample_saml_metadata.xml",
+  ),
 );
 
 /**

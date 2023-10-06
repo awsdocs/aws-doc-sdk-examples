@@ -65,7 +65,7 @@ describe("Basic", () => {
       err.name = "SubscriptionRequiredException";
       send.mockRejectedValueOnce(err);
       await expect(verifyAccount()).rejects.toThrow(
-        "You must be subscribed to the AWS Support plan to use this feature."
+        "You must be subscribed to the AWS Support plan to use this feature.",
       );
     });
   });
@@ -115,7 +115,7 @@ describe("Basic", () => {
           selectedCategory: "",
           selectedService: "",
           selectedSeverityLevel: "",
-        })
+        }),
       ).resolves.toEqual("caseId");
     });
   });
@@ -135,7 +135,7 @@ describe("Basic", () => {
       send.mockResolvedValueOnce({ cases: [] });
 
       await expect(getTodaysOpenCases()).rejects.toThrow(
-        "Unexpected number of cases. Expected more than 0 open cases."
+        "Unexpected number of cases. Expected more than 0 open cases.",
       );
     });
   });
@@ -202,7 +202,7 @@ describe("Basic", () => {
       send.mockResolvedValueOnce({ attachment: "attachment" });
 
       await expect(getAttachment("attachmentId")).resolves.toEqual(
-        "attachment"
+        "attachment",
       );
     });
   });
@@ -228,7 +228,7 @@ describe("Basic", () => {
       const case2 = { caseId: "case2", subject: "Test case 2" };
 
       expect(
-        await findCase({ caseId: "case1", cases: [case1, case2] })
+        await findCase({ caseId: "case1", cases: [case1, case2] }),
       ).toEqual(case1);
     });
 
@@ -237,7 +237,7 @@ describe("Basic", () => {
       const case2 = { caseId: "case2", subject: "One" };
       send.mockResolvedValueOnce({ cases: [case2] });
       expect(
-        findCase({ caseId: "case2", cases: [case1], nextToken: "abc" })
+        findCase({ caseId: "case2", cases: [case1], nextToken: "abc" }),
       ).resolves.toEqual(case2);
     });
 
@@ -245,7 +245,7 @@ describe("Basic", () => {
       const case1 = { caseId: "case1", subject: "One" };
       send.mockResolvedValueOnce({ cases: [] });
       expect(
-        findCase({ caseId: "special-case", cases: [case1], nextToken: "abc" })
+        findCase({ caseId: "special-case", cases: [case1], nextToken: "abc" }),
       ).rejects.toThrow("special-case not found");
     });
   });

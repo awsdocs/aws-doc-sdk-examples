@@ -110,8 +110,8 @@ export const main = async () => {
   const selectItemResponse = await docClient.send(selectItemsStatementCommand);
   log(
     `Got cities: ${selectItemResponse.Responses.map(
-      (r) => `${r.Item.name} (${r.Item.population})`
-    ).join(", ")}`
+      (r) => `${r.Item.name} (${r.Item.population})`,
+    ).join(", ")}`,
   );
 
   /**

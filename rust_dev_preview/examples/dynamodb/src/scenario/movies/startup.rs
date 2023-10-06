@@ -22,7 +22,7 @@ pub async fn initialize(client: &Client, table_name: &str) -> Result<(), Error> 
         info!("Found existing table {table_name}");
     } else {
         info!("Table does not exist, creating {table_name}");
-        create_table(client, table_name, "year", "title", CAPACITY)
+        create_table(client, table_name, "year", "title", CAPACITY)?
             .send()
             .await?;
         await_table(client, table_name).await?;
@@ -40,7 +40,7 @@ pub async fn table_exists(client: &Client, table: &str) -> Result<bool, Error> {
     let table_list = client.list_tables().send().await;
 
     match table_list {
-        Ok(list) => Ok(list.table_names().as_ref().unwrap().contains(&table.into())),
+        Ok(list) => Ok(list.table_names().contains(&table.into())),
         Err(e) => Err(e.into()),
     }
 }
@@ -54,41 +54,46 @@ pub fn create_table(
     primary_key: &str,
     sort_key: &str,
     capacity: i64,
-) -> CreateTableFluentBuilder {
+) -> Result<CreateTableFluentBuilder, Error> {
     info!("Creating table: {table_name} with capacity {capacity} and key structure {primary_key}:{sort_key}");
-    client
+    Ok(client
         .create_table()
         .table_name(table_name)
         .key_schema(
             KeySchemaElement::builder()
                 .attribute_name(primary_key)
                 .key_type(KeyType::Hash)
-                .build(),
+                .build()
+                .expect("Failed to build KeySchema"),
         )
         .attribute_definitions(
             AttributeDefinition::builder()
                 .attribute_name(primary_key)
                 .attribute_type(ScalarAttributeType::N)
-                .build(),
+                .build()
+                .expect("Failed to build attribute definition"),
         )
         .key_schema(
             KeySchemaElement::builder()
                 .attribute_name(sort_key)
                 .key_type(KeyType::Range)
-                .build(),
+                .build()
+                .expect("Failed to build KeySchema"),
         )
         .attribute_definitions(
             AttributeDefinition::builder()
                 .attribute_name(sort_key)
                 .attribute_type(ScalarAttributeType::S)
-                .build(),
+                .build()
+                .expect("Failed to build attribute definition"),
         )
         .provisioned_throughput(
             ProvisionedThroughput::builder()
                 .read_capacity_units(capacity)
                 .write_capacity_units(capacity)
-                .build(),
-        )
+                .build()
+                .expect("Failed to specify ProvisionedThroughput"),
+        ))
 }
 // snippet-end:[dynamodb.rust.movies-create_table_request]
 
@@ -133,7 +138,9 @@ pub async fn load_data(client: &Client, table_name: &str) -> Result<(), Error> {
         .iter()
         .map(|v| {
             WriteRequest::builder()
-                .set_put_request(Some(v.into()))
+                .set_put_request(Some(
+                    v.try_into().expect("Failed to convert movie to PutRequest"),
+                ))
                 .build()
         })
         .collect::<Vec<WriteRequest>>();

@@ -27,7 +27,7 @@ async fn show_streams(client: &Client) -> Result<(), Error> {
 
     println!("Stream names:");
 
-    let streams = resp.stream_names.unwrap_or_default();
+    let streams = resp.stream_names;
     for stream in &streams {
         println!("  {}", stream);
     }

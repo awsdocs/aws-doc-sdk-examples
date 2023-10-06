@@ -14,7 +14,7 @@ describe("partiql-batch-get", () => {
         AttributeType: "S",
       },
     ],
-    [{ Unit: { S: "Teaspoons" } }, { Unit: { S: "Grams" } }]
+    [{ Unit: { S: "Teaspoons" } }, { Unit: { S: "Grams" } }],
   );
 
   it("should get specific items from the database", async () => {

@@ -1,34 +1,39 @@
 // snippet-start:[s3.JavaScript.cross-service.frontendV3]
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
     <script type="text/javascript" src="./main.js"></script>
-</head>
-<body>
-<h1>Submit an item to an Amazon DynamoDB Table</h1>
-<p>Enter a value for each attribute and choose Submit. The ID must be a numerical value. </p>
-<table style="width:100%">
-    <tr>
+  </head>
+  <body>
+    <h1>Submit an item to an Amazon DynamoDB Table</h1>
+    <p>
+      Enter a value for each attribute and choose Submit. The ID must be a
+      numerical value.
+    </p>
+    <table style="width: 100%">
+      <tr>
         <td>ID:</td>
-        <td><input type="text" id="id" name="id"/></td>
-    </tr>
-    <tr>
+        <td><input type="text" id="id" name="id" /></td>
+      </tr>
+      <tr>
         <td>Title:</td>
-        <td><input type="text" id="title" name="title"/></td>
-    </tr>
-    <tr>
+        <td><input type="text" id="title" name="title" /></td>
+      </tr>
+      <tr>
         <td>Name:</td>
-        <td><input type="text" id="name" name="name"/></td>
-    </tr>
-    <tr>
+        <td><input type="text" id="name" name="name" /></td>
+      </tr>
+      <tr>
         <td>Body:</td>
-        <td><input type="text" id="body" name="body"/></td>
-    </tr>
+        <td><input type="text" id="body" name="body" /></td>
+      </tr>
+
+      <tr>
         <td></td>
         <td><button type="button" onclick="submitData();">Submit</button></td>
         <script src="./main.js"></script>
-    </tr>
-</table>
-</body>
+      </tr>
+    </table>
+  </body>
 </html>
 // snippet-end:[s3.JavaScript.cross-service.frontendV3]

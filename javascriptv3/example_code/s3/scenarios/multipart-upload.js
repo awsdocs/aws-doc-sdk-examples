@@ -34,7 +34,7 @@ export const main = async () => {
       new CreateMultipartUploadCommand({
         Bucket: bucketName,
         Key: key,
-      })
+      }),
     );
 
     uploadId = multipartUpload.UploadId;
@@ -56,12 +56,12 @@ export const main = async () => {
               UploadId: uploadId,
               Body: buffer.subarray(start, end),
               PartNumber: i + 1,
-            })
+            }),
           )
           .then((d) => {
             console.log("Part", i + 1, "uploaded");
             return d;
-          })
+          }),
       );
     }
 
@@ -78,7 +78,7 @@ export const main = async () => {
             PartNumber: i + 1,
           })),
         },
-      })
+      }),
     );
 
     // Verify the output by downloading the file from the Amazon Simple Storage Service (Amazon S3) console.

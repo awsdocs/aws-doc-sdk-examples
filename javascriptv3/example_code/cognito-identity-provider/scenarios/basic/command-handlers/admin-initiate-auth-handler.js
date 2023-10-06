@@ -17,12 +17,12 @@ const handleMfaSetup = async (session, username) => {
   process.env.SESSION = Session;
 
   console.log(
-    "Scan this code in your preferred authenticator app, then run 'verify-software-token' to finish the setup."
+    "Scan this code in your preferred authenticator app, then run 'verify-software-token' to finish the setup.",
   );
   qrcode.generate(
     `otpauth://totp/${username}?secret=${SecretCode}`,
     { small: true },
-    console.log
+    console.log,
   );
 };
 
@@ -34,7 +34,7 @@ const handleSoftwareTokenMfa = (session) => {
 const validateClient = (id) => {
   if (!id) {
     throw new Error(
-      `User pool client id is missing. Did you run 'create-user-pool'?`
+      `User pool client id is missing. Did you run 'create-user-pool'?`,
     );
   }
 };
@@ -48,7 +48,7 @@ const validateId = (id) => {
 const validateUser = (username, password) => {
   if (!(username && password)) {
     throw new Error(
-      `Username and password must be provided as arguments to the 'admin-initiate-auth' command.`
+      `Username and password must be provided as arguments to the 'admin-initiate-auth' command.`,
     );
   }
 };

@@ -32,39 +32,28 @@ struct Opt {
 
 // Displays the STS AssumeRole Arn.
 // snippet-start:[sts.rust.assume_role]
-async fn assume_role(
-    config: &SdkConfig,
-    region: Region,
-    role_name: String,
-    session_name: Option<String>,
-) -> Result<(), Error> {
-    match config.credentials_provider() {
-        Some(credential) => {
-            let provider = aws_config::sts::AssumeRoleProvider::builder(role_name)
-                .region(region)
-                .session_name(session_name.unwrap_or_else(|| String::from("rust-assume-role")))
-                .build(credential.clone());
-            let local_config = aws_config::from_env()
-                .credentials_provider(provider)
-                .load()
-                .await;
-            let client = Client::new(&local_config);
-            let req = client.get_caller_identity();
-            let resp = req.send().await;
-            match resp {
-                Ok(e) => {
-                    println!("UserID :               {}", e.user_id().unwrap_or_default());
-                    println!("Account:               {}", e.account().unwrap_or_default());
-                    println!("Arn    :               {}", e.arn().unwrap_or_default());
-                }
-                Err(e) => println!("{:?}", e),
-            }
+async fn assume_role(config: &SdkConfig, role_name: String, session_name: Option<String>) {
+    let provider = aws_config::sts::AssumeRoleProvider::builder(role_name)
+        .session_name(session_name.unwrap_or("rust_sdk_example_session".into()))
+        .configure(config)
+        .build()
+        .await;
+
+    let local_config = aws_config::from_env()
+        .credentials_provider(provider)
+        .load()
+        .await;
+    let client = Client::new(&local_config);
+    let req = client.get_caller_identity();
+    let resp = req.send().await;
+    match resp {
+        Ok(e) => {
+            println!("UserID :               {}", e.user_id().unwrap_or_default());
+            println!("Account:               {}", e.account().unwrap_or_default());
+            println!("Arn    :               {}", e.arn().unwrap_or_default());
         }
-        None => {
-            println!("No config provided");
-        }
+        Err(e) => println!("{:?}", e),
     }
-    Ok(())
 }
 // snippet-end:[sts.rust.assume_role]
 
@@ -104,11 +93,6 @@ async fn main() -> Result<(), Error> {
     }
 
     let shared_config = aws_config::from_env().region(region_provider).load().await;
-    assume_role(
-        &shared_config,
-        shared_config.region().unwrap().clone(),
-        role_arn,
-        role_session_name,
-    )
-    .await
+    assume_role(&shared_config, role_arn, role_session_name).await;
+    Ok(())
 }

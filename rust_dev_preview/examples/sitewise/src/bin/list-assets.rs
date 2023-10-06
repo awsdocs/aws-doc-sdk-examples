@@ -48,38 +48,32 @@ async fn list_assets(
 
     println!("Assets:");
 
-    for asset in resp.asset_summaries.unwrap() {
-        println!("  ID:  {}", asset.id.as_deref().unwrap_or_default());
-        println!("  ARN:  {}", asset.arn.as_deref().unwrap_or_default());
-        println!("  Name:   {}", asset.name.as_deref().unwrap_or_default());
-        println!(
-            "  Asset Model ID:   {}",
-            asset.asset_model_id.as_deref().unwrap_or_default()
-        );
+    for asset in resp.asset_summaries {
+        println!("  ID:  {}", asset.id());
+        println!("  ARN:  {}", asset.arn());
+        println!("  Name:   {}", asset.name());
+        println!("  Asset Model ID:   {}", asset.asset_model_id());
         println!(
             "  Creation Date:   {}",
-            asset.creation_date.unwrap().to_chrono_utc()?
+            asset.creation_date.to_chrono_utc()?
         );
         println!(
             "  Last Update Date:   {}",
-            asset.last_update_date.unwrap().to_chrono_utc()?
+            asset.last_update_date.to_chrono_utc()?
         );
         println!(
             "  Current Status:   {}",
-            asset.status.unwrap().state.unwrap().as_str()
+            asset.status.unwrap().state.as_str()
         );
 
         println!("  Assets Hierarchies:");
 
-        for hierarchy in asset.hierarchies.unwrap() {
+        for hierarchy in asset.hierarchies {
             println!(
                 "    Hierarchy ID:   {}",
-                hierarchy.id.as_deref().unwrap_or_default()
+                hierarchy.id().unwrap_or("unknown id")
             );
-            println!(
-                "    Hierarchy Name:   {}",
-                hierarchy.name.as_deref().unwrap_or_default()
-            );
+            println!("    Hierarchy Name:   {}", hierarchy.name());
         }
 
         println!();

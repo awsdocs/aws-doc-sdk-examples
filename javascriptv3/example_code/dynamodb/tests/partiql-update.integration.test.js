@@ -19,7 +19,7 @@ describe("partiql-update", () => {
         AttributeType: "S",
       },
     ],
-    starterValues
+    starterValues,
   );
 
   it("should mark blue eyes as recessive", async () => {

@@ -23,10 +23,7 @@ impl GlueScenario {
         // snippet-start:[rust.glue.delete_table]
         for t in &self.tables {
             glue.delete_table()
-                .name(
-                    t.name()
-                        .ok_or_else(|| GlueMvpError::Unknown("Couldn't find table".to_string()))?,
-                )
+                .name(t.name())
                 .database_name(self.database())
                 .send()
                 .await
@@ -106,9 +103,7 @@ impl GlueScenario {
             .to_owned();
 
         if let Some(database) = database.database() {
-            return Err(GlueMvpError::Cleanup(
-                database.name().unwrap_or_default().into(),
-            ));
+            return Err(GlueMvpError::Cleanup(database.name().into()));
         }
 
         let crawler = glue

@@ -15,7 +15,7 @@ const main = async () => {
     const response = await client.send(
       new ResolveCaseCommand({
         caseId: "CASE_ID",
-      })
+      }),
     );
 
     console.log(response.finalCaseStatus);

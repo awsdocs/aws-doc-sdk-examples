@@ -16,14 +16,14 @@ import { snsClient } from "../libs/snsClient.js";
  */
 export const publish = async (
   message = "Hello from SNS!",
-  phoneNumber = "+15555555555"
+  phoneNumber = "+15555555555",
 ) => {
   const response = await snsClient.send(
     new PublishCommand({
       Message: message,
       // One of PhoneNumber, TopicArn, or TargetArn must be specified.
       PhoneNumber: phoneNumber,
-    })
+    }),
   );
   console.log(response);
   // {

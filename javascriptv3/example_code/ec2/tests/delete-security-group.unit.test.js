@@ -37,7 +37,7 @@ describe("delete-security-group", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to delete security group")
+      new Error("Failed to delete security group"),
     );
   });
 });

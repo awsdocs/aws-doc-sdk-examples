@@ -69,7 +69,7 @@ impl ListObjects {
             .send()
             .await?;
         Ok(ListObjectsResult {
-            objects: response.contents().unwrap_or_default().to_vec(),
+            objects: response.contents().to_vec(),
             continuation_token: response.continuation_token().map(|t| t.to_string()),
             has_more: response.is_truncated(),
         })

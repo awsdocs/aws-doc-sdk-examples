@@ -1,7 +1,0 @@
----
-# Amazon Pinpoint examples
-files:
-  - path: polly.js
-    services:
-      - Polly
-...

@@ -20,11 +20,11 @@ const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool 
 
 // Create an Amazon SES service client object.
 const sesClient = new SESClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID,
-    }),
+  region: REGION,
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region: REGION }),
+    identityPoolId: IDENTITY_POOL_ID,
+  }),
 });
 
 export { sesClient };

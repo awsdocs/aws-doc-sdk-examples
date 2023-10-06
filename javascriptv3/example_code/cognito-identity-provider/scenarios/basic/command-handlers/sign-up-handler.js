@@ -12,7 +12,7 @@ import { getSecondValuesFromEntries } from "libs/utils/util-csv.js";
 const validateClient = (clientId) => {
   if (!clientId) {
     throw new Error(
-      `App client id is missing. Did you run 'create-user-pool'?`
+      `App client id is missing. Did you run 'create-user-pool'?`,
     );
   }
 };
@@ -20,7 +20,7 @@ const validateClient = (clientId) => {
 const validateUser = (username, password, email) => {
   if (!(username && password && email)) {
     throw new Error(
-      `Username, password, and email must be provided as arguments to the 'sign-up' command.`
+      `Username, password, and email must be provided as arguments to the 'sign-up' command.`,
     );
   }
 };

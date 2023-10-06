@@ -57,7 +57,7 @@ describe("getImageKeysForLabels", () => {
     mockDocClient.send.mockRejectedValueOnce(mockError);
 
     await expect(
-      getImageKeysForLabels(["label1", "label2", "label3"])
+      getImageKeysForLabels(["label1", "label2", "label3"]),
     ).rejects.toThrow(mockError);
   });
 });

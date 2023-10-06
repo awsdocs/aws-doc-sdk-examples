@@ -26,7 +26,7 @@ async fn show_log_groups(
     client: &aws_sdk_cloudwatchlogs::Client,
 ) -> Result<(), aws_sdk_cloudwatchlogs::Error> {
     let resp = client.describe_log_groups().send().await?;
-    let groups = resp.log_groups().unwrap_or_default();
+    let groups = resp.log_groups();
     let num_groups = groups.len();
     for group in groups {
         println!("  {}", group.log_group_name().unwrap_or_default());

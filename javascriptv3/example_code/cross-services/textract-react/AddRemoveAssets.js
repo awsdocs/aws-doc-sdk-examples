@@ -66,7 +66,7 @@ if (mode === "add") {
       const { Stacks } = await cform.send(
         new DescribeStacksCommand({
           StackName: stackName,
-        })
+        }),
       );
       let configOutputs =
         `  StackName: '${stackName}',\n` +
@@ -77,12 +77,12 @@ if (mode === "add") {
       });
       fs.writeFileSync(
         "src/Config.js",
-        `export const Config = {\n${configOutputs}};`
+        `export const Config = {\n${configOutputs}};`,
       );
 
       console.log(
         `Uploading demo image ${DefaultImageName} to ` +
-          `bucket ${Config.DefaultBucketName}.`
+          `bucket ${Config.DefaultBucketName}.`,
       );
       const imageFile = fs.readFileSync(`src/.media/${DefaultImageName}`);
       await s3.send(
@@ -90,7 +90,7 @@ if (mode === "add") {
           Bucket: Config.DefaultBucketName,
           Key: DefaultImageName,
           Body: imageFile,
-        })
+        }),
       );
 
       console.log("Demo assets successfully added!");
@@ -106,7 +106,7 @@ if (mode === "add") {
         new DeleteObjectCommand({
           Bucket: Config.DefaultBucketName,
           Key: Config.DefaultImageName,
-        })
+        }),
       );
     } catch (error) {
       console.log(error.message);
@@ -120,7 +120,7 @@ if (mode === "add") {
       const { Users } = await cogProvider.send(
         new ListUsersCommand({
           UserPoolId: Config.CognitoUserPoolId,
-        })
+        }),
       );
       Users.forEach((user) => {
         console.log(`Deleting user ${user.Username}`);
@@ -128,7 +128,7 @@ if (mode === "add") {
           new AdminDeleteUserCommand({
             UserPoolId: Config.CognitoUserPoolId,
             Username: user.Username,
-          })
+          }),
         );
       });
     } catch (error) {
@@ -143,17 +143,17 @@ if (mode === "add") {
         new ListIdentitiesCommand({
           IdentityPoolId: Config.CognitoIdentityPoolId,
           MaxResults: 10,
-        })
+        }),
       );
       const idList = Identities.map((id) => id.IdentityId);
       console.log(
         `Removing identities ${idList} from identity` +
-          `pool ${Config.CognitoIdentityPoolId}.`
+          `pool ${Config.CognitoIdentityPoolId}.`,
       );
       await cogIdentity.send(
         new DeleteIdentitiesCommand({
           IdentityIdsToDelete: idList,
-        })
+        }),
       );
     } catch (error) {
       console.log(error.message);
@@ -162,17 +162,17 @@ if (mode === "add") {
     let configOutputs = `  ConfigError: '${ConfigError}'\n`;
     fs.writeFileSync(
       "src/Config.js",
-      `export const Config = {\n${configOutputs}};`
+      `export const Config = {\n${configOutputs}};`,
     );
 
     console.log(
       "Demo assets removed. Now run `aws cloudformation delete-stack " +
-        "stack-name <stack-name>` to delete resources deployed for the demo."
+        "stack-name <stack-name>` to delete resources deployed for the demo.",
     );
   })();
 } else {
   console.log(
     "Run with `add <stack-name>` to add demo assets.\n" +
-      "Run with `remove` to remove them."
+      "Run with `remove` to remove them.",
   );
 }

@@ -16,7 +16,7 @@ export const main = async () => {
   try {
     const { KeyPairs } = await client.send(command);
     const keyPairList = KeyPairs.map(
-      (kp) => ` • ${kp.KeyPairId}: ${kp.KeyName}`
+      (kp) => ` • ${kp.KeyPairId}: ${kp.KeyName}`,
     ).join("\n");
     console.log("The following key pairs were found in your account:");
     console.log(keyPairList);

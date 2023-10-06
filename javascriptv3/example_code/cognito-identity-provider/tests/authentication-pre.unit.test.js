@@ -11,7 +11,7 @@ describe("authentication-pre", () => {
     return expect(
       handler({
         callerContext: { clientId: "user-pool-app-client-id-to-be-blocked" },
-      })
+      }),
     ).rejects.toBeTruthy();
   });
 
@@ -20,7 +20,7 @@ describe("authentication-pre", () => {
     return expect(
       handler({
         callerContext: { clientId: "any-other-client-id" },
-      })
+      }),
     ).resolves.toBeTruthy();
   });
 });

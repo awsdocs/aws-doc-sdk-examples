@@ -28,23 +28,21 @@ struct Opt {
 // snippet-start:[cognitoidentityprovider.rust.list-user-pools]
 async fn show_pools(client: &Client) -> Result<(), Error> {
     let response = client.list_user_pools().max_results(10).send().await?;
-    if let Some(pools) = response.user_pools() {
-        println!("User pools:");
-        for pool in pools {
-            println!("  ID:              {}", pool.id().unwrap_or_default());
-            println!("  Name:            {}", pool.name().unwrap_or_default());
-            println!("  Status:          {:?}", pool.status());
-            println!("  Lambda Config:   {:?}", pool.lambda_config().unwrap());
-            println!(
-                "  Last modified:   {}",
-                pool.last_modified_date().unwrap().to_chrono_utc()?
-            );
-            println!(
-                "  Creation date:   {:?}",
-                pool.creation_date().unwrap().to_chrono_utc()
-            );
-            println!();
-        }
+    let pools = response.user_pools();
+    println!("User pools:");
+    for pool in pools {
+        println!("  ID:              {}", pool.id().unwrap_or_default());
+        println!("  Name:            {}", pool.name().unwrap_or_default());
+        println!("  Lambda Config:   {:?}", pool.lambda_config().unwrap());
+        println!(
+            "  Last modified:   {}",
+            pool.last_modified_date().unwrap().to_chrono_utc()?
+        );
+        println!(
+            "  Creation date:   {:?}",
+            pool.creation_date().unwrap().to_chrono_utc()
+        );
+        println!();
     }
     println!("Next token: {}", response.next_token().unwrap_or_default());
 

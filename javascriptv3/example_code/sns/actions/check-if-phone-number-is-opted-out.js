@@ -11,7 +11,7 @@ import { CheckIfPhoneNumberIsOptedOutCommand } from "@aws-sdk/client-sns";
 import { snsClient } from "../libs/snsClient.js";
 
 export const checkIfPhoneNumberIsOptedOut = async (
-  phoneNumber = "5555555555"
+  phoneNumber = "5555555555",
 ) => {
   const command = new CheckIfPhoneNumberIsOptedOutCommand({
     phoneNumber,

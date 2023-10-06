@@ -14,7 +14,7 @@ import { snsClient } from "../libs/snsClient.js";
  */
 export const createTopic = async (topicName = "TOPIC_NAME") => {
   const response = await snsClient.send(
-    new CreateTopicCommand({ Name: topicName })
+    new CreateTopicCommand({ Name: topicName }),
   );
   console.log(response);
   // {

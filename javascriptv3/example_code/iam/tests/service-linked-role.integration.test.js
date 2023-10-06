@@ -11,7 +11,7 @@ describe("Service linked role", () => {
   it("create, read, delete role", async () => {
     // Create the role.
     const { Role } = await createServiceLinkedRole(
-      "elasticbeanstalk.amazonaws.com"
+      "elasticbeanstalk.amazonaws.com",
     );
     if (!Role?.RoleName) {
       throw new Error("Role name not found.");
@@ -30,9 +30,8 @@ describe("Service linked role", () => {
 
     // Wait for deletion task to complete.
     retry({ intervalInMs: 1000, maxRetries: 60 }, async () => {
-      const { Status } = await getServiceLinkedRoleDeletionStatus(
-        DeletionTaskId
-      );
+      const { Status } =
+        await getServiceLinkedRoleDeletionStatus(DeletionTaskId);
       if (Status !== DeletionTaskStatusType.SUCCEEDED) {
         throw new Error("Deletion task not completed.");
       }

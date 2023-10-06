@@ -2,19 +2,19 @@
 
 ## Purpose
 
-You can create a web application that has subscription and publish functionality by using the Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter many emails and all of them are subscribed to the given SNS topic (once the email recipients confirm the subscription). The user can publish a message that results in all subscribed emails receiving the message. 
+You can create a web application that has subscription and publish functionality by using the Amazon Simple Notification Service (Amazon SNS). The application created in this AWS tutorial lets a user subscribe to an Amazon SNS topic by entering a valid email address. A user can enter many emails and all of them are subscribed to the given SNS topic (once the email recipients confirm the subscription). The user can publish a message that results in all subscribed emails receiving the message.
 
 **Note**: Amazon SNS is a managed service that provides message delivery from publishers to subscribers (also known as producers and consumers). For more information, see [What is Amazon SNS?](https://docs.aws.amazon.com/sns/latest/dg/welcome.html)
 
-To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application. 
+To subscribe to an Amazon SNS topic, the user enters a valid email address into the web application.
 
 ![AWS Tracking Application](images/pic1.png)
 
-The specified email address recieves an email message that lets the recipient confirm the subscription. 
+The specified email address recieves an email message that lets the recipient confirm the subscription.
 
 ![AWS Tracking Application](images/pic2.png)
 
-Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish a message, a user enters the message into the web applicaiton and then chooses the **Publish** button. 
+Once the email recipient accepts the confirmation, that email is subscribed to the specific SNS topic and recieves published messages. To publish a message, a user enters the message into the web applicaiton and then chooses the **Publish** button.
 
 ![AWS Tracking Application](images/pic3.png)
 
@@ -26,40 +26,45 @@ This example application lets you view all of the subscribed email recipients by
 
 To build this cross-service example, you need the following:
 
-* An AWS account. For more information see [AWS SDKs and Tools Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/overview.html).
-* A project environment to run this Node JavaScript example, and install the required AWS SDK for JavaScript and third-party modules.  For instructions, see [Create a Node.js project environment](#create-a-nodejs-project-environment) on this page.
-* The following AWS resources:
-    - An unauthenticated AWS Identity and Access Management (IAM) user role with the following permissions:
-        - sns:*
+- An AWS account. For more information see [AWS SDKs and Tools Reference Guide](https://docs.aws.amazon.com/sdkref/latest/guide/overview.html).
+- A project environment to run this Node JavaScript example, and install the required AWS SDK for JavaScript and third-party modules. For instructions, see [Create a Node.js project environment](#create-a-nodejs-project-environment) on this page.
+- The following AWS resources:
+  - An unauthenticated AWS Identity and Access Management (IAM) user role with the following permissions:
+    - sns:\*
 
-**Note**: An unauthenticated role enables you to provide permissions to unauthenticated users to use the AWS Services. To create an authenticated role, see [Amazon Cognito Identity Pools (Federated Identities)](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).    
- 
+**Note**: An unauthenticated role enables you to provide permissions to unauthenticated users to use the AWS Services. To create an authenticated role, see [Amazon Cognito Identity Pools (Federated Identities)](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).
+
 For instructions on creating the minimum resources required for this tutorial, see [Create the resources](#create-the-resources) on this page.
 
 ## ⚠ Important
-* We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the *AWS Identity and Access Management User Guide*. 
-* This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
-* Running this code might result in charges to your AWS account. We recommend you destroy the resources when you are finished. For instructions, see [Destroying the resources](#destroying-the-resources).
-* Running the unit tests might result in charges to your AWS account.
-* This tutorial is written to work with the specific versions defined in the *package.json*. If you change these versions, the tutorial may not work correctly.
 
+- We recommend that you grant this code least privilege, or at most the minimum permissions required to perform the task. For more information, see [Grant Least Privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege) in the _AWS Identity and Access Management User Guide_.
+- This code has not been tested in all AWS Regions. Some AWS services are available only in specific [Regions](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
+- Running this code might result in charges to your AWS account. We recommend you destroy the resources when you are finished. For instructions, see [Destroying the resources](#destroying-the-resources).
+- Running the unit tests might result in charges to your AWS account.
+- This tutorial is written to work with the specific versions defined in the _package.json_. If you change these versions, the tutorial may not work correctly.
 
 ## Create the resources
+
 You can create the AWS resources required for this cross-service example using either of the following:
+
 - [The Amazon CloudFormation](#create-the-resources-using-amazon-cloudformation)
 - [The AWS Management Console](#create-the-resources-using-the-aws-management-console)
 
 ### Create the resources using Amazon CloudFormation
+
 To run the stack using the AWS CLI:
 
 1. Install and configure the AWS CLI following the instructions in the AWS CLI User Guide.
 
-2. Open the AWS Command Console from the *./sns-sample-app* folder.
+2. Open the AWS Command Console from the _./sns-sample-app_ folder.
 
-3. Run the following command, replacing *STACK_NAME* with a unique name for the stack.
+3. Run the following command, replacing _STACK_NAME_ with a unique name for the stack.
+
 ```
 aws cloudformation create-stack --stack-name STACK_NAME --template-body file://setup.yaml --capabilities CAPABILITY_IAM
 ```
+
 **Important**: The stack name must be unique within an AWS Region and AWS account. You can specify up to 128 characters, and numbers and hyphens are allowed.
 
 4. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the **Stacks** page.
@@ -73,53 +78,38 @@ aws cloudformation create-stack --stack-name STACK_NAME --template-body file://s
 For more information on the create-stack command parameters, see the [AWS CLI Command Reference guide](https://docs.aws.amazon.com/cli/latest/reference/cloudformation/create-stack.html), and the [AWS CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html).
 
 ### Create the resources using the AWS Management Console
-####Create an unauthenticated user role
-4. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
-5. Choose **Manage Identity Pools**.
-6. Choose **Create new identity pool**.
-7. In the **Identity pool name** field, give your identity pool a name.
-7. Select the **Enable access to unauthenticated identities** checkbox.
-8. Choose **Create Pool**.
-9. Choose **Allow**.
-10. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section.
+
+####Create an unauthenticated user role 4. Open [AWS Cognito in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the _Stacks_ page. 5. Choose **Manage Identity Pools**. 6. Choose **Create new identity pool**. 7. In the **Identity pool name** field, give your identity pool a name. 7. Select the **Enable access to unauthenticated identities** checkbox. 8. Choose **Create Pool**. 9. Choose **Allow**. 10. Take note of the **Identity pool ID**, which is highlighted in red in the **Get AWS Credentials** section.
 
 ![ ](images/identity_pool_ids.png)
 
-11.Choose **Edit identity pool**.
-12. Take note of the name of the role in the **Unauthenticated role** field.
+11.Choose **Edit identity pool**. 12. Take note of the name of the role in the **Unauthenticated role** field.
 
-####Adding permissions to an unauthenticated user role
-13. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the *Roles* page.
-14. Search for the unauthenticated role you just created.
-15. Open the role. 
-16. Click the down arrow beside the policy name.
-17. Choose **Edit Policy**.
-18. Choose the **JSON** tab.
-18. Delete the existing content, and paste the code below into it.
+####Adding permissions to an unauthenticated user role 13. Open [IAM in the AWS Management Console](https://aws.amazon.com/iam/), and open the _Roles_ page. 14. Search for the unauthenticated role you just created. 15. Open the role. 16. Click the down arrow beside the policy name. 17. Choose **Edit Policy**. 18. Choose the **JSON** tab. 18. Delete the existing content, and paste the code below into it.
+
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": [
-                "mobileanalytics:PutEvents",
-                "cognito-sync:*"
-            ],
-            "Resource": "*",
-            "Effect": "Allow"
-        },
-        {
-            "Action": "sns:*",
-            "Resource": "*",
-            "Effect": "Allow"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": ["mobileanalytics:PutEvents", "cognito-sync:*"],
+      "Resource": "*",
+      "Effect": "Allow"
+    },
+    {
+      "Action": "sns:*",
+      "Resource": "*",
+      "Effect": "Allow"
+    }
+  ]
 }
 ```
-19. Choose **Review Policy**.
-20. Choose **Save Changes**.   
 
-### Verifying an email address on Amazon SES 
+19. Choose **Review Policy**.
+20. Choose **Save Changes**.
+
+### Verifying an email address on Amazon SES
+
 1. Open [AWS SES in the AWS Management Console](https://aws.amazon.com/SES/), and open the **Email Addresses** page.
 2. Choose **Verify a New Email Address**.
 3. Enter a working email address, and choose **Verify This Email Address**.
@@ -127,23 +117,26 @@ For more information on the create-stack command parameters, see the [AWS CLI Co
 
 ## Create a Node.js project environment
 
-1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment. 
-See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for 
-instructions.
+1. Clone the [AWS Code Samples repo](https://github.com/awsdocs/aws-doc-sdk-examples) to your local environment.
+   See [the Github documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) for
+   instructions.
 
-2. Run the following commands in sequence in the AWS CLI command line to install the AWS service client modules and third-party modules listed in the *package.json*:
+2. Run the following commands in sequence in the AWS CLI command line to install the AWS service client modules and third-party modules listed in the _package.json_:
 
 ```
 npm install node -g
 cd javascriptv3/example_code/cross-services/sns-sample-app
 npm install
 ```
+
 ## Building the code
-This app runs from the browser, so we create the interface using HTML and CSS. 
+
+This app runs from the browser, so we create the interface using HTML and CSS.
 The app uses JavaScript to provide basic interactive features, and Node.js to invoke the AWS Services.
 
 ### Creating the HTML and CSS
-In **index.html**, the **head** section loads [JQuery](https://jquery.com/) and [BootStrap](https://getbootstrap.com/) libraries. 
+
+In **index.html**, the **head** section loads [JQuery](https://jquery.com/) and [BootStrap](https://getbootstrap.com/) libraries.
 It also loads **stlyes.css**, which applies styles to the HTML,
 and the **main.js**, which contains the following JavaScript and Node.js functions used in the app.
 
@@ -225,12 +218,13 @@ The remaining code defines the interface features, including a table and buttons
 </body>
 </html>
 ```
+
 ### Creating the JavaScript and Node.js
+
 The **./src/libs/** folders contains a file for each of the AWS Service client required. You must
 replace "REGION" with your AWS Region, and replace "IDENTITY_POOL_ID" with the Amazon Cognito identity pool id
-you created in [Create the resources](#create-the-resources) on this page. 
- 
- 
+you created in [Create the resources](#create-the-resources) on this page.
+
 ```javascript
 import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
 import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
@@ -241,23 +235,25 @@ const IDENTITY_POOL_ID = "IDENTITY_POOL_ID"; // An Amazon Cognito Identity Pool 
 
 // Create an Amazon Comprehend service client object.
 const snsClient = new SNSClient({
-    region: REGION,
-    credentials: fromCognitoIdentityPool({
-        client: new CognitoIdentityClient({ region: REGION }),
-        identityPoolId: IDENTITY_POOL_ID,
-    }),
+  region: REGION,
+  credentials: fromCognitoIdentityPool({
+    client: new CognitoIdentityClient({ region: REGION }),
+    identityPoolId: IDENTITY_POOL_ID,
+  }),
 });
 
 export { snsClient };
 ```
+
 In **./src/index.js**, you first import all the required AWS Service and third party modules, and set global parameters.
+
 ```javascript
 import {
   SubscribeCommand,
   ListSubscriptionsByTopicCommand,
   ListSubscriptionsCommand,
   UnsubscribeCommand,
-    PublishCommand
+  PublishCommand,
 } from "@aws-sdk/client-sns";
 import { snsClient } from "../libs/snsClient.js";
 
@@ -265,14 +261,15 @@ import { snsClient } from "../libs/snsClient.js";
 const TOPIC_ARN = "TOPIC_ARN";
 ```
 
-Next, you define the following functions: 
+Next, you define the following functions:
 
-- *subEmail* - subscribe an email to the Amazon SNS topic.
-- *getSubs* - list the emails subscribed to the Amazon SNS topic.
-- *delSub* - remove an email from being subscribed to the Amazon SNS topic.
-- *sendMessage* - send an email to all email addresses subscribed to the Amazon SNS topic.
+- _subEmail_ - subscribe an email to the Amazon SNS topic.
+- _getSubs_ - list the emails subscribed to the Amazon SNS topic.
+- _delSub_ - remove an email from being subscribed to the Amazon SNS topic.
+- _sendMessage_ - send an email to all email addresses subscribed to the Amazon SNS topic.
 
-**Note:** *loadItems* and *validate* are helper functions.
+**Note:** _loadItems_ and _validate_ are helper functions.
+
 ```javascript
 // Subscribe the email address to the Amazon SNS topic.
 const subEmail = async () => {
@@ -306,7 +303,8 @@ function loadItems(event) {
 
 // Helper function to validate email addresses.
 function validateEmail(email) {
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const re =
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 }
 
@@ -328,7 +326,7 @@ const getSubs = async () => {
   };
   try {
     const data = await snsClient.send(
-      new ListSubscriptionsByTopicCommand(params)
+      new ListSubscriptionsByTopicCommand(params),
     );
     console.log("Success.", data.Subscriptions[0].SubscriptionArn);
     var alertBody = "";
@@ -405,25 +403,28 @@ window.sendMessage = sendMessage;
 ```
 
 **Important**: You must bundle all the JavaScript and Node.js code required for the app into a single
- file (**main.js**) to run the app. For instructions, see [Bundling the scripts](#bundling-the-scripts).
-
+file (**main.js**) to run the app. For instructions, see [Bundling the scripts](#bundling-the-scripts).
 
 ### Bundling the scripts
-This is a static site consisting only of HTML, CSS, and client-side JavaScript. 
+
+This is a static site consisting only of HTML, CSS, and client-side JavaScript.
 However, a build step is required to enable the modules to work natively in the browser.
 
-To bundle the JavaScript and Node.js for this example in a single file named main.js, 
+To bundle the JavaScript and Node.js for this example in a single file named main.js,
 enter the following commands in sequence in the AWS CLI command line:
 
 ```
 cd javascriptv3/example_code/cross-services/sns-sample-app/src
 webpack index.js --mode development --target web --devtool false -o main.js
 ```
+
 ## Run the app
+
 Open the index.html in your favorite browser, and follow the onscreen instructions.
 
 ## Destroying the resources
-4. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the *Stacks* page.
+
+4. Open [AWS CloudFormation in the AWS Management Console](https://aws.amazon.com/cloudformation/), and open the _Stacks_ page.
 
 ![ ](images/cloud_formation_stacks.png)
 
@@ -432,6 +433,7 @@ Open the index.html in your favorite browser, and follow the onscreen instructio
 6. Choose **Delete**.
 
 ### Next steps
-Congratulations! You have created and deployed the Amazon Simple Notification Service example app. 
+
+Congratulations! You have created and deployed the Amazon Simple Notification Service example app.
 For more AWS multiservice examples, see
 [usecases](https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/javav2/usecases).

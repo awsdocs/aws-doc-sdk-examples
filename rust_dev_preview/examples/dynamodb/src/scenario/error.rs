@@ -5,10 +5,14 @@
 
 use std::error::Error as StdError;
 
+use aws_smithy_http::operation::error::BuildError;
+
 #[derive(thiserror::Error, Debug)]
 pub enum Error {
     #[error("table was not ready after several attempts: {0}")]
     TableNotReady(String),
+    #[error("problem building schema key or element: {0}")]
+    BuildError(BuildError),
     #[error("unhandled error")]
     Unhandled(#[source] Box<dyn StdError + Send + Sync + 'static>),
 }

@@ -34,7 +34,7 @@ describe("monitor-instances", () => {
     expect(logSpy).toHaveBeenNthCalledWith(1, "Monitoring status:");
     expect(logSpy).toHaveBeenNthCalledWith(
       2,
-      " • Detailed monitoring state for foo is bar."
+      " • Detailed monitoring state for foo is bar.",
     );
   });
 

@@ -69,7 +69,7 @@ export const submitData = async () => {
         // Send the SNS message
         const data = await snsClient.send(new PublishCommand(messageParams));
         console.log(
-          "Success, message published. MessageID is " + data.MessageId
+          "Success, message published. MessageID is " + data.MessageId,
         );
       } catch (err) {
         // Display error message if error is not sent
@@ -79,7 +79,7 @@ export const submitData = async () => {
       // Display error message if item is no added to table
       console.error(
         "An error occurred. Check the console for further information",
-        err
+        err,
       );
     }
     // Display alert if all field are not completed.

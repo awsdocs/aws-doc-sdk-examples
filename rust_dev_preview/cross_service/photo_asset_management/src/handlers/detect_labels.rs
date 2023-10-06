@@ -64,7 +64,6 @@ async fn detect_record<'a>(
         .send()
         .await?
         .labels()
-        .ok_or_else(|| anyhow!("missing labels"))?
         .iter()
         .map(|l| l.to_owned())
         .collect();
@@ -159,7 +158,5 @@ mod test {
         assert!(update_inner_debug.contains("\":image\": L([S(\"object\")])"));
         assert!(update_inner_debug.contains("\":one\": N(\"1\")"));
         assert!(update_inner_debug.contains("\":zero\": N(\"0\")"));
-
-        ()
     }
 }

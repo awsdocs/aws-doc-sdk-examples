@@ -18,7 +18,7 @@ describe("ses_listemplates", () => {
   it("should successfully list templates", async () => {
     const result = await run();
     expect(result.TemplatesMetadata).toContainEqual(
-      expect.objectContaining({ Name: TEMPLATE_NAME })
+      expect.objectContaining({ Name: TEMPLATE_NAME }),
     );
   });
 });

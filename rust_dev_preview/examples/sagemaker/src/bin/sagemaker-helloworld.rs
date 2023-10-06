@@ -27,10 +27,10 @@ async fn show_instances(client: &Client) -> Result<(), Error> {
 
     println!("Notebooks:");
 
-    for n in notebooks.notebook_instances().unwrap_or_default() {
+    for n in notebooks.notebook_instances() {
         let n_instance_type = n.instance_type().unwrap();
         let n_status = n.notebook_instance_status().unwrap();
-        let n_name = n.notebook_instance_name().unwrap_or_default();
+        let n_name = n.notebook_instance_name();
 
         println!("  Name :          {}", n_name);
         println!("  Status :        {}", n_status.as_ref());

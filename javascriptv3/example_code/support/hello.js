@@ -21,7 +21,7 @@ const getServiceCount = async () => {
   } catch (err) {
     if (err.name === "SubscriptionRequiredException") {
       throw new Error(
-        "You must be subscribed to the AWS Support plan to use this feature."
+        "You must be subscribed to the AWS Support plan to use this feature.",
       );
     } else {
       throw err;

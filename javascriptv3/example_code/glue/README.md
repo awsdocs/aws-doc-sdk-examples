@@ -72,9 +72,10 @@ Code examples that show you how to accomplish a specific task by calling multipl
 > 1. Create a .env file with the following values.
 >    Set the value of BUCKET_NAME and ROLE_NAME to the values output from
 >    the CDK.
+>
 > ```
->    BUCKET_NAME = 
->    ROLE_NAME = 
+>    BUCKET_NAME =
+>    ROLE_NAME =
 >    PYTHON_SCRIPT_KEY = flight_etl_job_script.py
 >    S3_TARGET_PATH = s3://crawler-public-us-east-1/flight/2016/csv
 >    DATABASE_NAME = doc-example-database
@@ -82,7 +83,8 @@ Code examples that show you how to accomplish a specific task by calling multipl
 >    TABLE_NAME = doc-example-csv
 >    CRAWLER_NAME = s3-flight-data-crawler
 >    JOB_NAME = flight_etl_job
->```
+> ```
+>
 > Running the scenario:
 >
 > 1. Run `node ./scenarios/basic`.

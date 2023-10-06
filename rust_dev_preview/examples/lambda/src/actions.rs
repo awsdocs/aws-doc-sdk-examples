@@ -258,7 +258,7 @@ impl LambdaManager {
             .create_function()
             .function_name(self.lambda_name.clone())
             .code(code)
-            .role(role.role().unwrap().arn().unwrap())
+            .role(role.role().map(|r| r.arn()).unwrap_or_default())
             .runtime(aws_sdk_lambda::types::Runtime::Providedal2)
             .handler("_unused")
             .send()

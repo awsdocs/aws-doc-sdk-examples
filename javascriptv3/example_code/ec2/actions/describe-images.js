@@ -22,7 +22,7 @@ export const main = async () => {
       // to increase efficiency.
       // See https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-ec2/interfaces/describeimagescommandinput.html#filters
       Filters: [{ Name: "architecture", Values: ["x86_64"] }],
-    }
+    },
   );
 
   try {

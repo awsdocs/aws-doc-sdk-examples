@@ -17,7 +17,7 @@ node emc_canceljob.js
 // snippet-start:[mediaconvert.JavaScript.jobs.cancelJobV3]
 // Import required AWS-SDK clients and commands for Node.js
 import { CancelJobCommand } from "@aws-sdk/client-mediaconvert";
-import { emcClient } from  "./libs/emcClient.js";
+import { emcClient } from "./libs/emcClient.js";
 
 // Set the parameters
 const params = { Id: "JOB_ID" }; //JOB_ID

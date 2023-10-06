@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {fileURLToPath} from "url";
+import { fileURLToPath } from "url";
 
 // snippet-start:[javascript.v3.lambda.hello]
-import {LambdaClient, paginateListFunctions} from "@aws-sdk/client-lambda";
+import { LambdaClient, paginateListFunctions } from "@aws-sdk/client-lambda";
 
 const client = new LambdaClient({});
 
 export const helloLambda = async () => {
-  const paginator = paginateListFunctions({client}, {});
+  const paginator = paginateListFunctions({ client }, {});
   const functions = [];
 
   for await (const page of paginator) {

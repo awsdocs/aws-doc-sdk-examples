@@ -19,7 +19,7 @@ describe("auth-challenge-define", () => {
           failAuthentication: false,
           challengeName: "PASSWORD_VERIFIER",
         },
-      })
+      }),
     );
   });
 
@@ -40,7 +40,7 @@ describe("auth-challenge-define", () => {
           failAuthentication: false,
           challengeName: "CUSTOM_CHALLENGE",
         },
-      })
+      }),
     );
   });
 
@@ -62,7 +62,7 @@ describe("auth-challenge-define", () => {
           failAuthentication: false,
           challengeName: "CUSTOM_CHALLENGE",
         },
-      })
+      }),
     );
   });
 
@@ -84,7 +84,7 @@ describe("auth-challenge-define", () => {
           issueTokens: true,
           failAuthentication: false,
         },
-      })
+      }),
     );
   });
 
@@ -107,7 +107,7 @@ describe("auth-challenge-define", () => {
           issueTokens: false,
           failAuthentication: true,
         },
-      })
+      }),
     );
   });
 });

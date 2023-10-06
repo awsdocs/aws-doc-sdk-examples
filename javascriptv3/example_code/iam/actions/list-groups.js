@@ -31,7 +31,7 @@ export async function* listGroups() {
         new ListGroupsCommand({
           Marker: response.Marker,
           MaxItems: 10,
-        })
+        }),
       );
     } else {
       break;

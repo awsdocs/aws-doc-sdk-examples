@@ -26,7 +26,7 @@ async fn show_regions(client: &Client) -> Result<(), Error> {
     let rsp = client.describe_regions().send().await?;
 
     println!("Regions:");
-    for region in rsp.regions().unwrap_or_default() {
+    for region in rsp.regions() {
         println!("  {}", region.region_name().unwrap());
     }
 

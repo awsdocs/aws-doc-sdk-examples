@@ -15,7 +15,7 @@ export const main = async () => {
     // Create a key pair in Amazon EC2.
     const { KeyMaterial, KeyName } = await client.send(
       // A unique name for the key pair. Up to 255 ASCII characters.
-      new CreateKeyPairCommand({ KeyName: "KEY_PAIR_NAME" })
+      new CreateKeyPairCommand({ KeyName: "KEY_PAIR_NAME" }),
     );
     // This logs your private key. Be sure to save it.
     console.log(KeyName);

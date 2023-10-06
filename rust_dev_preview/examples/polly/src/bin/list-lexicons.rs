@@ -27,7 +27,7 @@ async fn show_lexicons(client: &Client) -> Result<(), Error> {
 
     println!("Lexicons:");
 
-    let lexicons = resp.lexicons().unwrap_or_default();
+    let lexicons = resp.lexicons();
 
     for lexicon in lexicons {
         println!("  Name:     {}", lexicon.name().unwrap_or_default());

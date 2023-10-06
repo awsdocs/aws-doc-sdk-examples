@@ -17,7 +17,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let s3_client = s3_client(&shared_config);
 
     let resp = s3_client.list_buckets().send().await?;
-    let buckets = resp.buckets().unwrap_or_default();
+    let buckets = resp.buckets();
     let num_buckets = buckets.len();
 
     println!("Buckets:");
@@ -30,7 +30,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
     println!();
 
     let repl = sqs_client.list_queues().send().await?;
-    let queues = repl.queue_urls().unwrap_or_default();
+    let queues = repl.queue_urls();
     let num_queues = queues.len();
 
     println!("Queue URLs:");

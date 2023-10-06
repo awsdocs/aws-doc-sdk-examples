@@ -18,8 +18,8 @@ node emc_deletetemplate.js
 */
 // snippet-start:[mediaconvert.JavaScript.templates.deleteJobTemplateV3]
 // Import required AWS-SDK clients and commands for Node.js
-import { DeleteJobTemplateCommand } from  "@aws-sdk/client-mediaconvert";
-import { emcClient } from  "./libs/emcClient.js";
+import { DeleteJobTemplateCommand } from "@aws-sdk/client-mediaconvert";
+import { emcClient } from "./libs/emcClient.js";
 
 // Set the parameters
 const params = { Name: "test" }; //TEMPLATE_NAME
@@ -29,7 +29,7 @@ const run = async () => {
     const data = await emcClient.send(new DeleteJobTemplateCommand(params));
     console.log(
       "Success, template deleted! Request ID:",
-      data.$metadata.requestId
+      data.$metadata.requestId,
     );
     return data;
   } catch (err) {

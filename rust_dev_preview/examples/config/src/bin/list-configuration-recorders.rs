@@ -25,7 +25,7 @@ struct Opt {
 async fn show_recorders(client: &Client) -> Result<(), Error> {
     let resp = client.describe_configuration_recorders().send().await?;
 
-    let recorders = resp.configuration_recorders().unwrap_or_default();
+    let recorders = resp.configuration_recorders();
 
     if recorders.is_empty() {
         println!("You have no configuration recorders")

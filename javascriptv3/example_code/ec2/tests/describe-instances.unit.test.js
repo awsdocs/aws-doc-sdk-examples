@@ -46,7 +46,7 @@ describe("describe-instances", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to describe instances")
+      new Error("Failed to describe instances"),
     );
   });
 });

@@ -25,11 +25,9 @@ struct Opt {
 async fn list_plans(client: &Client) -> Result<(), Error> {
     let response = client.describe_scaling_plans().send().await?;
 
-    if let Some(plans) = response.scaling_plans() {
-        println!("Auto Scaling Plans:");
-        for plan in plans {
-            println!("{:?}\n", plan);
-        }
+    println!("Auto Scaling Plans:");
+    for plan in response.scaling_plans() {
+        println!("{:?}\n", plan);
     }
 
     Ok(())

@@ -20,7 +20,7 @@ node redshift-describe-clusters.js
 
 // snippet-start:[redshift.javascript.redshift-describe-clustersV3]
 // Import required AWS SDK clients and commands for Node.js
-import { DescribeClustersCommand }  from "@aws-sdk/client-redshift";
+import { DescribeClustersCommand } from "@aws-sdk/client-redshift";
 import { redshiftClient } from "./libs/redshiftClient.js";
 
 const params = {

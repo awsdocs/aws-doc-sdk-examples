@@ -20,7 +20,7 @@ export const main = async () => {
       new DescribeCommunicationsCommand({
         // Set value to an existing case id.
         caseId: "CASE_ID",
-      })
+      }),
     );
     const text = response.communications.map((item) => item.body).join("\n");
     console.log(text);

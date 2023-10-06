@@ -92,7 +92,12 @@ pub async fn send_report(
 
     let email = ses
         .send_raw_email()
-        .raw_message(RawMessage::builder().data(data).build())
+        .raw_message(
+            RawMessage::builder()
+                .data(data)
+                .build()
+                .expect("building RawMessage"),
+        )
         .send()
         .await
         .map_err(|err| ReportError::SesError(err.into()))?;

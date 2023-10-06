@@ -45,7 +45,7 @@ async fn main() -> Result<(), aws_sdk_s3::Error> {
 
     match client.list_buckets().send().await {
         Ok(response) => {
-            for bucket in response.buckets().unwrap_or_default() {
+            for bucket in response.buckets() {
                 println!("bucket: {:?}", bucket.name().unwrap_or_default())
             }
         }

@@ -11,8 +11,9 @@ To run the full tutorial, see https://github.com/awsdocs/aws-doc-sdk-examples/tr
 -->
 
 <!-- snippet-start:[rekognition.HTML.photo-analyzer.complete]-->
-<!DOCTYPE html>
-<head>
+<!doctype html>
+<html>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,72 +23,78 @@ To run the full tutorial, see https://github.com/awsdocs/aws-doc-sdk-examples/tr
     <script src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
     <script src="./js/main.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
-    <link rel="stylesheet" href="./css/styles.css"/>
-
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
 
     <title>AWS Photo Analyzer</title>
 
     <script>
-        function myFunction() {
-            alert("The form was submitted");
-        }
+      function myFunction() {
+        alert("The form was submitted");
+      }
     </script>
+  </head>
 
-</head>
+  <body>
+    <div class="container">
+      <h2>AWS Photo Analyzer Application</h2>
+      <p>Upload images to an S3 Bucket. Each image will be analysed!</p>
 
-<body>
-<div class="container">
+      <input id="imageupload" type="file" name="file" /><br /><br />
+      <button id="addimage" onclick="addToBucket()">Add image</button>
+    </div>
+    <div class="container">
+      <br />
 
-<h2>AWS Photo Analyzer Application</h2>
-<p>Upload images to an S3 Bucket. Each image will be analysed!</p>
+      <p>
+        Select the following button to determine the number of images in the
+        bucket.
+      </p>
 
-    <input id="imageupload" type="file" name="file" /><br/><br/>
-    <button id="addimage" onclick="addToBucket()">Add image</button>
-</div>
-</div>
-<div class ="container" >
-    <br>
-
-    <p>Select the following button to determine the number of images in the bucket.</p>
-
-    <button onclick="getImages()">Get Images</button>
-    <table id="myTable" class="display" style="width:100%">
+      <button onclick="getImages()">Get Images</button>
+      <table id="myTable" class="display" style="width: 100%">
         <thead>
-        <tr>
+          <tr>
             <th>Name</th>
             <th>Owner</th>
             <th>Date</th>
             <th>Size</th>
-        </tr>
+          </tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody></tbody>
         <tfoot>
-        <tr>
+          <tr>
             <th>Name</th>
             <th>Owner</th>
             <th>Date</th>
             <th>Size</th>
-        </tr>
+          </tr>
         </tfoot>
         <div id="success3"></div>
-    </table>
+      </table>
+    </div>
+    <div class="container">
+      <p>
+        You can generate a report that analyzes the images in the S3 bucket. You
+        can send the report to the following email address.
+      </p>
+      <label for="email">Email address:</label><br />
+      <input type="text" id="email" name="email" value="" /><br />
 
-</div>
-<div class="container">
-<p>You can generate a report that analyzes the images in the S3 bucket. You can send the report to the following email address. </p>
-<label for="email">Email address:</label><br>
-<input type="text" id="email" name="email" value=""><br>
+      <div>
+        <br />
 
-<div>
-    <br>
-
-    <p>Select the following button to obtain a report.</p>
-    <button onclick="ProcessImages()">Analyze Photos</button>
-</div>
-</div>
-</body>
+        <p>Select the following button to obtain a report.</p>
+        <button onclick="ProcessImages()">Analyze Photos</button>
+      </div>
+    </div>
+  </body>
 </html>
 <!-- snippet-end:[rekognition.HTML.photo-analyzer.complete]-->

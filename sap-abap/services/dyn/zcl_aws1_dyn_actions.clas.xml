@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>ZCL_AWS1_DYN_ACTIONS</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Dynamo DB Code Example</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+    <WITH_UNIT_TESTS>X</WITH_UNIT_TESTS>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_DYN_ACTIONS</CLSNAME>
+     <CMPNAME>CREATE_TABLE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Create Dynamo DB Table</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_DYN_ACTIONS</CLSNAME>
+     <CMPNAME>DELETE_ITEM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Delete item from example-table</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_DYN_ACTIONS</CLSNAME>
+     <CMPNAME>DELETE_TABLE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Delete table</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_DYN_ACTIONS</CLSNAME>
+     <CMPNAME>DESCRIBE_TABLE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Describe table</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_DYN_ACTIONS</CLSNAME>
+     <CMPNAME>GET_ITEM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Get item from example-table</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_DYN_ACTIONS</CLSNAME>
+     <CMPNAME>LIST_TABLES</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>List tables</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_DYN_ACTIONS</CLSNAME>
+     <CMPNAME>PUT_ITEM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Put item into example-table</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_DYN_ACTIONS</CLSNAME>
+     <CMPNAME>QUERY_TABLE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Query items from example-table</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_DYN_ACTIONS</CLSNAME>
+     <CMPNAME>SCAN_ITEMS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Scan example-table</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>ZCL_AWS1_DYN_ACTIONS</CLSNAME>
+     <CMPNAME>UPDATE_ITEM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Update item in example-table</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

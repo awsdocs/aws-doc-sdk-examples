@@ -8,7 +8,6 @@
 use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_qldb::{config::Region, meta::PKG_VERSION, Client as QLDBClient, Error};
 use clap::Parser;
-use tokio_stream::StreamExt;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -28,7 +27,7 @@ async fn show_ledgers(client: &QLDBClient) -> Result<(), Error> {
 
     while let Some(page) = pages.next().await {
         println!("* {:?}", page); //Prints an entire page of ledgers.
-        for ledger in page.unwrap().ledgers().unwrap() {
+        for ledger in page.unwrap().ledgers() {
             println!("* {:?}", ledger); //Prints the LedgerSummary of a single ledger.
         }
     }

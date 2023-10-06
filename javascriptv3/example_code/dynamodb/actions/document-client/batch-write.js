@@ -13,7 +13,7 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 import { readFileSync } from "fs";
 
-// These modules are local to our GitHub repository. We recommend cloning 
+// These modules are local to our GitHub repository. We recommend cloning
 // the project from GitHub if you want to run this example.
 // For more information, see https://github.com/awsdocs/aws-doc-sdk-examples.
 import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
@@ -26,7 +26,7 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 export const main = async () => {
   const file = readFileSync(
-    `${dirname}../../../../../resources/sample_files/movies.json`
+    `${dirname}../../../../../resources/sample_files/movies.json`,
   );
 
   const movies = JSON.parse(file.toString());
@@ -47,8 +47,8 @@ export const main = async () => {
       RequestItems: {
         // An existing table is required. A composite key of 'title' and 'year' is recommended
         // to account for duplicate titles.
-        ["BatchWriteMoviesTable"]: putRequests
-      }
+        ["BatchWriteMoviesTable"]: putRequests,
+      },
     });
 
     await docClient.send(command);

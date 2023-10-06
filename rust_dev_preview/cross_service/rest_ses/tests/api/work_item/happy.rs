@@ -97,11 +97,7 @@ async fn post_workitem_returns_200() {
         .await
         .expect("failed to query rds");
 
-    assert_eq!(
-        result.records().unwrap().len(),
-        1,
-        "should have inserted one record"
-    );
+    assert_eq!(result.records().len(), 1, "should have inserted one record");
 }
 
 /// Create a single item, and assert we can get it back from the list endpoint.

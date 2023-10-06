@@ -24,7 +24,7 @@ export const main = async () => {
             data: new TextEncoder().encode("some example text"),
           },
         ],
-      })
+      }),
     );
     // Use this ID in AddCommunicationToCase or CreateCase.
     console.log(response.attachmentSetId);

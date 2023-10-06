@@ -17,7 +17,7 @@ describe("partiql-get", () => {
     [
       { Name: { S: "Nimbus" }, IsStorm: { BOOL: "false" } },
       { Name: { S: "Cumulonimbus" }, IsStorm: { BOOL: "true" } },
-    ]
+    ],
   );
 
   it("should get only non-storm clouds from the database", async () => {

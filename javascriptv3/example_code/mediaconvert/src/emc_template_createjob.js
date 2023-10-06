@@ -21,8 +21,8 @@ node emc_template_createjob.js
 */
 // snippet-start:[mediaconvert.JavaScript.templates.createJobV3]
 // Import required AWS-SDK clients and commands for Node.js
-import { CreateJobCommand } from  "@aws-sdk/client-mediaconvert";
-import { emcClient } from  "./libs/emcClient.js";
+import { CreateJobCommand } from "@aws-sdk/client-mediaconvert";
+import { emcClient } from "./libs/emcClient.js";
 
 const params = {
   Queue: "QUEUE_ARN", //QUEUE_ARN

@@ -1,11 +1,22 @@
 # syntax=docker/dockerfile:1
 FROM golang:1.19.2
+
+# Update image
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy source code
 COPY . /gov2
-# If your corporate network blocks proxy.golang.org, uncomment this line.
+
+# Perform build steps
 RUN go env -w GOPROXY=direct
-## Run tests in all gov2 folders.
-## Pass 'integration' to run_all_tests.sh to run integration tests.
-## Output to a file by appending > test-run-unit-$(date +"%Y-%m-%d").out
-#RUN cd /gov2 && \
-#  ./run_all_tests.sh
-CMD ["cd", "/gov2", "&&", "./run_all_tests.sh", "integration"]
+
+# Set non-root user
+RUN useradd -m automation && \
+    chown -R automation:automation /gov2/
+USER automation:automation
+
+# Set default command
+CMD ["./run_all_tests.sh", "integration"]

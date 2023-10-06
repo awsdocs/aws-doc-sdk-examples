@@ -12,7 +12,7 @@ describe("batch-get-item", () => {
     [
       { Title: { S: "How to AWS" }, PageCount: { N: "10" } },
       { Title: { S: "DynamoDB for DBAs" }, PageCount: { N: "2" } },
-    ]
+    ],
   );
 
   it("should return a list of items", async () => {
@@ -22,7 +22,7 @@ describe("batch-get-item", () => {
       expect.arrayContaining([
         { PageCount: 10, Title: "How to AWS" },
         { PageCount: 2, Title: "DynamoDB for DBAs" },
-      ])
+      ]),
     );
   });
 });

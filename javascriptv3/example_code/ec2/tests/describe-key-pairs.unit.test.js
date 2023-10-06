@@ -35,7 +35,7 @@ describe("describe-key-pairs", () => {
 
     expect(logSpy).nthCalledWith(
       1,
-      "The following key pairs were found in your account:"
+      "The following key pairs were found in your account:",
     );
     expect(logSpy).nthCalledWith(2, " • bar: foo");
   });
@@ -47,7 +47,7 @@ describe("describe-key-pairs", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to describe key pairs")
+      new Error("Failed to describe key pairs"),
     );
   });
 });

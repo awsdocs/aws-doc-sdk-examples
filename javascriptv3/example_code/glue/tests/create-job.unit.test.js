@@ -23,7 +23,7 @@ describe("create-job", () => {
       "flight_etl_job",
       expect.stringContaining(""),
       expect.stringContaining(""),
-      "flight_etl_job_script.py"
+      "flight_etl_job_script.py",
     );
   });
 

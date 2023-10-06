@@ -1,21 +1,21 @@
 # syntax=docker/dockerfile:1
-# Status: Beta
-# GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4132
-
-# Our examples have various minimum Swift versions, depending on what features
-# of the SDK they use. Here we will just pull the most recent version of the
-# official Swift Docker image.
-
 FROM swift
 
-# Install Python for the scripts and tools.
-
+# Update image
 RUN apt-get update && \
-    apt-get install -y python3.10 libssl-dev openssl
+    apt-get install -y python3.10 libssl-dev openssl && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy the code into place and build all the examples.
+# Copy source code
+COPY . /swift
 
-COPY . /swift/
-RUN cd /swift/example_code/ && \
-    python3.10 ../tools/swiftbuild.py */*
-CMD ["bash"]
+# Perform build steps
+RUN python3.10 /swift/tools/swiftbuild.py */*
+
+# Set non-root user
+RUN useradd -m automation && \
+    chown -R automation:automation /swift
+USER automation:automation
+
+CMD ["python3.10", "/swift/tools/swiftbuild.py", "-t", "*/*"]
+

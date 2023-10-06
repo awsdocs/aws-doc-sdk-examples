@@ -27,7 +27,7 @@ async fn show_topics(client: &Client) -> Result<(), Error> {
 
     println!("Topic ARNs:");
 
-    for topic in resp.topics().unwrap_or_default() {
+    for topic in resp.topics() {
         println!("{}", topic.topic_arn().unwrap_or_default());
     }
 

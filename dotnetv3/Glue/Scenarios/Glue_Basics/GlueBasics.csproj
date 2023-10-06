@@ -29,10 +29,4 @@
     <ProjectReference Include="..\..\Actions\GlueActions.csproj" />
   </ItemGroup>
 
-	<ItemGroup>
-	  <Content Update="settings.local.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	</ItemGroup>
-
 </Project>

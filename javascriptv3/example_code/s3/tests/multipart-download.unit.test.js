@@ -33,7 +33,7 @@ describe("multipart-download", () => {
             Bucket: "bucket",
             Key: "key",
           }),
-        })
+        }),
       );
     });
   });

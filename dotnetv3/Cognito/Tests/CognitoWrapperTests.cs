@@ -123,13 +123,5 @@ namespace CognitoWrapperTests
             Assert.NotNull(newSession);
         }
 
-        [Fact(Skip = "Requires token.")]
-        [Order(10)]
-        [Trait("Category", "Integration")]
-        public async Task RespondToAuthChallengeAsyncTest()
-        {
-            var authResult = await _wrapper.RespondToAuthChallengeAsync(_userName, _clientId, _mfaToken, _session);
-            Assert.NotNull(authResult);
-        }
     }
 }

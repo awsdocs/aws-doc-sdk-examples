@@ -41,7 +41,7 @@ describe("allocate-address", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to allocate address")
+      new Error("Failed to allocate address"),
     );
   });
 });

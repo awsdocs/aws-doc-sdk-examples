@@ -36,13 +36,7 @@ async fn show_state(client: &Client, id: &str) -> Result<(), Error> {
 
     println!(
         "State: {}",
-        resp.snapshots()
-            .unwrap()
-            .first()
-            .unwrap()
-            .state()
-            .unwrap()
-            .as_ref()
+        resp.snapshots().first().unwrap().state().unwrap().as_ref()
     );
 
     Ok(())

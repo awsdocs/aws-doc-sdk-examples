@@ -25,7 +25,7 @@ struct Opt {
 async fn show_clusters(client: &aws_sdk_ecs::Client) -> Result<(), aws_sdk_ecs::Error> {
     let resp = client.list_clusters().send().await?;
 
-    let cluster_arns = resp.cluster_arns().unwrap_or_default();
+    let cluster_arns = resp.cluster_arns();
     println!("Found {} clusters:", cluster_arns.len());
 
     let clusters = client
@@ -34,7 +34,7 @@ async fn show_clusters(client: &aws_sdk_ecs::Client) -> Result<(), aws_sdk_ecs::
         .send()
         .await?;
 
-    for cluster in clusters.clusters().unwrap_or_default() {
+    for cluster in clusters.clusters() {
         println!("  ARN:  {}", cluster.cluster_arn().unwrap());
         println!("  Name: {}", cluster.cluster_name().unwrap());
     }

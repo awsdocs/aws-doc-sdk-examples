@@ -10,7 +10,7 @@ const orDefaultRegion = defaultTo(DEFAULT_REGION);
 
 const createClientForRegion = curry(
   (region, ClientConstructor) =>
-    new ClientConstructor({ region: orDefaultRegion(region) })
+    new ClientConstructor({ region: orDefaultRegion(region) }),
 );
 
 const createClientForDefaultRegion = createClientForRegion(null);

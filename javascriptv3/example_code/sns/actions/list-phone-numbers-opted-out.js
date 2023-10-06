@@ -11,7 +11,7 @@ import { snsClient } from "../libs/snsClient.js";
 
 export const listPhoneNumbersOptedOut = async () => {
   const response = await snsClient.send(
-    new ListPhoneNumbersOptedOutCommand({})
+    new ListPhoneNumbersOptedOutCommand({}),
   );
   console.log(response);
   // {

@@ -1,7 +1,22 @@
 # syntax=docker/dockerfile:1
-# Status: Beta
-# GA updates: https://github.com/awsdocs/aws-doc-sdk-examples/issues/4127
 FROM node:18
+
+# Update image
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy source code
 COPY . /javascriptv3
-RUN npm install --prefix /javascriptv3
-CMD ["bash"]
+
+# Perform build steps
+RUN npm install -C /javascriptv3
+
+# Set non-root user
+RUN useradd -m automation && \
+    chown -R automation:automation /javascriptv3/
+USER automation:automation
+
+# Set default command
+CMD ["./scripts/run_tests.sh", "integration"]

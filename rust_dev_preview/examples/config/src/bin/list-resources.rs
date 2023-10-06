@@ -33,7 +33,7 @@ async fn show_resources(verbose: bool, client: &Client) -> Result<(), Error> {
             .send()
             .await?;
 
-        let resources = resp.resource_identifiers().unwrap_or_default();
+        let resources = resp.resource_identifiers();
 
         if !resources.is_empty() || verbose {
             println!();

@@ -25,7 +25,7 @@ describe("custom-message-admin-create", () => {
         response: expect.objectContaining({
           emailMessage: `Welcome to the service. Your user name is Peccy. Your temporary password is 123`,
         }),
-      })
+      }),
     );
   });
 });

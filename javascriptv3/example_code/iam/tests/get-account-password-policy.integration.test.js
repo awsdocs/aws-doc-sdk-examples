@@ -3,6 +3,8 @@ import { getAccountPasswordPolicy } from "../actions/get-account-password-policy
 
 describe("Get account password policy", () => {
   it("should return the password policy", () => {
-    expect(() => getAccountPasswordPolicy()).rejects.toThrow('The Password Policy with domain');
+    expect(() => getAccountPasswordPolicy()).rejects.toThrow(
+      "The Password Policy with domain",
+    );
   });
 });

@@ -1,11 +1,14 @@
 # Amazon Kinesis JavaScript SDK v3 code examples
+
 Amazon Kinesis makes it easy to collect, process, and analyze real-time, streaming data so you can get timely insights and react quickly to new information.
 
 ## Code examples
+
 This is a workspace where you can find the following AWS SDK for JavaScript version 3 (v3) Amazon Kinesis examples:
+
 - Tutorial demonstrating how to capture browser user event data and send it to Amazon Kenesis. See [documentation](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples.html).
 
-**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see 
+**Note**: All code examples are written in ECMAscript 6 (ES6). For guidelines on converting to CommonJS, see
 [JavaScript ES6/CommonJS syntax](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/sdk-example-javascript-syntax.html).
 
 ## Getting started
@@ -14,16 +17,19 @@ This is a workspace where you can find the following AWS SDK for JavaScript vers
 
 1. Install the dependencies listed in the package.json.
 
-**Note**: These include the client module for the AWS services required in these example, 
-which is *@aws-sdk/client-kinesis*.
+**Note**: These include the client module for the AWS services required in these example,
+which is _@aws-sdk/client-kinesis_.
+
 ```
 npm install node -g
 cd javascriptv3/example_code/kinesis
 npm install
 ```
+
 4. To run this code, follow the instructions for this example in the [Capturing Web Page Scroll Progress with Amazon Kinesis](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples-capturing-page-scrolling.html).
 
 ## Resources
-- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3) 
-- [Amazon Kinesis Example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples.html) 
-- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/kinesis/index.html) 
+
+- [AWS SDK for JavaScript v3](https://github.com/aws/aws-sdk-js-v3)
+- [Amazon Kinesis Example](https://docs.aws.amazon.com/sdk-for-javascript/v3/developer-guide/kinesis-examples.html)
+- [AWS SDK for JavaScript v3 API Reference Guide](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/kinesis/index.html)

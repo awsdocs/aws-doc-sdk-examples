@@ -39,50 +39,44 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
 
     println!("Your Asset:");
 
-    println!("  Asset ID:  {}", asset.asset_id().unwrap_or_default());
-    println!("  Asset ARN:  {}", asset.asset_arn().unwrap_or_default());
-    println!("  Asset Name:   {}", asset.asset_name().unwrap_or_default());
-    println!(
-        "  Asset Model ID:   {}",
-        asset.asset_model_id().unwrap_or_default()
-    );
+    println!("  Asset ID:  {}", asset.asset_id());
+    println!("  Asset ARN:  {}", asset.asset_arn());
+    println!("  Asset Name:   {}", asset.asset_name());
+    println!("  Asset Model ID:   {}", asset.asset_model_id());
     println!(
         "  Asset Creation Date:   {}",
-        asset.asset_creation_date().unwrap().to_chrono_utc()?
+        asset.asset_creation_date().to_chrono_utc()?
     );
     println!(
         "  Asset Last Update Date:   {}",
-        asset.asset_last_update_date().unwrap().to_chrono_utc()?
+        asset.asset_last_update_date().to_chrono_utc()?
     );
     println!(
         "  Asset Status:   {}",
-        asset.asset_status().unwrap().state().unwrap().as_str()
+        asset.asset_status().unwrap().state().as_str()
     );
 
     println!("  Assets Hierarchies:");
 
-    for asset_hierarchy in asset.asset_hierarchies().unwrap() {
-        println!("    ID:   {}", asset_hierarchy.id().unwrap_or_default());
-        println!("    Name:   {}", asset_hierarchy.name().unwrap_or_default());
+    for asset_hierarchy in asset.asset_hierarchies() {
+        println!("    ID:   {}", asset_hierarchy.id().unwrap_or("missing ID"));
+        println!("    Name:   {}", asset_hierarchy.name());
     }
 
     println!("  Assets Properties:");
 
-    for asset_property in asset.asset_properties().unwrap() {
+    for asset_property in asset.asset_properties() {
         println!(
             "    Alias:   {}",
             asset_property.alias().unwrap_or_default()
         );
-        println!(
-            "    Data Type:   {}",
-            asset_property.data_type().unwrap().as_str()
-        );
+        println!("    Data Type:   {}", asset_property.data_type().as_str());
         println!(
             "    Data Type Spec:   {}",
             asset_property.data_type_spec().unwrap_or_default()
         );
-        println!("    ID:   {}", asset_property.id().unwrap_or_default());
-        println!("    Name:   {}", asset_property.name().unwrap_or_default());
+        println!("    ID:   {}", asset_property.id());
+        println!("    Name:   {}", asset_property.name());
         println!(
             "    Notification State:   {}",
             asset_property
@@ -91,18 +85,10 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
                 .unwrap()
                 .state()
                 .as_ref()
-                .unwrap()
-                .as_str()
         );
         println!(
             "    Notification Topic:   {}",
-            asset_property
-                .notification()
-                .as_ref()
-                .unwrap()
-                .topic()
-                .as_ref()
-                .unwrap()
+            asset_property.notification().as_ref().unwrap().topic()
         );
         println!(
             "    Unit:   {}",
@@ -112,50 +98,31 @@ async fn list_assets(client: &Client, asset_id: Option<String>) -> Result<(), Er
 
     println!("  Assets Composite Models:");
 
-    for asset_composite_model in asset.asset_composite_models().unwrap() {
+    for asset_composite_model in asset.asset_composite_models() {
         println!(
             "    Description:   {}",
             asset_composite_model.description().unwrap_or_default()
         );
-        println!(
-            "    Name:   {}",
-            asset_composite_model.name().unwrap_or_default()
-        );
+        println!("    Name:   {}", asset_composite_model.name());
 
         println!("    Properties:");
 
-        for property in asset_composite_model.properties().unwrap() {
+        for property in asset_composite_model.properties() {
             println!("      Alias:   {}", property.alias().unwrap_or_default());
-            println!(
-                "      Data Type:   {}",
-                property.data_type().unwrap().as_str()
-            );
+            println!("      Data Type:   {}", property.data_type().as_str());
             println!(
                 "      Data Type Spec:   {}",
                 property.data_type_spec().unwrap_or_default()
             );
-            println!("      ID:   {}", property.id.as_deref().unwrap_or_default());
-            println!("      Name:   {}", property.name().unwrap_or_default());
+            println!("      ID:   {}", property.id());
+            println!("      Name:   {}", property.name());
             println!(
                 "      Notification State:   {}",
-                property
-                    .notification()
-                    .as_ref()
-                    .unwrap()
-                    .state()
-                    .as_ref()
-                    .unwrap()
-                    .as_str()
+                property.notification().as_ref().unwrap().state().as_str()
             );
             println!(
                 "      Notification Topic:   {}",
-                property
-                    .notification()
-                    .as_ref()
-                    .unwrap()
-                    .topic()
-                    .as_ref()
-                    .unwrap()
+                property.notification().as_ref().unwrap().topic()
             );
             println!("      Unit:   {}", property.unit().unwrap_or_default());
         }

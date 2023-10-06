@@ -19,7 +19,7 @@ export const main = async () => {
     const { ErrorDocument, IndexDocument } = await client.send(command);
     console.log(
       `Your bucket is set up to host a website. It has an error document:`,
-      `${ErrorDocument.Key}, and an index document: ${IndexDocument.Suffix}.`
+      `${ErrorDocument.Key}, and an index document: ${IndexDocument.Suffix}.`,
     );
   } catch (err) {
     console.error(err);

@@ -18,7 +18,7 @@ describe("document-get", () => {
       {
         CommonName: { S: "Shoebill" },
       },
-    ]
+    ],
   );
 
   it("should return the requested item", async () => {

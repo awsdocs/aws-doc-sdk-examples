@@ -36,7 +36,7 @@ async fn show_images(
         .send()
         .await?;
 
-    let images = rsp.image_ids().unwrap_or_default();
+    let images = rsp.image_ids();
 
     println!("found {} images", images.len());
 

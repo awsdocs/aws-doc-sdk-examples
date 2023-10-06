@@ -39,7 +39,7 @@ const detect = async (bucket, key) => {
   }
 
   return response.Labels.filter((label) => label.Confidence >= 95).map(
-    (label) => label.Name
+    (label) => label.Name,
   );
 };
 

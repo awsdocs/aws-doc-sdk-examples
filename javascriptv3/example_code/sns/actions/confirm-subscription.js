@@ -16,7 +16,7 @@ import { snsClient } from "../libs/snsClient.js";
  */
 export const confirmSubscription = async (
   token = "TOKEN",
-  topicArn = "TOPIC_ARN"
+  topicArn = "TOPIC_ARN",
 ) => {
   const response = await snsClient.send(
     // A subscription only needs to be confirmed if the endpoint type is
@@ -26,7 +26,7 @@ export const confirmSubscription = async (
       TopicArn: topicArn,
       // If this is true, the subscriber cannot unsubscribe while unauthenticated.
       AuthenticateOnUnsubscribe: "false",
-    })
+    }),
   );
   console.log(response);
   // {

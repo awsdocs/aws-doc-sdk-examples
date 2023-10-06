@@ -17,7 +17,7 @@ const verifySoftwareToken = (totp) => {
 
   if (!session) {
     throw new Error(
-      "Missing a valid Session. Did you run 'admin-initiate-auth'?"
+      "Missing a valid Session. Did you run 'admin-initiate-auth'?",
     );
   }
 

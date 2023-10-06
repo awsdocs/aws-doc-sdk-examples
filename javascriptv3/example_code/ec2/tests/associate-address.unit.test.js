@@ -29,7 +29,7 @@ describe("associate-address", () => {
 
     expect(logSpy).toHaveBeenCalledWith(
       "Address with allocation ID ALLOCATION_ID is now associated with instance INSTANCE_ID.",
-      "The association ID is foo."
+      "The association ID is foo.",
     );
   });
 
@@ -40,7 +40,7 @@ describe("associate-address", () => {
     await main();
 
     expect(logSpy).toHaveBeenCalledWith(
-      new Error("Failed to associate address")
+      new Error("Failed to associate address"),
     );
   });
 });

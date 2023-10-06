@@ -2,7 +2,7 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import {fileURLToPath} from "url";
+import { fileURLToPath } from "url";
 
 // snippet-start:[javascript.v3.secretsmanager.actions.GetSecretValue]
 import {
@@ -15,7 +15,7 @@ export const getSecretValue = async (secretName = "SECRET_NAME") => {
   const response = await client.send(
     new GetSecretValueCommand({
       SecretId: secretName,
-    })
+    }),
   );
   console.log(response);
   // {

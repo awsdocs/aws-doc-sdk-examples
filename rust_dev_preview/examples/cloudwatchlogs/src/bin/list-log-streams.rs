@@ -39,7 +39,7 @@ async fn show_log_streams(
         .log_group_name(name)
         .send()
         .await?;
-    let streams = resp.log_streams().unwrap_or_default();
+    let streams = resp.log_streams();
     println!("Found {} streams:", streams.len());
     for stream in streams {
         println!("  {}", stream.log_stream_name().unwrap_or_default());

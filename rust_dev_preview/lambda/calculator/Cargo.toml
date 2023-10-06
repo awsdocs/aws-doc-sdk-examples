@@ -2,7 +2,7 @@
 name = "example-lambda-calculator"
 version = "0.1.0"
 authors = [
-  "David Souther <davidsouther+amazon@>",
+  "David Souther <dpsouth@amazon.com>",
 ]
 edition = "2021"
 

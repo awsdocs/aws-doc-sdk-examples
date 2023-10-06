@@ -45,7 +45,7 @@ const handleInput = (context) => compose(processCommands(context), getCommands);
  */
 const readCommands = compose(
   apply(on("line")),
-  flipApplyMap([handleInput, readerProp])
+  flipApplyMap([handleInput, readerProp]),
 );
 
 export {

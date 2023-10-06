@@ -9,7 +9,7 @@ describe("subscribeApp", () => {
       await subscribeApp();
     } catch (err) {
       expect(err.message).toEqual(
-        "Invalid parameter: TopicArn Reason: An ARN must have at least 6 elements, not 1"
+        "Invalid parameter: TopicArn Reason: An ARN must have at least 6 elements, not 1",
       );
     }
   });
@@ -21,7 +21,7 @@ describe("subscribeEmail", () => {
       await subscribeEmail();
     } catch (err) {
       expect(err.message).toEqual(
-        "Invalid parameter: TopicArn Reason: An ARN must have at least 6 elements, not 1"
+        "Invalid parameter: TopicArn Reason: An ARN must have at least 6 elements, not 1",
       );
     }
   });
@@ -33,7 +33,7 @@ describe("subscribeLambda", () => {
       await subscribeLambda();
     } catch (err) {
       expect(err.message).toEqual(
-        "Invalid parameter: TopicArn Reason: An ARN must have at least 6 elements, not 1"
+        "Invalid parameter: TopicArn Reason: An ARN must have at least 6 elements, not 1",
       );
     }
   });

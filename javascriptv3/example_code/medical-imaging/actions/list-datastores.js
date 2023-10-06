@@ -3,20 +3,20 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import {fileURLToPath} from "url";
+import { fileURLToPath } from "url";
 
 // snippet-start:[medical-imaging.JavaScript.datastore.listDatastoresV3]
-import {paginateListDatastores} from "@aws-sdk/client-medical-imaging";
-import {medicalImagingClient} from "../libs/medicalImagingClient.js";
+import { paginateListDatastores } from "@aws-sdk/client-medical-imaging";
+import { medicalImagingClient } from "../libs/medicalImagingClient.js";
 
 export const listDatastores = async () => {
-    const paginatorConfig = {
-        client: medicalImagingClient,
-        pageSize: 50
-    };
+  const paginatorConfig = {
+    client: medicalImagingClient,
+    pageSize: 50,
+  };
 
-    const commandParams = {};
-    const paginator = paginateListDatastores(paginatorConfig, commandParams);
+  const commandParams = {};
+  const paginator = paginateListDatastores(paginatorConfig, commandParams);
 
     let datastoreSummaries = [];
     for await (const page of paginator) {
@@ -46,7 +46,7 @@ export const listDatastores = async () => {
     //   ]
     // }
 
-    return datastoreSummaries;
+  return datastoreSummaries;
 };
 // snippet-end:[medical-imaging.JavaScript.datastore.listDatastoresV3]
 

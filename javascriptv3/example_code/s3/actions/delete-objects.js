@@ -21,7 +21,7 @@ export const main = async () => {
   try {
     const { Deleted } = await client.send(command);
     console.log(
-      `Successfully deleted ${Deleted.length} objects from S3 bucket. Deleted objects:`
+      `Successfully deleted ${Deleted.length} objects from S3 bucket. Deleted objects:`,
     );
     console.log(Deleted.map((d) => ` • ${d.Key}`).join("\n"));
   } catch (err) {

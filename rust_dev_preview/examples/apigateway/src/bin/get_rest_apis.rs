@@ -29,7 +29,7 @@ struct Opt {
 async fn show_apis(client: &Client) -> Result<(), Error> {
     let resp = client.get_rest_apis().send().await?;
 
-    for api in resp.items().unwrap_or_default() {
+    for api in resp.items() {
         println!("ID:          {}", api.id().unwrap_or_default());
         println!("Name:        {}", api.name().unwrap_or_default());
         println!("Description: {}", api.description().unwrap_or_default());
