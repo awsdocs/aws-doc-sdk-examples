@@ -543,7 +543,7 @@ medical-imaging_tagging_datastores:
   synopsis: tag a &AHI; data store.
   category: Scenarios
   languages:
-     JavaScript:
+    JavaScript:
       versions:
         - sdk_version: 3
           github: javascriptv3/example_code/medical-imaging
@@ -551,19 +551,19 @@ medical-imaging_tagging_datastores:
             - description: To tag a data store
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.tagging.V3
-            - description:  The utility function for tagging a resource
+            - description: The utility function for tagging a resource
               snippet_tags:
                 - medical-imaging.JavaScript.resource.tagResourceV3
             - description: To list tags for a data store
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.list_tags.V3
-            - description:  The utility function for listing a resource's tags
+            - description: The utility function for listing a resource's tags
               snippet_tags:
                 - medical-imaging.JavaScript.resource.listTagsForResourceV3
             - description: To untag a data store
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.untag.V3
-            - description:  The utility function for untagging a resource
+            - description: The utility function for untagging a resource
               snippet_tags:
                 - medical-imaging.JavaScript.resource.unTagResourceV3
   services:
@@ -582,19 +582,19 @@ medical-imaging_tagging_imagesets:
             - description: To tag an image set
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.tagging.V3
-            - description:  The utility function for tagging a resource
+            - description: The utility function for tagging a resource
               snippet_tags:
                 - medical-imaging.JavaScript.resource.tagResourceV3
             - description: To list tags for an image set
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.list_tags.V3
-            - description:  The utility function for listing a resource's tags
+            - description: The utility function for listing a resource's tags
               snippet_tags:
                 - medical-imaging.JavaScript.resource.listTagsForResourceV3
             - description: To untag an image set
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.untag.V3
-            - description:  The utility function for untagging a resource
+            - description: The utility function for untagging a resource
               snippet_tags:
                 - medical-imaging.JavaScript.resource.unTagResourceV3
   services:
