@@ -21,6 +21,7 @@ import software.amazon.awssdk.services.medicalimaging.paginators.ListDatastoresI
 
 import java.util.ArrayList;
 import java.util.List;
+
 //snippet-end:[medicalimaging.java2.list_datastores.import]
 
 /**

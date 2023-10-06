@@ -17,6 +17,7 @@ import software.amazon.awssdk.services.medicalimaging.MedicalImagingClient;
 import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingException;
 import software.amazon.awssdk.services.medicalimaging.model.StartDicomImportJobRequest;
 import software.amazon.awssdk.services.medicalimaging.model.StartDicomImportJobResponse;
+
 //snippet-end:[medicalimaging.java2.start_dicom_import_job.import]
 
 /**
@@ -57,8 +58,6 @@ public class StartDicomImportJob {
                 .build();
 
         String jobID = startDicomImportJob(medicalImagingClient, jobName, datastoreId, dataAccessRoleArn, inputS3Uri, outputS3Uri);
-        startDicomImportJob(medicalImagingClient, jobName, datastoreId,
-                dataAccessRoleArn, inputS3Uri, outputS3Uri);
 
         System.out.println("The job ID is " + jobID);
 
