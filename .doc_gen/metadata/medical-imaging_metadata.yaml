@@ -1,8 +1,8 @@
 # zexi 0.4.0
 medical-imaging_Hello:
-  title: Hello &S3;
-  title_abbrev: Hello &S3;
-  synopsis: get started using &S3;.
+  title: Hello &AHI;
+  title_abbrev: Hello &AHI;
+  synopsis: get started using &AHI;.
   category: Hello
   languages:
     JavaScript:
@@ -13,6 +13,8 @@ medical-imaging_Hello:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.createDatastoreV3
+  services:
+    medical-imaging: {ListDatastores}
 medical-imaging_CreateDatastore:
   title: Create a &AHI; data store using an &AWS; SDK
   title_abbrev: Create a data store
@@ -405,6 +407,7 @@ medical-imaging_UpdateImageSetMetadata:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3
+            - description: Demonstration of how to encode the metadata
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.main
   services:
     medical-imaging: {UpdateImageSetMetadata}

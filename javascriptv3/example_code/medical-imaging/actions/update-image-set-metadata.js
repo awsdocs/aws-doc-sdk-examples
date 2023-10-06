@@ -50,7 +50,6 @@ export const updateImageSetMetadata = async (datastoreId = "xxxxxxxxxx",
 // snippet-end:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3]
 
 // Invoke the following code if this file is being run directly.
-
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
 // snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.main]
     const updatableAttributes =
