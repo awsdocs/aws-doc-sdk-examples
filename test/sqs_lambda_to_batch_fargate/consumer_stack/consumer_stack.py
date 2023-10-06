@@ -36,7 +36,9 @@ class ConsumerStack(Stack):
 
         # Locate Amazon Simple Notification Service (Amazon SNS) topic in the producer account.
         fanout_topic_name = "aws-weathertop-central-sns-fanout-topic"
-        fanout_topic_arn = f"arn:aws:sns:us-east-1:{producer_account_id}:{fanout_topic_name}"
+        fanout_topic_arn = (
+            f"arn:aws:sns:us-east-1:{producer_account_id}:{fanout_topic_name}"
+        )
         sns_topic = sns.Topic.from_topic_arn(
             self, fanout_topic_name, topic_arn=fanout_topic_arn
         )
@@ -277,7 +279,7 @@ class ConsumerStack(Stack):
             environment={
                 "LANGUAGE_NAME": language_name,
                 "BUCKET_NAME": bucket.bucket_name,
-                "PRODUCER_BUCKET_NAME": "aws-weathertop-central-log-bucket"
+                "PRODUCER_BUCKET_NAME": "aws-weathertop-central-log-bucket",
             },
         )
 

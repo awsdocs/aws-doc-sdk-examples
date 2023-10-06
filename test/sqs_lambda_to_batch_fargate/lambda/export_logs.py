@@ -1,7 +1,8 @@
 import json
 import logging
 import os
-import time
+import random
+import string
 
 import boto3
 
@@ -10,72 +11,63 @@ s3_resource = boto3.resource("s3")
 logs_client = boto3.client("logs")
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
+
+log_group_name = "/aws/batch/job"
 
 
 def handler(event, context):
-    logger.info(f"INCOMING EVENT: {event}")
-    if "Batch Job State Change" in event["detail-type"]:
-        if (
-            "FAILED" in event["detail"]["status"]
-            or "SUCCEEDED" in event["detail"]["status"]
-        ):
-            logger.info(f"BUCKET_NAME: {os.environ['BUCKET_NAME']}")
-            try:
-                log_group_name = "/aws/batch/job"
+    logger.debug(f"BUCKET_NAME: {os.environ['BUCKET_NAME']}")
+    logger.debug(f"INCOMING EVENT: {event}")
 
-                # Get most recent stream
-                log_streams = logs_client.describe_log_streams(
-                    logGroupName=log_group_name,
-                    orderBy="LastEventTime",
-                    descending=True,
-                    limit=1,
-                )
-
-                # Get log events from the stream
-                log_events = logs_client.get_log_events(
-                    logGroupName=log_group_name,
-                    logStreamName=log_streams["logStreams"][0]["logStreamName"],
-                    startFromHead=True,
-                )
-
-                # Generate a timestamp for the current time
-                timestamp_str = int(time.time())
-                file_name = f"{timestamp_str}.log"
-                with open(f"/tmp/{file_name}", "w") as output_file:
-                    for event in log_events["events"]:
-                        log_entry = f"[{event['timestamp']}], {event['message']}\n"
-                        output_file.write(log_entry)
-
-                s3_client.upload_file(
-                    f"/tmp/{file_name}", os.environ["BUCKET_NAME"], file_name
-                )
-
-                s3_client.put_object(
-                    Body=f"/tmp/{file_name}",
-                    Bucket=os.environ["PRODUCER_BUCKET_NAME"],
-                    Key=f"{os.environ['LANGUAGE_NAME']}/{file_name}",
-                )
-
-                logger.info(f"Log data saved successfully: {file_name}")
-
-                return {
-                    "statusCode": 200,
-                    "body": json.dumps("Log data saved to S3 successfully!"),
-                }
-
-            except Exception as e:
-                logger.error(json.dumps(f"Error: {str(e)}"))
-                return {"statusCode": 500, "body": json.dumps(f"Error: {str(e)}")}
-        elif "TIMED_OUT" in event["detail"]["status"]:
-            raise Exception(
-                "Job timed out. Contact application owner or increase time out threshold"
-            )
-        else:
-            logger.info(
-                f"Non-triggering Batch status: STATUS: {event['detail']['status']}"
-            )
-            return
-    else:
+    if "Batch Job State Change" not in event["detail-type"]:
         logger.info(f"Non-triggering Batch event: {event['detail-type']}")
         return
+    if "TIMED_OUT" in event["detail"]["status"]:
+        raise Exception(
+            "Job timed out. Contact application owner or increase time out threshold"
+        )
+    if not (
+        "FAILED" in event["detail"]["status"]
+        or "SUCCEEDED" in event["detail"]["status"]
+    ):
+        logger.info(f"Non-triggering Batch status: STATUS: {event['detail']['status']}")
+        return
+
+    try:
+        get_and_put_logs()
+    except Exception as e:
+        logger.error(json.dumps(f"Error: {str(e)}"))
+        raise e
+
+
+def get_and_put_logs():
+    # Get most recent stream
+    log_streams = logs_client.describe_log_streams(
+        logGroupName=log_group_name,
+        orderBy="LastEventTime",
+        descending=True,
+        limit=1,
+    )
+
+    # Get log events from the stream
+    log_events = logs_client.get_log_events(
+        logGroupName=log_group_name,
+        logStreamName=log_streams["logStreams"][0]["logStreamName"],
+        startFromHead=True,
+    )
+
+    log_file = "\n".join(
+        [f"{e['timestamp']}, {e['message']}" for e in log_events["events"]]
+    )
+    log_file_name = "".join(random.choice(string.digits) for i in range(8))
+
+    s3_client.put_object(
+        Body=log_file,
+        Bucket=os.environ["PRODUCER_BUCKET_NAME"],
+        Key=f"{os.environ['LANGUAGE_NAME']}/{log_file_name}",
+    )
+
+    logger.info(
+        f"Log data saved successfully: {os.environ['LANGUAGE_NAME']}/{log_file_name}"
+    )

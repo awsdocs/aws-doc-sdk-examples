@@ -7,18 +7,14 @@ import os
 import boto3
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 
 def handler(event, context):
+    logger.debug(f"INCOMING EVENT: {event}")
     try:
         # Set up AWS Batch client.
-        batch = boto3.client("batch")
-
-        # Log key details.
-        logger.info(f"JOB_NAME: {os.environ['JOB_NAME']}")
-        logger.info(f"JOB_QUEUE: {os.environ['JOB_QUEUE']}")
-        logger.info(f"JOB_DEFINITION: {os.environ['JOB_DEFINITION']}")
+        batch_client = boto3.client("batch")
 
         # Set up job payload.
         payload = {
@@ -28,9 +24,10 @@ def handler(event, context):
         }
 
         # Submit job.
-        response = batch.submit_job(**payload)
+        response = batch_client.submit_job(**payload)
 
         # Print job ID and status.
         logger.info(f"Submitted job {str(response)}")
     except Exception as e:
         logger.error(f"Job submission failed:\n{e}")
+        raise e

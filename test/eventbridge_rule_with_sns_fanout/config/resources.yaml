@@ -1,0 +1,2 @@
+topic_name: "aws-weathertop-central-sns-fanout-topic"
+bucket_name: "aws-weathertop-central-log-bucket"

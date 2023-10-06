@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
 
-import boto3
+import yaml
 from aws_cdk import Aws, CfnOutput, Duration, Size, Stack
 from aws_cdk import aws_events as events
 from aws_cdk import aws_events_targets as targets
@@ -14,57 +14,27 @@ from constructs import Construct
 class ProducerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
+        acct_config = self.get_yaml_config("config/targets.yaml")
+        resource_config = self.get_yaml_config("config/resources.yaml")
+        topic_name = resource_config["topic_name"]
+        bucket_name = resource_config["bucket_name"]
+        topic = self.init_get_topic(topic_name)
+        self.sns_permissions(topic)
+        self.init_subscribe_permissions(topic, acct_config)
+        self.init_publish_permissions(topic, acct_config)
+        bucket = self.init_create_bucket(bucket_name)
+        self.init_cross_account_log_role(self.target_accts, bucket)
 
-        client = boto3.client("ssm")
+    def get_yaml_config(self, filepath):
+        with open(filepath, "r") as file:
+            data = yaml.safe_load(file)
+        return data
 
-        all_languages = [
-            "ruby",
-            "javav2",
-            "javascriptv3",
-            "gov2",
-            "python",
-            "dotnetv3",
-            "kotlin",
-            "rust_dev_preview",
-            "swift",
-            "cpp",
-            "gov2",
-            "sap-abap",
-        ]
+    def init_get_topic(self, topic_name):
+        topic = sns.Topic(self, "fanout-topic", topic_name=topic_name)
+        return topic
 
-        all_language_account_ids = []
-        for language_name in all_languages:
-            response = client.get_parameter(
-                Name=f"/account-mappings/{language_name}", WithDecryption=True
-            )
-            all_language_account_ids.append(response["Parameter"]["Value"])
-
-        onboarded_languages = [
-            "ruby",
-            # "javav2",
-            # "javascriptv3",
-            # "gov2",
-            # "python",
-            # "dotnetv3",
-            # "kotlin",
-            # "rust_dev_preview",
-            # "swift",
-            # "cpp",
-            # "gov2",
-            # "sap-abap",
-        ]
-
-        onboarded_languages_account_ids = []
-        for language_name in onboarded_languages:
-            response = client.get_parameter(
-                Name=f"/account-mappings/{language_name}", WithDecryption=True
-            )
-            onboarded_languages_account_ids.append(response["Parameter"]["Value"])
-
-        # Create a new Amazon Simple Notification Service (Amazon SNS) topic.
-        topic = sns.Topic(self, "fanout-topic", topic_name="aws-weathertop-central-sns-fanout-topic")
-
-        # Create a new Amazon EventBridge rule.
+    def init_rule(self, topic):
         rule = events.Rule(
             self,
             "trigger-rule",
@@ -74,22 +44,21 @@ class ProducerStack(Stack):
                 week_day="FRI",
             ),
         )
-
-        # Add a target to the EventBridge rule to publish a message to the SNS topic.
         rule.add_target(targets.SnsTopic(topic))
 
+    def sns_permissions(self, topic):
         # Set up base Amazon SNS permissions.
         sns_permissions = iam.PolicyStatement()
         sns_permissions.add_any_principal()
         sns_permissions.add_actions(
-            "SNS:Publish",
-            "SNS:RemovePermission",
-            "SNS:SetTopicAttributes",
-            "SNS:DeleteTopic",
-            "SNS:ListSubscriptionsByTopic",
-            "SNS:GetTopicAttributes",
             "SNS:AddPermission",
+            "SNS:DeleteTopic",
+            "SNS:GetTopicAttributes",
+            "SNS:ListSubscriptionsByTopic",
+            "SNS:SetTopicAttributes",
             "SNS:Subscribe",
+            "SNS:RemovePermission",
+            "SNS:Publish",
         )
         sns_permissions.add_resources(topic.topic_arn)
         sns_permissions.add_condition(
@@ -97,39 +66,39 @@ class ProducerStack(Stack):
         )
         topic.add_to_resource_policy(sns_permissions)
 
-        # Set up cross-account Subscription permissions for every onboarded language.
+    def init_subscribe_permissions(self, topic, target_accts):
         subscribe_permissions = iam.PolicyStatement()
         subscribe_permissions.add_arn_principal(f"arn:aws:iam::{Aws.ACCOUNT_ID}:root")
-        for id in all_language_account_ids:
-            subscribe_permissions.add_arn_principal(f"arn:aws:iam::{id}:root")
+        for language in target_accts.keys():
+            if "true" in str(target_accts[language]["enabled"]):
+                subscribe_permissions.add_arn_principal(
+                    f"arn:aws:iam::{str(target_accts[language]['account_id'])}:root"
+                )
         subscribe_permissions.add_actions("SNS:Subscribe")
         subscribe_permissions.add_resources(topic.topic_arn)
         topic.add_to_resource_policy(subscribe_permissions)
 
-        # Set up cross-account Publish permissions for every onboarded language.
+    def init_publish_permissions(self, topic, target_accts):
         publish_permissions = iam.PolicyStatement()
         publish_permissions.add_arn_principal(f"arn:aws:iam::{Aws.ACCOUNT_ID}:root")
-        for id in all_language_account_ids:
-            subscribe_permissions.add_arn_principal(f"arn:aws:iam::{id}:root")
+        for language in target_accts.keys():
+            publish_permissions.add_arn_principal(
+                f"arn:aws:iam::{str(target_accts[language]['account_id'])}:root"
+            )
         publish_permissions.add_actions("SNS:Publish")
         publish_permissions.add_service_principal("events.amazonaws.com")
         publish_permissions.add_resources(topic.topic_arn)
         topic.add_to_resource_policy(publish_permissions)
 
-        #####################################
-        ##                                 ##
-        ##           S3 BUCKET             ##
-        ##    (Where all the logs go)      ##
-        ##                                 ##
-        #####################################
-
+    def init_create_bucket(self, resources):
         bucket = s3.Bucket(
             self,
-            "aws-weathertop-central-log-bucket",
-            bucket_name="aws-weathertop-central-log-bucket",
+            resources["bucket_name"],
+            bucket_name=resources["bucket_name"],
             versioned=False,
             block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
         )
+        return bucket
 
         ####################################################
         ##                                                ##
@@ -138,13 +107,16 @@ class ProducerStack(Stack):
         ##                                                ##
         ####################################################
 
-        if len(onboarded_languages_account_ids) > 0:
+    def init_cross_account_log_role(self, target_accts, bucket):
+        languages = target_accts.keys()
+        if len(languages) > 0:
             # Define policy that allows cross-account Amazon SNS and Amazon SQS access.
             statement = iam.PolicyStatement()
-            for account_id in onboarded_languages_account_ids:
-                statement.add_arn_principal(
-                    f"arn:aws:iam::{account_id}:role/LogsLambdaExecutionRole"
-                )
             statement.add_actions("s3:PutObject", "s3:PutObjectAcl")
             statement.add_resources(f"{bucket.bucket_arn}/*")
+            for language in languages:
+                if "true" in str(target_accts[language]["enabled"]):
+                    statement.add_arn_principal(
+                        f"arn:aws:iam::{str(target_accts[language]['account_id'])}:role/LogsLambdaExecutionRole"
+                    )
             bucket.add_to_resource_policy(statement)
