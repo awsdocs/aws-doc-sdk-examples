@@ -1,6 +1,7 @@
 use aws_smithy_http::body::SdkBody;
 
 pub mod macros;
+pub mod waiter;
 
 /// Create a single-shot test connection. The arguments are the same as test_event,
 /// but the expanded macro creates a TestConnection. The `TestConnection` can be

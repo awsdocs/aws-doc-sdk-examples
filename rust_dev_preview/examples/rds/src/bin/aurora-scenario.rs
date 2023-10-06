@@ -1,9 +1,14 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
 use std::fmt::Display;
 
 use anyhow::anyhow;
-use aws_config::SdkConfig;
+use aws_sdk_rds::Client;
 use inquire::{validator::StringValidator, CustomUserError};
-use rds_code_examples::aurora::{AuroraScenario, ScenarioError};
+use rds_code_examples::aurora_scenario::{AuroraScenario, ScenarioError};
 use secrecy::SecretString;
 use tracing::warn;
 
@@ -48,8 +53,10 @@ fn select(
 
 // Prepare the Aurora Scenario. Prompt for several settings that are optional to the Scenario, but that the user should choose for the demo.
 // This includes the engine, engine version, and instance class.
-async fn prepare_scenario(sdk_config: &SdkConfig) -> Result<AuroraScenario, anyhow::Error> {
-    let mut scenario = AuroraScenario::prepare_scenario(sdk_config).await;
+async fn prepare_scenario(
+    rds: rds_code_examples::rds::Rds,
+) -> Result<AuroraScenario, anyhow::Error> {
+    let mut scenario = AuroraScenario::new(rds);
 
     // Get available engine families for Aurora MySql. rds.DescribeDbEngineVersions(Engine='aurora-mysql') and build a set of the 'DBParameterGroupFamily' field values. I get {aurora-mysql8.0, aurora-mysql5.7}.
     let available_engines = scenario.get_engines().await;
@@ -180,7 +187,9 @@ async fn run_instance(scenario: &mut AuroraScenario) -> Result<(), ScenarioError
 async fn main() -> Result<(), anyhow::Error> {
     tracing_subscriber::fmt::init();
     let sdk_config = aws_config::from_env().load().await;
-    let mut scenario = prepare_scenario(&sdk_config).await?;
+    let client = Client::new(&sdk_config);
+    let rds = rds_code_examples::rds::Rds::new(client);
+    let mut scenario = prepare_scenario(rds).await?;
 
     // At this point, the scenario has things in AWS and needs to get cleaned up.
     let mut warnings = Warnings::new();

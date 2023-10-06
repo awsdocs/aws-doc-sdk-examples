@@ -14,6 +14,7 @@ aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "n
 aws-smithy-runtime = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["test-util"] }
 aws-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next"}
 http = "0.2"
+tokio = "1.33.0"
 
 [lib]
 path="src/mod.rs"
