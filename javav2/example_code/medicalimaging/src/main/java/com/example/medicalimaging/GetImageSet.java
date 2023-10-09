@@ -78,7 +78,7 @@ public class GetImageSet {
                         .imageSetId(imagesetId)
                         .build();
             } else {
-                getImageSetRequest = getImageSetRequest = GetImageSetRequest.builder()
+                getImageSetRequest = GetImageSetRequest.builder()
                         .datastoreId(datastoreId)
                         .imageSetId(imagesetId)
                         .versionId(versionId)
