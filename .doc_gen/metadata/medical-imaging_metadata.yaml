@@ -277,7 +277,7 @@ medical-imaging_SearchImageSets:
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter1
-            - description: "Use case #3: BETWEEN operator using createdAt (time studies were previously persisted)."
+            - description: "Use case #3: BETWEEN operator using createdAt. Time studies were previously persisted."
               snippet_tags:
                 - medical-imaging.JavaScript.resource.searchImageSetV3.datastoreID
                 - medical-imaging.JavaScript.resource.searchImageSetV3.betweenFilter2
@@ -407,7 +407,7 @@ medical-imaging_UpdateImageSetMetadata:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3
-            - description: Demonstration of how to encode the metadata.
+            - description: Encode the metadata.
               snippet_tags:
                 - medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.main
   services:
