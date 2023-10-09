@@ -10,14 +10,13 @@ import {
   Runtime,
 } from "@aws-sdk/client-lambda";
 import { readFile } from "fs/promises";
-import { createClientForDefaultRegion } from "../../libs/utils/util-aws-sdk.js";
 import { dirnameFromMetaUrl } from "../../libs/utils/util-fs.js";
 
 const dirname = dirnameFromMetaUrl(import.meta.url);
 
 /** snippet-start:[javascript.v3.lambda.actions.CreateFunction] */
 const createFunction = async (funcName, roleArn) => {
-  const client = createClientForDefaultRegion(LambdaClient);
+  const client = new LambdaClient({});
   const code = await readFile(`${dirname}../functions/${funcName}.zip`);
 
   const command = new CreateFunctionCommand({

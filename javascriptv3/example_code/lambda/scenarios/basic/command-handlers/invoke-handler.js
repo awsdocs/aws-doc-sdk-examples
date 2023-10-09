@@ -2,8 +2,7 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { type } from "ramda";
-import { log } from "../../../../libs/utils/util-log.js";
+import { log } from "libs/utils/util-log.js";
 import { invoke } from "../../../actions/invoke.js";
 
 const invokeHandler = async (commands) => {
@@ -18,7 +17,7 @@ const invokeHandler = async (commands) => {
 
   try {
     log(
-      `Invoking ${funcName} with ${type(funcArgs)}(${JSON.stringify(
+      `Invoking ${funcName} with ${typeof funcArgs}(${JSON.stringify(
         funcArgs,
       )})...`,
     );

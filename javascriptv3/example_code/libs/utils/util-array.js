@@ -8,3 +8,18 @@ export function* chunkArray(arr, stride = 1) {
     yield arr.slice(i, Math.min(i + stride, arr.length));
   }
 }
+
+/**
+ * @param {string[]} positionalArgs
+ */
+export function startsWith(positionalArgs) {
+  /**
+   * @param {string[]} list
+   */
+  return (list) => {
+    for (const [i, v] of positionalArgs.entries()) {
+      if (list[i] !== v) return false;
+    }
+    return true;
+  };
+}

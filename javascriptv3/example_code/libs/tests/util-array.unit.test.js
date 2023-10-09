@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 
-import { startsWith } from "../scenarios/basic/index.js";
+import { startsWith } from "libs/utils/util-array.js";
 
 describe("startsWith", () => {
   test.each([

@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { describe, it, beforeAll, afterAll, expect } from "vitest";
-import { andThen, compose, map, path, prop } from "ramda";
 import {
   IAMClient,
   CreateRoleCommand,
@@ -15,7 +14,6 @@ import {
 
 import { log } from "libs/utils/util-log.js";
 import { retry } from "libs/utils/util-timers.js";
-import { parseString } from "libs/ext-ramda.js";
 import { DEFAULT_REGION } from "libs/utils/util-aws-sdk.js";
 
 import {
@@ -41,7 +39,7 @@ describe("Creating, getting, invoking, listing, updating, and deleting", () => {
 
   beforeAll(async () => {
     const createRoleCommand = new CreateRoleCommand({
-      AssumeRolePolicyDocument: parseString({
+      AssumeRolePolicyDocument: JSON.stringify({
         Version: "2012-10-17",
         Statement: [
           {
@@ -57,7 +55,7 @@ describe("Creating, getting, invoking, listing, updating, and deleting", () => {
     });
     try {
       const response = await iamClient.send(createRoleCommand);
-      roleArn = path(["Role", "Arn"], response);
+      roleArn = response.Role ? response.Role.Arn : null;
       await waitUntilRoleExists(
         {
           client: iamClient,
@@ -109,7 +107,7 @@ describe("Creating, getting, invoking, listing, updating, and deleting", () => {
     const response = await retry({ intervalInMs: 2000, maxRetries: 15 }, () =>
       getFunction(funcName),
     );
-    expect(path(["Configuration", "FunctionName"], response)).toBe(funcName);
+    expect(response.Configuration.FunctionName).toBe(funcName);
   };
 
   const testHello = async () => {
@@ -128,19 +126,18 @@ describe("Creating, getting, invoking, listing, updating, and deleting", () => {
       await deleteFunction(funcName);
       await getFunction(funcName);
     } catch (err) {
-      expect(prop("name", err)).toBe("ResourceNotFoundException");
+      expect(err.name).toBe("ResourceNotFoundException");
     }
   };
 
   const testListFunctions = async () => {
-    const getFunctionNames = compose(
-      andThen(map(prop("FunctionName"))),
-      andThen(prop("Functions")),
-      listFunctions,
-    );
+    const getFunctionNames = async () => {
+      const response = await listFunctions();
+      return response.Functions.map((func) => func.FunctionName);
+    };
 
     const functionNames = await getFunctionNames();
-    expect(functionNames).toContainEqual(funcName);
+    expect(functionNames).toContain(funcName);
   };
 
   const testUpdateFunction = async () => {

@@ -7,6 +7,8 @@ import { stdin as input, stdout as output } from "process";
 
 import { readCommands } from "libs/cmd-runner.js";
 import { log } from "libs/utils/util-log.js";
+import { startsWith } from "libs/utils/util-array.js";
+
 import { createUserPoolHandler } from "./command-handlers/create-user-pool-handler.js";
 import { cleanUpHandler } from "./command-handlers/clean-up-handler.js";
 import { signUpHandler } from "./command-handlers/sign-up-handler.js";
@@ -76,21 +78,6 @@ const handlers = [
   ],
   [startsWith(["clean-up"]), cleanUpHandler],
 ];
-
-/**
- * @param {string[]} positionalArgs
- */
-export function startsWith(positionalArgs) {
-  /**
-   * @param {string[]} list
-   */
-  return (list) => {
-    for (const [i, v] of positionalArgs.entries()) {
-      if (list[i] !== v) return false;
-    }
-    return true;
-  };
-}
 
 cmdInterface.write('Welcome to Amazon Cognito. Type "help" for more info.\n');
 readCommands({ reader: cmdInterface, handlers });
