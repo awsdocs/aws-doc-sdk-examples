@@ -1,6 +1,5 @@
 use aws_config::meta::region::RegionProviderChain;
 use std::{fs::File, io::Write, path::PathBuf, process::exit};
-use tokio_stream::StreamExt;
 
 use aws_sdk_s3::Client;
 use clap::Parser;

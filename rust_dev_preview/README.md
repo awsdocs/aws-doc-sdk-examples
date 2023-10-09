@@ -30,6 +30,19 @@ The WebAssembly example shows how to use the AWS SDK for Rust within a WASM runt
 
 ## Running the code examples
 
+Each example has one or more examples that can be executed with `cargo run --bin [program name]`.
+See the individual readme files in each service directory for information about specific code examples for that service.
+
+Unit tests for each example can be run with `cargo test`, and these will not cause any changes or charges to your AWS account.
+Integration tests may cause changes or charges to your AWS account, and are described individually for each example.
+However, they can be run with `cargo test -- --ignored`.
+
+### Prerequisites
+
+You must have an AWS account, and have configured your default credentials and AWS Region as described in [Getting started with the AWS SDK for Rust](https://docs.aws.amazon.com/sdk-for-rust/latest/dg/getting-started.html).
+
+You must have the [Cargo](https://doc.rust-lang.org/cargo/) build tool, which is typically installed via [rustup](https://rustup.rs/).
+
 ### Environment variables
 
 These examples use `tracing_subscriber` with `env_filter` to print information about various information as the example runs. Because the AWS SDK for Rust and many crates used in these examples use `tracing` for structured logging, it is important to have an understanding of the `RUST_LOG` variable.
@@ -69,19 +82,6 @@ See [AWS SDKs and Tools - IMDS Credentials](https://docs.aws.amazon.com/sdkref/l
 The following environment variables are specific to the AWS SDK for Rust.
 
 - `AWS_SDK_UA_APP_ID` specifies an additional app name that will be present in the User-Agent header for every SDK request.
-
-### Prerequisites
-
-You must have an AWS account, and have configured your default credentials and AWS Region as described in [Getting started with the AWS SDK for Rust](https://docs.aws.amazon.com/sdk-for-rust/latest/dg/getting-started.html).
-
-You must have the [Cargo](https://doc.rust-lang.org/cargo/) build tool, which is typically installed via [rustup](https://rustup.rs/).
-
-Each example has one or more examples that can be executed with `cargo run --bin [program name]`.
-See the individual readme files in each service directory for information about specific code examples for that service.
-
-Unit tests for each example can be run with `cargo test`, and these will not cause any changes or charges to your AWS account.
-Integration tests may cause changes or charges to your AWS account, and are described individually for each example.
-However, they can be run with `cargo test -- --ignored`.
 
 ## Resources
 

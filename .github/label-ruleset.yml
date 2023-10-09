@@ -36,6 +36,8 @@ CDK:
   - resources/cdk/**/*
 CloudFormation:
   - cloudformation/**/*
+Tools:
+  - .tools/**/*
 Testing:
   - test/**/*
 GitHub settings:

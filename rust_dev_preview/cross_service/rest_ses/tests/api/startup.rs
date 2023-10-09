@@ -52,7 +52,7 @@ async fn prep_app(config: aws_config::ConfigLoader) -> (String, RdsClient) {
     let port = listener.local_addr().unwrap().port();
     let server =
         rest_ses::startup::run(listener, rds.clone(), ses).expect("Failed to initalize server!");
-    let _ = tokio::spawn(server);
+    tokio::spawn(server);
     let address = format!("http://127.0.0.1:{port}");
     (address, rds)
 }

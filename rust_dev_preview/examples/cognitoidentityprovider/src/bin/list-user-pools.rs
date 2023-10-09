@@ -33,7 +33,6 @@ async fn show_pools(client: &Client) -> Result<(), Error> {
     for pool in pools {
         println!("  ID:              {}", pool.id().unwrap_or_default());
         println!("  Name:            {}", pool.name().unwrap_or_default());
-        println!("  Status:          {:?}", pool.status());
         println!("  Lambda Config:   {:?}", pool.lambda_config().unwrap());
         println!(
             "  Last modified:   {}",
