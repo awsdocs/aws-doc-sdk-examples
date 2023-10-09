@@ -2,7 +2,6 @@ import json
 import logging
 import os
 import random
-import string
 
 import boto3
 
@@ -20,18 +19,17 @@ def handler(event, context):
     logger.debug(f"BUCKET_NAME: {os.environ['BUCKET_NAME']}")
     logger.debug(f"INCOMING EVENT: {event}")
 
+    status = event["detail"]["status"]
+
     if "Batch Job State Change" not in event["detail-type"]:
         logger.info(f"Non-triggering Batch event: {event['detail-type']}")
         return
-    if "TIMED_OUT" in event["detail"]["status"]:
+    if "TIMED_OUT" in status:
         raise Exception(
             "Job timed out. Contact application owner or increase time out threshold"
         )
-    if not (
-        "FAILED" in event["detail"]["status"]
-        or "SUCCEEDED" in event["detail"]["status"]
-    ):
-        logger.info(f"Non-triggering Batch status: STATUS: {event['detail']['status']}")
+    if not ("FAILED" in status or "SUCCEEDED" in status):
+        logger.info(f"Non-triggering Batch status: STATUS: {status}")
         return
 
     try:
