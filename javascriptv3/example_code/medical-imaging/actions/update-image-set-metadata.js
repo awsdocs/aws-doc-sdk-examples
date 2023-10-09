@@ -53,14 +53,14 @@ export const updateImageSetMetadata = async (datastoreId = "xxxxxxxxxx",
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
 // snippet-start:[medical-imaging.JavaScript.datastore.updateImageSetMetadataV3.main]
     const updatableAttributes =
-        '{' +
-        '   "SchemaVersion": 1.1,' +
-        '   "Patient": {' +
-        '       "DICOM": {' +
-        '           "PatientName": "Garcia^Gloria"' +
-        '        }' +
-        '    }' +
-        '}';
+JSON.stringify({
+  "SchemaVersion": 1.1,
+  "Patient": {
+    "DICOM": {
+      "PatientName": "Garcia^Gloria"
+    }
+  }
+})
 
     const updateMetadata = {
         "DICOMUpdates": {
