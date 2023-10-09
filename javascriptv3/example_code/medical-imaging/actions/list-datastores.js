@@ -18,6 +18,9 @@ export const listDatastores = async () => {
   const commandParams = {};
   const paginator = paginateListDatastores(paginatorConfig, commandParams);
 
+  /**
+   * @type {import("@aws-sdk/client-medical-imaging").DatastoreSummary[]}
+   */
   const datastoreSummaries = [];
   for await (const page of paginator) {
     // Each page contains a list of `jobSummaries`. The list is truncated if is larger than `pageSize`.
