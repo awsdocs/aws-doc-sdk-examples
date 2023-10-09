@@ -23,7 +23,7 @@ class ProducerStack(Stack):
         self.init_subscribe_permissions(topic, acct_config)
         self.init_publish_permissions(topic, acct_config)
         bucket = self.init_create_bucket(bucket_name)
-        self.init_cross_account_log_role(self.target_accts, bucket)
+        self.init_cross_account_log_role(acct_config, bucket)
 
     def get_yaml_config(self, filepath):
         with open(filepath, "r") as file:
@@ -90,22 +90,15 @@ class ProducerStack(Stack):
         publish_permissions.add_resources(topic.topic_arn)
         topic.add_to_resource_policy(publish_permissions)
 
-    def init_create_bucket(self, resources):
+    def init_create_bucket(self, bucket_name):
         bucket = s3.Bucket(
             self,
-            resources["bucket_name"],
-            bucket_name=resources["bucket_name"],
+            bucket_name,
+            bucket_name=bucket_name,
             versioned=False,
             block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
         )
         return bucket
-
-        ####################################################
-        ##                                                ##
-        ##            CROSS-ACCOUNT S3 LOG ROLE           ##
-        ##    (Processes logs and puts them to S3)        ##
-        ##                                                ##
-        ####################################################
 
     def init_cross_account_log_role(self, target_accts, bucket):
         languages = target_accts.keys()

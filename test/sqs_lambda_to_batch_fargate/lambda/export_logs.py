@@ -60,14 +60,14 @@ def get_and_put_logs():
     log_file = "\n".join(
         [f"{e['timestamp']}, {e['message']}" for e in log_events["events"]]
     )
-    log_file_name = "".join(random.choice(string.digits) for i in range(8))
+    file_identifier = str(random.randint(10**7, 10**8 - 1))
 
     s3_client.upload_fileobj(
         log_file,
         os.environ["PRODUCER_BUCKET_NAME"],
-        f"{os.environ['LANGUAGE_NAME']}/{log_file_name}",
+        f"{os.environ['LANGUAGE_NAME']}/{file_identifier}",
     )
 
     logger.info(
-        f"Log data saved successfully: {os.environ['LANGUAGE_NAME']}/{log_file_name}"
+        f"Log data saved successfully: {os.environ['LANGUAGE_NAME']}/{file_identifier}"
     )
