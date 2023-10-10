@@ -1,4 +1,12 @@
 # Config
-This directory contains the names of AWS resource shared across this testing stack. See [resources.yaml](resources.yaml).
+This directory contains the configuration for this stack.
 
-It also contains the names of specific SDK languages and whether their respective tests are actively running using this stack. See [targets.yaml](targets.yaml).
+### [resources.yaml](resources.yaml)
+Names of AWS resources in this testing stack with cross-account configuration.
+* `topic_name` [String] Where scheduled testing events are published. Contains cross-account subscriptions.
+* `bucket_name` [String] Where testing results are published. Contains cross-account 
+
+### [targets.yaml](targets.yaml).
+Name and configuration for specific SDK languages. Includes:
+* `account_id` [String] The AWS Account where a set of AWS SDK test are running
+* `status` [String] Whether the AWS SDK tests are running
