@@ -28,7 +28,7 @@ def handler(event, context):
         raise Exception(
             "Job timed out. Contact application owner or increase time out threshold"
         )
-    if not ("FAILED" in status or "SUCCEEDED" in status):
+    if status not in ["FAILED", "SUCCEEDED"]:
         logger.info(f"Non-triggering Batch status: STATUS: {status}")
         return
 
