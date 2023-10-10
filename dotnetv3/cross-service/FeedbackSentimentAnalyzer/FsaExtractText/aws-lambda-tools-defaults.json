@@ -6,7 +6,7 @@
     "All the command line options for the Lambda command can be specified in this file."
   ],
   "profile": "default",
-  "region": "us-west-2",
+  "region": "us-east-1",
   "configuration": "Release",
   "function-runtime": "dotnet6",
   "function-memory-size": 256,

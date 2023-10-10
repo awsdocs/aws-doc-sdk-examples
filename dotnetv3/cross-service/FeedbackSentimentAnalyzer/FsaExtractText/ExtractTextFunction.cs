@@ -5,15 +5,20 @@ using Amazon.Lambda.Core;
 using Amazon.Lambda.S3Events;
 using Amazon.S3;
 using Amazon.S3.Util;
+using Amazon.Textract;
+using FsaServices.Services;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
 namespace FsaExtractText;
 
+/// <summary>
+/// Function to handle extracting the text from an image.
+/// </summary>
 public class ExtractTextFunction
 {
-    IAmazonS3 S3Client { get; set; }
+    private readonly ExtractionService _extractionService;
 
     /// <summary>
     /// Default constructor. This constructor is used by Lambda to construct the instance. When invoked in a Lambda environment
@@ -22,25 +27,26 @@ public class ExtractTextFunction
     /// </summary>
     public ExtractTextFunction()
     {
-        S3Client = new AmazonS3Client();
+        var textractClient = new AmazonTextractClient();
+        _extractionService = new ExtractionService(textractClient);
     }
 
     /// <summary>
-    /// Constructs an instance with a preconfigured S3 client. This can be used for testing the outside of the Lambda environment.
+    /// Constructs an instance with an Amazon Textract client. This can be used for testing the outside of the Lambda environment.
     /// </summary>
     /// <param name="s3Client"></param>
-    public ExtractTextFunction(IAmazonS3 s3Client)
+    public ExtractTextFunction(IAmazonTextract textractClient)
     {
-        this.S3Client = s3Client;
+        _extractionService = new ExtractionService(textractClient);
     }
 
     /// <summary>
     /// This method is called for every Lambda invocation. This method takes in an S3 event object and can be used 
     /// to respond to S3 notifications.
     /// </summary>
-    /// <param name="evnt"></param>
-    /// <param name="context"></param>
-    /// <returns></returns>
+    /// <param name="evnt">The S3 Event.</param>
+    /// <param name="context">The Lambda context.</param>
+    /// <returns>The extracted words as a single string.</returns>
     public async Task<string?> FunctionHandler(S3Event evnt, ILambdaContext context)
     {
         var s3Event = evnt.Records?[0].S3;
@@ -48,18 +54,10 @@ public class ExtractTextFunction
         {
             return null;
         }
+        var extractResponse = await _extractionService.ExtractWordsFromBucketObject(
+            s3Event.Bucket.Name,
+            s3Event.Object.Key);
+        return extractResponse;
 
-        try
-        {
-            var response = await this.S3Client.GetObjectMetadataAsync(s3Event.Bucket.Name, s3Event.Object.Key);
-            return response.Headers.ContentType;
-        }
-        catch (Exception e)
-        {
-            context.Logger.LogInformation($"Error getting object {s3Event.Object.Key} from bucket {s3Event.Bucket.Name}. Make sure they exist and your bucket is in the same region as this function.");
-            context.Logger.LogInformation(e.Message);
-            context.Logger.LogInformation(e.StackTrace);
-            throw;
-        }
     }
 }

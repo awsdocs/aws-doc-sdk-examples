@@ -4,12 +4,12 @@
 using Amazon.Textract;
 using Amazon.Textract.Model;
 
-namespace FsaServices;
+namespace FsaServices.Services;
 
 /// <summary>
 /// Service to handle extracting text from images.
 /// </summary>
-public class ExtractTextService
+public class ExtractionService
 {
     private readonly IAmazonTextract _amazonTextract;
 
@@ -17,17 +17,17 @@ public class ExtractTextService
     /// Constructor that uses the injected Amazon Textract client.
     /// </summary>
     /// <param name="amazonTextract">Amazon Textract client.</param>
-    public ExtractTextService(IAmazonTextract amazonTextract)
+    public ExtractionService(IAmazonTextract amazonTextract)
     {
         _amazonTextract = amazonTextract;
     }
 
     /// <summary>
-    /// 
+    /// Extract the words from a given bucket object and return them in a single string.
     /// </summary>
-    /// <param name="bucket"></param>
-    /// <param name="name"></param>
-    /// <returns></returns>
+    /// <param name="bucket">The source bucket.</param>
+    /// <param name="name">The key of the bucket object.</param>
+    /// <returns>Words as a single string.</returns>
     public async Task<string> ExtractWordsFromBucketObject(string bucket, string name)
     {
         var detectTextResponse = await _amazonTextract.DetectDocumentTextAsync(
