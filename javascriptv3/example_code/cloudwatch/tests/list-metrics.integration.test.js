@@ -3,14 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from "vitest";
+import { main as listMetrics } from "../actions/list-metrics.js";
 
-describe('list-metrics', () => {
-  it('should list metrics', async () => {
-
-    const mod = await import('../actions/list-metrics.js');
-    const { Metrics } = await mod.default;
-    
-    expect(Metrics.length).toBeGreaterThan(0)
-  })
-})
+describe("list-metrics", () => {
+  it("should list metrics", async () => {
+    const { Metrics } = await listMetrics();
+    expect(Metrics.length).toBeGreaterThan(0);
+  });
+});
