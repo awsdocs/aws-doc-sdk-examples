@@ -8,7 +8,6 @@
     "@aws-sdk/client-cloudwatch-logs": "^3.215.0",
     "@aws-sdk/client-iam": "^3.216.0",
     "@aws-sdk/client-lambda": "^3.216.0",
-    "ramda": "^0.28.0",
     "libs": "*"
   },
   "scripts": {

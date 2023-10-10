@@ -7,8 +7,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "test": "vitest run **/*.unit.test.js",
-    "integration-test": "vitest run **/*.integration.test.js",
-    "coverage": "vitest run --coverage"
+    "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
     "@aws-sdk/client-glue": "^3.425.0",

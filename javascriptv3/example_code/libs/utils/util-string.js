@@ -2,10 +2,11 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { pipe, adjust, join, split, toLower, map, toUpper } from "ramda";
-
 import { v4 as uuidv4 } from "uuid";
 
+/**
+ * @param {string} name
+ */
 export const getUniqueName = (name) => `${uuidv4()}-${name.toLowerCase()}`;
 
 export const postfix = (source, str) => {
@@ -16,17 +17,39 @@ export const postfix = (source, str) => {
   return `${source}${str}`;
 };
 
-export const downcaseSplit = pipe(toLower, split("-"));
+/**
+ * @param {string} str
+ */
+const downcaseSplit = (str) => str.toLowerCase().split("-");
 
-export const capitalize = pipe(Array.from, adjust(0, toUpper), join(""));
+/**
+ * @param {string} str
+ */
+const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
-export const kebabCase = pipe(downcaseSplit, join("-"));
+export const kebabCase = (str) => downcaseSplit(str).join("-");
+export const pascalCase = (str) => downcaseSplit(str).map(capitalize).join("");
+export const snakeCase = (str) => downcaseSplit(str).join("_");
+export const titleCase = (str) => downcaseSplit(str).map(capitalize).join(" ");
 
-export const pascalCase = pipe(downcaseSplit, map(capitalize), join(""));
+/**
+ * Take a string as input and split it into an array using the delimiter provided.
+ * Trim each element in the array.
+ * @param {string} delimiter
+ * @param {string} input
+ */
+export const splitMapTrim = (delimiter, input) =>
+  input.split(delimiter).map((s) => s.trim());
 
-export const snakeCase = pipe(downcaseSplit, join("_"));
-
-export const titleCase = pipe(downcaseSplit, map(capitalize), join(" "));
+export const parseString = (input) => {
+  if (typeof input === "string") {
+    return input;
+  }
+  if (input instanceof Error) {
+    return input.message;
+  }
+  return JSON.stringify(input);
+};
 
 // snippet-start:[javascript.v3.utils.wrapText]
 export const wrapText = (text, char = "=") => {
