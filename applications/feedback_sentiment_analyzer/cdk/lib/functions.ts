@@ -214,49 +214,71 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
   },
 ];
 
-const DOTNET_FUNCTION_CONFIG = {
-  ...BASE_APP_FUNCTION,
-  runtime: Runtime.DOTNET_6,
-  codeAsset: () => {
-    const source = resolve("../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer");
-    return Code.fromAsset(source, {
-      bundling: {
-        command: [
-          "/bin/sh",
-          "-c",
-          " dotnet tool install -g Amazon.Lambda.Tools" +
-          " && dotnet build" +
-          " && cd PamApi" +
-          " && dotnet lambda package --output-package /asset-output/function.zip",
-        ],
-        image: Runtime.DOTNET_6.bundlingImage,
-        user: "root",
-        outputType: BundlingOutput.ARCHIVED,
-      },
-    });
-  },
+const DOTNET_BUNDLING_CONFIG = {
+  command: [
+    "/bin/sh",
+    "-c",
+    " dotnet tool install -g Amazon.Lambda.Tools" +
+    " && dotnet build" +
+    " && dotnet lambda package --output-package /asset-output/function.zip",
+  ],
+  image: Runtime.DOTNET_6.bundlingImage,
+  user: "root",
+  outputType: BundlingOutput.ARCHIVED,
 };
 
-const DOTNET_FUNCTIONS: AppFunctionConfig[] = [
+const DOTNET_FUNCTIONS = [
   {
-    ...DOTNET_FUNCTION_CONFIG,
+    ...BASE_APP_FUNCTION,
     name: "ExtractText",
-    handler: "com.example.fsa.handlers.ExtractTextHandler::handleRequest",
+    handler: "FsaExtractText::FsaExtractText.Function::FunctionHandler",
+    codeAsset() {
+      const source = resolve(
+          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer/FsaExtractText"
+      );
+      return Code.fromAsset(source, {
+        bundling: DOTNET_BUNDLING_CONFIG,
+      });
+    },
   },
   {
-    ...COMMON_JAVA_FUNCTION_CONFIG,
+    ...BASE_APP_FUNCTION,
     name: "AnalyzeSentiment",
-    handler: "com.example.fsa.handlers.AnalyzeSentimentHandler::handleRequest",
+    handler: "FsaAnalyzeSentiment::FsaAnalyzeSentiment.Function::FunctionHandler",
+    codeAsset() {
+      const source = resolve(
+          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer/FsaExtractText"
+      );
+      return Code.fromAsset(source, {
+        bundling: DOTNET_BUNDLING_CONFIG,
+      });
+    },
   },
   {
-    ...COMMON_JAVA_FUNCTION_CONFIG,
+    ...BASE_APP_FUNCTION,
     name: "TranslateText",
-    handler: "com.example.fsa.handlers.TranslateTextHandler::handleRequest",
+    handler: "FsaTranslateText::FsaTranslateText.Function::FunctionHandler",
+    codeAsset() {
+      const source = resolve(
+          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer/FsaTranslateText"
+      );
+      return Code.fromAsset(source, {
+        bundling: DOTNET_BUNDLING_CONFIG,
+      });
+    },
   },
   {
-    ...COMMON_JAVA_FUNCTION_CONFIG,
+    ...BASE_APP_FUNCTION,
     name: "SynthesizeAudio",
-    handler: "com.example.fsa.handlers.SynthesizeAudioHandler::handleRequest",
+    handler: "FsaSynthesizeAudio::FsaSynthesizeAudio.Function::FunctionHandler",
+    codeAsset() {
+      const source = resolve(
+          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer/FsaSynthesizeAudio"
+      );
+      return Code.fromAsset(source, {
+        bundling: DOTNET_BUNDLING_CONFIG,
+      });
+    },
   },
 ];
 
