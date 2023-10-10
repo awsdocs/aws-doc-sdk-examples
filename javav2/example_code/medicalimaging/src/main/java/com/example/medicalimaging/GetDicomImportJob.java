@@ -11,13 +11,27 @@ package com.example.medicalimaging;
 
 //snippet-start:[medicalimaging.java2.start_dicom_import_job.import]
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.core.ResponseBytes;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.medicalimaging.MedicalImagingClient;
 import software.amazon.awssdk.services.medicalimaging.model.DICOMImportJobProperties;
 import software.amazon.awssdk.services.medicalimaging.model.GetDicomImportJobRequest;
 import software.amazon.awssdk.services.medicalimaging.model.GetDicomImportJobResponse;
 import software.amazon.awssdk.services.medicalimaging.model.MedicalImagingException;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.S3Uri;
+import software.amazon.awssdk.services.s3.S3Utilities;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+
 //snippet-end:[medicalimaging.java2.start_dicom_import_job.import]
 
 /**
@@ -55,6 +69,15 @@ public class GetDicomImportJob {
 
         System.out.println("The job properties are " + importJobProperties);
 
+        S3Client s3Client = S3Client.builder()
+                .region(region)
+                .credentialsProvider(ProfileCredentialsProvider.create())
+                .build();
+
+        List<String> imagesets = getImageSetsForImportJobProperties(s3Client, importJobProperties);
+
+        System.out.println("The imported imagesets are " + imagesets);
+
         medicalImagingClient.close();
     }
 
@@ -78,4 +101,37 @@ public class GetDicomImportJob {
         return null;
     }
 //snippet-end:[medicalimaging.java2.start_dicom_import_job.main]
+
+    public static List<String> getImageSetsForImportJobProperties(S3Client s3client,
+            DICOMImportJobProperties jobProperties) {
+        try {
+            S3Utilities s3Utilities = s3client.utilities();
+            URI manifestUri = URI.create(jobProperties.outputS3Uri() + "job-output-manifest.json");
+            S3Uri manifestS3Uri = s3Utilities.parseUri(manifestUri);
+
+            System.out.println("bucket " + manifestS3Uri.bucket().orElse("not found") +
+                    ", key " + manifestS3Uri.key().orElse("not found"));
+            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                    .bucket(manifestS3Uri.bucket().get())
+                    .key(manifestS3Uri.key().get())
+                    .build();
+
+            ResponseBytes<GetObjectResponse> objectBytes = s3client.getObjectAsBytes(getObjectRequest);
+            String manifest = objectBytes.asUtf8String();
+            JsonObject jsonObject = new JsonParser().parse(manifest).getAsJsonObject();
+            JsonObject jobSummary = jsonObject.getAsJsonObject("jobSummary");
+            List<String> result = new ArrayList<>();
+            for (JsonElement imageSetSummary : jobSummary.getAsJsonArray("imageSetsSummary")) {
+                result.add(imageSetSummary.getAsJsonObject().get("imageSetId").getAsString());
+            }
+
+            return result;
+        }
+        catch (Exception e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+
+        return null;
+    }
 }
