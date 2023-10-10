@@ -3,7 +3,6 @@
 
 using Amazon.Comprehend;
 using Amazon.Lambda.Core;
-using AWS.Lambda.Powertools.Logging;
 using FsaServices.Models;
 using FsaServices.Services;
 
@@ -41,15 +40,11 @@ public class AnalyzeSentimentFunction
     /// <summary>
     /// A function that takes in the source text and returns the sentiment details.
     /// </summary>
-    /// <param name="extractTextOutput">The extracted text output to analyze.</param>
+    /// <param name="source_text">The text to analyze.</param>
     /// <param name="context">The Lambda context</param>
     /// <returns>Sentiment details.</returns>
-    public async Task<SentimentDetails> FunctionHandler(SourceTextDetails extractTextOutput, ILambdaContext context)
+    public async Task<SentimentDetails> FunctionHandler(string source_text, ILambdaContext context)
     {
-        // Log the object with Lambda PowerTools logger.
-        Logger.LogInformation(extractTextOutput);
-        var result = await _sentimentService.AnalyzeTextSentiment(extractTextOutput.source_text);
-        Logger.LogInformation(result);
-        return result;
+        return await _sentimentService.AnalyzeTextSentiment(source_text);
     }
 }
