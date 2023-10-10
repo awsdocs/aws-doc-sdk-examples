@@ -31,7 +31,7 @@
   <para> The full app can be deployed with the &CDK;. For source code and deployment
     instructions, see the project in <ulink
       url="https://github.com/awsdocs/aws-doc-sdk-examples/tree/main/javascriptv3/example_code/cross-services/feedback-sentiment-analyzer">
-    GitHub</ulink>. The following excerpts show how the &AWS; SDK for JavaScript is used inside of &LAM; functions. </para>
+    GitHub</ulink>. The following excerpts show how the &JSBlong; is used inside of &LAM; functions. </para>
   <programlisting language="javascript"><xi:include parse="text" href="file://AWSShared/snippets/javascript.v3.sample.fsa.analyze_sentiment.txt" /></programlisting>
   <programlisting language="javascript"><xi:include parse="text" href="file://AWSShared/snippets/javascript.v3.sample.fsa.extract_text.txt" /></programlisting>
   <programlisting language="javascript"><xi:include parse="text" href="file://AWSShared/snippets/javascript.v3.sample.fsa.synthesize_audio.txt" /></programlisting>
