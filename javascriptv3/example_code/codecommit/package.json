@@ -1,0 +1,14 @@
+{
+  "name": "example-javascriptv3-codecommit",
+  "version": "1.0.0",
+  "author": "Corey Pyle <corepyle@amazon.com>",
+  "license": "Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-codecommit": "^3.427.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.124",
+    "vitest": "^0.34.6"
+  }
+}
