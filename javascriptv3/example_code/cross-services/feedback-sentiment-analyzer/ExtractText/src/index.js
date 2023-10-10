@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// snippet-start:[javascript.v3.sample.fsa.extract_text]
 import {
   DetectDocumentTextCommand,
   TextractClient,
@@ -37,3 +38,4 @@ export const handler = async (eventBridgeS3Event) => {
 
   return extractedWords.join(" ");
 };
+// snippet-end:[javascript.v3.sample.fsa.extract_text]
