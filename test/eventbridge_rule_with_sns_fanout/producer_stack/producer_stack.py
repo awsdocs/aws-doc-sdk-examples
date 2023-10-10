@@ -70,7 +70,7 @@ class ProducerStack(Stack):
         subscribe_permissions = iam.PolicyStatement()
         subscribe_permissions.add_arn_principal(f"arn:aws:iam::{Aws.ACCOUNT_ID}:root")
         for language in target_accts.keys():
-            if "true" in str(target_accts[language]["enabled"]):
+            if "enabled" in str(target_accts[language]["status"]):
                 subscribe_permissions.add_arn_principal(
                     f"arn:aws:iam::{str(target_accts[language]['account_id'])}:root"
                 )
@@ -108,7 +108,7 @@ class ProducerStack(Stack):
             statement.add_actions("s3:PutObject", "s3:PutObjectAcl")
             statement.add_resources(f"{bucket.bucket_arn}/*")
             for language in languages:
-                if "true" in str(target_accts[language]["enabled"]):
+                if "enabled" in str(target_accts[language]["status"]):
                     statement.add_arn_principal(
                         f"arn:aws:iam::{str(target_accts[language]['account_id'])}:role/LogsLambdaExecutionRole"
                     )
