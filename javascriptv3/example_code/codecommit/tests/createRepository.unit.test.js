@@ -1,0 +1,18 @@
+import { describe, it, expect, vi } from "vitest";
+import { main, params } from "../src/createRepository";
+
+vi.mock("../src/libs/codeCommitClient.js", () => {
+  return {
+    codeCommitClient: {
+      ...vi.importActual("../src/libs/codeCommitClient.js"),
+      send: vi.fn().mockResolvedValue({ isMock: true }),
+    },
+  };
+});
+
+describe("createRepository", () => {
+  it("should mock CodeCommit client", async () => {
+    const response = await main(params);
+    expect(response.isMock).toEqual(true);
+  });
+});

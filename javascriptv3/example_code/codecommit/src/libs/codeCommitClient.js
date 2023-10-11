@@ -16,7 +16,7 @@ import { CodeCommitClient } from "@aws-sdk/client-codecommit";
 const REGION = "eu-west-1";
 
 // Create an AWS CodeBuild service client object.
-const codeCommitClient = new CodeCommitClient({region: REGION});
+const codeCommitClient = new CodeCommitClient({ region: REGION });
 
 export { codeCommitClient };
 // snippet-end:[code-commit.JavaScript.codeCommitClient]

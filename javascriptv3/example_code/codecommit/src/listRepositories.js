@@ -16,15 +16,19 @@ import { ListRepositoriesCommand } from "@aws-sdk/client-codecommit";
 import { codeCommitClient } from "./libs/codeCommitClient.js";
 
 // List your repositories.
-export const run = async () => {
-    try {
-        const data = await codeCommitClient.send(new ListRepositoriesCommand({}));
-        console.log("Success", data);
-        return data; // For unit tests.
-    } catch (err) {
-        console.log("Error", err);
-    }
+export const main = async () => {
+  try {
+    const data = await codeCommitClient.send(new ListRepositoriesCommand({}));
+    console.log("Success", data);
+    return data; // For unit tests.
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
-run();
+// Call a function if this file was run directly. This allows the file
+// to be runnable without running on import.
+import { fileURLToPath } from "url";
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
 // snippet-end:[codeCommit.JavaScript.listReposV3]
-
