@@ -115,7 +115,7 @@ def run():
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('port', default=80, type=int, help="The port where the HTTP server listens.")
-    parser.add_argument('region', default='us-west-2', help="The AWS Region of AWS resources used by this example.")
+    parser.add_argument('--region', default=ec2_metadata.region, help="The AWS Region of AWS resources used by this example.")
     args = parser.parse_args()
 
     server_port = args.port
