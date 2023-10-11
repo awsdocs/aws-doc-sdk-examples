@@ -1,0 +1,36 @@
+cpp:
+  account_id: "770244195820"
+  status: "disabled"
+dotnetv3:
+  account_id: "441997275833"
+  status: "disabled"
+gov2:
+  account_id: "234521034040"
+  status: "disabled"
+javascriptv3:
+  account_id: "875008041426"
+  status: "disabled"
+javav2:
+  account_id: "814548047983" # back-up "667348412466"
+  status: "disabled"
+kotlin:
+  account_id: "814548047983" # back-up "667348412466"
+  status: "disabled"
+php:
+  account_id: "733931915187"
+  status: "disabled"
+python:
+  account_id: "664857444588"
+  status: "disabled"
+ruby:
+  account_id: "616362385685"
+  status: "disabled"
+rust_dev_preview:
+  account_id: "050288538048"
+  status: "disabled"
+sap-abap:
+  account_id: "099736152523"
+  status: "disabled"
+swift:
+  account_id: "637397754108"
+  status: "disabled"
