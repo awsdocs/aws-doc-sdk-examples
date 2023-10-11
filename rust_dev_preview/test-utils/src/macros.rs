@@ -20,7 +20,7 @@ macro_rules! test_event {
             $res:expr
         )
     ) => {{
-        (
+        aws_smithy_runtime::client::http::test_util::ReplayEvent::new(
             http::Request::builder()
                 .body(aws_smithy_http::body::SdkBody::from($req))
                 .unwrap(),
@@ -38,7 +38,7 @@ macro_rules! test_event {
             $res:expr
         )
     ) => {{
-        (
+        aws_smithy_runtime::client::http::test_util::ReplayEvent::new(
             http::Request::builder()
                 .body(aws_smithy_http::body::SdkBody::from($req))
                 .unwrap(),
@@ -73,7 +73,7 @@ macro_rules! single_shot_client {
     ($sdk_crate:ident, $req:expr, $status:expr, $res_headers:expr, $res:expr) => {{
         $sdk_crate::Client::from_conf(
             sdk_examples_test_utils::client_config!($sdk_crate)
-                .http_connector(sdk_examples_test_utils::single_shot(
+                .http_client(sdk_examples_test_utils::single_shot(
                     $req.into(),
                     ($status.try_into().unwrap(), $res_headers, $res.into()),
                 ))

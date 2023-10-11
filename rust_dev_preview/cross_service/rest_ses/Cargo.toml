@@ -18,6 +18,7 @@ aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" 
 aws-sdk-cloudwatchlogs = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-rdsdata = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-ses = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-runtime = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 chrono = { version = "0.4.22", default-features = false, features = [
     "clock",
     "serde",
