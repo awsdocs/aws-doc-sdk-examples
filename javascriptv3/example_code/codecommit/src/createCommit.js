@@ -32,7 +32,7 @@ export const getBranchParams = {
 
 // Add or update the file.
 export const main = async () => {
-  const COMMIT_ID = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+  const COMMIT_ID = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
   const createCommitParams = {
     branchName: BRANCH /* required */,
     repositoryName: REPO /* required */,
