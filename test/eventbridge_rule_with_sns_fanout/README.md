@@ -18,13 +18,10 @@ Specifically, it deploys a scheduled Amazon EventBridge rule that publishes a me
 * AWS access key and secret for AWS user with permissions to create the preceding resources
 * Successfully written [system parameters](#storing-system-parameters)
   
-### Storing system parameters
+### Updating configuration data
 
-Before you get started, execute [store_system_parameters.py](store_system_params.py) as described in the code comments:
+Before you get started, update [config/resources.yaml](../config/resources.yaml) and [config/targets.yaml](../config/targets.yaml) to include logical names representing test targets and their corresponding AWS Account ID and enabled status. 
 
-```
-python3 store_system_parameters.py
-```
 ---
 ## AWS CDK setup and deployment
 
