@@ -3,8 +3,8 @@ This directory contains the configuration for this stack.
 
 ### [resources.yaml](resources.yaml)
 Names of AWS resources in this testing stack with cross-account configuration.
-* `topic_name` [String] Where scheduled testing events are published. Contains cross-account subscriptions.
-* `bucket_name` [String] Where testing results are published. Contains cross-account 
+* `topic_name` [String] Where scheduled testing events are published. Allows cross-account `Publish`.
+* `bucket_name` [String] Where testing results are published. Allows cross-account `PutObject`.
 
 ### [targets.yaml](targets.yaml).
 Name and configuration for specific SDK languages. Includes:
