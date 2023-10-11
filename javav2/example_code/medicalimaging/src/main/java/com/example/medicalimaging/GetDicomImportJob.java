@@ -103,7 +103,7 @@ public class GetDicomImportJob {
 //snippet-end:[medicalimaging.java2.start_dicom_import_job.main]
 
     public static List<String> getImageSetsForImportJobProperties(S3Client s3client,
-            DICOMImportJobProperties jobProperties) {
+                                                                  DICOMImportJobProperties jobProperties) {
         try {
             S3Utilities s3Utilities = s3client.utilities();
             URI manifestUri = URI.create(jobProperties.outputS3Uri() + "job-output-manifest.json");
@@ -118,7 +118,7 @@ public class GetDicomImportJob {
 
             ResponseBytes<GetObjectResponse> objectBytes = s3client.getObjectAsBytes(getObjectRequest);
             String manifest = objectBytes.asUtf8String();
-            JsonObject jsonObject = new JsonParser().parse(manifest).getAsJsonObject();
+            JsonObject jsonObject = JsonParser.parseString(manifest).getAsJsonObject();
             JsonObject jobSummary = jsonObject.getAsJsonObject("jobSummary");
             List<String> result = new ArrayList<>();
             for (JsonElement imageSetSummary : jobSummary.getAsJsonArray("imageSetsSummary")) {
@@ -126,8 +126,7 @@ public class GetDicomImportJob {
             }
 
             return result;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }

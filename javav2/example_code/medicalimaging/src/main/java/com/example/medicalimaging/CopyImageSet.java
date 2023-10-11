@@ -60,19 +60,20 @@ public class CopyImageSet {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        copyMedicalImageSet(medicalImagingClient, datastoreId, imageSetId,
+        String copiedImageSetId = copyMedicalImageSet(medicalImagingClient, datastoreId, imageSetId,
                 versionId, destinationImageSetId, destinationVersionId);
 
+        System.out.println("The copied image set ID is " + copiedImageSetId);
         medicalImagingClient.close();
     }
 
     //snippet-start:[medicalimaging.java2.copy_imageset.main]
-    public static void copyMedicalImageSet(MedicalImagingClient medicalImagingClient,
-                                           String datastoreId,
-                                           String imageSetId,
-                                           String latestVersionId,
-                                           String destinationImageSetId,
-                                           String destinationVersionId) {
+    public static String copyMedicalImageSet(MedicalImagingClient medicalImagingClient,
+                                             String datastoreId,
+                                             String imageSetId,
+                                             String latestVersionId,
+                                             String destinationImageSetId,
+                                             String destinationVersionId) {
 
         try {
             CopySourceImageSetInformation copySourceImageSetInformation = CopySourceImageSetInformation.builder()
@@ -100,13 +101,15 @@ public class CopyImageSet {
                     .copyImageSetInformation(copyImageSetInformation)
                     .build();
 
-            medicalImagingClient.copyImageSet(copyImageSetRequest);
+            CopyImageSetResponse response = medicalImagingClient.copyImageSet(copyImageSetRequest);
 
-            System.out.println("The image set was copied successfully");
+            return response.destinationImageSetProperties().imageSetId();
         } catch (MedicalImagingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
+
+        return "";
     }
 //snippet-end:[medicalimaging.java2.copy_imageset.main]
 }

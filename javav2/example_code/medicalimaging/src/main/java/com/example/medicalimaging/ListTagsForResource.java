@@ -51,7 +51,7 @@ public class ListTagsForResource {
 
         ListTagsForResourceResponse result = listMedicalImagingResourceTags(medicalImagingClient, resourceArn);
 
-        if  (result != null) {
+        if (result != null) {
             System.out.println("Tags for resource: " + result.tags());
         }
 

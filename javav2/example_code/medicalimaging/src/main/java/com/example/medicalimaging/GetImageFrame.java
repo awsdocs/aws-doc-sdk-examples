@@ -58,18 +58,18 @@ public class GetImageFrame {
                 .credentialsProvider(ProfileCredentialsProvider.create())
                 .build();
 
-        getMedicalImageSetMetadata(medicalImagingClient, destinationPath,
+        getMedicalImageSetFrame(medicalImagingClient, destinationPath,
                 datastoreId, imagesetId, imageFrameId);
 
         medicalImagingClient.close();
     }
 
     //snippet-start:[medicalimaging.java2.get_image_frame.main]
-    public static void getMedicalImageSetMetadata(MedicalImagingClient medicalImagingClient,
-                                                  String destinationPath,
-                                                  String datastoreId,
-                                                  String imagesetId,
-                                                  String imageFrameId) {
+    public static void getMedicalImageSetFrame(MedicalImagingClient medicalImagingClient,
+                                               String destinationPath,
+                                               String datastoreId,
+                                               String imagesetId,
+                                               String imageFrameId) {
 
         try {
             GetImageFrameRequest getImageSetMetadataRequest = GetImageFrameRequest.builder()
