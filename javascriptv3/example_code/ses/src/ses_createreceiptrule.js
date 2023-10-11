@@ -60,7 +60,7 @@ const run = async () => {
     return await sesClient.send(s3ReceiptRuleCommand);
   } catch (err) {
     console.log("Failed to create S3 receipt rule.", err);
-    return err;
+    throw err;
   }
 };
 // snippet-end:[ses.JavaScript.rules.createReceiptRuleV3]

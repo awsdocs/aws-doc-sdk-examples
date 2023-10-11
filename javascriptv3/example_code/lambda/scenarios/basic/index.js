@@ -4,10 +4,10 @@
  */
 import { createInterface } from "readline";
 import { stdin as input, stdout as output } from "process";
-import { startsWith } from "ramda";
 
-import { readCommands } from "../../../libs/cmd-runner.js";
-import { log } from "../../../libs/utils/util-log.js";
+import { readCommands } from "libs/cmd-runner.js";
+import { log } from "libs/utils/util-log.js";
+import { startsWith } from "libs/utils/util-array.js";
 
 import { initializeHandler } from "./command-handlers/initialize-handler.js";
 import { createFunctionHandler } from "./command-handlers/create-function-handler.js";

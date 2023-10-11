@@ -14,7 +14,7 @@ import {
   deleteBucket,
   emptyBucket,
   putBucketPolicyAllowPuts,
-} from "../../s3/src/libs/s3Utils";
+} from "../../s3/libs/s3Utils.js";
 
 describe("ses_createreceiptrule", () => {
   beforeAll(async () => {

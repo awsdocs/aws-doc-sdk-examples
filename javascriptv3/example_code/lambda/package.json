@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.163.0",
-    "ramda": "^0.28.0",
     "libs": "*"
   },
   "devDependencies": {

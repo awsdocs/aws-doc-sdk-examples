@@ -13,7 +13,6 @@
     "integration-test": "vitest run **/*.integration.test.js"
   },
   "devDependencies": {
-    "ramda": "^0.28.0",
     "uuid": "^9.0.0",
     "vitest": "^0.25.2"
   }

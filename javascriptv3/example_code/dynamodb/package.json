@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
-    "integration-test": "vitest run **/*.integration.test.js --coverage"
+    "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.210.0",

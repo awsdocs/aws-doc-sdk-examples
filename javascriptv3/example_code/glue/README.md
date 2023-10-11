@@ -45,7 +45,7 @@ Code examples that show you how to accomplish a specific task by calling multipl
 ### Prerequisites
 
 1. [Set up AWS SDK for JavaScript](../README.md).
-1. Run `yarn`.
+1. Run `npm i`.
 
 ### Instructions
 
@@ -97,13 +97,13 @@ Code examples that show you how to accomplish a specific task by calling multipl
 
 ### Unit tests
 
-1. Run `yarn`.
-1. Run `yarn test`.
+1. Run `npm i`.
+1. Run `npm test`.
 
 ### Integration tests
 
-1. Run `yarn`.
-1. Run `yarn integration-test`.
+1. Run `npm i`.
+1. Run `npm run integration-test`.
 
 ## Additional resources
 
