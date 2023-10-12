@@ -9,9 +9,9 @@ package com.example.medicalimaging;
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[medicalimaging.java2.get_imageset.import]
+//snippet-start:[medicalimaging.java2.get_imageset_metadata.import]
 
-//snippet-end:[medicalimaging.java2.get_imageset.import]
+//snippet-end:[medicalimaging.java2.get_imageset_metadata.import]
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -65,7 +65,7 @@ public class GetImageSetMetadata {
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.get_imageset.main]
+    //snippet-start:[medicalimaging.java2.get_imageset_metadata.main]
     public static void getMedicalImageSetMetadata(MedicalImagingClient medicalImagingClient,
                                                   String destinationPath,
                                                   String datastoreId,
@@ -95,5 +95,5 @@ public class GetImageSetMetadata {
             System.exit(1);
         }
     }
-//snippet-end:[medicalimaging.java2.get_imageset.main]
+//snippet-end:[medicalimaging.java2.get_imageset_metadata.main]
 }
