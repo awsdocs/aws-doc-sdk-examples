@@ -10,6 +10,12 @@ functions.
 
 import logging
 from botocore.exceptions import ClientError
+import time
+import datetime
+import boto3
+import random
+import gzip
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -441,4 +447,121 @@ class MedicalImagingWrapper:
             raise
         else:
             return tags['tags']
+
     # snippet-end:[python.example_code.medical-imaging.ListTagsForResource]
+
+    def usage_demo(self, source_s3_uri, dest_s3_uri, data_access_role_arn):
+        data_store_name = f"python_usage_demo_data_store_{random.randint(0, 200000)}"
+
+        data_store_id = self.create_datastore(data_store_name)
+        print(f"Data store created with id : {data_store_id}")
+
+        while True:
+            time.sleep(1)
+            datastore_properties = self.get_datastore_properties(data_store_id)
+            datastore_status = datastore_properties['datastoreStatus']
+            print(f'data store status: "{datastore_status}"')
+            if datastore_status == "ACTIVE":
+                break
+            elif datastore_status == "CREATE_FAILED":
+                raise Exception("Create datastore job failed")
+
+        datastores = self.list_datastores()
+        print(f"datastores : {datastores}")
+
+        job_name = "python_usage_demo_job"
+        job_id = self.start_dicom_import_job(job_name, data_store_id,
+                                             data_access_role_arn,
+                                             source_s3_uri, dest_s3_uri)
+        print(f"Started import job with id: {job_id}")
+
+        while True:
+            time.sleep(1)
+            job = self.get_dicom_import_job(data_store_id, job_id)
+            job_status = job['jobStatus']
+            print(f'Status of import job : "{job_status}"')
+            if job_status == "COMPLETED":
+                break
+            elif job_status == "FAILED":
+                raise Exception("DICOM import job failed")
+
+        import_jobs = self.list_dicom_import_jobs(data_store_id)
+        print(import_jobs)
+        for job in import_jobs:
+            print(job)
+
+        filter = {
+            "filters": [{
+                "values": [{"createdAt": datetime.datetime(2021, 8, 4, 14, 49, 54, 429000)},
+                           {"createdAt": datetime.datetime.now() + datetime.timedelta(days=1)}],
+                "operator": "BETWEEN"
+            }]
+        }
+
+        image_sets = self.search_image_sets(data_store_id, filter)
+        for image_set in image_sets:
+            print(image_set)
+
+        image_set_id = image_sets[0]['imageSetId']
+        version_id = image_sets[0]['version']
+        returned_image_set = self.get_image_set(data_store_id, image_set_id, str(version_id))
+        print(returned_image_set)
+
+        image_metadata_file_name = "metadata.json.gzip"
+        self.get_image_set_metadata(image_metadata_file_name, data_store_id,
+                                    image_set_id)
+        image_frame_id = ""
+        with gzip.open(image_metadata_file_name, 'rb') as f_in:
+            data = json.load(f_in)
+            series = data['Study']['Series']
+            for value in series.values():
+                for instance in value['Instances'].values():
+                    image_frame_id = instance['ImageFrames'][0]['ID']
+
+        if image_frame_id == "":
+            raise Exception("Image frame id is empty")
+
+        image_file_name = "image_frame.jph"
+        returned_image_frame = self.get_pixel_data(image_file_name, data_store_id,
+                                                   image_set_id,
+                                                   image_frame_id)
+
+        returned_versions = self.list_image_set_versions(data_store_id, image_set_id)
+        for version in returned_versions:
+            print(version)
+
+        if False:
+            result = self.copy_image_set(data_store_id, "6ec347bff13a36fe32939e41a1e5e158", "3")
+            print(result)
+
+            result = self.delete_image_set(data_store_id, "230e7c272021733c4c2768fc527ffd33")
+            print(result)
+
+            resource_arn = "arn:aws:medical-imaging:us-east-1:123502194722:datastore/728f13a131f748bf8d87a55d5ef6c5af"
+            self.tag_resource(resource_arn,
+                              {"TagType": "datastore"})
+            result = self.list_tags_for_resource(resource_arn)
+            print(result)
+
+            self.untag_resource(resource_arn,
+                                ["TagType"])
+
+            result = self.list_tags_for_resource(resource_arn)
+            print(result)
+
+
+        for image_set in image_sets:
+           self.delete_image_set(data_store_id, image_set['imageSetId'])
+
+        self.delete_datastore(data_store_id)
+        print(f"Data store deleted with id : {data_store_id}")
+
+if __name__ == '__main__':
+    source_s3_uri = "s3://upload-22-dicom-387/input/CRStudy/"
+    dest_s3_uri = "s3://upload-22-dicom-387/input/MRStudy/"
+    data_access_role_arn = "arn:aws:iam::123502194722:role/dicom_import"
+
+    client = boto3.client('medical-imaging', region_name='us-west-2')
+    medical_imaging_wrapper = MedicalImagingWrapper(client)
+
+    medical_imaging_wrapper.usage_demo(source_s3_uri,dest_s3_uri, data_access_role_arn)
