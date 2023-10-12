@@ -4,22 +4,22 @@
 namespace FsaServices.Models;
 
 /// <summary>
-/// Model class for audio source and destination details.
+/// Model for card object created event.
 /// </summary>
-public class AudioSourceDestinationDetails
+public class CardObjectCreated
 {
     /// <summary>
-    /// The bucket to use for output.
+    /// The region for the card object.
     /// </summary>
-    public string bucket { get; set; } = null!;
+    public string Region { get; set; } = null!;
 
     /// <summary>
-    /// The translated text to synthesize.
+    /// The bucket for the card object.
     /// </summary>
-    public string translated_text { get; set; } = null!;
+    public string Bucket { get; set; } = null!;
 
     /// <summary>
-    /// The output object key.
+    /// The object key for the card.
     /// </summary>
     public string Object { get; set; } = null!;
 }

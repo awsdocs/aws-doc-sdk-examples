@@ -11,5 +11,5 @@
   "function-runtime": "dotnet6",
   "function-memory-size": 256,
   "function-timeout": 30,
-  "function-handler": "FsaTranslateText::FsaTranslateText.Function::FunctionHandler"
+  "function-handler": "FsaTranslateText::FsaTranslateText.TranslateTextFunction::FunctionHandler"
 }

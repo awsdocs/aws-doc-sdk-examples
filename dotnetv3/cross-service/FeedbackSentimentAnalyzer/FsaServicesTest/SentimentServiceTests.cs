@@ -46,8 +46,8 @@ public class SentimentServiceTests
         var sentimentDetails = await service.AnalyzeTextSentiment("Text to analyze.");
 
         // Assert.
-        Assert.Equal("en", sentimentDetails.LanguageCode);
-        Assert.Equal(SentimentType.POSITIVE, sentimentDetails.Sentiment);
+        Assert.Equal("en", sentimentDetails.language_code);
+        Assert.Equal(SentimentType.POSITIVE.Value, sentimentDetails.sentiment);
     }
 
     /// <summary>

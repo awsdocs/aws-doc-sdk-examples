@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using System.Text.Json;
 using Amazon.Lambda.Core;
-using Amazon.Lambda.S3Events;
-using Amazon.S3;
-using Amazon.S3.Util;
 using Amazon.Textract;
+using AWS.Lambda.Powertools.Logging;
+using FsaServices.Models;
 using FsaServices.Services;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -34,7 +34,7 @@ public class ExtractTextFunction
     /// <summary>
     /// Constructs an instance with an Amazon Textract client. This can be used for testing the outside of the Lambda environment.
     /// </summary>
-    /// <param name="s3Client"></param>
+    /// <param name="textractClient">Preconfigured Textract client.</param>
     public ExtractTextFunction(IAmazonTextract textractClient)
     {
         _extractionService = new ExtractionService(textractClient);
@@ -44,19 +44,17 @@ public class ExtractTextFunction
     /// This method is called for every Lambda invocation. This method takes in an S3 event object and can be used 
     /// to respond to S3 notifications.
     /// </summary>
-    /// <param name="evnt">The S3 Event.</param>
+    /// <param name="evnt">The CloudWatch S3 Event.</param>
     /// <param name="context">The Lambda context.</param>
     /// <returns>The extracted words as a single string.</returns>
-    public async Task<string?> FunctionHandler(S3Event evnt, ILambdaContext context)
+    public async Task<string?> FunctionHandler(CardObjectCreated evnt, ILambdaContext context)
     {
-        var s3Event = evnt.Records?[0].S3;
-        if (s3Event == null)
-        {
-            return null;
-        }
-        var extractResponse = await _extractionService.ExtractWordsFromBucketObject(
-            s3Event.Bucket.Name,
-            s3Event.Object.Key);
+        // Log the event with Lambda PowerTools logger.
+        var s3Event = evnt;
+        Logger.LogInformation(evnt);
+
+        var extractResponse = await _extractionService.ExtractWordsFromBucketObject(s3Event.Bucket, s3Event.Object);
+        Logger.LogInformation($"Extracted text: {extractResponse}.");
         return extractResponse;
 
     }

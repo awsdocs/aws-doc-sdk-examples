@@ -4,7 +4,7 @@
 using Amazon.Lambda.Core;
 using Amazon.Polly;
 using Amazon.S3;
-using Amazon.Textract;
+using AWS.Lambda.Powertools.Logging;
 using FsaServices.Models;
 using FsaServices.Services;
 
@@ -50,7 +50,10 @@ public class SynthesizeAudioFunction
     /// <returns>The key of the new media object.</returns>
     public async Task<string> FunctionHandler(AudioSourceDestinationDetails input, ILambdaContext context)
     {
+        // Log the input with Lambda PowerTools logger.
+        Logger.LogInformation(input);
         var synthesizeResponse = await _synthesizeService.SynthesizeSpeechFromText(input);
+        Logger.LogInformation(synthesizeResponse);
         return synthesizeResponse;
     }
 }

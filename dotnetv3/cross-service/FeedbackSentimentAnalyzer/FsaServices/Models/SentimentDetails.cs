@@ -1,11 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier:  Apache-2.0
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Amazon.Comprehend;
 
 namespace FsaServices.Models;
@@ -15,6 +10,13 @@ namespace FsaServices.Models;
 /// </summary>
 public class SentimentDetails
 {
-    public SentimentType Sentiment { get; set; }
-    public string LanguageCode { get; set; }
+    /// <summary>
+    /// The sentiment type of the analyzed text.
+    /// </summary>
+    public string sentiment { get; set; } = null!;
+
+    /// <summary>
+    /// The language code of the analyzed text.
+    /// </summary>
+    public string language_code { get; set; } = null!;
 }

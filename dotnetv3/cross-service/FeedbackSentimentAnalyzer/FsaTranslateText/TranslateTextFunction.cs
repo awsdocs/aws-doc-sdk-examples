@@ -3,6 +3,7 @@
 
 using Amazon.Lambda.Core;
 using Amazon.Translate;
+using AWS.Lambda.Powertools.Logging;
 using FsaServices.Models;
 using FsaServices.Services;
 
@@ -45,9 +46,11 @@ public class TranslateTextFunction
     /// <returns>Sentiment details.</returns>
     public async Task<TranslatedTextDetails> FunctionHandler(TextWithSourceLanguage source_text, ILambdaContext context)
     {
+        // Log the object with Lambda PowerTools logger.
+        Logger.LogInformation(source_text);
         var translatedText = await _translationService.TranslateToEnglish(source_text.extracted_text,
             source_text.source_language_code);
-
+        Logger.LogInformation(translatedText);
         return new TranslatedTextDetails() { translated_text = translatedText };
     }
 }

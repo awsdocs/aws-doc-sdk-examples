@@ -3,8 +3,10 @@
 
 using Amazon.Polly;
 using Amazon.Polly.Model;
+using Amazon.Runtime.Internal;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Amazon.S3.Transfer;
 using FsaServices.Models;
 
 namespace FsaServices.Services;
@@ -35,7 +37,7 @@ public class SynthesizeService
     /// <returns>The name of the result object in the bucket.</returns>
     public async Task<string> SynthesizeSpeechFromText(AudioSourceDestinationDetails sourceDestinationDetails)
     {
-        if (string.IsNullOrEmpty(sourceDestinationDetails.SourceText))
+        if (string.IsNullOrEmpty(sourceDestinationDetails.translated_text))
         {
             throw new InvalidOperationException(
                 "Cannot synthesize audio for an empty string.");
@@ -45,22 +47,24 @@ public class SynthesizeService
             new SynthesizeSpeechRequest()
             {
                 Engine = Engine.Neural,
-                Text = sourceDestinationDetails.SourceText,
+                Text = sourceDestinationDetails.translated_text,
                 VoiceId = VoiceId.Ruth,
                 OutputFormat = OutputFormat.Mp3
             });
 
-        var audioKey = $"{sourceDestinationDetails.ObjectKey}.mp3";
+        var audioKey = $"{sourceDestinationDetails.Object}.mp3";
 
-        await _amazonS3.PutObjectAsync(
-            new PutObjectRequest()
-            {
-                BucketName = sourceDestinationDetails.Bucket,
-                Key = audioKey,
-                InputStream = synthesizedResponse.AudioStream,
-                ContentType = "audio/mp3"
-            });
+        var transfer = new TransferUtility(_amazonS3);
+        var uploadStreamRequest = new TransferUtilityUploadRequest
+        {
+            BucketName = sourceDestinationDetails.bucket,
+            Key = audioKey,
+            InputStream = synthesizedResponse.AudioStream,
+            ContentType = "audio/mpeg",
+        };
 
+        await transfer.UploadAsync(uploadStreamRequest);
+        
         return audioKey;
     }
 }

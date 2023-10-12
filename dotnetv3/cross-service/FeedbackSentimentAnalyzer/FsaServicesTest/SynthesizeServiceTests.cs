@@ -1,12 +1,9 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier:  Apache-2.0
 
-using Amazon.Comprehend.Model;
-using Amazon.Comprehend;
 using Amazon.Polly;
 using Amazon.Polly.Model;
 using Amazon.S3;
-using Amazon.S3.Model;
 using FsaServices.Models;
 using FsaServices.Services;
 using Moq;
@@ -38,18 +35,14 @@ public class SynthesizeServiceTests
 
         var mockS3Service = new Mock<IAmazonS3>();
 
-        _ = mockS3Service.Setup(ms =>
-            ms.PutObjectAsync(It.IsAny<PutObjectRequest>(),
-                CancellationToken.None)).ReturnsAsync(new PutObjectResponse());
-
         var service = new SynthesizeService(mockService.Object, mockS3Service.Object);
 
         // Act.
         var audioKey = await service.SynthesizeSpeechFromText(new AudioSourceDestinationDetails()
         {
-            Bucket = "BucketName",
-            ObjectKey = "ObjectKey.jpg",
-            SourceText = "Text to synthesize."
+            bucket = "BucketName",
+            Object = "ObjectKey.jpg",
+            translated_text = "Text to synthesize."
         });
 
         // Assert.
@@ -76,10 +69,6 @@ public class SynthesizeServiceTests
 
         var mockS3Service = new Mock<IAmazonS3>();
 
-        _ = mockS3Service.Setup(ms =>
-            ms.PutObjectAsync(It.IsAny<PutObjectRequest>(),
-                CancellationToken.None)).ReturnsAsync(new PutObjectResponse());
-
         var service = new SynthesizeService(mockService.Object, mockS3Service.Object);
 
         // Act and Assert.
@@ -87,9 +76,9 @@ public class SynthesizeServiceTests
         {
             await service.SynthesizeSpeechFromText(new AudioSourceDestinationDetails()
             {
-                Bucket = "BucketName",
-                ObjectKey = "ObjectKey.jpg",
-                SourceText = ""
+                bucket = "BucketName",
+                Object = "ObjectKey.jpg",
+                translated_text = ""
             });
         });
     }

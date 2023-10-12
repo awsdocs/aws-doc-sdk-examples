@@ -52,8 +52,8 @@ public class SentimentService
 
         return new SentimentDetails()
         {
-            LanguageCode = firstLanguage,
-            Sentiment = sentiment.Sentiment
+            language_code = firstLanguage,
+            sentiment = sentiment.Sentiment.Value
         };
     }
 }
