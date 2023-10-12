@@ -57,7 +57,7 @@ public class TranslationServiceTests
         // Act and Assert.
         await Assert.ThrowsAsync<InvalidOperationException>(async () =>
         {
-           await service.TranslateToEnglish("", "fr");
+            await service.TranslateToEnglish("", "fr");
         });
     }
 }

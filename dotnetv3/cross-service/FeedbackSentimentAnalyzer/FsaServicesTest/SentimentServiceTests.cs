@@ -1,10 +1,10 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
 // SPDX-License-Identifier:  Apache-2.0
 
-using FsaServices.Services;
-using Moq;
 using Amazon.Comprehend;
 using Amazon.Comprehend.Model;
+using FsaServices.Services;
+using Moq;
 
 namespace FsaServicesTest;
 
@@ -24,7 +24,7 @@ public class SentimentServiceTests
         var mockService = new Mock<IAmazonComprehend>();
         var dominantLanguageResponse = new DetectDominantLanguageResponse()
         {
-            Languages = new List<DominantLanguage>(){new(){LanguageCode = "en"}}
+            Languages = new List<DominantLanguage>() { new() { LanguageCode = "en" } }
         };
 
         _ = mockService.Setup(ms =>

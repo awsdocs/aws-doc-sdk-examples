@@ -64,7 +64,7 @@ public class SynthesizeService
         };
 
         await transfer.UploadAsync(uploadStreamRequest);
-        
+
         return audioKey;
     }
 }
