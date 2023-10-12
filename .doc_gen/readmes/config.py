@@ -43,6 +43,9 @@ language = {
             'base_folder': 'javav2',
             'service_folder': 'javav2/example_code/{{service["name"]}}',
             'sdk_api_ref': 'https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/{{service["name"]}}/package-summary.html',
+            'service_folder_overrides': {
+                'medical-imaging': 'javav2/example_code/medicalimaging',
+            }
         }
     },
     'JavaScript': {
