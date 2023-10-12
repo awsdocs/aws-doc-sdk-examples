@@ -9,7 +9,7 @@ package com.example.medicalimaging;
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[medicalimaging.java2.start_dicom_import_job.import]
+//snippet-start:[medicalimaging.java2.get_dicom_import_job.import]
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -32,7 +32,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-//snippet-end:[medicalimaging.java2.start_dicom_import_job.import]
+//snippet-end:[medicalimaging.java2.get_dicom_import_job.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -81,7 +81,7 @@ public class GetDicomImportJob {
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.start_dicom_import_job.main]
+    //snippet-start:[medicalimaging.java2.get_dicom_import_job.main]
     public static DICOMImportJobProperties getDicomImportJob(MedicalImagingClient medicalImagingClient,
                                                              String datastoreId,
                                                              String jobId) {
@@ -100,7 +100,7 @@ public class GetDicomImportJob {
 
         return null;
     }
-//snippet-end:[medicalimaging.java2.start_dicom_import_job.main]
+//snippet-end:[medicalimaging.java2.get_dicom_import_job.main]
 
     public static List<String> getImageSetsForImportJobProperties(S3Client s3client,
                                                                   DICOMImportJobProperties jobProperties) {
