@@ -33,7 +33,7 @@ export class Prompter {
   checkContinue = async (prompt = "") => {
     const prefix = prompt && prompt + " ";
     let ok = await this.confirm({
-      message: `${prefix}Continue?"}`,
+      message: `${prefix}Continue?`,
     });
     if (!ok) throw new Error("Exiting...");
   };
@@ -44,29 +44,6 @@ export class Prompter {
   confirm(options) {
     this.spacer();
     return confirm(options);
-  }
-
-  /**
-   * Log a horizontal rule to the console. If a message is provided,
-   * log a section header.
-   * @param {string?} message
-   */
-  logSeparator(message) {
-    if (!message) {
-      console.log("\n", "*".repeat(80), "\n");
-    } else {
-      console.log(
-        "\n",
-        "*".repeat(80),
-        "\n",
-        "** ",
-        message,
-        " ".repeat(80 - message.length - 8),
-        "**\n",
-        "*".repeat(80),
-        "\n",
-      );
-    }
   }
 
   /**

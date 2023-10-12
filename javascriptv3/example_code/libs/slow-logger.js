@@ -3,35 +3,27 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-// snippet-start:[javascript.v3.wkflw.topicsandqueues.logger]
-export class Logger {
-  /**
-   * @param {string} message
-   */
-  log(message) {
-    console.log(message);
-    return Promise.resolve();
-  }
-}
+import { Logger } from "./logger.js";
 
+// snippet-start:[javascript.v3.wkflw.topicsandqueues.logger]
 export class SlowLogger extends Logger {
   constructor(delayInMs) {
     super();
     this.delay = delayInMs;
   }
 
-  sleep() {
+  _sleep() {
     return new Promise((resolve) => setTimeout(resolve, this.delay));
   }
 
   /**
    * @param {string} message
    */
-  async logSlow(message) {
+  async _logSlow(message) {
     const chars = message.split("");
     for (const c of chars) {
       process.stdout.write(c);
-      await this.sleep();
+      await this._sleep();
     }
     process.stderr.write("\n");
   }
@@ -49,12 +41,12 @@ export class SlowLogger extends Logger {
     let line = "";
     for (const word of words) {
       if (line.length + word.length > maxWidth) {
-        await this.logSlow(line);
+        await this._logSlow(line);
         line = "";
       }
       line += word + " ";
     }
-    await this.logSlow(line);
+    await this._logSlow(line);
   }
 }
 // snippet-end:[javascript.v3.wkflw.topicsandqueues.logger]
