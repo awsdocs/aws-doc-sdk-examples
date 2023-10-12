@@ -675,7 +675,7 @@ Select an instance, replace its instance profile, and reboot the instance.
    self.ssm_client.send_command(
        InstanceIds=[instance_id], 
        DocumentName='AWS-RunShellScript',
-       Parameters={'commands': ['cd / && sudo python3 server.py 80 us-west-2']})
+       Parameters={'commands': ['cd / && sudo python3 server.py 80']})
    ```
 
 Tell the user all about it:
