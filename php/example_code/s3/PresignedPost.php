@@ -1,53 +1,41 @@
 <?php
+
 /**
- * Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
- * This file is licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- * http://aws.amazon.com/apache2.0/
- *
- * This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
- * CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
- *  ABOUT THIS PHP SAMPLE: This sample is part of the SDK for PHP Developer Guide topic at
- *  https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/service/s3-presigned-post.html
- *
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0
  */
+
 // snippet-start:[s3.php.presigned_post.complete]
 // snippet-start:[s3.php.presigned_post.import]
+require '../vendor/autoload.php';
 
-require 'vendor/autoload.php';
-
-use Aws\S3\S3Client;  
-use Aws\Exception\AwsException;
+use Aws\S3\PostObjectV4;
+use Aws\S3\S3Client;
 // snippet-end:[s3.php.presigned_post.import]
-
 
 // snippet-start:[s3.php.presigned_post.main]
 $client = new S3Client([
     'profile' => 'default',
-    'version' => 'latest',
-    'region' => 'us-west-2',
+    'region' => 'us-east-1',
 ]);
-$bucket = 'mybucket';
+$bucket = 'doc-example-bucket10';
+$starts_with = 'user/eric/';
+$client->listBuckets();
 
-// Set some defaults for form input fields
+// Set defaults for form input fields.
 $formInputs = ['acl' => 'public-read'];
 
-// Construct an array of conditions for policy
+// Construct an array of conditions for policy.
 $options = [
     ['acl' => 'public-read'],
     ['bucket' => $bucket],
-    ['starts-with', '$key', 'user/eric/'],
+    ['starts-with', '$key', $starts_with],
 ];
 
-// Optional: configure expiration time string
+// Set an expiration time (optional).
 $expires = '+2 hours';
 
-$postObject = new \Aws\S3\PostObjectV4(
+$postObject = new PostObjectV4(
     $client,
     $bucket,
     $formInputs,
@@ -55,26 +43,51 @@ $postObject = new \Aws\S3\PostObjectV4(
     $expires
 );
 
-// Get attributes to set on an HTML form, e.g., action, method, enctype
+// Get attributes for the HTML form, for example, action, method, enctype.
 $formAttributes = $postObject->getFormAttributes();
 
-// Get form input fields. This will include anything set as a form input in
-// the constructor, the provided JSON policy, your AWS access key ID, and an
-// auth signature.
+// Get attributes for the HTML form values.
 $formInputs = $postObject->getFormInputs();
- 
- 
 // snippet-end:[s3.php.presigned_post.main]
+?>
+// snippet-start:[s3.php.presigned_post.html]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>PHP</title>
+</head>
+<body>
+<form action="<?php echo $formAttributes['action'] ?>" method="<?php echo $formAttributes['method'] ?>"
+      enctype="<?php echo $formAttributes['enctype'] ?>">
+    <label id="key">
+        <input hidden type="text" name="key" value="<?php echo $starts_with ?><?php echo $formInputs['key'] ?>"/>
+    </label>
+    <h3>$formInputs:</h3>
+    acl: <label id="acl">
+        <input readonly type="text" name="acl" value="<?php echo $formInputs['acl'] ?>"/>
+    </label><br/>
+    X-Amz-Credential: <label id="credential">
+        <input readonly type="text" name="X-Amz-Credential" value="<?php echo $formInputs['X-Amz-Credential'] ?>"/>
+    </label><br/>
+    X-Amz-Algorithm: <label id="algorithm">
+        <input readonly type="text" name="X-Amz-Algorithm" value="<?php echo $formInputs['X-Amz-Algorithm'] ?>"/>
+    </label><br/>
+    X-Amz-Date: <label id="date">
+        <input readonly type="text" name="X-Amz-Date" value="<?php echo $formInputs['X-Amz-Date'] ?>"/>
+    </label><br/><br/><br/>
+    Policy: <label id="policy">
+        <input readonly type="text" name="Policy" value="<?php echo $formInputs['Policy'] ?>"/>
+    </label><br/>
+    X-Amz-Signature: <label id="signature">
+        <input readonly type="text" name="X-Amz-Signature" value="<?php echo $formInputs['X-Amz-Signature'] ?>"/>
+    </label><br/><br/>
+    <h3>Choose file:</h3>
+    <input type="file" name="file"/> <br/><br/>
+    <h3>Upload file:</h3>
+    <input type="submit" name="submit" value="Upload to Amazon S3"/>
+</form>
+</body>
+</html>
+// snippet-end:[s3.php.presigned_post.html]
 // snippet-end:[s3.php.presigned_post.complete]
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[PresignedPost.php demonstrates how to presign a POST request so that a user can send items to your Amazon S3 bucket without having to sign into your AWS Account. This is often used in connection with a form.]
-// snippet-keyword:[PHP]
-// snippet-sourcesyntax:[php]
-// snippet-keyword:[AWS SDK for PHP v3]
-// snippet-keyword:[Code Sample]
-// snippet-keyword:[Amazon S3]
-// snippet-service:[s3]
-// snippet-sourcetype:[full-example]
-// snippet-sourcedate:[2018-09-20]
-// snippet-sourceauthor:[jschwarzwalder (AWS)]
-
