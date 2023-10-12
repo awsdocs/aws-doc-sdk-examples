@@ -20,7 +20,7 @@
       <para>&CMP; determines the sentiment of the extracted text and its language.</para>
     </listitem>
     <listitem>
-      <para>The extracted text is translated to French using &TSL;.</para>
+      <para>The extracted text is translated to English using &TSL;.</para>
     </listitem>
     <listitem>
       <para>&POL; synthesizes an audio file from the extracted text.</para>
