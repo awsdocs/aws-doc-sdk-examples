@@ -79,26 +79,21 @@ public class CopyImageSet {
             CopySourceImageSetInformation copySourceImageSetInformation = CopySourceImageSetInformation.builder()
                     .latestVersionId(latestVersionId)
                     .build();
-            CopyImageSetInformation copyImageSetInformation;
 
-            if (destinationImageSetId == null) {
-                copyImageSetInformation = CopyImageSetInformation.builder()
-                        .sourceImageSet(copySourceImageSetInformation)
-                        .build();
-            } else {
-                copyImageSetInformation = CopyImageSetInformation.builder()
-                        .sourceImageSet(copySourceImageSetInformation)
-                        .destinationImageSet(CopyDestinationImageSet.builder()
+            CopyImageSetInformation.Builder copyImageSetBuilder = CopyImageSetInformation.builder()
+                    .sourceImageSet(copySourceImageSetInformation);
+
+            if (destinationImageSetId != null) {
+                copyImageSetBuilder = copyImageSetBuilder.destinationImageSet(CopyDestinationImageSet.builder()
                                 .imageSetId(destinationImageSetId)
                                 .latestVersionId(destinationVersionId)
-                                .build())
-                        .build();
+                                .build());
             }
 
             CopyImageSetRequest copyImageSetRequest = CopyImageSetRequest.builder()
                     .datastoreId(datastoreId)
                     .sourceImageSetId(imageSetId)
-                    .copyImageSetInformation(copyImageSetInformation)
+                    .copyImageSetInformation(copyImageSetBuilder.build())
                     .build();
 
             CopyImageSetResponse response = medicalImagingClient.copyImageSet(copyImageSetRequest);

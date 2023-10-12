@@ -73,20 +73,17 @@ public class GetImageSetMetadata {
                                                   String versionId) {
 
         try {
-            GetImageSetMetadataRequest getImageSetMetadataRequest;
-            if (versionId == null) {
-                getImageSetMetadataRequest = GetImageSetMetadataRequest.builder()
-                        .datastoreId(datastoreId)
-                        .imageSetId(imagesetId)
-                        .build();
-            } else {
-                getImageSetMetadataRequest = GetImageSetMetadataRequest.builder()
-                        .datastoreId(datastoreId)
-                        .imageSetId(imagesetId)
-                        .versionId(versionId)
-                        .build();
+            GetImageSetMetadataRequest.Builder getImageSetMetadataRequestBuilder =
+                    GetImageSetMetadataRequest.builder()
+                    .datastoreId(datastoreId)
+                    .imageSetId(imagesetId);
+
+            if (versionId != null) {
+                getImageSetMetadataRequestBuilder =
+                        getImageSetMetadataRequestBuilder.versionId(versionId);
             }
-            medicalImagingClient.getImageSetMetadata(getImageSetMetadataRequest,
+
+            medicalImagingClient.getImageSetMetadata(getImageSetMetadataRequestBuilder.build(),
                     FileSystems.getDefault().getPath(destinationPath));
 
             System.out.println("Metadata downloaded to " + destinationPath);

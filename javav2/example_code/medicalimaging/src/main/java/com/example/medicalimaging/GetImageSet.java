@@ -71,21 +71,15 @@ public class GetImageSet {
                                                          String imagesetId,
                                                          String versionId) {
         try {
-            GetImageSetRequest getImageSetRequest;
-            if (versionId == null) {
-                getImageSetRequest = GetImageSetRequest.builder()
-                        .datastoreId(datastoreId)
-                        .imageSetId(imagesetId)
-                        .build();
-            } else {
-                getImageSetRequest = GetImageSetRequest.builder()
-                        .datastoreId(datastoreId)
-                        .imageSetId(imagesetId)
-                        .versionId(versionId)
-                        .build();
+            GetImageSetRequest.Builder  getImageSetRequestBuilder = GetImageSetRequest.builder()
+                    .datastoreId(datastoreId)
+                    .imageSetId(imagesetId);
+
+            if (versionId != null) {
+                getImageSetRequestBuilder = getImageSetRequestBuilder.versionId(versionId);
             }
 
-            return medicalImagingClient.getImageSet(getImageSetRequest);
+            return medicalImagingClient.getImageSet(getImageSetRequestBuilder.build());
         } catch (MedicalImagingException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
