@@ -88,16 +88,16 @@ class Renderer:
     def _transform_actions(self, pre_actions):
         post_actions = []
         for _, pre in pre_actions.items():
-                api = ""
-                if pre['services'][self.scanner.svc_name]:
-                    api = next(iter(pre['services'][self.scanner.svc_name]))
-                action = {
-                    'title_abbrev': pre['title_abbrev'],
-                    'synopsis': pre['synopsis'],
-                    'file': self.scanner.snippet(pre, self.sdk_ver, self.lang_config['service_folder'], api),
-                    'api': api,
-                }
-                post_actions.append(action)
+            api = ""
+            if pre['services'][self.scanner.svc_name]:
+                api = next(iter(pre['services'][self.scanner.svc_name]))
+            action = {
+                'title_abbrev': pre['title_abbrev'],
+                'synopsis': pre['synopsis'],
+                'file': self.scanner.snippet(pre, self.sdk_ver, self.lang_config['service_folder'], api),
+                'api': api,
+            }
+            post_actions.append(action)
         return sorted(post_actions, key=itemgetter('title_abbrev'))
 
     def _transform_scenarios(self):
