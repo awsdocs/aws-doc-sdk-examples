@@ -120,6 +120,12 @@ language = {
             'base_folder': 'python',
             'service_folder': 'python/example_code/{{service["name"]}}',
             'sdk_api_ref': 'https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/{{service["name"]}}.html',
+            'service_folder_overrides': {
+                'cognito-identity-provider': 'python/example_code/cognito',
+                'config-service': 'python/example_code/config',
+                'device-farm': 'python/example_code/devicefarm',
+                'elastic-load-balancing-v2': 'python/example_code/elastic-load-balancing',
+            }
         }
     },
     'Ruby': {
