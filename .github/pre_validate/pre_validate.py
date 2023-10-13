@@ -202,6 +202,7 @@ ALLOW_LIST = {
     'role/AmazonSageMakerGeospatialFullAccess',
     'VectorEnrichmentJobDataSourceConfigInput',
     'com/workdocs/latest/APIReference/Welcome',
+    'service/FeedbackSentimentAnalyzer/README'
 }
 
 def check_files(root, quiet):
