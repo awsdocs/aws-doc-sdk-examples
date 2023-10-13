@@ -19,7 +19,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 )
 
-// CFDistributionAPI defines the interface for the CreateDistributuin function.
+// CFDistributionAPI defines the interface for the CreateDistribution function.
 // We use this interface to test the function using a mocked service.
 type CFDistributionAPI interface {
 	CreateDistribution(bucketName, certificateSSLArn, domain string) (*cloudfront.CreateDistributionOutput, error)
@@ -135,13 +135,13 @@ func (c *CFDistributionAPIImpl) createoriginAccessIdentity(domainName string) (s
 var (
 	// bucketName is the name of the S3 bucket to create a CloudFront distribution for.
 	bucketName = ""
-	// certificateSSLArn is the ARN value of the certificate issued by the aws certificate manager.
+	// certificateSSLArn is the ARN value of the certificate issued by the AWS Certificate Manager (ACM).
 	// When testing, please check and copy and paste the ARN of the pre-issued certificate.
-	// If you don't know how to create a TLS/SSL certificate using certificate manager, check through the link below.
+	// If you don't know how to create a TLS/SSL certificate using ACM, follow the link below.
 	// https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html
 	certificateSSLArn = ""
-	// domain refers to the domain that will be used in conjunction with cloudfront and route53.
-	// For testing, please enter a domain that is registered in AWS route53 and will be used in conjunction with cloudfront.
+	// domain refers to the domain that will be used in conjunction with CloudFront and Amazon Route 53.
+	// For testing, please enter a domain that is registered in Route 53 and will be used in conjunction with CloudFront.
 	domain = ""
 )
 
@@ -160,7 +160,7 @@ func main() {
 	}
 
 	if certificateSSLArn == "" {
-		log.Println(errors.New("please setup aws certificate arn"))
+		log.Println(errors.New("please setup certificate ARN"))
 		return
 	}
 
