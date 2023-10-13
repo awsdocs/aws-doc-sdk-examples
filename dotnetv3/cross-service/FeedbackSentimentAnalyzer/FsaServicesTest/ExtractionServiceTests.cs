@@ -14,7 +14,7 @@ namespace FsaServicesTest;
 public class ExtractionServiceTests
 {
     /// <summary>
-    /// Verify that extracting words from an object should return a string.
+    /// Verify that extracting words from an object returns a string.
     /// </summary>
     [Fact]
     [Trait("Category", "Unit")]
@@ -48,7 +48,7 @@ public class ExtractionServiceTests
     }
 
     /// <summary>
-    /// Verify that no words in the extraction should return an empty string.
+    /// Verify that no words in the extraction returns an empty string.
     /// </summary>
     [Fact]
     [Trait("Category", "Unit")]

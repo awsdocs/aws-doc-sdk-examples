@@ -14,7 +14,7 @@ namespace FsaServicesTest;
 public class SentimentServiceTests
 {
     /// <summary>
-    /// Verify that translating to English should return a string.
+    /// Verify that translating to English returns a string.
     /// </summary>
     [Fact]
     [Trait("Category", "Unit")]
@@ -51,7 +51,7 @@ public class SentimentServiceTests
     }
 
     /// <summary>
-    /// Verify that an empty string should throw an Invalid Operation Exception.
+    /// Verify that an empty string throws an Invalid Operation Exception.
     /// </summary>
     [Fact]
     [Trait("Category", "Unit")]

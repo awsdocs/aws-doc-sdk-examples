@@ -33,7 +33,7 @@ public class SynthesizeAudioFunction
     }
 
     /// <summary>
-    /// Constructs an instance with an Amazon Textract client. This can be used for testing the outside of the Lambda environment.
+    /// Constructs an instance with an Amazon Textract client. This can be used for testing outside of the Lambda environment.
     /// </summary>
     /// <param name="s3Client"></param>
     public SynthesizeAudioFunction(IAmazonPolly pollyClient, IAmazonS3 s3Client)
