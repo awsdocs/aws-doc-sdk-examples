@@ -4,7 +4,7 @@
  */
 
 import { ListObjectsCommand, S3Client } from "@aws-sdk/client-s3";
-import { DEFAULT_REGION } from "../../libs/utils/util-aws-sdk.js";
+import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 
 const s3ListObjects = (bucketName) => {
   const client = new S3Client({ region: DEFAULT_REGION });

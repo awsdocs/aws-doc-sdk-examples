@@ -1,10 +1,11 @@
 import { describe, it, expect } from "vitest";
 
+import { wait } from "@aws-sdk-examples/libs/utils/util-timers.js";
+
 import { createDatastore } from "../actions/create-datastore.js";
 import { deleteDatastore } from "../actions/delete-datastore.js";
 import { getDatastore } from "../actions/get-datastore.js";
 import { listDatastores } from "../actions/list-datastores.js";
-import { wait } from "../../libs/utils/util-timers.js";
 
 describe("createDatastore/deleteDatastore", () => {
   let datastoreID = "";

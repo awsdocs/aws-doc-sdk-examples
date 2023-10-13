@@ -4,11 +4,11 @@
  */
 /** snippet-start:[javascript.v3.cognito-idp.scenarios.basic.AdminInitiateAuthHandler] **/
 import qrcode from "qrcode-terminal";
-import { log } from "libs/utils/util-log.js";
+import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
 import { adminInitiateAuth } from "../../../actions/admin-initiate-auth.js";
 import { associateSoftwareToken } from "../../../actions/associate-software-token.js";
 import { FILE_USER_POOLS } from "./constants.js";
-import { getFirstEntry } from "libs/utils/util-csv.js";
+import { getFirstEntry } from "@aws-sdk-examples/libs/utils/util-csv.js";
 
 const handleMfaSetup = async (session, username) => {
   const { SecretCode, Session } = await associateSoftwareToken(session);

@@ -8,6 +8,7 @@
     "test": "vitest run **/*.unit.test.js"
   },
   "dependencies": {
+    "@aws-sdk-examples/libs": "^1.0.0",
     "@aws-sdk/client-ec2": "^3.266.1",
     "@aws-sdk/client-ssm": "^3.271.0"
   },

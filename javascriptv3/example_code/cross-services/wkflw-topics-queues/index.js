@@ -10,8 +10,8 @@ import { SNSClient } from "@aws-sdk/client-sns";
 import { SQSClient } from "@aws-sdk/client-sqs";
 
 import { TopicsQueuesWkflw } from "./TopicsQueuesWkflw.js";
-import { Prompter } from "libs/prompter.js";
-import { SlowLogger } from "libs/slow-logger.js";
+import { Prompter } from "@aws-sdk-examples/libs/prompter.js";
+import { SlowLogger } from "@aws-sdk-examples/libs/slow-logger.js";
 
 export const startSnsWorkflow = () => {
   const noLoggerDelay = process.argv.find((arg) => arg === "--no-logger-delay");

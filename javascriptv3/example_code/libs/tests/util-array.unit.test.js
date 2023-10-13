@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 
-import { startsWith } from "libs/utils/util-array.js";
+import { startsWith } from "@aws-sdk-examples/libs/utils/util-array.js";
 
 describe("startsWith", () => {
   test.each([

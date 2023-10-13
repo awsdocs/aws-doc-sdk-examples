@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 // snippet-start:[javascript.v3.iam.actions.UploadServerCertificate]
 import { UploadServerCertificateCommand, IAMClient } from "@aws-sdk/client-iam";
 import { readFileSync } from "fs";
-import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
+import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
 import * as path from "path";
 
 const client = new IAMClient({});

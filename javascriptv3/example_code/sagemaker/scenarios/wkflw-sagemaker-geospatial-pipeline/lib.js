@@ -51,8 +51,8 @@ import {
   GetQueueAttributesCommand,
 } from "@aws-sdk/client-sqs";
 
-import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
-import { retry, wait } from "libs/utils/util-timers.js";
+import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
+import { retry, wait } from "@aws-sdk-examples/libs/utils/util-timers.js";
 
 // snippet-start:[javascript.v3.sagemaker.wkflw.pipeline.lambda.permissions]
 /**

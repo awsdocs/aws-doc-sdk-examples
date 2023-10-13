@@ -3,10 +3,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { wait } from "../../../../libs/utils/util-timers.js";
+import { wait } from "@aws-sdk-examples/libs/utils/util-timers.js";
 import { log } from "../log.js";
 
 /** snippet-start:[javascript.v3.glue.scenarios.basic.StartCrawlerStep] */
+/**
+ * @param {(name: string) => Promise<import('@aws-sdk/client-glue').GetCrawlerCommandOutput>} getCrawler
+ * @param {string} crawlerName
+ */
 const waitForCrawler = async (getCrawler, crawlerName) => {
   const waitTimeInSeconds = 30;
   const { Crawler } = await getCrawler(crawlerName);

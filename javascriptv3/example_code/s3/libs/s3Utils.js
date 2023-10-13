@@ -5,7 +5,7 @@ import {
   DeleteBucketCommand,
   DeleteObjectsCommand,
 } from "@aws-sdk/client-s3";
-import { s3Client } from "./s3Client";
+import { client as s3Client } from "../client.js";
 
 export function createBucket(bucketName) {
   const createBucketCommand = new CreateBucketCommand({
@@ -16,12 +16,12 @@ export function createBucket(bucketName) {
 }
 
 export function deleteBucket(bucketName) {
-    const deleteBucketCommand = new DeleteBucketCommand({
-      Bucket: bucketName,
-    });
-  
-    return s3Client.send(deleteBucketCommand);
-  }
+  const deleteBucketCommand = new DeleteBucketCommand({
+    Bucket: bucketName,
+  });
+
+  return s3Client.send(deleteBucketCommand);
+}
 
 export async function emptyBucket(bucketName) {
   const listObjectsCommand = new ListObjectsCommand({ Bucket: bucketName });

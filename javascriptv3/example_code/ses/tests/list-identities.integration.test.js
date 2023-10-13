@@ -1,6 +1,9 @@
 import { describe, beforeAll, afterAll, it, expect } from "vitest";
 
-import { getUniqueName, postfix } from "../../libs/utils/util-string.js";
+import {
+  getUniqueName,
+  postfix,
+} from "@aws-sdk-examples/libs/utils/util-string.js";
 import { createIdentity, deleteIdentity } from "../src/libs/sesUtils.js";
 import { run } from "../src/ses_listidentities";
 

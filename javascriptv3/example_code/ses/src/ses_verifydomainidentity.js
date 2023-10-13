@@ -13,7 +13,10 @@ node ses_verifydomainidentity.js
  */
 // snippet-start:[ses.JavaScript.identities.verifyDomainIdentityV3]
 import { VerifyDomainIdentityCommand } from "@aws-sdk/client-ses";
-import { getUniqueName, postfix } from "../../libs/utils/util-string.js";
+import {
+  getUniqueName,
+  postfix,
+} from "@aws-sdk-examples/libs/utils/util-string.js";
 import { sesClient } from "./libs/sesClient.js";
 
 /**

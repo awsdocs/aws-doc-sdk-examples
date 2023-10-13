@@ -8,7 +8,7 @@ import {
   waitUntilFunctionExists,
   waitUntilFunctionUpdated,
 } from "@aws-sdk/client-lambda";
-import { createClientForDefaultRegion } from "../../libs/utils/util-aws-sdk";
+import { createClientForDefaultRegion } from "@aws-sdk-examples/libs/utils/util-aws-sdk";
 
 const MAX_WAIT_TIME = 60;
 

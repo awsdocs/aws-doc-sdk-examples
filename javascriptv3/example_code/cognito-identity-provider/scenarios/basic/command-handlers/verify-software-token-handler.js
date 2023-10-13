@@ -4,7 +4,7 @@
  */
 
 /** snippet-start:[javascript.v3.cognito-idp.scenarios.basic.VerifySoftwareTokenHandler] **/
-import { log } from "libs/utils/util-log.js";
+import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
 import { verifySoftwareToken } from "../../../actions/verify-software-token.js";
 
 const validateTotp = (totp) => {

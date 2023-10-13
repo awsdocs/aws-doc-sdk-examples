@@ -2,7 +2,7 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { log } from "../../../../libs/utils/util-log.js";
+import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
 import { listFunctions } from "../../../actions/list-functions.js";
 
 const makeListItem = (s) => `• ${s}`;

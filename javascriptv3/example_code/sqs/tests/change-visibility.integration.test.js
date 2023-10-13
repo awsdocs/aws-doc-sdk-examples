@@ -1,7 +1,7 @@
 import { describe, it, afterAll, beforeAll } from "vitest";
 
-import { getUniqueName } from "libs/utils/util-string.js";
-import { retry } from "libs/utils/util-timers.js";
+import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
+import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
 
 import { main as deleteQueue } from "../actions/delete-queue.js";
 import { main as createQueue } from "../actions/create-queue.js";

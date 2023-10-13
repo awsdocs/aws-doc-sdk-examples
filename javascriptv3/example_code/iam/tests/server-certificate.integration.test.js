@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import { getUniqueName } from "libs/utils/util-string.js";
+import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
 
 import { listServerCertificates } from "../actions/list-server-certificates.js";
 import { uploadServerCertificate } from "../actions/upload-server-certificate.js";

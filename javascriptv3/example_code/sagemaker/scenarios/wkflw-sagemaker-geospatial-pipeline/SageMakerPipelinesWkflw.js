@@ -4,7 +4,7 @@
  */
 
 // snippet-start:[javascript.v3.sagemaker.wkflw.pipeline]
-import { retry, wait } from "libs/utils/util-timers.js";
+import { retry, wait } from "@aws-sdk-examples/libs/utils/util-timers.js";
 import {
   attachPolicy,
   configureLambdaSQSEventSource,
@@ -42,8 +42,8 @@ export class SageMakerPipelinesWkflw {
   cleanUpFunctions = [];
 
   /**
-   * @param {import("libs/prompter.js").Prompter} prompter
-   * @param {import("libs/logger.js").Logger} logger
+   * @param {import("@aws-sdk-examples/libs/prompter.js").Prompter} prompter
+   * @param {import("@aws-sdk-examples/libs/logger.js").Logger} logger
    * @param {{ IAM: import("@aws-sdk/client-iam").IAMClient, Lambda: import("@aws-sdk/client-lambda").LambdaClient, SageMaker: import("@aws-sdk/client-sagemaker").SageMakerClient, S3: import("@aws-sdk/client-s3").S3Client, SQS: import("@aws-sdk/client-sqs").SQSClient }} clients
    */
   constructor(prompter, logger, clients) {

@@ -26,8 +26,10 @@ vi.doMock("fs", async () => {
   };
 });
 
-vi.doMock("libs/utils/util-io.js", async () => {
-  const actual = await vi.importActual("libs/utils/util-io.js");
+vi.doMock("@aws-sdk-examples/libs/utils/util-io.js", async () => {
+  const actual = await vi.importActual(
+    "@aws-sdk-examples/libs/utils/util-io.js",
+  );
   return {
     ...actual,
     promptForText: () => Promise.resolve("my-bucket"),

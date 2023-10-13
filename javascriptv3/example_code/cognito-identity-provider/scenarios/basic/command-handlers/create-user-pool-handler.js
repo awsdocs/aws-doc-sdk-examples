@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { log } from "libs/utils/util-log.js";
-import { getTmp, setTmp } from "libs/utils/util-fs.js";
+import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
+import { getTmp, setTmp } from "@aws-sdk-examples/libs/utils/util-fs.js";
 import { createUserPool } from "../../../actions/create-user-pool.js";
 import { FILE_USER_POOLS, NAME_CLIENT } from "./constants.js";
 import { setUserPoolMfaConfig } from "../../../actions/set-user-pool-mfa-config.js";

@@ -2,17 +2,20 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { log } from "../../../../libs/utils/util-log.js";
-import { getTmp } from "../../../../libs/utils/util-fs.js";
+import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
+import { getTmp } from "@aws-sdk-examples/libs/utils/util-fs.js";
 import { createFunction } from "../../../actions/create-function.js";
 
+/**
+ * @param {string[]} commands
+ */
 const createFunctionHandler = async (commands) => {
   const funcName = commands[1];
   const roleArn = getTmp("roleArn");
 
   if (!(funcName && roleArn)) {
     log(
-      `Either the function name or .tmp file is missing. Did you initialize?`
+      `Either the function name or .tmp file is missing. Did you initialize?`,
     );
     return;
   }

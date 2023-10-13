@@ -15,7 +15,7 @@ import {
   CloudWatchEventsClient,
   RemoveTargetsCommand,
 } from "@aws-sdk/client-cloudwatch-events";
-import { DEFAULT_REGION } from "../../libs/utils/util-aws-sdk.js";
+import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 
 /**
  * Create a log group.
