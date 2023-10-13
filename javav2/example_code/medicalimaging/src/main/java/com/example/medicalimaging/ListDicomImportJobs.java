@@ -1,4 +1,4 @@
-//snippet-sourcedescription:[StartDicomImportJob.java demonstrates how to import bulk data into in an AWS HealthImaging data store.]
+//snippet-sourcedescription:[StartDicomImportJob.java demonstrates how to list import jobs in AWS HealthImaging.]
 //snippet-keyword:[AWS SDK for Java v2]
 //snippet-keyword:[AWS HealthImaging]
 

@@ -9,7 +9,7 @@ package com.example.medicalimaging;
    SPDX-License-Identifier: Apache-2.0
 */
 
-//snippet-start:[medicalimaging.java2.get_imageset_versions.import]
+//snippet-start:[medicalimaging.java2.list_imageset_versions.import]
 
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -22,7 +22,7 @@ import software.amazon.awssdk.services.medicalimaging.paginators.ListImageSetVer
 import java.util.ArrayList;
 import java.util.List;
 
-//snippet-end:[medicalimaging.java2.get_imageset_versions.import]
+//snippet-end:[medicalimaging.java2.list_imageset_versions.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
@@ -63,7 +63,7 @@ public class ListImageSetVersions {
         medicalImagingClient.close();
     }
 
-    //snippet-start:[medicalimaging.java2.get_imageset_versions.main]
+    //snippet-start:[medicalimaging.java2.list_imageset_versions.main]
     public static List<ImageSetProperties> listMedicalImageSetVersions(MedicalImagingClient medicalImagingClient,
                                                                        String datastoreId,
                                                                        String imagesetId) {
@@ -85,5 +85,5 @@ public class ListImageSetVersions {
 
         return null;
     }
-//snippet-end:[medicalimaging.java2.get_imageset_versions.main]
+//snippet-end:[medicalimaging.java2.list_imageset_versions.main]
 }

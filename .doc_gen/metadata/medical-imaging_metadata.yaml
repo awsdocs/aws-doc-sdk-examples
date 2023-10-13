@@ -43,7 +43,8 @@ medical-imaging_CreateDatastore:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.create_datastore.main
     JavaScript:
       versions:
@@ -123,7 +124,8 @@ medical-imaging_ListDatastores:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.list_datastores.main
     JavaScript:
       versions:
@@ -163,7 +165,8 @@ medical-imaging_GetDatastore:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.get_datastore.main
     JavaScript:
       versions:
@@ -202,7 +205,8 @@ medical-imaging_StartDICOMImportJob:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.start_dicom_import_job.main
   services:
     medical-imaging: {StartDICOMImportJob}
@@ -233,7 +237,8 @@ medical-imaging_GetDICOMImportJob:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.get_dicom_import_job.main
   services:
     medical-imaging: {GetDICOMImportJob}
@@ -264,7 +269,8 @@ medical-imaging_ListDICOMImportJobs:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.list_dicom_import_jobs.main
   services:
     medical-imaging: {ListDICOMImportJobs}
@@ -307,8 +313,18 @@ medical-imaging_SearchImageSets:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description: The utility function for searching image sets.
+              snippet_tags:
                 - medicalimaging.java2.search_imagesets.main
+            - description: "Use case #1: EQUAL operator."
+              snippet_tags:
+                - medicalimaging.java2.search_imagesets.use_case1
+            - description: "Use case #2: BETWEEN operator using DICOMStudyDate and DICOMStudyTime."
+              snippet_tags:
+                - medicalimaging.java2.search_imagesets.use_case2
+            - description: "Use case #3: BETWEEN operator using createdAt. Time studies were previously persisted."
+              snippet_tags:
+                - medicalimaging.java2.search_imagesets.use_case3
   services:
     medical-imaging: {SearchImageSets}
 medical-imaging_GetImageSet:
@@ -338,7 +354,8 @@ medical-imaging_GetImageSet:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.get_imageset.main
   services:
     medical-imaging: {GetImageSet}
@@ -375,7 +392,8 @@ medical-imaging_GetImageSetMetadata:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.get_imageset.main
   services:
     medical-imaging: {GetImageSetMetadata}
@@ -406,7 +424,8 @@ medical-imaging_GetImageFrame:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.get_image_frame.main
   services:
     medical-imaging: {GetImageFrame}
@@ -432,6 +451,14 @@ medical-imaging_ListImageSetVersions:
             - description:
               snippet_tags:
                 - medical-imaging.JavaScript.imageset.listImageSetVersionsV3
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/example_code/medicalimaging
+          excerpts:
+            - description:
+              snippet_tags:
+                - medicalimaging.java2.list_imageset_versions.main
   services:
     medical-imaging: {ListImageSetVersions}
 medical-imaging_UpdateImageSetMetadata:
@@ -464,7 +491,8 @@ medical-imaging_UpdateImageSetMetadata:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.update_image_set_metadata.main
   services:
     medical-imaging: {UpdateImageSetMetadata}
@@ -501,7 +529,8 @@ medical-imaging_CopyImageSet:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.copy_imageset.main
   services:
     medical-imaging: {CopyImageSet}
@@ -532,7 +561,8 @@ medical-imaging_DeleteImageSet:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.delete_imageset.main
   services:
     medical-imaging: {DeleteImageSet}
@@ -563,7 +593,8 @@ medical-imaging_TagResource:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.tag_resource.main
   services:
     medical-imaging: {TagResource}
@@ -594,7 +625,8 @@ medical-imaging_UntagResource:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.untag_resource.main
   services:
     medical-imaging: {UntagResource}
@@ -625,7 +657,8 @@ medical-imaging_ListTagsForResource:
         - sdk_version: 2
           github: javav2/example_code/medicalimaging
           excerpts:
-            - snippet_tags:
+            - description:
+              snippet_tags:
                 - medicalimaging.java2.list_tags_for_resource.main
   services:
     medical-imaging: {ListTagsForResource}
@@ -658,45 +691,6 @@ medical-imaging_tagging_datastores:
             - description: The utility function for untagging a resource.
               snippet_tags:
                 - medical-imaging.JavaScript.resource.unTagResourceV3
-  services:
-    medical-imaging: {TagResource, UntagResource, ListTagsForResource}
-medical-imaging_tagging_imagesets:
-  title: Tagging a &AHI; image set using an &AWS; SDK
-  title_abbrev: Tagging an image set
-  synopsis: tag a &AHI; image set.
-  category: Scenarios
-  languages:
-    JavaScript:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/medical-imaging
-          excerpts:
-            - description: To tag an image set.
-              snippet_tags:
-                - medical-imaging.JavaScript.imageset.tagging.V3
-            - description: The utility function for tagging a resource.
-              snippet_tags:
-                - medical-imaging.JavaScript.resource.tagResourceV3
-            - description: To list tags for an image set.
-              snippet_tags:
-                - medical-imaging.JavaScript.imageset.list_tags.V3
-            - description: The utility function for listing a resource's tags.
-              snippet_tags:
-                - medical-imaging.JavaScript.resource.listTagsForResourceV3
-            - description: To untag an image set.
-              snippet_tags:
-                - medical-imaging.JavaScript.imageset.untag.V3
-            - description: The utility function for untagging a resource.
-              snippet_tags:
-                - medical-imaging.JavaScript.resource.unTagResourceV3
-  services:
-    medical-imaging: {TagResource, UntagResource, ListTagsForResource}
-medical-imaging_tagging_datastores:
-  title: Tagging a &AHI; data store using an &AWS; SDK
-  title_abbrev: Tagging a data store
-  synopsis: tag a &AHI; data store.
-  category: Scenarios
-  languages:
     Java:
       versions:
         - sdk_version: 2
@@ -731,6 +725,29 @@ medical-imaging_tagging_imagesets:
   synopsis: tag a &AHI; image set.
   category: Scenarios
   languages:
+    JavaScript:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description: To tag an image set.
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.tagging.V3
+            - description: The utility function for tagging a resource.
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.tagResourceV3
+            - description: To list tags for an image set.
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.list_tags.V3
+            - description: The utility function for listing a resource's tags.
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.listTagsForResourceV3
+            - description: To untag an image set.
+              snippet_tags:
+                - medical-imaging.JavaScript.imageset.untag.V3
+            - description: The utility function for untagging a resource.
+              snippet_tags:
+                - medical-imaging.JavaScript.resource.unTagResourceV3
     Java:
       versions:
         - sdk_version: 2

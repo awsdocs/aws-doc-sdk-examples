@@ -58,6 +58,7 @@ public class SearchImageSets {
                 .build();
 
         // Use case #1: EQUAL operator.
+        //snippet-start:[medicalimaging.java2.search_imagesets.use_case1]
         List<SearchFilter> searchFilters = Collections.singletonList(SearchFilter.builder()
                 .operator(Operator.EQUAL)
                 .values(SearchByAttributeValue.builder()
@@ -71,8 +72,10 @@ public class SearchImageSets {
             System.out.println("The image sets for patient " + patientId + " are:\n" + imageSetsMetadataSummaries);
             System.out.println();
         }
+        //snippet-end:[medicalimaging.java2.search_imagesets.use_case1]
 
         // Use case #2: BETWEEN operator using DICOMStudyDate and DICOMStudyTime.
+        //snippet-start:[medicalimaging.java2.search_imagesets.use_case2]
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         searchFilters = Collections.singletonList(SearchFilter.builder()
                 .operator(Operator.BETWEEN)
@@ -97,8 +100,10 @@ public class SearchImageSets {
                     imageSetsMetadataSummaries);
             System.out.println();
         }
+        //snippet-end:[medicalimaging.java2.search_imagesets.use_case2]
 
         // Use case #3: BETWEEN operator using createdAt. Time studies were previously persisted.
+        //snippet-start:[medicalimaging.java2.search_imagesets.use_case3]
         searchFilters = Collections.singletonList(SearchFilter.builder()
                 .operator(Operator.BETWEEN)
                 .values(SearchByAttributeValue.builder()
@@ -115,6 +120,7 @@ public class SearchImageSets {
             System.out.println("The image sets searched with BETWEEN operator using createdAt are:\n " + imageSetsMetadataSummaries);
             System.out.println();
         }
+        //snippet-end:[medicalimaging.java2.search_imagesets.use_case3]
 
         medicalImagingClient.close();
     }
