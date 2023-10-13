@@ -200,7 +200,7 @@ class AutoScaler:
                         inst_ready = True
             self.ssm_client.send_command(
                 InstanceIds=[instance_id], DocumentName='AWS-RunShellScript',
-                Parameters={'commands': ['cd / && sudo python3 server.py 80 us-west-2']})
+                Parameters={'commands': ['cd / && sudo python3 server.py 80']})
             log.info("Restarted the Python web server on instance %s.", instance_id)
         except ClientError as err:
             raise AutoScalerError(
