@@ -17,7 +17,7 @@ import AWSS3
 /// instead return mock results.
 public protocol S3SessionProtocol {
     func listBuckets(input: ListBucketsInput) async throws
-            -> ListBucketsOutputResponse
+            -> ListBucketsOutput
 }
 // snippet-end:[mocking.swift.protocol]
 
@@ -44,11 +44,11 @@ public class S3Session: S3SessionProtocol {
     /// - Parameter input: The input to pass through to the SDK function
     ///   `listBuckets()`.
     ///
-    /// - Returns: A ``ListBucketsOutputResponse`` with the returned data.
+    /// - Returns: A ``ListBucketsOutput`` with the returned data.
     ///
     // snippet-start:[mocking.swift.implement-real]
     public func listBuckets(input: ListBucketsInput) async throws
-            -> ListBucketsOutputResponse {
+            -> ListBucketsOutput {
         return try await self.client.listBuckets(input: input)
     }
     // snippet-end:[mocking.swift.implement-real]

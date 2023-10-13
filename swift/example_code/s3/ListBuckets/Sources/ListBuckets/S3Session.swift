@@ -17,7 +17,7 @@ import AWSS3
 /// A protocol defining the Amazon S3 functions we want to mock
 /// during testing.
 public protocol S3SessionProtocol {
-    func listBuckets(input: ListBucketsInput) async throws -> ListBucketsOutputResponse
+    func listBuckets(input: ListBucketsInput) async throws -> ListBucketsOutput
 }
 // snippet-end:[s3.swift.listbuckets.s3sessionprotocol]
 
@@ -41,9 +41,9 @@ public struct S3Session: S3SessionProtocol {
     /// Call through to the ``S3Client`` function `listBuckets()`.
     /// - Parameter input: The input to pass through to the SDK function
     ///   `listBuckets()`.
-    /// - Returns: A ``ListBucketsOutputResponse`` with the returned data.
+    /// - Returns: A ``ListBucketsOutput`` with the returned data.
     public func listBuckets(input: ListBucketsInput) async throws
-            -> ListBucketsOutputResponse {
+            -> ListBucketsOutput {
         return try await self.client.listBuckets(input: input)
     }
 }

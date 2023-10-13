@@ -81,8 +81,8 @@ public struct MockDBSession: DatabaseSession {
     /// Mock version of the DynamoDB client's `listTables()` function. Returns
     /// values from the string array `fakeTableNames` or the one specified as
     /// an optional input when creating the `MockDBSession`.
-    public func listTables(input: ListTablesInput) async throws -> ListTablesOutputResponse {
-        var output = ListTablesOutputResponse(
+    public func listTables(input: ListTablesInput) async throws -> ListTablesOutput {
+        var output = ListTablesOutput(
             lastEvaluatedTableName: nil,
             tableNames: nil
         )

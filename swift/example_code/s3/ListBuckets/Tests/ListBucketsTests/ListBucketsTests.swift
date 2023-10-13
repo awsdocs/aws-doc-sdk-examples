@@ -44,10 +44,10 @@ public struct MockS3Session: S3SessionProtocol {
     ///
     /// - Parameter input: The input to the `listBuckets()` function.
     ///
-    /// - Returns: A `ListBucketsOutputResponse` object containing the list of
+    /// - Returns: A `ListBucketsOutput` object containing the list of
     ///   buckets.
     public func listBuckets(input: ListBucketsInput) async throws
-            -> ListBucketsOutputResponse {
+            -> ListBucketsOutput {
         var bucketList: [S3ClientTypes.Bucket] = []
         let df = DateFormatter()
         df.dateFormat = "M/d/yy, h:mm:ss a z"
@@ -62,10 +62,10 @@ public struct MockS3Session: S3SessionProtocol {
             bucketList.append(bucket)
         }
         
-        // Create and return the `ListBucketsOutputResponse` object containing
+        // Create and return the `ListBucketsOutput` object containing
         // the results.
 
-        let response = ListBucketsOutputResponse(
+        let response = ListBucketsOutput(
             buckets: bucketList,
             owner: nil
         )

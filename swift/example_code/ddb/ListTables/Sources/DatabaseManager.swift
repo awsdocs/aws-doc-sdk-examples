@@ -14,14 +14,14 @@ public protocol DatabaseSession {
     /// A mockable entry point for the Amazon DynamoDB function
     /// `listTables()`. A DynamoDB implementation of `DatabaseSession` should
     /// call through to `DynamoDBClient.listTables()`, while a mocked
-    /// implementation should generate and return a `ListTablesOutputResponse`
+    /// implementation should generate and return a `ListTablesOutput`
     /// object with the desired results for testing purposes.
     ///
     /// - Parameter input: A `ListTablesInput` object specifying the input
     ///   parameters for the call to `listTables()`.
     ///
-    /// - Returns: A `ListTablesOutputResponse` structure with the results.
-    func listTables(input: ListTablesInput) async throws -> ListTablesOutputResponse
+    /// - Returns: A `ListTablesOutput` structure with the results.
+    func listTables(input: ListTablesInput) async throws -> ListTablesOutput
 }
 
 // snippet-start:[ddb.swift.dynamodbsession]
@@ -49,10 +49,10 @@ public struct DynamoDBSession: DatabaseSession {
     /// - Parameter input: The `input` parameter for `listTables()` as a
     ///   `ListTablesInput` object.
     ///
-    /// - Returns: The `ListTablesOutputResponse` returned by `listTables()`.
+    /// - Returns: The `ListTablesOutput` returned by `listTables()`.
     /// 
     /// - Throws: Errors from DynamoDB are thrown as usual.
-    public func listTables(input: ListTablesInput) async throws -> ListTablesOutputResponse {
+    public func listTables(input: ListTablesInput) async throws -> ListTablesOutput {
         return try await client.listTables(input: input)
     }
     // snippet-end:[ddb.swift.dynamodbsession.listtables]
