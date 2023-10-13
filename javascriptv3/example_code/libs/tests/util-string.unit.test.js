@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { it, describe, expect } from "vitest";
-import { getUniqueName, postfix, wrapText } from "../utils/util-string";
+import { getUniqueName, postfix } from "../utils/util-string";
 
 describe("util-string", () => {
   describe("getUniqueName", () => {

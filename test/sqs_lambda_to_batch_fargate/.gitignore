@@ -10,3 +10,4 @@ __pycache__
 .cdk.staging
 cdk.out
 ada.log
+cdk.context.json

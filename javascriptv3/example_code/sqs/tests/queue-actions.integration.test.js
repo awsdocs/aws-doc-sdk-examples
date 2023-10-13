@@ -47,7 +47,7 @@ describe("queue actions", () => {
 
     const consoleSpy = vi.spyOn(console, "log");
 
-    await retry({ intervalInMs: 1000, maxRetries: 5 }, async () => {
+    await retry({ intervalInMs: 10000, maxRetries: 24 }, async () => {
       await receiveDeleteMessage(queueUrl);
       expect(consoleSpy).toHaveBeenCalledWith(
         "Information about current NY Times fiction bestseller for week of 12/11/2016.",

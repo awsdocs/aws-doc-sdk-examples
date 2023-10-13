@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// snippet-start:[javascript.v3.sample.fsa.translate_text]
 import {
   TranslateClient,
   TranslateTextCommand,
@@ -26,3 +27,4 @@ export const handler = async (textAndSourceLanguage) => {
 
   return { translated_text: TranslatedText };
 };
+// snippet-end:[javascript.v3.sample.fsa.translate_text]

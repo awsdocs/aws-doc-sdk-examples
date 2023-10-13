@@ -7,7 +7,7 @@
     "@aws-sdk/client-medical-imaging": "^3.391.0"
   },
   "scripts": {
-    "integration-test": "vitest run **/*.integration.test.js --coverage"
+    "integration-test": "vitest run **/*.integration.test.js"
   },
   "type": "module",
   "devDependencies": {

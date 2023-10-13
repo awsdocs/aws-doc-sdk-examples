@@ -10,10 +10,6 @@
     "test": "jest",
     "cdk": "cdk"
   },
-  "peerDependencies": {
-    "aws-cdk-lib": "^2.80.0",
-    "constructs": "^10.0.84"
-  },
   "devDependencies": {
     "aws-cdk-lib": "^2.80.0",
     "constructs": "^10.0.84",
@@ -25,8 +21,6 @@
     "typescript": "^4.6.2"
   },
   "dependencies": {
-    "aws-cdk-lib": "^2.80.0",
-    "constructs": "^10.0.84",
     "source-map-support": "^0.5.21"
   }
 }

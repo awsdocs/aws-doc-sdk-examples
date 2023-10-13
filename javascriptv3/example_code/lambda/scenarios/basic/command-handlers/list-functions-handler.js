@@ -2,22 +2,24 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { compose, join, map, prop } from "ramda";
 import { log } from "../../../../libs/utils/util-log.js";
 import { listFunctions } from "../../../actions/list-functions.js";
 
 const makeListItem = (s) => `• ${s}`;
 
-const makeListItemFromFunctionName = compose(
-  makeListItem,
-  prop("FunctionName"),
-);
+/**
+ * @param {import('@aws-sdk/client-lambda').FunctionConfiguration} funcObj
+ */
+const makeListItemFromFunctionName = (funcObj) =>
+  makeListItem(funcObj.FunctionName);
 
-const getFunctionNames = compose(
-  join("\n"),
-  map(makeListItemFromFunctionName),
-  prop("Functions"),
-);
+/**
+ *
+ * @param {import('@aws-sdk/client-lambda').ListFunctionsCommandOutput} response
+ * @returns
+ */
+const getFunctionNames = (response) =>
+  response.Functions.map(makeListItemFromFunctionName).join("\n");
 
 const listFunctionsHandler = async () => {
   try {

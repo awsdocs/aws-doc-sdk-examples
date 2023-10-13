@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// snippet-start:[javascript.v3.sample.fsa.synthesize_audio]
 import { PollyClient, SynthesizeSpeechCommand } from "@aws-sdk/client-polly";
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
@@ -41,3 +42,4 @@ export const handler = async (sourceDestinationConfig) => {
   await upload.done();
   return audioKey;
 };
+// snippet-end:[javascript.v3.sample.fsa.synthesize_audio]
