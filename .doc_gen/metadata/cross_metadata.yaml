@@ -364,6 +364,7 @@ cross_LambdaAPIGateway:
     Python:
       versions:
         - sdk_version: 3
+          github: python/example_code/lambda
           block_content: cross_LambdaAPIGateway_Python_block.xml
   service_main: lambda
   services:
@@ -391,6 +392,7 @@ cross_LambdaScheduledEvents:
     Python:
       versions:
         - sdk_version: 3
+          github: python/example_code/lambda
           block_content: cross_LambdaScheduledEvents_Python_block.xml
           add_services:
             cloudwatch-logs:
@@ -522,6 +524,7 @@ cross_RekognitionVideoDetection:
     Python:
       versions:
         - sdk_version: 3
+          github: python/example_code/rekognition
           block_content: cross_RekognitionVideoDetection_Python_block.xml
           add_services:
             sns:
