@@ -15,3 +15,8 @@ This document discusses the language-specific nuances of deploying the Feedback 
 - This code has not been tested in all AWS Regions. Some AWS services are available only in specific Regions. For more information, see [AWS Regional Services](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services).
 - Running this code might result in charges to your AWS account.
 - Be sure to delete all the resources you create while going through this tutorial so that you won't be charged.
+
+### .NET Implementation Details
+ - This example includes AWS Lambda functions for the various operations of the Feedback Sentiment Analyzer.
+ - Each function was created using the AWS Lambda Template from the [AWS Toolkit for Visual Studio](https://aws.amazon.com/visualstudio/)
+ - Each function also uses [Powertools for AWS Lamba (.NET)](https://github.com/aws-powertools/powertools-lambda-dotnet) for enhanced logging.

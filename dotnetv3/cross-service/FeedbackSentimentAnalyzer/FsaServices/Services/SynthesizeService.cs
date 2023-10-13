@@ -23,6 +23,7 @@ public class SynthesizeService
     /// Constructor that uses the injected Amazon Polly and S3 clients.
     /// </summary>
     /// <param name="amazonPolly">Amazon Polly client.</param>
+    /// <param name="amazonS3">Amazon S3 client.</param>
     public SynthesizeService(IAmazonPolly amazonPolly, IAmazonS3 amazonS3)
     {
         _amazonPolly = amazonPolly;
@@ -32,8 +33,7 @@ public class SynthesizeService
     /// <summary>
     /// Extract the words from a given bucket object and return them in a single string.
     /// </summary>
-    /// <param name="sourceText">The source text to synthesize.</param>
-    /// <param name="resultsBucket">The bucket to use when storing results.</param>
+    /// <param name="sourceDestinationDetails">The source destination bucket, text, and object ke.y</param>
     /// <returns>The name of the result object in the bucket.</returns>
     public async Task<string> SynthesizeSpeechFromText(AudioSourceDestinationDetails sourceDestinationDetails)
     {

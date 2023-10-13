@@ -23,7 +23,7 @@ public class TranslationService
     }
 
     /// <summary>
-    /// Translate a string and language code to English.
+    /// Translate a string to the specified target language.
     /// </summary>
     /// <param name="sourceText">The source text to translate.</param>
     /// <param name="languageCode">The language code of the source text.</param>
