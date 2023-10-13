@@ -10,11 +10,11 @@ import { GetDatastoreCommand } from "@aws-sdk/client-medical-imaging";
 import { medicalImagingClient } from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} datastoreID - The ID of the data store to retrieve properties for.
+ * @param {string} datastoreID - The ID of the data store.
  */
 export const getDatastore = async (datastoreID = "DATASTORE_ID") => {
   const response = await medicalImagingClient.send(
-    new GetDatastoreCommand({ datastoreId: datastoreID }),
+    new GetDatastoreCommand({ datastoreId: datastoreID })
   );
   console.log(response);
   // {
@@ -28,7 +28,6 @@ export const getDatastore = async (datastoreID = "DATASTORE_ID") => {
   //    },
   //   datastoreProperties: {
   //        createdAt: 2023-08-04T18:50:36.239Z,
-  //         datastoreArn: 'arn:aws:medical-imaging:us-east-1:123456789:datastore/1234567890abcdef01234567890abcde',
   //         datastoreArn: 'arn:aws:medical-imaging:us-east-1:xxxxxxxxx:datastore/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
   //         datastoreId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
   //         datastoreName: 'my_datastore',
@@ -36,11 +35,11 @@ export const getDatastore = async (datastoreID = "DATASTORE_ID") => {
   //         updatedAt: 2023-08-04T18:50:36.239Z
   //   }
   // }
-  return response.datastoreProperties;
+  return response["datastoreProperties"];
 };
 // snippet-end:[medical-imaging.JavaScript.datastore.getDatastoreV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  getDatastore();
+  await getDatastore();
 }

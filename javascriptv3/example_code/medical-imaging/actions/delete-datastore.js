@@ -10,11 +10,11 @@ import { DeleteDatastoreCommand } from "@aws-sdk/client-medical-imaging";
 import { medicalImagingClient } from "../libs/medicalImagingClient.js";
 
 /**
- * @param {string} datastoreID - The ID of the data store to delete.
+ * @param {string} datastoreId - The ID of the data store to delete.
  */
-export const deleteDatastore = async (datastoreID = "DATASTORE_ID") => {
+export const deleteDatastore = async (datastoreId = "DATASTORE_ID") => {
   const response = await medicalImagingClient.send(
-    new DeleteDatastoreCommand({ datastoreId: datastoreID }),
+    new DeleteDatastoreCommand({ datastoreId })
   );
   console.log(response);
   // {
@@ -34,7 +34,7 @@ export const deleteDatastore = async (datastoreID = "DATASTORE_ID") => {
 };
 // snippet-end:[medical-imaging.JavaScript.datastore.deleteDatastoreV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  deleteDatastore();
+  await deleteDatastore();
 }

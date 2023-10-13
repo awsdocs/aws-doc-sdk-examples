@@ -18,10 +18,13 @@ export const listDatastores = async () => {
   const commandParams = {};
   const paginator = paginateListDatastores(paginatorConfig, commandParams);
 
+  /**
+   * @type {import("@aws-sdk/client-medical-imaging").DatastoreSummary[]}
+   */
   const datastoreSummaries = [];
   for await (const page of paginator) {
-    // page contains a single paginated output.
-    datastoreSummaries.push(...page.datastoreSummaries);
+    // Each page contains a list of `jobSummaries`. The list is truncated if is larger than `pageSize`.
+    datastoreSummaries.push(...page["datastoreSummaries"]);
     console.log(page);
   }
   // {
@@ -50,7 +53,7 @@ export const listDatastores = async () => {
 };
 // snippet-end:[medical-imaging.JavaScript.datastore.listDatastoresV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  listDatastores();
+  await listDatastores();
 }

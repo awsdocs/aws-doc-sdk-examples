@@ -14,7 +14,7 @@ import { medicalImagingClient } from "../libs/medicalImagingClient.js";
  */
 export const createDatastore = async (datastoreName = "DATASTORE_NAME") => {
   const response = await medicalImagingClient.send(
-    new CreateDatastoreCommand({ datastoreName: datastoreName }),
+    new CreateDatastoreCommand({ datastoreName: datastoreName })
   );
   console.log(response);
   // {
@@ -33,7 +33,7 @@ export const createDatastore = async (datastoreName = "DATASTORE_NAME") => {
 };
 // snippet-end:[medical-imaging.JavaScript.datastore.createDatastoreV3]
 
-// Invoke main function if this file was run directly.
+// Invoke the following code if this file is being run directly.
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  await createDatastore("test-result");
+  await createDatastore();
 }
