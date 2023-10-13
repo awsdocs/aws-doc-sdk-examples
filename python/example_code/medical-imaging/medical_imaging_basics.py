@@ -243,12 +243,17 @@ class MedicalImagingWrapper:
         """
         try:
             if version_id:
+                # snippet-start:[python.example_code.medical-imaging.GetImageSetMetadata.withVersionID]
                 image_set_metadata = self.health_imaging_client.get_image_set_metadata(imageSetId=image_set_id,
                                                                                        datastoreId=datastore_id,
                                                                                        versionId=version_id)
+                # snippet-end:[python.example_code.medical-imaging.GetImageSetMetadata.withVersionID]
             else:
+                # snippet-start:[python.example_code.medical-imaging.GetImageSetMetadata.withoutVersionID]
+
                 image_set_metadata = self.health_imaging_client.get_image_set_metadata(imageSetId=image_set_id,
                                                                                        datastoreId=datastore_id)
+                # snippet-end:[python.example_code.medical-imaging.GetImageSetMetadata.withoutVersionID]
             print(image_set_metadata)
             with open(metadata_file, 'wb') as f:
                 for chunk in image_set_metadata['imageSetMetadataBlob'].iter_chunks():
@@ -357,14 +362,20 @@ class MedicalImagingWrapper:
         :return: The copied image set ID.
         """
         try:
+            # snippet-start:[python.example_code.medical-imaging.CopyImageSet1]
             copy_image_set_information = {'sourceImageSet': {'latestVersionId': version_id}}
+            # snippet-end:[python.example_code.medical-imaging.CopyImageSet1]
+            # snippet-start:[python.example_code.medical-imaging.CopyImageSet2]
             if destination_image_set_id and destination_version_id:
                 copy_image_set_information["destinationImageSet"] = {"imageSetId": destination_image_set_id,
                                                                      "latestVersionId": destination_version_id}
+            # snippet-end:[python.example_code.medical-imaging.CopyImageSet2]
+            # snippet-start:[python.example_code.medical-imaging.CopyImageSet3]
             copy_results = self.health_imaging_client.copy_image_set(
                 datastoreId=datastore_id,
                 sourceImageSetId=image_set_id,
                 copyImageSetInformation=copy_image_set_information)
+            # snippet-end:[python.example_code.medical-imaging.CopyImageSet3]
         except ClientError as err:
             logger.error(
                 "Couldn't copy image set. Here's why: %s: %s", err.response['Error']['Code'],
@@ -453,6 +464,51 @@ class MedicalImagingWrapper:
 
     # snippet-end:[python.example_code.medical-imaging.ListTagsForResource]
 
+    def tagging_datastore(self, datastore_arn):
+        # snippet-start:[python.example_code.medical-imaging.tagging_datastore.arn]
+        """
+        Taggging a data store.
+
+        :param datastore_arn: The Amazon Resource Name (ARN) of the data store.
+            For example: arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012
+        """
+        # snippet-end:[python.example_code.medical-imaging.tagging_datastore.arn]
+
+        # snippet-start:[python.example_code.medical-imaging.tagging_datastore.tag]
+        self.tag_resource(datastore_arn, {"Deployment": "Development"})
+        # snippet-end:[python.example_code.medical-imaging.tagging_datastore.tag]
+
+        # snippet-start:[python.example_code.medical-imaging.tagging_datastore.list]
+        self.list_tags_for_resource(datastore_arn)
+        # snippet-end:[python.example_code.medical-imaging.tagging_datastore.list]
+
+        # snippet-start:[python.example_code.medical-imaging.tagging_datastore.untag]
+        self.untag_resource(datastore_arn, ["Deployment"])
+
+    # snippet-end:[python.example_code.medical-imaging.tagging_datastore.untag]
+
+    def tagging_image_set(self, image_set_arn):
+        # snippet-start:[python.example_code.medical-imaging.tagging_image_set.arn]
+        """
+        Taggging a data store.
+
+        :param image_set_arn: The Amazon Resource Name (ARN) of the data store.
+            For example: arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/imageset/12345678901234567890123456789012
+        """
+        # snippet-end:[python.example_code.medical-imaging.tagging_image_set.arn]
+
+        # snippet-start:[python.example_code.medical-imaging.tagging_image_set.tag]
+        self.tag_resource(image_set_arn, {"Deployment": "Development"})
+        # snippet-end:[python.example_code.medical-imaging.tagging_image_set.tag]
+
+        # snippet-start:[python.example_code.medical-imaging.tagging_image_set.list]
+        self.list_tags_for_resource(image_set_arn)
+        # snippet-end:[python.example_code.medical-imaging.tagging_image_set.list]
+
+        # snippet-start:[python.example_code.medical-imaging.tagging_image_set.untag]
+        self.untag_resource(image_set_arn, ["Deployment"])
+        # snippet-end:[python.example_code.medical-imaging.tagging_image_set.untag]
+
     def usage_demo(self, source_s3_uri, dest_s3_uri, data_access_role_arn):
         data_store_name = f"python_usage_demo_data_store_{random.randint(0, 200000)}"
 
@@ -493,6 +549,24 @@ class MedicalImagingWrapper:
         for job in import_jobs:
             print(job)
 
+            # Search with EQUAL operator..
+            # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case1]
+        filter = {"filters": [{"operator": "EQUAL", "values": [{"DICOMPatientId": "3524578"}]}]}
+
+        image_sets = self.search_image_sets(data_store_id, filter)
+        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case1]
+
+        # Search with BETWEEN operator using DICOMStudyDate and DICOMStudyTime.
+        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case2]
+        filter = {"filters": [{"operator": "BETWEEN", "values": [
+            {"DICOMStudyDateAndTime": {"DICOMStudyDate": "19900101", "DICOMStudyTime": "000000"}},
+            {"DICOMStudyDateAndTime": {"DICOMStudyDate": "20230101", "DICOMStudyTime": "000000"}}]}]}
+
+        image_sets = self.search_image_sets(data_store_id, filter)
+        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case2]
+
+        # Search with BETWEEN operator using createdAt. Time studies were previously persisted.
+        # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case3]
         filter = {
             "filters": [{
                 "values": [{"createdAt": datetime.datetime(2021, 8, 4, 14, 49, 54, 429000)},
@@ -502,6 +576,7 @@ class MedicalImagingWrapper:
         }
 
         image_sets = self.search_image_sets(data_store_id, filter)
+        # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case3]
 
         image_set_ids = [image_set['imageSetId'] for image_set in image_sets]
         for image_set in image_sets:
@@ -599,11 +674,12 @@ class MedicalImagingWrapper:
 
 
 if __name__ == '__main__':
-    source_s3_uri = "s3://upload-22-dicom-387/input/CRStudy/"
-    dest_s3_uri = "s3://upload-22-dicom-387/input/MRStudy/"
-    data_access_role_arn = "arn:aws:iam::123502194722:role/dicom_import"
+    # Replace these values with your own.
+    source_s3_uri = "s3://medical-imaging-dicom-input/dicom_input/"
+    dest_s3_uri = "s3://medical-imaging-output/job_output/"
+    data_access_role_arn = "arn:aws:iam::123456789012:role/ImportJobDataAccessRole"
 
-    client = boto3.client('medical-imaging', region_name='us-west-2')
+    client = boto3.client('medical-imaging')
     medical_imaging_wrapper = MedicalImagingWrapper(client)
 
     medical_imaging_wrapper.usage_demo(source_s3_uri, dest_s3_uri, data_access_role_arn)
