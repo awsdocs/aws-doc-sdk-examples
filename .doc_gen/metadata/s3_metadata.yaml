@@ -2701,7 +2701,7 @@ s3_Scenario_ListObjectsWeb:
     JavaScript:
       versions:
         - sdk_version: 3
-          github: javascriptv3/example_code/s3/scenarios/web/list-objects
+          github: javascriptv3/example_code/web/s3/list-objects
           sdkguide:
           excerpts:
             - description: The following code is the relevant React component that makes calls
