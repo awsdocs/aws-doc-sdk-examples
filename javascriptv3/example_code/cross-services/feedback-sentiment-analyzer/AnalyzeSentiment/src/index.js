@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+// snippet-start:[javascript.v3.sample.fsa.analyze_sentiment]
 import {
   ComprehendClient,
   DetectDominantLanguageCommand,
@@ -41,3 +42,4 @@ export const handler = async (extractTextOutput) => {
     language_code: languageCode,
   };
 };
+// snippet-end:[javascript.v3.sample.fsa.analyze_sentiment]
