@@ -206,18 +206,21 @@ class MedicalImagingWrapper:
     # snippet-end:[python.example_code.medical-imaging.SearchImageSets]
 
     # snippet-start:[python.example_code.medical-imaging.GetImageSet]
-    def get_image_set(self, datastore_id, image_set_id, version_id):
+    def get_image_set(self, datastore_id, image_set_id, version_id=None):
         """
         Get the properties of an image set.
 
         :param datastore_id: The ID of the data store.
         :param image_set_id: The ID of the image set.
-        :param version_id: The version of the image set.
+        :param version_id: The optional version of the image set.
         :return: The image set properties.
         """
         try:
-            image_set = self.health_imaging_client.get_image_set(imageSetId=image_set_id, datastoreId=datastore_id,
-                                                                 versionId=version_id)
+            if version_id:
+                image_set = self.health_imaging_client.get_image_set(imageSetId=image_set_id, datastoreId=datastore_id,
+                                                                     versionId=version_id)
+            else:
+                image_set = self.health_imaging_client.get_image_set(imageSetId=image_set_id, datastoreId=datastore_id)
         except ClientError as err:
             logger.error(
                 "Couldn't get image set. Here's why: %s: %s", err.response['Error']['Code'],
@@ -499,6 +502,8 @@ class MedicalImagingWrapper:
         }
 
         image_sets = self.search_image_sets(data_store_id, filter)
+
+        image_set_ids = [image_set['imageSetId'] for image_set in image_sets]
         for image_set in image_sets:
             print(image_set)
 
@@ -522,39 +527,76 @@ class MedicalImagingWrapper:
             raise Exception("Image frame id is empty")
 
         image_file_name = "image_frame.jph"
-        returned_image_frame = self.get_pixel_data(image_file_name, data_store_id,
-                                                   image_set_id,
-                                                   image_frame_id)
+        self.get_pixel_data(image_file_name, data_store_id,
+                            image_set_id,
+                            image_frame_id)
 
         returned_versions = self.list_image_set_versions(data_store_id, image_set_id)
         for version in returned_versions:
             print(version)
 
-        if False:
-            result = self.copy_image_set(data_store_id, "6ec347bff13a36fe32939e41a1e5e158", "3")
-            print(result)
+        copied_image_set_id = self.copy_image_set(data_store_id, image_set_id, str(version_id))
+        print(f"Copied image set to new image set with ID : {copied_image_set_id}")
 
-            result = self.delete_image_set(data_store_id, "230e7c272021733c4c2768fc527ffd33")
-            print(result)
+        image_set_ids.append(copied_image_set_id)
 
-            resource_arn = "arn:aws:medical-imaging:us-east-1:123502194722:datastore/728f13a131f748bf8d87a55d5ef6c5af"
-            self.tag_resource(resource_arn,
-                              {"TagType": "datastore"})
-            result = self.list_tags_for_resource(resource_arn)
-            print(result)
+        # Wait for copied image set to be ACTIVE before updating the metadata.
+        while True:
+            time.sleep(1)
+            try:
+                image_set_properties = self.get_image_set(data_store_id, copied_image_set_id)
+            except ClientError as err:
+                print(f"get_image_set raised an error {err.response['Error']['Message']}")
+                break
 
-            self.untag_resource(resource_arn,
-                                ["TagType"])
+            image_set_state = image_set_properties['imageSetState']
+            print(f'Image set with id : "{copied_image_set_id}" has status: "{image_set_state}"')
+            if image_set_state != "LOCKED":
+                break
 
-            result = self.list_tags_for_resource(resource_arn)
-            print(result)
+        attributes = "{\"SchemaVersion\":1.1,\"Patient\":{\"DICOM\":{\"PatientName\":\"Garcia^Gloria\"}}}"
+        metadata = {"DICOMUpdates": {"updatableAttributes": attributes}}
 
+        self.update_image_set_metadata(data_store_id, copied_image_set_id, "1", metadata)
+        print(f"Updated metadata for image set with id : {copied_image_set_id}")
 
-        for image_set in image_sets:
-           self.delete_image_set(data_store_id, image_set['imageSetId'])
+        # Wait for all image sets to change from LOCKED status before deleting.
+        for image_set_id in image_set_ids:
+            while True:
+                time.sleep(1)
+                try:
+                    image_set_properties = self.get_image_set(data_store_id, image_set_id)
+                except ClientError as err:
+                    print(f"get_image_set raised an error {err.response['Error']['Message']}")
+                    break
+
+                image_set_state = image_set_properties['imageSetState']
+                print(f'Image set with id : "{image_set_id}" has status: "{image_set_state}"')
+                if image_set_state != "LOCKED":
+                    break
+
+        for image_set_id in image_set_ids:
+            self.delete_image_set(data_store_id, image_set_id)
+            print(f"Deleted image set with id : {image_set_id}")
+
+        # Wait for image sets to be deleted before deleting the data store.
+        for image_set_id in image_set_ids:
+            while True:
+                time.sleep(1)
+                try:
+                    image_set_properties = self.get_image_set(data_store_id, image_set_id)
+                except ClientError as err:
+                    print(f"get_image_set raised an error {err.response['Error']['Message']}")
+                    break
+
+                image_set_state = image_set_properties['imageSetState']
+                print(f'Image set with id : "{image_set_id}" has status: "{image_set_state}"')
+                if image_set_state == "DELETED":
+                    break
 
         self.delete_datastore(data_store_id)
         print(f"Data store deleted with id : {data_store_id}")
+
 
 if __name__ == '__main__':
     source_s3_uri = "s3://upload-22-dicom-387/input/CRStudy/"
@@ -564,4 +606,4 @@ if __name__ == '__main__':
     client = boto3.client('medical-imaging', region_name='us-west-2')
     medical_imaging_wrapper = MedicalImagingWrapper(client)
 
-    medical_imaging_wrapper.usage_demo(source_s3_uri,dest_s3_uri, data_access_role_arn)
+    medical_imaging_wrapper.usage_demo(source_s3_uri, dest_s3_uri, data_access_role_arn)
