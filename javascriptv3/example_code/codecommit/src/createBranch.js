@@ -23,21 +23,26 @@ import { codeCommitClient } from "./libs/codeCommitClient.js";
 // Set the parameters.
 
 export const params = {
-    branchName: 'BRANCH_NAME', /* required */
-    commitId: 'COMMIT_ID', /* required. The ID of the commit to point the new branch to. */
-    repositoryName: 'REPOSITORY_NAME' /* required */
+  branchName: "BRANCH_NAME" /* required */,
+  commitId:
+    "COMMIT_ID" /* required. The ID of the commit to point the new branch to. */,
+  repositoryName: "REPOSITORY_NAME" /* required */,
 };
 
 // Create the AWS CodeDeploy branch.
-export const run = async () => {
-    try {
-        const data = await codeCommitClient.send(new CreateBranchCommand(params));
-        console.log("Success", data);
-        return data; // For unit tests.
-    } catch (err) {
-        console.log("Error", err);
-    }
+export const main = async () => {
+  try {
+    const data = await codeCommitClient.send(new CreateBranchCommand(params));
+    console.log("Success", data);
+    return data; // For unit tests.
+  } catch (err) {
+    console.log("Error", err);
+  }
 };
-run();
+// Call a function if this file was run directly. This allows the file
+// to be runnable without running on import.
+import { fileURLToPath } from "url";
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
 // snippet-end:[codeCommit.JavaScript.createRepositoryV3]
-

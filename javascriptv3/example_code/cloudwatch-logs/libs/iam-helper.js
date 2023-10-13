@@ -30,7 +30,7 @@ const createRole = async (roleName, statement) => {
   return Arn;
 };
 
-export const createLambdaRole = async (roleName) => {
+export const createLambdaRole = (roleName) => {
   return createRole(roleName, [
     {
       Effect: "Allow",
@@ -47,7 +47,7 @@ export const deleteRole = (roleName) => {
   return client.send(command);
 };
 
-export const attachRolePolicy = async (roleName, policyArn) => {
+export const attachRolePolicy = (roleName, policyArn) => {
   const command = new AttachRolePolicyCommand({
     PolicyArn: policyArn, // For example, arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
     RoleName: roleName, // For example, lambda-basic-execution-role
@@ -55,7 +55,6 @@ export const attachRolePolicy = async (roleName, policyArn) => {
 
   return client.send(command);
 };
-
 
 export const detachRolePolicy = (roleName, policyArn) => {
   const command = new DetachRolePolicyCommand({

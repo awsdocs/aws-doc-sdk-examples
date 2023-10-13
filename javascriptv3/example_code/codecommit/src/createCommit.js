@@ -19,10 +19,7 @@ node putFile.js
 */
 // snippet-start:[codeCommit.JavaScript.putFileV3]
 // Get service clients module and commands using ES6 syntax.
-import {
-  CreateCommitCommand,
-  GetBranchCommand,
-} from "@aws-sdk/client-codecommit";
+import { CreateCommitCommand } from "@aws-sdk/client-codecommit";
 import { codeCommitClient } from "./libs/codeCommitClient.js";
 
 const BRANCH = "BRANCH";
@@ -34,47 +31,44 @@ export const getBranchParams = {
 };
 
 // Add or update the file.
-export const run = async () => {
-  try {
-    const data = await codeCommitClient.send(
-      new GetBranchCommand(getBranchParams)
-    );
-    return data; // For unit tests.
-    const COMMIT_ID = data.branch.commitId;
-   const createCommitParams = {
-      branchName: BRANCH /* required */,
-      repositoryName: REPO /* required */,
-      parentCommitId: COMMIT_ID /* required */,
-      putFiles: [
-        {
-          /* Required. The full path to the file in the repository,
+export const main = async () => {
+  const COMMIT_ID = "xxxxxxxxxxxxxxxxxxxxxxxxxxx";
+  const createCommitParams = {
+    branchName: BRANCH /* required */,
+    repositoryName: REPO /* required */,
+    parentCommitId: COMMIT_ID /* required */,
+    putFiles: [
+      {
+        /* Required. The full path to the file in the repository,
           including the name of the file. For example, 'js/index.js'  */
-          filePath: "PATH_AND_FILENAME_WITHIN_REPO",
-          /* Content to be committed to the file. Required if sourceFile is not specified.*/
-           fileContent: Buffer.from("STRING"),
-          /* The name and full path of the file that contains the
+        filePath: "PATH_AND_FILENAME_WITHIN_REPO",
+        /* Content to be committed to the file. Required if sourceFile is not specified.*/
+        fileContent: Buffer.from("STRING"),
+        /* The name and full path of the file that contains the
           changes you want to make as part of the commit. Required if fileContent
           is not specified.*/
-          sourceFile: {
-            /* Required. The full path to the file, including the name of the file. */
-            filePath: "SOURCE_PATH_AND_FILENAME",
-          },
+        sourceFile: {
+          /* Required. The full path to the file, including the name of the file. */
+          filePath: "SOURCE_PATH_AND_FILENAME",
         },
-        /* more items */
-      ],
-    };
-    try {
-      const data = await codeCommitClient.send(
-        new CreateCommitCommand(createCommitParams)
-      );
-      console.log("Success", data.branch.commitId);
-      return data; // For unit tests.
-    } catch (err) {
-      console.log("Error", err);
-    }
+      },
+      /* more items */
+    ],
+  };
+  try {
+    const data = await codeCommitClient.send(
+      new CreateCommitCommand(createCommitParams),
+    );
+    console.log("Success", data.commitId);
+    return data;
   } catch (err) {
     console.log("Error", err);
   }
 };
-run();
+// Call a function if this file was run directly. This allows the file
+// to be runnable without running on import.
+import { fileURLToPath } from "url";
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
 // snippet-end:[codeCommit.JavaScript.putFileV3]
