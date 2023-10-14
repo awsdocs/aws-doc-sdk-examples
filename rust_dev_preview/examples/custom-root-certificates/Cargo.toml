@@ -8,7 +8,6 @@ description = "An example demonstrating setting a custom root certificate with r
 
 [dependencies]
 aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 # bringing our own HTTPs so no need for the default features
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", default-features = false }
 tokio = { version = "1.21.2", features = ["full"] }
