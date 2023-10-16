@@ -119,8 +119,8 @@ mod test_list_more_tables {
     async fn test_list_tables_iterative() {
         let client = aws_sdk_dynamodb::Client::from_conf(
             sdk_examples_test_utils::client_config!(aws_sdk_dynamodb)
-                .http_connector(aws_smithy_client::test_connection::TestConnection::new(
-                    vec![
+                .http_client(
+                    aws_smithy_runtime::client::http::test_util::StaticReplayClient::new(vec![
                         test_event!(
                             "",
                             (
@@ -136,8 +136,8 @@ mod test_list_more_tables {
                             )
                         ),
                         test_event!("", (200, r#"{"TableNames":["g","h"]}"#)),
-                    ],
-                ))
+                    ]),
+                )
                 .build(),
         );
 

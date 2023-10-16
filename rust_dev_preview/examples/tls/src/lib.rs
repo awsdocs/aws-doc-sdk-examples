@@ -15,7 +15,7 @@ This example assumes you have set up environment variables for authentication.
 */
 
 use aws_sdk_kms::Error;
-use aws_smithy_client::hyper_ext;
+use aws_smithy_runtime::client::http::hyper_014::HyperClientBuilder;
 use rustls::RootCertStore;
 
 // snippet-start:[rust.example_code.tls.ConnectWithTLS13]
@@ -49,10 +49,10 @@ pub async fn connect_via_tls_13() -> Result<(), Error> {
         .enable_http2()
         .build();
 
-    let shared_conf = aws_config::from_env()
-        .http_connector(hyper_ext::Adapter::builder().build(rustls_connector))
-        .load()
-        .await;
+    // See https://github.com/awslabs/smithy-rs/discussions/3022 for the HyperClientBuilder
+    let http_client = HyperClientBuilder::new().build(rustls_connector);
+
+    let shared_conf = aws_config::from_env().http_client(http_client).load().await;
 
     let kms_client = aws_sdk_kms::Client::new(&shared_conf);
     let response = kms_client.list_keys().send().await?;

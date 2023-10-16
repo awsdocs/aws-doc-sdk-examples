@@ -10,6 +10,18 @@ use aws_sdk_lambda::primitives::SdkBody;
 use aws_sdk_lambda::{meta::PKG_VERSION, Client};
 use aws_smithy_async::time::TimeSource;
 use aws_smithy_http::result::ConnectorError;
+use aws_smithy_runtime_api::{
+    client::{
+        http::{
+            HttpClient, HttpConnector, HttpConnectorFuture, HttpConnectorSettings,
+            SharedHttpConnector,
+        },
+        orchestrator::HttpRequest,
+        runtime_components::RuntimeComponents,
+    },
+    shared::IntoShared,
+};
+
 use serde::Deserialize;
 use std::time::SystemTime;
 use wasm_bindgen::{prelude::*, JsCast};
@@ -63,7 +75,7 @@ pub async fn main(region: String, verbose: bool) -> Result<String, String> {
         .region(Region::new(region))
         .time_source(BrowserNow)
         .credentials_provider(credentials_provider)
-        .http_connector(Adapter::new(verbose, access_key == "access_key"))
+        .http_client(Adapter::new(verbose, access_key == "access_key"))
         .load()
         .await;
     tracing::info!("sdk config: {:#?}", shared_config);
@@ -234,24 +246,8 @@ impl Adapter {
     }
 }
 
-impl tower::Service<http::Request<SdkBody>> for Adapter {
-    type Response = http::Response<SdkBody>;
-
-    type Error = ConnectorError;
-
-    #[allow(clippy::type_complexity)]
-    type Future = std::pin::Pin<
-        Box<dyn std::future::Future<Output = Result<Self::Response, Self::Error>> + Send + 'static>,
-    >;
-
-    fn poll_ready(
-        &mut self,
-        _cx: &mut std::task::Context<'_>,
-    ) -> std::task::Poll<Result<(), Self::Error>> {
-        std::task::Poll::Ready(Ok(()))
-    }
-
-    fn call(&mut self, req: http::Request<SdkBody>) -> Self::Future {
+impl HttpConnector for Adapter {
+    fn call(&self, req: HttpRequest) -> HttpConnectorFuture {
         let (parts, body) = req.into_parts();
         let uri = parts.uri.to_string();
         if self.verbose {
@@ -277,10 +273,20 @@ impl tower::Service<http::Request<SdkBody>> for Adapter {
             );
         });
 
-        Box::pin(async move {
+        HttpConnectorFuture::new(async move {
             let response = rx.await.map_err(|e| ConnectorError::user(Box::new(e)))?;
             log!("response received");
             Ok(response)
         })
+    }
+}
+
+impl HttpClient for Adapter {
+    fn http_connector(
+        &self,
+        _settings: &HttpConnectorSettings,
+        _components: &RuntimeComponents,
+    ) -> SharedHttpConnector {
+        self.clone().into_shared()
     }
 }

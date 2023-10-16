@@ -19,10 +19,8 @@ aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "
 aws-sdk-rekognition = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-sns = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-aws-smithy-client = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = [
-  "test-util",
-] }
 aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-runtime = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-smithy-types-convert ={ git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["convert-chrono"] }
 aws_lambda_events = { version = "0.10.0", features = ["s3", "apigw"], default-features = false }
 bytes = "1.4.0"
@@ -35,6 +33,7 @@ lambda_runtime = "0.8.0"
 miniz_oxide = "0.7.1"
 pin-project = "1.0.12"
 pipe = "0.4.0"
+sdk-examples-test-utils = { path = "../../test-utils" }
 serde = { version = "1.0.159", features = ["derive"] }
 serde_json = "1.0.95"
 streaming-zip = "0.5.0"

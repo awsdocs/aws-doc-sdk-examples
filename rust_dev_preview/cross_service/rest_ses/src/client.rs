@@ -64,23 +64,20 @@ impl RdsClient {
 
 #[cfg(test)]
 mod rds_client_for_test {
-    use aws_smithy_http::body::SdkBody;
+    use aws_smithy_runtime::client::http::test_util::ReplayEvent;
     use secrecy::Secret;
 
     use super::RdsClient;
     impl RdsClient {
-        pub fn for_test(
-            pairs: Vec<(
-                http::request::Request<SdkBody>,
-                http::response::Response<SdkBody>,
-            )>,
-        ) -> Self {
+        pub fn for_test(pairs: Vec<ReplayEvent>) -> Self {
             RdsClient {
                 client: aws_sdk_rdsdata::Client::from_conf(
                     sdk_examples_test_utils::client_config!(aws_sdk_rdsdata)
-                        .http_connector(aws_smithy_client::test_connection::TestConnection::new(
-                            pairs,
-                        ))
+                        .http_client(
+                            aws_smithy_runtime::client::http::test_util::StaticReplayClient::new(
+                                pairs,
+                            ),
+                        )
                         .build(),
                 ),
                 secret_arn: Secret::from("secret".to_string()),

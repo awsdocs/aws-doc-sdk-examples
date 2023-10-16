@@ -163,7 +163,7 @@ pub async fn create_bucket(
 mod test {
     use std::env::temp_dir;
 
-    use aws_smithy_client::test_connection::TestConnection;
+    use aws_smithy_runtime::client::http::test_util::StaticReplayClient;
     use sdk_examples_test_utils::{client_config, single_shot_client, test_event};
     use tokio::{fs::File, io::AsyncWriteExt};
     use uuid::Uuid;
@@ -190,7 +190,7 @@ mod test {
     async fn test_delete_objects() {
         let client = aws_sdk_s3::Client::from_conf(
             client_config!(aws_sdk_s3)
-                .http_connector(TestConnection::new(vec![
+                .http_client(StaticReplayClient::new(vec![
                     // client.list_objects_v2().bucket(bucket_name)
                     test_event!(
                         r#""#,
@@ -241,7 +241,7 @@ mod test {
     async fn test_delete_objects_failed() {
         let client = aws_sdk_s3::Client::from_conf(
             client_config!(aws_sdk_s3)
-                .http_connector(TestConnection::new(vec![
+                .http_client(StaticReplayClient::new(vec![
                     // client.list_objects_v2().bucket(bucket_name)
                     test_event!(
                         r#""#,

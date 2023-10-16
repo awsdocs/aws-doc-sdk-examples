@@ -64,13 +64,13 @@ async fn describe_pool(client: &Client, id: &str) -> Result<(), Error> {
         println!("    value: {}", value);
     }
 
-    let open_id_arns = response.open_id_connect_provider_ar_ns();
+    let open_id_arns = response.open_id_connect_provider_arns();
     println!("  Open ID provider ARNs:");
     for arn in open_id_arns {
         println!("    {}", arn);
     }
 
-    let saml_arns = response.saml_provider_ar_ns();
+    let saml_arns = response.saml_provider_arns();
     println!("  SAML provider ARNs:");
     for arn in saml_arns {
         println!("    {}", arn);

@@ -127,7 +127,7 @@ fn print_as_curl_request(presigned_req: &PresignedRequest, body: Option<&str>) {
 
 /// This function demonstrates how you can send a presigned request using [hyper](https://crates.io/crates/hyper)
 async fn send_presigned_request_with_hyper(req: PresignedRequest, body: hyper::Body) {
-    let conn = aws_smithy_client::conns::https();
+    let conn = hyper_tls::HttpsConnector::new();
     let client = hyper::Client::builder().build(conn);
     let req = req.to_http_request(body).unwrap();
 

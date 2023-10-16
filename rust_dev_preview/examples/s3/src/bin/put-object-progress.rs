@@ -160,7 +160,6 @@ async fn put_object(client: &Client, opts: &Opt) -> Result<(), anyhow::Error> {
     // ProgressBody wrapped implementation.
     let customized = request
         .customize()
-        .await?
         .map_request(ProgressBody::<SdkBody>::replace);
 
     let out = customized.send().await?;

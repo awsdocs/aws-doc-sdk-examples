@@ -8,8 +8,8 @@ pub mod macros;
 pub fn single_shot(
     req: SdkBody,
     res: (http::StatusCode, Vec<(&str, &str)>, SdkBody),
-) -> aws_smithy_client::test_connection::TestConnection<SdkBody> {
-    aws_smithy_client::test_connection::TestConnection::new(vec![
+) -> aws_smithy_runtime::client::http::test_util::StaticReplayClient {
+    aws_smithy_runtime::client::http::test_util::StaticReplayClient::new(vec![
         (test_event!(req, (res.0, res.1, res.2))),
     ])
 }
