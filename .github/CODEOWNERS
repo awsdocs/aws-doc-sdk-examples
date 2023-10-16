@@ -1,6 +1,5 @@
 # aws-doc-sdk-examples CODEOWNERS
 
-# This is a comment.
 # Each line is a file pattern followed by one or more owners.
 # Order is important; the last matching pattern takes the most
 # precedence. For more information, see the following GitHub documentation:
@@ -12,3 +11,4 @@
 # author of the PR.
 
 /dotnetv3/ @rlhagerm
+/ruby/ @ford-at-aws
