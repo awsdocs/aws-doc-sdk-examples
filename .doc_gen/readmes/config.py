@@ -75,7 +75,7 @@ language = {
                 'auto-scaling': 'dotnetv3/AutoScaling',
                 'cloudwatch': 'dotnetv3/CloudWatch',
                 'cloudwatch-logs': 'dotnetv3/CloudWatchLogs',
-                'cognito': 'dotnetv3/Cognito',
+                'cognito-identity-provider': 'dotnetv3/Cognito',
                 'comprehend': 'dotnetv3/Comprehend',
                 'dynamodb': 'dotnetv3/dynamodb',
                 'ec2': 'dotnetv3/EC2',

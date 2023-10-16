@@ -88,7 +88,9 @@ class Renderer:
     def _transform_actions(self, pre_actions):
         post_actions = []
         for _, pre in pre_actions.items():
-            api = next(iter(pre['services'][self.scanner.svc_name]))
+            api = ""
+            if pre['services'][self.scanner.svc_name]:
+                api = next(iter(pre['services'][self.scanner.svc_name]))
             action = {
                 'title_abbrev': pre['title_abbrev'],
                 'synopsis': pre['synopsis'],
