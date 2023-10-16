@@ -174,7 +174,10 @@ async fn run_instance(scenario: &mut AuroraScenario) -> Result<(), ScenarioError
 
     // Create a snapshot of the DB cluster. rds.CreateDbClusterSnapshot.
     // Wait for the snapshot to create. rds.DescribeDbClusterSnapshots until Status == 'available'.
-    let snapshot = scenario.snapshot().await?;
+    let snapshot_name = inquire::Text::new("Provide a name for the snapshot")
+        .prompt()
+        .unwrap_or(String::from("ScenarioRun"));
+    let snapshot = scenario.snapshot(snapshot_name.as_str()).await?;
     println!(
         "Snapshot is available: {}",
         snapshot.db_cluster_snapshot_arn().unwrap_or("Missing ARN")

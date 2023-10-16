@@ -9,6 +9,7 @@ use aws_sdk_rds::{
         create_db_cluster::{CreateDBClusterError, CreateDbClusterOutput},
         create_db_cluster_parameter_group::CreateDBClusterParameterGroupError,
         create_db_cluster_parameter_group::CreateDbClusterParameterGroupOutput,
+        create_db_cluster_snapshot::{CreateDBClusterSnapshotError, CreateDbClusterSnapshotOutput},
         create_db_instance::{CreateDBInstanceError, CreateDbInstanceOutput},
         delete_db_cluster::{DeleteDBClusterError, DeleteDbClusterOutput},
         delete_db_cluster_parameter_group::{
@@ -182,6 +183,19 @@ impl RdsImpl {
         self.inner
             .describe_db_instances()
             .db_instance_identifier(instance_identifier)
+            .send()
+            .await
+    }
+
+    pub async fn snapshot_cluster(
+        &self,
+        db_cluster_identifier: &str,
+        snapshot_name: &str,
+    ) -> Result<CreateDbClusterSnapshotOutput, SdkError<CreateDBClusterSnapshotError>> {
+        self.inner
+            .create_db_cluster_snapshot()
+            .db_cluster_identifier(db_cluster_identifier)
+            .db_cluster_snapshot_identifier(snapshot_name)
             .send()
             .await
     }

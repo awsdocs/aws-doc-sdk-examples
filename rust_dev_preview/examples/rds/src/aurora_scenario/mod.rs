@@ -36,8 +36,8 @@ struct MetadataError {
 impl MetadataError {
     fn from(err: &dyn ProvideErrorMetadata) -> Self {
         MetadataError {
-            message: err.message().map(|s| s.to_string()),
-            code: err.code().map(|s| s.to_string()),
+            message: err.message().map(String::from),
+            code: err.code().map(String::from),
         }
     }
 }
@@ -482,9 +482,19 @@ impl AuroraScenario {
 
     // Create a snapshot of the DB cluster. rds.CreateDbClusterSnapshot.
     // Wait for the snapshot to create. rds.DescribeDbClusterSnapshots until Status == 'available'.
-    pub async fn snapshot(&self) -> Result<DbClusterSnapshot, ScenarioError> {
-        warn!("TODO! snapshot");
-        Ok(DbClusterSnapshot::builder().build())
+    pub async fn snapshot(&self, name: &str) -> Result<DbClusterSnapshot, ScenarioError> {
+        let id = self.db_cluster_identifier.as_deref().unwrap_or_default();
+        let snapshot = self
+            .rds
+            .snapshot_cluster(id, format!("{id}_{name}").as_str())
+            .await;
+        match snapshot {
+            Ok(output) => match output.db_cluster_snapshot {
+                Some(snapshot) => Ok(snapshot),
+                None => Err(ScenarioError::with("Missing Snapshot")),
+            },
+            Err(err) => Err(ScenarioError::new("Failed to create snapshot", &err)),
+        }
     }
 
     pub async fn clean_up(self) -> Result<(), Vec<ScenarioError>> {

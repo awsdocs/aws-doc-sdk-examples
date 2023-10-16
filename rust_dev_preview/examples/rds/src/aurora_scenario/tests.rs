@@ -10,6 +10,7 @@ use aws_sdk_rds::{
     operation::{
         create_db_cluster::{CreateDBClusterError, CreateDbClusterOutput},
         create_db_cluster_parameter_group::CreateDBClusterParameterGroupError,
+        create_db_cluster_snapshot::{CreateDBClusterSnapshotError, CreateDbClusterSnapshotOutput},
         create_db_instance::{CreateDBInstanceError, CreateDbInstanceOutput},
         delete_db_cluster::DeleteDbClusterOutput,
         delete_db_cluster_parameter_group::DeleteDbClusterParameterGroupOutput,
@@ -35,7 +36,7 @@ use aws_sdk_rds::{
 };
 use aws_smithy_http::body::SdkBody;
 use aws_smithy_runtime_api::client::orchestrator::HttpResponse;
-use mockall::predicate::*;
+use mockall::predicate::eq;
 use secrecy::ExposeSecret;
 
 #[tokio::test]
@@ -145,8 +146,8 @@ async fn test_scenario_get_engines() {
     assert_eq!(
         versions_map,
         Ok(HashMap::from([
-            ("f1".to_string(), vec!["f1a".to_string(), "f1b".to_string()]),
-            ("f2".to_string(), vec!["f2a".to_string()])
+            ("f1".into(), vec!["f1a".into(), "f1b".into()]),
+            ("f2".into(), vec!["f2a".into()])
         ]))
     );
 }
@@ -216,7 +217,7 @@ async fn test_scenario_get_instance_classes() {
 
     assert_eq!(
         instance_classes,
-        Ok(vec!["t1".to_string(), "t2".to_string(), "t3".to_string()])
+        Ok(vec!["t1".into(), "t2".into(), "t3".into()])
     );
 }
 
@@ -238,8 +239,8 @@ async fn test_scenario_get_instance_classes_error() {
         });
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.engine_family = Some("aurora-mysql".to_string());
-    scenario.engine_version = Some("aurora-mysql8.0".to_string());
+    scenario.engine_family = Some("aurora-mysql".into());
+    scenario.engine_version = Some("aurora-mysql8.0".into());
 
     let instance_classes = scenario.get_instance_classes().await;
 
@@ -263,7 +264,7 @@ async fn test_scenario_get_cluster() {
         });
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".to_string());
+    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".into());
     let cluster = scenario.get_cluster().await;
 
     assert!(cluster.is_ok());
@@ -287,7 +288,7 @@ async fn test_scenario_get_cluster_missing_cluster() {
         .return_once(|_| Ok(DescribeDbClustersOutput::builder().build()));
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".to_string());
+    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".into());
     let cluster = scenario.get_cluster().await;
 
     assert_matches!(cluster, Err(ScenarioError { message, context: _ }) if message == "Did not find the cluster");
@@ -319,7 +320,7 @@ async fn test_scenario_get_cluster_error() {
         });
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".to_string());
+    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".into());
     let cluster = scenario.get_cluster().await;
 
     assert_matches!(cluster, Err(ScenarioError { message, context: _ }) if message == "Failed to get cluster");
@@ -345,12 +346,12 @@ async fn test_scenario_connection_string() {
         });
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".to_string());
+    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".into());
     let connection_string = scenario.connection_string().await;
 
     assert_eq!(
         connection_string,
-        Ok("mysql -h test_endpoint -P 3306 -u test_username -p".to_string())
+        Ok("mysql -h test_endpoint -P 3306 -u test_username -p".into())
     );
 }
 
@@ -381,7 +382,7 @@ async fn test_scenario_cluster_parameters() {
         });
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".to_string());
+    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".into());
 
     let params = scenario.cluster_parameters().await.expect("cluster params");
     let names: Vec<String> = params.into_iter().map(|p| p.name).collect();
@@ -409,7 +410,7 @@ async fn test_scenario_cluster_parameters_error() {
         });
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".to_string());
+    scenario.db_cluster_identifier = Some("RustSDKCodeExamplesDBCluster".into());
     let params = scenario.cluster_parameters().await;
     assert_matches!(params, Err(ScenarioError { message, context: _ }) if message == "Failed to retrieve parameters for RustSDKCodeExamplesDBParameterGroup");
 }
@@ -427,12 +428,12 @@ async fn test_scenario_update_auto_increment() {
                 &vec![
                     Parameter::builder()
                         .parameter_name("auto_increment_offset")
-                        .parameter_value("10".to_string())
+                        .parameter_value("10")
                         .apply_method(aws_sdk_rds::types::ApplyMethod::Immediate)
                         .build(),
                     Parameter::builder()
                         .parameter_name("auto_increment_increment")
-                        .parameter_value("20".to_string())
+                        .parameter_value("20")
                         .apply_method(aws_sdk_rds::types::ApplyMethod::Immediate)
                         .build(),
                 ]
@@ -546,26 +547,24 @@ async fn test_start_cluster_and_instance() {
         });
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.engine_version = Some("aurora-mysql8.0".to_string());
-    scenario.instance_class = Some("m5.large".to_string());
-    scenario.username = Some("test username".to_string());
-    scenario.password = Some(SecretString::new("test password".to_string()));
+    scenario.engine_version = Some("aurora-mysql8.0".into());
+    scenario.instance_class = Some("m5.large".into());
+    scenario.username = Some("test username".into());
+    scenario.password = Some(SecretString::new("test password".into()));
 
     tokio::time::pause();
     let assertions = tokio::spawn(async move {
         let create = scenario.start_cluster_and_instance().await;
         assert!(create.is_ok());
-        assert_eq!(
-            scenario
-                .password
-                .replace(SecretString::new("BAD SECRET".to_string()))
-                .unwrap()
-                .expose_secret(),
-            &"".to_string()
-        );
+        assert!(scenario
+            .password
+            .replace(SecretString::new("BAD SECRET".into()))
+            .unwrap()
+            .expose_secret()
+            .is_empty());
         assert_eq!(
             scenario.db_cluster_identifier,
-            Some("RustSDKCodeExamplesDBCluster".to_string())
+            Some("RustSDKCodeExamplesDBCluster".into())
         );
     });
     tokio::time::advance(Duration::from_secs(1)).await;
@@ -590,10 +589,10 @@ async fn test_start_cluster_and_instance_cluster_create_error() {
         });
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.engine_version = Some("aurora-mysql8.0".to_string());
-    scenario.instance_class = Some("m5.large".to_string());
-    scenario.username = Some("test username".to_string());
-    scenario.password = Some(SecretString::new("test password".to_string()));
+    scenario.engine_version = Some("aurora-mysql8.0".into());
+    scenario.instance_class = Some("m5.large".into());
+    scenario.username = Some("test username".into());
+    scenario.password = Some(SecretString::new("test password".into()));
 
     let create = scenario.start_cluster_and_instance().await;
     assert_matches!(create, Err(ScenarioError { message, context: _}) if message == "Failed to create DB Cluster with cluster group")
@@ -612,10 +611,10 @@ async fn test_start_cluster_and_instance_cluster_create_missing_id() {
         });
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.engine_version = Some("aurora-mysql8.0".to_string());
-    scenario.instance_class = Some("m5.large".to_string());
-    scenario.username = Some("test username".to_string());
-    scenario.password = Some(SecretString::new("test password".to_string()));
+    scenario.engine_version = Some("aurora-mysql8.0".into());
+    scenario.instance_class = Some("m5.large".into());
+    scenario.username = Some("test username".into());
+    scenario.password = Some(SecretString::new("test password".into()));
 
     let create = scenario.start_cluster_and_instance().await;
     assert_matches!(create, Err(ScenarioError { message, context:_ }) if message == "Created DB Cluster missing Identifier");
@@ -655,10 +654,10 @@ async fn test_start_cluster_and_instance_instance_create_error() {
         });
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.engine_version = Some("aurora-mysql8.0".to_string());
-    scenario.instance_class = Some("m5.large".to_string());
-    scenario.username = Some("test username".to_string());
-    scenario.password = Some(SecretString::new("test password".to_string()));
+    scenario.engine_version = Some("aurora-mysql8.0".into());
+    scenario.instance_class = Some("m5.large".into());
+    scenario.username = Some("test username".into());
+    scenario.password = Some(SecretString::new("test password".into()));
 
     let create = scenario.start_cluster_and_instance().await;
     assert_matches!(create, Err(ScenarioError { message, context: _ }) if message == "Failed to create Instance in DB Cluster")
@@ -747,10 +746,10 @@ async fn test_start_cluster_and_instance_wait_hiccup() {
         });
 
     let mut scenario = AuroraScenario::new(mock_rds);
-    scenario.engine_version = Some("aurora-mysql8.0".to_string());
-    scenario.instance_class = Some("m5.large".to_string());
-    scenario.username = Some("test username".to_string());
-    scenario.password = Some(SecretString::new("test password".to_string()));
+    scenario.engine_version = Some("aurora-mysql8.0".into());
+    scenario.instance_class = Some("m5.large".into());
+    scenario.username = Some("test username".into());
+    scenario.password = Some(SecretString::new("test password".into()));
 
     tokio::time::pause();
     let assertions = tokio::spawn(async move {
@@ -938,4 +937,69 @@ async fn test_scenario_clean_up_errors() {
     tokio::time::advance(Duration::from_secs(1)).await; // Wait for second Describe Cluster
     tokio::time::resume();
     let _ = assertions.await;
+}
+
+#[tokio::test]
+async fn test_scenario_snapshot() {
+    let mut mock_rds = MockRdsImpl::default();
+
+    mock_rds
+        .expect_snapshot_cluster()
+        .with(eq("MockCluster"), eq("MockCluster_MockSnapshot"))
+        .times(1)
+        .return_once(|_, _| {
+            Ok(CreateDbClusterSnapshotOutput::builder()
+                .db_cluster_snapshot(
+                    DbClusterSnapshot::builder()
+                        .db_cluster_identifier("MockCluster")
+                        .db_cluster_snapshot_identifier("MockCluster_MockSnapshot")
+                        .build(),
+                )
+                .build())
+        });
+
+    let mut scenario = AuroraScenario::new(mock_rds);
+    scenario.db_cluster_identifier = Some("MockCluster".into());
+    let create_snapshot = scenario.snapshot("MockSnapshot").await;
+    assert!(create_snapshot.is_ok());
+}
+
+#[tokio::test]
+async fn test_scenario_snapshot_error() {
+    let mut mock_rds = MockRdsImpl::default();
+
+    mock_rds
+        .expect_snapshot_cluster()
+        .with(eq("MockCluster"), eq("MockCluster_MockSnapshot"))
+        .times(1)
+        .return_once(|_, _| {
+            Err(SdkError::service_error(
+                CreateDBClusterSnapshotError::unhandled(Box::new(Error::new(
+                    ErrorKind::Other,
+                    "create snapshot error",
+                ))),
+                HttpResponse::new(SdkBody::empty()),
+            ))
+        });
+
+    let mut scenario = AuroraScenario::new(mock_rds);
+    scenario.db_cluster_identifier = Some("MockCluster".into());
+    let create_snapshot = scenario.snapshot("MockSnapshot").await;
+    assert_matches!(create_snapshot, Err(ScenarioError { message, context: _}) if message == "Failed to create snapshot");
+}
+
+#[tokio::test]
+async fn test_scenario_snapshot_invalid() {
+    let mut mock_rds = MockRdsImpl::default();
+
+    mock_rds
+        .expect_snapshot_cluster()
+        .with(eq("MockCluster"), eq("MockCluster_MockSnapshot"))
+        .times(1)
+        .return_once(|_, _| Ok(CreateDbClusterSnapshotOutput::builder().build()));
+
+    let mut scenario = AuroraScenario::new(mock_rds);
+    scenario.db_cluster_identifier = Some("MockCluster".into());
+    let create_snapshot = scenario.snapshot("MockSnapshot").await;
+    assert_matches!(create_snapshot, Err(ScenarioError { message, context: _}) if message == "Missing Snapshot");
 }
