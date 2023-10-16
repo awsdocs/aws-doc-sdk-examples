@@ -1,0 +1,4 @@
+# In the root for editors when opening the workspace as a whole.
+[flake8]
+extend-ignore = E203,E501
+exclude = .git,__pycache__,

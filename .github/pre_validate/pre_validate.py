@@ -28,182 +28,190 @@ logger = logging.getLogger(__name__)
 
 # Only files with these extensions are scanned.
 EXT_LOOKUP = {
-    'c': 'C',
-    'cpp': 'C++',
-    'cs': 'C#',
-    'go': 'Go',
-    'html': 'JavaScript',
-    'java': 'Java',
-    'js': 'JavaScript',
-    'kt': 'Kotlin',
-    'php': 'PHP',
-    'py': 'Python',
-    'rb': 'Ruby',
-    'rs': 'Rust',
-    'swift': 'Swift',
-    'ts': 'TypeScript',
-    'sh': 'AWS-CLI',
-    'cmd': 'AWS-CLI',
-    'json': 'JSON',
-    'yml': 'YAML',
-    'yaml': 'YAML',
-    'md': 'Markdown'
+    "c": "C",
+    "cpp": "C++",
+    "cs": "C#",
+    "go": "Go",
+    "html": "JavaScript",
+    "java": "Java",
+    "js": "JavaScript",
+    "kt": "Kotlin",
+    "php": "PHP",
+    "py": "Python",
+    "rb": "Ruby",
+    "rs": "Rust",
+    "swift": "Swift",
+    "ts": "TypeScript",
+    "sh": "AWS-CLI",
+    "cmd": "AWS-CLI",
+    "json": "JSON",
+    "yml": "YAML",
+    "yaml": "YAML",
+    "md": "Markdown",
 }
 
-# If you get a lot of false-flagged 40-character errors 
-# in specific folders or files, you can omit them from 
-# these scans by adding them to the following lists. 
-# However, because this script is mostly run as a GitHub 
-# action in a clean environment (aside from testing), 
+# If you get a lot of false-flagged 40-character errors
+# in specific folders or files, you can omit them from
+# these scans by adding them to the following lists.
+# However, because this script is mostly run as a GitHub
+# action in a clean environment (aside from testing),
 # exhaustive ignore lists shouldn't be necessary.
 
 # Folders to skip.
 IGNORE_FOLDERS = {
-    '.pytest_cache',
-    '__pycache__',
-    'cdk.out',
-    'node_modules',
-    'dist',
-    'target',
-    'venv',
-    '.venv', 
-    'bin',
-    'obj',
-    '.doc_gen',
+    ".pytest_cache",
+    "__pycache__",
+    "cdk.out",
+    "node_modules",
+    "dist",
+    "target",
+    "venv",
+    ".venv",
+    "bin",
+    "obj",
+    ".doc_gen",
 }
 
 # Files to skip.
-IGNORE_FILES = {'AssemblyInfo.cs', '.travis.yml', 'moviedata.json', '.moviedata.json', 'movies.json', 'package-lock.json'}
+IGNORE_FILES = {
+    "AssemblyInfo.cs",
+    ".travis.yml",
+    "moviedata.json",
+    ".moviedata.json",
+    "movies.json",
+    "package-lock.json",
+}
 
 # Sample files.
 EXPECTED_SAMPLE_FILES = {
-    'README.md',
-    'movies.json',
-    'speech_sample.mp3',
-    'chat_sfn_state_machine.json',
-    'market_2.jpg',
-    'spheres_2.jpg',
-    'sample_cert.pem',
-    'sample_private_key.pem',
-    'sample_saml_metadata.xml',
+    "README.md",
+    "movies.json",
+    "speech_sample.mp3",
+    "chat_sfn_state_machine.json",
+    "market_2.jpg",
+    "spheres_2.jpg",
+    "sample_cert.pem",
+    "sample_private_key.pem",
+    "sample_saml_metadata.xml",
 }
 
 # Media file types.
-MEDIA_FILE_TYPES = {'mp3', 'wav'}
+MEDIA_FILE_TYPES = {"mp3", "wav"}
 
 # List of words that should never be in code examples.
-DENY_LIST = {'alpha-docs-aws.amazon.com', 'integ-docs-aws.amazon.com'} .union(WORDS)
+DENY_LIST = {"alpha-docs-aws.amazon.com", "integ-docs-aws.amazon.com"}.union(WORDS)
 
 # Allowlist of 20- or 40-character strings to allow.
 ALLOW_LIST = {
-    'AGPAIFFQAVRFFEXAMPLE',
-    'AKIA111111111EXAMPLE',
-    'AKIA6OHTTRXXTEXAMPLE',
-    'AKIAEXAMPLEACCESSKEY',
-    'AKIAIOSFODNN7EXAMPLE',
-    'APKAEIBAERJR2EXAMPLE',
-    'AppStreamUsageReportsCFNGlueAthenaAccess',
-    'examples/blob/main/applications/feedback',
-    'aws/acm/model/DescribeCertificateRequest',
-    'aws/cloudtrail/model/LookupEventsRequest',
-    'aws/codebuild/model/BatchGetBuildsResult',
-    'aws/codecommit/model/DeleteBranchRequest',
-    'aws/codecommit/model/ListBranchesRequest',
-    'aws/dynamodb/model/ProvisionedThroughput',
-    'aws/ec2/model/CreateSecurityGroupRequest',
-    'aws/ec2/model/DeleteSecurityGroupRequest',
-    'aws/ec2/model/UnmonitorInstancesResponse',
-    'aws/email/model/CreateReceiptRuleRequest',
-    'aws/email/model/DeleteReceiptRuleRequest',
-    'aws/email/model/ListReceiptFiltersResult',
-    'aws/email/model/SendTemplatedEmailResult',
-    'aws/guardduty/model/ListDetectorsRequest',
-    'aws/iam/model/GetAccessKeyLastUsedResult',
-    'aws/iam/model/GetServerCertificateResult',
-    'aws/kinesis/model/GetShardIteratorResult',
-    'aws/kinesis/model/PutRecordsRequestEntry',
-    'aws/monitoring/model/DeleteAlarmsRequest',
-    'aws/neptune/model/CreateDBClusterRequest',
-    'aws/neptune/model/DeleteDBClusterRequest',
-    'aws/neptune/model/ModifyDBClusterRequest',
-    'aws/kms/model/ScheduleKeyDeletionRequest',
-    'KMSWithContextEncryptionMaterialsExample',
-    'CertificateTransparencyLoggingPreference',
-    'ChangeMessageVisibilityBatchRequestEntry',
-    'com/greengrass/latest/developerguide/lra',
-    'com/greengrass/latest/developerguide/sns',
-    'com/samples/JobStatusNotificationsSample',
-    'generate_presigned_url_and_upload_object',
-    'KinesisStreamSourceConfiguration=kinesis',
-    'ListOrganizationalUnitsForParentResponse',
-    'nFindProductsWithNegativePriceWithConfig',
-    's3_client_side_encryption_sym_master_key',
-    'serial/CORE_THING_NAME/write/dev/serial1',
-    'TargetTrackingScalingPolicyConfiguration',
-    'targetTrackingScalingPolicyConfiguration',
-    'upload_files_using_managed_file_uploader',
-    'videoMetaData=celebrityRecognitionResult',
-    'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
-    'com/v1/documentation/api/latest/guide/s3',
-    'iam/commands/GetServerCertificateCommand',
-    'iam/commands/GetAccessKeyLastUsedCommand',
-    'iam/commands/GetAccessKeyLastUsedCommand',
-    'iam/commands/GetServerCertificateCommand',
-    'cloudwatch/commands/PutMetricDataCommand',
-    'ses/commands/VerifyDomainIdentityCommand',
-    'ses/commands/DeleteReceiptRuleSetCommand',
-    'ses/commands/DeleteReceiptRuleSetCommand',
-    'ses/commands/CreateReceiptRuleSetCommand',
-    'ses/commands/VerifyDomainIdentityCommand',
-    'ses/commands/VerifyDomainIdentityCommand',
-    'com/amazondynamodb/latest/developerguide',
-    'DynamodbRubyExampleCreateUsersTableStack',
-    'com/rekognition/latest/dg/considerations',
-    'ListTagsForVaultExample/ListTagsForVault',
-    'TerminateInstanceInAutoScalingGroupAsync',
-    'GetIdentityVerificationAttributesRequest',
-    'com/transcribe/latest/APIReference/index',
-    'CancelExportTaskExample/CancelExportTask',
-    'CreateExportTaskExample/CreateExportTask',
-    'ListTagsExample/ListTagsExample/ListTags',
-    'SynthesizeSpeechExample/SynthesizeSpeech',
-    'com/autoscaling/ec2/APIReference/Welcome',
-    'CreateCollectionExample/CreateCollection',
-    'DeleteCollectionExample/DeleteCollection',
-    'com/awssupport/latest/APIReference/index',
-    'DescribeDbClusterParameterGroupsResponse',
-    'DeleteCollectionExample/DeleteCollection',
-    'aws/rds/model/DescribeDBInstancesRequest',
-    'com/apigateway/latest/developerguide/set',
-    'com/pinpoint/latest/apireference/welcome',
-    'src/main/java/com/example/s3/S3BucketOps',
-    'src/main/java/com/example/s3/ListObjects',
-    'amazondynamodb/latest/developerguide/DAX',
-    'apigateway/latest/developerguide/welcome',
-    'devicefarm/latest/developerguide/welcome',
-    'AWSEC2/latest/APIReference/OperationList',
-    'src/main/java/com/example/dynamodb/Query',
-    'com/firehose/latest/APIReference/Welcome',
-    'src/main/java/com/example/iam/CreateRole',
-    'src/main/java/com/example/iam/CreateUser',
-    'src/main/java/com/example/iam/DeleteUser',
-    'src/main/java/com/example/iam/UpdateUser',
-    'src/main/java/com/example/kms/ListGrants',
-    'com/redshift/latest/APIReference/Welcome',
-    'src/main/java/com/example/sns/ListOptOut',
-    'src/main/java/com/example/sns/ListTopics',
-    'src/main/java/com/example/sqs/SQSExample',
-    'DescribeOrderableDBInstanceOptionsOutput',
-    'preview/examples/cognitoidentityprovider',
-    'preview/examples/lambda/src/bin/scenario',
-    'aws/dynamodb/model/BatchWriteItemRequest',
-    'aws/rds/model/DescribeDBInstancesRequest',
-    'aws/rds/model/DescribeDBSnapshotsRequest',
-    'role/AmazonSageMakerGeospatialFullAccess',
-    'VectorEnrichmentJobDataSourceConfigInput',
-    'com/workdocs/latest/APIReference/Welcome',
-    'service/FeedbackSentimentAnalyzer/README'
+    "AGPAIFFQAVRFFEXAMPLE",
+    "AKIA111111111EXAMPLE",
+    "AKIA6OHTTRXXTEXAMPLE",
+    "AKIAEXAMPLEACCESSKEY",
+    "AKIAIOSFODNN7EXAMPLE",
+    "APKAEIBAERJR2EXAMPLE",
+    "AppStreamUsageReportsCFNGlueAthenaAccess",
+    "examples/blob/main/applications/feedback",
+    "aws/acm/model/DescribeCertificateRequest",
+    "aws/cloudtrail/model/LookupEventsRequest",
+    "aws/codebuild/model/BatchGetBuildsResult",
+    "aws/codecommit/model/DeleteBranchRequest",
+    "aws/codecommit/model/ListBranchesRequest",
+    "aws/dynamodb/model/ProvisionedThroughput",
+    "aws/ec2/model/CreateSecurityGroupRequest",
+    "aws/ec2/model/DeleteSecurityGroupRequest",
+    "aws/ec2/model/UnmonitorInstancesResponse",
+    "aws/email/model/CreateReceiptRuleRequest",
+    "aws/email/model/DeleteReceiptRuleRequest",
+    "aws/email/model/ListReceiptFiltersResult",
+    "aws/email/model/SendTemplatedEmailResult",
+    "aws/guardduty/model/ListDetectorsRequest",
+    "aws/iam/model/GetAccessKeyLastUsedResult",
+    "aws/iam/model/GetServerCertificateResult",
+    "aws/kinesis/model/GetShardIteratorResult",
+    "aws/kinesis/model/PutRecordsRequestEntry",
+    "aws/monitoring/model/DeleteAlarmsRequest",
+    "aws/neptune/model/CreateDBClusterRequest",
+    "aws/neptune/model/DeleteDBClusterRequest",
+    "aws/neptune/model/ModifyDBClusterRequest",
+    "aws/kms/model/ScheduleKeyDeletionRequest",
+    "KMSWithContextEncryptionMaterialsExample",
+    "CertificateTransparencyLoggingPreference",
+    "ChangeMessageVisibilityBatchRequestEntry",
+    "com/greengrass/latest/developerguide/lra",
+    "com/greengrass/latest/developerguide/sns",
+    "com/samples/JobStatusNotificationsSample",
+    "generate_presigned_url_and_upload_object",
+    "KinesisStreamSourceConfiguration=kinesis",
+    "ListOrganizationalUnitsForParentResponse",
+    "nFindProductsWithNegativePriceWithConfig",
+    "s3_client_side_encryption_sym_master_key",
+    "serial/CORE_THING_NAME/write/dev/serial1",
+    "TargetTrackingScalingPolicyConfiguration",
+    "targetTrackingScalingPolicyConfiguration",
+    "upload_files_using_managed_file_uploader",
+    "videoMetaData=celebrityRecognitionResult",
+    "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY",
+    "com/v1/documentation/api/latest/guide/s3",
+    "iam/commands/GetServerCertificateCommand",
+    "iam/commands/GetAccessKeyLastUsedCommand",
+    "iam/commands/GetAccessKeyLastUsedCommand",
+    "iam/commands/GetServerCertificateCommand",
+    "cloudwatch/commands/PutMetricDataCommand",
+    "ses/commands/VerifyDomainIdentityCommand",
+    "ses/commands/DeleteReceiptRuleSetCommand",
+    "ses/commands/DeleteReceiptRuleSetCommand",
+    "ses/commands/CreateReceiptRuleSetCommand",
+    "ses/commands/VerifyDomainIdentityCommand",
+    "ses/commands/VerifyDomainIdentityCommand",
+    "com/amazondynamodb/latest/developerguide",
+    "DynamodbRubyExampleCreateUsersTableStack",
+    "com/rekognition/latest/dg/considerations",
+    "ListTagsForVaultExample/ListTagsForVault",
+    "TerminateInstanceInAutoScalingGroupAsync",
+    "GetIdentityVerificationAttributesRequest",
+    "com/transcribe/latest/APIReference/index",
+    "CancelExportTaskExample/CancelExportTask",
+    "CreateExportTaskExample/CreateExportTask",
+    "ListTagsExample/ListTagsExample/ListTags",
+    "SynthesizeSpeechExample/SynthesizeSpeech",
+    "com/autoscaling/ec2/APIReference/Welcome",
+    "CreateCollectionExample/CreateCollection",
+    "DeleteCollectionExample/DeleteCollection",
+    "com/awssupport/latest/APIReference/index",
+    "DescribeDbClusterParameterGroupsResponse",
+    "DeleteCollectionExample/DeleteCollection",
+    "aws/rds/model/DescribeDBInstancesRequest",
+    "com/apigateway/latest/developerguide/set",
+    "com/pinpoint/latest/apireference/welcome",
+    "src/main/java/com/example/s3/S3BucketOps",
+    "src/main/java/com/example/s3/ListObjects",
+    "amazondynamodb/latest/developerguide/DAX",
+    "apigateway/latest/developerguide/welcome",
+    "devicefarm/latest/developerguide/welcome",
+    "AWSEC2/latest/APIReference/OperationList",
+    "src/main/java/com/example/dynamodb/Query",
+    "com/firehose/latest/APIReference/Welcome",
+    "src/main/java/com/example/iam/CreateRole",
+    "src/main/java/com/example/iam/CreateUser",
+    "src/main/java/com/example/iam/DeleteUser",
+    "src/main/java/com/example/iam/UpdateUser",
+    "src/main/java/com/example/kms/ListGrants",
+    "com/redshift/latest/APIReference/Welcome",
+    "src/main/java/com/example/sns/ListOptOut",
+    "src/main/java/com/example/sns/ListTopics",
+    "src/main/java/com/example/sqs/SQSExample",
+    "DescribeOrderableDBInstanceOptionsOutput",
+    "preview/examples/cognitoidentityprovider",
+    "preview/examples/lambda/src/bin/scenario",
+    "aws/dynamodb/model/BatchWriteItemRequest",
+    "aws/rds/model/DescribeDBInstancesRequest",
+    "aws/rds/model/DescribeDBSnapshotsRequest",
+    "role/AmazonSageMakerGeospatialFullAccess",
+    "VectorEnrichmentJobDataSourceConfigInput",
+    "com/workdocs/latest/APIReference/Welcome",
+    "service/FeedbackSentimentAnalyzer/README",
 }
+
 
 def check_files(root, quiet):
     """
@@ -219,17 +227,17 @@ def check_files(root, quiet):
     for path, dirs, files in os.walk(root, topdown=True):
         dirs[:] = [d for d in dirs if d not in IGNORE_FOLDERS]
         for filename in files:
-            ext = os.path.splitext(filename)[1].lstrip('.')
+            ext = os.path.splitext(filename)[1].lstrip(".")
             if ext.lower() in EXT_LOOKUP:
                 file_path = os.path.join(path, filename)
                 if filename in IGNORE_FILES:
                     if not quiet:
-                        print("\nFile: " + file_path + ' is skipped')
+                        print("\nFile: " + file_path + " is skipped")
                     continue
                 file_count += 1
                 if not quiet:
                     print("\nChecking File: " + file_path)
-                with open(file_path, encoding='utf-8') as f:
+                with open(file_path, encoding="utf-8") as f:
                     file_contents = f.read()
 
                 error_count += verify_no_deny_list_words(file_contents, file_path)
@@ -250,6 +258,7 @@ def verify_no_deny_list_words(file_contents, file_location):
             error_count += 1
     return error_count
 
+
 def verify_sample_files(root_path):
     """Verify sample files meet the requirements and have not moved."""
     sample_files_folder = os.path.join(root_path, "resources/sample_files")
@@ -262,45 +271,74 @@ def verify_sample_files(root_path):
         for file_name in files:
             file_list.append(file_name)
             file_path = os.path.join(path, file_name)
-            ext = os.path.splitext(file_name)[1].lstrip('.')
+            ext = os.path.splitext(file_name)[1].lstrip(".")
             if file_name not in EXPECTED_SAMPLE_FILES:
-                logger.error(f"File '%s' in %s was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in pre_validate.py.", file_name, sample_files_folder)
+                logger.error(
+                    f"File '%s' in %s was not found in the list of expected sample files. If this is a new sample file, add it to the EXPECTED_SAMPLE_FILES list in pre_validate.py.",
+                    file_name,
+                    sample_files_folder,
+                )
                 error_count += 1
             if ext.lower() in MEDIA_FILE_TYPES:
                 if media_folder not in file_path:
-                    logger.error(f"File '%s' in %s must be in the %s directory.", file_name, sample_files_folder, media_folder)
+                    logger.error(
+                        f"File '%s' in %s must be in the %s directory.",
+                        file_name,
+                        sample_files_folder,
+                        media_folder,
+                    )
                     error_count += 1
-            if (os.path.getsize(file_path)/ONE_MB_AS_BYTES) > MAX_FILE_SIZE_MB:
-                logger.error(f"File '%s' in %s is larger than the allowed size for a sample file.", file_name, sample_files_folder)
+            if (os.path.getsize(file_path) / ONE_MB_AS_BYTES) > MAX_FILE_SIZE_MB:
+                logger.error(
+                    f"File '%s' in %s is larger than the allowed size for a sample file.",
+                    file_name,
+                    sample_files_folder,
+                )
                 error_count += 1
 
     for sample_file in EXPECTED_SAMPLE_FILES:
         if sample_file not in file_list:
-            logger.error(f"Expected sample file '%s' was not found in '%s'. If this file was intentionally removed, remove it from the EXPECTED_SAMPLE_FILES list in pre_validate.py.", sample_file, sample_files_folder)
+            logger.error(
+                f"Expected sample file '%s' was not found in '%s'. If this file was intentionally removed, remove it from the EXPECTED_SAMPLE_FILES list in pre_validate.py.",
+                sample_file,
+                sample_files_folder,
+            )
             error_count += 1
     return error_count
+
 
 def verify_no_secret_keys(file_contents, file_location):
     """Verify the file does not contain 20- or 40- length character strings,
     which might be secret keys. Allow strings in the allowlist in
-    https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py."""
+    https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py.
+    """
     error_count = 0
-    twenties = re.findall("[^A-Z0-9][A][ACGIKNPRS][A-Z]{2}[A-Z0-9]{16}[^A-Z0-9]",
-                          file_contents)
+    twenties = re.findall(
+        "[^A-Z0-9][A][ACGIKNPRS][A-Z]{2}[A-Z0-9]{16}[^A-Z0-9]", file_contents
+    )
     for word in twenties:
         if word[1:-1] in ALLOW_LIST:
             continue
-        logger.error("20 character string '%s' found in %s and might be a secret "
-                     "access key. If not, add it to the allow list in https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py.", {word[1:-1]}, file_location)
+        logger.error(
+            "20 character string '%s' found in %s and might be a secret "
+            "access key. If not, add it to the allow list in https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py.",
+            {word[1:-1]},
+            file_location,
+        )
         error_count += 1
 
-    forties = re.findall("[^a-zA-Z0-9/+=][a-zA-Z0-9/+=]{40}[^a-zA-Z0-9/+=]",
-                         file_contents)
+    forties = re.findall(
+        "[^a-zA-Z0-9/+=][a-zA-Z0-9/+=]{40}[^a-zA-Z0-9/+=]", file_contents
+    )
     for word in forties:
         if word[1:-1] in ALLOW_LIST:
             continue
-        logger.error("40 character string '%s' found in %s and might be a secret "
-                     "access key. If not, add it to the allow list in https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py", {word[1:-1]}, file_location)
+        logger.error(
+            "40 character string '%s' found in %s and might be a secret "
+            "access key. If not, add it to the allow list in https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/.github/pre_validate/pre_validate.py",
+            {word[1:-1]},
+            file_location,
+        )
         error_count += 1
 
     return error_count
@@ -310,29 +348,34 @@ def verify_snippet_start_end(file_contents, file_location):
     """Scan the file contents for snippet-start and snippet-end tags and verify
     that they are in matched pairs. Log errors and return the count of errors."""
     error_count = 0
-    snippet_start = 'snippet' + '-start:['
-    snippet_end = 'snippet' + '-end:['
+    snippet_start = "snippet" + "-start:["
+    snippet_end = "snippet" + "-end:["
     snippet_tags = set()
     for word in file_contents.split():
         if snippet_start in word:
-            tag = word.split('[')[1]
+            tag = word.split("[")[1]
             if tag in snippet_tags:
                 logger.error(f"Duplicate tag {tag[:-1]} found in {file_location}.")
                 error_count += 1
             else:
                 snippet_tags.add(tag)
         elif snippet_end in word:
-            tag = word.split('[')[1]
+            tag = word.split("[")[1]
             if tag in snippet_tags:
                 snippet_tags.remove(tag)
             else:
-                logger.error(f"End tag {tag[:-1]} with no matching start tag "
-                             f"found in {file_location}.")
+                logger.error(
+                    f"End tag {tag[:-1]} with no matching start tag "
+                    f"found in {file_location}."
+                )
                 error_count += 1
 
     for tag in snippet_tags:
-        logger.error("Start tag %s with no matching end tag found in %s.",
-                     tag[:-1], file_location)
+        logger.error(
+            "Start tag %s with no matching end tag found in %s.",
+            tag[:-1],
+            file_location,
+        )
         error_count += 1
 
     return error_count
@@ -340,17 +383,22 @@ def verify_snippet_start_end(file_contents, file_location):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--quiet', action='store_true',
-                        help="Suppresses output of filenames while parsing. "
-                             "The default is False.")
-    parser.add_argument('--root', help="The root path from which to search for files "
-                                       "to check. The default is the current working "
-                                       "folder.")
+    parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Suppresses output of filenames while parsing. " "The default is False.",
+    )
+    parser.add_argument(
+        "--root",
+        help="The root path from which to search for files "
+        "to check. The default is the current working "
+        "folder.",
+    )
     args = parser.parse_args()
 
-    root_path = os.path.abspath('.') if not args.root else os.path.abspath(args.root)
+    root_path = os.path.abspath(".") if not args.root else os.path.abspath(args.root)
 
-    print('----------\n\nRun Tests\n')
+    print("----------\n\nRun Tests\n")
     error_count = check_files(root_path, args.quiet)
     error_count += verify_sample_files(root_path)
     if error_count > 0:
@@ -361,5 +409,5 @@ def main():
     sys.exit(error_count)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
