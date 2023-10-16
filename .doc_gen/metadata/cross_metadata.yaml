@@ -45,7 +45,7 @@ cross_PAM:
     .NET:
       versions:
         - sdk_version: 3
-          github: dotnetv3\cross-service\PhotoAssetManager
+          github: dotnetv3/cross-service/PhotoAssetManager
           block_content: cross_PAM_dotnet_block.xml
     JavaScript:
       versions:
