@@ -72,6 +72,7 @@ const SNSClientMock = {
 
 const LoggerMock = {
   log: vi.fn(),
+  logSeparator: vi.fn(),
 };
 
 describe("TopicsQueuesWkflw", () => {
@@ -111,7 +112,6 @@ describe("TopicsQueuesWkflw", () => {
         new SQSClient({}),
         {
           confirm: () => Promise.resolve(true),
-          logSeparator: vi.fn(),
         },
         LoggerMock,
       );
@@ -151,7 +151,6 @@ describe("TopicsQueuesWkflw", () => {
         {
           confirm: () => Promise.resolve(true),
           input: () => Promise.resolve("user-input"),
-          logSeparator: vi.fn(),
         },
         LoggerMock,
       );
@@ -197,7 +196,6 @@ describe("TopicsQueuesWkflw", () => {
     it("should attach a policy to each of the SQS queues", async () => {
       const PrompterMock = {
         confirm: vi.fn(() => Promise.resolve(true)),
-        logSeparator: vi.fn(() => {}),
       };
 
       const topicsQueuesWkflw = new TopicsQueuesWkflw(

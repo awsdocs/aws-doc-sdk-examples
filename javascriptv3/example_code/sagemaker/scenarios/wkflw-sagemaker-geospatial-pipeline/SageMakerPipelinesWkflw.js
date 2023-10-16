@@ -43,7 +43,7 @@ export class SageMakerPipelinesWkflw {
 
   /**
    * @param {import("libs/prompter.js").Prompter} prompter
-   * @param {import("libs/slow-logger.js").Logger} logger
+   * @param {import("libs/logger.js").Logger} logger
    * @param {{ IAM: import("@aws-sdk/client-iam").IAMClient, Lambda: import("@aws-sdk/client-lambda").LambdaClient, SageMaker: import("@aws-sdk/client-sagemaker").SageMakerClient, S3: import("@aws-sdk/client-s3").S3Client, SQS: import("@aws-sdk/client-sqs").SQSClient }} clients
    */
   constructor(prompter, logger, clients) {
@@ -61,7 +61,7 @@ export class SageMakerPipelinesWkflw {
     } finally {
       // Run all of the clean up functions. If any fail, we log the error and continue.
       // This ensures all clean up functions are run.
-      this.prompter.logSeparator();
+      this.logger.logSeparator();
       const doCleanUp = await this.prompter.confirm({
         message: "Clean up resources?",
       });
@@ -77,10 +77,10 @@ export class SageMakerPipelinesWkflw {
   }
 
   async startWorkflow() {
-    this.prompter.logSeparator(MESSAGES.greetingHeader);
+    this.logger.logSeparator(MESSAGES.greetingHeader);
     await this.logger.log(MESSAGES.greeting);
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
     await this.logger.log(
       MESSAGES.creatingRole.replace(
         "${ROLE_NAME}",
@@ -105,7 +105,7 @@ export class SageMakerPipelinesWkflw {
       ),
     );
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
 
     await this.logger.log(
       MESSAGES.creatingRole.replace(
@@ -132,7 +132,7 @@ export class SageMakerPipelinesWkflw {
       ),
     );
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
 
     // Create an IAM policy that allows the AWS Lambda function to invoke SageMaker APIs.
     const {
@@ -167,7 +167,7 @@ export class SageMakerPipelinesWkflw {
 
     await this.logger.log(MESSAGES.policyAttached);
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
 
     // Create Lambda layer for SageMaker packages.
     const { versionArn: layerVersionArn, cleanUp: lambdaLayerCleanUp } =
@@ -201,7 +201,7 @@ export class SageMakerPipelinesWkflw {
       ),
     );
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
 
     await this.logger.log(
       MESSAGES.creatingSQSQueue.replace("${QUEUE_NAME}", this.names.SQS_QUEUE),
@@ -222,7 +222,7 @@ export class SageMakerPipelinesWkflw {
       MESSAGES.sqsQueueCreated.replace("${QUEUE_NAME}", this.names.SQS_QUEUE),
     );
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
 
     await this.logger.log(
       MESSAGES.configuringLambdaSQSEventSource
@@ -247,7 +247,7 @@ export class SageMakerPipelinesWkflw {
         .replace("${QUEUE_NAME}", this.names.SQS_QUEUE),
     );
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
 
     // Create an IAM policy that allows the SageMaker pipeline to invoke AWS Lambda
     // and send messages to the Amazon SQS queue.
@@ -287,7 +287,7 @@ export class SageMakerPipelinesWkflw {
 
     await this.logger.log(MESSAGES.policyAttached);
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
 
     await this.logger.log(
       MESSAGES.creatingPipeline.replace(
@@ -312,7 +312,7 @@ export class SageMakerPipelinesWkflw {
       ),
     );
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
 
     await this.logger.log(
       MESSAGES.creatingS3Bucket.replace("${BUCKET_NAME}", this.names.S3_BUCKET),
@@ -329,7 +329,7 @@ export class SageMakerPipelinesWkflw {
       MESSAGES.s3BucketCreated.replace("${BUCKET_NAME}", this.names.S3_BUCKET),
     );
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
 
     await this.logger.log(
       MESSAGES.uploadingInputData.replace(
@@ -346,7 +346,7 @@ export class SageMakerPipelinesWkflw {
 
     await this.logger.log(MESSAGES.inputDataUploaded);
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
 
     await this.prompter.checkContinue(MESSAGES.executePipeline);
 
@@ -365,7 +365,7 @@ export class SageMakerPipelinesWkflw {
       sagemakerClient: this.clients.SageMaker,
     });
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
 
     await this.logger.log(MESSAGES.outputDelay);
 
@@ -379,7 +379,7 @@ export class SageMakerPipelinesWkflw {
       }),
     );
 
-    this.prompter.logSeparator();
+    this.logger.logSeparator();
     await this.logger.log(MESSAGES.outputDataRetrieved);
     console.log(output.split("\n").slice(0, 6).join("\n"));
   }

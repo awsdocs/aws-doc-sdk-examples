@@ -52,7 +52,7 @@ export class TopicsQueuesWkflw {
    * @param {import('@aws-sdk/client-sns').SNSClient} snsClient
    * @param {import('@aws-sdk/client-sqs').SQSClient} sqsClient
    * @param {import('../../libs/prompter.js').Prompter} prompter
-   * @param {import('../../libs/slow-logger.js').Logger} logger
+   * @param {import('../../libs/logger.js').Logger} logger
    */
   constructor(snsClient, sqsClient, prompter, logger) {
     this.snsClient = snsClient;
@@ -72,7 +72,7 @@ export class TopicsQueuesWkflw {
     });
 
     if (this.isFifo) {
-      this.prompter.logSeparator(MESSAGES.headerDedup);
+      this.logger.logSeparator(MESSAGES.headerDedup);
       await this.logger.log(MESSAGES.deduplicationNotice);
       await this.logger.log(MESSAGES.deduplicationDescription);
       this.autoDedup = await this.prompter.confirm({
@@ -88,7 +88,7 @@ export class TopicsQueuesWkflw {
     });
     if (this.isFifo) {
       this.topicName += ".fifo";
-      this.prompter.logSeparator(MESSAGES.headerFifoNaming);
+      this.logger.logSeparator(MESSAGES.headerFifoNaming);
       await this.logger.log(MESSAGES.appendFifoNotice);
     }
 
@@ -184,7 +184,7 @@ export class TopicsQueuesWkflw {
       );
 
       if (index !== 0) {
-        this.prompter.logSeparator();
+        this.logger.logSeparator();
       }
 
       await this.logger.log(MESSAGES.attachPolicyNotice);
@@ -399,21 +399,21 @@ export class TopicsQueuesWkflw {
     console.clear();
 
     try {
-      this.prompter.logSeparator(MESSAGES.headerWelcome);
+      this.logger.logSeparator(MESSAGES.headerWelcome);
       await this.welcome();
-      this.prompter.logSeparator(MESSAGES.headerFifo);
+      this.logger.logSeparator(MESSAGES.headerFifo);
       await this.confirmFifo();
-      this.prompter.logSeparator(MESSAGES.headerCreateTopic);
+      this.logger.logSeparator(MESSAGES.headerCreateTopic);
       await this.createTopic();
-      this.prompter.logSeparator(MESSAGES.headerCreateQueues);
+      this.logger.logSeparator(MESSAGES.headerCreateQueues);
       await this.createQueues();
-      this.prompter.logSeparator(MESSAGES.headerAttachPolicy);
+      this.logger.logSeparator(MESSAGES.headerAttachPolicy);
       await this.attachQueueIamPolicies();
-      this.prompter.logSeparator(MESSAGES.headerSubscribeQueues);
+      this.logger.logSeparator(MESSAGES.headerSubscribeQueues);
       await this.subscribeQueuesToTopic();
-      this.prompter.logSeparator(MESSAGES.headerPublishMessage);
+      this.logger.logSeparator(MESSAGES.headerPublishMessage);
       await this.publishMessages();
-      this.prompter.logSeparator(MESSAGES.headerReceiveMessages);
+      this.logger.logSeparator(MESSAGES.headerReceiveMessages);
       await this.receiveAndDeleteMessages();
     } catch (err) {
       console.error(err);
