@@ -1,0 +1,541 @@
+cross_service/apigateway_covid-19_tracker/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+cross_service/apigateway_covid-19_tracker/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+cross_service/apigateway_covid-19_tracker/test/conftest.py:12:1: E402 module level import not at top of file
+cross_service/apigateway_covid-19_tracker/test/test_app.py:11:1: F401 'chalicelib' imported but unused
+cross_service/apigateway_websocket_chat/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+cross_service/apigateway_websocket_chat/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+cross_service/apigateway_websocket_chat/test/conftest.py:12:1: E402 module level import not at top of file
+cross_service/aurora_item_tracker/app.py:60:9: W503 line break before binary operator
+cross_service/aurora_item_tracker/app.py:61:9: W503 line break before binary operator
+cross_service/aurora_item_tracker/app.py:62:9: W503 line break before binary operator
+cross_service/aurora_item_tracker/app.py:63:9: W503 line break before binary operator
+cross_service/aurora_item_tracker/app.py:64:9: W503 line break before binary operator
+cross_service/aurora_item_tracker/app.py:65:9: W503 line break before binary operator
+cross_service/aurora_item_tracker/app.py:66:9: W503 line break before binary operator
+cross_service/aurora_item_tracker/report.py:109:25: F541 f-string is missing placeholders
+cross_service/aurora_item_tracker/report.py:137:45: F541 f-string is missing placeholders
+cross_service/aurora_item_tracker/storage.py:68:17: W503 line break before binary operator
+cross_service/aurora_item_tracker/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+cross_service/aurora_item_tracker/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+cross_service/aurora_item_tracker/test/conftest.py:12:1: E402 module level import not at top of file
+cross_service/aurora_item_tracker/test/test_app.py:85:21: F541 f-string is missing placeholders
+cross_service/aurora_item_tracker/test/test_app.py:286:15: F541 f-string is missing placeholders
+cross_service/aurora_item_tracker/test/test_app.py:296:15: F541 f-string is missing placeholders
+cross_service/aurora_item_tracker/test/test_app.py:313:15: F541 f-string is missing placeholders
+cross_service/aurora_rest_lending_library/library_api/chalicelib/library_data.py:202:17: W503 line break before binary operator
+cross_service/aurora_rest_lending_library/library_api/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+cross_service/aurora_rest_lending_library/library_api/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+cross_service/aurora_rest_lending_library/library_api/test/conftest.py:12:1: E402 module level import not at top of file
+cross_service/aurora_rest_lending_library/library_api/test/test_library_api_app.py:12:1: F401 'chalice.app.RequestTimeoutError' imported but unused
+cross_service/aurora_rest_lending_library/library_demo.py:127:9: W503 line break before binary operator
+cross_service/aurora_rest_lending_library/library_demo.py:128:9: W503 line break before binary operator
+cross_service/aurora_rest_lending_library/rds_tools/aurora_tools.py:18:1: E402 module level import not at top of file
+cross_service/aurora_rest_lending_library/rds_tools/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+cross_service/aurora_rest_lending_library/rds_tools/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+cross_service/aurora_rest_lending_library/rds_tools/test/conftest.py:12:1: E402 module level import not at top of file
+cross_service/dynamodb_item_tracker/app.py:28:1: F401 'storage.StorageError' imported but unused
+cross_service/dynamodb_item_tracker/report.py:116:45: F541 f-string is missing placeholders
+cross_service/dynamodb_item_tracker/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+cross_service/dynamodb_item_tracker/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+cross_service/dynamodb_item_tracker/test/conftest.py:12:1: E402 module level import not at top of file
+cross_service/dynamodb_item_tracker/test/test_app.py:8:1: F401 'json' imported but unused
+cross_service/dynamodb_item_tracker/test/test_app.py:260:13: F541 f-string is missing placeholders
+cross_service/dynamodb_item_tracker/test/test_app.py:267:15: F541 f-string is missing placeholders
+cross_service/dynamodb_item_tracker/test/test_app.py:289:15: F541 f-string is missing placeholders
+cross_service/dynamodb_item_tracker/test/test_app.py:309:13: F541 f-string is missing placeholders
+cross_service/dynamodb_item_tracker/test/test_app.py:316:15: F541 f-string is missing placeholders
+cross_service/photo_analyzer/api/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+cross_service/photo_analyzer/api/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+cross_service/photo_analyzer/api/test/conftest.py:12:1: E402 module level import not at top of file
+cross_service/photo_analyzer/api/test/test_photo.py:8:1: F401 'unittest.mock.MagicMock' imported but unused
+cross_service/photo_analyzer/api/test/test_photo.py:10:1: F401 'pytest' imported but unused
+cross_service/photo_analyzer/api/test/test_report.py:12:1: F401 'report.render_template' imported but unused
+cross_service/resilient_service/auto_scaler.py:344:17: W503 line break before binary operator
+cross_service/resilient_service/auto_scaler.py:374:17: W503 line break before binary operator
+cross_service/resilient_service/auto_scaler.py:503:9: F841 local variable 'err' is assigned to but never used
+cross_service/resilient_service/auto_scaler.py:544:21: W503 line break before binary operator
+cross_service/resilient_service/runner.py:27:1: E402 module level import not at top of file
+cross_service/resilient_service/runner.py:84:13: F541 f-string is missing placeholders
+cross_service/resilient_service/runner.py:92:13: F541 f-string is missing placeholders
+cross_service/resilient_service/runner.py:118:15: F541 f-string is missing placeholders
+cross_service/resilient_service/runner.py:193:21: F541 f-string is missing placeholders
+cross_service/resilient_service/runner.py:231:13: F541 f-string is missing placeholders
+cross_service/resilient_service/runner.py:236:13: F541 f-string is missing placeholders
+cross_service/resilient_service/test/conftest.py:21:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+cross_service/resilient_service/test/conftest.py:21:1: F401 'test_tools.fixtures.common.*' imported but unused
+cross_service/resilient_service/test/conftest.py:21:1: E402 module level import not at top of file
+cross_service/resilient_service/test/test_demo.py:7:1: F401 'botocore.exceptions.ClientError' imported but unused
+cross_service/resilient_service/test/test_deploy.py:7:1: F401 'botocore.exceptions.ClientError' imported but unused
+cross_service/resilient_service/test/test_deploy.py:205:9: W503 line break before binary operator
+cross_service/resilient_service/test/test_deploy.py:206:9: W503 line break before binary operator
+cross_service/resilient_service/test/test_destroy.py:4:1: F401 'botocore.exceptions.ClientError' imported but unused
+cross_service/stepfunctions_messenger/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+cross_service/stepfunctions_messenger/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+cross_service/stepfunctions_messenger/test/conftest.py:12:1: E402 module level import not at top of file
+cross_service/textract_explorer/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+cross_service/textract_explorer/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+cross_service/textract_explorer/test/conftest.py:12:1: E402 module level import not at top of file
+cross_service/textract_explorer/textract_app.py:17:1: F401 'textract_wrapper.TextractWrapper' imported but unused
+example_code/acm/test/conftest.py:8:1: F401 'random' imported but unused
+example_code/acm/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/acm/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/acm/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/api-gateway/aws_service/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/api-gateway/aws_service/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/api-gateway/aws_service/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/auditmanager/create_assessment_report.py:165:17: W503 line break before binary operator
+example_code/auditmanager/create_assessment_report.py:166:17: W503 line break before binary operator
+example_code/auditmanager/framework_from_conformance_pack.py:133:17: F541 f-string is missing placeholders
+example_code/auditmanager/test/conftest.py:8:1: F401 'random' imported but unused
+example_code/auditmanager/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/auditmanager/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/auditmanager/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/auditmanager/test/test_create_assessment_report.py:134:31: E203 whitespace before ':'
+example_code/auditmanager/test/test_create_assessment_report.py:140:17: W503 line break before binary operator
+example_code/auditmanager/test/test_security_hub_custom_framework.py:39:31: E203 whitespace before ':'
+example_code/aurora/scenario_get_started_aurora.py:25:1: E402 module level import not at top of file
+example_code/aurora/scenario_get_started_aurora.py:26:1: E402 module level import not at top of file
+example_code/aurora/scenario_get_started_aurora.py:59:19: F541 f-string is missing placeholders
+example_code/aurora/scenario_get_started_aurora.py:181:17: F541 f-string is missing placeholders
+example_code/aurora/test/conftest.py:18:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/aurora/test/conftest.py:18:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/aurora/test/conftest.py:18:1: E402 module level import not at top of file
+example_code/aurora/test/test_get_started_aurora_display_connection.py:4:1: F401 'pytest' imported but unused
+example_code/auto-scaling/scenario_groups_and_instances.py:34:1: E402 module level import not at top of file
+example_code/auto-scaling/scenario_groups_and_instances.py:35:1: E402 module level import not at top of file
+example_code/auto-scaling/scenario_groups_and_instances.py:68:17: W503 line break before binary operator
+example_code/auto-scaling/scenario_groups_and_instances.py:213:15: F541 f-string is missing placeholders
+example_code/auto-scaling/scenario_groups_and_instances.py:404:11: F541 f-string is missing placeholders
+example_code/auto-scaling/test/conftest.py:8:1: F401 'random' imported but unused
+example_code/auto-scaling/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/auto-scaling/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/auto-scaling/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/cloudfront/test/conftest.py:8:1: F401 'random' imported but unused
+example_code/cloudfront/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/cloudfront/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/cloudfront/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/cloudwatch/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/cloudwatch/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/cloudwatch/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/codecommit/MyCodeCommitFunction.py:26:1: F401 'json' imported but unused
+example_code/codecommit/push-in-parts.py:19:1: E265 block comment should start with '# '
+example_code/codecommit/push-in-parts.py:128:13: W503 line break before binary operator
+example_code/codecommit/push-in-parts.py:129:13: W503 line break before binary operator
+example_code/codecommit/push-in-parts.py:222:29: W503 line break before binary operator
+example_code/codecommit/push-in-parts.py:223:29: W503 line break before binary operator
+example_code/codepipeline/MyCodePipelineFunction.py:30:1: F401 'urllib' imported but unused
+example_code/codepipeline/MyCodePipelineFunction.py:324:5: F841 local variable 'e' is assigned to but never used
+example_code/cognito/scenario_signup_user_with_mfa.py:40:1: E402 module level import not at top of file
+example_code/cognito/test/conftest.py:8:1: F401 'random' imported but unused
+example_code/cognito/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/cognito/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/cognito/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/comprehend/comprehend_classifier_demo.py:27:1: E402 module level import not at top of file
+example_code/comprehend/comprehend_topic_modeler_demo.py:22:1: E402 module level import not at top of file
+example_code/comprehend/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/comprehend/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/comprehend/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/config/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/config/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/config/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/deeplens/deeplens_inference_lambda.py:206:1: F811 redefinition of unused 'Event' from line 27
+example_code/deeplens/deeplens_inference_lambda.py:206:1: E402 module level import not at top of file
+example_code/deeplens/deeplens_inference_lambda.py:207:1: F811 redefinition of unused 'os' from line 28
+example_code/deeplens/deeplens_inference_lambda.py:207:1: E402 module level import not at top of file
+example_code/deeplens/deeplens_inference_lambda.py:208:1: F811 redefinition of unused 'json' from line 29
+example_code/deeplens/deeplens_inference_lambda.py:208:1: E402 module level import not at top of file
+example_code/deeplens/deeplens_inference_lambda.py:209:1: F811 redefinition of unused 'np' from line 30
+example_code/deeplens/deeplens_inference_lambda.py:209:1: E402 module level import not at top of file
+example_code/deeplens/deeplens_inference_lambda.py:210:1: F811 redefinition of unused 'awscam' from line 31
+example_code/deeplens/deeplens_inference_lambda.py:210:1: E402 module level import not at top of file
+example_code/deeplens/deeplens_inference_lambda.py:211:1: F811 redefinition of unused 'cv2' from line 32
+example_code/deeplens/deeplens_inference_lambda.py:211:1: E402 module level import not at top of file
+example_code/deeplens/deeplens_inference_lambda.py:212:1: F811 redefinition of unused 'greengrasssdk' from line 33
+example_code/deeplens/deeplens_inference_lambda.py:212:1: E402 module level import not at top of file
+example_code/deeplens/deeplens_inference_lambda.py:215:1: F811 redefinition of unused 'lambda_handler' from line 39
+example_code/deeplens/deeplens_inference_lambda.py:220:1: F811 redefinition of unused 'LocalDisplay' from line 48
+example_code/deeplens/deeplens_inference_lambda.py:281:1: F811 redefinition of unused 'infinite_infer_run' from line 113
+example_code/deeplens/deeplens_view_output.py:30:1: F401 'time' imported but unused
+example_code/deeplens/deeplens_view_output.py:61:13: F841 local variable 'e' is assigned to but never used
+example_code/deeplens/deeplens_view_output.py:105:16: E712 comparison to False should be 'if cond is False:' or 'if not cond:'
+example_code/deeplens/deeplens_view_output.py:117:20: E712 comparison to False should be 'if cond is False:' or 'if not cond:'
+example_code/devicefarm/browser_testing/test_suite.py:35:5: E722 do not use bare 'except'
+example_code/devicefarm/device_testing/run_tests.py:38:5: W503 line break before binary operator
+example_code/devicefarm/device_testing/run_tests.py:39:5: W503 line break before binary operator
+example_code/devicefarm/device_testing/run_tests.py:40:5: W503 line break before binary operator
+example_code/devicefarm/device_testing/run_tests.py:124:1: E722 do not use bare 'except'
+example_code/devicefarm/device_testing/run_tests.py:158:25: W503 line break before binary operator
+example_code/devicefarm/device_testing/run_tests.py:159:25: W503 line break before binary operator
+example_code/devicefarm/device_testing/run_tests.py:160:25: W503 line break before binary operator
+example_code/devicefarm/device_testing/run_tests.py:161:25: W503 line break before binary operator
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:474:13: F541 f-string is missing placeholders
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:496:17: F541 f-string is missing placeholders
+example_code/dynamodb/GettingStarted/scenario_getting_started_movies.py:533:30: F541 f-string is missing placeholders
+example_code/dynamodb/GettingStarted/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/dynamodb/GettingStarted/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/dynamodb/GettingStarted/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/dynamodb/GettingStarted/test/test_update_and_query.py:10:1: F401 'unittest.mock.patch' imported but unused
+example_code/dynamodb/GettingStarted/test/test_update_and_query.py:94:17: W503 line break before binary operator
+example_code/dynamodb/GettingStarted/update_and_query.py:155:21: W503 line break before binary operator
+example_code/dynamodb/GettingStarted/update_and_query.py:256:9: F541 f-string is missing placeholders
+example_code/dynamodb/TryDax/01-create-table.py:47:11: F541 f-string is missing placeholders
+example_code/dynamodb/TryDax/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/dynamodb/TryDax/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/dynamodb/TryDax/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/dynamodb/TryDax/test/test_try_dax.py:94:13: W503 line break before binary operator
+example_code/dynamodb/batching/dynamo_batching.py:320:11: F541 f-string is missing placeholders
+example_code/dynamodb/batching/dynamo_batching.py:333:34: E203 whitespace before ':'
+example_code/dynamodb/batching/dynamo_batching.py:335:58: E203 whitespace before ':'
+example_code/dynamodb/batching/dynamo_batching.py:343:11: F541 f-string is missing placeholders
+example_code/dynamodb/batching/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/dynamodb/batching/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/dynamodb/batching/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/dynamodb/batching/test/test_dynamo_batching.py:89:54: E203 whitespace before ':'
+example_code/dynamodb/partiql/scenario_partiql_batch.py:102:22: F541 f-string is missing placeholders
+example_code/dynamodb/partiql/scenario_partiql_batch.py:110:22: F541 f-string is missing placeholders
+example_code/dynamodb/partiql/scenario_partiql_batch.py:118:22: F541 f-string is missing placeholders
+example_code/dynamodb/partiql/scenario_partiql_batch.py:136:11: F541 f-string is missing placeholders
+example_code/dynamodb/partiql/scenario_partiql_batch.py:148:11: F541 f-string is missing placeholders
+example_code/dynamodb/partiql/scenario_partiql_batch.py:160:11: F541 f-string is missing placeholders
+example_code/dynamodb/partiql/scenario_partiql_batch.py:167:11: F541 f-string is missing placeholders
+example_code/dynamodb/partiql/scenario_partiql_single.py:126:11: F541 f-string is missing placeholders
+example_code/dynamodb/partiql/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/dynamodb/partiql/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/dynamodb/partiql/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/ec2/scenario_get_started_instances.py:37:1: E402 module level import not at top of file
+example_code/ec2/scenario_get_started_instances.py:38:1: E402 module level import not at top of file
+example_code/ec2/scenario_get_started_instances.py:163:15: F541 f-string is missing placeholders
+example_code/ec2/scenario_get_started_instances.py:204:15: F541 f-string is missing placeholders
+example_code/ec2/security_group.py:116:23: F541 f-string is missing placeholders
+example_code/ec2/test/conftest.py:21:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/ec2/test/conftest.py:21:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/ec2/test/conftest.py:21:1: E402 module level import not at top of file
+example_code/ec2/test/test_create_and_list_key_pairs.py:60:49: F841 local variable 'mock_file' is assigned to but never used
+example_code/emr/emr_usage_demo.py:299:21: W503 line break before binary operator
+example_code/emr/emr_usage_demo.py:381:11: F541 f-string is missing placeholders
+example_code/emr/emr_usage_demo.py:384:14: F541 f-string is missing placeholders
+example_code/emr/emr_usage_demo.py:435:17: W503 line break before binary operator
+example_code/emr/emr_usage_demo.py:467:9: F541 f-string is missing placeholders
+example_code/emr/emr_usage_demo.py:475:13: F541 f-string is missing placeholders
+example_code/emr/emr_usage_demo.py:488:11: F541 f-string is missing placeholders
+example_code/emr/emr_usage_demo.py:530:17: W503 line break before binary operator
+example_code/emr/emr_usage_demo.py:584:9: F541 f-string is missing placeholders
+example_code/emr/emr_usage_demo.py:601:13: F541 f-string is missing placeholders
+example_code/emr/install_libraries.py:52:23: F541 f-string is missing placeholders
+example_code/emr/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/emr/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/emr/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/emr/test/test_emr_basics.py:188:15: F541 f-string is missing placeholders
+example_code/emr/test/test_emr_basics.py:189:17: F541 f-string is missing placeholders
+example_code/emr/test/test_emr_usage_demo.py:156:13: W503 line break before binary operator
+example_code/emr/test/test_emr_usage_demo.py:302:42: F541 f-string is missing placeholders
+example_code/emr/test/test_emr_usage_demo.py:303:15: F541 f-string is missing placeholders
+example_code/emr/test/test_emr_usage_demo.py:305:23: F541 f-string is missing placeholders
+example_code/glacier/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/glacier/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/glacier/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/glue/flight_etl_job_script.py:15:1: F403 'from awsglue.transforms import *' used; unable to detect undefined names
+example_code/glue/flight_etl_job_script.py:23:82: W291 trailing whitespace
+example_code/glue/flight_etl_job_script.py:24:85: W291 trailing whitespace
+example_code/glue/flight_etl_job_script.py:28:80: W291 trailing whitespace
+example_code/glue/flight_etl_job_script.py:49:22: F405 'ApplyMapping' may be undefined, or defined from star imports: awsglue.transforms
+example_code/glue/scenario_getting_started_crawlers_and_jobs.py:22:1: F401 'json' imported but unused
+example_code/glue/scenario_getting_started_crawlers_and_jobs.py:27:1: F401 'uuid' imported but unused
+example_code/glue/scenario_getting_started_crawlers_and_jobs.py:148:15: F541 f-string is missing placeholders
+example_code/glue/scenario_getting_started_crawlers_and_jobs.py:153:13: F541 f-string is missing placeholders
+example_code/glue/scenario_getting_started_crawlers_and_jobs.py:178:34: F541 f-string is missing placeholders
+example_code/glue/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/glue/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/glue/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/greengrass/snippets/secret_resource_access_default_value.py:20:5: F841 local variable 'secret' is assigned to but never used
+example_code/greengrass/snippets/secret_resource_access_staging_label.py:24:5: F841 local variable 'secret' is assigned to but never used
+example_code/iam/account_wrapper.py:258:11: F541 f-string is missing placeholders
+example_code/iam/policy_wrapper.py:272:18: F541 f-string is missing placeholders
+example_code/iam/scenario_create_user_assume_role.py:62:15: F541 f-string is missing placeholders
+example_code/iam/scenario_create_user_assume_role.py:70:11: F541 f-string is missing placeholders
+example_code/iam/scenario_create_user_assume_role.py:162:11: F541 f-string is missing placeholders
+example_code/iam/scenario_create_user_assume_role.py:212:11: F541 f-string is missing placeholders
+example_code/iam/scenario_create_user_assume_role.py:268:11: F541 f-string is missing placeholders
+example_code/iam/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/iam/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/iam/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/iam/test/test_policy_wrapper.py:193:9: W503 line break before binary operator
+example_code/iam/test/test_policy_wrapper.py:194:9: W503 line break before binary operator
+example_code/iam/test/test_policy_wrapper.py:195:9: W503 line break before binary operator
+example_code/keyspaces/query.py:34:16: F541 f-string is missing placeholders
+example_code/keyspaces/scenario_get_started_keyspaces.py:35:1: E402 module level import not at top of file
+example_code/keyspaces/scenario_get_started_keyspaces.py:36:1: E402 module level import not at top of file
+example_code/keyspaces/scenario_get_started_keyspaces.py:37:1: E402 module level import not at top of file
+example_code/keyspaces/test/conftest.py:17:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/keyspaces/test/conftest.py:17:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/keyspaces/test/conftest.py:17:1: E402 module level import not at top of file
+example_code/keyspaces/test/test_get_started_keyspaces_integ.py:4:1: F401 'os' imported but unused
+example_code/keyspaces/test/test_get_started_keyspaces_integ.py:9:1: F401 'query.QueryManager' imported but unused
+example_code/keyspaces/test/test_query_table.py:6:1: F401 'botocore.exceptions.ClientError' imported but unused
+example_code/keyspaces/test/test_query_table.py:7:1: F401 'pytest' imported but unused
+example_code/kinesis/kinesisanalyticsv2_demo.py:26:1: E402 module level import not at top of file
+example_code/kinesis/kinesisanalyticsv2_demo.py:27:1: E402 module level import not at top of file
+example_code/kinesis/test/conftest.py:8:1: F401 'random' imported but unused
+example_code/kinesis/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/kinesis/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/kinesis/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/kinesis/test/test_analytics_application.py:10:1: F401 'botocore.exceptions.WaiterError' imported but unused
+example_code/kinesis/test/test_analytics_application.py:208:13: W503 line break before binary operator
+example_code/kms/alias_management.py:76:27: F541 f-string is missing placeholders
+example_code/kms/alias_management.py:169:23: F541 f-string is missing placeholders
+example_code/kms/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/kms/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/kms/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/lambda/api_gateway_rest.py:33:1: E402 module level import not at top of file
+example_code/lambda/api_gateway_rest.py:150:25: F541 f-string is missing placeholders
+example_code/lambda/api_gateway_rest.py:259:11: F541 f-string is missing placeholders
+example_code/lambda/scenario_getting_started_functions.py:30:1: E402 module level import not at top of file
+example_code/lambda/scenario_getting_started_functions.py:31:1: E402 module level import not at top of file
+example_code/lambda/scenario_getting_started_functions.py:32:1: E402 module level import not at top of file
+example_code/lambda/scenario_getting_started_functions.py:107:11: F541 f-string is missing placeholders
+example_code/lambda/scenario_getting_started_functions.py:117:11: F541 f-string is missing placeholders
+example_code/lambda/scenario_getting_started_functions.py:118:11: F541 f-string is missing placeholders
+example_code/lambda/scheduled_lambda.py:25:1: E402 module level import not at top of file
+example_code/lambda/scheduled_lambda.py:218:11: F541 f-string is missing placeholders
+example_code/lambda/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/lambda/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/lambda/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/lookoutvision/datasets.py:340:25: F541 f-string is missing placeholders
+example_code/lookoutvision/export_datasets.py:10:58: W291 trailing whitespace
+example_code/lookoutvision/find_running_models.py:15:1: F401 'boto3.session.Session' imported but unused
+example_code/lookoutvision/projects.py:67:9: F841 local variable 'err' is assigned to but never used
+example_code/lookoutvision/test/conftest.py:8:1: F401 'random' imported but unused
+example_code/lookoutvision/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/lookoutvision/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/lookoutvision/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/lookoutvision/test/test_find_running_models.py:12:1: F401 'models' imported but unused
+example_code/lookoutvision/test/test_find_running_models.py:13:1: F401 'boto3.session.Session' imported but unused
+example_code/lookoutvision/test/test_hello.py:25:5: F841 local variable 'model_version' is assigned to but never used
+example_code/lookoutvision/test/test_hello.py:26:5: F841 local variable 'dataset' is assigned to but never used
+example_code/medical-imaging/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/medical-imaging/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/medical-imaging/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/organizations/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/organizations/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/organizations/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/pinpoint-sms-voice/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/pinpoint-sms-voice/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/pinpoint-sms-voice/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/pinpoint/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/pinpoint/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/pinpoint/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/polly/polly_lipsync.py:184:44: E741 ambiguous variable name 'l'
+example_code/polly/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/polly/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/polly/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/rds/instance_wrapper.py:11:1: F401 'json' imported but unused
+example_code/rds/scenario_get_started_instances.py:26:1: E402 module level import not at top of file
+example_code/rds/scenario_get_started_instances.py:27:1: E402 module level import not at top of file
+example_code/rds/scenario_get_started_instances.py:62:19: F541 f-string is missing placeholders
+example_code/rds/test/conftest.py:18:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/rds/test/conftest.py:18:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/rds/test/conftest.py:18:1: E402 module level import not at top of file
+example_code/rekognition/test/conftest.py:14:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/rekognition/test/conftest.py:14:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/rekognition/test/conftest.py:14:1: E402 module level import not at top of file
+example_code/route53-recovery-cluster/routing_control_states.py:117:15: F541 f-string is missing placeholders
+example_code/s3/file_transfer/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/s3/file_transfer/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/s3/file_transfer/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/s3/file_transfer/test/test_file_transfer.py:18:1: F401 'botocore.exceptions.ClientError' imported but unused
+example_code/s3/s3_basics/bucket_wrapper.py:319:9: E722 do not use bare 'except'
+example_code/s3/s3_basics/demo_bucket_basics.py:15:1: F401 'sys' imported but unused
+example_code/s3/s3_basics/object_wrapper.py:324:11: F541 f-string is missing placeholders
+example_code/s3/s3_basics/scenario_getting_started.py:43:15: F541 f-string is missing placeholders
+example_code/s3/s3_basics/scenario_getting_started.py:69:19: F541 f-string is missing placeholders
+example_code/s3/s3_basics/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/s3/s3_basics/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/s3/s3_basics/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/s3/s3_basics/test/test_object_wrapper.py:8:1: F401 'unittest.mock.ANY' imported but unused
+example_code/s3/s3_versioning/remove_delete_marker.py:96:21: F541 f-string is missing placeholders
+example_code/s3/s3_versioning/test/conftest.py:15:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/s3/s3_versioning/test/conftest.py:15:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/s3/s3_versioning/test/conftest.py:15:1: E402 module level import not at top of file
+example_code/secretsmanager/test/conftest.py:8:1: F401 'random' imported but unused
+example_code/secretsmanager/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/secretsmanager/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/secretsmanager/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/ses/ses_generate_smtp_credentials.py:13:1: E265 block comment should start with '# '
+example_code/ses/ses_replicate_identities.py:171:17: W503 line break before binary operator
+example_code/ses/test/conftest.py:8:1: F401 'random' imported but unused
+example_code/ses/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/ses/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/ses/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/ses/test/test_ses_replicate_identities.py:13:1: F401 'time' imported but unused
+example_code/ses/test/test_ses_replicate_identities.py:17:1: F401 'botocore.stub.ANY' imported but unused
+example_code/signv4/v4-signing-get-authheader.py:23:1: F401 'base64' imported but unused
+example_code/signv4/v4-signing-get-authheader.py:23:11: E401 multiple imports on one line
+example_code/signv4/v4-signing-get-authheader.py:97:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:98:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:99:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:100:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:101:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:102:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:103:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:104:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:105:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:106:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:117:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:118:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:119:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:120:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:121:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:122:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:141:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:142:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:143:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:144:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:145:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:146:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:147:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:148:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:149:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:150:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-authheader.py:151:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:24:1: F401 'base64' imported but unused
+example_code/signv4/v4-signing-get-post.py:24:11: E401 multiple imports on one line
+example_code/signv4/v4-signing-get-post.py:87:1: E266 too many leading '#' for block comment
+example_code/signv4/v4-signing-get-post.py:97:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:98:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:99:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:100:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:101:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:102:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:103:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:104:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:105:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:106:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:107:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:125:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:126:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:127:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:128:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:129:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:130:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:131:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:132:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:133:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:134:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:145:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:146:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:147:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:148:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:149:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:150:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:167:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:168:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:169:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:170:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:171:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:172:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:173:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:174:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:175:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:176:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-post.py:177:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:23:11: E401 multiple imports on one line
+example_code/signv4/v4-signing-get-querystring.py:108:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:109:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:110:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:111:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:112:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:113:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:114:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:115:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:116:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:117:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:124:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:125:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:126:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:127:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:128:5: W503 line break before binary operator
+example_code/signv4/v4-signing-get-querystring.py:129:5: W503 line break before binary operator
+example_code/sns/sns_basics.py:317:13: W503 line break before binary operator
+example_code/sns/sns_fifo_topic.py:254:11: F541 f-string is missing placeholders
+example_code/sns/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/sns/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/sns/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/sns/test/test_sns_fifo_topic.py:8:1: F401 'json' imported but unused
+example_code/sns/test/test_sns_fifo_topic.py:11:1: F401 'botocore.stub.ANY' imported but unused
+example_code/sqs/message_wrapper.py:252:15: F541 f-string is missing placeholders
+example_code/sqs/message_wrapper.py:254:15: F541 f-string is missing placeholders
+example_code/sqs/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/sqs/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/sqs/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/sqs/test/test_message_wrapper.py:111:13: W503 line break before binary operator
+example_code/sqs/test/test_message_wrapper.py:116:13: W503 line break before binary operator
+example_code/sqs/test/test_queue_wrapper.py:167:9: W503 line break before binary operator
+example_code/sqs/test/test_queue_wrapper.py:260:9: W503 line break before binary operator
+example_code/stepfunctions/get_started_state_machines.py:29:1: E402 module level import not at top of file
+example_code/stepfunctions/get_started_state_machines.py:30:1: E402 module level import not at top of file
+example_code/stepfunctions/get_started_state_machines.py:169:13: F541 f-string is missing placeholders
+example_code/stepfunctions/get_started_state_machines.py:196:15: F541 f-string is missing placeholders
+example_code/stepfunctions/test/conftest.py:18:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/stepfunctions/test/conftest.py:18:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/stepfunctions/test/conftest.py:18:1: E402 module level import not at top of file
+example_code/stepfunctions/test/test_find_or_create_state_machine.py:4:1: F401 'json' imported but unused
+example_code/stepfunctions/test/test_find_or_create_state_machine.py:90:78: F841 local variable 'mock_file' is assigned to but never used
+example_code/stepfunctions/test/test_finish_state_machine_run.py:12:24: F541 f-string is missing placeholders
+example_code/stepfunctions/test/test_finish_state_machine_run.py:13:23: F541 f-string is missing placeholders
+example_code/stepfunctions/test/test_prerequisites.py:44:9: W503 line break before binary operator
+example_code/stepfunctions/test/test_run_state_machine.py:12:23: F541 f-string is missing placeholders
+example_code/stepfunctions/test/test_run_state_machine.py:14:24: F541 f-string is missing placeholders
+example_code/sts/assume_role_mfa.py:68:9: F541 f-string is missing placeholders
+example_code/sts/assume_role_mfa.py:75:11: F541 f-string is missing placeholders
+example_code/sts/assume_role_mfa.py:84:11: F541 f-string is missing placeholders
+example_code/sts/assume_role_mfa.py:87:11: F541 f-string is missing placeholders
+example_code/sts/assume_role_mfa.py:89:11: F541 f-string is missing placeholders
+example_code/sts/assume_role_mfa.py:167:11: F541 f-string is missing placeholders
+example_code/sts/assume_role_mfa.py:216:11: F541 f-string is missing placeholders
+example_code/sts/assume_role_mfa.py:260:9: F541 f-string is missing placeholders
+example_code/sts/federated_url.py:117:11: F541 f-string is missing placeholders
+example_code/sts/federated_url.py:156:11: F541 f-string is missing placeholders
+example_code/sts/session_token.py:63:9: F541 f-string is missing placeholders
+example_code/sts/session_token.py:70:11: F541 f-string is missing placeholders
+example_code/sts/session_token.py:79:11: F541 f-string is missing placeholders
+example_code/sts/session_token.py:82:11: F541 f-string is missing placeholders
+example_code/sts/session_token.py:84:11: F541 f-string is missing placeholders
+example_code/sts/session_token.py:145:11: F541 f-string is missing placeholders
+example_code/sts/session_token.py:182:9: F541 f-string is missing placeholders
+example_code/sts/test/conftest.py:13:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/sts/test/conftest.py:13:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/sts/test/conftest.py:13:1: E402 module level import not at top of file
+example_code/sts/test/test_session_token.py:8:1: F401 'json' imported but unused
+example_code/sts/test/test_session_token.py:11:1: F401 'pytest' imported but unused
+example_code/sts/test/test_session_token.py:12:1: F401 'requests' imported but unused
+example_code/sts/test/test_session_token.py:14:1: F401 'botocore.exceptions.ClientError' imported but unused
+example_code/support/get_started_support_cases.py:27:1: F401 'boto3' imported but unused
+example_code/support/get_started_support_cases.py:28:1: F401 'botocore.exceptions.ClientError' imported but unused
+example_code/support/get_started_support_cases.py:33:1: E402 module level import not at top of file
+example_code/support/get_started_support_cases.py:34:1: E402 module level import not at top of file
+example_code/support/get_started_support_cases.py:97:15: F541 f-string is missing placeholders
+example_code/support/get_started_support_cases.py:158:15: F541 f-string is missing placeholders
+example_code/support/test/conftest.py:17:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/support/test/conftest.py:17:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/support/test/conftest.py:17:1: E402 module level import not at top of file
+example_code/textract/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/textract/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/textract/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/transcribe/test/conftest.py:12:1: F403 'from test_tools.fixtures.common import *' used; unable to detect undefined names
+example_code/transcribe/test/conftest.py:12:1: F401 'test_tools.fixtures.common.*' imported but unused
+example_code/transcribe/test/conftest.py:12:1: E402 module level import not at top of file
+example_code/transcribe/transcribe_basics.py:26:1: E402 module level import not at top of file
+test_tools/comprehend_stubber.py:8:1: F401 'datetime' imported but unused
+test_tools/dynamodb_stubber.py:12:1: F401 'botocore.stub.ANY' imported but unused
+test_tools/example_stubber.py:8:1: F401 'contextlib' imported but unused
+test_tools/iam_stubber.py:402:21: W503 line break before binary operator
+test_tools/run_all_tests.py:17:1: F401 'pytest' imported but unused
+test_tools/s3control_stubber.py:11:1: F401 'io' imported but unused
+test_tools/s3control_stubber.py:12:1: F401 'json' imported but unused
+test_tools/sns_stubber.py:38:21: F541 f-string is missing placeholders
+test_tools/sts_stubber.py:12:1: F401 'io' imported but unused
+test_tools/sts_stubber.py:13:1: F401 'json' imported but unused
+test_tools/sts_stubber.py:14:1: F401 'botocore.stub.ANY' imported but unused
+test_tools/support_stubber.py:9:1: F401 'json' imported but unused
+test_tools/transcribe_stubber.py:79:50: E203 whitespace before ':'
+test_tools/transcribe_stubber.py:117:57: E203 whitespace before ':'
