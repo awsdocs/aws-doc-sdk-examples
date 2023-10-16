@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+cd "$(dirname "$0")"
+
 DIRS=(
   cross_service
   examples
@@ -7,19 +9,27 @@ DIRS=(
   webassembly
 )
 
+ACTIONS=(
+  "fmt --check"
+  clippy
+  test
+)
+
 # Clean Cargo.log
-rm rust_dev_preview/**/Cargo.lock
+rm **/Cargo.lock
 
 export RUSTFLAGS="-D warnings" ;
 export APP_ENVIRONMENT="test"
 
+CARGO="$HOME/.cargo/bin/cargo"
+
 FAIL=()
-for f in ${DIRS[@]} ; do
-  "$HOME/.cargo/bin/cargo" fmt --manifest-path rust_dev_preview/$f/Cargo.toml --all --check || FAIL+=("fmt:$f")
-  "$HOME/.cargo/bin/cargo" clippy --manifest-path rust_dev_preview/$f/Cargo.toml --all || FAIL+=("clippy:$f")
-  "$HOME/.cargo/bin/cargo" test --manifest-path rust_dev_preview/$f/Cargo.toml --all || FAIL+=("test:$f")
+for f in "${DIRS[@]}" ; do
+  for a in "${ACTIONS[@]}" ; do
+    "$CARGO" $a --manifest-path $f/Cargo.toml --all || FAIL+=("${a}:$f")
+  done
 done
 
-echo $FAIL;
-exit "${#FAIL[@]}"
+echo ${FAIL[@]}
+exit ${#FAIL[@]}
 
