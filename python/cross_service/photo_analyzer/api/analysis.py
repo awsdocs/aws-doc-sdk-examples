@@ -13,6 +13,7 @@ class Analysis(Resource):
     Encapsulates a resource that analyzes images in an Amazon Simple Storage Service
     (Amazon S3) bucket and returns labels that are detected within the images.
     """
+
     def __init__(self, photo_bucket_name, rekognition_client):
         """
         :param photo_bucket_name: The name of the bucket where your images are stored.
@@ -33,12 +34,18 @@ class Analysis(Resource):
         result = 200
         try:
             response = self.rekognition_client.detect_labels(
-                Image={'S3Object': {'Bucket': self.photo_bucket_name, 'Name': photo_key}})
-            labels = response.get('Labels', [])
-            logger.info("Found %s labels in %s.", len(response['Labels']), photo_key)
+                Image={
+                    "S3Object": {"Bucket": self.photo_bucket_name, "Name": photo_key}
+                }
+            )
+            labels = response.get("Labels", [])
+            logger.info("Found %s labels in %s.", len(response["Labels"]), photo_key)
         except ClientError as err:
             logger.info(
-                "Couldn't detect labels in %s. Here's why: %s: %s", photo_key,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't detect labels in %s. Here's why: %s: %s",
+                photo_key,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             result = 400
         return labels, result

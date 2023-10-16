@@ -25,14 +25,16 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.cloudwatch.CloudWatchWrapper]
 class CloudWatchWrapper:
     """Encapsulates Amazon CloudWatch functions."""
+
     def __init__(self, cloudwatch_resource):
         """
         :param cloudwatch_resource: A Boto3 CloudWatch resource.
         """
         self.cloudwatch_resource = cloudwatch_resource
-# snippet-end:[python.example_code.cloudwatch.CloudWatchWrapper]
 
-# snippet-start:[python.example_code.cloudwatch.ListMetrics]
+    # snippet-end:[python.example_code.cloudwatch.CloudWatchWrapper]
+
+    # snippet-start:[python.example_code.cloudwatch.ListMetrics]
     def list_metrics(self, namespace, name, recent=False):
         """
         Gets the metrics within a namespace that have the specified name.
@@ -46,9 +48,9 @@ class CloudWatchWrapper:
         :return: An iterator that yields the retrieved metrics.
         """
         try:
-            kwargs = {'Namespace': namespace, 'MetricName': name}
+            kwargs = {"Namespace": namespace, "MetricName": name}
             if recent:
-                kwargs['RecentlyActive'] = 'PT3H'  # List past 3 hours only
+                kwargs["RecentlyActive"] = "PT3H"  # List past 3 hours only
             metric_iter = self.cloudwatch_resource.metrics.filter(**kwargs)
             logger.info("Got metrics for %s.%s.", namespace, name)
         except ClientError:
@@ -56,9 +58,10 @@ class CloudWatchWrapper:
             raise
         else:
             return metric_iter
-# snippet-end:[python.example_code.cloudwatch.ListMetrics]
 
-# snippet-start:[python.example_code.cloudwatch.PutMetricData]
+    # snippet-end:[python.example_code.cloudwatch.ListMetrics]
+
+    # snippet-start:[python.example_code.cloudwatch.PutMetricData]
     def put_metric_data(self, namespace, name, value, unit):
         """
         Sends a single data value to CloudWatch for a metric. This metric is given
@@ -73,19 +76,16 @@ class CloudWatchWrapper:
             metric = self.cloudwatch_resource.Metric(namespace, name)
             metric.put_data(
                 Namespace=namespace,
-                MetricData=[{
-                    'MetricName': name,
-                    'Value': value,
-                    'Unit': unit
-                }]
+                MetricData=[{"MetricName": name, "Value": value, "Unit": unit}],
             )
             logger.info("Put data for metric %s.%s", namespace, name)
         except ClientError:
             logger.exception("Couldn't put data for metric %s.%s", namespace, name)
             raise
-# snippet-end:[python.example_code.cloudwatch.PutMetricData]
 
-# snippet-start:[python.example_code.cloudwatch.PutMetricData_DataSet]
+    # snippet-end:[python.example_code.cloudwatch.PutMetricData]
+
+    # snippet-start:[python.example_code.cloudwatch.PutMetricData_DataSet]
     def put_metric_data_set(self, namespace, name, timestamp, unit, data_set):
         """
         Sends a set of data to CloudWatch for a metric. All of the data in the set
@@ -103,19 +103,24 @@ class CloudWatchWrapper:
             metric = self.cloudwatch_resource.Metric(namespace, name)
             metric.put_data(
                 Namespace=namespace,
-                MetricData=[{
-                    'MetricName': name,
-                    'Timestamp': timestamp,
-                    'Values': data_set['values'],
-                    'Counts': data_set['counts'],
-                    'Unit': unit}])
+                MetricData=[
+                    {
+                        "MetricName": name,
+                        "Timestamp": timestamp,
+                        "Values": data_set["values"],
+                        "Counts": data_set["counts"],
+                        "Unit": unit,
+                    }
+                ],
+            )
             logger.info("Put data set for metric %s.%s.", namespace, name)
         except ClientError:
             logger.exception("Couldn't put data set for metric %s.%s.", namespace, name)
             raise
-# snippet-end:[python.example_code.cloudwatch.PutMetricData_DataSet]
 
-# snippet-start:[python.example_code.cloudwatch.GetMetricStatistics]
+    # snippet-end:[python.example_code.cloudwatch.PutMetricData_DataSet]
+
+    # snippet-start:[python.example_code.cloudwatch.GetMetricStatistics]
     def get_metric_statistics(self, namespace, name, start, end, period, stat_types):
         """
         Gets statistics for a metric within a specified time span. Metrics are grouped
@@ -137,20 +142,31 @@ class CloudWatchWrapper:
         try:
             metric = self.cloudwatch_resource.Metric(namespace, name)
             stats = metric.get_statistics(
-                StartTime=start, EndTime=end, Period=period, Statistics=stat_types)
+                StartTime=start, EndTime=end, Period=period, Statistics=stat_types
+            )
             logger.info(
-                "Got %s statistics for %s.", len(stats['Datapoints']), stats['Label'])
+                "Got %s statistics for %s.", len(stats["Datapoints"]), stats["Label"]
+            )
         except ClientError:
             logger.exception("Couldn't get statistics for %s.%s.", namespace, name)
             raise
         else:
             return stats
-# snippet-end:[python.example_code.cloudwatch.GetMetricStatistics]
 
-# snippet-start:[python.example_code.cloudwatch.PutMetricAlarm]
+    # snippet-end:[python.example_code.cloudwatch.GetMetricStatistics]
+
+    # snippet-start:[python.example_code.cloudwatch.PutMetricAlarm]
     def create_metric_alarm(
-            self, metric_namespace, metric_name, alarm_name, stat_type, period,
-            eval_periods, threshold, comparison_op):
+        self,
+        metric_namespace,
+        metric_name,
+        alarm_name,
+        stat_type,
+        period,
+        eval_periods,
+        threshold,
+        comparison_op,
+    ):
         """
         Creates an alarm that watches a metric.
 
@@ -176,20 +192,28 @@ class CloudWatchWrapper:
                 Period=period,
                 EvaluationPeriods=eval_periods,
                 Threshold=threshold,
-                ComparisonOperator=comparison_op)
+                ComparisonOperator=comparison_op,
+            )
             logger.info(
-                "Added alarm %s to track metric %s.%s.", alarm_name, metric_namespace,
-                metric_name)
+                "Added alarm %s to track metric %s.%s.",
+                alarm_name,
+                metric_namespace,
+                metric_name,
+            )
         except ClientError:
             logger.exception(
-                "Couldn't add alarm %s to metric %s.%s", alarm_name, metric_namespace,
-                metric_name)
+                "Couldn't add alarm %s to metric %s.%s",
+                alarm_name,
+                metric_namespace,
+                metric_name,
+            )
             raise
         else:
             return alarm
-# snippet-end:[python.example_code.cloudwatch.PutMetricAlarm]
 
-# snippet-start:[python.example_code.cloudwatch.DescribeAlarmsForMetric]
+    # snippet-end:[python.example_code.cloudwatch.PutMetricAlarm]
+
+    # snippet-start:[python.example_code.cloudwatch.DescribeAlarmsForMetric]
     def get_metric_alarms(self, metric_namespace, metric_name):
         """
         Gets the alarms that are currently watching the specified metric.
@@ -202,9 +226,10 @@ class CloudWatchWrapper:
         alarm_iter = metric.alarms.all()
         logger.info("Got alarms for metric %s.%s.", metric_namespace, metric_name)
         return alarm_iter
-# snippet-end:[python.example_code.cloudwatch.DescribeAlarmsForMetric]
 
-# snippet-start:[python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions]
+    # snippet-end:[python.example_code.cloudwatch.DescribeAlarmsForMetric]
+
+    # snippet-start:[python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions]
     def enable_alarm_actions(self, alarm_name, enable):
         """
         Enables or disables actions on the specified alarm. Alarm actions can be
@@ -222,16 +247,21 @@ class CloudWatchWrapper:
             else:
                 alarm.disable_actions()
             logger.info(
-                "%s actions for alarm %s.", "Enabled" if enable else "Disabled",
-                alarm_name)
+                "%s actions for alarm %s.",
+                "Enabled" if enable else "Disabled",
+                alarm_name,
+            )
         except ClientError:
             logger.exception(
-                "Couldn't %s actions alarm %s.", "enable" if enable else "disable",
-                alarm_name)
+                "Couldn't %s actions alarm %s.",
+                "enable" if enable else "disable",
+                alarm_name,
+            )
             raise
-# snippet-end:[python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions]
 
-# snippet-start:[python.example_code.cloudwatch.DeleteAlarms]
+    # snippet-end:[python.example_code.cloudwatch.EnableAlarmActions.DisableAlarmActions]
+
+    # snippet-start:[python.example_code.cloudwatch.DeleteAlarms]
     def delete_metric_alarms(self, metric_namespace, metric_name):
         """
         Deletes all of the alarms that are currently watching the specified metric.
@@ -243,77 +273,109 @@ class CloudWatchWrapper:
             metric = self.cloudwatch_resource.Metric(metric_namespace, metric_name)
             metric.alarms.delete()
             logger.info(
-                "Deleted alarms for metric %s.%s.", metric_namespace, metric_name)
+                "Deleted alarms for metric %s.%s.", metric_namespace, metric_name
+            )
         except ClientError:
             logger.exception(
-                "Couldn't delete alarms for metric %s.%s.", metric_namespace,
-                metric_name)
+                "Couldn't delete alarms for metric %s.%s.",
+                metric_namespace,
+                metric_name,
+            )
             raise
+
+
 # snippet-end:[python.example_code.cloudwatch.DeleteAlarms]
 
 
 # snippet-start:[python.example_code.cloudwatch.Usage_MetricsAlarms]
 def usage_demo():
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the Amazon CloudWatch metrics and alarms demo!")
-    print('-'*88)
+    print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    cw_wrapper = CloudWatchWrapper(boto3.resource('cloudwatch'))
+    cw_wrapper = CloudWatchWrapper(boto3.resource("cloudwatch"))
 
     minutes = 20
-    metric_namespace = 'doc-example-metric'
-    metric_name = 'page_views'
+    metric_namespace = "doc-example-metric"
+    metric_name = "page_views"
     start = datetime.utcnow() - timedelta(minutes=minutes)
-    print(f"Putting data into metric {metric_namespace}.{metric_name} spanning the "
-          f"last {minutes} minutes.")
+    print(
+        f"Putting data into metric {metric_namespace}.{metric_name} spanning the "
+        f"last {minutes} minutes."
+    )
     for offset in range(0, minutes):
         stamp = start + timedelta(minutes=offset)
         cw_wrapper.put_metric_data_set(
-            metric_namespace, metric_name, stamp, 'Count', {
-                'values': [
+            metric_namespace,
+            metric_name,
+            stamp,
+            "Count",
+            {
+                "values": [
                     random.randint(bound, bound * 2)
-                    for bound in range(offset + 1, offset + 11)],
-                'counts': [random.randint(1, offset + 1) for _ in range(10)]
-            })
+                    for bound in range(offset + 1, offset + 11)
+                ],
+                "counts": [random.randint(1, offset + 1) for _ in range(10)],
+            },
+        )
 
-    alarm_name = 'high_page_views'
+    alarm_name = "high_page_views"
     period = 60
     eval_periods = 2
     print(f"Creating alarm {alarm_name} for metric {metric_name}.")
     alarm = cw_wrapper.create_metric_alarm(
-        metric_namespace, metric_name, alarm_name, 'Maximum', period, eval_periods,
-        100, 'GreaterThanThreshold')
+        metric_namespace,
+        metric_name,
+        alarm_name,
+        "Maximum",
+        period,
+        eval_periods,
+        100,
+        "GreaterThanThreshold",
+    )
     print(f"Alarm ARN is {alarm.alarm_arn}.")
     print(f"Current alarm state is: {alarm.state_value}.")
 
-    print(f"Sending data to trigger the alarm. This requires data over the threshold "
-          f"for {eval_periods} periods of {period} seconds each.")
-    while alarm.state_value == 'INSUFFICIENT_DATA':
+    print(
+        f"Sending data to trigger the alarm. This requires data over the threshold "
+        f"for {eval_periods} periods of {period} seconds each."
+    )
+    while alarm.state_value == "INSUFFICIENT_DATA":
         print("Sending data for the metric.")
         cw_wrapper.put_metric_data(
-            metric_namespace, metric_name, random.randint(100, 200), 'Count')
+            metric_namespace, metric_name, random.randint(100, 200), "Count"
+        )
         alarm.load()
         print(f"Current alarm state is: {alarm.state_value}.")
-        if alarm.state_value == 'INSUFFICIENT_DATA':
+        if alarm.state_value == "INSUFFICIENT_DATA":
             print(f"Waiting for {period} seconds...")
             time.sleep(period)
         else:
             print("Wait for a minute for eventual consistency of metric data.")
             time.sleep(period)
-            if alarm.state_value == 'OK':
+            if alarm.state_value == "OK":
                 alarm.load()
                 print(f"Current alarm state is: {alarm.state_value}.")
 
-    print(f"Getting data for metric {metric_namespace}.{metric_name} during timespan "
-          f"of {start} to {datetime.utcnow()} (times are UTC).")
+    print(
+        f"Getting data for metric {metric_namespace}.{metric_name} during timespan "
+        f"of {start} to {datetime.utcnow()} (times are UTC)."
+    )
     stats = cw_wrapper.get_metric_statistics(
-        metric_namespace, metric_name, start, datetime.utcnow(), 60,
-        ['Average', 'Minimum', 'Maximum'])
-    print(f"Got {len(stats['Datapoints'])} data points for metric "
-          f"{metric_namespace}.{metric_name}.")
-    pprint(sorted(stats['Datapoints'], key=lambda x: x['Timestamp']))
+        metric_namespace,
+        metric_name,
+        start,
+        datetime.utcnow(),
+        60,
+        ["Average", "Minimum", "Maximum"],
+    )
+    print(
+        f"Got {len(stats['Datapoints'])} data points for metric "
+        f"{metric_namespace}.{metric_name}."
+    )
+    pprint(sorted(stats["Datapoints"], key=lambda x: x["Timestamp"]))
 
     print(f"Getting alarms for metric {metric_name}.")
     alarms = cw_wrapper.get_metric_alarms(metric_namespace, metric_name)
@@ -324,9 +386,11 @@ def usage_demo():
     cw_wrapper.delete_metric_alarms(metric_namespace, metric_name)
 
     print("Thanks for watching!")
-    print('-'*88)
+    print("-" * 88)
+
+
 # snippet-end:[python.example_code.cloudwatch.Usage_MetricsAlarms]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

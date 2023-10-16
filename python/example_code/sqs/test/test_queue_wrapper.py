@@ -14,20 +14,25 @@ from botocore.exceptions import ClientError
 import queue_wrapper
 
 
-@pytest.mark.parametrize("attributes", [
-    ({}),
-    ({
-        'MaximumMessageSize': str(4096),
-        'ReceiveMessageWaitTimeSeconds': str(10),
-        'VisibilityTimeout': str(300)
-    })
-])
+@pytest.mark.parametrize(
+    "attributes",
+    [
+        ({}),
+        (
+            {
+                "MaximumMessageSize": str(4096),
+                "ReceiveMessageWaitTimeSeconds": str(10),
+                "VisibilityTimeout": str(300),
+            }
+        ),
+    ],
+)
 def test_create_standard_queue(make_stubber, make_unique_name, attributes):
     """Test that creating a standard queue returns a queue with the expected
-     form of URL."""
+    form of URL."""
     sqs_stubber = make_stubber(queue_wrapper.sqs.meta.client)
-    queue_name = make_unique_name('queue')
-    url = 'url-' + queue_name
+    queue_name = make_unique_name("queue")
+    url = "url-" + queue_name
 
     sqs_stubber.stub_create_queue(queue_name, attributes, url)
 
@@ -38,20 +43,20 @@ def test_create_standard_queue(make_stubber, make_unique_name, attributes):
         queue_wrapper.remove_queue(queue)
 
 
-@pytest.mark.parametrize("attributes", [
-    ({}),
-    ({
-        'MaximumMessageSize': str(1024),
-        'ReceiveMessageWaitTimeSeconds': str(20)
-    })
-])
+@pytest.mark.parametrize(
+    "attributes",
+    [
+        ({}),
+        ({"MaximumMessageSize": str(1024), "ReceiveMessageWaitTimeSeconds": str(20)}),
+    ],
+)
 def test_create_fifo_queue(make_stubber, make_unique_name, attributes):
     """Test that creating a FIFO queue returns a queue with the expected form of URL."""
     sqs_stubber = make_stubber(queue_wrapper.sqs.meta.client)
     # FIFO queues require a '.fifo' suffix on the queue name.
-    queue_name = make_unique_name('queue') + '.fifo'
-    attributes['FifoQueue'] = str(True)
-    url = 'url-' + queue_name
+    queue_name = make_unique_name("queue") + ".fifo"
+    attributes["FifoQueue"] = str(True)
+    url = "url-" + queue_name
 
     sqs_stubber.stub_create_queue(queue_name, attributes, url)
 
@@ -71,25 +76,27 @@ def test_create_dead_letter_queue(make_stubber, make_unique_name):
     by another queue's redrive policy.
     """
     sqs_stubber = make_stubber(queue_wrapper.sqs.meta.client)
-    dl_queue_name = make_unique_name('queue') + '_my_lost_messages'
-    dl_url = 'url-' + dl_queue_name
-    queue_name = make_unique_name('queue')
-    url = 'url-' + queue_name
+    dl_queue_name = make_unique_name("queue") + "_my_lost_messages"
+    dl_url = "url-" + dl_queue_name
+    queue_name = make_unique_name("queue")
+    url = "url-" + queue_name
 
     # Create a dead-letter queue.
     sqs_stubber.stub_create_queue(dl_queue_name, {}, dl_url)
     dl_queue = queue_wrapper.create_queue(dl_queue_name)
 
-    sqs_stubber.stub_get_queue_attributes(dl_url, 'arn:' + dl_queue_name)
+    sqs_stubber.stub_get_queue_attributes(dl_url, "arn:" + dl_queue_name)
 
     # Create the source queue that sends dead-letter messages to the dead-letter queue.
     # The redrive policy must be in JSON format. Note that its attribute names
     # start with lowercase letters.
     redrive_attributes = {
-        'RedrivePolicy': json.dumps({
-            'deadLetterTargetArn': dl_queue.attributes['QueueArn'],
-            'maxReceiveCount': str(5)
-        })
+        "RedrivePolicy": json.dumps(
+            {
+                "deadLetterTargetArn": dl_queue.attributes["QueueArn"],
+                "maxReceiveCount": str(5),
+            }
+        )
     }
     sqs_stubber.stub_create_queue(queue_name, redrive_attributes, url)
     sqs_stubber.stub_list_dead_letter_source_queues(dl_url, [url])
@@ -114,7 +121,7 @@ def test_create_standard_queue_with_fifo_extension(make_unique_name):
     """Test that creating a standard queue with the '.fifo' extension
     raises an exception."""
     with pytest.raises(ClientError):
-        queue_wrapper.create_queue(make_unique_name('queue') + '.fifo')
+        queue_wrapper.create_queue(make_unique_name("queue") + ".fifo")
 
 
 def test_create_fifo_queue_without_extension(make_unique_name):
@@ -122,15 +129,15 @@ def test_create_fifo_queue_without_extension(make_unique_name):
     raises an exception."""
     with pytest.raises(ClientError):
         queue_wrapper.create_queue(
-            make_unique_name('queue'),
-            attributes={'FifoQueue': str(True)})
+            make_unique_name("queue"), attributes={"FifoQueue": str(True)}
+        )
 
 
 def test_get_queue(make_stubber, make_unique_name):
     """Test that creating a queue and then getting it by name returns the same queue."""
     sqs_stubber = make_stubber(queue_wrapper.sqs.meta.client)
-    queue_name = make_unique_name('queue')
-    url = 'url-' + queue_name
+    queue_name = make_unique_name("queue")
+    url = "url-" + queue_name
 
     sqs_stubber.stub_create_queue(queue_name, {}, url)
     sqs_stubber.stub_get_queue_url(queue_name, url)
@@ -146,16 +153,19 @@ def test_get_queue(make_stubber, make_unique_name):
 def test_get_queue_nonexistent(make_stubber, make_unique_name):
     """Test that getting a nonexistent queue raises an exception."""
     sqs_stubber = make_stubber(queue_wrapper.sqs.meta.client)
-    queue_name = make_unique_name('queue')
-    url = 'url-' + queue_name
+    queue_name = make_unique_name("queue")
+    url = "url-" + queue_name
 
     sqs_stubber.stub_get_queue_url(
-        queue_name, url, error_code='AWS.SimpleQueueService.NonExistentQueue')
+        queue_name, url, error_code="AWS.SimpleQueueService.NonExistentQueue"
+    )
 
     with pytest.raises(ClientError) as exc_info:
         queue_wrapper.get_queue(queue_name)
-    assert exc_info.value.response['Error']['Code'] == \
-        'AWS.SimpleQueueService.NonExistentQueue'
+    assert (
+        exc_info.value.response["Error"]["Code"]
+        == "AWS.SimpleQueueService.NonExistentQueue"
+    )
 
 
 def test_get_queues(make_stubber, make_unique_name):
@@ -164,12 +174,12 @@ def test_get_queues(make_stubber, make_unique_name):
     that contains at least all of the newly created queues.
     """
     sqs_stubber = make_stubber(queue_wrapper.sqs.meta.client)
-    queue_name = make_unique_name('queue')
+    queue_name = make_unique_name("queue")
 
     created_queues = []
     for ind in range(1, 4):
         name = queue_name + str(ind)
-        sqs_stubber.stub_create_queue(name, {}, 'url-' + name)
+        sqs_stubber.stub_create_queue(name, {}, "url-" + name)
         created_queues.append(queue_wrapper.create_queue(name))
 
     sqs_stubber.stub_list_queues([q.url for q in created_queues])
@@ -198,12 +208,12 @@ def test_get_queues_prefix(make_stubber, make_unique_name):
     newly created queues.
     """
     sqs_stubber = make_stubber(queue_wrapper.sqs.meta.client)
-    queue_name = make_unique_name('queue')
+    queue_name = make_unique_name("queue")
 
     created_queues = []
     for ind in range(1, 4):
         name = queue_name + str(ind)
-        sqs_stubber.stub_create_queue(name, {}, 'url-' + name)
+        sqs_stubber.stub_create_queue(name, {}, "url-" + name)
         created_queues.append(queue_wrapper.create_queue(name))
 
     sqs_stubber.stub_list_queues([q.url for q in created_queues], queue_name)
@@ -218,9 +228,9 @@ def test_get_queues_prefix(make_stubber, make_unique_name):
 
 def test_get_queues_expect_none(make_stubber, make_unique_name):
     """Test that getting queues with a random prefix returns an empty list
-     and doesn't raise an exception."""
+    and doesn't raise an exception."""
     sqs_stubber = make_stubber(queue_wrapper.sqs.meta.client)
-    queue_name = make_unique_name('queue')
+    queue_name = make_unique_name("queue")
 
     sqs_stubber.stub_list_queues([], queue_name)
 
@@ -230,19 +240,22 @@ def test_get_queues_expect_none(make_stubber, make_unique_name):
 
 def test_remove_queue(make_stubber, make_unique_name):
     """Test that creating a queue, deleting it, then trying to get it raises
-     an exception because the queue no longer exists."""
+    an exception because the queue no longer exists."""
     sqs_stubber = make_stubber(queue_wrapper.sqs.meta.client)
-    queue_name = make_unique_name('queue')
-    url = 'url-' + queue_name
+    queue_name = make_unique_name("queue")
+    url = "url-" + queue_name
 
     sqs_stubber.stub_create_queue(queue_name, {}, url)
     sqs_stubber.stub_delete_queue(url)
     sqs_stubber.stub_get_queue_url(
-        queue_name, url, error_code='AWS.SimpleQueueService.NonExistentQueue')
+        queue_name, url, error_code="AWS.SimpleQueueService.NonExistentQueue"
+    )
 
     queue = queue_wrapper.create_queue(queue_name)
     queue_wrapper.remove_queue(queue)
     with pytest.raises(ClientError) as exc_info:
         queue_wrapper.get_queue(queue_name)
-    assert exc_info.value.response['Error']['Code'] == \
-        'AWS.SimpleQueueService.NonExistentQueue'
+    assert (
+        exc_info.value.response["Error"]["Code"]
+        == "AWS.SimpleQueueService.NonExistentQueue"
+    )

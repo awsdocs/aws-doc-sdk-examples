@@ -21,6 +21,7 @@ class SsmStubber(ExampleStubber):
     part of the tests, and will raise errors when the actual parameters differ from
     the expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -32,46 +33,67 @@ class SsmStubber(ExampleStubber):
         """
         super().__init__(client, use_stubs)
 
-    def stub_send_command(self, instance_ids, commands, command_id=None, timeout=3600, error_code=None):
+    def stub_send_command(
+        self, instance_ids, commands, command_id=None, timeout=3600, error_code=None
+    ):
         expected_parameters = {
-            'InstanceIds': instance_ids,
-            'DocumentName': 'AWS-RunShellScript',
-            'Parameters': {'commands': commands}}
+            "InstanceIds": instance_ids,
+            "DocumentName": "AWS-RunShellScript",
+            "Parameters": {"commands": commands},
+        }
         if timeout is not None:
-            expected_parameters['TimeoutSeconds'] = timeout
+            expected_parameters["TimeoutSeconds"] = timeout
         response = {}
         if command_id is not None:
-            response['Command'] = {'CommandId': command_id}
+            response["Command"] = {"CommandId": command_id}
         self._stub_bifurcator(
-            'send_command', expected_parameters, response, error_code=error_code)
+            "send_command", expected_parameters, response, error_code=error_code
+        )
 
     def stub_list_commands(self, command_id, status_details, error_code=None):
-        expected_parameters = {'CommandId': command_id}
-        response = {'Commands': [{
-            'CommandId': command_id, 'StatusDetails': status_details}]}
+        expected_parameters = {"CommandId": command_id}
+        response = {
+            "Commands": [{"CommandId": command_id, "StatusDetails": status_details}]
+        }
         self._stub_bifurcator(
-            'list_commands', expected_parameters, response, error_code=error_code)
+            "list_commands", expected_parameters, response, error_code=error_code
+        )
 
     def stub_get_parameters_by_path(self, names, values, path=ANY, error_code=None):
-        expected_params = {'Path': path}
-        response = {'Parameters': [{'Name': name, 'Value': value} for name, value in zip(names, values)]}
+        expected_params = {"Path": path}
+        response = {
+            "Parameters": [
+                {"Name": name, "Value": value} for name, value in zip(names, values)
+            ]
+        }
         self._stub_bifurcator(
-            'get_parameters_by_path', expected_params, response, error_code=error_code)
+            "get_parameters_by_path", expected_params, response, error_code=error_code
+        )
 
     def stub_get_parameter(self, name, value, error_code=None):
-        expected_params = {'Name': name}
-        response = {'Parameter': {'Value': value}}
+        expected_params = {"Name": name}
+        response = {"Parameter": {"Value": value}}
         self._stub_bifurcator(
-            'get_parameter', expected_params, response, error_code=error_code)
+            "get_parameter", expected_params, response, error_code=error_code
+        )
 
     def stub_put_parameter(self, name, value, error_code=None):
-        expected_params = {'Name': name, 'Value': value, 'Overwrite': True}
+        expected_params = {"Name": name, "Value": value, "Overwrite": True}
         response = {}
         self._stub_bifurcator(
-            'put_parameter', expected_params, response, error_code=error_code)
+            "put_parameter", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_instance_information(self, instance_ids, error_code=None):
         expected_params = {}
-        response = {'InstanceInformationList': [{'InstanceId': instance_id} for instance_id in instance_ids]}
+        response = {
+            "InstanceInformationList": [
+                {"InstanceId": instance_id} for instance_id in instance_ids
+            ]
+        }
         self._stub_bifurcator(
-            'describe_instance_information', expected_params, response, error_code=error_code)
+            "describe_instance_information",
+            expected_params,
+            response,
+            error_code=error_code,
+        )

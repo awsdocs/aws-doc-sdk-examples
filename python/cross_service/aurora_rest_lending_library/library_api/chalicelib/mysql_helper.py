@@ -15,39 +15,43 @@ This code is intended for demonstration only and does not guarantee best practic
 import datetime
 
 # Maps from Python types to MySQL columns types used in a CREATE TABLE statement.
-COL_TYPES = {
-    int: 'int',
-    str: 'varchar(255)',
-    datetime.date: 'DATE'
-}
+COL_TYPES = {int: "int", str: "varchar(255)", datetime.date: "DATE"}
 
 # Maps from Python types to Amazon RDS Data Service types.
 VALUE_KEYS = {
-    bytes: 'blobValue',
-    bool: 'booleanValue',
-    float: 'doubleValue',
-    type(None): 'isNull',
-    int: 'longValue',
-    str: 'stringValue',
-    datetime.date: 'stringValue'
+    bytes: "blobValue",
+    bool: "booleanValue",
+    float: "doubleValue",
+    type(None): "isNull",
+    int: "longValue",
+    str: "stringValue",
+    datetime.date: "stringValue",
 }
 
 
 class ForeignKey:
     """Defines a foreign key."""
+
     def __init__(self, table_name, column_name):
         self.table_name = table_name
         self.column_name = column_name
 
     def reference(self):
-        return f'{self.table_name}({self.column_name})'
+        return f"{self.table_name}({self.column_name})"
 
 
 class Column:
     """Defines a column in a database table."""
+
     def __init__(
-            self, name, data_type, nullable=True, auto_increment=False,
-            primary_key=None, foreign_key=None):
+        self,
+        name,
+        data_type,
+        nullable=True,
+        auto_increment=False,
+        primary_key=None,
+        foreign_key=None,
+    ):
         self.name = name
         self.data_type = data_type
         self.nullable = nullable
@@ -58,6 +62,7 @@ class Column:
 
 class Table:
     """Defines a database table."""
+
     def __init__(self, name, cols):
         self.name = name
         self.cols = cols
@@ -73,12 +78,17 @@ def _make_params(values):
     params = []
     for key, val in values.items():
         param = {
-            'name': f'{key}',
-            'value': {VALUE_KEYS[type(val)]:
-                      str(val) if isinstance(val, datetime.date) else
-                      val if val is not None else True}}
+            "name": f"{key}",
+            "value": {
+                VALUE_KEYS[type(val)]: str(val)
+                if isinstance(val, datetime.date)
+                else val
+                if val is not None
+                else True
+            },
+        }
         if isinstance(val, datetime.date):
-            param['typeHint'] = 'DATE'
+            param["typeHint"] = "DATE"
         params.append(param)
     return params
 
@@ -101,16 +111,21 @@ def _make_where_parts(where_clauses):
     :return The MySQL WHERE statement and associated parameters that can be passed
             to the RDS Data Service.
     """
-    sql = ''
+    sql = ""
     sql_params = None
     if where_clauses is not None:
-        wheres = [f"{item['table']}.{item['column']} {item['op']} "
-                  f":{item['table']}_{item['column']}"
-                  for item in where_clauses]
+        wheres = [
+            f"{item['table']}.{item['column']} {item['op']} "
+            f":{item['table']}_{item['column']}"
+            for item in where_clauses
+        ]
         sql = f" WHERE {' AND '.join(wheres)}"
         sql_params = _make_params(
-            {f"{item['table']}_{item['column']}": item['value']
-             for item in where_clauses})
+            {
+                f"{item['table']}_{item['column']}": item["value"]
+                for item in where_clauses
+            }
+        )
     return sql, sql_params
 
 
@@ -121,23 +136,24 @@ def create_table(table):
     :param table: The Table object used to generate the MySQL statement
     :return: The MySQL CREATE TABLE statement.
     """
-    create_clause = f'CREATE TABLE {table.name}'
+    create_clause = f"CREATE TABLE {table.name}"
     cols = []
     constraints = []
     for col in table.cols:
-        clause = f'{col.name} {COL_TYPES[col.data_type]}'
+        clause = f"{col.name} {COL_TYPES[col.data_type]}"
         if not col.nullable:
-            clause += ' NOT NULL'
+            clause += " NOT NULL"
         if col.auto_increment:
-            clause += ' AUTO_INCREMENT'
+            clause += " AUTO_INCREMENT"
         cols.append(clause)
         if col.primary_key:
-            constraints.append(f'PRIMARY KEY ({col.name})')
+            constraints.append(f"PRIMARY KEY ({col.name})")
         if col.foreign_key is not None:
             constraints.append(
-                f'FOREIGN KEY ({col.name}) REFERENCES {col.foreign_key.reference()}')
-    col_clause = ', '.join(cols)
-    constraint_clause = ', '.join(constraints)
+                f"FOREIGN KEY ({col.name}) REFERENCES {col.foreign_key.reference()}"
+            )
+    col_clause = ", ".join(cols)
+    constraint_clause = ", ".join(constraints)
     sql = f"{create_clause} ({', '.join([col_clause, constraint_clause])})"
     return sql
 
@@ -155,9 +171,9 @@ def insert(table, value_sets):
     :return: The MySQL INSERT statement and parameter sets that can be passed to
              the RDS Data Service.
     """
-    insert_clause = f'INSERT INTO {table.name}'
+    insert_clause = f"INSERT INTO {table.name}"
     cols = [col.name for col in table.cols if not col.auto_increment]
-    vals = [f':{col}' for col in cols]
+    vals = [f":{col}" for col in cols]
     sql = f"{insert_clause} ({', '.join(cols)}) VALUES ({', '.join(vals)})"
     param_sets = [_make_params(values) for values in value_sets]
     return sql, param_sets
@@ -177,7 +193,7 @@ def update(table_name, set_values, where_clauses):
              RDS Data Service.
     """
     set_clauses = [f"{key}=:set_{key}" for key in set_values.keys()]
-    set_params = _make_params({f'set_{key}': val for key, val in set_values.items()})
+    set_params = _make_params({f"set_{key}": val for key, val in set_values.items()})
     where_sql, where_params = _make_where_parts(where_clauses)
     sql = f"UPDATE {table_name} SET {', '.join(set_clauses)}{where_sql}"
     return sql, set_params + where_params
@@ -204,13 +220,15 @@ def query(primary_name, tables, where_clauses=None):
     def build_query(table):
         for col in table.cols:
             if not col.foreign_key:
-                columns[f'{table.name}.{col.name}'] = col
+                columns[f"{table.name}.{col.name}"] = col
             else:
                 joins.append(
                     f"INNER JOIN {col.foreign_key.table_name} "
                     f"ON {table.name}.{col.name}="
-                    f"{col.foreign_key.table_name}.{col.foreign_key.column_name}")
+                    f"{col.foreign_key.table_name}.{col.foreign_key.column_name}"
+                )
                 build_query(tables[col.foreign_key.table_name])
+
     build_query(tables[primary_name])
     sql = f"SELECT {', '.join(columns.keys())} FROM {primary_name} {' '.join(joins)}"
     where_sql, sql_params = _make_where_parts(where_clauses)
@@ -229,10 +247,13 @@ def unpack_query_results(columns, results):
     :param results: The results returned from the SELECT query.
     :return: The query records as a list of Python dicts.
     """
-    output = [{
-        col_key: val.get(VALUE_KEYS[col.data_type], None)
-        for col_key, col, val in zip(columns.keys(), columns.values(), record)
-    } for record in results['records']]
+    output = [
+        {
+            col_key: val.get(VALUE_KEYS[col.data_type], None)
+            for col_key, col, val in zip(columns.keys(), columns.values(), record)
+        }
+        for record in results["records"]
+    ]
     return output
 
 
@@ -243,7 +264,7 @@ def unpack_insert_results(results):
     :param results: The results from the INSERT statement.
     :return: The ID of the inserted row.
     """
-    return results['generatedFields'][0]['longValue']
+    return results["generatedFields"][0]["longValue"]
 
 
 def delete(table, value_sets):
@@ -256,8 +277,8 @@ def delete(table, value_sets):
     :return: The MySQL DELETE statement and parameter sets that can be passed to
              the RDS Data Service.
     """
-    delete_clause = f'DELETE FROM {table.name}'
-    wheres = [f'{col.name}=:{col.name}' for col in table.cols if col.primary_key]
+    delete_clause = f"DELETE FROM {table.name}"
+    wheres = [f"{col.name}=:{col.name}" for col in table.cols if col.primary_key]
     sql = f"{delete_clause} WHERE {' AND '.join(wheres)}"
     param_sets = [_make_params(values) for values in value_sets]
     return sql, param_sets

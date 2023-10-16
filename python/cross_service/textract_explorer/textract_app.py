@@ -18,23 +18,23 @@ from textract_wrapper import TextractWrapper
 
 logger = logging.getLogger(__name__)
 
-NO_DATA_MESSAGE = 'Click one of the extract buttons to extract data.'
+NO_DATA_MESSAGE = "Click one of the extract buttons to extract data."
 EXTRACTING_MESSAGE = "Extracting data..."
 
 COLOR_MAP = {
-    'PAGE': 'purple4',
-    'LINE': 'lime green',
-    'WORD': 'burlywood4',
-    'TABLE': 'turquoise3',
-    'CELL': 'salmon3',
-    'KEY_VALUE_SET': 'cornflower blue',
-    'SELECTION_ELEMENT': 'orange2'
+    "PAGE": "purple4",
+    "LINE": "lime green",
+    "WORD": "burlywood4",
+    "TABLE": "turquoise3",
+    "CELL": "salmon3",
+    "KEY_VALUE_SET": "cornflower blue",
+    "SELECTION_ELEMENT": "orange2",
 }
 
 FILTER_MAP = {
-    'TEXT': ['PAGE', 'LINE', 'WORD'],
-    'TABLES': ['PAGE', 'TABLE', 'CELL', 'WORD'],
-    'FORMS': ['PAGE', 'KEY_VALUE_SET', 'WORD', 'SELECTION_ELEMENT']
+    "TEXT": ["PAGE", "LINE", "WORD"],
+    "TABLES": ["PAGE", "TABLE", "CELL", "WORD"],
+    "FORMS": ["PAGE", "KEY_VALUE_SET", "WORD", "SELECTION_ELEMENT"],
 }
 
 
@@ -45,9 +45,10 @@ class TextractExplorer:
     hierarchy to explore the output format and see bounding polygons drawn on the input
     image.
     """
+
     def __init__(
-            self, textract_wrapper, stack_outputs, default_image_name,
-            default_image_bytes):
+        self, textract_wrapper, stack_outputs, default_image_name, default_image_bytes
+    ):
         """
         Initializes the main Tkinter window and adds all of the widgets needed for
         the application.
@@ -74,38 +75,53 @@ class TextractExplorer:
 
         self.image_offset = (5, 5)
         self.file_label = tkinter.Label(
-            self.input_frame, wraplength=410,
+            self.input_frame,
+            wraplength=410,
             text="Enter the name of an image file to load, then click one of "
-                 "the extract buttons to extract data from the image.")
+            "the extract buttons to extract data from the image.",
+        )
         self.load_frame = tkinter.Frame(self.input_frame)
         self.file_text = tkinter.Entry(self.load_frame, width=50)
         self.load_button = tkinter.Button(
-            self.load_frame, text='Load', command=self.load_document)
+            self.load_frame, text="Load", command=self.load_document
+        )
         self.input_canvas = tkinter.Canvas(
             self.input_frame,
             height=300 + self.image_offset[0],
             width=500 + self.image_offset[1],
-            bg='white')
+            bg="white",
+        )
         self.button_frame = tkinter.Frame(self.input_frame)
         self.extract_sync = tkinter.BooleanVar(self.button_frame, True)
         self.sync_mode_button = tkinter.Radiobutton(
-            self.button_frame, text='Synchronous', variable=self.extract_sync,
-            value=True)
+            self.button_frame,
+            text="Synchronous",
+            variable=self.extract_sync,
+            value=True,
+        )
         self.async_mode_button = tkinter.Radiobutton(
-            self.button_frame, text='Asynchronous', variable=self.extract_sync,
-            value=False)
+            self.button_frame,
+            text="Asynchronous",
+            variable=self.extract_sync,
+            value=False,
+        )
         self.extract_text_button = tkinter.Button(
-            self.button_frame, text="Extract text",
-            command=lambda: self.extract(self.extract_text_button))
+            self.button_frame,
+            text="Extract text",
+            command=lambda: self.extract(self.extract_text_button),
+        )
         self.extract_table_button = tkinter.Button(
-            self.button_frame, text="Extract table",
-            command=lambda: self.extract(self.extract_table_button))
+            self.button_frame,
+            text="Extract table",
+            command=lambda: self.extract(self.extract_table_button),
+        )
         self.extract_form_button = tkinter.Button(
-            self.button_frame, text="Extract form",
-            command=lambda: self.extract(self.extract_form_button))
+            self.button_frame,
+            text="Extract form",
+            command=lambda: self.extract(self.extract_form_button),
+        )
 
-        self.explorer_label = tkinter.Label(
-            self.explorer_frame, text=NO_DATA_MESSAGE)
+        self.explorer_label = tkinter.Label(self.explorer_frame, text=NO_DATA_MESSAGE)
         self.explorer_label.grid(row=0, column=0, sticky=tkinter.NW, pady=5)
         self.tree_frame = tkinter.Frame(self.explorer_frame)
         self.tree_frame.grid(row=1, column=0, sticky=tkinter.NSEW)
@@ -141,7 +157,7 @@ class TextractExplorer:
         self.file_text.insert(0, self.current_file)
         self.load_document(default_image_bytes)
 
-        self.block_filter = 'TEXT'
+        self.block_filter = "TEXT"
         self.textract_data = None
 
         self.app.mainloop()
@@ -159,8 +175,8 @@ class TextractExplorer:
         self.image.thumbnail((500, 300), Image.ANTIALIAS)
         self.tk_image = ImageTk.PhotoImage(self.image)
         self.input_canvas.create_image(
-            *self.image_offset, anchor=tkinter.NW,
-            image=self.tk_image)
+            *self.image_offset, anchor=tkinter.NW, image=self.tk_image
+        )
         self.clear_nodes()
 
     def clear_nodes(self):
@@ -170,7 +186,7 @@ class TextractExplorer:
         if self.doc_canvas is not None:
             self.doc_canvas.destroy()
             self.doc_canvas = None
-        self.explorer_label['text'] = NO_DATA_MESSAGE
+        self.explorer_label["text"] = NO_DATA_MESSAGE
 
     def render_document(self, document):
         """
@@ -182,12 +198,13 @@ class TextractExplorer:
         self.doc_canvas.grid(row=0, column=0, sticky=tkinter.NSEW)
 
         doc_scroll = tkinter.Scrollbar(
-            self.tree_frame, orient=tkinter.VERTICAL, command=self.doc_canvas.yview)
+            self.tree_frame, orient=tkinter.VERTICAL, command=self.doc_canvas.yview
+        )
         doc_scroll.grid(row=0, column=1, sticky=tkinter.NS)
         self.doc_canvas.configure(yscrollcommand=doc_scroll.set)
         self.doc_frame = tkinter.Frame(self.doc_canvas)
 
-        doc_node = {'frame': self.doc_frame, 'data': document}
+        doc_node = {"frame": self.doc_frame, "data": document}
         self.expand_node(doc_node, [doc_node])
 
         self.doc_canvas.create_window((4, 4), window=self.doc_frame, anchor=tkinter.NW)
@@ -200,14 +217,14 @@ class TextractExplorer:
         :param block: The block to render.
         :return: The string representation of the block.
         """
-        text = block.get('Text', '')
+        text = block.get("Text", "")
 
-        block_type = block['BlockType']
-        if block_type == 'CELL':
+        block_type = block["BlockType"]
+        if block_type == "CELL":
             text = f"({block['RowIndex']}, {block['ColumnIndex']})"
-        elif block_type == 'KEY_VALUE_SET':
+        elif block_type == "KEY_VALUE_SET":
             text = f"({block['EntityTypes'][0]})"
-        elif block_type == 'SELECTION_ELEMENT':
+        elif block_type == "SELECTION_ELEMENT":
             text = f"({block['SelectionStatus']})"
 
         return f"{block_type} {text}"
@@ -222,36 +239,41 @@ class TextractExplorer:
         :param node_list: The list of nodes that are siblings to the selected node.
         """
         for node in node_list:
-            node['frame'].grid_remove()
+            node["frame"].grid_remove()
 
-        for kid_widget in sel_node['frame'].children.values():
-            if kid_widget.widgetName == 'frame':
+        for kid_widget in sel_node["frame"].children.values():
+            if kid_widget.widgetName == "frame":
                 kid_widget.grid_remove()
 
-        if not sel_node['frame'].children:
+        if not sel_node["frame"].children:
             child_list = []
             child_var = tkinter.IntVar()
-            indent = 10 * max(0, str(sel_node['frame']).count('frame') - 2)
-            for index, child in enumerate([
-                    n for n in
-                    sel_node['data'].get('Children', [])
-                    if n['BlockType'] in FILTER_MAP[self.block_filter]]):
-                child_frame = tkinter.Frame(sel_node['frame'])
+            indent = 10 * max(0, str(sel_node["frame"]).count("frame") - 2)
+            for index, child in enumerate(
+                [
+                    n
+                    for n in sel_node["data"].get("Children", [])
+                    if n["BlockType"] in FILTER_MAP[self.block_filter]
+                ]
+            ):
+                child_frame = tkinter.Frame(sel_node["frame"])
                 child_radio = tkinter.Radiobutton(
-                    sel_node['frame'],
-                    fg=COLOR_MAP.get(child['BlockType'], 'red'),
-                    activeforeground='gray',
+                    sel_node["frame"],
+                    fg=COLOR_MAP.get(child["BlockType"], "red"),
+                    activeforeground="gray",
                     text=self.render_block(child),
                     variable=child_var,
                     value=index,
-                    command=lambda: self.select_document_node(child_list, child_var))
-                child_list.append({'frame': child_frame, 'data': child})
+                    command=lambda: self.select_document_node(child_list, child_var),
+                )
+                child_list.append({"frame": child_frame, "data": child})
                 row = index * 2
                 child_radio.grid(
-                    row=row, column=0, sticky=tkinter.NW, pady=2, padx=indent)
+                    row=row, column=0, sticky=tkinter.NW, pady=2, padx=indent
+                )
                 child_frame.grid(row=row + 1, column=0, sticky=tkinter.NW, padx=indent)
 
-        sel_node['frame'].grid()
+        sel_node["frame"].grid()
 
         self.doc_frame.update_idletasks()
         bbox = self.doc_canvas.bbox(tkinter.ALL)
@@ -267,11 +289,16 @@ class TextractExplorer:
         """
         img_width = self.tk_image.width()
         img_height = self.tk_image.height()
-        points = [((p['X'] * img_width) + self.image_offset[0],
-                   (p['Y'] * img_height) + self.image_offset[1]) for p in polygon]
+        points = [
+            (
+                (p["X"] * img_width) + self.image_offset[0],
+                (p["Y"] * img_height) + self.image_offset[1],
+            )
+            for p in polygon
+        ]
         points.append(points[0])
-        self.input_canvas.delete('polygon')
-        self.input_canvas.create_line(points, fill=color, width=2, tag='polygon')
+        self.input_canvas.delete("polygon")
+        self.input_canvas.create_line(points, fill=color, width=2, tag="polygon")
 
     def select_document_node(self, node_list, node_var):
         """
@@ -283,9 +310,9 @@ class TextractExplorer:
         :param node_var: The selected node in a Tkinter variable.
         """
         sel_node = node_list[node_var.get()]
-        color = COLOR_MAP.get(sel_node['data']['BlockType'], 'red')
+        color = COLOR_MAP.get(sel_node["data"]["BlockType"], "red")
         self.expand_node(sel_node, node_list)
-        self.draw_polygon(sel_node['data']['Geometry']['Polygon'], color)
+        self.draw_polygon(sel_node["data"]["Geometry"]["Polygon"], color)
 
     def do_sync_extract(self, doc_bytes):
         """
@@ -293,12 +320,14 @@ class TextractExplorer:
 
         :param doc_bytes: The image as a stream of bytes.
         """
-        if self.block_filter == 'TEXT':
+        if self.block_filter == "TEXT":
             self.textract_data = self.textract_wrapper.detect_file_text(
-                document_bytes=doc_bytes.getvalue())
+                document_bytes=doc_bytes.getvalue()
+            )
         else:
             self.textract_data = self.textract_wrapper.analyze_file(
-                [self.block_filter], document_bytes=doc_bytes.getvalue())
+                [self.block_filter], document_bytes=doc_bytes.getvalue()
+            )
 
     def do_async_extract(self, bucket_name, obj_name, sns_topic_arn, sns_role_arn):
         """
@@ -313,12 +342,14 @@ class TextractExplorer:
                              role that grants permission to publish to the topic.
         :return: The ID of the detection job.
         """
-        if self.block_filter == 'TEXT':
+        if self.block_filter == "TEXT":
             job_id = self.textract_wrapper.start_detection_job(
-                bucket_name, obj_name, sns_topic_arn, sns_role_arn)
+                bucket_name, obj_name, sns_topic_arn, sns_role_arn
+            )
         else:
             job_id = self.textract_wrapper.start_analysis_job(
-                bucket_name, obj_name, [self.block_filter], sns_topic_arn, sns_role_arn)
+                bucket_name, obj_name, [self.block_filter], sns_topic_arn, sns_role_arn
+            )
         return job_id
 
     def render_data_when_thread_ready(self, thread, button, text):
@@ -334,7 +365,8 @@ class TextractExplorer:
         """
         if thread.is_alive():
             self.app.after(
-                100, lambda: self.render_data_when_thread_ready(thread, button, text))
+                100, lambda: self.render_data_when_thread_ready(thread, button, text)
+            )
         else:
             self.render_data(button, text)
 
@@ -351,16 +383,19 @@ class TextractExplorer:
         :param text: The original text of the button.
         """
         status = self.textract_wrapper.check_job_queue(queue_url, job_id)
-        if status == 'SUCCEEDED':
-            if self.block_filter == 'TEXT':
+        if status == "SUCCEEDED":
+            if self.block_filter == "TEXT":
                 self.textract_data = self.textract_wrapper.get_detection_job(job_id)
             else:
                 self.textract_data = self.textract_wrapper.get_analysis_job(job_id)
             self.render_data(button, text)
         else:
             self.app.after(
-                1000, lambda: self.render_data_when_job_ready(
-                    queue_url, job_id, button, text))
+                1000,
+                lambda: self.render_data_when_job_ready(
+                    queue_url, job_id, button, text
+                ),
+            )
 
     def render_data(self, button, text):
         """
@@ -372,15 +407,17 @@ class TextractExplorer:
         :param text: The original text of the button.
         """
         doc_hierarchy = self.textract_wrapper.make_page_hierarchy(
-            self.textract_data['Blocks'])
+            self.textract_data["Blocks"]
+        )
         self.render_document(doc_hierarchy)
-        self.explorer_label['text'] = (
+        self.explorer_label["text"] = (
             f"Extracted {self.block_filter} data from {self.current_file}.\n"
-            f"Click an element to expand it and see its bounding polygon.")
+            f"Click an element to expand it and see its bounding polygon."
+        )
 
         button.update()
-        button['text'] = text
-        button['state'] = tkinter.ACTIVE
+        button["text"] = text
+        button["state"] = tkinter.ACTIVE
 
     def extract(self, button):
         """
@@ -394,37 +431,47 @@ class TextractExplorer:
         :param button: The clicked button.
         """
         if button is self.extract_text_button:
-            self.block_filter = 'TEXT'
+            self.block_filter = "TEXT"
         elif button is self.extract_table_button:
-            self.block_filter = 'TABLES'
+            self.block_filter = "TABLES"
         elif button is self.extract_form_button:
-            self.block_filter = 'FORMS'
+            self.block_filter = "FORMS"
 
         self.clear_nodes()
-        self.explorer_label['text'] = EXTRACTING_MESSAGE
-        original_text = button['text']
-        button['text'] = 'Extracting...'
-        button['state'] = tkinter.DISABLED
+        self.explorer_label["text"] = EXTRACTING_MESSAGE
+        original_text = button["text"]
+        button["text"] = "Extracting..."
+        button["state"] = tkinter.DISABLED
         button.update()
 
         doc_bytes = BytesIO()
-        self.image.save(doc_bytes, format='PNG')
+        self.image.save(doc_bytes, format="PNG")
         doc_bytes.seek(0)
 
         if self.extract_sync.get():
             extract_thread = threading.Thread(
-                target=self.do_sync_extract, args=(doc_bytes,))
+                target=self.do_sync_extract, args=(doc_bytes,)
+            )
             extract_thread.start()
             self.app.after(
                 5,
                 lambda: self.render_data_when_thread_ready(
-                    extract_thread, button, original_text))
+                    extract_thread, button, original_text
+                ),
+            )
         else:
             self.textract_wrapper.prepare_job(
-                self.stack_outputs['BucketName'], self.current_file, doc_bytes)
+                self.stack_outputs["BucketName"], self.current_file, doc_bytes
+            )
             job_id = self.do_async_extract(
-                self.stack_outputs['BucketName'], self.current_file,
-                self.stack_outputs['TopicArn'], self.stack_outputs['RoleArn'])
+                self.stack_outputs["BucketName"],
+                self.current_file,
+                self.stack_outputs["TopicArn"],
+                self.stack_outputs["RoleArn"],
+            )
             self.app.after(
-                1000, lambda: self.render_data_when_job_ready(
-                    self.stack_outputs['QueueUrl'], job_id, button, original_text))
+                1000,
+                lambda: self.render_data_when_job_ready(
+                    self.stack_outputs["QueueUrl"], job_id, button, original_text
+                ),
+            )

@@ -45,8 +45,8 @@ class Inference:
         else:
             logger.info("Image type not valid for %s", photo)
             raise ValueError(
-                f"File format not valid. Supply a jpeg or png format file: {photo}")
-
+                f"File format not valid. Supply a jpeg or png format file: {photo}"
+            )
 
         # Get images bytes for call to detect_anomalies.
         with open(photo, "rb") as image:
@@ -54,9 +54,10 @@ class Inference:
                 ProjectName=project_name,
                 ContentType=content_type,
                 Body=image.read(),
-                ModelVersion=model_version)
+                ModelVersion=model_version,
+            )
 
-        return response['DetectAnomalyResult']
+        return response["DetectAnomalyResult"]
 
     @staticmethod
     def download_from_s3(s3_resource, photo):
@@ -86,7 +87,7 @@ class Inference:
     @staticmethod
     def reject_on_classification(image, prediction, confidence_limit):
         """
-        Returns True if the anomaly confidence is greater than or equal to 
+        Returns True if the anomaly confidence is greater than or equal to
         the supplied confidence limit.
         :param image: The name of the image file that was analyzed.
         :param prediction: The DetectAnomalyResult object returned from DetectAnomalies.
@@ -98,10 +99,12 @@ class Inference:
 
         logger.info("Checking classification for %s", image)
 
-        if prediction['IsAnomalous'] and prediction['Confidence'] >= confidence_limit:
+        if prediction["IsAnomalous"] and prediction["Confidence"] >= confidence_limit:
             reject = True
-            reject_info=(f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) is greater"
-                    f" than limit ({confidence_limit:.2%})")
+            reject_info = (
+                f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) is greater"
+                f" than limit ({confidence_limit:.2%})"
+            )
             logger.info("%s", reject_info)
 
         if not reject:
@@ -109,7 +112,9 @@ class Inference:
         return reject
 
     @staticmethod
-    def reject_on_anomaly_types(image, prediction, confidence_limit, anomaly_types_limit):
+    def reject_on_anomaly_types(
+        image, prediction, confidence_limit, anomaly_types_limit
+    ):
         """
         Checks if the number of anomaly types is greater than the anomaly types
         limit and if the prediction confidence is greater than the confidence limit.
@@ -120,30 +125,36 @@ class Inference:
         :return: True if the error condition indicates an anomaly, otherwise False.
         """
 
-        logger.info("Checking number of anomaly types for %s",image)
+        logger.info("Checking number of anomaly types for %s", image)
 
         reject = False
 
-        if prediction['IsAnomalous'] and prediction['Confidence'] >= confidence_limit:
+        if prediction["IsAnomalous"] and prediction["Confidence"] >= confidence_limit:
+            anomaly_types = {
+                anomaly["Name"]
+                for anomaly in prediction["Anomalies"]
+                if anomaly["Name"] != "background"
+            }
 
-            anomaly_types = {anomaly['Name'] for anomaly in prediction['Anomalies']\
-                if anomaly['Name'] != 'background'}
-
-            if len (anomaly_types) > anomaly_types_limit:
-                    reject = True
-                    reject_info = (f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
+            if len(anomaly_types) > anomaly_types_limit:
+                reject = True
+                reject_info = (
+                    f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
                     f"is greater than limit ({confidence_limit:.2%}) and "
                     f"the number of anomaly types ({len(anomaly_types)-1}) is "
-                    f"greater than the limit ({anomaly_types_limit})")
+                    f"greater than the limit ({anomaly_types_limit})"
+                )
 
-                    logger.info("%s", reject_info)
+                logger.info("%s", reject_info)
 
         if not reject:
             logger.info("No anomalies found.")
         return reject
 
     @staticmethod
-    def reject_on_coverage(image, prediction, confidence_limit, anomaly_label, coverage_limit):
+    def reject_on_coverage(
+        image, prediction, confidence_limit, anomaly_label, coverage_limit
+    ):
         """
         Checks if the coverage area of an anomaly is greater than the coverage limit and if
         the prediction confidence is greater than the confidence limit.
@@ -159,15 +170,18 @@ class Inference:
 
         logger.info("Checking coverage for %s", image)
 
-        if prediction['IsAnomalous'] and prediction['Confidence'] >= confidence_limit:
-            for anomaly in prediction['Anomalies']:
-                if (anomaly['Name'] == anomaly_label and 
-                        anomaly['PixelAnomaly']['TotalPercentageArea'] > (coverage_limit)):
+        if prediction["IsAnomalous"] and prediction["Confidence"] >= confidence_limit:
+            for anomaly in prediction["Anomalies"]:
+                if anomaly["Name"] == anomaly_label and anomaly["PixelAnomaly"][
+                    "TotalPercentageArea"
+                ] > (coverage_limit):
                     reject = True
-                    reject_info=(f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
+                    reject_info = (
+                        f"Rejected: Anomaly confidence ({prediction['Confidence']:.2%}) "
                         f"is greater than limit ({confidence_limit:.2%}) and {anomaly['Name']} "
                         f"coverage ({anomaly['PixelAnomaly']['TotalPercentageArea']:.2%}) "
-                        f"is greater than limit ({coverage_limit:.2%})")
+                        f"is greater than limit ({coverage_limit:.2%})"
+                    )
 
                     logger.info("%s", reject_info)
 
@@ -188,40 +202,40 @@ class Inference:
         limits.
         """
 
-        project = config['project']
-        model_version = config['model_version']
-        confidence_limit = config['confidence_limit']
-        coverage_limit = config['coverage_limit']
-        anomaly_types_limit = config['anomaly_types_limit']
-        anomaly_label = config['anomaly_label']
-
+        project = config["project"]
+        model_version = config["model_version"]
+        confidence_limit = config["confidence_limit"]
+        coverage_limit = config["coverage_limit"]
+        anomaly_types_limit = config["anomaly_types_limit"]
+        anomaly_label = config["anomaly_label"]
 
         # Get analysis results.
         print(f"Analyzing {image}.")
 
         prediction = Inference.detect_anomalies(
-            lookoutvision_client, project, model_version, image)
+            lookoutvision_client, project, model_version, image
+        )
 
         anomalies = []
 
-        reject = Inference.reject_on_classification(
-            image, prediction, confidence_limit)
+        reject = Inference.reject_on_classification(image, prediction, confidence_limit)
 
         if reject:
             anomalies.append("Classification: An anomaly was found.")
 
         reject = Inference.reject_on_coverage(
-            image, prediction, confidence_limit, anomaly_label, coverage_limit)
+            image, prediction, confidence_limit, anomaly_label, coverage_limit
+        )
 
         if reject:
             anomalies.append("Coverage: Anomaly coverage too high.")
 
         reject = Inference.reject_on_anomaly_types(
-            image, prediction, confidence_limit, anomaly_types_limit)
+            image, prediction, confidence_limit, anomaly_types_limit
+        )
 
         if reject:
-            anomalies.append(
-                "Anomaly type count: Too many anomaly types found.")
+            anomalies.append("Anomaly type count: Too many anomaly types found.")
             print()
 
         if len(anomalies) > 0:
@@ -237,32 +251,34 @@ def main():
     Detects anomalies in an image file.
     """
     try:
-        logging.basicConfig(level=logging.INFO,
-                            format="%(levelname)s: %(message)s")
-
+        logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
         parser = argparse.ArgumentParser(
-            description="Find anomalies with Amazon Lookout for Vision.")
+            description="Find anomalies with Amazon Lookout for Vision."
+        )
         parser.add_argument(
             "image",
             help="The file that you want to analyze. Supply a local file path or a "
-                 "path to an S3 object.")
+            "path to an S3 object.",
+        )
         parser.add_argument(
-            "config", help=("The configuration JSON file to use. "
-            "See https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/"
-            "python/example_code/lookoutvision/README.md"))
+            "config",
+            help=(
+                "The configuration JSON file to use. "
+                "See https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/"
+                "python/example_code/lookoutvision/README.md"
+            ),
+        )
 
         args = parser.parse_args()
 
-
-        session = boto3.Session(
-            profile_name='lookoutvision-access')
+        session = boto3.Session(profile_name="lookoutvision-access")
 
         lookoutvision_client = session.client("lookoutvision")
-        s3_resource = session.resource('s3')
+        s3_resource = session.resource("s3")
 
         # Get configuration information.
-        with open(args.config, encoding="utf-8")  as config_file:
+        with open(args.config, encoding="utf-8") as config_file:
             config = json.load(config_file)
 
         # Download image if located in S3 bucket.

@@ -24,16 +24,18 @@ from botocore.exceptions import ClientError
 
 
 def do_scenario(s3_resource):
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the Amazon S3 getting started demo!")
-    print('-'*88)
+    print("-" * 88)
 
-    bucket_name = f'doc-example-bucket-{uuid.uuid4()}'
+    bucket_name = f"doc-example-bucket-{uuid.uuid4()}"
     bucket = s3_resource.Bucket(bucket_name)
     try:
         bucket.create(
             CreateBucketConfiguration={
-                'LocationConstraint': s3_resource.meta.client.meta.region_name})
+                "LocationConstraint": s3_resource.meta.client.meta.region_name
+            }
+        )
         print(f"Created demo bucket named {bucket.name}.")
     except ClientError as err:
         print(f"Tried and failed to create demo bucket {bucket_name}.")
@@ -51,13 +53,15 @@ def do_scenario(s3_resource):
     obj = bucket.Object(os.path.basename(file_name))
     try:
         obj.upload_file(file_name)
-        print(f"Uploaded file {file_name} into bucket {bucket.name} with key {obj.key}.")
+        print(
+            f"Uploaded file {file_name} into bucket {bucket.name} with key {obj.key}."
+        )
     except S3UploadFailedError as err:
         print(f"Couldn't upload file {file_name} to {bucket.name}.")
         print(f"\t{err}")
 
     answer = input(f"\nDo you want to download {obj.key} into memory (y/n)? ")
-    if answer.lower() == 'y':
+    if answer.lower() == "y":
         data = io.BytesIO()
         try:
             obj.download_fileobj(data)
@@ -66,18 +70,23 @@ def do_scenario(s3_resource):
             print(f"\t{data.read(20)}")
         except ClientError as err:
             print(f"Couldn't download {obj.key}.")
-            print(f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}")
+            print(
+                f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}"
+            )
 
     answer = input(
-        f"\nDo you want to copy {obj.key} to a subfolder in your bucket (y/n)? ")
-    if answer.lower() == 'y':
-        dest_obj = bucket.Object(f'demo-folder/{obj.key}')
+        f"\nDo you want to copy {obj.key} to a subfolder in your bucket (y/n)? "
+    )
+    if answer.lower() == "y":
+        dest_obj = bucket.Object(f"demo-folder/{obj.key}")
         try:
-            dest_obj.copy({'Bucket': bucket.name, 'Key': obj.key})
+            dest_obj.copy({"Bucket": bucket.name, "Key": obj.key})
             print(f"Copied {obj.key} to {dest_obj.key}.")
         except ClientError as err:
             print(f"Couldn't copy {obj.key} to {dest_obj.key}.")
-            print(f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}")
+            print(
+                f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}"
+            )
 
     print("\nYour bucket contains the following objects:")
     try:
@@ -88,20 +97,23 @@ def do_scenario(s3_resource):
         print(f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}")
 
     answer = input(
-        "\nDo you want to delete all of the objects as well as the bucket (y/n)? ")
-    if answer.lower() == 'y':
+        "\nDo you want to delete all of the objects as well as the bucket (y/n)? "
+    )
+    if answer.lower() == "y":
         try:
             bucket.objects.delete()
             bucket.delete()
             print(f"Emptied and deleted bucket {bucket.name}.\n")
         except ClientError as err:
             print(f"Couldn't empty and delete bucket {bucket.name}.")
-            print(f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}")
+            print(
+                f"\t{err.response['Error']['Code']}:{err.response['Error']['Message']}"
+            )
 
     print("Thanks for watching!")
-    print('-'*88)
+    print("-" * 88)
 
 
-if __name__ == '__main__':
-    do_scenario(boto3.resource('s3'))
+if __name__ == "__main__":
+    do_scenario(boto3.resource("s3"))
 # snippet-end:[python.example_code.s3.Scenario_GettingStarted]

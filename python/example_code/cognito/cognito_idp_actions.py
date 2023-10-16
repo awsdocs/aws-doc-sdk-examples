@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl]
 class CognitoIdentityProviderWrapper:
     """Encapsulates Amazon Cognito actions"""
+
     def __init__(self, cognito_idp_client, user_pool_id, client_id, client_secret=None):
         """
         :param cognito_idp_client: A Boto3 Amazon Cognito Identity Provider client.
@@ -33,7 +34,8 @@ class CognitoIdentityProviderWrapper:
         self.user_pool_id = user_pool_id
         self.client_id = client_id
         self.client_secret = client_secret
-# snippet-end:[python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl]
+
+    # snippet-end:[python.example_code.cognito-idp.helper.CognitoIdentityProviderWrapper.decl]
 
     def _secret_hash(self, user_name):
         """
@@ -43,9 +45,10 @@ class CognitoIdentityProviderWrapper:
         :return: The secret hash.
         """
         key = self.client_secret.encode()
-        msg = bytes(user_name + self.client_id, 'utf-8')
+        msg = bytes(user_name + self.client_id, "utf-8")
         secret_hash = base64.b64encode(
-            hmac.new(key, msg, digestmod=hashlib.sha256).digest()).decode()
+            hmac.new(key, msg, digestmod=hashlib.sha256).digest()
+        ).decode()
         logger.info("Made secret hash for %s: %s.", user_name, secret_hash)
         return secret_hash
 
@@ -67,24 +70,34 @@ class CognitoIdentityProviderWrapper:
         """
         try:
             kwargs = {
-                'ClientId': self.client_id, 'Username': user_name, 'Password': password,
-                'UserAttributes': [{'Name': 'email', 'Value': user_email}]}
+                "ClientId": self.client_id,
+                "Username": user_name,
+                "Password": password,
+                "UserAttributes": [{"Name": "email", "Value": user_email}],
+            }
             if self.client_secret is not None:
-                kwargs['SecretHash'] = self._secret_hash(user_name)
+                kwargs["SecretHash"] = self._secret_hash(user_name)
             response = self.cognito_idp_client.sign_up(**kwargs)
-            confirmed = response['UserConfirmed']
+            confirmed = response["UserConfirmed"]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'UsernameExistsException':
+            if err.response["Error"]["Code"] == "UsernameExistsException":
                 response = self.cognito_idp_client.admin_get_user(
-                    UserPoolId=self.user_pool_id, Username=user_name)
-                logger.warning("User %s exists and is %s.", user_name, response['UserStatus'])
-                confirmed = response['UserStatus'] == 'CONFIRMED'
+                    UserPoolId=self.user_pool_id, Username=user_name
+                )
+                logger.warning(
+                    "User %s exists and is %s.", user_name, response["UserStatus"]
+                )
+                confirmed = response["UserStatus"] == "CONFIRMED"
             else:
                 logger.error(
-                    "Couldn't sign up %s. Here's why: %s: %s", user_name,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't sign up %s. Here's why: %s: %s",
+                    user_name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         return confirmed
+
     # snippet-end:[python.example_code.cognito-idp.SignUp]
 
     # snippet-start:[python.example_code.cognito-idp.ResendConfirmationCode]
@@ -96,19 +109,22 @@ class CognitoIdentityProviderWrapper:
         :return: Delivery information about where the email is sent.
         """
         try:
-            kwargs = {
-                'ClientId': self.client_id, 'Username': user_name}
+            kwargs = {"ClientId": self.client_id, "Username": user_name}
             if self.client_secret is not None:
-                kwargs['SecretHash'] = self._secret_hash(user_name)
+                kwargs["SecretHash"] = self._secret_hash(user_name)
             response = self.cognito_idp_client.resend_confirmation_code(**kwargs)
-            delivery = response['CodeDeliveryDetails']
+            delivery = response["CodeDeliveryDetails"]
         except ClientError as err:
             logger.error(
-                "Couldn't resend confirmation to %s. Here's why: %s: %s", user_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't resend confirmation to %s. Here's why: %s: %s",
+                user_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return delivery
+
     # snippet-end:[python.example_code.cognito-idp.ResendConfirmationCode]
 
     # snippet-start:[python.example_code.cognito-idp.ConfirmSignUp]
@@ -124,18 +140,24 @@ class CognitoIdentityProviderWrapper:
         """
         try:
             kwargs = {
-                'ClientId': self.client_id, 'Username': user_name,
-                'ConfirmationCode': confirmation_code}
+                "ClientId": self.client_id,
+                "Username": user_name,
+                "ConfirmationCode": confirmation_code,
+            }
             if self.client_secret is not None:
-                kwargs['SecretHash'] = self._secret_hash(user_name)
+                kwargs["SecretHash"] = self._secret_hash(user_name)
             self.cognito_idp_client.confirm_sign_up(**kwargs)
         except ClientError as err:
             logger.error(
-                "Couldn't confirm sign up for %s. Here's why: %s: %s", user_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't confirm sign up for %s. Here's why: %s: %s",
+                user_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return True
+
     # snippet-end:[python.example_code.cognito-idp.ConfirmSignUp]
 
     # snippet-start:[python.example_code.cognito-idp.ListUsers]
@@ -147,14 +169,18 @@ class CognitoIdentityProviderWrapper:
         """
         try:
             response = self.cognito_idp_client.list_users(UserPoolId=self.user_pool_id)
-            users = response['Users']
+            users = response["Users"]
         except ClientError as err:
             logger.error(
-                "Couldn't list users for %s. Here's why: %s: %s", self.user_pool_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't list users for %s. Here's why: %s: %s",
+                self.user_pool_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return users
+
     # snippet-end:[python.example_code.cognito-idp.ListUsers]
 
     # snippet-start:[python.example_code.cognito-idp.AdminInitiateAuth]
@@ -177,29 +203,38 @@ class CognitoIdentityProviderWrapper:
         """
         try:
             kwargs = {
-                'UserPoolId': self.user_pool_id,
-                'ClientId': self.client_id,
-                'AuthFlow': 'ADMIN_USER_PASSWORD_AUTH',
-                'AuthParameters': {'USERNAME': user_name, 'PASSWORD': password}}
+                "UserPoolId": self.user_pool_id,
+                "ClientId": self.client_id,
+                "AuthFlow": "ADMIN_USER_PASSWORD_AUTH",
+                "AuthParameters": {"USERNAME": user_name, "PASSWORD": password},
+            }
             if self.client_secret is not None:
-                kwargs['AuthParameters']['SECRET_HASH'] = self._secret_hash(user_name)
+                kwargs["AuthParameters"]["SECRET_HASH"] = self._secret_hash(user_name)
             response = self.cognito_idp_client.admin_initiate_auth(**kwargs)
-            challenge_name = response.get('ChallengeName', None)
-            if challenge_name == 'MFA_SETUP':
-                if 'SOFTWARE_TOKEN_MFA' in response['ChallengeParameters']['MFAS_CAN_SETUP']:
-                    response.update(self.get_mfa_secret(response['Session']))
+            challenge_name = response.get("ChallengeName", None)
+            if challenge_name == "MFA_SETUP":
+                if (
+                    "SOFTWARE_TOKEN_MFA"
+                    in response["ChallengeParameters"]["MFAS_CAN_SETUP"]
+                ):
+                    response.update(self.get_mfa_secret(response["Session"]))
                 else:
                     raise RuntimeError(
                         "The user pool requires MFA setup, but the user pool is not "
-                        "configured for TOTP MFA. This example requires TOTP MFA.")
+                        "configured for TOTP MFA. This example requires TOTP MFA."
+                    )
         except ClientError as err:
             logger.error(
-                "Couldn't start sign in for %s. Here's why: %s: %s", user_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't start sign in for %s. Here's why: %s: %s",
+                user_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            response.pop('ResponseMetadata', None)
+            response.pop("ResponseMetadata", None)
             return response
+
     # snippet-end:[python.example_code.cognito-idp.AdminInitiateAuth]
 
     # snippet-start:[python.example_code.cognito-idp.AssociateSoftwareToken]
@@ -216,11 +251,14 @@ class CognitoIdentityProviderWrapper:
         except ClientError as err:
             logger.error(
                 "Couldn't get MFA secret. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            response.pop('ResponseMetadata', None)
+            response.pop("ResponseMetadata", None)
             return response
+
     # snippet-end:[python.example_code.cognito-idp.AssociateSoftwareToken]
 
     # snippet-start:[python.example_code.cognito-idp.VerifySoftwareToken]
@@ -235,15 +273,19 @@ class CognitoIdentityProviderWrapper:
         """
         try:
             response = self.cognito_idp_client.verify_software_token(
-                Session=session, UserCode=user_code)
+                Session=session, UserCode=user_code
+            )
         except ClientError as err:
             logger.error(
                 "Couldn't verify MFA. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            response.pop('ResponseMetadata', None)
+            response.pop("ResponseMetadata", None)
             return response
+
     # snippet-end:[python.example_code.cognito-idp.VerifySoftwareToken]
 
     # snippet-start:[python.example_code.cognito-idp.AdminRespondToAuthChallenge]
@@ -262,33 +304,50 @@ class CognitoIdentityProviderWrapper:
         """
         try:
             kwargs = {
-                'UserPoolId': self.user_pool_id,
-                'ClientId': self.client_id,
-                'ChallengeName': 'SOFTWARE_TOKEN_MFA', 'Session': session,
-                'ChallengeResponses': {
-                    'USERNAME': user_name, 'SOFTWARE_TOKEN_MFA_CODE': mfa_code}}
+                "UserPoolId": self.user_pool_id,
+                "ClientId": self.client_id,
+                "ChallengeName": "SOFTWARE_TOKEN_MFA",
+                "Session": session,
+                "ChallengeResponses": {
+                    "USERNAME": user_name,
+                    "SOFTWARE_TOKEN_MFA_CODE": mfa_code,
+                },
+            }
             if self.client_secret is not None:
-                kwargs['ChallengeResponses']['SECRET_HASH'] = self._secret_hash(user_name)
+                kwargs["ChallengeResponses"]["SECRET_HASH"] = self._secret_hash(
+                    user_name
+                )
             response = self.cognito_idp_client.admin_respond_to_auth_challenge(**kwargs)
-            auth_result = response['AuthenticationResult']
+            auth_result = response["AuthenticationResult"]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'ExpiredCodeException':
+            if err.response["Error"]["Code"] == "ExpiredCodeException":
                 logger.warning(
                     "Your MFA code has expired or has been used already. You might have "
-                    "to wait a few seconds until your app shows you a new code.")
+                    "to wait a few seconds until your app shows you a new code."
+                )
             else:
                 logger.error(
-                    "Couldn't respond to mfa challenge for %s. Here's why: %s: %s", user_name,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't respond to mfa challenge for %s. Here's why: %s: %s",
+                    user_name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return auth_result
+
     # snippet-end:[python.example_code.cognito-idp.AdminRespondToAuthChallenge]
 
     # snippet-start:[python.example_code.cognito-idp.ConfirmDevice]
     def confirm_mfa_device(
-            self, user_name, device_key, device_group_key, device_password, access_token,
-            aws_srp):
+        self,
+        user_name,
+        device_key,
+        device_group_key,
+        device_password,
+        access_token,
+        aws_srp,
+    ):
         """
         Confirms an MFA device to be tracked by Amazon Cognito. When a device is
         tracked, its key and password can be used to sign in without requiring a new
@@ -306,38 +365,55 @@ class CognitoIdentityProviderWrapper:
                  False, the device is automatically confirmed and tracked.
         """
         srp_helper = aws_srp.AWSSRP(
-            username=user_name, password=device_password,
-            pool_id='_', client_id=self.client_id, client_secret=None,
-            client=self.cognito_idp_client)
-        device_and_pw = f'{device_group_key}{device_key}:{device_password}'
-        device_and_pw_hash = aws_srp.hash_sha256(device_and_pw.encode('utf-8'))
+            username=user_name,
+            password=device_password,
+            pool_id="_",
+            client_id=self.client_id,
+            client_secret=None,
+            client=self.cognito_idp_client,
+        )
+        device_and_pw = f"{device_group_key}{device_key}:{device_password}"
+        device_and_pw_hash = aws_srp.hash_sha256(device_and_pw.encode("utf-8"))
         salt = aws_srp.pad_hex(aws_srp.get_random(16))
         x_value = aws_srp.hex_to_long(aws_srp.hex_hash(salt + device_and_pw_hash))
         verifier = aws_srp.pad_hex(pow(srp_helper.val_g, x_value, srp_helper.big_n))
         device_secret_verifier_config = {
-            "PasswordVerifier": base64.standard_b64encode(bytearray.fromhex(verifier)).decode('utf-8'),
-            "Salt": base64.standard_b64encode(bytearray.fromhex(salt)).decode('utf-8')
+            "PasswordVerifier": base64.standard_b64encode(
+                bytearray.fromhex(verifier)
+            ).decode("utf-8"),
+            "Salt": base64.standard_b64encode(bytearray.fromhex(salt)).decode("utf-8"),
         }
         try:
             response = self.cognito_idp_client.confirm_device(
                 AccessToken=access_token,
                 DeviceKey=device_key,
-                DeviceSecretVerifierConfig=device_secret_verifier_config)
-            user_confirm = response['UserConfirmationNecessary']
+                DeviceSecretVerifierConfig=device_secret_verifier_config,
+            )
+            user_confirm = response["UserConfirmationNecessary"]
         except ClientError as err:
             logger.error(
-                "Couldn't confirm mfa device %s. Here's why: %s: %s", device_key,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't confirm mfa device %s. Here's why: %s: %s",
+                device_key,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return user_confirm
+
     # snippet-end:[python.example_code.cognito-idp.ConfirmDevice]
 
     # snippet-start:[python.example_code.cognito-idp.InitiateAuth]
     # snippet-start:[python.example_code.cognito-idp.RespondToAuthChallenge]
     def sign_in_with_tracked_device(
-            self, user_name, password, device_key, device_group_key, device_password,
-            aws_srp):
+        self,
+        user_name,
+        password,
+        device_key,
+        device_group_key,
+        device_password,
+        aws_srp,
+    ):
         """
         Signs in to Amazon Cognito as a user who has a tracked device. Signing in
         with a tracked device lets a user sign in without entering a new MFA code.
@@ -360,46 +436,62 @@ class CognitoIdentityProviderWrapper:
         """
         try:
             srp_helper = aws_srp.AWSSRP(
-                username=user_name, password=device_password,
-                pool_id='_', client_id=self.client_id, client_secret=None,
-                client=self.cognito_idp_client)
+                username=user_name,
+                password=device_password,
+                pool_id="_",
+                client_id=self.client_id,
+                client_secret=None,
+                client=self.cognito_idp_client,
+            )
 
             response_init = self.cognito_idp_client.initiate_auth(
-                ClientId=self.client_id, AuthFlow='USER_PASSWORD_AUTH',
+                ClientId=self.client_id,
+                AuthFlow="USER_PASSWORD_AUTH",
                 AuthParameters={
-                    'USERNAME': user_name, 'PASSWORD': password, 'DEVICE_KEY': device_key})
-            if response_init['ChallengeName'] != 'DEVICE_SRP_AUTH':
+                    "USERNAME": user_name,
+                    "PASSWORD": password,
+                    "DEVICE_KEY": device_key,
+                },
+            )
+            if response_init["ChallengeName"] != "DEVICE_SRP_AUTH":
                 raise RuntimeError(
-                    f"Expected DEVICE_SRP_AUTH challenge but got {response_init['ChallengeName']}.")
+                    f"Expected DEVICE_SRP_AUTH challenge but got {response_init['ChallengeName']}."
+                )
 
             auth_params = srp_helper.get_auth_params()
-            auth_params['DEVICE_KEY'] = device_key
+            auth_params["DEVICE_KEY"] = device_key
             response_auth = self.cognito_idp_client.respond_to_auth_challenge(
                 ClientId=self.client_id,
-                ChallengeName='DEVICE_SRP_AUTH',
-                ChallengeResponses=auth_params
+                ChallengeName="DEVICE_SRP_AUTH",
+                ChallengeResponses=auth_params,
             )
-            if response_auth['ChallengeName'] != 'DEVICE_PASSWORD_VERIFIER':
+            if response_auth["ChallengeName"] != "DEVICE_PASSWORD_VERIFIER":
                 raise RuntimeError(
                     f"Expected DEVICE_PASSWORD_VERIFIER challenge but got "
-                    f"{response_init['ChallengeName']}.")
+                    f"{response_init['ChallengeName']}."
+                )
 
-            challenge_params = response_auth['ChallengeParameters']
-            challenge_params['USER_ID_FOR_SRP'] = device_group_key + device_key
-            cr = srp_helper.process_challenge(challenge_params, {'USERNAME': user_name})
-            cr['USERNAME'] = user_name
-            cr['DEVICE_KEY'] = device_key
+            challenge_params = response_auth["ChallengeParameters"]
+            challenge_params["USER_ID_FOR_SRP"] = device_group_key + device_key
+            cr = srp_helper.process_challenge(challenge_params, {"USERNAME": user_name})
+            cr["USERNAME"] = user_name
+            cr["DEVICE_KEY"] = device_key
             response_verifier = self.cognito_idp_client.respond_to_auth_challenge(
                 ClientId=self.client_id,
-                ChallengeName='DEVICE_PASSWORD_VERIFIER',
-                ChallengeResponses=cr)
-            auth_tokens = response_verifier['AuthenticationResult']
+                ChallengeName="DEVICE_PASSWORD_VERIFIER",
+                ChallengeResponses=cr,
+            )
+            auth_tokens = response_verifier["AuthenticationResult"]
         except ClientError as err:
             logger.error(
-                "Couldn't start client sign in for %s. Here's why: %s: %s", user_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't start client sign in for %s. Here's why: %s: %s",
+                user_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return auth_tokens
+
     # snippet-end:[python.example_code.cognito-idp.RespondToAuthChallenge]
     # snippet-end:[python.example_code.cognito-idp.InitiateAuth]

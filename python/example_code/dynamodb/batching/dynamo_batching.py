@@ -23,7 +23,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource("dynamodb")
 
 MAX_GET_SIZE = 100  # Amazon DynamoDB rejects a get batch larger than 100 items.
 
@@ -42,13 +42,15 @@ def create_table(table_name, schema):
     try:
         table = dynamodb.create_table(
             TableName=table_name,
-            KeySchema=[{
-                'AttributeName': item['name'], 'KeyType': item['key_type']
-            } for item in schema],
-            AttributeDefinitions=[{
-                'AttributeName': item['name'], 'AttributeType': item['type']
-            } for item in schema],
-            ProvisionedThroughput={'ReadCapacityUnits': 10, 'WriteCapacityUnits': 10}
+            KeySchema=[
+                {"AttributeName": item["name"], "KeyType": item["key_type"]}
+                for item in schema
+            ],
+            AttributeDefinitions=[
+                {"AttributeName": item["name"], "AttributeType": item["type"]}
+                for item in schema
+            ],
+            ProvisionedThroughput={"ReadCapacityUnits": 10, "WriteCapacityUnits": 10},
         )
         table.wait_until_exists()
         logger.info("Created table %s.", table.name)
@@ -82,16 +84,17 @@ def do_batch_get(batch_keys):
     while tries < max_tries:
         response = dynamodb.batch_get_item(RequestItems=batch_keys)
         # Collect any retrieved items and retry unprocessed keys.
-        for key in response.get('Responses', []):
-            retrieved[key] += response['Responses'][key]
-        unprocessed = response['UnprocessedKeys']
+        for key in response.get("Responses", []):
+            retrieved[key] += response["Responses"][key]
+        unprocessed = response["UnprocessedKeys"]
         if len(unprocessed) > 0:
             batch_keys = unprocessed
             unprocessed_count = sum(
-                [len(batch_key['Keys']) for batch_key in batch_keys.values()])
+                [len(batch_key["Keys"]) for batch_key in batch_keys.values()]
+            )
             logger.info(
-                "%s unprocessed keys returned. Sleep, then retry.",
-                unprocessed_count)
+                "%s unprocessed keys returned. Sleep, then retry.", unprocessed_count
+            )
             tries += 1
             if tries < max_tries:
                 logger.info("Sleeping for %s seconds.", sleepy_time)
@@ -101,6 +104,8 @@ def do_batch_get(batch_keys):
             break
 
     return retrieved
+
+
 # snippet-end:[python.example_code.dynamodb.BatchGetItem]
 
 
@@ -127,6 +132,8 @@ def fill_table(table, table_data):
     except ClientError:
         logger.exception("Couldn't load data into table %s.", table.name)
         raise
+
+
 # snippet-end:[python.example_code.dynamodb.PutItem_BatchWriter]
 
 
@@ -144,11 +151,9 @@ def get_batch_data(movie_table, movie_list, actor_table, actor_list):
     """
     batch_keys = {
         movie_table.name: {
-            'Keys': [{'year': movie[0], 'title': movie[1]} for movie in movie_list]
+            "Keys": [{"year": movie[0], "title": movie[1]} for movie in movie_list]
         },
-        actor_table.name: {
-            'Keys': [{'name': actor} for actor in actor_list]
-        }
+        actor_table.name: {"Keys": [{"name": actor} for actor in actor_list]},
     }
     try:
         retrieved = do_batch_get(batch_keys)
@@ -156,10 +161,13 @@ def get_batch_data(movie_table, movie_list, actor_table, actor_list):
             logger.info("Got %s items from %s.", len(response_items), response_table)
     except ClientError:
         logger.exception(
-            "Couldn't get items from %s and %s.", movie_table.name, actor_table.name)
+            "Couldn't get items from %s and %s.", movie_table.name, actor_table.name
+        )
         raise
     else:
         return retrieved
+
+
 # snippet-end:[python.example_code.dynamodb.BatchGetItem_CallBatchGet]
 
 
@@ -183,15 +191,18 @@ def archive_movies(movie_table, movie_data):
         # Copy the schema and attribute definition from the original movie table to
         # create the archive table.
         archive_table = dynamodb.create_table(
-            TableName=f'{movie_table.name}-archive',
+            TableName=f"{movie_table.name}-archive",
             KeySchema=movie_table.key_schema,
             AttributeDefinitions=movie_table.attribute_definitions,
             ProvisionedThroughput={
-                'ReadCapacityUnits':
-                    movie_table.provisioned_throughput['ReadCapacityUnits'],
-                'WriteCapacityUnits':
-                    movie_table.provisioned_throughput['WriteCapacityUnits']
-            })
+                "ReadCapacityUnits": movie_table.provisioned_throughput[
+                    "ReadCapacityUnits"
+                ],
+                "WriteCapacityUnits": movie_table.provisioned_throughput[
+                    "WriteCapacityUnits"
+                ],
+            },
+        )
         logger.info("Table %s created, wait until exists.", archive_table.name)
         archive_table.wait_until_exists()
     except ClientError:
@@ -206,42 +217,47 @@ def archive_movies(movie_table, movie_data):
                 archive_writer.put_item(Item=item)
         logger.info("Put movies into %s.", archive_table.name)
     except ClientError as error:
-        if error.response['Error']['Code'] == 'ValidationException':
+        if error.response["Error"]["Code"] == "ValidationException":
             logger.info(
                 "Got expected exception when trying to put duplicate records into the "
-                "archive table.")
+                "archive table."
+            )
         else:
             logger.exception(
                 "Got unexpected exception when trying to put duplicate records into "
-                "the archive table.")
+                "the archive table."
+            )
             raise
 
     try:
         # When `overwrite_by_pkeys` is specified, the batch_writer overwrites any
         # duplicate in the batch with the new item.
         with archive_table.batch_writer(
-                overwrite_by_pkeys=['year', 'title']) as archive_writer:
+            overwrite_by_pkeys=["year", "title"]
+        ) as archive_writer:
             for item in movie_data:
                 archive_writer.put_item(Item=item)
         logger.info("Put movies into %s.", archive_table.name)
     except ClientError:
-        logger.exception(
-            "Couldn't put movies into %s.", archive_table.name)
+        logger.exception("Couldn't put movies into %s.", archive_table.name)
         raise
 
     try:
         with movie_table.batch_writer(
-                overwrite_by_pkeys=['year', 'title']) as movie_writer:
+            overwrite_by_pkeys=["year", "title"]
+        ) as movie_writer:
             for item in movie_data:
                 movie_writer.delete_item(
-                    Key={'year': item['year'], 'title': item['title']})
+                    Key={"year": item["year"], "title": item["title"]}
+                )
         logger.info("Deleted movies from %s.", movie_table.name)
     except ClientError:
-        logger.exception(
-            "Couldn't delete movies from %s.", movie_table.name)
+        logger.exception("Couldn't delete movies from %s.", movie_table.name)
         raise
 
     return archive_table
+
+
 # snippet-end:[python.example_code.dynamodb.Usage_ArchiveMovies]
 
 
@@ -250,58 +266,60 @@ def usage_demo():
     """
     Shows how to use the Amazon DynamoDB batch functions.
     """
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the Amazon DynamoDB batch usage demo.")
-    print('-'*88)
+    print("-" * 88)
 
-    movies_file_name = 'moviedata.json'
+    movies_file_name = "moviedata.json"
     print(f"Getting movie data from {movies_file_name}.")
     try:
         with open(movies_file_name) as json_file:
             movie_data = json.load(json_file, parse_float=decimal.Decimal)
             movie_data = movie_data[:500]  # Only use the first 500 movies for the demo.
     except FileNotFoundError:
-        print(f"The file moviedata.json was not found in the current working directory "
-              f"{os.getcwd()}.\n"
-              f"1. Download the zip file from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip.\n"
-              f"2. Extract '{movies_file_name}' to {os.getcwd()}.\n"
-              f"3. Run the usage demo again.")
+        print(
+            f"The file moviedata.json was not found in the current working directory "
+            f"{os.getcwd()}.\n"
+            f"1. Download the zip file from https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/samples/moviedata.zip.\n"
+            f"2. Extract '{movies_file_name}' to {os.getcwd()}.\n"
+            f"3. Run the usage demo again."
+        )
         return
 
     # Build a second table centered around actors.
     actor_set = {}
     for movie in movie_data:
         try:
-            actors = movie['info']['actors']
+            actors = movie["info"]["actors"]
             for actor in actors:
                 if actor not in actor_set:
-                    actor_set[actor] = {'directors': set(), 'costars': set()}
-                actor_set[actor]['directors'].update(movie['info']['directors'])
-                actor_set[actor]['costars'].update([a for a in actors if a != actor])
+                    actor_set[actor] = {"directors": set(), "costars": set()}
+                actor_set[actor]["directors"].update(movie["info"]["directors"])
+                actor_set[actor]["costars"].update([a for a in actors if a != actor])
         except KeyError:
-            logger.warning("%s doesn't have any actors.", movie['title'])
+            logger.warning("%s doesn't have any actors.", movie["title"])
     actor_data = []
     for key, value in actor_set.items():
-        actor_item = {'name': key}
-        if len(value['directors']) > 0:
-            actor_item['directors'] = value['directors']
-        if len(value['costars']) > 0:
-            actor_item['costars'] = value['costars']
+        actor_item = {"name": key}
+        if len(value["directors"]) > 0:
+            actor_item["directors"] = value["directors"]
+        if len(value["costars"]) > 0:
+            actor_item["costars"] = value["costars"]
         actor_data.append(actor_item)
 
     movie_schema = [
-        {'name': 'year', 'key_type': 'HASH', 'type': 'N'},
-        {'name': 'title', 'key_type': 'RANGE', 'type': 'S'}
+        {"name": "year", "key_type": "HASH", "type": "N"},
+        {"name": "title", "key_type": "RANGE", "type": "S"},
     ]
     actor_schema = [
-        {'name': 'name', 'key_type': 'HASH', 'type': 'S'},
+        {"name": "name", "key_type": "HASH", "type": "S"},
     ]
 
     print(f"Creating movie and actor tables and waiting until they exist...")
-    movie_table = create_table(f'demo-batch-movies-{time.time_ns()}', movie_schema)
-    actor_table = create_table(f'demo-batch-actors-{time.time_ns()}', actor_schema)
+    movie_table = create_table(f"demo-batch-movies-{time.time_ns()}", movie_schema)
+    actor_table = create_table(f"demo-batch-actors-{time.time_ns()}", actor_schema)
     print(f"Created {movie_table.name} and {actor_table.name}.")
 
     print(f"Putting {len(movie_data)} movies into {movie_table.name}.")
@@ -310,13 +328,16 @@ def usage_demo():
     print(f"Putting {len(actor_data)} actors into {actor_table.name}.")
     fill_table(actor_table, actor_data)
 
-    movie_list = [(movie['year'], movie['title'])
-                  for movie in movie_data[0:int(MAX_GET_SIZE/2)]]
-    actor_list = [actor['name']
-                  for actor in actor_data[0:int(MAX_GET_SIZE/2)]]
+    movie_list = [
+        (movie["year"], movie["title"])
+        for movie in movie_data[0 : int(MAX_GET_SIZE / 2)]
+    ]
+    actor_list = [actor["name"] for actor in actor_data[0 : int(MAX_GET_SIZE / 2)]]
     items = get_batch_data(movie_table, movie_list, actor_table, actor_list)
-    print(f"Got {len(items[movie_table.name])} movies from {movie_table.name}\n"
-          f"and {len(items[actor_table.name])} actors from {actor_table.name}.")
+    print(
+        f"Got {len(items[movie_table.name])} movies from {movie_table.name}\n"
+        f"and {len(items[actor_table.name])} actors from {actor_table.name}."
+    )
     print("The first 2 movies returned are: ")
     pprint.pprint(items[movie_table.name][:2])
     print(f"The first 2 actors returned are: ")
@@ -324,7 +345,8 @@ def usage_demo():
 
     print(
         "Archiving the first 10 movies by creating a table to store archived "
-        "movies and deleting them from the main movie table.")
+        "movies and deleting them from the main movie table."
+    )
     # Duplicate the movies in the list to demonstrate how the batch writer can be
     # configured to remove duplicate requests from the batch.
     movie_list = movie_data[0:10] + movie_data[0:10]
@@ -336,8 +358,10 @@ def usage_demo():
     actor_table.delete()
     print(f"Deleted {movie_table.name}, {archive_table.name}, and {actor_table.name}.")
     print("Thanks for watching!")
+
+
 # snippet-end:[python.example_code.dynamodb.Usage_BatchFunctions]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

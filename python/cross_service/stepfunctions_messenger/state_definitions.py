@@ -27,14 +27,15 @@ def make_definition(resources, include_sqs):
             "Parameters": {
                 "TableName": resources["MessageTableName"],
                 "Key": {
-                    "user_name": {
-                        "S.$": "$.user_name"},
-                    "message_id": {
-                        "S.$": "$.message_id"}},
+                    "user_name": {"S.$": "$.user_name"},
+                    "message_id": {"S.$": "$.message_id"},
+                },
                 "UpdateExpression": "SET sent=:s",
-                "ExpressionAttributeValues": {
-                    ":s": {"BOOL": True}}},
-            "End": True}}
+                "ExpressionAttributeValues": {":s": {"BOOL": True}},
+            },
+            "End": True,
+        }
+    }
 
     state_send_to_sqs = {
         "Send": {
@@ -44,14 +45,17 @@ def make_definition(resources, include_sqs):
                 "QueueUrl": resources["SendQueueUrl"],
                 "MessageBody.$": "$.message",
                 "MessageAttributes": {
-                    "user": {
-                        "DataType": "String",
-                        "StringValue.$": "$.user_name"},
+                    "user": {"DataType": "String", "StringValue.$": "$.user_name"},
                     "message_id": {
                         "DataType": "String",
-                        "StringValue.$": "$.message_id"}}},
+                        "StringValue.$": "$.message_id",
+                    },
+                },
+            },
             "ResultPath": None,
-            "Next": "Record Sent"}}
+            "Next": "Record Sent",
+        }
+    }
 
     map_states = state_record_sent
     if include_sqs:
@@ -66,19 +70,25 @@ def make_definition(resources, include_sqs):
                 "Type": "Task",
                 "Resource": resources["ScanFunctionArn"],
                 "ResultPath": "$.List",
-                "Next": "Send Messages"},
+                "Next": "Send Messages",
+            },
             "Send Messages": {
                 "Type": "Map",
                 "ItemsPath": "$.List",
                 "Iterator": {
                     "StartAt": "Send" if include_sqs else "Record Sent",
-                    "States": map_states},
+                    "States": map_states,
+                },
                 "ResultPath": None,
-                "Next": "Pause Then Loop"},
+                "Next": "Pause Then Loop",
+            },
             "Pause Then Loop": {
                 "InputPath": None,
                 "Type": "Wait",
                 "Seconds": 10,
-                "Next": "Scan DynamoDB For Messages"}}}
+                "Next": "Scan DynamoDB For Messages",
+            },
+        },
+    }
 
     return definition

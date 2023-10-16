@@ -18,16 +18,19 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.auto-scaling.AutoScalingWrapper.decl]
 class AutoScalingWrapper:
     """Encapsulates Amazon EC2 Auto Scaling actions."""
+
     def __init__(self, autoscaling_client):
         """
         :param autoscaling_client: A Boto3 Amazon EC2 Auto Scaling client.
         """
         self.autoscaling_client = autoscaling_client
-# snippet-end:[python.example_code.auto-scaling.AutoScalingWrapper.decl]
+
+    # snippet-end:[python.example_code.auto-scaling.AutoScalingWrapper.decl]
 
     # snippet-start:[python.example_code.auto-scaling.CreateAutoScalingGroup]
     def create_group(
-            self, group_name, group_zones, launch_template_name, min_size, max_size):
+        self, group_name, group_zones, launch_template_name, min_size, max_size
+    ):
         """
         Creates an Auto Scaling group.
 
@@ -44,14 +47,21 @@ class AutoScalingWrapper:
                 AutoScalingGroupName=group_name,
                 AvailabilityZones=group_zones,
                 LaunchTemplate={
-                    'LaunchTemplateName': launch_template_name, 'Version': '$Default'},
-                MinSize=min_size, MaxSize=max_size
+                    "LaunchTemplateName": launch_template_name,
+                    "Version": "$Default",
+                },
+                MinSize=min_size,
+                MaxSize=max_size,
             )
         except ClientError as err:
             logger.error(
-                "Couldn't create group %s. Here's why: %s: %s", group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create group %s. Here's why: %s: %s",
+                group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.auto-scaling.CreateAutoScalingGroup]
 
     # snippet-start:[python.example_code.auto-scaling.UpdateAutoScalingGroup]
@@ -64,12 +74,17 @@ class AutoScalingWrapper:
         """
         try:
             self.autoscaling_client.update_auto_scaling_group(
-                AutoScalingGroupName=group_name, **kwargs)
+                AutoScalingGroupName=group_name, **kwargs
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't update group %s. Here's why: %s: %s", group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't update group %s. Here's why: %s: %s",
+                group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.auto-scaling.UpdateAutoScalingGroup]
 
     # snippet-start:[python.example_code.auto-scaling.DeleteAutoScalingGroup]
@@ -82,12 +97,17 @@ class AutoScalingWrapper:
         """
         try:
             self.autoscaling_client.delete_auto_scaling_group(
-                AutoScalingGroupName=group_name)
+                AutoScalingGroupName=group_name
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't delete group %s. Here's why: %s: %s", group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete group %s. Here's why: %s: %s",
+                group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.auto-scaling.DeleteAutoScalingGroup]
 
     # snippet-start:[python.example_code.auto-scaling.DescribeAutoScalingGroups]
@@ -100,15 +120,20 @@ class AutoScalingWrapper:
         """
         try:
             response = self.autoscaling_client.describe_auto_scaling_groups(
-                AutoScalingGroupNames=[group_name])
+                AutoScalingGroupNames=[group_name]
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't describe group %s. Here's why: %s: %s", group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't describe group %s. Here's why: %s: %s",
+                group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            groups = response.get('AutoScalingGroups', [])
+            groups = response.get("AutoScalingGroups", [])
             return groups[0] if len(groups) > 0 else None
+
     # snippet-end:[python.example_code.auto-scaling.DescribeAutoScalingGroups]
 
     # snippet-start:[python.example_code.auto-scaling.TerminateInstanceInAutoScalingGroup]
@@ -126,14 +151,19 @@ class AutoScalingWrapper:
         """
         try:
             response = self.autoscaling_client.terminate_instance_in_auto_scaling_group(
-                InstanceId=instance_id, ShouldDecrementDesiredCapacity=decrease_capacity)
+                InstanceId=instance_id, ShouldDecrementDesiredCapacity=decrease_capacity
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't terminate instance %s. Here's why: %s: %s", instance_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't terminate instance %s. Here's why: %s: %s",
+                instance_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['Activity']
+            return response["Activity"]
+
     # snippet-end:[python.example_code.auto-scaling.TerminateInstanceInAutoScalingGroup]
 
     # snippet-start:[python.example_code.auto-scaling.SetDesiredCapacity]
@@ -147,12 +177,19 @@ class AutoScalingWrapper:
         """
         try:
             self.autoscaling_client.set_desired_capacity(
-                AutoScalingGroupName=group_name, DesiredCapacity=capacity, HonorCooldown=False)
+                AutoScalingGroupName=group_name,
+                DesiredCapacity=capacity,
+                HonorCooldown=False,
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't set desired capacity %s. Here's why: %s: %s", group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't set desired capacity %s. Here's why: %s: %s",
+                group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.auto-scaling.SetDesiredCapacity]
 
     # snippet-start:[python.example_code.auto-scaling.DescribeAutoScalingInstances]
@@ -165,14 +202,19 @@ class AutoScalingWrapper:
         """
         try:
             response = self.autoscaling_client.describe_auto_scaling_instances(
-                InstanceIds=instance_ids)
+                InstanceIds=instance_ids
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't describe instances %s. Here's why: %s: %s", instance_ids,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't describe instances %s. Here's why: %s: %s",
+                instance_ids,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['AutoScalingInstances']
+            return response["AutoScalingInstances"]
+
     # snippet-end:[python.example_code.auto-scaling.DescribeAutoScalingInstances]
 
     # snippet-start:[python.example_code.auto-scaling.DescribeScalingActivities]
@@ -188,14 +230,19 @@ class AutoScalingWrapper:
         """
         try:
             response = self.autoscaling_client.describe_scaling_activities(
-                AutoScalingGroupName=group_name)
+                AutoScalingGroupName=group_name
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't describe scaling activities %s. Here's why: %s: %s", group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't describe scaling activities %s. Here's why: %s: %s",
+                group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['Activities']
+            return response["Activities"]
+
     # snippet-end:[python.example_code.auto-scaling.DescribeScalingActivities]
 
     # snippet-start:[python.example_code.auto-scaling.EnableMetricsCollection]
@@ -208,12 +255,17 @@ class AutoScalingWrapper:
         """
         try:
             self.autoscaling_client.enable_metrics_collection(
-                AutoScalingGroupName=group_name, Metrics=metrics, Granularity='1Minute')
+                AutoScalingGroupName=group_name, Metrics=metrics, Granularity="1Minute"
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't enable metrics on %s. Here's why: %s: %s", group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't enable metrics on %s. Here's why: %s: %s",
+                group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.auto-scaling.EnableMetricsCollection]
 
     # snippet-start:[python.example_code.auto-scaling.DisableMetricsCollection]
@@ -225,10 +277,15 @@ class AutoScalingWrapper:
         """
         try:
             self.autoscaling_client.disable_metrics_collection(
-                AutoScalingGroupName=group_name)
+                AutoScalingGroupName=group_name
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't disable metrics %s. Here's why: %s: %s", group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't disable metrics %s. Here's why: %s: %s",
+                group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.auto-scaling.DisableMetricsCollection]

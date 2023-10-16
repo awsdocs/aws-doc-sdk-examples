@@ -4,6 +4,7 @@
 # snippet-start:[python.example_code.sfn.Hello]
 import boto3
 
+
 def hello_stepfunctions(stepfunctions_client):
     """
     Use the AWS SDK for Python (Boto3) to create an AWS Step Functions client and list
@@ -16,9 +17,10 @@ def hello_stepfunctions(stepfunctions_client):
     """
     print("Hello, Step Functions! Let's list up to 10 of your state machines:")
     state_machines = stepfunctions_client.list_state_machines(maxResults=10)
-    for sm in state_machines['stateMachines']:
+    for sm in state_machines["stateMachines"]:
         print(f"\t{sm['name']}: {sm['stateMachineArn']}")
 
-if __name__ == '__main__':
-    hello_stepfunctions(boto3.client('stepfunctions'))
+
+if __name__ == "__main__":
+    hello_stepfunctions(boto3.client("stepfunctions"))
 # snippet-end:[python.example_code.sfn.Hello]

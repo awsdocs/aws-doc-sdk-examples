@@ -17,7 +17,7 @@ from botocore.exceptions import ClientError
 import queue_wrapper
 
 logger = logging.getLogger(__name__)
-sqs = boto3.resource('sqs')
+sqs = boto3.resource("sqs")
 # snippet-end:[python.example_code.sqs.message_wrapper_imports]
 
 
@@ -37,14 +37,15 @@ def send_message(queue, message_body, message_attributes=None):
 
     try:
         response = queue.send_message(
-            MessageBody=message_body,
-            MessageAttributes=message_attributes
+            MessageBody=message_body, MessageAttributes=message_attributes
         )
     except ClientError as error:
         logger.exception("Send message failed: %s", message_body)
         raise error
     else:
         return response
+
+
 # snippet-end:[python.example_code.sqs.SendMessage]
 
 
@@ -63,31 +64,36 @@ def send_messages(queue, messages):
              messages.
     """
     try:
-        entries = [{
-            'Id': str(ind),
-            'MessageBody': msg['body'],
-            'MessageAttributes': msg['attributes']
-        } for ind, msg in enumerate(messages)]
+        entries = [
+            {
+                "Id": str(ind),
+                "MessageBody": msg["body"],
+                "MessageAttributes": msg["attributes"],
+            }
+            for ind, msg in enumerate(messages)
+        ]
         response = queue.send_messages(Entries=entries)
-        if 'Successful' in response:
-            for msg_meta in response['Successful']:
+        if "Successful" in response:
+            for msg_meta in response["Successful"]:
                 logger.info(
                     "Message sent: %s: %s",
-                    msg_meta['MessageId'],
-                    messages[int(msg_meta['Id'])]['body']
+                    msg_meta["MessageId"],
+                    messages[int(msg_meta["Id"])]["body"],
                 )
-        if 'Failed' in response:
-            for msg_meta in response['Failed']:
+        if "Failed" in response:
+            for msg_meta in response["Failed"]:
                 logger.warning(
                     "Failed to send: %s: %s",
-                    msg_meta['MessageId'],
-                    messages[int(msg_meta['Id'])]['body']
+                    msg_meta["MessageId"],
+                    messages[int(msg_meta["Id"])]["body"],
                 )
     except ClientError as error:
         logger.exception("Send messages failed to queue: %s", queue)
         raise error
     else:
         return response
+
+
 # snippet-end:[python.example_code.sqs.SendMessageBatch]
 
 
@@ -107,9 +113,9 @@ def receive_messages(queue, max_number, wait_time):
     """
     try:
         messages = queue.receive_messages(
-            MessageAttributeNames=['All'],
+            MessageAttributeNames=["All"],
             MaxNumberOfMessages=max_number,
-            WaitTimeSeconds=wait_time
+            WaitTimeSeconds=wait_time,
         )
         for msg in messages:
             logger.info("Received message: %s: %s", msg.message_id, msg.body)
@@ -118,6 +124,8 @@ def receive_messages(queue, max_number, wait_time):
         raise error
     else:
         return messages
+
+
 # snippet-end:[python.example_code.sqs.ReceiveMessage]
 
 
@@ -137,6 +145,8 @@ def delete_message(message):
     except ClientError as error:
         logger.exception("Couldn't delete message: %s", message.message_id)
         raise error
+
+
 # snippet-end:[python.example_code.sqs.DeleteMessage]
 
 
@@ -151,24 +161,25 @@ def delete_messages(queue, messages):
              message deletions.
     """
     try:
-        entries = [{
-            'Id': str(ind),
-            'ReceiptHandle': msg.receipt_handle
-        } for ind, msg in enumerate(messages)]
+        entries = [
+            {"Id": str(ind), "ReceiptHandle": msg.receipt_handle}
+            for ind, msg in enumerate(messages)
+        ]
         response = queue.delete_messages(Entries=entries)
-        if 'Successful' in response:
-            for msg_meta in response['Successful']:
-                logger.info("Deleted %s", messages[int(msg_meta['Id'])].receipt_handle)
-        if 'Failed' in response:
-            for msg_meta in response['Failed']:
+        if "Successful" in response:
+            for msg_meta in response["Successful"]:
+                logger.info("Deleted %s", messages[int(msg_meta["Id"])].receipt_handle)
+        if "Failed" in response:
+            for msg_meta in response["Failed"]:
                 logger.warning(
-                    "Could not delete %s",
-                    messages[int(msg_meta['Id'])].receipt_handle
+                    "Could not delete %s", messages[int(msg_meta["Id"])].receipt_handle
                 )
     except ClientError:
         logger.exception("Couldn't delete messages from queue %s", queue)
     else:
         return response
+
+
 # snippet-end:[python.example_code.sqs.DeleteMessageBatch]
 
 
@@ -181,39 +192,44 @@ def usage_demo():
     * Receive the messages in batches until the queue is empty.
     * Reassemble the lines of the file and verify they match the original file.
     """
+
     def pack_message(msg_path, msg_body, msg_line):
         return {
-            'body': msg_body,
-            'attributes': {
-                'path': {'StringValue': msg_path, 'DataType': 'String'},
-                'line': {'StringValue': str(msg_line), 'DataType': 'String'}
-            }
+            "body": msg_body,
+            "attributes": {
+                "path": {"StringValue": msg_path, "DataType": "String"},
+                "line": {"StringValue": str(msg_line), "DataType": "String"},
+            },
         }
 
     def unpack_message(msg):
-        return (msg.message_attributes['path']['StringValue'],
-                msg.body,
-                int(msg.message_attributes['line']['StringValue']))
+        return (
+            msg.message_attributes["path"]["StringValue"],
+            msg.body,
+            int(msg.message_attributes["line"]["StringValue"]),
+        )
 
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the Amazon Simple Queue Service (Amazon SQS) demo!")
-    print('-'*88)
+    print("-" * 88)
 
-    queue = queue_wrapper.create_queue('sqs-usage-demo-message-wrapper')
+    queue = queue_wrapper.create_queue("sqs-usage-demo-message-wrapper")
 
     with open(__file__) as file:
         lines = file.readlines()
 
     line = 0
     batch_size = 10
-    received_lines = [None]*len(lines)
+    received_lines = [None] * len(lines)
     print(f"Sending file lines in batches of {batch_size} as messages.")
     while line < len(lines):
-        messages = [pack_message(__file__, lines[index], index)
-                    for index in range(line, min(line + batch_size, len(lines)))]
+        messages = [
+            pack_message(__file__, lines[index], index)
+            for index in range(line, min(line + batch_size, len(lines)))
+        ]
         line = line + batch_size
         send_messages(queue, messages)
-        print('.', end='')
+        print(".", end="")
         sys.stdout.flush()
     print(f"Done. Sent {len(lines) - 1} messages.")
 
@@ -221,7 +237,7 @@ def usage_demo():
     more_messages = True
     while more_messages:
         received_messages = receive_messages(queue, batch_size, 2)
-        print('.', end='')
+        print(".", end="")
         sys.stdout.flush()
         for message in received_messages:
             path, body, line = unpack_message(message)
@@ -230,7 +246,7 @@ def usage_demo():
             delete_messages(queue, received_messages)
         else:
             more_messages = False
-    print('Done.')
+    print("Done.")
 
     if all([lines[index] == received_lines[index] for index in range(len(lines))]):
         print(f"Successfully reassembled all file lines!")
@@ -240,9 +256,11 @@ def usage_demo():
     queue.delete()
 
     print("Thanks for watching!")
-    print('-'*88)
+    print("-" * 88)
+
+
 # snippet-end:[python.example_code.sqs.Scenario_SendReceiveBatch]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

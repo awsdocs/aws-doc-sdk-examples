@@ -14,10 +14,12 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
+
 # snippet-start:[python.example_code.support.SupportWrapper_full]
 # snippet-start:[python.example_code.support.SupportWrapper_decl]
 class SupportWrapper:
     """Encapsulates Support actions."""
+
     def __init__(self, support_client):
         """
         :param support_client: A Boto3 Support client.
@@ -29,9 +31,10 @@ class SupportWrapper:
         """
         Instantiates this class from a Boto3 client.
         """
-        support_client = boto3.client('support')
+        support_client = boto3.client("support")
         return cls(support_client)
-# snippet-end:[python.example_code.support.SupportWrapper_decl]
+
+    # snippet-end:[python.example_code.support.SupportWrapper_decl]
 
     # snippet-start:[python.example_code.support.DescribeServices]
     def describe_services(self, language):
@@ -43,21 +46,26 @@ class SupportWrapper:
         :return: The list of AWS service descriptions.
         """
         try:
-            response = self.support_client.describe_services(
-                language=language)
-            services = response['services']
+            response = self.support_client.describe_services(language=language)
+            services = response["services"]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
-                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
-                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                            "examples.")
+            if err.response["Error"]["Code"] == "SubscriptionRequiredException":
+                logger.info(
+                    "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                    "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                    "examples."
+                )
             else:
                 logger.error(
-                    "Couldn't get Support services for language %s. Here's why: %s: %s", language,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't get Support services for language %s. Here's why: %s: %s",
+                    language,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return services
+
     # snippet-end:[python.example_code.support.DescribeServices]
 
     # snippet-start:[python.example_code.support.DescribeSeverityLevels]
@@ -70,21 +78,26 @@ class SupportWrapper:
         :return: The list of severity levels.
         """
         try:
-            response = self.support_client.describe_severity_levels(
-                language=language)
-            severity_levels = response['severityLevels']
+            response = self.support_client.describe_severity_levels(language=language)
+            severity_levels = response["severityLevels"]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
-                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
-                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                            "examples.")
+            if err.response["Error"]["Code"] == "SubscriptionRequiredException":
+                logger.info(
+                    "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                    "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                    "examples."
+                )
             else:
                 logger.error(
-                    "Couldn't get severity levels for language %s. Here's why: %s: %s", language,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't get severity levels for language %s. Here's why: %s: %s",
+                    language,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return severity_levels
+
     # snippet-end:[python.example_code.support.DescribeSeverityLevels]
 
     # snippet-start:[python.example_code.support.CreateCase]
@@ -99,27 +112,32 @@ class SupportWrapper:
         """
         try:
             response = self.support_client.create_case(
-                subject='Example case for testing, ignore.',
-                serviceCode=service['code'],
-                severityCode=severity['code'],
-                categoryCode=category['code'],
-                communicationBody='Example support case body.',
-                language='en',
-                issueType='customer-service'
+                subject="Example case for testing, ignore.",
+                serviceCode=service["code"],
+                severityCode=severity["code"],
+                categoryCode=category["code"],
+                communicationBody="Example support case body.",
+                language="en",
+                issueType="customer-service",
             )
-            case_id = response['caseId']
+            case_id = response["caseId"]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
-                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
-                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                            "examples.")
+            if err.response["Error"]["Code"] == "SubscriptionRequiredException":
+                logger.info(
+                    "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                    "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                    "examples."
+                )
             else:
                 logger.error(
                     "Couldn't create case. Here's why: %s: %s",
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return case_id
+
     # snippet-end:[python.example_code.support.CreateCase]
 
     # snippet-start:[python.example_code.support.AddAttachmentToSet]
@@ -133,23 +151,29 @@ class SupportWrapper:
             response = self.support_client.add_attachments_to_set(
                 attachments=[
                     {
-                        'fileName': 'attachment_file.txt',
-                        'data': b"This is a sample file for attachment to a support case."
+                        "fileName": "attachment_file.txt",
+                        "data": b"This is a sample file for attachment to a support case.",
                     }
-                ])
-            new_set_id = response['attachmentSetId']
+                ]
+            )
+            new_set_id = response["attachmentSetId"]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
-                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
-                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                            "examples.")
+            if err.response["Error"]["Code"] == "SubscriptionRequiredException":
+                logger.info(
+                    "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                    "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                    "examples."
+                )
             else:
                 logger.error(
                     "Couldn't add attachment. Here's why: %s: %s",
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return new_set_id
+
     # snippet-end:[python.example_code.support.AddAttachmentToSet]
 
     # snippet-start:[python.example_code.support.AddCommunicationToCase]
@@ -164,17 +188,21 @@ class SupportWrapper:
             self.support_client.add_communication_to_case(
                 caseId=case_id,
                 communicationBody="This is an example communication added to a support case.",
-                attachmentSetId=attachment_set_id
+                attachmentSetId=attachment_set_id,
             )
         except ClientError as err:
-            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
-                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
-                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                            "examples.")
+            if err.response["Error"]["Code"] == "SubscriptionRequiredException":
+                logger.info(
+                    "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                    "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                    "examples."
+                )
             else:
                 logger.error(
                     "Couldn't add communication. Here's why: %s: %s",
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
 
     # snippet-end:[python.example_code.support.AddCommunicationToCase]
@@ -189,21 +217,26 @@ class SupportWrapper:
         """
         try:
             communications = []
-            paginator = self.support_client.get_paginator('describe_communications')
+            paginator = self.support_client.get_paginator("describe_communications")
             for page in paginator.paginate(caseId=case_id):
-                communications += page['communications']
+                communications += page["communications"]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
-                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
-                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                            "examples.")
+            if err.response["Error"]["Code"] == "SubscriptionRequiredException":
+                logger.info(
+                    "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                    "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                    "examples."
+                )
             else:
                 logger.error(
                     "Couldn't describe communications. Here's why: %s: %s",
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return communications
+
     # snippet-end:[python.example_code.support.DescribeCommunications]
 
     # snippet-start:[python.example_code.support.DescribeAttachment]
@@ -218,19 +251,24 @@ class SupportWrapper:
             response = self.support_client.describe_attachment(
                 attachmentId=attachment_id
             )
-            attached_file = response['attachment']['fileName']
+            attached_file = response["attachment"]["fileName"]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
-                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
-                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                            "examples.")
+            if err.response["Error"]["Code"] == "SubscriptionRequiredException":
+                logger.info(
+                    "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                    "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                    "examples."
+                )
             else:
                 logger.error(
                     "Couldn't get attachment description. Here's why: %s: %s",
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return attached_file
+
     # snippet-end:[python.example_code.support.DescribeAttachment]
 
     # snippet-start:[python.example_code.support.ResolveCase]
@@ -242,22 +280,25 @@ class SupportWrapper:
         :return: The final status of the case.
         """
         try:
-            response = self.support_client.resolve_case(
-                caseId=case_id
-                )
-            final_status = response['finalCaseStatus']
+            response = self.support_client.resolve_case(caseId=case_id)
+            final_status = response["finalCaseStatus"]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
-                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
-                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                            "examples.")
+            if err.response["Error"]["Code"] == "SubscriptionRequiredException":
+                logger.info(
+                    "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                    "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                    "examples."
+                )
             else:
                 logger.error(
                     "Couldn't resolve case. Here's why: %s: %s",
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return final_status
+
     # snippet-end:[python.example_code.support.ResolveCase]
 
     # snippet-start:[python.example_code.support.DescribeCases]
@@ -274,26 +315,34 @@ class SupportWrapper:
         """
         try:
             cases = []
-            paginator = self.support_client.get_paginator('describe_cases')
+            paginator = self.support_client.get_paginator("describe_cases")
             for page in paginator.paginate(
-                    afterTime=after_time,
-                    beforeTime=before_time,
-                    includeResolvedCases=resolved,
-                    language='en'):
-                cases += page['cases']
+                afterTime=after_time,
+                beforeTime=before_time,
+                includeResolvedCases=resolved,
+                language="en",
+            ):
+                cases += page["cases"]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'SubscriptionRequiredException':
-                logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
-                            "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                            "examples.")
+            if err.response["Error"]["Code"] == "SubscriptionRequiredException":
+                logger.info(
+                    "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                    "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                    "examples."
+                )
             else:
                 logger.error(
                     "Couldn't describe cases. Here's why: %s: %s",
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             if resolved:
-                cases = filter(lambda case: case['status'] == 'resolved', cases)
+                cases = filter(lambda case: case["status"] == "resolved", cases)
             return cases
+
     # snippet-end:[python.example_code.support.DescribeCases]
+
+
 # snippet-end:[python.example_code.support.SupportWrapper_full]

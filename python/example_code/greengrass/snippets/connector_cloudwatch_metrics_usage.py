@@ -14,8 +14,8 @@ from threading import Timer
 import time
 import greengrasssdk
 
-iot_client = greengrasssdk.client('iot-data')
-send_topic = 'cloudwatch/metric/put'
+iot_client = greengrasssdk.client("iot-data")
+send_topic = "cloudwatch/metric/put"
 
 
 def create_request():
@@ -27,7 +27,10 @@ def create_request():
                 "dimensions": [{"name": "test", "value": "test"}],
                 "value": 1,
                 "unit": "Seconds",
-                "timestamp": time.time()}}}
+                "timestamp": time.time(),
+            },
+        }
+    }
 
 
 def publish_basic_message():
@@ -43,4 +46,6 @@ publish_basic_message()
 # In this example, the required AWS Lambda handler is never called.
 def function_handler(event, context):
     return
+
+
 # snippet-end:[greengrass.python.connector-cloudwatch-metrics-usage.complete]

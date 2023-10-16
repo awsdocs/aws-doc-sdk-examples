@@ -20,6 +20,7 @@ class PinpointSmsVoiceStubber(ExampleStubber):
     part of the tests, and will raise errors when the actual parameters differ from
     the expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -32,17 +33,29 @@ class PinpointSmsVoiceStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_send_voice_message(
-            self, origination_number, caller_id, destination_number,
-            language_code, voice_id, ssml_message, message_id, error_code=None):
+        self,
+        origination_number,
+        caller_id,
+        destination_number,
+        language_code,
+        voice_id,
+        ssml_message,
+        message_id,
+        error_code=None,
+    ):
         expected_params = {
-            'DestinationPhoneNumber': destination_number,
-            'OriginationPhoneNumber': origination_number,
-            'CallerId': caller_id,
-            'Content': {
-                'SSMLMessage': {
-                    'LanguageCode': language_code,
-                    'VoiceId': voice_id,
-                    'Text': ssml_message}}}
-        response = {'MessageId': message_id}
+            "DestinationPhoneNumber": destination_number,
+            "OriginationPhoneNumber": origination_number,
+            "CallerId": caller_id,
+            "Content": {
+                "SSMLMessage": {
+                    "LanguageCode": language_code,
+                    "VoiceId": voice_id,
+                    "Text": ssml_message,
+                }
+            },
+        }
+        response = {"MessageId": message_id}
         self._stub_bifurcator(
-            'send_voice_message', expected_params, response, error_code=error_code)
+            "send_voice_message", expected_params, response, error_code=error_code
+        )

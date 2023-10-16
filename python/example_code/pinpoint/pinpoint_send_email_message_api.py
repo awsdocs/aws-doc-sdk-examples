@@ -18,11 +18,18 @@ logger = logging.getLogger(__name__)
 
 
 def send_email_message(
-        pinpoint_client, app_id, sender, to_addresses, char_set, subject,
-        html_message, text_message):
+    pinpoint_client,
+    app_id,
+    sender,
+    to_addresses,
+    char_set,
+    subject,
+    html_message,
+    text_message,
+):
     """
     Sends an email message with HTML and plain text versions.
-    
+
     :param pinpoint_client: A Boto3 Pinpoint client.
     :param app_id: The Amazon Pinpoint project ID to use when you send this message.
     :param sender: The "From" address. This address must be verified in
@@ -42,23 +49,28 @@ def send_email_message(
         response = pinpoint_client.send_messages(
             ApplicationId=app_id,
             MessageRequest={
-                'Addresses': {
-                    to_address: {'ChannelType': 'EMAIL'} for to_address in to_addresses
+                "Addresses": {
+                    to_address: {"ChannelType": "EMAIL"} for to_address in to_addresses
                 },
-                'MessageConfiguration': {
-                    'EmailMessage': {
-                        'FromAddress': sender,
-                        'SimpleEmail': {
-                            'Subject': {'Charset': char_set, 'Data': subject},
-                            'HtmlPart': {'Charset': char_set, 'Data': html_message},
-                            'TextPart': {'Charset': char_set, 'Data': text_message}}}}})
+                "MessageConfiguration": {
+                    "EmailMessage": {
+                        "FromAddress": sender,
+                        "SimpleEmail": {
+                            "Subject": {"Charset": char_set, "Data": subject},
+                            "HtmlPart": {"Charset": char_set, "Data": html_message},
+                            "TextPart": {"Charset": char_set, "Data": text_message},
+                        },
+                    }
+                },
+            },
+        )
     except ClientError:
         logger.exception("Couldn't send email.")
         raise
     else:
         return {
-            to_address: message['MessageId'] for
-            to_address, message in response['MessageResponse']['Result'].items()
+            to_address: message["MessageId"]
+            for to_address, message in response["MessageResponse"]["Result"].items()
         }
 
 
@@ -87,11 +99,18 @@ def main():
 
     print("Sending email.")
     message_ids = send_email_message(
-        boto3.client('pinpoint'), app_id, sender, [to_address], char_set, subject,
-        html_message, text_message)
+        boto3.client("pinpoint"),
+        app_id,
+        sender,
+        [to_address],
+        char_set,
+        subject,
+        html_message,
+        text_message,
+    )
     print(f"Message sent! Message IDs: {message_ids}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 # snippet-end:[pinpoint.python.pinpoint_send_email_message_api.complete]

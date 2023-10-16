@@ -21,15 +21,16 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.comprehend.ComprehendDetect]
 class ComprehendDetect:
     """Encapsulates Comprehend detection functions."""
+
     def __init__(self, comprehend_client):
         """
         :param comprehend_client: A Boto3 Comprehend client.
         """
         self.comprehend_client = comprehend_client
 
-# snippet-end:[python.example_code.comprehend.ComprehendDetect]
+    # snippet-end:[python.example_code.comprehend.ComprehendDetect]
 
-# snippet-start:[python.example_code.comprehend.DetectDominantLanguage]
+    # snippet-start:[python.example_code.comprehend.DetectDominantLanguage]
     def detect_languages(self, text):
         """
         Detects languages used in a document.
@@ -39,16 +40,17 @@ class ComprehendDetect:
         """
         try:
             response = self.comprehend_client.detect_dominant_language(Text=text)
-            languages = response['Languages']
+            languages = response["Languages"]
             logger.info("Detected %s languages.", len(languages))
         except ClientError:
             logger.exception("Couldn't detect languages.")
             raise
         else:
             return languages
-# snippet-end:[python.example_code.comprehend.DetectDominantLanguage]
 
-# snippet-start:[python.example_code.comprehend.DetectEntities]
+    # snippet-end:[python.example_code.comprehend.DetectDominantLanguage]
+
+    # snippet-start:[python.example_code.comprehend.DetectEntities]
     def detect_entities(self, text, language_code):
         """
         Detects entities in a document. Entities can be things like people and places
@@ -60,17 +62,19 @@ class ComprehendDetect:
         """
         try:
             response = self.comprehend_client.detect_entities(
-                Text=text, LanguageCode=language_code)
-            entities = response['Entities']
+                Text=text, LanguageCode=language_code
+            )
+            entities = response["Entities"]
             logger.info("Detected %s entities.", len(entities))
         except ClientError:
             logger.exception("Couldn't detect entities.")
             raise
         else:
             return entities
-# snippet-end:[python.example_code.comprehend.DetectEntities]
 
-# snippet-start:[python.example_code.comprehend.DetectKeyPhrases]
+    # snippet-end:[python.example_code.comprehend.DetectEntities]
+
+    # snippet-start:[python.example_code.comprehend.DetectKeyPhrases]
     def detect_key_phrases(self, text, language_code):
         """
         Detects key phrases in a document. A key phrase is typically a noun and its
@@ -82,17 +86,19 @@ class ComprehendDetect:
         """
         try:
             response = self.comprehend_client.detect_key_phrases(
-                Text=text, LanguageCode=language_code)
-            phrases = response['KeyPhrases']
+                Text=text, LanguageCode=language_code
+            )
+            phrases = response["KeyPhrases"]
             logger.info("Detected %s phrases.", len(phrases))
         except ClientError:
             logger.exception("Couldn't detect phrases.")
             raise
         else:
             return phrases
-# snippet-end:[python.example_code.comprehend.DetectKeyPhrases]
 
-# snippet-start:[python.example_code.comprehend.DetectPiiEntities]
+    # snippet-end:[python.example_code.comprehend.DetectKeyPhrases]
+
+    # snippet-start:[python.example_code.comprehend.DetectPiiEntities]
     def detect_pii(self, text, language_code):
         """
         Detects personally identifiable information (PII) in a document. PII can be
@@ -104,17 +110,19 @@ class ComprehendDetect:
         """
         try:
             response = self.comprehend_client.detect_pii_entities(
-                Text=text, LanguageCode=language_code)
-            entities = response['Entities']
+                Text=text, LanguageCode=language_code
+            )
+            entities = response["Entities"]
             logger.info("Detected %s PII entities.", len(entities))
         except ClientError:
             logger.exception("Couldn't detect PII entities.")
             raise
         else:
             return entities
-# snippet-end:[python.example_code.comprehend.DetectPiiEntities]
 
-# snippet-start:[python.example_code.comprehend.DetectSentiment]
+    # snippet-end:[python.example_code.comprehend.DetectPiiEntities]
+
+    # snippet-start:[python.example_code.comprehend.DetectSentiment]
     def detect_sentiment(self, text, language_code):
         """
         Detects the overall sentiment expressed in a document. Sentiment can
@@ -126,16 +134,18 @@ class ComprehendDetect:
         """
         try:
             response = self.comprehend_client.detect_sentiment(
-                Text=text, LanguageCode=language_code)
-            logger.info("Detected primary sentiment %s.", response['Sentiment'])
+                Text=text, LanguageCode=language_code
+            )
+            logger.info("Detected primary sentiment %s.", response["Sentiment"])
         except ClientError:
             logger.exception("Couldn't detect sentiment.")
             raise
         else:
             return response
-# snippet-end:[python.example_code.comprehend.DetectSentiment]
 
-# snippet-start:[python.example_code.comprehend.DetectSyntax]
+    # snippet-end:[python.example_code.comprehend.DetectSentiment]
+
+    # snippet-start:[python.example_code.comprehend.DetectSyntax]
     def detect_syntax(self, text, language_code):
         """
         Detects syntactical elements of a document. Syntax tokens are portions of
@@ -148,40 +158,43 @@ class ComprehendDetect:
         """
         try:
             response = self.comprehend_client.detect_syntax(
-                Text=text, LanguageCode=language_code)
-            tokens = response['SyntaxTokens']
+                Text=text, LanguageCode=language_code
+            )
+            tokens = response["SyntaxTokens"]
             logger.info("Detected %s syntax tokens.", len(tokens))
         except ClientError:
             logger.exception("Couldn't detect syntax.")
             raise
         else:
             return tokens
+
+
 # snippet-end:[python.example_code.comprehend.DetectSyntax]
 
 
 # snippet-start:[python.example_code.comprehend.Usage_DetectApis]
 def usage_demo():
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the Amazon Comprehend detection demo!")
-    print('-'*88)
+    print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    comp_detect = ComprehendDetect(boto3.client('comprehend'))
-    with open('detect_sample.txt') as sample_file:
+    comp_detect = ComprehendDetect(boto3.client("comprehend"))
+    with open("detect_sample.txt") as sample_file:
         sample_text = sample_file.read()
 
     demo_size = 3
 
     print("Sample text used for this demo:")
-    print('-'*88)
+    print("-" * 88)
     print(sample_text)
-    print('-'*88)
+    print("-" * 88)
 
     print("Detecting languages.")
     languages = comp_detect.detect_languages(sample_text)
     pprint(languages)
-    lang_code = languages[0]['LanguageCode']
+    lang_code = languages[0]["LanguageCode"]
 
     print("Detecting entities.")
     entities = comp_detect.detect_entities(sample_text, lang_code)
@@ -202,7 +215,7 @@ def usage_demo():
     sentiment = comp_detect.detect_sentiment(sample_text, lang_code)
     print(f"Sentiment: {sentiment['Sentiment']}")
     print("SentimentScore:")
-    pprint(sentiment['SentimentScore'])
+    pprint(sentiment["SentimentScore"])
 
     print("Detecting syntax elements.")
     syntax_tokens = comp_detect.detect_syntax(sample_text, lang_code)
@@ -210,9 +223,11 @@ def usage_demo():
     pprint(syntax_tokens[:demo_size])
 
     print("Thanks for watching!")
-    print('-'*88)
+    print("-" * 88)
+
+
 # snippet-end:[python.example_code.comprehend.Usage_DetectApis]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

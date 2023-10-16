@@ -26,13 +26,15 @@ def lambda_handler(event, context):
     :return: The result of the action.
     """
     result = None
-    action = event.get('action')
-    if action == 'increment':
-        result = event.get('number', 0) + 1
-        logger.info('Calculated result of %s', result)
+    action = event.get("action")
+    if action == "increment":
+        result = event.get("number", 0) + 1
+        logger.info("Calculated result of %s", result)
     else:
         logger.error("%s is not a valid action.", action)
 
-    response = {'result': result}
+    response = {"result": result}
     return response
+
+
 # snippet-end:[python.example_code.lambda.handler.increment]

@@ -21,12 +21,14 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.sfn.Activity_decl]
 class Activity:
     """Encapsulates Step Function activity actions."""
+
     def __init__(self, stepfunctions_client):
         """
         :param stepfunctions_client: A Boto3 Step Functions client.
         """
         self.stepfunctions_client = stepfunctions_client
-# snippet-end:[python.example_code.sfn.Activity_decl]
+
+    # snippet-end:[python.example_code.sfn.Activity_decl]
 
     # snippet-start:[python.example_code.sfn.CreateActivity]
     def create(self, name):
@@ -37,15 +39,18 @@ class Activity:
         :return: The Amazon Resource Name (ARN) of the newly created activity.
         """
         try:
-            response = self.stepfunctions_client.create_activity(
-                name=name)
+            response = self.stepfunctions_client.create_activity(name=name)
         except ClientError as err:
             logger.error(
-                "Couldn't create activity %s. Here's why: %s: %s", name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create activity %s. Here's why: %s: %s",
+                name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['activityArn']
+            return response["activityArn"]
+
     # snippet-end:[python.example_code.sfn.CreateActivity]
 
     # snippet-start:[python.example_code.sfn.ListActivities]
@@ -58,16 +63,19 @@ class Activity:
         :return: If found, the ARN of the activity; otherwise, None.
         """
         try:
-            paginator = self.stepfunctions_client.get_paginator('list_activities')
+            paginator = self.stepfunctions_client.get_paginator("list_activities")
             for page in paginator.paginate():
-                for activity in page.get('activities', []):
-                    if activity['name'] == name:
-                        return activity['activityArn']
+                for activity in page.get("activities", []):
+                    if activity["name"] == name:
+                        return activity["activityArn"]
         except ClientError as err:
             logger.error(
                 "Couldn't list activities. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.sfn.ListActivities]
 
     # snippet-start:[python.example_code.sfn.GetActivityTask]
@@ -82,14 +90,19 @@ class Activity:
         """
         try:
             response = self.stepfunctions_client.get_activity_task(
-                activityArn=activity_arn)
+                activityArn=activity_arn
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't get a task for activity %s. Here's why: %s: %s", activity_arn,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get a task for activity %s. Here's why: %s: %s",
+                activity_arn,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.sfn.GetActivityTask]
 
     # snippet-start:[python.example_code.sfn.SendTaskSuccess]
@@ -107,12 +120,16 @@ class Activity:
         """
         try:
             self.stepfunctions_client.send_task_success(
-                taskToken=task_token, output=task_response)
+                taskToken=task_token, output=task_response
+            )
         except ClientError as err:
             logger.error(
                 "Couldn't send task success. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.sfn.SendTaskSuccess]
 
     # snippet-start:[python.example_code.sfn.DeleteActivity]
@@ -124,13 +141,20 @@ class Activity:
         """
         try:
             response = self.stepfunctions_client.delete_activity(
-                activityArn=activity_arn)
+                activityArn=activity_arn
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't delete activity %s. Here's why: %s: %s", activity_arn,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete activity %s. Here's why: %s: %s",
+                activity_arn,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.sfn.DeleteActivity]
+
+
 # snippet-end:[python.example_code.sfn.Activity_full]

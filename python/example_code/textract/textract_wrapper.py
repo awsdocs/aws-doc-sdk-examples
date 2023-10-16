@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.textract.TextractWrapper]
 class TextractWrapper:
     """Encapsulates Textract functions."""
+
     def __init__(self, textract_client, s3_resource, sqs_resource):
         """
         :param textract_client: A Boto3 Textract client.
@@ -27,9 +28,10 @@ class TextractWrapper:
         self.textract_client = textract_client
         self.s3_resource = s3_resource
         self.sqs_resource = sqs_resource
-# snippet-end:[python.example_code.textract.TextractWrapper]
 
-# snippet-start:[python.example_code.textract.DetectDocumentText]
+    # snippet-end:[python.example_code.textract.TextractWrapper]
+
+    # snippet-start:[python.example_code.textract.DetectDocumentText]
     def detect_file_text(self, *, document_file_name=None, document_bytes=None):
         """
         Detects text elements in a local image file or from in-memory byte data.
@@ -41,23 +43,25 @@ class TextractWrapper:
                  that describe elements detected in the image.
         """
         if document_file_name is not None:
-            with open(document_file_name, 'rb') as document_file:
+            with open(document_file_name, "rb") as document_file:
                 document_bytes = document_file.read()
         try:
             response = self.textract_client.detect_document_text(
-                Document={'Bytes': document_bytes})
-            logger.info(
-                "Detected %s blocks.", len(response['Blocks']))
+                Document={"Bytes": document_bytes}
+            )
+            logger.info("Detected %s blocks.", len(response["Blocks"]))
         except ClientError:
             logger.exception("Couldn't detect text.")
             raise
         else:
             return response
-# snippet-end:[python.example_code.textract.DetectDocumentText]
 
-# snippet-start:[python.example_code.textract.AnalyzeDocument]
+    # snippet-end:[python.example_code.textract.DetectDocumentText]
+
+    # snippet-start:[python.example_code.textract.AnalyzeDocument]
     def analyze_file(
-            self, feature_types, *, document_file_name=None, document_bytes=None):
+        self, feature_types, *, document_file_name=None, document_bytes=None
+    ):
         """
         Detects text and additional elements, such as forms or tables, in a local image
         file or from in-memory byte data.
@@ -70,21 +74,22 @@ class TextractWrapper:
                  that describe elements detected in the image.
         """
         if document_file_name is not None:
-            with open(document_file_name, 'rb') as document_file:
+            with open(document_file_name, "rb") as document_file:
                 document_bytes = document_file.read()
         try:
             response = self.textract_client.analyze_document(
-                Document={'Bytes': document_bytes}, FeatureTypes=feature_types)
-            logger.info(
-                "Detected %s blocks.", len(response['Blocks']))
+                Document={"Bytes": document_bytes}, FeatureTypes=feature_types
+            )
+            logger.info("Detected %s blocks.", len(response["Blocks"]))
         except ClientError:
             logger.exception("Couldn't detect text.")
             raise
         else:
             return response
-# snippet-end:[python.example_code.textract.AnalyzeDocument]
 
-# snippet-start:[python.example_code.textract.helper.prepare_job]
+    # snippet-end:[python.example_code.textract.AnalyzeDocument]
+
+    # snippet-start:[python.example_code.textract.helper.prepare_job]
     def prepare_job(self, bucket_name, document_name, document_bytes):
         """
         Prepares a document image for an asynchronous detection job by uploading
@@ -102,9 +107,10 @@ class TextractWrapper:
         except ClientError:
             logger.exception("Couldn't upload %s to %s.", document_name, bucket_name)
             raise
-# snippet-end:[python.example_code.textract.helper.prepare_job]
 
-# snippet-start:[python.example_code.textract.helper.check_job_queue]
+    # snippet-end:[python.example_code.textract.helper.prepare_job]
+
+    # snippet-start:[python.example_code.textract.helper.check_job_queue]
     def check_job_queue(self, queue_url, job_id):
         """
         Polls an Amazon SQS queue for messages that indicate a specified Textract
@@ -120,24 +126,26 @@ class TextractWrapper:
             messages = queue.receive_messages()
             if messages:
                 msg_body = json.loads(messages[0].body)
-                msg = json.loads(msg_body['Message'])
-                if msg.get('JobId') == job_id:
+                msg = json.loads(msg_body["Message"])
+                if msg.get("JobId") == job_id:
                     messages[0].delete()
-                    status = msg.get('Status')
+                    status = msg.get("Status")
                     logger.info(
-                        "Got message %s with status %s.", messages[0].message_id,
-                        status)
+                        "Got message %s with status %s.", messages[0].message_id, status
+                    )
             else:
                 logger.info("No messages in queue %s.", queue_url)
         except ClientError:
             logger.exception("Couldn't get messages from queue %s.", queue_url)
         else:
             return status
-# snippet-end:[python.example_code.textract.helper.check_job_queue]
 
-# snippet-start:[python.example_code.textract.StartDocumentTextDetection]
+    # snippet-end:[python.example_code.textract.helper.check_job_queue]
+
+    # snippet-start:[python.example_code.textract.StartDocumentTextDetection]
     def start_detection_job(
-            self, bucket_name, document_file_name, sns_topic_arn, sns_role_arn):
+        self, bucket_name, document_file_name, sns_topic_arn, sns_role_arn
+    ):
         """
         Starts an asynchronous job to detect text elements in an image stored in an
         Amazon S3 bucket. Textract publishes a notification to the specified Amazon SNS
@@ -156,20 +164,26 @@ class TextractWrapper:
         try:
             response = self.textract_client.start_document_text_detection(
                 DocumentLocation={
-                    'S3Object': {'Bucket': bucket_name, 'Name': document_file_name}},
+                    "S3Object": {"Bucket": bucket_name, "Name": document_file_name}
+                },
                 NotificationChannel={
-                    'SNSTopicArn': sns_topic_arn, 'RoleArn': sns_role_arn})
-            job_id = response['JobId']
+                    "SNSTopicArn": sns_topic_arn,
+                    "RoleArn": sns_role_arn,
+                },
+            )
+            job_id = response["JobId"]
             logger.info(
-                "Started text detection job %s on %s.", job_id, document_file_name)
+                "Started text detection job %s on %s.", job_id, document_file_name
+            )
         except ClientError:
             logger.exception("Couldn't detect text in %s.", document_file_name)
             raise
         else:
             return job_id
-# snippet-end:[python.example_code.textract.StartDocumentTextDetection]
 
-# snippet-start:[python.example_code.textract.GetDocumentTextDetection]
+    # snippet-end:[python.example_code.textract.StartDocumentTextDetection]
+
+    # snippet-start:[python.example_code.textract.GetDocumentTextDetection]
     def get_detection_job(self, job_id):
         """
         Gets data for a previously started text detection job.
@@ -179,21 +193,26 @@ class TextractWrapper:
                  detected in the image.
         """
         try:
-            response = self.textract_client.get_document_text_detection(
-                JobId=job_id)
-            job_status = response['JobStatus']
+            response = self.textract_client.get_document_text_detection(JobId=job_id)
+            job_status = response["JobStatus"]
             logger.info("Job %s status is %s.", job_id, job_status)
         except ClientError:
             logger.exception("Couldn't get data for job %s.", job_id)
             raise
         else:
             return response
-# snippet-end:[python.example_code.textract.GetDocumentTextDetection]
 
-# snippet-start:[python.example_code.textract.StartDocumentAnalysis]
+    # snippet-end:[python.example_code.textract.GetDocumentTextDetection]
+
+    # snippet-start:[python.example_code.textract.StartDocumentAnalysis]
     def start_analysis_job(
-            self, bucket_name, document_file_name, feature_types, sns_topic_arn,
-            sns_role_arn):
+        self,
+        bucket_name,
+        document_file_name,
+        feature_types,
+        sns_topic_arn,
+        sns_role_arn,
+    ):
         """
         Starts an asynchronous job to detect text and additional elements, such as
         forms or tables, in an image stored in an Amazon S3 bucket. Textract publishes
@@ -213,21 +232,27 @@ class TextractWrapper:
         try:
             response = self.textract_client.start_document_analysis(
                 DocumentLocation={
-                    'S3Object': {'Bucket': bucket_name, 'Name': document_file_name}},
+                    "S3Object": {"Bucket": bucket_name, "Name": document_file_name}
+                },
                 NotificationChannel={
-                    'SNSTopicArn': sns_topic_arn, 'RoleArn': sns_role_arn},
-                FeatureTypes=feature_types)
-            job_id = response['JobId']
+                    "SNSTopicArn": sns_topic_arn,
+                    "RoleArn": sns_role_arn,
+                },
+                FeatureTypes=feature_types,
+            )
+            job_id = response["JobId"]
             logger.info(
-                "Started text analysis job %s on %s.", job_id, document_file_name)
+                "Started text analysis job %s on %s.", job_id, document_file_name
+            )
         except ClientError:
             logger.exception("Couldn't analyze text in %s.", document_file_name)
             raise
         else:
             return job_id
-# snippet-end:[python.example_code.textract.StartDocumentAnalysis]
 
-# snippet-start:[python.example_code.textract.GetDocumentAnalysis]
+    # snippet-end:[python.example_code.textract.StartDocumentAnalysis]
+
+    # snippet-start:[python.example_code.textract.GetDocumentAnalysis]
     def get_analysis_job(self, job_id):
         """
         Gets data for a previously started detection job that includes additional
@@ -238,13 +263,14 @@ class TextractWrapper:
                  detected in the image.
         """
         try:
-            response = self.textract_client.get_document_analysis(
-                JobId=job_id)
-            job_status = response['JobStatus']
+            response = self.textract_client.get_document_analysis(JobId=job_id)
+            job_status = response["JobStatus"]
             logger.info("Job %s status is %s.", job_id, job_status)
         except ClientError:
             logger.exception("Couldn't get data for job %s.", job_id)
             raise
         else:
             return response
+
+
 # snippet-end:[python.example_code.textract.GetDocumentAnalysis]

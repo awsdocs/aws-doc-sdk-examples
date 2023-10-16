@@ -21,13 +21,13 @@ def progress_bar(seconds):
     """Shows a simple progress bar in the command window."""
     for _ in range(seconds):
         time.sleep(1)
-        print('.', end='')
+        print(".", end="")
         sys.stdout.flush()
     print()
 
 
 def unique_name(base_name):
-    return f'demo-assume-role-{base_name}-{time.time_ns()}'
+    return f"demo-assume-role-{base_name}-{time.time_ns()}"
 
 
 # snippet-start:[python.example_code.sts.Scenario_ConstructFederatedUrl_setup]
@@ -41,25 +41,29 @@ def setup(iam_resource):
     :return: The newly created role.
     """
     role = iam_resource.create_role(
-        RoleName=unique_name('role'),
-        AssumeRolePolicyDocument=json.dumps({
-            'Version': '2012-10-17',
-            'Statement': [
-                {
-                    'Effect': 'Allow',
-                    'Principal': {'AWS': iam_resource.CurrentUser().arn},
-                    'Action': 'sts:AssumeRole'
-                }
-            ]
-        })
+        RoleName=unique_name("role"),
+        AssumeRolePolicyDocument=json.dumps(
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal": {"AWS": iam_resource.CurrentUser().arn},
+                        "Action": "sts:AssumeRole",
+                    }
+                ],
+            }
+        ),
     )
-    role.attach_policy(PolicyArn='arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess')
+    role.attach_policy(PolicyArn="arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess")
     print(f"Created role {role.name}.")
 
-    print("Give AWS time to propagate these new resources and connections.", end='')
+    print("Give AWS time to propagate these new resources and connections.", end="")
     progress_bar(10)
 
     return role
+
+
 # snippet-end:[python.example_code.sts.Scenario_ConstructFederatedUrl_setup]
 
 
@@ -86,16 +90,17 @@ def construct_federated_url(assume_role_arn, session_name, issuer, sts_client):
     :return: The federated URL.
     """
     response = sts_client.assume_role(
-        RoleArn=assume_role_arn, RoleSessionName=session_name)
-    temp_credentials = response['Credentials']
+        RoleArn=assume_role_arn, RoleSessionName=session_name
+    )
+    temp_credentials = response["Credentials"]
     print(f"Assumed role {assume_role_arn} and got temporary credentials.")
 
     session_data = {
-        'sessionId': temp_credentials['AccessKeyId'],
-        'sessionKey': temp_credentials['SecretAccessKey'],
-        'sessionToken': temp_credentials['SessionToken']
+        "sessionId": temp_credentials["AccessKeyId"],
+        "sessionKey": temp_credentials["SecretAccessKey"],
+        "sessionToken": temp_credentials["SessionToken"],
     }
-    aws_federated_signin_endpoint = 'https://signin.aws.amazon.com/federation'
+    aws_federated_signin_endpoint = "https://signin.aws.amazon.com/federation"
 
     # Make a request to the AWS federation endpoint to get a sign-in token.
     # The requests.get function URL-encodes the parameters and builds the query string
@@ -103,22 +108,27 @@ def construct_federated_url(assume_role_arn, session_name, issuer, sts_client):
     response = requests.get(
         aws_federated_signin_endpoint,
         params={
-            'Action': 'getSigninToken',
-            'SessionDuration': str(datetime.timedelta(hours=12).seconds),
-            'Session': json.dumps(session_data)
-        })
+            "Action": "getSigninToken",
+            "SessionDuration": str(datetime.timedelta(hours=12).seconds),
+            "Session": json.dumps(session_data),
+        },
+    )
     signin_token = json.loads(response.text)
     print(f"Got a sign-in token from the AWS sign-in federation endpoint.")
 
     # Make a federated URL that can be used to sign into the AWS Management Console.
-    query_string = urllib.parse.urlencode({
-        'Action': 'login',
-        'Issuer': issuer,
-        'Destination': 'https://console.aws.amazon.com/',
-        'SigninToken': signin_token['SigninToken']
-    })
-    federated_url = f'{aws_federated_signin_endpoint}?{query_string}'
+    query_string = urllib.parse.urlencode(
+        {
+            "Action": "login",
+            "Issuer": issuer,
+            "Destination": "https://console.aws.amazon.com/",
+            "SigninToken": signin_token["SigninToken"],
+        }
+    )
+    federated_url = f"{aws_federated_signin_endpoint}?{query_string}"
     return federated_url
+
+
 # snippet-end:[iam.python.construct_federated_url]
 
 
@@ -134,34 +144,43 @@ def teardown(role):
         print(f"Detached {attached.policy_name}.")
     role.delete()
     print(f"Deleted {role.name}.")
+
+
 # snippet-end:[python.example_code.sts.Scenario_ConstructFederatedUrl_teardown]
 
 
 # snippet-start:[python.example_code.sts.Scenario_ConstructFederatedUrl_demo]
 def usage_demo():
     """Drives the demonstration."""
-    print('-'*88)
+    print("-" * 88)
     print(f"Welcome to the AWS Security Token Service federated URL demo.")
-    print('-'*88)
-    iam_resource = boto3.resource('iam')
+    print("-" * 88)
+    iam_resource = boto3.resource("iam")
     role = setup(iam_resource)
-    sts_client = boto3.client('sts')
+    sts_client = boto3.client("sts")
     try:
         federated_url = construct_federated_url(
-            role.arn, 'AssumeRoleDemoSession', 'example.org', sts_client)
-        print("Constructed a federated URL that can be used to connect to the "
-              "AWS Management Console with role-defined permissions:")
-        print('-'*88)
+            role.arn, "AssumeRoleDemoSession", "example.org", sts_client
+        )
+        print(
+            "Constructed a federated URL that can be used to connect to the "
+            "AWS Management Console with role-defined permissions:"
+        )
+        print("-" * 88)
         print(federated_url)
-        print('-'*88)
-        _ = input("Copy and paste the above URL into a browser to open the AWS "
-                  "Management Console with limited permissions. When done, press "
-                  "Enter to clean up and complete this demo.")
+        print("-" * 88)
+        _ = input(
+            "Copy and paste the above URL into a browser to open the AWS "
+            "Management Console with limited permissions. When done, press "
+            "Enter to clean up and complete this demo."
+        )
     finally:
         teardown(role)
         print("Thanks for watching!")
+
+
 # snippet-end:[python.example_code.sts.Scenario_ConstructFederatedUrl_demo]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

@@ -25,15 +25,16 @@ class AcmCertificate:
     """
     Encapsulates ACM functions.
     """
+
     def __init__(self, acm_client):
         """
         :param acm_client: A Boto3 ACM client.
         """
         self.acm_client = acm_client
 
-# snippet-end:[python.example_code.acm.AcmCertificate]
+    # snippet-end:[python.example_code.acm.AcmCertificate]
 
-# snippet-start:[python.example_code.acm.DescribeCertificate]
+    # snippet-start:[python.example_code.acm.DescribeCertificate]
     def describe(self, certificate_arn):
         """
         Gets certificate metadata.
@@ -43,19 +44,21 @@ class AcmCertificate:
         """
         try:
             response = self.acm_client.describe_certificate(
-                CertificateArn=certificate_arn)
-            certificate = response['Certificate']
+                CertificateArn=certificate_arn
+            )
+            certificate = response["Certificate"]
             logger.info(
-                "Got metadata for certificate for domain %s.",
-                certificate['DomainName'])
+                "Got metadata for certificate for domain %s.", certificate["DomainName"]
+            )
         except ClientError:
             logger.exception("Couldn't get data for certificate %s.", certificate_arn)
             raise
         else:
             return certificate
-# snippet-end:[python.example_code.acm.DescribeCertificate]
 
-# snippet-start:[python.example_code.acm.GetCertificate]
+    # snippet-end:[python.example_code.acm.DescribeCertificate]
+
+    # snippet-start:[python.example_code.acm.GetCertificate]
     def get(self, certificate_arn):
         """
         Gets the body and certificate chain of a certificate.
@@ -71,12 +74,18 @@ class AcmCertificate:
             raise
         else:
             return response
-# snippet-end:[python.example_code.acm.GetCertificate]
 
-# snippet-start:[python.example_code.acm.ListCertificates]
+    # snippet-end:[python.example_code.acm.GetCertificate]
+
+    # snippet-start:[python.example_code.acm.ListCertificates]
     def list(
-            self, max_items, statuses=None, key_usage=None, extended_key_usage=None,
-            key_types=None):
+        self,
+        max_items,
+        statuses=None,
+        key_usage=None,
+        extended_key_usage=None,
+        key_types=None,
+    ):
         """
         Lists the certificates for the current account.
 
@@ -93,29 +102,30 @@ class AcmCertificate:
         :return: The list of certificates.
         """
         try:
-            kwargs = {'MaxItems': max_items}
+            kwargs = {"MaxItems": max_items}
             if statuses is not None:
-                kwargs['CertificateStatuses'] = statuses
+                kwargs["CertificateStatuses"] = statuses
             includes = {}
             if key_usage is not None:
-                includes['keyUsage'] = key_usage
+                includes["keyUsage"] = key_usage
             if extended_key_usage is not None:
-                includes['extendedKeyUsage'] = extended_key_usage
+                includes["extendedKeyUsage"] = extended_key_usage
             if key_types is not None:
-                includes['keyTypes'] = key_types
+                includes["keyTypes"] = key_types
             if includes:
-                kwargs['Includes'] = includes
+                kwargs["Includes"] = includes
             response = self.acm_client.list_certificates(**kwargs)
-            certificates = response['CertificateSummaryList']
+            certificates = response["CertificateSummaryList"]
             logger.info("Got %s certificates.", len(certificates))
         except ClientError:
             logger.exception("Couldn't get certificates.")
             raise
         else:
             return certificates
-# snippet-end:[python.example_code.acm.ListCertificates]
 
-# snippet-start:[python.example_code.acm.ImportCertificate]
+    # snippet-end:[python.example_code.acm.ListCertificates]
+
+    # snippet-start:[python.example_code.acm.ImportCertificate]
     def import_certificate(self, certificate_body, private_key):
         """
         Imports a self-signed certificate to ACM.
@@ -127,17 +137,19 @@ class AcmCertificate:
         """
         try:
             response = self.acm_client.import_certificate(
-                Certificate=certificate_body, PrivateKey=private_key)
-            certificate_arn = response['CertificateArn']
+                Certificate=certificate_body, PrivateKey=private_key
+            )
+            certificate_arn = response["CertificateArn"]
             logger.info("Imported certificate.")
         except ClientError:
             logger.exception("Couldn't import certificate.")
             raise
         else:
             return certificate_arn
-# snippet-end:[python.example_code.acm.ImportCertificate]
 
-# snippet-start:[python.example_code.acm.DeleteCertificate]
+    # snippet-end:[python.example_code.acm.ImportCertificate]
+
+    # snippet-start:[python.example_code.acm.DeleteCertificate]
     def remove(self, certificate_arn):
         """
         Removes a certificate.
@@ -150,9 +162,10 @@ class AcmCertificate:
         except ClientError:
             logger.exception("Couldn't remove certificate %s.", certificate_arn)
             raise
-# snippet-end:[python.example_code.acm.DeleteCertificate]
 
-# snippet-start:[python.example_code.acm.AddTagsToCertificate]
+    # snippet-end:[python.example_code.acm.DeleteCertificate]
+
+    # snippet-start:[python.example_code.acm.AddTagsToCertificate]
     def add_tags(self, certificate_arn, tags):
         """
         Adds tags to a certificate. Tags are key-value pairs that contain custom
@@ -164,14 +177,16 @@ class AcmCertificate:
         try:
             self.acm_client.add_tags_to_certificate(
                 CertificateArn=certificate_arn,
-                Tags=[{'Key': key, 'Value': value} for key, value in tags.items()])
+                Tags=[{"Key": key, "Value": value} for key, value in tags.items()],
+            )
             logger.info("Added %s tags to certificate %s.", len(tags), certificate_arn)
         except ClientError:
             logger.exception("Couldn't add tags to certificate %s.", certificate_arn)
             raise
-# snippet-end:[python.example_code.acm.AddTagsToCertificate]
 
-# snippet-start:[python.example_code.acm.ListTagsForCertificate]
+    # snippet-end:[python.example_code.acm.AddTagsToCertificate]
+
+    # snippet-start:[python.example_code.acm.ListTagsForCertificate]
     def list_tags(self, certificate_arn):
         """
         Lists the tags attached to a certificate.
@@ -181,17 +196,19 @@ class AcmCertificate:
         """
         try:
             response = self.acm_client.list_tags_for_certificate(
-                CertificateArn=certificate_arn)
-            tags = {tag['Key']: tag['Value'] for tag in response['Tags']}
+                CertificateArn=certificate_arn
+            )
+            tags = {tag["Key"]: tag["Value"] for tag in response["Tags"]}
             logger.info("Got %s tags for certificates %s.", len(tags), certificate_arn)
         except ClientError:
             logger.exception("Couldn't get tags for certificate %s.", certificate_arn)
             raise
         else:
             return tags
-# snippet-end:[python.example_code.acm.ListTagsForCertificate]
 
-# snippet-start:[python.example_code.acm.RemoveTagsFromCertificate]
+    # snippet-end:[python.example_code.acm.ListTagsForCertificate]
+
+    # snippet-start:[python.example_code.acm.RemoveTagsFromCertificate]
     def remove_tags(self, certificate_arn, tags):
         """
         Removes tags from a certificate. If the value of a tag is specified, the tag is
@@ -204,23 +221,28 @@ class AcmCertificate:
         try:
             cert_tags = []
             for key, value in tags.items():
-                tag = {'Key': key}
+                tag = {"Key": key}
                 if value is not None:
-                    tag['Value'] = value
+                    tag["Value"] = value
                 cert_tags.append(tag)
             self.acm_client.remove_tags_from_certificate(
-                CertificateArn=certificate_arn, Tags=cert_tags)
+                CertificateArn=certificate_arn, Tags=cert_tags
+            )
             logger.info(
-                "Removed %s tags from certificate %s.", len(tags), certificate_arn)
+                "Removed %s tags from certificate %s.", len(tags), certificate_arn
+            )
         except ClientError:
             logger.exception(
-                "Couldn't remove tags from certificate %s.", certificate_arn)
+                "Couldn't remove tags from certificate %s.", certificate_arn
+            )
             raise
-# snippet-end:[python.example_code.acm.RemoveTagsFromCertificate]
 
-# snippet-start:[python.example_code.acm.RequestCertificate]
+    # snippet-end:[python.example_code.acm.RemoveTagsFromCertificate]
+
+    # snippet-start:[python.example_code.acm.RequestCertificate]
     def request_validation(
-            self, domain, alternate_domains, method, validation_domains=None):
+        self, domain, alternate_domains, method, validation_domains=None
+    ):
         """
         Starts a validation request that results in a new certificate being issued
         by ACM. DNS validation requires that you add CNAME records to your DNS
@@ -241,28 +263,34 @@ class AcmCertificate:
         """
         try:
             kwargs = {
-                'DomainName': domain,
-                'ValidationMethod': method,
-                'SubjectAlternativeNames': alternate_domains}
+                "DomainName": domain,
+                "ValidationMethod": method,
+                "SubjectAlternativeNames": alternate_domains,
+            }
             if validation_domains is not None:
-                kwargs['DomainValidationOptions'] = [{
-                    'DomainName': key,
-                    'ValidationDomain': value
-                } for key, value in validation_domains.items()]
+                kwargs["DomainValidationOptions"] = [
+                    {"DomainName": key, "ValidationDomain": value}
+                    for key, value in validation_domains.items()
+                ]
             response = self.acm_client.request_certificate(**kwargs)
-            certificate_arn = response['CertificateArn']
+            certificate_arn = response["CertificateArn"]
             logger.info(
                 "Requested %s validation for domain %s. Certificate ARN is %s.",
-                method, domain, certificate_arn)
+                method,
+                domain,
+                certificate_arn,
+            )
         except ClientError:
             logger.exception(
-                "Request for %s validation of domain %s failed.", method, domain)
+                "Request for %s validation of domain %s failed.", method, domain
+            )
             raise
         else:
             return certificate_arn
-# snippet-end:[python.example_code.acm.RequestCertificate]
 
-# snippet-start:[python.example_code.acm.ResendValidationEmail]
+    # snippet-end:[python.example_code.acm.RequestCertificate]
+
+    # snippet-start:[python.example_code.acm.ResendValidationEmail]
     def resend_validation_email(self, certificate_arn, domain, validation_domain):
         """
         Request that validation email is sent again, for a certificate that was
@@ -277,43 +305,50 @@ class AcmCertificate:
             self.acm_client.resend_validation_email(
                 CertificateArn=certificate_arn,
                 Domain=domain,
-                ValidationDomain=validation_domain)
+                ValidationDomain=validation_domain,
+            )
             logger.info(
-                "Validation email resent to validation domain %s.", validation_domain)
+                "Validation email resent to validation domain %s.", validation_domain
+            )
         except ClientError:
             logger.exception(
-                "Couldn't resend validation email to %s.", validation_domain)
+                "Couldn't resend validation email to %s.", validation_domain
+            )
             raise
+
+
 # snippet-end:[python.example_code.acm.ResendValidationEmail]
 
 
 # snippet-start:[python.example_code.acm.Usage_ImportListRemove]
 def usage_demo():
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the AWS Certificate Manager (ACM) demo!")
-    print('-'*88)
+    print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    acm_certificate = AcmCertificate(boto3.client('acm'))
-    domain = 'example.com'
-    sub_domains = [f'{sub}.{domain}' for sub in ['test', 'dev']]
+    acm_certificate = AcmCertificate(boto3.client("acm"))
+    domain = "example.com"
+    sub_domains = [f"{sub}.{domain}" for sub in ["test", "dev"]]
     print(f"Request a certificate for {domain}.")
-    certificate_arn = acm_certificate.request_validation(domain, sub_domains, 'DNS')
+    certificate_arn = acm_certificate.request_validation(domain, sub_domains, "DNS")
     print(f"Started validation, got certificate ARN: {certificate_arn}.")
 
     import_cert_arn = None
     cert_file_name = input(
         "Enter the file name for a self-signed certificate in PEM format. "
-        "This certificate will be imported to ACM. Press Enter to skip: ")
+        "This certificate will be imported to ACM. Press Enter to skip: "
+    )
     if cert_file_name:
         pk_file_name = input(
             "Enter the file name for the unencrypted private key of the certificate. "
-            "This file must also be in PEM format: ")
+            "This file must also be in PEM format: "
+        )
         if pk_file_name:
-            with open(cert_file_name, 'rb') as cert_file:
+            with open(cert_file_name, "rb") as cert_file:
                 import_cert = cert_file.read()
-            with open(pk_file_name, 'rb') as pk_file:
+            with open(pk_file_name, "rb") as pk_file:
                 import_pk = pk_file.read()
             import_cert_arn = acm_certificate.import_certificate(import_cert, import_pk)
             print(f"Certificate imported, got ARN: {import_cert_arn}")
@@ -323,7 +358,7 @@ def usage_demo():
         print("Skipping self-signed certificate import.")
 
     print("Getting the first 10 issued certificates.")
-    certificates = acm_certificate.list(10, statuses=['ISSUED'])
+    certificates = acm_certificate.list(10, statuses=["ISSUED"])
     print(f"Found {len(certificates)} issued certificates.")
 
     print(f"Getting metadata for certificate {certificate_arn}")
@@ -336,9 +371,7 @@ def usage_demo():
         pprint(import_cert_data)
 
     print(f"Adding tags to certificate {certificate_arn}.")
-    acm_certificate.add_tags(certificate_arn, {
-        'purpose': 'acm demo',
-        'color': 'green'})
+    acm_certificate.add_tags(certificate_arn, {"purpose": "acm demo", "color": "green"})
     tags = acm_certificate.list_tags(certificate_arn)
     print(f"Found tags: {tags}")
     acm_certificate.remove_tags(certificate_arn, {key: None for key in tags})
@@ -350,9 +383,11 @@ def usage_demo():
         acm_certificate.remove(import_cert_arn)
 
     print("Thanks for watching!")
-    print('-'*88)
+    print("-" * 88)
+
+
 # snippet-end:[python.example_code.acm.Usage_ImportListRemove]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

@@ -8,6 +8,7 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
+
 def hello_support(support_client):
     """
     Use the AWS SDK for Python (Boto3) to create an AWS Support client and count
@@ -22,16 +23,21 @@ def hello_support(support_client):
         response = support_client.describe_services()
         print(f"There are {len(response['services'])} services available.")
     except ClientError as err:
-        if err.response['Error']['Code'] == 'SubscriptionRequiredException':
-            logger.info("You must have a Business, Enterprise On-Ramp, or Enterprise Support "
-                        "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
-                        "examples.")
+        if err.response["Error"]["Code"] == "SubscriptionRequiredException":
+            logger.info(
+                "You must have a Business, Enterprise On-Ramp, or Enterprise Support "
+                "plan to use the AWS Support API. \n\tPlease upgrade your subscription to run these "
+                "examples."
+            )
         else:
             logger.error(
                 "Couldn't count services. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
 
-if __name__ == '__main__':
-    hello_support(boto3.client('support'))
+
+if __name__ == "__main__":
+    hello_support(boto3.client("support"))
 # snippet-end:[python.example_code.support.Hello]

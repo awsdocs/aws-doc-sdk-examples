@@ -17,6 +17,7 @@ class StepFunctionsStubber(ExampleStubber):
     The stubbed functions expect certain parameters to be passed to them as
     part of the tests, and raise errors if the parameters are not as expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -29,112 +30,152 @@ class StepFunctionsStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_create_state_machine(
-            self, name, definition, role_arn, state_machine_arn, error_code=None):
-        expected_params = {
-            'name': name, 'definition': definition, 'roleArn': role_arn}
+        self, name, definition, role_arn, state_machine_arn, error_code=None
+    ):
+        expected_params = {"name": name, "definition": definition, "roleArn": role_arn}
         response = {
-            'stateMachineArn': state_machine_arn, 'creationDate': datetime.now()}
+            "stateMachineArn": state_machine_arn,
+            "creationDate": datetime.now(),
+        }
         self._stub_bifurcator(
-            'create_state_machine', expected_params, response, error_code=error_code)
+            "create_state_machine", expected_params, response, error_code=error_code
+        )
 
     def stub_update_state_machine(
-            self, state_machine_arn, definition, role_arn=None, error_code=None):
+        self, state_machine_arn, definition, role_arn=None, error_code=None
+    ):
         expected_params = {
-            'stateMachineArn': state_machine_arn, 'definition': json.dumps(definition)}
+            "stateMachineArn": state_machine_arn,
+            "definition": json.dumps(definition),
+        }
         if role_arn is not None:
-            expected_params['roleArn'] = role_arn
-        response = {'updateDate': datetime.now()}
+            expected_params["roleArn"] = role_arn
+        response = {"updateDate": datetime.now()}
         self._stub_bifurcator(
-            'update_state_machine', expected_params, response, error_code=error_code)
+            "update_state_machine", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_state_machine(self, state_machine_arn, error_code=None):
-        expected_params = {'stateMachineArn': state_machine_arn}
+        expected_params = {"stateMachineArn": state_machine_arn}
         response = {}
         self._stub_bifurcator(
-            'delete_state_machine', expected_params, response, error_code=error_code)
+            "delete_state_machine", expected_params, response, error_code=error_code
+        )
 
     def stub_list_state_machines(self, state_machines, error_code=None):
         expected_params = {}
-        response = {'stateMachines': [
-            {**sm, 'type': 'STANDARD', 'creationDate': datetime.now()}
-            for sm in state_machines]}
+        response = {
+            "stateMachines": [
+                {**sm, "type": "STANDARD", "creationDate": datetime.now()}
+                for sm in state_machines
+            ]
+        }
         self._stub_bifurcator(
-            'list_state_machines', expected_params, response, error_code=error_code)
+            "list_state_machines", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_state_machine(
-            self, state_machine_arn, name, definition, status, role_arn, error_code=None):
-        expected_params = {'stateMachineArn': state_machine_arn}
+        self, state_machine_arn, name, definition, status, role_arn, error_code=None
+    ):
+        expected_params = {"stateMachineArn": state_machine_arn}
         response = {
-            'name': name, 'definition': definition, 'roleArn': role_arn,
-            'stateMachineArn': state_machine_arn, 'status': status, 'type': 'STANDARD',
-            'creationDate': datetime.now()}
+            "name": name,
+            "definition": definition,
+            "roleArn": role_arn,
+            "stateMachineArn": state_machine_arn,
+            "status": status,
+            "type": "STANDARD",
+            "creationDate": datetime.now(),
+        }
         self._stub_bifurcator(
-            'describe_state_machine', expected_params, response, error_code=error_code)
+            "describe_state_machine", expected_params, response, error_code=error_code
+        )
 
     def stub_start_execution(
-            self, state_machine_arn, run_arn, run_input=None, run_name=None,
-            error_code=None):
-        expected_params = {'stateMachineArn': state_machine_arn}
+        self, state_machine_arn, run_arn, run_input=None, run_name=None, error_code=None
+    ):
+        expected_params = {"stateMachineArn": state_machine_arn}
         if run_input is not None:
-            expected_params['input'] = json.dumps(run_input)
+            expected_params["input"] = json.dumps(run_input)
         if run_name is not None:
-            expected_params['name'] = run_name
-        response = {'executionArn': run_arn, 'startDate': datetime.now()}
+            expected_params["name"] = run_name
+        response = {"executionArn": run_arn, "startDate": datetime.now()}
         self._stub_bifurcator(
-            'start_execution', expected_params, response, error_code=error_code)
+            "start_execution", expected_params, response, error_code=error_code
+        )
 
     def stub_list_executions(
-            self, state_machine_arn, runs, run_status=None, error_code=None):
-        expected_params = {'stateMachineArn': state_machine_arn}
+        self, state_machine_arn, runs, run_status=None, error_code=None
+    ):
+        expected_params = {"stateMachineArn": state_machine_arn}
         if run_status is not None:
-            expected_params['statusFilter'] = run_status
-        response = {'executions': [
-            {**run, 'stateMachineArn': state_machine_arn,
-             'status': run_status if run_status is not None else 'RUNNING',
-             'startDate': datetime.now()} for run in runs]}
+            expected_params["statusFilter"] = run_status
+        response = {
+            "executions": [
+                {
+                    **run,
+                    "stateMachineArn": state_machine_arn,
+                    "status": run_status if run_status is not None else "RUNNING",
+                    "startDate": datetime.now(),
+                }
+                for run in runs
+            ]
+        }
         self._stub_bifurcator(
-            'list_executions', expected_params, response, error_code=error_code)
+            "list_executions", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_execution(self, run_arn, sm_arn, status, output, error_code=None):
-        expected_params = {'executionArn': run_arn}
+        expected_params = {"executionArn": run_arn}
         response = {
-            'executionArn': run_arn, 'stateMachineArn': sm_arn, 'status': status, 'output': output,
-            'startDate': datetime.now()}
+            "executionArn": run_arn,
+            "stateMachineArn": sm_arn,
+            "status": status,
+            "output": output,
+            "startDate": datetime.now(),
+        }
         self._stub_bifurcator(
-            'describe_execution', expected_params, response, error_code=error_code)
+            "describe_execution", expected_params, response, error_code=error_code
+        )
 
     def stub_stop_execution(self, run_arn, cause, error_code=None):
-        expected_params = {'executionArn': run_arn, 'cause': cause}
-        response = {'stopDate': datetime.now()}
+        expected_params = {"executionArn": run_arn, "cause": cause}
+        response = {"stopDate": datetime.now()}
         self._stub_bifurcator(
-            'stop_execution', expected_params, response, error_code=error_code)
+            "stop_execution", expected_params, response, error_code=error_code
+        )
 
     def stub_list_activities(self, activities, error_code=None):
         expected_params = {}
-        response = {'activities': activities}
+        response = {"activities": activities}
         self._stub_bifurcator(
-            'list_activities', expected_params, response, error_code=error_code)
+            "list_activities", expected_params, response, error_code=error_code
+        )
 
     def stub_create_activity(self, name, arn, error_code=None):
-        expected_params = {'name': name}
-        response = {'activityArn': arn, 'creationDate': datetime.now()}
+        expected_params = {"name": name}
+        response = {"activityArn": arn, "creationDate": datetime.now()}
         self._stub_bifurcator(
-            'create_activity', expected_params, response, error_code=error_code)
+            "create_activity", expected_params, response, error_code=error_code
+        )
 
     def stub_get_activity_task(self, act_arn, token, act_input, error_code=None):
-        expected_params = {'activityArn': act_arn}
-        response = {'taskToken': token, 'input': act_input}
+        expected_params = {"activityArn": act_arn}
+        response = {"taskToken": token, "input": act_input}
         self._stub_bifurcator(
-            'get_activity_task', expected_params, response, error_code=error_code)
+            "get_activity_task", expected_params, response, error_code=error_code
+        )
 
     def stub_send_task_success(self, token, output, error_code=None):
-        expected_params = {'taskToken': token, 'output': output}
+        expected_params = {"taskToken": token, "output": output}
         response = {}
         self._stub_bifurcator(
-            'send_task_success', expected_params, response, error_code=error_code)
+            "send_task_success", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_activity(self, act_arn, error_code=None):
-        expected_params = {'activityArn': act_arn}
+        expected_params = {"activityArn": act_arn}
         response = {}
         self._stub_bifurcator(
-            'delete_activity', expected_params, response, error_code=error_code)
+            "delete_activity", expected_params, response, error_code=error_code
+        )

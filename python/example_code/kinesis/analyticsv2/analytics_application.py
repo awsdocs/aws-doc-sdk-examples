@@ -18,6 +18,7 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.kinesis-analytics-v2.ApplicationClass]
 class KinesisAnalyticsApplicationV2:
     """Encapsulates Kinesis Data Analytics application functions."""
+
     def __init__(self, analytics_client):
         """
         :param analytics_client: A Boto3 Kinesis Data Analytics v2 client.
@@ -27,24 +28,27 @@ class KinesisAnalyticsApplicationV2:
         self.arn = None
         self.version_id = None
         self.create_timestamp = None
-# snippet-end:[python.example_code.kinesis-analytics-v2.ApplicationClass]
 
-# snippet-start:[python.example_code.kinesis-analytics-v2.helper_update_details]
+    # snippet-end:[python.example_code.kinesis-analytics-v2.ApplicationClass]
+
+    # snippet-start:[python.example_code.kinesis-analytics-v2.helper_update_details]
     def _update_details(self, details):
         """
         Updates object properties with application details retrieved from the service.
 
         :param details: Application details from the service.
         """
-        self.name = details['ApplicationName']
-        self.version_id = details['ApplicationVersionId']
-        self.arn = details['ApplicationARN']
-        self.create_timestamp = details['CreateTimestamp']
-# snippet-end:[python.example_code.kinesis-analytics-v2.helper_update_details]
+        self.name = details["ApplicationName"]
+        self.version_id = details["ApplicationVersionId"]
+        self.arn = details["ApplicationARN"]
+        self.create_timestamp = details["CreateTimestamp"]
+
+    # snippet-end:[python.example_code.kinesis-analytics-v2.helper_update_details]
 
     @staticmethod
     def create_read_write_role(
-            prefix, input_stream_arn, output_stream_arn, iam_resource):
+        prefix, input_stream_arn, output_stream_arn, iam_resource
+    ):
         """
         Creates an AWS Identity and Access Management (IAM) role with an attached
         policy that lets Kinesis Data Analytics read from an input stream and
@@ -67,48 +71,63 @@ class KinesisAnalyticsApplicationV2:
                     "Action": [
                         "kinesis:DescribeStream",
                         "kinesis:GetShardIterator",
-                        "kinesis:GetRecords"],
-                    "Resource": [input_stream_arn]
-                }, {
+                        "kinesis:GetRecords",
+                    ],
+                    "Resource": [input_stream_arn],
+                },
+                {
                     "Sid": "WriteOutputKinesis",
                     "Effect": "Allow",
                     "Action": [
                         "kinesis:DescribeStream",
                         "kinesis:PutRecord",
-                        "kinesis:PutRecords"
+                        "kinesis:PutRecords",
                     ],
-                    "Resource": [output_stream_arn]
-                }]}
+                    "Resource": [output_stream_arn],
+                },
+            ],
+        }
         trust_policy = {
             "Version": "2012-10-17",
-            "Statement": [{
-                "Effect": "Allow",
-                "Principal": {
-                    "Service": "kinesisanalytics.amazonaws.com"},
-                "Action": "sts:AssumeRole"}]}
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": {"Service": "kinesisanalytics.amazonaws.com"},
+                    "Action": "sts:AssumeRole",
+                }
+            ],
+        }
 
         try:
             policy = iam_resource.create_policy(
-                PolicyName=f'{prefix}-policy',
-                PolicyDocument=json.dumps(policy_doc))
+                PolicyName=f"{prefix}-policy", PolicyDocument=json.dumps(policy_doc)
+            )
             role = iam_resource.create_role(
-                RoleName=f'{prefix}-role',
-                AssumeRolePolicyDocument=json.dumps(trust_policy))
+                RoleName=f"{prefix}-role",
+                AssumeRolePolicyDocument=json.dumps(trust_policy),
+            )
             role.attach_policy(PolicyArn=policy.arn)
             logger.info(
                 "Created role %s and attached policy %s to allow read from stream %s "
                 "and write to stream %s.",
-                role.name, policy.policy_name, input_stream_arn, output_stream_arn)
+                role.name,
+                policy.policy_name,
+                input_stream_arn,
+                output_stream_arn,
+            )
         except ClientError:
             logger.exception(
                 "Couldn't create role or policy to read from stream %s and write to "
-                "stream %s.", input_stream_arn, output_stream_arn)
+                "stream %s.",
+                input_stream_arn,
+                output_stream_arn,
+            )
             raise
         else:
             return role
 
-# snippet-start:[python.example_code.kinesis-analytics-v2.CreateApplication]
-    def create(self, app_name, role_arn, env='SQL-1_0'):
+    # snippet-start:[python.example_code.kinesis-analytics-v2.CreateApplication]
+    def create(self, app_name, role_arn, env="SQL-1_0"):
         """
         Creates a Kinesis Data Analytics application.
 
@@ -121,9 +140,11 @@ class KinesisAnalyticsApplicationV2:
         """
         try:
             response = self.analytics_client.create_application(
-                ApplicationName=app_name, RuntimeEnvironment=env,
-                ServiceExecutionRole=role_arn)
-            details = response['ApplicationDetail']
+                ApplicationName=app_name,
+                RuntimeEnvironment=env,
+                ServiceExecutionRole=role_arn,
+            )
+            details = response["ApplicationDetail"]
             self._update_details(details)
             logger.info("Application %s created.", app_name)
         except ClientError:
@@ -131,23 +152,26 @@ class KinesisAnalyticsApplicationV2:
             raise
         else:
             return details
-# snippet-end:[python.example_code.kinesis-analytics-v2.CreateApplication]
 
-# snippet-start:[python.example_code.kinesis-analytics-v2.DeleteApplication]
+    # snippet-end:[python.example_code.kinesis-analytics-v2.CreateApplication]
+
+    # snippet-start:[python.example_code.kinesis-analytics-v2.DeleteApplication]
     def delete(self):
         """
         Deletes an application.
         """
         try:
             self.analytics_client.delete_application(
-                ApplicationName=self.name, CreateTimestamp=self.create_timestamp)
+                ApplicationName=self.name, CreateTimestamp=self.create_timestamp
+            )
             logger.info("Deleted application %s.", self.name)
         except ClientError:
             logger.exception("Couldn't delete application %s.", self.name)
             raise
-# snippet-end:[python.example_code.kinesis-analytics-v2.DeleteApplication]
 
-# snippet-start:[python.example_code.kinesis-analytics-v2.DescribeApplication]
+    # snippet-end:[python.example_code.kinesis-analytics-v2.DeleteApplication]
+
+    # snippet-start:[python.example_code.kinesis-analytics-v2.DescribeApplication]
     def describe(self, name):
         """
         Gets metadata about an application.
@@ -156,9 +180,8 @@ class KinesisAnalyticsApplicationV2:
         :return: Metadata about the application.
         """
         try:
-            response = self.analytics_client.describe_application(
-                ApplicationName=name)
-            details = response['ApplicationDetail']
+            response = self.analytics_client.describe_application(ApplicationName=name)
+            details = response["ApplicationDetail"]
             self._update_details(details)
             logger.info("Got metadata for application %s.", name)
         except ClientError:
@@ -166,9 +189,10 @@ class KinesisAnalyticsApplicationV2:
             raise
         else:
             return details
-# snippet-end:[python.example_code.kinesis-analytics-v2.DescribeApplication]
 
-# snippet-start:[python.example_code.kinesis-analytics-v2.DescribeApplicationSnapshot]
+    # snippet-end:[python.example_code.kinesis-analytics-v2.DescribeApplication]
+
+    # snippet-start:[python.example_code.kinesis-analytics-v2.DescribeApplicationSnapshot]
     def describe_snapshot(self, application_name, snapshot_name):
         """
         Gets metadata about a previously saved application snapshot.
@@ -179,21 +203,27 @@ class KinesisAnalyticsApplicationV2:
         """
         try:
             response = self.analytics_client.describe_application_snapshot(
-                ApplicationName=application_name, SnapshotName=snapshot_name)
-            snapshot = response['SnapshotDetails']
+                ApplicationName=application_name, SnapshotName=snapshot_name
+            )
+            snapshot = response["SnapshotDetails"]
             logger.info(
-                "Got metadata for snapshot %s of application %s.", snapshot_name,
-                application_name)
+                "Got metadata for snapshot %s of application %s.",
+                snapshot_name,
+                application_name,
+            )
         except ClientError:
             logger.exception(
                 "Couldn't get metadata for snapshot %s of application %s.",
-                snapshot_name, application_name)
+                snapshot_name,
+                application_name,
+            )
             raise
         else:
             return snapshot
-# snippet-end:[python.example_code.kinesis-analytics-v2.DescribeApplicationSnapshot]
 
-# snippet-start:[python.example_code.kinesis-analytics-v2.DiscoverInputSchema]
+    # snippet-end:[python.example_code.kinesis-analytics-v2.DescribeApplicationSnapshot]
+
+    # snippet-start:[python.example_code.kinesis-analytics-v2.DiscoverInputSchema]
     def discover_input_schema(self, stream_arn, role_arn):
         """
         Discovers a schema that maps data in a stream to a format that is usable by
@@ -210,18 +240,21 @@ class KinesisAnalyticsApplicationV2:
             response = self.analytics_client.discover_input_schema(
                 ResourceARN=stream_arn,
                 ServiceExecutionRole=role_arn,
-                InputStartingPositionConfiguration={'InputStartingPosition': 'NOW'})
-            schema = response['InputSchema']
+                InputStartingPositionConfiguration={"InputStartingPosition": "NOW"},
+            )
+            schema = response["InputSchema"]
             logger.info("Discovered input schema for stream %s.", stream_arn)
         except ClientError:
             logger.exception(
-                "Couldn't discover input schema for stream %s.", stream_arn)
+                "Couldn't discover input schema for stream %s.", stream_arn
+            )
             raise
         else:
             return schema
-# snippet-end:[python.example_code.kinesis-analytics-v2.DiscoverInputSchema]
 
-# snippet-start:[python.example_code.kinesis-analytics-v2.AddApplicationInput]
+    # snippet-end:[python.example_code.kinesis-analytics-v2.DiscoverInputSchema]
+
+    # snippet-start:[python.example_code.kinesis-analytics-v2.AddApplicationInput]
     def add_input(self, input_prefix, stream_arn, input_schema):
         """
         Adds an input stream to the application. The input stream data is mapped
@@ -241,22 +274,24 @@ class KinesisAnalyticsApplicationV2:
                 ApplicationName=self.name,
                 CurrentApplicationVersionId=self.version_id,
                 Input={
-                    'NamePrefix': input_prefix,
-                    'KinesisStreamsInput': {'ResourceARN': stream_arn},
-                    'InputSchema': input_schema})
-            self.version_id = response['ApplicationVersionId']
-            logger.info(
-                "Add input stream %s to application %s.", stream_arn, self.name)
+                    "NamePrefix": input_prefix,
+                    "KinesisStreamsInput": {"ResourceARN": stream_arn},
+                    "InputSchema": input_schema,
+                },
+            )
+            self.version_id = response["ApplicationVersionId"]
+            logger.info("Add input stream %s to application %s.", stream_arn, self.name)
         except ClientError:
             logger.exception(
-                "Couldn't add input stream %s to application %s.", stream_arn,
-                self.name)
+                "Couldn't add input stream %s to application %s.", stream_arn, self.name
+            )
             raise
         else:
             return response
-# snippet-end:[python.example_code.kinesis-analytics-v2.AddApplicationInput]
 
-# snippet-start:[python.example_code.kinesis-analytics-v2.AddApplicationOutput]
+    # snippet-end:[python.example_code.kinesis-analytics-v2.AddApplicationInput]
+
+    # snippet-start:[python.example_code.kinesis-analytics-v2.AddApplicationOutput]
     def add_output(self, in_app_stream_name, output_arn):
         """
         Adds an output stream to the application. Kinesis Data Analytics maps data
@@ -273,22 +308,28 @@ class KinesisAnalyticsApplicationV2:
                 ApplicationName=self.name,
                 CurrentApplicationVersionId=self.version_id,
                 Output={
-                    'Name': in_app_stream_name,
-                    'KinesisStreamsOutput': {'ResourceARN': output_arn},
-                    'DestinationSchema': {'RecordFormatType': 'JSON'}})
-            outputs = response['OutputDescriptions']
-            self.version_id = response['ApplicationVersionId']
+                    "Name": in_app_stream_name,
+                    "KinesisStreamsOutput": {"ResourceARN": output_arn},
+                    "DestinationSchema": {"RecordFormatType": "JSON"},
+                },
+            )
+            outputs = response["OutputDescriptions"]
+            self.version_id = response["ApplicationVersionId"]
             logging.info(
-                "Added output %s to %s, which now has %s outputs.", output_arn,
-                self.name, len(outputs))
+                "Added output %s to %s, which now has %s outputs.",
+                output_arn,
+                self.name,
+                len(outputs),
+            )
         except ClientError:
             logger.exception("Couldn't add output %s to %s.", output_arn, self.name)
             raise
         else:
             return outputs
-# snippet-end:[python.example_code.kinesis-analytics-v2.AddApplicationOutput]
 
-# snippet-start:[python.example_code.kinesis-analytics-v2.UpdateApplication]
+    # snippet-end:[python.example_code.kinesis-analytics-v2.AddApplicationOutput]
+
+    # snippet-start:[python.example_code.kinesis-analytics-v2.UpdateApplication]
     def update_code(self, code):
         """
         Updates the code that runs in the application. The code must run in the
@@ -304,21 +345,24 @@ class KinesisAnalyticsApplicationV2:
                 ApplicationName=self.name,
                 CurrentApplicationVersionId=self.version_id,
                 ApplicationConfigurationUpdate={
-                    'ApplicationCodeConfigurationUpdate': {
-                        'CodeContentTypeUpdate': 'PLAINTEXT',
-                        'CodeContentUpdate': {
-                            'TextContentUpdate': code}}})
-            details = response['ApplicationDetail']
-            self.version_id = details['ApplicationVersionId']
+                    "ApplicationCodeConfigurationUpdate": {
+                        "CodeContentTypeUpdate": "PLAINTEXT",
+                        "CodeContentUpdate": {"TextContentUpdate": code},
+                    }
+                },
+            )
+            details = response["ApplicationDetail"]
+            self.version_id = details["ApplicationVersionId"]
             logger.info("Update code for application %s.", self.name)
         except ClientError:
             logger.exception("Couldn't update code for application %s.", self.name)
             raise
         else:
             return details
-# snippet-end:[python.example_code.kinesis-analytics-v2.UpdateApplication]
 
-# snippet-start:[python.example_code.kinesis-analytics-v2.StartApplication]
+    # snippet-end:[python.example_code.kinesis-analytics-v2.UpdateApplication]
+
+    # snippet-start:[python.example_code.kinesis-analytics-v2.StartApplication]
     def start(self, input_id):
         """
         Starts an application. After the application is running, it reads from the
@@ -330,17 +374,24 @@ class KinesisAnalyticsApplicationV2:
             self.analytics_client.start_application(
                 ApplicationName=self.name,
                 RunConfiguration={
-                    'SqlRunConfigurations': [{
-                        'InputId': input_id,
-                        'InputStartingPositionConfiguration': {
-                            'InputStartingPosition': 'NOW'}}]})
+                    "SqlRunConfigurations": [
+                        {
+                            "InputId": input_id,
+                            "InputStartingPositionConfiguration": {
+                                "InputStartingPosition": "NOW"
+                            },
+                        }
+                    ]
+                },
+            )
             logger.info("Started application %s.", self.name)
         except ClientError:
             logger.exception("Couldn't start application %s.", self.name)
             raise
-# snippet-end:[python.example_code.kinesis-analytics-v2.StartApplication]
 
-# snippet-start:[python.example_code.kinesis-analytics-v2.StopApplication]
+    # snippet-end:[python.example_code.kinesis-analytics-v2.StartApplication]
+
+    # snippet-start:[python.example_code.kinesis-analytics-v2.StopApplication]
     def stop(self):
         """
         Stops an application. This stops the application from processing data but
@@ -352,4 +403,6 @@ class KinesisAnalyticsApplicationV2:
         except ClientError:
             logger.exception("Couldn't stop application %s.", self.name)
             raise
+
+
 # snippet-end:[python.example_code.kinesis-analytics-v2.StopApplication]

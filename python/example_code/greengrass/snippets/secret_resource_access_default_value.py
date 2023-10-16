@@ -11,11 +11,13 @@ to get a secret.
 # snippet-start:[greengrass.python.secret-resource-access-default-value.complete]
 import greengrasssdk
 
-secrets_client = greengrasssdk.client('secretsmanager')
-secret_name = 'greengrass-MySecret-abc'
+secrets_client = greengrasssdk.client("secretsmanager")
+secret_name = "greengrass-MySecret-abc"
 
 
 def function_handler(event, context):
     response = secrets_client.get_secret_value(SecretId=secret_name)
-    secret = response.get('SecretString')
+    secret = response.get("SecretString")
+
+
 # snippet-end:[greengrass.python.secret-resource-access-default-value.complete]

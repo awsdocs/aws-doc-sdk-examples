@@ -20,6 +20,7 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.rds.helper.InstanceWrapper_decl]
 class InstanceWrapper:
     """Encapsulates Amazon RDS DB instance actions."""
+
     def __init__(self, rds_client):
         """
         :param rds_client: A Boto3 Amazon RDS client.
@@ -31,9 +32,10 @@ class InstanceWrapper:
         """
         Instantiates this class from a Boto3 client.
         """
-        rds_client = boto3.client('rds')
+        rds_client = boto3.client("rds")
         return cls(rds_client)
-# snippet-end:[python.example_code.rds.helper.InstanceWrapper_decl]
+
+    # snippet-end:[python.example_code.rds.helper.InstanceWrapper_decl]
 
     # snippet-start:[python.example_code.rds.DescribeDBParameterGroups]
     def get_parameter_group(self, parameter_group_name):
@@ -45,22 +47,29 @@ class InstanceWrapper:
         """
         try:
             response = self.rds_client.describe_db_parameter_groups(
-                DBParameterGroupName=parameter_group_name)
-            parameter_group = response['DBParameterGroups'][0]
+                DBParameterGroupName=parameter_group_name
+            )
+            parameter_group = response["DBParameterGroups"][0]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'DBParameterGroupNotFound':
+            if err.response["Error"]["Code"] == "DBParameterGroupNotFound":
                 logger.info("Parameter group %s does not exist.", parameter_group_name)
             else:
                 logger.error(
-                    "Couldn't get parameter group %s. Here's why: %s: %s", parameter_group_name,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't get parameter group %s. Here's why: %s: %s",
+                    parameter_group_name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return parameter_group
+
     # snippet-end:[python.example_code.rds.DescribeDBParameterGroups]
 
     # snippet-start:[python.example_code.rds.CreateDBParameterGroup]
-    def create_parameter_group(self, parameter_group_name, parameter_group_family, description):
+    def create_parameter_group(
+        self, parameter_group_name, parameter_group_family, description
+    ):
         """
         Creates a DB parameter group that is based on the specified parameter group
         family.
@@ -75,14 +84,19 @@ class InstanceWrapper:
             response = self.rds_client.create_db_parameter_group(
                 DBParameterGroupName=parameter_group_name,
                 DBParameterGroupFamily=parameter_group_family,
-                Description=description)
+                Description=description,
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't create parameter group %s. Here's why: %s: %s", parameter_group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create parameter group %s. Here's why: %s: %s",
+                parameter_group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.rds.CreateDBParameterGroup]
 
     # snippet-start:[python.example_code.rds.DeleteDBParameterGroup]
@@ -95,16 +109,21 @@ class InstanceWrapper:
         """
         try:
             self.rds_client.delete_db_parameter_group(
-                DBParameterGroupName=parameter_group_name)
+                DBParameterGroupName=parameter_group_name
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't delete parameter group %s. Here's why: %s: %s", parameter_group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete parameter group %s. Here's why: %s: %s",
+                parameter_group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.rds.DeleteDBParameterGroup]
 
     # snippet-start:[python.example_code.rds.DescribeDBParameters]
-    def get_parameters(self, parameter_group_name, name_prefix='', source=None):
+    def get_parameters(self, parameter_group_name, name_prefix="", source=None):
         """
         Gets the parameters that are contained in a DB parameter group.
 
@@ -117,21 +136,28 @@ class InstanceWrapper:
         :return: The list of requested parameters.
         """
         try:
-            kwargs = {'DBParameterGroupName': parameter_group_name}
+            kwargs = {"DBParameterGroupName": parameter_group_name}
             if source is not None:
-                kwargs['Source'] = source
+                kwargs["Source"] = source
             parameters = []
-            paginator = self.rds_client.get_paginator('describe_db_parameters')
+            paginator = self.rds_client.get_paginator("describe_db_parameters")
             for page in paginator.paginate(**kwargs):
                 parameters += [
-                    p for p in page['Parameters'] if p['ParameterName'].startswith(name_prefix)]
+                    p
+                    for p in page["Parameters"]
+                    if p["ParameterName"].startswith(name_prefix)
+                ]
         except ClientError as err:
             logger.error(
-                "Couldn't get parameters for %s. Here's why: %s: %s", parameter_group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get parameters for %s. Here's why: %s: %s",
+                parameter_group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return parameters
+
     # snippet-end:[python.example_code.rds.DescribeDBParameters]
 
     # snippet-start:[python.example_code.rds.ModifyDBParameterGroup]
@@ -145,14 +171,19 @@ class InstanceWrapper:
         """
         try:
             response = self.rds_client.modify_db_parameter_group(
-                DBParameterGroupName=parameter_group_name, Parameters=update_parameters)
+                DBParameterGroupName=parameter_group_name, Parameters=update_parameters
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't update parameters in %s. Here's why: %s: %s", parameter_group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't update parameters in %s. Here's why: %s: %s",
+                parameter_group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.rds.ModifyDBParameterGroup]
 
     # snippet-start:[python.example_code.rds.CreateDBSnapshot]
@@ -166,15 +197,20 @@ class InstanceWrapper:
         """
         try:
             response = self.rds_client.create_db_snapshot(
-                DBSnapshotIdentifier=snapshot_id, DBInstanceIdentifier=instance_id)
-            snapshot = response['DBSnapshot']
+                DBSnapshotIdentifier=snapshot_id, DBInstanceIdentifier=instance_id
+            )
+            snapshot = response["DBSnapshot"]
         except ClientError as err:
             logger.error(
-                "Couldn't create snapshot of %s. Here's why: %s: %s", instance_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create snapshot of %s. Here's why: %s: %s",
+                instance_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return snapshot
+
     # snippet-end:[python.example_code.rds.CreateDBSnapshot]
 
     # snippet-start:[python.example_code.rds.DescribeDBSnapshots]
@@ -187,15 +223,20 @@ class InstanceWrapper:
         """
         try:
             response = self.rds_client.describe_db_snapshots(
-                DBSnapshotIdentifier=snapshot_id)
-            snapshot = response['DBSnapshots'][0]
+                DBSnapshotIdentifier=snapshot_id
+            )
+            snapshot = response["DBSnapshots"][0]
         except ClientError as err:
             logger.error(
-                "Couldn't get snapshot %s. Here's why: %s: %s", snapshot_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get snapshot %s. Here's why: %s: %s",
+                snapshot_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return snapshot
+
     # snippet-end:[python.example_code.rds.DescribeDBSnapshots]
 
     # snippet-start:[python.example_code.rds.DescribeDBEngineVersions]
@@ -211,18 +252,22 @@ class InstanceWrapper:
         :return: The list of database engine versions.
         """
         try:
-            kwargs = {'Engine': engine}
+            kwargs = {"Engine": engine}
             if parameter_group_family is not None:
-                kwargs['DBParameterGroupFamily'] = parameter_group_family
+                kwargs["DBParameterGroupFamily"] = parameter_group_family
             response = self.rds_client.describe_db_engine_versions(**kwargs)
-            versions = response['DBEngineVersions']
+            versions = response["DBEngineVersions"]
         except ClientError as err:
             logger.error(
-                "Couldn't get engine versions for %s. Here's why: %s: %s", engine,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get engine versions for %s. Here's why: %s: %s",
+                engine,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return versions
+
     # snippet-end:[python.example_code.rds.DescribeDBEngineVersions]
 
     # snippet-start:[python.example_code.rds.DescribeOrderableDBInstanceOptions]
@@ -237,16 +282,23 @@ class InstanceWrapper:
         """
         try:
             inst_opts = []
-            paginator = self.rds_client.get_paginator('describe_orderable_db_instance_options')
-            for page in paginator.paginate(Engine=db_engine, EngineVersion=db_engine_version):
-                inst_opts += page['OrderableDBInstanceOptions']
+            paginator = self.rds_client.get_paginator(
+                "describe_orderable_db_instance_options"
+            )
+            for page in paginator.paginate(
+                Engine=db_engine, EngineVersion=db_engine_version
+            ):
+                inst_opts += page["OrderableDBInstanceOptions"]
         except ClientError as err:
             logger.error(
                 "Couldn't get orderable DB instances. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return inst_opts
+
     # snippet-end:[python.example_code.rds.DescribeOrderableDBInstanceOptions]
 
     # snippet-start:[python.example_code.rds.DescribeDBInstances]
@@ -259,24 +311,39 @@ class InstanceWrapper:
         """
         try:
             response = self.rds_client.describe_db_instances(
-                DBInstanceIdentifier=instance_id)
-            db_inst = response['DBInstances'][0]
+                DBInstanceIdentifier=instance_id
+            )
+            db_inst = response["DBInstances"][0]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'DBInstanceNotFound':
+            if err.response["Error"]["Code"] == "DBInstanceNotFound":
                 logger.info("Instance %s does not exist.", instance_id)
             else:
                 logger.error(
-                    "Couldn't get DB instance %s. Here's why: %s: %s", instance_id,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't get DB instance %s. Here's why: %s: %s",
+                    instance_id,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return db_inst
+
     # snippet-end:[python.example_code.rds.DescribeDBInstances]
 
     # snippet-start:[python.example_code.rds.CreateDBInstance]
     def create_db_instance(
-            self, db_name, instance_id, parameter_group_name, db_engine, db_engine_version,
-            instance_class, storage_type, allocated_storage, admin_name, admin_password):
+        self,
+        db_name,
+        instance_id,
+        parameter_group_name,
+        db_engine,
+        db_engine_version,
+        instance_class,
+        storage_type,
+        allocated_storage,
+        admin_name,
+        admin_password,
+    ):
         """
         Creates a DB instance.
 
@@ -303,15 +370,20 @@ class InstanceWrapper:
                 StorageType=storage_type,
                 AllocatedStorage=allocated_storage,
                 MasterUsername=admin_name,
-                MasterUserPassword=admin_password)
-            db_inst = response['DBInstance']
+                MasterUserPassword=admin_password,
+            )
+            db_inst = response["DBInstance"]
         except ClientError as err:
             logger.error(
-                "Couldn't create DB instance %s. Here's why: %s: %s", instance_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create DB instance %s. Here's why: %s: %s",
+                instance_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return db_inst
+
     # snippet-end:[python.example_code.rds.CreateDBInstance]
 
     # snippet-start:[python.example_code.rds.DeleteDBInstance]
@@ -324,15 +396,23 @@ class InstanceWrapper:
         """
         try:
             response = self.rds_client.delete_db_instance(
-                DBInstanceIdentifier=instance_id, SkipFinalSnapshot=True,
-                DeleteAutomatedBackups=True)
-            db_inst = response['DBInstance']
+                DBInstanceIdentifier=instance_id,
+                SkipFinalSnapshot=True,
+                DeleteAutomatedBackups=True,
+            )
+            db_inst = response["DBInstance"]
         except ClientError as err:
             logger.error(
-                "Couldn't delete DB instance %s. Here's why: %s: %s", instance_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete DB instance %s. Here's why: %s: %s",
+                instance_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return db_inst
+
     # snippet-end:[python.example_code.rds.DeleteDBInstance]
+
+
 # snippet-end:[python.example_code.rds.helper.InstanceWrapper_full]

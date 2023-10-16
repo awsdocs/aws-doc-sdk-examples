@@ -43,9 +43,9 @@ class FifoTopicWrapper:
             topic = self.sns_resource.create_topic(
                 Name=topic_name,
                 Attributes={
-                    'FifoTopic': str(True),
-                    'ContentBasedDeduplication': str(False)
-                }
+                    "FifoTopic": str(True),
+                    "ContentBasedDeduplication": str(False),
+                },
             )
             logger.info("Created FIFO topic with name=%s.", topic_name)
             return topic
@@ -69,17 +69,23 @@ class FifoTopicWrapper:
         try:
             queue.set_attributes(
                 Attributes={
-                    'Policy': json.dumps({
-                        'Version': '2012-10-17',
-                        'Statement': [{
-                            'Sid': 'test-sid',
-                            'Effect': 'Allow',
-                            'Principal': {'AWS': '*'},
-                            'Action': 'SQS:SendMessage',
-                            'Resource': queue.attributes['QueueArn'],
-                            'Condition': {'ArnLike': {'aws:SourceArn': topic_arn}}
-                        }]
-                    })
+                    "Policy": json.dumps(
+                        {
+                            "Version": "2012-10-17",
+                            "Statement": [
+                                {
+                                    "Sid": "test-sid",
+                                    "Effect": "Allow",
+                                    "Principal": {"AWS": "*"},
+                                    "Action": "SQS:SendMessage",
+                                    "Resource": queue.attributes["QueueArn"],
+                                    "Condition": {
+                                        "ArnLike": {"aws:SourceArn": topic_arn}
+                                    },
+                                }
+                            ],
+                        }
+                    )
                 }
             )
             logger.info("Added trust policy to the queue.")
@@ -101,7 +107,7 @@ class FifoTopicWrapper:
         """
         try:
             subscription = topic.subscribe(
-                Protocol='sqs',
+                Protocol="sqs",
                 Endpoint=queue_arn,
             )
             logger.info("The queue is subscribed to the topic.")
@@ -124,17 +130,17 @@ class FifoTopicWrapper:
         :return: The ID of the message.
         """
         try:
-            att_dict = {'business': {'DataType': 'String', 'StringValue': 'wholesale'}}
+            att_dict = {"business": {"DataType": "String", "StringValue": "wholesale"}}
             dedup_id = uuid.uuid4()
             response = topic.publish(
-                Subject='Price Update',
+                Subject="Price Update",
                 Message=payload,
                 MessageAttributes=att_dict,
                 MessageGroupId=group_id,
-                MessageDeduplicationId=str(dedup_id))
-            message_id = response['MessageId']
-            logger.info(
-                "Published message to topic %s.", topic.arn)
+                MessageDeduplicationId=str(dedup_id),
+            )
+            message_id = response["MessageId"]
+            logger.info("Published message to topic %s.", topic.arn)
         except ClientError as error:
             logger.exception("Couldn't publish message to topic %s.", topic.arn)
             raise error
@@ -159,6 +165,7 @@ class FifoTopicWrapper:
             logger.exception("Couldn't delete queue with URL=%s!", queue.url)
             raise error
 
+
 # snippet-end:[python.example_code.sns.DeleteQueue]
 
 # snippet-end:[python.example_code.sns.FifoTopicWrapper]
@@ -167,49 +174,46 @@ class FifoTopicWrapper:
 # snippet-start:[python.example_code.sns.Scenario_SubscribeFifoTopic]
 def usage_demo():
     """Shows how to subscribe queues to a FIFO topic."""
-    print('-' * 88)
+    print("-" * 88)
     print("Welcome to the `Subscribe queues to a FIFO topic` demo!")
-    print('-' * 88)
+    print("-" * 88)
 
-    sns = boto3.resource('sns')
-    sqs = boto3.resource('sqs')
+    sns = boto3.resource("sns")
+    sqs = boto3.resource("sqs")
     fifo_topic_wrapper = FifoTopicWrapper(sns)
     sns_wrapper = SnsWrapper(sns)
 
-    prefix = 'sqs-subscribe-demo-'
+    prefix = "sqs-subscribe-demo-"
     queues = set()
     subscriptions = set()
 
     wholesale_queue = sqs.create_queue(
-        QueueName=prefix + 'wholesale.fifo',
+        QueueName=prefix + "wholesale.fifo",
         Attributes={
-            'MaximumMessageSize': str(4096),
-            'ReceiveMessageWaitTimeSeconds': str(10),
-            'VisibilityTimeout': str(300),
-            'FifoQueue': str(True),
-            'ContentBasedDeduplication': str(True),
-        }
+            "MaximumMessageSize": str(4096),
+            "ReceiveMessageWaitTimeSeconds": str(10),
+            "VisibilityTimeout": str(300),
+            "FifoQueue": str(True),
+            "ContentBasedDeduplication": str(True),
+        },
     )
     queues.add(wholesale_queue)
     print(f"Created FIFO queue with URL: {wholesale_queue.url}.")
 
     retail_queue = sqs.create_queue(
-        QueueName=prefix + 'retail.fifo',
+        QueueName=prefix + "retail.fifo",
         Attributes={
-            'MaximumMessageSize': str(4096),
-            'ReceiveMessageWaitTimeSeconds': str(10),
-            'VisibilityTimeout': str(300),
-            'FifoQueue': str(True),
-            'ContentBasedDeduplication': str(True)
-        }
+            "MaximumMessageSize": str(4096),
+            "ReceiveMessageWaitTimeSeconds": str(10),
+            "VisibilityTimeout": str(300),
+            "FifoQueue": str(True),
+            "ContentBasedDeduplication": str(True),
+        },
     )
     queues.add(retail_queue)
     print(f"Created FIFO queue with URL: {retail_queue.url}.")
 
-    analytics_queue = sqs.create_queue(
-        QueueName=prefix + 'analytics',
-        Attributes={}
-    )
+    analytics_queue = sqs.create_queue(QueueName=prefix + "analytics", Attributes={})
     queues.add(analytics_queue)
     print(f"Created standard queue with URL: {analytics_queue.url}.")
 
@@ -217,19 +221,23 @@ def usage_demo():
     print(f"Created FIFO topic: {topic.attributes['TopicArn']}.")
 
     for q in queues:
-        fifo_topic_wrapper.add_access_policy(q, topic.attributes['TopicArn'])
+        fifo_topic_wrapper.add_access_policy(q, topic.attributes["TopicArn"])
 
     print(f"Added access policies for topic: {topic.attributes['TopicArn']}.")
 
     for q in queues:
-        sub = fifo_topic_wrapper.subscribe_queue_to_topic(topic, q.attributes['QueueArn'])
+        sub = fifo_topic_wrapper.subscribe_queue_to_topic(
+            topic, q.attributes["QueueArn"]
+        )
         subscriptions.add(sub)
 
     print(f"Subscribed queues to topic: {topic.attributes['TopicArn']}.")
 
     input("Press Enter to publish a message to the topic.")
 
-    message_id = fifo_topic_wrapper.publish_price_update(topic, '{"product": 214, "price": 79.99}', "Consumables")
+    message_id = fifo_topic_wrapper.publish_price_update(
+        topic, '{"product": 214, "price": 79.99}', "Consumables"
+    )
 
     print(f"Published price update with message ID: {message_id}.")
 
@@ -246,11 +254,11 @@ def usage_demo():
     print(f"Deleted subscriptions, queues, and topic.")
 
     print("Thanks for watching!")
-    print('-' * 88)
+    print("-" * 88)
 
 
 # snippet-end:[python.example_code.sns.Scenario_SubscribeFifoTopic]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

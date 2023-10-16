@@ -29,17 +29,21 @@ from SqsQueueNotificationWorker import SqsWorker, JobStatus
 
 
 # Job configuration settings. Set these values before running the script.
-pipeline_id = 'PIPELINE_ID'          # Set to the ID of an existing Elastic Transcoder pipeline
-input_file = 'FILE_TO_TRANSCODE'     # Set to the name of an existing file in the S3 input bucket
-output_file = 'TRANSCODED_FILE'      # Set to the desired name of the transcoded output file
-sqs_queue_name = 'ets-sample-queue'  # SQS queue subscribed to SNS ets-sample-topic notifications
+pipeline_id = "PIPELINE_ID"  # Set to the ID of an existing Elastic Transcoder pipeline
+input_file = (
+    "FILE_TO_TRANSCODE"  # Set to the name of an existing file in the S3 input bucket
+)
+output_file = "TRANSCODED_FILE"  # Set to the desired name of the transcoded output file
+sqs_queue_name = (
+    "ets-sample-queue"  # SQS queue subscribed to SNS ets-sample-topic notifications
+)
 
 # Other job configuration settings. Optionally change as desired.
-preset_id = '1351620000001-000020'  # Elastic Transcoder preset ID (480p 16:9 MP4)
-output_file_prefix = 'elastic-transcoder-samples/output/'    # Prefix for all output files
+preset_id = "1351620000001-000020"  # Elastic Transcoder preset ID (480p 16:9 MP4)
+output_file_prefix = "elastic-transcoder-samples/output/"  # Prefix for all output files
 
 # Method used to wait for job to complete
-monitor_sqs_messages = True     # Set to False to use Waiter object
+monitor_sqs_messages = True  # Set to False to use Waiter object
 
 
 class JobMonitor:
@@ -85,7 +89,7 @@ class JobMonitor:
         self.stop()
 
     def __repr__(self):
-        return f'JobMonitor(Job ID: {self._job_id}, Status: {self.status().name})'
+        return f"JobMonitor(Job ID: {self._job_id}, Status: {self.status().name})"
 
 
 def create_elastic_transcoder_job():
@@ -100,17 +104,19 @@ def create_elastic_transcoder_job():
             None if job could not be created
     """
 
-    etc_client = boto3.client('elastictranscoder')
+    etc_client = boto3.client("elastictranscoder")
     try:
-        response = etc_client.create_job(PipelineId=pipeline_id,
-                                         Input={'Key': input_file},
-                                         Outputs=[{'Key': output_file, 'PresetId': preset_id}],
-                                         OutputKeyPrefix=output_file_prefix,)
+        response = etc_client.create_job(
+            PipelineId=pipeline_id,
+            Input={"Key": input_file},
+            Outputs=[{"Key": output_file, "PresetId": preset_id}],
+            OutputKeyPrefix=output_file_prefix,
+        )
     except ClientError as e:
-        print(f'ERROR: {e}')
+        print(f"ERROR: {e}")
         return None
     else:
-        return response['Job'], etc_client.get_waiter('job_complete')
+        return response["Job"], etc_client.get_waiter("job_complete")
 
 
 def main():
@@ -120,8 +126,8 @@ def main():
         exit(1)
 
     # Wait for job to complete
-    job_id = job_info['Id']
-    print(f'Waiting for job {job_id} to complete...')
+    job_id = job_info["Id"]
+    print(f"Waiting for job {job_id} to complete...")
 
     # Two techniques for waiting are demonstrated
     if monitor_sqs_messages:
@@ -136,20 +142,20 @@ def main():
         # Output the result
         status = job_monitor.status()
         if status == JobStatus.SUCCESS:
-            print('Job completed successfully')
+            print("Job completed successfully")
         elif status == JobStatus.ERROR:
-            print('Job terminated with error')
+            print("Job terminated with error")
         else:
             # An unexpected status
-            print(f'Job status: {status.name}')
+            print(f"Job status: {status.name}")
     else:
         # Method 2: Have the job_waiter wait until the job finishes
         # Polls every five seconds. The final status of the job is
         # not available.
-        job_waiter.wait(Id=job_id, WaiterConfig={'Delay': 5})
-        print('Job completed')
+        job_waiter.wait(Id=job_id, WaiterConfig={"Delay": 5})
+        print("Job completed")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 # snippet-end:[elastictranscoder.python.create_job_status_notification.import]

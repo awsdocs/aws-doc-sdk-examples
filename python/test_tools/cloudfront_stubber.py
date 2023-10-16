@@ -19,6 +19,7 @@ class CloudFrontStubber(ExampleStubber):
     The stubbed functions expect certain parameters to be passed to them as
     part of the tests, and raise errors if the parameters are not as expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -33,65 +34,93 @@ class CloudFrontStubber(ExampleStubber):
     def stub_list_distributions(self, distribs, error_code=None):
         expected_params = {}
         response = {
-            'DistributionList': {
-                'Marker': 'marker',
-                'MaxItems': 100,
-                'IsTruncated': False,
-                'Quantity': len(distribs),
-                'Items': [{
-                    'ARN': f'arn:aws:cloudfront::123456789012:distribution/{index}',
-                    'Status': 'Deployed',
-                    'LastModifiedTime': datetime.datetime.now(),
-                    'Aliases': {'Quantity': 0},
-                    'Origins': {'Quantity': 0, 'Items': [{'Id': 'test-id', 'DomainName': 'test'}]},
-                    'DefaultCacheBehavior': {'TargetOriginId': '', 'ViewerProtocolPolicy': ''},
-                    'CacheBehaviors': {'Quantity': 0},
-                    'CustomErrorResponses': {'Quantity': 0},
-                    'Comment': 'Testing!',
-                    'PriceClass': 'PriceClass_All',
-                    'Enabled': True,
-                    'Restrictions': {'GeoRestriction': {'Quantity': 0, 'RestrictionType': ''}},
-                    'WebACLId': '',
-                    'HttpVersion': 'http2',
-                    'IsIPV6Enabled': True,
-                    'DomainName': distrib['name'],
-                    'Id': distrib['id'],
-                    'ViewerCertificate': {
-                        'CertificateSource': distrib['cert_source'],
-                        'Certificate': distrib['cert']
-                    },
-                    'Staging': False,
-                } for index, distrib in enumerate(distribs)]
+            "DistributionList": {
+                "Marker": "marker",
+                "MaxItems": 100,
+                "IsTruncated": False,
+                "Quantity": len(distribs),
+                "Items": [
+                    {
+                        "ARN": f"arn:aws:cloudfront::123456789012:distribution/{index}",
+                        "Status": "Deployed",
+                        "LastModifiedTime": datetime.datetime.now(),
+                        "Aliases": {"Quantity": 0},
+                        "Origins": {
+                            "Quantity": 0,
+                            "Items": [{"Id": "test-id", "DomainName": "test"}],
+                        },
+                        "DefaultCacheBehavior": {
+                            "TargetOriginId": "",
+                            "ViewerProtocolPolicy": "",
+                        },
+                        "CacheBehaviors": {"Quantity": 0},
+                        "CustomErrorResponses": {"Quantity": 0},
+                        "Comment": "Testing!",
+                        "PriceClass": "PriceClass_All",
+                        "Enabled": True,
+                        "Restrictions": {
+                            "GeoRestriction": {"Quantity": 0, "RestrictionType": ""}
+                        },
+                        "WebACLId": "",
+                        "HttpVersion": "http2",
+                        "IsIPV6Enabled": True,
+                        "DomainName": distrib["name"],
+                        "Id": distrib["id"],
+                        "ViewerCertificate": {
+                            "CertificateSource": distrib["cert_source"],
+                            "Certificate": distrib["cert"],
+                        },
+                        "Staging": False,
+                    }
+                    for index, distrib in enumerate(distribs)
+                ],
             }
         }
         self._stub_bifurcator(
-            'list_distributions', expected_params, response, error_code=error_code)
+            "list_distributions", expected_params, response, error_code=error_code
+        )
 
     def stub_get_distribution_config(self, distrib_id, comment, etag, error_code=None):
-        expected_params = {'Id': distrib_id}
+        expected_params = {"Id": distrib_id}
         response = {
-            'DistributionConfig': {
-                'CallerReference': 'test',
-                'Origins': {'Quantity': 0, 'Items': [{'Id': 'test-id', 'DomainName': 'test'}]},
-                'DefaultCacheBehavior': {'TargetOriginId': '', 'ViewerProtocolPolicy': ''},
-                'Enabled': True,
-                'Comment': comment
+            "DistributionConfig": {
+                "CallerReference": "test",
+                "Origins": {
+                    "Quantity": 0,
+                    "Items": [{"Id": "test-id", "DomainName": "test"}],
+                },
+                "DefaultCacheBehavior": {
+                    "TargetOriginId": "",
+                    "ViewerProtocolPolicy": "",
+                },
+                "Enabled": True,
+                "Comment": comment,
             },
-            'ETag': etag}
+            "ETag": etag,
+        }
         self._stub_bifurcator(
-            'get_distribution_config', expected_params, response, error_code=error_code)
+            "get_distribution_config", expected_params, response, error_code=error_code
+        )
 
     def stub_update_distribution(self, distrib_id, comment, etag, error_code=None):
         expected_params = {
-            'Id': distrib_id,
-            'DistributionConfig': {
-                'CallerReference': 'test',
-                'Origins': {'Quantity': 0, 'Items': [{'Id': 'test-id', 'DomainName': 'test'}]},
-                'DefaultCacheBehavior': {'TargetOriginId': '', 'ViewerProtocolPolicy': ''},
-                'Enabled': True,
-                'Comment': comment
+            "Id": distrib_id,
+            "DistributionConfig": {
+                "CallerReference": "test",
+                "Origins": {
+                    "Quantity": 0,
+                    "Items": [{"Id": "test-id", "DomainName": "test"}],
+                },
+                "DefaultCacheBehavior": {
+                    "TargetOriginId": "",
+                    "ViewerProtocolPolicy": "",
+                },
+                "Enabled": True,
+                "Comment": comment,
             },
-            'IfMatch': etag}
+            "IfMatch": etag,
+        }
         response = {}
         self._stub_bifurcator(
-            'update_distribution', expected_params, response, error_code=error_code)
+            "update_distribution", expected_params, response, error_code=error_code
+        )

@@ -8,7 +8,7 @@ import pytest
 class MockManager:
     def __init__(self, stub_runner, scenario_data, input_mocker):
         self.scenario_data = scenario_data
-        self.attachment_set_id = 'test-attachment_set_id'
+        self.attachment_set_id = "test-attachment_set_id"
         self.scenario_args = []
         answers = []
         input_mocker.mock_answers(answers)
@@ -33,15 +33,14 @@ def test_create_attachment_set(mock_mgr, capsys):
     assert mock_mgr.attachment_set_id in capt.out
 
 
-@pytest.mark.parametrize('error, stop_on_index', [
-    ('TESTERROR-stub_create_attachment_set', 0)
-])
-def test_cleanup_error(
-        mock_mgr, caplog, error, stop_on_index):
+@pytest.mark.parametrize(
+    "error, stop_on_index", [("TESTERROR-stub_create_attachment_set", 0)]
+)
+def test_cleanup_error(mock_mgr, caplog, error, stop_on_index):
     mock_mgr.setup_stubs(error, stop_on_index, mock_mgr.scenario_data.stubber)
 
     with pytest.raises(ClientError) as exc_info:
         mock_mgr.scenario_data.scenario.create_attachment_set(*mock_mgr.scenario_args)
-    assert exc_info.value.response['Error']['Code'] == error
+    assert exc_info.value.response["Error"]["Code"] == error
 
     assert error in caplog.text

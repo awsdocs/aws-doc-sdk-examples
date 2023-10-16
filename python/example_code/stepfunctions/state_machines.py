@@ -18,12 +18,14 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.sfn.StateMachine_decl]
 class StateMachine:
     """Encapsulates Step Functions state machine actions."""
+
     def __init__(self, stepfunctions_client):
         """
         :param stepfunctions_client: A Boto3 Step Functions client.
         """
         self.stepfunctions_client = stepfunctions_client
-# snippet-end:[python.example_code.sfn.StateMachine_decl]
+
+    # snippet-end:[python.example_code.sfn.StateMachine_decl]
 
     # snippet-start:[python.example_code.sfn.CreateStateMachine]
     def create(self, name, definition, role_arn):
@@ -40,14 +42,19 @@ class StateMachine:
         """
         try:
             response = self.stepfunctions_client.create_state_machine(
-                name=name, definition=definition, roleArn=role_arn)
+                name=name, definition=definition, roleArn=role_arn
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't create state machine %s. Here's why: %s: %s", name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create state machine %s. Here's why: %s: %s",
+                name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['stateMachineArn']
+            return response["stateMachineArn"]
+
     # snippet-end:[python.example_code.sfn.CreateStateMachine]
 
     # snippet-start:[python.example_code.sfn.ListStateMachines]
@@ -60,16 +67,19 @@ class StateMachine:
         :return: The ARN of the state machine if found; otherwise, None.
         """
         try:
-            paginator = self.stepfunctions_client.get_paginator('list_state_machines')
+            paginator = self.stepfunctions_client.get_paginator("list_state_machines")
             for page in paginator.paginate():
-                for state_machine in page.get('stateMachines', []):
-                    if state_machine['name'] == name:
-                        return state_machine['stateMachineArn']
+                for state_machine in page.get("stateMachines", []):
+                    if state_machine["name"] == name:
+                        return state_machine["stateMachineArn"]
         except ClientError as err:
             logger.error(
                 "Couldn't list state machines. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.sfn.ListStateMachines]
 
     # snippet-start:[python.example_code.sfn.DescribeStateMachine]
@@ -82,14 +92,19 @@ class StateMachine:
         """
         try:
             response = self.stepfunctions_client.describe_state_machine(
-                stateMachineArn=state_machine_arn)
+                stateMachineArn=state_machine_arn
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't describe state machine %s. Here's why: %s: %s", state_machine_arn,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't describe state machine %s. Here's why: %s: %s",
+                state_machine_arn,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.sfn.DescribeStateMachine]
 
     # snippet-start:[python.example_code.sfn.StartExecution]
@@ -105,14 +120,19 @@ class StateMachine:
         """
         try:
             response = self.stepfunctions_client.start_execution(
-                stateMachineArn=state_machine_arn, input=run_input)
+                stateMachineArn=state_machine_arn, input=run_input
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't start state machine %s. Here's why: %s: %s", state_machine_arn,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't start state machine %s. Here's why: %s: %s",
+                state_machine_arn,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['executionArn']
+            return response["executionArn"]
+
     # snippet-end:[python.example_code.sfn.StartExecution]
 
     # snippet-start:[python.example_code.sfn.DescribeExecution]
@@ -125,14 +145,19 @@ class StateMachine:
         """
         try:
             response = self.stepfunctions_client.describe_execution(
-                executionArn=run_arn)
+                executionArn=run_arn
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't describe run %s. Here's why: %s: %s", run_arn,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't describe run %s. Here's why: %s: %s",
+                run_arn,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.sfn.DescribeExecution]
 
     # snippet-start:[python.example_code.sfn.DeleteStateMachine]
@@ -144,13 +169,20 @@ class StateMachine:
         """
         try:
             response = self.stepfunctions_client.delete_state_machine(
-                stateMachineArn=state_machine_arn)
+                stateMachineArn=state_machine_arn
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't delete state machine %s. Here's why: %s: %s", state_machine_arn,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete state machine %s. Here's why: %s: %s",
+                state_machine_arn,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.sfn.DeleteStateMachine]
+
+
 # snippet-end:[python.example_code.sfn.StateMachine_full]

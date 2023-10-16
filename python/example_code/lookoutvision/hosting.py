@@ -21,16 +21,17 @@ logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.lookoutvision.Hosting]
 class Hosting:
-# snippet-end:[python.example_code.lookoutvision.Hosting]
+    # snippet-end:[python.example_code.lookoutvision.Hosting]
     """
     Shows how to start and stop a Lookout for Vision Model. Also shows how to list the
     models that are currently running.
     """
 
-# snippet-start:[python.example_code.lookoutvision.StartModel]
+    # snippet-start:[python.example_code.lookoutvision.StartModel]
     @staticmethod
     def start_model(
-            lookoutvision_client, project_name, model_version, min_inference_units):
+        lookoutvision_client, project_name, model_version, min_inference_units
+    ):
         """
         Starts the hosting of a Lookout for Vision model.
 
@@ -42,11 +43,13 @@ class Hosting:
         """
         try:
             logger.info(
-                "Starting model version %s for project %s", model_version, project_name)
+                "Starting model version %s for project %s", model_version, project_name
+            )
             lookoutvision_client.start_model(
                 ProjectName=project_name,
                 ModelVersion=model_version,
-                MinInferenceUnits=min_inference_units)
+                MinInferenceUnits=min_inference_units,
+            )
             print("Starting hosting...")
 
             status = ""
@@ -55,7 +58,8 @@ class Hosting:
             # Wait until hosted or failed.
             while finished is False:
                 model_description = lookoutvision_client.describe_model(
-                    ProjectName=project_name, ModelVersion=model_version)
+                    ProjectName=project_name, ModelVersion=model_version
+                )
                 status = model_description["ModelDescription"]["Status"]
 
                 if status == "STARTING_HOSTING":
@@ -77,9 +81,10 @@ class Hosting:
         except ClientError:
             logger.exception("Couldn't host model.")
             raise
-# snippet-end:[python.example_code.lookoutvision.StartModel]
 
-# snippet-start:[python.example_code.lookoutvision.StopModel]
+    # snippet-end:[python.example_code.lookoutvision.StartModel]
+
+    # snippet-start:[python.example_code.lookoutvision.StopModel]
     @staticmethod
     def stop_model(lookoutvision_client, project_name, model_version):
         """
@@ -93,7 +98,8 @@ class Hosting:
         try:
             logger.info("Stopping model version %s for %s", model_version, project_name)
             response = lookoutvision_client.stop_model(
-                ProjectName=project_name, ModelVersion=model_version)
+                ProjectName=project_name, ModelVersion=model_version
+            )
             logger.info("Stopping hosting...")
 
             status = response["Status"]
@@ -102,7 +108,8 @@ class Hosting:
             # Wait until stopped or failed.
             while finished is False:
                 model_description = lookoutvision_client.describe_model(
-                    ProjectName=project_name, ModelVersion=model_version)
+                    ProjectName=project_name, ModelVersion=model_version
+                )
                 status = model_description["ModelDescription"]["Status"]
 
                 if status == "STOPPING_HOSTING":
@@ -124,9 +131,10 @@ class Hosting:
         except ClientError:
             logger.exception("Couldn't stop hosting model.")
             raise
-# snippet-end:[python.example_code.lookoutvision.StopModel]
 
-# snippet-start:[python.example_code.lookoutvision.Scenario_ListHostedModels]
+    # snippet-end:[python.example_code.lookoutvision.StopModel]
+
+    # snippet-start:[python.example_code.lookoutvision.Scenario_ListHostedModels]
     @staticmethod
     def list_hosted(lookoutvision_client):
         """
@@ -141,20 +149,25 @@ class Hosting:
 
             for project in response["Projects"]:
                 response_models = lookoutvision_client.list_models(
-                    ProjectName=project["ProjectName"])
+                    ProjectName=project["ProjectName"]
+                )
 
                 for model in response_models["Models"]:
                     model_description = lookoutvision_client.describe_model(
                         ProjectName=project["ProjectName"],
-                        ModelVersion=model["ModelVersion"])
+                        ModelVersion=model["ModelVersion"],
+                    )
 
                     if model_description["ModelDescription"]["Status"] == "HOSTED":
                         print(
                             f"Project: {project['ProjectName']} Model version: "
-                            f"{model['ModelVersion']}")
+                            f"{model['ModelVersion']}"
+                        )
                         hosted += 1
             print(f"{hosted} model(s) hosted")
         except ClientError:
             logger.exception("Problem listing hosted models.")
             raise
+
+
 # snippet-end:[python.example_code.lookoutvision.Scenario_ListHostedModels]

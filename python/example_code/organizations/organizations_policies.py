@@ -33,15 +33,20 @@ def create_policy(name, description, content, policy_type, orgs_client):
     """
     try:
         response = orgs_client.create_policy(
-            Name=name, Description=description, Content=json.dumps(content),
-            Type=policy_type)
-        policy = response['Policy']
+            Name=name,
+            Description=description,
+            Content=json.dumps(content),
+            Type=policy_type,
+        )
+        policy = response["Policy"]
         logger.info("Created policy %s.", name)
     except ClientError:
         logger.exception("Couldn't create policy %s.", name)
         raise
     else:
         return policy
+
+
 # snippet-end:[python.example_code.organizations.CreatePolicy]
 
 
@@ -56,13 +61,15 @@ def list_policies(policy_filter, orgs_client):
     """
     try:
         response = orgs_client.list_policies(Filter=policy_filter)
-        policies = response['Policies']
+        policies = response["Policies"]
         logger.info("Found %s %s policies.", len(policies), policy_filter)
     except ClientError:
         logger.exception("Couldn't get %s policies.", policy_filter)
         raise
     else:
         return policies
+
+
 # snippet-end:[python.example_code.organizations.ListPolicies]
 
 
@@ -77,13 +84,15 @@ def describe_policy(policy_id, orgs_client):
     """
     try:
         response = orgs_client.describe_policy(PolicyId=policy_id)
-        policy = response['Policy']
+        policy = response["Policy"]
         logger.info("Got policy %s.", policy_id)
     except ClientError:
         logger.exception("Couldn't get policy %s.", policy_id)
         raise
     else:
         return policy
+
+
 # snippet-end:[python.example_code.organizations.DescribePolicy]
 
 
@@ -102,8 +111,11 @@ def attach_policy(policy_id, target_id, orgs_client):
         logger.info("Attached policy %s to target %s.", policy_id, target_id)
     except ClientError:
         logger.exception(
-            "Couldn't attach policy %s to target %s.", policy_id, target_id)
+            "Couldn't attach policy %s to target %s.", policy_id, target_id
+        )
         raise
+
+
 # snippet-end:[python.example_code.organizations.AttachPolicy]
 
 
@@ -121,8 +133,11 @@ def detach_policy(policy_id, target_id, orgs_client):
         logger.info("Detached policy %s from target %s.", policy_id, target_id)
     except ClientError:
         logger.exception(
-            "Couldn't detach policy %s from target %s.", policy_id, target_id)
+            "Couldn't detach policy %s from target %s.", policy_id, target_id
+        )
         raise
+
+
 # snippet-end:[python.example_code.organizations.DetachPolicy]
 
 
@@ -138,9 +153,10 @@ def delete_policy(policy_id, orgs_client):
         orgs_client.delete_policy(PolicyId=policy_id)
         logger.info("Deleted policy %s.", policy_id)
     except ClientError:
-        logger.exception(
-            "Couldn't delete policy %s.", policy_id)
+        logger.exception("Couldn't delete policy %s.", policy_id)
         raise
+
+
 # snippet-end:[python.example_code.organizations.DeletePolicy]
 
 
@@ -153,28 +169,35 @@ def usage_demo(target_id):
                       attached to and detached from this resource during the demo.
                       Otherwise, the attach and detach portion of the demo is skipped.
     """
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
-    orgs_client = boto3.client('organizations')
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    orgs_client = boto3.client("organizations")
 
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the AWS Organizations policies demo.")
-    print('-'*88)
+    print("-" * 88)
 
     tag_policy_content = {
-        'tags': {
-            'CostCenter': {
-                'tag_key': {'@@assign': 'CostCenter'},
-                'tag_value': {'@@assign': ['AWS2', 'AWS']},
-                'enforced_for': {
-                    '@@assign': ['ec2:instance', 'ec2:volume']}}}
+        "tags": {
+            "CostCenter": {
+                "tag_key": {"@@assign": "CostCenter"},
+                "tag_value": {"@@assign": ["AWS2", "AWS"]},
+                "enforced_for": {"@@assign": ["ec2:instance", "ec2:volume"]},
+            }
+        }
     }
     policy = create_policy(
-        'AWS demo policy', 'Demonstrating AWS Organizations policies.',
-        tag_policy_content, 'TAG_POLICY', orgs_client)
-    print(f"Created policy {policy['PolicySummary']['Name']} with "
-          f"ID {policy['PolicySummary']['Id']}.")
+        "AWS demo policy",
+        "Demonstrating AWS Organizations policies.",
+        tag_policy_content,
+        "TAG_POLICY",
+        orgs_client,
+    )
+    print(
+        f"Created policy {policy['PolicySummary']['Name']} with "
+        f"ID {policy['PolicySummary']['Id']}."
+    )
 
-    policies = list_policies('TAG_POLICY', orgs_client)
+    policies = list_policies("TAG_POLICY", orgs_client)
     print("Current policies for this account:")
     pprint.pprint(policies)
 
@@ -182,7 +205,7 @@ def usage_demo(target_id):
     for pol in policies:
         pprint.pprint(pol)
 
-    policy_id = policy['PolicySummary']['Id']
+    policy_id = policy["PolicySummary"]["Id"]
     if target_id is not None:
         print(f"Attaching policy {policy_id} to {target_id}.")
         attach_policy(policy_id, target_id, orgs_client)
@@ -197,10 +220,12 @@ def usage_demo(target_id):
     print("Thanks for watching!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '--target', help="The ID of the target organization root or account to attach "
-                         "the test policy to.")
+        "--target",
+        help="The ID of the target organization root or account to attach "
+        "the test policy to.",
+    )
     args = parser.parse_args()
     usage_demo(args.target)

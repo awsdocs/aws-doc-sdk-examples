@@ -25,9 +25,9 @@ import boto3
 from botocore.exceptions import ClientError
 
 
-def create_elastic_transcoder_hls_job(pipeline_id, input_file,
-                                      outputs, output_file_prefix,
-                                      playlists):
+def create_elastic_transcoder_hls_job(
+    pipeline_id, input_file, outputs, output_file_prefix, playlists
+):
     """Create an Elastic Transcoder HSL job
 
     :param pipeline_id: string; ID of an existing Elastic Transcoder pipeline
@@ -39,17 +39,19 @@ def create_elastic_transcoder_hls_job(pipeline_id, input_file,
             If job could not be created, returns None
     """
 
-    etc_client = boto3.client('elastictranscoder')
+    etc_client = boto3.client("elastictranscoder")
     try:
-        response = etc_client.create_job(PipelineId=pipeline_id,
-                                         Input={'Key': input_file},
-                                         Outputs=outputs,
-                                         OutputKeyPrefix=output_file_prefix,
-                                         Playlists=playlists)
+        response = etc_client.create_job(
+            PipelineId=pipeline_id,
+            Input={"Key": input_file},
+            Outputs=outputs,
+            OutputKeyPrefix=output_file_prefix,
+            Playlists=playlists,
+        )
     except ClientError as e:
-        print(f'ERROR: {e}')
+        print(f"ERROR: {e}")
         return None
-    return response['Job']
+    return response["Job"]
 
 
 def main():
@@ -62,71 +64,72 @@ def main():
     """
 
     # Job configuration settings. Set these values before running the script.
-    pipeline_id = 'PIPELINE_ID'         # ID of an existing Elastic Transcoder pipeline
-    input_file = 'FILE_TO_TRANSCODE'    # Name of an existing file in the S3 input bucket
-    output_file = 'TRANSCODED_FILE'     # Desired root name of the transcoded output files
+    pipeline_id = "PIPELINE_ID"  # ID of an existing Elastic Transcoder pipeline
+    input_file = "FILE_TO_TRANSCODE"  # Name of an existing file in the S3 input bucket
+    output_file = "TRANSCODED_FILE"  # Desired root name of the transcoded output files
 
     # Other job configuration settings. Optionally change as desired.
-    output_file_prefix = 'elastic-transcoder-samples/output/hls/'  # Prefix for all output files
-    segment_duration = '2'  # Maximum segment duration in seconds
+    output_file_prefix = (
+        "elastic-transcoder-samples/output/hls/"  # Prefix for all output files
+    )
+    segment_duration = "2"  # Maximum segment duration in seconds
 
     # Elastic Transcoder presets used to create HLS multi-segment
     # output files in MPEG-TS format
-    hls_64k_audio_preset_id = '1351620000001-200071'    # HLS Audio 64kb/second
-    hls_0400k_preset_id = '1351620000001-200050'        # HLS 400k
-    hls_0600k_preset_id = '1351620000001-200040'        # HLS 600k
-    hls_1000k_preset_id = '1351620000001-200030'        # HLS 1M
-    hls_1500k_preset_id = '1351620000001-200020'        # HLS 1.5M
-    hls_2000k_preset_id = '1351620000001-200010'        # HLS 2M
+    hls_64k_audio_preset_id = "1351620000001-200071"  # HLS Audio 64kb/second
+    hls_0400k_preset_id = "1351620000001-200050"  # HLS 400k
+    hls_0600k_preset_id = "1351620000001-200040"  # HLS 600k
+    hls_1000k_preset_id = "1351620000001-200030"  # HLS 1M
+    hls_1500k_preset_id = "1351620000001-200020"  # HLS 1.5M
+    hls_2000k_preset_id = "1351620000001-200010"  # HLS 2M
 
     # Define the various outputs
     outputs = [
         {
-            'Key': 'hlsAudio/' + output_file,
-            'PresetId': hls_64k_audio_preset_id,
-            'SegmentDuration': segment_duration,
+            "Key": "hlsAudio/" + output_file,
+            "PresetId": hls_64k_audio_preset_id,
+            "SegmentDuration": segment_duration,
         },
         {
-            'Key': 'hls0400k/' + output_file,
-            'PresetId': hls_0400k_preset_id,
-            'SegmentDuration': segment_duration,
+            "Key": "hls0400k/" + output_file,
+            "PresetId": hls_0400k_preset_id,
+            "SegmentDuration": segment_duration,
         },
         {
-            'Key': 'hls0600k/' + output_file,
-            'PresetId': hls_0600k_preset_id,
-            'SegmentDuration': segment_duration,
+            "Key": "hls0600k/" + output_file,
+            "PresetId": hls_0600k_preset_id,
+            "SegmentDuration": segment_duration,
         },
         {
-            'Key': 'hls1000k/' + output_file,
-            'PresetId': hls_1000k_preset_id,
-            'SegmentDuration': segment_duration,
+            "Key": "hls1000k/" + output_file,
+            "PresetId": hls_1000k_preset_id,
+            "SegmentDuration": segment_duration,
         },
         {
-            'Key': 'hls1500k/' + output_file,
-            'PresetId': hls_1500k_preset_id,
-            'SegmentDuration': segment_duration,
+            "Key": "hls1500k/" + output_file,
+            "PresetId": hls_1500k_preset_id,
+            "SegmentDuration": segment_duration,
         },
         {
-            'Key': 'hls2000k/' + output_file,
-            'PresetId': hls_2000k_preset_id,
-            'SegmentDuration': segment_duration,
+            "Key": "hls2000k/" + output_file,
+            "PresetId": hls_2000k_preset_id,
+            "SegmentDuration": segment_duration,
         },
     ]
 
     # Define the playlist
     playlists = [
         {
-            'Name': 'hls_' + output_file,
-            'Format': 'HLSv3',
-            'OutputKeys': [x['Key'] for x in outputs]
+            "Name": "hls_" + output_file,
+            "Format": "HLSv3",
+            "OutputKeys": [x["Key"] for x in outputs],
         }
     ]
 
     # Create an HLS job in Elastic Transcoder
-    job_info = create_elastic_transcoder_hls_job(pipeline_id,
-                                                 input_file,
-                                                 outputs, output_file_prefix,
-                                                 playlists)
+    job_info = create_elastic_transcoder_hls_job(
+        pipeline_id, input_file, outputs, output_file_prefix, playlists
+    )
     if job_info is None:
         exit(1)
 
@@ -134,6 +137,6 @@ def main():
     print(f'Created Amazon Elastic Transcoder HLS job {job_info["Id"]}')
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 # snippet-end:[elastictranscoder.python.create_hls_job.complete]

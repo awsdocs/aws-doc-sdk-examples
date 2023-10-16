@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 
 
 class WaitState(Enum):
-    SUCCESS = 'success'
-    FAILURE = 'failure'
+    SUCCESS = "success"
+    FAILURE = "failure"
 
 
 class CustomWaiter:
@@ -43,9 +43,18 @@ class CustomWaiter:
             self._wait(TranscriptionJobName=job_name)
 
     """
+
     def __init__(
-            self, name, operation, argument, acceptors, client, delay=10, max_tries=60,
-            matcher='path'):
+        self,
+        name,
+        operation,
+        argument,
+        acceptors,
+        client,
+        delay=10,
+        max_tries=60,
+        matcher="path",
+    ):
         """
         Subclasses should pass specific operations, arguments, and acceptors to
         their superclass.
@@ -70,22 +79,30 @@ class CustomWaiter:
         self.operation = operation
         self.argument = argument
         self.client = client
-        self.waiter_model = botocore.waiter.WaiterModel({
-            'version': 2,
-            'waiters': {
-                name: {
-                    "delay": delay,
-                    "operation": operation,
-                    "maxAttempts": max_tries,
-                    "acceptors": [{
-                        "state": state.value,
-                        "matcher": matcher,
-                        "argument": argument,
-                        "expected": expected
-                    } for expected, state in acceptors.items()]
-                }}})
+        self.waiter_model = botocore.waiter.WaiterModel(
+            {
+                "version": 2,
+                "waiters": {
+                    name: {
+                        "delay": delay,
+                        "operation": operation,
+                        "maxAttempts": max_tries,
+                        "acceptors": [
+                            {
+                                "state": state.value,
+                                "matcher": matcher,
+                                "argument": argument,
+                                "expected": expected,
+                            }
+                            for expected, state in acceptors.items()
+                        ],
+                    }
+                },
+            }
+        )
         self.waiter = botocore.waiter.create_waiter_with_client(
-            self.name, self.waiter_model, self.client)
+            self.name, self.waiter_model, self.client
+        )
 
     def __call__(self, parsed, **kwargs):
         """
@@ -96,13 +113,12 @@ class CustomWaiter:
         :param kwargs: Not used, but expected by the caller.
         """
         status = parsed
-        for key in self.argument.split('.'):
-            if key.endswith('[]'):
+        for key in self.argument.split("."):
+            if key.endswith("[]"):
                 status = status.get(key[:-2])[0]
             else:
                 status = status.get(key)
-        logger.info(
-            "Waiter %s called %s, got %s.", self.name, self.operation, status)
+        logger.info("Waiter %s called %s, got %s.", self.name, self.operation, status)
 
     def _wait(self, **kwargs):
         """
@@ -110,7 +126,7 @@ class CustomWaiter:
 
         :param kwargs: Keyword arguments that are passed to the operation being polled.
         """
-        event_name = f'after-call.{self.client.meta.service_model.service_name}'
+        event_name = f"after-call.{self.client.meta.service_model.service_name}"
         self.client.meta.events.register(event_name, self)
         self.waiter.wait(**kwargs)
         self.client.meta.events.unregister(event_name, self)

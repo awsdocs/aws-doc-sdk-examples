@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.ec2.SecurityGroupWrapper.decl]
 class SecurityGroupWrapper:
     """Encapsulates Amazon Elastic Compute Cloud (Amazon EC2) security group actions."""
+
     def __init__(self, ec2_resource, security_group=None):
         """
         :param ec2_resource: A Boto3 Amazon EC2 resource. This high-level resource
@@ -26,9 +27,10 @@ class SecurityGroupWrapper:
 
     @classmethod
     def from_resource(cls):
-        ec2_resource = boto3.resource('ec2')
+        ec2_resource = boto3.resource("ec2")
         return cls(ec2_resource)
-# snippet-end:[python.example_code.ec2.SecurityGroupWrapper.decl]
+
+    # snippet-end:[python.example_code.ec2.SecurityGroupWrapper.decl]
 
     # snippet-start:[python.example_code.ec2.CreateSecurityGroup]
     def create(self, group_name, group_description):
@@ -42,14 +44,19 @@ class SecurityGroupWrapper:
         """
         try:
             self.security_group = self.ec2_resource.create_security_group(
-                GroupName=group_name, Description=group_description)
+                GroupName=group_name, Description=group_description
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't create security group %s. Here's why: %s: %s", group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create security group %s. Here's why: %s: %s",
+                group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return self.security_group
+
     # snippet-end:[python.example_code.ec2.CreateSecurityGroup]
 
     # snippet-start:[python.example_code.ec2.AuthorizeSecurityGroupIngress]
@@ -67,19 +74,29 @@ class SecurityGroupWrapper:
             return
 
         try:
-            ip_permissions = [{
-                # SSH ingress open to only the specified IP address.
-                'IpProtocol': 'tcp', 'FromPort': 22, 'ToPort': 22,
-                'IpRanges': [{'CidrIp': f'{ssh_ingress_ip}/32'}]}]
-            response = self.security_group.authorize_ingress(IpPermissions=ip_permissions)
+            ip_permissions = [
+                {
+                    # SSH ingress open to only the specified IP address.
+                    "IpProtocol": "tcp",
+                    "FromPort": 22,
+                    "ToPort": 22,
+                    "IpRanges": [{"CidrIp": f"{ssh_ingress_ip}/32"}],
+                }
+            ]
+            response = self.security_group.authorize_ingress(
+                IpPermissions=ip_permissions
+            )
         except ClientError as err:
             logger.error(
                 "Couldn't authorize inbound rules for %s. Here's why: %s: %s",
                 self.security_group.id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.ec2.AuthorizeSecurityGroupIngress]
 
     # snippet-start:[python.example_code.ec2.DescribeSecurityGroups]
@@ -100,9 +117,13 @@ class SecurityGroupWrapper:
                 pp(self.security_group.ip_permissions)
         except ClientError as err:
             logger.error(
-                "Couldn't get data for security group %s. Here's why: %s: %s", self.security_group.id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get data for security group %s. Here's why: %s: %s",
+                self.security_group.id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.ec2.DescribeSecurityGroups]
 
     # snippet-start:[python.example_code.ec2.DeleteSecurityGroup]
@@ -119,8 +140,14 @@ class SecurityGroupWrapper:
             self.security_group.delete()
         except ClientError as err:
             logger.error(
-                "Couldn't delete security group %s. Here's why: %s: %s", group_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete security group %s. Here's why: %s: %s",
+                group_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.ec2.DeleteSecurityGroup]
+
+
 # snippet-end:[python.example_code.ec2.SecurityGroupWrapper.class]

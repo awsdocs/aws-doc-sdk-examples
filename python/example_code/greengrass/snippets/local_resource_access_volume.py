@@ -13,8 +13,8 @@ import logging
 import os
 import greengrasssdk
 
-iot_client = greengrasssdk.client('iot-data')
-volume_path = '/dest/LRAtest'
+iot_client = greengrasssdk.client("iot-data")
+volume_path = "/dest/LRAtest"
 
 
 def function_handler(event, context):
@@ -23,15 +23,17 @@ def function_handler(event, context):
     Gets volume information for the local file system and publishes it.
     Writes a file named 'test' and then reads the file and publishes its contents.
     """
-    iot_client.publish(topic='LRA/test', payload='Sent from AWS IoT Greengrass Core.')
+    iot_client.publish(topic="LRA/test", payload="Sent from AWS IoT Greengrass Core.")
     try:
         volume_info = os.stat(volume_path)
-        iot_client.publish(topic='LRA/test', payload=str(volume_info))
-        with open(volume_path + '/test', 'a') as output:
-            output.write('Successfully write to a file.\n')
-        with open(volume_path + '/test', 'r') as file:
+        iot_client.publish(topic="LRA/test", payload=str(volume_info))
+        with open(volume_path + "/test", "a") as output:
+            output.write("Successfully write to a file.\n")
+        with open(volume_path + "/test", "r") as file:
             data = file.read()
-        iot_client.publish(topic='LRA/test', payload=data)
+        iot_client.publish(topic="LRA/test", payload=data)
     except Exception as err:
         logging.exception("Got error : %s", err)
+
+
 # snippet-end:[greengrass.python.local-resource-access-volume.complete]

@@ -49,37 +49,46 @@ def create_app(test_config=None):
         app.config.from_pyfile("config.py", silent=True)
     else:
         app.config.update(test_config)
-    table_name = app.config.get('TABLE_NAME')
-    sender_email = app.config.get('SENDER_EMAIL')
-    if table_name is None or table_name == 'NEED-TABLE-NAME':
+    table_name = app.config.get("TABLE_NAME")
+    sender_email = app.config.get("SENDER_EMAIL")
+    if table_name is None or table_name == "NEED-TABLE-NAME":
         raise RuntimeError(
-            "To run this app, you must first enter configuration information in config.py.")
+            "To run this app, you must first enter configuration information in config.py."
+        )
 
     # Suppress CORS errors when working with React during development.
     # Important: Remove this when you deploy your application.
     CORS(app)
 
-    if app.config.get('TESTING'):
-        dynamodb_resource = app.config.get('DYNAMODB_RESOURCE')
-        ses_client = app.config.get('SES_CLIENT')
+    if app.config.get("TESTING"):
+        dynamodb_resource = app.config.get("DYNAMODB_RESOURCE")
+        ses_client = app.config.get("SES_CLIENT")
     else:
-        dynamodb_resource = boto3.resource('dynamodb')
-        ses_client = boto3.client('ses')
-    table = dynamodb_resource.Table(app.config['TABLE_NAME'])
+        dynamodb_resource = boto3.resource("dynamodb")
+        ses_client = boto3.client("ses")
+    table = dynamodb_resource.Table(app.config["TABLE_NAME"])
     storage = Storage(table)
 
-    item_list_view = ItemList.as_view('item_list_api', storage)
-    report_view = Report.as_view('report_api', storage, sender_email, ses_client)
+    item_list_view = ItemList.as_view("item_list_api", storage)
+    report_view = Report.as_view("report_api", storage, sender_email, ses_client)
     app.add_url_rule(
-        '/api/items', defaults={'iditem': None}, view_func=item_list_view, methods=['GET'],
-        strict_slashes=False)
+        "/api/items",
+        defaults={"iditem": None},
+        view_func=item_list_view,
+        methods=["GET"],
+        strict_slashes=False,
+    )
     app.add_url_rule(
-        '/api/items', view_func=item_list_view, methods=['POST'], strict_slashes=False)
+        "/api/items", view_func=item_list_view, methods=["POST"], strict_slashes=False
+    )
     app.add_url_rule(
-        '/api/items/<string:iditem>', view_func=item_list_view, methods=['GET', 'PUT'])
+        "/api/items/<string:iditem>", view_func=item_list_view, methods=["GET", "PUT"]
+    )
     app.add_url_rule(
-        '/api/items/<string:iditem>:<string:action>', view_func=item_list_view, methods=['PUT'])
-    app.add_url_rule(
-        '/api/items:report', view_func=report_view, methods=['POST'])
+        "/api/items/<string:iditem>:<string:action>",
+        view_func=item_list_view,
+        methods=["PUT"],
+    )
+    app.add_url_rule("/api/items:report", view_func=report_view, methods=["POST"])
 
     return app
