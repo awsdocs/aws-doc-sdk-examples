@@ -721,48 +721,6 @@ medical-imaging_tagging_datastores:
             - description: The utility function for untagging a resource.
               snippet_tags:
                 - python.example_code.medical-imaging.UntagResource
-  services:
-    medical-imaging: {TagResource, UntagResource, ListTagsForResource}
-medical-imaging_tagging_imagesets:
-  title: Tagging a &AHI; image set using an &AWS; SDK
-  title_abbrev: Tagging an image set
-  synopsis: tag a &AHI; image set.
-  category: Scenarios
-  languages:
-    Python:
-      versions:
-        - sdk_version: 3
-          github: javascriptv3/example_code/medical-imaging
-          excerpts:
-            - description: To tag an image set.
-              snippet_tags:
-                - python.example_code.medical-imaging.tagging_image_set.arn
-                - python.example_code.medical-imaging.tagging_image_set.tag
-            - description: The utility function for tagging a resource.
-              snippet_tags:
-                - python.example_code.medical-imaging.TagResource
-            - description: To list tags for an image set.
-              snippet_tags:
-                - python.example_code.medical-imaging.tagging_image_set.arn
-                - python.example_code.medical-imaging.tagging_image_set.list
-            - description: The utility function for listing a resource's tags.
-              snippet_tags:
-                - python.example_code.medical-imaging.ListTagsForResource
-            - description: To untag an image set.
-              snippet_tags:
-                - python.example_code.medical-imaging.tagging_image_set.arn
-                - python.example_code.medical-imaging.tagging_image_set.untag
-            - description: The utility function for untagging a resource.
-              snippet_tags:
-                - python.example_code.medical-imaging.UntagResource
-  services:
-    medical-imaging: {TagResource, UntagResource, ListTagsForResource}
-medical-imaging_tagging_datastores:
-  title: Tagging a &AHI; data store using an &AWS; SDK
-  title_abbrev: Tagging a data store
-  synopsis: tag a &AHI; data store.
-  category: Scenarios
-  languages:
     JavaScript:
       versions:
         - sdk_version: 3
@@ -820,6 +778,32 @@ medical-imaging_tagging_imagesets:
   synopsis: tag a &AHI; image set.
   category: Scenarios
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description: To tag an image set.
+              snippet_tags:
+                - python.example_code.medical-imaging.tagging_image_set.arn
+                - python.example_code.medical-imaging.tagging_image_set.tag
+            - description: The utility function for tagging a resource.
+              snippet_tags:
+                - python.example_code.medical-imaging.TagResource
+            - description: To list tags for an image set.
+              snippet_tags:
+                - python.example_code.medical-imaging.tagging_image_set.arn
+                - python.example_code.medical-imaging.tagging_image_set.list
+            - description: The utility function for listing a resource's tags.
+              snippet_tags:
+                - python.example_code.medical-imaging.ListTagsForResource
+            - description: To untag an image set.
+              snippet_tags:
+                - python.example_code.medical-imaging.tagging_image_set.arn
+                - python.example_code.medical-imaging.tagging_image_set.untag
+            - description: The utility function for untagging a resource.
+              snippet_tags:
+                - python.example_code.medical-imaging.UntagResource
     JavaScript:
       versions:
         - sdk_version: 3
