@@ -5,6 +5,7 @@ import base64
 import json
 import logging
 import time
+from os import remove, chmod
 
 import boto3
 from botocore.exceptions import ClientError
@@ -48,6 +49,7 @@ class AutoScaler:
         self.bad_creds_policy_name = f"{resource_prefix}-bc-pol"
         self.bad_creds_role_name = f"{resource_prefix}-bc-role"
         self.bad_creds_profile_name = f"{resource_prefix}-bc-prof"
+        self.key_pair_name = f"{resource_prefix}-key-pair"
 # snippet-end:[python.cross_service.resilient_service.AutoScaler.decl]
 
     @classmethod
@@ -240,6 +242,45 @@ class AutoScaler:
                     f"policies and delete role {role_name}: {err}")
     # snippet-end:[python.cross_service.resilient_service.iam.DeleteInstanceProfile]
 
+    # snippet-start:[python.cross_service.resilient_service.ec2.CreateKeyPair]
+    def create_key_pair(self, key_pair_name):
+        """
+        Creates a new key pair.
+
+        :param key_pair_name: The name of the key pair to create.
+        :return: The newly created key pair.
+        """
+        try:
+            response = self.ec2_client.create_key_pair(KeyName=key_pair_name)
+            with open(f'{key_pair_name}.pem', 'w') as file:
+                file.write(response['KeyMaterial'])
+            chmod(f'{key_pair_name}.pem', 0o600)
+            log.info("Created key pair %s.", key_pair_name)
+        except ClientError as err:
+            raise AutoScalerError(f"Couldn't create key pair {key_pair_name}: {err}")
+    # snippet-end:[python.cross_service.resilient_service.ec2.CreateKeyPair]
+
+    # snippet-start:[python.cross_service.resilient_service.ec2.DeleteKeyPair]
+    def delete_key_pair(self):
+        """
+        Deletes a key pair.
+
+        :param key_pair_name: The name of the key pair to delete.
+        """
+        try:
+            self.ec2_client.delete_key_pair(KeyName=self.key_pair_name)
+            remove(f'{self.key_pair_name}.pem')
+            log.info("Deleted key pair %s.", self.key_pair_name)
+        except ClientError as err:
+            raise AutoScalerError(f"Couldn't delete key pair {self.key_pair_name}: {err}")
+        except FileNotFoundError:
+            log.info("Key pair %s doesn't exist, nothing to do.", self.key_pair_name)
+        except PermissionError:
+            log.info("Inadequate permissions to delete key pair %s.", self.key_pair_name)
+        except Exception as err:
+            raise AutoScalerError(f"Couldn't delete key pair {self.key_pair_name}: {err}")
+    # snippet-end:[python.cross_service.resilient_service.ec2.DeleteKeyPair]
+
     # snippet-start:[python.cross_service.resilient_service.ec2.CreateLaunchTemplate]
     def create_template(self, server_startup_script_file, instance_policy_file):
         """
@@ -256,6 +297,7 @@ class AutoScaler:
         """
         template = {}
         try:
+            self.create_key_pair(self.key_pair_name)
             self.create_instance_profile(
                 instance_policy_file, self.instance_policy_name, self.instance_role_name,
                 self.instance_profile_name)
@@ -269,7 +311,8 @@ class AutoScaler:
                     'InstanceType': self.inst_type,
                     'ImageId': ami_id,
                     'IamInstanceProfile': {'Name': self.instance_profile_name},
-                    'UserData': base64.b64encode(start_server_script.encode(encoding='utf-8')).decode(encoding='utf-8')})
+                    'UserData': base64.b64encode(start_server_script.encode(encoding='utf-8')).decode(encoding='utf-8'),
+                    'KeyName': self.key_pair_name})
             template = lt_response['LaunchTemplate']
             log.info(
                 "Created launch template %s for AMI %s on %s.", self.launch_template_name,

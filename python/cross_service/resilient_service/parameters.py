@@ -54,7 +54,7 @@ class ParameterHelper:
         :param value: The new value of the parameter.
         """
         try:
-            self.ssm_client.put_parameter(Name=name, Value=value, Overwrite=True)
+            self.ssm_client.put_parameter(Name=name, Value=value, Overwrite=True, Type='String')
             log.info("Setting demo parameter %s to '%s'.", name, value)
         except ClientError as err:
             raise ParameterHelperError(
