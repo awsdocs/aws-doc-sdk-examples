@@ -379,9 +379,15 @@ medical-imaging_GetImageSetMetadata:
         - sdk_version: 3
           github: python/example_code/medical-imaging
           excerpts:
-            - description:
+            - description: Utility function to get image set metadata.
               snippet_tags:
                 - python.example_code.medical-imaging.GetImageSetMetadata
+            - description: Get image set metadata without version.
+              snippet_tags:
+                - python.example_code.medical-imaging.GetImageSetMetadata.withoutVersionID
+            - description: Get image set metadata with version.
+              snippet_tags:
+                - python.example_code.medical-imaging.GetImageSetMetadata.withVersionID
     JavaScript:
       versions:
         - sdk_version: 3
@@ -481,15 +487,6 @@ medical-imaging_UpdateImageSetMetadata:
         - sdk_version: 3
           github: python/example_code/medical-imaging
           excerpts:
-            - description: Utility function to get image set metadata.
-              snippet_tags:
-                - python.example_code.medical-imaging.GetImageSetMetadata
-            - description: Get image set metadata without version.
-              snippet_tags:
-                - python.example_code.medical-imaging.GetImageSetMetadata.withoutVersionID
-            - description: Get image set metadata with version.
-              snippet_tags:
-                - python.example_code.medical-imaging.GetImageSetMetadata.withVersionID
             - description:
               snippet_tags:
                 - python.example_code.medical-imaging.UpdateImageSetMetadata

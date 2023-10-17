@@ -34,7 +34,6 @@ def tagging_image_sets(medical_imaging_wrapper, image_set_arn):
 
 
 if __name__ == '__main__':
-    # Replace this ARN with your own.
     # snippet-start:[python.example_code.medical-imaging.tagging_image_set.arn]
     an_image_set_arn = 'arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/' \
                        'imageset/12345678901234567890123456789012'
