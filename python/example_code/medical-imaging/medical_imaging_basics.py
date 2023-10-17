@@ -464,50 +464,6 @@ class MedicalImagingWrapper:
 
     # snippet-end:[python.example_code.medical-imaging.ListTagsForResource]
 
-    def tagging_datastore(self, datastore_arn):
-        # snippet-start:[python.example_code.medical-imaging.tagging_datastore.arn]
-        """
-        Taggging a data store.
-
-        :param datastore_arn: The Amazon Resource Name (ARN) of the data store.
-            For example: arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012
-        """
-        # snippet-end:[python.example_code.medical-imaging.tagging_datastore.arn]
-
-        # snippet-start:[python.example_code.medical-imaging.tagging_datastore.tag]
-        self.tag_resource(datastore_arn, {"Deployment": "Development"})
-        # snippet-end:[python.example_code.medical-imaging.tagging_datastore.tag]
-
-        # snippet-start:[python.example_code.medical-imaging.tagging_datastore.list]
-        self.list_tags_for_resource(datastore_arn)
-        # snippet-end:[python.example_code.medical-imaging.tagging_datastore.list]
-
-        # snippet-start:[python.example_code.medical-imaging.tagging_datastore.untag]
-        self.untag_resource(datastore_arn, ["Deployment"])
-
-    # snippet-end:[python.example_code.medical-imaging.tagging_datastore.untag]
-
-    def tagging_image_set(self, image_set_arn):
-        # snippet-start:[python.example_code.medical-imaging.tagging_image_set.arn]
-        """
-        Taggging a data store.
-
-        :param image_set_arn: The Amazon Resource Name (ARN) of the data store.
-            For example: arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/imageset/12345678901234567890123456789012
-        """
-        # snippet-end:[python.example_code.medical-imaging.tagging_image_set.arn]
-
-        # snippet-start:[python.example_code.medical-imaging.tagging_image_set.tag]
-        self.tag_resource(image_set_arn, {"Deployment": "Development"})
-        # snippet-end:[python.example_code.medical-imaging.tagging_image_set.tag]
-
-        # snippet-start:[python.example_code.medical-imaging.tagging_image_set.list]
-        self.list_tags_for_resource(image_set_arn)
-        # snippet-end:[python.example_code.medical-imaging.tagging_image_set.list]
-
-        # snippet-start:[python.example_code.medical-imaging.tagging_image_set.untag]
-        self.untag_resource(image_set_arn, ["Deployment"])
-        # snippet-end:[python.example_code.medical-imaging.tagging_image_set.untag]
 
     def usage_demo(self, source_s3_uri, dest_s3_uri, data_access_role_arn):
         data_store_name = f"python_usage_demo_data_store_{random.randint(0, 200000)}"
