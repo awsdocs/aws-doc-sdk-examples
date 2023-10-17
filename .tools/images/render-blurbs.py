@@ -16,7 +16,6 @@ if __name__ == "__main__":
     with open(sdk_metadata, "r") as file:
         metadata = yaml.safe_load(file)
         for language in metadata.keys():
-            metadata[language]
             shortname = metadata[language]["property"]
             template = env.get_template("template.txt")
             print(template.render(language=language, shortname=shortname))

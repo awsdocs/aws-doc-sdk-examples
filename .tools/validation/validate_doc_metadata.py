@@ -167,24 +167,15 @@ def validate_files(schema_name, meta_names, validators):
     return success
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--doc_gen",
-        default=f"{Path(__file__).parent / '..' / '..' / '.doc_gen'}",
-        help="The folder that contains schema and metadata files.",
-        required=False,
-    )
-    args = parser.parse_args()
-
+def validate_all(doc_gen: Path):
     # with open(os.path.join(args.doc_gen, "metadata/sdks.yaml")) as sdks_file:
     #     sdks_yaml: dict[str, any] = yaml.safe_load(sdks_file)
 
-    with open(os.path.join(args.doc_gen, "metadata/services.yaml")) as services_file:
+    with open(os.path.join(doc_gen, "metadata/services.yaml")) as services_file:
         services_yaml = yaml.safe_load(services_file)
 
     with open(
-        os.path.join(args.doc_gen, "metadata/curated/sources.yaml")
+        os.path.join(doc_gen, "metadata/curated/sources.yaml")
     ) as curated_sources_file:
         curated_sources_yaml = yaml.safe_load(curated_sources_file)
 
@@ -192,7 +183,7 @@ def main():
     ServiceName.services = services_yaml
     SourceKey.curated_sources = curated_sources_yaml
     ExampleId.services = services_yaml
-    BlockContent.block_names = os.listdir(os.path.join(args.doc_gen, "cross-content"))
+    BlockContent.block_names = os.listdir(os.path.join(doc_gen, "cross-content"))
     validators[ServiceName.tag] = ServiceName
     validators[ServiceVersion.tag] = ServiceVersion
     validators[SourceKey.tag] = SourceKey
@@ -204,30 +195,41 @@ def main():
 
     # Validate sdks.yaml file.
     schema_name = schema_root / "sdks_schema.yaml"
-    meta_names = glob.glob(os.path.join(args.doc_gen, "metadata/sdks.yaml"))
+    meta_names = glob.glob(os.path.join(doc_gen, "metadata/sdks.yaml"))
     success = validate_files(schema_name, meta_names, validators)
 
     # Validate services.yaml file.
     schema_name = schema_root / "services_schema.yaml"
-    meta_names = glob.glob(os.path.join(args.doc_gen, "metadata/services.yaml"))
+    meta_names = glob.glob(os.path.join(doc_gen, "metadata/services.yaml"))
     success &= validate_files(schema_name, meta_names, validators)
 
     # Validate example (*_metadata.yaml in metadata folder) files.
     schema_name = schema_root / "example_schema.yaml"
-    meta_names = glob.glob(os.path.join(args.doc_gen, "metadata/*_metadata.yaml"))
+    meta_names = glob.glob(os.path.join(doc_gen, "metadata/*_metadata.yaml"))
     success &= validate_files(schema_name, meta_names, validators)
 
     # Validate curated/sources.yaml file.
     schema_name = schema_root / "curated_sources_schema.yaml"
-    meta_names = glob.glob(os.path.join(args.doc_gen, "metadata/curated/sources.yaml"))
+    meta_names = glob.glob(os.path.join(doc_gen, "metadata/curated/sources.yaml"))
     success &= validate_files(schema_name, meta_names, validators)
 
     # Validate curated example (*_metadata.yaml in metadata/curated folder) files.
     schema_name = schema_root / "curated_example_schema.yaml"
-    meta_names = glob.glob(
-        os.path.join(args.doc_gen, "metadata/curated/*_metadata.yaml")
-    )
+    meta_names = glob.glob(os.path.join(doc_gen, "metadata/curated/*_metadata.yaml"))
     success &= validate_files(schema_name, meta_names, validators)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--doc-gen",
+        default=f"{Path(__file__).parent / '..' / '..' / '.doc_gen'}",
+        help="The folder that contains schema and metadata files.",
+        required=False,
+    )
+    args = parser.parse_args()
+
+    success = validate_all(args.doc_gen)
 
     if success:
         print("Validation succeeded! 👍👍👍")

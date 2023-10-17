@@ -5,9 +5,9 @@ name: Miscellaneous pre-validation checks
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -29,4 +29,4 @@ jobs:
           python-version: 3.8 #install the python needed
       - name: Run Python script to vet code examples # Runs a single command using the runners shell
         run: |
-          python .github/pre_validate/pre_validate.py --q
+          python3 .tools/pre_validate/pre_validate.py --q
