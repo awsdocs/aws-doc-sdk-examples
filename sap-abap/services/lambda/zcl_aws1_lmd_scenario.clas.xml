@@ -14,7 +14,6 @@
    </VSEOCLASS>
    <DESCRIPTIONS>
     <SEOCOMPOTX>
-     <CLSNAME>ZCL_AWS1_LMD_SCENARIO</CLSNAME>
      <CMPNAME>GETTING_STARTED_WITH_FUNCTIONS</CMPNAME>
      <LANGU>E</LANGU>
      <DESCRIPT>Get started with creating and invoking Lambda functions.</DESCRIPT>
