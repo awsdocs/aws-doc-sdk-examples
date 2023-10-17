@@ -4,10 +4,10 @@
  */
 
 /** snippet-start:[javascript.v3.cognito-idp.scenarios.basic.SignUpHandler] **/
-import { log } from "libs/utils/util-log.js";
+import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
 import { signUp } from "../../../actions/sign-up.js";
 import { FILE_USER_POOLS } from "./constants.js";
-import { getSecondValuesFromEntries } from "libs/utils/util-csv.js";
+import { getSecondValuesFromEntries } from "@aws-sdk-examples/libs/utils/util-csv.js";
 
 const validateClient = (clientId) => {
   if (!clientId) {

@@ -1,4 +1,4 @@
-import { getUniqueName } from "libs/utils/util-string.js";
+import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
 import { describe, it, expect } from "vitest";
 import { createSAMLProvider } from "../actions/create-saml-provider.js";
 import { listSamlProviders } from "../actions/list-saml-providers.js";

@@ -1,4 +1,4 @@
-import { describe, expect, it } from "@jest/globals";
+import { describe, expect, it } from "vitest";
 import {
   csvToHtmlTable,
   makeCsv,
@@ -31,7 +31,7 @@ describe("postItemsReportHandler", () => {
       expect(result).toBe(
         "id,description,guide,status,name,archived" +
           `\n${records[0][0].stringValue},${records[0][1].stringValue},${records[0][2].stringValue},${records[0][3].stringValue},${records[0][4].stringValue},${records[0][5].longValue}` +
-          `\n${records[1][0].stringValue},${records[1][1].stringValue},${records[1][2].stringValue},${records[1][3].stringValue},${records[1][4].stringValue},${records[1][5].longValue}`
+          `\n${records[1][0].stringValue},${records[1][1].stringValue},${records[1][2].stringValue},${records[1][3].stringValue},${records[1][4].stringValue},${records[1][5].longValue}`,
       );
     });
   });
@@ -41,7 +41,7 @@ describe("postItemsReportHandler", () => {
       const csv = makeCsv(records);
       const html = csvToHtmlTable(csv);
       expect(html).toBe(
-`<table>
+        `<table>
   <tr>
     <th>id</th>
     <th>description</th>
@@ -67,7 +67,7 @@ describe("postItemsReportHandler", () => {
     <td>1</td>
   </tr>
 </table>
-`
+`,
       );
     });
   });

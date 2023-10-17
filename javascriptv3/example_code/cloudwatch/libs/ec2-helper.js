@@ -7,8 +7,8 @@ import {
   RunInstancesCommand,
   TerminateInstancesCommand,
 } from "@aws-sdk/client-ec2";
-import { retry } from "libs/utils/util-timers.js";
-import { DEFAULT_REGION } from "libs/utils/util-aws-sdk.js";
+import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 
 const client = new EC2Client({ region: DEFAULT_REGION });
 

@@ -10,15 +10,13 @@ import {
   Architecture,
 } from "@aws-sdk/client-lambda";
 import { readFile } from "fs/promises";
-import { zip } from "../../libs/utils/util-fs.js";
-import { createClientForDefaultRegion } from "../../libs/utils/util-aws-sdk.js";
-import { dirnameFromMetaUrl } from "../../libs/utils/util-fs.js";
+import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
 
 const dirname = dirnameFromMetaUrl(import.meta.url);
 
 /** snippet-start:[javascript.v3.lambda.actions.UpdateFunctionCode] */
 const updateFunctionCode = async (funcName, newFunc) => {
-  const client = createClientForDefaultRegion(LambdaClient);
+  const client = new LambdaClient({});
   const code = await readFile(`${dirname}../functions/${newFunc}.zip`);
   const command = new UpdateFunctionCodeCommand({
     ZipFile: code,

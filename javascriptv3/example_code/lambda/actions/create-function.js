@@ -10,7 +10,7 @@ import {
   Runtime,
 } from "@aws-sdk/client-lambda";
 import { readFile } from "fs/promises";
-import { dirnameFromMetaUrl } from "../../libs/utils/util-fs.js";
+import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
 
 const dirname = dirnameFromMetaUrl(import.meta.url);
 

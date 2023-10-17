@@ -5,7 +5,7 @@
 
 // snippet-start:[javascript.v3.cloudwatchevents.client]
 import { CloudWatchEventsClient } from "@aws-sdk/client-cloudwatch-events";
-import { DEFAULT_REGION } from "libs/utils/util-aws-sdk.js";
+import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 
 export const client = new CloudWatchEventsClient({ region: DEFAULT_REGION });
 // snippet-end:[javascript.v3.cloudwatchevents.client]

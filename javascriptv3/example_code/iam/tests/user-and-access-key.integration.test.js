@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { StatusType } from "@aws-sdk/client-iam";
 
-import { getUniqueName } from "libs/utils/util-string.js";
+import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
 
 import { createUser } from "../actions/create-user.js";
 import { listUsers } from "../actions/list-users.js";

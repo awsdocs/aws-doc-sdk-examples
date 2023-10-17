@@ -12,9 +12,9 @@ import {
   waitUntilRoleExists,
 } from "@aws-sdk/client-iam";
 
-import { log } from "libs/utils/util-log.js";
-import { retry } from "libs/utils/util-timers.js";
-import { DEFAULT_REGION } from "libs/utils/util-aws-sdk.js";
+import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
+import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
+import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 
 import {
   waitForFunctionActive,

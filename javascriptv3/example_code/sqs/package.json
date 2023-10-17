@@ -8,6 +8,7 @@
     "integration-test": "vitest run **/*.integration.test.js"
   },
   "dependencies": {
+    "@aws-sdk-examples/libs": "^1.0.0",
     "@aws-sdk/client-sqs": "^3.332.0"
   }
 }

@@ -3,7 +3,7 @@ import { describe, it, expect } from "vitest";
 import { main } from "../actions/document-client/batch-write.js";
 import { tableSetupTeardown } from "../libs/dynamodb-test.utils.js";
 import { DynamoDBClient, GetItemCommand } from "@aws-sdk/client-dynamodb";
-import { retry } from "libs/utils/util-timers.js";
+import { retry } from "@aws-sdk-examples/libs/utils/util-timers.js";
 
 describe("document-batch-write", () => {
   const tableName = "BatchWriteMoviesTable";

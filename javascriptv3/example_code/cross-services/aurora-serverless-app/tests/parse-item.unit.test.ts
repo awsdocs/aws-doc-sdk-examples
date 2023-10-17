@@ -1,5 +1,5 @@
-import { describe, it, expect } from "@jest/globals";
-import { Item } from "src/types/item.js";
+import { describe, it, expect } from "vitest";
+import type { Item } from "src/types/item.js";
 import { parseItem } from "../src/handlers/parse-item.js";
 
 describe("parseItem", () => {

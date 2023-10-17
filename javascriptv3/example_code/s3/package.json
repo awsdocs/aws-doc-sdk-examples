@@ -11,6 +11,7 @@
   "type": "module",
   "dependencies": {
     "@aws-crypto/sha256-browser": "^4.0.0",
+    "@aws-sdk-examples/libs": "^1.0.0",
     "@aws-sdk/client-s3": "^3.272.0",
     "@aws-sdk/credential-providers": "^3.276.0",
     "@aws-sdk/s3-request-presigner": "^3.276.0",

@@ -11,8 +11,8 @@ import { SageMakerClient } from "@aws-sdk/client-sagemaker";
 import { SQSClient } from "@aws-sdk/client-sqs";
 import { S3Client } from "@aws-sdk/client-s3";
 
-import { Prompter } from "libs/prompter.js";
-import { SlowLogger } from "libs/slow-logger.js";
+import { Prompter } from "@aws-sdk-examples/libs/prompter.js";
+import { SlowLogger } from "@aws-sdk-examples/libs/slow-logger.js";
 
 import { SageMakerPipelinesWkflw } from "./SageMakerPipelinesWkflw.js";
 

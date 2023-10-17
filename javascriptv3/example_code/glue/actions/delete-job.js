@@ -4,7 +4,7 @@
  */
 
 import { DeleteJobCommand, GlueClient } from "@aws-sdk/client-glue";
-import { DEFAULT_REGION } from "../../libs/utils/util-aws-sdk.js";
+import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 
 /** snippet-start:[javascript.v3.glue.actions.DeleteJob] */
 const deleteJob = (jobName) => {

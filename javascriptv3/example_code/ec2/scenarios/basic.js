@@ -9,7 +9,6 @@ import { fileURLToPath } from "url";
 import { mkdtempSync, writeFileSync, rmSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
-import { createInterface } from "readline";
 import { get } from "http";
 
 import {
@@ -38,8 +37,11 @@ import {
 } from "@aws-sdk/client-ec2";
 import { paginateGetParametersByPath, SSMClient } from "@aws-sdk/client-ssm";
 
-import { promptToSelect, promptToContinue } from "libs/utils/util-io.js";
-import { wrapText } from "libs/utils/util-string.js";
+import {
+  promptToSelect,
+  promptToContinue,
+} from "@aws-sdk-examples/libs/utils/util-io.js";
+import { wrapText } from "@aws-sdk-examples/libs/utils/util-string.js";
 
 const ec2Client = new EC2Client();
 const ssmClient = new SSMClient();
@@ -50,7 +52,7 @@ const createKeyPair = async (keyPairName) => {
   // Create a key pair in Amazon EC2.
   const { KeyMaterial, KeyPairId } = await ec2Client.send(
     // A unique name for the key pair. Up to 255 ASCII characters.
-    new CreateKeyPairCommand({ KeyName: keyPairName })
+    new CreateKeyPairCommand({ KeyName: keyPairName }),
   );
 
   // Save the private key in a temporary location.
@@ -84,7 +86,7 @@ const allocateIpAddress = async () => {
   return { PublicIp, AllocationId };
 };
 
-const getLocalIpAddress = async () => {
+const getLocalIpAddress = () => {
   return new Promise((res, rej) => {
     get("http://checkip.amazonaws.com", (response) => {
       let data = "";
@@ -129,7 +131,7 @@ const getAmznLinux2AMIs = async () => {
     {
       client: ssmClient,
     },
-    { Path: "/aws/service/ami-amazon-linux-latest" }
+    { Path: "/aws/service/ami-amazon-linux-latest" },
   )) {
     page.Parameters.forEach((param) => {
       if (param.Name.includes("amzn2")) {
@@ -142,19 +144,26 @@ const getAmznLinux2AMIs = async () => {
 
   for await (const page of paginateDescribeImages(
     { client: ec2Client },
-    { ImageIds: AMIs }
+    { ImageIds: AMIs },
   )) {
-    imageDetails.push(...page.Images);
+    imageDetails.push(...(page.Images || []));
   }
 
   const options = imageDetails.map(
-    (image) => `${image.ImageId} - ${image.Description}`
+    (image) => `${image.ImageId} - ${image.Description}`,
   );
+
+  /**
+   * @type {number[]}
+   */
   const [selectedIndex] = await promptToSelect(options);
 
   return imageDetails[selectedIndex];
 };
 
+/**
+ * @param {import('@aws-sdk/client-ec2').Image} imageDetails
+ */
 const getCompatibleInstanceTypes = async (imageDetails) => {
   const paginator = paginateDescribeInstanceTypes(
     { client: ec2Client, pageSize: 25 },
@@ -166,24 +175,27 @@ const getCompatibleInstanceTypes = async (imageDetails) => {
         },
         { Name: "instance-type", Values: ["*.micro", "*.small"] },
       ],
-    }
+    },
   );
 
   const instanceTypes = [];
 
   for await (const page of paginator) {
     if (page.InstanceTypes.length) {
-      instanceTypes.push(...page.InstanceTypes);
+      instanceTypes.push(...(page.InstanceTypes || []));
     }
   }
 
   const instanceTypeList = instanceTypes.map(
-    (type) => `${type.InstanceType} - Memory:${type.MemoryInfo.SizeInMiB}`
+    (type) => `${type.InstanceType} - Memory:${type.MemoryInfo.SizeInMiB}`,
   );
 
+  /**
+   * @type {number[]}
+   */
   const [selectedIndex] = await promptToSelect(
     instanceTypeList,
-    "Select an instance type."
+    "Select an instance type.",
   );
   return instanceTypes[selectedIndex];
 };
@@ -206,7 +218,7 @@ const runInstance = async ({
   const { Instances } = await ec2Client.send(command);
   await waitUntilInstanceStatusOk(
     { client: ec2Client },
-    { InstanceIds: [Instances[0].InstanceId] }
+    { InstanceIds: [Instances[0].InstanceId] },
   );
   return Instances[0].InstanceId;
 };
@@ -229,7 +241,7 @@ const stopInstance = async (instanceId) => {
   await ec2Client.send(command);
   await waitUntilInstanceStopped(
     { client: ec2Client },
-    { InstanceIds: [instanceId] }
+    { InstanceIds: [instanceId] },
   );
 };
 
@@ -238,7 +250,7 @@ const startInstance = async (instanceId) => {
   await ec2Client.send(startCommand);
   await waitUntilInstanceStatusOk(
     { client: ec2Client },
-    { InstanceIds: [instanceId] }
+    { InstanceIds: [instanceId] },
   );
   return await describeInstance(instanceId);
 };
@@ -291,7 +303,7 @@ const terminateInstance = async (instanceId) => {
     await ec2Client.send(command);
     await waitUntilInstanceTerminated(
       { client: ec2Client },
-      { InstanceIds: [instanceId] }
+      { InstanceIds: [instanceId] },
     );
     console.log(`🧹 Instance with ID ${instanceId} terminated.\n`);
   } catch (err) {
@@ -351,7 +363,7 @@ export const main = async () => {
       "\n - An IP Address",
       "\n - An AMI",
       "\n - A compatible instance type",
-      "\n\n I'll go ahead and take care of the first three, but I'll need your help for the rest."
+      "\n\n I'll go ahead and take care of the first three, but I'll need your help for the rest.",
     );
 
     await promptToContinue();
@@ -368,7 +380,7 @@ export const main = async () => {
     console.log(`✅ created the key pair ${KeyName}.\n`);
     console.log(
       `✅ created the security group ${GroupName}`,
-      `and allowed SSH access from ${ipAddress} (your IP).\n`
+      `and allowed SSH access from ${ipAddress} (your IP).\n`,
     );
     console.log(`✅ allocated ${publicIp} to be used for your EC2 instance.\n`);
 
@@ -377,7 +389,7 @@ export const main = async () => {
     // Creating the instance
     console.log(wrapText("Create the instance."));
     console.log(
-      "You get to choose which image you want. Select an amazon-linux-2 image from the following:"
+      "You get to choose which image you want. Select an amazon-linux-2 image from the following:",
     );
     const imageDetails = await getAmznLinux2AMIs();
     const instanceTypeDetails = await getCompatibleInstanceTypes(imageDetails);
@@ -396,7 +408,7 @@ export const main = async () => {
       `\n${displaySSHConnectionInfo({
         publicIp: instanceDetails.PublicIpAddress,
         keyPairName,
-      })}`
+      })}`,
     );
 
     await promptToContinue();
@@ -405,7 +417,7 @@ export const main = async () => {
     console.log(wrapText("Understanding the IP address."));
     console.log(
       "When you stop and start an instance, the IP address will change. I'll restart your",
-      "instance for you. Notice how the IP address changes."
+      "instance for you. Notice how the IP address changes.",
     );
     const ipAddressAfterRestart = await restartInstance(instanceId);
     console.log(
@@ -413,12 +425,12 @@ export const main = async () => {
       `\n${displaySSHConnectionInfo({
         publicIp: ipAddressAfterRestart,
         keyPairName,
-      })}`
+      })}`,
     );
     await promptToContinue();
     console.log(
       `If you want to the IP address to be static, you can associate an allocated`,
-      `IP address to your instance. I allocated ${publicIp} for you earlier, and now I'll associate it to your instance.`
+      `IP address to your instance. I allocated ${publicIp} for you earlier, and now I'll associate it to your instance.`,
     );
     associationId = await associateAddress({
       allocationId: ipAllocationId,
@@ -426,11 +438,11 @@ export const main = async () => {
     });
     console.log(
       "Done. Now you should be able to SSH using the new IP.\n",
-      `${displaySSHConnectionInfo({ publicIp, keyPairName })}`
+      `${displaySSHConnectionInfo({ publicIp, keyPairName })}`,
     );
     await promptToContinue();
     console.log(
-      "I'll restart the server again so you can see the IP address remains the same."
+      "I'll restart the server again so you can see the IP address remains the same.",
     );
     const ipAddressAfterAssociated = await restartInstance(instanceId);
     console.log(
@@ -438,7 +450,7 @@ export const main = async () => {
       `\n${displaySSHConnectionInfo({
         publicIp: ipAddressAfterAssociated,
         keyPairName,
-      })}`
+      })}`,
     );
     await promptToContinue();
   } catch (err) {
@@ -458,7 +470,7 @@ export const main = async () => {
     console.log(
       "Done cleaning up. Thanks for staying until the end!",
       "If you have any feedback please use the feedback button in the docs",
-      "or create an issue on GitHub."
+      "or create an issue on GitHub.",
     );
   }
 };

@@ -20,12 +20,7 @@ const createListReceiptFiltersCommand = () => new ListReceiptFiltersCommand({});
 const run = async () => {
   const listReceiptFiltersCommand = createListReceiptFiltersCommand();
 
-  try {
-    return await sesClient.send(listReceiptFiltersCommand);
-  } catch (err) {
-    console.log("Failed to list receipt filters.", err);
-    return err;
-  }
+  return await sesClient.send(listReceiptFiltersCommand);
 };
 // snippet-end:[ses.JavaScript.filters.listReceiptFiltersV3]
 

@@ -3,7 +3,7 @@ import { describe, it, expect } from "vitest";
 import { createAccountAlias } from "../actions/create-account-alias.js";
 import { deleteAccountAlias } from "../actions/delete-account-alias.js";
 import { listAccountAliases } from "../actions/list-account-aliases.js";
-import { getUniqueName } from "libs/utils/util-string.js";
+import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
 
 describe("Account alias test", () => {
   it("should create, read, and delete an account alias", async () => {

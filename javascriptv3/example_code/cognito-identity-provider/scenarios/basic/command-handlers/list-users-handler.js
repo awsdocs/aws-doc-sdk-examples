@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { getFirstEntry } from "libs/utils/util-csv.js";
-import { log } from "libs/utils/util-log.js";
+import { getFirstEntry } from "@aws-sdk-examples/libs/utils/util-csv.js";
+import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
 import { listUsers } from "../../../actions/list-users.js";
 import { FILE_USER_POOLS } from "./constants.js";
 

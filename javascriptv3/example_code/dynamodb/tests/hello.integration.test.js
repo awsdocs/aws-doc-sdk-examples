@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 
 import { main } from "../hello.js";
-import { getUniqueName } from "libs/utils/util-string.js";
+import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
 import { tableSetupTeardown } from "../libs/dynamodb-test.utils.js";
 
 describe("hello test", () => {

@@ -20,9 +20,12 @@ import { fileURLToPath } from "url";
 import { readdirSync, readFileSync, writeFileSync } from "fs";
 
 // Local helper utils.
-import { dirnameFromMetaUrl } from "libs/utils/util-fs.js";
-import { promptForText, promptToContinue } from "libs/utils/util-io.js";
-import { wrapText } from "libs/utils/util-string.js";
+import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
+import {
+  promptForText,
+  promptToContinue,
+} from "@aws-sdk-examples/libs/utils/util-io.js";
+import { wrapText } from "@aws-sdk-examples/libs/utils/util-string.js";
 
 import {
   S3Client,

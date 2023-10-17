@@ -20,8 +20,8 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 
-import { dirnameFromMetaUrl } from "../../libs/utils/util-fs.js";
-import { DEFAULT_REGION } from "../../libs/utils/util-aws-sdk.js";
+import { dirnameFromMetaUrl } from "@aws-sdk-examples/libs/utils/util-fs.js";
+import { DEFAULT_REGION } from "@aws-sdk-examples/libs/utils/util-aws-sdk.js";
 import { createCrawler } from "../actions/create-crawler.js";
 import { getCrawler } from "../actions/get-crawler.js";
 import { deleteCrawler } from "../actions/delete-crawler.js";

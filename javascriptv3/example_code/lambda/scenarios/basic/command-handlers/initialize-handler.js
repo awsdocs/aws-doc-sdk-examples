@@ -2,8 +2,8 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
-import { log } from "../../../../libs/utils/util-log.js";
-import { getTmp, setTmp } from "../../../../libs/utils/util-fs.js";
+import { log } from "@aws-sdk-examples/libs/utils/util-log.js";
+import { getTmp, setTmp } from "@aws-sdk-examples/libs/utils/util-fs.js";
 import { attachRolePolicy } from "../../../../iam/actions/attach-role-policy.js";
 import { createRole } from "../../../../iam/actions/create-role.js";
 import {

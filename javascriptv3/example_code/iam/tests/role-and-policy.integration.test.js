@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import { getUniqueName } from "libs/utils/util-string.js";
+import { getUniqueName } from "@aws-sdk-examples/libs/utils/util-string.js";
 
 import { createRole } from "../actions/create-role.js";
 import { getRole } from "../actions/get-role.js";
