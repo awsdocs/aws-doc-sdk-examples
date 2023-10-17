@@ -103,6 +103,7 @@ export class AppStack extends Stack {
         "image/png",
         "binary/octet-stream",
         "audio/mp3",
+        "audio/mpeg",
       ],
       cloudWatchRole: true,
       deployOptions: {

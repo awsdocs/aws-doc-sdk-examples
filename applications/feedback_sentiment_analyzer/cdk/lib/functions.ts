@@ -214,11 +214,119 @@ const JAVA_FUNCTIONS: AppFunctionConfig[] = [
   },
 ];
 
+const DOTNET_FUNCTIONS = [
+  {
+    ...BASE_APP_FUNCTION,
+    name: "ExtractText",
+    handler: "FsaExtractText::FsaExtractText.ExtractTextFunction::FunctionHandler",
+    runtime: Runtime.DOTNET_6,
+    codeAsset() {
+      const source = resolve(
+          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
+      );
+      return Code.fromAsset(source, {
+        bundling: {
+          command: [
+            "/bin/sh",
+            "-c",
+            " dotnet tool install -g Amazon.Lambda.Tools" +
+            " && dotnet build" +
+            " && cd FsaExtractText" +
+            " && dotnet lambda package --output-package /asset-output/function.zip",
+          ],
+          image: Runtime.DOTNET_6.bundlingImage,
+          user: "root",
+          outputType: BundlingOutput.ARCHIVED,
+        },
+      });
+    },
+  },
+  {
+    ...BASE_APP_FUNCTION,
+    name: "AnalyzeSentiment",
+    handler: "FsaAnalyzeSentiment::FsaAnalyzeSentiment.AnalyzeSentimentFunction::FunctionHandler",
+    runtime: Runtime.DOTNET_6,
+    codeAsset() {
+      const source = resolve(
+          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
+      );
+      return Code.fromAsset(source, {
+        bundling: {
+          command: [
+            "/bin/sh",
+            "-c",
+            " dotnet tool install -g Amazon.Lambda.Tools" +
+            " && dotnet build" +
+            " && cd FsaAnalyzeSentiment" +
+            " && dotnet lambda package --output-package /asset-output/function.zip",
+          ],
+          image: Runtime.DOTNET_6.bundlingImage,
+          user: "root",
+          outputType: BundlingOutput.ARCHIVED,
+        },
+      });
+    },
+  },
+  {
+    ...BASE_APP_FUNCTION,
+    name: "TranslateText",
+    handler: "FsaTranslateText::FsaTranslateText.TranslateTextFunction::FunctionHandler",
+    runtime: Runtime.DOTNET_6,
+    codeAsset() {
+      const source = resolve(
+          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
+      );
+      return Code.fromAsset(source, {
+        bundling: {
+          command: [
+            "/bin/sh",
+            "-c",
+            " dotnet tool install -g Amazon.Lambda.Tools" +
+            " && dotnet build" +
+            " && cd FsaTranslateText" +
+            " && dotnet lambda package --output-package /asset-output/function.zip",
+          ],
+          image: Runtime.DOTNET_6.bundlingImage,
+          user: "root",
+          outputType: BundlingOutput.ARCHIVED,
+        },
+      });
+    },
+  },
+  {
+    ...BASE_APP_FUNCTION,
+    name: "SynthesizeAudio",
+    handler: "FsaSynthesizeAudio::FsaSynthesizeAudio.SynthesizeAudioFunction::FunctionHandler",
+    runtime: Runtime.DOTNET_6,
+    codeAsset() {
+      const source = resolve(
+          "../../../dotnetv3/cross-service/FeedbackSentimentAnalyzer"
+      );
+      return Code.fromAsset(source, {
+        bundling: {
+          command: [
+            "/bin/sh",
+            "-c",
+            " dotnet tool install -g Amazon.Lambda.Tools" +
+            " && dotnet build" +
+            " && cd FsaSynthesizeAudio" +
+            " && dotnet lambda package --output-package /asset-output/function.zip",
+          ],
+          image: Runtime.DOTNET_6.bundlingImage,
+          user: "root",
+          outputType: BundlingOutput.ARCHIVED,
+        },
+      });
+    },
+  },
+];
+
 const FUNCTIONS: Record<string, AppFunctionConfig[]> = {
   examplelang: EXAMPLE_LANG_FUNCTIONS,
   ruby: RUBY_FUNCTIONS,
   java: JAVA_FUNCTIONS,
   javascript: JAVASCRIPT_FUNCTIONS,
+  dotnet: DOTNET_FUNCTIONS,
 };
 export function getFunctions(language: string = ""): AppFunctionConfig[] {
   return FUNCTIONS[language] ?? FUNCTIONS.examplelang;

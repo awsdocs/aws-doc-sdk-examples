@@ -15,7 +15,25 @@ using the AWS SDK for .NET.
 
 ## Cross-service examples
 
-### [Serverless photo asset management application](PhotoAssetManager/Readme.md)
+### [Feedback Sentiment Analyzer application](FeedbackSentimentAnalyzer/README.md)
+
+Create a Feedback Sentiment Analyzer (FSA) example app that analyzes and stores customer feedback cards. Specifically,
+it fulfills the need of a fictitious hotel in New York City. The hotel receives feedback
+from guests in various languages in the form of physical comment cards. That feedback
+is uploaded into the app through a web client.
+
+The application uses the following services:
+
+- Amazon Textract
+- Amazon Translate
+- Amazon Comprehend
+- Amazon Simple Storage Service (Amazon S3)
+- Amazon Polly
+- AWS Lambda
+- Amazon Cognito
+- Amazon API Gateway
+
+### [Serverless photo asset management application](PhotoAssetManager/README.md)
 
 Create a Photo Asset Management (PAM) example app that uses Amazon Rekognition to categorize images, which are stored with Amazon S3 Intelligent-Tiering for cost savings. Users can upload new images. Those images are analyzed with label detection and the labels are stored in an Amazon DynamoDB table. Users can later request a bundle of images matching those labels. When images are requested, they are retrieved from Amazon S3, zipped, and the user is sent a link to the zip.
 

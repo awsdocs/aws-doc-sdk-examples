@@ -17,6 +17,7 @@ This application has been implemented with the following AWS SDKs.
 - [Ruby](../../ruby/cross_service_examples/feedback_sentiment_analyzer/README.md)
 - [JavaScript](../../javascriptv3/example_code/cross-services/feedback-sentiment-analyzer/README.md)
 - [Java](../../javav2/usecases/creating_fsa_app/README.md)
+- [.NET](../../dotnetv3/cross-service/FeedbackSentimentAnalyzer/README.md)
 
 To deploy one of these implementations, follow the [Deployment instructions](#deployment-instructions).
 

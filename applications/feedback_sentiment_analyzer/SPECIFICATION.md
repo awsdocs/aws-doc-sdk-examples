@@ -285,7 +285,7 @@ For example:
 
 ### SynthesizeAudio
 
-Uses the Amazon Polly [SynthesizeSpeech](https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html) method to convert input text into life-like speech. Store the synthesized audio in the provided Amazon S3 bucket with a content type of "audio/mp3".
+Uses the Amazon Polly [SynthesizeSpeech](https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html) method to convert input text into life-like speech. Store the synthesized audio in the provided Amazon S3 bucket with a content type of "audio/mpeg".
 
 #### **Input**
 
