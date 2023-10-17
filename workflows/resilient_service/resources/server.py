@@ -91,7 +91,9 @@ class RequestHandler(BaseHTTPRequestHandler):
         elif self.path == '/healthcheck':
             response_code = 200
             success = True
-            if parameters[health_check] == 'deep':
+            if not health_check in parameters:
+                print(f"{health_check} parameter not found.")
+            elif parameters[health_check] == 'deep':
                 try:
                     response = self.dynamodb_client.describe_table(TableName=parameters[table])
                     if response['Table']['TableStatus'] == 'ACTIVE':

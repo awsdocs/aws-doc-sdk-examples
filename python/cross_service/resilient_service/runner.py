@@ -37,6 +37,7 @@ class Runner:
         self.param_helper = param_helper
         self.protocol = 'HTTP'
         self.port = 80
+        self.ssh_port = 22
 
     def deploy(self):
         recommendations_path = f'{self.resource_path}/recommendations.json'
@@ -79,6 +80,9 @@ class Runner:
         print('-'*88)
         q.ask("Press Enter when you're ready to continue.")
 
+        print(f"Creating variables that control the flow of the demo.\n")
+        self.param_helper.reset()
+
         print("\nCreating an Elastic Load Balancing target group and load balancer. The target group\n"
               "defines how the load balancer connects to instances. The load balancer provides a\n"
               "single endpoint where clients connect and dispatches requests to instances in the group.\n")
@@ -93,6 +97,7 @@ class Runner:
             print("Couldn't connect to the load balancer, verifying that the port is open...")
             current_ip_address = requests.get('http://checkip.amazonaws.com').text.strip()
             sec_group, port_is_open = self.autoscaler.verify_inbound_port(vpc, self.port, current_ip_address)
+            sec_group, ssh_port_is_open = self.autoscaler.verify_inbound_port(vpc, self.ssh_port, current_ip_address)
             if not port_is_open:
                 print("For this example to work, the default security group for your default VPC must\n"
                       "allows access from this computer. You can either add it automatically from this\n"
@@ -101,6 +106,11 @@ class Runner:
                       f"inbound traffic on port {self.port} from your computer's IP address of {current_ip_address}? (y/n) ",
                       q.is_yesno):
                     self.autoscaler.open_inbound_port(sec_group['GroupId'], self.port, current_ip_address)
+            if not ssh_port_is_open:
+                  if q.ask(f"Do you want to add a rule to security group {sec_group['GroupId']} to allow\n"
+                      f"inbound SSH traffic on port {self.ssh_port} for debugging from your computer's IP address of {current_ip_address}? (y/n) ",
+                      q.is_yesno):
+                        self.autoscaler.open_inbound_port(sec_group['GroupId'], self.ssh_port, current_ip_address)
             lb_success = self.loadbalancer.verify_load_balancer_endpoint()
         if lb_success:
             print("Your load balancer is ready. You can access it by browsing to:\n")
@@ -234,6 +244,7 @@ class Runner:
             self.loadbalancer.delete_load_balancer()
             self.loadbalancer.delete_target_group()
             self.autoscaler.delete_group()
+            self.autoscaler.delete_key_pair()
             self.autoscaler.delete_template()
             self.autoscaler.delete_instance_profile(
                 self.autoscaler.bad_creds_profile_name, self.autoscaler.bad_creds_role_name)
