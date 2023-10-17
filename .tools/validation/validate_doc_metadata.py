@@ -218,6 +218,8 @@ def validate_all(doc_gen: Path):
     meta_names = glob.glob(os.path.join(doc_gen, "metadata/curated/*_metadata.yaml"))
     success &= validate_files(schema_name, meta_names, validators)
 
+    return success
+
 
 def main():
     parser = argparse.ArgumentParser()

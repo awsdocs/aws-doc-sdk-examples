@@ -191,6 +191,7 @@ ALLOW_LIST = {
     "ses/commands/DeleteReceiptRuleSetCommand",
     "ses/commands/VerifyDomainIdentityCommand",
     "src/main/java/com/example/dynamodb/Query",
+    "src/main/java/com/example/iam/CreateRole",
     "src/main/java/com/example/iam/CreateUser",
     "src/main/java/com/example/iam/DeleteUser",
     "src/main/java/com/example/iam/UpdateUser",
