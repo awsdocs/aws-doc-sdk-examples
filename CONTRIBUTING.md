@@ -62,7 +62,3 @@ If you discover a potential security issue, please notify AWS Security via our [
 ### Licensing disclaimer
 See the [LICENSE](https://github.com/awsdocs/aws-doc-sdk-examples/blob/main/LICENSE) file for this project's licensing.
 
----
-
-## Questions
-To request help or clarification on this `CONTRIBUTING.md`, add a comment in your issue and we will reply within 5 business days.
