@@ -1,17 +1,11 @@
 #!/bin/bash
 
-HAS_3_11=$(python3.11 --version > /dev/null && echo "yes")
-HAS_3_12=$(python3.12 --version > /dev/null && echo "yes")
+MIN_VERSION=11
 
-if [ "yes" ~= "${HAS_3_11}${HAS_3_12}"] ; then
-else
-  echo "No python3.11 or python3.12"
-  exit 1
-fi
-
+# Check that the minor version of the default python3 command is at least 11.
 PYTHON3_MINOR=$(python3 --version | cut -d '.' -f 2)
-if [ "$PYTHON3_MINOR" -lt 11 ] ; then
-  echo "python3 default minor version less than 11"
+if [ "$PYTHON3_MINOR" -lt "$MIN_VERSION" ] ; then
+  echo "python3 default minor version less than $MIN_VERSION"
   exit 1
 fi
 

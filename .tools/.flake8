@@ -1,4 +1,5 @@
 [flake8]
+# E203 Whitespace before : and E501 Line Length disagree with Black's defaults.
 extend-ignore = E203,E501
 exclude =
     .git,
