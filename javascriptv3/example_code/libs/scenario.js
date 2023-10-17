@@ -14,6 +14,13 @@ class Step {
   constructor(name) {
     this.name = name;
   }
+
+  /**
+   * Alias for "name".
+   */
+  get key() {
+    return this.name;
+  }
 }
 
 export class ScenarioOutput extends Step {
@@ -36,8 +43,10 @@ export class ScenarioOutput extends Step {
   async handle(context) {
     const output =
       typeof this.value === "function" ? this.value(context) : this.value;
+    const paddingTop = "\n";
+    const paddingBottom = "\n";
     const logger = this.options.slow ? this.slowLogger : this.logger;
-    await logger.log(JSON.stringify(output));
+    await logger.log(paddingTop + output + paddingBottom);
   }
 }
 
@@ -45,7 +54,7 @@ export class ScenarioInput extends Step {
   /**
    * @param {string} name
    * @param {string} prompt
-   * @param {{ type: "input" | "multi-select" | "select", choices: { name: string, value: string }[]} options
+   * @param {{ type: "confirm" | "input" | "multi-select" | "select", choices: (string | { name: string, value: string })[]} options
    */
   constructor(name, prompt, options) {
     super(name);
@@ -58,18 +67,27 @@ export class ScenarioInput extends Step {
    * @param {Record<string, any>} context
    */
   async handle(context) {
+    const choices =
+      this.options.choices && typeof this.options.choices[0] === "string"
+        ? this.options.choices.map((s) => ({ name: s, value: s }))
+        : this.options.choices;
+
     if (this.options.type === "multi-select") {
       context[this.name] = await this.prompter.checkbox({
         message: this.prompt,
-        choices: this.options.choices,
+        choices,
       });
     } else if (this.options.type === "select") {
       context[this.name] = await this.prompter.select({
         message: this.prompt,
-        choices: this.options.choices,
+        choices,
       });
     } else if (this.options.type === "input") {
       context[this.name] = await this.prompter.input({ message: this.prompt });
+    } else if (this.options.type === "confirm") {
+      context[this.name] = await this.prompter.confirm({
+        message: this.prompt,
+      });
     } else {
       throw new Error(
         `Error handling ScenarioInput, ${this.options.type} is not supported.`,
@@ -101,10 +119,14 @@ export class Scenario {
   context = {};
 
   /**
+   * @param {string} name
    * @param {(ScenarioOutput | ScenarioInput | ScenarioAction)[]} steps
+   * @param {Record<string, any>} initialContext
    */
-  constructor(steps = []) {
+  constructor(name, steps = [], initialContext = {}) {
+    this.name = name;
     this.steps = steps;
+    this.context = { ...initialContext, name };
   }
 
   async run() {
