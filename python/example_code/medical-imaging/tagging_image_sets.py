@@ -39,7 +39,8 @@ if __name__ == "__main__":
     an_image_set_arn = (
         "arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/"
         "imageset/12345678901234567890123456789012"
-    )  # snippet-end:[python.example_code.medical-imaging.tagging_image_set.arn]
+    )
+    # snippet-end:[python.example_code.medical-imaging.tagging_image_set.arn]
 
     an_image_set_arn = input(f"Enter the ARN of the image set to tag: ")
 
