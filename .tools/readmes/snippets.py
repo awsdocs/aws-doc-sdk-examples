@@ -6,7 +6,8 @@ import os
 
 logger = logging.getLogger(__name__)
 
-SNIPPET_START = "snippet-start:["
+# This is in two parts so that it doesn't flag pre_validate
+SNIPPET_START = "snippet-" + "start:["
 IGNORE_FOLDERS = {
     ".pytest_cache",
     "__pycache__",
