@@ -8,7 +8,7 @@ import {
   ScenarioAction,
   ScenarioInput,
   ScenarioOutput,
-} from "@aws-sdk-examples/libs/scenario.js";
+} from "./index.js";
 
 const greet = new ScenarioOutput(
   "greet",

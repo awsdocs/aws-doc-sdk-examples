@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Prompter } from "./prompter.js";
-import { Logger } from "./logger.js";
-import { SlowLogger } from "./slow-logger.js";
+import { Prompter } from "../prompter.js";
+import { Logger } from "../logger.js";
+import { SlowLogger } from "../slow-logger.js";
 
-class Step {
+export class Step {
   /**
    * @param {string} name
    */
@@ -20,6 +20,13 @@ class Step {
    */
   get key() {
     return this.name;
+  }
+
+  /**
+   * @param {Record<string, any>} context
+   */
+  handle(context) {
+    console.log(JSON.stringify(context));
   }
 }
 
