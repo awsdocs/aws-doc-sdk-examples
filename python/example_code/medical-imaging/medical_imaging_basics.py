@@ -8,14 +8,15 @@ Shows how to use the AWS SDK for Python (Boto3) to manage and invoke AWS HealthI
 functions.
 """
 
-import logging
-from botocore.exceptions import ClientError
-import time
 import datetime
-import boto3
-import random
 import gzip
 import json
+import logging
+import random
+import time
+
+import boto3
+from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
@@ -246,10 +247,15 @@ class MedicalImagingWrapper:
         """
         try:
             if version_id:
-                image_set = self.health_imaging_client.get_image_set(imageSetId=image_set_id, datastoreId=datastore_id,
-                                                                     versionId=version_id)
+                image_set = self.health_imaging_client.get_image_set(
+                    imageSetId=image_set_id,
+                    datastoreId=datastore_id,
+                    versionId=version_id,
+                )
             else:
-                image_set = self.health_imaging_client.get_image_set(imageSetId=image_set_id, datastoreId=datastore_id)
+                image_set = self.health_imaging_client.get_image_set(
+                    imageSetId=image_set_id, datastoreId=datastore_id
+                )
         except ClientError as err:
             logger.error(
                 "Couldn't get image set. Here's why: %s: %s",
@@ -277,15 +283,18 @@ class MedicalImagingWrapper:
         try:
             if version_id:
                 # snippet-start:[python.example_code.medical-imaging.GetImageSetMetadata.withVersionID]
-                image_set_metadata = self.health_imaging_client.get_image_set_metadata(imageSetId=image_set_id,
-                                                                                       datastoreId=datastore_id,
-                                                                                       versionId=version_id)
+                image_set_metadata = self.health_imaging_client.get_image_set_metadata(
+                    imageSetId=image_set_id,
+                    datastoreId=datastore_id,
+                    versionId=version_id,
+                )
                 # snippet-end:[python.example_code.medical-imaging.GetImageSetMetadata.withVersionID]
             else:
                 # snippet-start:[python.example_code.medical-imaging.GetImageSetMetadata.withoutVersionID]
 
-                image_set_metadata = self.health_imaging_client.get_image_set_metadata(imageSetId=image_set_id,
-                                                                                       datastoreId=datastore_id)
+                image_set_metadata = self.health_imaging_client.get_image_set_metadata(
+                    imageSetId=image_set_id, datastoreId=datastore_id
+                )
                 # snippet-end:[python.example_code.medical-imaging.GetImageSetMetadata.withoutVersionID]
             print(image_set_metadata)
             with open(metadata_file, "wb") as f:
@@ -421,18 +430,23 @@ class MedicalImagingWrapper:
         """
         try:
             # snippet-start:[python.example_code.medical-imaging.CopyImageSet1]
-            copy_image_set_information = {'sourceImageSet': {'latestVersionId': version_id}}
+            copy_image_set_information = {
+                "sourceImageSet": {"latestVersionId": version_id}
+            }
             # snippet-end:[python.example_code.medical-imaging.CopyImageSet1]
             # snippet-start:[python.example_code.medical-imaging.CopyImageSet2]
             if destination_image_set_id and destination_version_id:
-                copy_image_set_information["destinationImageSet"] = {"imageSetId": destination_image_set_id,
-                                                                     "latestVersionId": destination_version_id}
+                copy_image_set_information["destinationImageSet"] = {
+                    "imageSetId": destination_image_set_id,
+                    "latestVersionId": destination_version_id,
+                }
             # snippet-end:[python.example_code.medical-imaging.CopyImageSet2]
             # snippet-start:[python.example_code.medical-imaging.CopyImageSet3]
             copy_results = self.health_imaging_client.copy_image_set(
                 datastoreId=datastore_id,
                 sourceImageSetId=image_set_id,
-                copyImageSetInformation=copy_image_set_information)
+                copyImageSetInformation=copy_image_set_information,
+            )
             # snippet-end:[python.example_code.medical-imaging.CopyImageSet3]
         except ClientError as err:
             logger.error(
@@ -533,10 +547,9 @@ class MedicalImagingWrapper:
             )
             raise
         else:
-            return tags['tags']
+            return tags["tags"]
 
     # snippet-end:[python.example_code.medical-imaging.ListTagsForResource]
-
 
     def usage_demo(self, source_s3_uri, dest_s3_uri, data_access_role_arn):
         data_store_name = f"python_usage_demo_data_store_{random.randint(0, 200000)}"
@@ -547,7 +560,7 @@ class MedicalImagingWrapper:
         while True:
             time.sleep(1)
             datastore_properties = self.get_datastore_properties(data_store_id)
-            datastore_status = datastore_properties['datastoreStatus']
+            datastore_status = datastore_properties["datastoreStatus"]
             print(f'data store status: "{datastore_status}"')
             if datastore_status == "ACTIVE":
                 break
@@ -558,15 +571,15 @@ class MedicalImagingWrapper:
         print(f"datastores : {datastores}")
 
         job_name = "python_usage_demo_job"
-        job_id = self.start_dicom_import_job(job_name, data_store_id,
-                                             data_access_role_arn,
-                                             source_s3_uri, dest_s3_uri)
+        job_id = self.start_dicom_import_job(
+            job_name, data_store_id, data_access_role_arn, source_s3_uri, dest_s3_uri
+        )
         print(f"Started import job with id: {job_id}")
 
         while True:
             time.sleep(1)
             job = self.get_dicom_import_job(data_store_id, job_id)
-            job_status = job['jobStatus']
+            job_status = job["jobStatus"]
             print(f'Status of import job : "{job_status}"')
             if job_status == "COMPLETED":
                 break
@@ -580,16 +593,38 @@ class MedicalImagingWrapper:
 
             # Search with EQUAL operator..
             # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case1]
-        filter = {"filters": [{"operator": "EQUAL", "values": [{"DICOMPatientId": "3524578"}]}]}
+        filter = {
+            "filters": [
+                {"operator": "EQUAL", "values": [{"DICOMPatientId": "3524578"}]}
+            ]
+        }
 
         image_sets = self.search_image_sets(data_store_id, filter)
         # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case1]
 
         # Search with BETWEEN operator using DICOMStudyDate and DICOMStudyTime.
         # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case2]
-        filter = {"filters": [{"operator": "BETWEEN", "values": [
-            {"DICOMStudyDateAndTime": {"DICOMStudyDate": "19900101", "DICOMStudyTime": "000000"}},
-            {"DICOMStudyDateAndTime": {"DICOMStudyDate": "20230101", "DICOMStudyTime": "000000"}}]}]}
+        filter = {
+            "filters": [
+                {
+                    "operator": "BETWEEN",
+                    "values": [
+                        {
+                            "DICOMStudyDateAndTime": {
+                                "DICOMStudyDate": "19900101",
+                                "DICOMStudyTime": "000000",
+                            }
+                        },
+                        {
+                            "DICOMStudyDateAndTime": {
+                                "DICOMStudyDate": "20230101",
+                                "DICOMStudyTime": "000000",
+                            }
+                        },
+                    ],
+                }
+            ]
+        }
 
         image_sets = self.search_image_sets(data_store_id, filter)
         # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case2]
@@ -597,49 +632,65 @@ class MedicalImagingWrapper:
         # Search with BETWEEN operator using createdAt. Time studies were previously persisted.
         # snippet-start:[python.example_code.medical-imaging.SearchImageSets.use_case3]
         filter = {
-            "filters": [{
-                "values": [{"createdAt": datetime.datetime(2021, 8, 4, 14, 49, 54, 429000)},
-                           {"createdAt": datetime.datetime.now() + datetime.timedelta(days=1)}],
-                "operator": "BETWEEN"
-            }]
+            "filters": [
+                {
+                    "values": [
+                        {
+                            "createdAt": datetime.datetime(
+                                2021, 8, 4, 14, 49, 54, 429000
+                            )
+                        },
+                        {
+                            "createdAt": datetime.datetime.now()
+                            + datetime.timedelta(days=1)
+                        },
+                    ],
+                    "operator": "BETWEEN",
+                }
+            ]
         }
 
         image_sets = self.search_image_sets(data_store_id, filter)
         # snippet-end:[python.example_code.medical-imaging.SearchImageSets.use_case3]
 
-        image_set_ids = [image_set['imageSetId'] for image_set in image_sets]
+        image_set_ids = [image_set["imageSetId"] for image_set in image_sets]
         for image_set in image_sets:
             print(image_set)
 
-        image_set_id = image_sets[0]['imageSetId']
-        version_id = image_sets[0]['version']
-        returned_image_set = self.get_image_set(data_store_id, image_set_id, str(version_id))
+        image_set_id = image_sets[0]["imageSetId"]
+        version_id = image_sets[0]["version"]
+        returned_image_set = self.get_image_set(
+            data_store_id, image_set_id, str(version_id)
+        )
         print(returned_image_set)
 
         image_metadata_file_name = "metadata.json.gzip"
-        self.get_image_set_metadata(image_metadata_file_name, data_store_id,
-                                    image_set_id)
+        self.get_image_set_metadata(
+            image_metadata_file_name, data_store_id, image_set_id
+        )
         image_frame_id = ""
-        with gzip.open(image_metadata_file_name, 'rb') as f_in:
+        with gzip.open(image_metadata_file_name, "rb") as f_in:
             data = json.load(f_in)
-            series = data['Study']['Series']
+            series = data["Study"]["Series"]
             for value in series.values():
-                for instance in value['Instances'].values():
-                    image_frame_id = instance['ImageFrames'][0]['ID']
+                for instance in value["Instances"].values():
+                    image_frame_id = instance["ImageFrames"][0]["ID"]
 
         if image_frame_id == "":
             raise Exception("Image frame id is empty")
 
         image_file_name = "image_frame.jph"
-        self.get_pixel_data(image_file_name, data_store_id,
-                            image_set_id,
-                            image_frame_id)
+        self.get_pixel_data(
+            image_file_name, data_store_id, image_set_id, image_frame_id
+        )
 
         returned_versions = self.list_image_set_versions(data_store_id, image_set_id)
         for version in returned_versions:
             print(version)
 
-        copied_image_set_id = self.copy_image_set(data_store_id, image_set_id, str(version_id))
+        copied_image_set_id = self.copy_image_set(
+            data_store_id, image_set_id, str(version_id)
+        )
         print(f"Copied image set to new image set with ID : {copied_image_set_id}")
 
         image_set_ids.append(copied_image_set_id)
@@ -648,20 +699,30 @@ class MedicalImagingWrapper:
         while True:
             time.sleep(1)
             try:
-                image_set_properties = self.get_image_set(data_store_id, copied_image_set_id)
+                image_set_properties = self.get_image_set(
+                    data_store_id, copied_image_set_id
+                )
             except ClientError as err:
-                print(f"get_image_set raised an error {err.response['Error']['Message']}")
+                print(
+                    f"get_image_set raised an error {err.response['Error']['Message']}"
+                )
                 break
 
-            image_set_state = image_set_properties['imageSetState']
-            print(f'Image set with id : "{copied_image_set_id}" has status: "{image_set_state}"')
+            image_set_state = image_set_properties["imageSetState"]
+            print(
+                f'Image set with id : "{copied_image_set_id}" has status: "{image_set_state}"'
+            )
             if image_set_state != "LOCKED":
                 break
 
-        attributes = "{\"SchemaVersion\":1.1,\"Patient\":{\"DICOM\":{\"PatientName\":\"Garcia^Gloria\"}}}"
+        attributes = (
+            '{"SchemaVersion":1.1,"Patient":{"DICOM":{"PatientName":"Garcia^Gloria"}}}'
+        )
         metadata = {"DICOMUpdates": {"updatableAttributes": attributes}}
 
-        self.update_image_set_metadata(data_store_id, copied_image_set_id, "1", metadata)
+        self.update_image_set_metadata(
+            data_store_id, copied_image_set_id, "1", metadata
+        )
         print(f"Updated metadata for image set with id : {copied_image_set_id}")
 
         # Wait for all image sets to change from LOCKED status before deleting.
@@ -669,13 +730,19 @@ class MedicalImagingWrapper:
             while True:
                 time.sleep(1)
                 try:
-                    image_set_properties = self.get_image_set(data_store_id, image_set_id)
+                    image_set_properties = self.get_image_set(
+                        data_store_id, image_set_id
+                    )
                 except ClientError as err:
-                    print(f"get_image_set raised an error {err.response['Error']['Message']}")
+                    print(
+                        f"get_image_set raised an error {err.response['Error']['Message']}"
+                    )
                     break
 
-                image_set_state = image_set_properties['imageSetState']
-                print(f'Image set with id : "{image_set_id}" has status: "{image_set_state}"')
+                image_set_state = image_set_properties["imageSetState"]
+                print(
+                    f'Image set with id : "{image_set_id}" has status: "{image_set_state}"'
+                )
                 if image_set_state != "LOCKED":
                     break
 
@@ -688,13 +755,19 @@ class MedicalImagingWrapper:
             while True:
                 time.sleep(1)
                 try:
-                    image_set_properties = self.get_image_set(data_store_id, image_set_id)
+                    image_set_properties = self.get_image_set(
+                        data_store_id, image_set_id
+                    )
                 except ClientError as err:
-                    print(f"get_image_set raised an error {err.response['Error']['Message']}")
+                    print(
+                        f"get_image_set raised an error {err.response['Error']['Message']}"
+                    )
                     break
 
-                image_set_state = image_set_properties['imageSetState']
-                print(f'Image set with id : "{image_set_id}" has status: "{image_set_state}"')
+                image_set_state = image_set_properties["imageSetState"]
+                print(
+                    f'Image set with id : "{image_set_id}" has status: "{image_set_state}"'
+                )
                 if image_set_state == "DELETED":
                     break
 
@@ -702,13 +775,13 @@ class MedicalImagingWrapper:
         print(f"Data store deleted with id : {data_store_id}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Replace these values with your own.
     source_s3_uri = "s3://medical-imaging-dicom-input/dicom_input/"
     dest_s3_uri = "s3://medical-imaging-output/job_output/"
     data_access_role_arn = "arn:aws:iam::123456789012:role/ImportJobDataAccessRole"
 
-    client = boto3.client('medical-imaging')
+    client = boto3.client("medical-imaging")
     medical_imaging_wrapper = MedicalImagingWrapper(client)
 
     medical_imaging_wrapper.usage_demo(source_s3_uri, dest_s3_uri, data_access_role_arn)

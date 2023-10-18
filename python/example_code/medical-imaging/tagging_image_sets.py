@@ -7,6 +7,7 @@ Purpose
 Shows how to use the AWS SDK for Python (Boto3) to tag AWS HealthImaging image sets.
 """
 import boto3
+
 from medical_imaging_basics import MedicalImagingWrapper
 
 
@@ -33,15 +34,16 @@ def tagging_image_sets(medical_imaging_wrapper, image_set_arn):
     # snippet-end:[python.example_code.medical-imaging.tagging_image_set.untag]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # snippet-start:[python.example_code.medical-imaging.tagging_image_set.arn]
-    an_image_set_arn = 'arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/' \
-                       'imageset/12345678901234567890123456789012'
-    # snippet-end:[python.example_code.medical-imaging.tagging_image_set.arn]
+    an_image_set_arn = (
+        "arn:aws:medical-imaging:us-east-1:123456789012:datastore/12345678901234567890123456789012/"
+        "imageset/12345678901234567890123456789012"
+    )  # snippet-end:[python.example_code.medical-imaging.tagging_image_set.arn]
 
     an_image_set_arn = input(f"Enter the ARN of the image set to tag: ")
 
-    client = boto3.client('medical-imaging')
+    client = boto3.client("medical-imaging")
     a_medical_imaging_wrapper = MedicalImagingWrapper(client)
 
     tagging_image_sets(a_medical_imaging_wrapper, an_image_set_arn)
