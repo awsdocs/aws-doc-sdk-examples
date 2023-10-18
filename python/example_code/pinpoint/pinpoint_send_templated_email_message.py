@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 
 
 def send_templated_email_message(
-        pinpoint_client, project_id, sender, to_addresses, template_name,
-        template_version):
+    pinpoint_client, project_id, sender, to_addresses, template_name, template_version
+):
     """
     Sends an email message with HTML and plain text versions.
 
@@ -37,29 +37,25 @@ def send_templated_email_message(
         response = pinpoint_client.send_messages(
             ApplicationId=project_id,
             MessageRequest={
-                'Addresses': {
-                    to_address: {
-                        'ChannelType': 'EMAIL'
-                    } for to_address in to_addresses
+                "Addresses": {
+                    to_address: {"ChannelType": "EMAIL"} for to_address in to_addresses
                 },
-                'MessageConfiguration': {
-                    'EmailMessage': {'FromAddress': sender}
-                },
-                'TemplateConfiguration': {
-                    'EmailTemplate': {
-                        'Name': template_name,
-                        'Version': template_version
+                "MessageConfiguration": {"EmailMessage": {"FromAddress": sender}},
+                "TemplateConfiguration": {
+                    "EmailTemplate": {
+                        "Name": template_name,
+                        "Version": template_version,
                     }
-                }
-            }
+                },
+            },
         )
     except ClientError:
         logger.exception("Couldn't send email.")
         raise
     else:
         return {
-            to_address: message['MessageId'] for
-            to_address, message in response['MessageResponse']['Result'].items()
+            to_address: message["MessageId"]
+            for to_address, message in response["MessageResponse"]["Result"].items()
         }
 
 
@@ -72,11 +68,16 @@ def main():
 
     print("Sending email.")
     message_ids = send_templated_email_message(
-        boto3.client('pinpoint'), project_id, sender, to_addresses, template_name,
-        template_version)
+        boto3.client("pinpoint"),
+        project_id,
+        sender,
+        to_addresses,
+        template_name,
+        template_version,
+    )
     print(f"Message sent! Message IDs: {message_ids}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 # snippet-end:[pinpoint.python.pinpoint_send_templated_email_message.complete]

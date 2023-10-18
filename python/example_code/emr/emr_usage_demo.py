@@ -47,14 +47,14 @@ def status_poller(intro, done_status, func):
     emr_basics.logger.setLevel(logging.WARNING)
     status = None
     print(intro)
-    print("Current status: ", end='')
+    print("Current status: ", end="")
     while status != done_status:
         prev_status = status
         status = func()
         if prev_status == status:
-            print('.', end='')
+            print(".", end="")
         else:
-            print(status, end='')
+            print(status, end="")
         sys.stdout.flush()
         time.sleep(10)
     print()
@@ -75,8 +75,8 @@ def setup_bucket(bucket_name, script_file_name, script_key, s3_resource):
         bucket = s3_resource.create_bucket(
             Bucket=bucket_name,
             CreateBucketConfiguration={
-                'LocationConstraint': s3_resource.meta.client.meta.region_name
-            }
+                "LocationConstraint": s3_resource.meta.client.meta.region_name
+            },
         )
         bucket.wait_until_exists()
         logger.info("Created bucket %s.", bucket_name)
@@ -87,8 +87,8 @@ def setup_bucket(bucket_name, script_file_name, script_key, s3_resource):
     try:
         bucket.upload_file(script_file_name, script_key)
         logger.info(
-            "Uploaded script %s to %s.", script_file_name,
-            f'{bucket_name}/{script_key}')
+            "Uploaded script %s to %s.", script_file_name, f"{bucket_name}/{script_key}"
+        )
     except ClientError:
         logger.exception("Couldn't upload %s to %s.", script_file_name, bucket_name)
         raise
@@ -133,18 +133,20 @@ def create_roles(job_flow_role_name, service_role_name, iam_resource):
     try:
         job_flow_role = iam_resource.create_role(
             RoleName=job_flow_role_name,
-            AssumeRolePolicyDocument=json.dumps({
-                "Version": "2008-10-17",
-                "Statement": [{
-                        "Effect": "Allow",
-                        "Principal": {
-                            "Service": "ec2.amazonaws.com"
-                        },
-                        "Action": "sts:AssumeRole"
-                }]
-            })
+            AssumeRolePolicyDocument=json.dumps(
+                {
+                    "Version": "2008-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {"Service": "ec2.amazonaws.com"},
+                            "Action": "sts:AssumeRole",
+                        }
+                    ],
+                }
+            ),
         )
-        waiter = iam_resource.meta.client.get_waiter('role_exists')
+        waiter = iam_resource.meta.client.get_waiter("role_exists")
         waiter.wait(RoleName=job_flow_role_name)
         logger.info("Created job flow role %s.", job_flow_role_name)
     except ClientError:
@@ -153,8 +155,7 @@ def create_roles(job_flow_role_name, service_role_name, iam_resource):
 
     try:
         job_flow_role.attach_policy(
-            PolicyArn=
-            "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforEC2Role"
+            PolicyArn="arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceforEC2Role"
         )
         logger.info("Attached policy to role %s.", job_flow_role_name)
     except ClientError:
@@ -163,10 +164,12 @@ def create_roles(job_flow_role_name, service_role_name, iam_resource):
 
     try:
         job_flow_inst_profile = iam_resource.create_instance_profile(
-            InstanceProfileName=job_flow_role_name)
+            InstanceProfileName=job_flow_role_name
+        )
         job_flow_inst_profile.add_role(RoleName=job_flow_role_name)
         logger.info(
-            "Created instance profile %s and added job flow role.", job_flow_role_name)
+            "Created instance profile %s and added job flow role.", job_flow_role_name
+        )
     except ClientError:
         logger.exception("Couldn't create instance profile %s.", job_flow_role_name)
         raise
@@ -174,19 +177,21 @@ def create_roles(job_flow_role_name, service_role_name, iam_resource):
     try:
         service_role = iam_resource.create_role(
             RoleName=service_role_name,
-            AssumeRolePolicyDocument=json.dumps({
-                "Version": "2008-10-17",
-                "Statement": [{
-                        "Sid": "",
-                        "Effect": "Allow",
-                        "Principal": {
-                            "Service": "elasticmapreduce.amazonaws.com"
-                        },
-                        "Action": "sts:AssumeRole"
-                }]
-            })
+            AssumeRolePolicyDocument=json.dumps(
+                {
+                    "Version": "2008-10-17",
+                    "Statement": [
+                        {
+                            "Sid": "",
+                            "Effect": "Allow",
+                            "Principal": {"Service": "elasticmapreduce.amazonaws.com"},
+                            "Action": "sts:AssumeRole",
+                        }
+                    ],
+                }
+            ),
         )
-        waiter = iam_resource.meta.client.get_waiter('role_exists')
+        waiter = iam_resource.meta.client.get_waiter("role_exists")
         waiter.wait(RoleName=service_role_name)
         logger.info("Created service role %s.", service_role_name)
     except ClientError:
@@ -195,12 +200,13 @@ def create_roles(job_flow_role_name, service_role_name, iam_resource):
 
     try:
         service_role.attach_policy(
-            PolicyArn='arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole'
+            PolicyArn="arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceRole"
         )
         logger.info("Attached policy to service role %s.", service_role_name)
     except ClientError:
         logger.exception(
-            "Couldn't attach policy to service role %s.", service_role_name)
+            "Couldn't attach policy to service role %s.", service_role_name
+        )
         raise
 
     return job_flow_role, service_role
@@ -239,8 +245,11 @@ def create_security_groups(prefix, ec2_resource):
     :return: The newly created security groups.
     """
     try:
-        default_vpc = list(ec2_resource.vpcs.filter(
-            Filters=[{'Name': 'isDefault', 'Values': ['true']}]))[0]
+        default_vpc = list(
+            ec2_resource.vpcs.filter(
+                Filters=[{"Name": "isDefault", "Values": ["true"]}]
+            )
+        )[0]
         logger.info("Got default VPC %s.", default_vpc.id)
     except ClientError:
         logger.exception("Couldn't get VPCs.")
@@ -249,14 +258,15 @@ def create_security_groups(prefix, ec2_resource):
         logger.exception("No default VPC in the list.")
         raise
 
-    groups = {'manager': None, 'worker': None}
+    groups = {"manager": None, "worker": None}
     for group in groups.keys():
         try:
             groups[group] = default_vpc.create_security_group(
-                GroupName=f'{prefix}-{group}', Description=f"EMR {group} group.")
+                GroupName=f"{prefix}-{group}", Description=f"EMR {group} group."
+            )
             logger.info(
-                "Created security group %s in VPC %s.",
-                groups[group].id, default_vpc.id)
+                "Created security group %s in VPC %s.", groups[group].id, default_vpc.id
+            )
         except ClientError:
             logger.exception("Couldn't create security group.")
             raise
@@ -284,11 +294,14 @@ def delete_security_groups(security_groups):
                 break
             except ClientError as error:
                 max_tries -= 1
-                if max_tries > 0 and \
-                        error.response['Error']['Code'] == 'DependencyViolation':
+                if (
+                    max_tries > 0
+                    and error.response["Error"]["Code"] == "DependencyViolation"
+                ):
                     logger.warning(
                         "Attempt to delete security group got DependencyViolation. "
-                        "Waiting for 10 seconds to let things propagate.")
+                        "Waiting for 10 seconds to let things propagate."
+                    )
                     time.sleep(10)
                 else:
                     raise
@@ -299,7 +312,8 @@ def delete_security_groups(security_groups):
 
 
 def add_top_product_step(
-        count, category, keyword, cluster_id, bucket, script_key, emr_client):
+    count, category, keyword, cluster_id, bucket, script_key, emr_client
+):
     """
     Adds a step to a cluster that queries historical Amazon review data to find
     the top products in the specified category that contain a keyword.
@@ -318,28 +332,44 @@ def add_top_product_step(
     :param script_key: The object key of the script that identifies it in the bucket.
     :param emr_client: The Boto3 Amazon EMR client object.
     """
-    print(f"Adding a step to calculate the top {count} products in {category} that "
-          f"contain the word '{keyword}'...")
-    output_folder = f'top-{count}-{category}-{keyword}'
+    print(
+        f"Adding a step to calculate the top {count} products in {category} that "
+        f"contain the word '{keyword}'..."
+    )
+    output_folder = f"top-{count}-{category}-{keyword}"
     step_id = emr_basics.add_step(
-        cluster_id, f'Calculate {output_folder}',
-        f's3://{bucket.name}/{script_key}',
-        ['--category', category, '--title_keyword', keyword,
-         '--count', count, '--output_uri', f's3://{bucket.name}/{output_folder}'],
-        emr_client)
+        cluster_id,
+        f"Calculate {output_folder}",
+        f"s3://{bucket.name}/{script_key}",
+        [
+            "--category",
+            category,
+            "--title_keyword",
+            keyword,
+            "--count",
+            count,
+            "--output_uri",
+            f"s3://{bucket.name}/{output_folder}",
+        ],
+        emr_client,
+    )
 
     status_poller(
         "Waiting for step to complete...",
-        'COMPLETED',
-        lambda:
-        emr_basics.describe_step(cluster_id, step_id, emr_client)['Status']['State'])
+        "COMPLETED",
+        lambda: emr_basics.describe_step(cluster_id, step_id, emr_client)["Status"][
+            "State"
+        ],
+    )
 
-    print(f"The output for this step is in Amazon S3 bucket "
-          f"{bucket.name}/{output_folder}.")
-    print('-'*88)
+    print(
+        f"The output for this step is in Amazon S3 bucket "
+        f"{bucket.name}/{output_folder}."
+    )
+    print("-" * 88)
     for obj in bucket.objects.filter(Prefix=output_folder):
-        print(obj.get()['Body'].read().decode())
-    print('-'*88)
+        print(obj.get()["Body"].read().decode())
+    print("-" * 88)
 
 
 def demo_short_lived_cluster():
@@ -347,34 +377,38 @@ def demo_short_lived_cluster():
     Shows how to create a short-lived cluster that runs a step and automatically
     terminates after the step completes.
     """
-    print('-'*88)
+    print("-" * 88)
     print(f"Welcome to the Amazon EMR short-lived cluster demo.")
-    print('-'*88)
+    print("-" * 88)
 
-    prefix = f'demo-short-emr'
+    prefix = f"demo-short-emr"
 
-    s3_resource = boto3.resource('s3')
-    iam_resource = boto3.resource('iam')
-    emr_client = boto3.client('emr')
-    ec2_resource = boto3.resource('ec2')
+    s3_resource = boto3.resource("s3")
+    iam_resource = boto3.resource("iam")
+    emr_client = boto3.client("emr")
+    ec2_resource = boto3.resource("ec2")
 
     # Set up resources for the demo.
-    bucket_name = f'{prefix}-{time.time_ns()}'
-    script_file_name = 'pyspark_estimate_pi.py'
-    script_key = f'scripts/{script_file_name}'
+    bucket_name = f"{prefix}-{time.time_ns()}"
+    script_file_name = "pyspark_estimate_pi.py"
+    script_key = f"scripts/{script_file_name}"
     bucket = setup_bucket(bucket_name, script_file_name, script_key, s3_resource)
     job_flow_role, service_role = create_roles(
-        f'{prefix}-ec2-role', f'{prefix}-service-role', iam_resource)
+        f"{prefix}-ec2-role", f"{prefix}-service-role", iam_resource
+    )
     security_groups = create_security_groups(prefix, ec2_resource)
 
     # Run the job.
-    output_prefix = 'pi-calc-output'
+    output_prefix = "pi-calc-output"
     pi_step = {
-        'name': 'estimate-pi-step',
-        'script_uri': f's3://{bucket_name}/{script_key}',
-        'script_args':
-            ['--partitions', '3', '--output_uri',
-             f's3://{bucket_name}/{output_prefix}']
+        "name": "estimate-pi-step",
+        "script_uri": f"s3://{bucket_name}/{script_key}",
+        "script_args": [
+            "--partitions",
+            "3",
+            "--output_uri",
+            f"s3://{bucket_name}/{output_prefix}",
+        ],
     }
     print("Wait for 10 seconds to give roles and profiles time to propagate...")
     time.sleep(10)
@@ -382,15 +416,24 @@ def demo_short_lived_cluster():
     while True:
         try:
             cluster_id = emr_basics.run_job_flow(
-                f'{prefix}-cluster', f's3://{bucket_name}/logs',
-                False, ['Hadoop', 'Hive', 'Spark'], job_flow_role, service_role,
-                security_groups, [pi_step], emr_client)
+                f"{prefix}-cluster",
+                f"s3://{bucket_name}/logs",
+                False,
+                ["Hadoop", "Hive", "Spark"],
+                job_flow_role,
+                service_role,
+                security_groups,
+                [pi_step],
+                emr_client,
+            )
             print(f"Running job flow for cluster {cluster_id}...")
             break
         except ClientError as error:
             max_tries -= 1
-            if max_tries > 0 and \
-                    error.response['Error']['Code'] == 'ValidationException':
+            if (
+                max_tries > 0
+                and error.response["Error"]["Code"] == "ValidationException"
+            ):
                 print("Instance profile is not ready, let's give it more time...")
                 time.sleep(10)
             else:
@@ -398,35 +441,40 @@ def demo_short_lived_cluster():
 
     status_poller(
         "Waiting for cluster, this typically takes several minutes...",
-        'RUNNING',
-        lambda: emr_basics.describe_cluster(cluster_id, emr_client)['Status']['State'],
+        "RUNNING",
+        lambda: emr_basics.describe_cluster(cluster_id, emr_client)["Status"]["State"],
     )
     status_poller(
         "Waiting for step to complete...",
-        'PENDING',
-        lambda: emr_basics.list_steps(cluster_id, emr_client)[0]['Status']['State'])
+        "PENDING",
+        lambda: emr_basics.list_steps(cluster_id, emr_client)[0]["Status"]["State"],
+    )
     status_poller(
         "Waiting for cluster to terminate.",
-        'TERMINATED',
-        lambda: emr_basics.describe_cluster(cluster_id, emr_client)['Status']['State']
+        "TERMINATED",
+        lambda: emr_basics.describe_cluster(cluster_id, emr_client)["Status"]["State"],
     )
 
-    print(f"Job complete!. The script, logs, and output for this demo are in "
-          f"Amazon S3 bucket {bucket_name}. The output is:")
+    print(
+        f"Job complete!. The script, logs, and output for this demo are in "
+        f"Amazon S3 bucket {bucket_name}. The output is:"
+    )
     for obj in bucket.objects.filter(Prefix=output_prefix):
-        print(obj.get()['Body'].read().decode())
+        print(obj.get()["Body"].read().decode())
 
     # Clean up demo resources (if you want to).
     remove_everything = input(
-            f"Do you want to delete the security roles, groups, and bucket (y/n)? ")
-    if remove_everything.lower() == 'y':
+        f"Do you want to delete the security roles, groups, and bucket (y/n)? "
+    )
+    if remove_everything.lower() == "y":
         delete_security_groups(security_groups)
         delete_roles([job_flow_role, service_role])
         delete_bucket(bucket)
     else:
         print(
             f"Remember that objects kept in an Amazon S3 bucket can incur charges"
-            f"against your account.")
+            f"against your account."
+        )
     print("Thanks for watching!")
 
 
@@ -436,24 +484,25 @@ def demo_long_lived_cluster():
     that more steps can be run. At the end of the demo, the cluster is optionally
     terminated.
     """
-    print('-'*88)
+    print("-" * 88)
     print(f"Welcome to the Amazon EMR long-lived cluster demo.")
-    print('-'*88)
+    print("-" * 88)
 
-    prefix = 'demo-long-emr'
+    prefix = "demo-long-emr"
 
-    s3_resource = boto3.resource('s3')
-    iam_resource = boto3.resource('iam')
-    emr_client = boto3.client('emr')
-    ec2_resource = boto3.resource('ec2')
+    s3_resource = boto3.resource("s3")
+    iam_resource = boto3.resource("iam")
+    emr_client = boto3.client("emr")
+    ec2_resource = boto3.resource("ec2")
 
     # Set up resources for the demo.
-    bucket_name = f'{prefix}-{time.time_ns()}'
-    script_file_name = 'pyspark_top_product_keyword.py'
-    script_key = f'scripts/{script_file_name}'
+    bucket_name = f"{prefix}-{time.time_ns()}"
+    script_file_name = "pyspark_top_product_keyword.py"
+    script_key = f"scripts/{script_file_name}"
     bucket = setup_bucket(bucket_name, script_file_name, script_key, s3_resource)
-    job_flow_role, service_role = \
-        create_roles(f'{prefix}-ec2-role', f'{prefix}-service-role', iam_resource)
+    job_flow_role, service_role = create_roles(
+        f"{prefix}-ec2-role", f"{prefix}-service-role", iam_resource
+    )
     security_groups = create_security_groups(prefix, ec2_resource)
     print("Wait for 10 seconds to give roles and profiles time to propagate...")
     time.sleep(10)
@@ -462,65 +511,87 @@ def demo_long_lived_cluster():
     while True:
         try:
             cluster_id = emr_basics.run_job_flow(
-                f'{prefix}-cluster', f's3://{bucket_name}/logs',
-                True, ['Hadoop', 'Hive', 'Spark'], job_flow_role, service_role,
-                security_groups, [], emr_client)
+                f"{prefix}-cluster",
+                f"s3://{bucket_name}/logs",
+                True,
+                ["Hadoop", "Hive", "Spark"],
+                job_flow_role,
+                service_role,
+                security_groups,
+                [],
+                emr_client,
+            )
             print(f"Running job flow for cluster {cluster_id}...")
             break
         except ClientError as error:
             max_tries -= 1
-            if max_tries > 0 and \
-                    error.response['Error']['Code'] == 'ValidationException':
+            if (
+                max_tries > 0
+                and error.response["Error"]["Code"] == "ValidationException"
+            ):
                 print("Instance profile is not ready, let's give it more time...")
                 time.sleep(10)
             else:
                 raise
     status_poller(
         "Waiting for cluster, this typically takes several minutes...",
-        'WAITING',
-        lambda: emr_basics.describe_cluster(cluster_id, emr_client)['Status']['State'],
+        "WAITING",
+        lambda: emr_basics.describe_cluster(cluster_id, emr_client)["Status"]["State"],
     )
 
     add_top_product_step(
-        '20', 'Books', 'fire', cluster_id, bucket, script_key, emr_client)
+        "20", "Books", "fire", cluster_id, bucket, script_key, emr_client
+    )
 
     add_top_product_step(
-        '20', 'Grocery', 'cheese', cluster_id, bucket, script_key, emr_client)
+        "20", "Grocery", "cheese", cluster_id, bucket, script_key, emr_client
+    )
 
     review_bucket_folders = s3_resource.meta.client.list_objects_v2(
-        Bucket='demo-reviews-pds', Prefix='parquet/', Delimiter='/', MaxKeys=100)
+        Bucket="demo-reviews-pds", Prefix="parquet/", Delimiter="/", MaxKeys=100
+    )
     categories = [
-        cat['Prefix'].split('=')[1][:-1] for cat in
-        review_bucket_folders['CommonPrefixes']]
+        cat["Prefix"].split("=")[1][:-1]
+        for cat in review_bucket_folders["CommonPrefixes"]
+    ]
     while True:
         while True:
             input_cat = input(
                 f"Your turn! Possible categories are: {categories}. Which category "
-                f"would you like to search (enter 'none' when you're done)? ")
-            if input_cat.lower() == 'none' or input_cat in categories:
+                f"would you like to search (enter 'none' when you're done)? "
+            )
+            if input_cat.lower() == "none" or input_cat in categories:
                 break
             elif input_cat not in categories:
                 print(f"Sorry, {input_cat} is not an allowed category!")
-        if input_cat.lower() == 'none':
+        if input_cat.lower() == "none":
             break
         else:
             input_keyword = input("What keyword would you like to search for? ")
             input_count = input("How many items would you like to list? ")
             add_top_product_step(
-                input_count, input_cat, input_keyword, cluster_id, bucket, script_key,
-                emr_client)
+                input_count,
+                input_cat,
+                input_keyword,
+                cluster_id,
+                bucket,
+                script_key,
+                emr_client,
+            )
 
     # Clean up demo resources (if you want to).
     remove_everything = input(
-            f"Do you want to terminate the cluster and delete the security roles, "
-            f"groups, bucket, and all of its contents (y/n)? ")
-    if remove_everything.lower() == 'y':
+        f"Do you want to terminate the cluster and delete the security roles, "
+        f"groups, bucket, and all of its contents (y/n)? "
+    )
+    if remove_everything.lower() == "y":
         emr_basics.terminate_cluster(cluster_id, emr_client)
         status_poller(
             "Waiting for cluster to terminate.",
-            'TERMINATED',
-            lambda: emr_basics.describe_cluster(cluster_id, emr_client)['Status'][
-                'State']
+            "TERMINATED",
+            lambda: emr_basics.describe_cluster(cluster_id, emr_client)["Status"][
+                "State"
+            ],
         )
         delete_security_groups(security_groups)
         delete_roles([job_flow_role, service_role])
@@ -528,16 +599,17 @@ def demo_long_lived_cluster():
     else:
         print(
             f"Remember that running Amazon EMR clusters and objects kept in an "
-            f"Amazon S3 bucket can incur charges against your account.")
+            f"Amazon S3 bucket can incur charges against your account."
+        )
     print("Thanks for watching!")
 
 
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     parser = argparse.ArgumentParser()
-    parser.add_argument('demo_type', choices=['short-lived', 'long-lived'])
+    parser.add_argument("demo_type", choices=["short-lived", "long-lived"])
     args = parser.parse_args()
-    if args.demo_type == 'short-lived':
+    if args.demo_type == "short-lived":
         demo_short_lived_cluster()
-    elif args.demo_type == 'long-lived':
+    elif args.demo_type == "long-lived":
         demo_long_lived_cluster()

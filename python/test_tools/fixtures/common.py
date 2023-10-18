@@ -18,12 +18,13 @@ logger = logging.getLogger(__name__)
 
 def pytest_configure(config):
     config.addinivalue_line(
-        "markers", "integ: integration test that requires and uses AWS resources. "
-                   "Use of this tag is likely to incur charges on your account."
+        "markers",
+        "integ: integration test that requires and uses AWS resources. "
+        "Use of this tag is likely to incur charges on your account.",
     )
 
 
-@pytest.fixture(name='make_stubber')
+@pytest.fixture(name="make_stubber")
 def fixture_make_stubber(request, monkeypatch):
     """
     Return a factory function that makes an object configured either
@@ -33,6 +34,7 @@ def fixture_make_stubber(request, monkeypatch):
     :param monkeypatch: The Pytest monkeypatch object.
     :return: A factory function that makes the stubber object.
     """
+
     def _make_stubber(service_client):
         """
         Create a class that wraps the botocore Stubber and implements a variety of
@@ -54,6 +56,7 @@ def fixture_make_stubber(request, monkeypatch):
         def fin():
             stubber.assert_no_pending_responses()
             stubber.deactivate()
+
         request.addfinalizer(fin)
         stubber.activate()
 
@@ -62,13 +65,14 @@ def fixture_make_stubber(request, monkeypatch):
     return _make_stubber
 
 
-@pytest.fixture(name='make_unique_name')
+@pytest.fixture(name="make_unique_name")
 def fixture_make_unique_name():
     """
     Return a factory function that can be used to create a unique name.
 
     :return: The function to create a unique name.
     """
+
     def _make_unique_name(prefix):
         """
         Creates a unique name based on a prefix and the current time in nanoseconds.
@@ -77,10 +81,11 @@ def fixture_make_unique_name():
                  an Amazon S3 bucket.
         """
         return f"{prefix}{time.time_ns()}"
+
     return _make_unique_name
 
 
-@pytest.fixture(name='make_bucket')
+@pytest.fixture(name="make_bucket")
 def fixture_make_bucket(request, make_unique_name):
     """
     Return a factory function that can be used to make a bucket for testing.
@@ -89,6 +94,7 @@ def fixture_make_bucket(request, make_unique_name):
     :param make_unique_name: A function that creates a unique name.
     :return: The factory function to make a test bucket.
     """
+
     def _make_bucket(s3_stubber, s3_resource, region_name=None):
         """
         Make a bucket that can be used for testing. When stubbing is used, a stubbed
@@ -99,21 +105,20 @@ def fixture_make_bucket(request, make_unique_name):
         :param region_name: The AWS Region in which to create the bucket.
         :return: The test bucket.
         """
-        bucket_name = make_unique_name('bucket')
+        bucket_name = make_unique_name("bucket")
         if not region_name:
             region_name = s3_resource.meta.client.meta.region_name
         s3_stubber.stub_create_bucket(bucket_name, region_name)
 
         bucket = s3_resource.create_bucket(
             Bucket=bucket_name,
-            CreateBucketConfiguration={
-                'LocationConstraint': region_name
-            }
+            CreateBucketConfiguration={"LocationConstraint": region_name},
         )
 
         def fin():
             if not s3_stubber.use_stubs:
                 bucket.delete()
+
         request.addfinalizer(fin)
 
         return bucket
@@ -127,14 +132,20 @@ class StubRunner:
     Stubbers and stub functions can be added from any stubber. The error code
     is automatically added to the specified method.
     """
+
     def __init__(self, error_code, stop_on_method):
         self.stubs = []
         self.error_code = error_code
         self.stop_on_method = stop_on_method
 
     def add(
-            self, func, *func_args, keep_going=False, raise_and_continue=False,
-            **func_kwargs):
+        self,
+        func,
+        *func_args,
+        keep_going=False,
+        raise_and_continue=False,
+        **func_kwargs,
+    ):
         """
         Adds a stubbed function response to the list.
 
@@ -145,11 +156,15 @@ class StubRunner:
         :param func_args: The positional arguments of the stub function.
         :param func_kwargs: The keyword arguments of the stub function.
         """
-        self.stubs.append({
-            'func': func, 'keep_going': keep_going,
-            'raise_and_continue': raise_and_continue,
-            'func_args': func_args, 'func_kwargs': func_kwargs
-        })
+        self.stubs.append(
+            {
+                "func": func,
+                "keep_going": keep_going,
+                "raise_and_continue": raise_and_continue,
+                "func_args": func_args,
+                "func_kwargs": func_kwargs,
+            }
+        )
 
     def run(self):
         """
@@ -165,13 +180,12 @@ class StubRunner:
             if isinstance(self.stop_on_method, int):
                 match = self.stop_on_method == index
             elif isinstance(self.stop_on_method, str):
-                match = self.stop_on_method == stub['func'].__name__
+                match = self.stop_on_method == stub["func"].__name__
 
-            if match and not stub['keep_going']:
-                stub['func_kwargs']['error_code'] = self.error_code
-            stub['func'](*stub['func_args'], **stub['func_kwargs'])
-            if (match and not stub['keep_going']
-                    and not stub['raise_and_continue']):
+            if match and not stub["keep_going"]:
+                stub["func_kwargs"]["error_code"] = self.error_code
+            stub["func"](*stub["func_args"], **stub["func_kwargs"])
+            if match and not stub["keep_going"] and not stub["raise_and_continue"]:
                 break
 
 
@@ -181,11 +195,13 @@ def stub_runner():
     Encapsulates the StubRunner in a context manager so its run function is called
     when the context is exited.
     """
+
     @contextlib.contextmanager
     def _runner(err, stop):
         runner = StubRunner(err, stop)
         yield runner
         runner.run()
+
     return _runner
 
 
@@ -198,7 +214,7 @@ class InputMocker:
     def mock_answers(self, answers):
         self.answers = answers
         self.index = 0
-        self.monkeypatch.setattr('builtins.input', self._handle_input)
+        self.monkeypatch.setattr("builtins.input", self._handle_input)
 
     # To see input logs during test, turn on live logging:
     #   py -m pytest -o log_cli=true --log-cli-level=INFO

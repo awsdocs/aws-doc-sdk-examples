@@ -22,6 +22,7 @@ class ApiGatewayStubber(ExampleStubber):
     part of the tests, and will raise errors when the actual parameters differ from
     the expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -34,83 +35,114 @@ class ApiGatewayStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_create_rest_api(self, api_name, api_id, error_code=None):
-        expected_params = {'name': api_name}
-        response = {'id': api_id}
+        expected_params = {"name": api_name}
+        response = {"id": api_id}
         self._stub_bifurcator(
-            'create_rest_api', expected_params, response, error_code=error_code)
+            "create_rest_api", expected_params, response, error_code=error_code
+        )
 
     def stub_get_resources(self, api_id, resources, error_code=None):
-        expected_params = {'restApiId': api_id}
-        response = {'items': resources}
+        expected_params = {"restApiId": api_id}
+        response = {"items": resources}
         self._stub_bifurcator(
-            'get_resources', expected_params, response, error_code=error_code)
+            "get_resources", expected_params, response, error_code=error_code
+        )
 
     def stub_create_resource(
-            self, api_id, parent_id, path, resource_id, error_code=None):
-        expected_params = {'restApiId': api_id, 'parentId': parent_id, 'pathPart': path}
-        response = {'id': resource_id}
+        self, api_id, parent_id, path, resource_id, error_code=None
+    ):
+        expected_params = {"restApiId": api_id, "parentId": parent_id, "pathPart": path}
+        response = {"id": resource_id}
         self._stub_bifurcator(
-            'create_resource', expected_params, response, error_code=error_code)
+            "create_resource", expected_params, response, error_code=error_code
+        )
 
-    def stub_put_method(
-            self, api_id, resource_id, error_code=None, http_method='ANY'):
+    def stub_put_method(self, api_id, resource_id, error_code=None, http_method="ANY"):
         expected_params = {
-            'restApiId': api_id, 'resourceId': resource_id, 'httpMethod': http_method,
-            'authorizationType': 'NONE'}
-        self._stub_bifurcator(
-            'put_method', expected_params, error_code=error_code)
+            "restApiId": api_id,
+            "resourceId": resource_id,
+            "httpMethod": http_method,
+            "authorizationType": "NONE",
+        }
+        self._stub_bifurcator("put_method", expected_params, error_code=error_code)
 
     def stub_put_method_response(
-            self, api_id, resource_id, response_models, error_code=None,
-            http_method='ANY'):
+        self, api_id, resource_id, response_models, error_code=None, http_method="ANY"
+    ):
         expected_params = {
-            'restApiId': api_id, 'resourceId': resource_id, 'httpMethod': http_method,
-            'statusCode': '200', 'responseModels': response_models}
+            "restApiId": api_id,
+            "resourceId": resource_id,
+            "httpMethod": http_method,
+            "statusCode": "200",
+            "responseModels": response_models,
+        }
         self._stub_bifurcator(
-            'put_method_response', expected_params, error_code=error_code)
+            "put_method_response", expected_params, error_code=error_code
+        )
 
     def stub_put_integration(
-            self, api_id, resource_id, uri, error_code=None, http_method='ANY',
-            integ_type='AWS_PROXY', integ_method='POST', integ_role_arn=None,
-            integ_templates=None, passthrough=None):
+        self,
+        api_id,
+        resource_id,
+        uri,
+        error_code=None,
+        http_method="ANY",
+        integ_type="AWS_PROXY",
+        integ_method="POST",
+        integ_role_arn=None,
+        integ_templates=None,
+        passthrough=None,
+    ):
         expected_params = {
-            'restApiId': api_id,
-            'resourceId': resource_id,
-            'httpMethod': http_method,
-            'type': integ_type,
-            'integrationHttpMethod': integ_method,
-            'uri': uri}
+            "restApiId": api_id,
+            "resourceId": resource_id,
+            "httpMethod": http_method,
+            "type": integ_type,
+            "integrationHttpMethod": integ_method,
+            "uri": uri,
+        }
         if integ_role_arn is not None:
-            expected_params['credentials'] = integ_role_arn
+            expected_params["credentials"] = integ_role_arn
         if integ_templates is not None:
-            expected_params['requestTemplates'] = {
-                'application/json': json.dumps(integ_templates)}
+            expected_params["requestTemplates"] = {
+                "application/json": json.dumps(integ_templates)
+            }
         if passthrough is not None:
-            expected_params['passthroughBehavior'] = passthrough
-        self._stub_bifurcator(
-            'put_integration', expected_params, error_code=error_code)
+            expected_params["passthroughBehavior"] = passthrough
+        self._stub_bifurcator("put_integration", expected_params, error_code=error_code)
 
     def stub_put_integration_response(
-            self, api_id, resource_id, response_templates, error_code=None,
-            http_method='ANY'):
+        self,
+        api_id,
+        resource_id,
+        response_templates,
+        error_code=None,
+        http_method="ANY",
+    ):
         expected_params = {
-            'restApiId': api_id, 'resourceId': resource_id, 'httpMethod': http_method,
-            'statusCode': '200', 'responseTemplates': response_templates}
+            "restApiId": api_id,
+            "resourceId": resource_id,
+            "httpMethod": http_method,
+            "statusCode": "200",
+            "responseTemplates": response_templates,
+        }
         self._stub_bifurcator(
-            'put_integration_response', expected_params, error_code=error_code)
+            "put_integration_response", expected_params, error_code=error_code
+        )
 
     def stub_create_deployment(self, api_id, api_stage, error_code=None):
-        expected_params = {'restApiId': api_id, 'stageName': api_stage}
+        expected_params = {"restApiId": api_id, "stageName": api_stage}
         self._stub_bifurcator(
-            'create_deployment', expected_params, error_code=error_code)
+            "create_deployment", expected_params, error_code=error_code
+        )
 
     def stub_delete_rest_api(self, api_id, error_code=None):
-        expected_params = {'restApiId': api_id}
-        self._stub_bifurcator(
-            'delete_rest_api', expected_params, error_code=error_code)
+        expected_params = {"restApiId": api_id}
+        self._stub_bifurcator("delete_rest_api", expected_params, error_code=error_code)
 
     def stub_get_rest_apis(self, rest_apis, error_code=None):
         expected_params = {}
-        response = {'items': rest_apis}
+        response = {"items": rest_apis}
         self._stub_bifurcator(
-            'get_rest_apis', expected_params, response, error_code=error_code)
+            "get_rest_apis", expected_params, response, error_code=error_code
+        )

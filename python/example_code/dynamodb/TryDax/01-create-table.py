@@ -21,23 +21,20 @@ def create_dax_table(dyn_resource=None):
     :return: The newly created table.
     """
     if dyn_resource is None:
-        dyn_resource = boto3.resource('dynamodb')
+        dyn_resource = boto3.resource("dynamodb")
 
-    table_name = 'TryDaxTable'
+    table_name = "TryDaxTable"
     params = {
-        'TableName': table_name,
-        'KeySchema': [
-            {'AttributeName': 'partition_key', 'KeyType': 'HASH'},
-            {'AttributeName': 'sort_key', 'KeyType': 'RANGE'}
+        "TableName": table_name,
+        "KeySchema": [
+            {"AttributeName": "partition_key", "KeyType": "HASH"},
+            {"AttributeName": "sort_key", "KeyType": "RANGE"},
         ],
-        'AttributeDefinitions': [
-            {'AttributeName': 'partition_key', 'AttributeType': 'N'},
-            {'AttributeName': 'sort_key', 'AttributeType': 'N'}
+        "AttributeDefinitions": [
+            {"AttributeName": "partition_key", "AttributeType": "N"},
+            {"AttributeName": "sort_key", "AttributeType": "N"},
         ],
-        'ProvisionedThroughput': {
-            'ReadCapacityUnits': 10,
-            'WriteCapacityUnits': 10
-        }
+        "ProvisionedThroughput": {"ReadCapacityUnits": 10, "WriteCapacityUnits": 10},
     }
     table = dyn_resource.create_table(**params)
     print(f"Creating {table_name}...")
@@ -45,7 +42,7 @@ def create_dax_table(dyn_resource=None):
     return table
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     dax_table = create_dax_table()
     print(f"Created table.")
 # snippet-end:[dynamodb.Python.TryDax.01-create-table]

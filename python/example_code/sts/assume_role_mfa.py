@@ -21,13 +21,13 @@ def progress_bar(seconds):
     """Shows a simple progress bar in the command window."""
     for _ in range(seconds):
         time.sleep(1)
-        print('.', end='')
+        print(".", end="")
         sys.stdout.flush()
     print()
 
 
 def unique_name(base_name):
-    return f'demo-assume-role-{base_name}-{time.time_ns()}'
+    return f"demo-assume-role-{base_name}-{time.time_ns()}"
 
 
 # snippet-start:[python.example_code.sts.Scenario_AssumeRoleMfa_setup]
@@ -56,16 +56,19 @@ def setup(iam_resource):
                          in the account.
     :return: The newly created user, user key, virtual MFA device, and role.
     """
-    user = iam_resource.create_user(UserName=unique_name('user'))
+    user = iam_resource.create_user(UserName=unique_name("user"))
     print(f"Created user {user.name}.")
 
     virtual_mfa_device = iam_resource.create_virtual_mfa_device(
-        VirtualMFADeviceName=unique_name('mfa'))
+        VirtualMFADeviceName=unique_name("mfa")
+    )
     print(f"Created virtual MFA device {virtual_mfa_device.serial_number}")
 
-    print(f"Showing the QR code for the device. Scan this in the MFA app of your "
-          f"choice.")
-    with open('qr.png', 'wb') as qr_file:
+    print(
+        f"Showing the QR code for the device. Scan this in the MFA app of your "
+        f"choice."
+    )
+    with open("qr.png", "wb") as qr_file:
         qr_file.write(virtual_mfa_device.qr_code_png)
     webbrowser.open(qr_file.name)
 
@@ -75,68 +78,79 @@ def setup(iam_resource):
     user.enable_mfa(
         SerialNumber=virtual_mfa_device.serial_number,
         AuthenticationCode1=mfa_code_1,
-        AuthenticationCode2=mfa_code_2)
+        AuthenticationCode2=mfa_code_2,
+    )
     os.remove(qr_file.name)
     print(f"MFA device is registered with the user.")
 
     user_key = user.create_access_key_pair()
     print(f"Created access key pair for user.")
 
-    print(f"Wait for user to be ready.", end='')
+    print(f"Wait for user to be ready.", end="")
     progress_bar(10)
 
     role = iam_resource.create_role(
-        RoleName=unique_name('role'),
-        AssumeRolePolicyDocument=json.dumps({
-            'Version': '2012-10-17',
-            'Statement': [
-                {
-                    'Effect': 'Allow',
-                    'Principal': {'AWS': user.arn},
-                    'Action': 'sts:AssumeRole',
-                    'Condition': {'Bool': {'aws:MultiFactorAuthPresent': True}}
-                }
-            ]
-        })
+        RoleName=unique_name("role"),
+        AssumeRolePolicyDocument=json.dumps(
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Principal": {"AWS": user.arn},
+                        "Action": "sts:AssumeRole",
+                        "Condition": {"Bool": {"aws:MultiFactorAuthPresent": True}},
+                    }
+                ],
+            }
+        ),
     )
     print(f"Created role {role.name} that requires MFA.")
 
     policy = iam_resource.create_policy(
-        PolicyName=unique_name('policy'),
-        PolicyDocument=json.dumps({
-            'Version': '2012-10-17',
-            'Statement': [
-                {
-                    'Effect': 'Allow',
-                    'Action': 's3:ListAllMyBuckets',
-                    'Resource': 'arn:aws:s3:::*'
-                }
-            ]
-        })
+        PolicyName=unique_name("policy"),
+        PolicyDocument=json.dumps(
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Action": "s3:ListAllMyBuckets",
+                        "Resource": "arn:aws:s3:::*",
+                    }
+                ],
+            }
+        ),
     )
     role.attach_policy(PolicyArn=policy.arn)
     print(f"Created policy {policy.policy_name} and attached it to the role.")
 
     user.create_policy(
-        PolicyName=unique_name('user-policy'),
-        PolicyDocument=json.dumps({
-            'Version': '2012-10-17',
-            'Statement': [
-                {
-                    'Effect': 'Allow',
-                    'Action': 'sts:AssumeRole',
-                    'Resource': role.arn
-                }
-            ]
-        })
+        PolicyName=unique_name("user-policy"),
+        PolicyDocument=json.dumps(
+            {
+                "Version": "2012-10-17",
+                "Statement": [
+                    {
+                        "Effect": "Allow",
+                        "Action": "sts:AssumeRole",
+                        "Resource": role.arn,
+                    }
+                ],
+            }
+        ),
     )
-    print(f"Created an inline policy for {user.name} that lets the user assume "
-          f"the role.")
+    print(
+        f"Created an inline policy for {user.name} that lets the user assume "
+        f"the role."
+    )
 
-    print("Give AWS time to propagate these new resources and connections.", end='')
+    print("Give AWS time to propagate these new resources and connections.", end="")
     progress_bar(10)
 
     return user, user_key, virtual_mfa_device, role
+
+
 # snippet-end:[python.example_code.sts.Scenario_AssumeRoleMfa_setup]
 
 
@@ -155,16 +169,19 @@ def try_to_assume_role_without_mfa(assume_role_arn, session_name, sts_client):
         sts_client.assume_role(RoleArn=assume_role_arn, RoleSessionName=session_name)
         raise RuntimeError("Expected AccessDenied error.")
     except ClientError as error:
-        if error.response['Error']['Code'] == 'AccessDenied':
+        if error.response["Error"]["Code"] == "AccessDenied":
             print("Got AccessDenied.")
         else:
             raise
+
+
 # snippet-end:[python.example_code.sts.Scenario_AssumeRoleMfa_access_denied]
 
 
 # snippet-start:[python.example_code.sts.Scenario_AssumeRoleMfa_list_buckets]
 def list_buckets_from_assumed_role_with_mfa(
-        assume_role_arn, session_name, mfa_serial_number, mfa_totp, sts_client):
+    assume_role_arn, session_name, mfa_serial_number, mfa_totp, sts_client
+):
     """
     Assumes a role from another account and uses the temporary credentials from
     that role to list the Amazon S3 buckets that are owned by the other account.
@@ -184,19 +201,23 @@ def list_buckets_from_assumed_role_with_mfa(
         RoleArn=assume_role_arn,
         RoleSessionName=session_name,
         SerialNumber=mfa_serial_number,
-        TokenCode=mfa_totp)
-    temp_credentials = response['Credentials']
+        TokenCode=mfa_totp,
+    )
+    temp_credentials = response["Credentials"]
     print(f"Assumed role {assume_role_arn} and got temporary credentials.")
 
     s3_resource = boto3.resource(
-        's3',
-        aws_access_key_id=temp_credentials['AccessKeyId'],
-        aws_secret_access_key=temp_credentials['SecretAccessKey'],
-        aws_session_token=temp_credentials['SessionToken'])
+        "s3",
+        aws_access_key_id=temp_credentials["AccessKeyId"],
+        aws_secret_access_key=temp_credentials["SecretAccessKey"],
+        aws_session_token=temp_credentials["SessionToken"],
+    )
 
     print(f"Listing buckets for the assumed role's account:")
     for bucket in s3_resource.buckets.all():
         print(bucket.name)
+
+
 # snippet-end:[python.example_code.sts.Scenario_AssumeRoleMfa_list_buckets]
 
 
@@ -226,32 +247,43 @@ def teardown(user, virtual_mfa_device, role):
     virtual_mfa_device.delete()
     user.delete()
     print(f"Deleted {user.name}.")
+
+
 # snippet-end:[python.example_code.sts.Scenario_AssumeRoleMfa_teardown]
 
 
 # snippet-start:[python.example_code.sts.Scenario_AssumeRoleMfa_demo]
 def usage_demo():
     """Drives the demonstration."""
-    print('-'*88)
-    print(f"Welcome to the AWS Security Token Service assume role demo, "
-          f"starring multi-factor authentication (MFA)!")
-    print('-'*88)
-    iam_resource = boto3.resource('iam')
+    print("-" * 88)
+    print(
+        f"Welcome to the AWS Security Token Service assume role demo, "
+        f"starring multi-factor authentication (MFA)!"
+    )
+    print("-" * 88)
+    iam_resource = boto3.resource("iam")
     user, user_key, virtual_mfa_device, role = setup(iam_resource)
     print(f"Created {user.name} and {role.name}.")
     try:
         sts_client = boto3.client(
-            'sts', aws_access_key_id=user_key.id, aws_secret_access_key=user_key.secret)
-        try_to_assume_role_without_mfa(role.arn, 'demo-sts-session', sts_client)
-        mfa_totp = input('Enter the code from your registered MFA device: ')
+            "sts", aws_access_key_id=user_key.id, aws_secret_access_key=user_key.secret
+        )
+        try_to_assume_role_without_mfa(role.arn, "demo-sts-session", sts_client)
+        mfa_totp = input("Enter the code from your registered MFA device: ")
         list_buckets_from_assumed_role_with_mfa(
-            role.arn, 'demo-sts-session', virtual_mfa_device.serial_number,
-            mfa_totp, sts_client)
+            role.arn,
+            "demo-sts-session",
+            virtual_mfa_device.serial_number,
+            mfa_totp,
+            sts_client,
+        )
     finally:
         teardown(user, virtual_mfa_device, role)
         print("Thanks for watching!")
+
+
 # snippet-end:[python.example_code.sts.Scenario_AssumeRoleMfa_demo]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

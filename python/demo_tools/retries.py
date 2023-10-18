@@ -18,13 +18,13 @@ def wait(seconds, tick=12):
     :param seconds: The number of seconds to wait.
     :param tick: The number of frames per second used to animate the spinner.
     """
-    progress = '|/-\\'
+    progress = "|/-\\"
     waited = 0
     while waited < seconds:
         for frame in range(tick):
             sys.stdout.write(f"\r{progress[frame % len(progress)]}")
             sys.stdout.flush()
-            time.sleep(1/tick)
+            time.sleep(1 / tick)
         waited += 1
     sys.stdout.write("\r")
     sys.stdout.flush()
@@ -55,16 +55,20 @@ class ExponentialRetry:
                 func_return = self.func(*func_args, **func_kwargs)
                 logger.info("Ran %s, got %s.", self.func.__name__, func_return)
             except ClientError as error:
-                if error.response['Error']['Code'] == self.error_code:
-                    print(f"Sleeping for {sleepy_time} to give AWS time to "
-                          f"connect resources.")
+                if error.response["Error"]["Code"] == self.error_code:
+                    print(
+                        f"Sleeping for {sleepy_time} to give AWS time to "
+                        f"connect resources."
+                    )
                     time.sleep(sleepy_time)
-                    sleepy_time = sleepy_time*2
+                    sleepy_time = sleepy_time * 2
                 else:
                     logger.error(
-                        "%s raised an error and cannot be retried.", self.func.__name__)
+                        "%s raised an error and cannot be retried.", self.func.__name__
+                    )
                     raise
         if sleepy_time > self.max_sleep:
             raise MaxRetriesExceededError(
-                f"{self.func.__name__} exceeded the allowable number of retries.")
+                f"{self.func.__name__} exceeded the allowable number of retries."
+            )
         return func_return

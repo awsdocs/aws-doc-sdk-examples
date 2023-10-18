@@ -19,7 +19,7 @@ import chalicelib.library_data
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-app = Chalice(app_name='library_api')
+app = Chalice(app_name="library_api")
 app.debug = True  # Set this to False for production use.
 
 _STORAGE = None
@@ -41,17 +41,20 @@ def storage_timeout(func):
             raise RequestTimeoutError(err)
         else:
             return result
+
     return _timeout
 
 
-@app.route('/')
+@app.route("/")
 def index():
     """Briefly describes the REST API."""
-    return {'description': 'A simple lending library REST API that runs entirely on '
-                           'serverless components.'}
+    return {
+        "description": "A simple lending library REST API that runs entirely on "
+        "serverless components."
+    }
 
 
-@app.route('/books', methods=['GET'])
+@app.route("/books", methods=["GET"])
 @storage_timeout
 def list_books():
     """
@@ -59,10 +62,10 @@ def list_books():
 
     :return: The list of books.
     """
-    return {'books': get_storage().get_books()}
+    return {"books": get_storage().get_books()}
 
 
-@app.route('/books', methods=['POST'])
+@app.route("/books", methods=["POST"])
 @storage_timeout
 def add_book():
     """
@@ -77,10 +80,10 @@ def add_book():
     :return: The IDs of the added author and book.
     """
     author_id, book_id = get_storage().add_book(app.current_request.json_body)
-    return {'Authors.AuthorID': author_id, 'Books.BookID': book_id}
+    return {"Authors.AuthorID": author_id, "Books.BookID": book_id}
 
 
-@app.route('/books/{author_id}', methods=['GET'])
+@app.route("/books/{author_id}", methods=["GET"])
 @storage_timeout
 def list_books_by_author(author_id):
     """
@@ -90,10 +93,10 @@ def list_books_by_author(author_id):
     :return: The list of books written by the specified author.
     """
     author_id = int(urllib.parse.unquote(author_id))
-    return {'books': get_storage().get_books(author_id=author_id)}
+    return {"books": get_storage().get_books(author_id=author_id)}
 
 
-@app.route('/authors', methods=['GET'])
+@app.route("/authors", methods=["GET"])
 @storage_timeout
 def list_authors():
     """
@@ -101,10 +104,10 @@ def list_authors():
 
     :return: The list of authors.
     """
-    return {'authors': get_storage().get_authors()}
+    return {"authors": get_storage().get_authors()}
 
 
-@app.route('/patrons', methods=['GET'])
+@app.route("/patrons", methods=["GET"])
 @storage_timeout
 def list_patrons():
     """
@@ -112,10 +115,10 @@ def list_patrons():
 
     :return: The list of patrons.
     """
-    return {'patrons': get_storage().get_patrons()}
+    return {"patrons": get_storage().get_patrons()}
 
 
-@app.route('/patrons', methods=['POST'])
+@app.route("/patrons", methods=["POST"])
 @storage_timeout
 def add_patron():
     """
@@ -129,10 +132,10 @@ def add_patron():
     :return: The ID of the added patron.
     """
     patron_id = get_storage().add_patron(app.current_request.json_body)
-    return {'Patrons.PatronID': patron_id}
+    return {"Patrons.PatronID": patron_id}
 
 
-@app.route('/patrons/{patron_id}', methods=['DELETE'])
+@app.route("/patrons/{patron_id}", methods=["DELETE"])
 @storage_timeout
 def delete_patron(patron_id):
     """
@@ -144,7 +147,7 @@ def delete_patron(patron_id):
     get_storage().delete_patron(patron_id)
 
 
-@app.route('/lending', methods=['GET'])
+@app.route("/lending", methods=["GET"])
 @storage_timeout
 def list_borrowed_books():
     """
@@ -152,10 +155,10 @@ def list_borrowed_books():
 
     :return: The list of currently borrowed books.
     """
-    return {'books': get_storage().get_borrowed_books()}
+    return {"books": get_storage().get_borrowed_books()}
 
 
-@app.route('/lending/{book_id}/{patron_id}', methods=['PUT', 'DELETE'])
+@app.route("/lending/{book_id}/{patron_id}", methods=["PUT", "DELETE"])
 @storage_timeout
 def book_lending(book_id, patron_id):
     """
@@ -168,7 +171,7 @@ def book_lending(book_id, patron_id):
     """
     book_id = int(urllib.parse.unquote(book_id))
     patron_id = int(urllib.parse.unquote(patron_id))
-    if app.current_request.method == 'PUT':
+    if app.current_request.method == "PUT":
         get_storage().borrow_book(book_id, patron_id)
-    elif app.current_request.method == 'DELETE':
+    elif app.current_request.method == "DELETE":
         get_storage().return_book(book_id, patron_id)

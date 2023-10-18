@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.ec2.InstanceWrapper.decl]
 class InstanceWrapper:
     """Encapsulates Amazon Elastic Compute Cloud (Amazon EC2) instance actions."""
+
     def __init__(self, ec2_resource, instance=None):
         """
         :param ec2_resource: A Boto3 Amazon EC2 resource. This high-level resource
@@ -25,13 +26,13 @@ class InstanceWrapper:
 
     @classmethod
     def from_resource(cls):
-        ec2_resource = boto3.resource('ec2')
+        ec2_resource = boto3.resource("ec2")
         return cls(ec2_resource)
-# snippet-end:[python.example_code.ec2.InstanceWrapper.decl]
+
+    # snippet-end:[python.example_code.ec2.InstanceWrapper.decl]
 
     # snippet-start:[python.example_code.ec2.RunInstances]
-    def create(
-            self, image, instance_type, key_pair, security_groups=None):
+    def create(self, image, instance_type, key_pair, security_groups=None):
         """
         Creates a new EC2 instance. The instance starts immediately after
         it is created.
@@ -55,20 +56,30 @@ class InstanceWrapper:
         """
         try:
             instance_params = {
-                'ImageId': image.id, 'InstanceType': instance_type, 'KeyName': key_pair.name
+                "ImageId": image.id,
+                "InstanceType": instance_type,
+                "KeyName": key_pair.name,
             }
             if security_groups is not None:
-                instance_params['SecurityGroupIds'] = [sg.id for sg in security_groups]
-            self.instance = self.ec2_resource.create_instances(**instance_params, MinCount=1, MaxCount=1)[0]
+                instance_params["SecurityGroupIds"] = [sg.id for sg in security_groups]
+            self.instance = self.ec2_resource.create_instances(
+                **instance_params, MinCount=1, MaxCount=1
+            )[0]
             self.instance.wait_until_running()
         except ClientError as err:
             logging.error(
                 "Couldn't create instance with image %s, instance type %s, and key %s. "
-                "Here's why: %s: %s", image.id, instance_type, key_pair.name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Here's why: %s: %s",
+                image.id,
+                instance_type,
+                key_pair.name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return self.instance
+
     # snippet-end:[python.example_code.ec2.RunInstances]
 
     # snippet-start:[python.example_code.ec2.DescribeInstances]
@@ -84,7 +95,7 @@ class InstanceWrapper:
 
         try:
             self.instance.load()
-            ind = '\t'*indent
+            ind = "\t" * indent
             print(f"{ind}ID: {self.instance.id}")
             print(f"{ind}Image ID: {self.instance.image_id}")
             print(f"{ind}Instance type: {self.instance.instance_type}")
@@ -95,8 +106,11 @@ class InstanceWrapper:
         except ClientError as err:
             logger.error(
                 "Couldn't display your instance. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.ec2.DescribeInstances]
 
     # snippet-start:[python.example_code.ec2.TerminateInstances]
@@ -115,9 +129,13 @@ class InstanceWrapper:
             self.instance = None
         except ClientError as err:
             logging.error(
-                "Couldn't terminate instance %s. Here's why: %s: %s", instance_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't terminate instance %s. Here's why: %s: %s",
+                instance_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.ec2.TerminateInstances]
 
     # snippet-start:[python.example_code.ec2.StartInstances]
@@ -136,11 +154,15 @@ class InstanceWrapper:
             self.instance.wait_until_running()
         except ClientError as err:
             logger.error(
-                "Couldn't start instance %s. Here's why: %s: %s", self.instance.id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't start instance %s. Here's why: %s: %s",
+                self.instance.id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.ec2.StartInstances]
 
     # snippet-start:[python.example_code.ec2.StopInstances]
@@ -159,11 +181,15 @@ class InstanceWrapper:
             self.instance.wait_until_stopped()
         except ClientError as err:
             logger.error(
-                "Couldn't stop instance %s. Here's why: %s: %s", self.instance.id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't stop instance %s. Here's why: %s: %s",
+                self.instance.id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.ec2.StopInstances]
 
     # snippet-start:[python.example_code.ec2.DescribeImages]
@@ -179,10 +205,13 @@ class InstanceWrapper:
         except ClientError as err:
             logger.error(
                 "Couldn't get images. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return images
+
     # snippet-end:[python.example_code.ec2.DescribeImages]
 
     # snippet-start:[python.example_code.ec2.DescribeInstanceTypes]
@@ -199,18 +228,30 @@ class InstanceWrapper:
         """
         try:
             inst_types = []
-            it_paginator = self.ec2_resource.meta.client.get_paginator('describe_instance_types')
+            it_paginator = self.ec2_resource.meta.client.get_paginator(
+                "describe_instance_types"
+            )
             for page in it_paginator.paginate(
-                    Filters=[{
-                        'Name': 'processor-info.supported-architecture', 'Values': [architecture]},
-                        {'Name': 'instance-type', 'Values': ['*.micro', '*.small']}]):
-                inst_types += page['InstanceTypes']
+                Filters=[
+                    {
+                        "Name": "processor-info.supported-architecture",
+                        "Values": [architecture],
+                    },
+                    {"Name": "instance-type", "Values": ["*.micro", "*.small"]},
+                ]
+            ):
+                inst_types += page["InstanceTypes"]
         except ClientError as err:
             logger.error(
                 "Couldn't get instance types. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return inst_types
+
     # snippet-end:[python.example_code.ec2.DescribeInstanceTypes]
+
+
 # snippet-end:[python.example_code.ec2.InstanceWrapper.class]

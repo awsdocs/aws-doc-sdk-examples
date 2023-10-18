@@ -1,4 +1,3 @@
-
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -13,8 +12,9 @@ Lookout for Vision API.
 from botocore.exceptions import ClientError
 import boto3
 
+
 class Hello:
-    """ Hello class for Amazon Lookout for Vision """
+    """Hello class for Amazon Lookout for Vision"""
 
     @staticmethod
     def list_projects(lookoutvision_client):
@@ -37,8 +37,7 @@ class Hello:
 
 
 def main():
-
-    session = boto3.Session(profile_name='lookoutvision-access')
+    session = boto3.Session(profile_name="lookoutvision-access")
     lookoutvision_client = session.client("lookoutvision")
 
     Hello.list_projects(lookoutvision_client)
@@ -48,4 +47,3 @@ if __name__ == "__main__":
     main()
 
 # snippet-end:[python.example_code.lookoutvision.Hello]
-

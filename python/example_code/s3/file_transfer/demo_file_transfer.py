@@ -29,10 +29,14 @@ import file_transfer
 
 MB = 1024 * 1024
 # These configuration attributes affect both uploads and downloads.
-CONFIG_ATTRS = ('multipart_threshold', 'multipart_chunksize', 'max_concurrency',
-                'use_threads')
+CONFIG_ATTRS = (
+    "multipart_threshold",
+    "multipart_chunksize",
+    "max_concurrency",
+    "use_threads",
+)
 # These configuration attributes affect only downloads.
-DOWNLOAD_CONFIG_ATTRS = ('max_io_queue', 'io_chunksize', 'num_download_attempts')
+DOWNLOAD_CONFIG_ATTRS = ("max_io_queue", "io_chunksize", "num_download_attempts")
 
 
 class TransferDemoManager:
@@ -43,7 +47,7 @@ class TransferDemoManager:
     """
 
     def __init__(self):
-        self._s3 = boto3.resource('s3')
+        self._s3 = boto3.resource("s3")
         self._chore_list = []
         self._create_file_cmd = None
         self._size_multiplier = 0
@@ -60,8 +64,8 @@ class TransferDemoManager:
         """
         while not self.demo_folder:
             self.demo_folder = input(
-                "Which file folder do you want to use to store "
-                "demonstration files? ")
+                "Which file folder do you want to use to store " "demonstration files? "
+            )
             if not os.path.isdir(self.demo_folder):
                 print(f"{self.demo_folder} isn't a folder!")
                 self.demo_folder = None
@@ -69,7 +73,8 @@ class TransferDemoManager:
         while not self.demo_bucket:
             self.demo_bucket = input(
                 "Which Amazon S3 bucket do you want to use to store "
-                "demonstration files? ")
+                "demonstration files? "
+            )
             try:
                 self._s3.meta.client.head_bucket(Bucket=self.demo_bucket)
             except ParamValidationError as err:
@@ -79,11 +84,13 @@ class TransferDemoManager:
                 print(err)
                 print(
                     f"Either {self.demo_bucket} doesn't exist or you don't "
-                    f"have access to it.")
+                    f"have access to it."
+                )
                 self.demo_bucket = None
 
-    def demo(self, question, upload_func, download_func,
-             upload_args=None, download_args=None):
+    def demo(
+        self, question, upload_func, download_func, upload_args=None, download_args=None
+    ):
         """Run a demonstration.
 
         Ask the user if they want to run this specific demonstration.
@@ -97,30 +104,40 @@ class TransferDemoManager:
             upload_args = {}
         question = question.format(self.file_size_mb)
         answer = input(f"{question} (y/n)")
-        if answer.lower() == 'y':
-            local_file_path, object_key, download_file_path = \
-                self._create_demo_file()
+        if answer.lower() == "y":
+            local_file_path, object_key, download_file_path = self._create_demo_file()
 
-            file_transfer.TransferConfig = \
-                self._config_wrapper(TransferConfig, CONFIG_ATTRS)
-            self._report_transfer_params('Uploading', local_file_path,
-                                         object_key, **upload_args)
+            file_transfer.TransferConfig = self._config_wrapper(
+                TransferConfig, CONFIG_ATTRS
+            )
+            self._report_transfer_params(
+                "Uploading", local_file_path, object_key, **upload_args
+            )
             start_time = time.perf_counter()
-            thread_info = upload_func(local_file_path, self.demo_bucket,
-                                      object_key, self.file_size_mb,
-                                      **upload_args)
+            thread_info = upload_func(
+                local_file_path,
+                self.demo_bucket,
+                object_key,
+                self.file_size_mb,
+                **upload_args,
+            )
             end_time = time.perf_counter()
             self._report_transfer_result(thread_info, end_time - start_time)
 
-            file_transfer.TransferConfig = \
-                self._config_wrapper(TransferConfig,
-                                     CONFIG_ATTRS + DOWNLOAD_CONFIG_ATTRS)
-            self._report_transfer_params('Downloading', object_key,
-                                         download_file_path, **download_args)
+            file_transfer.TransferConfig = self._config_wrapper(
+                TransferConfig, CONFIG_ATTRS + DOWNLOAD_CONFIG_ATTRS
+            )
+            self._report_transfer_params(
+                "Downloading", object_key, download_file_path, **download_args
+            )
             start_time = time.perf_counter()
-            thread_info = download_func(self.demo_bucket, object_key,
-                                        download_file_path, self.file_size_mb,
-                                        **download_args)
+            thread_info = download_func(
+                self.demo_bucket,
+                object_key,
+                download_file_path,
+                self.file_size_mb,
+                **download_args,
+            )
             end_time = time.perf_counter()
             self._report_transfer_result(thread_info, end_time - start_time)
 
@@ -133,9 +150,8 @@ class TransferDemoManager:
         Remove files from the demo folder, and uploaded objects from the
         Amazon S3 bucket.
         """
-        print('-' * self._terminal_width)
-        for local_file_path, s3_object_key, downloaded_file_path \
-                in self._chore_list:
+        print("-" * self._terminal_width)
+        for local_file_path, s3_object_key, downloaded_file_path in self._chore_list:
             print(f"Removing {local_file_path}")
             try:
                 os.remove(local_file_path)
@@ -151,8 +167,7 @@ class TransferDemoManager:
             if self.demo_bucket:
                 print(f"Removing {self.demo_bucket}:{s3_object_key}")
                 try:
-                    self._s3.Bucket(self.demo_bucket).Object(
-                        s3_object_key).delete()
+                    self._s3.Bucket(self.demo_bucket).Object(s3_object_key).delete()
                 except ClientError as err:
                     print(err)
 
@@ -162,12 +177,12 @@ class TransferDemoManager:
             self._create_file_cmd = "fsutil file createnew {} {}"
             self._size_multiplier = MB
         elif platform.system() == "Linux" or platform.system() == "Darwin":
-            self._create_file_cmd = f"dd if=/dev/urandom of={{}} " \
-                                    f"bs={MB} count={{}}"
+            self._create_file_cmd = f"dd if=/dev/urandom of={{}} " f"bs={MB} count={{}}"
             self._size_multiplier = 1
         else:
             raise EnvironmentError(
-                f"Demo of platform {platform.system()} isn't supported.")
+                f"Demo of platform {platform.system()} isn't supported."
+            )
 
     def _create_demo_file(self):
         """
@@ -188,21 +203,23 @@ class TransferDemoManager:
         file_tag = len(self._chore_list) + 1
 
         local_file_path = os.path.join(
-            self.demo_folder,
-            file_name_template.format(file_tag, local_suffix))
+            self.demo_folder, file_name_template.format(file_tag, local_suffix)
+        )
 
         s3_object_key = file_name_template.format(file_tag, object_suffix)
 
         downloaded_file_path = os.path.join(
-            self.demo_folder,
-            file_name_template.format(file_tag, download_suffix))
+            self.demo_folder, file_name_template.format(file_tag, download_suffix)
+        )
 
         filled_cmd = self._create_file_cmd.format(
-            local_file_path,
-            self.file_size_mb * self._size_multiplier)
+            local_file_path, self.file_size_mb * self._size_multiplier
+        )
 
-        print(f"Creating file of size {self.file_size_mb} MB "
-              f"in {self.demo_folder} by running:")
+        print(
+            f"Creating file of size {self.file_size_mb} MB "
+            f"in {self.demo_folder} by running:"
+        )
         print(f"{'':4}{filled_cmd}")
         os.system(filled_cmd)
 
@@ -212,10 +229,10 @@ class TransferDemoManager:
 
     def _report_transfer_params(self, verb, source_name, dest_name, **kwargs):
         """Report configuration and extra arguments used for a file transfer."""
-        print('-' * self._terminal_width)
-        print(f'{verb} {source_name} ({self.file_size_mb} MB) to {dest_name}')
+        print("-" * self._terminal_width)
+        print(f"{verb} {source_name} ({self.file_size_mb} MB) to {dest_name}")
         if kwargs:
-            print('With extra args:')
+            print("With extra args:")
             for arg, value in kwargs.items():
                 print(f'{"":4}{arg:<20}: {value}')
 
@@ -228,13 +245,13 @@ class TransferDemoManager:
         True when the user answers 'y' or 'Y'; otherwise, False.
         """
         answer = input(f"{question} (y/n) ")
-        return answer.lower() == 'y'
+        return answer.lower() == "y"
 
     @staticmethod
     def _config_wrapper(func, config_attrs):
         def wrapper(*args, **kwargs):
             config = func(*args, **kwargs)
-            print('With configuration:')
+            print("With configuration:")
             for attr in config_attrs:
                 print(f'{"":4}{attr:<20}: {getattr(config, attr)}')
             return config
@@ -264,7 +281,8 @@ def main():
         "Do you want to upload and download a {} MB file "
         "using the default configuration?",
         file_transfer.upload_with_default_configuration,
-        file_transfer.download_with_default_configuration)
+        file_transfer.download_with_default_configuration,
+    )
 
     # Upload and download with multipart_threshold set higher than the size of
     # the file. This causes the transfer manager to use standard transfers
@@ -273,7 +291,8 @@ def main():
         "Do you want to upload and download a {} MB file "
         "as a standard (not multipart) transfer?",
         file_transfer.upload_with_high_threshold,
-        file_transfer.download_with_high_threshold)
+        file_transfer.download_with_high_threshold,
+    )
 
     # Upload with specific chunk size and additional metadata.
     # Download with a single thread.
@@ -283,51 +302,63 @@ def main():
         file_transfer.upload_with_chunksize_and_meta,
         file_transfer.download_with_single_thread,
         upload_args={
-            'metadata': {
-                'upload_type': 'chunky',
-                'favorite_color': 'aqua',
-                'size': 'medium'}})
+            "metadata": {
+                "upload_type": "chunky",
+                "favorite_color": "aqua",
+                "size": "medium",
+            }
+        },
+    )
 
     # Upload using server-side encryption with customer-provided
     # encryption keys.
     # Generate a 256-bit key from a passphrase.
-    sse_key = hashlib.sha256('demo_passphrase'.encode('utf-8')).digest()
+    sse_key = hashlib.sha256("demo_passphrase".encode("utf-8")).digest()
     demo_manager.demo(
         "Do you want to upload and download a {} MB file using "
         "server-side encryption?",
         file_transfer.upload_with_sse,
         file_transfer.download_with_sse,
-        upload_args={'sse_key': sse_key},
-        download_args={'sse_key': sse_key})
+        upload_args={"sse_key": sse_key},
+        download_args={"sse_key": sse_key},
+    )
 
     # Download without specifying an encryption key to show that the
     # encryption key must be included to download an encrypted object.
-    if demo_manager.ask_user("Do you want to try to download the encrypted "
-                             "object without sending the required key?"):
+    if demo_manager.ask_user(
+        "Do you want to try to download the encrypted "
+        "object without sending the required key?"
+    ):
         try:
-            _, object_key, download_file_path = \
-                demo_manager.last_name_set()
+            _, object_key, download_file_path = demo_manager.last_name_set()
             file_transfer.download_with_default_configuration(
-                demo_manager.demo_bucket, object_key, download_file_path,
-                demo_manager.file_size_mb)
+                demo_manager.demo_bucket,
+                object_key,
+                download_file_path,
+                demo_manager.file_size_mb,
+            )
         except ClientError as err:
-            print("Got expected error when trying to download an encrypted "
-                  "object without specifying encryption info:")
+            print(
+                "Got expected error when trying to download an encrypted "
+                "object without specifying encryption info:"
+            )
             print(f"{'':4}{err}")
 
     # Remove all created and downloaded files, remove all objects from
     # S3 storage.
     if demo_manager.ask_user(
-            "Demonstration complete. Do you want to remove local files "
-            "and S3 objects?"):
+        "Demonstration complete. Do you want to remove local files " "and S3 objects?"
+    ):
         demo_manager.cleanup()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         main()
     except NoCredentialsError as error:
         print(error)
-        print("To run this example, you must have valid credentials in "
-              "a shared credential file or set in environment variables.")
+        print(
+            "To run this example, you must have valid credentials in "
+            "a shared credential file or set in environment variables."
+        )
 # snippet-end:[python.example_code.s3.Scenario_FileTransfer_Demo]

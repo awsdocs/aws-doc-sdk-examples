@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
@@ -42,12 +43,13 @@ def main():
         help="When set, output verbose debugging info.",
     )
     parser.add_argument(
-        "--dry_run",
+        "--dry-run",
         action="store_true",
-        help="This tool is in development. You must pass --dry_run=false to have it run.",
+        dest="dry_run",
+        help="This tool is in development. You must pass --dry-run=false to have it run.",
         default=True,  # Change this to default false when we're ready to use this generally.
     )
-    parser.add_argument("--no_dry_run", dest="dry_run", action="store_false")
+    parser.add_argument("--no-dry-run", dest="dry_run", action="store_false")
     args = parser.parse_args()
 
     if "all" in args.languages:

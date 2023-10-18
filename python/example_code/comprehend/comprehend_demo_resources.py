@@ -22,6 +22,7 @@ logger = logging.getLogger(__name__)
 
 class ComprehendDemoResources:
     """Encapsulates resources used for demonstrations."""
+
     def __init__(self, s3_resource, iam_resource):
         """
         :param s3_resource: A Boto3 Amazon S3 resource.
@@ -42,10 +43,11 @@ class ComprehendDemoResources:
         """
         try:
             self.bucket = self.s3_resource.create_bucket(
-                Bucket=f'doc-example-bucket-{uuid.uuid4()}',
+                Bucket=f"doc-example-bucket-{uuid.uuid4()}",
                 CreateBucketConfiguration={
-                    'LocationConstraint':
-                        self.s3_resource.meta.client.meta.region_name})
+                    "LocationConstraint": self.s3_resource.meta.client.meta.region_name
+                },
+            )
             logger.info("Created demo bucket %s.", self.bucket.name)
         except ClientError:
             logger.exception("Couldn't set up demo bucket.")
@@ -53,39 +55,55 @@ class ComprehendDemoResources:
 
         try:
             self.data_access_role = self.iam_resource.create_role(
-                RoleName=f'{demo_name}-role',
-                AssumeRolePolicyDocument=json.dumps({
-                    "Version": "2012-10-17",
-                    "Statement": [{
-                        "Effect": "Allow",
-                        "Principal": {
-                            "Service": "comprehend.amazonaws.com"},
-                        "Action": "sts:AssumeRole"}]}))
-            role_waiter = self.iam_resource.meta.client.get_waiter('role_exists')
+                RoleName=f"{demo_name}-role",
+                AssumeRolePolicyDocument=json.dumps(
+                    {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                            {
+                                "Effect": "Allow",
+                                "Principal": {"Service": "comprehend.amazonaws.com"},
+                                "Action": "sts:AssumeRole",
+                            }
+                        ],
+                    }
+                ),
+            )
+            role_waiter = self.iam_resource.meta.client.get_waiter("role_exists")
             role_waiter.wait(RoleName=self.data_access_role.name)
             policy = self.iam_resource.create_policy(
-                PolicyName=f'{demo_name}-policy',
-                PolicyDocument=json.dumps({
-                    "Version": "2012-10-17",
-                    "Statement": [{
-                        "Action": ["s3:GetObject"],
-                        "Resource": [f"arn:aws:s3:::{self.bucket.name}/*"],
-                        "Effect": "Allow"
-                    }, {
-                        "Action": ["s3:ListBucket"],
-                        "Resource": [f"arn:aws:s3:::{self.bucket.name}"],
-                        "Effect": "Allow"
-                    }, {
-                        "Action": ["s3:PutObject"],
-                        "Resource": [f"arn:aws:s3:::{self.bucket.name}/*"],
-                        "Effect": "Allow"}]
-                    }))
-            policy_waiter = self.iam_resource.meta.client.get_waiter('policy_exists')
+                PolicyName=f"{demo_name}-policy",
+                PolicyDocument=json.dumps(
+                    {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                            {
+                                "Action": ["s3:GetObject"],
+                                "Resource": [f"arn:aws:s3:::{self.bucket.name}/*"],
+                                "Effect": "Allow",
+                            },
+                            {
+                                "Action": ["s3:ListBucket"],
+                                "Resource": [f"arn:aws:s3:::{self.bucket.name}"],
+                                "Effect": "Allow",
+                            },
+                            {
+                                "Action": ["s3:PutObject"],
+                                "Resource": [f"arn:aws:s3:::{self.bucket.name}/*"],
+                                "Effect": "Allow",
+                            },
+                        ],
+                    }
+                ),
+            )
+            policy_waiter = self.iam_resource.meta.client.get_waiter("policy_exists")
             policy_waiter.wait(PolicyArn=policy.arn)
             self.data_access_role.attach_policy(PolicyArn=policy.arn)
             logger.info(
                 "Created data access role %s and attached policy %s.",
-                self.data_access_role.name, policy.arn)
+                self.data_access_role.name,
+                policy.arn,
+            )
             print("Waiting for eventual consistency of role resource...")
             time.sleep(10)
         except ClientError:
@@ -110,7 +128,8 @@ class ComprehendDemoResources:
             except ClientError:
                 logger.exception(
                     "Couldn't clean up role %s and attached policies.",
-                    self.data_access_role.name)
+                    self.data_access_role.name,
+                )
 
         if self.bucket is not None:
             try:
@@ -120,7 +139,8 @@ class ComprehendDemoResources:
                 self.bucket = None
             except ClientError:
                 logger.exception(
-                    "Couldn't empty or delete bucket %s.", self.bucket.name)
+                    "Couldn't empty or delete bucket %s.", self.bucket.name
+                )
 
     def extract_job_output(self, job):
         """
@@ -133,34 +153,41 @@ class ComprehendDemoResources:
         :return: Job output as a dictionary where the keys are the individual file
                  names in the tar archive.
         """
-        output_key = job['OutputDataConfig']['S3Uri'].split(
-            self.bucket.name + '/')[1]
+        output_key = job["OutputDataConfig"]["S3Uri"].split(self.bucket.name + "/")[1]
         try:
             output_bytes = io.BytesIO()
             self.bucket.download_fileobj(output_key, output_bytes)
             logger.info("Downloaded job output %s.", output_key)
             output_bytes.seek(0)
-            output_tar = tarfile.open(fileobj=output_bytes, mode='r:gz')
+            output_tar = tarfile.open(fileobj=output_bytes, mode="r:gz")
             output_dict = {
-                name: {'file': output_tar.extractfile(name)} for name
-                in output_tar.getnames()}
+                name: {"file": output_tar.extractfile(name)}
+                for name in output_tar.getnames()
+            }
             total_lines = 0
             for name in output_dict:
-                if name.split('.')[-1] == 'jsonl':
-                    output_dict[name]['data'] = [
-                        json.loads(line) for line in
-                        output_dict[name]['file'].read().decode().strip().splitlines()]
-                elif name.split('.')[-1] == 'csv':
+                if name.split(".")[-1] == "jsonl":
+                    output_dict[name]["data"] = [
+                        json.loads(line)
+                        for line in output_dict[name]["file"]
+                        .read()
+                        .decode()
+                        .strip()
+                        .splitlines()
+                    ]
+                elif name.split(".")[-1] == "csv":
                     text_wrapper = io.TextIOWrapper(
-                        output_dict[name]['file'], encoding='utf-8')
+                        output_dict[name]["file"], encoding="utf-8"
+                    )
                     reader = csv.DictReader(text_wrapper)
-                    output_dict[name]['data'] = list(reader)
-                total_lines += len(output_dict[name]['data'])
+                    output_dict[name]["data"] = list(reader)
+                total_lines += len(output_dict[name]["data"])
             logger.info(
-                "Extracted %s lines of output data from tar archive.", total_lines)
+                "Extracted %s lines of output data from tar archive.", total_lines
+            )
         except ClientError:
             logger.exception(
-                "Couldn't get output data from %s/%s", self.bucket.name,
-                output_key)
+                "Couldn't get output data from %s/%s", self.bucket.name, output_key
+            )
         else:
             return output_dict

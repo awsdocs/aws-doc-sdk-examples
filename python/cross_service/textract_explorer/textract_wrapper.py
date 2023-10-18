@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 class TextractWrapper:
     """Encapsulates Textract functions."""
+
     def __init__(self, textract_client, s3_resource, sqs_resource):
         """
         :param textract_client: A Boto3 Textract client.
@@ -38,13 +39,13 @@ class TextractWrapper:
                  that describe elements detected in the image.
         """
         if document_file_name is not None:
-            with open(document_file_name, 'rb') as document_file:
+            with open(document_file_name, "rb") as document_file:
                 document_bytes = document_file.read()
         try:
             response = self.textract_client.detect_document_text(
-                Document={'Bytes': document_bytes})
-            logger.info(
-                "Detected %s blocks.", len(response['Blocks']))
+                Document={"Bytes": document_bytes}
+            )
+            logger.info("Detected %s blocks.", len(response["Blocks"]))
         except ClientError:
             logger.exception("Couldn't detect text.")
             raise
@@ -52,7 +53,8 @@ class TextractWrapper:
             return response
 
     def analyze_file(
-            self, feature_types, *, document_file_name=None, document_bytes=None):
+        self, feature_types, *, document_file_name=None, document_bytes=None
+    ):
         """
         Detects text and additional elements, such as forms or tables, in a local image
         file or from in-memory byte data.
@@ -65,13 +67,13 @@ class TextractWrapper:
                  that describe elements detected in the image.
         """
         if document_file_name is not None:
-            with open(document_file_name, 'rb') as document_file:
+            with open(document_file_name, "rb") as document_file:
                 document_bytes = document_file.read()
         try:
             response = self.textract_client.analyze_document(
-                Document={'Bytes': document_bytes}, FeatureTypes=feature_types)
-            logger.info(
-                "Detected %s blocks.", len(response['Blocks']))
+                Document={"Bytes": document_bytes}, FeatureTypes=feature_types
+            )
+            logger.info("Detected %s blocks.", len(response["Blocks"]))
         except ClientError:
             logger.exception("Couldn't detect text.")
             raise
@@ -111,13 +113,13 @@ class TextractWrapper:
             messages = queue.receive_messages()
             if messages:
                 msg_body = json.loads(messages[0].body)
-                msg = json.loads(msg_body['Message'])
-                if msg.get('JobId') == job_id:
+                msg = json.loads(msg_body["Message"])
+                if msg.get("JobId") == job_id:
                     messages[0].delete()
-                    status = msg.get('Status')
+                    status = msg.get("Status")
                     logger.info(
-                        "Got message %s with status %s.", messages[0].message_id,
-                        status)
+                        "Got message %s with status %s.", messages[0].message_id, status
+                    )
             else:
                 logger.info("No messages in queue %s.", queue_url)
         except ClientError:
@@ -126,7 +128,8 @@ class TextractWrapper:
             return status
 
     def start_detection_job(
-            self, bucket_name, document_file_name, sns_topic_arn, sns_role_arn):
+        self, bucket_name, document_file_name, sns_topic_arn, sns_role_arn
+    ):
         """
         Starts an asynchronous job to detect text elements in an image stored in an
         Amazon S3 bucket. Textract publishes a notification to the specified Amazon SNS
@@ -145,12 +148,17 @@ class TextractWrapper:
         try:
             response = self.textract_client.start_document_text_detection(
                 DocumentLocation={
-                    'S3Object': {'Bucket': bucket_name, 'Name': document_file_name}},
+                    "S3Object": {"Bucket": bucket_name, "Name": document_file_name}
+                },
                 NotificationChannel={
-                    'SNSTopicArn': sns_topic_arn, 'RoleArn': sns_role_arn})
-            job_id = response['JobId']
+                    "SNSTopicArn": sns_topic_arn,
+                    "RoleArn": sns_role_arn,
+                },
+            )
+            job_id = response["JobId"]
             logger.info(
-                "Started text detection job %s on %s.", job_id, document_file_name)
+                "Started text detection job %s on %s.", job_id, document_file_name
+            )
         except ClientError:
             logger.exception("Couldn't detect text in %s.", document_file_name)
             raise
@@ -166,9 +174,8 @@ class TextractWrapper:
                  detected in the image.
         """
         try:
-            response = self.textract_client.get_document_text_detection(
-                JobId=job_id)
-            job_status = response['JobStatus']
+            response = self.textract_client.get_document_text_detection(JobId=job_id)
+            job_status = response["JobStatus"]
             logger.info("Job %s status is %s.", job_id, job_status)
         except ClientError:
             logger.exception("Couldn't get data for job %s.", job_id)
@@ -177,8 +184,13 @@ class TextractWrapper:
             return response
 
     def start_analysis_job(
-            self, bucket_name, document_file_name, feature_types, sns_topic_arn,
-            sns_role_arn):
+        self,
+        bucket_name,
+        document_file_name,
+        feature_types,
+        sns_topic_arn,
+        sns_role_arn,
+    ):
         """
         Starts an asynchronous job to detect text and additional elements, such as
         forms or tables, in an image stored in an Amazon S3 bucket. Textract publishes
@@ -198,13 +210,18 @@ class TextractWrapper:
         try:
             response = self.textract_client.start_document_analysis(
                 DocumentLocation={
-                    'S3Object': {'Bucket': bucket_name, 'Name': document_file_name}},
+                    "S3Object": {"Bucket": bucket_name, "Name": document_file_name}
+                },
                 NotificationChannel={
-                    'SNSTopicArn': sns_topic_arn, 'RoleArn': sns_role_arn},
-                FeatureTypes=feature_types)
-            job_id = response['JobId']
+                    "SNSTopicArn": sns_topic_arn,
+                    "RoleArn": sns_role_arn,
+                },
+                FeatureTypes=feature_types,
+            )
+            job_id = response["JobId"]
             logger.info(
-                "Started text analysis job %s on %s.", job_id, document_file_name)
+                "Started text analysis job %s on %s.", job_id, document_file_name
+            )
         except ClientError:
             logger.exception("Couldn't analyze text in %s.", document_file_name)
             raise
@@ -221,9 +238,8 @@ class TextractWrapper:
                  detected in the image.
         """
         try:
-            response = self.textract_client.get_document_analysis(
-                JobId=job_id)
-            job_status = response['JobStatus']
+            response = self.textract_client.get_document_analysis(JobId=job_id)
+            job_status = response["JobStatus"]
             logger.info("Job %s status is %s.", job_id, job_status)
         except ClientError:
             logger.exception("Couldn't get data for job %s.", job_id)
@@ -240,11 +256,14 @@ class TextractWrapper:
         :param block: The block to populate with children.
         :param block_dict: A dictionary of all blocks for fast lookup by ID.
         """
-        for kids in [rels['Ids'] for rels in block.get('Relationships', [])
-                     if rels['Type'] == 'CHILD']:
-            block['Children'] = []
+        for kids in [
+            rels["Ids"]
+            for rels in block.get("Relationships", [])
+            if rels["Type"] == "CHILD"
+        ]:
+            block["Children"] = []
             for kid in [block_dict[k_id] for k_id in kids]:
-                block['Children'].append(kid)
+                block["Children"].append(kid)
                 TextractWrapper._add_children(kid, block_dict)
 
     @staticmethod
@@ -259,10 +278,10 @@ class TextractWrapper:
         :param blocks: The list of blocks returned by Textract.
         :return: A single parent node that contains the list of pages as its children.
         """
-        block_dict = {block['Id']: block for block in blocks}
+        block_dict = {block["Id"]: block for block in blocks}
         pages = []
         for block in block_dict.values():
-            if block['BlockType'] == 'PAGE':
+            if block["BlockType"] == "PAGE":
                 pages.append(block)
                 TextractWrapper._add_children(block, block_dict)
-        return {'Children': pages}
+        return {"Children": pages}

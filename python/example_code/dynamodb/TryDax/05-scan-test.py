@@ -32,25 +32,27 @@ def scan_test(iterations, dyn_resource=None):
     :return: The start and end times of the test.
     """
     if dyn_resource is None:
-        dyn_resource = boto3.resource('dynamodb')
+        dyn_resource = boto3.resource("dynamodb")
 
-    table = dyn_resource.Table('TryDaxTable')
+    table = dyn_resource.Table("TryDaxTable")
     start = time.perf_counter()
     for _ in range(iterations):
         table.scan()
-        print('.', end='')
+        print(".", end="")
         sys.stdout.flush()
     print()
     end = time.perf_counter()
     return start, end
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # pylint: disable=not-context-manager
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'endpoint_url', nargs='?',
-        help="When specified, the DAX cluster endpoint. Otherwise, DAX is not used.")
+        "endpoint_url",
+        nargs="?",
+        help="When specified, the DAX cluster endpoint. Otherwise, DAX is not used.",
+    )
     args = parser.parse_args()
 
     test_iterations = 100
@@ -62,6 +64,8 @@ if __name__ == '__main__':
     else:
         print(f"Scanning the table {test_iterations} times, using the Boto3 client.")
         test_start, test_end = scan_test(test_iterations)
-    print(f"Total time: {test_end - test_start:.4f} sec. Average time: "
-          f"{(test_end - test_start)/test_iterations}.")
+    print(
+        f"Total time: {test_end - test_start:.4f} sec. Average time: "
+        f"{(test_end - test_start)/test_iterations}."
+    )
 # snippet-end:[dynamodb.Python.TryDax.05-scan-test]

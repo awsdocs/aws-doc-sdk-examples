@@ -26,6 +26,7 @@ class Storage:
     """
     Wraps calls to the Amazon RDS Data Service.
     """
+
     def __init__(self, cluster, secret, db_name, table_name, rdsdata_client):
         """
         :param cluster: The Amazon Resource Name (ARN) of an Aurora DB cluster that
@@ -52,23 +53,25 @@ class Storage:
         """
         try:
             run_args = {
-                'database': self._db_name,
-                'resourceArn': self._cluster,
-                'secretArn': self._secret,
-                'sql': sql
+                "database": self._db_name,
+                "resourceArn": self._cluster,
+                "secretArn": self._secret,
+                "sql": sql,
             }
             if sql_params is not None:
-                run_args['parameters'] = sql_params
+                run_args["parameters"] = sql_params
             result = self._rdsdata_client.execute_statement(**run_args)
             logger.info("Ran statement on %s.", self._db_name)
         except ClientError as error:
-            if (error.response['Error']['Code'] == 'BadRequestException'
-                    and 'Communications link failure'
-                    in error.response['Error']['Message']):
+            if (
+                error.response["Error"]["Code"] == "BadRequestException"
+                and "Communications link failure" in error.response["Error"]["Message"]
+            ):
                 raise DataServiceNotReadyException(
-                    'The Aurora Data Service is not ready, probably because it entered '
-                    'pause mode after a period of inactivity. Wait a minute for '
-                    'your cluster to resume and try your request again.') from error
+                    "The Aurora Data Service is not ready, probably because it entered "
+                    "pause mode after a period of inactivity. Wait a minute for "
+                    "your cluster to resume and try your request again."
+                ) from error
             else:
                 logger.exception("Run statement on %s failed.", self._db_name)
                 raise StorageError(error)
@@ -84,22 +87,25 @@ class Storage:
         :return: The list of retrieved work items.
         """
         sql_select = "SELECT iditem, description, guide, status, username, archived"
-        sql_where = ''
+        sql_where = ""
         sql_params = None
         if archived is not None:
             sql_where = "WHERE archived=:archived"
-            sql_params = [{'name': 'archived', 'value': {'booleanValue': archived}}]
+            sql_params = [{"name": "archived", "value": {"booleanValue": archived}}]
         sql = f"{sql_select} FROM {self._table_name} {sql_where}"
         print(sql)
         results = self._run_statement(sql, sql_params=sql_params)
-        output = [{
-            'iditem': record[0]['longValue'],
-            'description': record[1]['stringValue'],
-            'guide': record[2]['stringValue'],
-            'status': record[3]['stringValue'],
-            'username': record[4]['stringValue'],
-            'archived': record[5]['booleanValue']
-        } for record in results['records']]
+        output = [
+            {
+                "iditem": record[0]["longValue"],
+                "description": record[1]["stringValue"],
+                "guide": record[2]["stringValue"],
+                "status": record[3]["stringValue"],
+                "username": record[4]["stringValue"],
+                "archived": record[5]["booleanValue"],
+            }
+            for record in results["records"]
+        ]
         return output
 
     def add_work_item(self, work_item):
@@ -111,16 +117,18 @@ class Storage:
                           you don't need to specify them when creating a new item.
         :return: The generated ID of the new work item.
         """
-        sql = (f"INSERT INTO {self._table_name} (description, guide, status, username) " 
-               f" VALUES (:description, :guide, :status, :username)")
+        sql = (
+            f"INSERT INTO {self._table_name} (description, guide, status, username) "
+            f" VALUES (:description, :guide, :status, :username)"
+        )
         sql_params = [
-            {'name': 'description', 'value': {'stringValue': work_item['description']}},
-            {'name': 'guide', 'value': {'stringValue': work_item['guide']}},
-            {'name': 'status', 'value': {'stringValue': work_item['status']}},
-            {'name': 'username', 'value': {'stringValue': work_item['username']}},
+            {"name": "description", "value": {"stringValue": work_item["description"]}},
+            {"name": "guide", "value": {"stringValue": work_item["guide"]}},
+            {"name": "status", "value": {"stringValue": work_item["status"]}},
+            {"name": "username", "value": {"stringValue": work_item["username"]}},
         ]
         results = self._run_statement(sql, sql_params=sql_params)
-        work_item_id = results['generatedFields'][0]['longValue']
+        work_item_id = results["generatedFields"][0]["longValue"]
         return work_item_id
 
     def archive_work_item(self, iditem):
@@ -131,7 +139,7 @@ class Storage:
         """
         sql = f"UPDATE {self._table_name} SET archived=:archived WHERE iditem=:iditem"
         sql_params = [
-            {'name': 'archived', 'value': {'booleanValue': True}},
-            {'name': 'iditem', 'value': {'longValue': int(iditem)}}
+            {"name": "archived", "value": {"booleanValue": True}},
+            {"name": "iditem", "value": {"longValue": int(iditem)}},
         ]
         self._run_statement(sql, sql_params=sql_params)

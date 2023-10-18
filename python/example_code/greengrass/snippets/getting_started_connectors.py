@@ -13,29 +13,34 @@ import json
 import random
 import greengrasssdk
 
-iot_client = greengrasssdk.client('iot-data')
-send_topic = 'twilio/txt'
+iot_client = greengrasssdk.client("iot-data")
+send_topic = "twilio/txt"
 
 
 def create_request(event):
     return {
         "request": {
             "recipient": {
-                "name": event['to_name'],
-                "phone_number": event['to_number'],
-                "message": f"temperature:{event['temperature']}"}},
-        "id": f"request_{random.randint(1, 101)}"}
+                "name": event["to_name"],
+                "phone_number": event["to_number"],
+                "message": f"temperature:{event['temperature']}",
+            }
+        },
+        "id": f"request_{random.randint(1, 101)}",
+    }
 
 
 # Publish to the Twilio Notifications connector through the twilio/txt topic.
 def function_handler(event, context):
-    temperature = event['temperature']
+    temperature = event["temperature"]
 
     # If temperature is greater than 30C, send a notification.
     if temperature > 30:
         message = create_request(event)
-        iot_client.publish(topic='twilio/txt', payload=json.dumps(message))
-        print(f'Published: {message}')
+        iot_client.publish(topic="twilio/txt", payload=json.dumps(message))
+        print(f"Published: {message}")
 
-    print(f'Temperature: {temperature}')
+    print(f"Temperature: {temperature}")
+
+
 # snippet-end:[greengrass.python.getting-started-connectors.complete]

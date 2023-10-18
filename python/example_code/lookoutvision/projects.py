@@ -22,13 +22,13 @@ logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.lookoutvision.Projects]
 class Projects:
-# snippet-end:[python.example_code.lookoutvision.Projects]
+    # snippet-end:[python.example_code.lookoutvision.Projects]
     """
     Provides example functions for creating, listing, and deleting Lookout for Vision
     projects
     """
 
-# snippet-start:[python.example_code.lookoutvision.CreateProject]
+    # snippet-start:[python.example_code.lookoutvision.CreateProject]
     @staticmethod
     def create_project(lookoutvision_client, project_name):
         """
@@ -48,9 +48,10 @@ class Projects:
             raise
         else:
             return project_arn
-# snippet-end:[python.example_code.lookoutvision.CreateProject]
 
-# snippet-start:[python.example_code.lookoutvision.DeleteProject]
+    # snippet-end:[python.example_code.lookoutvision.CreateProject]
+
+    # snippet-start:[python.example_code.lookoutvision.DeleteProject]
     @staticmethod
     def delete_project(lookoutvision_client, project_name):
         """
@@ -66,9 +67,10 @@ class Projects:
         except ClientError as err:
             logger.exception("Couldn't delete project %s.", project_name)
             raise
-# snippet-end:[python.example_code.lookoutvision.DeleteProject]
 
-# snippet-start:[python.example_code.lookoutvision.ListProjects]
+    # snippet-end:[python.example_code.lookoutvision.DeleteProject]
+
+    # snippet-start:[python.example_code.lookoutvision.ListProjects]
     @staticmethod
     def list_projects(lookoutvision_client):
         """
@@ -85,28 +87,36 @@ class Projects:
                 print("\tCreated: " + str(["CreationTimestamp"]))
                 print("Datasets")
                 project_description = lookoutvision_client.describe_project(
-                    ProjectName=project["ProjectName"])
+                    ProjectName=project["ProjectName"]
+                )
                 if not project_description["ProjectDescription"]["Datasets"]:
                     print("\tNo datasets")
                 else:
-                    for dataset in project_description["ProjectDescription"]["Datasets"]:
+                    for dataset in project_description["ProjectDescription"][
+                        "Datasets"
+                    ]:
                         print(f"\ttype: {dataset['DatasetType']}")
                         print(f"\tStatus: {dataset['StatusMessage']}")
 
                 print("Models")
                 response_models = lookoutvision_client.list_models(
-                    ProjectName=project["ProjectName"])
+                    ProjectName=project["ProjectName"]
+                )
                 if not response_models["Models"]:
                     print("\tNo models")
                 else:
                     for model in response_models["Models"]:
                         Models.describe_model(
-                            lookoutvision_client, project["ProjectName"],
-                            model["ModelVersion"])
+                            lookoutvision_client,
+                            project["ProjectName"],
+                            model["ModelVersion"],
+                        )
 
                 print("------------------------------------------------------------\n")
             print("Done!")
         except ClientError:
             logger.exception("Problem listing projects.")
             raise
+
+
 # snippet-end:[python.example_code.lookoutvision.ListProjects]

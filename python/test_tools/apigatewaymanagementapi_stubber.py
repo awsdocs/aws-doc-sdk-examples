@@ -20,6 +20,7 @@ class ApiGatewayManagementApiStubber(ExampleStubber):
     part of the tests, and will raise errors when the actual parameters differ from
     the expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -32,7 +33,8 @@ class ApiGatewayManagementApiStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_post_to_connection(self, message, connection_id, error_code=None):
-        expected_params = {'Data': message, 'ConnectionId': connection_id}
+        expected_params = {"Data": message, "ConnectionId": connection_id}
         response = {}
         self._stub_bifurcator(
-            'post_to_connection', expected_params, response, error_code=error_code)
+            "post_to_connection", expected_params, response, error_code=error_code
+        )

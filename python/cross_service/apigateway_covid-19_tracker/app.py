@@ -19,7 +19,7 @@ import urllib.parse
 import chalice
 import chalicelib.covid_data
 
-app = chalice.Chalice(app_name='fictional-covid')
+app = chalice.Chalice(app_name="fictional-covid")
 app.debug = True  # Set this to False for production use.
 
 logger = logging.getLogger()
@@ -53,14 +53,16 @@ def verify_input(state, date=None, data=None):
     if state not in storage.STATES:
         raise chalice.BadRequestError(
             f"Unknown state '{state}'.\nYour choices are: "
-            f"{', '.join(sorted(storage.STATES))}")
+            f"{', '.join(sorted(storage.STATES))}"
+        )
 
-    if data is not None and state != data['state']:
+    if data is not None and state != data["state"]:
         raise chalice.BadRequestError(
             f"The state '{data['state']}' specified in the request body does not "
-            f"match the state '{state}' specified in the URL.")
+            f"match the state '{state}' specified in the URL."
+        )
 
-    test_date = date if date is not None else None if data is None else data['date']
+    test_date = date if date is not None else None if data is None else data["date"]
     if test_date is not None:
         try:
             iso_date = datetime.date.fromisoformat(test_date)
@@ -69,12 +71,13 @@ def verify_input(state, date=None, data=None):
             if iso_date < earliest_date or iso_date > today:
                 raise chalice.BadRequestError(
                     f"Date must be between {earliest_date} and {today}. "
-                    f"{test_date} is outside that range.")
+                    f"{test_date} is outside that range."
+                )
         except ValueError as error:
             raise chalice.BadRequestError from error
 
 
-@app.route('/states', methods=['GET'])
+@app.route("/states", methods=["GET"])
 def list_states():
     """
     Lists the allowed states.
@@ -82,10 +85,10 @@ def list_states():
     :return: The list of states allowed by the Storage class.
     """
     # Chalice automatically serializes the returned dict to JSON.
-    return {'states': ', '.join(sorted(storage.STATES))}
+    return {"states": ", ".join(sorted(storage.STATES))}
 
 
-@app.route('/states/{state}', methods=['DELETE', 'GET', 'POST', 'PUT'])
+@app.route("/states/{state}", methods=["DELETE", "GET", "POST", "PUT"])
 def state_cases(state):
     """
     Handles requests for a specific state.
@@ -106,21 +109,22 @@ def state_cases(state):
     verify_input(state, data=app.current_request.json_body)
 
     response = None
-    if app.current_request.method == 'GET':
+    if app.current_request.method == "GET":
         # To use a custom converter, serialize the response to JSON here.
         response = json.dumps(
-            storage.get_state_data(state), default=convert_decimal_to_int)
-    elif app.current_request.method == 'PUT':
+            storage.get_state_data(state), default=convert_decimal_to_int
+        )
+    elif app.current_request.method == "PUT":
         storage.put_state_data(state, app.current_request.json_body)
-    elif app.current_request.method == 'DELETE':
+    elif app.current_request.method == "DELETE":
         storage.delete_state_data(state)
-    elif app.current_request.method == 'POST':
+    elif app.current_request.method == "POST":
         storage.post_state_data(state, app.current_request.json_body)
 
     return response
 
 
-@app.route('/states/{state}/{date}', methods=['DELETE', 'GET'])
+@app.route("/states/{state}/{date}", methods=["DELETE", "GET"])
 def state_date_cases(state, date):
     """
     Handles requests for a specific state and date. Dates must be in ISO format and
@@ -145,13 +149,13 @@ def state_date_cases(state, date):
     verify_input(state, date=date)
 
     response = None
-    if app.current_request.method == 'GET':
+    if app.current_request.method == "GET":
         response = storage.get_state_date_data(state, date)
         if response is not None:
             response = json.dumps(response, default=convert_decimal_to_int)
         else:
             raise chalice.NotFoundError(f"No data found for {state} on {date}.")
-    elif app.current_request.method == 'DELETE':
+    elif app.current_request.method == "DELETE":
         storage.delete_state_date_data(state, date)
 
     return response

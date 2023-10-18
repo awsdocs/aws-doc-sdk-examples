@@ -18,8 +18,10 @@ STREAM_NAME = "ExampleInputStream"
 
 
 def get_data():
-    return {'log': '192.168.254.30 - John [24/May/2004:22:01:02 -0700] '
-                   '"GET /icons/apache_pb.gif HTTP/1.1" 304 0'}
+    return {
+        "log": "192.168.254.30 - John [24/May/2004:22:01:02 -0700] "
+        '"GET /icons/apache_pb.gif HTTP/1.1" 304 0'
+    }
 
 
 def generate(stream_name, kinesis_client):
@@ -27,11 +29,10 @@ def generate(stream_name, kinesis_client):
         data = get_data()
         print(data)
         kinesis_client.put_record(
-            StreamName=stream_name,
-            Data=json.dumps(data),
-            PartitionKey="partitionkey")
+            StreamName=stream_name, Data=json.dumps(data), PartitionKey="partitionkey"
+        )
 
 
-if __name__ == '__main__':
-    generate(STREAM_NAME, boto3.client('kinesis'))
+if __name__ == "__main__":
+    generate(STREAM_NAME, boto3.client("kinesis"))
 # snippet-end:[kinesisanalytics.python.datagenerator.weblog]

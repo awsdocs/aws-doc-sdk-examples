@@ -16,7 +16,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
-sqs = boto3.resource('sqs')
+sqs = boto3.resource("sqs")
 # snippet-end:[python.example_code.sqs.queue_wrapper_imports]
 
 
@@ -35,16 +35,15 @@ def create_queue(name, attributes=None):
         attributes = {}
 
     try:
-        queue = sqs.create_queue(
-            QueueName=name,
-            Attributes=attributes
-        )
+        queue = sqs.create_queue(QueueName=name, Attributes=attributes)
         logger.info("Created queue '%s' with URL=%s", name, queue.url)
     except ClientError as error:
         logger.exception("Couldn't create queue named '%s'.", name)
         raise error
     else:
         return queue
+
+
 # snippet-end:[python.example_code.sqs.CreateQueue]
 
 
@@ -64,6 +63,8 @@ def get_queue(name):
         raise error
     else:
         return queue
+
+
 # snippet-end:[python.example_code.sqs.GetQueueUrl]
 
 
@@ -82,10 +83,12 @@ def get_queues(prefix=None):
         queue_iter = sqs.queues.all()
     queues = list(queue_iter)
     if queues:
-        logger.info("Got queues: %s", ', '.join([q.url for q in queues]))
+        logger.info("Got queues: %s", ", ".join([q.url for q in queues]))
     else:
         logger.warning("No queues found.")
     return queues
+
+
 # snippet-end:[python.example_code.sqs.ListQueues]
 
 
@@ -104,46 +107,47 @@ def remove_queue(queue):
     except ClientError as error:
         logger.exception("Couldn't delete queue with URL=%s!", queue.url)
         raise error
+
+
 # snippet-end:[python.example_code.sqs.DeleteQueue]
 
 
 # snippet-start:[python.example_code.sqs.Scenario_ManageQueues]
 def usage_demo():
     """Shows how to create, list, and delete queues."""
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the Amazon Simple Queue Service (Amazon SQS) demo!")
-    print('-'*88)
+    print("-" * 88)
 
-    prefix = 'sqs-usage-demo-'
+    prefix = "sqs-usage-demo-"
     river_queue = create_queue(
-        prefix + 'peculiar-river',
-        {
-            'MaximumMessageSize': str(1024),
-            'ReceiveMessageWaitTimeSeconds': str(20)
-        }
+        prefix + "peculiar-river",
+        {"MaximumMessageSize": str(1024), "ReceiveMessageWaitTimeSeconds": str(20)},
     )
     print(f"Created queue with URL: {river_queue.url}.")
 
     lake_queue = create_queue(
-        prefix + 'strange-lake.fifo',
+        prefix + "strange-lake.fifo",
         {
-            'MaximumMessageSize': str(4096),
-            'ReceiveMessageWaitTimeSeconds': str(10),
-            'VisibilityTimeout': str(300),
-            'FifoQueue': str(True),
-            'ContentBasedDeduplication': str(True)
-        }
+            "MaximumMessageSize": str(4096),
+            "ReceiveMessageWaitTimeSeconds": str(10),
+            "VisibilityTimeout": str(300),
+            "FifoQueue": str(True),
+            "ContentBasedDeduplication": str(True),
+        },
     )
     print(f"Created queue with URL: {lake_queue.url}.")
 
-    stream_queue = create_queue(prefix + 'boring-stream')
+    stream_queue = create_queue(prefix + "boring-stream")
     print(f"Created queue with URL: {stream_queue.url}.")
 
-    alias_queue = get_queue(prefix + 'peculiar-river')
+    alias_queue = get_queue(prefix + "peculiar-river")
     print(f"Got queue with URL: {alias_queue.url}.")
 
     remove_queue(stream_queue)
-    print(f"Removed queue with URL: {stream_queue.url}.", )
+    print(
+        f"Removed queue with URL: {stream_queue.url}.",
+    )
 
     queues = get_queues(prefix=prefix)
     print(f"Got {len(queues)} queues.")
@@ -152,9 +156,11 @@ def usage_demo():
         print(f"Removed queue with URL: {queue.url}.")
 
     print("Thanks for watching!")
-    print('-'*88)
+    print("-" * 88)
+
+
 # snippet-end:[python.example_code.sqs.Scenario_ManageQueues]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

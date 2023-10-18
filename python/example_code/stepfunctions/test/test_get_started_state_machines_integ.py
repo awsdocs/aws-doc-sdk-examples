@@ -14,22 +14,27 @@ def mock_wait(monkeypatch):
     return
 
 
-@pytest.mark.skip(reason="Skip until shared resources are part of the Docker environment.")
+@pytest.mark.skip(
+    reason="Skip until shared resources are part of the Docker environment."
+)
 @pytest.mark.integ
 def test_run_get_started_state_machines_integ(input_mocker, capsys):
-    stepfunctions_client = boto3.client('stepfunctions')
-    iam_client = boto3.client('iam')
+    stepfunctions_client = boto3.client("stepfunctions")
+    iam_client = boto3.client("iam")
     scenario = StateMachineScenario(
-        Activity(stepfunctions_client), StateMachine(stepfunctions_client), iam_client)
+        Activity(stepfunctions_client), StateMachine(stepfunctions_client), iam_client
+    )
 
-    input_mocker.mock_answers([
-        'Testerson',        # Username.
-        4,                  # 'done' action.
-        'y',                # Cleanup.
-    ])
+    input_mocker.mock_answers(
+        [
+            "Testerson",  # Username.
+            4,  # 'done' action.
+            "y",  # Cleanup.
+        ]
+    )
 
-    scenario.prerequisites('doc-example-test-state-machine-chat')
-    scenario.run_scenario('doc-example-test-activity', 'doc-example-test-state-machine')
+    scenario.prerequisites("doc-example-test-state-machine-chat")
+    scenario.run_scenario("doc-example-test-activity", "doc-example-test-state-machine")
 
     capt = capsys.readouterr()
     assert "Thanks for watching!" in capt.out

@@ -18,30 +18,38 @@ logger = logging.getLogger(__name__)
 
 
 class ClassifierMode(Enum):
-    multi_class = 'MULTI_CLASS'
-    multi_label = 'MULTI_LABEL'
+    multi_class = "MULTI_CLASS"
+    multi_label = "MULTI_LABEL"
 
 
 class JobInputFormat(Enum):
-    per_file = 'ONE_DOC_PER_FILE'
-    per_line = 'ONE_DOC_PER_LINE'
+    per_file = "ONE_DOC_PER_FILE"
+    per_line = "ONE_DOC_PER_LINE"
 
 
 # snippet-start:[python.example_code.comprehend.ComprehendClassifier]
 class ComprehendClassifier:
     """Encapsulates an Amazon Comprehend custom classifier."""
+
     def __init__(self, comprehend_client):
         """
         :param comprehend_client: A Boto3 Comprehend client.
         """
         self.comprehend_client = comprehend_client
         self.classifier_arn = None
-# snippet-end:[python.example_code.comprehend.ComprehendClassifier]
 
-# snippet-start:[python.example_code.comprehend.CreateDocumentClassifier]
+    # snippet-end:[python.example_code.comprehend.ComprehendClassifier]
+
+    # snippet-start:[python.example_code.comprehend.CreateDocumentClassifier]
     def create(
-            self, name, language_code, training_bucket, training_key,
-            data_access_role_arn, mode):
+        self,
+        name,
+        language_code,
+        training_bucket,
+        training_key,
+        data_access_role_arn,
+        mode,
+    ):
         """
         Creates a custom classifier. After the classifier is created, it immediately
         starts training on the data found in the specified Amazon S3 bucket. Training
@@ -64,19 +72,21 @@ class ComprehendClassifier:
             response = self.comprehend_client.create_document_classifier(
                 DocumentClassifierName=name,
                 LanguageCode=language_code,
-                InputDataConfig={'S3Uri': f's3://{training_bucket}/{training_key}'},
+                InputDataConfig={"S3Uri": f"s3://{training_bucket}/{training_key}"},
                 DataAccessRoleArn=data_access_role_arn,
-                Mode=mode.value)
-            self.classifier_arn = response['DocumentClassifierArn']
+                Mode=mode.value,
+            )
+            self.classifier_arn = response["DocumentClassifierArn"]
             logger.info("Started classifier creation. Arn is: %s.", self.classifier_arn)
         except ClientError:
             logger.exception("Couldn't create classifier %s.", name)
             raise
         else:
             return self.classifier_arn
-# snippet-end:[python.example_code.comprehend.CreateDocumentClassifier]
 
-# snippet-start:[python.example_code.comprehend.DescribeDocumentClassifier]
+    # snippet-end:[python.example_code.comprehend.CreateDocumentClassifier]
+
+    # snippet-start:[python.example_code.comprehend.DescribeDocumentClassifier]
     def describe(self, classifier_arn=None):
         """
         Gets metadata about a custom classifier, including its current status.
@@ -88,17 +98,19 @@ class ComprehendClassifier:
             self.classifier_arn = classifier_arn
         try:
             response = self.comprehend_client.describe_document_classifier(
-                DocumentClassifierArn=self.classifier_arn)
-            classifier = response['DocumentClassifierProperties']
+                DocumentClassifierArn=self.classifier_arn
+            )
+            classifier = response["DocumentClassifierProperties"]
             logger.info("Got classifier %s.", self.classifier_arn)
         except ClientError:
             logger.exception("Couldn't get classifier %s.", self.classifier_arn)
             raise
         else:
             return classifier
-# snippet-end:[python.example_code.comprehend.DescribeDocumentClassifier]
 
-# snippet-start:[python.example_code.comprehend.ListDocumentClassifiers]
+    # snippet-end:[python.example_code.comprehend.DescribeDocumentClassifier]
+
+    # snippet-start:[python.example_code.comprehend.ListDocumentClassifiers]
     def list(self):
         """
         Lists custom classifiers for the current account.
@@ -107,34 +119,46 @@ class ComprehendClassifier:
         """
         try:
             response = self.comprehend_client.list_document_classifiers()
-            classifiers = response['DocumentClassifierPropertiesList']
+            classifiers = response["DocumentClassifierPropertiesList"]
             logger.info("Got %s classifiers.", len(classifiers))
         except ClientError:
-            logger.exception("Couldn't get classifiers.", )
+            logger.exception(
+                "Couldn't get classifiers.",
+            )
             raise
         else:
             return classifiers
-# snippet-end:[python.example_code.comprehend.ListDocumentClassifiers]
 
-# snippet-start:[python.example_code.comprehend.DeleteDocumentClassifier]
+    # snippet-end:[python.example_code.comprehend.ListDocumentClassifiers]
+
+    # snippet-start:[python.example_code.comprehend.DeleteDocumentClassifier]
     def delete(self):
         """
         Deletes the classifier.
         """
         try:
             self.comprehend_client.delete_document_classifier(
-                DocumentClassifierArn=self.classifier_arn)
+                DocumentClassifierArn=self.classifier_arn
+            )
             logger.info("Deleted classifier %s.", self.classifier_arn)
             self.classifier_arn = None
         except ClientError:
             logger.exception("Couldn't deleted classifier %s.", self.classifier_arn)
             raise
-# snippet-end:[python.example_code.comprehend.DeleteDocumentClassifier]
 
-# snippet-start:[python.example_code.comprehend.StartDocumentClassificationJob]
+    # snippet-end:[python.example_code.comprehend.DeleteDocumentClassifier]
+
+    # snippet-start:[python.example_code.comprehend.StartDocumentClassificationJob]
     def start_job(
-            self, job_name, input_bucket, input_key, input_format, output_bucket,
-            output_key, data_access_role_arn):
+        self,
+        job_name,
+        input_bucket,
+        input_key,
+        input_format,
+        output_bucket,
+        output_key,
+        data_access_role_arn,
+    ):
         """
         Starts a classification job. The classifier must be trained or the job
         will fail. Input is read from the specified Amazon S3 input bucket and
@@ -162,21 +186,24 @@ class ComprehendClassifier:
                 DocumentClassifierArn=self.classifier_arn,
                 JobName=job_name,
                 InputDataConfig={
-                    'S3Uri': f's3://{input_bucket}/{input_key}',
-                    'InputFormat': input_format.value},
-                OutputDataConfig={'S3Uri': f's3://{output_bucket}/{output_key}'},
-                DataAccessRoleArn=data_access_role_arn)
+                    "S3Uri": f"s3://{input_bucket}/{input_key}",
+                    "InputFormat": input_format.value,
+                },
+                OutputDataConfig={"S3Uri": f"s3://{output_bucket}/{output_key}"},
+                DataAccessRoleArn=data_access_role_arn,
+            )
             logger.info(
-                "Document classification job %s is %s.", job_name,
-                response['JobStatus'])
+                "Document classification job %s is %s.", job_name, response["JobStatus"]
+            )
         except ClientError:
             logger.exception("Couldn't start classification job %s.", job_name)
             raise
         else:
             return response
-# snippet-end:[python.example_code.comprehend.StartDocumentClassificationJob]
 
-# snippet-start:[python.example_code.comprehend.DescribeDocumentClassificationJob]
+    # snippet-end:[python.example_code.comprehend.StartDocumentClassificationJob]
+
+    # snippet-start:[python.example_code.comprehend.DescribeDocumentClassificationJob]
     def describe_job(self, job_id):
         """
         Gets metadata about a classification job.
@@ -186,17 +213,19 @@ class ComprehendClassifier:
         """
         try:
             response = self.comprehend_client.describe_document_classification_job(
-                JobId=job_id)
-            job = response['DocumentClassificationJobProperties']
-            logger.info("Got classification job %s.", job['JobName'])
+                JobId=job_id
+            )
+            job = response["DocumentClassificationJobProperties"]
+            logger.info("Got classification job %s.", job["JobName"])
         except ClientError:
             logger.exception("Couldn't get classification job %s.", job_id)
             raise
         else:
             return job
-# snippet-end:[python.example_code.comprehend.DescribeDocumentClassificationJob]
 
-# snippet-start:[python.example_code.comprehend.ListDocumentClassificationJobs]
+    # snippet-end:[python.example_code.comprehend.DescribeDocumentClassificationJob]
+
+    # snippet-start:[python.example_code.comprehend.ListDocumentClassificationJobs]
     def list_jobs(self):
         """
         Lists the classification jobs for the current account.
@@ -205,11 +234,15 @@ class ComprehendClassifier:
         """
         try:
             response = self.comprehend_client.list_document_classification_jobs()
-            jobs = response['DocumentClassificationJobPropertiesList']
+            jobs = response["DocumentClassificationJobPropertiesList"]
             logger.info("Got %s document classification jobs.", len(jobs))
         except ClientError:
-            logger.exception("Couldn't get document classification jobs.", )
+            logger.exception(
+                "Couldn't get document classification jobs.",
+            )
             raise
         else:
             return jobs
+
+
 # snippet-end:[python.example_code.comprehend.ListDocumentClassificationJobs]

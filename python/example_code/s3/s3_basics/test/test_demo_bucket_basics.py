@@ -13,18 +13,22 @@ from botocore.exceptions import ClientError
 import demo_bucket_basics
 
 
-@pytest.mark.parametrize("keep, error_code, stop_on_method", [
-    (True, None, None),
-    (False, None, None),
-    (False, 'TestException', 'stub_list_buckets'),
-    (False, 'TestException', 'stub_create_bucket'),
-    (False, 'TestException', 'stub_delete_bucket'),
-])
+@pytest.mark.parametrize(
+    "keep, error_code, stop_on_method",
+    [
+        (True, None, None),
+        (False, None, None),
+        (False, "TestException", "stub_list_buckets"),
+        (False, "TestException", "stub_create_bucket"),
+        (False, "TestException", "stub_delete_bucket"),
+    ],
+)
 def test_create_and_delete_my_bucket(
-        make_stubber, stub_runner, keep, error_code, stop_on_method):
-    s3_resource = boto3.resource('s3')
+    make_stubber, stub_runner, keep, error_code, stop_on_method
+):
+    s3_resource = boto3.resource("s3")
     s3_stubber = make_stubber(s3_resource.meta.client)
-    bucket_name = 'test-bucket_name'
+    bucket_name = "test-bucket_name"
     region = s3_resource.meta.client.meta.region_name
 
     with stub_runner(error_code, stop_on_method) as runner:
@@ -41,5 +45,7 @@ def test_create_and_delete_my_bucket(
         demo_bucket_basics.create_and_delete_my_bucket(s3_resource, bucket_name, keep)
     else:
         with pytest.raises(ClientError) as exc_info:
-            demo_bucket_basics.create_and_delete_my_bucket(s3_resource, bucket_name, keep)
-        assert exc_info.value.response['Error']['Code'] == error_code
+            demo_bucket_basics.create_and_delete_my_bucket(
+                s3_resource, bucket_name, keep
+            )
+        assert exc_info.value.response["Error"]["Code"] == error_code

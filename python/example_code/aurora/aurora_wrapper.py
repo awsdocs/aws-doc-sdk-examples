@@ -14,10 +14,12 @@ from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
 
+
 # snippet-start:[python.example_code.aurora.helper.AuroraWrapper_full]
 # snippet-start:[python.example_code.aurora.helper.AuroraWrapper_decl]
 class AuroraWrapper:
     """Encapsulates Aurora DB cluster actions."""
+
     def __init__(self, rds_client):
         """
         :param rds_client: A Boto3 Amazon Relational Database Service (Amazon RDS) client.
@@ -29,9 +31,10 @@ class AuroraWrapper:
         """
         Instantiates this class from a Boto3 client.
         """
-        rds_client = boto3.client('rds')
+        rds_client = boto3.client("rds")
         return cls(rds_client)
-# snippet-end:[python.example_code.aurora.helper.AuroraWrapper_decl]
+
+    # snippet-end:[python.example_code.aurora.helper.AuroraWrapper_decl]
 
     # snippet-start:[python.example_code.aurora.DescribeDBClusterParameterGroups]
     def get_parameter_group(self, parameter_group_name):
@@ -43,22 +46,29 @@ class AuroraWrapper:
         """
         try:
             response = self.rds_client.describe_db_cluster_parameter_groups(
-                DBClusterParameterGroupName=parameter_group_name)
-            parameter_group = response['DBClusterParameterGroups'][0]
+                DBClusterParameterGroupName=parameter_group_name
+            )
+            parameter_group = response["DBClusterParameterGroups"][0]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'DBParameterGroupNotFound':
+            if err.response["Error"]["Code"] == "DBParameterGroupNotFound":
                 logger.info("Parameter group %s does not exist.", parameter_group_name)
             else:
                 logger.error(
-                    "Couldn't get parameter group %s. Here's why: %s: %s", parameter_group_name,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't get parameter group %s. Here's why: %s: %s",
+                    parameter_group_name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return parameter_group
+
     # snippet-end:[python.example_code.aurora.DescribeDBClusterParameterGroups]
 
     # snippet-start:[python.example_code.aurora.CreateDBClusterParameterGroup]
-    def create_parameter_group(self, parameter_group_name, parameter_group_family, description):
+    def create_parameter_group(
+        self, parameter_group_name, parameter_group_family, description
+    ):
         """
         Creates a DB cluster parameter group that is based on the specified parameter group
         family.
@@ -73,14 +83,19 @@ class AuroraWrapper:
             response = self.rds_client.create_db_cluster_parameter_group(
                 DBClusterParameterGroupName=parameter_group_name,
                 DBParameterGroupFamily=parameter_group_family,
-                Description=description)
+                Description=description,
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't create parameter group %s. Here's why: %s: %s", parameter_group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create parameter group %s. Here's why: %s: %s",
+                parameter_group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.aurora.CreateDBClusterParameterGroup]
 
     # snippet-start:[python.example_code.aurora.DeleteDBClusterParameterGroup]
@@ -93,18 +108,23 @@ class AuroraWrapper:
         """
         try:
             response = self.rds_client.delete_db_cluster_parameter_group(
-                DBClusterParameterGroupName=parameter_group_name)
+                DBClusterParameterGroupName=parameter_group_name
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't delete parameter group %s. Here's why: %s: %s", parameter_group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete parameter group %s. Here's why: %s: %s",
+                parameter_group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.aurora.DeleteDBClusterParameterGroup]
 
     # snippet-start:[python.example_code.aurora.DescribeDBClusterParameters]
-    def get_parameters(self, parameter_group_name, name_prefix='', source=None):
+    def get_parameters(self, parameter_group_name, name_prefix="", source=None):
         """
         Gets the parameters that are contained in a DB cluster parameter group.
 
@@ -117,23 +137,30 @@ class AuroraWrapper:
         :return: The list of requested parameters.
         """
         try:
-            kwargs = {'DBClusterParameterGroupName': parameter_group_name}
+            kwargs = {"DBClusterParameterGroupName": parameter_group_name}
             if source is not None:
-                kwargs['Source'] = source
+                kwargs["Source"] = source
             parameters = []
-            paginator = self.rds_client.get_paginator('describe_db_cluster_parameters')
+            paginator = self.rds_client.get_paginator("describe_db_cluster_parameters")
             for page in paginator.paginate(**kwargs):
                 parameters += [
-                    p for p in page['Parameters'] if p['ParameterName'].startswith(name_prefix)]
+                    p
+                    for p in page["Parameters"]
+                    if p["ParameterName"].startswith(name_prefix)
+                ]
         except ClientError as err:
             logger.error(
-                "Couldn't get parameters for %s. Here's why: %s: %s", parameter_group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get parameters for %s. Here's why: %s: %s",
+                parameter_group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return parameters
+
     # snippet-end:[python.example_code.aurora.DescribeDBClusterParameters]
-    
+
     # snippet-start:[python.example_code.aurora.ModifyDBClusterParameterGroup]
     def update_parameters(self, parameter_group_name, update_parameters):
         """
@@ -145,14 +172,20 @@ class AuroraWrapper:
         """
         try:
             response = self.rds_client.modify_db_cluster_parameter_group(
-                DBClusterParameterGroupName=parameter_group_name, Parameters=update_parameters)
+                DBClusterParameterGroupName=parameter_group_name,
+                Parameters=update_parameters,
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't update parameters in %s. Here's why: %s: %s", parameter_group_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't update parameters in %s. Here's why: %s: %s",
+                parameter_group_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return response
+
     # snippet-end:[python.example_code.aurora.ModifyDBClusterParameterGroup]
 
     # snippet-start:[python.example_code.aurora.DescribeDBClusters]
@@ -165,24 +198,36 @@ class AuroraWrapper:
         """
         try:
             response = self.rds_client.describe_db_clusters(
-                DBClusterIdentifier=cluster_name)
-            cluster = response['DBClusters'][0]
+                DBClusterIdentifier=cluster_name
+            )
+            cluster = response["DBClusters"][0]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'DBClusterNotFoundFault':
+            if err.response["Error"]["Code"] == "DBClusterNotFoundFault":
                 logger.info("Cluster %s does not exist.", cluster_name)
             else:
                 logger.error(
-                    "Couldn't verify the existence of DB cluster %s. Here's why: %s: %s", cluster_name,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't verify the existence of DB cluster %s. Here's why: %s: %s",
+                    cluster_name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return cluster
+
     # snippet-end:[python.example_code.aurora.DescribeDBClusters]
 
     # snippet-start:[python.example_code.aurora.CreateDBCluster]
     def create_db_cluster(
-            self, cluster_name, parameter_group_name, db_name, db_engine,
-            db_engine_version, admin_name, admin_password):
+        self,
+        cluster_name,
+        parameter_group_name,
+        db_name,
+        db_engine,
+        db_engine_version,
+        admin_name,
+        admin_password,
+    ):
         """
         Creates a DB cluster that is configured to use the specified parameter group.
         The newly created DB cluster contains a database that uses the specified engine and
@@ -206,15 +251,20 @@ class AuroraWrapper:
                 Engine=db_engine,
                 EngineVersion=db_engine_version,
                 MasterUsername=admin_name,
-                MasterUserPassword=admin_password)
-            cluster = response['DBCluster']
+                MasterUserPassword=admin_password,
+            )
+            cluster = response["DBCluster"]
         except ClientError as err:
             logger.error(
-                "Couldn't create database %s. Here's why: %s: %s", db_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create database %s. Here's why: %s: %s",
+                db_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return cluster
+
     # snippet-end:[python.example_code.aurora.CreateDBCluster]
 
     # snippet-start:[python.example_code.aurora.DeleteDBCluster]
@@ -226,13 +276,15 @@ class AuroraWrapper:
         """
         try:
             self.rds_client.delete_db_cluster(
-                DBClusterIdentifier=cluster_name, SkipFinalSnapshot=True)
+                DBClusterIdentifier=cluster_name, SkipFinalSnapshot=True
+            )
             logger.info("Deleted DB cluster %s.", cluster_name)
         except ClientError:
             logger.exception("Couldn't delete DB cluster %s.", cluster_name)
             raise
+
     # snippet-end:[python.example_code.aurora.DeleteDBCluster]
-    
+
     # snippet-start:[python.example_code.aurora.CreateDBClusterSnapshot]
     def create_cluster_snapshot(self, snapshot_id, cluster_id):
         """
@@ -244,15 +296,20 @@ class AuroraWrapper:
         """
         try:
             response = self.rds_client.create_db_cluster_snapshot(
-                DBClusterSnapshotIdentifier=snapshot_id, DBClusterIdentifier=cluster_id)
-            snapshot = response['DBClusterSnapshot']
+                DBClusterSnapshotIdentifier=snapshot_id, DBClusterIdentifier=cluster_id
+            )
+            snapshot = response["DBClusterSnapshot"]
         except ClientError as err:
             logger.error(
-                "Couldn't create snapshot of %s. Here's why: %s: %s", cluster_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create snapshot of %s. Here's why: %s: %s",
+                cluster_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return snapshot
+
     # snippet-end:[python.example_code.aurora.CreateDBClusterSnapshot]
 
     # snippet-start:[python.example_code.aurora.DescribeDBClusterSnapshots]
@@ -265,19 +322,26 @@ class AuroraWrapper:
         """
         try:
             response = self.rds_client.describe_db_cluster_snapshots(
-                DBClusterSnapshotIdentifier=snapshot_id)
-            snapshot = response['DBClusterSnapshots'][0]
+                DBClusterSnapshotIdentifier=snapshot_id
+            )
+            snapshot = response["DBClusterSnapshots"][0]
         except ClientError as err:
             logger.error(
-                "Couldn't get DB cluster snapshot %s. Here's why: %s: %s", snapshot_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get DB cluster snapshot %s. Here's why: %s: %s",
+                snapshot_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return snapshot
+
     # snippet-end:[python.example_code.aurora.DescribeDBClusterSnapshots]
-        
+
     # snippet-start:[python.example_code.aurora.CreateDBInstance_InCluster]
-    def create_instance_in_cluster(self, instance_id, cluster_id, db_engine, instance_class):
+    def create_instance_in_cluster(
+        self, instance_id, cluster_id, db_engine, instance_class
+    ):
         """
         Creates a database instance in an existing DB cluster. The first database that is
         created defaults to a read-write DB instance.
@@ -292,16 +356,23 @@ class AuroraWrapper:
         """
         try:
             response = self.rds_client.create_db_instance(
-                DBInstanceIdentifier=instance_id, DBClusterIdentifier=cluster_id,
-                Engine=db_engine, DBInstanceClass=instance_class)
-            db_inst = response['DBInstance']
+                DBInstanceIdentifier=instance_id,
+                DBClusterIdentifier=cluster_id,
+                Engine=db_engine,
+                DBInstanceClass=instance_class,
+            )
+            db_inst = response["DBInstance"]
         except ClientError as err:
             logger.error(
-                "Couldn't create DB instance %s. Here's why: %s: %s", instance_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create DB instance %s. Here's why: %s: %s",
+                instance_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return db_inst
+
     # snippet-end:[python.example_code.aurora.CreateDBInstance_InCluster]
 
     # snippet-start:[python.example_code.aurora.DescribeDBEngineVersions]
@@ -317,18 +388,22 @@ class AuroraWrapper:
         :return: The list of database engine versions.
         """
         try:
-            kwargs = {'Engine': engine}
+            kwargs = {"Engine": engine}
             if parameter_group_family is not None:
-                kwargs['DBParameterGroupFamily'] = parameter_group_family
+                kwargs["DBParameterGroupFamily"] = parameter_group_family
             response = self.rds_client.describe_db_engine_versions(**kwargs)
-            versions = response['DBEngineVersions']
+            versions = response["DBEngineVersions"]
         except ClientError as err:
             logger.error(
-                "Couldn't get engine versions for %s. Here's why: %s: %s", engine,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get engine versions for %s. Here's why: %s: %s",
+                engine,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return versions
+
     # snippet-end:[python.example_code.aurora.DescribeDBEngineVersions]
 
     # snippet-start:[python.example_code.aurora.DescribeOrderableDBInstanceOptions]
@@ -343,16 +418,23 @@ class AuroraWrapper:
         """
         try:
             inst_opts = []
-            paginator = self.rds_client.get_paginator('describe_orderable_db_instance_options')
-            for page in paginator.paginate(Engine=db_engine, EngineVersion=db_engine_version):
-                inst_opts += page['OrderableDBInstanceOptions']
+            paginator = self.rds_client.get_paginator(
+                "describe_orderable_db_instance_options"
+            )
+            for page in paginator.paginate(
+                Engine=db_engine, EngineVersion=db_engine_version
+            ):
+                inst_opts += page["OrderableDBInstanceOptions"]
         except ClientError as err:
             logger.error(
                 "Couldn't get orderable DB instances. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return inst_opts
+
     # snippet-end:[python.example_code.aurora.DescribeOrderableDBInstanceOptions]
 
     # snippet-start:[python.example_code.aurora.DescribeDBInstances]
@@ -365,18 +447,23 @@ class AuroraWrapper:
         """
         try:
             response = self.rds_client.describe_db_instances(
-                DBInstanceIdentifier=instance_id)
-            db_inst = response['DBInstances'][0]
+                DBInstanceIdentifier=instance_id
+            )
+            db_inst = response["DBInstances"][0]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'DBInstanceNotFound':
+            if err.response["Error"]["Code"] == "DBInstanceNotFound":
                 logger.info("Instance %s does not exist.", instance_id)
             else:
                 logger.error(
-                    "Couldn't get DB instance %s. Here's why: %s: %s", instance_id,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't get DB instance %s. Here's why: %s: %s",
+                    instance_id,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         else:
             return db_inst
+
     # snippet-end:[python.example_code.aurora.DescribeDBInstances]
 
     # snippet-start:[python.example_code.aurora.DeleteDBInstance]
@@ -389,15 +476,23 @@ class AuroraWrapper:
         """
         try:
             response = self.rds_client.delete_db_instance(
-                DBInstanceIdentifier=instance_id, SkipFinalSnapshot=True,
-                DeleteAutomatedBackups=True)
-            db_inst = response['DBInstance']
+                DBInstanceIdentifier=instance_id,
+                SkipFinalSnapshot=True,
+                DeleteAutomatedBackups=True,
+            )
+            db_inst = response["DBInstance"]
         except ClientError as err:
             logger.error(
-                "Couldn't delete DB instance %s. Here's why: %s: %s", instance_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete DB instance %s. Here's why: %s: %s",
+                instance_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return db_inst
+
     # snippet-end:[python.example_code.aurora.DeleteDBInstance]
+
+
 # snippet-end:[python.example_code.aurora.helper.AuroraWrapper_full]

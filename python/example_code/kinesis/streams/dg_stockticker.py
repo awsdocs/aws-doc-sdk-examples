@@ -20,9 +20,10 @@ STREAM_NAME = "ExampleInputStream"
 
 def get_data():
     return {
-        'EVENT_TIME': datetime.datetime.now().isoformat(),
-        'TICKER': random.choice(['AAPL', 'AMZN', 'MSFT', 'INTC', 'TBV']),
-        'PRICE': round(random.random() * 100, 2)}
+        "EVENT_TIME": datetime.datetime.now().isoformat(),
+        "TICKER": random.choice(["AAPL", "AMZN", "MSFT", "INTC", "TBV"]),
+        "PRICE": round(random.random() * 100, 2),
+    }
 
 
 def generate(stream_name, kinesis_client):
@@ -30,11 +31,10 @@ def generate(stream_name, kinesis_client):
         data = get_data()
         print(data)
         kinesis_client.put_record(
-            StreamName=stream_name,
-            Data=json.dumps(data),
-            PartitionKey="partitionkey")
+            StreamName=stream_name, Data=json.dumps(data), PartitionKey="partitionkey"
+        )
 
 
-if __name__ == '__main__':
-    generate(STREAM_NAME, boto3.client('kinesis'))
+if __name__ == "__main__":
+    generate(STREAM_NAME, boto3.client("kinesis"))
 # snippet-end:[kinesisanalytics.python.datagenerator.stockticker]

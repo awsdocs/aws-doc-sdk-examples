@@ -20,6 +20,7 @@ class PinpointEmailStubber(ExampleStubber):
     part of the tests, and will raise errors when the actual parameters differ from
     the expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -32,17 +33,31 @@ class PinpointEmailStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_send_email(
-            self, sender, to_addresses, cc_addresses, char_set, subject, html_message,
-            text_message, message_id, error_code=None):
+        self,
+        sender,
+        to_addresses,
+        cc_addresses,
+        char_set,
+        subject,
+        html_message,
+        text_message,
+        message_id,
+        error_code=None,
+    ):
         expected_params = {
-            'FromEmailAddress': sender,
-            'Destination': {'ToAddresses': to_addresses, 'CcAddresses': cc_addresses},
-            'Content': {
-                'Simple': {
-                    'Subject': {'Charset': char_set, 'Data': subject},
-                    'Body': {
-                        'Html': {'Charset': char_set, 'Data': html_message},
-                        'Text': {'Charset': char_set, 'Data': text_message}}}}}
-        response = {'MessageId': message_id}
+            "FromEmailAddress": sender,
+            "Destination": {"ToAddresses": to_addresses, "CcAddresses": cc_addresses},
+            "Content": {
+                "Simple": {
+                    "Subject": {"Charset": char_set, "Data": subject},
+                    "Body": {
+                        "Html": {"Charset": char_set, "Data": html_message},
+                        "Text": {"Charset": char_set, "Data": text_message},
+                    },
+                }
+            },
+        }
+        response = {"MessageId": message_id}
         self._stub_bifurcator(
-            'send_email', expected_params, response, error_code=error_code)
+            "send_email", expected_params, response, error_code=error_code
+        )

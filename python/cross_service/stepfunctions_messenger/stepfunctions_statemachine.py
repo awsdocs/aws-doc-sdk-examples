@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 
 class StepFunctionsStateMachine:
     """Encapsulates Step Functions state machine functions."""
+
     def __init__(self, stepfunctions_client):
         """
         :param stepfunctions_client: A Boto3 Step Functions client.
@@ -46,11 +47,13 @@ class StepFunctionsStateMachine:
         """
         try:
             response = self.stepfunctions_client.create_state_machine(
-                name=name, definition=json.dumps(definition), roleArn=role_arn)
+                name=name, definition=json.dumps(definition), roleArn=role_arn
+            )
             self.state_machine_name = name
-            self.state_machine_arn = response['stateMachineArn']
+            self.state_machine_arn = response["stateMachineArn"]
             logger.info(
-                "Created state machine %s. ARN is %s.", name, self.state_machine_arn)
+                "Created state machine %s. ARN is %s.", name, self.state_machine_arn
+            )
         except ClientError:
             logger.exception("Couldn't create state machine %s.", name)
             raise
@@ -72,15 +75,17 @@ class StepFunctionsStateMachine:
             raise ValueError
         try:
             kwargs = {
-                'stateMachineArn': self.state_machine_arn,
-                'definition': json.dumps(definition)}
+                "stateMachineArn": self.state_machine_arn,
+                "definition": json.dumps(definition),
+            }
             if role_arn is not None:
-                kwargs['roleArn'] = role_arn
+                kwargs["roleArn"] = role_arn
             self.stepfunctions_client.update_state_machine(**kwargs)
             logger.info("Updated state machine %s.", self.state_machine_name)
         except ClientError:
             logger.exception(
-                "Couldn't update state machine %s.", self.state_machine_name)
+                "Couldn't update state machine %s.", self.state_machine_name
+            )
             raise
 
     def delete(self):
@@ -91,12 +96,14 @@ class StepFunctionsStateMachine:
             raise ValueError
         try:
             self.stepfunctions_client.delete_state_machine(
-                stateMachineArn=self.state_machine_arn)
+                stateMachineArn=self.state_machine_arn
+            )
             logger.info("Deleted state machine %s.", self.state_machine_name)
             self._clear()
         except ClientError:
             logger.exception(
-                "Couldn't delete state machine %s.", self.state_machine_name)
+                "Couldn't delete state machine %s.", self.state_machine_name
+            )
             raise
 
     def find(self, state_machine_name):
@@ -110,19 +117,21 @@ class StepFunctionsStateMachine:
         """
         self._clear()
         try:
-            paginator = self.stepfunctions_client.get_paginator('list_state_machines')
+            paginator = self.stepfunctions_client.get_paginator("list_state_machines")
             for page in paginator.paginate():
-                for machine in page['stateMachines']:
-                    if machine['name'] == state_machine_name:
+                for machine in page["stateMachines"]:
+                    if machine["name"] == state_machine_name:
                         self.state_machine_name = state_machine_name
-                        self.state_machine_arn = machine['stateMachineArn']
+                        self.state_machine_arn = machine["stateMachineArn"]
                         break
                 if self.state_machine_arn is not None:
                     break
             if self.state_machine_arn is not None:
                 logger.info(
-                    "Found state machine %s with ARN %s.", self.state_machine_name,
-                    self.state_machine_arn)
+                    "Found state machine %s with ARN %s.",
+                    self.state_machine_name,
+                    self.state_machine_arn,
+                )
             else:
                 logger.info("Couldn't find state machine %s.", state_machine_name)
         except ClientError:
@@ -141,11 +150,13 @@ class StepFunctionsStateMachine:
             raise ValueError
         try:
             response = self.stepfunctions_client.describe_state_machine(
-                stateMachineArn=self.state_machine_arn)
+                stateMachineArn=self.state_machine_arn
+            )
             logger.info("Got metadata for state machine %s.", self.state_machine_name)
         except ClientError:
             logger.exception(
-                "Couldn't get metadata for state machine %s.", self.state_machine_name)
+                "Couldn't get metadata for state machine %s.", self.state_machine_name
+            )
             raise
         else:
             return response
@@ -162,11 +173,11 @@ class StepFunctionsStateMachine:
         if self.state_machine_arn is None:
             raise ValueError
         try:
-            kwargs = {'stateMachineArn': self.state_machine_arn, 'name': run_name}
+            kwargs = {"stateMachineArn": self.state_machine_arn, "name": run_name}
             if run_input is not None:
-                kwargs['input'] = json.dumps(run_input)
+                kwargs["input"] = json.dumps(run_input)
             response = self.stepfunctions_client.start_execution(**kwargs)
-            run_arn = response['executionArn']
+            run_arn = response["executionArn"]
             logger.info("Started run %s. ARN is %s.", run_name, run_arn)
         except ClientError:
             logger.exception("Couldn't start run %s.", run_name)
@@ -185,16 +196,18 @@ class StepFunctionsStateMachine:
         if self.state_machine_arn is None:
             raise ValueError
         try:
-            kwargs = {'stateMachineArn': self.state_machine_arn}
+            kwargs = {"stateMachineArn": self.state_machine_arn}
             if run_status is not None:
-                kwargs['statusFilter'] = run_status
+                kwargs["statusFilter"] = run_status
             response = self.stepfunctions_client.list_executions(**kwargs)
-            runs = response['executions']
+            runs = response["executions"]
             logger.info(
-                "Got %s runs for state machine %s.", len(runs), self.state_machine_name)
+                "Got %s runs for state machine %s.", len(runs), self.state_machine_name
+            )
         except ClientError:
             logger.exception(
-                "Couldn't get runs for state machine %s.", self.state_machine_name)
+                "Couldn't get runs for state machine %s.", self.state_machine_name
+            )
             raise
         else:
             return runs
