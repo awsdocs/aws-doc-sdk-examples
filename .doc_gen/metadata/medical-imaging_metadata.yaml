@@ -285,9 +285,18 @@ medical-imaging_SearchImageSets:
         - sdk_version: 3
           github: python/example_code/medical-imaging
           excerpts:
-            - description:
+            - description: The utility function for searching image sets.
               snippet_tags:
                 - python.example_code.medical-imaging.SearchImageSets
+            - description: "Use case #1: EQUAL operator."
+              snippet_tags:
+                - python.example_code.medical-imaging.SearchImageSets.use_case1
+            - description: "Use case #2: BETWEEN operator using DICOMStudyDate and DICOMStudyTime."
+              snippet_tags:
+                - python.example_code.medical-imaging.SearchImageSets.use_case2
+            - description: "Use case #3: BETWEEN operator using createdAt. Time studies were previously persisted."
+              snippet_tags:
+                - python.example_code.medical-imaging.SearchImageSets.use_case3
     JavaScript:
       versions:
         - sdk_version: 3
@@ -370,9 +379,15 @@ medical-imaging_GetImageSetMetadata:
         - sdk_version: 3
           github: python/example_code/medical-imaging
           excerpts:
-            - description:
+            - description: Utility function to get image set metadata.
               snippet_tags:
                 - python.example_code.medical-imaging.GetImageSetMetadata
+            - description: Get image set metadata without version.
+              snippet_tags:
+                - python.example_code.medical-imaging.GetImageSetMetadata.withoutVersionID
+            - description: Get image set metadata with version.
+              snippet_tags:
+                - python.example_code.medical-imaging.GetImageSetMetadata.withVersionID
     JavaScript:
       versions:
         - sdk_version: 3
@@ -507,9 +522,18 @@ medical-imaging_CopyImageSet:
         - sdk_version: 3
           github: python/example_code/medical-imaging
           excerpts:
-            - description:
+            - description: Utility function to copy an image set.
               snippet_tags:
                 - python.example_code.medical-imaging.CopyImageSet
+            - description: Copy an image set without a destination.
+              snippet_tags:
+                - python.example_code.medical-imaging.CopyImageSet1
+                - python.example_code.medical-imaging.CopyImageSet3
+            - description: Copy an image set with a destination.
+              snippet_tags:
+                - python.example_code.medical-imaging.CopyImageSet1
+                - python.example_code.medical-imaging.CopyImageSet2
+                - python.example_code.medical-imaging.CopyImageSet3
     JavaScript:
       versions:
         - sdk_version: 3
@@ -668,6 +692,32 @@ medical-imaging_tagging_datastores:
   synopsis: tag a &AHI; data store.
   category: Scenarios
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description: To tag a data store.
+              snippet_tags:
+                - python.example_code.medical-imaging.tagging_datastore.arn
+                - python.example_code.medical-imaging.tagging_datastore.tag
+            - description: The utility function for tagging a resource.
+              snippet_tags:
+                - python.example_code.medical-imaging.TagResource
+            - description: To list tags for a data store.
+              snippet_tags:
+                - python.example_code.medical-imaging.tagging_datastore.arn
+                - python.example_code.medical-imaging.tagging_datastore.list
+            - description: The utility function for listing a resource's tags.
+              snippet_tags:
+                - python.example_code.medical-imaging.ListTagsForResource
+            - description: To untag a data store.
+              snippet_tags:
+                - python.example_code.medical-imaging.tagging_datastore.arn
+                - python.example_code.medical-imaging.tagging_datastore.untag
+            - description: The utility function for untagging a resource.
+              snippet_tags:
+                - python.example_code.medical-imaging.UntagResource
     JavaScript:
       versions:
         - sdk_version: 3
@@ -725,6 +775,32 @@ medical-imaging_tagging_imagesets:
   synopsis: tag a &AHI; image set.
   category: Scenarios
   languages:
+    Python:
+      versions:
+        - sdk_version: 3
+          github: javascriptv3/example_code/medical-imaging
+          excerpts:
+            - description: To tag an image set.
+              snippet_tags:
+                - python.example_code.medical-imaging.tagging_image_set.arn
+                - python.example_code.medical-imaging.tagging_image_set.tag
+            - description: The utility function for tagging a resource.
+              snippet_tags:
+                - python.example_code.medical-imaging.TagResource
+            - description: To list tags for an image set.
+              snippet_tags:
+                - python.example_code.medical-imaging.tagging_image_set.arn
+                - python.example_code.medical-imaging.tagging_image_set.list
+            - description: The utility function for listing a resource's tags.
+              snippet_tags:
+                - python.example_code.medical-imaging.ListTagsForResource
+            - description: To untag an image set.
+              snippet_tags:
+                - python.example_code.medical-imaging.tagging_image_set.arn
+                - python.example_code.medical-imaging.tagging_image_set.untag
+            - description: The utility function for untagging a resource.
+              snippet_tags:
+                - python.example_code.medical-imaging.UntagResource
     JavaScript:
       versions:
         - sdk_version: 3
