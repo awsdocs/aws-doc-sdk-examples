@@ -31,18 +31,21 @@ def get_identities(ses_client):
     email_identities = []
     domain_identities = []
     try:
-        identity_paginator = ses_client.get_paginator('list_identities')
+        identity_paginator = ses_client.get_paginator("list_identities")
         identity_iterator = identity_paginator.paginate(
-            PaginationConfig={'PageSize': 20})
+            PaginationConfig={"PageSize": 20}
+        )
         for identity_page in identity_iterator:
-            for identity in identity_page['Identities']:
-                if '@' in identity:
+            for identity in identity_page["Identities"]:
+                if "@" in identity:
                     email_identities.append(identity)
                 else:
                     domain_identities.append(identity)
         logger.info(
-            "Found %s email and %s domain identities.", len(email_identities),
-            len(domain_identities))
+            "Found %s email and %s domain identities.",
+            len(email_identities),
+            len(domain_identities),
+        )
     except ClientError:
         logger.exception("Couldn't get identities.")
         raise
@@ -85,7 +88,7 @@ def verify_domains(domain_list, ses_client):
     for domain in domain_list:
         try:
             response = ses_client.verify_domain_identity(Domain=domain)
-            token = response['VerificationToken']
+            token = response["VerificationToken"]
             domain_tokens[domain] = token
             logger.info("Got verification token %s for domain %s.", token, domain)
         except ClientError:
@@ -102,10 +105,11 @@ def get_hosted_zones(route53_client):
     """
     zones = []
     try:
-        zone_paginator = route53_client.get_paginator('list_hosted_zones')
-        zone_iterator = zone_paginator.paginate(PaginationConfig={'PageSize': 20})
+        zone_paginator = route53_client.get_paginator("list_hosted_zones")
+        zone_iterator = zone_paginator.paginate(PaginationConfig={"PageSize": 20})
         zones = [
-            zone for zone_page in zone_iterator for zone in zone_page['HostedZones']]
+            zone for zone_page in zone_iterator for zone in zone_page["HostedZones"]
+        ]
         logger.info("Found %s hosted zones.", len(zones))
     except ClientError:
         logger.warning("Couldn't get hosted zones.")
@@ -127,12 +131,12 @@ def find_domain_zone_matches(domains, zones):
         domain_zones[domain] = None
         # Start at the most specific sub-domain and walk up to the root domain until a
         # zone match is found.
-        domain_split = domain.split('.')
+        domain_split = domain.split(".")
         for index in range(0, len(domain_split) - 1):
-            sub_domain = '.'.join(domain_split[index:])
+            sub_domain = ".".join(domain_split[index:])
             for zone in zones:
                 # Normalize the zone name from Route 53 by removing the trailing '.'.
-                zone_name = zone['Name'][:-1]
+                zone_name = zone["Name"][:-1]
                 if sub_domain == zone_name:
                     domain_zones[domain] = zone
                     break
@@ -152,44 +156,56 @@ def add_route53_verification_record(domain, token, zone, route53_client):
     :param zone: The hosted zone where the domain verification record is added.
     :param route53_client: A Boto3 Route 53 client.
     """
-    domain_token_record_set_name = f'_amazonses.{domain}'
-    record_set_paginator = route53_client.get_paginator(
-        'list_resource_record_sets')
+    domain_token_record_set_name = f"_amazonses.{domain}"
+    record_set_paginator = route53_client.get_paginator("list_resource_record_sets")
     record_set_iterator = record_set_paginator.paginate(
-       HostedZoneId=zone['Id'], PaginationConfig={'PageSize': 20})
+        HostedZoneId=zone["Id"], PaginationConfig={"PageSize": 20}
+    )
     records = []
     for record_set_page in record_set_iterator:
         try:
             txt_record_set = next(
-                record_set for record_set
-                in record_set_page['ResourceRecordSets']
-                if record_set['Name'][:-1] == domain_token_record_set_name and
-                record_set['Type'] == 'TXT')
-            records = txt_record_set['ResourceRecords']
+                record_set
+                for record_set in record_set_page["ResourceRecordSets"]
+                if record_set["Name"][:-1] == domain_token_record_set_name
+                and record_set["Type"] == "TXT"
+            )
+            records = txt_record_set["ResourceRecords"]
             logger.info(
                 "Existing TXT record found in set %s for zone %s.",
-                domain_token_record_set_name, zone['Name'])
+                domain_token_record_set_name,
+                zone["Name"],
+            )
             break
         except StopIteration:
             pass
-    records.append({'Value': json.dumps(token)})
-    changes = [{
-        'Action': 'UPSERT',
-        'ResourceRecordSet': {
-           'Name': domain_token_record_set_name,
-           'Type': 'TXT',
-           'TTL': 1800,
-           'ResourceRecords': records}}]
+    records.append({"Value": json.dumps(token)})
+    changes = [
+        {
+            "Action": "UPSERT",
+            "ResourceRecordSet": {
+                "Name": domain_token_record_set_name,
+                "Type": "TXT",
+                "TTL": 1800,
+                "ResourceRecords": records,
+            },
+        }
+    ]
     try:
         route53_client.change_resource_record_sets(
-          HostedZoneId=zone['Id'], ChangeBatch={'Changes': changes})
+            HostedZoneId=zone["Id"], ChangeBatch={"Changes": changes}
+        )
         logger.info(
             "Created or updated the TXT record in set %s for zone %s.",
-            domain_token_record_set_name, zone['Name'])
+            domain_token_record_set_name,
+            zone["Name"],
+        )
     except ClientError as err:
         logger.warning(
             "Got error %s. Couldn't create or update the TXT record for zone %s.",
-            err.response['Error']['Code'], zone['Name'])
+            err.response["Error"]["Code"],
+            zone["Name"],
+        )
 
 
 def generate_dkim_tokens(domain, ses_client):
@@ -203,7 +219,7 @@ def generate_dkim_tokens(domain, ses_client):
     """
     dkim_tokens = []
     try:
-        dkim_tokens = ses_client.verify_domain_dkim(Domain=domain)['DkimTokens']
+        dkim_tokens = ses_client.verify_domain_dkim(Domain=domain)["DkimTokens"]
         logger.info("Generated %s DKIM tokens for domain %s.", len(dkim_tokens), domain)
     except ClientError:
         logger.warning("Couldn't generate DKIM tokens for domain %s.", domain)
@@ -220,23 +236,33 @@ def add_dkim_domain_tokens(hosted_zone, domain, tokens, route53_client):
     :param route53_client: A Boto3 Route 53 client.
     """
     try:
-        changes = [{
-            'Action': 'UPSERT',
-            'ResourceRecordSet': {
-                'Name': f'{token}._domainkey.{domain}',
-                'Type': 'CNAME',
-                'TTL': 1800,
-                'ResourceRecords': [{'Value': f'{token}.dkim.amazonses.com'}]
-            }} for token in tokens]
+        changes = [
+            {
+                "Action": "UPSERT",
+                "ResourceRecordSet": {
+                    "Name": f"{token}._domainkey.{domain}",
+                    "Type": "CNAME",
+                    "TTL": 1800,
+                    "ResourceRecords": [{"Value": f"{token}.dkim.amazonses.com"}],
+                },
+            }
+            for token in tokens
+        ]
         route53_client.change_resource_record_sets(
-            HostedZoneId=hosted_zone['Id'], ChangeBatch={'Changes': changes})
+            HostedZoneId=hosted_zone["Id"], ChangeBatch={"Changes": changes}
+        )
         logger.info(
-            "Added %s DKIM CNAME records to %s in zone %s.", len(tokens),
-            domain, hosted_zone['Name'])
+            "Added %s DKIM CNAME records to %s in zone %s.",
+            len(tokens),
+            domain,
+            hosted_zone["Name"],
+        )
     except ClientError:
         logger.warning(
-            "Couldn't add DKIM CNAME records for %s to zone %s.", domain,
-            hosted_zone['Name'])
+            "Couldn't add DKIM CNAME records for %s to zone %s.",
+            domain,
+            hosted_zone["Name"],
+        )
 
 
 def configure_sns_topics(identity, topics, ses_client):
@@ -252,24 +278,29 @@ def configure_sns_topics(identity, topics, ses_client):
     for topic in topics:
         topic_arn = input(
             f"Enter the Amazon Resource Name (ARN) of the {topic} topic or press "
-            f"Enter to skip: ")
-        if topic_arn != '':
+            f"Enter to skip: "
+        )
+        if topic_arn != "":
             try:
                 ses_client.set_identity_notification_topic(
-                    Identity=identity, NotificationType=topic, SnsTopic=topic_arn)
+                    Identity=identity, NotificationType=topic, SnsTopic=topic_arn
+                )
                 logger.info("Configured %s for %s notifications.", identity, topic)
             except ClientError:
                 logger.warning(
-                    "Couldn't configure %s for %s notifications.", identity, topic)
+                    "Couldn't configure %s for %s notifications.", identity, topic
+                )
 
 
 def replicate(source_client, destination_client, route53_client):
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    print('-'*88)
-    print(f"Replicating Amazon SES identities and other configuration from "
-          f"{source_client.meta.region_name} to {destination_client.meta.region_name}.")
-    print('-'*88)
+    print("-" * 88)
+    print(
+        f"Replicating Amazon SES identities and other configuration from "
+        f"{source_client.meta.region_name} to {destination_client.meta.region_name}."
+    )
+    print("-" * 88)
 
     print(f"Retrieving identities from {source_client.meta.region_name}.")
     source_emails, source_domains = get_identities(source_client)
@@ -285,73 +316,84 @@ def replicate(source_client, destination_client, route53_client):
 
     # Get Route 53 hosted zones and match them with Amazon SES domains.
     answer = input(
-        "Is the DNS configuration for your domains managed by Amazon Route 53 (y/n)? ")
-    use_route53 = answer.lower() == 'y'
+        "Is the DNS configuration for your domains managed by Amazon Route 53 (y/n)? "
+    )
+    use_route53 = answer.lower() == "y"
     hosted_zones = get_hosted_zones(route53_client) if use_route53 else []
     if use_route53:
         print("Adding or updating Route 53 TXT records for your domains.")
         domain_zones = find_domain_zone_matches(dest_domain_tokens.keys(), hosted_zones)
         for domain in domain_zones:
             add_route53_verification_record(
-                domain, dest_domain_tokens[domain], domain_zones[domain],
-                route53_client)
+                domain, dest_domain_tokens[domain], domain_zones[domain], route53_client
+            )
     else:
-        print("Use these verification tokens to create TXT records through your DNS "
-              "provider:")
+        print(
+            "Use these verification tokens to create TXT records through your DNS "
+            "provider:"
+        )
         pprint(dest_domain_tokens)
 
     answer = input("Do you want to configure DKIM signing for your identities (y/n)? ")
-    if answer.lower() == 'y':
+    if answer.lower() == "y":
         # Build a set of unique domains from email and domain identities.
-        domains = {email.split('@')[1] for email in dest_emails}
+        domains = {email.split("@")[1] for email in dest_emails}
         domains.update(dest_domain_tokens)
         domain_zones = find_domain_zone_matches(domains, hosted_zones)
         for domain, zone in domain_zones.items():
             answer = input(
-                f"Do you want to configure DKIM signing for {domain} (y/n)? ")
-            if answer.lower() == 'y':
+                f"Do you want to configure DKIM signing for {domain} (y/n)? "
+            )
+            if answer.lower() == "y":
                 dkim_tokens = generate_dkim_tokens(domain, destination_client)
                 if use_route53 and zone is not None:
                     add_dkim_domain_tokens(zone, domain, dkim_tokens, route53_client)
                 else:
                     print(
                         "Add the following DKIM tokens as CNAME records through your "
-                        "DNS provider:")
-                    print(*dkim_tokens, sep='\n')
+                        "DNS provider:"
+                    )
+                    print(*dkim_tokens, sep="\n")
 
     answer = input(
-        "Do you want to configure Amazon SNS notifications for your identities (y/n)? ")
-    if answer.lower() == 'y':
+        "Do you want to configure Amazon SNS notifications for your identities (y/n)? "
+    )
+    if answer.lower() == "y":
         for identity in dest_emails + list(dest_domain_tokens.keys()):
             answer = input(
-                f"Do you want to configure Amazon SNS topics for {identity} (y/n)? ")
-            if answer.lower() == 'y':
+                f"Do you want to configure Amazon SNS topics for {identity} (y/n)? "
+            )
+            if answer.lower() == "y":
                 configure_sns_topics(
-                    identity, ['Bounce', 'Delivery', 'Complaint'], destination_client)
+                    identity, ["Bounce", "Delivery", "Complaint"], destination_client
+                )
 
     print(f"Replication complete for {destination_client.meta.region_name}.")
-    print('-'*88)
+    print("-" * 88)
 
 
 def main():
     boto3_session = boto3.Session()
-    ses_regions = boto3_session.get_available_regions('ses')
+    ses_regions = boto3_session.get_available_regions("ses")
     parser = argparse.ArgumentParser(
         description="Copies email address and domain identities from one AWS Region to "
-                    "another. Optionally adds records for domain verification and DKIM "
-                    "signing to domains that are managed by Amazon Route 53, "
-                    "and sets up Amazon SNS notifications for events of interest.")
+        "another. Optionally adds records for domain verification and DKIM "
+        "signing to domains that are managed by Amazon Route 53, "
+        "and sets up Amazon SNS notifications for events of interest."
+    )
     parser.add_argument(
-        'source_region', choices=ses_regions, help="The region to copy from.")
+        "source_region", choices=ses_regions, help="The region to copy from."
+    )
     parser.add_argument(
-        'destination_region', choices=ses_regions, help="The region to copy to.")
+        "destination_region", choices=ses_regions, help="The region to copy to."
+    )
     args = parser.parse_args()
-    source_client = boto3.client('ses', region_name=args.source_region)
-    destination_client = boto3.client('ses', region_name=args.destination_region)
-    route53_client = boto3.client('route53')
+    source_client = boto3.client("ses", region_name=args.source_region)
+    destination_client = boto3.client("ses", region_name=args.destination_region)
+    route53_client = boto3.client("route53")
     replicate(source_client, destination_client, route53_client)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 # snippet-end:[ses.python.ses_replicateidentities.complete]

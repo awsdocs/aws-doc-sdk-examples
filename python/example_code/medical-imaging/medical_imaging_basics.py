@@ -30,11 +30,14 @@ class MedicalImagingWrapper:
             data_store = self.health_imaging_client.create_datastore(datastoreName=name)
         except ClientError as err:
             logger.error(
-                "Couldn't create data store %s. Here's why: %s: %s", name, err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't create data store %s. Here's why: %s: %s",
+                name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return data_store['datastoreId']
+            return data_store["datastoreId"]
 
     # snippet-end:[python.example_code.medical-imaging.CreateDatastore]
 
@@ -47,14 +50,19 @@ class MedicalImagingWrapper:
         :return: The data store properties.
         """
         try:
-            data_store = self.health_imaging_client.get_datastore(datastoreId=datastore_id)
+            data_store = self.health_imaging_client.get_datastore(
+                datastoreId=datastore_id
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't get data store %s. Here's why: %s: %s", id, err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't get data store %s. Here's why: %s: %s",
+                id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return data_store['datastoreProperties']
+            return data_store["datastoreProperties"]
 
     # snippet-end:[python.example_code.medical-imaging.GetDatastore]
 
@@ -66,15 +74,17 @@ class MedicalImagingWrapper:
         :return: The list of data stores.
         """
         try:
-            paginator = self.health_imaging_client.get_paginator('list_datastores')
+            paginator = self.health_imaging_client.get_paginator("list_datastores")
             page_iterator = paginator.paginate()
             datastore_summaries = []
             for page in page_iterator:
-                datastore_summaries.extend(page['datastoreSummaries'])
+                datastore_summaries.extend(page["datastoreSummaries"])
         except ClientError as err:
             logger.error(
-                "Couldn't list data stores. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't list data stores. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return datastore_summaries
@@ -92,14 +102,19 @@ class MedicalImagingWrapper:
             self.health_imaging_client.delete_datastore(datastoreId=datastore_id)
         except ClientError as err:
             logger.error(
-                "Couldn't delete data store %s. Here's why: %s: %s", datastore_id, err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't delete data store %s. Here's why: %s: %s",
+                datastore_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
 
     # snippet-end:[python.example_code.medical-imaging.DeleteDatastore]
 
     # snippet-start:[python.example_code.medical-imaging.StartDICOMImportJob]
-    def start_dicom_import_job(self, job_name, datastore_id, role_arn, input_s3_uri, output_s3_uri):
+    def start_dicom_import_job(
+        self, job_name, datastore_id, role_arn, input_s3_uri, output_s3_uri
+    ):
         """
         Start a DICOM import job.
 
@@ -120,11 +135,13 @@ class MedicalImagingWrapper:
             )
         except ClientError as err:
             logger.error(
-                "Couldn't start DICOM import job. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't start DICOM import job. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return job['jobId']
+            return job["jobId"]
 
     # snippet-end:[python.example_code.medical-imaging.StartDICOMImportJob]
 
@@ -138,14 +155,18 @@ class MedicalImagingWrapper:
         :return: The job properties.
         """
         try:
-            job = self.health_imaging_client.get_dicom_import_job(jobId=job_id, datastoreId=datastore_id)
+            job = self.health_imaging_client.get_dicom_import_job(
+                jobId=job_id, datastoreId=datastore_id
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't get DICOM import job. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't get DICOM import job. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return job['jobProperties']
+            return job["jobProperties"]
 
     # snippet-end:[python.example_code.medical-imaging.GetDICOMImportJob]
 
@@ -158,15 +179,19 @@ class MedicalImagingWrapper:
         :return: The list of jobs.
         """
         try:
-            paginator = self.health_imaging_client.get_paginator('list_dicom_import_jobs')
+            paginator = self.health_imaging_client.get_paginator(
+                "list_dicom_import_jobs"
+            )
             page_iterator = paginator.paginate(datastoreId=datastore_id)
             job_summaries = []
             for page in page_iterator:
-                job_summaries.extend(page['jobSummaries'])
+                job_summaries.extend(page["jobSummaries"])
         except ClientError as err:
             logger.error(
-                "Couldn't list DICOM import jobs. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't list DICOM import jobs. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return job_summaries
@@ -184,15 +209,19 @@ class MedicalImagingWrapper:
         :return: The list of image sets.
         """
         try:
-            paginator = self.health_imaging_client.get_paginator('search_image_sets')
-            page_iterator = paginator.paginate(datastoreId=datastore_id, searchCriteria=search_filter)
+            paginator = self.health_imaging_client.get_paginator("search_image_sets")
+            page_iterator = paginator.paginate(
+                datastoreId=datastore_id, searchCriteria=search_filter
+            )
             metadata_summaries = []
             for page in page_iterator:
-                metadata_summaries.extend(page['imageSetsMetadataSummaries'])
+                metadata_summaries.extend(page["imageSetsMetadataSummaries"])
         except ClientError as err:
             logger.error(
-                "Couldn't search image sets. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't search image sets. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return metadata_summaries
@@ -210,12 +239,15 @@ class MedicalImagingWrapper:
         :return: The image set properties.
         """
         try:
-            image_set = self.health_imaging_client.get_image_set(imageSetId=image_set_id, datastoreId=datastore_id,
-                                                                 versionId=version_id)
+            image_set = self.health_imaging_client.get_image_set(
+                imageSetId=image_set_id, datastoreId=datastore_id, versionId=version_id
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't get image set. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't get image set. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return image_set
@@ -223,7 +255,9 @@ class MedicalImagingWrapper:
     # snippet-end:[python.example_code.medical-imaging.GetImageSet]
 
     # snippet-start:[python.example_code.medical-imaging.GetImageSetMetadata]
-    def get_image_set_metadata(self, metadata_file, datastore_id, image_set_id, version_id=None):
+    def get_image_set_metadata(
+        self, metadata_file, datastore_id, image_set_id, version_id=None
+    ):
         """
         Get the metadata of an image set.
 
@@ -234,28 +268,35 @@ class MedicalImagingWrapper:
         """
         try:
             if version_id:
-                image_set_metadata = self.health_imaging_client.get_image_set_metadata(imageSetId=image_set_id,
-                                                                                       datastoreId=datastore_id,
-                                                                                       versionId=version_id)
+                image_set_metadata = self.health_imaging_client.get_image_set_metadata(
+                    imageSetId=image_set_id,
+                    datastoreId=datastore_id,
+                    versionId=version_id,
+                )
             else:
-                image_set_metadata = self.health_imaging_client.get_image_set_metadata(imageSetId=image_set_id,
-                                                                                       datastoreId=datastore_id)
+                image_set_metadata = self.health_imaging_client.get_image_set_metadata(
+                    imageSetId=image_set_id, datastoreId=datastore_id
+                )
             print(image_set_metadata)
-            with open(metadata_file, 'wb') as f:
-                for chunk in image_set_metadata['imageSetMetadataBlob'].iter_chunks():
+            with open(metadata_file, "wb") as f:
+                for chunk in image_set_metadata["imageSetMetadataBlob"].iter_chunks():
                     if chunk:
                         f.write(chunk)
 
         except ClientError as err:
             logger.error(
-                "Couldn't get image metadata. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't get image metadata. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
 
     # snippet-end:[python.example_code.medical-imaging.GetImageSetMetadata]
 
     # snippet-start:[python.example_code.medical-imaging.GetImageFrame]
-    def get_pixel_data(self, file_path_to_write, datastore_id, image_set_id, image_frame_id):
+    def get_pixel_data(
+        self, file_path_to_write, datastore_id, image_set_id, image_frame_id
+    ):
         """
         Get an image frame's pixel data.
 
@@ -265,18 +306,21 @@ class MedicalImagingWrapper:
         :param image_frame_id: The ID of the image frame.
         """
         try:
-            image_frame = self.health_imaging_client.get_image_frame(datastoreId=datastore_id,
-                                                                     imageSetId=image_set_id,
-                                                                     imageFrameInformation={
-                                                                         "imageFrameId": image_frame_id})
-            with open(file_path_to_write, 'wb') as f:
-                for chunk in image_frame['imageFrameBlob'].iter_chunks():
+            image_frame = self.health_imaging_client.get_image_frame(
+                datastoreId=datastore_id,
+                imageSetId=image_set_id,
+                imageFrameInformation={"imageFrameId": image_frame_id},
+            )
+            with open(file_path_to_write, "wb") as f:
+                for chunk in image_frame["imageFrameBlob"].iter_chunks():
                     if chunk:
                         f.write(chunk)
         except ClientError as err:
             logger.error(
-                "Couldn't get image frame. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't get image frame. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
 
     # snippet-end:[python.example_code.medical-imaging.GetImageFrame]
@@ -291,16 +335,21 @@ class MedicalImagingWrapper:
         :return: The list of image set versions.
         """
         try:
-            paginator = self.health_imaging_client.get_paginator('list_image_set_versions')
-            page_iterator = paginator.paginate(imageSetId=image_set_id,
-                                               datastoreId=datastore_id)
+            paginator = self.health_imaging_client.get_paginator(
+                "list_image_set_versions"
+            )
+            page_iterator = paginator.paginate(
+                imageSetId=image_set_id, datastoreId=datastore_id
+            )
             image_set_properties_list = []
             for page in page_iterator:
-                image_set_properties_list.extend(page['imageSetPropertiesList'])
+                image_set_properties_list.extend(page["imageSetPropertiesList"])
         except ClientError as err:
             logger.error(
-                "Couldn't list image set versions. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't list image set versions. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return image_set_properties_list
@@ -308,7 +357,9 @@ class MedicalImagingWrapper:
     # snippet-end:[python.example_code.medical-imaging.ListImageSetVersions]
 
     # snippet-start:[python.example_code.medical-imaging.UpdateImageSetMetadata]
-    def update_image_set_metadata(self, datastore_id, image_set_id, version_id, metadata):
+    def update_image_set_metadata(
+        self, datastore_id, image_set_id, version_id, metadata
+    ):
         """
         Update the metadata of an image set.
 
@@ -322,12 +373,17 @@ class MedicalImagingWrapper:
         """
         try:
             updated_metadata = self.health_imaging_client.update_image_set_metadata(
-                imageSetId=image_set_id, datastoreId=datastore_id, latestVersionId=version_id,
-                updateImageSetMetadataUpdates=metadata)
+                imageSetId=image_set_id,
+                datastoreId=datastore_id,
+                latestVersionId=version_id,
+                updateImageSetMetadataUpdates=metadata,
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't update image set metadata. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't update image set metadata. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return updated_metadata
@@ -335,8 +391,14 @@ class MedicalImagingWrapper:
     # snippet-end:[python.example_code.medical-imaging.UpdateImageSetMetadata]
 
     # snippet-start:[python.example_code.medical-imaging.CopyImageSet]
-    def copy_image_set(self, datastore_id, image_set_id, version_id, destination_image_set_id=None,
-                       destination_version_id=None):
+    def copy_image_set(
+        self,
+        datastore_id,
+        image_set_id,
+        version_id,
+        destination_image_set_id=None,
+        destination_version_id=None,
+    ):
         """
         Copy an image set.
 
@@ -348,21 +410,28 @@ class MedicalImagingWrapper:
         :return: The copied image set ID.
         """
         try:
-            copy_image_set_information = {'sourceImageSet': {'latestVersionId': version_id}}
+            copy_image_set_information = {
+                "sourceImageSet": {"latestVersionId": version_id}
+            }
             if destination_image_set_id and destination_version_id:
-                copy_image_set_information["destinationImageSet"] = {"imageSetId": destination_image_set_id,
-                                                                     "latestVersionId": destination_version_id}
+                copy_image_set_information["destinationImageSet"] = {
+                    "imageSetId": destination_image_set_id,
+                    "latestVersionId": destination_version_id,
+                }
             copy_results = self.health_imaging_client.copy_image_set(
                 datastoreId=datastore_id,
                 sourceImageSetId=image_set_id,
-                copyImageSetInformation=copy_image_set_information)
+                copyImageSetInformation=copy_image_set_information,
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't copy image set. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't copy image set. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return copy_results['destinationImageSetProperties']['imageSetId']
+            return copy_results["destinationImageSetProperties"]["imageSetId"]
 
     # snippet-end:[python.example_code.medical-imaging.CopyImageSet]
 
@@ -377,11 +446,14 @@ class MedicalImagingWrapper:
         """
         try:
             delete_results = self.health_imaging_client.delete_image_set(
-                imageSetId=image_set_id, datastoreId=datastore_id)
+                imageSetId=image_set_id, datastoreId=datastore_id
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't delete image set. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't delete image set. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return delete_results
@@ -400,8 +472,10 @@ class MedicalImagingWrapper:
             self.health_imaging_client.tag_resource(resourceArn=resource_arn, tags=tags)
         except ClientError as err:
             logger.error(
-                "Couldn't tag resource. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't tag resource. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
 
     # snippet-end:[python.example_code.medical-imaging.TagResource]
@@ -415,11 +489,15 @@ class MedicalImagingWrapper:
         :param tag_keys: The tag keys to remove.
         """
         try:
-            self.health_imaging_client.untag_resource(resourceArn=resource_arn, tagKeys=tag_keys)
+            self.health_imaging_client.untag_resource(
+                resourceArn=resource_arn, tagKeys=tag_keys
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't untag resource. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't untag resource. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
 
     # snippet-end:[python.example_code.medical-imaging.UntagResource]
@@ -433,12 +511,17 @@ class MedicalImagingWrapper:
         :return: The list of tags.
         """
         try:
-            tags = self.health_imaging_client.list_tags_for_resource(resourceArn=resource_arn)
+            tags = self.health_imaging_client.list_tags_for_resource(
+                resourceArn=resource_arn
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't list tags for resource. Here's why: %s: %s", err.response['Error']['Code'],
-                err.response['Error']['Message'])
+                "Couldn't list tags for resource. Here's why: %s: %s",
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return tags['tags']
+            return tags["tags"]
+
     # snippet-end:[python.example_code.medical-imaging.ListTagsForResource]

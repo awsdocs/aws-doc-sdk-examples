@@ -17,8 +17,12 @@ from botocore.exceptions import ClientError
 import requests
 
 from rekognition_objects import (
-    RekognitionFace, RekognitionCelebrity, RekognitionLabel,
-    RekognitionModerationLabel, RekognitionPerson)
+    RekognitionFace,
+    RekognitionCelebrity,
+    RekognitionLabel,
+    RekognitionModerationLabel,
+    RekognitionPerson,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +32,7 @@ class RekognitionVideo:
     Encapsulates an Amazon Rekognition video. This class is a thin wrapper around
     parts of the Boto3 Amazon Rekognition API.
     """
+
     def __init__(self, video, video_name, rekognition_client):
         """
         Initializes the video object.
@@ -53,11 +58,12 @@ class RekognitionVideo:
         :param rekognition_client: A Boto3 Rekognition client.
         :return: The RekognitionVideo object, initialized with Amazon S3 object data.
         """
-        video = {'S3Object': {'Bucket': s3_object.bucket_name, 'Name': s3_object.key}}
+        video = {"S3Object": {"Bucket": s3_object.bucket_name, "Name": s3_object.key}}
         return cls(video, s3_object.key, rekognition_client)
 
     def create_notification_channel(
-            self, resource_name, iam_resource, sns_resource, sqs_resource):
+        self, resource_name, iam_resource, sns_resource, sqs_resource
+    ):
         """
         Creates a notification channel used by Amazon Rekognition to notify subscribers
         that a detection job has completed. The notification channel consists of an
@@ -79,48 +85,65 @@ class RekognitionVideo:
         """
         self.topic = sns_resource.create_topic(Name=resource_name)
         self.queue = sqs_resource.create_queue(
-            QueueName=resource_name, Attributes={'ReceiveMessageWaitTimeSeconds': '5'})
-        queue_arn = self.queue.attributes['QueueArn']
+            QueueName=resource_name, Attributes={"ReceiveMessageWaitTimeSeconds": "5"}
+        )
+        queue_arn = self.queue.attributes["QueueArn"]
 
         # This policy lets the queue receive messages from the topic.
-        self.queue.set_attributes(Attributes={'Policy': json.dumps({
-            'Version': '2008-10-17',
-            'Statement': [{
-                'Sid': 'test-sid',
-                'Effect': 'Allow',
-                'Principal': {'AWS': '*'},
-                'Action': 'SQS:SendMessage',
-                'Resource': queue_arn,
-                'Condition': {'ArnEquals': {'aws:SourceArn': self.topic.arn}}}]})})
-        self.topic.subscribe(Protocol='sqs', Endpoint=queue_arn)
+        self.queue.set_attributes(
+            Attributes={
+                "Policy": json.dumps(
+                    {
+                        "Version": "2008-10-17",
+                        "Statement": [
+                            {
+                                "Sid": "test-sid",
+                                "Effect": "Allow",
+                                "Principal": {"AWS": "*"},
+                                "Action": "SQS:SendMessage",
+                                "Resource": queue_arn,
+                                "Condition": {
+                                    "ArnEquals": {"aws:SourceArn": self.topic.arn}
+                                },
+                            }
+                        ],
+                    }
+                )
+            }
+        )
+        self.topic.subscribe(Protocol="sqs", Endpoint=queue_arn)
 
         # This role lets Amazon Rekognition publish to the topic. Its Amazon Resource
         # Name (ARN) is sent each time a job is started.
         self.role = iam_resource.create_role(
             RoleName=resource_name,
-            AssumeRolePolicyDocument=json.dumps({
-                'Version': '2012-10-17',
-                'Statement': [
-                    {
-                        'Effect': 'Allow',
-                        'Principal': {'Service': 'rekognition.amazonaws.com'},
-                        'Action': 'sts:AssumeRole'
-                    }
-                ]
-            })
+            AssumeRolePolicyDocument=json.dumps(
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {"Service": "rekognition.amazonaws.com"},
+                            "Action": "sts:AssumeRole",
+                        }
+                    ],
+                }
+            ),
         )
         policy = iam_resource.create_policy(
             PolicyName=resource_name,
-            PolicyDocument=json.dumps({
-                'Version': '2012-10-17',
-                'Statement': [
-                    {
-                        'Effect': 'Allow',
-                        'Action': 'SNS:Publish',
-                        'Resource': self.topic.arn
-                    }
-                ]
-            })
+            PolicyDocument=json.dumps(
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Action": "SNS:Publish",
+                            "Resource": self.topic.arn,
+                        }
+                    ],
+                }
+            ),
         )
         self.role.attach_policy(PolicyArn=policy.arn)
 
@@ -130,7 +153,7 @@ class RekognitionVideo:
 
         :return: The notification channel data.
         """
-        return {'RoleArn': self.role.arn, 'SNSTopicArn': self.topic.arn}
+        return {"RoleArn": self.role.arn, "SNSTopicArn": self.topic.arn}
 
     def delete_notification_channel(self):
         """
@@ -160,15 +183,16 @@ class RekognitionVideo:
         job_done = False
         while not job_done:
             messages = self.queue.receive_messages(
-                MaxNumberOfMessages=1, WaitTimeSeconds=5)
+                MaxNumberOfMessages=1, WaitTimeSeconds=5
+            )
             logger.info("Polled queue for messages, got %s.", len(messages))
             if messages:
                 body = json.loads(messages[0].body)
-                message = json.loads(body['Message'])
-                if job_id != message['JobId']:
+                message = json.loads(body["Message"])
+                if job_id != message["JobId"]:
                     raise RuntimeError
-                status = message['Status']
-                logger.info("Got message %s with status %s.", message['JobId'], status)
+                status = message["Status"]
+                logger.info("Got message %s with status %s.", message["JobId"], status)
                 messages[0].delete()
                 job_done = True
         return status
@@ -184,13 +208,16 @@ class RekognitionVideo:
         """
         try:
             response = start_job_func(
-                Video=self.video, NotificationChannel=self.get_notification_channel())
-            job_id = response['JobId']
+                Video=self.video, NotificationChannel=self.get_notification_channel()
+            )
+            job_id = response["JobId"]
             logger.info(
-                "Started %s job %s on %s.", job_description, job_id, self.video_name)
+                "Started %s job %s on %s.", job_description, job_id, self.video_name
+            )
         except ClientError:
             logger.exception(
-                "Couldn't start %s job on %s.", job_description, self.video_name)
+                "Couldn't start %s job on %s.", job_description, self.video_name
+            )
             raise
         else:
             return job_id
@@ -209,7 +236,7 @@ class RekognitionVideo:
         """
         try:
             response = get_results_func(JobId=job_id)
-            logger.info("Job %s has status: %s.", job_id, response['JobStatus'])
+            logger.info("Job %s has status: %s.", job_id, response["JobStatus"])
             results = result_extractor(response)
             logger.info("Found %s items in %s.", len(results), self.video_name)
         except ClientError:
@@ -219,7 +246,8 @@ class RekognitionVideo:
             return results
 
     def _do_rekognition_job(
-            self, job_description, start_job_func, get_results_func, result_extractor):
+        self, job_description, start_job_func, get_results_func, result_extractor
+    ):
         """
         Starts a job, waits for completion, and gets the results.
 
@@ -231,9 +259,10 @@ class RekognitionVideo:
         """
         job_id = self._start_rekognition_job(job_description, start_job_func)
         status = self.poll_notification(job_id)
-        if status == 'SUCCEEDED':
+        if status == "SUCCEEDED":
             results = self._get_rekognition_job_results(
-                job_id, get_results_func, result_extractor)
+                job_id, get_results_func, result_extractor
+            )
         else:
             results = []
         return results
@@ -249,8 +278,10 @@ class RekognitionVideo:
             self.rekognition_client.start_label_detection,
             self.rekognition_client.get_label_detection,
             lambda response: [
-                RekognitionLabel(label['Label'], label['Timestamp']) for label in
-                response['Labels']])
+                RekognitionLabel(label["Label"], label["Timestamp"])
+                for label in response["Labels"]
+            ],
+        )
 
     def do_face_detection(self):
         """
@@ -263,8 +294,10 @@ class RekognitionVideo:
             self.rekognition_client.start_face_detection,
             self.rekognition_client.get_face_detection,
             lambda response: [
-                RekognitionFace(face['Face'], face['Timestamp']) for face in
-                response['Faces']])
+                RekognitionFace(face["Face"], face["Timestamp"])
+                for face in response["Faces"]
+            ],
+        )
 
     def do_person_tracking(self):
         """
@@ -279,8 +312,10 @@ class RekognitionVideo:
             self.rekognition_client.start_person_tracking,
             self.rekognition_client.get_person_tracking,
             lambda response: [
-                RekognitionPerson(person['Person'], person['Timestamp']) for person in
-                response['Persons']])
+                RekognitionPerson(person["Person"], person["Timestamp"])
+                for person in response["Persons"]
+            ],
+        )
 
     def do_celebrity_recognition(self):
         """
@@ -293,8 +328,10 @@ class RekognitionVideo:
             self.rekognition_client.start_celebrity_recognition,
             self.rekognition_client.get_celebrity_recognition,
             lambda response: [
-                RekognitionCelebrity(celeb['Celebrity'], celeb['Timestamp'])
-                for celeb in response['Celebrities']])
+                RekognitionCelebrity(celeb["Celebrity"], celeb["Timestamp"])
+                for celeb in response["Celebrities"]
+            ],
+        )
 
     def do_content_moderation(self):
         """
@@ -307,38 +344,43 @@ class RekognitionVideo:
             self.rekognition_client.start_content_moderation,
             self.rekognition_client.get_content_moderation,
             lambda response: [
-                RekognitionModerationLabel(label['ModerationLabel'], label['Timestamp'])
-                for label in response['ModerationLabels']])
+                RekognitionModerationLabel(label["ModerationLabel"], label["Timestamp"])
+                for label in response["ModerationLabels"]
+            ],
+        )
 
 
 def usage_demo():
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the Amazon Rekognition video detection demo!")
-    print('-'*88)
+    print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     print("Creating Amazon S3 bucket and uploading video.")
-    s3_resource = boto3.resource('s3')
+    s3_resource = boto3.resource("s3")
     bucket = s3_resource.create_bucket(
-        Bucket=f'doc-example-bucket-rekognition-{time.time_ns()}',
+        Bucket=f"doc-example-bucket-rekognition-{time.time_ns()}",
         CreateBucketConfiguration={
-            'LocationConstraint': s3_resource.meta.client.meta.region_name
-        })
-    video_object = bucket.Object('bezos_vogel.mp4')
+            "LocationConstraint": s3_resource.meta.client.meta.region_name
+        },
+    )
+    video_object = bucket.Object("bezos_vogel.mp4")
     bezos_vogel_video = requests.get(
-        'https://dhei5unw3vrsx.cloudfront.net/videos/bezos_vogel.mp4', stream=True)
+        "https://dhei5unw3vrsx.cloudfront.net/videos/bezos_vogel.mp4", stream=True
+    )
     video_object.upload_fileobj(bezos_vogel_video.raw)
 
-    rekognition_client = boto3.client('rekognition')
+    rekognition_client = boto3.client("rekognition")
     video = RekognitionVideo.from_bucket(video_object, rekognition_client)
 
     print("Creating notification channel from Amazon Rekognition to Amazon SQS.")
-    iam_resource = boto3.resource('iam')
-    sns_resource = boto3.resource('sns')
-    sqs_resource = boto3.resource('sqs')
+    iam_resource = boto3.resource("iam")
+    sns_resource = boto3.resource("sns")
+    sqs_resource = boto3.resource("sqs")
     video.create_notification_channel(
-        'doc-example-video-rekognition', iam_resource, sns_resource, sqs_resource)
+        "doc-example-video-rekognition", iam_resource, sns_resource, sqs_resource
+    )
 
     print("Detecting labels in the video.")
     labels = video.do_label_detection()
@@ -356,8 +398,10 @@ def usage_demo():
 
     print("Detecting celebrities in the video.")
     celebrities = video.do_celebrity_recognition()
-    print(f"Found {len(celebrities)} celebrity detection events. Here's the first "
-          f"appearance of each celebrity:")
+    print(
+        f"Found {len(celebrities)} celebrity detection events. Here's the first "
+        f"appearance of each celebrity:"
+    )
     celeb_names = set()
     for celeb in celebrities:
         if celeb.name not in celeb_names:
@@ -367,8 +411,10 @@ def usage_demo():
 
     print("Tracking people in the video. This takes a little longer. Be patient!")
     persons = video.do_person_tracking()
-    print(f"Detected {len(persons)} person tracking items, here are the first five "
-          f"for each person:")
+    print(
+        f"Detected {len(persons)} person tracking items, here are the first five "
+        f"for each person:"
+    )
     by_index = {}
     for person in persons:
         if person.index not in by_index:
@@ -385,8 +431,8 @@ def usage_demo():
     bucket.delete()
     logger.info("Deleted bucket %s.", bucket.name)
     print("All resources cleaned up. Thanks for watching!")
-    print('-'*88)
+    print("-" * 88)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

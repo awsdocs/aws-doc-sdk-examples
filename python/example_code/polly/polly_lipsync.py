@@ -27,8 +27,10 @@ logger = logging.getLogger(__name__)
 
 
 # Media is loaded from this URL if it is not found in the local .media folder.
-GITHUB_URL = 'https://raw.githubusercontent.com/awsdocs/aws-doc-sdk-examples/' \
-             'awsdocs/polly-examples/python/example_code/polly/'
+GITHUB_URL = (
+    "https://raw.githubusercontent.com/awsdocs/aws-doc-sdk-examples/"
+    "awsdocs/polly-examples/python/example_code/polly/"
+)
 
 
 class PollyMouth:
@@ -40,23 +42,23 @@ class PollyMouth:
 
     # A dictionary of visemes mapped to image file names.
     lips = {
-        'p': {'name': '.media/lips_m.png'},
-        't': {'name': '.media/lips_c.png'},
-        'S': {'name': '.media/lips_ch.png'},
-        'T': {'name': '.media/lips_th.png'},
-        'f': {'name': '.media/lips_f.png'},
-        'k': {'name': '.media/lips_c.png'},
-        'i': {'name': '.media/lips_e.png'},
-        'r': {'name': '.media/lips_r.png'},
-        's': {'name': '.media/lips_c.png'},
-        'u': {'name': '.media/lips_w.png'},
-        '@': {'name': '.media/lips_u.png'},
-        'a': {'name': '.media/lips_a.png'},
-        'e': {'name': '.media/lips_a.png'},
-        'E': {'name': '.media/lips_u.png'},
-        'o': {'name': '.media/lips_o.png'},
-        'O': {'name': '.media/lips_u.png'},
-        'sil': {'name': '.media/lips_sil.png'}
+        "p": {"name": ".media/lips_m.png"},
+        "t": {"name": ".media/lips_c.png"},
+        "S": {"name": ".media/lips_ch.png"},
+        "T": {"name": ".media/lips_th.png"},
+        "f": {"name": ".media/lips_f.png"},
+        "k": {"name": ".media/lips_c.png"},
+        "i": {"name": ".media/lips_e.png"},
+        "r": {"name": ".media/lips_r.png"},
+        "s": {"name": ".media/lips_c.png"},
+        "u": {"name": ".media/lips_w.png"},
+        "@": {"name": ".media/lips_u.png"},
+        "a": {"name": ".media/lips_a.png"},
+        "e": {"name": ".media/lips_a.png"},
+        "E": {"name": ".media/lips_u.png"},
+        "o": {"name": ".media/lips_o.png"},
+        "O": {"name": ".media/lips_u.png"},
+        "sil": {"name": ".media/lips_sil.png"},
     }
 
     def __init__(self, polly_wrapper):
@@ -76,37 +78,49 @@ class PollyMouth:
         choices_frame = tkinter.Frame(self.app)
 
         self.sayit_label = tkinter.Label(
-            self.app, wraplength=410,
+            self.app,
+            wraplength=410,
             text="Write some text in the box below, then click 'Say it!' "
-                 "to hear and see your text.")
+            "to hear and see your text.",
+        )
         self.sayit_txt = tkinter.Text(self.app, width=50, height=16)
 
-        self.engine_label = tkinter.Label(choices_frame, text='Engine:')
-        self.engine_var = tkinter.StringVar(choices_frame, 'neural')
+        self.engine_label = tkinter.Label(choices_frame, text="Engine:")
+        self.engine_var = tkinter.StringVar(choices_frame, "neural")
         self.engine_options = tkinter.OptionMenu(
-            choices_frame, self.engine_var, *sorted(polly_wrapper.get_voice_engines()),
-            command=self.change_engine)
+            choices_frame,
+            self.engine_var,
+            *sorted(polly_wrapper.get_voice_engines()),
+            command=self.change_engine,
+        )
 
-        self.language_label = tkinter.Label(choices_frame, text='Language:')
-        self.language_var = tkinter.StringVar(choices_frame, 'US English')
+        self.language_label = tkinter.Label(choices_frame, text="Language:")
+        self.language_var = tkinter.StringVar(choices_frame, "US English")
         self.language_choices = polly_wrapper.get_languages(self.engine_var.get())
         self.language_options = tkinter.OptionMenu(
-            choices_frame, self.language_var, *sorted(self.language_choices),
-            command=self.change_language)
+            choices_frame,
+            self.language_var,
+            *sorted(self.language_choices),
+            command=self.change_language,
+        )
 
-        self.voice_label = tkinter.Label(choices_frame, text='Voice:')
-        self.voice_var = tkinter.StringVar(choices_frame, 'Joanna')
+        self.voice_label = tkinter.Label(choices_frame, text="Voice:")
+        self.voice_var = tkinter.StringVar(choices_frame, "Joanna")
         self.voice_choices = polly_wrapper.get_voices(
-            self.engine_var.get(), self.language_choices[self.language_var.get()])
+            self.engine_var.get(), self.language_choices[self.language_var.get()]
+        )
         self.voice_options = tkinter.OptionMenu(
-            choices_frame, self.voice_var, *sorted(self.voice_choices))
+            choices_frame, self.voice_var, *sorted(self.voice_choices)
+        )
 
         self.face_canvas = tkinter.Canvas(
-            choices_frame, height=100, width=200, bg='white')
+            choices_frame, height=100, width=200, bg="white"
+        )
         self.sayit_button = tkinter.Button(
-            self.app, text="Say it!", command=self.say_it)
+            self.app, text="Say it!", command=self.say_it
+        )
 
-        self.loading_text = tkinter.Label(self.app, bg='white')
+        self.loading_text = tkinter.Label(self.app, bg="white")
 
         self.app.geometry("635x320")
 
@@ -128,7 +142,7 @@ class PollyMouth:
         self.voice_options.configure(width=18)
         self.face_canvas.grid(row=3, columnspan=2, padx=10)
 
-        self.face_canvas.create_image(100, 60, image=self.lips['sil']['image'])
+        self.face_canvas.create_image(100, 60, image=self.lips["sil"]["image"])
 
         self.app.mainloop()
 
@@ -137,20 +151,21 @@ class PollyMouth:
         Loads lip-sync images either from a local '.media' folder or from GitHub
         and saves image data in a dictionary of visemes.
         """
-        if os.path.isdir('.media'):
+        if os.path.isdir(".media"):
             logger.info("Found .media folder. Loading images from the local folder.")
             for viseme in self.lips:
-                self.lips[viseme]['image'] = tkinter.PhotoImage(
-                    file=self.lips[viseme]['name'])
+                self.lips[viseme]["image"] = tkinter.PhotoImage(
+                    file=self.lips[viseme]["name"]
+                )
         else:
             logger.info("No local .media folder. Trying to load images from GitHub.")
             for viseme in self.lips:
-                url = GITHUB_URL + self.lips[viseme]['name']
+                url = GITHUB_URL + self.lips[viseme]["name"]
                 resp = requests.get(url)
-                img = resp.content if resp.status_code == 200 else b''
+                img = resp.content if resp.status_code == 200 else b""
                 if resp.status_code != 200:
                     logger.warning("Couldn't load image from %s.", url)
-                self.lips[viseme]['image'] = tkinter.PhotoImage(data=img)
+                self.lips[viseme]["image"] = tkinter.PhotoImage(data=img)
 
     def change_engine(self, engine):
         """
@@ -161,12 +176,13 @@ class PollyMouth:
         :param engine: The newly selected engine type.
         """
         self.language_choices = self.polly_wrapper.get_languages(engine)
-        lang_menu = self.language_options['menu']
-        lang_menu.delete(0, 'end')
+        lang_menu = self.language_options["menu"]
+        lang_menu.delete(0, "end")
         sorted_choices = sorted(self.language_choices)
         for lang in sorted_choices:
             lang_menu.add_command(
-                label=lang, command=lambda l=lang: self.change_language(l))
+                label=lang, command=lambda l=lang: self.change_language(l)
+            )
         self.change_language(sorted_choices[0])
 
     def change_language(self, language):
@@ -179,13 +195,15 @@ class PollyMouth:
         """
         self.language_var.set(language)
         self.voice_choices = self.polly_wrapper.get_voices(
-            self.engine_var.get(), self.language_choices[language])
-        voice_menu = self.voice_options['menu']
-        voice_menu.delete(0, 'end')
+            self.engine_var.get(), self.language_choices[language]
+        )
+        voice_menu = self.voice_options["menu"]
+        voice_menu.delete(0, "end")
         sorted_choices = sorted(self.voice_choices)
         for voice in sorted_choices:
             voice_menu.add_command(
-                label=voice, command=lambda v=voice: self.voice_var.set(v))
+                label=voice, command=lambda v=voice: self.voice_var.set(v)
+            )
         self.voice_var.set(sorted_choices[0])
 
     def animate_lips(self, start_time, viseme, viseme_iter):
@@ -203,18 +221,22 @@ class PollyMouth:
                             from Amazon Polly.
         """
         try:
-            mouth = self.lips.get(viseme['value'], self.lips['sil'])
-            self.face_canvas.create_image(
-                100, 60, image=mouth['image'])
+            mouth = self.lips.get(viseme["value"], self.lips["sil"])
+            self.face_canvas.create_image(100, 60, image=mouth["image"])
             self.app.update()
             next_viseme = next(viseme_iter)
-            next_time = start_time + next_viseme['time']
+            next_time = start_time + next_viseme["time"]
             cur_time = time.time_ns() // 1000000  # milliseconds
             wait_time = max(0, next_time - cur_time)
-            logger.info("Vis: %s, cur_time %s, wait_time %s", mouth,
-                        cur_time - start_time, wait_time)
+            logger.info(
+                "Vis: %s, cur_time %s, wait_time %s",
+                mouth,
+                cur_time - start_time,
+                wait_time,
+            )
             self.app.after(
-                wait_time, self.animate_lips, start_time, next_viseme, viseme_iter)
+                wait_time, self.animate_lips, start_time, next_viseme, viseme_iter
+            )
         except StopIteration:
             pass
 
@@ -228,9 +250,10 @@ class PollyMouth:
         """
         self.loading_text.grid(row=0, rowspan=4, columnspan=2, sticky=tkinter.NSEW)
         self.loading_text.configure(
-            text=f"Waiting for {task_type}. Current status: {task_status}.")
+            text=f"Waiting for {task_type}. Current status: {task_status}."
+        )
         self.app.update()
-        if task_status in ('completed', 'failed'):
+        if task_status in ("completed", "failed"):
             self.app.after(1000)
             self.loading_text.grid_forget()
 
@@ -251,37 +274,40 @@ class PollyMouth:
                 self.sayit_txt.get(1.0, tkinter.END),
                 self.engine_var.get(),
                 self.voice_choices[self.voice_var.get()],
-                'mp3',
+                "mp3",
                 self.language_choices[self.language_var.get()],
-                True)
+                True,
+            )
         except ClientError as error:
-            if error.response['Error']['Code'] == 'TextLengthExceededException':
+            if error.response["Error"]["Code"] == "TextLengthExceededException":
                 bucket_name = tkinter.simpledialog.askstring(
                     "Text too long",
                     "The text is too long for synchronous synthesis. To start an\n"
                     "asynchronous job, enter the name of an existing Amazon S3\n"
                     "bucket to use for speech synthesis output and click OK.",
-                    parent=self.app)
+                    parent=self.app,
+                )
                 if bucket_name:
                     audio_stream, visemes = self.polly_wrapper.do_synthesis_task(
                         self.sayit_txt.get(1.0, tkinter.END),
                         self.engine_var.get(),
                         self.voice_choices[self.voice_var.get()],
-                        'mp3',
+                        "mp3",
                         bucket_name,
                         self.language_choices[self.language_var.get()],
                         True,
-                        self.long_text_wait_callback)
+                        self.long_text_wait_callback,
+                    )
 
         logger.debug("Visemes: %s.", json.dumps(visemes))
 
         if audio_stream is not None:
             with TemporaryDirectory() as tempdir:
-                speech_file_name = tempdir + '/speech.mp3'
-                with open(speech_file_name, 'wb') as speech_file:
+                speech_file_name = tempdir + "/speech.mp3"
+                with open(speech_file_name, "wb") as speech_file:
                     speech_file.write(audio_stream.read())
-                silence = '.media/silence.mp3'
-                if not os.path.isdir('.media'):
+                silence = ".media/silence.mp3"
+                if not os.path.isdir(".media"):
                     silence = GITHUB_URL + silence
                 # Play a short silent audio file to ensure playsound is loaded and
                 # ready. Without this, the audio tends to lag behind viseme playback.
@@ -289,9 +315,10 @@ class PollyMouth:
                 playsound(speech_file_name, block=False)
                 start_time = time.time_ns() // 1000000
                 self.app.after(
-                    0, self.animate_lips, start_time, {'value': 'sil'}, iter(visemes))
+                    0, self.animate_lips, start_time, {"value": "sil"}, iter(visemes)
+                )
 
 
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
-    PollyMouth(PollyWrapper(boto3.client('polly'), boto3.resource('s3')))
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    PollyMouth(PollyWrapper(boto3.client("polly"), boto3.resource("s3")))

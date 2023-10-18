@@ -25,6 +25,7 @@ class Storage:
     """
     Encapsulates work item data in a DynamoDB table.
     """
+
     def __init__(self, table):
         """
         :param table: A Boto3 DynamoDB Table object that represents an existing DynamoDB
@@ -43,14 +44,17 @@ class Storage:
         """
         try:
             if archived is None:
-                work_items = self.table.scan().get('Items', [])
+                work_items = self.table.scan().get("Items", [])
             else:
                 work_items = self.table.scan(
-                    FilterExpression=Attr('archived').eq(archived)).get('Items', [])
+                    FilterExpression=Attr("archived").eq(archived)
+                ).get("Items", [])
         except ClientError as err:
             logger.exception(
-                "Couldn't get items from table %s with archived %s.", self.table.name,
-                archived)
+                "Couldn't get items from table %s with archived %s.",
+                self.table.name,
+                archived,
+            )
             raise StorageError(err)
         else:
             return work_items
@@ -63,10 +67,11 @@ class Storage:
         :return: The requested item.
         """
         try:
-            item = self.table.get_item(Key={'iditem': iditem}).get('Item', {})
+            item = self.table.get_item(Key={"iditem": iditem}).get("Item", {})
         except ClientError as err:
             logger.exception(
-                "Couldn't get item %s from table %s.", iditem, self.table.name)
+                "Couldn't get item %s from table %s.", iditem, self.table.name
+            )
             raise StorageError(err)
         else:
             return item
@@ -81,18 +86,19 @@ class Storage:
         :return: The ID of the item.
         """
         try:
-            if item.get('iditem') is None:
-                item['iditem'] = str(uuid4())
+            if item.get("iditem") is None:
+                item["iditem"] = str(uuid4())
                 self.table.put_item(Item=item)
             else:
                 attrs = {
-                    key: {'Value': val, 'Action': 'PUT'}
-                    for key, val in item.items() if key != 'iditem'
+                    key: {"Value": val, "Action": "PUT"}
+                    for key, val in item.items()
+                    if key != "iditem"
                 }
                 self.table.update_item(
-                    Key={'iditem': item['iditem']},
-                    AttributeUpdates=attrs)
+                    Key={"iditem": item["iditem"]}, AttributeUpdates=attrs
+                )
         except ClientError as err:
             logger.exception("Couldn't add or update item %s in table %s.")
             raise StorageError(err)
-        return item['iditem']
+        return item["iditem"]

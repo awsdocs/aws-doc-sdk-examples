@@ -18,8 +18,14 @@ logger = logging.getLogger(__name__)
 
 
 def send_voice_message(
-        sms_voice_client, origination_number, caller_id, destination_number,
-        language_code, voice_id, ssml_message):
+    sms_voice_client,
+    origination_number,
+    caller_id,
+    destination_number,
+    language_code,
+    voice_id,
+    ssml_message,
+):
     """
     Sends a voice message using speech synthesis provided by Amazon Polly.
 
@@ -45,16 +51,22 @@ def send_voice_message(
             OriginationPhoneNumber=origination_number,
             CallerId=caller_id,
             Content={
-                'SSMLMessage': {
-                    'LanguageCode': language_code,
-                    'VoiceId': voice_id,
-                    'Text': ssml_message}})
+                "SSMLMessage": {
+                    "LanguageCode": language_code,
+                    "VoiceId": voice_id,
+                    "Text": ssml_message,
+                }
+            },
+        )
     except ClientError:
         logger.exception(
-            "Couldn't send message from %s to %s.", origination_number, destination_number)
+            "Couldn't send message from %s to %s.",
+            origination_number,
+            destination_number,
+        )
         raise
     else:
-        return response['MessageId']
+        return response["MessageId"]
 
 
 def main():
@@ -69,14 +81,21 @@ def main():
         "using the <break strength='weak'/>AWS SDK for Python (Boto3). "
         "<amazon:effect phonation='soft'>Thank you for listening."
         "</amazon:effect>"
-        "</speak>")
+        "</speak>"
+    )
     print(f"Sending voice message from {origination_number} to {destination_number}.")
     message_id = send_voice_message(
-        boto3.client('pinpoint-sms-voice'), origination_number, caller_id,
-        destination_number, language_code, voice_id, ssml_message)
+        boto3.client("pinpoint-sms-voice"),
+        origination_number,
+        caller_id,
+        destination_number,
+        language_code,
+        voice_id,
+        ssml_message,
+    )
     print(f"Message sent!\nMessage ID: {message_id}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
 # snippet-end:[pinpoint.python.pinpoint_send_voice_message_sms_voice_api.complete]

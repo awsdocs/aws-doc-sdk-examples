@@ -37,29 +37,31 @@ def query_test(partition_key, sort_keys, iterations, dyn_resource=None):
     :return: The start and end times of the test.
     """
     if dyn_resource is None:
-        dyn_resource = boto3.resource('dynamodb')
+        dyn_resource = boto3.resource("dynamodb")
 
-    table = dyn_resource.Table('TryDaxTable')
-    key_condition_expression = \
-        Key('partition_key').eq(partition_key) & \
-        Key('sort_key').between(*sort_keys)
+    table = dyn_resource.Table("TryDaxTable")
+    key_condition_expression = Key("partition_key").eq(partition_key) & Key(
+        "sort_key"
+    ).between(*sort_keys)
 
     start = time.perf_counter()
     for _ in range(iterations):
         table.query(KeyConditionExpression=key_condition_expression)
-        print('.', end='')
+        print(".", end="")
         sys.stdout.flush()
     print()
     end = time.perf_counter()
     return start, end
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # pylint: disable=not-context-manager
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'endpoint_url', nargs='?',
-        help="When specified, the DAX cluster endpoint. Otherwise, DAX is not used.")
+        "endpoint_url",
+        nargs="?",
+        help="When specified, the DAX cluster endpoint. Otherwise, DAX is not used.",
+    )
     args = parser.parse_args()
 
     test_partition_key = 5
@@ -70,12 +72,16 @@ if __name__ == '__main__':
         # Use a with statement so the DAX client closes the cluster after completion.
         with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
             test_start, test_end = query_test(
-                test_partition_key, test_sort_keys, test_iterations, dyn_resource=dax)
+                test_partition_key, test_sort_keys, test_iterations, dyn_resource=dax
+            )
     else:
         print(f"Querying the table {test_iterations} times, using the Boto3 client.")
         test_start, test_end = query_test(
-            test_partition_key, test_sort_keys, test_iterations)
+            test_partition_key, test_sort_keys, test_iterations
+        )
 
-    print(f"Total time: {test_end - test_start:.4f} sec. Average time: "
-          f"{(test_end - test_start)/test_iterations}.")
+    print(
+        f"Total time: {test_end - test_start:.4f} sec. Average time: "
+        f"{(test_end - test_start)/test_iterations}."
+    )
 # snippet-end:[dynamodb.Python.TryDax.04-query-test]

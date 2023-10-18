@@ -32,6 +32,7 @@ class RekognitionCollection:
     Encapsulates an Amazon Rekognition collection. This class is a thin wrapper
     around parts of the Boto3 Amazon Rekognition API.
     """
+
     def __init__(self, collection, rekognition_client):
         """
         Initializes a collection object.
@@ -40,9 +41,10 @@ class RekognitionCollection:
                            create_collection.
         :param rekognition_client: A Boto3 Rekognition client.
         """
-        self.collection_id = collection['CollectionId']
+        self.collection_id = collection["CollectionId"]
         self.collection_arn, self.face_count, self.created = self._unpack_collection(
-            collection)
+            collection
+        )
         self.rekognition_client = rekognition_client
 
     @staticmethod
@@ -55,12 +57,14 @@ class RekognitionCollection:
         :return: A tuple of the data in the collection.
         """
         return (
-            collection.get('CollectionArn'),
-            collection.get('FaceCount', 0),
-            collection.get('CreationTimestamp'))
-# snippet-end:[python.example_code.rekognition.RekognitionCollection]
+            collection.get("CollectionArn"),
+            collection.get("FaceCount", 0),
+            collection.get("CreationTimestamp"),
+        )
 
-# snippet-start:[python.example_code.rekognition.helper.to_dict]
+    # snippet-end:[python.example_code.rekognition.RekognitionCollection]
+
+    # snippet-start:[python.example_code.rekognition.helper.to_dict]
     def to_dict(self):
         """
         Renders parts of the collection data to a dict.
@@ -68,15 +72,16 @@ class RekognitionCollection:
         :return: The collection data as a dict.
         """
         rendering = {
-            'collection_id': self.collection_id,
-            'collection_arn': self.collection_arn,
-            'face_count': self.face_count,
-            'created': self.created
+            "collection_id": self.collection_id,
+            "collection_arn": self.collection_arn,
+            "face_count": self.face_count,
+            "created": self.created,
         }
         return rendering
-# snippet-end:[python.example_code.rekognition.helper.to_dict]
 
-# snippet-start:[python.example_code.rekognition.DescribeCollection]
+    # snippet-end:[python.example_code.rekognition.helper.to_dict]
+
+    # snippet-start:[python.example_code.rekognition.DescribeCollection]
     def describe_collection(self):
         """
         Gets data about the collection from the Amazon Rekognition service.
@@ -85,20 +90,25 @@ class RekognitionCollection:
         """
         try:
             response = self.rekognition_client.describe_collection(
-                CollectionId=self.collection_id)
+                CollectionId=self.collection_id
+            )
             # Work around capitalization of Arn vs. ARN
-            response['CollectionArn'] = response.get('CollectionARN')
-            (self.collection_arn, self.face_count,
-             self.created) = self._unpack_collection(response)
+            response["CollectionArn"] = response.get("CollectionARN")
+            (
+                self.collection_arn,
+                self.face_count,
+                self.created,
+            ) = self._unpack_collection(response)
             logger.info("Got data for collection %s.", self.collection_id)
         except ClientError:
             logger.exception("Couldn't get data for collection %s.", self.collection_id)
             raise
         else:
             return self.to_dict()
-# snippet-end:[python.example_code.rekognition.DescribeCollection]
 
-# snippet-start:[python.example_code.rekognition.DeleteCollection]
+    # snippet-end:[python.example_code.rekognition.DescribeCollection]
+
+    # snippet-start:[python.example_code.rekognition.DeleteCollection]
     def delete_collection(self):
         """
         Deletes the collection.
@@ -110,9 +120,10 @@ class RekognitionCollection:
         except ClientError:
             logger.exception("Couldn't delete collection %s.", self.collection_id)
             raise
-# snippet-end:[python.example_code.rekognition.DeleteCollection]
 
-# snippet-start:[python.example_code.rekognition.IndexFaces]
+    # snippet-end:[python.example_code.rekognition.DeleteCollection]
+
+    # snippet-start:[python.example_code.rekognition.IndexFaces]
     def index_faces(self, image, max_faces):
         """
         Finds faces in the specified image, indexes them, and stores them in the
@@ -125,26 +136,35 @@ class RekognitionCollection:
         """
         try:
             response = self.rekognition_client.index_faces(
-                CollectionId=self.collection_id, Image=image.image,
-                ExternalImageId=image.image_name, MaxFaces=max_faces,
-                DetectionAttributes=['ALL'])
+                CollectionId=self.collection_id,
+                Image=image.image,
+                ExternalImageId=image.image_name,
+                MaxFaces=max_faces,
+                DetectionAttributes=["ALL"],
+            )
             indexed_faces = [
-                RekognitionFace({**face['Face'], **face['FaceDetail']})
-                for face in response['FaceRecords']]
+                RekognitionFace({**face["Face"], **face["FaceDetail"]})
+                for face in response["FaceRecords"]
+            ]
             unindexed_faces = [
-                RekognitionFace(face['FaceDetail'])
-                for face in response['UnindexedFaces']]
+                RekognitionFace(face["FaceDetail"])
+                for face in response["UnindexedFaces"]
+            ]
             logger.info(
-                "Indexed %s faces in %s. Could not index %s faces.", len(indexed_faces),
-                image.image_name, len(unindexed_faces))
+                "Indexed %s faces in %s. Could not index %s faces.",
+                len(indexed_faces),
+                image.image_name,
+                len(unindexed_faces),
+            )
         except ClientError:
             logger.exception("Couldn't index faces in image %s.", image.image_name)
             raise
         else:
             return indexed_faces, unindexed_faces
-# snippet-end:[python.example_code.rekognition.IndexFaces]
 
-# snippet-start:[python.example_code.rekognition.ListFaces]
+    # snippet-end:[python.example_code.rekognition.IndexFaces]
+
+    # snippet-start:[python.example_code.rekognition.ListFaces]
     def list_faces(self, max_results):
         """
         Lists the faces currently indexed in the collection.
@@ -154,19 +174,23 @@ class RekognitionCollection:
         """
         try:
             response = self.rekognition_client.list_faces(
-                CollectionId=self.collection_id, MaxResults=max_results)
-            faces = [RekognitionFace(face) for face in response['Faces']]
+                CollectionId=self.collection_id, MaxResults=max_results
+            )
+            faces = [RekognitionFace(face) for face in response["Faces"]]
             logger.info(
-                "Found %s faces in collection %s.", len(faces), self.collection_id)
+                "Found %s faces in collection %s.", len(faces), self.collection_id
+            )
         except ClientError:
             logger.exception(
-                "Couldn't list faces in collection %s.", self.collection_id)
+                "Couldn't list faces in collection %s.", self.collection_id
+            )
             raise
         else:
             return faces
-# snippet-end:[python.example_code.rekognition.ListFaces]
 
-# snippet-start:[python.example_code.rekognition.SearchFacesByImage]
+    # snippet-end:[python.example_code.rekognition.ListFaces]
+
+    # snippet-start:[python.example_code.rekognition.SearchFacesByImage]
     def search_faces_by_image(self, image, threshold, max_faces):
         """
         Searches for faces in the collection that match the largest face in the
@@ -182,26 +206,39 @@ class RekognitionCollection:
         """
         try:
             response = self.rekognition_client.search_faces_by_image(
-                CollectionId=self.collection_id, Image=image.image,
-                FaceMatchThreshold=threshold, MaxFaces=max_faces)
-            image_face = RekognitionFace({
-                'BoundingBox': response['SearchedFaceBoundingBox'],
-                'Confidence': response['SearchedFaceConfidence']
-            })
+                CollectionId=self.collection_id,
+                Image=image.image,
+                FaceMatchThreshold=threshold,
+                MaxFaces=max_faces,
+            )
+            image_face = RekognitionFace(
+                {
+                    "BoundingBox": response["SearchedFaceBoundingBox"],
+                    "Confidence": response["SearchedFaceConfidence"],
+                }
+            )
             collection_faces = [
-                RekognitionFace(face['Face']) for face in response['FaceMatches']]
-            logger.info("Found %s faces in the collection that match the largest "
-                        "face in %s.", len(collection_faces), image.image_name)
+                RekognitionFace(face["Face"]) for face in response["FaceMatches"]
+            ]
+            logger.info(
+                "Found %s faces in the collection that match the largest "
+                "face in %s.",
+                len(collection_faces),
+                image.image_name,
+            )
         except ClientError:
             logger.exception(
-                "Couldn't search for faces in %s that match %s.", self.collection_id,
-                image.image_name)
+                "Couldn't search for faces in %s that match %s.",
+                self.collection_id,
+                image.image_name,
+            )
             raise
         else:
             return image_face, collection_faces
-# snippet-end:[python.example_code.rekognition.SearchFacesByImage]
 
-# snippet-start:[python.example_code.rekognition.SearchFaces]
+    # snippet-end:[python.example_code.rekognition.SearchFacesByImage]
+
+    # snippet-start:[python.example_code.rekognition.SearchFaces]
     def search_faces(self, face_id, threshold, max_faces):
         """
         Searches for faces in the collection that match another face from the
@@ -216,22 +253,31 @@ class RekognitionCollection:
         """
         try:
             response = self.rekognition_client.search_faces(
-                CollectionId=self.collection_id, FaceId=face_id,
-                FaceMatchThreshold=threshold, MaxFaces=max_faces)
-            faces = [RekognitionFace(face['Face']) for face in response['FaceMatches']]
+                CollectionId=self.collection_id,
+                FaceId=face_id,
+                FaceMatchThreshold=threshold,
+                MaxFaces=max_faces,
+            )
+            faces = [RekognitionFace(face["Face"]) for face in response["FaceMatches"]]
             logger.info(
-                "Found %s faces in %s that match %s.", len(faces), self.collection_id,
-                face_id)
+                "Found %s faces in %s that match %s.",
+                len(faces),
+                self.collection_id,
+                face_id,
+            )
         except ClientError:
             logger.exception(
-                "Couldn't search for faces in %s that match %s.", self.collection_id,
-                face_id)
+                "Couldn't search for faces in %s that match %s.",
+                self.collection_id,
+                face_id,
+            )
             raise
         else:
             return faces
-# snippet-end:[python.example_code.rekognition.SearchFaces]
 
-# snippet-start:[python.example_code.rekognition.DeleteFaces]
+    # snippet-end:[python.example_code.rekognition.SearchFaces]
+
+    # snippet-start:[python.example_code.rekognition.DeleteFaces]
     def delete_faces(self, face_ids):
         """
         Deletes faces from the collection.
@@ -241,15 +287,19 @@ class RekognitionCollection:
         """
         try:
             response = self.rekognition_client.delete_faces(
-                CollectionId=self.collection_id, FaceIds=face_ids)
-            deleted_ids = response['DeletedFaces']
+                CollectionId=self.collection_id, FaceIds=face_ids
+            )
+            deleted_ids = response["DeletedFaces"]
             logger.info(
-                "Deleted %s faces from %s.", len(deleted_ids), self.collection_id)
+                "Deleted %s faces from %s.", len(deleted_ids), self.collection_id
+            )
         except ClientError:
             logger.exception("Couldn't delete faces from %s.", self.collection_id)
             raise
         else:
             return deleted_ids
+
+
 # snippet-end:[python.example_code.rekognition.DeleteFaces]
 
 
@@ -259,6 +309,7 @@ class RekognitionCollectionManager:
     Encapsulates Amazon Rekognition collection management functions.
     This class is a thin wrapper around parts of the Boto3 Amazon Rekognition API.
     """
+
     def __init__(self, rekognition_client):
         """
         Initializes the collection manager object.
@@ -266,9 +317,10 @@ class RekognitionCollectionManager:
         :param rekognition_client: A Boto3 Rekognition client.
         """
         self.rekognition_client = rekognition_client
-# snippet-end:[python.example_code.rekognition.RekognitionCollectionManager]
 
-# snippet-start:[python.example_code.rekognition.CreateCollection]
+    # snippet-end:[python.example_code.rekognition.RekognitionCollectionManager]
+
+    # snippet-start:[python.example_code.rekognition.CreateCollection]
     def create_collection(self, collection_id):
         """
         Creates an empty collection.
@@ -278,8 +330,9 @@ class RekognitionCollectionManager:
         """
         try:
             response = self.rekognition_client.create_collection(
-                CollectionId=collection_id)
-            response['CollectionId'] = collection_id
+                CollectionId=collection_id
+            )
+            response["CollectionId"] = collection_id
             collection = RekognitionCollection(response, self.rekognition_client)
             logger.info("Created collection %s.", collection_id)
         except ClientError:
@@ -287,9 +340,10 @@ class RekognitionCollectionManager:
             raise
         else:
             return collection
-# snippet-end:[python.example_code.rekognition.CreateCollection]
 
-# snippet-start:[python.example_code.rekognition.ListCollections]
+    # snippet-end:[python.example_code.rekognition.CreateCollection]
+
+    # snippet-start:[python.example_code.rekognition.ListCollections]
     def list_collections(self, max_results):
         """
         Lists collections for the current account.
@@ -300,38 +354,48 @@ class RekognitionCollectionManager:
         try:
             response = self.rekognition_client.list_collections(MaxResults=max_results)
             collections = [
-                RekognitionCollection({'CollectionId': col_id}, self.rekognition_client)
-                for col_id in response['CollectionIds']]
+                RekognitionCollection({"CollectionId": col_id}, self.rekognition_client)
+                for col_id in response["CollectionIds"]
+            ]
         except ClientError:
             logger.exception("Couldn't list collections.")
             raise
         else:
             return collections
+
+
 # snippet-end:[python.example_code.rekognition.ListCollections]
 
 
 # snippet-start:[python.example_code.rekognition.Usage_FindFacesInCollection]
 def usage_demo():
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the Amazon Rekognition face collection demo!")
-    print('-'*88)
+    print("-" * 88)
 
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    rekognition_client = boto3.client('rekognition')
+    rekognition_client = boto3.client("rekognition")
     images = [
         RekognitionImage.from_file(
-            '.media/pexels-agung-pandit-wiguna-1128316.jpg', rekognition_client,
-            image_name='sitting'),
+            ".media/pexels-agung-pandit-wiguna-1128316.jpg",
+            rekognition_client,
+            image_name="sitting",
+        ),
         RekognitionImage.from_file(
-            '.media/pexels-agung-pandit-wiguna-1128317.jpg', rekognition_client,
-            image_name='hopping'),
+            ".media/pexels-agung-pandit-wiguna-1128317.jpg",
+            rekognition_client,
+            image_name="hopping",
+        ),
         RekognitionImage.from_file(
-            '.media/pexels-agung-pandit-wiguna-1128318.jpg', rekognition_client,
-            image_name='biking')]
+            ".media/pexels-agung-pandit-wiguna-1128318.jpg",
+            rekognition_client,
+            image_name="biking",
+        ),
+    ]
 
     collection_mgr = RekognitionCollectionManager(rekognition_client)
-    collection = collection_mgr.create_collection('doc-example-collection-demo')
+    collection = collection_mgr.create_collection("doc-example-collection-demo")
     print(f"Created collection {collection.collection_id}:")
     pprint(collection.describe_collection())
 
@@ -344,16 +408,20 @@ def usage_demo():
         pprint(face.to_dict())
     input("Press Enter to continue.")
 
-    print(f"Searching for faces in the collection that match the first face in the "
-          f"list (Face ID: {faces[0].face_id}.")
+    print(
+        f"Searching for faces in the collection that match the first face in the "
+        f"list (Face ID: {faces[0].face_id}."
+    )
     found_faces = collection.search_faces(faces[0].face_id, 80, 10)
     print(f"Found {len(found_faces)} matching faces.")
     for face in found_faces:
         pprint(face.to_dict())
     input("Press Enter to continue.")
 
-    print(f"Searching for faces in the collection that match the largest face in "
-          f"{images[0].image_name}.")
+    print(
+        f"Searching for faces in the collection that match the largest face in "
+        f"{images[0].image_name}."
+    )
     image_face, match_faces = collection.search_faces_by_image(images[0], 80, 10)
     print(f"The largest face in {images[0].image_name} is:")
     pprint(image_face.to_dict())
@@ -363,10 +431,12 @@ def usage_demo():
     input("Press Enter to continue.")
 
     collection.delete_collection()
-    print('Thanks for watching!')
-    print('-'*88)
+    print("Thanks for watching!")
+    print("-" * 88)
+
+
 # snippet-end:[python.example_code.rekognition.Usage_FindFacesInCollection]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

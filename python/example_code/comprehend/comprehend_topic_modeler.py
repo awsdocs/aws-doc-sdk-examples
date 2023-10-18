@@ -17,24 +17,33 @@ logger = logging.getLogger(__name__)
 
 
 class JobInputFormat(Enum):
-    per_file = 'ONE_DOC_PER_FILE'
-    per_line = 'ONE_DOC_PER_LINE'
+    per_file = "ONE_DOC_PER_FILE"
+    per_line = "ONE_DOC_PER_LINE"
 
 
 # snippet-start:[python.example_code.comprehend.ComprehendTopicModeler]
 class ComprehendTopicModeler:
     """Encapsulates a Comprehend topic modeler."""
+
     def __init__(self, comprehend_client):
         """
         :param comprehend_client: A Boto3 Comprehend client.
         """
         self.comprehend_client = comprehend_client
-# snippet-end:[python.example_code.comprehend.ComprehendTopicModeler]
 
-# snippet-start:[python.example_code.comprehend.StartTopicsDetectionJob]
+    # snippet-end:[python.example_code.comprehend.ComprehendTopicModeler]
+
+    # snippet-start:[python.example_code.comprehend.StartTopicsDetectionJob]
     def start_job(
-            self, job_name, input_bucket, input_key, input_format, output_bucket,
-            output_key, data_access_role_arn):
+        self,
+        job_name,
+        input_bucket,
+        input_key,
+        input_format,
+        output_bucket,
+        output_key,
+        data_access_role_arn,
+    ):
         """
         Starts a topic modeling job. Input is read from the specified Amazon S3
         input bucket and written to the specified output bucket. Output data is stored
@@ -61,18 +70,21 @@ class ComprehendTopicModeler:
                 JobName=job_name,
                 DataAccessRoleArn=data_access_role_arn,
                 InputDataConfig={
-                    'S3Uri': f's3://{input_bucket}/{input_key}',
-                    'InputFormat': input_format.value},
-                OutputDataConfig={'S3Uri': f's3://{output_bucket}/{output_key}'})
-            logger.info("Started topic modeling job %s.", response['JobId'])
+                    "S3Uri": f"s3://{input_bucket}/{input_key}",
+                    "InputFormat": input_format.value,
+                },
+                OutputDataConfig={"S3Uri": f"s3://{output_bucket}/{output_key}"},
+            )
+            logger.info("Started topic modeling job %s.", response["JobId"])
         except ClientError:
             logger.exception("Couldn't start topic modeling job.")
             raise
         else:
             return response
-# snippet-end:[python.example_code.comprehend.StartTopicsDetectionJob]
 
-# snippet-start:[python.example_code.comprehend.DescribeTopicsDetectionJob]
+    # snippet-end:[python.example_code.comprehend.StartTopicsDetectionJob]
+
+    # snippet-start:[python.example_code.comprehend.DescribeTopicsDetectionJob]
     def describe_job(self, job_id):
         """
         Gets metadata about a topic modeling job.
@@ -82,17 +94,19 @@ class ComprehendTopicModeler:
         """
         try:
             response = self.comprehend_client.describe_topics_detection_job(
-                JobId=job_id)
-            job = response['TopicsDetectionJobProperties']
+                JobId=job_id
+            )
+            job = response["TopicsDetectionJobProperties"]
             logger.info("Got topic detection job %s.", job_id)
         except ClientError:
             logger.exception("Couldn't get topic detection job %s.", job_id)
             raise
         else:
             return job
-# snippet-end:[python.example_code.comprehend.DescribeTopicsDetectionJob]
 
-# snippet-start:[python.example_code.comprehend.ListTopicsDetectionJobs]
+    # snippet-end:[python.example_code.comprehend.DescribeTopicsDetectionJob]
+
+    # snippet-start:[python.example_code.comprehend.ListTopicsDetectionJobs]
     def list_jobs(self):
         """
         Lists topic modeling jobs for the current account.
@@ -101,11 +115,13 @@ class ComprehendTopicModeler:
         """
         try:
             response = self.comprehend_client.list_topics_detection_jobs()
-            jobs = response['TopicsDetectionJobPropertiesList']
+            jobs = response["TopicsDetectionJobPropertiesList"]
             logger.info("Got %s topic detection jobs.", len(jobs))
         except ClientError:
             logger.exception("Couldn't get topic detection jobs.")
             raise
         else:
             return jobs
+
+
 # snippet-end:[python.example_code.comprehend.ListTopicsDetectionJobs]

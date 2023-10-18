@@ -33,7 +33,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_PHP_PHPCS: true
           VALIDATE_PYTHON: true
-          VALIDATE_PYTHON_PYLINT: true
+          VALIDATE_PYTHON_BLACK: true
           VALIDATE_RUBY: true
           VALIDATE_CSHARP: true
           VALIDATE_KOTLIN: true

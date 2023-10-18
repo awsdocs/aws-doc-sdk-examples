@@ -18,7 +18,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
-iam = boto3.resource('iam')
+iam = boto3.resource("iam")
 # snippet-end:[python.example_code.iam.policy_wrapper.imports]
 
 
@@ -39,24 +39,22 @@ def create_policy(name, description, actions, resource_arn):
     """
     policy_doc = {
         "Version": "2012-10-17",
-        "Statement": [
-            {
-                "Effect": "Allow",
-                "Action": actions,
-                "Resource": resource_arn
-            }
-        ]
+        "Statement": [{"Effect": "Allow", "Action": actions, "Resource": resource_arn}],
     }
     try:
         policy = iam.create_policy(
-            PolicyName=name, Description=description,
-            PolicyDocument=json.dumps(policy_doc))
+            PolicyName=name,
+            Description=description,
+            PolicyDocument=json.dumps(policy_doc),
+        )
         logger.info("Created policy %s.", policy.arn)
     except ClientError:
         logger.exception("Couldn't create policy %s.", name)
         raise
     else:
         return policy
+
+
 # snippet-end:[python.example_code.iam.CreatePolicy]
 
 
@@ -73,6 +71,8 @@ def delete_policy(policy_arn):
     except ClientError:
         logger.exception("Couldn't delete policy %s.", policy_arn)
         raise
+
+
 # snippet-end:[python.example_code.iam.DeletePolicy]
 
 
@@ -91,27 +91,26 @@ def create_policy_version(policy_arn, actions, resource_arn, set_as_default):
     :return: The newly created policy version.
     """
     policy_doc = {
-        'Version': '2012-10-17',
-        'Statement': [
-            {
-                'Effect': 'Allow',
-                'Action': actions,
-                'Resource': resource_arn
-            }
-        ]
+        "Version": "2012-10-17",
+        "Statement": [{"Effect": "Allow", "Action": actions, "Resource": resource_arn}],
     }
     try:
         policy = iam.Policy(policy_arn)
         policy_version = policy.create_version(
-            PolicyDocument=json.dumps(policy_doc), SetAsDefault=set_as_default)
+            PolicyDocument=json.dumps(policy_doc), SetAsDefault=set_as_default
+        )
         logger.info(
             "Created policy version %s for policy %s.",
-            policy_version.version_id, policy_version.arn)
+            policy_version.version_id,
+            policy_version.arn,
+        )
     except ClientError:
         logger.exception("Couldn't create a policy version for %s.", policy_arn)
         raise
     else:
         return policy_version
+
+
 # snippet-end:[python.example_code.iam.CreatePolicyVersion]
 
 
@@ -132,6 +131,8 @@ def list_policies(scope):
         raise
     else:
         return policies
+
+
 # snippet-end:[python.example_code.iam.ListPolicies]
 
 
@@ -148,7 +149,7 @@ def get_default_policy_statement(policy_arn):
         policy = iam.Policy(policy_arn)
         # To get an attribute of a policy, the SDK first calls get_policy.
         policy_doc = policy.default_version.document
-        policy_statement = policy_doc.get('Statement', None)
+        policy_statement = policy_doc.get("Statement", None)
         logger.info("Got default policy doc for %s.", policy.policy_name)
         logger.info(policy_doc)
     except ClientError:
@@ -156,6 +157,8 @@ def get_default_policy_statement(policy_arn):
         raise
     else:
         return policy_statement
+
+
 # snippet-end:[python.example_code.iam.GetPolicyVersion]
 # snippet-end:[python.example_code.iam.GetPolicy]
 
@@ -176,7 +179,8 @@ def rollback_policy_version(policy_arn):
     try:
         policy_versions = sorted(
             iam.Policy(policy_arn).versions.all(),
-            key=operator.attrgetter('create_date'))
+            key=operator.attrgetter("create_date"),
+        )
         logger.info("Got %s versions for %s.", len(policy_versions), policy_arn)
     except ClientError:
         logger.exception("Couldn't get versions for %s.", policy_arn)
@@ -200,12 +204,17 @@ def rollback_policy_version(policy_arn):
         elif rollback_version is None:
             logger.warning(
                 "Default version %s found for %s, but no previous version exists, so "
-                "nothing to roll back to.", default_version.version_id, policy_arn)
+                "nothing to roll back to.",
+                default_version.version_id,
+                policy_arn,
+            )
     except ClientError:
         logger.exception("Couldn't roll back version for %s.", policy_arn)
         raise
     else:
         return rollback_version
+
+
 # snippet-end:[python.example_code.iam.Scenario_RollbackPolicyVersion]
 
 
@@ -223,6 +232,8 @@ def attach_to_role(role_name, policy_arn):
     except ClientError:
         logger.exception("Couldn't attach policy %s to role %s.", policy_arn, role_name)
         raise
+
+
 # snippet-end:[python.example_code.iam.AttachRolePolicy_Policy]
 
 
@@ -239,47 +250,62 @@ def detach_from_role(role_name, policy_arn):
         logger.info("Detached policy %s from role %s.", policy_arn, role_name)
     except ClientError:
         logger.exception(
-            "Couldn't detach policy %s from role %s.", policy_arn, role_name)
+            "Couldn't detach policy %s from role %s.", policy_arn, role_name
+        )
         raise
+
+
 # snippet-end:[python.example_code.iam.DetachRolePolicy_Policy]
 
 
 # snippet-start:[python.example_code.iam.Scenario_PolicyManagement]
 def usage_demo():
     """Shows how to use the policy functions."""
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
-    print('-'*88)
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    print("-" * 88)
     print("Welcome to the AWS Identity and Account Management policy demo.")
-    print('-'*88)
-    print("Policies let you define sets of permissions that can be attached to "
-          "other IAM resources, like users and roles.")
-    bucket_arn = f'arn:aws:s3:::made-up-bucket-name'
+    print("-" * 88)
+    print(
+        "Policies let you define sets of permissions that can be attached to "
+        "other IAM resources, like users and roles."
+    )
+    bucket_arn = f"arn:aws:s3:::made-up-bucket-name"
     policy = create_policy(
-        'demo-iam-policy', 'Policy for IAM demonstration.',
-        ['s3:ListObjects'], bucket_arn)
+        "demo-iam-policy",
+        "Policy for IAM demonstration.",
+        ["s3:ListObjects"],
+        bucket_arn,
+    )
     print(f"Created policy {policy.policy_name}.")
-    policies = list_policies('Local')
+    policies = list_policies("Local")
     print(f"Your account has {len(policies)} managed policies:")
-    print(*[pol.policy_name for pol in policies], sep=', ')
+    print(*[pol.policy_name for pol in policies], sep=", ")
     time.sleep(1)
     policy_version = create_policy_version(
-        policy.arn, ['s3:PutObject'], bucket_arn, True)
-    print(f"Added policy version {policy_version.version_id} to policy "
-          f"{policy.policy_name}.")
+        policy.arn, ["s3:PutObject"], bucket_arn, True
+    )
+    print(
+        f"Added policy version {policy_version.version_id} to policy "
+        f"{policy.policy_name}."
+    )
     default_statement = get_default_policy_statement(policy.arn)
     print(f"The default policy statement for {policy.policy_name} is:")
     pprint.pprint(default_statement)
     rollback_version = rollback_policy_version(policy.arn)
-    print(f"Rolled back to version {rollback_version.version_id} for "
-          f"{policy.policy_name}.")
+    print(
+        f"Rolled back to version {rollback_version.version_id} for "
+        f"{policy.policy_name}."
+    )
     default_statement = get_default_policy_statement(policy.arn)
     print(f"The default policy statement for {policy.policy_name} is now:")
     pprint.pprint(default_statement)
     delete_policy(policy.arn)
     print(f"Deleted policy {policy.policy_name}.")
     print("Thanks for watching!")
+
+
 # snippet-end:[python.example_code.iam.Scenario_PolicyManagement]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

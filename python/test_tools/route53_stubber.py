@@ -16,6 +16,7 @@ class Route53Stubber(ExampleStubber):
     The stubbed functions expect certain parameters to be passed to them as
     part of the tests, and raise errors if the parameters are not as expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -28,34 +29,45 @@ class Route53Stubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_list_hosted_zones(self, zones, max_items, error_code=None):
-        expected_params = {'MaxItems': max_items}
+        expected_params = {"MaxItems": max_items}
         response = {
-            'HostedZones': zones,
-            'Marker': 'test-marker',
-            'IsTruncated': False,
-            'MaxItems': max_items
+            "HostedZones": zones,
+            "Marker": "test-marker",
+            "IsTruncated": False,
+            "MaxItems": max_items,
         }
         self._stub_bifurcator(
-            'list_hosted_zones', expected_params, response, error_code=error_code)
+            "list_hosted_zones", expected_params, response, error_code=error_code
+        )
 
     def stub_list_resource_record_sets(
-            self, zone_id, max_items, record_sets, error_code=None):
-        expected_params = {'HostedZoneId': zone_id, 'MaxItems': max_items}
+        self, zone_id, max_items, record_sets, error_code=None
+    ):
+        expected_params = {"HostedZoneId": zone_id, "MaxItems": max_items}
         response = {
-            'ResourceRecordSets': record_sets,
-            'IsTruncated': False,
-            'MaxItems': max_items}
+            "ResourceRecordSets": record_sets,
+            "IsTruncated": False,
+            "MaxItems": max_items,
+        }
         self._stub_bifurcator(
-            'list_resource_record_sets', expected_params, response,
-            error_code=error_code)
+            "list_resource_record_sets",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
 
     def stub_change_resource_record_sets(self, zone_id, changes, error_code=None):
-        expected_params = {
-            'HostedZoneId': zone_id, 'ChangeBatch': {'Changes': changes}}
-        response = {'ChangeInfo': {
-            'Id': '/change/123456789012',
-            'Status': 'PENDING',
-            'SubmittedAt': datetime.datetime.now()}}
+        expected_params = {"HostedZoneId": zone_id, "ChangeBatch": {"Changes": changes}}
+        response = {
+            "ChangeInfo": {
+                "Id": "/change/123456789012",
+                "Status": "PENDING",
+                "SubmittedAt": datetime.datetime.now(),
+            }
+        }
         self._stub_bifurcator(
-            'change_resource_record_sets', expected_params, response,
-            error_code=error_code)
+            "change_resource_record_sets",
+            expected_params,
+            response,
+            error_code=error_code,
+        )

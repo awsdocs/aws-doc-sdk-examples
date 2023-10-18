@@ -33,46 +33,53 @@ def get_item_test(key_count, iterations, dyn_resource=None):
     :return: The start and end times of the test.
     """
     if dyn_resource is None:
-        dyn_resource = boto3.resource('dynamodb')
+        dyn_resource = boto3.resource("dynamodb")
 
-    table = dyn_resource.Table('TryDaxTable')
+    table = dyn_resource.Table("TryDaxTable")
     start = time.perf_counter()
     for _ in range(iterations):
         for partition_key in range(1, key_count + 1):
             for sort_key in range(1, key_count + 1):
-                table.get_item(Key={
-                    'partition_key': partition_key,
-                    'sort_key': sort_key
-                })
-                print('.', end='')
+                table.get_item(
+                    Key={"partition_key": partition_key, "sort_key": sort_key}
+                )
+                print(".", end="")
                 sys.stdout.flush()
     print()
     end = time.perf_counter()
     return start, end
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # pylint: disable=not-context-manager
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'endpoint_url', nargs='?',
-        help="When specified, the DAX cluster endpoint. Otherwise, DAX is not used.")
+        "endpoint_url",
+        nargs="?",
+        help="When specified, the DAX cluster endpoint. Otherwise, DAX is not used.",
+    )
     args = parser.parse_args()
 
     test_key_count = 10
     test_iterations = 50
     if args.endpoint_url:
-        print(f"Getting each item from the table {test_iterations} times, "
-              f"using the DAX client.")
+        print(
+            f"Getting each item from the table {test_iterations} times, "
+            f"using the DAX client."
+        )
         # Use a with statement so the DAX client closes the cluster after completion.
         with amazondax.AmazonDaxClient.resource(endpoint_url=args.endpoint_url) as dax:
             test_start, test_end = get_item_test(
-                test_key_count, test_iterations, dyn_resource=dax)
+                test_key_count, test_iterations, dyn_resource=dax
+            )
     else:
-        print(f"Getting each item from the table {test_iterations} times, "
-              f"using the Boto3 client.")
-        test_start, test_end = get_item_test(
-            test_key_count, test_iterations)
-    print(f"Total time: {test_end - test_start:.4f} sec. Average time: "
-          f"{(test_end - test_start)/ test_iterations}.")
+        print(
+            f"Getting each item from the table {test_iterations} times, "
+            f"using the Boto3 client."
+        )
+        test_start, test_end = get_item_test(test_key_count, test_iterations)
+    print(
+        f"Total time: {test_end - test_start:.4f} sec. Average time: "
+        f"{(test_end - test_start)/ test_iterations}."
+    )
 # snippet-end:[dynamodb.Python.TryDax.03-getitem-test]

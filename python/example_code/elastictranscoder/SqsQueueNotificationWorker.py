@@ -34,18 +34,20 @@ import boto3
 
 class JobStatus(Enum):
     """Status of an Elastic Transcoder job"""
-    SUCCESS = auto()        # Elastic Transcoder job finished successfully
-    ERROR = auto()          # Elastic Transcoder job failed
-    RUNNING = auto()        # Job is running
-    UNKNOWN = auto()        # SqsWorker process was aborted
+
+    SUCCESS = auto()  # Elastic Transcoder job finished successfully
+    ERROR = auto()  # Elastic Transcoder job failed
+    RUNNING = auto()  # Job is running
+    UNKNOWN = auto()  # SqsWorker process was aborted
 
 
 class ProcessStatus(Enum):
     """Status of an SqsWorker process"""
-    READY = auto()          # Initialized, but not yet started
-    IN_PROGRESS = auto()    # Started and monitoring notifications
-    ABORTED = auto()        # Aborted before Elastic Transcoder job finished
-    FINISHED = auto()       # Finished after handling all job notifications
+
+    READY = auto()  # Initialized, but not yet started
+    IN_PROGRESS = auto()  # Started and monitoring notifications
+    ABORTED = auto()  # Aborted before Elastic Transcoder job finished
+    FINISHED = auto()  # Finished after handling all job notifications
 
 
 class SqsWorker:
@@ -72,7 +74,7 @@ class SqsWorker:
     The final result of the completed job can be retrieved by calling
     SysWorker.job_status().
     """
-    
+
     def __init__(self, job_id, sqs_queue_name):
         """Initialize an SqsWorker object to process SQS notification
         messages for a particular Elastic Transcoder job.
@@ -84,19 +86,25 @@ class SqsWorker:
 
         self._job_id = job_id
         self._finished = multiprocessing.Value(c_bool, False)
-        self._job_status = multiprocessing.Value('i', JobStatus.RUNNING.value)
-        self._process_status = multiprocessing.Value('i', ProcessStatus.READY.value)
-        self._args = (job_id, sqs_queue_name,
-                      self._finished, self._job_status, self._process_status)
+        self._job_status = multiprocessing.Value("i", JobStatus.RUNNING.value)
+        self._process_status = multiprocessing.Value("i", ProcessStatus.READY.value)
+        self._args = (
+            job_id,
+            sqs_queue_name,
+            self._finished,
+            self._job_status,
+            self._process_status,
+        )
         self._process = None
 
     def start(self):
         """Start a new SqsWorker process to handle the job's notifications"""
 
         if self._process is not None:
-            raise RuntimeError('SqsQueueNotificationWorker already running.')
-        self._process = multiprocessing.Process(target=poll_and_handle_messages,
-                                                args=self._args)
+            raise RuntimeError("SqsQueueNotificationWorker already running.")
+        self._process = multiprocessing.Process(
+            target=poll_and_handle_messages, args=self._args
+        )
         self._process.start()
         self._process_status.value = ProcessStatus.IN_PROGRESS.value
 
@@ -104,7 +112,7 @@ class SqsWorker:
         """Stop the SqsWorker process"""
 
         if self._process is None:
-            raise RuntimeError('SqsQueueNotificationWorker already stopped.')
+            raise RuntimeError("SqsQueueNotificationWorker already stopped.")
         if self._process.is_alive():
             # Aborting the process before the job is finished
             self._process_status.value = ProcessStatus.ABORTED.value
@@ -126,12 +134,15 @@ class SqsWorker:
         return ProcessStatus(self._process_status.value)
 
     def __repr__(self):
-        return f'SqsWorker(Job ID: {self._job_id}, ' \
-            f'Status: {ProcessStatus(self._process_status.value).name})'
+        return (
+            f"SqsWorker(Job ID: {self._job_id}, "
+            f"Status: {ProcessStatus(self._process_status.value).name})"
+        )
 
 
-def poll_and_handle_messages(job_id, sqs_queue_name,
-                             finished, job_status, process_status):
+def poll_and_handle_messages(
+    job_id, sqs_queue_name, finished, job_status, process_status
+):
     """Process SQS notifications for a particular Elastic Transcoder job
 
     This method runs as a separate process.
@@ -149,43 +160,48 @@ def poll_and_handle_messages(job_id, sqs_queue_name,
     containing the SysWorker process status
     """
 
-    sqs_client = boto3.client('sqs')
+    sqs_client = boto3.client("sqs")
     response = sqs_client.get_queue_url(QueueName=sqs_queue_name)
-    sqs_queue_url = response['QueueUrl']
+    sqs_queue_url = response["QueueUrl"]
 
     # Loop until the job is finished or the JobMonitor parent process instructs
     # us to stop
     while not finished.value:
-        response = sqs_client.receive_message(QueueUrl=sqs_queue_url,
-                                              MaxNumberOfMessages=5,
-                                              WaitTimeSeconds=5,)
+        response = sqs_client.receive_message(
+            QueueUrl=sqs_queue_url,
+            MaxNumberOfMessages=5,
+            WaitTimeSeconds=5,
+        )
         # Any messages received?
-        if 'Messages' not in response:
+        if "Messages" not in response:
             continue
 
         # Process each message
-        for message in response['Messages']:
+        for message in response["Messages"]:
             # Extract the message part of the body
-            notification = json.loads(json.loads(message['Body'])['Message'])
+            notification = json.loads(json.loads(message["Body"])["Message"])
 
             # Show the notification information
-            print('Notification:')
+            print("Notification:")
             pprint.pprint(notification)
 
             # Is the message for this job?
-            if notification['jobId'] == job_id:
+            if notification["jobId"] == job_id:
                 # Delete the message from the queue
-                sqs_client.delete_message(QueueUrl=sqs_queue_url,
-                                          ReceiptHandle=message['ReceiptHandle'])
+                sqs_client.delete_message(
+                    QueueUrl=sqs_queue_url, ReceiptHandle=message["ReceiptHandle"]
+                )
 
                 # Did the job finish, either successfully or with error?
-                if notification['state'] == 'COMPLETED':
+                if notification["state"] == "COMPLETED":
                     # Set shared memory flags
                     job_status.value = JobStatus.SUCCESS.value
                     process_status.value = ProcessStatus.FINISHED.value
                     finished.value = True
-                elif notification['state'] == 'ERROR':
+                elif notification["state"] == "ERROR":
                     job_status.value = JobStatus.ERROR.value
                     process_status.value = ProcessStatus.FINISHED.value
                     finished.value = True
+
+
 # snippet-end:[elastictranscoder.python.create_sqs_notification_queue.import]

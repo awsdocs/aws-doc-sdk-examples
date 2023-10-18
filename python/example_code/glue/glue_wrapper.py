@@ -18,12 +18,14 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.glue.GlueWrapper.decl]
 class GlueWrapper:
     """Encapsulates AWS Glue actions."""
+
     def __init__(self, glue_client):
         """
         :param glue_client: A Boto3 Glue client.
         """
         self.glue_client = glue_client
-# snippet-end:[python.example_code.glue.GlueWrapper.decl]
+
+    # snippet-end:[python.example_code.glue.GlueWrapper.decl]
 
     # snippet-start:[python.example_code.glue.GetCrawler]
     def get_crawler(self, name):
@@ -36,16 +38,20 @@ class GlueWrapper:
         crawler = None
         try:
             response = self.glue_client.get_crawler(Name=name)
-            crawler = response['Crawler']
+            crawler = response["Crawler"]
         except ClientError as err:
-            if err.response['Error']['Code'] == 'EntityNotFoundException':
+            if err.response["Error"]["Code"] == "EntityNotFoundException":
                 logger.info("Crawler %s doesn't exist.", name)
             else:
                 logger.error(
-                    "Couldn't get crawler %s. Here's why: %s: %s", name,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't get crawler %s. Here's why: %s: %s",
+                    name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
         return crawler
+
     # snippet-end:[python.example_code.glue.GetCrawler]
 
     # snippet-start:[python.example_code.glue.CreateCrawler]
@@ -71,12 +77,16 @@ class GlueWrapper:
                 Role=role_arn,
                 DatabaseName=db_name,
                 TablePrefix=db_prefix,
-                Targets={'S3Targets': [{'Path': s3_target}]})
+                Targets={"S3Targets": [{"Path": s3_target}]},
+            )
         except ClientError as err:
             logger.error(
                 "Couldn't create crawler. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.glue.CreateCrawler]
 
     # snippet-start:[python.example_code.glue.StartCrawler]
@@ -91,9 +101,13 @@ class GlueWrapper:
             self.glue_client.start_crawler(Name=name)
         except ClientError as err:
             logger.error(
-                "Couldn't start crawler %s. Here's why: %s: %s", name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't start crawler %s. Here's why: %s: %s",
+                name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.glue.StartCrawler]
 
     # snippet-start:[python.example_code.glue.GetDatabase]
@@ -108,11 +122,15 @@ class GlueWrapper:
             response = self.glue_client.get_database(Name=name)
         except ClientError as err:
             logger.error(
-                "Couldn't get database %s. Here's why: %s: %s", name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get database %s. Here's why: %s: %s",
+                name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['Database']
+            return response["Database"]
+
     # snippet-end:[python.example_code.glue.GetDatabase]
 
     # snippet-start:[python.example_code.glue.GetTables]
@@ -127,11 +145,15 @@ class GlueWrapper:
             response = self.glue_client.get_tables(DatabaseName=db_name)
         except ClientError as err:
             logger.error(
-                "Couldn't get tables %s. Here's why: %s: %s", db_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get tables %s. Here's why: %s: %s",
+                db_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['TableList']
+            return response["TableList"]
+
     # snippet-end:[python.example_code.glue.GetTables]
 
     # snippet-start:[python.example_code.glue.CreateJob]
@@ -150,14 +172,25 @@ class GlueWrapper:
         """
         try:
             self.glue_client.create_job(
-                Name=name, Description=description, Role=role_arn,
-                Command={'Name': 'glueetl', 'ScriptLocation': script_location, 'PythonVersion': '3'},
-                GlueVersion='3.0')
+                Name=name,
+                Description=description,
+                Role=role_arn,
+                Command={
+                    "Name": "glueetl",
+                    "ScriptLocation": script_location,
+                    "PythonVersion": "3",
+                },
+                GlueVersion="3.0",
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't create job %s. Here's why: %s: %s", name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't create job %s. Here's why: %s: %s",
+                name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.glue.CreateJob]
 
     # snippet-start:[python.example_code.glue.StartJobRun]
@@ -181,16 +214,22 @@ class GlueWrapper:
             response = self.glue_client.start_job_run(
                 JobName=name,
                 Arguments={
-                    '--input_database': input_database,
-                    '--input_table': input_table,
-                    '--output_bucket_url': f's3://{output_bucket_name}/'})
+                    "--input_database": input_database,
+                    "--input_table": input_table,
+                    "--output_bucket_url": f"s3://{output_bucket_name}/",
+                },
+            )
         except ClientError as err:
             logger.error(
-                "Couldn't start job run %s. Here's why: %s: %s", name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't start job run %s. Here's why: %s: %s",
+                name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['JobRunId']
+            return response["JobRunId"]
+
     # snippet-end:[python.example_code.glue.StartJobRun]
 
     # snippet-start:[python.example_code.glue.ListJobs]
@@ -205,10 +244,13 @@ class GlueWrapper:
         except ClientError as err:
             logger.error(
                 "Couldn't list jobs. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['JobNames']
+            return response["JobNames"]
+
     # snippet-end:[python.example_code.glue.ListJobs]
 
     # snippet-start:[python.example_code.glue.GetJobRuns]
@@ -224,11 +266,15 @@ class GlueWrapper:
             response = self.glue_client.get_job_runs(JobName=job_name)
         except ClientError as err:
             logger.error(
-                "Couldn't get job runs for %s. Here's why: %s: %s", job_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get job runs for %s. Here's why: %s: %s",
+                job_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['JobRuns']
+            return response["JobRuns"]
+
     # snippet-end:[python.example_code.glue.GetJobRuns]
 
     # snippet-start:[python.example_code.glue.GetJobRun]
@@ -244,11 +290,16 @@ class GlueWrapper:
             response = self.glue_client.get_job_run(JobName=name, RunId=run_id)
         except ClientError as err:
             logger.error(
-                "Couldn't get job run %s/%s. Here's why: %s: %s", name, run_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't get job run %s/%s. Here's why: %s: %s",
+                name,
+                run_id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
-            return response['JobRun']
+            return response["JobRun"]
+
     # snippet-end:[python.example_code.glue.GetJobRun]
 
     # snippet-start:[python.example_code.glue.DeleteJob]
@@ -263,9 +314,13 @@ class GlueWrapper:
             self.glue_client.delete_job(JobName=job_name)
         except ClientError as err:
             logger.error(
-                "Couldn't delete job %s. Here's why: %s: %s", job_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete job %s. Here's why: %s: %s",
+                job_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.glue.DeleteJob]
 
     # snippet-start:[python.example_code.glue.DeleteTable]
@@ -280,9 +335,13 @@ class GlueWrapper:
             self.glue_client.delete_table(DatabaseName=db_name, Name=table_name)
         except ClientError as err:
             logger.error(
-                "Couldn't delete table %s. Here's why: %s: %s", table_name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete table %s. Here's why: %s: %s",
+                table_name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.glue.DeleteTable]
 
     # snippet-start:[python.example_code.glue.DeleteDatabase]
@@ -296,9 +355,13 @@ class GlueWrapper:
             self.glue_client.delete_database(Name=name)
         except ClientError as err:
             logger.error(
-                "Couldn't delete database %s. Here's why: %s: %s", name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete database %s. Here's why: %s: %s",
+                name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.glue.DeleteDatabase]
 
     # snippet-start:[python.example_code.glue.DeleteCrawler]
@@ -312,8 +375,14 @@ class GlueWrapper:
             self.glue_client.delete_crawler(Name=name)
         except ClientError as err:
             logger.error(
-                "Couldn't delete crawler %s. Here's why: %s: %s", name,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                "Couldn't delete crawler %s. Here's why: %s: %s",
+                name,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.glue.DeleteCrawler]
+
+
 # snippet-end:[python.example_code.glue.GlueWrapper.full]

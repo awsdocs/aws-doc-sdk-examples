@@ -38,26 +38,26 @@ def lambda_handler(event, context):
     logger.info("Request: %s", event)
     response_code = 200
 
-    http_method = event.get('httpMethod')
-    query_string = event.get('queryStringParameters')
-    headers = event.get('headers')
-    body = event.get('body')
+    http_method = event.get("httpMethod")
+    query_string = event.get("queryStringParameters")
+    headers = event.get("headers")
+    body = event.get("body")
 
-    name = 'D. E. Fault'
+    name = "D. E. Fault"
     if query_string is not None:
-        name = query_string.get('name', name)
-    day = 'None day'
+        name = query_string.get("name", name)
+    day = "None day"
     if headers is not None:
-        day = headers.get('day', day)
-    adjective = 'nice'
+        day = headers.get("day", day)
+    adjective = "nice"
     if body is not None:
-        adjective = json.loads(body).get('adjective', adjective)
+        adjective = json.loads(body).get("adjective", adjective)
 
-    if http_method == 'GET':
+    if http_method == "GET":
         greeting = f"Got your GET, {name}."
-    elif http_method == 'POST':
+    elif http_method == "POST":
         greeting = f"Nice POST, {name}."
-    elif http_method == 'PUT':
+    elif http_method == "PUT":
         greeting = f"I'll just PUT this here for you, {name}."
     else:
         greeting = f"Sorry, {name}, {http_method} isn't allowed."
@@ -66,8 +66,8 @@ def lambda_handler(event, context):
     greeting += f" Have a {adjective} {day}!"
 
     response = {
-        'statusCode': response_code,
-        'body': json.dumps({'message': greeting, 'input': event})
+        "statusCode": response_code,
+        "body": json.dumps({"message": greeting, "input": event}),
     }
 
     logger.info("Response: %s", response)

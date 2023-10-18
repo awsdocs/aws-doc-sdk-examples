@@ -50,43 +50,58 @@ def create_app(test_config=None):
         app.config.from_pyfile("config.py", silent=True)
     else:
         app.config.update(test_config)
-    cluster_arn = app.config.get('CLUSTER_ARN')
-    secret_arn = app.config.get('SECRET_ARN')
-    database = app.config.get('DATABASE')
-    table_name = app.config.get('TABLE_NAME')
-    sender_email = app.config.get('SENDER_EMAIL')
-    if (cluster_arn is None or cluster_arn == 'NEED-CLUSTER-ARN'
-            or secret_arn is None or secret_arn == 'NEED-SECRET-ARN'
-            or database is None or database == 'NEED-DATABASE'
-            or table_name is None or table_name == 'NEED-TABLE-NAME'):
+    cluster_arn = app.config.get("CLUSTER_ARN")
+    secret_arn = app.config.get("SECRET_ARN")
+    database = app.config.get("DATABASE")
+    table_name = app.config.get("TABLE_NAME")
+    sender_email = app.config.get("SENDER_EMAIL")
+    if (
+        cluster_arn is None
+        or cluster_arn == "NEED-CLUSTER-ARN"
+        or secret_arn is None
+        or secret_arn == "NEED-SECRET-ARN"
+        or database is None
+        or database == "NEED-DATABASE"
+        or table_name is None
+        or table_name == "NEED-TABLE-NAME"
+    ):
         raise RuntimeError(
-            "To run this app, you must first enter configuration information in config.py.")
+            "To run this app, you must first enter configuration information in config.py."
+        )
 
     # Suppress CORS errors when working with React during development.
     # Important: Remove this when you deploy your application.
     CORS(app)
 
-    if app.config.get('TESTING'):
-        rdsdata_client = app.config.get('RDSDATA_CLIENT')
-        ses_client = app.config.get('SES_CLIENT')
+    if app.config.get("TESTING"):
+        rdsdata_client = app.config.get("RDSDATA_CLIENT")
+        ses_client = app.config.get("SES_CLIENT")
     else:
-        rdsdata_client = boto3.client('rds-data')
-        ses_client = boto3.client('ses')
+        rdsdata_client = boto3.client("rds-data")
+        ses_client = boto3.client("ses")
 
     storage = Storage(cluster_arn, secret_arn, database, table_name, rdsdata_client)
 
-    item_list_view = ItemList.as_view('item_list_api', storage)
-    report_view = Report.as_view('report_api', storage, sender_email, ses_client)
+    item_list_view = ItemList.as_view("item_list_api", storage)
+    report_view = Report.as_view("report_api", storage, sender_email, ses_client)
     app.add_url_rule(
-        '/api/items', defaults={'iditem': None}, view_func=item_list_view, methods=['GET'],
-        strict_slashes=False)
+        "/api/items",
+        defaults={"iditem": None},
+        view_func=item_list_view,
+        methods=["GET"],
+        strict_slashes=False,
+    )
     app.add_url_rule(
-        '/api/items', view_func=item_list_view, methods=['POST'], strict_slashes=False)
+        "/api/items", view_func=item_list_view, methods=["POST"], strict_slashes=False
+    )
     app.add_url_rule(
-        '/api/items/<string:iditem>', view_func=item_list_view, methods=['GET', 'PUT'])
+        "/api/items/<string:iditem>", view_func=item_list_view, methods=["GET", "PUT"]
+    )
     app.add_url_rule(
-        '/api/items/<string:iditem>:<string:action>', view_func=item_list_view, methods=['PUT'])
-    app.add_url_rule(
-        '/api/items:report', view_func=report_view, methods=['POST'])
+        "/api/items/<string:iditem>:<string:action>",
+        view_func=item_list_view,
+        methods=["PUT"],
+    )
+    app.add_url_rule("/api/items:report", view_func=report_view, methods=["POST"])
 
     return app

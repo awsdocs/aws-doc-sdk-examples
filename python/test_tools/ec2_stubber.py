@@ -22,6 +22,7 @@ class Ec2Stubber(ExampleStubber):
     part of the tests, and will raise errors when the actual parameters differ from
     the expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -34,289 +35,421 @@ class Ec2Stubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_create_key_pair(self, key_name, key_material=None, error_code=None):
-        expected_params = {'KeyName': key_name}
-        response = {'KeyName': key_name}
+        expected_params = {"KeyName": key_name}
+        response = {"KeyName": key_name}
         if key_material is not None:
-            response['KeyMaterial'] = key_material
+            response["KeyMaterial"] = key_material
         self._stub_bifurcator(
-            'create_key_pair', expected_params, response, error_code=error_code)
+            "create_key_pair", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_key_pairs(self, key_pairs, error_code=None):
         expected_params = {}
-        response = {'KeyPairs': key_pairs}
+        response = {"KeyPairs": key_pairs}
         self._stub_bifurcator(
-            'describe_key_pairs', expected_params, response, error_code=error_code)
+            "describe_key_pairs", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_key_pair(self, key_name, error_code=None):
-        expected_params = {'KeyName': key_name}
-        self._stub_bifurcator(
-            'delete_key_pair', expected_params, error_code=error_code)
+        expected_params = {"KeyName": key_name}
+        self._stub_bifurcator("delete_key_pair", expected_params, error_code=error_code)
 
     def stub_describe_vpcs(self, vpcs, vpc_filters=None, error_code=None):
         expected_params = {}
         if vpc_filters is not None:
-            expected_params['Filters'] = vpc_filters
-        response = {'Vpcs': [{
-            'VpcId': key,
-            'InstanceTenancy': 'default' if value else 'dedicated',
-            'IsDefault': value
-        } for key, value in vpcs.items()]}
+            expected_params["Filters"] = vpc_filters
+        response = {
+            "Vpcs": [
+                {
+                    "VpcId": key,
+                    "InstanceTenancy": "default" if value else "dedicated",
+                    "IsDefault": value,
+                }
+                for key, value in vpcs.items()
+            ]
+        }
         self._stub_bifurcator(
-            'describe_vpcs', expected_params, response, error_code=error_code)
+            "describe_vpcs", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_subnets(self, vpc_id, zones, subnet_ids, error_code=None):
         expected_params = {
-            'Filters': [
-                {'Name': 'vpc-id', 'Values': [vpc_id]},
-                {'Name': 'availability-zone', 'Values': zones},
-                {'Name': 'default-for-az', 'Values': ['true']}]}
-        response = {'Subnets': [{'SubnetId': sub_id} for sub_id in subnet_ids]}
+            "Filters": [
+                {"Name": "vpc-id", "Values": [vpc_id]},
+                {"Name": "availability-zone", "Values": zones},
+                {"Name": "default-for-az", "Values": ["true"]},
+            ]
+        }
+        response = {"Subnets": [{"SubnetId": sub_id} for sub_id in subnet_ids]}
         self._stub_bifurcator(
-            'describe_subnets', expected_params, response, error_code=error_code)
-
+            "describe_subnets", expected_params, response, error_code=error_code
+        )
 
     def stub_create_security_group(
-            self, group_name, group_id, group_description=ANY, vpc_id=None, error_code=None):
+        self, group_name, group_id, group_description=ANY, vpc_id=None, error_code=None
+    ):
         expected_params = {
-            'GroupName': group_name,
-            'Description': group_description,
+            "GroupName": group_name,
+            "Description": group_description,
         }
         if vpc_id is not None:
-            expected_params['VpcId'] = vpc_id
-        response = {'GroupId': group_id}
+            expected_params["VpcId"] = vpc_id
+        response = {"GroupId": group_id}
         self._stub_bifurcator(
-            'create_security_group', expected_params, response, error_code=error_code)
+            "create_security_group", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_security_group(self, group_id, error_code=None):
-        expected_params = {'GroupId': group_id}
+        expected_params = {"GroupId": group_id}
         self._stub_bifurcator(
-            'delete_security_group', expected_params, error_code=error_code)
+            "delete_security_group", expected_params, error_code=error_code
+        )
 
     def stub_authorize_security_group_ingress(
-            self, group_id, ip_permissions=None, source_group_name=None, cidr_ip=None,port=None,
-            ip_protocol=None, error_code=None):
-        expected_params = {'GroupId': group_id}
+        self,
+        group_id,
+        ip_permissions=None,
+        source_group_name=None,
+        cidr_ip=None,
+        port=None,
+        ip_protocol=None,
+        error_code=None,
+    ):
+        expected_params = {"GroupId": group_id}
         if ip_permissions is not None:
-            expected_params['IpPermissions'] = ip_permissions
+            expected_params["IpPermissions"] = ip_permissions
         if source_group_name is not None:
-            expected_params['SourceSecurityGroupName'] = source_group_name
+            expected_params["SourceSecurityGroupName"] = source_group_name
         if cidr_ip is not None:
-            expected_params['CidrIp'] = cidr_ip
+            expected_params["CidrIp"] = cidr_ip
         if port is not None:
-            expected_params['FromPort'] = port
-            expected_params['ToPort'] = port
+            expected_params["FromPort"] = port
+            expected_params["ToPort"] = port
         if ip_protocol is not None:
-            expected_params['IpProtocol'] = ip_protocol
-        response = {'Return': True}
+            expected_params["IpProtocol"] = ip_protocol
+        response = {"Return": True}
         self._stub_bifurcator(
-            'authorize_security_group_ingress', expected_params, response, error_code=error_code)
+            "authorize_security_group_ingress",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
 
     def stub_create_instances(
-            self, image_id, instance_type, key_name, instance_count, instance_id,
-            security_group_ids=None, subnet_id=None, error_code=None):
+        self,
+        image_id,
+        instance_type,
+        key_name,
+        instance_count,
+        instance_id,
+        security_group_ids=None,
+        subnet_id=None,
+        error_code=None,
+    ):
         expected_params = {
-            'ImageId': image_id, 'InstanceType': instance_type, 'KeyName': key_name,
-            'MinCount': instance_count, 'MaxCount': instance_count}
+            "ImageId": image_id,
+            "InstanceType": instance_type,
+            "KeyName": key_name,
+            "MinCount": instance_count,
+            "MaxCount": instance_count,
+        }
         if security_group_ids is not None:
-            expected_params['SecurityGroupIds'] = security_group_ids
+            expected_params["SecurityGroupIds"] = security_group_ids
         if subnet_id is not None:
-            expected_params['SubnetId'] = subnet_id
-        response = {'Instances': [{'InstanceId': instance_id}]}
+            expected_params["SubnetId"] = subnet_id
+        response = {"Instances": [{"InstanceId": instance_id}]}
         self._stub_bifurcator(
-            'run_instances', expected_params, response, error_code=error_code)
+            "run_instances", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_instances(self, instances, error_code=None):
-        expected_params = {'InstanceIds': [instance.id for instance in instances]}
+        expected_params = {"InstanceIds": [instance.id for instance in instances]}
         response = {
-            'Reservations': [{
-                'Instances': [{
-                    'InstanceId': instance.id,
-                    'State': instance.state
-                } for instance in instances]
-            }]
+            "Reservations": [
+                {
+                    "Instances": [
+                        {"InstanceId": instance.id, "State": instance.state}
+                        for instance in instances
+                    ]
+                }
+            ]
         }
         self._stub_bifurcator(
-            'describe_instances', expected_params, response, error_code=error_code)
+            "describe_instances", expected_params, response, error_code=error_code
+        )
 
     def stub_start_instances(self, instance_ids, error_code=None):
-        expected_params = {'InstanceIds': instance_ids}
-        response = {'StartingInstances': [{
-            'InstanceId': instance_id,
-            'CurrentState': {'Code': 0, 'Name': 'pending'},
-            'PreviousState': {'Code': 80, 'Name': 'stopped'}
-        } for instance_id in instance_ids]}
+        expected_params = {"InstanceIds": instance_ids}
+        response = {
+            "StartingInstances": [
+                {
+                    "InstanceId": instance_id,
+                    "CurrentState": {"Code": 0, "Name": "pending"},
+                    "PreviousState": {"Code": 80, "Name": "stopped"},
+                }
+                for instance_id in instance_ids
+            ]
+        }
         self._stub_bifurcator(
-            'start_instances', expected_params, response, error_code=error_code)
+            "start_instances", expected_params, response, error_code=error_code
+        )
 
     def stub_stop_instances(self, instance_ids, error_code=None):
-        expected_params = {'InstanceIds': instance_ids}
-        response = {'StoppingInstances': [{
-            'InstanceId': instance_id,
-            'CurrentState': {'Code': 80, 'Name': 'stopped'},
-            'PreviousState': {'Code': 0, 'Name': 'pending'}
-        } for instance_id in instance_ids]}
+        expected_params = {"InstanceIds": instance_ids}
+        response = {
+            "StoppingInstances": [
+                {
+                    "InstanceId": instance_id,
+                    "CurrentState": {"Code": 80, "Name": "stopped"},
+                    "PreviousState": {"Code": 0, "Name": "pending"},
+                }
+                for instance_id in instance_ids
+            ]
+        }
         self._stub_bifurcator(
-            'stop_instances', expected_params, response, error_code=error_code)
+            "stop_instances", expected_params, response, error_code=error_code
+        )
 
     def stub_reboot_instances(self, instance_ids, error_code=None):
-        expected_params = {'InstanceIds': instance_ids}
+        expected_params = {"InstanceIds": instance_ids}
         self._stub_bifurcator(
-            'reboot_instances', expected_params, error_code=error_code)
+            "reboot_instances", expected_params, error_code=error_code
+        )
 
     def stub_terminate_instances(self, instance_ids, error_code=None):
-        expected_params = {'InstanceIds': instance_ids}
+        expected_params = {"InstanceIds": instance_ids}
         self._stub_bifurcator(
-            'terminate_instances', expected_params, error_code=error_code)
+            "terminate_instances", expected_params, error_code=error_code
+        )
 
     def stub_describe_addresses(self, addresses, error_code=None):
         expected_params = {
-            'AllocationIds': [address.allocation_id for address in addresses]}
+            "AllocationIds": [address.allocation_id for address in addresses]
+        }
         response = {
-            'Addresses': [{
-                'InstanceId': address.instance_id,
-                'PublicIp': address.public_ip,
-                'AllocationId': address.allocation_id,
-                'AssociationId': address.association_id,
-                'Domain': address.domain,
-                'NetworkInterfaceId': address.network_interface_id
-            } for address in addresses]
+            "Addresses": [
+                {
+                    "InstanceId": address.instance_id,
+                    "PublicIp": address.public_ip,
+                    "AllocationId": address.allocation_id,
+                    "AssociationId": address.association_id,
+                    "Domain": address.domain,
+                    "NetworkInterfaceId": address.network_interface_id,
+                }
+                for address in addresses
+            ]
         }
         self._stub_bifurcator(
-            'describe_addresses', expected_params, response, error_code=error_code)
+            "describe_addresses", expected_params, response, error_code=error_code
+        )
 
     def stub_allocate_elastic_ip(self, address, error_code=None):
-        expected_params = {'Domain': address.domain}
+        expected_params = {"Domain": address.domain}
         response = {
-            'PublicIp': address.public_ip, 'AllocationId': address.allocation_id}
+            "PublicIp": address.public_ip,
+            "AllocationId": address.allocation_id,
+        }
         self._stub_bifurcator(
-            'allocate_address', expected_params, response, error_code=error_code)
+            "allocate_address", expected_params, response, error_code=error_code
+        )
 
     def stub_associate_elastic_ip(self, address, instance_id, error_code=None):
         expected_params = {
-            'AllocationId': address.allocation_id, 'InstanceId': instance_id}
-        response = {'AssociationId': address.association_id}
+            "AllocationId": address.allocation_id,
+            "InstanceId": instance_id,
+        }
+        response = {"AssociationId": address.association_id}
         self._stub_bifurcator(
-            'associate_address', expected_params, response, error_code=error_code)
+            "associate_address", expected_params, response, error_code=error_code
+        )
 
     def stub_disassociate_elastic_ip(self, association_id, error_code=None):
-        expected_params = {'AssociationId': association_id}
+        expected_params = {"AssociationId": association_id}
         self._stub_bifurcator(
-            'disassociate_address', expected_params, error_code=error_code)
+            "disassociate_address", expected_params, error_code=error_code
+        )
 
     def stub_release_elastic_ip(self, allocation_id, error_code=None):
-        expected_params = {'AllocationId': allocation_id}
-        self._stub_bifurcator(
-            'release_address', expected_params, error_code=error_code)
+        expected_params = {"AllocationId": allocation_id}
+        self._stub_bifurcator("release_address", expected_params, error_code=error_code)
 
     def stub_get_console_output(self, instance_id, output, error_code=None):
-        expected_params = {'InstanceId': instance_id}
-        response = {'InstanceId': instance_id, 'Output': output}
+        expected_params = {"InstanceId": instance_id}
+        response = {"InstanceId": instance_id, "Output": output}
         self._stub_bifurcator(
-            'get_console_output', expected_params, response, error_code=error_code)
+            "get_console_output", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_network_interfaces(
-            self, instance_id, interfaces, error_code=None):
-        expected_params = {'Filters': [{
-            'Name': 'attachment.instance-id',
-            'Values': [instance_id]}]}
-        response = {'NetworkInterfaces': [{
-            'NetworkInterfaceId': interface.network_interface_id,
-            'Groups': [{'GroupName': group.group_name, 'GroupId': group.group_id}
-                       for group in interface.groups]
-        } for interface in interfaces]}
-        self._stub_bifurcator(
-            'describe_network_interfaces', expected_params, response,
-            error_code=error_code)
-
-    def stub_modify_network_interface_attribute(
-            self, interface_id, group_ids, error_code=None):
+        self, instance_id, interfaces, error_code=None
+    ):
         expected_params = {
-            'NetworkInterfaceId': interface_id, 'Groups': group_ids}
-        self._stub_bifurcator(
-            'modify_network_interface_attribute', expected_params,
-            error_code=error_code)
-
-    def stub_describe_security_groups(self, groups, vpc_id=None, error_code=None):
-        expected_params = {'GroupIds': [group['id'] for group in groups]}
-        if vpc_id is not None:
-            expected_params = {'Filters': [
-                {'Name': 'group-name', 'Values': ['default']},
-                {'Name': 'vpc-id', 'Values': [vpc_id]}]}
-        response = {'SecurityGroups': [{
-            'GroupId': group['id'],
-            'GroupName': group['group_name'],
-            'IpPermissions': group['ip_permissions']
-        } for group in groups]}
-        self._stub_bifurcator(
-            'describe_security_groups', expected_params, response,
-            error_code=error_code)
-
-    def stub_revoke_security_group_ingress(
-            self, sec_group, error_code=None):
-        expected_params = {
-            'GroupId': sec_group['id'],
-            'IpPermissions': sec_group['ip_permissions'],
+            "Filters": [{"Name": "attachment.instance-id", "Values": [instance_id]}]
+        }
+        response = {
+            "NetworkInterfaces": [
+                {
+                    "NetworkInterfaceId": interface.network_interface_id,
+                    "Groups": [
+                        {"GroupName": group.group_name, "GroupId": group.group_id}
+                        for group in interface.groups
+                    ],
+                }
+                for interface in interfaces
+            ]
         }
         self._stub_bifurcator(
-            'revoke_security_group_ingress', expected_params, error_code=error_code)
+            "describe_network_interfaces",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
 
-    def stub_describe_launch_templates(self, template_names, templates, error_code=None):
-        expected_params = {'LaunchTemplateNames': template_names}
-        response = {'LaunchTemplates': templates}
+    def stub_modify_network_interface_attribute(
+        self, interface_id, group_ids, error_code=None
+    ):
+        expected_params = {"NetworkInterfaceId": interface_id, "Groups": group_ids}
         self._stub_bifurcator(
-            'describe_launch_templates', expected_params, response, error_code=error_code)
+            "modify_network_interface_attribute", expected_params, error_code=error_code
+        )
+
+    def stub_describe_security_groups(self, groups, vpc_id=None, error_code=None):
+        expected_params = {"GroupIds": [group["id"] for group in groups]}
+        if vpc_id is not None:
+            expected_params = {
+                "Filters": [
+                    {"Name": "group-name", "Values": ["default"]},
+                    {"Name": "vpc-id", "Values": [vpc_id]},
+                ]
+            }
+        response = {
+            "SecurityGroups": [
+                {
+                    "GroupId": group["id"],
+                    "GroupName": group["group_name"],
+                    "IpPermissions": group["ip_permissions"],
+                }
+                for group in groups
+            ]
+        }
+        self._stub_bifurcator(
+            "describe_security_groups", expected_params, response, error_code=error_code
+        )
+
+    def stub_revoke_security_group_ingress(self, sec_group, error_code=None):
+        expected_params = {
+            "GroupId": sec_group["id"],
+            "IpPermissions": sec_group["ip_permissions"],
+        }
+        self._stub_bifurcator(
+            "revoke_security_group_ingress", expected_params, error_code=error_code
+        )
+
+    def stub_describe_launch_templates(
+        self, template_names, templates, error_code=None
+    ):
+        expected_params = {"LaunchTemplateNames": template_names}
+        response = {"LaunchTemplates": templates}
+        self._stub_bifurcator(
+            "describe_launch_templates",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
 
     def stub_create_launch_template(
-            self, template_name, inst_type, ami_id, inst_profile=None, user_data=None,
-            error_code=None):
+        self,
+        template_name,
+        inst_type,
+        ami_id,
+        inst_profile=None,
+        user_data=None,
+        error_code=None,
+    ):
         expected_params = {
-            'LaunchTemplateName': template_name,
-            'LaunchTemplateData': {
-                'InstanceType': inst_type, 'ImageId': ami_id}}
+            "LaunchTemplateName": template_name,
+            "LaunchTemplateData": {"InstanceType": inst_type, "ImageId": ami_id},
+        }
         if inst_profile is not None:
-            expected_params['LaunchTemplateData']['IamInstanceProfile'] = {'Name': inst_profile}
+            expected_params["LaunchTemplateData"]["IamInstanceProfile"] = {
+                "Name": inst_profile
+            }
         if user_data is not None:
-            expected_params['LaunchTemplateData']['UserData'] = user_data
-        response = {'LaunchTemplate': {'LaunchTemplateName': template_name}}
+            expected_params["LaunchTemplateData"]["UserData"] = user_data
+        response = {"LaunchTemplate": {"LaunchTemplateName": template_name}}
         self._stub_bifurcator(
-            'create_launch_template', expected_params, response, error_code=error_code)
+            "create_launch_template", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_launch_template(self, template_name, error_code=None):
-        expected_params = {'LaunchTemplateName': template_name}
+        expected_params = {"LaunchTemplateName": template_name}
         response = {}
         self._stub_bifurcator(
-            'delete_launch_template', expected_params, response, error_code=error_code)
+            "delete_launch_template", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_availability_zones(self, zones, error_code=None):
         expected_params = {}
-        response = {
-            'AvailabilityZones': [{'ZoneName': zone} for zone in zones]
-        }
+        response = {"AvailabilityZones": [{"ZoneName": zone} for zone in zones]}
         self._stub_bifurcator(
-            'describe_availability_zones', expected_params, response, error_code=error_code)
+            "describe_availability_zones",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
 
     def stub_describe_images(self, images, error_code=None):
-        expected_params = {'ImageIds': [i.id for i in images]}
-        response = {'Images': [{
-            'ImageId': image.id, 'Description': image.description, 'Architecture': image.architecture}
-            for image in images]}
+        expected_params = {"ImageIds": [i.id for i in images]}
+        response = {
+            "Images": [
+                {
+                    "ImageId": image.id,
+                    "Description": image.description,
+                    "Architecture": image.architecture,
+                }
+                for image in images
+            ]
+        }
         self._stub_bifurcator(
-            'describe_images', expected_params, response, error_code=error_code)
+            "describe_images", expected_params, response, error_code=error_code
+        )
 
     def stub_describe_instance_types(self, inst_types, filters=ANY, error_code=None):
-        expected_params = {'Filters': filters}
-        response = {'InstanceTypes': [{'InstanceType': inst_type} for inst_type in inst_types]}
+        expected_params = {"Filters": filters}
+        response = {
+            "InstanceTypes": [{"InstanceType": inst_type} for inst_type in inst_types]
+        }
         self._stub_bifurcator(
-            'describe_instance_types', expected_params, response, error_code=error_code)
+            "describe_instance_types", expected_params, response, error_code=error_code
+        )
 
-    def stub_describe_iam_instance_profile_associations(self, instance_id, association_id, error_code=None):
-        expected_params = {'Filters': [{'Name': 'instance-id', 'Values': [instance_id]}]}
-        response = {'IamInstanceProfileAssociations': [{'AssociationId': association_id}]}
+    def stub_describe_iam_instance_profile_associations(
+        self, instance_id, association_id, error_code=None
+    ):
+        expected_params = {
+            "Filters": [{"Name": "instance-id", "Values": [instance_id]}]
+        }
+        response = {
+            "IamInstanceProfileAssociations": [{"AssociationId": association_id}]
+        }
         self._stub_bifurcator(
-            'describe_iam_instance_profile_associations', expected_params, response, error_code=error_code)
+            "describe_iam_instance_profile_associations",
+            expected_params,
+            response,
+            error_code=error_code,
+        )
 
-    def stub_replace_iam_instance_profile_association(self, new_profile_name, association_id, error_code=None):
-        expected_params = {'IamInstanceProfile': {'Name': new_profile_name}, 'AssociationId': association_id}
+    def stub_replace_iam_instance_profile_association(
+        self, new_profile_name, association_id, error_code=None
+    ):
+        expected_params = {
+            "IamInstanceProfile": {"Name": new_profile_name},
+            "AssociationId": association_id,
+        }
         response = {}
         self._stub_bifurcator(
-            'replace_iam_instance_profile_association', expected_params, response, error_code=error_code)
+            "replace_iam_instance_profile_association",
+            expected_params,
+            response,
+            error_code=error_code,
+        )

@@ -25,9 +25,11 @@ def lambda_handler(event, context):
     :param context: The context in which the function is called.
     :return: The result of the specified action.
     """
-    if 'time' in event:
-        dt = dateutil.parser.parse(event['time'])
+    if "time" in event:
+        dt = dateutil.parser.parse(event["time"])
         logger.info(
             "Thanks for calling me on %s at %s.",
-            calendar.day_name[dt.weekday()], dt.time().isoformat())
+            calendar.day_name[dt.weekday()],
+            dt.time().isoformat(),
+        )
     logger.info("Full event: %s", event)

@@ -18,6 +18,7 @@ class Scaffold:
     """
     Encapsulates scaffolding functions to deploy and destroy resources used by the demo.
     """
+
     def __init__(self, dyn_resource):
         """
         :param dyn_resource: A Boto3 DynamoDB resource.
@@ -38,22 +39,29 @@ class Scaffold:
             self.table = self.dyn_resource.create_table(
                 TableName=table_name,
                 KeySchema=[
-                    {'AttributeName': 'year', 'KeyType': 'HASH'},  # Partition key
-                    {'AttributeName': 'title', 'KeyType': 'RANGE'}  # Sort key
+                    {"AttributeName": "year", "KeyType": "HASH"},  # Partition key
+                    {"AttributeName": "title", "KeyType": "RANGE"},  # Sort key
                 ],
                 AttributeDefinitions=[
-                    {'AttributeName': 'year', 'AttributeType': 'N'},
-                    {'AttributeName': 'title', 'AttributeType': 'S'}
+                    {"AttributeName": "year", "AttributeType": "N"},
+                    {"AttributeName": "title", "AttributeType": "S"},
                 ],
-                ProvisionedThroughput={'ReadCapacityUnits': 10, 'WriteCapacityUnits': 10})
+                ProvisionedThroughput={
+                    "ReadCapacityUnits": 10,
+                    "WriteCapacityUnits": 10,
+                },
+            )
             self.table.wait_until_exists()
         except ClientError as err:
-            if err.response['Error']['Code'] == 'ResourceInUseException':
+            if err.response["Error"]["Code"] == "ResourceInUseException":
                 logger.info("Table %s already exists.", table_name)
             else:
                 logger.error(
-                    "Couldn't create table %s. Here's why: %s: %s", table_name,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't create table %s. Here's why: %s: %s",
+                    table_name,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
                 raise
 
     def delete_table(self):
@@ -65,9 +73,13 @@ class Scaffold:
                 self.table.delete()
                 self.table = None
             else:
-                logger.warning("Not deleting table because it wasn't created by this demo.")
+                logger.warning(
+                    "Not deleting table because it wasn't created by this demo."
+                )
         except ClientError as err:
             logger.error(
                 "Couldn't delete table. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise

@@ -31,14 +31,16 @@ class PartiQLWrapper:
     """
     Encapsulates a DynamoDB resource to run PartiQL statements.
     """
+
     def __init__(self, dyn_resource):
         """
         :param dyn_resource: A Boto3 DynamoDB resource.
         """
         self.dyn_resource = dyn_resource
-# snippet-end:[python.example_code.dynamodb.helper.PartiQLWrapper.class_decl]
 
-# snippet-start:[python.example_code.dynamodb.ExecuteStatement]
+    # snippet-end:[python.example_code.dynamodb.helper.PartiQLWrapper.class_decl]
+
+    # snippet-start:[python.example_code.dynamodb.ExecuteStatement]
     def run_partiql(self, statement, params):
         """
         Runs a PartiQL statement. A Boto3 resource is used even though
@@ -54,91 +56,103 @@ class PartiQLWrapper:
         """
         try:
             output = self.dyn_resource.meta.client.execute_statement(
-                Statement=statement, Parameters=params)
+                Statement=statement, Parameters=params
+            )
         except ClientError as err:
-            if err.response['Error']['Code'] == 'ResourceNotFoundException':
+            if err.response["Error"]["Code"] == "ResourceNotFoundException":
                 logger.error(
                     "Couldn't execute PartiQL '%s' because the table does not exist.",
-                    statement)
+                    statement,
+                )
             else:
                 logger.error(
-                    "Couldn't execute PartiQL '%s'. Here's why: %s: %s", statement,
-                    err.response['Error']['Code'], err.response['Error']['Message'])
+                    "Couldn't execute PartiQL '%s'. Here's why: %s: %s",
+                    statement,
+                    err.response["Error"]["Code"],
+                    err.response["Error"]["Message"],
+                )
             raise
         else:
             return output
+
+
 # snippet-end:[python.example_code.dynamodb.ExecuteStatement]
 # snippet-end:[python.example_code.dynamodb.helper.PartiQLWrapper.class_full]
 
 
 # snippet-start:[python.example_code.dynamodb.Scenario_PartiQLSingle]
 def run_scenario(scaffold, wrapper, table_name):
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    print('-'*88)
+    print("-" * 88)
     print("Welcome to the Amazon DynamoDB PartiQL single statement demo.")
-    print('-'*88)
+    print("-" * 88)
 
     print(f"Creating table '{table_name}' for the demo...")
     scaffold.create_table(table_name)
-    print('-'*88)
+    print("-" * 88)
 
     title = "24 Hour PartiQL People"
     year = datetime.now().year
     plot = "A group of data developers discover a new query language they can't stop using."
-    rating = Decimal('9.9')
+    rating = Decimal("9.9")
 
     print(f"Inserting movie '{title}' released in {year}.")
     wrapper.run_partiql(
         f"INSERT INTO \"{table_name}\" VALUE {{'title': ?, 'year': ?, 'info': ?}}",
-        [title, year, {'plot': plot, 'rating': rating}])
+        [title, year, {"plot": plot, "rating": rating}],
+    )
     print("Success!")
-    print('-'*88)
+    print("-" * 88)
 
     print(f"Getting data for movie '{title}' released in {year}.")
     output = wrapper.run_partiql(
-        f"SELECT * FROM \"{table_name}\" WHERE title=? AND year=?", [title, year])
-    for item in output['Items']:
+        f'SELECT * FROM "{table_name}" WHERE title=? AND year=?', [title, year]
+    )
+    for item in output["Items"]:
         print(f"\n{item['title']}, {item['year']}")
-        pprint(output['Items'])
-    print('-'*88)
+        pprint(output["Items"])
+    print("-" * 88)
 
-    rating = Decimal('2.4')
+    rating = Decimal("2.4")
     print(f"Updating movie '{title}' with a rating of {float(rating)}.")
     wrapper.run_partiql(
-        f"UPDATE \"{table_name}\" SET info.rating=? WHERE title=? AND year=?",
-        [rating, title, year])
+        f'UPDATE "{table_name}" SET info.rating=? WHERE title=? AND year=?',
+        [rating, title, year],
+    )
     print("Success!")
-    print('-'*88)
+    print("-" * 88)
 
     print(f"Getting data again to verify our update.")
     output = wrapper.run_partiql(
-        f"SELECT * FROM \"{table_name}\" WHERE title=? AND year=?", [title, year])
-    for item in output['Items']:
+        f'SELECT * FROM "{table_name}" WHERE title=? AND year=?', [title, year]
+    )
+    for item in output["Items"]:
         print(f"\n{item['title']}, {item['year']}")
-        pprint(output['Items'])
-    print('-'*88)
+        pprint(output["Items"])
+    print("-" * 88)
 
     print(f"Deleting movie '{title}' released in {year}.")
     wrapper.run_partiql(
-        f"DELETE FROM \"{table_name}\" WHERE title=? AND year=?", [title, year])
+        f'DELETE FROM "{table_name}" WHERE title=? AND year=?', [title, year]
+    )
     print("Success!")
-    print('-'*88)
+    print("-" * 88)
 
     print(f"Deleting table '{table_name}'...")
     scaffold.delete_table()
-    print('-'*88)
+    print("-" * 88)
 
     print("\nThanks for watching!")
-    print('-'*88)
+    print("-" * 88)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
-        dyn_res = boto3.resource('dynamodb')
+        dyn_res = boto3.resource("dynamodb")
         scaffold = Scaffold(dyn_res)
         movies = PartiQLWrapper(dyn_res)
-        run_scenario(scaffold, movies, 'doc-example-table-partiql-movies')
+        run_scenario(scaffold, movies, "doc-example-table-partiql-movies")
     except Exception as e:
         print(f"Something went wrong with the demo! Here's what: {e}")
 # snippet-end:[python.example_code.dynamodb.Scenario_PartiQLSingle]

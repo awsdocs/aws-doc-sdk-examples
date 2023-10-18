@@ -22,6 +22,7 @@ class ApiGatewayV2Stubber(ExampleStubber):
     part of the tests, and will raise errors when the actual parameters differ from
     the expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -34,53 +35,63 @@ class ApiGatewayV2Stubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_create_api(
-            self, api_name, protocol, route_selection, api_id, api_endpoint,
-            error_code=None):
+        self, api_name, protocol, route_selection, api_id, api_endpoint, error_code=None
+    ):
         expected_params = {
-            'Name': api_name,
-            'ProtocolType': protocol,
-            'RouteSelectionExpression': route_selection}
-        response = {'ApiId': api_id, 'ApiEndpoint': api_endpoint}
+            "Name": api_name,
+            "ProtocolType": protocol,
+            "RouteSelectionExpression": route_selection,
+        }
+        response = {"ApiId": api_id, "ApiEndpoint": api_endpoint}
         self._stub_bifurcator(
-            'create_api', expected_params, response, error_code=error_code)
+            "create_api", expected_params, response, error_code=error_code
+        )
 
     def stub_create_integration(
-            self, api_id, integration_id, integration_uri=ANY, error_code=None):
+        self, api_id, integration_id, integration_uri=ANY, error_code=None
+    ):
         expected_params = {
-            'ApiId': api_id,
-            'IntegrationType': 'AWS_PROXY',
-            'IntegrationMethod': 'POST',
-            'IntegrationUri': integration_uri
+            "ApiId": api_id,
+            "IntegrationType": "AWS_PROXY",
+            "IntegrationMethod": "POST",
+            "IntegrationUri": integration_uri,
         }
-        response = {'IntegrationId': integration_id}
+        response = {"IntegrationId": integration_id}
         self._stub_bifurcator(
-            'create_integration', expected_params, response, error_code=error_code)
+            "create_integration", expected_params, response, error_code=error_code
+        )
 
     def stub_create_route(self, api_id, route_name, target, route_id, error_code=None):
-        expected_params = {
-            'ApiId': api_id, 'RouteKey': route_name, 'Target': target}
-        response = {'RouteId': route_id}
+        expected_params = {"ApiId": api_id, "RouteKey": route_name, "Target": target}
+        response = {"RouteId": route_id}
         self._stub_bifurcator(
-            'create_route', expected_params, response, error_code=error_code)
+            "create_route", expected_params, response, error_code=error_code
+        )
 
     def stub_create_stage(self, api_id, stage, error_code=None):
-        expected_params = {'ApiId': api_id, 'AutoDeploy': True, 'StageName': stage}
+        expected_params = {"ApiId": api_id, "AutoDeploy": True, "StageName": stage}
         response = {}
         self._stub_bifurcator(
-            'create_stage', expected_params, response, error_code=error_code)
+            "create_stage", expected_params, response, error_code=error_code
+        )
 
     def stub_get_apis(self, apis, error_code=None):
         expected_params = {}
-        response = {'Items': apis}
-        for item in response['Items']:
-            item.update({
-                'RouteSelectionExpression': 'test_expr',
-                'ProtocolType': 'test-protocol'})
+        response = {"Items": apis}
+        for item in response["Items"]:
+            item.update(
+                {
+                    "RouteSelectionExpression": "test_expr",
+                    "ProtocolType": "test-protocol",
+                }
+            )
         self._stub_bifurcator(
-            'get_apis', expected_params, response, error_code=error_code)
+            "get_apis", expected_params, response, error_code=error_code
+        )
 
     def stub_delete_api(self, api_id, error_code=None):
-        expected_params = {'ApiId': api_id}
+        expected_params = {"ApiId": api_id}
         response = {}
         self._stub_bifurcator(
-            'delete_api', expected_params, response, error_code=error_code)
+            "delete_api", expected_params, response, error_code=error_code
+        )

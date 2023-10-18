@@ -25,6 +25,7 @@ class StsStubber(ExampleStubber):
     part of the tests, and will raise errors when the actual parameters differ from
     the expected.
     """
+
     def __init__(self, client, use_stubs=True):
         """
         Initializes the object with a specific client and configures it for
@@ -37,51 +38,62 @@ class StsStubber(ExampleStubber):
         super().__init__(client, use_stubs)
 
     def stub_get_caller_identity(self, account_id, error_code=None):
-        response = {'Account': account_id}
+        response = {"Account": account_id}
         self._stub_bifurcator(
-            'get_caller_identity', response=response, error_code=error_code)
+            "get_caller_identity", response=response, error_code=error_code
+        )
 
     def stub_assume_role(
-            self, role_arn, session_name, mfa_serial_number=None, mfa_totp=None,
-            key_id='test-access-key-id', secret_key='test-secret-key',
-            session_token='test-session-token', error_code=None):
-        expected_params = {'RoleArn': role_arn, 'RoleSessionName': session_name}
+        self,
+        role_arn,
+        session_name,
+        mfa_serial_number=None,
+        mfa_totp=None,
+        key_id="test-access-key-id",
+        secret_key="test-secret-key",
+        session_token="test-session-token",
+        error_code=None,
+    ):
+        expected_params = {"RoleArn": role_arn, "RoleSessionName": session_name}
         if mfa_serial_number is not None:
-            expected_params['SerialNumber'] = mfa_serial_number
+            expected_params["SerialNumber"] = mfa_serial_number
         if mfa_totp is not None:
-            expected_params['TokenCode'] = mfa_totp
+            expected_params["TokenCode"] = mfa_totp
         response = {
-            'Credentials': {
-                'AccessKeyId': key_id,
-                'SecretAccessKey': secret_key,
-                'SessionToken': session_token,
-                'Expiration': datetime.datetime.now() + datetime.timedelta(minutes=5)
+            "Credentials": {
+                "AccessKeyId": key_id,
+                "SecretAccessKey": secret_key,
+                "SessionToken": session_token,
+                "Expiration": datetime.datetime.now() + datetime.timedelta(minutes=5),
             }
         }
         self._stub_bifurcator(
-            'assume_role', expected_params, response, error_code=error_code)
+            "assume_role", expected_params, response, error_code=error_code
+        )
 
     def stub_get_session_token(
-            self, serial_number, token_code, credentials=None, error_code=None):
+        self, serial_number, token_code, credentials=None, error_code=None
+    ):
         expected_params = {}
         if serial_number is not None:
-            expected_params['SerialNumber'] = serial_number
+            expected_params["SerialNumber"] = serial_number
         if token_code is not None:
-            expected_params['TokenCode'] = token_code
-        response = {'Credentials': {}}
+            expected_params["TokenCode"] = token_code
+        response = {"Credentials": {}}
         if credentials is not None:
-            response['Credentials'] = {
-                'AccessKeyId': credentials.id,
-                'SecretAccessKey': credentials.secret,
-                'SessionToken': credentials.token,
-                'Expiration': datetime.datetime.now() + datetime.timedelta(seconds=10)
+            response["Credentials"] = {
+                "AccessKeyId": credentials.id,
+                "SecretAccessKey": credentials.secret,
+                "SessionToken": credentials.token,
+                "Expiration": datetime.datetime.now() + datetime.timedelta(seconds=10),
             }
         else:
-            response['Credentials'] = {
-                'AccessKeyId': 'test-key-id-plus-more',
-                'SecretAccessKey': 'test-access-key-secret',
-                'SessionToken': 'test-session-token',
-                'Expiration': datetime.datetime.now() + datetime.timedelta(seconds=10)
+            response["Credentials"] = {
+                "AccessKeyId": "test-key-id-plus-more",
+                "SecretAccessKey": "test-access-key-secret",
+                "SessionToken": "test-session-token",
+                "Expiration": datetime.datetime.now() + datetime.timedelta(seconds=10),
             }
         self._stub_bifurcator(
-            'get_session_token', expected_params, response, error_code=error_code)
+            "get_session_token", expected_params, response, error_code=error_code
+        )

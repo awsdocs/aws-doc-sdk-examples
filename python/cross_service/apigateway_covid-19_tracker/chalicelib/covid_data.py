@@ -20,16 +20,58 @@ class Storage:
     """
     Handles basic storage functions, backed by an Amazon DynamoDB table.
     """
+
     STATES = {
-        'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
-        'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
-        'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-        'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
-        'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
-        'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio',
-        'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
-        'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia',
-        'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+        "Alabama",
+        "Alaska",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+        "Delaware",
+        "Florida",
+        "Georgia",
+        "Hawaii",
+        "Idaho",
+        "Illinois",
+        "Indiana",
+        "Iowa",
+        "Kansas",
+        "Kentucky",
+        "Louisiana",
+        "Maine",
+        "Maryland",
+        "Massachusetts",
+        "Michigan",
+        "Minnesota",
+        "Mississippi",
+        "Missouri",
+        "Montana",
+        "Nebraska",
+        "Nevada",
+        "New Hampshire",
+        "New Jersey",
+        "New Mexico",
+        "New York",
+        "North Carolina",
+        "North Dakota",
+        "Ohio",
+        "Oklahoma",
+        "Oregon",
+        "Pennsylvania",
+        "Rhode Island",
+        "South Carolina",
+        "South Dakota",
+        "Tennessee",
+        "Texas",
+        "Utah",
+        "Vermont",
+        "Virginia",
+        "Washington",
+        "West Virginia",
+        "Wisconsin",
+        "Wyoming",
     }
 
     def __init__(self, table):
@@ -43,8 +85,8 @@ class Storage:
 
         :return: The newly created Storage object.
         """
-        table_name = os.environ.get('TABLE_NAME', '')
-        table = boto3.resource('dynamodb').Table(table_name)
+        table_name = os.environ.get("TABLE_NAME", "")
+        table = boto3.resource("dynamodb").Table(table_name)
         return cls(table)
 
     @staticmethod
@@ -56,10 +98,10 @@ class Storage:
         :return: The newly created data.
         """
         return {
-            'state': state,
-            'date': datetime.date.today().isoformat(),
-            'cases': random.randint(1, 1000),
-            'deaths': random.randint(1, 100)
+            "state": state,
+            "date": datetime.date.today().isoformat(),
+            "cases": random.randint(1, 1000),
+            "deaths": random.randint(1, 100),
         }
 
     def get_state_data(self, state):
@@ -71,10 +113,8 @@ class Storage:
         :param state: The state to retrieve.
         :return: The retrieved data.
         """
-        response = self._table.query(
-            KeyConditionExpression=Key('state').eq(state)
-        )
-        items = response.get('Items', [])
+        response = self._table.query(KeyConditionExpression=Key("state").eq(state))
+        items = response.get("Items", [])
         if len(items) == 0:
             items.append(self._generate_random_data(state))
             self._table.put_item(Item=items[0])
@@ -95,13 +135,11 @@ class Storage:
 
         :param state: The state to delete.
         """
-        response = self._table.query(
-            KeyConditionExpression=Key('state').eq(state)
-        )
-        items = response.get('Items', [])
+        response = self._table.query(KeyConditionExpression=Key("state").eq(state))
+        items = response.get("Items", [])
         with self._table.batch_writer() as batch:
             for item in items:
-                batch.delete_item(Key={'state': item['state'], 'date': item['date']})
+                batch.delete_item(Key={"state": item["state"], "date": item["date"]})
 
     def post_state_data(self, state, state_data):
         """
@@ -120,8 +158,8 @@ class Storage:
         :param date: The date of the record to retrieve.
         :return: The retrieved record, or None if no record exists.
         """
-        response = self._table.get_item(Key={'state': state, 'date': date})
-        item = response.get('Item', None)
+        response = self._table.get_item(Key={"state": state, "date": date})
+        item = response.get("Item", None)
         return item
 
     def delete_state_date_data(self, state, date):
@@ -131,4 +169,4 @@ class Storage:
         :param state: The state of the record to remove.
         :param date: The date of the record to remove.
         """
-        self._table.delete_item(Key={'state': state, 'date': date})
+        self._table.delete_item(Key={"state": state, "date": date})

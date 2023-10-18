@@ -26,22 +26,19 @@ def add_emrfs_step(command, bucket_url, cluster_id, emr_client):
              the emr_client.describe_step() function.
     """
     job_flow_step = {
-        'Name': 'Example EMRFS Command Step',
-        'ActionOnFailure': 'CONTINUE',
-        'HadoopJarStep': {
-            'Jar': 'command-runner.jar',
-            'Args': [
-                '/usr/bin/emrfs',
-                command,
-                bucket_url
-            ]
-        }
+        "Name": "Example EMRFS Command Step",
+        "ActionOnFailure": "CONTINUE",
+        "HadoopJarStep": {
+            "Jar": "command-runner.jar",
+            "Args": ["/usr/bin/emrfs", command, bucket_url],
+        },
     }
 
     try:
         response = emr_client.add_job_flow_steps(
-            JobFlowId=cluster_id, Steps=[job_flow_step])
-        step_id = response['StepIds'][0]
+            JobFlowId=cluster_id, Steps=[job_flow_step]
+        )
+        step_id = response["StepIds"][0]
         print(f"Added step {step_id} to cluster {cluster_id}.")
     except ClientError:
         print(f"Couldn't add a step to cluster {cluster_id}.")
@@ -51,14 +48,15 @@ def add_emrfs_step(command, bucket_url, cluster_id, emr_client):
 
 
 def usage_demo():
-    emr_client = boto3.client('emr')
+    emr_client = boto3.client("emr")
     # Assumes the first waiting cluster has EMRFS enabled and has created metadata
     # with the default name of 'EmrFSMetadata'.
-    cluster = emr_client.list_clusters(ClusterStates=['WAITING'])['Clusters'][0]
+    cluster = emr_client.list_clusters(ClusterStates=["WAITING"])["Clusters"][0]
     add_emrfs_step(
-        'sync', 's3://elasticmapreduce/samples/cloudfront', cluster['Id'], emr_client)
+        "sync", "s3://elasticmapreduce/samples/cloudfront", cluster["Id"], emr_client
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()
 # snippet-end:[emr.python.addstep.emrfs]

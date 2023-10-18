@@ -12,17 +12,19 @@ import pytest
 from comprehend_detect import ComprehendDetect
 
 
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
+@pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_detect_languages(make_stubber, error_code):
-    comprehend_client = boto3.client('comprehend')
+    comprehend_client = boto3.client("comprehend")
     comprehend_stubber = make_stubber(comprehend_client)
     comp_detect = ComprehendDetect(comprehend_client)
-    text = 'test-text'
+    text = "test-text"
     languages = [
-        {'LanguageCode': f'test-{index}', 'Score': index} for index in range(5)]
+        {"LanguageCode": f"test-{index}", "Score": index} for index in range(5)
+    ]
 
     comprehend_stubber.stub_detect_dominant_language(
-        text, languages, error_code=error_code)
+        text, languages, error_code=error_code
+    )
 
     if error_code is None:
         got_languages = comp_detect.detect_languages(text)
@@ -30,26 +32,30 @@ def test_detect_languages(make_stubber, error_code):
     else:
         with pytest.raises(ClientError) as exc_info:
             comp_detect.detect_languages(text)
-        assert exc_info.value.response['Error']['Code'] == error_code
+        assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
+@pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_detect_entities(make_stubber, error_code):
-    comprehend_client = boto3.client('comprehend')
+    comprehend_client = boto3.client("comprehend")
     comprehend_stubber = make_stubber(comprehend_client)
     comp_detect = ComprehendDetect(comprehend_client)
-    text = 'test-text'
-    language = 'fr'
-    entities = [{
-        'Score': index,
-        'Type': 'TEST',
-        'Text': f'test-{index}',
-        'BeginOffset': index,
-        'EndOffset': index*2
-    } for index in range(5)]
+    text = "test-text"
+    language = "fr"
+    entities = [
+        {
+            "Score": index,
+            "Type": "TEST",
+            "Text": f"test-{index}",
+            "BeginOffset": index,
+            "EndOffset": index * 2,
+        }
+        for index in range(5)
+    ]
 
     comprehend_stubber.stub_detect_entities(
-        text, language, entities, error_code=error_code)
+        text, language, entities, error_code=error_code
+    )
 
     if error_code is None:
         got_entities = comp_detect.detect_entities(text, language)
@@ -57,25 +63,29 @@ def test_detect_entities(make_stubber, error_code):
     else:
         with pytest.raises(ClientError) as exc_info:
             comp_detect.detect_entities(text, language)
-        assert exc_info.value.response['Error']['Code'] == error_code
+        assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
+@pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_detect_key_phrases(make_stubber, error_code):
-    comprehend_client = boto3.client('comprehend')
+    comprehend_client = boto3.client("comprehend")
     comprehend_stubber = make_stubber(comprehend_client)
     comp_detect = ComprehendDetect(comprehend_client)
-    text = 'test-text'
-    language = 'fr'
-    phrases = [{
-        'Score': index,
-        'Text': f'test-{index}',
-        'BeginOffset': index,
-        'EndOffset': index * 2
-    } for index in range(5)]
+    text = "test-text"
+    language = "fr"
+    phrases = [
+        {
+            "Score": index,
+            "Text": f"test-{index}",
+            "BeginOffset": index,
+            "EndOffset": index * 2,
+        }
+        for index in range(5)
+    ]
 
     comprehend_stubber.stub_detect_key_phrases(
-        text, language, phrases, error_code=error_code)
+        text, language, phrases, error_code=error_code
+    )
 
     if error_code is None:
         got_phrases = comp_detect.detect_key_phrases(text, language)
@@ -83,25 +93,24 @@ def test_detect_key_phrases(make_stubber, error_code):
     else:
         with pytest.raises(ClientError) as exc_info:
             comp_detect.detect_key_phrases(text, language)
-        assert exc_info.value.response['Error']['Code'] == error_code
+        assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
+@pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_detect_pii(make_stubber, error_code):
-    comprehend_client = boto3.client('comprehend')
+    comprehend_client = boto3.client("comprehend")
     comprehend_stubber = make_stubber(comprehend_client)
     comp_detect = ComprehendDetect(comprehend_client)
-    text = 'test-text'
-    language = 'fr'
-    entities = [{
-        'Score': index,
-        'Type': 'TEST',
-        'BeginOffset': index,
-        'EndOffset': index*2
-    } for index in range(5)]
+    text = "test-text"
+    language = "fr"
+    entities = [
+        {"Score": index, "Type": "TEST", "BeginOffset": index, "EndOffset": index * 2}
+        for index in range(5)
+    ]
 
     comprehend_stubber.stub_detect_pii_entities(
-        text, language, entities, error_code=error_code)
+        text, language, entities, error_code=error_code
+    )
 
     if error_code is None:
         got_entities = comp_detect.detect_pii(text, language)
@@ -109,22 +118,23 @@ def test_detect_pii(make_stubber, error_code):
     else:
         with pytest.raises(ClientError) as exc_info:
             comp_detect.detect_pii(text, language)
-        assert exc_info.value.response['Error']['Code'] == error_code
+        assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
+@pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_detect_sentiment(make_stubber, error_code):
-    comprehend_client = boto3.client('comprehend')
+    comprehend_client = boto3.client("comprehend")
     comprehend_stubber = make_stubber(comprehend_client)
     comp_detect = ComprehendDetect(comprehend_client)
-    text = 'test-text'
-    language = 'fr'
-    sentiment = 'FANTASTIC'
-    sentiment_scores = {'Positive': 100}
-    response = {'Sentiment': sentiment, 'SentimentScore': sentiment_scores}
+    text = "test-text"
+    language = "fr"
+    sentiment = "FANTASTIC"
+    sentiment_scores = {"Positive": 100}
+    response = {"Sentiment": sentiment, "SentimentScore": sentiment_scores}
 
     comprehend_stubber.stub_detect_sentiment(
-        text, language, sentiment, sentiment_scores, error_code=error_code)
+        text, language, sentiment, sentiment_scores, error_code=error_code
+    )
 
     if error_code is None:
         got_response = comp_detect.detect_sentiment(text, language)
@@ -132,26 +142,28 @@ def test_detect_sentiment(make_stubber, error_code):
     else:
         with pytest.raises(ClientError) as exc_info:
             comp_detect.detect_sentiment(text, language)
-        assert exc_info.value.response['Error']['Code'] == error_code
+        assert exc_info.value.response["Error"]["Code"] == error_code
 
 
-@pytest.mark.parametrize('error_code', [None, 'TestException'])
+@pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_detect_syntax(make_stubber, error_code):
-    comprehend_client = boto3.client('comprehend')
+    comprehend_client = boto3.client("comprehend")
     comprehend_stubber = make_stubber(comprehend_client)
     comp_detect = ComprehendDetect(comprehend_client)
-    text = 'test-text'
-    language = 'fr'
-    tokens = [{
-        'TokenId': index,
-        'Text': f'test-{index}',
-        'BeginOffset': index,
-        'EndOffset': index * 2,
-        'PartOfSpeech': {'Tag': 'TEST', 'Score': index}
-    } for index in range(5)]
+    text = "test-text"
+    language = "fr"
+    tokens = [
+        {
+            "TokenId": index,
+            "Text": f"test-{index}",
+            "BeginOffset": index,
+            "EndOffset": index * 2,
+            "PartOfSpeech": {"Tag": "TEST", "Score": index},
+        }
+        for index in range(5)
+    ]
 
-    comprehend_stubber.stub_detect_syntax(
-        text, language, tokens, error_code=error_code)
+    comprehend_stubber.stub_detect_syntax(text, language, tokens, error_code=error_code)
 
     if error_code is None:
         got_tokens = comp_detect.detect_syntax(text, language)
@@ -159,4 +171,4 @@ def test_detect_syntax(make_stubber, error_code):
     else:
         with pytest.raises(ClientError) as exc_info:
             comp_detect.detect_syntax(text, language)
-        assert exc_info.value.response['Error']['Code'] == error_code
+        assert exc_info.value.response["Error"]["Code"] == error_code

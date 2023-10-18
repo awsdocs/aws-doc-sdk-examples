@@ -21,16 +21,20 @@ logger = logging.getLogger(__name__)
 
 # snippet-start:[python.example_code.lookoutvision.Models]
 class Models:
-# snippet-end:[python.example_code.lookoutvision.Models]
+    # snippet-end:[python.example_code.lookoutvision.Models]
     """
     Provides example methods that create and manage Lookout for Vision models.
     """
 
-# snippet-start:[python.example_code.lookoutvision.CreateModel]
+    # snippet-start:[python.example_code.lookoutvision.CreateModel]
     @staticmethod
     def create_model(
-            lookoutvision_client, project_name, training_results, tag_key=None,
-            tag_key_value=None):
+        lookoutvision_client,
+        project_name,
+        training_results,
+        tag_key=None,
+        tag_key_value=None,
+    ):
         """
         Creates a version of a Lookout for Vision model.
 
@@ -44,16 +48,19 @@ class Models:
         """
         try:
             logger.info("Training model...")
-            output_bucket, output_folder = training_results.replace(
-                "s3://", "").split("/", 1)
+            output_bucket, output_folder = training_results.replace("s3://", "").split(
+                "/", 1
+            )
             output_config = {
-                "S3Location": {"Bucket": output_bucket, "Prefix": output_folder}}
+                "S3Location": {"Bucket": output_bucket, "Prefix": output_folder}
+            }
             tags = []
             if tag_key is not None:
                 tags = [{"Key": tag_key, "Value": tag_key_value}]
 
             response = lookoutvision_client.create_model(
-                ProjectName=project_name, OutputConfig=output_config, Tags=tags)
+                ProjectName=project_name, OutputConfig=output_config, Tags=tags
+            )
 
             logger.info("ARN: %s", response["ModelMetadata"]["ModelArn"])
             logger.info("Version: %s", response["ModelMetadata"]["ModelVersion"])
@@ -67,7 +74,8 @@ class Models:
             while finished is False:
                 model_description = lookoutvision_client.describe_model(
                     ProjectName=project_name,
-                    ModelVersion=response["ModelMetadata"]["ModelVersion"])
+                    ModelVersion=response["ModelMetadata"]["ModelVersion"],
+                )
                 status = model_description["ModelDescription"]["Status"]
 
                 if status == "TRAINING":
@@ -80,16 +88,18 @@ class Models:
                 else:
                     logger.info(
                         "Model training failed: %s ",
-                        model_description["ModelDescription"]["StatusMessage"])
+                        model_description["ModelDescription"]["StatusMessage"],
+                    )
                 finished = True
         except ClientError:
             logger.exception("Couldn't train model.")
             raise
         else:
             return status, response["ModelMetadata"]["ModelVersion"]
-# snippet-end:[python.example_code.lookoutvision.CreateModel]
 
-# snippet-start:[python.example_code.lookoutvision.DescribeModel]
+    # snippet-end:[python.example_code.lookoutvision.CreateModel]
+
+    # snippet-start:[python.example_code.lookoutvision.DescribeModel]
     @staticmethod
     def describe_model(lookoutvision_client, project_name, model_version):
         """
@@ -100,7 +110,8 @@ class Models:
         :param model_version: The version of the model.
         """
         response = lookoutvision_client.describe_model(
-            ProjectName=project_name, ModelVersion=model_version)
+            ProjectName=project_name, ModelVersion=model_version
+        )
         model_description = response["ModelDescription"]
         print(f"\tModel version: {model_description['ModelVersion']}")
         print(f"\tARN: {model_description['ModelArn']}")
@@ -110,7 +121,7 @@ class Models:
         print(f"\tMessage: {model_description['StatusMessage']}")
         print(f"\tCreated: {str(model_description['CreationTimestamp'])}")
 
-        if model_description['Status'] in ("TRAINED", "HOSTED"):
+        if model_description["Status"] in ("TRAINED", "HOSTED"):
             training_start = model_description["CreationTimestamp"]
             training_end = model_description["EvaluationEndTimestamp"]
             duration = training_end - training_start
@@ -121,12 +132,15 @@ class Models:
             print(f"\tPrecision: {model_description['Performance']['Precision']}")
             print(f"\tF1: {model_description['Performance']['F1Score']}")
 
-            training_output_bucket = model_description["OutputConfig"]["S3Location"]["Bucket"]
+            training_output_bucket = model_description["OutputConfig"]["S3Location"][
+                "Bucket"
+            ]
             prefix = model_description["OutputConfig"]["S3Location"]["Prefix"]
             print(f"\tTraining output: s3://{training_output_bucket}/{prefix}")
-# snippet-end:[python.example_code.lookoutvision.DescribeModel]
 
-# snippet-start:[python.example_code.lookoutvision.ListModels]
+    # snippet-end:[python.example_code.lookoutvision.DescribeModel]
+
+    # snippet-start:[python.example_code.lookoutvision.ListModels]
     @staticmethod
     def describe_models(lookoutvision_client, project_name):
         """
@@ -140,15 +154,17 @@ class Models:
             print("Project: " + project_name)
             for model in response["Models"]:
                 Models.describe_model(
-                    lookoutvision_client, project_name, model["ModelVersion"])
+                    lookoutvision_client, project_name, model["ModelVersion"]
+                )
                 print()
             print("Done...")
         except ClientError:
             logger.exception("Couldn't list models.")
             raise
-# snippet-end:[python.example_code.lookoutvision.ListModels]
 
-# snippet-start:[python.example_code.lookoutvision.DeleteModel]
+    # snippet-end:[python.example_code.lookoutvision.ListModels]
+
+    # snippet-start:[python.example_code.lookoutvision.DeleteModel]
     @staticmethod
     def delete_model(lookoutvision_client, project_name, model_version):
         """
@@ -162,7 +178,8 @@ class Models:
         try:
             logger.info("Deleting model: %s", model_version)
             lookoutvision_client.delete_model(
-                ProjectName=project_name, ModelVersion=model_version)
+                ProjectName=project_name, ModelVersion=model_version
+            )
 
             model_exists = True
             while model_exists:
@@ -183,4 +200,6 @@ class Models:
         except ClientError:
             logger.exception("Couldn't delete model.")
             raise
+
+
 # snippet-end:[python.example_code.lookoutvision.DeleteModel]

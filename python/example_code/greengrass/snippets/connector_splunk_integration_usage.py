@@ -12,15 +12,12 @@ AWS IoT Greengrass connector.
 import json
 import greengrasssdk
 
-iot_client = greengrasssdk.client('iot-data')
-send_topic = 'splunk/logs/put'
+iot_client = greengrasssdk.client("iot-data")
+send_topic = "splunk/logs/put"
 
 
 def create_request():
-    return {
-        "request": {
-            "event": "Access log test message."},
-        "id": "req_123"}
+    return {"request": {"event": "Access log test message."}, "id": "req_123"}
 
 
 def publish_basic_message():
@@ -35,4 +32,6 @@ publish_basic_message()
 # In this example, the required AWS Lambda handler is never called.
 def function_handler(event, context):
     return
+
+
 # snippet-end:[greengrass.python.connector-splunk-integration-usage.complete]

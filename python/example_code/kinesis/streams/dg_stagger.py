@@ -22,8 +22,9 @@ STREAM_NAME = "ExampleInputStream"
 def get_data():
     event_time = datetime.datetime.utcnow() - datetime.timedelta(seconds=10)
     return {
-        'EVENT_TIME': event_time.isoformat(),
-        'TICKER': random.choice(['AAPL', 'AMZN', 'MSFT', 'INTC', 'TBV'])}
+        "EVENT_TIME": event_time.isoformat(),
+        "TICKER": random.choice(["AAPL", "AMZN", "MSFT", "INTC", "TBV"]),
+    }
 
 
 def generate(stream_name, kinesis_client):
@@ -35,10 +36,11 @@ def generate(stream_name, kinesis_client):
             kinesis_client.put_record(
                 StreamName=stream_name,
                 Data=json.dumps(data),
-                PartitionKey="partitionkey")
+                PartitionKey="partitionkey",
+            )
             time.sleep(10)
 
 
-if __name__ == '__main__':
-    generate(STREAM_NAME, boto3.client('kinesis'))
+if __name__ == "__main__":
+    generate(STREAM_NAME, boto3.client("kinesis"))
 # snippet-end:[kinesisanalytics.python.datagenerator.stagger]

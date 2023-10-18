@@ -21,15 +21,20 @@ from botocore.exceptions import ClientError
 from lambda_basics import LambdaWrapper
 
 # Add relative path to include demo_tools in this code example without need for setup.
-sys.path.append('../..')
+sys.path.append("../..")
 from demo_tools.retries import wait
 
 logger = logging.getLogger(__name__)
 
 
 def schedule_lambda_function(
-        eventbridge_client, event_rule_name, event_schedule,
-        lambda_client, lambda_function_name, lambda_function_arn):
+    eventbridge_client,
+    event_rule_name,
+    event_schedule,
+    lambda_client,
+    lambda_function_name,
+    lambda_function_arn,
+):
     """
     Creates a schedule rule with Amazon EventBridge and registers an AWS Lambda
     function to be invoked according to the specified schedule.
@@ -44,8 +49,9 @@ def schedule_lambda_function(
     """
     try:
         response = eventbridge_client.put_rule(
-            Name=event_rule_name, ScheduleExpression=event_schedule)
-        event_rule_arn = response['RuleArn']
+            Name=event_rule_name, ScheduleExpression=event_schedule
+        )
+        event_rule_arn = response["RuleArn"]
         logger.info("Put rule %s with ARN %s.", event_rule_name, event_rule_arn)
     except ClientError:
         logger.exception("Couldn't put rule %s.", event_rule_name)
@@ -54,34 +60,43 @@ def schedule_lambda_function(
     try:
         lambda_client.add_permission(
             FunctionName=lambda_function_name,
-            StatementId=f'{lambda_function_name}-invoke',
-            Action='lambda:InvokeFunction',
-            Principal='events.amazonaws.com',
-            SourceArn=event_rule_arn)
+            StatementId=f"{lambda_function_name}-invoke",
+            Action="lambda:InvokeFunction",
+            Principal="events.amazonaws.com",
+            SourceArn=event_rule_arn,
+        )
         logger.info(
             "Granted permission to let Amazon EventBridge call function %s",
-            lambda_function_name)
+            lambda_function_name,
+        )
     except ClientError:
         logger.exception(
             "Couldn't add permission to let Amazon EventBridge call function %s.",
-            lambda_function_name)
+            lambda_function_name,
+        )
         raise
 
     try:
         response = eventbridge_client.put_targets(
             Rule=event_rule_name,
-            Targets=[{'Id': lambda_function_name, 'Arn': lambda_function_arn}])
-        if response['FailedEntryCount'] > 0:
+            Targets=[{"Id": lambda_function_name, "Arn": lambda_function_arn}],
+        )
+        if response["FailedEntryCount"] > 0:
             logger.error(
                 "Couldn't set %s as the target for %s.",
-                lambda_function_name, event_rule_name)
+                lambda_function_name,
+                event_rule_name,
+            )
         else:
             logger.info(
-                "Set %s as the target of %s.", lambda_function_name, event_rule_name)
+                "Set %s as the target of %s.", lambda_function_name, event_rule_name
+            )
     except ClientError:
         logger.exception(
-            "Couldn't set %s as the target of %s.", lambda_function_name,
-            event_rule_name)
+            "Couldn't set %s as the target of %s.",
+            lambda_function_name,
+            event_rule_name,
+        )
         raise
 
     return event_rule_arn
@@ -101,10 +116,12 @@ def update_event_rule(eventbridge_client, event_rule_name, enable):
         else:
             eventbridge_client.disable_rule(Name=event_rule_name)
         logger.info(
-            "%s is now %s.", event_rule_name, 'enabled' if enable else 'disabled')
+            "%s is now %s.", event_rule_name, "enabled" if enable else "disabled"
+        )
     except ClientError:
         logger.exception(
-            "Couldn't %s %s.", 'enable' if enable else 'disable', event_rule_name)
+            "Couldn't %s %s.", "enable" if enable else "disable", event_rule_name
+        )
         raise
 
 
@@ -118,8 +135,8 @@ def get_event_rule_enabled(eventbridge_client, event_rule_name):
     """
     try:
         response = eventbridge_client.describe_rule(Name=event_rule_name)
-        enabled = response['State'] == 'ENABLED'
-        logger.info("%s is %s.", event_rule_name, response['State'])
+        enabled = response["State"] == "ENABLED"
+        logger.info("%s is %s.", event_rule_name, response["State"])
     except ClientError:
         logger.exception("Couldn't get state of %s.", event_rule_name)
         raise
@@ -138,7 +155,8 @@ def delete_event_rule(eventbridge_client, event_rule_name, lambda_function_name)
     """
     try:
         eventbridge_client.remove_targets(
-            Rule=event_rule_name, Ids=[lambda_function_name])
+            Rule=event_rule_name, Ids=[lambda_function_name]
+        )
         eventbridge_client.delete_rule(Name=event_rule_name)
         logger.info("Removed rule %s.", event_rule_name)
     except ClientError:
@@ -152,23 +170,23 @@ def usage_demo():
     rule that invokes the function, and how to clean up the resources after the demo
     completes.
     """
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
-    print('-'*88)
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    print("-" * 88)
     print("Welcome to the AWS Lambda scheduled rule demo.")
-    print('-'*88)
+    print("-" * 88)
 
-    lambda_function_filename = 'lambda_handler_scheduled.py'
-    lambda_handler_name = 'lambda_handler_scheduled.lambda_handler'
-    lambda_role_name = 'demo-lambda-role'
-    lambda_function_name = 'demo-lambda-scheduled'
-    event_rule_name = 'demo-event-scheduled'
-    event_schedule = 'rate(1 minute)'
+    lambda_function_filename = "lambda_handler_scheduled.py"
+    lambda_handler_name = "lambda_handler_scheduled.lambda_handler"
+    lambda_role_name = "demo-lambda-role"
+    lambda_function_name = "demo-lambda-scheduled"
+    event_rule_name = "demo-event-scheduled"
+    event_schedule = "rate(1 minute)"
 
-    iam_resource = boto3.resource('iam')
-    lambda_client = boto3.client('lambda')
+    iam_resource = boto3.resource("iam")
+    lambda_client = boto3.client("lambda")
     wrapper = LambdaWrapper(lambda_client, iam_resource)
-    eventbridge_client = boto3.client('events')
-    logs_client = boto3.client('logs')
+    eventbridge_client = boto3.client("events")
+    logs_client = boto3.client("logs")
 
     print("Checking for IAM role for Lambda...")
     iam_role, should_wait = wrapper.create_iam_role_for_lambda(lambda_role_name)
@@ -176,30 +194,41 @@ def usage_demo():
         logger.info("Giving AWS time to create resources...")
         wait(10)
 
-    print(f"Creating AWS Lambda function {lambda_function_name} from the "
-          f"{lambda_handler_name} function in {lambda_function_filename}...")
+    print(
+        f"Creating AWS Lambda function {lambda_function_name} from the "
+        f"{lambda_handler_name} function in {lambda_function_filename}..."
+    )
     deployment_package = wrapper.create_deployment_package(
-        lambda_function_filename, lambda_function_filename)
+        lambda_function_filename, lambda_function_filename
+    )
     lambda_function_arn = wrapper.create_function(
-        lambda_function_name, lambda_handler_name, iam_role, deployment_package)
+        lambda_function_name, lambda_handler_name, iam_role, deployment_package
+    )
 
     print(f"Scheduling {lambda_function_name} to run once per minute...")
     schedule_lambda_function(
-        eventbridge_client, event_rule_name, event_schedule, lambda_client,
-        lambda_function_name, lambda_function_arn)
+        eventbridge_client,
+        event_rule_name,
+        event_schedule,
+        lambda_client,
+        lambda_function_name,
+        lambda_function_arn,
+    )
 
     print(f"Sleeping for 3 minutes to let our function trigger a few times...")
-    time.sleep(3*60)
+    time.sleep(3 * 60)
 
     print(f"Getting last 20 Amazon CloudWatch log events for {lambda_function_name}...")
-    log_group_name = f'/aws/lambda/{lambda_function_name}'
+    log_group_name = f"/aws/lambda/{lambda_function_name}"
     log_streams = logs_client.describe_log_streams(
-        logGroupName=log_group_name, orderBy='LastEventTime', descending=True, limit=1)
+        logGroupName=log_group_name, orderBy="LastEventTime", descending=True, limit=1
+    )
     log_events = logs_client.get_log_events(
         logGroupName=log_group_name,
-        logStreamName=log_streams['logStreams'][0]['logStreamName'],
-        limit=20)
-    print(*[evt['message'] for evt in log_events['events']])
+        logStreamName=log_streams["logStreams"][0]["logStreamName"],
+        limit=20,
+    )
+    print(*[evt["message"] for evt in log_events["events"]])
 
     print(f"Disabling event {event_rule_name}...")
     update_event_rule(eventbridge_client, event_rule_name, False)
@@ -216,5 +245,5 @@ def usage_demo():
     print("Thanks for watching!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

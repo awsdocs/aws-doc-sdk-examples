@@ -16,7 +16,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 logger = logging.getLogger(__name__)
-iam = boto3.resource('iam')
+iam = boto3.resource("iam")
 # snippet-end:[python.example_code.iam.role_wrapper.imports]
 
 
@@ -30,25 +30,29 @@ def create_role(role_name, allowed_services):
     :return: The newly created role.
     """
     trust_policy = {
-        'Version': '2012-10-17',
-        'Statement': [{
-                'Effect': 'Allow',
-                'Principal': {'Service': service},
-                'Action': 'sts:AssumeRole'
-            } for service in allowed_services
-        ]
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Principal": {"Service": service},
+                "Action": "sts:AssumeRole",
+            }
+            for service in allowed_services
+        ],
     }
 
     try:
         role = iam.create_role(
-            RoleName=role_name,
-            AssumeRolePolicyDocument=json.dumps(trust_policy))
+            RoleName=role_name, AssumeRolePolicyDocument=json.dumps(trust_policy)
+        )
         logger.info("Created role %s.", role.name)
     except ClientError:
         logger.exception("Couldn't create role %s.", role_name)
         raise
     else:
         return role
+
+
 # snippet-end:[python.example_code.iam.CreateRole]
 
 
@@ -69,6 +73,8 @@ def get_role(role_name):
         raise
     else:
         return role
+
+
 # snippet-end:[python.example_code.iam.GetRole]
 
 
@@ -88,6 +94,8 @@ def list_roles(count):
         raise
     else:
         return roles
+
+
 # snippet-end:[python.example_code.iam.ListRoles]
 
 
@@ -104,6 +112,8 @@ def delete_role(role_name):
     except ClientError:
         logger.exception("Couldn't delete role %s.", role_name)
         raise
+
+
 # snippet-end:[python.example_code.iam.DeleteRole]
 
 
@@ -121,6 +131,8 @@ def attach_policy(role_name, policy_arn):
     except ClientError:
         logger.exception("Couldn't attach policy %s to role %s.", policy_arn, role_name)
         raise
+
+
 # snippet-end:[python.example_code.iam.AttachRolePolicy_Role]
 
 
@@ -138,6 +150,8 @@ def list_policies(role_name):
     except ClientError:
         logger.exception("Couldn't list inline policies for %s.", role_name)
         raise
+
+
 # snippet-end:[python.example_code.iam.ListRolePolicies]
 
 
@@ -155,6 +169,8 @@ def list_attached_policies(role_name):
     except ClientError:
         logger.exception("Couldn't list attached policies for %s.", role_name)
         raise
+
+
 # snippet-end:[python.example_code.iam.ListAttachedRolePolicies]
 
 
@@ -171,30 +187,35 @@ def detach_policy(role_name, policy_arn):
         logger.info("Detached policy %s from role %s.", policy_arn, role_name)
     except ClientError:
         logger.exception(
-            "Couldn't detach policy %s from role %s.", policy_arn, role_name)
+            "Couldn't detach policy %s from role %s.", policy_arn, role_name
+        )
         raise
+
+
 # snippet-end:[python.example_code.iam.DetachRolePolicy_Role]
 
 
 # snippet-start:[python.example_code.iam.Scenario_RoleManagement]
 def usage_demo():
     """Shows how to use the role functions."""
-    logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
-    print('-'*88)
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+    print("-" * 88)
     print("Welcome to the AWS Identity and Account Management role demo.")
-    print('-'*88)
-    print("Roles let you define sets of permissions and can be assumed by "
-          "other entities, like users and services.")
+    print("-" * 88)
+    print(
+        "Roles let you define sets of permissions and can be assumed by "
+        "other entities, like users and services."
+    )
     print("The first 10 roles currently in your account are:")
     roles = list_roles(10)
     print(f"The inline policies for role {roles[0].name} are:")
     list_policies(roles[0].name)
     role = create_role(
-        'demo-iam-role',
-        ['lambda.amazonaws.com', 'batchoperations.s3.amazonaws.com'])
+        "demo-iam-role", ["lambda.amazonaws.com", "batchoperations.s3.amazonaws.com"]
+    )
     print(f"Created role {role.name}, with trust policy:")
     pprint.pprint(role.assume_role_policy_document)
-    policy_arn = 'arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess'
+    policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
     attach_policy(role.name, policy_arn)
     print(f"Attached policy {policy_arn} to {role.name}.")
     print(f"Policies attached to role {role.name} are:")
@@ -204,8 +225,10 @@ def usage_demo():
     delete_role(role.name)
     print(f"Deleted {role.name}.")
     print("Thanks for watching!")
+
+
 # snippet-end:[python.example_code.iam.Scenario_RoleManagement]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     usage_demo()

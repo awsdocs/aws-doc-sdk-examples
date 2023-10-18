@@ -18,8 +18,6 @@ from boto3.session import Session
 from botocore.exceptions import ClientError, EndpointConnectionError
 
 
-
-
 logger = logging.getLogger(__name__)
 
 
@@ -37,31 +35,33 @@ def find_running_models_in_project(lfv_client, project_name):
 
     # Get a list of models in the current project.
 
-    paginator = lfv_client.get_paginator('list_models')
+    paginator = lfv_client.get_paginator("list_models")
     page_iterator = paginator.paginate(ProjectName=project_name)
 
     for page in page_iterator:
-
-        for model in page['Models']:
+        for model in page["Models"]:
             # Get model description and store hosted state, if model is running.
 
             model_description = lfv_client.describe_model(
-                    ProjectName=project_name, ModelVersion=model["ModelVersion"])
+                ProjectName=project_name, ModelVersion=model["ModelVersion"]
+            )
 
+            logger.info(
+                "Checking: %s", model_description["ModelDescription"]["ModelArn"]
+            )
 
-            logger.info("Checking: %s",
-                        model_description["ModelDescription"]["ModelArn"])
-
-            if model_description["ModelDescription"]["Status"] == 'HOSTED':
+            if model_description["ModelDescription"]["Status"] == "HOSTED":
                 running_model = {
                     "Project": project_name,
                     "ARN": model_description["ModelDescription"]["ModelArn"],
-                    "Version": model_description["ModelDescription"]["ModelVersion"]
+                    "Version": model_description["ModelDescription"]["ModelVersion"],
                 }
                 running_models.append(running_model)
-                logger.info("Running model ARN: %s Version %s",
-                            model_description["ModelDescription"]["ModelArn"],
-                            model_description["ModelDescription"]["ModelVersion"])
+                logger.info(
+                    "Running model ARN: %s Version %s",
+                    model_description["ModelDescription"]["ModelArn"],
+                    model_description["ModelDescription"]["ModelVersion"],
+                )
 
     logger.info("Done finding running models in project: %s", project_name)
 
@@ -79,8 +79,8 @@ def display_running_models(running_model_regions):
     if running_model_regions:
         print("Running models.\n")
         for region in running_model_regions:
-            print(region['Region'])
-            for model in region['Models']:
+            print(region["Region"])
+            for model in region["Models"]:
                 print(f"  Project: {model['Project']}")
                 print(f"  Version: {model['Version']}")
                 print(f"  ARN: {model['ARN']}\n")
@@ -91,7 +91,7 @@ def display_running_models(running_model_regions):
 
 def find_running_models(boto3_session):
     """
-    Finds the running Lookout for Vision models across all accessible 
+    Finds the running Lookout for Vision models across all accessible
     AWS Regions.
 
     :param boto3_session A Boto3 session initialized with a credentials profile.
@@ -103,46 +103,44 @@ def find_running_models(boto3_session):
     # Get a list of Lookout for Vision accessible AWS Regions in
     # the AWS commercial partition.
     # Make sure your Boto3 client is up to date as it stores this list.
-    regions = boto3_session.get_available_regions(service_name='lookoutvision')
+    regions = boto3_session.get_available_regions(service_name="lookoutvision")
 
     # Loop through each AWS Region and collect running models.
     for region in regions:
         logger.info("Checking %s", region)
         region_info = {}
-        region_info['Region'] = region
-        region_info['Models'] = []
+        region_info["Region"] = region
+        region_info["Models"] = []
         running_models_in_region = []
 
         lfv_client = boto3_session.client("lookoutvision", region_name=region)
 
         # Get the projects in the current AWS Region.
 
-        paginator = lfv_client.get_paginator('list_projects')
+        paginator = lfv_client.get_paginator("list_projects")
         page_iterator = paginator.paginate()
 
         for page in page_iterator:
-            for project in page['Projects']:
+            for project in page["Projects"]:
                 running_models_in_project = find_running_models_in_project(
-                    lfv_client, project["ProjectName"])
+                    lfv_client, project["ProjectName"]
+                )
                 for running_model in running_models_in_project:
                     running_models_in_region.append(running_model)
 
-                region_info['Models'] = running_models_in_region
+                region_info["Models"] = running_models_in_region
 
-        if region_info['Models']:
+        if region_info["Models"]:
             running_models.append(region_info)
-
 
     return running_models
 
 
 def main():
-
-    logging.basicConfig(level=logging.INFO,
-                        format="%(levelname)s: %(message)s")
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     try:
-        session = boto3.Session(profile_name='lookoutvision-access')
+        session = boto3.Session(profile_name="lookoutvision-access")
         running_models = find_running_models(session)
         display_running_models(running_models)
 

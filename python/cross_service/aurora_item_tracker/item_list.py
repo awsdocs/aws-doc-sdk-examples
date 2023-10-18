@@ -24,12 +24,13 @@ class WorkItemSchema(Schema):
     A schema for validating work item data and transforming field names between
     external and internal names.
     """
-    iditem = fields.Str(data_key='id')      # The ID of the item.
-    description = fields.Str()              # The item's description.
-    guide = fields.Str()                    # The SDK guide the item is associated with.
-    status = fields.Str()                   # The current status of the item.
-    username = fields.Str(data_key='name')  # The user assigned to the item.
-    archived = fields.Bool()                # Whether the item is active or archived.
+
+    iditem = fields.Str(data_key="id")  # The ID of the item.
+    description = fields.Str()  # The item's description.
+    guide = fields.Str()  # The SDK guide the item is associated with.
+    status = fields.Str()  # The current status of the item.
+    username = fields.Str(data_key="name")  # The user assigned to the item.
+    archived = fields.Bool()  # Whether the item is active or archived.
 
 
 class ItemList(MethodView):
@@ -39,6 +40,7 @@ class ItemList(MethodView):
     This class uses the webargs package together with a marshmallow schema to manage
     incoming data validation and field transformation.
     """
+
     def __init__(self, storage):
         """
         :param storage: An object that manages moving data in and out of the underlying
@@ -46,7 +48,7 @@ class ItemList(MethodView):
         """
         self.storage = storage
 
-    @use_kwargs(WorkItemSchema, location='query')
+    @use_kwargs(WorkItemSchema, location="query")
     def get(self, iditem, archived=None):
         """
         Gets a list of work items or a single work item.
@@ -97,7 +99,7 @@ class ItemList(MethodView):
             result = 500
         return jsonify(response), result
 
-    @use_kwargs(WorkItemSchema, location='query')
+    @use_kwargs(WorkItemSchema, location="query")
     def put(self, iditem, action=None):
         """
         Archives a work item.
@@ -111,7 +113,7 @@ class ItemList(MethodView):
         result = 200
         print(f"iditem: {iditem}, action: {action}")
         try:
-            if action == 'archive':
+            if action == "archive":
                 response = self.storage.archive_work_item(iditem)
             else:
                 result = 400

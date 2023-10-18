@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 # snippet-start:[python.example_code.ec2.ElasticIpWrapper.decl]
 class ElasticIpWrapper:
     """Encapsulates Amazon Elastic Compute Cloud (Amazon EC2) Elastic IP address actions."""
+
     def __init__(self, ec2_resource, elastic_ip=None):
         """
         :param ec2_resource: A Boto3 Amazon EC2 resource. This high-level resource
@@ -25,9 +26,10 @@ class ElasticIpWrapper:
 
     @classmethod
     def from_resource(cls):
-        ec2_resource = boto3.resource('ec2')
+        ec2_resource = boto3.resource("ec2")
         return cls(ec2_resource)
-# snippet-end:[python.example_code.ec2.ElasticIpWrapper.decl]
+
+    # snippet-end:[python.example_code.ec2.ElasticIpWrapper.decl]
 
     # snippet-start:[python.example_code.ec2.AllocateAddress]
     def allocate(self):
@@ -40,15 +42,18 @@ class ElasticIpWrapper:
                  associated with any instance.
         """
         try:
-            response = self.ec2_resource.meta.client.allocate_address(Domain='vpc')
-            self.elastic_ip = self.ec2_resource.VpcAddress(response['AllocationId'])
+            response = self.ec2_resource.meta.client.allocate_address(Domain="vpc")
+            self.elastic_ip = self.ec2_resource.VpcAddress(response["AllocationId"])
         except ClientError as err:
             logger.error(
                 "Couldn't allocate Elastic IP. Here's why: %s: %s",
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         else:
             return self.elastic_ip
+
     # snippet-end:[python.example_code.ec2.AllocateAddress]
 
     # snippet-start:[python.example_code.ec2.AssociateAddress]
@@ -71,10 +76,14 @@ class ElasticIpWrapper:
         except ClientError as err:
             logger.error(
                 "Couldn't associate Elastic IP %s with instance %s. Here's why: %s: %s",
-                self.elastic_ip.allocation_id, instance.id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                self.elastic_ip.allocation_id,
+                instance.id,
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
         return response
+
     # snippet-end:[python.example_code.ec2.AssociateAddress]
 
     # snippet-start:[python.example_code.ec2.DisassociateAddress]
@@ -93,8 +102,11 @@ class ElasticIpWrapper:
             logger.error(
                 "Couldn't disassociate Elastic IP %s from its instance. Here's why: %s: %s",
                 self.elastic_ip.allocation_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.ec2.DisassociateAddress]
 
     # snippet-start:[python.example_code.ec2.ReleaseAddress]
@@ -113,7 +125,12 @@ class ElasticIpWrapper:
             logger.error(
                 "Couldn't release Elastic IP address %s. Here's why: %s: %s",
                 self.elastic_ip.allocation_id,
-                err.response['Error']['Code'], err.response['Error']['Message'])
+                err.response["Error"]["Code"],
+                err.response["Error"]["Message"],
+            )
             raise
+
     # snippet-end:[python.example_code.ec2.ReleaseAddress]
+
+
 # snippet-end:[python.example_code.ec2.ElasticIpWrapper.class]
