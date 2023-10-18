@@ -1,0 +1,7 @@
+black==23.9.1
+flake8==6.1.0
+mypy-extensions==1.0.0
+PyYAML==6.0.1
+requests==2.31.0
+types-PyYAML==6.0.12.12
+yamale==4.0.4

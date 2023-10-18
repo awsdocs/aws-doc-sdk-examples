@@ -20,8 +20,8 @@ jobs:
           python -m pip install yamale
           python -m pip install yamllint
       - name: Lint with yamllint
-        run: yamllint --format standard -c .doc_gen/validation/.yamllint.yaml .doc_gen/metadata/.
+        run: yamllint --format standard -c .tools/validation/.yamllint.yaml .doc_gen/metadata
       - name: Lint with yamllint
-        run: yamllint --format standard -c .doc_gen/validation/.yamllint.yaml .doc_gen/metadata/curated/.
+        run: yamllint --format standard -c .tools/validation/.yamllint.yaml .doc_gen/metadata/curated
       - name: Validate metadata with yamale
-        run: python .doc_gen/validation/validate_doc_metadata.py .doc_gen
+        run: python .tools/validation/validate_doc_metadata.py --doc-gen .doc_gen

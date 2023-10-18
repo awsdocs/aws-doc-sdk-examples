@@ -1,0 +1,11 @@
+$MIN_VERSION=11
+
+# Check that the minor version of the default python3 command is at least 11.
+$PYTHON3_MINOR = [System.Decimal]::Parse((python3 --version | %{$_ -split '[.]'} | Select -Index 1))
+if ($PYTHON3_MINOR -lt $MIN_VERSION) {
+    Write-Host "python3 default minor version less than $MIN_VERSION"
+    exit 1
+}
+
+pip install --upgrade pip
+pip install -r .\base_requirements.txt
