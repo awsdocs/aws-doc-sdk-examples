@@ -133,7 +133,7 @@ bedrock:
     url: bedrock/latest/userguide/what-is-bedrock.html
   api_ref: bedrock/latest/APIReference/welcome.html
   tags:
-    product_categories: { 'Machine Learning' }
+    product_categories: {'Machine Learning'}
   version: bedrock-2023-04-20
 cloudformation:
   long: '&CFNlong;'
