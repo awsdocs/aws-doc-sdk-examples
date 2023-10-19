@@ -55,7 +55,11 @@ class Snippet:
 def scan_for_snippets(root):
     snippets = {}
     for root, dirs, files in os.walk(root):
-        dirs[:] = [d for d in dirs if d not in IGNORE_FOLDERS]
+        dirs[:] = [
+            d
+            for d in dirs
+            if d not in IGNORE_FOLDERS or ("rust_dev_preview" in root and "src" in root)
+        ]
         for f in files:
             ext = os.path.splitext(f)[1].lower()
             if ext in EXT_IGNORES:
