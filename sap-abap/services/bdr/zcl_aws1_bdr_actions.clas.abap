@@ -41,7 +41,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_bdr) = /aws1/cl_bdr_factory=>create( lo_session ).
-    "snippet-start:[bdr.abapv1.prompt_claude_v2]
+    "snippet-start:[bdr.abapv1.invokemodel_claude_v2]
     " Claude V2 Input Parameters should be in a format like this:
 * {
 *   "prompt":"\n\nHuman:\\nTell me a joke\n\nAssistant:\n",
@@ -102,7 +102,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
         WRITE: / |Don't forget to enable model access at https://us-west-2.console.aws.amazon.com/bedrock/home?#/modelaccess|.
         " catch other exceptions as desired...
     ENDTRY.
-    "snippet-end:[bdr.abapv1.prompt_claude_v2]
+    "snippet-end:[bdr.abapv1.invokemodel_claude_v2]
     ov_answer = lv_answer.
   ENDMETHOD.
 
@@ -112,7 +112,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
 
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_bdr) = /aws1/cl_bdr_factory=>create( lo_session ).
-    "snippet-start:[bdr.abapv1.prompt_stable_diffusion]
+    "snippet-start:[bdr.abapv1.invokemodel_stable_diffusion]
     " Stable Diffusion Input Parameters should be in a format like this:
 * {
 *   "text_prompts": [
@@ -186,7 +186,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
         " catch other exceptions as desired...
     ENDTRY.
 
-    "snippet-end:[bdr.abapv1.prompt_stable_diffusion]
+    "snippet-end:[bdr.abapv1.invokemodel_stable_diffusion]
     ov_image = lv_image.
   ENDMETHOD.
 ENDCLASS.
