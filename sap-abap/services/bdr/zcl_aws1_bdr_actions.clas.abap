@@ -61,14 +61,14 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
             stop_sequences       TYPE /aws1/rt_stringtab,
           END OF ls_input.
 
-    " leave ls_input-stop_sequences empty
+    " leave ls_input-stop_sequences empty.
     ls_input-prompt = |\n\nHuman:\\n{ iv_prompt }\n\nAssistant:\n|.
     ls_input-max_tokens_to_sample = 2048.
     ls_input-temperature = '0.5'.
     ls_input-top_k = 250.
     ls_input-top_p = 1.
 
-    " serialize into JSON with /ui2/cl_json -- this assumes SAP_UI is installed
+    " serialize into JSON with /ui2/cl_json -- this assumes SAP_UI is installed.
     DATA(lv_json) = /ui2/cl_json=>serialize(
       EXPORTING data = ls_input
                 pretty_name   = /ui2/cl_json=>pretty_mode-low_case ).
@@ -81,7 +81,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
           iv_contenttype = 'application/json'
         ).
 
-        " Claude V2 Response format will be
+        " Claude V2 Response format will be:
 * {
 *   "completion": "Knock Knock...",
 *   "stop_reason": "stop_sequence"
@@ -136,7 +136,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
 
     APPEND VALUE prompt_ts( text = iv_prompt ) TO ls_input-text_prompts.
     ls_input-cfg_scale = 10.
-    ls_input-seed = 0. "or better, choose a random integer
+    ls_input-seed = 0. "or better, choose a random integer.
     ls_input-steps = 50.
 
     DATA(lv_json) = /ui2/cl_json=>serialize(
@@ -151,7 +151,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
           iv_contenttype = 'application/json'
         ).
 
-        " Stable Diffusion Result Format
+        " Stable Diffusion Result Format:
 * {
 *   "result": "success",
 *   "artifacts": [
