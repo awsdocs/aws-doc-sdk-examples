@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This example demonstrates how to package in an WebAssembly module that uses the developer preview version of the AWS SDK for Rust.
+This example demonstrates how to package in a WebAssembly module that uses the developer preview version of the AWS SDK for Rust.
 
 ## Code examples
 
@@ -19,6 +19,7 @@ This example demonstrates how to package in an WebAssembly module that uses the 
 - Install [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/#).
 
 ### ⚠ Important
+
 Your must customize your AWS credentials in the file [www/env/credentials.js](./www/env/credentials.js). Otherwise, it will not make the request to the backend.
 
 ### count-functions

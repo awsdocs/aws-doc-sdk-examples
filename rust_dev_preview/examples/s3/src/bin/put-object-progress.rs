@@ -13,6 +13,7 @@ use aws_sdk_s3::{
     Client,
 };
 use aws_smithy_http::body::BoxBody;
+use aws_smithy_runtime_api::client::http::request::Request;
 use bytes::Bytes;
 use clap::Parser;
 use http_body::{Body, SizeHint};
@@ -59,18 +60,12 @@ impl ProgressBody<SdkBody> {
     // swap out the current body for a fresh, empty body and then provides ::from_dyn()
     // to get an SdkBody back from the ProgressBody it created. http::Body does not have
     // this "change the wheels on the fly" utility.
-    pub fn replace(
-        mut value: http::Request<SdkBody>,
-    ) -> Result<http::Request<SdkBody>, Infallible> {
-        let body = mem::replace(value.body_mut(), SdkBody::taken()).map(|body| {
+    pub fn replace(value: Request<SdkBody>) -> Result<Request<SdkBody>, Infallible> {
+        let value = value.map(|body| {
             let len = body.content_length().expect("upload body sized"); // TODO - panics
             let body = ProgressBody::new(body, len);
-            // Warning: A from_dyn loses `Once`, so it can't be sigv4'd. There is an upcoming
-            // special body map to handle this block's operation while keeping signing.
-            // See https://github.com/awslabs/smithy-rs/pull/2567
             SdkBody::from_dyn(BoxBody::new(body))
         });
-        let _ = mem::replace(value.body_mut(), body);
         Ok(value)
     }
 }

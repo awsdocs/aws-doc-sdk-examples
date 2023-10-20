@@ -9,6 +9,7 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3::presigning::{PresignedRequest, PresigningConfig};
 use aws_sdk_s3::{config::Region, meta::PKG_VERSION, Client};
 use clap::Parser;
+use http::{HeaderName, HeaderValue};
 use std::error::Error;
 use std::time::Duration;
 
@@ -119,7 +120,7 @@ fn print_as_curl_request(presigned_req: &PresignedRequest, body: Option<&str>) {
         // This value conversion method is naïve and will drop values that aren't valid UTF8
         // It's only here for demonstration purposes; Don't use this unless you're confident
         // that your header values are valid UTF-8
-        println!("-H '{}: {}' \\", name, value.to_str().unwrap_or_default())
+        println!("-H '{}: {}' \\", name, value)
     }
 
     println!("--verbose");
@@ -129,7 +130,7 @@ fn print_as_curl_request(presigned_req: &PresignedRequest, body: Option<&str>) {
 async fn send_presigned_request_with_hyper(req: PresignedRequest, body: hyper::Body) {
     let conn = hyper_tls::HttpsConnector::new();
     let client = hyper::Client::builder().build(conn);
-    let req = req.to_http_request(body).unwrap();
+    let req = req.to_http_02x_request(body).unwrap();
 
     let res = client.request(req).await;
 
@@ -150,8 +151,17 @@ async fn send_presigned_request_with_reqwest(
 ) {
     let client = reqwest::Client::new();
     let res = client
-        .request(req.method().clone(), &req.uri().to_string())
-        .headers(req.headers().clone())
+        .request(req.method().parse().expect("converted method"), req.uri())
+        .headers(
+            req.headers()
+                .map(|(name, value)| {
+                    (
+                        HeaderName::try_from(name).expect("converted header name"),
+                        HeaderValue::from_str(value).expect("converted header value"),
+                    )
+                })
+                .collect(),
+        )
         .body(body)
         .send()
         .await;
