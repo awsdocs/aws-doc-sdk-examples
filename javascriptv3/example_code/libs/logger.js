@@ -19,7 +19,7 @@ export class Logger {
   }
 
   hr() {
-    return "\n", "*".repeat(this.lineLength), "\n";
+    return ["\n", "*".repeat(this.lineLength), "\n"].join("");
   }
 
   /**
@@ -35,18 +35,17 @@ export class Logger {
       .map((l) => l && wrap(l, maxContentLength).split("\n"))
       .flat();
 
-    return `
-${"*".repeat(this.lineLength)}
-${chunks
-  .map(
-    (c) =>
-      `${linePrefix}${
-        c + " ".repeat(maxContentLength - c.length)
-      }${lineSuffix}`,
-  )
-  .join("\n")}
-${"*".repeat(this.lineLength)}
-`;
+    /**
+     * @param {string} c
+     */
+    const fill = (c) => c + " ".repeat(maxContentLength - c.length);
+
+    /**
+     * @param {string} c
+     */
+    const line = (c) => `${linePrefix}${fill(c)}${lineSuffix}`;
+
+    return [this.hr(), chunks.map(line).join("\n"), this.hr()].join("");
   }
 
   /**
