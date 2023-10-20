@@ -151,10 +151,7 @@ async fn send_presigned_request_with_reqwest(
 ) {
     let client = reqwest::Client::new();
     let res = client
-        .request(
-            req.method().try_into().expect("converted method"),
-            req.uri(),
-        )
+        .request(req.method().parse().expect("converted method"), req.uri())
         .headers(
             req.headers()
                 .map(|(name, value)| {
