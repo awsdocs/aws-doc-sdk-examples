@@ -16,13 +16,6 @@ export class Step {
   }
 
   /**
-   * Alias for "name".
-   */
-  get key() {
-    return this.name;
-  }
-
-  /**
    * @param {Record<string, any>} context
    */
   handle(context) {
@@ -34,7 +27,7 @@ export class ScenarioOutput extends Step {
   /**
    * @param {string} name
    * @param {string | (context: Record<string, any>) => string} value
-   * @param {{ slow: boolean }} options
+   * @param {{ slow: boolean, header: boolean }} options
    */
   constructor(name, value, options = { slow: true }) {
     super(name);
@@ -53,7 +46,13 @@ export class ScenarioOutput extends Step {
     const paddingTop = "\n";
     const paddingBottom = "\n";
     const logger = this.options.slow ? this.slowLogger : this.logger;
-    await logger.log(paddingTop + output + paddingBottom);
+    const message = paddingTop + output + paddingBottom;
+
+    if (this.options.header) {
+      this.logger.logSeparator(message);
+    } else {
+      await logger.log(message);
+    }
   }
 }
 

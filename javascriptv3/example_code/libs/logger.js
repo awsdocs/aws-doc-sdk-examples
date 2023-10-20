@@ -3,13 +3,49 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import wrap from "fast-word-wrap";
+
 export class Logger {
+  constructor(lineLength = 80) {
+    this.lineLength = lineLength;
+  }
+
   /**
    * @param {string} message
    */
   log(message) {
     console.log(message);
     return Promise.resolve();
+  }
+
+  hr() {
+    return ["\n", "*".repeat(this.lineLength), "\n"].join("");
+  }
+
+  /**
+   * @param {string} message
+   */
+  box(message) {
+    const linePrefix = "*  ";
+    const lineSuffix = "  *";
+
+    const maxContentLength = this.lineLength - (linePrefix + lineSuffix).length;
+    const chunks = message
+      .split("\n")
+      .map((l) => l && wrap(l, maxContentLength).split("\n"))
+      .flat();
+
+    /**
+     * @param {string} c
+     */
+    const fill = (c) => c + " ".repeat(maxContentLength - c.length);
+
+    /**
+     * @param {string} c
+     */
+    const line = (c) => `${linePrefix}${fill(c)}${lineSuffix}`;
+
+    return [this.hr(), chunks.map(line).join("\n"), this.hr()].join("");
   }
 
   /**
@@ -19,19 +55,9 @@ export class Logger {
    */
   logSeparator(message) {
     if (!message) {
-      console.log("\n", "*".repeat(80), "\n");
+      console.log(this.hr());
     } else {
-      console.log(
-        "\n",
-        "*".repeat(80),
-        "\n",
-        "** ",
-        message,
-        " ".repeat(80 - message.length - 8),
-        "**\n",
-        "*".repeat(80),
-        "\n",
-      );
+      console.log(this.box(message));
     }
   }
 }

@@ -12,7 +12,7 @@ import {
 
 const greet = new ScenarioOutput(
   "greet",
-  "Hi! This is a scenario. It can handle your " + "inputs and outputs.",
+  "Hi! This is a scenario. It can handle your inputs and outputs.",
 );
 
 const describeInput = new ScenarioOutput(
@@ -29,7 +29,7 @@ const getFoods = new ScenarioInput("foods", "Choose your favorite foods.", {
 const getAge = new ScenarioInput(
   "age",
   "Select your age range (my apologies if you're younger or older than the provided ranges):",
-  { type: "select", choices: ["18-30", "31-50", "50-100"] },
+  { type: "select", choices: ["18-30", "31-50", "51-100"] },
 );
 
 const getName = new ScenarioInput("name", "What's your name?", {
@@ -48,7 +48,7 @@ const describeOutput = new ScenarioOutput(
 const dynamicOutput = new ScenarioOutput(
   "dynamicOutput",
   /**
-   * @param {{ "foods": string[] }} c
+   * @param {{ name: string, age: string, foods: string[] }} c
    */
   (c) =>
     `Hi, ${c.name}! You are between the ages of ${c.age}. ` +
