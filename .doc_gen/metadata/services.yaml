@@ -120,6 +120,21 @@ batch:
   tags:
     product_categories: {'Compute'}
   version: batch-2016-08-10
+bedrock-runtime:
+  long: '&BRlong; Runtime'
+  short: '&BR; Runtime'
+  sort: Bedrock Runtime
+  expanded:
+    long: Amazon Bedrock Runtime
+    short: Bedrock Runtime
+  blurb: enables you to run inference on models
+  guide:
+    subtitle: User Guide
+    url: bedrock/latest/userguide/what-is-bedrock.html
+  api_ref: bedrock/latest/APIReference/welcome.html
+  tags:
+    product_categories: {'Machine Learning &amp; AI'}
+  version: bedrock-runtime-2023-09-30
 cloudformation:
   long: '&CFNlong;'
   short: '&CFN;'

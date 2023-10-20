@@ -71,3 +71,7 @@
 
 <!--Elastic Load Balancing-->
 <!ENTITY ELBacro 'ELB'>
+
+<!--Bedrock Runtime-->
+<!ENTITY BRlong 'Amazon Bedrock'>
+<!ENTITY BR 'Bedrock'>
