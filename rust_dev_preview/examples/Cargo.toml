@@ -6,6 +6,7 @@ members = [
     "apigateway",
     "apigatewaymanagement",
     "applicationautoscaling",
+    "aurora",
     "auto-scaling",
     "autoscalingplans",
     "batch",

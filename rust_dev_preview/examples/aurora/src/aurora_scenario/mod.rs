@@ -141,6 +141,7 @@ impl AuroraScenario {
         }
     }
 
+    // snippet-start:[rust.aurora.get_engines.usage]
     // Get available engine families for Aurora MySql. rds.DescribeDbEngineVersions(Engine='aurora-mysql') and build a set of the 'DBParameterGroupFamily' field values. I get {aurora-mysql8.0, aurora-mysql5.7}.
     pub async fn get_engines(&self) -> Result<HashMap<String, Vec<String>>, ScenarioError> {
         let describe_db_engine_versions = self.rds.describe_db_engine_versions(DB_ENGINE).await;
@@ -175,7 +176,9 @@ impl AuroraScenario {
 
         Ok(versions)
     }
+    // snippet-end:[rust.aurora.get_engines.usage]
 
+    // snippet-start:[rust.aurora.get_instance_classes.usage]
     pub async fn get_instance_classes(&self) -> Result<Vec<String>, ScenarioError> {
         let describe_orderable_db_instance_options_items = self
             .rds
@@ -197,7 +200,9 @@ impl AuroraScenario {
             })
             .map_err(|err| ScenarioError::new("Could not get available instance classes", &err))
     }
+    // snippet-end:[rust.aurora.get_instance_classes.usage]
 
+    // snippet-start:[rust.aurora.set_engine.usage]
     // Select an engine family and create a custom DB cluster parameter group. rds.CreateDbClusterParameterGroup(DBParameterGroupFamily='aurora-mysql8.0')
     pub async fn set_engine(&mut self, engine: &str, version: &str) -> Result<(), ScenarioError> {
         self.engine_family = Some(engine.to_string());
@@ -237,6 +242,7 @@ impl AuroraScenario {
 
         Ok(())
     }
+    // snippet-end:[rust.aurora.set_engine.usage]
 
     pub fn set_instance_class(&mut self, instance_class: Option<String>) {
         self.instance_class = instance_class;
@@ -255,6 +261,7 @@ impl AuroraScenario {
         Ok(format!("mysql -h {endpoint} -P {port} -u {username} -p"))
     }
 
+    // snippet-start:[rust.aurora.get_cluster.usage]
     pub async fn get_cluster(&self) -> Result<DbCluster, ScenarioError> {
         let describe_db_clusters_output = self
             .rds
@@ -276,7 +283,9 @@ impl AuroraScenario {
 
         db_cluster.ok_or_else(|| ScenarioError::with("Did not find the cluster"))
     }
+    // snippet-end:[rust.aurora.get_cluster.usage]
 
+    // snippet-start:[rust.aurora.cluster_parameters.usage]
     // Get the parameter group. rds.DescribeDbClusterParameterGroups
     // Get parameters in the group. This is a long list so you will have to paginate. Find the auto_increment_offset and auto_increment_increment parameters (by ParameterName). rds.DescribeDbClusterParameters
     // Parse the ParameterName, Description, and AllowedValues values and display them.
@@ -303,7 +312,9 @@ impl AuroraScenario {
 
         Ok(parameters)
     }
+    // snippet-end:[rust.aurora.cluster_parameters.usage]
 
+    // snippet-start:[rust.aurora.update_auto_increment.usage]
     // Modify both the auto_increment_offset and auto_increment_increment parameters in one call in the custom parameter group. Set their ParameterValue fields to a new allowable value. rds.ModifyDbClusterParameterGroup.
     pub async fn update_auto_increment(
         &self,
@@ -338,7 +349,9 @@ impl AuroraScenario {
 
         Ok(())
     }
+    // snippet-end:[rust.aurora.update_auto_increment.usage]
 
+    // snippet-start:[rust.aurora.start_cluster_and_instance.usage]
     // Get a list of allowed engine versions. rds.DescribeDbEngineVersions(Engine='aurora-mysql', DBParameterGroupFamily=<the family used to create your parameter group in step 2>)
     // Create an Aurora DB cluster database cluster that contains a MySql database and uses the parameter group you created.
     // Wait for DB cluster to be ready. Call rds.DescribeDBClusters and check for Status == 'available'.
@@ -477,9 +490,9 @@ impl AuroraScenario {
 
         Err(ScenarioError::with("timed out waiting for cluster"))
     }
+    // snippet-end:[rust.aurora.start_cluster_and_instance.usage]
 
-    // Display the connection string that can be used to connect a 'mysql' shell to the cluster. In Python:
-
+    // snippet-start:[rust.aurora.snapshot.usage]
     // Create a snapshot of the DB cluster. rds.CreateDbClusterSnapshot.
     // Wait for the snapshot to create. rds.DescribeDbClusterSnapshots until Status == 'available'.
     pub async fn snapshot(&self, name: &str) -> Result<DbClusterSnapshot, ScenarioError> {
@@ -496,7 +509,9 @@ impl AuroraScenario {
             Err(err) => Err(ScenarioError::new("Failed to create snapshot", &err)),
         }
     }
+    // snippet-end:[rust.aurora.snapshot.usage]
 
+    // snippet-start:[rust.aurora.clean_up.usage]
     pub async fn clean_up(self) -> Result<(), Vec<ScenarioError>> {
         let mut clean_up_errors: Vec<ScenarioError> = vec![];
 
@@ -636,6 +651,7 @@ impl AuroraScenario {
             Err(clean_up_errors)
         }
     }
+    // snippet-end:[rust.aurora.clean_up.usage]
 }
 
 #[cfg(test)]

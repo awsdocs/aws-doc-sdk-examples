@@ -1,3 +1,8 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
 use crate::rds::MockRdsImpl;
 
 use super::*;
@@ -39,6 +44,7 @@ use aws_smithy_runtime_api::client::orchestrator::HttpResponse;
 use mockall::predicate::eq;
 use secrecy::ExposeSecret;
 
+// snippet-start:[rust.aurora.set_engine.test]
 #[tokio::test]
 async fn test_scenario_set_engine() {
     let mut mock_rds = MockRdsImpl::default();
@@ -107,7 +113,9 @@ async fn test_scenario_set_engine_param_group_exists() {
 
     assert!(set_engine.is_err());
 }
+// snippet-end:[rust.aurora.set_engine.test]
 
+// snippet-start:[rust.aurora.set_engines.test]
 #[tokio::test]
 async fn test_scenario_get_engines() {
     let mut mock_rds = MockRdsImpl::default();
@@ -177,7 +185,9 @@ async fn test_scenario_get_engines_failed() {
         Err(ScenarioError { message, context: _ }) if message == "Failed to retrieve DB Engine Versions"
     );
 }
+// snippet-end:[rust.aurora.set_engines.test]
 
+// snippet-start:[rust.aurora.get_instance_classes.test]
 #[tokio::test]
 async fn test_scenario_get_instance_classes() {
     let mut mock_rds = MockRdsImpl::default();
@@ -249,7 +259,9 @@ async fn test_scenario_get_instance_classes_error() {
         Err(ScenarioError {message, context: _}) if message == "Could not get available instance classes"
     );
 }
+// snippet-end:[rust.aurora.get_instance_classes.test]
 
+// snippet-start:[rust.aurora.get_cluster.test]
 #[tokio::test]
 async fn test_scenario_get_cluster() {
     let mut mock_rds = MockRdsImpl::default();
@@ -325,6 +337,7 @@ async fn test_scenario_get_cluster_error() {
 
     assert_matches!(cluster, Err(ScenarioError { message, context: _ }) if message == "Failed to get cluster");
 }
+// snippet-end:[rust.aurora.get_cluster.test]
 
 #[tokio::test]
 async fn test_scenario_connection_string() {
@@ -355,6 +368,7 @@ async fn test_scenario_connection_string() {
     );
 }
 
+// snippet-start:[rust.aurora.cluster_parameters.test]
 #[tokio::test]
 async fn test_scenario_cluster_parameters() {
     let mut mock_rds = MockRdsImpl::default();
@@ -414,7 +428,9 @@ async fn test_scenario_cluster_parameters_error() {
     let params = scenario.cluster_parameters().await;
     assert_matches!(params, Err(ScenarioError { message, context: _ }) if message == "Failed to retrieve parameters for RustSDKCodeExamplesDBParameterGroup");
 }
+// snippet-end:[rust.aurora.cluster_parameters.test]
 
+// snippet-start:[rust.aurora.update_auto_increment.test]
 #[tokio::test]
 async fn test_scenario_update_auto_increment() {
     let mut mock_rds = MockRdsImpl::default();
@@ -471,7 +487,9 @@ async fn test_scenario_update_auto_increment_error() {
     let update = scenario.update_auto_increment(10, 20).await;
     assert_matches!(update, Err(ScenarioError { message, context: _}) if message == "Failed to modify cluster parameter group");
 }
+// snippet-end:[rust.aurora.update_auto_increment.test]
 
+// snippet-start:[rust.aurora.start_cluster_and_instance.test]
 #[tokio::test]
 async fn test_start_cluster_and_instance() {
     let mut mock_rds = MockRdsImpl::default();
@@ -762,7 +780,9 @@ async fn test_start_cluster_and_instance_wait_hiccup() {
     tokio::time::resume();
     let _ = assertions.await;
 }
+// snippet-end:[rust.aurora.start_cluster_and_instance.test]
 
+// snippet-start:[rust.aurora.clean_up.test]
 #[tokio::test]
 async fn test_scenario_clean_up() {
     let mut mock_rds = MockRdsImpl::default();
@@ -938,7 +958,9 @@ async fn test_scenario_clean_up_errors() {
     tokio::time::resume();
     let _ = assertions.await;
 }
+// snippet-end:[rust.aurora.clean_up.test]
 
+// snippet-start:[rust.aurora.snapshot.test]
 #[tokio::test]
 async fn test_scenario_snapshot() {
     let mut mock_rds = MockRdsImpl::default();
@@ -1003,3 +1025,4 @@ async fn test_scenario_snapshot_invalid() {
     let create_snapshot = scenario.snapshot("MockSnapshot").await;
     assert_matches!(create_snapshot, Err(ScenarioError { message, context: _}) if message == "Missing Snapshot");
 }
+// snippet-end:[rust.aurora.snapshot.test]

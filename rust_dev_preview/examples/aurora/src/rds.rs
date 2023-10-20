@@ -55,6 +55,7 @@ impl RdsImpl {
         RdsImpl { inner }
     }
 
+    // snippet-start:[rust.aurora.describe_db_engine_versions.wrapper]
     pub async fn describe_db_engine_versions(
         &self,
         engine: &str,
@@ -65,7 +66,9 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.describe_db_engine_versions.wrapper]
 
+    // snippet-start:[rust.aurora.describe_orderable_db_instance_options.wrapper]
     pub async fn describe_orderable_db_instance_options(
         &self,
         engine: &str,
@@ -82,7 +85,9 @@ impl RdsImpl {
             .try_collect()
             .await
     }
+    // snippet-end:[rust.aurora.describe_orderable_db_instance_options.wrapper]
 
+    // snippet-start:[rust.aurora.create_db_cluster_parameter_group.wrapper]
     pub async fn create_db_cluster_parameter_group(
         &self,
         name: &str,
@@ -98,7 +103,9 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.create_db_cluster_parameter_group.wrapper]
 
+    // snippet-start:[rust.aurora.describe_db_clusters.wrapper]
     pub async fn describe_db_clusters(
         &self,
         id: &str,
@@ -109,7 +116,9 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.describe_db_clusters.wrapper]
 
+    // snippet-start:[rust.aurora.describe_db_cluster_parameters.wrapper]
     pub async fn describe_db_cluster_parameters(
         &self,
         name: &str,
@@ -123,7 +132,9 @@ impl RdsImpl {
             .try_collect()
             .await
     }
+    // snippet-end:[rust.aurora.describe_db_cluster_parameters.wrapper]
 
+    // snippet-start:[rust.aurora.modify_db_cluster_parameter_group.wrapper]
     pub async fn modify_db_cluster_parameter_group(
         &self,
         name: &str,
@@ -137,7 +148,9 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.modify_db_cluster_parameter_group.wrapper]
 
+    // snippet-start:[rust.aurora.create_db_cluster.wrapper]
     pub async fn create_db_cluster(
         &self,
         name: &str,
@@ -158,7 +171,9 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.create_db_cluster.wrapper]
 
+    // snippet-start:[rust.aurora.create_db_instance.wrapper]
     pub async fn create_db_instance(
         &self,
         cluster_name: &str,
@@ -175,7 +190,9 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.create_db_instance.wrapper]
 
+    // snippet-start:[rust.aurora.describe_db_instance.wrapper]
     pub async fn describe_db_instance(
         &self,
         instance_identifier: &str,
@@ -186,7 +203,9 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.describe_db_instance.wrapper]
 
+    // snippet-start:[rust.aurora.create_db_cluster_snapshot.wrapper]
     pub async fn snapshot_cluster(
         &self,
         db_cluster_identifier: &str,
@@ -199,13 +218,17 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.create_db_cluster_snapshot.wrapper]
 
+    // snippet-start:[rust.aurora.describe_db_instances.wrapper]
     pub async fn describe_db_instances(
         &self,
     ) -> Result<DescribeDbInstancesOutput, SdkError<DescribeDBInstancesError>> {
         self.inner.describe_db_instances().send().await
     }
+    // snippet-end:[rust.aurora.describe_db_instances.wrapper]
 
+    // snippet-start:[rust.aurora.describe_db_cluster_endpoints.wrapper]
     pub async fn describe_db_cluster_endpoints(
         &self,
         cluster_identifier: &str,
@@ -216,7 +239,9 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.describe_db_cluster_endpoints.wrapper]
 
+    // snippet-start:[rust.aurora.delete_db_instance.wrapper]
     pub async fn delete_db_instance(
         &self,
         instance_identifier: &str,
@@ -228,7 +253,9 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.delete_db_instance.wrapper]
 
+    // snippet-start:[rust.aurora.delete_db_cluster.wrapper]
     pub async fn delete_db_cluster(
         &self,
         cluster_identifier: &str,
@@ -240,7 +267,9 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.delete_db_cluster.wrapper]
 
+    // snippet-start:[rust.aurora.delete_db_cluster_parameter_group.wrapper]
     pub async fn delete_db_cluster_parameter_group(
         &self,
         name: &str,
@@ -252,4 +281,5 @@ impl RdsImpl {
             .send()
             .await
     }
+    // snippet-end:[rust.aurora.delete_db_cluster_parameter_group.wrapper]
 }
