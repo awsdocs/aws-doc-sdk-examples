@@ -70,7 +70,7 @@ Resources:
           table_name:
             Ref: docexamplewebsocketchat902A2E60
       Handler: lambda_chat.lambda_handler
-      Runtime: python3.7
+      Runtime: python3.11
     DependsOn:
       - docexampleapigatewaywebsocketchatDefaultPolicyDC1046A1
       - docexampleapigatewaywebsocketchatE8890FEB

@@ -77,7 +77,7 @@ Resources:
           - docexamplestepfunctionslambdamessagesroleA963E816
           - Arn
       Handler: index.lambda_handler
-      Runtime: python3.7
+      Runtime: python3.11
     DependsOn:
       - docexamplestepfunctionslambdamessagesroleDefaultPolicy2726D8C5
       - docexamplestepfunctionslambdamessagesroleA963E816
