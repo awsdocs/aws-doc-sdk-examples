@@ -1215,7 +1215,7 @@ aurora_Scenario_GetStartedClusters:
                 - rust_dev_preview/examples/aurora/src/aurora_scenario/mod.rs
             - description: Tests for the library using automocks around the RDS Client wrapper.
               snippet_files:
-                - rust_dev_preview/examples/aurora/src/aurora_scenario/test.rs
+                - rust_dev_preview/examples/aurora/src/aurora_scenario/tests.rs
             - description: A binary to run the scenario from front to end, using inquirer to allow the user to make some decisions.
               snippet_files:
                 - rust_dev_preview/examples/aurora/src/bin/aurora-scenario.rs
