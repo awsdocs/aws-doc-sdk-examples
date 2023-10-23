@@ -115,7 +115,7 @@ async fn test_scenario_set_engine_param_group_exists() {
 }
 // snippet-end:[rust.aurora.set_engine.test]
 
-// snippet-start:[rust.aurora.set_engines.test]
+// snippet-start:[rust.aurora.get_engines.test]
 #[tokio::test]
 async fn test_scenario_get_engines() {
     let mut mock_rds = MockRdsImpl::default();
@@ -185,7 +185,7 @@ async fn test_scenario_get_engines_failed() {
         Err(ScenarioError { message, context: _ }) if message == "Failed to retrieve DB Engine Versions"
     );
 }
-// snippet-end:[rust.aurora.set_engines.test]
+// snippet-end:[rust.aurora.get_engines.test]
 
 // snippet-start:[rust.aurora.get_instance_classes.test]
 #[tokio::test]

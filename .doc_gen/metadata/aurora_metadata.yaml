@@ -328,9 +328,9 @@ aurora_DescribeDBClusterParameters:
           github: rust_dev_preview/examples/aurora
           excerpts:
             - snippet_tags:
-                - rust.aurora.cluster_parameter.usage
+                - rust.aurora.cluster_parameters.usage
                 - rust.aurora.describe_db_cluster_parameters.wrapper
-                - rust.aurora.cluster_parameter.test
+                - rust.aurora.cluster_parameters.test
   services:
     aurora: {DescribeDBClusterParameters}
 aurora_ModifyDBClusterParameterGroup:
