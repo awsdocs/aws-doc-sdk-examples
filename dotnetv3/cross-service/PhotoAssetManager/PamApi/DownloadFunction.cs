@@ -81,7 +81,7 @@ public class DownloadFunction
         }
         catch (Exception e)
         {
-            Logger.LogError(e,$"Error starting download.");
+            Logger.LogError(e, $"Error starting download.");
             throw;
         }
     }

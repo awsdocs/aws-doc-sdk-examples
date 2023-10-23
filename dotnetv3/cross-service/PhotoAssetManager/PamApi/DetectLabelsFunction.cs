@@ -67,7 +67,7 @@ public class DetectLabelsFunction
         var s3Event = evnt.Records?[0].S3;
         try
         {
-           Logger.LogInformation($"Processing object {s3Event!.Object.Key} from bucket {s3Event.Bucket.Name}");
+            Logger.LogInformation($"Processing object {s3Event!.Object.Key} from bucket {s3Event.Bucket.Name}");
 
             var detectedLabels = await _imageService.DetectLabels(s3Event.Object.Key, s3Event.Bucket.Name);
             await _labelService.AddImageLabels(s3Event.Object.Key, detectedLabels);
