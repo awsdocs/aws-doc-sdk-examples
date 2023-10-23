@@ -9,6 +9,7 @@ using Amazon.Lambda.S3Events;
 using Amazon.Rekognition;
 using Amazon.S3;
 using Amazon.Util;
+using AWS.Lambda.Powertools.Logging;
 using PamServices;
 
 // Assembly attribute to enable the AWS Lambda function's JSON input to be converted into a .NET class.
@@ -66,19 +67,16 @@ public class DetectLabelsFunction
         var s3Event = evnt.Records?[0].S3;
         try
         {
-            context.Logger.LogInformation(
-                $"Processing object {s3Event!.Object.Key} from bucket {s3Event.Bucket.Name}");
+            Logger.LogInformation($"Processing object {s3Event!.Object.Key} from bucket {s3Event.Bucket.Name}");
 
             var detectedLabels = await _imageService.DetectLabels(s3Event.Object.Key, s3Event.Bucket.Name);
             await _labelService.AddImageLabels(s3Event.Object.Key, detectedLabels);
-            context.Logger.LogInformation(
-                $"Added labels {string.Join(',', detectedLabels)}");
+            Logger.LogInformation($"Added labels {string.Join(',', detectedLabels)}");
         }
         catch (Exception e)
         {
-            context.Logger.LogInformation($"Error getting object {s3Event!.Object.Key} from bucket {s3Event.Bucket.Name}. Make sure they exist and your bucket is in the same region as this function.");
-            context.Logger.LogInformation(e.Message);
-            context.Logger.LogInformation(e.StackTrace);
+            Logger.LogError($"Error getting object {s3Event!.Object.Key} from bucket {s3Event.Bucket.Name}. " +
+                            $"Make sure they exist and your bucket is in the same region as this function.", e);
             throw;
         }
     }

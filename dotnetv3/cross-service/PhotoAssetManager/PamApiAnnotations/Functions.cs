@@ -4,6 +4,7 @@ using Amazon.Lambda.Annotations;
 using Amazon.Lambda.Annotations.APIGateway;
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
+using AWS.Lambda.Powertools.Logging;
 using PamServices;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
@@ -36,7 +37,7 @@ namespace PamApiAnnotations
         [HttpApi(LambdaHttpMethod.Get, "/labels")]
         public async Task<APIGatewayHttpApiV2ProxyResponse> GetLabels(ILambdaContext context)
         {
-            context.Logger.Log($"Test logging: getting labels.");
+            Logger.LogInformation($"Getting labels.");
             var allLabels = await _labelService.GetAllItems();
             var labelsResponse = new LabelsResponse(allLabels.ToList());
 
