@@ -8,7 +8,7 @@ use std::fmt::Display;
 use anyhow::anyhow;
 use aws_sdk_rds::Client;
 use inquire::{validator::StringValidator, CustomUserError};
-use rds_code_examples::aurora_scenario::{AuroraScenario, ScenarioError};
+use aurora_code_examples::{rds::Rds as RdsClient, aurora_scenario::{AuroraScenario, ScenarioError}};
 use secrecy::SecretString;
 use tracing::warn;
 
@@ -54,7 +54,7 @@ fn select(
 // Prepare the Aurora Scenario. Prompt for several settings that are optional to the Scenario, but that the user should choose for the demo.
 // This includes the engine, engine version, and instance class.
 async fn prepare_scenario(
-    rds: rds_code_examples::rds::Rds,
+    rds: RdsClient,
 ) -> Result<AuroraScenario, anyhow::Error> {
     let mut scenario = AuroraScenario::new(rds);
 
@@ -191,7 +191,7 @@ async fn main() -> Result<(), anyhow::Error> {
     tracing_subscriber::fmt::init();
     let sdk_config = aws_config::from_env().load().await;
     let client = Client::new(&sdk_config);
-    let rds = rds_code_examples::rds::Rds::new(client);
+    let rds = RdsClient::new(client);
     let mut scenario = prepare_scenario(rds).await?;
 
     // At this point, the scenario has things in AWS and needs to get cleaned up.
