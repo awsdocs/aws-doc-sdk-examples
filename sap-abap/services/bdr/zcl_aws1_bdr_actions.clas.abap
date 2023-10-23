@@ -42,15 +42,15 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_bdr) = /aws1/cl_bdr_factory=>create( lo_session ).
     "snippet-start:[bdr.abapv1.invokemodel_claude_v2]
-    " Claude V2 Input Parameters should be in a format like this:
-* {
-*   "prompt":"\n\nHuman:\\nTell me a joke\n\nAssistant:\n",
-*   "max_tokens_to_sample":2048,
-*   "temperature":0.5,
-*   "top_k":250,
-*   "top_p":1.0,
-*   "stop_sequences":[]}
-* }
+    "Claude V2 Input Parameters should be in a format like this:
+*   {
+*     "prompt":"\n\nHuman:\\nTell me a joke\n\nAssistant:\n",
+*     "max_tokens_to_sample":2048,
+*     "temperature":0.5,
+*     "top_k":250,
+*     "top_p":1.0,
+*     "stop_sequences":[]
+*   }
 
     DATA: BEGIN OF ls_input,
             prompt               TYPE string,
@@ -61,14 +61,14 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
             stop_sequences       TYPE /aws1/rt_stringtab,
           END OF ls_input.
 
-    " leave ls_input-stop_sequences empty.
+    "Leave ls_input-stop_sequences empty.
     ls_input-prompt = |\n\nHuman:\\n{ iv_prompt }\n\nAssistant:\n|.
     ls_input-max_tokens_to_sample = 2048.
     ls_input-temperature = '0.5'.
     ls_input-top_k = 250.
     ls_input-top_p = 1.
 
-    " serialize into JSON with /ui2/cl_json -- this assumes SAP_UI is installed.
+    "Serialize into JSON with /ui2/cl_json -- this assumes SAP_UI is installed.
     DATA(lv_json) = /ui2/cl_json=>serialize(
       EXPORTING data = ls_input
                 pretty_name   = /ui2/cl_json=>pretty_mode-low_case ).
@@ -81,11 +81,11 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
           iv_contenttype = 'application/json'
         ).
 
-        " Claude V2 Response format will be:
-* {
-*   "completion": "Knock Knock...",
-*   "stop_reason": "stop_sequence"
-* }
+        "Claude V2 Response format will be:
+*       {
+*         "completion": "Knock Knock...",
+*         "stop_reason": "stop_sequence"
+*       }
         DATA: BEGIN OF ls_response,
                 completion  TYPE string,
                 stop_reason TYPE string,
@@ -100,7 +100,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
       CATCH /aws1/cx_bdraccessdeniedex INTO DATA(lo_ex).
         WRITE: / lo_ex->get_text( ).
         WRITE: / |Don't forget to enable model access at https://us-west-2.console.aws.amazon.com/bedrock/home?#/modelaccess|.
-        " catch other exceptions as desired...
+        "Catch other exceptions as desired...
     ENDTRY.
     "snippet-end:[bdr.abapv1.invokemodel_claude_v2]
     ov_answer = lv_answer.
@@ -113,16 +113,16 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
     DATA(lo_session) = /aws1/cl_rt_session_aws=>create( cv_pfl ).
     DATA(lo_bdr) = /aws1/cl_bdr_factory=>create( lo_session ).
     "snippet-start:[bdr.abapv1.invokemodel_stable_diffusion]
-    " Stable Diffusion Input Parameters should be in a format like this:
-* {
-*   "text_prompts": [
-*     {"text":"Draw a dolphin with a mustache"},
-*     {"text":"Make it photorealistic"}
-*   ],
-*   "cfg_scale":10,
-*   "seed":0,
-*   "steps":50
-* }
+    "Stable Diffusion Input Parameters should be in a format like this:
+*   {
+*     "text_prompts": [
+*       {"text":"Draw a dolphin with a mustache"},
+*       {"text":"Make it photorealistic"}
+*     ],
+*     "cfg_scale":10,
+*     "seed":0,
+*     "steps":50
+*   }
     TYPES: BEGIN OF prompt_ts,
              text TYPE /aws1/rt_shape_string,
            END OF prompt_ts.
@@ -151,17 +151,17 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
           iv_contenttype = 'application/json'
         ).
 
-        " Stable Diffusion Result Format:
-* {
-*   "result": "success",
-*   "artifacts": [
-*     {
-*       "seed": 0,
-*       "base64": "iVBORw0KGgoAAAANSUhEUgAAAgAAA....
-*       "finishReason": "SUCCESS"
-*     }
-*   ]
-* }
+        "Stable Diffusion Result Format:
+*       {
+*         "result": "success",
+*         "artifacts": [
+*           {
+*             "seed": 0,
+*             "base64": "iVBORw0KGgoAAAANSUhEUgAAAgAAA....
+*             "finishReason": "SUCCESS"
+*           }
+*         ]
+*       }
         TYPES: BEGIN OF artifact_ts,
                  seed         TYPE /aws1/rt_shape_integer,
                  base64       TYPE /aws1/rt_shape_string,
@@ -183,7 +183,7 @@ CLASS ZCL_AWS1_BDR_ACTIONS IMPLEMENTATION.
       CATCH /aws1/cx_bdraccessdeniedex INTO DATA(lo_ex).
         WRITE: / lo_ex->get_text( ).
         WRITE: / |Don't forget to enable model access at https://us-west-2.console.aws.amazon.com/bedrock/home?#/modelaccess|.
-        " catch other exceptions as desired...
+        "Catch other exceptions as desired...
     ENDTRY.
 
     "snippet-end:[bdr.abapv1.invokemodel_stable_diffusion]
