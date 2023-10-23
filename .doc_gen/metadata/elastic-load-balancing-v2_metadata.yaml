@@ -39,6 +39,15 @@ elastic-load-balancing-v2_CreateTargetGroup:
   synopsis: create an ELB target group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/resilient_service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javav2.cross_service.resilient_service.elbv2.CreateTargetGroup
     Python:
       versions:
         - sdk_version: 3
