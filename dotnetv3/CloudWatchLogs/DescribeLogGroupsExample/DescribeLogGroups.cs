@@ -34,28 +34,32 @@ namespace DescribeLogGroupsExample
 
             DescribeLogGroupsResponse response;
 
-              do
-              {
-                  if(newToken is not null){
+            do
+            {
+                if (newToken is not null)
+                {
                     request.NextToken = newToken;
-                  }
-                  response = await client.DescribeLogGroupsAsync(request);
+                }
 
-                  response.LogGroups.ForEach(lg =>
-                  {
-                      Console.WriteLine($"{lg.LogGroupName} is associated with the key: {lg.KmsKeyId}.");
-                      Console.WriteLine($"Created on: {lg.CreationTime.Date.Date}");
-                      Console.WriteLine($"Date for this group will be stored for: {lg.RetentionInDays} days.\n");
-                  });
+                response = await client.DescribeLogGroupsAsync(request);
 
-                  if(response.NextToken is null){
+                response.LogGroups.ForEach(lg =>
+                {
+                    Console.WriteLine($"{lg.LogGroupName} is associated with the key: {lg.KmsKeyId}.");
+                    Console.WriteLine($"Created on: {lg.CreationTime.Date.Date}");
+                    Console.WriteLine($"Date for this group will be stored for: {lg.RetentionInDays} days.\n");
+                });
+
+                if (response.NextToken is null)
+                {
                     done = true;
-                  } else {
+                }
+                else
+                {
                     newToken = response.NextToken;
-                  }
-              }
-              while (!done);
-        }
+                }
+            }
+            while (!done);
         }
     }
 
