@@ -66,6 +66,15 @@ elastic-load-balancing-v2_DeleteTargetGroup:
   synopsis: delete an ELB  target group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/resilient_service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javav2.cross_service.resilient_service.elbv2.DeleteTargetGroup
     Python:
       versions:
         - sdk_version: 3
@@ -84,6 +93,15 @@ elastic-load-balancing-v2_CreateLoadBalancer:
   synopsis: create an ELB Application Load Balancer.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/resilient_service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javav2.cross_service.resilient_service.elbv2.CreateLoadBalancer
     Python:
       versions:
         - sdk_version: 3
@@ -102,6 +120,15 @@ elastic-load-balancing-v2_CreateListener:
   synopsis: create a listener that forwards requests from an ELB load balancer to a target group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/resilient_service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javav2.cross_service.resilient_service.elbv2.CreateListener
     Python:
       versions:
         - sdk_version: 3
@@ -120,6 +147,15 @@ elastic-load-balancing-v2_DeleteLoadBalancer:
   synopsis: delete an ELB load balancer.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/resilient_service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javav2.cross_service.resilient_service.elbv2.DeleteLoadBalancer
     Python:
       versions:
         - sdk_version: 3
@@ -138,6 +174,15 @@ elastic-load-balancing-v2_DescribeTargetHealth:
   synopsis: get the health of instances in an ELB target group.
   category:
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/resilient_service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javav2.cross_service.resilient_service.elbv2.DescribeTargetHealth
     Python:
       versions:
         - sdk_version: 3
