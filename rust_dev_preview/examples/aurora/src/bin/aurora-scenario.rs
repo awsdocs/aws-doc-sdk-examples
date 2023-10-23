@@ -6,9 +6,12 @@
 use std::fmt::Display;
 
 use anyhow::anyhow;
+use aurora_code_examples::{
+    aurora_scenario::{AuroraScenario, ScenarioError},
+    rds::Rds as RdsClient,
+};
 use aws_sdk_rds::Client;
 use inquire::{validator::StringValidator, CustomUserError};
-use aurora_code_examples::{rds::Rds as RdsClient, aurora_scenario::{AuroraScenario, ScenarioError}};
 use secrecy::SecretString;
 use tracing::warn;
 
@@ -53,9 +56,7 @@ fn select(
 
 // Prepare the Aurora Scenario. Prompt for several settings that are optional to the Scenario, but that the user should choose for the demo.
 // This includes the engine, engine version, and instance class.
-async fn prepare_scenario(
-    rds: RdsClient,
-) -> Result<AuroraScenario, anyhow::Error> {
+async fn prepare_scenario(rds: RdsClient) -> Result<AuroraScenario, anyhow::Error> {
     let mut scenario = AuroraScenario::new(rds);
 
     // Get available engine families for Aurora MySql. rds.DescribeDbEngineVersions(Engine='aurora-mysql') and build a set of the 'DBParameterGroupFamily' field values. I get {aurora-mysql8.0, aurora-mysql5.7}.
