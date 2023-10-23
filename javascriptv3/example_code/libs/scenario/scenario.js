@@ -16,11 +16,22 @@ export class Step {
   }
 
   /**
-   * @param {Record<string, any>} context
+   * @param {Record<string, any>} context,
+   * @param {{ verbose: boolean }} options
    */
-  handle(context) {
-    console.log(JSON.stringify(context));
-    return Promise.resolve();
+  handle(context, { verbose }) {
+    if (verbose) {
+      console.log(
+        `[DEBUG ${new Date().toISOString()}] Handling step: ${
+          this.constructor.name
+        }<${this.name}>`,
+      );
+      console.log(
+        `[DEBUG ${new Date().toISOString()}] Context: ${JSON.stringify(
+          context,
+        )}`,
+      );
+    }
   }
 }
 
@@ -40,8 +51,11 @@ export class ScenarioOutput extends Step {
 
   /**
    * @param {Record<string, any>} context
+   * @param {{ verbose: boolean }} options
    */
-  async handle(context) {
+  async handle(context, options) {
+    super.handle(context, options);
+
     const output =
       typeof this.value === "function" ? this.value(context) : this.value;
     const paddingTop = "\n";
@@ -72,9 +86,11 @@ export class ScenarioInput extends Step {
 
   /**
    * @param {Record<string, any>} context
-   * @param {boolean} confirmAll
+   * @param {{ confirmAll: boolean, verbose: boolean }} options
    */
-  async handle(context, confirmAll = false) {
+  async handle(context, options) {
+    super.handle(context, options);
+
     const choices =
       this.options.choices && typeof this.options.choices[0] === "string"
         ? this.options.choices.map((s) => ({ name: s, value: s }))
@@ -93,7 +109,7 @@ export class ScenarioInput extends Step {
     } else if (this.options.type === "input") {
       context[this.name] = await this.prompter.input({ message: this.prompt });
     } else if (this.options.type === "confirm") {
-      if (confirmAll) {
+      if (options.confirmAll) {
         return;
       }
 
@@ -118,7 +134,12 @@ export class ScenarioAction extends Step {
     this.action = action;
   }
 
-  async handle(context) {
+  /**
+   * @param {Record<string, any>} context
+   * @param {{ verbose: boolean }} options
+   */
+  async handle(context, options) {
+    super.handle(context, options);
     await this.action(context);
   }
 }
@@ -141,11 +162,11 @@ export class Scenario {
   }
 
   /**
-   * @param {{ confirmAll: boolean }} runConfig
+   * @param {{ confirmAll: boolean, verbose: boolean }} runConfig
    */
-  async run({ confirmAll }) {
+  async run(runConfig) {
     for (const step of this.steps) {
-      await step.handle(this.context, confirmAll);
+      await step.handle(this.context, runConfig);
     }
   }
 }
