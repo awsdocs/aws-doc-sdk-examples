@@ -2,8 +2,11 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0
  */
+import { join } from "node:path";
+import { readFileSync } from "node:fs";
 
 import {
+  BatchWriteItemCommand,
   CreateTableCommand,
   DynamoDBClient,
   waitUntilTableExists,
@@ -15,7 +18,7 @@ import {
   ScenarioAction,
 } from "@aws-sdk-examples/libs/scenario/index.js";
 
-import { MESSAGES } from "./messages.js";
+import { MESSAGES, PATHS } from "./constants.js";
 
 /**
  * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
@@ -67,5 +70,35 @@ export const deploySteps = [
   }),
   new ScenarioOutput("createTableResult", (c) => {
     return MESSAGES.createdTable.replace("${TABLE_NAME}", c.tableName);
+  }),
+  new ScenarioOutput("populatingTable", (c) => {
+    return MESSAGES.populatingTable.replace("${TABLE_NAME}", c.tableName);
+  }),
+  new ScenarioAction("populateTable", (c) => {
+    const client = new DynamoDBClient({});
+    /**
+     * @type {{ default: import("@aws-sdk/client-dynamodb").PutRequest['Item'][] }}
+     */
+    const recommendations = JSON.parse(
+      readFileSync(
+        join(
+          PATHS.projectRoot,
+          "workflows/resilient_service/resources/recommendations.json",
+        ),
+      ),
+    );
+
+    return client.send(
+      new BatchWriteItemCommand({
+        RequestItems: {
+          [c.tableName]: recommendations.map((i) => ({
+            PutRequest: { Item: i },
+          })),
+        },
+      }),
+    );
+  }),
+  new ScenarioOutput("populateTableResult", (c) => {
+    return MESSAGES.populatedTable.replace("${TABLE_NAME}", c.tableName);
   }),
 ];

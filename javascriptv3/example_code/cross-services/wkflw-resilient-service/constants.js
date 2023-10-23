@@ -3,6 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { resolve } from "node:path";
+
 export const MESSAGES = {
   introduction: `Welcome to the demonstration of How to Build and Manage a Resilient Service!
 For this demo, we'll use an AWS SDK to create several AWS resources to set up a load-balanced web service endpoint and explore some ways to make it resilient against various kinds of failures.
@@ -14,7 +16,13 @@ Some of the resources create by this demo are:
   confirmDeployment: "Are you ready to deploy resources?",
   creatingTable: "Creating table: ${TABLE_NAME}",
   createdTable: "Created table: ${TABLE_NAME}",
+  populatingTable: "Populating table: ${TABLE_NAME}",
+  populatedTable: "Populated table: ${TABLE_NAME}",
   destroy: "Destroy resources?",
   deletedTable: "Deleted table: ${TABLE_NAME}",
   deleteTableError: "Error deleting table: ${TABLE_NAME}",
+};
+
+export const PATHS = {
+  projectRoot: resolve("../../../../"),
 };

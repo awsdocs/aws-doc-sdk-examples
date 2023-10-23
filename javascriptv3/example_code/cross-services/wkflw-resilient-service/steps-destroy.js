@@ -11,7 +11,7 @@ import {
   ScenarioAction,
 } from "@aws-sdk-examples/libs/scenario/index.js";
 
-import { MESSAGES } from "./messages.js";
+import { MESSAGES } from "./constants.js";
 
 /**
  * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
