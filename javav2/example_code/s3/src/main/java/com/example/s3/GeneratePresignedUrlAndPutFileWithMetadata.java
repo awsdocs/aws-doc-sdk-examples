@@ -51,14 +51,15 @@ public class GeneratePresignedUrlAndPutFileWithMetadata {
         String keyName = "k-" + UUID.randomUUID();
         String resourcePath = "multipartUploadFiles/s3-userguide.pdf";
         String contentType = "application/pdf";
+        // Uncomment the following two lines and comment out the previous two lines to use an image file instead of a PDF file.
+        //String resourcePath = "image.png";
+        //String contentType = "image/png";
 
         Map<String, String> metadata = Map.of(
                 "author", "Mary Doe",
                 "version", "1.0.0.0"
         );
 
-        //String resourcePath = "image.png";
-        //String contentType = "image/png";
 
         PresignUrlUtils.createBucket(bucketName, s3Client);
         GeneratePresignedUrlAndPutFileWithMetadata presign = new GeneratePresignedUrlAndPutFileWithMetadata();
@@ -73,7 +74,6 @@ public class GeneratePresignedUrlAndPutFileWithMetadata {
     }
 
     // snippet-start:[presigned.java2.generatepresignedurlandputfilewithmetadata.main]
-
     /**
      * Create a presigned URL for uploading with a PUT request.
      * @param bucketName  - The name of the bucket.
