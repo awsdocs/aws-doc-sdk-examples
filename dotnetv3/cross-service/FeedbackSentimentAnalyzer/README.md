@@ -19,4 +19,4 @@ This document discusses the language-specific nuances of deploying the Feedback 
 ### .NET Implementation Details
  - This example includes AWS Lambda functions for the various operations of the Feedback Sentiment Analyzer.
  - Each function was created using the AWS Lambda Template from the [AWS Toolkit for Visual Studio](https://aws.amazon.com/visualstudio/).
- - Each function also uses [Powertools for AWS Lamba (.NET)](https://github.com/aws-powertools/powertools-lambda-dotnet) for enhanced logging.
+ - Each function also uses [Powertools for AWS Lambda (.NET)](https://github.com/aws-powertools/powertools-lambda-dotnet) for enhanced logging.
