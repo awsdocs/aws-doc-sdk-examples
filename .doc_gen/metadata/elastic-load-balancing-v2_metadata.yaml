@@ -4,6 +4,15 @@ elastic-load-balancing-v2_Hello:
   synopsis: get started using &ELB;.
   category: Hello
   languages:
+    Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/resilient_service
+          sdkguide:
+          excerpts:
+            - description:
+              snippet_tags:
+                - javav2.example_code.elbv2.Hello
     Python:
       versions:
         - sdk_version: 3
