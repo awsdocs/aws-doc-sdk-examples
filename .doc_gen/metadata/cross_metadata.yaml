@@ -640,7 +640,27 @@ cross_ResilientService:
     - Control web server response to requests and health checks by updating &SYSlong; parameters.
   category: Scenarios
   languages:
-    Python:
+     Java:
+      versions:
+        - sdk_version: 2
+          github: javav2/usecases/resilient_service
+          excerpts:
+            - description: Run the interactive scenario at a command prompt.
+              snippet_tags:
+                - javav2.example_code.workflow.ResilientService_Runner
+            - description: Create a class that wraps &AS; and &EC2; actions.
+              snippet_tags:
+                - javav2.example_code.workflow.ResilientService_AutoScaler
+            - description: Create a class that wraps &ELB; actions.
+              snippet_tags:
+                - javav2.example_code.workflow.ResilientService_LoadBalancer
+            - description: Create a class that uses &DDB; to simulate a recommendation service.
+              snippet_tags:
+                - javav2.example_code.workflow.ResilientService_RecommendationService
+            - description: Create a class that wraps &SYS; actions.
+              snippet_tags:
+                - javav2.example_code.workflow.ResilientService_ParameterHelper
+       Python:
       versions:
         - sdk_version: 3
           github: python/cross_service/resilient_service

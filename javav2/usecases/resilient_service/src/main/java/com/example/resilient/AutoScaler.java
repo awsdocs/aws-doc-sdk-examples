@@ -64,6 +64,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+// snippet-start:[javav2.example_code.workflow.ResilientService_AutoScaler]
 public class AutoScaler {
 
     private static Ec2Client ec2Client;
@@ -547,5 +548,5 @@ public class AutoScaler {
         System.out.println(InstanceProfile +" Deleted");
         System.out.println("All roles and policies are deleted.");
     }
-
 }
+// snippet-end:[javav2.example_code.workflow.ResilientService_AutoScaler]

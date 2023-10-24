@@ -5,7 +5,6 @@
 
 package com.example.resilient;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,7 +22,31 @@ import org.apache.http.impl.client.HttpClients;
 import software.amazon.awssdk.services.autoscaling.model.AutoScalingException;
 import software.amazon.awssdk.services.ec2.model.Subnet;
 import software.amazon.awssdk.services.elasticloadbalancingv2.model.TargetHealthDescription;
+/**
+ *  Before running this Java V2 code example, set up your development environment, including your credentials.
+ *
+ *  For more information, see the following documentation topic:
+ *
+ *  <a href="https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html">...</a>
+ *
+ *  In addition, set these values:
+ *
+ * 1. fileName - The location of the recommendations.json (you can locate this file in python/cross_service/resilient_service).
+ * 2. tableName - The name of the Amazon DynamoDB table.
+ * 3. startScript - The location of the server_startup_script.sh script (you can locate this file in workflows/resilient_service/resources).
+ * 4. policyFile - the location of the instance_policy.json  (you can locate this file in workflows/resilient_service/resources).
+ * 5. ssmJSON - the location of the ssm_only_policy.json (you can locate this file in workflows/resilient_service/resources).
+ * 6. templateBody - The name of the template.
+ * 7. roleName - The name of the role.
+ * 8. policyName - The name of the policy.
+ * 9. profileName - The name of the profile.
+ * 10. templateBody - The name of the target group.
+ * 11. autoScalingGroupName - The name of the auto-scaling group.
+ * 12. lbName - The name of the load balancer.
+ */
 
+
+// snippet-start:[javav2.example_code.workflow.ResilientService_Runner]
 public class Main {
 
     public static final String fileName = "C:\\AWS\\resworkflow\\recommendations.json";
@@ -434,9 +457,9 @@ public class Main {
         }
     }
 
-
     public static String readFileAsString(String filePath) throws IOException {
         byte[] bytes = Files.readAllBytes(Paths.get(filePath));
         return new String(bytes);
     }
 }
+// snippet-end:[javav2.example_code.workflow.ResilientService_Runner]
