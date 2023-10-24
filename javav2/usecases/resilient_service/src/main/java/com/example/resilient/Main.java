@@ -49,11 +49,11 @@ import software.amazon.awssdk.services.elasticloadbalancingv2.model.TargetHealth
 // snippet-start:[javav2.example_code.workflow.ResilientService_Runner]
 public class Main {
 
-    public static final String fileName = "C:\\AWS\\resworkflow\\recommendations.json";
+    public static final String fileName = "C:\\AWS\\resworkflow\\recommendations.json"; // Modify file location.
     public static final String tableName = "doc-example-recommendation-service";
-    public static final String startScript = "C:\\AWS\\resworkflow\\server_startup_script.sh";
-    public static final String policyFile = "C:\\AWS\\resworkflow\\instance_policy.json";
-    public static final String ssmJSON = "C:\\AWS\\resworkflow\\ssm_only_policy.json";
+    public static final String startScript = "C:\\AWS\\resworkflow\\server_startup_script.sh"; // Modify file location.
+    public static final String policyFile = "C:\\AWS\\resworkflow\\instance_policy.json"; // Modify file location.
+    public static final String ssmJSON = "C:\\AWS\\resworkflow\\ssm_only_policy.json"; // Modify file location.
     public static final String failureResponse = "doc-example-resilient-architecture-failure-response";
     public static final String healthCheck = "doc-example-resilient-architecture-health-check";
     public static final String templateName = "doc-example-resilience-template" ;
@@ -90,7 +90,7 @@ public class Main {
         System.out.println("B - DEMO THE RESILIENCE FUNCTIONALITY");
         System.out.println("Press Enter when you're ready.");
         in.nextLine();
-     //   demo(loadBalancer);
+        demo(loadBalancer);
         System.out.println(DASHES);
 
         System.out.println(DASHES);
