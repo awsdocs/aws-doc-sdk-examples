@@ -61,7 +61,7 @@ async fn test_single_page() {
                     .uri("https://test-bucket-us-east-1.s3.us-east-1.amazonaws.com/?list-type=2&prefix=test-prefix")
                     .header("user-agent", "aws-sdk-rust/0.56.1 os/macos lang/rust/1.70.0")
                     .header("x-amz-user-agent", "aws-sdk-rust/0.56.1 api/s3/0.0.0-local os/macos lang/rust/1.70.0")
-                    .body(())
+                    .body(SdkBody::empty())
                     .unwrap(),
                 http::Response::builder()
                     .status(200)
@@ -94,7 +94,7 @@ async fn test_multiple_pages() {
                     .uri("https://test-bucket-us-east-1.s3.us-east-1.amazonaws.com/?list-type=2&prefix=test-prefix")
                     .header("user-agent", "aws-sdk-rust/0.56.1 os/macos lang/rust/1.70.0")
                     .header("x-amz-user-agent", "aws-sdk-rust/0.56.1 api/s3/0.0.0-local os/macos lang/rust/1.70.0")
-                    .body(())
+                    .body(SdkBody::empty())
                     .unwrap(),
                 http::Response::builder()
                     .status(200)
@@ -107,7 +107,7 @@ async fn test_multiple_pages() {
                     .uri("https://test-bucket-us-east-1.s3.us-east-1.amazonaws.com/?list-type=2&prefix=test-prefix&continuation-token=next")
                     .header("user-agent", "aws-sdk-rust/0.56.1 os/macos lang/rust/1.70.0")
                     .header("x-amz-user-agent", "aws-sdk-rust/0.56.1 api/s3/0.0.0-local os/macos lang/rust/1.70.0")
-                    .body(())
+                    .body(SdkBody::empty())
                     .unwrap(),
                 http::Response::builder()
                     .status(200)
@@ -119,7 +119,7 @@ async fn test_multiple_pages() {
     );
 
     // Run the code we want to test with it
-    let size = determine_prefix_file_size(mock, "some-bucket", "some-prefix")
+    let size = determine_prefix_file_size(client, "some-bucket", "some-prefix")
         .await
         .unwrap();
 
