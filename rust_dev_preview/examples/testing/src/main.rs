@@ -9,7 +9,12 @@ use aws_config::meta::region::RegionProviderChain;
 use aws_sdk_s3 as s3;
 // snippet-end:[testing.rust.intro-import]
 use clap::Parser;
-use std::error::Error;
+
+// The testing approaches imported as modules below
+mod enums;
+mod replay;
+mod traits;
+mod wrapper;
 
 #[derive(Debug, Parser)]
 struct Opt {
@@ -30,17 +35,13 @@ struct Opt {
     verbose: bool,
 }
 
-// The two testing approaches imported as modules below
-mod enums;
-mod traits;
-
 // snippet-start:[testing.rust.intro-function]
 // Lists all objects in an S3 bucket with the given prefix, and adds up their size.
 async fn determine_prefix_file_size(
     s3: s3::Client,
     bucket: &str,
     prefix: &str,
-) -> Result<usize, Box<dyn Error + Send + Sync + 'static>> {
+) -> Result<usize, s3::Error> {
     let mut next_token: Option<String> = None;
     let mut total_size_bytes = 0;
     loop {
@@ -69,7 +70,7 @@ async fn determine_prefix_file_size(
 // snippet-end:[testing.rust.intro-function]
 
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn Error + Send + Sync + 'static>> {
+async fn main() -> Result<(), s3::Error> {
     tracing_subscriber::fmt::init();
 
     let Opt {

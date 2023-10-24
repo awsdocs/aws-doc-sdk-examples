@@ -6,7 +6,6 @@
 #![allow(dead_code)]
 
 use aws_sdk_s3 as s3;
-use std::error::Error;
 
 // snippet-start:[testing.rust.enums-struct]
 pub struct ListObjectsResult {
@@ -35,7 +34,7 @@ impl ListObjects {
         bucket: &str,
         prefix: &str,
         continuation_token: Option<String>,
-    ) -> Result<ListObjectsResult, Box<dyn Error + Send + Sync + 'static>> {
+    ) -> Result<ListObjectsResult, s3::Error> {
         match self {
             Self::Real(s3) => {
                 Self::real_list_objects(s3.clone(), bucket, prefix, continuation_token).await
@@ -60,7 +59,7 @@ impl ListObjects {
         bucket: &str,
         prefix: &str,
         continuation_token: Option<String>,
-    ) -> Result<ListObjectsResult, Box<dyn Error + Send + Sync + 'static>> {
+    ) -> Result<ListObjectsResult, s3::Error> {
         let response = s3
             .list_objects_v2()
             .bucket(bucket)
@@ -81,7 +80,7 @@ impl ListObjects {
     fn test_list_objects(
         pages: &[Vec<s3::types::Object>],
         continuation_token: Option<String>,
-    ) -> Result<ListObjectsResult, Box<dyn Error + Send + Sync + 'static>> {
+    ) -> Result<ListObjectsResult, s3::Error> {
         use std::str::FromStr;
         let index = continuation_token
             .map(|t| usize::from_str(&t).expect("valid token"))
@@ -109,7 +108,7 @@ async fn determine_prefix_file_size(
     list_objects_impl: ListObjects,
     bucket: &str,
     prefix: &str,
-) -> Result<usize, Box<dyn Error + Send + Sync + 'static>> {
+) -> Result<usize, s3::Error> {
     let mut next_token: Option<String> = None;
     let mut total_size_bytes = 0;
     loop {

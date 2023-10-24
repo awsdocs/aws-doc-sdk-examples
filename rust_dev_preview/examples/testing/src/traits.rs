@@ -7,7 +7,6 @@
 
 use async_trait::async_trait;
 use aws_sdk_s3 as s3;
-use std::error::Error;
 use std::str::FromStr;
 
 // snippet-start:[testing.rust.traits-trait]
@@ -24,7 +23,7 @@ pub trait ListObjects {
         bucket: &str,
         prefix: &str,
         continuation_token: Option<String>,
-    ) -> Result<ListObjectsResult, Box<dyn Error + Send + Sync + 'static>>;
+    ) -> Result<ListObjectsResult, s3::Error>;
 }
 // snippet-end:[testing.rust.traits-trait]
 
@@ -47,7 +46,7 @@ impl ListObjects for S3ListObjects {
         bucket: &str,
         prefix: &str,
         continuation_token: Option<String>,
-    ) -> Result<ListObjectsResult, Box<dyn Error + Send + Sync + 'static>> {
+    ) -> Result<ListObjectsResult, s3::Error> {
         let response = self
             .s3
             .list_objects_v2()
@@ -80,7 +79,7 @@ impl ListObjects for TestListObjects {
         bucket: &str,
         prefix: &str,
         continuation_token: Option<String>,
-    ) -> Result<ListObjectsResult, Box<dyn Error + Send + Sync + 'static>> {
+    ) -> Result<ListObjectsResult, s3::Error> {
         assert_eq!(self.expected_bucket, bucket);
         assert_eq!(self.expected_prefix, prefix);
 
@@ -110,7 +109,7 @@ async fn determine_prefix_file_size(
     list_objects_impl: &dyn ListObjects,
     bucket: &str,
     prefix: &str,
-) -> Result<usize, Box<dyn Error + Send + Sync + 'static>> {
+) -> Result<usize, s3::Error> {
     let mut next_token: Option<String> = None;
     let mut total_size_bytes = 0;
     loop {
