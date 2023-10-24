@@ -18,7 +18,7 @@ aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "n
 aws-smithy-runtime = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["test-util"] }
 aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 axum = "0.5.16"
-clap = { version = "~4.2", features = ["derive"] }
+clap = { version = "~4.4", features = ["derive"] }
 futures = "0.3"
 http = "0.2.5"
 log = "0.4.17"

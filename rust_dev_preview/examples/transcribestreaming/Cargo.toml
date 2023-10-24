@@ -15,6 +15,6 @@ aws-sdk-transcribestreaming = { git = "https://github.com/awslabs/aws-sdk-rust",
 async-stream = "0.3"
 bytes = "1"
 hound = "3.4"
-clap = { version = "~4.2", features = ["derive"] }
+clap = { version = "~4.4", features = ["derive"] }
 tokio = { version = "1.20.1", features = ["full"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
