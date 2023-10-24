@@ -1,7 +1,3 @@
-// snippet-comment:[These are tags for the AWS doc team's sample catalog. Do not remove.]
-// snippet-sourcedescription:[GeneratePresignedUrlAndUploadObject.java demonstrates how to use the S3Presigner client to create a presigned URL and upload an object to an Amazon Simple Storage Service (Amazon S3) bucket]
-//snippet-keyword:[AWS SDK for Java v2]
-//snippet-service:[Amazon S3]
 /*
    Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
    SPDX-License-Identifier: Apache-2.0
@@ -9,94 +5,129 @@
 package com.example.s3;
 
 // snippet-start:[presigned.java2.generatepresignedurl.import]
+
+import com.example.s3.util.PresignUrlUtils;
+import org.slf4j.Logger;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
+import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
+
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.time.Duration;
-import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.S3Exception;
-import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
-import software.amazon.awssdk.services.s3.presigner.S3Presigner;
-import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
+import java.util.UUID;
 // snippet-end:[presigned.java2.generatepresignedurl.import]
 
 /**
  * Before running this Java V2 code example, set up your development environment, including your credentials.
- *
+ * <p>
  * For more information, see the following documentation topic:
- *
+ * <p>
  * https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/get-started.html
  */
 
 public class GeneratePresignedUrlAndUploadObject {
+    private static final Logger logger = org.slf4j.LoggerFactory.getLogger(GeneratePresignedUrlAndUploadObject.class);
 
     public static void main(String[] args) {
 
-        final String usage = "\n" +
-            "Usage:\n" +
-            "    <bucketName> <keyName> \n\n" +
-            "Where:\n" +
-            "    bucketName - The name of the Amazon S3 bucket. \n\n" +
-            "    keyName - A key name that represents a text file. \n" ;
+        String bucketName = "b-" + UUID.randomUUID();
+        String keyName = "k-" + UUID.randomUUID();
 
-        if (args.length != 2) {
-            System.out.println(usage);
-            System.exit(1);
+        try (S3Client s3Client = S3Client.create()) {
+            PresignUrlUtils.createBucket(bucketName, s3Client);
+            GeneratePresignedUrlAndUploadObject presignAndPut = new GeneratePresignedUrlAndUploadObject();
+            try {
+                URL presignedUrl = presignAndPut.createSignedUrlForStringPut(bucketName, keyName);
+                presignAndPut.useHttpUrlConnectionToPutString(presignedUrl);
+                presignAndPut.useHttpClientToPutString(presignedUrl);
+            } finally {
+                PresignUrlUtils.deleteObject(bucketName, keyName, s3Client);
+                PresignUrlUtils.deleteBucket(bucketName, s3Client);
+            }
         }
-
-        String bucketName = args[0];
-        String keyName = args[1];
-        ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
-        Region region = Region.US_EAST_1;
-        S3Presigner presigner = S3Presigner.builder()
-            .region(region)
-            .credentialsProvider(credentialsProvider)
-            .build();
-
-        signBucket(presigner, bucketName, keyName);
-        presigner.close();
     }
 
     // snippet-start:[presigned.java2.generatepresignedurl.main]
-    public static void signBucket(S3Presigner presigner, String bucketName, String keyName) {
+    /**
+     * Create a presigned URL for uploading a String object.
+     * @param bucketName - The name of the bucket.
+     * @param keyName - The name of the object.
+     * @return - The presigned URL for an HTTP PUT.
+     */
+    public URL createSignedUrlForStringPut(String bucketName, String keyName) {
+        try (S3Presigner presigner = S3Presigner.create()) {
 
-        try {
             PutObjectRequest objectRequest = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key(keyName)
-                .contentType("text/plain")
-                .build();
+                    .bucket(bucketName)
+                    .key(keyName)
+                    .contentType("text/plain")
+                    .build();
 
             PutObjectPresignRequest presignRequest = PutObjectPresignRequest.builder()
-                .signatureDuration(Duration.ofMinutes(10))
-                .putObjectRequest(objectRequest)
-                .build();
+                    .signatureDuration(Duration.ofMinutes(10))  // The URL will expire in 10 minutes.
+                    .putObjectRequest(objectRequest)
+                    .build();
 
             PresignedPutObjectRequest presignedRequest = presigner.presignPutObject(presignRequest);
             String myURL = presignedRequest.url().toString();
-            System.out.println("Presigned URL to upload a file to: " +myURL);
-            System.out.println("Which HTTP method needs to be used when uploading a file: " + presignedRequest.httpRequest().method());
+            logger.info("Presigned URL to upload to: [{}]", myURL);
+            logger.info("Which HTTP method needs to be used when uploading: [{}]", presignedRequest.httpRequest().method());
 
-            // Upload content to the Amazon S3 bucket by using this URL.
-            URL url = presignedRequest.url();
+            return presignedRequest.url();
+        }
+    }
 
+    /**
+     * Use the JDK HttpURLConnection (since v1.1) class to upload a String, but you can
+     * use any HTTP client.
+     * @param presignedUrl - The presigned URL.
+     */
+    public void useHttpUrlConnectionToPutString(URL presignedUrl) {
+        try {
             // Create the connection and use it to upload the new object by using the presigned URL.
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) presignedUrl.openConnection();
             connection.setDoOutput(true);
-            connection.setRequestProperty("Content-Type","text/plain");
+            connection.setRequestProperty("Content-Type", "text/plain");
             connection.setRequestMethod("PUT");
             OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
             out.write("This text was uploaded as an object by using a presigned URL.");
             out.close();
 
             connection.getResponseCode();
-            System.out.println("HTTP response code is " + connection.getResponseCode());
+            logger.info("HTTP response code is " + connection.getResponseCode());
 
         } catch (S3Exception | IOException e) {
-            e.getStackTrace();
+            logger.error(e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Use the JDK HttpClient class (since v11) to upload a String,
+     * but you can use any HTTP client.
+     * @param presignedUrl - The presigned URL.
+     */
+    public void useHttpClientToPutString(URL presignedUrl) {
+        HttpClient httpClient = HttpClient.newHttpClient();
+        try {
+            final HttpResponse<Void> response = httpClient.send(HttpRequest.newBuilder()
+                            .uri(presignedUrl.toURI())
+                            .header("Content-Type", "text/plain")
+                            .PUT(HttpRequest.BodyPublishers.ofString("This text was uploaded as an object by using a presigned URL."))
+                            .build(),
+                    HttpResponse.BodyHandlers.discarding());
+            logger.info("HTTP response code is " + response.statusCode());
+        } catch (S3Exception | IOException | URISyntaxException | InterruptedException e) {
+            logger.error(e.getMessage(), e);
         }
     }
     // snippet-end:[presigned.java2.generatepresignedurl.main]
