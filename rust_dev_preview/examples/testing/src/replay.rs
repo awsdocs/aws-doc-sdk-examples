@@ -1,3 +1,6 @@
+use aws_smithy_http::body::SdkBody;
+use aws_smithy_runtime::client::http::test_util::{ReplayEvent, StaticReplayClient};
+
 use aws_sdk_s3 as s3;
 
 // snippet-start:[testing.rust.replay]
@@ -34,15 +37,7 @@ pub async fn determine_prefix_file_size(
 }
 // snippet-end:[testing.rust.replay]
 
-// snippet-start:[testing.rust.wrapper-tests]
-// This time, we add a helper function for making pages
-fn make_page(sizes: &[i64]) -> Vec<s3::types::Object> {
-    sizes
-        .iter()
-        .map(|size| s3::types::Object::builder().size(*size).build())
-        .collect()
-}
-
+// snippet-start:[testing.rust.replay-tests]
 fn make_s3_test_credentials() -> s3::config::Credentials {
     s3::config::Credentials::new(
         "ATESTCLIENT",
@@ -52,9 +47,6 @@ fn make_s3_test_credentials() -> s3::config::Credentials {
         "",
     )
 }
-
-use aws_smithy_http::body::SdkBody;
-use aws_smithy_runtime::client::http::test_util::{ReplayEvent, StaticReplayClient};
 
 #[tokio::test]
 async fn test_single_page() {
@@ -133,4 +125,4 @@ async fn test_multiple_pages() {
 
     assert_eq!(19, size);
 }
-// snippet-end:[testing.rust.wrapper-tests]
+// snippet-end:[testing.rust.replay-tests]
