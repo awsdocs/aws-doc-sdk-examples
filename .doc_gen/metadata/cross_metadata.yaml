@@ -660,7 +660,7 @@ cross_ResilientService:
             - description: Create a class that wraps &SYS; actions.
               snippet_tags:
                 - javav2.example_code.workflow.ResilientService_ParameterHelper
-       Python:
+     Python:
       versions:
         - sdk_version: 3
           github: python/cross_service/resilient_service
