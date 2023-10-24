@@ -26,9 +26,7 @@ import { destroySteps } from "./steps-destroy.js";
  * The context is passed to every scenario. Scenario steps
  * will modify the context.
  */
-const context = {
-  tableName: `resilient-wkflw-table`,
-};
+const context = {};
 
 /**
  * Three Scenarios are created for the workflow. A Scenario is an orchestration class
