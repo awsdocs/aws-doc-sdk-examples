@@ -33,25 +33,25 @@ use aws_sdk_rds::{
         },
     },
     types::{OrderableDbInstanceOption, Parameter},
-    Client,
+    Client as RdsClient,
 };
+use secrecy::{ExposeSecret, SecretString};
 
 #[cfg(test)]
 use mockall::automock;
 
-use secrecy::{ExposeSecret, SecretString};
 #[cfg(test)]
 pub use MockRdsImpl as Rds;
 #[cfg(not(test))]
 pub use RdsImpl as Rds;
 
 pub struct RdsImpl {
-    pub inner: Client,
+    pub inner: RdsClient,
 }
 
 #[cfg_attr(test, automock)]
 impl RdsImpl {
-    pub fn new(inner: Client) -> Self {
+    pub fn new(inner: RdsClient) -> Self {
         RdsImpl { inner }
     }
 

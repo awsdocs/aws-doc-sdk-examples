@@ -1210,16 +1210,16 @@ aurora_Scenario_GetStartedClusters:
         - sdk_version: 1
           github: rust_dev_preview/examples/aurora
           excerpts:
-            - description: A library containing the scenario-specific functions for the Aurora Scenario.
+            - description: A library containing the scenario-specific functions for the Aurora scenario.
               snippet_files:
                 - rust_dev_preview/examples/aurora/src/aurora_scenario/mod.rs
             - description: Tests for the library using automocks around the RDS Client wrapper.
               snippet_files:
                 - rust_dev_preview/examples/aurora/src/aurora_scenario/tests.rs
-            - description: A binary to run the scenario from front to end, using inquirer to allow the user to make some decisions.
+            - description: A binary to run the scenario from front to end, using inquirer so that the user can make some decisions.
               snippet_files:
                 - rust_dev_preview/examples/aurora/src/bin/aurora-scenario.rs
-            - description: A wrapper around the RDS service that allows automocking for tests.
+            - description: A wrapper around the Amazon RDS service that allows automocking for tests.
               snippet_files:
                 - rust_dev_preview/examples/aurora/src/rds.rs
             - description: The Cargo.toml with dependencies used in this scenario.
