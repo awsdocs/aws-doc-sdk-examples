@@ -14,9 +14,12 @@ node . -s <${Object.keys(scenarios).join("|")}>
 node . -h
 
 Options:
-[-s|--scenario, <scenario>] [-h|--help]
+[-s|--scenario, <scenario>] [-h|--help] [-y|--yes] [-v|--verbose]
 
+-h, --help        Show this help message.
 -s, --scenario    The name of a scenario to run.
+-y, --yes         Assume "yes" to all prompts.
+-v, --verbose     Show debug information.
 `;
 
   const { values } = parseArgs({
@@ -28,6 +31,14 @@ Options:
       scenario: {
         short: "s",
         type: "string",
+      },
+      yes: {
+        short: "y",
+        type: "boolean",
+      },
+      verbose: {
+        short: "v",
+        type: "boolean",
       },
     },
   });
@@ -46,5 +57,21 @@ Options:
     throw new Error(`Invalid scenario: ${values.scenario}\n${help}`);
   }
 
-  scenarios[values.scenario].run();
+  if (values.verbose) {
+    console.log(
+      `[DEBUG ${new Date().toISOString()}] Running scenario: ${
+        scenarios[values.scenario].name
+      }`,
+    );
+    console.log(
+      `[DEBUG ${new Date().toISOString()}] Context: ${JSON.stringify(
+        scenarios[values.scenario].context,
+      )}`,
+    );
+  }
+
+  scenarios[values.scenario].run({
+    confirmAll: values.yes,
+    verbose: values.verbose,
+  });
 }

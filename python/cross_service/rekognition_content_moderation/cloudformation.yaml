@@ -56,7 +56,7 @@ Resources:
         ZipFile: |
           import json
           import boto3
-          import botocore.vendored.requests.packages.urllib3 as urllib3
+          import urllib3
           import io
 
 
@@ -118,7 +118,7 @@ Resources:
       Timeout: 35
       MemorySize: 128
       Role: !GetAtt lambdaIAMRole.Arn
-      Runtime: python3.7
+      Runtime: python3.11
 
   lambdaApiGatewayInvoke:
     Type: AWS::Lambda::Permission
