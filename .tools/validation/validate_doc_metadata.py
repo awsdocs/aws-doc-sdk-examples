@@ -204,7 +204,8 @@ def validate_all(doc_gen: Path):
     success &= validate_files(schema_name, meta_names, validators)
 
     # Validate example (*_metadata.yaml in metadata folder) files.
-    schema_name = schema_root / "example_schema.yaml"
+    # TODO: Switch between strict schema for aws-doc-sdk-examples and loose schema for tributaries
+    schema_name = schema_root / "example_strict_schema.yaml"
     meta_names = glob.glob(os.path.join(doc_gen, "metadata/*_metadata.yaml"))
     success &= validate_files(schema_name, meta_names, validators)
 
