@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AWS1_BDR_ACTIONS</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>Bedrock Runtime Code Example Actions</DESCRIPT>
+    <DESCRIPT>Amazon Bedrock Runtime Code Example Actions</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

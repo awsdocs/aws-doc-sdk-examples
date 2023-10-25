@@ -126,8 +126,8 @@ bedrock-runtime:
   sort: Bedrock Runtime
   expanded:
     long: Amazon Bedrock Runtime
-    short: Bedrock Runtime
-  blurb: enables you to run inference on models
+    short: Amazon Bedrock Runtime
+  blurb: is a fully managed service that makes it easy to use foundation models from third-party providers and Amazon.
   guide:
     subtitle: User Guide
     url: bedrock/latest/userguide/what-is-bedrock.html
