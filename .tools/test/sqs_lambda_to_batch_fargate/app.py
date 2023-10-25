@@ -9,7 +9,7 @@ from consumer_stack.consumer_stack import ConsumerStack
 app = App()
 ConsumerStack(
     app,
-    f"ConsumerStack-{os.getenv('LANGUAGE_NAME')}",
+    f"ConsumerStack-{os.getenv('LANGUAGE_NAME').replace('_', '-')}",
     env=cdk.Environment(
         account=os.getenv("CDK_DEFAULT_ACCOUNT"), region=os.getenv("CDK_DEFAULT_REGION")
     ),

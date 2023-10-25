@@ -224,7 +224,7 @@ class ConsumerStack(Stack):
         # Execution role for AWS Lambda function to use.
         execution_role = iam.Role(
             self,
-            f"LogsLambdaExecutionRole",
+            f"LogsLambdaExecutionRole-{language_name}",
             assumed_by=iam.ServicePrincipal("lambda.amazonaws.com"),
             description="Allows Lambda function to get logs from CloudWatch",
             role_name=f"LogsLambdaExecutionRole",

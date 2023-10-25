@@ -1,3 +1,4 @@
+import io
 import json
 import logging
 import os
@@ -60,10 +61,10 @@ def get_and_put_logs():
     )
     file_identifier = str(random.randint(10**7, 10**8 - 1))
 
-    s3_client.upload_fileobj(
-        log_file,
-        os.environ["PRODUCER_BUCKET_NAME"],
-        f"{os.environ['LANGUAGE_NAME']}/{file_identifier}",
+    s3_client.put_object(
+        Body=log_file,
+        Bucket=os.environ["PRODUCER_BUCKET_NAME"],
+        Key=f"{os.environ['LANGUAGE_NAME']}/{file_identifier}"
     )
 
     logger.info(
