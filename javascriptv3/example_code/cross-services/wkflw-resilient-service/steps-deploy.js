@@ -12,7 +12,12 @@ import {
   waitUntilTableExists,
 } from "@aws-sdk/client-dynamodb";
 import { EC2Client, CreateKeyPairCommand } from "@aws-sdk/client-ec2";
-import { IAMClient, CreatePolicyCommand } from "@aws-sdk/client-iam";
+import {
+  IAMClient,
+  CreatePolicyCommand,
+  CreateRoleCommand,
+  AttachRolePolicyCommand,
+} from "@aws-sdk/client-iam";
 
 import {
   ScenarioOutput,
@@ -20,7 +25,7 @@ import {
   ScenarioAction,
 } from "@aws-sdk-examples/libs/scenario/index.js";
 
-import { MESSAGES, NAMES, RESOURCES_PATH } from "./constants.js";
+import { MESSAGES, NAMES, RESOURCES_PATH, ROOT } from "./constants.js";
 
 /**
  * @type {import('@aws-sdk-examples/libs/scenario.js').Step[]}
@@ -147,10 +152,49 @@ export const deploySteps = [
       .replace("${INSTANCE_POLICY_ARN}", c.instancePolicyArn),
   ),
   new ScenarioOutput(
-    "createInstanceProfile",
-    MESSAGES.creatingInstanceProfile.replace(
-      "${INSTANCE_PROFILE_NAME}",
-      NAMES.instanceProfileName,
+    "creatingInstanceRole",
+    MESSAGES.creatingInstanceRole.replace(
+      "${INSTANCE_ROLE_NAME}",
+      NAMES.instanceRoleName,
     ),
+  ),
+  new ScenarioAction("createInstanceRole", () => {
+    const client = new IAMClient({});
+    return client.send(
+      new CreateRoleCommand({
+        RoleName: NAMES.instanceRoleName,
+        AssumeRolePolicyDocument: readFileSync(
+          join(ROOT, "assume-role-policy.json"),
+        ),
+      }),
+    );
+  }),
+  new ScenarioOutput(
+    "createdInstanceRole",
+    MESSAGES.createdInstanceRole.replace(
+      "${INSTANCE_ROLE_NAME}",
+      NAMES.instanceRoleName,
+    ),
+  ),
+  new ScenarioOutput(
+    "attachingPolicyToRole",
+    MESSAGES.attachingPolicyToRole
+      .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName)
+      .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName),
+  ),
+  new ScenarioAction("attachPolicyToRole", async (c) => {
+    const client = new IAMClient({});
+    await client.send(
+      new AttachRolePolicyCommand({
+        RoleName: NAMES.instanceRoleName,
+        PolicyArn: c.instancePolicyArn,
+      }),
+    );
+  }),
+  new ScenarioOutput(
+    "attachedPolicyToRole",
+    MESSAGES.attachedPolicyToRole
+      .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName)
+      .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName),
   ),
 ];

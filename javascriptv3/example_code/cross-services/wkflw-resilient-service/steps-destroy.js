@@ -9,6 +9,8 @@ import { EC2Client, DeleteKeyPairCommand } from "@aws-sdk/client-ec2";
 import {
   IAMClient,
   DeletePolicyCommand,
+  DeleteRoleCommand,
+  DetachRolePolicyCommand,
   paginateListPolicies,
 } from "@aws-sdk/client-iam";
 
@@ -70,19 +72,41 @@ export const destroySteps = [
       );
     }
   }),
+  new ScenarioAction("detachPolicyFromRole", async (c) => {
+    try {
+      const client = new IAMClient({});
+      const policy = await findPolicy(NAMES.instancePolicyName);
+
+      if (!policy) {
+        c.detachPolicyFromRoleError = new Error(
+          `Policy ${NAMES.instancePolicyName} not found.`,
+        );
+      } else {
+        await client.send(
+          new DetachRolePolicyCommand({
+            RoleName: NAMES.instanceRoleName,
+            PolicyArn: policy.Arn,
+          }),
+        );
+      }
+    } catch (e) {
+      c.detachPolicyFromRoleError = e;
+    }
+  }),
+  new ScenarioOutput("detachedPolicyFromRole", (c) => {
+    if (c.detachPolicyFromRoleError) {
+      console.error(c.detachPolicyFromRoleError);
+      return MESSAGES.detachPolicyFromRoleError
+        .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName)
+        .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
+    }
+    MESSAGES.detachedPolicyFromRole
+      .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName)
+      .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
+  }),
   new ScenarioAction("deleteInstancePolicy", async (c) => {
     const client = new IAMClient({});
-    const paginatedPolicies = paginateListPolicies({ client }, {});
-    let policy;
-
-    for await (const page of paginatedPolicies) {
-      policy = page.Policies.find(
-        (p) => p.PolicyName === NAMES.instancePolicyName,
-      );
-      if (policy) {
-        break;
-      }
-    }
+    const policy = await findPolicy(NAMES.instancePolicyName);
 
     if (!policy) {
       c.deletePolicyError = new Error(
@@ -110,4 +134,45 @@ export const destroySteps = [
       );
     }
   }),
+  new ScenarioAction("deleteInstanceRole", async (c) => {
+    try {
+      const client = new IAMClient({});
+      await client.send(
+        new DeleteRoleCommand({
+          RoleName: NAMES.instanceRoleName,
+        }),
+      );
+    } catch (e) {
+      c.deleteInstanceRoleError = e;
+    }
+  }),
+  new ScenarioOutput("deleteInstanceRoleResult", (c) => {
+    if (c.deleteInstanceRoleError) {
+      console.error(c.deleteInstanceRoleError);
+      return MESSAGES.deleteInstanceRoleError.replace(
+        "${INSTANCE_ROLE_NAME}",
+        NAMES.instanceRoleName,
+      );
+    } else {
+      return MESSAGES.deletedInstanceRole.replace(
+        "${INSTANCE_ROLE_NAME}",
+        NAMES.instanceRoleName,
+      );
+    }
+  }),
 ];
+
+/**
+ * @param {string} policyName
+ */
+async function findPolicy(policyName) {
+  const client = new IAMClient({});
+  const paginatedPolicies = paginateListPolicies({ client }, {});
+  let policy;
+  for await (const page of paginatedPolicies) {
+    policy = page.Policies.find((p) => p.PolicyName === policyName);
+    if (policy) {
+      return policy;
+    }
+  }
+}
