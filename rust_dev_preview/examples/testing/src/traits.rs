@@ -3,8 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-#![allow(dead_code)]
-
 use async_trait::async_trait;
 use aws_sdk_s3 as s3;
 use std::str::FromStr;
@@ -34,6 +32,7 @@ pub struct S3ListObjects {
 }
 
 impl S3ListObjects {
+    #[allow(dead_code)]
     pub fn new(s3: s3::Client) -> Self {
         Self { s3 }
     }
@@ -103,8 +102,9 @@ impl ListObjects for TestListObjects {
 }
 // snippet-end:[testing.rust.traits-fake]
 
+#[allow(dead_code)]
 // snippet-start:[testing.rust.traits-function]
-async fn determine_prefix_file_size(
+pub async fn determine_prefix_file_size(
     // Now we take a reference to our trait object instead of the S3 client
     list_objects_impl: &dyn ListObjects,
     bucket: &str,
@@ -132,53 +132,59 @@ async fn determine_prefix_file_size(
 }
 // snippet-end:[testing.rust.traits-function]
 
-// snippet-start:[testing.rust.traits-tests]
-#[tokio::test]
-async fn test_single_page() {
-    use s3::types::Object;
+#[cfg(test)]
+mod test {
+    use super::*;
+    use aws_sdk_s3 as s3;
 
-    // Create a TestListObjects instance with just one page of two objects in it
-    let fake = TestListObjects {
-        expected_bucket: "some-bucket".into(),
-        expected_prefix: "some-prefix".into(),
-        pages: vec![[5, 2i64]
-            .iter()
-            .map(|size| Object::builder().size(*size).build())
-            .collect()],
-    };
+    // snippet-start:[testing.rust.traits-tests]
+    #[tokio::test]
+    async fn test_single_page() {
+        use s3::types::Object;
 
-    // Run the code we want to test with it
-    let size = determine_prefix_file_size(&fake, "some-bucket", "some-prefix")
-        .await
-        .unwrap();
+        // Create a TestListObjects instance with just one page of two objects in it
+        let fake = TestListObjects {
+            expected_bucket: "some-bucket".into(),
+            expected_prefix: "some-prefix".into(),
+            pages: vec![[5, 2i64]
+                .iter()
+                .map(|size| Object::builder().size(*size).build())
+                .collect()],
+        };
 
-    // Verify we got the correct total size back
-    assert_eq!(7, size);
-}
+        // Run the code we want to test with it
+        let size = determine_prefix_file_size(&fake, "some-bucket", "some-prefix")
+            .await
+            .unwrap();
 
-#[tokio::test]
-async fn test_multiple_pages() {
-    use s3::types::Object;
-
-    // This time, we add a helper function for making pages
-    fn make_page(sizes: &[i64]) -> Vec<Object> {
-        sizes
-            .iter()
-            .map(|size| Object::builder().size(*size).build())
-            .collect()
+        // Verify we got the correct total size back
+        assert_eq!(7, size);
     }
 
-    // Create the TestListObjects instance with two pages of objects now
-    let fake = TestListObjects {
-        expected_bucket: "some-bucket".into(),
-        expected_prefix: "some-prefix".into(),
-        pages: vec![make_page(&[5, 2]), make_page(&[3, 9])],
-    };
+    #[tokio::test]
+    async fn test_multiple_pages() {
+        use s3::types::Object;
 
-    // And now test and verify
-    let size = determine_prefix_file_size(&fake, "some-bucket", "some-prefix")
-        .await
-        .unwrap();
-    assert_eq!(19, size);
+        // This time, we add a helper function for making pages
+        fn make_page(sizes: &[i64]) -> Vec<Object> {
+            sizes
+                .iter()
+                .map(|size| Object::builder().size(*size).build())
+                .collect()
+        }
+
+        // Create the TestListObjects instance with two pages of objects now
+        let fake = TestListObjects {
+            expected_bucket: "some-bucket".into(),
+            expected_prefix: "some-prefix".into(),
+            pages: vec![make_page(&[5, 2]), make_page(&[3, 9])],
+        };
+
+        // And now test and verify
+        let size = determine_prefix_file_size(&fake, "some-bucket", "some-prefix")
+            .await
+            .unwrap();
+        assert_eq!(19, size);
+    }
+    // snippet-end:[testing.rust.traits-tests]
 }
-// snippet-end:[testing.rust.traits-tests]

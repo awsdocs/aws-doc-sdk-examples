@@ -3,11 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-use aws_smithy_http::body::SdkBody;
-use aws_smithy_runtime::client::http::test_util::{ReplayEvent, StaticReplayClient};
-
 use aws_sdk_s3 as s3;
 
+#[allow(dead_code)]
 // snippet-start:[testing.rust.replay]
 pub async fn determine_prefix_file_size(
     // Now we take a reference to our trait object instead of the S3 client
@@ -42,6 +40,7 @@ pub async fn determine_prefix_file_size(
 }
 // snippet-end:[testing.rust.replay]
 
+#[allow(dead_code)]
 // snippet-start:[testing.rust.replay-tests]
 fn make_s3_test_credentials() -> s3::config::Credentials {
     s3::config::Credentials::new(
@@ -53,9 +52,16 @@ fn make_s3_test_credentials() -> s3::config::Credentials {
     )
 }
 
-#[tokio::test]
-async fn test_single_page() {
-    let client: s3::Client = s3::Client::from_conf(
+#[cfg(test)]
+mod test {
+    use super::*;
+    use aws_sdk_s3 as s3;
+    use aws_smithy_http::body::SdkBody;
+    use aws_smithy_runtime::client::http::test_util::{ReplayEvent, StaticReplayClient};
+
+    #[tokio::test]
+    async fn test_single_page() {
+        let client: s3::Client = s3::Client::from_conf(
         s3::Config::builder()
             .credentials_provider(make_s3_test_credentials())
             .region(s3::config::Region::new("us-east-1"))
@@ -77,18 +83,18 @@ async fn test_single_page() {
             .build(),
     );
 
-    // Run the code we want to test with it
-    let size = determine_prefix_file_size(client, "some-bucket", "some-prefix")
-        .await
-        .unwrap();
+        // Run the code we want to test with it
+        let size = determine_prefix_file_size(client, "some-bucket", "some-prefix")
+            .await
+            .unwrap();
 
-    // Verify we got the correct total size back
-    assert_eq!(7, size);
-}
+        // Verify we got the correct total size back
+        assert_eq!(7, size);
+    }
 
-#[tokio::test]
-async fn test_multiple_pages() {
-    let client: s3::Client = s3::Client::from_conf(
+    #[tokio::test]
+    async fn test_multiple_pages() {
+        let client: s3::Client = s3::Client::from_conf(
         s3::Config::builder()
             .credentials_provider(make_s3_test_credentials())
             .region(s3::config::Region::new("us-east-1"))
@@ -123,11 +129,12 @@ async fn test_multiple_pages() {
             .build(),
     );
 
-    // Run the code we want to test with it
-    let size = determine_prefix_file_size(client, "some-bucket", "some-prefix")
-        .await
-        .unwrap();
+        // Run the code we want to test with it
+        let size = determine_prefix_file_size(client, "some-bucket", "some-prefix")
+            .await
+            .unwrap();
 
-    assert_eq!(19, size);
+        assert_eq!(19, size);
+    }
+    // snippet-end:[testing.rust.replay-tests]
 }
-// snippet-end:[testing.rust.replay-tests]

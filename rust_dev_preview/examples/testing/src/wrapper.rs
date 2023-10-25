@@ -4,7 +4,8 @@
  */
 
 use aws_sdk_s3 as s3;
-use mockall::{automock, predicate::eq};
+#[allow(unused_imports)]
+use mockall::automock;
 
 use s3::operation::list_objects_v2::{ListObjectsV2Error, ListObjectsV2Output};
 
@@ -14,16 +15,19 @@ pub use MockS3Impl as S3;
 #[cfg(not(test))]
 pub use S3Impl as S3;
 
+#[allow(dead_code)]
 pub struct S3Impl {
     inner: s3::Client,
 }
 
 #[cfg_attr(test, automock)]
 impl S3Impl {
+    #[allow(dead_code)]
     pub fn new(inner: s3::Client) -> Self {
         Self { inner }
     }
 
+    #[allow(dead_code)]
     pub async fn list_objects(
         &self,
         bucket: &str,
@@ -40,6 +44,7 @@ impl S3Impl {
     }
 }
 
+#[allow(dead_code)]
 pub async fn determine_prefix_file_size(
     // Now we take a reference to our trait object instead of the S3 client
     // s3_list: ListObjectsService,
@@ -69,7 +74,7 @@ pub async fn determine_prefix_file_size(
 }
 // snippet-end:[testing.rust.wrapper]
 
-// snippet-start:[testing.rust.wrapper-tests]
+#[allow(dead_code)]
 // This time, we add a helper function for making pages
 fn make_page(sizes: &[i64]) -> Vec<s3::types::Object> {
     sizes
@@ -78,55 +83,62 @@ fn make_page(sizes: &[i64]) -> Vec<s3::types::Object> {
         .collect()
 }
 
-#[tokio::test]
-async fn test_single_page() {
-    let mut mock = MockS3Impl::default();
-    mock.expect_list_objects()
-        .with(eq("some-bucket"), eq("some-prefix"), eq(None))
-        .return_once(|_, _, _| {
-            Ok(ListObjectsV2Output::builder()
-                .set_contents(Some(make_page(&[5, 2])))
-                .build())
-        });
+#[cfg(test)]
+mod test {
+    use super::*;
+    use mockall::predicate::eq;
 
-    // Run the code we want to test with it
-    let size = determine_prefix_file_size(mock, "some-bucket", "some-prefix")
-        .await
-        .unwrap();
+    // snippet-start:[testing.rust.wrapper-tests]
+    #[tokio::test]
+    async fn test_single_page() {
+        let mut mock = MockS3Impl::default();
+        mock.expect_list_objects()
+            .with(eq("some-bucket"), eq("some-prefix"), eq(None))
+            .return_once(|_, _, _| {
+                Ok(ListObjectsV2Output::builder()
+                    .set_contents(Some(make_page(&[5, 2])))
+                    .build())
+            });
 
-    // Verify we got the correct total size back
-    assert_eq!(7, size);
+        // Run the code we want to test with it
+        let size = determine_prefix_file_size(mock, "some-bucket", "some-prefix")
+            .await
+            .unwrap();
+
+        // Verify we got the correct total size back
+        assert_eq!(7, size);
+    }
+
+    #[tokio::test]
+    async fn test_multiple_pages() {
+        // Create the Mock instance with two pages of objects now
+        let mut mock = MockS3Impl::default();
+        mock.expect_list_objects()
+            .with(eq("some-bucket"), eq("some-prefix"), eq(None))
+            .return_once(|_, _, _| {
+                Ok(ListObjectsV2Output::builder()
+                    .set_contents(Some(make_page(&[5, 2])))
+                    .set_next_continuation_token(Some("next".to_string()))
+                    .build())
+            });
+        mock.expect_list_objects()
+            .with(
+                eq("some-bucket"),
+                eq("some-prefix"),
+                eq(Some("next".to_string())),
+            )
+            .return_once(|_, _, _| {
+                Ok(ListObjectsV2Output::builder()
+                    .set_contents(Some(make_page(&[3, 9])))
+                    .build())
+            });
+
+        // Run the code we want to test with it
+        let size = determine_prefix_file_size(mock, "some-bucket", "some-prefix")
+            .await
+            .unwrap();
+
+        assert_eq!(19, size);
+    }
+    // snippet-end:[testing.rust.wrapper-tests]
 }
-
-#[tokio::test]
-async fn test_multiple_pages() {
-    // Create the Mock instance with two pages of objects now
-    let mut mock = MockS3Impl::default();
-    mock.expect_list_objects()
-        .with(eq("some-bucket"), eq("some-prefix"), eq(None))
-        .return_once(|_, _, _| {
-            Ok(ListObjectsV2Output::builder()
-                .set_contents(Some(make_page(&[5, 2])))
-                .set_next_continuation_token(Some("next".to_string()))
-                .build())
-        });
-    mock.expect_list_objects()
-        .with(
-            eq("some-bucket"),
-            eq("some-prefix"),
-            eq(Some("next".to_string())),
-        )
-        .return_once(|_, _, _| {
-            Ok(ListObjectsV2Output::builder()
-                .set_contents(Some(make_page(&[3, 9])))
-                .build())
-        });
-
-    // Run the code we want to test with it
-    let size = determine_prefix_file_size(mock, "some-bucket", "some-prefix")
-        .await
-        .unwrap();
-
-    assert_eq!(19, size);
-}
-// snippet-end:[testing.rust.wrapper-tests]

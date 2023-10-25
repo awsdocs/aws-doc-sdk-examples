@@ -3,10 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0.
  */
 
-#![allow(dead_code)]
-
 use aws_sdk_s3 as s3;
 
+#[allow(dead_code)]
 // snippet-start:[testing.rust.enums-struct]
 pub struct ListObjectsResult {
     pub objects: Vec<s3::types::Object>,
@@ -15,6 +14,7 @@ pub struct ListObjectsResult {
 }
 // snippet-end:[testing.rust.enums-struct]
 
+#[allow(dead_code)]
 // snippet-start:[testing.rust.enums-enum]
 pub enum ListObjects {
     Real(s3::Client),
@@ -29,6 +29,7 @@ pub enum ListObjects {
 
 // snippet-start:[testing.rust.enums-list_objects]
 impl ListObjects {
+    #[allow(dead_code)]
     pub async fn list_objects(
         &self,
         bucket: &str,
@@ -53,6 +54,7 @@ impl ListObjects {
     }
     // snippet-end:[testing.rust.enums-list_objects]
 
+    #[allow(dead_code)]
     // snippet-start:[testing.rust.enums-real-list-objects]
     async fn real_list_objects(
         s3: s3::Client,
@@ -75,6 +77,7 @@ impl ListObjects {
     }
     // snippet-end:[testing.rust.enums-real-list-objects]
 
+    #[allow(clippy::result_large_err)]
     // snippet-start:[testing.rust.enums-test]
     #[cfg(test)]
     fn test_list_objects(
@@ -102,6 +105,7 @@ impl ListObjects {
 }
 // snippet-end:[testing.rust.enums-test]
 
+#[allow(dead_code)]
 // snippet-start:[testing.rust.enums-function]
 async fn determine_prefix_file_size(
     // Now we take an instance of our enum rather than the S3 client
@@ -131,53 +135,58 @@ async fn determine_prefix_file_size(
 }
 // snippet-end:[testing.rust.enums-function]
 
-// snippet-start:[testing.rust.enums-tests]
-#[tokio::test]
-async fn test_single_page() {
-    use s3::types::Object;
+#[cfg(test)]
+mod test {
+    use super::*;
+    use aws_sdk_s3 as s3;
+    // snippet-start:[testing.rust.enums-tests]
+    #[tokio::test]
+    async fn test_single_page() {
+        use s3::types::Object;
 
-    // Create a TestListObjects instance with just one page of two objects in it
-    let fake = ListObjects::Test {
-        expected_bucket: "some-bucket".into(),
-        expected_prefix: "some-prefix".into(),
-        pages: vec![[5, 2i64]
-            .iter()
-            .map(|size| Object::builder().size(*size).build())
-            .collect()],
-    };
+        // Create a TestListObjects instance with just one page of two objects in it
+        let fake = ListObjects::Test {
+            expected_bucket: "some-bucket".into(),
+            expected_prefix: "some-prefix".into(),
+            pages: vec![[5, 2i64]
+                .iter()
+                .map(|size| Object::builder().size(*size).build())
+                .collect()],
+        };
 
-    // Run the code we want to test with it
-    let size = determine_prefix_file_size(fake, "some-bucket", "some-prefix")
-        .await
-        .unwrap();
+        // Run the code we want to test with it
+        let size = determine_prefix_file_size(fake, "some-bucket", "some-prefix")
+            .await
+            .unwrap();
 
-    // Verify we got the correct total size back
-    assert_eq!(7, size);
-}
-
-#[tokio::test]
-async fn test_multiple_pages() {
-    use s3::types::Object;
-
-    // This time, we add a helper function for making pages
-    fn make_page(sizes: &[i64]) -> Vec<Object> {
-        sizes
-            .iter()
-            .map(|size| Object::builder().size(*size).build())
-            .collect()
+        // Verify we got the correct total size back
+        assert_eq!(7, size);
     }
 
-    // Create the TestListObjects instance with two pages of objects now
-    let fake = ListObjects::Test {
-        expected_bucket: "some-bucket".into(),
-        expected_prefix: "some-prefix".into(),
-        pages: vec![make_page(&[5, 2]), make_page(&[3, 9])],
-    };
+    #[tokio::test]
+    async fn test_multiple_pages() {
+        use s3::types::Object;
 
-    // And now test and verify
-    let size = determine_prefix_file_size(fake, "some-bucket", "some-prefix")
-        .await
-        .unwrap();
-    assert_eq!(19, size);
+        // This time, we add a helper function for making pages
+        fn make_page(sizes: &[i64]) -> Vec<Object> {
+            sizes
+                .iter()
+                .map(|size| Object::builder().size(*size).build())
+                .collect()
+        }
+
+        // Create the TestListObjects instance with two pages of objects now
+        let fake = ListObjects::Test {
+            expected_bucket: "some-bucket".into(),
+            expected_prefix: "some-prefix".into(),
+            pages: vec![make_page(&[5, 2]), make_page(&[3, 9])],
+        };
+
+        // And now test and verify
+        let size = determine_prefix_file_size(fake, "some-bucket", "some-prefix")
+            .await
+            .unwrap();
+        assert_eq!(19, size);
+    }
+    // snippet-end:[testing.rust.enums-tests]
 }
-// snippet-end:[testing.rust.enums-tests]

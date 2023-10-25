@@ -69,6 +69,7 @@ async fn determine_prefix_file_size(
 }
 // snippet-end:[testing.rust.intro-function]
 
+#[allow(clippy::result_large_err)]
 #[tokio::main]
 async fn main() -> Result<(), s3::Error> {
     tracing_subscriber::fmt::init();
