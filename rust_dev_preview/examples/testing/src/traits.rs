@@ -12,7 +12,7 @@ use std::str::FromStr;
 // snippet-start:[testing.rust.traits-trait]
 pub struct ListObjectsResult {
     pub objects: Vec<s3::types::Object>,
-    pub continuation_token: Option<String>,
+    pub next_continuation_token: Option<String>,
     pub has_more: bool,
 }
 
@@ -57,7 +57,7 @@ impl ListObjects for S3ListObjects {
             .await?;
         Ok(ListObjectsResult {
             objects: response.contents().to_vec(),
-            continuation_token: response.continuation_token().map(|t| t.to_string()),
+            next_continuation_token: response.next_continuation_token.clone(),
             has_more: response.is_truncated(),
         })
     }
@@ -78,24 +78,24 @@ impl ListObjects for TestListObjects {
         &self,
         bucket: &str,
         prefix: &str,
-        continuation_token: Option<String>,
+        next_continuation_token: Option<String>,
     ) -> Result<ListObjectsResult, s3::Error> {
         assert_eq!(self.expected_bucket, bucket);
         assert_eq!(self.expected_prefix, prefix);
 
-        let index = continuation_token
+        let index = next_continuation_token
             .map(|t| usize::from_str(&t).expect("valid token"))
             .unwrap_or_default();
         if self.pages.is_empty() {
             Ok(ListObjectsResult {
                 objects: Vec::new(),
-                continuation_token: None,
+                next_continuation_token: None,
                 has_more: false,
             })
         } else {
             Ok(ListObjectsResult {
                 objects: self.pages[index].clone(),
-                continuation_token: Some(format!("{}", index + 1)),
+                next_continuation_token: Some(format!("{}", index + 1)),
                 has_more: index + 1 < self.pages.len(),
             })
         }
@@ -123,7 +123,7 @@ async fn determine_prefix_file_size(
         }
 
         // Handle pagination, and break the loop if there are no more pages
-        next_token = result.continuation_token;
+        next_token = result.next_continuation_token;
         if !result.has_more {
             break;
         }

@@ -4,6 +4,7 @@
   <Prefix>test-prefix</Prefix>
   <KeyCount>2</KeyCount>
   <MaxKeys>1000</MaxKeys>
+  <ContinuationToken>next</ContinuationToken>
   <Contents>
     <Key>test-prefix/C</Key>
     <LastModified>2023-04-10T21:33:28.000Z</LastModified>

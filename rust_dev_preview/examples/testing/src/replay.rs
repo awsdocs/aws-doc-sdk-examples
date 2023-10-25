@@ -1,3 +1,8 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
 use aws_smithy_http::body::SdkBody;
 use aws_smithy_runtime::client::http::test_util::{ReplayEvent, StaticReplayClient};
 
@@ -28,7 +33,7 @@ pub async fn determine_prefix_file_size(
         }
 
         // Handle pagination, and break the loop if there are no more pages
-        next_token = result.continuation_token.clone();
+        next_token = result.next_continuation_token.clone();
         if next_token.is_none() {
             break;
         }

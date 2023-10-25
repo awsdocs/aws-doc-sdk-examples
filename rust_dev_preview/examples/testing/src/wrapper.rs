@@ -1,3 +1,8 @@
+/*
+ * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * SPDX-License-Identifier: Apache-2.0.
+ */
+
 use aws_sdk_s3 as s3;
 use mockall::{automock, predicate::eq};
 
@@ -55,7 +60,7 @@ pub async fn determine_prefix_file_size(
         }
 
         // Handle pagination, and break the loop if there are no more pages
-        next_token = result.continuation_token.clone();
+        next_token = result.next_continuation_token.clone();
         if next_token.is_none() {
             break;
         }
@@ -102,7 +107,7 @@ async fn test_multiple_pages() {
         .return_once(|_, _, _| {
             Ok(ListObjectsV2Output::builder()
                 .set_contents(Some(make_page(&[5, 2])))
-                .set_continuation_token(Some("next".to_string()))
+                .set_next_continuation_token(Some("next".to_string()))
                 .build())
         });
     mock.expect_list_objects()

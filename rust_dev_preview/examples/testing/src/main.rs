@@ -60,7 +60,7 @@ async fn determine_prefix_file_size(
         }
 
         // Handle pagination, and break the loop if there are no more pages
-        next_token = response.continuation_token().map(|t| t.to_string());
+        next_token = response.next_continuation_token.clone();
         if !response.is_truncated() {
             break;
         }
