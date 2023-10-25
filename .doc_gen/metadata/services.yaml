@@ -121,8 +121,8 @@ batch:
     product_categories: {'Compute'}
   version: batch-2016-08-10
 bedrock-runtime:
-  long: '&BRlong; Runtime'
-  short: '&BR; Runtime'
+  long: '&BRRUNlong;'
+  short: '&BRRUN;'
   sort: Bedrock Runtime
   expanded:
     long: Amazon Bedrock Runtime
