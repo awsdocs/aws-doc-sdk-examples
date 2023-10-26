@@ -14,13 +14,13 @@ namespace ListAccountsExample
     /// with the default account. The example was created using the AWS SDK for
     /// .NET and .NET Core 5.0.
     /// </summary>
-    internal class ListAccounts
+    public class ListAccounts
     {
         /// <summary>
         /// Creates the Organizations client and then calls its
         /// ListAccountsAsync method.
         /// </summary>
-        private static async Task Main()
+        public static async Task Main()
         {
             // Create the client object using the default account.
             IAmazonOrganizations client = new AmazonOrganizationsClient();
