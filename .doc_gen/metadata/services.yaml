@@ -121,8 +121,8 @@ batch:
     product_categories: {'Compute'}
   version: batch-2016-08-10
 bedrock:
-  long: '&AMlong;'
-  short: '&AM;'
+  long: '&BRlong;'
+  short: '&BR;'
   sort: Bedrock
   expanded:
     long: Amazon Bedrock
