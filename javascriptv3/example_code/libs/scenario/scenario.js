@@ -16,10 +16,22 @@ export class Step {
   }
 
   /**
-   * @param {Record<string, any>} context
+   * @param {Record<string, any>} context,
+   * @param {{ verbose: boolean }} options
    */
-  handle(context) {
-    console.log(JSON.stringify(context));
+  handle(context, { verbose }) {
+    if (verbose) {
+      console.log(
+        `[DEBUG ${new Date().toISOString()}] Handling step: ${
+          this.constructor.name
+        }<${this.name}>`,
+      );
+      console.log(
+        `[DEBUG ${new Date().toISOString()}] Context: ${JSON.stringify(
+          context,
+        )}`,
+      );
+    }
   }
 }
 
@@ -39,8 +51,11 @@ export class ScenarioOutput extends Step {
 
   /**
    * @param {Record<string, any>} context
+   * @param {{ verbose: boolean }} options
    */
-  async handle(context) {
+  async handle(context, options) {
+    super.handle(context, options);
+
     const output =
       typeof this.value === "function" ? this.value(context) : this.value;
     const paddingTop = "\n";
@@ -60,7 +75,7 @@ export class ScenarioInput extends Step {
   /**
    * @param {string} name
    * @param {string} prompt
-   * @param {{ type: "confirm" | "input" | "multi-select" | "select", choices: (string | { name: string, value: string })[]} options
+   * @param {{ type: "confirm" | "input" | "multi-select" | "select", choices: (string | { name: string, value: string })[] } options
    */
   constructor(name, prompt, options) {
     super(name);
@@ -71,8 +86,11 @@ export class ScenarioInput extends Step {
 
   /**
    * @param {Record<string, any>} context
+   * @param {{ confirmAll: boolean, verbose: boolean }} options
    */
-  async handle(context) {
+  async handle(context, options) {
+    super.handle(context, options);
+
     const choices =
       this.options.choices && typeof this.options.choices[0] === "string"
         ? this.options.choices.map((s) => ({ name: s, value: s }))
@@ -91,6 +109,10 @@ export class ScenarioInput extends Step {
     } else if (this.options.type === "input") {
       context[this.name] = await this.prompter.input({ message: this.prompt });
     } else if (this.options.type === "confirm") {
+      if (options.confirmAll) {
+        return;
+      }
+
       context[this.name] = await this.prompter.confirm({
         message: this.prompt,
       });
@@ -104,7 +126,6 @@ export class ScenarioInput extends Step {
 
 export class ScenarioAction extends Step {
   /**
-   *
    * @param {string} name
    * @param {(context: Record<string, any>) => Promise<void>} action
    */
@@ -113,7 +134,12 @@ export class ScenarioAction extends Step {
     this.action = action;
   }
 
-  async handle(context) {
+  /**
+   * @param {Record<string, any>} context
+   * @param {{ verbose: boolean }} options
+   */
+  async handle(context, options) {
+    super.handle(context, options);
     await this.action(context);
   }
 }
@@ -135,9 +161,12 @@ export class Scenario {
     this.context = { ...initialContext, name };
   }
 
-  async run() {
+  /**
+   * @param {{ confirmAll: boolean, verbose: boolean }} runConfig
+   */
+  async run(runConfig) {
     for (const step of this.steps) {
-      await step.handle(this.context);
+      await step.handle(this.context, runConfig);
     }
   }
 }
