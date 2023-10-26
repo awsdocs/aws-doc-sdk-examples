@@ -5,20 +5,19 @@ map(include('example'), key=example_id())
 ---
 # An example blocks all the languages together for a single example in a tab list. It is a navigable page on the code examples library. It is the top level "unit" of SoS content. This metadata is merged from tributaries with aws-doc-sdk-examples.
 example:
-  # Human readable title, defaulting to slug-to-title of the ID if not provided. Overwritten by aws-doc-sdk-example when merging.
+  # Human readable title. TODO: Defaults to slug-to-title of the ID if not provided. Overwritten by aws-doc-sdk-example when merging.
   title: str(upper_start=True, no_end_punc=True, required=False)
-  # Used in the TOC, defaults to slug-to-title of the ID if not provided. Overwritten by aws-doc-sdk-example when merging.
+  # Used in the TOC. TODO: Defaults to slug-to-title of the ID if not provided. Overwritten by aws-doc-sdk-example when merging.
   title_abbrev: str(upper_start=True, no_end_punc=True, required=False)
   # String label categories. Categories inferred by cross-service with multiple services, and can be whatever else it wants. Controls where in the TOC it appears. Overwritten by aws-doc-sdk-example when merging.
   category: str(required=False, upper_start=True, no_end_punc=True, required=False)
   # Link to additional topic places. Overwritten by aws-doc-sdk-example when merging.
   guide_topic: include('guide_topic', required=False) # TODO Make this a list or a single.
-  # TODO how to add a language here and require it in sdks_schema. Keys merged by aws-doc-sdk-example when merging.
+  # TODO how to add a language here and require it in sdks_schema. TODO: Keys merged by aws-doc-sdk-example when merging.
   languages: map(include('language'), key=enum('Bash', 'C++', 'CLI', 'Go', 'Java', 'JavaScript', 'Kotlin', '.NET', 'PHP', 'Python', 'Ruby', 'Rust', 'SAP ABAP', 'Swift'))
-  # TODO document. Not to be used by tributaries. Part of Cross Service.
-  service_main: service_name(required=False)
-  # TODO document. Not to be used by tributaries. Part of Cross Service.
+  # TODO document service_main and services. Not to be used by tributaries. Part of Cross Service.
   # List of services used by the examples. Lines up with those in services.yaml. Overwritten by aws-doc-sdk-example when merging.
+  service_main: service_name(required=False)
   services: map(map(key=str(), required=False), key=service_name())
   synopsis: str(required=False, lower_start=True, end_punc_or_semicolon=True, required=False)
   synopsis_list: list(str(upper_start=True, end_punc=True), required=False)
@@ -44,7 +43,7 @@ version:
   add_services: map(key=service_name(), required=False)
   # Deprecated. Replace with guide_topic list.
   sdkguide: include('doc_url', required=False)
-  # Link to additional topic places. Overwritten by aws-doc-sdk-example when merging.
+  # Link to additional topic places. TODO: Overwritten by aws-doc-sdk-example when merging.
   more_info: list(include('guide_topic', required=False))
 
 # One language example can have several excerpts, each having a description block and one or more snippets.
@@ -56,5 +55,5 @@ excerpt:
   # Tags embedded in source files to extract as snippets.
   snippet_tags: list(str(), required=False)
 
-service_slug_regex: regex('^[\da-z-]+$', name='service slug')
+service_slug_regex: regex('^[\\da-z-]+$', name='service slug')
 doc_url: regex('^(?!https://docs.aws.amazon.com/).+', name="relative documentation URL")
