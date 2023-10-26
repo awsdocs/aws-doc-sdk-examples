@@ -34,12 +34,55 @@
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SES::createReceiptRule(const Aws::String &receiptRuleName, Aws::String &s3BucketName,
-                       const Aws::String &s3ObjectKeyPrefix, const Aws::String &ruleSetName,
-                       const Aws::Vector<Aws::String> &recipients,
-                       const Aws::Client::ClientConfiguration &clientConfiguration)
-{
+bool AwsDoc::SES::createReceiptRule(const Aws::String &receiptRuleName, const Aws::String &s3BucketName,
+                                    const Aws::String &s3ObjectKeyPrefix, const Aws::String &ruleSetName,
+                                    const Aws::Vector<Aws::String> &recipients,
+                                    const Aws::Client::ClientConfiguration &clientConfiguration) {
+    Aws::SES::SESClient sesClient(clientConfiguration);
 
+    Aws::SES::Model::CreateReceiptRuleRequest createReceiptRuleRequest;
+    Aws::SES::Model::ReceiptRule receiptRule;
+    Aws::SES::Model::ReceiptAction receiptAction;
+    Aws::SES::Model::S3Action s3Action;
+
+//    if (tls_policy_val == "Require")
+//    {
+//        receiptRule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::Require);
+//    }
+//    else if (tls_policy_val == "Optional")
+//    {
+//        receiptRule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::Optional);
+//    }
+//    else
+//    {
+//        receiptRule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::NOT_SET);
+//    }
+
+    s3Action.SetBucketName(s3BucketName);
+    s3Action.SetObjectKeyPrefix(s3ObjectKeyPrefix);
+
+    receiptAction.SetS3Action(s3Action);
+
+    receiptRule.SetName(receiptRuleName);
+    receiptRule.WithRecipients(recipients);
+
+    Aws::Vector<Aws::SES::Model::ReceiptAction> receiptActionList;
+    receiptActionList.emplace_back(receiptAction);
+    receiptRule.SetActions(receiptActionList);
+
+    createReceiptRuleRequest.SetRuleSetName(ruleSetName);
+    createReceiptRuleRequest.SetRule(receiptRule);
+
+    auto outcome = sesClient.CreateReceiptRule(createReceiptRuleRequest);
+
+    if (outcome.IsSuccess()) {
+        std::cout << "Successfully created receipt rule." << std::endl;
+    } else {
+        std::cerr << "Error creating receipt rule. " << outcome.GetError().GetMessage()
+                  << std::endl;
+    }
+
+    return outcome.IsSuccess();
 }
 
 /*
@@ -55,82 +98,36 @@ bool AwsDoc::SES::createReceiptRule(const Aws::String &receiptRuleName, Aws::Str
 #ifndef TESTING_BUILD
 
 
-int main(int argc, char **argv)
-{
-  if (argc < 6)
-  {
-    std::cout << "Usage: create_receipt_rule <s3_bucket_name> <s3_object_key_prefix>"
-      "<rule_name> <rule_set_name> <recipients_value>";
-    return 1;
-  }
-  Aws::SDKOptions options;
-  Aws::InitAPI(options);
-  {
-    Aws::String s3_bucket_name(argv[1]);
-    Aws::String s3_object_key_prefix(argv[2]);
-
-    for (int i = 6; i < argc; ++i)
-    {
-      const Aws::String arg(argv[i]);
+int main(int argc, char **argv) {
+    if (argc < 5) {
+        std::cout << "Usage: run_create_receipt_rule <s3_bucket_name> <s3_object_key_prefix>"
+                     "<rule_name> <rule_set_name> <recipients_value>";
+        return 1;
     }
-    Aws::String rule_name(argv[3]);
-    Aws::String rule_set_name(argv[4]);
-    Aws::String tls_policy_val(argv[5]);
-
-    Aws::SES::SESClient ses;
-
-    Aws::SES::Model::CreateReceiptRuleRequest crr_req;
-    Aws::SES::Model::ReceiptRule receipt_rule;
-    Aws::SES::Model::ReceiptAction receipt_actions;
-    Aws::SES::Model::S3Action s3_action;
-
-    if (tls_policy_val == "Require")
+    Aws::SDKOptions options;
+    Aws::InitAPI(options);
     {
-      receipt_rule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::Require);
-    }
-    else if (tls_policy_val == "Optional")
-    {
-      receipt_rule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::Optional);
-    }
-    else
-    {
-      receipt_rule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::NOT_SET);
+        Aws::String s3BucketName(argv[1]);
+        Aws::String s3ObjectKeyPrefix(argv[2]);
+
+        Aws::String ruleName(argv[3]);
+        Aws::String ruleSetName(argv[4]);
+
+        Aws::Vector<Aws::String> recipients;
+        for (int i = 5; i < argc; ++i) {
+            recipients.emplace_back(argv[i]);
+        }
+
+        Aws::Client::ClientConfiguration clientConfig;
+        // Optional: Set to the AWS Region (overrides config file).
+        // clientConfig.region = "us-east-1";
+
+        AwsDoc::SES::createReceiptRule(ruleName, s3BucketName, s3ObjectKeyPrefix, ruleSetName, recipients,
+                                       clientConfig);
     }
 
-    s3_action.SetBucketName(s3_bucket_name);
-    s3_action.SetObjectKeyPrefix(s3_object_key_prefix);
-
-    receipt_actions.SetS3Action(s3_action);
-
-    receipt_rule.SetName(rule_name);
-
-    for (int i = 6; i < argc; ++i)
-    {
-      receipt_rule.AddRecipients(argv[i]);
-    }
-    Aws::Vector<Aws::SES::Model::ReceiptAction> receiptActionList;
-    receiptActionList.emplace_back(receipt_actions);
-    receipt_rule.SetActions(receiptActionList);
-
-    crr_req.SetRuleSetName(rule_set_name);
-    crr_req.SetRule(receipt_rule);
-
-    auto crr_out = ses.CreateReceiptRule(crr_req);
-
-    if (crr_out.IsSuccess())
-    {
-      std::cout << "Successfully created receipt rule" << std::endl;
-    }
-
-    else
-    {
-      std::cerr << "Error creating receipt rule" << crr_out.GetError().GetMessage()
-        << std::endl;
-    }
-  }
-
-  Aws::ShutdownAPI(options);
-  return 0;
+    Aws::ShutdownAPI(options);
+    return 0;
 }
 
 #endif // TESTING_BUILD

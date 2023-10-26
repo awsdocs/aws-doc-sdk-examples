@@ -23,24 +23,24 @@
 // snippet-start:[cpp.example_code.ses.delete_receipt_filter]
 //! Delete an Amazon SES receipt filter.
 /*!
-  \param receiptFilterName: The nane for the receipt Filter.
+  \param receiptFilterName: The nane for the receipt filter.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SES::deleteReceiptFilter(const Aws::String &filterName,
+bool AwsDoc::SES::deleteReceiptFilter(const Aws::String &receiptFilterName,
                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SES::SESClient sesClient(clientConfiguration);
 
     Aws::SES::Model::DeleteReceiptFilterRequest deleteReceiptFilterRequest;
 
-    deleteReceiptFilterRequest.SetFilterName(filterName);
+    deleteReceiptFilterRequest.SetFilterName(receiptFilterName);
 
     Aws::SES::Model::DeleteReceiptFilterOutcome outcome = sesClient.DeleteReceiptFilter(deleteReceiptFilterRequest);
 
     if (outcome.IsSuccess()) {
         std::cout << "Successfully deleted receipt filter." << std::endl;
     } else {
-        std::cerr << "Error deleting receipt filter." << outcome.GetError().GetMessage()
+        std::cerr << "Error deleting receipt filter. " << outcome.GetError().GetMessage()
                   << std::endl;
     }
 

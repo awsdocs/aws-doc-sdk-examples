@@ -26,13 +26,13 @@
 // snippet-start:[cpp.example_code.ses.create_receipt_filter]
 //! Create an Amazon Simple Email Service (Amazon SES) receipt filter..
 /*!
-  \param receiptFilterName: The nane for the receipt filter.
+  \param receiptFilterName: The name for the receipt filter.
   \param cidr: IP address or IP address range in Classless Inter-Domain Routing (CIDR) notation.
   \param policy: Block or allow enum of type ReceiptFilterPolicy.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
-bool AwsDoc::SES::createReceiptFilter(const Aws::String &receiptFilterName, Aws::String &cidr,
+bool AwsDoc::SES::createReceiptFilter(const Aws::String &receiptFilterName, const Aws::String &cidr,
                                       Aws::SES::Model::ReceiptFilterPolicy policy,
                                       const Aws::Client::ClientConfiguration &clientConfiguration) {
     Aws::SES::SESClient sesClient(clientConfiguration);
