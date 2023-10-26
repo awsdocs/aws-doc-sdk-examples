@@ -13,14 +13,14 @@ namespace CreatePolicyExample
     /// Creates a new AWS Organizations Policy. The example was created
     /// using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
-    internal class CreatePolicy
+    public class CreatePolicy
     {
         /// <summary>
         /// Initializes the AWS Organizations client object, uses it to
         /// create a new Organizations Policy, and then displays information
         /// about the newly created Policy.
         /// </summary>
-        private static async Task Main()
+        public static async Task Main()
         {
             IAmazonOrganizations client = new AmazonOrganizationsClient();
             var policyContent = "{" +

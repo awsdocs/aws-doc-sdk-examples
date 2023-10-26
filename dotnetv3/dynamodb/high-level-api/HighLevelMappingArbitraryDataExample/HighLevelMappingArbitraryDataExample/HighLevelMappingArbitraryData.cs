@@ -57,7 +57,7 @@ namespace HighLevelMappingArbitraryDataExample
             await context.SaveAsync(bookRetrieved);
         }
 
-        private static async Task Main()
+        public static async Task Main()
         {
             var client = new AmazonDynamoDBClient();
             DynamoDBContext context = new DynamoDBContext(client);
