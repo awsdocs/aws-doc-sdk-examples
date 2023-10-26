@@ -694,3 +694,20 @@ cross_ResilientService:
       DescribeLoadBalancers, CreateTargetGroup, DescribeTargetGroups, DeleteTargetGroup,
       CreateLoadBalancer, CreateListener, DeleteLoadBalancer, DescribeTargetHealth}
     iam: {CreateInstanceProfile, DeleteInstanceProfile}
+cross_FMPlayground:
+  title: Create a Foundation Model Playground application that offers different playgrounds to interact with foundation models via &BEDROCK; API.
+  title_abbrev: Create a playground application to invoke foundation models via &BEDROCK;
+  synopsis: create playgrounds to interact with foundation models via &BEDROCK; API through different modalities.
+  languages:
+    .NET:
+      versions:
+        - sdk_version: 3
+          block_content: cross_FMPlayground_NetV3_block.xml
+  service_main: bedrock
+  services:
+    bedrock:
+      {
+        ListFoundationModels,
+        InvokeModel,
+        InvokeModelWithResponseStream
+      }
