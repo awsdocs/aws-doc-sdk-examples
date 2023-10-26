@@ -155,6 +155,7 @@ public class AutoScaler {
         boolean instReady = false;
         int tries = 0;
 
+        // Reboot after 60 seconds
         while (!instReady) {
             if (tries % 6 == 0) {
                 getEc2Client().rebootInstances(RebootInstancesRequest.builder()
@@ -389,7 +390,7 @@ public class AutoScaler {
             .version("$Default")
             .build();
 
-        String[] zones = {"us-east-1a", "us-east-1b", "us-east-1c"};
+        String[] zones = availabilityZones.split(",");
         CreateAutoScalingGroupRequest groupRequest = CreateAutoScalingGroupRequest.builder()
             .launchTemplate(specification)
             .availabilityZones(zones)
@@ -453,7 +454,7 @@ public class AutoScaler {
     }
 
     // Gets data about the instances in the EC2 Auto Scaling group.
-    public String getBadInstances(String groupName) {
+    public String getBadInstance(String groupName) {
         DescribeAutoScalingGroupsRequest request = DescribeAutoScalingGroupsRequest.builder()
             .autoScalingGroupNames(groupName)
             .build();

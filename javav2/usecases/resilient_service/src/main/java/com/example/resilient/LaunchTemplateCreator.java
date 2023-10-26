@@ -268,7 +268,7 @@ public class LaunchTemplateCreator {
         try {
             String scriptContent = new String(Files.readAllBytes(Paths.get(scriptPath)), StandardCharsets.UTF_8);
             byte[] encodedBytes = Base64.getEncoder().encode(scriptContent.getBytes(StandardCharsets.UTF_8));
-            return new String(encodedBytes, StandardCharsets.UTF_8); // Decode the base64 data.
+            return new String(encodedBytes, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
             return "";

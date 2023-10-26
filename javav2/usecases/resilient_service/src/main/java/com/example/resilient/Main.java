@@ -36,11 +36,11 @@ import software.amazon.awssdk.services.elasticloadbalancingv2.model.TargetHealth
  * 3. startScript - The location of the server_startup_script.sh script (you can locate this file in workflows/resilient_service/resources).
  * 4. policyFile - the location of the instance_policy.json  (you can locate this file in workflows/resilient_service/resources).
  * 5. ssmJSON - the location of the ssm_only_policy.json (you can locate this file in workflows/resilient_service/resources).
- * 6. templateBody - The name of the template.
+ * 6. templateName - The name of the template.
  * 7. roleName - The name of the role.
  * 8. policyName - The name of the policy.
  * 9. profileName - The name of the profile.
- * 10. templateBody - The name of the target group.
+ * 10. targetGroupName - The name of the target group.
  * 11. autoScalingGroupName - The name of the auto-scaling group.
  * 12. lbName - The name of the load balancer.
  */
@@ -231,8 +231,8 @@ public class Main {
                 if (!groupInfo.isPortOpen()) {
                     System.out.println("""
                     For this example to work, the default security group for your default VPC must
-                    System.out.println( "allows access from this computer. You can either add it automatically from this
-                    System.out.println("example or add it yourself using the AWS Management Console.
+                    allow access from this computer. You can either add it automatically from this
+                    example or add it yourself using the AWS Management Console.
                     """);
 
                     System.out.println("Do you want to add a rule to security group "+groupInfo.getGroupName() +" to allow");
@@ -271,53 +271,53 @@ public class Main {
         paramHelper.reset();
 
         System.out.println("""
-       This part of the demonstration shows how to toggle different parts of the system
-       System.out.println("to create situations where the web service fails, and shows how using a resilient
-       System.out.println("architecture can keep the web service running in spite of these failures.
+        This part of the demonstration shows how to toggle different parts of the system
+        to create situations where the web service fails, and shows how using a resilient
+        architecture can keep the web service running in spite of these failures.
        
-       At the start, the load balancer endpoint returns recommendations and reports that all targets are healthy.
+        At the start, the load balancer endpoint returns recommendations and reports that all targets are healthy.
        """);
         demoChoices(loadBalancer);
 
         System.out.println("""
-       The web service running on the EC2 instances gets recommendations by querying a DynamoDB table.
-       The table name is contained in a Systems Manager parameter named self.param_helper.table.
-       To simulate a failure of the recommendation service, let's set this parameter to name a non-existent table.
+        The web service running on the EC2 instances gets recommendations by querying a DynamoDB table.
+        The table name is contained in a Systems Manager parameter named self.param_helper.table.
+        To simulate a failure of the recommendation service, let's set this parameter to name a non-existent table.
        """);
         paramHelper.put(paramHelper.tableName, "this-is-not-a-table");
 
         System.out.println("""
-       \nNow, sending a GET request to the load balancer endpoint returns a failure code. But, the service reports as
-       healthy to the load balancer because shallow health checks don't check for failure of the recommendation service.
+        \nNow, sending a GET request to the load balancer endpoint returns a failure code. But, the service reports as
+        healthy to the load balancer because shallow health checks don't check for failure of the recommendation service.
        """);
         demoChoices(loadBalancer);
 
         System.out.println("""
-       Instead of failing when the recommendation service fails, the web service can return a static response.
-       While this is not a perfect solution, it presents the customer with a somewhat better experience than failure.
-       """);
+        Instead of failing when the recommendation service fails, the web service can return a static response.
+        While this is not a perfect solution, it presents the customer with a somewhat better experience than failure.
+        """);
         paramHelper.put(paramHelper.failureResponse, "static");
 
         System.out.println("""
-       Now, sending a GET request to the load balancer endpoint returns a static response.
-       The service still reports as healthy because health checks are still shallow.
-       """);
+        Now, sending a GET request to the load balancer endpoint returns a static response.
+        The service still reports as healthy because health checks are still shallow.
+        """);
         demoChoices(loadBalancer);
 
         System.out.println("Let's reinstate the recommendation service.");
         paramHelper.put(paramHelper.tableName, paramHelper.dyntable);
 
         System.out.println("""
-       Let's also substitute bad credentials for one of the instances in the target group so that it can't
-       access the DynamoDB recommendation table. We will get an instance id value. 
-       """);
+        Let's also substitute bad credentials for one of the instances in the target group so that it can't
+        access the DynamoDB recommendation table. We will get an instance id value. 
+        """);
 
         LaunchTemplateCreator templateCreator = new LaunchTemplateCreator();
         AutoScaler autoScaler = new AutoScaler();
 
         //Create a new instance profile based on badCredsProfileName.
         templateCreator.createInstanceProfile(policyFile, policyName, badCredsProfileName, roleName);
-        String badInstanceId = autoScaler.getBadInstances(autoScalingGroupName);
+        String badInstanceId = autoScaler.getBadInstance(autoScalingGroupName);
         System.out.println("The bad instance id values used for this demo is "+badInstanceId);
 
         String profileAssociationId = autoScaler.getInstanceProfile(badInstanceId);
@@ -326,50 +326,50 @@ public class Main {
         autoScaler.replaceInstanceProfile(badInstanceId, badCredsProfileName, profileAssociationId) ;
 
         System.out.println("""
-       Now, sending a GET request to the load balancer endpoint returns either a recommendation or a static response,
-       depending on which instance is selected by the load balancer.
-       """);
+        Now, sending a GET request to the load balancer endpoint returns either a recommendation or a static response,
+        depending on which instance is selected by the load balancer.
+        """);
 
         demoChoices(loadBalancer);
 
         System.out.println("""
-       Let's implement a deep health check. For this demo, a deep health check tests whether
-       the web service can access the DynamoDB table that it depends on for recommendations. Note that
-       the deep health check is only for ELB routing and not for Auto Scaling instance health.
-       This kind of deep health check is not recommended for Auto Scaling instance health, because it
-       risks accidental termination of all instances in the Auto Scaling group when a dependent service fails.
-       """);
+        Let's implement a deep health check. For this demo, a deep health check tests whether
+        the web service can access the DynamoDB table that it depends on for recommendations. Note that
+        the deep health check is only for ELB routing and not for Auto Scaling instance health.
+        This kind of deep health check is not recommended for Auto Scaling instance health, because it
+        risks accidental termination of all instances in the Auto Scaling group when a dependent service fails.
+        """);
 
         System.out.println("""
-       By implementing deep health checks, the load balancer can detect when one of the instances is failing
-       and take that instance out of rotation.
-       """);
+        By implementing deep health checks, the load balancer can detect when one of the instances is failing
+        and take that instance out of rotation.
+        """);
 
         paramHelper.put(paramHelper.healthCheck, "deep");
 
         System.out.println("""
-       Now, checking target health indicates that the instance with bad credentials 
-       is unhealthy. Note that it might take a minute or two for the load balancer to detect the unhealthy 
-       instance. Sending a GET request to the load balancer endpoint always returns a recommendation, because
-       the load balancer takes unhealthy instances out of its rotation.
-       """);
+        Now, checking target health indicates that the instance with bad credentials 
+        is unhealthy. Note that it might take a minute or two for the load balancer to detect the unhealthy 
+        instance. Sending a GET request to the load balancer endpoint always returns a recommendation, because
+        the load balancer takes unhealthy instances out of its rotation.
+        """);
 
         demoChoices(loadBalancer);
 
         System.out.println("""
-       Because the instances in this demo are controlled by an auto scaler, the simplest way to fix an unhealthy
-       instance is to terminate it and let the auto scaler start a new instance to replace it.
-       """);
+        Because the instances in this demo are controlled by an auto scaler, the simplest way to fix an unhealthy
+        instance is to terminate it and let the auto scaler start a new instance to replace it.
+        """);
         autoScaler.terminateInstance(badInstanceId);
 
         System.out.println("""
-       Even while the instance is terminating and the new instance is starting, sending a GET
-       request to the web service continues to get a successful recommendation response because
-       the load balancer routes requests to the healthy instances. After the replacement instance
-       starts and reports as healthy, it is included in the load balancing rotation.
-       Note that terminating and replacing an instance typically takes several minutes, during which time you
-       can see the changing health check status until the new instance is running and healthy.
-       """);
+        Even while the instance is terminating and the new instance is starting, sending a GET
+        request to the web service continues to get a successful recommendation response because
+        the load balancer routes requests to the healthy instances. After the replacement instance
+        starts and reports as healthy, it is included in the load balancing rotation.
+        Note that terminating and replacing an instance typically takes several minutes, during which time you
+        can see the changing health check status until the new instance is running and healthy.
+        """);
 
         demoChoices(loadBalancer);
         System.out.println("If the recommendation service fails now, deep health checks mean all instances report as unhealthy.");
