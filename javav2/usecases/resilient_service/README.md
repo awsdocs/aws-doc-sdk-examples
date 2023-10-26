@@ -25,7 +25,7 @@ Several components are used to demonstrate the resilience of the example web ser
   parameters control web server response to requests and health checks to 
   simulate failures and demonstrate resiliency. 
 
-Each of these components is created and managed with the SDK for Python as part of
+Each of these components is created and managed with the SDK for Java as part of
 an interactive demo that runs at a command prompt.
 
 ### Amazon EC2 Auto Scaling and EC2 instances
@@ -81,34 +81,24 @@ To access the load balancer endpoint, you must allow inbound traffic
 on port 80 from your computer's IP address to your VPC. If this rule doesn't exist, the 
 example tries to add it. Alternately, you can 
 [add a rule to the default security group for your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/security-group-rules.html) 
-and specify your computer's IP address
-as a source.
+and specify your computer's IP address as a source.
 
-For general prerequisites, see the [README](../../README.md#prerequisites) in the `python` folder.
+To complete the tutorial, you need the following:
+
++ An AWS account
++ A Java IDE (this example uses IntelliJ)
++ Java 17 SDK and Maven
+
 
 ### Instructions
 
-For general instructions to run the examples, see the
-[README](../../README.md#run-the-examples) in the `python` folder.
-
-Run this example by running the following command in the folder that contains this README:
-
-```
-python runner.py --action all
-```
-
 This starts an interactive scenario that walks you through several aspects of creating a 
 resilient web service and lets you send requests to the load balancer endpoint and verify
-instance health along the way.
-
-#### Build and manage a resilient service
-
-You can run the entire example by specifying `--action all`. Alternatively, run each of the sections 
-separately by specifying actions of `deploy`, `demo`, or `destroy`.
+instance health along the way. You can run this example in the Java IDE. 
 
 ##### Deploy resources
 
-Use the SDK for Python to create the following AWS resources: 
+Use the SDK for Java to create the following AWS resources: 
 
 1. A DynamoDB table that acts as a service that recommends books, movies, and songs.
 2. An instance profile and an associated role and policy that grants permission to
@@ -165,7 +155,7 @@ The scenario takes the following steps:
 
 ##### Destroy resources
 
-Use the SDK for Python to clean up all resources created for this example.
+Use the SDK for Java to clean up all resources created for this example.
 
 1. Delete the load balancer and target group.
 2. Stop all instances and delete the Auto Scaling group.
@@ -177,9 +167,9 @@ Use the SDK for Python to clean up all resources created for this example.
 * [Application Load Balancers user guide](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
 * [Amazon EC2 Auto Scaling user guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
 * [Amazon Elastic Compute Cloud (Amazon EC2) user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
-* [SDK for Python Elastic Load Balancing v2 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elbv2.html)
-* [SDK for Python Amazon EC2 Auto Scaling reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/autoscaling.html)
-* [SDK for Python Amazon EC2 reference](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ec2.html)
+* [SDK for Java Elastic Load Balancing v2 reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/elasticloadbalancingv2/ElasticLoadBalancingV2Client.html)
+* [SDK for Java Amazon EC2 Auto Scaling reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/autoscaling/AutoScalingClient.html)
+* [SDK for Java Amazon EC2 reference](https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/ec2/Ec2Client.html)
 
 ---
 
