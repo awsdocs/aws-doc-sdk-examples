@@ -5,9 +5,15 @@
 import { unlinkSync } from "node:fs";
 
 import { DynamoDBClient, DeleteTableCommand } from "@aws-sdk/client-dynamodb";
-import { EC2Client, DeleteKeyPairCommand } from "@aws-sdk/client-ec2";
+import {
+  EC2Client,
+  DeleteKeyPairCommand,
+  DeleteLaunchTemplateCommand,
+} from "@aws-sdk/client-ec2";
 import {
   IAMClient,
+  DeleteInstanceProfileCommand,
+  RemoveRoleFromInstanceProfileCommand,
   DeletePolicyCommand,
   DeleteRoleCommand,
   DetachRolePolicyCommand,
@@ -41,7 +47,7 @@ export const destroySteps = [
       console.error(c.deleteTableError);
       return MESSAGES.deleteTableError.replace(
         "${TABLE_NAME}",
-        NAMES.tableName,
+        NAMES.tableName
       );
     } else {
       return MESSAGES.deletedTable.replace("${TABLE_NAME}", NAMES.tableName);
@@ -51,7 +57,7 @@ export const destroySteps = [
     try {
       const client = new EC2Client({});
       await client.send(
-        new DeleteKeyPairCommand({ KeyName: NAMES.keyPairName }),
+        new DeleteKeyPairCommand({ KeyName: NAMES.keyPairName })
       );
       unlinkSync(`${NAMES.keyPairName}.pem`);
     } catch (e) {
@@ -63,12 +69,12 @@ export const destroySteps = [
       console.error(c.deleteKeyPairError);
       return MESSAGES.deleteKeyPairError.replace(
         "${KEY_PAIR_NAME}",
-        NAMES.keyPairName,
+        NAMES.keyPairName
       );
     } else {
       return MESSAGES.deletedKeyPair.replace(
         "${KEY_PAIR_NAME}",
-        NAMES.keyPairName,
+        NAMES.keyPairName
       );
     }
   }),
@@ -79,14 +85,14 @@ export const destroySteps = [
 
       if (!policy) {
         c.detachPolicyFromRoleError = new Error(
-          `Policy ${NAMES.instancePolicyName} not found.`,
+          `Policy ${NAMES.instancePolicyName} not found.`
         );
       } else {
         await client.send(
           new DetachRolePolicyCommand({
             RoleName: NAMES.instanceRoleName,
             PolicyArn: policy.Arn,
-          }),
+          })
         );
       }
     } catch (e) {
@@ -99,10 +105,11 @@ export const destroySteps = [
       return MESSAGES.detachPolicyFromRoleError
         .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName)
         .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
+    } else {
+      return MESSAGES.detachedPolicyFromRole
+        .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName)
+        .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
     }
-    MESSAGES.detachedPolicyFromRole
-      .replace("${INSTANCE_POLICY_NAME}", NAMES.instancePolicyName)
-      .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
   }),
   new ScenarioAction("deleteInstancePolicy", async (c) => {
     const client = new IAMClient({});
@@ -110,13 +117,13 @@ export const destroySteps = [
 
     if (!policy) {
       c.deletePolicyError = new Error(
-        `Policy ${NAMES.instancePolicyName} not found.`,
+        `Policy ${NAMES.instancePolicyName} not found.`
       );
     } else {
       return client.send(
         new DeletePolicyCommand({
           PolicyArn: policy.Arn,
-        }),
+        })
       );
     }
   }),
@@ -125,13 +132,38 @@ export const destroySteps = [
       console.error(c.deletePolicyError);
       return MESSAGES.deletePolicyError.replace(
         "${INSTANCE_POLICY_NAME}",
-        NAMES.instancePolicyName,
+        NAMES.instancePolicyName
       );
     } else {
       return MESSAGES.deletedPolicy.replace(
         "${INSTANCE_POLICY_NAME}",
-        NAMES.instancePolicyName,
+        NAMES.instancePolicyName
       );
+    }
+  }),
+  new ScenarioAction("removeRoleFromInstanceProfile", async (c) => {
+    try {
+      const client = new IAMClient({});
+      await client.send(
+        new RemoveRoleFromInstanceProfileCommand({
+          RoleName: NAMES.instanceRoleName,
+          InstanceProfileName: NAMES.instanceProfileName,
+        })
+      );
+    } catch (e) {
+      c.removeRoleFromInstanceProfileError = e;
+    }
+  }),
+  new ScenarioOutput("removeRoleFromInstanceProfileResult", (c) => {
+    if (c.removeRoleFromInstanceProfile) {
+      console.error(c.removeRoleFromInstanceProfileError);
+      return MESSAGES.removeRoleFromInstanceProfileError
+        .replace("${INSTANCE_PROFILE_NAME}", NAMES.instanceProfileName)
+        .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
+    } else {
+      return MESSAGES.removedRoleFromInstanceProfile
+        .replace("${INSTANCE_PROFILE_NAME}", NAMES.instanceProfileName)
+        .replace("${INSTANCE_ROLE_NAME}", NAMES.instanceRoleName);
     }
   }),
   new ScenarioAction("deleteInstanceRole", async (c) => {
@@ -140,7 +172,7 @@ export const destroySteps = [
       await client.send(
         new DeleteRoleCommand({
           RoleName: NAMES.instanceRoleName,
-        }),
+        })
       );
     } catch (e) {
       c.deleteInstanceRoleError = e;
@@ -151,12 +183,64 @@ export const destroySteps = [
       console.error(c.deleteInstanceRoleError);
       return MESSAGES.deleteInstanceRoleError.replace(
         "${INSTANCE_ROLE_NAME}",
-        NAMES.instanceRoleName,
+        NAMES.instanceRoleName
       );
     } else {
       return MESSAGES.deletedInstanceRole.replace(
         "${INSTANCE_ROLE_NAME}",
-        NAMES.instanceRoleName,
+        NAMES.instanceRoleName
+      );
+    }
+  }),
+  new ScenarioAction("deleteInstanceProfile", async (c) => {
+    try {
+      const client = new IAMClient({});
+      await client.send(
+        new DeleteInstanceProfileCommand({
+          InstanceProfileName: NAMES.instanceProfileName,
+        })
+      );
+    } catch (e) {
+      c.deleteInstanceProfileError = e;
+    }
+  }),
+  new ScenarioOutput("deleteInstanceProfileResult", (c) => {
+    if (c.deleteInstanceProfileError) {
+      console.error(c.deleteInstanceProfileError);
+      return MESSAGES.deleteInstanceProfileError.replace(
+        "${INSTANCE_PROFILE_NAME}",
+        NAMES.instanceProfileName
+      );
+    } else {
+      return MESSAGES.deletedInstanceProfile.replace(
+        "${INSTANCE_PROFILE_NAME}",
+        NAMES.instanceProfileName
+      );
+    }
+  }),
+  new ScenarioAction("deleteLaunchTemplate", async (c) => {
+    const client = new EC2Client({});
+    try {
+      await client.send(
+        new DeleteLaunchTemplateCommand({
+          LaunchTemplateName: NAMES.launchTemplateName,
+        })
+      );
+    } catch (e) {
+      c.deleteLaunchTemplateError = e;
+    }
+  }),
+  new ScenarioOutput("deleteLaunchTemplateResult", (c) => {
+    if (c.deleteLaunchTemplateError) {
+      console.error(c.deleteLaunchTemplateError);
+      return MESSAGES.deleteLaunchTemplateError.replace(
+        "${LAUNCH_TEMPLATE_NAME}",
+        NAMES.launchTemplateName
+      );
+    } else {
+      return MESSAGES.deletedLaunchTemplate.replace(
+        "${LAUNCH_TEMPLATE_NAME}",
+        NAMES.launchTemplateName
       );
     }
   }),

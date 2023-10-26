@@ -12,6 +12,7 @@
     "@aws-sdk/client-dynamodb": "^3.431.0",
     "@aws-sdk/client-ec2": "^3.433.0",
     "@aws-sdk/client-iam": "^3.433.0",
+    "@aws-sdk/client-ssm": "^3.435.0",
     "@aws-sdk/lib-dynamodb": "^3.431.0"
   },
   "devDependencies": {
