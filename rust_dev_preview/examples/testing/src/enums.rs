@@ -146,8 +146,8 @@ mod test {
 
         // Create a TestListObjects instance with just one page of two objects in it
         let fake = ListObjects::Test {
-            expected_bucket: "some-bucket".into(),
-            expected_prefix: "some-prefix".into(),
+            expected_bucket: "test-bucket".into(),
+            expected_prefix: "test-prefix".into(),
             pages: vec![[5, 2i64]
                 .iter()
                 .map(|size| Object::builder().size(*size).build())
@@ -155,7 +155,7 @@ mod test {
         };
 
         // Run the code we want to test with it
-        let size = determine_prefix_file_size(fake, "some-bucket", "some-prefix")
+        let size = determine_prefix_file_size(fake, "test-bucket", "test-prefix")
             .await
             .unwrap();
 
@@ -177,13 +177,13 @@ mod test {
 
         // Create the TestListObjects instance with two pages of objects now
         let fake = ListObjects::Test {
-            expected_bucket: "some-bucket".into(),
-            expected_prefix: "some-prefix".into(),
+            expected_bucket: "test-bucket".into(),
+            expected_prefix: "test-prefix".into(),
             pages: vec![make_page(&[5, 2]), make_page(&[3, 9])],
         };
 
         // And now test and verify
-        let size = determine_prefix_file_size(fake, "some-bucket", "some-prefix")
+        let size = determine_prefix_file_size(fake, "test-bucket", "test-prefix")
             .await
             .unwrap();
         assert_eq!(19, size);

@@ -84,7 +84,7 @@ mod test {
     );
 
         // Run the code we want to test with it
-        let size = determine_prefix_file_size(client, "some-bucket", "some-prefix")
+        let size = determine_prefix_file_size(client, "test-bucket", "test-prefix")
             .await
             .unwrap();
 
@@ -130,7 +130,7 @@ mod test {
     );
 
         // Run the code we want to test with it
-        let size = determine_prefix_file_size(client, "some-bucket", "some-prefix")
+        let size = determine_prefix_file_size(client, "test-bucket", "test-prefix")
             .await
             .unwrap();
 

@@ -93,7 +93,7 @@ mod test {
     async fn test_single_page() {
         let mut mock = MockS3Impl::default();
         mock.expect_list_objects()
-            .with(eq("some-bucket"), eq("some-prefix"), eq(None))
+            .with(eq("test-bucket"), eq("test-prefix"), eq(None))
             .return_once(|_, _, _| {
                 Ok(ListObjectsV2Output::builder()
                     .set_contents(Some(make_page(&[5, 2])))
@@ -101,7 +101,7 @@ mod test {
             });
 
         // Run the code we want to test with it
-        let size = determine_prefix_file_size(mock, "some-bucket", "some-prefix")
+        let size = determine_prefix_file_size(mock, "test-bucket", "test-prefix")
             .await
             .unwrap();
 
@@ -114,7 +114,7 @@ mod test {
         // Create the Mock instance with two pages of objects now
         let mut mock = MockS3Impl::default();
         mock.expect_list_objects()
-            .with(eq("some-bucket"), eq("some-prefix"), eq(None))
+            .with(eq("test-bucket"), eq("test-prefix"), eq(None))
             .return_once(|_, _, _| {
                 Ok(ListObjectsV2Output::builder()
                     .set_contents(Some(make_page(&[5, 2])))
@@ -123,8 +123,8 @@ mod test {
             });
         mock.expect_list_objects()
             .with(
-                eq("some-bucket"),
-                eq("some-prefix"),
+                eq("test-bucket"),
+                eq("test-prefix"),
                 eq(Some("next".to_string())),
             )
             .return_once(|_, _, _| {
@@ -134,7 +134,7 @@ mod test {
             });
 
         // Run the code we want to test with it
-        let size = determine_prefix_file_size(mock, "some-bucket", "some-prefix")
+        let size = determine_prefix_file_size(mock, "test-bucket", "test-prefix")
             .await
             .unwrap();
 
