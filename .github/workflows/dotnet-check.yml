@@ -5,7 +5,6 @@ on:
       - "dotnetv3/**"
     branches:
       - main
-      - dotnet-format
   pull_request:
     paths:
       - "dotnetv3/**"
