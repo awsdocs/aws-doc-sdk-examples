@@ -36,5 +36,5 @@ excerpt:
   snippet_tags: list(str(), required=False)
   snippet_files: list(str(), required=False)
 
-service_slug_regex: regex('^[\\da-z-]+$', name='service slug')
+service_slug_regex: regex('^[-a-z0-9]+$', name='service slug')
 doc_url: regex('^(?!https://docs.aws.amazon.com/).+', name="relative documentation URL")
