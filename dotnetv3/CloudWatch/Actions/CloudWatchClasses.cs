@@ -17,58 +17,58 @@ public class Left
 public class Properties
 {
     [JsonPropertyName("markdown")]
-    public string Markdown { get; set; }
+    public string Markdown { get; set; } = null!;
 
     [JsonPropertyName("metrics")]
-    public List<List<object>> Metrics { get; set; }
+    public List<List<object>> Metrics { get; set; } = null!;
 
     [JsonPropertyName("view")]
-    public string View { get; set; }
+    public string View { get; set; } = null!;
 
     [JsonPropertyName("region")]
-    public string Region { get; set; }
+    public string Region { get; set; } = null!;
 
     [JsonPropertyName("stat")]
-    public string Stat { get; set; }
+    public string Stat { get; set; } = null!;
 
     [JsonPropertyName("period")]
-    public int? Period { get; set; }
+    public int? Period { get; set; } = null!;
 
     [JsonPropertyName("yAxis")]
-    public YAxis YAxis { get; set; }
+    public YAxis YAxis { get; set; } = null!;
 
     [JsonPropertyName("stacked")]
-    public bool? Stacked { get; set; }
+    public bool? Stacked { get; set; } = null!;
 
     [JsonPropertyName("title")]
-    public string Title { get; set; }
+    public string Title { get; set; } = null!;
 
     [JsonPropertyName("setPeriodToTimeRange")]
-    public bool? SetPeriodToTimeRange { get; set; }
+    public bool? SetPeriodToTimeRange { get; set; } = null!;
 
     [JsonPropertyName("liveData")]
-    public bool? LiveData { get; set; }
+    public bool? LiveData { get; set; } = null!;
 
     [JsonPropertyName("sparkline")]
-    public bool? Sparkline { get; set; }
+    public bool? Sparkline { get; set; } = null!;
 
     [JsonPropertyName("trend")]
-    public bool? Trend { get; set; }
+    public bool? Trend { get; set; } = null!;
 
     [JsonPropertyName("alarms")]
-    public List<string> Alarms { get; set; }
+    public List<string> Alarms { get; set; } = null!;
 }
 
 public class DashboardModel
 {
     [JsonPropertyName("widgets")]
-    public List<Widget> Widgets { get; set; }
+    public List<Widget> Widgets { get; set; } = null!;
 }
 
 public class Widget
 {
     [JsonPropertyName("type")]
-    public string Type { get; set; }
+    public string Type { get; set; } = null!;
 
     [JsonPropertyName("x")]
     public int X { get; set; }
@@ -89,5 +89,5 @@ public class Widget
 public class YAxis
 {
     [JsonPropertyName("left")]
-    public Left Left { get; set; }
+    public Left Left { get; set; } = null!;
 }

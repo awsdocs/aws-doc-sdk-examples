@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
 /// This example shows how to configure your Amazon Simple Storage Service
@@ -37,13 +37,13 @@ namespace S3CORSExample
         /// Create the Amazon S3 CORS configuration.
         /// </summary>
         /// <param name="client">The initialized Amazon S3 client object used
-        /// to create the CORS configuration</param>
+        /// to create the CORS configuration.</param>
         private static async Task CORSConfigTestAsync(AmazonS3Client client)
         {
             try
             {
                 // Create a new configuration request and add two rules.
-                CORSConfiguration configuration = new()
+                CORSConfiguration configuration = new CORSConfiguration()
                 {
                     Rules = new List<CORSRule>
                         {
@@ -112,7 +112,7 @@ namespace S3CORSExample
         /// <param name="configuration">The CORS configuration to apply.</param>
         private static async Task PutCORSConfigurationAsync(AmazonS3Client client, CORSConfiguration configuration)
         {
-            PutCORSConfigurationRequest request = new()
+            PutCORSConfigurationRequest request = new PutCORSConfigurationRequest()
             {
                 BucketName = BucketName,
                 Configuration = configuration,
@@ -133,7 +133,7 @@ namespace S3CORSExample
         /// <returns>The created CORS configuration object.</returns>
         private static async Task<CORSConfiguration> RetrieveCORSConfigurationAsync(AmazonS3Client client)
         {
-            GetCORSConfigurationRequest request = new()
+            GetCORSConfigurationRequest request = new GetCORSConfigurationRequest()
             {
                 BucketName = BucketName,
             };
@@ -154,7 +154,7 @@ namespace S3CORSExample
         /// to delete the CORS configuration from the bucket.</param>
         private static async Task DeleteCORSConfigurationAsync(AmazonS3Client client)
         {
-            DeleteCORSConfigurationRequest request = new()
+            DeleteCORSConfigurationRequest request = new DeleteCORSConfigurationRequest()
             {
                 BucketName = BucketName,
             };

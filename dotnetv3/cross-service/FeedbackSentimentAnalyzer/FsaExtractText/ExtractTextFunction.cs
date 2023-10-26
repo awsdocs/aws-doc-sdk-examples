@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System.Text.Json;
 using Amazon.Lambda.Core;
 using Amazon.Textract;
 using AWS.Lambda.Powertools.Logging;

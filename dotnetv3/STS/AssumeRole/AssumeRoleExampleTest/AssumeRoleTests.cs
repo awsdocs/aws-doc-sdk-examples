@@ -1,5 +1,5 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: Apache-2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier:  Apache-2.0
 
 using System.Net;
 using System.Threading;
@@ -18,6 +18,7 @@ namespace AssumeRoleExampleTest
         private static readonly RegionEndpoint REGION = RegionEndpoint.USWest2;
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task GetCallerIdentityAsyncTest()
         {
             var mockClient = new Mock<AmazonSecurityTokenServiceClient>(REGION);
@@ -44,6 +45,7 @@ namespace AssumeRoleExampleTest
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task AssumeRoleAsyncTest()
         {
             // Create the mock client object

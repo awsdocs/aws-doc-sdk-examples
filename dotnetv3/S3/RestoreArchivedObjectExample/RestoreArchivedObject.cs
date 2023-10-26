@@ -70,7 +70,7 @@ namespace RestoreArchivedObjectExample
         /// archived object you want to restore.</param>
         public static async Task CheckRestorationStatusAsync(IAmazonS3 client, string bucketName, string objectKey)
         {
-            GetObjectMetadataRequest metadataRequest = new()
+            GetObjectMetadataRequest metadataRequest = new GetObjectMetadataRequest()
             {
                 BucketName = bucketName,
                 Key = objectKey,

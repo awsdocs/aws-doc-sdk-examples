@@ -3,7 +3,6 @@
 
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
-using Microsoft.Extensions.Configuration;
 using Moq;
 
 namespace PamServices.Test;

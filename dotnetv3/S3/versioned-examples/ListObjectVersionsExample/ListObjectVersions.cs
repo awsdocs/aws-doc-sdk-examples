@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
 /// This example lists the versions of the objects in a version enabled
@@ -46,7 +46,7 @@ namespace ListObjectVersionsExample
 
                 // For this example we set a small limit in MaxKeys to return
                 // a small list of versions.
-                ListVersionsRequest request = new()
+                ListVersionsRequest request = new ListVersionsRequest()
                 {
                     BucketName = bucketName,
                     MaxKeys = 2,

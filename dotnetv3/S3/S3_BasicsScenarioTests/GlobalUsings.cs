@@ -3,7 +3,7 @@
 
 // Global using directives
 
-global using Xunit;
 global using Amazon.S3;
 global using Amazon.S3.Model;
 global using Moq;
+global using Xunit;

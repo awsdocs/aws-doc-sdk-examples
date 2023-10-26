@@ -16,6 +16,7 @@ namespace FaceRekognitionExampleTests
         private const string _filename = "test.png";
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task IdentifyFacesTests()
         {
             var mockClient = new Mock<AmazonRekognitionClient>();
@@ -51,6 +52,7 @@ namespace FaceRekognitionExampleTests
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task IdentifyCelebretiesTest()
         {
             var mockClient = new Mock<AmazonRekognitionClient>();

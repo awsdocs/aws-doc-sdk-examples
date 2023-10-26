@@ -2,7 +2,6 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[IAM.dotnetv3.IAMGroups.Usings]
-global using Amazon;
 global using Amazon.IdentityManagement;
 global using Amazon.S3;
 global using Amazon.SecurityToken;

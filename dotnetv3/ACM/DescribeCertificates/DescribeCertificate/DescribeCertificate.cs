@@ -13,8 +13,7 @@ namespace DescribeCertificate
     class DescribeCertificate
     {
         // The following example retrieves and displays the metadate for a
-        // certificate using the AWS Certificate Manager (ACM) service. It
-        // was created using AWS SDK for .NET 3.5 and .NET 5.0.
+        // certificate using the AWS Certificate Manager (ACM) service.
 
         // Specify your AWS Region (an example Region is shown).
         private static readonly RegionEndpoint ACMRegion = RegionEndpoint.USEast1;
@@ -76,11 +75,11 @@ namespace DescribeCertificate
             {
                 response = await client.DescribeCertificateAsync(request);
             }
-            catch (InvalidArnException ex)
+            catch (InvalidArnException)
             {
                 Console.WriteLine($"Error: The ARN specified is invalid.");
             }
-            catch (ResourceNotFoundException ex)
+            catch (ResourceNotFoundException)
             {
                 Console.WriteLine($"Error: The specified certificate could not be found.");
             }

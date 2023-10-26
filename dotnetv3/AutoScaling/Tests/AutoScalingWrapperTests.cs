@@ -3,8 +3,6 @@
 
 using Amazon.AutoScaling;
 using Amazon.AutoScaling.Model;
-using Amazon.EC2;
-using AutoScalingActions;
 
 namespace AutoScalingTests
 {

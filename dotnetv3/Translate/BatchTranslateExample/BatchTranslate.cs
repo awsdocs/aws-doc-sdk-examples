@@ -1,6 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
-
 /// <summary>
 /// This example shows how to use Amazon Translate to process the files in
 /// an Amazon Simple Storage Service (Amazon S3) bucket. The translated results

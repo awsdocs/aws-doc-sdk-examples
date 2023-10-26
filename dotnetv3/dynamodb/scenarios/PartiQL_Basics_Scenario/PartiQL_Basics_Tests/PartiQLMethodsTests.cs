@@ -1,8 +1,6 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System.Runtime.CompilerServices;
-
 namespace PartiQL_Basics_Tests
 {
     [TestCaseOrderer("PartiQL_Basics_Tests.PriorityOrderer", "PartiQL_Basics_Tests")]

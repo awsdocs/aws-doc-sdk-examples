@@ -3,8 +3,6 @@
 
 // snippet-start:[StepFunctions.dotnetv3.StepFunctionsBasics]
 
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using Amazon.IdentityManagement;
 using Amazon.IdentityManagement.Model;
 using Amazon.StepFunctions.Model;

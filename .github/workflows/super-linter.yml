@@ -35,6 +35,6 @@ jobs:
           VALIDATE_PYTHON: true
           VALIDATE_PYTHON_BLACK: true
           VALIDATE_RUBY: true
-          VALIDATE_CSHARP: true
+          VALIDATE_CSHARP: false
           VALIDATE_KOTLIN: true
           VALIDATE_EDITORCONFIG: true

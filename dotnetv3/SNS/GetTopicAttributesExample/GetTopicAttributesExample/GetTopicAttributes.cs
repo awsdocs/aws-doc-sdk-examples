@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier:  Apache-2.0
 
 namespace GetTopicAttributesExample
 {
@@ -8,7 +8,6 @@ namespace GetTopicAttributesExample
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Amazon.SimpleNotificationService;
-    using Amazon.SimpleNotificationService.Model;
 
     /// <summary>
     /// This example shows how to retrieve the attributes of an Amazon Simple

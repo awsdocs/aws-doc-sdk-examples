@@ -129,6 +129,7 @@ namespace KeyspacesTests
         /// <returns>An async Task.</returns>
         [Fact()]
         [Order(4)]
+        [Trait("Category", "Integration")]
         public async Task GetTableTest()
         {
             var response = await _wrapper.GetTable(_keyspaceName, _tableName);
@@ -178,7 +179,7 @@ namespace KeyspacesTests
                         var resp = await _wrapper.GetTable(_keyspaceName, _tableName);
                     } while (!wasRestored);
                 }
-                catch (ResourceNotFoundException ex)
+                catch (ResourceNotFoundException)
                 {
                     wasRestored = true;
                 }
@@ -219,7 +220,7 @@ namespace KeyspacesTests
                     var resp = await _wrapper.GetTable(_keyspaceName, _tableName);
                 } while (!wasDeleted);
             }
-            catch (ResourceNotFoundException ex)
+            catch (ResourceNotFoundException)
             {
                 wasDeleted = true;
             }

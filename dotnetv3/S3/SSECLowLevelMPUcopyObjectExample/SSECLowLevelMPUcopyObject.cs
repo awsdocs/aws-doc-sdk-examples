@@ -36,8 +36,11 @@ namespace SSECLowLevelMPUcopyObjectExample
             var base64Key = CreateEncryptionKey();
 
             await CreateSampleObjUsingClientEncryptionKeyAsync(
-                client, existingBucketName,
-                sourceKeyName, filePath, base64Key);
+                client,
+                existingBucketName,
+                sourceKeyName,
+                filePath,
+                base64Key);
         }
 
         /// <summary>
@@ -116,7 +119,6 @@ namespace SSECLowLevelMPUcopyObjectExample
                     BucketName = existingBucketName,
                     Key = sourceKeyName,
                     UploadId = initResponse.UploadId,
-
                 };
                 completeRequest.AddPartETags(uploadResponses);
 

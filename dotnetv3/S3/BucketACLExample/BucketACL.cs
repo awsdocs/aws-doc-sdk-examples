@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier:  Apache-2.0
 
 /// <summary>
 /// This example shows how to work with access control lists (ACLs) in an
