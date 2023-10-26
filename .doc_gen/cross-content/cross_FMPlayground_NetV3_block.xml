@@ -5,10 +5,10 @@
 ]>
 <block>
   <para>
-	  .NET FM Playground is a .NET MAUI Blazor sample application showcasing how to leverage &BEDROCKlong; from C# code. 
-	  This example application is not production-ready. It illustrates how .NET and C# developers can leverage &BEDROCK; 
+	  .NET FM Playground is a .NET MAUI Blazor sample application showcasing how to leverage &BRlong; from C# code. 
+	  This example application is not production-ready. It illustrates how .NET and C# developers can leverage &BR; 
 	  to build generative AI enabled applications. In order to let you test and interact with the foundation models accesible
-	  via &BEDROCK; API, the .NET FM Playground offers you four playgrounds:
+	  via &BR; API, the .NET FM Playground offers you four playgrounds:
   </para>
   <itemizedlist>
     <listitem>
