@@ -16,7 +16,7 @@ namespace TransferAccelerationExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
-    public class TransferAcceleration
+    internal class TransferAcceleration
     {
         /// <summary>
         /// The main method initializes the client object and sets the

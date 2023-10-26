@@ -81,7 +81,7 @@ namespace HighLevelBatchWriteItemExample
             await superBatch.ExecuteAsync();
         }
 
-        public static async Task Main()
+        private static async Task Main()
         {
             AmazonDynamoDBClient client = new AmazonDynamoDBClient();
             DynamoDBContext context = new DynamoDBContext(client);

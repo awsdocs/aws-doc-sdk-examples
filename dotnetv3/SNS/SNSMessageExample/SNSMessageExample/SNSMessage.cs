@@ -10,7 +10,7 @@ namespace SNSMessageExample
     using Amazon.SimpleNotificationService;
     using Amazon.SimpleNotificationService.Model;
 
-    public class SNSMessage
+    internal class SNSMessage
     {
         private AmazonSimpleNotificationServiceClient snsClient;
 

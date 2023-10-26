@@ -13,13 +13,13 @@ namespace CreateAccountExample
     /// Creates a new AWS Organizations account. The example was created
     /// using the AWS SDK for .NET version 3.7 and .NET Core 5.0.
     /// </summary>
-    public class CreateAccount
+    internal class CreateAccount
     {
         /// <summary>
         /// Initializes an Organizations client object and uses it to create
         /// the new account with the name specified in accountName.
         /// </summary>
-        public static async Task Main()
+        private static async Task Main()
         {
             IAmazonOrganizations client = new AmazonOrganizationsClient();
             var accountName = "ExampleAccount";

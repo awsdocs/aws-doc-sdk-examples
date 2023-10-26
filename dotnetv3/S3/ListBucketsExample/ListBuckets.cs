@@ -16,7 +16,7 @@ namespace ListBucketsExample
     using Amazon.S3;
     using Amazon.S3.Model;
 
-    public class ListBuckets
+    internal class ListBuckets
     {
         private static IAmazonS3 _s3Client;
 
@@ -42,7 +42,7 @@ namespace ListBucketsExample
                 .ForEach(b => Console.WriteLine($"Bucket name: {b.BucketName}, created on: {b.CreationDate}"));
         }
 
-        public static async Task Main()
+        private static async Task Main()
         {
             // The client uses the AWS Region of the default user.
             // If the Region where the buckets were created is different,
