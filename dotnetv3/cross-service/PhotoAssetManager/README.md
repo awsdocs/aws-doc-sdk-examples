@@ -49,7 +49,7 @@ to use the AWS Cloud Development Kit (AWS CDK) or AWS Command Line Interface
 
 ## Build the code
 
-The Visual Studio solution **PhotoAssetManager.sln** includes several projects with different purposes for this example.
+The Visual Studio solution **PhotoAssetManager.sln** includes several projects with different purposes for this example. The Lambda functions included in the solution also use [Powertools for AWS Lambda (.NET)](https://github.com/aws-powertools/powertools-lambda-dotnet) for enhanced logging. 
 
 - **PamApi** - A Lambda Serverless API project that includes an ApiController for the serverless endpoints, a Swagger UI for development environments, and separate Download and DetectLabels functions. 
   - This is the project that will be packaged and deployed when using the `dotnet` language option when setting up the CDK stack.

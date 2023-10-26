@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using System.Text.Json;
 using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
@@ -9,6 +8,7 @@ using Amazon.Lambda.Core;
 using Amazon.S3;
 using Amazon.SimpleNotificationService;
 using Amazon.Util;
+using AWS.Lambda.Powertools.Logging;
 using PamServices;
 
 namespace PamApi;
@@ -69,7 +69,7 @@ public class DownloadFunction
 
         try
         {
-            context.Logger.LogInformation($"Starting download and zip operation: {JsonSerializer.Serialize(request)}");
+            Logger.LogInformation($"Starting download and zip operation.", request);
             var labelsList = request.labels.ToList();
             var imageKeys = await _labelService.GetAllImagesForLabels(labelsList);
             var zipArchiveUrl =
@@ -77,13 +77,11 @@ public class DownloadFunction
                     workingBucketName!);
             await _notificationService.SendNotification(topicArn!, "Image download",
                 $"Your images are available here: {zipArchiveUrl}");
-            LambdaLogger.Log($"url: {zipArchiveUrl}");
+            Logger.LogInformation($"url: {zipArchiveUrl}");
         }
         catch (Exception e)
         {
-            context.Logger.LogInformation($"Error starting download.");
-            context.Logger.LogInformation(e.Message);
-            context.Logger.LogInformation(e.StackTrace);
+            Logger.LogError(e, $"Error starting download.");
             throw;
         }
     }
