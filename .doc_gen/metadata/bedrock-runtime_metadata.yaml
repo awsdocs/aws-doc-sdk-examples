@@ -1,0 +1,20 @@
+# zexi 0.4.0
+bedrock-runtime_InvokeModel:
+  title: Invoke the specified &BR; model to run inference
+  title_abbrev: Invoke a model
+  synopsis: invoke an &BR; model to run inference.
+  category:
+  languages:
+    SAP ABAP:
+      versions:
+        - sdk_version: 1
+          github: sap-abap/services/bdr
+          excerpts:
+            - description: Invoke a Claude V2 foundation model. This example uses features of /US2/CL_JSON which might not be available on some NetWeaver versions.
+              snippet_tags:
+                - bdr.abapv1.invokemodel_claude_v2
+            - description: Invoke a Stable Diffusion foundation model.
+              snippet_tags:
+                - bdr.abapv1.invokemodel_stable_diffusion
+  services:
+    bedrock-runtime: {InvokeModel}
