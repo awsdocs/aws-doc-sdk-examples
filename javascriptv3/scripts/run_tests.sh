@@ -1,13 +1,11 @@
 #!/bin/bash
 
 run_unit_tests() {
-  # Write stdout to a file and stderr to stdout
-  npm run test --workspaces --if-present -- --silent 2>&1 > unit_test.log 
+  npm run test --workspaces --if-present -- --silent
 }
 
 run_integration_tests() {
-  # Write stdout to a file and stderr to stdout
-  npm run integration-test --workspaces --if-present --silent 2>&1 > integration_test.log
+  npm run integration-test --workspaces --if-present -- --silent
 }
 
 run_all() {

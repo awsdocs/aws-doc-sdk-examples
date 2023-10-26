@@ -19,4 +19,4 @@ RUN useradd -m automation && \
 USER automation:automation
 
 # Set default command
-CMD ["./scripts/run_tests.sh", "integration"]
+CMD ["./javascriptv3/scripts/run_tests.sh", "integration"]
