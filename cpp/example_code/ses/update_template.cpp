@@ -22,7 +22,7 @@
 #include "ses_samples.h"
 
 // snippet-start:[cpp.example_code.ses.UpdateTemplate]
-//! Update an Amazon SES template.
+//! Update an Amazon Simple Email Service (Amazon SES) template.
 /*!
   \param templateName: The name of the template.
   \param htmlPart: The HTML body of the email.

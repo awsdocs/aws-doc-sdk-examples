@@ -21,7 +21,7 @@
 #include "ses_samples.h"
 
 // snippet-start:[cpp.example_code.ses.DeleteReceiptRule]
-//! Delete an Amazon SES receipt rule.
+//! Delete an Amazon Simple Email Service (Amazon SES) receipt rule.
 /*!
   \param receiptRuleName: The nane for the receipt rule.
   \param receiptRuleSetName: The nane for the receipt rule set.

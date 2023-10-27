@@ -25,7 +25,7 @@
 #include "ses_samples.h"
 
 // snippet-start:[cpp.example_code.ses.CreateReceiptRule]
-//! Create an Amazon SES receipt rule.
+//! Create an Amazon Simple Email Service (Amazon SES) receipt rule.
 /*!
   \param receiptRuleName: The nane for the receipt rule.
   \param s3BucketName: The name of the S3 bucket for incoming mail.

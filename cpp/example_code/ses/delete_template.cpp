@@ -21,7 +21,7 @@
 #include "ses_samples.h"
 
 // snippet-start:[cpp.example_code.ses.DeleteTemplate]
-//! Delete an Amazon SES template.
+//! Delete an Amazon Simple Email Service (Amazon SES) template.
 /*!
   \param templateName: The nane for the template.
   \param clientConfiguration: AWS client configuration.

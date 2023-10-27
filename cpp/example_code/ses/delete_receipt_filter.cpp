@@ -21,7 +21,7 @@
 #include "ses_samples.h"
 
 // snippet-start:[cpp.example_code.ses.DeleteReceiptFilter]
-//! Delete an Amazon SES receipt filter.
+//! Delete an Amazon Simple Email Service (Amazon SES) receipt filter.
 /*!
   \param receiptFilterName: The nane for the receipt filter.
   \param clientConfiguration: AWS client configuration.

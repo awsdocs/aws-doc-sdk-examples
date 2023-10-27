@@ -21,7 +21,7 @@
 #include "ses_samples.h"
 
 // snippet-start:[cpp.example_code.ses.CreateReceiptRuleSet]
-//! Create an Amazon SES receipt rule det.
+//! Create an Amazon Simple Email Service (Amazon SES) receipt rule det.
 /*!
   \param ruleSetName: The name of the rule set.
   \param clientConfiguration: AWS client configuration.

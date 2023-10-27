@@ -6,6 +6,7 @@
 #include "ses_gtests.h"
 #include <fstream>
 #include <aws/core/client/ClientConfiguration.h>
+#include <aws/core/utils/UUID.h>
 
 Aws::SDKOptions AwsDocTest::SES_GTests::s_options;
 std::unique_ptr<Aws::Client::ClientConfiguration> AwsDocTest::SES_GTests::s_clientConfig;
@@ -62,6 +63,13 @@ void AwsDocTest::SES_GTests::AddCommandLineResponses(
         stringStream << response << "\n";
     }
     m_cinBuffer.str(stringStream.str());
+}
+
+
+Aws::String AwsDocTest::SES_GTests::uuidName(const Aws::String &name) {
+    Aws::String uuid = Aws::Utils::UUID::RandomUUID();
+    return name + "-" +
+           Aws::Utils::StringUtils::ToLower(uuid.c_str());
 }
 
 

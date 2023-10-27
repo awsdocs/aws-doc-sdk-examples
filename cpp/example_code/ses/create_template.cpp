@@ -22,7 +22,7 @@
 #include "ses_samples.h"
 
 // snippet-start:[cpp.example_code.ses.CreateTemplate]
-//! Create an Amazon SES receipt rule det.
+//! Create an Amazon Simple Email Service (Amazon SES) template.
 /*!
   \param templateName: The name of the template.
   \param htmlPart: The HTML body of the email.
