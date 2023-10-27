@@ -113,4 +113,5 @@ class ProducerStack(Stack):
                     statement.add_arn_principal(
                         f"arn:aws:iam::{str(target_accts[language]['account_id'])}:role/LogsLambdaExecutionRole"
                     )
+            statement.add_arn_principal(f"arn:aws:iam::{Aws.ACCOUNT_ID}:root")
             bucket.add_to_resource_policy(statement)
