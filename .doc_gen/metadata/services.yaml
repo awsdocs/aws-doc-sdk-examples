@@ -121,6 +121,7 @@ batch:
     product_categories: {'Compute'}
   version: batch-2016-08-10
 bedrock:
+  bundle: bedrock
   long: '&BRlong;'
   short: '&BR;'
   sort: bedrock
@@ -133,8 +134,24 @@ bedrock:
     url: bedrock/latest/userguide/what-is-bedrock.html
   api_ref: bedrock/latest/APIReference/welcome.html
   tags:
-    product_categories: {'Machine Learning'}
+    product_categories: {'Machine Learning &amp; AI'}
   version: bedrock-2023-04-20
+bedrock-runtime:
+bundle: bedrock
+  long: '&BRRUNlong;'
+  short: '&BRRUN;'
+  sort: Bedrock Runtime
+  expanded:
+    long: Amazon Bedrock Runtime
+    short: Amazon Bedrock Runtime
+  blurb: is a fully managed service that makes it easy to use foundation models from third-party providers and Amazon.
+  guide:
+    subtitle: User Guide
+    url: bedrock/latest/userguide/what-is-bedrock.html
+  api_ref: bedrock/latest/APIReference/welcome.html
+  tags:
+    product_categories: {'Machine Learning &amp; AI'}
+  version: bedrock-runtime-2023-09-30
 cloudformation:
   long: '&CFNlong;'
   short: '&CFN;'

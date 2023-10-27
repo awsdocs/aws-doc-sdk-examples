@@ -34,6 +34,15 @@ aurora_Hello:
             - description: Code for the hello_aurora.cpp source file.
               snippet_tags:
                 - cpp.example_code.aurora.hello_aurora
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.get_cluster.usage
+                - rust.aurora.describe_db_clusters.wrapper
+                - rust.aurora.get_cluster.test
   services:
     aurora: {DescribeDBClusters}
 aurora_DescribeDBClusterParameterGroups:
@@ -165,6 +174,15 @@ aurora_CreateDBClusterParameterGroup:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.CreateDBClusterParameterGroup
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.set_engine.usage
+                - rust.aurora.create_db_cluster_parameter_group.wrapper
+                - rust.aurora.set_engine.test
   services:
     aurora: {CreateDBClusterParameterGroup}
 aurora_DeleteDBClusterParameterGroup:
@@ -230,6 +248,15 @@ aurora_DeleteDBClusterParameterGroup:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.DeleteDBClusterParameterGroup
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.clean_up.usage
+                - rust.aurora.delete_db_cluster_parameter_group.wrapper
+                - rust.aurora.clean_up.test
   services:
     aurora: {DeleteDBClusterParameterGroup}
 aurora_DescribeDBClusterParameters:
@@ -295,6 +322,15 @@ aurora_DescribeDBClusterParameters:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.DescribeDBClusterParameters
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.cluster_parameters.usage
+                - rust.aurora.describe_db_cluster_parameters.wrapper
+                - rust.aurora.cluster_parameters.test
   services:
     aurora: {DescribeDBClusterParameters}
 aurora_ModifyDBClusterParameterGroup:
@@ -360,6 +396,15 @@ aurora_ModifyDBClusterParameterGroup:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.ModifyDBClusterParameterGroup
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.update_auto_increment.usage
+                - rust.aurora.modify_db_cluster_parameter_group.wrapper
+                - rust.aurora.update_auto_increment.test
   services:
     aurora: {ModifyDBClusterParameterGroup}
 aurora_DescribeDBClusters:
@@ -425,6 +470,15 @@ aurora_DescribeDBClusters:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.DescribeDBClusters
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.start_cluster_and_instance.usage
+                - rust.aurora.describe_db_clusters.wrapper
+                - rust.aurora.start_cluster_and_instance.test
   services:
     aurora: {DescribeDBClusters}
 aurora_CreateDBCluster:
@@ -490,6 +544,15 @@ aurora_CreateDBCluster:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.CreateDBCluster
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.start_cluster_and_instance.usage
+                - rust.aurora.create_db_cluster.wrapper
+                - rust.aurora.start_cluster_and_instance.test
   services:
     aurora: {CreateDBCluster}
 aurora_DeleteDBCluster:
@@ -555,6 +618,15 @@ aurora_DeleteDBCluster:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.DeleteDBCluster
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.clean_up.usage
+                - rust.aurora.delete_db_cluster.wrapper
+                - rust.aurora.clean_up.test
   services:
     aurora: {DeleteDBCluster}
 aurora_CreateDBClusterSnapshot:
@@ -620,6 +692,15 @@ aurora_CreateDBClusterSnapshot:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.CreateDBClusterSnapshot
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.start_cluster_and_instance.usage
+                - rust.aurora.create_db_cluster_snapshot.wrapper
+                - rust.aurora.start_cluster_and_instance.test
   services:
     aurora: {CreateDBClusterSnapshot}
 aurora_DescribeDBClusterSnapshots:
@@ -750,6 +831,15 @@ aurora_CreateDBInstance:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.CreateDBInstance
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.start_cluster_and_instance.usage
+                - rust.aurora.create_db_instance.wrapper
+                - rust.aurora.start_cluster_and_instance.test
   services:
     aurora: {CreateDBInstance}
 aurora_DescribeDBEngineVersions:
@@ -815,6 +905,15 @@ aurora_DescribeDBEngineVersions:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.DescribeDBEngineVersions
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.get_engines.usage
+                - rust.aurora.describe_db_engine_versions.wrapper
+                - rust.aurora.get_engines.test
   services:
     aurora: {DescribeDBEngineVersions}
 aurora_DescribeOrderableDBInstanceOptions:
@@ -871,6 +970,15 @@ aurora_DescribeOrderableDBInstanceOptions:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.DescribeOrderableDBInstanceOptions
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.get_instance_classes.usage
+                - rust.aurora.describe_orderable_db_instance_options.wrapper
+                - rust.aurora.get_instance_classes.test
   services:
     aurora: {DescribeOrderableDBInstanceOptions}
 aurora_DescribeDBInstances:
@@ -936,6 +1044,15 @@ aurora_DescribeDBInstances:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.DescribeDBInstances
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.clean_up.usage
+                - rust.aurora.describe_db_instances.wrapper
+                - rust.aurora.clean_up.test
   services:
     aurora: {DescribeDBInstances}
 aurora_DeleteDBInstance:
@@ -1001,6 +1118,15 @@ aurora_DeleteDBInstance:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.client
                 - cpp.example_code.aurora.DeleteDBInstance
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - snippet_tags:
+                - rust.aurora.clean_up.usage
+                - rust.aurora.delete_db_instance.wrapper
+                - rust.aurora.clean_up.test
   services:
     aurora: {DeleteDBInstance}
 aurora_Scenario_GetStartedClusters:
@@ -1079,9 +1205,42 @@ aurora_Scenario_GetStartedClusters:
               snippet_tags:
                 - cpp.example_code.aurora.client_configuration
                 - cpp.example_code.aurora.get_started_clusters
+    Rust:
+      versions:
+        - sdk_version: 1
+          github: rust_dev_preview/examples/aurora
+          excerpts:
+            - description: A library containing the scenario-specific functions for the Aurora scenario.
+              snippet_files:
+                - rust_dev_preview/examples/aurora/src/aurora_scenario/mod.rs
+            - description: Tests for the library using automocks around the RDS Client wrapper.
+              snippet_files:
+                - rust_dev_preview/examples/aurora/src/aurora_scenario/tests.rs
+            - description: A binary to run the scenario from front to end, using inquirer so that the user can make some decisions.
+              snippet_files:
+                - rust_dev_preview/examples/aurora/src/bin/aurora-scenario.rs
+            - description: A wrapper around the Amazon RDS service that allows automocking for tests.
+              snippet_files:
+                - rust_dev_preview/examples/aurora/src/rds.rs
+            - description: The Cargo.toml with dependencies used in this scenario.
+              snippet_files:
+                - rust_dev_preview/examples/aurora/Cargo.toml
   services:
-    aurora: {CreateDBCluster, CreateDBClusterParameterGroup, CreateDBClusterSnapshot,
-             CreateDBInstance, DeleteDBCluster, DeleteDBClusterParameterGroup, DeleteDBInstance,
-             DescribeDBClusterParameterGroups, DescribeDBClusterSnapshots, DescribeDBClusters,
-             DescribeDBEngineVersions, DescribeDBInstances, DescribeOrderableDBInstanceOptions,
-             DescribeDBClusterParameters, ModifyDBClusterParameterGroup}
+    aurora:
+      {
+        CreateDBCluster,
+        CreateDBClusterParameterGroup,
+        CreateDBClusterSnapshot,
+        CreateDBInstance,
+        DeleteDBCluster,
+        DeleteDBClusterParameterGroup,
+        DeleteDBInstance,
+        DescribeDBClusterParameterGroups,
+        DescribeDBClusterSnapshots,
+        DescribeDBClusters,
+        DescribeDBEngineVersions,
+        DescribeDBInstances,
+        DescribeOrderableDBInstanceOptions,
+        DescribeDBClusterParameters,
+        ModifyDBClusterParameterGroup,
+      }

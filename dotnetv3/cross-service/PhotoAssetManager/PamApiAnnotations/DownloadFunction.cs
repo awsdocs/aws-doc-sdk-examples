@@ -9,6 +9,7 @@ using Amazon.Lambda.Core;
 using Amazon.S3;
 using Amazon.SimpleNotificationService;
 using Amazon.Util;
+using AWS.Lambda.Powertools.Logging;
 using PamApi;
 using PamServices;
 
@@ -70,7 +71,7 @@ public class DownloadFunction
 
         try
         {
-            context.Logger.LogInformation($"Starting download and zip operation: {JsonSerializer.Serialize(request)}");
+            Logger.LogInformation($"Starting download and zip operation: ", request);
             var labelsList = request.labels.ToList();
             var imageKeys = await _labelService.GetAllImagesForLabels(labelsList);
             var zipArchiveUrl =
@@ -78,13 +79,11 @@ public class DownloadFunction
                     workingBucketName!);
             await _notificationService.SendNotification(topicArn!, "Image download",
                 $"Your images are available here: {zipArchiveUrl}");
-            LambdaLogger.Log($"url: {zipArchiveUrl}");
+            Logger.LogInformation($"url: {zipArchiveUrl}");
         }
         catch (Exception e)
         {
-            context.Logger.LogInformation($"Error starting download.");
-            context.Logger.LogInformation(e.Message);
-            context.Logger.LogInformation(e.StackTrace);
+            Logger.LogError($"Error starting download.", e);
             throw;
         }
     }

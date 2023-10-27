@@ -16,6 +16,6 @@ aws-sdk-dynamodb = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "
 # snippet-start:[logging.rust.logger-cargo.toml-env_logger]
 env_logger = "0.9.0"
 # snippet-end:[logging.rust.logger-cargo.toml-env_logger]
-clap = { version = "~4.2", features = ["derive"] }
+clap = { version = "~4.4", features = ["derive"] }
 tokio = { version = "1.20.1", features = ["full"] }
 # snippet-end:[logging.rust.logger-cargo.toml]

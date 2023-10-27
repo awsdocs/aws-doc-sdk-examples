@@ -13,5 +13,5 @@ edition = "2021"
 aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-medialive = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 tokio = { version = "1.20.1", features = ["full"] }
-clap = { version = "~4.2", features = ["derive"] }
+clap = { version = "~4.4", features = ["derive"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }

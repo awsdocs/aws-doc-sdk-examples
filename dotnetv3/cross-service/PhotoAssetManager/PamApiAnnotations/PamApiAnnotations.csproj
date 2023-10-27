@@ -31,6 +31,7 @@
     <PackageReference Include="Amazon.Lambda.S3Events" Version="3.0.1" />
     <PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.3.1" />
     <PackageReference Include="Amazon.Lambda.Annotations" Version="1.0.0" />
+    <PackageReference Include="AWS.Lambda.Powertools.Logging" Version="1.3.2" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.7" />
   </ItemGroup>
   <ItemGroup>

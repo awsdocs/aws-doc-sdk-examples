@@ -3,6 +3,7 @@ name = "rds-code-examples"
 authors = [
   "LMJW <heysuperming@gmail.com>",
   "Doug Schwartz <dougsch@amazon.com>",
+  "David Souther <dpsouth@amazon.com>", 
 ]
 edition = "2021"
 version = "0.1.0"
@@ -10,8 +11,19 @@ version = "0.1.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+anyhow = "1.0.75"
+assert_matches = "1.5.0"
+async-trait = "0.1.73"
 aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-http = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-runtime-api = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-rds = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
-tokio = { version = "1.20.1", features = ["full"] }
-clap = { version = "~4.2", features = ["derive"] }
+clap = { version = "~4.4", features = ["derive"] }
+inquire = "0.6.2"
+mockall = "0.11.4"
+phf = { version = "0.11.2", features = ["std", "macros"] }
+sdk-examples-test-utils = { path = "../../test-utils" }
+secrecy = "0.8.0"
+tokio = { version = "1.20.1", features = ["full", "test-util"] }
+tracing = "0.1.37"
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }

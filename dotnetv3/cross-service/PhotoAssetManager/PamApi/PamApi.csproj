@@ -28,6 +28,7 @@
     <PackageReference Include="Amazon.Extensions.Configuration.SystemsManager" Version="5.0.3" />
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="7.2.0" />
     <PackageReference Include="Amazon.Lambda.S3Events" Version="3.0.1" />
+    <PackageReference Include="AWS.Lambda.Powertools.Logging" Version="1.3.2" />
     <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.103.5" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.7" />
     <PackageReference Include="AWSSDK.Rekognition" Version="3.7.107.1" />

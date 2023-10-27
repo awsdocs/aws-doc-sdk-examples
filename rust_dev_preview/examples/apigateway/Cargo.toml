@@ -11,7 +11,7 @@ aws-sdk-apigateway = { git = "https://github.com/awslabs/aws-sdk-rust", branch =
 aws-smithy-types-convert = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = [
   "convert-chrono",
 ] }
-clap = { version = "~4.2", features = ["derive"] }
+clap = { version = "~4.4", features = ["derive"] }
 thiserror = "1.0"
 tokio = { version = "1.20.1", features = ["full"] }
 tracing-subscriber = { version = "0.3.15", features = ["env-filter"] }
