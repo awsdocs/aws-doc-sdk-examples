@@ -137,7 +137,7 @@ bedrock:
     product_categories: {'Machine Learning &amp; AI'}
   version: bedrock-2023-04-20
 bedrock-runtime:
-bundle: bedrock
+  bundle: bedrock
   long: '&BRRUNlong;'
   short: '&BRRUN;'
   sort: Bedrock Runtime
