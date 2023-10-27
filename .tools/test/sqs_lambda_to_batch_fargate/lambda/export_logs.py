@@ -38,7 +38,6 @@ def handler(event, context):
 
 
 def get_and_put_logs():
-
     # Get most recent log stream
     log_streams = logs_client.describe_log_streams(
         logGroupName=log_group_name,
@@ -63,14 +62,12 @@ def get_and_put_logs():
     s3_client.put_object(
         Body=log_file,
         Bucket=os.environ["PRODUCER_BUCKET_NAME"],
-        Key=f"{os.environ['LANGUAGE_NAME']}/{file_identifier}.log"
+        Key=f"{os.environ['LANGUAGE_NAME']}/{file_identifier}.log",
     )
 
     # Back up logs to local bucket
     s3_client.put_object(
-        Body=log_file,
-        Bucket=os.environ["BUCKET_NAME"],
-        Key=f"{file_identifier}.log"
+        Body=log_file, Bucket=os.environ["BUCKET_NAME"], Key=f"{file_identifier}.log"
     )
 
     logger.info(

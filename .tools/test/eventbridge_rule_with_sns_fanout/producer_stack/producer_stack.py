@@ -11,7 +11,6 @@ from aws_cdk import aws_sns as sns
 from constructs import Construct
 
 
-
 class ProducerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
@@ -97,7 +96,7 @@ class ProducerStack(Stack):
             bucket_name,
             bucket_name=bucket_name,
             versioned=False,
-            block_public_access=s3.BlockPublicAccess.BLOCK_ALL
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
         )
         return bucket
 

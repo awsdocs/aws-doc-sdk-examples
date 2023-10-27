@@ -2,11 +2,10 @@
 # SPDX-License-Identifier: MIT-0
 
 import os
-import yaml
 
-from aws_cdk import Aws, Duration, Size, Stack
+import yaml
+from aws_cdk import Aws, Duration, Size, Stack, aws_batch
 from aws_cdk import aws_batch_alpha as batch_alpha
-from aws_cdk import aws_batch
 from aws_cdk import aws_ec2 as ec2
 from aws_cdk import aws_ecs as ecs
 from aws_cdk import aws_events as events
@@ -152,7 +151,6 @@ class ConsumerStack(Stack):
         sqs_queue.add_to_resource_policy(statement)
 
     def init_batch_lambda(self, job_queue, job_definition):
-
         # Execution role for AWS Lambda function to use.
         execution_role = iam.Role(
             self,
