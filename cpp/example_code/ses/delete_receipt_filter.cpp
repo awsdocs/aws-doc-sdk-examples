@@ -20,7 +20,7 @@
 #include <iostream>
 #include "ses_samples.h"
 
-// snippet-start:[cpp.example_code.ses.delete_receipt_filter]
+// snippet-start:[cpp.example_code.ses.DeleteReceiptFilter]
 //! Delete an Amazon SES receipt filter.
 /*!
   \param receiptFilterName: The nane for the receipt filter.
@@ -46,7 +46,7 @@ bool AwsDoc::SES::deleteReceiptFilter(const Aws::String &receiptFilterName,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ses.delete_receipt_filter]
+// snippet-end:[cpp.example_code.ses.DeleteReceiptFilter]
 
 /*
  *

@@ -24,6 +24,7 @@
 #include <iostream>
 #include "ses_samples.h"
 
+// snippet-start:[cpp.example_code.ses.CreateReceiptRule]
 //! Create an Amazon SES receipt rule.
 /*!
   \param receiptRuleName: The nane for the receipt rule.
@@ -84,6 +85,8 @@ bool AwsDoc::SES::createReceiptRule(const Aws::String &receiptRuleName, const Aw
 
     return outcome.IsSuccess();
 }
+
+// snippet-end:[cpp.example_code.ses.CreateReceiptRule]
 
 /*
  *

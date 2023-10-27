@@ -20,7 +20,7 @@
 #include <iostream>
 #include "ses_samples.h"
 
-// snippet-start:[cpp.example_code.ses.delete_receipt_rule]
+// snippet-start:[cpp.example_code.ses.DeleteReceiptRule]
 //! Delete an Amazon SES receipt rule.
 /*!
   \param receiptRuleName: The nane for the receipt rule.
@@ -49,7 +49,7 @@ bool AwsDoc::SES::deleteReceiptRule(const Aws::String &receiptRuleName, const Aw
     return outcome.IsSuccess();
 }
 
-// snippet-end:[cpp.example_code.ses.delete_receipt_rule]
+// snippet-end:[cpp.example_code.ses.DeleteReceiptRule]
 
 /*
  *

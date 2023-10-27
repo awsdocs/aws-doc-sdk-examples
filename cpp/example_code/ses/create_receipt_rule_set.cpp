@@ -20,7 +20,7 @@
 #include <iostream>
 #include "ses_samples.h"
 
-// snippet-start:[cpp.example_code.ses.create_receipt_rule_set]
+// snippet-start:[cpp.example_code.ses.CreateReceiptRuleSet]
 //! Create an Amazon SES receipt rule det.
 /*!
   \param ruleSetName: The name of the rule set.
@@ -46,7 +46,7 @@ bool AwsDoc::SES::createReceiptRuleSet(const Aws::String &ruleSetName,
 
     return outcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ses.create_receipt_rule_set]
+// snippet-end:[cpp.example_code.ses.CreateReceiptRuleSet]
 
 /*
  *

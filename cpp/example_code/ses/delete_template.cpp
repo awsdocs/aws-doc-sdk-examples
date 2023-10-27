@@ -20,7 +20,7 @@
 #include <iostream>
 #include "ses_samples.h"
 
-// snippet-start:[cpp.example_code.ses.delete_template]
+// snippet-start:[cpp.example_code.ses.DeleteTemplate]
 //! Delete an Amazon SES template.
 /*!
   \param templateName: The nane for the template.
@@ -47,7 +47,7 @@ bool AwsDoc::SES::deleteTemplate(const Aws::String &templateName,
     return outcome.IsSuccess();
 }
 
-// snippet-end:[cpp.example_code.ses.delete_template]
+// snippet-end:[cpp.example_code.ses.DeleteTemplate]
 
 /*
  *

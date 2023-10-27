@@ -21,7 +21,7 @@
 #include <iostream>
 #include "ses_samples.h"
 
-// snippet-start:[cpp.example_code.ses.create_template]
+// snippet-start:[cpp.example_code.ses.CreateTemplate]
 //! Create an Amazon SES receipt rule det.
 /*!
   \param templateName: The name of the template.
@@ -59,7 +59,7 @@ bool AwsDoc::SES::createTemplate(const Aws::String &templateName,
     return outcome.IsSuccess();
 }
 
-// snippet-end:[cpp.example_code.ses.create_template]
+// snippet-end:[cpp.example_code.ses.CreateTemplate]
 
 
 /*

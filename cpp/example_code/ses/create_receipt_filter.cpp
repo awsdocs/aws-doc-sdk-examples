@@ -23,7 +23,7 @@
 #include <iostream>
 #include "ses_samples.h"
 
-// snippet-start:[cpp.example_code.ses.create_receipt_filter]
+// snippet-start:[cpp.example_code.ses.CreateReceiptFilter]
 //! Create an Amazon Simple Email Service (Amazon SES) receipt filter..
 /*!
   \param receiptFilterName: The name for the receipt filter.
@@ -55,7 +55,7 @@ bool AwsDoc::SES::createReceiptFilter(const Aws::String &receiptFilterName, cons
 
     return createReceiptFilterOutcome.IsSuccess();
 }
-// snippet-end:[cpp.example_code.ses.create_receipt_filter]
+// snippet-end:[cpp.example_code.ses.CreateReceiptFilter]
 
 /*
  *
