@@ -84,8 +84,6 @@ class ConsumerStack(Stack):
             vpc=ec2.Vpc.from_lookup(self, "Vpc", is_default=True),
         )
 
-        # fargate_job_def = self.init_batch_job_definition(batch_execution_role)
-
         container_image = ecs.EcrImage.from_registry(
             f"public.ecr.aws/b4v4v1s0/{language_name}:latest"
         )
