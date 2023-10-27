@@ -2,9 +2,11 @@
 # SPDX-License-Identifier: MIT-0
 
 import os
+import yaml
 
 from aws_cdk import Aws, Duration, Size, Stack
 from aws_cdk import aws_batch_alpha as batch_alpha
+from aws_cdk import aws_batch
 from aws_cdk import aws_ec2 as ec2
 from aws_cdk import aws_ecs as ecs
 from aws_cdk import aws_events as events
@@ -26,78 +28,27 @@ producer_account_id = os.environ["PRODUCER_ACCOUNT_ID"]
 class ConsumerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
-
-        #####################################################
-        ##                                                 ##
-        ##                 FANOUT COMPONENTS               ##
-        ##           (SQS, SNS, and Subscriptions)         ##
-        ##                                                 ##
-        #####################################################
-
-        # Locate Amazon Simple Notification Service (Amazon SNS) topic in the producer account.
-        fanout_topic_name = "aws-weathertop-central-sns-fanout-topic"
-        fanout_topic_arn = (
-            f"arn:aws:sns:us-east-1:{producer_account_id}:{fanout_topic_name}"
-        )
-        sns_topic = sns.Topic.from_topic_arn(
-            self, fanout_topic_name, topic_arn=fanout_topic_arn
-        )
-
-        # Define the Amazon Simple Queue Service (Amazon SQS) queue in this account.
+        resource_config = self.get_yaml_config("../config/resources.yaml")
+        topic_name = resource_config["topic_name"]
+        producer_bucket_name = resource_config["bucket_name"]
+        sns_topic = self.init_get_topic(topic_name)
         sqs_queue = sqs.Queue(self, f"BatchJobQueue-{language_name}")
+        self.init_subscribe_sns(sqs_queue, sns_topic)
+        job_definition, job_queue = self.init_batch_fargte()
+        batch_function = self.init_batch_lambda(job_queue, job_definition)
+        self.init_sqs_lambda_integration(batch_function, sqs_queue)
+        self.init_log_function(producer_bucket_name)
 
-        # Create an AWS Identity and Access Management (IAM) role for the SNS topic to send messages to the SQS queue.
-        sns_topic_role = iam.Role(
-            self,
-            f"SNSTopicRole-{language_name}",
-            assumed_by=iam.ServicePrincipal("sns.amazonaws.com"),
-            description="Allows the SNS topic to send messages to the SQS queue in this account",
-            role_name=f"SNSTopicRole-{language_name}",
-        )
+    def get_yaml_config(self, filepath):
+        with open(filepath, "r") as file:
+            data = yaml.safe_load(file)
+        return data
 
-        # Policy to allow existing SNS topic to publish to new SQS queue.
-        sns_topic_policy = iam.PolicyStatement(
-            effect=iam.Effect.ALLOW,
-            actions=["sqs:SendMessage"],
-            resources=[sqs_queue.queue_arn],
-            conditions={"ArnEquals": {"aws:SourceArn": fanout_topic_arn}},
-        )
+    def init_get_topic(self, topic_name):
+        topic = sns.Topic(self, "fanout-topic", topic_name=topic_name)
+        return topic
 
-        # Create an SNS subscription for the SQS queue.
-        subs.SqsSubscription(sqs_queue, raw_message_delivery=True).bind(sns_topic)
-        sns_topic.add_subscription(subs.SqsSubscription(sqs_queue))
-
-        # Add the Amazon SNS and Amazon SQS policy to the IAM role.
-        sns_topic_role.add_to_policy(sns_topic_policy)
-
-        # Define policy that allows cross-account Amazon SNS and Amazon SQS access.
-        statement = iam.PolicyStatement()
-        statement.add_resources(sqs_queue.queue_arn)
-        statement.add_actions("sqs:*")
-        statement.add_arn_principal(f"arn:aws:iam::{producer_account_id}:root")
-        statement.add_arn_principal(f"arn:aws:iam::{Aws.ACCOUNT_ID}:root")
-        statement.add_condition("ArnLike", {"aws:SourceArn": fanout_topic_arn})
-        sqs_queue.add_to_resource_policy(statement)
-
-        ################################################
-        ##                                            ##
-        ##            S3 BUCKET FOR LOGS              ##
-        ##                                            ##
-        ################################################
-
-        bucket = s3.Bucket(
-            self,
-            "LogBucket",
-            versioned=False,
-            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
-        )
-
-        ################################################
-        ##                                            ##
-        ##            BATCH FARGATE JOBS              ##
-        ##                                            ##
-        ################################################
-
+    def init_batch_fargte(self):
         batch_execution_role = iam.Role(
             self,
             f"BatchExecutionRole-{language_name}",
@@ -134,6 +85,8 @@ class ConsumerStack(Stack):
             vpc=ec2.Vpc.from_lookup(self, "Vpc", is_default=True),
         )
 
+        # fargate_job_def = self.init_batch_job_definition(batch_execution_role)
+
         container_image = ecs.EcrImage.from_registry(
             f"public.ecr.aws/b4v4v1s0/{language_name}:latest"
         )
@@ -157,12 +110,48 @@ class ConsumerStack(Stack):
 
         job_queue.add_compute_environment(fargate_environment, 1)
 
-        #################################################
-        ##                                             ##
-        ##           BATCH LAMBDA FUNCTION             ##
-        ##     (Triggers Batch job from SQS queue)     ##
-        ##                                             ##
-        #################################################
+        return job_definition, job_queue
+
+    def init_sqs_queue(self):
+        # Define the Amazon Simple Queue Service (Amazon SQS) queue in this account.
+        sqs_queue = sqs.Queue(self, f"BatchJobQueue-{language_name}")
+        return sqs_queue
+
+    def init_subscribe_sns(self, sqs_queue, sns_topic):
+        # Create an AWS Identity and Access Management (IAM) role for the SNS topic to send messages to the SQS queue.
+        sns_topic_role = iam.Role(
+            self,
+            f"SNSTopicRole-{language_name}",
+            assumed_by=iam.ServicePrincipal("sns.amazonaws.com"),
+            description="Allows the SNS topic to send messages to the SQS queue in this account",
+            role_name=f"SNSTopicRole-{language_name}",
+        )
+
+        # Policy to allow existing SNS topic to publish to new SQS queue.
+        sns_topic_policy = iam.PolicyStatement(
+            effect=iam.Effect.ALLOW,
+            actions=["sqs:SendMessage"],
+            resources=[sqs_queue.queue_arn],
+            conditions={"ArnEquals": {"aws:SourceArn": sns_topic.topic_arn}},
+        )
+
+        # Create an SNS subscription for the SQS queue.
+        subs.SqsSubscription(sqs_queue, raw_message_delivery=True).bind(sns_topic)
+        sns_topic.add_subscription(subs.SqsSubscription(sqs_queue))
+
+        # Add the Amazon SNS and Amazon SQS policy to the IAM role.
+        sns_topic_role.add_to_policy(sns_topic_policy)
+
+        # Define policy that allows cross-account Amazon SNS and Amazon SQS access.
+        statement = iam.PolicyStatement()
+        statement.add_resources(sqs_queue.queue_arn)
+        statement.add_actions("sqs:*")
+        statement.add_arn_principal(f"arn:aws:iam::{producer_account_id}:root")
+        statement.add_arn_principal(f"arn:aws:iam::{Aws.ACCOUNT_ID}:root")
+        statement.add_condition("ArnLike", {"aws:SourceArn": sns_topic.topic_arn})
+        sqs_queue.add_to_resource_policy(statement)
+
+    def init_batch_lambda(self, job_queue, job_definition):
 
         # Execution role for AWS Lambda function to use.
         execution_role = iam.Role(
@@ -199,7 +188,9 @@ class ConsumerStack(Stack):
                 "JOB_NAME": f"job-{language_name}",
             },
         )
+        return function
 
+    def init_sqs_lambda_integration(self, function, sqs_queue):
         # Add the SQS queue as an event source for the Lambda function.
         function.add_event_source(_event_sources.SqsEventSource(sqs_queue))
 
@@ -221,12 +212,14 @@ class ConsumerStack(Stack):
             )
         )
 
-        #################################################
-        ##                                             ##
-        ##            LOG LAMBDA FUNCTION              ##
-        ##    (Processes logs and puts them to S3)     ##
-        ##                                             ##
-        #################################################
+    def init_log_function(self, producer_bucket_name):
+        # S3 Bucket to store logs within this account.
+        bucket = s3.Bucket(
+            self,
+            "LogBucket",
+            versioned=False,
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+        )
 
         # Execution role for AWS Lambda function to use.
         execution_role = iam.Role(
@@ -264,7 +257,7 @@ class ConsumerStack(Stack):
         execution_role.add_to_policy(
             statement=iam.PolicyStatement(
                 actions=["s3:PutObject", "s3:PutObjectAcl"],
-                resources=["arn:aws:s3:::aws-weathertop-central-log-bucket/*"],
+                resources=[f"arn:aws:s3:::{producer_bucket_name}/*"],
             )
         )
 
@@ -279,7 +272,7 @@ class ConsumerStack(Stack):
             environment={
                 "LANGUAGE_NAME": language_name,
                 "BUCKET_NAME": bucket.bucket_name,
-                "PRODUCER_BUCKET_NAME": "aws-weathertop-central-log-bucket",
+                "PRODUCER_BUCKET_NAME": f"{producer_bucket_name}",
             },
         )
 

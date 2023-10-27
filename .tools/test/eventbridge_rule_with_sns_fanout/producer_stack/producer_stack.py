@@ -11,11 +11,12 @@ from aws_cdk import aws_sns as sns
 from constructs import Construct
 
 
+
 class ProducerStack(Stack):
     def __init__(self, scope: Construct, id: str, **kwargs) -> None:
         super().__init__(scope, id, **kwargs)
-        acct_config = self.get_yaml_config("../../config/targets.yaml")
-        resource_config = self.get_yaml_config("../../config/resources.yaml")
+        acct_config = self.get_yaml_config("../config/targets.yaml")
+        resource_config = self.get_yaml_config("../config/resources.yaml")
         topic_name = resource_config["topic_name"]
         bucket_name = resource_config["bucket_name"]
         topic = self.init_get_topic(topic_name)
@@ -96,7 +97,7 @@ class ProducerStack(Stack):
             bucket_name,
             bucket_name=bucket_name,
             versioned=False,
-            block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
+            block_public_access=s3.BlockPublicAccess.BLOCK_ALL
         )
         return bucket
 
