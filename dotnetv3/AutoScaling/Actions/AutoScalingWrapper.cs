@@ -2,7 +2,6 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[AutoScaling.dotnetv3.AutoScalingActions.AutoScalingWrapper]
-using LaunchTemplateSpecification = Amazon.AutoScaling.Model.LaunchTemplateSpecification;
 
 namespace AutoScalingActions;
 

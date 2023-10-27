@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier:  Apache-2.0
 
 namespace HighLevelMappingArbitraryDataExample
 {
@@ -57,7 +57,7 @@ namespace HighLevelMappingArbitraryDataExample
             await context.SaveAsync(bookRetrieved);
         }
 
-        private static async Task Main()
+        public static async Task Main()
         {
             var client = new AmazonDynamoDBClient();
             DynamoDBContext context = new DynamoDBContext(client);

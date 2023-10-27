@@ -1,7 +1,7 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-namespace SNSExample.Controllers
+namespace SubscribePublishTranslate.Controllers
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -23,51 +23,6 @@ namespace SNSExample.Controllers
             await client.UnsubscribeAsync(request);
 
             return string.Empty;
-        }
-
-        public async Task<string> UnSubEmail(string email)
-        {
-            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
-            var arnValue = await GetSubArn(client, email);
-            await RemoveSub(client, arnValue);
-            return $"{email} was successfully deleted!";
-        }
-
-        public async Task<string> PubTopic(string body, string lang)
-        {
-            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
-            var message = string.Empty;
-
-            switch (lang.ToLower())
-            {
-                case "french":
-                    message = this.TranslateBody(body, "fr");
-                    break;
-                case "spanish":
-                    message = this.TranslateBody(body, "es");
-                    break;
-                default:
-                    message = body;
-                    break;
-            }
-
-            var msgId = await PublishMessage(client, message);
-            return msgId;
-        }
-
-        public async Task<string> SubEmail(string email)
-        {
-            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
-            var subArn = await SubscribeEmail(client, email);
-            return subArn;
-        }
-
-        public async Task<string> GetSubs()
-        {
-            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
-            var subscriptions = await GetSubscriptionsListAsync(client);
-            var val = this.DisplaySubscriptionList(subscriptions);
-            return val;
         }
 
         public static async Task<string> GetSubArn(IAmazonSimpleNotificationService client, string email)
@@ -124,6 +79,51 @@ namespace SNSExample.Controllers
             };
             var response = await client.ListSubscriptionsByTopicAsync(request);
             return response.Subscriptions;
+        }
+
+        public async Task<string> UnSubEmail(string email)
+        {
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
+            var arnValue = await GetSubArn(client, email);
+            await RemoveSub(client, arnValue);
+            return $"{email} was successfully deleted!";
+        }
+
+        public async Task<string> PubTopic(string body, string lang)
+        {
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
+            var message = string.Empty;
+
+            switch (lang.ToLower())
+            {
+                case "french":
+                    message = this.TranslateBody(body, "fr");
+                    break;
+                case "spanish":
+                    message = this.TranslateBody(body, "es");
+                    break;
+                default:
+                    message = body;
+                    break;
+            }
+
+            var msgId = await PublishMessage(client, message);
+            return msgId;
+        }
+
+        public async Task<string> SubEmail(string email)
+        {
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
+            var subArn = await SubscribeEmail(client, email);
+            return subArn;
+        }
+
+        public async Task<string> GetSubs()
+        {
+            var client = new AmazonSimpleNotificationServiceClient(RegionEndpoint.USEast2);
+            var subscriptions = await GetSubscriptionsListAsync(client);
+            var val = this.DisplaySubscriptionList(subscriptions);
+            return val;
         }
 
         public string DisplaySubscriptionList(List<Subscription> subscriptionList)

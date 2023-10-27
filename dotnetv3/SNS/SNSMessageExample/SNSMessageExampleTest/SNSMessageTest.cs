@@ -1,5 +1,5 @@
-// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier:  Apache-2.0
 
 using System;
 using System.Net;
@@ -48,6 +48,7 @@ namespace SNSMessageExampleTest
         }
 
         [Fact]
+        [Trait("Category", "Unit")]
         public async Task TestSendTextMessageAsync()
         {
             var MockSNSClient = CreateMockSNSClient();

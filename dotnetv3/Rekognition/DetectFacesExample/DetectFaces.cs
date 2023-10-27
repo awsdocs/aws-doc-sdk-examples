@@ -1,4 +1,7 @@
-﻿namespace DetectFacesExample
+﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier:  Apache-2.0
+
+namespace DetectFacesExample
 {
     // snippet-start:[Rekognition.dotnetv3.DetectFacesExample]
     using System;

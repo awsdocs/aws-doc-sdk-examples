@@ -1,0 +1,34 @@
+name: Dotnet lint check
+on:
+  push:
+    paths:
+      - "dotnetv3/**"
+    branches:
+      - main
+  pull_request:
+    paths:
+      - "dotnetv3/**"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  dotnetcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            5.0.x
+            6.0.x
+      - name: Checkout files
+        uses: actions/checkout@v3
+      - name: Build check
+        run: |
+          cd dotnetv3
+          dotnet build -v=q --property WarningLevel=0 /clp:ErrorsOnly
+      - name: Lint and format check
+        if: success() || failure()
+        run: |
+          cd dotnetv3
+          dotnet format --verify-no-changes

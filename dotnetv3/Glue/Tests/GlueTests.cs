@@ -5,8 +5,6 @@ using Amazon.Glue;
 using Amazon.Glue.Model;
 using GlueActions;
 using Microsoft.Extensions.Configuration;
-using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace GlueTests
 {

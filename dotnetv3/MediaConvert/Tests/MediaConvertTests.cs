@@ -1,7 +1,9 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier:  Apache-2.0
+
 using Amazon.MediaConvert;
 using MediaConvertActions;
 using Microsoft.Extensions.Configuration;
-using Xunit.Extensions.Ordering;
 
 namespace MediaConvertTests;
 

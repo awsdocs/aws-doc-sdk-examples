@@ -8,6 +8,7 @@ namespace SNSExample.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using SNSExample.Models;
+    using SubscribePublishTranslate.Controllers;
 
     public class HomeController : Controller
     {

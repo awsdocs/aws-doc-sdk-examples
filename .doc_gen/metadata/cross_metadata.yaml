@@ -9,6 +9,7 @@ cross_FSA:
     .NET:
       versions:
         - sdk_version: 3
+          github: dotnetv3/cross-service/FeedbackSentimentAnalyzer
           block_content: cross_FSA_NetV3_block.xml
     Java:
       versions:

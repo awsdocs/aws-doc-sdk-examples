@@ -1,5 +1,5 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX - License - Identifier: Apache - 2.0
+// SPDX-License-Identifier:  Apache-2.0
 
 namespace GetSecretValueExample
 {
@@ -12,8 +12,7 @@ namespace GetSecretValueExample
 
     /// <summary>
     /// This example uses the Amazon Web Service Secrets Manager to retrieve
-    /// the secret value for the provided secret name. This example was created
-    /// using the AWS SDK for .NET v3.7 and .NET Core 5.0.
+    /// the secret value for the provided secret name.
     /// </summary>
     public class GetSecretValue
     {
@@ -59,9 +58,11 @@ namespace GetSecretValueExample
             IAmazonSecretsManager client,
             string secretName)
         {
-            GetSecretValueRequest request = new();
-            request.SecretId = secretName;
-            request.VersionStage = "AWSCURRENT"; // VersionStage defaults to AWSCURRENT if unspecified.
+            GetSecretValueRequest request = new GetSecretValueRequest()
+            {
+                SecretId = secretName,
+                VersionStage = "AWSCURRENT", // VersionStage defaults to AWSCURRENT if unspecified.
+            };
 
             GetSecretValueResponse response = null;
 
@@ -91,8 +92,6 @@ namespace GetSecretValueExample
             // Decrypts secret using the associated AWS Key Management Service
             // Customer Master Key (CMK.) Depending on whether the secret is a
             // string or binary value, one of these fields will be populated.
-            MemoryStream memoryStream = new();
-
             if (response.SecretString is not null)
             {
                 var secret = response.SecretString;
@@ -100,7 +99,7 @@ namespace GetSecretValueExample
             }
             else if (response.SecretBinary is not null)
             {
-                memoryStream = response.SecretBinary;
+                var memoryStream = response.SecretBinary;
                 StreamReader reader = new StreamReader(memoryStream);
                 string decodedBinarySecret = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(reader.ReadToEnd()));
                 return decodedBinarySecret;

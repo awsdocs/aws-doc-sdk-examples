@@ -1,14 +1,10 @@
 ﻿// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
+using Amazon.ECS;
+using ECSActions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Text.Json.Serialization;
-using System.Text.Json;
-using System.Text;
-using Amazon.Runtime;
-using ECSActions;
-using Amazon.ECS;
 
 namespace ECSTests;
 

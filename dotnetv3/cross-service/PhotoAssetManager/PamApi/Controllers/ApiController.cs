@@ -1,7 +1,6 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier:  Apache-2.0
 
-using Amazon.Lambda.Core;
 using AWS.Lambda.Powertools.Logging;
 using Microsoft.AspNetCore.Mvc;
 using PamServices;

@@ -2,11 +2,8 @@
 // SPDX-License-Identifier:  Apache-2.0
 
 // snippet-start:[Cognito.dotnetv3.CognitoBasics.Usings]
-global using Amazon;
 global using Amazon.CognitoIdentityProvider;
-global using Amazon.CognitoIdentityProvider.Model;
 global using CognitoActions;
-global using CognitoBasics;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Hosting;

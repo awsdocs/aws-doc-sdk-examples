@@ -1,3 +1,6 @@
+// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved. 
+// SPDX-License-Identifier:  Apache-2.0
+
 using Amazon.EC2;
 using CreateVPCforS3Example;
 using Microsoft.Extensions.Configuration;

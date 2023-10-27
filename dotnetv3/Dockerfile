@@ -10,6 +10,6 @@ COPY --from=mcr.microsoft.com/dotnet/sdk:5.0 /usr/share/dotnet/shared /usr/share
 # such as dotnetv3/CloudWatch/Scenarios to build and run an interactive scenario with `dotnet run`
 COPY . /dotnetv3
 
-RUN cd /dotnetv3 && dotnet build
+RUN cd /dotnetv3 && dotnet build -v=q --property WarningLevel=0 /clp:ErrorsOnly --nologo
 
-CMD ["dotnet", "test", "dotnetv3", "--filter", "Category=Unit"]
+CMD ["dotnet", "test", "dotnetv3", "--filter", "Category=Unit", "--verbosity=quiet", "/clp:ErrorsOnly", "--nologo"]
