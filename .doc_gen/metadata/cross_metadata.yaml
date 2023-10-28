@@ -708,6 +708,9 @@ cross_FMPlayground:
     bedrock:
       {
         ListFoundationModels,
+      }
+    bedrock-runtime:
+      {
         InvokeModel,
         InvokeModelWithResponseStream
       }
