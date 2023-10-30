@@ -11,6 +11,7 @@ aws-config = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" 
 aws-sdk-polly = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-s3 = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
 aws-sdk-transcribe = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next" }
+aws-smithy-types = { git = "https://github.com/awslabs/aws-sdk-rust", branch = "next", features = ["rt-tokio"] }
 anyhow = "1"
 tokio = { version = "1.20.1", features = ["full"] }
 bytes = "1"
