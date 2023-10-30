@@ -135,7 +135,7 @@ async fn put_object(client: &Client, opts: &Opt) -> Result<(), anyhow::Error> {
     debug!("object: {}", opts.object);
     debug!("source: {}", opts.source.display());
 
-    let body = ByteStream::read_from()
+    let body = ByteStream::read_with_body_0_4_from()
         .path(opts.source.clone())
         // Artificially limit the buffer size to ensure the file has multiple
         // progress steps.
