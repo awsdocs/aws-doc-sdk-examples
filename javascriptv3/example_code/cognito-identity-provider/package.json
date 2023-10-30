@@ -17,7 +17,7 @@
     "@types/qrcode-terminal": "^0.12.0",
     "amazon-cognito-identity-js": "^6.3.6",
     "aws-amplify": "^5.3.11",
-    "crypto-js": "^4.1.1",
+    "crypto-js": "^4.2.0",
     "qrcode-terminal": "^0.12.0"
   },
   "devDependencies": {
