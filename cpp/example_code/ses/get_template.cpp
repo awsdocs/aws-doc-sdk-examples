@@ -24,7 +24,7 @@
 // snippet-start:[cpp.example_code.ses.GetTemplate]
 //! Get a template's attributes.
 /*!
-  \param templateName: The nane for the template.
+  \param templateName: The name for the template.
   \param clientConfiguration: AWS client configuration.
   \return bool: Function succeeded.
  */
@@ -41,7 +41,7 @@ bool AwsDoc::SES::getTemplate(const Aws::String &templateName,
 
     if (outcome.IsSuccess())
     {
-        std::cout << "Successfully get template." << std::endl;
+        std::cout << "Successfully got template." << std::endl;
     }
 
     else
@@ -74,7 +74,8 @@ int main(int argc, char **argv)
     return 1;
   }
   Aws::SDKOptions options;
-  Aws::InitAPI(options);
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
+    Aws::InitAPI(options);
   {
     Aws::String template_name(argv[1]);
 

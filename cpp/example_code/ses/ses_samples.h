@@ -113,7 +113,7 @@ namespace AwsDoc {
 
         //! Get an Amazon SES template's attributes.
         /*!
-          \param templateName: The nane for the template.
+          \param templateName: The name for the template.
           \param clientConfiguration: AWS client configuration.
           \return bool: Function succeeded.
          */

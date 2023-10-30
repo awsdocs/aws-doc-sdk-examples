@@ -1,0 +1,6 @@
+<CreateReceiptRuleResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">   <CreateReceiptRuleResult/>
+   <ResponseMetadata>
+     <RequestId>083c07cd-bccb-496a-9ac0-c55de80f4079</RequestId>
+   </ResponseMetadata>
+ </CreateReceiptRuleResponse>
+ 

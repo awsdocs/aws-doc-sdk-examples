@@ -17,14 +17,16 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SES_GTests, create_receipt_rule_1_) {
+    TEST_F(SES_GTests, get_template_1_) {
         MockHTTP mockHttp;
-        bool result = mockHttp.addResponseWithBody("mock_input/CreateReceiptRule.xml");
+        bool result = mockHttp.addResponseWithBody("mock_input/GetTemplate.xml");
         ASSERT_TRUE(result) << preconditionError() << std::endl;
 
-        result = AwsDoc::SES::createReceiptRule("mock-rule-name", "mock-s3-bucket", "mock-s3-key", "mock-receipt-rule",
-                                                {"mock_recipient1@email.com", "mock_recipient2@email.com"},
-                                                *s_clientConfig);
+        result = AwsDoc::SES::getTemplate("mock-name", *s_clientConfig);
         ASSERT_TRUE(result);
     }
 } // namespace AwsDocTest
+/*
+   Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+   SPDX-License-Identifier: Apache-2.0
+*/

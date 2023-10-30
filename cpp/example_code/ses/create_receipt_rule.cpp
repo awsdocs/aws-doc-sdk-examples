@@ -42,28 +42,15 @@ bool AwsDoc::SES::createReceiptRule(const Aws::String &receiptRuleName, const Aw
     Aws::SES::SESClient sesClient(clientConfiguration);
 
     Aws::SES::Model::CreateReceiptRuleRequest createReceiptRuleRequest;
-    Aws::SES::Model::ReceiptRule receiptRule;
-    Aws::SES::Model::ReceiptAction receiptAction;
+
     Aws::SES::Model::S3Action s3Action;
-
-//    if (tls_policy_val == "Require")
-//    {
-//        receiptRule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::Require);
-//    }
-//    else if (tls_policy_val == "Optional")
-//    {
-//        receiptRule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::Optional);
-//    }
-//    else
-//    {
-//        receiptRule.SetTlsPolicy(Aws::SES::Model::TlsPolicy::NOT_SET);
-//    }
-
     s3Action.SetBucketName(s3BucketName);
     s3Action.SetObjectKeyPrefix(s3ObjectKeyPrefix);
 
+    Aws::SES::Model::ReceiptAction receiptAction;
     receiptAction.SetS3Action(s3Action);
 
+    Aws::SES::Model::ReceiptRule receiptRule;
     receiptRule.SetName(receiptRuleName);
     receiptRule.WithRecipients(recipients);
 
@@ -108,6 +95,7 @@ int main(int argc, char **argv) {
         return 1;
     }
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         Aws::String s3BucketName(argv[1]);

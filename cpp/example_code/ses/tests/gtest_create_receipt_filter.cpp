@@ -17,15 +17,14 @@
 
 namespace AwsDocTest {
     // NOLINTNEXTLINE(readability-named-parameter)
-    TEST_F(SES_GTests, create_receipt_filter_2_) {
+    TEST_F(SES_GTests, create_receipt_filter_1_) {
+        MockHTTP mockHttp;
+        bool result = mockHttp.addResponseWithBody("mock_input/CreateReceiptFilter.xml");
+        ASSERT_TRUE(result) << preconditionError() << std::endl;
 
-    Aws::String receiptFilterName = uuidName("cpp-test-");
-    auto result = AwsDoc::SES::createReceiptFilter(receiptFilterName, "10.0.0.1/24",
+    result = AwsDoc::SES::createReceiptFilter("mock-name", "10.0.0.1/24",
                                                    Aws::SES::Model::ReceiptFilterPolicy::Allow,
                                                    *s_clientConfig);
     ASSERT_TRUE(result);
-
-    deleteReceiptFilter(receiptFilterName);
-
 }
 } // namespace AwsDocTest

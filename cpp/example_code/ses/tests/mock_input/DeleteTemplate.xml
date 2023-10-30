@@ -1,0 +1,6 @@
+<DeleteTemplateResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">   <DeleteTemplateResult/>
+   <ResponseMetadata>
+     <RequestId>548d865b-f17e-492d-8f1b-ea7f1db70793</RequestId>
+   </ResponseMetadata>
+ </DeleteTemplateResponse>
+ 

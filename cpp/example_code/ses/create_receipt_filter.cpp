@@ -47,7 +47,7 @@ bool AwsDoc::SES::createReceiptFilter(const Aws::String &receiptFilterName, cons
     Aws::SES::Model::CreateReceiptFilterOutcome createReceiptFilterOutcome = sesClient.CreateReceiptFilter(
             createReceiptFilterRequest);
     if (createReceiptFilterOutcome.IsSuccess()) {
-        std::cout << "Successfully created receipt filter" << std::endl;
+        std::cout << "Successfully created receipt filter." << std::endl;
     } else {
         std::cerr << "Error creating receipt filter: " <<
                   createReceiptFilterOutcome.GetError().GetMessage() << std::endl;
@@ -73,6 +73,7 @@ int main(int argc, char **argv) {
         return 1;
     }
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         Aws::String receiptFilterName = argv[1];

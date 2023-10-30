@@ -21,7 +21,7 @@
 #include "ses_samples.h"
 
 // snippet-start:[cpp.example_code.ses.CreateReceiptRuleSet]
-//! Create an Amazon Simple Email Service (Amazon SES) receipt rule det.
+//! Create an Amazon Simple Email Service (Amazon SES) receipt rule set.
 /*!
   \param ruleSetName: The name of the rule set.
   \param clientConfiguration: AWS client configuration.
@@ -64,6 +64,7 @@ int main(int argc, char **argv) {
         return 1;
     }
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         Aws::String ruleSetName(argv[1]);

@@ -11,6 +11,10 @@
 #include <memory>
 #include <gtest/gtest.h>
 
+class MockHttpClient;
+
+class MockHttpClientFactory;
+
 namespace AwsDocTest {
 
     class MyStringBuffer : public std::stringbuf {
@@ -38,6 +42,8 @@ namespace AwsDocTest {
 
         static bool deleteReceiptFilter(const Aws::String &name);
 
+        static bool deleteReceiptRuleSet(const Aws::String &name);
+
         static Aws::String uuidName(const Aws::String &name);
 
     private:
@@ -52,6 +58,23 @@ namespace AwsDocTest {
         MyStringBuffer m_cinBuffer;
         std::streambuf *m_savedInBuffer = nullptr;
     }; // SES_GTests
+
+    class MockHTTP {
+    public:
+        MockHTTP();
+
+        virtual ~MockHTTP();
+
+        bool addResponseWithBody(const std::string &fileName,
+                                 Aws::Http::HttpResponseCode httpResponseCode = Aws::Http::HttpResponseCode::OK);
+
+    private:
+
+        std::shared_ptr<MockHttpClient> mockHttpClient;
+        std::shared_ptr<MockHttpClientFactory> mockHttpClientFactory;
+        std::shared_ptr<Aws::Http::HttpRequest> requestTmp;
+    }; // MockHTTP
+
 } // AwsDocTest
 
 #endif //S3_EXAMPLES_S3_GTESTS_H

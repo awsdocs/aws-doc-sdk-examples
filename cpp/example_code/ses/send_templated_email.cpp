@@ -51,7 +51,6 @@ bool AwsDoc::SES::sendTemplatedEmail(const Aws::Vector<Aws::String> &recipients,
         destination.WithToAddresses(recipients);
     }
 
-
     Aws::SES::Model::SendTemplatedEmailRequest sendTemplatedEmailRequest;
     sendTemplatedEmailRequest.SetDestination(destination);
     sendTemplatedEmailRequest.SetTemplate(templateName);
@@ -81,7 +80,7 @@ bool AwsDoc::SES::sendTemplatedEmail(const Aws::Vector<Aws::String> &recipients,
 
     if (outcome.IsSuccess()) {
         std::cout << "Successfully sent templated message with ID " << outcome.GetResult().GetMessageId()
-                  << std::endl;
+                  << "." << std::endl;
     } else {
         std::cerr << "Error sending templated message. " << outcome.GetError().GetMessage()
                   << std::endl;
@@ -110,6 +109,7 @@ int main(int argc, char **argv) {
         return 1;
     }
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         Aws::String template_name(argv[1]);

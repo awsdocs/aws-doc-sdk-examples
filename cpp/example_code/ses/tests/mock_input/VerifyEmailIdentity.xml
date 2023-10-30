@@ -1,0 +1,6 @@
+<VerifyEmailIdentityResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">   <VerifyEmailIdentityResult/>
+   <ResponseMetadata>
+     <RequestId>17b34a8b-5256-49aa-b912-0d6cae12c8f7</RequestId>
+   </ResponseMetadata>
+ </VerifyEmailIdentityResponse>
+ 

@@ -1,0 +1,13 @@
+<GetTemplateResponse xmlns="http://ses.amazonaws.com/doc/2010-12-01/">   <GetTemplateResult>
+     <Template>
+       <TemplateName>cpp_test</TemplateName>
+       <SubjectPart>subject line</SubjectPart>
+       <TextPart>some text</TextPart>
+       <HtmlPart>&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;body&gt;Some text&lt;/body&gt;&lt;/html&gt;</HtmlPart>
+     </Template>
+   </GetTemplateResult>
+   <ResponseMetadata>
+     <RequestId>49e1a82d-cab7-44e0-87da-d156d6b5271f</RequestId>
+   </ResponseMetadata>
+ </GetTemplateResponse>
+ 

@@ -40,9 +40,9 @@ bool AwsDoc::SES::deleteReceiptRule(const Aws::String &receiptRuleName, const Aw
     Aws::SES::Model::DeleteReceiptRuleOutcome outcome = sesClient.DeleteReceiptRule(deleteReceiptRuleRequest);
 
     if (outcome.IsSuccess()) {
-        std::cout << "Successfully deleted receipt rule" << std::endl;
+        std::cout << "Successfully deleted receipt rule." << std::endl;
     } else {
-        std::cout << "Error deleting receipt rule" << outcome.GetError().GetMessage()
+        std::cout << "Error deleting receipt rule. " << outcome.GetError().GetMessage()
                   << std::endl;
     }
 
@@ -69,6 +69,7 @@ int main(int argc, char **argv) {
         return 1;
     }
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         Aws::String ruleName(argv[1]);

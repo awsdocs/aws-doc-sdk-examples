@@ -83,7 +83,7 @@ bool AwsDoc::SES::sendEmail(const Aws::Vector<Aws::String> &recipients,
 
     if (outcome.IsSuccess()) {
         std::cout << "Successfully sent message with ID " << outcome.GetResult().GetMessageId()
-                  << std::endl;
+                  << "." << std::endl;
     } else {
         std::cerr << "Error sending message. " << outcome.GetError().GetMessage()
                   << std::endl;
@@ -113,6 +113,7 @@ int main(int argc, char **argv) {
         return 1;
     }
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         Aws::String messageBodyHtmlData(argv[1]);

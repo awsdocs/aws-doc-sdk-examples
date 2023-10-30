@@ -55,7 +55,7 @@ bool AwsDoc::SES::listIdentities(Aws::SES::Model::IdentityType identityType,
             }
             nextToken = outcome.GetResult().GetNextToken();
         } else {
-            std::cout << "Error listing identities" << outcome.GetError().GetMessage()
+            std::cout << "Error listing identities. " << outcome.GetError().GetMessage()
                       << std::endl;
             return false;
         }
@@ -79,7 +79,8 @@ bool AwsDoc::SES::listIdentities(Aws::SES::Model::IdentityType identityType,
 int main(int argc, char **argv)
 {
   Aws::SDKOptions options;
-  Aws::InitAPI(options);
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
+    Aws::InitAPI(options);
   {
     Aws::SES::SESClient ses;
 

@@ -51,9 +51,9 @@ bool AwsDoc::SES::createTemplate(const Aws::String &templateName,
     Aws::SES::Model::CreateTemplateOutcome outcome = sesClient.CreateTemplate(createTemplateRequest);
 
     if (outcome.IsSuccess()) {
-        std::cout << "Successfully create template " << templateName << "." << std::endl;
+        std::cout << "Successfully created template." << templateName << "." << std::endl;
     } else {
-        std::cerr << "Error creating template " << outcome.GetError().GetMessage() << std::endl;
+        std::cerr << "Error creating template. " << outcome.GetError().GetMessage() << std::endl;
     }
 
     return outcome.IsSuccess();
@@ -79,6 +79,7 @@ int main(int argc, char **argv) {
     }
 
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         Aws::String templateName = argv[1];

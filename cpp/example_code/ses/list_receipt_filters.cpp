@@ -67,6 +67,7 @@ int main(int argc, char **argv)
     (void)argv; // Unused.
 
     Aws::SDKOptions options;
+    options.loggingOptions.logLevel = Aws::Utils::Logging::LogLevel::Debug;
     Aws::InitAPI(options);
     {
         Aws::Vector<Aws::SES::Model::ReceiptFilter> filters;
