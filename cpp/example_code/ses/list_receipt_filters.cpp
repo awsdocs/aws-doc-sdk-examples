@@ -18,7 +18,6 @@
 #include <aws/email/SESClient.h>
 #include <aws/email/model/ListReceiptFiltersRequest.h>
 #include <aws/email/model/ListReceiptFiltersResult.h>
-#include <aws/email/model/ReceiptFilterPolicy.h>
 #include <iostream>
 #include "ses_samples.h"
 

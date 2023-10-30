@@ -6,9 +6,6 @@
 #include "ses_gtests.h"
 #include <fstream>
 #include <aws/core/client/ClientConfiguration.h>
-#include <aws/email/SESClient.h>
-#include <aws/email/model/DeleteReceiptFilterRequest.h>
-#include <aws/email/model/DeleteReceiptRuleSetRequest.h>
 #include <aws/core/utils/UUID.h>
 #include <aws/testing/mocks/http/MockHttpClient.h>
 
@@ -71,59 +68,9 @@ void AwsDocTest::SES_GTests::AddCommandLineResponses(
     m_cinBuffer.str(stringStream.str());
 }
 
-
-Aws::String AwsDocTest::SES_GTests::uuidName(const Aws::String &name) {
-    Aws::String uuid = Aws::Utils::UUID::RandomUUID();
-    return name + "-" +
-           Aws::Utils::StringUtils::ToLower(uuid.c_str());
-}
-
-
 bool AwsDocTest::SES_GTests::suppressStdOut() {
     return std::getenv("EXAMPLE_TESTS_LOG_ON") == nullptr;
 }
-
-bool AwsDocTest::SES_GTests::deleteReceiptFilter(const Aws::String &name) {
-    Aws::SES::SESClient sesClient(*s_clientConfig);
-
-    Aws::SES::Model::DeleteReceiptFilterRequest deleteReceiptFilterRequest;
-
-    deleteReceiptFilterRequest.SetFilterName(name);
-
-    Aws::SES::Model::DeleteReceiptFilterOutcome outcome = sesClient.DeleteReceiptFilter(deleteReceiptFilterRequest);
-
-    if (!outcome.IsSuccess()) {
-        std::cerr << "Error deleting receipt filter. " << outcome.GetError().GetMessage()
-                  << std::endl;
-    }
-
-    return outcome.IsSuccess();
-}
-
-bool AwsDocTest::SES_GTests::deleteReceiptRuleSet(const Aws::String &name) {
-    Aws::SES::SESClient sesClient(*s_clientConfig);
-
-    Aws::SES::Model::DeleteReceiptRuleSetRequest deleteReceiptRuleSetRequest;
-
-    deleteReceiptRuleSetRequest.SetRuleSetName(name);
-
-    Aws::SES::Model::DeleteReceiptRuleSetOutcome outcome = sesClient.DeleteReceiptRuleSet(deleteReceiptRuleSetRequest);
-
-    if (outcome.IsSuccess())
-    {
-        std::cout << "Successfully deleted receipt rule set." << std::endl;
-    }
-
-    else
-    {
-        std::cerr << "Error deleting receipt rule set. " << outcome.GetError().GetMessage()
-                  << std::endl;
-    }
-
-    return outcome.IsSuccess();
-
-}
-
 
 int AwsDocTest::MyStringBuffer::underflow() {
     int result = basic_stringbuf::underflow();

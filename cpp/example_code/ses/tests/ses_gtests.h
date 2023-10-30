@@ -40,12 +40,6 @@ namespace AwsDocTest {
         // after InitAPI.
         static std::unique_ptr<Aws::Client::ClientConfiguration> s_clientConfig;
 
-        static bool deleteReceiptFilter(const Aws::String &name);
-
-        static bool deleteReceiptRuleSet(const Aws::String &name);
-
-        static Aws::String uuidName(const Aws::String &name);
-
     private:
 
         static bool suppressStdOut();
