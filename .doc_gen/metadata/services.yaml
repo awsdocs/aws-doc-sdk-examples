@@ -120,7 +120,24 @@ batch:
   tags:
     product_categories: {'Compute'}
   version: batch-2016-08-10
+bedrock:
+  bundle: bedrock
+  long: '&BRlong;'
+  short: '&BR;'
+  sort: bedrock
+  expanded:
+    long: Amazon Bedrock
+    short: Amazon Bedrock
+  blurb: enables you to build and scale generative AI applications with foundation models.
+  guide:
+    subtitle: User Guide
+    url: bedrock/latest/userguide/what-is-bedrock.html
+  api_ref: bedrock/latest/APIReference/welcome.html
+  tags:
+    product_categories: {'Machine Learning &amp; AI'}
+  version: bedrock-2023-04-20
 bedrock-runtime:
+  bundle: bedrock
   long: '&BRRUNlong;'
   short: '&BRRUN;'
   sort: Bedrock Runtime
